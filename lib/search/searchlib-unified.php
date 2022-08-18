@@ -943,12 +943,12 @@ class UnifiedSearchLib
             $info['MySQL Version'] = $version;
         }
 
-        $query = "SELECT table_name, table_rows FROM information_schema.tables " .
+        $query = "SELECT table_name as tbl_name, table_rows as tbl_rows FROM information_schema.tables " .
             "WHERE table_schema = DATABASE() AND table_name like 'index_%'";
         $indexResult = TikiDb::get()->query($query)->result;
 
         foreach ($indexResult as $index) {
-            $indexName = $index['table_name'] ?: '';
+            $indexName = $index['tbl_name'] ?: '';
             if (preg_match('/index_([a-z1-9]+$)/', $indexName)) {
                 $info[tr('MySQL Index %0', $indexName)] = tr(
                     '%0 documents, using %1 of %2 indexes',
@@ -959,7 +959,7 @@ class UnifiedSearchLib
                 continue;
             }
 
-            $info[tr('MySQL Index %0', $indexName)] = tr('%0 documents', $index['table_rows'] ?: 0);
+            $info[tr('MySQL Index %0', $indexName)] = tr('%0 documents', $index['tbl_rows'] ?: 0);
         }
 
         $lastRebuild = $tikilib->get_preference('unified_last_rebuild');
