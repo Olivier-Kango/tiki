@@ -432,15 +432,15 @@ class LogsLib extends TikiLib
         $categId = '',
         $all = false
     ) {
-        global $prefs, $section;
+        global $prefs;
         $tikilib = TikiLib::lib('tiki');
         $contributionlib = TikiLib::lib('contribution');
 
         $bindvars = [];
         $bindvarsU = [];
+        $bindvarsJoin = [];
         $amid = [];
         $mid1 = '';
-        $mid2 = '';
         if ($find) {
             $findesc = '%' . $find . '%';
             $amid[] = "(`comment` like ? or a.`action` like ? or `object` like ?)";
@@ -453,7 +453,7 @@ class LogsLib extends TikiLib
             $bindvars[] = $action;
         }
         if ($objectType) {
-            $amid[] = "c.`objectType` = ?";
+            $amid[] = "a.`objectType` = ?";
             $bindvars[] = $objectType;
         }
         if ($user == 'Anonymous') {
@@ -463,24 +463,19 @@ class LogsLib extends TikiLib
             $amid[] = "`user` != ?";
             $bindvars[] = '';
         } elseif ($user) {
+            $bindvarsU[] = 'contributor';
             if (is_array($user)) {
+                $joinWhere1 = 'ap.`value` in (' . implode(',', array_fill(0, count($user), '?')) . ') and ap.`name`=? and ap.`actionId`=a.`actionId`';
                 $mid1 = '`user` in (' . implode(',', array_fill(0, count($user), '?')) . ')';
-                $mid2 = 'ap.`value` in (' . implode(',', array_fill(0, count($user), '?')) . ') and ap.`name`=? and ap.`actionId`=a.`actionId`';
                 foreach ($user as $u) {
+                    $bindvarsJoin[] = $tikilib->get_user_id($u);
                     $bindvarsU[] = $u;
                 }
-
-                foreach ($user as $u) {
-                    $bindvarsU[] = $tikilib->get_user_id($u);
-                }
-
-                $bindvarsU[] = 'contributor';
             } else {
+                $joinWhere1 = 'ap.`value`=? and ap.`name`=? and ap.`actionId`=a.`actionId`';
                 $mid1 = '`user` = ?';
-                $mid2 = 'ap.`value`=? and ap.`name`=? and ap.`actionId`=a.`actionId`';
+                $bindvarsJoin[] = $tikilib->get_user_id($user);
                 $bindvarsU[] = $user;
-                $bindvarsU[] = $tikilib->get_user_id($user);
-                $bindvarsU[] = 'contributor';
             }
         }
 
@@ -504,26 +499,20 @@ class LogsLib extends TikiLib
             }
         }
 
-        $amid[] = " a.`action` = c.`action` and a.`objectType` = c.`objectType`" . ($all ? "" : " and (c.`status` = 'v')");
-
-        if (count($amid)) {
-            $mid = implode(" and ", $amid);
-        }
+        $mid = implode(" and ", $amid);
 
         if (! empty($bindvarsU)) {
-            $bindvars = array_merge($bindvars, $bindvarsU, $bindvars);
-            $query = "(select distinct a.* from `tiki_actionlog` a ,`tiki_actionlog_conf` c where $mid and $mid1)";
-            $query .= "union (select distinct a.* from `tiki_actionlog` a ,`tiki_actionlog_conf` c,`tiki_actionlog_params` ap where $mid2 and $mid)";
-
-            $query_cant = "select count(distinct `actionId`) from `tiki_actionlog`" .
-                " where `actionId` in" .
-                " (select distinct a.`actionId` from `tiki_actionlog` a ,`tiki_actionlog_conf` c" .
-                " where $mid and $mid1 union select distinct a.`actionId`" .
-                " from `tiki_actionlog` a ,`tiki_actionlog_conf` c,`tiki_actionlog_params` ap where $mid2 and $mid)";
-        } else {
-            $query = "select distinct a.* from `tiki_actionlog` a ,`tiki_actionlog_conf` c where $mid";
-            $query_cant = "select count(distinct actionId) from `tiki_actionlog` a ,`tiki_actionlog_conf` c where $mid";
+            $bindvars = array_merge($bindvarsJoin, $bindvars, $bindvarsU);
+            $join1 = " left join `tiki_actionlog_params` ap on $joinWhere1";
+            $where1 = " and ($mid1 or ap.actionId IS NOT NULL)";
         }
+
+        $query = "select a.* from `tiki_actionlog` a" .
+            " join `tiki_actionlog_conf` c on a.`action` = c.`action` and a.`objectType` = c.`objectType`". ($all ? "" : " and (c.`status` = 'v')") .
+            ($join1 ?? "") .
+            " where " . $mid . ($where1 ?? "");
+
+        $query_cant = preg_replace('/a\.\*/', 'count(1)', $query);
 
         $query .= " order by " . $this->convertSortMode($sort_mode);
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
