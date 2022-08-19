@@ -10410,19 +10410,19 @@ a.dropdown-item {
   outline: none;
 }
 .btn-secondary {
+  color: #17141f;
   background-color: #fff;
   border-color: #ccc;
-  color: #17141f;
 }
 .btn-secondary:hover {
+  color: #17141f;
   background-color: #ededed;
   border-color: #adb5bd;
-  color: #17141f;
 }
 .btn-secondary.disabled {
+  color: #23202a;
   background-color: #fff;
   border-color: #cfcfcf;
-  color: #23202a;
 }
 .btn-warning {
   color: #fff;

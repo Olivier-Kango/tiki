@@ -10678,7 +10678,7 @@ legend {
 .card, .autotoc > .nav {
   border-color: #0d747c !important;
 }
-.card-body a:not(.btn), .card-body .btn-link {
+.card-body a:not(.btn, .dropdown-item), .card-body .btn-link {
   color: #F2E4A6;
 }
 .card-header, .modal-header {
@@ -10688,6 +10688,12 @@ legend {
 }
 .card-title a, .card-title small, .card-title .small, .card-title small a, .card-title .small a {
   color: inherit;
+}
+.bg-light-parent a, .bg-light-parent .btn-link {
+  color: #000;
+}
+.bg-light-parent a:hover, .bg-light-parent .btn-link:hover {
+  color: rgba(0, 0, 0, 0.7);
 }
 .navbar-light .cssmenu_horiz > li > a {
   color: #000;

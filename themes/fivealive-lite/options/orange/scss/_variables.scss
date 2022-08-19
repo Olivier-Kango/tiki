@@ -1,4 +1,4 @@
-// $Id$ Custom variables for the Orange theme option of the FiveAlive and FiveAlive-lite themes
+// Custom variables for the Orange theme option of the FiveAlive and FiveAlive-lite themes
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 $gray-600: #6c757d;
@@ -15,8 +15,8 @@ $theme-colors: (
     "info": #ba3a26,
     "warning":             #f0ad4e,
     "danger":           #EB0004, //#ff3338,
-    "light":            #fdde9f, // #e77d4f,
-    "dark":                #e77d4f
+    "light":            #f09800, // #fdde9f, // #e77d4f,
+    "dark":               #f09800 // #e77d4f
 );
 
 $primary:       #f06423;
@@ -25,8 +25,8 @@ $success:       #5cb85c;
 $info:          #ba3a26;
 $warning:       #f0ad4e;
 $danger:        #EB0004; // #ff3338;
-$light:         #fdde9f; // #ffcd70; // #e77d4f;
-$dark:          #e77d4f;
+$light:         #fo0800;
+$dark:          #f09800; // #e77d4f;
 
 $theme-colors: map-merge(
         (
@@ -50,7 +50,7 @@ $color-contrast-light:            $white !default;
 $enable-gradients:          false;
 
 
-$bg-light: #ffcd70; // #fddacb !important;
+$bg-light: #F09C00; // #fddacb !important;
 
 $link-color: #c74b23;
 $link-hover-color:               darken($link-color, 15%);
@@ -129,6 +129,34 @@ $pagination-disabled-border-color: #dddddd;
 
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
+
+// Aug 18 2022 start
+$top-bg: #a52874; // Used for $post-card-header-bg and .postbody-title
+$top-color: #fff;
+$top-link-color: #fff;
+$top-link-hover-color: #f9f9f9;
+//$topbar-bg: #063035;
+
+$top-dark-bg: #f09c00;
+$top-dark-color: #000;
+$topbar-dark-bg: #ffa500; // $topbar-light-bg;
+$topbar-dark-color: #000;
+
+$top-light-bg: $top-dark-bg; // #a52874;
+$top-light-color: $top-dark-color; // #fff;
+$topbar-light-bg: $topbar-dark-bg;  // #551e3d;
+$topbar-light-color: $topbar-dark-color; //#fff;
+
+$navbar-light-link-color: $top-light-color;
+$navbar-light-link-hover-color: #f2f2f2;
+$navbar-light-link-hover-bg: #003c4a;
+
+$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-hover-color: #f2f2f2;
+$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
+//$navbar-light-link-hover-bg: #003c4a;
+// Aug 18 2022 revamp end
+
 //$bg-light-alt: #117485 !important;
 
 $side-column-heading-color: #e77d4f;
@@ -165,3 +193,4 @@ $input-btn-focus-width:       .2rem !default;
 $btn-focus-width:             $input-btn-focus-width !default;
 
 $btn-link-disabled-color:     $gray-600 !default;
+

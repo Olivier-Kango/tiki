@@ -10637,15 +10637,15 @@ a.dropdown-item {
   background: #373a3c;
 }
 .navbar {
-  border-width: 1px;
   border-style: solid;
+  border-width: 1px;
 }
 .navbar-fixed-top {
   border-width: 0 0 1px;
 }
 .navbar-fixed-bottom {
-  border-top-width: 1px 0 0 0;
   border-style: solid;
+  border-top-width: 1px 0 0 0;
 }
 .navbar.bg-primary {
   background-color: #d9230f !important;
@@ -10701,12 +10701,12 @@ a.dropdown-item {
   border: 1px solid #dedede;
 }
 .btn-outline-secondary {
-  border-color: #bbb;
   color: #bbb;
+  border-color: #bbb;
 }
 .btn-outline-secondary:hover {
-  background-color: #bbb;
   color: #fff;
+  background-color: #bbb;
 }
 .text-secondary {
   color: #777 !important;

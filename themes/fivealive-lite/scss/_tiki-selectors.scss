@@ -7,6 +7,10 @@
 
 $imagePath: "../images/";
 
+.layout_social .topbar-wrapper {
+    max-width: 100%;
+    width: 100%;
+}
 
 // Special links in "More" button of page-bar
 .dropdown-menu > .btn-link:not(.text-danger) {
@@ -153,13 +157,13 @@ header.header {
   .navbar.bg-light { background: $topbar-bg; }
 }
 
-/*.layout_classic {*/
-  .top_modules.bg-dark,
-  .top_modules.bg-light,
-  .topbar_modules,
-  .topbar.bg-dark,
-  .topbar.bg-light { background: $topbar-bg; }
-/*}*/
+////*.layout_classic {*/
+///  .top_modules.bg-dark,
+///  .top_modules.bg-light,
+///  .topbar_modules,
+///  .topbar.bg-dark,
+///  .topbar.bg-light { background: $topbar-bg; }
+////*}*/
 
 /*.layout_social {
     #top_modules.bg-dark,
@@ -356,7 +360,6 @@ label a:hover { text-decoration: none; }
   background: #000000;
   color: $footer-color; // #696969;
   padding: 1px 0 2px 0;
-  width: 100%;
 }
 
 .footer {

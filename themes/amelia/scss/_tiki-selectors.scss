@@ -34,7 +34,7 @@ legend {
   border-color: #0d747c !important;
 }
 
-.card-body  a:not(.btn),
+.card-body  a:not(.btn,.dropdown-item),
 .card-body .btn-link {
     color: #F2E4A6;
 }
@@ -55,6 +55,15 @@ legend {
 }
 
 // Navs
+.bg-light-parent {
+    a,
+    .btn-link {
+        color: $navbar-light-color;
+        &:hover {
+            color: $navbar-light-hover-color;
+        }
+    }
+}
 .navbar-light .cssmenu_horiz > li > a { // Old
   color: $navbar-light-color;
 }

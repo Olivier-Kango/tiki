@@ -10402,8 +10402,8 @@ a.dropdown-item {
 }
 .navbar {
   font-size: 0.875rem;
-  text-transform: uppercase;
   font-weight: 600;
+  text-transform: uppercase;
 }
 .navbar-nav .nav-link {
   padding-top: 0.715rem;
@@ -10411,9 +10411,6 @@ a.dropdown-item {
 }
 .navbar-brand {
   margin-right: 2rem;
-}
-.bg-primary {
-  background-color: theme-color("primary") !important;
 }
 .bg-light {
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -10438,13 +10435,13 @@ a.dropdown-item {
   color: #fff;
 }
 .btn-outline-secondary {
-  border-color: #919aa1;
   color: #919aa1;
+  border-color: #919aa1;
 }
 .btn-outline-secondary:not([disabled]):not(.disabled):hover, .btn-outline-secondary:not([disabled]):not(.disabled):focus, .btn-outline-secondary:not([disabled]):not(.disabled):active {
+  color: #fff;
   background-color: #ced4da;
   border-color: #ced4da;
-  color: #fff;
 }
 .btn-outline-secondary:not([disabled]):not(.disabled):focus {
   box-shadow: 0 0 0 0.2rem rgba(206, 212, 218, 0.5);
@@ -10489,10 +10486,7 @@ th {
 .badge.bg-secondary, .badge.bg-light {
   color: #343a40;
 }
-.list-group-item h1, .list-group-item .h1, .list-group-item h2, .list-group-item .h2, .list-group-item h3, .list-group-item .h3, .list-group-item h4, .list-group-item .h4, .list-group-item h5, .list-group-item .h5, .list-group-item h6, .list-group-item .h6 {
-  color: inherit;
-}
-.card-title, .card-header {
+.list-group-item h1, .list-group-item .h1, .list-group-item h2, .list-group-item .h2, .list-group-item h3, .list-group-item .h3, .list-group-item h4, .list-group-item .h4, .list-group-item h5, .list-group-item .h5, .list-group-item h6, .list-group-item .h6, .card h1, .card .h1, .card h2, .card .h2, .card h3, .card .h3, .card h4, .card .h4, .card h5, .card .h5, .card h6, .card .h6 {
   color: inherit;
 }
 table.tablesorter thead tr.tablesorter-headerRow {

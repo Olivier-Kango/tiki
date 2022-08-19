@@ -10637,8 +10637,8 @@ a.dropdown-item {
   background: #272b30;
 }
 .navbar {
-  border: 1px solid rgba(0, 0, 0, 0.6);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.6);
 }
 .navbar .container {
   padding: 0;
@@ -10654,8 +10654,8 @@ a.dropdown-item {
 }
 .navbar .nav-link {
   padding: 1rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 .navbar .nav-link:hover, .navbar .nav-link:focus {
   background-image: linear-gradient(#25282c, #292c30 40%, #2b2f32);
@@ -10698,8 +10698,8 @@ a.dropdown-item {
   }
 }
 .btn {
-  border-color: rgba(0, 0, 0, 0.6);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 0, 0, 0.6);
 }
 .btn:not([disabled]):not(.disabled).active, .btn.disabled {
   border-color: rgba(0, 0, 0, 0.6);
@@ -10777,8 +10777,8 @@ legend {
 .input-group-addon {
   background-image: linear-gradient(#8a9196, #7a8288 60%, #70787d);
   filter: none;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 .nav-tabs .nav-link {
   background-image: linear-gradient(#25282c, #292c30 40%, #2b2f32);
@@ -10798,9 +10798,9 @@ legend {
 .nav-pills .nav-link {
   background-image: linear-gradient(#52565a, #3a3f44 60%, #353a3f);
   filter: none;
-  border: 1px solid rgba(0, 0, 0, 0.6);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.6);
 }
 .nav-pills .nav-link:hover {
   background-image: linear-gradient(#25282c, #292c30 40%, #2b2f32);
@@ -10837,9 +10837,9 @@ legend {
   filter: none;
 }
 .breadcrumb {
-  border: 1px solid rgba(0, 0, 0, 0.6);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.6);
   background-image: linear-gradient(#52565a, #3a3f44 60%, #353a3f);
   filter: none;
 }
@@ -10847,8 +10847,8 @@ legend {
   color: #fff;
 }
 .alert {
-  border: none;
   color: #fff;
+  border: none;
 }
 .alert a, .alert .alert-link {
   color: #fff;

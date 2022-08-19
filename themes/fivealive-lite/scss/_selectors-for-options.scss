@@ -5,8 +5,6 @@
 $imagePath: "../images/";
 // body {
 //    background-image: url('#{$imagePath}bg.jpg');
-// Common values
-// $btn-info-active-bg: darken($btn-info-bg, 5%);
 
 $blog-post-title-color: $top-color;
 $post-card-header-bg: $top-bg;
@@ -18,9 +16,9 @@ body.layout_social.tiki.navbar-padding {
 }
 
 .middle_outer {
-    -webkit-box-shadow: inset 0 28px 0 0 $topbar-bg;
-    -moz-box-shadow: inset 0 28px 0 0 $topbar-bg;
-    box-shadow: inset 0 28px 0 0 $topbar-bg;
+    -webkit-box-shadow: inset 0 28px 0 0 $topbar-dark-bg;
+    -moz-box-shadow: inset 0 28px 0 0 $topbar-dark-bg;
+    box-shadow: inset 0 28px 0 0 $topbar-dark-bg;
 }
 
 .fullscreen .middle_outer {
@@ -42,36 +40,6 @@ nav.fixed-top {
     padding: 0;
 }
 
-header.page-header .navbar.bg-dark,
-header.page-header .navbar.bg-light,
-
-.header_outer,
-header.page-header, // .layout_basic
-header.page-header .navbar,
-.top_modules .navbar, // .layout_social
-.top_modules,
-.top_modules.navbar.bg-light,
-.top_modules.navbar.bg-dark,
-header.page-header .navbar.bg-light {
-    background-color: $top-bg !important;
-    color: $top-color !important;
-    a,
-    .btn,
-    .btn-link //,
-//    .dropdown-toggle
-    {
-        color: $top-link-color !important;
-    }
-}
-
-.navbar.bg-dark.fixed-top,
-.navbar.bg-dark.fixed-top .navbar,
-.navbar.bg-light.fixed-top,
-.navbar.bg-light.fixed-top .navbar,
-.top_modules.bg-dark,                       // .layout_classic
-.top_modules.bg-light,     //.layout_classic
-.header_outer,
-.header_outer .navbar-dark.bg-dark,
 .postbody-title {
     background: $top-bg !important;
     color: $top-color;
@@ -79,74 +47,89 @@ header.page-header .navbar.bg-light {
     a:hover { color: $top-link-hover-color; }
 }
 
-.navbar.navbar-dark.bg-dark.fixed-top a,
-.navbar.navbar-dark.bg-dark.fixed-top .btn-link {
-    color: $top-color;
-}
-
-// Topbar background (consistent bg color for inset shadow, topbar modules, navbar)
-//.layout_basic .page-header > .top_modules,
-.topbar .navbar-dark .navbar-nav > li,
-.topbar .nav > li,
-/*.layout_social*/ .topbar_modules,
-/*.layout_social*/ .topbar.bg-dark,
-/*.layout_social*/ .topbar.bg-light,
-/*.layout_social .topbar .bg-dark,
-.layout_social .topbar .bg-light,
-.layout_classic .topbar_modules,
-.layout_classic .topbar.bg-dark,
-.layout_classic .topbar.bg-light,*/
-/*.layout_classic*/ .topbar_modules .navbar.bg-dark,
-/*.layout_classic*/ .topbar_modules .navbar.bg-light {
-    background: $topbar-bg !important;
-    & > a,
-    & > .nav-link,
-    & > .dropdown-toggle {
-        color: $topbar-link-color !important;
-    }
-}
-
-.topbar_modules.navbar-light .nav-link.dropdown-toggle,
-.topbar_modules.navbar-dark .nav-link.dropdown-toggle,
-.topbar_modules.navbar-light .dropdown-toggle {
-    color: $topbar-link-color;
-}
-
-.bg-dark {
-    background-color: $topbar-bg !important;
-    color: $navbar-dark-color;
-    .btn-outline-info {
-        color: $bg-dark-info;
-    }
-}
-
 .btn-outline-dark {
     color: $dark;
     outline-color: $dark;
 }
 
-.layout_basic {
-//    #top_modules.bg-dark,
-//    #top_modules.bg-light,
-    .topbar_modules,
-    .topbar.bg-dark,
-    .topbar.bg-light,
-    .topbar .bg-light,
-    .topbar .bg-dark { background: $topbar-bg !important; }
+//// Another try at a comprehensive top and topbar colors section
+// Top - Light color
+.layout_basic .page-header.navbar-light-parent.bg-light-parent,  // Single-container layout -- Parent of the top module zone
+.layout_basic .page-header .navbar.navbar-light.bg-light,        // Single-container layout -- Menu itself in top zone
+.layout_classic .navbar-light-parent.bg-light-parent,            // Classic Tiki layout -- Parent of the top module zone
+.layout_classic .navbar.navbar-light.bg-light,                   // Classic Tiki layout -- Navbar (menu) inside the top module zone
+.layout_social header.navbar-light-parent.bg-light-parent,             // Classic Bootstrap layout (fixed-top navbar) -- Complete header
+.layout_social header.navbar.navbar-light.bg-light                    // Classic Bootstrap layout -- Menu itself
+ {                                      // nav.navbar-light.bg-light General instance
+    background-color: $top-light-bg !important;
+    color: $navbar-light-color;
+    a,
+    .btn.btn-link {
+        color: $navbar-light-link-color;
+        &:hover {
+            color: $navbar-light-link-hover-color;
+        }
+    }
+}
+// Topbar - light color
+.layout_basic .topbar_modules.navbar-light.bg-light,             // Topbar, which probably includes another nav menu
+.layout_classic .topbar.navbar-light-parent.bg-light-parent,     // Classic Tiki layout -- Parent of the topbar module zone
+.layout_classic .topbar_modules.navbar-light.bg-light,            // Classic Tiki layout -- Topbar module zone
+.layout_classic .topbar_modules.navbar-light.bg-light,           // Classic Tiki layout -- Navbar (menu) inside the topbar module zone
+.layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, // Classic Bootstrap topbar wrapper
+.layout_social .topbar.navbar-light,                             // Classic Bootstrap topbar zone parent
+.layout_social .topbar .navbar-light.bg-light                    // Classic Bootstrap topbar zone menu itself
+ {                                      // nav.navbar-dark.bg-dark General instance
+    background-color: $topbar-light-bg !important;
+    color: $topbar-light-color;
+    a,
+    .btn.btn-link  {
+        color: $navbar-light-link-color;
+        &:hover {
+            color: $navbar-light-link-hover-color;
+        }
+    }
 }
 
-
-a,
-.btn-link,
-.page-link {
-    color: $link-color;
+// Top - dark color
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent,  // Single-container layout -- Parent of the top module zone
+.layout_basic .top_modules.navbar-dark-parent.bg-dark-parent,  // Single-container layout -- Top module zone
+.layout_basic .page-header .navbar.navbar-dark.bg-dark,        // Single-container layout -- Menu itself in top zone
+.layout_classic .navbar-dark-parent.bg-dark-parent,            // Classic Tiki layout -- Parent of the top module zone
+.layout_classic .top_modules .navbar.navbar-dark.bg-dark,                   // Classic Tiki layout -- Navbar (menu) inside the top module zone
+.layout_social header.navbar-dark.bg-dark,                           // Classic Bootstrap layout (fixed-top navbar) -- Complete header
+.layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark      // Classic Bootstrap layout -- Menu itself
+ {                                      // nav.navbar-dark.bg-dark General instance
+    background-color: $top-dark-bg !important;
+    color: $top-dark-color;
+    a,
+    .btn.btn-link  {
+        color: $navbar-dark-link-color;
+        &:hover {
+            color: $navbar-dark-hover-color;
+        }
+    }
 }
 
-a:hover,
-.btn-link:hover,
-a:focus,
-.btn-link:focus {
-    color: $link-hover-color;
+// Topbar - dark color
+.layout_basic .topbar_modules.navbar-dark.bg-dark,             // Single Container layout -- Topbar, which probably includes another nav menu
+.layout_basic .topbar_modules .navbar-dark.bg-dark,            // Single Container layout  -- Navbar (menu) inside the Topbar module zone
+.layout_classic .topbar.navbar-dark-parent.bg-dark-parent,     // Classic Tiki layout -- Parent of the topbar module zone
+.layout_classic .topbar_modules.navbar-dark.bg-dark,            // Classic Tiki layout -- Topbar module zone
+.layout_classic .topbar_modules .navbar-dark.bg-dark,           // Classic Tiki layout -- Navbar (menu) inside the topbar module zone
+.layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, // Classic Bootstrap topbar wrapper
+.layout_social .topbar.navbar-dark.bg-dark,                    // Classic Bootstrap topbar zone parent
+.layout_social .topbar .navbar-dark.bg-dark                    // Classic Bootstrap topbar zone menu itself
+ {                                      // nav.navbar-dark.bg-dark General instance
+    background-color: $topbar-dark-bg !important;
+    color: $topbar-dark-color;
+    a,
+    .btn.btn-link  {
+        color: $navbar-dark-link-color;
+        &:hover {
+            color: $navbar-dark-link-hover-color;
+        }
+    }
 }
 
 // Typography
@@ -198,71 +181,10 @@ hr {
     border: 1px solid $input-border-color;
 }
 
-.navbar-dark a,
-.navbar-dark .navbar-brand,
-//.dropdown-item,
-//.dropdown-item a,
-.dropdown-menu .tikihelp {
-    color: $navbar-dark-color;
-}
-
-.navbar-dark a:hover,
-.navbar-dark .navbar-brand:hover,
-.navbar-dark .navbar-brand:focus {
-    color: $navbar-dark-hover-color;
-    background-color: transparent;
-}
-
-
-.navbar-dark a:hover,
-.navbar-dark a:focus {
-    color: $navbar-dark-hover-color;
-//    background-color: $bg-dark-link-hover-bg;
-}
-
-.navbar-dark .active a,
-.navbar-dark .active a:hover,
-.navbar-dark .active a:focus {
-    color: $navbar-dark-active-color;
-    //  background-color: #063065;
-}
-
-.navbar-dark .disabled a,
-.navbar-dark .disabled a:hover,
-.navbar-dark .disabled a:focus {
-    color: $navbar-dark-disabled-color;
-    background-color: transparent;
-}
-
-.navbar-dark .navbar-toggle {
-    border-color: #dddddd;
-}
-
-.navbar-dark .navbar-toggle:hover,
-.navbar-dark .navbar-toggle:focus {
-    background-color: #dddddd;
-}
-
-.navbar-dark .navbar-toggle .icon-bar {
-    background-color: #888888;
-}
 
 .navbar-dark .navbar-collapse,
 .navbar-dark .navbar-form {
    border-color: transparent;
-}
-nav:not(.topbar_modules,.top_modules) {
-    &.navbar-dark .open > a,
-    &.navbar-dark .open > a:hover,
-    &.navbar-dark .open > a:focus {
-    //  background-color: #14899e;
-    color: $navbar-dark-color;
-    }
-}
-
-
-.navbar-dark .navbar-link:hover {
-    color: #f9f9f9;
 }
 
 .navbar .navbar {
@@ -366,10 +288,10 @@ header.page-header {
     border-bottom: none;
 }
 
-header.page-header a:not(.dropdown-item),
-header.page-header a.btn-link {
-    color: $page-header-link-color !important; // This needs to be a variable because Kiwi uses black: $page-header-link-color.
-}
+///header.page-header a:not(.dropdown-item),
+///header.page-header a.btn-link {
+///    color: $page-header-link-color !important; // This needs to be a variable because Kiwi uses black: $page-header-link-color.
+///}
 
 .form-control, select,
 input[type="text"],
@@ -395,7 +317,6 @@ input[type="checkbox"].preffilter-toggle-round:checked + label::before {
     background: black;
     color: #f4f4f4;
     padding: 1px 0 2px 0;
-    width: 100%;
 }
 
 .footer {
@@ -436,13 +357,6 @@ input[type="checkbox"].preffilter-toggle-round:checked + label::before {
     background: $dropdown-bg;
 }
 
-//.blog-postbody-title,
-//.blog-postbody-title a,
-//.postbody-title .title > .card-title a.link,
-//.postbody h2.card-title {
-//    color: $blog-post-title-color;
-//}
-
 .blog-postbody-title h2.card-title {
     font-size: 20px;
 }
@@ -471,9 +385,6 @@ header.header .sitesubtitle {
     border-color: #ebccd1;
 }
 
-//.btn-secondary.highlight:hover {
-//  background: #dca7a7;
-//}
 .cssmenu_horiz li ul,
 .cssmenu_vert li ul {
     background-color: $dropdown-bg;
@@ -505,56 +416,6 @@ header.header .sitesubtitle {
     color: $dropdown-link-hover-color;
     background-color: $dropdown-link-hover-bg;
 }
-
-//.topbar .cssmenu_horiz li a:hover {  -- May 7 2022
-//  background: #14899e;
-//}
-///.topbar .navbar-nav > li > a,
-///.topbar .navbar > li > a,
-///.topbar .cssmenu_horiz > li > a {
-///    color: #ffffff;
-///}
-
-//.sf-arrows .sf-with-ul:after {
-//  border: 5px solid transparent;
-//  border-top-color: #0b8a98;
-//}
-//.cssmenu_vert.sf-arrows li > .sf-with-ul:after {
-//  border-color: transparent;
-//  border-left-color: #0b8a98;
-//  /* edit this to suit design (no rgba in IE8) */
-//}
-//.sf-arrows ul .sf-with-ul:after,
-//.cssmenu_vert.sf-arrows ul > li > .sf-with-ul:after {
-//  border-color: transparent;
-//  border-left-color: #ffffff;
-//  /* edit this to suit design (no rgba in IE8) */
-//}
-//.sf-arrows ul li > .sf-with-ul:focus:after,
-//.sf-arrows ul li:hover > .sf-with-ul:after,
-//.sf-arrows ul .sfHover > .sf-with-ul:after {
-// border-color: transparent;
-//  border-left-color: #f2f2f2;
-//}
-//.cssmenu_vert.sf-arrows li > .sf-with-ul:focus:after,
-//.cssmenu_vert.sf-arrows li:hover > .sf-with-ul:after,
-//.cssmenu_vert.sf-arrows .sfHover > .sf-with-ul:after {
-//  border-color: transparent;
-//  border-left-color: #f2f2f2;
-//}
-
-
-//nav#autotoc ul.nav.navbar-nav.affix {
-//    background: $autotoc-nav-bg; //#005064;
-//    border: 1px solid $autotoc-nav-border;
- //   a {
-//        color: $autotoc-color;
-//        &:hover {
-//            background: $autotoc-nav-li-link-hover-bg;
-//            color: $autotoc-nav-li-link-hover-color;
-//        }
-//    }
-//}
 
 #autotoc * {
     color: $autotoc-color; //#ffffff;

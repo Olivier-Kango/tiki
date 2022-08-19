@@ -35,7 +35,7 @@
                 {/if}
             <div class="fixed-topbar"></div>
         {/if}
-        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std topbar-wrapper" id="topbar-wrapper">
+        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std topbar-wrapper navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent" id="topbar-wrapper">
             {if $smarty.session.fullscreen ne 'y'}
             <div class="row topbar mx-0 navbar-{$navbar_color_variant} bg-{$navbar_color_variant}" id="topbar">
                 {modulelist zone=topbar class='topbar_modules d-flex justify-content-between w-100'}
@@ -165,7 +165,7 @@
             </div>
         </footer>
         {if $prefs.theme_unified_admin_backend eq 'y' && $smarty.server.SCRIPT_NAME neq $url_path|cat:'tiki-admin.php'}
-        <nav class="navbar navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} fixed-top">
+        <header class="navbar navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} fixed-top">
             <div class="container-fluid">
             {* <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std d-flex justify-content-between in-navbar"> *}
             <a class="navbar-brand" href="./">
@@ -182,7 +182,7 @@
             </div> {* navbar-collapse-social *}
         </div> {* container *}
 
-        </nav>
+        </header>
         {/if}
     {/if}
 

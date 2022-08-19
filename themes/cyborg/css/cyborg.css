@@ -9803,8 +9803,8 @@ legend {
   background-color: #282828;
 }
 .nav-tabs .nav-link.disabled, .nav-tabs .nav-link.disabled:hover, .nav-pills .nav-link.disabled, .nav-pills .nav-link.disabled:hover {
-  background-color: transparent;
   color: #555;
+  background-color: transparent;
 }
 .nav-tabs .nav-link.active, .nav-pills .nav-link.active {
   background-color: #2a9fd6;
@@ -9816,8 +9816,8 @@ legend {
   text-decoration: none;
 }
 .alert {
-  border: none;
   color: #fff;
+  border: none;
 }
 .alert a, .alert .alert-link {
   color: #fff;

@@ -2,7 +2,7 @@
     {foreach $sections as $pos => $sect}
         {tab name=$sect.heading}
             {if ! $pos && $status}
-                <div class="mb-3">
+                <div class=tracker-field-group mb-3">
                     <label for="trackerinput_status">{tr}Status{/tr}</label>
                     <div id="trackerinput_status">
                         {include 'trackerinput/status.tpl' status_types=$status_types status=$status}
@@ -10,7 +10,7 @@
                 </div>
             {/if}
             {foreach from=$sect.fields item=field}
-                <div class="mb-3">
+                <div class="tracker-field-group mb-3">
                     {if empty($field.options_map.labelasplaceholder)}
                         <label for="trackerinput_{$field.fieldId|escape}">
                             {$field.name|tra|escape}

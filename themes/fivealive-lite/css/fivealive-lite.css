@@ -10627,6 +10627,10 @@ a.dropdown-item {
 .bg-dark-parent {
   background: #000;
 }
+.layout_social .topbar-wrapper {
+  max-width: 100%;
+  width: 100%;
+}
 .dropdown-menu > .btn-link:not(.text-danger) {
   color: #fff;
 }
@@ -10710,11 +10714,6 @@ header.header .sitetitle, header.header .sitesubtitle {
 .topbar_modules .navbar.bg-dark, .topbar_modules .navbar.bg-light {
   background: #28a7de;
 }
-/*.layout_classic {*/
-.top_modules.bg-dark, .top_modules.bg-light, .topbar_modules, .topbar.bg-dark, .topbar.bg-light {
-  background: #28a7de;
-}
-/*}*/
 /*.layout_social {
     #top_modules.bg-dark,
     #top_modules.bg-light,
@@ -10837,7 +10836,6 @@ label a:hover {
   background: #000000;
   color: #696969;
   padding: 1px 0 2px 0;
-  width: 100%;
 }
 .footer {
   border-top: 1px solid #28aae1;

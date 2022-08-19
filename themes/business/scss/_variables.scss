@@ -11,6 +11,7 @@ $info:          #20809D; //#5bc0de;
 $warning:       #f0ad4e;
 $danger:        #B82D28; // #d9534f;
 $dark:          #01366c;
+$black: #000;
 
 $theme-colors: (
     "primary": #0074C7,
@@ -96,10 +97,17 @@ $navbar-dark-active-color:          #ffffff;
 $navbar-dark-active-bg:              #3270bd;
 $navbar-dark-disabled-color:         #cccccc;
 
-//$navbar-light-color:                $navbar-dark-color;
-//$navbar-light-hover-color:          $navbar-dark-hover-color;
-//$navbar-light-active-color:         $navbar-dark-active-color;
-//$navbar-light-disabled-color:       $navbar-dark-disabled-color;
+$navbar-light-color:                rgba($black, .55) !default;
+$navbar-light-hover-color:          rgba($black, .7) !default;
+$navbar-light-active-color:         rgba($black, .9) !default;
+$navbar-light-disabled-color:       rgba($black, .3) !default;
+$navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
+$navbar-light-toggler-border-color: rgba($black, .1) !default;
+
+$navbar-light-brand-color:                $navbar-light-active-color !default;
+$navbar-light-brand-hover-color:          $navbar-light-active-color !default;
+$navbar-dark-brand-color:                 $navbar-dark-active-color !default;
+$navbar-dark-brand-hover-color:           $navbar-dark-active-color !default;
 
 // Dropdowns
 $dropdown-color:                    $body-color !default;

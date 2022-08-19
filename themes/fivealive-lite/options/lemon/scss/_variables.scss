@@ -131,7 +131,33 @@ $pagination-disabled-border-color: #dddddd;
 
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
-$bg-light-alt: #ffc506 !important;
+
+// Aug 18 2022 start
+$top-bg: #cb9e10; // Used for $post-card-header-bg and .postbody-title
+$top-color: #000;
+$top-link-color: #000;
+$top-link-hover-color: #f9f9f9;
+//$topbar-bg: #063035;
+
+$top-dark-bg: #e4af00;
+$top-dark-color: #000;
+$topbar-dark-bg: #cb9e10; // $topbar-light-bg;
+$topbar-dark-color: #000;
+
+$top-light-bg: $top-dark-bg;
+$top-light-color: $top-dark-color;
+$topbar-light-bg: $topbar-dark-bg;
+$topbar-light-color: $topbar-dark-color;
+
+$navbar-light-link-color: $top-light-color;
+$navbar-light-link-hover-color: #f2f2f2;
+$navbar-light-link-hover-bg: #003c4a;
+
+$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-hover-color: #f2f2f2;
+$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
+//$navbar-light-link-hover-bg: #003c4a;
+// Aug 18 2022 revamp end
 
 $side-column-heading-color: #8F6D00;
 

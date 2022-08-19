@@ -63,15 +63,15 @@ $nav-tabs-link-active-color: #fff;
 $nav-tabs-link-active-bg: #742157; // same as $dropdown-link-hover-bg;
 
 // Navbars
-$top-bg: #a52874;
+//$top-bg: #a52874;
 $top-color: #fff;
-$top-link-color: #fff;
-$top-link-hover-color: #f9f9f9;
-$topbar-bg: #551e3d;
+//$top-link-color: #fff;
+//$top-link-hover-color: #f9f9f9;
+//$topbar-bg: #551e3d;
 $bg-dark: #8e286a;
 $bg-light: #f4dded;
-$page-header-link-color: #000;
-$topbar-link-color: #fff;
+//$page-header-link-color: #000;
+//$topbar-link-color: #fff;
 
 // navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
@@ -131,6 +131,34 @@ $pagination-disabled-border-color: #dddddd;
 
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
+
+// Aug 18 2022 start
+$top-bg: #a52874; // Used for $post-card-header-bg and .postbody-title
+$top-color: #fff;
+$top-link-color: #fff;
+$top-link-hover-color: #f9f9f9;
+//$topbar-bg: #063035;
+
+$top-dark-bg: #a52874;
+$top-dark-color: #fff;
+$topbar-dark-bg: #551e3d; // $topbar-light-bg;
+$topbar-dark-color: #fff;
+
+$top-light-bg: $top-dark-bg; // #a52874;
+$top-light-color: $top-dark-color; // #fff;
+$topbar-light-bg: $topbar-dark-bg;  // #551e3d;
+$topbar-light-color: $topbar-dark-color; //#fff;
+
+$navbar-light-link-color: $top-light-color;
+$navbar-light-link-hover-color: #f2f2f2;
+$navbar-light-link-hover-bg: #003c4a;
+
+$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-hover-color: #f2f2f2;
+$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
+//$navbar-light-link-hover-bg: #003c4a;
+// Aug 18 2022 revamp end
+
 //$bg-light-alt: #117485 !important;
 
 $side-column-heading-color: #bc2f84;

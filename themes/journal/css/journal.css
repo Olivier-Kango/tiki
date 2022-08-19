@@ -10641,8 +10641,8 @@ a.dropdown-item {
   background-color: #000 !important;
 }
 .bg-light {
-  background-color: #fff !important;
   color: #000;
+  background-color: #fff !important;
   border: 1px solid #eee;
 }
 .bg-light.navbar-fixed-top {
@@ -10652,8 +10652,8 @@ a.dropdown-item {
   border-width: 1px 0 0;
 }
 .navbar {
-  font-size: 18px;
   font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
+  font-size: 18px;
   font-weight: 700;
 }
 .navbar-brand {

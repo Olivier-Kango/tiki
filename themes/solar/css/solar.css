@@ -10668,8 +10668,8 @@ a.dropdown-item {
   background-color: #073642;
 }
 .alert {
-  border: none;
   color: #fff;
+  border: none;
 }
 .alert a, .alert .alert-link {
   color: #fff;

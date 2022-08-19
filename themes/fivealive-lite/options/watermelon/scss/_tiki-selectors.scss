@@ -3,7 +3,13 @@
 
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
 // CSS is used because Bootstrap partials aren't available for theme variables, etc.
-// (Everything below was copied from Grape and may need color adjusting.
+body.layout_basic {
+    background-image: linear-gradient(to left bottom, #e07789, #e48776, #de9b6b, #d0af6d, #bdc27c, #bcc27f, #bcc283, #bbc286, #c6b17d, #caa07d, #c69281, #bb8787);
+}
+.row-middle {
+    background-color: #fff;
+}
+
 .text-danger {
     color: $danger !important; // #B85B19 !important; // $danger !important;
 }

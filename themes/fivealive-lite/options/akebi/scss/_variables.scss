@@ -2,8 +2,6 @@
 // These FiveAlive-lite Akebi theme option variables are applied to fivealive-lite/scss/fivealive-lite_option_selectors.scss.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
-// Variables needed for button color variants (start)
-
 $gray-600: #6c757d;
 $gray-900: #212529;
 
@@ -124,13 +122,31 @@ $pagination-disabled-border-color: #dddddd;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 
-$top-bg: #117485;
+$top-bg: #117485; // Used for $post-card-header-bg and .postbody-title
 $top-color: #fff;
 $top-link-color: #fff;
 $top-link-hover-color: #f9f9f9;
-$topbar-bg: #063035;
-//$bg-dark: #18a3bb;
-//$bg-light: #18a3bb;
+//$topbar-bg: #063035;
+
+$top-light-bg: #117485;
+$top-light-color: #f9f9f9;
+$topbar-light-bg: #063035;
+$topbar-light-color: #f9f9f9;
+
+$top-dark-bg: #117485; // $top-light-bg; defining the variable with a variable didn't work.
+$top-dark-color: $top-light-color;
+$topbar-dark-bg: #063035; // $topbar-light-bg;
+$topbar-dark-color: $topbar-light-color;
+
+$navbar-light-link-color: $top-light-color;
+$navbar-light-link-hover-color: #f2f2f2;
+//$navbar-light-link-hover-bg: #003c4a;
+
+$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-hover-color: #f2f2f2;
+$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
+//$navbar-light-link-hover-bg: #003c4a;
+
 $card-border-color: #169FB6;
 
 $bg-light-alt: #117485;
