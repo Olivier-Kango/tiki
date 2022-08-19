@@ -413,9 +413,9 @@ function initTikiDB(&$api, &$driver, $host, $user, $pass, $dbname, $client_chars
         }
         $dbcon = ! empty($dbTiki);
         // First check that suggested database name will not cause issues
-        $dbname_clean = preg_replace('/[^a-z0-9$_-]/', "", $dbname);
+        $dbname_clean = preg_replace('/[^a-zA-Z0-9$_-]/', "", $dbname);
         if ($dbname_clean != $dbname) {
-            Feedback::error(tra("Some invalid characters were detected in database name. Please use alphanumeric characters or _ or -.", '', false, [$dbname_clean]));
+            Feedback::error(tra("Some invalid characters were detected in database name. Please use alphanumeric characters (A-Z a-z 0-9) or underscore (_) or hyphen (-).", '', false, [$dbname_clean]));
             $dbcon = false;
         } elseif ($dbcon) {
             $error = '';
