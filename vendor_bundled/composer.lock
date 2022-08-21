@@ -679,7 +679,7 @@
             "version": "6.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
                 "reference": "701d64a8943214b9767733e7ac0b201f1a08a8b3"
             },
             "dist": {
@@ -1211,17 +1211,17 @@
         },
         {
             "name": "composer/installers",
-            "version": "v2.1.1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "af93ba6e52236418f07a278033eba6959ee5b983"
+                "reference": "c29dc4b93137acb82734f672c37e029dfbd95b35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/composer/installers/composer-installers-af93ba6e52236418f07a278033eba6959ee5b983-zip-0f5b17.zip",
-                "reference": "af93ba6e52236418f07a278033eba6959ee5b983",
-                "shasum": "802e418f591ec10c1e4b921503cf1d7ad85566da"
+                "url": "https://composer.tiki.org/dist/composer/installers/composer-installers-c29dc4b93137acb82734f672c37e029dfbd95b35-zip-ef64c7.zip",
+                "reference": "c29dc4b93137acb82734f672c37e029dfbd95b35",
+                "shasum": "8175e3aab775924f84ae9b07e95a103dd927eafc"
             },
             "require": {
                 "composer-plugin-api": "^1.0 || ^2.0",
@@ -1308,6 +1308,7 @@
                 "magento",
                 "majima",
                 "mako",
+                "matomo",
                 "mediawiki",
                 "miaoxing",
                 "modulework",
@@ -1347,7 +1348,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-13T09:13:00+00:00"
+            "time": "2022-08-20T06:45:11+00:00"
         },
         {
             "name": "composer/semver",
