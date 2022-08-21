@@ -1,17 +1,4 @@
 /*  The Orange theme option file for the FiveAlive theme of Tiki Wiki CMS Groupware. */
-.header_outer, .layout_basic #top_modules, .postbody-title, .tiki > .navbar.fixed-top.bg-dark, .bg-dark {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c44a23+0,c64b23+10,dc5823+34,e96023+58,f06423+87,f06423+100 */
-  background: #c44a23 !important;
-  /* Old browsers */
-  background: -moz-linear-gradient(left, #c44a23 0%, #c64b23 10%, #dc5823 34%, #e96023 58%, #f06423 87%, #f06423 100%) !important;
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, #c44a23 0%, #c64b23 10%, #dc5823 34%, #e96023 58%, #f06423 87%, #f06423 100%) !important;
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, #c44a23 0%, #c64b23 10%, #dc5823 34%, #e96023 58%, #f06423 87%, #f06423 100%) !important;
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c44a23", endColorstr="#f06423",GradientType=1);
-  /* IE6-9 */
-}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -451,18 +438,18 @@ progress {
   opacity: var(--bs-btn-disabled-opacity);
 }
 .btn-primary {
-  --bs-btn-color: #212529;
+  --bs-btn-color: #000;
   --bs-btn-bg: #f06423;
   --bs-btn-border-color: #f06423;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #f27b44;
   --bs-btn-hover-border-color: #f27439;
-  --bs-btn-focus-shadow-rgb: 209, 91, 36;
-  --bs-btn-active-color: #212529;
+  --bs-btn-focus-shadow-rgb: 204, 85, 30;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #f3834f;
   --bs-btn-active-border-color: #f27439;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #212529;
+  --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #f06423;
   --bs-btn-disabled-border-color: #f06423;
 }
@@ -483,18 +470,18 @@ progress {
   --bs-btn-disabled-border-color: #952f20;
 }
 .btn-success {
-  --bs-btn-color: #212529;
+  --bs-btn-color: #000;
   --bs-btn-bg: #5cb85c;
   --bs-btn-border-color: #5cb85c;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #74c374;
   --bs-btn-hover-border-color: #6cbf6c;
-  --bs-btn-focus-shadow-rgb: 83, 162, 84;
-  --bs-btn-active-color: #212529;
+  --bs-btn-focus-shadow-rgb: 78, 156, 78;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #7dc67d;
   --bs-btn-active-border-color: #6cbf6c;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #212529;
+  --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #5cb85c;
   --bs-btn-disabled-border-color: #5cb85c;
 }
@@ -515,18 +502,18 @@ progress {
   --bs-btn-disabled-border-color: #ba3a26;
 }
 .btn-warning {
-  --bs-btn-color: #212529;
+  --bs-btn-color: #000;
   --bs-btn-bg: #f0ad4e;
   --bs-btn-border-color: #f0ad4e;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #f2b969;
   --bs-btn-hover-border-color: #f2b560;
-  --bs-btn-focus-shadow-rgb: 209, 153, 72;
-  --bs-btn-active-color: #212529;
+  --bs-btn-focus-shadow-rgb: 204, 147, 66;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #f3bd71;
   --bs-btn-active-border-color: #f2b560;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #212529;
+  --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #f0ad4e;
   --bs-btn-disabled-border-color: #f0ad4e;
 }
@@ -547,45 +534,45 @@ progress {
   --bs-btn-disabled-border-color: #EB0004;
 }
 .btn-light {
-  --bs-btn-color: #212529;
+  --bs-btn-color: #000;
   --bs-btn-bg: #fdde9f;
   --bs-btn-border-color: #fdde9f;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #d7bd87;
   --bs-btn-hover-border-color: #cab27f;
-  --bs-btn-focus-shadow-rgb: 220, 194, 141;
-  --bs-btn-active-color: #212529;
+  --bs-btn-focus-shadow-rgb: 215, 189, 135;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #cab27f;
   --bs-btn-active-border-color: #bea777;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #212529;
+  --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #fdde9f;
   --bs-btn-disabled-border-color: #fdde9f;
 }
 .btn-dark {
-  --bs-btn-color: #212529;
+  --bs-btn-color: #000;
   --bs-btn-bg: #e77d4f;
   --bs-btn-border-color: #e77d4f;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #eb9169;
   --bs-btn-hover-border-color: #e98a61;
-  --bs-btn-focus-shadow-rgb: 201, 112, 73;
-  --bs-btn-active-color: #212529;
+  --bs-btn-focus-shadow-rgb: 196, 106, 67;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #ec9772;
   --bs-btn-active-border-color: #e98a61;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #212529;
+  --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #e77d4f;
   --bs-btn-disabled-border-color: #e77d4f;
 }
 .btn-outline-primary {
   --bs-btn-color: #f06423;
   --bs-btn-border-color: #f06423;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #f06423;
   --bs-btn-hover-border-color: #f06423;
   --bs-btn-focus-shadow-rgb: 240, 100, 35;
-  --bs-btn-active-color: #212529;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #f06423;
   --bs-btn-active-border-color: #f06423;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -613,11 +600,11 @@ progress {
 .btn-outline-success {
   --bs-btn-color: #5cb85c;
   --bs-btn-border-color: #5cb85c;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #5cb85c;
   --bs-btn-hover-border-color: #5cb85c;
   --bs-btn-focus-shadow-rgb: 92, 184, 92;
-  --bs-btn-active-color: #212529;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #5cb85c;
   --bs-btn-active-border-color: #5cb85c;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -645,11 +632,11 @@ progress {
 .btn-outline-warning {
   --bs-btn-color: #f0ad4e;
   --bs-btn-border-color: #f0ad4e;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #f0ad4e;
   --bs-btn-hover-border-color: #f0ad4e;
   --bs-btn-focus-shadow-rgb: 240, 173, 78;
-  --bs-btn-active-color: #212529;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #f0ad4e;
   --bs-btn-active-border-color: #f0ad4e;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -677,11 +664,11 @@ progress {
 .btn-outline-light {
   --bs-btn-color: #fdde9f;
   --bs-btn-border-color: #fdde9f;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #fdde9f;
   --bs-btn-hover-border-color: #fdde9f;
   --bs-btn-focus-shadow-rgb: 253, 222, 159;
-  --bs-btn-active-color: #212529;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #fdde9f;
   --bs-btn-active-border-color: #fdde9f;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -693,11 +680,11 @@ progress {
 .btn-outline-dark {
   --bs-btn-color: #e77d4f;
   --bs-btn-border-color: #e77d4f;
-  --bs-btn-hover-color: #212529;
+  --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #e77d4f;
   --bs-btn-hover-border-color: #e77d4f;
   --bs-btn-focus-shadow-rgb: 231, 125, 79;
-  --bs-btn-active-color: #212529;
+  --bs-btn-active-color: #000;
   --bs-btn-active-bg: #e77d4f;
   --bs-btn-active-border-color: #e77d4f;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -718,7 +705,7 @@ progress {
   --bs-btn-disabled-color: #6c757d;
   --bs-btn-disabled-border-color: transparent;
   --bs-btn-box-shadow: none;
-  --bs-btn-focus-shadow-rgb: 209, 91, 36;
+  --bs-btn-focus-shadow-rgb: 204, 85, 30;
   text-decoration: none;
 }
 .btn-link:focus {
@@ -846,23 +833,20 @@ progress {
 .tab-content > .active {
   display: block;
 }
+#page-header h1, #page-header h2, #page-header h3 a, #page-header a, #page-header a:hover {
+  color: #000;
+}
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
-}
-.bg-dark {
-  background: #000 !important;
 }
 .middle_outer {
   -webkit-box-shadow: inset 0 54px 0 0 #33140a;
   -moz-box-shadow: inset 0 54px 0 0 #33140a;
   box-shadow: inset 0 54px 0 0 #33140a;
 }
-.layout_basic #topbar_modules.bg-dark, .topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li {
-  background: #33140a;
-}
 .bg-dark {
-  background-color: #7e301e !important;
+  background-color: #33140a !important;
   color: rgba(255, 255, 255, 0.55);
 }
 .bg-dark .btn-outline-info {
@@ -872,8 +856,48 @@ body.layout_social.tiki.navbar-padding {
   color: #e77d4f;
   outline-color: #e77d4f;
 }
-.layout_basic .topbar_modules, .layout_basic .topbar.bg-dark, .layout_basic .topbar.bg-light, .layout_basic .topbar .bg-light, .layout_basic .topbar .bg-dark {
-  background: #7e301e !important;
+.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_basic .page-header .navbar.navbar-light.bg-light, .layout_classic .page-header .navbar-light-parent.bg-light-parent, .layout_classic .page-header .navbar.navbar-light.bg-light, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
+  background-color: transparent !important;
+  color: rgba(0, 0, 0, 0.55);
+}
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-light.bg-light a, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_classic .page-header .navbar-light-parent.bg-light-parent a, .layout_classic .page-header .navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .page-header .navbar.navbar-light.bg-light a, .layout_classic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-light.bg-light a:hover, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .page-header .navbar-light-parent.bg-light-parent a:hover, .layout_classic .page-header .navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .page-header .navbar.navbar-light.bg-light a:hover, .layout_classic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
+  color: #f2f2f2;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.navbar-light-parent.bg-light-parent, .layout_classic .topbar_modules.navbar-light.bg-light, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .layout_social .topbar.navbar-light, .layout_social .topbar .navbar-light.bg-light {
+  background-color: #063035 !important;
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_classic .topbar.navbar-light-parent.bg-light-parent a, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-light.bg-light a, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar.navbar-light a, .layout_social .topbar.navbar-light .btn.btn-link, .layout_social .topbar .navbar-light.bg-light a, .layout_social .topbar .navbar-light.bg-light .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent a:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-light.bg-light a:hover, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar.navbar-light a:hover, .layout_social .topbar.navbar-light .btn.btn-link:hover, .layout_social .topbar .navbar-light.bg-light a:hover, .layout_social .topbar .navbar-light.bg-light .btn.btn-link:hover {
+  color: #f2f2f2;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent, .layout_basic .page-header .navbar.navbar-dark.bg-dark, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent, .layout_social header.navbar-dark.bg-dark, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark {
+  background-color: transparent !important;
+  color: #000;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-dark.bg-dark a, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent a, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social header.navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link {
+  color: #000;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark a:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark, .layout_basic .topbar_modules .navbar-dark.bg-dark, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent, .layout_classic .topbar_modules.navbar-dark.bg-dark, .layout_classic .topbar_modules .navbar-dark.bg-dark, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .layout_social .topbar.navbar-dark.bg-dark, .layout_social .topbar .navbar-dark.bg-dark {
+  background-color: #33140a !important;
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark a, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_basic .topbar_modules .navbar-dark.bg-dark a, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-dark.bg-dark a, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar_modules .navbar-dark.bg-dark a, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social .topbar.navbar-dark.bg-dark a, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar .navbar-dark.bg-dark a, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar.navbar-dark.bg-dark a:hover, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar .navbar-dark.bg-dark a:hover, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link:hover {
+  color: #f2f2f2;
+}
+.layout_classic .top_modules .navbar.navbar-dark.bg-dark, .layout_classic .top_modules .navbar.navbar-light.bg-light {
+  background: transparent !important;
 }
 .sitelogo {
   padding: 30px;
@@ -1180,6 +1204,13 @@ footer#footer .footer_liner .card-header {
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected="true"] {
   color: #fff;
   background-color: #f06423;
+}
+.header_outer, .layout_basic #top_modules, .postbody-title, .tiki > .navbar.fixed-top.bg-dark, .bg-dark {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c44a23+0,c64b23+10,dc5823+34,e96023+58,f06423+87,f06423+100 */
+  background: #c44a23 !important;
+  /* Old browsers */
+  background: linear-gradient(to right, #c44a23 0%, #c64b23 10%, #dc5823 34%, #e96023 58%, #f06423 87%, #f06423 100%) !important;
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 .text-danger {
   color: #EB0004 !important;

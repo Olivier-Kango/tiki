@@ -1,15 +1,21 @@
 //Custom styles for the FiveAlive Kiwi option theme.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
-
-// Variables needed for button color variants (start)
-
 $gray-600: #6c757d;
 $gray-900: #212529;
 
 $white:    #fff;
 $black:    #000;
 $light: $white;
+
+$primary:       #ebdc14;
+$secondary:     #5E7F34; //#648737;
+$success:       #5cb85c;
+$info:          #96a032;
+$warning:       #f0ad4e;
+$danger:        #D13B00; //#ff5c1a;
+$light:         #ffffff;
+$dark:          #817804; //#a59705;
 
 $theme-colors: (
     "primary":           #ebdc14,
@@ -22,29 +28,6 @@ $theme-colors: (
     "dark":              #817804 //  #a59705
 );
 
-$primary:       #ebdc14;
-$secondary:     #5E7F34; //#648737;
-$success:       #5cb85c;
-$info:          #96a032;
-$warning:       #f0ad4e;
-$danger:        #D13B00; //#ff5c1a;
-$light:         #ffffff;
-$dark:          #817804; //#a59705;
-
-$theme-colors: map-merge(
-        (
-            "primary":    $primary,
-            "secondary":  $secondary,
-            "success":    $success,
-            "info":       $info,
-            "warning":    $warning,
-            "danger":     $danger,
-            "light":      $light,
-            "dark":       $dark
-        ),
-        $theme-colors
-);
-
 // The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
 // Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
 $min-contrast-ratio:  3;
@@ -52,8 +35,6 @@ $min-contrast-ratio:  3;
 $color-contrast-dark:             $gray-900;
 $color-contrast-light:            $white;
 
-//$link-color: #638637;
-//$link-hover-color: #baba25;
 
 // $bg-light: #a59705; //#a59705 !important;  (Changing tactics for Bootstrap 5)
 
@@ -70,7 +51,6 @@ $nav-tabs-link-active-color: #fff;
 $nav-tabs-link-active-bg: #638637;
 
 // Navbars
-$page-header-link-color: #000;
 
 // navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
@@ -81,13 +61,6 @@ $hr-border-color: #a59705;
 $text-success: #288040 !important;
 $text-danger: #d63d00 !important;
 $text-muted: #5b6269;
-
-$top-bg: #96a032;
-$top-color: #242424;
-$top-link-color: #000;
-$top-link-hover-color: #f9f9f9;
-$topbar-bg: #a59705;
-$topbar-link-color: #000;
 
 //$hr-border-color: #baba25;
 //
@@ -138,15 +111,44 @@ $pagination-disabled-color: #999999;
 $pagination-disabled-bg: #ffffff;
 $pagination-disabled-border-color: #dddddd;
 
-
 $enable-gradients: true;
 $enable-shadows: true;
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 //$bg-light-alt: #117485 !important;
 
 $side-column-heading-color: #7E7615; // #332f02;
+$page-header-link-color: #000;
 
-$middle_outer-inset-shadow-bg: #332f02;
+$top-bg: #96a032;
+$top-color: #242424;
+$top-link-color: #000;
+$top-link-hover-color: #f9f9f9;
+$topbar-bg: #a59705;
+$topbar-link-color: #000;
+
+$topbar-dark-bg: #332f02;
+$top-light-bg: transparent; // #117485;
+$top-light-color: #f9f9f9;
+$top-light-link-color: $top-light-color;
+$topbar-light-bg: #063035;
+$topbar-light-color: #f9f9f9;
+
+$top-dark-bg: transparent; // #117485; // $top-light-bg; defining the variable with a variable didn't work.
+$top-dark-color: $black;
+$top-dark-link-color: $top-dark-color;
+$topbar-dark-bg: #063035; // $topbar-light-bg;
+$topbar-dark-color: $topbar-light-color;
+
+$navbar-light-link-color: $top-light-color;
+$navbar-light-link-hover-color: #f2f2f2;
+//$navbar-light-link-hover-bg: #003c4a;
+
+$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-hover-color: #f2f2f2;
+$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
+//$navbar-light-link-hover-bg: #003c4a;
+
+
 $footer_liner-card-inner-border: #ebdc14;
 
 $footer-accent-color: #ebdc14;
@@ -159,20 +161,6 @@ $autotoc-nav-link-hover-color: #f2f2f2;
 $autotoc-nav-link-hover-bg: #587631;
 
 $bg-dark: #797922;
-// - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
-
-.header_outer,
-.layout_basic #top_modules,
-.postbody-title,
-.tiki > .navbar.fixed-top.bg-dark,
-//.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
-.bg-dark {
-    background: #bebc24;
-    background: -moz-linear-gradient(left,  #bebc24 0%, #ded319 53%, #e7d915 100%);
-    background: -webkit-linear-gradient(left,  #bebc24 0%,#ded319 53%,#e7d915 100%);
-    background: linear-gradient(to right,  #bebc24 0%,#ded319 53%,#e7d915 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bebc24', endColorstr='#e7d915',GradientType=1 );
-}
 
 $postbody-title-card-title-color: #fff;
 
@@ -198,4 +186,3 @@ $btn-focus-width:             $input-btn-focus-width !default;
 
 
 $bg-dark-info: #00DAE6;
-

@@ -849,6 +849,17 @@ body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
 }
+#page-header h1, #page-header h2, #page-header h3 a, #page-header a, #page-header a:hover {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+#page-header h3 {
+  border-radius: 3px;
+  font-size: 34px;
+  padding: 12px 10px 6px 10px;
+}
 .middle_outer {
   -webkit-box-shadow: inset 0 28px 0 0 #15001f;
   -moz-box-shadow: inset 0 28px 0 0 #15001f;

@@ -2,6 +2,20 @@
 // and CSS selectors remaining.
 
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
+
+.header_outer,
+.layout_basic #top_modules,
+.postbody-title,
+.tiki > .navbar.fixed-top.bg-dark,
+    //.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
+.bg-dark {
+    background: #c51e3c;
+    background: -moz-linear-gradient(top,  #c51e3c 0%, #e71e40 100%);
+    background: -webkit-linear-gradient(top,  #c51e3c 0%,#e71e40 100%);
+    background: linear-gradient(to bottom,  #c51e3c 0%,#e71e40 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c51e3c', endColorstr='#e71e40',GradientType=0 );
+}
+
 // CSS is used because Bootstrap partials aren't available for theme variables, etc.
 // (Everything below was copied from Grape and may need color adjusting.
 .text-danger {

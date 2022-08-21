@@ -2,6 +2,17 @@
 // and CSS selectors remaining.
 
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
+
+.header_outer,
+.layout_basic #top_modules,
+.postbody-title,
+.tiki > .navbar.fixed-top.bg-dark,
+.bg-dark {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0a8794+0,169fb6+53,18a4bc+72,19a5bd+100 */
+    background: #0a8794 !important; /* Old browsers */
+    background: linear-gradient(to right,  #0a8794 0%,#169fb6 53%,#18a4bc 72%,#19a5bd 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
 // CSS is used because Bootstrap partials aren't available for theme variables, etc.
 
 .text-danger {

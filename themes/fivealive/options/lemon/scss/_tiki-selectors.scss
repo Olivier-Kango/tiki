@@ -2,6 +2,17 @@
 // and CSS selectors remaining.
 
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
+
+.header_outer,
+.layout_basic #top_modules,
+.postbody-title,
+.tiki > .navbar.fixed-top.bg-dark,
+    //.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
+.bg-dark {
+    background: #977202 !important;
+    background: linear-gradient(to right, #977202 0%,#f99f14 100%) !important;
+}
+
 // CSS is used because Bootstrap partials aren't available for theme variables, etc.
 
 .text-danger {

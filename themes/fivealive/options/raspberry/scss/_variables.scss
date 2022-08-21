@@ -1,7 +1,22 @@
 //Custom styles for the FiveAlive Raspberry option theme.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
-// Variables needed for button color variants (start)
+$gray-600: #6c757d;
+$gray-900: #212529;
+
+$white:    #fff;
+$black:    #000;
+$light: #D10A74; // #e10c7c;
+
+$primary:       #D70977; // #eb0a82;
+$secondary:     #781437;
+$success:       #5cb85c;
+$info:          #8c1946;
+$warning:       #f0ad4e;
+$danger: #85072e;
+$light:         #ffffff;
+$dark:          #b50964;
+
 $theme-colors: (
     "primary":            #D70977, // #eb0a82,
     "secondary":         #781437,
@@ -13,46 +28,10 @@ $theme-colors: (
     "dark":                #b50964
 );
 
-$primary:       #D70977; // #eb0a82;
-$secondary:     #781437;
-$success:       #5cb85c;
-$info:          #8c1946;
-$warning:       #f0ad4e;
-$danger: #85072e;
-$light:         #ffffff;
-$dark:          #b50964;
-
-$theme-colors: map-merge(
-        (
-            "primary":    $primary,
-            "secondary":  $secondary,
-            "success":    $success,
-            "info":       $info,
-            "warning":    $warning,
-            "danger":     $danger,
-            "light":      $light,
-            "dark":       $dark
-        ),
-        $theme-colors
-);
-
-// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
-// Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
-
-$gray-600: #6c757d !default;
-$gray-900: #212529;
-
-$white:    #fff;
-$black:    #000;
-$light: #D10A74; // #e10c7c;
-//$primary: #e10c7c;
-
-$bg-light: #D10A74; // #e10c7c
-
 $link-color:                   #b51360;
 $link-hover-color:               darken($link-color, 15%);
-$link-hover-decoration:       underline !default;
-$btn-link-disabled-color:     $gray-600 !default;
+$link-hover-decoration:       underline;
+$btn-link-disabled-color:     $gray-600;
 
 // Navs
 $nav-tabs-link-color: #000;
@@ -61,16 +40,6 @@ $nav-tabs-link-active-color: #fff;
 $nav-tabs-link-active-bg: #61102d; // Same as $dropdown-link-hover-bg;
 
 // Navbars
-$bg-dark-link-hover-color: #f2f2f2;
-$bg-dark-link-hover-bg: #003c4a;
-$top-bg: #cd0a53; // #E00B7C; //#b50964;
-$top-color: #fff;
-$top-link-color: #fff;
-$top-link-hover-color: #f9f9f9;
-$topbar-bg: #641039; // #e60b7f; Actual Raspberry hex color
-$topbar-link-color: #fff;
-$bg-dark-info: #f2f2f2;
-$page-header-link-color: #000;
 
 // Typography
 $hr-border-color: #e10c7c;
@@ -123,12 +92,47 @@ $pagination-disabled-border-color: #dddddd;
 
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
+$bg-light: #D10A74; // #e10c7c
 $bg-light-alt: #117485 !important;
 $bg-dark: #15001f;
 
+$bg-dark-link-hover-color: #f2f2f2;
+$bg-dark-link-hover-bg: #003c4a;
+$top-bg: #cd0a53; // #E00B7C; //#b50964;
+$top-color: #fff;
+$top-link-color: #fff;
+$top-link-hover-color: #f9f9f9;
+$topbar-bg: #641039; // #e60b7f; Actual Raspberry hex color
+$topbar-link-color: #fff;
+$bg-dark-info: #f2f2f2;
+$page-header-link-color: #000;
+
+$topbar-dark-bg: #180124;
+$top-light-bg: transparent; // #117485;
+$top-light-color: #f9f9f9;
+$top-light-link-color: $top-light-color;
+$topbar-light-bg: #063035;
+$topbar-light-color: #f9f9f9;
+
+$top-dark-bg: transparent; // #117485; // $top-light-bg; defining the variable with a variable didn't work.
+$top-dark-color: $white;
+$top-dark-link-color: $top-dark-color;
+$topbar-dark-bg: #180124;
+//$topbar-dark-bg: #063035; // $topbar-light-bg;
+$topbar-dark-color: $topbar-light-color;
+
+$navbar-light-link-color: $top-light-color;
+$navbar-light-link-hover-color: #f2f2f2;
+//$navbar-light-link-hover-bg: #003c4a;
+
+$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-hover-color: #f2f2f2;
+$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
+//$navbar-light-link-hover-bg: #003c4a;
+
 $side-column-heading-color: #e60b7f;
 
-$middle_outer-inset-shadow-bg: #35061d;
+$topbar-dark-bg: #35061d;
 $footer_liner-card-inner-border: #eb0a82;
 
 $footer-accent-color: #eb0a82;
@@ -146,35 +150,18 @@ $autotoc-color: #b51360;
 $autotoc-nav-li-link-hover-color: #f2f2f2;
 $autotoc-nav-li-link-hover-bg: #61102d;
 
-$middle_outer-inset-shadow-bg: #180124;
 $postbody-title-card-title-color: #fff;
 
 // These variables need to be defined for the files to compile. The specific variables for the child theme's button colors are defined
 // at the bottom of the file but by default they use the child theme's theme-colors. There appears to be redundancy in defining colors but each line is necessary.
 // There are unique names for the child theme button colors to avoid any conflict with the general theme colors.
 
-$box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
-$box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
-$box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
-$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
+$box-shadow-sm:               0 .125rem .25rem rgba($black, .075);
+$box-shadow:                  0 .5rem 1rem rgba($black, .15);
+$box-shadow-lg:               0 1rem 3rem rgba($black, .175);
+$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075);
 $enable-gradients:               false;
 $enable-shadows:              false;
-$input-btn-focus-width:       .2rem !default;
-$btn-focus-width:             $input-btn-focus-width !default;
-
-// - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
-
-.header_outer,
-.layout_basic #top_modules,
-.postbody-title,
-.tiki > .navbar.fixed-top.bg-dark,
-    //.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
-.bg-dark {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b3135f+0,b61261+9,c21069+18,e70b80+69,ea0a81+100 */
-    background: #b3135f !important; /* Old browsers */
-    background: -moz-linear-gradient(left,  #b3135f 0%, #b61261 9%, #c21069 18%, #e70b80 69%, #ea0a81 100%) !important; /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%) !important; /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3135f', endColorstr='#ea0a81',GradientType=1 ); /* IE6-9 */
-}
+$input-btn-focus-width:       .2rem;
+$btn-focus-width:             $input-btn-focus-width;
 

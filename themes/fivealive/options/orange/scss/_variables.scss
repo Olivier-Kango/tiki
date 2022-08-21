@@ -8,6 +8,15 @@ $white:    #fff;
 $black:    #000;
 $light: #e77d4f;
 
+$primary:       #f06423;
+$secondary:     #952f20;
+$success:       #5cb85c;
+$info:          #ba3a26;
+$warning:       #f0ad4e;
+$danger:        #EB0004; // #ff3338;
+$light:         #fdde9f; // #ffcd70; // #e77d4f;
+$dark:          #e77d4f;
+
 $theme-colors: (
     "primary":            #f06423,
     "secondary":         #952f20,
@@ -19,39 +28,6 @@ $theme-colors: (
     "dark":                #e77d4f
 );
 
-$primary:       #f06423;
-$secondary:     #952f20;
-$success:       #5cb85c;
-$info:          #ba3a26;
-$warning:       #f0ad4e;
-$danger:        #EB0004; // #ff3338;
-$light:         #fdde9f; // #ffcd70; // #e77d4f;
-$dark:          #e77d4f;
-
-$theme-colors: map-merge(
-        (
-            "primary":    $primary,
-            "secondary":  $secondary,
-            "success":    $success,
-            "info":       $info,
-            "warning":    $warning,
-            "danger":     $danger,
-            "light":      $light,
-            "dark":       $dark
-        ),
-        $theme-colors
-);
-
-// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
-// Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
-
-$color-contrast-dark:             $gray-900 !default;
-$color-contrast-light:            $white !default;
-$enable-gradients:          false;
-
-$bg-dark: #000;
-$bg-light: #ffcd70; // #fddacb !important;
-
 $link-color: #c74b23;
 $link-hover-color:               darken($link-color, 15%);
 
@@ -62,21 +38,6 @@ $nav-tabs-link-active-color: #fff;
 $nav-tabs-link-active-bg: #e36732; // Same as $dropdown-link-hover-bg;
 
 // Navbars
-$top-bg: #F09C00; // #a53723;
-$top-color: #000;
-$top-link-color: #000;
-$top-link-hover-color: #f9f9f9;
-
-$topbar-bg: #7e301e; // #FFA500; // #CA4C12;
-$bg-dark-info: #f2f2f2;
-//$navbar-fixed-top-bg: #e4af00;
-$page-header-link-color: #000;
-
-// navbar link hover colors
-$bg-dark-link-hover-color: #f2f2f2;
-$bg-dark-link-hover-bg: #003c4a;
-
-$topbar-link-color: #000;
 
 // Typography
 $hr-border-color: #e77d4f;
@@ -130,10 +91,50 @@ $pagination-disabled-border-color: #dddddd;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 //$bg-light-alt: #117485 !important;
+$bg-dark: #000;
+$bg-light: #ffcd70; // #fddacb !important;
+
+$top-bg: #F09C00; // #a53723;
+$top-color: #000;
+$top-link-color: #000;
+$top-link-hover-color: #f9f9f9;
+
+$topbar-bg: #7e301e; // #FFA500; // #CA4C12;
+$bg-dark-info: #f2f2f2;
+//$navbar-fixed-top-bg: #e4af00;
+$page-header-link-color: #000;
+
+// navbar link hover colors
+$bg-dark-link-hover-color: #f2f2f2;
+$bg-dark-link-hover-bg: #003c4a;
+
+$topbar-link-color: #000;
+
+$topbar-dark-bg: #33140a;
+$top-light-bg: transparent; // #117485;
+$top-light-color: #f9f9f9;
+$top-light-link-color: $top-light-color;
+$topbar-light-bg: #063035;
+$topbar-light-color: #f9f9f9;
+
+$top-dark-bg: transparent; // #117485; // $top-light-bg; defining the variable with a variable didn't work.
+$top-dark-color: $black;
+$top-dark-link-color: $top-dark-color;
+$topbar-dark-bg: #063035; // $topbar-light-bg;
+$topbar-dark-color: $topbar-light-color;
+
+$navbar-light-link-color: $top-light-color;
+$navbar-light-link-hover-color: #f2f2f2;
+//$navbar-light-link-hover-bg: #003c4a;
+
+$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-hover-color: #f2f2f2;
+$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
+//$navbar-light-link-hover-bg: #003c4a;
+
 
 $side-column-heading-color: #e77d4f;
 
-$middle_outer-inset-shadow-bg: #33140a;
 $footer_liner-card-inner-border: #ebdc14;
 
 $footer-accent-color: #ebdc14;
@@ -145,21 +146,6 @@ $autotoc-color: #ffffff;
 $autotoc-nav-link-hover-color: #f2f2f2;
 $autotoc-nav-link-hover-bg: #ae421f;
 
-// - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
-
-.header_outer,
-.layout_basic #top_modules,
-.postbody-title,
-.tiki > .navbar.fixed-top.bg-dark,
-//.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
-.bg-dark {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c44a23+0,c64b23+10,dc5823+34,e96023+58,f06423+87,f06423+100 */
-  background: #c44a23 !important; /* Old browsers */
-  background: -moz-linear-gradient(left,  #c44a23 0%, #c64b23 10%, #dc5823 34%, #e96023 58%, #f06423 87%, #f06423 100%) !important; /* FF3.6-15 */
-  background: -webkit-linear-gradient(left,  #c44a23 0%,#c64b23 10%,#dc5823 34%,#e96023 58%,#f06423 87%,#f06423 100%) !important; /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right,  #c44a23 0%,#c64b23 10%,#dc5823 34%,#e96023 58%,#f06423 87%,#f06423 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c44a23', endColorstr='#f06423',GradientType=1 ); /* IE6-9 */
-}
 
 //.bg-dark {background: #33140a !important; }
 $autotoc-nav-bg: #ffffff;
@@ -167,5 +153,5 @@ $autotoc-nav-border: #ec6223;
 $autotoc-color: #c74b23;
 $autotoc-nav-li-link-hover-color: #f2f2f2;
 $autotoc-nav-li-link-hover-bg: #ae421f;
-$middle_outer-inset-shadow-bg: #33140a;
+$topbar-dark-bg: #33140a;
 $postbody-title-card-title-color: #fff;

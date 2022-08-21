@@ -1,11 +1,4 @@
 /*  The Kiwi theme option file for the FiveAlive theme of Tiki Wiki CMS Groupware. */
-.header_outer, .layout_basic #top_modules, .postbody-title, .tiki > .navbar.fixed-top.bg-dark, .bg-dark {
-  background: #bebc24;
-  background: -moz-linear-gradient(left, #bebc24 0%, #ded319 53%, #e7d915 100%);
-  background: -webkit-linear-gradient(left, #bebc24 0%, #ded319 53%, #e7d915 100%);
-  background: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bebc24", endColorstr="#e7d915",GradientType=1);
-}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -846,23 +839,20 @@ progress {
 .tab-content > .active {
   display: block;
 }
+#page-header h1, #page-header h2, #page-header h3 a, #page-header a, #page-header a:hover {
+  color: #242424;
+}
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
 }
-.bg-dark {
-  background: #797922 !important;
-}
 .middle_outer {
-  -webkit-box-shadow: inset 0 54px 0 0 #332f02;
-  -moz-box-shadow: inset 0 54px 0 0 #332f02;
-  box-shadow: inset 0 54px 0 0 #332f02;
-}
-.layout_basic #topbar_modules.bg-dark, .topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li {
-  background: #332f02;
+  -webkit-box-shadow: inset 0 54px 0 0 #063035;
+  -moz-box-shadow: inset 0 54px 0 0 #063035;
+  box-shadow: inset 0 54px 0 0 #063035;
 }
 .bg-dark {
-  background-color: #a59705 !important;
+  background-color: #063035 !important;
   color: rgba(255, 255, 255, 0.55);
 }
 .bg-dark .btn-outline-info {
@@ -872,8 +862,48 @@ body.layout_social.tiki.navbar-padding {
   color: #817804;
   outline-color: #817804;
 }
-.layout_basic .topbar_modules, .layout_basic .topbar.bg-dark, .layout_basic .topbar.bg-light, .layout_basic .topbar .bg-light, .layout_basic .topbar .bg-dark {
-  background: #a59705 !important;
+.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_basic .page-header .navbar.navbar-light.bg-light, .layout_classic .page-header .navbar-light-parent.bg-light-parent, .layout_classic .page-header .navbar.navbar-light.bg-light, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
+  background-color: transparent !important;
+  color: rgba(0, 0, 0, 0.55);
+}
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-light.bg-light a, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_classic .page-header .navbar-light-parent.bg-light-parent a, .layout_classic .page-header .navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .page-header .navbar.navbar-light.bg-light a, .layout_classic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-light.bg-light a:hover, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .page-header .navbar-light-parent.bg-light-parent a:hover, .layout_classic .page-header .navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .page-header .navbar.navbar-light.bg-light a:hover, .layout_classic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
+  color: #f2f2f2;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.navbar-light-parent.bg-light-parent, .layout_classic .topbar_modules.navbar-light.bg-light, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .layout_social .topbar.navbar-light, .layout_social .topbar .navbar-light.bg-light {
+  background-color: #063035 !important;
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_classic .topbar.navbar-light-parent.bg-light-parent a, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-light.bg-light a, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar.navbar-light a, .layout_social .topbar.navbar-light .btn.btn-link, .layout_social .topbar .navbar-light.bg-light a, .layout_social .topbar .navbar-light.bg-light .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent a:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-light.bg-light a:hover, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar.navbar-light a:hover, .layout_social .topbar.navbar-light .btn.btn-link:hover, .layout_social .topbar .navbar-light.bg-light a:hover, .layout_social .topbar .navbar-light.bg-light .btn.btn-link:hover {
+  color: #f2f2f2;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent, .layout_basic .page-header .navbar.navbar-dark.bg-dark, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent, .layout_social header.navbar-dark.bg-dark, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark {
+  background-color: transparent !important;
+  color: #000;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-dark.bg-dark a, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent a, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social header.navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link {
+  color: #000;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark a:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark, .layout_basic .topbar_modules .navbar-dark.bg-dark, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent, .layout_classic .topbar_modules.navbar-dark.bg-dark, .layout_classic .topbar_modules .navbar-dark.bg-dark, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .layout_social .topbar.navbar-dark.bg-dark, .layout_social .topbar .navbar-dark.bg-dark {
+  background-color: #063035 !important;
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark a, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_basic .topbar_modules .navbar-dark.bg-dark a, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-dark.bg-dark a, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar_modules .navbar-dark.bg-dark a, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social .topbar.navbar-dark.bg-dark a, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar .navbar-dark.bg-dark a, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar.navbar-dark.bg-dark a:hover, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar .navbar-dark.bg-dark a:hover, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link:hover {
+  color: #f2f2f2;
+}
+.layout_classic .top_modules .navbar.navbar-dark.bg-dark, .layout_classic .top_modules .navbar.navbar-light.bg-light {
+  background: transparent !important;
 }
 .sitelogo {
   padding: 30px;
@@ -1181,14 +1211,15 @@ footer#footer .footer_liner .card-header {
   color: #fff;
   background-color: #ebdc14;
 }
+.header_outer, .layout_basic #top_modules, .postbody-title, .bg-dark {
+  background: #bebc24;
+  background: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
+}
 .text-danger {
   color: #D63D00 !important;
 }
 .text-dark {
   color: #817804 !important;
-}
-.bg-dark {
-  background-color: #817804 !important;
 }
 .btn-dark {
   color: #fff;

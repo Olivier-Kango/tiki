@@ -5,19 +5,6 @@
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
-.header_outer, .layout_basic #top_modules, .postbody-title, .tiki > .navbar.fixed-top.bg-dark {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#642759+0,732860+19,92286b+43,a32872+67,a52873+100 */
-  background: #642759 !important;
-  /* Old browsers */
-  background: -moz-linear-gradient(left, #642759 0%, #732860 19%, #92286b 43%, #a32872 67%, #a52873 100%) !important;
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, #642759 0%, #732860 19%, #92286b 43%, #a32872 67%, #a52873 100%) !important;
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, #642759 0%, #732860 19%, #92286b 43%, #a32872 67%, #a52873 100%) !important;
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#642759", endColorstr="#a52873",GradientType=1);
-  /* IE6-9 */
-}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -860,23 +847,20 @@ progress {
 .tab-content > .active {
   display: block;
 }
+#page-header h1, #page-header h2, #page-header h3 a, #page-header a, #page-header a:hover {
+  color: #fff;
+}
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
 }
-.bg-dark {
-  background: #8e286a !important;
-}
 .middle_outer {
-  -webkit-box-shadow: inset 0 54px 0 0 #261122;
-  -moz-box-shadow: inset 0 54px 0 0 #261122;
-  box-shadow: inset 0 54px 0 0 #261122;
-}
-.layout_basic #topbar_modules.bg-dark, .topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li {
-  background: #261122;
+  -webkit-box-shadow: inset 0 54px 0 0 #063035;
+  -moz-box-shadow: inset 0 54px 0 0 #063035;
+  box-shadow: inset 0 54px 0 0 #063035;
 }
 .bg-dark {
-  background-color: #551e3d !important;
+  background-color: #063035 !important;
   color: rgba(255, 255, 255, 0.55);
 }
 .bg-dark .btn-outline-info {
@@ -886,8 +870,48 @@ body.layout_social.tiki.navbar-padding {
   color: #8e286a;
   outline-color: #8e286a;
 }
-.layout_basic .topbar_modules, .layout_basic .topbar.bg-dark, .layout_basic .topbar.bg-light, .layout_basic .topbar .bg-light, .layout_basic .topbar .bg-dark {
-  background: #551e3d !important;
+.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_basic .page-header .navbar.navbar-light.bg-light, .layout_classic .page-header .navbar-light-parent.bg-light-parent, .layout_classic .page-header .navbar.navbar-light.bg-light, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
+  background-color: transparent !important;
+  color: rgba(0, 0, 0, 0.55);
+}
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-light.bg-light a, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_classic .page-header .navbar-light-parent.bg-light-parent a, .layout_classic .page-header .navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .page-header .navbar.navbar-light.bg-light a, .layout_classic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-light.bg-light a:hover, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .page-header .navbar-light-parent.bg-light-parent a:hover, .layout_classic .page-header .navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .page-header .navbar.navbar-light.bg-light a:hover, .layout_classic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
+  color: #f2f2f2;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.navbar-light-parent.bg-light-parent, .layout_classic .topbar_modules.navbar-light.bg-light, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .layout_social .topbar.navbar-light, .layout_social .topbar .navbar-light.bg-light {
+  background-color: #063035 !important;
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_classic .topbar.navbar-light-parent.bg-light-parent a, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-light.bg-light a, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar.navbar-light a, .layout_social .topbar.navbar-light .btn.btn-link, .layout_social .topbar .navbar-light.bg-light a, .layout_social .topbar .navbar-light.bg-light .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent a:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-light.bg-light a:hover, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar.navbar-light a:hover, .layout_social .topbar.navbar-light .btn.btn-link:hover, .layout_social .topbar .navbar-light.bg-light a:hover, .layout_social .topbar .navbar-light.bg-light .btn.btn-link:hover {
+  color: #f2f2f2;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent, .layout_basic .page-header .navbar.navbar-dark.bg-dark, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent, .layout_social header.navbar-dark.bg-dark, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark {
+  background-color: transparent !important;
+  color: #f9f9f9;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-dark.bg-dark a, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent a, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social header.navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark a:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark, .layout_basic .topbar_modules .navbar-dark.bg-dark, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent, .layout_classic .topbar_modules.navbar-dark.bg-dark, .layout_classic .topbar_modules .navbar-dark.bg-dark, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .layout_social .topbar.navbar-dark.bg-dark, .layout_social .topbar .navbar-dark.bg-dark {
+  background-color: #063035 !important;
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark a, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_basic .topbar_modules .navbar-dark.bg-dark a, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-dark.bg-dark a, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar_modules .navbar-dark.bg-dark a, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social .topbar.navbar-dark.bg-dark a, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar .navbar-dark.bg-dark a, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link {
+  color: #f9f9f9;
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar.navbar-dark.bg-dark a:hover, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar .navbar-dark.bg-dark a:hover, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link:hover {
+  color: #f2f2f2;
+}
+.layout_classic .top_modules .navbar.navbar-dark.bg-dark, .layout_classic .top_modules .navbar.navbar-light.bg-light {
+  background: transparent !important;
 }
 .sitelogo {
   padding: 30px;
@@ -1194,6 +1218,13 @@ footer#footer .footer_liner .card-header {
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected="true"] {
   color: #fff;
   background-color: #bc2f84;
+}
+.header_outer, .layout_basic #top_modules, .postbody-title, .bg-dark {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#642759+0,732860+19,92286b+43,a32872+67,a52873+100 */
+  background: #642759 !important;
+  /* Old browsers */
+  background: linear-gradient(to right, #642759 0%, #732860 19%, #92286b 43%, #a32872 67%, #a52873 100%) !important;
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 .text-danger {
   color: #d00b0b !important;

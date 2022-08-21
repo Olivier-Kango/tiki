@@ -3,4 +3,15 @@
 
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
 
+.header_outer,
+.layout_basic #top_modules,
+.postbody-title,
+.tiki > .navbar.fixed-top.bg-dark,
+    //.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
+.bg-dark {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b3135f+0,b61261+9,c21069+18,e70b80+69,ea0a81+100 */
+    background: #b3135f !important; /* Old browsers */
+    background: linear-gradient(to right,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
 

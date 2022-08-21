@@ -1,14 +1,22 @@
-// $Id$
 //Custom styles for the FiveAlive Lemon option theme.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
-$gray-600: #6c757d !default;
+$gray-600: #6c757d;
 $gray-900: #212529;
 
 $white:    #fff;
 $black:    #000;
 $light: #f9a013;
 $dark: #6D5509; // arbitrary
+
+$primary:       #F0D800; // #ffc805;
+$secondary:     #ffc805; // #ffe405; //#c85a28;
+$success:       #5cb85c;
+$info:          #f5821e;
+$warning:       #f0ad4e;
+$danger:        #D63D00; //#ff5c1a;
+$light:         #ffffff;
+$dark:          #cb9e10;
 
 $theme-colors: (
     "primary":           #F0D800, // #ffc805,
@@ -20,37 +28,6 @@ $theme-colors: (
     "light":            #ffffff,
     "dark":                #6D5509
 );
-
-$primary:       #F0D800; // #ffc805;
-$secondary:     #ffc805; // #ffe405; //#c85a28;
-$success:       #5cb85c;
-$info:          #f5821e;
-$warning:       #f0ad4e;
-$danger:        #D63D00; //#ff5c1a;
-$light:         #ffffff;
-$dark:          #cb9e10;
-
-$theme-colors: map-merge(
-        (
-            "primary":    $primary,
-            "secondary":  $secondary,
-            "success":    $success,
-            "info":       $info,
-            "warning":    $warning,
-            "danger":     $danger,
-            "light":      $light,
-            "dark":       $dark
-        ),
-        $theme-colors
-);
-
-// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
-// Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
-
-$color-contrast-dark:             $gray-900 !default;
-$color-contrast-light:            $white !default;
-$enable-gradients:          false;
-
 
 $bg-light: #f9a013 !important;
 
@@ -64,16 +41,6 @@ $nav-tabs-link-active-color: #fff;
 $nav-tabs-link-active-bg: #b25025; // same as $dropdown-link-hover-bg;
 
 // Navbars
-$top-bg: #e4af00;
-$top-color: #000;
-$top-link-color: #000;
-$top-link-hover-color: #5c5c5c;
-
-$topbar-bg: #ad5b28;
-$bg-dark-info: #fff;
-$navbar-fixed-top-bg: #e4af00;
-$page-header-link-color: #000;
-$topbar-link-color: #000;
 
 // navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
@@ -142,7 +109,39 @@ $bg-light-alt: #ffc506 !important;
 
 $side-column-heading-color: #8F6D00;
 
-$middle_outer-inset-shadow-bg: #2c1c04;
+$top-bg: #e4af00;
+$top-color: #000;
+$top-link-color: #000;
+$top-link-hover-color: #5c5c5c;
+
+$topbar-bg: #ad5b28;
+$bg-dark-info: #fff;
+$navbar-fixed-top-bg: #e4af00;
+$page-header-link-color: #000;
+$topbar-link-color: #000;
+
+$topbar-dark-bg: #2c1c04;
+$top-light-bg: transparent; // #117485;
+$top-light-color: #f9f9f9;
+$top-light-link-color: $top-light-color;
+$topbar-light-bg: #063035;
+$topbar-light-color: #f9f9f9;
+//$topbar-dark-bg: #2c1c04;
+$top-dark-bg: transparent; // #117485; // $top-light-bg; defining the variable with a variable didn't work.
+$top-dark-color: $black;
+$top-dark-link-color: $top-dark-color;
+$topbar-dark-bg: #063035; // $topbar-light-bg;
+$topbar-dark-color: $topbar-light-color;
+
+$navbar-light-link-color: $top-light-color;
+$navbar-light-link-hover-color: #f2f2f2;
+//$navbar-light-link-hover-bg: #003c4a;
+
+$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-hover-color: #f2f2f2;
+$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
+//$navbar-light-link-hover-bg: #003c4a;
+
 $footer_liner-card-inner-border: #ffc506;
 
 $footer-accent-color: #ffc506;
@@ -154,20 +153,6 @@ $autotoc-color: #ffffff;
 $autotoc-nav-link-hover-color: #f2f2f2;
 $autotoc-nav-link-hover-bg: #b25025;
 
-// - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
-
-.header_outer,
-.layout_basic #top_modules,
-.postbody-title,
-.tiki > .navbar.fixed-top.bg-dark,
-//.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
-.bg-dark {
-  background: #977202 !important;
-  background: -moz-linear-gradient(left, #977202 0%, #f99f14 100%) !important;
-  background: -webkit-linear-gradient(left, #977202 0%,#f99f14 100%) !important;
-  background: linear-gradient(to right, #977202 0%,#f99f14 100%) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#977202', endColorstr='#f99f14',GradientType=1 );
-}
 
 //.bg-dark {background: #2c1c04 !important; }
 $autotoc-nav-bg: #ffffff;
@@ -175,5 +160,5 @@ $autotoc-nav-border: #ffc506;
 $autotoc-color: #c75a28;
 $autotoc-nav-li-link-hover-color: #f2f2f2;
 $autotoc-nav-li-link-hover-bg: #b25025;
-$middle_outer-inset-shadow-bg: #2c1c04;
+$topbar-dark-bg: #2c1c04;
 $postbody-title-card-title-color: #fff;
