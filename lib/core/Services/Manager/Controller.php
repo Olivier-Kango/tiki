@@ -839,14 +839,12 @@ class Services_Manager_Controller
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $exclude = implode(',', $input->exclude->array());
-
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 "--email" => $input->email->text(),
                 "--time" => $input->time->text(),
                 "--exclude" => !empty($exclude) ? $exclude : ''
             ]);
-
             $this->runCommand($cmd, $inputCommand);
 
             return [
@@ -856,18 +854,113 @@ class Services_Manager_Controller
             ];
         } else {
             $instances = TikiManager\Application\Instance::getInstances(true);
-
+            
             return [
                 'title' => tr('Setup Watch'),
                 'info' => '',
                 'refresh' => true,
                 'instances' => $instances,
                 'help' => $this->getCommandHelpTexts($cmd)
-            ];
-            
+            ];            
         }
     }
 
+    function action_manager_backup($input)
+    {
+        $cmd = new TikiManager\Command\SetupBackupManagerCommand();
+
+        return $this->manager_setup($input,$cmd,"backup");
+    }
+
+    function action_manager_update($input)
+    {
+        $cmd = new TikiManager\Command\SetupUpdateCommand();
+
+        return $this->manager_setup($input,$cmd,"update");
+    }
+
+    private function manager_setup($input,$cmd,$event){
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $input_array = [
+                "command" => $cmd->getName(),
+                "--time" => $input->time->text(),
+            ];
+            
+            switch($event){
+                case "update" :
+                    if(count($input->instance->array()) < 1){
+                        return $this->manager_setup_error($event); 
+                    }
+                    $input_array['--instances'] = implode(',' , $input->instance->array());
+                    break;
+
+                case "backup" :
+                    if(count($input->instance->array()) > 0){
+                        $input_array["-x"] = implode("," , $input->instance->array());
+                    }
+
+                    if($input->number_backups_to_keep->int()){
+                        $input_array["-mb"] = $input->number_backups_to_keep->int();
+                    }
+                    break;
+            } 
+            $input_array["-e"] = $input->email->text();       
+            $inputCommand = new ArrayInput($input_array);
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr(ucfirst($event) . ' Instance Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+
+            switch($event){
+                case "update" :                    
+                    $instance_list = TikiManager\Application\Instance::getUpdatableInstances();
+                    break;
+
+                case "backup" :
+                    $instance_list = TikiManager\Application\Instance::getInstances(true);
+                    break;
+            }
+
+            if (count($instance_list) > 0) {
+                /** For form initialization */
+                $inputValues = [
+                    'instances' => $instance_list,
+                    'time' => '',
+                    'email' => '',
+                    'event' => $event,
+                    'action' => 'manager_'.$event
+                ];
+
+                if($event == "backup"){
+                    $inputValues ['number_backups_to_keep']='';
+                }
+
+                return [
+                    'title' => tr(ucfirst($event)  . ' Cron Job'),
+                    'info' => '',
+                    'refresh' => true,
+                    'inputValues' => $inputValues,
+                    'help' => $this->getCommandHelpTexts($cmd),
+                ];
+            }else{
+                return $this->manager_setup_error($event); 
+            }
+        }                              
+    }
+
+    private function manager_setup_error($event){
+        return [
+            'title' => tr(ucfirst($event)  . ' Cron Job (No Instance Found)'),
+            'info' => "No Tiki instances available ".$event,
+            'refresh' => true,
+        ]; 
+    }
+    
     public function action_backup($input)
     {
         $cmd = new TikiManager\Command\BackupInstanceCommand();

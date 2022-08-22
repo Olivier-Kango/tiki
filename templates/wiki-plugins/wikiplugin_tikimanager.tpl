@@ -17,10 +17,17 @@
     {if in_array('setup_watch', $available_actions)}
     <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=setup_watch}">{icon name="clock-o"} {tr}Setup Watch{/tr}</a>
     {/if}
+    {if in_array('manager_backup', $available_actions)}
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=manager_backup}">{icon name=download} {tr}Setup Backup{/tr}</a>
+    {/if}
+
     {if in_array('clear_cache', $available_actions)}
         <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=clear_cache}" title="{tr}Clear Tiki Manager cache. This can be useful for testing and debugging during development, or if your server is short on disk space and you need a temporary relief.{/tr}">
             {icon name=trash} {tr}Clear Cache{/tr}
         </a>
+    {/if}
+    {if in_array('manager_update', $available_actions)}
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=manager_update}">{icon name=import} {tr}Setup Update{/tr}</a>
     {/if}
     <h2>Instances</h2>
     <table class="table">
