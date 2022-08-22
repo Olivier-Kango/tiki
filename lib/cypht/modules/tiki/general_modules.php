@@ -205,10 +205,11 @@ class Hm_Output_allow_external_images_setting extends Hm_Output_Module
     {
         $allow_external_images = false;
         $settings = $this->get('user_settings', array());
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="'.Hm_Image_Sources::$refresh.'" /></span>';
         if (array_key_exists('allow_external_images', $settings)) {
             $allow_external_images = $settings['allow_external_images'];
         }
-        return '<tr class="general_setting"><td>' . tr('Allow remote image sources') . '</td><td><input type="checkbox" name="allow_external_images" value="1" ' . ($allow_external_images ? 'checked' : '') . '></td></tr>';
+        return '<tr class="general_setting"><td>' . tr('Allow remote image sources') . '</td><td><input type="checkbox" name="allow_external_images" value="1" ' . ($allow_external_images ? 'checked >' . $reset : '>') . '</td></tr>';
     }
 }
 
@@ -267,6 +268,7 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
         $outlook_auth_uri = "https://login.live.com/oauth20_authorize.srf";
         $outlook_token_uri = "https://login.live.com/oauth20_token.srf";
         $outlook_refresh_uri = "https://login.live.com/oauth20_token.srf";
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="'.Hm_Image_Sources::$refresh.'" /></span>';
 
         $settings = $this->get('user_settings', array());
         if (array_key_exists('tiki_enable_oauth2_over_imap', $settings)) {
@@ -295,7 +297,7 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
         }
 
         return '
-        <tr class="general_setting"><td>' . tr('Enable Oauth2 over IMAP') . '</td><td><input type="checkbox" name="tiki_enable_oauth2_over_imap" value="1" class="tiki_enable_oauth2_over_imap" ' . ($enable_oauth2_over_imap ? 'checked' : '') . '></td></tr>
+        <tr class="general_setting"><td>' . tr('Enable Oauth2 over IMAP') . '</td><td><input type="checkbox" name="tiki_enable_oauth2_over_imap" value="1" class="tiki_enable_oauth2_over_imap" ' . ($enable_oauth2_over_imap ? 'checked >' . $reset : '>') . '</td></tr>
         <tr class="oauth reveal-if-unchecked"><td>' . tr('Gmail Client ID') . '</td><td><textarea name="gmail_client_id">' . $gmail_client_id . '</textarea></td></tr>
         <tr class="oauth reveal-if-unchecked"><td>' . tr('Gmail Client secret') . '</td><td><textarea name="gmail_client_secret">' . $gmail_client_secret . '</textarea></td></tr>
         <tr class="oauth reveal-if-unchecked"><td>' . tr('Gmail Client Uri') . '</td><td><textarea name="gmail_client_uri">' . $gmail_client_uri . '</textarea></td></tr>
@@ -394,10 +396,11 @@ class Hm_Output_enable_gmail_contacts_module_setting extends Hm_Output_Module
     protected function output()
     {
         $enable_gmail_contacts_module = false;
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="'.Hm_Image_Sources::$refresh.'" /></span>';
         $settings = $this->get('user_settings', array());
         if (array_key_exists('tiki_enable_gmail_contacts_module', $settings)) {
             $enable_gmail_contacts_module = $settings['tiki_enable_gmail_contacts_module'];
         }
-        return '<tr class="general_setting"><td>' . tr('Enable Gmail Contacts Module') . '</td><td><input type="checkbox" name="tiki_enable_gmail_contacts_module" value="1" ' . ($enable_gmail_contacts_module ? 'checked' : '') . '></td></tr>';
+        return '<tr class="general_setting"><td>' . tr('Enable Gmail Contacts Module') . '</td><td><input type="checkbox" name="tiki_enable_gmail_contacts_module" value="1" ' . ($enable_gmail_contacts_module ? 'checked >' . $reset : '>') . '</td></tr>';
     }
 }
