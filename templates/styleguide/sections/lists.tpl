@@ -37,7 +37,7 @@
                     <input id="tc-ul-padding" class="nocolor" data-selector="ul" data-element="padding" type="text">
                 </p>
                 <p>
-                    <label for="tc-li-padding">{tr}Padding (li){t/r}:</label>
+                    <label for="tc-li-padding">{tr}Padding (li){/tr}:</label>
                     <input id="tc-li-padding" class="nocolor" data-selector="li" data-element="padding" type="text">
                 </p>
             </div>
