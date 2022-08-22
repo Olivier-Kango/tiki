@@ -66,13 +66,12 @@ class TikiDb_Initializer_Pdo
 
     public function setupSSL(&$pdo_options)
     {
-        global $tikiroot, $tikipath;
+        global $tikipath;
 
         if (! extension_loaded('openssl')) {
             return;
         }
 
-        $certroot = $tikiroot . 'db/cert/';
         $fileroot = $tikipath . 'db/cert/';
 
         // Look for the key files in the certroot
@@ -98,11 +97,19 @@ class TikiDb_Initializer_Pdo
             }
 
             // Activate SSL, if the key files are found
-            $isSSL = ! empty($clientKey) && ! empty($clientCert) && ! empty($caCert);
-            if ($isSSL) {
-                $pdo_options[PDO::MYSQL_ATTR_SSL_KEY] = $certroot . $clientKey;
-                $pdo_options[PDO::MYSQL_ATTR_SSL_CERT] = $certroot . $clientCert;
-                $pdo_options[PDO::MYSQL_ATTR_SSL_CA] = $certroot . $caCert;
+            $isSSL_verify_ca = ! empty($caCert);
+            $isSSL_verify_identity = $isSSL_verify_ca && ! empty($clientKey) && ! empty($clientCert);
+
+            if ($isSSL_verify_ca) {
+                // Using 1 .pem file (CA) ie --ssl-mode=VERIFY_CA
+                $pdo_options[PDO::MYSQL_ATTR_SSL_CA] = $fileroot . $caCert;
+                $pdo_options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+
+            } else if ($isSSL_verify_identity) {
+                // Using 3 .pem files (CA, Client cert and Client Key) ie --ssl-mode=VERIFY_IDENTITY
+                $pdo_options[PDO::MYSQL_ATTR_SSL_KEY] = $fileroot . $clientKey;
+                $pdo_options[PDO::MYSQL_ATTR_SSL_CERT] = $fileroot . $clientCert;
+                $pdo_options[PDO::MYSQL_ATTR_SSL_CA] = $fileroot . $caCert;
             }
         }
     }

@@ -39,7 +39,7 @@
                             </p>
                         {else}
                             <p class="mysqlsslstatus">{icon name="unlock"} {tr}MySQL connection is not encrypted{/tr}<br>
-                            {tr}To activate SSL, copy the keyfiles (.pem) til db/cert folder. The filenames must end with "-key.pem", "-cert.pem", "-ca.pem"{/tr}
+                            {tr}To activate SSL, copy the keyfiles (.pem) to db/cert folder and enable "Use SSL connection". The filenames must end with "-key.pem", "-cert.pem", "-ca.pem" in cases the set of keys has 3 files and when using a single key it must end with "-ca.cert".{/tr}
                             <a class="tikihelp alert-link" title="|MySQL SSL" target="tikihelp" href="http://doc.tiki.org/MySQL SSL">
                                 {icon name="help"}
                             </a>
@@ -125,7 +125,6 @@
                 </div>
                 {preference name=feature_ticketlib}
             </fieldset>
-            <br/>
             <fieldset>
                 <legend>{tr}HTTP Headers{/tr}{help url="Security"}</legend>
                 <div class="adminoptionbox">
