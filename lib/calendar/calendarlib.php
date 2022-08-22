@@ -259,7 +259,7 @@ class CalendarLib extends TikiLib
         }
         if (count($allItemsFromCalendar) > 0) {
             $query = "delete from `tiki_calendar_roles` where `calitemId` in (" . implode(',', array_fill(0, count($allItemsFromCalendar), '?')) . ")";
-            $this->query($query, [$allItemsFromCalendar]);
+            $this->query($query, $allItemsFromCalendar);
         }
         // remove calendar items, categories and locations:
         $query = "delete from `tiki_calendar_items` where `calendarId`=?";
