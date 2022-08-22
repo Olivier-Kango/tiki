@@ -106,7 +106,7 @@
                                 {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
                             </a>
                         </action>
-                        <action>  
+                         <action>
                             <a href="{service controller=manager action=verify instanceId=$instance->id}">
                                 {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
                             </a>
@@ -119,6 +119,11 @@
                         <action>
                             <a href="{service controller=manager action=upgrade instanceId=$instance->id}">
                                 {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=checkout instanceId=$instance->id}">
+                                {icon name=logout _menu_text='y' _menu_icon='y' alt="{tr}Checkout{/tr}"}
                             </a>
                         </action>
                     {/strip}{/actions}

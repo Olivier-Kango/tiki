@@ -171,6 +171,13 @@
                         </a>
                     </action>
                 {/if}
+                {if in_array('checkout', $available_actions)}
+                    <action>
+                        <a href="{service controller=manager action=checkout instanceId=$instance->id}">
+                            {icon name=logout _menu_text='y' _menu_icon='y' alt="{tr}Checkout{/tr}"}
+                        </a>
+                    </action>
+                {/if}
             {/strip}{/actions}
         </td>
     </tr>

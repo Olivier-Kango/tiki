@@ -1015,4 +1015,44 @@ class Services_Manager_Controller
             }
         }
     }
+
+    public function action_checkout($input)
+    {
+        $cmd = new TikiManager\Command\CheckoutCommand();
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                '-i' => $input->instanceId->int(),
+                '-f' => $input->folder->text(),
+                '-u' => $input->url->text(),
+                '-b' => $input->branch->text(),
+                '-r' => $input->revision->text()
+            ]);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'override_action' => 'info',
+                'title' => tr('Tiki Manager Checkout'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true
+            ];
+
+        } else {
+
+            $inputValues = [
+                'instanceId' => $input->instanceId->int(),
+            ];
+
+            return [
+                'title' => tr('Tiki Manager Checkout'),
+                'info' => '',
+                'refresh' => true,
+                'inputValues' => $inputValues,
+                'help' => $this->getCommandHelpTexts($cmd)
+            ];
+        } 
+    }
 }
