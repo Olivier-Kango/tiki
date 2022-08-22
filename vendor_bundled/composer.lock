@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43c72a8bd98b79c2a281d2a52bd88026",
+    "content-hash": "1fb58a51de7b32263880a87df4585edc",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -676,17 +676,17 @@
         },
         {
             "name": "bower-asset/fontawesome",
-            "version": "6.1.2",
+            "version": "5.15.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:FortAwesome/Font-Awesome.git",
-                "reference": "701d64a8943214b9767733e7ac0b201f1a08a8b3"
+                "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-701d64a8943214b9767733e7ac0b201f1a08a8b3-zip-58c98c.zip",
-                "reference": "701d64a8943214b9767733e7ac0b201f1a08a8b3",
-                "shasum": "19c13f3234cfe54be64d85318fff1bad8e7c6ae8"
+                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-7d3d774145ac38663f6d1effc6def0334b68ab7e-zip-e26d21.zip",
+                "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e",
+                "shasum": "52396d5470e757975905af164c6dc04319873396"
             },
             "type": "bower-asset"
         },
@@ -2235,13 +2235,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-editor-php-library.git",
-                "reference": "d9eef44af5b5676afbc6233af549e00ee2cee101"
+                "reference": "53dc7bdc57b17f5a0d55a8871a36d1b1bd631e70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-d9eef44af5b5676afbc6233af549e00ee2cee101-zip-62c9da.zip",
-                "reference": "d9eef44af5b5676afbc6233af549e00ee2cee101",
-                "shasum": "bc55dbaa44b3f1b6216f96cce8caab0853467dc7"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-53dc7bdc57b17f5a0d55a8871a36d1b1bd631e70-zip-12c76b.zip",
+                "reference": "53dc7bdc57b17f5a0d55a8871a36d1b1bd631e70",
+                "shasum": "e1fd7a7647b755f536a6c1666411a879027e1ba7"
             },
             "require": {
                 "php": ">=7.0.0"
@@ -2284,7 +2284,7 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2022-08-09T08:59:31+00:00"
+            "time": "2022-08-22T09:01:47+00:00"
         },
         {
             "name": "henrique-borba/php-sieve-manager",
@@ -13453,217 +13453,6 @@
             "time": "2019-12-27T09:44:58+00:00"
         },
         {
-            "name": "phpdocumentor/reflection-common",
-            "version": "2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpdocumentor/reflection-common/phpdocumentor-reflection-common-1d01c49d4ed62f25aa84a747ad35d5a16924662b-zip-401c0c.zip",
-                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b",
-                "shasum": "a8274748c4fdbb24fade14b8ebaf226a79565002"
-            },
-            "require": {
-                "php": "^7.2 || ^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "phpDocumentor\\Reflection\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jaap van Otterdijk",
-                    "email": "opensource@ijaap.nl"
-                }
-            ],
-            "description": "Common reflection classes used by phpdocumentor to reflect the code structure",
-            "homepage": "http://www.phpdoc.org",
-            "keywords": [
-                "FQSEN",
-                "phpDocumentor",
-                "phpdoc",
-                "reflection",
-                "static analysis"
-            ],
-            "time": "2020-06-27T09:03:43+00:00"
-        },
-        {
-            "name": "phpdocumentor/reflection-docblock",
-            "version": "5.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpdocumentor/reflection-docblock/phpdocumentor-reflection-docblock-622548b623e81ca6d78b721c5e029f4ce664f170-zip-d23e93.zip",
-                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170",
-                "shasum": "bd95e8857570ed52022aeb48c23eae464942ef8a"
-            },
-            "require": {
-                "ext-filter": "*",
-                "php": "^7.2 || ^8.0",
-                "phpdocumentor/reflection-common": "^2.2",
-                "phpdocumentor/type-resolver": "^1.3",
-                "webmozart/assert": "^1.9.1"
-            },
-            "require-dev": {
-                "mockery/mockery": "~1.3.2",
-                "psalm/phar": "^4.8"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "phpDocumentor\\Reflection\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mike van Riel",
-                    "email": "me@mikevanriel.com"
-                },
-                {
-                    "name": "Jaap van Otterdijk",
-                    "email": "account@ijaap.nl"
-                }
-            ],
-            "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2021-10-19T17:43:47+00:00"
-        },
-        {
-            "name": "phpdocumentor/type-resolver",
-            "version": "1.6.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "77a32518733312af16a44300404e945338981de3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpdocumentor/type-resolver/phpdocumentor-type-resolver-77a32518733312af16a44300404e945338981de3-zip-d6a1bb.zip",
-                "reference": "77a32518733312af16a44300404e945338981de3",
-                "shasum": "e2e73b0407cdd08fa40fa55e0628e859e27bc69d"
-            },
-            "require": {
-                "php": "^7.2 || ^8.0",
-                "phpdocumentor/reflection-common": "^2.0"
-            },
-            "require-dev": {
-                "ext-tokenizer": "*",
-                "psalm/phar": "^4.8"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "phpDocumentor\\Reflection\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mike van Riel",
-                    "email": "me@mikevanriel.com"
-                }
-            ],
-            "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
-            "time": "2022-03-15T21:29:03+00:00"
-        },
-        {
-            "name": "phpspec/prophecy",
-            "version": "v1.15.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "bbcd7380b0ebf3961ee21409db7b38bc31d69a13"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpspec/prophecy/phpspec-prophecy-bbcd7380b0ebf3961ee21409db7b38bc31d69a13-zip-946eb4.zip",
-                "reference": "bbcd7380b0ebf3961ee21409db7b38bc31d69a13",
-                "shasum": "1b5a7a751c83e2944569cfcca8126905a412f53b"
-            },
-            "require": {
-                "doctrine/instantiator": "^1.2",
-                "php": "^7.2 || ~8.0, <8.2",
-                "phpdocumentor/reflection-docblock": "^5.2",
-                "sebastian/comparator": "^3.0 || ^4.0",
-                "sebastian/recursion-context": "^3.0 || ^4.0"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "^6.0 || ^7.0",
-                "phpunit/phpunit": "^8.0 || ^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Prophecy\\": "src/Prophecy"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com",
-                    "homepage": "http://everzet.com"
-                },
-                {
-                    "name": "Marcello Duarte",
-                    "email": "marcello.duarte@gmail.com"
-                }
-            ],
-            "description": "Highly opinionated mocking framework for PHP 5.3+",
-            "homepage": "https://github.com/phpspec/prophecy",
-            "keywords": [
-                "Double",
-                "Dummy",
-                "fake",
-                "mock",
-                "spy",
-                "stub"
-            ],
-            "time": "2021-12-08T12:19:24+00:00"
-        },
-        {
             "name": "phpunit/php-code-coverage",
             "version": "7.0.15",
             "source": {
@@ -13942,17 +13731,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.28",
+            "version": "8.5.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "8f2d1c9c7b30382459c871467853da1a6e44fbd4"
+                "reference": "e8c563c47a9a303662955518ca532b022b337f4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-8f2d1c9c7b30382459c871467853da1a6e44fbd4-zip-fb7819.zip",
-                "reference": "8f2d1c9c7b30382459c871467853da1a6e44fbd4",
-                "shasum": "9004670b5c7e3654724c9731a0bb15b9f29cd259"
+                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-e8c563c47a9a303662955518ca532b022b337f4d-zip-7de69d.zip",
+                "reference": "e8c563c47a9a303662955518ca532b022b337f4d",
+                "shasum": "d88c96355d0da3d0c3005a6d4f60edadc43cf2f2"
             },
             "require": {
                 "doctrine/instantiator": "^1.3.1",
@@ -13966,7 +13755,6 @@
                 "phar-io/manifest": "^2.0.3",
                 "phar-io/version": "^3.0.2",
                 "php": ">=7.2",
-                "phpspec/prophecy": "^1.10.3",
                 "phpunit/php-code-coverage": "^7.0.12",
                 "phpunit/php-file-iterator": "^2.0.4",
                 "phpunit/php-text-template": "^1.2.1",
@@ -14028,7 +13816,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-07-29T09:20:50+00:00"
+            "time": "2022-08-22T13:59:39+00:00"
         },
         {
             "name": "phpunit/phpunit-selenium",
