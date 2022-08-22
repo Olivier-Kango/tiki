@@ -26,6 +26,10 @@ if (empty($_POST['user'])) {
 require_once('tiki-setup.php');
 global $prefs;
 
+// Refresh not logged in since 30 days user's accounts list
+$userlib = TikiLib::lib('user');
+$userlib->refresh_locked_users_list();
+
 $login_url_params = '';
 $isOpenIdValid = false;
 
@@ -615,6 +619,11 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
         case EMAIL_AMBIGUOUS:
             http_response_code(400);
             $error = tra("There is more than one user account with this email. Please contact the administrator.");
+            break;
+        
+        case ACCOUNT_LOCKED:
+            http_response_code(403);
+            $error = tra("Account is locked. Please contact the administrator.");
             break;
 
         default:

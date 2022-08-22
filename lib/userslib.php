@@ -30,6 +30,7 @@ define('USER_PREVIOUSLY_VALIDATED', -10);
 define('USER_ALREADY_LOGGED', -11);
 define('EMAIL_AMBIGUOUS', -12);
 define('TWO_FA_INCORRECT', -13);
+define('ACCOUNT_LOCKED', -14);
 
 //added for Auth v1.3 support
 define('AUTH_LOGIN_OK', 0);
@@ -1930,6 +1931,8 @@ class UsersLib extends TikiLib
             } else {
                 return [ACCOUNT_DISABLED, $user];
             }
+        } elseif ($res['waiting'] === 'l') {
+            return [ACCOUNT_LOCKED, $user];
         }
 
         if ($validate_phase) {
@@ -8827,6 +8830,80 @@ class UsersLib extends TikiLib
     public function getAutologinAdminActionError(): string
     {
         return tr('This action can\'t be performed while remote session is being used. To allow this action, the preference "Require admin users to enter their password for some critical actions" must be disabled.');
+    }
+
+    public function update_user_lock_status($user, $lock_status)
+    {
+        $cachelib = TikiLib::lib('cache');
+
+        if ($user == 'admin') {
+            return false;
+        }
+
+        $userexists_cache[$user] = null;
+
+        $userId = $this->getOne('select `userId` from `users_users` where `login` = ?', [$user]);
+        // Added a waiting status / flag 'l' for locked
+        $user_lock_update = $lock_status == 'lock' ? 'l' : 'NULL';
+
+        $query = 'update `users_users` set `waiting`= ? where  `userId`= ?';
+        $this->query($query, [ $user_lock_update, $userId ]);
+        
+        $cachelib->invalidate('userslist');
+        //get_strings tr('Account locked:') tr('Account unlocked')
+        $this->send_lock_status_email($user, $lock_status);// Notify user
+
+        TikiLib::events()->trigger('tiki.user.update', ['type' => 'user', 'object' => $user]);
+        $logslib = TikiLib::lib('logs');
+        $logslib->add_log('adminusers', sprintf(tra('%s account %sed'), $user, $lock_status), $user);
+        
+        return true;
+    }
+
+    public function send_lock_status_email($user, $lock_status)
+    {
+        global $prefs;
+        $tikilib = TikiLib::lib('tiki');
+        $smarty = TikiLib::lib('smarty');
+
+        $tpl = "account_lock_status_update";
+
+        include_once('lib/webmail/tikimaillib.php');
+        $languageEmail = $this->get_user_preference($_REQUEST['username'], 'language', $prefs['site_language']);
+        
+        $smarty->assign('lock_status', $lock_status);
+        $smarty->assign('user_name', $_REQUEST['username']);
+        $smarty->assign('mail_site', $_SERVER["SERVER_NAME"]);
+
+        $mail = new TikiMail();
+        $mail_data = $smarty->fetchLang($languageEmail, "mail/". $tpl ."_subject.tpl");
+        $mail_data = sprintf($mail_data, $_SERVER['SERVER_NAME']);
+        $mail->setSubject($mail_data);
+        $mail_data = $smarty->fetchLang($languageEmail, "mail/" . $tpl . ".tpl");
+        $mail->setText($mail_data);
+        
+        $email = $this->get_user_email($user);
+        $mail->send([$email]);
+    }
+
+    public function refresh_locked_users_list()
+    {
+        global $prefs;
+        $now = time();
+
+        if ($prefs['users_admin_auto_lock_user'] === 'y') {
+
+            $before_account_get_locked = $prefs['users_admin_auto_lock_user_days_before_lock'];
+            $days_ago_before_lock = $now - ($before_account_get_locked * 24 * 60 * 60);
+            // Exclude already locked accounts
+            $query = "select `login` from `users_users` where `waiting` <> ? and `lastLogin` < ?";
+            $results = $this->query($query, ['l', $days_ago_before_lock]);
+            $users = $results->result;
+            
+            foreach ($users as $user) {
+                $this->update_user_lock_status($user['login'], 'lock');
+            }
+        }
     }
 }
 

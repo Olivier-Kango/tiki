@@ -1132,4 +1132,82 @@ class Services_User_Controller
         }
         return true;
     }
+
+    
+    public function action_set_user_lock_status($input)
+    {
+        Services_Exception_Denied::checkGlobal('admin_users');
+        $util = new Services_Utilities();
+        // a < action attribute 'lock' has two possible value 'lock' or 'unlock'
+        $status_to_set = $input['lock'];
+        //first pass - show confirm modal popup
+        if ($util->notConfirmPost()) {
+            $util->setVars($input, [], 'checked');
+            if ($util->itemsCount > 0) {
+                if (count($util->items) === 1) {
+                    $msg = tra('%0 the following user?', ucfirst($status_to_set));
+                } else {
+                    $msg = tra('%0 the following users?', ucfirst($status_to_set));
+                }
+                return $util->confirm($msg, tra(ucfirst($status_to_set)));
+            } else {
+                Services_Utilities::modalException(tra('No users were selected. Please select one or more users.'));
+            }
+        //after confirm submit - perform action and return success feedback
+        } elseif ($util->checkCsrf()) {
+            $util->setVars($input, $this->filters, 'items');
+            // lock or unlock the user            
+            $lock_status_updated = $this->updateUserLockStatus($util->items, $status_to_set);
+
+            if ($lock_status_updated) {
+                //prepare feedback
+                if ($util->itemsCount === 1) {
+                    $msg = tra('The following user has been %0ed:', $status_to_set);
+                    $toMsg = tra('Submit form below to ban this user.');
+                } else {
+                    $msg = tra('The following users have been %0ed:',$status_to_set);
+                    $toMsg = tra('Submit form below to ban these users.');
+                }
+                $feedback = [
+                    'tpl' => 'action',
+                    'mes' => $msg,
+                    'items' => $util->items,
+                ];
+
+                //redirect to banning page if selected
+                if ($input['ban_users']) {
+                    $feedback['toMsg'] = $toMsg;
+                    Feedback::success($feedback);
+                    $url = 'tiki-admin_banning.php?mass_ban_ip_users=' . implode('|', $util->items);
+                    return Services_Utilities::redirect($url);
+                //refresh page
+                } else {
+                    if (TIKI_API) {
+                        return ['feedback' => $feedback];
+                    } else {
+                        Feedback::success($feedback);
+                        return Services_Utilities::refresh($util->extra['referer']);
+                    }
+                }
+            }
+        }
+    }
+    
+    private function updateUserLockStatus($users, $newLockStatus, $referer = false)
+    {
+        global $user;
+        foreach ($users as $user_to_lock) {
+            if ($user_to_lock != 'admin') {
+                $res = $this->lib->update_user_lock_status($user_to_lock, $newLockStatus);
+                if ($res === true) {
+                    Feedback::success(tr('User %0 lock status successfully updated', $user_to_lock));
+                } else {
+                    Feedback::error(tr('An error occurred. User %0 lock status could not be updated', $user_to_lock));
+                    Services_Utilities::closeModal($referer);
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
