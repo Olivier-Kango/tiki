@@ -2815,19 +2815,42 @@ class TrackerLib extends TikiLib
                         }
                         //Check recipient
                         if (isset($f['lingualvalue'])) {
+                            $isAvalueDefined = false;   // check if a mandatory field contain at least one language value
+
                             foreach ($f['lingualvalue'] as $val) {
                                 foreach ($multi_languages as $num => $tmplang) {
-                                    //Check if trad is empty
-                                    if (! isset($val['lang']) || ! isset($val['value']) || (($val['lang'] == $tmplang) && strlen($val['value']) == 0)) {
-                                        $mandatory_fields[] = $f;
+                                    if (isset($val['lang']) || isset($val['value']) || (($val['lang'] == $tmplang) && strlen($val['value']) != 0)) {
+                                        $isAvalueDefined = true;
+                                    }
+                                }
+                            }
+                            // mandatory field does not contain any value.
+                            if (! $isAvalueDefined) {
+                                foreach ($f['lingualvalue'] as $val) {
+                                    foreach ($multi_languages as $num => $tmplang) {
+                                        if (! isset($val['lang']) || ! isset($val['value']) || (($val['lang'] == $tmplang) && strlen($val['value']) == 0)) {
+                                            $mandatory_fields[] = $f;
+                                        }
                                     }
                                 }
                             }
                         } elseif (is_array($f['value'])) {
+                            $isAvalueDefined = false;   // check if a mandatory field contain at least one language value
+
                             foreach ($f['value'] as $key => $val) {
                                 foreach ($multi_languages as $num => $tmplang) {
-                                    if ($key == $tmplang && empty($val)) {
-                                        $mandatory_fields[] = $f;
+                                    if ($key == $tmplang && $val) {
+                                        $isAvalueDefined = true;
+                                    }
+                                }
+                            }
+                            // mandatory field does not contain any value
+                            if (! $isAvalueDefined) {
+                                foreach ($f['value'] as $key => $val) {
+                                    foreach ($multi_languages as $num => $tmplang) {
+                                        if ($key == $tmplang && empty($val)) {
+                                            $mandatory_fields[] = $f;
+                                        }
                                     }
                                 }
                             }

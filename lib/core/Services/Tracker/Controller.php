@@ -905,6 +905,42 @@ class Services_Tracker_Controller
         }
 
         global $prefs;
+        if (!empty($fields)) {
+            $noDefaultValueFields = []; // will content all mandatory fields with no value for the default language
+
+            foreach ($processedFields as $key => $f) {
+                if ($f["isMultilingual"] == "y"  && $f["isMandatory"] == "y") {
+                    $field = $fields[$f["permName"]];
+                    $isDefaultValueDefined = false;
+
+                    if (is_array($field)) {
+                        foreach ($field as $k => $v) {
+                            if ($v != "" && $prefs["language"] == $k) {
+                                $isDefaultValueDefined = true;
+                            }
+                        }
+                        // the user fill the default language value of a mandatory field value
+                        // the value will be used for all languages with no value.
+                        if ($isDefaultValueDefined) {
+                            foreach ($field as $k => $v) {
+                                if ($k != $prefs["language"] && $v == "") {
+                                    $fields[$f["permName"]][$k] = $field[$prefs["language"]];
+                                }
+                            }
+                        } else {
+                            $noDefaultValueFields[] = $f["name"];
+                        }
+                    }
+                }
+            }
+            if (! empty($noDefaultValueFields)){
+            	$feedback = "Please note that the mandatory field" . (count($noDefaultValueFields) > 1 ? "s " : " ") . "%0";
+            	$feedback .= (count($noDefaultValueFields) > 1 ? " don't have values" : " doesn't have a value") . " for the language selected by default";
+
+            	Feedback::warning(tr($feedback, implode(", ", $noDefaultValueFields)));
+            }
+        }
+
         if ($prefs['feature_jquery_validation'] === 'y') {
             $validationjs = TikiLib::lib('validators')->generateTrackerValidateJS(
                 $definition->getFields(),
@@ -981,7 +1017,6 @@ class Services_Tracker_Controller
                         Feedback::success(tr('New tracker item %0 successfully created.', $itemId));
                     }
                 }
-
                 // send a new ticket back to allow subsequent new items
                 $util->setTicket();
                 $item['nextTicket'] = $util->getTicket();

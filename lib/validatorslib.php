@@ -55,6 +55,7 @@ class Validators
 
     public function generateTrackerValidateJS($fields_data, $prefix = 'ins_', $custom_rules = '', $custom_messages = '', $custom_handlers = '')
     {
+        global $prefs;
         $validationjs = 'rules: { ';
         foreach ($fields_data as $field_value) {
             if ($field_value['type'] == 'b') {
@@ -67,7 +68,11 @@ class Validators
                 if ($field_value['type'] == 'e' || $field_value['type'] == 'M') {
                     $validationjs .= '"' . $prefix . $field_value['fieldId'] . '[]": { ';
                 } else {
-                    $validationjs .= $prefix . $field_value['fieldId'] . ': { ';
+                    if ($field_value['isMultilingual'] == 'y') {
+                        $validationjs .= "\"ins_" . $field_value['fieldId'] . "[" . end($prefs["available_languages"]) . "]\"" . " : { ";
+                    } else {
+                        $validationjs .= $prefix . $field_value['fieldId'] . ': { ';
+                    }
                 }
                 if ($field_value['isMandatory'] == 'y') {
                     if ($field_value['type'] == 'D') {
@@ -88,7 +93,21 @@ class Validators
                                 $prefix . $field_value['fieldId'] . 'Minute: {required_in_group: [' . $date_ins_num . ', "select[name^=' . $prefix . $field_value['fieldId'] . ']"], ';
                         }
                     } else {
-                        $validationjs .= 'required: true, ';
+                        if ($field_value['isMultilingual'] == 'y') {
+                            $required_script = "required: function(e) { ";
+                            $condition = "";
+                            foreach ($prefs["available_languages"] as $index => $lang) {
+                                if ($index == 0) {
+                                    $condition .= "\"\" == $(\"[name=" . "'ins_" . $field_value['fieldId'] . "[" . $lang . "]'" . "]\").val()";
+                                } else {
+                                    $condition .= " && \"\" == $(\"[name=" . "'ins_" . $field_value['fieldId'] . "[" . $lang . "]'" . "]\").val()";
+                                }
+                            }
+                            $required_script .= "return " . $condition . " }";
+                            $validationjs .= $required_script;
+                        } else {
+                            $validationjs .= 'required: true, ';
+                        }
                     }
                 }
                 if ($field_value['validation']) {
@@ -156,8 +175,13 @@ class Validators
                 $validationjs .= 'required: "' . tra($field_value['validationMessage']) . '" ';
                 $validationjs .= '}, ';
             } elseif ($field_value['isMandatory'] == 'y') {
-                $validationjs .= $prefix . $field_value['fieldId'] . ': { ';
-                $validationjs .= 'required: "' . tra('This field is required') . '" ';
+                if ($field_value['isMultilingual'] == 'y') {
+                    $validationjs .= "\"ins_" . $field_value['fieldId'] . "[" . end($prefs["available_languages"]) . "]\"" . " : { ";
+                    $validationjs .= 'required: "' . tra('The mandatory field ' . $field_value['name'] . ' must contain at least one language value') . '" ';
+                } else {
+                    $validationjs .= $prefix . $field_value['fieldId'] . ': { ';
+                    $validationjs .= 'required: "' . tra('This field is required') . '" ';
+                }
                 $validationjs .= '}, ';
             }
         }
