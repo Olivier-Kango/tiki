@@ -24,6 +24,8 @@
 
 {if $field.value eq ''}
     {assign var=time value="--"}
+{elseif isset($context.timestamp)}
+    {assign var=time value=$context.timestamp}
 {else}
     {assign var=time value=$field.value}
 {/if}
