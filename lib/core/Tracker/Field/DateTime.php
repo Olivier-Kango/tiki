@@ -115,8 +115,14 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
         // but that expects a full valid date value, so always fails
         TikiLib::lib('header')->add_jq_onready('$.validator.classRuleSettings.date = false;
 ');
-
         TikiLib::lib('smarty')->assign('use_24hr_clock', TikiLib::lib('userprefs')->get_user_clock_pref($user));
+
+        if ($this->getOption('datetime') === 'd') {
+            // offset the UTC-stored timestamp of the date by current display timezone, so we actually display the correct date entered by user
+            $context['timestamp'] = $this->getValue() - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $this->getValue());
+        } else {
+            $context['timestamp'] = $this->getValue();
+        }
         return $this->renderTemplate('trackerinput/datetime.tpl', $context);
     }
 
