@@ -16,12 +16,12 @@
             {if $prefs.feature_forums_search eq 'y' or $prefs.feature_forums_name_search eq 'y'}
                 {if $prefs.feature_forums_name_search eq 'y'}
                     <form method="get" class="form" role="form" action="tiki-forums.php">
-                        <div class="mb-3 row">
+                        <div class="mb-3">
                             <div class="input-group">
                                 <span class="input-group-text">
                                     {icon name="search"}
                                 </span>
-                                <input type="text" name="find" class="form-control" value="{$find|escape}" placeholder="{tr}Find{/tr}...">
+                                <input type="text" name="find" class="form-control" value="{$find|escape}" placeholder="{tr}Find{/tr}">
                                 <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">
                                 <input type="submit" class="btn btn-info" value="{tr}Search by name{/tr}" name="search">
                             </div>
@@ -31,19 +31,17 @@
                 {if $prefs.feature_forums_search eq 'y' and $prefs.feature_search eq 'y'}
                     <div class="row mb-4 mx-0">
                         <div class="col-md-5 offset-md-7">
-                        <form class="form" method="get" role="form" action="{if $prefs.feature_search_fulltext neq 'y'}tiki-searchindex.php{else}tiki-searchresults.php{/if}">
-                            <div class="mb-3 row">
+                            <form class="form mb-3" method="get" role="form" action="{if $prefs.feature_search_fulltext neq 'y'}tiki-searchindex.php{else}tiki-searchresults.php{/if}">
                                 <div class="input-group">
-                                     <span class="input-group-text">
+                                    <span class="input-group-text">
                                          {icon name="search"}
                                      </span>
-                                    <input name="highlight" type="text" class="form-control" placeholder="{tr}Find{/tr}...">
+                                    <input name="highlight" type="text" class="form-control" placeholder="{tr}Find{/tr}">
                                     <input type="hidden" name="where" value="forums">
                                     <input type="hidden" name="filter~type" value="forum post">
                                     <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
                                 </div>
-                            </div>
-                        </form>
+                            </form>
                         </div>
                     </div>
                 {/if}
@@ -61,7 +59,7 @@
                             <input name="filter~content" type="text" class="form-control" aria-label="{tr}Find{/tr}" placeholder="{tr}Find{/tr}">
                             <input type="hidden" name="where" value="forums">
                             <input type="hidden" name="filter~type" value="forum post">
-                            <button type="button" class="wikiaction btn-info" name="search" value="{tr}Search in content{/tr}">
+                            <input type="button" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
                         </div>
 
                 </form>
