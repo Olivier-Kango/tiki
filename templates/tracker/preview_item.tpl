@@ -34,7 +34,7 @@
     <div id="comment-container-below" class="well well-sm" data-bs-target="{service controller=comment action=list type=trackeritem objectId=$itemId}"></div>
     {jq}
         var id = '#comment-container-below';
-        $(id).comment_load($(id).data('target'));
+        $(id).comment_load($(id).data('bs-target'));
         $(document).ajaxComplete(function(){$(id).tiki_popover();});
     {/jq}
 {/if}
