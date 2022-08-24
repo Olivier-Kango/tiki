@@ -16,7 +16,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Time for {$inputValues['event']}{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.time}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.time}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -28,12 +28,12 @@
                 <label class="col-form-label col-sm-3">
                     {if $inputValues['action'] == 'manager_backup'}
                         {tr}Instances to be excluded{/tr}
-                        <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.exclude}{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.exclude}{/tr}">
                             {icon name=information}
                         </a>
                     {else}
                         {tr}Instances to be updated{/tr}
-                        <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.instances}{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.instances}{/tr}">
                             {icon name=information}
                         </a>
                     {/if}
@@ -50,7 +50,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Email{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.email}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.email}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -63,7 +63,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Max number of backups to keep{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['max-backups']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['max-backups']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>

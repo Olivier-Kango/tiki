@@ -218,7 +218,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Update endpoint query limit{/tr}
-                        <a class="tikihelp text-info" title="{tr}Update query limit{/tr}: {tr}URL query string encoded parameter list to limit the number of results sent to the update endpoint when exporting. E.g. exclude all entries not having a value in a field: field= (empty) or field=value to limit by specific value.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Update query limit:{/tr} {tr}URL query string encoded parameter list to limit the number of results sent to the update endpoint when exporting. E.g. exclude all entries not having a value in a field: field= (empty) or field=value to limit by specific value.{/tr}">
                             {icon name=information}
                         </a>
                     </label>

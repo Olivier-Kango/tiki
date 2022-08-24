@@ -80,7 +80,7 @@ function getAllTemplateFiles($currentDir)
 function check($file)
 {
     if (file_exists($file)) {
-        $message = basename($file);
+        $message = realpath($file);
         $lineNumber = '';
         if ($fileHandler = fopen($file, "r")) {
             $i = 0;

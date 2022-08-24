@@ -17,7 +17,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Local folder containing a Git repository{/tr}
-                    <a class="tikihelp text-info" title="{tr}Folder{/tr}: {tr}{$help.name}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Folder:{/tr} {tr}{$help.name}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -28,7 +28,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Url of the Git repository{/tr}
-                    <a class="tikihelp text-info" title="{tr}URL{/tr}: {tr}{$help.url}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}URL:{/tr} {tr}{$help.url}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -39,7 +39,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Git branch to checkout{/tr}
-                    <a class="tikihelp text-info" title="{tr}Branch{/tr}: {tr}{$help.name}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Branch:{/tr} {tr}{$help.name}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -50,7 +50,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Revision{/tr}
-                    <a class="tikihelp text-info" title="{tr}Revision{/tr}: {tr}{$help.webroot}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Revision:{/tr} {tr}{$help.webroot}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
