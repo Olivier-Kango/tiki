@@ -12,8 +12,7 @@
 </div>
 
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
-    {tr _0="<a class='alert-link' target='tikihelp' href='http://dev.tiki.org/Security'>" _1="</a>"}Please see the %0Security page%1 on Tiki's developer site.{/tr}
-    {tr}See <a class="alert-link" href="tiki-admin_security.php" title="Security"><strong>Security Admin</strong></a> for additional security settings{/tr}.
+{tr}For additional security settings, Please see {/tr}<a class="alert-link" href="https://doc.tiki.org/Security-Admin" title="Security Admin"><strong>{tr}Security Admin{/tr}</strong></a> {tr}on Tiki's documentation site{/tr}.
 {/remarksbox}
 
 <form class="admin" id="security" name="security" action="tiki-admin.php?page=security" method="post">
