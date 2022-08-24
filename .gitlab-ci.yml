@@ -221,7 +221,7 @@ translation-standards:
     - composer
   needs:
     - composer
-  allow_failure: true
+  allow_failure: false
 
 check-bom-encoding:
   stage: tiki-check
@@ -231,7 +231,7 @@ check-bom-encoding:
     - *run_command_on_files_changed
   dependencies: []
   needs: []
-  allow_failure: true
+  allow_failure: false
 
 unix-ending-line:
   stage: tiki-check
@@ -241,7 +241,7 @@ unix-ending-line:
     - *run_command_on_files_changed
   dependencies: []
   needs: []
-  allow_failure: true
+  allow_failure: false
 
 check-directories:
   image: ${BASE_QA_IMAGE}
@@ -250,7 +250,7 @@ check-directories:
     - php doc/devtools/check_tiki_directories.php
   dependencies: []
   needs: []
-  allow_failure: true
+  allow_failure: false
 
 composer-lock:
   image: ${BASE_QA_IMAGE}
@@ -461,7 +461,6 @@ unit-tests-74-mysql8:
     - name: mysql:8.0.4
       command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
       alias: mysql
-  allow_failure: true
 
 unit-tests-80:
   <<: *template-unit-tests
@@ -475,7 +474,6 @@ unit-tests-80-mysql8:
     - name: mysql:8.0.4
       command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
       alias: mysql
-  allow_failure: true
 
 unit-tests-81:
   <<: *template-unit-tests
