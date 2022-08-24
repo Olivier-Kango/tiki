@@ -64,6 +64,7 @@ class PatchCypht
         $js = str_replace("var ajax = new Hm_Ajax_Request", "var ajax = new tiki_Hm_Ajax_Request", $js);
         $js = preg_replace("#^.*/\* swipe event handler \*/#s", "", $js);
         $js = file_get_contents($vendors . "jason-munro/cypht/third_party/resumable.min.js")."\n\n".$js;
+        $js = file_get_contents($vendors . "jason-munro/cypht/third_party/tingle.min.js")."\n\n".$js;
         file_put_contents($cypht . 'site.js', $js);
     }
 }
