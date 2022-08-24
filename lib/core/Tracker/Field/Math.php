@@ -183,6 +183,17 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
                 $info['fields'][$permName] = $value;
             })
             ;
+        $schema->addNew($permName, 'default-recalc')
+            ->setLabel($this->getConfiguration('name'))
+            ->setRenderTransform(function ($value) {
+                return $value;
+            })
+            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                $info['fields'][$permName] = $value;
+                $data = $info['fields'];
+                $info['fields'][$permName] = $this->handleFinalSave($data);
+            })
+            ;
 
         return $schema;
     }
