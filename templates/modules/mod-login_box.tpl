@@ -188,7 +188,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
                 <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
                     {tr}Log in{/tr}
                 </button>
-                <div class="siteloginbar_poppedup dropdown-menu dropdown-menu-right float-sm-end modal-sm"><div class="card-body">
+                <div class="siteloginbar_poppedup dropdown-menu dropdown-menu-right float-sm-end modal-sm p-3"><div class="card-body">
                     {capture assign="close_tags"}</div></div></div>{$close_tags}{/capture}
         {/if}
 
