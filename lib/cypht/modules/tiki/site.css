@@ -605,9 +605,14 @@ letter-spacing: unset;
 .msg_controls a { margin-right: 3px; white-space: nowrap; }
 .toggle_link { padding-left: 4px !important; padding-right: 12px !important; padding-top: 4px !important;}
 
-.mobile .msg_controls { background: linear-gradient(180deg, #fff, #fff, #f7f2ef) !important; z-index: 100; position: fixed; right: -10px; height: 54px; font-size: 115%; padding-left: 5px !important; padding-top: 5px; left: 65px !important; width: 300px !important;}
+.mobile .msg_controls { background: linear-gradient(180deg, #fff, #fff, #f7f2ef) !important; z-index: 100; position: fixed; right: -10px; height: 54px; font-size: 115%; padding-left: 5px !important; padding-top: 5px; left: 65px !important; width: 330px !important;}
 .mobile .mailbox_list_title { margin-left: -70px; }
 .mobile .move_to_location { margin-right: 30px !important; margin-top: 10px;}
+
+@media only screen and (max-width: 375px) {.mobile .inline-cypht .msg_controls {width: 290px !important;}}
+@media only screen and (max-width: 320px) {.mobile .inline-cypht .msg_controls {width: 250px !important;}}
+@media only screen and (max-width: 280px) {.mobile .inline-cypht .msg_controls {width: 200px !important;}}
+@media only screen and (max-width: 257px) {.mobile .inline-cypht .msg_controls {width: 180px !important;}}
 
 @media (orientation: landscape) { 
   .mobile .msg_controls { top: 12px; height: 26px; width: auto !important;}
