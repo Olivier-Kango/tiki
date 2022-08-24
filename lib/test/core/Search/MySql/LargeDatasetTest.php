@@ -45,24 +45,4 @@ class Search_MySql_LargeDatasetTest extends PHPUnit\Framework\TestCase
 
         $this->index->addDocument($document);
     }
-
-    public function testManyIndexes()
-    {
-        $this->expectException('Search_MySql_LimitReachedException');
-        $typeFactory = $this->index->getTypeFactory();
-        $document = [
-            'object_type' => $typeFactory->identifier('test'),
-            'object_id' => $typeFactory->identifier('test'),
-        ];
-
-        $query = new Search_Query();
-        for ($i = 0; 3000 > $i; ++$i) {
-            $document['field_' . $i] = $typeFactory->sortable('test');
-            $query->filterInitial('test', 'field_' . $i);
-        }
-
-        $this->index->addDocument($document);
-
-        $query->search($this->index);
-    }
 }
