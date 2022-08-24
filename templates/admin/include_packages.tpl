@@ -77,9 +77,9 @@
                     <td>
                         {if $composer_phar_exists}
                             {if $entry.status == 'installed'}
-                                {icon name='success' iclass='tips' ititle="{tr}Status{/tr}:{tr}Installed{/tr}"}
+                                {icon name='success' iclass='tips' ititle="{tr}Status:{/tr}{tr}Installed{/tr}"}
                             {elseif $entry.status == 'missing'}
-                                {icon name='warning' iclass='tips' ititle="{tr}Status{/tr}:{tr}Missing{/tr}"}
+                                {icon name='warning' iclass='tips' ititle="{tr}Status:{/tr}{tr}Missing{/tr}"}
                             {else}
                                 &nbsp;
                             {/if}
@@ -156,7 +156,7 @@
                             {/if}
                         {else}
                             {tr}Removal not available{/tr}
-                            {icon name='info' iclass='tips' ititle="{tr}Removal not available{/tr}:{tr}This package is not managed by Tiki and likely was installed manually.{/tr}"}
+                            {icon name='info' iclass='tips' ititle="{tr}Removal not available:{/tr}{tr}This package is not managed by Tiki and likely was installed manually.{/tr}"}
                         {/if}
                     </td>
                 </tr>
@@ -176,7 +176,7 @@
                             <h4>{tr}Install packages from the administrator interface{/tr}</h4>
                             <p>
                             {tr}The administrator interface can be used to install the packages marked as missing in the list above.{/tr}
-                            {tr}Click the "Fix Missing Packages" button below, and Tiki will try to install them{/tr}:
+                            {tr}Click the "Fix Missing Packages" button below, and Tiki will try to install them:{/tr}
                             </p>
                             <form action="tiki-admin.php?page=packages&cookietab=1" method="post">
                                 <input type="hidden" name="redirect" value="0">
@@ -338,9 +338,9 @@
                         <td width="15%">{$package.required}</td>
                         <td width="10%">
                             {if $package.status == 'installed'}
-                                {icon name='success' iclass='tips' ititle="{tr}Status{/tr}:{tr}Installed{/tr}"}
+                                {icon name='success' iclass='tips' ititle="{tr}Status:{/tr}{tr}Installed{/tr}"}
                             {elseif $package.status == 'missing'}
-                                {icon name='warning' iclass='tips' ititle="{tr}Status{/tr}:{tr}Missing{/tr}"}
+                                {icon name='warning' iclass='tips' ititle="{tr}Status:{/tr}{tr}Missing{/tr}"}
                             {/if}
                         </td>
                         <td width="15%">{$package.installed|default:'&nbsp;'}</td>
@@ -394,9 +394,9 @@
                     <td>
                         {if $composer_phar_exists}
                             {if $entry.status == 'installed'}
-                                {icon name='success' iclass='tips' ititle="{tr}Status{/tr}:{tr}Installed{/tr}"}
+                                {icon name='success' iclass='tips' ititle="{tr}Status:{/tr}{tr}Installed{/tr}"}
                             {elseif $entry.status == 'missing'}
-                                {icon name='warning' iclass='tips' ititle="{tr}Status{/tr}:{tr}Missing{/tr}"}
+                                {icon name='warning' iclass='tips' ititle="{tr}Status:{/tr}{tr}Missing{/tr}"}
                             {else}
                                 &nbsp;
                             {/if}

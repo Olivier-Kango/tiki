@@ -13,10 +13,10 @@
             <input class="form-control" name="name" id="name" value="{tr _0=$info.name|escape}%0 Copy{/tr}">
             <div class="small">
                 {if $info.menuId}
-                    {tr}Clone of Menu Id{/tr}: {$info.menuId|escape}
+                    {tr}Clone of Menu Id:{/tr} {$info.menuId|escape}
                 {/if}
                 {if $symbol}
-                    <a class="btn btn-link btn-sm tips" title="{tr}Symbol Information{/tr}|{tr}Symbol{/tr}: <strong>{$symbol.object}</strong><br>{tr}Profile Name{/tr}: <strong>{$symbol.profile}</strong><br>{tr}Profile Source{/tr}: <strong>{$symbol.domain}</strong>">
+                    <a class="btn btn-link btn-sm tips" title="{tr}Symbol Information{/tr}|{tr}Symbol:{/tr} <strong>{$symbol.object}</strong><br>{tr}Profile Name:{/tr} <strong>{$symbol.profile}</strong><br>{tr}Profile Source:{/tr} <strong>{$symbol.domain}</strong>">
                         {icon name="information"}
                     </a>
                 {/if}

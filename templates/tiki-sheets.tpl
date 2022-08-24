@@ -40,7 +40,7 @@
             {if $sheetId eq 0}
                 <h2>{tr}Create sheet{/tr}</h2>
             {else}
-                <h2>{tr}Configure sheet{/tr}: {$title|escape}</h2>
+                <h2>{tr}Configure sheet:{/tr} {$title|escape}</h2>
             {/if}
             {if $individual eq 'y'}
                 {permission_link mode=link type=sheet id=$sheetId title=$name label="{tr}There are individual permissions set for this sheet{/tr}"}

@@ -22,7 +22,7 @@
         {/if}
         {if $user eq ''}
             <div class="mb-3 row">
-                <label for="from" class="col-sm-3 col-form-label">{tr}Your email{/tr}:</label>
+                <label for="from" class="col-sm-3 col-form-label">{tr}Your email:{/tr}</label>
                 <div class="col-sm-9">
                     <input type="text" id="from" name="from" value="{$from|escape}" class="form-control">
                 </div>

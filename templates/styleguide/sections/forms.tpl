@@ -56,22 +56,22 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".form-control" data-element="background-color">
-                    <label for="tc-field-bg-color">{tr}Background{/tr}:</label>
+                    <label for="tc-field-bg-color">{tr}Background:{/tr}</label>
                     <input id="tc-field-bg-color" data-selector=".form-control" data-element="background-color" data-var="@input-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".form-control" data-element="border-color">
-                    <label for="tc-field-border-color">{tr}Border{/tr}:</label>
+                    <label for="tc-field-border-color">{tr}Border:{/tr}</label>
                     <input id="tc-field-border-color" data-selector=".form-control" data-element="border-color" data-var="@input-border" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".form-control" data-element="color">
-                    <label for="tc-field-text-color">{tr}Text{/tr}:</label>
+                    <label for="tc-field-text-color">{tr}Text:{/tr}</label>
                     <input id="tc-field-text-color" data-selector=".form-control" data-element="color" data-var="@input-color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p>
-                    <label for="tc-field-padding">{tr}Padding{/tr}:</label>
+                    <label for="tc-field-padding">{tr}Padding:{/tr}</label>
                     <input id="tc-field-padding" class="nocolor" data-selector=".form-control" data-element="padding" type="text">
                 </p>
             </div>

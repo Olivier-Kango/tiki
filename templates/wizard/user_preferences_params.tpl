@@ -195,7 +195,7 @@
 
                     {if $prefs.feature_wiki eq 'y'}
                         <tr>
-                            <td>{tr}My pages{/tr}:</td>
+                            <td>{tr}My pages:{/tr}</td>
                             <td>
                                 <input type="checkbox" class="form-check-input" name="mytiki_pages" {if $mytiki_pages eq 'y'}checked="checked"{/if}>
                             </td>

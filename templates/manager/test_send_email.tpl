@@ -16,7 +16,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Email{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}The email address to send the test message{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}The email address to send the test message{/tr}">
                         {icon name=information}
                     </a>
                     </label>

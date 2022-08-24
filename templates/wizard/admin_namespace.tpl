@@ -24,7 +24,7 @@
                 {preference name=namespace_indicator_in_structure}
             {/if}
             <br/>
-            <b>{tr}Settings that may be affected by the namespace separator{/tr}:</b><br/>
+            <b>{tr}Settings that may be affected by the namespace separator:{/tr}</b><br/>
             {icon name="file-text-o" size=2 iclass="float-sm-end"}
 
             {tr}To use :: as a separator, you should also use ::: as the wiki center tag syntax{/tr}.<br/>

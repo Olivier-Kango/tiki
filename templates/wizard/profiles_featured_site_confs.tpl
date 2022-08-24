@@ -16,8 +16,8 @@
                     (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Collaborative_Community_21&show_details_for=Collaborative_Community_21&categories%5B%5D={$tikiMajorVersion}.x&categories%5B%5D=Featured+profiles&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
                     <br>
                     <p>{tr}Setup to help subject experts and enthusiasts work together to build a Knowledge Base{/tr}
-                        <a target="tikihelp" class="tikihelp" title="{tr}Collaborative Community{/tr}:
-                            {tr}Uses{/tr}:
+                        <a target="tikihelp" class="tikihelp" title="{tr}Collaborative Community:{/tr}
+                            {tr}Uses:{/tr}
                             <ul>
                                 <li>{tr}Wiki Editing{/tr}</li>
                                 <li>{tr}Personal Member Spaces{/tr}</li>
@@ -45,8 +45,8 @@
                     <br>
                     <p>
                         {tr}Setup for a Corporate Intranet of a typical medium-sized business{/tr}.
-                        <a target="tikihelp" class="tikihelp" title="{tr}Company Intranet{/tr}:
-                            {tr}Uses{/tr}:
+                        <a target="tikihelp" class="tikihelp" title="{tr}Company Intranet:{/tr}
+                            {tr}Uses:{/tr}
                             <ul>
                                 <li>{tr}Company News Articles{/tr}</li>
                                 <li>{tr}Executive Blog{/tr}</li>
@@ -76,8 +76,8 @@
                     <br>
                     <p>
                         {tr}Setup with many cool features to help you integrate the Social Web and establish a strong presence in the Blogosphere{/tr}
-                        <a target="tikihelp" class="tikihelp" title="{tr}Personal Blog and Profile{/tr}:
-                            {tr}Uses{/tr}:
+                        <a target="tikihelp" class="tikihelp" title="{tr}Personal Blog and Profile:{/tr}
+                            {tr}Uses:{/tr}
                             <ul>
                                 <li>{tr}Blog (Full set of blog related features){/tr}</li>
                                 <li>{tr}Image Gallery{/tr}</li>
@@ -105,8 +105,8 @@
                     <br>
                     <p>
                         {tr}Setup for a Web Presence of a typical small business or non-profit{/tr}.
-                        <a target="tikihelp" class="tikihelp" title="{tr}Small Organization Web Presence{/tr}:
-                            {tr}Uses{/tr}:
+                        <a target="tikihelp" class="tikihelp" title="{tr}Small Organization Web Presence:{/tr}
+                            {tr}Uses:{/tr}
                             <ul>
                                 <li>{tr}Company News & Updates{/tr}</li>
                                 <li>{tr}Highlight Company's Products and Services{/tr}</li>

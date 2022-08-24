@@ -528,7 +528,7 @@
 
                 <div class="mb-3 row">
                     <h3>{tr}Upload Word List for Processing{/tr}</h3>
-                    <p>{tr}Words currently indexed{/tr}: {$num_indexed}</p>
+                    <p>{tr}Words currently indexed:{/tr} {$num_indexed}</p>
 
                     <p>{tr}You may create custom blacklists to better fit your needs. Start by uploading a word list. Then reduce that list to something that applies to your specific configuration and needs with the tools that appear below.{/tr}</p>
 
@@ -537,7 +537,7 @@
 
                         <input type="file" name="passwordlist" accept="text/plain" class="form-control mb-2" />
                         <div class="col-sm-4">
-                            {tr}Use 'LOAD DATA INFILE'{/tr}:
+                            {tr}Use 'LOAD DATA INFILE':{/tr}
                             <input type="checkbox" name="loaddata" />
                             {help desc="{tr}Allows much larger files to be uploaded, but requires MySQL on localhost with extra permissions.{/tr}"}
                         </div>
@@ -562,20 +562,20 @@
                             They can take up quite a lot of space and serve no pourpose after processing is complete.{/tr}"}
                         </div>
 
-                        <p>{tr}Blacklist Currently Using{/tr}: {$file_using}</p>
+                        <p>{tr}Blacklist Currently Using:{/tr} {$file_using}</p>
                         {if $num_indexed}
                             <h3>Generate and Save a Password Blacklist{help desc="{tr}Saving places a text file with the generated passwords in your storage/pass_blacklists folder and enables it
                             as an option for use. Fields default to the password standards set in tiki. You should not have to change these, unless you plan on changing your password
                             requirements in the future.{/tr}"}</h3>
-                            {tr}Number of passwords (limit){/tr}: <input type="number" name="limit" value="{$limit}" />
+                            {tr}Number of passwords (limit):{/tr} <input type="number" name="limit" value="{$limit}" />
                             {help desc="{tr}This sets the number of passwords that your blacklist will use. The words from the begining of of the file will be selected over the lower,
                                         so if you have a list of words arranged with the most common at the top, it will select only the most common works to blacklist.
                                         Typical usage ranges between 1,000 & 10,000, although many more could be used. Twitter blacklists 396.{/tr}"}<br>
-                            {tr}Minimum Password Length{/tr}: <input type="number" name="length" value="{$length}" />
+                            {tr}Minimum Password Length:{/tr} <input type="number" name="length" value="{$length}" />
                             {help desc="{tr}The minimum password length for your password. This will filter out any password that has an illegal length.{/tr}"}<br>
-                            {tr}Require Numbers &amp; Letters{/tr}: <input type="checkbox" name="charnum" {if $charnum}checked{/if} />
+                            {tr}Require Numbers &amp; Letters:{/tr} <input type="checkbox" name="charnum" {if $charnum}checked{/if} />
                             {help desc="{tr}If checked, will filter out any password that does not have both upper and lower case letters.{/tr}"}<br>
-                            {tr}Require Special Characters{/tr}: <input type="checkbox" name="special" {if $special}checked{/if} />
+                            {tr}Require Special Characters:{/tr} <input type="checkbox" name="special" {if $special}checked{/if} />
                             {help desc="{tr}If checked, will filter out any passwords that do not have special characters.{/tr}"}<br>
                             <input
                                 type="submit"

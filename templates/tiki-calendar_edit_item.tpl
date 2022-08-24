@@ -391,7 +391,7 @@
                                     {if $recurrence.nbRecurrences gt 1 or $recurrence.endPeriod gt 0}
                                         {tr}Event is repeated{/tr}&nbsp;
                                         {if $recurrence.nbRecurrences gt 1}
-                                            {$recurrence.nbRecurrences} {tr}times{/tr},&nbsp;
+                                            {$recurrence.nbRecurrences} {tr}times,{/tr}&nbsp;
                                         {/if}
                                         {if $recurrence.weekly}
                                             {tr}on{/tr}&nbsp

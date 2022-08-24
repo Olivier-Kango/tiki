@@ -16,7 +16,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Email{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.email}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.email}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -27,7 +27,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Time{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.time}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.time}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -38,7 +38,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Instances To Exclude{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.exclude}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.exclude}{/tr}">
                         {icon name=information}
                     </a>
                 </label>

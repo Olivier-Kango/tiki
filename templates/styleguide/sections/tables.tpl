@@ -59,7 +59,7 @@
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector="table tr" data-element="color">
-                    <label for="tc-table-color">{tr}Text color{/tr}:</label>
+                    <label for="tc-table-color">{tr}Text color:{/tr}</label>
                     <input id="tc-table-color" data-selector="table tr" data-element="color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -111,16 +111,16 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".table-bordered tr" data-element="background-color">
-                    <label for="tc-bordered-bgcolor">{tr}Background{/tr}:</label>
+                    <label for="tc-bordered-bgcolor">{tr}Background:{/tr}</label>
                     <input id="tc-bordered-bgcolor" data-selector=".table-bordered tr" data-element="background-color" data-var="@table-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p>
-                    <label for="tc-cells-border">{tr}Border{/tr}:</label>
+                    <label for="tc-cells-border">{tr}Border:{/tr}</label>
                     <input id="tc-cells-border" class="nocolor" data-selector=".table-bordered .tb" data-element="border" type="text">
                 </p>
                 <p>
-                    <label for="tc-cells-padding">{tr}Padding{/tr}:</label>
+                    <label for="tc-cells-padding">{tr}Padding:{/tr}</label>
                     <input id="tc-cells-padding" class="nocolor" data-selector=".table > tbody > tr > td" data-element="padding" type="text">
                 </p>
             </div>

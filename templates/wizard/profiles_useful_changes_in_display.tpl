@@ -17,8 +17,8 @@
                     <br/>
                     {tr}This profile sets up a slideshow from a simple wiki page, which you can use to learn the basics of how easily the slideshow system in Tiki works.{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/Slideshow" target="tikihelp" class="tikihelp" title="{tr}Slideshow demo{/tr}:
-                        {tr}More details{/tr}:
+                    <a href="https://doc.tiki.org/Slideshow" target="tikihelp" class="tikihelp" title="{tr}Slideshow demo:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}All content is in a wiki page, which can be printed to your audience in just a few sheets of paper{/tr}</li>
                             <li>{tr}Headers of different levels are used as markers of 'new slide' and used as titles{/tr}</li>
@@ -47,8 +47,8 @@
                     <br/>
                     {tr}This profile hides the fixed top navigation bar (in the top section of modules) on page scroll, while displaying the topbar module in a sticky position at the top afterwards.{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/Navigation+Bar" target="tikihelp" class="tikihelp" title="{tr}Hide Fixed Top Navi Bar on Scroll{/tr}:
-                        {tr}More details{/tr}:
+                    <a href="https://doc.tiki.org/Navigation+Bar" target="tikihelp" class="tikihelp" title="{tr}Hide Fixed Top Navi Bar on Scroll:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Site layout (in Control Panels > Look and Feel > General layout) will be set to 'Classic Bootstrap (fixed top navbar)'{/tr}</li>
                             <li>{tr}Preference Site logo (feature_sitelogo) will be disabled so that logos and site title are not shown twice{/tr}</li>

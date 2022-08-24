@@ -18,7 +18,7 @@
             {if $tiki_p_admin eq 'y' and $langIsWritable}
                 <div class="mb-3 row">
                     <label class="form-label">
-                        {tr}Translations in the database{/tr}: <span class="badge bg-secondary">{$db_translation_count}</span>
+                        {tr}Translations in the database:{/tr} <span class="badge bg-secondary">{$db_translation_count}</span>
                     </label>
                     {if $prefs.lang_control_contribution eq 'y'}
                         <div class="form-check">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="mb-3 row">
                     <label class="form-label">
-                        {tr}File{/tr}: {$langFile}
+                        {tr}File:{/tr} {$langFile}
                     </label>
                 </div>
                 {remarksbox type="warning" title="{tr}Warning{/tr}" close="n"}

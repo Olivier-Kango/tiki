@@ -8,19 +8,19 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p>
-                    <label for="tc-h1-font-size">{tr}Font size{/tr}:</label>
+                    <label for="tc-h1-font-size">{tr}Font size:{/tr}</label>
                     <input id="tc-h1-font-size" class="nocolor" data-selector=".h1" data-element="font-size" data-var="@font-size-h1" type="text">
                 </p>
                 <p>
-                    <label for="tc-h1-font-weight">{tr}Font weight{/tr}:</label>
+                    <label for="tc-h1-font-weight">{tr}Font weight:{/tr}</label>
                     <input id="tc-h1-font-weight" class="nocolor" data-selector=".h1" data-element="font-weight" type="text">
                 </p>
                 <p>
-                    <label for="tc-h1-spacing">{tr}Spacing{/tr}:</label>
+                    <label for="tc-h1-spacing">{tr}Spacing:{/tr}</label>
                     <input id="tc-h1-spacing" class="nocolor" data-selector=".h1" data-element="letter-spacing" type="text">
                 </p>
                 <p class="picker" data-selector=".h1" data-element="color">
-                    <label for="tc-h1-color">{tr}Color{/tr}:</label>
+                    <label for="tc-h1-color">{tr}Color:{/tr}</label>
                     <input id="tc-h1-color" data-selector=".h1" data-element="color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -40,19 +40,19 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p>
-                    <label for="tc-h2-font-size">{tr}Font size{/tr}:</label>
+                    <label for="tc-h2-font-size">{tr}Font size:{/tr}</label>
                     <input id="tc-h2-font-size" class="nocolor" data-selector=".h2" data-element="font-size" data-var="@font-size-h2" type="text">
                 </p>
                 <p>
-                    <label for="tc-h2-font-weight">{tr}Font weight{/tr}:</label>
+                    <label for="tc-h2-font-weight">{tr}Font weight:{/tr}</label>
                     <input id="tc-h2-font-weight" class="nocolor" data-selector=".h2" data-element="font-weight" type="text">
                 </p>
                 <p>
-                    <label for="tc-h2-spacing">{tr}Spacing{/tr}:</label>
+                    <label for="tc-h2-spacing">{tr}Spacing:{/tr}</label>
                     <input id="tc-h2-spacing" class="nocolor" data-selector=".h2" data-element="letter-spacing" type="text">
                 </p>
                 <p class="picker" data-selector=".h2" data-element="color">
-                    <label for="tc-h2-color">{tr}Color{/tr}:</label>
+                    <label for="tc-h2-color">{tr}Color:{/tr}</label>
                     <input id="tc-h2-color" data-selector=".h2" data-element="color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -72,19 +72,19 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p>
-                    <label for="tc-h3-font-size">{tr}Font size{/tr}:</label>
+                    <label for="tc-h3-font-size">{tr}Font size:{/tr}</label>
                     <input id="tc-h3-font-size" class="nocolor" data-selector=".h3" data-element="font-size" data-var="@font-size-h3" type="text">
                 </p>
                 <p>
-                    <label for="tc-h3-font-weight">{tr}Font weight{/tr}:</label>
+                    <label for="tc-h3-font-weight">{tr}Font weight:{/tr}</label>
                     <input id="tc-h3-font-weight" class="nocolor" data-selector=".h3" data-element="font-weight" type="text">
                 </p>
                 <p>
-                    <label for="tc-h3-spacing">{tr}Spacing{/tr}:</label>
+                    <label for="tc-h3-spacing">{tr}Spacing:{/tr}</label>
                     <input id="tc-h3-spacing" class="nocolor" data-selector=".h3" data-element="letter-spacing" type="text">
                 </p>
                 <p class="picker" data-selector=".h3" data-element="color">
-                    <label for="tc-h3-color">{tr}Color{/tr}:</label>
+                    <label for="tc-h3-color">{tr}Color:{/tr}</label>
                     <input id="tc-h3-color" data-selector=".h3" data-element="color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -104,19 +104,19 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p>
-                    <label for="tc-h4-font-size">{tr}Font size{/tr}:</label>
+                    <label for="tc-h4-font-size">{tr}Font size:{/tr}</label>
                     <input id="tc-h4-font-size" class="nocolor" data-selector=".h4" data-element="font-size" data-var="@font-size-h4" type="text">
                 </p>
                 <p>
-                    <label for="tc-h4-font-weight">{tr}Font weight{/tr}:</label>
+                    <label for="tc-h4-font-weight">{tr}Font weight:{/tr}</label>
                     <input id="tc-h4-font-weight" class="nocolor" data-selector=".h4" data-element="font-weight" type="text">
                 </p>
                 <p>
-                    <label for="tc-h4-spacing">{tr}Spacing{/tr}:</label>
+                    <label for="tc-h4-spacing">{tr}Spacing:{/tr}</label>
                     <input id="tc-h4-spacing" class="nocolor" data-selector=".h4" data-element="letter-spacing" type="text">
                 </p>
                 <p class="picker" data-selector=".h4" data-element="color">
-                    <label for="tc-h4-color">{tr}Color{/tr}:</label>
+                    <label for="tc-h4-color">{tr}Color:{/tr}</label>
                     <input id="tc-h4-color" data-selector=".h4" data-element="color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -136,19 +136,19 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p>
-                    <label for="tc-h5-font-size">{tr}Font size{/tr}:</label>
+                    <label for="tc-h5-font-size">{tr}Font size:{/tr}</label>
                     <input id="tc-h5-font-size" class="nocolor" data-selector=".h5" data-element="font-size" data-var="@font-size-h5" type="text">
                 </p>
                 <p>
-                    <label for="tc-h5-font-weight">{tr}Font weight{/tr}:</label>
+                    <label for="tc-h5-font-weight">{tr}Font weight:{/tr}</label>
                     <input id="tc-h5-font-weight" class="nocolor" data-selector=".h5" data-element="font-weight" type="text">
                 </p>
                 <p>
-                    <label for="tc-h5-spacing">{tr}Spacing{/tr}:</label>
+                    <label for="tc-h5-spacing">{tr}Spacing:{/tr}</label>
                     <input id="tc-h5-spacing" class="nocolor" data-selector=".h5" data-element="letter-spacing" type="text">
                 </p>
                 <p class="picker" data-selector=".h5" data-element="color">
-                    <label for="tc-h5-color">{tr}Color{/tr}:</label>
+                    <label for="tc-h5-color">{tr}Color:{/tr}</label>
                     <input id="tc-h5-color" data-selector=".h5" data-element="color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -168,19 +168,19 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p>
-                    <label for="tc-h6-font-size">{tr}Font size{/tr}:</label>
+                    <label for="tc-h6-font-size">{tr}Font size:{/tr}</label>
                     <input id="tc-h6-font-size" class="nocolor" data-selector=".h6" data-element="font-size" data-var="@font-size-h6" type="text">
                 </p>
                 <p>
-                    <label for="tc-h6-font-weight">{tr}Font weight{/tr}:</label>
+                    <label for="tc-h6-font-weight">{tr}Font weight:{/tr}</label>
                     <input id="tc-h6-font-weight" class="nocolor" data-selector=".h6" data-element="font-weight" type="text">
                 </p>
                 <p>
-                    <label for="tc-h6-spacing">{tr}Spacing{/tr}:</label>
+                    <label for="tc-h6-spacing">{tr}Spacing:{/tr}</label>
                     <input id="tc-h6-spacing" class="nocolor" data-selector=".h6" data-element="letter-spacing" type="text">
                 </p>
                 <p class="picker" data-selector=".h6" data-element="color">
-                    <label for="tc-h6-color">{tr}Color{/tr}:</label>
+                    <label for="tc-h6-color">{tr}Color:{/tr}</label>
                     <input id="tc-h6-color" data-selector=".h6" data-element="color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>

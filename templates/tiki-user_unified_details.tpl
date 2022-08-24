@@ -145,7 +145,7 @@
                     {* Wikis Tab *}
                     <div id="tab_wikis" class="profile-tab-content collapse">
                         <h2>{tr}Wiki Pages{/tr}</h2>
-                        <p>{tr}This user has contributed to the following wiki pages{/tr}:</p>
+                        <p>{tr}This user has contributed to the following wiki pages:{/tr}</p>
                         <div class="card">
                             <div class="card-body">
                                 {wikiplugin _name="list"}
@@ -162,7 +162,7 @@
                     {* Blogs Tab *}
                     <div id="tab_blogs" class="profile-tab-content collapse">
                         <h2>{tr}Blogs{/tr}</h2>
-                        <p>{tr}This user has contributed to the following blogs{/tr}:</p>
+                        <p>{tr}This user has contributed to the following blogs:{/tr}</p>
                         <div class="card">
                             <div class="card-body">
                                 {wikiplugin _name="list"}
@@ -179,7 +179,7 @@
                     {* Galleries Tab *}
                     <div id="tab_files" class="profile-tab-content collapse">
                         <h2>{tr}Files{/tr}</h2>
-                        <p>{tr}This user has contributed to the following files{/tr}:</p>
+                        <p>{tr}This user has contributed to the following files:{/tr}</p>
                         <div class="card">
                             <div class="card-body">
                                 {wikiplugin _name="list"}
@@ -196,7 +196,7 @@
                     {* Trackers Tab *}
                     <div id="tab_trackers" class="profile-tab-content collapse">
                         <h2>Tracker Items</h2>
-                        <p>{tr}This user has contributed to the following tracker items{/tr}:</p>
+                        <p>{tr}This user has contributed to the following tracker items:{/tr}</p>
                         <div class="card">
                             <div class="card-body">
                                 {wikiplugin _name="list"}
@@ -213,7 +213,7 @@
                     {* Articles Tab *}
                     <div id="tab_articles" class="profile-tab-content collapse">
                         <h2>{tr}Articles{/tr}</h2>
-                        <p>{tr}This user has contributed to the following articles{/tr}:</p>
+                        <p>{tr}This user has contributed to the following articles:{/tr}</p>
                         <div class="card">
                             <div class="card-body">
                                 {wikiplugin _name="list"}
@@ -230,7 +230,7 @@
                     {* Forum Posts Tab *}
                     <div id="tab_forums" class="profile-tab-content collapse">
                         <h2>{tr}Forum Threads{/tr}</h2>
-                        <p>{tr}This user has started to the following forum threads{/tr}:</p>
+                        <p>{tr}This user has started to the following forum threads:{/tr}</p>
                         <div class="card">
                             <div class="card-body">
                                 {wikiplugin _name="list"}

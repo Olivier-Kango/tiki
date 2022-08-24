@@ -26,8 +26,8 @@
                 {tr}Profile <i>Debug_Mode_Enabled</i> will help you detect potential errors and warnings which are hidden otherwise.{/tr}
                 {tr}Once applied, you might like to apply the opposite profile: <i>Debug_Mode_Disabled</i>, if not changing the appropriate settings by hand.{/tr}
                 <br/>
-                <a href="https://dev.tiki.org/Recovery" target="tikihelp" class="tikihelp" title="{tr}Debug Mode Enabled{/tr} & {tr}Debug Mode Disabled{/tr}:
-                        {tr}More details{/tr}:
+                <a href="https://dev.tiki.org/Recovery" target="tikihelp" class="tikihelp" title="{tr}Debug Mode Enabled{/tr} & {tr}Debug Mode Disabled:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Enables/Disables debugging tools{/tr}</li>
                             <li>{tr}Enables/Disables logging tools{/tr}</li>
@@ -50,8 +50,8 @@
                 <br/>
                 {tr}This configuration profile enables the Scheduler feature and loads a preset of schedulers{/tr}
                 <br/>
-                <a href="https://doc.tiki.org/Scheduler" target="tikihelp" class="tikihelp" title="{tr}Scheduler_Presets{/tr}:
-                        {tr}More details{/tr}:
+                <a href="https://doc.tiki.org/Scheduler" target="tikihelp" class="tikihelp" title="{tr}Scheduler_Presets:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Each scheduler can replace a former cron job action in the server{/tr}</li>
                             <li>{tr}You only need one cron job action in the server, the one that runs the tiki scheduler as frequently as you need.{/tr}</li>
@@ -78,8 +78,8 @@
                 <br/>
                 {tr}This configuration profile showcases the activity stream feature in Tiki.{/tr}
                 <br/>
-                <a href="https://doc.tiki.org/Activity_stream" target="tikihelp" class="tikihelp" title="{tr}Activity Stream{/tr}:
-                        {tr}More details{/tr}:
+                <a href="https://doc.tiki.org/Activity_stream" target="tikihelp" class="tikihelp" title="{tr}Activity Stream:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Activity Stream data can also be reviewed through PluginPivotTable{/tr}</li>
                             <li>{tr}It is somewhat similar to the basic Action log feature in Tiki{/tr}</li>

@@ -13,7 +13,7 @@
         <div class="form-group row mb-3 preference">
             <label class="col-form-label col-sm-3">
                 {tr}Virtualmin server{/tr}
-                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}Choose one of the defined Content Authentication Sources. If you don't see the source in this list, you can define it via Admin -> DSN/Content Authentication.{/tr}">
+                <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}Choose one of the defined Content Authentication Sources. If you don't see the source in this list, you can define it via Admin -> DSN/Content Authentication.{/tr}">
                     {icon name=information}
                 </a>
             </label>
@@ -29,7 +29,7 @@
         <div class="form-group row mb-3">
             <label class="col-form-label col-sm-3">
                 {tr}PHP Version{/tr}
-                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}Choose one of the available PHP versions on the server.{/tr}">
+                <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}Choose one of the available PHP versions on the server.{/tr}">
                     {icon name=information}
                 </a>
             </label>
@@ -42,7 +42,7 @@
         <div class="form-group row mb-3">
             <label class="col-form-label col-sm-3">
                 {tr}Tiki branch{/tr}
-                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.branch}{/tr}">
+                <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.branch}{/tr}">
                     {icon name=information}
                 </a>
             </label>
@@ -58,7 +58,7 @@
         <div class="form-group row mb-3">
             <label class="col-form-label col-sm-3">
                 {tr}Instance name{/tr}
-                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.name}{/tr}">
+                <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.name}{/tr}">
                     {icon name=information}
                 </a>
             </label>
@@ -69,7 +69,7 @@
         <div class="form-group row mb-3">
             <label class="col-form-label col-sm-3">
                 {tr}Domain name{/tr}
-                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}This domain will be created on the target virtualmin server under one of the existing domains managed there. You can specify either a top-level server or a sub-server here - e.g. subdomain.maindomain.com{/tr}">
+                <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}This domain will be created on the target virtualmin server under one of the existing domains managed there. You can specify either a top-level server or a sub-server here - e.g. subdomain.maindomain.com{/tr}">
                     {icon name=information}
                 </a>
             </label>
@@ -80,7 +80,7 @@
         <div class="form-group row mb-3">
             <label class="col-form-label col-sm-3">
                 {tr}Email{/tr}
-                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.email}{/tr}">
+                <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.email}{/tr}">
                     {icon name=information}
                 </a>
             </label>

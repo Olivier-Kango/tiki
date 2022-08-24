@@ -668,7 +668,7 @@
                         <small class="form-text">
                             {tr}Your file should contain in the first row (first entry) the following fields:{/tr}
                             <span class="font-weight-bold">login</span>, <span class="font-weight-bold">password</span>, <span class="font-weight-bold">email</span>, groups, default_group,realName.<br><br>
-                            <span class="font-italic">{tr}Example{/tr}:</span><br>
+                            <span class="font-italic">{tr}Example:{/tr}</span><br>
                             login,password,email,groups,default_group,realName<br>
                             {tr}user1,pass1,email1,group1,group1{/tr}<br>
                             {tr}user2,pass2,email2,"group1,group2",group1{/tr}<br><br>

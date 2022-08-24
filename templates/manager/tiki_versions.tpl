@@ -16,7 +16,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Version Control System{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.vcs}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.vcs}{/tr}">
                         {icon name=information}
                     </a>
                 </label>

@@ -8,7 +8,7 @@
             <label>
                 <input type="checkbox" class="form-check-input" id="connect_feedback_cbx" {if !empty($connect_feedback_showing)}checked="checked"{/if}>
                 {tr}Provide Feedback{/tr}
-                <a href="http://doc.tiki.org/Connect" target="tikihelp" class="tikihelp" title="{tr}Provide Feedback{/tr}:
+                <a href="http://doc.tiki.org/Connect" target="tikihelp" class="tikihelp" title="{tr}Provide Feedback:{/tr}
                     {tr}Once selected, some icon/s will be shown next to all features so that you can provide some on-site feedback about them.{/tr}
                     <br/><br/>
                     <ul>

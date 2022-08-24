@@ -27,8 +27,8 @@
                     <br>
                     {tr}This profile allows you to see a tracker in action with some demo data, and a custom interface in a wiki page to add new items, as well as having them listed for you below.{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/Trackers" target="tikihelp" class="tikihelp" title="{tr}Bug Tracker{/tr}:
-                        {tr}More details{/tr}:
+                    <a href="https://doc.tiki.org/Trackers" target="tikihelp" class="tikihelp" title="{tr}Bug Tracker:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Uses PluginTracker in a wiki page to add items{/tr}</li>
                             <li>{tr}Create some custom feedback for message to the user after item insertion{/tr}</li>
@@ -55,8 +55,8 @@
                     <br>
                     {tr}This profile allows recording time spent on projects. It creates two trackers: one to hold the time spent, and the other with the project names{/tr}.
                     <br/>
-                    <a href="https://doc.tiki.org/Timesheet" target="tikihelp" class="tikihelp" title="{tr}Timesheet{/tr}:
-                            {tr}More details{/tr}:
+                    <a href="https://doc.tiki.org/Timesheet" target="tikihelp" class="tikihelp" title="{tr}Timesheet:{/tr}
+                            {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Allows to track your time spent on projects{/tr}</li>
                             <li>{tr}Customize your project categories{/tr}</li>
@@ -67,7 +67,7 @@
                     >
                         {icon name="help"}
                     </a>
-                    <a href="https://doc.tiki.org/PluginTimesheet" target="tikihelp" class="tikihelp" title="{tr}Plugin Timesheet{/tr}:
+                    <a href="https://doc.tiki.org/PluginTimesheet" target="tikihelp" class="tikihelp" title="{tr}Plugin Timesheet:{/tr}
                         <em>{tr}See also{/tr} {tr}Plugin Timesheet in doc.tiki.org{/tr}</em>"
                     >
                         {icon name="help"}
@@ -91,8 +91,8 @@
                 <br>
                 {tr}This profile creates a tracker with some demo data and wiki interface that will be used to display and manage a Calendar of events in a fancy visual way.{/tr}
                 <br/>
-                <a href="http://doc.tiki.org/PluginTrackerCalendar" target="tikihelp" class="tikihelp" title="{tr}Tracker as Calendar{/tr}:
-                    {tr}More details{/tr}:
+                <a href="http://doc.tiki.org/PluginTrackerCalendar" target="tikihelp" class="tikihelp" title="{tr}Tracker as Calendar:{/tr}
+                    {tr}More details:{/tr}
                     <ul>
                         <li>{tr}Advanced use of Plugin TrackerList{/tr}</li>
                         <li>{tr}Working example of Plugin TrackerCalendar{/tr}</li>
@@ -120,8 +120,8 @@
                 <br>
                 {tr}This profile sets up a Voting system in which only members of a group will be able to vote. It creates a tracker, 2 groups of users, one user in each group and a custom wiki page as interface to vote{/tr}.
                 <br/>
-                <a href="http://doc.tiki.org/E-Democracy+system" target="tikihelp" class="tikihelp" title="{tr}Voting System{/tr}:
-                    {tr}More details{/tr}:
+                <a href="http://doc.tiki.org/E-Democracy+system" target="tikihelp" class="tikihelp" title="{tr}Voting System:{/tr}
+                    {tr}More details:{/tr}
                     <ul>
                         <li>{tr}Group homepage set for the voting group{/tr}</li>
                         <li>{tr}Only one vote per member is allowed{/tr}</li>

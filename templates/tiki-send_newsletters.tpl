@@ -308,7 +308,7 @@ $(".copy-html").click(function () {
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-form-label col-sm-2">{tr}Attached Files{/tr}:</label>
+                    <label class="col-form-label col-sm-2">{tr}Attached Files:{/tr}</label>
                     <div class="col-sm-10">
                         <div style='display: none' id='newsletterfileshack'></div>
                         <div id="newsletterfiles">

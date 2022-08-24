@@ -11,7 +11,7 @@
 
 {if $just_created neq 'n' && $tiki_p_edit_structures == 'y'}
     {remarksbox type="feedback" title="{tr}Feedback{/tr}"}
-        {tr}Structure created{/tr}: <a class='alert-link' href='tiki-edit_structure.php?page_ref_id={$just_created}'>{$just_created_name|escape}</a> <a class='alert-link tips' href='tiki-index.php?page={$just_created_name|escape:"url"}' title=":{tr}View Page{/tr}">{icon name="view"}</a>
+        {tr}Structure created:{/tr} <a class='alert-link' href='tiki-edit_structure.php?page_ref_id={$just_created}'>{$just_created_name|escape}</a> <a class='alert-link tips' href='tiki-index.php?page={$just_created_name|escape:"url"}' title=":{tr}View Page{/tr}">{icon name="view"}</a>
     {/remarksbox}
 {/if}
 

@@ -4,78 +4,78 @@
     <div id="add_reference_block" style="display:none;">
         <div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_auto_biblio_code">{tr}Auto generate Biblio Code{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_auto_biblio_code">{tr}Auto generate Biblio Code:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="checkbox" class="form-check wikiedit" name="ref_auto_biblio_code" id="add_ref_auto_biblio_code" checked="checked" />
                 </div>
             </div>
             <div class="mb-3 row" id="add_biblio_form" style="display: none;">
-                <label class="col-sm-2 col-form-label" for="add_ref_biblio_code">{tr}Biblio Code{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_biblio_code">{tr}Biblio Code:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="ref_biblio_code" id="add_ref_biblio_code" value="" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_author">{tr}Author{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_author">{tr}Author:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_author" id="add_ref_author" value="" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_title">{tr}Title{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_title">{tr}Title:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_title" id="add_ref_title" value="" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_year">{tr}Year{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_year">{tr}Year:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_year" id="add_ref_year" value="" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_part">{tr}Part{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_part">{tr}Part:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_part" id="add_ref_part" value="" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_uri">{tr}URI{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_uri">{tr}URI:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_uri" id="add_ref_uri" value="" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_biblio_code">{tr}Code{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_biblio_code">{tr}Code:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_code" id="add_ref_code" value="" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_publisher">{tr}Publisher{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_publisher">{tr}Publisher:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_publisher" id="add_ref_publisher" value="" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_location">{tr}Location{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_location">{tr}Location:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_location" id="add_ref_location" value="" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_style">{tr}Style{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_style">{tr}Style:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_style" id="add_ref_style" value="" />
                     <span class="form-text">{tr}Enter the CSS class name to be added in the 'li' tag for listing this reference.{/tr}</span>
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_template">{tr}Template{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_template">{tr}Template:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control wikiedit" name="add_ref_template" id="add_ref_template" value="" />
                     <span class="form-text">
-                                            {tr}Enter template format in which you want to display the reference details in the bibliography listing. For example{/tr}: ~title~ (~year~) ~author~
+                                            {tr}Enter template format in which you want to display the reference details in the bibliography listing. For example:{/tr} ~title~ (~year~) ~author~
                                         </span>
                     <span class="form-text">
                                             {tr}All the codes must be in lower case letters separated with spaces.{/tr}

@@ -55,7 +55,7 @@
                     <label class="col-form-label col-sm-2 offset-sm-1">{tr}Sync deletes{/tr}</label>
                     <div class="col-sm-9">
                         <input class="form-check-input" type="checkbox" name="odbc[sync_deletes]" {if $odbc_config.sync_deletes}checked{/if} value="1">
-                        <a class="tikihelp text-warning" title="{tr}Synchronization{/tr}: {tr}Deleting a tracker item or clearing the local tracker will also erase items remotely. Use with care!{/tr}">
+                        <a class="tikihelp text-warning" title="{tr}Synchronization:{/tr} {tr}Deleting a tracker item or clearing the local tracker will also erase items remotely. Use with care!{/tr}">
                             {icon name=warning}
                         </a>
                     </div>
@@ -65,7 +65,7 @@
             <div class="mb-3 row">
                 <label class="form-check-label col-sm-2">
                     {tr}External API source?{/tr}
-                    <a class="tikihelp text-info" title="{tr}Hook External API{/tr}: {tr}Configure authentication through Admin Data Sources (DSN).{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Hook External API:{/tr} {tr}Configure authentication through Admin Data Sources (DSN).{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -79,7 +79,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}List endpoint URL{/tr}
-                        <a class="tikihelp text-info" title="{tr}List URL{/tr}: {tr}URL of the endpoint to read data from.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}List URL:{/tr} {tr}URL of the endpoint to read data from.{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -90,7 +90,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}List endpoint method{/tr}
-                        <a class="tikihelp text-info" title="{tr}List method{/tr}: {tr}HTTP method to access the endpoint. Usually GET.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}List method:{/tr} {tr}HTTP method to access the endpoint. Usually GET.{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -107,7 +107,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}List endpoint parameters{/tr}
-                        <a class="tikihelp text-info" title="{tr}List parameters{/tr}: {tr}Parameters to submit with the list endpoint request (mainly for PUT and POST requests).{/tr}">
+                        <a class="tikihelp text-info" title="{tr}List parameters:{/tr} {tr}Parameters to submit with the list endpoint request (mainly for PUT and POST requests).{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -118,7 +118,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}List endpoint data path{/tr}
-                        <a class="tikihelp text-info" title="{tr}List Data Path{/tr}: {tr}Reading response data might require traversing a data structure. Define the data path here with parent/child relations separated by a dot. E.g. use 'response.data' if response JSON is wrapped in 'response' => { 'data' => ... } structure OR .time_entry if response JSON is of type [ { 'time_entry' => ... }, { 'time_entry' => ... } ].{/tr}">
+                        <a class="tikihelp text-info" title="{tr}List Data Path:{/tr} {tr}Reading response data might require traversing a data structure. Define the data path here with parent/child relations separated by a dot. E.g. use 'response.data' if response JSON is wrapped in 'response' => { 'data' => ... } structure OR .time_entry if response JSON is of type [ { 'time_entry' => ... }, { 'time_entry' => ... } ].{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -129,7 +129,7 @@
                 <div class="row mb-3">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}List endpoint data mapping{/tr}
-                        <a class="tikihelp text-info" title="{tr}Data Mapping{/tr}: {tr}Instead of mapping fields to data keys directly (e.g. JSON or NDJSON) use special mapping here. Leave empty to map directly.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Data Mapping:{/tr} {tr}Instead of mapping fields to data keys directly (e.g. JSON or NDJSON) use special mapping here. Leave empty to map directly.{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -140,7 +140,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Create endpoint URL{/tr}
-                        <a class="tikihelp text-info" title="{tr}Create URL{/tr}: {tr}URL of the endpoint to create new entries when exporting.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Create URL:{/tr} {tr}URL of the endpoint to create new entries when exporting.{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -151,7 +151,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Create endpoint method{/tr}
-                        <a class="tikihelp text-info" title="{tr}Create method{/tr}: {tr}HTTP method to access the endpoint. Usually POST.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Create method:{/tr} {tr}HTTP method to access the endpoint. Usually POST.{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -168,7 +168,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Create endpoint format{/tr}
-                        <a class="tikihelp text-info" title="{tr}Create format{/tr}: {tr}Use special formatting when sending data to create endpoint if tabular's data format is not sufficient. E.g. [&quot;%field1%&quot;, &quot;%field3%&quot;]{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Create format:{/tr} {tr}Use special formatting when sending data to create endpoint if tabular's data format is not sufficient. E.g. [&quot;%field1%&quot;, &quot;%field3%&quot;]{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -179,7 +179,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Update endpoint URL{/tr}
-                        <a class="tikihelp text-info" title="{tr}Update URL{/tr}: {tr}URL of the endpoint to update entries when exporting. Placeholder #id will be replaced with the remote item id if previously imported from remote source.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Update URL:{/tr} {tr}URL of the endpoint to update entries when exporting. Placeholder #id will be replaced with the remote item id if previously imported from remote source.{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -190,7 +190,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Update endpoint method{/tr}
-                        <a class="tikihelp text-info" title="{tr}Update method{/tr}: {tr}HTTP method to access the endpoint. Usually PATCH or PUT.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Update method:{/tr} {tr}HTTP method to access the endpoint. Usually PATCH or PUT.{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -207,7 +207,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Update endpoint format{/tr}
-                        <a class="tikihelp text-info" title="{tr}Update format{/tr}: {tr}Use special formatting when sending data to update endpoint if tabular's data format is not sufficient. E.g. [&quot;%field1%&quot;, &quot;%field3%&quot;]{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Update format:{/tr} {tr}Use special formatting when sending data to update endpoint if tabular's data format is not sufficient. E.g. [&quot;%field1%&quot;, &quot;%field3%&quot;]{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -229,7 +229,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Modify data path{/tr}
-                        <a class="tikihelp text-info" title="{tr}Modify Data Path{/tr}: {tr}Wrap request parameters in a (possibly nested) data structure. E.g. to send the request parameters as 'request' => { 'data' => ... }, specify 'request.data' here.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Modify Data Path:{/tr} {tr}Wrap request parameters in a (possibly nested) data structure. E.g. to send the request parameters as 'request' => { 'data' => ... }, specify 'request.data' here.{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -463,21 +463,21 @@
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[simple_headers]" value="1" {if $config['simple_headers']} checked {/if}>
                         <label class="form-check-label">{tr}Simple headers{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Simple headers{/tr}: {tr}Allow using field labels only as a header row when importing rather than the full &quot;Field [permName:type]&quot; format.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Simple headers:{/tr} {tr}Allow using field labels only as a header row when importing rather than the full &quot;Field [permName:type]&quot; format.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[import_update]" value="1" {if $config['import_update']} checked {/if}>
                         <label class="form-check-label">{tr}Import updates{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Import update{/tr}: {tr}Allow updating existing entries matched by either PK or full record when importing. If this is disabled, only new items will be imported.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Import update:{/tr} {tr}Allow updating existing entries matched by either PK or full record when importing. If this is disabled, only new items will be imported.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[ignore_blanks]" value="1" {if $config['ignore_blanks']} checked {/if}>
                         <label class="form-check-label">{tr}Ignore blanks{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Ignore blanks{/tr}: {tr}Ignore blank values when import is updating existing items. Only non-blank values will be updated this way.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Ignore blanks:{/tr} {tr}Ignore blank values when import is updating existing items. Only non-blank values will be updated this way.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
@@ -486,14 +486,14 @@
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[import_transaction]" value="1" {if $config['import_transaction']} checked {/if}>
                         <label class="form-check-label">{tr}Transactional import{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Import transaction{/tr}: {tr}Import in a single transaction. If any of the items fails validation, the whole import is rejected and nothing is saved.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Import transaction:{/tr} {tr}Import in a single transaction. If any of the items fails validation, the whole import is rejected and nothing is saved.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[bulk_import]" value="1" {if $config['bulk_import']} checked {/if}>
                         <label class="form-check-label">{tr}Bulk import{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Bulk Import{/tr}: {tr}Import in 'bulk' mode so the search index is not updated for each item and no notifications should be sent.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Bulk Import:{/tr} {tr}Import in 'bulk' mode so the search index is not updated for each item and no notifications should be sent.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
@@ -506,7 +506,7 @@
             <div class="row mb-3">
                 <label class="col-form-label col-sm-2">
                     {tr}CSV/JSON Encoding{/tr}
-                    <a class="tikihelp text-info" title="{tr}Encoding{/tr}: {tr}Excel will often expect 'Windows-1252' encoding{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Encoding:{/tr} {tr}Excel will often expect 'Windows-1252' encoding{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -526,7 +526,7 @@
             <div class="row mb-3">
                 <label class="col-form-label col-sm-2">
                     {tr}Data Format{/tr}
-                    <a class="tikihelp text-info" title="{tr}Data Format{/tr}: {tr}Data type generated/expected from export/import functions.{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Data Format:{/tr} {tr}Data type generated/expected from export/import functions.{/tr}">
                         {icon name=information}
                     </a>
                 </label>

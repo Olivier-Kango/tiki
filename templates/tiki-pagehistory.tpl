@@ -311,7 +311,7 @@
                             {tr}Version{/tr}
                         </th>
                         <th>
-                            {icon name='html' iclass='tips' ititle='{tr}HTML allowed{/tr}:{tr}HTML syntax is allowed either by page setting or use of the WYSIWIG editor{/tr}'}
+                            {icon name='html' iclass='tips' ititle='{tr}HTML allowed:{/tr}{tr}HTML syntax is allowed either by page setting or use of the WYSIWIG editor{/tr}'}
                         </th>
                         <th></th>
                         {if $prefs.default_wiki_diff_style != "old" and $history}

@@ -281,17 +281,17 @@
                         <td>{$entry.short}</td>
                         <td id="profile-status-{$k}">
                             {if $entry.status == 'open'}
-                                {icon name='status-open' iclass='tips' ititle="{tr}Status{/tr}:{tr}Open{/tr}"}
-                                {icon name='status-pending' istyle='display:none' iclass='tips' ititle="{tr}Status{/tr}:{tr}Pending{/tr}"}
-                                {icon name='status-closed' istyle='display:none' iclass='tips' ititle="{tr}Status{/tr}:{tr}Closed{/tr}"}
+                                {icon name='status-open' iclass='tips' ititle="{tr}Status:{/tr}{tr}Open{/tr}"}
+                                {icon name='status-pending' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Pending{/tr}"}
+                                {icon name='status-closed' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Closed{/tr}"}
                             {elseif $entry.status == 'closed'}
-                                {icon name='status-open' istyle='display:none' iclass='tips' ititle="{tr}Status{/tr}:{tr}Open{/tr}"}
-                                {icon name='status-pending' istyle='display:none' iclass='tips' ititle="{tr}Status{/tr}:{tr}Pending{/tr}"}
-                                {icon name='status-closed' iclass='tips' ititle="{tr}Status{/tr}:{tr}Closed{/tr}"}
+                                {icon name='status-open' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Open{/tr}"}
+                                {icon name='status-pending' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Pending{/tr}"}
+                                {icon name='status-closed' iclass='tips' ititle="{tr}Status:{/tr}{tr}Closed{/tr}"}
                             {else}
-                                {icon name='status-open' istyle='display:none' iclass='tips' ititle="{tr}Status{/tr}:{tr}Open{/tr}"}
-                                {icon name='status-pending' iclass='tips' ititle="{tr}Status{/tr}:{tr}Pending{/tr}"}
-                                {icon name='status-closed' istyle='display:none' iclass='tips' ititle="{tr}Status{/tr}:{tr}Closed{/tr}"}
+                                {icon name='status-open' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Open{/tr}"}
+                                {icon name='status-pending' iclass='tips' ititle="{tr}Status:{/tr}{tr}Pending{/tr}"}
+                                {icon name='status-closed' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Closed{/tr}"}
                             {/if}
                         </td>
                         <td><span id="profile-date-{$k}">{$entry.formatted}</span> <a href='javascript:$.profilesRefreshCache("{$baseURI}", "{$k}")' title="{tr}Refresh{/tr}">{icon name="refresh" iclass='tips' ititle=":{tr}Refresh{/tr}"}</a></td>

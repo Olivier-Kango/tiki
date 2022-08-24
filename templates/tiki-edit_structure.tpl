@@ -1,4 +1,4 @@
-{title url="tiki-edit_structure.php?page_ref_id=$page_ref_id"}{tr}Structure{/tr}: {$structure_name}{/title}
+{title url="tiki-edit_structure.php?page_ref_id=$page_ref_id"}{tr}Structure:{/tr} {$structure_name}{/title}
 
 <div class="t_navbar mb-4">
     {button href="tiki-admin_structures.php" _text="{tr}Structures{/tr}"}
@@ -62,7 +62,7 @@
     {if $editable eq 'y'}
         <form action="tiki-edit_structure.php?page_ref_id={$page_ref_id}" method="post" class="d-flex flex-row flex-wrap align-items-center" role="form" style="display: inline-block">
             <div class="mb-3 row">
-                <label for="pageAlias" class="col-sm-4 col-form-label">{tr}Alias{/tr}:</label>
+                <label for="pageAlias" class="col-sm-4 col-form-label">{tr}Alias:{/tr}</label>
                 <div class="col-sm-8">
                     <input type="hidden" name="page_ref_id" value="{$structure_id}">
                     <div class="input-group">

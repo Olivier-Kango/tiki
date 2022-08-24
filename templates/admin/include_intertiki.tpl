@@ -89,7 +89,7 @@
                                                 name="del"
                                                 value="{$k}"
                                                 class="btn btn-link tips"
-                                                title="{tr}Delete master server{/tr}:{$k}"
+                                                title="{tr}Delete master server:{/tr}{$k}"
                                                 onclick="confirmPopup('{tr}Remove this server?{/tr}')"
                                             >
                                                 {icon name='delete'}

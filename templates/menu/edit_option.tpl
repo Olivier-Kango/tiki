@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-form-label col-md-3" for="type">{tr}Type{/tr}:</label>
+                <label class="col-form-label col-md-3" for="type">{tr}Type:{/tr}</label>
 
                 <div class="col-md-9">
                     <select name="type" class="form-select">

@@ -9,7 +9,7 @@
     </div>
 
     {remarksbox type="note" title="{tr}Note{/tr}"}
-                  {tr}To use socnets integration and/or login you need at least{/tr}:
+                  {tr}To use socnets integration and/or login you need at least:{/tr}
                  <ol>
                     <li>{tr}Register your site as a web application at the corresponding socnets site(s){/tr}.</li>
                     <li>{tr}Enable that socnet settings with a tick in the ENABLED tab below{/tr}.</li>

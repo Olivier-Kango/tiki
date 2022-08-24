@@ -17,7 +17,7 @@
                 <label class="col-form-label col-sm-3">
                     {tr}Instances{/tr}
                     <a class="tikihelp text-info"
-                        title="{tr}Description{/tr}: {tr}Instances to update. You can choose one or multiple instances.{/tr}">
+                        title="{tr}Description:{/tr} {tr}Instances to update. You can choose one or multiple instances.{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -33,7 +33,7 @@
                 <label class="col-form-label col-sm-3">
                     {tr}Tiki Version{/tr}
                     <a class="tikihelp text-info"
-                        title="{tr}Description{/tr}: {tr}The version you want to upgrade to. Please note that you should NOT downgrade as Tiki doesn't support a downgrade database script. An upgrade is a one-way street! You should make a backup before you upgrade so you can return to this version if issues arise.{/tr}">
+                        title="{tr}Description:{/tr} {tr}The version you want to upgrade to. Please note that you should NOT downgrade as Tiki doesn't support a downgrade database script. An upgrade is a one-way street! You should make a backup before you upgrade so you can return to this version if issues arise.{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -50,7 +50,7 @@
                 <label class="col-form-label col-sm-3">
                     {tr}Check{/tr}
                     <a class="tikihelp text-info"
-                        title="{tr}Description{/tr}: {tr}{$help.check}{/tr}">
+                        title="{tr}Description:{/tr} {tr}{$help.check}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -64,7 +64,7 @@
                 <label class="col-form-label col-sm-3">
                     {tr}Skip Reindex{/tr}
                     <a class="tikihelp text-info"
-                        title="{tr}Description{/tr}: {tr}{$help['skip-reindex']}{/tr}">
+                        title="{tr}Description:{/tr} {tr}{$help['skip-reindex']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -78,7 +78,7 @@
                 <label class="col-form-label col-sm-3">
                     {tr}Skip cache warmup{/tr}
                     <a class="tikihelp text-info"
-                        title="{tr}Description{/tr}: {tr}{$help['skip-cache-warmup']}{/tr}">
+                        title="{tr}Description:{/tr} {tr}{$help['skip-cache-warmup']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -92,7 +92,7 @@
                 <label class="col-form-label col-sm-3">
                     {tr}Live reindex{/tr}
                     <a class="tikihelp text-info"
-                        title="{tr}Description{/tr}: {tr}{$help['live-reindex']}{/tr}">
+                        title="{tr}Description:{/tr} {tr}{$help['live-reindex']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -105,7 +105,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Lag{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.lag}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.lag}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -117,7 +117,7 @@
                 <label class="col-form-label col-sm-3">
                     {tr}Stash{/tr}
                     <a class="tikihelp text-info"
-                        title="{tr}Description{/tr}: {tr}{$help.stash}{/tr}">
+                        title="{tr}Description:{/tr} {tr}{$help.stash}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -131,7 +131,7 @@
                 <label class="col-form-label col-sm-3">
                     {tr}Ignore requirements{/tr}
                     <a class="tikihelp text-info"
-                        title="{tr}Description{/tr}: {tr}{$help['ignore-requirements']}{/tr}">
+                        title="{tr}Description:{/tr} {tr}{$help['ignore-requirements']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>

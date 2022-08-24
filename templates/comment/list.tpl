@@ -4,12 +4,12 @@
     <h3>{tr}Comments{/tr}
         <span class="lock">
             {if ! $parentId && $allow_lock}
-                <a href="{bootstrap_modal controller=comment action=lock type=$type objectId=$objectId}" class="btn btn-link btn-sm tips" title="{tr}Comments unlocked{/tr}:{tr}Lock comments{/tr}">
+                <a href="{bootstrap_modal controller=comment action=lock type=$type objectId=$objectId}" class="btn btn-link btn-sm tips" title="{tr}Comments unlocked:{/tr}{tr}Lock comments{/tr}">
                     {icon name="unlock"}
                 </a>
             {/if}
             {if ! $parentId && $allow_unlock}
-                <a href="{bootstrap_modal controller=comment action=unlock type=$type objectId=$objectId}" class="btn btn-link btn-sm tips" title="{tr}Comments locked{/tr}:{tr}Unlock comments{/tr}">
+                <a href="{bootstrap_modal controller=comment action=unlock type=$type objectId=$objectId}" class="btn btn-link btn-sm tips" title="{tr}Comments locked:{/tr}{tr}Unlock comments{/tr}">
                     {icon name="lock"}
                 </a>
             {/if}

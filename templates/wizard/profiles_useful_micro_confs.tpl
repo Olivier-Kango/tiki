@@ -17,7 +17,7 @@
                     <br/>
                     {tr}This profile sets up a side module with a menu based on a wiki page in the right hand-side column.{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/Module-menupage" target="tikihelp" class="tikihelp" title="{tr}Menu on Wiki page{/tr}:
+                    <a href="https://doc.tiki.org/Module-menupage" target="tikihelp" class="tikihelp" title="{tr}Menu on Wiki page:{/tr}
                         {tr}With this profile you can:{/tr}
                         <ul>
                             <li>{tr}use wiki syntax to edit it{/tr}</li>
@@ -45,7 +45,7 @@
                     <br/>
                     {tr}This profile adds a module in the top zone that displays a random image from a File Gallery{/tr}.
                     <br/>
-                    <a href="https://doc.tiki.org/PluginImg" target="tikihelp" class="tikihelp" title="{tr}Random header images{/tr}:
+                    <a href="https://doc.tiki.org/PluginImg" target="tikihelp" class="tikihelp" title="{tr}Random header images:{/tr}
                         {tr}Some sample images to fit the default configuration are also provided as a starting point:{/tr}
                         <ul>
                             <li>{tr}default configuration uses images at 800x150px resized by the top module parameters to match the header default size{/tr}</li>
@@ -76,12 +76,12 @@
                     <br/>
                     {tr}This profile allows Tiki content translation, and sets up modules to change language and to display links to page translations with their percentage of completion.{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/Multilingual-Wiki" target="tikihelp" class="tikihelp" title="{tr}Multilingual Wiki{/tr}:
+                    <a href="https://doc.tiki.org/Multilingual-Wiki" target="tikihelp" class="tikihelp" title="{tr}Multilingual Wiki:{/tr}
                         {tr}The enabled features comprise:{/tr}
                         <ul>
-                            <li>{tr}Multilingual{/tr}, {tr}Translation assistant{/tr}, {tr}Urgent translation notifications{/tr}</li>
-                            <li>{tr}Multilingual structures{/tr}, {tr}Quantify change size{/tr}, {tr}Multilingual freetags{/tr}</li>
-                            <li>{tr}Show pages in user's preferred language{/tr}, {tr}Detect browser language{/tr}</li>
+                            <li>{tr}Multilingual,{/tr} {tr}Translation assistant,{/tr} {tr}Urgent translation notifications{/tr}</li>
+                            <li>{tr}Multilingual structures,{/tr} {tr}Quantify change size,{/tr} {tr}Multilingual freetags{/tr}</li>
+                            <li>{tr}Show pages in user's preferred language,{/tr} {tr}Detect browser language{/tr}</li>
                         </ul>
                         {tr}Click to read more{/tr}"
                     >
@@ -104,8 +104,8 @@
                     <br>
                     {tr}This profile will create a set of categories and subcategories in your site with the names of countries grouped by regions{/tr}.
                     <br/>
-                    <a href="https://profiles.tiki.org/Countries+By+Region" target="tikihelp" class="tikihelp" title="{tr}Countries By Region{/tr}:
-                        {tr}The regions listed with their countries are{/tr}:
+                    <a href="https://profiles.tiki.org/Countries+By+Region" target="tikihelp" class="tikihelp" title="{tr}Countries By Region:{/tr}
+                        {tr}The regions listed with their countries are:{/tr}
                         <ul>
                             <li>{tr}Saharan, Sub-Saharan Africa{/tr}</li>
                             <li>{tr}Middle East, North Africa{/tr}</li>

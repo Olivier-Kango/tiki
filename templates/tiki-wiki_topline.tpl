@@ -95,7 +95,7 @@
                             <div class="dropdown-divider"></div>
                             {*<li role="presentation">*}
                                 {section name=struct loop=$showstructs}
-                                    <a href="tiki-index.php?page={$page|escape:url}&amp;structure={$showstructs[struct].pageName|escape:url}" {if isset($structure_path[0].pageName) and $showstructs[struct].pageName eq $structure_path[0].pageName} title="Current structure: {$showstructs[struct].pageName|escape}" class="dropdown-item selected tips" {else} class="dropdown-item tips" title="{tr}Show structure{/tr}: {$showstructs[struct].pageName|escape}"{/if}>
+                                    <a href="tiki-index.php?page={$page|escape:url}&amp;structure={$showstructs[struct].pageName|escape:url}" {if isset($structure_path[0].pageName) and $showstructs[struct].pageName eq $structure_path[0].pageName} title="Current structure: {$showstructs[struct].pageName|escape}" class="dropdown-item selected tips" {else} class="dropdown-item tips" title="{tr}Show structure:{/tr} {$showstructs[struct].pageName|escape}"{/if}>
                                         {if $showstructs[struct].page_alias}
                                             {$showstructs[struct].page_alias}
                                         {else}

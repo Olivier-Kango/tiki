@@ -14,7 +14,7 @@
         {remarksbox type="tip" title="{tr}Tip{/tr}"}
             {tr}Mouse over the icons to know more about the features and preferences that are new for you.{/tr}
             {tr}Example: {/tr}
-            <a href="http://doc.tiki.org/Wizards" target="tikihelp" class="alert-link tikihelp" title="{tr}Help icon{/tr}:
+            <a href="http://doc.tiki.org/Wizards" target="tikihelp" class="alert-link tikihelp" title="{tr}Help icon:{/tr}
                 {tr}You will get more information about the features and preferences whenever this icon is available and you pass your mouse over it.{/tr}
                 <br/><br/>{tr}Moreover, if you click on it, you'll be directed in a new window to the corresponding documentation page for further information on that feature or topic.{/tr}"
             >
@@ -33,7 +33,7 @@
                     {tr _0="<b>" _1="</b>"}You may start by applying some of our configuration templates through the %0Configuration Profiles Wizard%1.{/tr}
                     {tr _0="<b>Macros</b>"}They are like the %0 from many computer languages.{/tr}
                     {tr}It is best to apply them from the start and you can always preview and reverse the process.{/tr}
-                    <a href="http://doc.tiki.org/Profiles+Wizard" target="tikihelp" class="tikihelp text-warning" title="{tr}Configuration Profiles{/tr}:
+                    <a href="http://doc.tiki.org/Profiles+Wizard" target="tikihelp" class="tikihelp text-warning" title="{tr}Configuration Profiles:{/tr}
                         <p>{tr}Each of these provides a shrink-wrapped solution that meets most of the needs of a particular kind of community or site (Personal Blog space, Company Intranet, ...) or that extends basic setup with extra features configured for you.{/tr}</p>
                         <p>{tr}If you are new to Tiki administration, we recommend that you start with this approach.{/tr}</p>
                         <p>{tr}If the profile you selected does not quite meet your needs, you will still have the option of customizing it further with one of the approaches below.{/tr}</p>"
@@ -56,7 +56,7 @@
                     {tr _0="<b>" _1="</b>"}Alternatively, you may use the %0Configuration Wizard%1.{/tr}
                     {tr}This will guide you through the most common preference settings in order to customize your site.{/tr}
                     {tr}You will easily be able to configure options like: languages, date and time, user login, theme, website title and logo, etc.{/tr}
-                    <a href="http://doc.tiki.org/Admin-Wizard" target="tikihelp" class="tikihelp text-info" title="{tr}Configuration Wizard{/tr}:
+                    <a href="http://doc.tiki.org/Admin-Wizard" target="tikihelp" class="tikihelp text-info" title="{tr}Configuration Wizard:{/tr}
                         {tr}Use this wizard if none of the <b>Configuration Profiles</b> look like a good starting point, or if you need to customize your site further{/tr}"
                     >
                         {icon name="help"}
@@ -75,7 +75,7 @@
                 <p>
                     {tr _0="<b>" _1="</b>"}Or you may use the %0Changes Wizard%1{/tr}.
                     {tr}This will guide you through the most common new settings and informations in order to upgrade your site.{/tr}
-                    <a href="http://doc.tiki.org/Upgrade+Wizard" target="tikihelp" class="tikihelp text-success" title="{tr}Changes Wizard{/tr}:
+                    <a href="http://doc.tiki.org/Upgrade+Wizard" target="tikihelp" class="tikihelp text-success" title="{tr}Changes Wizard:{/tr}
                         {tr}Use this wizard if you are upgrading from previous versions of Tiki, specially if you come from the previous Long-Term Support (LTS) version.{/tr}</p>
 
                         <p>{tr}Some of these settings are also available through the Configuration Wizard, and all of them are available through Control Panels{/tr}.
@@ -100,7 +100,7 @@
                     {tr _0="<b>" _1="</b>"}Use the %0Control Panels%1 to manually browse through the full list of preferences{/tr}.
                     {tr}From the main administration page you'll be able to configure your Tiki, to enable features not set on by default and to change settings{/tr}.
                     {tr}To Avoid Getting Overwhelmed by the impressive number of settings as a Startup Tiki Admin we set a preferences filters for Basic and Advanced features to start with.{/tr}
-                    <a href="https://doc.tiki.org/Admin-Home" target="tikihelp" class="tikihelp text-primary" title="{tr}Control Panels{/tr}: {tr}Explore the control panels and configure your Tiki manually.{/tr}" >{icon name="help"}</a>
+                    <a href="https://doc.tiki.org/Admin-Home" target="tikihelp" class="tikihelp text-primary" title="{tr}Control Panels:{/tr} {tr}Explore the control panels and configure your Tiki manually.{/tr}" >{icon name="help"}</a>
                 </p>
 
                 {button href="tiki-admin.php" _class="btn-primary" _text="{tr}Go to the Control Panels{/tr}"}
@@ -117,7 +117,7 @@
                     {tr _0=$tiki_version}You can check if your server meets the requirements for running Tiki version %0{/tr}.
                     {tr}Using our home made standalone script for server environment settings diagnostics you can check that everything is ready to run your Tiki properly.{/tr}
                     {tr}It is very useful for any PHP app, as it checks over 50 different things and provides contextual feedback{/tr}.
-                    <a href="https://doc.tiki.org/Server-Check" target="tikihelp" class="tikihelp text-danger" title="{tr}Server Fitness{/tr}: {tr}Check your server fitness.{/tr}">
+                    <a href="https://doc.tiki.org/Server-Check" target="tikihelp" class="tikihelp text-danger" title="{tr}Server Fitness:{/tr} {tr}Check your server fitness.{/tr}">
                         {icon name="help"}
                     </a>
                 </p>

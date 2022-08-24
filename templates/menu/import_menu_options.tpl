@@ -6,10 +6,10 @@
 
 {block name="content"}
     {remarksbox type="tip" title="{tr}Tips{/tr}"}
-        {tr}Menu{/tr}: {$menuInfo.name|escape} ({tr}Id{/tr}: {$menuInfo.menuId|escape})
+        {tr}Menu:{/tr} {$menuInfo.name|escape} ({tr}Id:{/tr} {$menuInfo.menuId|escape})
         {if $menuSymbol}
             <span class="form-text">
-                {tr}Symbol{/tr}:{$menuSymbol.object} ({tr}Profile Name{/tr}:{$menuSymbol.profile}, {tr}Profile Source{/tr}:{$menuSymbol.domain})
+                {tr}Symbol:{/tr}{$menuSymbol.object} ({tr}Profile Name:{/tr}{$menuSymbol.profile}, {tr}Profile Source:{/tr}{$menuSymbol.domain})
             </span>
         {/if}
         <p>

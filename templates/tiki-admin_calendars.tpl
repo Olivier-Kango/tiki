@@ -86,29 +86,17 @@
                     <td class="id">{$id}</td>
                     <td class="text">
                         <a class="tablename" href="tiki-admin_calendars.php?calendarId={$id}&cookietab=2" title="{tr}Edit{/tr}">{$cal.name|escape}</a>
-                        {if $cal.show_calname eq 'y'} {icon name="list-alt" class="tips" title="{tr}Name{/tr}:{tr}Field will show in popup{/tr}"}{/if}
+                        {if $cal.show_calname eq 'y'} {icon name="list-alt" class="tips" title="{tr}Name:{/tr}{tr}Field will show in popup{/tr}"}{/if}
                     </td>
                     <td class="text">
-                        {$cal.customlocations|yesno}{if $cal.show_location eq 'y'}{icon name="list-alt" class="tips" title="{tr}Custom location{/tr}:{tr}Field will show in popup{/tr}"}{/if}
+                        {$cal.customlocations|yesno}{if $cal.show_location eq 'y'}{icon name="list-alt" class="tips" title="{tr}Custom location:{/tr}{tr}Field will show in popup{/tr}"}{/if}
                     </td>
                     <td class="text">
-                        {$cal.customparticipants|yesno}{if $cal.show_participants eq 'y'}{icon name="list-alt" class="tips" title="{tr}Custom participants{/tr}:{tr}Field will show in popup{/tr}"}{/if}
+                        {$cal.customparticipants|yesno}{if $cal.show_participants eq 'y'}{icon name="list-alt" class="tips" title="{tr}Custom participants:{/tr}{tr}Field will show in popup{/tr}"}{/if}
                     </td>
-{*
                     <td class="text">
-                        {$cal.customcategories|yesno}{if $cal.show_category eq 'y'}{icon name="list-alt" class="tips" title="{tr}Custom categories{/tr}:{tr}Field will show in popup{/tr}"}{/if}
+                        {$cal.customlanguages|yesno}{if $cal.show_language eq 'y'}{icon name="list-alt" class="tips" title="{tr}Custom languages:{/tr}{tr}Field will show in popup{/tr}"}{/if}
                     </td>
-*}
-                    <td class="text">
-                        {$cal.customlanguages|yesno}{if $cal.show_language eq 'y'}{icon name="list-alt" class="tips" title="{tr}Custom languages{/tr}:{tr}Field will show in popup{/tr}"}{/if}
-                    </td>
-{*
-                    <td class="text">
-                        {$cal.customurl|yesno}{if $cal.show_url eq 'y'}{icon name="list-alt" class="tips" title="{tr}Custom URL{/tr}:{tr}Field will show in popup{/tr}"}{/if}
-                    </td>
-                    <td class="text">{$cal.custompriorities|yesno}</td>
-                    <td class="text">{$cal.customsubscription|yesno}</td>
-*}
                     <td class="text">{$cal.personal|yesno}</td>
                     <td class="action">
                         {actions}

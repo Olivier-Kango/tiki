@@ -126,7 +126,7 @@
         {ticket}
         {if empty($referenceinfo.biblio_code)}
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="add_ref_auto_biblio_code">{tr}Auto generate Biblio Code{/tr}:</label>
+                <label class="col-sm-2 col-form-label" for="add_ref_auto_biblio_code">{tr}Auto generate Biblio Code:{/tr}</label>
                 <div class="col-sm-10">
                     <input type="checkbox" class="form-check wikiedit" name="ref_auto_biblio_code" id="add_ref_auto_biblio_code" checked="checked" />
                 </div>

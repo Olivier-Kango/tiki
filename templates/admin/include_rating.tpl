@@ -91,7 +91,7 @@
         <form class="config" method="post" action="">
             {ticket}
             <fieldset>
-                <legend>{$config.name|escape} <small>(ID: {$config.ratingConfigId|escape}, {tr}Search Field{/tr}: <em>adv_rating_{$config.ratingConfigId|escape}</em>)</small></legend>
+                <legend>{$config.name|escape} <small>(ID: {$config.ratingConfigId|escape}, {tr}Search Field:{/tr} <em>adv_rating_{$config.ratingConfigId|escape}</em>)</small></legend>
                 <input type="hidden" name="config" value="{$config.ratingConfigId|escape}">
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-4" for="rating_name_{$config.ratingConfigId|escape}">

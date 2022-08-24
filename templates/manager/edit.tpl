@@ -17,7 +17,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Instance name{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.name}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.name}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -28,7 +28,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Instance URL{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.url}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.url}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -39,7 +39,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Email{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.email}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.email}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -50,7 +50,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Instance Webroot{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.webroot}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.webroot}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -61,7 +61,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Working directory{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.tempdir}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.tempdir}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -72,7 +72,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Backup User{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['backup-user']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['backup-user']}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -83,7 +83,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Backup Group{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['backup-group']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['backup-group']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -94,7 +94,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Backup Permission{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['backup-permission']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['backup-permission']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>

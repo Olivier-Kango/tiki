@@ -88,10 +88,10 @@
                         </tr>
                         <tr>
                             <td>
-                                {tr}Memory Used{/tr}: {$opcode_stats.memory_used * 100}% - {tr}Available{/tr}: {$opcode_stats.memory_avail * 100}%
+                                {tr}Memory Used:{/tr} {$opcode_stats.memory_used * 100}% - {tr}Available:{/tr} {$opcode_stats.memory_avail * 100}%
                             </td>
                             <td>
-                                {tr}Cache Hits{/tr}: {$opcode_stats.hit_hit * 100}% - {tr}Misses{/tr}: {$opcode_stats.hit_miss * 100}%
+                                {tr}Cache Hits:{/tr} {$opcode_stats.hit_hit * 100}% - {tr}Misses:{/tr} {$opcode_stats.hit_miss * 100}%
                             </td>
                         </tr>
                     </table>

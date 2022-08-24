@@ -14,7 +14,7 @@
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">
                     {tr}{$option.label}{/tr}
-                    <a class="tikihelp text-info" title="{tr}{$option.label}{/tr}: {tr}{$option.help}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}{$option.label}:{/tr} {tr}{$option.help}{/tr}">
                         {icon name=information}
                     </a>
                 </label>

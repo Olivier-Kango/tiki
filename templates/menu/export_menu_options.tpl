@@ -7,10 +7,10 @@
 {block name="content"}
     <form action="{service controller=menu action=export_menu_options menuId=$menuId}" method="post" role="form" class="no-ajax form">
         {remarksbox type="tip" title="{tr}Export CSV{/tr}" close="n"}
-            {tr}Menu{/tr}: {$menuInfo.name|escape} ({tr}Id{/tr}: {$menuInfo.menuId|escape})
+            {tr}Menu:{/tr} {$menuInfo.name|escape} ({tr}Id:{/tr} {$menuInfo.menuId|escape})
             {if $menuSymbol}
                 <span class="form-text">
-                    {tr}Symbol{/tr}:{$menuSymbol.object} ({tr}Profile Name{/tr}:{$menuSymbol.profile}, {tr}Profile Source{/tr}:{$menuSymbol.domain})
+                    {tr}Symbol:{/tr}{$menuSymbol.object} ({tr}Profile Name:{/tr}{$menuSymbol.profile}, {tr}Profile Source:{/tr}{$menuSymbol.domain})
                 </span>
             {/if}
         {/remarksbox}

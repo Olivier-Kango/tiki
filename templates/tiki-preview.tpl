@@ -45,7 +45,7 @@
             $("#autosave_preview>div").height(getCookie("wiki", "preview", ""));
         {/jq}
     {/if}
-    <h2>{tr}Preview{/tr}: {$page|escape}</h2>
+    <h2>{tr}Preview:{/tr} {$page|escape}</h2>
     {if $prefs.feature_wiki_description eq 'y'}
         <small>{$description}</small>
     {/if}

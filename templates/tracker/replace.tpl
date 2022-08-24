@@ -564,7 +564,7 @@
                 <div class="mb-3 row depends" data-on="tabularSync">
                     <label for="tabularSyncModifiedField">
                         {tr}Last revision/modification field{/tr}
-                        <a class="tikihelp text-info" title="{tr}Field selection{/tr}: {tr}Choose one of the tracker fields if remote items update its value every time a change happens. This will ensure only updated items get synchronized when importing from remote source.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Field selection:{/tr} {tr}Choose one of the tracker fields if remote items update its value every time a change happens. This will ensure only updated items get synchronized when importing from remote source.{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -575,7 +575,7 @@
                 <div class="mb-3 row depends" data-on="tabularSyncModifiedField">
                     <label for="tabularSyncLastImport">
                         {tr}Last import time{/tr}
-                        <a class="tikihelp text-info" title="{tr}Time entry{/tr}: {tr}This tracks the last date/time when this tracker was synchronized with remote source. Subsequent tabular imports will only fetch content newer than this date. Reset to something in the past if you want to re-import.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Time entry:{/tr} {tr}This tracks the last date/time when this tracker was synchronized with remote source. Subsequent tabular imports will only fetch content newer than this date. Reset to something in the past if you want to re-import.{/tr}">
                             {icon name=information}
                         </a>
                     </label>

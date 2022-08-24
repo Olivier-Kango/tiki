@@ -17,7 +17,7 @@
             <div class="form-group row mb-3 preference">
                 <label class="col-form-label col-sm-3">
                     {tr}Backup Type{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.partial}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.partial}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -35,7 +35,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Email{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.email}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.email}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -47,7 +47,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Max number of backups to keep{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['max-backups']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['max-backups']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>

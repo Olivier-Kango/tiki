@@ -10,17 +10,17 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".alert-primary" data-element="background-color">
-                    <label for="tc-alert-primary-bg-color">{tr}Background{/tr}:</label>
+                    <label for="tc-alert-primary-bg-color">{tr}Background:{/tr}</label>
                     <input id="tc-alert-primary-bg-color" data-selector=".alert-primary" data-element="background-color" data-var="@alert-success-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-primary" data-element="border-color">
-                    <label for="tc-alert-primary-border-color">{tr}Border{/tr}:</label>
+                    <label for="tc-alert-primary-border-color">{tr}Border:{/tr}</label>
                     <input id="tc-alert-primary-border-color" data-selector=".alert-primary" data-element="border-color" data-var="@alert-success-border" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-primary" data-element="color">
-                    <label for="tc-alert-primary-text-color">{tr}Text{/tr}:</label>
+                    <label for="tc-alert-primary-text-color">{tr}Text:{/tr}</label>
                     <input id="tc-alert-primary-text-color" data-selector=".alert-primary" data-element="color" data-var="@alert-success-text" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -38,17 +38,17 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".alert-secondary" data-element="background-color">
-                    <label for="tc-alert-secondary-bg-color">{tr}Background{/tr}:</label>
+                    <label for="tc-alert-secondary-bg-color">{tr}Background:{/tr}</label>
                     <input id="tc-alert-secondary-bg-color" data-selector=".alert-secondary" data-element="background-color" data-var="@alert-success-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-secondary" data-element="border-color">
-                    <label for="tc-alert-secondary-border-color">{tr}Border{/tr}:</label>
+                    <label for="tc-alert-secondary-border-color">{tr}Border:{/tr}</label>
                     <input id="tc-alert-secondary-border-color" data-selector=".alert-secondary" data-element="border-color" data-var="@alert-success-border" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-secondary" data-element="color">
-                    <label for="tc-alert-secondary-text-color">{tr}Text{/tr}:</label>
+                    <label for="tc-alert-secondary-text-color">{tr}Text:{/tr}</label>
                     <input id="tc-alert-secondary-text-color" data-selector=".alert-secondary" data-element="color" data-var="@alert-success-text" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -66,17 +66,17 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".alert-success" data-element="background-color">
-                    <label for="tc-alert-success-bg-color">{tr}Background{/tr}:</label>
+                    <label for="tc-alert-success-bg-color">{tr}Background:{/tr}</label>
                     <input id="tc-alert-success-bg-color" data-selector=".alert-success" data-element="background-color" data-var="@alert-success-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-success" data-element="border-color">
-                    <label for="tc-alert-success-border-color">{tr}Border{/tr}:</label>
+                    <label for="tc-alert-success-border-color">{tr}Border:{/tr}</label>
                     <input id="tc-alert-success-border-color" data-selector=".alert-success" data-element="border-color" data-var="@alert-success-border" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-success" data-element="color">
-                    <label for="tc-alert-success-text-color">{tr}Text{/tr}:</label>
+                    <label for="tc-alert-success-text-color">{tr}Text:{/tr}</label>
                     <input id="tc-alert-success-text-color" data-selector=".alert-success" data-element="color" data-var="@alert-success-text" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -94,17 +94,17 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".alert-danger" data-element="background-color">
-                    <label for="tc-alert-danger-bg-color">{tr}Background{/tr}:</label>
+                    <label for="tc-alert-danger-bg-color">{tr}Background:{/tr}</label>
                     <input id="tc-alert-danger-bg-color" data-selector=".alert-danger" data-element="background-color" data-var="@alert-danger-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-danger" data-element="border-color">
-                    <label for="tc-alert-danger-border-color">{tr}Border{/tr}:</label>
+                    <label for="tc-alert-danger-border-color">{tr}Border:{/tr}</label>
                     <input id="tc-alert-danger-border-color" data-selector=".alert-danger" data-element="border-color" data-var="@alert-danger-border" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-danger" data-element="color">
-                    <label for="tc-alert-danger-text-color">{tr}Text{/tr}:</label>
+                    <label for="tc-alert-danger-text-color">{tr}Text:{/tr}</label>
                     <input id="tc-alert-danger-text-color" data-selector=".alert-danger" data-element="color" data-var="@alert-danger-text" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -122,17 +122,17 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".alert-warning" data-element="background-color">
-                    <label for="tc-alert-warning-bg-color">{tr}Background{/tr}:</label>
+                    <label for="tc-alert-warning-bg-color">{tr}Background:{/tr}</label>
                     <input id="tc-alert-warning-bg-color" data-selector=".alert-warning" data-element="background-color" data-var="@alert-warning-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-warning" data-element="border-color">
-                    <label for="tc-alert-warning-border-color">{tr}Border{/tr}:</label>
+                    <label for="tc-alert-warning-border-color">{tr}Border:{/tr}</label>
                     <input id="tc-alert-warning-border-color" data-selector=".alert-warning" data-element="border-color" data-var="@alert-warning-border" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-warning" data-element="color">
-                    <label for="tc-alert-warning-text-color">{tr}Text{/tr}:</label>
+                    <label for="tc-alert-warning-text-color">{tr}Text:{/tr}</label>
                     <input id="tc-alert-warning-text-color" data-selector=".alert-warning" data-element="color" data-var="@alert-warning-text" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -150,17 +150,17 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".alert-info" data-element="background-color">
-                    <label for="tc-alert-info-bg-color">{tr}Background{/tr}:</label>
+                    <label for="tc-alert-info-bg-color">{tr}Background:{/tr}</label>
                     <input id="tc-alert-info-bg-color" data-selector=".alert-info" data-element="background-color" data-var="@alert-info-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-info" data-element="border-color">
-                    <label for="tc-alert-info-border-color">{tr}Border{/tr}:</label>
+                    <label for="tc-alert-info-border-color">{tr}Border:{/tr}</label>
                     <input id="tc-alert-info-border-color" data-selector=".alert-info" data-element="border-color" data-var="@alert-info-border" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".alert-info" data-element="color">
-                    <label for="tc-alert-info-text-color">{tr}Text{/tr}:</label>
+                    <label for="tc-alert-info-text-color">{tr}Text:{/tr}</label>
                     <input id="tc-alert-info-text-color" data-selector=".alert-info" data-element="color" data-var="@alert-info-text" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
