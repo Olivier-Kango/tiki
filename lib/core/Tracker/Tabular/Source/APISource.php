@@ -75,21 +75,21 @@ class APISource implements SourceInterface
 
         if ($this->schema->getFormat() == 'ndjson' && $this->mapping) {
             $common_item = [];
+            $this->item = [];
             foreach ($this->mapping as $mapping_row) {
                 if (! isset($mapping_row['struct']) || ! isset($mapping_row['repeat'])) {
                     throw new \Exception(tr('Error using data mapping structure for NDJSON format: missing struct or repeat keys.'));
                 }
-                $common_item = array_merge($common_item, $this->item);
-                if ($mapping_row['repeat'] == 'n') {
-                    $max = PHP_INT_MAX;
-                } else {
-                    $max = $mapping_row['repeat'];
-                }
-                for ($i = 0; $i < $max; $i++) {
-                    if (empty($result)) {
-                        break;
-                    }
-                    $row = array_shift($result);
+            }
+            $mapping_level = 0;
+            $dependencies = [];
+            $max_level = count($this->mapping)-1;
+            while ($result) {
+                $mapping_row = $this->mapping[$mapping_level];
+                $row = array_shift($result);
+                do {
+                    $mapped_row = true;
+                    $common_item = array_merge($common_item, $this->item);
                     $this->item = [];
                     foreach ($mapping_row['struct'] as $remote => $local) {
                         $remote_value = $this->dotParser($row, $remote);
@@ -98,6 +98,19 @@ class APISource implements SourceInterface
                         $local_fields = $m[1];
                         if (preg_match('#' . str_replace('#', '\\#', $regex) . '#', $remote_value, $m)) {
                             foreach ($local_fields as $num => $local_field) {
+                                if (strstr($local_field, '-')) {
+                                    list ($local_field, $dependency_field) = explode('-', $local_field);
+                                    $local_column = $dependency_column = null;
+                                    foreach ($this->schema->getColumns() as $column) {
+                                        if ($column->getLabel() == $local_field) {
+                                            $local_column = $column;
+                                        }
+                                        if ($column->getLabel() == $dependency_field) {
+                                            $dependency_column = $column;
+                                        }
+                                    }
+                                    $dependencies[spl_object_hash($local_column)] = spl_object_hash($dependency_column);
+                                }
                                 foreach ($this->schema->getColumns() as $column) {
                                     if ($column->getLabel() == $local_field) {
                                         $this->populateOne($column, $m[$num+1]);
@@ -106,14 +119,30 @@ class APISource implements SourceInterface
                             }
                         } else {
                             if ($remote_value != $local) {
-                                $this->item = [];
+                                $mapped_row = false;
                             }
                         }
                     }
-                    if ($max > 1) {
-                        $data = array_merge($common_item, $this->item);
-                        yield new JsonSourceEntry($data);
+                    if (! $mapped_row) {
+                        $this->item = [];
+                        if ($mapping_level < $max_level) {
+                            $mapping_level++;
+                        } else {
+                            $mapping_level--;
+                        }
+                        $mapping_row = $this->mapping[$mapping_level];
                     }
+                } while(! $mapped_row);
+                if ($mapping_level == $max_level) {
+                    $data = array_merge($common_item, $this->item);
+                    foreach ($dependencies as $field => $dependency) {
+                        if (! empty($data[$dependency])) {
+                            unset($data[$field]);
+                        }
+                    }
+                    $results[] = $data;
+                    yield new JsonSourceEntry($data);
+                    $this->item = [];
                 }
             }
         } else {
