@@ -3,31 +3,31 @@
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 //
 // Colors
-// $white:    #fff !default;
-// $gray-100: #f8f9fa !default;
-// $gray-200: #e9ecef !default;
-// $gray-300: #dee2e6 !default;
-// $gray-400: #ced4da !default;
-// $gray-500: #adb5bd !default;
-// $gray-600: #868e96 !default;
-// $gray-700: #495057 !default;
-// $gray-800: #343a40 !default;
-// $gray-900: #212529 !default;
-// $black:    #000 !default;
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
 
-$primary: #005faa;
-//$success: #48ca3b;
+$primary: #087EB4;
+$success: #5cb85c; //#48ca3b;
 //$info: #4d3a7d;
-//$warning: #debb27;
-//$danger: #df6e1e;
+$warning: #f0ad4e; //#debb27;
+$danger: #FF3D3D;
 
 $theme-colors: (
-  "primary":          #56c4f7,
+  "primary":         #087EB4, // #56c4f7,
   "secondary": #1784b7,
-//  "success":          #5cb85c,
+  "success":          #5cb85c,
   "info":             #5bc0de,
-//  "warning":          #f0ad4e,
-  "danger":           #ff0000,
+  "warning":          #f0ad4e,
+  "danger":           #FF3D3D,
     "light":      #1784b7,
   "dark":       #000000,
   "mono":           #0a1218,
@@ -46,11 +46,11 @@ $theme-colors: (
 // Spacing
 
 // Body
-$body-bg: #fff;
-//$body-color: $gray-800;
+$body-bg: #192129;
+$body-color: #fff;
 
 // Links
-$link-color: #56c4f7;
+$link-color: #53BAEA; // #56c4f7; lightened for WCAG 2 compliance
 $link-hover-color: #56c4f7;
 // Components
 $border-radius:               0.5rem;
@@ -62,6 +62,10 @@ $font-family-serif: "Myriad Pro", Helvetica, Arial, sans-serif;
 $font-family-base: $font-family-serif;
 $headings-font-family: inherit;
 $headings-font-weight: 400;
+
+$blockquote-small-color:      $gray-200;
+$text-muted:                  $gray-300;
+
 // Tables
 //$table-border-color: #dddddd;
 $table-border-radius: 0.2rem;
@@ -72,20 +76,26 @@ $btn-border-radius: 5px;
 //$btn-default-bg: #3676c4;
 //$btn-default-border: #3676c4;
 
-$btn-primary-color: #ffffff;
-$btn-primary-bg: #56c4f7;
+//$btn-primary-color: #ffffff; just use primary color
+//$btn-primary-bg: #087EB4; // #56c4f7;
 
 // Forms
 //$input-border: #dddddd;
+$input-color: $gray-100;
 $input-border-radius: 0.2rem;
+$input-group-addon-color:               $input-color;
+$input-group-addon-bg:                  $gray-800;
+$input-placeholder-color:               $gray-300;
+
 // Dropdowns
 // Navs
 // Navbar
-$navbar-dark-color: #1784b7; // unintuitive but has to match class of div in tpl
+$navbar-dark-color: $link-color; // #1784b7; // previous version note: unintuitive but has to match class of div in tpl
 $navbar-dark-active-color: $navbar-dark-color;
 $navbar-dark-active-hover-color: $navbar-dark-active-color;
 $navbar-dark-bg: rgba(23, 132, 183, 0.77); // ditto
 $navbar-dark-hover-color: #1784b7;
+$nav-link-color: $link-color;
 // $navbar-nav-link-padding-x: 2rem;
 //$navbar-dark-border: darken($navbar-dark-bg, 6.5%);
 
@@ -96,6 +106,9 @@ $navbar-dark-hover-color: #1784b7;
 //$navbar-dark-disabled-color: #cccccc;
 
 // Pagination
+$pagination-color:                  $link-color;
+$pagination-bg:                     $black;
+
 // $breadcrumb-border-radius: 0.2rem;
 // Jumbotron
 // Cards

@@ -1,16 +1,21 @@
-// $Id: _tiki-selectors.scss 67789 2018-10-02 14:52:34Z chibaguy $
 // This file contains CSS rules for this theme that aren't covered by Bootstrap, such as additional Tiki theme properties.
-// To do: Use variables for global Tiki properties and customize a Tiki variables file per-theme.
+
 $imagePath: "../images/";
 // image path use example:
 body {
   background-image: url('#{$imagePath}bg-body.jpg');
 }
 
+.row-middle > .flex-row {
+    margin-left: 0;
+}
+
 $tiki-topmodules-row-sidemargins: 0;
 $tiki-topbar-row-sidemargins: -15px;
 
-//
+body:not(.fixed_width) .container-std.middle {
+    padding-left: 3rem;
+}
 
 .bg-dark,
 .topbar.bg-dark {
@@ -103,6 +108,14 @@ nav {
   }
 }
 
+// Vertical menus
+.nav-link { color: $link-color; }
+
+.nav-link:hover, .nav-link:focus,
+.navbar-nav .show > .nav-link, .navbar-nav .nav-link.active {
+    color: lighten($link-color, 7%);
+}
+
 .nav-tabs {
     border-bottom-color: map-get($theme-colors, secondary);
     .nav-link.active, .nav-item.show .nav-link {
@@ -152,12 +165,12 @@ nav {
       }
   }
   .bg-dark {
-    background-color: transparent !important;
+  ///  background-color: transparent !important;
   }
   &.bg-light {
     background-color: map-get($theme-colors, secondary_1) !important;
     .bg-light {
-      background-color: transparent !important;
+ ///     background-color: transparent !important;
     }
   }  
   .navbar .nav-item {
@@ -373,11 +386,10 @@ table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, t
 
 
 
-.col1 { 
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  padding-left: 30px;
-  padding-right: 30px;
+.col1 {
+    padding: 2rem 30px;
+    background-color: map-get($theme-colors, dark_1);
+    position: relative;
   @media (max-width: 767px){
     margin-bottom: 1rem;
     padding-left: 15px;
@@ -389,8 +401,8 @@ table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, t
     display: block;
     position: absolute;
     top: 0;
-    left: 15px;
-    right: 15px;
+    left: 0; // 15px; content overflowed
+    right: 0; // 15px;
     bottom: 0;
     background-color: map-get($theme-colors, dark_1);
     z-index: -1;
@@ -549,13 +561,13 @@ body {
     }
   }
   &.bg-light {
-    background-color: transparent !important;
+///    background-color: transparent !important;
     &:before {
       background-color: map-get($theme-colors, dark_1);
     }
   }
   &.bg-dark {
-    background-color: transparent !important;
+///    background-color: transparent !important;
     &:before {      
       background-color: map-get($theme-colors, dark_1);
     }
@@ -595,7 +607,7 @@ body.tiki.navbar-padding.fixed_width {
     }
     &.bg-light,
     &.bg-dark {
-      background-color: transparent !important;
+///      background-color: transparent !important;
       &:before {
         display: none;
       }
@@ -642,7 +654,13 @@ body.tiki.navbar-padding.fixed_width {
 }
 
 h2 {
-    color: map-get($theme-colors, primary);
+    color: #0988C3; // lightened for WCAG compliance
+}
+
+blockquote,
+.blockquote {
+    color: #cbc9c9;
+    border-left: 0.25rem solid #e5e5e5;
 }
 
 .jumbotron {
