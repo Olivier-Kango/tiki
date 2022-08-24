@@ -87,6 +87,7 @@ class APISource implements SourceInterface
             while ($result) {
                 $mapping_row = $this->mapping[$mapping_level];
                 $row = array_shift($result);
+                $num_passes = 0;
                 do {
                     $mapped_row = true;
                     $common_item = array_merge($common_item, $this->item);
@@ -124,6 +125,9 @@ class APISource implements SourceInterface
                         }
                     }
                     if (! $mapped_row) {
+                        if (++$num_passes > $max_level) {
+                            break;
+                        }
                         $this->item = [];
                         if ($mapping_level < $max_level) {
                             $mapping_level++;
