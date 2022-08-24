@@ -149,8 +149,8 @@ function prefs_search_list()
                     'https://www.elastic.co/guide/en/elasticsearch/reference/5.6/common-options.html#date-math'
                 ),
             'type' => 'textarea',
-            'default' => "
-now-2y/y,now-1y/y,Last Year
+            'default' =>
+"now-2y/y,now-1y/y,Last Year
 now-1y/y,now,This Year
 now-1m/m,now/m,Last Month
 now/d,now+1d/d,Today

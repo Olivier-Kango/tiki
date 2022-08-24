@@ -31,10 +31,19 @@
     </div>
     <div class="col-sm-3">
         <div class="input-group">
-            <input type="submit" id="string_in_db_search_button" class="btn btn-primary" value="{tr}Search{/tr}" onClick="document.getElementById('redirect').value='0';"/>
+            <input type="submit" id="string_in_db_search_button" class="btn btn-primary" value="{tr}Search{/tr}" />
         </div>
     </div>
     {jq}
+        $('#string_in_db_search_button').click(function () {
+            var string_in_db_search = $('#string_in_db_search').val();
+            if( string_in_db_search == '')
+            {
+                $("[name='query']").val('');
+            }else{
+                $('#redirect').val('0');
+            }
+        });
         $('#string_in_db_search').keypress(function (e) {
             var key = e.which;
             if(key == 13)  // the enter key code
