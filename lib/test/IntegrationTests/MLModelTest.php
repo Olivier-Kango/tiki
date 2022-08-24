@@ -113,6 +113,8 @@ class MLModelTest extends TikiTestCase
     {
         self::$mllib->set_model(self::$mlt['mlmId'], [
             'trackerFields' => '',
+            'name' => '',
+            'sourceTrackerId' => self::$trackerId,
         ]);
         $mlt = self::$mllib->get_model(self::$mlt['mlmId']);
 

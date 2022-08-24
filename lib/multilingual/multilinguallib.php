@@ -216,7 +216,7 @@ class MultilingualLib extends TikiLib
     /**
      * @brief: detach one translation
      */
-    public function detachTranslation($type, $objId)
+    public function detachTranslation(string $type, string $objId)
     {
         $query = "delete from `tiki_translated_objects` where `type`= ? and `objId`=?";
         $this->query($query, [$type, $objId]);
