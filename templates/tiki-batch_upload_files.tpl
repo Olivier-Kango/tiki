@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="mb-3 create-subgals" style="display:none;">
+    <div class="mb-3 row create-subgals" style="display:none;">
         <label class="col-sm-4 col-form-label" for="createSubgals">{tr}Create sub-galleries?{/tr}</label>
         <div class="col-sm-8">
             <input type="checkbox" name="createSubgals" value="true" id="createSubgals">
