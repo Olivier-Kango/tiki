@@ -19,7 +19,7 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
     {
         return [
             'e' => [
-                'name' => tr('Category'),
+                'name' => tr('Categorize tracker item'),
                 'description' => tr('Enable the tracker item to be categorized in one or more categories under the specified main category.'),
                 'help' => 'Category-Tracker-Field',
                 'prefs' => ['trackerfield_category', 'feature_categories'],
