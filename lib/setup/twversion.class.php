@@ -28,7 +28,7 @@ class TWVersion
 		$this->branch 	= 'stable';
 
 		// Set everything else, including defaults.
-		$this->version 	= '21.6vcs';	// needs to have no spaces for releases
+		$this->version 	= '21.6';	// needs to have no spaces for releases
 		$this->star		= 'UY Scuti';
 		$this->releases	= [];
 
@@ -303,6 +303,7 @@ class TWVersion
 				'21.3',
 				'21.4',
 				'21.5',
+				'21.6',
 			];
 	}
 
