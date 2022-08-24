@@ -217,6 +217,17 @@
                 </div>
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}Update endpoint query limit{/tr}
+                        <a class="tikihelp text-info" title="{tr}Update query limit{/tr}: {tr}URL query string encoded parameter list to limit the number of results sent to the update endpoint when exporting. E.g. exclude all entries not having a value in a field: field= (empty) or field=value to limit by specific value.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="api[update_limit]" value="{$api_config.update_limit|escape}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Modify data path{/tr}
                         <a class="tikihelp text-info" title="{tr}Modify Data Path{/tr}: {tr}Wrap request parameters in a (possibly nested) data structure. E.g. to send the request parameters as 'request' => { 'data' => ... }, specify 'request.data' here.{/tr}">
                             {icon name=information}

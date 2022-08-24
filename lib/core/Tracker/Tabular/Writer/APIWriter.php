@@ -54,6 +54,22 @@ class APIWriter
 
             try {
                 if ($id) {
+                    if (! empty($this->config['update_limit'])) {
+                        parse_str($this->config['update_limit'], $params);
+                        foreach ($params as $field => $value) {
+                            if (! empty($value)) {
+                                if (isset($row[$field]) && $row[$field] == $value) {
+                                    continue;
+                                }
+                            } else {
+                                if (empty($row[$field])) {
+                                    continue;
+                                }
+                            }
+                            $skipped++;
+                            continue 2;
+                        }
+                    }
                     if (! empty($this->config['update_url'])) {
                         $url = str_replace('#id', $id, $this->config['update_url']);
                         $client = new \Services_ApiClient($url, false);
