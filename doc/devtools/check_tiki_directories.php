@@ -12,64 +12,69 @@ if (PHP_SAPI !== 'cli') {
 
 require dirname(__FILE__) . '/svntools.php';
 
-$dir = realpath(__DIR__ . '/../../') . '/';
+$tikiRootFolder = realpath(__DIR__ . '/../../');
 
 $excludeDir = [
-    $dir . 'vendor',
-    $dir . 'vendor_bundled',
-    $dir . 'temp',
+    '.', // Directories that are hidden (Ex: .composer)
+    '_custom',
+    'temp/',
+    'vendor/',
+    'vendor_bundled/',
+    'lib/core/Search/Elastic/', // Ignored since it has an Index.php
+    'lib/core/Search/MySql/',   // Ignored since it has an Index.php
 ];
 
-$excludeMissingFiles = [
-    $dir . 'vendor_bundled/vendor',
-    '.'
-];
+$fixIndex = in_array('fix-index', $argv);
 
 $emptyDirectoriesMessage = '';
 $missingIndexMessage = '';
+$missingIndexMessageFixed = '';
 $missingHtaccessMessage = '';
 
-$it = new RecursiveDirectoryIterator(__DIR__ . '/../../');
+$it = new RecursiveDirectoryIterator($tikiRootFolder);
 
 foreach (new RecursiveIteratorIterator($it) as $file) {
     $filePath = $file->getRealpath();
     $fileName = $file->getFilename();
 
-    if (in_array($fileName, ['..'])) {
+    if ($fileName == '..' || !$file->isDir()) {
         continue;
     }
 
-    if (strpos($fileName, 'vendor') !== false) {
-        $a = 1;
+    if (toExclude($excludeDir, $filePath)) {
+        continue;
     }
 
-    $excludeFile = toExclude($excludeDir, $filePath);
-    $excludeMissingFile = toExclude($excludeMissingFiles, $filePath);
+    if (isEmptyDir($filePath)) {
+        $emptyDirectoriesMessage .= color($filePath, 'blue') . PHP_EOL;
+        continue;
+    }
 
-    if ($file->isDir()) {
-        if (isEmptyDir($filePath)) {
-            if ($excludeMissingFile === true) {
-                continue;
-            }
-            if ($excludeFile === true) {
-                continue;
-            }
-            $emptyDirectoriesMessage .= color($filePath, 'blue') . PHP_EOL;
-            $missingIndexMessage .= color($filePath, 'blue') . PHP_EOL;
+    if (! file_exists($filePath . '/index.php')) {
+        $missingIndexMessage .= color($filePath, 'blue') . PHP_EOL;
+
+        if ($fixIndex) {
+            $projectFolder = str_replace('doc', '', dirname(__DIR__));
+            $path = str_replace($projectFolder, '', $filePath);
+            $path = str_replace('-', '', $path);
+            $indexPath = preg_replace('/(\w+)/', '../', $path);
+            $indexPath = str_replace('//', '/', $indexPath);
+
+            $indexContent = '<?php' . PHP_EOL . PHP_EOL . '// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project' . PHP_EOL;
+            $indexContent .= '//' . PHP_EOL . '// All Rights Reserved. See copyright.txt for details and a complete list of authors.' . PHP_EOL;
+            $indexContent .= '// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.' . PHP_EOL;
+            $indexContent .= '// $Id$' . PHP_EOL;
+            $indexContent .= PHP_EOL . '// This redirects to the sites root to prevent directory browsing' . PHP_EOL;
+            $indexContent .= 'header("location: ' . $indexPath . 'index.php");' . PHP_EOL;
+            $indexContent .= 'die;' . PHP_EOL;
+
+            file_put_contents($filePath . '/index.php', $indexContent);
+            $missingIndexMessageFixed .= color($filePath, 'blue') . PHP_EOL;
+
+        }
+
+        if (! folderHasHtaccess($filePath)) {
             $missingHtaccessMessage .= color($filePath, 'blue') . PHP_EOL;
-        } else {
-            if ($excludeMissingFile === true) {
-                continue;
-            }
-            if ($excludeFile === true) {
-                continue;
-            }
-            if (! file_exists($filePath . '/index.php')) {
-                $missingIndexMessage .= color($filePath, 'blue') . PHP_EOL;
-            }
-            if (! file_exists($filePath . '/.htaccess')) {
-                $missingHtaccessMessage .= color($filePath, 'blue') . PHP_EOL;
-            }
         }
     }
 }
@@ -82,6 +87,11 @@ if (! empty($emptyDirectoriesMessage) || ! empty($missingIndexMessage) || ! empt
     if (! empty($missingIndexMessage)) {
         echo color('index.php file is missing in the following directories:', 'yellow') . PHP_EOL;
         info($missingIndexMessage);
+
+        if (! empty($missingIndexMessageFixed)) {
+            echo color('index.php file was fixed in the following directories:', 'green') . PHP_EOL;
+            info($missingIndexMessageFixed);
+        }
     }
     if (! empty($missingHtaccessMessage)) {
         echo color('.htaccess file is missing in the following directories:', 'yellow') . PHP_EOL;
@@ -112,5 +122,24 @@ function isEmptyDir($dir)
  */
 function toExclude($dir, $path)
 {
+    global $tikiRootFolder;
+
+    $path = str_replace($tikiRootFolder, '', $path);
+    $path = rtrim($path, '/') . '/';
+
     return (str_replace($dir, '', $path) != $path);
+}
+
+function folderHasHtaccess($dir): bool
+{
+    global $tikiRootFolder;
+
+    $hasHtaccess = file_exists($dir . '/.htaccess');
+
+    // We want to ensure that first level folders have .htaccess
+    if (!$hasHtaccess && dirname($dir) !== $tikiRootFolder && $dir != $tikiRootFolder) {
+        return folderHasHtaccess(dirname($dir));
+    }
+
+    return $hasHtaccess;
 }
