@@ -808,6 +808,7 @@ function wikiplugin_trackerFilter_get_filters($trackerId = 0, array $listfields 
                 case 'u': // user
                 case 'g': // group
                 case 'q': // auto increment
+                case 'math': // mathematical calculation
                     if (isset($status)) {
                         $res = $trklib->list_tracker_field_values($trackerId, $fieldId, $status);
                     } else {
@@ -924,7 +925,7 @@ function wikiplugin_trackerFilter_get_filters($trackerId = 0, array $listfields 
 
                     break;
                 default:
-                    return tra('tracker field type not processed yet') . ' ' . $field['type'];
+                    return tra('tracker field type not processed yet:') . ' ' . $field['type'];
             }
         }
         $filters[] = ['name' => $field['name'], 'fieldId' => $fieldId, 'format' => $formats[$fieldId], 'opts' => $opts, 'selected' => $selected, 'field' => $field];
