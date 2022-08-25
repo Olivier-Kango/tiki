@@ -968,7 +968,7 @@ class Services_Manager_Controller
             
             $arrayInput = [
                     'command' => $cmd->getName(),
-                    '-i' => $input->instaceId->int(),
+                    '-i' => $input->instanceId->int(),
                     '-e' => $input->email->text(),
                     '-mb' => $input->number_backups_to_keep->int()
                 ];
@@ -988,13 +988,13 @@ class Services_Manager_Controller
             ];
         } else {
 
-            $instaceId = $input->instanceId->int();
-            $instance = Instance::getInstance($instaceId);
+            $instanceId = $input->instanceId->int();
+            $instance = Instance::getInstance($instanceId);
 
             if ($instance) {
                 /** For form initialization */
                 $inputValues = [
-                    'instaceId' => $instaceId,
+                    'instanceId' => $instanceId,
                     'email' => '',
                     'backup_process' => ['full backup','partial']
                 ];

@@ -13,7 +13,7 @@
         <div class="rounded bg-dark text-light p-3">{$info|nl2br}</div>
     {else}
         <form method="post" action="{service controller=manager action=backup}" id="tiki-manager-backup-instance">
-            <input id="instaceId" type="hidden" name="instaceId" value="{$inputValues['instaceId']}">
+            <input id="instanceId" type="hidden" name="instanceId" value="{$inputValues['instanceId']}">
             <div class="form-group row mb-3 preference">
                 <label class="col-form-label col-sm-3">
                     {tr}Backup Type{/tr}
