@@ -5079,13 +5079,16 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
 .mega-menu-static {
   position: relative;
 }
-.mega-menu-static .navbar-nav .nav-item {
+.mega-menu-static .navbar-nav .nav-item, .nav-item.dropdown.static {
   position: static;
 }
 .mega-menu-static .navbar-nav .mega-menu {
-  width: 100% !important;
+  width: 98vw !important;
 }
 .tiki .navbar-nav .dropdown-menu.mega-menu {
+  position: absolute;
+  width: 98vw !important;
+  left: 0 !important;
   margin-left: 0 !important;
 }
 /* Megamenu when vertical */

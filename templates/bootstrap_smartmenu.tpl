@@ -1,5 +1,5 @@
 {if not empty($item.children)}
-    <li class="nav-item dropdown{if $item.selected|default:null} active{/if} {$item.class|escape}">
+    <li class="nav-item dropdown{if $item.selected|default:null} active{/if} {$item.class|escape} {if $module_params.megamenu_static neq 'n' }static{/if}">
         <a href="{$item.sefurl|escape}" class="{if $sub|default:false}dropdown-item{else}nav-link{/if} dropdown-toggle" data-bs-toggle="dropdown">{tr}{$item.name}{/tr}</a>
         {if $item.sectionLevel eq 0 and $module_params.megamenu eq 'y'}
             <ul class="dropdown-menu mega-menu">

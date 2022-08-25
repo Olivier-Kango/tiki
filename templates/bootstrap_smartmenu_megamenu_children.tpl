@@ -10,7 +10,7 @@
 {else}
     <li class="mega-menu--item mega-menu--item-level-{$item.sectionLevel}">
         {if $item.block}
-            <div class="block--container">{tr}{$item.name}{/tr}</div>
+            <div class="block--container">{tr}{$item.name}{/tr}</div></a> {* </a> added to close the anchor in the menu list item -- g_c-l *}
         {else}
             <a class="" href="{$item.sefurl|escape}">{tr}{$item.name}{/tr}</a>
         {/if}

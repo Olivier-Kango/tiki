@@ -28,16 +28,21 @@
     position: relative;
 }
 
-.mega-menu-static .navbar-nav .nav-item {
+.mega-menu-static .navbar-nav .nav-item,
+.nav-item.dropdown.static {
     position: static;
 }
 
 .mega-menu-static .navbar-nav .mega-menu {
-    width: 100% !important;
+    width: 98vw !important;
 }
 
 // Override inline negative margin-left from Smartmenus JavaScript
 .tiki /*.mega-menu-static .navbar-nav:not(.sm-vertical) */ .navbar-nav .dropdown-menu.mega-menu {
+//    margin-left: 0 !important;
+    position: absolute;
+    width: 98vw !important;
+    left: 0 !important;
     margin-left: 0 !important;
 }
 
