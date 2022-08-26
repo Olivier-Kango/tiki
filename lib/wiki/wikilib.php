@@ -746,6 +746,21 @@ class WikiLib extends TikiLib
         return $res;
     }
 
+    public function get_page_wiki_syntax($info)
+    {
+        global $prefs;
+
+        if ($prefs['markdown_enabled'] !== 'y') {
+            return 'tiki';
+        }
+
+        if ($info['wiki_syntax']) {
+            return $info['wiki_syntax'];
+        }
+
+        return $prefs['markdown_default'];
+    }
+
     public function get_parse($page, &$canBeRefreshed = false, $suppress_icons = false)
     {
         global $prefs, $user;
@@ -761,9 +776,14 @@ class WikiLib extends TikiLib
 
         $parse_options = [
             'is_html' => $info['is_html'],
+            'is_markdown' => $this->get_page_wiki_syntax($info) === 'markdown',
             'language' => $info['lang'],
             'namespace' => $info['namespace'],
         ];
+
+        if ($prefs['wiki_auto_toc'] === 'y' && $this->get_page_auto_toc($page) >= 0) {
+            $parse_options['autotoc'] = true;
+        }
 
         if ($suppress_icons || (! empty($info['lockedby']) && $info['lockedby'] != $user)) {
             $parse_options['suppress_icons'] = true;

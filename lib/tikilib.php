@@ -4664,7 +4664,7 @@ class TikiLib extends TikiDb_Bridge
     /** Create a wiki page
         @param array $hash- lock_it,contributions, contributors
      **/
-    public function create_page($name, $hits, $data, $lastModif, $comment, $user = 'admin', $ip = '0.0.0.0', $description = '', $lang = '', $is_html = false, $hash = null, $wysiwyg = null, $wiki_authors_style = '', $minor = 0, $created = '')
+    public function create_page($name, $hits, $data, $lastModif, $comment, $user = 'admin', $ip = '0.0.0.0', $description = '', $lang = '', $is_html = false, $hash = null, $wysiwyg = null, $wiki_authors_style = '', $minor = 0, $created = '', $wiki_syntax = '')
     {
         global $prefs, $tracer;
         $parserlib = TikiLib::lib('parser');
@@ -4737,6 +4737,7 @@ class TikiLib extends TikiDb_Bridge
             'created' => empty($created) ? $this->now : $created,
             'wysiwyg' => $wysiwyg,
             'wiki_authors_style' => $wiki_authors_style,
+            'wiki_syntax' => $wiki_syntax,
         ];
         if ($lang) {
             $insertData['lang'] = $lang;
@@ -4969,7 +4970,7 @@ class TikiLib extends TikiDb_Bridge
         if ($retrieve_datas) {
             $query = "SELECT * FROM `tiki_pages` WHERE `pageName`=?";
         } else {
-            $query = "SELECT `page_id`, `pageName`, `hits`, `description`, `lastModif`, `comment`, `version`, `version_minor`, `user`, `ip`, `flag`, `points`, `votes`, `wiki_cache`, `cache_timestamp`, `pageRank`, `creator`, `page_size`, `lang`, `lockedby`, `is_html`, `created`, `wysiwyg`, `wiki_authors_style`, `comments_enabled` FROM `tiki_pages` WHERE `pageName`=?";
+            $query = "SELECT `page_id`, `pageName`, `hits`, `description`, `lastModif`, `comment`, `version`, `version_minor`, `user`, `ip`, `flag`, `points`, `votes`, `wiki_cache`, `cache_timestamp`, `pageRank`, `creator`, `page_size`, `lang`, `lockedby`, `is_html`, `created`, `wysiwyg`, `wiki_authors_style`, `comments_enabled`, `wiki_syntax` FROM `tiki_pages` WHERE `pageName`=?";
         }
         $result = $this->query($query, [$pageName]);
 
@@ -5148,7 +5149,7 @@ class TikiLib extends TikiDb_Bridge
         @param array $hash- lock_it,contributions, contributors
         @param int $saveLastModif - modification time - pass null for now, unless importing a Wiki page
      **/
-    public function update_page($pageName, $edit_data, $edit_comment, $edit_user, $edit_ip, $edit_description = null, $edit_minor = 0, $lang = '', $is_html = null, $hash = null, $saveLastModif = null, $wysiwyg = '', $wiki_authors_style = '')
+    public function update_page($pageName, $edit_data, $edit_comment, $edit_user, $edit_ip, $edit_description = null, $edit_minor = 0, $lang = '', $is_html = null, $hash = null, $saveLastModif = null, $wysiwyg = '', $wiki_authors_style = '', $wiki_syntax = '')
     {
         global $prefs;
         $histlib = TikiLib::lib('hist');
@@ -5229,6 +5230,7 @@ class TikiLib extends TikiDb_Bridge
             'wysiwyg' => $wysiwyg,
             'wiki_authors_style' => $wiki_authors_style,
             'lang' => $lang,
+            'wiki_syntax' => $wiki_syntax,
         ];
 
         if ($hash !== null) {

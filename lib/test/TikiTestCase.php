@@ -38,4 +38,12 @@ abstract class TikiTestCase extends TestCase
             $filegallib->query("UPDATE tiki_file_galleries SET galleryId = 1 WHERE galleryId     = ?", [$galleryId]);
         }
     }
+
+    protected function setPageRegex()
+    {
+        global $page_regex;
+        // we must set the page regex, otherwise the links get not parsed
+        // taken from: 'lib/setup/wiki.php' with  $prefs['wiki_page_regex'] == 'full'
+        $page_regex = '([A-Za-z0-9_]|[\x80-\xFF])([\.: A-Za-z0-9_\-]|[\x80-\xFF])*([A-Za-z0-9_]|[\x80-\xFF])';
+    }
 }

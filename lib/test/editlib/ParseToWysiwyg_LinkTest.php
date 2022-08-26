@@ -18,11 +18,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
 
     public function __construct()
     {
-        // we must set the page regex, otherwise the links get not parsed
-        // taken from: 'lib/setup/wiki.php' with  $prefs['wiki_page_regex'] == 'full'
-        global $page_regex;
-        $page_regex = '([A-Za-z0-9_]|[\x80-\xFF])([\.: A-Za-z0-9_\-]|[\x80-\xFF])*([A-Za-z0-9_]|[\x80-\xFF])';
-
+        $this->setPageRegex();
         parent::__construct();
     }
 

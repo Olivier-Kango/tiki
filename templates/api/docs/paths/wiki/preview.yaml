@@ -1,0 +1,32 @@
+---
+post:
+  description: Preview wiki or markdown syntax blocks in html
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            content:
+              type: string
+            parser_options:
+              type: array
+              items:
+                type: string
+  responses:
+    '200':
+      description: parsed html content
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              parsed:
+                type: string
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

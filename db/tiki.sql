@@ -1913,6 +1913,7 @@ CREATE TABLE `tiki_pages` (
   `wiki_authors_style` varchar(20) default '',
   `comments_enabled` char(1) default NULL,
   `keywords` TEXT,
+  `wiki_syntax` varchar(191),
   PRIMARY KEY (`page_id`),
   UNIQUE KEY `pageName` (`pageName`),
   UNIQUE KEY `pageSlug` (`pageSlug`),

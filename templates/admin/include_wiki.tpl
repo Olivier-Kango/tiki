@@ -320,6 +320,16 @@
                     </div>
                 </fieldset>
             </div>
+            <div class="adminoptionbox clearfix">
+                <fieldset class="mb-3 w-100">
+                    <legend>{tr}Markdown{/tr}{help url="Markdown"}</legend>
+                    {preference name=markdown_enabled}
+                    <div class="adminoptionboxchild" id="markdown_enabled_childcontainer">
+                        {preference name=markdown_gfm}
+                        {preference name=markdown_default}
+                    </div>
+                </fieldset>
+            </div>
         {/tab}
         {tab name="{tr}Flagged Revision{/tr}"}
             <br>

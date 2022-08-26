@@ -880,6 +880,18 @@ if (isset($_REQUEST["description"])) {
     $description = $_REQUEST["description"];
 }
 
+if (isset($info["wiki_syntax"])) {
+    $smarty->assign('wiki_syntax', $info["wiki_syntax"]);
+    $wiki_syntax = $info["wiki_syntax"];
+} else {
+    $smarty->assign('wiki_syntax', '');
+    $wiki_syntax = '';
+}
+if (isset($_REQUEST["wiki_syntax"])) {
+    $smarty->assign('wiki_syntax', $_REQUEST["wiki_syntax"]);
+    $wiki_syntax = $_REQUEST["wiki_syntax"];
+}
+
 $wiki_authors_style = '';
 if ($prefs['wiki_authors_style_by_page'] === 'y') {
     if (isset($_REQUEST['wiki_authors_style']) && $tiki_p_admin_wiki === 'y') {
@@ -1124,6 +1136,9 @@ if (
         if (! isset($_REQUEST["description"])) {
             $_REQUEST["description"] = '';
         }
+        if (! isset($_REQUEST["wiki_syntax"])) {
+            $_REQUEST["wiki_syntax"] = '';
+        }
         if (! isset($_REQUEST["wiki_authors_style"])) {
             $_REQUEST["wiki_authors_style"] = '';
         }
@@ -1201,7 +1216,10 @@ if (
                 $is_html,
                 $hash,
                 $_REQUEST['wysiwyg'],
-                $wiki_authors_style
+                $wiki_authors_style,
+                0,
+                '',
+                $wiki_syntax
             );
 
             $info_new = $tikilib->get_page_info($page);
@@ -1278,7 +1296,8 @@ if (
                 $hash,
                 null,
                 $_REQUEST['wysiwyg'],
-                $wiki_authors_style
+                $wiki_authors_style,
+                $wiki_syntax
             );
             $info_new = $tikilib->get_page_info($page);
 
@@ -1663,6 +1682,7 @@ if (
     ($prefs['feature_wiki_allowhtml'] === 'y' && $tiki_p_use_HTML === 'y' && $_SESSION['wysiwyg'] !== 'y') ||
     $prefs['feature_wiki_import_html'] === 'y' ||
     $prefs['wiki_comments_allow_per_page'] !== 'n' ||
+    $prefs['markdown_enabled'] === 'y' ||
     ($tiki_p_admin_wiki === 'y' && $prefs['feature_wiki_import_page'] === 'y') ||
     ($_SESSION['wysiwyg'] !== 'y' && ($prefs['feature_wiki_attachments'] === 'y' && ($tiki_p_wiki_attach_files === 'y' && $tiki_p_wiki_admin_attachments === 'y'))) ||
     strtolower($page) !== 'sandbox' &&

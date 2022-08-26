@@ -2015,7 +2015,7 @@
         "laminas/laminas-twitter": "~2.1",
         "lcobucci/jwt": "^3.2.2",
         "leafo/scssphp": ">=0.6.7",
-        "league/commonmark": "^1.5",
+        "league/commonmark": ">=1.5",
         "league/commonmark-extras": "^1.2.0",
         "league/event": "^2.1",
         "league/flysystem": ">=2.0.0-beta.3",

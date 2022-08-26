@@ -969,4 +969,26 @@ class Services_Wiki_Controller
             return Services_Utilities::refresh($util->extra['referer']);
         }
     }
+
+    /**
+     * Preview wiki or markdown code block as html. Useful for WTSIWYG editors.
+     *
+     * @param $input
+     * @return array
+     * @throws Services_Exception_Denied
+     */
+    public function action_preview($input)
+    {
+        $perms = Perms::get();
+        if (! $perms->edit) {
+            throw new Services_Exception_Denied();
+        }
+
+        $parserlib = TikiLib::lib('parser');
+        $parsed = $parserlib->parse_data($input->content->none(), $input->parser_options->array());
+
+        return [
+            'parsed' => $parsed
+        ];
+    }
 }

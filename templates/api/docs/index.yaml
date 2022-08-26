@@ -132,6 +132,8 @@ paths:
     $ref: paths-wiki-version_delete.yaml
   /wiki/delete:
     $ref: paths-wiki-delete.yaml
+  /wiki/preview:
+    $ref: paths-wiki-preview.yaml
   /wiki/title:
     $ref: paths-wiki-title.yaml
   /wiki/lock:

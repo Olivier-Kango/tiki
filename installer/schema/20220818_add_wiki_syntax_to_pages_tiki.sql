@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_pages` ADD `wiki_syntax` varchar(191);

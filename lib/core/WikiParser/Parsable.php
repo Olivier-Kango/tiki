@@ -14,7 +14,7 @@
  * The extension of ParserLib is hopefully temporary. Ideally ParserLib would be replaced by a more complete version of this class.
  * TODO: Move remaining ParserLib methods and option property here
 */
-class WikiParser_Parsable extends ParserLib
+abstract class WikiParser_Parsable extends ParserLib
 {
     /** @var string Code usually containing text and markup */
     private $markup;
@@ -23,6 +23,16 @@ class WikiParser_Parsable extends ParserLib
 
     /** @var array Footnotes added via the FOOTNOTE plugin. These are read by wikiplugin_footnotearea(). */
     public $footnotes;
+
+    public static function instantiate($data, $options = [])
+    {
+        global $prefs;
+        if (isset($options['is_markdown']) && $options['is_markdown'] && $prefs['markdown_enabled'] === 'y') {
+            return new WikiParser_ParsableMarkdown($data);
+        } else {
+            return new WikiParser_ParsableWiki($data);
+        }
+    }
 
     public function __construct($markup)
     {
@@ -220,8 +230,6 @@ if ( \$('#$id') ) {
             return '';
         }
 
-        global $prefs;
-
         $this->setOptions(); //reset options;
 
         // Handle parsing options
@@ -229,18 +237,11 @@ if ( \$('#$id') ) {
             $this->setOptions($options);
         }
 
-        if ($this->option['is_html'] && ! $this->option['parse_wiki']) {
-            return $this->markup;
-        }
-
-        // remove tiki comments first
-        if ($this->option['ck_editor']) {
-            $data = preg_replace(';~tc~(.*?)~/tc~;s', '<tikicomment>$1</tikicomment>', $this->markup);
-        } else {
-            $data = preg_replace(';(?<!~np~)~tc~(.*?)~/tc~(?!~/np~);s', '', $this->markup);
-        }
+        $data = $this->markup;
 
         $this->parse_wiki_argvariable($data);
+
+        $data = preg_replace('/(\{img [^\}]+li)<x>(nk[^\}]+\})/i', '\\1\\2', $data);
 
         /* <x> XSS Sanitization handling */
 
@@ -257,139 +258,11 @@ if ( \$('#$id') ) {
             $this->parse_wiki_argvariable($data);
         }
 
-        // Handle ~pre~...~/pre~ sections
-        $data = preg_replace(';~pre~(.*?)~/pre~;s', '<pre>$1</pre>', $data);
+        $data = $this->wikiParse($data, $noparsed);
 
-        // Strike-deleted text --text-- (but not in the context <!--[if IE]><--!> or <!--//--<!CDATA[//><!--
-        // FIXME produces false positive for strings containing html comments. e.g: --some text<!-- comment -->
-        $data = preg_replace("#(?<!<!|//)--([^\s>].+?)--#", "<strike>$1</strike>", $data);
-
-        // Handle comments again in case parse_first method above returned wikiplugins with comments (e.g. PluginInclude a wiki page with comments)
-        $data = preg_replace(';~tc~(.*?)~/tc~;s', '', $data);
-
-        // Handle html comment sections
-        $data = preg_replace(';~hc~(.*?)~/hc~;s', '<!-- $1 -->', $data);
-
-        // Replace special characters
-        // done after url catching because otherwise urls of dyn. sites will be modified // What? Chealer
-        // must be done before color as we can have "~hs~~hs" (2 consecutive non-breaking spaces. The color syntax uses "~~".)
-        // jb 9.0 html entity fix - excluded not $this->option['is_html'] pages
-        if (! $this->option['is_html']) {
-            $this->parse_htmlchar($data);
-        }
-
-        //needs to be before text color syntax because of use of htmlentities in lib/core/WikiParser/OutputLink.php
-        $data = $this->parse_data_wikilinks($data, false, $this->option['ck_editor']);
-
-        // Replace colors ~~foreground[,background]:text~~
-        // must be done before []as the description may contain color change
-        $parse_color = 1;
-        $temp = $data;
-        while ($parse_color) { // handle nested colors, parse innermost first
-            $temp = preg_replace_callback(
-                "/~~([^~:,]+)(,([^~:]+))?:([^~]*)(?!~~[^~:,]+(?:,[^~:]+)?:[^~]*~~)~~/Ums",
-                'ParserLib::colorAttrEscape',
-                $temp,
-                -1,
-                $parse_color
-            );
-
-            if (! empty($temp)) {
-                $data = $temp;
-            }
-        }
-
-        // On large pages, the above preg rule can hit a BACKTRACE LIMIT
-        // In case it does, use the simpler color replacement pattern.
-        if (empty($temp)) {
-            $data = preg_replace_callback(
-                "/\~\~([^\:\,]+)(,([^\:]+))?:([^~]*)\~\~/Ums",
-                'ParserLib::colorAttrEscape',
-                $data
-            );
-        }
-
-        // Extract [link] sections (to be re-inserted later)
-        $noparsedlinks = [];
-
-        // This section matches [...].
-        // Added handling for [[foo] sections.  -rlpowell
-        preg_match_all("/(?<!\[)(\[[^\[][^\]]+\])/", $data, $noparseurl);
-
-        foreach (array_unique($noparseurl[1]) as $np) {
-            $key = '§' . md5(TikiLib::genPass()) . '§';
-
-            $aux["key"] = $key;
-            $aux["data"] = $np;
-            $noparsedlinks[] = $aux;
-            $data = preg_replace('/(^|[^a-zA-Z0-9])' . preg_quote($np, '/') . '([^a-zA-Z0-9]|$)/', '\1' . $key . '\2', $data);
-        }
-
-        // BiDi markers
-        $bidiCount = 0;
-        $bidiCount = preg_match_all("/(\{l2r\})/", $data, $pages);
-        $bidiCount += preg_match_all("/(\{r2l\})/", $data, $pages);
-
-        $data = preg_replace("/\{l2r\}/", "<div dir='ltr'>", $data);
-        $data = preg_replace("/\{r2l\}/", "<div dir='rtl'>", $data);
-        $data = preg_replace("/\{lm\}/", "&lrm;", $data);
-        $data = preg_replace("/\{rm\}/", "&rlm;", $data);
-        // smileys
         $data = $this->parse_smileys($data);
-
-        // parse_tagged_users
-        if (isset($prefs['feature_tag_users']) && $prefs['feature_tag_users'] == 'y') {
-            $data = $this->parse_tagged_users($data);
-        }
-
+        $data = $this->parse_tagged_users($data);
         $data = $this->parse_data_dynamic_variables($data, $this->option['language']);
-
-        // Replace boxes
-        $delim = (isset($prefs['feature_simplebox_delim']) && $prefs['feature_simplebox_delim'] != "" ) ? preg_quote($prefs['feature_simplebox_delim']) : preg_quote("^");
-        $data = preg_replace("/${delim}(.+?)${delim}/s", "<div class=\"card bg-light\"><div class=\"card-body\">$1</div></div>", $data);
-
-        // Underlined text
-        $data = preg_replace("/===(.+?)===/", "<u>$1</u>", $data);
-        // Center text
-        if ($prefs['feature_use_three_colon_centertag'] == 'y' || ($prefs['namespace_enabled'] == 'y' && $prefs['namespace_separator'] == '::')) {
-            $data = preg_replace("/:::(.+?):::/", "<div style=\"text-align: center;\">$1</div>", $data);
-        } else {
-            $data = preg_replace("/::(.+?)::/", "<div style=\"text-align: center;\">$1</div>", $data);
-        }
-
-        // reinsert hash-replaced links into page
-        foreach ($noparsedlinks as $np) {
-            $data = str_replace($np["key"], $np["data"], $data);
-        }
-
-        if ($prefs['wiki_pagination'] != 'y') {
-            $data = str_replace($prefs['wiki_page_separator'], $prefs['wiki_page_separator'] . ' <em>' . tr('Wiki page pagination has not been enabled.') . '</em>', $data);
-        }
-
-        $data = $this->parse_data_externallinks($data);
-
-        $data = $this->parse_data_tables($data);
-
-        /* parse_data_process_maketoc() calls parse_data_inline_syntax().
-
-        It seems wrong to just call parse_data_inline_syntax() when the parsetoc option is disabled.
-        Despite its name, parse_data_process_maketoc() does not just deal with TOC-s.
-
-        I believe it would be better that parse_data_process_maketoc() check parsetoc, only to set $need_maketoc, so that the following calls parse_data_process_maketoc() unconditionally. Chealer 2018-01-02
-        */
-        if ($this->option['parsetoc']) {
-            $this->parse_data_process_maketoc($data, $noparsed);
-        } else {
-            $data = $this->parse_data_inline_syntax($data);
-        }
-
-        // linebreaks using %%%
-        $data = preg_replace("/\n?(?<![^%]\d)%%%/", "<br />", $data);
-
-        // Close BiDi DIVs if any
-        for ($i = 0; $i < $bidiCount; $i++) {
-            $data .= "</div>";
-        }
 
         // Put removed strings back.
         $this->replace_preparse($data, $preparsed, $noparsed, $this->option['is_html']);
@@ -405,6 +278,8 @@ if ( \$('#$id') ) {
 
         return $data;
     }
+
+    abstract public function wikiParse($data, $noparsed);
 
     public function pluginExecute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
     {

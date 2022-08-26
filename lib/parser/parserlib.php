@@ -69,6 +69,7 @@ class ParserLib extends TikiDb_Bridge
         $this->option = array_merge(
             [
                 'is_html' => false,
+                'is_markdown' => (isset($prefs['markdown_enabled']) && $prefs['markdown_enabled'] === 'y' && $prefs['markdown_default'] === 'markdown'),
 
                 /* Determines if "Tiki syntax" is parsed in some circumstances.
                 Currently, when is_html is true, but that is probably wrong.
@@ -97,6 +98,7 @@ class ParserLib extends TikiDb_Bridge
                 'exclude_all_plugins' => false,
                 'include_plugins' => [],
                 'typography' => true,
+                'autotoc' => false,
             ],
             empty($option) ? [] : (array) $this->option,
             (array)$option
@@ -152,6 +154,10 @@ class ParserLib extends TikiDb_Bridge
     {
         if ((isset($this->option['is_html']) && $this->option['is_html'] != true) || ! empty($this->option['ck_editor'])) {
             foreach ($this->specialChars as $key => $specialChar) {
+                if ($this->option['is_markdown'] && $specialChar['html'] == '>') {
+                    // markdown uses greater-than character for blockquotes and links, so we need to keep it
+                    continue;
+                }
                 $data = str_replace($specialChar['html'], $key, $data);
             }
         }
@@ -382,7 +388,7 @@ class ParserLib extends TikiDb_Bridge
     // This recursive function handles pre- and no-parse sections and plugins
     public function parse_first(&$data, &$preparsed, &$noparsed, $real_start_diff = '0')
     {
-        return (new WikiParser_Parsable(''))->parse_first($data, $preparsed, $noparsed, $real_start_diff);
+        return WikiParser_Parsable::instantiate('')->parse_first($data, $preparsed, $noparsed, $real_start_diff);
     }
 
     protected function strip_unparsed_block(&$data, &$noparsed, $protect = false)
@@ -864,7 +870,7 @@ class ParserLib extends TikiDb_Bridge
     // Transitional wrapper over WikiParser_Parsable::pluginExecute()
     public function pluginExecute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
     {
-        return (new WikiParser_Parsable(''))->pluginExecute($name, $data, $args, $offset, $validationPerformed, $option);
+        return WikiParser_Parsable::instantiate('', $option)->pluginExecute($name, $data, $args, $offset, $validationPerformed, $option);
     }
 
     //*
@@ -1209,6 +1215,8 @@ class ParserLib extends TikiDb_Bridge
 
         $data = preg_replace("/(?<=\(\()$quotedOldName(?=\)\)|\|)/i", $newName, $data);
 
+        $data = preg_replace("/(?<=\]\()$quotedOldName(?=\))/i", $newName, $data);
+
         $quotedOldHtmlName = preg_quote(urlencode($oldName), '/');
 
         $htmlSearch = '/<a class="wiki" href="tiki-index\.php\?page=' . $quotedOldHtmlName . '([^"]*)"/i';
@@ -1374,7 +1382,7 @@ class ParserLib extends TikiDb_Bridge
     //*
     public function parse_data($data, $option = [])
     {
-        return (new WikiParser_Parsable($data))->parse($option);
+        return WikiParser_Parsable::instantiate($data, $option)->parse($option);
     }
 
     /**
@@ -3180,6 +3188,12 @@ class ParserLib extends TikiDb_Bridge
     //*
     public function parse_tagged_users($data)
     {
+        global $prefs;
+
+        if (! isset($prefs['feature_tag_users']) || $prefs['feature_tag_users'] !== 'y') {
+            return $data;
+        }
+
         $count = 1;
         return preg_replace_callback(
             '/(?:^|\s)@(\w+)/i',
@@ -3277,6 +3291,7 @@ class ParserLib extends TikiDb_Bridge
         $htmlLinksSefurl = ["0" => "dummy"];
         preg_match_all("/\(([a-z0-9-]+)?\( *($page_regex) *\)\)/", $data, $normal);
         preg_match_all("/\(([a-z0-9-]+)?\( *($page_regex) *\|(.+?)\)\)/", $data, $withDesc);
+        preg_match_all("/(?<=\]\()($page_regex)(?=\))/", $data, $markdown);
         preg_match_all('/<a class="wiki[^\"]*" href="tiki-index\.php\?page=([^\?&"]+)[^"]*"/', $data, $htmlLinks1);
         preg_match_all('/<a href="tiki-index\.php\?page=([^\?&"]+)[^"]*"/', $data, $htmlLinks2);
         $htmlLinks[1] = array_merge($htmlLinks1[1], $htmlLinks2[1]);
@@ -3326,23 +3341,25 @@ class ParserLib extends TikiDb_Bridge
         if ($prefs['feature_wikiwords'] == 'y') {
             preg_match_all("/([ \n\t\r\,\;]|^)?([A-Z][a-z0-9_\-]+[A-Z][a-z0-9_\-]+[A-Za-z0-9\-_]*)($|[ \n\t\r\,\;\.])/", $data, $wikiLinks);
 
-            $pageList = array_merge($normal[2], $withDesc[2], $wikiLinks[2], $htmlLinks[1], $htmlLinksSefurl[1], $htmlWantedLinks[1]);
+            $pageList = array_merge($normal[2], $withDesc[2], $wikiLinks[2], $markdown[1], $htmlLinks[1], $htmlLinksSefurl[1], $htmlWantedLinks[1]);
             if ($withReltype) {
                 $relList = array_merge(
                     $normal[1],
                     $withDesc[1],
                     count($wikiLinks[2]) ? array_fill(0, count($wikiLinks[2]), null) : [],
+                    count($markdown[1]) ? array_fill(0, count($markdown[1]), null) : [],
                     count($htmlLinks[1]) ? array_fill(0, count($htmlLinks[1]), null) : [],
                     count($htmlLinksSefurl[1]) ? array_fill(0, count($htmlLinksSefurl[1]), null) : [],
                     count($htmlWantedLinks[1]) ? array_fill(0, count($htmlWantedLinks[1]), null) : []
                 );
             }
         } else {
-            $pageList = array_merge($normal[2], $withDesc[2], $htmlLinks[1], $htmlLinksSefurl[1], $htmlWantedLinks[1]);
+            $pageList = array_merge($normal[2], $withDesc[2], $markdown[1], $htmlLinks[1], $htmlLinksSefurl[1], $htmlWantedLinks[1]);
             if ($withReltype) {
                 $relList = array_merge(
                     $normal[1],
                     $withDesc[1],
+                    count($markdown[1]) ? array_fill(0, count($markdown[1]), null) : [],
                     count($htmlLinks[1]) ? array_fill(0, count($htmlLinks[1]), null) : [],
                     count($htmlLinksSefurl[1]) ? array_fill(0, count($htmlLinksSefurl[1]), null) : [],
                     count($htmlWantedLinks[1]) ? array_fill(0, count($htmlWantedLinks[1]), null) : []

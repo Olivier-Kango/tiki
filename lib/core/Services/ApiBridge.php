@@ -173,6 +173,7 @@ class Services_ApiBridge
         $routes->add('wiki-title', (new Route('wiki/title', ['controller' => 'wiki', 'action' => 'title', 'confirmForm' => 'y']))->setMethods(['POST']));
         $routes->add('wiki-lock', (new Route('wiki/lock', ['controller' => 'wiki', 'action' => 'lock_pages', 'confirmForm' => 'y']))->setMethods(['POST']));
         $routes->add('wiki-unlock', (new Route('wiki/unlock', ['controller' => 'wiki', 'action' => 'unlock_pages', 'confirmForm' => 'y']))->setMethods(['POST']));
+        $routes->add('wiki-preview', (new Route('wiki/preview', ['controller' => 'wiki', 'action' => 'preview']))->setMethods(['POST']));
         $routes->add('wiki-zip', (new Route('wiki/zip', ['controller' => 'wiki', 'action' => 'zip', 'confirmForm' => 'y']))->setMethods(['POST']));
         $routes->add('wiki-versions-delete', (new Route('wiki/{page}/delete', ['controller' => 'wiki', 'action' => 'remove_page_versions', 'confirmForm' => 'y']))->setMethods(['POST']));
         return $routes;
