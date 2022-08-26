@@ -67,6 +67,11 @@ $headerlib->add_cssfile("themes/base_files/css/tiki_base.css");
 //3) Always add bundled font-awesome css for the default icon fonts
 $headerlib->add_cssfile('vendor_bundled/vendor/bower-asset/fontawesome/css/all.css');
 
+// 3a) Optionally add bundled Bootstrap-icons CSS for the optional Bootstrap icons
+if ($prefs['theme_iconset'] === 'bootstrap_icon_font') {
+    $headerlib->add_cssfile('vendor_bundled/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css');
+}
+
 //4) Add Addon custom css first, so it can be overridden by themes
 foreach (\Tiki\Package\ExtensionManager::getEnabledPackageExtensions() as $package) {
     $finder = new \Symfony\Component\Finder\Finder();
