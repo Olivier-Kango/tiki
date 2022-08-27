@@ -51,7 +51,7 @@ h1 {
 }
 
 .topbar .navbar a {
-  color: #888888;
+  color: #6E6E6E; // #888888; Changed for increased
 }
 
 .topbar .navbar-nav > li > a {
@@ -67,12 +67,12 @@ h1 {
   padding-right: 0;
 }
 
-.card-body a {
+.card-body a:not(.btn) {
   color: #333333;
   font-weight: normal;
 }
 
-.card-body a:hover {
+.card-body a:not(.btn):hover {
   color: #999999;
   text-decoration: none;
 }
@@ -153,6 +153,9 @@ h1 {
 }
 
 .card-body a.btn-primary:hover {
-  color: color-yiq($primary);
+  color: $primary;
 }
 
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+    color: #616A70 !important;
+}

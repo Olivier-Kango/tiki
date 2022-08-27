@@ -15,22 +15,22 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
 
-$primary: #aaaaaa;
-$secondary: #dddddd;
-//$success: #48ca3b;
-//$info: #4d3a7d;
-//$warning: #debb27;
-//$danger: #df6e1e;
+$primary: #757575; // #aaaaaa; contrast increased
+$secondary: #212529;
+$success: #218739; // #28a745; contrast increased
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
 
 $theme-colors: (
-     "primary":            #ababab,
-     "secondary":         #dddddd //,
-//     "success":             #5cb85c,
-//     "info":               #5bc0de,
-//     "warning":             #f0ad4e,
-//     "danger":              #d9534f,
-//        "light":            #ffffff,
-//     "dark":                #000000
+     "primary":           $primary, //#757575, // #ababab, -- Darkened to meet wcag guidelines
+     "secondary":         $secondary, //
+     "success":           $success, //  #5cb85c,
+     "info":              $info, // #5bc0de,
+     "warning":           $warning, // #f0ad4e,
+     "danger":            $danger, //#d9534f,
+     "light":             #ffffff,
+     "dark":              #000000
 );
 
 // Options
@@ -47,8 +47,10 @@ $link-hover-color: #999999;
 //$padding-base-vertical: .5rem;
 //$padding-large-vertical: .9rem;
 
-// Fonts
+// Typography
 //$font-family-sans-serif: Verdana, Geneva, Arial, Helvetica, sans-serif;
+$text-muted: #6D747E;
+$blockquote-footer-color: #6F7780;
 
 // Tables
 //$table-border-color: #dddddd;
@@ -99,6 +101,8 @@ $navbar-light-color: #888888;
 // List group
 // Image thumbnails
 // Figures
+$figure-caption-color: #6D747E;
+
 // Breadcrumbs
 // Carousel
 // Close
