@@ -205,6 +205,14 @@
     input[type=button] {
         @include button-variant($secondary, $secondary);
     }
+
+    .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear, .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
+        right: 1.8rem !important;
+    }
+
+    .select2-selection--single .select2-selection__rendered, .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option {
+        padding-right: 2.2rem !important;
+    }
 }
 
 .mobile.tiki-cypht, .mobile.tiki-webmail {
