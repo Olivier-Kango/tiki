@@ -20,13 +20,7 @@ class QuerySourceEntry implements SourceEntryInterface
     public function render(\Tracker\Tabular\Schema\Column $column, $allow_multiple)
     {
         $field = $column->getField();
-        $key = 'tracker_field_' . $field;
-
-        if (isset($this->data[$key])) {
-            $value = $this->data[$key];
-        } else {
-            $value = null;
-        }
+        $value = $this->raw($column);
 
         $extra = [];
         foreach ($column->getQuerySources() as $target => $field) {
@@ -36,5 +30,25 @@ class QuerySourceEntry implements SourceEntryInterface
         }
 
         return $column->render($value, array_merge($extra, ['allow_multiple' => $allow_multiple]));
+    }
+
+    public function raw(\Tracker\Tabular\Schema\Column $column)
+    {
+        $key = 'tracker_field_' . $column->getField();
+
+        if (isset($this->data[$key])) {
+            $value = $this->data[$key];
+        } else {
+            $value = null;
+        }
+
+        return $value;
+    }
+
+    public function backfillPK($pk, $value)
+    {
+        if ($this->data['object_type'] == 'trackeritem' && ! empty($this->data['object_id'])) {
+            \TikiLib::lib('trk')->modify_field($this->data['object_id'], $pk, $value);
+        }
     }
 }

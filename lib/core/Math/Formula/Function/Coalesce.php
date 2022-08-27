@@ -11,7 +11,11 @@ class Math_Formula_Function_Coalesce extends Math_Formula_Function
     public function evaluate($element)
     {
         foreach ($element as $child) {
-            $value = $this->evaluateChild($child);
+            try {
+                $value = $this->evaluateChild($child);
+            } catch (Math_Formula_Exception $e) {
+                continue;
+            }
 
             if (is_array($value)) {
                 foreach ($value as $val) {

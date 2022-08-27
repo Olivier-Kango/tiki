@@ -289,11 +289,22 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
         $schema->addNew($permName, 'number-minutes')
             ->setLabel($this->getConfiguration('name'))
             ->setRenderTransform(function ($value) {
-                $encoded = json_encode($this->parseDurationFormat($value, 'minutes'));
+                $encoded = json_encode($this->parseDurationFormat($value, 'seconds'));
                 return intval($this->getValueInSeconds($encoded) / 60);
             })
             ->setParseIntoTransform(function (&$info, $value) use ($permName) {
                 $info['fields'][$permName] = json_encode($this->parseDurationFormat($value, 'minutes'));
+            })
+            ;
+
+        $schema->addNew($permName, 'number-hours')
+            ->setLabel($this->getConfiguration('name'))
+            ->setRenderTransform(function ($value) {
+                $encoded = json_encode($this->parseDurationFormat($value, 'seconds'));
+                return round($this->getValueInSeconds($encoded) / 3600, 2);
+            })
+            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                $info['fields'][$permName] = json_encode($this->parseDurationFormat($value, 'hours'));
             })
             ;
 
@@ -408,12 +419,16 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
             'seconds' => 0,
         ];
         $data = trim($data);
-        if (preg_match('/^[\d]+$/', $data)) {
-            $seconds = intval($data);
+        if (preg_match('/^[\d\.]+$/', $data)) {
+            if ($lowest == 'seconds') {
+                $seconds = intval($data);
+            } else {
+                $seconds = floatval($data);
+            }
             $factors = self::getFactors();
             foreach ($factors as $unit => $factor) {
-                $seconds *= $factor;
                 if ($unit == $lowest) {
+                    $seconds *= $factor;
                     break;
                 }
             }

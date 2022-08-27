@@ -19,8 +19,13 @@ class JsonSourceEntry implements SourceEntryInterface
 
     public function render(\Tracker\Tabular\Schema\Column $column, $allow_multiple)
     {
-        $entry = $this->data[spl_object_hash($column)];
+        $entry = $this->raw($column);
         return $column->render($entry, ['allow_multiple' => $allow_multiple]);
+    }
+
+    public function raw(\Tracker\Tabular\Schema\Column $column)
+    {
+        return $this->data[spl_object_hash($column)];
     }
 
     public function parseInto(&$info, $column)

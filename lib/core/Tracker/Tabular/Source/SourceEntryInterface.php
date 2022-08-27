@@ -14,4 +14,9 @@ interface SourceEntryInterface
      * Renders an entry part from specified column
      */
     public function render(\Tracker\Tabular\Schema\Column $column, bool $allow_multiple);
+
+    /**
+     * Returns raw search server value before rendering for the specified column
+     */
+    public function raw(\Tracker\Tabular\Schema\Column $column);
 }

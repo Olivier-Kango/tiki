@@ -28,6 +28,16 @@ class APIWriter
         $succeeded = $failed = $skipped = 0;
         $errors = [];
 
+        $owner_columns = [];
+        foreach ($schema->getDefinition()->getItemOwnerFields() as $ownerField) {
+            $ownerField = $schema->getDefinition()->getField($ownerField);
+            foreach ($columns as $column) {
+                if ($ownerField && $column->getField() == $ownerField['permName']) {
+                    $owner_columns[] = $column;
+                }
+            }
+        }
+
         foreach ($source->getEntries() as $entry) {
             $row = [];
 
@@ -46,10 +56,13 @@ class APIWriter
             }
 
             $user = null;
-            if ($entry instanceOf \Tracker\Tabular\Source\UserDistributionInterface) {
-                $owners = $entry->getItemOwners();
-                // TODO: consider what to do with multiple owners of the item, for now use the first one
-                $user = array_shift($owners);
+            foreach ($owner_columns as $column) {
+                $owners = $entry->raw($column);
+                $owners = \TikiLib::lib('trk')->parse_user_field($owners);
+                if ($owners) {
+                    $user = $owners[0];
+                    break;
+                }
             }
 
             try {
@@ -103,7 +116,7 @@ class APIWriter
 
             if ($result && ! $id && method_exists($entry, 'backfillPK')) {
                 foreach (explode('.', $this->config['modify_data_path']) as $field) {
-                    if ($field && $result[$field]) {
+                    if ($field !== '' && $result[$field]) {
                         $result = $result[$field];
                     }
                 }

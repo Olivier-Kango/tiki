@@ -216,6 +216,14 @@ class APISource implements SourceInterface
                 $this->populateOne($column, $row[$column->getLabel()]);
                 continue;
             }
+            if (isset($this->placeholders[$column->getLabel()])) {
+                $this->populateOne($column, $this->placeholders[$column->getLabel()]);
+                continue;
+            }
+            if ($column->isPrimaryKey() && isset($row['id'])) {
+                $this->populateOne($column, $row['id']);
+                continue;
+            }
             throw new \Exception(tr('Expected field "%0" not found in record %1.', $column->getField(), $num));
         }
         return true;

@@ -8,7 +8,7 @@
 
 namespace Tracker\Tabular\Source;
 
-class TrackerSourceEntry implements SourceEntryInterface, UserDistributionInterface
+class TrackerSourceEntry implements SourceEntryInterface
 {
     private $item;
     private $data;
@@ -26,22 +26,23 @@ class TrackerSourceEntry implements SourceEntryInterface, UserDistributionInterf
 
     public function render(\Tracker\Tabular\Schema\Column $column, $allow_multiple)
     {
+        $value = $this->raw($column);
+        return $column->render($value, array_merge($this->extra, ['allow_multiple' => $allow_multiple]));
+    }
+
+    public function raw(\Tracker\Tabular\Schema\Column $column)
+    {
         $field = $column->getField();
         if (isset($this->data['fields'][$field])) {
             $value = $this->data['fields'][$field];
         } else {
             $value = null;
         }
-        return $column->render($value, array_merge($this->extra, ['allow_multiple' => $allow_multiple]));
+        return $value;
     }
 
     public function backfillPK($pk, $value)
     {
         \TikiLib::lib('trk')->modify_field($this->data['itemId'], $pk, $value);
-    }
-
-    public function getItemOwners()
-    {
-        return $this->item->getOwners();
     }
 }

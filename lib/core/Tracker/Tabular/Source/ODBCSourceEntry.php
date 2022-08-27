@@ -32,6 +32,17 @@ class ODBCSourceEntry implements SourceEntryInterface
         return $column->render($allow_multiple ? $values : $values[0], ['allow_multiple' => $allow_multiple]);
     }
 
+    public function raw(\Tracker\Tabular\Schema\Column $column)
+    {
+        $fields = $column->getRemoteFields();
+        foreach ($fields as $field) {
+            if (isset($this->data[$field])) {
+                return $this->data[$field];
+            }
+        }
+        return null;
+    }
+
     public function parseInto(&$info, $column)
     {
         $remoteFields = $column->getRemoteFields();
