@@ -481,25 +481,31 @@ class Services_Tracker_TabularController
                 $source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name'], ',', $schema->getEncoding());
             }
             $writer = new \Tracker\Tabular\Writer\TrackerWriter();
-            $done = $writer->write($source);
 
-            unlink($_FILES['file']['tmp_name']);
+            return TikiLib::lib('tiki')->allocate_extra(
+                'tracker_import_items',
+                function () use ($writer, $source, $info) {
+                    $writer->write($source);
 
-            $message = tr('Your import was completed successfully.');
+                    unlink($_FILES['file']['tmp_name']);
 
-            if (TIKI_API) {
-                return ['feedback' => $message];
-            }
+                    $message = tr('Your import was completed successfully.');
 
-            Feedback::success($message);
-            return [
-                'FORWARD' => [
-                    'controller' => 'tabular',
-                    'action' => 'list',
-                    'tabularId' => $info['tabularId'],
-                ]
-            ];
-        }
+                    if (TIKI_API) {
+                        return ['feedback' => $message];
+                    }
+
+                    Feedback::success($message);
+                    return [
+                        'FORWARD' => [
+                            'controller' => 'tabular',
+                            'action' => 'list',
+                            'tabularId' => $info['tabularId'],
+                        ]
+                    ];
+                }
+            );
+         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $info['odbc_config']) {
             $source = new \Tracker\Tabular\Source\ODBCSource($schema, $info['odbc_config']);
@@ -580,6 +586,7 @@ class Services_Tracker_TabularController
 
         $collection->applyInput($input);
 
+        /** @var UnifiedSearchLib $search */
         $search = TikiLib::lib('unifiedsearch');
         $query = $search->buildQuery([
             'type' => 'trackeritem',
