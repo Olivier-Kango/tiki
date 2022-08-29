@@ -3589,6 +3589,7 @@ body.fullscreen.tiki.navbar-padding {
 }
 .tiki .popover {
   max-width: 301px;
+  z-index: 1;
 }
 .tiki .popover .popover-body .table {
   margin-bottom: 0;
