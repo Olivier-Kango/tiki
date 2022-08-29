@@ -123,6 +123,8 @@ class Services_Search_CustomSearchController
                         $filter = 'daterange';
                     } elseif ($config['_filter'] === 'multivalue') {
                         $filter = 'multivalue';
+                    } elseif ($config['_filter'] === 'exact') {
+                        $filter = 'exact';
                     } elseif ($name == 'distance') {
                         $filter = 'distance';
                         if (! $input->sort_mode->text()) {
@@ -281,6 +283,11 @@ class Services_Search_CustomSearchController
                 }
             }
         }
+    }
+
+    private function cs_dataappend_exact(Search_Query $query, $config, $value)
+    {
+        $query->filterIdentifier($value, $config['_field']);
     }
 
     private function cs_handle_textrange($rangeName, Search_Query $query, $config, $value)
