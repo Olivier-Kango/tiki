@@ -46,13 +46,13 @@ h1 {
   border: 1px solid transparent;
   margin-bottom: 0;
   min-height: 32px;
-  color: #888888;
-  background-color: #fafafa;
+//  color: #888888;
+//  background-color: #fafafa;
 }
 
-.topbar .navbar a {
-  color: #6E6E6E; // #888888; Changed for increased
-}
+//.topbar .navbar a { Replaced with tiki variable
+//  color: #6E6E6E; // #888888; Changed for increased
+//}
 
 .topbar .navbar-nav > li > a {
   padding-bottom: 5px;
