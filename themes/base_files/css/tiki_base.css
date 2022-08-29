@@ -895,12 +895,6 @@ blockquote {
 a.dropdown-item {
   color: #212529;
 }
-.bg-light-parent {
-  background: #f8f9fa;
-}
-.bg-dark-parent {
-  background: #212529;
-}
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {
   --bs-btn-padding-x: 0.75rem;
   --bs-btn-padding-y: 0.375rem;
