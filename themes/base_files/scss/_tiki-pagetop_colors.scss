@@ -1,0 +1,106 @@
+// This file can be imported by themes to solve the problem of specifying different colors for the top zone and topbar zone,
+// since this isn't possible with the standard Bootstrap navbar-dark and navbar-light variables.
+// Use of this file assumes one color set for the top zone and its parents, and one color set for the topbar zone and its parents.
+// Exceptions can be made as needed with specific CSS.
+//
+// Themes using this file should define these variables:
+// $tiki-top-light-bg
+// $tiki-top-light-color
+// $tiki-top-light-link-color
+// $tiki-top-light-link-hover-color
+//
+// $tiki-topbar-light-bg
+// $tiki-topbar-light-color
+// $tiki-topbar-light-link-color
+// $tiki-topbar-light-link-hover-color
+//
+// $tiki-top-dark-bg
+// $tiki-top-dark-color
+// $tiki-top-dark-link-color
+// $tiki-top-dark-link-hover-color
+//
+// $tiki-topbar-dark-bg
+// $tiki-topbar-dark-color
+// $tiki-topbar-dark-link-color
+// $tiki-topbar-dark-link-hover-color
+
+
+
+// Top module zone and parent divs - Light color
+.layout_basic .page-header.navbar-light-parent.bg-light-parent,  // Single-container layout -- Parent of the top module zone
+.layout_basic .page-header .navbar.navbar-light.bg-light,        // Single-container layout -- Menu itself in top zone
+.layout_classic .navbar-light-parent.bg-light-parent,            // Classic Tiki layout -- Parent of the top module zone
+.layout_classic .navbar.navbar-light.bg-light,                   // Classic Tiki layout -- Navbar (menu) inside the top module zone
+.layout_social header.navbar-light-parent.bg-light-parent,             // Classic Bootstrap layout (fixed-top navbar) -- Complete header
+.layout_social header.navbar.navbar-light.bg-light                    // Classic Bootstrap layout -- Menu itself
+{
+    background-color: $tiki-top-light-bg !important;
+    color: $tiki-top-light-color;
+    a,
+    .btn.btn-link {
+        color: $tiki-top-light-link-color;
+        &:hover {
+            color: $tiki-top-light-link-hover-color;
+        }
+    }
+}
+// Topbar module zone and parent divs - light color
+.layout_basic .topbar_modules.navbar-light.bg-light,                  // Topbar, which probably includes another nav menu
+.layout_classic .topbar.navbar-light-parent.bg-light-parent,          // Classic Tiki layout -- Parent of the topbar module zone
+.layout_classic .topbar_modules.navbar-light.bg-light,                // Classic Tiki layout -- Topbar module zone
+.layout_classic .topbar_modules.navbar-light.bg-light,                // Classic Tiki layout -- Navbar (menu) inside the topbar module zone
+.layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent,   // Classic Bootstrap topbar wrapper
+.layout_social .topbar.navbar-light,                                  // Classic Bootstrap topbar zone parent
+.layout_social .topbar .navbar-light.bg-light                         // Classic Bootstrap topbar zone menu itself
+{
+    background-color: $tiki-topbar-light-bg !important;
+    color: $tiki-topbar-light-color;
+    a,
+    .btn.btn-link  {
+        color: $tiki-topbar-light-link-color;
+        &:hover {
+            color: $tiki-topbar-light-link-hover-color;
+        }
+    }
+}
+
+// Top module zone and parent divs - dark color
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent,         // Single-container layout -- Parent of the top module zone
+.layout_basic .top_modules.navbar-dark-parent.bg-dark-parent,         // Single-container layout -- Top module zone
+.layout_basic .page-header .navbar.navbar-dark.bg-dark,               // Single-container layout -- Menu itself in top zone
+.layout_classic .navbar-dark-parent.bg-dark-parent,                   // Classic Tiki layout -- Parent of the top module zone
+.layout_classic .top_modules .navbar.navbar-dark.bg-dark,             // Classic Tiki layout -- Navbar (menu) inside the top module zone
+.layout_social header.navbar-dark.bg-dark,                            // Classic Bootstrap layout (fixed-top navbar) -- Complete header
+.layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark        // Classic Bootstrap layout -- Menu itself
+{
+    background-color: $tiki-top-dark-bg !important;
+    color: $tiki-top-dark-color;
+    a,
+    .btn.btn-link  {
+        color: $tiki-top-dark-link-color;
+        &:hover {
+            color: $tiki-top-dark-link-hover-color;
+        }
+    }
+}
+
+// Topbar module zone and parent divs - dark color
+.layout_basic .topbar_modules.navbar-dark.bg-dark,                    // Single Container layout -- Topbar, which probably includes another nav menu
+.layout_basic .topbar_modules .navbar-dark.bg-dark,                   // Single Container layout  -- Navbar (menu) inside the Topbar module zone
+.layout_classic .topbar.navbar-dark-parent.bg-dark-parent,            // Classic Tiki layout -- Parent of the topbar module zone
+.layout_classic .topbar_modules.navbar-dark.bg-dark,                  // Classic Tiki layout -- Topbar module zone
+.layout_classic .topbar_modules .navbar-dark.bg-dark,                 // Classic Tiki layout -- Navbar (menu) inside the topbar module zone
+.layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent,     // Classic Bootstrap topbar wrapper
+.layout_social .topbar.navbar-dark.bg-dark,                           // Classic Bootstrap topbar zone parent
+.layout_social .topbar .navbar-dark.bg-dark                           // Classic Bootstrap topbar zone menu itself
+{
+    background-color: $tiki-topbar-dark-bg !important;
+    color: $tiki-topbar-dark-color;
+    a,
+    .btn.btn-link  {
+        color: $tiki-topbar-dark-link-color;
+        &:hover {
+            color: $tiki-topbar-dark-link-hover-color;
+        }
+    }
+}
