@@ -541,7 +541,9 @@ class RSSLib extends TikiDb_Bridge
         $success = ['feed' => 0, 'articles' => 0];
         try {
             $content = $tikilib->httprequest($url);
-            $feed = Laminas\Feed\Reader\Reader::importString($content);
+            if ($content) {
+                $feed = Laminas\Feed\Reader\Reader::importString($content);
+            }
         } catch (Laminas\Feed\Exception\ExceptionInterface $e) {
             $this->modules->update(
                 [
