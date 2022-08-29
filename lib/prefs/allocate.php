@@ -29,6 +29,7 @@ function prefs_allocate_list()
     $prefs = [
         'unified_rebuild' => ['label' => tr('Search index rebuild'), 'memory' => true, 'time' => true],
         'tracker_export_items' => ['label' => tr('Tracker item export'), 'memory' => true, 'time' => true],
+        'tracker_import_items' => ['label' => tr('Tracker item import'), 'memory' => true, 'time' => true],
         'tracker_clear_items' => ['label' => tr('Tracker clear'), 'memory' => false, 'time' => true],
         'print_pdf' => ['label' => tr('Printing to PDF'), 'memory' => true, 'time' => true],
         'php_execution' => [

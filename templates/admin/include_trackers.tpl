@@ -25,6 +25,8 @@
                 {preference name="tracker_clone_item"}
                 {preference name=allocate_memory_tracker_export_items}
                 {preference name=allocate_time_tracker_export_items}
+                {preference name=allocate_memory_tracker_import_items}
+                {preference name=allocate_time_tracker_import_items}
                 {preference name=allocate_time_tracker_clear_items}
 
                 {preference name=feature_warn_on_edit}
