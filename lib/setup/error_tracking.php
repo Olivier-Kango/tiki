@@ -42,7 +42,7 @@ class ErrorTracking
      *
      * @param \Exception $exception
      */
-    public function captureException(\Exception $exception)
+    public function captureException(\Throwable $exception)
     {
         if ($this->state === self::STATE_DISABLED) {
             return;
