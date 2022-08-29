@@ -43,6 +43,7 @@
         {preference name=calendar_view_days}
         {preference name=calendar_description_is_html}
         {preference name=calendar_watch_editor}
+        {preference name=calendar_fc_premium_license}
     </fieldset>
     {include file='admin/include_apply_bottom.tpl'}
 </form>

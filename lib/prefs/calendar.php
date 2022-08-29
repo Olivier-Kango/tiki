@@ -150,5 +150,13 @@ function prefs_calendar_list()
             'type' => 'flag',
             'default' => 'y',
         ],
+        'calendar_fc_premium_license' => [
+            'name' => tra('License for FullCalendar premium plugins'),
+            'description' => tra('FullCalendar premium license.'),
+            'type' => 'text',
+            'hint' => tr('For details on the premium license please check [%0]', 'https://fullcalendar.io/license'),
+            'filter' => 'text',
+            'default' => '',
+        ],
     ];
 }
