@@ -41,10 +41,6 @@ a:hover,
     color: #c2251f
 }
 
-#cssmenu0 .selected a {
-    color: #000;
-}
-
 h1, h2, h3, h4, h5, h6, #top .pagetitle a {
     color: #c2251f
 }
@@ -76,11 +72,6 @@ input[type="submit"]:hover,
     background-color: #f04d4d
 }
 
-.cssmenu_horiz ul li button.btn-link.link-list,
-.cssmenu_vert ul li button.btn-link.link-list {
-    font-weight: normal;
-    border: none;
-}
 
 /* layout */
 

@@ -21,15 +21,8 @@ a:visited,
 .popover button.btn-link.link-list,
 .popover button.btn-link.link-list .icon,
 .dropdown-item button.btn-link.link-list,
-.dropdown-item button.btn-link.link-list .icon,
-.cssmenu_horiz ul li button.btn-link.link-list,
-.cssmenu_vert ul li button.btn-link.link-list {
+.dropdown-item button.btn-link.link-list .icon {
   font-weight: bold;
-}
-
-.cssmenu_horiz ul li button.btn-link.link-list,
-.cssmenu_vert ul li button.btn-link.link-list {
-  font-size: $font-size-base;
 }
 
 
@@ -77,58 +70,10 @@ h1 {
   text-decoration: none;
 }
 
-.cssmenu_vert li a,
-.cssmenu_vert li ul a,
-.cssmenu_horiz li ul a,
-.cssmenu_horiz li ul a,
-.box-menu .cssmenu_horiz li a,
-.box-menu .cssmenu_horiz li ul a,
-.box-menu .cssmenu_horiz li:hover ul a,
-#topbar_modules .cssmenu_horiz li ul a,
-#topbar_modules .cssmenu_horiz li:hover ul a,
-.cssmenu_horiz ul li button.btn-link.link-list,
-.cssmenu_vert ul li button.btn-link.link-list {
-  padding: .6em 1em;
-  //    background-color: #fafafa;
-  //    color: #333333;
-  font-weight: bold;
-  font-size: 110%;
-}
 
 .navbar-dark {
   background-color: #fafafa;
   color: #333333;
-}
-
-.navbar-light {
-  .cssmenu_vert li ul a:hover,
-  .cssmenu_horiz li ul a:hover,
-  .box-menu .cssmenu_horiz li ul a:hover,
-  #topbar_modules .cssmenu_horiz li ul a:hover,
-  .cssmenu_horiz ul li button.btn-link.link-list:hover,
-  .cssmenu_vert ul li button.btn-link.link-list:hover {
-    color: #000000;
-    text-decoration: none;
-    background-color: #ffffff;
-  }
-
-  .cssmenu_horiz li.selected a,
-  .cssmenu_vert li.selected a,
-  .cssmenu_horiz li ul li.selected a:link,
-  .cssmenu_vert li ul li.selected a:link,
-  .cssmenu_horiz li ul li.selected a:visited,
-  .cssmenu_vert li ul li.selected a:visited,
-  li.menuoption a {
-    text-decoration: none;
-    background-color: #c8c8c8;
-  }
-}
-.cssmenu_horiz li a.sf-with-ul {
-  padding-right: 2.5em;
-}
-
-.sf-arrows .sf-with-ul:after {
-  border-color: rgba(0, 0, 0, .5) transparent transparent;
 }
 
 .card {

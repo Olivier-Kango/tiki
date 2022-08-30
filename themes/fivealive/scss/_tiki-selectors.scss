@@ -222,8 +222,7 @@ h1 {
     }
 }
 
-// Commented out because section rules are too specific for an non-qualified selector
-//section {
+//section { Commented out by g_c-l aug 2022 because it seems too broad - why would all section instances need this?
 //  color: #ffffff;
 //  min-height: 400px;
 //  height: auto !important;

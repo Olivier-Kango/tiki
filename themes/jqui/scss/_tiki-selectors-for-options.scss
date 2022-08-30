@@ -108,7 +108,6 @@ input[type="submit"]:hover,
 .btn-link:hover { background: none; }
 
 //.topbar,
-    //.topbar .cssmenu_horiz ul,
 //.topbar .navbar-nav > li,
 //.topbar .nav > li {
 //    background: $topbar_bg; //  $navbar-default-bg;
@@ -135,69 +134,3 @@ input[type="submit"]:hover,
   padding-top: 0;
 }*/
 
-
-//.topbar .nav > li > a:hover,
-//.topbar .nav > li > a:focus {
-//    background: $tiki-cssmenu_horiz_li_hover_bg;
-//}
-
-//.cssmenu_horiz ul li a,
-//.cssmenu_vert ul li a {
-//    background: $tiki-cssmenu_ul_li_a_bg; //   $dropdown-bg;
-//    color: $tiki-cssmenu_ul_li_a_color; //  $dropdown-link-color;
-    //  padding-top: ; (tiki-cssmenus.less edited to conform to BS dropdown-link top and bottom padding - 3px.)
-    //  padding-bottom: ;
-//}
-
-//.cssmenu_horiz > ul > li:hover > a,
-//.cssmenu_vert > ul > li:hover > a {
-//    color: $tiki-cssmenu_ul_li_hover_a_color; //  $dropdown-link-hover-color;
-//    background: $tiki-cssmenu_ul_li_hover_a_bg; //  $dropdown-link-hover-bg;
-//}
-
-// styling for both css and generated arrows
-.sf-arrows .sf-with-ul:after {
-    border: 5px solid transparent;
-    border-top-color: $link-color; // $dropdown-link-color; // /* edit this to suit design (no rgba in IE8) */
-}
-
-// styling for right-facing arrows
-.cssmenu_vert.sf-arrows li > .sf-with-ul:after {
-    border-color: transparent;
-    border-left-color: $link-color; /* edit this to suit design (no rgba in IE8) */
-}
-
-.sf-arrows ul .sf-with-ul:after,
-.cssmenu_vert.sf-arrows ul > li > .sf-with-ul:after {
-    border-color: transparent;
-    border-left-color: $dropdown-link-color; /* edit this to suit design (no rgba in IE8) */
-}
-
-.sf-arrows ul li > .sf-with-ul:focus:after,
-.sf-arrows ul li:hover > .sf-with-ul:after,
-.sf-arrows ul .sfHover > .sf-with-ul:after {
-    border-color: transparent;
-    border-left-color: $dropdown-link-hover-color;
-}
-
-.cssmenu_vert.sf-arrows li > .sf-with-ul:focus:after,
-.cssmenu_vert.sf-arrows li:hover > .sf-with-ul:after,
-.cssmenu_vert.sf-arrows .sfHover > .sf-with-ul:after {
-    border-color: transparent;
-    border-left-color: $dropdown-link-hover-color; // white;
-}
-
-#col2,
-#col3 {
-    // styling for right-facing arrows
-    .cssmenu_vert.sf-arrows li > .sf-with-ul:after {
-        border-color: transparent;
-        border-left-color: $side-column-link-color; /* edit this to suit design (no rgba in IE8) */
-    }
-    .cssmenu_vert.sf-arrows li > .sf-with-ul:focus:after,
-    .cssmenu_vert.sf-arrows li:hover > .sf-with-ul:after,
-    .cssmenu_vert.sf-arrows .sfHover > .sf-with-ul:after {
-        border-color: transparent;
-        border-left-color: $side-column-link-hover-color; // white;
-    }
-}

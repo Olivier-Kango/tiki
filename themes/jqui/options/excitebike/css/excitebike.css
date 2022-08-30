@@ -146,8 +146,7 @@ fieldset[disabled] .btn-primary.focus {
 .dropdown-item:hover,
 .dropdown-item:focus,
 .dropdown-item button.btn-link.link-list:hover,
-.dropdown-item button.btn-link.link-list:focus,
-.topbar .cssmenu_horiz li ul li > a:hover {
+.dropdown-item button.btn-link.link-list:focus {
     background: #e69700;
     color: #ffffff;
     text-decoration: none;
@@ -209,8 +208,7 @@ body.cke_show_borders {
   background: transparent;
 }
 .dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus,
-.topbar .cssmenu_horiz li ul li > a:hover {
+.dropdown-menu > li > a:focus {
   background-color: #e69700;
   color: #ffffff;
   text-decoration: none;
@@ -220,46 +218,7 @@ body.cke_show_borders {
 .navbar-dark .navbar-nav > .active > a:focus {
   background-color: #e69700;
 }
-.cssmenu_horiz a,
-.cssmenu_vert a {
-  background: none;
-}
-.topbar .cssmenu_horiz li:hover > a {
-  text-decoration: underline;
-}
-.cssmenu_horiz li ul li,
-.cssmenu_vert li ul li {
-  background: #ffffff;
-  border: none;
-  font-weight: normal;
-}
-.cssmenu_vert li:hover ul li a,
-.cssmenu_vert li.sfHover ul li a {
-  color: #000000;
-}
-.topbar .cssmenu_horiz li:hover ul ul,
-.topbar .cssmenu_horiz li.sfHover ul ul {
-  top: 0;
-}
-.cssmenu_horiz li ul li:first-child,
-.cssmenu_vert li ul li:first-child {
-  border-top: none;
-}
-.topbar .sf-arrows .sf-with-ul:after {
-  border: 5px solid transparent;
-  border-top-color: #ffffff;
-}
-.cssmenu_vert.sf-arrows li > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #e69700;
-  /* edit this to suit design (no rgba in IE8) */
-}
-.topbar .sf-arrows ul .sf-with-ul:after,
-.topbar .cssmenu_vert.sf-arrows ul > li > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #222222;
-  /* edit this to suit design (no rgba in IE8) */
-}
+
 .wikitext {
   border: #eeeeee solid .5em;
   background: #eeeeee url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/excite-bike/images/ui-bg_inset-hard_100_eeeeee_1x100.png') 50% bottom repeat-x;

@@ -561,17 +561,6 @@ function prefs_feature_list($partial = false)
             'default' => 'n',
         ],
 
-        // Why would this be disabled? FIXME: Disabling is broken (CSS menus display as classic menus). Chealer 2017-06-04
-        // Enhanced by feature_jquery_superfish. Chealer 2017-06-04
-        'feature_cssmenus' => [
-            'name' => tra('CSS menus'),
-            'description' => tra('Use CSS-styled (Suckerfish) vertical and horizontal menus.'),
-            'help' => 'Menus',
-            'type' => 'flag',
-            'default' => 'y',
-            'tags' => ['deprecated'],
-            'warning' => tra('This feature will be removed after Tiki23, use Smart Menus instead'),
-        ],
 
         'feature_shadowbox' => [
             'name' => tra('Shadowbox / ColorBox'),

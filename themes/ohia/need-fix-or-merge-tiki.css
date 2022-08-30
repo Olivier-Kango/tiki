@@ -199,13 +199,7 @@ div #metadata div.tabs {
 .box-quickadmin li {
   font-size: 0.9em;
 }
-.box-quickadmin .cssmenu_horiz a {
-  padding: 0 2.25em 0 0;
-}
-.box-quickadmin .cssmenu_horiz ul li {
-  padding-left: 1em;
-  background-color: #ffffff;
-}
+
 .mod-share-item {
   float: left;
 }

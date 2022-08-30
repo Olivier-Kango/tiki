@@ -246,49 +246,12 @@ input.reportBuilderInput,
     background: #292929 !important;
 }
 
-.box-quickadmin .cssmenu_horiz ul li {
-    background-color: $body-bg;
-}
+//.box-quickadmin .cssmenu_horiz ul li {
+//    background-color: $body-bg;
+//}
 
-a.toolbar,
-.cssmenu_horiz a,
-.cssmenu_vert a {
+a.toolbar {
     color: $link-color;
-}
-
-.cssmenu_horiz li ul,
-.cssmenu_vert li ul {
-    padding: 0;
-    margin: 2px 0 0; // override default ul
-    //  font-size: $font-size-base;
-    background-color: $dropdown-bg;
-    border: 1px solid $dropdown-border-color;
-    border-radius: $border-radius;
-    @include box-shadow(0 6px 12px rgba(0, 0, 0, .175));
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-
-    // Links within the dropdown menu
-    > li > a {
-        padding: 3px 20px;
-        font-weight: normal;
-        line-height: $line-height-base;
-        color: $dropdown-link-color;
-        background: $dropdown-bg;
-    }
-}
-
-// Hover/Focus state
-.cssmenu_horiz li a,
-.cssmenu_vert li a,
-.cssmenu_horiz ul li a,
-.cssmenu_vert ul li a {
-    &:hover,
-    &:focus {
-        text-decoration: none;
-        color: $dropdown-link-hover-color;
-        background-color: $dropdown-link-hover-bg;
-    }
 }
 
 // override for some cypht background colors

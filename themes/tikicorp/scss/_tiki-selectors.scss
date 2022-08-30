@@ -22,14 +22,6 @@ body:not(.fixed_width) .container-std.middle {
   background: rgba(#000, 0.77) !important;
 }
 
-.cssmenu_horiz li.selected a,
-.cssmenu_horiz li.selected a:hover,
-.cssmenu_vert li.selected a {
-    text-decoration: none;
-    color: $navbar-light-hover-color;
-//    background-color: //$navbar-default-link-active-bg  //Deprecated?;
-}
-
 #col2 .card,
 #col3 .card,
 #col2 .card .card-header,

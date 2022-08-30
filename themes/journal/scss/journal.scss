@@ -16,19 +16,7 @@
 @import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/journal/bootswatch";
 @import "../../base_files/scss/_external-scripts.scss";
 
-.cssmenu_vert,
-.cssmenu_horiz {
-    font-size: 18px;
-    font-family: $font-family-sans-serif;
-    font-weight: $headings-font-weight;
-}
 
-.cssmenu_vert li ul,
-.cssmenu_horiz li ul,
-.cssmenu_horiz ul li button.btn-link.link-list,
-.cssmenu_vert ul li button.btn-link.link-list {
-    font-size: 15px;
-}
 
 // Increase navbar height and side margins to reinstate Bootswatch style
 .topbar_modules > * {

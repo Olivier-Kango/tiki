@@ -241,19 +241,6 @@ hr {
     }
 }
 
-// So form submit buttons with icons and text used in dropdown menus can look just like links
-.cssmenu_horiz ul li button.btn-link.link-list,
-.cssmenu_vert ul li button.btn-link.link-list {
-    background: $dropdown-bg;
-    color: $dropdown-link-color;
-}
-
-.cssmenu_horiz ul li button.btn-link.link-list:hover,
-.cssmenu_vert ul li button.btn-link.link-list:hover {
-    color: $dropdown-link-hover-color;
-    background: $dropdown-link-hover-bg;
-}
-
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
@@ -372,10 +359,6 @@ input[type="checkbox"].preffilter-toggle-round:checked + label::before {
     background-color: $nav-tabs-link-active-bg; //#a8e2ec;
 }
 
-.topbar .cssmenu_horiz ul {
-    background: $dropdown-bg;
-}
-
 .blog-postbody-title h2.card-title {
     font-size: 20px;
 }
@@ -402,38 +385,6 @@ header.header .sitesubtitle {
     background: #f2dede;
     color: #a94442;
     border-color: #ebccd1;
-}
-
-.cssmenu_horiz li ul,
-.cssmenu_vert li ul {
-    background-color: $dropdown-bg;
-    border: 1px solid $dropdown-border-color;
-    //  border: 1px solid rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-}
-
-.cssmenu_horiz li ul > li > a,
-.cssmenu_vert li ul > li > a {
-    padding: 3px 20px;
-    font-weight: normal;
-    color: #ffffff;
-    background: $dropdown-bg;
-}
-
-.cssmenu_horiz > li > a:hover,
-.cssmenu_vert > li > a:hover,
-.cssmenu_horiz ul > li > a:hover,
-.cssmenu_vert ul > li > a:hover,
-.cssmenu_horiz > li > a:focus,
-.cssmenu_vert > li > a:focus,
-.cssmenu_horiz ul > li > a:focus,
-.cssmenu_vert ul > li > a:focus {
-    text-decoration: none;
-    color: $dropdown-link-hover-color;
-    background-color: $dropdown-link-hover-bg;
 }
 
 #autotoc * {

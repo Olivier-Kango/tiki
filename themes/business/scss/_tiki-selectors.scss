@@ -25,7 +25,6 @@ $tiki-topbar-row-sidemargins: -15px;
 //  }
 //}
 
-//.page-header .top_modules .cssmenu_horiz li ul > li > a,
 //.page-header .top_modules .dropdown-item {
 //  color: #212529;
 //}
@@ -67,11 +66,9 @@ h2.sitesubtitle {
 
 .topbar.bg-dark > li > a,
 //.topbar.bg-light > li > a,
-.topbar .cssmenu_horiz > li > a,
 .layout_social .fixed-top .navbar-brand,
 .layout_social .fixed-top .nav-link,
 //.layout_social .fixed-top button.dropdown-toggle,
-.layout_social .fixed-top .cssmenu_horiz > li > a,
 .navbar.bg-dark > .nav-link,
 //.navbar.bg-light > .nav-link
  {
@@ -101,10 +98,6 @@ h2.sitesubtitle {
 // topbar hover
 .topbar .nav > li > a:hover,
 .topbar .nav > li > a:focus,
-.topbar .cssmenu_horiz > li > a:hover,
-.topbar .cssmenu_horiz > li:hover,
-.topbar .cssmenu_horiz li.sfHover:hover,
-.topbar .cssmenu_horiz > li.selected > a,
 .bg-dark > li > a:hover,
 .bg-dark > li > a:focus,
 .bg-dark > .active > a//,
@@ -126,7 +119,6 @@ h2.sitesubtitle {
 //  border: none;
 //}
 
-.topbar .cssmenu_horiz > li > a,
 .topbar .navbar-dark .navbar-nav > li > a {
   //  color: #ffffff;
   text-transform: uppercase;

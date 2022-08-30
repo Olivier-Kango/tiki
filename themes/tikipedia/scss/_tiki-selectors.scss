@@ -111,12 +111,7 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 1px solid #ffffff;
 }
 
-.topbar .nav.cssmenu_horiz {
-  padding-left: 4px;
-}
-
-.navbar-nav,
-.topbar .nav.cssmenu_horiz {
+.navbar-nav {
   background: 100% 100% url('#{$imagePath}pagetop_buttons_border_bg.png') no-repeat;
   padding-right: 1px;
 }
@@ -290,17 +285,6 @@ body.fullscreen #col1 {
     background-repeat: no-repeat;
     border: none;
     padding: 4px 8px 8px;
-  }
-  .cssmenu_vert a,
-  .cssmenu_vert button.btn-link.link-list {
-    padding: 3px 10px;
-  }
-  .sf-arrows .sf-with-ul::after {
-    right: 0;
-  }
-
-  .nav > li > a:not(.sf-with-ul) {
-    padding: 4px 6px;
   }
 }
 

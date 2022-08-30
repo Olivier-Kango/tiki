@@ -33,11 +33,11 @@ function module_menu_info()
                 'filter' => 'text',
             ],
             // FIXME: There are 3 types of menus: Bootstrap, CSS or classic (JavaScript). There should be a single option to select between the 3, or 1 should be removed (CSS).
-            'css' => [
-                'name' => tra('CSS/Superfish'),
-                'description' => tra('Use CSS Superfish menu (if bootstrap = n). y|n (default y)'),
-                'filter' => 'alpha',
-            ],
+//            'css' => [
+//              'name' => tra('CSS/Superfish'),
+//                'description' => tra('Use CSS Superfish menu (if bootstrap = n). y|n (default y)'),
+//                'filter' => 'alpha',
+//            ],
             'bootstrap' => [
                 'name' => tra('Use Bootstrap menus'),
                 'description' => tra('') . ' ( y / n )',

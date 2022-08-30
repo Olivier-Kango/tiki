@@ -10515,10 +10515,10 @@ textarea.form-control-lg {
 .topbar {
   margin-bottom: 1.4rem;
 }
-.navbar-dark > a, .navbar-dark .cssmenu_horiz > li > a {
+.navbar-dark > a {
   color: #53BAEA;
 }
-.navbar-dark > a:hover, .navbar-dark .cssmenu_horiz > li > a:hover {
+.navbar-dark > a:hover {
   color: #1784b7;
   text-decoration: none;
 }
@@ -10573,63 +10573,6 @@ a.fc-event:hover {
 }
 #topbar_modules_social .form-control {
   margin-top: 0.5rem;
-}
-.cssmenu_horiz > li:hover, .cssmenu_horiz > li.sfHover, .cssmenu_vert > li:hover, .cssmenu_vert > li.sfHover {
-  -webkit-transition: none;
-  -moz-transition: none;
-  -o-transition: none;
-  transition: none;
-}
-.topbar .nav > li > a:hover, .topbar .nav > li > a:focus {
-  background: transparent;
-}
-.cssmenu_horiz ul, .cssmenu_vert ul {
-  border: var(--bs-border-color-translucent);
-}
-.cssmenu_horiz ul li a, .cssmenu_vert ul li a, .cssmenu_horiz ul li button.btn-link.link-list, .cssmenu_vert ul li button.btn-link.link-list {
-  background: #fff;
-  color: #212529;
-}
-.cssmenu_horiz ul li button.btn-link.link-list, .cssmenu_vert ul li button.btn-link.link-list {
-  width: 100%;
-  border-radius: 0px;
-  text-align: left;
-}
-.cssmenu_horiz > ul > li:hover > a, .cssmenu_vert > ul > li:hover > a, .cssmenu_horiz > ul > li:hover > form > button.btn-link.link-list, .cssmenu_vert > ul > li:hover > form > button.btn-link.link-list {
-  color: #1e2125;
-  background: #e9ecef;
-}
-.sf-arrows .sf-with-ul:after {
-  border: 5px solid transparent;
-  border-top-color: #53BAEA;
-}
-.cssmenu_vert.sf-arrows li > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #53BAEA;
-  /* edit this to suit design (no rgba in IE8) */
-}
-.sf-arrows ul .sf-with-ul:after, .cssmenu_vert.sf-arrows ul > li > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #212529;
-  /* edit this to suit design (no rgba in IE8) */
-}
-.sf-arrows ul li > .sf-with-ul:focus:after, .sf-arrows ul li:hover > .sf-with-ul:after, .sf-arrows ul .sfHover > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #1e2125;
-}
-.cssmenu_vert.sf-arrows li > .sf-with-ul:focus:after, .cssmenu_vert.sf-arrows li:hover > .sf-with-ul:after, .cssmenu_vert.sf-arrows .sfHover > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #1e2125;
-}
-.topbar .cssmenu_horiz ul {
-  background: #fff;
-}
-.topbar .cssmenu_horiz.sf-arrows > .menuSection0 > .sf-with-ul:after {
-  border: 5px solid transparent;
-  border-top-color: #53BAEA;
-}
-.topbar .cssmenu_horiz.sf-arrows > .menuSection0:hover > .sf-with-ul:after, .topbar .cssmenu_horiz.sf-arrows > .menuSection0.sfhover > .sf-with-ul:after {
-  border-top-color: #1784b7;
 }
 .dropdown-menu {
   text-align: start !important;
@@ -10781,14 +10724,6 @@ form.simple label .warning {
   background: #192129;
   color: #fff;
 }
-.cssmenu_horiz ul li.selected a, .cssmenu_vert ul li.selected a, .cssmenu_horiz ul li a:hover, .cssmenu_vert ul li a:hover, .cssmenu_horiz ul li.selected button.btn-link.link-list, .cssmenu_vert ul li.selected button.btn-link.link-list, .cssmenu_horiz ul li button.btn-link.link-list:hover, .cssmenu_vert ul li button.btn-link.link-list:hover {
-  text-decoration: none;
-  color: #1e2125;
-  background-color: #e9ecef;
-}
-.box-quickadmin .cssmenu_horiz ul li {
-  background-color: #192129;
-}
 .box-switch_lang .box-data img.highlight {
   border: 0.1em solid #FF3D3D;
 }
@@ -10798,10 +10733,10 @@ form.simple label .warning {
 .box-switch_lang .flags .highlight {
   border: solid 1px #0dcaf0;
 }
-.navbar-light .dropdown-toggle, .navbar-light a.nav-link.dropdown-toggle, .navbar-light h1.sitetitle a, .navbar-light .sitetitle.h1 a, .navbar-light h2.sitesubtitle, .navbar-light .sitesubtitle.h2, .navbar-light .cssmenu_horiz .menuLevel0 > a {
+.navbar-light .dropdown-toggle, .navbar-light a.nav-link.dropdown-toggle, .navbar-light h1.sitetitle a, .navbar-light .sitetitle.h1 a, .navbar-light h2.sitesubtitle, .navbar-light .sitesubtitle.h2 {
   color: rgba(0, 0, 0, 0.55);
 }
-.navbar-dark .dropdown-toggle, .navbar-dark a.nav-link.dropdown-toggle, .navbar-dark h1.sitetitle a, .navbar-dark .sitetitle.h1 a, .navbar-dark h2.sitesubtitle, .navbar-dark .sitesubtitle.h2, .navbar-dark .cssmenu_horiz .menuLevel0 > a {
+.navbar-dark .dropdown-toggle, .navbar-dark a.nav-link.dropdown-toggle, .navbar-dark h1.sitetitle a, .navbar-dark .sitetitle.h1 a, .navbar-dark h2.sitesubtitle, .navbar-dark .sitesubtitle.h2 {
   color: #53BAEA;
 }
 .navbar-nav {
@@ -11044,9 +10979,6 @@ body.wikitext {
 }
 .editable-inline.unsaved {
   border: solid 2px #FF3D3D;
-}
-.structure_select .cssmenu_horiz ul li {
-  border: 1px solid #adb5bd;
 }
 .TextArea-fullscreen, .TextArea-fullscreen .edit-zone-footer, .CodeMirror-fullscreen, .CodeMirror-fullscreen .edit-zone-footer {
   background-color: #192129;
@@ -11411,12 +11343,6 @@ blockquote {
 a.dropdown-item {
   color: #212529;
 }
-.bg-light-parent {
-  background: #f8f9fa;
-}
-.bg-dark-parent {
-  background: #212529;
-}
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {
   --bs-btn-padding-x: 0.75rem;
   --bs-btn-padding-y: 0.375rem;
@@ -11479,10 +11405,6 @@ body:not(.fixed_width) .container-std.middle {
 }
 .bg-dark, .topbar.bg-dark {
   background: rgba(0, 0, 0, 0.77) !important;
-}
-.cssmenu_horiz li.selected a, .cssmenu_horiz li.selected a:hover, .cssmenu_vert li.selected a {
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.7);
 }
 #col2 .card, #col3 .card, #col2 .card .card-header, #col3 .card .card-header {
   border: none;

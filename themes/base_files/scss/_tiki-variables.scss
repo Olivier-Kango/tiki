@@ -22,22 +22,6 @@ $tiki-navbar-fixed-height: 3.25rem !default;
 $tiki-breadcrumb-font-style: normal !default;
 //$breadcrumb-font-size: 90% !default; This is a Bootstrap variable so just change value in default/scss/variables
 
-// These rules are to map Bootstrap variables to superfish menus and topbar div styling.
-$tiki-cssmenu_horiz_li_hover_bg: transparent !default;
-$tiki-cssmenu_ul_border: $dropdown-border-color !default;
-$tiki-cssmenu_ul_li_a_bg: $dropdown-bg !default;
-$tiki-cssmenu_ul_li_a_color: $dropdown-link-color !default;
-$tiki-cssmenu_ul_li_hover_a_color: $dropdown-link-hover-color !default;
-$tiki-cssmenu_ul_li_hover_a_bg: $dropdown-link-hover-bg !default;
-//$topbar_bg: $bg-dark !default;
-//$navbar-dark-bg: $bg-dark !default; // Not sure how BS4 specifies this.
-//$topbar_color: $navbar-dark-color !default;
-//$topbar_link_color: $navbar-dark-color !default;
-//$topbar_link_padding_top: $navbar-padding-y !default;
-//$topbar_link_padding_bottom: $navbar-padding-y !default;
-//$topbar_link_hover_color: $navbar-dark-hover-color !default;
-
-// $dropdown-title-color: $dropdown-link-color !default; -- Now .dropdown-header, a Bootstrap variable (GC-L, Aug. 2022)
 
 // Enable bringing center column background back up to topbar when side column toggle icons are used
 $tiki-top-margin-compensation-for-side-col-toggle: -$line-height-base !default;

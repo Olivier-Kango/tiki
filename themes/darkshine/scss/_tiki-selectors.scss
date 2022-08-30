@@ -158,18 +158,17 @@ blockquote,
 // Navs
 // Navbar
 // Fixed-top colors
-.navbar.bg-light.fixed-top, // layout_default
-.navbar.bg-dark.fixed-top {
-    background: #0c0c0d;
-    background: linear-gradient(to bottom, #0c0c0d 0%, #000000 3%, #000000 5%, #050505 8%, #070707 13%, #121212 55%, #000000 58%, #000000 100%);
-
-    .navbar-brand,
-    .nav-link,
-    button.dropdown-toggle,
-    .cssmenu_horiz > li > a {
-        color: #fff;
-    }
-}
+//.navbar.bg-light.fixed-top, // layout_default -- commmented on by g_c-l aug 2022 because it uses values instead of variables
+//.navbar.bg-dark.fixed-top {
+//    background: #0c0c0d;
+//    background: linear-gradient(to bottom, #0c0c0d 0%, #000000 3%, #000000 5%, #050505 8%, #070707 13%, #121212 55%, #000000 58%, #000000 100%);
+//
+//    .navbar-brand,
+//    .nav-link,
+//    button.dropdown-toggle {
+   //     color: #fff;
+ //   }
+//}
 
 .navbar.bg-light.fixed-top > li:hover,
 .navbar.bg-dark.fixed-top > li:hover,
@@ -181,9 +180,7 @@ blockquote,
 .navbar.bg-light.fixed-top .nav-link:hover,
 .navbar.bg-light.fixed-top .nav-link:active,
 .navbar.bg-light.fixed-top button.dropdown-toggle:hover,
-.navbar.bg-light.fixed-top button.dropdown-toggle:active,
-.navbar.bg-light.fixed-top .cssmenu_horiz > li > a:hover,
-.navbar.bg-dark.fixed-top .cssmenu_horiz > li > a:active {
+.navbar.bg-light.fixed-top button.dropdown-toggle:active {
     color: #fff;
     text-decoration: none;
     background: #555;
@@ -222,7 +219,6 @@ h2.sitesubtitle {
 
 .top_modules div:not(.card) .btn-link,
 #fullscreenbutton a,
-.layout_basic .top_modules .cssmenu_horiz > li > a,
 .layout_basic .top_modules .navbar-brand,
 .layout_basic .top_modules .nav-link,
 .layout_basic .top_modules button.dropdown-toggle {
@@ -234,30 +230,20 @@ h2.sitesubtitle {
     !important;
     border-bottom: 1px solid #916047;
 
-    .cssmenu_horiz > li:nth-child(1n),
     .navbar-nav .nav-item:nth-child(1n) {
         background: url('#{$imagePath}blue.png') no-repeat;
     }
 
-    .cssmenu_horiz > li:nth-child(2n),
     .navbar-nav .nav-item:nth-child(2n) {
         background: url('#{$imagePath}red.png') no-repeat;
     }
 
-    .cssmenu_horiz > li:nth-child(3n),
     .navbar-nav .nav-item:nth-child(3n) {
         background: url('#{$imagePath}orange.png') no-repeat;
     }
 
-    .cssmenu_horiz > li:nth-child(4n),
     .navbar-nav .nav-item:nth-child(4n) {
         background: url('#{$imagePath}green.png') no-repeat;
-    }
-
-    .cssmenu_horiz > li > a {
-        color: #fff;
-        font-size: 0.9rem;
-        font-weight: bold;
     }
 
     .form-control {
@@ -290,45 +276,6 @@ h2.sitesubtitle {
 .layout_social .middle .topbar {
     margin-left: -15px !important;
     margin-right: -15px !important;
-}
-
-.cssmenu_horiz a,
-.cssmenu_vert a {
-    color: $link-color;
-}
-
-.cssmenu_horiz li ul,
-.cssmenu_vert li ul {
-    padding: 5px 0;
-    margin: 2px 0 0; // override default ul
-    background-color: $dropdown-bg;
-    border: 1px solid $dropdown-border-color;
-    border-radius: $border-radius;
-    @include box-shadow(0 6px 12px rgba(0, 0, 0, .175));
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-
-    // Links within the dropdown menu
-    > li > a {
-        padding: 3px 20px;
-        font-weight: normal;
-        line-height: $line-height-base;
-        color: $dropdown-link-color;
-        background: $dropdown-bg;
-    }
-}
-
-// Hover/Focus state
-.cssmenu_horiz > li > a,
-.cssmenu_vert > li > a,
-.cssmenu_horiz ul > li > a,
-.cssmenu_vert ul > li > a {
-    &:hover,
-    &:focus {
-        text-decoration: none;
-        color: $dropdown-link-hover-color;
-        background-color: $dropdown-link-hover-bg;
-    }
 }
 
 .brown_gradient_background {

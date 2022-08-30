@@ -103,11 +103,6 @@ input[type="submit"]:hover,
     background-image: none;
 }
 
-.cssmenu_horiz ul li button.btn-link.link-list,
-.cssmenu_vert ul li button.btn-link.link-list {
-    font-weight: normal;
-    border: none;
-}
 
 .card-header,
 h3.box-title {

@@ -215,7 +215,7 @@ function get_menu_with_selections($params)
 
     foreach ($channels['data'] as & $item) {
         if (! empty($menu_info['parse']) && $menu_info['parse'] === 'y') {
-            $item['block'] = TikiLib::lib('parser')->contains_html_block($item['name']); // Only used for CSS menus
+        //    $item['block'] = TikiLib::lib('parser')->contains_html_block($item['name']); // Only used for CSS menus
             $item['name'] = preg_replace('/(.*)\n$/', '$1', $item['name']); // parser adds a newline to everything
         }
     }

@@ -1008,14 +1008,6 @@ nav:not(.topbar_modules, .top_modules).navbar-dark .open > a, nav:not(.topbar_mo
 .tiki .dropdown-item .dropdown-divider, .tiki .dropdown-item a .dropdown-divider, .tiki .dropdown-item .btn.btn-link .dropdown-divider {
   background: #c44a23;
 }
-.cssmenu_horiz ul li button.btn-link.link-list, .cssmenu_vert ul li button.btn-link.link-list {
-  background: #c44a23;
-  color: #ffffff;
-}
-.cssmenu_horiz ul li button.btn-link.link-list:hover, .cssmenu_vert ul li button.btn-link.link-list:hover {
-  color: #f2f2f2;
-  background: #e36732;
-}
 .dropdown-item.btn-link {
   color: #fff;
 }
@@ -1086,9 +1078,6 @@ input[type="checkbox"].preffilter-toggle-round:checked + label::before {
   color: #fff;
   background-color: #e36732;
 }
-.topbar .cssmenu_horiz ul {
-  background: #c44a23;
-}
 .blog-postbody-title h2.panel-title {
   font-size: 20px;
 }
@@ -1106,26 +1095,7 @@ header.header .sitetitle, header.header .sitesubtitle {
   color: #a94442;
   border-color: #ebccd1;
 }
-.cssmenu_horiz li ul, .cssmenu_vert li ul {
-  background-color: #c44a23;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-.cssmenu_horiz li ul > li > a, .cssmenu_vert li ul > li > a {
-  padding: 3px 20px;
-  font-weight: normal;
-  color: #ffffff;
-  background: #c44a23;
-}
-.cssmenu_horiz > li > a:hover, .cssmenu_vert > li > a:hover, .cssmenu_horiz ul > li > a:hover, .cssmenu_vert ul > li > a:hover, .cssmenu_horiz > li > a:focus, .cssmenu_vert > li > a:focus, .cssmenu_horiz ul > li > a:focus, .cssmenu_vert ul > li > a:focus {
-  text-decoration: none;
-  color: #f2f2f2;
-  background-color: #e36732;
-}
-.topbar .navbar-nav > li > a, .topbar .navbar > li > a, .topbar .cssmenu_horiz > li > a {
+.topbar .navbar-nav > li > a, .topbar .navbar > li > a {
   color: #ffffff;
 }
 .autotoc > .nav {

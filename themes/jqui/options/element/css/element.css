@@ -138,10 +138,6 @@ input[type="submit"].btn-link {
   background: none;
 }
 
-.cssmenu_horiz ul li button.btn-link.link-list,
-.cssmenu_vert ul li button.btn-link.link-list {
-    font-weight: normal;
-}
 
 .btn:hover,
 .btn-primary:hover,
@@ -185,51 +181,3 @@ input[type="submit"]:hover,
   padding-top: 0;
 }*/
 
-.sf-arrows .sf-with-ul:after {
-  border: 5px solid transparent;
-  border-top-color: #2a5385;
-}
-
-.cssmenu_vert.sf-arrows li > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #2a5385;
-  /* edit this to suit design (no rgba in IE8) */
-}
-
-.sf-arrows ul .sf-with-ul:after,
-.cssmenu_vert.sf-arrows ul > li > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #2a5385;
-  /* edit this to suit design (no rgba in IE8) */
-}
-
-.sf-arrows ul li > .sf-with-ul:focus:after,
-.sf-arrows ul li:hover > .sf-with-ul:after,
-.sf-arrows ul .sfHover > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #244772;
-}
-
-.cssmenu_vert.sf-arrows li > .sf-with-ul:focus:after,
-.cssmenu_vert.sf-arrows li:hover > .sf-with-ul:after,
-.cssmenu_vert.sf-arrows .sfHover > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #244772;
-}
-
-#col2 .cssmenu_vert.sf-arrows li > .sf-with-ul:after,
-#col3 .cssmenu_vert.sf-arrows li > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #000000;
-  /* edit this to suit design (no rgba in IE8) */
-}
-
-#col2 .cssmenu_vert.sf-arrows li > .sf-with-ul:focus:after,
-#col3 .cssmenu_vert.sf-arrows li > .sf-with-ul:focus:after,
-#col2 .cssmenu_vert.sf-arrows li:hover > .sf-with-ul:after,
-#col3 .cssmenu_vert.sf-arrows li:hover > .sf-with-ul:after,
-#col2 .cssmenu_vert.sf-arrows .sfHover > .sf-with-ul:after,
-#col3 .cssmenu_vert.sf-arrows .sfHover > .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #888888;
-}

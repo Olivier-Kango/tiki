@@ -82,35 +82,35 @@ ul.all_languages > li {
     font-style: italic;
 }
 
-.lang_select .cssmenu_horiz li {
-    border-radius: 3px;
-    width: auto;
-}
+//.lang_select .cssmenu_horiz li {  CSS menus and CSS removed so check the HTML
+//    border-radius: 3px;
+//    width: auto;
+//}
 
-.lang_select .cssmenu_horiz li.tabmark {
-    background: none;
-    border: 0;
-    color: inherit;
-    padding: 0;
-    top: 0;
-}
+//.lang_select .cssmenu_horiz li.tabmark {
+//    background: none;
+//    border: 0;
+//    color: inherit;
+//    padding: 0;
+//    top: 0;
+//}
 
-.lang_select .cssmenu_horiz .tabmark span {
-    background: none;
-    position: relative;
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    top: 0;
-    bottom: 0;
-    left: 1px;
-    right: 0;
-}
+//.lang_select .cssmenu_horiz .tabmark span {
+//    background: none;
+//    position: relative;
+//    display: inline-block;
+//    margin: 0;
+//    padding: 0;
+//    top: 0;
+//    bottom: 0;
+//    left: 1px;
+//    right: 0;
+//}
 
-.lang_select li.tabmark .popup_base a {
-    color: inherit;
-    background: none;
-}
+//.lang_select li.tabmark .popup_base a {
+//    color: inherit;
+//    background: none;
+//}
 
 .lang_select .tabcontent h1 {
     font-size: 1.1em;

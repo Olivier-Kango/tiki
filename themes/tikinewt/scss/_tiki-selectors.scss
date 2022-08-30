@@ -47,33 +47,6 @@ header.container {
     background: #e9ecef;
 }
 
-// Hover/Focus state
-.cssmenu_horiz > li > a,
-.cssmenu_vert > li > a,
-.cssmenu_horiz ul > li > a,
-.cssmenu_vert ul > li > a {
-    &:hover,
-    &:focus {
-        text-decoration: none;
-//        color: $navbar-default-link-hover-color;
-//        background-color: $navbar-default-link-hover-bg;
-    }
-}
-
-.cssmenu_horiz li.selected a,
-.cssmenu_vert li.selected a {
-    text-decoration: none;
-//    color: $navbar-default-link-hover-color;
-//    background-color: //$navbar-default-link-active-bg  //Deprecated?;
-}
-
-//.middle {
-//    & > .row {
-//        margin-top: 5px;
-//        border-right: 6px solid #ffffff;
-//    }
-//}
-
 #col1 {
     background: #f3f6f9;
     //  margin: 8px 3px 0;
