@@ -13,11 +13,7 @@
 {block name="content"}
     <div class="previewTrackerItem"></div>
     {if $skip_form eq 'y'}
-        <form method="post" action="{service controller=tracker
-        action=update_item
-        trackerId={$trackerId}
-        itemId={$itemId}
-        }">
+        <form method="post" action="{service controller=tracker action=update_item trackerId=$trackerId itemId=$itemId}">
             <p>
                 {$skip_form_message}
             </p>
@@ -56,6 +52,11 @@
                 <input type="hidden" name="redirect" value="{$redirect|escape}">
                 <input type="hidden" name="conflictoverride" value="{$conflictoverride|escape}">
                 <input type="submit" class="btn btn-primary" value="{$button_label}" onclick="needToConfirm=false;">
+                {if $can_remove}
+                    <a class="btn btn-danger" href="tiki-view_tracker.php?trackerId={$trackerId|escape}&amp;remove={$itemId|escape}" title="Delete">
+                        {icon name='delete'}
+                    </a>
+                {/if}
             </div>
         </form>
         {* Don't warn on leaving page if the modal is closed without saving *}

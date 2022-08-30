@@ -1431,6 +1431,7 @@ class Services_Tracker_Controller
             'suppressFeedback' => $suppressFeedback,
             'conflictoverride' => $input->conflictoverride->int(),
             'save_return' => $input->save_return->alpha() ?? 'n',
+            'can_remove' => $itemObject->canRemove(),
         ];
     }
 
