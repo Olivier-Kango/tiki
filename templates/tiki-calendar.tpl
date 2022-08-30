@@ -323,23 +323,29 @@ $("#filtercal").submit(function () {
                 },
                 dateClick: function(info) {
                     let $this = $(info.dayEl).tikiModal(" "); //the html reference of the clicked date is no longer info.el but info.dayEl
-                    $.ajax({
-                        dataType: 'html',
-                        url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&modal=1',
-                        success: function(data) {
-                            var $dialog = $('#calendar_dialog');
-                            var $options = {
-                                backdrop:'static',
-                                focus:true
-                            };
-                            $('#calendar_dialog_content', $dialog ).html(data);
-                            $dialog.find(".modal-dialog").addClass("modal-lg");
-                            $dialog.appendTo('body');
-                            $this.tikiModal();
-                            var tikiModalShow=new bootstrap.Modal($dialog,$options);
-                            tikiModalShow.show();
-                        }
-                    });
+                    var countCals = $("#filtercal ul li").length;
+                    if (countCals >= 1) {
+                        $.ajax({
+                            dataType: 'html',
+                            url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&modal=1',
+                            success: function(data) {
+                                var $dialog = $('#calendar_dialog');
+                                var $options = {
+                                    backdrop:'static',
+                                    focus:true
+                                };
+                                $('#calendar_dialog_content', $dialog ).html(data);
+                                $dialog.find(".modal-dialog").addClass("modal-lg");
+                                $dialog.appendTo('body');
+                                $this.tikiModal();
+                                var tikiModalShow=new bootstrap.Modal($dialog,$options);
+                                tikiModalShow.show();
+                            }
+                        });
+                    }
+                    else {
+                        location.href="tiki-calendar_edit_item.php";
+                    }
                 },
                 eventResize: function(info) {
                     $.post($.service('calendar', 'resize'), {
