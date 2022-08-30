@@ -72,7 +72,7 @@ function module_menu_info()
             ],
             'navbar_class' => [
                 'name' => tra('CSS class(es) for the menu nav element'),
-                'description' => tra('Default specified is for Bootstrap menus. Replace "navbar-light bg-light" with "navbar-dark bg-dark" for a dark navbar. For a vertical Smartmenu, use "navbar navbar-expand-lg."'),
+                'description' => tra('Default specified is for Bootstrap menus. Replace "navbar-light bg-light" with "navbar-dark bg-dark" for a dark navbar."'),
                 'default' => 'navbar navbar-expand-lg navbar-light bg-light',
             ],
             'menu_id' => [
