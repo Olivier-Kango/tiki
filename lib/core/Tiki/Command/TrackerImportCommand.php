@@ -97,7 +97,7 @@ class TrackerImportCommand extends Command
             }
 
             // this will throw exceptions and not return if there's a problem
-            $source = new \Tracker\Tabular\Source\CsvSource($schema, $fileName);
+            $source = $schema->getSource($fileName);
             $writer = new \Tracker\Tabular\Writer\TrackerWriter();
             $writer->write($source);
         }

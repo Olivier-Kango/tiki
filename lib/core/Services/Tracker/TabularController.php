@@ -299,16 +299,7 @@ class Services_Tracker_TabularController
             ];
         } else {
             $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
-            if ($schema->getFormat() == 'json') {
-                $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
-                $name .= '_export_full.json';
-            } elseif ($schema->getFormat() == 'ndjson') {
-                $writer = new \Tracker\Tabular\Writer\NDJsonWriter('php://output', $schema->getEncoding());
-                $name .= '_export_full.ndjson';
-            } else {
-                $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
-                $name .= 'export_full.csv';
-            }
+            $writer = $schema->getWriter($name, 'full');
             $writer->sendHeaders($name);
 
             TikiLib::lib('tiki')->allocate_extra(
@@ -362,16 +353,7 @@ class Services_Tracker_TabularController
                 ];
             } else {
                 $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
-                if ($schema->getFormat() == 'json') {
-                    $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
-                    $name .= '_export_partial.json';
-                } elseif ($schema->getFormat() == 'ndjson') {
-                    $writer = new \Tracker\Tabular\Writer\NDJsonWriter('php://output', $schema->getEncoding());
-                    $name .= '_export_partial.ndjson';
-                } else {
-                    $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
-                    $name .= '_export_partial.csv';
-                }
+                $writer = $schema->getWriter($name, 'partial');
                 $writer->sendHeaders($name);
 
                 TikiLib::lib('tiki')->allocate_extra(
@@ -424,17 +406,7 @@ class Services_Tracker_TabularController
 
             $source = new \Tracker\Tabular\Source\QuerySource($schema, $query);
             $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
-
-            if ($schema->getFormat() == 'json') {
-                $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
-                $name .= '_export_search.json';
-            } elseif ($schema->getFormat() == 'ndjson') {
-                $writer = new \Tracker\Tabular\Writer\NDJsonWriter('php://output', $schema->getEncoding());
-                $name .= '_export_search.ndjson';
-            } else {
-                $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
-                $name .= '_export_search.csv';
-            }
+            $writer = $schema->getWriter($name, 'search');
             $writer->sendHeaders($name);
 
             TikiLib::lib('tiki')->allocate_extra(
@@ -475,11 +447,7 @@ class Services_Tracker_TabularController
         $done = false;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && is_uploaded_file($_FILES['file']['tmp_name'])) {
-            if ($schema->getFormat() == 'json' || $schema->getFormat() == 'ndjson') {
-                $source = new \Tracker\Tabular\Source\JsonSource($schema, $_FILES['file']['tmp_name'], $schema->getEncoding());
-            } else {
-                $source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name'], ',', $schema->getEncoding());
-            }
+            $source = $schema->getSource($_FILES['file']['tmp_name']);
             $writer = new \Tracker\Tabular\Writer\TrackerWriter();
 
             return TikiLib::lib('tiki')->allocate_extra(

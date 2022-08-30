@@ -41,6 +41,24 @@
                     <label class="form-label custom-file-label" for="inputFile">Choose file</label>
                 </div>
             </div>
+            {elseif $format eq 'ndjson'}
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroupText">{tr}NDJSON File{/tr}</span>
+                <div class="custom-file">
+                    <input type="file" name="file" accept="application/x-ndjson" class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
+                        onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
+                    <label class="form-label custom-file-label" for="inputFile">Choose file</label>
+                </div>
+            </div>
+            {elseif $format eq 'ical'}
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroupText">{tr}iCal File{/tr}</span>
+                <div class="custom-file">
+                    <input type="file" name="file" accept="text/calendar" class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
+                        onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
+                    <label class="form-label custom-file-label" for="inputFile">Choose file</label>
+                </div>
+            </div>
             {else}
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroupText">{tr}CSV File{/tr}</span>

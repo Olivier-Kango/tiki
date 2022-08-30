@@ -224,6 +224,10 @@ class Column implements \JsonSerializable
                     ));
                 }
             }
+
+            if ($schema->getFormat() == 'ical' && empty($this->getRemoteField())) {
+                throw new \Exception(tr('Column %0 doesn\'t specify a remote field mapping for iCal format.', $this->label));
+            }
         }
 
         if ($selfCount > 1) {

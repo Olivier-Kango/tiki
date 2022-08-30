@@ -319,6 +319,15 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
             ->setParseIntoTransform($parseInto)
             ;
 
+        $schema->addNew($permName, 'iso8601')
+            ->setLabel($this->getConfiguration('name'))
+            ->setRenderTransform(function ($value) {
+                $encoded = json_encode($this->parseDurationFormat($value));
+                return $this->iso8601($encoded);
+            })
+            ->setParseIntoTransform($parseInto)
+            ;
+
         return $schema;
     }
 
@@ -394,6 +403,21 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
         return $output;
     }
 
+    private function iso8601($value = null)
+    {
+        $value = $this->denormalize($value);
+
+        $output = 'P';
+        foreach ($value as $unit => $amount) {
+            if (in_array($unit, ['hours', 'minutes', 'seconds']) && !strstr($output, 'T')) {
+                $output .= 'T';
+            }
+            $output .= "$amount".substr(ucfirst($unit), 0, 1);
+        }
+
+        return $output;
+    }
+
     private function enabledUnits()
     {
         return array_reverse(
@@ -449,7 +473,7 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
                 'seconds' => 's|seconds?'
             ];
             foreach ($matches as $unit => $pattern) {
-                if (preg_match('/(\d+)\s*('.$pattern.')/', $data, $m)) {
+                if (preg_match('/(\d+)\s*('.$pattern.')/i', $data, $m)) {
                     $struct[$unit] = $m[1];
                 }
             }

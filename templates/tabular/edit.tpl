@@ -541,6 +541,9 @@
                         <option value="ndjson"{if $config['format'] eq 'ndjson'} selected="selected"{/if}>
                             NDJSON
                         </option>
+                        <option value="ical"{if $config['format'] eq 'ical'} selected="selected"{/if}>
+                            iCal
+                        </option>
                     </select>
                 </div>
             </div>

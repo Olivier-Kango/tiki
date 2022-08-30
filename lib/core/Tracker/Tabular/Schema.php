@@ -306,6 +306,41 @@ class Schema
         return $this->columns;
     }
 
+    public function getWriter(&$name, $type)
+    {
+        switch ($this->getFormat()) {
+            case 'json':
+                $writer = new Writer\JsonWriter('php://output', $this->getEncoding());
+                $name .= '_export_' . $type . '.json';
+                break;
+            case 'ndjson':
+                $writer = new Writer\NDJsonWriter('php://output', $this->getEncoding());
+                $name .= '_export_' . $type . '.ndjson';
+                break;
+            case 'ical':
+                $writer = new Writer\IcalWriter('php://output', $this->getEncoding());
+                $name .= '_export_' . $type . '.ics';
+                break;
+            default:
+                $writer = new Writer\CsvWriter('php://output', $this->getEncoding());
+                $name .= '_export_' . $type . '.csv';
+        }
+        return $writer;
+    }
+
+    public function getSource($fileName)
+    {
+        switch ($this->getFormat()) {
+            case 'json':
+            case 'ndjson':
+                return new Source\JsonSource($this, $fileName, $this->getEncoding());
+            case 'ical':
+                return new Source\IcalSource($this, $fileName, $this->getEncoding());
+            default:
+                return new Source\CsvSource($this, $fileName, ',', $this->getEncoding());
+        }
+    }
+
     public function validate()
     {
         foreach ($this->columns as $column) {
