@@ -215,3 +215,22 @@ $blockquote-left-border-color: #E6E8EA;
 $dropdown-item: $dropdown-link-color;
 
 //$megamenu-dropdown-link-color: $dropdown-link-color;
+$tiki-top-light-bg: #5AE3ED; // $light; Hmm, using the variable to define the variable didn't work.
+$tiki-top-light-color: $navbar-light-color;
+$tiki-top-light-link-color: $navbar-light-color;
+$tiki-top-light-link-hover-color: rgba($black, .7);
+//
+$tiki-topbar-light-bg: $light;
+$tiki-topbar-light-color: $navbar-light-color;
+$tiki-topbar-light-link-color: $navbar-light-color;
+$tiki-topbar-light-link-hover-color: rgba($black, .7);
+//
+$tiki-top-dark-bg: #ad1d28; //$navbar-dark-bg; Hmm, using the variable to define the variable didn't work.
+$tiki-top-dark-color: $link-color;
+$tiki-top-dark-link-color:$link-color;
+$tiki-top-dark-link-hover-color: lighten($navbar-dark-color, 25%);
+//
+$tiki-topbar-dark-bg: $navbar-dark-bg;
+$tiki-topbar-dark-color: $link-color;
+$tiki-topbar-dark-link-color: $link-color;
+$tiki-topbar-dark-link-hover-color: lighten($navbar-dark-color, 25%);

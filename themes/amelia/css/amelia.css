@@ -10624,6 +10624,46 @@ a.dropdown-item {
   border-color: var(--bs-btn-disabled-border-color);
   opacity: var(--bs-btn-disabled-opacity);
 }
+.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_basic .page-header .navbar.navbar-light.bg-light, .layout_classic .navbar-light-parent.bg-light-parent, .layout_classic .navbar.navbar-light.bg-light, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
+  background-color: #5AE3ED !important;
+  color: #000;
+}
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-light.bg-light a, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_classic .navbar-light-parent.bg-light-parent a, .layout_classic .navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .navbar.navbar-light.bg-light a, .layout_classic .navbar.navbar-light.bg-light .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
+  color: #000;
+}
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-light.bg-light a:hover, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .navbar-light-parent.bg-light-parent a:hover, .layout_classic .navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .navbar.navbar-light.bg-light a:hover, .layout_classic .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.navbar-light-parent.bg-light-parent, .layout_classic .topbar_modules.navbar-light.bg-light, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .layout_social .topbar.navbar-light, .layout_social .topbar .navbar-light.bg-light {
+  background-color: #5AE3ED !important;
+  color: #000;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_classic .topbar.navbar-light-parent.bg-light-parent a, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-light.bg-light a, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar.navbar-light a, .layout_social .topbar.navbar-light .btn.btn-link, .layout_social .topbar .navbar-light.bg-light a, .layout_social .topbar .navbar-light.bg-light .btn.btn-link {
+  color: #000;
+}
+.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent a:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-light.bg-light a:hover, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar.navbar-light a:hover, .layout_social .topbar.navbar-light .btn.btn-link:hover, .layout_social .topbar .navbar-light.bg-light a:hover, .layout_social .topbar .navbar-light.bg-light .btn.btn-link:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent, .layout_basic .page-header .navbar.navbar-dark.bg-dark, .layout_classic .navbar-dark-parent.bg-dark-parent, .layout_classic .top_modules .navbar.navbar-dark.bg-dark, .layout_social header.navbar-dark.bg-dark, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark {
+  background-color: #ad1d28 !important;
+  color: #f2e8c0;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-dark.bg-dark a, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link, .layout_classic .navbar-dark-parent.bg-dark-parent a, .layout_classic .navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .top_modules .navbar.navbar-dark.bg-dark a, .layout_classic .top_modules .navbar.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link {
+  color: #f2e8c0;
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark a:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .top_modules .navbar.navbar-dark.bg-dark a:hover, .layout_classic .top_modules .navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link:hover {
+  color: white;
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark, .layout_basic .topbar_modules .navbar-dark.bg-dark, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent, .layout_classic .topbar_modules.navbar-dark.bg-dark, .layout_classic .topbar_modules .navbar-dark.bg-dark, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .layout_social .topbar.navbar-dark.bg-dark, .layout_social .topbar .navbar-dark.bg-dark {
+  background-color: #ad1d28 !important !important;
+  color: #f2e8c0;
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark a, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_basic .topbar_modules .navbar-dark.bg-dark a, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-dark.bg-dark a, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar_modules .navbar-dark.bg-dark a, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social .topbar.navbar-dark.bg-dark a, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar .navbar-dark.bg-dark a, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link {
+  color: #f2e8c0;
+}
+.layout_basic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar.navbar-dark.bg-dark a:hover, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar .navbar-dark.bg-dark a:hover, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link:hover {
+  color: white;
+}
 .bg-dark {
   background: #ad1d28 !important;
 }
