@@ -310,7 +310,7 @@ function wikiplugin_list($data, $params)
 
     $result->setTsSettings($builder->getTsSettings());
 
-    $formatter = $builder->getFormatter();
+    $formatter = $builder->getFormatter((boolean) $result->errorInQuery);
 
     $result->setTsOn($tsret['tsOn']);
 
