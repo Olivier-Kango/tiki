@@ -2,6 +2,7 @@
 {tikimodule error=$module_params.error title=$tpl_module_title name="map_edit_features" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
     <form class="map-edit-features" method="post" action="{service controller=tracker action=insert_item}">
         <div class="submit">
+            {ticket}
             <input type="hidden" name="trackerId" value="{$edit_features.trackerId|escape}"/>
             <input type="hidden" name="controller" value="tracker"/>
             <input type="hidden" name="action" value="insert_item"/>
