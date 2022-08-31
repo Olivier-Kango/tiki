@@ -264,7 +264,7 @@
 {/if}
 
 {* Include mautic snipet code with mautic *}
-{if $prefs.feature_mautic_tracking_script_location eq 'head'}
+{if $prefs.site_mautic_tracking_script_location eq 'head'}
     {wikiplugin _name=mautic type="inclusion"}{/wikiplugin}
 {/if} 
 {* END of html head content *}

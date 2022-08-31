@@ -125,6 +125,6 @@ if (confirm("A problem occurred while detecting JavaScript on this page, click o
 {/if}
 
 {* Include mautic snipet code with mautic *}
-{if $prefs.feature_mautic_tracking_script_location eq 'embed'}
+{if $prefs.site_mautic_tracking_script_location eq 'embed'}
     {wikiplugin _name=mautic type="inclusion"}{/wikiplugin}
 {/if} 

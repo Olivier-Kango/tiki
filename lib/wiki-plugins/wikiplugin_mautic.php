@@ -130,9 +130,9 @@ HTML;
         }
 
         if (! isset($params['available_actions'])) {
-            $params['available_actions'] = default_available_actions();
+            $params['available_actions'] = explode(',', default_available_actions());
         }
-        $available_actions = explode(',', $params['available_actions']);
+        $available_actions = $params['available_actions'];
         $smarty->assign('type', $params['type']);
         $smarty->assign('contacts', $contacts);
         $smarty->assign('available_actions', $available_actions);
