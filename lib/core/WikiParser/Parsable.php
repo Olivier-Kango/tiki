@@ -279,7 +279,7 @@ if ( \$('#$id') ) {
         return $data;
     }
 
-    abstract public function wikiParse($data, $noparsed);
+    abstract public function wikiParse($data, $noparsed = []);
 
     public function pluginExecute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
     {

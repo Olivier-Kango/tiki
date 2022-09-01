@@ -8,7 +8,7 @@
 
 class WikiParser_ParsableWiki extends WikiParser_Parsable
 {
-    public function wikiParse($data, $noparsed)
+    public function wikiParse($data, $noparsed = [])
     {
         global $prefs;
 

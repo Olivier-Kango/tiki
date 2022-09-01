@@ -27,7 +27,7 @@ use League\CommonMark\Block\Renderer\FencedCodeRenderer;
 
 class WikiParser_ParsableMarkdown extends WikiParser_Parsable
 {
-    public function wikiParse($data, $noparsed)
+    public function wikiParse($data, $noparsed = [])
     {
         global $prefs;
 
