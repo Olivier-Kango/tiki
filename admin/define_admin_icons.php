@@ -319,7 +319,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'title'       => tr('Marketing Automation'),
                     'disabled'    => $prefs['site_mautic_enable'] != 'y',
                     'description' => tr('Add Mautic Marketing Automation To Your Website'),
-                    'help'        => 'Tiki-Mautic-Integration',
+                    'help'        => 'Mautic',
                 ],
                 'performance' => [
                     'title'       => tr('Performance'),
