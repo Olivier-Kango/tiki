@@ -77,6 +77,13 @@ class FunctionToolbarsTest extends TikiTestCase
         }
 
         $this->assertEquals($expectedResults, $result);
+
+        // check the javascript added is the same as the default
+        $expectedJs = file_get_contents('lib/test/smarty_tiki/fixtures/FunctionToolbarsWysiwyg.js');
+        $finalJs = TikiLib::lib('header')->output_js(false);
+
+        $this->assertEquals($expectedJs, $finalJs);
+
     }
 
 }
