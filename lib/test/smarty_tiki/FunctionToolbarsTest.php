@@ -52,12 +52,6 @@ class FunctionToolbarsTest extends TikiTestCase
 
     public function testFunctionToolbarsWysiwyg(): void
     {
-        global $page;
-
-        // \TikiImporter_Wiki_InsertPage_Test leaves the global $page set (as an array?)
-        // which makes the Source tool appear in the results
-        $page = null;
-
         $params = [
             '_wysiwyg'     => 'y',
             'area_id'      => 'editwiki',
@@ -81,6 +75,7 @@ class FunctionToolbarsTest extends TikiTestCase
             unset($expectedResults[1][0][array_search('Source', $expectedResults[1][0])]);
             $expectedResults[1][0] = array_values($expectedResults[1][0]);
         }
+
         $this->assertEquals($expectedResults, $result);
     }
 
