@@ -16,7 +16,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Do You Want to Upgrade{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.upgrade}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help.upgrade}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -31,7 +31,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Instances Source{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.source}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help.source}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -44,7 +44,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Instances Destination{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.target}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help.target}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -56,7 +56,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Tiki Branch{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.branch}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help.branch}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -72,7 +72,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Time for Backup{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.time}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help.time}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -83,7 +83,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Prevent using the backup step{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.direct}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help.direct}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -98,7 +98,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Use last backup?{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['use-last-backup']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help['use-last-backup']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -113,7 +113,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Keep Backup?{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['keep-backup']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help['keep-backup']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -128,7 +128,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Live reindex{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['live-reindex']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help['live-reindex']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -143,7 +143,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Skip ReIndex{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['skip-reindex']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help['skip-reindex']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -158,7 +158,7 @@ s{extends "layout_view.tpl"}
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Skip cache warmup?{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help['skip-cache-warmup']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}| {tr}{$help['skip-cache-warmup']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
