@@ -32,6 +32,24 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .card-title > a, .card-title > small, .card-title > .small, .card-title > small > a, .card-title > .small > a {
   color: inherit;
 }
+:root {
+  --tiki-top-bg-light: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%);
+  --tiki-top-light-color: rgba(0, 0, 0, 0.55);
+  --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
+  --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-bg-light: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%);
+  --tiki-topbar-light-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-light-link-hover-color: #e6e6e6;
+  --tiki-top-bg-dark: linear-gradient(to bottom, #1f5daa 0%, #3977c4 2%, #3b7ac7 3%, #3877c6 5%, #3a7cca 7%, #3778c8 9%, #3674c7 19%, #2c6abf 43%, #1c5cb3 69%, #1454ac 93%, #1455a9 97%, #1a57a8 98%, #346dba 100%);
+  --tiki-top-dark-color: #ffffff;
+  --tiki-top-dark-link-color: #ffffff;
+  --tiki-top-dark-link-hover-color: #e6e6e6;
+  --tiki-topbar-bg-dark: linear-gradient(to bottom, #1f5daa 0%, #3977c4 2%, #3b7ac7 3%, #3877c6 5%, #3a7cca 7%, #3778c8 9%, #3674c7 19%, #2c6abf 43%, #1c5cb3 69%, #1454ac 93%, #1455a9 97%, #1a57a8 98%, #346dba 100%);
+  --tiki-topbar-dark-color: #ffffff;
+  --tiki-topbar-dark-link-color: #ffffff;
+  --tiki-topbar-dark-link-hover-color: #e6e6e6;
+}
 body {
   background: #fbfbfb url("../images/image2.jpg") 100% 0 no-repeat;
   color: #404040;

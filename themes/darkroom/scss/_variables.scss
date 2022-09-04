@@ -137,6 +137,9 @@ $navbar-light-active-color: #f4f4f4;
 //darken($navbar-default-bg,6.5%);
 $navbar-light-disabled-color: #cccccc;
 $navbar-light-disabled-bg: transparent;
+$navbar-dark-color: $navbar-light-color;
+$navbar-dark-hover-color: $navbar-light-hover-color;
+$navbar-dark-active-color: $navbar-light-active-color;
 
 //Navbarbrandlabel
 $navbar-light-brand-color: $navbar-light-color;
@@ -295,3 +298,25 @@ $dropdown-item: $dropdown-link-color;
 $blockquote-color: #595959 !default; // was #7a7a7a, updated for WAI compliance
 $blockquote-footer-color: $blockquote-color !default; // Bootstrap 5
 $blockquote-left-border-color: #e5e5e5 !default;
+
+:root {
+    --tiki-top-bg-light:  linear-gradient(to bottom, #818181 0%, #393939 100%);
+    --tiki-top-light-color: #{$navbar-light-color};
+    --tiki-top-light-link-color: #{$navbar-light-color};
+    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
+
+    --tiki-topbar-bg-light: linear-gradient(to bottom, #818181 0%, #393939 100%);
+    --tiki-topbar-light-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-hover-color: #{$navbar-light-hover-color};
+
+    --tiki-top-bg-dark:  linear-gradient(to bottom, #818181 0%, #393939 100%);
+    --tiki-top-dark-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-topbar-bg-dark: linear-gradient(to bottom, #818181 0%, #393939 100%);
+    --tiki-topbar-dark-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
+}

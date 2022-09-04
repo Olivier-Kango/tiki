@@ -51,11 +51,11 @@ h2.sitesubtitle {
   font-style: italic;
 }
 
-.page-header,
-.header_outer.bg-dark-parent,
-.bg-dark,
-.topbar.bg-dark > li,
-.navbar-dark
+//.page-header,
+//.header_outer.bg-dark-parent,
+.bg-dark//,
+//.topbar.bg-dark > li,
+//.navbar-dark
     {
   background: #1f5daa !important; /* Old browsers */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1f5daa), color-stop(2%, #3977c4), color-stop(3%, #3b7ac7), color-stop(5%, #3877c6), color-stop(7%, #3a7cca), color-stop(9%, #3778c8), color-stop(19%, #3674c7), color-stop(43%, #2c6abf), color-stop(69%, #1c5cb3), color-stop(93%, #1454ac), color-stop(97%, #1455a9), color-stop(98%, #1a57a8), color-stop(100%, #346dba)) !important; /* Chrome,Safari4+ */
@@ -64,27 +64,27 @@ h2.sitesubtitle {
   border-right: 1px solid #1957AA;
 }
 
-.topbar.bg-dark > li > a,
+//.topbar.bg-dark > li > a,
 //.topbar.bg-light > li > a,
-.layout_social .fixed-top .navbar-brand,
-.layout_social .fixed-top .nav-link,
+//.layout_social .fixed-top .navbar-brand,
+//.layout_social .fixed-top .nav-link,
 //.layout_social .fixed-top button.dropdown-toggle,
-.navbar.bg-dark > .nav-link,
+//.navbar.bg-dark > .nav-link,
 //.navbar.bg-light > .nav-link
- {
-  color: #fff;
-}
+// {
+//  color: #fff;
+//}
 
-.navbar.bg-dark//,
-//.navbar.bg-light
-    {
-    .nav-link {
-        color: #fff;
-    }
-    .dropdown-item {
-        color: $dropdown-color;
-    }
-}
+//.navbar.bg-dark//,
+////.navbar.bg-light
+//    {
+//    .nav-link {
+//        color: #fff;
+//    }
+//    .dropdown-item {
+//        color: $dropdown-color;
+//   }
+//}
 
 //.navbar li.dropdown {
 //  border-left: 1px solid #3676c4;
@@ -96,23 +96,23 @@ h2.sitesubtitle {
 //}
 
 // topbar hover
-.topbar .nav > li > a:hover,
-.topbar .nav > li > a:focus,
-.bg-dark > li > a:hover,
-.bg-dark > li > a:focus,
-.bg-dark > .active > a//,
+//.topbar .nav > li > a:hover,
+//.topbar .nav > li > a:focus,
+//.bg-dark > li > a:hover,
+//.bg-dark > li > a:focus,
+//.bg-dark > .active > a//,
 //.bg-light > li > a:hover,
 //.bg-light > li > a:focus,
 //.bg-light > .active > a
-     {
-  text-decoration: none;
-  background: #3270bd; /* Old browsers */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3270bd), color-stop(2%, #1855a5), color-stop(3%, #1553a8), color-stop(5%, #1855ae), color-stop(7%, #1353ad), color-stop(14%, #1858af), color-stop(26%, #1a5ab1), color-stop(29%, #1d5eb2), color-stop(53%, #2866bb), color-stop(55%, #2c6abf), color-stop(95%, #3a79c9), color-stop(97%, #3a7ac4), color-stop(98%, #3777c1), color-stop(100%, #205ea9)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #3270bd 0%, #1855a5 2%, #1553a8 3%, #1855ae 5%, #1353ad 7%, #1858af 14%, #1a5ab1 26%, #1d5eb2 29%, #2866bb 53%, #2c6abf 55%, #3a79c9 95%, #3a7ac4 97%, #3777c1 98%, #205ea9 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #3270bd 0%, #1855a5 2%, #1553a8 3%, #1855ae 5%, #1353ad 7%, #1858af 14%, #1a5ab1 26%, #1d5eb2 29%, #2866bb 53%, #2c6abf 55%, #3a79c9 95%, #3a7ac4 97%, #3777c1 98%, #205ea9 100%); /* Opera 11.10+ */
-  background: linear-gradient(to bottom, #3270bd 0%, #1855a5 2%, #1553a8 3%, #1855ae 5%, #1353ad 7%, #1858af 14%, #1a5ab1 26%, #1d5eb2 29%, #2866bb 53%, #2c6abf 55%, #3a79c9 95%, #3a7ac4 97%, #3777c1 98%, #205ea9 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3270bd', endColorstr='#205ea9', GradientType=0); /* IE6-9 */
-}
+//     {
+//  text-decoration: none;
+//  background: #3270bd; /* Old browsers */
+//  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3270bd), color-stop(2%, #1855a5), color-stop(3%, #1553a8), color-stop(5%, #1855ae), color-stop(7%, #1353ad), color-stop(14%, #1858af), color-stop(26%, #1a5ab1), color-stop(29%, #1d5eb2), color-stop(53%, #2866bb), color-stop(55%, #2c6abf), color-stop(95%, #3a79c9), color-stop(97%, #3a7ac4), color-stop(98%, #3777c1), color-stop(100%, #205ea9)); /* Chrome,Safari4+ */
+//  background: -webkit-linear-gradient(top, #3270bd 0%, #1855a5 2%, #1553a8 3%, #1855ae 5%, #1353ad 7%, #1858af 14%, #1a5ab1 26%, #1d5eb2 29%, #2866bb 53%, #2c6abf 55%, #3a79c9 95%, #3a7ac4 97%, #3777c1 98%, #205ea9 100%); /* Chrome10+,Safari5.1+ */
+//  background: -o-linear-gradient(top, #3270bd 0%, #1855a5 2%, #1553a8 3%, #1855ae 5%, #1353ad 7%, #1858af 14%, #1a5ab1 26%, #1d5eb2 29%, #2866bb 53%, #2c6abf 55%, #3a79c9 95%, #3a7ac4 97%, #3777c1 98%, #205ea9 100%); /* Opera 11.10+ */
+//  background: linear-gradient(to bottom, #3270bd 0%, #1855a5 2%, #1553a8 3%, #1855ae 5%, #1353ad 7%, #1858af 14%, #1a5ab1 26%, #1d5eb2 29%, #2866bb 53%, #2c6abf 55%, #3a79c9 95%, #3a7ac4 97%, #3777c1 98%, #205ea9 100%); /* W3C */
+//  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3270bd', endColorstr='#205ea9', GradientType=0); /* IE6-9 */
+//}
 
 //.topbar .navbar {
 //  margin-bottom: 0;
@@ -196,51 +196,25 @@ h3.card-title {
   z-index: 2;
 }
 
-.topbar .sf-arrows .sf-with-ul:after {
-  /* order of following 3 rules important for fallbacks to work */
-  border: 5px solid transparent;
-  border-top-color: #ffffff; /* edit this to suit design (no rgba in IE8) */
-  border-top-color: rgba(255, 255, 255, .5);
-}
-
-.sf-arrows > li > .sf-with-ul:focus:after,
-.sf-arrows > li:hover > .sf-with-ul:after,
-.sf-arrows > .sfHover > .sf-with-ul:after {
-  border-top-color: #ffffff; /* IE8 fallback colour */
-}
-
-/* styling for right-facing arrows */
-.sf-arrows ul .sf-with-ul:after {
-  border-color: transparent;
-  border-left-color: #dfeeff; /* edit this to suit design (no rgba in IE8) */
-  border-left-color: rgba(255, 255, 255, .5);
-}
-
-.sf-arrows ul li > .sf-with-ul:focus:after,
-.sf-arrows ul li:hover > .sf-with-ul:after,
-.sf-arrows ul .sfHover > .sf-with-ul:after {
-  border-left-color: #ffffff;
-}
-
 //.popover { Moved to variables
 //  color: $body-color;
 //}
 
-// prevent gradient on gradient or on middle box-shadow
-.bg-dark .bg-dark,
-.tiki .navbar.bg-dark .navbar.navbar-dark.bg-dark,
-//.tiki.navbar.bg-light .navbar.bg-light
-//.page-header
-{
-  background-image: none !important;
-  background: transparent !important;
-  border-left: none;
-  border-right: none;
-}
+//// prevent gradient on gradient or on middle box-shadow
+//.bg-dark .bg-dark,
+//.tiki .navbar.bg-dark .navbar.navbar-dark.bg-dark,
+////.tiki.navbar.bg-light .navbar.bg-light
+////.page-header
+//{
+//  background-image: none !important;
+//  background: transparent !important;
+//  border-left: none;
+//  border-right: none;
+//}
 
-.layout_classic .navbar-dark-parent {
-    background: transparent !important;
-}
+//.layout_classic .navbar-dark-parent {
+//    background: transparent !important;
+//}
 
 // Update for Smartmenus
 .navbar .navbar-nav.sm-vertical {

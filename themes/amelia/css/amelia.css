@@ -14,6 +14,24 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
 :root {
+  --tiki-top-bg-light: #5AE3ED;
+  --tiki-top-light-color: #000;
+  --tiki-top-light-link-color: #000;
+  --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-bg-light: #5AE3ED;
+  --tiki-topbar-light-color: #000;
+  --tiki-topbar-light-link-color: #000;
+  --tiki-topbar-light-link-hover-color: white;
+  --tiki-top-bg-dark: #ad1d28 !important;
+  --tiki-top-dark-color: #f2e8c0;
+  --tiki-top-dark-link-color: #f2e8c0;
+  --tiki-top-dark-link-hover-color: white;
+  --tiki-topbar-bg-dark: #ad1d28 !important;
+  --tiki-topbar-dark-color: #f2e8c0;
+  --tiki-topbar-dark-link-color: #f2e8c0;
+  --tiki-topbar-dark-link-hover-color: white;
+}
+:root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -77,7 +95,7 @@
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
   --bs-link-color: #f2e8c0;
-  --bs-link-hover-color: #f2e8c0;
+  --bs-link-hover-color: #ede0ab;
   --bs-code-color: #212529;
   --bs-highlight-bg: #fff3cd;
 }
@@ -9872,7 +9890,7 @@ table.treetable.objectperms td.removed {
   border-color: transparent;
 }
 .btn.active.btn-link:hover {
-  color: #f2e8c0;
+  color: #ede0ab;
   background-color: transparent;
   border-color: transparent;
 }
@@ -10175,7 +10193,7 @@ ul.all_languages > li {
   color: #f2e8c0;
 }
 .autotoc .nav > li > a:hover, .autotoc .nav .nav > li > a:hover {
-  color: #f2e8c0;
+  color: #ede0ab;
 }
 .plugin-form-float {
   background: #0c6369;
@@ -10357,7 +10375,7 @@ div.drillshow {
   color: #f2e8c0;
 }
 .tiki .modal-content .ui-state-hover:hover {
-  color: #f2e8c0;
+  color: #ede0ab;
 }
 .dropdown-menu {
   color: #444;
@@ -10624,45 +10642,57 @@ a.dropdown-item {
   border-color: var(--bs-btn-disabled-border-color);
   opacity: var(--bs-btn-disabled-opacity);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_basic .page-header .navbar.navbar-light.bg-light, .layout_classic .navbar-light-parent.bg-light-parent, .layout_classic .navbar.navbar-light.bg-light, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
-  background-color: #5AE3ED !important;
-  color: #000;
+.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
+  background: var(--tiki-top-bg-light) !important;
+  color: var(--tiki-top-light-color);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-light.bg-light a, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_classic .navbar-light-parent.bg-light-parent a, .layout_classic .navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .navbar.navbar-light.bg-light a, .layout_classic .navbar.navbar-light.bg-light .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
-  color: #000;
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .header_outer.bg-light-parent a, .layout_classic .header_outer.bg-light-parent .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
+  color: var(--tiki-top-light-link-color);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-light.bg-light a:hover, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .navbar-light-parent.bg-light-parent a:hover, .layout_classic .navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .navbar.navbar-light.bg-light a:hover, .layout_classic .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
-  color: rgba(0, 0, 0, 0.7);
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-light-parent a:hover, .layout_classic .header_outer.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
+  color: var(--tiki-top-light-link-hover-color);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.navbar-light-parent.bg-light-parent, .layout_classic .topbar_modules.navbar-light.bg-light, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .layout_social .topbar.navbar-light, .layout_social .topbar .navbar-light.bg-light {
-  background-color: #5AE3ED !important;
-  color: #000;
+.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent {
+  background: var(--tiki-topbar-bg-light) !important;
+  color: var(--tiki-topbar-light-color);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_classic .topbar.navbar-light-parent.bg-light-parent a, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-light.bg-light a, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar.navbar-light a, .layout_social .topbar.navbar-light .btn.btn-link, .layout_social .topbar .navbar-light.bg-light a, .layout_social .topbar .navbar-light.bg-light .btn.btn-link {
-  color: #000;
+.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_classic .topbar.bg-light-parent a, .layout_classic .topbar.bg-light-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link {
+  color: var(--tiki-topbar-light-link-color);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent a:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-light.bg-light a:hover, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar.navbar-light a:hover, .layout_social .topbar.navbar-light .btn.btn-link:hover, .layout_social .topbar .navbar-light.bg-light a:hover, .layout_social .topbar .navbar-light.bg-light .btn.btn-link:hover {
-  color: rgba(0, 0, 0, 0.7);
+.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .topbar.bg-light-parent a:hover, .layout_classic .topbar.bg-light-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover {
+  color: var(--tiki-topbar-light-link-hover-color);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent, .layout_basic .page-header .navbar.navbar-dark.bg-dark, .layout_classic .navbar-dark-parent.bg-dark-parent, .layout_classic .top_modules .navbar.navbar-dark.bg-dark, .layout_social header.navbar-dark.bg-dark, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark {
-  background-color: #ad1d28 !important;
-  color: #f2e8c0;
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent {
+  background: var(--tiki-top-bg-dark) !important;
+  color: var(--tiki-top-dark-color);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-dark.bg-dark a, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link, .layout_classic .navbar-dark-parent.bg-dark-parent a, .layout_classic .navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .top_modules .navbar.navbar-dark.bg-dark a, .layout_classic .top_modules .navbar.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link {
-  color: #f2e8c0;
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item), .layout_classic .header_outer.bg-dark-parent .btn.btn-link {
+  color: var(--tiki-top-dark-link-color);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark a:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .top_modules .navbar.navbar-dark.bg-dark a:hover, .layout_classic .top_modules .navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link:hover {
-  color: white;
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .header_outer.bg-dark-parent .btn.btn-link:hover {
+  color: var(--tiki-top-dark-link-hover-color);
 }
-.layout_basic .topbar_modules.navbar-dark.bg-dark, .layout_basic .topbar_modules .navbar-dark.bg-dark, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent, .layout_classic .topbar_modules.navbar-dark.bg-dark, .layout_classic .topbar_modules .navbar-dark.bg-dark, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .layout_social .topbar.navbar-dark.bg-dark, .layout_social .topbar .navbar-dark.bg-dark {
-  background-color: #ad1d28 !important !important;
-  color: #f2e8c0;
+.layout_basic .topbar_modules.bg-dark, .layout_classic .topbar.bg-dark-parent, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent {
+  background: var(--tiki-topbar-bg-dark) !important;
+  color: var(--tiki-topbar-dark-color);
 }
-.layout_basic .topbar_modules.navbar-dark.bg-dark a, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_basic .topbar_modules .navbar-dark.bg-dark a, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-dark.bg-dark a, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar_modules .navbar-dark.bg-dark a, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social .topbar.navbar-dark.bg-dark a, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar .navbar-dark.bg-dark a, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link {
-  color: #f2e8c0;
+.layout_basic .topbar_modules.bg-dark a:not(.dropdown-item), .layout_basic .topbar_modules.bg-dark .btn.btn-link, .layout_classic .topbar.bg-dark-parent a:not(.dropdown-item), .layout_classic .topbar.bg-dark-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link {
+  color: var(--tiki-topbar-dark-link-color);
 }
-.layout_basic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar.navbar-dark.bg-dark a:hover, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar .navbar-dark.bg-dark a:hover, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link:hover {
-  color: white;
+.layout_basic .topbar_modules.bg-dark a:not(.dropdown-item):hover, .layout_basic .topbar_modules.bg-dark .btn.btn-link:hover, .layout_classic .topbar.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .topbar.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover {
+  color: var(--tiki-topbar-dark-link-hover-color);
+}
+.layout_basic .page-header .top_modules, .layout_basic .page-header .top_modules .navbar, .layout_basic .topbar_modules .navbar {
+  background: transparent !important;
+  --bs-bg-opacity: 0 !important;
+}
+.layout_classic .header_outer, .layout_classic .top_modules .navbar, .layout_classic .topbar, .layout_classic .topbar_modules, .layout_classic .topbar_modules .navbar {
+  background: transparent !important;
+  --bs-bg-opacity: 0 !important;
+}
+.layout_social header .top_modules, .layout_social header .top_modules .navbar, .layout_social .topbar, .layout_social .topbar .navbar {
+  background: transparent !important;
+  --bs-bg-opacity: 0 !important;
 }
 .bg-dark {
   background: #ad1d28 !important;
@@ -11101,7 +11131,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #f2e8c0;
 }
 .tiki #conversejs a:hover, .tiki #conversejs a:visited:hover, .tiki #conversejs.converse-embedded a:hover, .tiki #conversejs.converse-embedded a:visited:hover {
-  color: #f2e8c0;
+  color: #ede0ab;
 }
 .tiki #conversejs input[type=text], .tiki #conversejs textarea, .tiki #conversejs select, .tiki #conversejs.converse-embedded input[type=text], .tiki #conversejs.converse-embedded textarea, .tiki #conversejs.converse-embedded select {
   background-color: #f8f9fa;
@@ -11322,7 +11352,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #f2e8c0 !important;
 }
 .tiki-webmail a:not(.dropdown-item) .icon:hover, .tiki-webmail .btn-link:hover, .tiki-cypht a:not(.dropdown-item) .icon:hover, .tiki-cypht .btn-link:hover, .mobile.tiki-cypht a:not(.dropdown-item) .icon:hover, .mobile.tiki-cypht .btn-link:hover, .inline-cypht a:not(.dropdown-item) .icon:hover, .inline-cypht .btn-link:hover {
-  color: #f2e8c0 !important;
+  color: #ede0ab !important;
 }
 .tiki-webmail .form-control, .tiki-cypht .form-control, .mobile.tiki-cypht .form-control, .inline-cypht .form-control {
   background-color: #f8f9fa !important;
@@ -11337,7 +11367,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #f2e8c0 !important;
 }
 .tiki-webmail .nav-tabs .nav-link.active, .tiki-webmail .nav-tabs .nav-item.show .nav-link, .tiki-cypht .nav-tabs .nav-link.active, .tiki-cypht .nav-tabs .nav-item.show .nav-link, .mobile.tiki-cypht .nav-tabs .nav-link.active, .mobile.tiki-cypht .nav-tabs .nav-item.show .nav-link, .inline-cypht .nav-tabs .nav-link.active, .inline-cypht .nav-tabs .nav-item.show .nav-link {
-  color: #f2e8c0 !important;
+  color: #ede0ab !important;
 }
 .tiki-webmail .nav-tabs .nav-link:not(.active), .tiki-cypht .nav-tabs .nav-link:not(.active), .mobile.tiki-cypht .nav-tabs .nav-link:not(.active), .inline-cypht .nav-tabs .nav-link:not(.active) {
   border: none !important;
@@ -11346,7 +11376,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #f2e8c0 !important;
 }
 .tiki-webmail a:not(.btn):hover, .tiki-webmail a.btn-link:hover, .tiki-cypht a:not(.btn):hover, .tiki-cypht a.btn-link:hover, .mobile.tiki-cypht a:not(.btn):hover, .mobile.tiki-cypht a.btn-link:hover, .inline-cypht a:not(.btn):hover, .inline-cypht a.btn-link:hover {
-  color: #f2e8c0 !important;
+  color: #ede0ab !important;
   text-decoration: inherit;
 }
 .tiki-webmail .flipmodtitle.close, .tiki-webmail .close, .tiki-cypht .flipmodtitle.close, .tiki-cypht .close, .mobile.tiki-cypht .flipmodtitle.close, .mobile.tiki-cypht .close, .inline-cypht .flipmodtitle.close, .inline-cypht .close {
@@ -11387,7 +11417,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #f2e8c0 !important;
 }
 .inline-cypht .folders a:not(.btn):hover, .inline-cypht .subject a:not(.btn):hover, .inline-cypht .selected_menu a:not(.btn):hover, .inline-cypht .unread_link:not(.btn):hover, .inline-cypht .selected_menu:not(.btn):hover, .inline-cypht .manage_folder_link:not(.btn):hover {
-  color: #f2e8c0 !important;
+  color: #ede0ab !important;
   text-decoration: underline;
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell, .inline-cypht .compose_page, .inline-cypht .message_list, .inline-cypht .msg_text, .inline-cypht .selected_part, .inline-cypht .server_content, .inline-cypht .profile_content, .inline-cypht .user_settings, .inline-cypht .nux_add_account, .inline-cypht .imap_server_setup, .inline-cypht .pop3_server_setup, .inline-cypht .configured_server, .inline-cypht .add_server {

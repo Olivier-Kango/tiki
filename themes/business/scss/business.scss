@@ -12,6 +12,7 @@
 @import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
 
 @import "../../base_files/scss/_tiki-selectors.scss";
+@import "../../base_files/scss/_tiki-pagetop_colors.scss"; // Import if needed to specify top and topbar zone colors in more detail
 @import "_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";
 @import "../../base_files/scss/_select2-tiki_colors.scss";

@@ -1,4 +1,22 @@
 /* Darkroom theme newsletter stylesheet  */
+:root {
+  --tiki-top-bg-light:  linear-gradient(to bottom, #818181 0%, #393939 100%);
+  --tiki-top-light-color: #fff;
+  --tiki-top-light-link-color: #fff;
+  --tiki-top-light-link-hover-color: #f4f4f4;
+  --tiki-topbar-bg-light: linear-gradient(to bottom, #818181 0%, #393939 100%);
+  --tiki-topbar-light-color: #fff;
+  --tiki-topbar-light-link-color: #fff;
+  --tiki-topbar-light-link-hover-color: #f4f4f4;
+  --tiki-top-bg-dark:  linear-gradient(to bottom, #818181 0%, #393939 100%);
+  --tiki-top-dark-color: #fff;
+  --tiki-top-dark-link-color: #fff;
+  --tiki-top-dark-link-hover-color: #f4f4f4;
+  --tiki-topbar-bg-dark: linear-gradient(to bottom, #818181 0%, #393939 100%);
+  --tiki-topbar-dark-color: #fff;
+  --tiki-topbar-dark-link-color: #fff;
+  --tiki-topbar-dark-link-hover-color: #f4f4f4;
+}
 body {
   background: #474747;
   color: #d8d8d8;

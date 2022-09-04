@@ -50,8 +50,8 @@ $body-color: #fff;
 
 // Utility maps
 // Links
-$link-color: lighten($warning, 15%);
-$link-hover-color: $link-color;
+$link-color: lighten(#E4D081FF, 15%); //lighten($warning, 15%);
+$link-hover-color: lighten($warning, 10%);
 $link-hover-decoration: underline;
 
 // Paragraphs
@@ -215,22 +215,31 @@ $blockquote-left-border-color: #E6E8EA;
 $dropdown-item: $dropdown-link-color;
 
 //$megamenu-dropdown-link-color: $dropdown-link-color;
-$tiki-top-light-bg: #5AE3ED; // $light; Hmm, using the variable to define the variable didn't work.
-$tiki-top-light-color: $navbar-light-color;
-$tiki-top-light-link-color: $navbar-light-color;
-$tiki-top-light-link-hover-color: rgba($black, .7);
-//
-$tiki-topbar-light-bg: $light;
-$tiki-topbar-light-color: $navbar-light-color;
-$tiki-topbar-light-link-color: $navbar-light-color;
-$tiki-topbar-light-link-hover-color: rgba($black, .7);
-//
-$tiki-top-dark-bg: #ad1d28; //$navbar-dark-bg; Hmm, using the variable to define the variable didn't work.
-$tiki-top-dark-color: $link-color;
-$tiki-top-dark-link-color:$link-color;
-$tiki-top-dark-link-hover-color: lighten($navbar-dark-color, 25%);
-//
-$tiki-topbar-dark-bg: $navbar-dark-bg;
-$tiki-topbar-dark-color: $link-color;
-$tiki-topbar-dark-link-color: $link-color;
-$tiki-topbar-dark-link-hover-color: lighten($navbar-dark-color, 25%);
+// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
+// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
+:root {
+    --tiki-top-bg-light: #{$light};
+    --tiki-top-light-color: #{$navbar-light-color};
+    --tiki-top-light-link-color: #{$navbar-light-color};
+    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
+    //
+    --tiki-topbar-bg-light: #{$light};
+    --tiki-topbar-light-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
+    //
+    --tiki-top-bg-dark: #{$navbar-dark-bg};
+    --tiki-top-dark-color: #{$link-color};
+    --tiki-top-dark-link-color: #{$link-color};
+    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
+    //
+    --tiki-topbar-bg-dark: #{$navbar-dark-bg};
+    --tiki-topbar-dark-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
+    //
+    //--tiki-top-bg-dark-image: radial-gradient(ellipse at center, #f0b7a1 0%,#8c3310 50%,#752201 51%,#bf6e4e 100%); // none;
+    //--tiki-top-bg-light-image: none;
+    //--tiki-topbar-bg-dark-image: linear-gradient(45deg, #a90329 0%,#8f0222 44%,#6d0019 100%); //none;
+    //--tiki-topbar-bg-light-image: none;
+}
