@@ -1241,11 +1241,12 @@ class WikiLib extends TikiLib
      */
     public function clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '')
     {
-        if (! $page && $prefs['feature_url_suffix_cleaner'] != 'y') {
+        global $prefs, $url_scheme, $url_host, $base_uri;
+
+        if (empty($page) || $prefs['feature_url_suffix_cleaner'] != 'y') {
             return;
         }
 
-        global $prefs, $url_scheme, $url_host, $base_uri;
         $tikilib = TikiLib::lib('tiki');
         $access = TikiLib::lib('access');
 
