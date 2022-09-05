@@ -66,11 +66,11 @@ class FunctionToolbarsTest extends TikiTestCase
             [['Format', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'JustifyLeft', 'JustifyCenter', '-', 'BulletedList', 'NumberedList', '-', 'PageBreak', 'HorizontalRule', '-', 'tikitable', '-', 'Source', 'ShowBlocks', '-', 'Maximize',],],
         ];
         /** @var HeaderLib $headerlib */
+        //$headerlib = $this->createMock('HeaderLib');
         $headerlib = TikiLib::lib('header');
 
-        $originalJs = $headerlib->js;
-        // clean out the leftover js additions
-        $headerlib->js = [];
+        // clean out the leftover js additions from previous tests
+        $headerlib->__construct();
 
         $result = smarty_function_toolbars($params, $this->smarty);
 
@@ -89,7 +89,8 @@ class FunctionToolbarsTest extends TikiTestCase
         include_once 'lib/test/smarty_tiki/fixtures/FunctionToolbarsWysiwyg.php';
         $finalJs = $headerlib->js;
 
-        //$this->assertEquals($expectedJsArray, $finalJs);
+        // this also now fails when the test is run on its own, seems to work when the whole suite is run though
+        $this->assertEquals($expectedJsArray, $finalJs);
 
     }
 
