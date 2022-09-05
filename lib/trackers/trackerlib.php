@@ -2154,6 +2154,12 @@ class TrackerLib extends TikiLib
                     $data[$permNames[$fieldId]] = $value;
                 }
             }
+            $data['old_values_by_permname'] = [];
+            foreach ($old_values as $fieldId => $value) {
+                if (isset($permNames[$fieldId])) {
+                    $data['old_values_by_permname'][$permNames[$fieldId]] = $value;
+                }
+            }
 
             foreach ($final as $job) {
                 $value = $job['handler']->handleFinalSave($data);
