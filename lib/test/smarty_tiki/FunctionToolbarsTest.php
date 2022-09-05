@@ -20,6 +20,7 @@ class FunctionToolbarsTest extends TikiTestCase
     {
         global $prefs, $iconset;
 
+        TikiLib::lib('cache')->empty_cache();
 
         $prefs['javascript_enabled'] = 'y';
         $prefs['wysiwyg_htmltowiki'] = 'y';
