@@ -79,19 +79,6 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
         return $tag;
     }
 
-    public function getWikiHtml(): string
-    {
-        if ($this->syntax == '...page...') {    // for some reason breaks toolbar when inside nested plugins
-            return $this->getSelfLink(
-                'insertAt(\'' . $this->domElementId . '\', \'...\'+\'page\'+\'...\');',
-                htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
-                $this->getClass()
-            );
-        } else {
-            return parent::getWikiHtml();
-        }
-    }
-
     /**
      * @return string
      */

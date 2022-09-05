@@ -35,14 +35,14 @@ class ToolbarLineBased extends ToolbarInline // Will change in the future
         return $tag;
     }
 
-    public function getWikiHtml(): string
+    /**
+     * @return string
+     */
+    public function getOnClick(): string
     {
-        return $this->getSelfLink(
-            'insertAt(\'' . $this->domElementId . '\', \'' . addslashes(
+        return 'insertAt(\'' . $this->domElementId . '\', \'' .
+            addslashes(
                 htmlentities($this->syntax, ENT_COMPAT, 'UTF-8')
-            ) . '\', true, true);',
-            htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
-            $this->getClass()
-        );
+            ) . '\', true, true);';
     }
 }

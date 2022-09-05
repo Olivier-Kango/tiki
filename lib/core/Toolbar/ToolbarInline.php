@@ -79,23 +79,6 @@ class ToolbarInline extends ToolbarItem
         return $this;
     }
 
-    public function getWikiHtml(): string
-    {
-        if ($this->syntax == '~np~text~/np~') { // closing ~/np~ tag breaks toolbar when inside nested plugins
-            return $this->getSelfLink(
-                'insertAt(\'' . $this->domElementId . '\', \'~np~text~\'+\'/np~\');',
-                htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
-                $this->getClass()
-            );
-        } else {
-            return $this->getSelfLink(
-                $this->getOnClick(),
-                htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
-                $this->getClass()
-            );
-        }
-    }
-
     /**
      * @return string
      */
