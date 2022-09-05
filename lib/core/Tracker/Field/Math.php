@@ -191,6 +191,16 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
             ->setParseIntoTransform(function (&$info, $value) use ($permName) {
                 $info['fields'][$permName] = $value;
                 $data = $info['fields'];
+                if (! empty($info['itemId']) && ! isset($data['old_values_by_permname'])) {
+                    $data['old_values_by_permname'] = [];
+                    $currentItem = (new Services_Tracker_Utilities)->getItem($this->getTrackerDefinition()->getConfiguration('trackerId'), $info['itemId']);
+                    foreach ($currentItem['fields'] as $fieldId => $val) {
+                        $field = $this->getTrackerDefinition()->getField($fieldId);
+                        if ($field) {
+                            $data['old_values_by_permname'][$field['permName']] = $val;
+                        }
+                    }
+                }
                 $info['fields'][$permName] = $this->handleFinalSave($data);
             })
             ;
