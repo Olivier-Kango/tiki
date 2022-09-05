@@ -55,9 +55,8 @@ class TikiLib_MarkdownParserTest extends TikiTestCase
         $user = 'admin';
         $prefs['markdown_enabled'] = 'y';
         $prefs['feature_wiki_argvariable'] = 'y';
-        $options['is_markdown'] = true;
 
-        $this->assertEquals($this->html(), TikiLib::lib('parser')->parse_data($this->markdown(), $options));
+        $this->assertEquals($this->html(), TikiLib::lib('parser')->parse_data('{syntax type=markdown}'.$this->markdown()));
     }
 
     public function testReplaceLinks(): void

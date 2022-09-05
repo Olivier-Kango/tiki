@@ -14,7 +14,7 @@
  * The extension of ParserLib is hopefully temporary. Ideally ParserLib would be replaced by a more complete version of this class.
  * TODO: Move remaining ParserLib methods and option property here
 */
-abstract class WikiParser_Parsable extends ParserLib
+class WikiParser_Parsable extends ParserLib
 {
     /** @var string Code usually containing text and markup */
     private $markup;
@@ -24,19 +24,45 @@ abstract class WikiParser_Parsable extends ParserLib
     /** @var array Footnotes added via the FOOTNOTE plugin. These are read by wikiplugin_footnotearea(). */
     public $footnotes;
 
-    public static function instantiate($data, $options = [])
-    {
-        global $prefs;
-        if (isset($options['is_markdown']) && $options['is_markdown'] && $prefs['markdown_enabled'] === 'y') {
-            return new WikiParser_ParsableMarkdown($data);
-        } else {
-            return new WikiParser_ParsableWiki($data);
-        }
-    }
-
     public function __construct($markup)
     {
         $this->markup = $markup;
+    }
+
+    /**
+     * Parser search for syntax wiki plugin which changes the syntax of this data block
+     */
+    public function guess_syntax(&$data)
+    {
+        global $prefs;
+
+        if ($prefs['markdown_enabled'] !== 'y') {
+            return;
+        }
+
+        $matches = WikiParser_PluginMatcher::match($data);
+        $argumentParser = new WikiParser_PluginArgumentParser();
+
+        foreach ($matches as $match) {
+            if ($match->getName() != 'syntax') {
+                continue;
+            }
+            $arguments = $argumentParser->parse($match->getArguments());
+            switch (@$arguments['type']) {
+                case 'tiki':
+                    $this->option['is_markdown'] = false;
+                    $ret = '';
+                    break;
+                case 'markdown':
+                    $this->option['is_markdown'] = true;
+                    $ret = '';
+                    break;
+                default:
+                    $ret = tr('Invalid syntax type selected. Valid values: tiki or markdown.');
+            }
+            $match->replaceWith($ret);
+        }
+        $data = $matches->getText();
     }
 
     // This recursive function handles pre- and no-parse sections and plugins
@@ -78,6 +104,23 @@ abstract class WikiParser_Parsable extends ParserLib
             $plugin_data = $match->getBody();
             $arguments = $argumentParser->parse($match->getArguments());
             $start = $match->getStart();
+
+            if ($plugin_name == 'syntax') {
+                switch (@$arguments['type']) {
+                    case 'tiki':
+                        $this->option['is_markdown'] = false;
+                        $ret = '';
+                        break;
+                    case 'markdown':
+                        $this->option['is_markdown'] = $prefs['markdown_enabled'] === 'y';
+                        $ret = '';
+                        break;
+                    default:
+                        $ret = tr('Invalid syntax type selected. Valid values: tiki or markdown.');
+                }
+                $match->replaceWith($ret);
+                continue;
+            }
 
             $pluginOutput = null;
             if ($this->plugin_enabled($plugin_name, $pluginOutput) || $this->option['ck_editor']) {
@@ -239,6 +282,8 @@ if ( \$('#$id') ) {
 
         $data = $this->markup;
 
+        $this->guess_syntax($data);
+
         $this->parse_wiki_argvariable($data);
 
         $data = preg_replace('/(\{img [^\}]+li)<x>(nk[^\}]+\})/i', '\\1\\2', $data);
@@ -279,7 +324,17 @@ if ( \$('#$id') ) {
         return $data;
     }
 
-    abstract public function wikiParse($data, $noparsed = []);
+    public function wikiParse($data, $noparsed = []) {
+        global $prefs;
+
+        if ($this->option['is_markdown'] && $prefs['markdown_enabled'] === 'y') {
+            $parsable = new WikiParser_ParsableMarkdown($data);
+        } else {
+            $parsable = new WikiParser_ParsableWiki($data);
+        }
+        $parsable->setOptions($this->option);
+        return $parsable->wikiParse($data, $noparsed);
+    }
 
     public function pluginExecute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
     {

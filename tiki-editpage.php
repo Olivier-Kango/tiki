@@ -880,18 +880,6 @@ if (isset($_REQUEST["description"])) {
     $description = $_REQUEST["description"];
 }
 
-if (isset($info["wiki_syntax"])) {
-    $smarty->assign('wiki_syntax', $info["wiki_syntax"]);
-    $wiki_syntax = $info["wiki_syntax"];
-} else {
-    $smarty->assign('wiki_syntax', '');
-    $wiki_syntax = '';
-}
-if (isset($_REQUEST["wiki_syntax"])) {
-    $smarty->assign('wiki_syntax', $_REQUEST["wiki_syntax"]);
-    $wiki_syntax = $_REQUEST["wiki_syntax"];
-}
-
 $wiki_authors_style = '';
 if ($prefs['wiki_authors_style_by_page'] === 'y') {
     if (isset($_REQUEST['wiki_authors_style']) && $tiki_p_admin_wiki === 'y') {
@@ -1136,9 +1124,6 @@ if (
         if (! isset($_REQUEST["description"])) {
             $_REQUEST["description"] = '';
         }
-        if (! isset($_REQUEST["wiki_syntax"])) {
-            $_REQUEST["wiki_syntax"] = '';
-        }
         if (! isset($_REQUEST["wiki_authors_style"])) {
             $_REQUEST["wiki_authors_style"] = '';
         }
@@ -1218,8 +1203,7 @@ if (
                 $_REQUEST['wysiwyg'],
                 $wiki_authors_style,
                 0,
-                '',
-                $wiki_syntax
+                ''
             );
 
             $info_new = $tikilib->get_page_info($page);
@@ -1296,8 +1280,7 @@ if (
                 $hash,
                 null,
                 $_REQUEST['wysiwyg'],
-                $wiki_authors_style,
-                $wiki_syntax
+                $wiki_authors_style
             );
             $info_new = $tikilib->get_page_info($page);
 

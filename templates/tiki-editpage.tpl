@@ -485,18 +485,6 @@
                                 </div>
                             {/if}
                         {/if}{*end if sandbox *}
-                        {if $prefs.markdown_enabled eq 'y'}
-                            <div class="mb-3 row clearfix">
-                                <label for="wiki_syntax" class="col-md-4 col-form-label">{tr}Wiki syntax{/tr}</label>
-                                <div class="col-md-8">
-                                    <select name="wiki_syntax" class="form-control">
-                                        <option value="" {if $wiki_syntax eq ''}selected{/if}>{tr}Default{/tr} ({if $prefs.markdown_default eq 'tiki'}{tr}Tiki{/tr}{else}{tr}Markdown{/tr}{/if})</option>
-                                        <option value="tiki" {if $wiki_syntax eq 'tiki'}selected{/if}>{tr}Tiki{/tr}</option>
-                                        <option value="markdown" {if $wiki_syntax eq 'markdown'}selected{/if}>{tr}Markdown{/tr}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        {/if}
                         {if $prefs.feature_wiki_description eq 'y' or $prefs.metatag_pagedesc eq 'y'}
                             <div class="mb-3 row">
                                 {if $prefs.metatag_pagedesc eq 'y'}

@@ -29,7 +29,7 @@ function prefs_markdown_list()
         ],
         'markdown_default' => [
             'name' => tr('Default syntax'),
-            'description' => tr('Which syntax to use as the default wiki syntax whenever a wiki page or parsed block does not specify one to use.'),
+            'description' => tr('Which syntax to use as the default wiki syntax when a new content block is created.'),
             'type' => 'list',
             'options' => [
                 'tiki' => tra('Tiki-style wiki syntax'),

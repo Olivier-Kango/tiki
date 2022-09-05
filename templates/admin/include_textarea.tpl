@@ -48,6 +48,15 @@
             </fieldset>
 
             <fieldset>
+                <legend>{tr}Markdown{/tr}{help url="Markdown"}</legend>
+                {preference name=markdown_enabled}
+                <div class="adminoptionboxchild" id="markdown_enabled_childcontainer">
+                    {preference name=markdown_gfm}
+                    {preference name=markdown_default}
+                </div>
+            </fieldset>
+
+            <fieldset>
                 <legend>{tr}Typography{/tr}</legend>
                 {preference name=feature_typo_enable}
                 <div class="adminoptionboxchild" id="feature_typo_enable_childcontainer">

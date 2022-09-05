@@ -114,7 +114,6 @@ class Services_Edit_Controller
             'preview_mode' => true,
             'process_wiki_paragraphs' => ($prefs['wysiwyg_htmltowiki'] === 'y' || $info['wysiwyg'] == 'n'),
             'page' => $page,
-            'is_markdown' => $input->is_markdown->int()
         ];
 
         if (count($autoSaveIdParts) === 3 && ! empty($user) && $user === $autoSaveIdParts[0] && $autoSaveIdParts[1] === 'wiki_page') {

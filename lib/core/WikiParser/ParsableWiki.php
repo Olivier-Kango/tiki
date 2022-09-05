@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class WikiParser_ParsableWiki extends WikiParser_Parsable
+class WikiParser_ParsableWiki extends ParserLib
 {
     public function wikiParse($data, $noparsed = [])
     {

@@ -328,14 +328,13 @@ function wikiplugin_include($dataIn, $params)
         $old_options = $parserlib->option;
         $options = [
             'is_html' => $data[$fragmentIdentifier]['is_html'],
-            'is_markdown' => TikiLib::lib('wiki')->get_page_wiki_syntax($data[$fragmentIdentifier]) === 'markdown',
             'suppress_icons' => true,
         ];
         if (! empty($_REQUEST['page'])) {
             $options['page'] = $_REQUEST['page'];
         }
         $parserlib->setOptions($options);
-        $fragment = WikiParser_Parsable::instantiate($text, $options);
+        $fragment = new WikiParser_Parsable($text);
         $text = $fragment->parse($options);
         $parserlib->setOptions($old_options);
     } else {
