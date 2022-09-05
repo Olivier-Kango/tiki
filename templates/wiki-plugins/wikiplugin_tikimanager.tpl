@@ -13,6 +13,7 @@
     {/if}
     {if in_array('test_send_email', $available_actions)}
     <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=test_send_email}">{icon name=envelope} {tr}Test Send Email{/tr}</a>
+    {/if}
     {if in_array('setup_clone', $available_actions)}
     <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=setup_clone}">{icon name=copy} {tr}Setup instance to clone{/tr}</a>
     {/if}
