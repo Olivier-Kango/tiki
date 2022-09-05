@@ -10,6 +10,8 @@
  * Shared functions for tiki implementation of nkeditor (v3.6.2)
  */
 
+use Tiki\Lib\core\Toolbar\ToolbarCombos;
+
 class WYSIWYGLib
 {
     public static $ckEditor = null;
@@ -78,7 +80,6 @@ class WYSIWYGLib
             $cktools = json_encode($cktools);
             $cktools = substr($cktools, 1, strlen($cktools) - 2); // remove surrouding [ & ]
             $cktools = str_replace(']],[[', '],"/",[', $cktools); // add new row chars - done here so as not to break existing f/ck
-            require_once('lib/toolbars/toolbarslib.php');
         }
         $ckeformattags = ToolbarCombos::getFormatTags($info['is_html'] ? 'html' : 'wiki');
 

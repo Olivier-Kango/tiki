@@ -10,6 +10,8 @@
  * Smarty plugin to display content only to some groups
  */
 
+use Tiki\Lib\core\Toolbar\ToolbarsList;
+
 function smarty_function_toolbars($params, $smarty)
 {
     global $prefs, $is_html, $tiki_p_admin, $tiki_p_admin_toolbars, $section;
@@ -37,11 +39,10 @@ function smarty_function_toolbars($params, $smarty)
         $params['area_id'] = 'editwiki';
     }
 
-    include_once('lib/toolbars/toolbarslib.php');
-    $list = ToolbarsList::fromPreference($params, $hidden);
+    $list = ToolbarsList::fromPreference($params, $hidden, $params['area_id']);
     if (isset($params['_wysiwyg']) && $params['_wysiwyg'] == 'y') {
-        return $list->getWysiwygArray($params['area_id'], $params['is_html']);
+        return $list->getWysiwygArray();
     } else {
-        return $list->getWikiHtml($params['area_id'], $params['comments']);
+        return $list->getWikiHtml();
     }
 }

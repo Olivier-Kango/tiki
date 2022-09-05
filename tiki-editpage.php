@@ -1652,7 +1652,6 @@ if ($prefs['wiki_feature_copyrights'] === 'y' && $tiki_p_edit_copyrights === 'y'
     }
 }
 $defaultRows = $prefs['default_rows_textarea_wiki'];
-include_once('lib/toolbars/toolbarslib.php');
 if (! $user or $user === 'anonymous') {
     $smarty->assign('anon_user', 'y');
 }

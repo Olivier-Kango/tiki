@@ -10,6 +10,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\Lib\core\Toolbar\ToolbarItem;
+
 $inputConfiguration = [
                 [
                     'staticKeyFilters' => [
@@ -24,7 +26,6 @@ $inputConfiguration = [
 $auto_query_args = ['section', 'comments', 'autoreload', 'view_mode'];
 
 require_once 'tiki-setup.php';
-require_once 'lib/toolbars/toolbarslib.php';
 
 $access->check_permission('tiki_p_admin');
 $access->check_feature(['javascript_enabled', 'feature_jquery_ui']);
@@ -97,7 +98,7 @@ $smarty->assign('view_mode', $view_mode);
 
 if (! empty($_REQUEST['reset_all_custom_tools'])) {
     $access->checkCsrf(tra('Are you sure you want to delete all your custom tools?'));
-    Toolbar::deleteAllCustomTools();
+    ToolbarItem::deleteAllCustomTools();
     $access->redirect('tiki-admin_toolbars.php');
 }
 
@@ -116,7 +117,7 @@ if ((isset($_REQUEST['reset']) && $section != 'global') || (isset($_REQUEST['res
 }
 
 if (! empty($_REQUEST['save_tool']) && ! empty($_REQUEST['tool_name'])) {   // input from the tool edit form
-    Toolbar::saveTool(
+    ToolbarItem::saveTool(
         $_REQUEST['tool_name'],
         $_REQUEST['tool_label'],
         $_REQUEST['tool_icon'],
@@ -148,7 +149,7 @@ if ($section == 'global') {
 }
 
 if (! empty($_REQUEST['delete_tool']) && ! empty($_REQUEST['tool_name'])) { // input from the tool edit form
-    Toolbar::deleteTool($_REQUEST['tool_name']);
+    ToolbarItem::deleteTool($_REQUEST['tool_name']);
     if (strpos($_REQUEST['tool_name'], $current) !== false) {
         $current = str_replace($_REQUEST['tool_name'], '', $current);
         $current = str_replace(',,', ',', $current);
@@ -175,7 +176,7 @@ $init = '';
 $setup = '';
 $map = [];
 
-$qtlist = Toolbar::getList();
+$qtlist = ToolbarItem::getList();
 $usedqt = [];
 $qt_p_list = [];
 $qt_w_list = [];
@@ -186,26 +187,27 @@ foreach ($current as &$line) {
     }
 }
 
-$customqt = Toolbar::getCustomList();
+$customqt = ToolbarItem::getCustomList();
 
 $view_mode = ! empty($_REQUEST['view_mode']) ? $_REQUEST['view_mode'] : '';
 
 foreach ($qtlist as $name) {
-    $tag = Toolbar::getTag($name);
+    $tag = ToolbarItem::getTag($name);
     if (! $tag) {
-        $tag = Toolbar::getTag($name, true);
+        $tag = ToolbarItem::getTag($name, true);
         if (! $tag) {
-            $tag = Toolbar::getTag($name, true, true);
+            $tag = ToolbarItem::getTag($name, true, true);
             continue;
         }
     }
+    $tag->setDomElementId('dummy');
 
-    $wys = strlen($tag->getWysiwygToken('dummy', false)) ? 'qt-wys' : '';
+    $wys = strlen($tag->getWysiwygToken(false)) ? 'qt-wys' : '';
     $wyswik = strlen($tag->getWysiwygWikiToken('dummy', false)) ? 'qt-wyswik' : '';
-    $test_html = $tag->getWikiHtml('');
+    $test_html = $tag->getWikiHtml();
     $wiki = strlen($test_html) > 0 ? 'qt-wiki' : '';
     $wiki = strpos($test_html, 'qt-sheet') !== false ? 'qt-sheet' : $wiki;
-    $cust = Toolbar::isCustomTool($name) ? 'qt-custom' : '';
+    $cust = ToolbarItem::isCustomTool($name) ? 'qt-custom' : '';
     $avail = $tag->isAccessible() ? '' : 'qt-noaccess';
     $icon = $tag->getIconHtml();
     $margins = $test_html === '||' ? 'mx-auto' : '';
@@ -223,7 +225,7 @@ foreach ($qtlist as $name) {
     }
 
     $label = htmlspecialchars($label);
-    $label .= '<input type="hidden" name="token" value="' . $tag->getWysiwygToken('dummy', false) . '" />';
+    $label .= '<input type="hidden" name="token" value="' . $tag->getWysiwygToken(false) . '" />';
     $label .= '<input type="hidden" name="syntax" value="' . htmlspecialchars($tag->getSyntax('dummy')) . '" />';
     $label .= '<input type="hidden" name="type" value="' . $tag->getType() . '" />';
     $label .= '<input type="hidden" name="label" value="' . $tag->getLabel() . '" />';
