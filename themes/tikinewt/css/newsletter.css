@@ -32,3 +32,21 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .card-title > a, .card-title > small, .card-title > .small, .card-title > small > a, .card-title > .small > a {
   color: inherit;
 }
+:root {
+  --tiki-top-bg-light: #F3F6F9;
+  --tiki-top-light-color: rgba(0, 0, 0, 0.55);
+  --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
+  --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-bg-light: #F3F6F9;
+  --tiki-topbar-light-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-light-link-hover-color: #42515f;
+  --tiki-top-bg-dark: #c7d0d9;
+  --tiki-top-dark-color: #2d3741;
+  --tiki-top-dark-link-color: #2d3741;
+  --tiki-top-dark-link-hover-color: #42515f;
+  --tiki-topbar-bg-dark: #c7d0d9;
+  --tiki-topbar-dark-color: #2d3741;
+  --tiki-topbar-dark-link-color: #2d3741;
+  --tiki-topbar-dark-link-hover-color: #42515f;
+}

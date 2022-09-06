@@ -14,21 +14,23 @@
 // $gray-800: #343a40 !default;
 // $gray-900: #212529 !default;
 // $black:    #000 !default;
+$light: #fff;
+$dark: #000;
 
 $primary: #005faa;
-//$success: #48ca3b;
-//$info: #4d3a7d;
-//$warning: #debb27;
-//$danger: #df6e1e;
+$success: #48ca3b;
+$info: #1373c0;
+$warning: #f0ad4e;
+$danger: #df6e1e;
 
 $theme-colors: (
-     "primary":            #0099cc,
-     "secondary": #52269c,
-//     "success":             #5cb85c,
-     "info":               #5bc0de,
-//     "warning":             #f0ad4e,
-     "danger":              #ff5c1a,
-//        "light":            #ffffff,
+     "primary":             #005faa, //#0099cc,
+     "secondary":           #52269c,
+     "success":             #48ca3b, //#5cb85c,
+     "info":                #1373c0,
+     "warning":             #f0ad4e,
+     "danger":              #df6e1e,
+     "light":               #ffffff,
      "dark":                #efefef
 );
 
@@ -76,6 +78,10 @@ $navbar-dark-active-hover-color: $navbar-dark-active-color;
 $navbar-dark-bg: #efefef; // ditto
 $navbar-dark-hover-color: #ff5c1a;
 $navbar-nav-link-padding-x: 2rem;
+
+$navbar-light-color: $navbar-dark-color;
+$navbar-light-hover-color: $navbar-dark-hover-color;
+
 //$navbar-dark-border: darken($navbar-dark-bg, 6.5%);
 
 //$navbar-dark-hover-color: darken(#fff, 10%);
@@ -109,3 +115,29 @@ $card-border-color: transparent;
 // Code
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
+
+// - - - - - - - - - - - - - - - - - CSS variables, if any - - - - -
+
+// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
+// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
+:root {
+    --tiki-top-bg-light: #F3F6F9;
+    --tiki-top-light-color: #{$navbar-light-color};
+    --tiki-top-light-link-color: #{$navbar-light-color};
+    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
+
+    --tiki-topbar-bg-light: #F3F6F9;
+    --tiki-topbar-light-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-top-bg-dark: #efefef;
+    --tiki-top-dark-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-topbar-bg-dark: #efefef;
+    --tiki-topbar-dark-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
+}

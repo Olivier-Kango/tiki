@@ -139,7 +139,7 @@ textarea,
 }
 
 
-#page-header {
+.page-header {
     h1,
     h2,
     h3 a,
@@ -217,7 +217,7 @@ h1 {
 }
 
 @media (max-width: 768px) {
-    #page-header {
+    .page-header {
         height: auto;
     }
 }

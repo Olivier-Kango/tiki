@@ -121,10 +121,12 @@ $topbar-dark-bg: #180124;
 //$topbar-dark-bg: #063035; // $topbar-light-bg;
 $topbar-dark-color: $topbar-light-color;
 
+$navbar-light-color: $top-light-color;
 $navbar-light-link-color: $top-light-color;
 $navbar-light-link-hover-color: #f2f2f2;
 //$navbar-light-link-hover-bg: #003c4a;
 
+$navbar-dark-color: $top-light-color;
 $navbar-dark-link-color: $top-light-color;
 $navbar-dark-link-hover-color: #f2f2f2;
 $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
@@ -165,3 +167,26 @@ $enable-shadows:              false;
 $input-btn-focus-width:       .2rem;
 $btn-focus-width:             $input-btn-focus-width;
 
+// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
+// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
+:root {
+    --tiki-top-bg-light: linear-gradient(to right,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%);
+    --tiki-top-light-color: #{$navbar-light-color};
+    --tiki-top-light-link-color: #{$navbar-light-link-color};
+    --tiki-top-light-link-hover-color: #{$navbar-light-link-hover-color};
+
+    --tiki-topbar-bg-light: #{$topbar-light-color};
+    --tiki-topbar-light-color: #{$topbar-light-color};
+    --tiki-topbar-light-link-color: #{$navbar-light-link-color};
+    --tiki-topbar-light-link-hover-color: #{$navbar-dark-link-hover-color};
+
+    --tiki-top-bg-dark: linear-gradient(to right,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%);
+    --tiki-top-dark-color: #{$top-dark-color};
+    --tiki-top-dark-link-color: #{$navbar-dark-link-color};
+    --tiki-top-dark-link-hover-color: #{$navbar-dark-link-hover-color};
+
+    --tiki-topbar-bg-dark:#{$topbar-dark-bg};
+    --tiki-topbar-dark-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-color: #{$navbar-dark-link-color};
+    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-link-hover-color};
+}

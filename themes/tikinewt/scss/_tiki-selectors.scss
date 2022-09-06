@@ -56,6 +56,11 @@ header.container {
     margin-bottom: 10px;
 }
 
+.layout_classic .page-header,
+header.fixed-top {
+    border-bottom: 1px solid #aaa;
+}
+
 #topbar_modules {
     .navbar {
         margin-bottom: 0;
@@ -71,6 +76,11 @@ header.container {
 
 #topbar_modules .navbar {
     margin-bottom: 0;
+}
+
+.layout_social .container.middle {
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
 }
 
 footer .container {

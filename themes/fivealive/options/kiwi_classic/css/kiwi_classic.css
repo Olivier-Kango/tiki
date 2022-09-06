@@ -1,3 +1,21 @@
+:root {
+  --tiki-top-bg-light: linear-gradient(to right,  #bebc24 0%,#ded319 53%,#e7d915 100%);
+  --tiki-top-light-color: #f9f9f9;
+  --tiki-top-light-link-color: #f9f9f9;
+  --tiki-top-light-link-hover-color: #f2f2f2;
+  --tiki-topbar-bg-light: #063035;
+  --tiki-topbar-light-color: #f9f9f9;
+  --tiki-topbar-light-link-color: #f9f9f9;
+  --tiki-topbar-light-link-hover-color: #f2f2f2;
+  --tiki-top-bg-dark: linear-gradient(to right,  #bebc24 0%,#ded319 53%,#e7d915 100%);
+  --tiki-top-dark-color: #f9f9f9;
+  --tiki-top-dark-link-color: #f9f9f9;
+  --tiki-top-dark-link-hover-color: #f2f2f2;
+  --tiki-topbar-bg-dark:#063035;
+  --tiki-topbar-dark-color: #f9f9f9;
+  --tiki-topbar-dark-link-color: #f9f9f9;
+  --tiki-topbar-dark-link-hover-color: #f2f2f2;
+}
 .header_outer, .layout_basic #top_modules, .postbody-title, .bg-dark {
   background: #bebc24;
   background: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
@@ -902,7 +920,7 @@ progress {
 .tab-content > .active {
   display: block;
 }
-#page-header h1, #page-header h2, #page-header h3 a, #page-header a, #page-header a:hover {
+.page-header h1, .page-header h2, .page-header h3 a, .page-header a, .page-header a:hover {
   color: #242424;
 }
 body.layout_social.tiki.navbar-padding {
@@ -916,7 +934,7 @@ body.layout_social.tiki.navbar-padding {
 }
 .bg-dark {
   background-color: #063035 !important;
-  color: rgba(255, 255, 255, 0.55);
+  color: #f9f9f9;
 }
 .bg-dark .btn-outline-info {
   color: #00DAE6;
@@ -924,49 +942,6 @@ body.layout_social.tiki.navbar-padding {
 .btn-outline-dark {
   color: #817804;
   outline-color: #817804;
-}
-.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_basic .page-header .navbar.navbar-light.bg-light, .layout_classic .page-header .navbar-light-parent.bg-light-parent, .layout_classic .page-header .navbar.navbar-light.bg-light, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
-  background-color: transparent !important;
-  color: rgba(0, 0, 0, 0.55);
-}
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-light.bg-light a, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_classic .page-header .navbar-light-parent.bg-light-parent a, .layout_classic .page-header .navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .page-header .navbar.navbar-light.bg-light a, .layout_classic .page-header .navbar.navbar-light.bg-light .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
-  color: #f9f9f9;
-}
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-light.bg-light a:hover, .layout_basic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .page-header .navbar-light-parent.bg-light-parent a:hover, .layout_classic .page-header .navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .page-header .navbar.navbar-light.bg-light a:hover, .layout_classic .page-header .navbar.navbar-light.bg-light .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
-  color: #f2f2f2;
-}
-.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.navbar-light-parent.bg-light-parent, .layout_classic .topbar_modules.navbar-light.bg-light, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .layout_social .topbar.navbar-light, .layout_social .topbar .navbar-light.bg-light {
-  background-color: #063035 !important;
-  color: #f9f9f9;
-}
-.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_classic .topbar.navbar-light-parent.bg-light-parent a, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-light.bg-light a, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar.navbar-light a, .layout_social .topbar.navbar-light .btn.btn-link, .layout_social .topbar .navbar-light.bg-light a, .layout_social .topbar .navbar-light.bg-light .btn.btn-link {
-  color: #f9f9f9;
-}
-.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent a:hover, .layout_classic .topbar.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-light.bg-light a:hover, .layout_classic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar.navbar-light a:hover, .layout_social .topbar.navbar-light .btn.btn-link:hover, .layout_social .topbar .navbar-light.bg-light a:hover, .layout_social .topbar .navbar-light.bg-light .btn.btn-link:hover {
-  color: #f2f2f2;
-}
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent, .layout_basic .page-header .navbar.navbar-dark.bg-dark, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent, .layout_social header.navbar-dark.bg-dark, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark {
-  background-color: transparent !important;
-  color: #000;
-}
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header .navbar.navbar-dark.bg-dark a, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent a, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social header.navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link {
-  color: #000;
-}
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent a:hover, .layout_basic .top_modules.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark a:hover, .layout_basic .page-header .navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .page-header .navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark a:hover, .layout_social header.navbar-dark.bg-dark .navbar-dark.bg-dark .btn.btn-link:hover {
-  color: rgba(255, 255, 255, 0.75);
-}
-.layout_basic .topbar_modules.navbar-dark.bg-dark, .layout_basic .topbar_modules .navbar-dark.bg-dark, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent, .layout_classic .topbar_modules.navbar-dark.bg-dark, .layout_classic .topbar_modules .navbar-dark.bg-dark, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .layout_social .topbar.navbar-dark.bg-dark, .layout_social .topbar .navbar-dark.bg-dark {
-  background-color: #063035 !important;
-  color: #f9f9f9;
-}
-.layout_basic .topbar_modules.navbar-dark.bg-dark a, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_basic .topbar_modules .navbar-dark.bg-dark a, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .topbar_modules.navbar-dark.bg-dark a, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link, .layout_classic .topbar_modules .navbar-dark.bg-dark a, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social .topbar.navbar-dark.bg-dark a, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link, .layout_social .topbar .navbar-dark.bg-dark a, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link {
-  color: #f9f9f9;
-}
-.layout_basic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_basic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent a:hover, .layout_classic .topbar.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules.navbar-dark.bg-dark .btn.btn-link:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark a:hover, .layout_classic .topbar_modules .navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar.navbar-dark.bg-dark a:hover, .layout_social .topbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social .topbar .navbar-dark.bg-dark a:hover, .layout_social .topbar .navbar-dark.bg-dark .btn.btn-link:hover {
-  color: #f2f2f2;
-}
-.layout_classic .top_modules .navbar.navbar-dark.bg-dark, .layout_classic .top_modules .navbar.navbar-light.bg-light {
-  background: transparent !important;
 }
 .sitelogo {
   padding: 30px;
@@ -1016,7 +991,7 @@ hr {
   border: 1px solid #f8f9d4;
 }
 .navbar-dark a, .navbar-dark .navbar-brand, .dropdown-item, .dropdown-item a, .dropdown-menu .tikihelp {
-  color: rgba(255, 255, 255, 0.55);
+  color: #f9f9f9;
 }
 .navbar-dark a:hover, .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
   color: rgba(255, 255, 255, 0.75);
@@ -1045,7 +1020,7 @@ hr {
   border-color: transparent;
 }
 nav:not(.topbar_modules, .top_modules).navbar-dark .open > a, nav:not(.topbar_modules, .top_modules).navbar-dark .open > a:hover, nav:not(.topbar_modules, .top_modules).navbar-dark .open > a:focus {
-  color: rgba(255, 255, 255, 0.55);
+  color: #f9f9f9;
 }
 .navbar-dark .navbar-link:hover {
   color: #f9f9f9;
@@ -1203,9 +1178,6 @@ footer#footer .footer_liner .card-header {
   color: #5b6269 !important;
 }
 .layout_classic .header_container {
-  -webkit-box-shadow: inset 0 44px 0 0 #6f853a;
-  /*#66112f;*/
-  -moz-box-shadow: inset 0 44px 0 0 #6f853a;
   box-shadow: inset 0 44px 0 0 #6f853a;
 }
 .layout_classic .page-header .navbar {
@@ -1221,6 +1193,9 @@ footer#footer .footer_liner .card-header {
 }
 .layout_classic .sitetitle, .layout_classic .sitetitle a, .layout_classic .sitesubtitle {
   color: #000 !important;
+}
+.layout_classic .page-header .nav-link {
+  color: #fff;
 }
 .tiki .select2-container--bootstrap-5 .select2-selection {
   padding: 0.375rem 0.75rem;

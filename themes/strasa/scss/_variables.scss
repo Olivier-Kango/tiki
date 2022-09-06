@@ -73,17 +73,20 @@ $input-border: #4d7b9b;
 $nav-tabs-link-active-color: #fff;
 
   // Navbar
-//$navbar-dark-color: #ffffff;
+$navbar-dark-color: #ffffff;
 //$navbar-dark-bg: #1f5daa;
 //$navbar-dark-border: darken($navbar-dark-bg, 6.5%);
 
 // Navbarlinks ??
 //$navbar-dark-color: #ffffff;
-//$navbar-dark-hover-color: darken(#fff, 10%);
+$navbar-dark-hover-color: darken(#fff, 10%);
 //$navbar-dark-hover-bg: #3270bd;
 //$navbar-dark-active-color: #ffffff;
 //$navbar-dark-active-bg: #3270bd;
 //$navbar-dark-disabled-color: #cccccc;
+
+$navbar-light-color: $navbar-dark-color;
+$navbar-light-hover-color: $navbar-dark-hover-color;
 
 // Pagination
 // Jumbotron
@@ -114,3 +117,30 @@ $modal-md: 600px;
 $tiki-editor-bg: #fff;
 $tiki-editor-text-color: $body-color;
 $tiki-module-h3-card-title-font-size: 1.25rem;
+
+// - - - - - - - - - - - - - - - - - CSS variables, if any - - - - -
+
+// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
+// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
+$imagePath: "../images/";
+:root {
+    --tiki-top-bg-light: linear-gradient(to bottom, #214d68 0%,#204c67 51%,#262f36 100%);
+    --tiki-top-light-color: #{$navbar-light-color};
+    --tiki-top-light-link-color: #{$navbar-light-color};
+    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
+
+    --tiki-topbar-bg-light: linear-gradient(to bottom, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%);
+    --tiki-topbar-light-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-top-bg-dark: linear-gradient(to bottom, #214d68 0%,#204c67 51%,#262f36 100%);
+    --tiki-top-dark-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-topbar-bg-dark: linear-gradient(to bottom, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%);
+    --tiki-topbar-dark-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
+}

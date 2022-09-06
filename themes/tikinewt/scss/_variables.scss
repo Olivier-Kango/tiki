@@ -13,8 +13,9 @@
 // $gray-700: #495057 !default;
 // $gray-800: #343a40 !default;
 // $gray-900: #212529 !default;
-// $black:    #000 !default;
-$dark:                #c7d0d9;
+$black:    #000;
+$light:                #c7d0d9;
+$dark: #c7d0d9;
 
 $primary:         #6c839b;
 //$success: #48ca3b;
@@ -48,7 +49,7 @@ $link-color: #2d3741;
 //
 
 // Components
-$grid-gutter-width:           20px;
+
 
 $border-radius:               .1rem; // Not being implemented - why?
 $border-radius-lg:            .2rem;
@@ -73,9 +74,9 @@ $btn-primary-border: #999999;
 // Dropdowns
 // Navs
 // Navbar
-//$navbar-dark-color: #ffffff;
-//$navbar-dark-bg: #1f5daa;
-//$navbar-dark-border: darken($navbar-dark-bg, 6.5%);
+$navbar-dark-color: #000;
+$navbar-dark-bg: $dark;
+$navbar-dark-border: darken($navbar-dark-bg, 6.5%);
 
 //// Navbarlinks ??
 $navbar-dark-color:                 #2d3741;
@@ -85,8 +86,8 @@ $navbar-dark-hover-color:           lighten($navbar-dark-color, 10%);
 //$navbar-dark-toggler-icon-bg:       str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
 //$navbar-dark-toggler-border-color:  rgba($white, .1) !default;
 
-//$navbar-light-color:                rgba($black, .5) !default;
-//$navbar-light-hover-color:          rgba($black, .7) !default;
+$navbar-light-color:                rgba($black, .5) !default;
+$navbar-light-hover-color:          rgba($black, .7) !default;
 //$navbar-light-active-color:         rgba($black, .9) !default;
 //$navbar-light-disabled-color:       rgba($black, .3) !default;
 //$navbar-light-toggler-icon-bg:      str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
@@ -118,3 +119,29 @@ $card-cap-bg: #f3f6f9;
 // Code
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
+
+// - - - - - - - - - - - - - - - - - CSS variables, if any - - - - -
+
+// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
+// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
+:root {
+    --tiki-top-bg-light: #F3F6F9;
+    --tiki-top-light-color: #{$navbar-light-color};
+    --tiki-top-light-link-color: #{$navbar-light-color};
+    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
+
+    --tiki-topbar-bg-light: #F3F6F9;
+    --tiki-topbar-light-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-top-bg-dark: #{$dark};
+    --tiki-top-dark-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-topbar-bg-dark: #{$dark};
+    --tiki-topbar-dark-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
+}

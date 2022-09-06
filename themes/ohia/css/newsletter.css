@@ -1,6 +1,24 @@
 /* Ohia theme newsletter stylesheet  */
+:root {
+  --tiki-top-bg-light: #3585D0;
+  --tiki-top-light-color: #030303;
+  --tiki-top-light-link-color: #030303;
+  --tiki-top-light-link-hover-color: #171717;
+  --tiki-topbar-bg-light: #3585D0;
+  --tiki-topbar-light-color: #030303;
+  --tiki-topbar-light-link-color: #030303;
+  --tiki-topbar-light-link-hover-color: rgba(255, 255, 255, 0.75);
+  --tiki-top-bg-dark: #343a40;
+  --tiki-top-dark-color: rgba(255, 255, 255, 0.55);
+  --tiki-top-dark-link-color: rgba(255, 255, 255, 0.55);
+  --tiki-top-dark-link-hover-color: rgba(255, 255, 255, 0.75);
+  --tiki-topbar-bg-dark: #343a40;
+  --tiki-topbar-dark-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-dark-link-hover-color: rgba(255, 255, 255, 0.75);
+}
 body {
-  background: #2d2d3a;
+  background: #030303;
   color: #DEE1E6;
   font-family: "Alegreya Sans", Helvetica, Arial, sans-serif;
   padding: 15px;

@@ -27,11 +27,7 @@
 .navbar-dark .navbar-collapse,
 //.navbar-dark .navbar-brand,
 .tiki .bg-dark {
-  background-image: -webkit-linear-gradient(top, #e3e3e3 0%, #cccccc 100%);
-  background-image: -o-linear-gradient(top, #e3e3e3 0%, #cccccc 100%);
   background-image: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe3e3e3', endColorstr='#ffcccccc', GradientType=0);
 }
 
 .navbar-dark .navbar-brand {

@@ -1,20 +1,20 @@
 //  $Id$ Ohia theme bootstrap-variables.scss.
 // The color palette for this theme is derived from the ohia lehua tree and its enviorment in Hawaii.
 // These are just physical attributes and  no reference is implied regarding the cultural aspects of the tree.
-$sky-light: #4C95D6;
+$sky-light: #3585D0; //#4C95D6;
 $sky-deep: #005EA6;
 $cloud: #DEE1E6;
 $wood: #987255;
 $leaf: #80A60F;
 $blossom-red: #F90100;
 $blossom-yellow: #CDA353;
-$cooled-lava-dark: #2d2d3a; // #28293F ; // #0C0D13; // #28293F was too light for link contrast; last change: reduce saturation for less-blue color
+$cooled-lava-dark: #030303; //#2d2d3a; // #28293F ; // #0C0D13; // #28293F was too light for link contrast; last change: reduce saturation for less-blue color
 $cooled-lava-light: #BEBDB8;
 $sea: #638A93;
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
 // See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
-$min-contrast-ratio:   7;
+//$min-contrast-ratio:   7;
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 
@@ -345,3 +345,27 @@ $card-header-bg: #5e0000;
 $card-text: #f4f4f4;
 $blockquote-color: #9E9E9E;
 
+
+// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
+// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
+:root {
+    --tiki-top-bg-light: #{$sky-light};
+    --tiki-top-light-color: #{$navbar-light-color};
+    --tiki-top-light-link-color: #{$navbar-light-color};
+    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
+
+    --tiki-topbar-bg-light: #{$sky-light};
+    --tiki-topbar-light-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-top-bg-dark: #343a40;
+    --tiki-top-dark-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-topbar-bg-dark: #343a40;
+    --tiki-topbar-dark-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
+}
