@@ -65,7 +65,7 @@
                         </td>
 
                         {if $action eq 'y'}
-                            <td>{$page.action}</td>
+                            <td>{if $page.action eq 'Updated'}{tr}Updated{/tr}{else if $page.action eq 'Created'}{tr}Created{/tr}{else}{$page.action}{/if}</td>
                         {/if}
 
                         {if $modif_user eq 'y'}
