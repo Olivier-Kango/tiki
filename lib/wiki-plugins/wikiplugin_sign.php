@@ -89,5 +89,5 @@ function wikiplugin_sign($data, $params, $offset)
         });'
     );
 
-    return "<span class='sign' data-animation='true' data-bs-toggle='tooltip' data-html='true' data-bs-placement='auto' title='$tip'>$icon</span>";
+    return "<span class='sign' data-animation='true' data-bs-toggle='tooltip' data-bs-html='true' data-bs-placement='auto' title='$tip'>$icon</span>";
 }
