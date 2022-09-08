@@ -371,7 +371,7 @@
             <div class="col-sm-10 offset-sm-1">
                 {remarksbox type="tip" title="{tr}Tip{/tr}"}
                 {if $prefs.feature_cssmenus eq 'y'}
-                    {tr}To use a <a target="tikihelp" href="http://users.tpg.com.au/j_birch/plugins/superfish/" class="alert-link">CSS (Superfish) menu</a>, use one of these syntaxes:{/tr}
+                    {tr}To use a <a target="_blank" href="https://doc.tiki.org/Menu#CSS_Superfish_Menus" class="alert-link">CSS (Superfish) menu</a>, use one of these syntaxes:{/tr}
                     <ul>
                         <li>{literal}{menu id=X type=vert}{/literal}</li>
                         <li>{literal}{menu id=X type=horiz}{/literal}</li>

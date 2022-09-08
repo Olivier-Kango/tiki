@@ -71,7 +71,7 @@
                             <tr>
                                 <th>
                                     {tr}Transformers and Learner{/tr}
-                                    <a class="tikihelp alert-link" title="|RubixML Help" target="tikihelp" href="https://docs.rubixml.com/en/latest/choosing-an-estimator.html">
+                                    <a class="tikihelp alert-link" title="|RubixML Help" target="tikihelp" href="https://doc.tiki.org/Machine-Learning">
                                         {icon name="help"}
                                     </a>
                                 </th>

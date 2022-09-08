@@ -36,7 +36,7 @@
                     <td>
                         {$avatar}
                         {if $prefs.user_use_gravatar eq 'y'}
-                            <a href="http://www.gravatar.com" class="link">
+                            <a href="https://doc.tiki.org/Gravatar" class="link" target="_blank">
                                 {tr}Pick user profile picture{/tr}
                             </a>
                         {else}

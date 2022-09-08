@@ -150,7 +150,7 @@
                 <label for="showCreatedFormat">{tr}Creation date format{/tr}</label>
                 <input type="text" name="showCreatedFormat" id="showCreatedFormat" value="{$info.showCreatedFormat|escape}">
                 <div class="form-text">
-                    <a rel="external" class="link" target="strftime" href="http://www.php.net/manual/en/function.strftime.php">{tr}Date and Time Format Help{/tr}</a>
+                    <a rel="external" class="link" target="_blank" href="https://doc.tiki.org/Date-and-Time-Features">{tr}Date and Time Format Help{/tr}</a>
                 </div>
             </div>
             <div class="form-check depends" data-on="showCreated">
@@ -185,7 +185,7 @@
                 <label for="showLastModifFormat">{tr}Modification date format{/tr}</label>
                 <input class="form-control" type="text" name="showLastModifFormat" id="showLastModifFormat" value="{$info.showLastModifFormat|escape}">
                 <div class="form-text">
-                    <a class="link" target="strftime" href="http://www.php.net/manual/en/function.strftime.php">{tr}Date and Time Format Help{/tr}</a>
+                    <a class="link" target="_blank" href="https://doc.tiki.org/Date-and-Time-Features">{tr}Date and Time Format Help{/tr}</a>
                 </div>
             </div>
             <div class="form-check">

@@ -48,7 +48,7 @@
                     <div class="col-md-8">
                         {$avatar}
                         {if $prefs.user_use_gravatar eq 'y'}
-                            <a class="link" href="http://www.gravatar.com" target="_blank">{tr}Pick user profile picture{/tr}</a>
+                            <a class="link" href="https://doc.tiki.org/Gravatar" target="_blank">{tr}Pick user profile picture{/tr}</a>
                         {else}
                             <a class="link" href="tiki-pick_avatar.php{if $userwatch ne $user}?view_user={$userwatch}{/if}">{tr}Pick user profile picture{/tr}</a>
                         {/if}

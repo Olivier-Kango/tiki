@@ -69,7 +69,7 @@ function module_upcoming_events_info()
             ],
             'date_format' => [
                 'name' => tra('Date format'),
-                'description' => tra('Format to use for most dates. See <a href="http://www.php.net/manual/en/function.strftime.php">strftime() documentation</a>.') .
+                'description' => tra('Format to use for most dates. See <a href="https://doc.tiki.org/Date-and-Time-Features">Date and time documentation</a>.') .
                                 " " . tra('Example value:') . ' %m/%e/%y %H:%M %Z. ' . tra('Default:') . ' ' .
                                 tra('site preference for short date format followed by site preference for short time format')
             ],

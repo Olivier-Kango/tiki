@@ -361,8 +361,8 @@
             </fieldset>
         {/tab}
         {tab name="{tr}Date and Time{/tr}"}
-            {remarksbox type="info" title="{tr}php.net{/tr}"}
-                <a class="alert-link" href="http://www.php.net/manual/en/function.strftime.php">
+            {remarksbox type="info" title="doc.tiki.org"}
+                <a class="alert-link" target="_blank" href="https://doc.tiki.org/Date-and-Time-Features">
                     {tr}Date and Time Format Help{/tr}
                 </a>
             {/remarksbox}

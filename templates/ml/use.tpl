@@ -23,10 +23,10 @@
             <div class="col-sm-10">
                 <input type="radio" name="type" value="proba" {if $type neq 'predict'}checked{/if}>
                 {tr}Probability (closest matches){/tr}
-                <a href="https://docs.rubixml.com/latest/probabilistic.html" target="_blank" class="tikihelp text-info">{icon name=help}</a>
+                <a href="https://doc.tiki.org/Machine-Learning" target="_blank" class="tikihelp text-info">{icon name=help}</a>
                 <br/>
                 <input type="radio" name="type" value="predict" {if $type eq 'predict'}checked{/if}> {tr}Prediction{/tr}
-                <a href="https://docs.rubixml.com/latest/estimator.html" target="_blank" class="tikihelp text-info">{icon name=help}</a>
+                <a href="https://doc.tiki.org/Machine-Learning" target="_blank" class="tikihelp text-info">{icon name=help}</a>
             </div>
         </div>
         <div class="submit">

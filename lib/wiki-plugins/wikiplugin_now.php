@@ -22,7 +22,7 @@ function wikiplugin_now_info()
                 'name' => tra('Format'),
                 'description' => tr(
                     'Time format using the PHP format described here: %0',
-                    'http://www.php.net/manual/en/function.strftime.php'
+                    'http://https://doc.tiki.org/Date-and-Time-Features'
                 ),
                 'since' => '9.0',
                 'default' => tr('Based site long date and time setting'),
@@ -33,7 +33,7 @@ function wikiplugin_now_info()
                 'name' => tra('Date to display'),
                 'description' => tr(
                     'Date time as specified in text using strtotime, i.e. "next month" - documentation here: %0',
-                    'https://secure.php.net/manual/en/function.strtotime.php'
+                    'https://doc.tiki.org/Date-and-Time-Features'
                 ),
                 'since' => '18.2',
                 'default' => tr(''),

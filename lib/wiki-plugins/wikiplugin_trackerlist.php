@@ -398,7 +398,7 @@ function wikiplugin_trackerlist_info()
                      . '<code>notfield(x, itemid)</code> - ' . tr('match if not equal to field with ID x in item with ID itemid
                         %0field(x)%1 can be used if the %0itemId%1 URL parameter is set', '<code>', '</code>') . '<br>'
                      . tr('The following comparisons can also be applied to date fields by using date phrases that PHP recognizes
-                        (see http://us.php.net/manual/en/function.strtotime.php ):', '<code>', '</code>') . '<br>'
+                        (see https://doc.tiki.org/Date-and-Time-Features ):', '<code>', '</code>') . '<br>'
                      . '<code>less(value)</code> - ' . tra('match if less than "value"') . '<br>'
                      . '<code>greater(value)</code> - ' . tra('match if greater than "value"') . '<br>'
                      . '<code>lessequal(value)</code> - ' . tra('match if less than or equal to "value"') . '<br>'
