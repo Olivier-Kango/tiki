@@ -12,36 +12,34 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="admin-navbar-collapse-1">
-        <form method="post" class="form row g-3 align-items-center" role="form" style="width: 12.5rem;"> {* Specified width in rem so larger fonts wouldn't cause wrapping *}
-            <div class="col-auto form-check">
+        <form method="post" class="form row g-3 align-items-center" role="form" style="width: 15rem;"> {* Specified width in rem so larger fonts wouldn't cause wrapping *}
+            {* <div class="col-auto form-check">
                 {ticket}
                 <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if $pref_filters.advanced.selected} checked="checked"{/if}>
                 <label for="preffilter-toggle-1" class="form-check-label"></label>
-            </div>
+            </div> *}
 
-            <ul class="col-auto nav navbar-nav filter-menu"{if not $pref_filters.advanced.selected} style="display: none;"{/if}>
+            <ul class="col-auto nav navbar-nav filter-menu">
                 <li class="nav-item dropdown me-0" style="padding-top: 6px;">
                     <a href="#" class="nav-link dropdown-toggle pe-0 me-2 py-0" data-bs-toggle="dropdown" title="{tr}Settings{/tr}"{* style="width: 48px;" Causes wrapping in large font sizes. *}>
-                        {icon name="filter"}
+                        {icon name="filter"} {tr}Preference Filters{/tr}
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li class="dropdown-item">
+                    <ul class="dropdown-menu border" role="menu">
+                        <li class="dropdown-item d-none">
                             <span class="dropdown-title">{tr}Preference Filters{/tr}</span>
                             <input type="hidden" name="pref_filters[]" value="basic">
                         </li>
                         {foreach from=$pref_filters key=name item=info}
                             <li class="dropdown-item">
-                                <div class="form-check justify-content-start">
+                                <div class="form-check justify-content-start form-switch">
                                     <label>
-                                        <input type="checkbox" class="form-check-input preffilter {$info.type|escape}" name="pref_filters[]" value="{$name|escape}"{if $info.selected} checked="checked"{/if}{if $name eq basic} disabled="disabled"{/if}>{$info.label|escape}
+                                        <input type="checkbox" class="form-check-input preffilter {$info.type|escape} input-pref_filters" name="pref_filters[]" value="{$name|escape}"{if $info.selected} checked="checked"{/if}{if $name eq basic} disabled="disabled"{/if}>{$info.label|escape}
                                     </label>
                                 </div>
                             </li>
                         {/foreach}
-                        <li class="dropdown-item">
-                            <div class="text-center">
-                                <input type="submit" value="{tr}Set as my default{/tr}" class="btn btn-primary btn-sm">
-                            </div>
+                        <li class="dropdown-item d-none" id="preffilter-loader">
+                            <i class="fa fa-spinner fa-spin text-white"></i> <span class="text-white">{tr}Changing default preferences...{/tr}</span>
                         </li>
                         {if $prefs.connect_feature eq "y"}
                             {capture name=likeicon}{icon name="thumbs-up"}{/capture}
@@ -70,60 +68,67 @@
                         {/if}
                         {jq}
                             var updateVisible = function() {
-                            var show = function (selector) {
-                            selector.show();
-                            selector.parents('fieldset:not(.tabcontent)').show();
-                            selector.closest('fieldset.tabcontent').addClass('filled');
-                            };
-                            var hide = function (selector) {
-                            selector.hide();
-                            };
+                                var show = function (selector) {
+                                    selector.show();
+                                    selector.parents('fieldset:not(.tabcontent)').show();
+                                    selector.closest('fieldset.tabcontent').addClass('filled');
+                                };
+                                var hide = function (selector) {
+                                    selector.hide();
+                                };
 
-                            var filters = [];
-                            var prefs = $('#col1 .adminoptionbox.preference, .admbox').hide();
-                            prefs.parents('fieldset:not(.tabcontent)').hide();
-                            prefs.closest('fieldset.tabcontent').removeClass('filled');
-                            $('.preffilter').each(function () {
-                            var targets = $('.adminoptionbox.preference.' + $(this).val() + ',.admbox.' + $(this).val());
-                            if ($(this).is(':checked')) {
-                            filters.push($(this).val());
-                            show(targets);
-                            } else if ($(this).is('.negative:not(:checked)')) {
-                            hide(targets);
-                            }
-                            });
+                                var filters = [];
+                                var prefs = $('#col1 .adminoptionbox.preference, .admbox').hide();
+                                prefs.parents('fieldset:not(.tabcontent)').hide();
+                                prefs.closest('fieldset.tabcontent').removeClass('filled');
+                                $('.preffilter').each(function () {
+                                    var targets = $('.adminoptionbox.preference.' + $(this).val() + ',.admbox.' + $(this).val());
+                                    if ($(this).is(':checked')) {
+                                        filters.push($(this).val());
+                                        show(targets);
+                                    } else if ($(this).is('.negative:not(:checked)')) {
+                                        hide(targets);
+                                    }
+                                });
 
-                            show($('.adminoptionbox.preference.modified'));
+                                show($('.adminoptionbox.preference.modified'));
 
-                            $('input[name="filters"]').val(filters.join(' '));
-                            $('.tabset .tabmark a').each(function () {
-                            var selector = 'fieldset.tabcontent.' + $(this).attr('href').substring(1);
-                            var content = $(this).closest('.tabset').find(selector);
+                                $('input[name="filters"]').val(filters.join(' '));
+                                $('.tabset .tabmark a').each(function () {
+                                    var selector = 'fieldset.tabcontent.' + $(this).attr('href').substring(1);
+                                    var content = $(this).closest('.tabset').find(selector);
 
-                            $(this).parent().toggle(content.is('.filled') || content.find('.preference').length === 0);
-                            });
+                                    $(this).parent().toggle(content.is('.filled') || content.find('.preference').length === 0);
+                                });
                             };
 
                             updateVisible();
                             $('.preffilter').change(updateVisible);
                             $('.preffilter-toggle').change(function () {
-                            var checked = $(this).is(":checked");
-                            $("input.preffilter[value=advanced]").prop("checked", checked);
-                            $(".filter-menu.nav").css("display", checked ? "block" : "none");
-                            updateVisible();
+                                var checked = $(this).is(":checked");
+                                $("input.preffilter[value=advanced]").prop("checked", checked);
+                                $(".filter-menu.nav").css("display", checked ? "block" : "none");
+                                updateVisible();
                             });
+
+                            $('.input-pref_filters').change(function () {
+                                var pref_filters_values = $("input[name='pref_filters[]']:checked").map(function(){return $(this).val();}).get();
+                                $("#preffilter-loader").removeClass('d-none');
+                                $.ajax("tiki-admin.php", {
+                                    type: 'POST',
+                                    data: {"pref_filters" : pref_filters_values},
+                                    success: function (data) {
+                                        $("#tikifeedback").html('<div class="alert alert-success alert-dismissible">'+tr("Default preference filters set.")+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+                                        $("#preffilter-loader").addClass('d-none');
+                                    },
+                                    error: function () {
+                                        $("#tikifeedback").show(tr("An error occurred while modifying the default preferences."));
+                                        $("#preffilter-loader").addClass('d-none');
+                                    }
+                                });
+                            })
+                            
                         {/jq}
-                        <li class="dropdown-divider"></li>
-                        <li class="dropdown-item">
-                            <a href="tiki-admin.php?prefrebuild">
-                                {tr}Rebuild Admin Index{/tr}
-                            </a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="tiki-admin.php">
-                                {tr}Control Panels{/tr}
-                            </a>
-                        </li>
                     </ul>
                 </li>
             </ul>

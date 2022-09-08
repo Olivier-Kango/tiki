@@ -189,7 +189,7 @@ $smarty->assign('tikiShowSuggestionsPopup', $tikiShowSuggestionsPopup);
 
 $prefslib = TikiLib::lib('prefs');
 
-if (isset($_REQUEST['pref_filters']) && $access->checkCsrf()) {
+if (isset($_REQUEST['pref_filters'])) {
     $prefslib->setFilters($_REQUEST['pref_filters']);
     Feedback::success(tra('Default preference filters set'));
 }
