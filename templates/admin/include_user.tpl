@@ -5,7 +5,7 @@
         users_admin_auto_lock_user = $('input[name="users_admin_auto_lock_user"]'),
         warning_empty_period = $('#warning_empty_period');
         warning_empty_period.hide();
-    
+
     // allow to type in only digits
     days_before_lock.keypress(function(e){
         return /^\d*$/i.test(e.key);
@@ -14,7 +14,7 @@
         if (users_admin_auto_lock_user.is(':checked') && days_before_lock.val() === "") {
             warning_empty_period.show();
             days_before_lock.focus();
-            return false;    
+            return false;
         }
     });
 {/jq}

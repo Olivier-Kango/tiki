@@ -3039,5 +3039,13 @@ function prefs_feature_list($partial = false)
             'type' => 'flag',
             'default' => 'n',
         ],
+        'feature_realtime' => [
+            'name' => tra('Realtime Tiki'),
+            'description' => tra('Use built-in websockets server within Tiki to enable realtime communication features of the app. See help page for more information on how to start the server.'),
+            'help' => 'Realtime',
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['advanced'],
+        ],
     ];
 }

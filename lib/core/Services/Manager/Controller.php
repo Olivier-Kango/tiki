@@ -34,19 +34,39 @@ class Services_Manager_Controller
 
     public function action_info()
     {
-        $this->runCommand(new TikiManager\Command\ManagerInfoCommand());
-        return [
-            'title' => tr('Tiki Manager Info'),
-            'info' => $this->manager_output->fetch(),
-        ];
+        global $prefs;
+        if ($prefs['feature_realtime'] === 'y') {
+            $command = 'manager:manager:info --ansi';
+            return [
+                'override_action' => 'interactive',
+                'title' => tr('Tiki Manager Info'),
+                'command' => $command,
+            ];
+        } else {
+            $this->runCommand(new TikiManager\Command\ManagerInfoCommand());
+            return [
+                'title' => tr('Tiki Manager Info'),
+                'info' => $this->manager_output->fetch(),
+            ];
+        }
     }
 
     public function action_update($input)
     {
+        global $prefs;
         $instanceId = $input->instanceId->int();
         if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
-            Scheduler_Manager::queueJob('Update instance '.$instanceId, 'ConsoleCommandTask', ['console_command' => 'manager:instance:update -i '.$instanceId]);
-            Feedback::success(tr("Instance %0 scheduled to update in the background. You can check command output via <a href='tiki-admin_schedulers.php#contenttabs_admin_schedulers-3'>Scheduler logs</a>.", $instanceId));
+            if ($prefs['feature_realtime'] === 'y') {
+                $command = 'manager:instance:update -i ' . $instanceId . ' --ansi';
+                return [
+                    'override_action' => 'interactive',
+                    'title' => tr('Tiki Manager Update'),
+                    'command' => $command,
+                ];
+            } else {
+                Scheduler_Manager::queueJob('Update instance ' . $instanceId, 'ConsoleCommandTask', ['console_command' => 'manager:instance:update -i ' . $instanceId]);
+                Feedback::success(tr("Instance %0 scheduled to update in the background. You can check command output via <a href='tiki-admin_schedulers.php#contenttabs_admin_schedulers-3'>Scheduler logs</a>.", $instanceId));
+            }
         } else {
             Feedback::error(tr('Unknown instance'));
         }
@@ -71,7 +91,7 @@ class Services_Manager_Controller
             $instancesToUpdate = $input->instances->array();
 
             foreach ($instancesToUpdate as $instanceId) {
-                if (!in_array($instanceId, $availbleInstancesIds)) {
+                if (! in_array($instanceId, $availbleInstancesIds)) {
                     Feedback::error(tr('Unknown instance ' . $instanceId));
                     return [
                         'FORWARD' => [
@@ -82,7 +102,7 @@ class Services_Manager_Controller
             }
 
             $instances = implode(',', $instancesToUpdate);
-            $branch =  $input->branch->text();
+            $branch = $input->branch->text();
             $check = $input->check->int();
             $skipReindex = $input->skipReindex->int();
             $skipCacheWarmup = $input->skipCacheWarmup->int();
@@ -93,7 +113,7 @@ class Services_Manager_Controller
 
             $consoleCommand = 'manager:instance:upgrade -i ' . $instances . ' --branch=' . $branch . (($check) ? ' --check' : '') . (($skipReindex) ? ' --skip-reindex' : '') . (($skipCacheWarmup) ? ' --skip-cache-warmup' : '') . (($liveReindex) ? ' --live-reindex' : '') . ' --lag=' . $lag . (($stash) ? ' --stash' : '') . (($ignoreRequirements) ? ' --ignore-requirements' : '');
 
-            Scheduler_Manager::queueJob('Upgrade instance '.$instances, 'ConsoleCommandTask', ['console_command' => $consoleCommand]);
+            Scheduler_Manager::queueJob('Upgrade instance ' . $instances, 'ConsoleCommandTask', ['console_command' => $consoleCommand]);
             Feedback::success(tr("Instance %0 scheduled to upgrade in the background. You can check command output via <a href='tiki-admin_schedulers.php#contenttabs_admin_schedulers-3'>Scheduler logs</a>.", $instances));
         } else {
             $instanceId = $input->instanceId->int();
@@ -102,8 +122,8 @@ class Services_Manager_Controller
             if ($instance) {
                 $cmd = new TikiManager\Command\UpgradeInstanceCommand();
                 $boolOptions = '<option value="" disabled selected hidden></option>'
-                               .'<option value="1">True</option>'
-                               .'<option value="0">False</option>';
+                               . '<option value="1">True</option>'
+                               . '<option value="0">False</option>';
 
                 return [
                     'title' => tr('Instances Upgrade'),
@@ -184,7 +204,7 @@ class Services_Manager_Controller
 
         foreach ($instances as $inst) {
             if ($inst->id != $input->instanceId->int()) {
-               $IDs [] = $inst->id;
+                $IDs[] = $inst->id;
             }
         }
 
@@ -208,7 +228,7 @@ class Services_Manager_Controller
                     'action' => 'index',
                 ],
             ];
-        }else{
+        } else {
             return [
                 'override_action' => 'info',
                 'title' => tr('Tiki Manager Watch Instance'),
@@ -255,8 +275,8 @@ class Services_Manager_Controller
     {
         $cmd = new TikiManager\Command\CreateInstanceCommand();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $input_array=[
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $input_array = [
                 'command' => $cmd->getName(),
                 "--type" => $input->connection_type->text(),
                 "--host" => $input->host->text(),
@@ -279,13 +299,13 @@ class Services_Manager_Controller
                 "--db-name" => $input->db_name->text(),
             ];
 
-            if ($input->instance_type->text() == 'blank'){                
+            if ($input->instance_type->text() == 'blank') {
                 $input_array["--blank"] = true;
                 unset($input_array["--branch"]);
             }
-            
+
             $inputCommand = new ArrayInput($input_array);
-            
+
             $this->runCommand($cmd, $inputCommand);
 
             return [
@@ -330,14 +350,14 @@ class Services_Manager_Controller
                 'help' => $this->getCommandHelpTexts($cmd),
                 'sshPublicKey' => $_ENV['SSH_PUBLIC_KEY'],
             ];
-        }             
+        }
     }
 
     public function action_edit($input)
     {
         $cmd = new TikiManager\Command\EditInstanceCommand();
 
-        if ($input->edit->text()){
+        if ($input->edit->text()) {
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 '-i' => $input->instance->int(),
@@ -359,7 +379,6 @@ class Services_Manager_Controller
                 'refresh' => true,
             ];
         } else {
-
             $instanceId = $input->instanceId->int();
             $instance = Instance::getInstance($instanceId);
 
@@ -391,7 +410,6 @@ class Services_Manager_Controller
                     'refresh' => true,
                 ];
             }
-            
         }
     }
 
@@ -400,7 +418,7 @@ class Services_Manager_Controller
     {
         $cmd = new TikiManager\Command\ManagerTestSendEmailCommand();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 "to" => $input->email->text(),
@@ -414,7 +432,6 @@ class Services_Manager_Controller
                 'refresh' => true,
             ];
         } else {
-
             $inputValues = [
                 'email' => ""
             ];
@@ -425,13 +442,12 @@ class Services_Manager_Controller
                 'refresh' => true,
                 'inputValues' => $inputValues
             ];
-            
         }
-    }    
+    }
 
     public function action_virtualmin_create($input)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $source = $input->source->text();
             $domain = $input->domain->text();
             if (preg_match('/^([^\.]*)\./', $domain, $m)) {
@@ -506,7 +522,7 @@ class Services_Manager_Controller
                     $available_versions[] = $requirement->getVersion();
                 }
             }
-            $result['available_branches'] = array_values(array_filter($result['available_branches'], function($branch) use ($available_versions) {
+            $result['available_branches'] = array_values(array_filter($result['available_branches'], function ($branch) use ($available_versions) {
                 if ($branch == 'master') {
                     return true;
                 }
@@ -524,7 +540,7 @@ class Services_Manager_Controller
 
     public function action_clone($input)
     {
-        if ($input->clone->text()){
+        if ($input->clone->text()) {
             $cmd = new TikiManager\Command\CloneInstanceCommand();
             $inputCommand = new ArrayInput(array_merge([
                 'command' => $cmd->getName(),
@@ -592,7 +608,7 @@ class Services_Manager_Controller
     {
         $instanceId = $input->instanceId->int();
         if (TikiManager\Application\Instance::getInstance($instanceId)) {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cmd = new TikiManager\Command\ConsoleInstanceCommand();
                 $inputCmd = new ArrayInput([
                     'command' => $cmd->getName(),
@@ -610,8 +626,7 @@ class Services_Manager_Controller
                     'info' => $this->manager_output->fetch(),
                     'refresh' => true,
                 ];
-        
-            } else {    
+            } else {
                 return [
                     'title' => tr('Tiki Manager Console Command'),
                     'info' => '',
@@ -626,9 +641,7 @@ class Services_Manager_Controller
                 ],
             ];
         }
-        
     }
-
 
     public function action_check($input)
     {
@@ -645,8 +658,7 @@ class Services_Manager_Controller
             'refresh' => true,
         ];
     }
-    
-    
+
     public function action_requirements($input)
     {
         $this->runCommand(new TikiManager\Command\CheckRequirementsCommand());
@@ -686,7 +698,7 @@ class Services_Manager_Controller
 
         // and import it if not
         if (! $found) {
-            $instance = new TikiManager\Application\Instance;
+            $instance = new TikiManager\Application\Instance();
             $instance->type = 'local';
             $access = $instance->getBestAccess();
             $discovery = $instance->getDiscovery();
@@ -716,13 +728,12 @@ class Services_Manager_Controller
     {
         return Services_Manager_Utilities::getAvailableTikiVersions();
     }
-    
+
     public function action_apply($input)
     {
         $instanceId = $input->instanceId->int();
         if (TikiManager\Application\Instance::getInstance($instanceId)) {
-            
-            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cmd = new TikiManager\Command\ApplyProfileCommand();
                 $inputCmd = new ArrayInput([
                     'command' => $cmd->getName(),
@@ -740,8 +751,7 @@ class Services_Manager_Controller
                     'info' => $this->manager_output->fetch(),
                     'refresh' => true,
                 ];
-        
-            } else {    
+            } else {
                 return [
                     'title' => tr('Apply a profile'),
                     'info' => '',
@@ -776,7 +786,7 @@ class Services_Manager_Controller
             'refresh' => true,
         ];
     }
-    
+
     public function action_maintenance($input)
     {
         $cmd = new TikiManager\Command\MaintenanceInstanceCommand();
@@ -798,12 +808,12 @@ class Services_Manager_Controller
             'refresh' => true,
         ];
     }
-    
+
     public function action_tiki_versions($input)
     {
         $cmd = new TikiManager\Command\TikiVersionCommand();
 
-        if ($input->filter->text()){
+        if ($input->filter->text()) {
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 "--vcs" => $input->vcs->text(),
@@ -830,7 +840,6 @@ class Services_Manager_Controller
                 'inputValues' => $inputValues,
                 'help' => $this->getCommandHelpTexts($cmd)
             ];
-            
         }
     }
 
@@ -838,13 +847,13 @@ class Services_Manager_Controller
     {
         $cmd = new TikiManager\Command\SetupWatchManagerCommand();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $exclude = implode(',', $input->exclude->array());
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 "--email" => $input->email->text(),
                 "--time" => $input->time->text(),
-                "--exclude" => !empty($exclude) ? $exclude : ''
+                "--exclude" => ! empty($exclude) ? $exclude : ''
             ]);
 
             $this->runCommand($cmd, $inputCommand);
@@ -856,22 +865,22 @@ class Services_Manager_Controller
             ];
         } else {
             $instances = TikiManager\Application\Instance::getInstances(true);
-            
+
             return [
                 'title' => tr('Setup Watch'),
                 'info' => '',
                 'refresh' => true,
                 'instances' => $instances,
                 'help' => $this->getCommandHelpTexts($cmd)
-            ];            
+            ];
         }
     }
 
-    public function action_setup_clone($input){
+    public function action_setup_clone($input)
+    {
         $cmd = new TikiManager\Command\SetupCloneManagerCommand();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-            
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $input_array = [
                 "command" => $cmd->getName(),
                 "--time" => $input->crontime->text(),
@@ -879,38 +888,38 @@ class Services_Manager_Controller
                 "--target" => $input->target->text()
             ];
 
-            if($input->upgrade->text() == "yes"){
+            if ($input->upgrade->text() == "yes") {
                 $input_array["--upgrade"] = true;
             }
-            
-            if($input->branch->text() == "yes"){
+
+            if ($input->branch->text() == "yes") {
                 $input_array["-b"] = $input->branch->text();
             }
 
-            if($input->direct->text() == "yes"){
+            if ($input->direct->text() == "yes") {
                 $input_array["-d"] = true;
             }
 
-            if($input->use_last_backup->text() == "yes"){
+            if ($input->use_last_backup->text() == "yes") {
                 $input_array["--use-last-backup"] = true;
             }
 
-            if($input->keep_backup->text() == "yes"){
+            if ($input->keep_backup->text() == "yes") {
                 $input_array["--keep-backup"] = true;
             }
 
-            if($input->live_reindex->text() == "yes"){
+            if ($input->live_reindex->text() == "yes") {
                 $input_array["--live-reindex"] = true;
             }
 
-            if($input->skip_reindex->text() == "yes"){
+            if ($input->skip_reindex->text() == "yes") {
                 $input_array["--skip-reindex"] = true;
             }
 
-            if($input->skip_cache_warmup->text() == "yes"){
+            if ($input->skip_cache_warmup->text() == "yes") {
                 $input_array["--skip-cache-warmup"] = true;
             }
-            
+
             $inputCommand = new ArrayInput($input_array);
 
             $this->runCommand($cmd, $inputCommand);
@@ -921,7 +930,6 @@ class Services_Manager_Controller
                 'refresh' => true,
             ];
         } else {
-            
             $instances = TikiManager\Application\Instance::getInstances();
 
             if (count($instances) > 0) {
@@ -946,48 +954,48 @@ class Services_Manager_Controller
                 ];
             }
         }
-    }    
+    }
     function action_manager_backup($input)
     {
         $cmd = new TikiManager\Command\SetupBackupManagerCommand();
 
-        return $this->manager_setup($input,$cmd,"backup");
-    } 
+        return $this->manager_setup($input, $cmd, "backup");
+    }
 
     function action_manager_update($input)
     {
         $cmd = new TikiManager\Command\SetupUpdateCommand();
 
-        return $this->manager_setup($input,$cmd,"update");
+        return $this->manager_setup($input, $cmd, "update");
     }
 
-    private function manager_setup($input,$cmd,$event){
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    private function manager_setup($input, $cmd, $event)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $input_array = [
                 "command" => $cmd->getName(),
                 "--time" => $input->time->text(),
             ];
-            
-            switch($event){
-                case "update" :
-                    if(count($input->instance->array()) < 1){
-                        return $this->manager_setup_error($event); 
+
+            switch ($event) {
+                case "update":
+                    if (count($input->instance->array()) < 1) {
+                        return $this->manager_setup_error($event);
                     }
-                    $input_array['--instances'] = implode(',' , $input->instance->array());
+                    $input_array['--instances'] = implode(',', $input->instance->array());
                     break;
 
-                case "backup" :
-                    if(count($input->instance->array()) > 0){
-                        $input_array["-x"] = implode("," , $input->instance->array());
+                case "backup":
+                    if (count($input->instance->array()) > 0) {
+                        $input_array["-x"] = implode(",", $input->instance->array());
                     }
 
-                    if($input->number_backups_to_keep->int()){
+                    if ($input->number_backups_to_keep->int()) {
                         $input_array["-mb"] = $input->number_backups_to_keep->int();
                     }
                     break;
-            } 
-            $input_array["-e"] = $input->email->text();       
+            }
+            $input_array["-e"] = $input->email->text();
             $inputCommand = new ArrayInput($input_array);
             $this->runCommand($cmd, $inputCommand);
 
@@ -997,13 +1005,12 @@ class Services_Manager_Controller
                 'refresh' => true,
             ];
         } else {
-
-            switch($event){
-                case "update" :                    
+            switch ($event) {
+                case "update":
                     $instance_list = TikiManager\Application\Instance::getUpdatableInstances();
                     break;
 
-                case "backup" :
+                case "backup":
                     $instance_list = TikiManager\Application\Instance::getInstances(true);
                     break;
             }
@@ -1015,47 +1022,47 @@ class Services_Manager_Controller
                     'time' => '',
                     'email' => '',
                     'event' => $event,
-                    'action' => 'manager_'.$event
+                    'action' => 'manager_' . $event
                 ];
 
-                if($event == "backup"){
-                    $inputValues ['number_backups_to_keep']='';
+                if($event == "backup") {
+                    $inputValues ['number_backups_to_keep'] = '';
                 }
 
                 return [
-                    'title' => tr(ucfirst($event)  . ' Cron Job'),
+                    'title' => tr(ucfirst($event) . ' Cron Job'),
                     'info' => '',
                     'refresh' => true,
                     'inputValues' => $inputValues,
                     'help' => $this->getCommandHelpTexts($cmd),
                 ];
-            }else{
-                return $this->manager_setup_error($event); 
+            } else {
+                return $this->manager_setup_error($event);
             }
-        }                              
+        }
     }
-    
-    private function manager_setup_error($event){
+
+    private function manager_setup_error($event)
+    {
         return [
-            'title' => tr(ucfirst($event)  . ' Cron Job (No Instance Found)'),
-            'info' => "No Tiki instances available ".$event,
+            'title' => tr(ucfirst($event) . ' Cron Job (No Instance Found)'),
+            'info' => "No Tiki instances available " . $event,
             'refresh' => true,
-        ]; 
+        ];
     }
 
     public function action_backup($input)
     {
         $cmd = new TikiManager\Command\BackupInstanceCommand();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
             $arrayInput = [
-                    'command' => $cmd->getName(),
-                    '-i' => $input->instanceId->int(),
-                    '-e' => $input->email->text(),
-                    '-mb' => $input->number_backups_to_keep->int()
-                ];
-                
-            if($input->backup_process->text() == "partial"){
+                'command' => $cmd->getName(),
+                '-i' => $input->instanceId->int(),
+                '-e' => $input->email->text(),
+                '-mb' => $input->number_backups_to_keep->int()
+            ];
+
+            if ($input->backup_process->text() == "partial") {
                 $arrayInput['--partial'] = $input->backup_process->text();
             }
 
@@ -1069,7 +1076,6 @@ class Services_Manager_Controller
                 'refresh' => true,
             ];
         } else {
-
             $instanceId = $input->instanceId->int();
             $instance = Instance::getInstance($instanceId);
 
@@ -1101,9 +1107,8 @@ class Services_Manager_Controller
     public function action_checkout($input)
     {
         $cmd = new TikiManager\Command\CheckoutCommand();
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 '-i' => $input->instanceId->int(),
@@ -1121,9 +1126,7 @@ class Services_Manager_Controller
                 'info' => $this->manager_output->fetch(),
                 'refresh' => true
             ];
-
         } else {
-
             $inputValues = [
                 'instanceId' => $input->instanceId->int(),
             ];
@@ -1135,9 +1138,9 @@ class Services_Manager_Controller
                 'inputValues' => $inputValues,
                 'help' => $this->getCommandHelpTexts($cmd)
             ];
-        } 
+        }
     }
-    
+
     public function action_revert($input)
     {
         $cmd = new TikiManager\Command\RevertInstanceCommand();

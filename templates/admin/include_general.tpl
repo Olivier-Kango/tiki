@@ -180,6 +180,7 @@
                 {preference name=feature_port_rewriting}
                 {preference name=access_control_allow_origin}
                 {preference name=zend_http_use_curl}
+                {preference name=feature_realtime}
             </fieldset>
             <fieldset>
                 <legend>{tr}Multi-domain{/tr}</legend>

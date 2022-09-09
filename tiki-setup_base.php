@@ -252,7 +252,7 @@ if ($cdn_pref) {
         exit;
     }
 }
-if (isset($_SERVER["REQUEST_URI"])) {
+if (isset($_SERVER["REQUEST_URI"]) && strstr($_SERVER['REQUEST_URI'], 'tiki-realtime.php') === false) {
     ini_set('session.cookie_path', str_replace("\\", "/", $tikiroot));
     if ($start_session) {
         // enabing silent sessions mean a session is only started when a cookie is presented

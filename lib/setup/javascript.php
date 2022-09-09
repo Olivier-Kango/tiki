@@ -332,7 +332,20 @@ $(document).on("tiki.modal.redraw", function (event) {
         .find(".modal-body").css({
             "overflow": "auto"
         });
-});';
+});
+';
+    }
+
+    if ($prefs['feature_realtime'] === 'y') {
+        $js .= '
+var tikiOpenWS = function(endpoint) {
+    return new WebSocket(' . json_encode(preg_replace('#https?://#', 'ws://', $base_url) . 'ws/') . ' + endpoint + "?token=' . session_id() . '");
+}
+';
+        // TODO: use a preference for automatic start of WS session on each page - seems resource intensive...
+        $js .= '
+initTikiGlobalWS();
+';
     }
 
     $headerlib->add_js($js);
