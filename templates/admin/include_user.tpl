@@ -91,8 +91,8 @@
                     {preference name=feature_contacts}
                     {preference name=feature_usermenu}
                     {preference name=feature_userlevels}
-                    {preference name=feature_wiki_userpage}
                     {preference name=feature_tag_users}
+                    {preference name=feature_wiki_userpage}
                     <div class="adminoptionboxchild" id="feature_wiki_userpage_childcontainer">
                         {preference name=feature_wiki_userpage_prefix}
                     </div>
