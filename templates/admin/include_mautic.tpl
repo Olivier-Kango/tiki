@@ -8,8 +8,6 @@
         <legend>{tr}Main Settings{/tr}</legend>
         {preference name=site_mautic_url}
         {preference name=site_mautic_tracking_script_location}
-        {preference name=site_mautic_tracking_image}
-        {preference name=site_mautic_logged_users}
     </fieldset>
     <fieldset>
         <legend>{tr}Credentials{/tr}</legend>
