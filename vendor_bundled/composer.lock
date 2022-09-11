@@ -18,17 +18,17 @@
         },
         {
             "name": "adodb/adodb-php",
-            "version": "v5.22.2",
+            "version": "v5.22.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "876bc2287171ea96a571f84c23845e44a759d9a0"
+                "reference": "b937df7f7efde5c98c501f6fc472ec3ab276c3c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-876bc2287171ea96a571f84c23845e44a759d9a0-zip-e193e3.zip",
-                "reference": "876bc2287171ea96a571f84c23845e44a759d9a0",
-                "shasum": "6f04a9f63ca16cbf33e6c1e7527a7f8a3e7a8631"
+                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-b937df7f7efde5c98c501f6fc472ec3ab276c3c9-zip-56d81e.zip",
+                "reference": "b937df7f7efde5c98c501f6fc472ec3ab276c3c9",
+                "shasum": "85a629ff947fc7f8935d1dd8c47fef61559f421b"
             },
             "require": {
                 "php": "^7.0 || ^8.0"
@@ -71,7 +71,7 @@
                 "library",
                 "php"
             ],
-            "time": "2022-05-08T10:01:41+00:00"
+            "time": "2022-09-06T10:02:30+00:00"
         },
         {
             "name": "afarkas/html5shiv",
@@ -2579,9 +2579,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-6082f461c151204dbe56904d80899bb58b2e3681-zip-c2c118.zip",
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-6d057f61d3776227dc61fc83b53bc675f87f99ac-zip-948a0f.zip",
                 "reference": "fd853bb",
-                "shasum": "0b91ffa6a12a4b7cbd49addcb4511802874bc15f"
+                "shasum": "7b63fe783d880e1f7da11eb6d96f8180af8f6992"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2596,7 +2596,8 @@
                 "ezyang/htmlpurifier": "^4.13.0",
                 "henrique-borba/php-sieve-manager": "dev-master",
                 "paragonie/random_compat": "^2.0.18",
-                "php": ">=5.4"
+                "php": ">=5.4",
+                "webklex/composer-info": "^0.0.1"
             },
             "suggest": {
                 "ext-PDO": "To use database features, this needs to be installed",
@@ -2633,7 +2634,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-09-04T00:47:57+00:00"
+            "time": "2022-09-07T20:56:55+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3404,17 +3405,17 @@
         },
         {
             "name": "laminas/laminas-filter",
-            "version": "2.17.0",
+            "version": "2.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-filter.git",
-                "reference": "7c78483f22e118fbc98be41dc24b39e8c17cdcae"
+                "reference": "8d352d8d031af69a366ba5eb5b812a5d33e97c3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-7c78483f22e118fbc98be41dc24b39e8c17cdcae-zip-8fed56.zip",
-                "reference": "7c78483f22e118fbc98be41dc24b39e8c17cdcae",
-                "shasum": "a4e9c73a9f7ed07e3bf5b2962a1b2a16c3949bbe"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-8d352d8d031af69a366ba5eb5b812a5d33e97c3c-zip-0bdec9.zip",
+                "reference": "8d352d8d031af69a366ba5eb5b812a5d33e97c3c",
+                "shasum": "8a0c4867d8f558c9699457dd088a1829f09b935e"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.14.0",
@@ -3470,7 +3471,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-07-17T11:58:06+00:00"
+            "time": "2022-09-09T05:08:45+00:00"
         },
         {
             "name": "laminas/laminas-http",
@@ -5878,11 +5879,11 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.18.13",
+            "version": "7.19.0",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.18.13.zip",
-                "shasum": "35f530e8fa766a0ad09f1650f97b2737dda11e48"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.19.0.zip",
+                "shasum": "40fa78d26029bbe011d024362e438c73593a0d4e"
             },
             "type": "npm-asset",
             "license": [
@@ -9541,17 +9542,17 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.7.0",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "877bca3f0f0ac0fc8ec0a218c6070cccea266795"
+                "reference": "dc599ef4ac5459fef95cc0414d26ac47e300e1dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-877bca3f0f0ac0fc8ec0a218c6070cccea266795-zip-53cf07.zip",
-                "reference": "877bca3f0f0ac0fc8ec0a218c6070cccea266795",
-                "shasum": "f43521943bc38070321190ac3c881a64126675e2"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-dc599ef4ac5459fef95cc0414d26ac47e300e1dc-zip-229fe3.zip",
+                "reference": "dc599ef4ac5459fef95cc0414d26ac47e300e1dc",
+                "shasum": "331ca28e6d38392c9072387fdb400f982bc62212"
             },
             "require": {
                 "ext-json": "*",
@@ -9569,8 +9570,7 @@
                 "psr/http-message-implementation": "^1.0",
                 "psr/log": "^1.0|^2.0|^3.0",
                 "symfony/options-resolver": "^3.4.43|^4.4.30|^5.0.11|^6.0",
-                "symfony/polyfill-php80": "^1.17",
-                "symfony/polyfill-uuid": "^1.13.1"
+                "symfony/polyfill-php80": "^1.17"
             },
             "conflict": {
                 "php-http/client-common": "1.8.0",
@@ -9596,7 +9596,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.7.x-dev"
+                    "dev-master": "3.8.x-dev"
                 }
             },
             "autoload": {
@@ -9638,7 +9638,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-07-18T07:55:36+00:00"
+            "time": "2022-09-05T14:25:47+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -11615,85 +11615,6 @@
             "time": "2022-05-10T07:21:04+00:00"
         },
         {
-            "name": "symfony/polyfill-uuid",
-            "version": "v1.26.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-uuid.git",
-                "reference": "a41886c1c81dc075a09c71fe6db5b9d68c79de23"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/polyfill-uuid/symfony-polyfill-uuid-a41886c1c81dc075a09c71fe6db5b9d68c79de23-zip-28ed22.zip",
-                "reference": "a41886c1c81dc075a09c71fe6db5b9d68c79de23",
-                "shasum": "adc6abef9eee0af450b592dbcceb3c58a063aa30"
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "provide": {
-                "ext-uuid": "*"
-            },
-            "suggest": {
-                "ext-uuid": "For best performance"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.26-dev"
-                },
-                "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Uuid\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Grégoire Pineau",
-                    "email": "lyrixx@lyrixx.info"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for uuid functions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "polyfill",
-                "portable",
-                "uuid"
-            ],
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-05-24T11:49:31+00:00"
-        },
-        {
             "name": "symfony/process",
             "version": "v3.4.47",
             "source": {
@@ -12468,6 +12389,55 @@
             "time": "2021-02-10T09:07:25+00:00"
         },
         {
+            "name": "webklex/composer-info",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Webklex/composer-info.git",
+                "reference": "0d2730838070ab2279efa81b28fb05224a56d7ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/webklex/composer-info/webklex-composer-info-0d2730838070ab2279efa81b28fb05224a56d7ca-zip-bc3961.zip",
+                "reference": "0d2730838070ab2279efa81b28fb05224a56d7ca",
+                "shasum": "ae70ac41a0e19792c809d363fa58a7f638b10764"
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webklex\\ComposerInfo\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Malte Goldenbaum",
+                    "email": "github@webklex.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Composer info accessor",
+            "homepage": "https://github.com/webklex/composer-info",
+            "keywords": [
+                "composer",
+                "php",
+                "webklex"
+            ],
+            "time": "2020-10-12T23:57:26+00:00"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.11.0",
             "source": {
@@ -12653,17 +12623,17 @@
         },
         {
             "name": "zbateson/stream-decorators",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zbateson/stream-decorators.git",
-                "reference": "3403c4323bd1cd15fe54348b031b26b064c706af"
+                "reference": "8f8ca208572963258b7e6d91106181706deacd10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/zbateson/stream-decorators/zbateson-stream-decorators-3403c4323bd1cd15fe54348b031b26b064c706af-zip-9262a9.zip",
-                "reference": "3403c4323bd1cd15fe54348b031b26b064c706af",
-                "shasum": "d54efd5ff03a473692293deb7d0b956984194c52"
+                "url": "https://composer.tiki.org/dist/zbateson/stream-decorators/zbateson-stream-decorators-8f8ca208572963258b7e6d91106181706deacd10-zip-30981f.zip",
+                "reference": "8f8ca208572963258b7e6d91106181706deacd10",
+                "shasum": "bc5eb2053e9f694dcf9097d8c813dbd615b93c06"
             },
             "require": {
                 "guzzlehttp/psr7": "^1.7.0|^2.0",
@@ -12706,7 +12676,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-08T19:01:59+00:00"
+            "time": "2022-09-08T15:44:55+00:00"
         },
         {
             "name": "zendframework/zend-version",
