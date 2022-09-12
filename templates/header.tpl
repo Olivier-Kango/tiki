@@ -249,7 +249,18 @@
     <script type="text/javascript" src="vendor_bundled/vendor/npm-asset/systemjs/dist/system.min.js"></script>
     <script type="text/javascript" src="lib/vue/lib/vue.runtime.global.prod.js"></script>
     {* How to load Vue 3 (race conditions issue solved): https://github.com/systemjs/systemjs/issues/2272#issuecomment-744636282 *}
+    {* Note: JS code in the page might try to use these functions before they are actually loaded by systemjs, so provide stubs here *}
     <script>
+        window.registerApplication = function(opts) {
+            setTimeout(function() {
+                window.registerApplication(opts);
+            }, 100);
+        }
+        window.unregisterApplication = function(opts) {
+            setTimeout(function() {
+                window.unregisterApplication(opts);
+            }, 100);
+        }
         System.set(System.resolve('vue'), window.Vue);
         System.import("@vue-mf/root-config");
         window.Vue = undefined;

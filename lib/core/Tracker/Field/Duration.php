@@ -180,7 +180,7 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
             $applicationId = 'new';
         }
    
-        $headerlib->add_js('
+        $headerlib->add_jq_onready('
 window.registerApplication({
     name: "@vue-mf/duration-picker-" + ' . json_encode($applicationId) . ',
     app: () => System.import("@vue-mf/duration-picker"),
