@@ -167,21 +167,8 @@
         {if $prefs.theme_unified_admin_backend eq 'y' && $smarty.server.SCRIPT_NAME neq $url_path|cat:'tiki-admin.php'}
         <header class="navbar navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} fixed-top">
             <div class="container-fluid">
-            {* <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std d-flex justify-content-between in-navbar"> *}
-            <a class="navbar-brand" href="./">
-                {if $prefs.sitelogo_icon}<img src="{$prefs.sitelogo_icon}" alt="{$prefs.sitetitle|escape}">{/if}
-                {$prefs.sitetitle|escape}
-                <small>{$prefs.sitesubtitle|escape}</small>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="{tr}Toggle navigation{/tr}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                {modulelist zone="top" id="top_modules" class="d-flex flex-fill justify-content-between top_modules"}
-            </div> {* navbar-collapse-social *}
-        </div> {* container *}
-
+                {modulelist zone=top class="top_modules d-flex justify-content-between w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent"}
+            </div> 
         </header>
         {/if}
     {/if}
