@@ -5,7 +5,7 @@
 
 
     // override colors when not using cypht default theme
-    img { opacity: 1 !important; }
+    img { opacity: 1 !important; max-width: 100%; }
     ul, li:not(.select2-results__option) { background-color: transparent !important; }
     main, div { border-radius: 0; }
     .ui-widget-content { background-color: $tiki-ui-default-bg !important; }
@@ -116,6 +116,7 @@
     }
 
     .folder_list, .content_cell { border: 1px solid $input-border-color; }
+    .content_cell { max-width: 500px !important; }
     .content_title {
         overflow: visible;
         min-height: 50px;

@@ -11269,6 +11269,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki-webmail img, .tiki-cypht img, .mobile.tiki-cypht img, .inline-cypht img {
   opacity: 1 !important;
+  max-width: 100%;
 }
 .tiki-webmail ul, .tiki-webmail li:not(.select2-results__option), .tiki-cypht ul, .tiki-cypht li:not(.select2-results__option), .mobile.tiki-cypht ul, .mobile.tiki-cypht li:not(.select2-results__option), .inline-cypht ul, .inline-cypht li:not(.select2-results__option) {
   background-color: transparent !important;
@@ -11407,6 +11408,9 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell {
   border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.inline-cypht .content_cell {
+  max-width: 500px !important;
 }
 .inline-cypht .content_title {
   overflow: visible;

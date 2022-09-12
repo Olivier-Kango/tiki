@@ -692,8 +692,8 @@ class Hm_Output_add_move_to_trackers extends Hm_Output_Module
                 $field_list[] = "<a href='#' class='object_selector_trigger' data-tracker='{$field['trackerId']}' data-field='{$field['fieldId']}' data-folder='inbox'>{$tracker['name']} - {$field['name']}</a>";
             }
         }
-        $res = "| <a class=\"hlink\" id=\"move_to_trackers\" href=\"#\">" . $this->trans('Trackers') . "</a>";
-        $res .= "<div class='move_to_trackers'><div class='move_to_title'>Move to trackers...<span><a class='close_move_to_trackers' href='#'>X</a></span></div>" . implode("<br>\n", $field_list) . "</div>";
+        $res = "| <div class=\"move_to_trackers_dropdown\"><a class=\"hlink\" id=\"move_to_trackers\" href=\"#\">" . $this->trans('Trackers') . "</a>";
+        $res .= "<div class='move_to_trackers'><div class='move_to_title'>Move to trackers...<span><a class='close_move_to_trackers' href='#'>X</a></span></div>" . implode("<br>\n", $field_list) . "</div></div>";
         $headers = $this->get('msg_headers');
         $headers = preg_replace("#<a class=\"archive_link[^>]*>.*?</a>#", "\\0 " . $res, $headers);
         $this->out('msg_headers', $headers, false);

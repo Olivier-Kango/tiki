@@ -537,6 +537,10 @@ border: unset;
 letter-spacing: unset;
 }
 
+.move_to_trackers_dropdown {
+  position: relative;
+}
+
 .move_to_trackers {
   text-transform: none;
   z-index: 1;
