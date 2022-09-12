@@ -44,9 +44,9 @@ function prefs_sitelogo_list()
             'hint' => tr('Used by text browsers, screen readers, etc.'),
         ],
         'sitelogo_icon' => [
-            'name' => tra('Site icon'),
-            'description' => tr('This is used in narrow (top to bottom) page headers. In some layouts, the image is scaled down to fit in the available space.'),
-            'hint' => tra('Recommended image height: 32 pixel'),
+            'name' => tra('Admin navbar icon'),
+            'description' => tr('Icon (logo) that displays in the admin pages navbar. (Set the overall site logo using the logo module on tiki-admin_modules.php).'),
+            'hint' => tra('Recommended image height: 32 pixels, or legible when scaled down to that size'),
             'type' => 'text',
             'default' => 'img/tiki/tikilogo_icon.png',
             'tags' => ['basic'],

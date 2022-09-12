@@ -85,6 +85,7 @@
                 {preference name=theme_admin}
                 {preference name=theme_option_admin}
                 {preference name=theme_navbar_color_variant_admin}
+                {preference name=sitelogo_icon}
             </div>
             <hr>
 
@@ -143,7 +144,6 @@
                 <fieldset>
                     <legend>{tr}Logo{/tr}</legend>
                     {preference name=sitelogo_src}
-                    {preference name=sitelogo_icon}
                     {preference name=sitelogo_bgcolor}
                     {preference name=sitelogo_title}
                     {preference name=sitelogo_alt}
