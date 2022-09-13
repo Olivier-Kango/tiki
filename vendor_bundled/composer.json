@@ -84,7 +84,7 @@
         "laminas/laminas-twitter": "~2.1",
         "league/flysystem": ">=2.0.0-beta.3",
         "league/commonmark": "^2.3",
-        "manticoresoftware/manticoresearch-php": "^1.8",
+        "manticoresoftware/manticoresearch-php": "^2.2",
         "matthiasmullie/minify": "^1.3.58",
         "mautic/api-library": "~3.0.0",
         "mediumjs/mediumjs": "1.0.1",

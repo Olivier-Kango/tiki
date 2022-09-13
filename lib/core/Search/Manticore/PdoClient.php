@@ -46,8 +46,12 @@ class Search_Manticore_PdoClient
 
     public function getIndexStatus($index = '')
     {
-        $stmt = $this->pdo->query("SHOW INDEX $index STATUS");
-        return $stmt->fetch();
+        try {
+            $stmt = $this->pdo->query("SHOW INDEX $index STATUS");
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            return [];
+        }
     }
 
     public function createIndex($index, $definition, $settings = [], $silent = false)
@@ -70,8 +74,14 @@ class Search_Manticore_PdoClient
 
     public function deleteIndex($index)
     {
-        $stmt = $this->pdo->prepare("DROP TABLE IF EXISTS $index");
-        $stmt->execute();
+        try {
+            $stmt = $this->pdo->prepare("DROP TABLE IF EXISTS $index");
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            Feedback::error("Failed deleting Manticore index $index: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function describe($index)
@@ -79,7 +89,7 @@ class Search_Manticore_PdoClient
         try {
             $stmt = $this->pdo->query("DESC $index");
             $result = $stmt->fetchAll();
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             // describe might be used to check if index exists, so suppress not found error here
             return [];
         }
@@ -107,6 +117,7 @@ class Search_Manticore_PdoClient
     public function index($index, array $data)
     {
         $stmt = $this->pdo->prepare("INSERT INTO $index (".implode(', ', array_keys($data)).') VALUES ('.implode(',', array_fill(0, count($data), '?')).')');
+        // TODO: Array to string conversion - not all elements are strings in this array...
         $stmt->execute(array_values($data));
     }
 

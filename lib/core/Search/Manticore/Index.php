@@ -28,8 +28,11 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     public function destroy()
     {
-        $this->pdo_client->deleteIndex($this->index);
-        return true;
+        if ($this->pdo_client->deleteIndex($this->index)) {
+            $this->providedMappings = [];
+            return true;
+        }
+        return false;
     }
 
     public function exists()
@@ -89,6 +92,10 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
                         "type" => "string",
                     ];
                 } elseif ($entry instanceof Search_Type_DateTime) {
+                    return [
+                        "type" => "timestamp",
+                    ];
+                } elseif ($entry instanceof Search_Type_Timestamp) {
                     return [
                         "type" => "timestamp",
                     ];
@@ -179,7 +186,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         //     return $builder->build($query->getExpr());
         // }, $query->getForeignQueries());
 
-        // TODO: maxMatches which defaults to 1000
+        // TODO: manticore HTTP JSON response might include NAN values which php's json_decode doesn't handle and rejects the whole response
         $result = $search
             ->offset($resultStart)
             ->limit($resultCount)
@@ -194,7 +201,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             $entries[] = $data;
         }
 
-        $resultSet = new Search_ResultSet($entries, $result->count(), $resultStart, $resultCount);
+        $resultSet = new Search_ResultSet($entries, $result->getTotal(), $resultStart, $resultCount);
         // TODO: highlights
 
         // TODO: facet reader
@@ -213,7 +220,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
                 yield $row;
             }
 
-            $hasMore = $result->count();
+            $hasMore = $result->hasMore();
         }
     }
 

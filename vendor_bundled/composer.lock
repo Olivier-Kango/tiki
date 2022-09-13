@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f48fa7b1e18c58e0c82313e9c238ff8",
+    "content-hash": "bf283324d82cbf36a35a64d1820812a8",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2348,13 +2348,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-php-library.git",
-                "reference": "c79f97a16fd8c6fc0232c10d5bed5b94502ee9e9"
+                "reference": "db3da7a1441ae6c9ffacbb8110f41758c85beaa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-c79f97a16fd8c6fc0232c10d5bed5b94502ee9e9-zip-b9f24b.zip",
-                "reference": "c79f97a16fd8c6fc0232c10d5bed5b94502ee9e9",
-                "shasum": "f8e63bd2dafae715ad3ea0950de4ca747cd912b4"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-db3da7a1441ae6c9ffacbb8110f41758c85beaa0-zip-06ffc3.zip",
+                "reference": "db3da7a1441ae6c9ffacbb8110f41758c85beaa0",
+                "shasum": "61817d8020bdd76c4c36a4b4bcac57dc1747ae74"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -2397,7 +2397,7 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2022-01-05T08:24:39+00:00"
+            "time": "2021-04-22T09:30:45+00:00"
         },
         {
             "name": "h5p/h5p-editor",
@@ -2405,13 +2405,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-editor-php-library.git",
-                "reference": "1ae19fdb80839b32dad3846d6b0a5c745f8f6187"
+                "reference": "dd70892f9e28c99f13bee2881601329d5c6c4a8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-1ae19fdb80839b32dad3846d6b0a5c745f8f6187-zip-be95d7.zip",
-                "reference": "1ae19fdb80839b32dad3846d6b0a5c745f8f6187",
-                "shasum": "ff6e3f37b06151a1821094f415b7aa7478c0987d"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-dd70892f9e28c99f13bee2881601329d5c6c4a8e-zip-afe742.zip",
+                "reference": "dd70892f9e28c99f13bee2881601329d5c6c4a8e",
+                "shasum": "611cbd8692c31e69d991a4d9d32cd0ca1410fe3f"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -2745,13 +2745,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "f83c8e8acec6970e378896203d985a5f42d445df"
+                "reference": "6d057f61d3776227dc61fc83b53bc675f87f99ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-f83c8e8acec6970e378896203d985a5f42d445df-zip-35b3ec.zip",
-                "reference": "f83c8e8acec6970e378896203d985a5f42d445df",
-                "shasum": "b47a08d01e27937c7c8b7cb882934d6cc6932ab5"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-6d057f61d3776227dc61fc83b53bc675f87f99ac-zip-948a0f.zip",
+                "reference": "6d057f61d3776227dc61fc83b53bc675f87f99ac",
+                "shasum": "7b63fe783d880e1f7da11eb6d96f8180af8f6992"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -3216,17 +3216,17 @@
         },
         {
             "name": "laminas/laminas-code",
-            "version": "4.6.0",
+            "version": "4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "16ec7577ff315d53ac2e1b1f03a344d8fe680a6e"
+                "reference": "0337d9265bc2e6376babad8c511500821620cb30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-code/laminas-laminas-code-16ec7577ff315d53ac2e1b1f03a344d8fe680a6e-zip-ab6403.zip",
-                "reference": "16ec7577ff315d53ac2e1b1f03a344d8fe680a6e",
-                "shasum": "92e0eecfab04a5ee6a1ca06c6abb3aab02b716c6"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-code/laminas-laminas-code-0337d9265bc2e6376babad8c511500821620cb30-zip-6bf8dc.zip",
+                "reference": "0337d9265bc2e6376babad8c511500821620cb30",
+                "shasum": "3176444f5476dcad08675456dbe34984678b4116"
             },
             "require": {
                 "php": ">=7.4, <8.2"
@@ -3270,7 +3270,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-07-28T22:46:52+00:00"
+            "time": "2022-09-13T10:33:30+00:00"
         },
         {
             "name": "laminas/laminas-config",
@@ -4853,17 +4853,17 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.23.0",
+            "version": "2.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "6d61b6cc3b222f13807a18d9247cdfb084958b03"
+                "reference": "f2ad7de3f92b443f31447a37e061116f701d150a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-6d61b6cc3b222f13807a18d9247cdfb084958b03-zip-d2d42b.zip",
-                "reference": "6d61b6cc3b222f13807a18d9247cdfb084958b03",
-                "shasum": "738a738520f76e080610476ece6f9a517d1de08c"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-f2ad7de3f92b443f31447a37e061116f701d150a-zip-0f9150.zip",
+                "reference": "f2ad7de3f92b443f31447a37e061116f701d150a",
+                "shasum": "dcaae1ff406c4c35ff9a5e99f4acd12d4cb48a6c"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.12.0",
@@ -4874,20 +4874,20 @@
                 "zendframework/zend-validator": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~2.3.0",
-                "laminas/laminas-db": "^2.7",
-                "laminas/laminas-filter": "^2.14.0",
-                "laminas/laminas-http": "^2.14.2",
-                "laminas/laminas-i18n": "^2.15.0",
-                "laminas/laminas-session": "^2.12.1",
+                "laminas/laminas-coding-standard": "^2.4.0",
+                "laminas/laminas-db": "^2.15.0",
+                "laminas/laminas-filter": "^2.18.0",
+                "laminas/laminas-http": "^2.16.0",
+                "laminas/laminas-i18n": "^2.17.0",
+                "laminas/laminas-session": "^2.13.0",
                 "laminas/laminas-uri": "^2.9.1",
                 "phpspec/prophecy-phpunit": "^2.0",
-                "phpunit/phpunit": "^9.5.21",
+                "phpunit/phpunit": "^9.5.24",
                 "psalm/plugin-phpunit": "^0.17.0",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0",
-                "vimeo/psalm": "^4.24.0"
+                "vimeo/psalm": "^4.27.0"
             },
             "suggest": {
                 "laminas/laminas-db": "Laminas\\Db component, required by the (No)RecordExists validator",
@@ -4927,7 +4927,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-07-27T19:17:59+00:00"
+            "time": "2022-09-13T07:40:10+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -5560,16 +5560,16 @@
         },
         {
             "name": "manticoresoftware/manticoresearch-php",
-            "version": "1.8.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/manticoresoftware/manticoresearch-php.git",
-                "reference": "13fdb859be779e41daba381f42742a3c5feed606"
+                "reference": "aa2f7f0012deab15bd827f4d4e7f21e9d42c66c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/manticoresoftware/manticoresearch-php/zipball/13fdb859be779e41daba381f42742a3c5feed606",
-                "reference": "13fdb859be779e41daba381f42742a3c5feed606",
+                "url": "https://api.github.com/repos/manticoresoftware/manticoresearch-php/zipball/aa2f7f0012deab15bd827f4d4e7f21e9d42c66c7",
+                "reference": "aa2f7f0012deab15bd827f4d4e7f21e9d42c66c7",
                 "shasum": ""
             },
             "require": {
@@ -5623,7 +5623,7 @@
                 "issues": "https://github.com/manticoresoftware/manticoresearch-php/issues",
                 "source": "https://github.com/manticoresoftware/manticoresearch-php/"
             },
-            "time": "2022-01-06T02:11:16+00:00"
+            "time": "2022-08-01T14:27:20+00:00"
         },
         {
             "name": "matthiasmullie/minify",
@@ -6208,20 +6208,20 @@
         },
         {
             "name": "nette/utils",
-            "version": "v3.2.7",
+            "version": "v3.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99"
+                "reference": "02a54c4c872b99e4ec05c4aec54b5a06eb0f6368"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/nette/utils/nette-utils-0af4e3de4df9f1543534beab255ccf459e7a2c99-zip-bb68dc.zip",
-                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99",
-                "shasum": "d29ee30ceb7b280749ff657c5f26c3da779adf0c"
+                "url": "https://composer.tiki.org/dist/nette/utils/nette-utils-02a54c4c872b99e4ec05c4aec54b5a06eb0f6368-zip-0a8fa4.zip",
+                "reference": "02a54c4c872b99e4ec05c4aec54b5a06eb0f6368",
+                "shasum": "526b1bb798877b0cf8b83c507b314523d1314353"
             },
             "require": {
-                "php": ">=7.2 <8.2"
+                "php": ">=7.2 <8.3"
             },
             "conflict": {
                 "nette/di": "<3.0.6"
@@ -6285,7 +6285,7 @@
                 "utility",
                 "validation"
             ],
-            "time": "2022-01-24T11:29:14+00:00"
+            "time": "2022-09-12T23:36:20+00:00"
         },
         {
             "name": "nicolaskruchten/pivottable",
@@ -12818,12 +12818,6 @@
             "require": {
                 "php": ">=7.1"
             },
-            "provide": {
-                "ext-uuid": "*"
-            },
-            "suggest": {
-                "ext-uuid": "For best performance"
-            },
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -13519,17 +13513,17 @@
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
-            "version": "2.2.4",
+            "version": "2.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
-                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c"
+                "reference": "4348a3a06651827a27d989ad1d13efec6bb49b19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/tijsverkoyen/css-to-inline-styles/tijsverkoyen-css-to-inline-styles-da444caae6aca7a19c0c140f68c6182e337d5b1c-zip-a72162.zip",
-                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c",
-                "shasum": "504618c64d03dd5dd5722bfc07c29d78b35db859"
+                "url": "https://composer.tiki.org/dist/tijsverkoyen/css-to-inline-styles/tijsverkoyen-css-to-inline-styles-4348a3a06651827a27d989ad1d13efec6bb49b19-zip-1c63af.zip",
+                "reference": "4348a3a06651827a27d989ad1d13efec6bb49b19",
+                "shasum": "750ff352a87acff0bef33216631e30db32cf8844"
             },
             "require": {
                 "ext-dom": "*",
@@ -13564,7 +13558,7 @@
             ],
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
-            "time": "2021-12-08T09:12:39+00:00"
+            "time": "2022-09-12T13:28:28+00:00"
         },
         {
             "name": "tikiwiki/ilp-client",
