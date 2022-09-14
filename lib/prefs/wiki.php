@@ -29,7 +29,6 @@ function prefs_wiki_list($partial = false)
         foreach ($languages as $lang) {
             $map[ $lang['value'] ] = $lang['name'];
         }
-        
     }
 
     $prefslib = TikiLib::lib('prefs');
@@ -320,6 +319,11 @@ function prefs_wiki_list($partial = false)
         ],
         'wiki_comments_form_displayed_default' => [
             'name' => tra('Display Post new comment form by default'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
+        'wiki_comments_print' => [
+            'name' => tra('Also print comments'),
             'type' => 'flag',
             'default' => 'n',
         ],

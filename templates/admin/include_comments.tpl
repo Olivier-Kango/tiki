@@ -58,6 +58,7 @@
             {preference name=wiki_comments_default_ordering}
             {preference name=wiki_comments_allow_per_page}
             {preference name=wiki_watch_comments}
+            {preference name=wiki_comments_print}
         </div>
         {preference name=feature_blogposts_comments}
         {preference name=feature_file_galleries_comments}

@@ -13,6 +13,7 @@
 $section_class = "tiki_wiki_page print";
 require_once('tiki-setup.php');
 $wikilib = TikiLib::lib('wiki');
+$userlib = UsersLib::lib('user');
 
 $auto_query_args = ['page','filename'];
 
@@ -90,7 +91,20 @@ if ($prefs['feature_wiki_structure'] == 'y') {
         }
     }
 }
+
 $pdata = TikiLib::lib('parser')->parse_data($info["data"], ['is_html' => $info["is_html"], 'print' => 'y', 'namespace' => $info["namespace"]]);
+
+if ($prefs['wiki_comments_print'] == 'y' && $userlib->user_has_permission($user, 'tiki_p_wiki_view_comments')) {
+    $broker = TikiLib::lib('service')->getBroker();
+    $comments = $broker->internalRender(
+        "comment",
+        "list",
+        $jitRequest = new JitFilter(
+            ["controller" => "comment", "action" => "list", "type" => "wiki page", "objectId" => $page, "hidepost" => 1, "maxRecords" => 9999]
+        )
+    );
+    $pdata .= $comments;
+}
 
 //replacing bootstrap classes for print version.
 
