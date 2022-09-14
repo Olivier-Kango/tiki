@@ -20,9 +20,13 @@ class Search_Manticore_PdoClient
 
         $dsn = "mysql:host=".$parsed['host'].";port=".$port;
 
-        $this->pdo = new PDO($dsn);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        try {
+            $this->pdo = new PDO($dsn);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Search_Manticore_Exception(tr("Error connecting to Manticore service: %0", $e->getMessage()));
+        }
     }
 
     public function getStatus()

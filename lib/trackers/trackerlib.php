@@ -6663,7 +6663,7 @@ class TrackerLib extends TikiLib
         if ($trackerId && $currencyField && $dateField && $rateField) {
             $currencies = $this->list_tracker_field_values($trackerId, $currencyField);
             foreach ($currencies as $currency) {
-                $rates[$date][$currency] = $this->getOne(
+                $value = $this->getOne(
                     'SELECT ttif3.value as rate FROM tiki_tracker_items tti
                     LEFT JOIN tiki_tracker_item_fields ttif1 ON tti.itemId = ttif1.itemId AND ttif1.fieldId = ?
                     LEFT JOIN tiki_tracker_item_fields ttif2 ON tti.itemId = ttif2.itemId AND ttif2.fieldId = ?
@@ -6672,8 +6672,11 @@ class TrackerLib extends TikiLib
                     ORDER BY ttif2.value DESC',
                     [$currencyField, $dateField, $rateField, $trackerId, $currency, $date]
                 );
-                if ($prefs['tracker_system_currency_direction'] == 'reverse' && $rates[$date][$currency]) {
-                    $rates[$date][$currency] = 1 / $rates[$date][$currency];
+                if ($value !== false) {
+                    $rates[$date][$currency] = $value;
+                    if ($prefs['tracker_system_currency_direction'] == 'reverse' && $rates[$date][$currency]) {
+                        $rates[$date][$currency] = 1 / $rates[$date][$currency];
+                    }
                 }
             }
         }

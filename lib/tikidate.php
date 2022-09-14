@@ -164,8 +164,13 @@ class TikiDate
         if (is_numeric($reference_point)) {
             $reference_point = '@' . (string)$reference_point;
         }
-        $d = new DateTime($reference_point, $tz);
-        return $tz->getOffset($d);
+        try {
+            $d = new DateTime($reference_point, $tz);
+            return $tz->getOffset($d);
+        } catch (Exception $e) {
+            // date parsing issues result in unknown server offset
+            return 0;
+        }
     }
 
     public static function getStartDay($timestamp, $tz)

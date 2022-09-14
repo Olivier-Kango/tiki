@@ -854,12 +854,18 @@ class UnifiedSearchLib
         }
 
         if ($engine == 'manticore' && $index = $this->getIndexLocation($indexType)) {
-            $index = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $index);
+            try {
+                $index = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $index);
 
-            if ($useCache) {
-                $this->indices[$indexType] = $index;
+                if ($useCache) {
+                    $this->indices[$indexType] = $index;
+                }
+                return $index;
+            } catch (Search_Manticore_Exception $e) {
+                if ($tiki_p_admin == 'y') {
+                    Feedback::error($e->getMessage());
+                }
             }
-            return $index;
         }
 
         // Do nothing, provide a fake index.
@@ -1110,7 +1116,7 @@ class UnifiedSearchLib
                 $client = $this->getManticoreClient();
                 $status = $client->getStatus();
 
-                if ($status['status'] === 200) {
+                if (isset($status['version'])) {
                     $dataSource->setPrefilter(function ($fields, $entry) {
                         return (new Search_Manticore_Prefilter())->get($fields, $entry);
                     });
@@ -1705,7 +1711,7 @@ class UnifiedSearchLib
 
         $client = $this->getManticoreClient();
         $connectionStatus = $client->getStatus();
-        if ($connectionStatus['status'] !== 200) {
+        if (! isset($connectionStatus['version'])) {
             $searchIndex = [
                 'error'           => true,
                 'feedback'        => $connectionStatus->error ?? '',
