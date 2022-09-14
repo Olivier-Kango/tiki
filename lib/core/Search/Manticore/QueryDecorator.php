@@ -53,20 +53,12 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         }
 
         if ($node instanceof Token) {
-            $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
-            if ($mapping && in_array('indexed', $mapping['options'])) {
-                if ($this->currentOp == \Manticoresearch\Search::FILTER_AND) {
-                    $this->search->phrase($this->getTerm($node), $this->getNodeField($node));
-                } else {
-                    $this->search->match($this->getTerm($node), $this->getNodeField($node));
-                }
-            } else {
-                $this->search->filter($this->getNodeField($node), '=', $this->getTerm($node), $this->currentOp);
-            }
+            $this->handleToken($node);
         } elseif (count($childNodes) === 1 && ($node instanceof AndX || $node instanceof OrX)) {
             return reset($childNodes)->traverse($callback);
         } elseif ($node instanceof OrX) {
-            $this->currentOp = \Manticoresearch\Search::FILTER_OR;
+            // TODO: php client doesn't seem to support nested bool queries and we need them here, so figure out a way to build a json query without the client
+            //$this->currentOp = \Manticoresearch\Search::FILTER_OR;
             array_map(
                 function ($expr) use ($callback) {
                     $expr->traverse($callback);
@@ -134,5 +126,26 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         }
 
         return '';
+    }
+
+    private function handleToken($node)
+    {
+        $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
+        if ($mapping && in_array('indexed', $mapping['options'])) {
+            if ($this->currentOp == \Manticoresearch\Search::FILTER_AND) {
+                $this->search->phrase($this->getTerm($node), $this->getNodeField($node));
+            } else {
+                $this->search->match($this->getTerm($node), $this->getNodeField($node));
+            }
+        } elseif (isset($mapping['type']) && $mapping['type'] == 'json' && $node->getType() == 'multivalue') {
+            $this->search->filter($this->getNodeField($node), 'in', json_decode($this->getTerm($node)), $this->currentOp);
+        } elseif (isset($mapping['type']) && $mapping['type'] == 'string' && $node->getType() == 'multivalue') {
+            $values = explode(' ', $this->getTerm($node));
+            foreach ($values as $val) {
+                $this->search->match($val, $this->getNodeField($node));
+            }
+        } else {
+            $this->search->filter($this->getNodeField($node), '=', $this->getTerm($node), $this->currentOp);
+        }
     }
 }
