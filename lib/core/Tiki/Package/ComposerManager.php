@@ -411,6 +411,7 @@ class ComposerManager
         foreach ($yamlContent as $key => $fileInfo) {
             try {
                 if ($fileInfo) {
+                    $packageInfo = null;
                     $externalPackage = new ComposerPackage(
                         $key,
                         $fileInfo['name'],
@@ -422,6 +423,7 @@ class ComposerManager
                         $fileInfo['scripts'] ?? [],
                         $fileInfo['actions'] ?? [],
                         $fileInfo['state'] ?? ComposerPackage::STATE_ACTIVE,
+                        $packageInfo ? json_decode($packageInfo, true) : []
                     );
                     if ($packageAction == 'search' && $key == $packageKey) {
                         return $externalPackage;

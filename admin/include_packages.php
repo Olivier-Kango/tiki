@@ -22,6 +22,13 @@ $composerManager = new ComposerManager($tikipath);
 $composerManagerBundled = new ComposerManager($tikipath, $tikipath . DIRECTORY_SEPARATOR . 'vendor_bundled');
 $composerManagerCustom = new ComposerManager($tikipath, $tikipath . DIRECTORY_SEPARATOR . 'vendor_custom');
 
+//Load package detail via parckigist API
+if (isset($_REQUEST['package_name'])) {
+    $data = file_get_contents("https://repo.packagist.org/p2/" . $_REQUEST['package_name'] . ".json");
+    echo $data;
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (! empty($_POST['auto-fix-missing-packages']) && $access->checkCsrf()) {
         $smarty->assign('composer_output', $composerManager->fixMissing());

@@ -214,13 +214,13 @@
         {if count($composer_packages_available)}
         <br />
         <h4>{tr}Available Packages{/tr} <small>{tr}These packages have been identified as required by one or more features.{/tr}</small></h4>
-        <table class="table">
+        <table class="table" id="packagesInfo">
             <tr>
                 <th>{tr}Package Name{/tr}</th>
                 <th>{tr}Version{/tr}</th>
                 <th>{tr}Licence{/tr}</th>
                 <th>{tr}Required by{/tr}</th>
-                <th>{tr}Action{/tr}</th>
+                <th width="200">{tr}Action{/tr}</th>
             </tr>
             {foreach item=entry from=$composer_packages_available}
                 <tr>
@@ -243,7 +243,7 @@
                     <td>{$entry.requiredVersion}</td>
                     <td><a href="{$entry.licenceUrl}">{if empty($entry.licence)}{tr}Not Available{/tr}{else}{$entry.licence}{/if}</a></td>
                     <td>{', '|implode:$entry.requiredBy}</td>
-                    <td>
+                    <td class="d-flex">
                         {if $composer_phar_exists}
                         <form action="tiki-admin.php?page=packages&cookietab=1" method="post">
                             <input type="hidden" name="redirect" value="0">
@@ -251,6 +251,13 @@
                             <button class="btn btn-primary" name="auto-install-package" value="{$entry.key}">{tr}Install{/tr}</button>
                         </form>
                         {/if}
+                        <button type="button" data-bs-toggle="collapse" data-package-name="{$entry.name}" data-collapse-key="collapse-{$entry.key}" href="#collapse-{$entry.key}" role="button" aria-expanded="false" aria-controls="collapse-{$entry.name}" class="btn btn-light collapse-package-detail">{tr}Info{/tr}</button>
+                    </td>
+                </tr>
+                <tr class="collapse border bg-light" id="collapse-{$entry.key}">
+                    <td colspan="5">
+                        <h6 class="text-info"><b>{$entry.name}</b></h6>
+                        <div class="detail-package" data-package-name="{$entry.name}"></div>
                     </td>
                 </tr>
             {/foreach}
@@ -478,5 +485,54 @@
         $(".install-composer").click(function(){
             $('.nav-tabs a[href="#contenttabs_admin_packages-4"]').tab('show');
         });
+
+        $(".collapse-package-detail").click(function() {
+            var packageName = $(this).attr("data-package-name");
+            var callapseKey = $(this).attr("data-collapse-key");
+            var collapsible = document.getElementById(callapseKey);
+            
+            //Close the previously opened tab when clicking on a tab
+            var packagesInfo = $('#packagesInfo');
+            packagesInfo.on('show.bs.collapse','.collapse', function() {
+                packagesInfo.find('.collapse.show').collapse('hide');
+            });
+        
+            collapsible.addEventListener('shown.bs.collapse', function () {
+                $('.detail-package[data-package-name="'+packageName+'"]').html('<img width="20" height="20" src="img/spinner.gif" title="'+tr("Looking for package details...")+'" alt="'+tr("Looking for package details...")+'"/>');
+                $.getJSON("tiki-admin.php?page=packages&package_name="+packageName, function(json) {
+                    var data = json['packages'];
+                    var html = '<p>'+data[packageName][0]['description']+'</p>';
+                    html += '<table>';
+                    
+                    if (data[packageName][0]['keywords'] !== '') {
+                        html += '<tr><td><b class="pe-3">'+tr("Keywords")+': </b></td><td>'+data[packageName][0]['keywords'].join(", ")+'</td></tr>';
+                    }
+
+                    if (data[packageName][0]['homepage'] !== '') {
+                        html += '<tr><td><b class="pe-3">'+tr("Home page")+': </b></td><td><a target="blank" href="'+data[packageName][0]['homepage']+'">'+data[packageName][0]['homepage']+'</a></td></tr>';
+                    }
+
+                    if (data[packageName][0]['license'] !== '') {
+                        html += '<tr><td><b class="pe-3">'+tr("License")+': </b></td><td>'+data[packageName][0]['license'].join(", ")+'</td></tr>';
+                    }
+
+                    if (data[packageName][0]['authors'] !== '') {
+                        html += '<tr><td><b class="pe-3">'+tr("Authors")+': </b></td><td>';
+                        var authors = [];
+
+                        data[packageName][0]['authors'].forEach(author => {
+                            authors.push(author["name"]);
+                        })
+
+                        html += '<span>'+authors.join(", ")+'</span>';
+                        html += '</td></tr>';
+                    }
+
+                    $('.detail-package[data-package-name="'+packageName+'"]').html(html);
+                }).fail(function(jqXMLHttpRequest,textStatus,errorThrown) { 
+                    $('.detail-package[data-package-name="'+packageName+'"]').html('<p class="text-error">'+tr("No description found")+'</p>');
+                });
+            })
+        })
     });
 {/jq}

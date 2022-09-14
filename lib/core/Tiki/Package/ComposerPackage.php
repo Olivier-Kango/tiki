@@ -27,6 +27,7 @@ class ComposerPackage
     protected array $replacedBy;
     protected array $scripts;
     protected array $actions;
+    protected array $metadata;
 
     /**
      * Sets the information related with this package, intended to be used in the constructor of the child class
@@ -41,6 +42,7 @@ class ComposerPackage
      * @param array $scripts
      * @param array $actions
      * @param string $state
+     * @param array $metadata
      */
     public function __construct(
         string $key,
@@ -52,7 +54,8 @@ class ComposerPackage
         array $replacedBy = [],
         array $scripts = [],
         array $actions = [],
-        string $state = self::STATE_ACTIVE
+        string $state = self::STATE_ACTIVE,
+        array $metadata = []
     ) {
         $this->key = $key;
         $this->name = $name;
@@ -64,6 +67,7 @@ class ComposerPackage
         $this->scripts = $scripts;
         $this->actions = $actions;
         $this->state = $state;
+        $this->metadata = $metadata;
     }
 
     /**
@@ -84,6 +88,7 @@ class ComposerPackage
             'scripts' => $this->scripts,
             'actions' => $this->actions,
             'state' => $this->state,
+            'metadata' => $this->metadata,
         ];
     }
 
@@ -187,4 +192,15 @@ class ComposerPackage
     {
         return $this->replacedBy;
     }
+
+    /**
+     * Returns all package informations
+     *
+     * @return array
+     */
+    public function getMetaData()
+    {
+        return $this->metadata;
+    }
+
 }
