@@ -11,7 +11,7 @@ class Search_Manticore_OrderDecorator extends Search_Manticore_Decorator
     public function decorate(Search_Query_Order $order)
     {
         $component = '_score';
-        $field = $order->getField();
+        $field = strtolower($order->getField());
 
         if ($order->getMode() == Search_Query_Order::MODE_SCRIPT) {
             $arguments = $order->getArguments();
