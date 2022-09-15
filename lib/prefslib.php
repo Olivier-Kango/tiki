@@ -369,6 +369,32 @@ class PreferencesLib
         return $info;
     }
 
+    public function getOrphanPrefs()
+    {
+        global $prefs;
+        $tikilib = TikiLib::lib('tiki');
+        $data = $tikilib->table('tiki_preferences');
+        $preferences = $data->fetchAll();
+        $orphelines = [];
+
+        $specialPrefs = [
+            "display_timezone",
+            "internal_site_hash",
+            "unified_field_count",
+            "unified_last_rebuild",
+            "unified_total_fields",
+        ];
+
+        foreach ($preferences as $pref) {
+            $definition = $this->getPreference($pref['name'], true, $prefs);
+
+            if (! $definition && ! in_array($pref['name'], $specialPrefs)) {
+                $orphelines[] = $pref;
+            }
+        }
+        return $orphelines;
+    }
+
     private function getVoteIconParams($pref, $vote, $label)
     {
         $iconname = [

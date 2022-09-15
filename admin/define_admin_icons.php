@@ -342,6 +342,11 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'description' => tr('External packages installation and management'),
                     'help'        => 'Packages',
                 ],
+                'orphanprefs' => [
+                    'title'       => tr('Orphan Preferences'),
+                    'description' => tr('Orphan (leftover) preferences'),
+                    'help'        => 'Orphan preferences',
+                ],
             ],
         ],
     ];
@@ -636,6 +641,11 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
             'title' => tr('RTC'),
             'description' => tr('Real-time collaboration tools'),
             'help' => 'RTC',
+        ],
+        "orphanprefs" => [
+            'title' => tr('Orphan Preferences'),
+            'description' => tr('Orphan (leftover) preferences'),
+            'help' => 'Orphan preferences',
         ],
     ];
 }
