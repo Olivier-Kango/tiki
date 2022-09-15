@@ -99,10 +99,14 @@ class Search_Manticore_PdoClient
         }
         $mapping = [];
         foreach ($result as $row) {
-            $mapping[$row['Field']] = [
-                'type' => $row['Type'],
-                'options' => explode(' ', $row['Properties'])
-            ];
+            if (! isset($mapping[$row['Field']])) {
+                $mapping[$row['Field']] = [
+                    'types' => [],
+                    'options' => [],
+                ];
+            }
+            $mapping[$row['Field']]['types'][] = $row['Type'];
+            $mapping[$row['Field']]['options'] = array_merge($mapping[$row['Field']]['options'], explode(' ', $row['Properties']));
         }
         return $mapping;
     }

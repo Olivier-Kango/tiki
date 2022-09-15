@@ -160,9 +160,9 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             } else {
                 return new Query\MatchPhrase($this->getTerm($node), $this->getNodeField($node));
             }
-        } elseif (isset($mapping['type']) && $mapping['type'] == 'json' && $node->getType() == 'multivalue') {
+        } elseif (isset($mapping['types']) && in_array('json', $mapping['types']) && $node->getType() == 'multivalue') {
             return new Query\In($this->getNodeField($node), json_decode($this->getTerm($node)));
-        } elseif (isset($mapping['type']) && $mapping['type'] == 'string' && $node->getType() == 'multivalue') {
+        } elseif (isset($mapping['types']) && in_array('string', $mapping['types']) && $node->getType() == 'multivalue') {
             // multivalues use indexed text and string attribute columns, so use faster fulltext match here instead of regexes
             $phrase = $this->getTerm($node);
             if ($prefs['unified_search_default_operator'] != 1) {

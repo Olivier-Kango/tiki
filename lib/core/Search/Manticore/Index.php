@@ -110,12 +110,16 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         );
         if (empty($this->providedMappings)) {
             $this->pdo_client->createIndex($this->index, $mapping, $this->getIndexSettings());
-            $this->providedMappings = $mapping;
         } else {
-            foreach($mapping as $field => $type) {
-                $this->providedMappings[$field] = $type;
-                $this->pdo_client->alter($this->index,'add', $field, $type['type']);
+            foreach ($mapping as $field => $type) {
+                $this->pdo_client->alter($this->index, 'add', $field, $type['type']);
             }
+        }
+        foreach ($mapping as $field => $type) {
+            $this->providedMappings[$field] = [
+                'types' => $type['type'] == 'text' ? ['text', 'string'] : [$type['type']],
+                'options' => $type['options'] ?? [],
+            ];
         }
     }
 
