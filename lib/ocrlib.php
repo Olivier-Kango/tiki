@@ -19,7 +19,6 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class ocrLib extends TikiLib
 {
-
     /**
      * @var int the fileid of the file currently being OCR'd
      */
@@ -166,16 +165,13 @@ class ocrLib extends TikiLib
      */
     public function getTesseractVersion(): string
     {
-        if (! class_exists('thiagoalessio\TesseractOCR\TesseractOCR')) {
-            return '';
+        if (! $this->checkTesseractInstalled()) {
+            exec('tesseract --version', $output);
+            return $output ? explode(' ', $output[0])[1] : '';
         }
 
-        if ($this->checkTesseractInstalled()) {
-            $tesseract = $this->newTesseract();
-            return $tesseract->command->getTesseractVersion();
-        }
-
-        return '';
+        $tesseract = $this->newTesseract();
+        return $tesseract->command->getTesseractVersion();
     }
 
     /**
@@ -195,13 +191,10 @@ class ocrLib extends TikiLib
 
     public function getTesseractLangs(): array
     {
-
-        if (! class_exists('thiagoalessio\TesseractOCR\TesseractOCR')) {
-            return [];
-        }
-
         if (! $this->checkTesseractInstalled()) {
-            return [];
+            exec('tesseract --list-langs', $output);
+            array_shift($output);
+            return $output;
         }
 
         $tesseract = $this->newTesseract();

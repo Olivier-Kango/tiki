@@ -1928,7 +1928,7 @@ if (! $standalone) {
     global $tikipath, $base_host;
 
     $composerManager = new ComposerManager($tikipath);
-    $installedLibs = $composerManager->getInstalled() ?: [];
+    $installedLibs = $composerManager->getInstalled() ?: array();
 
     $packagesToCheck = array(
         array(
@@ -2052,7 +2052,7 @@ if (! $standalone) {
      */
 
     /** @var string The version of Tesseract required */
-    $TesseractVersion = '2.7.0';
+    $tesseractPkgMinVersion = '2.7.0';
     /** @var string Current Tesseract installed version */
     $ocrVersion = false;
     foreach ($packagesToDisplay as $arrayValue) {
@@ -2068,7 +2068,7 @@ if (! $standalone) {
             'Tesseract PHP package could not be found. Try installing through Packages.'
         );
         $ocrStatus = 'bad';
-    } elseif (version_compare($ocrVersion, $TesseractVersion, '>=')) {
+    } elseif (version_compare($ocrVersion, $tesseractPkgMinVersion, '>=')) {
         $ocrMessage = tra('Tesseract PHP dependency installed.');
         $ocrStatus = 'good';
     } else {
@@ -2108,11 +2108,7 @@ if (! $standalone) {
         'message' => $ocrMessage,
     );
 
-    if ($ocrVersion !== 'Not Installed') {
-        $ocrVersion = $ocr->getTesseractVersion();
-    } else {
-        $ocrVersion = false;
-    }
+    $ocrVersion = $ocr->getTesseractVersion();
 
     if (! $ocrVersion) {
         $ocrVersion = tra('Not Found');
