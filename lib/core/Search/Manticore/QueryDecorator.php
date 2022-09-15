@@ -16,6 +16,8 @@ use Search_Expr_MoreLikeThis as MoreLikeThis;
 use Search_Expr_ImplicitPhrase as ImplicitPhrase;
 use Search_Expr_Distance as Distance;
 
+use Manticoresearch\Query;
+
 class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
 {
     protected $factory;
@@ -43,57 +45,76 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
 
     public function decorate(Search_Expr_Interface $expr)
     {
-        $expr->traverse($this);
+        $q = $expr->traverse($this);
+        $this->search->search($q);
     }
 
     public function __invoke($callback, $node, $childNodes)
     {
+        global $prefs;
+
         if ($node instanceof ImplicitPhrase) {
             $node = $node->getBasicOperator();
         }
 
         if ($node instanceof Token) {
-            $this->handleToken($node);
-        } elseif (count($childNodes) === 1 && ($node instanceof AndX || $node instanceof OrX)) {
-            return reset($childNodes)->traverse($callback);
-        } elseif ($node instanceof OrX) {
-            // TODO: php client doesn't seem to support nested bool queries and we need them here, so figure out a way to build a json query without the client
-            //$this->currentOp = \Manticoresearch\Search::FILTER_OR;
-            array_map(
-                function ($expr) use ($callback) {
-                    $expr->traverse($callback);
-                },
-                $childNodes
-            );
-
-        } elseif ($node instanceof AndX) {
-            $this->currentOp = \Manticoresearch\Search::FILTER_AND;
-            array_map(
-                function ($expr) use ($callback) {
-                    $expr->traverse($callback);
-                },
-                $childNodes
-            );
-        } elseif ($node instanceof NotX) {
-            $this->currentOp = \Manticoresearch\Search::FILTER_NOT;
-            array_map(
-                function ($expr) use ($callback) {
-                    $expr->traverse($callback);
-                },
-                $childNodes
-            );
+            return $this->handleToken($node);
+        } elseif ($node instanceof AndX || $node instanceof OrX || $node instanceof NotX) {
+            if (count($childNodes) == 0) {
+                return null;
+            }
+            if (count($childNodes) == 1) {
+                return reset($childNodes)->traverse($callback);
+            }
+            $childFields = array_map(function($child) {
+                if (method_exists($child, 'getType') && $child->getType() == 'multivalue') {
+                    return $this->getNodeField($child);
+                } else {
+                    return '';
+                }
+            }, $childNodes);
+            if (count(array_unique($childFields)) == 1 && array_filter($childFields)) {
+                // multivalue clauses containing `should => []` are not matched when using full-text search
+                // switch to a single match query with inline boolean operators
+                $phrase = array_map(function($child) {
+                    return $this->getTerm($child);
+                }, $childNodes);
+                if ($node instanceof AndX) {
+                    $separator = ' ';
+                } else {
+                    $separator = ' | ';
+                }
+                $phrase = implode($separator, $phrase);
+                return new Query\MatchQuery($phrase, reset($childFields));
+            }
+            if ($node instanceof OrX) {
+                $method = 'should';
+            } elseif ($node instanceof NotX) {
+                $method = 'mustNot';
+            } else {
+                $method = 'must';
+            }
+            $q = new Query\BoolQuery();
+            $isEmpty = true;
+            foreach ($childNodes as $child) {
+                $subq = $child->traverse($callback);
+                if ($subq) {
+                    $q->$method($subq);
+                    $isEmpty = false;
+                }
+            }
+            if ($isEmpty) {
+                return null;
+            } else {
+                return $q;
+            }
         } elseif ($node instanceof Initial) {
-            $this->search->filter('REGEX('.$this->getNodeField($node).', "^'.$this->getTerm($node).'")', '=', 1, $this->currentOp);
+            return new Query\Equals('REGEX('.$this->getNodeField($node).', "^'.$this->getTerm($node).'")', 1);
         } elseif ($node instanceof Range) {
-            $this->search->filter(
-                $this->getNodeField($node),
-                'range',
-                [
-                    $this->getTerm($node->getToken('from')),
-                    $this->getTerm($node->getToken('to'))
-                ],
-                $this->currentOp
-            );
+            return new Query\Range($this->getNodeField($node), [
+                'gte' => $this->getTerm($node->getToken('from')),
+                'lte' => $this->getTerm($node->getToken('to'))
+            ]);
         } elseif ($node instanceof MoreLikeThis) {
             $type = $node->getObjectType();
             $object = $node->getObjectId();
@@ -101,7 +122,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             $content = $node->getContent() ?: $this->getDocumentContent($type, $object);
             // TODO: https://play.manticoresearch.com/mlt/ possible implementation
         } elseif ($node instanceof Distance) {
-            $this->search->distance([
+            return new Query\Distance([
                 'location_anchor' => ["lat" => $node->getLat(), "lon" => $node->getLon()],
                 'location_source' => $this->getNodeField($node),
                 'location_distance' => $node->getDistance(),
@@ -130,22 +151,26 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
 
     private function handleToken($node)
     {
+        global $prefs;
+
         $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
         if ($mapping && in_array('indexed', $mapping['options'])) {
-            if ($this->currentOp == \Manticoresearch\Search::FILTER_AND) {
-                $this->search->phrase($this->getTerm($node), $this->getNodeField($node));
+            if ($prefs['unified_search_default_operator'] == 1) {
+                return new Query\MatchQuery($this->getTerm($node), $this->getNodeField($node));
             } else {
-                $this->search->match($this->getTerm($node), $this->getNodeField($node));
+                return new Query\MatchPhrase($this->getTerm($node), $this->getNodeField($node));
             }
         } elseif (isset($mapping['type']) && $mapping['type'] == 'json' && $node->getType() == 'multivalue') {
-            $this->search->filter($this->getNodeField($node), 'in', json_decode($this->getTerm($node)), $this->currentOp);
+            return new Query\In($this->getNodeField($node), json_decode($this->getTerm($node)));
         } elseif (isset($mapping['type']) && $mapping['type'] == 'string' && $node->getType() == 'multivalue') {
-            $values = explode(' ', $this->getTerm($node));
-            foreach ($values as $val) {
-                $this->search->match($val, $this->getNodeField($node));
+            // multivalues use indexed text and string attribute columns, so use faster fulltext match here instead of regexes
+            $phrase = $this->getTerm($node);
+            if ($prefs['unified_search_default_operator'] != 1) {
+                $phrase = str_replace(' ', ' | ', $phrase);
             }
+            return new Query\MatchQuery($phrase, $this->getNodeField($node));
         } else {
-            $this->search->filter($this->getNodeField($node), '=', $this->getTerm($node), $this->currentOp);
+            return new Query\Equals($this->getNodeField($node), $this->getTerm($node));
         }
     }
 }

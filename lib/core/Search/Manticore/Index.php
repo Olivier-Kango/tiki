@@ -186,7 +186,6 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         //     return $builder->build($query->getExpr());
         // }, $query->getForeignQueries());
 
-        // TODO: manticore HTTP JSON response might include NAN values which php's json_decode doesn't handle and rejects the whole response
         $result = $search
             ->offset($resultStart)
             ->limit($resultCount)
