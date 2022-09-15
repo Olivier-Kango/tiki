@@ -164,12 +164,13 @@
                 </div>
             </div>
         </footer>
-
-        <header class="navbar navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} fixed-top">
-            <div class="container-fluid">
-                {modulelist zone=top class="top_modules d-flex justify-content-between w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent"}
-            </div> 
-        </header>
+        {if $prefs.theme_unified_admin_backend neq 'y' or $smarty.server.SCRIPT_NAME|strpos:'tiki-admin.php' === false}
+            <header class="navbar navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} fixed-top">
+                <div class="container-fluid">
+                    {modulelist zone=top class="top_modules d-flex justify-content-between w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent"}
+                </div>
+            </header>
+        {/if}
     {/if}
 
     {include file='footer.tpl'}
