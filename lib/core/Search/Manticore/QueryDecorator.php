@@ -111,9 +111,17 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         } elseif ($node instanceof Initial) {
             return new Query\Equals('REGEX('.$this->getNodeField($node).', "^'.$this->getTerm($node).'")', 1);
         } elseif ($node instanceof Range) {
+            $from = $this->getTerm($node->getToken('from'));
+            $to = $this->getTerm($node->getToken('to'));
+            if (empty($from)) {
+                $from = 0;
+            }
+            if (empty($to)) {
+                $to = 0;
+            }
             return new Query\Range($this->getNodeField($node), [
-                'gte' => $this->getTerm($node->getToken('from')),
-                'lte' => $this->getTerm($node->getToken('to'))
+                'gte' => $from,
+                'lte' => $to
             ]);
         } elseif ($node instanceof MoreLikeThis) {
             $type = $node->getObjectType();
