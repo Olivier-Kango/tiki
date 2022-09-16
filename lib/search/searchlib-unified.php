@@ -213,7 +213,7 @@ class UnifiedSearchLib
                     'tiki.process.shutdown',
                     function () use ($indexName, $index) {
                         global $prefs;
-                        if (!empty($prefs['unified_manticore_index_current']) && $prefs['unified_manticore_index_current'] !== $indexName) {
+                        if (! empty($prefs['unified_manticore_index_current']) && $prefs['unified_manticore_index_current'] !== $indexName) {
                             $index->destroy();
                         }
                     }
@@ -1071,8 +1071,8 @@ class UnifiedSearchLib
 
         $target = $prefs['unified_manticore_url'];
 
-        if (! empty($clients[$target.$type])) {
-            return $clients[$target.$type];
+        if (! empty($clients[$target . $type])) {
+            return $clients[$target . $type];
         }
 
         switch ($type) {
@@ -1086,7 +1086,7 @@ class UnifiedSearchLib
                 throw new Exception(tr('Invalid Manticore Search client type: %0', $type));
         }
 
-        $clients[$target.$type] = $client;
+        $clients[$target . $type] = $client;
         return $client;
     }
 

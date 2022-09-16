@@ -10,7 +10,6 @@ use Psr\Log\AbstractLogger;
 
 class Tiki_Log extends AbstractLogger
 {
-
     /**
      * Detailed debug information
      */

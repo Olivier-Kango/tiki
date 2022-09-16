@@ -71,7 +71,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     {
         $fieldMapping = $this->getUnifiedFieldMapping();
 
-        $providedMappingsCorrectName = array_flip(array_map(function($field) use ($fieldMapping) {
+        $providedMappingsCorrectName = array_flip(array_map(function ($field) use ($fieldMapping) {
             return $fieldMapping[$field] ?? $field;
         }, array_keys($this->providedMappings)));
 
@@ -144,7 +144,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     {
         global $prefs;
 
-        $stopwords_file = realpath("temp").'/manticore-stopwords';
+        $stopwords_file = realpath("temp") . '/manticore-stopwords';
         file_put_contents($stopwords_file, implode("\n", $prefs['unified_stopwords']));
 
         $settings = [
@@ -344,12 +344,13 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     public function getFieldNameMapping()
     {
         $fields = array_keys($this->providedMappings);
-        return array_combine(array_map(function($field) {
+        return array_combine(array_map(function ($field) {
             return strtolower($field);
         }, $fields), $fields);
     }
 
-    protected function getUnifiedFieldMapping() {
+    protected function getUnifiedFieldMapping()
+    {
         global $prefs;
 
         $fieldMapping = $prefs['unified_field_mapping'] ?? '';

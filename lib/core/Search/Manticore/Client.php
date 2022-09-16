@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-use \Manticoresearch\Exceptions\ExceptionInterface as ManticoreException;
+use Manticoresearch\Exceptions\ExceptionInterface as ManticoreException;
 
 class Search_Manticore_Client
 {
@@ -110,7 +110,7 @@ class Search_Manticore_Client
                 'error' => $e->getMessage()
             ];
         }
-        if (empty($result['error']) && !empty($result['data'])) {
+        if (empty($result['error']) && ! empty($result['data'])) {
             $mapping = [];
             foreach ($result['data'] as $row) {
                 $mapping[$row['Field']] = [

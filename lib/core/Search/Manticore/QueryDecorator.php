@@ -15,7 +15,6 @@ use Search_Expr_Initial as Initial;
 use Search_Expr_MoreLikeThis as MoreLikeThis;
 use Search_Expr_ImplicitPhrase as ImplicitPhrase;
 use Search_Expr_Distance as Distance;
-
 use Manticoresearch\Query;
 
 class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
@@ -66,7 +65,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             if (count($childNodes) == 1) {
                 return reset($childNodes)->traverse($callback);
             }
-            $childFields = array_map(function($child) {
+            $childFields = array_map(function ($child) {
                 if (method_exists($child, 'getType') && $child->getType() == 'multivalue') {
                     return $this->getNodeField($child);
                 } else {
@@ -76,7 +75,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             if (count(array_unique($childFields)) == 1 && array_filter($childFields)) {
                 // multivalue clauses containing `should => []` are not matched when using full-text search
                 // switch to a single match query with inline boolean operators
-                $phrase = array_map(function($child) {
+                $phrase = array_map(function ($child) {
                     return $this->getTerm($child);
                 }, $childNodes);
                 if ($node instanceof AndX) {
@@ -109,7 +108,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
                 return $q;
             }
         } elseif ($node instanceof Initial) {
-            return new Query\Equals('REGEX('.$this->getNodeField($node).', "^'.$this->getTerm($node).'")', 1);
+            return new Query\Equals('REGEX(' . $this->getNodeField($node) . ', "^' . $this->getTerm($node) . '")', 1);
         } elseif ($node instanceof Range) {
             $from = $this->getTerm($node->getToken('from'));
             $to = $this->getTerm($node->getToken('to'));

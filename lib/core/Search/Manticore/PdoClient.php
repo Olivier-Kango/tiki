@@ -18,7 +18,7 @@ class Search_Manticore_PdoClient
             throw new Search_Manticore_Exception(tr("Malformed Manticore connection url: %0", $this->dsn));
         }
 
-        $dsn = "mysql:host=".$parsed['host'].";port=".$port;
+        $dsn = "mysql:host=" . $parsed['host'] . ";port=" . $port;
 
         try {
             $this->pdo = new PDO($dsn);
@@ -62,15 +62,15 @@ class Search_Manticore_PdoClient
     {
         $cols = [];
         foreach ($definition as $field => $opts) {
-            $def = $field.' '.$opts['type'];
+            $def = $field . ' ' . $opts['type'];
             if (! empty($opts['options'])) {
-                $def .= ' '.implode(' ', $opts['options']);
+                $def .= ' ' . implode(' ', $opts['options']);
             }
             $cols[] = $def;
         }
-        $sql = "CREATE TABLE $index (".implode(',', $cols).")";
+        $sql = "CREATE TABLE $index (" . implode(',', $cols) . ")";
         foreach ($settings as $key => $val) {
-            $sql .= ' '.$key.'='."'".$val."'";
+            $sql .= ' ' . $key . '=' . "'" . $val . "'";
         }
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
@@ -124,7 +124,7 @@ class Search_Manticore_PdoClient
 
     public function index($index, array $data)
     {
-        $stmt = $this->pdo->prepare("INSERT INTO $index (".implode(', ', array_keys($data)).') VALUES ('.implode(',', array_fill(0, count($data), '?')).')');
+        $stmt = $this->pdo->prepare("INSERT INTO $index (" . implode(', ', array_keys($data)) . ') VALUES (' . implode(',', array_fill(0, count($data), '?')) . ')');
         // TODO: Array to string conversion - not all elements are strings in this array...
         $stmt->execute(array_values($data));
     }
@@ -137,7 +137,7 @@ class Search_Manticore_PdoClient
 
     public function document($index, $type, $id)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM $index WHERE object_type = :object_type AND object_id = :object_id");;
+        $stmt = $this->pdo->prepare("SELECT * FROM $index WHERE object_type = :object_type AND object_id = :object_id");
         $stmt->execute(['object_type' => $type, 'object_id' => $id]);
         return new ResultSet($stmt->fetch());
     }

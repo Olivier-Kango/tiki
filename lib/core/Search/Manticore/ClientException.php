@@ -6,13 +6,14 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-use \Manticoresearch\Exceptions\ExceptionInterface as ManticoreException;
+use Manticoresearch\Exceptions\ExceptionInterface as ManticoreException;
 
 class Search_Manticore_ClientException extends Search_Manticore_Exception
 {
     protected $context;
 
-    public function __construct(ManticoreException $e) {
+    public function __construct(ManticoreException $e)
+    {
         $this->context = [];
         if (method_exists($e, 'getRequest') && $e->getRequest()) {
             $this->context['request'] = $e->getRequest()->toArray();
@@ -23,7 +24,8 @@ class Search_Manticore_ClientException extends Search_Manticore_Exception
         parent::__construct($e->getMessage(), $e->getCode(), $e);
     }
 
-    public function getContext() {
+    public function getContext()
+    {
         return $this->context;
     }
 }

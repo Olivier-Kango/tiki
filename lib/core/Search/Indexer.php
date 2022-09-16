@@ -194,7 +194,7 @@ class Search_Indexer
                 $this->searchIndex->addDocument($entry);
             } catch (Search_Manticore_ClientException $e) {
                 // TODO: calm this down once integration is stable
-                echo $e->getMessage()."\n";
+                echo $e->getMessage() . "\n";
                 var_dump($e->getContext());
             } catch (Exception $e) {
                 $msg = tr(

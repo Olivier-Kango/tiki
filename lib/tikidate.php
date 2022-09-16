@@ -489,7 +489,7 @@ class TikiDate
         $hour = date('G', $timestamp);
         $minute = date('i', $timestamp);
 
-        $hours = intval($hour) + $minute/60;
+        $hours = intval($hour) + $minute / 60;
         if ($hours > 12) {
             $hours = 24 - $hours;
             $timestamp += $hours * 3600;
@@ -512,7 +512,7 @@ class TikiDate
         if (isset($opts['tzname'])) {
             try {
                 $dtz = new DateTimeZone($opts['tzname']);
-                $dt = new DateTime('@'.$timestamp);
+                $dt = new DateTime('@' . $timestamp);
                 $dt->setTimeZone($dtz);
                 $timestamp += $dt->getOffset();
             } catch (Exception $e) {
@@ -531,7 +531,6 @@ class TikiDate
  */
 class Date_Calc
 {
-
     /**
      * @param $month
      * @param $year
