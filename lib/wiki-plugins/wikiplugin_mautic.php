@@ -26,24 +26,30 @@ function wikiplugin_mautic_info()
                 'description' => tr('Defines type of data to be tracked'),
                 'since' => '25.0',
                 'filter' => 'text',
-                'default' => ''
+                'default' => 'form',
+                'options' => [
+                    ["text" => tra("Mautic Form"), "value" => "form"],
+                    ["text" => tra("Mautic Contact"), "value" => "contacts"],
+                ],
             ],
             'form_id' => [
                 'required' => false,
                 'name' => tra('Form ID'),
-                'description' => tr('If type is "form", Id must be required. The focus form ID you want to load in Tiki'),
+                'description' => tr('The focus form ID you want to load in Tiki'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'default' => ''
+                'default' => '',
+                'refers_to' => 'form'
             ],
             'available_actions' => [
                 'required' => false,
                 'name' => tra('Vote options'),
-                'description' => tra('If type is "contacts" The available options are used to display the possible actions in the contact list, the actions are separated by a comma'),
+                'description' => tra('The available options are used to display the possible actions in the contact list, the actions are separated by a comma'),
                 'since' => '25.0',
                 'filter' => 'text',
                 'default' => default_available_actions(),
                 'separator' => ',',
+                'refers_to' => 'contacts'
             ],
         ],
     ];

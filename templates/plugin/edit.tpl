@@ -171,6 +171,37 @@ $("#picker_{{$name|escape}}").parent().click(function () {
                         ).tikiModal(tr("Loading..."));
                     });
                 {/jq}
+            {elseif $type eq 'mautic'}
+                {jq}
+                    $('#bootstrap-modal').on('shown.bs.modal', function () {
+                        sendRequest();
+                    }) 
+
+                    $("#param_type_input").change(function () {
+                        sendRequest()
+                    });
+
+                    function sendRequest() {
+                        var selectedType = $("#param_type_input").val();
+                        $("#param_type_input").parents(".modal-content").load(
+                            $.service("plugin", "edit", {
+                                area_id: "{{$area_id}}",
+                                type: "{{$type}}",
+                                index: {{$index}},
+                                page: "{{$pageName|escape:javascript}}",
+                                pluginArgs: {{$pluginArgsJSON}},
+                                isMarkdown: {{$isMarkdown}},
+                                bodyContent: "{{$bodyContent|escape:javascript}}",
+                                edit_icon: {{$edit_icon}},
+                                selectedMod: selectedType,
+                                modal: 1
+                            }),
+                            function () {
+                                popupPluginForm("{{$area_id}}","{{$type}}",{{$index}},"{{$pageName|escape:javascript}}",{{$pluginArgsJSON}},{{$isMarkdown}},"{{$bodyContent|escape:javascript}}",{{$edit_icon}}, selectedType);
+                            }
+                        ).tikiModal(tr("Loading..."));
+                    }
+                {/jq}
             {/if}
         </form>
         {include file="plugin/quick_add_references.tpl"}

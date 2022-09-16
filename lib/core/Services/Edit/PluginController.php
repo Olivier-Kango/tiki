@@ -169,6 +169,10 @@ class Services_Edit_PluginController
                     $info['advancedParams'][$key] = $param;
                     unset($info['params'][$key]);
                 }
+                if (! empty($param['refers_to']) && ! isset($pluginArgs[$key])) {
+                    $info['referedParams'][$key] = $param;
+                    unset($info['params'][$key]);
+                }
                 // set up object selectors - TODO refactor code with \PreferencesLib::getPreference and \Services_Tracker_Controller::action_edit_field
                 if (isset($param['profile_reference'])) {
                     $param['selector_type'] = $objectlib->getSelectorType($param['profile_reference']);
@@ -244,6 +248,18 @@ class Services_Edit_PluginController
                 }
             }
 
+            if ($type === 'mautic' && (isset($pluginArgs['mautic']) || $selectedMod)) {
+                if ($selectedMod) {
+                    $pluginArgs['type'] = $selectedMod;
+                }
+                
+                // Add field referred to the selected type
+                foreach ($info['referedParams']  as $key => $param) {
+                    if ($param["refers_to"] == $selectedMod) {
+                        $info['params'][$key] = $param;
+                    }
+                }
+            }
             return [
                 // pass back the input parameters
                 'area_id' => $area_id,
