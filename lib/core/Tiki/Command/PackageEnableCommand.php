@@ -11,10 +11,10 @@ namespace Tiki\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Tiki\Package\ExtensionManager;
+use TikiLib;
 
 class PackageEnableCommand extends Command
 {
@@ -32,6 +32,7 @@ class PackageEnableCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $logslib = TikiLib::lib('logs');
         $io = new SymfonyStyle($input, $output);
 
         $packageName = $input->getArgument('package');
@@ -49,6 +50,7 @@ class PackageEnableCommand extends Command
         $success = ExtensionManager::enableExtension($packageName, $path);
         $messages = ExtensionManager::getMessages();
         $io->writeln(implode(PHP_EOL, $messages));
+        $logslib->add_action('package enable', 'system', 'system', $packageName . ' package enabled');
 
         if ($success && $update) {
             $io->success(tr('Extension %0 was updated', $packageName));

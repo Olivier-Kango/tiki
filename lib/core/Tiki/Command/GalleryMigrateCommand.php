@@ -11,6 +11,7 @@ namespace Tiki\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TikiLib;
 
 /**
  * Allows the migration of images from the Image Gallery (deprecated) to the File Gallery
@@ -28,6 +29,8 @@ class GalleryMigrateCommand extends Command
     {
         global $prefs;
 
+        $logslib = TikiLib::lib('logs');
+
         $fileGalLib = \TikiLib::lib('filegal');
 
         if ($fileGalLib->is_default_gallery_writable()) {
@@ -35,6 +38,12 @@ class GalleryMigrateCommand extends Command
 
             if ($containerGalleryId) {
                 $output->writeln('<info>' . tr('All image galleries and files migrated to file gallery #%0', $containerGalleryId) . '</info>');
+                $logslib->add_action(
+                    'gallery migrate',
+                    'system',
+                    'system',
+                    'All image galleries and files migrated to file gallery #' . $containerGalleryId
+                );
                 if ($prefs['file_galleries_redirect_from_image_gallery'] !== 'y') {
                     $output->writeln(
                         '<comment>' . tr(

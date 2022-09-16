@@ -13,6 +13,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tiki\Lib\Logs\LogsLib;
+use TikiLib;
 
 class FilesBatchuploadCommand extends Command
 {
@@ -97,8 +99,10 @@ class FilesBatchuploadCommand extends Command
             throw new \Exception("Feature Batch Uploading not set up, please refer to https://doc.tiki.org/Batch+Upload for instructions");
         }
 
-        $filegallib = \TikiLib::lib('filegal');
-        $filegalbatchlib = \TikiLib::lib('filegalbatch');
+        $filegallib = TikiLib::lib('filegal');
+        $filegalbatchlib = TikiLib::lib('filegalbatch');
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
 
         $galleryId = (int) $input->getArgument('galleryId');
         if (empty($galleryId)) {
@@ -175,6 +179,13 @@ class FilesBatchuploadCommand extends Command
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln('<comment>Files Batch Upload complete</comment>');
             }
+
+            $logslib->add_action(
+                'files batch upload',
+                'system',
+                'system',
+                'Files batch uploaded from ' . $prefs['fgal_batch_dir'] . ' to gallery #' . $galleryId
+            );
         } else {
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln("<comment>Files to upload from {$prefs['fgal_batch_dir']} to gallery #$galleryId</comment>");

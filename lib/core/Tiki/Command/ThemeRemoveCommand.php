@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Tiki\Lib\Logs\LogsLib;
 use Tiki\Theme\Handler as ThemeHandler;
 use TikiLib;
 
@@ -54,6 +55,8 @@ class ThemeRemoveCommand extends Command
         $themeHandler = new ThemeHandler();
         $themeName = $themeHandler->getNameCamelCase($themeName);
 
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
         $themelib = TikiLib::lib('theme');
         $listThemes = $themelib->get_themes();
         if (! in_array($themeName, $listThemes)) {
@@ -67,6 +70,12 @@ class ThemeRemoveCommand extends Command
             $fs = new Filesystem();
             $fs->remove($fullThemePath);
             $output->writeln('<info>' . tr('Theme removed successfully') . '</info>');
+            $logslib->add_action(
+                'theme remove',
+                'system',
+                'system',
+                'Theme' . $themeName . ' removed'
+            );
         } catch (IOExceptionInterface $e) {
             $output->writeln('<error>' . tr('An error occurred while deleting theme') . $themeName . '</error>');
         }

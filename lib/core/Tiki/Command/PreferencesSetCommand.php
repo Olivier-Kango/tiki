@@ -35,6 +35,7 @@ class PreferencesSetCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $logslib = TikiLib::lib('logs');
         $preference = $input->getArgument('name');
         $value = $input->getArgument('value');
 
@@ -61,6 +62,14 @@ class PreferencesSetCommand extends Command
             $output->writeln(sprintf('Preference %s was set.', $preference));
         } else {
             $output->writeln('<error>Unable to set preference.</error>');
+        }
+
+        if ($value === 'y') {
+            $logslib->add_action('feature', $preference, 'system', 'enabled');
+        } elseif ($value === 'n') {
+            $logslib->add_action('feature', $preference, 'system', 'disabled');
+        } else {
+            $logslib->add_action('feature', $preference, 'system', is_array($value) ? implode(',', $value) : $value);
         }
     }
 }

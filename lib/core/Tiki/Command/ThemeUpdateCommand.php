@@ -13,10 +13,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
+use Tiki\Lib\Logs\LogsLib;
 use Tiki\Theme\Handler as ThemeHandler;
 use Tiki\Theme\Menu as ThemeMenu;
 use Tiki\Theme\Module as ThemeModule;
 use Tiki\Theme\Zip as ThemeZip;
+use TikiLib;
 use ZipArchive;
 use Exception;
 use Tiki\Installer\Installer;
@@ -52,6 +54,9 @@ class ThemeUpdateCommand extends Command
     {
         global $tikipath;
         $tikiRootFolder = ! empty($tikipath) ? $tikipath : dirname(dirname(dirname(dirname(__DIR__))));
+
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
 
         $file = $input->getArgument('file');
         if (! file_exists($file)) {
@@ -149,6 +154,7 @@ class ThemeUpdateCommand extends Command
                 }
                 $themeZip->copyThemeFiles();
                 $output->writeln('<info>' . tr('Theme updated:') . ' ' . $camelCaseThemeName . '</info>');
+                $logslib->add_action('theme update', 'system', 'system', 'Theme ' . $camelCaseThemeName . ' updated');
             }
         } catch (Exception $ex) {
             $output->writeln('<error>' . tr('Could not open file') . '</error>');

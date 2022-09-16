@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Tiki\Package\ExtensionManager;
+use TikiLib;
 
 class PackageDisableCommand extends Command
 {
@@ -38,6 +39,8 @@ class PackageDisableCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $logslib = TikiLib::lib('logs');
+
         $io = new SymfonyStyle($input, $output);
 
         $availablePaths = [
@@ -64,6 +67,7 @@ class PackageDisableCommand extends Command
         $success = ExtensionManager::disableExtension($packageName, $rollback);
         $messages = ExtensionManager::getMessages();
         $io->writeln(implode(PHP_EOL, $messages));
+        $logslib->add_action('package disable', 'system', 'system', $packageName . ' package disabled.');
 
         if ($success) {
             $io->success(tr('Extension %0 is now disabled', $packageName));

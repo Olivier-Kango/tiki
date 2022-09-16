@@ -14,9 +14,11 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Tiki\Lib\Logs\LogsLib;
 use Tiki\Package\ComposerManager;
 use Tiki\Package\ComposerPackage;
 use Tiki\Package\PackageCommandHelper;
+use TikiLib;
 
 class PackageUpdateCommand extends Command
 {
@@ -68,6 +70,9 @@ class PackageUpdateCommand extends Command
         $this->io = new SymfonyStyle($input, $output);
         $this->output = $output;
         $this->composerManager = new ComposerManager($tikipath);
+
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
 
         if (! $this->composerManager->composerIsAvailable()) {
             $output->writeln(
@@ -126,6 +131,7 @@ class PackageUpdateCommand extends Command
         foreach ($packagesToUpdate as $package) {
             $this->updatePackage($package);
         }
+        $logslib->add_action('package update', 'system', 'system', count($packagesToUpdate) . ' packages updated.');
     }
 
     protected function promptPackageUpdate($packages)

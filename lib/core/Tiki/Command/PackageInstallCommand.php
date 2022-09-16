@@ -17,6 +17,7 @@ use Tiki\Package\ComposerManager;
 use Tiki\Package\PackageCommandHelper;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputOption;
+use TikiLib;
 
 class PackageInstallCommand extends Command
 {
@@ -84,6 +85,7 @@ class PackageInstallCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $logslib = TikiLib::lib('logs');
         global $tikipath;
         $composerManager = new ComposerManager($tikipath);
 
@@ -124,6 +126,7 @@ class PackageInstallCommand extends Command
                     $result = $composerManager->installPackage($packageKey);
                     $io->newLine();
                     $output->writeln($result);
+                    $logslib->add_action('package install', 'system', 'system', $packageKey . ' package installed.');
                 }
             } else {
                 $output->writeln('<comment>' . tr('No packages available to be installed.') . '</comment>');

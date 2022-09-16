@@ -13,6 +13,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tiki\Lib\Logs\LogsLib;
+use TikiLib;
 
 class TrackerImportCommand extends Command
 {
@@ -45,7 +47,9 @@ class TrackerImportCommand extends Command
 
         $output->writeln('Importing tracker...');
 
-        $lib = \TikiLib::lib('tabular');
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
+        $lib = TikiLib::lib('tabular');
         $info = $lib->getInfo($input->getArgument('tabularId'));
 
         $perms = \Perms::get('tabular', $info['tabularId']);
@@ -105,6 +109,7 @@ class TrackerImportCommand extends Command
         \Feedback::printToConsole($output);
 
         $output->writeln('Import done');
+        $logslib->add_action('tracker import', 'system', 'system', 'tracker #' . $info['trackerId'] . ' imported.');
 
         return(0);
     }

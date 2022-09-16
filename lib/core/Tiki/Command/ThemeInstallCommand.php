@@ -19,6 +19,7 @@ use Tiki\Theme\Menu as ThemeMenu;
 use Tiki\Theme\Module as ThemeModule;
 use Tiki\Theme\ThemeInstaller;
 use Tiki\Theme\Zip as ThemeZip;
+use TikiLib;
 use ZipArchive;
 use Exception;
 use Tiki\Installer\Installer;
@@ -55,6 +56,8 @@ class ThemeInstallCommand extends Command
         global $tikipath;
         $tikiRootFolder = ! empty($tikipath) ? $tikipath : dirname(dirname(dirname(dirname(__DIR__))));
 
+        $logslib = TikiLib::lib('logs');
+
         $file = $input->getArgument('file');
         if (! file_exists($file)) {
             $output->writeln('<error>' . tr('File not found') . '</error>');
@@ -85,7 +88,9 @@ class ThemeInstallCommand extends Command
             foreach ($themeInstaller->getMessages() as $message) {
                 $output->writeln($message);
             }
-            $output->writeln('<info>' . tr('Theme installed:') . ' ' . $themeInstaller->getThemeName() . '</info>');
+            $themeName = $themeInstaller->getThemeName();
+            $output->writeln('<info>' . tr('Theme installed:') . ' ' . $themeName . '</info>');
+            $logslib->add_action('theme install', 'system', 'system', 'Theme ' . $themeName . ' installed.');
         } catch (Exception $ex) {
             $output->writeln($ex->getMessage());
             return;

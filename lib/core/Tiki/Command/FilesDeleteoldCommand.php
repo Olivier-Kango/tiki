@@ -9,10 +9,10 @@
 namespace Tiki\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TikiLib;
 
 class FilesDeleteoldCommand extends Command
 {
@@ -34,6 +34,8 @@ class FilesDeleteoldCommand extends Command
     {
         $confirm = $input->getOption('confirm');
 
+        $logslib = TikiLib::lib('logs');
+
         $perms = \Perms::get();
         if (! $perms->admin_file_galleries) {
             throw new \Exception('Tracker Clear: Admin permission required');
@@ -49,6 +51,8 @@ class FilesDeleteoldCommand extends Command
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln('<info>Deleting old filegal files done</info>');
             }
+
+            $logslib->add_action('files delete', 'system', 'system', 'Deleted old files');
         } else {
             $query = 'select * from `tiki_files` where `deleteAfter` < ? - `lastModif` and `deleteAfter` is not NULL and `deleteAfter` != \'\' order by galleryId asc';
             $now = time();

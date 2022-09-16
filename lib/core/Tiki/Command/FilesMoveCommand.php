@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\HelpCommand;
+use TikiLib;
 
 class FilesMoveCommand extends Command
 {
@@ -44,6 +45,8 @@ class FilesMoveCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         global $prefs;
+
+        $logslib = TikiLib::lib('logs');
 
         if ($prefs['feature_file_galleries'] != 'y') {
             throw new \Exception(tra('Feature Galleries not set up'));
@@ -102,5 +105,12 @@ class FilesMoveCommand extends Command
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
             $output->writeln('<comment>' . tra('File Move complete') . '</comment>');
         }
+
+        $logslib->add_action(
+            'files move',
+            'system',
+            'system',
+            'Moving files from gallery #' . $galleryId . ' to folder' . $destinationPath . ' completed.' . count($files) . ' Files moved.'
+        );
     }
 }

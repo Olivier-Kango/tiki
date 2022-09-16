@@ -14,6 +14,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tiki\Lib\Logs\LogsLib;
+use TikiLib;
 
 class UserUnlockCommand extends Command
 {
@@ -36,9 +38,11 @@ class UserUnlockCommand extends Command
             );
     }
 
-    private function _unlock_users($identifiers)
+    private function unlockUsers($identifiers)
     {
-        $userlib = \TikiLib::lib('user');
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
+        $userlib = TikiLib::lib('user');
 
         $return = [];
         foreach ($identifiers as $identifier) {
@@ -58,6 +62,8 @@ class UserUnlockCommand extends Command
                 $userlib->confirm_user($user['login']);
                 $row['result'] = 'success';
                 $row['message'] = 'user unlocked';
+
+                $logslib->add_action('adminusers', 'system', 'system', 'User ' . $user['login'] . ' unlocked');
             }
             $return[] = $row;
         }
@@ -66,12 +72,10 @@ class UserUnlockCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        global $prefs;
-
         $identifiers = $input->getArgument('identifiers');
         $format = $input->getOption('format') ?? 'table';
 
-        $result = $this->_unlock_users($identifiers);
+        $result = $this->unlockUsers($identifiers);
 
         if ($format === 'json') {
             $output->write(json_encode($result, JSON_PRETTY_PRINT));

@@ -11,8 +11,8 @@ namespace Tiki\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TikiLib;
 
 class FilesCopyCommand extends Command
 {
@@ -37,6 +37,8 @@ class FilesCopyCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         global $prefs;
+
+        $logslib = TikiLib::lib('logs');
 
         if ($prefs['feature_file_galleries'] != 'y') {
             throw new \Exception(tra('Feature Galleries not set up'));
@@ -85,5 +87,12 @@ class FilesCopyCommand extends Command
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
             $output->writeln('<comment>' . tra('File Copy complete') . '</comment>');
         }
+
+        $logslib->add_action(
+            'files copy',
+            'system',
+            'system',
+            'Copying files from gallery #' . $galleryId . ' to folder' . $destinationPath . ' completed.' . count($files) . ' Files copied.'
+        );
     }
 }

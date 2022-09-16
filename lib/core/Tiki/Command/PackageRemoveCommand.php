@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Tiki\Package\ComposerManager;
 use Tiki\Package\PackageCommandHelper;
+use TikiLib;
 
 class PackageRemoveCommand extends Command
 {
@@ -44,6 +45,8 @@ class PackageRemoveCommand extends Command
     {
         global $tikipath;
         $composerManager = new ComposerManager($tikipath);
+
+        $logslib = TikiLib::lib('logs');
 
         if ($composerManager->composerIsAvailable()) {
             $installedComposerPackages = $composerManager->getInstalled();
@@ -90,6 +93,7 @@ class PackageRemoveCommand extends Command
                         $result = $composerManager->removePackage($packageKey);
                         $io->newLine();
                         $output->writeln($result);
+                        $logslib->add_action('package remove', 'system', 'system', $packageKey . ' package removed.');
                     }
                 }
             }

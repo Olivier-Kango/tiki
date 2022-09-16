@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TikiLib;
 
 class UsersPasswordCommand extends Command
 {
@@ -44,7 +45,8 @@ class UsersPasswordCommand extends Command
 
         global $prefs;
 
-        $userlib = \TikiLib::lib('user');
+        $userlib = TikiLib::lib('user');
+        $logslib = TikiLib::lib('logs');
 
         $user = $input->getArgument('username');
 
@@ -78,5 +80,6 @@ class UsersPasswordCommand extends Command
 
         $userlib->change_user_password($user, $password);
         $output->writeln('Password changed successfully.');
+        $logslib->add_action('adminusers', 'system', 'system', 'Password changed for ' . $user);
     }
 }

@@ -13,7 +13,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Tiki_Profile;
+use Tiki\Lib\Logs\LogsLib;
+use TikiLib;
 
 class ProfileForgetCommand extends Command
 {
@@ -52,7 +53,9 @@ class ProfileForgetCommand extends Command
             return;
         }
 
-        $tikilib = \TikiLib::lib('tiki');
+        $tikilib = TikiLib::lib('tiki');
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
 
         $installer = new \Tiki_Profile_Installer();
         $isInstalled = $installer->isInstalled($profile);
@@ -62,11 +65,11 @@ class ProfileForgetCommand extends Command
 
             if ($input->getOption('revert')) {
                 $query = "SELECT * FROM tiki_actionlog where action = 'profile apply' and object=? ORDER BY actionId DESC LIMIT 1";
-                $result = \TikiLib::lib('logs')->query($query, [$profileName]);
+                $result = $logslib->query($query, [$profileName]);
                 if ($logResult = $result->fetchRow()) {
                     $revertInfo = unserialize($logResult['log']);
                     if (! isset($revertInfo['reverted'])) {
-                        \TikiLib::lib('logs')->revert_action($logResult['actionId'], $logResult['object'], 'profiles', $revertInfo);
+                        $logslib->revert_action($logResult['actionId'], $logResult['object'], 'profiles', $revertInfo);
                         $installer->revert($profile, $revertInfo);
                     }
                 } else {
@@ -77,6 +80,7 @@ class ProfileForgetCommand extends Command
             $installer->forget($profile);
             $transaction->commit();
             $output->writeln('Profile forgotten.');
+            $logslib->add_action('profile forget', 'system', 'system', $profileName . ' profile forgotten.');
         } else {
             $output->writeln('<info>Profile was not installed or did not create any objects.</info>');
         }

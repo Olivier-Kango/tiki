@@ -14,6 +14,8 @@ use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Tiki\Lib\Logs\LogsLib;
+use TikiLib;
 
 /**
  * Command to approve a list of plugin usages
@@ -42,6 +44,8 @@ class PluginApproveRunCommand extends Command
     {
         $logger = new ConsoleLogger($output);
 
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
         $parserLib = \TikiLib::lib('parser');
         $pluginFingerprints = $input->getArgument('pluginFingerprints');
         $all = $input->getOption('all');
@@ -58,12 +62,14 @@ class PluginApproveRunCommand extends Command
         if ($all) {
             $logger->info(tr('Approving all pending plugins'));
             $parserLib->approve_all_pending_plugins();
+            $logslib->add_action('plugin approve', 'system', 'system', 'Approved all pending plugins.');
         } elseif ($pluginFingerprints) {
             $logger->info(tr('Approving a list of plugins'));
             foreach (explode(',', $pluginFingerprints) as $fingerprint) {
                 $logger->debug(tr('Approving plugin %0', $fingerprint));
                 $parserLib->approve_selected_pending_plugings($fingerprint);
             }
+            $logslib->add_action('plugin approve', 'system', 'system', count($pluginFingerprints) . ' plugins approved');
         }
 
         $output->writeln(tr('Plugins approved with success'));

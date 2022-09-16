@@ -13,6 +13,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tiki\Lib\Logs\LogsLib;
+use TikiLib;
 
 class TrackerClearCommand extends Command
 {
@@ -37,6 +39,9 @@ class TrackerClearCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
+
         $output->writeln('<info>Clearing tracker...</info>');
 
         $trackerId = $input->getArgument('trackerId');
@@ -57,6 +62,7 @@ class TrackerClearCommand extends Command
         if ($confirm) {
             $utilities->clearTracker($trackerId);
             $output->writeln('<info>Tracker clear done</info>');
+            $logslib->add_action('tracker clear', 'system', 'system', 'tracker #' . $trackerId . ' cleared.');
         } else {
             $name = $tracker->getConfiguration('name');
             $output->writeln("<info>Use the --confirm option to proceed with the clear operation.</info>");

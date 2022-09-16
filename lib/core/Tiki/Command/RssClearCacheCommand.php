@@ -13,6 +13,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tiki\Lib\Logs\LogsLib;
+use TikiLib;
 
 class RssClearCacheCommand extends Command
 {
@@ -49,6 +51,9 @@ class RssClearCacheCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
+
         $all = $input->getOption('all');
         $rssId = $input->getArgument('rssId');
         $olderthan = $input->getOption('olderthandays');
@@ -58,7 +63,7 @@ class RssClearCacheCommand extends Command
             $olderthan = $input->getOption('olderthan');
         }
 
-        $rsslib = \TikiLib::lib('rss');
+        $rsslib = TikiLib::lib('rss');
 
         if ($all) {
             $modules = $rsslib->list_rss_modules(0, -1, '', '');
@@ -76,5 +81,6 @@ class RssClearCacheCommand extends Command
         }
 
         $output->writeln('<info>Done.</info>');
+        $logslib->add_action('rss clear cache', 'system', 'system', 'RSS cache cleared');
     }
 }

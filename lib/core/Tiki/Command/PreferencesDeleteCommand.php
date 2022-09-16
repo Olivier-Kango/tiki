@@ -12,6 +12,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tiki\Lib\Logs\LogsLib;
 use TikiLib;
 
 class PreferencesDeleteCommand extends Command
@@ -30,8 +31,11 @@ class PreferencesDeleteCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
         $preference = $input->getArgument('name');
 
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
         $tikilib = TikiLib::lib('tiki');
         $prefslib = TikiLib::lib('prefs');
 
@@ -42,12 +46,9 @@ class PreferencesDeleteCommand extends Command
             return;
         }
 
-        $value = $tikilib->delete_preference($preference);
-
-        if (! empty($preferenceInfo['separator']) && is_array($value)) {
-            $value = implode($preferenceInfo['separator'], $value);
-        }
+        $tikilib->delete_preference($preference);
 
         $output->writeln(sprintf('Preference %s was deleted', $preference));
+        $logslib->add_action('feature', $preference, 'system', 'deleted');
     }
 }

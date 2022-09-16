@@ -15,6 +15,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Tiki\Lib\Logs\LogsLib;
+use TikiLib;
 
 class UserCreateCommand extends Command
 {
@@ -52,6 +54,9 @@ class UserCreateCommand extends Command
     {
         global $prefs;
 
+        /** @var LogsLib $logslib */
+        $logslib = TikiLib::lib('logs');
+
         $login_is_email = ! empty($prefs['login_is_email'])
             && $prefs['login_is_email'] != 'n';
 
@@ -70,7 +75,7 @@ class UserCreateCommand extends Command
 
         $groups = $input->getOption('groups');
         $password = $input->getOption('password');
-        $userlib = \TikiLib::lib('user');
+        $userlib = TikiLib::lib('user');
 
         if ($userlib->user_exists($login)) {
             throw new \Exception("User already exists", 1);
@@ -94,5 +99,6 @@ class UserCreateCommand extends Command
 
         $user = $userlib->get_user_info($user);
         $output->write(json_encode($user, JSON_PRETTY_PRINT));
+        $logslib->add_action('adminusers', 'system', 'system', 'New user created with username ' . $user['login']);
     }
 }
