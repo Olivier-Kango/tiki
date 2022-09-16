@@ -353,7 +353,6 @@ class Search_Query implements Search_Query_Interface
             $this->sortOrder = null;
             $resultset = $index->find($this, $this->start, $this->count);
         } catch (Exception $e) {
-            var_dump($e);
             if (empty($e->suppress_feedback)) {
                 Feedback::error(tr('Malformed search query:') . ' ' . $e->getMessage());
                 trigger_error($e->getMessage(), E_USER_WARNING);

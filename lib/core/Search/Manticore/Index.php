@@ -195,12 +195,47 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             ->limit($resultCount)
             ->get();
 
+        $fieldMapping = $prefs['unified_field_mapping'] ?? '';
+        if ($fieldMapping) {
+            $fieldMapping = json_decode($fieldMapping, true);
+        }
+
+        $timestampFields = [];
+        foreach ($this->providedMappings as $field => $mapping) {
+            if (in_array('timestamp', $mapping['types'])) {
+                $timestampFields[] = $field;
+            }
+        }
+
         $entries = [];
         foreach ($result as $entry) {
             $data = (array) $entry->getData();
+
             if (isset($data['_score'])) {
                 $data['score'] = round($data['_score'], 2);
             }
+
+            // Manticore stores datetimes as timestamp values while MySQL/ES store as datetime strings
+            // Tiki interface expects datetime strings in GMT, so we need a conversion before using the result
+            foreach ($timestampFields as $tsField) {
+                if (! empty($data[$tsField])) {
+                    $dt = new Search_Type_DateTime($data[$tsField]);
+                    $data[$tsField] = $dt->getValue();
+                    $data['ignored_fields'][] = $fieldMapping[$tsField] ?? $tsField;
+                }
+            }
+
+            // convert lowercase stored field names back to Tiki equivalents
+            if ($fieldMapping) {
+                $mapped = [];
+                foreach ($data as $key => $value) {
+                    $key = $fieldMapping[$key] ?? $key;
+                    $mapped[$key] = $value;
+                }
+                $data = $mapped;
+                unset($mapped);
+            }
+
             $entries[] = $data;
         }
 
@@ -288,5 +323,17 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     public function getFieldMappings()
     {
         return $this->providedMappings;
+    }
+
+    /**
+     * Manticore/sphinx stores attribute names in lower case, so we need a mapping when building the result set from searches
+     * @return array of key/value pairs with mapping between Manticore and Tiki fields
+     */
+    public function getFieldNameMapping()
+    {
+        $fields = array_keys($this->providedMappings);
+        return array_combine(array_map(function($field) {
+            return strtolower($field);
+        }, $fields), $fields);
     }
 }
