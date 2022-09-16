@@ -69,6 +69,12 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     private function generateMapping($type, $data)
     {
+        $fieldMapping = $this->getUnifiedFieldMapping();
+
+        $providedMappingsCorrectName = array_flip(array_map(function($field) use ($fieldMapping) {
+            return $fieldMapping[$field] ?? $field;
+        }, array_keys($this->providedMappings)));
+
         $mapping = array_map(
             function ($entry) {
                 if ($entry instanceof Search_Type_Numeric) {
@@ -106,20 +112,31 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
                     ];
                 }
             },
-            array_diff_key($data, $this->providedMappings)
+            array_diff_key($data, $providedMappingsCorrectName)
         );
+
         if (empty($this->providedMappings)) {
             $this->pdo_client->createIndex($this->index, $mapping, $this->getIndexSettings());
+            $is_update = false;
         } else {
             foreach ($mapping as $field => $type) {
                 $this->pdo_client->alter($this->index, 'add', $field, $type['type']);
             }
+            $is_update = true;
         }
+
         foreach ($mapping as $field => $type) {
             $this->providedMappings[$field] = [
                 'types' => $type['type'] == 'text' ? ['text', 'string'] : [$type['type']],
                 'options' => $type['options'] ?? [],
             ];
+            if ($is_update) {
+                $fieldMapping[strtolower($field)] = $field;
+            }
+        }
+
+        if ($is_update && $mapping) {
+            TikiLib::lib('tiki')->set_preference('unified_field_mapping', json_encode($fieldMapping));
         }
     }
 
@@ -171,8 +188,6 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
      */
     public function find(Search_Query_Interface $query, $resultStart, $resultCount)
     {
-        global $prefs;
-
         $search = $this->initSearch();
 
         $decorator = new Search_Manticore_QueryDecorator($search, $this);
@@ -195,10 +210,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             ->limit($resultCount)
             ->get();
 
-        $fieldMapping = $prefs['unified_field_mapping'] ?? '';
-        if ($fieldMapping) {
-            $fieldMapping = json_decode($fieldMapping, true);
-        }
+        $fieldMapping = $this->getUnifiedFieldMapping();
 
         $timestampFields = [];
         foreach ($this->providedMappings as $field => $mapping) {
@@ -335,5 +347,16 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         return array_combine(array_map(function($field) {
             return strtolower($field);
         }, $fields), $fields);
+    }
+
+    protected function getUnifiedFieldMapping() {
+        global $prefs;
+
+        $fieldMapping = $prefs['unified_field_mapping'] ?? '';
+        if ($fieldMapping) {
+            $fieldMapping = json_decode($fieldMapping, true);
+        }
+
+        return $fieldMapping;
     }
 }

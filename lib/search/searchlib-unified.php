@@ -314,6 +314,7 @@ class UnifiedSearchLib
                     // Obtain the old index and destroy it after permanently replacing it.
                     $oldIndex = $this->getIndex('data', false);
                     $tikilib->set_preference('unified_manticore_index_current', $indexName);
+
                     break;
             }
 
