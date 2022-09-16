@@ -2022,7 +2022,7 @@
         "league/event": "^2.1",
         "league/flysystem": ">=2.0.0-beta.3",
         "league/oauth2-server": "^7.3",
-        "manticoresoftware/manticoresearch-php": ">=1.8.0",
+        "manticoresoftware/manticoresearch-php": ">=2.2.0",
         "mathjax/mathjax": "^2.7",
         "matthiasmullie/minify": ">=1.3.42",
         "matthiasmullie/path-converter": ">=1.1.0",
