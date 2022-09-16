@@ -15,12 +15,14 @@ class Services_Manager_Utilities
 {
     use Services_Manager_Trait;
 
-    public function loadEnv($isWeb = true) {
+    public function loadEnv($isWeb = true)
+    {
         $this->loadManagerEnv($isWeb);
         $this->setManagerOutput();
     }
 
-    public function getManagerOutput() {
+    public function getManagerOutput()
+    {
         return $this->manager_output;
     }
 
@@ -54,7 +56,7 @@ class Services_Manager_Utilities
         $versions = $vcs->getAvailableBranches();
         foreach ($versions as $key => $version) {
             preg_match('/(\d+\.|trunk|master)/', $version->branch, $matches);
-            if (!array_key_exists(0, $matches)) {
+            if (! array_key_exists(0, $matches)) {
                 continue;
             }
             $available[] = $version->branch;
@@ -63,5 +65,35 @@ class Services_Manager_Utilities
         chdir($dir);
 
         return $available;
+    }
+
+    /**
+     * Check if Tiki manager feature is enabled and Tiki manager package installed
+     */
+    public function tikiManagerCheck()
+    {
+        Services_Exception_Disabled::check('feature_tiki_manager');
+        $this->ensureInstalled();
+    }
+
+    public function addInteractiveJS($consoleCommand)
+    {
+        $headerLib = TikiLib::lib('header');
+            $js = '
+                var WSResponseContainer = document.getElementById("ws-response-container");
+                var tikiWS = tikiOpenWS("console");
+
+                WSResponseContainer.removeAttribute("hidden");
+                tikiWS.onmessage = function(e) {
+                    $("#ws-response-container").append(e.data.trim().replaceAll("\n", "<br>\n") + "<br>");
+                };
+                tikiWS.onopen = function(e) {
+                    tikiWS.send("' . $consoleCommand . '");
+                };
+                tikiWS.onerror = function(e) {
+                    $("#ws-response-container").append("<span class=\"error\">Error connecting to realtime communication server. If it is not set up correctly, you can disable realtime setting from Tiki admin.</span>");
+                };
+            ';
+            $headerLib->add_jq_onready($js);
     }
 }

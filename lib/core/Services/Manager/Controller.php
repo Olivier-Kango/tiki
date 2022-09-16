@@ -37,10 +37,10 @@ class Services_Manager_Controller
         global $prefs;
         if ($prefs['feature_realtime'] === 'y') {
             $command = 'manager:manager:info --ansi';
+            $this->addInteractiveJS($command);
             return [
                 'override_action' => 'interactive',
-                'title' => tr('Tiki Manager Info'),
-                'command' => $command,
+                'title' => tr('Tiki Manager Info')
             ];
         } else {
             $this->runCommand(new TikiManager\Command\ManagerInfoCommand());
@@ -58,10 +58,10 @@ class Services_Manager_Controller
         if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
             if ($prefs['feature_realtime'] === 'y') {
                 $command = 'manager:instance:update -i ' . $instanceId . ' --ansi';
+                $this->addInteractiveJS($command);
                 return [
                     'override_action' => 'interactive',
-                    'title' => tr('Tiki Manager Update'),
-                    'command' => $command,
+                    'title' => tr('Tiki Manager Update')
                 ];
             } else {
                 Scheduler_Manager::queueJob('Update instance ' . $instanceId, 'ConsoleCommandTask', ['console_command' => 'manager:instance:update -i ' . $instanceId]);
@@ -83,6 +83,8 @@ class Services_Manager_Controller
 
     public function action_upgrade($input)
     {
+        global $prefs;
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $availbleInstances = TikiManager\Application\Instance::getInstances(true);
             $availbleInstancesIds = array_map(function ($element) {
@@ -113,8 +115,16 @@ class Services_Manager_Controller
 
             $consoleCommand = 'manager:instance:upgrade -i ' . $instances . ' --branch=' . $branch . (($check) ? ' --check' : '') . (($skipReindex) ? ' --skip-reindex' : '') . (($skipCacheWarmup) ? ' --skip-cache-warmup' : '') . (($liveReindex) ? ' --live-reindex' : '') . ' --lag=' . $lag . (($stash) ? ' --stash' : '') . (($ignoreRequirements) ? ' --ignore-requirements' : '');
 
-            Scheduler_Manager::queueJob('Upgrade instance ' . $instances, 'ConsoleCommandTask', ['console_command' => $consoleCommand]);
-            Feedback::success(tr("Instance %0 scheduled to upgrade in the background. You can check command output via <a href='tiki-admin_schedulers.php#contenttabs_admin_schedulers-3'>Scheduler logs</a>.", $instances));
+            if ($prefs['feature_realtime'] === 'y') {
+                $this->addInteractiveJS($consoleCommand);
+                return [
+                    'override_action' => 'interactive',
+                    'title' => tr('Tiki Manager Upgrade')
+                ];
+            } else {
+                Scheduler_Manager::queueJob('Upgrade instance ' . $instances, 'ConsoleCommandTask', ['console_command' => $consoleCommand]);
+                Feedback::success(tr("Instance %0 scheduled to upgrade in the background. You can check command output via <a href='tiki-admin_schedulers.php#contenttabs_admin_schedulers-3'>Scheduler logs</a>.", $instances));
+            }
         } else {
             $instanceId = $input->instanceId->int();
             $instance = TikiManager\Application\Instance::getInstance($instanceId);
@@ -124,11 +134,11 @@ class Services_Manager_Controller
                 $boolOptions = '<option value="" disabled selected hidden></option>'
                                . '<option value="1">True</option>'
                                . '<option value="0">False</option>';
-                
+
                 $instancesIds = new JitFilter(['instancesIds' => [$instanceId]]);
                 $versions = $this->action_get_instances_upper_versions($instancesIds);
                 $upperVersions = $versions['upperVersions'];
-                
+
                 return [
                     'title' => tr('Instances Upgrade'),
                     'info' => '',
@@ -150,22 +160,24 @@ class Services_Manager_Controller
     }
 
     // This function allows to get upgrade versions of selected instances for the instance:upgrade commande to prevent a downgrade(not suported by Tiki)
-    public function action_get_instances_upper_versions($input) { 
+    public function action_get_instances_upper_versions($input)
+    {
         $instancesIds = $input->instancesIds->array();
         $availableInstances = TikiManager\Application\Instance::getInstances(true);
-        $instances = array_filter($availableInstances, function($i) use ($instancesIds) {
+        $instances = array_filter($availableInstances, function ($i) use ($instancesIds) {
             return in_array($i->id, $instancesIds);
         });
 
-        $instancesMaxVersion = max(array_map(function($i) {
+        $instancesMaxVersion = max(array_map(function ($i) {
             return $i->branch;
         }, $instances));
 
-        $tikiVersions = array_filter($this->getTikiBranches(), function($i) { // Excluding tags from tiki versions
+        // Excluding tags from tiki versions
+        $tikiVersions = array_filter($this->getTikiBranches(), function ($i) {
             return ! preg_match("#^tags(.*)$#i", $i);
         });
-        
-        $instancesUpperVersions = array_filter($tikiVersions, function($i) use ($instancesMaxVersion) {
+
+        $instancesUpperVersions = array_filter($tikiVersions, function ($i) use ($instancesMaxVersion) {
             if ($i == 'master' || $instancesMaxVersion == 'master') {
                 return $i > $instancesMaxVersion;
             } else {
@@ -178,10 +190,10 @@ class Services_Manager_Controller
                 $v2MajorVersion = (int) $v2Array[0];
                 $v2MinorVersion = $v2Array[1];
 
-                if($v1MajorVersion > $v2MajorVersion) {
+                if ($v1MajorVersion > $v2MajorVersion) {
                     $v1_gt_v2 = true;
-                } elseif($v1MajorVersion == $v2MajorVersion) {
-                    if($v1MinorVersion == 'x' && $v2MinorVersion != 'x') {
+                } elseif ($v1MajorVersion == $v2MajorVersion) {
+                    if ($v1MinorVersion == 'x' && $v2MinorVersion != 'x') {
                         $v1_gt_v2 = true;
                     } elseif ($v1MinorVersion != 'x' && $v2MinorVersion != 'x') {
                         $v1_gt_v2 = (int) $v1MinorVersion > (int) $v2MinorVersion;
@@ -349,7 +361,7 @@ class Services_Manager_Controller
                 "--db-name" => $input->db_name->text(),
             ];
 
-            if ($input->instance_type->text() == 'blank'){
+            if ($input->instance_type->text() == 'blank') {
                 $input_array["--blank"] = true;
                 unset($input_array["--branch"]);
             }
@@ -363,11 +375,11 @@ class Services_Manager_Controller
                 if ($this->validate_password($input->tikipassword->text())) {
                     $this->runCommand($cmd, $inputCommand);
                     $output = $this->manager_output->fetch();
-                    $info = "[OK] Please test your site at ". $input->url->text();
+                    $info = "[OK] Please test your site at " . $input->url->text();
 
                     if (str_contains($output, $info)) {
                         $instance = Instance::getLastInstance();
-                        $command = "users:password admin ". $input->tikipassword->text();
+                        $command = "users:password admin " . $input->tikipassword->text();
                         $cmd = new TikiManager\Command\ConsoleInstanceCommand();
                         $inputCmd = new ArrayInput([
                             'command' => $cmd->getName(),
@@ -437,7 +449,8 @@ class Services_Manager_Controller
         }
     }
 
-    public function validate_password($password) {
+    public function validate_password($password)
+    {
         // Check if the password has at least 8 characters
         return preg_match('/^[a-zA-Z0-9*.!@#\$%^&()\[\]:;<>,?\/~_+-=|]{8,32}$/', $password);
     }
@@ -582,7 +595,7 @@ class Services_Manager_Controller
         foreach ($records as $record) {
             $sources[$record['identifier']] = "{$record['identifier']}: {$record['scheme']}://{$record['domain']}{$record['path']}";
         }
-        
+
         return [
             'title' => tr('Create New Virtualmin Instance'),
             'branches' => $this->getTikiBranches(),
@@ -835,8 +848,7 @@ class Services_Manager_Controller
     {
         $instanceId = $input->instanceId->int();
         if (TikiManager\Application\Instance::getInstance($instanceId)) {
-            
-            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $profile = $input->profile->text();
                 $repository = $input->repository->text();
                 $this->apply_profile($instanceId, $profile, $repository);
@@ -846,10 +858,9 @@ class Services_Manager_Controller
                     'info' => $this->manager_output->fetch(),
                     'refresh' => true,
                 ];
-        
             } else {
                 $input = ["repository" => "profiles.tiki.org"];
-                $input = new JitFilter($input); 
+                $input = new JitFilter($input);
                 return [
                     'title' => tr('Apply a profile'),
                     'info' => '',
@@ -1106,7 +1117,7 @@ class Services_Manager_Controller
                     'action' => 'manager_' . $event
                 ];
 
-                if($event == "backup") {
+                if ($event == "backup") {
                     $inputValues ['number_backups_to_keep'] = '';
                 }
 
@@ -1255,7 +1266,7 @@ class Services_Manager_Controller
             $profiles = array_map(function ($i) {
                 return $i['name'];
             }, $profiles);
-            
+
             return $profiles;
         }
         return [];
@@ -1275,5 +1286,11 @@ class Services_Manager_Controller
         } catch (\Exception $e) {
             Feedback::error($e->getMessage());
         }
+    }
+
+    public function addInteractiveJS($consoleCommand)
+    {
+        $utilities = new Services_Manager_Utilities();
+        $utilities->addInteractiveJS($consoleCommand);
     }
 }
