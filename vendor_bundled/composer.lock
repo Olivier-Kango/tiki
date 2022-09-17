@@ -2462,16 +2462,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/henrique-borba/php-sieve-manager.git",
-                "reference": "51a6a83067355f8f75b73e1ab6540040c854a121"
+                "reference": "e5c87076476e4d23c59f035946ae10e1e907a7e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-51a6a83067355f8f75b73e1ab6540040c854a121-zip-6eadca.zip",
-                "reference": "51a6a83067355f8f75b73e1ab6540040c854a121",
-                "shasum": "100ca2d85abac0716c77432a1b52755cf645fe6d"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-e5c87076476e4d23c59f035946ae10e1e907a7e5-zip-1ab3c2.zip",
+                "reference": "e5c87076476e4d23c59f035946ae10e1e907a7e5",
+                "shasum": "b4f801f937275fa178ca984880a598f401931c3c"
             },
             "require": {
-                "ext-sockets": "*",
                 "php": ">=5.4"
             },
             "type": "library",
@@ -2498,7 +2497,7 @@
                 "php",
                 "sieve"
             ],
-            "time": "2022-07-29T14:09:26+00:00"
+            "time": "2022-09-13T14:28:15+00:00"
         },
         {
             "name": "hesammousavi/bootstrap-v4-rtl",
@@ -2745,17 +2744,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "6d057f61d3776227dc61fc83b53bc675f87f99ac"
+                "reference": "8afaf181eac32e94e97b97c2302ec6d1f575f431"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-6d057f61d3776227dc61fc83b53bc675f87f99ac-zip-948a0f.zip",
-                "reference": "6d057f61d3776227dc61fc83b53bc675f87f99ac",
-                "shasum": "7b63fe783d880e1f7da11eb6d96f8180af8f6992"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-8afaf181eac32e94e97b97c2302ec6d1f575f431-zip-2179ec.zip",
+                "reference": "8afaf181eac32e94e97b97c2302ec6d1f575f431",
+                "shasum": "1f408bb412e5d25b007095516f53245a15341d1b"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
                 "christian-riesen/base32": "^1.3.2",
+                "composer": "^2.0.0",
                 "erusev/parsedown": "^1.8.0-beta-5",
                 "ext-curl": "*",
                 "ext-fileinfo": "*",
@@ -2804,7 +2804,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-09-07T20:56:55+00:00"
+            "time": "2022-09-13T16:55:37+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5568,9 +5568,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/manticoresoftware/manticoresearch-php/zipball/aa2f7f0012deab15bd827f4d4e7f21e9d42c66c7",
+                "url": "https://composer.tiki.org/dist/manticoresoftware/manticoresearch-php/manticoresoftware-manticoresearch-php-aa2f7f0012deab15bd827f4d4e7f21e9d42c66c7-zip-2b13cb.zip",
                 "reference": "aa2f7f0012deab15bd827f4d4e7f21e9d42c66c7",
-                "shasum": ""
+                "shasum": "c9c6d5bc5a917ead6d4980bf0899b04172179a49"
             },
             "require": {
                 "ext-json": "*",
@@ -5618,11 +5618,6 @@
                 "manticoresearch",
                 "search"
             ],
-            "support": {
-                "chat": "https://slack.manticoresearch.com/",
-                "issues": "https://github.com/manticoresoftware/manticoresearch-php/issues",
-                "source": "https://github.com/manticoresoftware/manticoresearch-php/"
-            },
             "time": "2022-08-01T14:27:20+00:00"
         },
         {
@@ -6641,11 +6636,11 @@
         },
         {
             "name": "npm-asset/csstype",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/csstype/npm-asset-csstype-3.1.0.zip",
-                "shasum": "5fa9a037115147d54f1b7903a6f824acae628718"
+                "url": "https://composer.tiki.org/dist/npm-asset/csstype/npm-asset-csstype-3.1.1.zip",
+                "shasum": "18b4907ae5dbc3a8f363a63d51432538752f4d53"
             },
             "type": "npm-asset",
             "license": [
@@ -7464,17 +7459,17 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.17.1",
+            "version": "v1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "ac994053faac18d386328c91c7900f930acadf1e"
+                "reference": "906e0b925895d3a5941eda25f371fbafb3cbc22f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/paragonie/sodium_compat/paragonie-sodium_compat-ac994053faac18d386328c91c7900f930acadf1e-zip-7116c9.zip",
-                "reference": "ac994053faac18d386328c91c7900f930acadf1e",
-                "shasum": "503ada285003f1a4b5a7352006d22188131d2778"
+                "url": "https://composer.tiki.org/dist/paragonie/sodium_compat/paragonie-sodium_compat-906e0b925895d3a5941eda25f371fbafb3cbc22f-zip-2a5bec.zip",
+                "reference": "906e0b925895d3a5941eda25f371fbafb3cbc22f",
+                "shasum": "9568373bff73b661167ae5b619122b733d6a95d9"
             },
             "require": {
                 "paragonie/random_compat": ">=1",
@@ -7542,7 +7537,7 @@
                 "secret-key cryptography",
                 "side-channel resistant"
             ],
-            "time": "2022-03-23T19:32:04+00:00"
+            "time": "2022-09-13T20:54:27+00:00"
         },
         {
             "name": "pclzip/pclzip",
@@ -9182,17 +9177,17 @@
         },
         {
             "name": "react/child-process",
-            "version": "v0.6.4",
+            "version": "v0.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/child-process.git",
-                "reference": "a778f3fb828d68caf8a9ab6567fd8342a86f12fe"
+                "reference": "e71eb1aa55f057c7a4a0d08d06b0b0a484bead43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/react/child-process/react-child-process-a778f3fb828d68caf8a9ab6567fd8342a86f12fe-zip-f40641.zip",
-                "reference": "a778f3fb828d68caf8a9ab6567fd8342a86f12fe",
-                "shasum": "7921eb716d8fa0c5cc2b0773ababbb30d0441704"
+                "url": "https://composer.tiki.org/dist/react/child-process/react-child-process-e71eb1aa55f057c7a4a0d08d06b0b0a484bead43-zip-56a79d.zip",
+                "reference": "e71eb1aa55f057c7a4a0d08d06b0b0a484bead43",
+                "shasum": "0778c552132ff51f794ba00c90300ca8a336106b"
             },
             "require": {
                 "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
@@ -9253,7 +9248,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-10-12T10:37:07+00:00"
+            "time": "2022-09-16T13:41:56+00:00"
         },
         {
             "name": "react/dns",
@@ -10975,17 +10970,17 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v4.2.0",
+            "version": "v4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "97aeb14c6fc2fb733938809926e2f9d6c581a70d"
+                "reference": "ffa2b81a8e354a49fd8a2f24742dc9dc399e8007"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-97aeb14c6fc2fb733938809926e2f9d6c581a70d-zip-6d04f1.zip",
-                "reference": "97aeb14c6fc2fb733938809926e2f9d6c581a70d",
-                "shasum": "198759945fb49b93ac8d63152ade090c0cd664c8"
+                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-ffa2b81a8e354a49fd8a2f24742dc9dc399e8007-zip-0820ea.zip",
+                "reference": "ffa2b81a8e354a49fd8a2f24742dc9dc399e8007",
+                "shasum": "b9c0ff313d27db9184f9467296826b988724253a"
             },
             "require": {
                 "php": "^7.1 || ^8.0"
@@ -11032,7 +11027,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2022-08-01T21:57:38+00:00"
+            "time": "2022-09-14T10:59:01+00:00"
         },
         {
             "name": "sorich87/bootstrap-tour",
@@ -13651,9 +13646,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/f7f6f61194419dcf4447dbe05b78a72601646490",
+                "url": "https://composer.tiki.org/dist/twbs/bootstrap-icons/twbs-bootstrap-icons-f7f6f61194419dcf4447dbe05b78a72601646490-zip-b2e36e.zip",
                 "reference": "f7f6f61194419dcf4447dbe05b78a72601646490",
-                "shasum": ""
+                "shasum": "4dd299f5eefb698a5284d8ae8b23ff2ed6002443"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -13674,10 +13669,6 @@
                 "icons",
                 "svg"
             ],
-            "support": {
-                "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.9.1"
-            },
             "time": "2022-07-16T23:30:40+00:00"
         },
         {
@@ -14604,9 +14595,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kint-php/kint/zipball/0518ee9e1b5b3c7bbf3c9ad837a6591e39dbfab0",
+                "url": "https://composer.tiki.org/dist/kint-php/kint/kint-php-kint-0518ee9e1b5b3c7bbf3c9ad837a6591e39dbfab0-zip-b5fbae.zip",
                 "reference": "0518ee9e1b5b3c7bbf3c9ad837a6591e39dbfab0",
-                "shasum": ""
+                "shasum": "3d65e71713ede7a0b5dc8ec8fad0801a3f38bef5"
             },
             "require": {
                 "php": ">=5.6"
@@ -14653,10 +14644,6 @@
                 "kint",
                 "php"
             ],
-            "support": {
-                "issues": "https://github.com/kint-php/kint/issues",
-                "source": "https://github.com/kint-php/kint/tree/4.2.0"
-            },
             "time": "2022-08-27T12:15:40+00:00"
         },
         {
@@ -15647,17 +15634,17 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "3.0.3",
+            "version": "3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "1071dfcef776a57013124ff35e1fc41ccd294758"
+                "reference": "1dc7ceb4a24aede938c7af2a9ed1de09609ca770"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sebastian/comparator/sebastian-comparator-1071dfcef776a57013124ff35e1fc41ccd294758-zip-bb528e.zip",
-                "reference": "1071dfcef776a57013124ff35e1fc41ccd294758",
-                "shasum": "12810a04e1e8d2e80a00846c58be4b7553f38c11"
+                "url": "https://composer.tiki.org/dist/sebastian/comparator/sebastian-comparator-1dc7ceb4a24aede938c7af2a9ed1de09609ca770-zip-b82f65.zip",
+                "reference": "1dc7ceb4a24aede938c7af2a9ed1de09609ca770",
+                "shasum": "e5b718b09590d6f0e968e74ea2e48745ff5f9ea4"
             },
             "require": {
                 "php": ">=7.1",
@@ -15713,7 +15700,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-30T08:04:30+00:00"
+            "time": "2022-09-14T12:31:48+00:00"
         },
         {
             "name": "sebastian/environment",
@@ -15776,17 +15763,17 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "3.1.4",
+            "version": "3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "0c32ea2e40dbf59de29f3b49bf375176ce7dd8db"
+                "reference": "73a9676f2833b9a7c36968f9d882589cd75511e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sebastian/exporter/sebastian-exporter-0c32ea2e40dbf59de29f3b49bf375176ce7dd8db-zip-d1fd63.zip",
-                "reference": "0c32ea2e40dbf59de29f3b49bf375176ce7dd8db",
-                "shasum": "070452748d0d1cb09a0ec624750345e67306e1a1"
+                "url": "https://composer.tiki.org/dist/sebastian/exporter/sebastian-exporter-73a9676f2833b9a7c36968f9d882589cd75511e6-zip-4b2745.zip",
+                "reference": "73a9676f2833b9a7c36968f9d882589cd75511e6",
+                "shasum": "69cabf82985e352ea3050d99b3049fbbe234373e"
             },
             "require": {
                 "php": ">=7.0",
@@ -15845,7 +15832,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-11T13:51:24+00:00"
+            "time": "2022-09-14T06:00:17+00:00"
         },
         {
             "name": "sebastian/global-state",
