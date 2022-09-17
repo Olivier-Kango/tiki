@@ -47,6 +47,7 @@
             $definition = Tracker_Definition::get($to_tracker);
             $utilities = new Services_Tracker_Utilities();
 
+            $value = $this->stripNp($value);
             $inserted = [];
             if (! empty($field) and ! empty($value)) {
                 $inserted[$field] = $value;
@@ -87,6 +88,11 @@
                 $data['object_id'] = $this->insert_object_id;
             }
             return $data;
+        }
+
+        private function stripNp($value)
+        {
+            return str_replace(['~np~', '~/np~'], '', $value);
         }
     }
     

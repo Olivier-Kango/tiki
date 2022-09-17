@@ -28,6 +28,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
     {
         $object_type = $data->object_type->text();
         $object_id = $data->object_id->int();
+        $tracker_id = $data->tracker_id->text();
         $field = $data->field->word();
         $value = $data->value->text();
         $calc = $data->calc->text();
@@ -61,9 +62,6 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
                 throw new Search_Action_Exception(tr('Tracker item %0 not found.', $object_id));
             }
             $definition = Tracker_Definition::get($info['trackerId']);
-            if (! $definition->getFieldFromPermName($field)) {
-                throw new Search_Action_Exception(tr('Tracker field %0 not found for tracker %1.', $field, $info['trackerId']));
-            }
         }
 
         if (empty($value) && empty($calc) && empty($add) && empty($remove) && empty($method)) {
@@ -76,7 +74,16 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
     public function execute(JitFilter $data)
     {
         $object_id = $data->object_id->int();
+        $field = $data->field->word();
         $aggregateFields = $data->aggregate_fields->none();
+
+        $trklib = TikiLib::lib('trk');
+
+        $info = $trklib->get_item_info($object_id);
+        $definition = Tracker_Definition::get($info['trackerId']);
+        if (! $definition->getFieldFromPermName($field)) {
+            throw new Search_Action_Exception(tr('Tracker field %0 not found for tracker %1.', $field, $info['trackerId']));
+        }
 
         if ($aggregateFields) {
             $unifiedsearchlib = TikiLib::lib('unifiedsearch');
@@ -129,6 +136,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
 
         $trklib = TikiLib::lib('trk');
 
+        $value = $this->stripNp($value);
         $info = $trklib->get_tracker_item($object_id);
         $definition = Tracker_Definition::get($info['trackerId']);
 
@@ -207,5 +215,10 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
                 'validate' => ! $ignore_errors,
             ]
         );
+    }
+
+    private function stripNp($value)
+    {
+        return str_replace(['~np~', '~/np~'], '', $value);
     }
 }
