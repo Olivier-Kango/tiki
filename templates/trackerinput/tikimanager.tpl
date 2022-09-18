@@ -105,11 +105,6 @@
                                 {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
                             </a>
                         {/if}
-                        {if in_array('verify', $field.available_actions)}
-                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=verify instanceId=$instance->id}">
-                                {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
-                            </a>
-                        {/if}
                         {if in_array('watch', $field.available_actions)}
                             <a class="dropdown-item" href="{bootstrap_modal controller=manager action=watch instanceId=$instance->id}">
                                 {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}

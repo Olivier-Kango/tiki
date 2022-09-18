@@ -174,13 +174,6 @@
                         </a>
                     </action>
                 {/if}
-                {if in_array('verify', $available_actions)}
-                    <action>
-                        <a href="{service controller=manager action=verify instanceId=$instance->id}">
-                            {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
-                        </a>
-                    </action>
-                {/if}
                 {if in_array('watch', $available_actions)}
                     <action>
                         <a href="{service controller=manager action=watch instanceId=$instance->id}">
