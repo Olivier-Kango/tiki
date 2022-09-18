@@ -24,8 +24,8 @@
                     <div class="row">                 
                     {foreach item=type from=$inputValues['instance_types']}
                         <div class="col-sm-3">
-                            <input type="radio" class="form-check-input" id="instance_type" name="instance_type" value="{$type|escape}" {if $inputValues['selected_instance_type'] eq $type}checked{/if}>
-                            <label class="form-check-label" for="instance_type">{$type|upper}</label>
+                            <input type="radio" class="form-check-input" id="{$type}" name="instance_type" value="{$type|escape}" {if $inputValues['selected_instance_type'] eq $type}checked{/if}>
+                            <label class="form-check-label" for="{$type}">{$type|upper}</label>
                         </div>
                     {/foreach}  
                     </div>                  
