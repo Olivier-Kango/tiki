@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76bb8c09ae7b144dc41c2ffbd9196b37",
+    "content-hash": "bea44c61de48f67df71868a6fb21354a",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2292,16 +2292,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/henrique-borba/php-sieve-manager.git",
-                "reference": "51a6a83067355f8f75b73e1ab6540040c854a121"
+                "reference": "e5c87076476e4d23c59f035946ae10e1e907a7e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-51a6a83067355f8f75b73e1ab6540040c854a121-zip-6eadca.zip",
-                "reference": "51a6a83067355f8f75b73e1ab6540040c854a121",
-                "shasum": "100ca2d85abac0716c77432a1b52755cf645fe6d"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-e5c87076476e4d23c59f035946ae10e1e907a7e5-zip-1ab3c2.zip",
+                "reference": "e5c87076476e4d23c59f035946ae10e1e907a7e5",
+                "shasum": "b4f801f937275fa178ca984880a598f401931c3c"
             },
             "require": {
-                "ext-sockets": "*",
                 "php": ">=5.4"
             },
             "type": "library",
@@ -2328,7 +2327,7 @@
                 "php",
                 "sieve"
             ],
-            "time": "2022-07-29T14:09:26+00:00"
+            "time": "2022-09-13T14:28:15+00:00"
         },
         {
             "name": "hesammousavi/bootstrap-v4-rtl",
@@ -2575,17 +2574,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "fd853bb"
+                "reference": "8afaf18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-6d057f61d3776227dc61fc83b53bc675f87f99ac-zip-948a0f.zip",
-                "reference": "fd853bb",
-                "shasum": "7b63fe783d880e1f7da11eb6d96f8180af8f6992"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-8afaf181eac32e94e97b97c2302ec6d1f575f431-zip-2179ec.zip",
+                "reference": "8afaf18",
+                "shasum": "1f408bb412e5d25b007095516f53245a15341d1b"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
                 "christian-riesen/base32": "^1.3.2",
+                "composer": "^2.0.0",
                 "erusev/parsedown": "^1.8.0-beta-5",
                 "ext-curl": "*",
                 "ext-fileinfo": "*",
@@ -2634,7 +2634,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-09-07T20:56:55+00:00"
+            "time": "2022-09-13T16:55:37+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3046,17 +3046,17 @@
         },
         {
             "name": "laminas/laminas-code",
-            "version": "4.6.0",
+            "version": "4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "16ec7577ff315d53ac2e1b1f03a344d8fe680a6e"
+                "reference": "0337d9265bc2e6376babad8c511500821620cb30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-code/laminas-laminas-code-16ec7577ff315d53ac2e1b1f03a344d8fe680a6e-zip-ab6403.zip",
-                "reference": "16ec7577ff315d53ac2e1b1f03a344d8fe680a6e",
-                "shasum": "92e0eecfab04a5ee6a1ca06c6abb3aab02b716c6"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-code/laminas-laminas-code-0337d9265bc2e6376babad8c511500821620cb30-zip-6bf8dc.zip",
+                "reference": "0337d9265bc2e6376babad8c511500821620cb30",
+                "shasum": "3176444f5476dcad08675456dbe34984678b4116"
             },
             "require": {
                 "php": ">=7.4, <8.2"
@@ -3100,7 +3100,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-07-28T22:46:52+00:00"
+            "time": "2022-09-13T10:33:30+00:00"
         },
         {
             "name": "laminas/laminas-config",
@@ -4685,17 +4685,17 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.23.0",
+            "version": "2.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "6d61b6cc3b222f13807a18d9247cdfb084958b03"
+                "reference": "f2ad7de3f92b443f31447a37e061116f701d150a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-6d61b6cc3b222f13807a18d9247cdfb084958b03-zip-d2d42b.zip",
-                "reference": "6d61b6cc3b222f13807a18d9247cdfb084958b03",
-                "shasum": "738a738520f76e080610476ece6f9a517d1de08c"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-f2ad7de3f92b443f31447a37e061116f701d150a-zip-0f9150.zip",
+                "reference": "f2ad7de3f92b443f31447a37e061116f701d150a",
+                "shasum": "dcaae1ff406c4c35ff9a5e99f4acd12d4cb48a6c"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.12.0",
@@ -4706,20 +4706,20 @@
                 "zendframework/zend-validator": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~2.3.0",
-                "laminas/laminas-db": "^2.7",
-                "laminas/laminas-filter": "^2.14.0",
-                "laminas/laminas-http": "^2.14.2",
-                "laminas/laminas-i18n": "^2.15.0",
-                "laminas/laminas-session": "^2.12.1",
+                "laminas/laminas-coding-standard": "^2.4.0",
+                "laminas/laminas-db": "^2.15.0",
+                "laminas/laminas-filter": "^2.18.0",
+                "laminas/laminas-http": "^2.16.0",
+                "laminas/laminas-i18n": "^2.17.0",
+                "laminas/laminas-session": "^2.13.0",
                 "laminas/laminas-uri": "^2.9.1",
                 "phpspec/prophecy-phpunit": "^2.0",
-                "phpunit/phpunit": "^9.5.21",
+                "phpunit/phpunit": "^9.5.24",
                 "psalm/plugin-phpunit": "^0.17.0",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0",
-                "vimeo/psalm": "^4.24.0"
+                "vimeo/psalm": "^4.27.0"
             },
             "suggest": {
                 "laminas/laminas-db": "Laminas\\Db component, required by the (No)RecordExists validator",
@@ -4759,7 +4759,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-07-27T19:17:59+00:00"
+            "time": "2022-09-13T07:40:10+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -5879,16 +5879,19 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.19.0",
+            "version": "v7.19.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:babel/babel.git",
+                "reference": "d7ccfc5043d874dd44833b7ff4e6350580396d6d"
+            },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.19.0.zip",
-                "shasum": "40fa78d26029bbe011d024362e438c73593a0d4e"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-d7ccfc5043d874dd44833b7ff4e6350580396d6d-zip-3fed99.zip",
+                "reference": "d7ccfc5043d874dd44833b7ff4e6350580396d6d",
+                "shasum": "ff5a9696770233d63ca7ecc9a9211bbca7a91c06"
             },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
+            "type": "npm-asset"
         },
         {
             "name": "npm-asset/base64-arraybuffer",
@@ -6115,11 +6118,11 @@
         },
         {
             "name": "npm-asset/csstype",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/csstype/npm-asset-csstype-3.1.0.zip",
-                "shasum": "5fa9a037115147d54f1b7903a6f824acae628718"
+                "url": "https://composer.tiki.org/dist/npm-asset/csstype/npm-asset-csstype-3.1.1.zip",
+                "shasum": "18b4907ae5dbc3a8f363a63d51432538752f4d53"
             },
             "type": "npm-asset",
             "license": [
@@ -6935,17 +6938,17 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.17.1",
+            "version": "v1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "ac994053faac18d386328c91c7900f930acadf1e"
+                "reference": "906e0b925895d3a5941eda25f371fbafb3cbc22f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/paragonie/sodium_compat/paragonie-sodium_compat-ac994053faac18d386328c91c7900f930acadf1e-zip-7116c9.zip",
-                "reference": "ac994053faac18d386328c91c7900f930acadf1e",
-                "shasum": "503ada285003f1a4b5a7352006d22188131d2778"
+                "url": "https://composer.tiki.org/dist/paragonie/sodium_compat/paragonie-sodium_compat-906e0b925895d3a5941eda25f371fbafb3cbc22f-zip-2a5bec.zip",
+                "reference": "906e0b925895d3a5941eda25f371fbafb3cbc22f",
+                "shasum": "9568373bff73b661167ae5b619122b733d6a95d9"
             },
             "require": {
                 "paragonie/random_compat": ">=1",
@@ -7013,7 +7016,7 @@
                 "secret-key cryptography",
                 "side-channel resistant"
             ],
-            "time": "2022-03-23T19:32:04+00:00"
+            "time": "2022-09-13T20:54:27+00:00"
         },
         {
             "name": "pclzip/pclzip",
@@ -9742,20 +9745,20 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.46",
+            "version": "v3.1.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "b3ade90dece67812410954528e0039fb5b73bcf7"
+                "reference": "a09364fe1706cb465e910eb040e592053d7effb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-b3ade90dece67812410954528e0039fb5b73bcf7-zip-2d618f.zip",
-                "reference": "b3ade90dece67812410954528e0039fb5b73bcf7",
-                "shasum": "f6c58cdbc2b7df09d2399a63f9baf7d642cfe0ca"
+                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-a09364fe1706cb465e910eb040e592053d7effb8-zip-fec92c.zip",
+                "reference": "a09364fe1706cb465e910eb040e592053d7effb8",
+                "shasum": "c9d6f001dbfb4b59a0e2d4a506fc212246f30df0"
             },
             "require": {
-                "php": ">=5.2"
+                "php": "^5.2 || ^7.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^7.5 || ^6.5 || ^5.7 || ^4.8",
@@ -9795,7 +9798,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2022-08-01T21:58:13+00:00"
+            "time": "2022-09-14T11:29:00+00:00"
         },
         {
             "name": "sorich87/bootstrap-tour",
@@ -12025,17 +12028,17 @@
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
-            "version": "2.2.4",
+            "version": "2.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
-                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c"
+                "reference": "4348a3a06651827a27d989ad1d13efec6bb49b19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/tijsverkoyen/css-to-inline-styles/tijsverkoyen-css-to-inline-styles-da444caae6aca7a19c0c140f68c6182e337d5b1c-zip-a72162.zip",
-                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c",
-                "shasum": "504618c64d03dd5dd5722bfc07c29d78b35db859"
+                "url": "https://composer.tiki.org/dist/tijsverkoyen/css-to-inline-styles/tijsverkoyen-css-to-inline-styles-4348a3a06651827a27d989ad1d13efec6bb49b19-zip-1c63af.zip",
+                "reference": "4348a3a06651827a27d989ad1d13efec6bb49b19",
+                "shasum": "750ff352a87acff0bef33216631e30db32cf8844"
             },
             "require": {
                 "ext-dom": "*",
@@ -12070,7 +12073,7 @@
             ],
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
-            "time": "2021-12-08T09:12:39+00:00"
+            "time": "2022-09-12T13:28:28+00:00"
         },
         {
             "name": "tikiwiki/ilp-client",
@@ -13914,17 +13917,17 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "3.0.3",
+            "version": "3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "1071dfcef776a57013124ff35e1fc41ccd294758"
+                "reference": "1dc7ceb4a24aede938c7af2a9ed1de09609ca770"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sebastian/comparator/sebastian-comparator-1071dfcef776a57013124ff35e1fc41ccd294758-zip-bb528e.zip",
-                "reference": "1071dfcef776a57013124ff35e1fc41ccd294758",
-                "shasum": "12810a04e1e8d2e80a00846c58be4b7553f38c11"
+                "url": "https://composer.tiki.org/dist/sebastian/comparator/sebastian-comparator-1dc7ceb4a24aede938c7af2a9ed1de09609ca770-zip-b82f65.zip",
+                "reference": "1dc7ceb4a24aede938c7af2a9ed1de09609ca770",
+                "shasum": "e5b718b09590d6f0e968e74ea2e48745ff5f9ea4"
             },
             "require": {
                 "php": ">=7.1",
@@ -13980,7 +13983,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-30T08:04:30+00:00"
+            "time": "2022-09-14T12:31:48+00:00"
         },
         {
             "name": "sebastian/environment",
@@ -14043,17 +14046,17 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "3.1.4",
+            "version": "3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "0c32ea2e40dbf59de29f3b49bf375176ce7dd8db"
+                "reference": "73a9676f2833b9a7c36968f9d882589cd75511e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sebastian/exporter/sebastian-exporter-0c32ea2e40dbf59de29f3b49bf375176ce7dd8db-zip-d1fd63.zip",
-                "reference": "0c32ea2e40dbf59de29f3b49bf375176ce7dd8db",
-                "shasum": "070452748d0d1cb09a0ec624750345e67306e1a1"
+                "url": "https://composer.tiki.org/dist/sebastian/exporter/sebastian-exporter-73a9676f2833b9a7c36968f9d882589cd75511e6-zip-4b2745.zip",
+                "reference": "73a9676f2833b9a7c36968f9d882589cd75511e6",
+                "shasum": "69cabf82985e352ea3050d99b3049fbbe234373e"
             },
             "require": {
                 "php": ">=7.0",
@@ -14112,7 +14115,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-11T13:51:24+00:00"
+            "time": "2022-09-14T06:00:17+00:00"
         },
         {
             "name": "sebastian/global-state",
