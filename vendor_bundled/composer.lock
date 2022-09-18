@@ -6387,16 +6387,19 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.19.0",
+            "version": "v7.19.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:babel/babel.git",
+                "reference": "d7ccfc5043d874dd44833b7ff4e6350580396d6d"
+            },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.19.0.zip",
-                "shasum": "40fa78d26029bbe011d024362e438c73593a0d4e"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-d7ccfc5043d874dd44833b7ff4e6350580396d6d-zip-3fed99.zip",
+                "reference": "d7ccfc5043d874dd44833b7ff4e6350580396d6d",
+                "shasum": "ff5a9696770233d63ca7ecc9a9211bbca7a91c06"
             },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
+            "type": "npm-asset"
         },
         {
             "name": "npm-asset/base64-arraybuffer",
