@@ -117,12 +117,10 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
         if (empty($this->providedMappings)) {
             $this->pdo_client->createIndex($this->index, $mapping, $this->getIndexSettings());
-            $is_update = false;
         } else {
             foreach ($mapping as $field => $type) {
                 $this->pdo_client->alter($this->index, 'add', $field, $type['type']);
             }
-            $is_update = true;
         }
 
         foreach ($mapping as $field => $type) {
@@ -130,14 +128,10 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
                 'types' => $type['type'] == 'text' ? ['text', 'string'] : [$type['type']],
                 'options' => $type['options'] ?? [],
             ];
-            if ($is_update) {
-                $fieldMapping[strtolower($field)] = $field;
-            }
+            $fieldMapping[strtolower($field)] = $field;
         }
 
-        if ($is_update && $mapping) {
-            TikiLib::lib('tiki')->set_preference('unified_field_mapping', json_encode($fieldMapping));
-        }
+        TikiLib::lib('tiki')->set_preference('unified_field_mapping', json_encode($fieldMapping));
     }
 
     private function getIndexSettings()
@@ -353,7 +347,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     {
         global $prefs;
 
-        $fieldMapping = $prefs['unified_field_mapping'] ?? '';
+        $fieldMapping = $prefs['unified_field_mapping'] ?? [];
         if ($fieldMapping) {
             $fieldMapping = json_decode($fieldMapping, true);
         }

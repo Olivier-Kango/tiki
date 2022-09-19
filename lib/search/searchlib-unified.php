@@ -269,10 +269,6 @@ class UnifiedSearchLib
             $tikilib->set_preference('unified_field_count', $indexDecorator->getFieldCount());
             $tikilib->set_preference('unified_identifier_fields', $indexDecorator->getIdentifierFields());
 
-            if (method_exists($index, 'getFieldNameMapping')) {
-                $tikilib->set_preference('unified_field_mapping', json_encode($index->getFieldNameMapping()));
-            }
-
             $stats = [];
             $stats['default'] = $stat;
 
