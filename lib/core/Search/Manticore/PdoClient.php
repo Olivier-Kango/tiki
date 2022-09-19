@@ -8,6 +8,8 @@
 
 class Search_Manticore_PdoClient
 {
+    const QUERY_RETRIES = 1;
+
     protected $dsn;
     protected $port;
     protected $pdo;
@@ -63,16 +65,7 @@ class Search_Manticore_PdoClient
             $sql .= ' ' . $key . '=' . "'" . $val . "'";
         }
         $stmt = $this->pdo->prepare($sql);
-        try {
-            $stmt->execute();
-        } catch (PDOException $e) {
-            if (strstr($e->getMessage(), "server has gone away")) {
-                $this->connect();
-                $this->createIndex($index, $definition, $settings, $silent);
-            } else {
-                throw new Search_Manticore_Exception($e->getMessage());
-            }
-        }
+        $this->executeWithRetry($stmt);
     }
 
     public function deleteIndex($index)
@@ -118,32 +111,15 @@ class Search_Manticore_PdoClient
             $sql = "ALTER TABLE $index ADD COLUMN `$field` $type";
         }
         $stmt = $this->pdo->prepare($sql);
-        try {
-            $stmt->execute([]);
-        } catch (PDOException $e) {
-            if (strstr($e->getMessage(), "server has gone away")) {
-                $this->connect();
-                $this->alter($index, $operation, $field, $type);
-            } else {
-                throw new Search_Manticore_Exception($e->getMessage());
-            }
-        }
+        $this->executeWithRetry($stmt);
     }
 
     public function index($index, array $data)
     {
+        static $redo = true;
         $stmt = $this->pdo->prepare("INSERT INTO $index (" . implode(', ', array_keys($data)) . ') VALUES (' . implode(',', array_fill(0, count($data), '?')) . ')');
         // TODO: Array to string conversion - not all elements are strings in this array...
-        try {
-            $stmt->execute(array_values($data));
-        } catch (PDOException $e) {
-            if (strstr($e->getMessage(), "server has gone away")) {
-                $this->connect();
-                $this->index($index, $data);
-            } else {
-                throw new Search_Manticore_Exception($e->getMessage());
-            }
-        }
+        $this->executeWithRetry($stmt, array_values($data));
     }
 
     public function unindex($index, $type, $id)
@@ -181,6 +157,22 @@ class Search_Manticore_PdoClient
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             throw new Search_Manticore_Exception(tr("Error connecting to Manticore service: %0", $e->getMessage()));
+        }
+    }
+
+    protected function executeWithRetry($stmt, $params = [], $tries = 0)
+    {
+        try {
+            $stmt->execute($params);
+        } catch (PDOException $e) {
+            if (strstr($e->getMessage(), "server has gone away")) {
+                $this->connect();
+                if ($tries < QUERY_RETRIES) {
+                    $this->executeWithRetry($stmt, $params, $tries+1);
+                }
+            } else {
+                throw new Search_Manticore_Exception($e->getMessage());
+            }
         }
     }
 }
