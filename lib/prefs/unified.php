@@ -270,7 +270,7 @@ function prefs_unified_list()
             'description' => tra('URL of the Manticore search server'),
             'type' => 'text',
             'filter' => 'url',
-            'default' => 'http://localhost',
+            'default' => 'http://127.0.0.1',
             'size' => 40,
         ],
         'unified_manticore_http_port' => [
