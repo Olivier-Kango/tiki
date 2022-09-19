@@ -339,7 +339,7 @@ $(document).on("tiki.modal.redraw", function (event) {
     if ($prefs['feature_realtime'] === 'y') {
         $js .= '
 var tikiOpenWS = function(endpoint) {
-    return new WebSocket(' . json_encode(preg_replace('#https?://#', 'ws://', $base_url) . 'ws/') . ' + endpoint + "?token=' . session_id() . '");
+    return new WebSocket(' . json_encode(preg_replace('#http://#', 'ws://', preg_replace('#https://#', 'wss://', $base_url)) . 'ws/') . ' + endpoint + "?token=' . session_id() . '");
 }
 ';
         // TODO: use a preference for automatic start of WS session on each page - seems resource intensive...
