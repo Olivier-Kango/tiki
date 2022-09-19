@@ -144,7 +144,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     {
         global $prefs;
 
-        $stopwords_file = realpath("temp") . '/manticore-stopwords';
+        $stopwords_file = sys_get_temp_dir().DIRECTORY_SEPARATOR.'manticore-stopwords-'.$this->index;
         file_put_contents($stopwords_file, implode("\n", $prefs['unified_stopwords']));
 
         $settings = [
