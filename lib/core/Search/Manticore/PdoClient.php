@@ -8,25 +8,15 @@
 
 class Search_Manticore_PdoClient
 {
+    protected $dsn;
+    protected $port;
     protected $pdo;
 
     public function __construct($dsn, $port)
     {
-        $dsn = rtrim($dsn, '/');
-        $parsed = parse_url($dsn);
-        if ($parsed === false) {
-            throw new Search_Manticore_Exception(tr("Malformed Manticore connection url: %0", $this->dsn));
-        }
-
-        $dsn = "mysql:host=" . $parsed['host'] . ";port=" . $port;
-
-        try {
-            $this->pdo = new PDO($dsn);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            throw new Search_Manticore_Exception(tr("Error connecting to Manticore service: %0", $e->getMessage()));
-        }
+        $this->dsn = $dsn;
+        $this->port = $port;
+        $this->connect();
     }
 
     public function getStatus()
@@ -73,7 +63,16 @@ class Search_Manticore_PdoClient
             $sql .= ' ' . $key . '=' . "'" . $val . "'";
         }
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch (PDOException $e) {
+            if (strstr($e->getMessage(), "server has gone away")) {
+                $this->connect();
+                $this->createIndex($index, $definition, $settings, $silent);
+            } else {
+                throw new Search_Manticore_Exception($e->getMessage());
+            }
+        }
     }
 
     public function deleteIndex($index)
@@ -119,14 +118,32 @@ class Search_Manticore_PdoClient
             $sql = "ALTER TABLE $index ADD COLUMN `$field` $type";
         }
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([]);
+        try {
+            $stmt->execute([]);
+        } catch (PDOException $e) {
+            if (strstr($e->getMessage(), "server has gone away")) {
+                $this->connect();
+                $this->alter($index, $operation, $field, $type);
+            } else {
+                throw new Search_Manticore_Exception($e->getMessage());
+            }
+        }
     }
 
     public function index($index, array $data)
     {
         $stmt = $this->pdo->prepare("INSERT INTO $index (" . implode(', ', array_keys($data)) . ') VALUES (' . implode(',', array_fill(0, count($data), '?')) . ')');
         // TODO: Array to string conversion - not all elements are strings in this array...
-        $stmt->execute(array_values($data));
+        try {
+            $stmt->execute(array_values($data));
+        } catch (PDOException $e) {
+            if (strstr($e->getMessage(), "server has gone away")) {
+                $this->connect();
+                $this->index($index, $data);
+            } else {
+                throw new Search_Manticore_Exception($e->getMessage());
+            }
+        }
     }
 
     public function unindex($index, $type, $id)
@@ -146,5 +163,24 @@ class Search_Manticore_PdoClient
     {
         $stmt = $this->pdo->prepare("OPTIMIZE INDEX $index");
         $stmt->execute();
+    }
+
+    protected function connect()
+    {
+        $dsn = rtrim($this->dsn, '/');
+        $parsed = parse_url($dsn);
+        if ($parsed === false) {
+            throw new Search_Manticore_Exception(tr("Malformed Manticore connection url: %0", $this->dsn));
+        }
+
+        $dsn = "mysql:host=" . $parsed['host'] . ";port=" . $this->port;
+
+        try {
+            $this->pdo = new PDO($dsn);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Search_Manticore_Exception(tr("Error connecting to Manticore service: %0", $e->getMessage()));
+        }
     }
 }
