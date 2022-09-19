@@ -44,8 +44,12 @@ Start WS server with the same user that Tiki web requests run as (to avoid permi
 error_reporting(E_ALL);
 ini_set('session.use_cookies', 0);
 
-// Run the server application through the WebSocket protocol on port 8080
-$app = new Ratchet\App('localhost', 8080);
+// Run the server application through the WebSocket protocol on specified port (default: 8080)
+$opts = getopt("p::");
+$port = $opts['p'] ?? 8080;
+echo "Listening on port $port...\n";
+
+$app = new Ratchet\App('localhost', $port);
 $app->route('/console', new Console(), ['*']);
 $app->route('/chat', new Chat(), ['*']);
 $app->run();
