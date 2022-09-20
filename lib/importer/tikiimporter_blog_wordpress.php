@@ -413,7 +413,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
                 $this->newFiles[] = [
                     'fileId' => $fileId,
                     'oldUrl' => $attachment['link'],
-                    'sizes' => isset($attachment['sizes']) ? $attachment['sizes'] : ''
+                    'sizes' => isset($attachment['sizes']) ? $attachment['sizes'] : []
                 ];
 
                 $this->saveAndDisplayLog(tr('Attachment %0 successfully imported!', $attachment['fileName']) . "\n");
@@ -494,20 +494,6 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 
                         // remove year and month from file name (e.g. 2009/10/fileName.jpg becomes fileName.jpg)
                         $attachment['fileName'] = preg_replace('|.+/|', '', $fileName);
-                    } elseif ($tag->getElementsByTagName('meta_key')->item(0)->textContent == '_wp_attachment_metadata') {
-                        $metadata = unserialize($tag->getElementsByTagName('meta_value')->item(0)->textContent);
-
-                        if (is_array($metadata) && isset($metadata['sizes'])) {
-                            $sizes = [];
-                            foreach ($metadata['sizes'] as $key => $size) {
-                                $sizes[$key] = [
-                                    'name' => $size['file'],
-                                    'width' => $size['width'],
-                                    'height' => $size['height'],
-                                ];
-                            }
-                            $attachment['sizes'] = $sizes;
-                        }
                     }
                 }
 

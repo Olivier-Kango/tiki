@@ -428,18 +428,6 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
                 'created' => '1241461850',
                 'author' => 'rodrigo',
                 'fileName' => 'tadv2.jpg',
-                'sizes' => [
-                    'thumbnail' => [
-                        'name' => 'tadv2-150x150.jpg',
-                        'width' => 150,
-                        'height' => 150,
-                    ],
-                    'medium' => [
-                        'name' => 'tadv2-300x171.jpg',
-                        'width' => 300,
-                        'height' => 171,
-                    ],
-                ],
             ],
             [
                 'name' => 'Hostelaria Las Torres',
@@ -447,18 +435,6 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
                 'created' => '1242095082',
                 'author' => 'rodrigo',
                 'fileName' => '1881232-hostelaria-las-torres-0.jpg',
-                'sizes' => [
-                    'thumbnail' => [
-                        'name' => '1881232-hostelaria-las-torres-0-150x150.jpg',
-                        'width' => 150,
-                        'height' => 150,
-                    ],
-                    'medium' => [
-                        'name' => '1881232-hostelaria-las-torres-0-300x225.jpg',
-                        'width' => 300,
-                        'height' => 225,
-                    ],
-                ],
             ],
             [
                 'name' => 'Caminhando no gelo no Vale do Silêncio',
@@ -466,18 +442,6 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
                 'created' => '1242095085',
                 'author' => 'rodrigo',
                 'fileName' => '1881259-caminhando-no-gelo-no-vale-do-sil-ncio-0.jpg',
-                'sizes' => [
-                    'thumbnail' => [
-                        'name' => '1881259-caminhando-no-gelo-no-vale-do-sil-ncio-0-150x150.jpg',
-                        'width' => 150,
-                        'height' => 150,
-                    ],
-                    'medium' => [
-                        'name' => '1881259-caminhando-no-gelo-no-vale-do-sil-ncio-0-225x300.jpg',
-                        'width' => 225,
-                        'height' => 300,
-                    ],
-                ],
             ],
         ];
 
@@ -544,50 +508,17 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
             [
                 'fileId' => $last_id + 1,
                 'oldUrl' => 'http://example.com/files/tadv2.jpg',
-                'sizes' => [
-                    'thumbnail' => [
-                        'name' => 'tadv2-150x150.jpg',
-                        'width' => 150,
-                        'height' => 150,
-                    ],
-                    'medium' => [
-                        'name' => 'tadv2-300x171.jpg',
-                        'width' => 300,
-                        'height' => 171,
-                    ],
-                ],
+                'sizes' => [],
             ],
             [
                 'fileId' => $last_id + 2,
                 'oldUrl' => 'http://example.com/files/1881232-hostelaria-las-torres-0.jpg',
-                'sizes' => [
-                    'thumbnail' => [
-                        'name' => '1881232-hostelaria-las-torres-0-150x150.jpg',
-                        'width' => 150,
-                        'height' => 150,
-                    ],
-                    'medium' => [
-                        'name' => '1881232-hostelaria-las-torres-0-300x225.jpg',
-                        'width' => 300,
-                        'height' => 225,
-                    ],
-                ],
+                'sizes' => [],
             ],
             [
                 'fileId' => $last_id + 3,
                 'oldUrl' => 'http://example.com/files/1881259-caminhando-no-gelo-no-vale-do-sil-ncio-0.jpg',
-                'sizes' => [
-                    'thumbnail' => [
-                        'name' => '1881259-caminhando-no-gelo-no-vale-do-sil-ncio-0-150x150.jpg',
-                        'width' => 150,
-                        'height' => 150,
-                    ],
-                    'medium' => [
-                        'name' => '1881259-caminhando-no-gelo-no-vale-do-sil-ncio-0-225x300.jpg',
-                        'width' => 225,
-                        'height' => 300,
-                    ],
-                ],
+                'sizes' => [],
             ],
         ];
 
