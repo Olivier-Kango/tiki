@@ -245,6 +245,8 @@ class Services_ML_Controller
             'Dropout',
             'Noise',
             'PReLU',
+            'SiLU',
+            'Swish',
         ]
     ];
 
