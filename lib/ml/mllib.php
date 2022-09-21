@@ -256,29 +256,35 @@ class MachineLearningLib extends TikiDb_Bridge
                         "class" => "Transformers\\WordCountVectorizer",
                         "args" => [
                             [
-                                "name" => "maxVocabulary",
+                                "name" => "maxVocabularySize",
                                 "default" => PHP_INT_MAX,
                                 "arg_type" => "int",
                                 "input_type" => "text",
                                 "value" => 10000
                             ], [
-                                "name" => "minDocumentFrequency",
+                                "name" => "minDocumentCount",
                                 "default" => 1,
-                                "arg_type" => "int",
+                                "arg_type" => "float",
                                 "input_type" => "text",
                                 "value" => "1"
                             ], [
-                                "name" => "maxDocumentFrequency",
-                                "default" => PHP_INT_MAX,
-                                "arg_type" => "int",
+                                "name" => "maxDocumentRatio",
+                                "default" => 0.8,
+                                "arg_type" => "float",
                                 "input_type" => "text",
-                                "value" => 500
+                                "value" => "0.8"
                             ], [
                                 "name" => "tokenizer",
-                                "default" => null,
-                                "arg_type" => "Rubix\\ML\\Other\\Tokenizers\\Tokenizer",
+                                "default" => [
+                                    "class" => "Tokenizers\\Word",
+                                    "args"  => [],
+                                ],
+                                "arg_type" => "Rubix\\ML\\Tokenizers\\Tokenizer",
                                 "input_type" => "rubix",
-                                "value" => null
+                                "value" => [
+                                    "class" => "Tokenizers\\Word",
+                                    "args"  => [],
+                                ],
                             ]
                         ]
                     ], [
@@ -315,7 +321,10 @@ class MachineLearningLib extends TikiDb_Bridge
                                 "value" => "true"
                             ], [
                                 "name" => "tree",
-                                "default" => null,
+                                "default" => [
+                                    "class" => "Graph\\Trees\\KDTree",
+                                    "args"  => [],
+                                ],
                                 "arg_type" => "Rubix\\ML\\Graph\\Trees\\Spatial",
                                 "input_type" => "rubix",
                                 "value" => [
@@ -329,7 +338,10 @@ class MachineLearningLib extends TikiDb_Bridge
                                             "value" => 20
                                         ], [
                                             "name" => "kernel",
-                                            "default" => null,
+                                            "default" => [
+                                                "class" => "Kernels\\Distance\\Euclidean",
+                                                "args"  => [],
+                                            ],
                                             "arg_type" => "Rubix\\ML\\Kernels\\Distance\\Distance",
                                             "input_type" => "rubix",
                                             "value" => [
