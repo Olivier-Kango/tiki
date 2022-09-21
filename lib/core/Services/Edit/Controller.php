@@ -114,6 +114,7 @@ class Services_Edit_Controller
             'preview_mode' => true,
             'process_wiki_paragraphs' => ($prefs['wysiwyg_htmltowiki'] === 'y' || $info['wysiwyg'] == 'n'),
             'page' => $page,
+            'is_markdown' => $input->is_markdown->int()
         ];
 
         if (count($autoSaveIdParts) === 3 && ! empty($user) && $user === $autoSaveIdParts[0] && $autoSaveIdParts[1] === 'wiki_page') {
@@ -133,6 +134,9 @@ class Services_Edit_Controller
                     TikiLib::lib('autosave')->get_autosave($input->editor_id->text(), $input->autoSaveId->text())
                 );
                 $data = $tikilib->convertAbsoluteLinksToRelative($data);
+                if ($input->is_markdown->int()) {
+                    $data = "{syntax type=markdown}\r\n$data";
+                }
                 TikiLib::lib('smarty')->assign('diff_style', $diffstyle);
                 if ($diffstyle) {
                     if (! empty($info['created'])) {

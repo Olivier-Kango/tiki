@@ -14,6 +14,10 @@ abstract class ToolbarItem
     protected string $type = '';
     protected string $domElementId = '';
     protected string $class = '';
+    protected string $syntax = '';
+    protected string $markdown = '';
+    protected string $markdown_wysiwyg = '';
+    private array $requiredPrefs = [];
 
     /**
      * @return string
@@ -53,7 +57,6 @@ abstract class ToolbarItem
         return $this;
     }
 
-    private array $requiredPrefs = [];
 
     public static function getTag(string $tagName, bool $wysiwyg = false, bool $is_html = false): ?ToolbarItem
     {
@@ -380,7 +383,44 @@ abstract class ToolbarItem
         );
     }
 
+    public function getSyntax(): string
+    {
+        return $this->syntax;
+    }
+
+    public function setSyntax(string $syntax): ToolbarItem
+    {
+        $this->syntax = $syntax;
+
+        return $this;
+    }
+
+    public function setMarkdownSyntax($markdown): ToolbarItem
+    {
+        $this->markdown = $markdown;
+
+        return $this;
+    }
+
+    public function getMarkdownHtml(): string
+    {
+        if ($this->markdown) {
+            return $this->getSelfLink(
+                $this->getOnClickMarkdown(),
+                htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
+                $this->getClass()
+            );
+        } else {
+            return '';
+        }
+    }
+
     abstract protected function getOnClick(): string;
+
+    protected function getOnClickMarkdown(): string
+    {
+        return $this->getOnClick();
+    }
 
     public function isAccessible(): bool
     {
@@ -428,11 +468,6 @@ abstract class ToolbarItem
         return $this;
     }
 
-    protected function setSyntax(string $syntax): ToolbarItem
-    {
-        return $this;
-    }
-
     protected function setType(string $type): ToolbarItem
     {
         $this->type = $type;
@@ -461,9 +496,16 @@ abstract class ToolbarItem
         return $this->getWysiwygToken();
     }
 
-    public function getSyntax(): string
+    public function setMarkdownWysiwyg($markdown_wysiwyg)
     {
-        return '';
+        $this->markdown_wysiwyg = $markdown_wysiwyg;
+
+        return $this;
+    }
+
+    public function getMarkdownWysiwyg(): string
+    {
+        return $this->markdown_wysiwyg ?? '';
     }
 
     public function getType(): string
@@ -486,16 +528,16 @@ abstract class ToolbarItem
         $smarty = TikiLib::lib('smarty');
         $smarty->loadPlugin('smarty_function_icon');
         return smarty_function_icon([
-                                        'name'   => $iname,
-                                        'ititle' => ':'
-                                            . htmlentities(
-                                                $this->getLabel(),
-                                                ENT_QUOTES,
-                                                'UTF-8'
-                                            ),
-                                        'iclass' => 'tips bottom',
-                                    ],
-                                    $smarty->getEmptyInternalTemplate());
+            'name'   => $iname,
+            'ititle' => ':'
+                . htmlentities(
+                    $this->getLabel(),
+                    ENT_QUOTES,
+                    'UTF-8'
+                ),
+            'iclass' => 'tips bottom',
+        ],
+            $smarty->getEmptyInternalTemplate());
     }
 
     public function getSelfLink(string $click, string $title, string $class): string
@@ -526,29 +568,29 @@ abstract class ToolbarItem
         return smarty_block_self_link($params, $content, $smarty->getEmptyInternalTemplate());
     }
 
-    protected function setupCKEditorTool(string $js, string $name, string $label = '', string $icon = ''): void
+    protected function setupCKEditorTool(string $js): void
     {
-        if (empty($label)) {
-            $label = $name;
+        if (empty($this->label)) {
+            $this->label = $this->wysiwyg;
         }
-        $label = addcslashes($label, "'");
+        $this->label = addcslashes($this->label, "'");
         TikiLib::lib('header')->add_js(
             <<< JS
-if (typeof window.CKEDITOR !== "undefined" && !window.CKEDITOR.plugins.get("{$name}")) {
-    window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ',{$name}' : '{$name}' );
-    window.CKEDITOR.plugins.add( '{$name}', {
+if (typeof window.CKEDITOR !== "undefined" && !window.CKEDITOR.plugins.get("{$this->wysiwyg}")) {
+    window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ',{$this->wysiwyg}' : '{$this->wysiwyg}' );
+    window.CKEDITOR.plugins.add( '{$this->wysiwyg}', {
         init : function( editor ) {
-            var command = editor.addCommand( '{$name}', new window.CKEDITOR.command( editor , {
+            var command = editor.addCommand( '{$this->wysiwyg}', new window.CKEDITOR.command( editor , {
                 modes: { wysiwyg:1 },
                 exec: function (editor, data) {
                     {$js}
                 },
                 canUndo: false
             }));
-            editor.ui.addButton( '{$name}', {
-                label : '{$label}',
-                command : '{$name}',
-                icon: editor.config._TikiRoot + '{$icon}'
+            editor.ui.addButton( '{$this->wysiwyg}', {
+                label : '{$this->label}',
+                command : '{$this->wysiwyg}',
+                icon: editor.config._TikiRoot + '{$this->icon}'
             });
         }
     });

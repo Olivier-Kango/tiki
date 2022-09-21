@@ -19,15 +19,20 @@ function smarty_function_toolbars($params, $smarty)
         'comments' => 'n',
         'is_html' => $is_html,
         'section' => $section,
+        'syntax' => $prefs['markdown_default'],
     ];
     $params = array_merge($default, $params);
 
     if ($prefs['javascript_enabled'] != 'y') {
         return '';
     }
-    // some tool filters to help roll out textarea & toolbars to more sections quickly (for 4.0)
+    // filters some tools here depending on section
     $hidden = [];
-    if ((! isset($params['switcheditor']) && ! in_array($params['section'], ['wiki page', 'blogs', 'newsletters', 'cms', 'webmail'])) || $params['switcheditor'] !== 'y') {
+    $switchableWysiwygSections = ['wiki page', 'blogs', 'newsletters', 'cms', 'webmail'];
+    if (
+        (empty($params['switcheditor']) && ! in_array($params['section'], $switchableWysiwygSections)) ||
+        (! empty($params['switcheditor']) && $params['switcheditor'] !== 'y')
+    ) {
         $hidden[] = 'switcheditor';
     }
 
@@ -39,7 +44,7 @@ function smarty_function_toolbars($params, $smarty)
         $params['area_id'] = 'editwiki';
     }
 
-    $list = ToolbarsList::fromPreference($params, $hidden, $params['area_id']);
+    $list = ToolbarsList::fromPreference($params, $hidden);
     if (isset($params['_wysiwyg']) && $params['_wysiwyg'] == 'y') {
         return $list->getWysiwygArray();
     } else {

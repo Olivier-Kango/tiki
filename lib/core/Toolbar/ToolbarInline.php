@@ -4,10 +4,12 @@ namespace Tiki\Lib\core\Toolbar;
 
 class ToolbarInline extends ToolbarItem
 {
-    protected string $syntax;
 
     public static function fromName($tagName): ?ToolbarItem
     {
+        $markdown = '';
+        $markdown_wysiwyg = '';
+
         switch ($tagName) {
             case 'bold':
                 $label = tra('Bold');
@@ -15,6 +17,8 @@ class ToolbarInline extends ToolbarItem
                 $iconname = 'bold';
                 $wysiwyg = 'Bold';
                 $syntax = '__text__';
+                $markdown = '__text__';
+                $markdown_wysiwyg = 'bold';
                 break;
             case 'italic':
                 $label = tra('Italic');
@@ -22,6 +26,8 @@ class ToolbarInline extends ToolbarItem
                 $iconname = 'italic';
                 $wysiwyg = 'Italic';
                 $syntax = "''text''";
+                $markdown = '_text_';
+                $markdown_wysiwyg = 'italic';
                 break;
             case 'underline':
                 $label = tra('Underline');
@@ -36,6 +42,8 @@ class ToolbarInline extends ToolbarItem
                 $iconname = 'strikethrough';
                 $wysiwyg = 'Strike';
                 $syntax = '--text--';
+                $markdown = '~~text~~';
+                $markdown_wysiwyg = 'strike';
                 break;
             case 'code':
                 $label = tra('Code');
@@ -43,6 +51,8 @@ class ToolbarInline extends ToolbarItem
                 $iconname = 'code';
                 $wysiwyg = 'Code';
                 $syntax = '-+text+-';
+                $markdown = '`text`';
+                $markdown_wysiwyg = 'code';
                 break;
             case 'nonparsed':
                 $label = tra('Non-parsed (wiki syntax does not apply)');
@@ -61,22 +71,12 @@ class ToolbarInline extends ToolbarItem
             ->setIconName(! empty($iconname) ? $iconname : 'help')
             ->setIcon(! empty($icon) ? $icon : 'img/icons/shading.png')
             ->setSyntax($syntax)
+            ->setMarkdownSyntax($markdown)
+            ->setMarkdownWysiwyg($markdown_wysiwyg)
             ->setType('Inline')
             ->setClass('qt-inline');
 
         return $tag;
-    }
-
-    public function getSyntax(): string
-    {
-        return $this->syntax;
-    }
-
-    public function setSyntax(string $syntax): ToolbarItem
-    {
-        $this->syntax = $syntax;
-
-        return $this;
     }
 
     /**
@@ -87,6 +87,17 @@ class ToolbarInline extends ToolbarItem
         return 'insertAt(\'' . $this->domElementId . '\', \'' .
             addslashes(
                 htmlentities($this->syntax, ENT_COMPAT, 'UTF-8')
+            ) . '\');';
+    }
+
+    /**
+     * @return string
+     */
+    public function getOnClickMarkdown(): string
+    {
+        return 'insertAt(\'' . $this->domElementId . '\', \'' .
+            addslashes(
+                htmlentities($this->markdown, ENT_COMPAT, 'UTF-8')
             ) . '\');';
     }
 }

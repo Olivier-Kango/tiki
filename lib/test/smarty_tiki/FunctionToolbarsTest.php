@@ -18,7 +18,7 @@ class FunctionToolbarsTest extends TikiTestCase
 
     protected function setUp(): void
     {
-        global $prefs, $iconset;
+        global $prefs, $iconset, $toolbarDialogIndex;
 
         TikiLib::lib('cache')->empty_cache();
 
@@ -26,6 +26,7 @@ class FunctionToolbarsTest extends TikiTestCase
         $prefs['wysiwyg_htmltowiki'] = 'y';
 
         $iconset = TikiLib::lib('iconset')->getIconsetForTheme('default', '');
+        $toolbarDialogIndex = 0;
 
         $this->smarty = TikiLib::lib('smarty');
     }

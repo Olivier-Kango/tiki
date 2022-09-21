@@ -4,7 +4,7 @@ namespace Tiki\Lib\core\Toolbar;
 
 use TikiLib;
 
-class ToolbarWikiplugin extends ToolbarItem
+class ToolbarWikiplugin extends ToolbarUtilityItem
 {
     private string $pluginName;
 
@@ -18,6 +18,8 @@ class ToolbarWikiplugin extends ToolbarItem
                 $tag = new self();
                 $tag->setLabel(str_ireplace('wikiplugin_', '', $info['name']))
                     ->setWysiwygToken(str_replace(' ', '_', $info['name']))
+                    ->setMarkdownSyntax($name)
+                    ->setMarkdownWysiwyg(str_replace(' ', '_', $info['name']))
                     ->setPluginName($name)
                     ->setType('Wikiplugin')
                     ->setClass('qt-plugin');
@@ -51,18 +53,9 @@ class ToolbarWikiplugin extends ToolbarItem
 
     public function isAccessible(): bool
     {
-        global $tikilib;
         $parserlib = TikiLib::lib('parser');
         $dummy_output = '';
         return parent::isAccessible() && $parserlib->plugin_enabled($this->pluginName, $dummy_output);
-    }
-
-    private static function getToken($name)
-    {
-        switch ($name) {
-            case 'flash':
-                return 'Flash';
-        }
     }
 
     public function getWysiwygToken($add_js = true): string
@@ -82,10 +75,10 @@ class ToolbarWikiplugin extends ToolbarItem
                 if (isset($iconinfo)) {
                     $prepend = $iconinfo['prepend'] ?? 'img/icons/';
                     $append = $iconinfo['append'] ?? '.png';
-                    $iconpath = $prepend . $iconinfo['id'] . $append;
+                    $this->icon = $prepend . $iconinfo['id'] . $append;
                 }
             }
-            $this->setupCKEditorTool($js, $this->wysiwyg, $this->label, $iconpath);
+            $this->setupCKEditorTool($js);
         }
         return $this->wysiwyg;
     }

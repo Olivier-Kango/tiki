@@ -34,6 +34,7 @@ class Services_Edit_Utilities
         // Checking permission from plugin
         $is_allowed = $parserlib->check_permission_from_plugin_params($params);
         $referer = $_SERVER['HTTP_REFERER'];
+        $isMarkdown = $input->isMarkdown->int();
 
         if (! $page || ! $type || ! $referer) {
             throw new Services_Exception(tr('Missing parameters'));
@@ -94,7 +95,16 @@ class Services_Edit_Utilities
                     $matches->getText(),
                     $message,
                     $user,
-                    $tikilib->get_ip_address()
+                    $tikilib->get_ip_address(),
+                    '',
+                    0,
+                    '',
+                    null,
+                    null,
+                    null,
+                    '',
+                    '',
+                    $isMarkdown ? 'markdown' : 'tiki'
                 );
                 Feedback::success($message);
                 return [];

@@ -23,6 +23,7 @@ class ToolbarsList
     private bool $wysiwyg = false;
     private bool $is_html = false;
     private string $domElementId;
+    private string $syntax;
 
     private function __construct()
     {
@@ -35,7 +36,7 @@ class ToolbarsList
      *
      * @return ToolbarsList
      */
-    public static function fromPreference(array $params, array $tags_to_hide, string $domElementId): ToolbarsList
+    public static function fromPreference(array $params, array $tags_to_hide): ToolbarsList
     {
         global $tikilib;
 
@@ -51,17 +52,18 @@ class ToolbarsList
 
         $local = str_replace([',,', '|,', ',|', ',/', '/,'], [',', '|', '|', '/', '/'], $local);
 
-        return self::fromPreferenceString($local, $params, $domElementId);
+        return self::fromPreferenceString($local, $params);
     }
 
-    public static function fromPreferenceString(string $string, array $params, $domElementId): ToolbarsList
+    public static function fromPreferenceString(string $string, array $params): ToolbarsList
     {
         global $toolbarPickerIndex;
         $toolbarPickerIndex = -1;
         $list = new self();
         $list->wysiwyg = (isset($params['_wysiwyg']) && $params['_wysiwyg'] === 'y');
         $list->is_html = ! empty($params['_is_html']);
-        $list->domElementId = $domElementId;
+        $list->domElementId = $params['area_id'] ?? 'tiki';
+        $list->syntax = $params['syntax'] ?? 'tiki';
 
         $string = preg_replace('/\s+/', '', $string);
 
@@ -136,10 +138,11 @@ class ToolbarsList
     public function getWysiwygArray(): array
     {
         $lines = [];
+        $rightAligned = [];
         foreach ($this->lines as $line) {
             $lineOut = [];
 
-            foreach ($line as $bit) {
+            foreach ($line as $index => $bit) {
                 foreach ($bit as $group) {
                     $group_count = 0;
                     foreach ($group as $tag) {
@@ -148,9 +151,29 @@ class ToolbarsList
                                 $lineOut[] = $token;
                                 $group_count++;
                             }
-                        } elseif ($token = $tag->getWysiwygWikiToken($this->domElementId)) {
-                            $lineOut[] = $token;
-                            $group_count++;
+                        } else {
+                            if ($this->syntax === 'markdown') {
+                                $token = $tag->getMarkdownWysiwyg($this->domElementId);
+                                if (in_array($token, $lineOut)) {
+                                    // non-wysiwyg has three heading buttons but Toast uses a dropdown, so only add one
+                                    // (and array_unique only works on single dimensional arrays)
+                                    $token = null;
+                                }
+                                if ($token) {
+                                    if ($index > 0) {
+                                        $rightAligned[] = $token;
+                                    } else {
+                                        $lineOut[] = $token;
+                                        $group_count++;
+                                    }
+                                }
+                            } else {
+                                $token = $tag->getWysiwygWikiToken($this->domElementId);
+                                if ($token) {
+                                    $lineOut[] = $token;
+                                    $group_count++;
+                                }
+                            }
                         }
                     }
                     if ($group_count) { // don't add separators for empty groups
@@ -164,6 +187,33 @@ class ToolbarsList
             if (count($lineOut)) {
                 $lines[] = [$lineOut];
             }
+        }
+
+        if ($this->syntax === 'markdown') {
+            // need to flatten the icons for toast which only has one toolbar it seems
+            $mdLine = [];
+            foreach ($lines as $blocks) {
+                foreach ($blocks as $block) {
+                    foreach ($block as & $item) {
+                        if ($decoded = json_decode($item, true)) {
+                            $item = $decoded;
+                        }
+                    }
+                    $mdLine[] = array_values(
+                        array_filter($block, function ($v) {
+                            // separators get added inbetween groups, so remove them
+                            return $v !== '-';
+                        })
+                    );
+                }
+            }
+            foreach ($rightAligned as & $item) {
+                if ($decoded = json_decode($item, true)) {
+                    $item = $decoded;
+                }
+            }
+            $mdLine[] = $rightAligned;
+            $lines = $mdLine;
         }
 
         return $lines;
@@ -188,7 +238,11 @@ class ToolbarsList
                 foreach ($line[$bitx] as $group) {
                     $groupHtml = '';
                     foreach ($group as $tag) {
-                        $groupHtml .= $tag->getWikiHtml($this->domElementId);
+                        if ($this->syntax === 'markdown') {
+                            $groupHtml .= $tag->getMarkdownHtml($this->domElementId);
+                        } else {
+                            $groupHtml .= $tag->getWikiHtml($this->domElementId);
+                        }
                     }
 
                     if (! empty($groupHtml)) {

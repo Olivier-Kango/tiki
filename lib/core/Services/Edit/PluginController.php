@@ -111,6 +111,7 @@ class Services_Edit_PluginController
         $type = strtolower($input->type->word());
         $index = $input->index->int();
         $page = $input->page->pagename();
+        $isMarkdown = $input->isMarkdown->int();
         $pluginArgs = $input->asArray('pluginArgs');
         $bodyContent = $input->bodyContent->wikicontent();
         $edit_icon = $input->edit_icon->int();
@@ -254,6 +255,7 @@ class Services_Edit_PluginController
                 'bodyContent' => $bodyContent,
                 'edit_icon' => $edit_icon,
                 'selectedMod' => $selectedMod,
+                'isMarkdown' => $isMarkdown,
 
                 'info' => $info,
                 'title' => $info['name'],
@@ -278,6 +280,29 @@ class Services_Edit_PluginController
     {
         $util = new Services_Edit_Utilities();
         return $util->replacePlugin($input);
+    }
+
+    /**
+     * Render a single plugin to html
+     *
+     * @param JitFilter $input
+     *
+     * @return array
+     */
+    public function action_render(JitFilter $input): array
+    {
+        global $jitRequest;
+
+        $content = $input->markup->wikicontent();
+        $plugins = TikiLib::lib('parser')->find_plugins($content);
+
+        $pluginOutput = WikiParser_PluginOutput::wiki($content);
+        $html = $pluginOutput->toHtml();
+        return [
+            'html' => $html,
+            'plugins' => $plugins,
+            'pageName' => $jitRequest->page->pagename(),
+        ];
     }
 
     /**

@@ -6,20 +6,39 @@ class ToolbarLineBased extends ToolbarInline // Will change in the future
 {
     public static function fromName($tagName): ?ToolbarItem
     {
+        $iconname = '';
+        $wysiwyg = '';
+        $syntax = '';
+        $markdown = '';
+        $markdown_wysiwyg = '';
+
         switch ($tagName) {
             case 'list':
                 $label = tra('Bullet List');
                 $iconname = 'list';
                 $wysiwyg = 'BulletedList';
                 $syntax = '* text';
+                $markdown = '* text';
+                $markdown_wysiwyg = 'ul';
                 break;
             case 'numlist':
                 $label = tra('Numbered List');
                 $iconname = 'list-numbered';
                 $wysiwyg = 'NumberedList';
                 $syntax = '# text';
+                $markdown = '1. text';
+                $markdown_wysiwyg = 'ol';
                 break;
             case 'indent':
+                $label = tra('Indent');
+                $markdown = '> text';
+                $markdown_wysiwyg = 'indent';
+                break;
+            case 'outdent':
+                $label = tra('Outdent');
+                $markdown = '< text';
+                $markdown_wysiwyg = 'outdent';
+                break;
             default:
                 return null;
         }
@@ -29,6 +48,8 @@ class ToolbarLineBased extends ToolbarInline // Will change in the future
             ->setWysiwygToken($wysiwyg)
             ->setIconName(! empty($iconname) ? $iconname : 'help')
             ->setSyntax($syntax)
+            ->setMarkdownSyntax($markdown)
+            ->setMarkdownWysiwyg($markdown_wysiwyg)
             ->setType('LineBased')
             ->setClass('qt-line');
 

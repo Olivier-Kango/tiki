@@ -71,7 +71,7 @@ class ToolbarFileGallery extends ToolbarUtilityItem
         if (! empty($this->wysiwyg)) {
             $exec_js = str_replace('&amp;', '&', $this->getOnClick());
 
-            $this->setupCKEditorTool($exec_js, $this->wysiwyg, $this->label, $this->icon);
+            $this->setupCKEditorTool($exec_js);
         }
         return $this->wysiwyg;
     }

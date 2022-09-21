@@ -20,7 +20,7 @@
                     </div>
                 {/if}
                 {capture name=rows}{if $type eq 'forum'}{$prefs.default_rows_textarea_forum}{else}{$prefs.default_rows_textarea_comment}{/if}{/capture}
-                {textarea codemirror='true' syntax='tiki' name=data comments="y" _wysiwyg="n" rows=$smarty.capture.rows _preview=$prefs.ajax_edit_previews}{$comment.data}{/textarea}
+                {textarea codemirror='true' name=data comments="y" _wysiwyg="n" rows=$smarty.capture.rows _preview=$prefs.ajax_edit_previews}{$comment.data}{/textarea}
                 </div>
                 <div class="card-footer">
                     {if empty($comment.version)}

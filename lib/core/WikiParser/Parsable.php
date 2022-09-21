@@ -42,6 +42,11 @@ class WikiParser_Parsable extends ParserLib
 
         $matches = WikiParser_PluginMatcher::match($data);
         $argumentParser = new WikiParser_PluginArgumentParser();
+        if (empty($data)) {
+            $this->option['is_markdown'] = $prefs['markdown_default'] === 'markdown';
+        } else {
+            $this->option['is_markdown'] = false;
+        }
 
         foreach ($matches as $match) {
             if ($match->getName() != 'syntax') {
@@ -63,6 +68,10 @@ class WikiParser_Parsable extends ParserLib
             $match->replaceWith($ret);
         }
         $data = $matches->getText();
+        // if we removed the syntax plugin then clean up the leftover linefeed
+        if ($ret === '' && (strpos($data, "\r\n") === 0 || strpos($data, "\n") === 0)) {
+            $data = substr($data, strpos($data, "\r\n") === 0 ? 2 : 1);
+        }
     }
 
     // This recursive function handles pre- and no-parse sections and plugins
@@ -218,6 +227,8 @@ if ( \$('#$id') ) {
                     . json_encode($this->option['page'])
                     . ', '
                     . json_encode($arguments)
+                    . ', '
+                    . $this->option['is_markdown']
                     . ', '
                     . json_encode($this->unprotectSpecialChars($plugin_data, true)) //we restore it back to html here so that it can be edited, we want no modification, ie, it is brought back to html
                     . ", event.target);

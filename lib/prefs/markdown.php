@@ -40,5 +40,55 @@ function prefs_markdown_list()
                 'markdown_enabled',
             ],
         ],
+        'markdown_wysiwyg_height' => [
+            'name' => tr('WYSIWYG Height'),
+            'description' => tr('Vertical or tabbed.'),
+            'type' => 'text',
+            'size' => 5,
+            'filter' => 'imgsize',
+            'default' => '300px',
+            'dependencies' => [
+                'markdown_enabled',
+                'feature_wysiwyg',
+            ],
+        ],
+        'markdown_wysiwyg_preview_style' => [
+            'name' => tr('WYSIWYG Preview Style'),
+            'description' => tr('Vertical or tabbed.'),
+            'type' => 'list',
+            'options' => [
+                'vertical' => tra('Vertical'),
+                'tab' => tra('Tab'),
+            ],
+            'default' => 'vertical',
+            'dependencies' => [
+                'markdown_enabled',
+                'feature_wysiwyg',
+            ],
+        ],
+        'markdown_wysiwyg_intitial_edit_type' => [
+            'name' => tr('WYSIWYG Initial Edit Mode'),
+            'description' => tr('WYSIWYG or Markdown.'),
+            'type' => 'list',
+            'options' => [
+                'wysiwyg' => tra('WYSIWYG'),
+                'markdown' => tra('Markdown'),
+            ],
+            'default' => 'wysiwyg',
+            'dependencies' => [
+                'markdown_enabled',
+                'feature_wysiwyg',
+            ],
+        ],
+        'markdown_wysiwyg_usage_statistics' => [
+            'name' => tr('Usage Statistics'),
+            'description' => tra('Send hostname to Toast UI.'),
+            'type' => 'flag',
+            'default' => 'y',
+            'dependencies' => [
+                'markdown_enabled',
+                'feature_wysiwyg',
+            ],
+        ],
     ];
 }

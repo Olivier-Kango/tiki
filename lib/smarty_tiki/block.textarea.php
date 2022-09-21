@@ -76,14 +76,20 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
     $params['comments'] = isset($params['comments']) ? $params['comments'] : 'n';
     $params['autosave'] = isset($params['autosave']) ? $params['autosave'] : 'y';
 
+    // work out if we have tiki or markdown syntax
+    $wikiParserParsable = new WikiParser_Parsable($content);
+    $wikiParserParsable->guess_syntax($content);
+    $syntax = $wikiParserParsable->option['is_markdown'] ? 'markdown' : 'tiki';
+    // for the toolbars
+    $params['syntax'] = $syntax;
+
     //codemirror integration
     if ($prefs['feature_syntax_highlighter'] === 'y') {
         $params['data-codemirror'] = isset($params['codemirror']) ? $params['codemirror'] : '';
-        $params['data-syntax'] = isset($params['syntax']) ? $params['syntax'] : '';
+        $params['data-syntax'] = $syntax;
     }
     //keep params html5 friendly
     unset($params['codemirror']);
-    unset($params['syntax']);
 
     // mainly for modules admin - preview is for the module, not the custom module so don;t need to confirmExit
     $params['_previewConfirmExit'] = isset($params['_previewConfirmExit']) ? $params['_previewConfirmExit'] : 'y';
@@ -94,6 +100,7 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
     }
     $html = '';
     $html .= '<input type="hidden" name="mode_wysiwyg" value="" /><input type="hidden" name="mode_normal" value="" />';
+    $html .= '<input type="hidden" name="syntax" value="' . $syntax . '" />';
 
     $auto_save_referrer = '';
     $auto_save_warning = '';
@@ -169,33 +176,46 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
             $params['name'] = 'edit';
         }
 
-        $ckoptions = $wysiwyglib->setUpEditor($params['_is_html'], $as_id, $params, $auto_save_referrer);
+        if ($syntax === 'markdown') {
+            // markdown
+            $tuiOptions = $wysiwyglib->setUpMarkdownEditor($as_id, $content, $params, $auto_save_referrer);
 
-        $html .= '<input type="hidden" name="wysiwyg" value="y" />';
-        $html .= '<textarea class="wikiedit" name="' . $params['name'] . '" id="' . $as_id . '" style="visibility:hidden;'; // missing closing quotes, closed in condition
+            // TODO add dialog to choose syntax if pref says so
+            $html .= '<input type="hidden" name="wysiwyg" value="y" />';
+            $html .= '<input type="hidden" name="' . $params['name'] . '" id="' . $as_id . '" value="' . htmlspecialchars($content) . '" />';
+            $html .= '<div id="' . $as_id . '_editor"></div>';
 
-        $smarty->assign('textarea_id', $params['id']);
-
-        if (empty($params['cols'])) {
-            $html .= 'width:100%;' . (empty($params['rows']) ? 'height:500px;' : '') . '"';
         } else {
-            $html .= '" cols="' . $params['cols'] . '"';
-        }
-        if (! empty($params['rows'])) {
-            $html .= ' rows="' . $params['rows'] . '"';
-        }
-        $html .= '>' . htmlspecialchars($content) . '</textarea>';
+            // legacy tiki/ckeditor wysiwyg
 
-        $headerlib->add_jq_onready(
-            '
+            $ckoptions = $wysiwyglib->setUpEditor($params['_is_html'], $as_id, $params, $auto_save_referrer);
+
+            $html .= '<input type="hidden" name="wysiwyg" value="y" />';
+            $html .= '<textarea class="wikiedit" name="' . $params['name'] . '" id="' . $as_id . '" style="visibility:hidden;'; // missing closing quotes, closed in condition
+
+            $smarty->assign('textarea_id', $params['id']);
+
+            if (empty($params['cols'])) {
+                $html .= 'width:100%;' . (empty($params['rows']) ? 'height:500px;' : '') . '"';
+            } else {
+                $html .= '" cols="' . $params['cols'] . '"';
+            }
+            if (! empty($params['rows'])) {
+                $html .= ' rows="' . $params['rows'] . '"';
+            }
+            $html .= '>' . htmlspecialchars($content) . '</textarea>';
+
+            $headerlib->add_jq_onready(
+                '
 CKEDITOR.replace( "' . $as_id . '",' . $ckoptions . ');
 CKEDITOR.on("instanceReady", function(event) {
 if (typeof ajaxLoadingHide == "function") { ajaxLoadingHide(); }
 this.instances.' . $as_id . '.resetDirty();
 });
-',
-            20
-        );  // after dialog tools init (10)
+    ',
+                20
+            );  // after dialog tools init (10)
+        }
     } else {
         // end of if ( $params['_wysiwyg'] == 'y' && $params['_simple'] == 'n')
 
@@ -217,6 +237,8 @@ this.instances.' . $as_id . '.resetDirty();
         if ($textarea_attributes != '') {
             $smarty->assign('textarea_attributes', $textarea_attributes);
         }
+        $smarty->assign('textarea_syntax', $syntax);
+
         $smarty->assignByRef('textareadata', $content);
         $html .= $smarty->fetch('wiki_edit.tpl');
 
@@ -366,6 +388,17 @@ function admintoolbar() {
         $html = $smarty->fetch('wiki_edit_with_preview.tpl');
         $headerlib->add_jsfile('lib/jquery_tiki/edit_preview.js');
     }
+
+    $processSaveSyntax = '
+$("#' . $as_id . '").form().submit(function () {
+    const $textarea = $("#' . $as_id . '");
+    if ($("input[name=syntax]", this).val() === "markdown") {
+        $textarea.val("{syntax type=markdown}\r\n" + $textarea.val());
+    }
+    return true;
+});';
+
+    $headerlib->add_js($processSaveSyntax);
 
     return $html;
 }

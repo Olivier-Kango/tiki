@@ -219,7 +219,7 @@
                             {else}
                                 {$forum_wysiwyg = 'n'}
                             {/if}
-                            {textarea id="editpost" class="form-control" name="comments_data" codemirror="y" syntax="tiki" _toolbars=$prefs.feature_forum_parse _wysiwyg=$forum_wysiwyg _preview=$prefs.ajax_edit_previews}{$comment_data}{/textarea}
+                            {textarea id="editpost" class="form-control" name="comments_data" codemirror="y" _toolbars=$prefs.feature_forum_parse _wysiwyg=$forum_wysiwyg _preview=$prefs.ajax_edit_previews}{$comment_data}{/textarea}
                         </div>
                     </div>
                     {if ($forum_info.att eq 'att_all') or ($forum_info.att eq 'att_admin' and $tiki_p_admin_forum eq 'y') or ($forum_info.att eq 'att_perm' and $tiki_p_forum_attach eq 'y')}

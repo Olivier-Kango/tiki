@@ -11,6 +11,7 @@ class ToolbarHelptool extends ToolbarUtilityItem
         $this->setLabel(tra('Wiki Help'))
             ->setIcon('img/icons/help.png')
             ->setType('Helptool')
+            ->setWysiwygToken('tikihelp')
             ->setClass('qt-help');
     }
 
@@ -59,7 +60,7 @@ class ToolbarHelptool extends ToolbarUtilityItem
 
         $js = '$.openModal({show: true, remote: "' . $servicelib->getUrl($params) . '" + editor.name});';
 
-        $this->setupCKEditorTool($js, $name, $this->label, $this->icon);
+        $this->setupCKEditorTool($js);
 
         return $name;
     }

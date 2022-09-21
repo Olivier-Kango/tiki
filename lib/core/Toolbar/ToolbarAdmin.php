@@ -2,7 +2,7 @@
 
 namespace Tiki\Lib\core\Toolbar;
 
-class ToolbarAdmin extends ToolbarItem
+class ToolbarAdmin extends ToolbarUtilityItem
 {
 
     public function __construct()
@@ -11,6 +11,8 @@ class ToolbarAdmin extends ToolbarItem
             ->setIconName('wrench')
             ->setIcon(tra('img/icons/wrench.png'))
             ->setWysiwygToken('admintoolbar')
+            ->setMarkdownSyntax('admintoolbar')
+            ->setMarkdownWysiwyg('admintoolbar')
             ->setType('admintoolbar')
             ->setClass('qt-admintoolbar');
     }
@@ -19,11 +21,9 @@ class ToolbarAdmin extends ToolbarItem
     {
         global $prefs;
         if (! empty($this->wysiwyg)) {
-            $name = $this->wysiwyg;   // temp
 
             if ($prefs['feature_wysiwyg'] == 'y') {
-                $js = "admintoolbar();";
-                $this->setupCKEditorTool($js, $name, $this->label, $this->icon);
+                $this->setupCKEditorTool($this->getOnClick());
             }
         }
         return $this->wysiwyg;

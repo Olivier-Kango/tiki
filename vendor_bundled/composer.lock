@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf283324d82cbf36a35a64d1820812a8",
+    "content-hash": "9d7e0df972c307ee5257ce69c8a12425",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -6651,6 +6651,19 @@
             ]
         },
         {
+            "name": "npm-asset/dompurify",
+            "version": "2.4.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/npm-asset/dompurify/npm-asset-dompurify-2.4.0.zip",
+                "shasum": "9ccee8c1d21962678bad282091c51244adc71388"
+            },
+            "type": "npm-asset",
+            "license": [
+                "(MPL-2.0 OR Apache-2.0)"
+            ]
+        },
+        {
             "name": "npm-asset/error-stack-parser",
             "version": "1.3.3",
             "dist": {
@@ -6798,6 +6811,18 @@
             ]
         },
         {
+            "name": "npm-asset/orderedmap",
+            "version": "2.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/orderedmap/-/orderedmap-2.0.0.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "npm-asset/picocolors",
             "version": "1.0.0",
             "dist": {
@@ -6858,12 +6883,153 @@
             "type": "npm-asset"
         },
         {
+            "name": "npm-asset/prosemirror-commands",
+            "version": "1.3.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/prosemirror-commands/-/prosemirror-commands-1.3.1.tgz"
+            },
+            "require": {
+                "npm-asset/prosemirror-model": ">=1.0.0,<2.0.0",
+                "npm-asset/prosemirror-state": ">=1.0.0,<2.0.0",
+                "npm-asset/prosemirror-transform": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/prosemirror-history",
+            "version": "1.3.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/prosemirror-history/-/prosemirror-history-1.3.0.tgz"
+            },
+            "require": {
+                "npm-asset/prosemirror-state": ">=1.2.2,<2.0.0",
+                "npm-asset/prosemirror-transform": ">=1.0.0,<2.0.0",
+                "npm-asset/rope-sequence": ">=1.3.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/prosemirror-inputrules",
+            "version": "1.2.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/prosemirror-inputrules/-/prosemirror-inputrules-1.2.0.tgz"
+            },
+            "require": {
+                "npm-asset/prosemirror-state": ">=1.0.0,<2.0.0",
+                "npm-asset/prosemirror-transform": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/prosemirror-keymap",
+            "version": "1.2.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/prosemirror-keymap/-/prosemirror-keymap-1.2.0.tgz"
+            },
+            "require": {
+                "npm-asset/prosemirror-state": ">=1.0.0,<2.0.0",
+                "npm-asset/w3c-keyname": ">=2.2.0,<3.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/prosemirror-model",
+            "version": "1.18.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/prosemirror-model/-/prosemirror-model-1.18.1.tgz"
+            },
+            "require": {
+                "npm-asset/orderedmap": ">=2.0.0,<3.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/prosemirror-state",
+            "version": "1.4.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/prosemirror-state/-/prosemirror-state-1.4.1.tgz"
+            },
+            "require": {
+                "npm-asset/prosemirror-model": ">=1.0.0,<2.0.0",
+                "npm-asset/prosemirror-transform": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/prosemirror-transform",
+            "version": "1.7.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/prosemirror-transform/-/prosemirror-transform-1.7.0.tgz"
+            },
+            "require": {
+                "npm-asset/prosemirror-model": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/prosemirror-view",
+            "version": "1.28.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/prosemirror-view/-/prosemirror-view-1.28.0.tgz"
+            },
+            "require": {
+                "npm-asset/prosemirror-model": ">=1.16.0,<2.0.0",
+                "npm-asset/prosemirror-state": ">=1.0.0,<2.0.0",
+                "npm-asset/prosemirror-transform": ">=1.1.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "npm-asset/reveal.js",
             "version": "3.9.2",
             "dist": {
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/npm-asset/reveal-js/npm-asset-reveal-js-3.9.2.zip",
                 "shasum": "0de63206c3dcbbeddeab6c6aee0f25d3d3dfd2f0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/rope-sequence",
+            "version": "1.3.3",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/rope-sequence/-/rope-sequence-1.3.3.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -7112,6 +7278,28 @@
             ]
         },
         {
+            "name": "npm-asset/toast-ui--editor",
+            "version": "3.2.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@toast-ui/editor/-/editor-3.2.0.tgz"
+            },
+            "require": {
+                "npm-asset/dompurify": ">=2.3.3,<3.0.0",
+                "npm-asset/prosemirror-commands": ">=1.1.9,<2.0.0",
+                "npm-asset/prosemirror-history": ">=1.1.3,<2.0.0",
+                "npm-asset/prosemirror-inputrules": ">=1.1.3,<2.0.0",
+                "npm-asset/prosemirror-keymap": ">=1.1.4,<2.0.0",
+                "npm-asset/prosemirror-model": ">=1.14.1,<2.0.0",
+                "npm-asset/prosemirror-state": ">=1.3.4,<2.0.0",
+                "npm-asset/prosemirror-view": ">=1.18.7,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "npm-asset/ts-custom-error",
             "version": "3.1.1",
             "dist": {
@@ -7184,6 +7372,18 @@
                 "npm-asset/source-map": ">=0.6.1,<0.7.0"
             },
             "type": "npm-asset"
+        },
+        {
+            "name": "npm-asset/w3c-keyname",
+            "version": "2.2.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/w3c-keyname/-/w3c-keyname-2.2.4.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "npm-asset/zxing--library",

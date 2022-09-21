@@ -15,6 +15,7 @@ class ToolbarDialog extends ToolbarItem
         global $prefs;
 
         $tool_prefs = [];
+        $markdown_wysiwyg = '';
 
         switch ($tagName) {
             case 'tikilink':
@@ -22,6 +23,7 @@ class ToolbarDialog extends ToolbarItem
                 $iconname = 'link';
                 $icon = tra('img/icons/page_link.png');
                 $wysiwyg = '';  // cke link dialog now adapted for wiki links
+                $markdown = ''; // TODO
                 $list = [
                     tra("Wiki Link"),
                     '<label for="tbWLinkDesc">' . tra("Show this text") . '</label>',
@@ -88,6 +90,8 @@ class ToolbarDialog extends ToolbarItem
                 $label = tra('External Link');
                 $iconname = 'link-external';
                 $icon = tra('img/icons/world_link.png');
+                $markdown = ''; // TODO
+                $markdown_wysiwyg = 'link';
                 $list = [
                     tra('External Link'),
                     '<label for="tbLinkDesc">' . tra("Show this text") . '</label>',
@@ -111,6 +115,8 @@ class ToolbarDialog extends ToolbarItem
                 $iconname = 'table';
                 $icon = tra('img/icons/table.png');
                 $wysiwyg = 'Table';
+                $markdown = ''; // TODO
+                $markdown_wysiwyg = 'table';
                 $label = tra('Table Builder');
                 $list = [
                     tra('Table Builder'),
@@ -126,6 +132,7 @@ class ToolbarDialog extends ToolbarItem
                 $icon = tra('img/icons/find.png');
                 $iconname = 'search';
                 $wysiwyg = 'Find';
+                $markdown = ''; // TODO
                 $label = tra('Find Text');
                 $list = [
                     tra('Find Text'),
@@ -146,6 +153,7 @@ class ToolbarDialog extends ToolbarItem
                 $icon = tra('img/icons/text_replace.png');
                 $iconname = 'repeat';
                 $wysiwyg = 'Replace';
+                $markdown = ''; // TODO
                 $label = tra('Text Replace');
                 $tool_prefs[] = 'feature_wiki_replace';
 
@@ -175,6 +183,7 @@ class ToolbarDialog extends ToolbarItem
         $tag = new self();
         $tag->name = $tagName;
         $tag->setWysiwygToken($wysiwyg)
+            ->setMarkdownWysiwyg($markdown_wysiwyg)
             ->setLabel($label)
             ->setIconName(! empty($iconname) ? $iconname : 'help')
             ->setIcon(! empty($icon) ? $icon : 'img/icons/shading.png')
@@ -236,7 +245,7 @@ class ToolbarDialog extends ToolbarItem
                 1 + $this->index
             );
             $onClick = str_replace('\'' . $this->domElementId . '\'', 'editor.name', $this->getOnClick());
-            $this->setupCKEditorTool($onClick, $this->wysiwyg, $this->label, $this->icon);
+            $this->setupCKEditorTool($onClick);
         }
         return $this->wysiwyg;
     }

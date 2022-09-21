@@ -147,6 +147,8 @@ class ToolbarPicker extends ToolbarItem
             ->setType('Picker')
             ->setClass('qt-picker')
             ->setName($tagName)
+            ->setMarkdownSyntax($tagName)
+            ->setMarkdownWysiwyg($tagName)
             ->setStyleType($styleType);
 
         foreach ($tool_prefs as $pref) {
@@ -213,14 +215,7 @@ class ToolbarPicker extends ToolbarItem
 
     public function getWikiHtml(): string
     {
-        $headerlib = TikiLib::lib('header');
-        $headerlib->add_js(
-            "if (! window.pickerData) { window.pickerData = {}; } window.pickerData['$this->name'] = " . str_replace(
-                '\/',
-                '/',
-                json_encode($this->list)
-            ) . ";"
-        );
+        $this->setupPickerJS();
 
         return $this->getSelfLink(
             $this->getOnClick(),
@@ -229,10 +224,57 @@ class ToolbarPicker extends ToolbarItem
         );
     }
 
+    public function getMarkdownHtml(): string
+    {
+        if (in_array($this->name, ['specialchar', 'smiley'])) {
+            return $this->getWikiHtml();
+        } else {
+            return '';
+        }
+    }
+
+
+    public function getMarkdownWysiwyg(): string
+    {
+        if (in_array($this->name, ['specialchar', 'smiley'])) {
+            $this->setupPickerJS();
+
+            \TikiLib::lib('header')->add_jq_onready(
+                "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').click(function () {
+                        {$this->getOnClick()}
+                    }).get(0);"
+            );
+
+            $item = [
+                'name'    => $this->markdown,
+                'tooltip' => $this->label,
+                'el'      => "%~tuiToolbarItem{$this->markdown_wysiwyg}~%",
+            ];
+            return json_encode($item);
+
+        }
+        return '';
+    }
+
     protected function setStyleType(string $type): ?ToolbarItem
     {
         $this->styleType = $type;
 
         return $this;
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    public function setupPickerJS(): void
+    {
+        TikiLib::lib('header')->add_js(
+            "if (! window.pickerData) { window.pickerData = {}; } window.pickerData['$this->name'] = " . str_replace(
+                '\/',
+                '/',
+                json_encode($this->list)
+            ) . ";"
+        );
     }
 }

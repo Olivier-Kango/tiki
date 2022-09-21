@@ -163,7 +163,7 @@ function get_default_prefs()
 
             // toolbars
             // comma delimited items, / delimited rows and | denotes items right justified in toolbar (in reverse order)
-            // full list in lib/toolbars/toolbarslib.php Toolbar::getList()
+            // full list in ToolbarItem::getList()
             // cannot contain spaces, commas, forward-slash or pipe chars within tool names
             'toolbar_global' => '
                 bold, italic, underline, strike, sub, sup,-, color, -, tikiimage, tikilink, link, unlink, anchor, -,

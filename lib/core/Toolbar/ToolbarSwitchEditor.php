@@ -11,6 +11,8 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
             ->setIconName('pencil')
             ->setIcon(tra('img/icons/pencil_go.png'))
             ->setWysiwygToken('tikiswitch')
+            ->setMarkdownSyntax('tikiswitch')
+            ->setMarkdownWysiwyg('tikiswitch')
             ->setType('SwitchEditor')
             ->setClass('qt-switcheditor')
             ->addRequiredPreference('feature_wysiwyg');
@@ -22,15 +24,26 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
         if (! empty($this->wysiwyg)) {
             if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_optional'] == 'y') {
                 $js = "switchEditor('wiki', $('#$this->domElementId').parents('form')[0]);";
-                $this->setupCKEditorTool($js, $this->wysiwyg, $this->label, $this->icon);
+                $this->setupCKEditorTool($js);
             }
         }
         return $this->wysiwyg;
     }
 
+    public function getMarkdownWysiwyg(): string
+    {
+        global $prefs;
+        if (! empty($this->markdown_wysiwyg)) {
+            if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_optional'] == 'y') {
+                return parent::getMarkdownWysiwyg();
+            }
+        }
+        return '';
+    }
 
     public function isAccessible(): bool
     {
+        // TODO make object specific check, but we don't know where this toolbar is down here...
         global $tiki_p_edit_switch_mode;
 
         return parent::isAccessible() &&

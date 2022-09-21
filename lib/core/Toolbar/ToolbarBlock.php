@@ -11,6 +11,8 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
         $label = '';
         $wysiwyg = '';
         $syntax = '';
+        $markdown = '';
+        $markdown_wysiwyg = '';
 
         switch ($tagName) {
             case 'center':
@@ -28,6 +30,8 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
                 $iconname = 'horizontal-rule';
                 $wysiwyg = 'HorizontalRule';
                 $syntax = '---';
+                $markdown = '***';
+                $markdown_wysiwyg = 'hr';
                 break;
             case 'pagebreak':
                 $label = tra('Page Break');
@@ -52,6 +56,8 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
                 $label = tra('Heading') . ' ' . $tagName[1];
                 $iconname = $tagName;
                 $syntax = str_repeat('!', $tagName[1]) . ' text';
+                $markdown = str_repeat('#', $tagName[1]) . ' text';
+                $markdown_wysiwyg = 'heading';
                 break;
             case 'titlebar':
                 $label = tra('Title bar');
@@ -73,6 +79,8 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
             ->setWysiwygToken($wysiwyg)
             ->setIconName(! empty($iconname) ? $iconname : 'help')
             ->setSyntax($syntax)
+            ->setMarkdownSyntax($markdown)
+            ->setMarkdownWysiwyg($markdown_wysiwyg)
             ->setType('Block')
             ->setClass('qt-block');
 

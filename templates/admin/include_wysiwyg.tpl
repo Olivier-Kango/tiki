@@ -23,7 +23,16 @@
             {preference name=wysiwyg_default}
             {preference name=wysiwyg_memo}
         </div>
-
+    </fieldset>
+    <fieldset>
+        <legend>{tr}Markdown Toast UI WySIWYG{/tr}</legend>
+        {preference name=markdown_wysiwyg_height}
+        {preference name=markdown_wysiwyg_preview_style}
+        {preference name=markdown_wysiwyg_intitial_edit_type}
+        {preference name=markdown_wysiwyg_usage_statistics}
+    </fieldset>
+    <fieldset>
+        <legend>{tr}Legacy CKEditor WYSIWYG{/tr}</legend>
         {preference name=wysiwyg_htmltowiki}
         {preference name=wysiwyg_inline_editing}
         {preference name=wysiwyg_toolbar_skin}

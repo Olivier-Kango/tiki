@@ -123,18 +123,6 @@ class ToolbarSheet extends ToolbarItem
         return $tag;
     }
 
-    public function getSyntax(): string
-    {
-        return $this->syntax;
-    }
-
-    protected function setSyntax(string $syntax): ToolbarItem
-    {
-        $this->syntax = $syntax;
-
-        return $this;
-    }
-
     /**
      * @return string
      */

@@ -7,7 +7,7 @@
 // $Id$
 
 /*
- * Shared functions for tiki implementation of nkeditor (v3.6.2)
+ * Shared functions for tiki implementation of ckeditor and toast ui for markdown
  */
 
 use Tiki\Lib\core\Toolbar\ToolbarCombos;
@@ -65,10 +65,10 @@ class WYSIWYGLib
 
         $info = $tikilib->get_page_info($pageName, false);  // Don't load page data.
         $params = [
-            '_wysiwyg' => 'y',
-            'area_id' => 'page-data',
-            'comments' => '',
-            'is_html' => $info['is_html'],  // temporary element id
+            '_wysiwyg'     => 'y',
+            'area_id'      => 'page-data',
+            'comments'     => '',
+            'is_html'      => $info['is_html'],  // temporary element id
             'switcheditor' => 'n',
         ];
 
@@ -148,8 +148,9 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
             );  // before dialog tools init (10)
         }
         if (
-            $auto_save_referrer && $prefs['feature_ajax'] === 'y' &&
-                $prefs['ajax_autosave'] === 'y' && $params['autosave'] == 'y'
+            $auto_save_referrer && $prefs['feature_ajax'] === 'y'
+            && $prefs['ajax_autosave'] === 'y'
+            && $params['autosave'] == 'y'
         ) {
             $headerlib->add_js(
                 '// --- config settings for the autosave plugin ---
@@ -204,6 +205,152 @@ ajaxLoadingShow("' . $dom_id . '");
 //  }
 
         return $ckoptions;
+    }
+
+    /**
+     * @param string $dom_id
+     * @param array  $params
+     * @param string $auto_save_referrer
+     *
+     * @return array
+     */
+    public function setUpMarkdownEditor(string $dom_id, string $content, array $params = [], string $auto_save_referrer = ''): array
+    {
+        global $prefs;
+
+        $matches = WikiParser_PluginMatcher::match($content);
+        $position = 0;
+        $newContent = '';
+        foreach ($matches as $match) {
+            $newContent .= substr($content, $position, $match->getStart() - $position);
+
+            $pluginMarkup = substr($content, $match->getStart(), $match->getEnd() - $match->getStart());
+            $mdCustomBlock = "\$\$tiki\n$pluginMarkup\n\$\$";
+            $newContent .= $mdCustomBlock;
+
+            $position = $match->getEnd();
+        }
+
+        $newContent .= substr($content, $position);
+
+        $content = $newContent;
+
+        /** @var HeaderLib $headerlib */
+        $headerlib = TikiLib::lib('header');
+
+        $options = [
+            'domId' =>  "$dom_id",
+            'height' => $prefs['markdown_wysiwyg_height'],
+            'previewStyle' => $prefs['markdown_wysiwyg_preview_style'],
+            'initialEditType' => $prefs['markdown_wysiwyg_intitial_edit_type'],
+            'usageStatistics' => $prefs['markdown_wysiwyg_usage_statistics'] === 'y',
+            'initialValue' => $content,
+        ];
+
+        $languageCode = $this->languageMapISO($prefs['language']);
+        if ($languageCode) {
+            $options['language'] = $languageCode;
+            $headerlib->add_jsfile_external(
+                'https://uicdn.toast.com/editor/latest/i18n/' . strtolower($languageCode) . '.js'
+            );
+        }
+
+        if (! empty($params['_toolbars'])  && $params['_toolbars'] === 'y') {
+            /** @var Smarty_Tiki $smarty */
+            $smarty = TikiLib::lib('smarty');
+            $smarty->loadPlugin('smarty_function_toolbars');
+            $toolbarParams = [
+                'syntax' => 'markdown',
+                'area_id' => $dom_id,
+                '_wysiwyg' => 'y',
+                'is_html' => false,
+            ];
+            $tuitools = smarty_function_toolbars($toolbarParams, $smarty->getEmptyInternalTemplate());
+        } else {
+            $tuitools = '[]';
+        }
+        $options['toolbarItems'] = $tuitools;
+
+        $jsonOptions = json_encode($options);
+        // using %~ at the start and end of values that need to be literals, like functions
+        $jsonOptions = preg_replace(['/"%~/', '/~%"/'], '', $jsonOptions);
+
+        $headerlib
+            //->add_jsfile('vendor_bundled/vendor/npm-asset/toast-ui--editor/dist/toastui-editor.js', true)
+            //->add_cssfile('vendor_bundled/vendor/npm-asset/toast-ui--editor/dist/toastui-editor.css')
+            //->add_cssfile('https://uicdn.toast.com/editor/latest/toastui-editor.min.css')
+            ->add_jq_onready("
+tikiToastEditor($jsonOptions);
+");
+
+        return [];
+    }
+
+    /** Map between tiki lang codes and Toast (uses ISO codes)
+     *
+     * @param string $lang  Tiki language code
+     *
+     * @return string       mapped language code
+     *                      defaults empty if not found so not supported
+     */
+    private function languageMapISO($lang)
+    {
+
+        $langMap = [
+            'ar' => 'ar',           // Arabic = United Arab Emirates
+            //'bg' => 'bg',         // Bulgarian
+            //'ca' => 'ca',         // Catalan
+            'cn' => 'zh-CN',        // China - Simplified Chinese
+            'cs' => 'cs-CZ',        // Czech
+            //'cy' => 'cy',         // Welsh
+            //'da' => 'da',         // Danish
+            'de' => 'de-DE',        // Germany - German
+            //'en-uk' => 'en-GB',   // United Kingdom - English
+            'en' => 'en-US',        // United States - English
+            'es' => 'es-ES',        // Spain - Spanish
+            //'el' => 'el',         // Greek
+            //'fa' => 'fa',         // Farsi
+            'fi' => 'fi-FI',         // Finnish
+            //'fj' => 'fj',         // Fijian
+            'fr' => 'fr-FR',        // France - French
+            'fy-NL' => 'nl',        // Netherlands - Dutch
+            'gl' => 'gl-ES',        // Galician
+            //'he' => 'he',         // Israel - Hebrew
+            'hr' => 'hr-HR',        // Croatian
+            //'id' => 'id',         // Indonesian
+            //'is' => 'is',         // Icelandic
+            'it' => 'it-IT',        // Italy - Italian
+            //'iu' => 'iu',         // Inuktitut
+            //'iu-ro' => 'iu-ro',   // Inuktitut (Roman)
+            //'iu-iq' => 'iu-iq',   // Iniunnaqtun
+            'ja' => 'ja-JP',        // Japan - Japanese
+            'ko' => 'ko-KR',        // Korean
+            //'hu' => 'hu',         // Hungarian
+            //'lt' => 'lt',         // Lithuanian
+            'nds' => 'de-DE',       // Low German
+            'nl' => 'nl-NL',        // Netherlands - Dutch
+            'no' => 'nb-NO',        // Norway - Norwegian
+            'pl' => 'pl-PL',        // Poland - Polish
+            'pt' => 'pt',           // Portuguese
+            'pt-br' => 'pt-BR',     // Brazil - Portuguese
+            //'ro' => 'ro',         // Romanian
+            //'rm' => 'rm',         // Romansh
+            'ru' => 'ru-RU',        // Russia - Russian
+            //'sb' => 'sb',           // Pijin Solomon
+            //'si' => 'si',         // Sinhala
+            //'sk' => 'sk',         // Slovak
+            //'sl' => 'sl',         // Slovene
+            //'sq' => 'sq',         // Albanian
+            //'sr-latn' => 'sr-latn',   // Serbian Latin
+            'sv' => 'sv-SE',        // Sweden - Swedish
+            //'tv' => 'tv',           // Tuvaluansr-latn
+            'tr' => 'tr-TR',        // Turkey - Turkish
+            'tw' => 'zh-TW',        // Taiwan - Traditional Chinese
+            'uk' => 'uk-UA',        // Ukrainian
+            //'vi' => 'vi',         // Vietnamese
+        ];
+
+        return isset($langMap[$lang]) ? $langMap[$lang] : '';
     }
 
     /** Map between tiki lang codes and ckeditor's (mostly the same)
