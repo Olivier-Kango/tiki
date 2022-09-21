@@ -189,7 +189,6 @@ class Services_ML_Controller
             'AdaGrad',
             'AdaMax',
             'Adam',
-            'Adaptive',
             'Cyclical',
             'Momentum',
             'RMSProp',
