@@ -95,6 +95,12 @@ class Services_ML_Controller
                 'BooleanConverter',
             ]
         ],
+        'Transformers: Feature Expansion' => [
+            'path' => 'Transformers',
+            'classes' => [
+                'PolynomialExpander',
+            ]
+        ],
         'Transformers: Image Transformers' => [
             'path' => 'Transformers',
             'classes' => [
