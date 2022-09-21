@@ -174,13 +174,12 @@ class Services_ML_Controller
             'Cosine',
             'Diagonal',
             'Euclidean',
-            'Gower',
             'Hamming',
             'Jaccard',
             'Manhattan',
             'Minkowski',
             'SafeEuclidean',
-            'Levenshtein',
+            'SparseCosine',
         ]
     ];
 
