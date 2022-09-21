@@ -29,6 +29,7 @@ class Services_ML_Controller
                 'GaussianNB',
                 'KDNeighbors',
                 'KNearestNeighbors',
+                'LogitBoost',
                 'LogisticRegression',
                 'MultilayerPerceptron',
                 'NaiveBayes',
