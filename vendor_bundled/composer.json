@@ -181,7 +181,8 @@
         "npm-asset/sortablejs": "^1.13",
         "npm-asset/systemjs": "^6.12",
         "npm-asset/import-map-overrides": "^2.4",
-        "twbs/bootstrap-icons": "^1.8"
+        "twbs/bootstrap-icons": "^1.8",
+        "rubix/tensor": "^3.0"
     },
     "require-dev": {
         "bafs/testify": "dev-master",
