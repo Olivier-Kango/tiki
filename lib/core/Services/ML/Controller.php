@@ -111,9 +111,9 @@ class Services_ML_Controller
         'Transformers: Imputation' => [
             'path' => 'Transformers',
             'classes' => [
+                'HotDeckImputer',
                 'KNNImputer',
                 'MissingDataImputer',
-                'RandomHotDeckImputer',
             ]
         ],
         'Transformers: Other' => [
