@@ -116,6 +116,18 @@ class Services_ML_Controller
                 'MissingDataImputer',
             ]
         ],
+        'Transformers: Natural Language' => [
+            'path' => 'Transformers',
+            'classes' => [
+                'RegexFilter',
+                'TextNormalizer',
+                'MultibyteTextNormalizer',
+                'StopWordFilter',
+                'TfIdfTransformer',
+                'TokenHashingVectorizer',
+                'WordCountVectorizer',
+            ]
+        ],
         'Transformers: Other' => [
             'path' => 'Transformers',
             'classes' => [
