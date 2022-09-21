@@ -78,12 +78,12 @@ class Services_ML_Controller
         'Transformers: Dimensionality Reduction' => [
             'path' => 'Transformers',
             'classes' => [
-                'DenseRandomProjector',
                 'GaussianRandomProjector',
                 'LinearDiscriminantAnalysis',
                 'PrincipalComponentAnalysis',
                 'SparseRandomProjector',
                 'TruncatedSVD',
+                'TSNE',
             ]
         ],
         'Transformers: Feature Conversion' => [
