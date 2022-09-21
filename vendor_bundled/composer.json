@@ -183,7 +183,8 @@
         "npm-asset/import-map-overrides": "^2.4",
         "twbs/bootstrap-icons": "^1.8",
         "rubix/tensor": "^3.0",
-        "rubix/ml": "^2.1"
+        "rubix/ml": "^2.1",
+        "rubix/extras": "2.0.0-beta"
     },
     "require-dev": {
         "bafs/testify": "dev-master",

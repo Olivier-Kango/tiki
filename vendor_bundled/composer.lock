@@ -10081,6 +10081,81 @@
             "time": "2020-09-05T13:00:25+00:00"
         },
         {
+            "name": "rubix/extras",
+            "version": "2.0.0-beta",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RubixML/Extras.git",
+                "reference": "3eb3b3f783adaee7cea6a722739422fef0271709"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/rubix/extras/rubix-extras-3eb3b3f783adaee7cea6a722739422fef0271709-zip-461cab.zip",
+                "reference": "3eb3b3f783adaee7cea6a722739422fef0271709",
+                "shasum": "5a00e0d1477300d9ca975017bcc82974efb0bfde"
+            },
+            "require": {
+                "php": ">=7.4",
+                "rubix/ml": "^2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpbench/phpbench": "^1.0",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rubix\\ML\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew DalPino",
+                    "email": "support@andrewdalpino.com",
+                    "homepage": "https://github.com/andrewdalpino"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/RubixML/Extras/graphs/contributors"
+                }
+            ],
+            "description": "Experimental features for the Rubix ML library.",
+            "homepage": "https://rubixml.com",
+            "keywords": [
+                "Deep learning",
+                "Extras",
+                "Neural network",
+                "Rubix",
+                "ai",
+                "analytics",
+                "artificial intelligence",
+                "data mining",
+                "machine learning",
+                "ml",
+                "php",
+                "php ai",
+                "php ml",
+                "php-ml",
+                "rubix ml",
+                "rubixml"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/RubixML",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-09-06T02:03:54+00:00"
+        },
+        {
             "name": "rubix/ml",
             "version": "2.1.1",
             "source": {
@@ -16680,6 +16755,7 @@
         "teqneers/shamir": 20,
         "zendframework/zendservice-akismet": 20,
         "montefuscolo/xmpp": 20,
+        "rubix/extras": 10,
         "bafs/testify": 20,
         "phpcompatibility/php-compatibility": 20,
         "phpcsstandards/phpcsutils": 15
