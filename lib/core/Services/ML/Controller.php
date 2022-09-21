@@ -200,11 +200,9 @@ class Services_ML_Controller
     const NEURALNET_COST_FUNCTIONS = [
         'path' => 'NeuralNet\CostFunctions',
         'classes' => [
-            'ClassificationLoss',
             'CrossEntropy',
             'HuberLoss',
             'LeastSquares',
-            'RegressionLoss',
             'RelativeEntropy',
         ]
     ];
