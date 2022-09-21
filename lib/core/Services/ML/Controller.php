@@ -254,6 +254,7 @@ class Services_ML_Controller
         'path' => 'CrossValidation\Metrics',
         'classes' => [
             'Accuracy',
+            'BrierScore',
             'Completeness',
             'FBeta',
             'Homogeneity',
@@ -262,10 +263,12 @@ class Services_ML_Controller
             'MeanAbsoluteError',
             'MeanSquaredError',
             'MedianAbsoluteError',
+            'ProbabilisticAccuracy',
             'RandIndex',
             'RMSE',
             'RSquared',
             'SMAPE',
+            'TopKAccuracy',
             'VMeasure',
         ]
     ];
