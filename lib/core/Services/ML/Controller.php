@@ -95,14 +95,6 @@ class Services_ML_Controller
                 'BooleanConverter',
             ]
         ],
-        'Transformers: Feature Selection' => [
-            'path' => 'Transformers',
-            'classes' => [
-                'RecursiveFeatureEliminator',
-                'VarianceThresholdFilter',
-                'KBestFeatureSelector',
-            ]
-        ],
         'Transformers: Image Transformers' => [
             'path' => 'Transformers',
             'classes' => [
