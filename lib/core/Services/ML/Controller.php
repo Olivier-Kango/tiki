@@ -133,21 +133,6 @@ class Services_ML_Controller
                 'ZScaleStandardizer',
             ]
         ],
-        'Transformers: Text' => [
-            'path' => 'Transformers',
-            'classes' => [
-                'HTMLStripper',
-                'RegexFilter',
-                'TextNormalizer',
-                'MultibyteTextNormalizer',
-                'StopWordFilter',
-                'BM25Transformer',
-                'TfIdfTransformer',
-                'DeltaTfIdfTransformer',
-                'WhitespaceTrimmer',
-                'WordCountVectorizer',
-            ]
-        ],
     ];
 
     const TOKENIZERS = [
