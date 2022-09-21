@@ -163,9 +163,7 @@ class Services_ML_Controller
         'path' => 'Graph\Trees',
         'classes' => [
             'BallTree',
-            'ITree',
             'KDTree',
-            'VPTree',
         ]
     ];
 
