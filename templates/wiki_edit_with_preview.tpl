@@ -4,7 +4,9 @@
             {$edit_form}
         {/tab}
         {tab name="{tr}Preview{/tr}"}
-            <div id="preview_div_{$textarea_id}" class="textarea-preview card card-body"></div>
+            <div class="card">
+                <div id="preview_div_{$textarea_id}" class="textarea-preview card-body"></div>
+            </div>
         {/tab}
     {/tabset}
 </div>
