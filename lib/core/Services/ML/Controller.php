@@ -131,7 +131,7 @@ class Services_ML_Controller
         'Transformers: Other' => [
             'path' => 'Transformers',
             'classes' => [
-                'PolynomialExpander',
+                'LambdaFunction',
             ]
         ],
         'Transformers: Standardization and Normalization' => [
