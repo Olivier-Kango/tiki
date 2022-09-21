@@ -152,7 +152,7 @@ class Services_ML_Controller
         'classes' => [
             'KSkipNGram',
             'NGram',
-            'SkipGram',
+            'Sentence',
             'Whitespace',
             'Word',
             'WordStemmer',
