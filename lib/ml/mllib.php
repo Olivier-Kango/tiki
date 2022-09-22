@@ -191,15 +191,15 @@ class MachineLearningLib extends TikiDb_Bridge
 
     public function probaSample($model, $processedFields)
     {
+        $estimator = $this->getTrainedModel($model);
+        if (! method_exists($estimator, 'probaSample')) {
+            return [];
+        }
+    
         $sample = [];
         foreach ($processedFields as $field) {
-            $value = TikiLib::lib('trk')->field_render_value([
-                'field' => $field,
-            ]);
-            $sample[] = $value;
+            $sample[] = $field['type'] === "n" ? floatval($field['value']) : $field['value'];
         }
-
-        $estimator = $this->getTrainedModel($model);
 
         $result = $estimator->probaSample($sample);
         $result = array_filter($result);

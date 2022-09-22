@@ -583,6 +583,9 @@ class Services_ML_Controller
                     }
                 } else {
                     $results = $this->mllib->probaSample($model, $processedFields);
+                    if (empty($results)) {
+                        throw new Exception("Failed to get probability. Not supported by model.");
+                    }
                     foreach ($results as $itemId => $proba) {
                         $results[$itemId] = ['proba' => number_format($proba * 100, 2), 'fields' => []];
                     }
