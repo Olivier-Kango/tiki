@@ -133,32 +133,34 @@ class MachineLearningLib extends TikiDb_Bridge
             $item = Tracker_Item::fromId($item['itemId']);
             switch ($model['labelField']) {
                 case "itemId":
-                    $label = (string)$item->getId();
+                    $label = intval($item->getId());
                     break;
                 case "itemTitle":
                     $label = $trklib->get_isMain_value($model['sourceTrackerId'], $item->getId());
+                    if ($trklib->get_main_field_type($model['sourceTrackerId']) === "n") {
+                        $label = floatval($label);
+                    }
                     break;
                 default:
-                    $label = "";
+                    $label = $trklib->get_item_value($model['sourceTrackerId'], $item->getId(), $model['labelField']);
+                    if ($trklib->get_tracker_field($model['labelField'], false)['type'] === "n") {
+                        $label = floatval($label);
+                    }
             }
             $sample = [];
             foreach ($model['trackerFields'] as $fieldId) {
-                $field = $definition->getField($fieldId);
-                if (empty($field)) {
-                    continue;
-                }
-                $field = $item->prepareFieldOutput($field);
-                $value = $trklib->field_render_value([
-                    'field' => $field,
-                    'itemId' => $item->getId(),
-                ]);
+                $field = $trklib->get_tracker_field($fieldId, false);
+                $value = $trklib->get_item_value($model['sourceTrackerId'], $item->getId(), $fieldId);
+            
                 if (empty($value) && $model['ignoreEmpty']) {
                     continue 2;
                 }
-                $sample[] = $value;
-                if ($model['labelField'] == $fieldId) {
-                    $label = is_numeric($value) ? floatval($value) : $value;
+                
+                if ($field['type'] === "n") {
+                    $value = floatval($value);
                 }
+
+                $sample[] = $value;
             }
             if (empty($sample)) {
                 continue;
