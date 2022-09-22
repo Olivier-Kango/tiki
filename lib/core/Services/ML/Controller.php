@@ -601,6 +601,7 @@ class Services_ML_Controller
                         }
                     }
                 }
+                Feedback::success("Success");
             } catch (Exception $e) {
                 Feedback::error($e->getMessage());
                 $forward = [

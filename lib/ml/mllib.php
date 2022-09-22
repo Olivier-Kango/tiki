@@ -212,16 +212,14 @@ class MachineLearningLib extends TikiDb_Bridge
     {
         $sample = [];
         foreach ($processedFields as $field) {
-            $value = TikiLib::lib('trk')->field_render_value([
-                'field' => $field,
-            ]);
-            $sample[] = $value;
+            $sample[] = $field['type'] === "n" ? floatval($field['value']) : $field['value'];
         }
 
         $estimator = $this->getTrainedModel($model);
+    
+        $result = $estimator->predict(Rubix\ML\Datasets\Unlabeled::build([$sample]));
 
-        $result = $estimator->predictSample($sample);
-        return $result;
+        return $result[0] ?? "";
     }
 
     public function isRegressor($model)
