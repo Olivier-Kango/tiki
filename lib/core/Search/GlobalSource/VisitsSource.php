@@ -20,6 +20,11 @@ class Search_GlobalSource_VisitsSource implements Search_GlobalSource_Interface
         return ['visits'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return ['visits' => 'sortable'];
+    }
+
     public function getGlobalFields()
     {
         return [];

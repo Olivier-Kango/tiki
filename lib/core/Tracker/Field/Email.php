@@ -113,6 +113,15 @@ class Tracker_Field_Email extends Tracker_Field_Abstract implements Tracker_Fiel
         return [$baseKey, "{$baseKey}_text"];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'sortable',
+            "{$baseKey}_text" => 'identifier'
+        ];
+    }
+
     public function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();

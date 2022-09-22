@@ -893,10 +893,10 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 
     public function getProvidedFields()
     {
+        $baseKey = $this->getBaseKey();
         if ($this->getOption('indexGeometry') && $this->getValue()) {
-            return ['geo_located', 'geo_file', 'geo_file_format'];
+            return ['geo_located', 'geo_file', 'geo_file_format', $baseKey];
         } else {
-            $baseKey = $this->getBaseKey();
             $fields = [
                 $baseKey,
                 "{$baseKey}_text",
@@ -905,6 +905,28 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                 "{$baseKey}_filetypes",
             ];
             return $fields;
+        }
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        if ($this->getOption('indexGeometry') && $this->getValue()) {
+            return [
+                'geo_located' => 'identifier',
+                'geo_file' => 'identifier',
+                'geo_file_format' => 'identifier',
+                $baseKey => 'identifier'
+            ];
+        } else {
+            $baseKey = $this->getBaseKey();
+            return [
+                $baseKey => 'sortable',
+                "{$baseKey}_text" => 'sortable',
+                "{$baseKey}_names" => 'multivalue',
+                "{$baseKey}_filenames" => 'multivalue',
+                "{$baseKey}_filetypes" => 'multivalue',
+            ];
         }
     }
 

@@ -83,7 +83,19 @@ class Tracker_Field_GeographicFeature extends Tracker_Field_Abstract implements 
 
     public function getProvidedFields()
     {
-        return ['geo_located', 'geo_feature', 'geo_feature_field'];
+        $baseKey = $this->getBaseKey();
+        return ['geo_located', 'geo_feature', 'geo_feature_field', $baseKey];
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            'geo_located' => 'identifier',
+            'geo_feature' => 'identifier',
+            'geo_feature_field' => 'identifier',
+            $baseKey => 'identifier',
+        ];
     }
 
     public function getGlobalFields()

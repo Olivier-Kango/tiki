@@ -392,6 +392,22 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
         return $data;
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+
+        $data = [
+            $baseKey => 'identifier',
+            "{$baseKey}_text" => 'wikitext',
+            "{$baseKey}_raw" => 'plainmediumtext',
+            "{$baseKey}_creation_date" => 'timestamp',
+            "{$baseKey}_modification_date" => 'timestamp',
+            "{$baseKey}_freshness_days" => 'numeric',
+        ];
+
+        return $data;
+    }
+
     public function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();

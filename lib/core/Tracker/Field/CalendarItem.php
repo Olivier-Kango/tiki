@@ -200,6 +200,16 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
         return $data;
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'sortable',
+            "{$baseKey}_calitemid" => 'numeric',
+            "{$baseKey}_recurrenceId" => 'numeric',
+        ];
+    }
+
     public function getFieldData(array $requestData = [])
     {
         $data = parent::getFieldData($requestData);

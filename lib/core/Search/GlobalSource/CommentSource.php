@@ -25,6 +25,14 @@ class Search_GlobalSource_CommentSource implements Search_GlobalSource_Interface
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'comment_count' => 'numeric',
+            'comment_data' => 'plaintext',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

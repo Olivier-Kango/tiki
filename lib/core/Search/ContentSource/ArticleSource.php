@@ -68,7 +68,7 @@ class Search_ContentSource_ArticleSource implements Search_ContentSource_Interfa
             'description' => $typeFactory->plaintext($article['heading']),
 
             'sitetitle' => $typeFactory->plaintext($sitetitle),
-             'siteurl' => $typeFactory->plaintext($siteurl),
+            'siteurl' => $typeFactory->plaintext($siteurl),
 
             'topic_id' => $typeFactory->identifier($article['topicId']),
             'topic_name' => $typeFactory->plaintext($topic_name),
@@ -101,7 +101,7 @@ class Search_ContentSource_ArticleSource implements Search_ContentSource_Interfa
             'date',
 
             'sitetitle',
-             'siteurl',
+            'siteurl',
 
             'topic_id',
             'topic_name',
@@ -117,6 +117,37 @@ class Search_ContentSource_ArticleSource implements Search_ContentSource_Interfa
             'parent_object_id',
             'parent_object_type',
             'published',
+        ];
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'language' => 'identifier',
+            'creation_date' => 'timestamp',
+            'modification_date' => 'timestamp',
+            'contributors' => 'multivalue',
+            'description' => 'plaintext',
+            'date' => 'timestamp',
+
+            'sitetitle' => 'plaintext',
+            'siteurl' => 'plaintext',
+
+            'topic_id' => 'identifier',
+            'topic_name' => 'plaintext',
+
+            'article_content' => 'wikitext',
+            'article_type' => 'identifier',
+            'article_topline' => 'wikitext',
+            'article_subtitle' => 'wikitext',
+            'article_author' => 'plaintext',
+            'article_linkto' => 'plaintext',
+
+            'view_permission' => 'identifier',
+            'parent_object_id' => 'identifier',
+            'parent_object_type' => 'identifier',
+            'published' => 'identifier',
         ];
     }
 

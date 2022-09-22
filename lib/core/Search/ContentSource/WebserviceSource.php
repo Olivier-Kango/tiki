@@ -252,6 +252,19 @@ class Search_ContentSource_WebserviceSource implements Search_ContentSource_Inte
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'description' => 'sortable',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+
+            'view_permission' => 'identifier',
+            // TODO more
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

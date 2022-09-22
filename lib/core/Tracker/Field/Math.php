@@ -139,8 +139,24 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 
     public function getProvidedFields()
     {
-        $baseKey = $this->getBaseKey();
-        return [$baseKey];
+        $handler = $this->getMirroredHandler();
+        if ($handler && $handler instanceof Tracker_Field_Indexable) {
+            return $handler->getProvidedFields();
+        } else {
+            $baseKey = $this->getBaseKey();
+            return [$baseKey];
+        }
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        $handler = $this->getMirroredHandler();
+        if ($handler && $handler instanceof Tracker_Field_Indexable) {
+            return $handler->getProvidedFieldTypes();
+        } else {
+            $baseKey = $this->getBaseKey();
+            return [$baseKey => 'sortable'];
+        }
     }
 
     public function getGlobalFields()

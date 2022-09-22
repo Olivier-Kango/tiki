@@ -11,6 +11,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     private $client;
     private $pdo_client;
     private $index;
+    private $indexer;
     private $providedMappings = [];
 
     private $facetCount = 10;
@@ -18,12 +19,19 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     private $multisearchIndices;
     private $multisearchStack;
 
+
     public function __construct(Search_Manticore_Client $client, Search_Manticore_PdoClient $pdo_client, $index)
     {
         $this->client = $client;
         $this->pdo_client = $pdo_client;
         $this->index = $index;
+        $this->indexer = null;
         $this->providedMappings = $this->pdo_client->describe($index);
+    }
+
+    public function setIndexer($indexer)
+    {
+        $this->indexer = $indexer;
     }
 
     public function destroy()
@@ -69,52 +77,29 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     private function generateMapping($type, $data)
     {
+        // stored conversion of manticore field names to tiki field names
         $fieldMapping = $this->getUnifiedFieldMapping();
 
+        // correct mapping back to tiki field names (possibly come from manticore server desc statement)
         $providedMappingsCorrectName = array_flip(array_map(function ($field) use ($fieldMapping) {
             return $fieldMapping[$field] ?? $field;
         }, array_keys($this->providedMappings)));
 
+        // extract the difference of the new data only and convert to manticore types
         $mapping = array_map(
-            function ($entry) {
-                if ($entry instanceof Search_Type_Numeric) {
-                    return [
-                        "type" => "float",
-                    ];
-                } elseif ($entry instanceof Search_Type_Whole) {
-                    return [
-                        "type" => "string",
-                    ];
-                } elseif ($entry instanceof Search_Type_MultivalueJson) {
-                    return [
-                        "type" => "json",
-                    ];
-                } elseif ($entry instanceof Search_Type_JsonEncoded) {
-                    return [
-                        "type" => "json",
-                    ];
-                } elseif ($entry instanceof Search_Type_GeoPoint) {
-                    return [
-                        "type" => "string",
-                    ];
-                } elseif ($entry instanceof Search_Type_DateTime) {
-                    return [
-                        "type" => "timestamp",
-                    ];
-                } elseif ($entry instanceof Search_Type_Timestamp) {
-                    return [
-                        "type" => "timestamp",
-                    ];
-                } else {
-                    return [
-                        "type" => "text",
-                        "options" => ["indexed", "attribute"]
-                    ];
-                }
-            },
+            array($this, 'convertToManticoreType'),
             array_diff_key($data, $providedMappingsCorrectName)
         );
 
+        // observe 256 full-text fields index limit - convert the rest to string attributes
+        $indexedFields = $this->getIndexedFields();
+        foreach ($mapping as $field => $type) {
+            if ($type['type'] == 'text' && ! in_array($field, $indexedFields)) {
+                $mapping[$field] = ['type' => 'string'];
+            }
+        }
+
+        // create or update the index
         if (empty($this->providedMappings)) {
             $this->pdo_client->createIndex($this->index, $mapping, $this->getIndexSettings());
         } else {
@@ -123,6 +108,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             }
         }
 
+        // save provided mappings and the field names conversion
         foreach ($mapping as $field => $type) {
             $this->providedMappings[$field] = [
                 'types' => $type['type'] == 'text' ? ['text', 'string'] : [$type['type']],
@@ -148,6 +134,85 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         ];
 
         return $settings;
+    }
+
+    private function getIndexedFields()
+    {
+        global $prefs;
+
+        static $data = null;
+
+        if (! is_null($data)) {
+            return $data;
+        }
+
+        if (! empty($prefs['unified_manticore_always_index'])) {
+            $data = explode(',', $prefs['unified_manticore_always_index']);
+        } else {
+            $data = [];
+        }
+
+        if (! $this->indexer) {
+            return $data;
+        }
+
+        $typeFactory = $this->getTypeFactory();
+
+        $fields = $this->indexer->getAvailableFieldTypes();
+        foreach ($fields as $name => $type) {
+            if (empty($type)) {
+                continue;
+            }
+            $searchType = $typeFactory->$type('');
+            $field = $this->convertToManticoreType($searchType);
+            if ($field['type'] == 'text' && count($data) < 256 && ! in_array($name, $data)) {
+                $data[] = $name;
+            }
+        }
+
+        return $data;
+    }
+
+    private function convertToManticoreType($entry)
+    {
+        if ($entry instanceof Search_Type_Numeric) {
+            return [
+                "type" => "float",
+            ];
+        } elseif ($entry instanceof Search_Type_Whole) {
+            return [
+                "type" => "string",
+            ];
+        } elseif ($entry instanceof Search_Type_MultivalueJson) {
+            return [
+                "type" => "json",
+            ];
+        } elseif ($entry instanceof Search_Type_MultivalueInt) {
+            return [
+                "type" => "multi",
+            ];
+        } elseif ($entry instanceof Search_Type_JsonEncoded) {
+            return [
+                "type" => "json",
+            ];
+        } elseif ($entry instanceof Search_Type_GeoPoint) {
+            return [
+                "type" => "string",
+            ];
+        } elseif ($entry instanceof Search_Type_DateTime) {
+            return [
+                "type" => "timestamp",
+            ];
+        } elseif ($entry instanceof Search_Type_Timestamp) {
+            return [
+                "type" => "timestamp",
+            ];
+        } else {
+            return [
+                "type" => "text",
+                "options" => ["indexed", "attribute"]
+            ];
+        }
     }
 
     public function optimize()

@@ -112,6 +112,17 @@ class Search_ContentSource_ActivityStreamSource implements Search_ContentSource_
         return array_merge(['event_type', 'modification_date', 'clear_list', 'date'], array_keys($mapping));
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $mapping = $this->lib->getMapping();
+        return array_merge([
+            'event_type' => 'identifier',
+            'modification_date' => 'timestamp',
+            'clear_list' => 'multivalue',
+            'date' => 'timestamp'
+        ], $mapping);
+    }
+
     public function getGlobalFields()
     {
         return [

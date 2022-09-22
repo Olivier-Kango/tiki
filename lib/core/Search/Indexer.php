@@ -80,6 +80,9 @@ class Search_Indexer
         $this->log->addWriter($logWriter);
         $this->logWriter = $logWriter;
 
+        if (method_exists($searchIndex, 'setIndexer')) {
+            $searchIndex->setIndexer($this);
+        }
         $this->searchIndex = $searchIndex;
 
         $api = new PackageApiSearch();
@@ -249,6 +252,25 @@ class Search_Indexer
                     )
                 )
             );
+        }
+
+        return $output;
+    }
+
+    public function getAvailableFieldTypes()
+    {
+        $output = [];
+
+        foreach ($this->contentSources as $contentSource) {
+            $output = array_merge($output, $contentSource->getProvidedFieldTypes());
+        }
+
+        foreach ($this->globalSources as $globalSource) {
+            $output = array_merge($output, $globalSource->getProvidedFieldTypes());
+        }
+
+        foreach ($this->packageSources as $packageSource) {
+            $output = array_merge($output, $packageSource->getProvidedFieldTypes());
         }
 
         return $output;

@@ -634,21 +634,28 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
         $baseKey = $this->getBaseKey();
         $fields = [$baseKey, "{$baseKey}_text"];
 
-        $trackerId = $this->getOption('trackerId');
-        $indexRemote = array_filter((array) $this->getOption('indexRemote'));
+        $handlers = $this->getRemoteHandlers();
+        foreach ($handlers as $handler) {
+            foreach ($handler->getProvidedFields() as $key) {
+                $fields[] = $baseKey . substr($key, strlen('tracker_field'));
+            }
+        }
 
-        if (count($indexRemote)) {
-            if ($definition = Tracker_Definition::get($trackerId)) {
-                $factory = $definition->getFieldFactory();
+        return $fields;
+    }
 
-                foreach ($indexRemote as $fieldId) {
-                    $field = $definition->getField($fieldId);
-                    $handler = $factory->getHandler($field);
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        $fields = [
+            $baseKey => $this->getOption('selectMultipleValues') ? 'multivalue' : 'identifier',
+            "{$baseKey}_text" => 'sortable'
+        ];
 
-                    foreach ($handler->getProvidedFields() as $key) {
-                        $fields[] = $baseKey . substr($key, strlen('tracker_field'));
-                    }
-                }
+        $handlers = $this->getRemoteHandlers();
+        foreach ($handlers as $handler) {
+            foreach ($handler->getProvidedFieldTypes() as $field => $type) {
+                $fields[$baseKey . substr($field, strlen('tracker_field'))] = $type;
             }
         }
 
@@ -660,6 +667,20 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
         $baseKey = $this->getBaseKey();
         $fields = ["{$baseKey}_text" => true];
 
+        $handlers = $this->getRemoteHandlers();
+        foreach ($handlers as $handler) {
+            foreach ($handler->getGlobalFields() as $key => $flag) {
+                $fields[$baseKey . substr($key, strlen('tracker_field'))] = $flag;
+            }
+        }
+
+        return $fields;
+    }
+
+    protected function getRemoteHandlers()
+    {
+        $handlers = [];
+
         $trackerId = $this->getOption('trackerId');
         $indexRemote = array_filter($this->getOption('indexRemote') ?: []);
 
@@ -669,16 +690,12 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 
                 foreach ($indexRemote as $fieldId) {
                     $field = $definition->getField($fieldId);
-                    $handler = $factory->getHandler($field);
-
-                    foreach ($handler->getGlobalFields() as $key => $flag) {
-                        $fields[$baseKey . substr($key, strlen('tracker_field'))] = $flag;
-                    }
+                    $handlers[] = $factory->getHandler($field);
                 }
             }
         }
 
-        return $fields;
+        return $handlers;
     }
 
     public function getItemValue($itemId)

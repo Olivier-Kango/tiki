@@ -72,19 +72,11 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
                     return '';
                 }
             }, $childNodes);
-            if (count(array_unique($childFields)) == 1 && array_filter($childFields)) {
-                // multivalue clauses containing `should => []` are not matched when using full-text search
-                // switch to a single match query with inline boolean operators
-                $phrase = array_map(function ($child) {
+            if (count(array_unique($childFields)) == 1 && array_filter($childFields) && $node instanceof OrX) {
+                $terms = array_map(function ($child) {
                     return $this->getTerm($child);
                 }, $childNodes);
-                if ($node instanceof AndX) {
-                    $separator = ' ';
-                } else {
-                    $separator = ' | ';
-                }
-                $phrase = implode($separator, $phrase);
-                return new Query\MatchQuery($phrase, reset($childFields));
+                return new Query\In('ANY(' . reset($childFields) . ')', array_merge(...$terms));
             }
             if ($node instanceof OrX) {
                 $method = 'should';
@@ -169,15 +161,13 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             }
         } elseif (isset($mapping['types']) && in_array('json', $mapping['types']) && $node->getType() == 'multivalue') {
             return new Query\In($this->getNodeField($node), json_decode($this->getTerm($node)));
-        } elseif (isset($mapping['types']) && in_array('string', $mapping['types']) && $node->getType() == 'multivalue') {
-            // multivalues use indexed text and string attribute columns, so use faster fulltext match here instead of regexes
-            $phrase = $this->getTerm($node);
-            if ($prefs['unified_search_default_operator'] != 1) {
-                $phrase = str_replace(' ', ' | ', $phrase);
-            }
-            return new Query\MatchQuery($phrase, $this->getNodeField($node));
-        } else {
+        } elseif (isset($mapping['types']) && (in_array('multi', $mapping['types']) || in_array('mva', $mapping['types']))) {
+            $terms = $this->getTerm($node);
+            return new Query\In('ANY(' . $this->getNodeField($node) . ')', $terms);
+        } elseif ($node->getType() == 'identifier') {
             return new Query\Equals($this->getNodeField($node), $this->getTerm($node));
+        } else {
+            return new Query\Equals('REGEX(' . $this->getNodeField($node) . ', "' . addslashes($this->getTerm($node)) . '")', 1);
         }
     }
 }

@@ -146,6 +146,11 @@ class Tracker_Field_File extends Tracker_Field_Abstract
         return [];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [];
+    }
+
     public function getGlobalFields()
     {
         return [];

@@ -22,6 +22,11 @@ class Search_GlobalSource_ArticleAttachmentSource implements Search_GlobalSource
         return ['article_contents'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return ['article_contents' => 'plaintext'];
+    }
+
     public function getGlobalFields()
     {
         return [

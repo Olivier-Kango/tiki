@@ -17,5 +17,7 @@ interface Search_PackageSource_Interface
 
     public function getProvidedFields();
 
+    public function getProvidedFieldTypes();
+
     public function getGlobalFields();
 }

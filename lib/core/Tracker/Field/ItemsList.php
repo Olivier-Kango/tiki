@@ -348,6 +348,15 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'multivalue',
+            "{$baseKey}_text" => 'plainmediumtext',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [];

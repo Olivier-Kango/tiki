@@ -32,6 +32,16 @@ class Search_GlobalSource_AdvancedRatingSource implements Search_GlobalSource_In
         return $this->fields;
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $out = [];
+        $fields = $this->getProvidedFields();
+        foreach ($fields as $field) {
+            $out[$field] = 'sortable';
+        }
+        return $out;
+    }
+
     public function getGlobalFields()
     {
         return [];

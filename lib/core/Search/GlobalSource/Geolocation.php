@@ -41,6 +41,16 @@ class Search_GlobalSource_Geolocation implements Search_GlobalSource_Interface
         return [
             'geo_located',
             'geo_location',
+            'geo_point',
+        ];
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'geo_located' => 'identifier',
+            'geo_location' => 'identifier',
+            'geo_point' => 'geopoint',
         ];
     }
 

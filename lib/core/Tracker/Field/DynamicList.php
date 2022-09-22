@@ -401,6 +401,15 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
         return [$baseKey, "{$baseKey}_text"];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => $this->getOption('selectMultipleValues') ? 'multivalue' : 'identifier',
+            "{$baseKey}_text" => 'sortable'
+        ];
+    }
+
     public function getItemList()
     {
         return TikiLib::lib('trk')->get_all_items(

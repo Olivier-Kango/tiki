@@ -56,6 +56,19 @@ class Search_ContentSource_CategorySource implements Search_ContentSource_Interf
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'description' => 'plaintext',
+            'path' => 'sortable',
+
+            'searchable' => 'identifier',
+
+            'view_permission' => 'identifier',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

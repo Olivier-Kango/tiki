@@ -289,6 +289,15 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
         return [$baseKey, $baseKey . '_text'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'identifier',
+            $baseKey . '_text' => 'sortable'
+        ];
+    }
+
     public function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();

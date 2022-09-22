@@ -313,6 +313,12 @@ function prefs_unified_list()
             'default' => '',
             'help' => 'https://manual.manticoresearch.com/Creating_an_index/NLP_and_tokenization/Morphology',
         ],
+        'unified_manticore_always_index' => [
+            'name' => tr('Manticore indexed full-text fields'),
+            'description' => tr("Manticore has a hard-limit of 256 full-text indexed fields per index. If your installation has more, some will be indexed as string attributes and perform the slower regex search. You can add a comma-separated list of fields to always index as full-text here."),
+            'type' => 'textarea',
+            'default' => 'title,contents',
+        ],
         'unified_identifier_fields' => [
             'name' => tr('Unified index identifier fields (Internal)'),
             'description' => tr('Used to store the fields to be considered as identifiers. This is overwritten after each index rebuilding.'),

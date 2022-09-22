@@ -200,6 +200,24 @@ class Tracker_Field_Articles extends Tracker_Field_Abstract
         return $data;
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+
+        if (empty($this->articleSource)) {
+            $this->articleSource = new Search_ContentSource_ArticleSource();
+        }
+
+        $articleInfo = $this->articleSource->getProvidedFieldTypes();
+        $data = [];
+        foreach ($articleInfo as $k => $v) {
+            $data[$baseKey . '_' . $k] = $v;
+        }
+        $data[$baseKey] = 'identifier';
+
+        return $data;
+    }
+
     public function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();

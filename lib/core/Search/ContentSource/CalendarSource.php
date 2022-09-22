@@ -58,9 +58,24 @@ class Search_ContentSource_CalendarSource implements Search_ContentSource_Interf
             'personal',
             'user',
 
-            'searchable',
-
             'view_permission',
+        ];
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'description' => 'plaintext',
+            'language' => 'identifier',
+            'creation_date' => 'timestamp',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+
+            'personal' => 'identifier',
+            'user' => 'identifier',
+
+            'view_permission' => 'identifier',
         ];
     }
 

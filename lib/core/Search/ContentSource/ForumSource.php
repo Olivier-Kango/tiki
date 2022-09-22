@@ -56,9 +56,22 @@ class Search_ContentSource_ForumSource implements Search_ContentSource_Interface
 
             'forum_section',
 
-            'searchable',
-
             'view_permission',
+        ];
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'creation_date' => 'timestamp',
+            'date' => 'timestamp',
+            'description' => 'plaintext',
+            'language' => 'identifier',
+
+            'forum_section' => 'identifier',
+
+            'view_permission' => 'identifier',
         ];
     }
 

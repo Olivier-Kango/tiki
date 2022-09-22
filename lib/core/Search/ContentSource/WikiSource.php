@@ -157,6 +157,39 @@ class Search_ContentSource_WikiSource implements Search_ContentSource_Interface
         return $fields;
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $fields = [
+            'title' => 'sortable',
+            'language' => 'identifier',
+            'creation_date' => 'timestamp',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+            'description' => 'plaintext',
+            'contributors' => 'multivalue',
+
+            'wiki_content' => 'wikitext',
+            'wiki_keywords' => 'plaintext',
+            'page_id' => 'identifier',
+
+            'view_permission' => 'identifier',
+            'hash' => 'identifier',
+            'url' => 'identifier',
+        ];
+
+        if ($this->quantifylib) {
+            $fields['wiki_uptodateness'] = 'sortable';
+        }
+
+        if ($this->flaggedrevisionlib) {
+            $fields['wiki_approval_state'] = 'identifier';
+            $fields['approved_version'] = 'numeric';
+            $fields['approved_user'] = 'identifier';
+        }
+
+        return $fields;
+    }
+
     public function getGlobalFields()
     {
         return [

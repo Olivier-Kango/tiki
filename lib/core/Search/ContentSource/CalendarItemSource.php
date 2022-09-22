@@ -114,6 +114,34 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'language' => 'identifier',
+            'creation_date' => 'timestamp',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+            'contributors' => 'multivalue',
+            'description' => 'plaintext',
+
+            'calendar_id' => 'identifier',
+            'start_date' => 'timestamp',
+            'end_date' => 'timestamp',
+            'priority' => 'numeric',
+            'status' => 'numeric',
+            'status_text' => 'identifier',
+            'url' => 'identifier',
+            'recurrence_id' => 'identifier',
+
+            'view_permission' => 'identifier',
+            'parent_object_id' => 'identifier',
+            'parent_object_type' => 'identifier',
+
+            'trackeritems' => 'multivalue',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

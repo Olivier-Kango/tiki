@@ -264,6 +264,15 @@ class Tracker_Field_GroupSelector extends Tracker_Field_Abstract implements Trac
         return [$baseKey, "{$baseKey}_text"];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'identifier',
+            "{$baseKey}_text" => 'sortable'
+        ];
+    }
+
     public function getFilterCollection()
     {
         $userlib = TikiLib::lib('user');

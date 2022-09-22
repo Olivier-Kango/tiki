@@ -96,6 +96,7 @@
                         {preference name="unified_manticore_mysql_port"}
                         {preference name="unified_manticore_index_prefix"}
                         {preference name="unified_manticore_index_current"}
+                        {preference name="unified_manticore_always_index"}
                     </div>
 
                     {preference name="unified_search_default_operator"}

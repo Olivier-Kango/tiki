@@ -216,6 +216,15 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
         return [$baseKey, "{$baseKey}_text"];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'numeric',
+            "{$baseKey}_text" => 'sortable'
+        ];
+    }
+
     // if we need to update after field save then do it here
     public function handleFieldSave($data)
     {

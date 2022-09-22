@@ -29,6 +29,13 @@ interface Search_ContentSource_Interface
     public function getProvidedFields();
 
     /**
+     * Returns an array containing the list of field names that can be provided
+     * by the content source and their respective search types.
+     */
+    public function getProvidedFieldTypes();
+
+
+    /**
      * Returns an array containing the list of field names that must be included
      * in the global content.
      */

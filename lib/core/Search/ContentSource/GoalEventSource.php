@@ -51,6 +51,18 @@ class Search_ContentSource_GoalEventSource implements Search_ContentSource_Inter
         return ['event_type', 'modification_date', 'user', 'goal_groups', 'target', 'date'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'event_type' => 'identifier',
+            'modification_date' => 'timestamp',
+            'user' => 'identifier',
+            'goal_groups' => 'multivalue',
+            'target' => 'identifier',
+            'date' => 'timestamp'
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

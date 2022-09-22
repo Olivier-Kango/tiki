@@ -230,6 +230,17 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
         return $data;
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $data = [$this->getBaseKey() => 'timestamp'];
+
+        if ($this->getOption('isItemDateField')) {
+            $data['date'] = 'timestamp';
+        }
+
+        return $data;
+    }
+
     public function getGlobalFields()
     {
         $data = parent::getGlobalFields();

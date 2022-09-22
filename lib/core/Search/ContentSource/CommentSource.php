@@ -120,6 +120,27 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'language' => 'identifier',
+            'creation_date' => 'timestamp',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+            'contributors' => 'multivalue',
+            'url' => 'identifier',
+
+            'comment_content' => 'wikitext',
+            'parent_thread_id' => 'identifier',
+            'parent_object_id' => 'identifier',
+            'parent_object_type' => 'identifier',
+
+            'view_permission' => 'identifier',
+            'global_view_permission' => 'identifier',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

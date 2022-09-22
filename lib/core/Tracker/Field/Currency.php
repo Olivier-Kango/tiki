@@ -212,6 +212,15 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
         return [$baseKey, "{$baseKey}_base"];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'plaintext',
+            "{$baseKey}_base" => 'numeric'
+        ];
+    }
+
     public function importRemote($value)
     {
         return $value;

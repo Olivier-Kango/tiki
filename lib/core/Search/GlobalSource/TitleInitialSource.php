@@ -37,6 +37,14 @@ class Search_GlobalSource_TitleInitialSource implements Search_GlobalSource_Inte
         return ['title_initial', 'title_firstword'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title_initial' => 'identifier',
+            'title_firstword' => 'identifier'
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [];

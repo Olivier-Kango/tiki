@@ -63,6 +63,20 @@ class Search_GlobalSource_CategorySource implements Search_GlobalSource_Interfac
         return $list;
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $list = [
+            'categories' => 'multivalue',
+            'deep_categories' => 'multivalue'
+        ];
+        foreach ($this->categlib->getCustomFacets() as $categId) {
+            $list["categories_under_{$categId}"] = 'multivalue';
+            $list["deep_categories_under_{$categId}"] = 'multivalue';
+        }
+
+        return $list;
+    }
+
     public function getGlobalFields()
     {
         return [];

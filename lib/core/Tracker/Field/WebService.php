@@ -318,4 +318,14 @@ class Tracker_Field_WebService extends Tracker_Field_Abstract
         $baseKey = $this->getBaseKey();
         return [$baseKey, "{$baseKey}_text", "{$baseKey}_json"];
     }
+
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'multivalue',
+            "{$baseKey}_text" => 'plaintext',
+            "{$baseKey}_json" => 'json'
+        ];
+    }
 }

@@ -25,7 +25,19 @@ class Search_GlobalSource_RelationSource implements Search_GlobalSource_Interfac
     {
         return [
             'relations',
+            'relation_objects',
             'relation_types',
+            'relation_count',
+        ];
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'relations' => 'multivalue',
+            'relation_objects' => 'nested',
+            'relation_types' => 'multivalue',
+            'relation_count' => 'multivalue',
         ];
     }
 

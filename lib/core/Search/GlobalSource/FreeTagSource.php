@@ -29,6 +29,14 @@ class Search_GlobalSource_FreeTagSource implements Search_GlobalSource_Interface
         return ['freetags', 'freetags_text'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'freetags' => 'multivalue',
+            'freetags_text' => 'plaintext'
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

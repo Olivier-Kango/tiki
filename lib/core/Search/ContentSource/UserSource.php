@@ -176,6 +176,44 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
         return array_unique($data);
     }
 
+    public function getProvidedFieldTypes()
+    {
+        static $data;
+
+        if (is_array($data)) {
+            return $data;
+        }
+
+        $data = [
+            'title' => 'sortable',
+            'title_unstemmed' => 'simpletext',
+            'creation_date' => 'timestamp',
+            'date' => 'timestamp',
+            'wiki_content' => 'wikitext',
+
+            'user_country' => 'sortable',
+            'user_gender' => 'sortable',
+            'user_homepage' => 'sortable',
+            'user_realName' => 'sortable',
+            'user_allowmsgs' => 'sortable',
+            'user_language' => 'multivalue',
+            'user_style' => 'sortable',
+            'user_page' => 'sortable',
+
+            'geo_located' => 'identifier',
+            'geo_location' => 'identifier',
+
+            'searchable' => 'identifier',
+            'groups' => 'multivalue',
+        ];
+
+        foreach ($this->getAllIndexableHandlers() as $baseKey => $handler) {
+            $data = array_merge($data, $handler->getProvidedFieldTypes($baseKey));
+        }
+
+        return $data;
+    }
+
     public function getGlobalFields()
     {
         static $data;

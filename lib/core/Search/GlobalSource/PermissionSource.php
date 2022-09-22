@@ -20,6 +20,14 @@ class Search_GlobalSource_PermissionSource implements Search_GlobalSource_Interf
         return ['allowed_groups', 'allowed_users'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'allowed_groups' => 'multivalue',
+            'allowed_users' => 'multivalue'
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [];

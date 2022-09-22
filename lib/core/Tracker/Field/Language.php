@@ -153,6 +153,15 @@ class Tracker_Field_Language extends Tracker_Field_Abstract implements Tracker_F
         return [$baseKey, 'language'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'sortable',
+            'language' => 'identifier'
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [];

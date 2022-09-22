@@ -317,6 +317,26 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
         return $data;
     }
 
+    public function getProvidedFieldTypes()
+    {
+        global $prefs;
+
+        $baseKey = $this->getBaseKey();
+        $fieldType = $this->getIndexableType();
+
+        $data = [$baseKey => $fieldType];
+
+        if ($this->getConfiguration('isMultilingual') == 'y') {
+            foreach ($prefs['available_languages'] as $lang) {
+                $data[$baseKey . '_' . $lang] = $fieldType;
+            }
+        } elseif ($this->getOption('exact') == 'y') {
+            $data[$baseKey . '_exact'] = 'identifier';
+        }
+
+        return $data;
+    }
+
     public function getGlobalFields()
     {
         global $prefs;

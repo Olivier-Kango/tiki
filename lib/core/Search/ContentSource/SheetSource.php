@@ -83,6 +83,21 @@ class Search_ContentSource_SheetSource implements Search_ContentSource_Interface
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'description' => 'sortable',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+            'contributors' => 'multivalue',
+
+            'sheet_content' => 'plaintext',
+
+            'view_permission' => 'identifier',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

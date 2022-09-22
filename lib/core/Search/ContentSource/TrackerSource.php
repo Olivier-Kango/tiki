@@ -60,6 +60,21 @@ class Search_ContentSource_TrackerSource implements Search_ContentSource_Interfa
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'modification_date' => 'timestamp',
+            'creation_date' => 'timestamp',
+            'date' => 'timestamp',
+            'description' => 'plaintext',
+
+            'searchable' => 'identifier',
+
+            'view_permission' => 'identifier',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

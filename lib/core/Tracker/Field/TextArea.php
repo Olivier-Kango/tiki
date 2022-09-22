@@ -248,6 +248,28 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
         return $data;
     }
 
+    public function getProvidedFieldTypes()
+    {
+        global $prefs;
+
+        $baseKey = $this->getBaseKey();
+        $fieldType = $this->getIndexableType();
+
+        $data = [
+            $baseKey => $fieldType,
+            "{$baseKey}_raw" => 'identifier'
+        ];
+
+        if ($this->getConfiguration('isMultilingual') == 'y') {
+            foreach ($prefs['available_languages'] as $lang) {
+                $data["{$baseKey}_{$lang}"] = $fieldType;
+                $data["{$baseKey}_{$lang}_raw"] = 'identifier';
+            }
+        }
+
+        return $data;
+    }
+
     public function getGlobalFields()
     {
         global $prefs;

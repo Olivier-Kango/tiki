@@ -143,6 +143,15 @@ class Tracker_Field_CountrySelector extends Tracker_Field_Abstract implements Tr
         return [$baseKey, $baseKey . '_text'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'identifier',
+            $baseKey . '_text' => 'sortable'
+        ];
+    }
+
     public function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();

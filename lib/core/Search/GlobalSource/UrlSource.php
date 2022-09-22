@@ -33,6 +33,13 @@ class Search_GlobalSource_UrlSource implements Search_GlobalSource_Interface
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'url' => 'identifier',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

@@ -314,6 +314,19 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         return $fields;
     }
 
+    function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        $fields = [
+            $baseKey => 'identifier',
+            "{$baseKey}_subjects" => 'multivalue',
+            "{$baseKey}_dates" => 'multivalue',
+            "{$baseKey}_senders" => 'multivalue',
+            "{$baseKey}_recipients" => 'multivalue',
+        ];
+        return $fields;
+    }
+
     function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();

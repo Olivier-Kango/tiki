@@ -172,7 +172,8 @@ class Search_ContentSource_ForumPostSource implements Search_ContentSource_Inter
             'root_thread_id',
             'parent_contributors',
             'hits',
-            'type',
+            'thread_type',
+            'reply_count',
             'locked',
 
             'lastpost_title',
@@ -182,7 +183,45 @@ class Search_ContentSource_ForumPostSource implements Search_ContentSource_Inter
             'lastpost_post_snippet',
             'lastpost_hits',
             'lastpost_thread_id',
+        ];
+    }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'language' => 'identifier',
+            'creation_date' => 'timestamp',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+            'contributors' => 'multivalue',
+
+            'post_content' => 'wikitext',
+            'post_author' => 'wikitext',
+            'post_snippet' => 'plaintext',
+            'forum_id' => 'identifier',
+            'forum_section' => 'identifier',
+            'forum_title' => 'sortable',
+            'parent_thread_id' => 'identifier',
+
+            'view_permission' => 'identifier',
+            'parent_object_id' => 'identifier',
+            'parent_object_type' => 'identifier',
+
+            'root_thread_id' => 'identifier',
+            'parent_contributors' => 'multivalue',
+            'hits' => 'numeric',
+            'thread_type' => 'identifier',
+            'reply_count' => 'numeric',
+            'locked' => 'identifier',
+
+            'lastpost_title' => 'sortable',
+            'lastpost_modification_date' => 'timestamp',
+            'lastpost_contributors' => 'multivalue',
+            'lastpost_post_content' => 'wikitext',
+            'lastpost_post_snippet' => 'plaintext',
+            'lastpost_hits' => 'numeric',
+            'lastpost_thread_id' => 'identifier',
         ];
     }
 

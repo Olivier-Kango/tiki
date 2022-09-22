@@ -58,9 +58,23 @@ class Search_ContentSource_FileGallerySource implements Search_ContentSource_Int
 
             'gallery_id',
 
-            'searchable',
-
             'view_permission',
+        ];
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'description' => 'plaintext',
+            'language' => 'identifier',
+            'creation_date' => 'timestamp',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+
+            'gallery_id' => 'identifier',
+
+            'view_permission' => 'identifier',
         ];
     }
 

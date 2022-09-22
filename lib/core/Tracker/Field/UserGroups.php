@@ -138,7 +138,16 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
     public function getProvidedFields()
     {
         $baseKey = $this->getBaseKey();
-        return [$baseKey];
+        return [$baseKey, "{$baseKey}_text"];
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'multivalue',
+            "{$baseKey}_text" => 'plaintext'
+        ];
     }
 
     public function getGlobalFields()

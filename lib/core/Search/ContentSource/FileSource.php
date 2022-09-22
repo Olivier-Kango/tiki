@@ -135,6 +135,43 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'title_unstemmed' => 'simpletext',
+            'language' => 'identifier',
+            'creation_date' => 'timestamp',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+            'contributors' => 'multivalue',
+            'description' => 'plaintext',
+            'filename' => 'identifier',
+            'filetype' => 'sortable',
+            'filesize' => 'plaintext',
+            'hits' => 'numeric',
+
+            'gallery_id' => 'identifier',
+            'file_comment' => 'plaintext',
+            'file_content' => 'plaintext',
+            'ocr_content' => 'plaintext',
+
+            'view_permission' => 'identifier',
+            'parent_object_id' => 'identifier',
+            'parent_object_type' => 'identifier',
+
+            'email_subject' => 'plaintext',
+            'email_from' => 'plaintext',
+            'email_sender' => 'plaintext',
+            'email_recipient' => 'plaintext',
+            'email_date' => 'timestamp',
+            'email_content_type' => 'plaintext',
+            'email_body' => 'plainmediumtext',
+            'email_plaintext' => 'plainmediumtext',
+            'email_html' => 'plainmediumtext',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

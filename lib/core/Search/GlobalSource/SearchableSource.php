@@ -13,6 +13,11 @@ class Search_GlobalSource_SearchableSource implements Search_GlobalSource_Interf
         return ['searchable'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return ['searchable' => 'identifier'];
+    }
+
     public function getGlobalFields()
     {
         return [];

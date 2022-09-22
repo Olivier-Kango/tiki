@@ -26,6 +26,15 @@ class Search_GlobalSource_SocialSource implements Search_GlobalSource_Interface
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'user_groups' => 'multivalue',
+            'user_followers' => 'multivalue',
+            'like_list' => 'multivalue',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [];

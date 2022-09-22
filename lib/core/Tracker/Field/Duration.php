@@ -226,6 +226,15 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
         return [$baseKey, "{$baseKey}_text"];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'numeric',
+            "{$baseKey}_text" => 'sortable'
+        ];
+    }
+
     public function importRemote($value)
     {
         return $value;

@@ -12,6 +12,8 @@ interface Tracker_Field_Indexable extends Tracker_Field_Interface
 
     public function getProvidedFields();
 
+    public function getProvidedFieldTypes();
+
     public function getGlobalFields();
 
     public function getBaseKey();

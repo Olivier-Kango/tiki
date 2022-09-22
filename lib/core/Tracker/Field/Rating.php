@@ -156,6 +156,16 @@ class Tracker_Field_Rating extends Tracker_Field_Abstract
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'numeric',
+            "{$baseKey}_count" => 'numeric',
+            "{$baseKey}_sum" => 'numeric',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [];

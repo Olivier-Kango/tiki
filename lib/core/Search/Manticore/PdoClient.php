@@ -116,9 +116,24 @@ class Search_Manticore_PdoClient
 
     public function index($index, array $data)
     {
-        static $redo = true;
-        $stmt = $this->pdo->prepare("INSERT INTO $index (" . implode(', ', array_keys($data)) . ') VALUES (' . implode(',', array_fill(0, count($data), '?')) . ')');
-        // TODO: Array to string conversion - not all elements are strings in this array...
+        $array_fields = [];
+        $array_values = [];
+        foreach ($data as $key => $val) {
+            if (is_array($val)) {
+                $array_fields[] = $key;
+                $array_values[] = '('.implode(',', $val).')';
+                unset($data[$key]);
+            }
+        }
+        $keys = implode(', ', array_keys($data));
+        if ($keys && $array_fields) {
+            $keys .= ', ' . implode(', ', $array_fields);
+        }
+        $values = implode(',', array_fill(0, count($data), '?'));
+        if ($values && $array_values) {
+            $values .= ', ' . implode(', ', $array_values);
+        }
+        $stmt = $this->pdo->prepare("INSERT INTO $index (" . $keys . ') VALUES (' . $values . ')');
         $this->executeWithRetry($stmt, array_values($data));
     }
 
@@ -167,7 +182,7 @@ class Search_Manticore_PdoClient
         } catch (PDOException $e) {
             if (strstr($e->getMessage(), "server has gone away")) {
                 $this->connect();
-                if ($tries < QUERY_RETRIES) {
+                if ($tries < self::QUERY_RETRIES) {
                     $this->executeWithRetry($stmt, $params, $tries+1);
                 }
             } else {

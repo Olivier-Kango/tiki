@@ -40,8 +40,7 @@ class Search_Manticore_TypeFactory implements Search_Type_Factory_Interface
 
     public function multivalue($values)
     {
-        // TODO: consider MultivalueJson when Manticore supports IN array search for json columns
-        return new Search_Type_MultivalueText(array_values((array) $values));
+        return new Search_Type_MultivalueInt(array_values((array) $values));
     }
 
     public function object($value)

@@ -584,6 +584,17 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract implements Tracker_F
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => 'sortable',
+            "{$baseKey}_multi" => 'multivalue',
+            "{$baseKey}_plain" => 'plainmediumtext',
+            "{$baseKey}_text" => 'plainmediumtext',
+        ];
+    }
+
     public function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();

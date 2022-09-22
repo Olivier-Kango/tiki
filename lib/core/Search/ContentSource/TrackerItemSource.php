@@ -155,6 +155,37 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
         return array_unique($data);
     }
 
+    public function getProvidedFieldTypes()
+    {
+        static $data;
+
+        if (is_array($data)) {
+            return $data;
+        }
+
+        $data = [
+            'title' => 'sortable',
+            'language' => 'identifier',
+            'modification_date' => 'timestamp',
+            'creation_date' => 'timestamp',
+            'date' => 'timestamp',
+            'contributors' => 'multivalue',
+
+            'tracker_status' => 'identifier',
+            'tracker_id' => 'identifier',
+
+            'view_permission' => 'identifier',
+            'parent_object_id' => 'identifier',
+            'parent_object_type' => 'identifier',
+        ];
+
+        foreach ($this->getAllIndexableHandlers() as $handler) {
+            $data = array_merge($data, $handler->getProvidedFieldTypes());
+        }
+
+        return $data;
+    }
+
     public function getGlobalFields()
     {
         static $data;

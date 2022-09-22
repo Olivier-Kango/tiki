@@ -532,6 +532,12 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
         return [$baseKey];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [$baseKey => 'sortable'];
+    }
+
     public function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();

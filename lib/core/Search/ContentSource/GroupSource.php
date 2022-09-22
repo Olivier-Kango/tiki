@@ -54,6 +54,18 @@ class Search_ContentSource_GroupSource implements Search_ContentSource_Interface
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'description' => 'plaintext',
+
+            'searchable' => 'identifier',
+
+            'view_permission' => 'identifier',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

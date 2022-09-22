@@ -77,6 +77,26 @@ class Search_ContentSource_BlogPostSource implements Search_ContentSource_Interf
         ];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'language' => 'identifier',
+            'creation_date' => 'timestamp',
+            'modification_date' => 'timestamp',
+            'date' => 'timestamp',
+            'contributors' => 'multivalue',
+
+            'blog_id' => 'identifier',
+            'blog_excerpt' => 'wikitext',
+            'blog_content' => 'wikitext',
+
+            'view_permission' => 'identifier',
+            'parent_object_id' => 'identifier',
+            'parent_object_type' => 'identifier',
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

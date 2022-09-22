@@ -37,4 +37,11 @@ class Search_Index_TypeAnalysisDecorator extends Search_Index_AbstractIndexDecor
     {
         return count(array_keys($this->mapping));
     }
+
+    public function setIndexer($indexer)
+    {
+        if (method_exists($this->parent, 'setIndexer')) {
+            $this->parent->setIndexer($indexer);
+        }
+    }
 }

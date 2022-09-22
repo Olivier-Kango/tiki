@@ -410,6 +410,16 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
         return [$baseKey, "{$baseKey}_text", "{$baseKey}_unstemmed"];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $baseKey = $this->getBaseKey();
+        return [
+            $baseKey => $this->getOption('multiple') ? 'multivalue' : 'identifier',
+            "{$baseKey}_text" => 'sortable',
+            "{$baseKey}_unstemmed" => 'simpletext'
+        ];
+    }
+
     /**
      * tell the indexer about the real name _text field if using showRealname
      *

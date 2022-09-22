@@ -24,6 +24,15 @@ class Search_GlobalSource_FileAttachmentSource implements Search_GlobalSource_In
         return ['attachment_contents', 'attachments', 'primary_image'];
     }
 
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'attachment_contents' => 'plaintext',
+            'attachments' => 'multivalue',
+            'primary_image' => 'identifier'
+        ];
+    }
+
     public function getGlobalFields()
     {
         return [

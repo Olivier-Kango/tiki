@@ -76,10 +76,26 @@ class Search_ContentSource_TrackerFieldSource implements Search_ContentSource_In
             'description',
             'tracker_id',
             'tracker_name',
+            'position',
 
             'searchable',
 
             'view_permission',
+        ];
+    }
+
+    public function getProvidedFieldTypes()
+    {
+        return [
+            'title' => 'sortable',
+            'description' => 'plaintext',
+            'tracker_id' => 'identifier',
+            'tracker_name' => 'sortable',
+            'position' => 'numeric',
+
+            'searchable' => 'identifier',
+
+            'view_permission' => 'identifier',
         ];
     }
 

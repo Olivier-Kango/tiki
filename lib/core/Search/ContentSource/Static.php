@@ -58,6 +58,17 @@ class Search_ContentSource_Static implements Search_ContentSource_Interface
         return array_keys($this->typeMap);
     }
 
+    public function getProvidedFieldTypes()
+    {
+        $out = [];
+
+        foreach ($this->typeMap as $key => $value) {
+            $out[$key] = $value;
+        }
+
+        return $out;
+    }
+
     public function getGlobalFields()
     {
         return array_fill_keys(array_keys($this->typeMap), true);
