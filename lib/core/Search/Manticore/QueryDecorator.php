@@ -20,7 +20,7 @@ use Manticoresearch\Query;
 class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
 {
     protected $factory;
-    protected $currentOp;
+    protected $matches;
     protected $documentReader;
 
     public function __construct(\Manticoresearch\Search $search, Search_Manticore_Index $index)
@@ -30,7 +30,6 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         parent::__construct($search, $index);
 
         $this->factory = new Search_Manticore_TypeFactory();
-        $this->currentOp = $prefs['unified_search_default_operator'] == 1 ? \Manticoresearch\Search::FILTER_AND : \Manticoresearch\Search::FILTER_OR;
         $this->documentReader = function ($type, $object) {
             return null;
         };
@@ -44,7 +43,13 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
 
     public function decorate(Search_Expr_Interface $expr)
     {
+        $this->matches = [];
         $q = $expr->traverse($this);
+        foreach ($this->matches as $method => $subqs) {
+            foreach ($subqs as $subq) {
+                $q->$method($subq);
+            }
+        }
         $this->search->search($q);
     }
 
@@ -90,8 +95,12 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             foreach ($childNodes as $child) {
                 $subq = $child->traverse($callback);
                 if ($subq) {
-                    $q->$method($subq);
-                    $isEmpty = false;
+                    if ($subq instanceof Query\MatchQuery || $subq instanceof Query\MatchPhrase) {
+                        $this->matches[$method][] = $subq;
+                    } else {
+                        $q->$method($subq);
+                        $isEmpty = false;
+                    }
                 }
             }
             if ($isEmpty) {
@@ -154,10 +163,14 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
 
         $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
         if ($mapping && in_array('indexed', $mapping['options'])) {
-            if ($prefs['unified_search_default_operator'] == 1) {
-                return new Query\MatchQuery($this->getTerm($node), $this->getNodeField($node));
+            $phrase = $this->getTerm($node);
+            if ($prefs['unified_search_default_operator'] != 1) {
+                $phrase = preg_replace('/\s+/', ' | ', $phrase);
+            }
+            if ($node->getType() == 'identifier') {
+                return new Query\MatchPhrase($phrase, $this->getNodeField($node));
             } else {
-                return new Query\MatchPhrase($this->getTerm($node), $this->getNodeField($node));
+                return new Query\MatchQuery($phrase, $this->getNodeField($node));
             }
         } elseif (isset($mapping['types']) && in_array('json', $mapping['types']) && $node->getType() == 'multivalue') {
             return new Query\In($this->getNodeField($node), json_decode($this->getTerm($node)));

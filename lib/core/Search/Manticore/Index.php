@@ -128,6 +128,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         file_put_contents($stopwords_file, implode("\n", $prefs['unified_stopwords']));
 
         $settings = [
+            'min_infix_len' => 2,
             'stopwords' => $stopwords_file,
             'morphology' => $prefs['unified_manticore_morphology'] ?? '',
             // TODO: see what other options to support https://manual.manticoresearch.com/Creating_an_index/Local_indexes/Plain_and_real-time_index_settings#Natural-language-processing-specific-settings
@@ -147,9 +148,19 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         }
 
         if (! empty($prefs['unified_manticore_always_index'])) {
-            $data = explode(',', $prefs['unified_manticore_always_index']);
+            $data = preg_split('/\s*,\s*/', $prefs['unified_manticore_always_index']);
         } else {
             $data = [];
+        }
+
+        if (! empty($prefs['unified_default_content'])) {
+            $data = array_merge($data, $prefs['unified_default_content']);
+            $data = array_unique($data);
+        }
+
+        if (count($data) > 256) {
+            $data = null;
+            throw new Search_Manticore_FatalException(tr('Fatal Manticore error: you have defined more than 256 fields to be indexed as full-text. Please edit search setting "unified_manticore_always_index" to decrease the number of fields.'));
         }
 
         if (! $this->indexer) {

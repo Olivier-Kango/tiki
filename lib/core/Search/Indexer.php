@@ -199,6 +199,8 @@ class Search_Indexer
                 // TODO: calm this down once integration is stable
                 echo $e->getMessage() . "\n";
                 var_dump($e->getContext());
+            } catch (Search_Manticore_FatalException $e) {
+                throw new Exception($e->getMessage());
             } catch (Exception $e) {
                 $msg = tr(
                     'Indexing failed while processing "%0" (type %1) with the error "%2"',
