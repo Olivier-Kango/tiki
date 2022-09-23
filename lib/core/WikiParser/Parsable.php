@@ -230,7 +230,7 @@ if ( \$('#$id') ) {
                     . ', '
                     . json_encode($arguments)
                     . ', '
-                    . $this->option['is_markdown']
+                    . json_encode($this->option['is_markdown'])
                     . ', '
                     . json_encode($this->unprotectSpecialChars($plugin_data, true)) //we restore it back to html here so that it can be edited, we want no modification, ie, it is brought back to html
                     . ", event.target);
