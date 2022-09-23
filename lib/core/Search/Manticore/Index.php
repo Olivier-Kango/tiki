@@ -206,10 +206,6 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             return [
                 "type" => "json",
             ];
-        } elseif ($entry instanceof Search_Type_GeoPoint) {
-            return [
-                "type" => "string",
-            ];
         } elseif ($entry instanceof Search_Type_DateTime) {
             return [
                 "type" => "timestamp",

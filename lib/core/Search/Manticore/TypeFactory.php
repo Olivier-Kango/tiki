@@ -55,7 +55,7 @@ class Search_Manticore_TypeFactory implements Search_Type_Factory_Interface
 
     public function geopoint($value)
     {
-        return new Search_Type_GeoPoint($value);
+        return new Search_Type_JsonEncoded($value);
     }
 
     public function sortable($value)
