@@ -21,6 +21,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
 {
     protected $factory;
     protected $matches;
+    protected $must_nots;
     protected $documentReader;
 
     public function __construct(\Manticoresearch\Search $search, Search_Manticore_Index $index)
@@ -44,11 +45,15 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
     public function decorate(Search_Expr_Interface $expr)
     {
         $this->matches = [];
+        $this->must_nots = [];
         $q = $expr->traverse($this);
         foreach ($this->matches as $method => $subqs) {
             foreach ($subqs as $subq) {
                 $q->$method($subq);
             }
+        }
+        foreach ($this->must_nots as $subq) {
+            $q->mustNot($subq);
         }
         $this->search->search($q);
     }
@@ -97,6 +102,8 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
                 if ($subq) {
                     if ($subq instanceof Query\MatchQuery || $subq instanceof Query\MatchPhrase) {
                         $this->matches[$method][] = $subq;
+                    } elseif ($node instanceof NotX) {
+                        $this->must_nots[] = $subq;
                     } else {
                         $q->$method($subq);
                         $isEmpty = false;
