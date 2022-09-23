@@ -48,6 +48,8 @@ class WikiParser_Parsable extends ParserLib
             $this->option['is_markdown'] = false;
         }
 
+        $ret = null;
+
         foreach ($matches as $match) {
             if ($match->getName() != 'syntax') {
                 continue;
