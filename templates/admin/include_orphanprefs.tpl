@@ -25,7 +25,7 @@
                 </tr>
             {/foreach}
         {else}
-            <td class="col text-center"><b>You have no orphan preferences. All is well !</br></td>
+            <td class="col text-center"><b>{tr}You have no orphan preferences. All is well !{/tr}</br></td>
         {/if}
     </tbody>
 </table>

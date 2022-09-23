@@ -28,10 +28,10 @@ if (isset($_REQUEST['clear']) && ! empty($orphanPrefs))
         {
             $tikilib->delete_preference($p['name']);
         }
-        $msg = "All orphaned preference data has been successfully deleted!";
+        $msg = tr("All orphaned preference data has been successfully deleted!");
     } else {
         $tikilib->delete_preference($clear);
-        $msg = "Preference <b>$clear's</b> data has been successfully deleted!";
+        $msg = tr("Preference <b>$clear's</b> data has been successfully deleted!");
     }
 
     if ($msg != '') {
