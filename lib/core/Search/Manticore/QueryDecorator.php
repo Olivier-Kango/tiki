@@ -67,7 +67,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             if (count($childNodes) == 0) {
                 return null;
             }
-            if (count($childNodes) == 1) {
+            if (count($childNodes) == 1 && ! $node instanceof NotX) {
                 return reset($childNodes)->traverse($callback);
             }
             $childFields = array_map(function ($child) {
@@ -140,9 +140,13 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         }
     }
 
-    private function getTerm($node)
+    private function getTerm($node, $forceType = null)
     {
-        return $node->getValue($this->factory)->getValue();
+        $value = $node->getValue($this->factory);
+        if ($forceType && $node->getType() != $forceType) {
+            $value = $this->factory->$forceType($value->getValue());
+        }
+        return $value->getValue();
     }
 
     private function getDocumentContent($type, $object)
@@ -175,7 +179,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         } elseif (isset($mapping['types']) && in_array('json', $mapping['types']) && $node->getType() == 'multivalue') {
             return new Query\In($this->getNodeField($node), json_decode($this->getTerm($node)));
         } elseif (isset($mapping['types']) && (in_array('multi', $mapping['types']) || in_array('mva', $mapping['types']))) {
-            $terms = $this->getTerm($node);
+            $terms = $this->getTerm($node, 'multivalue');
             return new Query\In('ANY(' . $this->getNodeField($node) . ')', $terms);
         } elseif ($node->getType() == 'identifier') {
             return new Query\Equals($this->getNodeField($node), $this->getTerm($node));
