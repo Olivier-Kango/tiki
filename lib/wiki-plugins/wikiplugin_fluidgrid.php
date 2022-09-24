@@ -276,109 +276,176 @@ function wikiplugin_fluidgrid($data, $params, $pos)
             // Count the total size and the number of unsized columns
         $tdsize   = explode("|", $colsize);
         $tdtotal  = 0 ;
+        $tdtotalPercent  = 0 ;
         $tdnosize = 0 ;
         $s_array  = [] ;
 
-      // There are two parts to this algorithm:
-      // [1] Gathering information
-      // [2] Setting the final column sizes
-
-      // [1] Gathering information
-      // In this stage we read the colsize values and initialize
-      // $s_array   = colsize values
-      // $tdtotal   = total weighting
-      // $tdnosize  = count of columns without a specified size
-        for ($i = 0; $i < $maxcols; $i++) {
-            if (isset($tdsize[$i]) && ( trim($tdsize[$i]) != '' )) {
-                $w = (int) trim($tdsize[$i]);
-                if ($w < 1) {
-                  // treat 0 as unsized
-                    $s_array[$i] = 0 ;
-                    $tdnosize++ ;
-                } elseif ($percent && ( strpos($w, '%') === false )) {
-                  // Percentage mode, but percent symbol not present.
-                    $s_array[$i] = 0 ;
-                    $tdnosize++ ;
-                } else {
-                  // Normal case. Save the width and increment the total.
-                    $s_array[$i] = $w ;
-                    $tdtotal     += $w ;
-                }
-            } else {
-              // Size not specified for this column.
-                $s_array[$i] = 0 ;
-                $tdnosize++ ;
-            }
-        }
-
+        //PERCENT MODE
         if ($percent) {
-          // In percentage mode, the total wighting is always 100
-            $tdtotal = 100 ;
-        }
+            
+
+            /*******************
+             * (6) Colsize is present
+             *   All columns are specified in PERCENT.
+             *      - Use the size as an approximate weighting, relative to 100, with a minimum size of 1.
+             *        In percentage mode, the total wighting is always 100
+            **/
+
+            // There are two parts to this algorithm:
+            // [1] Gathering information
+            // [2] Setting the final column sizes
+
+            // [1] Gathering information
+            // In this stage we read the colsize values and initialize
+            // $s_array   = colsize values
+            // $tdtotal   = total weighting (Normal mode)
+            // $tdtotalPercent   = total weighting in percent
+            // $tdnosize  = count of columns without a specified size
+            for ($i = 0; $i < $maxcols; $i++) {
+                if (isset($tdsize[$i]) && ( trim($tdsize[$i]) != '' )) {
+                    $isPercentCol = ( strpos($tdsize[$i], '%') !== false );
+                    $w = abs((int) trim($tdsize[$i])); //The size must always be positive
+
+                    if ($isPercentCol) {
+                    // Percentage mode. Save the width and increment the total percent size ($tdtotalPercent).
+                        $s_array[$i] = $w ;
+                        $tdtotalPercent     += $w ;
+                        echo "Percentage mode : $w, avec Total percent size : $tdtotalPercent<hr/>";
+                    } else {
+                    // Normal case. Save the width and increment the total normal size ($tdtotal).
+                        $s_array[$i] = $w ;
+                        $tdtotal     += $w ;
+                        echo "Normal case : $w,avec Total size : $tdtotal<hr/>";
+                    }
+                } else {
+                // Size not specified for this column.
+                    $s_array[$i] = 0 ;
+                    $tdnosize++ ;
+                    echo "Size not specified for this column. $s_array[$i] avec Total size $tdtotal<hr/>";
+                }
+            }
 
             // [2] Setting the final column sizes
-      // In this stage we store the final column sizes in $w_array
-        if (( $tdtotal + $tdnosize ) <= 12) {
-          // Use the values as specified.
-          // Share the remaining space out among the unsized columns
-            $remaining = 12 - $tdtotal ;
-
-            for ($i = 0; $i < $maxcols; $i++) {
-                if ($s_array[$i] == 0) {
-                    $w_array[$i] = ceil($remaining / $tdnosize) ;
-                    $remaining   -= $w_array[$i] ;
-                    $tdnosize-- ;
-                } else {
-                    $w_array[$i] = $s_array[$i] ;
-                }
-            }
-        } else {
-          // Use the values as approximate weightings
-          // Start by assigning every column a width of 1
-            for ($i = 0; $i < $maxcols; $i++) {
-                $w_array[$i] = 1 ;
-            }
-
-                  // Now share out the rest
-            $i = 0 ;
-            $j = $maxcols ;
-            $h = 0 ;
-            $pcfill = true ;
-
-            while ($j < 12) {
-            // Increment the width if it is underweight
-                if (( $w_array[$i] / 12 ) < ( $s_array[$i] / $tdtotal )) {
-                    $w_array[$i]++ ;
-                    $j++ ;
-                }
-
-              // Increment column number and wraparound
-                $i++ ;
-                if ($i >= $maxcols) {
-                  // Wraparound
-                    $i = 0 ;
-
-                          // $j must increase in each pass through the columns.
-                    if ($h < $j) {
-                      // Store the current position
-                        $h = $j ;
-                    } elseif ($pcfill) {
-                      // In percentage mode, change 0% weighted columns to 100%
-                      // so that they take up the remaining space.
-                        $pcfill = false ;
-                        for ($k = 0; $k < $maxcols; $k++) {
-                            if ($s_array[$k] == 0) {
-                                $s_array[$k] = 100 ;
-                            }
+            // [2.1] We first handle the case where all the cols are in percent mode
+            if ($tdtotal == 0) {
+                if (( $tdtotalPercent + $tdnosize ) <= 100) {
+                    // Use the values as specified.
+                    // Share the remaining space out among the unsized columns
+                    $remaining = 100 - $tdtotalPercent ;
+    
+                    for ($i = 0; $i < $maxcols; $i++) {
+                        if ($s_array[$i] == 0) {
+                            $w_array[$i] = ceil(round(($remaining / $tdnosize * 12) / 100) ) ;
+                            $remaining   -= ceil($remaining / $tdnosize) ;
+                            $tdnosize-- ;
+                        } else {
+                            $w_array[$i] = round(($s_array[$i] * 12) / 100) ;
                         }
-                    } else {
-                      // We get here in percentage mode, if the size is specified for
-                      // all columns, but the total is less than 100%, e.g. two columns
-                      // with 25%|25%, will result in 3|3.
-                        break ;
                     }
                 }
             }
+
+            // [2.2] Handle the case where some cols are in percent mode and others in normal mode
+            //******************** */
+            //******************** */
+            //******************** */
+            //******************** */
+
+
+        } else {
+
+            // There are two parts to this algorithm:
+            // [1] Gathering information
+            // [2] Setting the final column sizes
+
+            // [1] Gathering information
+            // In this stage we read the colsize values and initialize
+            // $s_array   = colsize values
+            // $tdtotal   = total weighting
+            // $tdnosize  = count of columns without a specified size
+            for ($i = 0; $i < $maxcols; $i++) {
+                if (isset($tdsize[$i]) && ( trim($tdsize[$i]) != '' )) {
+                    $w = (int) trim($tdsize[$i]);
+                    if ($w < 1) {
+                    // treat 0 as unsized
+                        $s_array[$i] = 0 ;
+                        $tdnosize++ ;
+                    } else {
+                    // Normal case. Save the width and increment the total.
+                        $s_array[$i] = $w ;
+                        $tdtotal     += $w ;
+                    }
+                } else {
+                // Size not specified for this column.
+                    $s_array[$i] = 0 ;
+                    $tdnosize++ ;
+                }
+            }
+
+            // [2] Setting the final column sizes
+            // In this stage we store the final column sizes in $w_array
+            if (( $tdtotal + $tdnosize ) <= 12) {
+                // Use the values as specified.
+                // Share the remaining space out among the unsized columns
+                $remaining = 12 - $tdtotal ;
+    
+                for ($i = 0; $i < $maxcols; $i++) {
+                    if ($s_array[$i] == 0) {
+                        $w_array[$i] = ceil($remaining / $tdnosize) ;
+                        $remaining   -= $w_array[$i] ;
+                        $tdnosize-- ;
+                    } else {
+                        $w_array[$i] = $s_array[$i] ;
+                    }
+                }
+            } else {
+                // Use the values as approximate weightings
+                // Start by assigning every column a width of 1
+                for ($i = 0; $i < $maxcols; $i++) {
+                    $w_array[$i] = 1 ;
+                }
+  
+                // Now share out the rest
+                $i = 0 ;
+                $j = $maxcols ;
+                $h = 0 ;
+                $pcfill = true ;
+  
+                while ($j < 12) {
+                // Increment the width if it is underweight
+                    if (( $w_array[$i] / 12 ) < ( $s_array[$i] / $tdtotal )) {
+                        $w_array[$i]++ ;
+                        $j++ ;
+                    }
+  
+                    // Increment column number and wraparound
+                    $i++ ;
+                    if ($i >= $maxcols) {
+                        // Wraparound
+                        $i = 0 ;
+    
+                                // $j must increase in each pass through the columns.
+                        if ($h < $j) {
+                            // Store the current position
+                            $h = $j ;
+                        } elseif ($pcfill) {
+                            // In percentage mode, change 0% weighted columns to 100%
+                            // so that they take up the remaining space.
+                            $pcfill = false ;
+                            for ($k = 0; $k < $maxcols; $k++) {
+                                if ($s_array[$k] == 0) {
+                                    $s_array[$k] = 100 ;
+                                }
+                            }
+                        } else {
+                            // We get here in percentage mode, if the size is specified for
+                            // all columns, but the total is less than 100%, e.g. two columns
+                            // with 25%|25%, will result in 3|3.
+                            break ;
+                        }
+                    }
+              }
+          }
         }
     } else {
       // colsize is not specified
