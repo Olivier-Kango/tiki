@@ -1786,20 +1786,30 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.14.0",
+            "version": "v4.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "12ab42bd6e742c70c0a52f7b82477fcd44e64b75"
+                "reference": "523407fb06eb9e5f3d59889b3978d5bfe94299c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/ezyang/htmlpurifier/ezyang-htmlpurifier-12ab42bd6e742c70c0a52f7b82477fcd44e64b75-zip-d43621.zip",
-                "reference": "12ab42bd6e742c70c0a52f7b82477fcd44e64b75",
-                "shasum": "07eab07bac05b6087bdcd9fca08b7b9633d455fd"
+                "url": "https://composer.tiki.org/dist/ezyang/htmlpurifier/ezyang-htmlpurifier-523407fb06eb9e5f3d59889b3978d5bfe94299c8-zip-1aa00e.zip",
+                "reference": "523407fb06eb9e5f3d59889b3978d5bfe94299c8",
+                "shasum": "e8ee030570a8f89384f83e400060276040b36383"
             },
             "require": {
-                "php": ">=5.2"
+                "php": "~5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0"
+            },
+            "require-dev": {
+                "cerdic/css-tidy": "^1.7 || ^2.0",
+                "simpletest/simpletest": "dev-master"
+            },
+            "suggest": {
+                "cerdic/css-tidy": "If you want to use the filter 'Filter.ExtractStyleBlocks'.",
+                "ext-bcmath": "Used for unit conversion and imagecrash protection",
+                "ext-iconv": "Converts text to and from non-UTF-8 encodings",
+                "ext-tidy": "Used for pretty-printing HTML"
             },
             "type": "library",
             "autoload": {
@@ -1829,7 +1839,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2021-12-25T01:21:49+00:00"
+            "time": "2022-09-18T07:06:19+00:00"
         },
         {
             "name": "gidkom/php-openfire-restapi",
@@ -2578,9 +2588,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-8afaf181eac32e94e97b97c2302ec6d1f575f431-zip-2179ec.zip",
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-7a6d2a49861f60a918839d8e8416e9b3d067d58f-zip-4849bd.zip",
                 "reference": "8afaf18",
-                "shasum": "1f408bb412e5d25b007095516f53245a15341d1b"
+                "shasum": "a8567c4f3d9cd92b856417ad8e52b9251d94eaca"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2634,7 +2644,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-09-13T16:55:37+00:00"
+            "time": "2022-09-22T22:50:14+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3405,21 +3415,21 @@
         },
         {
             "name": "laminas/laminas-filter",
-            "version": "2.18.0",
+            "version": "2.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-filter.git",
-                "reference": "8d352d8d031af69a366ba5eb5b812a5d33e97c3c"
+                "reference": "fa2ef11911a5b99e4323ee24e9ed85703f14a983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-8d352d8d031af69a366ba5eb5b812a5d33e97c3c-zip-0bdec9.zip",
-                "reference": "8d352d8d031af69a366ba5eb5b812a5d33e97c3c",
-                "shasum": "8a0c4867d8f558c9699457dd088a1829f09b935e"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-fa2ef11911a5b99e4323ee24e9ed85703f14a983-zip-ffffbf.zip",
+                "reference": "fa2ef11911a5b99e4323ee24e9ed85703f14a983",
+                "shasum": "419c4d77eae013ebba778060b227ad9b2a528988"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.14.0",
-                "laminas/laminas-stdlib": "^3.6.1",
+                "laminas/laminas-stdlib": "^3.13.0",
                 "php": "^7.4 || ~8.0.0 || ~8.1.0"
             },
             "conflict": {
@@ -3427,15 +3437,15 @@
                 "zendframework/zend-filter": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "^2.3.0",
+                "laminas/laminas-coding-standard": "~2.4.0",
                 "laminas/laminas-crypt": "^3.5.1",
                 "laminas/laminas-uri": "^2.9.1",
                 "pear/archive_tar": "^1.4.14",
                 "phpspec/prophecy-phpunit": "^2.0.1",
-                "phpunit/phpunit": "^9.5.10",
+                "phpunit/phpunit": "^9.5.24",
                 "psalm/plugin-phpunit": "^0.17.0",
                 "psr/http-factory": "^1.0.1",
-                "vimeo/psalm": "^4.24.0"
+                "vimeo/psalm": "^4.27.0"
             },
             "suggest": {
                 "laminas/laminas-crypt": "Laminas\\Crypt component, for encryption filters",
@@ -3471,7 +3481,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-09-09T05:08:45+00:00"
+            "time": "2022-09-21T11:31:28+00:00"
         },
         {
             "name": "laminas/laminas-http",
@@ -4206,17 +4216,17 @@
         },
         {
             "name": "laminas/laminas-servicemanager",
-            "version": "3.16.0",
+            "version": "3.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-servicemanager.git",
-                "reference": "863c66733740cd36ebf5e700f4258ef2c68a2a24"
+                "reference": "360be5f16955dd1edbcce1cfaa98ed82a17f02ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-servicemanager/laminas-laminas-servicemanager-863c66733740cd36ebf5e700f4258ef2c68a2a24-zip-8c20c5.zip",
-                "reference": "863c66733740cd36ebf5e700f4258ef2c68a2a24",
-                "shasum": "2d7c59b8f174326b4edefdd78bf0e9c072f86d7c"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-servicemanager/laminas-laminas-servicemanager-360be5f16955dd1edbcce1cfaa98ed82a17f02ec-zip-722a13.zip",
+                "reference": "360be5f16955dd1edbcce1cfaa98ed82a17f02ec",
+                "shasum": "7e382c48130a640240b1d3c855cd4818f8f6c495"
             },
             "require": {
                 "laminas/laminas-stdlib": "^3.2.1",
@@ -4237,7 +4247,7 @@
             },
             "require-dev": {
                 "composer/package-versions-deprecated": "^1.0",
-                "laminas/laminas-coding-standard": "~2.3.0",
+                "laminas/laminas-coding-standard": "~2.4.0",
                 "laminas/laminas-container-config-test": "^0.7",
                 "laminas/laminas-dependency-plugin": "^2.1.2",
                 "mikey179/vfsstream": "^1.6.10@alpha",
@@ -4285,7 +4295,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-07-27T14:58:17+00:00"
+            "time": "2022-09-22T11:33:46+00:00"
         },
         {
             "name": "laminas/laminas-session",
@@ -4685,21 +4695,21 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.24.0",
+            "version": "2.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "f2ad7de3f92b443f31447a37e061116f701d150a"
+                "reference": "42de39b78e73b321db7d948cf8530a2764f8b9aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-f2ad7de3f92b443f31447a37e061116f701d150a-zip-0f9150.zip",
-                "reference": "f2ad7de3f92b443f31447a37e061116f701d150a",
-                "shasum": "dcaae1ff406c4c35ff9a5e99f4acd12d4cb48a6c"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-42de39b78e73b321db7d948cf8530a2764f8b9aa-zip-3aa187.zip",
+                "reference": "42de39b78e73b321db7d948cf8530a2764f8b9aa",
+                "shasum": "c46a441fa4df5dd60555cecc84ce8b5040f1cb7e"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.12.0",
-                "laminas/laminas-stdlib": "^3.10",
+                "laminas/laminas-stdlib": "^3.13",
                 "php": "^7.4 || ~8.0.0 || ~8.1.0"
             },
             "conflict": {
@@ -4759,7 +4769,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-09-13T07:40:10+00:00"
+            "time": "2022-09-20T11:33:19+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -6938,17 +6948,17 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.18.0",
+            "version": "v1.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "906e0b925895d3a5941eda25f371fbafb3cbc22f"
+                "reference": "f3cf7d1f3214889639da40db1f6c6d4afb4c85f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/paragonie/sodium_compat/paragonie-sodium_compat-906e0b925895d3a5941eda25f371fbafb3cbc22f-zip-2a5bec.zip",
-                "reference": "906e0b925895d3a5941eda25f371fbafb3cbc22f",
-                "shasum": "9568373bff73b661167ae5b619122b733d6a95d9"
+                "url": "https://composer.tiki.org/dist/paragonie/sodium_compat/paragonie-sodium_compat-f3cf7d1f3214889639da40db1f6c6d4afb4c85f7-zip-1b6363.zip",
+                "reference": "f3cf7d1f3214889639da40db1f6c6d4afb4c85f7",
+                "shasum": "fa74b3cee4ab89810bb8f3a95a62374699dfc531"
             },
             "require": {
                 "paragonie/random_compat": ">=1",
@@ -7016,7 +7026,7 @@
                 "secret-key cryptography",
                 "side-channel resistant"
             ],
-            "time": "2022-09-13T20:54:27+00:00"
+            "time": "2022-09-23T14:34:43+00:00"
         },
         {
             "name": "pclzip/pclzip",
@@ -9139,17 +9149,17 @@
         },
         {
             "name": "sabre/uri",
-            "version": "2.3.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/uri.git",
-                "reference": "2ec3dcec9e1586893c9820a12f573f73a71200f4"
+                "reference": "eceb4a1b8b680b45e215574222d6ca00be541970"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/uri/sabre-uri-2ec3dcec9e1586893c9820a12f573f73a71200f4-zip-965333.zip",
-                "reference": "2ec3dcec9e1586893c9820a12f573f73a71200f4",
-                "shasum": "e05242d81d236858acb53950cf4c0a27142a29eb"
+                "url": "https://composer.tiki.org/dist/sabre/uri/sabre-uri-eceb4a1b8b680b45e215574222d6ca00be541970-zip-e5cc14.zip",
+                "reference": "eceb4a1b8b680b45e215574222d6ca00be541970",
+                "shasum": "b70bdbf81d38aa5f5ed1600f7c3b2eba761b3ef3"
             },
             "require": {
                 "php": "^7.4 || ^8.0"
@@ -9187,7 +9197,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2022-08-30T14:00:42+00:00"
+            "time": "2022-09-19T11:58:52+00:00"
         },
         {
             "name": "sabre/vobject",
@@ -9545,17 +9555,17 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.8.0",
+            "version": "3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "dc599ef4ac5459fef95cc0414d26ac47e300e1dc"
+                "reference": "5150776a0a9835c4ea56ff0ecd94e0a109b6c163"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-dc599ef4ac5459fef95cc0414d26ac47e300e1dc-zip-229fe3.zip",
-                "reference": "dc599ef4ac5459fef95cc0414d26ac47e300e1dc",
-                "shasum": "331ca28e6d38392c9072387fdb400f982bc62212"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-5150776a0a9835c4ea56ff0ecd94e0a109b6c163-zip-beef09.zip",
+                "reference": "5150776a0a9835c4ea56ff0ecd94e0a109b6c163",
+                "shasum": "436ebad6f2c46bfc7cdfd16b6879f966460e6768"
             },
             "require": {
                 "ext-json": "*",
@@ -9641,7 +9651,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-09-05T14:25:47+00:00"
+            "time": "2022-09-21T11:01:17+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -9946,17 +9956,17 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v4.14.0",
+            "version": "v4.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "424d704d1e971cb4b8c952d1b5e302414745f86c"
+                "reference": "0b4426ab6c78f027e00d6600bc3c6fd9b59bda46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-424d704d1e971cb4b8c952d1b5e302414745f86c-zip-aac9c5.zip",
-                "reference": "424d704d1e971cb4b8c952d1b5e302414745f86c",
-                "shasum": "3f27c5a274ca1072510f3e7bc04a94b77e14af8a"
+                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-0b4426ab6c78f027e00d6600bc3c6fd9b59bda46-zip-b218eb.zip",
+                "reference": "0b4426ab6c78f027e00d6600bc3c6fd9b59bda46",
+                "shasum": "e6cd3851edfdcddc5a30d1282c5879a0e8886ea4"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -9999,7 +10009,7 @@
                 "swagger",
                 "ui"
             ],
-            "time": "2022-08-17T18:49:32+00:00"
+            "time": "2022-09-22T16:50:30+00:00"
         },
         {
             "name": "symfony/config",
