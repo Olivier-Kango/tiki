@@ -274,6 +274,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         $result = $search
             ->offset($resultStart)
             ->limit($resultCount)
+            ->highlight(['contents'], ['pre_tags' => '<em>', 'post_tags' => '</em>'])
             ->get();
 
         $fieldMapping = $this->getUnifiedFieldMapping();
@@ -291,6 +292,13 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
             if (isset($data['_score'])) {
                 $data['score'] = round($data['_score'], 2);
+            }
+
+            $highlight = $entry->getHighlight();
+            if (! empty($highlight['contents'])) {
+                $data['_highlight'] = implode('...', $highlight['contents']);
+            } else {
+                $data['_highlight'] = '';
             }
 
             // Manticore stores datetimes as timestamp values while MySQL/ES store as datetime strings
@@ -317,8 +325,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             $entries[] = $data;
         }
 
-        $resultSet = new Search_ResultSet($entries, $result->getTotal(), $resultStart, $resultCount);
-        // TODO: highlights
+        $resultSet = new Search_Manticore_ResultSet($entries, $result->getTotal(), $resultStart, $resultCount);
 
         $reader = new Search_Manticore_FacetReader($result);
         foreach ($query->getFacets() as $facet) {
