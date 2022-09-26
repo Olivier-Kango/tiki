@@ -393,7 +393,10 @@ function admintoolbar() {
 $("#' . $as_id . '").form().submit(function () {
     const $textarea = $("#' . $as_id . '");
     if ($("input[name=syntax]", this).val() === "markdown") {
-        $textarea.val("{syntax type=markdown}\r\n" + $textarea.val());
+        let val = $textarea.val();
+        val = val.replace(/^\$\$tiki$/, "");
+        val = val.replace(/^\$\$$/, "");
+        $textarea.val("{syntax type=markdown}\r\n" + val);
     }
     return true;
 });';

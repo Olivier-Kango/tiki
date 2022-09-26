@@ -4,6 +4,8 @@ namespace Tiki\Lib\core\Toolbar;
 
 class ToolbarSwitchEditor extends ToolbarUtilityItem
 {
+    // onclick for non-wysiwyg
+    private string $onClick = 'switchEditor(\'wysiwyg\', $(this).parents(\'form\'));';
 
     public function __construct()
     {
@@ -23,7 +25,7 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
         global $prefs;
         if (! empty($this->wysiwyg)) {
             if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_optional'] == 'y') {
-                $js = "switchEditor('wiki', $('#$this->domElementId').parents('form')[0]);";
+                $js = "switchEditor('wiki', $('#$this->domElementId').parents('form'));";
                 $this->setupCKEditorTool($js);
             }
         }
@@ -33,6 +35,9 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
     public function getMarkdownWysiwyg(): string
     {
         global $prefs;
+
+        $this->onClick = 'switchEditor(\'wiki\', $(this).parents(\'form\'));';
+
         if (! empty($this->markdown_wysiwyg)) {
             if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_optional'] == 'y') {
                 return parent::getMarkdownWysiwyg();
@@ -56,6 +61,6 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
      */
     public function getOnClick(): string
     {
-        return 'switchEditor(\'wysiwyg\', $(this).parents(\'form\')[0]);';
+        return $this->onClick;
     }
 }
