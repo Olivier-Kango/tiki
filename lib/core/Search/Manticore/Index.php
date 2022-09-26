@@ -327,6 +327,9 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
         $resultSet = new Search_Manticore_ResultSet($entries, $result->getTotal(), $resultStart, $resultCount);
 
+        $words = $this->getWords($query->getExpr());
+        $resultSet->setHighlightHelper(new Search_MySql_HighlightHelper($words));
+
         $reader = new Search_Manticore_FacetReader($result);
         foreach ($query->getFacets() as $facet) {
             if ($filter = $reader->getFacetFilter($facet)) {
@@ -437,5 +440,23 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         }
 
         return $fieldMapping;
+    }
+
+    protected function getWords($expr)
+    {
+        $words = [];
+        $factory = new Search_Type_Factory_Direct();
+        $expr->walk(
+            function ($node) use (&$words, $factory) {
+                if ($node instanceof Search_Expr_Token && $node->getField() !== 'searchable') {
+                    $word = $node->getValue($factory)->getValue();
+                    if (is_string($word) && ! in_array($word, $words)) {
+                        $words[] = $word;
+                    }
+                }
+            }
+        );
+
+        return $words;
     }
 }

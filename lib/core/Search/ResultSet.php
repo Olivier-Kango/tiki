@@ -13,7 +13,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
     private $offset;
     private $maxRecords;
 
-    private $highlightHelper;
+    protected $highlightHelper;
     private $filters = [];
     private $id;
     private $tsOn;
