@@ -24,6 +24,7 @@ class Search_Manticore_FacetDecorator extends Search_Manticore_Decorator
 
         $out = [];
         foreach ($facets as $facet) {
+            $type = $facet->getType();
             if ($type === 'date_histogram') {
                 // TODO: work out ES histogram through Manticore expression
             } elseif ($type === 'date_range') {
@@ -31,7 +32,7 @@ class Search_Manticore_FacetDecorator extends Search_Manticore_Decorator
             } else {
                 $count = $facet->getCount() ?: $this->count;
                 // TODO: facet ordering is supported only in SQL
-                $this->search->facet($facet->getField(), $facet->getName(), $this->count);
+                $this->search->facet(strtolower($facet->getField()), $facet->getName(), $this->count);
             }
         }
     }

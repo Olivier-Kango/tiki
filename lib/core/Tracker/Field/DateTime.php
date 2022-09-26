@@ -310,7 +310,11 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
             Search_Query_Facet_Term::fromField($baseKey)
                 ->setLabel($this->getConfiguration('name'))
                 ->setRenderCallback(function ($date) {
-                    return TikiLib::lib('tiki')->get_short_date($date / 1000);
+                    // could be seconds (Manticore) or milliseconds (Elastic)
+                    if (strlen($date) > 12) {
+                        $date /= 1000;
+                    }
+                    return TikiLib::lib('tiki')->get_short_date($date);
                 })
         ];
     }

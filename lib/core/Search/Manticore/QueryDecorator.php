@@ -190,6 +190,8 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             return new Query\In('ANY(' . $this->getNodeField($node) . ')', $terms);
         } elseif ($node->getType() == 'identifier') {
             return new Query\Equals($this->getNodeField($node), $this->getTerm($node));
+        } elseif ($mapping && in_array('timestamp', $mapping['types'])) {
+            return new Query\Equals($this->getNodeField($node), intval($this->getTerm($node)));
         } else {
             return new Query\Equals('REGEX(' . $this->getNodeField($node) . ', "' . addslashes($this->getTerm($node)) . '")', 1);
         }

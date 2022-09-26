@@ -320,7 +320,12 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         $resultSet = new Search_ResultSet($entries, $result->getTotal(), $resultStart, $resultCount);
         // TODO: highlights
 
-        // TODO: facet reader
+        $reader = new Search_Manticore_FacetReader($result);
+        foreach ($query->getFacets() as $facet) {
+            if ($filter = $reader->getFacetFilter($facet)) {
+                $resultSet->addFacetFilter($filter);
+            }
+        }
 
         return $resultSet;
     }
@@ -392,8 +397,8 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     public function getFieldMapping($field)
     {
-        if (array_key_exists($field, $this->providedMappings)) {
-            return $this->providedMappings[$field];
+        if (array_key_exists(strtolower($field), $this->providedMappings)) {
+            return $this->providedMappings[strtolower($field)];
         }
         return [];
     }
