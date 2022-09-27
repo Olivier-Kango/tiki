@@ -2083,6 +2083,26 @@ class TrackerLib extends TikiLib
                     if (! empty($itemId) && $old_value != $array['value']) {
                         $this->log($version, $itemId, $array['fieldId'], $old_value);
                     }
+                } elseif ($array['options_array'][0] == 'location') {
+                    if ($coords = TikiLib::lib('geo')->parse_coordinates($array['value'])) {
+                        $tikilib->set_user_preference($trackersync_user, 'lat', $coords['lat']);
+                        $tikilib->set_user_preference($trackersync_user, 'lon', $coords['lon']);
+                        if (isset($coords['zoom'])) {
+                            $tikilib->set_user_preference($trackersync_user, 'zoom', $coords['zoom']);
+                        }
+                    }
+                } elseif ($array['options_array'][0] == 'avatar') {
+                    $filekey = 'ins_'.$array['fieldId'];
+                    if (isset($_FILES[$filekey]) && is_uploaded_file($_FILES[$filekey]['tmp_name'])) {
+                        $filegallib = TikiLib::lib('filegal');
+                        try {
+                            $filegallib->assertUploadedFileIsSafe($_FILES[$filekey]['tmp_name'], $_FILES[$filekey]['name']);
+                            $avatarlib = TikiLib::lib('avatar');
+                            $avatarlib->set_avatar_from_url($_FILES[$filekey]['tmp_name'], $trackersync_user, $_FILES[$filekey]['name']);
+                        } catch (Exception $e) {
+                            Feedback::error($e->getMessage());
+                        }
+                    }
                 } else {
                     $old_value = $tikilib->get_user_preference($trackersync_user, $array['options_array'][0]);
                     $tikilib->set_user_preference($trackersync_user, $array['options_array'][0], $array['value']);

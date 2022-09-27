@@ -41,6 +41,30 @@
             </option>
         {/foreach}
     </select>
+{elseif $field.options_map.type eq 'gender'}
+    <label>
+        <input type="radio" name="{$field.ins_id}" value="Male" {if $field.value eq 'Male'}checked="checked"{/if}> {tr}Male{/tr}
+    </label>
+    <label>
+        <input type="radio" name="{$field.ins_id}" value="Female" {if $field.value eq 'Female'}checked="checked"{/if}> {tr}Female{/tr}
+    </label>
+    <label>
+        <input type="radio" name="{$field.ins_id}" value="Hidden" {if $field.value eq 'Hidden'}checked="checked"{/if}> {tr}Hidden{/tr}
+    </label>
+{elseif $field.options_map.type eq 'location'}
+    <div class="col-md-12 mb-5" style="height: 250px;" data-geo-center="{defaultmapcenter}" data-target-field="location">
+        <div class="map-container" style="height: 250px;" data-geo-center="{defaultmapcenter}" data-target-field="location"></div>
+    </div>
+    <input type="hidden" name="{$field.ins_id}" id="location" value="{$field.value|escape}">
+{elseif $field.options_map.type eq 'avatar'}
+    {if $value}
+        <img id='avtimg' src="{$value}" alt="{tr}Profile picture{/tr}">
+    {/if}
+    <input type="hidden" name="MAX_FILE_SIZE" value="10000000">
+    <input name="{$field.ins_id}" id="{$field.ins_id|escape}" type="file">
+    <div class="form-text">
+        {if $prefs.user_store_file_gallery_picture neq 'y'}{tr}File (only .gif, .jpg and .png images approximately 45px × 45px){/tr}{else}{tr}File (only .gif, .jpg and .png images){/tr}{/if}:
+    </div>
 {else}
     <input type="text" name="{$field.ins_id}" id="{$field.ins_id|escape}" value="{$field.value|escape}" class="form-control">
 {/if}
