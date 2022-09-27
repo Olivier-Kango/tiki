@@ -191,6 +191,8 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
         if (! empty($context['list_mode']) && $context['list_mode'] === 'y' && $this->getOption('listmax')) {
             TikiLib::lib('smarty')->loadPlugin('smarty_modifier_truncate');
             return smarty_modifier_truncate(strip_tags($output), $this->getOption('listmax'));
+        } elseif (! empty($context['isMain_context'])) {
+            return strip_tags($output);
         } else {
             return $output;
         }

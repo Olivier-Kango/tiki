@@ -3951,8 +3951,8 @@ class TrackerLib extends TikiLib
         }
         $main_field_type = $this->get_main_field_type($trackerId);
 
-        // for ItemLink, AutoIncrement, UserPref and Category fields use the proper output method
-        if (in_array($main_field_type, ['r','q', 'p', 'e'])) {
+        // for TextArea, ItemLink, AutoIncrement, UserPref and Category fields use the proper output method
+        if (in_array($main_field_type, ['a', 'r', 'q', 'p', 'e'])) {
             $definition = Tracker_Definition::get($trackerId);
             $field = $definition->getField($this->get_main_field($trackerId));
             $item = $this->get_tracker_item($itemId);
@@ -3961,7 +3961,11 @@ class TrackerLib extends TikiLib
             $field = array_merge($field, $handler->getFieldData());
             $handler = $this->get_field_handler($field, $item);
 
-            $result = $handler->renderOutput(['list_mode' => 'csv']);
+            if ($main_field_type == 'a') {
+                $result = $handler->renderOutput(['list_mode' => 'y', 'isMain_context' => true]);
+            } else {
+                $result = $handler->renderOutput(['list_mode' => 'csv']);
+            }
         }
 
         if (strlen($result) && $result[0] === '{') {

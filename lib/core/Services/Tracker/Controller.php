@@ -1436,7 +1436,10 @@ class Services_Tracker_Controller
         $fieldsProcessed = [];
         foreach ($processedFields as $k => $f) {
             $permName = $f['permName'];
-            $fieldsProcessed[$permName] = isset($f['value']) ? $f['value'] : '';
+            $fieldsProcessed[$permName] = ['value' => $f['value'] ?? ''];
+            if (isset($f['pvalue'])) {
+                $fieldsProcessed[$permName]['pvalue'] = $f['pvalue'];
+            }
             if (isset($f['relations'])) {
                 $fieldsProcessed[$permName] = ['relations' => $f['relations']];
             }
@@ -1536,8 +1539,8 @@ class Services_Tracker_Controller
         foreach ($fields["data"] as &$field) {
             $permName = isset($field['permName']) ? $field['permName'] : null;
             if (isset($fieldsProcessed[$permName])) {
-                $field['value'] = $fieldsProcessed[$permName];
-                $field['pvalue'] = $fieldsProcessed[$permName];
+                $field['value'] = $fieldsProcessed[$permName]['value'];
+                $field['pvalue'] = $fieldsProcessed[$permName]['pvalue'];
                 if (isset($fieldsProcessed[$permName]['relations'])) {
                     $field['relations'] = $fieldsProcessed[$permName]['relations'];
                 }

@@ -274,6 +274,10 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
             return false;
         }
 
+        if (! empty($context['isMain_context'])) {
+            return false;
+        }
+
         $itemId = $this->getItemId();
         if (empty($itemId)) {
             return false;
