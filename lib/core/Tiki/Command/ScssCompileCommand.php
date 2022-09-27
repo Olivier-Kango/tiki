@@ -141,7 +141,7 @@ class ScssCompileCommand extends Command
             $features = "$location/$themename/scss/feature";
             if (is_dir($features)) {
                 foreach (new \DirectoryIterator($features) as $featureFileInfo) {
-                    if ($featureFileInfo->isDot() || $featureFileInfo->isDir()) {
+                    if ($featureFileInfo->isDot() || $featureFileInfo->isDir() || $featureFileInfo->getExtension() !== 'scss') {
                         continue;
                     }
                     $featureName = $featureFileInfo->getFilename();
