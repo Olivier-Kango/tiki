@@ -12,6 +12,7 @@
     <exclude-pattern>*/vendor_bundled/*</exclude-pattern>
     <exclude-pattern>*/vendor_custom/*</exclude-pattern>
     <exclude-pattern>*/vendor_extra/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
 
     <!-- libraries bundled with tiki -->
     <exclude-pattern>*/lib/dracula/*</exclude-pattern>

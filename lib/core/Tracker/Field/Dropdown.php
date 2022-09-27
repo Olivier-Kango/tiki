@@ -209,7 +209,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
         return $localCache[$string];
     }
 
-    
+
     private function getValuesOfPossibilities()
     {
         $values = [];
@@ -416,7 +416,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
     public function isValid()
     {
         if ($this->getConfiguration('type') !== 'D') {
-            $value = $this->getValue($this->getDefaultValue()); 
+            $value = $this->getValue($this->getDefaultValue());
             $allValues = $value === '' ? [] : explode(',', $value);
 
             if (! empty($allValues)) {

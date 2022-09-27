@@ -6,10 +6,10 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-/** Just in time filters.  For filtering object or array values when the type cannot be known before the script is executed. 
- * 
+/** Just in time filters.  For filtering object or array values when the type cannot be known before the script is executed.
+ *
  *  See https://dev.tiki.org/Filtering-Best-Practices
- * 
+ *
  */
 class JitFilter implements ArrayAccess, Iterator, Countable
 {

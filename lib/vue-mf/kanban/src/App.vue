@@ -21,7 +21,7 @@ const boardId = ref(props.customProps.kanbanData.trackerId)
 const loading = ref(false)
 
 onBeforeMount(() => {
-    console.log(props.customProps.kanbanData)
+    //console.log(props.customProps.kanbanData)
     loading.value = false
     // Removes duplicate ids
     const cardsAllIds = props.customProps.kanbanData.cards.map(card => card.id)

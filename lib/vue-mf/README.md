@@ -21,6 +21,12 @@ npm run build - production build
 /storage/public/vue-mf/
 ```
 
+Note that shared libraries (vue and es-module-shims) are installed as devDependencies of root-config in  /lib/vue-mf/root-config/package.json and copied into 
+storage/public/vue-mf/root-config
+by /lib/vue-mf/root-config/rollup.config.js
+
+they are made available through and importmap in teamplates/header.tpl
+
 ## Global Vue Micro Frontend configuration application dev path:
 ```
 /lib/vue-mf/root-config/

@@ -601,39 +601,39 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
         $CACHE_KEY = 'possibleUsers';
         if (! isset($localCache[$CACHE_KEY])) {
             $userlib = TikiLib::lib('user');
-        $tikilib = TikiLib::lib('tiki');
-        $users = [];
+            $tikilib = TikiLib::lib('tiki');
+            $users = [];
 
-        $groupIds = $this->getOption('groupIds');
-        $groups = $userlib->list_all_groups_with_permission();
-        $groups = $userlib->get_group_info($groups);
-        if (! empty($groupIds)) {
-            $groups = array_filter($groups, function ($group) use ($groupIds) {
-                return in_array($group['id'], $groupIds);
-            });
-        }
-        $groups = array_map(function ($group) {
-            return $group['groupName'];
-        }, $groups);
+            $groupIds = $this->getOption('groupIds');
+            $groups = $userlib->list_all_groups_with_permission();
+            $groups = $userlib->get_group_info($groups);
+            if (! empty($groupIds)) {
+                $groups = array_filter($groups, function ($group) use ($groupIds) {
+                    return in_array($group['id'], $groupIds);
+                });
+            }
+            $groups = array_map(function ($group) {
+                return $group['groupName'];
+            }, $groups);
 
-        if (! empty($groups)) {
-            $usrs = [];
-            foreach ($groups as $group) {
-                $group_users = $userlib->get_group_users($group);
-                $usrs = array_merge($usrs, $group_users);
+            if (! empty($groups)) {
+                $usrs = [];
+                foreach ($groups as $group) {
+                    $group_users = $userlib->get_group_users($group);
+                    $usrs = array_merge($usrs, $group_users);
+                }
+                $usrs = array_unique($usrs);
+                foreach ($usrs as $usr) {
+                    $users["$usr"] = $showRealname ? smarty_modifier_username($usr) : $usr;
+                }
+            } else {
+                $usrs = $tikilib->list_users(0, -1, 'login_asc');
+                foreach ($usrs['data'] as $usr) {
+                    $users[$usr['login']] = $showRealname ? smarty_modifier_username($usr['login']) : $usr['login'];
+                }
             }
-            $usrs = array_unique($usrs);
-            foreach ($usrs as $usr) {
-                $users["$usr"] = $showRealname ? smarty_modifier_username($usr) : $usr;
-            }
-        } else {
-            $usrs = $tikilib->list_users(0, -1, 'login_asc');
-            foreach ($usrs['data'] as $usr) {
-                $users[$usr['login']] = $showRealname ? smarty_modifier_username($usr['login']) : $usr['login'];
-            }
-        }
 
-            $localCache[$CACHE_KEY] =  $users;
+            $localCache[$CACHE_KEY] = $users;
         }
         return $localCache[$CACHE_KEY];
     }

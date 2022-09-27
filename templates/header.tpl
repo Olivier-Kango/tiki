@@ -239,7 +239,8 @@
     <script type="importmap">
         {
             "imports": {
-                "vue": "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.39/vue.esm-browser.min.js",
+                {* For development you can use "vue": "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.39/vue.esm-browser.min.js", *}
+                "vue": "{$tikiroot}storage/public/vue-mf/root-config/vue.esm-browser.prod.js",
                 "@vue-mf/styleguide": "{$tikiroot}storage/public/vue-mf/styleguide/vue-mf-styleguide.min.js",
                 "@vue-mf/root-config": "{$tikiroot}storage/public/vue-mf/root-config/vue-mf-root-config.min.js",
                 "@vue-mf/kanban": "{$tikiroot}storage/public/vue-mf/kanban/vue-mf-kanban.min.js",

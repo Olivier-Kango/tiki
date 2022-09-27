@@ -91,7 +91,7 @@ class Tracker_Query
     private $limit = 100; //added limit so default wouldn't crash system
     private $offset = 0;
     //Should be marked final, but only supported from php > 8.1
-    const ALLOWED_TRACKER_KEY_COLUMNS = ['trackerId', 'name']; 
+    const ALLOWED_TRACKER_KEY_COLUMNS = ['trackerId', 'name'];
     private $trackerKey = 'trackerId';
     //Should be marked final, but only supported from php > 8.1
     const ALLOWED_FIELD_KEY_COLUMNS = ['fieldId', 'name', 'permName'];
@@ -342,7 +342,7 @@ class Tracker_Query
 
     /**
      * DEPRECATED Change tracker to use all, in tracker and fields, needs called before $this->query()
-     * 
+     *
      * @access  public
      * @param   bool  $byName default to true, optional
      * @return  $this for chainability
@@ -351,7 +351,6 @@ class Tracker_Query
     {
         //$this->byName = $byName;
         if ($byName) {
-
             $this->setTrackerKey('name');
             $this->setFieldKey('name');
         }
@@ -368,7 +367,7 @@ class Tracker_Query
      */
     public function setTrackerKey(string $trackerKey)
     {
-        if (!in_array($trackerKey, self::ALLOWED_TRACKER_KEY_COLUMNS)) {
+        if (! in_array($trackerKey, self::ALLOWED_TRACKER_KEY_COLUMNS)) {
             throw new Exception("Opps, tracker key " . $trackerKey . " isn't supported");
         }
         $this->trackerKey = $trackerKey;
@@ -385,7 +384,7 @@ class Tracker_Query
      */
     public function setFieldKey(string $fieldKey)
     {
-        if (!in_array($fieldKey, self::ALLOWED_FIELD_KEY_COLUMNS)) {
+        if (! in_array($fieldKey, self::ALLOWED_FIELD_KEY_COLUMNS)) {
             throw new Exception("Opps, fieldKey " . $fieldKey . "isn't ALLOWED_FIELD_KEY_COLUMNS");
         }
         $this->fieldKey = $fieldKey;
@@ -673,7 +672,7 @@ class Tracker_Query
             }
         }
 
-        if (!empty($nameOrder)) {
+        if (! empty($nameOrder)) {
             $sortedHeader = [];
             $unsortedHeader = [];
             foreach ($nameOrder as $name) {
@@ -729,7 +728,7 @@ class Tracker_Query
 
     public static function arfsort(&$array, $fieldList)
     {
-        if (!is_array($fieldList)) {
+        if (! is_array($fieldList)) {
             $fieldList = explode('|', $fieldList);
             $fieldList = [[$fieldList[0], self::sortDirection($fieldList[1])]];
         } else {
@@ -755,7 +754,7 @@ class Tracker_Query
                 default:
                     $strc = strcasecmp($b[$f[0]], $a[$f[0]]);
                     if ($strc != 0) {
-                        return $strc * (!empty($f[1]) && $f[1] == SORT_DESC ? 1 : -1);
+                        return $strc * (! empty($f[1]) && $f[1] == SORT_DESC ? 1 : -1);
                     }
             }
         }
@@ -785,7 +784,7 @@ class Tracker_Query
             $trackerId = $this->tracker;
         }
 
-        if (!empty($trackerId) && !is_numeric($trackerId)) {
+        if (! empty($trackerId) && ! is_numeric($trackerId)) {
             throw new Exception("Opps, looks like you need to call ->setTrackerKey();");
         }
 
@@ -819,8 +818,9 @@ class Tracker_Query
 
         $trackerId = $this->trackerId();
 
-        if(!in_array($this->trackerKey,  self::ALLOWED_TRACKER_KEY_COLUMNS) ||
-           !in_array($this->fieldKey,  self::ALLOWED_FIELD_KEY_COLUMNS)
+        if (
+            ! in_array($this->trackerKey, self::ALLOWED_TRACKER_KEY_COLUMNS) ||
+            ! in_array($this->fieldKey, self::ALLOWED_FIELD_KEY_COLUMNS)
         ) {
             throw new Error("SECURITY ERROR, possible sql injection attempt");
         }
@@ -835,21 +835,21 @@ class Tracker_Query
 
         $params[] = $trackerId;
 
-        if (!empty($this->start) && empty($this->search)) {
+        if (! empty($this->start) && empty($this->search)) {
             $params[] = $this->start;
         }
 
-        if (!empty($this->end) && empty($this->search)) {
+        if (! empty($this->end) && empty($this->search)) {
             $params[] = $this->end;
         }
 
-        if (!empty($this->itemId) && empty($this->search)) {
+        if (! empty($this->itemId) && empty($this->search)) {
             $params[] = $this->itemId;
         }
 
 
         /*Get field ids from names or permNames to rewrite field filters*/
-        if ($this->trackerField !== 'id' && !empty($this->fields)) {
+        if ($this->trackerField !== 'id' && ! empty($this->fields)) {
             $fieldIds = [];
 
             foreach ($this->fields as $field) {
@@ -857,12 +857,11 @@ class Tracker_Query
                     "SELECT fieldId FROM tiki_tracker_fields" .
                         " LEFT JOIN tiki_trackers ON (tiki_trackers.trackerId = tiki_tracker_fields.trackerId)" .
                         " WHERE" .
-                        " tiki_trackers." . $this->trackerKey. " = ? AND tiki_tracker_fields." . $this->fieldKey . " = ?",
+                        " tiki_trackers." . $this->trackerKey . " = ? AND tiki_tracker_fields." . $this->fieldKey . " = ?",
                     [$this->tracker, $field]
                 );
             }
             $this->fields = $fieldIds;
-
         }
 
         if (count($this->fields) > 0 && (count($this->equals) > 0 || count($this->search) > 0)) {
@@ -921,11 +920,11 @@ class Tracker_Query
             }
         }
 
-        if (!empty($this->limit) && is_numeric($this->limit) == false) {
+        if (! empty($this->limit) && is_numeric($this->limit) == false) {
             unset($this->limit);
         }
 
-        if (isset($this->offset) && !empty($this->offset) && is_numeric($this->offset) == false) {
+        if (isset($this->offset) && ! empty($this->offset) && is_numeric($this->offset) == false) {
             unset($this->offset);
         }
 
@@ -979,19 +978,19 @@ class Tracker_Query
                 WHERE
                 tiki_trackers.trackerId = ?
 
-                " . (!empty($this->start) ? " AND tiki_tracker_items." . $dateUnit . " > ? " : "") . "
-                " . (!empty($this->end) ? " AND tiki_tracker_items." . $dateUnit . " < ? " : "") . "
-                " . (!empty($this->itemId) ? " AND tiki_tracker_item_fields.itemId = ? " : "") . "
-                " . (!empty($fields_safe) ? $fields_safe : "") . "
-                " . (!empty($status_safe) ? $status_safe : "") . "
+                " . (! empty($this->start) ? " AND tiki_tracker_items." . $dateUnit . " > ? " : "") . "
+                " . (! empty($this->end) ? " AND tiki_tracker_items." . $dateUnit . " < ? " : "") . "
+                " . (! empty($this->itemId) ? " AND tiki_tracker_item_fields.itemId = ? " : "") . "
+                " . (! empty($fields_safe) ? $fields_safe : "") . "
+                " . (! empty($status_safe) ? $status_safe : "") . "
 
                 GROUP BY
                 tiki_tracker_item_fields.itemId
                 " . ($isSearch == true ? ", search_item_fields.fieldId, search_item_fields.itemId " : "") . "
                 ORDER BY
                 tiki_tracker_items." . $dateUnit . " " . ($this->desc == true ? 'DESC' : 'ASC') . "
-                " . (!empty($this->limit) ? " LIMIT " . $this->limit : "") . "
-                " . (!empty($this->offset) ? " OFFSET " . $this->offset : "");
+                " . (! empty($this->limit) ? " LIMIT " . $this->limit : "") . "
+                " . (! empty($this->offset) ? " OFFSET " . $this->offset : "");
 
         if ($this->debug == true) {
             $result = [$query, $params];
@@ -1019,7 +1018,7 @@ class Tracker_Query
             $fieldIds = explode($this->delimiter, $row['fieldIds']);
             if ($$this->fieldKey === 'permName') {
                 $fieldKeys = explode($this->delimiter, $row['fieldPermNames']);
-            } else if ($$this->fieldKey === 'name') {
+            } elseif ($$this->fieldKey === 'name') {
                 $fieldKeys = explode($this->delimiter, $row['fieldNames']);
             } else {
                 $fieldKeys = $fieldIds;
@@ -1048,7 +1047,7 @@ class Tracker_Query
                     $value = $itemValues[$key];
                 }
 
-                if (!isset($this->itemsRaw[$row['itemId']])) {
+                if (! isset($this->itemsRaw[$row['itemId']])) {
                     $this->itemsRaw[$row['itemId']] = [];
                 }
 
@@ -1193,7 +1192,7 @@ class Tracker_Query
         header("Pragma: no-cache");
         header("Expires: 0");
 
-        if (!is_array($array)) {
+        if (! is_array($array)) {
             return false;
         }
         $output = '';

@@ -46,8 +46,15 @@ const startDragging = () => dragging.value = true
 const endDragging = () => setTimeout(() => dragging.value = false, 0)
 
 const checkMove = (event) => {
-    const ability = defineAbilityFor(store.getters.getRules)
-    const canUpdate = ability.can('update', subject('Tracker_Item', {itemId: event.draggedContext.element.id}), store.getters.getColumnField)
+    const rules = store.getters.getRules;
+    //console.log(rules);
+    const ability = defineAbilityFor(rules);
+    //console.log(ability);
+    const id = parseInt(event.draggedContext.element.id);
+    //const rule = ability.relevantRuleFor('update', subject("Tracker_Item", { itemId: id }), store.getters.getXaxisField);
+    //console.log(rule);
+    const canUpdate = ability.can('update', subject('Tracker_Item', { itemId: id }), store.getters.getXaxisField)
+    //console.log("canUpdate?", canUpdate)
     return canUpdate;
 }
 

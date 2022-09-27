@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -122,16 +123,15 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
     $fieldValuesMap = $fieldHandler->getPossibleItemValues();
     //echo '<pre>';print_r($fieldValuesMap);echo '</pre>';
     $fieldInfo = [];
-    if (!$fieldValuesParam) {
+    if (! $fieldValuesParam) {
         foreach ($fieldValuesMap as $value => $label) {
             $fieldInfo[$value] = array_merge($fieldDefaultConfig, ['title' => $label, 'value' => $value]);
         }
     } else {
-
         foreach ($fieldValuesParam as $key => $fieldParams) {
             $fieldParamsArray = explode(',', $fieldParams);
             //column value
-            if (!$allowEmptyValues && !$fieldParamsArray[0]) {
+            if (! $allowEmptyValues && ! $fieldParamsArray[0]) {
                 throw new TypeError(tra('Parameter "%0=%1" has an empty column value (first parameter after the :) at index %2.  Possible values are %3', '', false, [
                     $fieldValuesParamName,
                     implode(':', $fieldValuesParam),
@@ -140,7 +140,7 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
                 ]));
             }
             $fieldValue = trim($fieldParamsArray[0]);
-            if (!$allowEmptyValues && !$fieldValuesMap[$fieldValue]) {
+            if (! $allowEmptyValues && ! $fieldValuesMap[$fieldValue]) {
                 throw new TypeError(tra('Column value "%0" specified in parameter "%1=%2" is not found in tracker field "%3".  Possible values are %4', '', false, [
                     $fieldValue,
                     $fieldValuesParamName,
@@ -157,7 +157,7 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
             }
             //wip limit
             if (isset($fieldParamsArray[2]) && $fieldParamsArray[2] !== 'null') {
-                if (!is_numeric($fieldParamsArray[2])) {
+                if (! is_numeric($fieldParamsArray[2])) {
                     throw new TypeError(tra('Wip limit value "%0" specified in parameter "%1=%2" is not numeric', '', false, [
                         $fieldParamsArray[2],
                         $fieldValuesParamName,
@@ -192,12 +192,12 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 
     // Begin mapping the fields
     $trackerId = $jit->boardTrackerId->int();
-    if (!$trackerId) {
+    if (! $trackerId) {
         return WikiParser_PluginOutput::userError(tr('Tracker not specified in param "boardTrackerId".'));
     }
 
     $mappedTrackerDefinition = Tracker_Definition::get($jit->boardTrackerId->int());
-    if (!$mappedTrackerDefinition) {
+    if (! $mappedTrackerDefinition) {
         return WikiParser_PluginOutput::userError(tr('Tracker not found.'));
     }
 
@@ -210,11 +210,11 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     ];
 
     foreach ($boardFields as $key => $field) {
-        if (!$field) {
+        if (! $field) {
             return WikiParser_PluginOutput::userError(tr('Param "%0" is missing', $key));
         }
         $fieldDef = $mappedTrackerDefinition->getFieldFromPermName($field);
-        if (!$fieldDef) {
+        if (! $fieldDef) {
             return WikiParser_PluginOutput::userError(tra('Tracker field with permName "%0" not found for param "%1".  Possible fields are %2', '', false, [
                 $field,
                 $key,
@@ -273,9 +273,9 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     }
     if (
         $jit->swimlaneValues->text() &&
-        !array_key_exists('', $swimlanesInfo)
+        ! array_key_exists('', $swimlanesInfo)
     ) {
-        //We only filter the swimlane if we don't allow empty values. Search_Query cannot include specific values plus empty ones. 
+        //We only filter the swimlane if we don't allow empty values. Search_Query cannot include specific values plus empty ones.
         foreach (array_keys($swimlanesInfo) as $index => $fieldValue) {
             $query->filterContent(implode(' OR ', array_keys($swimlanesInfo)), 'tracker_field_' . $swimlaneFieldPermName);
         }
@@ -289,7 +289,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     $builder = new Search_Query_WikiBuilder($query);
     $builder->apply($matches);
 
-    if (!$index = $unifiedsearchlib->getIndex()) {
+    if (! $index = $unifiedsearchlib->getIndex()) {
         return WikiParser_PluginOutput::userError(tr('Unified search index not found.'));
     }
 
@@ -309,7 +309,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     $usedFields = array_keys($plugin->getFields());
 
     foreach ($boardFields as $key => $field) {
-        if (!in_array('tracker_field_' . $field['permName'], $usedFields) && !in_array($field['permName'], $usedFields)) {
+        if (! in_array('tracker_field_' . $field['permName'], $usedFields) && ! in_array($field['permName'], $usedFields)) {
             if ($field['type'] == 'e') {
                 $data .= '{display name="tracker_field_' . $field['permName'] . '" format="categorylist" singleList="y" separator=" "}';
             } else {
@@ -342,13 +342,12 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     $trackerPerms = Perms::get(['type' => 'tracker', 'object' => $trackerId]);
 
     if ($trackerPerms['tiki_p_create_tracker_items']) {
-
         //We need this to check field permissions.
         $trackerItem = Tracker_Item::newItem($trackerId);
         $updatableFields = [];
         foreach ($boardFields as $field) {
             if ($trackerItem->canModifyField($field['fieldId'])) {
-                $updatableFields[] =  $field['permName'];
+                $updatableFields[] = $field['permName'];
             }
         }
         if (count($updatableFields) == 0) {
@@ -370,7 +369,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         $updatableFields = [];
         foreach ($boardFields as $field) {
             if ($trackerItem->canModifyField($field['fieldId'])) {
-                $updatableFields[] =  $field['permName'];
+                $updatableFields[] = $field['permName'];
             }
         }
         $trackerItemData = $trackerItem->getData();
@@ -388,14 +387,14 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 
         //Filter the cards ,AGAIN!
         if ($jit->columnValues->text()) {
-            if (!in_array($columnValue, array_keys($columnsInfo))) {
+            if (! in_array($columnValue, array_keys($columnsInfo))) {
                 print_r("SKIP bad column");
                 print_r(array_keys($columnsInfo));
                 continue;  //Skip tracker items that have fields with values not in the mapped enumerable fields
             }
         }
         //if ($jit->swimlaneValues->text()) {
-        if (!in_array($swimlaneValue, array_keys($swimlanesInfo))) {
+        if (! in_array($swimlaneValue, array_keys($swimlanesInfo))) {
             print_r("SKIP bad swimlane");
             continue;  //Skip tracker items that have fields with values not in the mapped enumerable fields
         }
@@ -455,7 +454,6 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     $smarty->assign(
         'kanbanData',
         $kanbanData
-
     );
     TikiLib::lib('header')
         ->add_js_module('
@@ -484,7 +482,7 @@ function wikiplugin_kanban_format_list($handler)
         }
     }
     $non_numeric_keys = array_filter(array_keys($list), function ($key) {
-        return !is_numeric($key);
+        return ! is_numeric($key);
     });
     $realKey = 1;
     foreach ($list as $key => $val) {
