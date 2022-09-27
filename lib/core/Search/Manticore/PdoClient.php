@@ -108,7 +108,10 @@ class Search_Manticore_PdoClient
         if ($operation == 'drop') {
             $sql = "ALTER TABLE $index DROP COLUMN `$field`";
         } else {
-            $sql = "ALTER TABLE $index ADD COLUMN `$field` $type";
+            $sql = "ALTER TABLE $index ADD COLUMN `$field` " . $type['type'];
+            if (! empty($type['options'])) {
+                $sql .= ' ' . implode(' ', $type['options']);
+            }
         }
         $stmt = $this->pdo->prepare($sql);
         $this->executeWithRetry($stmt);

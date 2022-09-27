@@ -104,7 +104,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             $this->pdo_client->createIndex($this->index, $mapping, $this->getIndexSettings());
         } else {
             foreach ($mapping as $field => $type) {
-                $this->pdo_client->alter($this->index, 'add', $field, $type['type']);
+                $this->pdo_client->alter($this->index, 'add', $field, $type);
             }
         }
 
