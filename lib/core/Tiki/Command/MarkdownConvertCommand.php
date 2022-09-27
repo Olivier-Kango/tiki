@@ -70,13 +70,13 @@ class MarkdownConvertCommand extends Command
             return 1;
         }
 
-        $tikiLib = TikiLib::lib('tiki');
+        $tikilib = TikiLib::lib('tiki');
 
         if ($page = $input->getOption('page')) {
-            $pageInfo = $tikiLib->get_page_info($page) ?: null;
+            $pageInfo = $tikilib->get_page_info($page) ?: null;
             $pages = [$pageInfo];
         } else {
-            $allPages = $tikiLib->list_pages();
+            $allPages = $tikilib->list_pages();
             $pages = $allPages['data'] ?: [];
         }
 
