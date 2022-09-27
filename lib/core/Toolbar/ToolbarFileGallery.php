@@ -14,6 +14,8 @@ class ToolbarFileGallery extends ToolbarUtilityItem
             ->setIconName('image')
             ->setIcon(tra('img/icons/pictures.png'))
             ->setWysiwygToken('tikiimage')
+            ->setMarkdownSyntax('tikiimage')
+            ->setMarkdownWysiwyg('tikiimage')
             ->setType('FileGallery')
             ->setClass('qt-filegal')
             ->addRequiredPreference('feature_filegals_manager');

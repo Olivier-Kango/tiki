@@ -394,8 +394,8 @@ $("#' . $as_id . '").form().submit(function () {
     const $textarea = $("#' . $as_id . '");
     if ($("input[name=syntax]", this).val() === "markdown") {
         let val = $textarea.val();
-        val = val.replace(/^\$\$tiki$/, "");
-        val = val.replace(/^\$\$$/, "");
+        val = val.replace(/^\$\$tiki$/mg, "");
+        val = val.replace(/^\$\$$/mg, "");
         $textarea.val("{syntax type=markdown}\r\n" + val);
     }
     return true;
