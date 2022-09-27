@@ -193,6 +193,7 @@ class ConsoleApplicationBuilder
                 new MLTrainCommand(),
                 new TranslationExportCommand(),
                 new TranslationPercentageCommand(),
+                new MarkdownConvertCommand(),
                 ],
             ],[
             'condition' => 'checkIsOCRAvailable',

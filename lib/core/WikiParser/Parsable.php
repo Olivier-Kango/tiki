@@ -74,6 +74,8 @@ class WikiParser_Parsable extends ParserLib
         if ($ret === '' && (strpos($data, "\r\n") === 0 || strpos($data, "\n") === 0)) {
             $data = substr($data, strpos($data, "\r\n") === 0 ? 2 : 1);
         }
+
+        return $this->option['is_markdown'] ? 'markdown' : 'tiki';
     }
 
     // This recursive function handles pre- and no-parse sections and plugins

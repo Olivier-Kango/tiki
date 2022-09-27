@@ -78,8 +78,7 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
 
     // work out if we have tiki or markdown syntax
     $wikiParserParsable = new WikiParser_Parsable($content);
-    $wikiParserParsable->guess_syntax($content);
-    $syntax = $wikiParserParsable->option['is_markdown'] ? 'markdown' : 'tiki';
+    $syntax = $wikiParserParsable->guess_syntax($content);
     // for the toolbars
     $params['syntax'] = $syntax;
 
