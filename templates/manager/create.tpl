@@ -135,6 +135,29 @@
             </div>
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
+                    {tr}Password{/tr}
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}Password of the admin user{/tr}">
+                        {icon name=information}
+                    </a>
+                </label>
+                <div class="col-sm-9">
+                   <div class="input-group">
+                        <input type="password" value class="form-control" name="tikipassword" id="tikipassword">
+                        <span class="input-group-text tiki-pass" id="togglepassword" data-toggle="tooltip" data-placement="bottom" title="{tr}Toggle password visibility{/tr}">
+                            <i class="fa fa-eye" id="icon-change"></i>
+                        </span>
+                        <span class="input-group-text tiki-pass" id="passwordgenerate" data-toggle="tooltip" data-placement="bottom" title="{tr}Generate new password{/tr}">
+                            <i class="fa fa-key"></i>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <input type="checkbox" name="leavepassword" value="yes" checked>
+                        <label for="leavepassword">{tr}Leave default password as is.{/tr}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label class="col-form-label col-sm-3">
                     {tr}Instance Webroot{/tr}
                     <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.webroot}{/tr}">
                         {icon name=information}

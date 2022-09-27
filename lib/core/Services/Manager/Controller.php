@@ -299,22 +299,51 @@ class Services_Manager_Controller
                 "--db-name" => $input->db_name->text(),
             ];
 
-            if ($input->instance_type->text() == 'blank') {
+            if ($input->instance_type->text() == 'blank'){
                 $input_array["--blank"] = true;
                 unset($input_array["--branch"]);
             }
 
             $inputCommand = new ArrayInput($input_array);
 
-            $this->runCommand($cmd, $inputCommand);
+            if ($input->leavepassword->text() == 'yes' || $input->instance_type->text() == 'blank') {
+                $this->runCommand($cmd, $inputCommand);
+                return [
+                    'title' => tr('Create New Instance Result'),
+                    'info' => $this->manager_output->fetch(),
+                    'refresh' => true,
+                ];
+            } else {
+                if ($this->validate_password($input->tikipassword->text())) {
+                    $this->runCommand($cmd, $inputCommand);
+                    $output = $this->manager_output->fetch();
+                    $info = "[OK] Please test your site at ". $input->url->text();
 
-            return [
-                'title' => tr('Create New Instance Result'),
-                'info' => $this->manager_output->fetch(),
-                'refresh' => true,
-            ];
+                    if (str_contains($output, $info)) {
+                        $instance = Instance::getLastInstance();
+                        $command = "users:password admin ". $input->tikipassword->text();
+                        $cmd = new TikiManager\Command\ConsoleInstanceCommand();
+                        $inputCmd = new ArrayInput([
+                            'command' => $cmd->getName(),
+                            '-i' => $instance->getId(),
+                            '-c' => $command,
+                        ]);
+                        try {
+                            $this->runCommand($cmd, $inputCmd);
+                        } catch (\Exception $e) {
+                            Feedback::error($e->getMessage());
+                        }
+                    }
+                    return [
+                        'title' => tr('Create New Instance Result'),
+                        'info' => $output,
+                        'refresh' => true,
+                    ];
+                } else {
+                    Feedback::error(tr('Invalid password for admin user'));
+                }
+            }
         } else {
-
             /** For form initialization */
             $inputValues = [
                 'instance_types' => ['existing-tiki', 'blank'],
@@ -351,6 +380,11 @@ class Services_Manager_Controller
                 'sshPublicKey' => $_ENV['SSH_PUBLIC_KEY'],
             ];
         }
+    }
+
+    public function validate_password($password) {
+        // Check if the password has at least 8 characters
+        return preg_match('/^[a-zA-Z0-9*.!@#\$%^&()\[\]:;<>,?\/~_+-=|]{8,32}$/', $password);
     }
 
     public function action_edit($input)
