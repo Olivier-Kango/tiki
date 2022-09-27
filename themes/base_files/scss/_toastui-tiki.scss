@@ -1,0 +1,68 @@
+.tiki .toastui-editor-contents {
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    background: $body-bg;
+    color : $body-color;
+    text-shadow: none;
+
+    a, a:visited {
+        color: $link-color;
+        text-decoration: $link-decoration;
+        &:hover {
+            color: $link-hover-color;
+            text-decoration: $link-hover-decoration;
+        }
+    }
+
+    p {
+        color: $body-color;
+    }
+
+    h1 {
+        color: red;
+    }
+    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+        font-family: $font-family-base;   /* should be $headings-font-family */
+        font-weight: $font-weight-base;   /* $headings-font-weight */
+        color: $body-color;               /* $headings-color */
+        text-decoration: $link-hover-decoration;
+        line-height: $line-height-base; /* $headings-line-height */
+        /* no variable? */
+        border-bottom: none;
+    }
+
+    h1, .h1 { font-size: $h1-font-size }
+    h2, .h2 { font-size: $h2-font-size }
+    h3, .h3 { font-size: $h3-font-size }
+    h4, .h4 { font-size: $h4-font-size }
+    h5, .h5 { font-size: $h5-font-size }
+    h6, .h6 { font-size: $h6-font-size }
+
+    code {
+        font-size: $code-font-size;
+        color: $code-color;
+        background-color: $code-bg;
+    }
+
+    pre {
+        color: $pre-color;
+    }
+
+    table {
+        background-color: $table-bg;
+        th {
+            background-color: $table-bg;
+            color: $table-color;
+            /* should be a var */
+            font-weight: bold;
+            p {
+                background-color: $table-bg;
+                color: $table-color;
+            }
+        }
+        .odd {
+            background: $table-accent-bg;
+        }
+    }
+
+}
