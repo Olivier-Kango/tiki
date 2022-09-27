@@ -21,7 +21,9 @@ class Search_Manticore_OrderDecorator extends Search_Manticore_Decorator
         } elseif ($field !== Search_Query_Order::FIELD_SCORE) {
             $this->ensureHasField($field);
             if ($order->getMode() == Search_Query_Order::MODE_NUMERIC) {
-                $this->search->sort("DOUBLE(" . $field . ")", $order->getOrder());
+                // TODO: real casting of strings to numbers is unsupported by Manticore even in expressions
+                // Solution would be to index possible numeric strings as numbers at index time
+                $this->search->sort($field, $order->getOrder());
             } elseif ($order->getMode() == Search_Query_Order::MODE_DISTANCE) {
                 $arguments = $order->getArguments();
                 $fields = preg_split('/\s*,\s*/', $field);
