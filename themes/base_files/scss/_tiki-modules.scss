@@ -212,16 +212,58 @@ li.archivedate {
     text-align: center;
 }
 
-.sitelogo img { margin-top: 10px; }
-
-.modules > .module .sitelogo img,
+// --------------- logo module start ------------------ //
+// Not Basic Bootstrap (not layout_social)
+.sitelogo-img {
+    margin-top: $spacer * .7;
+    margin-bottom: $spacer * .7;
+}
 .sitetitles {
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 15px;
+    display: inline-block;
+    .sitetitle {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+    .sitesubtitle {
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+    .d-flex {
+        justify-content: center;
+        flex-direction: column;
+        align-content: center;
+        height: 100%;
+    }
 }
 
-.box-logo > div > .sitelogo + .sitetitles { padding-left: 15px; }
+// Basic Bootstrap (layout_social)
+.layout_social {
+    .navbar-brand,
+    .sitetitle,
+    .sitesubtitle {
+        display: inline-block;
+        align-self: center !important;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .sitesubtitle {
+        font-size: calc( var(--bs-navbar-brand-font-size) * .8 );
+
+    }
+    .sitelogo-img {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+// Remove Bootstrap default top and bottom padding on navbars in modules (nested navbars)
+.layout_social header .top_modules .navbar {
+    --bs-navbar-padding-y: 0;
+    --bs-navbar-padding-x: 0;
+    padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
+}
+
+// --------------- logo module end ------------------ //
 
 .pass a,
 .pass a:visited,

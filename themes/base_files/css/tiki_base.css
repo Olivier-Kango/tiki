@@ -1433,16 +1433,44 @@ li.archivedate {
 .box-share > div {
   text-align: center;
 }
-.sitelogo img {
-  margin-top: 10px;
+.sitelogo-img {
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
 }
-.modules > .module .sitelogo img, .sitetitles {
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-bottom: 15px;
+.sitetitles {
+  display: inline-block;
 }
-.box-logo > div > .sitelogo + .sitetitles {
-  padding-left: 15px;
+.sitetitles .sitetitle {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.sitetitles .sitesubtitle {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.sitetitles .d-flex {
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  height: 100%;
+}
+.layout_social .navbar-brand, .layout_social .sitetitle, .layout_social .sitesubtitle {
+  display: inline-block;
+  align-self: center !important;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.layout_social .sitesubtitle {
+  font-size: calc(var(--bs-navbar-brand-font-size) * .8);
+}
+.layout_social .sitelogo-img {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.layout_social header .top_modules .navbar {
+  --bs-navbar-padding-y: 0;
+  --bs-navbar-padding-x: 0;
+  padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
 }
 .pass a, .pass a:visited, .pass a:hover, .register a, .register a:visited, .register a:hover, .logged-in a, li.login_link ul li a {
   background: none !important;
