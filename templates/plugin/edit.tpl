@@ -161,11 +161,12 @@ $("#picker_{{$name|escape}}").parent().click(function () {
                                 bodyContent: "{{$bodyContent|escape:javascript}}",
                                 edit_icon: {{$edit_icon}},
                                 selectedMod: selectedMod,
-                                modal: 1
+                                modal: 1,
+                                isMarkdown: {{$isMarkdown}}
                             }),
                             function () {
                                 $(this).tikiModal();
-                                popupPluginForm("{{$area_id}}","{{$type}}",{{$index}},"{{$pageName|escape:javascript}}",{{$pluginArgsJSON}},"{{$bodyContent|escape:javascript}}",{{$edit_icon}}, selectedMod);
+                                popupPluginForm("{{$area_id}}","{{$type}}",{{$index}},"{{$pageName|escape:javascript}}",{{$pluginArgsJSON}},{{$isMarkdown}},"{{$bodyContent|escape:javascript}}",{{$edit_icon}}, selectedMod);
                             }
                         ).tikiModal(tr("Loading..."));
                     });
