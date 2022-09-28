@@ -46,7 +46,7 @@ class ToolbarInline extends ToolbarItem
                 $markdown_wysiwyg = 'strike';
                 break;
             case 'code':
-                $label = tra('Code');
+                $label = tra('Inline Code');
                 $icon = tra('img/icons/page_white_code.png');
                 $iconname = 'code';
                 $wysiwyg = 'Code';
