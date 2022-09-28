@@ -31,11 +31,13 @@ class ToolbarLineBased extends ToolbarInline // Will change in the future
                 break;
             case 'indent':
                 $label = tra('Indent');
+                $iconname = 'indent';
                 $markdown = '> text';
                 $markdown_wysiwyg = 'indent';
                 break;
             case 'outdent':
                 $label = tra('Outdent');
+                $iconname = 'outdent';
                 $markdown = '< text';
                 $markdown_wysiwyg = 'outdent';
                 break;
@@ -66,4 +68,15 @@ class ToolbarLineBased extends ToolbarInline // Will change in the future
                 htmlentities($this->syntax, ENT_COMPAT, 'UTF-8')
             ) . '\', true, true);';
     }
+
+    /**
+     * @return string
+     */
+    public function getOnClickMarkdown(): string
+    {
+        return 'insertAt(\'' . $this->domElementId . '\', \'' .
+            addslashes(
+                htmlentities($this->markdown, ENT_COMPAT, 'UTF-8')
+            ) . '\', true, true);';    }
+
 }
