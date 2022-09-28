@@ -53,6 +53,7 @@
                     <div id="{$type|strip:'_'}-global" class="tab-pane active">
                         {if count($content.default)}
                             <form id="{$type|strip:'_'}-global" method="post">
+                                {ticket}
                                 {foreach from=$filterGroup item=f}
                                     <input type="hidden" name="filterGroup[]" value="{$f|escape}">
                                 {/foreach}
@@ -109,6 +110,7 @@
                 <div id="{$type|strip:'_'}-object" class="tab-pane">
                     {if count($content.objects)}
                         <form method="post">
+                            {ticket}
                             {foreach from=$filterGroup item=f}<input type="hidden" name="filterGroup[]" value="{$f|escape}">{/foreach}
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover">
@@ -178,6 +180,7 @@
                 <div id="{$type|strip:'_'}-category" class="tab-pane">
                     {if count($content.category)}
                         <form method="post">
+                            {ticket}
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover">
                                     <tr>
