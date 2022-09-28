@@ -8,8 +8,7 @@
 
 namespace Tiki\Command;
 
-use League\HTMLToMarkdown\HtmlConverter;
-use League\HTMLToMarkdown\Converter\TableConverter;
+use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -61,12 +60,12 @@ class MarkdownConvertCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         if ($prefs['markdown_enabled'] !== 'y') {
-            $io->error('Markdown is not enabled in Editing settings.');
+            $io->error(tr('Markdown is not enabled in Editing settings.'));
             return 1;
         }
 
         if (! $input->getOption('markdown') && ! $input->getOption('tiki')) {
-            $io->error('You should specify either --markdown or --tiki option.');
+            $io->error(tr('You should specify either --markdown or --tiki option.'));
             return 1;
         }
 
@@ -81,41 +80,23 @@ class MarkdownConvertCommand extends Command
         }
 
         if (! $pages) {
-            $io->writeln('There are no wiki pages to convert.');
+            $io->writeln(tr('There are no wiki pages to convert.'));
             return 1;
         }
 
-        $converter = new HtmlConverter([
-            'strip_tags' => true,
-            'hard_break' => true,
-        ]);
-        $converter->getEnvironment()->addConverter(new TableConverter());
+        $syntax = $input->getOption('markdown') ? 'markdown' : 'tiki';
 
         foreach ($pages as $page) {
-            $io->note("Processing page " . $page['pageName']);
+            $io->note(tr("Processing page %0", $page['pageName']));
 
-            $wikiParserParsable = new WikiParser_Parsable($page['data']);
-            $syntax = $wikiParserParsable->guess_syntax($page['data']);
-            $html = $wikiParserParsable->parse(['noparseplugins' => true]);
-
-            if ($input->getOption('markdown')) {
-                // convert to markdown
-                if ($syntax == 'markdown') {
-                    $io->warning("Page already in markdown syntax. Skipping...");
-                    continue;
-                }
-                $converted = $converter->convert($html);
-            } else {
-                // convert to tiki syntax
-                if ($syntax == 'tiki') {
-                    $io->warning("Page already in Tiki syntax. Skipping...");
-                    continue;
-                }
-                $converted = TikiLib::lib('edit')->parseToWiki($html);
+            try {
+                $converted = TikiLib::lib('edit')->convertWikiSyntax($page['data'], $syntax);
+            } catch (Exception $e) {
+                $io->warning($e->getMessage() . ' ' . tr('Skipping...'));
+                continue;
             }
 
             if ($input->getOption('save')) {
-                $syntax = $input->getOption('markdown') ? 'markdown' : 'tiki';
                 $converted = '{syntax type="' . $syntax . '"} ' . $converted;
                 $tikilib->update_page($page['pageName'], $converted, tra('automatic conversion'), 'admin', '127.0.0.1');
             } else {

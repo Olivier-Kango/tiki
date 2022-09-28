@@ -1495,4 +1495,47 @@ class EditLib
             }
         }
     }
+
+    /**
+     * Convert between Tiki wiki syntax and Markdown any string of content
+     *
+     * @param string $data content to convert
+     * @param string $target_syntax markdown or tiki
+     * @return string converted content
+     * @throws Exception
+     */
+    public function convertWikiSyntax($data, $target_syntax)
+    {
+        if ($target_syntax != 'markdown' && $target_syntax != 'tiki') {
+            throw new Exception(tr('Failed converting content: unrecognized target syntax passed: %0', $target_syntax));
+        }
+
+        $wikiParserParsable = new WikiParser_Parsable($data);
+        $source_syntax = $wikiParserParsable->guess_syntax($data);
+        $html = $wikiParserParsable->parse(['noparseplugins' => true]);
+
+        if ($target_syntax == 'markdown') {
+            // convert to markdown
+            if ($source_syntax == 'markdown') {
+                throw new Exception(tr("Content already in markdown syntax."));
+            }
+            static $converter = null;
+            if (! $converter) {
+                $converter = new League\HTMLToMarkdown\HtmlConverter([
+                    'strip_tags' => true,
+                    'hard_break' => true,
+                ]);
+                $converter->getEnvironment()->addConverter(new League\HTMLToMarkdown\Converter\TableConverter());
+            }
+            $converted = $converter->convert($html);
+        } else {
+            // convert to tiki syntax
+            if ($source_syntax == 'tiki') {
+                throw new Exception(tr("Content already in Tiki syntax."));
+            }
+            $converted = TikiLib::lib('edit')->parseToWiki($html);
+        }
+
+        return $converted;
+    }
 }
