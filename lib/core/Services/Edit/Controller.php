@@ -247,6 +247,22 @@ $(window).on("load", function(){
             ];
         }
 
+        if ($input->markdown->int()) {
+            $help_sections[] = [
+                'id' => 'wiki-help',
+                'title' => tr('Syntax Help'),
+                'content' => $smarty->fetch('tiki-edit_help_markdown.tpl'),
+            ];
+        }
+
+        if ($input->markdown_wysiwyg->int()) {
+            $help_sections[] = [
+                'id' => 'wiki-help',
+                'title' => tr('Syntax Help'),
+                'content' => $smarty->fetch('tiki-edit_help_markdown_wysiwyg.tpl'),
+            ];
+        }
+
         if ($input->wysiwyg->int()) {
             $help_sections[] = [
                 'id' => 'wysiwyg-help',
