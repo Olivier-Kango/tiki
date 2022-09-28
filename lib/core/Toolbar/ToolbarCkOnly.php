@@ -22,9 +22,13 @@ class ToolbarCkOnly extends ToolbarItem
             ->setType('CkOnly');
     }
 
-    public static function fromName(string $name, bool $is_html): ?ToolbarItem
+    public static function fromName(string $name, bool $is_html, bool $is_markdown): ?ToolbarItem
     {
         global $prefs;
+
+        if ($is_markdown) {
+            return null;
+        }
 
         switch ($name) {
             case 'templates':

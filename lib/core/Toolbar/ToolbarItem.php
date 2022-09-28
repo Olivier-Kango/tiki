@@ -58,14 +58,14 @@ abstract class ToolbarItem
     }
 
 
-    public static function getTag(string $tagName, bool $wysiwyg = false, bool $is_html = false): ?ToolbarItem
+    public static function getTag(string $tagName, bool $wysiwyg = false, bool $is_html = false, bool $is_markdown = false): ?ToolbarItem
     {
         global $section;
 
         //we detect sheet first because it has unique buttons
         if ($section == 'sheet' && $tag = ToolbarSheet::fromName($tagName)) {
             return $tag;
-        } elseif ($wysiwyg && $tag = ToolbarCkOnly::fromName($tagName, $is_html)) {
+        } elseif ($wysiwyg && $tag = ToolbarCkOnly::fromName($tagName, $is_html, $is_markdown)) {
             return $tag;
         } elseif ($tag = ToolbarItem::getCustomTool($tagName)) {
             return $tag;
