@@ -67,7 +67,7 @@ $expectedJsArray = array (
             var command = editor.addCommand( \'tikihelp\', new window.CKEDITOR.command( editor , {
                 modes: { wysiwyg:1 },
                 exec: function (editor, data) {
-                    $.openModal({show: true, remote: "tiki-ajax_services.php?controller=edit&action=help&modal=1&wysiwyg=1&plugins=1&areaId=" + editor.name});
+                    $.openModal({show: true, remote: "tiki-ajax_services.php?controller=edit&action=help&modal=1&wysiwyg=1&plugins=1&areaId=editwiki"});
                 },
                 canUndo: false
             }));
