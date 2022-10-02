@@ -177,7 +177,7 @@ class TikiFilter
                 return new StripTags();
 
             /** HTML Permitted, String Return Type **/
-            case 'purifyer':
+            case 'purifier':
             case 'html':
                 // Test Return " :/g.,:|4hΔ δ_🍘コン onclick<b></b>"
                 // Strips non-valid HTML and potentially malicious HTML
