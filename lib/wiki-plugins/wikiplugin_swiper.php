@@ -35,7 +35,7 @@ function wikiplugin_swiper_info()
             'effect' => [
                 'required' => false,
                 'name' => tr('Transition Effect'),
-                'description' => tr('Tranisition effect. Could be "slide", "fade", "cube", "coverflow" or "flip"'),
+                'description' => tr('Transition effect. Could be "slide", "fade", "cube", "coverflow" or "flip"'),
                 'filter' => 'word',
                 'default' => 'slide',
                 'since' => '19.0',
@@ -107,7 +107,7 @@ function wikiplugin_swiper_info()
             'width' => [
                 'required' => false,
                 'name' => tr('Width'),
-                'description' => tr('Enter width of slider in px, default 100%'),
+                'description' => tr('Enter width of slider in px or %, default 100%'),
                 'filter' => 'word',
                 'default' => '100%',
                 'since' => '19.0'
@@ -115,7 +115,7 @@ function wikiplugin_swiper_info()
             'height' => [
                 'required' => false,
                 'name' => tr('Height'),
-                'description' => tr('Enter height of slider in px, default min height 100px, max height will adjust with content'),
+                'description' => tr('Enter height of slider in px or %, default min height 100px, max height will adjust with content'),
                 'filter' => 'word',
                 'default' => '100px',
                 'since' => '19.0'
@@ -206,7 +206,7 @@ function wikiplugin_swiper_info()
             'speed' => [
                 'required' => false,
                 'name' => tr('Speed'),
-                'description' => tr('Duration of transition between slides (in seconds)'),
+                'description' => tr('Duration of transition between slides (in milliseconds)'),
                 'filter' => 'digits',
                 'default' => 300,
                 'advance' => true,
@@ -215,7 +215,7 @@ function wikiplugin_swiper_info()
             'autoHeight' => [
                 'required' => false,
                 'name' => tr('Auto Height'),
-                'description' => tr('Set to true and slider wrapper will adopt its height to the height of the currently active slide'),
+                'description' => tr('Set to true and slider wrapper will adapt its height to the height of the currently active slide'),
                 'filter' => 'alpha',
                 'default' => 'n',
                 'since' => '19.0',
