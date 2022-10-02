@@ -75,6 +75,7 @@ Converting these elements to HTML may still be better. Chealer *}
 {/if}
 
 <input class="system" type="hidden" name="lm_preference[]" value="{$p.preference|escape}">
+<input type="hidden" name="gobackto" value="{$p.gobackto|escape}" >
 {if $p.packages_required}
     {foreach from=$p.packages_required item=dep}
         {if $dep.met}

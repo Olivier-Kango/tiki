@@ -262,6 +262,9 @@ if (isset($_POST['lm_preference']) && $access->checkCsrf()) {
             }
         }
     }
+    if (isset($_POST["gobackto"])) {
+        $access->redirect($_POST["gobackto"]);
+    }
 }
 
 if (isset($_REQUEST['lm_criteria'])) {
