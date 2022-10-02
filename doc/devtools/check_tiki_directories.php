@@ -20,11 +20,13 @@ $excludeDir = [
     'temp/',
     'vendor/',
     'vendor_bundled/',
-    'lib/core/Search/Elastic/', // Ignored since it has an Index.php
-    'lib/core/Search/MySql/',   // Ignored since it has an Index.php
+    'node_modules/'
 ];
 
 $fixIndex = in_array('fix-index', $argv);
+
+// get latest file "stat" info
+clearstatcache();
 
 $emptyDirectoriesMessage = '';
 $missingIndexMessage = '';
@@ -50,7 +52,7 @@ foreach (new RecursiveIteratorIterator($it) as $file) {
         continue;
     }
 
-    if (! file_exists($filePath . '/index.php')) {
+    if (! file_exists($filePath . '/index.php') && ! file_exists($filePath . '/Index.php')) {
         $missingIndexMessage .= color($filePath, 'blue') . PHP_EOL;
 
         if ($fixIndex) {
