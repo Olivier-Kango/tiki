@@ -679,7 +679,7 @@
             "version": "5.15.4",
             "source": {
                 "type": "git",
-                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
                 "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e"
             },
             "dist": {
@@ -3415,17 +3415,17 @@
         },
         {
             "name": "laminas/laminas-filter",
-            "version": "2.20.0",
+            "version": "2.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-filter.git",
-                "reference": "fa2ef11911a5b99e4323ee24e9ed85703f14a983"
+                "reference": "7835f3f3227b1892676cb7366fbed0e521cac845"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-fa2ef11911a5b99e4323ee24e9ed85703f14a983-zip-ffffbf.zip",
-                "reference": "fa2ef11911a5b99e4323ee24e9ed85703f14a983",
-                "shasum": "419c4d77eae013ebba778060b227ad9b2a528988"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-7835f3f3227b1892676cb7366fbed0e521cac845-zip-6df6ee.zip",
+                "reference": "7835f3f3227b1892676cb7366fbed0e521cac845",
+                "shasum": "16b5dfdb24f843b7a2dea9a32fc6d9b8ea260f00"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.14.0",
@@ -3481,7 +3481,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-09-21T11:31:28+00:00"
+            "time": "2022-09-30T09:15:24+00:00"
         },
         {
             "name": "laminas/laminas-http",
@@ -7611,17 +7611,17 @@
         },
         {
             "name": "php-http/client-common",
-            "version": "2.5.0",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/client-common.git",
-                "reference": "d135751167d57e27c74de674d6a30cef2dc8e054"
+                "reference": "45db684cd4e186dcdc2b9c06b22970fe123796c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/php-http/client-common/php-http-client-common-d135751167d57e27c74de674d6a30cef2dc8e054-zip-01f843.zip",
-                "reference": "d135751167d57e27c74de674d6a30cef2dc8e054",
-                "shasum": "3add1f89b627d562e0c417d8b63428f655b1f0f2"
+                "url": "https://composer.tiki.org/dist/php-http/client-common/php-http-client-common-45db684cd4e186dcdc2b9c06b22970fe123796c0-zip-b8c4e0.zip",
+                "reference": "45db684cd4e186dcdc2b9c06b22970fe123796c0",
+                "shasum": "8a0449224e702c8138007d30c95313ee3d15b92c"
             },
             "require": {
                 "php": "^7.1 || ^8.0",
@@ -7678,7 +7678,7 @@
                 "http",
                 "httplug"
             ],
-            "time": "2021-11-26T15:01:24+00:00"
+            "time": "2022-09-29T09:59:43+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -9956,17 +9956,17 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v4.14.1",
+            "version": "v4.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "0b4426ab6c78f027e00d6600bc3c6fd9b59bda46"
+                "reference": "775d307d5634de376efab8fc2d993bd353843795"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-0b4426ab6c78f027e00d6600bc3c6fd9b59bda46-zip-b218eb.zip",
-                "reference": "0b4426ab6c78f027e00d6600bc3c6fd9b59bda46",
-                "shasum": "e6cd3851edfdcddc5a30d1282c5879a0e8886ea4"
+                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-775d307d5634de376efab8fc2d993bd353843795-zip-ddc650.zip",
+                "reference": "775d307d5634de376efab8fc2d993bd353843795",
+                "shasum": "1b71788e12a3be0332421421093fdc603f80684d"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -10009,7 +10009,7 @@
                 "swagger",
                 "ui"
             ],
-            "time": "2022-09-22T16:50:30+00:00"
+            "time": "2022-09-29T17:30:08+00:00"
         },
         {
             "name": "symfony/config",
@@ -10559,17 +10559,17 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.4.12",
+            "version": "v5.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "6a057be154824487fd5e6b65ab83899e0c5ac550"
+                "reference": "596fd752f00e0205d895cd6b184d135c27bb5d6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-6a057be154824487fd5e6b65ab83899e0c5ac550-zip-f56beb.zip",
-                "reference": "6a057be154824487fd5e6b65ab83899e0c5ac550",
-                "shasum": "f575a4610b7a2561c9dbf9a218ea0e5967c4cba9"
+                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-596fd752f00e0205d895cd6b184d135c27bb5d6a-zip-c58ce4.zip",
+                "reference": "596fd752f00e0205d895cd6b184d135c27bb5d6a",
+                "shasum": "79320e70e4355fec64e97f21f837369cc92f9106"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -10639,7 +10639,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-02T15:52:22+00:00"
+            "time": "2022-09-08T18:41:21+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
