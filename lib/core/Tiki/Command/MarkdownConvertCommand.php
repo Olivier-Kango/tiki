@@ -25,7 +25,7 @@ class MarkdownConvertCommand extends Command
             ->setName('markdown:convert')
             ->setDescription('Convert wiki pages between Tiki syntax and Markdown')
             ->setHelp(
-                'Use this command to convert Tiki wiki syntax stored in one or more pages to Markdown or vice-verse.'
+                'Use this command to convert Tiki wiki syntax stored in one or more pages to Markdown or vice-versa.'
             )
             ->addOption(
                 'page',
@@ -37,7 +37,7 @@ class MarkdownConvertCommand extends Command
                 'markdown',
                 null,
                 InputOption::VALUE_NONE,
-                'Convert to markdown syntax'
+                'Convert to Markdown syntax'
             )
             ->addOption(
                 'tiki',
