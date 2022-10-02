@@ -16,7 +16,7 @@
             <div class="form-group row mb-3 preference">
                 <label class="col-form-label col-sm-3">
                     {tr}Instance type{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}This will allows you to create an instance form an existing tiki installation or a blank instance without actually add a Tiki{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}This will allows you to create an instance form an existing tiki installation or a blank instance without actually add a Tiki{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -34,7 +34,7 @@
             <div class="form-group row mb-3 preference">
                 <label class="col-form-label col-sm-3">
                     {tr}Connection type{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.type}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.type}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -50,7 +50,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-form-label col-sm-3">
                         {tr}Remote host name{/tr}
-                        <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.host}{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.host}{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -61,7 +61,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-form-label col-sm-3">
                         {tr}Remote port number{/tr}
-                        <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.port}{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.port}{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -72,7 +72,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-form-label col-sm-3">
                         {tr}Remote user{/tr}
-                        <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.user}{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.user}{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -91,7 +91,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-form-label col-sm-3">
                         {tr}Remote password{/tr}
-                        <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.pass}{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.pass}{/tr}">
                             {icon name=information}
                         </a>
                     </label>
@@ -103,7 +103,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Instance name{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.name}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.name}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -114,7 +114,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Instance URL{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.url}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.url}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -125,7 +125,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Email{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.email}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.email}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -136,7 +136,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Password{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}Password of the admin user{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}|{tr}Password of the admin user{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -159,7 +159,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Instance Webroot{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.webroot}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.webroot}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -170,7 +170,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Temp dir{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.tempdir}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.tempdir}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -181,7 +181,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Tiki branch{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help.branch}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help.branch}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -196,7 +196,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Backup User{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['backup-user']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help['backup-user']}{/tr}">
                         {icon name=information}
                     </a>
                     </label>
@@ -207,7 +207,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Backup Group{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['backup-group']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help['backup-group']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -218,7 +218,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Backup Permission{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['backup-permission']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help['backup-permission']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -229,7 +229,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}DB Host{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['db-host']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help['db-host']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -240,7 +240,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}DB User{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['db-user']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help['db-user']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -251,7 +251,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}DB Password{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['db-pass']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help['db-pass']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -262,7 +262,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}DB Prefix{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['db-prefix']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help['db-prefix']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
@@ -273,7 +273,7 @@
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}DB Name{/tr}
-                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['db-name']}{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help['db-name']}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
