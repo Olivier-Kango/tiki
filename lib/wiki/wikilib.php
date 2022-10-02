@@ -1871,10 +1871,8 @@ class WikiLib extends TikiLib
                 // Use page specific setting?
                 if ($isAutoTocActive > 0) {
                     $isAutoTocActive = true;
-                } elseif ($isAutoTocActive < 0) {
+                } elseif ($isAutoTocActive <= 0) {
                     $isAutoTocActive = false;
-                } else {
-                    $isAutoTocActive = $prefs['wiki_toc_default'] === 'on';
                 }
                 // Add Auto TOC if enabled
                 if ($isAutoTocActive) {

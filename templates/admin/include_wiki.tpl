@@ -89,11 +89,11 @@
                 <fieldset class="mb-3 w-100">
                     <legend>{tr}Automatic table of contents{/tr}</legend>
                     {preference name=wiki_auto_toc}
-                    <div class="adminoptionbox clearfix" id="wiki_auto_toc_childcontainer">
-                        {preference name=wiki_toc_default}
+                    <div class="adminoptionboxchild" id="wiki_auto_toc_childcontainer">
                         {preference name=wiki_inline_auto_toc}
                         {preference name=wiki_toc_pos}
                         {preference name=wiki_toc_offset}
+                        {preference name=wiki_toc_default}
                         {preference name=wiki_toc_tabs}
                     </div>
                 </fieldset>

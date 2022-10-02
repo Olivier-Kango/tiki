@@ -40,6 +40,7 @@
                 {preference name=wiki_inline_auto_toc}
                 {preference name=wiki_toc_pos}
                 {preference name=wiki_toc_offset}
+                {preference name=wiki_toc_default}
                 {preference name=wiki_toc_tabs}
             </div>
             {preference name=wysiwyg_inline_editing}

@@ -757,14 +757,14 @@ function prefs_wiki_list($partial = false)
             'keywords' => 'autotoc auto-toc',
         ],
         'wiki_toc_default' => [
-            'name' => tr('Table of contents default'),
-            'description' => tr('Set the default for the table of contents (default "on" and can be toggled per page)'),
+            'name' => tr('Table of contents on every page'),
+            'description' => tr('Set the default for the table of contents (default "no" and can be overridden per page)'),
             'type' => 'list',
             'options' => [
-                'on' => tra('On_C(on-off)'),
-                'off' => tra('Off_C(on-off)'),
+                'off' => tra('No'),
+                'on' => tra('Yes'),
             ],
-            'default' => 'on',
+            'default' => 'off',
             'dependencies' => [
                 'wiki_auto_toc',
             ],

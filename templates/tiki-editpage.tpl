@@ -612,12 +612,12 @@
                         {* check if wiki_auto_toc is set - but don't understand why wiki_page_hide_title is checked - also the logic made into an 'and' since the previous 'or' made no sense *}
                         {if $prefs.wiki_auto_toc eq 'y' and $prefs.wiki_page_hide_title eq 'y'}
                             <div class="mb-3 row clearfix">
-                                <label for="pageAutoToc" class="col-md-4 col-form-label">{tr}Automatic table of contents{/tr}</label>
+                                <label for="pageAutoToc" class="col-md-4 col-form-label">{tr}Show automatic table of contents{/tr}</label>
                                 <div class="col-md-8">
                                     <select name="pageAutoToc" class="form-control">
-                                        <option value="0" {if $pageAutoToc == 0}selected{/if}>{tr}Default{/tr} ({if $prefs.wiki_toc_default eq 'off'}{tr}Off_C(on-off){/tr}{else}{tr}On_C(on-off){/tr}{/if})</option>
-                                        <option value="1" {if $pageAutoToc == 1}selected{/if}>{tr}On_C(on-off){/tr}</option>
-                                        <option value="-1" {if $pageAutoToc == -1}selected{/if}>{tr}Off_C(on-off){/tr}</option>
+                                        <option value="0" {if $pageAutoToc == 0}selected{/if}>{tr}Default{/tr} ({if $prefs.wiki_toc_default eq 'off'}{tr}No{/tr}{else}{tr}Yes{/tr}{/if})</option>
+                                        <option value="1" {if $pageAutoToc == 1}selected{/if}>{tr}Yes{/tr}</option>
+                                        <option value="-1" {if $pageAutoToc == -1}selected{/if}>{tr}No{/tr}</option>
                                     </select>
                                 </div>
                             </div>

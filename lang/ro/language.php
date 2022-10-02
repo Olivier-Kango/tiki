@@ -1655,6 +1655,7 @@ $lang = array(
 "List structures" => "Listare structuri",
 "Page display" => "Afișare pagină",
 "Automatic table of contents" => "Cuprins automat",
+// "Show automatic table of contents" => "Show automatic table of contents",
 "Export Wiki Pages" => "Exportare pagini Wiki",
 "Wiki watch" => "Monitorizare Wiki",
 "Page Listings" => "Listări pagină",
