@@ -261,7 +261,7 @@ class PdfGenerator
             if ($pdfSettings['tocheading']) {
                 $tocpreHTML = htmlspecialchars("<h1>" . $pdfSettings['tocheading'] . "</h1>", ENT_QUOTES);
             }
-            $html = "<html><tocpagebreak " . $links . " toc-preHTML=\"" . $tocpreHTML . "\" toc-resetpagenum=\"1\" toc-suppress=\"on\" />" . $html . "</html>";
+            $html = "<html><tocpagebreak toc-odd-footer-name=\"footer-without-pagination\"  toc-odd-footer-value=\"1\"" . $links . " toc-preHTML=\"" . $tocpreHTML . "\" toc-resetpagenum=\"1\" toc-suppress=\"on\" />" . $html . "</html>";
         }
         $this->_parseHTML($html);
         $this->_getImages($html, $tempImgArr);
@@ -378,6 +378,13 @@ class PdfGenerator
             $resetPage = '';
             if ($pageNo == 1) {
                 $resetPage = 1;
+            }
+
+            if (trim(strtolower($pdfPage['footer'])) != "off") {
+                $mpdf->DefHTMLFooterByName(
+                    'footer-without-pagination',
+                    $this->processHeaderFooter($pdfPage['footer'], $params['page'], 'bottom', false)
+                );
             }
 
             if (strip_tags(trim($pdfPage['pageContent']), "img,pdfinclude") != '') { //including external pdf
@@ -1156,7 +1163,7 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
         return $this->mode;
     }
 
-    public function processHeaderFooter($value = '', $page = '', $border = 'bottom')
+    public function processHeaderFooter($value = '', $page = '', $border = 'bottom', $withPagination = true)
     {
         //evaluating type
         if (strpos($value, '|') !== false) {
@@ -1164,7 +1171,12 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
             $valueText = explode("|", $value);
             //formatting in table
             $tdStyle = "padding-" . $border . ":5px;width:33%;font-weight:bold;border-" . $border . ":1px solid;font-size:12px;text-align:";
-            $value = "<table width='100%'><tr><td style='" . $tdStyle . "left;'>" . $valueText[0] . "</td><td style='" . $tdStyle . "center'>" . $valueText[1] . "</td><td style='" . $tdStyle . "right;'>" . $valueText[2] . "</td></tr></table>";
+
+            if ($withPagination) {
+                $value = "<table width='100%'><tr><td style='" . $tdStyle . "left;'>" . $valueText[0] . "</td><td style='" . $tdStyle . "center'>" . $valueText[1] . "</td><td style='" . $tdStyle . "right;'>" . $valueText[2] . "</td></tr></table>";
+            } else {
+                $value = "<table width='100%'><tr><td style='" . $tdStyle . "left;'>" . $valueText[0] . "</td><td style='" . $tdStyle . "right'>" . $valueText[1] . "</td></tr></table>";
+            }
         }
         //process and return value
         return str_ireplace(["{PAGETITLE}","{NB}"], [$page,"{nb}"], TikiLib::lib('parser')->parse_data(html_entity_decode($value), ['is_html' => true, 'parse_wiki' => true]));
