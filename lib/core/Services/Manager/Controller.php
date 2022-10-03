@@ -305,14 +305,10 @@ class Services_Manager_Controller
             }
 
             $inputCommand = new ArrayInput($input_array);
+            $lastInstanceId = Instance::getLastInstance()->id;
 
             if ($input->leavepassword->text() == 'yes' || $input->instance_type->text() == 'blank') {
                 $this->runCommand($cmd, $inputCommand);
-                return [
-                    'title' => tr('Create New Instance Result'),
-                    'info' => $this->manager_output->fetch(),
-                    'refresh' => true,
-                ];
             } else {
                 if ($this->validate_password($input->tikipassword->text())) {
                     $this->runCommand($cmd, $inputCommand);
@@ -334,15 +330,23 @@ class Services_Manager_Controller
                             Feedback::error($e->getMessage());
                         }
                     }
-                    return [
-                        'title' => tr('Create New Instance Result'),
-                        'info' => $output,
-                        'refresh' => true,
-                    ];
                 } else {
                     Feedback::error(tr('Invalid password for admin user'));
                 }
             }
+            $newInstanceId = Instance::getLastInstance()->id;
+            if ($lastInstanceId != $newInstanceId) {
+                if ($input->profile->text()) {
+                    $profile = $input->profile->text();
+                    $repository = $input->repository->text();
+                    $this->apply_profile($newInstanceId, $profile, $repository);
+                }
+            }
+            return [
+                'title' => tr('Create New Instance Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
         } else {
             /** For form initialization */
             $inputValues = [
@@ -360,6 +364,7 @@ class Services_Manager_Controller
                 'webroot' => '',
                 'branches' => $this->getTikiBranches(),
                 'selected_branch' => "21.x",
+                'default_repository' => "profiles.tiki.org",
                 'temp_dir' => '/tmp/trim_temp',
                 'backup_user' => 'www-data',
                 'backup_group' => 'www-data',
@@ -495,7 +500,19 @@ class Services_Manager_Controller
             $php_version = $input->php_version->text();
 
             try {
+                $lastInstanceId = Instance::getLastInstance()->id;
+
                 $output = $this->createVirtualminTikiInstance($source, $remote_user, $domain, $email, $name, $branch, $php_version);
+
+                $newInstanceId = Instance::getLastInstance()->id;
+                if ($lastInstanceId != $newInstanceId) {
+                    if ($input->profile->text()) {
+                        $profile = $input->profile->text();
+                        $repository = $input->repository->text();
+                        $this->apply_profile($newInstanceId, $profile, $repository);
+                        $output .= "\n\n" . $this->manager_output->fetch();
+                    }
+                }
                 return [
                     'title' => tr('Create Virtualmin Instance Result'),
                     'override_action' => 'info',
@@ -515,13 +532,14 @@ class Services_Manager_Controller
         foreach ($records as $record) {
             $sources[$record['identifier']] = "{$record['identifier']}: {$record['scheme']}://{$record['domain']}{$record['path']}";
         }
-
+        
         return [
             'title' => tr('Create New Virtualmin Instance'),
             'branches' => $this->getTikiBranches(),
             'help' => $this->getCommandHelpTexts($cmd),
             'input' => $input->asArray(),
             'sources' => $sources,
+            'default_repository' => "profiles.tiki.org",
         ];
     }
 
@@ -767,29 +785,27 @@ class Services_Manager_Controller
     {
         $instanceId = $input->instanceId->int();
         if (TikiManager\Application\Instance::getInstance($instanceId)) {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $cmd = new TikiManager\Command\ApplyProfileCommand();
-                $inputCmd = new ArrayInput([
-                    'command' => $cmd->getName(),
-                    '-i' => $instanceId,
-                    '-p' => $input->profile->text(),
-                    '-r' => $input->repository->text(),
-                ]);
-                try {
-                    $this->runCommand($cmd, $inputCmd);
-                } catch (\Exception $e) {
-                    Feedback::error($e->getMessage());
-                }
+            
+            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+                $profile = $input->profile->text();
+                $repository = $input->repository->text();
+                $this->apply_profile($instanceId, $profile, $repository);
+
                 return [
                     'title' => tr('Tiki Manager Apply Profile'),
                     'info' => $this->manager_output->fetch(),
                     'refresh' => true,
                 ];
+        
             } else {
+                $input = ["repository" => "profiles.tiki.org"];
+                $input = new JitFilter($input); 
                 return [
                     'title' => tr('Apply a profile'),
                     'info' => '',
-                    'instanceId' => $input->instanceId->int()
+                    'instanceId' => $input->instanceId->int(),
+                    'profiles' => $this->action_get_profiles($input),
+                    'default_repository' => "profiles.tiki.org",
                 ];
             }
         } else {
@@ -1189,5 +1205,44 @@ class Services_Manager_Controller
             'info' => $this->manager_output->fetch(),
             'refresh' => true,
         ];
+    }
+
+    public function action_get_profiles($input)
+    {
+        $repository = $input->repository->text();
+        $list = new Tiki_Profile_List();
+        $sources = $list->getSources();
+        $source_url = null;
+        foreach ($sources as $source) {
+            if ($source['domain'] == $repository) {
+                $source_url = $source['url'];
+            }
+        }
+        if ($source_url) {
+            $list->refreshCache($source_url);
+            $profiles = $list->getList();
+            $profiles = array_map(function ($i) {
+                return $i['name'];
+            }, $profiles);
+            
+            return $profiles;
+        }
+        return [];
+    }
+
+    private function apply_profile($instanceId, $profile, $repository)
+    {
+        $cmd = new TikiManager\Command\ApplyProfileCommand();
+        $inputCmd = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $instanceId,
+            '-p' => $profile,
+            '-r' => $repository,
+        ]);
+        try {
+            $this->runCommand($cmd, $inputCmd);
+        } catch (\Exception $e) {
+            Feedback::error($e->getMessage());
+        }
     }
 }

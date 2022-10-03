@@ -194,6 +194,16 @@
                 </div>
             </div>
             <div class="form-group row mb-3">
+                <label class="col-form-label col-sm-3">{tr}Apply a profile{/tr}</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="apply">
+                        <option value="No">{tr}No (Default){/tr}</option>
+                        <option value="Yes">{tr}Yes{/tr}</option>
+                    </select>
+                </div>
+            </div>
+            {include file="manager/apply_fields.tpl" profiles=$inputValues['profiles'] default_repository=$inputValues['default_repository']}
+            <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Backup User{/tr}
                     <a class="tikihelp text-info" title="{tr}Description:{/tr}|{tr}{$help['backup-user']}{/tr}">
@@ -290,3 +300,4 @@
         </form>
     {/if}
 {/block}
+
