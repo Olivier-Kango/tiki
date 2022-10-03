@@ -63,10 +63,6 @@ if (isset($_REQUEST["bannerId"]) && $_REQUEST["bannerId"] > 0) {
     $smarty->assign('onlyInURIs', $info['onlyInURIs']);
     $smarty->assign('exceptInURIs', $info['exceptInURIs']);
     $smarty->assign("zone", $info["zone"]);
-    if ($info["which"] == 'useFlash') {
-        $movie = unserialize($info['HTMLData']);
-        $smarty->assign_by_ref('movie', $movie);
-    }
     $smarty->assign("HTMLData", $info["HTMLData"]);
     $smarty->assign("fixedURLData", $info["fixedURLData"]);
     $smarty->assign("textData", $info["textData"]);
@@ -303,25 +299,6 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["create_zone"])) {
     }
 
     if (! isset($_REQUEST["create_zone"])) {
-        if ($_REQUEST["use"] == "useFlash") {
-            $params = [
-                          'width' => 425,
-                          'height' => 350,
-                          'quality' => 'high',
-                          'version' => '9.0.0',
-                          ];
-            $params['movie'] = $_REQUEST['movieUrl'];
-            if (! empty($_REQUEST['movieWidth'])) {
-                $params['width'] = $_REQUEST['movieWidth'];
-            }
-            if (! empty($_REQUEST['movieHeight'])) {
-                $params['height'] = $_REQUEST['movieHeight'];
-            }
-            if (! empty($_REQUEST['movieVersion'])) {
-                $params['version'] = $_REQUEST['movieVersion'];
-            }
-            $_REQUEST['HTMLData'] = serialize($params);
-        }
         $bannerId = $bannerlib->replace_banner(
             $_REQUEST["bannerId"],
             $_REQUEST["client"],

@@ -159,7 +159,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label"><label><input type="radio" name="use" value="useHTML" {if $use eq 'useHTML'}checked="checked"{/if}> {tr}Use HTML{/tr}</label></label>
                 <div class="col-sm-7">
-                    <textarea class="form-control" rows="5" name="HTMLData">{if $use ne 'useFlash'}{$HTMLData|escape}{/if}</textarea>
+                    <textarea class="form-control" rows="5" name="HTMLData">{$HTMLData|escape}</textarea>
                     <div class="form-text">
                         {tr}HTML code{/tr}
                     </div>

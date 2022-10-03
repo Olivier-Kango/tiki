@@ -91,13 +91,6 @@ class BannerLib extends TikiLib
                 $raw = $res["HTMLData"];
 
                 break;
-            case 'useFlash':
-                if ($prefs['javascript_enabled'] == 'y') {
-                    TikiLib::lib('header')->add_jsfile('vendor_bundled/vendor/bower-asset/swfobject/swfobject/swfobject.js', true);
-                }
-                $raw = $tikilib->embed_flash(unserialize($res['HTMLData']));
-                break;
-
 
             case 'useImage':
                 $raw

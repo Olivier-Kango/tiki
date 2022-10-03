@@ -627,9 +627,6 @@ if ($prefs['feature_shadowbox'] == 'y') {
     $headerlib->add_cssfile('vendor_bundled/vendor/jquery-plugins/colorbox/' . $prefs['jquery_colorbox_theme'] . '/colorbox.css');
 }
 
-if ($prefs['wikiplugin_flash'] == 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/bower-asset/swfobject/swfobject/swfobject.js', true);
-}
 if ($prefs['jquery_timeago'] === 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/rmm5t/jquery-timeago/jquery.timeago.js');
     $language_short = substr($prefs['language'], 0, 2);

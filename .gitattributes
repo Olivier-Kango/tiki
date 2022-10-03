@@ -1684,7 +1684,6 @@ installer/schema/20100414_actionlog_system_tiki.sql -text
 installer/schema/20100419_bigbluebutton_tiki.sql -text
 installer/schema/20100422_tracker_log_tiki.sql -text
 installer/schema/20100429_newsletter_pages_tiki.sql -text
-installer/schema/20100507_flash_banner_tiki.php -text
 installer/schema/20100519_actionlog_tiki.sql -text
 installer/schema/20100525_tracker_validation_message_tiki.sql -text
 installer/schema/20100525_tracker_validation_tiki.sql -text
@@ -4886,7 +4885,6 @@ lib/wiki-plugins/wikiplugin_favorite.php -text
 lib/wiki-plugins/wikiplugin_file.php -text
 lib/wiki-plugins/wikiplugin_files.php -text
 lib/wiki-plugins/wikiplugin_fitnesse.php -text
-lib/wiki-plugins/wikiplugin_flash.php -text
 lib/wiki-plugins/wikiplugin_fluidgrid.php -text
 lib/wiki-plugins/wikiplugin_font.php -text
 lib/wiki-plugins/wikiplugin_footnote.php -text

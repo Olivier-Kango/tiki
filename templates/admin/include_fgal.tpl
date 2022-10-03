@@ -168,7 +168,6 @@
                 {preference name=wikiplugin_colorbox}
                 {preference name=wikiplugin_draw}
                 {preference name=wikiplugin_annotation}
-                {preference name=wikiplugin_flash}
             </fieldset>
         {/tab}
 

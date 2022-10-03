@@ -6,8 +6,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-require_once('lib/wiki-plugins/wikiplugin_flash.php');
-
 function wikiplugin_vimeo_info()
 {
     global $prefs;
