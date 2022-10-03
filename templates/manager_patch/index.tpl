@@ -10,7 +10,7 @@
 
 {block name="content"}
     <h2>Instance {$instance->id}: {$instance->name}</h2>
-    <a class="btn btn-link" href="{bootstrap_modal controller=manager_patch action=apply instanceId=$instance->id}">
+    <a class="btn btn-link" href="{service controller=manager_patch action=apply instanceId=$instance->id}">
         {icon name="create"} {tr}Apply Patch{/tr}
     </a>
     <table class="table">

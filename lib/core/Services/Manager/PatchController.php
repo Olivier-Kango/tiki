@@ -60,6 +60,7 @@ class Services_Manager_PatchController
 
                 return [
                     'info' => $this->manager_output->fetch(),
+                    'instanceId' => $instanceId
                 ];
             } else {
                 $definition = $cmd->getDefinition();

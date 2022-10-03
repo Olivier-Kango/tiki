@@ -4,9 +4,14 @@
     {title}{$title}{/title}
 {/block}
 
+{block name="navigation"}
+    {include file='manager/nav.tpl'}
+{/block}
+
 {block name="content"}
 {if not empty($info)}
     <div class="rounded bg-dark text-light p-3">{$info|nl2br}</div>
+    <a href="{service controller=manager_patch action=index instanceId=$instanceId}" class="btn btn-primary mt-3 float-end">{tr}List patches{/tr}</a>
 {else}
     <form method="post" action="{service controller=manager_patch action=apply }" class="ajax-reuse-modal">
         <input type="hidden" name="instanceId" value="{$instance->id}">
