@@ -24,6 +24,10 @@ class Search_Manticore_FacetDecorator extends Search_Manticore_Decorator
 
         $out = [];
         foreach ($facets as $facet) {
+            // federated search not yet implemented
+            if ($facet->getField() == '_index') {
+                continue;
+            }
             $type = $facet->getType();
             if ($type === 'date_histogram') {
                 // TODO: work out ES histogram through Manticore expression
