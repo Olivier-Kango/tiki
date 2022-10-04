@@ -191,17 +191,34 @@ class MachineLearningLib extends TikiDb_Bridge
 
     public function probaSample($model, $processedFields)
     {
-        $estimator = $this->getTrainedModel($model);
-        if (! method_exists($estimator, 'probaSample')) {
-            return [];
-        }
-    
         $sample = [];
         foreach ($processedFields as $field) {
             $sample[] = $field['type'] === "n" ? floatval($field['value']) : $field['value'];
         }
 
-        $result = $estimator->probaSample($sample);
+        $estimator = $this->getTrainedModel($model);
+        if ($estimator instanceof Rubix\ML\Pipeline) {
+            $realEstimator = $estimator->base();
+        } else {
+            $realEstimator = $estimator;
+        }
+        if (! method_exists($realEstimator, 'probaSample')) {
+            return [];
+        }
+
+        if ($model['labelField']) {
+            $dataset = Rubix\ML\Datasets\Labeled::build([$sample], ['Sample']);
+        } else {
+            $dataset = Rubix\ML\Datasets\Unlabeled::build([$sample]);
+        }
+
+        if ($estimator instanceof Rubix\ML\Pipeline) {
+            $result = $estimator->proba($dataset);
+            $result = array_shift($result);
+        } else {
+            $result = $estimator->probaSample($sample);
+        }
+
         $result = array_filter($result);
         arsort($result);
 
@@ -379,7 +396,7 @@ class MachineLearningLib extends TikiDb_Bridge
 
     protected function deserialize($model)
     {
-        $model['trackerFields'] = explode(',', $model['trackerFields']);
+        $model['trackerFields'] = array_filter(explode(',', $model['trackerFields']));
         if (empty($model['payload'])) {
             $model['payload'] = '[]';
         }

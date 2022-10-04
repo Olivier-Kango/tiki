@@ -69,13 +69,13 @@ class MLModelTest extends TikiTestCase
         foreach (self::SAMPLES as $sample) {
             $fields[0]['value'] = $sample;
             $itemId = self::$trklib->replace_item(self::$trackerId, 0, ['data' => $fields], 'o');
-            self::$labels[] = $itemId;
+            self::$labels[] = self::$trklib->get_isMain_value(self::$trackerId, $itemId);
         }
 
         $mlmId = self::$mllib->set_model(null, [
             'name' => 'MLT',
             'sourceTrackerId' => self::$trackerId,
-            'labelField' => 'itemId',
+            'labelField' => 'itemTitle',
             'trackerFields' => [$fields[0]['fieldId']],
             'payload' => self::$mllib->predefined('MLT')
         ]);
@@ -112,7 +112,7 @@ class MLModelTest extends TikiTestCase
     public function testTrainOnEmptyDataset(): void
     {
         self::$mllib->set_model(self::$mlt['mlmId'], [
-            'trackerFields' => '',
+            'trackerFields' => [],
             'name' => '',
             'sourceTrackerId' => self::$trackerId,
         ]);
