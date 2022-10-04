@@ -89,7 +89,7 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $converter = new MarkdownConverter($environment);
         $data = $converter->convert($data)->getContent();
 
-        $data = $this->parse_data_wikilinks($data, false, $this->option['ck_editor']);
+        $data = $this->parse_data_wikilinks($data, false, $this->option['wysiwyg']);
 
         return $data;
     }

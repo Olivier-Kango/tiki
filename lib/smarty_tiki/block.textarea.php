@@ -76,16 +76,24 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
     $params['comments'] = isset($params['comments']) ? $params['comments'] : 'n';
     $params['autosave'] = isset($params['autosave']) ? $params['autosave'] : 'y';
 
-    // work out if we have tiki or markdown syntax
+    // work out if we have Tiki or Markdown syntax
     $wikiParserParsable = new WikiParser_Parsable($content);
-    $syntax = $wikiParserParsable->guess_syntax($content);
+    $syntaxPluginResult = $wikiParserParsable->guess_syntax($content);
     // for the toolbars
-    $params['syntax'] = $syntax;
+    if (isset($syntaxPluginResult['syntax'])) {
+        $params['syntax'] = $syntaxPluginResult['syntax'];
+    } else {
+        $params['syntax'] = 'tiki';
+    }
+    // to pick the editor
+    if (isset($syntaxPluginResult['editor'])) {
+        $params['_wysiwyg'] = $syntaxPluginResult['editor'] === 'wysiwyg' ? 'y' : 'n';
+    }
 
     //codemirror integration
     if ($prefs['feature_syntax_highlighter'] === 'y') {
         $params['data-codemirror'] = isset($params['codemirror']) ? $params['codemirror'] : '';
-        $params['data-syntax'] = $syntax;
+        $params['data-syntax'] = $params['syntax'];
     }
     //keep params html5 friendly
     unset($params['codemirror']);
@@ -99,7 +107,7 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
     }
     $html = '';
     $html .= '<input type="hidden" name="mode_wysiwyg" value="" /><input type="hidden" name="mode_normal" value="" />';
-    $html .= '<input type="hidden" name="syntax" value="' . $syntax . '" />';
+    $html .= '<input type="hidden" name="syntax" value="' . $params['syntax'] . '" />';
 
     $auto_save_referrer = '';
     $auto_save_warning = '';
@@ -175,7 +183,7 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
             $params['name'] = 'edit';
         }
 
-        if ($syntax === 'markdown') {
+        if ($params['syntax'] === 'markdown') {
             // markdown
             $tuiOptions = $wysiwyglib->setUpMarkdownEditor($as_id, $content, $params, $auto_save_referrer);
 
@@ -236,7 +244,7 @@ this.instances.' . $as_id . '.resetDirty();
         if ($textarea_attributes != '') {
             $smarty->assign('textarea_attributes', $textarea_attributes);
         }
-        $smarty->assign('textarea_syntax', $syntax);
+        $smarty->assign('textarea_syntax', $params['syntax']);
 
         $smarty->assignByRef('textareadata', $content);
         $html .= $smarty->fetch('wiki_edit.tpl');
@@ -388,19 +396,23 @@ function admintoolbar() {
         $headerlib->add_jsfile('lib/jquery_tiki/edit_preview.js');
     }
 
-    $processSaveSyntax = '
+    if ($prefs['markdown_enabled'] === 'y') {
+        $processSaveSyntax = '
 $("#' . $as_id . '").form().submit(function () {
-    const $textarea = $("#' . $as_id . '");
-    if ($("input[name=syntax]", this).val() === "markdown") {
-        let val = $textarea.val();
+    const $textarea = $("#' . $as_id . '"),
+        syntax = $("input[name=syntax]", this).val(),
+        editor = $("input[name=wysiwyg]", this).val() === "y" ? "wysiwyg" : "plain";
+    let val = $textarea.val();
+
+    if (syntax === "markdown") {
         val = val.replace(/^\$\$tiki$/mg, "");
         val = val.replace(/^\$\$$/mg, "");
-        $textarea.val("{syntax type=markdown}\r\n" + val);
     }
+    $textarea.val("{syntax type=" + syntax + ", editor=" + editor + "}\r\n" + val);
     return true;
 });';
 
-    $headerlib->add_js($processSaveSyntax);
-
+        $headerlib->add_js($processSaveSyntax);
+    }
     return $html;
 }

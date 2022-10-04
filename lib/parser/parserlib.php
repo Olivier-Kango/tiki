@@ -91,7 +91,7 @@ class ParserLib extends TikiDb_Bridge
                 'process_wiki_paragraphs' => true,
                 'min_one_paragraph' => false,
                 'skipvalidation' => false,
-                'ck_editor' => false,
+                'wysiwyg' => false,
                 'namespace' => false,
                 'protect_email' => true,
                 'exclude_plugins' => [],
@@ -126,7 +126,7 @@ class ParserLib extends TikiDb_Bridge
     {
         // cleaning some user input
         // ckeditor parses several times and messes things up, we should only let it parse once
-        if (! $this->option['ck_editor']) {
+        if (! $this->option['wysiwyg']) {
             $data = str_replace('&', '&amp;', $data);
         }
 
@@ -152,7 +152,7 @@ class ParserLib extends TikiDb_Bridge
     // parse_htmlchar runs, and as well so they can be properly seen, be it html or non-html
     public function protectSpecialChars($data, $is_html = false)
     {
-        if ((isset($this->option['is_html']) && $this->option['is_html'] != true) || ! empty($this->option['ck_editor'])) {
+        if ((isset($this->option['is_html']) && $this->option['is_html'] != true) || ! empty($this->option['wysiwyg'])) {
             foreach ($this->specialChars as $key => $specialChar) {
                 if ($this->option['is_markdown'] && $specialChar['html'] == '>') {
                     // markdown uses greater-than character for blockquotes and links, so we need to keep it
@@ -169,7 +169,7 @@ class ParserLib extends TikiDb_Bridge
     {
         if (
             ( $is_html != false || ( isset($this->option['is_html']) && $this->option['is_html']))
-            || $this->option['ck_editor']
+            || $this->option['wysiwyg']
         ) {
             foreach ($this->specialChars as $key => $specialChar) {
                 $data = str_replace($key, $specialChar['html'], $data);
@@ -931,7 +931,7 @@ class ParserLib extends TikiDb_Bridge
         } else {
             if (! isset($info['format']) || $info['format'] !== 'html') {
                 $oldOptions = $this->option;
-                $plugin_result = $this->parse_data($plugin_result, ['is_html' => false, 'suppress_icons' => true, 'ck_editor' => true, 'noparseplugins' => true]);
+                $plugin_result = $this->parse_data($plugin_result, ['is_html' => false, 'suppress_icons' => true, 'wysiwyg' => true, 'noparseplugins' => true]);
                 $this->setOptions($oldOptions);
                 // reset the noparseplugins option, to allow for proper display in CkEditor
                 $this->option['noparseplugins'] = false;
@@ -1451,7 +1451,7 @@ class ParserLib extends TikiDb_Bridge
         $data = $this->parse_data_wikilinks($data, true);
         $data = $this->parse_data_externallinks($data, true);
         $data = $this->parse_data_inline_syntax($data);
-        if ($this->option['typography'] && ! $this->option['ck_editor']) {
+        if ($this->option['typography'] && ! $this->option['wysiwyg']) {
             $data = typography($data, $this->option['language']);
         }
 
@@ -1782,7 +1782,7 @@ class ParserLib extends TikiDb_Bridge
         $tikilib = TikiLib::lib('tiki');
         $smarty = TikiLib::lib('smarty');
 
-        if ($prefs['feature_wiki_argvariable'] == 'y' && ! $this->option['ck_editor']) {
+        if ($prefs['feature_wiki_argvariable'] == 'y' && ! $this->option['wysiwyg']) {
             if (preg_match_all("/\\{\\{((\w+)(\\|([^\\}]*))?)\\}\\}/", $data, $args, PREG_SET_ORDER)) {
                 $needles = [];
                 $replacements = [];
@@ -2270,7 +2270,7 @@ class ParserLib extends TikiDb_Bridge
 
         // $this->makeTocCount++; Unused since Tiki 12 or earlier
 
-        if ($this->option['ck_editor']) {
+        if ($this->option['wysiwyg']) {
             $need_maketoc = false ;
         } else {
             $need_maketoc = preg_match('/\{maketoc.*\}/', $data);
@@ -2437,7 +2437,7 @@ class ParserLib extends TikiDb_Bridge
             // 08-Jul-2003, by zaufi
             // HotWords will be replace only in ordinal text
             // It looks __really__ goofy in Headers or Titles
-            $line = $this->parse_data_inline_syntax($line, null, $this->option['ck_editor']);
+            $line = $this->parse_data_inline_syntax($line, null, $this->option['wysiwyg']);
 
             // This line is parseable then we have to see what we have
             if (substr($line, 0, 3) == '---') {
@@ -2467,10 +2467,10 @@ class ParserLib extends TikiDb_Bridge
                                 $listate = substr($line, $listlevel, 1);
                                 if (($listate == '+' || $listate == '-') && ! ($litype == '*' && ! strstr(current($listbeg), '</ul>') || $litype == '#' && ! strstr(current($listbeg), '</ol>'))) {
                                     $thisid = 'id' . microtime() * 1000000;
-                                    if (! $this->option['ck_editor']) {
+                                    if (! $this->option['wysiwyg']) {
                                         $data .= '<br /><a id="flipper' . $thisid . '" class="link" href="javascript:flipWithSign(\'' . $thisid . '\')">[' . ($listate == '-' ? '+' : '-') . ']</a>';
                                     }
-                                    $listyle = ' id="' . $thisid . '" style="display:' . ($listate == '+' || $this->option['ck_editor'] ? 'block' : 'none') . ';"';
+                                    $listyle = ' id="' . $thisid . '" style="display:' . ($listate == '+' || $this->option['wysiwyg'] ? 'block' : 'none') . ';"';
                                     $addremove = 1;
                                 }
                             }
@@ -2484,10 +2484,10 @@ class ParserLib extends TikiDb_Bridge
                         $listate = substr($line, $listlevel, 1);
                         if (($listate == '+' || $listate == '-')) {
                             $thisid = 'id' . microtime() * 1000000;
-                            if (! $this->option['ck_editor']) {
+                            if (! $this->option['wysiwyg']) {
                                 $data .= '<br /><a id="flipper' . $thisid . '" class="link" href="javascript:flipWithSign(\'' . $thisid . '\')">[' . ($listate == '-' ? '+' : '-') . ']</a>';
                             }
-                            $listyle = ' id="' . $thisid . '" style="display:' . ($listate == '+' || $this->option['ck_editor'] ? 'block' : 'none') . ';"';
+                            $listyle = ' id="' . $thisid . '" style="display:' . ($listate == '+' || $this->option['wysiwyg'] ? 'block' : 'none') . ';"';
                             $addremove = 1;
                         }
                         $data .= ($litype == '*' ? "<ul$listyle>" : "<ol$listyle>");
@@ -2622,7 +2622,7 @@ class ParserLib extends TikiDb_Bridge
 
                         // May be special signs present after '!'s?
                         $divstate = substr($line, $hdrlevel, 1);
-                        if (($divstate == '+' || $divstate == '-') && ! $this->option['ck_editor']) {
+                        if (($divstate == '+' || $divstate == '-') && ! $this->option['wysiwyg']) {
                             // OK. Must insert flipper after HEADER, and then open new div...
                             $thisid = 'id' . preg_replace('/[^a-zA-z0-9]/', '', urlencode($this->option['page'])) . $nb_hdrs;
                             require_once __DIR__ . '/../setup/cookies.php';

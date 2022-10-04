@@ -31,13 +31,17 @@ class WikiParser_Parsable extends ParserLib
 
     /**
      * Parser search for syntax wiki plugin which changes the syntax of this data block
+     *
+     * @param string $data markup contents
+     *
+     * @return array|void [syntax, editor]
      */
-    public function guess_syntax(&$data)
+    public function guess_syntax(string &$data): ?array
     {
         global $prefs;
 
         if ($prefs['markdown_enabled'] !== 'y') {
-            return;
+            return null;
         }
 
         $matches = WikiParser_PluginMatcher::match($data);
@@ -48,7 +52,8 @@ class WikiParser_Parsable extends ParserLib
             $this->option['is_markdown'] = false;
         }
 
-        $ret = null;
+        $found = false;
+        $return = [];
 
         foreach ($matches as $match) {
             if ($match->getName() != 'syntax') {
@@ -58,24 +63,38 @@ class WikiParser_Parsable extends ParserLib
             switch (@$arguments['type']) {
                 case 'tiki':
                     $this->option['is_markdown'] = false;
-                    $ret = '';
+                    $return['syntax'] = $arguments['type'];
                     break;
                 case 'markdown':
                     $this->option['is_markdown'] = true;
-                    $ret = '';
+                    $return['syntax'] = $arguments['type'];
                     break;
                 default:
-                    $ret = tr('Invalid syntax type selected. Valid values: tiki or markdown.');
+                    Feedback::error(
+                        tr('Invalid syntax type selected "%0". Valid values: tiki or markdown.', $arguments['type'])
+                    );
             }
-            $match->replaceWith($ret);
+            switch (@$arguments['editor']) {
+                case 'wysiwyg':
+                    $this->option['wysiwyg'] = true;
+                    $return['editor'] = 'wysiwyg';
+                    break;
+                case 'plain':
+                default:
+                    $this->option['wysiwyg'] = false;
+                    $return['editor'] = 'plain';
+                    break;
+            }
+            $found = true;
+            $match->replaceWith('');
         }
         $data = $matches->getText();
         // if we removed the syntax plugin then clean up the leftover linefeed
-        if ($ret === '' && (strpos($data, "\r\n") === 0 || strpos($data, "\n") === 0)) {
+        if ($found && (strpos($data, "\r\n") === 0 || strpos($data, "\n") === 0)) {
             $data = substr($data, strpos($data, "\r\n") === 0 ? 2 : 1);
         }
 
-        return $this->option['is_markdown'] ? 'markdown' : 'tiki';
+        return $return;
     }
 
     // This recursive function handles pre- and no-parse sections and plugins
@@ -136,7 +155,7 @@ class WikiParser_Parsable extends ParserLib
             }
 
             $pluginOutput = null;
-            if ($this->plugin_enabled($plugin_name, $pluginOutput) || $this->option['ck_editor']) {
+            if ($this->plugin_enabled($plugin_name, $pluginOutput) || $this->option['wysiwyg']) {
                 static $plugin_indexes = [];
 
                 if (! array_key_exists($plugin_name, $plugin_indexes)) {
@@ -147,7 +166,7 @@ class WikiParser_Parsable extends ParserLib
 
                 // get info to test for preview with auto_save
                 if (! $this->option['skipvalidation']) {
-                    $status = $this->plugin_can_execute($plugin_name, $plugin_data, $arguments, $this->option['preview_mode'] || $this->option['ck_editor']);
+                    $status = $this->plugin_can_execute($plugin_name, $plugin_data, $arguments, $this->option['preview_mode'] || $this->option['wysiwyg']);
                 } else {
                     $status = true;
                 }
@@ -178,7 +197,7 @@ class WikiParser_Parsable extends ParserLib
                         $status = 'pending';
                     }
 
-                    if ($this->option['ck_editor']) {
+                    if ($this->option['wysiwyg']) {
                         $ret = $this->convert_plugin_for_ckeditor($plugin_name, $arguments, tra('Plugin execution pending approval'), $plugin_data, ['icon' => 'img/icons/error.png']);
                     } else {
                         $smarty->assign('plugin_name', $plugin_name);
@@ -332,7 +351,7 @@ if ( \$('#$id') ) {
         //   but hide '<x>' text inside some words like 'style' that are considered as dangerous by the sanitizer.
         $data = str_replace([ '&lt;x&gt;', '~np~', '~/np~' ], [ '<x>', '~np~', '~/np~' ], $data);
 
-        if ($this->option['typography'] && ! $this->option['ck_editor']) {
+        if ($this->option['typography'] && ! $this->option['wysiwyg']) {
             $data = typography($data, $this->option['language']);
         }
 
@@ -398,7 +417,7 @@ if ( \$('#$id') ) {
 
         $func_name = 'wikiplugin_' . $name;
 
-        if (! $validationPerformed && ! $this->option['ck_editor']) {
+        if (! $validationPerformed && ! $this->option['wysiwyg']) {
             $this->plugin_apply_filters($name, $data, $args);
         }
 
@@ -433,7 +452,7 @@ if ( \$('#$id') ) {
             $killtoc = false;
 
             $plugin_result = $this->convert_plugin_output($output, $pluginFormat, $outputFormat);
-            if ($this->option['ck_editor'] == true) {
+            if ($this->option['wysiwyg'] == true) {
                 return $this->convert_plugin_for_ckeditor($name, $args, $plugin_result, $data, $info);
             } else {
                 return $plugin_result;

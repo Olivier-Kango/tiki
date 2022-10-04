@@ -1073,7 +1073,7 @@ function runR($output, $convert, $sha1, $input, $r_echo, $ws, $params, $user, $r
                         . ' dir="' . ( (isset($rtl) && $rtl == 1) ? 'rtl' : 'ltr') . '" '
                         . (isset($pre_style) ? ' style="' . $pre_style . '"' : '')
                         . $boxid . '>'
-                        . (($options['ck_editor'] || $ishtml) ? $out : htmlentities($out, ENT_QUOTES, 'UTF-8'))
+                        . (($options['wysiwyg'] || $ishtml) ? $out : htmlentities($out, ENT_QUOTES, 'UTF-8'))
                         . '</pre>';
                 // -------- End of code borrowed from PluginCode
 

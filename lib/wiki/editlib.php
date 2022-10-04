@@ -802,7 +802,7 @@ class EditLib
                 'absolute_links' => true,
                 'noheaderinc' => true,
                 'suppress_icons' => true,
-                'ck_editor' => true,
+                'wysiwyg' => true,
                 'is_html' => ($isHtml && ! $fromWiki),
                 'process_wiki_paragraphs' => (! $isHtml || $fromWiki),
                 'process_double_brackets' => 'y'
@@ -1511,7 +1511,8 @@ class EditLib
         }
 
         $wikiParserParsable = new WikiParser_Parsable($data);
-        $source_syntax = $wikiParserParsable->guess_syntax($data);
+        $syntaxPluginResult = $wikiParserParsable->guess_syntax($data);
+        $source_syntax = $syntaxPluginResult['syntax'];
         $html = $wikiParserParsable->parse(['noparseplugins' => true]);
 
         if ($target_syntax == 'markdown') {

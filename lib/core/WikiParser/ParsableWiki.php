@@ -17,7 +17,7 @@ class WikiParser_ParsableWiki extends ParserLib
         }
 
         // remove tiki comments first
-        if ($this->option['ck_editor']) {
+        if ($this->option['wysiwyg']) {
             $data = preg_replace(';~tc~(.*?)~/tc~;s', '<tikicomment>$1</tikicomment>', $data);
         } else {
             $data = preg_replace(';(?<!~np~)~tc~(.*?)~/tc~(?!~/np~);s', '', $data);
@@ -45,7 +45,7 @@ class WikiParser_ParsableWiki extends ParserLib
         }
 
         //needs to be before text color syntax because of use of htmlentities in lib/core/WikiParser/OutputLink.php
-        $data = $this->parse_data_wikilinks($data, false, $this->option['ck_editor']);
+        $data = $this->parse_data_wikilinks($data, false, $this->option['wysiwyg']);
 
         // Replace colors ~~foreground[,background]:text~~
         // must be done before []as the description may contain color change

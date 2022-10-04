@@ -39,7 +39,7 @@ function smarty_block_wikiplugin($params, $content, $smarty, $repeat = false)
         false,
         [
             'context_format' => 'html',
-            'ck_editor' => false,
+            'wysiwyg' => false,
             'is_html' => true
         ]
     );

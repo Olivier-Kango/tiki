@@ -65,7 +65,7 @@ class Search_Formatter_ValueFormatter_Wikiplugin extends Search_Formatter_ValueF
             false,
             [
                 'context_format' => 'html',
-                'ck_editor' => false,
+                'wysiwyg' => false,
                 'is_html' => 'y'
             ]
         );

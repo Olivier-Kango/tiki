@@ -987,7 +987,7 @@ if (! isset($_REQUEST['preview']) && ! isset($_REQUEST['save'])) {
                     'absolute_links' => true,
                     'noheaderinc' => true,
                     'suppress_icons' => true,
-                    'ck_editor' => true,
+                    'wysiwyg' => true,
                     'is_html' => true,
                     'process_wiki_paragraphs' => false
                  ]

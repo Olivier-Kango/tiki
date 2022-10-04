@@ -774,7 +774,7 @@ class WikiLib extends TikiLib
         }
 
         if ($prefs['wysiwyg_inline_editing'] === 'y' && getCookie('wysiwyg_inline_edit', "preview", false)) {
-            $parse_options['ck_editor'] = true;
+            $parse_options['wysiwyg'] = true;
             $parse_options['suppress_icons'] = true;
         }
 
