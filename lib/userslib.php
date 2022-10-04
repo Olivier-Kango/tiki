@@ -8850,17 +8850,16 @@ class UsersLib extends TikiLib
         $this->query($query, [ $user_lock_update, $userId ]);
         
         $cachelib->invalidate('userslist');
-        //get_strings tr('Account locked:') tr('Account unlocked')
-        $this->send_lock_status_email($user, $lock_status);// Notify user
+        
+        // Notify user
+        Scheduler_Manager::queueJob('Notify lock status to user', 'UserLockMailerCommandTask', ['user_login' => $user, 'lock_status' => $lock_status]);
 
         TikiLib::events()->trigger('tiki.user.update', ['type' => 'user', 'object' => $user]);
-        $logslib = TikiLib::lib('logs');
-        $logslib->add_log('adminusers', sprintf(tra('%s account %sed'), $user, $lock_status), $user);
-        
+                
         return true;
     }
 
-    public function send_lock_status_email($user, $lock_status)
+    public function send_lock_status_email($user, $lock_status, $this_site)
     {
         global $prefs;
         $tikilib = TikiLib::lib('tiki');
@@ -8869,15 +8868,15 @@ class UsersLib extends TikiLib
         $tpl = "account_lock_status_update";
 
         include_once('lib/webmail/tikimaillib.php');
-        $languageEmail = $this->get_user_preference($_REQUEST['username'], 'language', $prefs['site_language']);
+        $languageEmail = $this->get_user_preference($user, 'language', $prefs['site_language']);
         
         $smarty->assign('lock_status', $lock_status);
-        $smarty->assign('user_name', $_REQUEST['username']);
-        $smarty->assign('mail_site', $_SERVER["SERVER_NAME"]);
+        $smarty->assign('user_name', $user);
+        $smarty->assign('mail_site',  $this_site);
 
         $mail = new TikiMail();
         $mail_data = $smarty->fetchLang($languageEmail, "mail/". $tpl ."_subject.tpl");
-        $mail_data = sprintf($mail_data, $_SERVER['SERVER_NAME']);
+        $mail_data = sprintf($mail_data, $this_site);
         $mail->setSubject($mail_data);
         $mail_data = $smarty->fetchLang($languageEmail, "mail/" . $tpl . ".tpl");
         $mail->setText($mail_data);

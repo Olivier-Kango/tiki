@@ -1145,9 +1145,9 @@ class Services_User_Controller
             $util->setVars($input, [], 'checked');
             if ($util->itemsCount > 0) {
                 if (count($util->items) === 1) {
-                    $msg = tra('%0 the following user?', ucfirst($status_to_set));
+                    $msg = tr('%0 the following user?', ucfirst($status_to_set));
                 } else {
-                    $msg = tra('%0 the following users?', ucfirst($status_to_set));
+                    $msg = tr('%0 the following users?', ucfirst($status_to_set));
                 }
                 return $util->confirm($msg, tra(ucfirst($status_to_set)));
             } else {
@@ -1162,10 +1162,10 @@ class Services_User_Controller
             if ($lock_status_updated) {
                 //prepare feedback
                 if ($util->itemsCount === 1) {
-                    $msg = tra('The following user has been %0ed:', $status_to_set);
+                    $msg = tr('The following user has been %0ed:', $status_to_set);
                     $toMsg = tra('Submit form below to ban this user.');
                 } else {
-                    $msg = tra('The following users have been %0ed:',$status_to_set);
+                    $msg = tr('The following users have been %0ed:',$status_to_set);
                     $toMsg = tra('Submit form below to ban these users.');
                 }
                 $feedback = [
