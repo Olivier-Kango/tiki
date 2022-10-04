@@ -112,7 +112,7 @@ abstract class AbstractType
                     $url = filter_out_sefurl($url, $entryType, ($entryType[$titleField] ?? ''));
                 }
 
-                $map->loc($url)->priority($priority)->freq($changeFrequency)->lastMod($entry[$updateField] ?? time());
+                $map->loc($url)->priority($priority)->freq($changeFrequency)->lastMod(date('Y/m/d H:i:s', $entry[$updateField]) ?? time());
             }
         });
     }
