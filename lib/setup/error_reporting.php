@@ -37,6 +37,9 @@ $smarty->error_reporting = $smartyErrorReportingLevel; // Ensure that Smarty res
 
 if (php_sapi_name() != 'cli') { // This handler collects errors to display at the bottom of the general template, so don't use it in CLI, otherwise errors would be lost.
     if ($previousErrorHandler = set_error_handler('tiki_error_handling', $errorReportingLevel)) {
+        if (is_string($previousErrorHandler)) {
+            $previousErrorHandler = Closure::fromCallable($previousErrorHandler);
+        }
         TikiLib::lib('errortracking')->setErrorHandler($previousErrorHandler);
     };
 }
