@@ -90,7 +90,15 @@
                         {tr}Title:{/tr}
                     </label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" name="title" value="{$title|escape}">
+                        <input type="text" class="form-control" name="title" maxlength="200" value="{$title|escape}">
+                        {jq}
+                            $("input[name=title]").keyup(function () {
+                                var length = $(this).val().length;
+                                if(length > 200) {
+                                    alert("{tr}You have reached the number of characters allowed (200 max) for the FAQ title field.{/tr}");
+                                }
+                            });
+                        {/jq}
                     </div>
                 </div>
                 <div class="mb-3 row">

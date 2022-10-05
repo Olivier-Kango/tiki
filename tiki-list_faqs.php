@@ -44,6 +44,11 @@ if (isset($_REQUEST["remove"])) {
 if (isset($_REQUEST["save"])) {
     check_ticket('list-faqs');
     $access->check_permission('tiki_p_admin_faqs');
+    if (mb_strlen($_REQUEST["title"]) > 200) {
+        $smarty->assign('msg', tra("You have exceeded the number of characters allowed (200 max) for the FAQ title field"));
+        $smarty->display("error.tpl");
+        die;
+    }
     if (isset($_REQUEST["canSuggest"]) && $_REQUEST["canSuggest"] == 'on') {
         $canSuggest = 'y';
     } else {
