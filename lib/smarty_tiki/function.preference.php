@@ -15,7 +15,8 @@ function smarty_function_preference($params, $smarty)
     }
     // set the (current relative) url to gobackto to where we were after the preference change.
     $pathInfo = parse_url($base_uri);
-    $gobackto = end(explode('/',$pathInfo["path"]));
+    $pathData = explode('/',$pathInfo["path"]);
+    $gobackto = end($pathData);
 
     if (! empty($pathInfo['query'])) {
         $gobackto .= '?'.$pathInfo['query'];
