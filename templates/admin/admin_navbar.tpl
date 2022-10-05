@@ -12,7 +12,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="admin-navbar-collapse-1">
-        <form method="post" class="form row g-3 align-items-center" role="form" style="width: 15rem;"> {* Specified width in rem so larger fonts wouldn't cause wrapping *}
+        <form method="post" class="form g-3 align-items-center" role="form" style="width: 15rem;"> {* Specified width in rem so larger fonts wouldn't cause wrapping *}
             {* <div class="col-auto form-check">
                 {ticket}
                 <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if $pref_filters.advanced.selected} checked="checked"{/if}>
@@ -151,7 +151,7 @@
         {/if}
     </div>
     {if $include != "list_sections" and $prefs.theme_unified_admin_backend neq 'y'}
-        <div class="adminanchors card"><div class="card-body navbar-{$navbar_color_variant} bg-{$navbar_color_variant}"><ul class="nav navbar-nav">{include file='admin/include_anchors.tpl'}</ul></div></div>
+        <div class="adminanchors card"><div class="card-body navbar-{$navbar_color_variant} bg-{$navbar_color_variant}"><ul class="nav navbar-nav d-flex flex-wrap justify-content-between" style="gap: 0 1rem;">{include file='admin/include_anchors.tpl'}</ul></div></div>
     {/if}
 </nav>
 
