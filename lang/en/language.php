@@ -21978,4 +21978,11 @@ $lang = array(
 // "Top pages" => "Top pages",
 // "Last pages" => "Last pages",
 // "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace" => "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace",
+// "Correct database encoding!" => "Correct database encoding!",
+// "Running into encoding issues?" => "Running into encoding issues?",
+// "We can try to fix it. Select the previous encoding and click on "=>"We can try to fix it. Select the previous encoding and click on ",
+// "Fix double encoding issues" => "Fix double encoding issues",
+// "Previous table encoding:" => "Previous table encoding:",
+// "Fix double encoding issues (Make sure to have a backup, and test thoroughly after this operation)" => "Fix double encoding issues (Make sure to have a backup, and test thoroughly after this operation)",
+// "Your database encoding is utf8 as required to complete the installation." => "Your database encoding is utf8 as required to complete the installation.",
 );

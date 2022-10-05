@@ -22066,5 +22066,12 @@ $lang_current = array(
 // "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace" => "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace",
 "Start Translation" => "Commencer la traduction",
 "System Menu" => "Menu Système",
+"Correct database encoding!" => "Encodage correct de la base de données!",
+"Running into encoding issues?" => "Vous rencontrez des problèmes d'encodage ?",
+"We can try to fix it. Select the previous encoding and click on " => "Nous pouvons essayer de le réparer. Sélectionnez l'encodage précédent et cliquez sur ",
+"Fix double encoding issues" => "Résoudre les problèmes de double encodage",
+"Previous table encoding:" => "Encodage précédent de la table",
+"Fix double encoding issues (Make sure to have a backup, and test thoroughly after this operation)" => "Résoudre les problèmes de double encodage (assurez-vous d'avoir une sauvegarde et testez soigneusement après cette opération)",
+"Your database encoding is utf8 as required to complete the installation." => "L'encodage de votre base de données est utf8 comme requis pour terminer l'installation.",
 );
 $lang = array_replace($lang, $lang_current);
