@@ -196,12 +196,14 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
     public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
     {
         $value = $this->getValue();
-        $defaultAmount = $this->convertToDefaultCurrency($this->getFieldData());
+        $data = $this->getFieldData();
+        $defaultAmount = $this->convertToDefaultCurrency($data);
         $baseKey = $this->getBaseKey();
 
         $out = [
             $baseKey => $typeFactory->plaintext($value),
             "{$baseKey}_base" => $typeFactory->numeric($defaultAmount),
+            "{$baseKey}_numeric" => $typeFactory->numeric($data['amount']),
         ];
         return $out;
     }
@@ -209,7 +211,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
     public function getProvidedFields()
     {
         $baseKey = $this->getBaseKey();
-        return [$baseKey, "{$baseKey}_base"];
+        return [$baseKey, "{$baseKey}_base", "{$baseKey}_numeric"];
     }
 
     public function getProvidedFieldTypes()
@@ -217,7 +219,8 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
         $baseKey = $this->getBaseKey();
         return [
             $baseKey => 'plaintext',
-            "{$baseKey}_base" => 'numeric'
+            "{$baseKey}_base" => 'numeric',
+            "{$baseKey}_numeric" => 'numeric',
         ];
     }
 
