@@ -351,8 +351,10 @@ function list_disable_accounts()
     global $installer;
     $result = $installer->query('select `login` from `users_users` where `waiting` = ? and `valid` is NULL', ['a']);
     $ret = [];
-    while ($res = $result->fetchRow()) {
-        $ret[] = $res['login'];
+    if ($result) {
+        while ($res = $result->fetchRow()) {
+            $ret[] = $res['login'];
+        }
     }
     return $ret;
 }
