@@ -163,7 +163,6 @@
                 {preference name=wikiplugin_files}
                 {preference name=wikiplugin_file}
                 {preference name=wikiplugin_img}
-                {preference name=wikiplugin_carousel}
                 {preference name=wikiplugin_galleriffic}
                 {preference name=wikiplugin_colorbox}
                 {preference name=wikiplugin_draw}
