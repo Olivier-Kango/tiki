@@ -1,6 +1,7 @@
 // This file can be imported by themes to solve the problem of specifying different colors for the top zone and topbar zone,
 // since this isn't possible with the standard Bootstrap navbar-dark and navbar-light variables.
 // Use of this file assumes one color set for the top zone and its parents, and one color set for the topbar zone and its parents.
+// Admin navbar and anchors (when UAB is off) also can get color information here for themes that include this file.
 // Exceptions can be made as needed with specific CSS.
 //
 // Themes using this file should define these variables (example is from Cerulean theme _variabls.scss):
@@ -50,12 +51,14 @@
 // Topbar module zone and parent divs - light color
 .layout_basic .topbar_modules.navbar-light.bg-light,                  // Topbar, which probably includes another nav menu
 .layout_classic .topbar.bg-light-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
-.layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent    // Classic Bootstrap topbar wrapper
+.layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent,   // Classic Bootstrap topbar wrapper
+.admin-content .bg-light                                              // Admin navbar and icons when UAB is off
 {
     background: var(--tiki-topbar-bg-light) !important;
     color: var(--tiki-topbar-light-color);
     a,
-    .btn.btn-link  {
+    .btn.btn-link,
+    a.nav-link {
         color: var(--tiki-topbar-light-link-color);
         &:hover {
             color: var(--tiki-topbar-light-link-hover-color);
@@ -70,7 +73,8 @@
     background: var(--tiki-top-bg-dark) !important;
     color: var(--tiki-top-dark-color);
     a:not(.dropdown-item),
-    .btn.btn-link  {
+    .btn.btn-link,
+    a.nav-link  {
         color: var(--tiki-top-dark-link-color);
         &:hover {
             color: var(--tiki-top-dark-link-hover-color);
@@ -81,12 +85,14 @@
 // Topbar module zone and parent divs - dark color
 .layout_basic .topbar_modules.bg-dark,                               // Single Container layout -- Topbar, which probably includes another nav menu
 .layout_classic .topbar.bg-dark-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
-.layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent     // Classic Bootstrap topbar wrapper
+.layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent,     // Classic Bootstrap topbar wrapper
+.admin-content .bg-dark
 {
     background: var(--tiki-topbar-bg-dark) !important;
     color: var(--tiki-topbar-dark-color);
     a:not(.dropdown-item),
-    .btn.btn-link  {
+    .btn.btn-link,
+    a.nav-link  {
         color: var(--tiki-topbar-dark-link-color);
         &:hover {
             color: var(--tiki-topbar-dark-link-hover-color);

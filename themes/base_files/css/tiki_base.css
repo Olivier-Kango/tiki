@@ -503,12 +503,6 @@ body.wikitext {
   border: 1px solid var(--bs-border-color-translucent);
   background-color: #fff;
 }
-.ic_button {
-  border: 2px solid #dee2e6;
-}
-.ic_active {
-  border: 2px solid #0d6efd;
-}
 .wp-cookie-consent-required {
   color: #dc3545;
 }
@@ -3352,19 +3346,6 @@ div.mb-3 label.error {
 .inline-cypht .select2-container {
   margin-bottom: 10px;
 }
-.tiki .anythingSlider, .tiki .anythingWindow, .tiki .anythingBase, .tiki .anythingBase > .card {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-}
-.tiki .anythingBase > .card {
-  margin-bottom: 0;
-  background-color: inherit;
-  border: none;
-  border-radius: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
 /* prevents elFinder dialog appearing under the embedded pane */
 .std42-dialog.elfinder-dialog {
   position: absolute;
@@ -4669,12 +4650,6 @@ body.tiki_wiki #comments {
   font-size: 90%;
   padding: 2px;
 }
-.ic_button {
-  float: left;
-  margin: 0 2px 0 0;
-  width: 20px;
-  height: 20px;
-}
 .ic_caption {
   opacity: 0.75;
   width: 100%;
@@ -5035,4 +5010,3 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
   -webkit-font-smoothing: antialiased;
 }
 /* End of file */
-/*# sourceMappingURL=tiki_base.css.map */

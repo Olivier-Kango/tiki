@@ -1130,34 +1130,34 @@ footer#footer .footer_liner .card-header {
 .layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-light-parent a:hover, .layout_classic .header_outer.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
   color: var(--tiki-top-light-link-hover-color);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent {
+.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .admin-content .bg-light {
   background: var(--tiki-topbar-bg-light) !important;
   color: var(--tiki-topbar-light-color);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_classic .topbar.bg-light-parent a, .layout_classic .topbar.bg-light-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link {
+.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link, .layout_classic .topbar.bg-light-parent a, .layout_classic .topbar.bg-light-parent .btn.btn-link, .layout_classic .topbar.bg-light-parent a.nav-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link, .admin-content .bg-light a, .admin-content .bg-light .btn.btn-link, .admin-content .bg-light a.nav-link {
   color: var(--tiki-topbar-light-link-color);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_classic .topbar.bg-light-parent a:hover, .layout_classic .topbar.bg-light-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover {
+.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link:hover, .layout_classic .topbar.bg-light-parent a:hover, .layout_classic .topbar.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar.bg-light-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link:hover, .admin-content .bg-light a:hover, .admin-content .bg-light .btn.btn-link:hover, .admin-content .bg-light a.nav-link:hover {
   color: var(--tiki-topbar-light-link-hover-color);
 }
 .layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent {
   background: var(--tiki-top-bg-dark) !important;
   color: var(--tiki-top-dark-color);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item), .layout_classic .header_outer.bg-dark-parent .btn.btn-link {
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent a.nav-link, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item), .layout_classic .header_outer.bg-dark-parent .btn.btn-link, .layout_classic .header_outer.bg-dark-parent a.nav-link {
   color: var(--tiki-top-dark-link-color);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .header_outer.bg-dark-parent .btn.btn-link:hover {
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent a.nav-link:hover, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .header_outer.bg-dark-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-dark-parent a.nav-link:hover {
   color: var(--tiki-top-dark-link-hover-color);
 }
-.layout_basic .topbar_modules.bg-dark, .layout_classic .topbar.bg-dark-parent, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent {
+.layout_basic .topbar_modules.bg-dark, .layout_classic .topbar.bg-dark-parent, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .admin-content .bg-dark {
   background: var(--tiki-topbar-bg-dark) !important;
   color: var(--tiki-topbar-dark-color);
 }
-.layout_basic .topbar_modules.bg-dark a:not(.dropdown-item), .layout_basic .topbar_modules.bg-dark .btn.btn-link, .layout_classic .topbar.bg-dark-parent a:not(.dropdown-item), .layout_classic .topbar.bg-dark-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link {
+.layout_basic .topbar_modules.bg-dark a:not(.dropdown-item), .layout_basic .topbar_modules.bg-dark .btn.btn-link, .layout_basic .topbar_modules.bg-dark a.nav-link, .layout_classic .topbar.bg-dark-parent a:not(.dropdown-item), .layout_classic .topbar.bg-dark-parent .btn.btn-link, .layout_classic .topbar.bg-dark-parent a.nav-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a.nav-link, .admin-content .bg-dark a:not(.dropdown-item), .admin-content .bg-dark .btn.btn-link, .admin-content .bg-dark a.nav-link {
   color: var(--tiki-topbar-dark-link-color);
 }
-.layout_basic .topbar_modules.bg-dark a:not(.dropdown-item):hover, .layout_basic .topbar_modules.bg-dark .btn.btn-link:hover, .layout_classic .topbar.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .topbar.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover {
+.layout_basic .topbar_modules.bg-dark a:not(.dropdown-item):hover, .layout_basic .topbar_modules.bg-dark .btn.btn-link:hover, .layout_basic .topbar_modules.bg-dark a.nav-link:hover, .layout_classic .topbar.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .topbar.bg-dark-parent .btn.btn-link:hover, .layout_classic .topbar.bg-dark-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a.nav-link:hover, .admin-content .bg-dark a:not(.dropdown-item):hover, .admin-content .bg-dark .btn.btn-link:hover, .admin-content .bg-dark a.nav-link:hover {
   color: var(--tiki-topbar-dark-link-hover-color);
 }
 .layout_basic .page-header .top_modules, .layout_basic .page-header .top_modules .navbar, .layout_basic .topbar_modules .navbar {
@@ -1284,4 +1284,3 @@ footer#footer .footer_liner .card-header {
 .text-info {
   color: #6E7425 !important;
 }
-/*# sourceMappingURL=kiwi.css.map */
