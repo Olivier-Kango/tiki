@@ -97,7 +97,6 @@
                 {preference name=wikiplugin_quote}
                 {preference name=wikiplugin_remarksbox}
                 {preference name=wikiplugin_scroll}
-                {preference name=wikiplugin_slider}
                 {preference name=wikiplugin_sort}
                 {preference name=wikiplugin_split}
                 {preference name=wikiplugin_sup}

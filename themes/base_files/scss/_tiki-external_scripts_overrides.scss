@@ -65,26 +65,6 @@ div.mb-3 label.error {
     }
 }
 
-// AnythingSlider (wikiplugin_slider) compatibility
-
-.tiki .anythingSlider,
-.tiki .anythingWindow,
-.tiki .anythingBase,
-.tiki .anythingBase > .card {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
-.tiki .anythingBase > .card {
-    margin-bottom: 0;
-    background-color: inherit;
-    border: none;
-    border-radius: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
 // elFinder tiki overrides
 
 /* prevents elFinder dialog appearing under the embedded pane */
