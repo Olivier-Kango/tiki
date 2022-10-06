@@ -10,12 +10,21 @@
 */
 
 //@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");
-@import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cosmo/variables"; // Needs to come first, to override defaults.
+//@import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cerulean/variables"; // Needs to come first, to override defaults.
+@import "../../base_files/scss/_tiki-bootstrap_functions";
+
+@import "variables";
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cosmo/bootswatch";
+//@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
+
+//@import "variables"; // Imported again, to override base_files/tiki-variables defaults, if the theme overrides any
+
 @import "../../base_files/scss/_tiki-selectors.scss";
+@import "../../base_files/scss/_tiki-pagetop_colors.scss"; // Import if needed to specify top and topbar zone colors in more detail
 @import "../../base_files/scss/_external-scripts.scss";
+@import "../../base_files/scss/_select2-tiki_colors.scss";
 
 // Increase navbar height to reinstate Bootswatch style
 .topbar_modules > * {
