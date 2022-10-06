@@ -46,14 +46,9 @@
     .moduletitle { color: $cyan !important; }
 }
 
-// Increase navbar height and side margins to reinstate Bootswatch style
+// Increase navbar height to reinstate Bootswatch style
 .topbar_modules > * {
     margin-top: .5rem;
     margin-bottom: .5rem;
-}
-
-.topbar_modules {
-    margin-left: 30px;
-    margin-right: 30px;
 }
 

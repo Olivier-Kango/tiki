@@ -10252,12 +10252,6 @@ body.wikitext {
   border: 1px solid var(--bs-border-color-translucent);
   background-color: #fff;
 }
-.ic_button {
-  border: 2px solid #dee2e6;
-}
-.ic_active {
-  border: 2px solid #446e9b;
-}
 .wp-cookie-consent-required {
   color: #cd0200;
 }
@@ -11675,10 +11669,6 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-.topbar_modules {
-  margin-left: 30px;
-  margin-right: 30px;
-}
 .tiki .navbar-dark.bg-dark {
   background-image: linear-gradient(#6d94bf, #446e9b 50%, #3e648d) !important;
   -webkit-filter: none;
@@ -11701,4 +11691,3 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background-image: none !important;
   border: none !important;
 }
-/*# sourceMappingURL=spacelab.css.map */

@@ -10294,12 +10294,6 @@ body.wikitext {
   border: 1px solid var(--bs-border-color-translucent);
   background-color: #fff;
 }
-.ic_button {
-  border: 2px solid #dee2e6;
-}
-.ic_active {
-  border: 2px solid #3459e6;
-}
 .wp-cookie-consent-required {
   color: #da292e;
 }
@@ -11713,4 +11707,3 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #3459e6;
 }
-/*# sourceMappingURL=zephyr.css.map */
