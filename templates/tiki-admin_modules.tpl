@@ -370,13 +370,6 @@
             {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
             <div class="col-sm-10 offset-sm-1">
                 {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                {if $prefs.feature_cssmenus eq 'y'}
-                    {tr}To use a <a target="_blank" href="https://doc.tiki.org/Menu#CSS_Superfish_Menus" class="alert-link">CSS (Superfish) menu</a>, use one of these syntaxes:{/tr}
-                    <ul>
-                        <li>{literal}{menu id=X type=vert}{/literal}</li>
-                        <li>{literal}{menu id=X type=horiz}{/literal}</li>
-                    </ul>
-                {/if}
                 {tr}To use a default Tiki menu:{/tr}
                     <ul>
                         <li>{literal}{menu id=X css=n}{/literal}</li>

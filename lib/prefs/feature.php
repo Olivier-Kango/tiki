@@ -1941,17 +1941,6 @@ function prefs_feature_list($partial = false)
             ],
             'default' => 'y',   // autocomplete on pages in QuickEdit (more coming soon)
         ],
-
-        'feature_jquery_superfish' => [
-            'name' => tra('Superfish'),
-            'description' => tra('Adds animation effects to CSS "Suckerfish" menus.'),
-            'type' => 'flag',
-            'help' => 'JQuery#Superfish',
-            'default' => 'n',       // Effects on CSS (Suckerfish) menus
-            'tags' => ['deprecated'],
-            'warning' => tra('This feature will be removed after Tiki23, use Smart Menus instead'),
-        ],
-
         'feature_jquery_reflection' => [
             'name' => tra('Reflection'),
             'description' => tra('Creates a reflection under an image. Used in Plugin Img with the parameter "class=reflect"'),

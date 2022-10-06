@@ -188,7 +188,6 @@
                 {preference name=feature_jquery_autocomplete}
                 {preference name=feature_jquery_media}
                 {preference name=feature_jquery_reflection}
-                {preference name=feature_jquery_superfish}
                 <div class="adminoptionbox">
                     {preference name=jquery_smartmenus_enable}
                     <div class="adminoptionboxchild" id="jquery_smartmenus_enable_childcontainer">
