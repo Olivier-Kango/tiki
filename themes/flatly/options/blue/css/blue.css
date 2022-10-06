@@ -1,16 +1,40 @@
 /* Deliberately minimal css option file for the Flatly theme added as a demo and test for Tiki 14 */
+/* For Tiki 25, CSS variables can replace most top and topbar zone navbar styles (active background not supported yet as of Oct 2022).
+ CSS selectors are provided by flatly.css and this file overrides the flatly.css values with new ones. */
+
+:root {
+    --tiki-top-bg-light: #cfe7f8;
+    --tiki-top-light-color: rgba(0, 0, 0, 0.55);
+    --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+
+    --tiki-topbar-bg-light: #cfe7f8;
+    --tiki-topbar-light-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.7);
+
+    --tiki-top-bg-dark: #2b6288;
+    --tiki-top-dark-color: #B5E0FC;
+    --tiki-top-dark-link-color: #B5E0FC;
+    --tiki-top-dark-link-hover-color: #fff;
+
+    --tiki-topbar-bg-dark: #2b6288;
+    --tiki-topbar-dark-color: #B5E0FC;
+    --tiki-topbar-dark-link-color: #B5E0FC;
+    --tiki-topbar-dark-link-hover-color: #fff;
+}
 
 a, .btn-link {
     color: #3c88bc;
 }
 
-.navbar-light .navbar-nav > li > a:hover,
+/*.navbar-light .navbar-nav > li > a:hover,
 .navbar-light .navbar-nav > li > a:focus,
 a:hover, a:active, a:focus,
 .popover button.btn-link.link-list:hover,
 .dropdown-item button.btn-link.link-list:hover {
     color: #50b3fb;
-}
+}*/
 
 .btn-primary {
     background-color: #3c88bc;
@@ -22,21 +46,21 @@ a:hover, a:active, a:focus,
     border-color: #2b6288;
 }
 
-.bg-dark,
+.bg-dark/*,
 .topbar,
 .topbar .navbar-primary .navbar-nav > li,
-.topbar .nav > li {
+.topbar .nav > li*/ {
     background-color: #2b6288 !important;
 }
 
-.topbar > a:hover,
+/*.topbar > a:hover,
 .topbar .navbar-primary .navbar-nav > li > a:hover,
 .topbar .nav > li > a:hover,
 .topbar > a:focus,
 .topbar .navbar-primary .navbar-nav > li > a:focus,
 .topbar .nav > li > a:focus {
   color: #50b3fb;
-}
+} */
 
 
 

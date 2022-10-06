@@ -81,6 +81,8 @@
 // Top module zone and parent divs - dark color
 .layout_basic .page-header.navbar-dark-parent.bg-dark-parent,         // Single-container layout -- Parent of the top module zone
 .layout_classic .header_outer.bg-dark-parent                          // Classic Tiki layout -- Parent of the top module zone
+.layout_social header.navbar-light-parent.bg-dark-parent,             // Classic Bootstrap layout (fixed-top navbar) -- Complete header
+.layout_social header.navbar.navbar-dark.bg-dark                     // Classic Bootstrap layout -- Menu itself
 {
     background: var(--tiki-top-bg-dark) !important;
     color: var(--tiki-top-dark-color);

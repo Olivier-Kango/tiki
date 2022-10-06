@@ -19,8 +19,6 @@
 @import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cerulean/bootswatch";
 //@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
 
-//@import "variables"; // Imported again, to override base_files/tiki-variables defaults, if the theme overrides any
-
 @import "../../base_files/scss/_tiki-selectors.scss";
 @import "../../base_files/scss/_tiki-pagetop_colors.scss"; // Import if needed to specify top and topbar zone colors in more detail
 @import "../../base_files/scss/_external-scripts.scss";
