@@ -331,3 +331,6 @@ table.objectperms thead th { display: none; }
 .resize-vertical {
     resize: vertical;
 }
+
+// Applies the same padding to admin (horiz) menu items when UAB is off as when it is on - remove when legacy admin screen is removed.
+.tiki-admin .navbar-expand-md .navbar-nav.mr-auto .nav-link { padding: 0 0.4rem; }

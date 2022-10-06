@@ -3172,6 +3172,9 @@ table.objectperms thead th {
 .resize-vertical {
   resize: vertical;
 }
+.tiki-admin .navbar-expand-md .navbar-nav.mr-auto .nav-link {
+  padding: 0 0.4rem;
+}
 form.simple label.error {
   padding: 4px 0 0 20px;
   margin-left: 0.5em;

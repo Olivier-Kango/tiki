@@ -11,7 +11,7 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#admin-navbar-collapse-1" aria-controls="admin-navbar-collapse-1" aria-expanded="false" aria-label="{tr}Toggle navigation{/tr}">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="admin-navbar-collapse-1">
+    <div class="collapse navbar-collapse justify-content-between" id="admin-navbar-collapse-1">
         <form method="post" class="form g-3 align-items-center" role="form" style="width: 15rem;"> {* Specified width in rem so larger fonts wouldn't cause wrapping *}
             {* <div class="col-auto form-check">
                 {ticket}
