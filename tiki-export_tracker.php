@@ -220,6 +220,7 @@ if (! empty($_REQUEST['debug'])) {
 
 $offset = 0;
 $maxRecords = 100;
+// TODO refactor using \TrackerLib::get_default_sort_order
 if ($tracker_info['defaultOrderKey'] == -1) {
     $sort_mode = 'lastModif';
 } elseif ($tracker_info['defaultOrderKey'] == -2) {

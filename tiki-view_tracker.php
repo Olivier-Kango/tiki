@@ -177,6 +177,7 @@ if (count($status_types) == 0) {
 $filterFields = ['isSearchable' => 'y', 'isTblVisible' => 'y', 'type' => ['q','u','g','I','C','n','j','f']];
 $sort_field = 0;
 if (! isset($_REQUEST["sort_mode"])) {
+    // TODO refactor using \TrackerLib::get_default_sort_order
     if (! empty($tracker_info['defaultOrderKey'])) {
         if ($tracker_info['defaultOrderKey'] == - 1) {
             $sort_mode = 'lastModif';

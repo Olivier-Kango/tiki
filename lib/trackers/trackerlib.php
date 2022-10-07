@@ -1834,6 +1834,52 @@ class TrackerLib extends TikiLib
         return $retval;
     }
 
+    public function get_default_sort_order(int $trackerId, bool $permNames = false, bool $unifiedSearch = false): string
+    {
+        $tracker_info = $this->get_tracker_options($trackerId);
+
+        if (! empty($tracker_info['defaultOrderKey'])) {
+            if ($tracker_info['defaultOrderKey'] == - 1) {
+                if ($unifiedSearch) {
+                    $sort_mode = 'modification_date';
+                } else {
+                    $sort_mode = 'lastModif';
+                }
+            } elseif ($tracker_info['defaultOrderKey'] == - 2) {
+                if ($unifiedSearch) {
+                    $sort_mode = 'creation_date';
+                } else {
+                    $sort_mode = 'created';
+                }
+            } elseif ($tracker_info['defaultOrderKey'] == - 3) {
+                if ($unifiedSearch) {
+                    $sort_mode = 'object_id';
+                } else {
+                    $sort_mode = 'itemId';
+                }
+            } else {
+                $sort_field = $tracker_info['defaultOrderKey'];
+                if ($permNames) {
+                    $fieldInfo = $this->get_field_info($sort_field);
+                    $sort_mode = $fieldInfo['permName'];
+                    if ($unifiedSearch) {
+                        $sort_mode = 'tracker_field_' . $sort_mode;
+                    }
+                } else {
+                    $sort_mode = 'f_' . $tracker_info['defaultOrderKey'];
+                }
+            }
+            if (isset($tracker_info['defaultOrderDir'])) {
+                $sort_mode .= "_" . $tracker_info['defaultOrderDir'];
+            } else {
+                $sort_mode .= "_asc";
+            }
+        } else {
+            $sort_mode = '';
+        }
+        return $sort_mode;
+    }
+
     /* listfields fieldId=>fielddefinition */
     public function get_item_fields($trackerId, $itemId, $listfields, &$itemUsers, $alllang = false)
     {
