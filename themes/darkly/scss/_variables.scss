@@ -1,5 +1,5 @@
-// Darkly 5.2.0
-// Bootswatch
+// Darkly 5.2.0 -- This is a copy of vendor/vendor_bundled/thomaspark/bootswatch/dist/darkly/_variables.scss with
+// Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
 $theme: "darkly" !default;
 
@@ -172,8 +172,9 @@ $btn-close-hover-opacity:    1 !default;
 
 $pre-color:                         inherit !default;
 
-// Tiki CSS variables
+//--------------------------- Tiki SCSS variables
 
+//--------------------------- Tiki CSS variables
 :root {
     --tiki-top-bg-light:  #{$light};
     --tiki-top-light-color: #{$navbar-light-color};

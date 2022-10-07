@@ -12,3 +12,8 @@
         flex-wrap: wrap;
     }
 }
+
+// Prevent wrapping in tight admin navbars
+.tiki-admin .nav-item {
+    margin-right: 1rem;
+}
