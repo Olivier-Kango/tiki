@@ -307,6 +307,7 @@ class TikiAccessLib extends TikiLib
             $this->ticket = TikiLib::lib('tiki')->generate_unique_sequence(32, true);
             $_SESSION['tickets'][$this->ticket] = time();
         } else {
+            require_once('lib/setup/cookies.php');
             $this->ticket = $_SESSION['CSRF_TOKEN'] ?? null;
             if (! $this->ticket) { // Check the cookie
                 $this->ticket = $_SESSION['CSRF_TOKEN'] = $this->retrieveTicketFromCookie(); // return ticket or null
