@@ -34,7 +34,11 @@ if ($_REQUEST["type"] == 'barvert' || $_REQUEST["type"] == 'barhoriz') {
         $graph->setParam('grid-independant-location', 'vertical');
         $graph->setParam('grid-horizontal-position', 'top');
     }
-    $graph->setParam('grid-independant-major-font', 'Normal-Text');
+	if ($_REQUEST["axestext"] == 'Large-Text') {
+        $graph->setParam('grid-independant-major-font', 'Large-Text');
+    } else {
+        $graph->setParam('grid-independant-major-font', 'Normal-Text');
+    }
     $graph->setParam('grid-independant-major-guide', false);
 } elseif ($_REQUEST["type"] == 'multiline') {
     // multiline not working as yet so shouldn't get here

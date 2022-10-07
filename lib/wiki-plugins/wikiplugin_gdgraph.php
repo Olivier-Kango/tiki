@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-// plugin that uses lib/graph-engine/ to produce simple graphs on screen
+// plugin that uses lib/graph-engine/ to produce simple bar charts on screen
 // Usage
 // {GDGRAPH(various parameters)}
 //  x,y data
@@ -18,7 +18,7 @@ function wikiplugin_gdgraph_info()
     return [
         'name' => tra('GDGraph'),
         'documentation' => 'PluginGDGraph',
-        'description' => tra('Create a simple graph from supplied data'),
+        'description' => tra('Create a simple bar chart from supplied data'),
         'tags' => ['basic'],
         'prefs' => ['wikiplugin_gdgraph'],
         'body' => tra('Comma-separated data (x,y) to be graphed. A useful option is to generate this data from a LIST
@@ -30,13 +30,13 @@ function wikiplugin_gdgraph_info()
             'type' => [
                 'required' => true,
                 'name' => tra('Graph Type'),
-                'description' => tra('Defines what ype of graph or chart is to be generated'),
+                'description' => tra('Defines what type of bar chart is to be generated'),
                 'since' => '14.0',
                 'filter' => 'word',
                 'options' => [
-                    ['text' => tra('Vertical Bar'), 'value' => 'barvert'],
-                    ['text' => tra('Horizontal Bar'), 'value' => 'barhoriz'],
-/*                  array('text' => tra('Multiline'), 'value' => 'multiline'),
+                    ['text' => tra('Vertical bar chart'), 'value' => 'barvert'],
+                    ['text' => tra('Horizontal bar chart'), 'value' => 'barhoriz'],
+/*                    array('text' => tra('Multiline'), 'value' => 'multiline'),
                     array('text' => tra('Pie'), 'value' => 'pie'),*/
                 ],
             ],
@@ -48,21 +48,26 @@ function wikiplugin_gdgraph_info()
                 'filter' => 'text',
                 'default' => '',
             ],
+			'axestext' => [
+				'required' => false,
+				'name' => tra('Axes text size'),
+				'description' => tra('Size options for the text used for the x and y axes values - the default selection is Large-Text'),
+				'since' => '24.1',
+				'filter' => 'text',
+				'default' => 'Large-Text',
+				'options' => [
+					['text' => tra('Large-Text'), 'value' => 'Large-Text'],
+					['text' => tra('Normal-Text'), 'value' => 'Normal-Text'],
+				],
+			],			
             'alttag' => [
                 'required' => false,
                 'name' => tra('Alt Tag'),
-                'description' => tra('Text for image alt tag'),
+                'description' => tra('Text for image alt tag - the default is "GDgraph image"'),
                 'since' => '14.0',
                 'filter' => 'text',
-                'default' => 'GDgraph graph image',
+                'default' => 'GDgraph image',
             ],
-/*          'bg' => array(
-                'required' => false,
-                'name' => tra('Background color'),
-                'description' => tra('As defined by CSS, name, or color hex code - not used yet'),
-                'filter' => 'text',
-                'default' => '',
-            ),*/
             'width' => [
                 'required' => false,
                 'name' => tra('Graph Image Width'),
@@ -83,23 +88,56 @@ function wikiplugin_gdgraph_info()
                 'filter' => 'digits',
                 'default' => 0,
             ],
-/*          'class' => array(
+            'class' => [
                 'required' => false,
                 'name' => tra('CSS Class'),
-                'description' => tra('Apply custom CSS class to the surrounding div - not used yet'),
-            ),
-            'id' => array(
+                'description' => tra('In addition to the standard wp-gdgraph class, apply a second custom class to the surrounding DIV'),
+				'since' => '24.1',
+                'filter' => 'text',
+                'default' => '',
+            ],
+            'divid' => [
                 'required' => false,
                 'name' => tra('ID'),
-                'description' => tra('Apply an id to the surrounding div - not used yet'),
-            ),
-            'float' => array(
+                'description' => tra('Apply an id tag to the surrounding DIV'),
+				'since' => '24.1',
+                'filter' => 'text',
+                'default' => '',
+            ],
+            'float' => [
                 'required' => false,
                 'name' => tra('Float Position'),
-                'description' => tra('Set the alignment for the div surrounding the graph. For elements with a width of
-                    less than 100%, other elements will wrap around it unless the clear parameter is appropriately set
-                    - not used yet'),
-            ),*/
+                'description' => tr(
+					'Set the alignment for the graph image. For elements with a width of less than 100%, other elements
+					will wrap around it unless the %0 parameter is appropriately set.)',
+					'<code>clear</code>'
+				),
+				'since' => '24.1',
+				'filter' => 'text',
+				'default' => 'none',
+				'options' => [
+					['text' => tra('None'), 'value' => 'none'],
+					['text' => tra('Left'), 'value' => 'left'],
+					['text' => tra('Right'), 'value' => 'right']
+				],
+            ],
+			'clear' => [
+				'required' => false,
+				'safe' => true,
+				'name' => tra('Clear'),
+				'description' => tr(
+					'Text, etc. is not allowed to wrap around the box if this parameter is set to %0 (Yes)',
+					'<code>1</code>'
+				),
+				'since' => '1',
+				'filter' => 'digits',
+				'default' => '',
+				'options' => [
+					['text' => '', 'value' => ''],
+					['text' => tra('Yes'), 'value' => 1],
+					['text' => tra('No'), 'value' => 0]
+				],
+			],
         ],
     ];
 }
@@ -108,7 +146,7 @@ function wikiplugin_gdgraph($data, $params)
 {
     // check required param
     if (! isset($params['type']) || ($params['type'] !== 'barvert' && $params['type'] !== 'barhoriz')) {
-        return ("<span class='error'>missing or wrong graph type parameter - ony barvert and barhoriz available at present</span>");
+        return ("<span class='error'>missing or wrong graph type parameter - only barvert and barhoriz available at present</span>");
     }
 
     // set default params
@@ -118,6 +156,11 @@ function wikiplugin_gdgraph($data, $params)
         $default["$key"] = $param['default'];
     }
     $params = array_merge($default, $params);
+	
+	// check axestext values
+    if (($params['axestext'] !== 'Normal-Text' && $params['axestext'] !== 'Large-Text')) {
+        return ("<span class='error'>wrong axestext parameter - only Normal-Text or Large-Text are allowed</span>");
+    }	
 
     // parse the body content to allow data to be generated from other plugins and strip tags
     $data = TikiLib::lib('parser')->parse_data($data, ['noparseplugins' => false, 'suppress_icons' => true]);
@@ -174,12 +217,33 @@ function wikiplugin_gdgraph($data, $params)
         'title' => $params['title'],
         'height' => $params['height'],
         'width' => $params['width'],
+		'axestext' => $params['axestext'],
         'usexydata' => json_encode($xydata),
     ];
-
-    $ret = '<div class="wp-gdgraph">' .
+	
+	if ( isset($params['float']) && $params['float'] != "none" ) {
+		$f = ' float: ' . $params['float'] . '; ';
+	} else {
+		$f = '';
+	}
+	
+	if ( isset($params['clear']) && $params['clear'] != 0) {
+		$c = " clear: both;";
+	} else {
+		$c = "";
+	}
+	
+	if ($params('float') == 'none') {
+   		$ret = '<div class="wp-gdgraph ' . $params['class'] . '" id="' . $params['divid'] . 
+		'" style="width: ' . $params['width'] . 'px; margin-left: 10px; margin-right: 10px; ' . $c . ' " >' .
         '<img src="tiki-gdgraph.php?' . http_build_query($imgparams, '', '&amp;') . '" alt="' . $params['alttag'] . '">' .
         '</div>';
+	} else {
+		$ret = '<div class="wp-gdgraph ' . $params['class'] . '" id="' . $params['divid'] . 
+		'" style="width: ' . $params['width'] . 'px; margin-left: 10px; margin-right: 10px; ' . $f . $c . ' " >' .
+        '<img src="tiki-gdgraph.php?' . http_build_query($imgparams, '', '&amp;') . '" alt="' . $params['alttag'] . '">' .
+        '</div>';
+	}
 
     return $ret;
 }
