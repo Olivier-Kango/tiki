@@ -3408,8 +3408,12 @@ class ParserLib extends TikiDb_Bridge
     */
     public function add_translationof_relation($data, $arguments, $page_being_parsed)
     {
-        $relationlib = TikiLib::lib('relation');
+        // since this is not a required parameter, leaving that empty means we cannot create a relation
+        if (empty($arguments['translation_page'])) {
+            return;
+        }
 
+        $relationlib = TikiLib::lib('relation');
         $relationlib->add_relation('tiki.wiki.translationof', 'wiki page', $page_being_parsed, 'wiki page', $arguments['translation_page']);
     }
 
