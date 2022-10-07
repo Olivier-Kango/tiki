@@ -302,15 +302,18 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 
     public function renderInput($context = [])
     {
-        $trackerPerms = Perms::get('tracker', $this->getOption('trackerId'));
+        $trackerId = $this->getOption('trackerId');
+        $trackerPerms = Perms::get('tracker', $trackerId);
 
         if ($this->useSelector()) {
             $value = $this->getValue();
-            $placeholder = tr(TikiLib::lib('object')->get_title('tracker', $this->getOption('trackerId')));
+            $placeholder = tr(TikiLib::lib('object')->get_title('tracker', $trackerId));
             $status = implode(' OR ', str_split($this->getOption('status', 'opc'), 1));
             $value = $value ? "trackeritem:$value" : null;
 
             $format = $this->formatForObjectSelector();
+
+            $sort = TikiLib::lib('trk')->get_default_sort_order($trackerId, true, true);
 
             $template = $this->renderTemplate('trackerinput/itemlink_selector.tpl', $context, [
                 'placeholder' => $placeholder,
@@ -319,6 +322,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
                 'selector_id' => 'item' . $this->getItemId() . $this->getInsertId(),
                 'format' => $format,
                 'createTrackerItems' => $trackerPerms->create_tracker_items,
+                'sort' => $sort,
             ]);
 
             return $template;
@@ -402,7 +406,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 
         if ($data['displayFieldsListType'] === 'table') {
             $data['trackerListOptions'] = [
-                'trackerId' => $this->getOption('trackerId'),
+                'trackerId' => $trackerId,
                 'fields' => implode(':', $this->getOption('displayFieldsList')),
                 'editableall' => 'y',
                 'showlinks' => 'y',
@@ -416,7 +420,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
                 'url' => $servicelib->getUrl([
                     'controller' => 'tracker',
                     'action' => 'update_item',
-                    'trackerId' => $this->getOption('trackerId'),
+                    'trackerId' => $trackerId,
                     'itemId' => '#itemId',
                 ])
             ];
@@ -441,7 +445,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
         }
 
         if ($this->getOption('fieldId') && $this->getOption('addItems')) {
-            $definition = Tracker_Definition::get($this->getOption('trackerId'));
+            $definition = Tracker_Definition::get($trackerId);
             $fieldArray = $definition->getField($this->getOption('fieldId'));
             $data['otherFieldPermName'] = $this->getFieldReference($fieldArray);
         }
