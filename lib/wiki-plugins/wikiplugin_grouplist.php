@@ -23,6 +23,19 @@ function wikiplugin_grouplist_info()
                 'since' => '5.0',
                 'filter' => 'groupname',
             ],
+            'description' => [
+                'required' => false,
+                'name' => tra('Group Description'),
+                'description' => tra('Display the text description provided for the Group.'),
+                'since' => '24.1',
+                'default' => 'n',
+                'filter' => 'alpha',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                    ['text' => tra('No'), 'value' => 'n']
+                ]
+            ],
             'linkhome' => [
                 'required' => false,
                 'name' => tra('Group Homepage'),

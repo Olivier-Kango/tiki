@@ -8,11 +8,7 @@
         {if $params.linkhome eq 'y' && !empty($group.groupHome)}
             <a href="{$group.groupHome|sefurl:wiki}">
             {assign var=link value='y'}
-        {/if}
-        {$group.groupName|escape}
-        {if !empty($link)}
-            </a>
-        {/if}
+        {/if}{$group.groupName|escape}{if !empty($link)}</a>{/if}{if $params.description eq 'y'} - {$group.groupDesc}{/if}
         </li>
     {/foreach}
     </ul>
