@@ -55,6 +55,7 @@
         color: var(--tiki-top-light-link-color);
         &:hover {
             color: var(--tiki-top-light-link-hover-color);
+            background: var(--tiki-top-light-link-hover-bg);
         }
     }
     border: var(--tiki-top-light-border);
@@ -76,6 +77,7 @@
         color: var(--tiki-topbar-light-link-color);
         &:hover {
             color: var(--tiki-topbar-light-link-hover-color);
+            background: var(--tiki-topbar-light-link-hover-bg);
         }
     }
     border: var(--tiki-topbar-light-border);
@@ -97,6 +99,7 @@
         color: var(--tiki-top-dark-link-color);
         &:hover {
             color: var(--tiki-top-dark-link-hover-color);
+            background: var(--tiki-top-dark-link-hover-bg);
         }
     }
     border: var(--tiki-top-dark-border);
@@ -118,6 +121,7 @@
         color: var(--tiki-topbar-dark-link-color);
         &:hover {
             color: var(--tiki-topbar-dark-link-hover-color);
+            background: var(--tiki-topbar-dark-link-hover-bg);
         }
     }
     border: var(--tiki-topbar-dark-border);
@@ -128,7 +132,7 @@
 // Borders and box-shadows -- most themes
 
 // Apply background: transparent to children of uppermost parent to prevent nested gradients
-.layout_basic {
+.tiki.layout_basic {
     .page-header .top_modules,
     .page-header .top_modules .navbar,
     .topbar_modules .navbar {
@@ -139,7 +143,7 @@
     }
 }
 
-.layout_classic {
+.tiki.layout_classic {
     .top_modules .navbar,
     .topbar,
     .topbar_modules,
@@ -151,10 +155,10 @@
     }
 }
 
-.layout_social {
+.tiki.layout_social {
     header .top_modules,
     header .top_modules .navbar,
-    .topbar,
+    .topbar-wrapper .topbar,
     .topbar .navbar {
         background: transparent !important;
         --bs-bg-opacity: 0 !important;
