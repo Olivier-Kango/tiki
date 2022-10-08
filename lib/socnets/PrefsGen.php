@@ -39,7 +39,8 @@ class PrefsGen
 
     public static function getSocBaseUrl()
     {
-        return Util::getBaseUrl() . self::$socBaseSuffix;
+        global $base_url;
+        return $base_url . self::$socBaseSuffix;
     }
 
     //just add provider name for the login and/or callback/redirect_uri
@@ -56,12 +57,14 @@ class PrefsGen
 
     public static function getSocLoginUrl($providerName)
     {
-        return Util::getBaseUrl() . self::$socLoginSuffix . $providerName;
+        global $base_url;
+        return $base_url . self::$socLoginSuffix . $providerName;
     }
 
     public static function getSocLoginBaseUrl()
     {
-        return Util::getBaseUrl() . self::$socLoginSuffix;
+        global $base_url;
+        return  $base_url . self::$socLoginSuffix;
     }
 
 
