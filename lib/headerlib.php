@@ -621,7 +621,7 @@ class HeaderLib
             // at the end we could get rid of this pref though
 
             $ranks = ['30dependency', '40external', '50standard'];
-             $entry = $this->minifyJSFiles($jsfiles, $ranks);
+            $entry = $this->minifyJSFiles($jsfiles, $ranks);
             $output[] .= '<script type="text/javascript" src="' . smarty_modifier_escape($entry) . '"></script>';
 
             $minifyLateActive = isset($prefs['tiki_minify_late_js_files']) && $prefs['tiki_minify_late_js_files'] == 'y' ? true : false;
@@ -1037,6 +1037,16 @@ class HeaderLib
 
         $back = '';
 
+        // remove any remote css files
+        $external = [];
+        foreach ($files as $index => $file) {
+            $parsed = parse_url($file);
+            if (! empty($parsed['host'])) {
+                $external[] = $file;
+                unset($files[$index]);
+            }
+        }
+
         if ($prefs['tiki_minify_css'] == 'y' && ! empty($files)) {
             if ($prefs['tiki_minify_css_single_file'] == 'y') {
                 $files = $this->get_minified_css_single($files);
@@ -1044,6 +1054,9 @@ class HeaderLib
                 $files = $this->get_minified_css($files);
             }
         }
+
+        // add back remotes
+        $files = array_merge($files, $external);
 
         foreach ($files as $file) {
             $file = $this->convert_cdn($file);
