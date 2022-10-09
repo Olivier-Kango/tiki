@@ -44,16 +44,20 @@ class WikiParser_Parsable extends ParserLib
             return null;
         }
 
+        $return = [];
+
         $matches = WikiParser_PluginMatcher::match($data);
         $argumentParser = new WikiParser_PluginArgumentParser();
         if (empty($data)) {
             $this->option['is_markdown'] = $prefs['markdown_default'] === 'markdown';
+            $return['syntax'] = $prefs['markdown_default'];
+            $this->option['_wysiwyg'] = $prefs['wysiwyg_default'];
+            $return['editor'] = $prefs['wysiwyg_default'] === 'y' ? 'wysiwyg' : 'plain';
         } else {
             $this->option['is_markdown'] = false;
         }
 
         $found = false;
-        $return = [];
 
         foreach ($matches as $match) {
             if ($match->getName() != 'syntax') {

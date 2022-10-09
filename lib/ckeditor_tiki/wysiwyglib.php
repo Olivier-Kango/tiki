@@ -306,7 +306,7 @@ tikiToastEditor($jsonOptions);
             //'da' => 'da',         // Danish
             'de' => 'de-DE',        // Germany - German
             //'en-uk' => 'en-GB',   // United Kingdom - English
-            'en' => 'en-US',        // United States - English
+            'en' => '',        // United States - English
             'es' => 'es-ES',        // Spain - Spanish
             //'el' => 'el',         // Greek
             //'fa' => 'fa',         // Farsi
