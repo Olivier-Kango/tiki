@@ -8,7 +8,7 @@
 
 {if $show_system_configuration_warning}
     {remarksbox type="warning" title="{tr}Warning{/tr}"}
-    {tr _0="<strong>.ini</strong>" _1="<strong>.ini.php</strong>" _2='<strong><a href="https://doc.tiki.org/System-Configuration">https://doc.tiki.org/System-Configuration</a></strong>'}Tiki detected system configuration files with %0 extension, under the root folder of Tiki. It is recommended to change it to %1.{/tr}{tr}Check %2 for examples.{/tr}
+    {tr _0="<strong>.ini</strong>" _1="<strong>.ini.php</strong>" _2='<strong><a href="https://doc.tiki.org/System-Configuration">https://doc.tiki.org/System-Configuration</a></strong>'}Tiki detected system configuration files with %0 extension, under the root folder of Tiki. It is recommended to change it to %1. Check %2 for examples.{/tr}
     {/remarksbox}
 {/if}
 
