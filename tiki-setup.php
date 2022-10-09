@@ -585,9 +585,6 @@ if ($prefs['jquery_fitvidjs'] == 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/fitvidjs/jquery.fitvids.js')
                 ->add_jq_onready('$("article").fitVids(' . $customSelectors . ');'); // apply fitvid to any video in the middle section
 }
-if ($prefs['feature_jquery_tooltips'] === 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/superfish/dist/js/hoverIntent.js');
-}
 if ($prefs['jquery_smartmenus_enable'] == 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/drmonty/smartmenus/js/jquery.smartmenus.js');
     // $headerlib->add_jsfile('vendor_bundled/vendor/drmonty/smartmenus/js/jquery.smartmenus.bootstrap-4.js');
