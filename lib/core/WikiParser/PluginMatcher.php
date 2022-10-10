@@ -111,7 +111,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 
             $match = new WikiParser_PluginMatcher_Match($this, $pos);
             ++$pos;
-
+        
             if (! $match->findName($end)) {
                 continue;
             }
@@ -129,14 +129,16 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 
                 $bodyStart = $match->getBodyStart();
                 $lookupStart = $bodyStart;
-
+                
                 while ($match->findEnd($lookupStart, $end)) {
                     $candidate = $match->getEnd();
+                    
                     $sub = $this->getSubMatcher($bodyStart, $candidate - 1);
-
                     if ($sub->isComplete()) {
+                        if ($match->getName() != 'code') {
+                            $this->appendSubMatcher($sub);
+                        }
                         $this->recordMatch($match);
-                        $this->appendSubMatcher($sub);
                         $pos = $match->getEnd();
                         --$this->leftOpen;
                         if (empty($this->level)) {

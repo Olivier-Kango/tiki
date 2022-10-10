@@ -415,6 +415,31 @@ CONTENT;
 
         $this->assertEquals($expect, $matches->getText());
     }
+
+    public function testPluginInsidePluginCode()
+    {
+        $string = '{CODE()}{CODE(colors="php")}Hello World{CODE}{CODE}';
+
+        $matches = WikiParser_PluginMatcher::match($string);
+
+        $this->assertCount(1, $matches);
+
+        $orig = $this->toArray($matches);
+
+        $this->assertEquals('{CODE(colors="php")}Hello World{CODE}', $orig[0]->getBody());
+    }
+
+    public function testPluginInsideAndText()
+    {
+        $string = '{CODE()}{CODE(colors="php")}Hello World{CODE} is a sample code.{CODE}';
+
+        $matches = WikiParser_PluginMatcher::match($string);
+        $this->assertCount(1, $matches);
+
+        $orig = $this->toArray($matches);
+
+        $this->assertEquals('{CODE(colors="php")}Hello World{CODE} is a sample code.', $orig[0]->getBody());
+    }
 /*
     // TODO : Replacement re-find existing
     // TODO : Replacement original vs generated
