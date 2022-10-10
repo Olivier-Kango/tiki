@@ -3491,18 +3491,19 @@ class UsersLib extends TikiLib
         }
         if (! $lastRes) {
             $groups = $this->get_user_groups($user);
-            $query = 'select `groupName`, `usersTrackerId`, `usersFieldId`' .
-                            ' from `users_groups`' .
-                            ' where `groupName` in ( ' . implode(' , ', array_fill(0, count($groups), '?')) .
-                            ' ) and `groupName` != ? and `usersTrackerId` > 0';
 
-            $groups[] = 'Anonymous';
-            $result = $this->query($query, $groups);
-
-            while ($res = $result->fetchRow()) {
-                $lastRes = $res;
-                if ($res['groupName'] != 'Registered') {
-                    return  $res ;
+            if ($groups) {
+                $query = 'select `groupName`, `usersTrackerId`, `usersFieldId`' .
+                    ' from `users_groups`' .
+                    ' where `groupName` in ( ' . implode(' , ', array_fill(0, count($groups), '?')) .
+                    ' ) and `groupName` != ? and `usersTrackerId` > 0';
+                $groups[] = 'Anonymous';
+                $result = $this->query($query, $groups);
+                while ($res = $result->fetchRow()) {
+                    $lastRes = $res;
+                    if ($res['groupName'] != 'Registered') {
+                        return $res;
+                    }
                 }
             }
         }
