@@ -1886,7 +1886,9 @@ class TikiLib extends TikiDb_Bridge
                     $ret = array_merge($ret, $userlib->get_included_groups($res));
                 }
             }
-            $ret[] = "Registered";
+            if ($ret) { // only in Registereed if the user exists
+                $ret[] = "Registered";
+            }
 
             if (isset($_SESSION["groups_are_emulated"]) && $_SESSION["groups_are_emulated"] == "y") {
                 if (in_array('Admins', $ret)) {
@@ -1899,7 +1901,9 @@ class TikiLib extends TikiDb_Bridge
                 }
             }
             $ret = array_values(array_unique($ret));
-            $this->usergroups_cache[$cachekey] = $ret;
+            if ($ret) {
+                $this->usergroups_cache[$cachekey] = $ret;
+            }
             return $ret;
         } else {
             return $this->usergroups_cache[$cachekey];
