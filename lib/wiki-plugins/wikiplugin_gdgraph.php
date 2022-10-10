@@ -233,17 +233,10 @@ function wikiplugin_gdgraph($data, $params)
 		$c = "";
 	}
 	
-	if ($params('float') == 'none') {
-   		$ret = '<div class="wp-gdgraph ' . $params['class'] . '" id="' . $params['divid'] . 
-		'" style="width: ' . $params['width'] . 'px; margin-left: 10px; margin-right: 10px; ' . $c . ' " >' .
-        '<img src="tiki-gdgraph.php?' . http_build_query($imgparams, '', '&amp;') . '" alt="' . $params['alttag'] . '">' .
-        '</div>';
-	} else {
-		$ret = '<div class="wp-gdgraph ' . $params['class'] . '" id="' . $params['divid'] . 
-		'" style="width: ' . $params['width'] . 'px; margin-left: 10px; margin-right: 10px; ' . $f . $c . ' " >' .
-        '<img src="tiki-gdgraph.php?' . http_build_query($imgparams, '', '&amp;') . '" alt="' . $params['alttag'] . '">' .
-        '</div>';
-	}
+    $ret = '<div class="wp-gdgraph ' . $params['class'] . '" id="' . $params['divid'] .
+           '" style="width: ' . $params['width'] . 'px; margin-left: 10px; margin-right: 10px; ' . $f . $c . ' " >' .
+           '<img src="tiki-gdgraph.php?' . http_build_query($imgparams, '', '&amp;') . '" alt="' . $params['alttag'] . '">' .
+           '</div>';
 
     return $ret;
 }
