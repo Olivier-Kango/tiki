@@ -36,7 +36,11 @@ class Search_Manticore_FacetDecorator extends Search_Manticore_Decorator
             } else {
                 $count = $facet->getCount() ?: $this->count;
                 // TODO: facet ordering is supported only in SQL
-                $this->search->facet($this->getNodeField($facet), $facet->getName(), $this->count);
+                try {
+                    $this->search->facet($this->getNodeField($facet), $facet->getName(), $this->count);
+                } catch (Search_Manticore_Exception $e) {
+                    // ignore fields not found in the index
+                }
             }
         }
     }
