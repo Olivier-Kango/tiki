@@ -33,13 +33,13 @@
                 <label class="col-form-label col-sm-3">
                     {tr}Tiki Version{/tr}
                     <a class="tikihelp text-info"
-                        title="{tr}Description:{/tr} {tr}The version you want to upgrade to. Please note that you should NOT downgrade as Tiki doesn't support a downgrade database script. An upgrade is a one-way street! You should make a backup before you upgrade so you can return to this version if issues arise.{/tr}">
+                        title="{tr}Description:{/tr} {tr}The version you want to upgrade to. You should make a backup before you upgrade so you can return to this version if issues arise.{/tr}">
                         {icon name=information}
                     </a>
                 </label>
                 <div class="col-sm-9">
                     <select class="form-control" id="branch" name="branch" required>
-                        <option value="" disabled selected hidden>Choose the version you want to upgrade to</option>
+                        <option value="" disabled selected hidden>{tr}Choose the version you want to upgrade to{/tr}</option>
                         {foreach item=branch from=$branches}
                             <option value="{$branch|escape}">{$branch|escape}</option>
                         {/foreach}
@@ -150,3 +150,41 @@
         </form>
     {/if}
 {/block}
+
+{jq}
+    $('#instances').change(function () {
+        var instancesIds = $('#instances').val();
+        if(instancesIds.length > 0) {
+       		$.ajax("tiki-ajax_services.php", {
+                type: "GET",
+                dataType: 'json',
+                data: {
+                    controller: 'manager',
+                    action: 'get_instances_upper_versions',
+                    instancesIds
+                },
+                success: function (data) {
+                    var upperVersions = Object.values(data.upperVersions);
+
+                    $("#branch").empty();
+                    if(upperVersions.length > 0) {
+                        $("#branch").append('<option  value="" disabled selected hidden>' + tr("Choose the version you want to upgrade to") + '</option>');
+                        upperVersions.forEach((version) => {
+                            $("#branch").append(`<option value="${version}">${version}</option>`);
+                        });
+                    }
+                },
+                error: function () {
+                    feedback(
+                        tr('An error occured while loading Tiki upgrade versions. Please try again and contact the site admin if the error persists.'), 
+                        "error",
+                        false,
+                        tr("Loading Tiki upgrade versions failed")
+                    );
+                }
+            });
+        } else {
+            $("#branch").empty();
+        }
+    });
+{/jq}

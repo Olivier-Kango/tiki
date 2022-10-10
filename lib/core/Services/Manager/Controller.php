@@ -124,13 +124,17 @@ class Services_Manager_Controller
                 $boolOptions = '<option value="" disabled selected hidden></option>'
                                . '<option value="1">True</option>'
                                . '<option value="0">False</option>';
-
+                
+                $instancesIds = new JitFilter(['instancesIds' => [$instanceId]]);
+                $versions = $this->action_get_instances_upper_versions($instancesIds);
+                $upperVersions = $versions['upperVersions'];
+                
                 return [
                     'title' => tr('Instances Upgrade'),
                     'info' => '',
                     'instances' => TikiManager\Application\Instance::getInstances(true),
                     'selectedInstanceId' => $instanceId,
-                    'branches' => $this->getTikiBranches(),
+                    'branches' => $upperVersions,
                     'boolOptions' => $boolOptions,
                     'help' => $this->getCommandHelpTexts($cmd)
                 ];
@@ -143,6 +147,52 @@ class Services_Manager_Controller
                 ];
             }
         }
+    }
+
+    // This function allows to get upgrade versions of selected instances for the instance:upgrade commande to prevent a downgrade(not suported by Tiki)
+    public function action_get_instances_upper_versions($input) { 
+        $instancesIds = $input->instancesIds->array();
+        $availableInstances = TikiManager\Application\Instance::getInstances(true);
+        $instances = array_filter($availableInstances, function($i) use ($instancesIds) {
+            return in_array($i->id, $instancesIds);
+        });
+
+        $instancesMaxVersion = max(array_map(function($i) {
+            return $i->branch;
+        }, $instances));
+
+        $tikiVersions = array_filter($this->getTikiBranches(), function($i) { // Excluding tags from tiki versions
+            return ! preg_match("#^tags(.*)$#i", $i);
+        });
+        
+        $instancesUpperVersions = array_filter($tikiVersions, function($i) use ($instancesMaxVersion) {
+            if ($i == 'master' || $instancesMaxVersion == 'master') {
+                return $i > $instancesMaxVersion;
+            } else {
+                // In this scope v1 = $i and v2 = $instancesMaxVersion
+                $v1_gt_v2 = false; // gt = greater than
+                $v1Array = explode('.', $i);
+                $v2Array = explode('.', $instancesMaxVersion);
+                $v1MajorVersion = (int) $v1Array[0];
+                $v1MinorVersion = $v1Array[1];  // This can be an integer or 'x'. Don't cast here (cause casting a string into integer return 0) as we'll compare minor versions differently to majors.
+                $v2MajorVersion = (int) $v2Array[0];
+                $v2MinorVersion = $v2Array[1];
+
+                if($v1MajorVersion > $v2MajorVersion) {
+                    $v1_gt_v2 = true;
+                } elseif($v1MajorVersion == $v2MajorVersion) {
+                    if($v1MinorVersion == 'x' && $v2MinorVersion != 'x') {
+                        $v1_gt_v2 = true;
+                    } elseif ($v1MinorVersion != 'x' && $v2MinorVersion != 'x') {
+                        $v1_gt_v2 = (int) $v1MinorVersion > (int) $v2MinorVersion;
+                    }
+                }
+
+                return $v1_gt_v2 == true;
+            }
+        });
+
+        return ['upperVersions' => $instancesUpperVersions];
     }
 
     public function action_fix($input)
