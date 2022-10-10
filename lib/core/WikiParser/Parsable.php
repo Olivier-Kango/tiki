@@ -41,10 +41,10 @@ class WikiParser_Parsable extends ParserLib
         global $prefs;
 
         if ($prefs['markdown_enabled'] !== 'y') {
-            return null;
+            return ['syntax' => 'tiki'];
         }
 
-        $return = [];
+        $return = ['syntax' => 'tiki'];
 
         $matches = WikiParser_PluginMatcher::match($data);
         $argumentParser = new WikiParser_PluginArgumentParser();
