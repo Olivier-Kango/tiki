@@ -47,6 +47,9 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         $this->matches = [];
         $this->must_nots = [];
         $q = $expr->traverse($this);
+        if (! $q) {
+            $q = new Query\BoolQuery();
+        }
         foreach ($this->matches as $method => $subqs) {
             foreach ($subqs as $subq) {
                 $q->$method($subq);
@@ -95,25 +98,35 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             } else {
                 $method = 'must';
             }
-            $q = new Query\BoolQuery();
-            $isEmpty = true;
+            $matches = $others = [];
             foreach ($childNodes as $child) {
                 $subq = $child->traverse($callback);
                 if ($subq) {
                     if ($subq instanceof Query\MatchQuery || $subq instanceof Query\MatchPhrase) {
-                        $this->matches[$method][] = $subq;
+                        $matches[] = $subq;
                     } elseif ($node instanceof NotX) {
                         $this->must_nots[] = $subq;
                     } else {
-                        $q->$method($subq);
-                        $isEmpty = false;
+                        $others[] = $subq;
                     }
                 }
             }
-            if ($isEmpty) {
+            if ($matches) {
+                foreach ($others as $subq) {
+                    $matches[] = $subq;
+                }
+                foreach ($matches as $subq) {
+                    $this->matches[$method][] = $subq;
+                }
                 return null;
-            } else {
+            } elseif ($others) {
+                $q = new Query\BoolQuery();
+                foreach ($others as $subq) {
+                    $q->$method($subq);
+                }
                 return $q;
+            } else {
+                return null;
             }
         } elseif ($node instanceof Initial) {
             return new Query\Equals('REGEX(' . $this->getNodeField($node) . ', "^' . $this->getTerm($node) . '")', 1);
