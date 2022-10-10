@@ -188,7 +188,10 @@ $md5 = $wrapper->getChecksum();
 $last_modified = $file->lastModif;
 
 // local files can be read and served in chunks
-if ($wrapper->isFileLocal()) {
+if ($zip) {
+    $filepath = '';
+    $content = $info['data'];
+} elseif ($wrapper->isFileLocal()) {
     $filepath = $wrapper->getReadableFile();
     $content = '';
 } else {
