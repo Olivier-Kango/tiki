@@ -23,12 +23,15 @@ class Tiki_Render_Lazy
                 $this->data = call_user_func($this->callback);
             } catch (Exception $e ) {
                 TikiLib::lib('errortracking')->captureException($e);
+                trigger_error($e->getMessage());
                 $this->data = $e->getMessage();
             } catch (Error $e) {
                 TikiLib::lib('errortracking')->captureException($e);
+                trigger_error($e->getMessage());
                 $this->data = $e->getMessage();
             } catch (Throwable $e) {
                 TikiLib::lib('errortracking')->captureException($e);
+                trigger_error($e->getMessage());
                 $this->data = $e->getMessage();
             }
             $this->callback = null;
