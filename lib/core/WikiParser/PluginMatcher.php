@@ -135,10 +135,10 @@ class WikiParser_PluginMatcher implements Iterator, Countable
                     
                     $sub = $this->getSubMatcher($bodyStart, $candidate - 1);
                     if ($sub->isComplete()) {
+                        $this->recordMatch($match);
                         if ($match->getName() != 'code') {
                             $this->appendSubMatcher($sub);
                         }
-                        $this->recordMatch($match);
                         $pos = $match->getEnd();
                         --$this->leftOpen;
                         if (empty($this->level)) {
