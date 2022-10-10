@@ -51,7 +51,7 @@ if (! empty($_REQUEST['remove'])) {
     $access->check_authenticity(($removeInfo['archiveId'] ? tra('Remove archive: ') : tra('Remove file gallery: ')) . (! empty($removeInfo['name']) ? $removeInfo['name'] . ' - ' : '') . $removeInfo['filename']);
     $filegallib->remove_file($removeInfo, $gal_info);
 }
-if (isset($_REQUEST['delsel_x']) && ! empty($_REQUEST['file'])) {
+if ($_REQUEST['fgal_actions'] === 'delsel_x' && ! empty($_REQUEST['file'])) {
     check_ticket('list-archives');
     foreach (array_values($_REQUEST['file']) as $fileId) {
         if (! ($removeInfo = $filegallib->get_file_info($fileId))) {
