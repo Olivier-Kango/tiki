@@ -1180,6 +1180,7 @@ class FileGalLib extends TikiLib
         $info['data'] = file_get_contents($zip);
         $info['path'] = '';
         $info['filetype'] = 'application/x-zip-compressed';
+        $info['filesize'] = strlen($info['data']);
         foreach ($list as $tmp) {
             unlink($tmp);
         }
