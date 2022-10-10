@@ -1147,13 +1147,22 @@ class FileGalLib extends TikiLib
         }
         $fileIds = array_unique($fileIds);
         Perms::bulk(['type' => 'file'], 'object', $fileIds);
+        $filenames = [];
+        $padding = strlen(count($fileIds)) - 1;
         foreach ($fileIds as $fileId) {
             $file = TikiFile::id($fileId);
             if ($tiki_p_admin_file_galleries == 'y' || $userlib->user_has_perm_on_object($user, $file->fileId, 'file', 'tiki_p_download_files')) {
                 if (empty($zipName)) {
                     $zipName = $file->galleryId;
                 }
-                $tmp = $temp . $file->filename;
+                $filename = $file->filename;
+                $counter = 1;
+                while (in_array($filename, $filenames)) {
+                    $filename = $file->filename . '_' . str_pad($counter, $padding, '0', STR_PAD_LEFT);
+                    $counter++;
+                }
+                $filenames[] = $filename;
+                $tmp = $temp . $filename;
                 if (! copy($file->getWrapper()->getReadableFile(), $tmp)) {
                     $error = "Can not copy to $tmp";
                     return false;

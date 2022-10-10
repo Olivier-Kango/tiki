@@ -62,7 +62,8 @@ if (! $skip) {
     } elseif (isset($_REQUEST['galleryId']) && isset($_REQUEST['name'])) {
         $info = $filegallib->get_file_by_name($_REQUEST['galleryId'], $_REQUEST['name']);
     } elseif (isset($_REQUEST['fileId']) && is_array($_REQUEST['fileId'])) {
-        $info = $filegallib->zip($_REQUEST['fileId'], $error);
+        $zipName = $_REQUEST['zipName'] ?? '';
+        $info = $filegallib->zip($_REQUEST['fileId'], $error, $zipName);
         $zip = true;
     } elseif (! empty($_REQUEST['randomGalleryId'])) {
         $info = $filegallib->get_file(0, $_REQUEST['randomGalleryId']);
