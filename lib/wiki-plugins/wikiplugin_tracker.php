@@ -2002,7 +2002,7 @@ function wikiplugin_tracker($data, $params)
             }
         }
 
-        if (! empty($itemId)) {
+        if (! empty($itemId) || ! empty($transactionName)) {
             $item = ['itemId' => $itemId, 'trackerId' => $trackerId];
 
             foreach ($flds['data'] as $i => $f) { // collect additional infos
