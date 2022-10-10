@@ -643,8 +643,8 @@ class WikiLib extends TikiLib
         $includes = $parserlib->find_plugins($data, 'include');
 
         foreach ($includes as $include) {
-            $page = $include['arguments']['page'];
-            if (isset($page)) {
+            $page = $include['arguments']['page'] ?? null;
+            if (! empty($page)) {
                 $relationlib->add_relation('tiki.wiki.include', $objectType, $itemId, 'wiki page', $page);
             }
         }
