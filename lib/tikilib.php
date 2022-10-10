@@ -5357,7 +5357,7 @@ class TikiLib extends TikiDb_Bridge
                 $parsedOldPage = $oldPagePlugins->getText();
                 $parsedNewPage = $editedPagePlugins->getText();
 
-                TikiLib::lib('smarty')->assign('has_md5_content_diagrams', $replacedOldPagePlugins || $replacedUpdatedPagePlugins);
+                TikiLib::lib('smarty')->assign('has_md5_content_diagrams', $replacedOldPagePlugins || $replacedEditedPagePlugins);
 
                 $diff = diff2($parsedOldPage, $parsedNewPage, "unidiff"); // TODO: Only compute if we have at least one notification to send
                 sendWikiEmailNotification('wiki_page_changed', $pageName, $edit_user, $edit_comment, $old_version, $edit_data, $machine, $diff, $edit_minor, $hash['contributions'], 0, 0, $lang);
