@@ -157,7 +157,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 
     public function renderInput($context = [])
     {
-        static $firstTime = true;
+        global $prefs;
 
         $cols = $this->getOption('width');
         $rows = $this->getOption('height');
@@ -175,9 +175,8 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
             $data['keyup'] = "charCount({$this->getOption('max')}, this, 'cpt_{$this->getConfiguration('fieldId')}', '" . addcslashes(tr('Character Limit Exceeded'), "'") . "')";
         }
         $data['element_id'] = 'area_' . uniqid();
-        if ($firstTime && $this->getOption('wysiwyg') === 'y') {    // wysiwyg
-            $is_html = '<input type="hidden" id="allowhtml" value="1" />';
-            $firstTime = false;
+        if ($this->getOption('wysiwyg') === 'y') {    // wysiwyg
+            $is_html = '<input type="hidden" name="allowhtml" value="' .  ($prefs['wysiwyg_htmltowiki'] == 'n' ? '1' : '0') . '">';
         } else {
             $is_html = '';
         }
