@@ -3147,6 +3147,40 @@ if ($standalone && ! $nagios) {
         'MCrypt' => $criptLib->getUserCryptDataStats('mcrypt'),
     ));
 
+    $ws_conn = @fsockopen('localhost', '8080');
+    if (is_resource($ws_conn)) {
+        $ws_listening = true;
+        fclose($ws_conn);
+    } else {
+        $ws_listening = false;
+    }
+    $realtime = [
+        'feature_enabled' => [
+            'requirement' => 'Feature enabled',
+            'status' => $prefs['feature_realtime'] === 'y' ? 'good' : 'bad',
+            'message' => $prefs['feature_realtime'] === 'y' ? 'Feature is enabled.' : 'Feature is disabled in Tiki admin.',
+        ],
+        'port_listening' => [
+            'requirement' => 'Server listening',
+            'status' => $ws_listening ? 'good' : 'unsure',
+            'message' => $ws_listening ? 'Server is listening on local system port 8080.' : 'No server found listening on default port 8080. Server might be running on a different port or not running at all.',
+        ],
+        'connectivity' => [
+            'requirement' => 'Connectivity',
+            'status' => 'js',
+            'message_good' => 'Connection to WS server established successfully.',
+            'message_bad' => 'Could not establish connection to WS server. Check if server is listening and web server proxy configured correctly.',
+        ],
+        'message_exchange' => [
+            'requirement' => 'Message exchange',
+            'status' => 'js',
+            'message_good' => 'Successfully exchanged messages with realtime server.',
+            'message_bad' => 'Could not exchange messages with realtime server. Check if server is running and configured correctly.',
+        ]
+    ];
+    $smarty->assign('realtime', $realtime);
+    $smarty->assign('realtime_url', preg_replace('#http://#', 'ws://', preg_replace('#https://#', 'wss://', $base_url)) . 'ws/');
+
     $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
     $smarty->assign('mid', 'tiki-check.tpl');
     $smarty->display('tiki.tpl');

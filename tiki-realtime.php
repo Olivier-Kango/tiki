@@ -21,6 +21,7 @@ use Ratchet\ConnectionInterface;
 
 use Tiki\Realtime\Chat;
 use Tiki\Realtime\Console;
+use Tiki\Realtime\Ping;
 
 /*
 Install/Deploy/Run:
@@ -52,4 +53,5 @@ echo "Listening on port $port...\n";
 $app = new Ratchet\App('localhost', $port);
 $app->route('/console', new Console(), ['*']);
 $app->route('/chat', new Chat(), ['*']);
+$app->route('ping', new Ping(), ['*']);
 $app->run();

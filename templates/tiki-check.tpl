@@ -760,3 +760,68 @@ td > div {
 {/literal}
 </style>
 </div>
+
+<h2 class="showhide_heading" id="Realtime_Tiki">{tr}Realtime Tiki{/tr}<a href="#Realtime_Tiki" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
+<div class="table-responsive">
+    <table class="table">
+    <thead>
+        <tr>
+            <th>{tr}Requirements{/tr}</th>
+            <th>{tr}Status{/tr}</th>
+            <th>{tr}Message{/tr}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach from=$realtime key=$key item=$item}
+        <tr id="js-{$key}">
+            <th class="text">{tr}{$item.requirement}{/tr}</th>
+            <td data-th="{tr}Status:{/tr}" class="text">
+                {if $item.status eq 'js'}
+                    <span class="text-{$fmap['good']['class']} js-good d-none">
+                        {icon name="{$fmap['good']['icon']}"} good
+                    </span>
+                    <span class="text-{$fmap['bad']['class']} js-bad d-none">
+                        {icon name="{$fmap['bad']['icon']}"} bad
+                    </span>
+                {else}
+                    <span class="text-{$fmap[$item.status]['class']}">
+                        {icon name="{$fmap[$item.status]['icon']}"} {$item.status}
+                    </span>
+                {/if}
+            </td>
+            <td data-th="{tr}Message:{/tr}" data-message-good="{$item.message_good}" data-message-bad="{$item.message_bad}" class="text">&nbsp;{tr}{$item.message}{/tr}</td>
+        </tr>
+        {/foreach}
+    </tbody>
+    </table>
+{jq}
+var ws, ws_status_update = function(req, status) {
+    $('#js-' + req + ' .js-good, #js-' + req + ' .js-bad').addClass('d-none');
+    $('#js-' + req + ' .js-' + status).removeClass('d-none');
+    $('#js-' + req + ' td:last').text($('#js-' + req + ' td:last').data('message-' + status));
+}
+ws_status_update('connectivity', 'bad');
+ws_status_update('message_exchange', 'bad');
+try {
+    ws = new WebSocket("{{$realtime_url}}ping");
+} catch (e) {
+    ws = null;
+}
+if (ws) {
+    ws.onmessage = function(e) {
+        if (e.data.trim() == 'pong') {
+            ws_status_update('message_exchange', 'good');
+        } else {
+            ws_status_update('message_exchange', 'bad');
+        }
+    };
+    ws.onopen = function(e) {
+        ws_status_update('connectivity', 'good');
+        ws.send('ping');
+    };
+    ws.onerror = function(e) {
+        ws_status_update('connectivity', 'bad');
+    };
+}
+{/jq}
+</div>
