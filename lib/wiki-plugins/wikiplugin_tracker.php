@@ -2002,26 +2002,26 @@ function wikiplugin_tracker($data, $params)
             }
         }
 
-        if (! empty($itemId) || ! empty($transactionName)) {
+        if (! empty($itemId)) {
             $item = ['itemId' => $itemId, 'trackerId' => $trackerId];
-
-            foreach ($flds['data'] as $i => $f) { // collect additional infos
-                if (in_array($f['fieldId'], $outf)) {
-                    $flds['data'][$i]['ins_id'] = ($f['type'] == 'e') ? 'ins_' . $f['fieldId'] : $fields_prefix . $f['fieldId'];
-                    if (($f['isHidden'] == 'c' || $f['isHidden'] == 'p' || $f['isHidden'] == 'a') && ! empty($itemId) && ! isset($item['creators'])) {
-                        $item['creators'] = $trklib->get_item_creators($trackerId, $itemId);
-                    }
-
-                    // if we are doing a transaction then pick up values "saved" so far
-                    if (! empty($transactionName) && isset($_SESSION[$transactionName]['values']['ins_' . $f['fieldId']])) {
-                        $item[$f['fieldId']] = $_SESSION[$transactionName]['values']['ins_' . $f['fieldId']];
-                    } else {
-                        $item[$f['fieldId']] = $f['value'];
-                    }
-                }
-            }
         } else {
             $item = ['itemId' => ''];
+        }
+        foreach ($flds['data'] as $i => $f) { // collect additional infos
+            if (in_array($f['fieldId'], $outf)) {
+                $flds['data'][$i]['ins_id'] = ($f['type'] == 'e') ? 'ins_' . $f['fieldId'] : $fields_prefix . $f['fieldId'];
+                if (($f['isHidden'] == 'c' || $f['isHidden'] == 'p' || $f['isHidden'] == 'a') && ! empty($itemId) && ! isset($item['creators'])) {
+                    $item['creators'] = $trklib->get_item_creators($trackerId, $itemId);
+                }
+
+                // if we are doing a transaction then pick up values "saved" so far
+                if (! empty($transactionName) && isset($_SESSION[$transactionName]['values']['ins_' . $f['fieldId']])) {
+                    $item[$f['fieldId']] = $_SESSION[$transactionName]['values']['ins_' . $f['fieldId']];
+                } elseif (! empty($itemId)) {
+                    // don't add an empty string as the default value for new items so the field handlers can work out if there's a value set of not
+                    $item[$f['fieldId']] = $f['value'];
+                }
+            }
         }
         if (! empty($showstatus) && $showstatus == 'y') {
             $status_types = $trklib->status_types();
