@@ -388,7 +388,9 @@ class ParserLib extends TikiDb_Bridge
     // This recursive function handles pre- and no-parse sections and plugins
     public function parse_first(&$data, &$preparsed, &$noparsed, $real_start_diff = '0')
     {
-        return (new WikiParser_Parsable($data))->parse_first($data, $preparsed, $noparsed, $real_start_diff);
+        $parser = new WikiParser_Parsable($data);
+        $parser->setOptions($this->option);
+        return $parser->parse_first($data, $preparsed, $noparsed, $real_start_diff);
     }
 
     protected function strip_unparsed_block(&$data, &$noparsed, $protect = false)
