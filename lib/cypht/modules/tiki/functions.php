@@ -286,8 +286,8 @@ if (! hm_exists('tiki_flag_message')) {
     }
 }
 
-if (! hm_exists('tiki_send_email')) {
-    function tiki_send_email($to, $cc, $subject, $body, $in_reply_to, $file, $profiles, $hmod, $recipient = null)
+if (! hm_exists('tiki_send_email_through_cypht')) {
+    function tiki_send_email_through_cypht($to, $cc, $subject, $body, $in_reply_to, $file, $profiles, $hmod, $recipient = null)
     {
         // retrieve smtp server connected with an existing imap message via profiles
         $smtp_id = 0;

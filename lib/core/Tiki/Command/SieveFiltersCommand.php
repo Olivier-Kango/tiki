@@ -270,7 +270,7 @@ class SieveFiltersCommand extends Command
                                     }
                                 } elseif ($action['action'] == 'redirect') {
                                     // TODO: get IMAP bodystructure, get each part and build a mime msg string to send
-                                    // reuse tiki_send_email and then delete the original message
+                                    // reuse tiki_send_email_through_cypht and then delete the original message
                                     $output->writeln(tr('Redirected msg uid %0 to %1', $msg['uid'], $action['value']));
                                 } elseif ($action['action'] == 'reject') {
                                     $body = "Email rejected by user configuration. Reason: " . $action['value'] . "\n\n";
@@ -281,6 +281,55 @@ class SieveFiltersCommand extends Command
                                 } elseif ($action['action'] == 'autoreply') {
                                     $this->action_reply($imap, $msg, $action['extra_option_value'], $action['value'], $config, $hmod, $output);
                                 }
+                            }
+                        }
+                    }
+
+                    // 4. Move to tracker item if it is a reply to an email sent from a tracker item (TODO: move this as an action above)
+                    $reply_id = $file = null;
+                    $msg_headers = $imap->get_message_headers($msg['uid']);
+                    foreach ($msg_headers as $key => $val) {
+                        if (strtolower($key) == 'in-reply-to') {
+                            $reply_id = $val;
+                        }
+                    }
+                    if ($reply_id) {
+                        $file = TikiLib::lib('filegal')->get_file_by_filename($reply_id);
+                    }
+                    if ($file) {
+                        $trk = TikiLib::lib('trk');
+                        $query = 'SELECT * FROM tiki_tracker_item_fields WHERE value LIKE ?';
+                        $res = $trk->fetchAll($query, ['%sent\":%' . $file['fileId'] . '%']);
+                        if ($res) {
+                            $res = $res[0];
+
+                            $trk = TikiLib::lib('trk');
+                            $item = $trk->get_item_info($res['itemId']);
+                            $field = $trk->get_field_info($res['fieldId']);
+
+                            if ($item && $field) {
+                                $msg_content = $imap->get_message_content($msg['uid'], 0);
+                                $msg_content = str_replace("\r\n", "\n", $msg_content);
+                                $msg_content = str_replace("\n", "\r\n", $msg_content);
+                                $msg_content = rtrim($msg_content) . "\r\n";
+
+                                $field['value'] = [
+                                    'new' => [
+                                        'name' => ! empty($msg_headers['Message-ID']) ? $msg_headers['Message-ID'] : $msg_headers['Subject'],
+                                        'size' => strlen($msg_content),
+                                        'type' => 'message/rfc822',
+                                        'content' => $msg_content
+                                    ],
+                                    'folder' => 'inbox'
+                                ];
+
+                                $trk->replace_item($item['trackerId'], $item['itemId'], [
+                                    'data' => [$field]
+                                ]);
+
+                                $output->writeln(tr("Moved msg uid %0 to tracker %1, field %2, item %3", $msg['uid'], $item['trackerId'], $field['fieldId'], $item['itemId']));
+
+                                $this->action_discard($imap, $msg, $output);
                             }
                         }
                     }
@@ -311,7 +360,7 @@ class SieveFiltersCommand extends Command
             $to = $recip;
         }
 
-        $result = tiki_send_email($to, '', 'Re: ' . $msg['subject'], $body, $in_reply_to, null, $profiles, $hmod, $recip);
+        $result = tiki_send_email_through_cypht($to, '', 'Re: ' . $msg['subject'], $body, $in_reply_to, null, $profiles, $hmod, $recip);
         if ($result) {
             $output->writeln(tr('Rejected msg uid %0 with a reply', $msg['uid']));
         } else {
@@ -351,7 +400,7 @@ class SieveFiltersCommand extends Command
         $recip = get_primary_recipient($profiles, $msg_headers, Hm_SMTP_List::dump(), []);
         $in_reply_to = reply_to_id($msg_headers, 'reply');
 
-        $result = tiki_send_email($recip, '', $subject, $body, $in_reply_to, null, $profiles, $hmod, $recip);
+        $result = tiki_send_email_through_cypht($recip, '', $subject, $body, $in_reply_to, null, $profiles, $hmod, $recip);
         if ($result) {
             $output->writeln(tr('Replied to msg uid %0', $msg['uid']));
         } else {

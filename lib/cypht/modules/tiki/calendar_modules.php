@@ -143,7 +143,7 @@ Invitees: " . implode(",\n", $event['attendees']);
         $profiles = $this->get('compose_profiles', array());
         $recip = get_primary_recipient($profiles, $this->get('msg_headers'), $this->get('smtp_servers', array()));
 
-        $result = tiki_send_email($to, $cc, $subject, $body, $in_reply_to, $file, $profiles, $this, $recip);
+        $result = tiki_send_email_through_cypht($to, $cc, $subject, $body, $in_reply_to, $file, $profiles, $this, $recip);
 
         if (! empty($file['filename'])) {
             @unlink($file['filename']);

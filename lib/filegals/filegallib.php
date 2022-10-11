@@ -2308,6 +2308,14 @@ class FileGalLib extends TikiLib
         return $res;
     }
 
+    public function get_file_by_filename($filename)
+    {
+        $query = "select `fileId`,`path`,`galleryId`,`filename`,`filetype`,`data`,`filesize`,`name`,`description`,
+                `created` from `tiki_files` where `filename`=? ORDER BY created DESC LIMIT 1";
+        $result = $this->query($query, [$filename]);
+        return $result->fetchRow();
+    }
+
     public function list_files($offset = 0, $maxRecords = -1, $sort_mode = 'created_desc', $find = '')
     {
         global $prefs;
