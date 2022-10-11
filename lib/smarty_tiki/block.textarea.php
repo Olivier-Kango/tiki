@@ -126,13 +126,13 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
         $html .= smarty_block_remarksbox(
             [ 'type' => 'warning', 'title' => tra('Warning')],
             '<p>' . tra('This edit session will expire in') .
-            ' <span id="edittimeout">' . (ini_get('session.gc_maxlifetime') / 60) . '</span> ' . tra('minutes') . '. ' .
+            ' <span class="edittimeout">' . (ini_get('session.gc_maxlifetime') / 60) . '</span> ' . tra('minutes') . '. ' .
             tra($hint) . '</p>',
             $smarty,
             $remrepeat
         ) . "\n";
         if ($prefs['javascript_enabled'] === 'y') {
-            $html = str_replace('<div class="alert alert-warning alert-dismissable">', '<div class="alert alert-warning alert-dismissable" style="display:none;">', $html); // quickfix to stop this box appearing before doc.ready
+            $html = str_replace('class="alert alert-warning alert-dismissable"', 'class="alert alert-warning alert-dismissable" style="display:none;"', $html); // quickfix to stop this box appearing before doc.ready
         }
     }
 
@@ -271,9 +271,10 @@ function editTimerTick() {
     editTimeElapsedSoFar++;
 
     var seconds = editTimeoutSeconds - editTimeElapsedSoFar;
-    var edittimeout = \$('#edittimeout');
+    // only need to show the first one if there are multiple textareas on the page
+    var edittimeout = \$('.edittimeout:first');
 
-    if ( edittimeout && seconds <= 300 ) {
+    if ( edittimeout.length && seconds <= 300 ) {
         if ( ! editTimeoutTipIsDisplayed ) {
             // ping a lightweight ajax service to keep the session alive
             $.getJSON(
