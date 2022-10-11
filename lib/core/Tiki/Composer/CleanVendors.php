@@ -210,15 +210,6 @@ class CleanVendors
         );
         self::remove($vendors . 'jquery-plugins/reflection-jquery', 'src');
         self::remove(
-            $vendors . 'jquery-plugins/superfish',
-            [
-                'src',
-                'superfish.jquery.json',
-                'dist/js/jquery.js',
-                'dist/js/superfish.min.js'
-            ]
-        );
-        self::remove(
             $vendors . 'mottie/tablesorter',
             [
                 'addons',
