@@ -114,45 +114,6 @@ class Hm_Handler_event_rsvp_action extends Hm_Handler_Module
             'reply'
         );
 
-        $profiles = $this->get('compose_profiles', array());
-        $recip = get_primary_recipient($profiles, $this->get('msg_headers'), $this->get('smtp_servers', array()));
-
-        $profile_index = $default_profile_index = null;
-        foreach ($profiles as $index => $profile) {
-            if ($profile['address'] == $recip) {
-                $profile_index = $index;
-            }
-            if (! empty($profile['default'])) {
-                $default_profile_index = $index;
-            }
-        }
-        if (is_null($profile_index)) {
-            $profile_index = $default_profile_index;
-        }
-        if (! is_null($profile_index)) {
-            $smtp_id = $profiles[$profile_index]['smtp_id'];
-            $compose_smtp_id = $smtp_id . '.' . ($profile_index + 1);
-        } else {
-            $smtp_id = 0;
-            $compose_smtp_id = null;
-        }
-
-        // smtp server details
-        $smtp_details = Hm_SMTP_List::dump($smtp_id, true);
-        if (! $smtp_details) {
-            Hm_Msgs::add('ERRCould not use the configured SMTP server');
-            return;
-        }
-
-        // profile details
-        list($imap_server, $from_name, $reply_to, $from) = get_outbound_msg_profile_detail(['compose_smtp_id' => $compose_smtp_id], $profiles, $smtp_details, $this);
-
-        // xoauth2 check
-        smtp_refresh_oauth2_token_on_send($smtp_details, $this, $smtp_id);
-
-        // adjust from and reply to addresses
-        list($from, $reply_to) = outbound_address_check($this, $from, $reply_to);
-
         // use specific text body for the reply
         $event = $this->get('calendar_event');
         $body = "$from_name has $action the invitation to the following event:
@@ -162,16 +123,6 @@ class Hm_Handler_event_rsvp_action extends Hm_Handler_Module
 When: " . TikiLib::lib('tiki')->get_long_datetime($event['start']) . " - " . TikiLib::lib('tiki')->get_long_datetime($event['end']) . "
 
 Invitees: " . implode(",\n", $event['attendees']);
-
-        // try to connect
-        $smtp = Hm_SMTP_List::connect($smtp_id, false);
-        if (! smtp_authed($smtp)) {
-            Hm_Msgs::add("ERRFailed to authenticate to the SMTP server");
-            return;
-        }
-
-        // build message
-        $mime = new Hm_MIME_Msg($to, $subject, $body, $from, 0, $cc, '', $in_reply_to, $from_name, $reply_to);
 
         // add attachments
         $content = Hm_Crypt::ciphertext($event_response, Hm_Request_Key::generate());
@@ -185,27 +136,21 @@ Invitees: " . implode(",\n", $event['attendees']);
                 'name' => 'event.ics',
                 'no_encoding' => true,
             ];
-            $mime->add_attachments([$file]);
         } else {
             $file = null;
         }
 
-        // get smtp recipients
-        $recipients = $mime->get_recipient_addresses();
-        if (empty($recipients)) {
-            Hm_Msgs::add("ERRNo valid receipts found");
-            return;
-        }
+        $profiles = $this->get('compose_profiles', array());
+        $recip = get_primary_recipient($profiles, $this->get('msg_headers'), $this->get('smtp_servers', array()));
 
-        // send the message
-        $err_msg = $smtp->send_message($from, $recipients, $mime->get_mime_msg());
-        if ($err_msg) {
-            Hm_Msgs::add(sprintf("ERR%s", $err_msg));
-            return;
-        }
+        $result = tiki_send_email($to, $cc, $subject, $body, $in_reply_to, $file, $profiles, $this, $recip);
 
         if (! empty($file['filename'])) {
             @unlink($file['filename']);
+        }
+
+        if (! $result) {
+            return;
         }
 
         // sync partstat for local calendar event

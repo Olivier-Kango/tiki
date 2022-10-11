@@ -12,18 +12,8 @@ class Services_Cypht_Controller
     {
         global $tikipath, $tikiroot, $logslib;
 
-        define('VENDOR_PATH', $tikipath . '/vendor_bundled/vendor/');
-        define('APP_PATH', VENDOR_PATH . 'jason-munro/cypht/');
-        define('WEB_ROOT', $tikiroot . 'vendor_bundled/vendor/jason-munro/cypht/');
-        define('DEBUG_MODE', false);
-
-        define('CACHE_ID', 'FoHc85ubt5miHBls6eJpOYAohGhDM61Vs%2Fm0BOxZ0N0%3D'); // Cypht uses for asset cache busting but we run the assets through Tiki pipeline, so no need to generate a unique key here
-        define('SITE_ID', 'Tiki-Integration');
-
         $session_prefix = $input->hm_session_prefix->text() ?? 'cypht';
 
-        /* get includes */
-        require APP_PATH . 'lib/framework.php';
         require_once $tikipath . '/lib/cypht/integration/classes.php';
 
         /* get configuration */

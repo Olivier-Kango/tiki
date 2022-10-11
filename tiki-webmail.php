@@ -46,23 +46,13 @@ for(var i =0; i < sessionStorage.length; i++){
 if (
     empty($_SESSION['cypht']['preference_name']) || $_SESSION['cypht']['preference_name'] != 'cypht_user_config'
     || (! empty($_SESSION['cypht']['username']) && $_SESSION['cypht']['username'] != $user)
-    || !empty($_REQUEST['clear_cache'])
+    || ! empty($_REQUEST['clear_cache'])
 ) {
   // resetting the session on purpose - could be coming from PluginCypht
     $_SESSION['cypht'] = [];
     $_SESSION['cypht']['preference_name'] = 'cypht_user_config';
 }
 
-define('VENDOR_PATH', $tikipath . '/vendor_bundled/vendor/');
-define('APP_PATH', VENDOR_PATH . 'jason-munro/cypht/');
-define('WEB_ROOT', $tikiroot . 'vendor_bundled/vendor/jason-munro/cypht/');
-define('DEBUG_MODE', false);
-
-define('CACHE_ID', 'FoHc85ubt5miHBls6eJpOYAohGhDM61Vs%2Fm0BOxZ0N0%3D'); // Cypht uses for asset cache busting but we run the assets through Tiki pipeline, so no need to generate a unique key here
-define('SITE_ID', 'Tiki-Integration');
-
-/* get includes */
-require_once APP_PATH . 'lib/framework.php';
 require_once $tikipath . '/lib/cypht/integration/classes.php';
 
 if (empty($_SESSION['cypht']['request_key'])) {
@@ -116,10 +106,10 @@ if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
         if (isset($_POST['msg_text'])) {
             $msg_text = $_POST['msg_text'];
         }
-        if (isset($_POST['header_cc'])){
-           $header_cc = $_POST['header_cc'];
+        if (isset($_POST['header_cc'])) {
+            $header_cc = $_POST['header_cc'];
         }
-        
+
         $contentpage = createPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin, $header_cc);
         $filename = $header_from . '_' . $header_subject;
         $params = [

@@ -171,7 +171,6 @@ class ConsoleApplicationBuilder
                 new RecommendationBatchCommand(),
                 new RefreshRssCommand(),
                 new RssClearCacheCommand(),
-                new SchedulerRunCommand(),
                 new ThemeInstallCommand(),
                 new ThemeRemoveCommand(),
                 new ThemeUpdateCommand(),
@@ -194,6 +193,8 @@ class ConsoleApplicationBuilder
                 new TranslationExportCommand(),
                 new TranslationPercentageCommand(),
                 new MarkdownConvertCommand(),
+                new SieveFiltersCommand(),
+                new SchedulerRunCommand(),
                 ],
             ],[
             'condition' => 'checkIsOCRAvailable',
@@ -592,19 +593,19 @@ class ConsoleApplicationBuilder
                     $output->writeln('<error>' . $e->getMessage() . '</error>');
                 };
             }
-            foreach (glob($tikipath.'/vendor/tikiwiki/tiki-manager/src/Command/*Command.php') as $command_path) {
+            foreach (glob($tikipath . '/vendor/tikiwiki/tiki-manager/src/Command/*Command.php') as $command_path) {
                 try {
-                    $command_class = "TikiManager\\Command\\".str_replace(".php", "", basename($command_path));
+                    $command_class = "TikiManager\\Command\\" . str_replace(".php", "", basename($command_path));
                     $ref = new \ReflectionClass($command_class);
                     if (! $ref->isAbstract()) {
-                        $cmd = new $command_class;
-                        $cmd->setName('manager:'.$cmd->getName());
+                        $cmd = new $command_class();
+                        $cmd->setName('manager:' . $cmd->getName());
                         if ($commandErrorCode) {
                             $cmd->setCode($commandErrorCode);
                         }
                         $console->add($cmd);
                     }
-                } catch(ReflectionException $e) {
+                } catch (ReflectionException $e) {
                 }
             }
         }

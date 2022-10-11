@@ -270,18 +270,91 @@ if (! hm_exists('tiki_flag_message')) {
             $flags = '';
         }
         if ($action == 'remove') {
-            $flags = preg_replace('/\\\?'.ucfirst($flag).'/', '', $flags);
-            $state = 'un'.$flag;
+            $flags = preg_replace('/\\\?' . ucfirst($flag) . '/', '', $flags);
+            $state = 'un' . $flag;
         } elseif (! stristr($flags, $flag)) {
-            $flags .= ' \\'.ucfirst($flag);
+            $flags .= ' \\' . ucfirst($flag);
             $state = $flag;
         }
         $flags = preg_replace("/\s{2,}/", ' ', trim($flags));
         $raw = preg_replace("/Flags:.*?\r\n/", "Flags: $flags\r\n", $file->getContents(), -1, $cnt);
         if ($cnt == 0) {
-            $raw = "Flags: $flags\r\n".$raw;
+            $raw = "Flags: $flags\r\n" . $raw;
         }
         $file->replaceQuick($raw);
         return $state;
+    }
+}
+
+if (! hm_exists('tiki_send_email')) {
+    function tiki_send_email($to, $cc, $subject, $body, $in_reply_to, $file, $profiles, $hmod, $recipient = null)
+    {
+        // retrieve smtp server connected with an existing imap message via profiles
+        $smtp_id = 0;
+        $compose_smtp_id = null;
+        if ($recipient) {
+            $profile_index = $default_profile_index = null;
+            foreach ($profiles as $index => $profile) {
+                if ($profile['address'] == $recipient) {
+                    $profile_index = $index;
+                }
+                if (! empty($profile['default'])) {
+                    $default_profile_index = $index;
+                }
+            }
+            if (is_null($profile_index)) {
+                $profile_index = $default_profile_index;
+            }
+            if (! is_null($profile_index)) {
+                $smtp_id = $profiles[$profile_index]['smtp_id'];
+                $compose_smtp_id = $smtp_id . '.' . ($profile_index + 1);
+            }
+        }
+
+        // smtp server details
+        $smtp_details = Hm_SMTP_List::dump($smtp_id, true);
+        if (! $smtp_details) {
+            Hm_Msgs::add('ERRCould not use the configured SMTP server');
+            return false;
+        }
+
+        // profile details
+        list($imap_server, $from_name, $reply_to, $from) = get_outbound_msg_profile_detail(['compose_smtp_id' => $compose_smtp_id], $profiles, $smtp_details, $hmod);
+
+        // xoauth2 check
+        smtp_refresh_oauth2_token_on_send($smtp_details, $hmod, $smtp_id);
+
+        // adjust from and reply to addresses
+        list($from, $reply_to) = outbound_address_check($hmod, $from, $reply_to);
+
+        // try to connect
+        $smtp = Hm_SMTP_List::connect($smtp_id, false);
+        if (! smtp_authed($smtp)) {
+            Hm_Msgs::add("ERRFailed to authenticate to the SMTP server");
+            return false;
+        }
+
+        // build message
+        $mime = new Hm_MIME_Msg($to, $subject, $body, $from, 0, $cc, '', $in_reply_to, $from_name, $reply_to);
+
+        if ($file) {
+            $mime->add_attachments([$file]);
+        }
+
+        // get smtp recipients
+        $recipients = $mime->get_recipient_addresses();
+        if (empty($recipients)) {
+            Hm_Msgs::add("ERRNo valid receipts found");
+            return false;
+        }
+
+        // send the message
+        $err_msg = $smtp->send_message($from, $recipients, $mime->get_mime_msg());
+        if ($err_msg) {
+            Hm_Msgs::add(sprintf("ERR%s", $err_msg));
+            return false;
+        }
+
+        return true;
     }
 }
