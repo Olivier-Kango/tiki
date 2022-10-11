@@ -21,7 +21,6 @@
     </div>
 
     {preference name="header_custom_css" syntax="css"}
-{*    {preference name="header_custom_less" syntax="css"}*}
 
     <div class="tc-footer">
         <div class="container">
@@ -30,11 +29,6 @@
                 <button id="generate-custom-css" class="btn btn-primary generate-custom-css">
                     {tr}Generate custom CSS{/tr}
                 </button>
-
-{*                <button id="generate-custom-less" class="btn btn-primary generate-custom-less">*}
-{*                    Generate Custom LESS*}
-{*                </button>*}
-
                 <label><input class="keep-changes" type="checkbox"><span>{tr}Keep changes after refresh{/tr}</span></label>
             </div>
 

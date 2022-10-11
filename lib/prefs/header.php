@@ -40,16 +40,5 @@ function prefs_header_list()
             'default' => '',
             'shorthint' => tra('Do not include the < script > tags.'),
         ],
-        'header_custom_less' => [
-            'name' => tra('Custom Less'),
-            'description' => tra('Compiles a new version of the currently selected theme and option using definitions declared here.'),
-            'type' => 'textarea',
-            'size' => 5,
-            'default' => '',
-            'hint' => tra('Custom Less (CSS precompiler) - no longer used'),
-            'filter' => 'none',
-            'tags' => ['deprecated'],
-            'warning' => tra('CSS Less is no longer used in Tiki 19+. Custom SCSS feature coming soon...'),
-        ],
     ];
 }
