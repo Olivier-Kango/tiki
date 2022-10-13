@@ -201,6 +201,30 @@ sort($viewdays, SORT_NUMERIC);
 $viewdays = array_map("correct_start_day", array_unique($viewdays));
 $viewdays2 = array_values($viewdays);
 
+if (! empty($_REQUEST['generate_availability'])) {
+    $ranges = [];
+    foreach ($viewdays as $day) {
+        $ranges[$day] = [[$minHourOfDay, 0], [$maxHourOfDay, 0]];
+    }
+    $busy_list = [];
+    $weekday = TikiLib::date_format('%w', $focusdate);
+    $week_start = $focusdate;
+    if ($weekday > 0) {
+        $week_start -= $weekday * 86400;
+    }
+    $week_end = $week_start + 7*86400 - 1;
+    $week_events = $calendarlib->list_raw_items($_SESSION['CalendarViewGroups'], $user, $week_start, $week_end, 0, -1);
+    foreach ($week_events as $week_event) {
+        $dow = TikiLib::date_format("%w", $week_event['start']);
+        [$sh, $sm] = explode(' ', TikiLib::date_format("%H %i", $week_event['start']));
+        [$eh, $em] = explode(' ', TikiLib::date_format("%H %i", $week_event['end']));
+        $busy_list[] = [$dow, [$sh, $sm], [$eh, $em]];
+    }
+    $nlgen = new NLGen\Grammars\Availability\AvailabilityGenerator();
+    $nlg_availability = $nlgen->generateAvailability($busy_list, $ranges, NLGen\Grammars\Availability\AvailabilityGrammar::SPECIFIC, null);
+    $smarty->assign('nlg_availability', $nlg_availability);
+}
+
 if (isset($_REQUEST['sort_mode'])) {
     $sort_mode = $_REQUEST['sort_mode'];
 }

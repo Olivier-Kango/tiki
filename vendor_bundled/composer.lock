@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bfa02f65a5aa748eb8fbf2f97ffd640",
+    "content-hash": "d705d53fe6809a336ff6de41599641f1",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -736,7 +736,7 @@
             "version": "6.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
                 "reference": "d3a7818c253fcbafff9ebd1d4abb2866c192e1d7"
             },
             "dist": {
@@ -2811,13 +2811,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "015591ea53882f268056f0b3d4f615aec8eae86d"
+                "reference": "1274c7b9467e587144e1422ad99049ce508b0cbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-015591ea53882f268056f0b3d4f615aec8eae86d-zip-91513f.zip",
-                "reference": "015591ea53882f268056f0b3d4f615aec8eae86d",
-                "shasum": "99b05fb055a8c249bbff4a00190add8202dd30cf"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-1274c7b9467e587144e1422ad99049ce508b0cbf-zip-259e26.zip",
+                "reference": "1274c7b9467e587144e1422ad99049ce508b0cbf",
+                "shasum": "08dcb7baee1e93ec8c142e23f3bb5f821bbc91d7"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2871,7 +2871,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-10-10T20:58:12+00:00"
+            "time": "2022-10-11T15:12:23+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3632,19 +3632,20 @@
         },
         {
             "name": "laminas/laminas-filter",
-            "version": "2.21.0",
+            "version": "2.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-filter.git",
-                "reference": "7835f3f3227b1892676cb7366fbed0e521cac845"
+                "reference": "c48e8a392a81de7d211026c078dce0e8bc57e2e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-7835f3f3227b1892676cb7366fbed0e521cac845-zip-6df6ee.zip",
-                "reference": "7835f3f3227b1892676cb7366fbed0e521cac845",
-                "shasum": "16b5dfdb24f843b7a2dea9a32fc6d9b8ea260f00"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-c48e8a392a81de7d211026c078dce0e8bc57e2e3-zip-dc2462.zip",
+                "reference": "c48e8a392a81de7d211026c078dce0e8bc57e2e3",
+                "shasum": "d53258b4293860b4890d1b42a866d255c4134bb5"
             },
             "require": {
+                "ext-mbstring": "*",
                 "laminas/laminas-servicemanager": "^3.14.0",
                 "laminas/laminas-stdlib": "^3.13.0",
                 "php": "^7.4 || ~8.0.0 || ~8.1.0"
@@ -3698,7 +3699,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-09-30T09:15:24+00:00"
+            "time": "2022-10-11T08:14:46+00:00"
         },
         {
             "name": "laminas/laminas-http",
@@ -6474,6 +6475,74 @@
             "time": "2018-11-04T18:21:09+00:00"
         },
         {
+            "name": "nlgen/nlgen",
+            "version": "v0.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DrDub/php-nlgen.git",
+                "reference": "da6ff09a60558d781ad6018c371ad695f5b21173"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DrDub/php-nlgen/zipball/da6ff09a60558d781ad6018c371ad695f5b21173",
+                "reference": "da6ff09a60558d781ad6018c371ad695f5b21173",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NLGen\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "/examples/*"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pablo Duboue",
+                    "email": "pablo.duboue@gmail.com",
+                    "homepage": "http://duboue.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A library for creating recursive-descent natural language generators.",
+            "homepage": "http://wiki.duboue.net/PHP-NLGen",
+            "keywords": [
+                "artificial intelligence",
+                "chatbot",
+                "computational linguistics",
+                "generation",
+                "grammar",
+                "natural language generation",
+                "natural language processing",
+                "nlg",
+                "nlp",
+                "recursive descent",
+                "text construction"
+            ],
+            "support": {
+                "issues": "https://github.com/DrDub/PHP-NLGen/issues",
+                "source": "https://github.com/DrDub/PHP-NLGen"
+            },
+            "funding": [
+                {
+                    "url": "https://ko-fi.com/textualization",
+                    "type": "ko-fi"
+                }
+            ],
+            "time": "2022-10-11T13:10:14+00:00"
+        },
+        {
             "name": "nolimits4web/swiper",
             "version": "v4.5.3",
             "source": {
@@ -6535,16 +6604,19 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.19.3",
+            "version": "v7.19.5",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:babel/babel.git",
+                "reference": "56a8bc9d365819edbaf0f0f5360fb1fbb71e1431"
+            },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.19.3.zip",
-                "shasum": "79b7a7a940f348003a43d1cc268fcd2221963291"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-56a8bc9d365819edbaf0f0f5360fb1fbb71e1431-zip-0a4cfb.zip",
+                "reference": "56a8bc9d365819edbaf0f0f5360fb1fbb71e1431",
+                "shasum": "2b5ebf69cac6b31f4d49bb3dd0bf86b2a0792c8b"
             },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
+            "type": "npm-asset"
         },
         {
             "name": "npm-asset/base64-arraybuffer",
@@ -11049,21 +11121,21 @@
         },
         {
             "name": "sentry/sdk",
-            "version": "3.2.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php-sdk.git",
-                "reference": "6d78bd83b43efbb52f81d6824f4af344fa9ba292"
+                "reference": "d0678fc7274dbb03046ed05cb24eb92945bedf8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/6d78bd83b43efbb52f81d6824f4af344fa9ba292",
-                "reference": "6d78bd83b43efbb52f81d6824f4af344fa9ba292",
+                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/d0678fc7274dbb03046ed05cb24eb92945bedf8e",
+                "reference": "d0678fc7274dbb03046ed05cb24eb92945bedf8e",
                 "shasum": ""
             },
             "require": {
                 "http-interop/http-factory-guzzle": "^1.0",
-                "sentry/sentry": "^3.5",
+                "sentry/sentry": "^3.9",
                 "symfony/http-client": "^4.3|^5.0|^6.0"
             },
             "type": "metapackage",
@@ -11098,21 +11170,21 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-05-21T11:10:11+00:00"
+            "time": "2022-10-11T09:05:00+00:00"
         },
         {
             "name": "sentry/sentry",
-            "version": "3.9.0",
+            "version": "3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "0d162e2516f8254e821a1376018e1e021f910bff"
+                "reference": "45b618b2265d11bc9b5a15f31bcc573a2dc3b956"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-0d162e2516f8254e821a1376018e1e021f910bff-zip-f8a23a.zip",
-                "reference": "0d162e2516f8254e821a1376018e1e021f910bff",
-                "shasum": "0c6cff7429c3b6274e8e92268ce6bad30c9bbd23"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-45b618b2265d11bc9b5a15f31bcc573a2dc3b956-zip-8aff70.zip",
+                "reference": "45b618b2265d11bc9b5a15f31bcc573a2dc3b956",
+                "shasum": "9ecd6b5e8f886b4d87b4e6ffc57eb5d81f0a3d4d"
             },
             "require": {
                 "ext-json": "*",
@@ -11198,7 +11270,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-10-05T09:35:42+00:00"
+            "time": "2022-10-11T09:00:25+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -11507,17 +11579,17 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v4.14.2",
+            "version": "v4.14.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "775d307d5634de376efab8fc2d993bd353843795"
+                "reference": "278dc05c886ce9d5d91860d56d9b57f3ab53ad5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-775d307d5634de376efab8fc2d993bd353843795-zip-ddc650.zip",
-                "reference": "775d307d5634de376efab8fc2d993bd353843795",
-                "shasum": "1b71788e12a3be0332421421093fdc603f80684d"
+                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-278dc05c886ce9d5d91860d56d9b57f3ab53ad5b-zip-48a888.zip",
+                "reference": "278dc05c886ce9d5d91860d56d9b57f3ab53ad5b",
+                "shasum": "107b5fecc7d23dbade3f98b27dab9964f6152374"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -11560,7 +11632,7 @@
                 "swagger",
                 "ui"
             ],
-            "time": "2022-09-29T17:30:08+00:00"
+            "time": "2022-10-11T09:13:18+00:00"
         },
         {
             "name": "symfony/config",
@@ -11639,17 +11711,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.45",
+            "version": "v4.4.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "28b77970939500fb04180166a1f716e75a871ef8"
+                "reference": "4f40012db8d55c956406890b5720f686fee7f7b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/console/symfony-console-28b77970939500fb04180166a1f716e75a871ef8-zip-696d6c.zip",
-                "reference": "28b77970939500fb04180166a1f716e75a871ef8",
-                "shasum": "dd30f3fd4764cee1140106632d7e4445be51fa63"
+                "url": "https://composer.tiki.org/dist/symfony/console/symfony-console-4f40012db8d55c956406890b5720f686fee7f7b7-zip-8be1a0.zip",
+                "reference": "4f40012db8d55c956406890b5720f686fee7f7b7",
+                "shasum": "64634ef2f899addf85fe5fd35893e712cfd56630"
             },
             "require": {
                 "php": ">=7.1.3",
@@ -11722,7 +11794,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-17T14:50:19+00:00"
+            "time": "2022-10-04T05:58:30+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -12056,17 +12128,17 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.4.13",
+            "version": "v5.4.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "596fd752f00e0205d895cd6b184d135c27bb5d6a"
+                "reference": "8a3929c814cba77db93de61c22759e0dbeaa4c87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-596fd752f00e0205d895cd6b184d135c27bb5d6a-zip-c58ce4.zip",
-                "reference": "596fd752f00e0205d895cd6b184d135c27bb5d6a",
-                "shasum": "79320e70e4355fec64e97f21f837369cc92f9106"
+                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-8a3929c814cba77db93de61c22759e0dbeaa4c87-zip-dedc64.zip",
+                "reference": "8a3929c814cba77db93de61c22759e0dbeaa4c87",
+                "shasum": "988f3cbea3370288f208d40af3aae80cdcd07e38"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -12136,7 +12208,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-08T18:41:21+00:00"
+            "time": "2022-10-11T15:16:01+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -12215,17 +12287,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.4.13",
+            "version": "v5.4.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "54be067587a4f2b7fffb7a699f9481ec3daf9379"
+                "reference": "e7c7b395c3a61d746919c21e915f51f0039c3f75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-foundation/symfony-http-foundation-54be067587a4f2b7fffb7a699f9481ec3daf9379-zip-aa181a.zip",
-                "reference": "54be067587a4f2b7fffb7a699f9481ec3daf9379",
-                "shasum": "ef003c9cfc5850c39e68a49dbfa15f983da18067"
+                "url": "https://composer.tiki.org/dist/symfony/http-foundation/symfony-http-foundation-e7c7b395c3a61d746919c21e915f51f0039c3f75-zip-04c79d.zip",
+                "reference": "e7c7b395c3a61d746919c21e915f51f0039c3f75",
+                "shasum": "1302e2c4b374e49da7fcc4798055bf1cc475558a"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -12284,7 +12356,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-17T07:31:22+00:00"
+            "time": "2022-10-01T21:59:28+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -13597,17 +13669,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.4.13",
+            "version": "v5.4.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "2900c668a32138a34118740de3e4d5a701801f53"
+                "reference": "089e7237497fae7a9c404d0c3aeb8db3254733e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/string/symfony-string-2900c668a32138a34118740de3e4d5a701801f53-zip-c9b127.zip",
-                "reference": "2900c668a32138a34118740de3e4d5a701801f53",
-                "shasum": "a53fc9f9c497d6f85edf862b2d5170eeb89af32f"
+                "url": "https://composer.tiki.org/dist/symfony/string/symfony-string-089e7237497fae7a9c404d0c3aeb8db3254733e4-zip-e1cecd.zip",
+                "reference": "089e7237497fae7a9c404d0c3aeb8db3254733e4",
+                "shasum": "df8fdbd3dcefc44a7e028afd1edeadbaaec5c576"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -13676,7 +13748,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-01T01:52:16+00:00"
+            "time": "2022-10-05T15:16:54+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -14656,17 +14728,17 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.3.3",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "30897edbfb15e784fe55587b4f73ceefd3c4d98c"
+                "reference": "69098eca243998b53eed7a48d82dedd28b447cd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/composer/ca-bundle/composer-ca-bundle-30897edbfb15e784fe55587b4f73ceefd3c4d98c-zip-d7d6e1.zip",
-                "reference": "30897edbfb15e784fe55587b4f73ceefd3c4d98c",
-                "shasum": "70bd4efea1ad54aacf61bc6e62f2b7587c9e1212"
+                "url": "https://composer.tiki.org/dist/composer/ca-bundle/composer-ca-bundle-69098eca243998b53eed7a48d82dedd28b447cd5-zip-889e72.zip",
+                "reference": "69098eca243998b53eed7a48d82dedd28b447cd5",
+                "shasum": "1c2019313af08645d72bfd6514896efa1c341e11"
             },
             "require": {
                 "ext-openssl": "*",
@@ -14723,7 +14795,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-20T07:14:26+00:00"
+            "time": "2022-10-12T12:08:29+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",

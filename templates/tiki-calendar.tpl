@@ -39,6 +39,11 @@
                         </a>
                     </li>
                 {/if}
+                <li class="dropdown-item">
+                    <a href="tiki-calendar.php?generate_availability=1&amp;ltodate={$smarty.request.todate}&amp;calIds[]={$displayedcals|implode:"&calIds[]="}" hspace="1">
+                        {icon name="calendar-week"} {tr}Availability (NLG){/tr}
+                    </a>
+                </li>
             </ul>
             {if ! $js}</li></ul>{/if}
         </div>
@@ -145,6 +150,11 @@ $("#filtercal").submit(function () {
             {else}
                 {button href="" _style="background-color:#fff;padding:0 4px;" _text="{tr}None{/tr}"}
             {/if}
+        {/if}
+        {if $nlg_availability}
+            <div class="alert alert-info">
+                {$nlg_availability}
+            </div>
         {/if}
     </div>
     {* show jscalendar if set *}
