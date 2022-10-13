@@ -855,11 +855,13 @@ body.wikitext {
 
 .diffadded {
     background: $success;
+    --bs-table-bg: #{$success}; // These need to be specified to override :root --bs-table-bg .
     color: lighten($success,50%);
 }
 
 .diffdeleted {
     background: $danger;
+    --bs-table-bg: #{$danger};
     color: lighten($danger,50%);
 }
 
@@ -879,6 +881,7 @@ body.wikitext {
 
 .diffbody {
     background: $gray-200;
+    --bs-table-bg: #{$gray-200};
     color: $gray-700;
 }
 

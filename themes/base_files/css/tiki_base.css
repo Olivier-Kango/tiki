@@ -529,10 +529,12 @@ body.wikitext {
 }
 .diffadded {
   background: #198754;
+  --bs-table-bg: #198754;
   color: #aff0d2;
 }
 .diffdeleted {
   background: #dc3545;
+  --bs-table-bg: #dc3545;
   color: white;
 }
 .diffadded a, .diffadded a:hover {
@@ -546,6 +548,7 @@ body.wikitext {
 }
 .diffbody {
   background: #e9ecef;
+  --bs-table-bg: #e9ecef;
   color: #495057;
 }
 .diffchar {
