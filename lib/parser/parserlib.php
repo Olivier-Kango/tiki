@@ -3436,6 +3436,8 @@ class ParserLib extends TikiDb_Bridge
         $tikiLib = TikiLib::lib('tiki');
         $parserLib = TikiLib::lib('parser');
 
+        $argumentParser = new WikiParser_PluginArgumentParser();
+
         // disable redirect plugin etc
         $access->preventRedirect(true);
         $access->preventDisplayError(true);
@@ -3446,13 +3448,20 @@ class ParserLib extends TikiDb_Bridge
                 $logger->debug(tr('Processing page: %0, is_html: %1', $apage['pageName'], $apage['is_html']));
             }
             $page = $apage['pageName'];
-            $parserLib->setOptions(
-                [
-                    'page' => $page,
-                    'is_html' => $apage['is_html'],
-                ]
-            );
-            $parserLib->parse_first($apage['data'], $pre, $no);
+
+            $matches = WikiParser_PluginMatcher::match($apage['data']);
+            foreach ($matches as $match) {
+                $plugin_name = $match->getName();
+                if ($plugin_name == 'syntax') {
+                    continue;
+                }
+                $pluginOutput = null;
+                if ($this->plugin_enabled($plugin_name, $pluginOutput)) {
+                    $plugin_data = $match->getBody();
+                    $arguments = $argumentParser->parse($match->getArguments());
+                    $this->plugin_can_execute($plugin_name, $plugin_data, $arguments);
+                }
+            }
         }
 
         $access->preventRedirect(false);
