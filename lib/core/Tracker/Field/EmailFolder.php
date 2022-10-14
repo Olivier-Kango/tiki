@@ -258,7 +258,13 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         if (isset($value['new'])) {
             $folder = $value['folder'] ?? 'inbox';
             if ($this->getOption('useFolders') || $folder == 'inbox') {
-                $this->addEmail($existing[$folder], $value['new']);
+                if (array_filter($value['new'], 'is_array') === $value['new']) {
+                    foreach ($value['new'] as $new_value) {
+                        $this->addEmail($existing[$folder], $new_value);
+                    }
+                } else {
+                    $this->addEmail($existing[$folder], $value['new']);
+                }
             }
         } elseif (isset($value['delete'])) {
             $this->deleteEmail($existing, $value['delete'], $value['skip_trash'] ?? false);
