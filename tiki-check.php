@@ -143,6 +143,7 @@ if ($l) {
         'message' => tra('Errors will be logged, since log_errors is enabled. Also, display_errors is disabled. This is good practice for a production site, to log the errors instead of displaying them.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
         );
     } else {
+		$php_properties = [];
         $php_properties['Error logging'] = array(
         'fitness' => tra('info'),
         'setting' => 'Enabled',
@@ -1721,12 +1722,14 @@ if (function_exists('apache_get_version')) {
     $s = false;
     $s = array_search('mod_rewrite', $apache_modules);
     if ($s) {
+		$apache_properties = [];
         $apache_properties['mod_rewrite'] = array(
             'setting' => 'Loaded',
             'fitness' => tra('good') ,
             'message' => tra('Tiki needs this module for Search Engine Friendly URLs via .htaccess. However, it can\'t be checked if this web server respects configurations made in .htaccess. For further information go to Admin->SefURL in your Tiki.')
         );
     } else {
+		$apache_properties = [];
         $apache_properties['mod_rewrite'] = array(
             'setting' => 'Not available',
             'fitness' => tra('unsure') ,
@@ -2263,6 +2266,7 @@ if ($s != "" && strpos($sn, $s) !== false) {
         'message' => tra('upload_tmp_dir is probably inside the Tiki directory. There is a risk that someone can upload any file to this directory and access it via web browser.')
     );
 } else {
+	$security=[];
     $security['upload_tmp_dir'] = array(
         'fitness' => tra('unknown') ,
         'setting' => $s,
