@@ -111,13 +111,13 @@ function prefs_tracker_list()
             'dependencies' => ['feature_articles', 'feature_trackers', 'tracker_article_trackerId', 'tracker_article_tracker'],
         ],
         'tracker_tabular_enabled' => [
-            'name' => tr('Tracker tabular'),
+            'name' => tr('Tracker Import-Export'),
             'description' => tr('Allows management of import/export tracker profiles and management of custom list formats.'),
             'type' => 'flag',
             'default' => 'n',
             'dependencies' => ['feature_trackers'],
             'tags' => ['advanced'],
-            'help' => 'Tracker-Tabular',
+            'help' => 'Tracker-Import-Export',
         ],
         'tracker_always_notify' => [
             'name' => tr('Always notify watchers'),

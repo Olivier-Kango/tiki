@@ -26,7 +26,7 @@ class TrackerClearCommand extends Command
             ->addArgument(
                 'trackerId',
                 InputArgument::REQUIRED,
-                'ID of tracker tabular format to use'
+                'ID of tracker import-export format to use'
             )
             ->addOption(
                 'confirm',

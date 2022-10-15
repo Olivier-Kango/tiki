@@ -75,7 +75,7 @@ class Tiki_Profile_InstallHandler_Tabular extends Tiki_Profile_InstallHandler
     }
 
     /**
-     * Export tabular formats
+     * Export import-export formats
      *
      * @param Tiki_Profile_Writer $writer
      * @param int|array $tabularIds

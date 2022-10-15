@@ -1,10 +1,10 @@
 ---
 post:
-  description: Import data through this tabular in configured format.
+  description: Import data through this import-export in configured format.
   parameters:
     - name: tabularId
       in: path
-      description: Tabular ID
+      description: Import-Export ID
       required: true
       schema:
         type: integer
@@ -19,7 +19,7 @@ post:
               format: binary
   responses:
     '200':
-      description: tracker tabular export in csv or json format
+      description: tracker import-export in csv or json format
       content:
         application/json:
           schema:

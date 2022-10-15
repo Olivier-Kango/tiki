@@ -70,7 +70,7 @@
             </tr>
         {foreachelse}
             <tr>
-                <td colspan="3">{tr}No tabular formats defined.{/tr}</td>
+                <td colspan="3">{tr}No import-export formats defined.{/tr}</td>
             </tr>
         {/foreach}
     </table>

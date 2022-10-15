@@ -63,7 +63,7 @@
                     <a href="https://doc.tiki.org/Email-folders-Tracker-Field">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
                 <div class="offset-sm-1 col-sm-11">
-                    {tr}Open Database Connectivity (ODBC) support added to Tracker Tabular.{/tr}
+                    {tr}Open Database Connectivity (ODBC) support added to Tracker Import-Export.{/tr}
                     <a href="https://doc.tiki.org/ODBC">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
                 <div class="offset-sm-1 col-sm-11">

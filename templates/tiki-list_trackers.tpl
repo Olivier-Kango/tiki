@@ -29,14 +29,14 @@
                     </a>
                     {if $prefs.tracker_tabular_enabled eq 'y' && $tiki_p_admin_trackers eq 'y'}
                         <a class="dropdown-item" href="{service controller=tabular action=manage}">
-                            {tr}Manage Tabular Formats{/tr}
+                            {tr}Manage Import-Export Formats{/tr}
                         </a>
                     {/if}
                 </div>
             </div>
             {if $prefs.tracker_tabular_enabled eq 'y' && $tiki_p_admin_trackers eq 'y'}
                 <a class="btn btn-link" href="{service controller=tabular action=manage}">
-                    {icon name="list"} {tr}Manage Tabular Formats{/tr}
+                    {icon name="list"} {tr}Manage Import-Export Formats{/tr}
                 </a>
             {/if}
             {if $prefs.tracker_remote_sync eq 'y'}

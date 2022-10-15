@@ -1,6 +1,6 @@
 ---
 get:
-  description: Get all tracker tabular formats that target user can see.
+  description: Get all tracker import-export formats that target user can see.
   responses:
     '200':
       description: tabular response

@@ -550,7 +550,7 @@
         {if $prefs.tracker_tabular_enabled eq 'y' and $remoteTabulars}
             {accordion_group title="{tr}Remote synchronization{/tr}"}
                 <div class="mb-3 row mx-0">
-                    <label for="tabularSync">{tr}Choose tabular format{/tr}</label>
+                    <label for="tabularSync">{tr}Choose import-export format{/tr}</label>
                     <select name="tabularSync" id="tabularSync" class="form-control">
                         <option value="">{tr}None{/tr}</option>
                         {foreach item=tabular from=$remoteTabulars}
@@ -575,7 +575,7 @@
                 <div class="mb-3 row depends" data-on="tabularSyncModifiedField">
                     <label for="tabularSyncLastImport">
                         {tr}Last import time{/tr}
-                        <a class="tikihelp text-info" title="{tr}Time entry:{/tr} {tr}This tracks the last date/time when this tracker was synchronized with remote source. Subsequent tabular imports will only fetch content newer than this date. Reset to something in the past if you want to re-import.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Time entry:{/tr} {tr}This tracks the last date/time when this tracker was synchronized with remote source. Subsequent import-export imports will only fetch content newer than this date. Reset to something in the past if you want to re-import.{/tr}">
                             {icon name=information}
                         </a>
                     </label>

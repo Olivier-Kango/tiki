@@ -5567,7 +5567,7 @@ class UsersLib extends TikiLib
             ],
             [
                 'name' => 'tiki_p_tabular_list',
-                'description' => tr('View list view of tracker tabular data. Tracker item permissions apply.'),
+                'description' => tr('View list view of tracker import-export data. Tracker item permissions apply.'),
                 'level' => 'registered',
                 'type' => 'tabular',
                 'admin' => false,
@@ -5576,7 +5576,7 @@ class UsersLib extends TikiLib
             ],
             [
                 'name' => 'tiki_p_tabular_export',
-                'description' => tr('Export a tracker tabular view to CSV. Tracker permissions may not apply.'),
+                'description' => tr('Export a tracker import-export view to CSV. Tracker permissions may not apply.'),
                 'level' => 'editors',
                 'type' => 'tabular',
                 'admin' => false,
@@ -5585,7 +5585,7 @@ class UsersLib extends TikiLib
             ],
             [
                 'name' => 'tiki_p_tabular_import',
-                'description' => tr('Import a CSV file into a tabular tracker. Tracker permissions may not apply.'),
+                'description' => tr('Import a CSV file into a import-export tracker. Tracker permissions may not apply.'),
                 'level' => 'editors',
                 'type' => 'tabular',
                 'admin' => false,

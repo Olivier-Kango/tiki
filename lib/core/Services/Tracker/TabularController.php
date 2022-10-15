@@ -29,7 +29,7 @@ class Services_Tracker_TabularController
         $lib = TikiLib::lib('tabular');
 
         return [
-            'title' => tr('Tabular Formats'),
+            'title' => tr('Import-Export Formats'),
             'list' => $lib->getList(),
         ];
     }
@@ -78,7 +78,7 @@ class Services_Tracker_TabularController
         }
 
         return [
-            'title' => tr('Create Tabular Format'),
+            'title' => tr('Create Import-Export Format'),
             'has_odbc' => function_exists('odbc_connect'),
         ];
     }
@@ -107,7 +107,7 @@ class Services_Tracker_TabularController
             $result = $lib->update($info['tabularId'], $input->name->text(), $schema->getFormatDescriptor(), $schema->getFilterDescriptor(), $config, $odbc_config, $api_config);
 
             if ($result->numRows() > 0) {
-                Feedback::success('Tabular tracker was updated successfully.');
+                Feedback::success('Import-Export Tracker was updated successfully.');
             }
 
             return [
@@ -790,7 +790,7 @@ class Services_Tracker_TabularController
         $uploadMaxFileSize = $tikilib->return_bytes(ini_get('upload_max_filesize'));
 
         return [
-            'title' => tr('Create tabular format and tracker from file'),
+            'title' => tr('Create import-export format and tracker from file'),
             'types' => $this->getSupportedTabularFieldTypes(),
             'config' => [
                 'import_update' => 1,

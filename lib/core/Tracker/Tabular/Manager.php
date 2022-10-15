@@ -96,7 +96,7 @@ class Manager
         }
         $tabular = $this->getInfo($tabularId);
         if (empty($tabular['tabularId'])) {
-            \Feedback::error(tr("Tracker remote synchronization configured with a tabular format that does not exist."));
+            \Feedback::error(tr("Tracker remote synchronization configured with a import-export format that does not exist."));
             return;
         }
         $trklib = \TikiLib::lib('trk');
@@ -136,7 +136,7 @@ class Manager
         }
         $tabular = $this->getInfo($tabularId);
         if (empty($tabular['tabularId'])) {
-            \Feedback::error(tr("Tracker remote synchronization configured with a tabular format that does not exist."));
+            \Feedback::error(tr("Tracker remote synchronization configured with a import-export format that does not exist."));
             return;
         }
         if (empty($tabular['odbc_config']['sync_deletes'])) {
@@ -187,7 +187,7 @@ class Manager
 
         $tabular = $this->getInfo($tabularId);
         if (empty($tabular['tabularId'])) {
-            \Feedback::error(tr("Tabular not found: %0", $tabularId));
+            \Feedback::error(tr("Import-Export not found: %0", $tabularId));
             return true;
         }
 

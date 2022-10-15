@@ -19,12 +19,12 @@ class Tabular extends ObjectWriter
     {
         $this
             ->setName('profile:export:tabular')
-            ->setDescription('Export a tracker tabular format definition')
+            ->setDescription('Export a tracker import-export format definition')
             ->addOption(
                 'all',
                 null,
                 InputOption::VALUE_NONE,
-                'Export all tabular formats'
+                'Export all import-export formats'
             )
             ->addArgument(
                 'tabular',
@@ -58,7 +58,7 @@ class Tabular extends ObjectWriter
         if ($result) {
             $writer->save();
         } else {
-            $output->writeln("Tabular not found: $tabularId");
+            $output->writeln("Import-Export not found: $tabularId");
         }
     }
 }

@@ -82,7 +82,7 @@
                 <div class="col-sm-9">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="prefill_odbc" value="1">
-                        <a class="tikihelp text-info" title="{tr}Remote initialization:{/tr} {tr}Create missing fields in related tracker and in this tabular format from remote schema.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Remote initialization:{/tr} {tr}Create missing fields in related tracker and in this import-export format from remote schema.{/tr}">
                             {icon name=information}
                         </a>
                     </div>

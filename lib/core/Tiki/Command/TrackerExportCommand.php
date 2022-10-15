@@ -19,11 +19,11 @@ class TrackerExportCommand extends Command
     {
         $this
             ->setName('tracker:export')
-            ->setDescription('Export a CSV file from a tracker using a tracker tabular format')
+            ->setDescription('Export a CSV file from a tracker using a tracker import-export format')
             ->addArgument(
                 'tabularId',
                 InputArgument::REQUIRED,
-                'ID of tracker tabular format to use'
+                'ID of tracker import-export format to use'
             )
             ->addArgument(
                 'filename',
@@ -42,7 +42,7 @@ class TrackerExportCommand extends Command
 
         $perms = \Perms::get('tabular', $info['tabularId']);
         if (! $info || ! $perms->tabular_export) {
-            throw new \Exception('Tracker Export: Tabular Format not found');
+            throw new \Exception('Tracker Export: Import-Export Format not found');
         }
 
         $fileName = $input->getArgument('filename');
@@ -74,7 +74,7 @@ class TrackerExportCommand extends Command
         } elseif (! empty($info['api_config'])) {
             $writer = new \Tracker\Tabular\Writer\APIWriter($info['api_config']);
         } else {
-            throw new \Exception(tr('Tracker Export: No filename or remote tabular synchronization settings provided.'));
+            throw new \Exception(tr('Tracker Export: No filename or remote import-export synchronization settings provided.'));
         }
 
         $result = $writer->write($source);

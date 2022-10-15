@@ -22,16 +22,16 @@ class TrackerImportCommand extends Command
     {
         $this
             ->setName('tracker:import')
-            ->setDescription('Import a CSV file into a tracker using a tracker tabular format or initiate an ODBC import')
+            ->setDescription('Import a CSV file into a tracker using a tracker import-export format or initiate an ODBC import')
             ->addArgument(
                 'tabularId',
                 InputArgument::REQUIRED,
-                'ID of tracker tabular format to use'
+                'ID of tracker import-export format to use'
             )
             ->addArgument(
                 'filename',
                 InputArgument::OPTIONAL,
-                'Location of CSV file to import (not used if tabular is ODBC-configured)'
+                'Location of CSV file to import (not used if import-export is ODBC-configured)'
             )
             ->addOption(
                 'placeholders',
@@ -54,7 +54,7 @@ class TrackerImportCommand extends Command
 
         $perms = \Perms::get('tabular', $info['tabularId']);
         if (! $info || ! $perms->tabular_import) {
-            throw new \Exception('Tracker Import: Tabular Format not found');
+            throw new \Exception('Tracker Import: Import-Export Format not found');
         }
 
         // from \Services_Tracker_TabularController::getSchema TODO refactor?

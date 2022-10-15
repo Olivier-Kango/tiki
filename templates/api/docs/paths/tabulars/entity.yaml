@@ -1,16 +1,16 @@
 ---
 get:
-  description: Retrieve full tracker tabular information.
+  description: Retrieve full tracker import-export information.
   parameters:
     - name: tabularId
       in: path
-      description: Tabular ID
+      description: Import-Export ID
       required: true
       schema:
         type: integer
   responses:
     '200':
-      description: tracker tabular
+      description: tracker import-export
       content:
         application/json:
           schema:

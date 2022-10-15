@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="mb-3 row">
-		<label for="search_tabular_tracker_fields" class="col-sm-3 form-check-label">{tr}Include tabular tracker fields{/tr}</label>
+		<label for="search_tabular_tracker_fields" class="col-sm-3 form-check-label">{tr}Include import-export tracker fields{/tr}</label>
 		<div class="col-sm-9">
 			<div class="form-check">
 				<input type="checkbox" id="search_tabular_tracker_fields" class="form-check-input" name="search[]" value="tabular_tracker_fields" {if $tabular_tracker_fields_checked} checked {/if}>
