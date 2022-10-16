@@ -1250,7 +1250,7 @@ class WikiLib extends TikiLib
         $tikilib = TikiLib::lib('tiki');
         $access = TikiLib::lib('access');
 
-        $request_uri = ($prefs['feature_sefurl'] == 'y' && ! $_SERVER['QUERY_STRING']) ? ($request_uri = basename(debug_backtrace()[0]['file']).'?page='.$page) : $base_uri;
+        $request_uri = ($prefs['feature_sefurl'] == 'y' || ! $_SERVER['QUERY_STRING']) ? ($request_uri = basename(debug_backtrace()[0]['file']).'?page='.$page) : $base_uri;
 
         $pathInfo = parse_url($request_uri);
         $queryString = $pathInfo['query'];
@@ -1280,9 +1280,13 @@ class WikiLib extends TikiLib
             $new_url = $url_scheme . "://" . $url_host . $pathInfo['path'] . "?" .$newQueryStr;
 
             // if feature_sefurl is enabled, create a sefurl
-            if ($prefs['feature_sefurl'] == 'y' && ! $_SERVER['QUERY_STRING']) {
+            if ($prefs['feature_sefurl'] == 'y' || ! $_SERVER['QUERY_STRING']) {
+                unset($queryArray['page']);
+                $newQueryStr = http_build_query($queryArray, '', '&');
+                $with_next = (empty($newQueryStr) ? '' : $newQueryStr);
+                
                 TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
-                $new_url = smarty_modifier_sefurl($newPage, '', $newQueryStr);
+                $new_url = smarty_modifier_sefurl($newPage, '', $with_next);
             }
             // redirect to the new url
             $access->redirect($new_url);
