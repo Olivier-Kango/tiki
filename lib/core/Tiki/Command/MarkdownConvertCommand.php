@@ -98,7 +98,7 @@ class MarkdownConvertCommand extends Command
 
             if ($input->getOption('save')) {
                 $converted = '{syntax type="' . $syntax . '"} ' . $converted;
-                $tikilib->update_page($page['pageName'], $converted, tra('automatic conversion'), 'admin', '127.0.0.1');
+                $tikilib->update_page($page['pageName'], $converted, tra('automatic conversion'), 'admin', '127.0.0.1', null, 0, '', null, null, null, '', true);
             } else {
                 $io->note("Converted:");
                 $io->writeln($converted);

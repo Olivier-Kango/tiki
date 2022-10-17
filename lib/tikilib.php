@@ -5152,7 +5152,7 @@ class TikiLib extends TikiDb_Bridge
         @param array $hash- lock_it,contributions, contributors
         @param int $saveLastModif - modification time - pass null for now, unless importing a Wiki page
      **/
-    public function update_page($pageName, $edit_data, $edit_comment, $edit_user, $edit_ip, $edit_description = null, $edit_minor = 0, $lang = '', $is_html = null, $hash = null, $saveLastModif = null, $wysiwyg = '', $wiki_authors_style = '')
+    public function update_page($pageName, $edit_data, $edit_comment, $edit_user, $edit_ip, $edit_description = null, $edit_minor = 0, $lang = '', $is_html = null, $hash = null, $saveLastModif = null, $wysiwyg = '', $wiki_authors_style = '', $autoupdate = false)
     {
         global $prefs;
         $histlib = TikiLib::lib('hist');
@@ -5205,7 +5205,7 @@ class TikiLib extends TikiDb_Bridge
             ]
         );
 
-        if ($html == 1 && $prefs['feature_purifier'] != 'n') {
+        if ($html == 1 && $prefs['feature_purifier'] != 'n' && ! $autoupdate) {
             $noparsed = [];
             $parserlib->plugins_remove($edit_data, $noparsed);
 
@@ -5321,7 +5321,7 @@ class TikiLib extends TikiDb_Bridge
                 }
             }
             include_once('lib/diff/difflib.php');
-            if (strtolower($pageName) != 'sandbox') {
+            if (strtolower($pageName) != 'sandbox' && ! $autoupdate) {
                 $logslib = TikiLib::lib('logs');
                 $bytes = diff2($data, $edit_data, 'bytes');
                 $logslib->add_action('Updated', $pageName, 'wiki page', $bytes, $edit_user, $edit_ip, '', $saveLastModif, $hash['contributions'], $hash2);
@@ -5336,7 +5336,7 @@ class TikiLib extends TikiDb_Bridge
                 $this->table('tiki_translated_objects')->update(['lang' => $lang], ['type' => 'wiki page', 'objId' => $info['page_id']]);
             }
 
-            if ($prefs['wiki_watch_minor'] != 'n' || ! $edit_minor) {
+            if (($prefs['wiki_watch_minor'] != 'n' || ! $edit_minor) && ! $autoupdate) {
                 //  Deal with mail notifications.
                 include_once(__DIR__ . '/notifications/notificationemaillib.php');
                 $histlib = TikiLib::lib('hist');
@@ -5364,26 +5364,28 @@ class TikiLib extends TikiDb_Bridge
             }
         }
 
-        $tx = $this->begin();
+        if (! $autoupdate) {
+            $tx = $this->begin();
 
-        TikiLib::events()->trigger(
-            'tiki.wiki.update',
-            [
-                'type' => 'wiki page',
-                'object' => $pageName,
-                'namespace' => $wikilib->get_namespace($pageName),
-                'reply_action' => 'comment',
-                'user' => $GLOBALS['user'],
-                'page_id' => $info['page_id'],
-                'version' => $version,
-                'old_version' => $old_version,
-                'data' => $edit_data,
-                'old_data' => $info['data'],
-                'edit_comment' => $edit_comment,
-            ]
-        );
+            TikiLib::events()->trigger(
+                'tiki.wiki.update',
+                [
+                    'type' => 'wiki page',
+                    'object' => $pageName,
+                    'namespace' => $wikilib->get_namespace($pageName),
+                    'reply_action' => 'comment',
+                    'user' => $GLOBALS['user'],
+                    'page_id' => $info['page_id'],
+                    'version' => $version,
+                    'old_version' => $old_version,
+                    'data' => $edit_data,
+                    'old_data' => $info['data'],
+                    'edit_comment' => $edit_comment,
+                ]
+            );
 
-        $tx->commit();
+            $tx->commit();
+        }
     }
 
     /**
