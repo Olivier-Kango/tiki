@@ -275,6 +275,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             ->offset($resultStart)
             ->limit($resultCount)
             ->highlight(['contents'], ['pre_tags' => '<em>', 'post_tags' => '</em>'])
+            ->option('cutoff', 0)
             ->get();
 
         $fieldMapping = $this->getUnifiedFieldMapping();
