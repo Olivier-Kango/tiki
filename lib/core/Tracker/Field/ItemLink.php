@@ -1053,6 +1053,10 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
      */
     public function getFacets()
     {
+        if ($this->getOption('selectMultipleValues')) {
+            return [];
+        }
+
         $baseKey = $this->getBaseKey();
 
         return [

@@ -17,21 +17,33 @@ class Search_GlobalSource_CategorySource implements Search_GlobalSource_Interfac
 
     public function getFacets()
     {
+        static $map = [];
+        if (! $map) {
+            $result = $this->categlib->query('select `categId` from `tiki_categories`', []);
+            while ($res = $result->fetchRow()) {
+                $map[crc32($res['categId'])] = $res['categId'];
+            }
+        }
+
         $facets = [
             Search_Query_Facet_Term::fromField('deep_categories')
                 ->setLabel(tr('Category Tree'))
+                ->setValueMap($map)
                 ->setRenderCallback([$this->categlib, 'get_category_name']),
             Search_Query_Facet_Term::fromField('categories')
                 ->setLabel(tr('Categories'))
+                ->setValueMap($map)
                 ->setRenderCallback([$this->categlib, 'get_category_name']),
         ];
 
         foreach ($this->categlib->getCustomFacets() as $categId) {
             $facets[] = Search_Query_Facet_Term::fromField("categories_under_{$categId}")
                 ->setLabel($this->categlib->get_category_name($categId))
+                ->setValueMap($map)
                 ->setRenderCallback([$this->categlib, 'get_category_name']);
             $facets[] = Search_Query_Facet_Term::fromField("deep_categories_under_{$categId}")
                 ->setLabel(tr('%0 (Tree)', $this->categlib->get_category_name($categId)))
+                ->setValueMap($map)
                 ->setRenderCallback([$this->categlib, 'get_category_name']);
         }
 

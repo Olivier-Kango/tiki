@@ -12,6 +12,7 @@ class Search_Query_Facet_Term extends Search_Query_Facet_Abstract implements Sea
     private $count;
     private $order;
     private $min_doc_count;
+    private $valueMap;
 
     public static function fromField($field)
     {
@@ -40,6 +41,21 @@ class Search_Query_Facet_Term extends Search_Query_Facet_Abstract implements Sea
                 }
             }
         );
+    }
+
+    public function setValueMap(array $map)
+    {
+        $this->valueMap = $map;
+        return $this;
+    }
+
+    public function getValue($value)
+    {
+        if (isset($this->valueMap[$value])) {
+            return $this->valueMap[$value];
+        } else {
+            return $value;
+        }
     }
 
     public function getType()

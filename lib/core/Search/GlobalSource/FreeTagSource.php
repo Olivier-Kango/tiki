@@ -17,9 +17,18 @@ class Search_GlobalSource_FreeTagSource implements Search_GlobalSource_Interface
 
     public function getFacets()
     {
+        static $map = [];
+        if (! $map) {
+            $result = $this->freetaglib->query('select `tagId` from `tiki_freetags`', []);
+            while ($res = $result->fetchRow()) {
+                $map[crc32($res['tagId'])] = $res['tagId'];
+            }
+        }
+
         return [
             Search_Query_Facet_Term::fromField('freetags')
                 ->setLabel(tr('Tags'))
+                ->setValueMap($map)
                 ->setRenderCallback([$this->freetaglib, 'get_tag_from_id']),
         ];
     }

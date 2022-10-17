@@ -447,10 +447,19 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
     {
         $baseKey = $this->getBaseKey();
 
+        static $map = [];
+        if (! $map) {
+            $result = TikiLib::lib('user')->query('select `login` from `users_users`', []);
+            while ($res = $result->fetchRow()) {
+                $map[crc32($res['login'])] = $res['login'];
+            }
+        }
+
         return [
             Search_Query_Facet_Term::fromField($baseKey)
                 ->setLabel($this->getConfiguration('name'))
-                ->setRenderCallback([$this, 'getLabel']),
+                ->setValueMap($map)
+                ->setRenderCallback([$this, 'getLabel'])
         ];
     }
 
