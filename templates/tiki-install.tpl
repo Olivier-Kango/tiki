@@ -476,6 +476,10 @@
                                     </fieldset>
                                 </form>
                             {/remarksbox}
+                        {else}
+                            {remarksbox type=confirm title="{tr}Success{/tr}" close="n"}
+                                {icon name="ok"} {tr}You are using a correct database encoding and allowed legacy collation as required to complete the installation.{/tr}
+                            {/remarksbox}
                         {/if}
                         {if $dbdone eq 'n'}
                             {if $logged eq 'y'}{* we are logged if no admin account is found or if the admin user is logged in*}
@@ -917,7 +921,7 @@
                             <fieldset>
                                 <legend>{tr}Upgrading and running into encoding issues?{/tr}</legend>
                                 <p>{tr}We can try to fix it, but <strong>make sure you have backups, and can restore them</strong>.{/tr}</p>
-                                {if $client_charset_in_file eq 'utf8'}
+                                {(if $client_charset_in_file eq 'utf8' or $client_charset_in_file eq 'utf8mb4') and ($database_charset eq 'utf8mb4' or $database_charset eq 'utf8')}
                                     <div class="d-flex flex-wrap mx-0 align-items-center">
                                         <div class="input-group col-auto">
                                             <label class="col-form-label" for="previous_encoding">{tr}Previous table encoding:{/tr}</label>
@@ -964,7 +968,7 @@
                                         <input type="hidden" name="install_step" value="8">
                                     </div>
                                 {else}
-                                    <p>{tr}Oops. You need to make sure client charset is forced to UTF-8. Reset the database connection to continue.{/tr}</p>
+                                    <p>{tr}Oops. You need to make sure client charset and database encoding are forced to UTF-8. Reset the database connection to continue.{/tr}</p>
                                 {/if}
                             </fieldset>
                             </form>

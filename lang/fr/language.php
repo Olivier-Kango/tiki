@@ -18152,7 +18152,7 @@ $lang_current = array(
 "Previous table encoding" => "Encodage précédent de vos tables",
 "Please select" => "Veuillez choisir",
 // "Click to fix double encoding (dangerous)" => "Click to fix double encoding (dangerous)",
-// "Oops. You need to make sure client charset is forced to UTF-8. Reset the database connection to continue" => "Oops. You need to make sure client charset is forced to UTF-8. Reset the database connection to continue",
+"Oops. You need to make sure client charset and database encoding are forced to UTF-8. Reset the database connection to continue." => "Oops. Vous devez vous assurer que 'client charset' et l'encodage de la base de données sont forcés à UTF-8. Réinitialisez la connexion à la base de données pour continuer.",
 "MultiTiki Setup" => "Configuration MultiTiki",
 "Default Installation" => "Installation par défaut",
 "DB OK" => "BDD OK",
@@ -22070,6 +22070,6 @@ $lang_current = array(
 "Fix double encoding issues" => "Résoudre les problèmes de double encodage",
 "Previous table encoding:" => "Encodage précédent de la table",
 "Fix double encoding issues (Make sure to have a backup, and test thoroughly after this operation)" => "Résoudre les problèmes de double encodage (assurez-vous d'avoir une sauvegarde et testez soigneusement après cette opération)",
-"Your database encoding is utf8 as required to complete the installation." => "L'encodage de votre base de données est utf8 comme requis pour terminer l'installation.",
+"You are using a correct database encoding and allowed legacy collation as required to complete the installation." => "Vous utilisez un encodage correcte de la base de données et un 'legacy collation' requis pour terminer l'installation.",
 );
 $lang = array_replace($lang, $lang_current);

@@ -18078,7 +18078,7 @@ $lang = array(
 // "Previous table encoding" => "Previous table encoding",
 // "Please select" => "Please select",
 // "Click to fix double encoding (dangerous)" => "Click to fix double encoding (dangerous)",
-// "Oops. You need to make sure client charset is forced to UTF-8. Reset the database connection to continue" => "Oops. You need to make sure client charset is forced to UTF-8. Reset the database connection to continue",
+// "Oops. You need to make sure client charset and database encoding are forced to UTF-8. Reset the database connection to continue." => "Oops. You need to make sure client charset and database encoding are forced to UTF-8. Reset the database connection to continue.",
 // "MultiTiki Setup" => "MultiTiki Setup",
 // "Default Installation" => "Default Installation",
 // "DB OK" => "DB OK",
@@ -21982,5 +21982,5 @@ $lang = array(
 // "Fix double encoding issues" => "Fix double encoding issues",
 // "Previous table encoding:" => "Previous table encoding:",
 // "Fix double encoding issues (Make sure to have a backup, and test thoroughly after this operation)" => "Fix double encoding issues (Make sure to have a backup, and test thoroughly after this operation)",
-// "Your database encoding is utf8 as required to complete the installation." => "Your database encoding is utf8 as required to complete the installation.",
+// "You are using a correct database encoding and allowed legacy collation as required to complete the installation." => "You are using a correct database encoding and allowed legacy collation as required to complete the installation.",
 );
