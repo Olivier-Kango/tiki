@@ -335,6 +335,7 @@
                                     $.get($.service("tracker", "view", {id: itemId}), function (data) {
                                         data = data.replace(/<h[\s\S]*?<\/h.*?>/mgi, "");    // remove headings
                                         $(".popover-body", ".popover.show").empty().append(data);
+                                        $(".popover").popover("update");
                                     });
                                 }
                             });
