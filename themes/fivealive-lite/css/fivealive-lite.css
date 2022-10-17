@@ -10268,10 +10268,12 @@ body.wikitext {
 }
 .diffadded {
   background: #56ca75;
+  --bs-table-bg: #56ca75;
   color: white;
 }
 .diffdeleted {
   background: #df6e1e;
+  --bs-table-bg: #df6e1e;
   color: #fffefd;
 }
 .diffadded a, .diffadded a:hover {
@@ -10285,6 +10287,7 @@ body.wikitext {
 }
 .diffbody {
   background: #e9ecef;
+  --bs-table-bg: #e9ecef;
   color: #495057;
 }
 .diffchar {
@@ -10614,6 +10617,9 @@ a.dropdown-item {
 .layout_social .topbar-wrapper {
   max-width: 100%;
   width: 100%;
+}
+.topbar {
+  padding-top: 6px;
 }
 .dropdown-menu > .btn-link:not(.text-danger) {
   color: #fff;

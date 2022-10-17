@@ -22,6 +22,9 @@
   --tiki-topbar-dark-color: #000;
   --tiki-topbar-dark-link-color: #000;
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
+  --tiki-top-light-border: solid #000;
+  --tiki-top-dark-border: solid #000;
+  --tiki-top-border-width: 0 0 5px 0;
 }
 :root {
   --bs-blue: #0d6efd;
@@ -894,9 +897,6 @@ body.layout_social.tiki.navbar-padding {
 nav.fixed-top {
   border-bottom: 5px solid #000000;
 }
-.navbar.navbar-dark.bg-dark.fixed-top, .navbar.navbar-dark.bg-dark.fixed-top .navbar {
-  padding: 0;
-}
 .postbody-title {
   background: #a52874 !important;
   color: #fff;
@@ -1129,56 +1129,72 @@ footer#footer .footer_liner .card-header {
 .layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
   background: var(--tiki-top-bg-light) !important;
   color: var(--tiki-top-light-color);
+  border: var(--tiki-top-light-border);
+  border-width: var(--tiki-top-border-width);
+  box-shadow: var(--tiki-top-light-box-shadow);
 }
 .layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .header_outer.bg-light-parent a, .layout_classic .header_outer.bg-light-parent .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
   color: var(--tiki-top-light-link-color);
 }
 .layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-light-parent a:hover, .layout_classic .header_outer.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
   color: var(--tiki-top-light-link-hover-color);
+  background: var(--tiki-top-light-link-hover-bg);
 }
 .layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .admin-content .bg-light {
   background: var(--tiki-topbar-bg-light) !important;
   color: var(--tiki-topbar-light-color);
+  border: var(--tiki-topbar-light-border);
+  border-width: var(--tiki-topbar-border-width);
+  box-shadow: var(--tiki-topbar-light-box-shadow);
 }
 .layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link, .layout_classic .topbar.bg-light-parent a, .layout_classic .topbar.bg-light-parent .btn.btn-link, .layout_classic .topbar.bg-light-parent a.nav-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link, .admin-content .bg-light a, .admin-content .bg-light .btn.btn-link, .admin-content .bg-light a.nav-link {
   color: var(--tiki-topbar-light-link-color);
 }
 .layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link:hover, .layout_classic .topbar.bg-light-parent a:hover, .layout_classic .topbar.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar.bg-light-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link:hover, .admin-content .bg-light a:hover, .admin-content .bg-light .btn.btn-link:hover, .admin-content .bg-light a.nav-link:hover {
   color: var(--tiki-topbar-light-link-hover-color);
+  background: var(--tiki-topbar-light-link-hover-bg);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent {
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent, .layout_social header.navbar-light-parent.bg-dark-parent, .layout_social header.navbar.navbar-dark.bg-dark {
   background: var(--tiki-top-bg-dark) !important;
   color: var(--tiki-top-dark-color);
+  border: var(--tiki-top-dark-border);
+  border-width: var(--tiki-top-border-width);
+  box-shadow: var(--tiki-top-dark-box-shadow);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent a.nav-link, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item), .layout_classic .header_outer.bg-dark-parent .btn.btn-link, .layout_classic .header_outer.bg-dark-parent a.nav-link {
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent a.nav-link, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item), .layout_classic .header_outer.bg-dark-parent .btn.btn-link, .layout_classic .header_outer.bg-dark-parent a.nav-link, .layout_social header.navbar-light-parent.bg-dark-parent a:not(.dropdown-item), .layout_social header.navbar-light-parent.bg-dark-parent .btn.btn-link, .layout_social header.navbar-light-parent.bg-dark-parent a.nav-link, .layout_social header.navbar.navbar-dark.bg-dark a:not(.dropdown-item), .layout_social header.navbar.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar.navbar-dark.bg-dark a.nav-link {
   color: var(--tiki-top-dark-link-color);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent a.nav-link:hover, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .header_outer.bg-dark-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-dark-parent a.nav-link:hover {
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent a.nav-link:hover, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .header_outer.bg-dark-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-dark-parent a.nav-link:hover, .layout_social header.navbar-light-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_social header.navbar-light-parent.bg-dark-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-dark-parent a.nav-link:hover, .layout_social header.navbar.navbar-dark.bg-dark a:not(.dropdown-item):hover, .layout_social header.navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar.navbar-dark.bg-dark a.nav-link:hover {
   color: var(--tiki-top-dark-link-hover-color);
+  background: var(--tiki-top-dark-link-hover-bg);
 }
 .layout_basic .topbar_modules.bg-dark, .layout_classic .topbar.bg-dark-parent, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .admin-content .bg-dark {
   background: var(--tiki-topbar-bg-dark) !important;
   color: var(--tiki-topbar-dark-color);
+  border: var(--tiki-topbar-dark-border);
+  border-width: var(--tiki-topbar-border-width);
+  box-shadow: var(--tiki-topbar-dark-box-shadow);
 }
 .layout_basic .topbar_modules.bg-dark a:not(.dropdown-item), .layout_basic .topbar_modules.bg-dark .btn.btn-link, .layout_basic .topbar_modules.bg-dark a.nav-link, .layout_classic .topbar.bg-dark-parent a:not(.dropdown-item), .layout_classic .topbar.bg-dark-parent .btn.btn-link, .layout_classic .topbar.bg-dark-parent a.nav-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a.nav-link, .admin-content .bg-dark a:not(.dropdown-item), .admin-content .bg-dark .btn.btn-link, .admin-content .bg-dark a.nav-link {
   color: var(--tiki-topbar-dark-link-color);
 }
 .layout_basic .topbar_modules.bg-dark a:not(.dropdown-item):hover, .layout_basic .topbar_modules.bg-dark .btn.btn-link:hover, .layout_basic .topbar_modules.bg-dark a.nav-link:hover, .layout_classic .topbar.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .topbar.bg-dark-parent .btn.btn-link:hover, .layout_classic .topbar.bg-dark-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a.nav-link:hover, .admin-content .bg-dark a:not(.dropdown-item):hover, .admin-content .bg-dark .btn.btn-link:hover, .admin-content .bg-dark a.nav-link:hover {
   color: var(--tiki-topbar-dark-link-hover-color);
+  background: var(--tiki-topbar-dark-link-hover-bg);
 }
-.layout_basic .page-header .top_modules, .layout_basic .page-header .top_modules .navbar, .layout_basic .topbar_modules .navbar {
+.tiki.layout_basic .page-header .top_modules, .tiki.layout_basic .page-header .top_modules .navbar, .tiki.layout_basic .topbar_modules .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
   border: none;
 }
-.layout_classic .header_outer, .layout_classic .top_modules .navbar, .layout_classic .topbar, .layout_classic .topbar_modules, .layout_classic .topbar_modules .navbar {
+.tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
   border: none;
 }
-.layout_social header .top_modules, .layout_social header .top_modules .navbar, .layout_social .topbar, .layout_social .topbar .navbar {
+.tiki.layout_social header .top_modules, .tiki.layout_social header .top_modules .navbar, .tiki.layout_social .topbar-wrapper .topbar, .tiki.layout_social .topbar .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;

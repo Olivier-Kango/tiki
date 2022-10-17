@@ -221,4 +221,8 @@ $bg-dark-info: #00DAE6;
     --tiki-topbar-dark-color: #{$navbar-dark-link-color};
     --tiki-topbar-dark-link-color: #{$navbar-dark-link-color};
     --tiki-topbar-dark-link-hover-color: #{$navbar-dark-link-hover-color};
+
+    --tiki-top-light-border: solid #000;
+    --tiki-top-dark-border: solid #000;
+    --tiki-top-border-width: 0 0 5px 0;
 }

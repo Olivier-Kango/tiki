@@ -12,6 +12,10 @@ $imagePath: "../images/";
     width: 100%;
 }
 
+.topbar {
+    padding-top: 6px;
+}
+
 // Special links in "More" button of page-bar
 .dropdown-menu > .btn-link:not(.text-danger) {
     color: #fff;
