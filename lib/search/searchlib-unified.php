@@ -436,7 +436,7 @@ class UnifiedSearchLib
             ],
             'manticore' => [
                 'data' => $prefs['unified_manticore_index_current'] ?? '',
-                'preference' => $prefs['unified_manticore_index_prefix'] . 'pref_' . $prefs['language'],
+                'preference' => $prefs['unified_manticore_index_prefix'] . 'pref_' . str_replace('-', '_', $prefs['language']),
                 'connect' => $prefs['unified_manticore_index_prefix'] . 'connect',
             ],
         ];
