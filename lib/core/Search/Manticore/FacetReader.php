@@ -22,7 +22,7 @@ class Search_Manticore_FacetReader
 
         $facets = $this->result->getFacets();
 
-        if (empty($facets[$facetName]['buckets'])) {
+        if (empty($facets[$facetName]['buckets']) || count($facets[$facetName]['buckets']) < 2) {
             return null;
         }
 
