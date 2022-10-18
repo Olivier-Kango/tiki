@@ -25,12 +25,12 @@ class Search_Formatter_ValueFormatter_Datetime extends Search_Formatter_ValueFor
         $tikilib = TikiLib::lib('tiki');
         $time = $this->timestamp($value);
 
-        if (is_numeric($value)) {   // expects a unix timestamp but might be getting the default value
+        if (is_numeric($value) && $value !== 0) {   // expects a unix timestamp but might be getting the default value
             return $tikilib->date_format($this->format, $value);
         } elseif (false !== $time) {
             return $tikilib->date_format($this->format, $time);
         } else {
-            return $value;
+            return '';
         }
     }
 
