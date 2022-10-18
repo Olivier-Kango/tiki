@@ -2124,6 +2124,7 @@
         "psr/container": ">=1.0.0",
         "psr/http-message": "^1.0.1",
         "psr/log": ">=1.0",
+        "rambomst/php-bounce-handler": ">=1.6",
         "rangy/rangy": ">=1.2.3",
         "react/child-process": ">=0.6.4",
         "rmm5t/jquery-timeago": "^1.5",

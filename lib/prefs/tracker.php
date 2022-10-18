@@ -292,5 +292,84 @@ function prefs_tracker_list()
             ],
             'default' => 'straight',
         ],
+        'tracker_system_bounces' => [
+            'name' => tr('Email bounces tracker'),
+            'description' => tr('Allow defining a specific tracker to hold email bounces registered in Tiki and block sending emails out of Tiki to specific mailboxes.'),
+            'type' => 'flag',
+            'dependencies' => [
+                'trackerfield_currency',
+            ],
+            'default' => 'n',
+        ],
+        'tracker_system_bounces_tracker' => [
+            'name' => tr('Choose tracker'),
+            'description' => tr('Choose which tracker will store the bounced emails and statistics.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_bounces',
+            ],
+            'default' => '',
+            'profile_reference' => 'tracker',
+        ],
+        'tracker_system_bounces_mailbox' => [
+            'name' => tr('Mailbox field'),
+            'description' => tr('Choose an email field that stores the email address that bounced.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_bounces',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_bounces_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_bounces_emailfolder' => [
+            'name' => tr('Email folder field'),
+            'description' => tr('Choose an email folder field that stores the bounced messages read by Tiki.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_bounces',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_bounces_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_bounces_soft_total' => [
+            'name' => tr('Total soft bounces field'),
+            'description' => tr('Choose a numeric field that stores the total number of soft bounces occured for an email address.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_bounces',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_bounces_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_bounces_hard_total' => [
+            'name' => tr('Total hard bounces field'),
+            'description' => tr('Choose a numeric field that stores the total number of hard bounces occured for an email address.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_bounces',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_bounces_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_bounces_blacklisted' => [
+            'name' => tr('Blacklisted field'),
+            'description' => tr('Choose a checkbox field that stores the blacklist state for an email address - whether Tiki should skip sending emails to that email address or not.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_bounces',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_bounces_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
     ];
 }

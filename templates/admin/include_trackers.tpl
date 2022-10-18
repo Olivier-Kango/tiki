@@ -96,6 +96,15 @@
                     {preference name=tracker_system_currency_date}
                     {preference name=tracker_system_currency_direction}
                 </div>
+                {preference name=tracker_system_bounces}
+                <div class="adminoptionboxchild" id="tracker_system_bounces_childcontainer">
+                    {preference name=tracker_system_bounces_tracker}
+                    {preference name=tracker_system_bounces_mailbox}
+                    {preference name=tracker_system_bounces_emailfolder}
+                    {preference name=tracker_system_bounces_soft_total}
+                    {preference name=tracker_system_bounces_hard_total}
+                    {preference name=tracker_system_bounces_blacklisted}
+                </div>
             </fieldset>
         {/tab}
 

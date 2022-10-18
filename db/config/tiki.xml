@@ -344,6 +344,7 @@
         <service id="tiki.lib.trk" class="TrackerLib">
             <file>%kernel.root_dir%/lib/trackers/trackerlib.php</file>
         </service>
+        <service id="tiki.lib.tsbounces" class="Tracker\System\Bounces" />
         <service id="tiki.lib.unifiedsearch" class="UnifiedSearchLib">
             <file>%kernel.root_dir%/lib/search/searchlib-unified.php</file>
         </service>

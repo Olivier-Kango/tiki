@@ -11,6 +11,8 @@ namespace Tiki\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use rambomst\PHPBounceHandler\BounceHandler;
+use Exception;
 use TikiLib;
 use Tiki_Hm_Site_Config_File;
 use Hm_Session_Setup;
@@ -129,7 +131,7 @@ class SieveFiltersCommand extends Command
 
                 foreach ($msg_list as $key => $msg) {
                     if (strtotime($msg['date']) < $last_timestamp) {
-                        continue;
+                        //continue;
                     }
 
                     // 2. check if sender is on blocked list: discard (remove mail) or reject (remove mail and respond with a message)
@@ -149,6 +151,7 @@ class SieveFiltersCommand extends Command
                     // 3. check filters and if matching, apply actions
                     foreach ($filters as $filter) {
                         $filtered = [];
+                        $bouncelist = [];
                         foreach ($filter['conditions'] as $cond) {
                             $values = [];
                             if (in_array($cond['condition'], ['to', 'from', 'subject', 'size'])) {
@@ -173,6 +176,38 @@ class SieveFiltersCommand extends Command
                                         $values[] = $val;
                                     }
                                 }
+                            } elseif ($cond['condition'] == 'bounce') {
+                                $msg_headers = $imap->get_message_headers($msg['uid']);
+                                $msg_content = $imap->get_message_content($msg['uid'], 0);
+                                $bouncehandler = new BounceHandler();
+                                $bounce_output = $bouncehandler->parseEmail($msg_content);
+                                foreach ($bounce_output as $result) {
+                                    if (empty($result['action'])) {
+                                        continue;
+                                    }
+                                    $is_bounce = false;
+                                    switch ($result['action']) {
+                                        case 'failed':
+                                            $is_bounce = 'hard';
+                                            break;
+                                        case 'transient':
+                                        case 'autoreply':
+                                            $is_bounce = 'soft';
+                                            break;
+                                    }
+                                    if ($is_bounce) {
+                                        $address = $result['recipient'] ?? $msg['from'];
+                                        foreach (process_address_fld($address) as $addr) {
+                                            $bouncelist[] = [
+                                                'mailbox' => $addr['email'],
+                                                'headers' => $msg_headers,
+                                                'msg' => $msg_content,
+                                                'type' => $is_bounce,
+                                            ];
+                                        }
+                                    }
+                                    $values[] = $is_bounce;
+                                }
                             }
                             $values = array_filter($values, function ($val) use ($cond) {
                                 $type = $cond['type'];
@@ -186,6 +221,14 @@ class SieveFiltersCommand extends Command
                                     $comparison = preg_match('/' . str_replace('*', '.*', str_replace('?', '.?', $cond['value'])) . '/i', $val);
                                 } elseif ($type == 'Regex') {
                                     $comparison = preg_match('/' . $cond['value'] . '/i', $val);
+                                } elseif ($type == 'Over') {
+                                    $comparison = floatval($val) > floatval($cond['value']);
+                                } elseif ($type == 'Under') {
+                                    $comparison = floatval($val) < floatval($cond['value']);
+                                } elseif ($type == 'Soft') {
+                                    $comparison = $val == 'soft';
+                                } elseif ($type == 'Hard') {
+                                    $comparison = $val == 'hard';
                                 } else {
                                     $comparison = false;
                                 }
@@ -280,6 +323,15 @@ class SieveFiltersCommand extends Command
                                     $this->action_discard($imap, $msg, $output);
                                 } elseif ($action['action'] == 'autoreply') {
                                     $this->action_reply($imap, $msg, $action['extra_option_value'], $action['value'], $config, $hmod, $output);
+                                } elseif ($action['action'] == 'bounce') {
+                                    foreach ($bouncelist as $bounce) {
+                                        try {
+                                            TikiLib::lib('tsbounces')->insert($bounce['mailbox'], $bounce['headers'], $bounce['msg'], $bounce['type']);
+                                            $output->writeln(tr("Added recipient %0 for msg %1 to bounce list as %2 bounce.", $bounce['mailbox'], $msg['uid'], $bounce['type']));
+                                        } catch (Exception $e) {
+                                            $output->writeln(tr("Error adding bounce for msg %0, recipient %1: %2", $msg['uid'], $bounce['mailbox'], $e->getMessage()));
+                                        }
+                                    }
                                 }
                             }
                         }
