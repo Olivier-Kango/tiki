@@ -48,7 +48,10 @@ class Search_Manticore_Client
                 ],
             ]);
             if (! empty($result['data'])) {
-                foreach ($result['data'] as $row) {
+                $result = $result['data'];
+            }
+            if (is_array($result)) {
+                foreach ($result as $row) {
                     $status[$row['Counter']] = $row['Value'];
                 }
             }
