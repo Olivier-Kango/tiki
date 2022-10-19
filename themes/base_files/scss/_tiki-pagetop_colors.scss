@@ -65,7 +65,7 @@
 
 // Topbar module zone and parent divs - light color
 .layout_basic .topbar_modules.navbar-light.bg-light,                  // Topbar, which probably includes another nav menu
-.layout_classic .topbar.bg-light-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
+.layout_classic .topbar-wrapper.bg-light-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
 .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent,   // Classic Bootstrap topbar wrapper
 .admin-content .bg-light                                              // Admin navbar and icons when UAB is off
 {
@@ -109,7 +109,7 @@
 
 // Topbar module zone and parent divs - dark color
 .layout_basic .topbar_modules.bg-dark,                               // Single Container layout -- Topbar, which probably includes another nav menu
-.layout_classic .topbar.bg-dark-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
+.layout_classic .topbar-wrapper.bg-dark-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
 .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent,     // Classic Bootstrap topbar wrapper
 .admin-content .bg-dark
 {

@@ -35,13 +35,10 @@
                 {/if}
             <div class="fixed-topbar"></div>
         {/if}
-        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std topbar-wrapper navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent" id="topbar-wrapper">
-            {if $smarty.session.fullscreen ne 'y'}
-            <div class="row topbar mx-0 navbar-{$navbar_color_variant} bg-{$navbar_color_variant}" id="topbar">
+        <div class="topbar-wrapper navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent">
+            <div class="topbar container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std navbar-{$navbar_color_variant} bg-{$navbar_color_variant}" id="topbar">
                 {modulelist zone=topbar class='topbar_modules d-flex justify-content-between w-100'}
             </div>
-            {/if}
-            {*<div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">*}
         </div>
         <div class="middle-wrapper">
         <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">

@@ -32,10 +32,12 @@
 {/if}
 
     <div class="middle_outer" id="middle_outer" >
-        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
-            <div class="topbar navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent row" id="topbar">
+        <div class="topbar-wrapper navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent">
+            <div class="topbar container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent" id="topbar">
                 {modulelist zone=topbar class="topbar_modules d-flex justify-content-between w-100 navbar-{$navbar_color_variant} bg-{$navbar_color_variant}"}
             </div>
+        </div>
+        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
             <div class="row row-middle" id="row-middle">
                 {if (zone_is_empty('left') or $prefs.feature_left_column eq 'n') and (zone_is_empty('right') or $prefs.feature_right_column eq 'n')}
                 <div class="d-flex flex-row row w-100 gx-4">

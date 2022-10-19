@@ -1,22 +1,22 @@
 :root {
   --tiki-top-bg-light: linear-gradient(to right,  #bebc24 0%,#ded319 53%,#e7d915 100%);
-  --tiki-top-light-color: #f9f9f9;
-  --tiki-top-light-link-color: #f9f9f9;
-  --tiki-top-light-link-hover-color: #f2f2f2;
+  --tiki-top-light-color: #212529;
+  --tiki-top-light-link-color: #212529;
+  --tiki-top-light-link-hover-color: #383f45;
   --tiki-topbar-bg-light: #063035;
-  --tiki-topbar-light-color: #f9f9f9;
-  --tiki-topbar-light-link-color: #f9f9f9;
+  --tiki-topbar-light-color: #212529;
+  --tiki-topbar-light-link-color: #212529;
   --tiki-topbar-light-link-hover-color: #f2f2f2;
   --tiki-top-bg-dark: linear-gradient(to right,  #bebc24 0%,#ded319 53%,#e7d915 100%);
-  --tiki-top-dark-color: #f9f9f9;
-  --tiki-top-dark-link-color: #f9f9f9;
-  --tiki-top-dark-link-hover-color: #f2f2f2;
+  --tiki-top-dark-color: #000;
+  --tiki-top-dark-link-color: #000;
+  --tiki-top-dark-link-hover-color: #343a40;
   --tiki-topbar-bg-dark:#063035;
-  --tiki-topbar-dark-color: #f9f9f9;
-  --tiki-topbar-dark-link-color: #f9f9f9;
+  --tiki-topbar-dark-color: #fff;
+  --tiki-topbar-dark-link-color: #fff;
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
 }
-.header_outer, .layout_basic #top_modules, .postbody-title, .bg-dark {
+.header_outer, .layout_basic #top_modules, .postbody-title {
   background: #bebc24;
   background: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
 }
@@ -933,14 +933,9 @@ body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
 }
-.middle_outer {
-  -webkit-box-shadow: inset 0 54px 0 0 #063035;
-  -moz-box-shadow: inset 0 54px 0 0 #063035;
-  box-shadow: inset 0 54px 0 0 #063035;
-}
 .bg-dark {
   background-color: #063035 !important;
-  color: #f9f9f9;
+  color: #fff;
 }
 .bg-dark .btn-outline-info {
   color: #00DAE6;
@@ -997,7 +992,7 @@ hr {
   border: 1px solid #f8f9d4;
 }
 .navbar-dark a, .navbar-dark .navbar-brand, .dropdown-item, .dropdown-item a, .dropdown-menu .tikihelp {
-  color: #f9f9f9;
+  color: #fff;
 }
 .navbar-dark a:hover, .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
   color: rgba(255, 255, 255, 0.75);
@@ -1026,7 +1021,7 @@ hr {
   border-color: transparent;
 }
 nav:not(.topbar_modules, .top_modules).navbar-dark .open > a, nav:not(.topbar_modules, .top_modules).navbar-dark .open > a:hover, nav:not(.topbar_modules, .top_modules).navbar-dark .open > a:focus {
-  color: #f9f9f9;
+  color: #fff;
 }
 .navbar-dark .navbar-link:hover {
   color: #f9f9f9;

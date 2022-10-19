@@ -11,7 +11,7 @@
   --tiki-top-dark-color: #f9f9f9;
   --tiki-top-dark-link-color: #f9f9f9;
   --tiki-top-dark-link-hover-color: #f2f2f2;
-  --tiki-topbar-bg-dark:#063035;
+  --tiki-topbar-bg-dark: #063035;
   --tiki-topbar-dark-color: #f9f9f9;
   --tiki-topbar-dark-link-color: #f9f9f9;
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
@@ -913,11 +913,6 @@ progress {
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
-}
-.middle_outer {
-  -webkit-box-shadow: inset 0 54px 0 0 #063035;
-  -moz-box-shadow: inset 0 54px 0 0 #063035;
-  box-shadow: inset 0 54px 0 0 #063035;
 }
 .bg-dark {
   background-color: #063035 !important;

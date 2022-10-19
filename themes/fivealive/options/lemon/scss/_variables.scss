@@ -130,6 +130,7 @@ $topbar-light-color: #f9f9f9;
 $top-dark-bg: transparent; // #117485; // $top-light-bg; defining the variable with a variable didn't work.
 $top-dark-color: $black;
 $top-dark-link-color: $top-dark-color;
+$top-dark-link-hover-color: $gray-900;
 $topbar-dark-bg: #063035; // $topbar-light-bg;
 $topbar-dark-color: $topbar-light-color;
 
@@ -179,9 +180,9 @@ $postbody-title-card-title-color: #fff;
     --tiki-topbar-light-link-hover-color: #{$navbar-dark-link-hover-color};
 
     --tiki-top-bg-dark: linear-gradient(to right, #977202 0%,#f99f14 100%);
-    --tiki-top-dark-color: #{$navbar-dark-color};
-    --tiki-top-dark-link-color: #{$navbar-dark-link-color};
-    --tiki-top-dark-link-hover-color: #{$navbar-dark-link-hover-color};
+    --tiki-top-dark-color: #{$top-dark-color};
+    --tiki-top-dark-link-color: #{$top-dark-link-color};
+    --tiki-top-dark-link-hover-color: #{$top-dark-link-hover-color};
 
     --tiki-topbar-bg-dark:#{$topbar-dark-bg};
     --tiki-topbar-dark-color: #{$navbar-dark-color};
