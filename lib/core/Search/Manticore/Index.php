@@ -271,12 +271,16 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         //     return $builder->build($query->getExpr());
         // }, $query->getForeignQueries());
 
-        $result = $search
-            ->offset($resultStart)
+        $search->offset($resultStart)
             ->limit($resultCount)
             ->highlight(['contents'], ['pre_tags' => '<em>', 'post_tags' => '</em>'])
-            ->option('cutoff', 0)
-            ->get();
+            ->option('cutoff', 0);
+
+        if ($resultStart + $resultCount > 1000) {
+            $search->maxMatches($resultStart + $resultCount);
+        }
+
+        $result = $search->get();
 
         $fieldMapping = $this->getUnifiedFieldMapping();
 
