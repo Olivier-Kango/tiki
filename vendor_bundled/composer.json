@@ -60,7 +60,7 @@
         "jquery-plugins/tagcanvas": "2.8",
         "jquery-plugins/treetable": "3.2.0",
         "jquery-plugins/zoom": "1.7.18",
-        "kaltura/api-client-library": "^12.18",
+        "kaltura/api-client-library": "^18.15",
         "laminas/laminas-captcha": "^2.9",
         "laminas/laminas-config": "^3.3",
         "laminas/laminas-eventmanager": "^3.2.1",

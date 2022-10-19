@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db47f8a32bea0300e30311f8d73f4162",
+    "content-hash": "feb29b392c128dbb097c097b22c00558",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -736,7 +736,7 @@
             "version": "6.2.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
                 "reference": "d3a7818c253fcbafff9ebd1d4abb2866c192e1d7"
             },
             "dist": {
@@ -2811,13 +2811,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "58e2890e28aa8db200ba94c535309d92d58f5366"
+                "reference": "68239a70befe06bb7cddb180a6a858c4f989259b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-58e2890e28aa8db200ba94c535309d92d58f5366-zip-3e2720.zip",
-                "reference": "58e2890e28aa8db200ba94c535309d92d58f5366",
-                "shasum": "235220da50454db13a61b0b9236d432a86a1fc3e"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-68239a70befe06bb7cddb180a6a858c4f989259b-zip-defed3.zip",
+                "reference": "68239a70befe06bb7cddb180a6a858c4f989259b",
+                "shasum": "a11423043487ada9cb90cab511580aa1ae82ee43"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2871,7 +2871,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-10-17T22:51:43+00:00"
+            "time": "2022-10-18T16:42:51+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3170,17 +3170,17 @@
         },
         {
             "name": "kaltura/api-client-library",
-            "version": "v12.20.0",
+            "version": "v18.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53.git",
-                "reference": "1710f9b2aed7665977cbceeb1d5571e2e625de93"
+                "reference": "5a0fa6ecf18ffd48e7fefeb4daeef8b8cece68ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/kaltura/api-client-library/kaltura-api-client-library-1710f9b2aed7665977cbceeb1d5571e2e625de93-zip-84a4ef.zip",
-                "reference": "1710f9b2aed7665977cbceeb1d5571e2e625de93",
-                "shasum": "fc37599e0246dbb5f2df9275576b7a446db5e263"
+                "url": "https://composer.tiki.org/dist/kaltura/api-client-library/kaltura-api-client-library-5a0fa6ecf18ffd48e7fefeb4daeef8b8cece68ae-zip-954976.zip",
+                "reference": "5a0fa6ecf18ffd48e7fefeb4daeef8b8cece68ae",
+                "shasum": "0390bd8360463222e50bcc9f54e3eefc65b22868"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3193,7 +3193,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "AGPL-3.0"
+                "AGPL-3.0-or-later"
             ],
             "authors": [
                 {
@@ -3210,7 +3210,7 @@
                 "video",
                 "video platform"
             ],
-            "time": "2017-07-18T08:14:36+00:00"
+            "time": "2022-10-03T09:17:17+00:00"
         },
         {
             "name": "laminas/laminas-captcha",
@@ -11210,17 +11210,17 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.9.1",
+            "version": "3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "45b618b2265d11bc9b5a15f31bcc573a2dc3b956"
+                "reference": "2fdbda9b3569df08dd4a300db8a563d0ec7241f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-45b618b2265d11bc9b5a15f31bcc573a2dc3b956-zip-8aff70.zip",
-                "reference": "45b618b2265d11bc9b5a15f31bcc573a2dc3b956",
-                "shasum": "9ecd6b5e8f886b4d87b4e6ffc57eb5d81f0a3d4d"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-2fdbda9b3569df08dd4a300db8a563d0ec7241f9-zip-cd9965.zip",
+                "reference": "2fdbda9b3569df08dd4a300db8a563d0ec7241f9",
+                "shasum": "dc8d85601745a50f04b0fea7ee52c3ff52a69547"
             },
             "require": {
                 "ext-json": "*",
@@ -11264,7 +11264,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.9.x-dev"
+                    "dev-master": "3.10.x-dev"
                 }
             },
             "autoload": {
@@ -11306,7 +11306,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-10-11T09:00:25+00:00"
+            "time": "2022-10-19T09:28:02+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
