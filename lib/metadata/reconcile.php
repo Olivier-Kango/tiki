@@ -665,7 +665,14 @@ class ReconcileExifIptcXmp
     private function compareIptcExifValues($exifkey, $iptckey, $iptcval, $exifval)
     {
         //handle special cases first
-        if (array_key_exists($exifkey, ['DateTimeDigitized' => '', 'DateTimeOriginal' => '', 'DateTimeDigitizedTime' => '', 'DateTimeOriginalTime' => ''])) {
+        if (
+            array_key_exists(
+                $exifkey,
+                ['DateTimeDigitized' => '', 'DateTimeOriginal' => '', 'DateTimeDigitizedTime' => '', 'DateTimeOriginalTime' => '']
+            ) &&
+            // check both dates are valid
+            strtotime($exifval) && strtotime($iptcval)
+        ) {
             $exifdate = new DateTime($exifval);
             $iptcdate = new DateTime($iptcval);
             //time
@@ -711,7 +718,11 @@ class ReconcileExifIptcXmp
             foreach ($xmpval as $val) {
                 $xmpcheckval .= $val['rawval'];
             }
-        } elseif (array_key_exists($xmpkey, ['DateCreated' => '', 'CreateDate' => '', 'DateCreatedTime' => '', 'CreateDateTime' => ''])) {
+        } elseif (
+            array_key_exists($xmpkey, ['DateCreated' => '', 'CreateDate' => '', 'DateCreatedTime' => '', 'CreateDateTime' => '']) &&
+            // check both dates are valid
+            strtotime($xmpval) && strtotime($iptcval)
+        ) {
             $xmpdate = new DateTime($xmpval);
             $iptcdate = new DateTime($iptcval);
             //time
