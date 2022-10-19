@@ -21,7 +21,7 @@
                 {icon name=information}
             </a>
         </label>
-        <div class="col-sm-9">
+        <div class="col-sm-9" id="profile-field">
             <select class="form-control" name="profile">
                 <option value="">{tr}Pick one please{/tr}</option>
                 {foreach item=profile from=$profiles}
