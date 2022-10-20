@@ -11,9 +11,9 @@ function prefs_layout_list()
     return [
         'layout_fixed_width' => [
             'name' => tra('Layout width'),
-            'description' => tra('The width of the content area of the site, centered in the browser window.'),
+            'description' => tra('The width of the site\'s content area (Bootstrap container div), centered in the browser window.'),
             'type' => 'text',
-            'hint' => tra('for example, 960px'),
+            'hint' => tra('The default is 1170px.'),
             'dependencies' => [
                 'feature_fixed_width',
             ],

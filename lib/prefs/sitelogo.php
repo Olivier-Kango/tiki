@@ -17,21 +17,13 @@ function prefs_sitelogo_list()
             'tags' => ['basic'],
             'fgal_picker' => 'y',
         ],
-        'sitelogo_bgcolor' => [
-            'name' => tra('Logo background color'),
-            'description' => tr('A legacy option to add a background color to the div that contains the logo image.'),
-            'hint' => tra('Examples:') . ' ' . '1) silver - 2) #fff',
-            'type' => 'text',
-            'size' => '15',
-            'default' => 'transparent',
-            'tags' => ['basic'],
-        ],
+        // sitelogo_bgcolor pref removed 10/2022
         'sitelogo_title' => [
             'name' => tra('Logo title (on mouseover)'),
             'description' => tr('This appears as tool tip text. The site logo is also a link to the site index (top page).'),
             'type' => 'text',
             'size' => '50',
-            'default' => 'Tiki powered site',
+            'default' => 'Tiki-powered site',
             'tags' => ['basic'],
         ],
         'sitelogo_alt' => [

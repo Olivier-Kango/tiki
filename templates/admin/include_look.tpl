@@ -146,7 +146,6 @@
                 <fieldset>
                     <legend>{tr}Logo{/tr}</legend>
                     {preference name=sitelogo_src}
-                    {preference name=sitelogo_bgcolor}
                     {preference name=sitelogo_title}
                     {preference name=sitelogo_alt}
                 </fieldset>
