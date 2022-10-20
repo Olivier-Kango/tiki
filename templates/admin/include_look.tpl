@@ -44,8 +44,10 @@
             {* Fixed width is the first decision to make, so it needs to be visibly on the first tab. But its logical place is in the "layout" tab.
                     So we we put it twice. But its not possible to "just" put it twice, hence following hack.
                     If this hack is required in more places, we can add an opton to "preference" plugin
+                    -- This checkbox commented out 10/2022 for the reason that it makes more sense for items to be where they logically belong.
+                    Admins will need to go to the other tabs anyway.
             *}
-            <div class="adminoptionbox preference clearfix basic feature_fixed_width all" style="">
+          {*  <div class="adminoptionbox preference clearfix basic feature_fixed_width all" style="">
                 <div class="adminoption mb-3 row">
                     <label class="col-sm-4">
                         Fixed width
@@ -74,7 +76,7 @@
                     /* Synchronize with dummy checkbox display */
                     $('input[name=dummy_feature_fixed_width]').prop('checked', real);
                 });
-            {/jq}
+            {/jq} *}
             {preference name=useGroupTheme}
             <hr>
 
@@ -267,7 +269,7 @@
         {tab name="{tr}Customization{/tr}"}
             <br>
             <fieldset>
-                <legend>{tr}Custom codes{/tr}</legend>
+                <legend>{tr}Custom code{/tr}</legend>
                 {preference name="header_custom_css" syntax="css"}
                 {preference name=feature_custom_html_head_content syntax="htmlmixed"}
                 {preference name=feature_endbody_code syntax="tiki"}
