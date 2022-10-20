@@ -116,15 +116,15 @@ function prefs_theme_list($partial = false)
             'default' => 'light',
         ],
         'theme_navbar_fixed_topbar_offset' => [
-            'name' => tra('Fixed topbar offset'),
+            'name' => tra('Fixed-top navbar height'),
             'type' => 'text',
             'size' => '4',
             'filter' => 'digits',
             'units' => 'px',
             'help' => 'Themes',
-            'description' => tra('The offset value of the top padding should be the same height as the navbar in the fixed top position to prevent the navbar from obscuring the page content.'),
+            'description' => tra('For the Basic Bootstrap or equivalent layout, specify the height of the navbar in fixed position at the top of the page. The logo module image assigned to the top module zone will scale to display correctly here.'),
             'default' => '',
-            'keywords' => tra('topbar offset, top offset, fixed topbar, top padding, offset'),
+            'keywords' => tra('top navbar offset, page-top padding, fixed-top navbar, site logo size'),
             'tags' => ['basic'],
         ],
         'theme_iconset' => [
