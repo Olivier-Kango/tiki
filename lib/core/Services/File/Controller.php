@@ -104,7 +104,7 @@ class Services_File_Controller
         if (empty($asuser)) {
             $asuser = $GLOBALS['user'];
         }
-        if (! $input->imagesize->word()) {
+        if (!$input->imagesize->word()) {
             $image_x = $input->image_max_size_x->text();
             $image_y = $input->image_max_size_y->text();
         } else {
@@ -148,7 +148,11 @@ class Services_File_Controller
             $data = $input->data->none();
             $data = base64_decode($data);
         }
-        if (! $title) {
+        if (!$this->isTypeUploadable($type, $gal_info['type'])) {
+            throw new Services_Exception(tr('File could not be uploaded'), 406);
+        }
+
+        if (!$title) {
             $title = $name;
         }
 
@@ -248,8 +252,15 @@ class Services_File_Controller
                 $input->offsetSet('listtoalert', $input->asArray('listtoalert')[0]);
             }
 
+            $gal_info = $this->checkTargetGallery($input);
+
             for ($i = 0; $i < count($_FILES['files']['tmp_name']); $i++) {
                 if (is_uploaded_file($_FILES['files']['tmp_name'][$i])) {
+
+                    if (!$this->isTypeUploadable($_FILES['files']['type'][$i], $gal_info['type'])) {
+                        throw new Services_Exception_NotAvailable(tr('File could not be uploaded.'));
+                    }
+
                     $_FILES['data']['name'] = $_FILES['files']['name'][$i];
                     $_FILES['data']['size'] = $_FILES['files']['size'][$i];
                     $_FILES['data']['type'] = $_FILES['files']['type'][$i];
@@ -258,7 +269,7 @@ class Services_File_Controller
                     // do the actual upload
                     $file = $this->action_upload($input);
 
-                    if (! empty($file['fileId'])) {
+                    if (!empty($file['fileId'])) {
                         $file['info'] = $filegallib->get_file_info($file['fileId']);
                         // when stored in the database the file contents is here and should not be sent back to the client
                         $file['info']['data'] = null;
@@ -332,6 +343,22 @@ class Services_File_Controller
         ];
     }
 
+    /**
+     * @param $input    string "galleryId" for gallery to find
+     * @return array    gallery info
+     */
+    public function action_find_gallery($input)
+    {
+        $gal_info = $this->checkTargetGallery($input);
+
+        return [
+            'canUpload' => (bool) $gal_info,
+            'type' => $gal_info['type'],
+            'image_max_size_x' => (int) $gal_info['image_max_size_x'],
+            'image_max_size_y' => (int) $gal_info['image_max_size_y'],
+        ];
+    }
+
     public function action_thumbnail_gallery($input)
     {
         // Same as list gallery, different template
@@ -381,7 +408,7 @@ class Services_File_Controller
         $gal_info = $this->checkTargetGallery($input);
         $url = $input->url->url();
 
-        if (! $url) {
+        if (!$url) {
             return [
                 'galleryId' => $gal_info['galleryId'],
             ];
@@ -395,7 +422,7 @@ class Services_File_Controller
 
         $info = $filegallib->get_info_from_url($url);
 
-        if (! $info) {
+        if (!$info) {
             throw new Services_Exception(tr('Unable to retrieve file from remote site. Please try a different URL.'), 412);
         }
 
@@ -485,5 +512,18 @@ class Services_File_Controller
         return array_map(function ($fileId) {
             return TikiDb::get()->table('tiki_files')->fetchRow(['fileId', 'name' => 'filename', 'label' => 'name', 'type' => 'filetype'], ['fileId' => $fileId]);
         }, array_filter($files));
+    }
+
+    private function isTypeUploadable($mimeType, $galleryType)
+    {
+        $canUpload = true;
+
+        if ($galleryType == 'vidcast' && !preg_match('/^video\/./', $mimeType)) {
+            $canUpload = false;
+        } else if ($galleryType == 'podcast' && !preg_match('/^audio\/./', $mimeType)) {
+            $canUpload = false;
+        }
+
+        return $canUpload;
     }
 }

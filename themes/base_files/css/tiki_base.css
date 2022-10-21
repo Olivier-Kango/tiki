@@ -2356,6 +2356,7 @@ table.treetable tr.expanded span.indenter a {
 }
 .files .file-list .file-to-upload span.text-danger {
   white-space: normal;
+  display: block;
 }
 .files .file-list .file-to-upload code {
   font-size: x-small;

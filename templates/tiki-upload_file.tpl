@@ -248,10 +248,12 @@
                                 <input type="hidden" name="galleryId[]" value="{$treeRootId}">
                             {/if}
                         {elseif empty($groupforalert)}
+                            <input type="hidden" id="gallery_type" value="{$gal_info['type']}">
+                        
                             <div class="mb-3 row">
                                 <label for="galleryId" class="col-md-4 col-form-label">{tr}File gallery{/tr}</label>
                                 <div class="col-md-8">
-                                    <select id="galleryId" name="galleryId[]" class="form-select">
+                                    <select id="galleryId" name="galleryId[]" class="form-select" data-action="{service controller=file action=find_gallery}">
                                         <option value="{$treeRootId}" {if $treeRootId eq $galleryId}selected="selected"{/if} style="font-style:italic; border-bottom:1px dashed #666;">{tr}Root{/tr}</option>
                                         {section name=idx loop=$galleries}
                                             {if $galleries[idx].id neq $treeRootId and ($galleries[idx].perms.tiki_p_upload_files eq 'y' or $tiki_p_userfiles eq 'y')}
@@ -568,10 +570,37 @@ $("#imagesize").click(function () {
 });
 
 $("#galleryId").change(function(){
-    $("#image_max_size_x").attr('value','');
-    $("#image_max_size_y").attr('value',"");
-    $("#imageResizeInfo").html('');
-    defaultx='';
-    defaulty='';
+    var galleryId = $("#galleryId").val();
+    var action = $("#galleryId").attr('data-action');
+
+    $.ajax({
+        method: 'GET',
+        url: action,
+        data: { galleryId },
+        dataType: 'json',
+        success: function (data) {
+            if (data.canUpload) {
+                $("#gallery_type").attr('value', data.type);
+                
+                $("#image_max_size_x").attr('value', data.image_max_size_x);
+                $("#image_max_size_y").attr('value', data.image_max_size_y);
+                if (data.image_max_size_x) {
+                    $("#imageResizeInfo").html(data.image_max_size_x + 'px X ' + data.image_max_size_y + 'px');
+                } else {
+                    $("#imageResizeInfo").html('(No resize)');
+                }
+            } else {
+                $("#gallery_type").attr('value', '');
+                $("#image_max_size_x").attr('value','');
+                $("#image_max_size_y").attr('value',"");
+                $("#imageResizeInfo").html('');
+                defaultx='';
+                efaulty='';
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
 });
 {/jq}
