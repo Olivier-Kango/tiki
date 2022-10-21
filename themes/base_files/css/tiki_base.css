@@ -5323,6 +5323,7 @@ h2:hover .heading-link, h3:hover .heading-link, h4:hover .heading-link, h5:hover
 }
 .code {
   margin-top: 20px;
+  padding-left: 20px;
 }
 .icon_copy_code {
   color: #87898a;
