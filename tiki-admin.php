@@ -262,9 +262,6 @@ if (isset($_POST['lm_preference']) && $access->checkCsrf()) {
             }
         }
     }
-    if (isset($_POST["gobackto"])) {
-        $access->redirect($_POST["gobackto"]);
-    }
 }
 
 if (isset($_REQUEST['lm_criteria'])) {
@@ -364,6 +361,10 @@ if (isset($_REQUEST['page'])) {
     }
 } else {
     $smarty->assign('include', 'list_sections');
+}
+
+if (isset($_POST["gobackto"])) {
+    $access->redirect($_POST["gobackto"]);
 }
 
 if($prefs['activity_custom_events'] === 'y'){
