@@ -21,6 +21,7 @@
 @import "mixins"; // original source: Orange-Boosted-Bootstrap-5.2.0/scss/mixins
 @import "forms"; // original source: Orange-Boosted-Bootstrap-5.2.0/scss/forms (imported to get the checkbox slide and range styling)
 @import "accordion"; // original source: Orange-Boosted-Bootstrap-5.2.0/scss/_accordion.scss
+@import "nav";
 @import "_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";
 @import "../../base_files/scss/_select2-tiki_colors.scss"; // This can be commented out if the theme uses default standard dark-on-light colors

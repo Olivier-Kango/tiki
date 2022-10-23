@@ -44,6 +44,11 @@ h5 {
 .form-switch {
     padding-left: 1.25rem; // Overrides 4rem padding
 }
+
+form label {
+    font-weight: $form-label-font-weight; // In original, only applied to class form-label, which Tiki doesn't use consistently
+}
+
 // -------------------- Form validation -------------------- //
 // -------------------- Navs -------------------- //
 // -------------------- Navbar -------------------- //
