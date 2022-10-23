@@ -1,0 +1,295 @@
+// This file is for additional SCSS rules beyond what are in _variables.scss.
+
+// Image path example:
+$imagePath: "../images/";
+// body {
+//	background-image: url('#{$imagePath}bg.jpg');
+// }
+
+// The headings below that are commented are from Bootstrap variables.scss to help organize relevant Tiki CSS selectors.
+// In the case of CSS selectors that are grouped to share common CSS properties, the category appropriate for most of the selectors is used.
+
+// -------------------- Color system -------------------- //
+// -------------------- Body (large elements -------------------- //
+// -------------------- Links -------------------- //
+.pagetitle a {
+    color: $body-color;
+}
+
+.wikitext a:not(.btn,.nav-link) {
+    font-weight: bold;
+}
+
+// -------------------- Paragraphs -------------------- //
+// -------------------- Components -------------------- //
+// -------------------- Typography -------------------- //
+.display-1 {
+    font-family: "Bebas Neue", sans-serif;
+}
+
+// -------------------- Tables -------------------- //
+
+div.table-responsive,
+.tiki .col1 .table-responsive,
+.fc-scrollgrid.table-bordered, // Calendar
+.tiki .ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+    border: 4px solid #000;
+    box-shadow: $card-box-shadow;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    background: #fff;
+}
+
+table.table {
+    border: 4px solid #000;
+}
+// -------------------- Buttons -------------------- //
+.btn:not(.btn-link) {
+    &.btn-primary,
+    &.btn-secondary,
+    &.btn-success,
+    &.btn-info,
+    &.btn-warning,
+    &.btn-danger,
+    &.btn-light {
+        border: 4px solid #000;
+        box-shadow: $card-box-shadow;
+        margin-right: 8px;
+        margin-bottom: 8px;
+    }
+}
+
+// Keep "More" button horizontally aligned with other buttons in pagebar
+.btn-bar > .btn-group {
+    margin-bottom: 0 !important;
+}
+
+.btn-group .btn:not(:last-child) {
+    margin-right: 0;
+}
+
+.btn-group {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.btn-outline-primary {
+    color: #0258D9;
+    border-color: #0258D9;
+}
+.btn-outline-secondary {
+    color: #5C636A;
+    border-color: #5C636A;
+}
+.btn-outline-success {
+    color: #146B43;
+    border-color: #146B43;
+}
+.btn-outline-danger {
+    color: #BF2231;
+    border-color: #BF2231;
+}
+.btn-outline-warning {
+    color: #7A5C00;
+    border-color: #7A5C00;
+}
+.btn-outline-info {
+     color: #066B7F;
+     border-color: #066B7F;
+ }
+
+// Titled buttons are sometimes a feature of neubrutalism but I don't think it works so great here.
+//.btn-bar,
+//.t_navbar,
+//.fc-toolbar {
+//    & .btn:nth-child(1) { transform: rotate(2deg); }
+//    & .btn:nth-child(2) { transform: rotate(-1deg); }
+//    & .btn:nth-child(3) { transform: rotate(2deg); }
+//    & .btn:nth-child(4) { transform: rotate(-2deg); }
+//    & .btn:nth-child(5) { transform: rotate(-1deg); }
+//    & .btn:nth-child(6) { transform: rotate(2deg); }
+//    & .btn:nth-child(7) { transform: rotate(0deg); }
+//    & .btn:nth-child(8) { transform: rotate(-1deg); }
+//    & .btn:nth-child(9) { transform: rotate(2deg); }
+//}
+
+// -------------------- Forms -------------------- //
+// -------------------- Form validation -------------------- //
+// -------------------- Navs -------------------- //
+.nav-link {
+    font-family: "Bebas Neue", cursive;
+}
+
+// -------------------- Navbar -------------------- //
+.admin-content .bg-light {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+// -------------------- Dropdowns -------------------- //
+// -------------------- Pagination -------------------- //
+// -------------------- Jumbotron -------------------- //
+// -------------------- Cards -------------------- //
+.tiki_blogs .card.blogpost,
+.article {
+    background: $white;
+    border: $card-border-width solid $card-border-color;
+    .card-header,
+    header.article-title {
+        border-bottom: $card-border-width solid $card-border-color;
+        padding: 1rem !important;
+    }
+    .card-footer,
+    .articletrailer {
+        border-top: $card-border-width solid $card-border-color;
+    }
+}
+
+//.modules .card.module:nth-child(1n),
+//#page-data .card#module_wikiplugin_3,
+    //.col1 article.blogpost:nth-child(1n),
+    //.col1 article.article:nth-child(1n)
+//{
+//    .card-header {
+//        background: (darken(#E87352,5%));
+//        color: #fff;
+//    }
+//}
+
+//.modules .card.module:nth-child(2n),
+//#page-data .card#module_wikiplugin_2,
+    //.col1 article.blogpost:nth-child(2n),
+    //.col1 article.article:nth-child(2n),
+//.modal-content,
+//.tiki .ui-widget-content,
+//.tiki .ui-dialog-titlebar //,
+    // #page-data .card:nth-child(1n)
+//{
+//    .card-header {
+//        background: (darken(#EBC85E, 5%));
+//    }
+//}
+
+//.modules .card.module:nth-child(3n),
+//#page-data .card#module_wikiplugin_1,
+    //.col1 article.blogpost:nth-child(3n),
+    //.col1 article.article:nth-child(3n)
+//{
+//    .card-header {
+//        background: (darken(#3BBEC0, 5%));
+//    }
+//}
+
+//.modules .card.module:nth-child(4n),
+//#page-data .card#module_wikiplugin_3,
+    //.col1 article.blogpost:nth-child(4n),
+    //.col1 article.article:nth-child(4n)
+//{
+//    .card-header {
+//        background: (darken(#5cb85c, 5%));
+//    }
+//}
+
+.col2 .modules .card.module {
+    &:nth-child(1) .card-header { background: #cbffa8; }
+    &:nth-child(2) .card-header { background: #a8b5ff; }
+    &:nth-child(3) .card-header { background: #ffa8e1; }
+    &:nth-child(4) .card-header { background: #a8ffc6; }
+    &:nth-child(5) .card-header { background: #dca8ff; }
+    &:nth-child(6) .card-header { background: #ffb0a8; }
+    &:nth-child(7) .card-header { background: #a8f8ff; }
+    &:nth-child(8) .card-header { background: #ffe3a8; }
+}
+
+.col3 .modules .card.module {
+    &:nth-child(8) .card-header { background: #cbffa8; }
+    &:nth-child(7) .card-header { background: #a8b5ff; }
+    &:nth-child(6) .card-header { background: #ffa8e1; }
+    &:nth-child(5) .card-header { background: #a8ffc6; }
+    &:nth-child(4) .card-header { background: #dca8ff; }
+    &:nth-child(3) .card-header { background: #ffb0a8; }
+    &:nth-child(2) .card-header { background: #a8f8ff; }
+    &:nth-child(1) .card-header { background: #ffe3a8; }
+}
+
+.main-footer .bottom_modules .card.module  {
+//    div:nth-child(5) .card.module .card-header { background: #cbffa8; }
+    &:nth-child(6) .card-header { background: #a8b5ff; }
+    &:nth-child(2) .card-header { background: #ffa8e1; }
+    &:nth-child(3) .card-header { background: #a8ffc6; }
+    &:nth-child(1) .card-header { background: #dca8ff; }
+    &:nth-child(7) .card-header { background: #ffb0a8; }
+    &:nth-child(4) .card-header { background: #a8f8ff; }
+    &:nth-child(8) .card-header { background: #ffe3a8; }
+}
+
+
+
+// -------------------- Accordions -------------------- //
+.accordion-header .accordion-button {
+    font-size: 1.8rem !important;
+}
+
+.accordion {
+    border: $card-border-width solid $card-border-color;
+    box-shadow: $card-box-shadow;
+    border-radius: $card-border-radius;
+}
+
+// -------------------- Tooltips -------------------- //
+// -------------------- Popovers -------------------- //
+// -------------------- Toasts -------------------- //
+// -------------------- Badges -------------------- //
+// -------------------- Modals -------------------- //
+// -------------------- Alerts -------------------- //
+// -------------------- Progress bars -------------------- //
+// -------------------- List group -------------------- //
+// -------------------- Image thumbnails -------------------- //
+.thumbnailcontener .thumbimagesub img.cboxElement,
+.thumbimagesub img.cboxElement,
+.regImage,                                        // Blog post images
+article.article {                                 // Articles
+    border: 4px solid #000 !important;
+    box-shadow: $card-box-shadow;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.thumbnail {
+    margin-bottom: 15px;
+}
+
+.thumbnailcontener {
+    margin: 0 15px 15px 0;
+}
+
+.thumbnailframe {
+    height: inherit !important;
+}
+// -------------------- Figures -------------------- //
+// -------------------- Breadcrumbs -------------------- //
+// -------------------- Carousel -------------------- //
+ // CSS carousel
+input:checked + .slide-container .slide {
+    border: 4px solid #000 !important;
+    box-shadow: $card-box-shadow;
+}
+
+.carousel-item {
+    padding-right: 8px;
+}
+
+// -------------------- Spinners -------------------- //
+// -------------------- Close -------------------- //
+// -------------------- Code -------------------- //
+// -------------------- Utilities -------------------- //
+// -------------------- Printing -------------------- //
+
+// -------------------- Etc -------------------- //
+
+
+
+// -------------------- Tiki-specific -------------------- //
+
+// -------------------- External libraries -------------------- //
+

@@ -1,0 +1,290 @@
+//
+// Base styles
+//
+
+.btn {
+  // scss-docs-start btn-css-vars
+  --#{$prefix}btn-padding-x: #{$btn-padding-x};
+  --#{$prefix}btn-padding-y: #{$btn-padding-y};
+  --#{$prefix}btn-font-family: #{$btn-font-family};
+  @include rfs($btn-font-size, --#{$prefix}btn-font-size);
+  --#{$prefix}btn-font-weight: #{$btn-font-weight};
+  --#{$prefix}btn-line-height: #{$btn-line-height};
+  --#{$prefix}btn-color: #{$body-color};
+  --#{$prefix}btn-bg: transparent;
+  --#{$prefix}btn-border-width: #{$btn-border-width};
+  --#{$prefix}btn-border-color: transparent;
+  --#{$prefix}btn-border-radius: #{$btn-border-radius};
+  --#{$prefix}btn-box-shadow: #{$btn-box-shadow};
+  --#{$prefix}btn-disabled-opacity: #{$btn-disabled-opacity};
+  --#{$prefix}btn-focus-box-shadow: 0 0 0 #{$btn-focus-width} var(--#{$prefix}btn-focus-shadow-rgb); // Boosted mod
+  --#{$boosted-prefix}icon-spacing: #{$btn-icon-padding-x}; // Boosted mod
+  // scss-docs-end btn-css-vars
+
+  display: inline-flex; // Boosted mod
+  align-items: center; // Boosted mod: for .badge proper alignment
+  justify-content: center; // Boosted mod
+  padding: subtract(var(--#{$prefix}btn-padding-y), 1px) var(--#{$prefix}btn-padding-x) add(var(--#{$prefix}btn-padding-y), 1px); // Boosted mod
+  font-family: var(--#{$prefix}btn-font-family);
+  @include font-size(var(--#{$prefix}btn-font-size));
+  font-weight: var(--#{$prefix}btn-font-weight);
+  line-height: var(--#{$prefix}btn-line-height);
+  color: var(--#{$prefix}btn-color);
+  text-decoration: if($link-decoration == none, null, none);
+  white-space: $btn-white-space;
+  vertical-align: middle;
+  cursor: if($enable-button-pointers, pointer, null);
+  user-select: none;
+  border: var(--#{$prefix}btn-border-width) solid var(--#{$prefix}btn-border-color);
+  outline-offset: map-get($spacers, 1); // Boosted mod
+  @include border-radius(var(--#{$prefix}btn-border-radius));
+  @include gradient-bg(var(--#{$prefix}btn-bg));
+  @include box-shadow(var(--#{$prefix}btn-box-shadow));
+  @include transition($btn-transition);
+
+  &:hover {
+    color: var(--#{$prefix}btn-hover-color);
+    text-decoration: if($link-hover-decoration == underline, none, null);
+    background-color: var(--#{$prefix}btn-hover-bg);
+    border-color: var(--#{$prefix}btn-hover-border-color);
+  }
+
+  // Boosted mod: custom styles for .btn-check
+  &:focus {
+    color: var(--#{$prefix}btn-hover-color);
+    @include gradient-bg(var(--#{$prefix}btn-hover-bg));
+    border-color: var(--#{$prefix}btn-hover-border-color);
+    // Boosted mod: no `outline` rule
+    outline-color: var(--#{$prefix}btn-hover-border-color); // Boosted mod
+    outline-offset: $outline-width; // Boosted mod
+    &[data-focus-visible-added] { // Boosted mod: added `&[data-focus-visible-added]`
+      // Avoid using mixin so we can pass custom focus shadow properly
+      @if $enable-shadows {
+        box-shadow: var(--#{$prefix}btn-box-shadow), var(--#{$prefix}btn-focus-box-shadow);
+      } @else {
+        box-shadow: var(--#{$prefix}btn-focus-box-shadow);
+      }
+    }
+  }
+
+  // Boosted mod: custom styles for .btn-check
+  &:active,
+  &.active,
+  &.show {
+    color: var(--#{$prefix}btn-active-color);
+    background-color: var(--#{$prefix}btn-active-bg);
+    // Remove CSS gradients if they're enabled
+    background-image: if($enable-gradients, none, null);
+    border-color: var(--#{$prefix}btn-active-border-color);
+    outline-color: var(--#{$prefix}btn-active-border-color); // Boosted mod
+    // Boosted mod: no box shadow modification for the active state
+  }
+
+  &:disabled,
+  &.disabled,
+  fieldset:disabled & {
+    color: var(--#{$prefix}btn-disabled-color);
+    pointer-events: none;
+    background-color: var(--#{$prefix}btn-disabled-bg);
+    background-image: if($enable-gradients, none, null);
+    border-color: var(--#{$prefix}btn-disabled-border-color);
+    opacity: var(--#{$prefix}btn-disabled-opacity);
+    @include box-shadow(none);
+  }
+
+  // Boosted mod: with icon
+  &:not(.btn-icon) > svg {
+    transform: translateY(1px);
+  }
+  // End mod
+}
+
+
+//
+// Alternate buttons
+//
+
+// Boosted mod: inconsistent theming ¯\_(ツ)_/¯
+// scss-docs-start btn-variant-loops
+.btn-primary,
+.btn-warning {
+  @include button-variant($primary, $primary, $active-background: $white, $active-border: $black);
+  &.btn-inverse {
+    @include button-variant($primary, $primary, $black, $white, $white, $black, $black, $white, $white, $gray-700, $gray-700, $black, $black);
+  }
+}
+
+.btn-light,
+.btn-secondary {
+  @include button-variant($white, $black, $disabled-background: $white, $disabled-border: $gray-500, $disabled-color: $gray-500);
+  &.btn-inverse {
+    @include button-variant($black, $white, $white, $white, $white, $black, $primary, $primary, $black, transparent, $gray-700, $gray-700, $black);
+  }
+}
+
+.btn-success {
+  @include button-variant($success, $success);
+  &.btn-inverse {
+    @include button-variant($success, $success, $black,  $white, $white, $black, $primary, $primary, $black, $gray-700, $gray-700, $black, $black);
+  }
+}
+
+.btn-info,
+.btn-dark {
+  @include button-variant($black, $black, $white, $white, $black, $black);
+  &.btn-inverse {
+    @include button-variant($white, $white, $black, $black, $white, $white, $primary, $primary, $black, $gray-700, $gray-700, $black, $black);
+  }
+}
+
+.btn-danger {
+  @include button-variant($danger, $danger);
+  &.btn-inverse {
+    @include button-variant($danger, $danger, $white, $white, $white, $black, $primary, $primary, $black, $gray-700, $gray-700, $black, $black);
+  }
+}
+// scss-docs-end btn-variant-loops
+// End mod
+
+// Boosted mod: no .btn-outline
+
+// Boosted mod: border-only on :hover, :focus and :active
+.btn-no-outline {
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    border-color: $gray-500;
+  }
+
+  &:active,
+  &.active {
+    color: $accessible-orange;
+    background-color: var(--#{$prefix}btn-bg);
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $gray-500;
+    border-color: var(--#{$prefix}btn-border-color);
+  }
+
+  &.btn-inverse:not(:active) {
+    color: $white;
+  }
+}
+// End mod
+
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+  // Boosted mod: no redefinition of --#{$prefix}btn-font-weight: #{$font-weight-normal}
+  --#{$prefix}btn-color: #{$btn-link-color};
+  --#{$prefix}btn-bg: transparent;
+  --#{$prefix}btn-border-color: transparent;
+  --#{$prefix}btn-hover-color: #{$btn-link-hover-color};
+  --#{$prefix}btn-hover-border-color: transparent;
+  --#{$prefix}btn-active-color: var(--#{$prefix}btn-hover-color); // Boosted mod
+  --#{$prefix}btn-active-border-color: transparent;
+  --#{$prefix}btn-disabled-color: #{$btn-link-disabled-color};
+  --#{$prefix}btn-disabled-border-color: transparent;
+  --#{$prefix}btn-box-shadow: none;
+  // Boosted mod: no redefinition of --#{$prefix}btn-focus-shadow-rgb
+
+  text-decoration: $link-decoration;
+
+  &:hover,
+  &:focus {
+    text-decoration: $link-hover-decoration;
+  }
+
+  // Boosted mod
+  &:focus {
+    &:not(:hover) {
+      color: var(--#{$prefix}btn-color);
+      outline-color: var(--#{$prefix}btn-color);
+    }
+
+    &:hover {
+      outline-color: var(--#{$prefix}btn-active-color);
+    }
+  }
+  // End mod
+
+  // No need for an active state here
+}
+
+
+//
+// Button Sizes
+// Boosted mod: 6th argument to set .btn-icon padding
+
+.btn-lg {
+  @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg, $btn-line-height-lg, $btn-icon-padding-x-lg);
+}
+
+.btn-sm {
+  @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm, $btn-line-height-sm, $btn-icon-padding-x-sm);
+}
+
+
+// Boosted mod: icon button
+.btn-icon {
+  padding: var(--#{$boosted-prefix}icon-spacing);
+}
+// End mod
+
+// Boosted mod: social button
+.btn-social {
+  border-color: currentcolor;
+  @include border-radius(50%, 50%);
+  @include button-icon(var(--#{$boosted-prefix}network-logo));
+
+  &:hover,
+  &:focus {
+    color: $white;
+    background-color: var(--#{$boosted-prefix}network-color, $black);
+    border-color: var(--#{$boosted-prefix}network-color, $black);
+    outline-color: var(--#{$boosted-prefix}network-color, $black);
+  }
+
+  &:active,
+  &.active {
+    color: $white;
+    background-color: $black;
+    border-color: $black;
+  }
+}
+
+@each $name in map-keys($btn-social-networks) {
+  $network: map-get($btn-social-networks, $name);
+
+  .btn-#{$name} {
+    --#{$boosted-prefix}network-color: #{map-get($network, "color")};
+    --#{$boosted-prefix}network-logo: #{escape-svg(url("data:image/svg+xml,#{map-get($network, "icon")}"))};
+
+    &.btn-inverse {
+      color: $white;
+
+      &:active,
+      &.active {
+        color: $black;
+        background-color: $white;
+        border-color: $white;
+      }
+    }
+
+    &::before {
+      mask-size: if(map-has-key($network, "size"), map-get($network, "size"), null);
+
+      @if "linkedin" == $name {
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+// End mod

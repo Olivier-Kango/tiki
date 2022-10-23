@@ -1,0 +1,70 @@
+/* Theme newsletter stylesheet  */
+body {
+  background: #fff;
+  color: #212529;
+  font-family: var(--bs-font-sans-serif);
+  padding: 15px;
+}
+a, a:visited {
+  color: #0d6efd;
+}
+a:hover {
+  color: #0a58ca;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 500;
+}
+.card {
+  margin-bottom: 1.5;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+}
+.card-header {
+  border-bottom: 1px solid transparent;
+}
+.card-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 2rem;
+  color: inherit;
+}
+.card-title > a, .card-title > small, .card-title > .small, .card-title > small > a, .card-title > .small > a {
+  color: inherit;
+}
+:root {
+  --tiki-top-bg-light: #ffdca8;
+  --tiki-top-light-color: rgba(0, 0, 0, 0.55);
+  --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
+  --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-light-link-active-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-light-link-hover-bg: transparent;
+  --tiki-top-light-link-active-bg: transparent;
+  --tiki-top-light-border: solid #1a1a1a;
+  --tiki-top-light-box-shadow: none;
+  --tiki-topbar-bg-light: #ffdca8;
+  --tiki-topbar-light-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-light-link-active-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-light-link-hover-bg: transparent;
+  --tiki-topbar-light-link-active-bg: transparent;
+  --tiki-topbar-light-border: solid #1a1a1a;
+  --tiki-topbar-light-box-shadow: none;
+  --tiki-top-bg-dark: #212529;
+  --tiki-top-dark-color: rgba(255, 255, 255, 0.55);
+  --tiki-top-dark-link-color: rgba(255, 255, 255, 0.55);
+  --tiki-top-dark-link-hover-color: #fff;
+  --tiki-top-dark-link-hover-bg: transparent;
+  --tiki-top-dark-border: none;
+  --tiki-top-dark-box-shadow: none;
+  --tiki-topbar-bg-dark: #212529;
+  --tiki-topbar-dark-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-dark-link-hover-color: #fff;
+  --tiki-topbar-dark-link-hover-bg: transparent;
+  --tiki-topbar-dark-border: none;
+  --tiki-topbar-dark-box-shadow: none;
+  --tiki-top-border-width: 0 0 0.75rem 0;
+  --tiki-topbar-border-width: 0 0.75rem 0.75rem 0.75rem;
+}

@@ -1,0 +1,90 @@
+/* The Bordered child theme for the Neubrutiki theme for Tiki Wiki CMS Groupware */
+$bordered_border: solid 0.75rem #1a1a1a;
+
+html,
+.navbar.fixed-top {
+    /*box-shadow: inset 0 0 0 0.75rem #1a1a1a;*/
+    border: $bordered_border;
+}
+
+.row-middle > div.row {
+    --bs-gutter-x: 0;
+}
+
+#col1 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.main-footer {
+    border-top: $bordered_border;
+}
+
+.topbar {
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .row-middle > div.row {
+        justify-content: space-between;
+        padding-right: 0;
+    }
+    #col2 {
+        padding-left: 0;
+        padding-right: 1rem;
+        margin-bottom: 1rem;
+        #left_modules {
+            border: $bordered_border;
+            border-left: none;
+            padding-top: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+    #col3 {
+        padding-right: 0;
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+        #right_modules {
+            border: $bordered_border;
+            border-right: none;
+            padding-top: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+    .container.middle {
+        border: $bordered_border;
+        border-bottom: none;
+        border-top: none;
+    }
+    body:not(.fixed_width) {
+        .container.middle {
+            border-left: none;
+            border-right: none;
+        }
+    }
+}
+
+.layout_basic .container-std {
+    border-left: $bordered_border;
+    border-right: $bordered_border;
+}
+
+.layout_basic {
+    .col2 {
+        padding-left: 0;
+    }
+    #left_modules {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .col3 {
+        padding-right: 0;
+    }
+    #right_modules {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+}

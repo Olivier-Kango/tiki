@@ -1,0 +1,77 @@
+// This file is for additional SCSS rules beyond what are in _variables.scss.
+
+// Image path example:
+$imagePath: "../images/";
+// body {
+//	background-image: url('#{$imagePath}bg.jpg');
+// }
+
+// The headings below that are commented are from Bootstrap variables.scss to help organize relevant Tiki CSS selectors.
+// In the case of CSS selectors that are grouped to share common CSS properties, the category appropriate for most of the selectors is used.
+
+// -------------------- Color system -------------------- //
+// -------------------- Body (large elements -------------------- //
+// -------------------- Links -------------------- //
+h1,
+h2,
+h3,
+h4,
+h5 {
+    & a {
+        text-decoration: none;
+    }
+}
+
+// -------------------- Paragraphs -------------------- //
+// -------------------- Components -------------------- //
+// -------------------- Typography -------------------- //
+// -------------------- Tables -------------------- //
+// -------------------- Buttons -------------------- //
+.btn-outline-primary {  // For WCAG 2 compliance
+    color: #BD5800;
+    border-color: #BD5800;
+}
+.btn-outline-info {
+    color: #3C6DD7;
+    border-color: #3C6DD7;
+}
+.btn-outline-warning {
+    color: #8F7200;
+    border-color: #8F7200;
+}
+
+// -------------------- Forms -------------------- //
+.form-switch {
+    padding-left: 1.25rem; // Overrides 4rem padding
+}
+// -------------------- Form validation -------------------- //
+// -------------------- Navs -------------------- //
+// -------------------- Navbar -------------------- //
+// -------------------- Dropdowns -------------------- //
+// -------------------- Pagination -------------------- //
+// -------------------- Jumbotron -------------------- //
+// -------------------- Cards -------------------- //
+// -------------------- Tooltips -------------------- //
+// -------------------- Popovers -------------------- //
+// -------------------- Toasts -------------------- //
+// -------------------- Badges -------------------- //
+// -------------------- Modals -------------------- //
+// -------------------- Alerts -------------------- //
+// -------------------- Progress bars -------------------- //
+// -------------------- List group -------------------- //
+// -------------------- Image thumbnails -------------------- //
+// -------------------- Figures -------------------- //
+// -------------------- Breadcrumbs -------------------- //
+// -------------------- Carousel -------------------- //
+// -------------------- Spinners -------------------- //
+// -------------------- Close -------------------- //
+// -------------------- Code -------------------- //
+// -------------------- Utilities -------------------- //
+// -------------------- Printing -------------------- //
+
+// -------------------- Etc -------------------- //
+
+// -------------------- Tiki-specific -------------------- //
+
+// -------------------- External libraries -------------------- //
+
