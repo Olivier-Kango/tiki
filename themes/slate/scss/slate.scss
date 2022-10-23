@@ -14,7 +14,9 @@
 @import "variables";
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
+@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
 @import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/slate/bootswatch";
+
 //@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
 
 @import "../../base_files/scss/_tiki-selectors.scss";
@@ -35,7 +37,12 @@ body.fullscreen { background: $body-bg; }
     margin-top: .5rem;
     margin-bottom: .5rem;
 }
+
+// Bootstrap variable overrides seem to have to be here to be effective.
 // Override Bootstrap CSS variable for valid CSS calc in mod-logo (0 must have a unit).
 .navbar {
     --bs-navbar-padding-y: 0px;
+    --bs-navbar-color: #fff;
+    --bs-navbar-hover-color: #{$gray-200};
 }
+

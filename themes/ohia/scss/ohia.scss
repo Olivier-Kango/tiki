@@ -19,3 +19,8 @@
 
 
 .textarea-toolbar a.toolbar { color: #222; }
+// Bootstrap variable overrides seem to have to be here to be effective.
+.navbar {
+    --bs-navbar-color: #80A60FFF;
+    --bs-navbar-hover-color: #f4f4f4;
+}
