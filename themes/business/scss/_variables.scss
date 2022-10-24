@@ -31,6 +31,11 @@ $gray-300: lighten($gray-500, 10%);
 $gray-200: lighten($gray-500, 20%);
 
 // Options
+// Prefix for :root CSS variables
+
+$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
+
 // Spacing
 // Position
 // Body
@@ -82,6 +87,8 @@ $input-group-addon-bg: #DBDBDB;
 // Navs
 $nav-link-color:                    $link-color;
 //$nav-link-hover-color:             $link-hover-color;
+$nav-link-color:                    var(--#{$prefix}link-color) !default;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
 
 //Navbar
 $navbar-dark-color:             #ffffff;
@@ -98,9 +105,9 @@ $navbar-dark-active-color:          #ffffff;
 $navbar-dark-active-bg:              #3270bd;
 $navbar-dark-disabled-color:         #cccccc;
 
-$navbar-light-color:                rgba($black, .55) !default;
-$navbar-light-hover-color:          rgba($black, .7) !default;
-$navbar-light-active-color:         rgba($black, .9) !default;
+$navbar-light-color:                $link-color;
+$navbar-light-hover-color:          lighten($link-color,5%);
+$navbar-light-active-color:         $navbar-light-hover-color;
 $navbar-light-disabled-color:       rgba($black, .3) !default;
 $navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
 $navbar-light-toggler-border-color: rgba($black, .1) !default;

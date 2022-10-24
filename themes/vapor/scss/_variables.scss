@@ -164,6 +164,12 @@ $breadcrumb-active-color:           $component-active-bg !default;
 //--------------------------- Tiki SCSS variables
 
 //--------------------------- Tiki CSS variables
+.navbar-nav {
+    --bs-navbar-color: #32fbe2;
+    --bs-navbar-hover-color: #2aad9d;
+    --bs-navbar-active-color: #2aad9d;
+}
+
 :root {
     --tiki-top-bg-light: rgb(68, 217, 232);
     --tiki-top-light-color: rgba(0, 0, 0, 0.9);

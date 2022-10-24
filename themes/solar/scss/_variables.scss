@@ -113,7 +113,7 @@ $nav-tabs-link-active-border-color: $nav-tabs-border-color !default;
 
 // Navbars
 
-$navbar-light-color:                rgba($black, .4) !default !default;
+$navbar-light-color:                rgba($black, .9);
 $navbar-light-active-color:         rgba($black, .7) !default !default;
 
 // Pagination
@@ -189,6 +189,10 @@ $btn-close-color:                       $white !default;
 $pre-color:                         inherit !default;
 
 //--------------------------- Tiki SCSS variables
+// - - - - - - - - - -- Bootstrap CSS variable override - not a pure solution, but it works
+.navbar {
+    --bs-navbar-color: #fff !important;
+}
 
 //--------------------------- Tiki CSS variables
 :root {

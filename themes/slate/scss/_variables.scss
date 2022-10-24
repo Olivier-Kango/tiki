@@ -41,6 +41,11 @@ $dark:          $gray-900 !default;
 
 $min-contrast-ratio:   1.95 !default;
 
+// Prefix for :root CSS variables
+
+$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
+
 // Body
 
 $body-bg:                   $gray-900 !default;
@@ -92,12 +97,13 @@ $dropdown-link-active-bg:           $dropdown-link-hover-bg !default;
 
 $nav-tabs-border-color:             rgba($black, .6) !default;
 $nav-tabs-link-hover-border-color:  $nav-tabs-border-color !default;
+$nav-link-color:                    var(--#{$prefix}link-color) !default;
 $nav-tabs-link-active-color:        $white !default;
 $nav-tabs-link-active-border-color: $nav-tabs-border-color !default;
 
 // Navbar
 
-$navbar-padding-y:                  0 !default;
+$navbar-padding-y:                  .1px;
 $navbar-dark-hover-color:           $white !default;
 $navbar-light-hover-color:          $gray-800 !default;
 $navbar-light-active-color:         $gray-800 !default;
@@ -171,7 +177,6 @@ $pre-color:                         inherit !default;
 
 //--------------------------- Tiki CSS variables
 :root {
-    --bs-navbar-padding-y: .1px; // For correct calculation of logo image height; multiplying by 0 gives wrong result.
     --tiki-top-bg-light: rgb(233, 236, 239);
     --tiki-top-light-color: #3a3f44;
     --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);

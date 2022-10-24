@@ -41,6 +41,9 @@ $dark:          $gray-800 !default;
 
 $min-contrast-ratio:   1.9 !default;
 
+// Prefix for :root CSS variables
+$prefix:                      bs- !default;
+
 // Body
 
 $body-bg:                   $gray-900 !default;
@@ -101,7 +104,7 @@ $nav-tabs-link-active-border-color: $nav-tabs-border-color $nav-tabs-border-colo
 $navbar-padding-y:                  1rem !default;
 $navbar-dark-color:                rgba($white, .6) !default;
 $navbar-dark-hover-color:          $white !default;
-$navbar-light-color:                rgba($gray-900, .7) !default;
+$navbar-light-color:                $link-color; //rgba($gray-900, .7) !default;
 $navbar-light-hover-color:          $gray-900 !default;
 $navbar-light-active-color:         $gray-900 !default;
 $navbar-light-toggler-border-color: rgba($gray-900, .1) !default;

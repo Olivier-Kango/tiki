@@ -16,7 +16,6 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
 :root {
-  --bs-navbar-padding-y: .1px;
   --tiki-top-bg-light: rgb(233, 236, 239);
   --tiki-top-light-color: #3a3f44;
   --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
@@ -3298,7 +3297,7 @@ textarea.form-control-lg {
 }
 .navbar {
   --bs-navbar-padding-x: 0;
-  --bs-navbar-padding-y: 0;
+  --bs-navbar-padding-y: 0.1px;
   --bs-navbar-color: rgba(0, 0, 0, 0.55);
   --bs-navbar-hover-color: #3a3f44;
   --bs-navbar-disabled-color: rgba(0, 0, 0, 0.3);
@@ -19119,7 +19118,7 @@ textarea.form-control-lg {
 }
 .navbar {
   --bs-navbar-padding-x: 0;
-  --bs-navbar-padding-y: 0;
+  --bs-navbar-padding-y: 0.1px;
   --bs-navbar-color: rgba(0, 0, 0, 0.55);
   --bs-navbar-hover-color: #3a3f44;
   --bs-navbar-disabled-color: rgba(0, 0, 0, 0.3);

@@ -40,12 +40,22 @@ $light:         $gray-800 !default;
 $dark:          $gray-400 !default;
 
 $min-contrast-ratio:   2.25 !default;
+// Options
+// Prefix for :root CSS variables
 
+$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
 
 // Body
 
 $body-bg:       #060606 !default;
 $body-color:    $gray-400 !default;
+
+// Links
+//
+// Style anchor elements.
+
+$link-color:                              $primary !default;
 
 // Fonts
 
@@ -110,6 +120,15 @@ $nav-tabs-link-active-border-color:           $nav-tabs-border-color !default;
 // Navbar
 
 $navbar-dark-hover-color:           $white !default;
+
+$navbar-light-color:                $link-color;
+$navbar-light-hover-color:          rgba($black, .7) !default;
+$navbar-light-active-color:         rgba($black, .9) !default;
+$navbar-light-disabled-color:       rgba($black, .3) !default;
+$navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
+$navbar-light-toggler-border-color: rgba($black, .1) !default;
+$navbar-light-brand-color:          $navbar-light-active-color !default;
+$navbar-light-brand-hover-color:    $navbar-light-active-color !default;
 
 // Pagination
 

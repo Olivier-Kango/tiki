@@ -34,12 +34,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 :root {
   --tiki-top-bg-light: linear-gradient(to bottom, #214d68 0%,#204c67 51%,#262f36 100%);
-  --tiki-top-light-color: #ffffff;
-  --tiki-top-light-link-color: #ffffff;
+  --tiki-top-light-color: #006699;
+  --tiki-top-light-link-color: #006699;
   --tiki-top-light-link-hover-color: #e6e6e6;
   --tiki-topbar-bg-light: linear-gradient(to bottom, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%);
-  --tiki-topbar-light-color: #ffffff;
-  --tiki-topbar-light-link-color: #ffffff;
+  --tiki-topbar-light-color: #006699;
+  --tiki-topbar-light-link-color: #006699;
   --tiki-topbar-light-link-hover-color: #e6e6e6;
   --tiki-top-bg-dark: linear-gradient(to bottom, #214d68 0%,#204c67 51%,#262f36 100%);
   --tiki-top-dark-color: #ffffff;

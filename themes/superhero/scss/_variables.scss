@@ -178,6 +178,11 @@ $pre-color:                         inherit !default;
 //--------------------------- Tiki SCSS variables
 
 //--------------------------- Tiki CSS variables
+.navbar-nav {
+    --bs-navbar-color: rgba(255, 255, 255, 0.75);
+}
+
+
 :root {
     --tiki-top-bg-light: rgba(171, 182, 184, 1);
     --tiki-top-light-color: rgba(0, 0, 0, 0.9);
