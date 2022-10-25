@@ -225,7 +225,27 @@ ajaxLoadingShow("' . $dom_id . '");
             $newContent .= substr($content, $position, $match->getStart() - $position);
 
             $pluginMarkup = substr($content, $match->getStart(), $match->getEnd() - $match->getStart());
-            $mdCustomBlock = "\$\$tiki\n$pluginMarkup\n\$\$";
+
+            // plugin matcher matches random bits of code contained in {} which breaks toast TODO properly
+            if (! preg_match('/^\{\S+/', $pluginMarkup)) {
+                continue;
+            }
+
+            if (strpos($pluginMarkup, ' ') === false) {
+                // custom blocks without spaces seem to trigger an error in toast rendering code, so add a "harlmess" space if we don't find one
+                $pluginMarkup = str_replace('}', ' }', $pluginMarkup);
+            }
+            if (substr($content, $match->getStart() - 1, 1) !== "\n") {
+                $startNewLine = "\n";
+            } else {
+                $startNewLine = '';
+            }
+            if (substr($content, $match->getEnd(), 1) !== "\r" && substr($content, $match->getEnd(), 1) !== "\n") {
+                $endNewLine = "\n";
+            } else {
+                $endNewLine = '';
+            }
+            $mdCustomBlock = "$startNewLine\$\$tiki\n$pluginMarkup\n\$\$$endNewLine";
             $newContent .= $mdCustomBlock;
 
             $position = $match->getEnd();
