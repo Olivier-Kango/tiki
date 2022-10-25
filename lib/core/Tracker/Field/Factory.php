@@ -44,6 +44,23 @@ class Tracker_Field_Factory
         ];
     }
 
+    private function getDefaultOptions()
+    {
+        return [
+            'excludeFromNotification' => [
+                'name' => tr('Exclude data and changes from email notifications'),
+                'description' => tr('Data and changes to this field are not included in email notifications.'),
+                'deprecated' => false,
+                'filter' => 'int',
+                'default' => 0,
+                'options' => [
+                    0 => tr('No'),
+                    1 => tr('Yes'),
+                ],
+            ],
+        ];
+    }
+
     private function buildTypeMap($paths)
     {
         global $prefs;
@@ -72,8 +89,8 @@ class Tracker_Field_Factory
 
                 if ($reflected->isInstantiable() && $reflected->implementsInterface('Tracker_Field_Interface')) {
                     $providedFields = call_user_func([$class, 'getTypes']);
-
                     foreach ($providedFields as $key => $info) {
+                        $info['params'] = array_merge($info['params'], $this->getDefaultOptions());
                         $this->typeMap[$key] = $class;
                         $this->infoMap[$key] = $info;
                     }

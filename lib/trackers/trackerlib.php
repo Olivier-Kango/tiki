@@ -5502,11 +5502,21 @@ class TrackerLib extends TikiLib
 
         $new_values = $args['values'];
         $old_values = $args['old_values'];
-
+        
         $tracker_definition = Tracker_Definition::get($trackerId);
         if (! $tracker_definition) {
             return;
         }
+
+        foreach ($tracker_definition->getFields() as $field) {
+            if ($field['options_map']['excludeFromNotification']) {
+                unset($new_values[$field['fieldId']], $old_values[$field['fieldId']]);
+            }
+        }
+        if ((count($new_values) == 1 && array_key_first($new_values) == 'status') || !array_diff($new_values, $old_values)) {
+            return;
+        }
+
         $tracker_info = $tracker_definition->getInformation();
 
         $watchers = $this->get_notification_emails($trackerId, $itemId, $tracker_info, $new_values['status'], $old_values['status']);
@@ -5519,7 +5529,7 @@ class TrackerLib extends TikiLib
         } else if (! $created && ($notifyOn != 'both' && $notifyOn != 'update')) {
             return;
         }
-
+        
         if (count($watchers) > 0) {
             $simpleEmail = isset($tracker_info['simpleEmail']) ? $tracker_info['simpleEmail'] : "n";
 
