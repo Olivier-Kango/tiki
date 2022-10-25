@@ -921,7 +921,7 @@
                             <fieldset>
                                 <legend>{tr}Upgrading and running into encoding issues?{/tr}</legend>
                                 <p>{tr}We can try to fix it, but <strong>make sure you have backups, and can restore them</strong>.{/tr}</p>
-                                {(if $client_charset_in_file eq 'utf8' or $client_charset_in_file eq 'utf8mb4') and ($database_charset eq 'utf8mb4' or $database_charset eq 'utf8')}
+                                {if ($client_charset_in_file eq 'utf8' or $client_charset_in_file eq 'utf8mb4') and ($database_charset eq 'utf8mb4' or $database_charset eq 'utf8')}
                                     <div class="d-flex flex-wrap mx-0 align-items-center">
                                         <div class="input-group col-auto">
                                             <label class="col-form-label" for="previous_encoding">{tr}Previous table encoding:{/tr}</label>
