@@ -60,7 +60,7 @@ if ($(this).val() != '') {
                 <div class="mb-3 row">
                     <label for="fgal_type" class="col-sm-4 col-form-label">{tr}Type{/tr}</label>
                     <div class="col-sm-8">
-                        {if $galleryId eq $treeRootId or $gal_info.type eq 'user'}
+                        {if $galleryId eq $treeRootId or $gal_info.type eq 'user' or ($gal_info.type eq 'direct' and ($gal_info.direct.adapter eq 'inherit' or $gal_info.direct.adapter eq ''))}
                             {if $gal_info.type eq 'system'}
                                 {tr}System{/tr}
                             {elseif $gal_info.type eq 'user'}
@@ -74,10 +74,140 @@ if ($(this).val() != '') {
                                 <option value="default" {if $gal_info.type eq 'default'}selected="selected"{/if}>{tr}Any file{/tr}</option>
                                 <option value="podcast" {if $gal_info.type eq 'podcast'}selected="selected"{/if}>{tr}Podcast (audio){/tr}</option>
                                 <option value="vidcast" {if $gal_info.type eq 'vidcast'}selected="selected"{/if}>{tr}Podcast (video){/tr}</option>
+                                {if $tiki_p_admin eq 'y' or $gal_info.type eq 'direct'}
+                                    <option value="direct" {if $gal_info.type eq 'direct'}selected="selected"{/if}>{tr}Direct mapping{/tr}</option>
+                                {/if}
                             </select>
                         {/if}
                     </div>
                 </div>
+                {if $tiki_p_admin eq 'y' and not ($gal_info.type eq 'direct' and ($gal_info.direct.adapter eq 'inherit' or $gal_info.direct.adapter eq ''))}
+                <fieldset class="fgal_type_dependent direct_childcontainer" {if $gal_info.type neq 'direct'}style="display:none"{/if}>
+                    <legend>{tr}Direct mapping settings{/tr}</legend>
+                    <div class="mb-3 row">
+                        <label for="direct_adapter" class="col-sm-4 col-form-label">{tr}Adapter{/tr}</label>
+                        <div class="col-sm-8">
+                            <select name="direct[adapter]" id="direct_adapter" class="form-control">
+                                <option value="inherit" {if $gal_info.direct.adapter eq 'inherit'}selected="selected"{/if}>{tr}Inherit{/tr}</option>
+                                <option value="local" {if $gal_info.direct.adapter eq 'local'}selected="selected"{/if}>{tr}Local filesystem{/tr}</option>
+                                <option value="ftp" {if $gal_info.direct.adapter eq 'ftp'}selected="selected"{/if}>{tr}FTP{/tr}</option>
+                                <option value="sftp" {if $gal_info.direct.adapter eq 'sftp'}selected="selected"{/if}>{tr}SFTP{/tr}</option>
+                                <option value="s3" {if $gal_info.direct.adapter eq 's3'}selected="selected"{/if}>{tr}AWS S3{/tr}</option>
+                            <option value="webdav" {if $gal_info.direct.adapter eq 'webdav'}selected="selected"{/if}>{tr}WebDAV{/tr}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent local_childcontainer" {if $gal_info.direct.adapter neq 'local'}style="display:none"{/if}>
+                        <label for="direct_path" class="col-sm-4 col-form-label">{tr}Local filesystem path{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_path" name="direct[path]" value="{$gal_info.direct.path|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent ftp_childcontainer sftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp' and $gal_info.direct.adapter neq 'sftp'}style="display:none"{/if}>
+                        <label for="direct_host" class="col-sm-4 col-form-label">{tr}Hostname{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_host" name="direct[host]" value="{$gal_info.direct.host|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent webdav_childcontainer" {if $gal_info.direct.adapter neq 'webdav'}style="display:none"{/if}>
+                        <label for="direct_base_uri" class="col-sm-4 col-form-label">{tr}Base URI{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_base_uri" name="direct[base_uri]" value="{$gal_info.direct.base_uri|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent ftp_childcontainer sftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp' and $gal_info.direct.adapter neq 'sftp'}style="display:none"{/if}>
+                        <label for="direct_root" class="col-sm-4 col-form-label">{tr}Root path{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_root" name="direct[root]" value="{$gal_info.direct.root|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent ftp_childcontainer sftp_childcontainer webdav_childcontainer" {if $gal_info.direct.adapter neq 'ftp' and $gal_info.direct.adapter neq 'sftp' and $gal_info.direct.adapter neq 'webdav'}style="display:none"{/if}>
+                        <label for="direct_username" class="col-sm-4 col-form-label">{tr}Username{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_username" name="direct[username]" value="{$gal_info.direct.username|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent ftp_childcontainer sftp_childcontainer webdav_childcontainer" {if $gal_info.direct.adapter neq 'ftp' and $gal_info.direct.adapter neq 'sftp' and $gal_info.direct.adapter neq 'webdav'}style="display:none"{/if}>
+                        <label for="direct_password" class="col-sm-4 col-form-label">{tr}Password{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="password" id="direct_password" name="direct[password]" value="{$gal_info.direct.password|escape}" class="form-control" autocomplete="new-password">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent ftp_childcontainer sftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp' and $gal_info.direct.adapter neq 'sftp'}style="display:none"{/if}>
+                        <label for="direct_port" class="col-sm-4 col-form-label">{tr}Port{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_port" name="direct[port]" value="{$gal_info.direct.port|escape}" class="form-control" placeholder="{tr}e.g. 21 or 22{/tr}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent ftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp'}style="display:none"{/if}>
+                        <label for="direct_ssl" class="col-sm-4 col-form-label">{tr}SSL{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" class="form-check-input" id="direct_ssl" name="direct[ssl]" {if $gal_info.direct.ssl}checked="checked"{/if} value="1">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent ftp_childcontainer sftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp' and $gal_info.direct.adapter neq 'sftp'}style="display:none"{/if}>
+                        <label for="direct_timeout" class="col-sm-4 col-form-label">{tr}Timeout{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_timeout" name="direct[timeout]" value="{$gal_info.direct.timeout|escape}" class="form-control" placeholder="{tr}e.g. 90{/tr}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent ftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp'}style="display:none"{/if}>
+                        <label for="direct_utf8" class="col-sm-4 col-form-label">{tr}UTF8{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" class="form-check-input" id="direct_utf8" name="direct[utf8]" {if $gal_info.direct.utf8}checked="checked"{/if} value="1">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent ftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp'}style="display:none"{/if}>
+                        <label for="direct_passive" class="col-sm-4 col-form-label">{tr}Passive mode{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" class="form-check-input" id="direct_passive" name="direct[passive]" {if $gal_info.direct.passive}checked="checked"{/if} value="1">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent sftp_childcontainer" {if $gal_info.direct.adapter neq 'sftp'}style="display:none"{/if}>
+                        <label for="direct_private_key" class="col-sm-4 col-form-label">{tr}Private key path{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_private_key" name="direct[private_key]" value="{$gal_info.direct.private_key|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent sftp_childcontainer" {if $gal_info.direct.adapter neq 'sftp'}style="display:none"{/if}>
+                        <label for="direct_private_key_password" class="col-sm-4 col-form-label">{tr}Private key password{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="password" id="direct_private_key_password" name="direct[private_key_password]" value="{$gal_info.direct.private_key_password|escape}" class="form-control" autocomplete="new-password">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent s3_childcontainer" {if $gal_info.direct.adapter neq 's3'}style="display:none"{/if}>
+                        <label for="direct_region" class="col-sm-4 col-form-label">{tr}Region{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_region" name="direct[region]" value="{$gal_info.direct.region|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent s3_childcontainer" {if $gal_info.direct.adapter neq 's3'}style="display:none"{/if}>
+                        <label for="direct_key" class="col-sm-4 col-form-label">{tr}Key{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_key" name="direct[key]" value="{$gal_info.direct.key|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent s3_childcontainer" {if $gal_info.direct.adapter neq 's3'}style="display:none"{/if}>
+                        <label for="direct_secret" class="col-sm-4 col-form-label">{tr}Secret{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="password" id="direct_secret" name="direct[secret]" value="{$gal_info.direct.secret|escape}" class="form-control" autocomplete="new-password">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent s3_childcontainer" {if $gal_info.direct.adapter neq 's3'}style="display:none"{/if}>
+                        <label for="direct_bucket" class="col-sm-4 col-form-label">{tr}Bucket{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_bucket" name="direct[bucket]" value="{$gal_info.direct.bucket|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row direct_adapter_dependent s3_childcontainer" {if $gal_info.direct.adapter neq 's3'}style="display:none"{/if}>
+                        <label for="direct_path_prefix" class="col-sm-4 col-form-label">{tr}Path prefix{/tr}</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="direct_path_prefix" name="direct[path_prefix]" value="{$gal_info.direct.path_prefix|escape}" class="form-control">
+                        </div>
+                    </div>
+                    <hr/>
+                </fieldset>
+                {/if}
                 <div class="mb-3 row">
                     <label for="description" class="col-sm-4 col-form-label">{tr}Description{/tr}</label>
                     <div class="col-sm-8">
@@ -129,7 +259,7 @@ if ($(this).val() != '') {
                             </div>
                         </div>
                     </div>
-                    {if $galleryId neq $treeRootId}
+                    {if $galleryId neq $treeRootId and not ($gal_info.type eq 'direct' and ($gal_info.direct.adapter eq 'inherit' or $gal_info.direct.adapter eq ''))}
                         <div class="mb-3 row">
                             <label for="parentId" class="col-sm-4 col-form-label">{tr}Parent gallery{/tr}</label>
                             <div class="col-sm-8">

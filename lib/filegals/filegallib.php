@@ -452,6 +452,8 @@ class FileGalLib extends TikiLib
         if (empty($galleryId)) {
             $info = $this->get_file_info($id);
             $galleryId = $info['galleryId'];
+        } else {
+            $info = null;
         }
 
         $cachelib = TikiLib::lib('cache');
@@ -460,6 +462,8 @@ class FileGalLib extends TikiLib
             $cachelib->empty_type_cache('fgals_perms_' . $info['galleryId'] . "_");
         }
         $cachelib->empty_type_cache($this->get_all_galleries_cache_type());
+
+        $gal_info = $this->get_file_gallery_info($id);
 
         $result = $fileGalleries->delete(['galleryId' => $id]);
 
@@ -475,6 +479,7 @@ class FileGalLib extends TikiLib
             'type' => 'file gallery',
             'object' => $galleryId,
             'user' => $GLOBALS['user'],
+            'info' => $gal_info,
         ]);
 
         // If $recurse, also recursively remove children galleries
@@ -533,6 +538,7 @@ class FileGalLib extends TikiLib
             'visible' => 'y',
             'public' => 'y',
             'type' => 'default',
+            'direct' => null,
             'parentId' => $prefs['fgal_root_id'],
             'lockable' => 'n',
             'archives' => 0,
@@ -606,6 +612,8 @@ class FileGalLib extends TikiLib
         }
 
         if (! empty($fgal_info['galleryId']) && $fgal_info['galleryId'] > 0) {
+            $old_info = $this->get_file_gallery_info($fgal_info['galleryId']);
+
             $fgal_info['lastModif'] = $this->now;
             $galleryId = (int) $fgal_info['galleryId'];
 
@@ -617,6 +625,8 @@ class FileGalLib extends TikiLib
             );
             $finalEvent = 'tiki.filegallery.update';
         } else {
+            $old_info = [];
+
             unset($fgal_info['galleryId']);
             $fgal_info['created'] = $this->now;
             $fgal_info['lastModif'] = $this->now;
@@ -633,6 +643,8 @@ class FileGalLib extends TikiLib
             'type' => 'file gallery',
             'object' => $galleryId,
             'user' => $GLOBALS['user'],
+            'info' => $fgal_info,
+            'old_info' => $old_info,
         ]);
 
         // event_handler($action,$object_type,$object_id,$options);
@@ -2302,7 +2314,7 @@ class FileGalLib extends TikiLib
     public function get_file_by_name($galleryId, $name, $column = 'name')
     {
         $query = "select `fileId`,`path`,`galleryId`,`filename`,`filetype`,`data`,`filesize`,`name`,`description`,
-                `created` from `tiki_files` where `galleryId`=? AND `$column`=? ORDER BY created DESC LIMIT 1";
+                `created`, `lastModif` from `tiki_files` where `galleryId`=? AND `$column`=? ORDER BY created DESC LIMIT 1";
         $result = $this->query($query, [(int) $galleryId, $name]);
         $res = $result->fetchRow();
         return $res;
@@ -2314,6 +2326,27 @@ class FileGalLib extends TikiLib
                 `created` from `tiki_files` where `filename`=? ORDER BY created DESC LIMIT 1";
         $result = $this->query($query, [$filename]);
         return $result->fetchRow();
+    }
+
+    public function get_file_gallery_by_name($parentId, $name)
+    {
+        return $this->table('tiki_file_galleries')->fetchFullRow(['parentId' => (int) $parentId, 'name' => $name]);
+    }
+
+    public function get_direct_mapping_file_galleries()
+    {
+        $fgals = [];
+        $results = $this->fetchAll('select `galleryId`, `direct` from `tiki_file_galleries` where `type` = ? order by `galleryId`', ['direct']);
+        foreach ($results as $row) {
+            if (empty($row['direct'])) {
+                continue;
+            }
+            $config = json_decode($row['direct'], true);
+            if ($config['adapter'] != 'inherit') {
+                $fgals[] = $this->get_file_gallery($row['galleryId']);
+            }
+        }
+        return $fgals;
     }
 
     public function list_files($offset = 0, $maxRecords = -1, $sort_mode = 'created_desc', $find = '')

@@ -155,16 +155,21 @@
                                 {tr}Parent Gallery:{/tr}
                             </label>
                             <div class="col-sm-8">
-                                <select name="parentGalleryId" id="parentGalleryId" class="form-select">
-                                    {foreach $all_galleries as $gallery}
-                                        {if $gallery.perms.tiki_p_upload_files eq 'y' and
-                                                ($gallery.public eq 'y' or $gallery.user eq $user or $gallery.perms.tiki_p_admin_file_galleries eq 'y')}
-                                            <option value="{$gallery.id}"{if $fileInfo.galleryId eq $gallery.id} selected="selected"{/if}>
-                                                {$gallery.label|escape}
-                                            </option>
-                                        {/if}
-                                    {/foreach}
-                                </select>
+                                {if isset($gal_info.type) and $gal_info.type eq "direct"}
+                                    <input type="hidden" name="parentGalleryId" value="{$gal_info.galleryId}">
+                                    {$gal_info.name|escape}
+                                {else}
+                                    <select name="parentGalleryId" id="parentGalleryId" class="form-select">
+                                        {foreach $all_galleries as $gallery}
+                                            {if $gallery.perms.tiki_p_upload_files eq 'y' and
+                                                    ($gallery.public eq 'y' or $gallery.user eq $user or $gallery.perms.tiki_p_admin_file_galleries eq 'y')}
+                                                <option value="{$gallery.id}"{if $fileInfo.galleryId eq $gallery.id} selected="selected"{/if}>
+                                                    {$gallery.label|escape}
+                                                </option>
+                                            {/if}
+                                        {/foreach}
+                                    </select>
+                                {/if}
                             </div>
                         </div>
                     {/if}
@@ -256,7 +261,7 @@
                                     <select id="galleryId" name="galleryId[]" class="form-select" data-action="{service controller=file action=find_gallery}">
                                         <option value="{$treeRootId}" {if $treeRootId eq $galleryId}selected="selected"{/if} style="font-style:italic; border-bottom:1px dashed #666;">{tr}Root{/tr}</option>
                                         {section name=idx loop=$galleries}
-                                            {if $galleries[idx].id neq $treeRootId and ($galleries[idx].perms.tiki_p_upload_files eq 'y' or $tiki_p_userfiles eq 'y')}
+                                            {if $galleries[idx].id neq $treeRootId and ($galleries[idx].perms.tiki_p_upload_files eq 'y' or $tiki_p_userfiles eq 'y') and ($galleries[idx].type neq 'direct' or $galleries[idx].id == $galleryId)}
                                                 <option value="{$galleries[idx].id|escape}" {if $galleries[idx].id eq $galleryId}selected="selected"{/if}>{$galleries[idx].name|escape}</option>
                                             {/if}
                                         {/section}

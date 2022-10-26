@@ -65,6 +65,11 @@
                     <a href="tiki-list_file_gallery.php?dup_mode=1&galleryId={$galleryId}">{icon name="copy"} {tr}Duplicate{/tr}</a>
                 </li>
             {/if}
+            {if $gal_info.type eq 'direct'}
+                <li class="dropdown-item">
+                    <a href="tiki-list_file_gallery.php?sync=1&galleryId={$galleryId}">{icon name="redo"} {tr}Sync{/tr}</a>
+                </li>
+            {/if}
             {if $tiki_p_assign_perm_file_gallery eq 'y'}
                 <li class="dropdown-item">
                     {permission_link mode=text type="file gallery" permType="file galleries" id=$galleryId}

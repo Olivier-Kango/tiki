@@ -120,6 +120,7 @@ AwsSDK:
   requiredBy:
     - "zend_mail_smtp_server"
     - "Amazon SES mail sender"
+    - "S3 storage for direct mapping file gallery"
   requiredVersion: ^3.208
 TesseractOCR:
   licence: MIT

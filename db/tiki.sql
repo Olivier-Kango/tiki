@@ -883,6 +883,7 @@ CREATE TABLE `tiki_file_galleries` (
   `galleryId` int(14) NOT NULL auto_increment,
   `name` varchar(80) NOT NULL default '',
   `type` varchar(20) NOT NULL default 'default',
+  `direct` text,
   `template` int(10) default NULL,
   `description` text,
   `created` int(14) default NULL,
@@ -933,7 +934,8 @@ CREATE TABLE `tiki_file_galleries` (
   `show_source` char(1) NOT NULL DEFAULT 'o',
   `icon_fileId` int(14) UNSIGNED NULL DEFAULT NULL,
   `ocr_lang` VARCHAR(255) default NULL,
-  PRIMARY KEY (`galleryId`)
+  PRIMARY KEY (`galleryId`),
+  KEY `parentIdAndName` (`parentId`, name)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
 INSERT INTO `tiki_file_galleries` (`galleryId`, `name`, `type`, `description`, `visible`, `user`, `public`, `parentId`) VALUES ('1','File Galleries', 'system', '', 'y', 'admin', 'y', -1);
@@ -979,7 +981,7 @@ CREATE TABLE `tiki_files` (
   KEY `description` (description(191)),
   KEY `created` (created),
   KEY `archiveId` (`archiveId`),
-  KEY `galleryId` (`galleryId`),
+  KEY `galleryIdAndFilename` (`galleryId`, `filename`),
   KEY `hits` (hits)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 

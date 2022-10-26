@@ -22,7 +22,7 @@ class MetadataExtractor extends Manipulator
         $metadata = $filegallib->extractMetadataJson($file->getWrapper()->getReadableFile());
         $file->setParam('metadata', $metadata);
 
-        if ($file->name === $file->filename) {
+        if ($file->name === $file->filename && ! $file->galleryDefinition()->isDirect()) {
             $name = TikiLib::lib('filegal')::getTitleFromFilename($file->name);
         } else {
             $name = $file->name;

@@ -87,6 +87,11 @@ if (empty($galleryId) && isset($_REQUEST['parentId'])) {
         $gal_info['user'] = $user;
     }
 
+    if ($parent_gal_info['type'] == 'direct') {
+        $gal_info['type'] = 'direct';
+        $gal_info['direct'] = ['adapter' => 'inherit'];
+    }
+
     $old_gal_info = [];
 } else {
     if (! isset($_REQUEST['galleryId'])) {
@@ -491,6 +496,16 @@ if (
     }
 }
 
+if (! empty($_REQUEST['sync'])) {
+    try {
+        $def = $filegallib->getGalleryDefinition($galleryId);
+        $def->sync();
+        Feedback::success(tr('File gallery synchronized from source'));
+    } catch (Exception $e) {
+        Feedback::error($e->getMessage());
+    }
+}
+
 $smarty->assign('url', $tikilib->httpPrefix() . parse_url($_SERVER['REQUEST_URI'])['path']);
 // Edit mode
 if (isset($_REQUEST['edit_mode']) and $_REQUEST['edit_mode']) {
@@ -614,6 +629,7 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
         'fdescription',
         'max_desc',
         'fgal_type',
+        'direct',
         'maxRows',
         'rowImages',
         'thumbSizeX',
@@ -627,19 +643,19 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
         'icon_fileId',
         'ocr_langs',
     ];
-	$incorrectInputValues = []; 
-	foreach ($request_vars as $v) {
-		if (isset($_REQUEST[$v])) {
-			if ($v == 'name') {
-				if (empty($_REQUEST[$v])){
-					$incorrectInputValues['incorrect_' . $v] = tr('Name field required');
-				}elseif (strlen($_REQUEST[$v]) > 80) {
-					$incorrectInputValues['incorrect_' . $v] = tr('Name field cannot contain more than 80 characters');
-				}
-			}
-			$smarty->assign_by_ref($v, $_REQUEST[$v]);
-		}
-	}
+    $incorrectInputValues = [];
+    foreach ($request_vars as $v) {
+        if (isset($_REQUEST[$v])) {
+            if ($v == 'name') {
+                if (empty($_REQUEST[$v])) {
+                    $incorrectInputValues['incorrect_' . $v] = tr('Name field required');
+                } elseif (strlen($_REQUEST[$v]) > 80) {
+                    $incorrectInputValues['incorrect_' . $v] = tr('Name field cannot contain more than 80 characters');
+                }
+            }
+            $smarty->assign_by_ref($v, $_REQUEST[$v]);
+        }
+    }
     $request_toggles = ['visible', 'public', 'lockable'];
     foreach ($request_toggles as $t) {
         $$t = (isset($_REQUEST[$t]) && $_REQUEST[$t] == 'on') ? 'y' : 'n';
@@ -731,6 +747,10 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
             'ocr_lang' => $ocrLangs,
         ];
 
+        if ($_REQUEST['direct']) {
+            $gal_info['direct'] = json_encode($_REQUEST['direct']);
+        }
+
         if ($prefs['feature_file_galleries_templates'] == 'y' && isset($_REQUEST['fgal_template']) && ! empty($_REQUEST['fgal_template'])) {
             // Override with template parameters
             $template = $templateslib->get_parsed_template($_REQUEST['fgal_template']);
@@ -765,17 +785,17 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
         unset($fgal_diff['hits']);
         $smarty->assign('fgal_diff', $fgal_diff);
 
-		// If there are no incorrect values, we create or modify the file gallery
-		if (! $incorrectInputValues) {
-			$fgid = $filegallib->replace_file_gallery($gal_info);
-			if ($fgid) {
-				Feedback::success(tr('Gallery %0 created or modified', htmlspecialchars($_REQUEST['name'])));
-			} else {
-				Feedback::error(tr('Gallery %0 not created or modified', htmlspecialchars($_REQUEST['name'])));
-			}
-		} else {
-			$smarty->assign_by_ref('incorrectInputValues', $incorrectInputValues);
-		}
+        // If there are no incorrect values, we create or modify the file gallery
+        if (! $incorrectInputValues) {
+            $fgid = $filegallib->replace_file_gallery($gal_info);
+            if ($fgid) {
+                Feedback::success(tr('Gallery %0 created or modified', htmlspecialchars($_REQUEST['name'])));
+            } else {
+                Feedback::error(tr('Gallery %0 not created or modified', htmlspecialchars($_REQUEST['name'])));
+            }
+        } else {
+            $smarty->assign_by_ref('incorrectInputValues', $incorrectInputValues);
+        }
 
         if ($prefs['feature_groupalert'] == 'y') {
             $groupalertlib->AddGroup('file gallery', $galleryId, $_REQUEST['groupforAlert'], $_REQUEST['showeachuser']);
@@ -790,19 +810,19 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
             include_once('categorize.php');
         }
 
-		// If there are no incorrect values, we display the file gallery created or modified otherwise we return to the form
-		if (! $incorrectInputValues) {
-			if (isset($_REQUEST['viewitem'])) {
-				header(
-					'Location: tiki-list_file_gallery.php?galleryId=' . $fgid
-					. (! empty($_REQUEST['filegals_manager']) ? '&filegals_manager=' . $_REQUEST['filegals_manager'] : '')
-					. (! empty($_REQUEST['insertion_syntax']) ? '&insertion_syntax=' . $_REQUEST['insertion_syntax'] : '')
-				);
-				die;
-			}
-		}
-		$smarty->assign('edit_mode', 'y');
-	}
+        // If there are no incorrect values, we display the file gallery created or modified otherwise we return to the form
+        if (! $incorrectInputValues) {
+            if (isset($_REQUEST['viewitem'])) {
+                header(
+                    'Location: tiki-list_file_gallery.php?galleryId=' . $fgid
+                    . (! empty($_REQUEST['filegals_manager']) ? '&filegals_manager=' . $_REQUEST['filegals_manager'] : '')
+                    . (! empty($_REQUEST['insertion_syntax']) ? '&insertion_syntax=' . $_REQUEST['insertion_syntax'] : '')
+                );
+                die;
+            }
+        }
+        $smarty->assign('edit_mode', 'y');
+    }
 }
 
 // Process duplication of a gallery
@@ -810,53 +830,53 @@ if (! empty($_REQUEST['duplicate']) && ! empty($_REQUEST['name']) && ! empty($ga
     if ($tiki_p_create_file_galleries != 'y' || $gal_info['type'] == 'user') {
         Feedback::errorPage(tr('You do not have permission to duplicate this gallery'));
     }
-	$incorrectInputValues = [];
-	if (strlen($_REQUEST['name']) > 80) {
-		$incorrectInputValues['incorrect_name'] = tr('Name field cannot contain more than 80 characters');
-	}
-	// If there are no incorrect values, we duplicate the gallery
-	if (empty($incorrectInputValues)) {
-		$newGalleryId = $filegallib->duplicate_file_gallery(
-			$galleryId,
-			$_REQUEST['name'],
-			isset($_REQUEST['description']) ? $_REQUEST['description'] : ''
-		);
+    $incorrectInputValues = [];
+    if (strlen($_REQUEST['name']) > 80) {
+        $incorrectInputValues['incorrect_name'] = tr('Name field cannot contain more than 80 characters');
+    }
+    // If there are no incorrect values, we duplicate the gallery
+    if (empty($incorrectInputValues)) {
+        $newGalleryId = $filegallib->duplicate_file_gallery(
+            $galleryId,
+            $_REQUEST['name'],
+            isset($_REQUEST['description']) ? $_REQUEST['description'] : ''
+        );
 
-		if (isset($_REQUEST['dupCateg']) && $_REQUEST['dupCateg'] == 'on' && $prefs['feature_categories'] == 'y') {
-			$categlib = TikiLib::lib('categ');
-			$cats = $categlib->get_object_categories('file gallery', $galleryId);
-			$catObjectId = $categlib->add_categorized_object(
-				'file gallery',
-				$newGalleryId,
-				(isset($_REQUEST['description']) ? $_REQUEST['description'] : ''),
-				$_REQUEST['name'],
-				'tiki-list_file_gallery.php?galleryId=' . $newGalleryId
-			);
-			foreach ($cats as $cat) {
-				$categlib->categorize($catObjectId, $cat);
-			}
-		}
-		if (isset($_REQUEST['dupPerms']) && $_REQUEST['dupPerms'] == 'on') {
-			$userlib->copy_object_permissions($galleryId, $newGalleryId, 'file gallery');
-		}
-		if ($newGalleryId) {
-			Feedback::success(tr('Gallery duplicated'));
-			header('Location: tiki-list_file_gallery.php?galleryId=' . $newGalleryId);
-			die;
-		} else {
-			Feedback::error(tr('Gallery not duplicated'));
-		}
-	}else{
-		// avoid losing form data
-		$smarty->assign('dupName', $_REQUEST['name']);
-		$smarty->assign('description', $_REQUEST['description']);
-		$smarty->assign('dupPerms', isset($_REQUEST['dupPerms']) && $_REQUEST['dupPerms'] == 'on' ? 'checked' : '');
-		$smarty->assign('dupCateg', isset($_REQUEST['dupCateg']) && $_REQUEST['dupCateg'] == 'on' ? 'checked' : '');
+        if (isset($_REQUEST['dupCateg']) && $_REQUEST['dupCateg'] == 'on' && $prefs['feature_categories'] == 'y') {
+            $categlib = TikiLib::lib('categ');
+            $cats = $categlib->get_object_categories('file gallery', $galleryId);
+            $catObjectId = $categlib->add_categorized_object(
+                'file gallery',
+                $newGalleryId,
+                (isset($_REQUEST['description']) ? $_REQUEST['description'] : ''),
+                $_REQUEST['name'],
+                'tiki-list_file_gallery.php?galleryId=' . $newGalleryId
+            );
+            foreach ($cats as $cat) {
+                $categlib->categorize($catObjectId, $cat);
+            }
+        }
+        if (isset($_REQUEST['dupPerms']) && $_REQUEST['dupPerms'] == 'on') {
+            $userlib->copy_object_permissions($galleryId, $newGalleryId, 'file gallery');
+        }
+        if ($newGalleryId) {
+            Feedback::success(tr('Gallery duplicated'));
+            header('Location: tiki-list_file_gallery.php?galleryId=' . $newGalleryId);
+            die;
+        } else {
+            Feedback::error(tr('Gallery not duplicated'));
+        }
+    } else {
+        // avoid losing form data
+        $smarty->assign('dupName', $_REQUEST['name']);
+        $smarty->assign('description', $_REQUEST['description']);
+        $smarty->assign('dupPerms', isset($_REQUEST['dupPerms']) && $_REQUEST['dupPerms'] == 'on' ? 'checked' : '');
+        $smarty->assign('dupCateg', isset($_REQUEST['dupCateg']) && $_REQUEST['dupCateg'] == 'on' ? 'checked' : '');
 
-		// return to the duplication page
-		$smarty->assign_by_ref('incorrectInputValues', $incorrectInputValues);
-		$smarty->assign('dup_mode', 'y');
-	}
+        // return to the duplication page
+        $smarty->assign_by_ref('incorrectInputValues', $incorrectInputValues);
+        $smarty->assign('dup_mode', 'y');
+    }
 }
 
 // Process removal of a gallery
@@ -1242,6 +1262,9 @@ if (
 ) {
     $gals = [];
     foreach ($subGalleries['data'] as $gal) {
+        if ($gal['type'] == 'direct') {
+            continue;
+        }
         $gals[] = [
             'label' => $gal['parentName'] . ' > ' . $gal['name'],
             'id' => $gal['id'],
@@ -1325,6 +1348,9 @@ if ($view == 'admin') {
         }
     }
     $smarty->assign('show_find_orphans', 'y');
+}
+if (is_string($gal_info['direct'])) {
+    $gal_info['direct'] = json_decode($gal_info['direct'], true);
 }
 $smarty->assign_by_ref('find_durations', $find_durations);
 $smarty->assign_by_ref('gal_info', $gal_info);

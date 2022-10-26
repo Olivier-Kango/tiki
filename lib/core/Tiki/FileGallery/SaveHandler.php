@@ -38,6 +38,10 @@ class SaveHandler
           // Edge case: when using the migration script from image galleries to file galleries,
           // the file "exists" but has no fileId and still needs to be inserted.
             $fileId = $this->insertFile();
+        } elseif ($this->file->galleryDefinition()->isDirect()) {
+            $this->filesTable->update($this->file->getParamsForDB(), ['fileId' => $this->file->fileId]);
+            $fileId = $this->file->fileId;
+            $final_event = 'tiki.file.update';
         } else {
             if ($prefs['feature_file_galleries_save_draft'] == 'y') {
                 $this->insertDraft();
