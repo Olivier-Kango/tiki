@@ -35,7 +35,7 @@ $btn-link-disabled-color:     $gray-600;
 
 // Navs
 $nav-tabs-link-color: #000;
-$nav-tabs-link-bg: #f9dcec; // Same as $input-bg;
+$nav-tabs-link-bg: rgba(97, 16, 45, .15);
 $nav-tabs-link-active-color: #fff;
 $nav-tabs-link-active-bg: #61102d; // Same as $dropdown-link-hover-bg;
 
@@ -55,7 +55,7 @@ $table-hover-bg: #f5f5f5;
 
 // Forms
 $input-color: #555555;
-$input-bg: #f9dcec;
+$input-bg: #f9ebed; //#f9dcec;
 $input-border-color: #fa9ccd;
 $input-border-top-color: #fa9ccd;
 $input-border-right-color: #fcf6f9;
@@ -132,7 +132,7 @@ $navbar-dark-link-hover-color: #f2f2f2;
 $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 //$navbar-light-link-hover-bg: #003c4a;
 
-$side-column-heading-color: #e60b7f;
+$side-column-heading-color: #D60A77; //#e60b7f;
 
 $topbar-dark-bg: #35061d;
 $footer_liner-card-inner-border: #eb0a82;
@@ -170,17 +170,17 @@ $btn-focus-width:             $input-btn-focus-width;
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 :root {
-    --tiki-top-bg-light: linear-gradient(to right,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%);
+    --tiki-top-bg-light: linear-gradient(to right,  #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%,#ea0a81 100%);
     --tiki-top-light-color: #{$navbar-light-color};
     --tiki-top-light-link-color: #{$navbar-light-link-color};
     --tiki-top-light-link-hover-color: #{$navbar-light-link-hover-color};
 
-    --tiki-topbar-bg-light: #{$topbar-light-color};
+    --tiki-topbar-bg-light: #{$topbar-light-bg};
     --tiki-topbar-light-color: #{$topbar-light-color};
     --tiki-topbar-light-link-color: #{$navbar-light-link-color};
     --tiki-topbar-light-link-hover-color: #{$navbar-dark-link-hover-color};
 
-    --tiki-top-bg-dark: linear-gradient(to right,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%);
+    --tiki-top-bg-dark: var(--tiki-top-bg-light); //linear-gradient(to right,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%);
     --tiki-top-dark-color: #{$top-dark-color};
     --tiki-top-dark-link-color: #{$navbar-dark-link-color};
     --tiki-top-dark-link-hover-color: #{$navbar-dark-link-hover-color};
@@ -189,4 +189,8 @@ $btn-focus-width:             $input-btn-focus-width;
     --tiki-topbar-dark-color: #{$navbar-dark-color};
     --tiki-topbar-dark-link-color: #{$navbar-dark-link-color};
     --tiki-topbar-dark-link-hover-color: #{$navbar-dark-link-hover-color};
+
+    --tiki-top-light-border: solid #000;
+    --tiki-top-dark-border: solid #000;
+    --tiki-top-border-width: 0 0 5px 0;
 }

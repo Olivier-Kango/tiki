@@ -15,6 +15,9 @@
   --tiki-topbar-dark-color: #f9f9f9;
   --tiki-topbar-dark-link-color: #f9f9f9;
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
+  --tiki-top-light-border: solid #000;
+  --tiki-top-dark-border: solid #000;
+  --tiki-top-border-width: 0 0 5px 0;
 }
 .postbody-title, .bg-dark {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#642759+0,732860+19,92286b+43,a32872+67,a52873+100 */
@@ -915,9 +918,6 @@ progress {
 .tab-content > .active {
   display: block;
 }
-.page-header h1, .page-header h2, .page-header h3 a, .page-header a, .page-header a:hover {
-  color: #fff;
-}
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
@@ -1177,9 +1177,14 @@ footer#footer .footer_liner .card-header {
 .layout_classic .page-header .bg-dark {
   background: #49243c !important;
 }
-.layout_classic .top_modules > div:first-child {
-  background: url("../images/siteheader2.png") no-repeat top right;
+/*.layout_classic*/
+.top_modules > div:first-child {
+  background: url("../images/siteheader2.png") no-repeat top right !important;
   margin-left: -15px !important;
+  color: #8e286a !important;
+}
+.top_modules > div:first-child a {
+  color: #8e286a !important;
 }
 .layout_classic .sitetitle, .layout_classic .sitetitle a, .layout_classic .sitesubtitle {
   color: #000 !important;

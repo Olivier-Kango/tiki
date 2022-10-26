@@ -5,9 +5,9 @@
   --tiki-top-light-link-color: #212529;
   --tiki-top-light-link-hover-color: #383f45;
   --tiki-topbar-bg-light: #063035;
-  --tiki-topbar-light-color: #212529;
-  --tiki-topbar-light-link-color: #212529;
-  --tiki-topbar-light-link-hover-color: #f2f2f2;
+  --tiki-topbar-light-color: #fff;
+  --tiki-topbar-light-link-color: #fff;
+  --tiki-topbar-light-link-hover-color: darken(#fff, 8%);
   --tiki-top-bg-dark: linear-gradient(to right,  #bebc24 0%,#ded319 53%,#e7d915 100%);
   --tiki-top-dark-color: #000;
   --tiki-top-dark-link-color: #000;
@@ -15,7 +15,10 @@
   --tiki-topbar-bg-dark:#063035;
   --tiki-topbar-dark-color: #fff;
   --tiki-topbar-dark-link-color: #fff;
-  --tiki-topbar-dark-link-hover-color: #f2f2f2;
+  --tiki-topbar-dark-link-hover-color: darken(#fff, 8%);
+  --tiki-top-light-border: solid #000;
+  --tiki-top-dark-border: solid #000;
+  --tiki-top-border-width: 0 0 5px 0;
 }
 :root {
   --bs-blue: #0d6efd;
@@ -862,9 +865,6 @@ progress {
 }
 .tab-content > .active {
   display: block;
-}
-.page-header h1, .page-header h2, .page-header h3 a, .page-header a, .page-header a:hover {
-  color: #242424;
 }
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;

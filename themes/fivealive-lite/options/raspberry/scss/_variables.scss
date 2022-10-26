@@ -1,4 +1,4 @@
-// $Id$ Custom variables for the Raspberry theme option of the FiveAlive and FiveAlive-lite themes
+// $Id$ Custom variables for the Raspberry theme option of the FiveAlive-lite theme
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 // Variables needed for button color variants (start)
@@ -56,21 +56,11 @@ $btn-link-disabled-color:     $gray-600 !default;
 
 // Navs
 $nav-tabs-link-color: #000;
-$nav-tabs-link-bg: #f9dcec; // Same as $input-bg;
+$nav-tabs-link-bg: rgba(97, 16, 45, .15);
 $nav-tabs-link-active-color: #fff;
 $nav-tabs-link-active-bg: #61102d; // Same as $dropdown-link-hover-bg;
 
 // Navbars
-$bg-dark-link-hover-color: #f2f2f2;
-$bg-dark-link-hover-bg: #003c4a;
-$top-bg: #cd0a53; // #E00B7C; //#b50964;
-$top-color: #fff;
-$top-link-color: #fff;
-$top-link-hover-color: #f9f9f9;
-$topbar-bg: #e30b5d; // #e60b7f; Actual Raspberry hex color
-$topbar-link-color: #fff;
-$bg-dark-info: #f2f2f2;
-$page-header-link-color: #000;
 
 // Typography
 $hr-border-color: #e10c7c;
@@ -86,7 +76,7 @@ $table-hover-bg: #f5f5f5;
 
 // Forms
 $input-color: #555555;
-$input-bg: #f9dcec;
+$input-bg: #f9ebed; //#f9dcec;
 $input-border-color: #fa9ccd;
 $input-border-top-color: #fa9ccd;
 $input-border-right-color: #fcf6f9;
@@ -131,9 +121,9 @@ $top-link-color: #fff;
 $top-link-hover-color: #f9f9f9;
 //$topbar-bg: #063035;
 
-$top-dark-bg: #cd0a53;
+$top-dark-bg: #a40d3a; //#cd0a53;
 $top-dark-color: #fff;
-$topbar-dark-bg: #e30b5d; // $topbar-light-bg;
+$topbar-dark-bg: #93071a; //#e30b5d; // $topbar-light-bg;
 $topbar-dark-color: #fff;
 
 $top-light-bg: $top-dark-bg; // #a52874;
@@ -152,12 +142,12 @@ $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 // Aug 18 2022 revamp end
 
 
-$side-column-heading-color: #e60b7f;
+$side-column-heading-color: #93071a; //#e60b7f;
 
 $middle_outer-inset-shadow-bg: #35061d;
-$footer_liner-card-inner-border: #eb0a82;
+$footer_liner-card-inner-border: #93071a; //#eb0a82;
 
-$footer-accent-color: #eb0a82;
+$footer-accent-color: #93071a; //#eb0a82;
 $footer-btn-secondary-color: #f4f4f4;
 $footer_liner-border-color: $footer-accent-color;
 
@@ -185,6 +175,18 @@ $enable-gradients:               false;
 $enable-shadows:              false;
 $input-btn-focus-width:       .2rem !default;
 $btn-focus-width:             $input-btn-focus-width !default;
+
+// Other variables
+$bg-dark-link-hover-color: #f2f2f2;
+$bg-dark-link-hover-bg: #003c4a;
+$top-bg: #cd0a53; // #E00B7C; //#b50964;
+$top-color: #fff;
+$top-link-color: #fff;
+$top-link-hover-color: #f9f9f9;
+$topbar-bg: #e30b5d; // #e60b7f; Actual Raspberry hex color
+$topbar-link-color: #fff;
+$bg-dark-info: #f2f2f2;
+$page-header-link-color: #000;
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.

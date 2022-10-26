@@ -137,9 +137,9 @@ $topbar-link-color: #fff;
 $topbar-link-hover-color: #f9f9f9;
 //$topbar-bg: #063035;
 
-$top-dark-bg: #f09c00;
+$top-dark-bg: #f7b512; //#f09c00;
 $top-dark-color: #000;
-$topbar-dark-bg: #ffa500; // $topbar-light-bg;
+$topbar-dark-bg: #ea8a0b; //#ffa500; // $topbar-light-bg;
 $topbar-dark-color: #000;
 
 $top-light-bg: $top-dark-bg; // #a52874;
@@ -159,7 +159,7 @@ $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 
 //$bg-light-alt: #117485 !important;
 
-$side-column-heading-color: #e77d4f;
+$side-column-heading-color: #A84706; // #e77d4f;
 
 $middle_outer-inset-shadow-bg: #33140a;
 $footer_liner-card-inner-border: #ebdc14;
@@ -220,6 +220,4 @@ $btn-link-disabled-color:     $gray-600 !default;
     --tiki-top-light-border: solid #000;
     --tiki-top-dark-border: solid #000;
     --tiki-top-border-width: 0 0 5px 0;
-
-
 }

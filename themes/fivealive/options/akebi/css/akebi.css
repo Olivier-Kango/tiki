@@ -22,6 +22,9 @@
   --tiki-topbar-dark-color: #f9f9f9;
   --tiki-topbar-dark-link-color: #f9f9f9;
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
+  --tiki-top-light-border: solid #000;
+  --tiki-top-dark-border: solid #000;
+  --tiki-top-border-width: 0 0 5px 0;
 }
 :root {
   --bs-blue: #0d6efd;
@@ -878,9 +881,6 @@ progress {
 .tab-content > .active {
   display: block;
 }
-.page-header h1, .page-header h2, .page-header h3 a, .page-header a, .page-header a:hover {
-  color: #fff;
-}
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
@@ -1113,7 +1113,7 @@ header.header .sitetitle, header.header .sitesubtitle {
   color: #0b8a98;
 }
 #col2 .card-title, #col3 .card-title, a.flipmoduletitle, #col2 .card-secondary > .card-header a, #col3 .card-secondary > .card-header a {
-  color: #169FB6;
+  color: #0F7385;
 }
 footer#footer .footer_liner {
   border-top: 1px solid #19a5be;

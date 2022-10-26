@@ -1,21 +1,24 @@
 /*  The Orange theme option file for the FiveAlive theme of Tiki Wiki CMS Groupware. */
 :root {
-  --tiki-top-bg-light: linear-gradient(to right,  #c44a23 0%,#c64b23 10%,#dc5823 34%,#e96023 58%,#f06423 87%,#f06423 100%);
+  --tiki-top-bg-light: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
   --tiki-top-light-color: #000;
   --tiki-top-light-link-color: #000;
   --tiki-top-light-link-hover-color: #1a1a1a;
-  --tiki-topbar-bg-light: #f9f9f9;
-  --tiki-topbar-light-color: #f9f9f9;
-  --tiki-topbar-light-link-color: #f9f9f9;
-  --tiki-topbar-light-link-hover-color: #f2f2f2;
-  --tiki-top-bg-dark: linear-gradient(to right,  #c44a23 0%,#c64b23 10%,#dc5823 34%,#e96023 58%,#f06423 87%,#f06423 100%);
+  --tiki-topbar-bg-light: #ea8a0b;
+  --tiki-topbar-light-color: #000;
+  --tiki-topbar-light-link-color: #000;
+  --tiki-topbar-light-link-hover-color: #000;
+  --tiki-top-bg-dark: var(--tiki-top-bg-light);
   --tiki-top-dark-color: #000;
   --tiki-top-dark-link-color: #000;
   --tiki-top-dark-link-hover-color: #1a1a1a;
-  --tiki-topbar-bg-dark:#33140a;
-  --tiki-topbar-dark-color: #f9f9f9;
-  --tiki-topbar-dark-link-color: #f9f9f9;
-  --tiki-topbar-dark-link-hover-color: #f2f2f2;
+  --tiki-topbar-bg-dark:#ea8a0b;
+  --tiki-topbar-dark-color: #000;
+  --tiki-topbar-dark-link-color: #000;
+  --tiki-topbar-dark-link-hover-color: #000;
+  --tiki-top-light-border: solid #000;
+  --tiki-top-dark-border: solid #000;
+  --tiki-top-border-width: 0 0 5px 0;
 }
 :root {
   --bs-blue: #0d6efd;
@@ -857,16 +860,13 @@ progress {
 .tab-content > .active {
   display: block;
 }
-.page-header h1, .page-header h2, .page-header h3 a, .page-header a, .page-header a:hover {
-  color: #000;
-}
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
 }
 .bg-dark {
-  background-color: #33140a !important;
-  color: #f9f9f9;
+  background-color: #ea8a0b !important;
+  color: rgba(255, 255, 255, 0.55);
 }
 .bg-dark .btn-outline-info {
   color: #f2f2f2;
@@ -923,7 +923,7 @@ hr {
   border: 1px solid #fac5b1;
 }
 .navbar-dark a, .navbar-dark .navbar-brand, .dropdown-item, .dropdown-item a, .dropdown-menu .tikihelp {
-  color: #f9f9f9;
+  color: rgba(255, 255, 255, 0.55);
 }
 .navbar-dark a:hover, .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
   color: rgba(255, 255, 255, 0.75);
@@ -952,7 +952,7 @@ hr {
   border-color: transparent;
 }
 nav:not(.topbar_modules, .top_modules).navbar-dark .open > a, nav:not(.topbar_modules, .top_modules).navbar-dark .open > a:hover, nav:not(.topbar_modules, .top_modules).navbar-dark .open > a:focus {
-  color: #f9f9f9;
+  color: rgba(255, 255, 255, 0.55);
 }
 .navbar-dark .navbar-link:hover {
   color: #f9f9f9;
@@ -1092,7 +1092,7 @@ header.header .sitetitle, header.header .sitesubtitle {
   color: #c74b23;
 }
 #col2 .card-title, #col3 .card-title, a.flipmoduletitle, #col2 .card-secondary > .card-header a, #col3 .card-secondary > .card-header a {
-  color: #e77d4f;
+  color: #BC4B1A;
 }
 footer#footer .footer_liner {
   border-top: 1px solid #ebdc14;

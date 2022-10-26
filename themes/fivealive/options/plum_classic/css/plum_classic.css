@@ -3,7 +3,7 @@
   --tiki-top-light-color: #f9f9f9;
   --tiki-top-light-link-color: #f9f9f9;
   --tiki-top-light-link-hover-color: #f2f2f2;
-  --tiki-topbar-bg-light: #f9f9f9;
+  --tiki-topbar-bg-light: #180124;
   --tiki-topbar-light-color: #f9f9f9;
   --tiki-topbar-light-link-color: #f9f9f9;
   --tiki-topbar-light-link-hover-color: #f2f2f2;
@@ -11,10 +11,13 @@
   --tiki-top-dark-color: #000;
   --tiki-top-dark-link-color: #f9f9f9;
   --tiki-top-dark-link-hover-color: #f2f2f2;
-  --tiki-topbar-bg-dark:#180124;
+  --tiki-topbar-bg-dark: #180124;
   --tiki-topbar-dark-color: #f9f9f9;
   --tiki-topbar-dark-link-color: #f9f9f9;
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
+  --tiki-top-light-border: solid #000;
+  --tiki-top-dark-border: solid #000;
+  --tiki-top-border-width: 0 0 5px 0;
 }
 .header_outer, .layout_basic #top_modules, .postbody-title, .tiki > .navbar.fixed-top.bg-dark, .bg-dark {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5e028e+0,8f06c4+100 */
@@ -866,9 +869,6 @@ progress {
 .tab-content > .active {
   display: block;
 }
-.page-header h1, .page-header h2, .page-header h3 a, .page-header a, .page-header a:hover {
-  color: #fff;
-}
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;
   padding-bottom: 0;
@@ -1128,9 +1128,14 @@ footer#footer .footer_liner .card-header {
 .layout_classic .page-header .bg-dark {
   background: #641E39 !important;
 }
-.layout_classic .top_modules > div:first-child {
-  background: url("../images/siteheader2.png") no-repeat top right;
+/*.layout_classic*/
+.top_modules > div:first-child {
+  background: url("../images/siteheader2.png") no-repeat top right !important;
   margin-left: -15px !important;
+  color: #15001f !important;
+}
+.top_modules > div:first-child a {
+  color: #15001f !important;
 }
 .layout_classic .sitetitle, .layout_classic .sitetitle a, .layout_classic .sitesubtitle {
   color: #000 !important;

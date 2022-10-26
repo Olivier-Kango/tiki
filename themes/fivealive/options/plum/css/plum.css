@@ -4,7 +4,7 @@
   --tiki-top-light-color: #f9f9f9;
   --tiki-top-light-link-color: #f9f9f9;
   --tiki-top-light-link-hover-color: #f2f2f2;
-  --tiki-topbar-bg-light: #f9f9f9;
+  --tiki-topbar-bg-light: #180124;
   --tiki-topbar-light-color: #f9f9f9;
   --tiki-topbar-light-link-color: #f9f9f9;
   --tiki-topbar-light-link-hover-color: #f2f2f2;
@@ -12,10 +12,13 @@
   --tiki-top-dark-color: #000;
   --tiki-top-dark-link-color: #f9f9f9;
   --tiki-top-dark-link-hover-color: #f2f2f2;
-  --tiki-topbar-bg-dark:#180124;
+  --tiki-topbar-bg-dark: #180124;
   --tiki-topbar-dark-color: #f9f9f9;
   --tiki-topbar-dark-link-color: #f9f9f9;
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
+  --tiki-top-light-border: solid #000;
+  --tiki-top-dark-border: solid #000;
+  --tiki-top-border-width: 0 0 5px 0;
 }
 :root {
   --bs-blue: #0d6efd;
@@ -856,9 +859,6 @@ progress {
 }
 .tab-content > .active {
   display: block;
-}
-.page-header h1, .page-header h2, .page-header h3 a, .page-header a, .page-header a:hover {
-  color: #fff;
 }
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;

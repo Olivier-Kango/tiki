@@ -101,42 +101,37 @@ $top-link-hover-color: #f9f9f9;
 
 $topbar-bg: #7e301e; // #FFA500; // #CA4C12;
 $bg-dark-info: #f2f2f2;
-//$navbar-fixed-top-bg: #e4af00;
 $page-header-link-color: #000;
 
 // navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
 $bg-dark-link-hover-bg: #003c4a;
 
-$topbar-link-color: #000;
-
-$topbar-dark-bg: #33140a;
-$top-light-bg: transparent; // #117485;
 $top-light-color: #f9f9f9;
 $top-light-link-color: $top-light-color;
-$topbar-light-bg: #063035;
-$topbar-light-color: #f9f9f9;
 
-$top-dark-bg: transparent; // #117485; // $top-light-bg; defining the variable with a variable didn't work.
+$topbar-light-bg: #ea8a0b;
+$topbar-light-color: #000;
+$topbar-link-color: #000;
+
 $top-dark-color: $black;
 $top-dark-link-color: $top-dark-color;
 $top-link-hover-color: lighten($top-dark-color, 10%);
-$topbar-dark-bg: #063035; // $topbar-light-bg;
+
+$topbar-dark-bg:  #ea8a0b; //#33140a;
 $topbar-dark-color: $topbar-light-color;
 
-$navbar-light-color: $top-light-color;
-$navbar-light-link-color: $top-light-color;
-$navbar-light-link-hover-color: #f2f2f2;
+//$navbar-light-color: $top-light-color;
+//$navbar-light-link-color: $top-light-color;
+//$navbar-light-link-hover-color: #f2f2f2;
+//$navbar-light-link-hover-bg: #003c4a;
+//$navbar-dark-color: #fff;
+//$navbar-dark-link-color: $top-light-color;
+//$navbar-dark-link-hover-color: #f2f2f2;
+//$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 //$navbar-light-link-hover-bg: #003c4a;
 
-$navbar-dark-color: $top-light-color;
-$navbar-dark-link-color: $top-light-color;
-$navbar-dark-link-hover-color: #f2f2f2;
-$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
-//$navbar-light-link-hover-bg: #003c4a;
-
-
-$side-column-heading-color: #e77d4f;
+$side-column-heading-color: #BC4B1A; //#e77d4f;
 
 $footer_liner-card-inner-border: #ebdc14;
 
@@ -156,29 +151,33 @@ $autotoc-nav-border: #ec6223;
 $autotoc-color: #c74b23;
 $autotoc-nav-li-link-hover-color: #f2f2f2;
 $autotoc-nav-li-link-hover-bg: #ae421f;
-$topbar-dark-bg: #33140a;
 $postbody-title-card-title-color: #fff;
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 :root {
-    --tiki-top-bg-light: linear-gradient(to right,  #c44a23 0%,#c64b23 10%,#dc5823 34%,#e96023 58%,#f06423 87%,#f06423 100%);
+// Use this one instead of the next to get a light band on the side like an actual orange slice --tiki-top-bg-light: linear-gradient(90deg, rgba(192,180,108,1) 1%, rgba(190,133,20,1) 3%, rgba(199,159,29,1) 97%, rgba(202,172,78,1) 100%);
+    --tiki-top-bg-light: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
     --tiki-top-light-color: #{$top-dark-color};
     --tiki-top-light-link-color: #{$top-dark-link-color};
     --tiki-top-light-link-hover-color: #{$top-link-hover-color};
 
-    --tiki-topbar-bg-light: #{$topbar-light-color};
-    --tiki-topbar-light-color: #{$topbar-light-color};
-    --tiki-topbar-light-link-color: #{$navbar-light-link-color};
-    --tiki-topbar-light-link-hover-color: #{$navbar-dark-link-hover-color};
+    --tiki-topbar-bg-light: #{$topbar-light-bg};
+    --tiki-topbar-light-color: #000;
+    --tiki-topbar-light-link-color: #000;
+    --tiki-topbar-light-link-hover-color: #000;
 
-    --tiki-top-bg-dark: linear-gradient(to right,  #c44a23 0%,#c64b23 10%,#dc5823 34%,#e96023 58%,#f06423 87%,#f06423 100%);
+    --tiki-top-bg-dark: var(--tiki-top-bg-light);
     --tiki-top-dark-color: #{$top-dark-color};
     --tiki-top-dark-link-color: #{$top-dark-link-color};
     --tiki-top-dark-link-hover-color: #{$top-link-hover-color};
 
     --tiki-topbar-bg-dark:#{$topbar-dark-bg};
-    --tiki-topbar-dark-color: #{$navbar-dark-color};
-    --tiki-topbar-dark-link-color: #{$navbar-dark-link-color};
-    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-link-hover-color};
+    --tiki-topbar-dark-color: #{$topbar-dark-color};
+    --tiki-topbar-dark-link-color: #000;
+    --tiki-topbar-dark-link-hover-color: #000;
+
+    --tiki-top-light-border: solid #000;
+    --tiki-top-dark-border: solid #000;
+    --tiki-top-border-width: 0 0 5px 0;
 }
