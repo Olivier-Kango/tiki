@@ -25,7 +25,7 @@ $inputConfiguration = [
         'approve_suggested' => 'int',
         'save' => 'word',
         'question' => 'text',
-        'answer' => 'purifyer']
+        'answer' => 'purifier']
     ],
     [ 'catchAllUnset' => null ],
 ];
