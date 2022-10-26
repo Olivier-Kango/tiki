@@ -87,6 +87,11 @@ if (empty($galleryId) && isset($_REQUEST['parentId'])) {
         $gal_info['user'] = $user;
     }
 
+    if ($parent_gal_info['type'] == 'direct') {
+        $gal_info['type'] = 'direct';
+        $gal_info['direct'] = ['adapter' => 'inherit'];
+    }
+
     $old_gal_info = [];
 } else {
     if (! isset($_REQUEST['galleryId'])) {
@@ -491,6 +496,16 @@ if (
     }
 }
 
+if (! empty($_REQUEST['sync'])) {
+    try {
+        $def = $filegallib->getGalleryDefinition($galleryId);
+        $def->sync();
+        Feedback::success(tr('File gallery synchronized from source'));
+    } catch (Exception $e) {
+        Feedback::error($e->getMessage());
+    }
+}
+
 $smarty->assign('url', $tikilib->httpPrefix() . parse_url($_SERVER['REQUEST_URI'])['path']);
 // Edit mode
 if (isset($_REQUEST['edit_mode']) and $_REQUEST['edit_mode']) {
@@ -614,6 +629,7 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
         'fdescription',
         'max_desc',
         'fgal_type',
+        'direct',
         'maxRows',
         'rowImages',
         'thumbSizeX',
@@ -722,6 +738,10 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
             'icon_fileId' => ! empty($_REQUEST['fgal_icon_fileId']) ? $_REQUEST['fgal_icon_fileId'] : null,
             'ocr_lang' => $ocrLangs,
         ];
+
+        if ($_REQUEST['direct']) {
+            $gal_info['direct'] = json_encode($_REQUEST['direct']);
+        }
 
         if ($prefs['feature_file_galleries_templates'] == 'y' && isset($_REQUEST['fgal_template']) && ! empty($_REQUEST['fgal_template'])) {
             // Override with template parameters
@@ -1208,6 +1228,9 @@ if (
 ) {
     $gals = [];
     foreach ($subGalleries['data'] as $gal) {
+        if ($gal['type'] == 'direct') {
+            continue;
+        }
         $gals[] = [
             'label' => $gal['parentName'] . ' > ' . $gal['name'],
             'id' => $gal['id'],
@@ -1291,6 +1314,9 @@ if ($view == 'admin') {
         }
     }
     $smarty->assign('show_find_orphans', 'y');
+}
+if (is_string($gal_info['direct'])) {
+    $gal_info['direct'] = json_decode($gal_info['direct'], true);
 }
 $smarty->assign_by_ref('find_durations', $find_durations);
 $smarty->assign_by_ref('gal_info', $gal_info);

@@ -8,6 +8,9 @@
 
 namespace Tiki\FileGallery;
 
+use Feedback;
+use TikiLib;
+
 class Definition
 {
     private $info;
@@ -59,6 +62,21 @@ class Definition
         return $this->info;
     }
 
+    public function getId()
+    {
+        return $this->info['galleryId'];
+    }
+
+    public function isDirect()
+    {
+        return $this->info['type'] == 'direct';
+    }
+
+    public function getFilesystem()
+    {
+        return $this->handler->getFilesystem();
+    }
+
     /**
      * Updates file contents based on chosen underlying storage.
      * Currently, we have: db storage or filesystem storage.
@@ -84,12 +102,49 @@ class Definition
         }
     }
 
+    public function sync()
+    {
+        if ($this->info['type'] != 'direct') {
+            return;
+        }
+
+        $filesystem = $this->handler->getFilesystem();
+        $root = DirectMapping\Utilities::getRoot($this->info);
+        $dms = new DirectMapping\Synchronizer(new Definition($root), $filesystem);
+        $prefix = DirectMapping\Utilities::getVirtualPath($this->info);
+
+        try {
+            $total = 0;
+            $listing = $filesystem->listContents($prefix, true);
+            foreach ($listing as $item) {
+                $dms->handle($item);
+                $total++;
+            }
+            try {
+                $lastModif = $filesystem->lastModified('');
+                TikiLib::lib('filegal')->table('tiki_file_galleries')->update(['lastModif' => $lastModif], ['galleryId' => $this->info['galleryId']]);
+            } catch (\League\Flysystem\UnableToRetrieveMetadata $e) {
+            }
+            TikiLib::lib('logs')->add_action(
+                'Sync',
+                $this->info['galleryId'],
+                'file gallery',
+                'Synchronized direct mapping file gallery. Total items: ' . $total
+            );
+        } catch (FilesystemException $exception) {
+            // handle the error
+            Feedback::error(tr("Error handling direct mapping gallery sync: %0", $exception->getMessage()));
+        }
+    }
+
     private function getHandler($info)
     {
         switch ($info['type']) {
             case 'podcast':
             case 'vidcast':
                 return new Handler\Podcast();
+            case 'direct':
+                return new Handler\Flysystem(DirectMapping\Utilities::getRootConfig($info), DirectMapping\Utilities::getVirtualPath($info));
             case 'system':
             default:
                 return new Handler\System();

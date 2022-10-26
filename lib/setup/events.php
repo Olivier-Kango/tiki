@@ -160,6 +160,7 @@ function tiki_setup_events()
 
     if ($prefs['feature_file_galleries'] == 'y') {
         $events->bind('tiki.save', $defer('filegal', 'save_sync_file_backlinks'));
+        (new Tiki\FileGallery\DirectMapping\EventHandler())->bindEvents($events);
     }
 
     if ($prefs['feature_library_references'] == 'y') {

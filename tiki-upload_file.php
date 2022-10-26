@@ -99,6 +99,9 @@ if (! empty($_REQUEST['fileId'])) {
 
     $gals = [];
     foreach ($subGalleries['data'] as $gal) {
+        if ($gal['type'] == 'direct') {
+            continue;
+        }
         $gals[] = [
             'label' => $gal['parentName'] . ' > ' . $gal['name'],
             'id' => $gal['id'],

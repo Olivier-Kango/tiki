@@ -145,6 +145,7 @@ class ConsoleApplicationBuilder
                 new FakerTrackerCommand(),
                 new GalleryMigrateCommand(),
                 new GoalCheckCommand(),
+                new FileGallerySyncCommand(),
                 new FilesBatchuploadCommand(),
                 new FilesCheckCommand(),
                 new FilesCopyCommand(),
