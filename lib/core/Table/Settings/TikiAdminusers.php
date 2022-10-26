@@ -77,16 +77,6 @@ class Table_Settings_TikiAdminusers extends Table_Settings_Standard
                 ],
                 'priority' => 1,
             ],
-            '#openid' => [                  //only if $prefs.auth_method == 'openid'
-                'sort' => [
-                    'type' => true,
-                    'ajax' => 'openid_url',
-                ],
-                'filter' => [
-                    'type' => false,    //no filter since $userlib->get_users doesn't have it
-                ],
-                'priority' => 6,
-            ],
             '#lastlogin' => [
                 'sort' => [
                     'type' => 'text',

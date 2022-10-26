@@ -171,7 +171,6 @@ function batchImportUsers()
                 $pass_first_login ? $u['password'] : '',
                 $pass_first_login,
                 $apass,
-                null,
                 (! empty($_REQUEST['notification']) ? 'u' : null)
             );
 
@@ -327,7 +326,6 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
                     $pass_first_login ? $newPass : '',
                     $pass_first_login,
                     $apass,
-                    null,
                     ($send_validation_email ? 'u' : null)
                 )
             ) {
@@ -377,18 +375,6 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
             Feedback::success(tr('User account %0 has been invalidated by the admin', $_REQUEST['user']));
         } else {
             Feedback::error(tr('An error occurred - the user account %0 has not been invalidated by the admin', $_REQUEST['user']));
-        }
-    }
-
-    if (
-        $_REQUEST['action'] == 'remove_openid' && isset($_REQUEST['userId'])
-        && $access->checkCsrf(true)
-    ) {
-        $result = $userlib->remove_openid_link($_REQUEST['userId']);
-        if ($result->numRows()) {
-            Feedback::success(tr('Link to OpenID for user %0 has been removed', $_REQUEST['user']));
-        } else {
-            Feedback::error(tr('An error occurred - the link to OpenID for user %0 has not been removed', $_REQUEST['user']));
         }
     }
 

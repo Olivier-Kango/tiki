@@ -832,7 +832,6 @@ img/icons/lock_gray.png -text
 img/icons/lock_new.png -text
 img/icons/lock_open.png -text
 img/icons/lock_red.png -text
-img/icons/login-OpenID-bg.gif -text
 img/icons/magnifier.png -text
 img/icons/male.png -text
 img/icons/map.png -text
@@ -1050,7 +1049,6 @@ img/icons/ofolder.png -text
 img/icons/oleftcol.png -text
 img/icons/omo.png -text
 img/icons/omodule.png -text
-img/icons/openid_remove.png -text svneol=unset#unset
 img/icons/orightcol.png -text
 img/icons/ovmodule.png -text
 img/icons/package.png -text
@@ -4001,7 +3999,6 @@ lib/setup/live_support.php -text
 lib/setup/load_threshold.php -text
 lib/setup/mailin.php -text
 lib/setup/mobile.php -text
-lib/setup/openid.php -text
 lib/setup/output_compression.php -text
 lib/setup/perms.php -text
 lib/setup/plugins_actions.php -text
@@ -6291,7 +6288,6 @@ templates/tiki-notepad_write.tpl -text
 templates/tiki-object_watches.tpl -text
 templates/tiki-objectpermissions.tpl -text
 templates/tiki-old_polls.tpl -text
-templates/tiki-openid_select.tpl -text
 templates/tiki-orphan_pages.tpl -text
 templates/tiki-page.tpl -text
 templates/tiki-page_bar.tpl -text
@@ -8180,7 +8176,6 @@ themes/yeti/templates/index.php -text
 /tiki-live_support_transcripts.php -text
 /tiki-log_bigbluebutton_leave.php -text
 /tiki-login.php -text
-/tiki-login_openid.php -text
 /tiki-login_scr.php -text
 /tiki-login_validate.php -text
 /tiki-logout.php -text

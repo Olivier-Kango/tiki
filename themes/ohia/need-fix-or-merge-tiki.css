@@ -128,9 +128,6 @@ body.fullscreen {
 .attention {
   color: #a94442;
 }
-.openid_url {
-  background: #ffffff url(img/icons/login-OpenID-bg.gif) 1px 1px no-repeat;
-}
 .bannertext {
   font-size: .95em;
   text-decoration: none;

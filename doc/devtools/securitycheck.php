@@ -28,10 +28,6 @@ $thirdpartyLibs = [
 ];
 
 /*
-The following need to be added as features
-FIX LATER (FIXED < 7.1?)
- ./tiki-login_openid.php
-
 
 The following do actually have features, but the fix check checker
 needs to be changed to accept access->check_permissions() so that also that it loads tikisetup.php

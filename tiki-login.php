@@ -345,9 +345,7 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
         // User is valid and not due to change pass.. start session
         $userlib->update_expired_groups();
         TikiLib::lib('login')->activateSession($user);
-        if (isset($_SESSION['openid_url'])) {
-            $userlib->assign_openid($user, $_SESSION['openid_url']);
-        }
+        
         $url = $_SESSION['loginfrom'];
 
         // When logging into a multi-lingual Tiki, $_SESSION['loginfrom'] contains the main-language page, and not the translated one

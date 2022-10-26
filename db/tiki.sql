@@ -2955,13 +2955,11 @@ CREATE TABLE `users_users` (
   `avatarType` char(1) default NULL,
   `valid` varchar(32) default NULL,
   `unsuccessful_logins` int(14) default 0,
-  `openid_url` varchar(255) default NULL,
   `waiting` char(1) default NULL,
   `twoFactorSecret` varchar(16) default NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `login` (login (191)),
-  KEY `registrationDate` (`registrationDate`),
-  KEY `openid_url` (openid_url(191))
+  KEY `registrationDate` (`registrationDate`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
 -- Administrator account

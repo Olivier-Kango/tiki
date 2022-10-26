@@ -287,10 +287,6 @@ div #metadata fieldset.tabcontent, div #metadata div.tabs {
     background-color: transparent;
 }
 
-.openid_url {
-    background: #ffffff url('#{$imagePathToImgDir}icons/login-OpenID-bg.gif') 1px 1px no-repeat;
-}
-
 // Input fields auto-fill/
 // Webkit-based browser specific (Google Chrome, Chromium, etc.)
 input:-webkit-autofill {

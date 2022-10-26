@@ -94,7 +94,7 @@ class Tiki_Profile_InstallHandler_User extends Tiki_Profile_InstallHandler
                 if (isset($user['change']) && $user['change'] === false) {
                     $user['name'] = $userlib->add_user($user['name'], $pass, $email);
                 } elseif ($prefs['validateUsers'] == 'y') { // add user in the right way (needs provpass, pass_first_login and valid set)
-                    $user['name'] = $userlib->add_user($user['name'], $pass, $email, $pass, true, $pass, null, 'u');
+                    $user['name'] = $userlib->add_user($user['name'], $pass, $email, $pass, true, $pass, 'u');
 
                     // and then send the notification
                     $userlib->send_validation_email(

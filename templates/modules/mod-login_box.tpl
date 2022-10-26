@@ -146,20 +146,6 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
                 {/if}
             </div>
         {/if}
-        {if $prefs.auth_method eq 'openid' and $openid_userlist|@count gt 1}
-            <form method="get" action="tiki-login_openid.php">
-                <fieldset>
-                    <legend>{tr}Switch user{/tr}</legend>
-                    <select class="form-select" name="select">
-                    {foreach item=username from=$openid_userlist}
-                        <option{if $username eq $user} selected="selected"{/if}>{$username}</option>
-                    {/foreach}
-                    </select>
-                    <input type="hidden" name="action" value="select"/>
-                    <input type="submit" class="btn btn-primary" value="{tr}Go{/tr}"/>
-                </fieldset>
-            </form>
-        {/if}
     {elseif $prefs.auth_method eq 'cas' && $showloginboxes neq 'y'}
         <b><a class="linkmodule" href="tiki-login.php?cas=y">{tr}Log in through CAS{/tr}</a></b>
         {if $prefs.cas_skip_admin eq 'y'}
@@ -360,20 +346,6 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
             {/foreach}
         </div>
         {$close_tags}
-        {if $prefs.auth_method eq 'openid' and !$user and (!isset($registration) || $registration neq 'y')}
-            <form method="get" action="tiki-login_openid.php">
-                <fieldset>
-                    <legend>{tr}OpenID Log in{/tr}</legend>
-                    <div class="mb-3 row mx-0">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control" type="text" name="openid_url"/>
-                            <button type="submit" class="btn btn-primary" title="{tr}Go{/tr}"><img alt="{tr}OpenID Login{/tr}" class="img-circle" src="img/icons/login-OpenID-bg.gif"></button>
-                        </div>
-                        <span class="form-text"><a class="linkmodule tikihelp" target="_blank" href="http://doc.tiki.org/OpenID">{tr}What is OpenID?{/tr}</a></span>
-                    </div>
-                </fieldset>
-            </form>
-        {/if}
     {/if}
     {if $mode eq "header"}</div>{/if}
 {/tikimodule}

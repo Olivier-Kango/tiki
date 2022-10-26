@@ -963,10 +963,6 @@ function iconset_default()
                 'id' => 'opencart',
                 'prepend' => 'fab fa-'
             ],
-            'openid' => [
-                'id' => 'openid',
-                'prepend' => 'fab fa-'
-            ],
             'opera' => [
                 'id' => 'opera',
                 'prepend' => 'fab fa-'
@@ -4083,7 +4079,6 @@ function iconset_default()
             'odnoklassniki-square',
             'old-republic',
             'opencart',
-            'openid',
             'opera',
             'optin-monster',
             'orcid',

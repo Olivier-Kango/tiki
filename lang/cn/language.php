@@ -16948,7 +16948,6 @@ $lang_current = array(
 // "Group (direct)" => "Group (direct)",
 // "Email not confirmed" => "Email not confirmed",
 // "User not validated" => "User not validated",
-// "OpenID" => "OpenID",
 // "Edit account settings" => "Edit account settings",
 // "N" => "N",
 // "Registered %0 ago" => "Registered %0 ago",

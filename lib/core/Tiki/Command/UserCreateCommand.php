@@ -91,7 +91,7 @@ class UserCreateCommand extends Command
             }
         }
 
-        $user = $userlib->add_user($login, $password, $email, null, null, null, null, null, $groups);
+        $user = $userlib->add_user($login, $password, $email, null, null, null, null, $groups);
 
         if (empty($user)) {
             throw new \Exception("Error creating user", 1);

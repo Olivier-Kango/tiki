@@ -167,7 +167,7 @@ class AuthTokens
             $groups = json_decode($data['groups'], true);
             if (! $userlib->user_exists($tempuser)) {
                 $randompass = $userlib->genPass();
-                $userlib->add_user($tempuser, $randompass, $data['email'], '', false, null, null, null, $groups);
+                $userlib->add_user($tempuser, $randompass, $data['email'], '', false, null, null, $groups);
             }
             $userlib->autologin_user($tempuser);
             $url = ! empty($convertedSefurl) ? basename($convertedSefurl) : basename($data['entry']);

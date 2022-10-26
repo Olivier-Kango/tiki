@@ -842,7 +842,7 @@ class UsersLib extends TikiLib
                         }
                     }
 
-                    $result = $this->add_user($username, $randompass, $saml_email, '', false, null, null, null, $saml_groups);
+                    $result = $this->add_user($username, $randompass, $saml_email, '', false, null, null, $saml_groups);
 
                     if (! $result) {
                         Feedback::error(tr('The user [ %0|%1 ] is not registered with this wiki and the creation process failed.', $username, $saml_email));
@@ -6885,7 +6885,7 @@ class UsersLib extends TikiLib
      * @param pass: password (may be an empty string)
      * @param email: email
      */
-    public function add_user($user, $pass, $email, $provpass = '', $pass_first_login = false, $valid = null, $openid_url = null, $waiting = null, $groups = [])
+    public function add_user($user, $pass, $email, $provpass = '', $pass_first_login = false, $valid = null, $waiting = null, $groups = [])
     {
         global $prefs;
         $cachelib = TikiLib::lib('cache');
@@ -6928,14 +6928,7 @@ class UsersLib extends TikiLib
 
         // Generate a unique hash; this is also done below in set_user_fields()
         $lastLogin = null;
-        if (empty($openid_url)) {
-            $hash = password_hash($pass, PASSWORD_DEFAULT);
-        } else {
-            $hash = '';
-            if (! isset($prefs['validateRegistration']) || $prefs['validateRegistration'] != 'y') {
-                $lastLogin = $tikilib->now;
-            }
-        }
+        $hash = password_hash($pass, PASSWORD_DEFAULT);
 
         if ($pass_first_login) {
             $new_pass_confirm = 0;
@@ -6955,7 +6948,6 @@ class UsersLib extends TikiLib
                 'email_confirm' => (int) $new_email_confirm,
                 'created' => (int) $this->now,
                 'valid' => $valid,
-                'openid_url' => $openid_url,
                 'lastLogin' => $lastLogin,
                 'waiting' => $waiting,
             ]
@@ -7715,13 +7707,6 @@ class UsersLib extends TikiLib
             $bindvars[] = strip_tags($u['email']);
         }
 
-        if (isset($u['openid_url'])) {
-            if (isset($_SESSION['openid_url'])) {
-                $q[] = '`openid_url` = ?';
-                $bindvars[] = $u['openid_url'];
-            }
-        }
-
         if (count($q) > 0) {
             $query = 'update `users_users` set ' . implode(',', $q) . ' where binary `login` = ?';
             $bindvars[] = $u['login'];
@@ -8115,15 +8100,6 @@ class UsersLib extends TikiLib
             $smarty->assign('msg', 'It is time to confirm your email. You will receive an mail with the instruction to follow');
             return true;
         }
-    }
-
-    public function assign_openid($username, $openid)
-    {
-        // This won't update the database unless the openid is different
-        $this->query(
-            "UPDATE `users_users` SET openid_url = ? WHERE login = ? AND ( openid_url <> ? OR openid_url IS NULL )",
-            [$openid, $username, $openid]
-        );
     }
 
     public function intervalidate($remote, $user, $pass, $get_info = false)
@@ -8631,20 +8607,6 @@ class UsersLib extends TikiLib
             require_once('lib/search/refresh-functions.php');
             refresh_index('trackeritem', $itemid);
         }
-    }
-
-    /**
-     * Remove the link between a Tiki user account
-     * and an OpenID account
-     *
-     * @param int $userId
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
-     */
-    public function remove_openid_link($userId)
-    {
-        $query = "UPDATE `users_users` SET `openid_url` = NULL WHERE `userId` = ?";
-        $bindvars = [$userId];
-        return $this->query($query, $bindvars);
     }
 
     public function get_lost_groups()

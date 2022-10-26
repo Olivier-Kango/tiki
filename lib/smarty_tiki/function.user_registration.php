@@ -25,8 +25,7 @@ function smarty_function_user_registration($params, $smarty)
         Feedback::error(['mes' => $registrationlib->merged_prefs->msg]);
     }
     $smarty->assignByRef('merged_prefs', $registrationlib->merged_prefs);
-    $smarty->assign('allowRegister', 'y'); // Used for OpenID associations
-    $smarty->assign('openid_associate', 'n');
+    $smarty->assign('allowRegister', 'y');
 
 // NOTE that this is not a standard access check, it checks for the opposite of that, i.e. whether logged in already
     if (! empty($user)) {

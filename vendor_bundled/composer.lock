@@ -18,17 +18,17 @@
         },
         {
             "name": "adodb/adodb-php",
-            "version": "v5.22.3",
+            "version": "v5.22.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "b937df7f7efde5c98c501f6fc472ec3ab276c3c9"
+                "reference": "bb87e83338c99038986878ac78f680becf9e8091"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-b937df7f7efde5c98c501f6fc472ec3ab276c3c9-zip-56d81e.zip",
-                "reference": "b937df7f7efde5c98c501f6fc472ec3ab276c3c9",
-                "shasum": "85a629ff947fc7f8935d1dd8c47fef61559f421b"
+                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-bb87e83338c99038986878ac78f680becf9e8091-zip-7fae86.zip",
+                "reference": "bb87e83338c99038986878ac78f680becf9e8091",
+                "shasum": "c1818f651f23f5dc0dc44b9ec0cb3873aa79cd17"
             },
             "require": {
                 "php": "^7.0 || ^8.0"
@@ -71,7 +71,7 @@
                 "library",
                 "php"
             ],
-            "time": "2022-09-06T10:02:30+00:00"
+            "time": "2022-10-28T17:34:17+00:00"
         },
         {
             "name": "afarkas/html5shiv",
@@ -736,7 +736,7 @@
             "version": "6.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
                 "reference": "d3a7818c253fcbafff9ebd1d4abb2866c192e1d7"
             },
             "dist": {
@@ -5167,17 +5167,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.3.5",
+            "version": "2.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "84d74485fdb7074f4f9dd6f02ab957b1de513257"
+                "reference": "857afc47ce113454bd629037213378ba3219dd40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-84d74485fdb7074f4f9dd6f02ab957b1de513257-zip-d4c999.zip",
-                "reference": "84d74485fdb7074f4f9dd6f02ab957b1de513257",
-                "shasum": "7f2cbd493695ee3edb8529ca43eee4f9b1283e08"
+                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-857afc47ce113454bd629037213378ba3219dd40-zip-2642c0.zip",
+                "reference": "857afc47ce113454bd629037213378ba3219dd40",
+                "shasum": "e9fd7c7fb3c63d55087822ee62c6dc399ea615fe"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -5196,7 +5196,7 @@
                 "erusev/parsedown": "^1.0",
                 "ext-json": "*",
                 "github/gfm": "0.29.0",
-                "michelf/php-markdown": "^1.4",
+                "michelf/php-markdown": "^1.4 || ^2.0",
                 "nyholm/psr7": "^1.5",
                 "phpstan/phpstan": "^1.8.2",
                 "phpunit/phpunit": "^9.5.21",
@@ -5262,7 +5262,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-29T10:59:45+00:00"
+            "time": "2022-10-30T16:45:38+00:00"
         },
         {
             "name": "league/config",
@@ -7785,16 +7785,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/openannotation/annotator/openannotation-annotator-1.2.10.zip",
                 "shasum": "0e982ad018a75edd758111f9534c03513c7be9bc"
-            },
-            "type": "library"
-        },
-        {
-            "name": "openid/php-openid",
-            "version": "2.2.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/openid/php-openid/openid-php-openid-2.2.2.zip",
-                "shasum": "313ad65fae6c2f6270ba564c593eae8c52267376"
             },
             "type": "library"
         },
@@ -11793,17 +11783,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.47",
+            "version": "v4.4.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "4f40012db8d55c956406890b5720f686fee7f7b7"
+                "reference": "8e70c1cab07ac641b885ce80385b9824a293c623"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/console/symfony-console-4f40012db8d55c956406890b5720f686fee7f7b7-zip-8be1a0.zip",
-                "reference": "4f40012db8d55c956406890b5720f686fee7f7b7",
-                "shasum": "64634ef2f899addf85fe5fd35893e712cfd56630"
+                "url": "https://composer.tiki.org/dist/symfony/console/symfony-console-8e70c1cab07ac641b885ce80385b9824a293c623-zip-8b17e3.zip",
+                "reference": "8e70c1cab07ac641b885ce80385b9824a293c623",
+                "shasum": "700469a72b502e924bb8fc1fbc66bba37a492140"
             },
             "require": {
                 "php": ">=7.1.3",
@@ -11876,7 +11866,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-04T05:58:30+00:00"
+            "time": "2022-10-26T16:02:45+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -12210,17 +12200,17 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.4.14",
+            "version": "v5.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "8a3929c814cba77db93de61c22759e0dbeaa4c87"
+                "reference": "8f29b0f06c9ff48c8431e78eb90c8bd6f82cb12b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-8a3929c814cba77db93de61c22759e0dbeaa4c87-zip-dedc64.zip",
-                "reference": "8a3929c814cba77db93de61c22759e0dbeaa4c87",
-                "shasum": "988f3cbea3370288f208d40af3aae80cdcd07e38"
+                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-8f29b0f06c9ff48c8431e78eb90c8bd6f82cb12b-zip-b8a33a.zip",
+                "reference": "8f29b0f06c9ff48c8431e78eb90c8bd6f82cb12b",
+                "shasum": "02374316d853de3715d4b7f1913c674e74bb5ca0"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -12290,7 +12280,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-11T15:16:01+00:00"
+            "time": "2022-10-25T16:22:13+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -12369,17 +12359,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.4.14",
+            "version": "v5.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "e7c7b395c3a61d746919c21e915f51f0039c3f75"
+                "reference": "75bd663ff2db90141bfb733682459d5bbe9e29c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-foundation/symfony-http-foundation-e7c7b395c3a61d746919c21e915f51f0039c3f75-zip-04c79d.zip",
-                "reference": "e7c7b395c3a61d746919c21e915f51f0039c3f75",
-                "shasum": "1302e2c4b374e49da7fcc4798055bf1cc475558a"
+                "url": "https://composer.tiki.org/dist/symfony/http-foundation/symfony-http-foundation-75bd663ff2db90141bfb733682459d5bbe9e29c3-zip-418cce.zip",
+                "reference": "75bd663ff2db90141bfb733682459d5bbe9e29c3",
+                "shasum": "f695b15a0bcf37d739017e57971ad2dc5b6cbac5"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -12438,7 +12428,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-01T21:59:28+00:00"
+            "time": "2022-10-12T09:43:19+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -13419,17 +13409,17 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v5.4.11",
+            "version": "v5.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "c641d63e943ed31981bad4b4dcf29fe7da2ffa8c"
+                "reference": "0f3e8f40a1d3da90f674b3dd772e4777ccde4273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/property-access/symfony-property-access-c641d63e943ed31981bad4b4dcf29fe7da2ffa8c-zip-e9c8de.zip",
-                "reference": "c641d63e943ed31981bad4b4dcf29fe7da2ffa8c",
-                "shasum": "dd70a808b93c6f4e7c9b34bf6246ee6b158951c2"
+                "url": "https://composer.tiki.org/dist/symfony/property-access/symfony-property-access-0f3e8f40a1d3da90f674b3dd772e4777ccde4273-zip-5856a0.zip",
+                "reference": "0f3e8f40a1d3da90f674b3dd772e4777ccde4273",
+                "shasum": "fc51922a724d2231fe0355fdeb4bad86934aaddd"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -13493,7 +13483,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-27T16:58:25+00:00"
+            "time": "2022-10-27T07:55:40+00:00"
         },
         {
             "name": "symfony/property-info",
@@ -13751,17 +13741,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.4.14",
+            "version": "v5.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "089e7237497fae7a9c404d0c3aeb8db3254733e4"
+                "reference": "571334ce9f687e3e6af72db4d3b2a9431e4fd9ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/string/symfony-string-089e7237497fae7a9c404d0c3aeb8db3254733e4-zip-e1cecd.zip",
-                "reference": "089e7237497fae7a9c404d0c3aeb8db3254733e4",
-                "shasum": "df8fdbd3dcefc44a7e028afd1edeadbaaec5c576"
+                "url": "https://composer.tiki.org/dist/symfony/string/symfony-string-571334ce9f687e3e6af72db4d3b2a9431e4fd9ed-zip-5caf3e.zip",
+                "reference": "571334ce9f687e3e6af72db4d3b2a9431e4fd9ed",
+                "shasum": "e2b9705fc19d88bd0303fad4aca59bc79168c5ee"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -16864,17 +16854,17 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v5.4.12",
+            "version": "v5.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "291c1e92281a09152dda089f782e23dedd34bd4f"
+                "reference": "b8fd0ff9a0f00d944f1534f6d21e84f92eda7258"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/dom-crawler/symfony-dom-crawler-291c1e92281a09152dda089f782e23dedd34bd4f-zip-ff7acf.zip",
-                "reference": "291c1e92281a09152dda089f782e23dedd34bd4f",
-                "shasum": "fba62ed5034ee690499630a7f44e1e0d0012fe52"
+                "url": "https://composer.tiki.org/dist/symfony/dom-crawler/symfony-dom-crawler-b8fd0ff9a0f00d944f1534f6d21e84f92eda7258-zip-3ec4bf.zip",
+                "reference": "b8fd0ff9a0f00d944f1534f6d21e84f92eda7258",
+                "shasum": "b8991dfac2dd94d591c262e6818d3bcc21d3d6cb"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -16932,7 +16922,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-03T13:09:21+00:00"
+            "time": "2022-10-27T08:04:35+00:00"
         },
         {
             "name": "theseer/tokenizer",

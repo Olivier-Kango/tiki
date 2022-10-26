@@ -293,9 +293,6 @@ if ($prefs['feature_categories'] == 'y') {
 if ($prefs['feature_userlevels'] == 'y') {
     require_once('lib/setup/userlevels.php');
 }
-if ($prefs['auth_method'] == 'openid') {
-    require_once('lib/setup/openid.php');
-}
 if ($prefs['feature_wysiwyg'] == 'y') {
     if (! isset($_SESSION['wysiwyg'])) {
         $_SESSION['wysiwyg'] = 'n';

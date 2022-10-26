@@ -455,14 +455,6 @@ class CleanVendors
                 'WYSIWYG'
             ]
         );
-        self::remove(
-            $vendors . 'openid/php-openid',
-            [
-                'CHANGES-2.1.0',
-                'README.Debian',
-                'README.git',
-            ]
-        );
 
         // remove entire packages
         $fs = new FileSystem();

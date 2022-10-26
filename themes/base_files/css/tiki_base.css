@@ -178,9 +178,6 @@ a.icon, img.icon {
 div #metadata fieldset.tabcontent, div #metadata div.tabs {
   background-color: transparent;
 }
-.openid_url {
-  background: #ffffff url("../../../img/icons/login-OpenID-bg.gif") 1px 1px no-repeat;
-}
 input:-webkit-autofill {
   background-color: #fff !important;
   /* needs important because Chrome has it already important */

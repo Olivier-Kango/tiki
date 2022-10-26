@@ -125,9 +125,6 @@
                                         {if $prefs.login_is_email neq 'y'}
                                             <th id="email">{self_link _sort_arg='sort_mode' _sort_field='email'}{tr}Email{/tr}{/self_link}</th>
                                         {/if}
-                                        {if $prefs.auth_method eq 'openid'}
-                                            <th id="openid">{self_link _sort_arg='sort_mode' _sort_field='openID'}{tr}OpenID{/tr}{/self_link}</th>
-                                        {/if}
                                         <th id="lastlogin">{self_link _sort_arg='sort_mode' _sort_field='currentLogin'}{tr}Last login{/tr}{/self_link}</th>
                                         <th id="registered">{self_link _sort_arg='sort_mode' _sort_field='created'}{tr}Registered{/tr}{/self_link}</th>
                                         <th id="groups">{tr}Groups{/tr}</th>
@@ -170,9 +167,6 @@
                                                         {icon name='envelope' title='|disposable / temporary email address' class='tips text-muted'}
                                                     {/if}
                                                 </td>
-                                            {/if}
-                                            {if $prefs.auth_method eq 'openid'}
-                                                <td class="text">{$users[user].openid_url|default:"{tr}N{/tr}"}</td>
                                             {/if}
                                             <td class="text">
                                                 {if $users[user].currentLogin eq ''}
@@ -315,14 +309,6 @@
                                                                     </a>
                                                                 </action>
                                                             {/if}
-                                                        {/if}
-                                                        {* Use a confirm here since action cannot easily be undone *}
-                                                        {if !empty($users[user].openid_url)}
-                                                            <action>
-                                                                <a href="tiki-adminusers.php?userId={$userId=$users[user].userId|escape:url}&amp;action=remove_openid" onclick="confirmPopup('{tr}Remove link with OpenID for this user?{/tr}', '{ticket mode=get}')">
-                                                                    {icon name="link" _menu_text='y' _menu_icon='y' alt="{tr}Remove link with OpenID account{/tr}"}
-                                                                </a>
-                                                            </action>
                                                         {/if}
                                                     {/strip}
                                                 {/actions}

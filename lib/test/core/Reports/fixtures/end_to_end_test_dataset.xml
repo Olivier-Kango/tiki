@@ -177,7 +177,6 @@
                 <field name="score">0</field>
                 <field name="valid"></field>
                 <field name="unsuccessful_logins">0</field>
-                <field name="openid_url" xsi:nil="true" />
                 <field name="waiting" xsi:nil="true" />
             </row>
         </table_data>
