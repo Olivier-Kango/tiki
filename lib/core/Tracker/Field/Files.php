@@ -31,6 +31,15 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                         'legacy_index' => 0,
                         'profile_reference' => 'file_gallery',
                     ],
+                    'directoryPattern' => [
+                        'name' => tr('Directory pattern'),
+                        'description' => tr('Only valid with direct mapping file gallery storage - choose a field describing the (sub)directory pattern to save the uploaded files into. Could be a text or math calculation field.'),
+                        'filter' => 'int',
+                        'profile_reference' => 'tracker_field',
+                        'parent' => 'input[name=trackerId]',
+                        'parentkey' => 'tracker_id',
+                        'sort_order' => 'position_nasc',
+                    ],
                     'filter' => [
                         'name' => tr('MIME Type Filter'),
                         'description' => tr('Mask for accepted MIME types in the field'),
@@ -281,7 +290,13 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
             $image_y = $galinfo['image_max_size_y'];
         }
 
-
+        if ($this->getOption('directoryPattern')) {
+            $trk = TikiLib::lib('trk');
+            $field = $trk->get_tracker_field($this->getOption('directoryPattern'));
+            $directoryPattern = $trk->get_field_value($field, $this->getItemData());
+        } else {
+            $directoryPattern = '';
+        }
 
         return [
             'galleryId' => $galleryId,
@@ -295,6 +310,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
             'image_y' => $image_y,
             'gallerySearch' => $gallery_list,
             'requireTitle' => $this->getOption('requireTitle'),
+            'directoryPattern' => $directoryPattern,
         ];
     }
 

@@ -30,17 +30,23 @@ class Synchronizer
     public function handle($item)
     {
         $path = $item->path();
-        $parents = $this->parents($path);
-        $parentId = $this->gallery->getId();
-        foreach ($parents as $parent) {
-            $parentId = $this->findOrCreateFilegal($parentId, $parent);
-        }
+        $parentId = $this->syncDirectoryStructure($path);
         if ($item->isDir()) {
             $galleryId = $this->findOrCreateFilegal($parentId, basename($path));
             $this->filegal->table('tiki_file_galleries')->update(['lastModif' => $item->lastModified()], ['galleryId' => $galleryId]);
         } else {
             $this->updateFile($parentId, $item);
         }
+    }
+
+    public function syncDirectoryStructure($path)
+    {
+        $parents = $this->parents($path);
+        $parentId = $this->gallery->getId();
+        foreach ($parents as $parent) {
+            $parentId = $this->findOrCreateFilegal($parentId, $parent);
+        }
+        return $parentId;
     }
 
     protected function parents($path)
@@ -66,7 +72,6 @@ class Synchronizer
             $new_info['name'] = $name;
             $new_info['parentId'] = $parentId;
             $new_info['direct'] = null;
-            // TODO: skip event handler ensuring directory is created in remote storage
             $galleryId = $this->filegal->replace_file_gallery($new_info);
         } else {
             $galleryId = $fgal['galleryId'];

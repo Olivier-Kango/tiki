@@ -3415,7 +3415,7 @@ class FileGalLib extends TikiLib
         return $fileInfo;
     }
 
-    public function upload_single_file($gal_info, $name, $size, $type, $data, $asuser = null, $image_x = null, $image_y = null, $description = '', $created = '', $title = '')
+    public function upload_single_file($gal_info, $name, $size, $type, $data, $asuser = null, $image_x = null, $image_y = null, $description = '', $created = '', $title = '', $directoryPattern = '')
     {
         global $user;
         if (empty($asuser) || ! Perms::get()->admin) {
@@ -3435,6 +3435,7 @@ class FileGalLib extends TikiLib
             'user' => $asuser,
             'created' => $created
         ]);
+        $file->directoryPattern = $directoryPattern;
         $ret = $file->replace($data, $type, $title, $name, $image_x, $image_y);
 
         $tx->commit();

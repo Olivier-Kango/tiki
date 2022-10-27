@@ -55,6 +55,7 @@ class File
         "ocr_state" => null,
     ];
     public $isReplacing = false;
+    public $directoryPattern = null;
     private $exists = false;
     private $wrapper = null;
 
@@ -318,6 +319,11 @@ class File
         }
         foreach ($wrapper->getStorableContent() as $key => $val) {
             $this->setParam($key, $val);
+        }
+        $definition = $this->galleryDefinition();
+        if ($definition->isDirect()) {
+            $galleryId = $definition->syncDirectoryStructure($this->path);
+            $this->setParam('galleryId', $galleryId);
         }
         return true;
     }

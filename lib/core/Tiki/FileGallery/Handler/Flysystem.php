@@ -69,6 +69,10 @@ class Flysystem implements HandlerInterface
             $prefix = '';
         }
 
+        if ($file->directoryPattern) {
+            $prefix .= trim($file->directoryPattern, '/') . '/';
+        }
+
         $counter = 1;
         $result = $prefix . $file->name;
         while ($this->filesystem->fileExists($result)) {
