@@ -488,7 +488,9 @@
                                     <input type="hidden" name="install_step" value="5">
                                     {if $multi}<input type="hidden" name="multi" value="{$multi}">{/if}
                                     {if $lang}<input type="hidden" name="lang" value="{$lang}">{/if}
-                                    <div class="db-install card">
+                                    <div class="row">
+                                    <div class="col-sm-6">
+                                    <div class="db-install card h-100">
                                         <div class="card-body">
                                             <h3 class="card-title mb-3">{tr}Install{/tr}</h3>
                                             {if $tikidb_created}
@@ -526,9 +528,11 @@
                                                     </p>
                                                 </div>
                                             </div><!-- End of install-table -->
+                                        </div>
                                         </div><!-- End of db-install -->
                                         {if $tikidb_created}
-                                            <div class="db-upgrade card">
+                                            <div class="col-sm-6">
+                                            <div class="db-upgrade card h-100">
                                                 <div class=" card-body">
                                                     <h3 class="card-title mb-3">{tr}Upgrade{/tr}</h3>
                                                     {if $tikidb_oldPerms gt 0}
@@ -541,6 +545,8 @@
                                                     {/remarksbox}
                                                     <p class="text-center"><input type="submit" class="btn btn-primary" name="update" value="{tr}Upgrade{/tr}"></p>
                                                 </div><!-- End of db-upgrade -->
+                                            </div>
+                                            </div>
                                             </div>
                                         {/if}
                                 </form>
