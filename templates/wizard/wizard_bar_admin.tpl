@@ -31,8 +31,8 @@
     </div>
 </div>
 {/if}
-<div class="d-flex flex-wrap mx-0 mb-3{if $prefs.feature_bidi eq 'y'} text-start{else} text-end{/if}">
-    <div class="col">
+<div class="row">
+    <div class="col-sm-3 offset-sm-9 text-end">
         <input type="hidden" name="url" value="{$homepageUrl}">
         <input type="hidden" name="wizard_step" value="{$wizard_step}">
         {if isset($useDefaultPrefs)}
@@ -42,9 +42,9 @@
             <input type="hidden" name="use-changes-wizard" value="{$useChangesWizard}">
         {/if}
         {if !isset($showOnLoginDisplayed) or $showOnLoginDisplayed neq 'y'}
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="showOnLogin" name="showOnLogin" {if isset($showOnLogin) AND $showOnLogin eq true}checked="checked"{/if} />
+        <div class="form-check  form-switch mb-2 d-flex justify-content-between">
             <label class="form-check-label" for="showOnLogin">{tr}Show on admin log-in{/tr}</label>
+            <input type="checkbox" class="form-check-input mt-2" id="showOnLogin" name="showOnLogin" {if isset($showOnLogin) AND $showOnLogin eq true}checked="checked"{/if} />
             {assign var="showOnLoginDisplayed" value="y" scope="root"}
         </div>
         {/if}
