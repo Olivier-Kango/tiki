@@ -80,6 +80,7 @@ class Services_File_Controller
             'addDecriptionOnUpload' => $input->addDecriptionOnUpload->int(),
             'admin_trackers'        => $perms->admin_trackers,
             'requireTitle'          => $input->requireTitle->text(),
+            'directoryPattern'      => $input->directoryPattern->text(),
         ];
 
         if ($input->uploadInModal->int()) {
@@ -100,6 +101,7 @@ class Services_File_Controller
         $fileId = $input->fileId->int();
         $asuser = $input->user->text();
         $title = $input->title->text();
+        $directoryPattern = $input->directoryPattern->text();
 
         if (empty($asuser)) {
             $asuser = $GLOBALS['user'];
@@ -180,7 +182,7 @@ class Services_File_Controller
             if ($fileId) {
                 $this->utilities->updateFile($gal_info, $name, $size, $type, $data, $fileId, $asuser, $title);
             } else {
-                $fileId = $this->utilities->uploadFile($gal_info, $name, $size, $type, $data, $asuser, $image_x, $image_y, '', '', $title);
+                $fileId = $this->utilities->uploadFile($gal_info, $name, $size, $type, $data, $asuser, $image_x, $image_y, '', '', $title, $directoryPattern);
             }
         } else {
             $fileId = false;

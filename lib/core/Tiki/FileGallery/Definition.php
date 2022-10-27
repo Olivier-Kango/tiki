@@ -102,6 +102,10 @@ class Definition
         }
     }
 
+    /**
+     * Fully synchronize remote directory with local file gallery/sub-gallery and containing files.
+     * Only for direct mapping mode.
+     */
     public function sync()
     {
         if ($this->info['type'] != 'direct') {
@@ -135,6 +139,24 @@ class Definition
             // handle the error
             Feedback::error(tr("Error handling direct mapping gallery sync: %0", $exception->getMessage()));
         }
+    }
+
+    /**
+     * Ensure subdirectories in a file path exist as file galleries locally.
+     * Only for direct mapping mode.
+     * @param $path string the file path to synchronize
+     * @return int $galleryId the (possibly new) gallery that files must reside in
+     */
+    public function syncDirectoryStructure($path)
+    {
+        if ($this->info['type'] != 'direct') {
+            return;
+        }
+
+        $filesystem = $this->handler->getFilesystem();
+        $root = DirectMapping\Utilities::getRoot($this->info);
+        $dms = new DirectMapping\Synchronizer(new Definition($root), $filesystem);
+        return $dms->syncDirectoryStructure($path);
     }
 
     private function getHandler($info)
