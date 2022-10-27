@@ -109,6 +109,10 @@ class StructLib extends TikiLib
         //Remove the structure node
         $query = 'delete from `tiki_structures` where `page_ref_id`=?';
         $result = $this->query($query, [(int) $page_ref_id]);
+        //Empty structure and menu caches to refresh structure data in menu module.
+        $cachelib = TikiLib::lib('cache');
+        $cachelib->empty_type_cache('menu');
+        $cachelib->empty_type_cache('structure');
         return true;
     }
     public function promote_node($page_ref_id)
