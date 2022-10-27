@@ -5,7 +5,7 @@
         <legend><h2>{tr}Get Started{/tr}</h2></legend>
 
         <div class="alert alert-light lead p-3 mb-3">
-            <p class="text-success">
+            <p class="text-success fw-bolder">
             {icon name="check" size=1} {tr _0=$tiki_version}Congratulations! You now have a working instance of Tiki %0.{/tr}
             {tr _0='<a href="tiki-index.php">' _1="</a>"}You may %0start using it right away%1, or you may configure it to better meet your needs, using one of the configuration helpers below.{/tr}
             </p>
