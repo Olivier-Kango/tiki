@@ -326,4 +326,30 @@ $(window).on("load", function(){
             'fields' => $display,
         ];
     }
+
+    /**
+     * Convert syntax between markdown and tiki
+     *
+     * @param JitFilter $input
+     *
+     * @return string the converted markup
+     */
+    public function action_convert_syntax(JitFilter $input) : string
+    {
+        $converted = $input->data->wikicontent();
+
+        try {
+
+            $converted = TikiLib::lib('edit')->convertWikiSyntax(
+                $converted,
+                $input->syntax->word()
+            );
+        } catch (Exception $e) {
+            Feedback::error($e->getMessage());
+        }
+
+        $converted = '{syntax type="' . $input->syntax->word() . '" editor="' . $input->editor->word() . '"} ' . $converted;
+
+        return $converted;
+    }
 }

@@ -4,14 +4,23 @@ namespace Tiki\Lib\core\Toolbar;
 
 class ToolbarSwitchEditor extends ToolbarUtilityItem
 {
-    // onclick for non-wysiwyg
-    private string $onClick = 'switchEditor(\'wysiwyg\', $(this).parents(\'form\'));';
-
     public function __construct()
     {
-        $this->setLabel(tra('Switch Editor (wiki or WYSIWYG)'))
-            ->setIconName('pencil')
-            ->setIcon(tra('img/icons/pencil_go.png'))
+        global $prefs;
+
+        if ($prefs['markdown_enabled'] === 'y') {
+            $iconname = 'cog';
+            $iconPath = 'img/icons/wrench.png';
+            $label = 'Syntax and Editor Settings';
+        } else {
+            $iconname = 'pencil';
+            $iconPath = 'img/icons/pencil_go.png';
+            $label = 'Switch Editor (wiki or WYSIWYG)';
+        }
+
+        $this->setLabel(tra($label))
+            ->setIconName($iconname)
+            ->setIcon(tra($iconPath))
             ->setWysiwygToken('tikiswitch')
             ->setMarkdownSyntax('tikiswitch')
             ->setMarkdownWysiwyg('tikiswitch')
@@ -25,7 +34,11 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
         global $prefs;
         if (! empty($this->wysiwyg)) {
             if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_optional'] == 'y') {
-                $js = "switchEditor('wiki', $('#$this->domElementId').parents('form'));";
+                if ($prefs['markdown_enabled'] === 'y') {
+                    $js = 'editorSettings(\'' . $this->domElementId . '\');';
+                } else {
+                    $js = "switchEditor('wiki', $('#$this->domElementId').parents('form'));";
+                }
                 $this->setupCKEditorTool($js);
             }
         }
@@ -36,7 +49,7 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
     {
         global $prefs;
 
-        $this->onClick = 'switchEditor(\'wiki\', $(this).parents(\'form\'));';
+        $this->onClick = 'editorSettings("' . $this->domElementId . '");';
 
         if (! empty($this->markdown_wysiwyg)) {
             if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_optional'] == 'y') {
@@ -61,6 +74,12 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
      */
     public function getOnClick(): string
     {
-        return $this->onClick;
+        global $prefs;
+
+        if ($prefs['markdown_enabled'] === 'y') {
+            return 'editorSettings(\'' . $this->domElementId . '\');';
+        } else {
+            return  'switchEditor(\'wysiwyg\', $(this).parents(\'form\'));';
+        }
     }
 }
