@@ -26,5 +26,12 @@ function prefs_email_list()
             'size' => 5,
             'default' => '',
         ],
+        'email_detect_disposable' => [
+            'name' => tra('Display Disposable Emails'),
+            'description' => tra("Show if a user's email address is from a disposable / temporary email address provider"),
+            'type' => 'flag',
+            //'help' => '', TODO
+            'default' => 'n',
+        ],
     ];
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "feb29b392c128dbb097c097b22c00558",
+    "content-hash": "e9c6e69a7ba46b2343422301caf950f9",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1921,6 +1921,55 @@
                 "ui"
             ],
             "time": "2017-09-18T08:01:28+00:00"
+        },
+        {
+            "name": "elliotjreed/disposable-emails-filter",
+            "version": "3.3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
+                "reference": "e25c6151d75a590cd9f81e7a7753bac90a5820a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elliotjreed/disposable-emails-filter-php/zipball/e25c6151d75a590cd9f81e7a7753bac90a5820a0",
+                "reference": "e25c6151d75a590cd9f81e7a7753bac90a5820a0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0|^8.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "phpunit/phpunit": "^9.5",
+                "roave/security-advisories": "dev-master",
+                "squizlabs/php_codesniffer": "^3.6",
+                "vimeo/psalm": "^4.22"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "ElliotJReed\\DisposableEmail\\": "src/ElliotJReed/DisposableEmail/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elliot J. Reed",
+                    "email": "disposable-emails-development@elliotjreed.com",
+                    "homepage": "https://www.elliotjreed.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
+            "support": {
+                "issues": "https://github.com/elliotjreed/disposable-emails-filter-php/issues",
+                "source": "https://github.com/elliotjreed/disposable-emails-filter-php/tree/3.3.6"
+            },
+            "time": "2022-10-27T07:35:10+00:00"
         },
         {
             "name": "erusev/parsedown",

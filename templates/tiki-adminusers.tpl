@@ -164,7 +164,12 @@
                                             </td>
 
                                             {if $prefs.login_is_email ne 'y'}
-                                                <td class="email">{$users[user].email}</td>
+                                                <td class="email {if $users[user].disposable_email} text-muted text-nowrap{/if}">
+                                                    {$users[user].email}
+                                                    {if $users[user].disposable_email}
+                                                        {icon name='envelope' title='|disposable / temporary email address' class='tips text-muted'}
+                                                    {/if}
+                                                </td>
                                             {/if}
                                             {if $prefs.auth_method eq 'openid'}
                                                 <td class="text">{$users[user].openid_url|default:"{tr}N{/tr}"}</td>

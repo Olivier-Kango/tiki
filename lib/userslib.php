@@ -40,6 +40,9 @@ use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Laminas\Ldap\Exception\LdapException;
 use OneLogin\Saml2;
+use ElliotJReed\DisposableEmail\DisposableEmail;
+use ElliotJReed\DisposableEmail\Exceptions\InvalidDomainListException;
+use ElliotJReed\DisposableEmail\Exceptions\InvalidEmailException;
 
 class UsersLib extends TikiLib
 {
@@ -2219,6 +2222,7 @@ class UsersLib extends TikiLib
         $notvalidated = false,
         $neverloggedin = false
     ) {
+        global $prefs;
 
         $hasPermission = function ($group) {
             $perms = Perms::get(['type' => 'group', 'object' => $group]);
@@ -2328,6 +2332,19 @@ class UsersLib extends TikiLib
             $res['age'] = $this->now - $res['registrationDate'];
             $res['user_information'] = $this->get_user_preference($user, 'user_information', 'public');
             $res['editable'] = $this->user_can_be_edited($user);
+
+            // indicate whether the user's email is from a disposable mail server
+            $res['disposable_email'] = false;
+
+            if ($prefs['email_detect_disposable'] === 'y' && isset($res['email'])) {
+                try {
+                    if (DisposableEmail::isDisposable($res['email'])) {
+                        $res['disposable_email'] = true;
+                    }
+                } catch (InvalidDomainListException|InvalidEmailException $e) {
+                    Feedback::error($e->getMessage());
+                }
+            }
 
             if (TIKI_API) {
                 // TODO: handle this as part of the API output serialization module

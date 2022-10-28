@@ -64,6 +64,7 @@
                     {/if}
                     {preference name=generate_password}
                     {preference name=http_referer_registration_check}
+                    {preference name=email_detect_disposable}
                     <fieldset>
                         <legend>{tr}CAPTCHA{/tr}</legend>
                         {preference name=feature_antibot}
