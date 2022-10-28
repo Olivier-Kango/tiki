@@ -1032,10 +1032,11 @@ $('#$fieldid').change(function() {
 ";
 
     foreach ($options as $k => $opt) {
-        if (empty($labels[$k]) && is_numeric($labels[$k]) === false) {
+        $label = $labels[$k] ?? '';
+        if (empty($label) && is_numeric($label) === false) {
             $body = $opt;
         } else {
-            $body = $labels[$k];
+            $body = $label;
         }
 
         $option = $document->createElement('option', $body);

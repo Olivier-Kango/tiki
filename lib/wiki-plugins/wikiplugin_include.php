@@ -195,7 +195,7 @@ function wikiplugin_include($dataIn, $params)
 
     if (isset($numberOfInclusions[$fragmentIdentifier])) {
         if ($numberOfInclusions[$fragmentIdentifier] >= $max_inclusions) {
-            trigger_error('Inclusion failed', E_USER_WARNING);
+            trigger_error(tr('Too many inclusions for "%0" (%1)', $page, $max_inclusions), E_USER_WARNING);
             return '';
         }
         $numberOfInclusions[$fragmentIdentifier]++;

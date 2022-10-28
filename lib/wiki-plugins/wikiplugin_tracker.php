@@ -1951,7 +1951,7 @@ function wikiplugin_tracker($data, $params)
             $ajax_datas = $params['ajax'] == 'y' ? 'data-ajax="true" ' . $ajax_action . ' data-tracker_id="' . $params['trackerId'] . '"' : "";
 
             //check if tracker has custom form classes, else default to form-horizontal
-            $formClasses = $tracker['useFormClasses'] == 'y' ? $tracker['formClasses'] : "form-horizontal";
+            $formClasses = (isset($tracker['useFormClasses']) && $tracker['useFormClasses'] == 'y') ? $tracker['formClasses'] : "form-horizontal";
             $back .= '<form class="' . $formClasses . '" name="editItemForm' . $iTRACKER . '" id="editItemForm' . $iTRACKER . '" enctype="multipart/form-data" method="post"' . (isset($target) ? ' target="' . $target . '"' : '') . ' action="' . $_SERVER['REQUEST_URI'] . '" ' . $ajax_datas . '><input type="hidden" name="trackit" value="' . $trackerId . '" />';
             $back .= '<input type="hidden" name="refresh" value="1" />';
         }
@@ -2103,7 +2103,7 @@ function wikiplugin_tracker($data, $params)
                     $smarty->assign_by_ref('tiki_p_attach_trackers', $perms['tiki_p_attach_trackers']);
                 }
                 if (! empty($tpl) || ! empty($wiki)) {
-                    if ($prettyModifier[$f['fieldId']] == "output") { //check if modifier is set to "output" ( set in getPrettyFieldIds() in trackerlib )
+                    if (isset($prettyModifier[$f['fieldId']]) && $prettyModifier[$f['fieldId']] == "output") { //check if modifier is set to "output" ( set in getPrettyFieldIds() in trackerlib )
                         $prettyout = '<span class="outputPretty" id="track_' . $f['fieldId'] . '" name="track_' . $f['fieldId'] . '">' . wikiplugin_tracker_render_value($f, $item) . '</span>';
                         $smarty->assign('f_' . $f['fieldId'], $prettyout);
                         $smarty->assign('f_' . $f['permName'], $prettyout);
@@ -2113,7 +2113,7 @@ function wikiplugin_tracker($data, $params)
                         $smarty->assign('f_' . $f['permName'], $prettyout);
                     } else {
                         $mand = ($showmandatory == 'y' and $f['isMandatory'] == 'y') ? "&nbsp;<strong class='mandatory_star text-danger tips' title=':" . tra("This field is mandatory") . "'>*</strong>&nbsp;" : '';
-                        if ($showfielddesc === 'y' && ! empty($f['description'])) {
+                        if (isset($showfielddesc) && $showfielddesc === 'y' && ! empty($f['description'])) {
                             $desc = $f['descriptionIsParsed'] == 'y' ? TikiLib::lib('parser')->parse_data($f['description']) : htmlspecialchars(tra($f['description']));
                             $desc = '<div class="trackerplugindesc">' . $desc . '</div>';
                         } else {

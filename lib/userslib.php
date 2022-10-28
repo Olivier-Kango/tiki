@@ -6723,8 +6723,10 @@ class UsersLib extends TikiLib
 
         $result = $this->query($query, [$groupId]);
         $res = $result->fetchRow();
-        $perms = $this->get_group_permissions($res['groupName']);
-        $res['perms'] = $perms;
+        if ($res) {
+            $perms = $this->get_group_permissions($res['groupName']);
+            $res['perms'] = $perms;
+        }
 
         return $res;
     }

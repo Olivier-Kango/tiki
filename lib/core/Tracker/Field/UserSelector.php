@@ -308,10 +308,12 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
         $userslib = TikiLib::lib('user');
 
         $groups = [];
-        foreach ($groupIds as $group) {
-            $info = $userslib->get_groupId_info($group);
-            if (isset($info['id']) && $info['id']) {
-                $groups[] = $group;
+        if (is_array($groupIds)) {
+            foreach ($groupIds as $group) {
+                $info = $userslib->get_groupId_info($group);
+                if (isset($info['id']) && $info['id']) {
+                    $groups[] = $group;
+                }
             }
         }
 
