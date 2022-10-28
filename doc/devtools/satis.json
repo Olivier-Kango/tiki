@@ -1914,6 +1914,7 @@
         "dompdf/dompdf": ">=0.6.1",
         "dragonmantank/cron-expression": "^1.2||^2.3||^3.0",
         "drmonty/smartmenus": ">=1.1.0",
+        "elliotjreed/disposable-emails-filter": ">=3.3.6",
         "enygma/expose": "^3.0",
         "erusev/parsedown": "1.8.0-beta-5",
         "evert/sitemap-php": ">=1.2.0",
