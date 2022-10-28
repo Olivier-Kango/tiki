@@ -1,5 +1,5 @@
 {* $Id$ *}
-{if $prefs.feature_categories eq 'y' and $tiki_p_modify_object_categories eq 'y' and (count($categories) gt 0 or $tiki_p_admin_categories eq 'y')}
+{if $prefs.feature_categories eq 'y' and $tiki_p_modify_object_categories eq 'y' and ((is_array($categories) and count($categories) gt 0) or $tiki_p_admin_categories eq 'y')}
     {if !isset($labelcol)}
         {$labelcol = '4'}
     {/if}
@@ -32,7 +32,7 @@
         <div id="categorizator" class="col-sm-{$inputcol}" style="display:{if isset($smarty.session.tiki_cookie_jar.show_categorizator) and $smarty.session.tiki_cookie_jar.show_categorizator eq 'y' or (isset($notable) && $notable eq 'y')}block{else}none{/if};">
     {/if}
     <div class="multiselect">
-        {if count($categories) gt 0}
+        {if is_array($categories) and count($categories) gt 0}
             {$cat_tree}
             <input type="hidden" name="cat_categorize" value="on">
             <div class="clearfix">
