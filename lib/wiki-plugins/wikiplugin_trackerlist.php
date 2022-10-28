@@ -2314,7 +2314,7 @@ function wikiplugin_trackerlist($data, $params)
                 $tpl = '';
             }
             if (! empty($tpl)) {
-                $smarty->security = true;
+                $smarty->enableSecurity();
             }
             $smarty->assign('tpl', $tpl);
 

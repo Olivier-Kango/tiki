@@ -2244,10 +2244,10 @@ function wikiplugin_tracker($data, $params)
         }
 
         if (! empty($tpl)) {
-            $smarty->security = true;
+            $smarty->enableSecurity();
             $back .= $smarty->fetch($tpl);
         } elseif (! empty($wiki)) {
-            $smarty->security = true;
+            $smarty->enableSecurity();
             if ($tikilib->page_exists($wiki)) {
                 $back .= $smarty->fetch('wiki:' . $wiki);
             } else {
