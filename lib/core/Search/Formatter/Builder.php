@@ -282,7 +282,8 @@ class Search_Formatter_Builder
                 isset($args['tstotaloptions']) ? $args['tstotaloptions'] : null,
                 isset($args['showProcessing']) ? $args['showProcessing'] : null,
                 isset($args['ignoreCase']) ? $args['ignoreCase'] : null,
-                isset($args['sortLocaleCompare']) ? $args['sortLocaleCompare'] : null
+                isset($args['sortLocaleCompare']) ? $args['sortLocaleCompare'] : null,
+                isset($args['tsoutput']) ? $args['tsoutput'] : null
             );
             if (is_array($ts->settings)) {
                 $ts->settings['ajax']['offset'] = 'offset';

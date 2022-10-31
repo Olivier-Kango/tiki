@@ -606,6 +606,7 @@ if ($prefs['feature_jquery_tablesorter'] == 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/mottie/tablesorter/js/widgets/widget-grouping.js');
     $headerlib->add_jsfile('vendor_bundled/vendor/mottie/tablesorter/js/widgets/widget-math.js');
     $headerlib->add_jsfile('vendor_bundled/vendor/mottie/tablesorter/js/widgets/widget-pager.js');
+    $headerlib->add_jsfile('vendor_bundled/vendor/mottie/tablesorter/js/widgets/widget-output.js');	// APTITUDE NEEDS THIS
     //currently only working when ajax is not used
     $headerlib->add_jsfile('vendor_bundled/vendor/mottie/tablesorter/js/widgets/widget-sort2Hash.js');
     $headerlib->add_jsfile('lib/jquery_tiki/tablesorter.js');

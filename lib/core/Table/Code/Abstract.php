@@ -35,6 +35,7 @@ class Table_Code_Abstract
     protected static $usecolselector;
     protected static $group;
     protected static $pager;
+    protected static $output;
     protected static $ajax;
     public static $code = [];
     protected static $level1;
@@ -71,6 +72,7 @@ class Table_Code_Abstract
             //smarty templates to keep from recreating tpl logic that determines which columns are shown
             self::$usecolselector = ! isset(self::$s['usecolselector']) || self::$s['usecolselector'] !== false;
             self::$pager = empty($settings['pager']['type']) ? false : true;
+            self::$output = empty($settings['output']) ? false : true;
             global $prefs;
             self::$ajax = $settings['ajax']['type'] === true && $prefs['feature_ajax'] === 'y';
             self::$group = self::$sorts && isset($settings['sorts']['group']) && $settings['sorts']['group'] === true;

@@ -257,7 +257,6 @@ class CleanVendors
                 'js/widgets/widget-headerTitles.js',
                 'js/widgets/widget-lazyload.js',
                 'js/widgets/widget-mark.js',
-                'js/widgets/widget-output.js',
                 'js/widgets/widget-print.js',
                 'js/widgets/widget-reflow.js',
                 'js/widgets/widget-repeatheaders.js',

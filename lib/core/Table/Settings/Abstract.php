@@ -242,6 +242,13 @@ abstract class Table_Settings_Abstract
                 'id' => '-colselectdiv',
             ]
         ],
+        'output' => [
+            'button' => [
+                'id' => '-outputbtn',
+                //tra('Export')
+                'text' => 'Export',
+            ],
+        ],
     ];
 
     /**

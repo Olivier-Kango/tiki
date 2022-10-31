@@ -263,6 +263,21 @@ class Table_Plugin
                 'filter' => 'striptags',
                 'advanced' => true,
             ],
+            'tsoutput' => [
+                'required' => false,
+                'name' => tra('Output (export)'),
+                'description' =>
+                    tr(
+                        'Enter %0y%1 to set default values based on the site setting. Set custom values as in the following example: ',
+                        '<code>', '</code>'
+                    ) .
+                    '<code>delivery:d;saveFileName:exported_teblesorter.csv</code>',
+                'since' => '12.0',
+                'doctype' => 'tablesorter',
+                'default' => '',
+                'filter' => 'striptags',
+                'advanced' => true,
+            ],
             'tscolselect' => [
                 'required' => false,
                 'name' => tra('Column Select'),
@@ -412,8 +427,8 @@ class Table_Plugin
         $tstotaloptions = null,
         $showProcessing = 'y',
         $ignoreCase = 'y',
-        $sortLocaleCompare = 'y'
-
+        $sortLocaleCompare = 'y',
+        $tsoutput = null
     ) {
         $s = [];
 
@@ -567,6 +582,20 @@ class Table_Plugin
                 $s['pager']['type'] = true;
             } elseif ($tsp[0] === 'n' && $server === 'n') {
                 $s['pager']['type'] = false;
+            }
+        }
+
+        //tspaginate
+        if (! empty($tsoutput)) {
+            if (! is_readable('vendor_bundled/vendor/mottie/tablesorter/js/widgets/widget-output.js')) {
+                Feedback::error(tr('File widget-output.js required for tablesorter output not found. Delete directory  vendor_bundled/vendor/mottie and re-run setup.sh.'));
+            }
+            $tsp = Table_Check::parseParam($tsoutput);
+            if (is_array($tsp[0]) || $tsp[0] !== 'n' || ($tsp[0] === 'n' && $server === 'y')) {
+                if (is_array($tsp[0])) {
+                    $s['output'] = $tsp[0];
+                }
+                $s['output']['type'] = true;
             }
         }
 

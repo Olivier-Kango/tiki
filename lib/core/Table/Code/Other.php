@@ -44,7 +44,7 @@ class Table_Code_Other extends Table_Code_Manager
                 . $this->nt . '});';
         }
 
-            //reset sort button
+        //reset sort button
         $sr = '';
         $x = ['reset' => '', 'savereset' => ''];
         $s = parent::$s['sorts'];
@@ -59,6 +59,17 @@ class Table_Code_Other extends Table_Code_Manager
                 . '" type="button" class="btn btn-primary btn-sm tips" title=":' . $s['reset']['text']
                 . '" style="margin-right:3px">' . smarty_function_icon(['name' => 'sort'], $smarty->getEmptyInternalTemplate()) . '</button>';
         }
+
+        // output button
+        if (! empty(parent::$s['output'])) {
+            $buttons[] = '<button id="' . parent::$s['output']['button']['id']
+                . '" type="button" class="btn btn-primary btn-sm tips" title="|' . parent::$s['output']['button']['text']
+                . '" style="margin-right:3px">' . smarty_function_icon(['name' => 'download'], $smarty->getEmptyInternalTemplate()) . '</button>';
+            $jq[] = '$(\'button#' . parent::$s['output']['button']['id'] . '\').click('
+                . $this->nt2 . 'function(){$(\'' . parent::$tid . '\').trigger(\'outputTable\');}'
+                . $this->nt . ');';
+        }
+
 
         //filters
         if (parent::$filters) {
@@ -210,6 +221,8 @@ class Table_Code_Other extends Table_Code_Manager
             );
             $htmlafter[] = $pagerstring;
         }
+
+
         //add math total column if set
         if (! empty(parent::$s['math']['totals']['row'])) {
             foreach (parent::$s['math']['totals']['row'] as $total) {
