@@ -51,10 +51,11 @@ class TikiLib extends TikiDb_Bridge
     /** Gets a library reference
      *
      * @param $name string        The name of the library as specified in the id attribute in db/config/tiki.xml
-     * @return object|\AccountingLib|\ActivityLib|\AdminLib|\AreasLib|\ArtLib|\AttributeLib|\AutoSaveLib|\BannerLib|\BigBlueButtonLib|\blacklistLib|\ocrLib|\BlogLib|\CacheLib|\CalendarLib|\Captcha|\CartLib|\CategLib|\Comments|\ContactLib|\ContributionLib|\CreditsLib|\CryptLib|\cssLib|\Tiki\CustomRoute\CustomRouteLib|\DCSLib|\EditLib|\ErrorManagerLib|\FaqLib|\FederatedSearchLib|\FileGalBatchLib|\FileGalLib|\FlaggedRevisionLib|\FreetagLib|\GeoLib|\GoalEventLib|\GoalLib|\GoalRewardLib|\GroupAlertLib|\H5PLib|\HeaderLib|\HistLib|\IconsetLib|\KalturaLib|\KalturaLib|\Language|\LanguageTranslations|\LdapLib|\LoginLib|\Tiki\Lib\Logs\LogsLib|\Tiki\Lib\Logs\LogsQueryLib|\MailinLib|\Memcachelib|\MenuLib|\Messu|\MimeLib|\ModLib|\MonitorLib|\MonitorMailLib|\MultilingualLib|\NotificationLib|\OAuthLib|\ObjectLib|Tiki\Lib\OpenIdConnect\OpenIdConnectLib|\PageContentLib|\ParserLib|\PaymentLib|\PdfImagesLib|\PerspectiveLib|\PollLib|\PreferencesLib|\QuantifyLib|\QueueLib|\QuizLib|\RatingConfigLib|\RatingLib|\ReferencesLib|\RegistrationLib|\RelationLib|\RSSLib|\SchedulersLib|\ScoreLib|\ScormLib|\SearchStatsLib|\SemanticLib|\ServiceLib|\SheetLib|\Smarty_Tiki|\SocialLib|\StatsLib|\StoredSearchLib|\StructLib|\TemplatesLib|\ThemeControlLib|\ThemeLib|\Tiki_Connect_Client|\Tiki_Connect_Server|\Tiki_Event_Manager|\Tiki_Profile_SymbolLoader|\Tiki\ObjectSelector\Selector|\Tiki\Recommendation\BatchProcessor|\Tiki\Wiki\SlugManager|\TikiAccessLib|\TikiCalendarLib|\TikiDate|\TodoLib|\Tracker\Tabular\Manager|\TrackerLib|\TWVersion|\UnifiedSearchLib|\UserMailinLib|\UserModulesLib|\UserPrefsLib|\UsersLib|\Validators|\VimeoLib|\VueJsLib|\WikiLib|\WizardLib|\WYSIWYGLib|\XMPPLib|\ZoteroLib
+     *
+     * @return object
      * @throws Exception
      */
-    public static function lib($name)
+    public static function lib(string $name): ?object
     {
         if (isset(self::$libraries[$name])) {
             return self::$libraries[$name];
@@ -84,7 +85,8 @@ class TikiLib extends TikiDb_Bridge
             unlink(__DIR__ . '/../temp/cache/container.php'); // Remove the container cache to help transition
         }
 
-        throw new Exception(tr("%0 library not found. This may be due to a typo or caused by a recent update.", $name));
+        trigger_error(tr("%0 library not found. This may be due to a typo or caused by a recent update.", $name));
+        return null;
     }
 
     /**
