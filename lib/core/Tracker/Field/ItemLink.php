@@ -12,7 +12,7 @@
  * Letter key: ~r~
  *
  */
-class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Exportable, Search_FacetProvider_Interface, Tracker_Field_Filterable
+class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Exportable, Search_FacetProvider_Interface, Tracker_Field_Filterable, Tracker_Field_EnumerableInterface
 {
     const CASCADE_NONE = 0;
     const CASCADE_CATEG = 1;
@@ -329,7 +329,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
         }
 
         $data = [
-            'list' => $this->getItemList(),
+            'list' => $this->getPossibleItemValues(),
             'displayFieldsListType' => $this->getOption('displayFieldsListType'),
             'createTrackerItems' => $trackerPerms->create_tracker_items,
         ];
@@ -784,7 +784,12 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
         return $fulllabel;
     }
 
-    public function getItemList()
+    public function canHaveMultipleValues()
+    {
+        return (bool) $this->getOption("selectMultipleValues"); 
+    }
+
+    public function getPossibleItemValues()
     {
         if ($displayFieldsList = $this->getDisplayFieldsListArray()) {
             if ($this->getOption('displayFieldsListType') === 'table') {

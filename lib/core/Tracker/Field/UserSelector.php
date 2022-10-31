@@ -606,6 +606,11 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
         return $schema;
     }
 
+    public function canHaveMultipleValues()
+    {
+        return (bool) $this->getOption("multiple"); 
+    }
+
     public function getPossibleItemValues()
     {
         static $localCache = [];
@@ -635,12 +640,12 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
                 }
                 $usrs = array_unique($usrs);
                 foreach ($usrs as $usr) {
-                    $users["$usr"] = $showRealname ? smarty_modifier_username($usr) : $usr;
+                    $users["$usr"] = $this->getOption('showRealname') ? smarty_modifier_username($usr) : $usr;
                 }
             } else {
                 $usrs = $tikilib->list_users(0, -1, 'login_asc');
                 foreach ($usrs['data'] as $usr) {
-                    $users[$usr['login']] = $showRealname ? smarty_modifier_username($usr['login']) : $usr['login'];
+                    $users[$usr['login']] = $this->getOption('showRealname') ? smarty_modifier_username($usr['login']) : $usr['login'];
                 }
             }
 

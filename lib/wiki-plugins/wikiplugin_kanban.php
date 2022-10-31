@@ -21,7 +21,7 @@ function wikiplugin_kanban_info(): array
         'prefs' => ['wikiplugin_kanban'],
         'format' => 'html',
         'iconname' => 'th',
-        'introduced' => 24,
+        'introduced' => 25,
         'params' => [
             'boardTrackerId' => [
                 'name' => tr('Tracker ID'),
@@ -35,7 +35,7 @@ function wikiplugin_kanban_info(): array
                 'name' => tr('Card title field'),
                 'description' => tr('Tracker field containing the inline editable text shown on each card.'),
                 'hint' => tr('e.g. "kanbanTitle"'),
-                'since' => '24.0',
+                'since' => '25.0',
                 'required' => true,
                 'filter' => 'word',
             ],
@@ -43,7 +43,7 @@ function wikiplugin_kanban_info(): array
                 'name' => tr('Card description field'),
                 'description' => tr('Optional text shown below the title on each card.'),
                 'hint' => tr('e.g. "kanbanDescription"'),
-                'since' => '24.0',
+                'since' => '25.0',
                 'required' => false,
                 'filter' => 'word',
             ],
@@ -51,7 +51,7 @@ function wikiplugin_kanban_info(): array
                 'name' => tr('Column (state) field'),
                 'description' => tr('Tracker field representing the columns, usually a dropdown list with options such as "Wishes", "Work" and "Done".'),
                 'hint' => tr('e.g. "kanbanColumns"'),
-                'since' => '24.0',
+                'since' => '25.0',
                 'required' => true,
                 'filter' => 'word',
             ],
@@ -74,10 +74,13 @@ someValue,someAlternateTextToDisplay,null:someOtherValue,,4
 
 Means the board would have two colums, the first column would be titled "someAlternateTextToDisplay" containing cards with the value "someValue" for the mapped field and no limit to the number of cards. The second column would have cards with "someOtherValue" for the mapped field, with whatever the label is for that value in the field definition, and the column would be highlighted red if there is more than 4 cards. No card with any other value would be anywhere on the board.
 
+To allow empty values, include a field with an empty value (ex: someValue:someOtherValue:,Unsorted cards)
+
 If the whole parameter is absent (not recommended), all possible field values will be used to generate columns (except the empty value).
+
                 '),
                 'hint' => tr('e.g. "someValue,someAlternateTextToDisplay,null:someOtherValue,,4"'),
-                'since' => '24.0',
+                'since' => '25.0',
                 'required' => false,
                 'filter' => 'text',
                 'separator' => ':'
@@ -86,7 +89,7 @@ If the whole parameter is absent (not recommended), all possible field values wi
                 'name' => tr('Card relative order field'),
                 'description' => tr('Sort order for cards within a cell.  Must be a numeric field.  You will have to create it if the board represents an existing tracker.  It is not meant to be displayed to the user, or represent something global like "priority" (that would make no sense on a partial representation).  It merely means that the card is displayed above any card wifh lower value, and below any card with a higher one if displayed in the same cell.  When a card is moved board will halve the value of the two surrounding cards to compute the new value.'),
                 'hint' => tr('e.g. "kanbanOrder"'),
-                'since' => '24.0',
+                'since' => '25.0',
                 'required' => true,
                 'filter' => 'word',
             ],
@@ -94,11 +97,11 @@ If the whole parameter is absent (not recommended), all possible field values wi
                 'name' => tr('Swimlane (row) field'),
                 'description' => tr('Tracker field representing the "rows" or "swimlanes" of the board. Can be any field with discrete values.  Usually represents a client, a project, or a team member.  
                 
-                All tracker items with valid field values on the board, but not those with empty values (this behaviour may change in the future).  To allow empty values, see swimlaneValues
+                By default, all tracker items with that field set to a valid values will be shown on the board. To allow empty values, see swimlaneValues.
 
                 Note:  A kanban board can have multiple rows, but these rows aren\'t independent, they share the same possible States and Wip limits.  If what you want is completely independent "rows", create two boards on the same tracker, with different filters.'),
                 'hint' => tr('e.g. "kanbanSwimlanes'),
-                'since' => '24.0',
+                'since' => '25.0',
                 'required' => false,
                 'filter' => 'word',
             ],
@@ -106,10 +109,12 @@ If the whole parameter is absent (not recommended), all possible field values wi
                 'name' => tr('Swimlanes acceptable values and configuration'),
                 'description' => tr('Similar to columnValues, except there is no WiP limit.
 
-                To allow empty values, include field with an empty value (ex: someValue:someOtherValue:,Unsorted cards)
+                To allow empty values, include a field with an empty value (ex: someValue:someOtherValue:,Unsorted cards).  An aditional swimlane will be included for empty values.
+
+                If the parameter is present but only contains the empty value (ex: ,Unsorted cards), all possible field values will be used to generate swimlanes, and an aditional swimlane will be included for empty values.
                 '),
                 'hint' => tr('e.g. "someValue,someAlternateTextToDisplay:someOtherValue"'),
-                'since' => '24.0',
+                'since' => '25.0',
                 'required' => false,
                 'filter' => 'text',
                 'separator' => ':'
@@ -118,57 +123,85 @@ If the whole parameter is absent (not recommended), all possible field values wi
     ];
 }
 
-function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesParam, string $fieldPermName, array $fieldDefaultConfig, bool $allowEmptyValues = false)
+function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesParam, string $fieldPermName, array $fieldDefaultConfig)
 {
+    //echo '<pre>Field';print_r($fieldHandler->getFieldDefinition());echo '</pre>';
+    if(!$fieldHandler instanceof Tracker_Field_EnumerableInterface) {
+        throw new TypeError(tra('The tracker field "%0" selected in parameter is of a type that is not enumerable (does not implement Tracker_Field_EnumerableInterface)', '', false, [
+            $fieldPermName
+        ]));
+    }
+    if($fieldHandler->canHaveMultipleValues()) {
+        throw new TypeError(tra('The tracker field "%0" selected in parameter is configured to allow multiple values.  This is not mappable in a kanban board', '', false, [
+            $fieldPermName
+        ]));
+    }
     $fieldValuesMap = $fieldHandler->getPossibleItemValues();
-    //echo '<pre>';print_r($fieldValuesMap);echo '</pre>';
+
+    //echo '<pre>Possible item values';print_r($fieldValuesMap);echo '</pre>';
     $fieldInfo = [];
-    if (! $fieldValuesParam) {
+
+    $appendAllPossibleFieldValues = false;
+    if (! $fieldValuesParam ) {
+        $appendAllPossibleFieldValues = true;
+    }
+
+    if (count($fieldValuesParam) == 1 ) {
+        $fieldParamsArray = explode(',', $fieldValuesParam[0]);
+        $fieldValue = trim($fieldParamsArray[0]);
+        if($fieldValue === '') {
+            //print_r("We have a single field in the configuration, and it's the empty value");
+            $appendAllPossibleFieldValues = true;
+        }
+    }
+    if($appendAllPossibleFieldValues) {
+        //Get values from all the possible field values
         foreach ($fieldValuesMap as $value => $label) {
             $fieldInfo[$value] = array_merge($fieldDefaultConfig, ['title' => $label, 'value' => $value]);
         }
-    } else {
-        foreach ($fieldValuesParam as $key => $fieldParams) {
-            $fieldParamsArray = explode(',', $fieldParams);
-            //column value
-            if (! $allowEmptyValues && ! $fieldParamsArray[0]) {
-                throw new TypeError(tra('Parameter "%0=%1" has an empty column value (first parameter after the :) at index %2.  Possible values are %3', '', false, [
+        //echo'<pre>';print_r($fieldInfo);echo '</pre>';
+    }
+
+    foreach ($fieldValuesParam as $key => $fieldParams) {
+        $fieldParamsArray = explode(',', $fieldParams);
+
+        $fieldValue = trim($fieldParamsArray[0]);
+        if ($fieldValue !== '' && !$fieldValuesMap[$fieldValue]) {
+            throw new TypeError(tra('Column value "%0" specified in parameter "%1=%2" is not found in tracker field "%3".  Possible values are %4', '', false, [
+                $fieldValue,
+                $fieldValuesParamName,
+                implode(':', $fieldValuesParam),
+                $fieldPermName,
+                implode(',', array_keys($fieldValuesMap))
+            ]));
+        }
+        //echo '<pre>';print_r($fieldValue);echo '</pre>';
+        if ($fieldValue !== '') {
+            $fieldData = ['title' => $fieldValuesMap[$fieldValue], 'value' => $fieldValue];
+        } else {
+            $fieldData = ['title' => tra('Empty values'), 'value' => $fieldValue];
+        }
+
+        $fieldInfo[$fieldValue] = array_merge($fieldDefaultConfig, $fieldData);
+        //Override column label
+        if (isset($fieldParamsArray[1]) && $fieldParamsArray[1] !== 'null') {
+            $fieldInfo[$fieldValue]['title'] = trim($fieldParamsArray[1]);
+        }
+        //wip limit
+        if (isset($fieldParamsArray[2]) && $fieldParamsArray[2] !== 'null') {
+            if (!is_numeric($fieldParamsArray[2])) {
+                throw new TypeError(tra('Wip limit value "%0" specified in parameter "%1=%2" is not numeric', '', false, [
+                    $fieldParamsArray[2],
                     $fieldValuesParamName,
-                    implode(':', $fieldValuesParam),
-                    $key,
-                    implode(',', array_keys($fieldValuesMap))
+                    implode(':', $fieldValuesParam)
                 ]));
             }
-            $fieldValue = trim($fieldParamsArray[0]);
-            if (! $allowEmptyValues && ! $fieldValuesMap[$fieldValue]) {
-                throw new TypeError(tra('Column value "%0" specified in parameter "%1=%2" is not found in tracker field "%3".  Possible values are %4', '', false, [
-                    $fieldValue,
-                    $fieldValuesParamName,
-                    implode(':', $fieldValuesParam),
-                    $fieldPermName,
-                    implode(',', array_keys($fieldValuesMap))
-                ]));
-            }
-            //echo '<pre>';print_r($fieldValue);echo '</pre>';
-            $fieldInfo[$fieldValue] = array_merge($fieldDefaultConfig, ['title' => $fieldValuesMap[$fieldValue], 'value' => $fieldValue]);
-            //Override column label
-            if (isset($fieldParamsArray[1]) && $fieldParamsArray[1] !== 'null') {
-                $fieldInfo[$fieldValue]['title'] = trim($fieldParamsArray[1]);
-            }
-            //wip limit
-            if (isset($fieldParamsArray[2]) && $fieldParamsArray[2] !== 'null') {
-                if (! is_numeric($fieldParamsArray[2])) {
-                    throw new TypeError(tra('Wip limit value "%0" specified in parameter "%1=%2" is not numeric', '', false, [
-                        $fieldParamsArray[2],
-                        $fieldValuesParamName,
-                        implode(':', $fieldValuesParam)
-                    ]));
-                }
-                $wipValue = intval($fieldParamsArray[2]);
-                $fieldInfo[$fieldValue]['wip'] = $wipValue;
-            }
+            $wipValue = intval($fieldParamsArray[2]);
+            $fieldInfo[$fieldValue]['wip'] = $wipValue;
         }
     }
+    
+    //echo '<pre>_map_field returning:';print_r($fieldInfo);echo '</pre>';
     return $fieldInfo;
 }
 function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
@@ -235,7 +268,8 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
             $columnFieldPermName,
             [
                 'wip' => null
-            ]
+            ],
+            true
         );
 
 
@@ -256,7 +290,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     }
 
 
-    //echo '<pre>';print_r($swimlanesInfo);echo '</pre>';
+    //echo '<pre>';print_r($columnsInfo);echo '</pre>';
     //END mapping the fields
 
     //Begin mapping the cards
@@ -266,7 +300,10 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     //print_r(array_keys($swimlanesInfo));
 
     //Filter the cards
-    if ($jit->columnValues->text()) {
+     //We only filter the swimlane or column field values if we don't allow empty values. Search_Query cannot include specific values plus the empty ones.
+    if ($jit->columnValues->text()
+        &&
+        !array_key_exists('', $columnsInfo)) {
         foreach (array_keys($columnsInfo) as $index => $fieldValue) {
             $query->filterContent(implode(' OR ', array_keys($columnsInfo)), 'tracker_field_' . $columnFieldPermName);
         }
@@ -275,7 +312,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         $jit->swimlaneValues->text() &&
         ! array_key_exists('', $swimlanesInfo)
     ) {
-        //We only filter the swimlane if we don't allow empty values. Search_Query cannot include specific values plus empty ones.
+
         foreach (array_keys($swimlanesInfo) as $index => $fieldValue) {
             $query->filterContent(implode(' OR ', array_keys($swimlanesInfo)), 'tracker_field_' . $swimlaneFieldPermName);
         }
@@ -388,17 +425,20 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         //Filter the cards ,AGAIN!
         if ($jit->columnValues->text()) {
             if (! in_array($columnValue, array_keys($columnsInfo))) {
-                print_r("SKIP bad column");
-                print_r(array_keys($columnsInfo));
+                /*print_r("SKIP card missing value in column map");
+                print_r(array_keys($columnsInfo));*/
                 continue;  //Skip tracker items that have fields with values not in the mapped enumerable fields
             }
         }
-        //if ($jit->swimlaneValues->text()) {
+        if ($jit->swimlaneValues->text()) {
         if (! in_array($swimlaneValue, array_keys($swimlanesInfo))) {
-            print_r("SKIP bad swimlane");
+            /*print_r("<pre>SKIP card missing value in swimlane map");
+            print_r($swimlaneValue);
+            print_r($swimlanesInfo);
+            print_r("</pre>");*/
             continue;  //Skip tracker items that have fields with values not in the mapped enumerable fields
         }
-        //}
+        }
 
         $caslAbilities[] =
             [
@@ -472,7 +512,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 function wikiplugin_kanban_format_list($handler)
 {
     $fieldData = $handler->getFieldData();
-    //echo '<pre>';print_r($fieldData);echo '</pre>';
+    echo '<pre>';print_r($fieldData);echo '</pre>';
     $list = $formatted = [];
     if ($handler->getConfiguration('type') === 'd') {
         $list = $fieldData['possibilities'];

@@ -950,7 +950,7 @@ function cs_design_select($id, $fieldname, $fieldid, $arguments, $default, &$scr
         $field = $definition->getFieldFromPermName(str_replace('tracker_field_', '', $arguments['_field']));
         $handler = TikiLib::lib('trk')->get_field_handler($field);
         if ($field['type'] === 'r') {    // Item Link
-            $labels = $handler->getItemList();
+            $labels = $handler->getPossibleItemValues();
             $options = array_keys($labels);
             $labels = array_values($labels);
         } elseif ($field['type'] === 't') { // Text field so get all values up to a sensible(?) amount

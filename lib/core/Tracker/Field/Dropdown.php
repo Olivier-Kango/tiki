@@ -187,6 +187,11 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
         return $info;
     }
 
+    public function canHaveMultipleValues()
+    {
+        return false;
+        $withOther = $this->getConfiguration('type') !== 'M';
+    }
     public function getPossibleItemValues()
     {
         static $localCache = [];
@@ -209,27 +214,12 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
         return $localCache[$string];
     }
 
-
-    private function getValuesOfPossibilities()
-    {
-        $values = [];
-        $options = $this->getOption('options');
-
-        if (empty($options)) {
-            return [];
-        }
-
-        foreach ($options as $value) {
-            array_push($values, $this->getValuePortion($value));
-        }
-
-        return $values;
-    }
-
     private function getDefaultValue()
     {
         $options = $this->getOption('options');
-
+        if (empty($options)) {
+            $options = [];
+        }
         $parts = [];
         $last = false;
         foreach ($options as $opt) {
@@ -421,7 +411,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 
             if (! empty($allValues)) {
                 foreach ($allValues as $val) {
-                    if (! in_array($val, $this->getValuesOfPossibilities())) {
+                    if (! in_array($val, array_keys($this->getPossibleItemValues()))) {
                         return tr('Value not available in options');
                     }
                 }
