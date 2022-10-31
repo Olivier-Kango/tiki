@@ -86,6 +86,10 @@ class Definition
     {
         global $prefs;
 
+        if ($this->isDirect()) {
+            return;
+        }
+
         if ($file->path) {
             $handler = new Handler\FileSystem($prefs['fgal_use_dir']);
         } else {
