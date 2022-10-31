@@ -954,8 +954,6 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
             if (is_array($value)) {
                 $value = implode(',', $value);
             }
-        } else {
-            $value = (int) $value;
         }
 
         return [
