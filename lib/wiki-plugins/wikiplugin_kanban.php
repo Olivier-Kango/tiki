@@ -7,9 +7,10 @@
 
 /**
  * Current syntax - filters and display formatting support
- * {KANBAN(boardTrackerId=9 title=taskTask description=taskDescription column=taskResolutionStatus order=taskPriority swimlane=taskJob wip=5,3,10)}
+ * {KANBAN(boardTrackerId=9 title=taskTask description=taskDescription column=taskResolutionStatus order=taskPriority columnValues=",Unsorted cards,5" swimlane=taskJob swimlaneValues=",Unsorted cards" )}
  *   {filter field="tracker_field_taskPriority" editable="content"}
  *   {display name="tracker_field_taskTask" format="objectlink"}
+ *   This will be ignored...
  * {KANBAN}
  */
 function wikiplugin_kanban_info(): array
