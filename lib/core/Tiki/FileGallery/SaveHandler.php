@@ -25,6 +25,24 @@ class SaveHandler
         $this->fileDraftsTable = TikiLib::lib('filegal')->table('tiki_file_drafts');
     }
 
+    public function isReplacing() {
+        if (! $this->file->exists()) {
+            return false;
+        } elseif (! $this->file->fileId) {
+            return false;
+        } elseif ($this->file->galleryDefinition()->isDirect()) {
+            return true;
+        } else {
+            if ($prefs['feature_file_galleries_save_draft'] == 'y') {
+                return false;
+            } elseif ($this->file->galleryDefinition()->getInfo()['archives'] == -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     public function save()
     {
         global $prefs, $user;
@@ -149,7 +167,7 @@ class SaveHandler
             return $this->filesTable->update($this->file->getParamsForDB(), ['fileId' => $this->file->fileId]);
         } else {
             $fileDraft = FileDraft::fromFile($this->file);
-            $this->fileDraftsTable->delete(['fileId' => $this->file->fileId, 'user' => $this->file->user]);
+            TikiLib::lib('filegal')->remove_draft($this->file->fileId, $this->file->user);
             return $this->fileDraftsTable->insert($fileDraft->getParamsForDB());
         }
     }

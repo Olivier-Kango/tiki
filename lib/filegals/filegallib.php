@@ -371,11 +371,26 @@ class FileGalLib extends TikiLib
      *
      * @param int $fileId
      * @param string $user
+     * @param bool $skip_actual
      * @return TikiDb_Adodb_Result|TikiDb_Pdo_Result
      */
-    public function remove_draft($fileId, $user = null)
+    public function remove_draft($fileId, $user = null, $skip_actual = false)
     {
         $fileDraftsTable = $this->table('tiki_file_drafts');
+
+        if (! $skip_actual) {
+            $file = TikiFile::id($fileId);
+            $def = $file->galleryDefinition();
+            if (isset($user)) {
+                $drafts = $fileDraftsTable->fetchAll(['path'], ['fileId' => (int) $fileId, 'user' => $user]);
+            } else {
+                $drafts = $fileDraftsTable->fetchAll(['path'], ['fileId' => (int) $fileId]);
+            }
+            foreach ($drafts as $draft) {
+                $to_delete = new TikiFile(['path' => $draft['path']]);
+                $def->delete($to_delete);
+            }
+        }
 
         if (isset($user)) {
             return $fileDraftsTable->delete(['fileId' => (int) $fileId, 'user' => $user]);
@@ -410,7 +425,7 @@ class FileGalLib extends TikiLib
 
             $file->validateDraft($draft);
 
-            return $this->remove_draft($fileId, $user);
+            return $this->remove_draft($fileId, $user, true);
         }
     }
 
@@ -3260,7 +3275,7 @@ class FileGalLib extends TikiLib
                     }
                     $didFileReplace = true;
                     if ($editFile) {
-                        $fileId = $file->replace($data, $type, $params["name"][$key], $name, null, null, true);
+                        $fileId = $file->replace($data, $type, $params["name"][$key], $name);
                     } else {
                         $title = $params["name"][$key];
                         if (! $params['imagesize'][$key]) {
@@ -3270,7 +3285,7 @@ class FileGalLib extends TikiLib
                             $image_x = $gal_info["image_max_size_x"];
                             $image_y = $gal_info["image_max_size_y"];
                         }
-                        $fileId = $file->replace($data, $type, $title, $name, $image_x, $image_y, true);
+                        $fileId = $file->replace($data, $type, $title, $name, $image_x, $image_y);
                     }
                     if (! $fileId) {
                         $errors[] = tra('The upload was not successful due to duplicate file content') . ': ' . $name;
