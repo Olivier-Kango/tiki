@@ -54,6 +54,7 @@ class File
         "backlinkPerms" => "",
         "ocr_state" => null,
     ];
+    public $isReplacing = false;
     private $exists = false;
     private $wrapper = null;
 
@@ -125,6 +126,7 @@ class File
 
     public function validateDraft($draft)
     {
+        $this->isReplacing = true;
         foreach ($draft->getParams() as $key => $val) {
             $this->setParam($key, $val);
         }
@@ -211,6 +213,9 @@ class File
             $this->setParam('ocr_state', $jitRequest->ocr_state->int());
         }
 
+        $saveHandler = new SaveHandler($this);
+        $this->isReplacing = $saveHandler->isReplacing();
+
         if ($data && ! $this->replaceContents($data)) {
             // Do not replace with empty file as could be updating properties only
             return false;
@@ -275,13 +280,15 @@ class File
      * requires it. Ensures data/path db parameters are sane.
      * @see FileWrapper\WrapperInterface for supported methods.
      */
-    public function getWrapper()
+    public function getWrapper($replacing = false)
     {
         if ($this->wrapper !== null) {
             return $this->wrapper;
         }
         $definition = $this->galleryDefinition();
-        $this->setParam('path', $definition->uniquePath($this));
+        if ($replacing) {
+            $this->setParam('path', $definition->uniquePath($this));
+        }
         if ($this->getParam('path')) {
             $this->setParam('data', '');
         }
@@ -302,7 +309,7 @@ class File
      */
     public function replaceContents($data)
     {
-        $wrapper = $this->getWrapper();
+        $wrapper = $this->getWrapper(true);
         try {
             $wrapper->replaceContents($data);
         } catch (FileWrapper\WriteException $e) {

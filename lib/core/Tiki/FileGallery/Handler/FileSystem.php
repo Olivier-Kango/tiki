@@ -72,7 +72,7 @@ class FileSystem implements HandlerInterface
 
     public function uniquePath($file)
     {
-        if (! empty($file->path)) {
+        if (! empty($file->path) && $file->isReplacing) {
             return $file->path;
         }
 
