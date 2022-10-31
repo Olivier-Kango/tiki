@@ -34,7 +34,7 @@ class FileSystem implements HandlerInterface
 	}
 
 	function uniquePath($file) {
-		if (! empty($file->path)) {
+		if (! empty($file->path) && $file->isReplacing) {
 			return $file->path;
 		}
 		$fhash = md5($file->name);
