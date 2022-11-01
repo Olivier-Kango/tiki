@@ -370,9 +370,9 @@ footer.footer .modules > .module:not(.card) {
 
 
 
-.topbar .mb-3 {
-    margin-bottom: 0;
-}
+//.topbar .mb-3 {
+//    margin-bottom: 0;
+//}
 
 //.topbar .form-control, Todo (after navbar update)
 //.topbar .btn,
@@ -388,47 +388,63 @@ footer.footer .modules > .module:not(.card) {
 //
 //}
 
-.navbar-fixed-top,
-.layout_social .topbar_modules {
-    .sitelogo a img {
-        display: inline;
-        margin-top: $tiki-navbar-fixed-height / 10;
-        margin-bottom: $tiki-navbar-fixed-height / 10;
-        max-height: $tiki-navbar-fixed-height / 1.25;
-        width: auto !important;
-    }
-    h1.sitetitle {
-        float: left;
-        font-size: 1.8rem;
-        line-height: 2;
-        margin-bottom: 0;
-        margin-left: 1rem;
-        //        color: $navbar-dark-brand-color; (This and the following commented-out lines moved to _tiki-selectors.scss)
-    }
-    .sitesubtitle {
-        float: left;
-        font-size: 1.4rem;
-        margin-left: 1.5rem;
-    }
-    #topbar_modules {
-        display: inline-block;
-    }
-    select.form-control {
-        margin-top: $tiki-navbar-fixed-height / 6;
-        padding-top: 4px;
-        padding-bottom: 4px;
-    }
-    .btn,
-    .btn-link {
-        margin-top: $tiki-navbar-fixed-height / 7;
-    }
-    //    .navbar-inverse .navbar-collapse,
-    //    .navbar-inverse .navbar-form,
-    //    .navbar-inverse {
-    //        border-color: transparent;
-    //    }
+// Font size and weight for static position logo module (fixed-top navbar is below)
+.sitetitle {
+    font-size: var(--tiki-site-title-font-size);
+    font-weight: var(--tiki-site-title-font-weight);
 }
 
+.sitesubtitle {
+    font-size: var(--tiki-site-subtitle-font-size);
+    font-weight: var(--tiki-site-subtitle-font-weight);
+}
+
+// Font size and weight for fixed-top position logo module (likely smaller than for static position)
+.navbar-fixed-top, // Where is this used? - gary
+.layout_social .top_modules, // This was .topbar_modules until Nov 2022 so rarely applied
+header.fixed-top {
+//    .sitelogo a img {
+//        display: inline;
+//        margin-top: $tiki-navbar-fixed-height / 10;
+//        margin-bottom: $tiki-navbar-fixed-height / 10;
+//        max-height: $tiki-navbar-fixed-height / 1.25;
+//        width: auto !important;
+//    }
+    .sitetitle {
+        //        float: left;
+        font-size: var(--tiki-fixed-top-site-title-font-size);
+        font-weight: var(--tiki-fixed-top-site-title-font-weight);
+        //        line-height: 2;
+        //        margin-bottom: 0;
+        //        margin-left: 1rem;
+      }
+        .sitesubtitle {
+            //        float: left;
+            font-size: var(--tiki-fixed-top-site-subtitle-font-size);
+            font-weight: var(--tiki-fixed-top-site-subtitle-font-weight);
+            //        margin-left: 1.5rem;
+            //    }
+            #topbar_modules {
+                display: inline-block;
+            }
+
+            select.form-control {
+                //        margin-top: $tiki-navbar-fixed-height / 6;
+                padding-top: 4px;
+                padding-bottom: 4px;
+            }
+
+            //    .btn,
+            //    .btn-link {
+            //        margin-top: $tiki-navbar-fixed-height / 7;
+            //    }
+            //    .navbar-inverse .navbar-collapse,
+            //    .navbar-inverse .navbar-form,
+            //    .navbar-inverse {
+            //        border-color: transparent;
+            //    }
+        }
+    }
 .navbar-fixed-top,
 #navbar-collapse-social {
     .navbar {

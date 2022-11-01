@@ -64,7 +64,7 @@
                     {if $prefs.feature_right_column eq 'user'}
                         <div class="col-md-12 side-col-toggle-container justify-content-end">
                             {$icon_name = (not empty($smarty.cookies.hide_zone_right)) ? 'toggle-left' : 'toggle-right'}
-                            {icon name=$icon_name class='toggle_zone right' href='#' title='{tr}Toggle right modules{/tr}'}
+                            {icon name=$icon_name class='toggle_zone right btn btn-xs btn-info' href='#' title='{tr}Toggle right modules{/tr}'}
                         </div>
                     {/if}
                 <div class="d-flex flex-row row flex-wrap w-100 gx-4">
@@ -89,7 +89,7 @@
                     {if $prefs.feature_left_column eq 'user'}
                         <div class="col-md-12 side-col-toggle-container justify-content-start">
                             {$icon_name = (not empty($smarty.cookies.hide_zone_left)) ? 'toggle-right' : 'toggle-left'}
-                            {icon name=$icon_name class='toggle_zone left' href='#' title='{tr}Toggle left modules{/tr}'}
+                            {icon name=$icon_name class='toggle_zone left btn btn-xs btn-info' href='#' title='{tr}Toggle left modules{/tr}'}
                         </div>
                     {/if}
                 <div class="d-flex flex-row row flex-wrap w-100 gx-4">
@@ -111,17 +111,17 @@
                     </div>
                 </div>
                 {else}
-                    <div class="col-sm-12 side-col-toggle-container d-flex">
+                    <div class="col-sm-12 side-col-toggle-container d-flex py-1">
                         {if $prefs.feature_left_column eq 'user'}
                             <div class="text-start side-col-toggle flex-fill">
                                 {$icon_name = (not empty($smarty.cookies.hide_zone_left)) ? 'toggle-right' : 'toggle-left'}
-                                {icon name=$icon_name class='toggle_zone left' href='#' title='{tr}Toggle left modules{/tr}'}
+                                {icon name=$icon_name class='toggle_zone left btn btn-xs btn-info' href='#' title='{tr}Toggle left modules{/tr}'}
                             </div>
                         {/if}
                         {if $prefs.feature_right_column eq 'user'}
                             <div class="text-end side-col-toggle flex-fill">
                                 {$icon_name = (not empty($smarty.cookies.hide_zone_right)) ? 'toggle-left' : 'toggle-right'}
-                                {icon name=$icon_name class='toggle_zone right' href='#' title='{tr}Toggle right modules{/tr}'}
+                                {icon name=$icon_name class='toggle_zone right btn btn-xs btn-info' href='#' title='{tr}Toggle right modules{/tr}'}
                             </div>
                         {/if}
                     </div>

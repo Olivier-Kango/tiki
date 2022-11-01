@@ -15,8 +15,8 @@ $tiki-module-h3-card-title-font-size: $h4-font-size !default;
 // Older
 $tiki-topmodules-row-sidemargins: 0 !default;
 $tiki-topbar-row-sidemargins: 0 !default;
-$tiki-topbar-row-margin-bottom: 1.4rem !default;
-$tiki-navbar-fixed-height: 3.25rem !default;
+//$tiki-topbar-row-margin-bottom: 1.4rem !default;
+//$tiki-navbar-fixed-height: 3.25rem !default;
 
 // Add Tiki legacy breadcrumb styles as variables.
 $tiki-breadcrumb-font-style: normal !default;
@@ -114,3 +114,16 @@ $blockquote-left-border-color: #e5e5e5 !default;
 
 // Smartmenus
 //$megamenu-dropdown-link-color: $dropdown-link-color;
+
+// Tiki CSS variables
+:root {
+    --tiki-fixed-top-site-title-font-size: 1.8rem;          // Fixed-top position (Basic Bootstrap layout)
+    --tiki-fixed-top-site-title-font-weight: 700;
+    --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+    --tiki-fixed-top-site-subtitle-font-weight: 400;
+
+    --tiki-site-title-font-size: 2rem;                      // Static position (Classic Tiki and Single Container layouts)
+    --tiki-site-title-font-weight: 700;
+    --tiki-site-subtitle-font-size: 1.5rem;
+    --tiki-site-subtitle-font-weight: 400;
+}

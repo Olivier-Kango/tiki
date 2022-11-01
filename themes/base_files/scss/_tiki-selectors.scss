@@ -7,7 +7,7 @@ $imagePathToImgDir: "../../../img/";
 //@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss";
 @import "../../default/scss/variables";
 
-.topbar { margin-bottom: $tiki-topbar-row-margin-bottom; }
+// .topbar { margin-bottom: $tiki-topbar-row-margin-bottom; } - topbar is inside a wrapper so shouldn't have its own bottom margin - gary
 
 // Background color for navbar collapse dropdowns (Tiki's aren't .dropdown li).
 //.navbar-collapse.collapse.in {

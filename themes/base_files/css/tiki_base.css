@@ -2,8 +2,15 @@
 /* $Id$
     This Tiki Wiki CMS Groupware file contains global design
     and layout properties. */
-.topbar {
-  margin-bottom: 1.4rem;
+:root {
+  --tiki-fixed-top-site-title-font-size: 1.8rem;
+  --tiki-fixed-top-site-title-font-weight: 700;
+  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+  --tiki-fixed-top-site-subtitle-font-weight: 400;
+  --tiki-site-title-font-size: 2rem;
+  --tiki-site-title-font-weight: 700;
+  --tiki-site-subtitle-font-size: 1.5rem;
+  --tiki-site-subtitle-font-weight: 400;
 }
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);
@@ -1528,38 +1535,28 @@ footer.footer .modules > .module:not(.card) {
 .top_modules .module:nth-child(2) {
   margin-left: auto;
 }
-.topbar .mb-3 {
-  margin-bottom: 0;
+.sitetitle {
+  font-size: var(--tiki-site-title-font-size);
+  font-weight: var(--tiki-site-title-font-weight);
 }
-.navbar-fixed-top .sitelogo a img, .layout_social .topbar_modules .sitelogo a img {
-  display: inline;
-  margin-top: 0.325rem;
-  margin-bottom: 0.325rem;
-  max-height: 2.6rem;
-  width: auto !important;
+.sitesubtitle {
+  font-size: var(--tiki-site-subtitle-font-size);
+  font-weight: var(--tiki-site-subtitle-font-weight);
 }
-.navbar-fixed-top h1.sitetitle, .layout_social .topbar_modules h1.sitetitle {
-  float: left;
-  font-size: 1.8rem;
-  line-height: 2;
-  margin-bottom: 0;
-  margin-left: 1rem;
+.navbar-fixed-top .sitetitle, .layout_social .top_modules .sitetitle, header.fixed-top .sitetitle {
+  font-size: var(--tiki-fixed-top-site-title-font-size);
+  font-weight: var(--tiki-fixed-top-site-title-font-weight);
 }
-.navbar-fixed-top .sitesubtitle, .layout_social .topbar_modules .sitesubtitle {
-  float: left;
-  font-size: 1.4rem;
-  margin-left: 1.5rem;
+.navbar-fixed-top .sitesubtitle, .layout_social .top_modules .sitesubtitle, header.fixed-top .sitesubtitle {
+  font-size: var(--tiki-fixed-top-site-subtitle-font-size);
+  font-weight: var(--tiki-fixed-top-site-subtitle-font-weight);
 }
-.navbar-fixed-top #topbar_modules, .layout_social .topbar_modules #topbar_modules {
+.navbar-fixed-top .sitesubtitle #topbar_modules, .layout_social .top_modules .sitesubtitle #topbar_modules, header.fixed-top .sitesubtitle #topbar_modules {
   display: inline-block;
 }
-.navbar-fixed-top select.form-control, .layout_social .topbar_modules select.form-control {
-  margin-top: 0.5416666667rem;
+.navbar-fixed-top .sitesubtitle select.form-control, .layout_social .top_modules .sitesubtitle select.form-control, header.fixed-top .sitesubtitle select.form-control {
   padding-top: 4px;
   padding-bottom: 4px;
-}
-.navbar-fixed-top .btn, .navbar-fixed-top .btn-link, .layout_social .topbar_modules .btn, .layout_social .topbar_modules .btn-link {
-  margin-top: 0.4642857143rem;
 }
 .navbar-fixed-top .navbar, #navbar-collapse-social .navbar {
   margin-bottom: 0;
@@ -3566,19 +3563,8 @@ legend + * {
   margin: auto;
   padding-bottom: 0;
 }
-.topbar .navbar {
-  margin-bottom: 0;
-  border: none;
-}
 .dropdown-menu.dropdown-login li:hover {
   background: inherit;
-}
-body.tiki.navbar-padding {
-  padding-top: 3.25rem;
-}
-body.layout_social.tiki.navbar-padding {
-  padding-top: 5.25rem;
-  padding-bottom: 0;
 }
 body.fullscreen.tiki.navbar-padding {
   padding-top: 0;
@@ -3694,12 +3680,6 @@ body.fullscreen.tiki.navbar-padding {
 .mb-3.row {
   margin-left: 0;
   margin-right: 0;
-}
-.side-col-toggle-container {
-  width: 100%;
-  height: 1.5rem;
-  margin-top: -0.8rem;
-  display: flex;
 }
 @media (max-width: 575.98px) {
   .side-col-toggle-container {
