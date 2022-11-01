@@ -295,6 +295,7 @@
                         {button href="tiki-edit_templates.php" _text="{tr}Edit Templates{/tr}"}
                     </div>
                 {/if}
+                {preference name="theme_iconeditable"}
             </fieldset>
             <hr>
         {/tab}
