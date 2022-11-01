@@ -587,9 +587,6 @@ class Table_Plugin
 
         //tspaginate
         if (! empty($tsoutput)) {
-            if (! is_readable('vendor_bundled/vendor/mottie/tablesorter/js/widgets/widget-output.js')) {
-                Feedback::error(tr('File widget-output.js required for tablesorter output not found. Delete directory  vendor_bundled/vendor/mottie and re-run setup.sh.'));
-            }
             $tsp = Table_Check::parseParam($tsoutput);
             if (is_array($tsp[0]) || $tsp[0] !== 'n' || ($tsp[0] === 'n' && $server === 'y')) {
                 if (is_array($tsp[0])) {
