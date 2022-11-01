@@ -28,8 +28,6 @@ class SaveHandler
       return false;
     } elseif (! $this->file->fileId) {
       return false;
-    } elseif ($this->file->galleryDefinition()->isDirect()) {
-      return true;
     } else {
       if ($prefs['feature_file_galleries_save_draft'] == 'y') {
         return false;
