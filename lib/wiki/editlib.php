@@ -1506,14 +1506,21 @@ class EditLib
      */
     public function convertWikiSyntax($data, $target_syntax)
     {
+        global $prefs;
+
         if ($target_syntax != 'markdown' && $target_syntax != 'tiki') {
             throw new Exception(tr('Failed converting content: unrecognized target syntax passed: %0', $target_syntax));
         }
+
+        $old_pref = $prefs['wiki_heading_links'];
+        $prefs['wiki_heading_links'] = 'n';
 
         $wikiParserParsable = new WikiParser_Parsable($data);
         $syntaxPluginResult = $wikiParserParsable->guess_syntax($data);
         $source_syntax = $syntaxPluginResult['syntax'];
         $html = $wikiParserParsable->parse(['noparseplugins' => true]);
+
+        $prefs['wiki_heading_links'] = $old_pref;
 
         if ($target_syntax == 'markdown') {
             // convert to markdown
