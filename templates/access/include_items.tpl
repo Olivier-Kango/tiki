@@ -9,7 +9,7 @@
         {if $items|count < 16}
             <ul id="list-items">
                 {foreach $items as $name}
-                    <li>
+                    <li class="mx-4">
                         {$name|escape}
                     </li>
                 {/foreach}

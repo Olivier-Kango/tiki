@@ -342,6 +342,8 @@ class Services_User_Controller
      */
     public function action_remove_users($input)
     {
+        global $prefs;
+
         Services_Exception_Denied::checkGlobal('admin_users');
         $util = new Services_Utilities();
         //first pass - show confirm modal popup
@@ -353,7 +355,38 @@ class Services_User_Controller
                 } else {
                     $msg = tra('Delete the following users?');
                 }
-                return $util->confirm($msg, tra('Delete'));
+
+                $trackerIds = [];
+                if ($prefs['feature_trackers'] === 'y') {
+                    $trackerLib = TikiLib::lib('trk');
+                    foreach ($util->items as $aUser) {
+                        $userItems = $trackerLib->get_user_items($aUser);
+                        foreach ($userItems as $userItem) {
+                            if (! isset($trackerIds[$userItem['trackerId']])) {
+                                $info = $trackerLib->get_tracker($userItem['trackerId']);
+                                $trackerIds[$userItem['trackerId']] = [
+                                    'name' => $info['name'],
+                                    'count' => 1,
+                                ];
+                            } else {
+                                $trackerIds[$userItem['trackerId']]['count']++;
+                            }
+                        }
+                    }
+                }
+
+                return [
+                    'modal' => '1',
+                    'confirmAction' => $input->action->word(),
+                    'confirmController' => 'user',
+                    'customMsg' => $msg,
+                    'confirmButton' => tra('Delete'),
+                    'items' => $util->items,
+                    'extra' => ['referer' => Services_Utilities::noJsPath()],
+                    //'ticket' => $check['ticket'],
+                    'confirm' => 'y',
+                    'trackerIds' => $trackerIds,
+                ];
             } else {
                 Services_Utilities::modalException(tra('No users were selected. Please select one or more users.'));
             }
@@ -365,8 +398,7 @@ class Services_User_Controller
             $remove_pages = ! empty($input['remove_pages']);
 
             // check for trackers
-            $remove_items = $input['remove_items'];
-            $remove_items = $remove_items ? explode(',', $remove_items) : [];
+            $remove_items = $input->asArray('remove_items');
 
             // file galleries?
             $remove_files = ! empty($input['remove_files']);

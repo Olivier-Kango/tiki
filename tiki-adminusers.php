@@ -299,11 +299,13 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
         $AddUser = false;
     }
     // end verify newuser info
+    $cookietab = 1;
     if ($AddUser) {
         $pass_first_login = (isset($_REQUEST['pass_first_login']) && $_REQUEST['pass_first_login'] == 'on');
         $polerr = $userlib->check_password_policy($newPass);
         if (strlen($polerr) > 0) {
             Feedback::error(['mes' => $polerr]);
+            $cookietab = 2;
         } else {
             if ($prefs['login_is_email'] == 'y' and empty($_REQUEST['email'])) {
                 $_REQUEST['email'] = $_REQUEST['login'];
@@ -349,11 +351,12 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
                 }
 
                 if ($prefs['userTracker'] === 'y' && ! empty($_REQUEST['insert_user_tracker_item'])) {
+                    // FIXME
                     TikiLib::lib('header')->add_jq_onready('setTimeout(function () { $(".insert-usertracker").click(); });');
                     $_REQUEST['user'] = $userlib->get_user_id($_REQUEST['login']);
-                    $cookietab = '2';
+                    $cookietab = 2;
                 } else {
-                    $cookietab = '1';
+                    $cookietab = 1;
                     $_REQUEST['find'] = $_REQUEST['login'];
                 }
             } else {
@@ -365,9 +368,10 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
                 );
             }
         }
+    } else {
+        $cookietab = 2;
     }
 
-    $cookietab = 1;
 } elseif (isset($_REQUEST['action'])) {
     if ($_REQUEST['action'] == 'email_due' && isset($_REQUEST['user']) && $access->checkCsrf()) {
         $result = $userlib->reset_email_due($_REQUEST['user']);
@@ -438,7 +442,7 @@ if (isset($_REQUEST['user']) and $_REQUEST['user']) {
         $_REQUEST['user'] = $userlib->get_user_id($_REQUEST['user']);
     }
     $userinfo = $userlib->get_userid_info($_REQUEST["user"]);
-    $cookietab = '2';
+    $cookietab = 2;
 
     // If login is e-mail, email field needs to be the same as name (and is generally not send)
     if ($prefs['login_is_email'] == 'y' && isset($_POST['login'])) {
@@ -609,7 +613,7 @@ $smarty->assign_by_ref('users', $users['data']);
 $smarty->assign_by_ref('cant', $users['cant']);
 
 if (isset($_REQUEST['add'])) {
-    $cookietab = '2';
+    $cookietab = 2;
 }
 
 //add tablesorter sorting and filtering

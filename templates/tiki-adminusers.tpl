@@ -513,7 +513,10 @@
                                 <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" name="pass_first_login"{if isset($userinfo.pass_confirm) && $userinfo.pass_confirm eq '0'} checked="checked"{/if}>
+                                            <input class="form-check-input" type="checkbox" name="pass_first_login"
+                                                {if isset($userinfo.pass_confirm) && $userinfo.pass_confirm eq '0' or not empty($smarty.request.pass_first_login)}
+                                                    checked="checked"
+                                                {/if}>
                                             {tr}User must change password at next login{/tr}
                                         </label>
                                     </div>
@@ -534,7 +537,11 @@
                             <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" name="need_email_validation" {if ($userinfo.login eq '' and ($prefs.validateUsers eq 'y' or $prefs.validateRegistration eq 'y')) or $userinfo.provpass neq '' or $userinfo.valid neq ''}checked="checked"{/if}>
+                                        <input class="form-check-input" type="checkbox" name="need_email_validation"
+                                            {if ($userinfo.login eq '' and ($prefs.validateUsers eq 'y' or $prefs.validateRegistration eq 'y')) or
+                                                    $userinfo.provpass neq '' or $userinfo.valid neq '' or not empty($smarty.request.need_email_validation)}
+                                                checked="checked"
+                                            {/if}>
                                         {tr}Send an email to the user to enable him or her to validate their account.{/tr}
                                     </label>
                                     {if empty($prefs.sender_email)}
@@ -544,12 +551,14 @@
                             </div>
                         </div>
                     {/if}
-                    {if $prefs.userTracker eq 'y' and $userinfo.login eq ''}
+
+                    {if $prefs.userTracker eq 'y' and ($userinfo.login eq '' or not empty($smarty.request.insert_user_tracker_item))}
                         <div class="mb-3 row">
                             <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" name="insert_user_tracker_item">
+                                        <input class="form-check-input" type="checkbox" name="insert_user_tracker_item"
+                                               {if not empty($smarty.request.insert_user_tracker_item)}checked="checked"{/if}>
                                         {tr}Add a user tracker item for this user{/tr}
                                     </label>
                                 </div>
@@ -572,7 +581,8 @@
                                         {tr}View item{/tr}
                                     </a>
                                 {else}
-                                    <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$userstrackerid forced=$usersTrackerForced}" onclick="$('[data-bs-toggle=popover]').popover('hide');" class="btn btn-primary insert-usertracker">
+                                    <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$userstrackerid forced=$usersTrackerForced}"
+                                            class="btn btn-primary insert-usertracker">
                                         {tr}Create Item{/tr}
                                     </a>
                                 {/if}
