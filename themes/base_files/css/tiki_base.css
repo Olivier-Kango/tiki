@@ -879,6 +879,12 @@ a.dropdown-item {
   border-color: var(--bs-btn-disabled-border-color);
   opacity: var(--bs-btn-disabled-opacity);
 }
+.btn-xs {
+  padding: 0 0.25rem !important;
+}
+.btn-xs > span {
+  width: 1rem !important;
+}
 .tiki .mx-n2point5 {
   margin-left: -0.75rem;
   margin-right: -0.75rem;

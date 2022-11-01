@@ -1,21 +1,10 @@
 // $Id$
 //****** Misc. Global Classes (layout and style) ****/
-// highlight on interface text to draw attention;
-// also highlight on "button" links, e.g. if there are some comments it
-// highlights the "button" link in #page-bar under the content of the wiki pages
 
-// (this and the following color-related selectors are moved to _tiki-selectors.scss)
-// .searchresults blockquote em,
-// .highlight,
-// .button.highlight a,
-// .button a.highlight {
-//     background: $state-danger-bg;
-//     color: $state-danger-text;
-// }
-//
-// .button a.highlight:hover {
-//     background: darken($state-danger-bg, 15%);
-// }
+// Extra-small button, initially for the side column toggle icons
+.btn-xs { padding: 0 .25rem !important; }
+.btn-xs > span { width: 1rem !important; }
+
 // Negative margin to offset 0.75rem padding in row so, ex, backgrounds go full width (replaces .mx--15px)
 .tiki .mx-n2point5 {
     margin-left: ($spacer * -0.75);
