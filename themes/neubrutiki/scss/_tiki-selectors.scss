@@ -25,6 +25,12 @@ $imagePath: "../images/";
 // -------------------- Typography -------------------- //
 .display-1 {
     font-family: "Bebas Neue", sans-serif;
+    letter-spacing: .05rem;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, h2., .h3, .h4, .h5, h6 {
+    letter-spacing: .05rem;
 }
 
 // -------------------- Tables -------------------- //
@@ -118,6 +124,7 @@ table.table {
 // -------------------- Navs -------------------- //
 .nav-link {
     font-family: "Bebas Neue", cursive;
+    letter-spacing: .05rem;
 }
 
 // -------------------- Navbar -------------------- //
@@ -139,12 +146,17 @@ table.table {
         border-bottom: $card-border-width solid $card-border-color;
         padding: 1rem !important;
     }
-    .card-footer,
-    .articletrailer {
+    .card-footer { //,
+ //   .articletrailer {
         border-top: $card-border-width solid $card-border-color;
     }
 }
 
+.article {
+    padding: 1rem;
+}
+
+.article-trailer
 //.modules .card.module:nth-child(1n),
 //#page-data .card#module_wikiplugin_3,
     //.col1 article.blogpost:nth-child(1n),

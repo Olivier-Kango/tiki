@@ -3,9 +3,6 @@ html, .navbar.fixed-top {
   /*box-shadow: inset 0 0 0 0.75rem #1a1a1a;*/
   border: solid 0.75rem #1a1a1a;
 }
-.row-middle > div.row {
-  --bs-gutter-x: 0;
-}
 #col1 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -20,6 +17,7 @@ html, .navbar.fixed-top {
   .row-middle > div.row {
     justify-content: space-between;
     padding-right: 0;
+    --bs-gutter-x: 0;
   }
   #col2 {
     padding-left: 0;

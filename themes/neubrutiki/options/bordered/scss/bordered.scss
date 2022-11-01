@@ -7,9 +7,9 @@ html,
     border: $bordered_border;
 }
 
-.row-middle > div.row {
-    --bs-gutter-x: 0;
-}
+//.row-middle > div.row {
+//    --bs-gutter-x: 0;
+//}
 
 #col1 {
     padding-left: 1rem;
@@ -28,6 +28,7 @@ html,
     .row-middle > div.row {
         justify-content: space-between;
         padding-right: 0;
+        --bs-gutter-x: 0;
     }
     #col2 {
         padding-left: 0;
