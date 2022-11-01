@@ -61,7 +61,7 @@ class Table_Code_Other extends Table_Code_Manager
         }
 
         // output button
-        if (! empty(parent::$s['output'])) {
+        if (! empty(parent::$s['output']['type'])) {
             $buttons[] = '<button id="' . parent::$s['output']['button']['id']
                 . '" type="button" class="btn btn-primary btn-sm tips" title="|' . parent::$s['output']['button']['text']
                 . '" style="margin-right:3px">' . smarty_function_icon(['name' => 'download'], $smarty->getEmptyInternalTemplate()) . '</button>';
