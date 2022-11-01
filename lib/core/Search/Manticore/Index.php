@@ -80,6 +80,9 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         // stored conversion of manticore field names to tiki field names
         $fieldMapping = $this->getUnifiedFieldMapping();
 
+        // stored list of date-only fields as Manticore stores all datetime types as timestamp
+        $dateFields = $this->getUnifiedDateFields();
+
         // correct mapping back to tiki field names (possibly come from manticore server desc statement)
         $providedMappingsCorrectName = array_flip(array_map(function ($field) use ($fieldMapping) {
             return $fieldMapping[$field] ?? $field;
@@ -96,6 +99,14 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         foreach ($mapping as $field => $type) {
             if ($type['type'] == 'text' && ! in_array($field, $indexedFields)) {
                 $mapping[$field] = ['type' => 'string'];
+            }
+        }
+
+        // cache date-only field list
+        foreach ($mapping as $field => $type) {
+            if (! empty($type['dateonly'])) {
+                unset($mapping[$field]['dateonly']);
+                $dateFields[] = $field;
             }
         }
 
@@ -118,6 +129,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         }
 
         TikiLib::lib('tiki')->set_preference('unified_field_mapping', json_encode($fieldMapping));
+        TikiLib::lib('tiki')->set_preference('unified_date_fields', json_encode($dateFields));
     }
 
     private function getIndexSettings()
@@ -213,6 +225,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         } elseif ($entry instanceof Search_Type_Timestamp) {
             return [
                 "type" => "timestamp",
+                'dateonly' => $entry->isDateOnly(),
             ];
         } else {
             return [
@@ -283,6 +296,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         $result = $search->get();
 
         $fieldMapping = $this->getUnifiedFieldMapping();
+        $dateFields = $this->getUnifiedDateFields();
 
         $timestampFields = [];
         foreach ($this->providedMappings as $field => $mapping) {
@@ -310,7 +324,8 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             // Tiki interface expects datetime strings in GMT, so we need a conversion before using the result
             foreach ($timestampFields as $tsField) {
                 if (! empty($data[$tsField])) {
-                    $dt = new Search_Type_DateTime($data[$tsField]);
+                    $isDateOnly = in_array($fieldMapping[$tsField] ?? $tsField, $dateFields);
+                    $dt = new Search_Type_DateTime($data[$tsField], $isDateOnly);
                     $data[$tsField] = $dt->getValue();
                     $data['ignored_fields'][] = $fieldMapping[$tsField] ?? $tsField;
                 }
@@ -445,6 +460,18 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         }
 
         return $fieldMapping;
+    }
+
+    protected function getUnifiedDateFields()
+    {
+        global $prefs;
+
+        $dateFields = $prefs['unified_date_fields'] ?? [];
+        if ($dateFields) {
+            $dateFields = json_decode($dateFields, true);
+        }
+
+        return $dateFields;
     }
 
     protected function getWords($expr)

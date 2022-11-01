@@ -208,6 +208,7 @@ class UnifiedSearchLib
                 $indexName = $prefs['unified_manticore_index_prefix'] . 'main_' . uniqid();
                 $index = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $indexName);
                 $engineResults = new Search_EngineResult_Manticore($index);
+                TikiLib::lib('tiki')->set_preference('unified_date_fields', json_encode([]));
 
                 TikiLib::events()->bind(
                     'tiki.process.shutdown',
