@@ -14,7 +14,7 @@
  * @return String The new parsed link
  */
 
-function helper_function_contruct_menu_url_from_db(String $url_from_db): String
+function helper_function_contruct_menu_url_from_db(mixed $url_from_db): mixed
 {
     if (preg_match('/^\(\(([^()]+)\)\)$/', $url_from_db)) { //as page url are save as ((V-Log)) this should match the regex
         $match = [];
@@ -158,7 +158,7 @@ function smarty_function_menu($params, $smarty)
         }
 
         $smarty->assign('list', $structured);
-        $menu_icons = $tikilib->fetchAll('SELECT url, icon FROM tiki_menu_options');
+        $menu_icons = $tikilib->fetchAll('SELECT url, icon FROM tiki_menu_options WHERE url IS NOT NULL');
         $iconset_pref = $prefs['theme_iconset'];
         $menu_icons_searchable = [];
         foreach ($menu_icons as $key => $value) {
