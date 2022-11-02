@@ -981,7 +981,7 @@ CREATE TABLE `tiki_files` (
   KEY `description` (description(191)),
   KEY `created` (created),
   KEY `archiveId` (`archiveId`),
-  KEY `galleryIdAndFilename` (`galleryId`, `filename`),
+  KEY `galleryIdAndPath` (`galleryId`, `path`(188)),
   KEY `hits` (hits)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
