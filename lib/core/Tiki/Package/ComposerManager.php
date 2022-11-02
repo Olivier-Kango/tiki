@@ -299,7 +299,7 @@ class ComposerManager
         $canBeInstalled = [];
         if ($availablePackages) {
             foreach ($availablePackages as $pkg) {
-                if (! in_array('remove', $pkg['actions'])) {
+                if ($pkg['state'] === ComposerPackage::STATE_ACTIVE) {
                     $canBeInstalled[] = $pkg;
                 }
             }
