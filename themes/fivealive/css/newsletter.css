@@ -1,4 +1,14 @@
 /* FiveAlive theme newsletter stylesheet */
+:root {
+  --tiki-fixed-top-site-title-font-size: 1.8rem;
+  --tiki-fixed-top-site-title-font-weight: 700;
+  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+  --tiki-fixed-top-site-subtitle-font-weight: 400;
+  --tiki-site-title-font-size: 2rem;
+  --tiki-site-title-font-weight: 700;
+  --tiki-site-subtitle-font-size: 1.5rem;
+  --tiki-site-subtitle-font-weight: 400;
+}
 body {
   background: #fff;
   color: #212529;
@@ -31,4 +41,25 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .card-title > a, .card-title > small, .card-title > .small, .card-title > small > a, .card-title > .small > a {
   color: inherit;
+}
+:root {
+  --tiki-top-bg-light: #28AAE1FF;
+  --tiki-top-light-color: #ffffff;
+  --tiki-top-light-link-color: #efefef;
+  --tiki-top-light-link-hover-color: #fff;
+  --tiki-topbar-bg-light: #1174a5;
+  --tiki-topbar-light-color: #efefef;
+  --tiki-topbar-light-link-color: #efefef;
+  --tiki-topbar-light-link-hover-color: #fff;
+  --tiki-top-bg-dark: #1a8cbc;
+  --tiki-top-dark-color: #ffffff;
+  --tiki-top-dark-link-color: #efefef;
+  --tiki-top-dark-link-hover-color: #fff;
+  --tiki-topbar-bg-dark: #1174a5;
+  --tiki-topbar-dark-color: var(--tiki-topbar-light-color);
+  --tiki-topbar-dark-link-color: var(--tiki-topbar-light-link-color);
+  --tiki-topbar-dark-link-hover-color: var(--tiki-topbar-light-link-hover-color);
+  --tiki-top-light-border: solid #000;
+  --tiki-top-dark-border: solid #000;
+  --tiki-top-border-width: 0 0 5px 0;
 }

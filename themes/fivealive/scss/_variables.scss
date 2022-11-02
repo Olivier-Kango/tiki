@@ -80,7 +80,7 @@ $dropdown-header-color: #fff !default;
 $nav-tabs-border-color:             $gray-300 !default;
 
 // Navbar
-$navbar-height:     54px;
+//$navbar-height:     54px;
 //$bg-dark: #043b5a;
 $navbar-dark-border: none;
 
@@ -167,3 +167,31 @@ $bg-dark: #1174a5;
 
 // Update for Smartmenus
 $dropdown-item: $dropdown-link-color !default;
+
+// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
+// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
+:root {
+    --tiki-top-bg-light: #28AAE1FF; // #{$header_outer-bg};
+    --tiki-top-light-color: #{$header-color};
+    --tiki-top-light-link-color: #{$navbar-dark-color};
+    --tiki-top-light-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-topbar-bg-light: #{$bg-dark};
+    --tiki-topbar-light-color: #{$navbar-dark-color};
+    --tiki-topbar-light-link-color: #{$navbar-dark-color};
+    --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-top-bg-dark: #{$header_outer-bg};
+    --tiki-top-dark-color: #{$header-color};
+    --tiki-top-dark-link-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-topbar-bg-dark: #{$bg-dark};
+    --tiki-topbar-dark-color: var(--tiki-topbar-light-color);
+    --tiki-topbar-dark-link-color: var(--tiki-topbar-light-link-color);
+    --tiki-topbar-dark-link-hover-color: var(--tiki-topbar-light-link-hover-color);
+
+    --tiki-top-light-border: solid #000;
+    --tiki-top-dark-border: solid #000;
+    --tiki-top-border-width: 0 0 5px 0;
+}
