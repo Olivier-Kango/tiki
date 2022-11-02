@@ -1506,7 +1506,7 @@ class EditLib
      */
     public function convertWikiSyntax($data, $target_syntax)
     {
-        global $prefs;
+        global $page_regex, $prefs;
 
         if ($target_syntax != 'markdown' && $target_syntax != 'tiki') {
             throw new Exception(tr('Failed converting content: unrecognized target syntax passed: %0', $target_syntax));
@@ -1515,12 +1515,17 @@ class EditLib
         $old_pref = $prefs['wiki_heading_links'];
         $prefs['wiki_heading_links'] = 'n';
 
+        // keep semantic versioned links (including page aliases) from parsing
+        $data = preg_replace("/\(([a-z0-9-]+\( *$page_regex *\|?[^\)]*?\))\)/", "??skipsem??$1??/skipsem??", $data);
+
         $wikiParserParsable = new WikiParser_Parsable($data);
         $syntaxPluginResult = $wikiParserParsable->guess_syntax($data);
         $source_syntax = $syntaxPluginResult['syntax'];
         $html = $wikiParserParsable->parse(['noparseplugins' => true]);
 
         $prefs['wiki_heading_links'] = $old_pref;
+
+        $html = str_replace(['??skipsem??', '??/skipsem??'], ['(', ')'], $html);
 
         if ($target_syntax == 'markdown') {
             // convert to markdown
