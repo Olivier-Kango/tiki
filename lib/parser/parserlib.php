@@ -2301,8 +2301,9 @@ class ParserLib extends TikiDb_Bridge
 
         $need_autonumbering = ( preg_match('/^\!+[\-\+]?#/m', $data) > 0 );
 
-        $anch = [];
         global $anch;
+        $anch = [];
+
         $pageNum = 1;
 
         // Now tokenize the expression and process the tokens
