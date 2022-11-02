@@ -26,6 +26,7 @@ class SaveHandler
     }
 
     public function isReplacing() {
+        global $prefs;
         if (! $this->file->exists()) {
             return false;
         } elseif (! $this->file->fileId) {
