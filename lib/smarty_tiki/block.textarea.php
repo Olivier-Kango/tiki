@@ -459,14 +459,14 @@ function admintoolbar() {
     if ($prefs['markdown_enabled'] === 'y') {
         $headerlib->add_js(/** @lang JavaScript */ '
 function addSyntaxPlugin(domId, $form) {
-        const $textarea = $("#" + domId),
+    const $textarea = $("#" + domId),
         syntax = $("input[name=syntax]", $form).val(),
         editor = $("input[name=wysiwyg]", $form).val() === "y" ? "wysiwyg" : "plain";
     let val = $textarea.val();
 
     if (syntax === "markdown") {
-        val = val.replace(/^tiki$/mg, "");
-        val = val.replace(/^$/mg, "");
+        val = val.replace(/^\$\$tiki$/mg, "");
+        val = val.replace(/^\$\$$/mg, "");
     }
     $textarea.val("{syntax type=\"" + syntax + "\", editor=\"" + editor + "\"}\r\n" + val);
 }
