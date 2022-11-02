@@ -230,6 +230,12 @@ class HistLib extends TikiLib
                 $logslib = TikiLib::lib('logs');
                 $aux['contributors'] = $logslib->get_wiki_contributors($aux);
             }
+            if ($prefs['markdown_enabled'] === 'y') {
+                $wikiParserParsable = new WikiParser_Parsable($res['data']);
+                $syntaxPluginResult = $wikiParserParsable->guess_syntax($res['data']);
+                $aux['is_markdown'] = $syntaxPluginResult['syntax'] === 'markdown';
+                $aux['wysiwyg'] = $syntaxPluginResult['editor'] === 'wysiwyg' ? 'y' : 'n';
+            }
             $ret[] = $aux;
         }
 

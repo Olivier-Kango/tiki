@@ -311,8 +311,17 @@
                             {tr}Version{/tr}
                         </th>
                         <th>
-                            {icon name='html' iclass='tips' ititle='{tr}HTML allowed:{/tr}{tr}HTML syntax is allowed either by page setting or use of the WYSIWIG editor{/tr}'}
+                            {icon name='edit' iclass='tips' ititle='{tr}WYSIWYG or HTML allowed:{/tr}{tr}HTML syntax is allowed either by page setting or use of the WYSIWIG editor{/tr}'}
                         </th>
+                        {if $prefs.markdown_enabled eq 'y'}
+                            <th>
+                                <a href="#"  class="tips" title="Syntax|Markdown">
+                                    <svg aria-hidden="true" height="16" width="16">
+                                        <path fill-rule="evenodd" d="M14.85 3H1.15C.52 3 0 3.52 0 4.15v7.69C0 12.48.52 13 1.15 13h13.69c.64 0 1.15-.52 1.15-1.15v-7.7C16 3.52 15.48 3 14.85 3zM9 11H7V8L5.5 9.92 4 8v3H2V5h2l1.5 2L7 5h2v6zm2.99.5L9.5 8H11V5h2v3h1.5l-2.51 3.5z"></path>
+                                    </svg>
+                                </a>
+                            </th>
+                        {/if}
                         <th></th>
                         {if $prefs.default_wiki_diff_style != "old" and $history}
                             <th colspan="2">
@@ -365,7 +374,12 @@
                             </td>
                             <td class="button_container">
                                 {if $info.is_html || $info.wysiwyg eq "y"}
-                                    {icon name='html' iclass='tips' ititle=':{tr}HTML allowed{/tr}'}
+                                    {icon name='html' iclass='tips' ititle=':{tr}HTML allowed or WYSIWYG t{/tr}'}
+                                {/if}
+                            </td>
+                            <td class="button_container">
+                                {if $info.is_markdown}
+                                    {icon name='check' iclass='tips' ititle=':{tr}Markdown{/tr}'}
                                 {/if}
                             </td>
                             <td class="button_container" style="white-space: nowrap">
@@ -454,6 +468,13 @@
                             <td class="button_container">
                                 {if $element.is_html eq "1"}
                                     {icon name='html' iclass='tips' ititle=':{tr}HTML allowed{/tr}'}
+                                {elseif $element.wysiwyg eq "y"}
+                                    {icon name='bold' iclass='tips' ititle=':{tr}WYSIWYG{/tr}'}
+                                {/if}
+                            </td>
+                            <td class="button_container">
+                                {if $element.is_markdown}
+                                    {icon name='check' iclass='tips' ititle=':{tr}Markdown{/tr}'}
                                 {/if}
                             </td>
                             <td class="button_container" style="white-space: nowrap">
