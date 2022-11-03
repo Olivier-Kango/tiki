@@ -14,7 +14,7 @@
  * @return String The new parsed link
  */
 
-function helper_function_contruct_menu_url_from_db(mixed $url_from_db): mixed
+function helper_function_contruct_menu_url_from_db($url_from_db)
 {
     if (preg_match('/^\(\(([^()]+)\)\)$/', $url_from_db)) { //as page url are save as ((V-Log)) this should match the regex
         $match = [];
