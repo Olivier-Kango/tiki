@@ -7,7 +7,7 @@
     </ul>
 {else}
     {* Bootstrap 4 navigation *}
-    <ul class="{if $bs_menu_class}{$bs_menu_class}{else} navbar-nav me-auto{/if}">
+    <ul class="{if $bs_menu_class}{$bs_menu_class}{else} navbar-nav me-auto{/if} {if $module_params.type|default:null eq 'vert'}bs-vertical{/if}">
         {foreach from=$list item=item}
             {if not empty($item.children)}
                 {if $module_params.type|default:null eq 'horiz'}

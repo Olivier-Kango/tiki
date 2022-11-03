@@ -3810,6 +3810,10 @@ body.fullscreen.tiki.navbar-padding {
 .breadcrumb-item + .breadcrumb-item::before {
   content: none !important;
 }
+.navbar-nav.me-auto.bs-vertical .nav-link, .navbar-nav.me-auto.sm-vertical .nav-link {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
 div.tablesorter-resizable-container {
   clear: both;
   width: 100%;

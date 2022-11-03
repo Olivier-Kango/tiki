@@ -425,3 +425,10 @@ body.fullscreen.tiki.navbar-padding {
 
 // Override the default Bootstrap separator.
 .breadcrumb-item + .breadcrumb-item::before { content: none !important; }
+
+// Restore pre-Bootstrap 5 top and bottom padding on vertical menu items
+.navbar-nav.me-auto.bs-vertical .nav-link,
+.navbar-nav.me-auto.sm-vertical .nav-link {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
