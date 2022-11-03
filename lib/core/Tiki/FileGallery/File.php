@@ -205,7 +205,7 @@ class File
 		}
 
 		$saveHandler = new SaveHandler($this);
-		$this->isReplacing = $saveHandler->isReplacing()
+		$this->isReplacing = $saveHandler->isReplacing();
 
 		if ($data && !$this->replaceContents($data)) {
 			// Do not replace with empty file as could be updating properties only
