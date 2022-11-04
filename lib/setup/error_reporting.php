@@ -28,7 +28,7 @@ if ($prefs['error_reporting_adminonly'] == 'y' and $tiki_p_admin != 'y') {
 }
 
 // Handle Smarty notices
-if (! empty($prefs['smarty_notice_reporting']) and $prefs['smarty_notice_reporting'] === 'y') {
+if (! empty($prefs['smarty_notice_reporting']) and $prefs['smarty_notice_reporting'] === 'y' && ($prefs['error_reporting_adminonly'] != 'y' || $tiki_p_admin == 'y')) {
     $smartyErrorReportingLevel = $errorReportingLevel | E_NOTICE | E_USER_NOTICE ;
 } else {
     $smartyErrorReportingLevel = $errorReportingLevel;
