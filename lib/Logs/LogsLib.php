@@ -512,7 +512,7 @@ class LogsLib extends TikiLib
         $query = "select a.* from `tiki_actionlog` a" .
             " join `tiki_actionlog_conf` c on a.`action` = c.`action` and a.`objectType` = c.`objectType`" . ($all ? "" : " and (c.`status` = 'v')") .
             ($join1 ?? "") .
-            " where " . $mid . ($where1 ?? "");
+            (($mid != '' || $where1 != NULL) ? (" where " . $mid . ($where1 ?? "")) : "");
 
         $query_cant = preg_replace('/a\.\*/', 'count(1)', $query);
 
