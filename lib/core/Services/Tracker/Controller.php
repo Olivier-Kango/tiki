@@ -441,6 +441,7 @@ class Services_Tracker_Controller
                 'type' => $type,
                 'rules' => $rules,
                 'encryptionKeyId' => $input->encryption_key_id->int(),
+                'excludeFromNotification' => $input->exclude_from_notification->int() ? 'y' : 'n',
             ];
 
             $submitted_keys = $input->keys();

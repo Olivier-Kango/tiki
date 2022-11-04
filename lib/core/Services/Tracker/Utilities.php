@@ -214,7 +214,8 @@ class Services_Tracker_Utilities
             isset($properties['validationMessage']) ? $properties['validationMessage'] : $field['validationMessage'],
             isset($properties['permName']) ? $properties['permName'] : $field['permName'],
             isset($properties['rules']) ? $properties['rules'] : $field['rules'],
-            isset($properties['encryptionKeyId']) ? $properties['encryptionKeyId'] : $field['encryptionKeyId']
+            isset($properties['encryptionKeyId']) ? $properties['encryptionKeyId'] : $field['encryptionKeyId'],
+            isset($properties['excludeFromNotification']) ? $properties['excludeFromNotification'] : $field['excludeFromNotification']
         );
     }
 

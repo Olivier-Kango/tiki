@@ -2483,6 +2483,7 @@ CREATE TABLE `tiki_tracker_fields` (
   `validationMessage` varchar(255) default '',
   `rules` TEXT,
   `encryptionKeyId` int(11) NULL,
+  `excludeFromNotification` char(1) default 'n',
   PRIMARY KEY (`fieldId`),
   INDEX `trackerId` (`trackerId`),
   UNIQUE `permName` (`permName`, `trackerId`),

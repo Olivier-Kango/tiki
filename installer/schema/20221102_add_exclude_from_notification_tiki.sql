@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_tracker_fields` ADD `excludeFromNotification` char(1) default 'n';

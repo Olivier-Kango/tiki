@@ -3430,7 +3430,7 @@ class TrackerLib extends TikiLib
     }
 
 
-    public function replace_tracker_field($trackerId, $fieldId, $name, $type, $isMain, $isSearchable, $isTblVisible, $isPublic, $isHidden, $isMandatory, $position, $options, $description = '', $isMultilingual = '', $itemChoices = null, $errorMsg = '', $visibleBy = null, $editableBy = null, $descriptionIsParsed = 'n', $validation = '', $validationParam = '', $validationMessage = '', $permName = null, $rules = null, $encryptionKeyId = null)
+    public function replace_tracker_field($trackerId, $fieldId, $name, $type, $isMain, $isSearchable, $isTblVisible, $isPublic, $isHidden, $isMandatory, $position, $options, $description = '', $isMultilingual = '', $itemChoices = null, $errorMsg = '', $visibleBy = null, $editableBy = null, $descriptionIsParsed = 'n', $validation = '', $validationParam = '', $validationMessage = '', $permName = null, $rules = null, $encryptionKeyId = null, $excludeFromNotification = false)
     {
         // Serialize choosed items array (items of the tracker field to be displayed in the list proposed to the user)
         if (is_array($itemChoices) && count($itemChoices) > 0 && ! empty($itemChoices[0])) {
@@ -3485,6 +3485,7 @@ class TrackerLib extends TikiLib
             'validationMessage' => $validationMessage,
             'rules' => $rules,
             'encryptionKeyId' => $encryptionKeyId,
+            'excludeFromNotification' => $excludeFromNotification
         ];
 
         $logOption = null;
@@ -4369,7 +4370,8 @@ class TrackerLib extends TikiLib
                 $field['validationMessage'],
                 null,
                 $field['rules'],
-                $field['encryptionKeyId']
+                $field['encryptionKeyId'],
+                $field['excludeFromNotification']
             );
             if ($options['defaultOrderKey'] == $field['fieldId']) {
                 $options['defaultOrderKey'] = $newFieldId;
@@ -5509,7 +5511,7 @@ class TrackerLib extends TikiLib
         }
 
         foreach ($tracker_definition->getFields() as $field) {
-            if ($field['options_map']['excludeFromNotification']) {
+            if ($field['excludeFromNotification'] == 'y') {
                 unset($new_values[$field['fieldId']], $old_values[$field['fieldId']]);
             }
         }
