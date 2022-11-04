@@ -256,7 +256,7 @@
         {else}
             <h2>{tr}Edit this custom module{/tr} {$um_name}</h2>
         {/if}
-        <div class="col-sm-9 offset-sm-3">
+        <div class="col-sm-10 offset-sm-2">
             {remarksbox type="tip" title="{tr}Tip{/tr}"}
                 {tr}Create your new custom module below. Make sure to preview first and make sure all is OK before <a href="#assign" class="alert-link">assigning it</a>. Using HTML, you will be fine. However, if you improperly use wiki syntax or Smarty code, you could lock yourself out of the site.{/tr}
             {/remarksbox}
