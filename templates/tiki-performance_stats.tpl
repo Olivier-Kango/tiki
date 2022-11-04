@@ -1,6 +1,6 @@
 {* $Id$ *}
 
-{title help="SearchStats"}{tr}Search performance statistics{/tr}{/title}
+{title help="Real User Measurement"}{tr}Search performance statistics{/tr}{/title}
 
 <div class="t_navbar">
 	{button href="?clear=1" class="btn btn-primary" _text="{tr}Clear Stats{/tr}"}
