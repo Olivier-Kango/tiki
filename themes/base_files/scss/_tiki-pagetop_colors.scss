@@ -58,8 +58,6 @@
             background: var(--tiki-top-light-link-hover-bg);
         }
     }
-    border: var(--tiki-top-light-border);
-    border-width: var(--tiki-top-border-width);
     box-shadow: var(--tiki-top-light-box-shadow);
 }
 
@@ -102,8 +100,8 @@
             background: var(--tiki-top-dark-link-hover-bg);
         }
     }
-    border: var(--tiki-top-dark-border);
-    border-width: var(--tiki-top-border-width);
+//    border: var(--tiki-top-dark-border);
+//    border-width: var(--tiki-top-border-width);
     box-shadow: var(--tiki-top-dark-box-shadow);
 }
 
@@ -129,7 +127,31 @@
     box-shadow: var(--tiki-topbar-dark-box-shadow);
 }
 
-// Borders and box-shadows -- most themes
+// Borders
+// Classic Bootstrap (social) layout fixed-top header border
+header.navbar.fixed-top {
+    border-top-width: var(--tiki-fixed-top-border-top-width);
+    border-right-width: var(--tiki-fixed-top-border-right-width);
+    border-bottom-width: var(--tiki-fixed-top-border-bottom-width);
+    border-left-width: var(--tiki-fixed-top-border-left-width);
+    border-style: solid;
+    &.bg-light {
+        border-color: var(--tiki-top-light-border-color);
+    }
+    &.bg-dark {
+        border-color: var(--tiki-top-dark-border-color);
+    }
+}
+
+// Classic Tiki and Single Container layout top zone border
+.layout_basic .page-header.navbar-light-parent.bg-light-parent,
+.layout_classic .header_outer.bg-light-parent {
+    border: var(--tiki-static-top-light-border);
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent,
+.layout_classic .header_outer.bg-dark-parent {
+    border: var(--tiki-static-top-dark-border);
+}
 
 // Apply background: transparent to children of uppermost parent to prevent nested gradients
 .tiki.layout_basic {

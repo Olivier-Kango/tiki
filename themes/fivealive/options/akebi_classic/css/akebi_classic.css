@@ -17,7 +17,8 @@
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
   --tiki-top-light-border: solid #000;
   --tiki-top-dark-border: solid #000;
-  --tiki-top-border-width: 0 0 5px 0;
+  --tiki-top-border-top-width: 0px;
+  --tiki-top-border-bottom-width: 5px;
 }
 .header_outer, .layout_basic #top_modules, .postbody-title, .tiki > .navbar.fixed-top.bg-dark, .bg-dark {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0a8794+0,169fb6+53,18a4bc+72,19a5bd+100 */

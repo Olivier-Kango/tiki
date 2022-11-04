@@ -11,6 +11,14 @@
   --tiki-site-title-font-weight: 700;
   --tiki-site-subtitle-font-size: 1.5rem;
   --tiki-site-subtitle-font-weight: 400;
+  --tiki-top-border-width: 0;
+  --tiki-static-top-light-border: none;
+}
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 0px;
+  --tiki-fixed-top-border-left-width: 0px;
 }
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);

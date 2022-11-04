@@ -17,7 +17,8 @@
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
   --tiki-top-light-border: solid #152304;
   --tiki-top-dark-border: solid #152304;
-  --tiki-top-border-width: 0 0 5px 0;
+  --tiki-top-border-top-width: 0px;
+  --tiki-top-border-bottom-width: 5px;
 }
 .postbody-title, .bg-dark {
   background: linear-gradient(to bottom, #c51e3c 0%, #e71e40 100%);

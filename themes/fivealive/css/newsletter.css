@@ -8,6 +8,8 @@
   --tiki-site-title-font-weight: 700;
   --tiki-site-subtitle-font-size: 1.5rem;
   --tiki-site-subtitle-font-weight: 400;
+  --tiki-top-border-width: 0;
+  --tiki-static-top-light-border: none;
 }
 body {
   background: #fff;
@@ -59,7 +61,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   --tiki-topbar-dark-color: var(--tiki-topbar-light-color);
   --tiki-topbar-dark-link-color: var(--tiki-topbar-light-link-color);
   --tiki-topbar-dark-link-hover-color: var(--tiki-topbar-light-link-hover-color);
-  --tiki-top-light-border: solid #000;
-  --tiki-top-dark-border: solid #000;
-  --tiki-top-border-width: 0 0 5px 0;
+  --tiki-top-light-border-color: #000;
+  --tiki-top-dark-border-color: #000;
+  --tiki-top-border-top-width: 0px;
+  --tiki-top-border-bottom-width: 5px;
+}
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 5px;
+  --tiki-fixed-top-border-left-width: 0px;
+  --tiki-topbar-light-border-color: #000;
 }

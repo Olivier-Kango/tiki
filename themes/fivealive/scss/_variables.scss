@@ -191,7 +191,17 @@ $dropdown-item: $dropdown-link-color !default;
     --tiki-topbar-dark-link-color: var(--tiki-topbar-light-link-color);
     --tiki-topbar-dark-link-hover-color: var(--tiki-topbar-light-link-hover-color);
 
-    --tiki-top-light-border: solid #000;
-    --tiki-top-dark-border: solid #000;
-    --tiki-top-border-width: 0 0 5px 0;
+    --tiki-top-light-border-color: #000;
+    --tiki-top-dark-border-color: #000;
+
+    --tiki-top-border-top-width: 0px;
+    --tiki-top-border-bottom-width: 5px;
+}
+
+header.navbar.fixed-top {
+    --tiki-fixed-top-border-top-width: 0px;
+    --tiki-fixed-top-border-right-width: 0px;
+    --tiki-fixed-top-border-bottom-width: 5px;
+    --tiki-fixed-top-border-left-width: 0px;
+    --tiki-topbar-light-border-color: #000;
 }
