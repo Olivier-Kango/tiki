@@ -73,9 +73,13 @@
                             {section name=back loop=$backlinks}
                                 {capture name=backlink_title}{object_title id=$backlinks[back].objectId type=$backlinks[back].type}{/capture}
                                 {*<li role="presentation">*}
-                                    <a class="dropdown-item" role="menuitem" tabindex="-1" href="{$backlinks[back].objectId|sefurl:$backlinks[back].type}" title="{$smarty.capture.backlink_title|escape}">
-                                      {if $prefs.wiki_backlinks_name_len ge '1'}{$smarty.capture.backlink_title|truncate:$prefs.wiki_backlinks_name_len:"...":true|escape}{else}{$smarty.capture.backlink_title|escape}{/if}
-                                    </a>
+                                    <span class="dropdown-item" role="menuitem" tabindex="-1">
+                                        {if $prefs.wiki_backlinks_name_len ge '1'}
+                                            {object_link id=$backlinks[back].objectId type=$backlinks[back].type title=$smarty.capture.backlink_title|truncate:$prefs.wiki_backlinks_name_len:"...":true}
+                                        {else}
+                                            {object_link id=$backlinks[back].objectId type=$backlinks[back].type title=$smarty.capture.backlink_title|truncate}
+                                        {/if}
+                                    </span>
                                 {*</li>*}
                             {/section}
                         </div>

@@ -37,6 +37,7 @@ class WikiPluginBackLinks extends PluginsLib
      
     function get_backlink_from_tracker_item($trackerObjectId)
     {
+        $backlink = "";
         $ids = explode(":", $trackerObjectId);
         $itemId = (int)$ids[0];
         $trackerId = (int)$ids[1];
@@ -45,11 +46,19 @@ class WikiPluginBackLinks extends PluginsLib
         $fieldId = $this->get_item_field_id($itemId);
         $trackerItemPageName = ((int)($trackerlib->get_item_value($trackerId, $itemId, $fieldId))) ? "Item ".
             $itemId : $trackerlib->get_item_value($trackerId, $itemId, $fieldId);
-        //Format the backlink
-        $trackerHref = $_SERVER['SERVER_ NAME'];
-        $trackerHref.= "/tiki-view_tracker_item.php?itemId=".$itemId;
-        $backlink = "<a href=".$trackerHref.">";
-        $backlink .= $trackerItemPageName. "</a>";
+        
+        //Format the backlink using object link
+        $smarty = TikiLib::lib('smarty');
+        $smarty->loadPlugin('smarty_function_object_link');
+        
+        $backlink = smarty_function_object_link(
+            [
+                'type' => 'trackeritem',
+                'id' => $itemId,
+                'title' => $trackerItemPageName
+            ],
+            $smarty->getEmptyInternalTemplate()
+        );
         
         return $backlink;
     }
@@ -65,15 +74,13 @@ class WikiPluginBackLinks extends PluginsLib
 
     function list_backlinks_from_tracker_items($itemsLinks)
     {
-        $head = '<table class="table table-striped table-hover">
-        <thead><tr><td scope="col" class="heading">'.
-        tra("Tracker items").'</td></tr></thead><tbody>';
-         $foot = '</tbody></table>';
-         $body = "";
-         foreach($itemsLinks as $itemlink){
-             $body .= '<tr><td>'.$itemlink.'</td></tr>';
-         }
-         return $head . $body . $foot;
+        $head = '<ul>';
+        $foot = '</ul>';
+        $body = "";
+        foreach ($itemsLinks as $itemlink) {
+            $body .= '<li>' . $itemlink . '</li>';
+        }
+        return $head . $body . $foot;
     }
 
     function run($data, $params)
