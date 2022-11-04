@@ -250,12 +250,13 @@
             </table>
         </div>
         <br>
+        {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
         {if $um_name eq ''}
             <h2>{tr}Create new custom module{/tr}</h2>
         {else}
             <h2>{tr}Edit this custom module{/tr} {$um_name}</h2>
         {/if}
-        <div class="col-sm-10 offset-sm-1">
+        <div class="col-sm-9 offset-sm-3">
             {remarksbox type="tip" title="{tr}Tip{/tr}"}
                 {tr}Create your new custom module below. Make sure to preview first and make sure all is OK before <a href="#assign" class="alert-link">assigning it</a>. Using HTML, you will be fine. However, if you improperly use wiki syntax or Smarty code, you could lock yourself out of the site.{/tr}
             {/remarksbox}
@@ -265,20 +266,20 @@
             {ticket}
             <input type="hidden" name="um_tgt_module" value="{$um_tgt_module|escape}" hidden="hidden" />
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">{tr}Name{/tr}</label>
-                <div class="col-sm-6">
+                <label class="col-sm-2 col-form-label">{tr}Name{/tr}</label>
+                <div class="col-sm-10">
                     <input type="text" id="um_name" name="um_name" value="{$um_name|escape}" class="form-control">
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">{tr}Title{/tr}</label>
-                <div class="col-sm-6">
+                <label class="col-sm-2 col-form-label">{tr}Title{/tr}</label>
+                <div class="col-sm-10">
                     <input type="text" id="um_title" name="um_title" value="{$um_title|escape}" class="form-control">
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">{tr}Parse using{/tr}</label>
-                <div class="col-sm-6">
+                <label class="col-sm-2 col-form-label">{tr}Parse using{/tr}</label>
+                <div class="col-sm-10">
                     <select name="um_parse" id="um_parse" class="form-control mb-3">
                         <option value=""{if $um_parse eq ""} selected="selected"{/if}>{tr}None{/tr}</option>
                         <option value="y"{if $um_parse eq "y"} selected="selected"{/if}>{tr}Wiki Markup{/tr}</option>
@@ -289,8 +290,8 @@
             {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
             {if $prefs.feature_polls eq "y"}
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">{tr}Available polls{/tr}</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-2 col-form-label">{tr}Polls{/tr}</label>
+                    <div class="col-sm-9">
                         <select name="polls" id='list_polls' class="form-control">
                             <option value="{literal}{{/literal}poll{literal}}{/literal}">--{tr}Random active poll{/tr}--</option>
                             <option value="{literal}{{/literal}poll id=current{literal}}{/literal}">--{tr}Random current poll{/tr}--</option>
@@ -299,21 +300,23 @@
                             {/section}
                         </select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1 pt-1">
+                        <a class="tips" href="javascript:setUserModuleFromCombo('list_polls', 'um_data');" title=":{tr}Use poll{/tr}">{icon name='add' alt="{tr}Use{/tr}"}</a>
+                        <a title="{tr}Help{/tr}" {popup text="Params: id=" width=100 center=true}>{icon name='help'}</a>
                     </div>
                 </div>
             {/if}
             {if $contents}
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">{tr}Dynamic content blocks{/tr}</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-2 col-form-label">{tr}Dynamic content blocks{/tr}</label>
+                    <div class="col-sm-9">
                         <select name="contents" id='list_contents' class="form-control">
                             {section name=ix loop=$contents}
                                 <option value="{literal}{{/literal}content id={$contents[ix].contentId}{literal}}{/literal}">{$contents[ix].description|truncate:20:"...":true}</option>
                             {/section}
                         </select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1 pt-1">
                         <a class="tips" href="javascript:setUserModuleFromCombo('list_contents', 'um_data');" title=":{tr}Use dynamic content{/tr}">{icon name='add' alt="{tr}Use{/tr}"}</a>>
                         <a title="{tr}Help{/tr}" {popup text="Params: id=" width=100 center=true}>{icon name='help'}</a>
                     </div>
@@ -321,15 +324,15 @@
             {/if}
             {if $rsss}
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">{tr}External feeds{/tr}</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-2 col-form-label">{tr}Feeds{/tr}</label>
+                    <div class="col-sm-9">
                         <select name="rsss" id='list_rsss' class="form-control">
                             {section name=ix loop=$rsss}
                                 <option value="{literal}{{/literal}rss id={$rsss[ix].rssId}{literal}}{/literal}">{$rsss[ix].name|escape}</option>
                             {/section}
                         </select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1 pt-1">
                         <a class="tips" href="javascript:setUserModuleFromCombo('list_rsss', 'um_data');" title=":{tr}Use RSS module{/tr}">{icon name='add' alt="{tr}Use{/tr}"}</a>
                         <a title="{tr}Help{/tr}" {popup text="Params: id= max= skip=x,y " width=100 center=true}>{icon name='help'}</a>
                     </div>
@@ -337,15 +340,15 @@
             {/if}
             {if $banners}
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">{tr}Banner zones{/tr}</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-2 col-form-label">{tr}Banners{/tr}</label>
+                    <div class="col-sm-9">
                         <select name="banners" id='list_banners' class="form-control">
                             {section name=ix loop=$banners}
                                 <option value="{literal}{{/literal}banner zone={$banners[ix].zone}{literal}}{/literal}">{$banners[ix].zone}</option>
                             {/section}
                         </select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1 pt-1">
                         <a class="tips" href="javascript:setUserModuleFromCombo('list_banners', 'um_data');" title=":{tr}Use banner zone{/tr}">{icon name='add' alt="{tr}Use{/tr}"}</a>
                         <a title="{tr}Help{/tr}" {popup text="Params: zone= target=_blank|_self|" width=100 center=true}>{icon name='help'}</a>
                     </div>
@@ -353,39 +356,30 @@
             {/if}
             {if $wikistructures}
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">{tr}Wiki{/tr} {tr}Structures{/tr}</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-2 col-form-label">{tr}Structures{/tr}</label>
+                    <div class="col-sm-9">
                         <select name="structures" id='list_wikistructures' class="form-control">
                             {section name=ix loop=$wikistructures}
                                 <option value="{literal}{{/literal}wikistructure id={$wikistructures[ix].page_ref_id}{literal}}{/literal}">{$wikistructures[ix].pageName|escape}</option>
                             {/section}
                         </select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1 pt-1">
                         <a class="tips" href="javascript:setUserModuleFromCombo('list_wikistructures', 'um_data');" title=":{tr}Use wiki structure{/tr}">{icon name='add' alt="{tr}Use{/tr}"}</a>
                         <a title="{tr}Help{/tr}" {popup text="Params: id=" width=100 center=true}>{icon name='help'}</a>
                     </div>
                 </div>
             {/if}
-            {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
-            <div class="col-sm-10 offset-sm-1">
-                {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                {tr}To use a default Tiki menu:{/tr}
-                    <ul>
-                        <li>{literal}{menu id=X css=n}{/literal}</li>
-                    </ul>
-                {/remarksbox}
-            </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">{tr}Data{/tr}</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 col-form-label">{tr}Contents{/tr}</label>
+                <div class="col-sm-10">
                     <a id="editcreate"></a>
                     {textarea name='um_data' id='um_data' _class='form-control' _toolbars='y' _previewConfirmExit='n' _wysiwyg="n"}{$um_data}{/textarea}
                 </div>
             </div>
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-9">
+                <div class="col-sm-10">
                     <input type="submit" class="btn btn-primary" name="um_update" value="{if empty($um_name)}{tr}Create{/tr}{else}{tr}Save{/tr}{/if}" onclick="$(window).off('beforeunload');return true;">
                 </div>
             </div>
