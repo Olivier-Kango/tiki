@@ -122,30 +122,10 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
 
 
             foreach ($msg_ids as $msg_id) {
-                $msg = $imap->get_message_content($msg_id, 0);
-                $msg = str_replace("\r\n", "\n", $msg);
-                $msg = str_replace("\n", "\r\n", $msg);
-                $msg = rtrim($msg) . "\r\n";
-
-                $headers = $imap->get_message_headers($msg_id);
-                if (! empty($headers['Flags'])) {
-                    $msg = "Flags: ".$headers['Flags']."\r\n".$msg;
-                }
-                $msgs[] = $msg;
-                $headers_array[] = $headers;
+                list($msgs[], $headers_array[]) = get_message_data($imap, $msg_id);
             }
 
-            // ensure file was saved before removing it from remote mailbox
-            TikiLib::events()->bind('tiki.trackeritem.update', function ($args) {
-                $imap = $args['imap'];
-                $form = $args['form'];
-                $old = $args['old_values'][$form['tracker_field_id']];
-                $new = $args['values'][$form['tracker_field_id']];
-                if (substr_count($old, ',') != substr_count($new, ',')) {
-                    $imap->message_action('DELETE', $args['msg_ids']);
-                    $imap->message_action('EXPUNGE', $args['msg_ids']);
-                }
-            }, ['imap' => $imap, 'form' => $form, 'msg_ids' => $msg_ids]);
+            bind_tracker_item_update_event($imap, $form, $msg_ids);
         } elseif (preg_match("/^tracker_folder_/", $form['list_path'], $matches)) {
             $email = tiki_parse_message($form['list_path'], $msg_ids[0]);
             if (! $email) {
@@ -189,6 +169,38 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
                     ]);
                 }
             }, ['email' => $email]);
+        } elseif (in_array($form['list_path'], ['sent', 'unread', 'combined_inbox', 'flagged'])) {
+            $imaps = [];
+            $ids = [];
+            foreach ($msg_ids as $msg_id) {
+                $full_path = explode('_', $msg_id);
+                $imap_server_id = $full_path[1];
+                $folder = hex2bin($full_path[3]);
+
+                if (!in_array($imap_server_id, array_keys($imaps))) {
+                    $cache = Hm_IMAP_List::get_cache($this->cache, $imap_server_id);
+                    $imap_data = Hm_IMAP_List::connect($imap_server_id, $cache);
+
+                    if (! imap_authed($imap_data)) {
+                        $errors++;
+                        continue;
+                    }
+
+                    $imaps[$imap_server_id] = $imap_data;
+                }
+
+                $imap = $imaps[$imap_server_id];
+                if (! $imap->select_mailbox($folder)) {
+                    $errors++;
+                    continue;
+                }
+                
+                list($msgs[], $headers_array[]) = get_message_data($imap, $full_path[2]);
+                $ids[] = $full_path[2];
+            }
+            if (count($ids)) {
+                bind_tracker_item_update_event($imap, $form, $ids);
+            }
         } else {
             Hm_Msgs::add('ERRMessage from this source could not be moved');
             return;
@@ -237,6 +249,7 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
             Hm_Msgs::add('Some messages moved');
         } else if ($total_msg_ids == $errors) {
             Hm_Msgs::add('ERRUnable to move/copy selected messages');
+            return;
         } else {
             Hm_Msgs::add('Messages moved');
         }

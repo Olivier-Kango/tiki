@@ -392,3 +392,42 @@ if (! hm_exists('tiki_move_to_tracker_dropdown')) {
         return $res;
     }
 }
+
+/**
+ * @subpackage tiki/functions
+ * @return string array message and headers
+ */
+if (! hm_exists('get_message_data')) {
+    function get_message_data($imap, $msg_id) {
+        $msg = $imap->get_message_content($msg_id, 0);
+        $msg = str_replace("\r\n", "\n", $msg);
+        $msg = str_replace("\n", "\r\n", $msg);
+        $msg = rtrim($msg) . "\r\n";
+
+        $headers = $imap->get_message_headers($msg_id);
+        if (! empty($headers['Flags'])) {
+            $msg = "Flags: ".$headers['Flags']."\r\n".$msg;
+        }
+
+        return [$msg, $headers];
+    }
+}
+
+/**
+ * @subpackage tiki/functions
+ * @return string ensure file was saved before removing it from remote mailbox
+ */
+if (! hm_exists('bind_tracker_item_update_event')) {
+    function bind_tracker_item_update_event($imap, $form, $msg_ids) {
+        TikiLib::events()->bind('tiki.trackeritem.update', function ($args) {
+            $imap = $args['imap'];
+            $form = $args['form'];
+            $old = $args['old_values'][$form['tracker_field_id']];
+            $new = $args['values'][$form['tracker_field_id']];
+            if (substr_count($old, ',') != substr_count($new, ',')) {
+                $imap->message_action('DELETE', $args['msg_ids']);
+                $imap->message_action('EXPUNGE', $args['msg_ids']);
+            }
+        }, ['imap' => $imap, 'form' => $form, 'msg_ids' => $msg_ids]);
+    }
+}
