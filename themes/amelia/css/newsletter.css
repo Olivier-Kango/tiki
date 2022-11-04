@@ -2,12 +2,12 @@
 @import url("//fonts.googleapis.com/css?family=Lobster|Cabin:400,700");
 :root {
   --tiki-top-bg-light: #5AE3ED;
-  --tiki-top-light-color: #000;
-  --tiki-top-light-link-color: #000;
-  --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-light-color: #f2e8c0;
+  --tiki-top-light-link-color: #f2e8c0;
+  --tiki-top-light-link-hover-color: #ede0ab;
   --tiki-topbar-bg-light: #5AE3ED;
-  --tiki-topbar-light-color: #000;
-  --tiki-topbar-light-link-color: #000;
+  --tiki-topbar-light-color: #f2e8c0;
+  --tiki-topbar-light-link-color: #f2e8c0;
   --tiki-topbar-light-link-hover-color: white;
   --tiki-top-bg-dark: #ad1d28 !important;
   --tiki-top-dark-color: #f2e8c0;
@@ -17,6 +17,24 @@
   --tiki-topbar-dark-color: #f2e8c0;
   --tiki-topbar-dark-link-color: #f2e8c0;
   --tiki-topbar-dark-link-hover-color: white;
+}
+:root {
+  --tiki-fixed-top-site-title-font-size: 1.8rem;
+  --tiki-fixed-top-site-title-font-weight: 700;
+  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+  --tiki-fixed-top-site-subtitle-font-weight: 400;
+  --tiki-site-title-font-size: 2rem;
+  --tiki-site-title-font-weight: 700;
+  --tiki-site-subtitle-font-size: 1.5rem;
+  --tiki-site-subtitle-font-weight: 400;
+  --tiki-top-border-width: 0;
+  --tiki-static-top-light-border: none;
+}
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 0px;
+  --tiki-fixed-top-border-left-width: 0px;
 }
 body {
   background: #0c6369;

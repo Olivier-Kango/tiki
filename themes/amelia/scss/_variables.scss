@@ -93,10 +93,14 @@ $navbar-dark-hover-color:           lighten($navbar-dark-color, 25%);
 $navbar-dark-active-color:          $navbar-dark-color;
 $navbar-dark-disabled-color:        lighten($navbar-dark-color, 50%);
 
-$navbar-light-color:                $black;
+$navbar-light-color:                $link-color; // $black;
 $navbar-light-hover-color:          rgba($black, .7) !default;
 $navbar-light-active-color:         rgba($black, .9) !default;
 $navbar-light-disabled-color:       rgba($black, .3) !default;
+
+$navbar-color: $link-color;
+$navbar-light-hover-color: $link-hover-color;
+$navbar-link-active-color: $link-hover-color;
 
 // Navbar links
 
