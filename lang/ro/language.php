@@ -2424,7 +2424,6 @@ $lang = array(
 "No files selected" => "Nici un fișier selectat",
 "You do not have permission to remove this gallery" => "Nu aveți permisiunea de a elimina această galerie",
 "Resend" => "Retrimite",
-"No page provided" => "Nici o pagină oferită",
 "You do not have permission to use this feature" => "Nu aveți permisiunea să folosiți această facilitate",
 "My Account Home" => "Acasă Contul meu",
 "No name indicated for wiki page" => "Nu a fost indicat nici un nume pentru pagina wiki",

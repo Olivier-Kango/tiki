@@ -164,7 +164,6 @@
                         {preference name=feature_wiki_import_page}
                         {preference name=wiki_keywords}
                         {preference name=wiki_creator_admin}
-                        {preference name=feature_wiki_mindmap}
                         {preference name=feature_wiki_rankings}
                         {preference name=feature_wiki_ratings}
                         {preference name=feature_sandbox}

@@ -155,33 +155,6 @@ class WikiLib extends TikiLib
         return $ret;
     }
 
-    // Returns all pages that links from here or to here, without distinction
-    // This is used by wiki mindmap, to make the graph
-    public function wiki_get_neighbours($page)
-    {
-        $neighbours = [];
-        $already = [];
-
-        $query = "select `toPage` from `tiki_links` where `fromPage`=? and `fromPage` not like 'objectlink:%'";
-        $result = $this->query($query, [$page]);
-        while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
-            $neighbour = $row['toPage'];
-            $neighbours[] = $neighbour;
-            $already[$neighbour] = 1;
-        }
-
-        $query = "select `fromPage` from `tiki_links` where `toPage`=? and `fromPage` not like 'objectlink:%'";
-        $result = $this->query($query, [$page]);
-        while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
-            $neighbour = $row['fromPage'];
-            if (! isset($already[$neighbour])) {
-                $neighbours[] = $neighbour;
-            }
-        }
-
-        return $neighbours;
-    }
-
     // Returns a string containing all characters considered bad in page names
     public function get_badchars()
     {

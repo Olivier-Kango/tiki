@@ -646,13 +646,6 @@ function prefs_feature_list($partial = false)
             'default' => 'n',
             'view' => 'tiki-admin_mailin.php',
         ],
-        'feature_wiki_mindmap' => [
-            'name' => tra('Mindmap'),
-            'description' => tra('Display in a graphical way the connection among wiki pages.'),
-            'help' => 'MindMap',
-            'type' => 'flag',
-            'default' => 'n',
-        ],
         'feature_print_indexed' => [
             'name' => tra('Print indexed'),
             'description' => tra('Generate a printable version of the whole wiki or a subset of pages, filtered by category.'),
