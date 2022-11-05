@@ -20,6 +20,13 @@
   --tiki-top-border-top-width: 0px;
   --tiki-top-border-bottom-width: 5px;
 }
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 5px;
+  --tiki-fixed-top-border-left-width: 0px;
+  --tiki-topbar-light-border-color: #000;
+}
 .postbody-title, .bg-dark {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c44a23+0,c64b23+10,dc5823+34,e96023+58,f06423+87,f06423+100 */
   background: #c44a23 !important;

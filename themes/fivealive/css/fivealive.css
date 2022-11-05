@@ -8,6 +8,24 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
 :root {
+  --tiki-fixed-top-site-title-font-size: 1.8rem;
+  --tiki-fixed-top-site-title-font-weight: 700;
+  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+  --tiki-fixed-top-site-subtitle-font-weight: 400;
+  --tiki-site-title-font-size: 2rem;
+  --tiki-site-title-font-weight: 700;
+  --tiki-site-subtitle-font-size: 1.5rem;
+  --tiki-site-subtitle-font-weight: 400;
+  --tiki-top-border-width: 0;
+  --tiki-static-top-light-border: none;
+}
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 0px;
+  --tiki-fixed-top-border-left-width: 0px;
+}
+:root {
   --tiki-top-bg-light: #28AAE1FF;
   --tiki-top-light-color: #ffffff;
   --tiki-top-light-link-color: #efefef;
@@ -35,18 +53,6 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-bottom-width: 5px;
   --tiki-fixed-top-border-left-width: 0px;
   --tiki-topbar-light-border-color: #000;
-}
-:root {
-  --tiki-fixed-top-site-title-font-size: 1.8rem;
-  --tiki-fixed-top-site-title-font-weight: 700;
-  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
-  --tiki-fixed-top-site-subtitle-font-weight: 400;
-  --tiki-site-title-font-size: 2rem;
-  --tiki-site-title-font-weight: 700;
-  --tiki-site-subtitle-font-size: 1.5rem;
-  --tiki-site-subtitle-font-weight: 400;
-  --tiki-top-border-width: 0;
-  --tiki-static-top-light-border: none;
 }
 :root {
   --bs-blue: #0d6efd;
@@ -11172,9 +11178,6 @@ a.dropdown-item {
   color: var(--tiki-top-light-link-hover-color);
   background: var(--tiki-top-light-link-hover-bg);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent {
-  border: var(--tiki-static-top-light-border);
-}
 .layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar-wrapper.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .admin-content .bg-light {
   background: var(--tiki-topbar-bg-light) !important;
   color: var(--tiki-topbar-light-color);
@@ -11227,6 +11230,12 @@ header.navbar.fixed-top.bg-light {
 }
 header.navbar.fixed-top.bg-dark {
   border-color: var(--tiki-top-dark-border-color);
+}
+.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent {
+  border: var(--tiki-static-top-light-border);
+}
+.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent {
+  border: var(--tiki-static-top-dark-border);
 }
 .tiki.layout_basic .page-header .top_modules, .tiki.layout_basic .page-header .top_modules .navbar, .tiki.layout_basic .topbar_modules .navbar {
   background: transparent !important;

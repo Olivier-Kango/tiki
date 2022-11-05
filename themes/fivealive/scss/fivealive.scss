@@ -5,9 +5,9 @@
 @import "../../base_files/scss/_tiki-bootstrap_functions"; // Required Bootstrap
 
 @import "variables";
-
 @import "../../base_files/scss/_tiki-variables.scss";
 //@import "../../default/scss/variables";
+@import "css-variables"; // Needs to be loaded after default variables to override them
 
 @import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
 
