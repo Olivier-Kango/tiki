@@ -179,8 +179,12 @@ class Smarty_Tiki extends Smarty
         $this->force_compile = ( $prefs['smarty_compilation'] == 'always' );
         $this->assign('app_name', 'Tiki');
 
+        // sets the default security class, even if is Security not enabled
+        // this is the class to be used when you call enableSecurity() without arguments
+        $this->security_class = 'Tiki_Security_Policy';
+
         if (! isset($prefs['smarty_security']) || $prefs['smarty_security'] == 'y') {
-            $this->enableSecurity('Tiki_Security_Policy');
+            $this->enableSecurity();
         } else {
             $this->disableSecurity();
         }
