@@ -1,4 +1,22 @@
 /* Theme newsletter stylesheet  */
+:root {
+  --tiki-fixed-top-site-title-font-size: 1.8rem;
+  --tiki-fixed-top-site-title-font-weight: 700;
+  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+  --tiki-fixed-top-site-subtitle-font-weight: 400;
+  --tiki-site-title-font-size: 2rem;
+  --tiki-site-title-font-weight: 700;
+  --tiki-site-subtitle-font-size: 1.5rem;
+  --tiki-site-subtitle-font-weight: 400;
+  --tiki-top-border-width: 0;
+  --tiki-static-top-light-border: none;
+}
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 0px;
+  --tiki-fixed-top-border-left-width: 0px;
+}
 body {
   background: #fff;
   color: #212529;
@@ -31,22 +49,4 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .card-title > a, .card-title > small, .card-title > .small, .card-title > small > a, .card-title > .small > a {
   color: inherit;
-}
-:root {
-  --tiki-top-bg-light: #fffff8;
-  --tiki-top-light-color: #222;
-  --tiki-top-light-link-color: #222;
-  --tiki-top-light-link-hover-color: black;
-  --tiki-topbar-bg-light: #fffff8;
-  --tiki-topbar-light-color: #222;
-  --tiki-topbar-light-link-color: #222;
-  --tiki-topbar-light-link-hover-color: black;
-  --tiki-top-bg-dark: #343a40;
-  --tiki-top-dark-color: white;
-  --tiki-top-dark-link-color: white;
-  --tiki-top-dark-link-hover-color: #fff;
-  --tiki-topbar-bg-dark: #343a40;
-  --tiki-topbar-dark-color: white;
-  --tiki-topbar-dark-link-color: white;
-  --tiki-topbar-dark-link-hover-color: #fff;
 }

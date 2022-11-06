@@ -1,0 +1,22 @@
+//--------------------------- Tiki CSS variables
+:root {
+    --tiki-top-bg-light: rgba(248, 245, 240, 1);
+    --tiki-top-light-color: #000;
+    --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-top-light-link-hover-color: #000;
+
+    --tiki-topbar-bg-light: rgba(248, 245, 240, 1);
+    --tiki-topbar-light-color: #000;
+    --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-light-link-hover-color: #000;
+
+    --tiki-top-bg-dark: rgba(50, 93, 136, 1);
+    --tiki-top-dark-color: #fff;
+    --tiki-top-dark-link-color: rgba(255, 255, 255, 0.8);
+    --tiki-top-dark-link-hover-color: #fff;
+
+    --tiki-topbar-bg-dark: rgba(50, 93, 136, 1);
+    --tiki-topbar-dark-color: #fff;
+    --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.8);
+    --tiki-topbar-dark-link-hover-color: #fff;
+}

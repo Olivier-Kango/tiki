@@ -1,11 +1,29 @@
 @charset "UTF-8";
 /* The Darkshine theme for Tiki Wiki CMS Groupware */
 /*!
-   * Bootstrap  v5.2.2 (https://getbootstrap.com/)
+   * Bootstrap  v5.2.1 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
+:root {
+  --tiki-fixed-top-site-title-font-size: 1.8rem;
+  --tiki-fixed-top-site-title-font-weight: 700;
+  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+  --tiki-fixed-top-site-subtitle-font-weight: 400;
+  --tiki-site-title-font-size: 2rem;
+  --tiki-site-title-font-weight: 700;
+  --tiki-site-subtitle-font-size: 1.5rem;
+  --tiki-site-subtitle-font-weight: 400;
+  --tiki-top-border-width: 0;
+  --tiki-static-top-light-border: none;
+}
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 0px;
+  --tiki-fixed-top-border-left-width: 0px;
+}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -2421,15 +2439,10 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-.btn:hover {
+:not(.btn-check) + .btn:hover, .btn:first-child:hover {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
-}
-.btn-check + .btn:hover {
-  color: var(--bs-btn-color);
-  background-color: var(--bs-btn-bg);
-  border-color: var(--bs-btn-border-color);
 }
 .btn:focus-visible {
   color: var(--bs-btn-hover-color);
@@ -4634,7 +4647,6 @@ textarea.form-control-lg {
   display: none;
 }
 .toast-container {
-  --bs-toast-zindex: 1090;
   position: absolute;
   z-index: var(--bs-toast-zindex);
   width: max-content;
@@ -10253,9 +10265,6 @@ textarea.form-control-lg {
   --bs-navbar-brand-hover-color: #fff;
   --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-.topbar {
-  margin-bottom: 1.4rem;
 }
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);

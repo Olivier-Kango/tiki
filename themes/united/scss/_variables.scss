@@ -56,33 +56,3 @@ $table-dark-bg:               $dark !default;
 $table-dark-border-color:     darken($dark, 5%) !default;
 
 //--------------------------- Tiki SCSS variables
-
-//--------------------------- Tiki CSS variables
-:root {
-    --tiki-top-bg-light: rgb(233, 84, 32);
-    --tiki-top-light-color: #fff;
-    --tiki-top-light-link-color: #fff;
-    --tiki-top-light-link-hover-color: rgba(255, 255, 255, 0.75);
-
-    --tiki-topbar-bg-light: rgb(233, 84, 32);
-    --tiki-topbar-light-color: #fff;
-    --tiki-topbar-light-link-color: rgba(255, 255, 255, 0.55);
-    --tiki-topbar-light-link-hover-color: rgba(255, 255, 255, 0.75);
-
-    --tiki-top-bg-dark: rgb(119, 41, 93);
-    --tiki-top-dark-color: #fff;
-    --tiki-top-dark-link-color: rgba(255, 255, 255, 0.55);
-    --tiki-top-dark-link-hover-color: #fff;
-
-    --tiki-topbar-bg-dark: rgb(119, 41, 93);
-    --tiki-topbar-dark-color: #fff;
-    --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.55);
-    --tiki-topbar-dark-link-hover-color: #fff;
-
-//    --tiki-top-light-border:;
-//    --tiki-top-dark-border:;
-//    --tiki-top-border-width:;
-//    --tiki-topbar-light-border:;
-//    --tiki-topbar-dark-border:;
-//    --tiki-topbar-border-width:;
-}

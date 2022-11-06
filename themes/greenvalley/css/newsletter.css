@@ -1,4 +1,22 @@
 /* Green Valley theme newsletter stylesheet */
+:root {
+  --tiki-fixed-top-site-title-font-size: 1.8rem;
+  --tiki-fixed-top-site-title-font-weight: 700;
+  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+  --tiki-fixed-top-site-subtitle-font-weight: 400;
+  --tiki-site-title-font-size: 2rem;
+  --tiki-site-title-font-weight: 700;
+  --tiki-site-subtitle-font-size: 1.5rem;
+  --tiki-site-subtitle-font-weight: 400;
+  --tiki-top-border-width: 0;
+  --tiki-static-top-light-border: none;
+}
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 0px;
+  --tiki-fixed-top-border-left-width: 0px;
+}
 body {
   background: #fff;
   color: #212529;
@@ -31,24 +49,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .card-title > a, .card-title > small, .card-title > .small, .card-title > small > a, .card-title > .small > a {
   color: inherit;
-}
-:root {
-  --tiki-top-bg-light: url("../images/header_background_ltr.jpg")  0/100% auto no-repeat;
-  --tiki-top-light-color: #B52170;
-  --tiki-top-light-link-color: #B52170;
-  --tiki-top-light-link-hover-color: #cda256;
-  --tiki-topbar-bg-light: #473119 url("../images/menubar-wood.jpg") 0/100% auto no-repeat;
-  --tiki-topbar-light-color: #B52170;
-  --tiki-topbar-light-link-color: #B52170;
-  --tiki-topbar-light-link-hover-color: rgba(255, 255, 255, 0.75);
-  --tiki-top-bg-dark: var(--tiki-top-bg-light);
-  --tiki-top-dark-color: rgba(255, 255, 255, 0.95);
-  --tiki-top-dark-link-color: rgba(255, 255, 255, 0.95);
-  --tiki-top-dark-link-hover-color: rgba(255, 255, 255, 0.75);
-  --tiki-topbar-bg-dark: var(--tiki-topbar-bg-light);
-  --tiki-topbar-dark-color: rgba(255, 255, 255, 0.95);
-  --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.95);
-  --tiki-topbar-dark-link-hover-color: rgba(255, 255, 255, 0.75);
 }
 body {
   background: url("../images/page_background_ltr.jpg") repeat;

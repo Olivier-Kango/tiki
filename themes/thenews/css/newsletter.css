@@ -1,4 +1,22 @@
 /* TheNews theme newsletter stylesheet  */
+:root {
+  --tiki-fixed-top-site-title-font-size: 1.8rem;
+  --tiki-fixed-top-site-title-font-weight: 700;
+  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+  --tiki-fixed-top-site-subtitle-font-weight: 400;
+  --tiki-site-title-font-size: 2rem;
+  --tiki-site-title-font-weight: 700;
+  --tiki-site-subtitle-font-size: 1.5rem;
+  --tiki-site-subtitle-font-weight: 400;
+  --tiki-top-border-width: 0;
+  --tiki-static-top-light-border: none;
+}
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 0px;
+  --tiki-fixed-top-border-left-width: 0px;
+}
 body {
   background: #fff;
   color: #212529;
@@ -31,22 +49,4 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .card-title > a, .card-title > small, .card-title > .small, .card-title > small > a, .card-title > .small > a {
   color: inherit;
-}
-:root {
-  --tiki-top-bg-light: #F3F6F9;
-  --tiki-top-light-color: #333;
-  --tiki-top-light-link-color: #333;
-  --tiki-top-light-link-hover-color: #ff5c1a;
-  --tiki-topbar-bg-light: #F3F6F9;
-  --tiki-topbar-light-color: #333;
-  --tiki-topbar-light-link-color: #333;
-  --tiki-topbar-light-link-hover-color: #ff5c1a;
-  --tiki-top-bg-dark: #efefef;
-  --tiki-top-dark-color: #333;
-  --tiki-top-dark-link-color: #333;
-  --tiki-top-dark-link-hover-color: #ff5c1a;
-  --tiki-topbar-bg-dark: #efefef;
-  --tiki-topbar-dark-color: #333;
-  --tiki-topbar-dark-link-color: #333;
-  --tiki-topbar-dark-link-hover-color: #ff5c1a;
 }

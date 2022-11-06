@@ -344,28 +344,3 @@ $hr-border: $gray-500;
 $card-header-bg: #5e0000;
 $card-text: #f4f4f4;
 $blockquote-color: #9E9E9E;
-
-
-// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
-// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
-:root {
-    --tiki-top-bg-light: #{$sky-light};
-    --tiki-top-light-color: #{$navbar-light-color};
-    --tiki-top-light-link-color: #{$navbar-light-color};
-    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
-
-    --tiki-topbar-bg-light: #{$sky-light};
-    --tiki-topbar-light-color: #{$navbar-light-color};
-    --tiki-topbar-light-link-color: #{$navbar-light-color};
-    --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
-
-    --tiki-top-bg-dark: #343a40;
-    --tiki-top-dark-color: #{$navbar-dark-color};
-    --tiki-top-dark-link-color: #{$navbar-dark-color};
-    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
-
-    --tiki-topbar-bg-dark: #343a40;
-    --tiki-topbar-dark-color: #{$navbar-dark-color};
-    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
-    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
-}

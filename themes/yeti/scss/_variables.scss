@@ -123,26 +123,3 @@ $btn-close-opacity:          .6 !default;
 $btn-close-hover-opacity:    1 !default;
 
 //--------------------------- Tiki SCSS variables
-
-//--------------------------- Tiki CSS variables
-:root {
-    --tiki-top-bg-light: rgb(238, 238, 238);
-    --tiki-top-light-color: rgba(0, 0, 0, 0.9);
-    --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
-    --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.9);
-
-    --tiki-topbar-bg-light: rgb(238, 238, 238);
-    --tiki-topbar-light-color: rgba(0, 0, 0, 0.9);
-    --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
-    --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.9);
-
-    --tiki-top-bg-dark: rgba(0, 140, 186, 1.0);
-    --tiki-top-dark-color: #fff;
-    --tiki-top-dark-link-color: rgba(255, 255, 255, 0.7);
-    --tiki-top-dark-link-hover-color: #fff;
-
-    --tiki-topbar-bg-dark: rgba(0, 140, 186, 1.0);
-    --tiki-topbar-dark-color: #fff;
-    --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.7);
-    --tiki-topbar-dark-link-hover-color: #fff;
-}

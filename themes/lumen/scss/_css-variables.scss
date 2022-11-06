@@ -1,0 +1,29 @@
+//--------------------------- Tiki CSS variables
+:root {
+    --tiki-top-bg-light: rgba(246, 246, 246, 1);
+    --tiki-top-light-color: rgba(0, 0, 0, 0.55);
+    --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+
+    --tiki-topbar-bg-light: rgba(246, 246, 246, 1);
+    --tiki-topbar-light-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.7);
+
+    --tiki-top-bg-dark: #{$primary};
+    --tiki-top-dark-color: rgba(255, 255, 255, 0.55);
+    --tiki-top-dark-link-color: rgba(255, 255, 255, 0.55);
+    --tiki-top-dark-link-hover-color: rgba(0, 0, 0, 0.7);
+
+    --tiki-topbar-bg-dark: #{$primary};
+    --tiki-topbar-dark-color: rgba(255, 255, 255, 0.55);
+    --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.55);
+    --tiki-topbar-dark-link-hover-color: rgba(0, 0, 0, 0.7);
+
+    --tiki-top-light-border: solid #eee;
+    --tiki-topbar-light-border: solid #eee;
+    --tiki-top-dark-border: solid #4d4d4d;
+    --tiki-topbar-dark-border: solid #4d4d4d;
+    --tiki-top-border-width: 0 1px 4px 1px;
+    --tiki-topbar-border-width: 0 1px 4px 1px
+}

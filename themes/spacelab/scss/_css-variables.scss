@@ -1,0 +1,29 @@
+//--------------------------- Tiki CSS variables
+:root {
+    --tiki-top-bg-light: linear-gradient(#f2f2f2, #eee 50%, #dbdbdb);
+    --tiki-top-light-color: rgba(0, 0, 0, 0.4);
+    --tiki-top-light-link-color: rgba(0, 0, 0, 0.4);
+    --tiki-top-light-link-hover-color: #3399f3;
+
+    --tiki-topbar-bg-light: linear-gradient(#f2f2f2, #eee 50%, #dbdbdb);
+    --tiki-topbar-light-color: rgba(0, 0, 0, 0.4);
+    --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.4);
+    --tiki-topbar-light-link-hover-color:  #3399f3;
+
+    --tiki-top-bg-dark: linear-gradient(#646464, #333 50%, #2f2f2f);
+    --tiki-top-dark-color: #fff;
+    --tiki-top-dark-link-color: rgba(255, 255, 255, 0.75);
+    --tiki-top-dark-link-hover-color: #fff;
+
+    --tiki-topbar-bg-dark:  linear-gradient(#646464, #333 50%, #2f2f2f);
+    --tiki-topbar-dark-color: #fff;
+    --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.75);
+    --tiki-topbar-dark-link-hover-color: #fff;
+
+    --tiki-top-light-border: solid #bebebe;;
+    --tiki-top-dark-border: solid rgb(85, 85, 85);
+    --tiki-top-border-width: 1px;
+    --tiki-topbar-light-border: solid #bebebe;;
+    --tiki-topbar-dark-border: solid rgb(85, 85, 85);
+    --tiki-topbar-border-width: 1px;
+}

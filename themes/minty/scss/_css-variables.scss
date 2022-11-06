@@ -1,0 +1,23 @@
+//--------------------------- Tiki CSS variables
+// The light background is changed from the original for more color variety in Tiki's themes.
+:root {
+    --tiki-top-bg-light: #f3969a;
+    --tiki-top-light-color: #5a5a5a;
+    --tiki-top-light-link-color: rgba(0, 0, 0, 0.3);
+    --tiki-top-light-link-hover-color: #5a5a5a;
+
+    --tiki-topbar-bg-light: #f3969a;
+    --tiki-topbar-light-color: #5a5a5a;
+    --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.3);
+    --tiki-topbar-light-link-hover-color: #5a5a5a;
+
+    --tiki-top-bg-dark: rgba(120, 194, 173, 1);
+    --tiki-top-dark-color: #fff;
+    --tiki-top-dark-link-color: rgba(255, 255, 255, 0.6);
+    --tiki-top-dark-link-hover-color: #fff;
+
+    --tiki-topbar-bg-dark: rgba(120, 194, 173, 1);
+    --tiki-topbar-dark-color: #fff;
+    --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.6);
+    --tiki-topbar-dark-link-hover-color: #fff;
+}

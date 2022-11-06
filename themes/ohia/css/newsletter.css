@@ -1,21 +1,21 @@
 /* Ohia theme newsletter stylesheet  */
 :root {
-  --tiki-top-bg-light: #3585D0;
-  --tiki-top-light-color: #030303;
-  --tiki-top-light-link-color: #030303;
-  --tiki-top-light-link-hover-color: #171717;
-  --tiki-topbar-bg-light: #3585D0;
-  --tiki-topbar-light-color: #030303;
-  --tiki-topbar-light-link-color: #030303;
-  --tiki-topbar-light-link-hover-color: rgba(255, 255, 255, 0.75);
-  --tiki-top-bg-dark: #343a40;
-  --tiki-top-dark-color: rgba(255, 255, 255, 0.55);
-  --tiki-top-dark-link-color: rgba(255, 255, 255, 0.55);
-  --tiki-top-dark-link-hover-color: rgba(255, 255, 255, 0.75);
-  --tiki-topbar-bg-dark: #343a40;
-  --tiki-topbar-dark-color: rgba(255, 255, 255, 0.55);
-  --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.55);
-  --tiki-topbar-dark-link-hover-color: rgba(255, 255, 255, 0.75);
+  --tiki-fixed-top-site-title-font-size: 1.8rem;
+  --tiki-fixed-top-site-title-font-weight: 700;
+  --tiki-fixed-top-site-subtitle-font-size: 1.4rem;
+  --tiki-fixed-top-site-subtitle-font-weight: 400;
+  --tiki-site-title-font-size: 2rem;
+  --tiki-site-title-font-weight: 700;
+  --tiki-site-subtitle-font-size: 1.5rem;
+  --tiki-site-subtitle-font-weight: 400;
+  --tiki-top-border-width: 0;
+  --tiki-static-top-light-border: none;
+}
+header.navbar.fixed-top {
+  --tiki-fixed-top-border-top-width: 0px;
+  --tiki-fixed-top-border-right-width: 0px;
+  --tiki-fixed-top-border-bottom-width: 0px;
+  --tiki-fixed-top-border-left-width: 0px;
 }
 body {
   background: #030303;

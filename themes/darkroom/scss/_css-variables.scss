@@ -1,0 +1,22 @@
+// CSS variables
+:root {
+    --tiki-top-bg-light:  linear-gradient(to bottom, #818181 0%, #393939 100%);
+    --tiki-top-light-color: #{$navbar-light-color};
+    --tiki-top-light-link-color: #{$navbar-light-color};
+    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
+
+    --tiki-topbar-bg-light: linear-gradient(to bottom, #818181 0%, #393939 100%);
+    --tiki-topbar-light-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-color: #{$navbar-light-color};
+    --tiki-topbar-light-link-hover-color: #{$navbar-light-hover-color};
+
+    --tiki-top-bg-dark:  linear-gradient(to bottom, #818181 0%, #393939 100%);
+    --tiki-top-dark-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-color: #{$navbar-dark-color};
+    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
+
+    --tiki-topbar-bg-dark: linear-gradient(to bottom, #818181 0%, #393939 100%);
+    --tiki-topbar-dark-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
+    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
+}
