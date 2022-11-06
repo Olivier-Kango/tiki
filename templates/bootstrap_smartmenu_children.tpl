@@ -13,7 +13,7 @@
     </li>
 {else}
     <li class="nav-item {$item.class|escape}{if $item.selected|default:null} active{/if}">
-        {if $item.block}
+        {if !empty($item.block)}
             {* mega-menu class prevents error (TypeError: Cannot read property 'parentNode' of null - jquery.smartmenus.js:line 664) when block items contains <ul> elements  *}
             <ul class="mega-menu block--container">
                 {tr}{$item.name}{/tr}

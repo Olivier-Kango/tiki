@@ -3,7 +3,7 @@
     <param name="allowNetworking" value="all">
     <param name="allowFullScreen" value="true">
     <param name="movie" value="{$kaltura.media_url|escape}">
-    {if $kaltura.playlistAPI}
+    {if !empty($kaltura.playlistAPI)}
         <param name="flashVars" value="{$kaltura.playlistAPI}">
     {else}
         <param name="flashVars" value="entry_id={$kaltura.id|escape:'url'}&amp;ks={$kaltura.session|escape:'url'}">

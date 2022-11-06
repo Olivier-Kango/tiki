@@ -15,7 +15,7 @@
                 {foreach from=$perspectives item=persp}
                     <tr>
                         <td class="text">
-                            {if $persp.can_edit}
+                            {if !empty($persp.can_edit)}
                                 {self_link _icon_name='edit' action=edit _ajax='y' _menu_text='y' _menu_icon='y' id=$persp.perspectiveId cookietab=3}
                                     {$persp.name|escape}
                                 {/self_link}
@@ -42,19 +42,19 @@
                                             {icon name='move' _menu_text='y' _menu_icon='y' alt="{tr}Switch to{/tr}"}
                                         </a>
                                     </action>
-                                    {if $persp.can_perms}
+                                    {if !empty($persp.can_perms)}
                                         <action>
                                             {permission_link mode=text type="perspective" id=$persp.perspectiveId title=$persp.name}
                                         </action>
                                     {/if}
-                                        {if $persp.can_edit}
+                                        {if !empty($persp.can_edit)}
                                         <action>
                                             {self_link _icon_name='edit' action=edit _ajax='y' _menu_text='y' _menu_icon='y' id=$persp.perspectiveId cookietab=3}
                                                 {tr}Edit{/tr}
                                             {/self_link}
                                         </action>
                                     {/if}
-                                    {if $persp.can_remove}
+                                    {if !empty($persp.can_remove)}
                                         <action>
                                             {self_link action=remove id=$persp.perspectiveId _menu_text='y' _menu_icon='y' _icon_name='remove'}
                                                 {tr}Delete{/tr}

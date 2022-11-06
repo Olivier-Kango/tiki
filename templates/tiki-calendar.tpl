@@ -60,10 +60,10 @@
         {/if}
 
         {if $viewlist eq 'list'}
-            {capture name=href}?viewlist=table{if $smarty.request.todate}&amp;todate={$smarty.request.todate}{/if}{/capture}
+            {capture name=href}?viewlist=table{if !empty($smarty.request.todate)}&amp;todate={$smarty.request.todate}{/if}{/capture}
             {button href=$smarty.capture.href _text="{tr}Calendar View{/tr}" _icon_name="calendar"}
         {else}
-            {capture name=href}?viewlist=list{if $smarty.request.todate}&amp;todate={$smarty.request.todate}{/if}{/capture}
+            {capture name=href}?viewlist=list{if !empty($smarty.request.todate)}&amp;todate={$smarty.request.todate}{/if}{/capture}
             {button href=$smarty.capture.href _text="{tr}List View{/tr}" _icon_name="list"}
         {/if}
 

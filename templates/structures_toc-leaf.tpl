@@ -15,7 +15,7 @@
                         {/if}
                         class="link" title="
                     {if $showdesc}
-                        {if $structure_tree.page_alias}
+                        {if !empty($structure_tree.page_alias)}
                             {$structure_tree.page_alias|escape}
                         {else}
                             {$structure_tree.pageName|escape}
@@ -55,7 +55,7 @@
                             {/if}
                         {/if}
 
-                        {if $structure_tree.editable}
+                        {if !empty($structure_tree.editable)}
                             {if $structure_tree.flag == 'L'}
                                 <div class="input-group-text">
                                     {capture assign=title}{tr _0=$structure_tree.user}locked by %0{/tr}{/capture}

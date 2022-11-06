@@ -60,7 +60,7 @@
             <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Ignore items with empty values{/tr}</label>
                 <div class="col-sm-10">
-                    <input type="checkbox" name="ignoreEmpty" value="1" {if $model.ignoreEmpty} checked {/if}>
+                    <input type="checkbox" name="ignoreEmpty" value="1" {if !empty($model.ignoreEmpty)} checked {/if}>
                 </div>
             </div>
             <div class="mb-3 row">

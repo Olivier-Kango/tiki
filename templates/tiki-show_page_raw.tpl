@@ -16,7 +16,7 @@
         <footer class="editdate">
             {tr}Last edited by{/tr} {$lastUser}
             {section name=author loop=$contributors}
-                {if $smarty.section.author.first}, {tr}based on work by{/tr}
+                {if !empty($smarty.section.author.first)}, {tr}based on work by{/tr}
                 {else}
                     {if !$smarty.section.author.last},
                     {else} {tr}and{/tr}

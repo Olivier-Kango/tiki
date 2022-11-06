@@ -35,7 +35,7 @@ ttl_showdetails = function( data ) {
                         <span style="display: inline-block; display: -moz-inline-stack; width: {$block.lsize}%; height: 30px; border: 0; overflow:hidden; background: lightgreen;">
                             {if $block.lstart neq $block.start}&lt;&lt;&lt;{/if}
 
-                            {if $block.link}
+                            {if !empty($block.link)}
                                 <a href="{$block.link|sefurl:'wiki page'}">{$block.title|escape}</a>
                             {else}
                                 {if $prefs.feature_shadowbox eq 'y'}

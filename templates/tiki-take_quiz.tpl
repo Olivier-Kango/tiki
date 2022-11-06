@@ -49,7 +49,7 @@
     {if $ans eq 'y'}
         {tr}Result:{/tr}
         <div class="quizanswer">
-            {if $result.answer}
+            {if !empty($result.answer)}
                 {$result.answer|escape|nl2br}
             {else}
                 {tr}Thank you for your submission{/tr}.

@@ -255,7 +255,7 @@ the section loop so that the vars are not replaced by nested pretty tracker exec
         {if $items|@count eq 0 && !$tsOn}
             <div class="tracker_error">{tr}No records found{/tr}</div>
         {elseif isset($checkbox) && $checkbox}
-            {if $checkbox.tpl}{include file="$checkbox.tpl"}{/if}
+            {if !empty($checkbox.tpl)}{include file="$checkbox.tpl"}{/if}
             {if !empty($checkbox.submit) and !empty($checkbox.title)}
                 <br>
                 <input type="submit" class="btn btn-primary btn-sm" name="{$checkbox.submit}" value="{tr}{$checkbox.title}{/tr}">
@@ -374,10 +374,10 @@ the section loop so that the vars are not replaced by nested pretty tracker exec
 {* ------------------------------------ *}
 
                 {if $showcreated eq 'y'}
-                    <td {$tdstyle}>{if $rowurl}<a href="{$rowurl|replacei:'#itemId':$items[user].itemId}" {$tdastyle}>{/if}{if $tracker_info.showCreatedFormat}{$items[user].created|tiki_date_format:$tracker_info.showCreatedFormat}{else}{$items[user].created|tiki_short_datetime}{/if}{if $rowurl}</a>{/if}</td>
+                    <td {$tdstyle}>{if $rowurl}<a href="{$rowurl|replacei:'#itemId':$items[user].itemId}" {$tdastyle}>{/if}{if !empty($tracker_info.showCreatedFormat)}{$items[user].created|tiki_date_format:$tracker_info.showCreatedFormat}{else}{$items[user].created|tiki_short_datetime}{/if}{if $rowurl}</a>{/if}</td>
                 {/if}
                 {if $showlastmodif eq 'y'}
-                    <td {$tdstyle}>{if $rowurl}<a href="{$rowurl|replacei:'#itemId':$items[user].itemId}" {$tdastyle}>{/if}{if $tracker_info.showLastModifFormat}{$items[user].lastModif|tiki_date_format:$tracker_info.showLastModifFormat}{else}{$items[user].lastModif|tiki_short_datetime}{/if}{if $rowurl}</a>{/if}</td>
+                    <td {$tdstyle}>{if $rowurl}<a href="{$rowurl|replacei:'#itemId':$items[user].itemId}" {$tdastyle}>{/if}{if !empty($tracker_info.showLastModifFormat)}{$items[user].lastModif|tiki_date_format:$tracker_info.showLastModifFormat}{else}{$items[user].lastModif|tiki_short_datetime}{/if}{if $rowurl}</a>{/if}</td>
                 {/if}
                 {if $showlastmodifby eq 'y'}
                     <td {$tdstyle}>{if $rowurl}<a href="{$rowurl|replacei:'#itemId':$items[user].itemId}" {$tdastyle}>{/if}{$items[user].lastModifBy}{if $rowurl}</a>{/if}</td>

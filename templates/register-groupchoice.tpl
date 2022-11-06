@@ -7,7 +7,7 @@
                 <div class="registergroup">
                     <input type="radio" name="chosenGroup" id="gr_{$gr.id}" value="{$gr.groupName|escape}">
                     <label for="gr_{$gr.id}">
-                        {if $gr.groupDesc}
+                        {if !empty($gr.groupDesc)}
                             {tr}{$gr.groupDesc|escape}{/tr}
                         {else}
                             {$gr.groupName|escape}
@@ -39,7 +39,7 @@ $.getJSON('group_tracker_ajax.php', {chosenGroup:'{{$theChoiceGroup}}'}, functio
                             <input type="radio" name="chosenGroup" id="gr_{$gr.id}" value="{$gr.groupName|escape}"
                                     {if !empty($smarty.post.chosenGroup) and $smarty.post.chosenGroup eq $gr.groupName|escape}checked="checked"{/if}>
                             <label for="gr_{$gr.id}">
-                                {if $gr.groupDesc}
+                                {if !empty($gr.groupDesc)}
                                     {tr}{$gr.groupDesc|escape}{/tr}
                                 {else}
                                     {$gr.groupName|escape}

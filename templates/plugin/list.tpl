@@ -8,7 +8,7 @@
     {foreach from=$plugins key=plugin item=info}
         <fieldset class="mb-5">
             <legend>
-                {if $info.iconname}{icon name=$info.iconname}{else}{icon name='plugin'}{/if} {tr}{$info.title|escape}{/tr}
+                {if !empty($info.iconname)}{icon name=$info.iconname}{else}{icon name='plugin'}{/if} {tr}{$info.title|escape}{/tr}
             </legend>
             <div class="adminoptionbox">
                 <strong>{$plugin|escape}</strong>: {tr}{$info.description|default:''|escape}{/tr}

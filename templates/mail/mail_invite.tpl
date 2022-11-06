@@ -2,7 +2,7 @@
 {if !empty($groups)}
     {tr}You join this group:{/tr}
     {foreach from=$groups item=group}
-        {$group.groupName|escape}{if $group.groupDescription} ({$group.groupDescription|escape}){/if}
+        {$group.groupName|escape}{if !empty($group.groupDescription)} ({$group.groupDescription|escape}){/if}
 
     {/foreach}
 {/if}

@@ -30,7 +30,7 @@
             {/foreach}
         </div>
     {/if}
-    {if $goal.description}
+    {if !empty($goal.description)}
         <div class="card bg-light">
             <div class="card-body">
                 {$goal.description|escape}
@@ -45,7 +45,7 @@
             </div>
         </div>
     {/foreach}
-    {if $goal.rewards}
+    {if !empty($goal.rewards)}
         <h2>{tr}Rewards{/tr}</h2>
         <ul>
             {foreach $goal.rewards as $reward}

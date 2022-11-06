@@ -1,6 +1,6 @@
 <div id="{$field.ins_id|escape}_container">
     <input type="hidden" name="{$field.ins_id|escape}[]" value="">
-    {if $data.readonly}
+    {if !empty($data.readonly)}
         <ul>
             {foreach from=$data.labels item=label key=id}
                 <input type="hidden" name="{$field.ins_id|escape}[]" value={$id}>

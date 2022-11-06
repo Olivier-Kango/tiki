@@ -16,7 +16,7 @@
             <div class="col-md-9">
                 <select id="eventType" name="event" class="form-control">
                     {foreach from=$eventTypes item=event}
-                        <option value="{$event.eventType|escape}"{if $rule.eventType eq $event.eventType} selected{/if}>{$event.eventType|escape} {if $event.sample} ({tr}Sample available{/tr}){/if}</option>
+                        <option value="{$event.eventType|escape}"{if $rule.eventType eq $event.eventType} selected{/if}>{$event.eventType|escape} {if !empty($event.sample)} ({tr}Sample available{/tr}){/if}</option>
                     {/foreach}
                 </select>
             </div>

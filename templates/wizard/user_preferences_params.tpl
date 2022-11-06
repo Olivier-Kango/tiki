@@ -11,7 +11,7 @@
                 <tr>
                     <td>{tr}Is email public? (uses scrambling to prevent spam){/tr}</td>
                     <td>
-                        {if $userinfo.email}
+                        {if !empty($userinfo.email)}
                             <select name="email_isPublic">
                                 {section name=ix loop=$scramblingMethods}
                                     <option value="{$scramblingMethods[ix]|escape}" {if $email_isPublic eq $scramblingMethods[ix]}selected="selected"{/if}>

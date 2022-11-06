@@ -110,7 +110,7 @@
                 {foreach from=$attachmentAttributes key=name item=att}
                     <div class="form-check">
                         <label>
-                            <input type="checkbox" class="form-check-input" name="orderAttachments[]" value="{$name|escape}" {if $att.selected} checked="checked"{/if}>
+                            <input type="checkbox" class="form-check-input" name="orderAttachments[]" value="{$name|escape}" {if !empty($att.selected)} checked="checked"{/if}>
                             {$att.label|escape}
                         </label>
                     </div>
@@ -471,7 +471,7 @@
                 <div class="form-check">
                     <label>
                         <input type="checkbox" class="form-check-input" name="end" value="1"
-                            {if $info.end}checked="checked"{/if}>
+                            {if !empty($info.end)}checked="checked"{/if}>
                         {tr}Before{/tr}
                     </label>
                 </div>

@@ -196,7 +196,7 @@
                     <select name="poll_template" class="form-control">
                         {section name=ix loop=$channels}
                             {if $channels[ix].active eq 't'}
-                                <option value="{$channels[ix].pollId|escape}"{if $smarty.section.ix.first} selected="selected"{/if}>{tr}{$channels[ix].title}{/tr}</option>
+                                <option value="{$channels[ix].pollId|escape}"{if !empty($smarty.section.ix.first)} selected="selected"{/if}>{tr}{$channels[ix].title}{/tr}</option>
                             {/if}
                         {/section}
                     </select>

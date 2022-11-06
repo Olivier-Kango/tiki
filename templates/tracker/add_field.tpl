@@ -22,14 +22,14 @@
                 <option value="{$k|escape}"
                     {if $type eq $k}selected="selected"{/if}>
                     {$info.name|escape}
-                    {if $info.deprecated}- Deprecated{/if}
+                    {if !empty($info.deprecated)}- Deprecated{/if}
                 </option>
             {/foreach}
         </select>
         {foreach from=$types item=info key=k}
             <div class="form-text {$k|escape}" style="display: none;">
                 {$info.description|escape}
-                {if $info.help}
+                {if !empty($info.help)}
                     <a href="{$prefs.helpurl|escape}{$info.help|escape:'url'}" target="tikihelp" class="tikihelp" title="{$info.name|escape}">
                         {icon name='help'}
                     </a>

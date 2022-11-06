@@ -1,11 +1,11 @@
 <div class="d-flex flex-wrap mx-0 align-items-center">
   <div class="col-auto"> {* Prevent input from overflowing in narrow screens *}
     <input type="number" class="currency_number numeric form-control" name="{$control.field|escape}_from"
-  {if $control.meta.size}size="{$control.meta.size|escape}" maxlength="{$control.meta.size|escape}"{/if}
+  {if !empty($control.meta.size)}size="{$control.meta.size|escape}" maxlength="{$control.meta.size|escape}"{/if}
   value="{$control.from|escape}" id="{$control.field|escape}_from" step="0.01">
   </div>
   <div class="col-auto">
-    {if $control.meta.currencies}
+    {if !empty($control.meta.currencies)}
       <select name="{$control.field|escape}_from_currency" id="{$control.field|escape}_from_currency" class="currency_code form-select">
       <option value=""></option>
         {foreach from=$control.meta.currencies item=c}
@@ -14,7 +14,7 @@
       </select>
     {/if}
 
-    {if $control.meta.error}
+    {if !empty($control.meta.error)}
       {$control.meta.error}
     {/if}
   </div>
@@ -22,11 +22,11 @@
 <div class="d-flex flex-wrap mx-0 align-items-center">
   <div class="col-auto"> {* Prevent input from overflowing in narrow screens *}
     <input type="number" class="currency_number numeric form-control" name="{$control.field|escape}_to"
-  {if $control.meta.size}size="{$control.meta.size|escape}" maxlength="{$control.meta.size|escape}"{/if}
+  {if !empty($control.meta.size)}size="{$control.meta.size|escape}" maxlength="{$control.meta.size|escape}"{/if}
   value="{$control.to|escape}" id="{$control.field|escape}_to" step="0.01">
   </div>
   <div class="col-auto">
-    {if $control.meta.currencies}
+    {if !empty($control.meta.currencies)}
       <select name="{$control.field|escape}_to_currency" id="{$control.field|escape}_to_currency" class="currency_code form-select">
       <option value=""></option>
         {foreach from=$control.meta.currencies item=c}
@@ -35,7 +35,7 @@
       </select>
     {/if}
 
-    {if $control.meta.error}
+    {if !empty($control.meta.error)}
       {$control.meta.error}
     {/if}
   </div>

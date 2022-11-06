@@ -270,7 +270,7 @@
                                         </div>
                                     </td>
                                 {/if}
-                                <td class="username">{if $actionlog.user}{$actionlog.user|username}{else}{tr}Anonymous{/tr}{/if}</td>
+                                <td class="username">{if !empty($actionlog.user)}{$actionlog.user|username}{else}{tr}Anonymous{/tr}{/if}</td>
                                 <td class="date">{$actionlog.lastModif|tiki_short_datetime}</td>
                                 <td class="text">
                                     {tr}{$actionlog.action|escape}{/tr}
@@ -278,7 +278,7 @@
                                 </td>
                                 <td class="text">{tr}{$actionlog.objectType}{/tr}</td>
                                 <td class="text">
-                                    {if $actionlog.link}
+                                    {if !empty($actionlog.link)}
                                         <a href="{$actionlog.link}" target="_blank" title="{tr}View{/tr}">{$actionlog.object|escape}</a>
                                     {else}
                                         {$actionlog.object|escape}
@@ -288,8 +288,8 @@
                                     <td>{assign var=ic value=$actionlog.categId}{$categNames[$ic]|escape}</td>
                                 {/if}
                                 <td class="text">{tr}{$actionlog.ip}{/tr}</td>
-                                <td class="{if $actionlog.add} diffadded{/if}">{if $actionlog.add or $actionlog.add eq '0'}{$actionlog.add}{else}&nbsp;{/if}</td>
-                                <td class="{if $actionlog.del} diffdeleted{/if}">{if $actionlog.del or $actionlog.del eq '0'}{$actionlog.del}{else}&nbsp;{/if}</td>
+                                <td class="{if !empty($actionlog.add)} diffadded{/if}">{if $actionlog.add or $actionlog.add eq '0'}{$actionlog.add}{else}&nbsp;{/if}</td>
+                                <td class="{if !empty($actionlog.del)} diffdeleted{/if}">{if $actionlog.del or $actionlog.del eq '0'}{$actionlog.del}{else}&nbsp;{/if}</td>
                                 {if $prefs.feature_contribution eq 'y'}
                                     <td>
                                         {foreach name=contribution from=$actionlog.contributions item=contribution}
@@ -308,7 +308,7 @@
                                 {/if}
                                 {if $tiki_p_admin eq 'y' and ($prefs.feature_contribution eq 'y' or $prefs.feature_categories eq 'y')}
                                     <td class="action">
-                                        {if $actionlog.actionId}
+                                        {if !empty($actionlog.actionId)}
                                             {actions}
                                                 {strip}
                                                     <action>
@@ -544,7 +544,7 @@
                         {foreach item=stat from=$objectActions name=objectActions}
                             <tr>
                                 <td class="text">
-                                    {if $stat.link}
+                                    {if !empty($stat.link)}
                                         <a href="{$stat.link}" target="_blank" title="{tr}View{/tr}">{$stat.object|escape}</a>
                                     {else}
                                         {$stat.object|escape}

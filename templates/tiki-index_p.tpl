@@ -52,9 +52,9 @@
                                                 {foreach from=$struct_prev_next item=struct name=str key=key}
                                                     <tr>
                                                         <td width='33%'>
-                                                            {if $struct.prev_page}
+                                                            {if !empty($struct.prev_page)}
                                                                 <a class="tocnavlink" href="tiki-index_p.php?page={$struct.prev_page}&amp;structID={$key}">&lt;&lt;
-                                                                    {if $struct.prev_page_alias}
+                                                                    {if !empty($struct.prev_page_alias)}
                                                                         {$struct.prev_page_alias}
                                                                     {else}
                                                                         {$struct.prev_page}
@@ -70,9 +70,9 @@
                                                             {$key}
                                                         </td>
                                                         <td align='right' width='33%'>
-                                                            {if $struct.next_page}
+                                                            {if !empty($struct.next_page)}
                                                                 <a class="tocnavlink" href="tiki-index_p.php?page={$struct.next_page}&amp;structID={$key}">
-                                                                    {if $struct.next_page_alias}
+                                                                    {if !empty($struct.next_page_alias)}
                                                                         {$struct.next_page_alias}
                                                                     {else}
                                                                         {$struct.next_page}

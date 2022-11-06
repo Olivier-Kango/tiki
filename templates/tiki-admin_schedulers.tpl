@@ -204,7 +204,7 @@
             <div class="col-sm-10">
                 <div class="form-check">
                     <input type="checkbox" id="scheduler_rerun" class="form-check-input" name="scheduler_rerun"
-                        {if $schedulerinfo.re_run}checked{/if}>
+                        {if !empty($schedulerinfo.re_run)}checked{/if}>
                 </div>
             </div>
         </div>
@@ -213,7 +213,7 @@
             <div class="col-sm-10">
                 <div class="form-check">
                     <input type="checkbox" id="scheduler_run_only_once" class="form-check-input" name="scheduler_run_only_once"
-                        {if $schedulerinfo.run_only_once}checked{/if}>
+                        {if !empty($schedulerinfo.run_only_once)}checked{/if}>
                 </div>
             </div>
         </div>

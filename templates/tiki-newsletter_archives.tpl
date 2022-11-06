@@ -25,7 +25,7 @@
 
         {if $allowTxt eq 'y'}
             <h3>{tr}Text version{/tr}</h3>
-            {if $edition.datatxt}<div class="alert alert-info newsletter_textdata" >{$info.datatxt|escape|nl2br}</div>{/if}
+            {if !empty($edition.datatxt)}<div class="alert alert-info newsletter_textdata" >{$info.datatxt|escape|nl2br}</div>{/if}
             {if $txt}<div class="alert alert-info newsletter_text">{$txt|escape|nl2br}</div>{/if}
         {/if}
         <div class="newsletter_trailer">

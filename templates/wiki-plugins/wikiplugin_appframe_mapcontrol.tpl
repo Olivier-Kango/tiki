@@ -16,7 +16,7 @@ $('#appframe .map-container').bind('initialized', function () {
         }
         ;
 
-    {{if $mapcontrol.function}}
+    {{if !empty($mapcontrol.function)}}
         func = function () {
             {{$mapcontrol.function}};
             return false;
@@ -25,7 +25,7 @@ $('#appframe .map-container').bind('initialized', function () {
         mode = {{$mapcontrol.mode|json_encode}};
     {{else}}
         vlayer = container.vectors;
-        {{if $mapcontrol.control}}
+        {{if !empty($mapcontrol.control)}}
             controls.push({{$mapcontrol.control}});
         {{/if}}
 

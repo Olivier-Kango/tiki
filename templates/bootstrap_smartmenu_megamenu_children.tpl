@@ -9,7 +9,7 @@
     </li>
 {else}
     <li class="mega-menu--item mega-menu--item-level-{$item.sectionLevel}">
-        {if $item.block}
+        {if !empty($item.block)}
             <div class="block--container">
             {if $prefs.menus_items_icons eq "y"}
                 <span

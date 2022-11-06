@@ -1,7 +1,7 @@
 {* $Id$ *}
 <tr>
     <td class="text">
-        {if $sheet.parentSheetId}
+        {if !empty($sheet.parentSheetId)}
             <span class="ui-icon ui-icon-grip-dotted-vertical" style="float: left;"></span>
             <span class="ui-icon ui-icon-grip-dotted-horizontal" style="float: left; margin-left: -9px;"></span>
         {/if}

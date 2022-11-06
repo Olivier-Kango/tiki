@@ -36,7 +36,7 @@
                         <td class="journal{if $j.journalCancelled==1}Deleted{/if}" style="text-align:right">{if $i<$j.creditcount}{$j.credit[$i].itemAccountId}{/if}&nbsp;</td>
                         <td class="journal{if $j.journalCancelled==1}Deleted{/if}" style="text-align:right">{if $i<$j.creditcount}{if $book.bookCurrencyPos==-1}{$book.bookCurrency} {/if}{$j.credit[$i].itemAmount|number_format:$book.bookDecimals:$book.bookDecPoint:$book.bookThousand}{if $book.bookCurrencyPos==1} {$book.bookCurrency}{/if}&nbsp;{/if}</td>
                         <td class="journal{if $j.journalCancelled==1}Deleted{/if}">{if $i<$j.creditcount}{$j.credit[$i].itemText|escape}{/if}&nbsp;</td>
-                        {if $smarty.section.posts.first}
+                        {if !empty($smarty.section.posts.first)}
                             <td rowspan="{$j.maxcount}">
                                 {if $j.journalCancelled==1}&nbsp;
                                 {else}

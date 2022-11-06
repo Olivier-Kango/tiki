@@ -1,16 +1,16 @@
-{if $p.helpurl}
+{if !empty($p.helpurl)}
     {$icon = "help"}
 {elseif $p.description}
     {$icon = "information"}
 {/if}
 {if isset($icon)}
-    <a {if $p.helpurl} href="{$p.helpurl|escape}" target="tikihelp"{/if}
+    <a {if !empty($p.helpurl)} href="{$p.helpurl|escape}" target="tikihelp"{/if}
          class="tikihelp text-info tikihelp-prefs" title="{$p.name|escape}" data-bs-original-title="{$p.name|escape}" data-bs-content="{$p.description|escape} <p class='text-muted pt-2 small'>{tr _0="<code>`$p.preference`</code>"}Preference name: %0{/tr}</p>{if $p.separator && $p.type neq 'multiselector'}<br>{tr _0=$p.separator}Use &quot;%0&quot; to separate values.{/tr}{/if}">
         {icon name=$icon}
     </a>
 {/if}
 
-{if $p.warning}
+{if !empty($p.warning)}
     <a href="#" target="tikihelp" class="tikihelp text-warning" title="{tr}Warning:{/tr} {$p.warning|escape}">
         {icon name="warning"}
     </a>
@@ -45,9 +45,9 @@
         {tr}experimental{/tr}
     </span>
 {/if}
-{if $p.dependencies}
+{if !empty($p.dependencies)}
     {foreach from=$p.dependencies item=dep}
-        {if $dep.met}
+        {if !empty($dep.met)}
             {icon name="ok" class="pref_dependency tips text-success" title="{tr}Requires:{/tr} "|cat:$dep.label|escape|cat:" (OK)"}
         {elseif $dep.type eq 'profile'}
             <div class="alert alert-warning pref_dependency highlight"{if not $p.modified} style="display:none;"{/if}>{tr}You need apply profile{/tr} <a href="{$dep.link|escape}" class="alert-link">{$dep.label|escape}</a></div>
@@ -59,13 +59,13 @@
 
 {* The 3 elements below are displayed with simple parsing (parse_data_simple()), which is probably better than using parse_data(), for performance and to obtain a more predictable parsing.
 Converting these elements to HTML may still be better. Chealer *}
-{if $p.shorthint}
+{if !empty($p.shorthint)}
     <div class="form-text">{$p.shorthint|parse:true}</div>
 {/if}
-{if $p.detail}
+{if !empty($p.detail)}
     <div class="form-text">{$p.detail|parse:true}</div>
 {/if}
-{if $p.hint}
+{if !empty($p.hint)}
     <div class="form-text">{$p.hint|parse:true}</div>
 {/if}
 
@@ -76,9 +76,9 @@ Converting these elements to HTML may still be better. Chealer *}
 
 <input class="system" type="hidden" name="lm_preference[]" value="{$p.preference|escape}">
 <input type="hidden" name="gobackto" value="{$p.gobackto|escape}" >
-{if $p.packages_required}
+{if !empty($p.packages_required)}
     {foreach from=$p.packages_required item=dep}
-        {if $dep.met}
+        {if !empty($dep.met)}
             {icon name="ok" class="pref_dependency tips text-success" title="{tr}Requires package:{/tr} "|cat:$dep.label|escape|cat:" (OK)"}
         {else}
             <div class="alert alert-warning pref_dependency highlight"{if not $p.modified and not $p.value} style="display:none;"{/if}>

@@ -53,7 +53,7 @@ $("#switchbox-{{$module_logo_instance}} .submit").click( function () {
             <div class="text-center">
                 {button href="tiki-logout.php" _text="{tr}Log out{/tr}"}
             </div>
-            {if $login_module.can_revert}
+            {if !empty($login_module.can_revert)}
                 <form action="{$login_module.login_url|escape}" method="post">
                     {ticket}
                     <fieldset>

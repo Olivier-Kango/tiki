@@ -6,13 +6,13 @@
             <li>
                 {if $isIE}
                     <a href="file:\\\{$file.path|escape}" title="{$file.path|escape}">
-                        {if $file.icon}
+                        {if !empty($file.icon)}
                             {$file.icon}&nbsp;
                         {/if}
                         {$file.name|escape}
                     </a>
                 {else}
-                    {if $file.icon}
+                    {if !empty($file.icon)}
                         {$file.icon}&nbsp;
                     {/if}
                     <span>{$file.path|escape}</span>

@@ -10,13 +10,13 @@
         <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="name">{tr}Name{/tr}</label>
             <div class="col-sm-9">
-                    <input type="text" name="name" class="form-control" id="name" {if $contribution.name} value="{$contribution.name|escape}"{/if}>
+                    <input type="text" name="name" class="form-control" id="name" {if !empty($contribution.name)} value="{$contribution.name|escape}"{/if}>
             </div>
         </div>
         <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="description">{tr}Description{/tr}</label>
             <div class="col-sm-9">
-                <input type="text" name="description" id="description" class="form-control" maxlength="250"{if $contribution.description} value="{$contribution.description|escape}"{/if}>
+                <input type="text" name="description" id="description" class="form-control" maxlength="250"{if !empty($contribution.description)} value="{$contribution.description|escape}"{/if}>
             </div>
         </div>
         <div class="mb-3 text-center">

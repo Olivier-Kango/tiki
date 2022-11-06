@@ -54,7 +54,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">{tr}Sync deletes{/tr}</label>
                     <div class="col-sm-9">
-                        <input class="form-check-input" type="checkbox" name="odbc[sync_deletes]" {if $odbc_config.sync_deletes}checked{/if} value="1">
+                        <input class="form-check-input" type="checkbox" name="odbc[sync_deletes]" {if !empty($odbc_config.sync_deletes)}checked{/if} value="1">
                         <a class="tikihelp text-warning" title="{tr}Synchronization:{/tr} {tr}Deleting a tracker item or clearing the local tracker will also erase items remotely. Use with care!{/tr}">
                             {icon name=warning}
                         </a>

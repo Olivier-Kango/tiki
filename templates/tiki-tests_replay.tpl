@@ -54,7 +54,7 @@
                                                 <td colspan="2" style="width:50%"><pre>{$r.replay_error_msg|escape:"html"}</pre></td>
                                             </tr>
                                         {/if}
-                                        {if $r.html}
+                                        {if !empty($r.html)}
                                             {if $show_page}
                                                 <tr><th colspan="4" border="1">{tr}Results{/tr}</th></tr>
                                                 {$r.html}

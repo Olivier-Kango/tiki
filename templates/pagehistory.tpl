@@ -15,14 +15,14 @@
                 </tr>
                 {if $old.comment || $new.comment}
                     <tr>
-                        <td colspan="2" class="editdate">{if $old.comment}{$old.comment}{else}&nbsp;{/if}</td>
-                        <td colspan="2" class="editdate">{if $new.comment}{$new.comment}{else}&nbsp;{/if}</td>
+                        <td colspan="2" class="editdate">{if !empty($old.comment)}{$old.comment}{else}&nbsp;{/if}</td>
+                        <td colspan="2" class="editdate">{if !empty($new.comment)}{$new.comment}{else}&nbsp;{/if}</td>
                     </tr>
                 {/if}
                 {if $old.description != $new.description}
                     <tr>
-                        <td colspan="2" class="diffdeleted">{if $old.description}{$old.description}{else}&nbsp;{/if}</td>
-                        <td colspan="2" class="diffadded">{if $new.description}{$new.description}{else}&nbsp;{/if}</td>
+                        <td colspan="2" class="diffdeleted">{if !empty($old.description)}{$old.description}{else}&nbsp;{/if}</td>
+                        <td colspan="2" class="diffadded">{if !empty($new.description)}{$new.description}{else}&nbsp;{/if}</td>
                     </tr>
                 {/if}
             {/if}

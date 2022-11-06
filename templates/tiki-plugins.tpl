@@ -34,7 +34,7 @@
                                 {tr}Unknown{/tr}
                             {/if}
                         </td>
-                        <td class="text">{if $plugin.added_by}{$plugin.added_by|userlink}{else}{tr}Unknown{/tr}{/if}</td>
+                        <td class="text">{if !empty($plugin.added_by)}{$plugin.added_by|userlink}{else}{tr}Unknown{/tr}{/if}</td>
                         <td class="action">
                             {actions}
                                 {strip}

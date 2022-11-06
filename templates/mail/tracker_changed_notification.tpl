@@ -12,7 +12,7 @@
 
 Status: {$mail_field_status}
 {foreach from=$mail_fields key=id item=item}
-{if $item.value}
+{if !empty($item.value)}
 ----------
 [{tr}{$item.name}{/tr}]:
 {$item.value}

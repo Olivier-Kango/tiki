@@ -19,7 +19,7 @@
                 </li>
                 <li class="dropdown-divider"></li>
                 <li class="dropdown-item">
-                    {if $viewItemPretty.override}
+                    {if !empty($viewItemPretty.override)}
                         {self_link print='y' vi_tpl={$viewItemPretty.value}}
                             {icon name="print"} {tr}Print{/tr}
                         {/self_link}
@@ -349,7 +349,7 @@
                                         {icon name='remove'}
                                     </a>
                                 {/if}
-                                {if $item_info.logs.cant}
+                                {if !empty($item_info.logs.cant)}
                                     <a class="link tips" href="tiki-tracker_view_history.php?itemId={$itemId}" title=":{tr}History{/tr}">
                                         {icon name='history'}
                                     </a>

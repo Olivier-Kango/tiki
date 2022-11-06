@@ -175,7 +175,7 @@
                                     </action>
                                 {/if}
                                 {if $prefs.feature_user_watches eq 'y' and $tracker.permissions->watch_trackers and $user}
-                                    {if $tracker.watched}
+                                    {if !empty($tracker.watched)}
                                         <action>
                                             <form action="tiki-view_tracker.php" method="post">
                                                 <input type="hidden" name="trackerId" value="{$tracker.trackerId|escape}">

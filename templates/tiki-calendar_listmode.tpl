@@ -18,7 +18,7 @@
                             <a href="{$myurl}?todate={$event.start}" title="{tr}Change Focus{/tr}">{$event.start|tiki_short_date:'n'}</a>
                         </div>
                         <div class="dtstart-time col-sm-5 text-end text-nowrap">
-                            {if $event.allday}{tr}All day{/tr}{else}{$event.start|tiki_short_time}{/if}
+                            {if !empty($event.allday)}{tr}All day{/tr}{else}{$event.start|tiki_short_time}{/if}
                         </div>
                     </div>
                 </td>
@@ -39,7 +39,7 @@
                     {if $infocals.$calendarId.customfgcolor ne ''}<span style="color:#{$infocals.$calendarId.customfgcolor};">{/if}
                     <span class="summary">{$event.name|escape}</span></a><br>
                     <span class="description" style="font-style:italic">{$event.parsed}</span>
-                    {if $event.web}
+                    {if !empty($event.web)}
                         <br><a href="{$event.web}" target="_other" class="calweb" title="{$event.web}"><img src="img/icons/external_link.gif" width="7" height="7" alt="&gt;"></a>
                         {if $infocals.$calendarId.customfgcolor ne ''}</span>{/if}
                     {/if}

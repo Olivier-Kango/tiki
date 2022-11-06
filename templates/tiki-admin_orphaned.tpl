@@ -43,7 +43,7 @@
         {foreach from=$results item=row}
         <tr>
             <td>
-                {if $row.page}
+                {if !empty($row.page)}
                     <a href="{$row.page|sefurl}">Page: {$row.page}</a>
                 {elseif $row.tabularId}
 					<a href="{service controller='tabular' action='edit' tabularId=$row.tabularId }">Tabular: {$row.trackerName}</a>

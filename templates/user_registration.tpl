@@ -10,7 +10,7 @@
                     {$userTrackerData}
                 {else}
                     <form action="tiki-register.php{if !empty($prefs.registerKey)}?key={$prefs.registerKey|escape:'url'}{/if}" method="post" name="RegForm">
-                        {if $smarty.request.invite}<input type='hidden' name='invite' value='{$smarty.request.invite|escape}'>{/if}
+                        {if !empty($smarty.request.invite)}<input type='hidden' name='invite' value='{$smarty.request.invite|escape}'>{/if}
                         {include file="register-form.tpl"}
                         {if $merged_prefs.feature_antibot eq 'y'}{include file='antibot.tpl' form='register'}{/if}
                         <div class="row mb-4">

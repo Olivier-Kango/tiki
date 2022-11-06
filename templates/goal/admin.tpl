@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             {foreach $list as $goal}
-                <tr {if $goal.enabled} class="success"{/if}>
+                <tr {if !empty($goal.enabled)} class="success"{/if}>
                     <td>
                         <a href="{service controller=goal action=show goalId=$goal.goalId}">{$goal.name|escape}</a>
                         {if $goal.type eq 'group'}

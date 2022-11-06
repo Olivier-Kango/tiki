@@ -49,7 +49,7 @@
                     {/if}
                 </td>
                 <td class="journal">{if $i<$s.creditcount}{$s.credit[$i].stackItemText|escape}{/if}&nbsp;</td>
-                {if $smarty.section.posts.first}
+                {if !empty($smarty.section.posts.first)}
                     <td rowspan="{$s.maxcount}">
                         <form action="tiki-accounting_stack.php" method="post">
                             <input type="hidden" name="bookId" value="{$bookId|escape:'attr'}">

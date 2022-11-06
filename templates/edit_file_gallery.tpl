@@ -142,7 +142,7 @@ if ($(this).val() != '') {
                     <div class="mb-3 row direct_adapter_dependent ftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp'}style="display:none"{/if}>
                         <label for="direct_ssl" class="col-sm-4 col-form-label">{tr}SSL{/tr}</label>
                         <div class="col-sm-8">
-                            <input type="checkbox" class="form-check-input" id="direct_ssl" name="direct[ssl]" {if $gal_info.direct.ssl}checked="checked"{/if} value="1">
+                            <input type="checkbox" class="form-check-input" id="direct_ssl" name="direct[ssl]" {if !empty($gal_info.direct.ssl)}checked="checked"{/if} value="1">
                         </div>
                     </div>
                     <div class="mb-3 row direct_adapter_dependent ftp_childcontainer sftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp' and $gal_info.direct.adapter neq 'sftp'}style="display:none"{/if}>
@@ -160,7 +160,7 @@ if ($(this).val() != '') {
                     <div class="mb-3 row direct_adapter_dependent ftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp'}style="display:none"{/if}>
                         <label for="direct_passive" class="col-sm-4 col-form-label">{tr}Passive mode{/tr}</label>
                         <div class="col-sm-8">
-                            <input type="checkbox" class="form-check-input" id="direct_passive" name="direct[passive]" {if $gal_info.direct.passive}checked="checked"{/if} value="1">
+                            <input type="checkbox" class="form-check-input" id="direct_passive" name="direct[passive]" {if !empty($gal_info.direct.passive)}checked="checked"{/if} value="1">
                         </div>
                     </div>
                     <div class="mb-3 row direct_adapter_dependent sftp_childcontainer" {if $gal_info.direct.adapter neq 'sftp'}style="display:none"{/if}>
@@ -294,7 +294,7 @@ if ($(this).val() != '') {
                                     <span class="input-group-text"> {tr}Mb{/tr}</span>
                                 </div>
                                 <span class="form-text">{tr}0 for unlimited{/tr}</span>
-                                {if $gal_info.usedSize}<br>{tr}Used:{/tr} {$gal_info.usedSize|kbsize}{/if}
+                                {if !empty($gal_info.usedSize)}<br>{tr}Used:{/tr} {$gal_info.usedSize|kbsize}{/if}
                                 {if !empty($gal_info.quota)}
                                     {capture name='use'}
                                         {math equation="round((100*x)/(1024*1024*y))" x=$gal_info.usedSize y=$gal_info.quota}

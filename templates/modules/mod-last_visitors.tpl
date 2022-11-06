@@ -48,7 +48,7 @@
                     </a>
                 {/if}
                 {if $nodate neq 'y'}
-                    {if $item.currentLogin}
+                    {if !empty($item.currentLogin)}
                         <div class="date">{$item.currentLogin|tiki_short_datetime}</div>
                     {else}
                         <div class="date">{tr}Never logged in{/tr}</div>

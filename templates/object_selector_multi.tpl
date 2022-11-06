@@ -1,25 +1,25 @@
 <div class="object-selector-multi">
-{if $object_selector_multi.separator}
+{if !empty($object_selector_multi.separator)}
     <input
         data-separator="{$object_selector_multi.separator|escape}"
         type="text"
         {if $prefs.javascript_enabled eq 'y'}style="display: none"{/if}
         id="{$object_selector_multi.simpleid|escape}"
-        {if $object_selector_multi.simpleclass}class="{$object_selector_multi.simpleclass|escape}"{/if}
-        {if $object_selector_multi.simplename}name="{$object_selector_multi.simplename|escape}"{/if}
+        {if !empty($object_selector_multi.simpleclass)}class="{$object_selector_multi.simpleclass|escape}"{/if}
+        {if !empty($object_selector_multi.simplename)}name="{$object_selector_multi.simplename|escape}"{/if}
         value="{$object_selector_multi.separator|implode:$object_selector_multi.current_selection_simple|escape}"
     >
 {/if}
 <textarea
     id="{$object_selector_multi.id|escape}"
     {if $prefs.javascript_enabled eq 'y'}style="display: none"{/if}
-    {if $object_selector_multi.name}name="{$object_selector_multi.name|escape}"{/if}
-    {if $object_selector_multi.class}class="{$object_selector_multi.class|escape}"{/if}
-    {if $object_selector_multi.title}data-label="{$object_selector_multi.title|escape}"{/if}
-    {if $object_selector_multi.parent}data-parent="{$object_selector_multi.parent|escape}"{/if}
-    {if $object_selector_multi.parentkey}data-parentkey="{$object_selector_multi.parentkey|escape}"{/if}
-    {if $object_selector_multi.format}data-format="{$object_selector_multi.format|escape}"{/if}
-    {if $object_selector_multi.sort}data-sort="{$object_selector_multi.sort|escape}"{/if}
+    {if !empty($object_selector_multi.name)}name="{$object_selector_multi.name|escape}"{/if}
+    {if !empty($object_selector_multi.class)}class="{$object_selector_multi.class|escape}"{/if}
+    {if !empty($object_selector_multi.title)}data-label="{$object_selector_multi.title|escape}"{/if}
+    {if !empty($object_selector_multi.parent)}data-parent="{$object_selector_multi.parent|escape}"{/if}
+    {if !empty($object_selector_multi.parentkey)}data-parentkey="{$object_selector_multi.parentkey|escape}"{/if}
+    {if !empty($object_selector_multi.format)}data-format="{$object_selector_multi.format|escape}"{/if}
+    {if !empty($object_selector_multi.sort)}data-sort="{$object_selector_multi.sort|escape}"{/if}
     data-wildcard="{$object_selector_multi.wildcard|escape}"
     data-filters="{$object_selector_multi.filter|escape}"
     data-threshold="{$object_selector_multi.threshold|default:$prefs.tiki_object_selector_threshold|escape}"

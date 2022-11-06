@@ -239,7 +239,7 @@
                                 name="enable"
                                 class="form-check-input"
                                 value="1"
-                                {if $articleConfig.active} checked="checked"{/if}
+                                {if !empty($articleConfig.active)} checked="checked"{/if}
                             >
                         </div>
                     </div>
@@ -255,7 +255,7 @@
                                     name="submission"
                                     class="form-check-input"
                                     value="1"
-                                    {if $articleConfig.active} checked="checked"{/if}
+                                    {if !empty($articleConfig.active)} checked="checked"{/if}
                                 >
                             </div>
                         </div>

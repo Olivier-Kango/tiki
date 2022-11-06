@@ -33,7 +33,7 @@
                     <span class="label {$priorities[$q.priority].class|escape}">{$priorities[$q.priority].label|escape}</span>
                 </td>
                 <td>
-                    {if $q.lastModif}
+                    {if !empty($q.lastModif)}
                         {$q.lastModif|tiki_short_datetime}
                     {else}
                         {tr}Never{/tr}

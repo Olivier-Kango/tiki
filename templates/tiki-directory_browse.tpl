@@ -71,7 +71,7 @@
                             <tr>
                         {/if}
                     {/if}
-                    {if $smarty.section.numloop.last}
+                    {if !empty($smarty.section.numloop.last)}
                         {* pad the cells not yet created *}
                         {math equation = "n - a % n" n=$cols a=$data|@count assign="cells"}
                         {if $cells ne $cols}

@@ -116,7 +116,7 @@
 
     {if $allowTxt eq 'y'}
         <h3>{tr}Text version{/tr}</h3>
-        {if $info.datatxt}<div class="cbox wikitext" >{$info.datatxt|escape|nl2br}</div>{/if}
+        {if !empty($info.datatxt)}<div class="cbox wikitext" >{$info.datatxt|escape|nl2br}</div>{/if}
         {if $txt}<div class="cbox wikitext">{$txt|escape|nl2br}</div>{/if}
     {/if}
 
@@ -186,7 +186,7 @@ $(".copy-html").click(function () {
 
         {if $allowTxt eq 'y'}
             <h3>{tr}Text version{/tr}</h3>
-            {if $info.datatxt}<div class="cbox wikitext" >{$info.datatxt|escape|nl2br}</div>{/if}
+            {if !empty($info.datatxt)}<div class="cbox wikitext" >{$info.datatxt|escape|nl2br}</div>{/if}
             {if $txt}<div class="cbox wikitext">{$txt|escape|nl2br}</div>{/if}
         {/if}
 
@@ -277,7 +277,7 @@ $(".copy-html").click(function () {
                     <div class="col-sm-3">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" name="is_html" class="form-check-input" {if $info.is_html} checked="checked"{/if}> {tr}Is HTML{/tr}
+                                <input type="checkbox" name="is_html" class="form-check-input" {if !empty($info.is_html)} checked="checked"{/if}> {tr}Is HTML{/tr}
                             </label>
                         </div>
                     </div>

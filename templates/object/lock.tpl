@@ -2,8 +2,8 @@
 {strip}
 <span class="lock_block">
     <a class="lock_button" id="lock_{$data.instance}" data-type="{$data.type}" data-object="{$data.object}" data-is_locked="{$data.is_locked}"
-            {if $data.is_locked} title="{tr _0=$data.lockedby|username}Locked by %0{/tr}"{/if} href="#">
-        {if $data.is_locked}
+            {if !empty($data.is_locked)} title="{tr _0=$data.lockedby|username}Locked by %0{/tr}"{/if} href="#">
+        {if !empty($data.is_locked)}
             {icon name='lock'}
         {else}
             {icon name='unlock'}
@@ -14,7 +14,7 @@
     {/if}
 </span>
 
-{if $data.can_change}
+{if !empty($data.can_change)}
     {jq}
         $("#lock_{{$data.instance}}").click(function () { objectLockToggle(this); });
     {/jq}

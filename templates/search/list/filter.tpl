@@ -6,7 +6,7 @@
         <tr>
             <td class="list_filter_label">
                 <label for="{$filter.id|escape}">{$field.name|tr_if}</label>
-                {if $field.textInput}
+                {if !empty($field.textInput)}
                     {if $field.type == 'f'}
                         <a href="#" class="tikihelp" title="{tr}Date selector : Apply a range of time between two dates{/tr}.">
                             {icon name="information"}

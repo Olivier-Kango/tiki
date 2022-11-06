@@ -69,7 +69,7 @@
     {include file='tiki-socialnetworks_firstlogin_launcher.tpl'}
 {/if}
 
-{if $prefs.site_google_analytics_account}
+{if !empty($prefs.site_google_analytics_account)}
     {wikiplugin _name=googleanalytics account=$prefs.site_google_analytics_account group_option=$prefs.site_google_analytics_group_option groups={','|implode:$prefs.site_google_analytics_groups}}{/wikiplugin}
 {/if}
 {interactivetranslation}
@@ -90,10 +90,10 @@ if (confirm("A problem occurred while detecting JavaScript on this page, click o
 </script>
     {/if}
 {/if}
-{if $prefs.feature_endbody_code}
+{if !empty($prefs.feature_endbody_code)}
     {eval var=$prefs.feature_endbody_code}
 {/if}
-{if $prefs.site_piwik_code}
+{if !empty($prefs.site_piwik_code)}
     {wikiplugin _name=piwik code=$prefs.site_piwik_code group_option=$prefs.site_piwik_group_option groups={','|implode:$prefs.site_piwik_groups}}{/wikiplugin}
 {/if}
 {if $prefs.feature_scheduler eq "y" && $prefs.webcron_enabled == 'y' && $prefs.webcron_type != 'url'}

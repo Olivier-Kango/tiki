@@ -17,7 +17,7 @@
             {if isset($drilldownmenu) and $drilldownmenu eq 'y'}
                 <li>
                     <a href="tiki-index.php?page={$home_info.pageName|urlencode}&structure={$home_info.pageName|urlencode}&page_ref_id={$home_info.page_ref_id}">
-                        {if $home_info.page_alias}
+                        {if !empty($home_info.page_alias)}
                             {$home_info.page_alias}
                         {else}
                             {$home_info.pageName}

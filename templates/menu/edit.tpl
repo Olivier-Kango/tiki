@@ -5,7 +5,7 @@
 {/block}
 {block name="subtitle"}
     <small>
-        {if $info.menuId}
+        {if !empty($info.menuId)}
             {tr}Id:{/tr}{$info.menuId|escape}
         {/if}
         {if $symbol}

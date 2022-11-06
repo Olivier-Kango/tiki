@@ -12,14 +12,14 @@
   {foreach from=$emails item=email}
     <tr {if !$email.flags['seen']} style="font-weight: bold"{/if}>
       <td>
-        {if $email.sender}
+        {if !empty($email.sender)}
           {$email.sender|escape}
         {else}
           {$email.from|escape}
         {/if}
       </td>
       <td>{$email.recipient|escape}</td>
-      <td><a href="{$email.view_path}">{if $email.subject}{$email.subject|escape}{else}{tr}(None){/tr}{/if}</a></td>
+      <td><a href="{$email.view_path}">{if !empty($email.subject)}{$email.subject|escape}{else}{tr}(None){/tr}{/if}</a></td>
       <td>{$email.date|tiki_short_datetime}</td>
       <td>
         {foreach from=$email.flags key=flag item=flagName}

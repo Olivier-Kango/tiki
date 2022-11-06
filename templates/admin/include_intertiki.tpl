@@ -59,7 +59,7 @@
                         </div>
                     </div>
             </fieldset>
-            {if $prefs.interlist}
+            {if !empty($prefs.interlist)}
                 <fieldset>
                     <legend>{tr}Available master Tiki servers{/tr}</legend>
                     <div class="mb-3 row">
@@ -132,7 +132,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {if $prefs.known_hosts}
+                                {if !empty($prefs.known_hosts)}
                                     {foreach key=k item=i from=$prefs.known_hosts}
                                         <tr>
                                             <td>

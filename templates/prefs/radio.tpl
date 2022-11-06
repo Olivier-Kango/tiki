@@ -1,5 +1,5 @@
 <div class="adminoptionbox preference clearfix mb-3 row {$p.tagstring|escape}{if isset($smarty.request.highlight) and $smarty.request.highlight eq $p.preference} highlight{/if}">
-    {if $p.name}
+    {if !empty($p.name)}
         <label for="{$p.id|escape}" class="col-form-label col-sm-4">{$p.name|escape}</label>
     {/if}
     <div class="col-sm-8">

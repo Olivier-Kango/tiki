@@ -1,12 +1,12 @@
 {* $Id$ *}
 <div class="item-link" id="il{$field.ins_id}">
-    {if $data.selectMultipleValues}
+    {if !empty($data.selectMultipleValues)}
         <input type="hidden" name="{$field.ins_id}_old" value="{$field.value|escape}" />
     {/if}
     {if $data.displayFieldsListType === 'table'}
         {wikiplugin _name=trackerlist _compactArguments_=$data.trackerListOptions}{/wikiplugin}
         {if $field.options_map.addItems and $data.createTrackerItems}
-            {if $data.predefined}
+            {if !empty($data.predefined)}
                 <div class="mb-3 row">
                     <div class="input-group col-sm-6">
                         <select name="addaction" class="form-select">
@@ -21,7 +21,7 @@
             {else}
                 <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}">{tr}{$field.options_map.addItems|escape}{/tr}</a>
             {/if}
-            {if $field.options_map.preSelectFieldThere}
+            {if !empty($field.options_map.preSelectFieldThere)}
                 <a class="btn btn-primary update-tracker-links" href="{service controller=tracker action=link_items trackerId=$field.options_map.trackerId next=$data.next|escape}">{tr}Update{/tr}</a>
             {jq}
                 var preselectedValue = function() {
@@ -81,7 +81,7 @@
             {/jq}
         {/if}
     {else}
-        <select name="{$field.ins_id}{if $data.selectMultipleValues}[]{/if}" {if $data.preselection and $data.crossSelect neq 'y'}disabled="disabled"{/if} {if $data.selectMultipleValues}multiple="multiple"{/if} class="form-select">
+        <select name="{$field.ins_id}{if !empty($data.selectMultipleValues)}[]{/if}" {if $data.preselection and $data.crossSelect neq 'y'}disabled="disabled"{/if} {if $data.selectMultipleValues}multiple="multiple"{/if} class="form-select">
             {if $field.isMandatory ne 'y' || empty($field.value)}
                 <option value=""></option>
             {/if}
@@ -93,7 +93,7 @@
         </select>
         {if $field.options_map.addItems and $data.createTrackerItems}
             <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}" data-href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}">{tr}{$field.options_map.addItems|escape}{/tr}</a>
-            {if $field.options_map.preSelectFieldThere}
+            {if !empty($field.options_map.preSelectFieldThere)}
             {jq}
                 $("#il{{$field.ins_id}}").find('.insert-tracker-item').on('click', function() {
                     $(this).attr('href', $(this).data('href')+'&ins_{{$field.options_map.preSelectFieldThere}}='+$('#ins_{{$field.options_map.preSelectFieldHere}}').val());
@@ -101,9 +101,9 @@
             {/jq}
             {/if}
             {jq}
-                $("select[name='{{$field.ins_id}}{{if $data.selectMultipleValues}[]{/if}}']").parent().find(".insert-tracker-item").clickModal({
+                $("select[name='{{$field.ins_id}}{{if !empty($data.selectMultipleValues)}[]{/if}}']").parent().find(".insert-tracker-item").clickModal({
                     success: function (data) {
-                        var $select = $("select[name='{{$field.ins_id}}{{if $data.selectMultipleValues}[]{/if}}']");
+                        var $select = $("select[name='{{$field.ins_id}}{{if !empty($data.selectMultipleValues)}[]{/if}}']");
                         $('<option>')
                             .attr('value', data.itemId)
                             .text(data.{{if not empty($data.otherFieldPermName)}fields.{$data.otherFieldPermName}{else}itemTitle{/if}})

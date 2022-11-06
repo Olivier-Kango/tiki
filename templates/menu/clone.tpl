@@ -12,7 +12,7 @@
             </label>
             <input class="form-control" name="name" id="name" value="{tr _0=$info.name|escape}%0 Copy{/tr}">
             <div class="small">
-                {if $info.menuId}
+                {if !empty($info.menuId)}
                     {tr}Clone of Menu Id:{/tr} {$info.menuId|escape}
                 {/if}
                 {if $symbol}

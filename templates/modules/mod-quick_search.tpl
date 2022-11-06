@@ -54,7 +54,7 @@ $('.mod_quick_search:not(.done)').addClass('done').submit(function () {
 
     return false;
 })
-{{if $qs_prefill.trigger}}
+{{if !empty($qs_prefill.trigger)}}
     .submit()
 {{/if}}
 ;

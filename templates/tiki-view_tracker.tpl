@@ -252,10 +252,10 @@
                                     {/foreach}
 
                                     {if $tracker_info.showCreated eq 'y'}
-                                        <td class="date">{if $tracker_info.showCreatedFormat}{$items[user].created|tiki_date_format:$tracker_info.showCreatedFormat}{else}{$items[user].created|tiki_short_datetime}{/if}</td>
+                                        <td class="date">{if !empty($tracker_info.showCreatedFormat)}{$items[user].created|tiki_date_format:$tracker_info.showCreatedFormat}{else}{$items[user].created|tiki_short_datetime}{/if}</td>
                                     {/if}
                                     {if $tracker_info.showLastModif eq 'y'}
-                                        <td class="date">{if $tracker_info.showLastModifFormat}{$items[user].lastModif|tiki_date_format:$tracker_info.showLastModifFormat}{else}{$items[user].lastModif|tiki_short_datetime}{/if}</td>
+                                        <td class="date">{if !empty($tracker_info.showLastModifFormat)}{$items[user].lastModif|tiki_date_format:$tracker_info.showLastModifFormat}{else}{$items[user].lastModif|tiki_short_datetime}{/if}</td>
                                     {/if}
                                     {if $tracker_info.showLastModifBy eq 'y'}
                                         <td class="date">
@@ -449,7 +449,7 @@
             <h2>{tr}Synchronization{/tr}</h2>
             <p>
                 {tr _0=$tracker_sync.provider|cat:'/tracker'|cat:$tracker_sync.source}This tracker is a remote copy of <a href="%0">%0</a>.{/tr}
-                {if $tracker_sync.last}
+                {if !empty($tracker_sync.last)}
                     {tr _0=$tracker_sync.last|tiki_short_date}It was last updated on %0.{/tr}
                 {/if}
             </p>
@@ -478,7 +478,7 @@
                     <p><input type="submit" class="btn btn-primary btn-sm" value="{tr}Push local changes{/tr}"></p>
                 </form>
                 <form class="sync-refresh" method="post" action="{service controller=tracker_sync action=sync_refresh trackerId=$trackerId}">
-                    {if $tracker_sync.modified}
+                    {if !empty($tracker_sync.modified)}
                         {remarksbox type=warning title="{tr}Local changes will be lost{/tr}"}
                             <p>{tr}When reloading the data from the source, all local changes will be lost.{/tr}</p>
                             <ul>

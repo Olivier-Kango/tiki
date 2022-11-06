@@ -9,7 +9,7 @@
             <tr>
                 <td>
                     <a class="edit" href="#" data-element="{$key|escape}">{$reward.label|escape}</a>
-                    {if $reward.hidden}
+                    {if !empty($reward.hidden)}
                         <span class="label label-info">{tr}Hidden{/tr}</span>
                     {/if}
                     <a class="delete float-sm-end text-danger" href="#" data-element="{$key|escape}">{icon name="delete"} {tr}Delete{/tr}</a>

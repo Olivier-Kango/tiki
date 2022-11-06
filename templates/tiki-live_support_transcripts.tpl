@@ -63,7 +63,7 @@
 
 {pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
 
-{if $smarty.request.view}
+{if !empty($smarty.request.view)}
     <h3>{tr}Transcript{/tr}</h3>
     <div class="table-responsive">
         <table class="table">

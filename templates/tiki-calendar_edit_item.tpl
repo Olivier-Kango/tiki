@@ -191,7 +191,7 @@
                                     <input type="hidden" name="recurrenceId" value="{$recurrence.id}">
                                 {/if}
                                 {if $recurrence.id gt 0}
-                                    {if $recurrence.weekly}
+                                    {if !empty($recurrence.weekly)}
                                         <input type="hidden" name="recurrenceType" value="weekly">{tr}On a weekly basis{/tr}<br>
                                     {/if}
                                 {else}
@@ -233,11 +233,11 @@
                                     </div>
                                 {/if}
                                 {if $recurrence.id gt 0}
-                                    {if $recurrence.monthly}
+                                    {if !empty($recurrence.monthly)}
                                         <input type="hidden" name="recurrenceType" value="monthly">{tr}On a monthly basis{/tr}<br>
                                     {/if}
                                 {else}
-                                    <input type="radio" id="id_recurrenceTypeM" name="recurrenceType" value="monthly" {if $recurrence.monthly} checked="checked" {/if} >
+                                    <input type="radio" id="id_recurrenceTypeM" name="recurrenceType" value="monthly" {if !empty($recurrence.monthly)} checked="checked" {/if} >
                                     <label for="id_recurrenceTypeM">
                                         {tr}On a monthly basis{/tr}
                                     </label>
@@ -262,7 +262,7 @@
                                 </div>
                                 {/if}
                                 {if $recurrence.id gt 0}
-                                    {if $recurrence.yearly}
+                                    {if !empty($recurrence.yearly)}
                                         <input type="hidden" name="recurrenceType" value="yearly">{tr}On a yearly basis{/tr}<br>
                                     {/if}
                                 {else}
@@ -393,7 +393,7 @@
                                         {if $recurrence.nbRecurrences gt 1}
                                             {$recurrence.nbRecurrences} {tr}times,{/tr}&nbsp;
                                         {/if}
-                                        {if $recurrence.weekly}
+                                        {if !empty($recurrence.weekly)}
                                             {tr}on{/tr}&nbsp
                                             {foreach $recurrence.weekdays as $day}{strip}
                                                 {if $day@iteration eq $day@total}
@@ -438,7 +438,7 @@
                     <div class="col-sm-2">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" name="allday" id="allday" value="true" {if $calitem.allday} checked="checked"{/if}>
+                                <input type="checkbox" class="form-check-input" name="allday" id="allday" value="true" {if !empty($calitem.allday)} checked="checked"{/if}>
                                 {tr}All day{/tr}
                             </label>
                         </div>
@@ -446,7 +446,7 @@
                 {else}
                     <div class="col-sm-9">
                         <div class="summary" style="margin-bottom: 0; padding-top: 7px;">
-                            {if $calitem.allday}
+                            {if !empty($calitem.allday)}
                                 <abbr class="dtstart" title="{$calitem.start|tiki_short_date:'n'}">
                                     {$calitem.start|tiki_long_date}
                                 </abbr>
@@ -486,20 +486,20 @@
                 {else}
                     <div class="col-sm-9">
                         <div class="summary" style="margin-bottom: 0; padding-top: 7px;">
-                            {if $calitem.allday}
-                                {if $calitem.end}
+                            {if !empty($calitem.allday)}
+                                {if !empty($calitem.end)}
                                     <abbr class="dtend" title="{$calitem.end|tiki_short_date:'n'}">
                                 {/if}
                                 {$calitem.end|tiki_long_date}
-                                {if $calitem.end}
+                                {if !empty($calitem.end)}
                                     </abbr>
                                 {/if}
                             {else}
-                                {if $calitem.end}
+                                {if !empty($calitem.end)}
                                     <abbr class="dtend" title="{$calitem.end|isodate}">
                                 {/if}
                                 {$calitem.end|tiki_long_datetime}
-                                {if $calitem.end}
+                                {if !empty($calitem.end)}
                                     </abbr>
                                 {/if}
                             {/if}
@@ -829,7 +829,7 @@
                 {if $id}
                     <input type="submit" class="btn btn-danger" onclick="needToConfirm=false;document.location='tiki-calendar_edit_item.php?calitemId={$id}&amp;delete=y';return false;" value="{tr}Delete event{/tr}">
                 {/if}
-                {if $recurrence.id}
+                {if !empty($recurrence.id)}
                     <input type="submit" class="btn btn-danger" onclick="needToConfirm=false;document.location='tiki-calendar_edit_item.php?recurrenceId={$recurrence.id}&amp;delete=y';return false;" value="{tr}Delete recurrent events{/tr}">
                 {/if}
                 {if $prefs.calendar_export_item == 'y' and not empty($id)}

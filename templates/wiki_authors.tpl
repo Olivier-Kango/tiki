@@ -3,7 +3,7 @@
 {if $wiki_authors_style eq 'business'}
     {tr}Last edited by{/tr} {$lastUser|userlink}
     {section name=author loop=$contributors}
-        {if $smarty.section.author.first}
+        {if !empty($smarty.section.author.first)}
             , {tr}based on work by{/tr}
         {else}
             {if !$smarty.section.author.last}

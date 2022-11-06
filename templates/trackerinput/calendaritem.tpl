@@ -3,7 +3,7 @@
         {$datePickerHtml}
     </div>
     {if not empty($item.itemId)}
-        {if $data.editUrl}
+        {if !empty($data.editUrl)}
             <div class="col-sm text-center align-baseline">
                 {if not empty($data.event.calitemId)}
                     {$label = '{tr}Edit Event{/tr}'}

@@ -45,7 +45,7 @@
             {foreach from=$info.params key=param item=def}
                 <div class="mb-3 row mx-0">
                     <label for="option~{$param|escape}" class="col-form-label">{$def.name|escape}</label>
-                    {if $def.options}
+                    {if !empty($def.options)}
                         <select name="option~{$param|escape}" class="form-select">
                             {foreach from=$def.options key=val item=label}
                                 <option value="{$val|escape}"
@@ -55,7 +55,7 @@
                             {/foreach}
                         </select>
                     {elseif $def.selector_type}
-                        {if $def.separator}
+                        {if !empty($def.separator)}
                             <div class="col-12">
                                 {object_selector_multi type=$def.selector_type _separator=$def.separator _simplename="option~`$param`" _simplevalue=$options[$param] _simpleid="option-`$param`" _parent=$def.parent _parentkey=$def.parentkey _sort=$def.sort_order _format=$def.format _sort=$def.sort _filter=$def.searchfilter}
                             </div>
@@ -81,13 +81,13 @@
                             <div class="form-text">{tr}Separate multiple with &quot;{$def.separator}&quot;{/tr}</div>
                         {/if}
                     {/if}
-                    {if $def.depends}
+                    {if !empty($def.depends)}
                     {jq}
                         $("input[name='option~{{$def.depends.field|escape}}'],textarea[name='option~{{$def.depends.field|escape}}'],select[name='option~{{$def.depends.field|escape}}']")
                         .change(function(){
                             var val = $(this).val();
                             var fg = $("input[name='option~{{$param|escape}}'],textarea[name='option~{{$param|escape}}'],select[name='option~{{$param|escape}}']").closest('.mb-3');
-                            if( val {{if $def.depends.op}}{{$def.depends.op}}{{else}}==={{/if}} {{$def.depends.value|json_encode}} || ( !{{$def.depends.value|json_encode}} && val ) ) {
+                            if( val {{if !empty($def.depends.op)}}{{$def.depends.op}}{{else}}==={{/if}} {{$def.depends.value|json_encode}} || ( !{{$def.depends.value|json_encode}} && val ) ) {
                                 fg.show();
                             } else {
                                 fg.hide();
@@ -187,14 +187,14 @@
                             <option value="{$k|escape}"
                                 {if $field.type eq $k}selected="selected"{/if}>
                                 {$info.name|escape}
-                                {if $info.deprecated}- Deprecated{/if}
+                                {if !empty($info.deprecated)}- Deprecated{/if}
                             </option>
                         {/foreach}
                     </select>
                     {foreach from=$types item=info key=k}
                         <div class="form-text field {$k|escape}">
                             {$info.description|escape}
-                            {if $info.help}
+                            {if !empty($info.help)}
                                 <a href="{$prefs.helpurl|escape}{$info.help|escape:'url'}" target="tikihelp" class="tikihelp" title="{$info.name|escape}">
                                     {icon name='help'}
                                 </a>

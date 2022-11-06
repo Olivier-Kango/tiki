@@ -4,10 +4,10 @@
     {object_type type=$include.type}:
     {object_link type=$include.type objectId=$include.itemId class="alert-link"}
     {if $include.start || $include.end} - {/if}
-    {if $include.start}
+    {if !empty($include.start)}
     {tr}from{/tr} "{$include.start}"
     {/if}
-    {if $include.end}
+    {if !empty($include.end)}
     {tr}to{/tr} "{$include.end}"
     {/if}
 

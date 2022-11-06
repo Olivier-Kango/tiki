@@ -2,9 +2,9 @@
     {if $prefs.theme_unified_admin_backend eq 'y'}
         <a class="navbar-brand" href="./" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{tr}Back to the home page{/tr}">
             {if $prefs.sitelogo_icon && $prefs.sitelogo_icon neq 'img/tiki/tikilogo_icon.png'}
-                <img src="{$prefs.sitelogo_icon}" alt="{if $prefs.sitelogo_alt}{$prefs.sitelogo_alt|escape}{else}{tr}Site logo{/tr}{/if}">
+                <img src="{$prefs.sitelogo_icon}" alt="{if !empty($prefs.sitelogo_alt)}{$prefs.sitelogo_alt|escape}{else}{tr}Site logo{/tr}{/if}">
             {else}
-                <img src="img/tiki/tiki-icon-flat-{if $navbar_color_variant eq 'light'}black{else}white{/if}.png" alt="{if $prefs.sitelogo_alt}{$prefs.sitelogo_alt|escape}{else}{tr}Tiki icon{/tr}{/if}" height="24">
+                <img src="img/tiki/tiki-icon-flat-{if $navbar_color_variant eq 'light'}black{else}white{/if}.png" alt="{if !empty($prefs.sitelogo_alt)}{$prefs.sitelogo_alt|escape}{else}{tr}Tiki icon{/tr}{/if}" height="24">
             {/if}
         </a>
     {/if}
@@ -15,7 +15,7 @@
         <form method="post" class="form g-3 align-items-center" role="form" style="width: 15rem;"> {* Specified width in rem so larger fonts wouldn't cause wrapping *}
             {* <div class="col-auto form-check">
                 {ticket}
-                <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if $pref_filters.advanced.selected} checked="checked"{/if}>
+                <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if !empty($pref_filters.advanced.selected)} checked="checked"{/if}>
                 <label for="preffilter-toggle-1" class="form-check-label"></label>
             </div> *}
 
@@ -33,7 +33,7 @@
                             <li class="dropdown-item">
                                 <div class="form-check justify-content-start form-switch">
                                     <label>
-                                        <input type="checkbox" class="form-check-input preffilter {$info.type|escape} input-pref_filters" name="pref_filters[]" value="{$name|escape}"{if $info.selected} checked="checked"{/if}{if $name eq basic} disabled="disabled"{/if}>{$info.label|escape}
+                                        <input type="checkbox" class="form-check-input preffilter {$info.type|escape} input-pref_filters" name="pref_filters[]" value="{$name|escape}"{if !empty($info.selected)} checked="checked"{/if}{if $name eq basic} disabled="disabled"{/if}>{$info.label|escape}
                                     </label>
                                 </div>
                             </li>

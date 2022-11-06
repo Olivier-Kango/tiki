@@ -32,7 +32,7 @@
         {$forum_info.name|escape}
     </a>{if isset($thread_info.topic.threadId) and $thread_info.topic.threadId}
         {$prefs.site_crumb_seper}
-        <a class="link" href="{$thread_info.topic.threadId|sefurl:'forumthread'}{if $smarty.request.topics_offset}&amp;topics_offset={$smarty.request.topics_offset}{/if}{$topics_sort_mode_param}{$topics_threshold_param}{$topics_find_param}">
+        <a class="link" href="{$thread_info.topic.threadId|sefurl:'forumthread'}{if !empty($smarty.request.topics_offset)}&amp;topics_offset={$smarty.request.topics_offset}{/if}{$topics_sort_mode_param}{$topics_threshold_param}{$topics_find_param}">
             {$thread_info.topic.title}
         </a>
     {/if}
@@ -46,7 +46,7 @@
             </span>
         {else}
             <span>
-                {tr}You are viewing a reply to{/tr} <a class="link" href="tiki-view_forum_thread.php?comments_parentId={$thread_info.topic.threadId}{if $smarty.request.topics_offset}&amp;topics_offset={$smarty.request.topics_offset}{/if}{$topics_sort_mode_param}{$topics_threshold_param}{$topics_find_param}">{$thread_info.topic.title}</a>
+                {tr}You are viewing a reply to{/tr} <a class="link" href="tiki-view_forum_thread.php?comments_parentId={$thread_info.topic.threadId}{if !empty($smarty.request.topics_offset)}&amp;topics_offset={$smarty.request.topics_offset}{/if}{$topics_sort_mode_param}{$topics_threshold_param}{$topics_find_param}">{$thread_info.topic.title}</a>
             </span>
         {/if}
     </div>

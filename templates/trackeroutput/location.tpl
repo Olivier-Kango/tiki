@@ -1,4 +1,4 @@
-{if $field.value}
+{if !empty($field.value)}
 {* The form element causes HTML errors, but it is used by Javascript to locate the map. So cannot be removed right now *}
     <form method="get" action="">
         {if $context.list_mode eq 'y'}

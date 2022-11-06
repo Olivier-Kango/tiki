@@ -2,13 +2,13 @@
 <div class="object-selector-multi">
 <textarea
     id="{$object_selector_multi.id|escape}"
-    {if $object_selector_multi.name}name="{$object_selector_multi.name|escape}"{/if}
-    {if $object_selector_multi.class}class="{$object_selector_multi.class|escape}"{/if}
-    {if $object_selector_multi.title}data-label="{$object_selector_multi.title|escape}"{/if}
-    {if $object_selector_multi.parent}data-parent="{$object_selector_multi.parent|escape}"{/if}
-    {if $object_selector_multi.parentkey}data-parentkey="{$object_selector_multi.parentkey|escape}"{/if}
-    {if $object_selector_multi.format}data-format="{$object_selector_multi.format|escape}"{/if}
-    {if $object_selector_multi.sort}data-sort="{$object_selector_multi.sort|escape}"{/if}
+    {if !empty($object_selector_multi.name)}name="{$object_selector_multi.name|escape}"{/if}
+    {if !empty($object_selector_multi.class)}class="{$object_selector_multi.class|escape}"{/if}
+    {if !empty($object_selector_multi.title)}data-label="{$object_selector_multi.title|escape}"{/if}
+    {if !empty($object_selector_multi.parent)}data-parent="{$object_selector_multi.parent|escape}"{/if}
+    {if !empty($object_selector_multi.parentkey)}data-parentkey="{$object_selector_multi.parentkey|escape}"{/if}
+    {if !empty($object_selector_multi.format)}data-format="{$object_selector_multi.format|escape}"{/if}
+    {if !empty($object_selector_multi.sort)}data-sort="{$object_selector_multi.sort|escape}"{/if}
     data-filters="{$object_selector_multi.filter|escape}"
     data-threshold="{$object_selector_multi.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-extratype='{$object_selector_multi.extra_type|json_encode}'

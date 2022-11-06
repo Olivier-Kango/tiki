@@ -87,7 +87,7 @@
                         {if $fieldId eq -1}_{tr}Status{/tr}_{else}{$field_option[$fieldId].name}{/if}
                     </td>
                     {if empty($diff_style)}
-                        {if $field_value.fieldId}
+                        {if !empty($field_value.fieldId)}
                             <td class="text">{$field_value.value=$hist.value}{trackeroutput field=$field_value list_mode=csv item=$item_info history=y process=y}</td>
                             <td class="text">{$field_value.value=$hist.new}{trackeroutput field=$field_value list_mode=csv item=$item_info history=y process=y}</td>
                         {else}

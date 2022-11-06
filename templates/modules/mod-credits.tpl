@@ -3,7 +3,7 @@
     {foreach key=id item=data from=$tiki_user_credits}
             <div>
                 {$data.display_text|escape}:
-                {if $data.empty}
+                {if !empty($data.empty)}
                     {section name=used loop=$data.discreet_used}<img src="img/icons/barre_fluo_empty.gif" width="5" height="9" class="header_comptebarre">{/section}{section name=remain loop=$data.discreet_remain}<img src="img/icons/barre_empty.gif" width="5" height="9" class="header_comptebarre">{/section} <span class="textes_comptevert"><font color='red'>{$data.used|default:0}</font></span>/{$data.total|default:0} {$data.unit_text|escape}
                     {tr}empty{/tr}
                 {elseif $data.low}

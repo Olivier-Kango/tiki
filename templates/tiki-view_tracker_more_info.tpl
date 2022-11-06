@@ -10,16 +10,16 @@
         <div id="tiki-main" class="alert alert-info">
             <h3>{tr}Details{/tr}</h3>
             <table class="formcolor">
-                {if $info.name}
+                {if !empty($info.name)}
                     <tr><td>{tr}Name{/tr}</td><td><b>{$info.name}</b></td></tr>
                 {/if}
-                {if $info.version}
+                {if !empty($info.version)}
                     <tr><td>{tr}Version{/tr}</td><td><b>{$info.version}</b></td></tr>
                 {/if}
-                {if $info.longdesc}
+                {if !empty($info.longdesc)}
                     <tr><td colspan="2">{$info.longdesc}</td></tr>
                 {/if}
-                {if $info.hits}
+                {if !empty($info.hits)}
                     <tr><td>{tr}Downloads{/tr}</td><td>{$info.hits}</td></tr>
                 {/if}
             </table>

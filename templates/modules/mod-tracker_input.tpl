@@ -1,4 +1,4 @@
-{if $tracker_input.trackerId}
+{if !empty($tracker_input.trackerId)}
 {tikimodule error=$module_params.error title=$tpl_module_title name="tracker_input" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
     <form class="mod-tracker-input simple" method="get" action="{service controller=tracker action=insert_item}" data-location="{$tracker_input.location|escape}" data-location-mode="{$tracker_input.locationMode|escape}" data-streetview="{$tracker_input.streetview|escape}" data-success="{$tracker_input.success|json_encode|escape}">
         {foreach from=$tracker_input.textInput key=token item=label}
@@ -41,13 +41,13 @@
             data: $(form).serialize(),
             success: function (data) {
                 $(form).trigger('insert', [ data ]);
-                {{if $tracker_input.insertMode}}
+                {{if !empty($tracker_input.insertMode)}}
                     $(form).closest('.tab, #appframe, body').find('.map-container')[0].modeManager.switchTo("{{$tracker_input.insertMode|escape}}");
                 {{/if}}
             },
             close: function () {
                 $(form).trigger('cancel');
-                {{if $tracker_input.insertMode}}
+                {{if !empty($tracker_input.insertMode)}}
                     $(form).closest('.tab, #appframe, body').find('.map-container')[0].modeManager.switchTo("{{$tracker_input.insertMode|escape}}");
                 {{/if}}
             }

@@ -8,7 +8,7 @@
             {if count($breadcrumbs) gt 0}
                 <div class="breadcrumbs">
                     {foreach from=$breadcrumbs item=item name=object }
-                        {if $smarty.foreach.object.last}
+                        {if !empty($smarty.foreach.object.last)}
                             <span>{$item}</span>
                         {else}
                             <b>{$item}</b> /

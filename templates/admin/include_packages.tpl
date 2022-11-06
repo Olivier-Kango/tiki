@@ -73,7 +73,7 @@
             {foreach item=entry from=$composer_packages_installed}
                 <tr>
                     <td>{$entry.name}</td>
-                    <td>{$entry.required} {if $entry.upgradeVersion}<span class="label label-warning">{tr}Update:{/tr} {$entry.requiredVersion}</span>{/if}</td>
+                    <td>{$entry.required} {if !empty($entry.upgradeVersion)}<span class="label label-warning">{tr}Update:{/tr} {$entry.requiredVersion}</span>{/if}</td>
                     <td>
                         {if $composer_phar_exists}
                             {if $entry.status == 'installed'}
@@ -128,7 +128,7 @@
 
                     </td>
                     <td>
-                        {if $entry.extension}
+                        {if !empty($entry.extension)}
                             <form action="tiki-admin.php?page=packages&cookietab=1" method="post">
                                 <input type="hidden" name="redirect" value="0">
                                 <input type="hidden" name="enabled" value="{$entry.enabled}">
@@ -142,7 +142,7 @@
                                 {/if}
                             </form>
                         {/if}
-                        {if $entry.key}
+                        {if !empty($entry.key)}
                             {if $composer_phar_exists}
                                 <form action="tiki-admin.php?page=packages&cookietab=1" method="post">
                                     <input type="hidden" name="redirect" value="0">
@@ -352,7 +352,7 @@
                         </td>
                         <td width="15%">{$package.installed|default:'&nbsp;'}</td>
                         <td width="15%">
-                            {if $package.extension}
+                            {if !empty($package.extension)}
                                 <form action="tiki-admin.php?page=packages&cookietab=2" method="post" style="display:inline">
                                     <input type="hidden" name="redirect" value="0">
                                     <input type="hidden" name="enabled" value="{$package.enabled}">

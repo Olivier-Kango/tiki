@@ -64,7 +64,7 @@
             {assign var='previousvote' value=$field.rating_options[i]}
         {/section}
         </span>
-        {if $item.itemId}
+        {if !empty($item.itemId)}
             <small class="tips" title=":{tr}Votes{/tr}">
                 ({$field.numvotes})
             </small>

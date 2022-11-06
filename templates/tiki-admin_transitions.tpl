@@ -126,7 +126,7 @@
                         {foreach from=$transitions item=trans}
                             <tr>
                                 <td class="text">{$trans.name|escape}</td>
-                                <td class="text">{$trans.from_label|escape} {if $trans.preserve}<span class="label label-info">{tr}preserved{/tr}</span>{/if}</td>
+                                <td class="text">{$trans.from_label|escape} {if !empty($trans.preserve)}<span class="label label-info">{tr}preserved{/tr}</span>{/if}</td>
                                 <td class="text">{$trans.to_label|escape}</td>
                                 <td class="integer">{self_link transitionId=$trans.transitionId action=edit cookietab=4}{$trans.guards|@count|escape}{/self_link}</td>
                                 <td class="action">

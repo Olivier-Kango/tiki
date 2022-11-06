@@ -25,7 +25,7 @@
                     {$token.user|escape}
                 </td>
                 <td>
-                    {if $token.expireAfter}
+                    {if !empty($token.expireAfter)}
                         {$token.expireAfter|tiki_short_datetime}
                     {/if}
                 </td>

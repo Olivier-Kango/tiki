@@ -22,8 +22,8 @@
                         {if isset($groupData.info) and !empty($groupData.info.groupDesc)}
                             <p class="description">{$groupData.info.groupDesc}</p>
                         {/if}
-                        {if $groupData.members}
-                            {if $groupData.can_remove}{tr}Check to remove:{/tr}{/if}
+                        {if !empty($groupData.members)}
+                            {if !empty($groupData.can_remove)}{tr}Check to remove:{/tr}{/if}
                             <ul>
                                 {foreach from=$groupData.members item=memberName}
                                     <li>
@@ -54,13 +54,13 @@
                         {if $groupData.can_add && ($defaultGroup eq 'both' || $defaultGroup eq 'y' ) }
                             <p class="action">{tr}Set as default group for users:{/tr} <input type="text" name="defgroup[{$groupName|escape}]" class="username-input"> (comma-separated)</p>
                         {/if}
-                        {if $groupData.can_join}
+                        {if !empty($groupData.can_join)}
                             <p class="action">
                                 <input type="checkbox" name="join[]" value="{$groupName|escape}" id="join-{$groupName|escape}">
                                 <label for="join-{$groupName|escape}">{tr}Join myself{/tr}</label>
                             </p>
                         {/if}
-                        {if $groupData.can_leave}
+                        {if !empty($groupData.can_leave)}
                             <p class="action">
                                 <input type="checkbox" name="leave[]" value="{$groupName|escape}" id="leave-{$groupName|escape}">
                                 <label for="leave-{$groupName|escape}">{tr}Leave myself{/tr}</label>

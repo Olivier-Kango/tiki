@@ -28,7 +28,7 @@
     {/if}
 
     {if $canAttach}
-        {if $filters.language}
+        {if !empty($filters.language)}
             <form class="{*simple*}" method="post" action="{service controller=translation action=attach}">
                 <div class="mb-3 row mt-2">
                     <label class="col-form-label col-sm-12">

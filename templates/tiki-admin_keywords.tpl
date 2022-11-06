@@ -22,7 +22,7 @@
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Search by page:{/tr}</label>
         <div class="input-group col-sm-7 offset-sm-1 mb-3">
-            <input type="text" name="q" value="{if $smarty.request.q}{$smarty.request.q|escape}{/if}" class="form-control">
+            <input type="text" name="q" value="{if !empty($smarty.request.q)}{$smarty.request.q|escape}{/if}" class="form-control">
             <input type="submit" class="btn btn-primary" name="search" value="{tr}Go{/tr}">
         </div>
     </div>

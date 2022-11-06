@@ -1,4 +1,4 @@
-{if $edit_features.field}
+{if !empty($edit_features.field)}
 {tikimodule error=$module_params.error title=$tpl_module_title name="map_edit_features" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
     <form class="map-edit-features" method="post" action="{service controller=tracker action=insert_item}">
         <div class="submit">
@@ -83,7 +83,7 @@
                         }
                     }
                 });
-                {{if $edit_features.standardControls}}
+                {{if !empty($edit_features.standardControls)}}
                     modify = new OpenLayers.Control.ModifyFeature(vlayer, {
                         mode: OpenLayers.Control.ModifyFeature.DRAG | OpenLayers.Control.ModifyFeature.RESHAPE,
                     });
@@ -104,7 +104,7 @@
                 map.vectors.removeFeatures([activeFeature]);
                 activeFeature = null;
 
-                {{if $edit_features.editDetails}}
+                {{if !empty($edit_features.editDetails)}}
                 if (data.itemId) {
                     $('<a>').attr('href', $.service('tracker', 'update_item'))
                         .serviceDialog({
@@ -119,7 +119,7 @@
                 }
                 {{/if}}
 
-                {{if $edit_features.insertMode}}
+                {{if !empty($edit_features.insertMode)}}
                     map.modeManager.switchTo({{$edit_features.insertMode|json_encode}});
                 {{/if}}
             });

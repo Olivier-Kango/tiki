@@ -10,7 +10,7 @@
 
 {block name="content"}
     {function plugin_edit_row}{* needs to be in the same block it seems? *}
-        {if $param.area}{$inputId=$param.area|escape}{else}{$inputId="param_{$name|escape}_input"}{/if}
+        {if !empty($param.area)}{$inputId=$param.area|escape}{else}{$inputId="param_{$name|escape}_input"}{/if}
         <div class="col-sm-3">
             <label for="{$inputId}">{$param.name|escape}</label>
             {if not empty($param.required)}
@@ -111,7 +111,7 @@ $("#picker_{{$name|escape}}").parent().click(function () {
             {ticket mode='confirm'}
             {if not empty($info.params)}
                 {foreach $info.params as $name => $param}
-                    <div class="mb-3 row {if $param.advanced} advanced{/if}" id="param_{$name|escape}">
+                    <div class="mb-3 row {if !empty($param.advanced)} advanced{/if}" id="param_{$name|escape}">
                         {plugin_edit_row param=$param name=$name info=$info pluginArgs=$pluginArgs}
                     </div>
                 {/foreach}

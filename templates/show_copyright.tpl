@@ -1,5 +1,5 @@
 {if $prefs.feature_copyright eq 'y'}
-    {if $prefs.wikiLicensePage}
+    {if !empty($prefs.wikiLicensePage)}
         {capture name='copyright_content'}
             <div class="copyright">{tr}This content is licensed under the terms of the{/tr} <a href="{$prefs.wikiLicensePage|sefurl:wiki:with_next}copyrightpage={$page|escape:"url"}">{$prefs.wikiLicensePage}</a>.</div>
         {/capture}

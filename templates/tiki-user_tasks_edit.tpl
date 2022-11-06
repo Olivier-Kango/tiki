@@ -27,7 +27,7 @@
                 <a href="tiki-user_tasks.php?taskId={$taskId}&amp;save=on&amp;tas_not_accept=on" class="tablink">{tr}NOT accept{/tr}</a>
             </span>
         {/if}
-        {if $info.deleted}
+        {if !empty($info.deleted)}
             <span class="tabbut">
                 <a href="tiki-user_tasks.php?taskId={$taskId}&amp;save=on&amp;remove_from_trash=on" class="tablink">
                     {icon name='undo' title="{tr}Remove from Trash{/tr}"} {tr}Remove from Trash{/tr}
@@ -156,7 +156,7 @@
                 {html_select_date time=$end_date prefix="end_" end_year="+4" field_order=$prefs.display_field_order}
                 &nbsp;-&nbsp;
                 {html_select_time minute_interval=10 time=$end_date prefix="end_" display_seconds=false use_24_hours=$use_24hr_clock}
-                &nbsp;<input name="use_end_date" {if $info.end} checked="checked" {/if} type="checkbox" class="form-check-input">
+                &nbsp;<input name="use_end_date" {if !empty($info.end)} checked="checked" {/if} type="checkbox" class="form-check-input">
                 &nbsp;{tr}Use end date and time{/tr}
             </td>
         </tr>
@@ -193,7 +193,7 @@
             <td>{tr}Percentage completed{/tr}</td>
             <td colspan="3">
                 <select name="percentage">
-                    <option value="w" {if $info.percentage_null} selected = "selected" {/if}>{tr}Waiting{/tr}</option>
+                    <option value="w" {if !empty($info.percentage_null)} selected = "selected" {/if}>{tr}Waiting{/tr}</option>
                     {section name=zz loop=$percs}
                         <option value="{$percs[zz]|escape}" {if $info.percentage eq $percs[zz] and !$info.percentage_null} selected = "selected" {/if} >
                             {$percs[zz]}%
@@ -263,7 +263,7 @@
             </tr>
         {/if}
 
-        {if $info.deleted}
+        {if !empty($info.deleted)}
             <tr>
                 <td>{tr}Marked as deleted{/tr}</td>
                 <td colspan="3"><b>{$info.deleted|tiki_short_date}&nbsp;--&nbsp;{$info.deleted|tiki_short_time}</b></td>

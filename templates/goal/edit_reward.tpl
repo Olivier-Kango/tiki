@@ -19,7 +19,7 @@
                 </select>
             </div>
         </div>
-        {if $rewards.credit}
+        {if !empty($rewards.credit)}
             <div class="mb-3 argument creditType">
                 <label class="col-form-label col-md-3">{tr}Credit Type{/tr}</label>
                 <div class="col-md-9">
@@ -37,7 +37,7 @@
                 </div>
             </div>
         {/if}
-        {if $rewards.tracker_badge_add}
+        {if !empty($rewards.tracker_badge_add)}
             <div class="mb-3 argument trackerItemBadge">
                 <label class="col-form-label col-md-3">{tr}Badge{/tr}</label>
                 <div class="col-md-9">
@@ -46,7 +46,7 @@
             </div>
         {/if}
         <div class="form-check offset-md-3">
-            <input class="form-check-input" type="checkbox" name="hidden"  id="hidden" value="1" {if $reward.hidden}checked{/if}>
+            <input class="form-check-input" type="checkbox" name="hidden"  id="hidden" value="1" {if !empty($reward.hidden)}checked{/if}>
             <label class="form-check-label" for="hidden">
                 {tr}Hide reward from users{/tr}
             </label>

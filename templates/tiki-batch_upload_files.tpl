@@ -31,7 +31,7 @@
                 <td><label for="box_{$k}">{$it.file|replace:$prefs.fgal_batch_dir:''}</label></td>
                 <td>{$it.size|kbsize}</td>
                 <td>{$it.ext}</td>
-                <td class="text-center">{if $it.writable}{icon name='success' title="{tr}File is writable{/tr}"}{else}{icon name='ban' title="{tr}File is not writable{/tr}"}{/if}</td>
+                <td class="text-center">{if !empty($it.writable)}{icon name='success' title="{tr}File is writable{/tr}"}{else}{icon name='ban' title="{tr}File is not writable{/tr}"}{/if}</td>
             </tr>
             {$totalsize = $totalsize + $it.size}
         {/foreach}

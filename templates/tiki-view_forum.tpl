@@ -402,7 +402,7 @@
     {/if}
 {/if}
 {if count($channels) > 0}
-<div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if $ts.enabled}style="visibility:hidden;"{/if}> {*the table-responsive class cuts off dropdown menus *}
+<div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}> {*the table-responsive class cuts off dropdown menus *}
     <div class="card card-primary">
         <div class="card-header">
             {tr}Sub Forums{/tr}
@@ -617,7 +617,7 @@
     <input type="hidden" name="thread_sort_mode" value="{$thread_sort_mode|escape}">
     <input type="hidden" name="forumId" value="{$forumId|escape}">
     {* Use css menus as fallback for item dropdown action menu if javascript is not being used *}
-    <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if $ts.enabled}style="visibility:hidden;"{/if}>
+    <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}>
         <table id="{$ts.tableid}" class="table normal table-striped table-hover table-forum" data-count="{$comments_cant|escape}">
             {block name=forum-header}
             <thead>

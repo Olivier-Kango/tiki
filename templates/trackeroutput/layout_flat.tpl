@@ -17,7 +17,7 @@
                 {$level = $cur_field.options_map.level}
                 {if $level lt 1}{$level = 3}{/if}
                 <h{$level}>{$cur_field.name|tra|escape}</h{$level}>
-                {if $cur_field.description}
+                {if !empty($cur_field.description)}
                     <p>{$cur_field.description|tra|escape}</p>
                 {/if}
                 <dl class="row mx-0">

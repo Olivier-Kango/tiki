@@ -77,7 +77,7 @@
                     {foreach $options as $option}
                         <li class="p-2" id="node_{$option.optionId}" data-id="{$option.optionId}" data-position="{$option.position}" data-parent="{$option.parent}" data-type="{$option.type}">
                             <div class="options--group-container">
-                                {if $option.name}
+                                {if !empty($option.name)}
                                     {capture assign='tooltip'}{strip}
                                         {if $editable_menu_info.parse eq 'y'}
                                             {wiki}{$option.name}{/wiki}
@@ -86,23 +86,23 @@
                                         {/if}
                                         |
                                         <dl>
-                                            {if $option.url}
+                                            {if !empty($option.url)}
                                                 <dt>{tr}URL:{/tr}</dt>
                                                 <dd>{$option.canonic|truncate:40:' ...'|escape}</dd>
                                             {/if}
-                                            {if $option.section}
+                                            {if !empty($option.section)}
                                                 <dt>{tr}Sections:{/tr}</dt>
                                                 <dd>{$option.section}</dd>
                                             {/if}
-                                            {if $option.perm}
+                                            {if !empty($option.perm)}
                                                 <dt>{tr}Permissions:{/tr}</dt>
                                                 <dd>{$option.perm}</dd>
                                             {/if}
-                                            {if $option.groupname}
+                                            {if !empty($option.groupname)}
                                                 <dt>{tr}Groups:{/tr}</dt>
                                                 <dd>{$option.groupname|escape}</dd>
                                             {/if}
-                                            {if $option.class}
+                                            {if !empty($option.class)}
                                                 <dt>{tr}Class:{/tr}</dt>
                                                 <dd>{$option.class|escape}</dd>
                                             {/if}

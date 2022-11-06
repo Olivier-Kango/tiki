@@ -121,7 +121,7 @@
                                            data-ticket="{ticket mode=get}"
                                         >
                                             {$profile.name|escape}
-                                        </a>{if $profile.installed} <em>{tr}applied{/tr}</em>{/if}
+                                        </a>{if !empty($profile.installed)} <em>{tr}applied{/tr}</em>{/if}
                                     </td>
                                 {/if}
 

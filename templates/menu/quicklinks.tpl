@@ -19,10 +19,10 @@
                                 onchange="setMenuCon(options[selectedIndex].value);return true;">
                             <option value=",,,">{tr}Choose{/tr} ...</option>
                             <option value="{$prefs.tikiIndex},{tr}Home Page{/tr}">{tr}Home Page{/tr}</option>
-                            {if $prefs.home_blog}
+                            {if !empty($prefs.home_blog)}
                                 <option
                                 value="{$prefs.home_blog|sefurl:blog},{tr}Home Blog,{/tr}feature_blogs,tiki_p_view_blogs">{tr}Home Blog{/tr}</option>{/if}
-                            {if $prefs.home_file_gallery}
+                            {if !empty($prefs.home_file_gallery)}
                             <option
                             value="tiki-list_file_gallery?galleryId={$prefs.home_file_gallery},{tr}Home File Gal,{/tr}feature_file_galleries,tiki_p_view_file_gallery">{tr}Home File Gallery{/tr}</option>{/if}
                             ]

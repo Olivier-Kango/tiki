@@ -191,7 +191,7 @@
                         {tr}Is email public?{/tr}
                     </label>
                     <div class="col-md-8">
-                        {if $userinfo.email}
+                        {if !empty($userinfo.email)}
                             <select id="email_isPublic" name="email_isPublic" class="form-select">
                                 {section name=ix loop=$scramblingMethods}
                                     <option value="{$scramblingMethods[ix]|escape}" {if $user_prefs.email_isPublic eq $scramblingMethods[ix]}selected="selected"{/if}>
@@ -290,7 +290,7 @@
                     </div>
                 {/if}
                 {if $prefs.feature_multilingual eq 'y'}
-                    {if $user_prefs.read_language}
+                    {if !empty($user_prefs.read_language)}
                         <div id="read-lang-div" class="mb-3 row clearfix">
                     {else}
                         <div class="mb-3 row clearfix">

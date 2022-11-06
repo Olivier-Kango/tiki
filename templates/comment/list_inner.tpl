@@ -31,7 +31,7 @@
                             {if $allow_post && $comment.locked neq 'y'}
                                 <a class='btn btn-primary btn-sm' href="{service controller=comment action=post type=$type objectId=$objectId parentId=$comment.threadId}">{tr}Reply{/tr}</a>
                             {/if}
-                            {if $comment.can_edit}
+                            {if !empty($comment.can_edit)}
                                 <a class='btn btn-secondary btn-sm' href="{service controller=comment action=edit threadId=$comment.threadId}">{tr}Edit{/tr}</a>
                             {/if}
                             {if $allow_remove}
@@ -79,7 +79,7 @@
                         {if $prefs.wiki_comments_simple_ratings eq 'y' && ($tiki_p_ratings_view_results eq 'y' or $tiki_p_admin eq 'y')}
                             {rating_result type="comment" id=$comment.threadId}
                         {/if}
-                        {if $comment.diffInfo}
+                        {if !empty($comment.diffInfo)}
                             <div class="{*well*}"><pre style="display: none;">{$comment.diffInfo|var_dump}</pre>
                                 <h4 class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target=".version{$comment.diffInfo[0].version}" aria-expanded="false" aria-controls="collapseExample">
                                     Version {$comment.diffInfo[0].version}

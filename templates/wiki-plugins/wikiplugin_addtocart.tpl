@@ -41,7 +41,7 @@
             <input type="submit" class="btn btn-secondary btn-sm" value="{tr}{$params.label|escape}{/tr}">
         </div>
 
-        {if $params.exchangeorderitemid}
+        {if !empty($params.exchangeorderitemid)}
             <input type="hidden" value="{$params.exchangeorderitemid|escape}" name="exchangeorderitemid">
             <input type="hidden" value="{$params.exchangetoproductid|escape}" name="exchangetoproductid">
         {/if}

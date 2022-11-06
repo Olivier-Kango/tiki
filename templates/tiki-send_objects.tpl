@@ -75,7 +75,7 @@
                     <div class="d-flex flex-row flex-wrap align-items-center">
                         <select name="structure" class="form-control">
                             {foreach item=struct from=$structures}
-                                <option value="{$struct.page_ref_id|escape}">{$struct.pageName|escape}{if $struct.page_alias} (alias: {$struct.page_alias}){/if}</option>
+                                <option value="{$struct.page_ref_id|escape}">{$struct.pageName|escape}{if !empty($struct.page_alias)} (alias: {$struct.page_alias}){/if}</option>
                             {/foreach}
                         </select>
                         <input type="submit" class="btn btn-primary" name="addstructure" value="{tr}Add Structure{/tr}">

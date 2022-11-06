@@ -54,7 +54,7 @@
                         <a href="{$result.tutorialUrl|escape:'url'}">{$result.tutorialUrl|escape}</a>
                     </td>
                     <td>
-                        {if $result.restricted}{icon name='check'}{/if}
+                        {if !empty($result.restricted)}{icon name='check'}{/if}
                     </td>
                 </tr>
             {/foreach}

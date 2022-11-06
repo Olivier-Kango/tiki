@@ -32,7 +32,7 @@
                         {foreach $secInfo.children as $page => $info}
 
                                 <a href="{if not empty($info.url)}{$info.url}{else}tiki-admin.php?page={$page}{/if}"
-                                        class="tips right icon dropdown-item{if !empty($info.selected)} active{/if}{if $info.disabled} item-disabled text-muted{/if}"
+                                        class="tips right icon dropdown-item{if !empty($info.selected)} active{/if}{if !empty($info.disabled)} item-disabled text-muted{/if}"
                                         data-alt="{$info.title} {$info.description}" title="{$info.title}|{$info.description}">
                                     {icon name="admin_$page" iclass='fa-fw'}
                                     <span>{$info.title}</span>

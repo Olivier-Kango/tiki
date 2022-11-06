@@ -87,7 +87,7 @@
             </p>
         {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _onclick="showtikiorg_process{$myId}('snapshot');" _text="{tr}Create new snapshot{/tr}"}
         {/remarksbox}
-        {if $field.canDestroy}
+        {if !empty($field.canDestroy)}
             {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _onclick="showtikiorg_process{$myId}('destroy');" _text="{tr}Destroy this {$field.options_map.domain|escape} instance{/tr}"}
             {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _onclick="showtikiorg_process{$myId}('reset');" _text="{tr}Reset password to 12345{/tr}"}
         {/if}
@@ -95,7 +95,7 @@
             {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _onclick="showtikiorg_process{$myId}('update');" _text="{tr}SVN update{/tr}"}
         </span>
     </div>
-    {if $field.options_map.debugMode}
+    {if !empty($field.options_map.debugMode)}
         {remarksbox type="info" title="{tr}Debug Mode Information{/tr}" close="n"}
             <div class="showdebugoutput{$myId}">-{$field.status|escape}
                 - {$field.debugoutput|escape}</div>

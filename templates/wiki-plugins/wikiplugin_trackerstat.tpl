@@ -8,7 +8,7 @@
 {foreach from=$stats[istat].values item=val}
 <tr>
 {if $show_count eq 'y'}<td class="{cycle advance=false}">{$val.count}</td>{/if}
-<td class="{cycle advance=false}{if $val.me} highlight{/if}">
+<td class="{cycle advance=false}{if !empty($val.me)} highlight{/if}">
     {if $show_link eq 'y'}<a href="tiki-view_tracker.php?{$val.href}">{/if}
     {$val.value}
     {if $show_link eq 'y'}</a>{/if}

@@ -26,11 +26,11 @@
 {if $prefs.javascript_enabled eq 'y'}
 {else}
 <div class="plugin-sample">
-    {if $plugin.body}
+    {if !empty($plugin.body)}
         &#123;{$plugin_name}(
         {foreach key=name item=param from=$plugin.params}
             <div class="plugin-param">
-                {if $param.required}
+                {if !empty($param.required)}
                     {$name}=<em>"{$param.description|escape}"</em>
                 {else}
                     [ {$name}=<em>"{$param.description|escape}"</em> ]
@@ -46,7 +46,7 @@
         &#123;{$plugin_name|@lower}
         {foreach key=name item=param from=$plugin.params}
             <div class="plugin-param">
-                {if $param.required}
+                {if !empty($param.required)}
                     {$name}=<em>"{$param.description|escape}"</em>
                 {else}
                     [ {$name}=<em>"{$param.description|escape}"</em> ]

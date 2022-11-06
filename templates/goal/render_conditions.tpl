@@ -18,7 +18,7 @@
                 </td>
                 <td>
                     <a class="edit" href="#" data-element="{$key|escape}">{$condition.label|escape}</a>
-                    {if $condition.hidden}
+                    {if !empty($condition.hidden)}
                         <span class="label label-info">{tr}Hidden{/tr}</span>
                     {/if}
                     <a class="delete float-sm-end text-danger" href="#" data-element="{$key|escape}">{icon name="delete"} {tr}Delete{/tr}</a>

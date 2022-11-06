@@ -1,6 +1,6 @@
-<div id="display_f{$field.fieldId|escape}" class="files-field display_f{$field.fieldId|escape} uninitialized {if $data.replaceFile}replace{/if}" data-galleryid="{$field.galleryId|escape}" data-firstfile="{$field.firstfile|escape}" data-filter="{$field.filter|escape}" data-limit="{$field.limit|escape}">
-    {if $field.canUpload}
-        {if $field.limit}
+<div id="display_f{$field.fieldId|escape}" class="files-field display_f{$field.fieldId|escape} uninitialized {if !empty($data.replaceFile)}replace{/if}" data-galleryid="{$field.galleryId|escape}" data-firstfile="{$field.firstfile|escape}" data-filter="{$field.filter|escape}" data-limit="{$field.limit|escape}">
+    {if !empty($field.canUpload)}
+        {if !empty($field.limit)}
             {if $field.limit == 1}
                 {remarksbox _type=info title="{tr}Attached files limitation{/tr}"}
                     {tr }The amount of files that can be attached is limited to <strong>1</strong>. The latest file will be preserved.{/tr}
@@ -49,7 +49,7 @@
                 </div>
             {/if}
         {/if}
-        {if $context.canBrowse}
+        {if !empty($context.canBrowse)}
             {if $prefs.fgal_elfinder_feature eq 'y'}
                 {button href='tiki-list_file_gallery.php' _text="{tr}Browse files{/tr}" _onclick=$context.onclick title="{tr}Browse files{/tr}"}
             {else}
@@ -82,7 +82,7 @@
     {/if}
 </div>
 
-{if $field.canUpload}
+{if !empty($field.canUpload)}
     {jq}
         $('.files-field.uninitialized').removeClass('uninitialized').each(function () {
             var $self = $(this);

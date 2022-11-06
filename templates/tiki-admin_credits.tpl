@@ -71,9 +71,9 @@
         {foreach key=id item=data from=$userPlans}
             <tr>
                 <td>{$id|escape}</td>
-                <td>{if $data.currentbegin}{$data.currentbegin|escape}{else}-{/if}</td>
-                <td>{if $data.nextbegin}{$data.nextbegin|escape}{else}-{/if}</td>
-                <td>{if $data.expiry}{$data.expiry|escape}{else}-{/if}</td>
+                <td>{if !empty($data.currentbegin)}{$data.currentbegin|escape}{else}-{/if}</td>
+                <td>{if !empty($data.nextbegin)}{$data.nextbegin|escape}{else}-{/if}</td>
+                <td>{if !empty($data.expiry)}{$data.expiry|escape}{else}-{/if}</td>
             </tr>
         {/foreach}
     </table>

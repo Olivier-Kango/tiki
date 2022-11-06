@@ -656,7 +656,7 @@
                                     <label class="col-form-label" for="browsertitle">
                                         {tr}Browser title:{/tr}
                                     </label>
-                                    <input class="form-control" type="text" size="40" name="browsertitle" id="browsertitle" value="{if $prefs.browsertitle}{$prefs.browsertitle|escape}{else}{tr}My Tiki{/tr}{/if}">
+                                    <input class="form-control" type="text" size="40" name="browsertitle" id="browsertitle" value="{if !empty($prefs.browsertitle)}{$prefs.browsertitle|escape}{else}{tr}My Tiki{/tr}{/if}">
                                     <span class="form-text">
                                         {tr}This will appear in the browser title bar.{/tr}
                                     </span>

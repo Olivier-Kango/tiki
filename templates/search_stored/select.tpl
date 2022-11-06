@@ -58,7 +58,7 @@
                             </label>
                         </td>
                         <td>
-                            {if $query.lastModif}
+                            {if !empty($query.lastModif)}
                                 {$query.lastModif|tiki_short_datetime}
                             {else}
                                 {tr}Never{/tr}

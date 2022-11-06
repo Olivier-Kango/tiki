@@ -50,13 +50,13 @@
                         </li>
                         <li>
                             <label>
-                                <input class="managingGroup" type="radio" name="managingGroup" value="{$key|escape}" {if $group.managing}checked="checked"{/if} />
+                                <input class="managingGroup" type="radio" name="managingGroup" value="{$key|escape}" {if !empty($group.managing)}checked="checked"{/if} />
                                 {tr}Is managing group{/tr}
                             </label>
                         </li>
                         <li>
                             <label>
-                                <input class="autojoin" type="checkbox" name="groups~{$key|escape}~autojoin" value="1" {if $group.autojoin}checked="checked"{/if} />
+                                <input class="autojoin" type="checkbox" name="groups~{$key|escape}~autojoin" value="1" {if !empty($group.autojoin)}checked="checked"{/if} />
                                 {tr}Workspace creator joins this group{/tr}
                             </label>
                         </li>

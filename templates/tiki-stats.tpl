@@ -64,13 +64,13 @@
                     <td>{tr}Average pageviews per day{/tr} ({tr}pvs{/tr})</td>
                     <td style="text-align:right;">{$site_stats.ppd}</td>
                 </tr>
-                {if $site_stats.bestdesc}
+                {if !empty($site_stats.bestdesc)}
                     <tr>
                         <td>{$site_stats.bestdesc}</td>
                         <td style="text-align:right;">{$site_stats.bestday}</td>
                     </tr>
                 {/if}
-                {if $site_stats.worstdesc}
+                {if !empty($site_stats.worstdesc)}
                     <tr>
                         <td>{$site_stats.worstdesc}</td><td style="text-align:right;">{$site_stats.worstday}</td>
                     </tr>
@@ -422,7 +422,7 @@
         {/tab}
     {/if}
 
-    {if $prefs.site_google_credentials}
+    {if !empty($prefs.site_google_credentials)}
         {tab name="{tr}Google Analytics{/tr}"}
             <h2 id="site_stats">{tr}Google Analytics{/tr}</h2>
             {remarksbox}Google Analytics dashboard to do...{/remarksbox}

@@ -1,11 +1,11 @@
 {tikimodule error=$module_params.error title=$tpl_module_title name="map_layer_selector" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
     <form class="map-layer-selector" method="post" action="">
-        {if $controls.baselayer}
+        {if !empty($controls.baselayer)}
             <select name="baseLayers">
             </select>
         {/if}
 
-        {if $controls.optionallayers}
+        {if !empty($controls.optionallayers)}
             <div class="optionalLayers">
             </div>
         {/if}

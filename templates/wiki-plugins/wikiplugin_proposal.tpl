@@ -1,6 +1,6 @@
 <div class="table-responsive">
 <table class="table table-bordered">
-    {if $params.caption}
+    {if !empty($params.caption)}
         <caption>{$params.caption|escape}</caption>
     {/if}
     <tr>

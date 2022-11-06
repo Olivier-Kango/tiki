@@ -3,7 +3,7 @@
         {assign var=calendarId value=$evt.calendarId}
         <div style="position:relative">
             <strong{if $evt.status eq '2'} style="text-decoration:line-through"{/if}>
-                {if $evt.result.allday}
+                {if !empty($evt.result.allday)}
                     {tr}All day{/tr}
                 {else}
                     {if $evt.endTimeStamp - $evt.startTimeStamp < 86400}

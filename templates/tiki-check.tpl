@@ -25,7 +25,7 @@
                         {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                 </td>
-                <td data-th="{tr}OK:{/tr}" class="text">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                <td data-th="{tr}OK:{/tr}" class="text">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                 <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
             </tr>
         {foreachelse}
@@ -222,7 +222,7 @@
                         {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                 </td>
-                <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                 <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
             </tr>
         {foreachelse}
@@ -292,7 +292,7 @@
                         {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
             {foreachelse}
@@ -328,7 +328,7 @@
                         {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
             {foreachelse}
@@ -363,7 +363,7 @@
                         {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
         {foreachelse}
@@ -376,10 +376,10 @@
 {remarksbox type="note" id="php_conf_info" title="{tr}Change PHP configuration values{/tr}"}
     {if $php_sapi_info}
         <p>
-        {if $php_sapi_info.message}
+        {if !empty($php_sapi_info.message)}
             {tr}{$php_sapi_info.message}{/tr}
         {/if}
-        {if $php_sapi_info.link}
+        {if !empty($php_sapi_info.link)}
             {tr}<a href="{$php_sapi_info.link}" class="alert-link">{$php_sapi_info.link}</a>{/tr}
         {/if}
         </p>
@@ -412,7 +412,7 @@
                         {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
         {foreachelse}

@@ -31,7 +31,7 @@ html indentation and smarty indentation are independant. Please keep consistent 
             <abbr class="dtstart" title="{$modUpcomingEvents[ix].start|isodate}">{$modUpcomingEvents[ix].start|tiki_date_format:$date_format}</abbr>
                 {if $showEnd eq 'y'}
                 -
-                <abbr class="dtend" title="{$modUpcomingEvents[ix].end|isodate}">{if $module_params.date_format}{$modUpcomingEvents[ix].end|tiki_date_format:$date_format}{elseif $modUpcomingEvents[ix].start|tiki_short_date ne $modUpcomingEvents[ix].end|tiki_short_date}{$modUpcomingEvents[ix].end|tiki_short_datetime}{else}{$modUpcomingEvents[ix].end|tiki_short_time}{/if}</abbr>
+                <abbr class="dtend" title="{$modUpcomingEvents[ix].end|isodate}">{if !empty($module_params.date_format)}{$modUpcomingEvents[ix].end|tiki_date_format:$date_format}{elseif $modUpcomingEvents[ix].start|tiki_short_date ne $modUpcomingEvents[ix].end|tiki_short_date}{$modUpcomingEvents[ix].end|tiki_short_datetime}{else}{$modUpcomingEvents[ix].end|tiki_short_time}{/if}</abbr>
                 {/if}
             {/if}
             <br>
@@ -52,7 +52,7 @@ html indentation and smarty indentation are independant. Please keep consistent 
             <div class="description form-text">{$modUpcomingEvents[ix].parsed}</div>
             {/if}
 
-            {if $smarty.section.ix.last}
+            {if !empty($smarty.section.ix.last)}
         </td>
     </tr>
             {/if}

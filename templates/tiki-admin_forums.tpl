@@ -34,7 +34,7 @@
             {include file='find.tpl'}
         {/if}
         <form method='post' id="admin_forums">
-            <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if $ts.enabled}style="visibility:hidden;"{/if}>
+            <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}>
                 <table id="{$ts.tableid}" class="table table-striped table-hover" data-count="{$cant|escape}">
                     {$numbercol = 0}
                     <thead>

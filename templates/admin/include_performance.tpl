@@ -70,7 +70,7 @@
 
                 <p>{tr _0=$opcode_cache}Using <strong>%0</strong>. These stats affect all PHP applications running on the server.{/tr}</p>
 
-                {if $opcode_stats.warning_xcache_blocked}
+                {if !empty($opcode_stats.warning_xcache_blocked)}
                     <p>{tr _0="xcache.admin.enable_auth"}Configuration setting %0 prevents from accessing statistics. This will also prevent the cache from being cleared when clearing template cache.{/tr}</p>
                 {/if}
 
@@ -97,31 +97,31 @@
                     </table>
                 </div>
 
-                {if $opcode_stats.warning_fresh}
+                {if !empty($opcode_stats.warning_fresh)}
                     <p>{tr}Few hits recorded. Statistics may not be representative.{/tr}</p>
                 {/if}
 
-                {if $opcode_stats.warning_ratio}
+                {if !empty($opcode_stats.warning_ratio)}
                     <p>{tr _0=$opcode_cache}Low hit ratio. %0 may be misconfigured and not used.{/tr}</p>
                 {/if}
 
-                {if $opcode_stats.warning_starve}
+                {if !empty($opcode_stats.warning_starve)}
                     <p>{tr}Little memory available. Thrashing likely to occur.{/tr} {tr}The values to increase are apc.shm_size (for APC), xcache.size (for XCache) or opcache.memory_consumption (for OPcache).{/tr}</p>
                 {/if}
 
-                {if $opcode_stats.warning_low}
+                {if !empty($opcode_stats.warning_low)}
                     <p>{tr _0=$opcode_cache}Small amount of memory allocated to %0. Verify the configuration.{/tr} {tr}The values to increase are apc.shm_size (for APC), xcache.size (for XCache) or opcache.memory_consumption (for OPcache).{/tr}</p>
                 {/if}
 
-                {if $opcode_stats.warning_check}
+                {if !empty($opcode_stats.warning_check)}
                     <p>
                         {tr _0=$stat_flag}Configuration <em>%0</em> is enabled. Disabling modification checks can improve performance, but will require manual clear on file updates.{/tr}
-                        {if $opcode_stats.warning_xcache_blocked}
+                        {if !empty($opcode_stats.warning_xcache_blocked)}
                             {tr _0=$stat_flag}<em>%0</em> should not be disabled due to authentication on XCache.{/tr}
                         {/if}
                     </p>
                 {/if}
-                {if $opcode_stats.warning_check}
+                {if !empty($opcode_stats.warning_check)}
                     <p>{tr}Clear all APC caches:{/tr} {self_link apc_clear=true _onclick="confirmPopup('{tr}Clear APC caches?{/tr}', '{ticket mode=get}')"}{tr}Clear Caches{/tr}{/self_link}</p>
                 {/if}
             {else}

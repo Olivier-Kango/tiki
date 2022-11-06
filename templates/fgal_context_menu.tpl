@@ -201,7 +201,7 @@
                 {/if}
 
                 {if $gal_info.lockable eq 'y' and $file.isgal neq 1}
-                    {if $file.lockedby}
+                    {if !empty($file.lockedby)}
                         {* Notify user in confirm message when file is locked by another user *}
                         {if $user && $user !== $file.lockedby}
                             {self_link _icon_name='unlock' _menu_text=$menu_text _menu_icon=$menu_icon lock='n' fileId=$file.fileId galleryId=$file.galleryId _onclick="confirmPopup('{tr _0=$file.lockedby|username}File previously locked by user %0, do you want to unlock it?{/tr}', '{ticket mode=get}')"}

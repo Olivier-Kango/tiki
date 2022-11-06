@@ -1,4 +1,4 @@
-{if $field.error}
+{if !empty($field.error)}
 <div class="error">{$field.error|escape}</div>
 {/if}
 {if !$field.id}
@@ -6,7 +6,7 @@
         <p>{tr}You will be able to manage Tiki instances here once you create the item.{/tr}</p>
     {/remarksbox}
 {else}
-    {if $field.instances}
+    {if !empty($field.instances)}
         {foreach $field.instances as $instance}
             <div class="tikimanager-instance">
                 <label>Type:</label> {$instance->type|escape}<br/>
@@ -116,7 +116,7 @@
         {/foreach}
     {/if}
     {if in_array('create', $field.available_actions) and !$field.has_created_one}
-        {if $field.source}{assign var=action value=create_source}{else}{assign var=action value=create}{/if}
+        {if !empty($field.source)}{assign var=action value=create_source}{else}{assign var=action value=create}{/if}
         <div class="btn-group">
             <a class="btn btn-primary btn-sm dropdown-toggle" id="createInstance" data-bs-toggle="dropdown" data-bs-hover="dropdown" aria-expanded="false" href="#">
                 {icon name=create _menu_text='y' _menu_icon='y' alt="{tr}Create new instance{/tr}"}

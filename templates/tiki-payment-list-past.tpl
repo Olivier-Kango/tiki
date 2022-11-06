@@ -1,10 +1,10 @@
-<div id="{$table_id}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if $ts.enabled}style="visibility:hidden;"{/if}>
+<div id="{$table_id}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}>
 <table id="{$table_id}" class="table table-striped table-hover" data-count="{$payments.cant|escape}">
     <thead>
         <tr>
             <th id="id">{tr}ID{/tr}</th>
             <th id="description">{tr}Description{/tr}</th>
-            {if $ts.enabled}<th id="detail">{tr}Detail{/tr}</th>{/if}
+            {if !empty($ts.enabled)}<th id="detail">{tr}Detail{/tr}</th>{/if}
             <th id="amount">{tr}Amount{/tr}</th>
             <th id="pmt_date">{tr}Date Paid{/tr}</th>
             <th id="pmt_type">{tr}Type{/tr}</th>
@@ -26,7 +26,7 @@
                     {/if}
                     {/self_link}
                 </td>
-                {if $ts.enabled}
+                {if !empty($ts.enabled)}
                     <td>
                         {$payment.request_detail}
                     </td>
@@ -36,7 +36,7 @@
                 <td class="text">{$payment.type|escape}</td>
                 {if $tiki_p_admin eq 'y'}
                     <td class="text">
-                        {if $payment.user}
+                        {if !empty($payment.user)}
                             {$payment.user|userlink}
                         {else}
                             {tr}Anonymous{/tr}
@@ -45,7 +45,7 @@
                 {/if}
                 {if $tiki_p_admin eq 'y'}
                     <td class="text">
-                        {if $payment.payer}
+                        {if !empty($payment.payer)}
                             {$payment.payer|userlink}
                         {else}
                             <em title="{tr _0=$payment.type|escape}Payer email from %0{/tr}" class="text-info">

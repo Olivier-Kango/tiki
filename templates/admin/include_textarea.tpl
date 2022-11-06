@@ -212,7 +212,7 @@
                     {foreach from=$plugins key=plugin item=info}
                         <fieldset class="mb-5">
                             <legend>
-                                {if $info.iconname}{icon name=$info.iconname}{else}{icon name='plugin'}{/if} {$info.name|escape}
+                                {if !empty($info.iconname)}{icon name=$info.iconname}{else}{icon name='plugin'}{/if} {$info.name|escape}
                             </legend>
                             <div class="adminoptionbox">
                                 <strong>{$plugin|escape}</strong>: {$info.description|default:''|escape}
@@ -486,7 +486,7 @@
                                     <div class="mb-3 row">
                                         <div class=" col-sm-2 offset-sm-4">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name="input[{$token|escape}][required]" id="input[{$token|escape}][required]" value="y"{if $detail.required} checked="checked"{/if}>
+                                                <input class="form-check-input" type="checkbox" name="input[{$token|escape}][required]" id="input[{$token|escape}][required]" value="y"{if !empty($detail.required)} checked="checked"{/if}>
                                                 <label class="col-form-label" for="input[{$token|escape}][required]">
                                                     {tr}Required{/tr}
                                                 </label>
@@ -494,7 +494,7 @@
                                         </div>
                                         <div class=" col-sm-2">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name="input[{$token|escape}][safe]" id="input[{$token|escape}][safe]" value="y"{if $detail.safe} checked="checked"{/if}>
+                                                <input class="form-check-input" type="checkbox" name="input[{$token|escape}][safe]" id="input[{$token|escape}][safe]" value="y"{if !empty($detail.safe)} checked="checked"{/if}>
                                                 <label class="col-form-label" for="input[{$token|escape}][safe]">
                                                     {tr}Safe{/tr}
                                                 </label>

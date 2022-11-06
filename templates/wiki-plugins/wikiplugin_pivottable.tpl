@@ -55,7 +55,7 @@
                 }
             },
 
-            {{if $pivottable.heatmapParams}}
+            {{if !empty($pivottable.heatmapParams)}}
             rendererOptions: {
                 heatmap: {
                     colorScaleGenerator: function(values) {
@@ -142,7 +142,7 @@
         <input id="save_{$pivottable.id}" type="button" value="{tr}Save Changes{/tr}" class="btn btn-primary ui-button ui-corner-all ui-widget" />
         <input class="btn btn-secondary ui-button ui-corner-all ui-widget" id="restore_{$pivottable.id}" type="button" value="{tr}Cancel Edit{/tr}" />
     </div>
-    {if $pivottable.showControls}
+    {if !empty($pivottable.showControls)}
         <div id="pivotControls_{$pivottable.id}" style="display:none;position:relative;">
             <input type="button" id="pivotEditBtn_{$pivottable.id}" value="{tr}Edit Pivot Table{/tr}" class="btn btn-primary ui-button ui-corner-all ui-widget" />
         </div>

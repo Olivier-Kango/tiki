@@ -1,6 +1,6 @@
 {strip}
     <div class="mainContainer text-center d-flex flex-column align-items-center justify-content-center" style="{$mainContainerStyle}">
-        {if $pluginInfos.icon}
+        {if !empty($pluginInfos.icon)}
             <img src="tiki-download_file.php?fileId={$pluginInfos.icon}" width="{($pluginInfos.iconWidth) ? $pluginInfos.iconWidth : 64}" height="{($pluginInfos.iconHeight) ? $pluginInfos.iconHeight : 64}">
         {/if}
         <h1{if $numberStyle} style="{$numberStyle}"{/if}>
@@ -10,12 +10,12 @@
             </span>
             {$pluginInfos.suffix}
         </h1>
-        {if $pluginInfos.title}
+        {if !empty($pluginInfos.title)}
             <h3{if $titleStyle} style="{$titleStyle}"{/if}>
                 {$pluginInfos.title}
             </h3>
         {/if}
-        {if $pluginInfos.description}
+        {if !empty($pluginInfos.description)}
             <h6{if $descriptionStyle} style="{$descriptionStyle}"{/if}>
                 {$pluginInfos.description}
             </h6>

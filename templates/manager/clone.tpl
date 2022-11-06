@@ -23,15 +23,15 @@
                 </label>
                 <div class="col-sm-9">
                     {if $option.type eq 'select'}
-                    <select class="form-control" name="options[--{$option.name}]{if $option.is_array}[]{/if}">
+                    <select class="form-control" name="options[--{$option.name}]{if !empty($option.is_array)}[]{/if}">
                         {foreach item=value key=key from=$option.values}
                             <option value="{$key|escape}" {if $option.selected eq $key}selected="selected"{/if}>{$value|escape}</option>
                         {/foreach}
                     </select>
                     {elseif $option.type eq 'checkbox'}
-                    <input value="1" class="form-check-input" type="checkbox" name="options[--{$option.name}]{if $option.is_array}[]{/if}" {if $option.selected}checked="checked"{/if}>
+                    <input value="1" class="form-check-input" type="checkbox" name="options[--{$option.name}]{if !empty($option.is_array)}[]{/if}" {if $option.selected}checked="checked"{/if}>
                     {else}
-                        <input value="{$option.selected}" placeholder="" class="form-control" type="text" name="options[--{$option.name}]{if $option.is_array}[]{/if}">
+                        <input value="{$option.selected}" placeholder="" class="form-control" type="text" name="options[--{$option.name}]{if !empty($option.is_array)}[]{/if}">
                     {/if}
                 </div>
             </div>

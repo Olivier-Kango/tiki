@@ -1,4 +1,4 @@
-<div id="{$table_id}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if $ts.enabled}style="visibility:hidden;"{/if}>
+<div id="{$table_id}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}>
     <table id="{$table_id}" class="table table-striped table-hover" data-count="{$payments.cant|escape}">
         <thead>
         <tr>

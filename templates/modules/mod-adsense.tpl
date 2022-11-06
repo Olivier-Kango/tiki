@@ -60,7 +60,7 @@
                 google_ad_format = "200x200_as";
             {/if}
         {/capture}
-        {if $smarty.capture.disparam}
+        {if !empty($smarty.capture.disparam)}
             <script type="text/javascript">
                 {$smarty.capture.disparam}
                 google_ad_client = "{$client}";

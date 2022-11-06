@@ -18,7 +18,7 @@
                     {rating_choice comment_author=$comment.userName type=comment id=$comments_parentId }
                 {/if}
                 {if isset($comment.anonymous_name) and $comment.anonymous_name}
-                    {tr}Posted by{/tr} <span class="author_post_info_by">{if $comment.website}<a href="{$comment.website}" target="_blank">{/if}{$comment.anonymous_name}{if $comment.website}</a>{/if}</span>
+                    {tr}Posted by{/tr} <span class="author_post_info_by">{if !empty($comment.website)}<a href="{$comment.website}" target="_blank">{/if}{$comment.anonymous_name}{if $comment.website}</a>{/if}</span>
                 {elseif isset($comment.userName)}
                     {tr}Posted by{/tr} <span class="author_post_info_by">{$comment.userName|userlink}</span>
                 {/if}

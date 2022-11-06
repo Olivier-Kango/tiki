@@ -51,19 +51,19 @@
             {if $activityframe.comment && $activity_format neq 'extended'}
                 <a class="comment btn btn-sm" href="{service controller=comment action=list type=$activityframe.comment.type objectId=$activityframe.comment.id modal=true}">
                     {tr}Comment{/tr}
-                    {if $activityframe.activity.comment_count}({$activityframe.activity.comment_count|escape}){/if}
+                    {if !empty($activityframe.activity.comment_count)}({$activityframe.activity.comment_count|escape}){/if}
                 </a>
             {/if}
             {if $prefs.feature_friends eq 'y' && $activityframe.likeactive}
-                {if $activityframe.like}
+                {if !empty($activityframe.like)}
                     <a class="like btn btn-sm" href="{service controller=social action=unlike type=$activityframe.object.type id=$activityframe.object.id}">
                         {tr}Unlike{/tr}
-                        {if $activityframe.activity.like_list}({$activityframe.activity.like_list|count}){/if}
+                        {if !empty($activityframe.activity.like_list)}({$activityframe.activity.like_list|count}){/if}
                     </a>
                 {else}
                     <a class="like btn btn-sm" href="{service controller=social action=like type=$activityframe.object.type id=$activityframe.object.id}">
                         {tr}Like{/tr}
-                        {if $activityframe.activity.like_list}({$activityframe.activity.like_list|count}){/if}
+                        {if !empty($activityframe.activity.like_list)}({$activityframe.activity.like_list|count}){/if}
                     </a>
                 {/if}
             {/if}

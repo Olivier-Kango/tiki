@@ -19,7 +19,7 @@
             {tab name="{tr}General{/tr}"}
                 <div class="mb-3 row">
                     <div class="form-check offset-md-3">
-                        <input type="checkbox" name="enabled" class="form-check-input" value="1" {if $goal.enabled}checked{/if}>
+                        <input type="checkbox" name="enabled" class="form-check-input" value="1" {if !empty($goal.enabled)}checked{/if}>
                         <label class="form-check-label" for="enabled">
                             {tr}Enabled{/tr}
                         </label>
@@ -68,7 +68,7 @@
                     <label class="col-form-label col-md-3">{tr}Range Type{/tr}</label>
                     <div class="col-md-9">
                         <label class="form-label">
-                            <input name="range_type" type="radio" value="rolling" {if $goal.daySpan} checked {/if} data-bs-target="#date-span">
+                            <input name="range_type" type="radio" value="rolling" {if !empty($goal.daySpan)} checked {/if} data-bs-target="#date-span">
                             {tr}Rolling{/tr}
                         </label>
                         <label class="form-label">

@@ -6,7 +6,7 @@
             {foreach from=$data.items key=id item=label}
                 <li class="d-flex justify-content-between">
                     <span class="d-flex justify-content-start">
-                        {if $data.links}
+                        {if !empty($data.links)}
                             {object_link type=trackeritem id=$id title=$label}
                         {elseif $data.raw}
                             {$label}
@@ -33,7 +33,7 @@
         </ul>
     {elseif $data.num eq 1}{strip}
         {foreach from=$data.items key=id item=label}
-            {if $data.links}
+            {if !empty($data.links)}
                 {object_link type=trackeritem id=$id title=$label}
             {elseif $data.raw}
                 {$label}
@@ -52,7 +52,7 @@
             </a>
         {/if}
     {/strip}{/if}
-    {if $data.addItemText}
+    {if !empty($data.addItemText)}
         {$forcedParam[$data.otherFieldPermName]=$data.parentItemId}
         <div class="mt-2">
             <a class="btn btn-secondary btn-sm itemslist-btn" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId forced=$forcedParam}">

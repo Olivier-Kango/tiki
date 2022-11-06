@@ -12,14 +12,14 @@
             {foreach from=$cart_content item=item}
                     <tr>
                         <td>
-                            {if $item.href}
+                            {if !empty($item.href)}
                                 <a href="{$item.href|escape}">
                                     {$item.description|escape}
                                 </a>
                             {else}
                                 {$item.description|escape}
                             {/if}
-                            {if $item.onbehalf}
+                            {if !empty($item.onbehalf)}
                                 {tr}for{/tr} {$item.onbehalf|escape|truncate:16}
                             {/if}
                         </td>

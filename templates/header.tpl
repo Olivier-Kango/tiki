@@ -178,8 +178,8 @@
         <meta content="{$base_url_canonical}{if $hasImage eq 'y'}article_image.php?image_type=article&id={$articleId}{elseif not empty ($topics.image_name)}article_image.php?image_type=topic&id={$topicId}{/if}" property="twitter:image">
     {* We use the social network image as failsafe - control panel social network *}
     {else}
-        {if $prefs.socialnetworks_facebook_site_image}<meta content="{$prefs.socialnetworks_facebook_site_image}" property="og:image">{/if}
-        {if $prefs.socialnetworks_twitter_site_image}<meta content="{$prefs.socialnetworks_twitter_site_image}" property="twitter:image">{/if}
+        {if !empty($prefs.socialnetworks_facebook_site_image)}<meta content="{$prefs.socialnetworks_facebook_site_image}" property="og:image">{/if}
+        {if !empty($prefs.socialnetworks_twitter_site_image)}<meta content="{$prefs.socialnetworks_twitter_site_image}" property="twitter:image">{/if}
     {/if}
 {/if}
 {* --- universaleditbutton.org --- *}
@@ -268,7 +268,7 @@
     <script src="vendor_bundled/vendor/afarkas/html5shiv/dist/html5shiv.min.js" type="text/javascript"></script>
 <![endif]-->
 {if $headerlib}        {$headerlib->output_headers()}{/if}
-{if $prefs.feature_custom_html_head_content}
+{if !empty($prefs.feature_custom_html_head_content)}
     {eval var=$prefs.feature_custom_html_head_content}
 {/if}
 

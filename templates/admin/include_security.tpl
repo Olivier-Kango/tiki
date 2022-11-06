@@ -410,7 +410,7 @@
                                 <textarea class="form-control" cols="60" rows="12" name="description">{$encryption_key.description|default:''|escape}</textarea>
                             </div>
                         </div><br>
-                        {if $encryption_key.keyId}
+                        {if !empty($encryption_key.keyId)}
                         <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="regenerate">
                                 {tr}Regenerate shares{/tr}
@@ -458,7 +458,7 @@
                                 {tr}Encryption algorithm{/tr}
                             </label>
                             <div class="col-sm-8">
-                                <select class="form-select" name="algo" id="algo" {if $encryption_key.keyId}disabled{/if}>
+                                <select class="form-select" name="algo" id="algo" {if !empty($encryption_key.keyId)}disabled{/if}>
                                     <option></option>
                                     {foreach $encryption_algos as $algo}
                                         <option value="{$algo|escape}" {if $encryption_key.algo eq $algo}selected="selected"{/if}>
@@ -475,7 +475,7 @@
                                 {tr}No. of people to share{/tr}
                             </label>
                             <div class="col-sm-8">
-                                <input type="number" min="1" class="form-control" name="shares" id="shares" value="{$encryption_key.shares|escape}" {if $encryption_key.keyId}disabled{/if}>
+                                <input type="number" min="1" class="form-control" name="shares" id="shares" value="{$encryption_key.shares|escape}" {if !empty($encryption_key.keyId)}disabled{/if}>
                             </div>
                         </div><br>
                         {/if}

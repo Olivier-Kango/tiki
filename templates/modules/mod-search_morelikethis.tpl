@@ -8,7 +8,7 @@
                 {if $row.object_id eq $simobject.object and $row.object_type eq $row.object_type}{else}
                     <li>
                         {object_link type=$row.object_type id=$row.object_id title=$row.title}
-                        {if $row._external}
+                        {if !empty($row._external)}
                             <span class="label label-info">{tr}External{/tr}</span>
                         {/if}
                     </li>

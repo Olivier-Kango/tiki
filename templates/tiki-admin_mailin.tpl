@@ -26,13 +26,13 @@
                     {if $account.active neq 'y'}
                         <span class="label label-warning">{tr}Disabled{/tr}</span>
                     {/if}
-                    {if $account.categoryId}
+                    {if !empty($account.categoryId)}
                         <div class="text-muted">
                             {tr}Auto-category:{/tr}
                             {object_link type=category id=$account.categoryId}
                         </div>
                     {/if}
-                    {if $account.namespace}
+                    {if !empty($account.namespace)}
                         <div class="text-muted">
                             {tr}Auto-namespace:{/tr}
                             {object_link type="wiki page" id=$account.namespace}

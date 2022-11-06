@@ -11,7 +11,7 @@
                 </div>
 
                 {foreach from=$ratings item=r}
-                    {if $r.title}
+                    {if !empty($r.title)}
                         <div>{$r.title|escape}</div>
                     {/if}
                     <form method="post" action="tiki-index.php">
@@ -48,7 +48,7 @@
                 </div>
                 {foreach from=$ratings item=r}
                     <div>
-                        {if $r.title}
+                        {if !empty($r.title)}
                             <div>{$r.title|escape}</div>
                         {/if}
                         {foreach from=$r.options item=option}
@@ -64,7 +64,7 @@
                 </div>
                 {foreach from=$ratings item=r}
                     <div>
-                        {if $r.title}
+                        {if !empty($r.title)}
                             <div>{$r.title|escape}</div>
                         {/if}
                         {foreach item=option from=$r.options}

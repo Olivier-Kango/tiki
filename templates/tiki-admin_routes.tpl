@@ -144,14 +144,14 @@
             <label class="col-sm-3 col-md-2 col-form-label" for="router_active">{tr}Active{/tr}</label>
             <div class="col-sm-9 col-md-10">
 
-                <input type="checkbox" class="form-check-input" id='router_active' name='router_active' {if $route.active}checked{/if}>
+                <input type="checkbox" class="form-check-input" id='router_active' name='router_active' {if !empty($route.active)}checked{/if}>
             </div>
         </div>
 
         <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="router_short_url">{tr}Short URL{/tr}</label>
             <div class="col-sm-9 col-md-10">
-                <input type="checkbox" class="form-check-input" id='router_short_url' name='router_short_url' {if $route.short_url}checked{/if}>
+                <input type="checkbox" class="form-check-input" id='router_short_url' name='router_short_url' {if !empty($route.short_url)}checked{/if}>
                 <span id="helpBlock" class="form-text">{tr}Check this option to set route as a Short URL.{/tr}</span>
             </div>
         </div>

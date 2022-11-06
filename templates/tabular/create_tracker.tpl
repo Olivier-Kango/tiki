@@ -82,7 +82,7 @@
                         <td class="mb-3">
                             <select class="form-select type">
                                 {foreach from=$types key=k item=info}
-                                    <option value="{$k}" {if $k eq 't'}selected{/if}>{$info.name|escape} {if $info.deprecated}- Deprecated{/if}</option>
+                                    <option value="{$k}" {if $k eq 't'}selected{/if}>{$info.name|escape} {if !empty($info.deprecated)}- Deprecated{/if}</option>
                                 {/foreach}
                             </select>
                             {*<ul class="dropdown-menu dropdown-menu-right" role="menu">*}

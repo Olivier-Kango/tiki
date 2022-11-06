@@ -19,7 +19,7 @@
                         <td>
                             {$option.description|escape}
                             {if $option.type eq 'category'}
-                                {if $option.isParent}
+                                {if !empty($option.isParent)}
                                     <span class="label label-warning">{tr}Parent Category{/tr}</span>
                                 {else}
                                     <span class="label label-info">{tr}Category{/tr}</span>
@@ -56,7 +56,7 @@
             <div class="card-body">
                 <h4>{tr}Priorities{/tr}</h4>
                 {foreach $priorities as $priority}
-                    {if $priority.description}
+                    {if !empty($priority.description)}
                         <p><strong>{$priority.label|escape}:</strong> {$priority.description|escape}</p>
                     {/if}
                 {/foreach}

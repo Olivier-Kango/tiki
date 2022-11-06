@@ -41,7 +41,7 @@
         <br/>
         {foreach from=$results key=$itemId item=row}
             <p>
-                {if $row.proba}
+                {if !empty($row.proba)}
                     {$row.proba}%:
                 {/if}
                 <a href="{$itemId|sefurl:'trackeritem'}">

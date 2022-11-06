@@ -342,7 +342,7 @@
                                 {if (isset($flaggedrev_approval) and $flaggedrev_approval) and $tiki_p_wiki_view_latest eq 'y'
                                     and $info.approved}<strong>({tr}approved{/tr})</strong>{/if}
 
-                                {if $info.comment}<div>{$info.comment|escape}</div>{/if}
+                                {if !empty($info.comment)}<div>{$info.comment|escape}</div>{/if}
 
                                 {if isset($translation_sources[$info.version]) and $translation_sources[$info.version]}
                                     {foreach item=source from=$translation_sources[$info.version]}
@@ -378,7 +378,7 @@
                                 {/if}
                             </td>
                             <td class="button_container">
-                                {if $info.is_markdown}
+                                {if !empty($info.is_markdown)}
                                     {icon name='check' iclass='tips' ititle=':{tr}Markdown{/tr}'}
                                 {/if}
                             </td>
@@ -426,7 +426,7 @@
                                 {icon name="user"} {$element.user|userlink}
                                 {if $prefs.feature_wiki_history_ip ne 'n'}{tr _0=$element.ip}from %0{/tr}{/if}
 
-                                {if $element.comment}<span class="form-text">{$element.comment|escape}</span>{/if}
+                                {if !empty($element.comment)}<span class="form-text">{$element.comment|escape}</span>{/if}
 
                                 {if (isset($flaggedrev_approval) and $flaggedrev_approval) and $tiki_p_wiki_view_latest eq 'y' and $element.approved}<strong>({tr}approved{/tr})</strong>{/if}
                                 {if (isset($flaggedrev_approval) and $flaggedrev_approval) and $element.rejected}<strong>({tr}rejected:{/tr}</strong> {$element.rejection_reason}<strong>)</strong>{/if}
@@ -473,7 +473,7 @@
                                 {/if}
                             </td>
                             <td class="button_container">
-                                {if $element.is_markdown}
+                                {if !empty($element.is_markdown)}
                                     {icon name='check' iclass='tips' ititle=':{tr}Markdown{/tr}'}
                                 {/if}
                             </td>

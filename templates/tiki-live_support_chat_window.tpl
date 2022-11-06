@@ -17,7 +17,7 @@
         <input type="hidden" id="senderId" value="{$senderId|escape}">
         <input type="hidden" id="role" value="{$role|escape}">
         {if $role eq 'user'}
-            {if $req_info.tiki_user}
+            {if !empty($req_info.tiki_user)}
                 <input type="hidden" id="username" value="{$req_info.tiki_user|escape}">
             {else}
                 <input type="hidden" id="username" value="{$req_info.user|escape}">
@@ -36,7 +36,7 @@
         {elseif $role eq 'operator'}
             <input type="hidden" id="username" value="{$req_info.operator|escape}">
 
-            {if $req_info.tiki_user}
+            {if !empty($req_info.tiki_user)}
                 <table>
                     <tr>
                         <td valign="top" style="text-align:center;">{$req_info.tiki_user|avatarize}<br>
@@ -66,7 +66,7 @@
                 <tr>
                     <td style="text-align:center;" valign="top">
                         <b>{tr}User:{/tr}</b><br>
-                        {if $req_info.tiki_user}
+                        {if !empty($req_info.tiki_user)}
                             {$req_info.tiki_user|avatarize}<br>
                             <b>{$req_info.tiki_user}</b>
                         {else}

@@ -1,4 +1,4 @@
-{if $data.relations}
+{if !empty($data.relations)}
     {if $data.display eq 'count'}
         {tr _0=$data.relations|count}%0 element(s){/tr}
     {else}

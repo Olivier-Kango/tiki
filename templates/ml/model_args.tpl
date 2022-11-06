@@ -12,7 +12,7 @@
             <label class="col-form-label col-sm-4">{$arg.name|escape} ({$arg.arg_type})</label>
             <div class="col-sm-8">
                 {if $arg.input_type eq 'text'}
-                    <input class="form-control" type="text" name="args[{$arg.name|escape}]" value="{$arg.value|escape}" {if $arg.required}required{/if}>
+                    <input class="form-control" type="text" name="args[{$arg.name|escape}]" value="{$arg.value|escape}" {if !empty($arg.required)}required{/if}>
                 {elseif $arg.input_type eq 'rubix'}
                     {if strstr($arg.arg_type,  'Tokenizers')}
                         {assign var="classes" value=$tokenizers}
@@ -35,15 +35,15 @@
                     {else}
                         {assign var="classes" value=[]}
                     {/if}
-                    {if $classes.path}
-                        <select class="form-select ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
+                    {if !empty($classes.path)}
+                        <select class="form-select ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if !empty($arg.required)}required{/if}>
                             <option value=''>Default</option>
                             {foreach $classes.classes as $tokenizer}
                                 <option value="{$classes.path}\{$tokenizer|escape}">{$tokenizer|escape}</option>
                             {/foreach}
                         </select>
                     {elseif $classes}
-                        <select class="form-select ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
+                        <select class="form-select ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if !empty($arg.required)}required{/if}>
                             <option value=''>Default</option>
                             {foreach $classes as $label => $group}
                                 <optgroup label="{$label|escape}">
@@ -59,7 +59,7 @@
                     <textarea name="args[{$arg.name|escape}][args]" class="d-none">{$arg.args}</textarea>
                 {elseif $arg.input_type eq 'layers'}
                     <div class="ml-layers">
-                        <select class="form-select ml-class" name="args[{$arg.name|escape}][classes][]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
+                        <select class="form-select ml-class" name="args[{$arg.name|escape}][classes][]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if !empty($arg.required)}required{/if}>
                             <option value=''>Skip</option>
                             {foreach $neuralnet_layers.classes as $layer}
                                 <option value="{$neuralnet_layers.path}\{$layer|escape}">{$layer|escape}</option>

@@ -106,7 +106,7 @@
                 {initials_filter_links}
             {/if}
             <form name="checkform" id="checkform" method="post">
-                <div id="{$ts.tableid}-div" {if $ts.enabled}style="visibility:hidden;"{/if}>
+                <div id="{$ts.tableid}-div" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}>
                     <div class="{if $js}table-responsive{/if} user-table ts-wrapperdiv">
         {/if}
                         {* Use css menus as fallback for item dropdown action menu if javascript is not being used *}
@@ -612,7 +612,7 @@
                                 </tr>
                             {/if}
                             <tr>
-                                <td>{tr}Registered{/tr}</td><td>{if $userinfo.registrationDate}{$userinfo.registrationDate|tiki_long_datetime}{/if}</td>
+                                <td>{tr}Registered{/tr}</td><td>{if !empty($userinfo.registrationDate)}{$userinfo.registrationDate|tiki_long_datetime}{/if}</td>
                             </tr>
                             <tr>
                                 <td>{tr}Pass confirmed{/tr}</td><td>{if isset($userinfo.pass_confirm) && $userinfo.pass_confirm}{$userinfo.pass_confirm|tiki_long_datetime|default:'Never'}{/if}</td>
@@ -622,7 +622,7 @@
                                 <tr>
                                     <td style="white-space: nowrap;">{tr}Email confirmed{/tr}</td>
                                     <td>
-                                        {if $userinfo.email_confirm}
+                                        {if !empty($userinfo.email_confirm)}
                                             ({tr _0=$userinfo.daysSinceEmailConfirm}%0 days ago{/tr})
                                         {else}
                                             {tr}Never{/tr}
@@ -632,11 +632,11 @@
                             {/if}
                             <tr>
                                 <td>{tr}Current Login{/tr}</td>
-                                <td>{if $userinfo.currentLogin}{$userinfo.currentLogin|tiki_long_datetime|default:'Never'}{/if}</td>
+                                <td>{if !empty($userinfo.currentLogin)}{$userinfo.currentLogin|tiki_long_datetime|default:'Never'}{/if}</td>
                             </tr>
                             <tr>
                                 <td>{tr}Last Login{/tr}</td>
-                                <td>{if $userinfo.lastLogin}{$userinfo.lastLogin|tiki_long_datetime|default:'Never'}{/if}</td>
+                                <td>{if !empty($userinfo.lastLogin)}{$userinfo.lastLogin|tiki_long_datetime|default:'Never'}{/if}</td>
                             </tr>
                         </table>
                     {/if}

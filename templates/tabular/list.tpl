@@ -9,7 +9,7 @@
 {/block}
 
 {block name="content"}
-{if $filters.primary.usable}
+{if !empty($filters.primary.usable)}
     <form method="get" action="{service controller=tabular action=list}">
         {foreach $filters.primary.controls as $filter}
             <div class="mb-3 row">
@@ -34,18 +34,18 @@
         </div>
     </form>
 {/if}
-{if $filters.default.selected}
+{if !empty($filters.default.selected)}
     <h4>{tr}Applied filters{/tr}</h4>
     <dl class="row mx-0">
         {foreach $filters.default.controls as $filter}
-            {if $filter.selected}
+            {if !empty($filter.selected)}
                 <dt class="col-sm-3">{$filter.label|escape}</dt><dd class="col-sm-9">{$filter.description|escape}</dd>
             {/if}
         {/foreach}
     </dl>
 {/if}
 <div class="table-responsive">
-{if $filters.side.usable}
+{if !empty($filters.side.usable)}
     <div class="row">
         <div class="col-sm-9">
             <table class="table">

@@ -22,10 +22,10 @@
             <input type="hidden" name="comments_objectId" value="{$comments_objectId|escape}">
             <input type="hidden" name="comments_offset" value="0">
             <input type="hidden" name="comments_coms" value="{$topics_encoded|escape}">
-            {if $smarty.request.topics_offset}<input type="hidden" name="topics_offset" value="{$smarty.request.topics_offset|escape}">{/if}
-            {if $smarty.request.topics_find}<input type="hidden" name="topics_find" value="{$smarty.request.topics_find|escape}">{/if}
-            {if $smarty.request.topics_sort_mode}<input type="hidden" name="topics_sort_mode" value="{$smarty.request.topics_sort_mode|escape}">{/if}
-            {if $smarty.request.topics_threshold}<input type="hidden" name="topics_threshold" value="{$smarty.request.topics_threshold|escape}">{/if}
+            {if !empty($smarty.request.topics_offset)}<input type="hidden" name="topics_offset" value="{$smarty.request.topics_offset|escape}">{/if}
+            {if !empty($smarty.request.topics_find)}<input type="hidden" name="topics_find" value="{$smarty.request.topics_find|escape}">{/if}
+            {if !empty($smarty.request.topics_sort_mode)}<input type="hidden" name="topics_sort_mode" value="{$smarty.request.topics_sort_mode|escape}">{/if}
+            {if !empty($smarty.request.topics_threshold)}<input type="hidden" name="topics_threshold" value="{$smarty.request.topics_threshold|escape}">{/if}
             {if $forumId}<input type="hidden" name="forumId" value="{$forumId|escape}">{/if}
 
             {if $tiki_p_admin_forum eq 'y'}
