@@ -206,7 +206,7 @@ class Smarty_Tiki extends Smarty
         $this->registerResource('tplwiki', new Smarty_Resource_Tplwiki());
 
         include_once(__DIR__ . '/../smarty_tiki/resource.wiki.php');
-        $this->registerResource('tplwiki', new Smarty_Resource_Wiki());
+        $this->registerResource('wiki', new Smarty_Resource_Wiki());
 
         global $prefs;
         // Assign the prefs array in smarty, by reference
