@@ -32,24 +32,6 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-left-width: 0px;
 }
 :root {
-  --tiki-top-bg-light: #5AE3ED;
-  --tiki-top-light-color: #f2e8c0;
-  --tiki-top-light-link-color: #f2e8c0;
-  --tiki-top-light-link-hover-color: #ede0ab;
-  --tiki-topbar-bg-light: #5AE3ED;
-  --tiki-topbar-light-color: #f2e8c0;
-  --tiki-topbar-light-link-color: #f2e8c0;
-  --tiki-topbar-light-link-hover-color: white;
-  --tiki-top-bg-dark: #ad1d28 !important;
-  --tiki-top-dark-color: #f2e8c0;
-  --tiki-top-dark-link-color: #f2e8c0;
-  --tiki-top-dark-link-hover-color: white;
-  --tiki-topbar-bg-dark: #ad1d28 !important;
-  --tiki-topbar-dark-color: #f2e8c0;
-  --tiki-topbar-dark-link-color: #f2e8c0;
-  --tiki-topbar-dark-link-hover-color: white;
-}
-:root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -10303,6 +10285,24 @@ textarea.form-control-lg {
   --bs-navbar-brand-hover-color: #f2e8c0;
   --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23f2e8c0' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+:root {
+  --tiki-top-bg-light: #5AE3ED;
+  --tiki-top-light-color: #f2e8c0;
+  --tiki-top-light-link-color: #f2e8c0;
+  --tiki-top-light-link-hover-color: #ede0ab;
+  --tiki-topbar-bg-light: #5AE3ED;
+  --tiki-topbar-light-color: #f2e8c0;
+  --tiki-topbar-light-link-color: #f2e8c0;
+  --tiki-topbar-light-link-hover-color: white;
+  --tiki-top-bg-dark: #ad1d28 !important;
+  --tiki-top-dark-color: #f2e8c0;
+  --tiki-top-dark-link-color: #f2e8c0;
+  --tiki-top-dark-link-hover-color: white;
+  --tiki-topbar-bg-dark: #ad1d28 !important;
+  --tiki-topbar-dark-color: #f2e8c0;
+  --tiki-topbar-dark-link-color: #f2e8c0;
+  --tiki-topbar-dark-link-hover-color: white;
 }
 .navbar-dark > a {
   color: #f2e8c0;

@@ -25,24 +25,6 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-left-width: 0px;
 }
 :root {
-  --tiki-top-bg-light:  linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%);
-  --tiki-top-light-color: #212529;
-  --tiki-top-light-link-color: #212529;
-  --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-topbar-bg-light: linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%);
-  --tiki-topbar-light-color: #212529;
-  --tiki-topbar-light-link-color: #212529;
-  --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-top-bg-dark: linear-gradient(to bottom,  #3e7ca1 0%,#609ec3 3%,#163866 5%,#0b2d5b 8%,#0f2658 11%,#002552 16%,#002d57 24%,#052b58 27%,#0c3867 43%,#11406e 57%,#1b507c 76%,#235685 86%,#1c5b87 100%);
-  --tiki-top-dark-color: rgba($white, .75);
-  --tiki-top-dark-link-color: rgba($white, .75);
-  --tiki-top-dark-link-hover-color: rgba($white, .85);
-  --tiki-topbar-bg-dark: linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
-  --tiki-topbar-dark-color: rgba($white, .75);
-  --tiki-topbar-dark-link-color: rgba($white, .75);
-  --tiki-topbar-dark-link-hover-color: rgba($white, .85);
-}
-:root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -11005,6 +10987,24 @@ textarea.form-control-lg {
   --bs-navbar-brand-hover-color: rgba(255, 255, 255, 0.85);
   --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+:root {
+  --tiki-top-bg-light:  linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%);
+  --tiki-top-light-color: #212529;
+  --tiki-top-light-link-color: #212529;
+  --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-bg-light: linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%);
+  --tiki-topbar-light-color: #212529;
+  --tiki-topbar-light-link-color: #212529;
+  --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-bg-dark: linear-gradient(to bottom,  #3e7ca1 0%,#609ec3 3%,#163866 5%,#0b2d5b 8%,#0f2658 11%,#002552 16%,#002d57 24%,#052b58 27%,#0c3867 43%,#11406e 57%,#1b507c 76%,#235685 86%,#1c5b87 100%);
+  --tiki-top-dark-color: rgba($white, .75);
+  --tiki-top-dark-link-color: rgba($white, .75);
+  --tiki-top-dark-link-hover-color: rgba($white, .85);
+  --tiki-topbar-bg-dark: linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
+  --tiki-topbar-dark-color: rgba($white, .75);
+  --tiki-topbar-dark-link-color: rgba($white, .75);
+  --tiki-topbar-dark-link-hover-color: rgba($white, .85);
 }
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.75);

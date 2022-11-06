@@ -15,9 +15,10 @@
 @import "variables";
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "../../default/scss/variables"; // Bootstrap default variables, with a few Tiki overrides
-@import "css-variables"; // Needs to be loaded after default variables to override them
 
 @import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
+@import "css-variables"; // Needs to be loaded after default variables to override them
+
 @import "../../base_files/scss/_tiki-selectors.scss";
 @import "../../base_files/scss/tiki-pagetop_colors"; // Import for unified styling of top and topzone navbars, etc. using CSS variables
 @import "mixins"; // original source: Orange-Boosted-Bootstrap-5.2.0/scss/mixins

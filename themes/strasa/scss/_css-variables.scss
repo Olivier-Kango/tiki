@@ -5,9 +5,9 @@
 $imagePath: "../images/";
 :root {
     --tiki-top-bg-light: linear-gradient(to bottom, #214d68 0%,#204c67 51%,#262f36 100%);
-    --tiki-top-light-color: #{$navbar-light-color};
-    --tiki-top-light-link-color: #{$navbar-light-color};
-    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
+    --tiki-top-light-color: #fff;
+    --tiki-top-light-link-color: #fff;
+    --tiki-top-light-link-hover-color: darken(#fff, 10%);
 
     --tiki-topbar-bg-light: linear-gradient(to bottom, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%);
     --tiki-topbar-light-color: #{$navbar-light-color};

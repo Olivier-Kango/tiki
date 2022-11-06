@@ -25,24 +25,6 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-left-width: 0px;
 }
 :root {
-  --tiki-top-bg-light: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
-  --tiki-top-light-color: #0001a6;
-  --tiki-top-light-link-color: #0001a6;
-  --tiki-top-light-link-hover-color: #0001cf;
-  --tiki-topbar-bg-light: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
-  --tiki-topbar-light-color: #0001a6;
-  --tiki-topbar-light-link-color: #0001a6;
-  --tiki-topbar-light-link-hover-color: #0001cf;
-  --tiki-top-bg-dark: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
-  --tiki-top-dark-color: #0001a6;
-  --tiki-top-dark-link-color: #0001a6;
-  --tiki-top-dark-link-hover-color: #0001cf;
-  --tiki-topbar-bg-dark: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
-  --tiki-topbar-dark-color: #0001a6;
-  --tiki-topbar-dark-link-color: #0001a6;
-  --tiki-topbar-dark-link-hover-color: #0001cf;
-}
-:root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -9768,6 +9750,24 @@ textarea.form-control-lg {
   --bs-navbar-brand-hover-color: #fff;
   --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%230001a6' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+:root {
+  --tiki-top-bg-light: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+  --tiki-top-light-color: #0001a6;
+  --tiki-top-light-link-color: #0001a6;
+  --tiki-top-light-link-hover-color: #0001cf;
+  --tiki-topbar-bg-light: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+  --tiki-topbar-light-color: #0001a6;
+  --tiki-topbar-light-link-color: #0001a6;
+  --tiki-topbar-light-link-hover-color: #0001cf;
+  --tiki-top-bg-dark: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+  --tiki-top-dark-color: #0001a6;
+  --tiki-top-dark-link-color: #0001a6;
+  --tiki-top-dark-link-hover-color: #0001cf;
+  --tiki-topbar-bg-dark: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+  --tiki-topbar-dark-color: #0001a6;
+  --tiki-topbar-dark-link-color: #0001a6;
+  --tiki-topbar-dark-link-hover-color: #0001cf;
 }
 .navbar-dark > a {
   color: #0001a6;
