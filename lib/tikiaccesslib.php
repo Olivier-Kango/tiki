@@ -110,7 +110,7 @@ class TikiAccessLib extends TikiLib
      */
     public function check_feature($features, $feature_name = '', $relevant_admin_panel = 'features', $either = false)
     {
-        global $prefs;
+        global $prefs, $base_uri;
         require_once('tiki-setup.php');
 
         $perms = Perms::get();
@@ -151,6 +151,20 @@ class TikiAccessLib extends TikiLib
 
             if ($perms->admin) {
                 $smarty->assign('required_preferences', $features);
+            }
+
+            // set the (current relative) url to gobackto to where we were after the preference change.
+            if (! empty($base_uri)) {
+                $pathInfo = parse_url($base_uri);
+                $pathData = explode('/', $pathInfo["path"]);
+                $gobackto = end($pathData);
+
+                if (! empty($pathInfo['query'])) {
+                    $gobackto .= '?' . $pathInfo['query'];
+                }
+                if (! empty($gobackto)) {
+                    $smarty->assign('gobackto', $gobackto);
+                }
             }
 
             $msg = tr(

@@ -88,6 +88,9 @@ close();
                             <div class="text-center">
                                 <input type="submit" class="btn btn-primary" value="{tr}Apply{/tr}">
                             </div>
+                            {if isset($gobackto)}
+                                <input type="hidden" name="gobackto" value="{$gobackto|escape}">
+                            {/if}
                         </form>
                         {/remarksbox}
                     {/if}

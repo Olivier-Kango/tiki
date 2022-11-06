@@ -8,18 +8,10 @@
 
 function smarty_function_preference($params, $smarty)
 {
-    global $prefs, $user_overrider_prefs, $base_uri;
+    global $prefs, $user_overrider_prefs;
     $prefslib = TikiLib::lib('prefs');
     if (! isset($params['name'])) {
         return 'Preference name not specified.';
-    }
-    // set the (current relative) url to gobackto to where we were after the preference change.
-    $pathInfo = parse_url($base_uri);
-    $pathData = explode('/',$pathInfo["path"]);
-    $gobackto = end($pathData);
-
-    if (! empty($pathInfo['query'])) {
-        $gobackto .= '?'.$pathInfo['query'];
     }
 
     $source = null;
@@ -32,8 +24,6 @@ function smarty_function_preference($params, $smarty)
         if (isset($info['hide']) && $info['hide'] === true) {
             return '';
         }
-
-        $info['gobackto'] = $gobackto;
 
         if (isset($params['label'])) {
             $info['name'] = $params['label'];
@@ -115,7 +105,6 @@ function smarty_function_preference($params, $smarty)
             'tags' => ['modified', 'basic', 'all'],
             'tagstring' => 'modified basic all',
             'separator' => null,
-            'gobackto' => $gobackto,
         ];
         if (strpos($_SERVER["SCRIPT_NAME"], 'tiki-edit_perspective.php') !== false) {
             $info['hint'] = tra('Drag this out of the perspective and resave the perspective.');
