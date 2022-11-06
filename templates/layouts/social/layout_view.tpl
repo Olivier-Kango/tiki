@@ -62,7 +62,7 @@
                 </div>
                 {elseif zone_is_empty('left') or $prefs.feature_left_column eq 'n'}
                     {if $prefs.feature_right_column eq 'user'}
-                        <div class="col-md-12 side-col-toggle-container justify-content-end">
+                        <div class="col-md-12 side-col-toggle-container justify-content-end d-none d-lg-flex">
                             {$icon_name = (not empty($smarty.cookies.hide_zone_right)) ? 'toggle-left' : 'toggle-right'}
                             {icon name=$icon_name class='toggle_zone right btn btn-xs btn-info' href='#' title='{tr}Toggle right modules{/tr}'}
                         </div>
@@ -87,7 +87,7 @@
                 </div>
                 {elseif zone_is_empty('right') or $prefs.feature_right_column eq 'n'}
                     {if $prefs.feature_left_column eq 'user'}
-                        <div class="col-md-12 side-col-toggle-container justify-content-start">
+                        <div class="col-md-12 side-col-toggle-container justify-content-start d-none d-lg-flex">
                             {$icon_name = (not empty($smarty.cookies.hide_zone_left)) ? 'toggle-right' : 'toggle-left'}
                             {icon name=$icon_name class='toggle_zone left btn btn-xs btn-info' href='#' title='{tr}Toggle left modules{/tr}'}
                         </div>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 {else}
-                    <div class="col-sm-12 side-col-toggle-container d-flex py-1">
+                    <div class="col-sm-12 side-col-toggle-container d-none d-lg-flex py-1">
                         {if $prefs.feature_left_column eq 'user'}
                             <div class="text-start side-col-toggle flex-fill">
                                 {$icon_name = (not empty($smarty.cookies.hide_zone_left)) ? 'toggle-right' : 'toggle-left'}
