@@ -23,6 +23,4 @@
             </div>
         </form>
     {/if}
-    
 {/block}
-

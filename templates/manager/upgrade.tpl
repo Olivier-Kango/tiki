@@ -111,7 +111,7 @@
                 </label>
                 <div class="col-sm-9">
                     <input value="0" class="form-control" type="number" id="lag" name="lag" min="0" max="30">
-                </div>                
+                </div>
             </div>
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
@@ -176,7 +176,7 @@
                 },
                 error: function () {
                     feedback(
-                        tr('An error occured while loading Tiki upgrade versions. Please try again and contact the site admin if the error persists.'), 
+                        tr('An error occured while loading Tiki upgrade versions. Please try again and contact the site admin if the error persists.'),
                         "error",
                         false,
                         tr("Loading Tiki upgrade versions failed")

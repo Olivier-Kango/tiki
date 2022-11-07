@@ -54,7 +54,7 @@
                     {/foreach}
                 </select>
             </div>
-        </div>        
+        </div>
         <div class="form-group row mb-3">
             <label class="col-form-label col-sm-3">
                 {tr}Instance name{/tr}

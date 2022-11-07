@@ -8,4 +8,3 @@
 {else}
     <p class="invalid">{tr}There is no activity to display in this stream.{/tr}</p>
 {/if}
-

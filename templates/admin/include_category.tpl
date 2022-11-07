@@ -27,7 +27,7 @@
         {preference name=wikiplugin_catpath}
         {preference name=wikiplugin_catorphans}
     </fieldset>
-    
+
     <fieldset class="mb-3 w-100">
         <legend>{tr}Inline plugins{/tr}</legend>
         {preference name=wikiplugininline_category}
@@ -45,7 +45,7 @@
             {preference name=categorypath_excluded}
             {preference name=categorypath_format}
         </div>
-        
+
         {preference name=category_sort_ascii}
         <fieldset>
             <legend>
@@ -63,7 +63,7 @@
         <div class="adminoptionboxchild" id="feature_category_transition_childcontainer">
             {preference name=wikiplugin_categorytransition}
         </div>
-        
+
         {preference name=categories_used_in_tpl}
         {preference name=categories_add_class_to_body_tag}
         {preference name=unified_excluded_categories}
@@ -87,13 +87,13 @@
                 {/if}
             </div>
         </div>
-        
+
         {preference name=category_autogeocode_within}
         <div class="adminoptionboxchild" id="category_autogeocode_within_childcontainer">
             {preference name=category_autogeocode_replace}
             {preference name=category_autogeocode_fudge}
         </div>
-        
+
         {preference name=category_i18n_sync}
         <div class="adminoptionboxchild category_i18n_sync_childcontainer blacklist whitelist required">
             {preference name=category_i18n_synced}
@@ -106,43 +106,43 @@
         {preference name=unified_add_to_categ_search}
 
     </fieldset>
-    
+
     <fieldset>
         <legend>{tr}Theme{/tr}</legend>
         {preference name=feature_theme_control_autocategorize}
         {preference name=feature_theme_control_parentcategory}
         {preference name=feature_theme_control_savesession}
     </fieldset>
-    
+
     <fieldset>
         <legend>{tr}Tracker{/tr}</legend>
         {preference name=trackerfield_category}
         {preference name=unified_trackeritem_category_names}
     </fieldset>
-    
+
     <fieldset>
         <legend>{tr}Forum{/tr}</legend>
         {preference name=forum_category_selector_in_list}
         {preference name=forum_available_categories}
     </fieldset>
-    
+
     <fieldset>
         <legend>{tr}Wiki{/tr}</legend>
         {preference name=wiki_list_categories}
         {preference name=wiki_list_categories_path}
     </fieldset>
-    
+
     <fieldset>
         <legend>{tr}Performance{/tr}</legend>
         {preference name=feature_search_show_forbidden_cat}
         {preference name=category_browse_count_objects}
     </fieldset>
-    
+
     <fieldset>
         <legend>{tr}Poll{/tr}</legend>
             {preference name=poll_list_categories}
     </fieldset>
-    
+
     <fieldset>
         <legend>{tr}Structure{/tr}</legend>
             {preference name=feature_wiki_categorize_structure}

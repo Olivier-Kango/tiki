@@ -182,5 +182,4 @@ $('a.advanced').click(function(ev) {
     }
     $(this).closest('.condition-row').next('.advanced-row').removeClass('hide');
 });
-
 {/jq}

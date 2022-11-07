@@ -14,8 +14,6 @@
 </div>
 {/if}
 
-
-
 <form class="d-flex flex-row flex-wrap align-items-center mb-4" action="messu-sent.php" method="get">
     <div class="mb-3 col-sm-3">
         <label for="mess-mailmessages">{tr}Messages:{/tr}</label>

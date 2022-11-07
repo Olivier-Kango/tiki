@@ -19,13 +19,13 @@
                             {foreach from=$item.children item=sub}
                                 <a class="nav-item dropdown-item {$sub.class|escape} {if $sub.selected|default:null}active{/if}" href="{$sub.sefurl|escape}">
                                     {if $prefs.menus_items_icons eq "y"}
-                                        <span 
-                                            data-preset="icon-picker" 
-                                            tabindex="0" 
-                                            role="button" 
-                                            data-bs-toggle="popover" 
-                                            data-bs-trigger="focus" 
-                                            title="Pick an icon"   
+                                        <span
+                                            data-preset="icon-picker"
+                                            tabindex="0"
+                                            role="button"
+                                            data-bs-toggle="popover"
+                                            data-bs-trigger="focus"
+                                            title="Pick an icon"
                                             data-icon-for="{$sub.sefurl}" data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
                                         >
                                         {* here we display the icon html passed constructed from function.menu.php *}
@@ -49,14 +49,14 @@
                                 <li class="nav-item {$sub.class|escape|default:null} {if !empty($sub.selected)}active{/if}">
                                     <a class="nav-link {$sub.class|escape} {if $sub.selected|default:null}active{/if}" href="{$sub.sefurl|escape}">
                                         {if $prefs.menus_items_icons eq "y"}
-                                            <span 
-                                                data-preset="icon-picker" 
-                                                tabindex="0" 
-                                                role="button" 
-                                                data-bs-toggle="popover" 
-                                                data-bs-trigger="focus" 
-                                                title="Pick an icon" 
-                                                data-icon-for="{$sub.sefurl}" 
+                                            <span
+                                                data-preset="icon-picker"
+                                                tabindex="0"
+                                                role="button"
+                                                data-bs-toggle="popover"
+                                                data-bs-trigger="focus"
+                                                title="Pick an icon"
+                                                data-icon-for="{$sub.sefurl}"
                                                 data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
                                             >
                                             {* here we display the icon html passed constructed from function.menu.php *}
@@ -77,13 +77,13 @@
                     <a class="nav-link" href="{$item.sefurl|escape}">
                         {if $prefs.menus_items_icons eq "y"}
                             <span
-                                data-preset="icon-picker" 
-                                tabindex="0" 
-                                role="button" 
-                                data-bs-toggle="popover" 
-                                data-bs-trigger="focus" 
-                                title="Pick an icon" 
-                                data-icon-for="{$item.sefurl}" 
+                                data-preset="icon-picker"
+                                tabindex="0"
+                                role="button"
+                                data-bs-toggle="popover"
+                                data-bs-trigger="focus"
+                                title="Pick an icon"
+                                data-icon-for="{$item.sefurl}"
                                 data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
                             >
                             {* here we display the icon html passed constructed from function.menu.php *}
@@ -206,7 +206,7 @@
         var iconset_card = iconset.map(function(el){
             return `<a onclick="change_menu_icon(this,'${action_url}','${el[0]}')" class="btn-xl m-2 icon-picker-container" data-icon-name="${el[0]}" data-url-action="${action_url}">${el[1]}</a>`;
         });
-    
+
         var html =`
             <div class="filter-icon-set">
                 <div class="input-group mb-3">
@@ -222,7 +222,7 @@
                 placement : 'bottom',
                 content: html,
                 container:'body',
-                customClass : 'popover-container', 
+                customClass : 'popover-container',
                 sanitizeFn: function (content) {
                     return content //for now we are not sanitizing but we can do so in future
                   }

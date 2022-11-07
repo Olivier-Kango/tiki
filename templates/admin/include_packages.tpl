@@ -490,20 +490,20 @@
             var packageName = $(this).attr("data-package-name");
             var callapseKey = $(this).attr("data-collapse-key");
             var collapsible = document.getElementById(callapseKey);
-            
+
             //Close the previously opened tab when clicking on a tab
             var packagesInfo = $('#packagesInfo');
             packagesInfo.on('show.bs.collapse','.collapse', function() {
                 packagesInfo.find('.collapse.show').collapse('hide');
             });
-        
+
             collapsible.addEventListener('shown.bs.collapse', function () {
                 $('.detail-package[data-package-name="'+packageName+'"]').html('<img width="20" height="20" src="img/spinner.gif" title="'+tr("Looking for package details...")+'" alt="'+tr("Looking for package details...")+'"/>');
                 $.getJSON("tiki-admin.php?page=packages&package_name="+packageName, function(json) {
                     var data = json['packages'];
                     var html = '<p>'+data[packageName][0]['description']+'</p>';
                     html += '<table>';
-                    
+
                     if (data[packageName][0]['keywords'] !== '') {
                         html += '<tr><td><b class="pe-3">'+tr("Keywords")+': </b></td><td>'+data[packageName][0]['keywords'].join(", ")+'</td></tr>';
                     }
@@ -529,7 +529,7 @@
                     }
 
                     $('.detail-package[data-package-name="'+packageName+'"]').html(html);
-                }).fail(function(jqXMLHttpRequest,textStatus,errorThrown) { 
+                }).fail(function(jqXMLHttpRequest,textStatus,errorThrown) {
                     $('.detail-package[data-package-name="'+packageName+'"]').html('<p class="text-error">'+tr("No description found")+'</p>');
                 });
             })

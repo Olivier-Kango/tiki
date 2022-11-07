@@ -20,17 +20,17 @@
                         {icon name=information}
                     </a>
                 </label>
-                <div class="col-sm-9">   
-                    <div class="row">                 
+                <div class="col-sm-9">
+                    <div class="row">
                     {foreach item=type from=$inputValues['instance_types']}
                         <div class="col-sm-3">
                             <input type="radio" class="form-check-input" id="{$type}" name="instance_type" value="{$type|escape}" {if $inputValues['selected_instance_type'] eq $type}checked{/if}>
                             <label class="form-check-label" for="{$type}">{$type|upper}</label>
                         </div>
-                    {/foreach}  
-                    </div>                  
+                    {/foreach}
+                    </div>
                 </div>
-            </div>            
+            </div>
             <div class="form-group row mb-3 preference">
                 <label class="col-form-label col-sm-3">
                     {tr}Connection type{/tr}

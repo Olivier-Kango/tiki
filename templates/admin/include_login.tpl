@@ -15,11 +15,11 @@
     return /[^ //?#\[\]@$&+;=<>\\]/i.test(e.key);
     });
     frm.submit(function(){
-        if (user_register_pt_checkbox.is(':checked') 
+        if (user_register_pt_checkbox.is(':checked')
         && pretty_tracker_tpl.val() === "") {
             warning_ept.show();
             pretty_tracker_tpl.focus();
-            return false;    
+            return false;
         }
     });
 {/jq}
@@ -629,6 +629,3 @@
 
     {include file='admin/include_apply_bottom.tpl'}
 </form>
-
-
-

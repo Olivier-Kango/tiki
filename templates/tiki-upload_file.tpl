@@ -254,7 +254,7 @@
                             {/if}
                         {elseif empty($groupforalert)}
                             <input type="hidden" id="gallery_type" value="{$gal_info['type']}">
-                        
+
                             <div class="mb-3 row">
                                 <label for="galleryId" class="col-md-4 col-form-label">{tr}File gallery{/tr}</label>
                                 <div class="col-md-8">
@@ -586,7 +586,7 @@ $("#galleryId").change(function(){
         success: function (data) {
             if (data.canUpload) {
                 $("#gallery_type").attr('value', data.type);
-                
+
                 $("#image_max_size_x").attr('value', data.image_max_size_x);
                 $("#image_max_size_y").attr('value', data.image_max_size_y);
                 if (data.image_max_size_x) {

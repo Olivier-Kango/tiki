@@ -28,7 +28,7 @@
                                 title="{tr}Welcome{/tr}"
                                 disabled=$install_step==0
                                 active=$install_step==0}
-                                
+
                             <!-- step 1 -->
                             {call name="printStepItem"
                                 step="1"

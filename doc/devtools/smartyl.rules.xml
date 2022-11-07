@@ -10,7 +10,17 @@
         </extensions>
     </conf>
     <ignore>
+        <!-- Most of TPL files uses {* *} as file docblock -->
+        <rule name="Commenting.FileComment.WrongStyle"/>
+
+        <!-- ShortFullStop checker seems broken -->
+        <rule name="Commenting.FileComment.ShortFullStop"/>
+
         <rule name="Commenting.FileNoComment.Missing"/>
         <rule name="Indent.DisallowTabIndent.TabsUsed"/>
+
+        <!-- At the moment Tiki has too many files with broken end of file, so disabling for now -->
+        <rule name="Files.EndFileNewline.TooMany"/>
+        <rule name="Files.EndFileNewline.NoneFound"/>
     </ignore>
 </rules>

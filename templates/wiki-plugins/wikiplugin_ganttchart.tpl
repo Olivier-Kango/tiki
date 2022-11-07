@@ -74,9 +74,9 @@
             };
         }
         function print_chart() {
-            var printContents = document.getElementsByClassName("gdfWrapper");    
-            var originalContents = document.body.innerHTML;      
-            document.body.innerHTML = printContents[0].innerHTML;     
+            var printContents = document.getElementsByClassName("gdfWrapper");
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents[0].innerHTML;
             window.print();
             window.location.reload()
         }

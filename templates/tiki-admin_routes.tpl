@@ -118,8 +118,6 @@
             </div>
         </div>
 
-
-
         <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="router_from">{tr}From{/tr} *</label>
             <div class="col-sm-9 col-md-10">
@@ -195,4 +193,3 @@
     });
 
 {/jq}
-

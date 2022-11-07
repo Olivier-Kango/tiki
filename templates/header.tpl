@@ -275,5 +275,5 @@
 {* Include mautic snipet code with mautic *}
 {if $prefs.site_mautic_enable eq 'y' && $prefs.wikiplugin_mautic eq 'y' && $prefs.site_mautic_tracking_script_location eq 'head'}
     {wikiplugin _name=mautic type="inclusion"}{/wikiplugin}
-{/if} 
+{/if}
 {* END of html head content *}

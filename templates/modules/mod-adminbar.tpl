@@ -191,7 +191,7 @@
                             {else}
                                 {assign var=class value="admbox basic btn btn-primary"}
                                 <div class="swiper-slide">
-                                    {* FIXME: Buttons are forced to be squares, not fluid. Labels which exceed 2 lines will be cut. *}
+                                    {* TODO: Buttons are forced to be squares, not fluid. Labels which exceed 2 lines will be cut. *}
                                     <a href="{if !empty($info.url)}{$info.url}{else}tiki-admin.php?page={$page}{/if}" alt="{$info.title} {$info.description}" class="d-flex flex-column justify-content-center align-items-center btn-primary  {if $info.disabled}disabled-clickable{/if}" title="{$info.title|escape}{if $info.disabled} ({tr}Disabled{/tr}){/if}|{$info.description}">
                                         {icon name="admin_$page"}
                                         <span class="title">{$info.title|escape}</span> </a>

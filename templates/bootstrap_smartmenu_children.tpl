@@ -22,13 +22,13 @@
             <a class="{if $sub|default:false}dropdown-item{else}nav-link{/if}" href="{$item.sefurl|escape}">
                 {if $prefs.menus_items_icons eq "y"}
                     <span
-                        data-preset="icon-picker" 
-                        tabindex="0" 
-                        role="button" 
-                        data-bs-toggle="popover" 
-                        data-bs-trigger="focus" 
-                        title="Pick an icon" 
-                        data-icon-for="{$item.sefurl}" 
+                        data-preset="icon-picker"
+                        tabindex="0"
+                        role="button"
+                        data-bs-toggle="popover"
+                        data-bs-trigger="focus"
+                        title="Pick an icon"
+                        data-icon-for="{$item.sefurl}"
                         data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
                     >
                     {* here we display the icon html passed constructed from function.menu.php *}

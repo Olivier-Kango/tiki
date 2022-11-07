@@ -84,12 +84,11 @@
                 </tr>
             </table>
         {/if}
-        
-        
+
         {* <iframe name='chat_data' src='tiki-live_support_chat_frame.php' width="500" height="500" scrolling="yes">
         </iframe> *}
         <div id="chat_data" class="card card-body">
-            
+
         </div>
         <br/>
         {literal}
@@ -103,7 +102,7 @@
             $('document').ready(function () {
                 event_poll();
             });
-            
+
         </script>
         {literal}
             <script type="text/javascript" src="lib/live_support/live-support.js">

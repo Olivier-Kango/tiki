@@ -20,14 +20,14 @@
             <div class="container w-100">
                 <div class="row justify-content-md-center">
                     <div class="col-12 col-lg-5 col-md-6">
-                        
+
                         <div id='request_chat' class="card">
                             <div class="card-body">
                                 <input type="hidden" id="reqId">
                                 <input type="hidden" id="tiki_user" value="{$user|escape}">
 
                                 <h2 class="card-title p-3">{tr}Request live support{/tr}</h2>
-                                
+
                                 {if $user}
                                     <div class="form-group row">
                                         <label for="username" class="col-sm-3 col-form-label"><strong>{tr}User{/tr}</strong></label>
@@ -69,9 +69,6 @@
                                         <input class="btn btn-primary" onClick="request_chat(document.getElementById('username').value,document.getElementById('tiki_user').value,document.getElementById('emailaddress').value,document.getElementById('reason').value);" type="button" value="{tr}Request support{/tr}">
                                     </div>
                                 </div>
-                                
-            
-
                             </div>
                         </div>
 

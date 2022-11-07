@@ -21,15 +21,15 @@
                         {icon name=information}
                     </a>
                 </label>
-                <div class="col-sm-9">   
-                    <div class="row">                 
+                <div class="col-sm-9">
+                    <div class="row">
                     {foreach item=type from=$inputValues['backup_process']}
                         <div class="col-sm-3">
                             <input type="radio" class="form-check-input" id="backup_process" name="backup_process" value="{$type|escape}" {if  $type eq 'full backup'}checked{/if}>
                             <label class="form-check-label" for="backup_process">{$type|upper}</label>
                         </div>
-                    {/foreach}  
-                    </div>                  
+                    {/foreach}
+                    </div>
                 </div>
             </div>
             <div class="form-group row mb-3">

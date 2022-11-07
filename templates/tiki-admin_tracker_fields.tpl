@@ -167,8 +167,8 @@
                 , sort = $(input).data('sort') || 'score_desc';
 
             var args = {
-                maxRecords: threshold, 
-                format: format, 
+                maxRecords: threshold,
+                format: format,
                 sort_order: sort
             };
 

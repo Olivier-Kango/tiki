@@ -716,7 +716,7 @@
             </tr>
         {/foreach}
    </tbody> </table>
-    
+
 {*Additional table style*}
 <style type="text/css">
 {literal}
@@ -753,10 +753,7 @@ td > div {
   }.only-on-mobile{
     display:inline!important;
 }
-    
 }
-  
-
 {/literal}
 </style>
 </div>

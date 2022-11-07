@@ -184,4 +184,3 @@
     {/tabset}
     {include file='admin/include_apply_bottom.tpl'}
 </form>
-

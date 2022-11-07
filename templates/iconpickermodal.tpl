@@ -29,12 +29,9 @@
     </div>
 </div>
 
-
-
 {* fin modal icon picker*}
 {literal}
     <script>
-
 
         /*demo icon picker scrits*/
 
@@ -43,7 +40,6 @@
         var itemTemplate = $('.icon-picker-list').clone(true).html();
 
         $('.icon-picker-list').html('');
-
 
         // Loop through JSON and appends content to show icons
         $(icons).each(function(index) {
@@ -59,7 +55,6 @@
             itemtemp = itemtemp.replace(/#item#/g, item).replace(/#index#/g, index).replace(/#activeState#/g, activeState);
 
             $('.icon-picker-list').append(itemtemp);
-
 
         });
 
@@ -106,11 +101,6 @@
             }
         }
 
-
-
-
-
-
         $('.picker-button').click(function() {
 
             $('#iconPicker').modal('show');
@@ -134,21 +124,15 @@
                     dataType: 'text',
                     success: function(data) {
                         //msg
-
                     },
                     error: function ( jqXHR, textStatus, errorThrown ) {
-
                         //error
                     }
                 });
-
-
             });
         });
 
-
         /*end icon picker script*/
-
 
     </script>
 {/literal}

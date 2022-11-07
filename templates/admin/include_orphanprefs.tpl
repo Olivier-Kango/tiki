@@ -6,7 +6,7 @@
 <div class="text-center mb-4">
     <a href="tiki-admin.php?page=orphanprefs&clear=all" class="btn btn-primary" title="{tr}Delete all{/tr}">{icon name="trash"} {tr}Clear all data{/tr}</a>
 </div>
-    
+
 <table class="table table-striped table-hover">
     <thead>
         <tr class="bg-info d-flex">
@@ -30,4 +30,3 @@
     </tbody>
 </table>
 <br>
-

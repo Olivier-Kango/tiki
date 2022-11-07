@@ -33,17 +33,17 @@
             {section loop=$structure_path name=ix}
                 {if $structure_path[ix].parent_id}&nbsp;{$prefs.site_crumb_seper}&nbsp;{/if}
                     <li class="breadcrumb-item">
-                        
+
                         {if !empty($smarty.section.ix.last) }
-                    	
+
                     		{if $structure_path[ix].page_alias}
 				                {$structure_path[ix].page_alias|escape}
 				            {else}
 				                {$structure_path[ix].stripped_pageName|pagename}
 				            {/if}
-                    		
+
                     	{else}
-                    	
+
                     		<a href="{sefurl page=$structure_path[ix].pageName structure=$home_info.pageName page_ref_id=$structure_path[ix].page_ref_id}">
 						        {if $structure_path[ix].page_alias}
 						            {$structure_path[ix].page_alias|escape}
@@ -51,9 +51,9 @@
 						            {$structure_path[ix].stripped_pageName|pagename}
 						        {/if}
                         	</a>
-                        	
+
                     	{/if}
-                    	
+
                     </li>
             {/section}
         </ol>

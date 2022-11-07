@@ -1,4 +1,4 @@
- {* $Id$ *}
+{* $Id$ *}
 
 <h5>Total number of uncategorised {$objecttype} objects: {$totalcount}</h5>
 {foreach from=$orphans item=orphan}

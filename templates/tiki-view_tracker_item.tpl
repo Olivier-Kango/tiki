@@ -140,8 +140,6 @@
 {/if}
 {* print_page *}
 
-
-
 {tabset name='tabs_view_tracker_item' skipsingle=1 toggle=n}
 
     {* when printing, no js is called to select the tab thus no class "active" assigned (would show nothing). print=y sets this class on printing *}

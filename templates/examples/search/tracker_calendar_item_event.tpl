@@ -111,5 +111,3 @@ rules =
         <a href="{$smarty.request.page}">List</a>
     </div>
 </div>
-
-

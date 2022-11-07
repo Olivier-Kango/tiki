@@ -10,7 +10,6 @@
 {$mail_current_data}
 
 
-
 -----------------------------------------------------------
 {tr}Publish Date:{/tr} {$mail_current_publish_date|tiki_short_datetime:"":"n"}
 {tr}Expiration Date:{/tr} {$mail_current_expiration_date|tiki_short_datetime:"":"n"}

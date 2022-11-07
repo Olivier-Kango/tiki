@@ -363,8 +363,6 @@
 
                         <p>{tr}The following message will be sent to user{/tr} {$userinfo.login|userlink}…</p>
 
-
-
                         <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="priority">{tr}Priority{/tr}</label>
                             <div class="col-sm-10">

@@ -199,7 +199,7 @@
                                            id="checkbox_{$name}"{if isset($prefs_to_export[$name])} checked="checked"{/if}
                                     >
                                     <label for="checkbox_{$name}" class="form-check-label">
-                                        {$name} = '<strong>{$current|truncate:40:"...":true|escape}</strong>'{* FIXME: This one line per preference display format is ugly and doesn't work for multiline values *}
+                                        {$name} = '<strong>{$current|truncate:40:"...":true|escape}</strong>'{* TODO: This one line per preference display format is ugly and doesn't work for multiline values *}
                                         <em>
                                             &nbsp;&nbsp;
                                             {if isset($data.default)}

@@ -134,7 +134,6 @@ $("#picker_{{$name|escape}}").parent().click(function () {
             {else}
                 {tr}This plugin has no parameters, just click on Save{/tr}
             {/if}
-            
 
             <div class="submit">
                 <input type="hidden" name="page" value="{$pageName|escape}">
@@ -175,7 +174,7 @@ $("#picker_{{$name|escape}}").parent().click(function () {
                 {jq}
                     $('#bootstrap-modal').on('shown.bs.modal', function () {
                         sendRequest();
-                    }) 
+                    })
 
                     $("#param_type_input").change(function () {
                         sendRequest()

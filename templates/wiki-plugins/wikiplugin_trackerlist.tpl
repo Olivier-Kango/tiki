@@ -270,8 +270,6 @@ the section loop so that the vars are not replaced by nested pretty tracker exec
         {/if}
     {/if}
 
-
-
     {if $more eq 'y'}
         <div class="more">
             {capture assign=moreUrl}

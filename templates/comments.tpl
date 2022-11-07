@@ -345,4 +345,3 @@
     });
 {/jq}
 {* End of Post dialog *}
-

@@ -12,7 +12,7 @@ s{extends "layout_view.tpl"}
     {if not empty($info)}
         <div class="rounded bg-dark text-light p-3">{$info|nl2br}</div>
     {else}
-        <form method="post" action="{service controller=manager action=setup_clone}" id="tiki-manager-clone-form">     
+        <form method="post" action="{service controller=manager action=setup_clone}" id="tiki-manager-clone-form">
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Do You Want to Upgrade{/tr}
@@ -36,7 +36,7 @@ s{extends "layout_view.tpl"}
                     </a>
                 </label>
                 <div class="col-sm-9">
-                    <select class="form-control" id="source" name="source" data-tiki-admin-child-block=".type_childcontainer" required>                        
+                    <select class="form-control" id="source" name="source" data-tiki-admin-child-block=".type_childcontainer" required>
                     </select>
                     <div class="form-text" id="source_detail">{tr}Some instances are not upgradeable and thus, they are not listed here.{/tr}</div>
                 </div>
@@ -79,7 +79,7 @@ s{extends "layout_view.tpl"}
                 <div class="col-sm-9">
                     <input required value="" class="form-control" id="crontime" type="text" name="crontime" placeholder="0 0 * * *">
                 </div>
-            </div> 
+            </div>
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Prevent using the backup step{/tr}
@@ -94,7 +94,7 @@ s{extends "layout_view.tpl"}
                         <option value="no">{tr}No{/tr}</option>
                     </select>
                 </div>
-            </div>            
+            </div>
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Use last backup?{/tr}
@@ -179,10 +179,10 @@ s{extends "layout_view.tpl"}
         </form>
     {/if}
     <script>
-    let instances = {$inputValues['instances']|@json_encode};    
+    let instances = {$inputValues['instances']|@json_encode};
     </script>
 {/block}
-{jq} 
+{jq}
     $(function () {
         if(instances){
             var instance_id= Object.keys(instances)
@@ -192,7 +192,7 @@ s{extends "layout_view.tpl"}
                 instance["id"] = instance_id[i];
                 formated.push(instance)
             }
-            
+
             $remain_instances =[];
             $filter_instances = [];
             var $mcform = $('#tiki-manager-clone-form');
@@ -205,13 +205,13 @@ s{extends "layout_view.tpl"}
             var upgradable_instances = function(){
                 $source.empty();
                 $target.empty();
-                $source_detail.hide();                
+                $source_detail.hide();
                 $branch.attr("required",false);
 
                 if (! $upgrade.val()) {
                     return;
                 }
-                ajaxLoadingShow($source[0]);            
+                ajaxLoadingShow($source[0]);
                 instances = formated;
                 if($upgrade.val() === "yes"){
                     instances = formated.filter(instance => (instance.revision != null && instance.revision !=''));
@@ -225,12 +225,12 @@ s{extends "layout_view.tpl"}
                 }
                 ajaxLoadingHide();
             }
-            var available_instances = function() {            
+            var available_instances = function() {
                 $target.empty();
                 if (! $source.val()) {
                     return;
                 }
-                ajaxLoadingShow($target[0]); 
+                ajaxLoadingShow($target[0]);
                 instances = formated.filter(instance => parseInt(instance.id) != parseInt($source.val()));
 
                 var len = instances.length;
@@ -238,12 +238,12 @@ s{extends "layout_view.tpl"}
                 for(var x = 0; x < len ;x++){
                     $target.append("<option value='"+ instances[x].id +"'>"+ instances[x].name +"</option>");
                 }
-                ajaxLoadingHide();        
+                ajaxLoadingHide();
             }
             if ($mcform.length > 0) {
                 $mcform.find('select[name=upgrade]').on('change', upgradable_instances);
             }
-            
+
             if ($mcform.length > 0) {
                 $mcform.find('select[name=source]').on('change', available_instances);
             }

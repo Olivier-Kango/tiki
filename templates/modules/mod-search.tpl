@@ -119,9 +119,6 @@
 
                     {/if}
 
-
-
-
                     {if $smod_params.compact eq "y"}
                         {jq}
 $(".search_mod_magnifier").mouseover( function () {

@@ -1,4 +1,4 @@
-{* $Id$ *} 
+{* $Id$ *}
 {$showBoxCheck}
 
 {if $nlId}
@@ -134,8 +134,6 @@
             {tr}None{/tr}
         {/if}
     </div>
-
-
 
     </div>
 

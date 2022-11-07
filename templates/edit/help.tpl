@@ -13,4 +13,3 @@
         {/foreach}
     {/tabset}
 {/block}
-

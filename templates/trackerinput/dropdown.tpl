@@ -35,7 +35,7 @@
             {foreach $field.possibilities as $value => $label}
                 {if $value !== 0  and ($value eq 'other' or $value eq "{tr}other{/tr}")}
                     {assign var=otherLabel value={$label|escape}}
-                    {continue}{* FIXME: Ignores options which would have "other" as key, which is not documented. Avoids displaying 2 "other" options, since the option needed to be specified manually prior to Tiki 18. *}
+                    {continue}{* TODO: Ignores options which would have "other" as key, which is not documented. Avoids displaying 2 "other" options, since the option needed to be specified manually prior to Tiki 18. *}
                 {/if}
                 <option value="{$value|escape}"
                 {if (isset($field.value) && $field.value ne '') && ($field.value eq "$value")}selected="selected"{/if}>

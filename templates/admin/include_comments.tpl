@@ -1,4 +1,4 @@
-    {* $Id$ *}
+{* $Id$ *}
 <form action="tiki-admin.php?page=comments" method="post" class="admin">
     {ticket}
     <div class="row">

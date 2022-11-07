@@ -25,7 +25,7 @@
                     {/if}
             </div>
         </div>
-            
+
         {if $useCaptcha !== 0}
             {if !$user and $prefs.feature_antibot eq 'y'}
                 {include file='antibot.tpl' antibot_table="y" showmandatory="y" form="$inmodule"}
