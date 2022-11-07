@@ -214,10 +214,12 @@ li.archivedate {
 
 // --------------- logo module start ------------------ //
 // Not Basic Bootstrap (not layout_social)
-.sitelogo-img {
+header.fixed-top .sitelogo {
     margin-top: $spacer * .7;
     margin-bottom: $spacer * .7;
 }
+
+// This CSS doesn't currently match anything because div.sitetitles has been removed. Todo: check if replacement CSS is needed.
 .sitetitles {
     display: inline-block;
     .sitetitle {
@@ -237,7 +239,7 @@ li.archivedate {
 }
 
 // Basic Bootstrap (layout_social)
-.layout_social {
+.layout_social .fixed-top {
     .navbar-brand,
     .sitetitle,
     .sitesubtitle {
@@ -250,9 +252,10 @@ li.archivedate {
         font-size: calc( var(--bs-navbar-brand-font-size) * .8 );
 
     }
-    .sitelogo-img {
+    .sitelogo { // Class name changed from .sitelogo-img
         margin-top: 0;
         margin-bottom: 0;
+        padding: 0 !important;
     }
 }
 

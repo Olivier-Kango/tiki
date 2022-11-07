@@ -1448,7 +1448,7 @@ li.archivedate {
 .box-share > div {
   text-align: center;
 }
-.sitelogo-img {
+header.fixed-top .sitelogo {
   margin-top: 0.7rem;
   margin-bottom: 0.7rem;
 }
@@ -1469,18 +1469,19 @@ li.archivedate {
   align-content: center;
   height: 100%;
 }
-.layout_social .navbar-brand, .layout_social .sitetitle, .layout_social .sitesubtitle {
+.layout_social .fixed-top .navbar-brand, .layout_social .fixed-top .sitetitle, .layout_social .fixed-top .sitesubtitle {
   display: inline-block;
   align-self: center !important;
   padding-top: 0;
   padding-bottom: 0;
 }
-.layout_social .sitesubtitle {
+.layout_social .fixed-top .sitesubtitle {
   font-size: calc(var(--bs-navbar-brand-font-size) * .8);
 }
-.layout_social .sitelogo-img {
+.layout_social .fixed-top .sitelogo {
   margin-top: 0;
   margin-bottom: 0;
+  padding: 0 !important;
 }
 .layout_social header .top_modules .navbar {
   --bs-navbar-padding-y: 0;
