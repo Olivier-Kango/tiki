@@ -143,9 +143,12 @@ class ocrLib extends TikiLib
 
     private function checkTesseractInstalled(): bool
     {
-
         if (! class_exists('thiagoalessio\TesseractOCR\TesseractOCR')) {
             return false;
+        }
+
+        if (! function_exists('\system')) {
+            return false; // FriendlyErrors::checkTesseractPresence() below would require system function enabled.
         }
 
         try {
@@ -166,8 +169,16 @@ class ocrLib extends TikiLib
     public function getTesseractVersion(): string
     {
         if (! $this->checkTesseractInstalled()) {
+            if (! function_exists('\exec')) {
+                return ''; // if we can't exec then return an empty string
+            }
+
             exec('tesseract --version', $output);
             return $output ? explode(' ', $output[0])[1] : '';
+        }
+
+        if (! function_exists('\exec')) { // getTesseractVersion will need exec
+            return ''; // if we can't exec then return an empty string
         }
 
         $tesseract = $this->newTesseract();
@@ -192,13 +203,19 @@ class ocrLib extends TikiLib
     public function getTesseractLangs(): array
     {
         if (! $this->checkTesseractInstalled()) {
+            if (! function_exists('\exec')) {
+                return []; // if we can't exec then return an empty array
+            }
             exec('tesseract --list-langs', $output);
             array_shift($output);
             return $output;
         }
 
-        $tesseract = $this->newTesseract();
+        if (! function_exists('\exec')) { // getAvailableLanguages will need exec
+            return []; // if we can't exec then return an empty array
+        }
 
+        $tesseract = $this->newTesseract();
         return $tesseract->command->getAvailableLanguages();
     }
 
@@ -262,7 +279,7 @@ class ocrLib extends TikiLib
         global $prefs;
 
         $tesseract = new TesseractOCR($fileName);
-        if (! empty($prefs['ocr_tesseract_path'])) {
+        if (! empty($prefs['ocr_tesseract_path']) && file_exists($prefs['ocr_tesseract_path'])) {
             $tesseract->executable($prefs['ocr_tesseract_path']);
         }
         return $tesseract;
