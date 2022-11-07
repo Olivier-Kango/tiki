@@ -11249,7 +11249,7 @@ body.fullscreen #col1 {
 #col2 .pull-left.sitelogo {
   float: none !important;
 }
-#col2 .sitelogo img {
+#col2 .sitelogo {
   margin: 0;
   max-width: 135px;
   max-height: 115px;
