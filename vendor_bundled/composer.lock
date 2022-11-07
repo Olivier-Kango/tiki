@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9c6e69a7ba46b2343422301caf950f9",
+    "content-hash": "554e07698d21073ae378fea140aca30f",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1924,17 +1924,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "3.3.6",
+            "version": "3.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "e25c6151d75a590cd9f81e7a7753bac90a5820a0"
+                "reference": "988ab4de1b870f891f1ec0accdcec67e8a1a560e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elliotjreed/disposable-emails-filter-php/zipball/e25c6151d75a590cd9f81e7a7753bac90a5820a0",
-                "reference": "e25c6151d75a590cd9f81e7a7753bac90a5820a0",
-                "shasum": ""
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-988ab4de1b870f891f1ec0accdcec67e8a1a560e-zip-9d93f5.zip",
+                "reference": "988ab4de1b870f891f1ec0accdcec67e8a1a560e",
+                "shasum": "9ec4b0c887b358988f7f82d64fe2cf366efaadf4"
             },
             "require": {
                 "php": "^7.4|^8.0|^8.1"
@@ -1965,11 +1965,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "support": {
-                "issues": "https://github.com/elliotjreed/disposable-emails-filter-php/issues",
-                "source": "https://github.com/elliotjreed/disposable-emails-filter-php/tree/3.3.6"
-            },
-            "time": "2022-10-27T07:35:10+00:00"
+            "time": "2022-10-29T07:34:11+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -2792,17 +2788,17 @@
         },
         {
             "name": "jasig/phpcas",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apereo/phpCAS.git",
-                "reference": "d6f5797fb568726f34c8e48741776d81e4a2646b"
+                "reference": "f817c72a961484afef95ac64a9257c8e31f063b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jasig/phpcas/jasig-phpcas-d6f5797fb568726f34c8e48741776d81e4a2646b-zip-3b6837.zip",
-                "reference": "d6f5797fb568726f34c8e48741776d81e4a2646b",
-                "shasum": "b73880099b0442e07d5249e1b4dfda488a74fb34"
+                "url": "https://composer.tiki.org/dist/jasig/phpcas/jasig-phpcas-f817c72a961484afef95ac64a9257c8e31f063b9-zip-a9e084.zip",
+                "reference": "f817c72a961484afef95ac64a9257c8e31f063b9",
+                "shasum": "568baf32be8f516edaa77f9d5b639f4d31a769be"
             },
             "require": {
                 "ext-curl": "*",
@@ -2852,7 +2848,7 @@
                 "cas",
                 "jasig"
             ],
-            "time": "2022-05-03T21:12:54+00:00"
+            "time": "2022-10-31T20:39:27+00:00"
         },
         {
             "name": "jason-munro/cypht",
@@ -2860,13 +2856,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "68239a70befe06bb7cddb180a6a858c4f989259b"
+                "reference": "1695f992a9163ff840efaf022ac192362cec2f2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-68239a70befe06bb7cddb180a6a858c4f989259b-zip-defed3.zip",
-                "reference": "68239a70befe06bb7cddb180a6a858c4f989259b",
-                "shasum": "a11423043487ada9cb90cab511580aa1ae82ee43"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-1695f992a9163ff840efaf022ac192362cec2f2a-zip-5e4ef6.zip",
+                "reference": "1695f992a9163ff840efaf022ac192362cec2f2a",
+                "shasum": "89755bc9d1ece70a6d788232ff3b0cd9d6c32dff"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2920,7 +2916,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-10-18T16:42:51+00:00"
+            "time": "2022-11-07T14:29:50+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3219,17 +3215,17 @@
         },
         {
             "name": "kaltura/api-client-library",
-            "version": "v18.15.0",
+            "version": "v18.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53.git",
-                "reference": "5a0fa6ecf18ffd48e7fefeb4daeef8b8cece68ae"
+                "reference": "fad19cf567f1109647a0c24f6234a33d0745b0e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/kaltura/api-client-library/kaltura-api-client-library-5a0fa6ecf18ffd48e7fefeb4daeef8b8cece68ae-zip-954976.zip",
-                "reference": "5a0fa6ecf18ffd48e7fefeb4daeef8b8cece68ae",
-                "shasum": "0390bd8360463222e50bcc9f54e3eefc65b22868"
+                "url": "https://composer.tiki.org/dist/kaltura/api-client-library/kaltura-api-client-library-fad19cf567f1109647a0c24f6234a33d0745b0e2-zip-5742f0.zip",
+                "reference": "fad19cf567f1109647a0c24f6234a33d0745b0e2",
+                "shasum": "84415902c1d1daf945c34802ee0fa7860c85d9a5"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3259,7 +3255,7 @@
                 "video",
                 "video platform"
             ],
-            "time": "2022-10-03T09:17:17+00:00"
+            "time": "2022-10-24T12:29:24+00:00"
         },
         {
             "name": "laminas/laminas-captcha",
@@ -5167,17 +5163,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.3.6",
+            "version": "2.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "857afc47ce113454bd629037213378ba3219dd40"
+                "reference": "a36bd2be4f5387c0f3a8792a0d76b7d68865abbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-857afc47ce113454bd629037213378ba3219dd40-zip-2642c0.zip",
-                "reference": "857afc47ce113454bd629037213378ba3219dd40",
-                "shasum": "e9fd7c7fb3c63d55087822ee62c6dc399ea615fe"
+                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-a36bd2be4f5387c0f3a8792a0d76b7d68865abbf-zip-aa291c.zip",
+                "reference": "a36bd2be4f5387c0f3a8792a0d76b7d68865abbf",
+                "shasum": "fe1926fbc8e61e733b765eddf92a4e95d34658ab"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -5262,7 +5258,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-30T16:45:38+00:00"
+            "time": "2022-11-03T17:29:46+00:00"
         },
         {
             "name": "league/config",
@@ -6649,11 +6645,11 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.19.6",
+            "version": "7.20.1",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.19.6.zip",
-                "shasum": "474682691d49578640d345ffa5012504d24fa98c"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.20.1.zip",
+                "shasum": "2e985a93a7aff5ad4484765253ffc6f1146955ac"
             },
             "type": "npm-asset",
             "license": [
@@ -15489,13 +15485,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "e9afabebf520b38c84a470a48f88bd8badb6ac22"
+                "reference": "f72a92fe215f45139d07e5a9aee8450c11ec2824"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-e9afabebf520b38c84a470a48f88bd8badb6ac22-zip-6c7ffa.zip",
-                "reference": "e9afabebf520b38c84a470a48f88bd8badb6ac22",
-                "shasum": "cd647a529df7873f2497ca974096f64d430fb9f7"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-f72a92fe215f45139d07e5a9aee8450c11ec2824-zip-c649aa.zip",
+                "reference": "f72a92fe215f45139d07e5a9aee8450c11ec2824",
+                "shasum": "dcfb4e8909cc406ac2e274cb18811c139a715599"
             },
             "require": {
                 "php": ">=5.4",
@@ -15551,7 +15547,7 @@
                 "standards",
                 "static analysis"
             ],
-            "time": "2022-10-28T05:53:35+00:00"
+            "time": "2022-11-04T16:07:12+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
