@@ -92,9 +92,18 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
      */
     public function getOnClick(): string
     {
-        return 'insertAt(\'' . $this->domElementId . '\', \'' .
-            addslashes(
-                htmlentities($this->syntax, ENT_COMPAT, 'UTF-8')
-            ) . '\', true);';
+        if ($this->syntax == '...page...') {
+            // this breaks the toolbar when inside nested plugins if wiki_pagination is enabled becasue
+            // \WikiLib::get_number_of_pages doesn't check where the ...page... string occurs in the data
+            // so we get javascript to reassemble the "...page..." syntax client-side
+
+            return 'insertAt(\'' . $this->domElementId . '\', \'...\'+\'page\'+\'...\', true);';
+
+        } else {
+            return 'insertAt(\'' . $this->domElementId . '\', \'' .
+                addslashes(
+                    htmlentities($this->syntax, ENT_COMPAT, 'UTF-8')
+                ) . '\', true);';
+        }
     }
 }
