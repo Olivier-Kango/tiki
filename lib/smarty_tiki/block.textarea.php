@@ -375,62 +375,6 @@ function switchEditor(mode, form) {
 }';
             } elseif ($params['syntax'] === 'tiki' || $params['syntax'] === 'markdown') {
                 $html .= $smarty->fetch('edit/editor_settings.tpl');
-
-                $js_editconfirm .= /** @lang JavaScript */
-                    'function editorSettings(domId) {
-    const editorSettingsModalDiv = document.getElementById("editor-settings"),
-        editorSettingsModal = new bootstrap.Modal(editorSettingsModalDiv, {backdrop: false});
-    
-    const $textarea = $("#" + domId),
-        $form = $textarea.parents("form");
-    
-    editorSettingsModalDiv.addEventListener("show.bs.modal", event => {
-        const $editorSelect = $("#editor-select"),
-            $syntaxSelect = $("#syntax-select"),
-            $wysiwygInput = $form.find("input[name=wysiwyg]"),
-            $syntaxInput = $form.find("input[name=syntax]"),
-            //?
-            initialEditorType = $wysiwygInput.val() === "y" ? "wysiwyg" : "plain",
-            initialSyntax = $syntaxInput.val();
-
-        $editorSelect.val(initialEditorType).change();
-        $syntaxSelect.val(initialSyntax).change();
-        
-        $(".btn-primary", editorSettingsModalDiv).off("click").click(function () {
-            
-            if (initialSyntax !== $syntaxSelect.val()) {
-                addSyntaxPlugin(domId, $form);
-            
-                $wysiwygInput.val($editorSelect.val() === "wysiwyg" ? "y" : "n");
-                $syntaxInput.val($syntaxSelect.val());
-                
-                $.post(
-                    $.service("edit", "convert_syntax"),
-                    {
-                        data: $textarea.val(),
-                        syntax: $syntaxSelect.val(),
-                        editor: $editorSelect.val()
-                    },
-                    function (data) {
-                        $textarea.val(data);
-                        window.needToConfirm = false;
-                        $form.submit();
-                    },
-                    "json"
-                );
-            } else if (initialEditorType !== $editorSelect.val()) {
-                $wysiwygInput.val($editorSelect.val() === "wysiwyg" ? "y" : "n");
-
-                addSyntaxPlugin(domId, $form);
-                window.needToConfirm = false;
-                $form.submit();
-            }
-            return false;
-        });
-    })
-    editorSettingsModal.show();
-}
-';
             }
         }
         if ($tiki_p_admin) {
