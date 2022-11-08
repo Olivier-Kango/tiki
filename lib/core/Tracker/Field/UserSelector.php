@@ -618,6 +618,8 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
         if (! isset($localCache[$CACHE_KEY])) {
             $userlib = TikiLib::lib('user');
             $tikilib = TikiLib::lib('tiki');
+            $smarty = TikiLib::lib('smarty');
+            $smarty->loadPlugin('smarty_modifier_username');
             $users = [];
 
             $groupIds = $this->getOption('groupIds');
