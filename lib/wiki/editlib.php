@@ -1544,6 +1544,12 @@ class EditLib
                 $converter->getEnvironment()->addConverter(new League\HTMLToMarkdown\Converter\TableConverter());
             }
             $converted = $converter->convert($html);
+
+            // bring back escaped wiki plugin code
+            $pattern = "/^(\s*{[^}]*)\\\\([*_\\[\\]\\\\][^}]*}\s*)$/m";
+            while (preg_match($pattern, $converted)) {
+                $converted = preg_replace($pattern, "$1$2", $converted);
+            }
         } else {
             // convert to tiki syntax
             if ($source_syntax == 'tiki') {
