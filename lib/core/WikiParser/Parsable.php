@@ -101,6 +101,29 @@ class WikiParser_Parsable extends ParserLib
         return $return;
     }
 
+    /**
+     * Checks if the data contains any non-convertable plugins like HTML with wiki syntax
+     *
+     * @param string $data markup contents
+     *
+     * @return boolean
+     */
+    public function convertable(string $data)
+    {
+        $matches = WikiParser_PluginMatcher::match($data);
+        $argumentParser = new WikiParser_PluginArgumentParser();
+        foreach ($matches as $match) {
+            if ($match->getName() != 'html') {
+                continue;
+            }
+            $arguments = $argumentParser->parse($match->getArguments());
+            if ($arguments['wiki'] == 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // This recursive function handles pre- and no-parse sections and plugins
     public function parse_first(&$data, &$preparsed, &$noparsed, $real_start_diff = '0')
     {

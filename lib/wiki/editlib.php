@@ -1519,6 +1519,9 @@ class EditLib
         $data = preg_replace("/\(([a-z0-9-]+\( *$page_regex *\|?[^\)]*?\))\)/", "??skipsem??$1??/skipsem??", $data);
 
         $wikiParserParsable = new WikiParser_Parsable($data);
+        if (! $wikiParserParsable->convertable($data)) {
+            throw new Exception(tr("Content has plugins that cannot be automatically converted. You should proceed with manual content conversion."));
+        }
         $syntaxPluginResult = $wikiParserParsable->guess_syntax($data);
         $source_syntax = $syntaxPluginResult['syntax'];
         $html = $wikiParserParsable->parse(['noparseplugins' => true]);
