@@ -63,10 +63,14 @@ class ToolbarLineBased extends ToolbarInline // Will change in the future
      */
     public function getOnClick(): string
     {
-        return 'insertAt(\'' . $this->domElementId . '\', \'' .
-            addslashes(
-                htmlentities($this->syntax, ENT_COMPAT, 'UTF-8')
-            ) . '\', true, true);';
+        if ($this->syntax) {    // indent and outdent are markup only
+            return 'insertAt(\'' . $this->domElementId . '\', \'' .
+                addslashes(
+                    htmlentities($this->syntax, ENT_COMPAT, 'UTF-8')
+                ) . '\', true, true);';
+        } else {
+            return '';
+        }
     }
 
     /**

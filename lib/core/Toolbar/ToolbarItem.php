@@ -376,11 +376,16 @@ abstract class ToolbarItem
 
     public function getWikiHtml(): string
     {
-        return $this->getSelfLink(
-            $this->getOnClick(),
-            htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
-            $this->getClass()
-        );
+        $onClick = $this->getOnClick();
+        if ($onClick) {
+            return $this->getSelfLink(
+                $onClick,
+                htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
+                $this->getClass()
+            );
+        } else {
+            return '';
+        }
     }
 
     public function getSyntax(): string
