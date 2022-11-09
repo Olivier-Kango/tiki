@@ -306,6 +306,14 @@ function prefs_unified_list()
             'size' => '20',
             'default' => '',
         ],
+        'unified_manticore_index_rebuilding' => [
+            'name' => tra('The current Manticore index name that is being rebuild (Internal)'),
+            'description' => tra('This value helps to determine if there is a rebuild in progress, for incremental search.'),
+            'type' => 'text',
+            'filter' => 'word',
+            'size' => '20',
+            'default' => '',
+        ],
         'unified_manticore_morphology' => [
             'name' => tr('Morphology processing'),
             'description' => tr("Advanced morphology preprocessors to apply in the Manticore index. See Manticore manual for possible values."),

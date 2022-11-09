@@ -146,7 +146,7 @@ class UnifiedSearchLib
             $lockName = TikiLib::lib('tiki')->get_preference('unified_mysql_index_rebuilding');
             return empty($lockName) ? false : TikiDb::get()->isLocked($lockName);
         } elseif ($prefs['unified_engine'] == 'manticore') {
-            // TODO: see how to check if index is being rebuild: temp manticore index, locking or another way?
+            return ! empty(TikiLib::lib('tiki')->get_preference('unified_manticore_index_rebuilding'));
         }
 
         return false;
@@ -164,6 +164,11 @@ class UnifiedSearchLib
     {
         global $prefs;
         $engineResults = null;
+
+        if (! $fallback && $this->rebuildInProgress()) {
+            Feedback::error(tr("Index is being rebuilt at the moment and cannot start another rebuild process."));
+            return [];
+        }
 
         $tikilib = TikiLib::lib('tiki');
 
@@ -208,15 +213,17 @@ class UnifiedSearchLib
                 $indexName = $prefs['unified_manticore_index_prefix'] . 'main_' . uniqid();
                 $index = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $indexName);
                 $engineResults = new Search_EngineResult_Manticore($index);
-                TikiLib::lib('tiki')->set_preference('unified_date_fields', json_encode([]));
+                $tikilib->set_preference('unified_manticore_index_rebuilding', $indexName);
+                $tikilib->set_preference('unified_date_fields', json_encode([]));
 
                 TikiLib::events()->bind(
                     'tiki.process.shutdown',
-                    function () use ($indexName, $index) {
+                    function () use ($indexName, $index, $tikilib) {
                         global $prefs;
                         if (! empty($prefs['unified_manticore_index_current']) && $prefs['unified_manticore_index_current'] !== $indexName) {
                             $index->destroy();
                         }
+                        $tikilib->delete_preference('unified_manticore_index_rebuilding');
                     }
                 );
                 break;
