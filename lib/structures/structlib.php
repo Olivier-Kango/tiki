@@ -194,6 +194,16 @@ class StructLib extends TikiLib
         }
     }
 
+    private function parent_page_name($data, $value)
+    {
+        foreach($data as $node) {
+            if ($node->item_id === $value) {
+                return $node->page_name;
+            }
+        }
+        return false;
+    }
+
     /**
      * @param $data array - from from nestedSortable('toHierarchy')
      */
@@ -233,9 +243,27 @@ class StructLib extends TikiLib
                             );
                         } else {
                             // new nodes with id > 1000000
-                            $fields['page_id'] = TikiLib::lib('tiki')->get_page_id_from_name($node->page_name);
-                            $fields['structure_id'] = $structure_id;
-                            $tiki_structures->insert($fields);
+                            if ($node->parent_id >= 1000000) {
+                                $page_name = $this->parent_page_name($data, $node->parent_id);
+
+                                $query = 'select `page_ref_id`';
+                                $query .= 'from `tiki_structures` ts, `tiki_pages` tp ';
+                                $query .= 'where ts.`page_id` = tp.`page_id` and tp.`pageName`=? and ts.`structure_id`=? order by `page_ref_id` desc limit 1';
+                                $result = $this->query($query, [$page_name, (int) $structure_id]);
+                                if ($result->numRows()) {
+                                    $res = $result->fetchRow();
+                                    $fields['parent_id'] = $res['page_ref_id'];
+                                }
+
+                                $fields['page_id'] = TikiLib::lib('tiki')->get_page_id_from_name($node->page_name);
+                                $fields['structure_id'] = $structure_id;
+                                $tiki_structures->insert($fields);
+                            }
+                            else {
+                                $fields['page_id'] = TikiLib::lib('tiki')->get_page_id_from_name($node->page_name);
+                                $fields['structure_id'] = $structure_id;
+                                $tiki_structures->insert($fields);
+                            }
                         }
                     }
                 }
