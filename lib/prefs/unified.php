@@ -245,7 +245,7 @@ function prefs_unified_list()
             'default' => '',
         ],
         'unified_mysql_index_rebuilding' => [
-            'name' => tra('The current MySQL index name that is being rebuild (Internal)'),
+            'name' => tra('The current MariaDB/MySQL index name that is being rebuilt (Internal)'),
             'description' => tra('This value helps to determine if there is a rebuild in progress, for incremental search.'),
             'type' => 'text',
             'filter' => 'word',
@@ -307,7 +307,7 @@ function prefs_unified_list()
             'default' => '',
         ],
         'unified_manticore_index_rebuilding' => [
-            'name' => tra('The current Manticore index name that is being rebuild (Internal)'),
+            'name' => tra('The current Manticore index name that is being rebuilt (Internal)'),
             'description' => tra('This value helps to determine if there is a rebuild in progress, for incremental search.'),
             'type' => 'text',
             'filter' => 'word',
