@@ -360,7 +360,7 @@ class Services_User_Controller
                 if ($prefs['feature_trackers'] === 'y') {
                     $trackerLib = TikiLib::lib('trk');
                     foreach ($util->items as $aUser) {
-                        $userItems = $trackerLib->get_user_items($aUser);
+                        $userItems = $trackerLib->get_user_items($aUser, false);
                         foreach ($userItems as $userItem) {
                             if (! isset($trackerIds[$userItem['trackerId']])) {
                                 $info = $trackerLib->get_tracker($userItem['trackerId']);
