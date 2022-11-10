@@ -41,7 +41,7 @@ class Captcha_ReCaptcha30 extends Laminas\Captcha\ReCaptcha
         $url = self::VERIFY_SERVER;
 
         $fields_string = http_build_query([
-            'secret' => $this->getPrivkey(),
+            'secret' => $this->getSecretKey(),
             'response' => $value[$this->_RESPONSE],
             'remoteip' => $_SERVER['REMOTE_ADDR'],
         ]);
@@ -79,11 +79,12 @@ class Captcha_ReCaptcha30 extends Laminas\Captcha\ReCaptcha
         $api_server = self::API_SERVER;
 
         return <<<EOF
-        <script src="{$api_server}?render={$this->getPubkey()}"></script>
+        <script src="{$api_server}?render={$this->getSiteKey()}"></script>
         <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value="" />
+        <style>.grecaptcha-badge {z-index: 1001;}</style>
         <script>
             grecaptcha.ready(function() {
-                grecaptcha.execute('{$this->getPubkey()}', {action: 'login'})
+                grecaptcha.execute('{$this->getSiteKey()}', {action: 'submit'})
                 .then(function(token) {
                     document.getElementById('g-recaptcha-response').value=token;
                 });
@@ -101,9 +102,10 @@ EOF;
     {
         return <<<EOF
         <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value="" />
+        <style>.grecaptcha-badge {z-index: 1001;}</style>
         <script>
                 grecaptcha.ready(function() {
-                grecaptcha.execute('{$this->getPubkey()}', {action: 'login'})
+                grecaptcha.execute('{$this->getSiteKey()}', {action: 'submit'})
                 .then(function(token) {
                      document.getElementById('g-recaptcha-response').value=token;
             });
