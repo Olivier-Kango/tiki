@@ -10,6 +10,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\Package\VendorHelper;
+
 $inputConfiguration = [
     [
         'staticKeyFilters' => [
@@ -21,6 +23,8 @@ $inputConfiguration = [
         ]
     ],
 ];
+
+
 
 $section = 'file_galleries';
 require_once('tiki-setup.php');
@@ -1356,6 +1360,9 @@ $smarty->assign_by_ref('find_durations', $find_durations);
 $smarty->assign_by_ref('gal_info', $gal_info);
 
 $smarty->assign('view', $view);
+
+$isAwsSdkInstalled = VendorHelper::getAvailableVendorPath('AwsSDK', 'aws/aws-sdk-php/src/Credentials/Credentials.php') !== false;
+$smarty->assign('isAwsSdkInstalled', $isAwsSdkInstalled);
 
 // Display the template
 if (! empty($_REQUEST['filegals_manager'])) {

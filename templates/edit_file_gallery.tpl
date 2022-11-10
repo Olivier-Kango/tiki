@@ -95,6 +95,13 @@ if ($(this).val() != '') {
                                 <option value="s3" {if $gal_info.direct.adapter eq 's3'}selected="selected"{/if}>{tr}AWS S3{/tr}</option>
                             <option value="webdav" {if $gal_info.direct.adapter eq 'webdav'}selected="selected"{/if}>{tr}WebDAV{/tr}</option>
                             </select>
+                            <div class="mt-3 row direct_adapter_dependent s3_childcontainer" {if $gal_info.direct.adapter neq 's3'}style="display:none"{/if}>
+                                {if ($isAwsSdkInstalled === false)}
+                                    <div class="alert alert-warning highlight">
+                                        {tr}You need to install the <a href="tiki-admin.php?page=packages" class="alert-link">aws/aws-sdk-php</a> package to use this adapter.{/tr}
+                                    </div>
+                                {/if}
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3 row direct_adapter_dependent local_childcontainer" {if $gal_info.direct.adapter neq 'local'}style="display:none"{/if}>
