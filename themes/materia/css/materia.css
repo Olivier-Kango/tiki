@@ -12583,3 +12583,7 @@ input[type="checkbox"], .checkbox input[type="checkbox"], .checkbox-inline input
 .navbar-dark-parent .form-control::placeholder, .navbar-dark-parent .form-control:focus, .navbar-dark-parent .form-control, .navbar-dark .form-control::placeholder, .navbar-dark .form-control:focus, .navbar-dark .form-control {
   color: rgba(255, 255, 255, 0.75);
 }
+.tiki .select2-container--bootstrap-5 .select2-dropdown {
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+}
