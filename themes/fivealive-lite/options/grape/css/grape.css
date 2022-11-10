@@ -1042,19 +1042,11 @@ header.header .sitetitle, header.header .sitesubtitle {
   color: #a94442;
   border-color: #ebccd1;
 }
-#autotoc * {
-  color: #8e286a;
+#autotoc .nav-link.active, #autotoc .nav-link.active:hover, #autotoc .nav-link.active:focus {
+  border-left-color: #a52873 !important;
 }
-#autotoc .nav > li > a:hover, #autotoc .nav .nav > li > a:hover, #autotoc .nav > li > a:focus {
-  color: #f2f2f2;
-  background: #2e1f39;
-}
-#autotoc .nav > li .active, #autotoc .nav > li.open > a {
-  color: #f2f2f2;
-  background: #2e1f39;
-}
-#autotoc .nav .dropdown-item {
-  color: #8e286a;
+#autotoc .nav > li > a:hover, #autotoc .nav > li > a:focus {
+  border-left-color: #3c2846 !important;
 }
 #col2 .card-title, #col3 .card-title, a.flipmoduletitle, #col2 .card-secondary > .card-header a, #col3 .card-secondary > .card-header a {
   color: #bc2f84;

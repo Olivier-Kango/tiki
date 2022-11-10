@@ -1088,22 +1088,11 @@ header.header .sitetitle, header.header .sitesubtitle {
 .topbar .navbar-nav > li > a, .topbar .navbar > li > a {
   color: #ffffff;
 }
-.autotoc > .nav {
-  background: #ffffff;
+#autotoc .nav-link.active, #autotoc .nav-link.active:hover, #autotoc .nav-link.active:focus {
+  border-left-color: #F0D800 !important;
 }
-.autotoc * {
-  color: #c75a28;
-}
-#autotoc .nav > li > a:hover, #autotoc .nav .nav > li > a:hover, #autotoc .nav > li > a:focus {
-  color: #f2f2f2;
-  background: #b25025;
-}
-#autotoc .nav > li .active, #autotoc .nav > li.open > a {
-  color: #f2f2f2;
-  background: #b25025;
-}
-#autotoc .nav .dropdown-item {
-  color: #c75a28;
+#autotoc .nav > li > a:hover, #autotoc .nav > li > a:focus {
+  border-left-color: #ffc805 !important;
 }
 #col2 .card-title, #col3 .card-title, a.flipmoduletitle, #col2 .card-secondary > .card-header a, #col3 .card-secondary > .card-header a {
   color: #8F6D00;

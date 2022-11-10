@@ -1077,3 +1077,8 @@ h6:hover .heading-link {
     font-size: 60%;
     opacity: 0.2;
 }
+
+// Autotoc
+#all-toc.hidden.sticky-top {
+    height: 80vh !important;
+}

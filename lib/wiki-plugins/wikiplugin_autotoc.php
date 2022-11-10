@@ -186,7 +186,8 @@ function wikiplugin_autotoc($data, $params)
                         padding-left: 6px;
                         text-decoration: none;
                         background-color: transparent;
-                        border-left: 1px solid #0075ff;
+                        border-left-width: 1px;
+                        border-left-style: solid; // #0075ff;
                     }');
 
                 return "<div id='autotoc'></div>";
@@ -199,7 +200,7 @@ function wikiplugin_autotoc($data, $params)
                     #autotoc .nav > li > a {
                         display: block;
                         padding: 4px 20px;
-                        font-size: 13px;
+                        font-size: 1.0rem;
                         font-weight: 500;
                     }
 
@@ -208,7 +209,8 @@ function wikiplugin_autotoc($data, $params)
                         padding-left: 19px;
                         text-decoration: none;
                         background-color: transparent;
-                        border-left: 1px solid #0075ff;
+                        border-left-style: solid;
+                        bordr-left-width: 1px; // #0075ff;
                     }
 
                     #autotoc .nav-link.active,
@@ -217,7 +219,8 @@ function wikiplugin_autotoc($data, $params)
                         padding-left: 30px;
                         font-weight: bold;
                         background-color: transparent;
-                        border-left: 2px solid #0075ff;
+                        border-left-style: solid;
+                        border-left-width: 2px;// solid #0075ff;
                     }
 
                     #autotoc .nav-link + ul {
@@ -229,7 +232,7 @@ function wikiplugin_autotoc($data, $params)
                         padding-top: 1px;
                         padding-bottom: 1px;
                         padding-left: 30px;
-                        font-size: 12px;
+                        font-size: 0.8rem;
                         font-weight: normal;
                     }
 

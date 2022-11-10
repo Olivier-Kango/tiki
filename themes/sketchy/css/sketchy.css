@@ -10221,9 +10221,6 @@ table.treetable.objectperms td.removed {
   background: transparent;
   border: none;
 }
-.btn-primary:focus {
-  color: color-yiq(#333);
-}
 #ajaxLoadingBG {
   background: transparent url("../../../img/overlay-light.png");
 }
@@ -10503,6 +10500,12 @@ ul.all_languages > li {
 .unsavedChangesInEditor {
   border: 1px solid;
   border-color: #ffc107;
+}
+#autotoc .nav-link.active, #autotoc .nav-link.active:hover, #autotoc .nav-link.active:focus {
+  border-left-color: #333 !important;
+}
+#autotoc .nav > li > a:hover, #autotoc .nav > li > a:focus {
+  border-left-color: #555 !important;
 }
 .autotoc > .nav {
   background: #fff;

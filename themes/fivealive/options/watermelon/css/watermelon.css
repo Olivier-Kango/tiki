@@ -1085,22 +1085,11 @@ header.header .sitetitle, header.header .sitesubtitle {
 .topbar .navbar-nav > li > a, .topbar .navbar > li > a {
   color: #ffffff;
 }
-.autotoc > .nav {
-  background: #ffffff;
+#autotoc .nav-link.active, #autotoc .nav-link.active:hover, #autotoc .nav-link.active:focus {
+  border-left-color: #E61437 !important;
 }
-.autotoc * {
-  color: #c21e3b;
-}
-#autotoc .nav > li > a:hover, #autotoc .nav .nav > li > a:hover, #autotoc .nav > li > a:focus {
-  color: #f2f2f2;
-  background: #76142a;
-}
-#autotoc .nav > li .active, #autotoc .nav > li.open > a {
-  color: #f2f2f2;
-  background: #76142a;
-}
-#autotoc .nav .dropdown-item {
-  color: #c21e3b;
+#autotoc .nav > li > a:hover, #autotoc .nav > li > a:focus {
+  border-left-color: #8c1932 !important;
 }
 #col2 .card-title, #col3 .card-title, a.flipmoduletitle, #col2 .card-secondary > .card-header a, #col3 .card-secondary > .card-header a {
   color: #6c0c02;
