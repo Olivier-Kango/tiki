@@ -712,7 +712,7 @@ class MenuLib extends TikiLib
                             $sections = preg_split('/\s*\|\s*/', $res['perm']);
                             foreach ($sections as $sec) {
                                 $sec = str_replace('tiki_p_', '', $sec);
-                                if (! $globalperms->$sec) {
+                                if ($globalperms->$sec) {
                                     $display = true;
                                     break;
                                 }
