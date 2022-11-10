@@ -671,6 +671,9 @@ class MenuLib extends TikiLib
 		$result = $options->fetchAll($options->all(), $conditions, $maxRecords, $offset, $sort);
 		$cant = $options->fetchCount($conditions);
 
+		// ensure page-specific permissions are not affecting menu building
+		$globalperms = Perms::get();
+
 		$ret = [];
 		foreach ($result as $res) {
 			$res['canonic'] = $res['url'];
@@ -721,7 +724,8 @@ class MenuLib extends TikiLib
 							$display = false;
 							$sections = preg_split('/\s*\|\s*/', $res['perm']);
 							foreach ($sections as $sec) {
-								if (isset($GLOBALS[$sec]) && $GLOBALS[$sec] == 'y') {
+								$sec = str_replace('tiki_p_', '', $sec);
+								if ($globalperms->$sec) {
 									$display = true;
 									break;
 								}
@@ -730,7 +734,8 @@ class MenuLib extends TikiLib
 							$sections = preg_split('/\s*,\s*/', $res['perm']);
 							$display = true;
 							foreach ($sections as $sec) {
-								if (! isset($GLOBALS[$sec]) or $GLOBALS[$sec] != 'y') {
+								$sec = str_replace('tiki_p_', '', $sec);
+								if (! $globalperms->$sec) {
 									$display = false;
 									break;
 								}
