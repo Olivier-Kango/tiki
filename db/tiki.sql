@@ -91,7 +91,8 @@ CREATE TABLE `tiki_actionlog` (
   `log` LONGTEXT NULL DEFAULT NULL,
   PRIMARY KEY (`actionId`),
   KEY `lastModif` (`lastModif`),
-  KEY `object` (`object`(100), `objectType`, `action`(100))
+  KEY `object` (`object`(100), `objectType`, `action`(100)),
+  KEY `actionforuser` (`user` (100), `objectType`, `action` (100))
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_actionlog_params`;

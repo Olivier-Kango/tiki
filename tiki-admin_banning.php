@@ -236,7 +236,9 @@ if (! empty($_REQUEST['mass_ban_ip_users'])) {
     $banUsers_list = explode('|', $_REQUEST['mass_ban_ip_users']);
     foreach ($banUsers_list as $banUser) {
         $ban_actions = $logslib->get_user_registration_action($banUser);
-        $ban_comments_list[$ban_actions['ip']][$banUser]['userName'] = $banUser;
+        if ($ban_actions) {
+            $ban_comments_list[$ban_actions['ip']][$banUser]['userName'] = $banUser;
+        }
     }
     $smarty->assign_by_ref('ban_comments_list', $ban_comments_list);
 }
