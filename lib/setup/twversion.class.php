@@ -53,7 +53,7 @@ class TWVersion
 
         // Set everything else, including defaults.
         $this->version  = '25.0vcs';
-        $this->star     = 'Sagitarius A';
+        $this->star     = 'Sagittarius A*';
         $this->releases = [];
 
         // Check for Subversion or not
@@ -125,7 +125,7 @@ class TWVersion
                 33 => 'Corona Borealis', // 22.x
                 34 => 'Wasat',           // 23.x
                 35 => 'Wolf 359',        // 24.x
-                36 => 'Sagitarius A',    // 25.x
+                36 => 'Sagittarius A*',  // 25.x
         ];
     }
 
