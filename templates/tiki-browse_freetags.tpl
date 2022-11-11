@@ -5,13 +5,17 @@
 {jq}
     $('#tagBox').tiki('autocomplete', 'tag', {multiple: true, multipleSeparator: " "} );
 {/jq}
-<form action="tiki-browse_freetags.php" method="get" class="freetagsearch role="form">
+<form action="tiki-browse_freetags.php" method="get" name="my_form" class="freetagsearch" role="form">
     <div class="mb-3 row">
         <div class="col-sm-10">
             <div class="input-group">
-                <span class="input-group-text" id="basic-addon1">{icon name="tags"}&nbsp;{tr}Tags{/tr}</span>
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">{icon name="tags"}&nbsp;{tr}Tags{/tr}</span>
+                </div>
                 <input type="text" id="tagBox" class="form-control" name="tag" value="{$tagString|escape}">
-                <input type="submit" class="btn btn-primary tips" value="{tr}Go{/tr}">
+                <div class="input-group-append input-group-append">
+                    <input type="submit" class="btn btn-primary tips" value="{tr}Go{/tr}">
+                </div>
             </div>
         </div>
         <div class="col-sm-2">
@@ -19,33 +23,51 @@
         </div>
     </div>
     <div class="form-check">
-        <input class="form-check-input radio" type="radio" name="broaden" id="stopb1" value="n"{if $broaden eq 'n'} checked="checked"{/if}>
+        <input class="form-check-input radio" {if $prefs.freetags_browse_show_cloud eq 'y'}onclick="load();"{/if} type="radio" name="broaden" id="stopb1" value="n"{if $broaden eq 'n'} checked="checked"{/if}>
         <label class="form-check-label" for="stopb1">{tr}With all selected tags{/tr}</label>
     </div>
     <div class="form-check">
-        <input class="form-check-input radio" type="radio" name="broaden" id="stopb2" value="y"{if $broaden eq 'y'} checked="checked"{/if}>
+        <input class="form-check-input radio" {if $prefs.freetags_browse_show_cloud eq 'y'}onclick="load();"{/if} type="radio" name="broaden" id="stopb2" value="y"{if $broaden eq 'y'} checked="checked"{/if}>
         <label class="form-check-label" for="stopb2">{tr}With one selected tag{/tr}</label>
-    </div>
-    <div class="form-check mb-4">
-        <input class="form-check-input radio" type="radio" name="broaden" id="stopb3" value="last"{if $broaden eq 'last'} checked="checked"{/if}>
-        <label class="form-check-label" for="stopb3">{tr}With last selected tag{/tr}</label>
     </div>
 
     {if $prefs.freetags_browse_show_cloud eq 'y'}
-        {jq notonready=true}
+        {if $broaden eq 'y'}
+            {jq notonready=true}
                 function addTag(tag) {
-                    if (tag.search(/ /) >= 0) tag = '"'+tag+'"';
+                    if (tag.search(/ /) >= 0) tag = '"' + tag + '"';
+                    if (document.getElementById('tagBox').value != tag) {
+                        document.getElementById('tagBox').value = tag;
+                        load();
+                    }
+
+                }
+            {/jq}
+        {else}
+            {jq notonready=true}
+                function addTag(tag) {
+                    if (tag.search(/ /) >= 0) tag = '"' + tag + '"';
                     document.getElementById('tagBox').value = document.getElementById('tagBox').value + ' ' + tag;
+                    load();
                 }
-                function clearTags() {
-                    document.getElementById('tagBox').value = '';
-                }
+            {/jq}
+        {/if}
+
+        {jq notonready=true}
+            function clearTags() {
+                document.getElementById('tagBox').value = '';
+            }
+            function load() {
+                document.my_form.submit();
+            }
         {/jq}
+
         <div class="card mb-4">
             <div class="card-body freetaglist mb-4">
                 {foreach from=$most_popular_tags item=popular_tag}
                     {capture name=tagurl}{if (strstr($popular_tag.tag, ' '))}"{$popular_tag.tag}"{else}{$popular_tag.tag}{/if}{/capture}
-                    <a class="freetag_{$popular_tag.size}{if $tag eq $popular_tag.tag|escape} selectedtag{/if}" href="tiki-browse_freetags.php?tag={$smarty.capture.tagurl|escape:'url'}" onclick="javascript:addTag('{$popular_tag.tag|escape:'javascript'}');return false;" ondblclick="location.href=this.href;"{if !empty($popular_tag.color)} style="color:{$popular_tag.color}"{/if}>{$popular_tag.tag|escape}</a>
+
+                    <a class="freetag_{$popular_tag.size}{if $tag eq $popular_tag.tag|escape} selectedtag{/if}" href="tiki-browse_freetags.php?tag={$smarty.capture.tagurl|escape:'url'}{if $broaden eq 'y'}&amp;broaden=y{/if}" onclick="javascript:addTag('{$popular_tag.tag|escape:'javascript'}');return false;" ondblclick="location.href=this.href;"{if !empty($popular_tag.color)} style="color:{$popular_tag.color}"{/if}>{$popular_tag.tag|escape}</a>
                 {/foreach}
             </div>
             <div class="freetagsort card-footer">
@@ -72,9 +94,10 @@
             {assign var=thisbroaden value="&amp;broaden=$broaden"}
         {else}
             {assign var=thisbroaden value=''}
+            {assign var=broaden value="&amp;broaden=$broaden"}
         {/if}
         <div class="btn-group btn-toolbar mb-4">
-            {button _text="{tr}All{/tr}" _class=$thisclass href="tiki-browse_freetags.php?tag=$tagString$thisbroaden&amp;type="}
+            {button _text="{tr}All{/tr}" _class=$thisclass href="tiki-browse_freetags.php?tag=$tagString$broaden$thisbroaden&amp;type="}
             {foreach item=objectType from=$objects_with_freetags}
                 {foreach item=sect key=key from=$sections_enabled}
                     {if isset($sect.objectType) and $sect.objectType eq $objectType and $objectType neq 'blog post'}
@@ -88,10 +111,11 @@
                             {assign var=thisbroaden value="&amp;broaden=$broaden"}
                         {else}
                             {assign var=thisbroaden value=''}
+                            {assign var=broaden value="&amp;broaden=$broaden"}
                         {/if}
                         {assign var=thistype value=$objectType|escape:'url'}
                         {capture name="fl"}{tr}{$feature_label}{/tr}{/capture}
-                        {button _text=$smarty.capture.fl _class=$thisclass href="tiki-browse_freetags.php?tag=$tagString$thisbroaden&amp;type=$thistype"}
+                        {button _text=$smarty.capture.fl _class=$thisclass href="tiki-browse_freetags.php?tag=$tagString$broaden$thisbroaden&amp;type=$thistype"}
                         {assign var=cpt value=$cpt+1}
                     {/if}
                     {if isset($sect.itemObjectType) and $sect.itemObjectType eq $objectType}
@@ -110,10 +134,11 @@
                             {assign var=thisbroaden value="&amp;broaden=$broaden"}
                         {else}
                             {assign var=thisbroaden value=''}
+                            {assign var=broaden value="&amp;broaden=$broaden"}
                         {/if}
                         {assign var=thistype value=$objectType|escape:'url'}
                         {capture name="fl"}{tr}{$feature_label}{/tr}{/capture}
-                        {button _text=$smarty.capture.fl _class=$thisclass href="tiki-browse_freetags.php?tag=$tagString$thisbroaden&amp;type=$thistype"}
+                        {button _text=$smarty.capture.fl _class=$thisclass href="tiki-browse_freetags.php?tag=$tagString$broaden$thisbroaden&amp;type=$thistype"}
                         {assign var=cpt value=$cpt+1}
                     {/if}
                 {/foreach}

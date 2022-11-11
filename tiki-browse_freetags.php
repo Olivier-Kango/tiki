@@ -74,12 +74,10 @@ if (isset($_REQUEST["user_only"]) && $_REQUEST["user_only"] == 'on') {
     $view_user = '';
     $smarty->assign('user_only', 'off');
 }
-if (isset($_REQUEST['broaden']) && $_REQUEST['broaden'] == 'last') {
-    $broaden = 'last';
-} elseif ((isset($_REQUEST['broaden']) && $_REQUEST['broaden'] == 'n') || (isset($_REQUEST['stopbroaden']) && $_REQUEST['stopbroaden'] == 'on')) {
-    $broaden = 'n';
-} else {
+if (isset($_REQUEST['broaden']) && $_REQUEST['broaden'] == 'y') {
     $broaden = 'y';
+} else {
+    $broaden = 'n';
 }
 $smarty->assign('broaden', $broaden);
 $tagArray = $freetaglib->_parse_tag((isset($_REQUEST['tag'])) ? $_REQUEST['tag'] : '');
@@ -131,7 +129,7 @@ if (! empty($prefs['freetags_cloud_colors'])) {
     }
 }
 $smarty->assign('most_popular_tags', $most_popular_tags);
-if ($broaden == 'last') {
+if ($broaden == 'y') {
     $broaden = 'n';
     $tagArray = [
         $tagArray[count($tagArray) - 1]
