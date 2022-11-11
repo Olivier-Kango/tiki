@@ -181,6 +181,9 @@
                 {preference name=access_control_allow_origin}
                 {preference name=zend_http_use_curl}
                 {preference name=feature_realtime}
+                <div class="adminoptionboxchild" id="feature_realtime_childcontainer">
+                    {preference name=realtime_port}
+                </div>
             </fieldset>
             <fieldset>
                 <legend>{tr}Multi-domain{/tr}</legend>

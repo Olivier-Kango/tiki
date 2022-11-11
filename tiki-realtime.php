@@ -47,7 +47,8 @@ ini_set('session.use_cookies', 0);
 
 // Run the server application through the WebSocket protocol on specified port (default: 8080)
 $opts = getopt("p::");
-$port = $opts['p'] ?? 8080;
+$port = $opts['p'] ?? $prefs['realtime_port'] ?? 8080;
+$tikilib->set_preference('realtime_port', $port);
 echo "Listening on port $port...\n";
 
 $app = new Ratchet\App('localhost', $port);

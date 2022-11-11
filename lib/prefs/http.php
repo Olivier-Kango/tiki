@@ -11,12 +11,12 @@ function prefs_http_list()
     return [
         'http_port' => [
             'name' => tra('HTTP port'),
-            'description' => tra('The port used to access this server; if not specified, port 80 will be used'),
+            'description' => tra('The port used to access this server; if not specified, port %0 will be used', 80),
             'type' => 'text',
             'size' => 5,
             'filter' => 'digits',
             'default' => '',
-            'shorthint' => tra('If not specified, port 80 will be used'),
+            'shorthint' => tra('If not specified, port %0 will be used', 80),
         ],
         'http_skip_frameset' => [
             'name' => tra('HTTP lookup: skip framesets'),

@@ -3150,8 +3150,8 @@ if ($standalone && ! $nagios) {
         'OpenSSL' => $criptLib->getUserCryptDataStats('openssl'),
         'MCrypt' => $criptLib->getUserCryptDataStats('mcrypt'),
     ));
-
-    $ws_conn = @fsockopen('localhost', '8080');
+    $ws_port = $prefs['realtime_port'] ?? '8080';
+    $ws_conn = @fsockopen('localhost', $ws_port);
     if (is_resource($ws_conn)) {
         $ws_listening = true;
         fclose($ws_conn);
@@ -3167,7 +3167,7 @@ if ($standalone && ! $nagios) {
         'port_listening' => [
             'requirement' => 'Server listening',
             'status' => $ws_listening ? 'good' : 'unsure',
-            'message' => $ws_listening ? 'Server is listening on local system port 8080.' : 'No server found listening on default port 8080. Server might be running on a different port or not running at all.',
+            'message' => $ws_listening ? 'Server is listening on local system port ' . $ws_port . '.' : 'No server found listening on default port ' . $ws_port . '. Server might be running on a different port or not running at all.',
         ],
         'connectivity' => [
             'requirement' => 'Connectivity',
