@@ -1,5 +1,20 @@
 @charset "UTF-8";
 /* The Darkshine theme for Tiki Wiki CMS Groupware */
+/* Original author information: */
+/*  __________________________________________________________________
+  |                                                                 |
+  |  Template Info:                                                 |
+  |                                                                 |
+  |  This template is released into the public domain. Attribution  |
+  |  to me is appreciated, but not required. You are free to        |
+  |  modify and redistribute this page as you see fit. This notice  |
+  |  does not need to be retained if it is used or redistributed.   |
+  |                                                                 |
+  |  Jack Qiao                                                      |
+  |  www.pureweb.ca                                                 |
+  |                                                                 |
+  |_________________________________________________________________|
+*/
 /*!
    * Bootstrap  v5.2.1 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
@@ -10266,6 +10281,24 @@ textarea.form-control-lg {
   --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
+:root {
+  --tiki-top-bg-light: null;
+  --tiki-top-light-color: #FEA239;
+  --tiki-top-light-link-color: #FEA239;
+  --tiki-top-light-link-hover-color: lighten(#FEA239,10%);
+  --tiki-topbar-bg-light: null;
+  --tiki-topbar-light-color: #f8f9fa;
+  --tiki-topbar-light-link-color: #f8f9fa;
+  --tiki-topbar-light-link-hover-color: #e9ecef;
+  --tiki-top-bg-dark: null;
+  --tiki-top-dark-color: #FEA239;
+  --tiki-top-dark-link-color: #FEA239;
+  --tiki-top-dark-link-hover-color: lighten(#FEA239,10%);
+  --tiki-topbar-bg-dark: null;
+  --tiki-topbar-dark-color: #f8f9fa;
+  --tiki-topbar-dark-link-color: #f8f9fa;
+  --tiki-topbar-dark-link-hover-color: #e9ecef;
+}
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);
 }
@@ -11225,13 +11258,16 @@ header.navbar.fixed-top.bg-dark {
   box-shadow: none;
   border: none;
 }
-body, body.fullscreen {
-  background: #90140c url("../images/stripes.png") repeat-x 50% 0;
+body, body.fullscreen, .layout_social header.navbar.navbar-dark.bg-dark, .layout_social header.navbar.navbar-light.bg-light {
+  background: #90140c url("../images/stripes.png") repeat-x 50% 0 !important;
 }
 .layout_classic #middle, .layout_basic .row-middle, .layout_social .middle.container {
   background: #f3f3f3;
-  border: solid #600;
-  border-width: 15px;
+  border: solid 15px #600;
+  border-top: none;
+}
+.top_modules {
+  justify-content: center !important;
 }
 #bottom_modules {
   background: #000000;
@@ -11323,58 +11359,54 @@ blockquote, .blockquote {
 .top_modules.bg-light, .top_modules.bg-dark {
   background: transparent !important;
 }
-.sitetitle:not(.adminoptionbox) {
-  background: url("../images/title_background.jpg") no-repeat transparent;
-  color: #FE9B27;
-  cursor: default;
-  text-transform: uppercase;
-  font: 2.5em/1.8em "Trebuchet MS", "Georgia", "Lucidia Grande";
-  height: 101px;
-  letter-spacing: 8px;
-  margin-top: 66px;
-  text-align: center;
-}
-.sitetitle:not(.adminoptionbox), .sitetitle a, .sitesubtitle:not(.adminoptionbox) {
-  color: #fe9b27;
-}
-h2.sitesubtitle, .sitesubtitle.h2 {
-  font-size: 20px;
-  margin-top: 0;
-}
 .top_modules div:not(.card) .btn-link, #fullscreenbutton a, .layout_basic .top_modules .navbar-brand, .layout_basic .top_modules .nav-link, .layout_basic .top_modules button.dropdown-toggle {
-  color: #fe9b27;
+  color: #FEA239;
 }
-.topbar_modules {
+.tiki.layout_classic .topbar, .tiki.layout_basic .topbar, .tiki.layout_social .topbar {
+  padding-left: 0;
+  padding-right: 0;
+}
+.tiki.layout_classic .topbar_modules, .tiki.layout_basic .topbar_modules, .tiki.layout_social .topbar_modules {
   background: #000 url("../images/stripes_small.gif") repeat-x !important;
-  border-bottom: 1px solid #916047;
+  border: solid 15px #600000 !important;
+  border-bottom: 1px solid #916047 !important;
 }
-.topbar_modules .navbar-nav .nav-item:nth-child(1n) {
+.tiki.layout_classic .topbar_modules .navbar-nav .nav-link .nav-item, .tiki.layout_basic .topbar_modules .navbar-nav .nav-link .nav-item, .tiki.layout_social .topbar_modules .navbar-nav .nav-link .nav-item {
+  color: #000 !important;
+}
+.tiki.layout_classic .topbar_modules .navbar-nav .nav-link .nav-item:hover, .tiki.layout_classic .topbar_modules .navbar-nav .nav-link .nav-item:focus, .tiki.layout_classic .topbar_modules .navbar-nav .nav-link .nav-item.active, .tiki.layout_basic .topbar_modules .navbar-nav .nav-link .nav-item:hover, .tiki.layout_basic .topbar_modules .navbar-nav .nav-link .nav-item:focus, .tiki.layout_basic .topbar_modules .navbar-nav .nav-link .nav-item.active, .tiki.layout_social .topbar_modules .navbar-nav .nav-link .nav-item:hover, .tiki.layout_social .topbar_modules .navbar-nav .nav-link .nav-item:focus, .tiki.layout_social .topbar_modules .navbar-nav .nav-link .nav-item.active {
+  color: #1a1a1a !important;
+}
+.tiki.layout_classic .topbar_modules .navbar-nav .nav-item:nth-child(1n), .tiki.layout_basic .topbar_modules .navbar-nav .nav-item:nth-child(1n), .tiki.layout_social .topbar_modules .navbar-nav .nav-item:nth-child(1n) {
   background: url("../images/blue.png") no-repeat;
 }
-.topbar_modules .navbar-nav .nav-item:nth-child(2n) {
+.tiki.layout_classic .topbar_modules .navbar-nav .nav-item:nth-child(2n), .tiki.layout_basic .topbar_modules .navbar-nav .nav-item:nth-child(2n), .tiki.layout_social .topbar_modules .navbar-nav .nav-item:nth-child(2n) {
   background: url("../images/red.png") no-repeat;
 }
-.topbar_modules .navbar-nav .nav-item:nth-child(3n) {
+.tiki.layout_classic .topbar_modules .navbar-nav .nav-item:nth-child(3n), .tiki.layout_basic .topbar_modules .navbar-nav .nav-item:nth-child(3n), .tiki.layout_social .topbar_modules .navbar-nav .nav-item:nth-child(3n) {
   background: url("../images/orange.png") no-repeat;
 }
-.topbar_modules .navbar-nav .nav-item:nth-child(4n) {
+.tiki.layout_classic .topbar_modules .navbar-nav .nav-item:nth-child(4n), .tiki.layout_basic .topbar_modules .navbar-nav .nav-item:nth-child(4n), .tiki.layout_social .topbar_modules .navbar-nav .nav-item:nth-child(4n) {
   background: url("../images/green.png") no-repeat;
 }
-.topbar_modules .form-control {
+.tiki.layout_classic .topbar_modules .form-control, .tiki.layout_basic .topbar_modules .form-control, .tiki.layout_social .topbar_modules .form-control {
   height: calc(2rem + 2px);
 }
-.topbar_modules button.search_mod_magnifier {
+.tiki.layout_classic .topbar_modules button.search_mod_magnifier, .tiki.layout_basic .topbar_modules button.search_mod_magnifier, .tiki.layout_social .topbar_modules button.search_mod_magnifier {
   font-size: 0.8rem;
 }
-#top_modules .navbar-default .navbar-collapse, #top_modules .navbar-default .navbar-form .card-default > .card-header, #topbar_modules .navbar-default .navbar-collapse, #topbar_modules .navbar-default .navbar-form .card-default > .card-header {
-  border: none;
+.tiki.layout_classic .topbar_modules, .layout_basic #topbar.topbar_modules.bg-dark .module.box-menu a.nav-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent #topbar .module.box-menu a.nav-link {
+  color: #000 !important;
 }
-#top_modules .navbar-default, #topbar_modules .navbar-default {
-  background: none;
-  border: none;
+.tiki.layout_classic .topbar_modules:hover, .tiki.layout_classic .topbar_modules:focus, .tiki.layout_classic .topbar_modules.active, .layout_basic #topbar.topbar_modules.bg-dark .module.box-menu a.nav-link:hover, .layout_basic #topbar.topbar_modules.bg-dark .module.box-menu a.nav-link:focus, .layout_basic #topbar.topbar_modules.bg-dark .module.box-menu a.nav-link.active, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent #topbar .module.box-menu a.nav-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent #topbar .module.box-menu a.nav-link:focus, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent #topbar .module.box-menu a.nav-link.active {
+  color: #1a1a1a !important;
 }
 #top_modules .navbar, #topbar_modules .navbar {
   margin-bottom: 0;
+}
+.layout_basic .topbar {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 .layout_social .middle .topbar {
   margin-left: -15px !important;

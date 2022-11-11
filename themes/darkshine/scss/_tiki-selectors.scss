@@ -10,16 +10,22 @@ $imagePath: "../images/";
 // Position
 // Body
 body,
-body.fullscreen {
-    background: #90140c url('#{$imagePath}stripes.png') repeat-x 50% 0;
+body.fullscreen,
+.layout_social header.navbar.navbar-dark.bg-dark,
+.layout_social header.navbar.navbar-light.bg-light {
+    background: #90140c url('#{$imagePath}stripes.png') repeat-x 50% 0 !important;
 }
 
 .layout_classic #middle,
 .layout_basic .row-middle,
 .layout_social .middle.container {
     background: #f3f3f3;
-    border: solid #600;
-    border-width: 15px;
+    border: solid 15px #600;
+    border-top: none;
+}
+
+.top_modules {
+    justify-content: center !important;
 }
 
 #bottom_modules {
@@ -193,42 +199,59 @@ blockquote,
     background: transparent !important;
 }
 
-.sitetitle:not(.adminoptionbox) {
-    background: url('#{$imagePath}title_background.jpg') no-repeat transparent;
-    color: #FE9B27;
-    cursor: default;
-    text-transform: uppercase;
-    font: 2.5em/1.8em "Trebuchet MS", "Georgia", "Lucidia Grande";
-    height: 101px;
-    letter-spacing: 8px;
-    margin-top: 66px;
-    text-align: center;
-    //  width: 410px;
-}
+// This is the original CSS but of course doesn't all work in layout_social. To avoid breakage, properties should probably be defined per-site.
+//.sitetitle:not(.adminoptionbox) {
+//    background: url('#{$imagePath}title_background.jpg') no-repeat transparent;
+//    color: #FE9B27;
+//    cursor: default;
+//    text-transform: uppercase;
+//    font: 2.5em/1.8em "Trebuchet MS", "Georgia", "Lucidia Grande";
+//    height: 101px;
+//    letter-spacing: 8px;
+//    margin-top: 66px;
+//    text-align: center;
+ //   //  width: 410px;
+//}
+//
+//.sitetitle:not(.adminoptionbox),
+//.sitetitle a,
+//.sitesubtitle:not(.adminoptionbox) {
+//    color: #fe9b27;
+//}
 
-.sitetitle:not(.adminoptionbox),
-.sitetitle a,
-.sitesubtitle:not(.adminoptionbox) {
-    color: #fe9b27;
-}
-
-h2.sitesubtitle {
-    font-size: 20px;
-    margin-top: 0;
-}
+//h2.sitesubtitle {
+//    font-size: 20px;
+//    margin-top: 0;
+//}
 
 .top_modules div:not(.card) .btn-link,
 #fullscreenbutton a,
 .layout_basic .top_modules .navbar-brand,
 .layout_basic .top_modules .nav-link,
 .layout_basic .top_modules button.dropdown-toggle {
-    color: #fe9b27;
+    color: #FEA239; // #fe9b27; Lightened for WCAG contrast compliance
+}
+.tiki.layout_classic .topbar,
+.tiki.layout_basic .topbar,
+.tiki.layout_social .topbar {
+    padding-left: 0;
+    padding-right: 0;
 }
 
-.topbar_modules {
-    background: #000 url('#{$imagePath}stripes_small.gif') repeat-x /*0 -8px*/
-    !important;
-    border-bottom: 1px solid #916047;
+.tiki.layout_classic .topbar_modules,
+.tiki.layout_basic .topbar_modules,
+.tiki.layout_social .topbar_modules {
+    background: #000 url('#{$imagePath}stripes_small.gif') repeat-x /*0 -8px*/ !important;
+    border: solid 15px #600000 !important;
+    border-bottom: 1px solid #916047 !important;
+    .navbar-nav .nav-link .nav-item {
+        color: #000 !important;
+        &:hover,
+        &:focus,
+        &.active {
+            color: lighten(#000,10%) !important;
+        }
+    }
 
     .navbar-nav .nav-item:nth-child(1n) {
         background: url('#{$imagePath}blue.png') no-repeat;
@@ -255,23 +278,28 @@ h2.sitesubtitle {
     }
 }
 
-#top_modules .navbar-default .navbar-collapse,
-#top_modules .navbar-default .navbar-form .card-default > .card-header,
-#topbar_modules .navbar-default .navbar-collapse,
-#topbar_modules .navbar-default .navbar-form .card-default > .card-header {
-    border: none;
-}
 
-#top_modules .navbar-default,
-#topbar_modules .navbar-default {
-    background: none;
-    border: none;
+.tiki.layout_classic .topbar_modules,
+.layout_basic  #topbar.topbar_modules.bg-dark .module.box-menu a.nav-link,
+.layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent #topbar .module.box-menu a.nav-link {
+    color: #000 !important;
+    &:hover,
+    &:focus,
+    &.active {
+        color: lighten(#000,10%) !important;
+    }
 }
 
 #top_modules .navbar,
 #topbar_modules .navbar {
     margin-bottom: 0;
 }
+
+.layout_basic .topbar {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
 
 .layout_social .middle .topbar {
     margin-left: -15px !important;
