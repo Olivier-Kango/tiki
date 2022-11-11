@@ -51,6 +51,297 @@ function checkOPCacheCompatibility()
         || (version_compare(PHP_VERSION, '7.3.0', '>=') && version_compare(PHP_VERSION, '7.3.6', '<'))); // >= 7.3.0 < 7.3.6
 }
 
+function getTikiRequirements()
+{
+    return array(
+        array(
+            'name'    => 'Tiki 25.x',
+            'version' => 25,
+            'php'     => array(
+                'min' => '7.4',
+            ),
+            'mariadb' => array(
+                'min' => '5.5',
+            ),
+            'mysql'   => array(
+                'min' => '5.7',
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 24.x',
+            'version' => 24,
+            'php'     => array(
+                'min' => '7.4',
+            ),
+            'mariadb' => array(
+                'min' => '5.5',
+            ),
+            'mysql'   => array(
+                'min' => '5.7',
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 23.x',
+            'version' => 23,
+            'php'     => array(
+                'min' => '7.4',
+                'max' => '7.4',
+            ),
+            'mariadb' => array(
+                'min' => '5.5',
+            ),
+            'mysql'   => array(
+                'min' => '5.7',
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 22.x',
+            'version' => 22,
+            'php'     => array(
+                'min' => '7.4',
+                'max' => '7.4',
+            ),
+            'mariadb' => array(
+                'min' => '5.5',
+            ),
+            'mysql'   => array(
+                'min' => '5.7',
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 21.x LTS',
+            'version' => 21,
+            'php'     => array(
+                'min' => '7.2',
+                'max' => '7.3',
+            ),
+            'mariadb' => array(
+                'min' => '5.5',
+            ),
+            'mysql'   => array(
+                'min' => '5.7',
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 20.x',
+            'version' => 20,
+            'php'     => array(
+                'min' => '7.1',
+                'max' => '7.2',
+            ),
+            'mariadb' => array(
+                'min' => '5.5',
+                'max' => '10.4',
+            ),
+            'mysql'   => array(
+                'min' => '5.5.3',
+                'max' => '5.7',
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 19.x',
+            'version' => 19,
+            'php'     => array(
+                'min' => '7.1',
+                'max' => '7.2',
+            ),
+            'mariadb' => array(
+                'min' => '5.5',
+                'max' => '10.4',
+            ),
+            'mysql'   => array(
+                'min' => '5.5.3',
+                'max' => '5.7',
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 18.x',
+            'version' => 18,
+            'php'     => array(
+                'min' => '5.6',
+                'max' => '7.2',
+            ),
+            'mariadb' => array(
+                'min' => '5.1',
+                'max' => '10.4',
+            ),
+            'mysql'   => array(
+                'min' => '5.0',
+                'max' => '5.7',
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 15.x',
+            'version' => 15,
+            'php'     => array(
+                'min' => '5.5',
+                'max' => '5.6',
+            ),
+            'mariadb' => array(
+                'min' => '5.0',
+                'max' => '10.1',
+            ),
+            'mysql'   => array(
+                'min' => '5.0',
+                'max' => '5.6',
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 12.x LTS',
+            'version' => 12,
+            'php'     => array(
+                'min' => '5.3',
+                'max' => '5.6',
+            ),
+            'mariadb' => array(
+                'min' => '5.0',
+                'max' => '5.5',
+            ),
+            'mysql'   => array(
+                'min' => '5.0',
+                'max' => '5.5',
+            ),
+        ),
+    );
+}
+
+function checkServerRequirements($phpVersion, $dbEngine, $dbVersion)
+{
+    $dbEnginesLabels = array(
+        'mysql'   => 'MySQL',
+        'mariadb' => 'MariaDB',
+    );
+
+    $tikiRequirements = getTikiRequirements();
+
+    $phpValid = false;
+    $dbValid = false;
+
+    foreach ($tikiRequirements as $tikiVersion) {
+        if (version_compare($phpVersion, $tikiVersion['php']['min'], '<')) {
+            continue;
+        }
+        if (isset($requirement['php']['max'])
+            && $requirement['php']['max'] !== $requirement['php']['min']
+            && version_compare(PHP_VERSION, $requirement['php']['max'], '>')
+        ) {
+            continue;
+        }
+        $phpValid = true;
+        break;
+    }
+
+    $tiki_server_req['PHP'] = array(
+        'value'   => PHP_VERSION,
+        'fitness' => tra('good'),
+        'message' => tra('PHP version is supported by one of Tiki versions'),
+    );
+
+    if (! $phpValid) {
+        $tiki_server_req['PHP']['fitness'] = tra('bad');
+        $tiki_server_req['PHP']['message'] = tra('PHP version is not supported by Tiki');
+    }
+
+    if ($dbEngine && $dbVersion) {
+        foreach ($tikiRequirements as $tikiVersion) {
+            if (version_compare($dbVersion, $tikiVersion[$dbEngine]['min'], '<')) {
+                continue;
+            }
+            if (isset($requirement[$dbEngine]['max'])
+                && $requirement[$dbEngine]['max'] !== $requirement[$dbEngine]['min']
+                && version_compare($dbVersion, $requirement[$dbEngine]['max'], '>')
+            ) {
+                continue;
+            }
+            $dbValid = true;
+            break;
+        }
+
+        $tiki_server_req['Database'] = array(
+            'value'   => $dbEnginesLabels[$dbEngine] . ' ' . $dbVersion,
+            'fitness' => tra('good'),
+            'message' => tra('Database version is supported by one of Tiki Versions.'),
+        );
+
+        if (! $dbValid) {
+            $tiki_server_req['Database']['fitness'] = tra('bad');
+            $tiki_server_req['Database']['message'] = tra('Database version is not supported by Tiki.');
+        }
+    } else {
+        $tiki_server_req['Database'] = array(
+            'value'   => 'N/A',
+            'fitness' => tra('unsure'),
+            'message' => tra('Unable to determine database compatibility'),
+        );
+    }
+
+    return $tiki_server_req;
+}
+
+/**
+ * @param string $dbEngine
+ * @param string $dbVersion
+ *
+ * @return array
+ */
+function getCompatibleVersions($dbEngine = '', $dbVersion = '')
+{
+    $tikiRequirements = getTikiRequirements();
+    $compatibleVersions = [];
+
+    $dbVersion = $dbVersion ?: 0;
+    foreach ($tikiRequirements as $requirement) {
+        if (version_compare(PHP_VERSION, $requirement['php']['min'], '<')) {
+            continue;
+        }
+
+        if (isset($requirement['php']['max'])
+            && $requirement['php']['max'] !== $requirement['php']['min']
+            && version_compare(PHP_VERSION, $requirement['php']['max'], '>')
+        ) {
+            continue;
+        }
+
+        if ($dbEngine === 'mysql' || $dbEngine === 'mariadb') {
+            if (version_compare($dbVersion, $requirement[$dbEngine]['min'], '<')) {
+                continue;
+            }
+            if (isset($requirement[$dbEngine]['max'])
+                && $requirement[$dbEngine]['max'] !== $requirement[$dbEngine]['min']
+                && version_compare($dbVersion, $requirement[$dbEngine]['max'], '>')
+            ) {
+                continue;
+            }
+        }
+
+        $requirement['fitness'] = tra('unsure');
+        $requirement['message'] = tra('Unable to database requirements');
+
+        if ($dbEngine && $dbVersion) {
+            $requirement['fitness'] = tra('info');
+            $requirement['message'] = tra('Supported version');
+
+            if (count($compatibleVersions) == 0) {
+                $requirement['fitness'] = tra('good');
+                $requirement['message'] = tra('Recommended version');
+            }
+        }
+
+        $compatibleVersions[] = $requirement;
+    }
+    return $compatibleVersions;
+}
+
+function checkTikiVersionCompatible($compatibleVersions, $majorVersion)
+{
+    foreach ($compatibleVersions as $tiki) {
+        if ($tiki['version'] == $majorVersion) {
+            return true;
+        }
+    }
+    return false;
+}
+
 if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) {
     $standalone = false;
     require_once('tiki-setup.php');
@@ -125,6 +416,42 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
         } else {
             $render .= 'Nothing to display.';
         }
+    }
+
+    /**
+     * @param $var
+     */
+    function renderAvailableTikiTable($var)
+    {
+        global $render;
+
+        $formatValue = function ($value, $property) {
+            return $value[$property]['min'] .
+                ((! empty($value[$property]['max']) && $value[$property]['max'] != $value[$property]['min'])
+                    ? ' - ' . $value[$property]['max']
+                    : (empty($value[$property]['max']) ? '+' : ''));
+        };
+        if (is_array($var) && ! empty($var)) {
+            $render .= '<table class="table table-bordered"><thead>';
+            $render .= '<tr><th>Version</th><th>PHP</th><th>MySQL</th><th>MariaDB</th>';
+            $render .= '<th>Fitness</th><th>Explanation</th></tr>';
+            foreach ($var as $value) {
+                $phpReq = $formatValue($value, 'php');
+                $mysqlReq = $formatValue($value, 'mysql');
+                $mariadbReq = $formatValue($value, 'mariadb');
+                $render .= '<th> ' . $value['name'] . ' </th>';
+                $render .= '<td> ' . $phpReq . ' </td>';
+                $render .= '<td> ' . $mysqlReq . ' </td>';
+                $render .= '<td> ' . $mariadbReq . ' </td>';
+                $render .= '<td><span class="button ' . $value['fitness'] . '">' . $value['fitness'] . '</span> </td>';
+                $render .= '<td> ' . $value['message'] . ' </td></tr>';
+            }
+            $render .= '</tbody></table>';
+        } else {
+            $render .= 'Nothing to display.';
+        }
+
+        $render .= '<p>For more details, check the <a href="https://doc.tiki.org/Requirements" target="_blank">Tiki Requirements</a> documentation.</p>';
     }
 }
 
@@ -2843,10 +3170,68 @@ if ($trimCapable) {
     }
 }
 
+$dbEngine = $dbVersion = null;
+if ($connection || !$standalone) {
+    $dbEngine = $isMariaDB ? 'mariadb' : 'mysql';
+    $dbVersion = ! empty($mysql_properties['Version']['setting']) ? $mysql_properties['Version']['setting'] : null;
+} elseif (isset($_POST['db-engine'], $_POST['db-version'])) {
+    $dbEngine = $_POST['db-engine'];
+    $dbVersion = $_POST['db-version'];
+}
+
+$serverRequirements = checkServerRequirements(PHP_VERSION, $dbEngine, $dbVersion);
+$available_tiki_properties = getCompatibleVersions($dbEngine, $dbVersion);
+
+if (!$standalone) {
+    $serverRequirements['Tiki Version'] = array(
+        'value' => $tikiBaseVersion,
+        'fitness' => 'info',
+        'message' => 'Current Tiki version',
+    );
+} else {
+    $recTikiVersion = array_filter($available_tiki_properties, function($details) {
+        return $details['fitness'] == 'good';
+    });
+    if ($recTikiVersion = reset($recTikiVersion)) {
+        $serverRequirements['Tiki Version'] = array(
+            'value' => $recTikiVersion['name'],
+            'fitness' => 'info',
+            'message' => 'Recommended Tiki version',
+        );
+    } else {
+        $serverRequirements['Tiki Version'] = array(
+            'value' => 'N/A',
+            'fitness' => 'unsure',
+            'message' => 'Unable to find a Tiki Version that uses the detected/selected PHP and Database versions.',
+        );
+    }
+}
+
 if ($standalone && ! $nagios) {
     $render .= '<style type="text/css">td, th { border: 1px solid #000000; vertical-align: baseline; padding: .5em; }</style>';
-//    $render .= '<h1>Tiki Server Compatibility</h1>';
+    $render .= '<h2>Server compatibility</h2>';
+
+    renderTable($serverRequirements);
+
     if (! $locked) {
+        if (!$connection) {
+            $render .= '<p>Unable to check the server compatibility and the recommended Tiki version.<br>';
+            $render .= 'Use the form bellow to select the Database engine and version, to detect the recommended version.</p>';
+            $render .= '<form method="post" action="' . $_SERVER['SCRIPT_NAME'] . '">';
+            $render .= '<div class="form-group"><label for="db-engine">Database Engine</label>:';
+            $render .= '<select name="db-engine" class="form-control">';
+            $render .= '<option value="mysql" ' .($dbEngine == 'mysql' ? 'selected' : '') . '>MySQL</option>';
+            $render .= '<option value="mariadb" ' . ($dbEngine == 'mariadb' ? 'selected' : '') . '>MariaDB</option>';
+            $render .= '</select></div>';
+            $render .= '<div class="form-group"><label for="db-engine">Database Version</label>: <input type="text"  class="form-control" id="db-version" name="db-version" value="'.$dbVersion.'"/></div>';
+            $render .= '<div class="form-group"><input type="submit" class="btn btn-primary btn-sm" value="Check compatibility" /></div>';
+            $render .= '</form>';
+        }
+
+        $render .= '<h3>Compatible Tiki Versions</h3>';
+
+        renderAvailableTikiTable($available_tiki_properties);
+
         $render .= '<h2>MySQL or MariaDB Database Properties</h2>';
         renderTable($mysql_properties);
         $render .= '<h2>Test sending emails</h2>';
@@ -3078,6 +3463,13 @@ if ($standalone && ! $nagios) {
         $bindvars = array($json_tiki_check_status);
         $result = $tikilib->query($query, $bindvars);
     }
+
+    $smarty->assign_by_ref('current_tiki_version', $tikiBaseVersion);
+    $is_compatible = checkTikiVersionCompatible($available_tiki_properties, $tikiBaseVersion);
+    $smarty->assign_by_ref('is_compatible', $is_compatible);
+    $smarty->assign_by_ref('server_req',$serverRequirements);
+    $smarty->assign_by_ref('is_compatible', $is_compatible);
+    $smarty->assign_by_ref('available_tiki_properties', $available_tiki_properties);
     $smarty->assign_by_ref('server_information', $server_information);
     $smarty->assign_by_ref('server_properties', $server_properties);
     $smarty->assign_by_ref('mysql_properties', $mysql_properties);
