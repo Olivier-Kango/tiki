@@ -55,7 +55,7 @@
                     </a>
                 </label>
                 <div class="col-sm-9">
-                    <input value="{$inputValues['email']}" class="form-control" id="name" type="email" name="email" placeholder="johndoe@example.org">
+                    <input value="{$inputValues['email']}" class="form-control" id="name" type="text" name="email" placeholder="johndoe@example.org">
                     <div class="form-text">{tr}You can add several email addresses by separating them with commas.{/tr}</div>
                 </div>
             </div>
