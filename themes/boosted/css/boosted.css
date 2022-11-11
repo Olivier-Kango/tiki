@@ -2,7 +2,7 @@
 /* Boosted is an implementation for Tiki Wiki CMS Groupware of Orange Boosted (MIT license).
 /* "Orange Boosted is a Bootstrap based, Orange branded accessible and ergonomic components library."  */
 /*!
-   * Bootstrap  v5.2.1 (https://getbootstrap.com/)
+   * Bootstrap  v5.2.2 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -2269,10 +2269,15 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-:not(.btn-check) + .btn:hover, .btn:first-child:hover {
+.btn:hover {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
+}
+.btn-check + .btn:hover {
+  color: var(--bs-btn-color);
+  background-color: var(--bs-btn-bg);
+  border-color: var(--bs-btn-border-color);
 }
 .btn:focus-visible {
   color: var(--bs-btn-hover-color);
@@ -4318,6 +4323,7 @@ textarea.form-control-lg {
   display: none;
 }
 .toast-container {
+  --bs-toast-zindex: 1090;
   position: absolute;
   z-index: var(--bs-toast-zindex);
   width: max-content;
@@ -10789,6 +10795,10 @@ a.dropdown-item {
   background-color: var(--bs-btn-disabled-bg);
   border-color: var(--bs-btn-disabled-border-color);
   opacity: var(--bs-btn-disabled-opacity);
+}
+.filter_subblock button.add_filter, .filter_subblock button.add_script {
+  background-color: #000;
+  color: #fff;
 }
 .layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
   background: var(--tiki-top-bg-light) !important;

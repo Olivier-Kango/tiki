@@ -890,6 +890,10 @@ a.dropdown-item {
   border-color: var(--bs-btn-disabled-border-color);
   opacity: var(--bs-btn-disabled-opacity);
 }
+.filter_subblock button.add_filter, .filter_subblock button.add_script {
+  background-color: #212529;
+  color: #fff;
+}
 .btn-xs {
   padding: 0 0.25rem !important;
 }

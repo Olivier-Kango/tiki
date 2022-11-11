@@ -1339,3 +1339,11 @@ a.dropdown-item { color: $dropdown-link-color; }
     border-color: var(--bs-btn-disabled-border-color);
     opacity: var(--bs-btn-disabled-opacity);
 }
+
+
+.filter_subblock {
+    button.add_filter, button.add_script {
+        background-color: $body-color;
+        color: $body-bg;
+    }
+}
