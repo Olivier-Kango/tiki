@@ -21,6 +21,7 @@ use Hm_Module_Exec;
 use Hm_Request;
 use Hm_IMAP_List;
 use Hm_SMTP_List;
+use Hm_Msgs;
 use Hm_Handler_tiki_sieve_placeholder;
 
 /**
