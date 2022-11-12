@@ -49,11 +49,11 @@ class TWVersion
 
     public function __construct()
     {
-        $this->branch   = 'trunk';
+        $this->branch   = 'stable';
 
         // Set everything else, including defaults.
         $this->version  = '25.0vcs';
-        $this->star     = 'TBA';
+        $this->star     = 'Sagittarius A*';
         $this->releases = [];
 
         // Check for Subversion or not
@@ -125,6 +125,7 @@ class TWVersion
                 33 => 'Corona Borealis', // 22.x
                 34 => 'Wasat',           // 23.x
                 35 => 'Wolf 359',        // 24.x
+                36 => 'Sagittarius A*',  // 25.x
         ];
     }
 
@@ -327,6 +328,7 @@ class TWVersion
                 '18.6',
                 '18.7',
                 '18.8',
+                '18.9',
                 '19.0alpha',
                 '19.0beta1',
                 '19.0RC1',
@@ -351,6 +353,8 @@ class TWVersion
                 '21.3',
                 '21.4',
                 '21.5',
+                '21.6',
+                '21.7',
                 '22.0alpha',
                 '22.0beta',
                 '22.0RC1',
@@ -362,10 +366,13 @@ class TWVersion
                 '23.0RC1',
                 '23.0',
                 '23.1',
+                '23.2',
                 '24.0alpha',
                 '24.0beta',
                 '24.0RC1',
                 '24.0',
+                '24.1',
+                '24.2',
             ];
     }
 
