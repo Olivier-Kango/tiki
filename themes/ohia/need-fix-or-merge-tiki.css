@@ -853,11 +853,6 @@ div#outerToc-static ul {
   background: none;
   width: 20px;
 }
-.backlinks_button .cssmenu_horiz ul li {
-  border: 1px solid #999;
-  border-radius: 3px;
-
-}
 .backlinks_button li.tabmark {
   background: none;
   border: 0;
@@ -897,11 +892,6 @@ body.wikitext {
   background: none;
   height: 16px;
   width: 18px;
-}
-.structure_select .cssmenu_horiz ul li {
-  border: 1px solid #999;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
 }
 .structure_select li.tabmark {
   background: none;
@@ -2053,29 +2043,6 @@ ul.all_languages > li {
 .lang_select .selected {
   font-weight: bold;
   font-style: italic;
-}
-.lang_select .cssmenu_horiz li {
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  width: auto;
-}
-.lang_select .cssmenu_horiz li.tabmark {
-  background: none;
-  border: 0;
-  color: inherit;
-  padding: 0;
-  top: 0;
-}
-.lang_select .cssmenu_horiz .tabmark span {
-  background: none;
-  position: relative;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  top: 0;
-  bottom: 0;
-  left: 1px;
-  right: 0;
 }
 .lang_select li.tabmark .popup_base a {
   color: inherit;

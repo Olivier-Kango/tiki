@@ -60,7 +60,7 @@ function smarty_block_actions($params, $content, $smarty, $repeat = false)
     }
 
     if (! $js) {
-        $return .= '<ul class="cssmenu_horiz float-end"><li>';
+        $return .= '<ul class="float-end"><li>';
     }
 
     $title = ! empty($params['title']) ? htmlspecialchars($params['title']) : tra('Actions');

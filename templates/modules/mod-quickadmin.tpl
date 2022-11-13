@@ -5,7 +5,7 @@
         <div id="quickadmin" class="nav justify-content-end flex-nowrap">
             {if $only_shortcuts neq 'y'}
                 <div class="nav-item prefs-history-dropdown">
-                    {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
+                    {if ! $js}<ul><li>{/if}
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" data-display="dynamic" data-flip="true" href="#" role="button">
                         {icon name="history"}
                     </a>
@@ -25,7 +25,7 @@
             {/if}
             {if $only_prefs_history neq 'y'}
                 <div class="nav-item dropdown">
-                    {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
+                    {if ! $js}<ul><li>{/if}
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" data-display="dynamic" href="#" role="button">
                         {icon name='cogs'}
                     </a>

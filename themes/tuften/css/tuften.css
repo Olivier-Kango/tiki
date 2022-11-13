@@ -11558,11 +11558,6 @@ table.table {
   display: block;
   line-height: 1;
 }
-.cssmenu_horiz ul li a, .cssmenu_vert ul li a {
-  font-size: 18px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-}
 .sf-arrows .sf-with-ul {
   padding-right: 1.75em;
 }

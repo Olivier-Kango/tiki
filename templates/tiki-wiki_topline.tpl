@@ -61,7 +61,7 @@
 
                 {if $prefs.feature_backlinks eq 'y' and $backlinks|default:null and $tiki_p_view_backlink eq 'y'}
                     <div class="btn-group backlinks">
-                        {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
+                        {if ! $js}<ul><li>{/if}
                         <a href="#" role="button" data-bs-toggle="dropdown" data-hover="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr}Backlinks{/tr}">
                             {icon name="backlink"}
                         </a>
@@ -88,7 +88,7 @@
                 {/if}
                 {if $structure eq 'y' or ( $structure eq 'n' and count($showstructs) neq 0 )}
                     <div class="btn-group structures">
-                        {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
+                        {if ! $js}<ul><li>{/if}
                         <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" title="{tr}Structures{/tr}">
                             {icon name="structure"}
                         </a>
@@ -124,7 +124,7 @@
                 {* all single-action icons under one dropdown*}
                 {assign var="hasPageAction" value="0"}
                 {capture name="pageActions"}
-                    {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
+                    {if ! $js}<ul><li>{/if}
                     <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#"  title="{tr}Page actions{/tr}">
                         {icon name="menu-extra"}
                     </a>

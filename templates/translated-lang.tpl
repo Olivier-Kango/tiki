@@ -5,20 +5,20 @@
     <div class="btn-group">
         {if $prefs.lang_available_translations_dropdown neq 'y' }
             {* For all object types: First show the translate icon and on hover the language of the current object *}
-            {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
+            {if ! $js}<ul><li>{/if}
             <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" title="{tr}Translations{/tr}">
                 {icon name="translate"}
             </a>
         {else}
             <div class="dropdown">
                 {* For all object types: Show everything as a dropdown for visibility *}
-                {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
+                {if ! $js}<ul><li>{/if}
                 <button class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown">
                     {icon name="translate"} {$trads[0].langName|escape} ({$trads[0].lang|escape})
                 </button>
         {/if}
 {else}
-    {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
+    {if ! $js}<ul><li>{/if}
     <a tabindex="-1" href="#">
         {icon name="translate"} {tr}Translation...{/tr}
     </a>

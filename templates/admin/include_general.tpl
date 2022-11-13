@@ -252,7 +252,6 @@
                 <legend>{tr}Menus{/tr}</legend>
                 <div class="adminoptionbox">
                     {preference name=jquery_smartmenus_enable}
-                    {preference name=feature_cssmenus}
                     {preference name=feature_userlevels}
                     {preference name=feature_featuredLinks}
                     {preference name=feature_menusfolderstyle}

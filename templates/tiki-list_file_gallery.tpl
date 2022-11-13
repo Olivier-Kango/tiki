@@ -11,7 +11,7 @@
 {/title}
 <div class="t_navbar mb-4">
     <div class="btn-group float-end">
-        {if ! $js}<ul class="cssmenu_horiz"><li class="dropdown-item">{/if}
+        {if ! $js}<ul><li class="dropdown-item">{/if}
         <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#"  title="{tr}Views{/tr}">
             {icon name="menu-extra"}
         </a>

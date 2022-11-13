@@ -87,7 +87,7 @@
                                 <div id="adminbar" class="btn-group">
                                     <div class="btn-group">
                                         {if ! $js}
-                                        <ul class="cssmenu_horiz">
+                                        <ul>
                                             <li>{/if}
                                                 <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                                                     {icon name="history"} Recent Actions </a>
@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="btn-group">
                                         {if ! $js}
-                                        <ul class="cssmenu_horiz">
+                                        <ul>
                                             <li>{/if}
                                                 <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                                                     {icon name='menu-extra'} Quick Links </a>

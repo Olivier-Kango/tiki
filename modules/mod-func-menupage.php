@@ -77,21 +77,6 @@ function module_menupage($mod_reference, $module_params)
             $content = '<label class="alert-warning">' . tra("Permission denied") . '</label>';
         }
 
-        if (! empty($content) && ! empty($module_params['menu_type']) && in_array($module_params['menu_type'], ['horiz', 'vert'])) {
-            $class = 'cssmenu_' . $module_params['menu_type'];
-            $content = preg_replace_callback(
-                '/<(ul|ol|li)([^>]*)>/Umi',
-                function ($matches) use ($class) {
-                    if ($matches[1] == 'li') {
-                        $class = 'menuSection';
-                    }
-                    return "<{$matches[1]} class=\"$class\" {$matches[2]}>";
-                },
-                $content
-            );
-            $content = $menulib->clean_menu_html($content);
-        }
-
         $smarty->assign('tpl_module_title', $wikilib->get_without_namespace($pagemenu));
         $smarty->assign_by_ref('contentmenu', $content);
     }

@@ -9,7 +9,7 @@
     {* --------- navigation ------ *}
     <div class="t_navbar mb-4">
         <div class="float-sm-end btn-group">
-            {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
+            {if ! $js}<ul><li>{/if}
             <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                 {icon name='menu-extra'}
             </a>

@@ -9,9 +9,10 @@
 {/title}
 <div id="calscreen">
     <div class="t_navbar mb-4">
-
-
-            <a class="btn btn-info btn-sm dropdown-toggle float-end" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Calendar actions{/tr}">
+        <a class="btn btn-info btn-sm dropdown-toggle float-end" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Calendar actions{/tr}">
+        <div class="btn-group float-end">
+            {if ! $js}<ul><li>{/if}
+            <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                 {icon name='menu-extra'}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">

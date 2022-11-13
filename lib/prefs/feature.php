@@ -2262,9 +2262,6 @@ function prefs_feature_list($partial = false)
             'help' => 'Structure',
             'keywords' => 'wiki ajax structure',
             'default' => 'n',
-            'dependencies' => [
-                'feature_cssmenus'
-            ],
         ],
         'feature_wiki_open_as_structure' => [
             'name' => tra('Open page as structure'),
