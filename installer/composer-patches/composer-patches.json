@@ -1,7 +1,6 @@
 {
   "patches": {
     "adodb/adodb-php": {
-      "Remove the check for ADOdb Extension": "../installer/composer-patches/adodb-php__remove-the-check-if-the-adodb-php_ext-is-enabled.patch",
       "Hotfix for 5.22.3": "../installer/composer-patches/adodb-php__hotfix_for_5.22.3.patch"
     },
     "candy-chat/xmpp-prebind-php": {
