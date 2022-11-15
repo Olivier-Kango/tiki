@@ -97,7 +97,7 @@ class ScssCompileCommand extends Command
 
         $output->writeln('Compiling scss files from themes');
         foreach (new \DirectoryIterator('themes') as $fileInfo) {
-            if ($fileInfo->isDot() || ! $fileInfo->isDir()) {
+            if ($fileInfo->isDot() || ! $fileInfo->isDir() || $fileInfo->isLink()) {
                 continue;
             }
             $themename = $fileInfo->getFilename();
@@ -196,6 +196,8 @@ class ScssCompileCommand extends Command
      */
     private function compile(string $inputFile, string $outputFile = '', OutputInterface $output = null, bool $sourcemap = false): void
     {
+        global $tikiroot;
+
         $inputData = file_get_contents($inputFile);
         $inputDir = dirname(realpath($inputFile));
 
@@ -203,21 +205,21 @@ class ScssCompileCommand extends Command
         if ($sourcemap) {
             $scss->setSourceMap(Compiler::SOURCE_MAP_FILE);
             $scss->setSourceMapOptions([
-                // absolute path to write .map file
-                'sourceMapWriteTo' => $outputFile . '.map',
                 // relative or full url to the above .map file
                 'sourceMapURL'      => basename($outputFile) . '.map',
                 // (optional) relative or full url to the .css file
                 'sourceMapFilename' => $outputFile,
                 // partial path (server root) removed (normalized) to create a relative url
                 'sourceMapBasepath' => $inputDir,
+                // (optional) prepended to 'source' field entries for relocating source files
+                'sourceRoot' => $tikiroot . dirname($inputFile),
             ]);
         }
         $scss->setImportPaths($inputDir);
         $result = $scss->compileString($inputData, $inputFile);
 
         if ($outputFile) {
-            file_put_contents($outputFile, $result->getCss());
+            file_put_contents($outputFile, $result->getCss() . "\n");
             if ($sourcemap) {
                 file_put_contents($outputFile . '.map', $result->getSourceMap());
             }
