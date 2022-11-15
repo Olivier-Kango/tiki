@@ -16,6 +16,7 @@ function prefs_keep_list()
             'size' => '5',
             'units' => tra('days'),
             'default' => 1,
+            'keywords' => 'wiki history',
         ],
     ];
 }

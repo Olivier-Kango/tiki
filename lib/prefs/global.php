@@ -245,6 +245,7 @@ function prefs_global_list($partial = false)
             'size' => '5',
             'hint' => tra('0 for unlimited'),
             'default' => 0,
+            'keywords' => 'wiki history',
         ],
         'allowRegister' => [
             'name' => tra('Users can register'),
