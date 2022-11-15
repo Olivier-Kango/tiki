@@ -377,22 +377,92 @@ class PreferencesLib
         $preferences = $data->fetchAll();
         $orphelines = [];
 
-        $specialPrefs = [
-            "display_timezone",
-            "internal_site_hash",
-            "unified_field_count",
-            "unified_last_rebuild",
-            "unified_total_fields",
-        ];
-
         foreach ($preferences as $pref) {
             $definition = $this->getPreference($pref['name'], true, $prefs);
 
-            if (! $definition && ! in_array($pref['name'], $specialPrefs)) {
+            if (! $definition && ! $this->isSpecialPref($pref['name'])) {
                 $orphelines[] = $pref;
             }
         }
         return $orphelines;
+    }
+
+    /**
+     * Special preferences are prefs that are declared and used directly in the code
+     * while they are not found anywhere in the admin panel
+     *
+     * This function retrieves all special prefs and checks if a given pref is one of them
+     *
+     * @param string $pref preference name
+     */
+    public function isSpecialPref($pref)
+    {
+        global $prefs;
+        $specialPrefs = [
+            'webcron_last_run',
+            'pass_auto_blacklist',
+            'feature_contribution_mandatory',
+            'feature_contribution_mandatory_forum',
+            'feature_contribution_mandatory_comment',
+            'feature_contribution_mandatory_blog',
+            'feature_contribution_display_in_commen',
+            'feature_contributor_wiki',
+            'mailin_autocheck',
+            'mailin_autocheckFreq',
+            'shoutbox_autolink',
+            'display_timezone',
+            'internal_site_hash',
+            'notified_tiki_version',
+            'unified_field_mapping',
+            'unified_date_fields',
+            'h5p_cron_last_run',
+            'toolbar_custom_list',
+            'pluginaliaslist',
+            'unified_manticore_index_rebuilding',
+            'unified_date_fields',
+            'unified_total_fields',
+            'unified_field_count',
+            'unified_last_rebuild',
+            'mailin_autocheckLast',
+            'toolbar_admin',
+            'toolbar_adminmodified',
+            'toolbar_admin_comments',
+            'toolbar_admin_commentsmodified',
+            'toolbar_global',
+            'toolbar_globalmodified',
+            'toolbar_global_comments',
+            'toolbar_global_commentsmodified',
+            'toolbar_wiki page',
+            'toolbar_wiki pagemodified',
+            'toolbar_wiki page_comments',
+            'toolbar_wiki page_commentsmodified',
+        ];
+
+        // there are default preferences that don't appear in the admin panel, So we get them too
+        $defaultPrefs = get_default_prefs();
+        foreach ($defaultPrefs as $p => $v) {
+            $definition = $this->getPreference($p, true, $prefs);
+            if (! $definition) {
+                $specialPrefs[] = $p;
+            }
+        }
+
+        // We also get some preferences created by concatenation of parameters (eg : "pluginalias_" . $name)
+        $pluginalias = "pluginalias_";
+        $oauth = "oauth_token_";
+        $h5p = "h5p_";
+
+        $is_special_pref = false;
+
+        if (
+            in_array($pref, $specialPrefs)
+            or substr($pref, 0, strlen($pluginalias)) === $pluginalias
+            or substr($pref, 0, strlen($oauth)) === $oauth
+            or substr($pref, 0, strlen($h5p)) === $h5p
+        ) {
+            $is_special_pref = true;
+        }
+        return $is_special_pref;
     }
 
     private function getVoteIconParams($pref, $vote, $label)
