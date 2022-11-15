@@ -3336,8 +3336,9 @@ h4.ui-accordion-header {
 div.mb-3 label.error {
   font-weight: normal !important;
 }
-.select2.select2-container {
+.select2-container.select2-container--open {
   display: inline-block;
+  z-index: 2001;
 }
 /* Fixes hidden placeholder on select2 multiple when first initialization */
 .select2-container .select2-selection__rendered > *:first-child.select2-search--inline {

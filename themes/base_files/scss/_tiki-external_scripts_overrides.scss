@@ -24,8 +24,10 @@ div.mb-3 label.error {
 }
 
 // Select2
-.select2.select2-container {
+.select2-container.select2-container--open {
     display: inline-block;
+    // make sure the dropdown appears on top of jquery-ui dialogs
+    z-index: 2001;
 }
 /* Fixes hidden placeholder on select2 multiple when first initialization */
 .select2-container .select2-selection__rendered > *:first-child.select2-search--inline {
