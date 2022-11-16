@@ -327,6 +327,15 @@ if ($prefs['pwa_feature'] == 'y') { //pwa test propose, pages to cache
     $smarty->assign('pagespwa', json_encode($pages));
 }
 
+if ($prefs['metatag_robotscustom'] == 'y') {
+    if (empty($object)) {
+        $object = current_object();
+    }
+    if ($object['type'] == 'wiki page') {
+        $wikilib = TikiLib::lib('wiki');
+        $smarty->assign('metatag_robotscustom', $wikilib->getPageMetatagRobotscustom($object['object']));
+    }
+}
 
 if ($prefs['feature_antibot'] == 'y' && empty($user)) {
     if ($prefs['recaptcha_enabled'] === 'y') {

@@ -1699,6 +1699,18 @@ class WikiLib extends TikiLib
         TikiLib::lib('attribute')->set_attribute('wiki page', $pageName, 'tiki.wiki.autotoc', $isAutoToc);
     }
 
+    public function getPageMetatagRobotscustom($pageName)
+    {
+        $attributes = TikiLib::lib('attribute')->get_attributes('wiki page', $pageName);
+        $attribute = ($attributes['tiki.wiki.metatag_robotscustom'] ?? "");
+
+        return $attribute === "" ? "" : $attribute;
+    }
+
+    public function setPageMetatagRobotscustom($pageName, $attribute)
+    {
+        TikiLib::lib('attribute')->set_attribute('wiki page', $pageName, 'tiki.wiki.metatag_robotscustom', $attribute);
+    }
 
 
     /*

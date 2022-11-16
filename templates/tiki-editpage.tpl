@@ -510,6 +510,14 @@
                                 </div>
                             </div>
                         {/if}
+                        {if $prefs.metatag_robotscustom eq 'y'}
+                            <div class="mb-3 row">
+                                <label for="metatag_robotscustom" class="col-md-4 col-form-label">{tr}Custom Meta robots. The values should be comma separated eg. noimageindex, nocache.{/tr}</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="metatag_robotscustom" name="metatag_robotscustom" value="{$metatag_robotscustom|escape}">
+                                </div>
+                            </div>
+                        {/if}
                         {if $prefs.feature_wiki_footnotes eq 'y'}
                             {if $user}
                                 <div class="mb-3 row">

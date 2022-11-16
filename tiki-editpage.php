@@ -1434,6 +1434,12 @@ if (
             $wikilib->set_explicit_namespace($page, $_REQUEST['explicit_namespace']);
         }
 
+        if (isset($_REQUEST['metatag_robotscustom'])) {
+            $attribute = $_REQUEST['metatag_robotscustom'];
+            $attribute = $attribute == "" ? null : $attribute;
+            $wikilib->setPageMetatagRobotscustom($page, $attribute);
+        }
+
         if (! empty($_REQUEST['returnto'])) {   // came from wikiplugin_include.php edit button
             if (isURL($_REQUEST['returnto'])) {
                 $url = $_REQUEST['returnto'];
@@ -1669,6 +1675,7 @@ if ($prefs['feature_multilingual'] === 'y' && $tikilib->page_exists($page)) {
 $smarty->assign('explicit_namespace', $wikilib->get_explicit_namespace($page));
 $smarty->assign('pageAutoToc', $wikilib->get_page_auto_toc($page));
 $smarty->assign('page_hide_title', $wikilib->get_page_hide_title($page));
+$smarty->assign('metatag_robotscustom', $wikilib->getPageMetatagRobotscustom($page));
 
 // setup properties tab visibility
 if (

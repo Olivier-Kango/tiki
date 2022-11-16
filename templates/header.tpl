@@ -77,14 +77,18 @@
 {if $prefs.metatag_geoplacename neq ''}
     <meta name="geo.placename" content="{$prefs.metatag_geoplacename|escape}">
 {/if}
-{if (isset($prefs.metatag_robots) and $prefs.metatag_robots neq '') and (!isset($metatag_robots) or $metatag_robots eq '')}
-    <meta name="robots" content="{$prefs.metatag_robots|escape}">
-{/if}
-{if (!isset($prefs.metatag_robots) or $prefs.metatag_robots eq '') and (isset($metatag_robots) and $metatag_robots neq '')}
-    <meta name="robots" content="{$metatag_robots|escape}">
-{/if}
-{if (isset($prefs.metatag_robots) and $prefs.metatag_robots neq '') and (isset($metatag_robots) and $metatag_robots neq '')}
-    <meta name="robots" content="{$prefs.metatag_robots|escape}, {$metatag_robots|escape}">
+{if ($prefs.metatag_robotscustom == 'y' and not empty($metatag_robotscustom))}
+    <meta name="robots" content="{$metatag_robotscustom|escape}">
+{else}
+    {if (isset($prefs.metatag_robots) and $prefs.metatag_robots neq '') and (!isset($metatag_robots) or $metatag_robots eq '')}
+        <meta name="robots" content="{$prefs.metatag_robots|escape}">
+    {/if}
+    {if (!isset($prefs.metatag_robots) or $prefs.metatag_robots eq '') and (isset($metatag_robots) and $metatag_robots neq '')}
+        <meta name="robots" content="{$metatag_robots|escape}">
+    {/if}
+    {if (isset($prefs.metatag_robots) and $prefs.metatag_robots neq '') and (isset($metatag_robots) and $metatag_robots neq '')}
+        <meta name="robots" content="{$prefs.metatag_robots|escape}, {$metatag_robots|escape}">
+    {/if}
 {/if}
 {if $prefs.metatag_revisitafter neq ''}
     <meta name="revisit-after" content="{$prefs.metatag_revisitafter|escape}">

@@ -51,6 +51,12 @@ function prefs_metatag_list()
             'type' => 'flag',
             'default' => 'n',
         ],
+        'metatag_robotscustom' => [
+            'name' => tra('Custom Meta robots'),
+            'description' => tra('Add the ability to set custom meta robots on each wiki page that will override the global meta robots value.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
         'metatag_author' => [
             'name' => tra('Author'),
             'description' => tra('The author of this website. Typically this is the Admin or Webmaster.'),

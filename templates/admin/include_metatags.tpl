@@ -21,6 +21,7 @@
                         {preference name=metatag_threadtitle}
                         {preference name=metatag_description}
                         {preference name=metatag_pagedesc}
+                        {preference name=metatag_robotscustom}
                         {preference name=metatag_author}
                     </div>
             </fieldset>
