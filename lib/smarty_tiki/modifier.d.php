@@ -44,36 +44,35 @@ function smarty_modifier_d($var, $modifier = '')  {
             default:
                 Kint::dump($var);
         }
+    } else {
+        var_dump($var);
     }
 }
 
-use Kint\Zval\Value;
-use Kint\Parser\Parser;
-use Kint\Parser\Plugin;
-
-class SmartyKint extends Plugin
-{
-    public function getTypes()
+if (class_exists('Kint')) {
+    class SmartyKint extends Kint\Parser\Plugin
     {
-        return ['integer', 'string', 'array', 'object'];
-    }
+        public function getTypes()
+        {
+            return ['integer', 'string', 'array', 'object'];
+        }
 
-    public function getTriggers()
-    {
-        return Parser::TRIGGER_BEGIN;
-    }
+        public function getTriggers()
+        {
+            return Kint\Parser\Parser::TRIGGER_BEGIN;
+        }
 
-    public function parse(&$var, Value &$o, $trigger)
-    {
-        if ($trigger === Parser::TRIGGER_BEGIN) {
-            // we begin the Kint dump
-            $replace = preg_replace('/.*\[\'(.*)\']->value/', '$$1', $o->access_path);
-            // if the path of the var is $_smarty_tpl->tpl_vars[...]->value then just use the smarty var name for the title
-            if ($o->access_path !== $replace) {
-                $o->name = $replace;
+        public function parse(&$var, Kint\Zval\Value &$o, $trigger)
+        {
+            if ($trigger === Kint\Parser\Parser::TRIGGER_BEGIN) {
+                // we begin the Kint dump
+                $replace = preg_replace('/.*\[\'(.*)\']->value/', '$$1', $o->access_path);
+                // if the path of the var is $_smarty_tpl->tpl_vars[...]->value then just use the smarty var name for the title
+                if ($o->access_path !== $replace) {
+                    $o->name = $replace;
+                }
             }
         }
     }
+
 }
-
-
