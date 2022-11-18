@@ -11291,17 +11291,6 @@ header.navbar.fixed-top.bg-dark {
 .dropdown-item.btn-link.text-danger:hover {
   background: #f3c4a3 !important;
 }
-.middle_outer {
-  box-shadow: inset 0 3px 0 0 #28a7de;
-  border-top: 2px solid #ffffff;
-}
-.fullscreen .middle_outer {
-  box-shadow: inset 0 3px 0 0 #28a7de;
-  border-top: none;
-}
-.navbar {
-  min-height: 24px;
-}
 body.tiki.navbar-padding, .layout_social_modules {
   padding-top: 46px;
 }
@@ -11353,28 +11342,6 @@ header.header .sitetitle, header.header .sitesubtitle {
   padding-bottom: 4px;
   line-height: 1;
 }
-.topbar {
-  margin-bottom: 2rem;
-}
-/*.layout_social {
-    #top_modules.bg-dark,
-    #top_modules.bg-light,
-    #topbar_modules,
-    #topbar.bg-dark,
-    #topbar.bg-light,
-    .topbar .bg-dark,
-    .topbar .bg-light { background: $topbar-bg !important; }
-}
-
-.layout_basic {
-    #top_modules.bg-dark,
-    #top_modules.bg-light,
-    #topbar_modules,
-    #topbar.bg-dark,
-    #topbar.bg-light,
-    .topbar .bg-dark,
-    .topbar .bg-light { background: $topbar-bg !important; }
-}*/
 .col2 .card, .col3 .card {
   border: none;
 }
@@ -12411,4 +12378,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #1174a5;
 }
-/*# sourceMappingURL=fivealive-lite.css.map */
+
