@@ -11465,28 +11465,28 @@ table.table {
 .article {
   padding: 1rem;
 }
-.article-trailer .col2 .modules .card.module:nth-child(1) .card-header {
+.col2 .modules .card.module:nth-child(1) .card-header {
   background: #cbffa8;
 }
-.article-trailer .col2 .modules .card.module:nth-child(2) .card-header {
+.col2 .modules .card.module:nth-child(2) .card-header {
   background: #a8b5ff;
 }
-.article-trailer .col2 .modules .card.module:nth-child(3) .card-header {
+.col2 .modules .card.module:nth-child(3) .card-header {
   background: #ffa8e1;
 }
-.article-trailer .col2 .modules .card.module:nth-child(4) .card-header {
+.col2 .modules .card.module:nth-child(4) .card-header {
   background: #a8ffc6;
 }
-.article-trailer .col2 .modules .card.module:nth-child(5) .card-header {
+.col2 .modules .card.module:nth-child(5) .card-header {
   background: #dca8ff;
 }
-.article-trailer .col2 .modules .card.module:nth-child(6) .card-header {
+.col2 .modules .card.module:nth-child(6) .card-header {
   background: #ffb0a8;
 }
-.article-trailer .col2 .modules .card.module:nth-child(7) .card-header {
+.col2 .modules .card.module:nth-child(7) .card-header {
   background: #a8f8ff;
 }
-.article-trailer .col2 .modules .card.module:nth-child(8) .card-header {
+.col2 .modules .card.module:nth-child(8) .card-header {
   background: #ffe3a8;
 }
 .col3 .modules .card.module:nth-child(8) .card-header {
@@ -12497,4 +12497,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #0d6efd;
 }
-/*# sourceMappingURL=neubrutiki.css.map */
+
