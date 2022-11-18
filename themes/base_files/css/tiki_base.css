@@ -1394,9 +1394,6 @@ li.archivedate {
 #col2 .box-search .input-group-append, #col3 .box-search .input-group-append {
   display: inline-block;
 }
-#col2 .box-search .btn-group .btn, #col3 .box-search .btn-group .btn {
-  font-size: 0.6rem;
-}
 .box-search .search_mod_buttons {
   display: none;
   position: absolute;
@@ -5024,4 +5021,4 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
   -webkit-font-smoothing: antialiased;
 }
 /* End of file */
-/*# sourceMappingURL=tiki_base.css.map */
+
