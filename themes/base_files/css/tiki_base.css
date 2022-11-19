@@ -4943,9 +4943,11 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
 }
 .tiki .navbar-nav .dropdown-menu.mega-menu {
   position: absolute;
-  width: 98vw !important;
   left: 0 !important;
   margin-left: 0 !important;
+}
+.tiki .dropdown.static .navbar-nav .dropdown-menu.mega-menu {
+  width: 98vw !important;
 }
 /* Megamenu when vertical */
 .mega-menu-static .navbar-nav.sm-vertical .mega-menu {
