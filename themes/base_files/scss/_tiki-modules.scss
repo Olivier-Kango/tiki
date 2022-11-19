@@ -209,9 +209,9 @@ li.archivedate {
 
 // --------------- logo module start ------------------ //
 // Not Basic Bootstrap (not layout_social)
-header.fixed-top .sitelogo {
-    margin-top: $spacer * .7;
-    margin-bottom: $spacer * .7;
+header:not(.fixed-top) a.sitelogo {
+    padding-top: $spacer * .7;
+    padding-bottom: $spacer * .7;
 }
 
 // This CSS doesn't currently match anything because div.sitetitles has been removed. Todo: check if replacement CSS is needed.
