@@ -60,7 +60,7 @@
                     {modulelist zone=pagebottom class='mt-3'}
                 {/if}
             </div>
-            <div class="col col3 col-md-12 col-lg-3 {if $prefs.feature_fixed_width neq 'y'}col-xl-2{/if}" id="col3">
+            <div class="col col3 col-12 col-md-6 col-lg-3 {if $prefs.feature_fixed_width neq 'y'}col-xl-2{/if}" id="col3">
                 {modulelist zone=right}
             </div>
         </div>
@@ -84,7 +84,7 @@
                     {modulelist zone=pagebottom class='mt-3'}
                 {/if}
             </div>
-            <div class="col col2 col-md-12 col-lg-3 {if $prefs.feature_fixed_width neq 'y'}col-xl-2{/if} order-sm-2 order-md-2 order-lg-1" id="col2">
+            <div class="col col2 col-12 col-md-6 col-lg-3 {if $prefs.feature_fixed_width neq 'y'}col-xl-2{/if} order-sm-2 order-md-2 order-lg-1" id="col2">
                 {modulelist zone=left}
             </div>
         {else}
@@ -116,10 +116,10 @@
                     {modulelist zone=pagebottom class='mt-3'}
                 {/if}
             </div>
-            <div class="col col2 col-sm-6 col-lg-2 order-md-2 order-lg-1" id="col2">
+            <div class="col col2 col-12 col-md-6 col-lg-2 order-md-2 order-lg-1" id="col2">
                 {modulelist zone=left}
             </div>
-            <div class="col col3 col-sm-6 col-lg-2 order-md-3" id="col3">
+            <div class="col col3 col-12 col-md-6 col-lg-2 order-md-3" id="col3">
                 {modulelist zone=right}
             </div>
         {/if}
