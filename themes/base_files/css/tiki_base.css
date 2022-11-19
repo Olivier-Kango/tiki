@@ -1452,9 +1452,9 @@ li.archivedate {
 .box-share > div {
   text-align: center;
 }
-header.fixed-top .sitelogo {
-  margin-top: 0.7rem;
-  margin-bottom: 0.7rem;
+header:not(.fixed-top) a.sitelogo {
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
 }
 .sitetitles {
   display: inline-block;
