@@ -20,9 +20,6 @@ $imagePath: "../images/";
         padding-top: 0;
         padding-bottom: 0;
     }
-    .navbar {
-        margin-top: 4px;
-    }
 }
 
 // Special links in "More" button of page-bar
@@ -117,10 +114,10 @@ body.fullscreen.tiki.navbar-padding {
     }
 }
 
-.topbar_container,
-.layout_basic .topbar {
-    background: $topbar_container-bg ;
-}
+//.topbar_container,
+//.layout_basic .topbar {
+//    background: $topbar_container-bg ;
+//}
 
 header.header {
     .sitetitle,
@@ -139,8 +136,8 @@ header.header {
 
 .topbar .navbar-nav > li > a,
 .topbar .navbar > li > a {
-    padding-top: 4px;
-    padding-bottom: 4px;
+//    padding-top: 4px;
+//    padding-bottom: 4px;
     line-height: 1;
 }
 
@@ -240,10 +237,10 @@ textarea,
 
 
 .topbar {
-    .nav > li > a {
-        padding-bottom: 2px;
-        padding-top: 2px;
-    }
+//    .nav > li > a {
+//        padding-bottom: 2px;
+//        padding-top: 2px;
+//    }
     .form-control,
     .btn,
     label {

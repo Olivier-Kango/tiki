@@ -11278,9 +11278,6 @@ header.navbar.fixed-top.bg-dark {
   padding-top: 0;
   padding-bottom: 0;
 }
-.layout_social .topbar_modules .navbar {
-  margin-top: 4px;
-}
 .dropdown-menu > .btn-link:not(.text-danger) {
   color: #fff;
 }
@@ -11327,9 +11324,6 @@ body.fullscreen.tiki.navbar-padding {
   height: 46px;
   color: #ffffff;
 }
-.topbar_container, .layout_basic .topbar {
-  background: #28aae1;
-}
 header.header .sitetitle, header.header .sitesubtitle {
   color: #ffffff;
   text-shadow: none;
@@ -11338,8 +11332,6 @@ header.header .sitetitle, header.header .sitesubtitle {
   margin-bottom: 0;
 }
 .topbar .navbar-nav > li > a, .topbar .navbar > li > a {
-  padding-top: 4px;
-  padding-bottom: 4px;
   line-height: 1;
 }
 .col2 .card, .col3 .card {
@@ -11374,10 +11366,6 @@ header.header .sitetitle, header.header .sitesubtitle {
 }
 .navbar-collapse {
   border: none;
-}
-.topbar .nav > li > a {
-  padding-bottom: 2px;
-  padding-top: 2px;
 }
 .topbar .form-control, .topbar .btn, .topbar label {
   padding-top: 1px;
