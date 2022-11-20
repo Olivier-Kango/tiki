@@ -4632,7 +4632,7 @@ textarea.form-control-lg {
   --bs-modal-width: 500px;
   --bs-modal-padding: 1rem;
   --bs-modal-margin: 0.5rem;
-  --bs-modal-color: ;
+  --bs-modal-color: #DEE1E6;
   --bs-modal-bg: #030303;
   --bs-modal-border-color: rgba(0, 0, 0, 0.2);
   --bs-modal-border-width: 1px;
@@ -5383,7 +5383,7 @@ textarea.form-control-lg {
   --bs-offcanvas-height: 30vh;
   --bs-offcanvas-padding-x: 1rem;
   --bs-offcanvas-padding-y: 1rem;
-  --bs-offcanvas-color: ;
+  --bs-offcanvas-color: #DEE1E6;
   --bs-offcanvas-bg: #030303;
   --bs-offcanvas-border-width: 1px;
   --bs-offcanvas-border-color: rgba(0, 0, 0, 0.2);
@@ -11215,6 +11215,9 @@ body.fullscreen .container {
 .badge.bg-danger, .badge.bg-secondary, .badge.bg-success, .badge.bg-info, .badge.bg-warning {
   color: #000 !important;
 }
+.modal-header .btn-close {
+  background-color: #fff;
+}
 .breadcrumb {
   display: inline-block;
 }
@@ -12181,4 +12184,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   --bs-navbar-color: #80A60FFF;
   --bs-navbar-hover-color: #f4f4f4;
 }
-/*# sourceMappingURL=ohia.css.map */
+
