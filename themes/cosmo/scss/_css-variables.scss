@@ -5,7 +5,7 @@
     --tiki-top-light-link-color: #{$blue};
     --tiki-top-light-link-hover-color: #{lighten($blue, 10%)};
 
-    --tiki-topbar-bg-light: #{$light};
+    --tiki-topbar-bg-light: #f7f7f7; //#{$light};
     --tiki-topbar-light-color: #{$blue};
     --tiki-topbar-light-link-color: #{$blue};
     --tiki-topbar-light-link-hover-color: #{lighten($blue, 10%)};
@@ -15,7 +15,7 @@
     --tiki-top-dark-link-color: rgba(255, 255, 255, 0.55);
     --tiki-top-dark-link-hover-color: #{$white};
 
-    --tiki-topbar-bg-dark: #{$dark};
+    --tiki-topbar-bg-dark: #3D4549;  //#{$dark};
     --tiki-topbar-dark-color: rgba(255, 255, 255, 0.55);
     --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.55);
     --tiki-topbar-dark-link-hover-color: #{$white};
