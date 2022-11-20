@@ -1,13 +1,13 @@
 /*  The Orange theme option file for the FiveAlive theme of Tiki Wiki CMS Groupware. */
 :root {
   --tiki-top-bg-light: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
-  --tiki-top-light-color: #000;
-  --tiki-top-light-link-color: #000;
-  --tiki-top-light-link-hover-color: #1a1a1a;
+  --tiki-top-light-color: #3C3106;
+  --tiki-top-light-link-color: #3C3106;
+  --tiki-top-light-link-hover-color: #3C3106FF;
   --tiki-topbar-bg-light: #ea8a0b;
   --tiki-topbar-light-color: #000;
   --tiki-topbar-light-link-color: #000;
-  --tiki-topbar-light-link-hover-color: #000;
+  --tiki-topbar-light-link-hover-color: #3C3106FF;
   --tiki-top-bg-dark: var(--tiki-top-bg-light);
   --tiki-top-dark-color: #000;
   --tiki-top-dark-link-color: #000;
@@ -15,7 +15,7 @@
   --tiki-topbar-bg-dark:#ea8a0b;
   --tiki-topbar-dark-color: #000;
   --tiki-topbar-dark-link-color: #000;
-  --tiki-topbar-dark-link-hover-color: #000;
+  --tiki-topbar-dark-link-hover-color: #3C3106FF;
   --tiki-top-light-border: solid #000;
   --tiki-top-dark-border: solid #000;
   --tiki-top-border-top-width: 0px;
@@ -1335,4 +1335,4 @@ header.navbar.fixed-top.bg-dark {
 .tiki .dropdown-item {
   color: #fff !important;
 }
-/*# sourceMappingURL=orange.css.map */
+

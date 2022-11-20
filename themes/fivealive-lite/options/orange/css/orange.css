@@ -7,21 +7,21 @@
    */
 :root {
   --tiki-top-bg-light: #f7b512;
-  --tiki-top-light-color: #000;
-  --tiki-top-light-link-color: #000;
-  --tiki-top-light-link-hover-color: #f9f9f9;
+  --tiki-top-light-color: #3C3106;
+  --tiki-top-light-link-color: #3C3106;
+  --tiki-top-light-link-hover-color: #3C3106FF;
   --tiki-topbar-bg-light: #ea8a0b;
   --tiki-topbar-light-color: #000;
   --tiki-topbar-light-link-color: #000;
-  --tiki-topbar-light-link-hover-color: #f2f2f2;
+  --tiki-topbar-light-link-hover-color: #3C3106FF;
   --tiki-top-bg-dark: #f7b512;
-  --tiki-top-dark-color: #000;
-  --tiki-top-dark-link-color: #000;
-  --tiki-top-dark-link-hover-color: #f2f2f2;
+  --tiki-top-dark-color: #3C3106;
+  --tiki-top-dark-link-color: #3C3106;
+  --tiki-top-dark-link-hover-color: #3C3106FF;
   --tiki-topbar-bg-dark: #ea8a0b;
   --tiki-topbar-dark-color: #000;
   --tiki-topbar-dark-link-color: #000;
-  --tiki-topbar-dark-link-hover-color: #f2f2f2;
+  --tiki-topbar-dark-link-hover-color: #3C3106FF;
   --tiki-top-light-border: solid #000;
   --tiki-top-dark-border: solid #000;
   --tiki-top-border-width: 0 0 5px 0;
@@ -876,7 +876,7 @@ body.layout_social.tiki.navbar-padding {
   padding-bottom: 0;
 }
 #page-header h1, #page-header h2, #page-header h3 a, #page-header a, #page-header a:hover {
-  color: #000;
+  color: #3C3106;
   font-weight: bold;
   text-decoration: none;
   text-transform: uppercase;
@@ -890,14 +890,14 @@ body.layout_social.tiki.navbar-padding {
   font-size: 0.925rem;
 }
 .postbody-title {
-  background: #a52874 !important;
-  color: #fff;
+  background: #F09C00 !important;
+  color: #3C3106;
 }
 .postbody-title a {
-  color: #000;
+  color: #3C3106;
 }
 .postbody-title a:hover {
-  color: #f9f9f9;
+  color: #6a570b;
 }
 .btn-outline-dark {
   color: #f09800;
@@ -1033,7 +1033,7 @@ input[type="checkbox"].preffilter-toggle-round:checked + label::before {
   font-size: 20px;
 }
 .blogpost .card-header {
-  background: #a52874;
+  background: #F09C00;
 }
 .siteloginbar_popup .dropdown-menu > li > a {
   color: #ffffff;
