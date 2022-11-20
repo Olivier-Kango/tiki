@@ -1926,23 +1926,23 @@ $offcanvas-backdrop-opacity:        $modal-backdrop-opacity !default;
 // scss-docs-end offcanvas-variables
 
 // Code
-// Boosted mod
-$code-font-size:                    .875em !default;
-$code-color:                        $gray-700 !default;
-$code-color-dark:                   $gray-600 !default;
+// Boosted mod removed because it broke color contrast, maybe fix someday
+//$code-font-size:                    .875em !default;
+//$code-color:                        $gray-700 !default;
+//$code-color-dark:                   $gray-600 !default;
 
-$kbd-padding-y:                     $spacer * .05 !default;
-$kbd-padding-x:                     $spacer * .05 !default;
-$kbd-font-size:                     $code-font-size !default;
-$kbd-color:                         var(--#{$boosted-prefix}kbd-color, $black) !default;
-$kbd-color-dark:                    $white !default;
-$kbd-bg:                            var(--#{$boosted-prefix}kbd-bg, $gray-300) !default;
-$kbd-bg-dark:                       $gray-900 !default;
-$nested-kbd-font-weight:            null !default; // Deprecated in v5.2.0, removing in v6
+//$kbd-padding-y:                     $spacer * .05 !default;
+//$kbd-padding-x:                     $spacer * .05 !default;
+//$kbd-font-size:                     $code-font-size !default;
+//$kbd-color:                         var(--#{$boosted-prefix}kbd-color, $black) !default;
+//$kbd-color-dark:                    $white !default;
+//$kbd-bg:                            var(--#{$boosted-prefix}kbd-bg, $gray-300) !default;
+//$kbd-bg-dark:                       $gray-900 !default;
+//$nested-kbd-font-weight:            null !default; // Deprecated in v5.2.0, removing in v6
 
-$pre-color:                         var(--#{$boosted-prefix}pre-color, $gray-900) !default;
-$pre-color-dark:                    $gray-300 !default;
-$pre-line-height:                   1.25 !default;
+//$pre-color:                         var(--#{$boosted-prefix}pre-color, $gray-900) !default;
+//$pre-color-dark:                    $gray-300 !default;
+//$pre-line-height:                   1.25 !default;
 // End mod
 
 //
