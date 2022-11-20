@@ -11278,11 +11278,6 @@ header.navbar.fixed-top.bg-dark {
 html {
   background-color: #414141;
 }
-.middle_outer {
-  -webkit-box-shadow: inset 0 54px 0 0 #043b5a;
-  -moz-box-shadow: inset 0 54px 0 0 #043b5a;
-  box-shadow: inset 0 54px 0 0 #043b5a;
-}
 .header_outer, .layout_basic #top_modules {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#136d9f+0,28a7de+100 */
   background: #136d9f;
@@ -11318,10 +11313,6 @@ html {
 }
 .layout_classic #top_modules.bg-dark, .layout_classic #topbar_modules, .layout_classic #topbar.bg-dark {
   background: transparent !important;
-}
-#topbar {
-  min-height: 54px;
-  margin-bottom: 20px;
 }
 .topbar form .form-control, .topbar form .btn {
   margin-top: 0.5rem;
@@ -12370,4 +12361,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #1174a5;
 }
-/*# sourceMappingURL=fivealive.css.map */
+

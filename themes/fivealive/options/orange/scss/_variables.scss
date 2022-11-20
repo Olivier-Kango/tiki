@@ -158,24 +158,24 @@ $postbody-title-card-title-color: #fff;
 :root {
 // Use this one instead of the next to get a light band on the side like an actual orange slice --tiki-top-bg-light: linear-gradient(90deg, rgba(192,180,108,1) 1%, rgba(190,133,20,1) 3%, rgba(199,159,29,1) 97%, rgba(202,172,78,1) 100%);
     --tiki-top-bg-light: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
-    --tiki-top-light-color: #{$top-dark-color};
-    --tiki-top-light-link-color: #{$top-dark-link-color};
-    --tiki-top-light-link-hover-color: #{$top-link-hover-color};
+    --tiki-top-light-color: #3C3106;
+    --tiki-top-light-link-color: #3C3106;
+    --tiki-top-light-link-hover-color: #3C3106FF;
 
     --tiki-topbar-bg-light: #{$topbar-light-bg};
     --tiki-topbar-light-color: #000;
     --tiki-topbar-light-link-color: #000;
-    --tiki-topbar-light-link-hover-color: #000;
+    --tiki-topbar-light-link-hover-color: #3C3106FF;
 
     --tiki-top-bg-dark: var(--tiki-top-bg-light);
     --tiki-top-dark-color: #{$top-dark-color};
     --tiki-top-dark-link-color: #{$top-dark-link-color};
     --tiki-top-dark-link-hover-color: #{$top-link-hover-color};
 
-    --tiki-topbar-bg-dark:#{$topbar-dark-bg};
-    --tiki-topbar-dark-color: #{$topbar-dark-color};
+    --tiki-topbar-bg-dark:#ea8a0b;
+    --tiki-topbar-dark-color: #000;
     --tiki-topbar-dark-link-color: #000;
-    --tiki-topbar-dark-link-hover-color: #000;
+    --tiki-topbar-dark-link-hover-color: #3C3106FF;
 
     --tiki-top-light-border: solid #000;
     --tiki-top-dark-border: solid #000;
