@@ -9833,7 +9833,7 @@ header.navbar.fixed-top {
   --tiki-top-dark-color: rgba(255, 255, 255, 0.6);
   --tiki-top-dark-link-color: rgba(255, 255, 255, 0.6);
   --tiki-top-dark-link-hover-color: #18bc9c;
-  --tiki-topbar-bg-dark: rgba(42,62,80, 1);
+  --tiki-topbar-bg-dark: #20445C;
   --tiki-topbar-dark-color: rgba(255, 255, 255, 0.6);
   --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.6);
   --tiki-topbar-dark-link-hover-color: #18bc9c;
@@ -11738,4 +11738,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-/*# sourceMappingURL=journal.css.map */
+

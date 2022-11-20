@@ -3,7 +3,7 @@
  CSS selectors are provided by flatly.css and this file overrides the flatly.css values with new ones. */
 
 :root {
-    --tiki-top-bg-light: #cfe7f8;
+    --tiki-top-bg-light: #DDEEF9; //#cfe7f8;
     --tiki-top-light-color: rgba(0, 0, 0, 0.55);
     --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
     --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
@@ -18,7 +18,7 @@
     --tiki-top-dark-link-color: #B5E0FC;
     --tiki-top-dark-link-hover-color: #fff;
 
-    --tiki-topbar-bg-dark: #2b6288;
+    --tiki-topbar-bg-dark: #23587C; //#2b6288;
     --tiki-topbar-dark-color: #B5E0FC;
     --tiki-topbar-dark-link-color: #B5E0FC;
     --tiki-topbar-dark-link-hover-color: #fff;

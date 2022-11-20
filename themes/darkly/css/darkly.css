@@ -9836,19 +9836,19 @@ header.navbar.fixed-top {
   background-color: #303030;
 }
 :root {
-  --tiki-top-bg-light:  #adb5bd;
-  --tiki-top-light-color: #00bc8c;
-  --tiki-top-light-link-color: #00bc8c;
-  --tiki-top-light-link-hover-color: #222;
-  --tiki-topbar-bg-light: #adb5bd;
-  --tiki-topbar-light-color: #00bc8c;
-  --tiki-topbar-light-link-color: #00bc8c;
-  --tiki-topbar-light-link-hover-color: #222;
+  --tiki-top-bg-light: #303030;
+  --tiki-top-light-color: rgba(255, 255, 255, 0.6);
+  --tiki-top-light-link-color: rgba(255, 255, 255, 0.6);
+  --tiki-top-light-link-hover-color:  #fff;
+  --tiki-topbar-bg-light: #444;
+  --tiki-topbar-light-color:  rgba(255, 255, 255, 0.6);
+  --tiki-topbar-light-link-color: rgba(255, 255, 255, 0.6);
+  --tiki-topbar-light-link-hover-color: #fff;
   --tiki-top-bg-dark: #303030;
   --tiki-top-dark-color: rgba(255, 255, 255, 0.6);
   --tiki-top-dark-link-color: rgba(255, 255, 255, 0.6);
   --tiki-top-dark-link-hover-color: #fff;
-  --tiki-topbar-bg-dark: #303030;
+  --tiki-topbar-bg-dark: #444;
   --tiki-topbar-dark-color: rgba(255, 255, 255, 0.6);
   --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.6);
   --tiki-topbar-dark-link-hover-color: #fff;
@@ -11766,4 +11766,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-/*# sourceMappingURL=darkly.css.map */
+

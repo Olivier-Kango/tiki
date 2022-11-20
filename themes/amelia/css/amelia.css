@@ -10294,18 +10294,18 @@ textarea.form-control-lg {
 }
 :root {
   --tiki-top-bg-light: #5AE3ED;
-  --tiki-top-light-color: #f2e8c0;
-  --tiki-top-light-link-color: #f2e8c0;
-  --tiki-top-light-link-hover-color: #ede0ab;
-  --tiki-topbar-bg-light: #5AE3ED;
-  --tiki-topbar-light-color: #f2e8c0;
-  --tiki-topbar-light-link-color: #f2e8c0;
-  --tiki-topbar-light-link-hover-color: white;
+  --tiki-top-light-color: #322B0B;
+  --tiki-top-light-link-color: #322B0B;
+  --tiki-top-light-link-hover-color: #5B5015;
+  --tiki-topbar-bg-light: #68D6DE;
+  --tiki-topbar-light-color: #3C320B;
+  --tiki-topbar-light-link-color: #3C320B;
+  --tiki-topbar-light-link-hover-color: #615314;
   --tiki-top-bg-dark: #ad1d28 !important;
   --tiki-top-dark-color: #f2e8c0;
   --tiki-top-dark-link-color: #f2e8c0;
   --tiki-top-dark-link-hover-color: white;
-  --tiki-topbar-bg-dark: #ad1d28 !important;
+  --tiki-topbar-bg-dark: #6e0d0d;
   --tiki-topbar-dark-color: #f2e8c0;
   --tiki-topbar-dark-link-color: #f2e8c0;
   --tiki-topbar-dark-link-hover-color: white;
@@ -12283,4 +12283,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #F5CDC2;
 }
-/*# sourceMappingURL=amelia.css.map */
+
