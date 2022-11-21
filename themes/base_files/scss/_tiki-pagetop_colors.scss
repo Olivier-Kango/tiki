@@ -50,7 +50,7 @@
 {
     background: var(--tiki-top-bg-light) !important;
     color: var(--tiki-top-light-color);
-    a,
+    a:not(.dropdown-item),
     .btn.btn-link {
         color: var(--tiki-top-light-link-color);
         &:hover {
@@ -69,7 +69,7 @@
 {
     background: var(--tiki-topbar-bg-light) !important;
     color: var(--tiki-topbar-light-color);
-    a,
+    a:not(.dropdown-item),
     .btn.btn-link,
     a.nav-link {
         color: var(--tiki-topbar-light-link-color);

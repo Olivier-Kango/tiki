@@ -244,7 +244,7 @@ blockquote,
     background: #000 url('#{$imagePath}stripes_small.gif') repeat-x /*0 -8px*/ !important;
     border: solid 15px #600000 !important;
     border-bottom: 1px solid #916047 !important;
-    .navbar-nav .nav-link .nav-item {
+    .navbar-nav .nav-item {
         color: #000 !important;
         &:hover,
         &:focus,
@@ -253,19 +253,19 @@ blockquote,
         }
     }
 
-    .navbar-nav .nav-item:nth-child(1n) {
+    .navbar-nav > .nav-item:nth-child(1n) {
         background: url('#{$imagePath}blue.png') no-repeat;
     }
 
-    .navbar-nav .nav-item:nth-child(2n) {
+    .navbar-nav > .nav-item:nth-child(2n) {
         background: url('#{$imagePath}red.png') no-repeat;
     }
 
-    .navbar-nav .nav-item:nth-child(3n) {
+    .navbar-nav > .nav-item:nth-child(3n) {
         background: url('#{$imagePath}orange.png') no-repeat;
     }
 
-    .navbar-nav .nav-item:nth-child(4n) {
+    .navbar-nav > .nav-item:nth-child(4n) {
         background: url('#{$imagePath}green.png') no-repeat;
     }
 
