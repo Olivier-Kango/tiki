@@ -14,7 +14,7 @@ $gray-300: #dee2e6 !default;
 $gray-400: #bed1e6 !default;
 $gray-500: #adb5bd !default;
 $gray-600: #7f8a99 !default;
-$gray-700: #7b8ab8 !default;
+$gray-700: #506925; //#7b8ab8 !default;
 $gray-800: #444b40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
@@ -46,7 +46,7 @@ $enable-shadows:              true !default;
 // Body
 
 $body-bg:                   $gray-200 !default;
-$body-color:                $gray-700 !default;
+$body-color:                #506295;
 
 // Links
 
