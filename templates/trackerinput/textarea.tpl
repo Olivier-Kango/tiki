@@ -11,7 +11,7 @@
                     {$field.value}
                 {/textarea}
             {else}
-                {textarea _class='form-control' id=$data.element_id name=$field.ins_id _toolbars=$data.toolbar _simple='y' rows=$data.rows onkeyup=$data.keyup _wysiwyg='n' section="trackers" switcheditor='n'}
+                {textarea _class='form-control' id=$data.element_id name=$field.ins_id _toolbars=$data.toolbar rows=$data.rows onkeyup=$data.keyup _wysiwyg='n' section="trackers" switcheditor='n'}
                     {$field.value}
                 {/textarea}
             {/if}
