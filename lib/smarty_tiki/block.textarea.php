@@ -131,7 +131,7 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
             $remrepeat
         ) . "\n";
         if ($prefs['javascript_enabled'] === 'y') {
-            $html = str_replace('class="alert alert-warning alert-dismissable"', 'class="alert alert-warning alert-dismissable" style="display:none;"', $html); // quickfix to stop this box appearing before doc.ready
+            $html = str_replace('class="alert alert-warning alert-dismissible"', 'class="alert alert-warning alert-dismissible" style="display:none;"', $html); // quickfix to stop this box appearing before doc.ready
         }
     }
 
