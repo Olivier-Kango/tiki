@@ -46,7 +46,7 @@
             {/if}
         </div>
     {else}
-        <div class="dropdown-menu dropdown-menu-right" role="menu">
+        <div class="dropdown-menu dropdown-menu-end" role="menu">
             <h6 class="dropdown-header">
                 {tr}Translations{/tr}
             </h6>

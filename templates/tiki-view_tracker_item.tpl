@@ -13,7 +13,7 @@
             <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                 {icon name='menu-extra'}
             </a>
-            <ul class="dropdown-menu dropdown-menu-right">
+            <ul class="dropdown-menu dropdown-menu-end">
                 <li class="dropdown-title">
                     {tr}Tracker item actions{/tr}
                 </li>
