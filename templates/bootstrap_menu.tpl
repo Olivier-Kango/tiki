@@ -17,7 +17,7 @@
                         </a>
                         <div class="dropdown-menu {if !empty($item.selected)}show{/if}" aria-labelledby="menu_option{$item.optionId|escape}">
                             {foreach from=$item.children item=sub}
-                                <a class="nav-item dropdown-item {$sub.class|escape} {if $sub.selected|default:null}active{/if}" href="{$sub.sefurl|escape}">
+                                <a class="{*nav-item *}dropdown-item {$sub.class|escape} {if $sub.selected|default:null}active{/if}" href="{$sub.sefurl|escape}">
                                     {if $prefs.menus_items_icons eq "y"}
                                         <span
                                             data-preset="icon-picker"
