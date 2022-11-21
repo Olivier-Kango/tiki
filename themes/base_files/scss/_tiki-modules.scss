@@ -1,4 +1,8 @@
 // $Id$
+// Redundant for .module.card, but needed when nobox=y.
+.module {
+    position: relative;
+}
 
 header.container,
 .middle_outer > .container {
