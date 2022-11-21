@@ -15,7 +15,7 @@
         <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#"  title="{tr}Views{/tr}">
             {icon name="menu-extra"}
         </a>
-        <ul class="dropdown-menu dropdown-menu-right">
+        <ul class="dropdown-menu dropdown-menu-end">
             {if $edit_mode neq 'y' and $dup_mode neq 'y'}
                 <li class="dropdown-divider"></li>
                 <li class="dropdown-title">

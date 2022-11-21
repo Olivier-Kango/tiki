@@ -125,7 +125,7 @@ $("#switchbox-{{$module_logo_instance}} .submit").click( function () {
                     <span class="sr-only">{tr}Toggle dropdown{/tr}</span>
                 </button>
                 {if empty($module_params.menu_id)}
-                    <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-menu dropdown-menu-end">
                         <a class="dropdown-item" href="tiki-user_information.php" title="{tr}My Account{/tr}">
                             {if isset($module_params.show_user_name) && $module_params.show_user_name eq 'y'}{tr}My Account{/tr}{else}{tr}{$user|username|escape|replace:'&amp;':'&'}{/tr}{/if}
                         </a>
@@ -174,7 +174,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
                 <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
                     {tr}Log in{/tr}
                 </button>
-                <div class="siteloginbar_poppedup dropdown-menu dropdown-menu-right float-sm-end modal-sm p-3"><div class="card-body">
+                <div class="siteloginbar_poppedup dropdown-menu dropdown-menu-end float-sm-end modal-sm p-3"><div class="card-body">
                     {capture assign="close_tags"}</div></div></div>{$close_tags}{/capture}
         {/if}
 
