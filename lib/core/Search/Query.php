@@ -144,10 +144,11 @@ class Search_Query implements Search_Query_Interface
      * @param string    $from date - a unix timestamp or most date strings such as 'now', '2011-11-21', 'last week' etc
      * @param string    $to date as with $from (other examples: '-42 days', 'last tuesday')
      * @param string    $field to search in such as 'tracker_field_42'. default: modification_date
+     * @param boolean   $allow_empty - also include records with empty value for this field
      * @link            http://www.php.net/manual/en/datetime.formats.php
      * @return void
      */
-    public function filterRange($from, $to, $field = 'modification_date')
+    public function filterRange($from, $to, $field = 'modification_date', $allow_empty = false)
     {
         if (! is_numeric($from) && $from !== "") {
             $from2 = strtotime($from);
@@ -172,7 +173,20 @@ class Search_Query implements Search_Query_Interface
             $to = $from;
             $from = $temp;
         }
-        $this->addPart(new Search_Expr_Range($from, $to), 'timestamp', $field);
+        if ($allow_empty) {
+            $parts = array_map(function($field) use ($from, $to) {
+                    return new Search_Expr_Range($from, $to, 'timestamp', $field);
+                }, explode(',', $field));
+            $parts[] = new Search_Expr_And(
+                array_map(function($field) {
+                    return new Search_Expr_Token('', 'timestamp', $field);
+                }, explode(',', $field))
+            );
+            $sub = $this->getSubQuery('range' . $field);
+            $sub->getExpr()->addPart(new Search_Expr_Or($parts));
+        } else {
+            $this->addPart(new Search_Expr_Range($from, $to), 'timestamp', $field);
+        }
     }
 
     public function filterTextRange($from, $to, $field = 'title')
