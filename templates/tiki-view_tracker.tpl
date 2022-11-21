@@ -26,7 +26,7 @@
                     <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Tracker actions{/tr}">
                         {icon name="menu-extra"}
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
+                    <ul class="dropdown-menu dropdown-menu-end">
                         <li class="dropdown-title">
                             {tr}Tracker actions{/tr}
                         </li>

@@ -9,7 +9,7 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" data-display="dynamic" data-flip="true" href="#" role="button">
                         {icon name="history"}
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <div class="dropdown-menu dropdown-menu-end" role="menu">
                         <h6 class="dropdown-header">
                             {tr}Recent Preferences{/tr}
                         </h6>
@@ -29,7 +29,7 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" data-display="dynamic" href="#" role="button">
                         {icon name='cogs'}
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <div class="dropdown-menu dropdown-menu-end" role="menu">
                         <h6 class="dropdown-header">
                             {tr}Quick Administration{/tr}
                         </h6>

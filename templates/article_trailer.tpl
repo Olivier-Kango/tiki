@@ -20,7 +20,7 @@
                     <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#"title="{tr}Article actions{/tr}">
                         {icon name="menu-extra"}
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-menu dropdown-menu-end">
                         <h6 class="dropdown-header">
                             {tr}Article actions{/tr}
                         </h6>

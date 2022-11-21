@@ -70,7 +70,7 @@
                                         <span class="align">{tr}Left{/tr}</span>
                                         <input class="display-align" type="hidden" value="left">
                                     </button>
-                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <div class="dropdown-menu dropdown-menu-end" role="menu">
                                         <a class="dropdown-item align-option" href="#left">{tr}Left{/tr}</a>
                                         <a class="dropdown-item align-option" href="#center">{tr}Center{/tr}</a>
                                         <a class="dropdown-item align-option" href="#right">{tr}Right{/tr}</a>
@@ -85,7 +85,7 @@
                                     <option value="{$k}" {if $k eq 't'}selected{/if}>{$info.name|escape} {if !empty($info.deprecated)}- Deprecated{/if}</option>
                                 {/foreach}
                             </select>
-                            {*<ul class="dropdown-menu dropdown-menu-right" role="menu">*}
+                            {*<ul class="dropdown-menu dropdown-menu-end" role="menu">*}
                                 {**}
                             {*</ul>*}
 
