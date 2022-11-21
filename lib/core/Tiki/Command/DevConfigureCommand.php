@@ -124,6 +124,7 @@ EOT;
 File written by php console.php dev:configure
 */
 
+\$api_tiki = 'pdo';
 \$db_tiki='mysqli';
 \$host_tiki='localhost';
 \$user_tiki='tiki_tester';
