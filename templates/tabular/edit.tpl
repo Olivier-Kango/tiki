@@ -267,7 +267,7 @@
                                                 <span class="align">{tr}Left{/tr}</span>
                                                 <input class="display-align" type="hidden" value="left">
                                             </button>
-                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                            <div class="dropdown-menu dropdown-menu-end" role="menu">
                                                 <a class="dropdown-item align-option" href="#left">{tr}Left{/tr}</a>
                                                 <a class="dropdown-item align-option" href="#center">{tr}Center{/tr}</a>
                                                 <a class="dropdown-item align-option" href="#right">{tr}Right{/tr}</a>
@@ -301,7 +301,7 @@
                                                     <span class="align">{$column->getDisplayAlign()|ucfirst|tra}</span>
                                                     <input class="display-align" type="hidden" value="{$column->getDisplayAlign()|escape}">
                                                 </button>
-                                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                <div class="dropdown-menu dropdown-menu-end" role="menu">
                                                     <a class="dropdown-item align-option" href="#left">{tr}Left{/tr}</a>
                                                     <a class="dropdown-item align-option" href="#center">{tr}Center{/tr}</a>
                                                     <a class="dropdown-item align-option" href="#right">{tr}Right{/tr}</a>
@@ -395,7 +395,7 @@
                                                 <span class="position-label">{tr}Default{/tr}</span>
                                                 <input class="position" type="hidden" value="default">
                                             </button>
-                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                            <div class="dropdown-menu dropdown-menu-end" role="menu">
                                                 <a class="dropdown-item position-option" href="#default">{tr}Default{/tr}</a>
                                                 <a class="dropdown-item position-option" href="#primary">{tr}Primary{/tr}</a>
                                                 <a class="dropdown-item position-option" href="#side">{tr}Side{/tr}</a>
@@ -417,7 +417,7 @@
                                                     <span class="position-label">{$filter->getPosition()|ucfirst|tra}</span>
                                                     <input class="position" type="hidden" value="{$filter->getPosition()|escape}">
                                                 </button>
-                                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                <div class="dropdown-menu dropdown-menu-end" role="menu">
                                                     <a class="dropdown-item position-option" href="#default">{tr}Default{/tr}</a>
                                                     <a class="dropdown-item position-option" href="#primary">{tr}Primary{/tr}</a>
                                                     <a class="dropdown-item position-option" href="#side">{tr}Side{/tr}</a>

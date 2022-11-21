@@ -65,7 +65,7 @@
                         <a href="#" role="button" data-bs-toggle="dropdown" data-hover="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr}Backlinks{/tr}">
                             {icon name="backlink"}
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <div class="dropdown-menu dropdown-menu-end" role="menu">
                             <h6 class="dropdown-header">
                                 {tr}Backlinks{/tr}
                             </h6>
@@ -92,7 +92,7 @@
                         <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" title="{tr}Structures{/tr}">
                             {icon name="structure"}
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <div class="dropdown-menu dropdown-menu-end" role="menu">
                             <h6 class="dropdown-header">
                                 {tr}Structures{/tr}
                             </h6>
@@ -128,7 +128,7 @@
                     <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#"  title="{tr}Page actions{/tr}">
                         {icon name="menu-extra"}
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-menu dropdown-menu-end">
                         <h6 class="dropdown-header">
                             {tr}Page actions{/tr}
                         </h6>
