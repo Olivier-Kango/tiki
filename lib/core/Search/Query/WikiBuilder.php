@@ -288,7 +288,12 @@ class Search_Query_WikiBuilder
         if (! isset($arguments['from'], $arguments['to'])) {
             Feedback::error(tr('The range filter is missing \"from\" or \"to\".'));
         }
-        $query->filterRange($arguments['from'], $arguments['to'], $value);
+        if (isset($arguments['allow_empty']) && $arguments['allow_empty'] == 'y') {
+            $allow_empty = true;
+        } else {
+            $allow_empty = false;
+        }
+        $query->filterRange($arguments['from'], $arguments['to'], $value, $allow_empty);
     }
 
     public function wpquery_filter_textrange($query, $value, array $arguments)
