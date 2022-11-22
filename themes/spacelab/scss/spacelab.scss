@@ -60,3 +60,6 @@
         border: none !important;
     }
 }
+.navbar {
+    --bs-navbar-color: #{$link-color};
+}

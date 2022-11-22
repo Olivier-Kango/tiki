@@ -45,4 +45,6 @@ body.fullscreen { background: $body-bg; }
     --bs-navbar-color: #fff;
     --bs-navbar-hover-color: #{$gray-200};
 }
-
+.card-body .navbar {
+    border: none;
+}

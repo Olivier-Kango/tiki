@@ -45,6 +45,9 @@ $min-contrast-ratio:   1.8 !default;
 
 $body-color:                $gray-800 !default;
 
+// Link color
+$link-color: #D14715; // Darkened for WCAG compliance
+
 // Fonts
 
 // stylelint-disable-next-line value-keyword-case
