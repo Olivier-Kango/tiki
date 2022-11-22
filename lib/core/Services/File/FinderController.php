@@ -219,7 +219,9 @@ class Services_File_FinderController
                 if (! $input->download->int()) {    // images can be displayed
                     $info = $filegallib->get_file($fileId);
 
-                    if (strpos($info['filetype'], 'image/') !== false) {
+                    if (strpos($info['filetype'], 'image/') !== false ||
+                        ($prefs['fgal_pdfjs_feature'] === 'y' && $info['filetype'] === 'application/pdf')
+                    ) {
                         $url .= '&display';
                     }
                 }
