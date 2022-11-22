@@ -22,6 +22,7 @@
     </a>
 {elseif $permission_link.mode eq 'link'}
     <a class="btn btn-link{if !empty($permission_link.addclass)} {$permission_link.addclass}{/if}" href="{$permission_link.url|escape}">
+        {icon name="permission"}
         {$permission_link.label|escape}
         {if !empty($permission_link.count)}
             <span class="badge bg-secondary">{$permission_link.count|escape}</span>
