@@ -64,7 +64,7 @@
   --bs-dark-rgb: 52, 58, 64;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
-  --bs-body-color-rgb: 136, 136, 136;
+  --bs-body-color-rgb: 89, 89, 89;
   --bs-body-bg-rgb: 255, 255, 255;
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -73,7 +73,7 @@
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #888;
+  --bs-body-color: #595959;
   --bs-body-bg: #fff;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -85,8 +85,8 @@
   --bs-border-radius-xl: 1rem;
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
-  --bs-link-color: #78c2ad;
-  --bs-link-hover-color: #609b8a;
+  --bs-link-color: #3A826E;
+  --bs-link-hover-color: #2e6858;
   --bs-code-color: #e83e8c;
   --bs-highlight-bg: #fff5e1;
 }
@@ -1744,7 +1744,7 @@ progress {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #888;
+  color: #595959;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
@@ -1764,7 +1764,7 @@ progress {
   cursor: pointer;
 }
 .form-control:focus {
-  color: #888;
+  color: #595959;
   background-color: #fff;
   border-color: #bce1d6;
   outline: 0;
@@ -1785,7 +1785,7 @@ progress {
   padding: 0.375rem 0.75rem;
   margin: -0.375rem -0.75rem;
   margin-inline-end: 0.75rem;
-  color: #888;
+  color: #595959;
   background-color: #f7f7f9;
   pointer-events: none;
   border-color: inherit;
@@ -1809,7 +1809,7 @@ progress {
   padding: 0.375rem 0;
   margin-bottom: 0;
   line-height: 1.5;
-  color: #888;
+  color: #595959;
   background-color: transparent;
   border: solid transparent;
   border-width: 1px 0;
@@ -1881,7 +1881,7 @@ textarea.form-control-lg {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #888;
+  color: #595959;
   background-color: #fff;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
@@ -1911,7 +1911,7 @@ textarea.form-control-lg {
 }
 .form-select:-moz-focusring {
   color: transparent;
-  text-shadow: 0 0 0 #888;
+  text-shadow: 0 0 0 #595959;
 }
 .form-select-sm {
   padding-top: 0.25rem;
@@ -2217,7 +2217,7 @@ textarea.form-control-lg {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #888;
+  color: #595959;
   text-align: center;
   white-space: nowrap;
   background-color: #f7f7f9;
@@ -2407,7 +2407,7 @@ textarea.form-control-lg {
   --bs-btn-font-size: 1rem;
   --bs-btn-font-weight: 400;
   --bs-btn-line-height: 1.5;
-  --bs-btn-color: #888;
+  --bs-btn-color: #595959;
   --bs-btn-bg: transparent;
   --bs-btn-border-width: 1px;
   --bs-btn-border-color: transparent;
@@ -2824,7 +2824,7 @@ textarea.form-control-lg {
   --bs-dropdown-padding-y: 0.5rem;
   --bs-dropdown-spacer: 0.125rem;
   --bs-dropdown-font-size: 1rem;
-  --bs-dropdown-color: #888;
+  --bs-dropdown-color: #595959;
   --bs-dropdown-bg: #fff;
   --bs-dropdown-border-color: var(--bs-border-color-translucent);
   --bs-dropdown-border-radius: 0.4rem;
@@ -3838,7 +3838,7 @@ textarea.form-control-lg {
   }
 }
 .accordion {
-  --bs-accordion-color: #888;
+  --bs-accordion-color: #595959;
   --bs-accordion-bg: #fff;
   --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
   --bs-accordion-border-color: var(--bs-border-color);
@@ -3847,9 +3847,9 @@ textarea.form-control-lg {
   --bs-accordion-inner-border-radius: calc(0.4rem - 1px);
   --bs-accordion-btn-padding-x: 1.25rem;
   --bs-accordion-btn-padding-y: 1rem;
-  --bs-accordion-btn-color: #888;
+  --bs-accordion-btn-color: #595959;
   --bs-accordion-btn-bg: var(--bs-accordion-bg);
-  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23888'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23595959'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
   --bs-accordion-btn-icon-width: 1.25rem;
   --bs-accordion-btn-icon-transform: rotate(-180deg);
   --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
@@ -4267,7 +4267,7 @@ textarea.form-control-lg {
   --bs-list-group-action-color: #5a5a5a;
   --bs-list-group-action-hover-color: #5a5a5a;
   --bs-list-group-action-hover-bg: #f8f9fa;
-  --bs-list-group-action-active-color: #888;
+  --bs-list-group-action-active-color: #595959;
   --bs-list-group-action-active-bg: #f7f7f9;
   --bs-list-group-disabled-color: #888;
   --bs-list-group-disabled-bg: #fff;
@@ -5073,7 +5073,7 @@ textarea.form-control-lg {
   --bs-popover-header-bg: #f0f0f0;
   --bs-popover-body-padding-x: 1rem;
   --bs-popover-body-padding-y: 1rem;
-  --bs-popover-body-color: #888;
+  --bs-popover-body-color: #595959;
   --bs-popover-arrow-width: 1rem;
   --bs-popover-arrow-height: 0.5rem;
   --bs-popover-arrow-border: var(--bs-popover-border-color);
@@ -9851,7 +9851,7 @@ legend {
   color: #fff;
 }
 .alert-light, .alert-light a:not(.btn), .alert-light .alert-link {
-  color: #888;
+  color: #595959;
 }
 .badge {
   color: #fff;
@@ -9873,11 +9873,11 @@ legend {
   --tiki-topbar-light-link-hover-color: #5a5a5a;
   --tiki-top-bg-dark: rgba(120, 194, 173, 1);
   --tiki-top-dark-color: #fff;
-  --tiki-top-dark-link-color: rgba(255, 255, 255, 0.6);
+  --tiki-top-dark-link-color: rgba(255, 255, 255, 0.8);
   --tiki-top-dark-link-hover-color: #fff;
   --tiki-topbar-bg-dark: rgba(120, 194, 173, 1);
   --tiki-topbar-dark-color: #fff;
-  --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.6);
+  --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.8);
   --tiki-topbar-dark-link-hover-color: #fff;
 }
 .navbar-dark > a {
@@ -9922,7 +9922,7 @@ a.fc-event:hover {
 }
 .note-list .postbody-title {
   background: #fff;
-  color: #888;
+  color: #595959;
 }
 .post-approved-n {
   border-left: 3px dotted #56cc9d;
@@ -10001,13 +10001,13 @@ table.treetable.objectperms td.removed {
   background: #ff3d05;
 }
 .btn.active.btn-link {
-  color: #66baa2;
+  color: #32705f;
   text-decoration: underline;
   background-color: transparent;
   border-color: transparent;
 }
 .btn.active.btn-link:hover {
-  color: #609b8a;
+  color: #2e6858;
   background-color: transparent;
   border-color: transparent;
 }
@@ -10060,7 +10060,7 @@ input:-webkit-autofill {
   background-color: #fff !important;
   /* needs important because Chrome has it already important */
   background-image: none !important;
-  color: #888 !important;
+  color: #595959 !important;
   /* the Google guys forgot the number-one rule... when they specify background they should specify forgeround color too ;) */
 }
 #cboxTitle {
@@ -10081,7 +10081,7 @@ form.simple label .warning {
 }
 .ui-dialog {
   background: #fff;
-  color: #888;
+  color: #595959;
 }
 .box-switch_lang .box-data img.highlight {
   border: 0.1em solid #ff7851;
@@ -10102,10 +10102,10 @@ form.simple label .warning {
   padding: 0;
 }
 .prio5 {
-  color: #888;
+  color: #595959;
 }
 .prio5 a {
-  color: #888;
+  color: #595959;
 }
 .prio4 {
   color: #56cc9d;
@@ -10141,7 +10141,7 @@ form.simple label .warning {
   background: #eceeef;
 }
 .readlink {
-  color: #888;
+  color: #595959;
 }
 .webmail_item {
   font-size: 0.8rem;
@@ -10159,11 +10159,11 @@ form.simple label .warning {
 }
 .odd {
   background: transparent;
-  color: #888;
+  color: #595959;
 }
 .even {
   background: transparent;
-  color: #888;
+  color: #595959;
 }
 .objectperms .checkBoxHeader:nth-of-type(odd) > div > label, .objectperms td.checkBoxCell:nth-of-type(odd), .objectperms .checkBoxHeader:nth-of-type(odd) > .checkBoxLabel {
   background: rgba(0, 0, 0, 0);
@@ -10176,17 +10176,17 @@ form.simple label .warning {
 }
 .toolbars-picker {
   background: #fff;
-  border: thin solid #888;
-  color: #888;
+  border: thin solid #595959;
+  color: #595959;
 }
 .toolbars-picker a {
   border: 1px solid #fff;
-  color: #888;
+  color: #595959;
 }
 .toolbars-picker a:hover {
   border: 1px solid #ff7851;
   background: #eceeef;
-  color: #888;
+  color: #595959;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
   background-color: #f7f7f9;
@@ -10196,11 +10196,11 @@ a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #888;
+  color: #595959;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #c8c8c8;
+  color: #999;
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {
@@ -10214,7 +10214,7 @@ a.toolbar:active, li.toolbar:active {
 #intertrans-form {
   background-color: #fff;
   border: 1px solid var(--bs-border-color-translucent);
-  color: #888;
+  color: #595959;
 }
 #edit_translations tr.last {
   border-bottom: 2px solid #56cc9d;
@@ -10285,7 +10285,7 @@ ul.all_languages > li {
 }
 .tiki .cke_wysiwyg_frame, .tiki .cke_wysiwyg_div {
   background: #fff;
-  color: #888;
+  color: #595959;
 }
 .tiki_plugin {
   background-color: transparent;
@@ -10307,19 +10307,19 @@ ul.all_languages > li {
   border-radius: 0.4rem;
 }
 .autotoc * {
-  color: #78c2ad;
+  color: #3A826E;
 }
 .autotoc .nav > li > a:hover, .autotoc .nav .nav > li > a:hover {
-  color: #609b8a;
+  color: #2e6858;
 }
 .plugin-form-float {
   background: #fff;
-  color: #888;
-  border: solid 2px #888;
+  color: #595959;
+  border: solid 2px #595959;
 }
 body.wikitext {
   background: #fff;
-  color: #888;
+  color: #595959;
 }
 .editable-inline {
   padding-right: 20px;
@@ -10354,7 +10354,7 @@ body.wikitext {
 }
 #autosave_preview {
   background-color: #fff;
-  color: #888;
+  color: #595959;
 }
 #autosave_preview_grippy {
   background-color: #eceeef;
@@ -10451,21 +10451,21 @@ div.drillshow {
 }
 .tiki .ui-widget-content, span.plugin-mouseover {
   background: #fff;
-  color: #888;
+  color: #595959;
   border: 1px solid var(--bs-border-color-translucent);
 }
 .tiki .ui-widget-header {
   background: #fff;
-  color: #888;
+  color: #595959;
   border-color: var(--bs-border-color-translucent);
 }
 .tiki .ui-dialog-content {
   background: #fff;
-  color: #888;
+  color: #595959;
 }
 .tiki .ui-dialog-content select, .tiki .ui-dialog-content input, .tiki .ui-dialog-content optgroup, .tiki .ui-dialog-content textarea {
   background: #fff;
-  color: #888;
+  color: #595959;
 }
 .tiki .ui-widget button {
   background: #f8f9fa;
@@ -10474,22 +10474,22 @@ div.drillshow {
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #eceeef;
   background: #fff;
-  color: #888;
+  color: #595959;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content .ui-menu-item-wrapper {
   padding: 0.25rem 0.25rem 0.25rem 1.5rem;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content .ui-state-active {
   margin: 0;
-  background: #78c2ad;
+  background: #3A826E;
   color: white;
   border: none;
 }
 .tiki .modal-content .ui-state-default {
-  color: #78c2ad;
+  color: #3A826E;
 }
 .tiki .modal-content .ui-state-hover:hover {
-  color: #609b8a;
+  color: #2e6858;
 }
 .dropdown-menu {
   color: #212529;
@@ -10553,7 +10553,7 @@ input[type="checkbox"].preffilter-toggle-round + label {
   background-color: #eceeef;
 }
 input[type="checkbox"].preffilter-toggle-round + label:before {
-  color: #888;
+  color: #595959;
   background-color: #fff;
   border-color: #e6e6e6;
 }
@@ -10708,7 +10708,6 @@ a.dropdown-item {
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {
   --bs-btn-padding-x: 0.75rem;
   --bs-btn-padding-y: 0.375rem;
-  --bs-btn-font-family: ;
   --bs-btn-font-size: 1rem;
   --bs-btn-font-weight: 400;
   --bs-btn-line-height: 1.5;
@@ -10765,10 +10764,10 @@ a.dropdown-item {
   color: var(--tiki-top-light-color);
   box-shadow: var(--tiki-top-light-box-shadow);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .header_outer.bg-light-parent a, .layout_classic .header_outer.bg-light-parent .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a:not(.dropdown-item), .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .header_outer.bg-light-parent a:not(.dropdown-item), .layout_classic .header_outer.bg-light-parent .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a:not(.dropdown-item), .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a:not(.dropdown-item), .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
   color: var(--tiki-top-light-link-color);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-light-parent a:hover, .layout_classic .header_outer.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a:not(.dropdown-item):hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-light-parent a:not(.dropdown-item):hover, .layout_classic .header_outer.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:not(.dropdown-item):hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:not(.dropdown-item):hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
   color: var(--tiki-top-light-link-hover-color);
   background: var(--tiki-top-light-link-hover-bg);
 }
@@ -10779,10 +10778,10 @@ a.dropdown-item {
   border-width: var(--tiki-topbar-border-width);
   box-shadow: var(--tiki-topbar-light-box-shadow);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link, .layout_classic .topbar-wrapper.bg-light-parent a, .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link, .admin-content .bg-light a, .admin-content .bg-light .btn.btn-link, .admin-content .bg-light a.nav-link {
+.layout_basic .topbar_modules.navbar-light.bg-light a:not(.dropdown-item), .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link, .layout_classic .topbar-wrapper.bg-light-parent a:not(.dropdown-item), .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:not(.dropdown-item), .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link, .admin-content .bg-light a:not(.dropdown-item), .admin-content .bg-light .btn.btn-link, .admin-content .bg-light a.nav-link {
   color: var(--tiki-topbar-light-link-color);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a:hover, .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link:hover, .admin-content .bg-light a:hover, .admin-content .bg-light .btn.btn-link:hover, .admin-content .bg-light a.nav-link:hover {
+.layout_basic .topbar_modules.navbar-light.bg-light a:not(.dropdown-item):hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a:not(.dropdown-item):hover, .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:not(.dropdown-item):hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link:hover, .admin-content .bg-light a:not(.dropdown-item):hover, .admin-content .bg-light .btn.btn-link:hover, .admin-content .bg-light a.nav-link:hover {
   color: var(--tiki-topbar-light-link-hover-color);
   background: var(--tiki-topbar-light-link-hover-bg);
 }
@@ -10868,7 +10867,7 @@ table.tablesorter thead tr.tablesorter-filter-row {
 }
 table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, table.tablesorter thead tr.tablesorter-filter-row td input.dateFrom, table.tablesorter thead tr.tablesorter-filter-row td input.dateTo {
   background-color: #f7f7f7;
-  color: #888;
+  color: #595959;
 }
 div.tablesorter-resizable-container {
   clear: both;
@@ -11045,7 +11044,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-right: 4px;
 }
 .tiki .pvtUi {
-  color: #888;
+  color: #595959;
 }
 .tiki table.pvtTable {
   font-size: 1rem;
@@ -11058,7 +11057,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki table.pvtTable tr td {
-  color: #888;
+  color: #595959;
   cursor: pointer;
   background-color: transparent;
   border-color: rgba(0, 0, 0, 0.05);
@@ -11072,7 +11071,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .pvtAggregator, .tiki .pvtRenderer, .tiki .pvtSearch, .tiki .pvtAttrDropdown {
   margin-bottom: 5px;
   background: #fff;
-  color: #888;
+  color: #595959;
   border: 1px solid #ced4da;
   border-radius: 0.4rem;
 }
@@ -11156,7 +11155,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .c3 line, .tiki .c3 path, .tiki .c3 svg {
   fill: none;
-  stroke: #888;
+  stroke: #595959;
 }
 .tiki select {
   font-size: 1rem;
@@ -11166,7 +11165,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: #eceeef;
 }
 .tiki .ui-state-default a, .tiki .ui-state-default a:link, .tiki .ui-state-default a:visited, .tiki a.ui-button, .tiki a:link.ui-button, .tiki a:visited.ui-button, .tiki .ui-button {
-  color: #78c2ad;
+  color: #3A826E;
 }
 .tiki .ui-state-active a, .tiki .ui-state-active a:link, .tiki .ui-state-active a:visited {
   color: #5a5a5a;
@@ -11176,7 +11175,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: #eceeef;
   background: #fff;
   font-weight: 400;
-  color: #78c2ad;
+  color: #3A826E;
 }
 .tiki .ui-state-active, .tiki .ui-widget-content .ui-state-active, .tiki .ui-widget-header .ui-state-active, .tiki a.ui-button:active, .tiki .ui-button:active, .tiki .ui-button.ui-state-active:hover {
   border: 1px solid;
@@ -11200,7 +11199,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #78c2ad;
 }
 .tiki .ui-widget-header a {
-  color: #78c2ad;
+  color: #3A826E;
 }
 .tiki .ui-tabs-nav.ui-widget-header {
   border-top: none;
@@ -11212,30 +11211,30 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki #conversejs, .tiki #conversejs.converse-embedded {
   font-family: var(--bs-font-sans-serif);
-  color: #888;
+  color: #595959;
   text-shadow: none;
 }
 .tiki #conversejs a, .tiki #conversejs a:visited, .tiki #conversejs.converse-embedded a, .tiki #conversejs.converse-embedded a:visited {
-  color: #78c2ad;
+  color: #3A826E;
 }
 .tiki #conversejs a:hover, .tiki #conversejs a:visited:hover, .tiki #conversejs.converse-embedded a:hover, .tiki #conversejs.converse-embedded a:visited:hover {
-  color: #609b8a;
+  color: #2e6858;
 }
 .tiki #conversejs input[type=text], .tiki #conversejs textarea, .tiki #conversejs select, .tiki #conversejs.converse-embedded input[type=text], .tiki #conversejs.converse-embedded textarea, .tiki #conversejs.converse-embedded select {
   background-color: #fff;
-  color: #888;
+  color: #595959;
   border-color: #ced4da;
 }
 .tiki #conversejs form input[type=text], .tiki #conversejs form textarea, .tiki #conversejs form select, .tiki #conversejs.converse-embedded form input[type=text], .tiki #conversejs.converse-embedded form textarea, .tiki #conversejs.converse-embedded form select {
   background-color: #fff;
-  color: #888;
+  color: #595959;
   border-color: #ced4da;
 }
 .tiki #conversejs form.converse-form, .tiki #conversejs.converse-embedded form.converse-form {
   background-color: inherit;
 }
 .tiki #conversejs form.converse-form .form-help, .tiki #conversejs form.converse-form .form-help:hover, .tiki #conversejs.converse-embedded form.converse-form .form-help, .tiki #conversejs.converse-embedded form.converse-form .form-help:hover {
-  color: #888;
+  color: #595959;
 }
 .tiki #conversejs .toggle-controlbox, .tiki #conversejs.converse-embedded .toggle-controlbox {
   background-color: #78c2ad;
@@ -11244,7 +11243,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #78c2ad;
 }
 .tiki #conversejs.converse-overlayed #controlbox .controlbox-head .chatbox-btn, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .controlbox-head .chatbox-btn {
-  color: #888;
+  color: #595959;
 }
 .tiki #conversejs .message.chat-msg:hover, .tiki #conversejs.converse-embedded .message.chat-msg:hover {
   background-color: transparent;
@@ -11268,20 +11267,20 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background-color: inherit;
 }
 .tiki #conversejs #controlbox #chatrooms .list-toggle, .tiki #conversejs.converse-embedded #controlbox #chatrooms .list-toggle {
-  color: #888;
+  color: #595959;
 }
 .tiki #conversejs #controlbox #chatrooms .rooms-list .available-chatroom:hover, .tiki #conversejs.converse-embedded #controlbox #chatrooms .rooms-list .available-chatroom:hover {
   background-color: inherit;
 }
 .tiki #conversejs #controlbox #chatrooms .rooms-list .available-chatroom:hover a, .tiki #conversejs.converse-embedded #controlbox #chatrooms .rooms-list .available-chatroom:hover a {
-  color: #888;
+  color: #595959;
 }
 .tiki #conversejs #controlbox #converse-roster .group-toggle, .tiki #conversejs.converse-embedded #controlbox #converse-roster .group-toggle {
-  color: #888;
+  color: #595959;
 }
 .tiki #conversejs #controlbox #converse-roster .roster-filter-form .roster-filter, .tiki #conversejs.converse-embedded #controlbox #converse-roster .roster-filter-form .roster-filter {
   background-color: #fff;
-  color: #888;
+  color: #595959;
   border-color: #ced4da;
 }
 .tiki #conversejs .chatbox .box-flyout, .tiki #conversejs.converse-embedded .chatbox .box-flyout {
@@ -11317,18 +11316,18 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background-color: inherit;
 }
 .tiki #conversejs .chatbox .chat-body .chat-content, .tiki #conversejs.converse-embedded .chatbox .chat-body .chat-content {
-  color: #888;
+  color: #595959;
   background-color: inherit;
 }
 .tiki #conversejs .chatbox .chat-body .chat-content .chat-msg__author, .tiki #conversejs.converse-embedded .chatbox .chat-body .chat-content .chat-msg__author {
-  color: #78c2ad;
+  color: #3A826E;
 }
 .tiki #conversejs .chatbox .chat-body .chat-content .chat-msg__text, .tiki #conversejs.converse-embedded .chatbox .chat-body .chat-content .chat-msg__text {
-  color: #888;
+  color: #595959;
 }
 .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom {
   background-color: #f3969a;
-  border-bottom: 1px solid #888;
+  border-bottom: 1px solid #595959;
 }
 .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .close-chatbox-button, .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .toggle-chatbox-button, .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .configure-chatroom-button, .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .toggle-bookmark, .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .chat-title, .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .chatroom-description, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .close-chatbox-button, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .toggle-chatbox-button, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .configure-chatroom-button, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .toggle-bookmark, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .chat-title, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .chatroom-description {
   color: #f3969a;
@@ -11337,11 +11336,11 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background-color: inherit;
 }
 .tiki #conversejs .chatroom .box-flyout .chatroom-body p, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chatroom-body p {
-  color: #888;
+  color: #595959;
 }
 .tiki #conversejs .chatroom .box-flyout .chatroom-body .occupants, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chatroom-body .occupants {
   background-color: inherit;
-  border-left-color: #888;
+  border-left-color: #595959;
 }
 .tiki #conversejs .chatroom .box-flyout .chatroom-body .occupants ul, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chatroom-body .occupants ul {
   padding: 0;
@@ -11352,7 +11351,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki #conversejs .chatroom .box-flyout .chatroom-body .chatroom-form-container, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chatroom-body .chatroom-form-container {
   background-color: inherit;
-  color: #888;
+  color: #595959;
 }
 .tiki #conversejs .chatroom .box-flyout .chatroom-body .chat-area .new-msgs-indicator, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chatroom-body .chat-area .new-msgs-indicator {
   background-color: #6cc3d5;
@@ -11371,7 +11370,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki-webmail, .tiki-cypht, .mobile.tiki-cypht, .inline-cypht {
   background: #fff !important;
   font-family: var(--bs-font-sans-serif);
-  color: #888 !important;
+  color: #595959 !important;
 }
 .tiki-webmail img, .tiki-cypht img, .mobile.tiki-cypht img, .inline-cypht img {
   opacity: 1 !important;
@@ -11387,7 +11386,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background-color: #fff !important;
 }
 .tiki-webmail .ui-menu-item-wrapper, .tiki-cypht .ui-menu-item-wrapper, .mobile.tiki-cypht .ui-menu-item-wrapper, .inline-cypht .ui-menu-item-wrapper {
-  color: #888 !important;
+  color: #595959 !important;
 }
 .tiki-webmail .ui-state-active, .tiki-cypht .ui-state-active, .mobile.tiki-cypht .ui-state-active, .inline-cypht .ui-state-active {
   color: #5a5a5a !important;
@@ -11396,7 +11395,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #5a5a5a !important;
 }
 .tiki-webmail .popover-body, .tiki-cypht .popover-body, .mobile.tiki-cypht .popover-body, .inline-cypht .popover-body {
-  color: #888 !important;
+  color: #595959 !important;
 }
 .tiki-webmail .btn-primary, .tiki-cypht .btn-primary, .mobile.tiki-cypht .btn-primary, .inline-cypht .btn-primary {
   color: color-yiq(#78c2ad) !important;
@@ -11421,7 +11420,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: var(--bs-border-color-translucent) !important;
 }
 .tiki-webmail .card-body .nav-link, .tiki-webmail .card-body .nav-link small, .tiki-webmail .card-body .nav-link .small, .tiki-cypht .card-body .nav-link, .tiki-cypht .card-body .nav-link small, .tiki-cypht .card-body .nav-link .small, .mobile.tiki-cypht .card-body .nav-link, .mobile.tiki-cypht .card-body .nav-link small, .mobile.tiki-cypht .card-body .nav-link .small, .inline-cypht .card-body .nav-link, .inline-cypht .card-body .nav-link small, .inline-cypht .card-body .nav-link .small {
-  color: #78c2ad !important;
+  color: #3A826E !important;
 }
 .tiki-webmail .dropdown-menu, .tiki-cypht .dropdown-menu, .mobile.tiki-cypht .dropdown-menu, .inline-cypht .dropdown-menu {
   background-color: #fff !important;
@@ -11434,38 +11433,38 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #888 !important;
 }
 .tiki-webmail .moduletitle, .tiki-cypht .moduletitle, .mobile.tiki-cypht .moduletitle, .inline-cypht .moduletitle {
-  color: #888 !important;
+  color: #595959 !important;
 }
 .tiki-webmail a:not(.dropdown-item) .icon, .tiki-webmail .btn-link, .tiki-cypht a:not(.dropdown-item) .icon, .tiki-cypht .btn-link, .mobile.tiki-cypht a:not(.dropdown-item) .icon, .mobile.tiki-cypht .btn-link, .inline-cypht a:not(.dropdown-item) .icon, .inline-cypht .btn-link {
   border-color: transparent !important;
-  color: #78c2ad !important;
+  color: #3A826E !important;
 }
 .tiki-webmail a:not(.dropdown-item) .icon:hover, .tiki-webmail .btn-link:hover, .tiki-cypht a:not(.dropdown-item) .icon:hover, .tiki-cypht .btn-link:hover, .mobile.tiki-cypht a:not(.dropdown-item) .icon:hover, .mobile.tiki-cypht .btn-link:hover, .inline-cypht a:not(.dropdown-item) .icon:hover, .inline-cypht .btn-link:hover {
-  color: #609b8a !important;
+  color: #2e6858 !important;
 }
 .tiki-webmail .form-control, .tiki-cypht .form-control, .mobile.tiki-cypht .form-control, .inline-cypht .form-control {
   background-color: #fff !important;
   border-color: #ced4da !important;
-  color: #888 !important;
+  color: #595959 !important;
 }
 .tiki-webmail .nav-tabs, .tiki-cypht .nav-tabs, .mobile.tiki-cypht .nav-tabs, .inline-cypht .nav-tabs {
   border: none !important;
   border-bottom: 1px solid #eceeef !important;
 }
 .tiki-webmail .nav-tabs .nav-link, .tiki-cypht .nav-tabs .nav-link, .mobile.tiki-cypht .nav-tabs .nav-link, .inline-cypht .nav-tabs .nav-link {
-  color: #78c2ad !important;
+  color: #3A826E !important;
 }
 .tiki-webmail .nav-tabs .nav-link.active, .tiki-webmail .nav-tabs .nav-item.show .nav-link, .tiki-cypht .nav-tabs .nav-link.active, .tiki-cypht .nav-tabs .nav-item.show .nav-link, .mobile.tiki-cypht .nav-tabs .nav-link.active, .mobile.tiki-cypht .nav-tabs .nav-item.show .nav-link, .inline-cypht .nav-tabs .nav-link.active, .inline-cypht .nav-tabs .nav-item.show .nav-link {
-  color: #609b8a !important;
+  color: #2e6858 !important;
 }
 .tiki-webmail .nav-tabs .nav-link:not(.active), .tiki-cypht .nav-tabs .nav-link:not(.active), .mobile.tiki-cypht .nav-tabs .nav-link:not(.active), .inline-cypht .nav-tabs .nav-link:not(.active) {
   border: none !important;
 }
 .tiki-webmail a:not(.btn), .tiki-webmail a.btn-link, .tiki-cypht a:not(.btn), .tiki-cypht a.btn-link, .mobile.tiki-cypht a:not(.btn), .mobile.tiki-cypht a.btn-link, .inline-cypht a:not(.btn), .inline-cypht a.btn-link {
-  color: #78c2ad !important;
+  color: #3A826E !important;
 }
 .tiki-webmail a:not(.btn):hover, .tiki-webmail a.btn-link:hover, .tiki-cypht a:not(.btn):hover, .tiki-cypht a.btn-link:hover, .mobile.tiki-cypht a:not(.btn):hover, .mobile.tiki-cypht a.btn-link:hover, .inline-cypht a:not(.btn):hover, .inline-cypht a.btn-link:hover {
-  color: #609b8a !important;
+  color: #2e6858 !important;
   text-decoration: inherit;
 }
 .tiki-webmail .flipmodtitle.close, .tiki-webmail .close, .tiki-cypht .flipmodtitle.close, .tiki-cypht .close, .mobile.tiki-cypht .flipmodtitle.close, .mobile.tiki-cypht .close, .inline-cypht .flipmodtitle.close, .inline-cypht .close {
@@ -11503,14 +11502,14 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   text-decoration: !important;
 }
 .inline-cypht .folders a:not(.btn), .inline-cypht .subject a:not(.btn), .inline-cypht .selected_menu a:not(.btn), .inline-cypht .unread_link:not(.btn), .inline-cypht .selected_menu:not(.btn), .inline-cypht .manage_folder_link:not(.btn) {
-  color: #78c2ad !important;
+  color: #3A826E !important;
 }
 .inline-cypht .folders a:not(.btn):hover, .inline-cypht .subject a:not(.btn):hover, .inline-cypht .selected_menu a:not(.btn):hover, .inline-cypht .unread_link:not(.btn):hover, .inline-cypht .selected_menu:not(.btn):hover, .inline-cypht .manage_folder_link:not(.btn):hover {
-  color: #609b8a !important;
+  color: #2e6858 !important;
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell, .inline-cypht .compose_page, .inline-cypht .message_list, .inline-cypht .msg_text, .inline-cypht .selected_part, .inline-cypht .server_content, .inline-cypht .profile_content, .inline-cypht .user_settings, .inline-cypht .nux_add_account, .inline-cypht .imap_server_setup, .inline-cypht .pop3_server_setup, .inline-cypht .configured_server, .inline-cypht .add_server {
   background-color: #fff;
-  color: #888;
+  color: #595959;
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell {
   border: 1px solid #ced4da;
@@ -11561,7 +11560,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-left-color: transparent;
 }
 .inline-cypht .message_table > tbody > tr > td, .inline-cypht .msg_headers, .inline-cypht .reply_quote, .inline-cypht .user_settings table td, .inline-cypht .nux_empty_combined_view, .inline-cypht .empty_list, .inline-cypht .profiles_empty, .inline-cypht .subtitle {
-  color: #888;
+  color: #595959;
 }
 .inline-cypht .msg_text_inner > table {
   background-color: #fff;
@@ -11576,7 +11575,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff !important;
 }
 .inline-cypht .profile_details th, .inline-cypht .msg_date, .inline-cypht .news_cell .source, .inline-cypht .news_cell .from {
-  color: #888;
+  color: #595959;
 }
 .inline-cypht input[type=button], .inline-cypht input[type=submit] {
   display: inline-block;
@@ -11654,7 +11653,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .mobile.tiki-cypht .folder_list, .mobile.tiki-webmail .folder_list {
   background-color: #fff;
-  color: #888;
+  color: #595959;
   border: 1px solid #ced4da;
 }
 .mobile.tiki-cypht .folder_list .src_name, .mobile.tiki-webmail .folder_list .src_name {
@@ -11674,18 +11673,18 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-family: var(--bs-font-sans-serif);
   font-size: 1rem;
   background: #fff;
-  color: #888;
+  color: #595959;
   text-shadow: none;
 }
 .tiki .toastui-editor-contents a, .tiki .toastui-editor-contents a:visited {
-  color: #78c2ad;
+  color: #3A826E;
   text-decoration: underline;
 }
 .tiki .toastui-editor-contents a:hover, .tiki .toastui-editor-contents a:visited:hover {
-  color: #609b8a;
+  color: #2e6858;
 }
 .tiki .toastui-editor-contents p {
-  color: #888;
+  color: #595959;
 }
 .tiki .toastui-editor-contents h1, .tiki .toastui-editor-contents .h1 {
   color: red;
@@ -11695,7 +11694,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   /* should be $headings-font-family */
   font-weight: 400;
   /* $headings-font-weight */
-  color: #888;
+  color: #595959;
   /* $headings-color */
   line-height: 1.5;
   /* $headings-line-height */
@@ -11746,7 +11745,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #888;
+  color: #595959;
   background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 0.4rem;
@@ -11754,7 +11753,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option {
   font-weight: 400;
   line-height: 1.5;
-  color: #888;
+  color: #595959;
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown {
   background-color: #fff;
@@ -11762,7 +11761,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-radius: 0.4rem;
 }
 .tiki .select2-results__options .select2-results__option {
-  color: #888;
+  color: #595959;
   background: #fff;
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field {
@@ -11773,7 +11772,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #888;
+  color: #595959;
   background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
@@ -11790,4 +11789,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .navbar-light.bg-light {
   background: #f3969a !important;
 }
-/*# sourceMappingURL=minty.css.map */
+.btn:not(.btn-link) {
+  color: #000 !important;
+}
+.navbar {
+  --bs-navbar-color: #3A826E;
+}
+

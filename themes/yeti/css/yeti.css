@@ -85,8 +85,8 @@
   --bs-border-radius-xl: 1rem;
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
-  --bs-link-color: #008cba;
-  --bs-link-hover-color: #007095;
+  --bs-link-color: #007EA8;
+  --bs-link-hover-color: #006586;
   --bs-code-color: #e83e8c;
   --bs-highlight-bg: #fbe9cc;
 }
@@ -10129,13 +10129,13 @@ table.treetable.objectperms td.removed {
   background: #bb260d;
 }
 .btn.active.btn-link {
-  color: #0079a1;
+  color: #006b8f;
   text-decoration: underline;
   background-color: transparent;
   border-color: transparent;
 }
 .btn.active.btn-link:hover {
-  color: #007095;
+  color: #006586;
   background-color: transparent;
   border-color: transparent;
 }
@@ -10435,10 +10435,10 @@ ul.all_languages > li {
   border-radius: 0;
 }
 .autotoc * {
-  color: #008cba;
+  color: #007EA8;
 }
 .autotoc .nav > li > a:hover, .autotoc .nav .nav > li > a:hover {
-  color: #007095;
+  color: #006586;
 }
 .plugin-form-float {
   background: #fff;
@@ -10609,15 +10609,15 @@ div.drillshow {
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content .ui-state-active {
   margin: 0;
-  background: #008cba;
+  background: #007EA8;
   color: white;
   border: none;
 }
 .tiki .modal-content .ui-state-default {
-  color: #008cba;
+  color: #007EA8;
 }
 .tiki .modal-content .ui-state-hover:hover {
-  color: #007095;
+  color: #006586;
 }
 .dropdown-menu {
   color: #222;
@@ -10836,7 +10836,6 @@ a.dropdown-item {
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {
   --bs-btn-padding-x: 0.75rem;
   --bs-btn-padding-y: 0.375rem;
-  --bs-btn-font-family: ;
   --bs-btn-font-size: 1rem;
   --bs-btn-font-weight: 400;
   --bs-btn-line-height: 1.5;
@@ -10893,10 +10892,10 @@ a.dropdown-item {
   color: var(--tiki-top-light-color);
   box-shadow: var(--tiki-top-light-box-shadow);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .header_outer.bg-light-parent a, .layout_classic .header_outer.bg-light-parent .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a:not(.dropdown-item), .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .header_outer.bg-light-parent a:not(.dropdown-item), .layout_classic .header_outer.bg-light-parent .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a:not(.dropdown-item), .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a:not(.dropdown-item), .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
   color: var(--tiki-top-light-link-color);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a:hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-light-parent a:hover, .layout_classic .header_outer.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
+.layout_basic .page-header.navbar-light-parent.bg-light-parent a:not(.dropdown-item):hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-light-parent a:not(.dropdown-item):hover, .layout_classic .header_outer.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:not(.dropdown-item):hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:not(.dropdown-item):hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
   color: var(--tiki-top-light-link-hover-color);
   background: var(--tiki-top-light-link-hover-bg);
 }
@@ -10907,10 +10906,10 @@ a.dropdown-item {
   border-width: var(--tiki-topbar-border-width);
   box-shadow: var(--tiki-topbar-light-box-shadow);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link, .layout_classic .topbar-wrapper.bg-light-parent a, .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link, .admin-content .bg-light a, .admin-content .bg-light .btn.btn-link, .admin-content .bg-light a.nav-link {
+.layout_basic .topbar_modules.navbar-light.bg-light a:not(.dropdown-item), .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link, .layout_classic .topbar-wrapper.bg-light-parent a:not(.dropdown-item), .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:not(.dropdown-item), .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link, .admin-content .bg-light a:not(.dropdown-item), .admin-content .bg-light .btn.btn-link, .admin-content .bg-light a.nav-link {
   color: var(--tiki-topbar-light-link-color);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a:hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a:hover, .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link:hover, .admin-content .bg-light a:hover, .admin-content .bg-light .btn.btn-link:hover, .admin-content .bg-light a.nav-link:hover {
+.layout_basic .topbar_modules.navbar-light.bg-light a:not(.dropdown-item):hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a:not(.dropdown-item):hover, .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:not(.dropdown-item):hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link:hover, .admin-content .bg-light a:not(.dropdown-item):hover, .admin-content .bg-light .btn.btn-link:hover, .admin-content .bg-light a.nav-link:hover {
   color: var(--tiki-topbar-light-link-hover-color);
   background: var(--tiki-topbar-light-link-hover-bg);
 }
@@ -11294,7 +11293,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: rgba(0, 0, 0, 0.1);
 }
 .tiki .ui-state-default a, .tiki .ui-state-default a:link, .tiki .ui-state-default a:visited, .tiki a.ui-button, .tiki a:link.ui-button, .tiki a:visited.ui-button, .tiki .ui-button {
-  color: #008cba;
+  color: #007EA8;
 }
 .tiki .ui-state-active a, .tiki .ui-state-active a:link, .tiki .ui-state-active a:visited {
   color: #495057;
@@ -11304,7 +11303,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: rgba(0, 0, 0, 0.1);
   background: #fff;
   font-weight: 400;
-  color: #008cba;
+  color: #007EA8;
 }
 .tiki .ui-state-active, .tiki .ui-widget-content .ui-state-active, .tiki .ui-widget-header .ui-state-active, .tiki a.ui-button:active, .tiki .ui-button:active, .tiki .ui-button.ui-state-active:hover {
   border: 1px solid;
@@ -11328,7 +11327,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #008cba;
 }
 .tiki .ui-widget-header a {
-  color: #008cba;
+  color: #007EA8;
 }
 .tiki .ui-tabs-nav.ui-widget-header {
   border-top: none;
@@ -11344,10 +11343,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   text-shadow: none;
 }
 .tiki #conversejs a, .tiki #conversejs a:visited, .tiki #conversejs.converse-embedded a, .tiki #conversejs.converse-embedded a:visited {
-  color: #008cba;
+  color: #007EA8;
 }
 .tiki #conversejs a:hover, .tiki #conversejs a:visited:hover, .tiki #conversejs.converse-embedded a:hover, .tiki #conversejs.converse-embedded a:visited:hover {
-  color: #007095;
+  color: #006586;
 }
 .tiki #conversejs input[type=text], .tiki #conversejs textarea, .tiki #conversejs select, .tiki #conversejs.converse-embedded input[type=text], .tiki #conversejs.converse-embedded textarea, .tiki #conversejs.converse-embedded select {
   background-color: #fff;
@@ -11449,7 +11448,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background-color: inherit;
 }
 .tiki #conversejs .chatbox .chat-body .chat-content .chat-msg__author, .tiki #conversejs.converse-embedded .chatbox .chat-body .chat-content .chat-msg__author {
-  color: #008cba;
+  color: #007EA8;
 }
 .tiki #conversejs .chatbox .chat-body .chat-content .chat-msg__text, .tiki #conversejs.converse-embedded .chatbox .chat-body .chat-content .chat-msg__text {
   color: #222;
@@ -11549,7 +11548,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: var(--bs-border-color-translucent) !important;
 }
 .tiki-webmail .card-body .nav-link, .tiki-webmail .card-body .nav-link small, .tiki-webmail .card-body .nav-link .small, .tiki-cypht .card-body .nav-link, .tiki-cypht .card-body .nav-link small, .tiki-cypht .card-body .nav-link .small, .mobile.tiki-cypht .card-body .nav-link, .mobile.tiki-cypht .card-body .nav-link small, .mobile.tiki-cypht .card-body .nav-link .small, .inline-cypht .card-body .nav-link, .inline-cypht .card-body .nav-link small, .inline-cypht .card-body .nav-link .small {
-  color: #008cba !important;
+  color: #007EA8 !important;
 }
 .tiki-webmail .dropdown-menu, .tiki-cypht .dropdown-menu, .mobile.tiki-cypht .dropdown-menu, .inline-cypht .dropdown-menu {
   background-color: #fff !important;
@@ -11566,10 +11565,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki-webmail a:not(.dropdown-item) .icon, .tiki-webmail .btn-link, .tiki-cypht a:not(.dropdown-item) .icon, .tiki-cypht .btn-link, .mobile.tiki-cypht a:not(.dropdown-item) .icon, .mobile.tiki-cypht .btn-link, .inline-cypht a:not(.dropdown-item) .icon, .inline-cypht .btn-link {
   border-color: transparent !important;
-  color: #008cba !important;
+  color: #007EA8 !important;
 }
 .tiki-webmail a:not(.dropdown-item) .icon:hover, .tiki-webmail .btn-link:hover, .tiki-cypht a:not(.dropdown-item) .icon:hover, .tiki-cypht .btn-link:hover, .mobile.tiki-cypht a:not(.dropdown-item) .icon:hover, .mobile.tiki-cypht .btn-link:hover, .inline-cypht a:not(.dropdown-item) .icon:hover, .inline-cypht .btn-link:hover {
-  color: #007095 !important;
+  color: #006586 !important;
 }
 .tiki-webmail .form-control, .tiki-cypht .form-control, .mobile.tiki-cypht .form-control, .inline-cypht .form-control {
   background-color: #fff !important;
@@ -11581,19 +11580,19 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 .tiki-webmail .nav-tabs .nav-link, .tiki-cypht .nav-tabs .nav-link, .mobile.tiki-cypht .nav-tabs .nav-link, .inline-cypht .nav-tabs .nav-link {
-  color: #008cba !important;
+  color: #007EA8 !important;
 }
 .tiki-webmail .nav-tabs .nav-link.active, .tiki-webmail .nav-tabs .nav-item.show .nav-link, .tiki-cypht .nav-tabs .nav-link.active, .tiki-cypht .nav-tabs .nav-item.show .nav-link, .mobile.tiki-cypht .nav-tabs .nav-link.active, .mobile.tiki-cypht .nav-tabs .nav-item.show .nav-link, .inline-cypht .nav-tabs .nav-link.active, .inline-cypht .nav-tabs .nav-item.show .nav-link {
-  color: #007095 !important;
+  color: #006586 !important;
 }
 .tiki-webmail .nav-tabs .nav-link:not(.active), .tiki-cypht .nav-tabs .nav-link:not(.active), .mobile.tiki-cypht .nav-tabs .nav-link:not(.active), .inline-cypht .nav-tabs .nav-link:not(.active) {
   border: none !important;
 }
 .tiki-webmail a:not(.btn), .tiki-webmail a.btn-link, .tiki-cypht a:not(.btn), .tiki-cypht a.btn-link, .mobile.tiki-cypht a:not(.btn), .mobile.tiki-cypht a.btn-link, .inline-cypht a:not(.btn), .inline-cypht a.btn-link {
-  color: #008cba !important;
+  color: #007EA8 !important;
 }
 .tiki-webmail a:not(.btn):hover, .tiki-webmail a.btn-link:hover, .tiki-cypht a:not(.btn):hover, .tiki-cypht a.btn-link:hover, .mobile.tiki-cypht a:not(.btn):hover, .mobile.tiki-cypht a.btn-link:hover, .inline-cypht a:not(.btn):hover, .inline-cypht a.btn-link:hover {
-  color: #007095 !important;
+  color: #006586 !important;
   text-decoration: inherit;
 }
 .tiki-webmail .flipmodtitle.close, .tiki-webmail .close, .tiki-cypht .flipmodtitle.close, .tiki-cypht .close, .mobile.tiki-cypht .flipmodtitle.close, .mobile.tiki-cypht .close, .inline-cypht .flipmodtitle.close, .inline-cypht .close {
@@ -11631,10 +11630,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   text-decoration: !important;
 }
 .inline-cypht .folders a:not(.btn), .inline-cypht .subject a:not(.btn), .inline-cypht .selected_menu a:not(.btn), .inline-cypht .unread_link:not(.btn), .inline-cypht .selected_menu:not(.btn), .inline-cypht .manage_folder_link:not(.btn) {
-  color: #008cba !important;
+  color: #007EA8 !important;
 }
 .inline-cypht .folders a:not(.btn):hover, .inline-cypht .subject a:not(.btn):hover, .inline-cypht .selected_menu a:not(.btn):hover, .inline-cypht .unread_link:not(.btn):hover, .inline-cypht .selected_menu:not(.btn):hover, .inline-cypht .manage_folder_link:not(.btn):hover {
-  color: #007095 !important;
+  color: #006586 !important;
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell, .inline-cypht .compose_page, .inline-cypht .message_list, .inline-cypht .msg_text, .inline-cypht .selected_part, .inline-cypht .server_content, .inline-cypht .profile_content, .inline-cypht .user_settings, .inline-cypht .nux_add_account, .inline-cypht .imap_server_setup, .inline-cypht .pop3_server_setup, .inline-cypht .configured_server, .inline-cypht .add_server {
   background-color: #fff;
@@ -11803,11 +11802,11 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   text-shadow: none;
 }
 .tiki .toastui-editor-contents a, .tiki .toastui-editor-contents a:visited {
-  color: #008cba;
+  color: #007EA8;
   text-decoration: underline;
 }
 .tiki .toastui-editor-contents a:hover, .tiki .toastui-editor-contents a:visited:hover {
-  color: #007095;
+  color: #006586;
 }
 .tiki .toastui-editor-contents p {
   color: #222;
@@ -11930,4 +11929,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-left: 30px;
   margin-right: 30px;
 }
-/*# sourceMappingURL=yeti.css.map */
+.navbar {
+  --bs-navbar-color: #007EA8;
+}
+

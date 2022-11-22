@@ -43,7 +43,11 @@ $min-contrast-ratio:   1.45 !default;
 
 // Body
 
-$body-color:                $gray-600 !default;
+$body-color:                #595959; // $gray-600 !default; Modified for Tiki, for WCAG compliance
+
+// Links
+$link-color: #3A826E; // Modified for Tiki, for WCAG compliance
+
 
 // Components
 
