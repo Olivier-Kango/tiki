@@ -249,7 +249,7 @@ class Search_Elastic_QueryBuilder
     {
         $value = $node->getValue($this->factory)->getValue();
         $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
-        if ($value === '') {
+        if ($value === '' || (isset($mapping->type) && $mapping->type === 'date' && is_null($value))) {
             if (isset($mapping->type) && $mapping->type === 'date') {
                 return [
                     "bool" => [
