@@ -204,6 +204,8 @@ class Search_Action_EmailAction implements Search_Action_Action
 
         $options = [
             'protect_email' => false,
+            'absolute_links' => true,   // force links to be absolute
+            'suppress_icons' => true,   // don't render plugin and section edit icons
         ];
 
         if ($is_html) {
