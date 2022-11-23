@@ -629,3 +629,8 @@ letter-spacing: unset;
 .move_to_trackers .object-selector .results .form-check-label {
   white-space: normal !important;
 }
+
+.filter_actions_modal_table .move_to_trackers {
+  top: unset;
+  right: unset;
+}

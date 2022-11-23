@@ -731,6 +731,57 @@ class Hm_Output_add_multiple_move_to_trackers extends Hm_Output_Module {
 }
 
 /**
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_tiki_get_trackers extends Hm_Handler_Module {
+    public function process() {}
+}
+
+
+class Hm_Output_tiki_get_trackers_output extends Hm_Output_Module {
+    public function output() {
+        $trackers = '<div id="trackers_dropdown">'.tiki_move_to_tracker_dropdown($this).'</div>';
+        $this->out('trackers', $trackers);
+    }
+}
+
+/**
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_tiki_tracker_info extends Hm_Handler_Module {
+    public function process() {
+        list($success, $form) = $this->process_form(array('tracker_field_id', 'tracker_item_id', 'folder'));
+        if (! $success) {
+            return;
+        }
+        $folder_name = 'Inbox';
+        $trklib = TikiLib::lib('trk');
+        $objectlib = TikiLib::lib('object');
+        $field_data = $trklib->get_field_info($form['tracker_field_id']);
+        
+        $item = $objectlib->get_title('trackeritem', $form['tracker_item_id']);
+        $tracker = $objectlib->get_title('tracker', $field_data['trackerId']);
+        $field = $objectlib->get_title('trackerfield', $form['tracker_field_id']);
+        
+        $handler = $trklib->get_field_handler($field_data);
+        if ($handler->getOption('useFolders')) {
+            $folder_name = $handler->getFolders()[$form['folder']];
+        }
+        
+        $out = $tracker . ' - ' . $field . ' - ' . $item . ' (' . $folder_name . ')';
+
+        $this->out('tracker_data', $out);
+    }
+}
+
+
+class Hm_Output_tiki_tracker_info_output extends Hm_Output_Module {
+    public function output() {
+        $this->out('tracker_data', $this->get('tracker_data'));
+    }
+}
+
+/**
  * Forward handler vars to the frontend
  * @subpackage tiki/output
  */

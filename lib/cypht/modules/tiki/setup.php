@@ -160,6 +160,20 @@ add_output('ajax_tiki_flag_message', 'forward_variables', true);
 setup_base_ajax_page('ajax_tiki_message_action', 'core');
 add_handler('ajax_tiki_message_action', 'tiki_message_action', true);
 
+/* get trackers script */
+setup_base_ajax_page('ajax_tiki_get_trackers', 'core');
+add_handler('ajax_tiki_get_trackers', 'load_imap_servers_from_config', true, 'imap', 'load_user_data', 'after');
+add_handler('ajax_tiki_get_trackers', 'settings_load_imap',  true);
+add_handler('ajax_tiki_get_trackers', 'tiki_get_trackers',  true);
+add_output('ajax_tiki_get_trackers', 'tiki_get_trackers_output',  true);
+
+/* get trackers script */
+setup_base_ajax_page('ajax_tiki_tracker_info', 'core');
+add_handler('ajax_tiki_tracker_info', 'load_imap_servers_from_config', true, 'imap', 'load_user_data', 'after');
+add_handler('ajax_tiki_tracker_info', 'settings_load_imap',  true);
+add_handler('ajax_tiki_tracker_info', 'tiki_tracker_info',  true);
+add_output('ajax_tiki_tracker_info', 'tiki_tracker_info_output',  true);
+
 /* setup sources */
 handler_source('developer');
 output_source('developer');
@@ -196,6 +210,8 @@ return array(
     'ajax_tiki_move_copy_action',
     'ajax_tiki_flag_message',
     'ajax_tiki_message_action',
+    'ajax_tiki_get_trackers',
+    'ajax_tiki_tracker_info',
     'info',
   ),
   'allowed_get' => array(
@@ -214,6 +230,8 @@ return array(
     'archive_error' => array(FILTER_VALIDATE_BOOLEAN, false),
     'show_archive' => array(FILTER_VALIDATE_BOOLEAN, false),
     'flag_state' => array(FILTER_SANITIZE_STRING, false),
+    'trackers' => array(FILTER_DEFAULT, false),
+    'tracker_data' => array(FILTER_DEFAULT, false),
   ),
   'allowed_post' => array(
     'imap_server_id' => FILTER_VALIDATE_INT,
