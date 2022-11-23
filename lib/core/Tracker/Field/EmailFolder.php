@@ -170,6 +170,9 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
             }
         }
 
+        foreach ($emails as $key => $value) {
+            array_multisort(array_column($emails[$key],'date'), SORT_DESC, $emails[$key]);
+        }
         return [
             'galleryId' => $galleryId,
             'emails' => $emails,
