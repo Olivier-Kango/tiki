@@ -249,16 +249,21 @@ class MenuLib extends TikiLib
         $current_parents_branch = [];
 
         $treeOut = array_map(function ($option) use (&$current_parents_branch, &$types) {
+            if ($current_parents_branch) {
+                $parentId = $current_parents_branch[count($current_parents_branch) - 1];
+            } else {
+                $parentId = 0;
+            }
             if ($option['type'] === 's' || $option['type'] === 'r') {
                 array_splice($current_parents_branch, 0);
                 $option['parent'] = 0;
                 array_push($current_parents_branch, $option['optionId']);
             } elseif (is_numeric($option['type'])) {
                 array_splice($current_parents_branch, (int) $option['type']);
-                $option['parent'] = end(array_values($current_parents_branch));
+                $option['parent'] = $parentId;
                 array_push($current_parents_branch, $option['optionId']);
             } elseif ($option['type'] === 'o') {
-                $option['parent'] = end(array_values($current_parents_branch));
+                $option['parent'] = $parentId;
             } elseif ($option['type'] === '-') {
                 array_pop($current_parents_branch);
             }
