@@ -80,7 +80,7 @@ if ($_REQUEST["editionId"]) {
     $info["subject"] = '';
     $info["editionId"] = 0;
     $info["files"] = [];
-    $info['wysiwyg'] = $prefs['wysiwyg_default'];
+    $info['wysiwyg'] = ($prefs['feature_wysiwyg'] === 'y' && $prefs['wysiwyg_default'] === 'y') ? 'y' : 'n';
     $info['is_html'] = ($info['wysiwyg'] === 'y' && $prefs['wysiwyg_htmltowiki'] !== 'y');
 }
 $smarty->assign_by_ref('info', $info);
