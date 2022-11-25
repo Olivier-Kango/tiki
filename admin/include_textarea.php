@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (! is_array($_POST['enabled'])) {
             $_POST['enabled'] = [];
         }
-        foreach ($pluginsAlias as $name) {
+        foreach ($pluginsAliasNames as $name) {
             $tikilib->set_preference("wikiplugin_$name", in_array($name, $_POST['enabled']) ? 'y' : 'n');
         }
         foreach (glob('temp/cache/wikiplugin_*') as $file) {
