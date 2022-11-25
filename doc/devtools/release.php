@@ -1518,11 +1518,25 @@ function update_readme_file($releaseVersion, $mainVersion)
     // Changed from Tiki 12 to point to http://doc.tiki.org/Tiki12 instead of http://tiki.org/ReleaseNotes30
 
     $readme = <<<EOF
-Tiki! The wiki with a lot of features!
+Tiki Wiki CMS Groupware
 Version $releaseVersion
+
+Started in 2002, Tiki Wiki CMS Groupware is a web application combining
+the features of a wiki, a content management system (CMS) and groupware.
+It is the Free/Libre and Open Source (FLOSS) web application with the most built-in features, https://tiki.org/Features.
+
+CONTRIBUTING
+
+* Tiki is driven by the contributions of an active community of developers and
+  translators who participate in its development.
+  You can be the next contributor to the Tiki source code or documentation.
+  Please check the Wishlist, https://dev.tiki.org/Wishlist,
+  for bugs or feature requests you can start developing or create new ones if you don't find them listed.
 
 
 DOCUMENTATION
+
+* You have access to a diverse source of support through documentation, forum, events, etc.
 
 * The documentation for $mainVersion version is ever evolving at http://doc.tiki.org.
   You're encouraged to contribute.
@@ -1531,7 +1545,7 @@ DOCUMENTATION
 * http://doc.tiki.org/Installation for a setup guide
 
 * Notes about this release are accessible from $release_notes_url
-* Tiki has an active IRC channel, #tikiwiki on irc.freenode.net
+* Tiki has an active Gitter community, join us at https://gitter.im/tiki-org/community.
 
 INSTALLATION
 

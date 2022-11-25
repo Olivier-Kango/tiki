@@ -1,17 +1,31 @@
-Tiki! The wiki with a lot of features!
-Version 22.1
+Tiki Wiki CMS Groupware
+Version 24.2
+
+Started in 2002, Tiki Wiki CMS Groupware is a web application combining
+the features of a wiki, a content management system (CMS) and groupware.
+It is the Free/Libre and Open Source (FLOSS) web application with the most built-in features, https://tiki.org/Features.
+
+CONTRIBUTING
+
+* Tiki is driven by the contributions of an active community of developers and
+  translators who participate in its development.
+  You can be the next contributor to the Tiki source code or documentation.
+  Please check the Wishlist, https://dev.tiki.org/Wishlist,
+  for bugs or feature requests you can start developing or create new ones if you don't find them listed.
 
 
 DOCUMENTATION
 
-* The documentation for 22.1 version is ever evolving at http://doc.tiki.org.
+* You have access to a diverse source of support through documentation, forum, events, etc.
+
+* The documentation for 24.2 version is ever evolving at http://doc.tiki.org.
   You're encouraged to contribute.
 
 * It is highly recommended that you refer to the online documentation:
 * http://doc.tiki.org/Installation for a setup guide
 
-* Notes about this release are accessible from http://doc.tiki.org/Tiki22
-* Tiki has an active IRC channel, #tikiwiki on irc.freenode.net
+* Notes about this release are accessible from http://doc.tiki.org/Tiki24
+* Tiki has an active Gitter community, join us at https://gitter.im/tiki-org/community.
 
 INSTALLATION
 
@@ -24,7 +38,7 @@ UPGRADES
 
 COPYRIGHT
 
-Copyright (c) 2002-2021, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
+Copyright (c) 2002-2022, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 Tiki was started under the name tikiwiki by Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 All Rights Reserved. See copyright.txt for details and a complete list of authors.
 Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
