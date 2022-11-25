@@ -24,6 +24,8 @@ class WikiParser_Parsable extends ParserLib
     /** @var array Footnotes added via the FOOTNOTE plugin. These are read by wikiplugin_footnotearea(). */
     public $footnotes;
 
+    private $stripped = [];
+
     public function __construct($markup)
     {
         $this->markup = $markup;
@@ -488,5 +490,28 @@ if ( \$('#$id') ) {
         } elseif (WikiPlugin_Negotiator_Wiki_Alias::findImplementation($name, $data, $args)) {
             return $this->pluginExecute($name, $data, $args, $offset, $validationPerformed);
         }
+    }
+
+    public function stripPlugins($name)
+    {
+        $matches = WikiParser_PluginMatcher::match($this->markup);
+        foreach ($matches as $match) {
+            if ($match->getName() != strtolower($name)) {
+                continue;
+            }
+            $full = (string) $match;
+            $key = md5($full);
+            $this->stripped[$key] = $full;
+            $match->replaceWith('??strippedplugin??' . $key . '??/skippedplugin??');
+        }
+        $this->markup = $matches->getText();
+    }
+
+    public function restorePlugins($data)
+    {
+        foreach ($this->stripped as $key => $plugin) {
+            $data = str_replace('??strippedplugin??' . $key . '??/skippedplugin??', $plugin, $data);
+        }
+        return $data;
     }
 }
