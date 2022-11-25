@@ -51,8 +51,9 @@ class WikiParser_Parsable extends ParserLib
         if (empty($data)) {
             $this->option['is_markdown'] = $prefs['markdown_default'] === 'markdown';
             $return['syntax'] = $prefs['markdown_default'];
-            $this->option['_wysiwyg'] = $prefs['wysiwyg_default'];
-            $return['editor'] = $prefs['wysiwyg_default'] === 'y' ? 'wysiwyg' : 'plain';
+            $wysiwygDefault = ($prefs['feature_wysiwyg'] === 'y' && $prefs['wysiwyg_default'] === 'y') ? 'y' : 'n';
+            $this->option['_wysiwyg'] = $wysiwygDefault;
+            $return['editor'] = $wysiwygDefault === 'y' ? 'wysiwyg' : 'plain';
         } else {
             $this->option['is_markdown'] = false;
         }
