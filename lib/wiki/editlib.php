@@ -1524,6 +1524,7 @@ class EditLib
         }
         $syntaxPluginResult = $wikiParserParsable->guess_syntax($data);
         $source_syntax = $syntaxPluginResult['syntax'];
+        $wikiParserParsable->stripPlugins('code');
         $html = $wikiParserParsable->parse(['noparseplugins' => true]);
 
         $prefs['wiki_heading_links'] = $old_pref;
@@ -1538,7 +1539,7 @@ class EditLib
             static $converter = null;
             if (! $converter) {
                 $converter = new League\HTMLToMarkdown\HtmlConverter([
-                    'strip_tags' => true,
+                    'strip_tags' => false,
                     'hard_break' => true,
                 ]);
                 $converter->getEnvironment()->addConverter(new League\HTMLToMarkdown\Converter\TableConverter());
@@ -1557,6 +1558,8 @@ class EditLib
             }
             $converted = TikiLib::lib('edit')->parseToWiki($html);
         }
+
+        $converted = $wikiParserParsable->restorePlugins($converted);
 
         return $converted;
     }
