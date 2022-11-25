@@ -4686,7 +4686,7 @@ class TikiLib extends TikiDb_Bridge
             $user = 'anonymous';
         }
         if (empty($wysiwyg)) {
-            $wysiwyg = $prefs['wysiwyg_default'];
+            $wysiwyg = ($prefs['feature_wysiwyg'] === 'y' && $prefs['wysiwyg_default'] === 'y') ? 'y' : 'n';
             if ($wysiwyg === 'y') {
                 $is_html = $prefs['wysiwyg_htmltowiki'] !== 'y';
             }
