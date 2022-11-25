@@ -55,7 +55,7 @@ class MarkdownConvertCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        global $prefs;
+        global $prefs, $page;
 
         $io = new SymfonyStyle($input, $output);
 
@@ -71,8 +71,8 @@ class MarkdownConvertCommand extends Command
 
         $tikilib = TikiLib::lib('tiki');
 
-        if ($page = $input->getOption('page')) {
-            $pageInfo = $tikilib->get_page_info($page) ?: null;
+        if ($pageInfo = $input->getOption('page')) {
+            $pageInfo = $tikilib->get_page_info($pageInfo) ?: null;
             $pages = [$pageInfo];
         } else {
             $allPages = $tikilib->list_pages();
@@ -86,11 +86,12 @@ class MarkdownConvertCommand extends Command
 
         $syntax = $input->getOption('markdown') ? 'markdown' : 'tiki';
 
-        foreach ($pages as $page) {
-            $io->note(tr("Processing page %0", $page['pageName']));
+        foreach ($pages as $pageInfo) {
+            $io->note(tr("Processing page %0", $pageInfo['pageName']));
 
             try {
-                $converted = TikiLib::lib('edit')->convertWikiSyntax($page['data'], $syntax);
+                $page = $pageInfo['pageName'];
+                $converted = TikiLib::lib('edit')->convertWikiSyntax($pageInfo['data'], $syntax);
             } catch (Exception $e) {
                 $io->warning($e->getMessage() . ' ' . tr('Skipping...'));
                 continue;
@@ -98,7 +99,7 @@ class MarkdownConvertCommand extends Command
 
             if ($input->getOption('save')) {
                 $converted = '{syntax type="' . $syntax . '"} ' . $converted;
-                $tikilib->update_page($page['pageName'], $converted, tra('automatic conversion'), 'admin', '127.0.0.1', null, 0, '', null, null, null, '', true);
+                $tikilib->update_page($pageInfo['pageName'], $converted, tra('automatic conversion'), 'admin', '127.0.0.1', null, 0, '', null, null, null, '', true);
             } else {
                 $io->note("Converted:");
                 $io->writeln($converted);
