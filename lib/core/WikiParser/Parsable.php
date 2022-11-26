@@ -81,16 +81,18 @@ class WikiParser_Parsable extends ParserLib
                         tr('Invalid syntax type selected "%0". Valid values: tiki or markdown.', $arguments['type'])
                     );
             }
-            switch (@$arguments['editor']) {
-                case 'wysiwyg':
-                    $this->option['wysiwyg'] = true;
-                    $return['editor'] = 'wysiwyg';
-                    break;
-                case 'plain':
-                default:
-                    $this->option['wysiwyg'] = false;
-                    $return['editor'] = 'plain';
-                    break;
+            if (empty($this->option['parse_wiki'])) {
+                switch (@$arguments['editor']) {
+                    case 'wysiwyg':
+                        $this->option['wysiwyg'] = true;
+                        $return['editor'] = 'wysiwyg';
+                        break;
+                    case 'plain':
+                    default:
+                        $this->option['wysiwyg'] = false;
+                        $return['editor'] = 'plain';
+                        break;
+                }
             }
             $found = true;
             $match->replaceWith('');
