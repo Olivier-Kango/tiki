@@ -43,6 +43,7 @@
                 {/if}
             </div>
         </div>
+        {if $prefs.feature_antibot eq 'y'}{include file='antibot.tpl' form='remind_password'}{/if}
         <div class="mb-3 row">
             <div class="offset-sm-3 offset-md-2 col-sm-9">
                 <input type="submit" class="btn btn-primary" name="remind" value="{tr}Request Password Reset{/tr}">

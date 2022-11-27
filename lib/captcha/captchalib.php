@@ -148,7 +148,12 @@ class Captcha
      */
     public function generate()
     {
-        $key = '';
+        static $key = '';
+
+        if (!empty($key)) {
+            return $key;
+        }
+
         try {
             $key = $this->captcha->generate();
             if ($this->type == 'default' || $this->type == 'questions') {

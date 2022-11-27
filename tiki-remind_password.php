@@ -29,7 +29,12 @@ if (isset($_REQUEST["user"])) {
     }
 }
 if (isset($_REQUEST["remind"])) {
-    if (! empty($_REQUEST['name'])) {
+    // validate captcha
+    $captchalib = TikiLib::lib('captcha');
+    if ($prefs['feature_antibot'] == 'y' && (! $captchalib->validate())) {
+        $showmsg = 'e';
+        $smarty->assign('msg', $captchalib->getErrors());
+    } else if (! empty($_REQUEST['name'])) {
         if (! $userlib->user_exists($_REQUEST['name'])) {
             $showmsg = 'e';
             $smarty->assign('msg', tra('Invalid or unknown username') . ': ' . $_REQUEST['name']);

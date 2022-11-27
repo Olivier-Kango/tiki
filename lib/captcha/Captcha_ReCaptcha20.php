@@ -35,7 +35,7 @@ class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
         }
 
         // Google request was cached
-        if (in_array($value[$this->_RESPONSE], $_SESSION['recaptcha_cache'])) {
+        if (is_array($_SESSION['recaptcha_cache']) && in_array($value[$this->_RESPONSE], $_SESSION['recaptcha_cache'])) {
             return true;
         }
 

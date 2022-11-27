@@ -1,5 +1,14 @@
 {* $Id$ *}
 {if empty($user) || $user eq 'anonymous' || !empty($showantibot)}
+    <style>
+    .antibot.ml-15 {
+        margin-left: 15px;
+    }
+    .antibot div.recaptcha,
+    .antibot div.recaptcha20 {
+        margin-bottom: 3rem !important;
+    }
+    </style>
     {$labelclass = 'col-md-3'}
     {$inputclass = 'col-md-9'}
     {$captchaclass = 'col-md-4 offset-md-3 mb-3'}
@@ -8,14 +17,19 @@
         {$inputclass = 'col-sm-8'}
         {$captchaclass = 'col-md-4 offset-md-4 mb-3'}
     {/if}
+    {if $form === 'remind_password'}
+        {$labelclass = 'col-sm-3 col-md-2'}
+        {$inputclass = 'col-sm-8'}
+        {$captchaclass = 'col-md-3 offset-md-2 mb-3'}
+    {/if}
     {if $form === 'moduleSubscribeNL'}
         {$labelclass = 'col-md-12'}
         {$inputclass = 'col-md-12'}
         {$captchaclass = 'col-md-12 mb-3'}
     {/if}
-    <div class="antibot">
+    <div class="antibot {if $captchalib->type eq 'recaptcha' || $captchalib->type eq 'recaptcha20'}ml-15{/if}">
         {if $captchalib->type eq 'recaptcha' || $captchalib->type eq 'recaptcha20' || $captchalib->type eq 'recaptcha30'}
-            <div class="mb-3 clearfix">
+            <div class="mb-3 {$captchalib->type} clearfix">
                 <div class="{$captchaclass}">
                     {$captchalib->render()}
                 </div>
