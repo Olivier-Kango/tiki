@@ -254,7 +254,7 @@ EOF;
                 editable:false'
             . $calcOff .
             '}));
-            $(\'.icon-pdf\').parent().click(function(){storeSortTable("#tiki_sheet' . $index . '",$("#tiki_sheet' . $index . '").html())});
+            $(\'.icon-pdf\').parent().click(function(){storeSortTable("#tiki_sheet' . $index . '",$("#tiki_sheet' . $index . '"))});
             });'
         );
     }

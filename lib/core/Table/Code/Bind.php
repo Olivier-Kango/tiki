@@ -51,7 +51,7 @@ class Table_Code_Bind extends Table_Code_Manager
             }
         }
         $bindtr[] = '$(\'div#' . parent::$id . '\').css(\'visibility\', \'visible\');';
-        $bindup = 'storeSortTable(\'' . parent::$tid . '\',$(\'' . parent::$tid . '\').html());';
+        $bindup = 'storeSortTable(\'' . parent::$tid . '\',$(\'' . parent::$tid . '\'));';
         $jq[] = $this->iterate($bindtr, '.on(\'tablesorter-ready\', function(){', $this->nt . '})', $this->nt2, '', '');
         $jq[] = "$('.icon-pdf').parent().click(function(){" . $bindup . "})";
 
