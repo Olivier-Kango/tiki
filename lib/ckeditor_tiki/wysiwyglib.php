@@ -219,9 +219,21 @@ ajaxLoadingShow("' . $dom_id . '");
         global $prefs;
 
         $matches = WikiParser_PluginMatcher::match($content);
+        $matches2 = clone $matches;
         $position = 0;
         $newContent = '';
         foreach ($matches as $match) {
+            // remove nested plugins for now (probably for ever)
+            $nested = false;
+            foreach ($matches2 as $matchInner) {
+                if ($match->getStart() > $matchInner->getStart() && $match->getEnd() < $matchInner->getEnd()) {
+                    $nested = true;
+                    break;
+                }
+            }
+            if ($nested) {
+                continue;
+            }
             $newContent .= substr($content, $position, $match->getStart() - $position);
 
             $pluginMarkup = substr($content, $match->getStart(), $match->getEnd() - $match->getStart());
