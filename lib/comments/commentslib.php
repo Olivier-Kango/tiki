@@ -3199,7 +3199,7 @@ class Comments extends TikiLib
             // extraction. -rlpowell
             $message_id = $userName . "-" .
                 $parentId . "-" .
-                substr(md5($title . $data), 0, 10) .
+                substr(md5($title . $data . "-" . $in_reply_to . "-" . microtime(true) . "-" . rand()), 0, 10) .
                 "@" . $_SERVER["SERVER_NAME"];
         }
 
