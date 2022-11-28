@@ -53,6 +53,11 @@ form label {
 // -------------------- Navs -------------------- //
 // -------------------- Navbar -------------------- //
 // -------------------- Dropdowns -------------------- //
+// Dropdowns
+.dropdown-menu.dropdown-menu-dark a.dropdown-item {
+    background: black;
+    color: white !important;
+}
 // -------------------- Pagination -------------------- //
 // -------------------- Jumbotron -------------------- //
 // -------------------- Cards -------------------- //

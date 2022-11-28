@@ -65,6 +65,11 @@ legend {
     }
 }
 
+// Dropdowns
+.dropdown-menu.dropdown-menu-dark .dropdown-item {
+    color: $gray-300 !important;
+}
+
 // Buttons
 .btn.btn-outline-dark {
     color: #de3b48;

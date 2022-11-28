@@ -27,6 +27,17 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-left-width: 0px;
   --tiki-topbar-light-border-color: #000;
 }
+.tiki-admin {
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-dropdown-dark-bg: #c44a23;
+  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-dropdown-light-bg: #c44a23;
+  --tiki-admin-toggle-light-bg: #c44a23;
+  --tiki-admin-navbar-dark-highlight-bg: #e36732;
+  --tiki-admin-navbar-dark-highlight-color: #f2f2f2;
+  --tiki-admin-navbar-light-highlight-bg: #e36732;
+  --tiki-admin-navbar-light-highlight-color: #f2f2f2;
+}
 .postbody-title, .bg-dark {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c44a23+0,c64b23+10,dc5823+34,e96023+58,f06423+87,f06423+100 */
   background: #c44a23 !important;

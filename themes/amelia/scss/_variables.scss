@@ -71,7 +71,6 @@ $blockquote-footer-color: #E6E8EA;
 $text-muted:                  $gray-200;
 
 // Tables
-$table-bg: transparent;
 $table-head-bg: #108a93;
 $table-head-color: #fff;
 
@@ -111,6 +110,9 @@ $dropdown-border-color:            #444;
 $dropdown-link-color:              #444;
 $dropdown-link-hover-color:        #fff;
 $dropdown-link-hover-bg:           #15b5c1;
+
+$dropdown-dark-color:               $gray-300;
+$dropdown-dark-bg:                  $gray-800;
 
 // Pagination
 $pagination-bg: #0C5055;

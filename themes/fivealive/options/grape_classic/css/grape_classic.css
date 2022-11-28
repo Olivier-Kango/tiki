@@ -20,6 +20,17 @@
   --tiki-top-border-top-width: 0px;
   --tiki-top-border-bottom-width: 5px;
 }
+.tiki-admin {
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-dropdown-dark-bg: #8e286a;
+  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-dropdown-light-bg: #8e286a;
+  --tiki-admin-toggle-light-bg: #8e286a;
+  --tiki-admin-navbar-dark-highlight-bg: #742157;
+  --tiki-admin-navbar-dark-highlight-color: #f2f2f2;
+  --tiki-admin-navbar-light-highlight-bg: #742157;
+  --tiki-admin-navbar-light-highlight-color: #f2f2f2;
+}
 .postbody-title, .bg-dark {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#642759+0,732860+19,92286b+43,a32872+67,a52873+100 */
   background: #642759 !important;

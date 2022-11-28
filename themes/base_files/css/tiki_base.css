@@ -73,9 +73,6 @@ a.fc-event:hover {
 .post-approved-r .content * {
   background: url("../../../img/icons/dots.gif");
 }
-.dropdown-menu {
-  color: #6c757d;
-}
 #topbar_modules_social .form-control {
   margin-top: 0.5rem;
 }
@@ -625,9 +622,6 @@ div.drillshow {
 .tiki .modal-content .ui-state-hover:hover {
   color: #0a58ca;
 }
-.dropdown-menu {
-  color: #212529;
-}
 .tiki .col1 .table-responsive .table {
   border: 1px solid var(--bs-border-color);
 }
@@ -834,9 +828,6 @@ blockquote {
   color: #dc3545;
 }
 .dropdown-menu.mega-menu a {
-  color: #212529;
-}
-a.dropdown-item {
   color: #212529;
 }
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {

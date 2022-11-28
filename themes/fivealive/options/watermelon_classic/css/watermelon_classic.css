@@ -27,6 +27,17 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-left-width: 0px;
   --tiki-topbar-light-border-color: #000;
 }
+.tiki-admin {
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-dropdown-dark-bg: #AD3245;
+  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-dropdown-light-bg: #AD3245;
+  --tiki-admin-toggle-light-bg: #AD3245;
+  --tiki-admin-navbar-dark-highlight-bg: #a61a32;
+  --tiki-admin-navbar-dark-highlight-color: #f9f9f9;
+  --tiki-admin-navbar-light-highlight-bg: #a61a32;
+  --tiki-admin-navbar-light-highlight-color: #f9f9f9;
+}
 .postbody-title, .bg-dark {
   background: linear-gradient(to bottom, #c51e3c 0%, #e71e40 100%);
 }

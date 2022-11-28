@@ -2,7 +2,7 @@
 <ul class="nav navbar-nav mr-auto">
     <li class="nav-item dropdown  mr-1">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{tr}Access{/tr}</a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu{if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if}">
             {if $tiki_p_admin eq "y" and $tiki_p_admin_users eq "y"}
                 <a class="dropdown-item" href="tiki-adminusers.php">{tr}Users{/tr}</a>
             {/if}
@@ -20,7 +20,7 @@
     </li>
     <li class="nav-item dropdown mr-1">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{tr}Content{/tr}</a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu{if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if}">
             {if $prefs.feature_articles eq "y"}
                 <a class="dropdown-item" href="tiki-list_articles.php">{tr}Articles{/tr}</a>
             {/if}
@@ -88,7 +88,7 @@
     </li>
     <li class="nav-item dropdown mr-1">
         <a href="#" class="nav-link dropdown-toggle mr-2" data-bs-toggle="dropdown">{tr}System{/tr}</a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu{if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if}">
             {if $tiki_p_admin eq "y"}
                 <a class="dropdown-item" href="{service controller=managestream action=list}">{tr}Activity Rules{/tr}</a>
             {/if}
@@ -151,7 +151,7 @@
     </li>
     <li class="nav-item dropdown mr-1">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{tr}Tools{/tr}</a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu{if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if}">
             {if $prefs.feature_actionlog eq "y" and $tiki_p_view_actionlog}
                 <a class="dropdown-item" href="tiki-admin_actionlog.php">{tr}Action Log{/tr}</a>
             {/if}

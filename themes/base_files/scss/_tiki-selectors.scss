@@ -88,9 +88,9 @@ a.fc-event:hover {
     background: url('#{$imagePathToImgDir}icons/dots.gif');
 }
 
-.dropdown-menu {
-    color: $dropdown-header-color;
-}
+//.dropdown-menu {
+//    color: $dropdown-header-color;
+//}
 
 //
 #topbar_modules_social .form-control { margin-top: 0.5rem; }
@@ -1009,9 +1009,9 @@ span.plugin-mouseover {
 //.tiki .modal-content .ui-widget-content .ui-state-focus:hover
  { color: $tiki-modal-link-hover-color; }
 
-
+// Commented out 11/28/2022 by gary for being due broad
 // To correct login dropdown color
-.dropdown-menu { color: $dropdown-link-color; }
+//.dropdown-menu { color: $dropdown-link-color; }
 
 .tiki .col1 .table-responsive .table { // border should be on the table itself, not the containing div - g_c-l
     border: 1px solid $table-border-color; // Changed from $card-border-color; why not use closest class?
@@ -1267,7 +1267,7 @@ blockquote {
 
 // Smartmenus megamenu
 .dropdown-menu.mega-menu a { color: $dropdown-link-color; }
-a.dropdown-item { color: $dropdown-link-color; }
+//a.dropdown-item { color: $dropdown-link-color; }
 
 // Navbar background color consistency - Themes where this is a problem should import _tiki-pagetop_colors.scss
 //.bg-light-parent {
