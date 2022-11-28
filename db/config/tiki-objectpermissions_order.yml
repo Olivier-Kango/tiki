@@ -107,7 +107,7 @@ trackers:
     - tracker_view_ratings
     - tracker_vote_ratings
     - tracker_revote_ratings
-tabular:
+import-export:
     - tabular_admin
     - tabular_list
     - tabular_export
