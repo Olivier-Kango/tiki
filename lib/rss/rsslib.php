@@ -539,10 +539,14 @@ class RSSLib extends TikiDb_Bridge
 
         $guidFilter = TikiFilter::get('url');
         $success = ['feed' => 0, 'articles' => 0];
+        $feed = null;
         try {
             $content = $tikilib->httprequest($url);
             if ($content) {
                 $feed = Laminas\Feed\Reader\Reader::importString($content);
+            }
+            if (! $feed) {
+                throw new Laminas\Feed\Exception\RuntimeException('Unreadable feed.');
             }
         } catch (Laminas\Feed\Exception\ExceptionInterface $e) {
             $this->modules->update(
