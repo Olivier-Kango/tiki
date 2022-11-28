@@ -205,6 +205,8 @@ class CreditsLib extends TikiLib
 			return false;
 		}
 
+		$time = null;
+
 		if (! empty($expirationDate)) {
 			$expirationDate = date('Y-m-d H:i:s', $time = strtotime($expirationDate));
 		}
