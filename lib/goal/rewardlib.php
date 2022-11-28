@@ -59,7 +59,7 @@ class GoalRewardLib
                         return tr('Unknown credit type');
                     }
                 },
-                'applyUser' => function ($user, $reward) {
+                'applyUser' => function ($user, $reward) use ($creditTypes) {
                     if (! empty($creditTypes[$reward['creditType']])) {
                         $userId = TikiLib::lib('tiki')->get_user_id($user);
                         $lib = TikiLib::lib('credits');

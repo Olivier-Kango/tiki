@@ -356,7 +356,7 @@ class Services_Goal_Controller
         $reward['rewardType'] = $rewardType;
         $reward['hidden'] = $input->hidden->int();
 
-        $reward['creditType'] = $input->creditType->word();
+        $reward['creditType'] = $input->creditType->text();
         $reward['creditQuantity'] = isset($input['creditQuantity']) ? $input->creditQuantity->int() : $reward['creditQuantity'];
 
         $reward['trackerItemBadge'] = $this->getTrackerItemBadge($input);
