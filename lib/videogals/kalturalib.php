@@ -93,7 +93,7 @@ class KalturaLib
                     $this->storedKey($session);
                 }
             } catch (Exception $e) {
-                Feedback::error($e->getMessage());
+                Feedback::error(tr("There was an issue with the integration with Kaltura: %0", $e->getMessage()));
             }
         }
 
@@ -109,7 +109,12 @@ class KalturaLib
 
     public function getPlaylist($entryId)
     {
-        return $this->getClient()->playlist->get($entryId);
+        if ($client = $this->getClient()) {
+            if ($playlist = $client->playlist) {
+                return $playlist->get($entryId);
+            }
+        }
+        return null;
     }
 
     public function testSetup()
@@ -172,7 +177,7 @@ class KalturaLib
             try {
                 $obj = $this->_getPlayersUiConfs()->objects;
             } catch (Exception $e) {
-                Feedback::error($e->getMessage());
+                Feedback::error(tr("There was an issue with the integration with Kaltura: %0", $e->getMessage()));
                 return [];
             }
             $configurations = [];
@@ -234,7 +239,7 @@ class KalturaLib
                         return $results->id;
                     }
                 } catch (Exception $e) {
-                    Feedback::error($e->getMessage());
+                    Feedback::error(tr("There was an issue with the integration with Kaltura: %0", $e->getMessage()));
                 }
             } else {
                 try {
@@ -247,7 +252,7 @@ class KalturaLib
                         return '';
                     }
                 } catch (Exception $e) {
-                    Feedback::error($e->getMessage());
+                    Feedback::error(tr("There was an issue with the integration with Kaltura: %0", $e->getMessage()));
                 }
             }
         }
