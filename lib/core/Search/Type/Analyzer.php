@@ -21,7 +21,7 @@ class Search_Type_Analyzer
                 return '';
             }
         } else {
-            if ($key == 'type' || $key == 'object' || $key == 'version' || $key == 'user') {
+            if ($key == 'type' || $key == 'object' || $key == 'version' || $key == 'user' || $key == 'forum_section') {
                 return 'identifier';
             } elseif ($key == 'stream') {
                 return 'multivalue';
