@@ -19,6 +19,7 @@ $contactlib = TikiLib::lib('contact');
 $auto_query_args = [
     'contactId',
     'view',
+    'maxRecords',
     'find',
     'sort_mode',
     'offset',
@@ -91,12 +92,16 @@ if (isset($_REQUEST["save"])) {
 $sort_mode = $_REQUEST["sort_mode"] ?? 'email_asc';
 $offset = $_REQUEST["offset"] ?? 0;
 $find = $_REQUEST["find"] ?? '';
+if (! empty($_REQUEST['maxRecords'])) {
+    $maxRecords = $_REQUEST['maxRecords'];
+} else {
+    $maxRecords = $prefs['maxRecords'] ?? 20;
+}
 $initial = $_REQUEST["initial"] ?? '';
 
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $smarty->assign_by_ref('offset', $offset);
 $smarty->assign('find', $find);
-$maxRecords = $prefs['maxRecords'] ?? 20;
 
 $contacts = $contactlib->list_contacts($user, $offset, $maxRecords, $sort_mode, $find, true, $initial);
 $cant = $contactlib->list_contacts($user, -1, -1, $sort_mode, $find, true, $initial);
@@ -140,14 +145,10 @@ if (is_array($contacts)) {
 $groups = $userlib->get_user_groups($user);
 $smarty->assign('groups', $groups);
 
-$cant_pages = ceil($cant / $maxRecords);
-$smarty->assign_by_ref('cant_pages', $cant_pages);
-$smarty->assign('actual_page', floor(1 + ($offset / $maxRecords)));
-$smarty->assign('prev_offset', ($offset > 0) ? ($offset - $maxRecords) : -1);
-$smarty->assign('next_offset', ($cant > ($offset + $maxRecords)) ? ($offset + $maxRecords) : -1);
 $smarty->assign('initial', range('a', 'z'));
 $smarty->assign('setInitial', $initial);
 $smarty->assign('maxRecords', $maxRecords);
+$smarty->assign('total_contact', $cant);
 
 include_once('tiki-section_options.php');
 

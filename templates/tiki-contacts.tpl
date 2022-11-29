@@ -89,7 +89,7 @@
     </div>
 </form>
 
-{include file='find.tpl'}
+{include file='find.tpl' find_show_num_rows='y'}
 
 {initials_filter_links}
 <div class="{if $js}table-responsive{/if}"> {*the table-responsive class cuts off dropdown menus *}
@@ -210,31 +210,7 @@
 </table>
 </div>
 
-{if $cant_pages > 0}
-<div class="mx-auto">
-    {if $prev_offset >= 0}
-        [<a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$prev_offset}&amp;sort_mode={$sort_mode}&amp;initial={$setInitial}">{tr}Prev{/tr}</a>]
-        &nbsp;
-    {/if}
-    {tr}Page:{/tr} {$actual_page}/{$cant_pages}
-    {if $next_offset >= 0}
-        &nbsp;
-        [<a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$next_offset}&amp;sort_mode={$sort_mode}&amp;initial={$setInitial}">{tr}Next{/tr}</a>]
-    {/if}
-    {if $prefs.direct_pagination eq 'y'}
-        <br>
-        {section loop=$cant_pages name=foo}
-            {assign var=selector_offset value=$smarty.section.foo.index|times:$maxRecords}
-            {if $smarty.section.foo.index_next == $actual_page}
-                <span class="prevnext">{$smarty.section.foo.index_next}</span>
-            {else}
-                <a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$selector_offset}&amp;sort_mode={$sort_mode}&amp;initial={$setInitial}">{$smarty.section.foo.index_next}</a>
-            {/if}
-            &nbsp;
-        {/section}
-    {/if}
-</div>
-{/if}
+{pagination_links cant=$total_contact step=$maxRecords offset=$offset clean='y'}{/pagination_links}
 
 {literal}
 <script type="text/javascript">
@@ -314,3 +290,4 @@
 {literal}
     </script>
 {/literal}
+
