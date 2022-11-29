@@ -162,6 +162,15 @@
         {/tab}
         {tab name="{tr}Legacy Integrations{/tr}"}
             <fieldset>
+                {remarksbox type="warning" title="{tr}Warning{/tr}"}
+                    <p>
+                        {tr}This connection mode will be removed in a future version and we will only use those provided by the library &nbsp;{/tr}
+                        <a class="alert-link" href="https://doc.tiki.org/Social-Networks-Configuration" target="_blank"> Hybridauth</a>
+                        {tr}find them on the General, Settings options in the social networks. If you have an opinion on this choice please let us know on{/tr}
+                        <a class="alert-link" href="https://dev.tiki.org/Endangered-features#Candidates_for_removals_for_Tiki_26" target="_blank">https://dev.tiki.org/Endangered-features#Candidates_for_removals_for_Tiki_26</a>
+
+                    </p>
+                {/remarksbox}
                 <legend>{tr}Twitter{/tr}</legend>
                 <br>
                 <div class="adminoptionbox">
