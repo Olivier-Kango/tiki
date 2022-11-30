@@ -125,7 +125,11 @@ class Definition
             $total = 0;
             $listing = $filesystem->listContents($prefix, true);
             foreach ($listing as $item) {
-                $dms->handle($item);
+                try {
+                    $dms->handle($item);
+                } catch (\League\Flysystem\CorruptedPathDetected $e) {
+                    Feedback::error(tr("Error syncing direct mapped file: %0", $e->getMessage()));
+                }
                 $total++;
             }
             try {
