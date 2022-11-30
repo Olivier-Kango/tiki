@@ -72,6 +72,7 @@ class Synchronizer
             $new_info['name'] = $name;
             $new_info['parentId'] = $parentId;
             $new_info['direct'] = null;
+            $new_info['description'] = '';
             $galleryId = $this->filegal->replace_file_gallery($new_info);
         } else {
             $galleryId = $fgal['galleryId'];
