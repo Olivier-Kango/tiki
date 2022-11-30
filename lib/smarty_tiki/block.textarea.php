@@ -408,8 +408,12 @@ function addSyntaxPlugin(domId, $form) {
     let val = $textarea.val();
 
     if (syntax === "markdown") {
+        // remove plugin markers
         val = val.replace(/^\$\$tiki$/mg, "");
         val = val.replace(/^\$\$$/mg, "");
+        
+        // wiki link widgets markers
+        val = val.replace(/\$\$widget0 (.*?)\$\$/mg, "$1");
     }
     $textarea.val("{syntax type=\"" + syntax + "\", editor=\"" + editor + "\"}\r\n" + val);
 }

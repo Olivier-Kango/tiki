@@ -23,7 +23,8 @@ class ToolbarDialog extends ToolbarItem
                 $iconname = 'link';
                 $icon = tra('img/icons/page_link.png');
                 $wysiwyg = '';  // cke link dialog now adapted for wiki links
-                $markdown = ''; // TODO
+                $markdown = 'tikilink';
+                $markdown_wysiwyg = 'tikilink';
                 $list = [
                     tra("Wiki Link"),
                     '<label for="tbWLinkDesc">' . tra("Show this text") . '</label>',
@@ -38,7 +39,7 @@ class ToolbarDialog extends ToolbarItem
                             "Semantic relation"
                         ) . ':</label>' : '',
                     $prefs['feature_semantic'] == 'y' ? '<input type="text" id="tbWLinkRel" class="ui-widget-content ui-corner-all" style="width: 98%" />' : '',
-                    '{"open": function () { dialogInternalLinkOpen(area_id); },
+                    '{"open": function () { dialogInternalLinkOpen(area_id, clickedElement); },
                         "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
                     '"' . tra("Insert") . '": function() { dialogInternalLinkInsert(area_id,this); }}}',
                 ];
@@ -271,4 +272,32 @@ class ToolbarDialog extends ToolbarItem
 
         return $this->getWysiwygToken();
     }
+
+    public function getMarkdownWysiwyg(): string
+    {
+        if (in_array($this->name, ['tikilink'])) {
+
+            \TikiLib::lib('header')->add_jq_onready(
+                "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').click(function () {
+                        {$this->getOnClick()}
+                    }).get(0);"
+            );
+            TikiLib::lib('header')->add_js(
+                "window.dialogData[$this->index] = " . json_encode($this->list) . ";",
+                1 + $this->index
+            );
+
+            $item = [
+                'name'    => $this->markdown_wysiwyg,
+                'tooltip' => $this->label,
+                'el'      => "%~tuiToolbarItem{$this->markdown_wysiwyg}~%",
+            ];
+            return json_encode($item);
+
+        } elseif($this->name === 'link') {
+            return $this->name;
+        }
+        return '';
+    }
+
 }
