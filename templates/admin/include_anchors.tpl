@@ -28,7 +28,7 @@
                         {icon name=$secInfo.icon iclass='fa-fw'}
                         <span>{$secInfo.title}</span>
                     </a>
-                    <div class="collapse {if not empty($secInfo.selected)}show{/if}" id="collapse{$section}" data-parent="#admin-menu">
+                    <div class="dropdown-menu{if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if} collapse {if not empty($secInfo.selected)}show{/if}" id="collapse{$section}" data-parent="#admin-menu">
                         {foreach $secInfo.children as $page => $info}
 
                                 <a href="{if not empty($info.url)}{$info.url}{else}tiki-admin.php?page={$page}{/if}"

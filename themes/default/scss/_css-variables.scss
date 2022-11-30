@@ -1,1 +1,13 @@
 // CSS variables
+.tiki-admin {
+    --tiki-admin-navbar-dark-bg: #2C2C2C;
+    --tiki-admin-dropdown-dark-color: #{$dropdown-color};
+    --tiki-admin-dropdown-dark-bg: #1C1C1C;
+    --tiki-admin-navbar-light-bg: #F0F0F0;
+    --tiki-admin-dropdown-light-bg: #e6e6e6;
+    --tiki-admin-toggle-light-bg: #dbdbdb;
+    --tiki-admin-navbar-dark-highlight-bg: #007BFF;
+    --tiki-admin-navbar-dark-highlight-color: #fff;
+    --tiki-admin-navbar-light-highlight-bg: #007BFF;
+    --tiki-admin-navbar-light-highlight-color: #fff;
+}

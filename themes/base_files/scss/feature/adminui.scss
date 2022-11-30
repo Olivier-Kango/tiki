@@ -1,10 +1,9 @@
-
 /* The AdminUI "feature" theme for Tiki Wiki CMS Groupware */
 // Core variables and mixins
-$secondary:      #6d35a6;
+$secondary: #6d35a6;
 
 @import "../../../../vendor_bundled/vendor/twbs/bootstrap/scss/_functions.scss";
-@import "variables"; // Needs to come first, to override defaults.
+@import "../../../default/scss/variables"; // Needs to come first, to override defaults. -- Changed to import default theme variables, which is up to date as it imports the vendor file. gary 11/27/2022
 @import "../tiki-variables"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 //@import "../tiki-selectors";
 //@import "../bs3-bs4-transition";
@@ -12,21 +11,21 @@ $secondary:      #6d35a6;
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-$darkgrey:     #2C2C2C;
-$darkergrey:     #1C1C1C;
-$darkestgrey:     #0f0f0f;
-$blue:         #007BFF;
-$lightgrey-dark: #dbdbdb;
-$lightgrey-middle: #e6e6e6;
-$lightgrey:    #F0F0F0;
-$color-light:    rgba(0, 0, 0, 0.5);
+// $darkgrey: #2C2C2C; // now --tiki-admin-navbar-dark-bg
+// $darkergrey: #1C1C1C; // now --tiki-admin-dropdown-dark-bg
+$darkestgrey: #0f0f0f; // maybe replace later
+// $blue: #007BFF; now --tiki-admin-navbar-light-highlight-bg
+// $lightgrey-dark: #dbdbdb; // now --tiki-admin-toggle-light-bg
+// $lightgrey-middle: #e6e6e6; // now --tiki-admin-dropdown-light-bg
+// $lightgrey: #F0F0F0; // now --tiki-admin-navbar-light-bg
+$color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor details
 
 .tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .navbar-dark-parent #top_modules {
-    background-color: $darkgrey !important;
+    background: var(--tiki-admin-navbar-dark-bg) !important; //$darkgrey !important;
 }
 
 .tiki-admin .top_modules.navbar-light-parent, .tiki-admin aside.admin-nav .bg-light, .tiki-admin .navbar-light-parent #top_modules {
-    background-color: $lightgrey !important;
+    background: var(--tiki-admin-navbar-light-bg) !important; // $lightgrey !important;
 }
 
 .tiki-admin .navbar-nav, .tiki-admin .topbar, .tiki-admin .navbar-nav .nav-link, .tiki-admin .navbar-nav .nav-link:hover, .tiki-admin .navbar-nav .nav-link:focus, .tiki-admin .navbar-collapse, .tiki-admin .nav .open > a {
@@ -35,7 +34,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
 }
 
 .tiki-admin .navbar-dark.bg-dark, .tiki-admin .navbar-dark.bg-dark, .tiki-admin .bg-dark, .tiki-admin .bg-light, .tiki-admin nav.top_modules, .tiki-admin #top_modules {
-    background-image: none !important;
+//    background-image: none !important;
     border: none !important;
     min-height: unset;
 }
@@ -83,7 +82,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
     background-color: transparent;
 }
 
-.tiki-admin .top_modules .module:nth-child(2) { 
+.tiki-admin .top_modules .module:nth-child(2) {
     margin-left: initial;
 }
 
@@ -172,7 +171,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
     width: 100%;
 }
 
-.tiki-admin aside.admin-nav .navbar-light.narrow .navbar-nav > li:after  {
+.tiki-admin aside.admin-nav .navbar-light.narrow .navbar-nav > li:after {
     border-bottom: 1px solid $color-light;
 }
 
@@ -204,16 +203,16 @@ $color-light:    rgba(0, 0, 0, 0.5);
     background-color: $darkestgrey;
 }
 
-.tiki-admin .admin-nav .navbar-dark .nav-item .collapse.show {
-    background-color: $darkergrey;
-}
+//.tiki-admin .admin-nav .navbar-dark .nav-item .collapse.show {
+//    background-color: var(--tiki-admin-dropdown-dark-bg); //$darkergrey;
+//}
 
 .tiki-admin .admin-nav .navbar-light .nav-item .right.nav-link.collapse-toggle[aria-expanded="true"] {
-    background-color: $lightgrey-dark;
+    background: var(--tiki-admin-toggle-light-bg); // $lightgrey-dark;
 }
 
 .tiki-admin .admin-nav .navbar-light .nav-item .collapse.show {
-    background-color: $lightgrey-middle;
+    background: var(--tiki-admin-dropdown-light-bg); //$lightgrey-middle;
 }
 
 .tiki-admin .admin-nav .nav-item .right.nav-link.collapse-toggle {
@@ -262,11 +261,11 @@ $color-light:    rgba(0, 0, 0, 0.5);
     }
 
     .tiki-admin .top_modules .bg-dark-parent .dropdown-menu, .tiki-admin .bg-dark .navbar-collapse {
-        background-color: $darkergrey !important;
+        background-color: var(--tiki-admin-dropdown-dark-bg) !important; //$darkergrey !important;
     }
 
     .tiki-admin .top_modules.navbar-light-parent .dropdown-menu, .tiki-admin .bg-light .navbar-collapse {
-        background-color: $lightgrey !important;
+        background-color: var(--tiki-admin-dropdown-light-bg) !important; // $lightgrey !important;
     }
 
     .tiki-admin .dropdown-item {
@@ -338,7 +337,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
 
     .tiki-admin .admin-navbar button[aria-expanded="true"] {
         position: fixed;
-            right: 0;
+        right: 0;
         left: unset;
         z-index: 999;
         margin-top: .3rem;
@@ -346,7 +345,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
 
     .tiki-admin .navbar-collapse .navbar-nav.mr-auto li.dropdown {
         font-size: 1.1rem;
-        margin: 1.2rem 0 !important;
+//        margin: 1.2rem 0 !important; -- Too much empty space since 1.2rem + 1.2rem between each li? (gary)
         width: calc(100vw - 6rem);
     }
 
@@ -355,7 +354,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
         top: .7rem;
         position: absolute;
         text-align: right;
-	margin-top: 1rem;
+        margin-top: 1rem;
     }
 
     .tiki-admin .navbar-collapse .navbar-nav.mr-auto .dropdown-menu {
@@ -412,13 +411,13 @@ $color-light:    rgba(0, 0, 0, 0.5);
     .tiki-admin .filter-menu .nav-item.dropdown {
         padding: 0 !important;
         display: flex;
-	align-items: center;
+        align-items: center;
     }
 
     .tiki-admin .admin-wrapper .navbar-expand-md .form-inline {
         padding-top: 0;
         margin-top: 0 !important;
-}
+    }
 
     .tiki-admin .admin-nav .form-inline.my-2.my-md-0 .mb-3 {
         margin-bottom: 0;
@@ -441,15 +440,15 @@ $color-light:    rgba(0, 0, 0, 0.5);
     .tiki-admin .bg-light .navbar-collapse .dropdown-item, .tiki-admin .bg-dark .navbar-collapse .dropdown-item {
         font-size: 1.1rem !important;
     }
-    
+
     /* other changes in mobile menu */
-.tiki-admin .admin-navbar > .navbar-collapse > .navbar-nav > .nav-item > .nav-link.show {
+    .tiki-admin .admin-navbar > .navbar-collapse > .navbar-nav > .nav-item > .nav-link.show {
         background-color: #007BFF !important;
         color: white !important;
-}
+    }
 
-.tiki-admin .navbar-light.admin-navbar .navbar-nav .nav-link, .tiki-admin .navbar-dark.admin-navbar .navbar-nav .nav-link {
-	display: flex;
+    .tiki-admin .navbar-light.admin-navbar .navbar-nav .nav-link, .tiki-admin .navbar-dark.admin-navbar .navbar-nav .nav-link {
+        display: flex;
         justify-content: space-between;
         align-items: center;
         margin: 0 -3rem;
@@ -479,13 +478,13 @@ $color-light:    rgba(0, 0, 0, 0.5);
 }
 
 
-.tiki-admin .bg-dark .dropdown-item .dropdown-title, .tiki-admin .bg-dark .dropdown-item label, .tiki-admin .navbar-dark .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-header, .tiki-admin .dropdown-item:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu a:hover, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .bg-dark a {
-    color: white !important;
-}
+//.tiki-admin .bg-dark .dropdown-item .dropdown-title, .tiki-admin .bg-dark .dropdown-item label, .tiki-admin .navbar-dark .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-header, .tiki-admin .dropdown-item:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu a:hover, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .bg-dark a {
+//    color: white !important;
+//}
 
 .tiki-admin .top_modules .dropdown-header {
     font-family: "Roboto", sans-serif;
-    font-size: .875rem;
+//    font-size: .875rem; Seems too small to me (gary)
     font-weight: 500;
     text-shadow: none;
     border: none;
@@ -508,25 +507,25 @@ $color-light:    rgba(0, 0, 0, 0.5);
     border-top: .5px solid $color-light !important;
 }
 
-.tiki-admin .bg-dark .text-muted {
-    color: rgb(255 255 255 / 40%) !important;
-}
-
-.tiki-admin .bg-light .text-muted {
-    color: rgb(0 0 0 / 25%) !important;
-}
+//.tiki-admin .bg-dark .text-muted {
+//    color: rgb(255 255 255 / 40%) !important;
+//}
+//
+//.tiki-admin .bg-light .text-muted {
+//    color: rgb(0 0 0 / 25%) !important;
+//}
 
 .tiki-admin .dropdown-menu {
     border: none;
 }
 
-.tiki-admin .bg-light .dropdown-item .dropdown-title, .tiki-admin .bg-light .dropdown-item label, .tiki-admin .navbar-light .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-light-parent .dropdown-header, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .bg-light a {
-    color: $color-light !important;
-}
-
-.tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .top_modules.navbar-light-parent button, .tiki-admin .bg-light .navbar-collapse, .tiki-admin .bg-dark .navbar-collapse, .tiki-admin .bg-light .navbar-collapse .dropdown-item, .tiki-admin .bg-dark .navbar-collapse .dropdown-item, .tiki-admin .navbar-dark.admin-navbar .navbar-nav .nav-link {
-    font-size: .9rem;
-}
+//.tiki-admin .bg-light .dropdown-item .dropdown-title, .tiki-admin .bg-light .dropdown-item label, .tiki-admin .navbar-light .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-light-parent .dropdown-header, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .bg-light a {
+//    color: $color-light;
+//}
+// Below: Nav links are especially important on admin pages - why make them smaller here? (gary)
+//.tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .top_modules.navbar-light-parent button, .tiki-admin .bg-light .navbar-collapse, .tiki-admin .bg-dark .navbar-collapse, .tiki-admin .bg-light .navbar-collapse .dropdown-item, .tiki-admin .bg-dark .navbar-collapse .dropdown-item, .tiki-admin .navbar-dark.admin-navbar .navbar-nav .nav-link {
+//    font-size: .9rem;
+//}
 
 .tiki-admin .row.row-middle {
     margin-top: 6rem;
@@ -544,14 +543,15 @@ $color-light:    rgba(0, 0, 0, 0.5);
     padding: 0 .6rem;
 }
 
-.tiki-admin .top_modules.navbar-dark-parent .dropdown-menu, .tiki-admin .bg-dark-parent .dropdown-item.mb-2.mt-2:hover, .tiki-admin .bg-dark .dropdown-menu, .tiki-admin .filter-menu .dropdown-item:hover {
-    background-color: $darkgrey !important;
-    background-image: none;
+.tiki-admin .top_modules.navbar-dark-parent .dropdown-menu, .tiki-admin .bg-dark-parent .dropdown-item.mb-2.mt-2:hover, /*.tiki-admin .bg-dark .dropdown-menu,*/ .tiki-admin .filter-menu .dropdown-item:hover {
+    color: var(--tiki-admin-dropdown-dark-color);
+    background-color: var(--tiki-admin-dropdown-dark-bg); //$darkgrey !important;
+//    background-image: none;
 }
 
 .tiki-admin .top_modules.navbar-light-parent .dropdown-menu, .tiki-admin .bg-light-parent .dropdown-item.mb-2.mt-2:hover, .tiki-admin .bg-light .dropdown-menu, .tiki-admin .bg-light .filter-menu .dropdown-item:hover {
-    background-color: $lightgrey !important;
-    background-image: none;
+    background-color: var(--tiki-admin-dropdown-light-bg); // $lightgrey !important;
+//    background-image: none;
 }
 
 .tiki-admin .top_modules.navbar-dark-parent .dropdown-menu, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu {
@@ -566,12 +566,51 @@ $color-light:    rgba(0, 0, 0, 0.5);
     margin-top: 3.1rem;
 }
 
-.tiki-admin .dropdown-item.active, .tiki-admin .dropdown-item:active, .tiki-admin .dropdown-item:hover, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav ul .nav-link:hover, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .dropdown-item:focus, .tiki-admin .top_modules.navbar-light-parent a.dropdown-item:focus, .tiki-admin .top_modules.navbar-light-parent a.dropdown-item:active {
-    background-color: $blue !important;
-    color: white !important;
+.tiki-admin .navbar-light .dropdown-item.active,
+.tiki-admin .navbar-light .dropdown-item:active,
+.tiki-admin .navbar-light .dropdown-item:hover,
+.tiki-admin .navbar-light .dropdown-item:focus,
+.tiki-admin .top_modules.navbar-light-parent a.dropdown-item:focus,
+.tiki-admin .top_modules.navbar-light-parent a.dropdown-item:active,
+.tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover,
+.tiki-admin aside.admin-nav .navbar-light .dropdown-item.active {
+    background-color: var(--tiki-admin-navbar-light-highlight-bg); // $blue !important;
+    color: var(--tiki-admin-navbar-light-highlight-color); // white !important;
 }
 
-.tiki-admin .btn-link:hover, .tiki-admin .top_modules.navbar-dark-parent .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .nav-link:hover, .tiki-admin .btn:focus, .tiki-admin .btn.focus {
+.tiki-admin .navbar-dark .dropdown-item.active,
+.tiki-admin .navbar-dark .dropdown-item:active,
+.tiki-admin .navbar-dark .dropdown-item:hover,
+.tiki-admin .navbar-dark .dropdown-item:focus,
+.tiki-admin .top_modules.navbar-dark-parent a.dropdown-item:focus,
+.tiki-admin .top_modules.navbar-dark-parent a.dropdown-item:active,
+.tiki-admin aside.admin-nav .navbar-dark .navbar-nav ul .nav-link:hover {
+    background-color: var(--tiki-admin-navbar-dark-highlight-bg); // $blue !important;
+    color: var(--tiki-admin-navbar-dark-highlight-color); // white !important;
+}
+
+/*
+.tiki-admin {
+    .top_modules.navbar-light-parent .dropdown-item {
+        &:focus,
+        &:active
+    .navbar-light {
+        .dropdown-item {
+            &.active,
+            &:active,
+            &:hover,
+            &:focus
+    aside.admin-nav .navbar-light .nav-link:hover {
+                background-color: $blue !important;
+                color: white !important;
+    }
+}
+*/
+.tiki-admin .btn-link:hover,
+.tiki-admin .top_modules.navbar-dark-parent .nav-link:hover,
+.tiki-admin .top_modules.navbar-light-parent .nav-link:hover,
+.tiki-admin .btn:focus,
+.tiki-admin .btn.focus {
     box-shadow: none;
     text-decoration: none;
     color: $blue;
@@ -588,7 +627,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
     width: 60px;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     margin: auto !important;
     text-align: center;
     border: none;
@@ -650,7 +689,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
     margin-right: inherit;
 }
 
-.tiki-admin aside.admin-nav ul{
+.tiki-admin aside.admin-nav ul {
     padding-left: 0 !important;
 }
 
@@ -661,7 +700,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
 }
 
 .tiki-admin aside.admin-nav .bg-dark {
-    background-color: $darkgrey !important;
+    background-color: var(--tiki-admin-navbar-dark-bg) !important; //$darkgrey !important;
 }
 
 .tiki-admin aside.admin-nav .navbar-dark .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link {
@@ -675,7 +714,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
 }
 
 .tiki-admin aside.admin-nav nav .admin-menu-collapser {
-    background-color: $darkergrey;
+    background-color: var(--tiki-admin-dropdown-dark-bg); // $darkergrey;
     width: 268px;
     position: fixed;
     bottom: 0;
@@ -683,7 +722,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
 }
 
 .tiki-admin aside.admin-nav .bg-light .admin-menu-collapser {
-    background-color: $lightgrey-dark;
+    background-color: var(--tiki-admin-toggle-light-bg); // $lightgrey-dark;
 }
 
 .tiki-admin aside.admin-nav .narrow ul > li {
@@ -718,7 +757,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
     margin-left: 268px !important;
 }
 
-.tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors{
+.tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
     margin-left: 283px;
 }
 
@@ -730,16 +769,15 @@ $color-light:    rgba(0, 0, 0, 0.5);
     margin-left: 60px !important;
 }
 
-@media (max-width: 767.5px){
+@media (max-width: 767.5px) {
     .tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center, .tiki-admin:not(.sidebar_collapsed) .footer {
         margin-left: 60px !important;
     }
 
     .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
         margin-left: 75px;
-    }    
+    }
 }
-
 
 
 /* Filter */
@@ -786,7 +824,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
     background-image: none !important;
     position: fixed;
     left: 0;
-    font-size: .9rem;
+//    font-size: .9rem;
     padding-left: 7rem;
     z-index: 9999 !important;
 }
@@ -851,35 +889,35 @@ $color-light:    rgba(0, 0, 0, 0.5);
 }
 
 .tiki-admin nav.navbar-dark::-webkit-scrollbar-track {
-    background-color: $darkgrey;
+    background-color: var(--tiki-admin-navbar-dark-bg) !important; //$darkgrey !important;
 }
 
 .tiki-admin nav.navbar-light::-webkit-scrollbar-track {
-    background-color: $lightgrey;
+    background-color: var(--tiki-admin-navbar-light-bg); // $lightgrey;
 }
 
 /* Handle */
 .tiki-admin nav.navbar-dark::-webkit-scrollbar-thumb {
-    background: $darkergrey;
-    border: .4rem solid $darkgrey;
+    background: var(--tiki-admin-dropdown-dark-bg); // $darkergrey;
+    border: .4rem solid var(--tiki-admin-navbar-dark-bg) !important; //$darkgrey !important;
     border-radius: 2rem;
 }
 
 .tiki-admin nav.navbar-light::-webkit-scrollbar-thumb {
-    background: $lightgrey-dark;
-    border: 0.4rem solid $lightgrey;
+    background: var(--tiki-admin-toggle-light-bg); // $lightgrey-dark;
+    border: 0.4rem solid var(--tiki-admin-navbar-light-bg); //$lightgrey;
     border-radius: 2rem;
 }
 
 /* scrollbar in firefox */
 
 .tiki-admin nav.navbar-dark {
-    scrollbar-color: $darkergrey transparent;
+    scrollbar-color: var(--tiki-admin-dropdown-dark-bg); // $darkergrey transparent;
     scrollbar-width: thin;
 }
 
 .tiki-admin nav.navbar-light {
-    scrollbar-color: $lightgrey-dark transparent;
+    scrollbar-color: var(--tiki-admin-toggle-light-bg); // $lightgrey-dark transparent;
     scrollbar-width: thin;
 }
 

@@ -233,3 +233,16 @@ header.navbar.fixed-top {
     --tiki-fixed-top-border-left-width: 0px;
     --tiki-topbar-light-border-color: #000;
 }
+
+.tiki-admin {
+    --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+//    --tiki-admin-dropdown-dark-color: #{$dropdown-color};
+    --tiki-admin-dropdown-dark-bg: #{$dropdown-bg};
+    --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+    --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
+    --tiki-admin-toggle-light-bg: #{$dropdown-bg};
+    --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};
+    --tiki-admin-navbar-dark-highlight-color: #{$dropdown-link-hover-color};
+    --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
+    --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
+}

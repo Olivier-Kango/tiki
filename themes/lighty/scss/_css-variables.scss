@@ -27,3 +27,16 @@
     //    --tiki-top-light-border: 1px solid rgba(0, 0, 0, 0.1);
     //    --tiki-topbar-light-border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+.tiki-admin {
+    --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+    //    --tiki-admin-dropdown-dark-color: #{$dropdown-color};
+    --tiki-admin-dropdown-dark-bg: #{$dropdown-bg};
+    --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+    --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
+    --tiki-admin-toggle-light-bg: #{$dropdown-bg};
+    --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};
+    --tiki-admin-navbar-dark-highlight-color: #{$dropdown-link-hover-color};
+    --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
+    --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
+}

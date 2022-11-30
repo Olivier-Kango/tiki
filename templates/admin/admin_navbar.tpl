@@ -24,7 +24,7 @@
                     <a href="#" class="nav-link dropdown-toggle pe-0 me-2 py-0" data-bs-toggle="dropdown" title="{tr}Settings{/tr}"{* style="width: 48px;" Causes wrapping in large font sizes. *}>
                         {icon name="filter"} {tr}Preference Filters{/tr}
                     </a>
-                    <ul class="dropdown-menu border" role="menu">
+                    <ul class="dropdown-menu {if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if} border" role="menu">
                         <li class="dropdown-item d-none">
                             <span class="dropdown-title">{tr}Preference Filters{/tr}</span>
                             <input type="hidden" name="pref_filters[]" value="basic">

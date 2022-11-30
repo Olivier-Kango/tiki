@@ -45,6 +45,8 @@
 // Top module zone and parent divs - Light color
 .layout_basic .page-header.navbar-light-parent.bg-light-parent,        // Single-container layout -- Parent of the top module zone
 .layout_classic .header_outer.bg-light-parent,                         // Classic Tiki layout -- Parent of the top module zone
+.tiki-admin .navbar-light-parent,                       // Classic Tiki unified admin backend
+.tiki-admin .top_modules.navbar-light-parent,
 .layout_social header.navbar-light-parent.bg-light-parent,             // Classic Bootstrap layout (fixed-top navbar) -- Complete header
 .layout_social header.navbar.navbar-light.bg-light                     // Classic Bootstrap layout -- Menu itself
 {
@@ -86,6 +88,8 @@
 // Top module zone and parent divs - dark color
 .layout_basic .page-header.navbar-dark-parent.bg-dark-parent,         // Single-container layout -- Parent of the top module zone
 .layout_classic .header_outer.bg-dark-parent,                         // Classic Tiki layout -- Parent of the top module zone
+.tiki-admin .navbar-dark-parent,                       // Classic Tiki unified admin backend
+.tiki-admin .top_modules.navbar-dark-parent,
 .layout_social header.navbar-light-parent.bg-dark-parent,             // Classic Bootstrap layout (fixed-top navbar) -- Complete header
 .layout_social header.navbar.navbar-dark.bg-dark                     // Classic Bootstrap layout -- Menu itself
 {
@@ -154,7 +158,7 @@ header.navbar.fixed-top {
 }
 
 // Apply background: transparent to children of uppermost parent to prevent nested gradients
-.tiki.layout_basic {
+.tiki.layout_basic:not(.tiki-admin) {
     .page-header .top_modules,
     .page-header .top_modules .navbar,
     .topbar_modules .navbar {
@@ -176,7 +180,7 @@ header.navbar.fixed-top {
     }
 }
 
-.tiki.layout_social {
+.tiki.layout_social:not(.tiki-admin) {
     header .top_modules,
     header .top_modules .navbar,
     .topbar-wrapper .topbar,
