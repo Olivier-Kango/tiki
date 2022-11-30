@@ -101,7 +101,7 @@ $expectedJsArray = array (
   ),
   2 =>
   array (
-    0 => 'window.dialogData[1] = ["Wiki Link","<label for=\\"tbWLinkDesc\\">Show this text<\\/label>","<input type=\\"text\\" id=\\"tbWLinkDesc\\" class=\\"ui-widget-content ui-corner-all\\" style=\\"width: 98%\\" \\/>","<label for=\\"tbWLinkPage\\">Link to this page<\\/label>","<input type=\\"text\\" id=\\"tbWLinkPage\\" class=\\"ui-widget-content ui-corner-all\\" style=\\"width: 98%\\" \\/>","","","","","{\\"open\\": function () { dialogInternalLinkOpen(area_id); },\\n                        \\"buttons\\": { \\"Cancel\\": function() { dialogSharedClose(area_id,this); },\\"Insert\\": function() { dialogInternalLinkInsert(area_id,this); }}}"];',
+    0 => 'window.dialogData[1] = ["Wiki Link","<label for=\\"tbWLinkDesc\\">Show this text<\\/label>","<input type=\\"text\\" id=\\"tbWLinkDesc\\" class=\\"ui-widget-content ui-corner-all\\" style=\\"width: 98%\\" \\/>","<label for=\\"tbWLinkPage\\">Link to this page<\\/label>","<input type=\\"text\\" id=\\"tbWLinkPage\\" class=\\"ui-widget-content ui-corner-all\\" style=\\"width: 98%\\" \\/>","","","","","{\\"open\\": function () { dialogInternalLinkOpen(area_id, clickedElement); },\\n                        \\"buttons\\": { \\"Cancel\\": function() { dialogSharedClose(area_id,this); },\\"Insert\\": function() { dialogInternalLinkInsert(area_id,this); }}}"];',
   ),
   3 =>
   array (
