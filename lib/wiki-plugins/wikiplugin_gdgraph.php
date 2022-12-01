@@ -153,7 +153,7 @@ function wikiplugin_gdgraph($data, $params)
     $plugininfo = wikiplugin_gdgraph_info();
     $default = [];
     foreach ($plugininfo['params'] as $key => $param) {
-        $default["$key"] = $param['default'];
+        $default["$key"] = $param['default'] ?? '';
     }
     $params = array_merge($default, $params);
 	

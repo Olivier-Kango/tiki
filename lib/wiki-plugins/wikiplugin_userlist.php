@@ -177,7 +177,7 @@ function wikiplugin_userlist($data, $params)
             }
         }
         $displayName = $row['login'];
-        if ($params['realname']) {
+        if (! empty($params['realname'])) {
             $realName = $tikilib->get_user_preference($row['login'], 'realName');
 
             if ($realName) {

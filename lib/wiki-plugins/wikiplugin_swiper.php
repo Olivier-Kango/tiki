@@ -479,7 +479,7 @@ function wikiplugin_swiper($data, $params)
     foreach ($slides as $slide) {
         if (trim($slide)) {
             //processing slides
-            $slideArr = explode(";", $slide);
+            $slideArr = array_filter(explode(";", str_replace(["\n", "\r"], '', $slide)));
             if (count($slideArr) > 0) {
                 foreach ($slideArr as $slideValue) {
                     $slideData = explode(":", $slideValue, 2);
