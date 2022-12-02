@@ -37,3 +37,8 @@ $imagePath: "../images/";
     --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
     --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
 }
+
+.accordion {
+    --bs-accordion-active-bg: #209ECB;
+    --bs-accordion-active-color: #fff;
+}

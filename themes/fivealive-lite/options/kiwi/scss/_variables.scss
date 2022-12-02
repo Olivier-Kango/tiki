@@ -239,3 +239,9 @@ $bg-dark-info: #00DAE6;
     --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
     --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
 }
+
+.accordion {
+    --bs-accordion-active-bg: #{$top-dark-bg};
+    --bs-accordion-active-color: #fff;
+    --bs-accordion-btn-bg: #{$primary}; // no $bg-light
+}

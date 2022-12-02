@@ -10206,6 +10206,10 @@ textarea.form-control-lg {
   --tiki-admin-navbar-light-highlight-bg: #e9ecef;
   --tiki-admin-navbar-light-highlight-color: #73950e;
 }
+.accordion {
+  --bs-accordion-active-bg: #E6EDCF;
+  --bs-accordion-active-color: #2c3a05;
+}
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);
 }

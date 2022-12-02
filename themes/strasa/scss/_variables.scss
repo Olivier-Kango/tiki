@@ -1,4 +1,4 @@
-// $Id$
+// Variables for the Strasa theme
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 
@@ -24,14 +24,16 @@ $danger: #df6e1e;
 
 $theme-colors: (
     "primary":            #006699,
-     "secondary":         #7400c3
-//     "success":             #5cb85c,
-//     "info":               #5bc0de,
-//     "warning":             #f0ad4e,
-//     "danger":              #d9534f,
-//    "light":            #ffffff,
-//     "dark":                #000000
+    "secondary":         #7400c3,
+    "success":           #48ca3b, //#5cb85c,
+    "info":              #4d3a7d, // #5bc0de,
+    "warning":           #debb27, //  #f0ad4e,
+    "danger":            #df6e1e, //  #d9534f,
+    "light":              #ffffff,
+    "dark":              #000000
 );
+
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
 
 // Options
 // Spacing
@@ -94,6 +96,10 @@ $navbar-light-hover-color: $navbar-dark-hover-color;
 //$card-border-radius: $border-radius-lg;
 //$card-text: #fff;//@gray-lighter;
 //$card-header-bg: #386dbb;
+
+// Accordion
+$accordion-color: #{$body-color};
+$accordion-bg: #fff;
 
 // Tooltips
 // Popovers

@@ -129,6 +129,10 @@ $pagination-disabled-border-color:  transparent !default;
 $card-cap-bg:                       $gray-700 !default;
 $card-bg:                           $gray-800 !default;
 
+// Accordion (added for Tiki)
+$accordion-button-active-bg: #444 !important;
+$accordion-button-active-color: #fff;
+
 // Popovers
 
 $popover-bg:                        $gray-800 !default;
