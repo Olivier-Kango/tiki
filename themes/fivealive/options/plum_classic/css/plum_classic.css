@@ -38,6 +38,12 @@ header.navbar.fixed-top {
   --tiki-admin-navbar-light-highlight-bg: #15001f;
   --tiki-admin-navbar-light-highlight-color: #f2f2f2;
 }
+.accordion {
+  --bs-accordion-active-bg: #3b0f52;
+  --bs-accordion-active-color: #fff;
+  --bs-accordion-btn-bg: #7a04b5;
+  --bs-accordion-btn-color: #fff;
+}
 .header_outer, .layout_basic #top_modules, .postbody-title, .tiki > .navbar.fixed-top.bg-dark, .bg-dark {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5e028e+0,8f06c4+100 */
   background: #5e028e !important;

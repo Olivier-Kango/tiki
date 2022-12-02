@@ -38,6 +38,11 @@ header.navbar.fixed-top {
   --tiki-admin-navbar-light-highlight-bg: #638637;
   --tiki-admin-navbar-light-highlight-color: #1a1a1a;
 }
+.accordion {
+  --bs-accordion-active-bg: #063035;
+  --bs-accordion-active-color: #fff;
+  --bs-accordion-btn-bg: #ebdc14;
+}
 .header_outer, .layout_basic #top_modules, .postbody-title {
   background: #bebc24;
   background: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);

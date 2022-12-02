@@ -9924,6 +9924,12 @@ label, .radio label, .checkbox label, .help-block {
   --tiki-admin-navbar-light-highlight-bg: rgba(255, 255, 255, 0.075);
   --tiki-admin-navbar-light-highlight-color: #ebebeb;
 }
+.accordion {
+  --bs-accordion-active-bg: #2C465E;
+  --bs-accordion-active-color: #fff;
+  --bs-accordion-btn-bg: #2B3E50;
+  --bs-accordion-btn-color: #fff;
+}
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.75);
 }

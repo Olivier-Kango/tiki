@@ -9851,6 +9851,12 @@ header.navbar.fixed-top {
   --tiki-admin-navbar-light-highlight-bg: #eee;
   --tiki-admin-navbar-light-highlight-color: #1f1f1f;
 }
+.accordion {
+  --bs-accordion-active-bg: #FBE1E0;
+  --bs-accordion-active-color: #8d3e3c;
+  --bs-accordion-btn-bg: #FDF0F0;
+  --bs-accordion-btn-color: #D45E5A;
+}
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);
 }

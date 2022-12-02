@@ -195,3 +195,10 @@ header.navbar.fixed-top {
     --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
     --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
 }
+
+.accordion {
+    --bs-accordion-active-bg: #3b0f52;
+    --bs-accordion-active-color: #fff;
+    --bs-accordion-btn-bg: #{$primary};
+    --bs-accordion-btn-color: #fff;
+}
