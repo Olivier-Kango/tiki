@@ -38,6 +38,11 @@
   --tiki-admin-navbar-light-highlight-bg: #742157;
   --tiki-admin-navbar-light-highlight-color: #f2f2f2;
 }
+.accordion {
+  --bs-accordion-active-bg: #a52874;
+  --bs-accordion-active-color: #fff;
+  --bs-accordion-btn-bg: #f4dded;
+}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

@@ -33,3 +33,6 @@
 // Update for Smartmenus (still needed w/bs5?)
 //$dropdown-item: $dropdown-link-color;
 
+// Added for Tiki (not sure why the variable isn't working)
+.accordion-button:not(.collapsed) { background: #222; }
+

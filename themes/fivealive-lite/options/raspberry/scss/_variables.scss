@@ -228,3 +228,10 @@ $page-header-link-color: #000;
     --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
     --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
 }
+
+.accordion {
+    --bs-accordion-active-bg: #{$topbar-light-bg};
+    --bs-accordion-active-color: #fff;
+    --bs-accordion-btn-bg: #{$top-light-bg};
+    --bs-accordion-btn-color: #fff;
+}
