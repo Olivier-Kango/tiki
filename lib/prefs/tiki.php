@@ -46,6 +46,7 @@ function prefs_tiki_list()
             'type' => 'flag',
             'default' => 'n',
             'admin' => 'tiki-performance_stats.php',
+            'help' => 'Real User Measurement',
         ],
         'tiki_minify_javascript' => [
             'name' => tra('Minify JavaScript'),
