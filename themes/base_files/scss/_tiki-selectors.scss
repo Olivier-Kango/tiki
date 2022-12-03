@@ -190,19 +190,19 @@ table.treetable.objectperms td.removed {
     background: darken($danger, 15%);
 }
 
-.btn.active {
-    &.btn-link {
-        color: darken($link-color, 5%);
-        text-decoration: underline;
-        background-color: transparent;
-        border-color: transparent;
-        &:hover {
-            color: $link-hover-color;
-            background-color: transparent;
-            border-color: transparent;
-        }
-    }
-}
+//.btn.active {
+//    &.btn-link {
+//        color: darken($link-color, 5%);
+//        text-decoration: underline;
+//        background-color: transparent;
+//        border-color: transparent;
+//        &:hover {
+//            color: $link-hover-color;
+//            background-color: transparent;
+//            border-color: transparent;
+//        }
+//    }
+//}
 
 // Smarty {button} maeks .btn-default but sometimes .btn-link is added by hand. Actually Smarty {button} probably should make just .btn.
 .btn-primary.btn-link,
