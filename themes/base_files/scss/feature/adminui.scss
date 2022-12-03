@@ -2,9 +2,9 @@
 // Core variables and mixins
 $secondary: #6d35a6;
 
-@import "../../../../vendor_bundled/vendor/twbs/bootstrap/scss/_functions.scss";
-@import "../../../default/scss/variables"; // Needs to come first, to override defaults. -- Changed to import default theme variables, which is up to date as it imports the vendor file. gary 11/27/2022
-@import "../tiki-variables"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
+//@import "../../../../vendor_bundled/vendor/twbs/bootstrap/scss/_functions.scss"; // None of these scss files were being used. And now CSS variables are used for theme variations.
+//@import "../../../default/scss/variables"; // Needs to come first, to override defaults. -- Changed to import default theme variables, which is up to date as it imports the vendor file. gary 11/27/2022
+//@import "../tiki-variables"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 //@import "../tiki-selectors";
 //@import "../bs3-bs4-transition";
 //@import "../external-scripts";
@@ -69,9 +69,14 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 .tiki-admin .top_modules .box-quickadmin {
-    margin-left: auto;
+    margin-left: auto !important;
     padding: 0 1.4rem;
     background-color: transparent !important;
+}
+
+// When quickadmin module is given containing div in admin modules
+.tiki-admin .top_modules div[class*='col'] {
+    margin-left: auto !important;
 }
 
 .tiki-admin .box-quickadmin .dropdown-menu.show {
@@ -613,7 +618,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 .tiki-admin .btn.focus {
     box-shadow: none;
     text-decoration: none;
-    color: $blue;
+//    color: $blue;
 }
 
 .tiki-admin .admin-content nav.navbar-expand-md.mb-4 {
