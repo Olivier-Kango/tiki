@@ -1230,13 +1230,20 @@ class FileGalLib extends TikiLib
      *
      * @return array
      */
-    public function getGalleriesParentIds()
+    public function getGalleriesParentIds($skip_direct = false)
     {
         if (self::$getGalleriesParentIdsCache === null) {
-            self::$getGalleriesParentIdsCache = $this->table('tiki_file_galleries')->fetchAll(['galleryId', 'parentId'], []);
+            self::$getGalleriesParentIdsCache = [null, null];
+        }
+        if (self::$getGalleriesParentIdsCache[intval($skip_direct)] === null) {
+            $conditions = [];
+            if ($skip_direct) {
+                $conditions['type'] = $this->table('tiki_file_galleries')->expr('$ != "direct"');
+            }
+            self::$getGalleriesParentIdsCache[intval($skip_direct)] = $this->table('tiki_file_galleries')->fetchAll(['galleryId', 'parentId'], []);
         }
 
-        return self::$getGalleriesParentIdsCache;
+        return self::$getGalleriesParentIdsCache[intval($skip_direct)];
     }
 
     /**
@@ -1293,9 +1300,9 @@ class FileGalLib extends TikiLib
     }
     // Get a tree or a list of a gallery children ids, optionnally under a specific parentId
     // To avoid a query to the database for each node, this function retrieves all gallery ids and recursively build the tree using this info
-    public function getGalleryChildrenIds(&$subtree, $parentId = -1, $format = 'tree')
+    public function getGalleryChildrenIds(&$subtree, $parentId = -1, $format = 'tree', $skip_direct = false)
     {
-        $allIds = $this->getGalleriesParentIds();
+        $allIds = $this->getGalleriesParentIds($skip_direct);
 
         $allChildIds = [];
         foreach ($allIds as $v) {
@@ -1313,7 +1320,7 @@ class FileGalLib extends TikiLib
     }
 
     // Get a tree or a list of ids of the specified gallery and its children
-    public function getGalleryIds(&$subtree, $parentId = -1, $format = 'tree')
+    public function getGalleryIds(&$subtree, $parentId = -1, $format = 'tree', $skip_direct = false)
     {
 
         switch ($format) {
@@ -1327,7 +1334,7 @@ class FileGalLib extends TikiLib
                 $childSubtree =& $subtree[$parentId];
         }
 
-        return $this->getGalleryChildrenIds($childSubtree, $parentId, $format);
+        return $this->getGalleryChildrenIds($childSubtree, $parentId, $format, $skip_direct);
     }
 
     /* Get the subgalleries of a gallery, the one identified by $parentId if $wholeSpecialGallery is false, or the special gallery containing the gallery identified by $parentId if $wholeSpecialGallery is true.
@@ -1336,7 +1343,7 @@ class FileGalLib extends TikiLib
      * @param bool $wholeSpecialGallery If true, will return the subgalleries of the special gallery (User File Galleries, Wiki Attachment Galleries, File Galleries, ...) that contains the $parentId gallery
      * @param string $permission If set, will limit the list of subgalleries to those having this permission for the current user
      */
-    public function getSubGalleries($parentId = 0, $wholeSpecialGallery = true, $permission = 'view_file_gallery')
+    public function getSubGalleries($parentId = 0, $wholeSpecialGallery = true, $permission = 'view_file_gallery', $skipDirect = false)
     {
 
         // Use the special File Galleries root if no other special gallery root id is specified
@@ -1355,11 +1362,11 @@ class FileGalLib extends TikiLib
         $cachelib = TikiLib::lib('cache');
 
         if ($useCache) {
-            $cacheName = 'pid' . $parentId . '_' . $this->get_all_galleries_cache_name($user);
+            $cacheName = 'pid' . $parentId . '_' . $this->get_all_galleries_cache_name($user) . '_' . intval($skipDirect);
             $cacheType = $this->get_all_galleries_cache_type();
         }
         if (! $useCache || ! $return = $cachelib->getSerialized($cacheName, $cacheType)) {
-            $return = $this->list_file_galleries(0, -1, 'name_asc', $user, '', $parentId, false, true, false, false, false, true, false);
+            $return = $this->list_file_galleries(0, -1, 'name_asc', $user, '', $parentId, false, true, false, false, false, true, false, true, $skipDirect);
             if (is_array($return)) {
                 $return['parentId'] = $parentId;
             }
@@ -1458,7 +1465,7 @@ class FileGalLib extends TikiLib
         $smarty = TikiLib::lib('smarty');
         require_once('lib/tree/BrowseTreeMaker.php');
         $galleryIdentifier = is_null($galleryIdentifier) ? $prefs['fgal_root_id'] : $galleryIdentifier;
-        $subGalleries = $this->getSubGalleries($galleryIdentifier);
+        $subGalleries = $this->getSubGalleries($galleryIdentifier, true, 'view_file_gallery', true);
 
         $smarty->loadPlugin('smarty_function_icon');
         $icon = '&nbsp;' . smarty_function_icon(['name' => 'file-archive-open'], $smarty->getEmptyInternalTemplate()) . '&nbsp;';
@@ -2371,9 +2378,9 @@ class FileGalLib extends TikiLib
         return $this->get_files($offset, $maxRecords, $sort_mode, $find, $prefs['fgal_root_id'], false, false, true, true, false, false, true, true);
     }
 
-    public function list_file_galleries($offset = 0, $maxRecords = -1, $sort_mode = 'name_desc', $user = '', $find = '', $parentId = -1, $with_archive = false, $with_subgals = true, $with_subgals_size = false, $with_files = false, $with_files_data = false, $with_parent_name = true, $with_files_count = true, $recursive = true)
+    public function list_file_galleries($offset = 0, $maxRecords = -1, $sort_mode = 'name_desc', $user = '', $find = '', $parentId = -1, $with_archive = false, $with_subgals = true, $with_subgals_size = false, $with_files = false, $with_files_data = false, $with_parent_name = true, $with_files_count = true, $recursive = true, $skip_direct = false)
     {
-        return $this->get_files($offset, $maxRecords, $sort_mode, $find, $parentId, $with_archive, $with_subgals, $with_subgals_size, $with_files, $with_files_data, $with_parent_name, $with_files_count, $recursive, $user);
+        return $this->get_files($offset, $maxRecords, $sort_mode, $find, $parentId, $with_archive, $with_subgals, $with_subgals_size, $with_files, $with_files_data, $with_parent_name, $with_files_count, $recursive, $user, true, false, false, '', '', $skip_direct);
     }
 
     /**
@@ -2417,7 +2424,8 @@ class FileGalLib extends TikiLib
         $parent_is_file = false,
         $with_backlink = false,
         $filter = '',
-        $wiki_syntax = ''
+        $wiki_syntax = '',
+        $skip_direct = false
     ) {
 
 
@@ -2442,10 +2450,10 @@ class FileGalLib extends TikiLib
             $idTree = [];
             if (is_array($galleryId)) {
                 foreach ($galleryId as $galId) {
-                    $this->getGalleryIds($idTree, $galId, 'list');
+                    $this->getGalleryIds($idTree, $galId, 'list', $skip_direct);
                 }
             } else {
-                $this->getGalleryIds($idTree, $galleryId, 'list');
+                $this->getGalleryIds($idTree, $galleryId, 'list', $skip_direct);
             }
             $galleryId =& $idTree;
         }
@@ -2646,6 +2654,10 @@ class FileGalLib extends TikiLib
             }
             $g_query .= $g_mid;
 
+            if ($skip_direct) {
+                $g_query .= " AND tfg.type != 'direct'";
+            }
+
             $g_query .= $g_jail_where;
             $bindvars = array_merge($bindvars, $g_jail_bind);
 
@@ -2686,15 +2698,22 @@ class FileGalLib extends TikiLib
         } elseif ($orderby != '') {
             $query .= ' ORDER BY ' . $orderby;
         }
-        $result = $this->fetchAll($query, $bindvars);
+        $need_everything = ( $with_subgals_size && ( $sort_mode == 'size_asc' || $sort_mode == 'filesize_asc' ) );
+        if (! $need_everything) {
+            $numQuery = preg_replace("/^SELECT.*?FROM/", "SELECT COUNT(*) FROM", $query);
+            $numQuery = preg_replace("/ ORDER BY .*$/", "", $numQuery);
+            $numResults = $this->getOne($numQuery, $bindvars);
+            $limit = $offset == -1 ? 0 : $offset;
+            $limit .= ', ' . ($maxRecords == -1 ? PHP_INT_MAX : $maxRecords);
+            $query .= " LIMIT $limit";
+            $result = $this->fetchAll($query, $bindvars);
+        } else {
+            $result = $this->fetchAll($query, $bindvars);
+            $numResults = count($result);
+        }
         $ret = [];
         $gal_size_order = [];
         $cant = 0;
-        $need_everything = ( $with_subgals_size && ( $sort_mode == 'size_asc' || $sort_mode == 'filesize_asc' ) );
-        $numResults = count($result);
-        if (! $need_everything) {
-            $result = array_slice($result, $offset == -1 ? 0 : $offset, $maxRecords == -1 ? null : $maxRecords);
-        }
         $galleryIds = array_map(
             function ($res) {
                 return $res['id'];

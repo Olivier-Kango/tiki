@@ -1153,10 +1153,6 @@ if (isset($_GET['slideshow'])) {
             $smarty->assign('filescount', $files['cant'] - $subs);
         }
     }
-    //for page view to get offset in pagination right since subgalleries are not included
-    $subgals = $filegallib->getSubGalleries($galleryId);
-    $smarty->assign('subcount', count($subgals) - 1);
-
     $smarty->assign('mid', 'tiki-list_file_gallery.tpl');
 }
 
@@ -1256,7 +1252,7 @@ if ($prefs['feature_file_galleries_templates'] == 'y') {
 }
 
 $subGalleries = $filegallib->getSubGalleries(
-    (isset($_REQUEST['parentId']) && $galleryId == 0) ? $_REQUEST['parentId'] : $galleryId
+    (isset($_REQUEST['parentId']) && $galleryId == 0) ? $_REQUEST['parentId'] : $galleryId, true, 'view_file_gallery', true
 );
 $smarty->assign('treeRootId', $subGalleries['parentId']);
 
@@ -1266,9 +1262,6 @@ if (
 ) {
     $gals = [];
     foreach ($subGalleries['data'] as $gal) {
-        if ($gal['type'] == 'direct') {
-            continue;
-        }
         $gals[] = [
             'label' => $gal['parentName'] . ' > ' . $gal['name'],
             'id' => $gal['id'],
