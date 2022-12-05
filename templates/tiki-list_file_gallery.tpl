@@ -18,7 +18,7 @@
         <ul class="dropdown-menu dropdown-menu-end">
             {if $edit_mode neq 'y' and $dup_mode neq 'y'}
                 <li class="dropdown-divider"></li>
-                <li class="dropdown-title">
+                <li class="dropdown-header">
                     {tr}Views{/tr}
                 </li>
                 <li class="dropdown-divider"></li>
@@ -49,7 +49,7 @@
                 {/if}
             {/if}
             <li class="dropdown-divider"></li>
-            <li class="dropdown-title">
+            <li class="dropdown-header">
                 {tr}Gallery actions{/tr}
             </li>
             <li class="dropdown-divider"></li>

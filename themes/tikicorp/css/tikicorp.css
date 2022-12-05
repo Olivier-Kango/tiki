@@ -441,7 +441,7 @@ progress {
 }
 .lead {
   font-size: 1.25rem;
-  font-weight: 300;
+  font-weight: inherit;
 }
 .display-1 {
   font-size: calc(1.625rem + 4.5vw);
@@ -11176,17 +11176,6 @@ table.treetable.objectperms td.removed {
 }
 .btn-primary.highlight:hover {
   background: #f00000;
-}
-.btn.active.btn-link {
-  color: #3cb1e7;
-  text-decoration: underline;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn.active.btn-link:hover {
-  color: #56c4f7;
-  background-color: transparent;
-  border-color: transparent;
 }
 .btn-primary.btn-link, .btn-primary.btn-link:hover {
   background: transparent;

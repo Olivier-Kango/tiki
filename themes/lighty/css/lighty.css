@@ -427,7 +427,7 @@ progress {
 }
 .lead {
   font-size: 1.25rem;
-  font-weight: 300;
+  font-weight: inherit;
 }
 .display-1 {
   font-size: calc(1.625rem + 4.5vw);
@@ -10260,17 +10260,6 @@ table.treetable.objectperms td.removed {
 .btn-primary.highlight:hover {
   background: #a71d2a;
 }
-.btn.active.btn-link {
-  color: #606671;
-  text-decoration: underline;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn.active.btn-link:hover {
-  color: #e2d4d4;
-  background-color: transparent;
-  border-color: transparent;
-}
 .btn-primary.btn-link, .btn-primary.btn-link:hover {
   background: transparent;
   border: none;
@@ -11495,7 +11484,7 @@ ul.social-network li {
 .filter-menu .checkbox {
   padding-left: 20px;
 }
-.filter-menu .dropdown-title {
+.filter-menu .dropdown-header {
   padding-left: 10px;
 }
 .filter-menu a {

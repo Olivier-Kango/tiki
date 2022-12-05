@@ -60,7 +60,7 @@
                 {icon name="menu-extra"}
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-                <h6 class="dropdown-title">
+                <h6 class="dropdown-header">
                     {tr}Thread actions{/tr}
                 </h6>
                 <div class="dropdown-divider"></div>

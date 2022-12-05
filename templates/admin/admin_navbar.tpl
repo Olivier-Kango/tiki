@@ -26,7 +26,7 @@
                     </a>
                     <ul class="dropdown-menu {if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if} border" role="menu">
                         <li class="dropdown-item d-none">
-                            <span class="dropdown-title">{tr}Preference Filters{/tr}</span>
+                            <span class="dropdown-header">{tr}Preference Filters{/tr}</span>
                             <input type="hidden" name="pref_filters[]" value="basic">
                         </li>
                         {foreach from=$pref_filters key=name item=info}

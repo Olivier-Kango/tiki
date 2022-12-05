@@ -1091,7 +1091,7 @@ span.btn-link {
   content: "";
   clear: both;
 }
-.dropdown-title {
+.dropdown-header {
   text-align: center;
   padding-right: 5px;
   padding-left: 5px;
@@ -3003,6 +3003,10 @@ a.admbox.btn.btn-primary.disabled.disabled-clickable {
 .adminoptionboxchild legend {
   margin-bottom: 0;
 }
+.adminoptionbox.sitetitle, .adminoptionbox.sitesubtitle {
+  font-size: inherit;
+  font-weight: inherit;
+}
 .tiki-admin fieldset {
   width: 100%;
 }
@@ -4121,6 +4125,7 @@ table.wikiplugin_trackerlist {
 }
 .editplugin {
   vertical-align: bottom;
+  margin-left: 0.3rem;
 }
 .plugin-mouseover {
   position: absolute;

@@ -129,6 +129,13 @@ a.admbox.btn.btn-primary.disabled.disabled-clickable {
     }
 }
 
+// Don't apply actual site title styling to admin labels
+.adminoptionbox.sitetitle,
+.adminoptionbox.sitesubtitle {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
 .tiki-admin fieldset {
     width: 100%;
 }

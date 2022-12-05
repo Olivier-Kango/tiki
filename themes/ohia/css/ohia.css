@@ -406,7 +406,7 @@ progress {
 }
 .lead {
   font-size: calc(1.275rem + 0.3vw);
-  font-weight: 300;
+  font-weight: inherit;
 }
 @media (min-width: 1200px) {
   .lead {
@@ -10326,17 +10326,6 @@ table.treetable.objectperms td.removed {
 }
 .btn-primary.highlight:hover {
   background: #ad0100;
-}
-.btn.active.btn-link {
-  color: #6e8f0d;
-  text-decoration: underline;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn.active.btn-link:hover {
-  color: #f4f4f4;
-  background-color: transparent;
-  border-color: transparent;
 }
 .btn-primary.btn-link, .btn-primary.btn-link:hover {
   background: transparent;
