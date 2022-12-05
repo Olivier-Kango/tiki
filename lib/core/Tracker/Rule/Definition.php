@@ -15,7 +15,6 @@ use Tiki\Lib\core\Tracker\Rule\Type;
 
 class Definition
 {
-
     /**
      * Scans lib/core/Tracker/Rule for Action, Operator or Type objects
      * and gets ui-predicate arrays for each by type

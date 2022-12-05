@@ -11,7 +11,6 @@
  */
 class AdminLib extends TikiLib
 {
-
     /**
      * @param $offset
      * @param $maxRecords

@@ -156,7 +156,7 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
         }
 
         try {
-            $utilities = new Services_Manager_Utilities;
+            $utilities = new Services_Manager_Utilities();
             $utilities->loadEnv();
         } catch (Exception $e) {
             $ret['error'] = $e->getMessage();
@@ -170,19 +170,19 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
         $hideactions = array_filter($this->getOption('hideactions', []));
 
         $instances = TikiManager\Application\Instance::getInstances(false);
-        $instances = array_filter($instances, function($i) use ($instanceIds) {
+        $instances = array_filter($instances, function ($i) use ($instanceIds) {
             return empty($instanceIds) || in_array($i->getId(), $instanceIds);
         });
 
         // taken from Tiki manager available commands, TODO: hook these up with the interface
         $available_actions = ['access', 'backup', 'blank', 'check', 'clone', 'cloneandupgrade', 'console', 'copysshkey', 'create', 'delete', 'detect', 'edit', 'fixpermissions', 'import', 'list', 'maintenance', 'patch_apply', 'patch_delete', 'patch_list', 'profile_apply', 'restore', 'revert', 'setup-scheduler-cron', 'stats', 'update', 'upgrade', 'watch', 'info'];
         if ($showactions) {
-            $available_actions = array_filter($available_actions, function($action) use ($showactions) {
+            $available_actions = array_filter($available_actions, function ($action) use ($showactions) {
                 return in_array($action, $showactions);
             });
         }
         if ($hideactions) {
-            $available_actions = array_filter($available_actions, function($action) use ($hideactions) {
+            $available_actions = array_filter($available_actions, function ($action) use ($hideactions) {
                 return ! in_array($action, $hideactions);
             });
         }
@@ -221,7 +221,7 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
         if (! in_array($instanceId, $instances)) {
             $instances[] = $instanceId;
         }
-        $result = implode(',', array_filter($instances, function($i) {
+        $result = implode(',', array_filter($instances, function ($i) {
             return is_numeric($i);
         }));
         return $result ? $result : 'none';
@@ -236,7 +236,7 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
         $instances = array_filter($instances, function ($i) use ($instanceId) {
             return $i != $instanceId;
         });
-        $result = implode(',', array_filter($instances, function($i) {
+        $result = implode(',', array_filter($instances, function ($i) {
             return is_int($i);
         }));
         return $result ? $result : 'none';

@@ -75,9 +75,9 @@ function smarty_block_tab($params, $content, $smarty, &$repeat)
         }
 
         if (isset($params['params']['direction']) && $params['params']['direction'] == 'vertical') {
-            $ret = '<div class="tab-pane ' . $active . '" id="v-pills-' . $id . '" role="tabpanel" aria-labelledby="v-pills-' . $id . '-tab">'.
+            $ret = '<div class="tab-pane ' . $active . '" id="v-pills-' . $id . '" role="tabpanel" aria-labelledby="v-pills-' . $id . '-tab">' .
                         $content
-                    .'</div>';
+                    . '</div>';
         } else {
             $ret = "<div id='{$id}' class='tab-pane pt-3 $active'>$content</div>";
         }

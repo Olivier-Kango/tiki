@@ -6,7 +6,6 @@ use Tiki\Lib\core\Tracker\Rule\Type;
 
 class Field extends Target
 {
-
     private $trackerlib;
     private $field;
 

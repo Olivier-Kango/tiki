@@ -29,7 +29,7 @@ class Hm_Handler_load_data_sources extends Hm_Handler_Module
     {
         $callback = 'tiki_groupmail_content';
         // TODO: check IMAP dependency and POP3 support
-        foreach (imap_data_sources($callback, $this->user_config->get('custom_imap_sources', array())) as $vals) {
+        foreach (imap_data_sources($callback, $this->user_config->get('custom_imap_sources', [])) as $vals) {
             $this->append('data_sources', $vals);
         }
     }
@@ -46,7 +46,7 @@ class Hm_Handler_groupmail_fetch_messages extends Hm_Handler_Module
      */
     public function process()
     {
-        list($success, $form) = $this->process_form(array('imap_server_ids'));
+        list($success, $form) = $this->process_form(['imap_server_ids']);
         if ($success) {
             $limit = $this->user_config->get('all_email_per_source_setting', DEFAULT_PER_SOURCE);
             $ids = explode(',', $form['imap_server_ids']);
@@ -54,7 +54,7 @@ class Hm_Handler_groupmail_fetch_messages extends Hm_Handler_Module
             if (array_key_exists('folder', $this->request->post)) {
                 $folder = $this->request->post['folder'];
             }
-            list($status, $msg_list) = merge_imap_search_results($ids, 'ALL', $this->session, $this->config, array(hex2bin($folder)), $limit);
+            list($status, $msg_list) = merge_imap_search_results($ids, 'ALL', $this->session, $this->config, [hex2bin($folder)], $limit);
             $this->out('folder_status', $status);
             $this->out('groupmail_inbox_data', $msg_list);
             $this->out('imap_server_ids', $form['imap_server_ids']);
@@ -105,7 +105,7 @@ class Hm_Handler_take_groupmail extends Hm_Handler_Module
      */
     public function process()
     {
-        list($success, $form) = $this->process_form(array('msgid', 'imap_msg_uid', 'imap_server_id', 'folder'));
+        list($success, $form) = $this->process_form(['msgid', 'imap_msg_uid', 'imap_server_id', 'folder']);
         if (! $success) {
             return;
         }
@@ -131,7 +131,7 @@ class Hm_Handler_take_groupmail extends Hm_Handler_Module
             list($part, $msg_text) = $imap->get_first_message_part($form['imap_msg_uid'], 'text', false, $msg_struct);
         }
 
-        $struct = $imap->search_bodystructure($msg_struct, array('imap_part_number' => $part));
+        $struct = $imap->search_bodystructure($msg_struct, ['imap_part_number' => $part]);
         $msg_struct_current = array_shift($struct);
         if (! trim($msg_text)) {
             if (is_array($msg_struct_current) && array_key_exists('subtype', $msg_struct_current)) {
@@ -141,7 +141,7 @@ class Hm_Handler_take_groupmail extends Hm_Handler_Module
                     $subtype = 'plain';
                 }
                 list($part, $msg_text) = $imap->get_first_message_part($form['imap_msg_uid'], 'text', $subtype, $msg_struct);
-                $struct = $imap->search_bodystructure($msg_struct, array('imap_part_number' => $part));
+                $struct = $imap->search_bodystructure($msg_struct, ['imap_part_number' => $part]);
                 $msg_struct_current = array_shift($struct);
             }
         }
@@ -255,7 +255,7 @@ class Hm_Handler_put_back_groupmail extends Hm_Handler_Module
      */
     public function process()
     {
-        list($success, $form) = $this->process_form(array('msgid', 'imap_msg_uid', 'imap_server_id', 'folder'));
+        list($success, $form) = $this->process_form(['msgid', 'imap_msg_uid', 'imap_server_id', 'folder']);
         if (! $success) {
             return;
         }
@@ -318,7 +318,7 @@ class Hm_Output_groupmail_heading extends Hm_Output_Module
         $res .= '<div class="groupmail"><div class="content_title">';
         $res .= '<div class="mailbox_list_title">' . $this->trans('Groupmail') . '</div>';
         $res .= '<div class="list_controls">' . $refresh_link . $source_link . '</div>';
-        $res .= list_sources($this->get('data_sources', array()), $this);
+        $res .= list_sources($this->get('data_sources', []), $this);
         $res .= '</div>';
         return $res;
     }
@@ -388,8 +388,8 @@ class Hm_Output_filter_groupmail_data extends Hm_Output_Module
         $trklib = TikiLib::lib('trk');
         $contactlib = TikiLib::lib('contact');
         if ($msg_list = $this->get('groupmail_inbox_data')) {
-            $res = array();
-            if ($msg_list === array(false)) {
+            $res = [];
+            if ($msg_list === [false]) {
                 return $msg_list;
             }
             $show_icons = $this->get('msg_list_icons');
@@ -413,7 +413,7 @@ class Hm_Output_filter_groupmail_data extends Hm_Output_Module
                 }
                 $timestamp = strtotime($msg['internal_date']);
                 $date = translate_time_str(human_readable_interval($msg['internal_date']), $this);
-                $flags = array();
+                $flags = [];
                 if (! stristr($msg['flags'], 'seen')) {
                     $flags[] = 'unseen';
                     $row_class .= ' unseen';
@@ -425,7 +425,7 @@ class Hm_Output_filter_groupmail_data extends Hm_Output_Module
                     $from = preg_replace("/(\<.+\>)/U", '', $msg['to']);
                     $icon = 'sent';
                 }
-                foreach (array('attachment', 'deleted', 'flagged', 'answered') as $flag) {
+                foreach (['attachment', 'deleted', 'flagged', 'answered'] as $flag) {
                     if (stristr($msg['flags'], $flag)) {
                         $flags[] = $flag;
                     }
@@ -471,14 +471,14 @@ class Hm_Output_filter_groupmail_data extends Hm_Output_Module
                     $wikiPage = '';
                 }
                 $res[$id] = message_list_row(
-                    array(
-                        array('safe_output_callback', 'source', $source, $icon),
-                        array('sender_callback', 'from' . $nofrom, $from, $operator, $contactId, $wikiPage),
-                        array('subject_callback', $subject, $url, $flags),
-                        array('date_callback', $date, $timestamp),
-                        array('icon_callback', $flags),
-                        array('take_callback', $id, $operator)
-                    ),
+                    [
+                        ['safe_output_callback', 'source', $source, $icon],
+                        ['sender_callback', 'from' . $nofrom, $from, $operator, $contactId, $wikiPage],
+                        ['subject_callback', $subject, $url, $flags],
+                        ['date_callback', $date, $timestamp],
+                        ['icon_callback', $flags],
+                        ['take_callback', $id, $operator]
+                    ],
                     $id,
                     'email',
                     $this,
@@ -487,7 +487,7 @@ class Hm_Output_filter_groupmail_data extends Hm_Output_Module
             }
             $this->out('formatted_message_list', $res);
         } elseif (! $this->get('formatted_message_list')) {
-            $this->out('formatted_message_list', array());
+            $this->out('formatted_message_list', []);
         }
     }
 }

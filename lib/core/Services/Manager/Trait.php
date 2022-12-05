@@ -51,9 +51,9 @@ trait Services_Manager_Trait
     {
         global $tikipath;
 
-        $storage_path = $tikipath.'storage/tiki-manager';
-        if (!is_dir($storage_path)) {
-            if (!is_writable(dirname($storage_path))) {
+        $storage_path = $tikipath . 'storage/tiki-manager';
+        if (! is_dir($storage_path)) {
+            if (! is_writable(dirname($storage_path))) {
                 throw new TikiManager\Config\Exception\ConfigurationErrorException(tr('Unable to create data storage directory for Tiki Manager. Check if storage directory is writable by running permission fix.'));
             }
             mkdir($storage_path, 0777, true);
@@ -71,11 +71,11 @@ trait Services_Manager_Trait
             unset($_SERVER['SYMFONY_DOTENV_VARS']);
         }
 
-        $_ENV['BACKUP_FOLDER'] = $storage_path.'/backup';
-        $_ENV['ARCHIVE_FOLDER'] = $storage_path.'/backup/archive';
-        $_ENV['TRIM_LOGS'] = $storage_path.'/logs';
-        $_ENV['TRIM_DATA'] = $storage_path.'/data';
-        $_ENV['TRIM_SRC_FOLDER'] = $storage_path.'/data/tiki_src';
+        $_ENV['BACKUP_FOLDER'] = $storage_path . '/backup';
+        $_ENV['ARCHIVE_FOLDER'] = $storage_path . '/backup/archive';
+        $_ENV['TRIM_LOGS'] = $storage_path . '/logs';
+        $_ENV['TRIM_DATA'] = $storage_path . '/data';
+        $_ENV['TRIM_SRC_FOLDER'] = $storage_path . '/data/tiki_src';
 
         $composerManager = new ComposerManager($tikipath);
         $composerPath = $composerManager->composerPath();
@@ -89,7 +89,7 @@ trait Services_Manager_Trait
         $tm_env->setIO(null, new NullOutput());
         $tm_env->load();
 
-        $_ENV['SSH_CONFIG'] = $_ENV['TRIM_ROOT'].'/data/ssh_config';
+        $_ENV['SSH_CONFIG'] = $_ENV['TRIM_ROOT'] . '/data/ssh_config';
 
         if ($isWeb) {
             $_ENV['RUN_THROUGH_TIKI_WEB'] = $isWeb;
@@ -180,7 +180,7 @@ trait Services_Manager_Trait
             $output .= "\n\n" . $response['output'];
         }
 
-        $temp_instance = new TikiManager\Application\Instance;
+        $temp_instance = new TikiManager\Application\Instance();
         $temp_access = new TikiManager\Access\Local($temp_instance);
         if (stristr(PHP_OS, 'WIN')) {
             $discovery = new TikiManager\Application\Discovery\WindowsDiscovery($temp_instance, $temp_access, ['os' => 'WINDOWS']);
@@ -240,7 +240,7 @@ trait Services_Manager_Trait
     protected function virtualminRemoteCommand($source, $params, $timeout = 20)
     {
         $source_url = $this->getVirtualminSourceUrl($source);
-        $client = TikiLib::lib('tiki')->get_http_client($source_url.http_build_query($params, '', '&'), [
+        $client = TikiLib::lib('tiki')->get_http_client($source_url . http_build_query($params, '', '&'), [
             'timeout' => $timeout,
         ]);
         $response = $client->send();

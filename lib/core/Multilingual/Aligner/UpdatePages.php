@@ -13,7 +13,6 @@ include_once 'MockMTWrapper.php';
 
 class Multilingual_Aligner_UpdatePages
 {
-
     public $alignments = null;
 
     public function setUp()

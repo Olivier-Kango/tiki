@@ -1152,14 +1152,15 @@ class ParserLib extends TikiDb_Bridge
     {
         global $tiki_p_edit, $prefs, $section;
         $info = $this->plugin_info($name);
-        $is_allowed = $this->check_permission_from_plugin_params($pluginArgs);         
+        $is_allowed = $this->check_permission_from_plugin_params($pluginArgs);
         // note that for 3.0 the plugin editor only works in wiki pages, but could be extended later
         return $section == 'wiki page' && $info && ($tiki_p_edit == 'y' || $is_allowed == 'y') && $prefs['wiki_edit_plugin'] == 'y'
             && ! $this->plugin_is_inline($name);
     }
 
     // Checking permission from plugin params
-    public function check_permission_from_plugin_params($pluginArgs) {
+    public function check_permission_from_plugin_params($pluginArgs)
+    {
         global $user;
         $userlib = TikiLib::lib('user');
         $is_allowed = 'n';
@@ -1174,8 +1175,8 @@ class ParserLib extends TikiDb_Bridge
                 }
             }
             if (isset($pluginArgs['editable_by_groups'])) {
-                $userGroups = array_map('strtolower',$userlib->get_user_info($user)['groups']);
-                $groupsAllowed = array_map('strtolower', explode(',',$pluginArgs['editable_by_groups']));
+                $userGroups = array_map('strtolower', $userlib->get_user_info($user)['groups']);
+                $groupsAllowed = array_map('strtolower', explode(',', $pluginArgs['editable_by_groups']));
                 foreach ($groupsAllowed as $group) {
                     if (in_array($group, $userGroups)) {
                         $is_allowed = 'y';
@@ -1184,7 +1185,7 @@ class ParserLib extends TikiDb_Bridge
                 }
             }
         }
-        return $is_allowed; 
+        return $is_allowed;
     }
 
     /**
@@ -2712,13 +2713,13 @@ class ParserLib extends TikiDb_Bridge
 
                         $style = $do_center ? ' style="text-align: center;"' : '';
 
-						//var_dump($prefs['wiki_heading_links']); die;
+                        //var_dump($prefs['wiki_heading_links']); die;
 
                         if ($prefs['wiki_heading_links'] !== 'n' && ($prefs['wiki_heading_links'] >= $hdrlevel || $prefs['wiki_heading_links'] === 'y' )) {
-							$smarty = TikiLib::lib('smarty');
-							$smarty->loadPlugin('smarty_function_icon');
-							$headingLink = '<a href="#' . $thisid . '" class="heading-link">' . smarty_function_icon(['name' => 'link'], $smarty->getEmptyInternalTemplate()) . '</a>';
-						} else {
+                            $smarty = TikiLib::lib('smarty');
+                            $smarty->loadPlugin('smarty_function_icon');
+                            $headingLink = '<a href="#' . $thisid . '" class="heading-link">' . smarty_function_icon(['name' => 'link'], $smarty->getEmptyInternalTemplate()) . '</a>';
+                        } else {
                             $headingLink = '';
                         }
 

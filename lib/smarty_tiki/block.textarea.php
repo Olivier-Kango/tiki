@@ -190,7 +190,6 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
             $html .= '<input type="hidden" name="wysiwyg" value="y" />';
             $html .= '<input type="hidden" name="' . $params['name'] . '" id="' . $as_id . '" value="' . htmlspecialchars($content) . '" />';
             $html .= '<div id="' . $as_id . '_editor"></div>';
-
         } else {
             // legacy tiki/ckeditor wysiwyg
 
@@ -417,12 +416,11 @@ function addSyntaxPlugin(domId, $form) {
     }
     $textarea.val("{syntax type=\"" + syntax + "\", editor=\"" + editor + "\"}\r\n" + val);
 }
-        '
-        );
+        ');
 
 
         $headerlib->add_js(
-            /** @lang JavaScript */ '
+            /** @lang JavaScript */            '
 $("#' . $as_id . '").form().submit(function () {
     addSyntaxPlugin("' . $as_id . '", $(this));
     return true;

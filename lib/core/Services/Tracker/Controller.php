@@ -906,7 +906,7 @@ class Services_Tracker_Controller
         }
 
         global $prefs;
-        if (!empty($fields)) {
+        if (! empty($fields)) {
             $noDefaultValueFields = []; // will content all mandatory fields with no value for the default language
 
             foreach ($processedFields as $key => $f) {
@@ -934,11 +934,11 @@ class Services_Tracker_Controller
                     }
                 }
             }
-            if (! empty($noDefaultValueFields)){
-            	$feedback = "Please note that the mandatory field" . (count($noDefaultValueFields) > 1 ? "s " : " ") . "%0";
-            	$feedback .= (count($noDefaultValueFields) > 1 ? " don't have values" : " doesn't have a value") . " for the language selected by default";
+            if (! empty($noDefaultValueFields)) {
+                $feedback = "Please note that the mandatory field" . (count($noDefaultValueFields) > 1 ? "s " : " ") . "%0";
+                $feedback .= (count($noDefaultValueFields) > 1 ? " don't have values" : " doesn't have a value") . " for the language selected by default";
 
-            	Feedback::warning(tr($feedback, implode(", ", $noDefaultValueFields)));
+                Feedback::warning(tr($feedback, implode(", ", $noDefaultValueFields)));
             }
         }
 

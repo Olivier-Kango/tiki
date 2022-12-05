@@ -44,7 +44,7 @@ class NDJsonWriter
                 $row[$column->getLabel()] = $this->encode($entry->render($column, false));
             }
 
-            $this->file->fwrite(json_encode($row)."\n");
+            $this->file->fwrite(json_encode($row) . "\n");
         }
     }
 

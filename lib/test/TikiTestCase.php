@@ -22,7 +22,8 @@ abstract class TikiTestCase extends TestCase
 {
     protected $backupGlobals = false;
 
-    protected function ensureDefaultGalleryExists() {
+    protected function ensureDefaultGalleryExists()
+    {
         $filegallib = TikiLib::lib('filegal');
         $info = $filegallib->get_file_gallery_info(1);
         if (! $info) {

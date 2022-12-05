@@ -10,7 +10,6 @@ $freetaglib = TikiLib::lib('freetag');
 
 class FreetagTest extends TikiTestCase
 {
-
     private $lib;
 
     protected function setUp(): void

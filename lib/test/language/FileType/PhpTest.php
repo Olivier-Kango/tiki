@@ -11,7 +11,6 @@ require_once(__DIR__ . '/../../../language/FileType/Php.php');
 
 class Language_FileType_PhpTest extends TikiTestCase
 {
-
     protected $obj;
 
     protected function setUp(): void

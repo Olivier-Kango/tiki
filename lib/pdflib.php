@@ -532,11 +532,11 @@ class PdfGenerator
         global $prefs, $user;
 
         clearstatcache();
-        
+
         preg_match_all('#\"(.*?)\"#', $prefs['print_pdf_modules'], $match);
         $modules_to_print = array_map(
             function ($item) {
-                return str_replace('"','', $item);
+                return str_replace('"', '', $item);
             },
             $match[0]
         );

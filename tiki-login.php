@@ -345,7 +345,7 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
         // User is valid and not due to change pass.. start session
         $userlib->update_expired_groups();
         TikiLib::lib('login')->activateSession($user);
-        
+
         $url = $_SESSION['loginfrom'];
 
         // When logging into a multi-lingual Tiki, $_SESSION['loginfrom'] contains the main-language page, and not the translated one
@@ -618,7 +618,7 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
             http_response_code(400);
             $error = tra("There is more than one user account with this email. Please contact the administrator.");
             break;
-        
+
         case ACCOUNT_LOCKED:
             http_response_code(403);
             $error = tra("Account is locked. Please contact the administrator.");

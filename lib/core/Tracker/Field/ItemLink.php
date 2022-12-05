@@ -786,7 +786,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 
     public function canHaveMultipleValues()
     {
-        return (bool) $this->getOption("selectMultipleValues"); 
+        return (bool) $this->getOption("selectMultipleValues");
     }
 
     public function getPossibleItemValues()

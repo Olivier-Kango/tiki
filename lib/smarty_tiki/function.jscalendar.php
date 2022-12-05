@@ -142,7 +142,7 @@ function smarty_function_jscalendar($params, $smarty)
     $html = '<input type="hidden" id="' . $params['id'] . '"' . $name . ' value="' . $params['date'] . '" class="isDatepicker">';
     $html .= '<input type="hidden" id="' . $params['id'] . '_tzoffset" name="tzoffset" value="">';
     $html .= '<input type="hidden" id="' . $params['id'] . '_tzname" name="tzname" value="">';
-    $headerlib->add_jq_onready('$("input#' . $params['id'] . '_tzoffset").val((new Date('.(int)$params['date'].'*1000)).getTimezoneOffset());');
+    $headerlib->add_jq_onready('$("input#' . $params['id'] . '_tzoffset").val((new Date(' . (int)$params['date'] . '*1000)).getTimezoneOffset());');
     $headerlib->add_jq_onready('try { $("input#' . $params['id'] . '_tzname").val(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch(e) {}');
     if (isset($params['isutc']) && $params['isutc'] && intval($params['date']) > 0) {
         $headerlib->add_jq_onready('$("#' . $params['id'] . '").val(' . (int)$params['date'] . ' + parseInt($("input#' . $params['id'] . '_tzoffset").val())*60);');

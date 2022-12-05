@@ -291,8 +291,7 @@ function wikiplugin_accordion($body, $params)
                 }
                 $header = preg_split($pattern, $header, -1, PREG_SPLIT_NO_EMPTY);
                 $headers[$key] = trim($header[0]);
-            }
-            else {
+            } else {
                 $headers[$key] = $header;
             }
         }
@@ -314,10 +313,10 @@ function wikiplugin_accordion($body, $params)
     $smarty->assign_by_ref('accordioncontent', $accordionBody);
 
     return $smarty->fetch('wiki-plugins/wikiplugin_accordion.tpl');
-
 }
 
-function addStyles($unique, $params) {
+function addStyles($unique, $params)
+{
     $headerlib = TikiLib::lib('header');
     $css = '';
     $accordionBody = '#' . $unique . ' .accordion-body';
@@ -343,5 +342,4 @@ function addStyles($unique, $params) {
     $css .= ! empty($params['headerbordercolor']) ? $accordionButton . '{border-color:' . $params['headerbordercolor'] . ';} ' : '';
 
     $headerlib->add_css($css);
-
 }

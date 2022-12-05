@@ -2,7 +2,6 @@
 
 class Scheduler_Utils
 {
-
     /**
      * Validate a cron time string
      *

@@ -20,7 +20,6 @@ use TikiLib;
  */
 class ItemTest extends TestCase
 {
-
     protected static $items = [];
 
     public static function tearDownAfterClass(): void

@@ -81,6 +81,6 @@ class ToolbarLineBased extends ToolbarInline // Will change in the future
         return 'insertAt(\'' . $this->domElementId . '\', \'' .
             addslashes(
                 htmlentities($this->markdown, ENT_COMPAT, 'UTF-8')
-            ) . '\', true, true);';    }
-
+            ) . '\', true, true);';
+    }
 }

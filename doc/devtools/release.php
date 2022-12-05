@@ -310,23 +310,23 @@ function updateSecdb($version)
 
         $insertString = 'INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES ';
 
-        $extendedInsertSize=0;
-        $extendedInsertMaxSize=1*1024*1024 - 100; // 1MB with 100 bytes safety limit, some old versions of Mysql had max_allowed_packet=1MB
+        $extendedInsertSize = 0;
+        $extendedInsertMaxSize = 1 * 1024 * 1024 - 100; // 1MB with 100 bytes safety limit, some old versions of Mysql had max_allowed_packet=1MB
 
         foreach ($queries as $q) {
-            if (($extendedInsertSize + strlen($q) + 2) > $extendedInsertMaxSize ) {
-                fwrite($fp,";\n");
-                $extendedInsertSize=0;
+            if (($extendedInsertSize + strlen($q) + 2) > $extendedInsertMaxSize) {
+                fwrite($fp, ";\n");
+                $extendedInsertSize = 0;
             }
             if ($extendedInsertSize === 0) {
-                fwrite($fp, $insertString ."\n");
+                fwrite($fp, $insertString . "\n");
                 $extendedInsertSize = strlen($insertString) + 1;
             } else {
                 fwrite($fp, ",\n");
-                $extendedInsertSize+=2;
+                $extendedInsertSize += 2;
             }
             fwrite($fp, $q);
-            $extendedInsertSize+=strlen($q);
+            $extendedInsertSize += strlen($q);
         }
         fwrite($fp, ";\n");
 

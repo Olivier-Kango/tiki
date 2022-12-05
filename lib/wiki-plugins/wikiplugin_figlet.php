@@ -8,7 +8,7 @@
 
 use Laminas\Text\Figlet\Figlet;
 
-function wikiplugin_figlet_info() :array
+function wikiplugin_figlet_info(): array
 {
     return [
         'name' => tra('Figlet'),

@@ -8,7 +8,6 @@
 
 class Tracker_Item
 {
-
     const PERM_NAME_MAX_ALLOWED_SIZE = 50;
 
     /**
@@ -101,7 +100,8 @@ class Tracker_Item
 
     public function canViewHistory()
     {
-        $permName = 'tracker_view_history';;
+        $permName = 'tracker_view_history';
+        ;
 
         return $this->perms->$permName;
     }

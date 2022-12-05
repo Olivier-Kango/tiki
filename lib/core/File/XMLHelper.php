@@ -17,7 +17,6 @@ use SimpleXMLElement;
  */
 class XMLHelper
 {
-
     /**
      * Append a simpleXMLElement to another simpleXMLElement.
      * This is not supported using legacy simpleXMLELement

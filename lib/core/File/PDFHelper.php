@@ -12,7 +12,6 @@ use Tiki\Lib\Unoconv\UnoconvLib;
 
 class PDFHelper
 {
-
     /**
      * Checks if a given mimetype is able to be converted to PDF.
      *

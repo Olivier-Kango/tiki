@@ -178,7 +178,7 @@ function wikiplugin_slideshowslide($data, $params)
         }
     }
     $params = array_merge($defaults, $params);
-    $slideShowSlideParams = array("data-background-color" => 'bgColor',"data-background-image" => 'backgroundUrl',"data-background-size" => 'parallaxBackgroundSize',"data-background-horizontal" => 'parallaxBackgroundHorizontal',"data-background-vertical" => 'parallaxBackgroundVertical',"data-background-video" => 'backgroundVideoUrl',"data-background-transitionspeed" => 'transitionSpeed',"data-background-transition" => 'backgroundTransition');
+    $slideShowSlideParams = ["data-background-color" => 'bgColor',"data-background-image" => 'backgroundUrl',"data-background-size" => 'parallaxBackgroundSize',"data-background-horizontal" => 'parallaxBackgroundHorizontal',"data-background-vertical" => 'parallaxBackgroundVertical',"data-background-video" => 'backgroundVideoUrl',"data-background-transitionspeed" => 'transitionSpeed',"data-background-transition" => 'backgroundTransition'];
     $slideSettings = '';
     foreach ($slideShowSlideParams as $key => $param) {
         if ($params[$param]) {
@@ -190,7 +190,7 @@ function wikiplugin_slideshowslide($data, $params)
             }
         }
     }
-    $slideSettings = str_replace(array("'y'","'n'"), array("'true'","'false'"), $slideSettings);
+    $slideSettings = str_replace(["'y'","'n'"], ["'true'","'false'"], $slideSettings);
     $transitionIn = (isset($params['transitionIn']) ? $params['transitionIn'] . "-in" : '');
     $transitionOut = (isset($params['transitionOut']) ? $params['transitionOut'] . "-out" : '');
     if ($transitionIn  || $transitionOut) {

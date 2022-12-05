@@ -21,7 +21,6 @@ use UsersLib;
  */
 class ManagerTest extends TestCase
 {
-
     const USER = 'membershiptest_a';
     protected static $items = [];
 

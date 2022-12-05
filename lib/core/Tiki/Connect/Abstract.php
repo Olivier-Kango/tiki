@@ -8,7 +8,6 @@
 
 abstract class Tiki_Connect_Abstract
 {
-
     // preferences that we should not collect
     // TODO these should be done as a property (or tag) per preference
 

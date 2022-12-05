@@ -8,10 +8,8 @@
 
 use Symfony\Component\Console\Input\ArgvInput;
 
-
 class Scheduler_Task_ConsoleCommandTask extends Scheduler_Task_CommandTask
 {
-
     public function execute($params = null)
     {
         if (empty($params['console_command'])) {
@@ -21,7 +19,7 @@ class Scheduler_Task_ConsoleCommandTask extends Scheduler_Task_CommandTask
 
         $this->logger->debug(sprintf(tra('Executing console command: %s'), $params['console_command']));
 
-	$consoleParams = 'console.php ' . $params['console_command'];
+        $consoleParams = 'console.php ' . $params['console_command'];
         $args = $this->parseConsoleParams($consoleParams);
 
         $commandName = $args[1];

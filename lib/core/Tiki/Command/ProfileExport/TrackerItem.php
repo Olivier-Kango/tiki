@@ -16,7 +16,6 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class TrackerItem extends ObjectWriter
 {
-
     protected function configure()
     {
         $this

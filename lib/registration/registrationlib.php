@@ -263,21 +263,20 @@ class RegistrationLib extends TikiLib
                         $errors[] = new RegistrationError('name', tra('Username cannot contain uppercase letters'));
                     }
                 }
-    
+
                 if (strlen($registration['name']) < $this->merged_prefs['min_username_length'] && $validateName) {
                     $errors[] = new RegistrationError(
                         'name',
                         tr("Username must be at least %0 characters long", $this->merged_prefs['min_username_length'])
                     );
                 }
-    
+
                 if (strlen($registration['name']) > $this->merged_prefs['max_username_length'] && $validateName) {
                     $errors[] = new RegistrationError(
                         'name',
                         tr("Username cannot contain more than %0 characters", $this->merged_prefs['max_username_length'])
                     );
                 }
-
             }
 
             $newPass = $registration['pass'] ? $registration['pass'] : $registration['genepass'];

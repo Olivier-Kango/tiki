@@ -14,7 +14,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class ExportLib extends TikiLib
 {
-
     public function MakeWikiZip()
     {
         global $tikidomain;

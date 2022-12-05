@@ -390,7 +390,8 @@ if ( \$('#$id') ) {
         return $data;
     }
 
-    public function wikiParse($data, $noparsed = []) {
+    public function wikiParse($data, $noparsed = [])
+    {
         global $prefs;
 
         if ($this->option['is_markdown'] && $prefs['markdown_enabled'] === 'y') {

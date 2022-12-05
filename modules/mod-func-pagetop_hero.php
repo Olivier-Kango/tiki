@@ -72,14 +72,14 @@ function module_pagetop_hero($mod_reference, $module_params)
     $breadcrumbs = [];
     if ($module_params["usepagename"] == 'y') {
         $title = $_REQUEST['page'];
-        $breadcrumbs []= tra("Home");
-        $breadcrumbs []= $title;
+        $breadcrumbs [] = tra("Home");
+        $breadcrumbs [] = $title;
     } else {
         $title = $module_params["title"];
         $breadcrumbs = isset($module_params["breadcrumbs"]) ? explode(",", $module_params["breadcrumbs"]) : [];
-        $breadcrumbs []= $title;
+        $breadcrumbs [] = $title;
     }
-    
+
     $smarty->assign('title', $title);
     $smarty->assign('description', isset($module_params["description"]) ? $module_params["description"] : '');
     $smarty->assign('content_position', isset($module_params["content_position"]) ? $module_params["content_position"] : 'center');

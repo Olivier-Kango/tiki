@@ -83,7 +83,7 @@ class APISource implements SourceInterface
             }
             $mapping_level = 0;
             $dependencies = [];
-            $max_level = count($this->mapping)-1;
+            $max_level = count($this->mapping) - 1;
             while ($result) {
                 $mapping_row = $this->mapping[$mapping_level];
                 $row = array_shift($result);
@@ -114,7 +114,7 @@ class APISource implements SourceInterface
                                 }
                                 foreach ($this->schema->getColumns() as $column) {
                                     if ($column->getLabel() == $local_field) {
-                                        $this->populateOne($column, $m[$num+1]);
+                                        $this->populateOne($column, $m[$num + 1]);
                                     }
                                 }
                             }
@@ -136,7 +136,7 @@ class APISource implements SourceInterface
                         }
                         $mapping_row = $this->mapping[$mapping_level];
                     }
-                } while(! $mapped_row);
+                } while (! $mapped_row);
                 if ($mapping_level == $max_level) {
                     $data = array_merge($common_item, $this->item);
                     foreach ($dependencies as $field => $dependency) {

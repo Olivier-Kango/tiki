@@ -14,7 +14,6 @@
  */
 class FilegalCopyLib extends FileGalLib
 {
-
     /**
      * Processes a list of files to be copied/moved to a directory in the filesystem
      *

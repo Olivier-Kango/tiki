@@ -17,7 +17,6 @@ use Tiki\Sitemap\Generator as SiteMapGenerator;
 
 class SitemapGenerateCommand extends Command
 {
-
     protected function configure()
     {
         $this

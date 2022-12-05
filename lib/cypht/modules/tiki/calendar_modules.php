@@ -34,7 +34,7 @@ class Hm_Handler_check_calendar_invitations_imap extends Hm_Handler_Module
             $this->out('calendar_event', $data);
         }
         $recipient = null;
-        $headers = $this->get('msg_headers', array());
+        $headers = $this->get('msg_headers', []);
         foreach ($headers as $name => $value) {
             if (strtolower($name) == 'to') {
                 $recipient = (string)$value;
@@ -52,7 +52,7 @@ class Hm_Handler_event_rsvp_action extends Hm_Handler_Module
 {
     public function process()
     {
-        list($success, $form) = $this->process_form(array('rsvp_action'));
+        list($success, $form) = $this->process_form(['rsvp_action']);
         if (! $success) {
             return;
         }
@@ -140,8 +140,8 @@ Invitees: " . implode(",\n", $event['attendees']);
             $file = null;
         }
 
-        $profiles = $this->get('compose_profiles', array());
-        $recip = get_primary_recipient($profiles, $this->get('msg_headers'), $this->get('smtp_servers', array()));
+        $profiles = $this->get('compose_profiles', []);
+        $recip = get_primary_recipient($profiles, $this->get('msg_headers'), $this->get('smtp_servers', []));
 
         $result = tiki_send_email_through_cypht($to, $cc, $subject, $body, $in_reply_to, $file, $profiles, $this, $recip);
 
@@ -200,7 +200,7 @@ class Hm_Handler_add_to_calendar extends Hm_Handler_Module
             return;
         }
 
-        list($success, $form) = $this->process_form(array('calendar_id'));
+        list($success, $form) = $this->process_form(['calendar_id']);
         if (! $success) {
             Hm_Msgs::add("ERRNo calendar selected");
             return;
@@ -263,7 +263,7 @@ class Hm_Handler_update_participant_status extends Hm_Handler_Module
 
         $event = $this->get('calendar_event');
         $from = null;
-        $headers = $this->get('msg_headers', array());
+        $headers = $this->get('msg_headers', []);
         foreach ($headers as $name => $value) {
             if (strtolower($name) == 'from') {
                 $from = (string)$value;
@@ -381,18 +381,18 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
             if ($prefs['feature_calendar'] == 'y' && $method == 'REPLY') {
                 $existing = TikiLib::lib('calendar')->find_by_uid(null, $event['uid']);
 
-                if($existing){
+                if ($existing) {
                     $participants = TikiLib::lib('calendar')->get_participant_by_event_uid($event['uid']);
                     $participant_status_updated = true;
 
-                    if (!empty($existing['participants'])) {
+                    if (! empty($existing['participants'])) {
                         foreach ($event['participants'] as $role) {
-                            $idx = array_search($role['username'] , array_column($participants, 'username'));
-                            if(!$idx){
-                                $idx = array_search($role['email'] , array_column($participants, 'username'));
+                            $idx = array_search($role['username'], array_column($participants, 'username'));
+                            if (! $idx) {
+                                $idx = array_search($role['email'], array_column($participants, 'username'));
                             }
-        
-                            if($idx && $role['partstat'] != $participants[$idx]['partstat']){
+
+                            if ($idx && $role['partstat'] != $participants[$idx]['partstat']) {
                                 $participant_status_updated = false;
                                 break;
                             }
@@ -402,7 +402,7 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                     $event_update_participant_class = 'event_update_participant_status';
                     $event_update_participant_text = 'Update participant status';
 
-                    if($participant_status_updated){
+                    if ($participant_status_updated) {
                         $event_update_participant_class = 'event_participant_status_updated';
                         $event_update_participant_text = 'Participant status updated';
                     }
@@ -411,7 +411,7 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                     $res .= sprintf(
                         '<tr>
                             <th colspan="2" class="header_links">
-                            <a href="#" class="'. $event_update_participant_class .'">%s</a>
+                            <a href="#" class="' . $event_update_participant_class . '">%s</a>
                             </th>
                         </tr>',
                         tr($event_update_participant_text)
@@ -463,7 +463,7 @@ if (! hm_exists('get_calendar_part_imap')) {
         if (! $part) {
             return;
         }
-        list($success, $form) = $mod->process_form(array('imap_server_id', 'imap_msg_uid', 'folder'));
+        list($success, $form) = $mod->process_form(['imap_server_id', 'imap_msg_uid', 'folder']);
         if ($success) {
             $cache = Hm_IMAP_List::get_cache($mod->cache, $form['imap_server_id']);
             $imap = Hm_IMAP_List::connect($form['imap_server_id'], $cache);
@@ -476,7 +476,7 @@ if (! hm_exists('get_calendar_part_imap')) {
                         } else {
                             $max = false;
                         }
-                        $struct = $imap->search_bodystructure($msg_struct, array('imap_part_number' => $part));
+                        $struct = $imap->search_bodystructure($msg_struct, ['imap_part_number' => $part]);
                         $msg_struct_current = array_shift($struct);
                         $event = $imap->get_message_content($form['imap_msg_uid'], $part, $max, $msg_struct_current);
                     }

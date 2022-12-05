@@ -16,15 +16,14 @@ interface Tracker_Field_EnumerableInterface extends Tracker_Field_Interface
      * @return ['value' => 'labelForValue']
      */
     public function getPossibleItemValues();
-    
+
     /**
      * Is the user currently allowed to select more than one value in a single field?  If so, the value could be a coma separated list of keys.
-     * 
+     *
      * This is necessary since there isn't a uniform config key for this that is
      * usable for all field types.
      *
      * @return boolean
      */
     public function canHaveMultipleValues();
-    
 }

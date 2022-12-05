@@ -104,8 +104,7 @@ class TikiDb_Initializer_Pdo
                 // Using 1 .pem file (CA) ie --ssl-mode=VERIFY_CA
                 $pdo_options[PDO::MYSQL_ATTR_SSL_CA] = $fileroot . $caCert;
                 $pdo_options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
-
-            } else if ($isSSL_verify_identity) {
+            } elseif ($isSSL_verify_identity) {
                 // Using 3 .pem files (CA, Client cert and Client Key) ie --ssl-mode=VERIFY_IDENTITY
                 $pdo_options[PDO::MYSQL_ATTR_SSL_KEY] = $fileroot . $clientKey;
                 $pdo_options[PDO::MYSQL_ATTR_SSL_CERT] = $fileroot . $clientCert;

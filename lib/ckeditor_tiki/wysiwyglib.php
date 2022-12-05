@@ -259,7 +259,7 @@ ajaxLoadingShow("' . $dom_id . '");
         $headerlib = TikiLib::lib('header');
 
         $options = [
-            'domId' =>  "$dom_id",
+            'domId' => "$dom_id",
             'height' => $prefs['markdown_wysiwyg_height'],
             'previewStyle' => $prefs['markdown_wysiwyg_preview_style'],
             'initialEditType' => $prefs['markdown_wysiwyg_intitial_edit_type'],

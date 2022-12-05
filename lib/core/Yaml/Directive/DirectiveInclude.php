@@ -65,7 +65,7 @@ class DirectiveInclude
 
     protected function parse($str)
     {
-        if ($str instanceOf TaggedValue) {
+        if ($str instanceof TaggedValue) {
             $str = $str->getValue();
         } else {
             $str = trim(substr($str, strlen('!include')));

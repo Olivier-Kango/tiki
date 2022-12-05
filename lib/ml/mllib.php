@@ -151,11 +151,11 @@ class MachineLearningLib extends TikiDb_Bridge
             foreach ($model['trackerFields'] as $fieldId) {
                 $field = $trklib->get_tracker_field($fieldId, false);
                 $value = $trklib->get_item_value($model['sourceTrackerId'], $item->getId(), $fieldId);
-            
+
                 if (empty($value) && $model['ignoreEmpty']) {
                     continue 2;
                 }
-                
+
                 if ($field['type'] === "n") {
                     $value = floatval($value);
                 }
@@ -233,7 +233,7 @@ class MachineLearningLib extends TikiDb_Bridge
         }
 
         $estimator = $this->getTrainedModel($model);
-    
+
         $result = $estimator->predict(Rubix\ML\Datasets\Unlabeled::build([$sample]));
 
         return $result[0] ?? "";

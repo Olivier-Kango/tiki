@@ -46,7 +46,8 @@ class Services_Manager_PatchController
         }
     }
 
-    public function action_apply($input) {
+    public function action_apply($input)
+    {
         $instanceId = $input->instanceId->int();
         if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
             $cmd = new TikiManager\Command\ApplyPatchCommand();

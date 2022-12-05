@@ -90,7 +90,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
         // extract the difference of the new data only and convert to manticore types
         $mapping = array_map(
-            array($this, 'convertToManticoreType'),
+            [$this, 'convertToManticoreType'],
             array_diff_key($data, $providedMappingsCorrectName)
         );
 
@@ -136,7 +136,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     {
         global $prefs;
 
-        $stopwords_file = sys_get_temp_dir().DIRECTORY_SEPARATOR.'manticore-stopwords-'.$this->index;
+        $stopwords_file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'manticore-stopwords-' . $this->index;
         file_put_contents($stopwords_file, implode("\n", $prefs['unified_stopwords']));
 
         $settings = [

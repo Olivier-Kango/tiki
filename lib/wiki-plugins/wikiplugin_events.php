@@ -179,7 +179,7 @@ function wikiplugin_events($data, $params)
     if ($timespan == 'future') {
         $events = $calendarlib->upcoming_events(
             $max,
-            array_intersect($calIds, $viewable) ? array_intersect($calIds, $viewable) : array(),
+            array_intersect($calIds, $viewable) ? array_intersect($calIds, $viewable) : [],
             $maxdays,
             'start_asc',
             1,
@@ -217,10 +217,10 @@ function wikiplugin_events($data, $params)
         $calParamIds = explode('|', $calendarid);
         if (array_diff($calParamIds, $calIds)) {
             $invalideid = true;
-            $calParamIds = array();
+            $calParamIds = [];
         }
     }
-    $events = $calendarlib->upcoming_events($max, array_intersect($calParamIds, $viewable) ? array_intersect($calParamIds, $viewable) : array(), $maxdays);
+    $events = $calendarlib->upcoming_events($max, array_intersect($calParamIds, $viewable) ? array_intersect($calParamIds, $viewable) : [], $maxdays);
 
     $smarty->assign_by_ref('datetime', $datetime);
     $smarty->assign_by_ref('desc', $desc);

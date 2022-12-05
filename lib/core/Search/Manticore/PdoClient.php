@@ -124,7 +124,7 @@ class Search_Manticore_PdoClient
         foreach ($data as $key => $val) {
             if (is_array($val)) {
                 $array_fields[] = $key;
-                $array_values[] = '('.implode(',', $val).')';
+                $array_values[] = '(' . implode(',', $val) . ')';
                 unset($data[$key]);
             }
         }
@@ -186,7 +186,7 @@ class Search_Manticore_PdoClient
             if (strstr($e->getMessage(), "server has gone away")) {
                 $this->connect();
                 if ($tries < self::QUERY_RETRIES) {
-                    $this->executeWithRetry($stmt, $params, $tries+1);
+                    $this->executeWithRetry($stmt, $params, $tries + 1);
                 }
             } else {
                 throw new Search_Manticore_Exception($e->getMessage());

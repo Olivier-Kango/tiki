@@ -8,7 +8,6 @@
 
 class IconsetLib
 {
-
     /**
      * @param $theme
      * @param $theme_option
@@ -80,7 +79,6 @@ class IconsetLib
 
 class Iconset
 {
-
     private $name;
     private $description;
     private $tag;

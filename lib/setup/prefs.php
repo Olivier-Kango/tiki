@@ -223,9 +223,9 @@ function get_default_prefs()
         ]
     );
 
-    if (! empty($prefs['tmpDir']) && $prefs['tmpDir'] == sys_get_temp_dir() && is_dir($tikipath.'temp')) {
+    if (! empty($prefs['tmpDir']) && $prefs['tmpDir'] == sys_get_temp_dir() && is_dir($tikipath . 'temp')) {
         // Use Tiki-based temp dir by default instead of system temp dir
-        $prefs['tmpDir'] = $tikipath.'temp';
+        $prefs['tmpDir'] = $tikipath . 'temp';
     }
 
     // Special default values

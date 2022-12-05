@@ -30,7 +30,6 @@ require_once('tikiimporter.php');
  */
 class TikiImporter_Blog extends TikiImporter
 {
-
     /**
      * Blog information extracted from the XML file (title, description, created etc)
      * @var array

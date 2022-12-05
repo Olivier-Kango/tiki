@@ -177,7 +177,8 @@ if (isset($_REQUEST['is_html'])) {
 $parserlib = TikiLib::lib('parser');
 $templateslib = TikiLib::lib('template');
 
-if (! empty($_REQUEST['templateId']) &&
+if (
+    ! empty($_REQUEST['templateId']) &&
     ! isset($_REQUEST['preview']) &&
     ! isset($_REQUEST['save_only']) &&
     ! isset($_REQUEST['send']) &&

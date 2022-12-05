@@ -130,7 +130,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
                             'y' => tr('Yes'),
                         ],
                     ],
-                    
+
                     'removeBadChars' => [
                         'name' => tr('Remove Bad Chars'),
                         'description' => tr('Remove bad characters from the Wiki Page name.'),

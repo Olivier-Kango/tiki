@@ -667,8 +667,8 @@ class TikiLib extends TikiDb_Bridge
                 if ($prefs['feature_banning_email'] === 'y') {
                     $info = TikiLib::lib('user')->get_user_info($user);
                     if (preg_match($pattern, $info['email'])) {
-                       return $res['message'];
-                   }
+                        return $res['message'];
+                    }
                 }
             } else {
                 // check ip
@@ -5551,7 +5551,7 @@ class TikiLib extends TikiDb_Bridge
         if ($prefs['user_plugin_approval_watch_editor'] === 'y') {
             # Do not self-notify, therefore, remove user's email from the list of recipients
             $useremail = TikiLib::lib('user')->get_user_email($user);
-            $recipients = array_diff($recipients, array($useremail));
+            $recipients = array_diff($recipients, [$useremail]);
         }
 
         return $recipients;
@@ -6230,7 +6230,7 @@ class TikiLib extends TikiDb_Bridge
         global $prefs;
         $tmp_dest = $prefs['tmpDir'] . "/" . $file_name . ".tmp";
         if (! is_writable(dirname($tmp_dest))) {
-            return ["ok" => false, "error" => tra('Temporary directory destination not writable: '.dirname($tmp_dest))];
+            return ["ok" => false, "error" => tra('Temporary directory destination not writable: ' . dirname($tmp_dest))];
         }
         if (! move_uploaded_file($file_tmp_name, $tmp_dest)) {
             return ["ok" => false, "error" => tra('Unable to move uploaded file to temporary destination.')];
@@ -6527,7 +6527,7 @@ class TikiLib extends TikiDb_Bridge
      */
     public static function take_away_accent($str)
     {
-        $transliteration = array(
+        $transliteration = [
             'Ĳ' => 'I', 'Ö' => 'O','Œ' => 'O','Ü' => 'U','ä' => 'a','æ' => 'a',
             'ĳ' => 'i','ö' => 'o','œ' => 'o','ü' => 'u','ß' => 's','ſ' => 's',
             'À' => 'A','Á' => 'A','Â' => 'A','Ã' => 'A','Ä' => 'A','Å' => 'A',
@@ -6621,7 +6621,7 @@ class TikiLib extends TikiDb_Bridge
             'უ' => 'u','ფ' => 'p','ქ' => 'k','ღ' => 'g','ყ' => 'q','შ' => 's',
             'ჩ' => 'c','ც' => 't','ძ' => 'd','წ' => 't','ჭ' => 'c','ხ' => 'k',
             'ჯ' => 'j','ჰ' => 'h'
-            );
+            ];
         $str = str_replace(array_keys($transliteration), array_values($transliteration), $str);
         return $str;
     }

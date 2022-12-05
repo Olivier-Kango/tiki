@@ -18,7 +18,6 @@ use TikiLib;
 
 class WikiLibTest extends TestCase
 {
-
     private $pageName = 'WikiLib Test Page';
 
     protected function setUp(): void

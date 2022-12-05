@@ -8,7 +8,6 @@
 
 class Services_Module_Controller
 {
-
     /**
      * @param JitFilter $input
      * @return array

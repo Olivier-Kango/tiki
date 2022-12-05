@@ -176,7 +176,7 @@ class Services_Language_Controller
                 && count($from) === count($to);
 
             if ($isValid) {
-                $data = array();
+                $data = [];
 
                 //prepare data
                 foreach ($from as $index => $source) {

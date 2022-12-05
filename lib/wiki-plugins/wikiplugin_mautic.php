@@ -80,13 +80,13 @@ function wikiplugin_mautic($data, $params)
         if (empty($form_id)) {
             return tra('Id form parameter is required');
         }
-        $form =  '<script type="text/javascript" src="' . $prefs['site_mautic_url'] . '/form/generate.js?id='.$form_id.'"></script>';
+        $form = '<script type="text/javascript" src="' . $prefs['site_mautic_url'] . '/form/generate.js?id=' . $form_id . '"></script>';
         $ret = <<<HTML
             $form
 HTML;
     }
 
-    if($params['type'] == 'inclusion') {
+    if ($params['type'] == 'inclusion') {
         $ret = <<<HTML
             <script>
                 (function(w,d,t,u,n,a,m){w['MauticTrackingObject']=n;
@@ -98,7 +98,7 @@ HTML;
 HTML;
     }
 
-    if($params['type'] == 'contacts') {
+    if ($params['type'] == 'contacts') {
         $smarty = TikiLib::lib('smarty');
         $userName = $prefs['site_mautic_username'];
         $password = $prefs['site_mautic_password'];
@@ -123,15 +123,15 @@ HTML;
         $allContacts = $contacts[$contactApi->listName()];
         $contacts = [];
 
-        foreach ($allContacts as $key=>$value) {
-            if ($value['fields']['all']['email'] !== NULL) {
+        foreach ($allContacts as $key => $value) {
+            if ($value['fields']['all']['email'] !== null) {
                 $contact = new stdClass();
                 $contact->id = $key;
                 $contact->email = $value['fields']['all']['email'];
-                $contact->fullname = $value['fields']['all']["firstname"] . " " .$value['fields']['all']["firstname"];
+                $contact->fullname = $value['fields']['all']["firstname"] . " " . $value['fields']['all']["firstname"];
                 $contact->company = $value['fields']['all']['company'];
                 $contact->points = $value['fields']['all']['points'];
-                $contacts []= $contact;
+                $contacts [] = $contact;
             }
         }
 

@@ -211,17 +211,17 @@ function wikiplugin_googledoc($data, $params)
         $editHtml = " <p><a href=$editSrcUrl target=\"$frameName\">Edit this Google Document</a></p>";
     }
     if ($type == "drive") {
-        if(!isset($url)){
+        if (! isset($url)) {
             return tra('Required parameter "url" is missing');
         }
         $srcUrl = "https://drive.google.com/file/d/";
-        $checkUrl=stristr($url,$srcUrl);
+        $checkUrl = stristr($url, $srcUrl);
         if (strlen($checkUrl) < 1) {
             return tra('You should provide a Google Drive link');
         }
-        $cleanUrl = explode($srcUrl,$url)[1];
-        $fileId = explode("/",$cleanUrl)[0];
-        $srcUrl = $srcUrl.$fileId."/preview";
+        $cleanUrl = explode($srcUrl, $url)[1];
+        $fileId = explode("/", $cleanUrl)[0];
+        $srcUrl = $srcUrl . $fileId . "/preview";
     }
 
     $ret = "";

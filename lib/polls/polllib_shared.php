@@ -19,7 +19,6 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 class PollLibShared extends TikiLib
 {
-
     /**
      * @param $pollId
      * @return bool

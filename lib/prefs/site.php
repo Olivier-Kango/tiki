@@ -186,7 +186,7 @@ function prefs_site_list()
             'size' => 30,
             'default' => '',
             'warning' => 'Must be kept private and not accessible on the internet directly',
-        ],        
+        ],
         'site_mautic_enable' => [
             'name' => tra('Mautic Integration'),
             'description' => tra('Enable the feature here but configure it elsewhere'),

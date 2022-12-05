@@ -8,7 +8,6 @@
 
 class MenuLib extends TikiLib
 {
-
     public function empty_menu_cache($menuId = 0)
     {
         $cachelib = TikiLib::lib('cache');

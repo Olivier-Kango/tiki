@@ -283,7 +283,7 @@ class Cachelib
                 } else {
                     try {
                         unlink($path . "/" . $file);
-                    } catch(Error $e) {
+                    } catch (Error $e) {
                         Feedback::error(tr('Cache file %0 is not writable (%1)', $path . "/" . $file, $e->getMessage()));
                     }
                 }
@@ -441,7 +441,7 @@ class Cachelib
             return $this->getSerialized($type, 'cachepurgerules');
         }
         if ($type != 'all') {
-            $rules = TikiLib::lib('tiki')->fetchAll("select * from tiki_object_relations where relation = 'tiki.cache.purge' and source_type = ?", array($type));
+            $rules = TikiLib::lib('tiki')->fetchAll("select * from tiki_object_relations where relation = 'tiki.cache.purge' and source_type = ?", [$type]);
         } else {
             $rules = TikiLib::lib('tiki')->fetchAll("select * from tiki_object_relations where relation = 'tiki.cache.purge'");
         }
@@ -451,12 +451,12 @@ class Cachelib
 
     public function get_purge_rules_for_cache($cacheType, $cacheKey)
     {
-        return TikiLib::lib('tiki')->fetchAll("select source_type as type, source_itemId as object from tiki_object_relations where relation = 'tiki.cache.purge' and target_type = ? and target_itemId = ?", array($cacheType, $cacheKey));
+        return TikiLib::lib('tiki')->fetchAll("select source_type as type, source_itemId as object from tiki_object_relations where relation = 'tiki.cache.purge' and target_type = ? and target_itemId = ?", [$cacheType, $cacheKey]);
     }
 
     public function clear_purge_rules_for_cache($cacheType, $cacheKey)
     {
-        return TikiLib::lib('tiki')->query("delete from tiki_object_relations where relation = 'tiki.cache.purge' and target_type = ? and target_itemId = ?", array($cacheType, $cacheKey));
+        return TikiLib::lib('tiki')->query("delete from tiki_object_relations where relation = 'tiki.cache.purge' and target_type = ? and target_itemId = ?", [$cacheType, $cacheKey]);
     }
 
     public function set_cache_purge_rule($type, $object, $cacheType, $cacheKey)

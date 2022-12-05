@@ -9,7 +9,6 @@
 
 class IDS_log extends \Expose\Log
 {
-
     protected $logger = null;
 
     protected $resource = null;

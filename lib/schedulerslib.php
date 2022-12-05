@@ -16,7 +16,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class SchedulersLib extends TikiLib
 {
-
     /**
      * Let a list of schedulers
      *

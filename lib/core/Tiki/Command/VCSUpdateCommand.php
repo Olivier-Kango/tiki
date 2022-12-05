@@ -242,7 +242,7 @@ class VCSUpdateCommand extends Command
     protected function gitUpdate(string $commitHash = '', string $conflict = 'abort', $commit = true)
     {
         $this->gitFetch();
-        
+
         if ($commitHash == 'HEAD') {
             $commitHash = $this->getGitFollowUpBranch();
         }

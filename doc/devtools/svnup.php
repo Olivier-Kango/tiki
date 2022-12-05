@@ -59,7 +59,6 @@ if ($error) {
 
 class SvnUpCommand extends Command
 {
-
     protected function configure()
     {
         $this

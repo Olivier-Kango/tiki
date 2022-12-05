@@ -6,7 +6,6 @@ use Tiki\MailIn\Action;
 
 class TrackerProvider implements ProviderInterface
 {
-
     public function isEnabled()
     {
         global $prefs;

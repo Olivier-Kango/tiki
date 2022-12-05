@@ -86,8 +86,10 @@ if (
     $userpaycredits->payAmount($_POST['tiki_credit_type'], $_POST['tiki_credit_amount'], $_POST['invoice']);
 }
 
-if (!empty($_REQUEST['callback']) && $_REQUEST['callback'] === 'ilp'
-    && !empty($prefs['payment_system']) && $prefs['payment_system'] == 'ilp') {
+if (
+    ! empty($_REQUEST['callback']) && $_REQUEST['callback'] === 'ilp'
+    && ! empty($prefs['payment_system']) && $prefs['payment_system'] == 'ilp'
+) {
     $headers = apache_request_headers();
     $invoiceInformation = json_decode(file_get_contents('php://input'), true);
     $ILPInvoicePayment = TikiLib::lib('ilpinvoicepayment');

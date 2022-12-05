@@ -98,7 +98,6 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
             // so we get javascript to reassemble the "...page..." syntax client-side
 
             return 'insertAt(\'' . $this->domElementId . '\', \'...\'+\'page\'+\'...\', true);';
-
         } else {
             return 'insertAt(\'' . $this->domElementId . '\', \'' .
                 addslashes(

@@ -314,12 +314,11 @@ class FreetagLib extends ObjectLib
         $ret = [];
         $permMap = TikiLib::lib('object')->map_object_type_to_permission();
         while ($row = $result->fetchRow()) {
-
             if ($row['type'] == "trackeritem" && $prefs['feature_sefurl'] == 'y') {
                 $href = explode("&", $row['href']);
                 $row['href'] = $href[0];
             }
-            
+
             $ok = false;
             if ($row['type'] == 'blog post') {
                 $bloglib = TikiLib::lib('blog');

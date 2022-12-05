@@ -55,7 +55,7 @@ class ConverseJS
                 'redirect_uri' => $accesslib->absoluteUrl('lib/xmpp/html/redirect.html')
             ]);
 
-        return array(
+        return [
             'client_id' => $client->getClientId(),
             'name' => $client->getName(),
             'authorize_url' => TikiLib::lib('service')->getUrl([
@@ -63,7 +63,7 @@ class ConverseJS
                 'controller' => 'oauthserver',
                 'response_type' => 'token'
             ])
-        );
+        ];
     }
 
     public function set_auth($params)
@@ -72,29 +72,29 @@ class ConverseJS
         $authMethod = TikiLib::lib('tiki')->get_preference('xmpp_auth_method');
 
         if (empty($user) && isset($params['anonymous']) && $params['anonymous'] === 'y') {
-            $this->set_options(array(
+            $this->set_options([
                 'authentication'   => 'anonymous',
                 'auto_login'       => true,
-            ));
+            ]);
         } elseif ($authMethod === 'tikitoken') {
-            $this->set_options(array(
+            $this->set_options([
                 'auto_login' => true,
                 'authentication'   => 'prebind',
                 'prebind_url'      => TikiLib::lib('service')->getUrl([
                     'action' => 'prebind',
                     'controller' => 'xmpp',
                 ]),
-            ));
+            ]);
         } elseif ($authMethod === 'oauth') {
-            $this->set_options(array(
+            $this->set_options([
                 'authentication'   => 'login',
                 'oauth_providers' => [
                     'tiki' => $this->get_oauth_parameters(),
-                ]));
+                ]]);
         } else {
-            $this->set_options(array(
+            $this->set_options([
                 'authentication' => 'login'
-            ));
+            ]);
         }
     }
 

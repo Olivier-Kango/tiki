@@ -11,7 +11,6 @@
  */
 class UserPrefsLib extends TikiLib
 {
-
     /**
      * @param $user
      * @param $type

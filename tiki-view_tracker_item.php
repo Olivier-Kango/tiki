@@ -12,10 +12,10 @@
 
 $section = 'trackers';
 
-if (isset($_REQUEST["trackerId"]) && !is_numeric($_REQUEST["trackerId"])) {
+if (isset($_REQUEST["trackerId"]) && ! is_numeric($_REQUEST["trackerId"])) {
     $params = explode("-", $_REQUEST['trackerId']);
     $_REQUEST["trackerId"] = $_GET['trackerId'] = $params[0];
-} 
+}
 
 require_once('tiki-setup.php');
 
@@ -175,8 +175,8 @@ if (! isset($utid) and ! isset($gtid) and (! isset($itemId) or ! $itemId) and ! 
 
 if (isset($itemId)) {
     $item_info = $trklib->get_tracker_item($itemId);
-    
-    if (!$item_info) {
+
+    if (! $item_info) {
         $smarty->assign('errortype', 404);
         $smarty->assign('msg', tra('Item not found'));
         $smarty->display('error.tpl');
@@ -195,7 +195,7 @@ if (isset($itemId)) {
 
 $definition = Tracker_Definition::get($trackerId);
 
-if (!$definition) {
+if (! $definition) {
     $smarty->assign('errortype', 404);
     $smarty->assign('msg', tra("Tracker not found"));
     $smarty->display("error.tpl");

@@ -8,7 +8,6 @@
 
 class NotificationEmailLibTest extends TikiTestCase
 {
-
     public function testSendCommentNotification(): void
     {
         $tiki = TikiLib::lib('tiki');

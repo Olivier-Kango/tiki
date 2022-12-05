@@ -18,7 +18,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) != false) {
  */
 class Captcha
 {
-
     /**
      * The type of the captch ('default' when using Laminas\Captcha\Image
      * or 'recaptcha' when using Laminas\Captcha\ReCaptcha)

@@ -9,7 +9,6 @@ use org\bovigo\vfs\vfsStreamWrapper;
 
 class FileHelperTest extends TestCase
 {
-
     public static function setUpBeforeClass(): void
     {
         vfsStreamWrapper::register();

@@ -13,7 +13,6 @@ require_once(__DIR__ . '/../../smarty_tiki/function.toolbars.php');
  */
 class FunctionToolbarsTest extends TikiTestCase
 {
-
     private Smarty_Tiki $smarty;
 
     protected function setUp(): void
@@ -93,7 +92,5 @@ class FunctionToolbarsTest extends TikiTestCase
 
         // this also now fails when the test is run on its own, seems to work when the whole suite is run though
         $this->assertEquals($expectedJsArray, $finalJs);
-
     }
-
 }

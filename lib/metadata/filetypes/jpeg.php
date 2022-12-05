@@ -21,7 +21,6 @@ require_once('lib/metadata/filetypes/imagefile.php');
  */
 class Jpeg extends ImageFile
 {
-
     /**
      * @param   object      $metaObj        Object from the FileMetadata class which calls this function
      *

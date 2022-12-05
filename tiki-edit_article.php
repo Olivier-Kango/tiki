@@ -802,7 +802,6 @@ if ($prefs['feature_multilingual'] == 'y') {
     // get article
     $articles = $artlib->list_articles($_REQUEST['articleId']);
     $smarty->assign('articles', $articles['data']);
-    
 }
 
 if ($prefs['geo_locate_article'] == 'y') {

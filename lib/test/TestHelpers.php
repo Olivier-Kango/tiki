@@ -9,7 +9,6 @@
 
 class TestHelpers
 {
-
     private $orig_user;
 
     /*

@@ -145,14 +145,14 @@ function prefs_theme_list($partial = false)
             'tags' => ['experimental'],
             'view' => TikiLib::lib('service')->getUrl(['controller' => 'styleguide', 'action' => 'show']),
         ],
-		'theme_iconeditable' => [
-			'name' => tra('Editable Icons'),
-			'description' => tra('Edit icons with the icon picker'),
-			'type' => 'list',
-			'options' => ['n'=>tra("No"),'y'=>tra("Yes")],
-			'default' => 'n',
-			'help' => 'Icon-Picker',
-			'tags' => ['basic'],
-		],
+        'theme_iconeditable' => [
+            'name' => tra('Editable Icons'),
+            'description' => tra('Edit icons with the icon picker'),
+            'type' => 'list',
+            'options' => ['n' => tra("No"),'y' => tra("Yes")],
+            'default' => 'n',
+            'help' => 'Icon-Picker',
+            'tags' => ['basic'],
+        ],
     ];
 }

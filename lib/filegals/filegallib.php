@@ -1796,7 +1796,8 @@ class FileGalLib extends TikiLib
      * This is useful if user doesn't have permissions to download files in the corresponding file
      * gallery but still can view the file through the tracker item.
      */
-    public function isBacklinkedFromAViewableTrackerItem($fileId) {
+    public function isBacklinkedFromAViewableTrackerItem($fileId)
+    {
         $objects = $this->getFileBacklinks($fileId);
         foreach ($objects as $object) {
             if ($object['type'] == 'trackeritem') {

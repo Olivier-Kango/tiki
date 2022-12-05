@@ -193,8 +193,8 @@ add_output('ajax_hm_folders', 'info_page_link', true, 'developer', 'settings_men
 /* sieve filters */
 add_output('sieve_filters', 'tiki_filters_cron', true, 'tiki', 'sievefilters_settings_start', 'after');
 
-return array(
-  'allowed_pages' => array(
+return [
+  'allowed_pages' => [
     'groupmail',
     'ajax_tiki_groupmail',
     'ajax_take_groupmail',
@@ -213,12 +213,12 @@ return array(
     'ajax_tiki_get_trackers',
     'ajax_tiki_tracker_info',
     'info',
-  ),
-  'allowed_get' => array(
+  ],
+  'allowed_get' => [
     'tiki_download_message' => FILTER_VALIDATE_BOOLEAN,
     'tiki_show_message'  => FILTER_VALIDATE_BOOLEAN,
-  ),
-  'allowed_output' => array(
+  ],
+  'allowed_output' => [
     'operator' => array(FILTER_SANITIZE_STRING, false),
     'item_removed' => array(FILTER_VALIDATE_BOOLEAN, false),
     'tiki_redirect_url' => array(FILTER_SANITIZE_STRING, false),
@@ -232,8 +232,8 @@ return array(
     'flag_state' => array(FILTER_SANITIZE_STRING, false),
     'trackers' => array(FILTER_DEFAULT, false),
     'tracker_data' => array(FILTER_DEFAULT, false),
-  ),
-  'allowed_post' => array(
+  ],
+  'allowed_post' => [
     'imap_server_id' => FILTER_VALIDATE_INT,
     'imap_msg_uid' => FILTER_SANITIZE_STRING,
     'imap_msg_ids' => FILTER_SANITIZE_STRING,
@@ -267,5 +267,5 @@ return array(
     'imap_move_action' => FILTER_SANITIZE_STRING,
     'action_type' => FILTER_SANITIZE_STRING,
     'tiki_archive_replied' => FILTER_VALIDATE_INT,
-  )
-);
+  ]
+];

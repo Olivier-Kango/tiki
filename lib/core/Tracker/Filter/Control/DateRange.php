@@ -32,12 +32,12 @@ class DateRange implements Control
                 return;
             }
             if ($this->from) {
-                $dt = new \DateTime('@'.$this->from);
+                $dt = new \DateTime('@' . $this->from);
                 $dt->setTimeZone($dtz);
                 $this->from += $dt->getOffset();
             }
             if ($this->to) {
-                $dt = new \DateTime('@'.$this->to);
+                $dt = new \DateTime('@' . $this->to);
                 $dt->setTimeZone($dtz);
                 $this->to += $dt->getOffset();
             }

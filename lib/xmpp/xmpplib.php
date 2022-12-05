@@ -66,14 +66,14 @@ class XMPPLib extends TikiLib
             $login['jid'] = sprintf('%s@%s', $user, $prefs['xmpp_server_host']);
         }
 
-        $info = array(
+        $info = [
             'domain'    => $this->server_host,
             'http_bind' => $this->server_http_bind,
             'jid'       => JID::buildJid($login['jid'], $prefs['xmpp_server_host']),
             'password'  => $login['password'] ?: '',
             'username'  => $login['jid'],
             'nickname'  => $login['nickname'] ?: $user,
-        );
+        ];
 
         $jid_parts = JID::parseJid($login['jid']);
         if ($jid_parts) {
@@ -124,7 +124,7 @@ class XMPPLib extends TikiLib
             return;
         }
 
-        $params = array();
+        $params = [];
         for ($i = 0; $i < count($match[1]); $i += 1) {
             $key = $match[ 1 ][ $i ];
             $val = $match[ 2 ][ $i ] ?: $match[ 3 ][ $i ];
@@ -364,13 +364,13 @@ class XMPPLib extends TikiLib
         global $prefs;
 
         if (empty($this->xmppapi)) {
-            $params = array(
+            $params = [
                 "scheme" => "tcp",
                 "host" => $this->server_host,
                 "port" => 5222,
                 "user" => $prefs['xmpp_openfire_rest_api_username'],
                 "pass" => $prefs['xmpp_openfire_rest_api_password'],
-            );
+            ];
 
             $this->xmppapi = new TikiXmppChat($params);
             $this->xmppapi->connect();
@@ -399,21 +399,21 @@ class XMPPLib extends TikiLib
         return $result;
     }
 
-    public function addUsersToRoom($params = array(), $defaultRoom = '', $defaultRole = 'members')
+    public function addUsersToRoom($params = [], $defaultRoom = '', $defaultRole = 'members')
     {
         $params = array_map(function ($item) use ($defaultRoom, $defaultRole) {
             $status = is_array($item);
-            $item = $status ? $item : array();
+            $item = $status ? $item : [];
 
             $status = $status && ! empty($item['name']);
             $status = ! (empty($item['room']) && empty($defaultRoom));
 
-            return array_merge(array(
+            return array_merge([
                 'role' => $defaultRole,
                 'room' => $defaultRoom,
                 'name' => '',
                 'status' => $status
-            ), $item);
+            ], $item);
         }, $params);
 
         $self = $this;
@@ -433,21 +433,21 @@ class XMPPLib extends TikiLib
         return $restapi->addGroupRoleToChatRoom($room, $name, $role);
     }
 
-    public function add_groups_to_room($params = array(), $defaultRoom = '', $defaultRole = 'members')
+    public function add_groups_to_room($params = [], $defaultRoom = '', $defaultRole = 'members')
     {
         $params = array_map(function ($item) use ($defaultRoom, $defaultRole) {
             $status = is_array($item);
-            $item = $status ? $item : array();
+            $item = $status ? $item : [];
 
             $status = $status && ! empty($item['name']);
             $status = ! (empty($item['room']) && empty($defaultRoom));
 
-            return array_merge(array(
+            return array_merge([
                 'role' => $defaultRole,
                 'room' => $defaultRoom,
                 'name' => '',
                 'status' => $status
-            ), $item);
+            ], $item);
         }, $params);
 
         $self = $this;
@@ -475,10 +475,10 @@ class XMPPLib extends TikiLib
         // users  has attr `username` and `name`
         // let's make a common `name` and `fullname`
         return array_map(function ($item) {
-            return array(
+            return [
                 'name' => $item->name,
                 'fullname' => $item->description
-            );
+            ];
         }, $items);
     }
 
@@ -501,11 +501,11 @@ class XMPPLib extends TikiLib
 
         $items = $this->query($query);
         $items = array_map(function ($item) {
-            return array(
+            return [
                 'name' => $item['username'],
                 'fullname' => $item['name'],
                 'jid' => $item['jid'] ?: "{$item['username']}@{$this->server_host}"
-            );
+            ];
         }, $items->result);
 
         $cachelib->cacheItem($cache_key, serialize($items));

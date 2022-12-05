@@ -12,7 +12,6 @@ use Composer\Script\Event;
 
 class RestoreVendors
 {
-
     public static function restore(Event $event)
     {
         $composer = $event->getComposer();

@@ -23,7 +23,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Table_Code_Bind extends Table_Code_Manager
 {
-
     public function setCode()
     {
         //make pager controls at bottom of table visible when number of rows is greater than 15

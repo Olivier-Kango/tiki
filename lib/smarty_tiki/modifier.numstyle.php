@@ -77,7 +77,6 @@ function smarty_modifier_numStyle($num, $type)
  */
 class StyleType
 {
-
     /**
      * Takes a positive integer and returns the equivalent alpha value.
      *

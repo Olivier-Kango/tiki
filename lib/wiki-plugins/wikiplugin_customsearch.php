@@ -627,7 +627,7 @@ $(document).trigger('formSearchReady');
             $adddata = [];
             $inputs = $doc->getElementsByTagName('*');
 
-            for ($i = $inputs->length; --$i >= 0; ) {
+            for ($i = $inputs->length; --$i >= 0;) {
                 $item = $inputs->item($i);
                 $value = $item->getAttribute('value');
 
@@ -641,7 +641,7 @@ $(document).trigger('formSearchReady');
                             $rangeValue = $adddata[$name]['value'] ?? '';
                             if ($parts[1] === 'to' && $rangeValue) {
                                 $value .= ',' . $rangeValue;
-                            } else if ($parts[1] === 'from') {
+                            } elseif ($parts[1] === 'from') {
                                 $value = $rangeValue . ',' . $value;
                             }
                         }
@@ -780,7 +780,7 @@ function cs_design_input($id, $fieldname, $fieldid, $arguments, $default, &$scri
     if ($default && $type != "hidden") {
         if ((string) $default != 'n' && $type == 'checkbox') {
             $element->setAttribute('checked', 'checked');
-        } else if ($type == 'radio' && (string) $default === $arguments->_value->text()) {
+        } elseif ($type == 'radio' && (string) $default === $arguments->_value->text()) {
             $element->setAttribute('checked', 'checked');
         } else {
             $element->setAttribute('value', $default);

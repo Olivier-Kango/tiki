@@ -9,7 +9,7 @@
 function prefs_payment_list()
 {
     global $prefs;
-    $availablePaymentSystems =  [
+    $availablePaymentSystems = [
         'paypal' => tra('PayPal'),
         'israelpost' => tra('Israel Post Payment Module'),
         'cclite' => tra('Cclite'),

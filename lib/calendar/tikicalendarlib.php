@@ -13,7 +13,6 @@ $calendarlib = TikiLib::lib('calendar');
  */
 class TikiCalendarLib extends CalendarLib
 {
-
     /**
      * @param $tikiobj
      * @param $user

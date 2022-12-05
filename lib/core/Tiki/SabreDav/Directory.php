@@ -13,7 +13,6 @@ use TikiLib;
 
 class Directory extends DAV\Collection
 {
-
     private $definition;
 
     public function __construct($path_or_id = '/')
@@ -32,7 +31,7 @@ class Directory extends DAV\Collection
     {
         global $prefs;
 
-        $children = array();
+        $children = [];
         $info = $this->definition->getInfo();
         if ($info['galleryId'] == $prefs['fgal_root_id']) {
             $children[] = new WikiDirectory();

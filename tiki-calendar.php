@@ -212,7 +212,7 @@ if (! empty($_REQUEST['generate_availability'])) {
     if ($weekday > 0) {
         $week_start -= $weekday * 86400;
     }
-    $week_end = $week_start + 7*86400 - 1;
+    $week_end = $week_start + 7 * 86400 - 1;
     $week_events = $calendarlib->list_raw_items($_SESSION['CalendarViewGroups'], $user, $week_start, $week_end, 0, -1);
     foreach ($week_events as $week_event) {
         $dow = TikiLib::date_format("%w", $week_event['start']);

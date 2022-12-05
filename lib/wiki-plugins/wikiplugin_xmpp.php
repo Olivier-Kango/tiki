@@ -204,14 +204,14 @@ function wikiplugin_xmpp($data, $params)
     $openfire_api_enabled = $openfire_api_enabled && $tiki_p_admin === 'y';
 
     if ($openfire_api_enabled) {
-        $url = $servicelib->getUrl(array('controller' => 'xmpp', 'action' => 'groups_in_room'));
+        $url = $servicelib->getUrl(['controller' => 'xmpp', 'action' => 'groups_in_room']);
         $item = '<a class="dropdown-item btn btn-link"'
             . ' data-xmpp="' . $params['room'] . '"'
             . ' data-xmpp-action="' . $url . '"'
             . '>' . tra('Add a group to room') . '</a>';
         $smarty->append('tiki_page_bar_more_items', $item);
 
-        $url = $servicelib->getUrl(array('controller' => 'xmpp', 'action' => 'users_in_room'));
+        $url = $servicelib->getUrl(['controller' => 'xmpp', 'action' => 'users_in_room']);
         $item = '<a class="dropdown-item btn btn-link"'
             . ' data-xmpp="' . $params['room'] . '"'
             . ' data-xmpp-action="' . $url . '"'

@@ -573,9 +573,9 @@ class TrackerDatesTimezoneTest extends TikiTestCase
 
         foreach (['test_date_legacy', 'test_datetime_legacy', 'test_date', 'test_datetime'] as $field) {
             if (is_array($index[$field])) {
-                $this->assertContains($resultArray[0]['tracker_field_'.$field], $index[$field], "Field: $field");
+                $this->assertContains($resultArray[0]['tracker_field_' . $field], $index[$field], "Field: $field");
             } else {
-                $this->assertEquals($index[$field], $resultArray[0]['tracker_field_'.$field], "Field: $field");
+                $this->assertEquals($index[$field], $resultArray[0]['tracker_field_' . $field], "Field: $field");
             }
         }
     }

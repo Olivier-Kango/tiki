@@ -282,7 +282,7 @@ function wikiplugin_fluidgrid($data, $params, $pos)
 
         //PERCENT MODE
         if ($percent) {
-            
+
 
             /*******************
              * (6) Colsize is present
@@ -332,10 +332,10 @@ function wikiplugin_fluidgrid($data, $params, $pos)
                     // Use the values as specified.
                     // Share the remaining space out among the unsized columns
                     $remaining = 100 - $tdtotalPercent ;
-    
+
                     for ($i = 0; $i < $maxcols; $i++) {
                         if ($s_array[$i] == 0) {
-                            $w_array[$i] = ceil(round(($remaining / $tdnosize * 12) / 100) ) ;
+                            $w_array[$i] = ceil(round(($remaining / $tdnosize * 12) / 100)) ;
                             $remaining   -= ceil($remaining / $tdnosize) ;
                             $tdnosize-- ;
                         } else {
@@ -350,10 +350,7 @@ function wikiplugin_fluidgrid($data, $params, $pos)
             //******************** */
             //******************** */
             //******************** */
-
-
         } else {
-
             // There are two parts to this algorithm:
             // [1] Gathering information
             // [2] Setting the final column sizes
@@ -388,7 +385,7 @@ function wikiplugin_fluidgrid($data, $params, $pos)
                 // Use the values as specified.
                 // Share the remaining space out among the unsized columns
                 $remaining = 12 - $tdtotal ;
-    
+
                 for ($i = 0; $i < $maxcols; $i++) {
                     if ($s_array[$i] == 0) {
                         $w_array[$i] = ceil($remaining / $tdnosize) ;
@@ -404,26 +401,26 @@ function wikiplugin_fluidgrid($data, $params, $pos)
                 for ($i = 0; $i < $maxcols; $i++) {
                     $w_array[$i] = 1 ;
                 }
-  
+
                 // Now share out the rest
                 $i = 0 ;
                 $j = $maxcols ;
                 $h = 0 ;
                 $pcfill = true ;
-  
+
                 while ($j < 12) {
                 // Increment the width if it is underweight
                     if (( $w_array[$i] / 12 ) < ( $s_array[$i] / $tdtotal )) {
                         $w_array[$i]++ ;
                         $j++ ;
                     }
-  
+
                     // Increment column number and wraparound
                     $i++ ;
                     if ($i >= $maxcols) {
                         // Wraparound
                         $i = 0 ;
-    
+
                                 // $j must increase in each pass through the columns.
                         if ($h < $j) {
                             // Store the current position
@@ -444,8 +441,8 @@ function wikiplugin_fluidgrid($data, $params, $pos)
                             break ;
                         }
                     }
-              }
-          }
+                }
+            }
         }
     } else {
       // colsize is not specified

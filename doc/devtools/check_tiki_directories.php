@@ -39,7 +39,7 @@ foreach (new RecursiveIteratorIterator($it) as $file) {
     $filePath = $file->getRealpath();
     $fileName = $file->getFilename();
 
-    if ($fileName == '..' || !$file->isDir()) {
+    if ($fileName == '..' || ! $file->isDir()) {
         continue;
     }
 
@@ -72,7 +72,6 @@ foreach (new RecursiveIteratorIterator($it) as $file) {
 
             file_put_contents($filePath . '/index.php', $indexContent);
             $missingIndexMessageFixed .= color($filePath, 'blue') . PHP_EOL;
-
         }
 
         if (! folderHasHtaccess($filePath)) {
@@ -139,7 +138,7 @@ function folderHasHtaccess($dir): bool
     $hasHtaccess = file_exists($dir . '/.htaccess');
 
     // We want to ensure that first level folders have .htaccess
-    if (!$hasHtaccess && dirname($dir) !== $tikiRootFolder && $dir != $tikiRootFolder) {
+    if (! $hasHtaccess && dirname($dir) !== $tikiRootFolder && $dir != $tikiRootFolder) {
         return folderHasHtaccess(dirname($dir));
     }
 

@@ -301,14 +301,14 @@ if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["na
             $rolesRepo->insertOrUpdateSelectedCategoryRole($categId, $categRoleId, $groupRoleId, $groupId);
         }
     }
-    if ($_REQUEST['applyRoles'] == "on" && !empty($_REQUEST['rolesToApply'])) {
+    if ($_REQUEST['applyRoles'] == "on" && ! empty($_REQUEST['rolesToApply'])) {
         $rolesRepo->applyRoles($_REQUEST["categId"], $_REQUEST['rolesToApply']);
     } else {
         $rolesRepo->applyRoles($_REQUEST["categId"], []);
     }
     $rolesRepo->deleteRolesWithoutParent($_REQUEST["categId"]);
 
-    if (isset($_REQUEST["tplGroupContainer"]) && ! empty($_REQUEST["tplGroupContainer"]) && !empty($_REQUEST["categId"])) {
+    if (isset($_REQUEST["tplGroupContainer"]) && ! empty($_REQUEST["tplGroupContainer"]) && ! empty($_REQUEST["categId"])) {
         $categlib->manage_sub_categories($_REQUEST["categId"]);
     }
     $cookietab = 1;
@@ -507,7 +507,6 @@ foreach ($categories as $category) {
             );
             $desc .= '<span class="object-count badge badge-pill badge-info">' . $objectcount['cant'] . '</span>';
         } elseif ($prefs['feature_search'] === 'y') {   // fall back to unified search if not category_browse_count_objects
-
             $desc .= '<a class="object-count badge badge-pill badge-info" data-categid="' . $category['categId'] . '">' .
                 $fetchCountIcon . '</a>';
 
@@ -534,7 +533,8 @@ foreach ($categories as $category) {
                             });
                         });
                 });
-            ');
+            '
+            );
         }
 
         $treeNodes[] = [

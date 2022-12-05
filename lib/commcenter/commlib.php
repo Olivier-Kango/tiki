@@ -14,7 +14,6 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 
 class CommLib extends TikiLib
 {
-
     public function accept_page($receivedPageId)
     {
         $info = $this->get_received_page($receivedPageId);

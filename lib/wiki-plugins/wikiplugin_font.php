@@ -88,9 +88,9 @@ function wikiplugin_font($data, $params)
         $size .= "px";
     }
 
-	$style  = '';
-	$style .= ($family and in_array($family, $all_fonts)) ? "font-family: $family; " : '';
-	$style .= (isset($params['size']) ? "font-size: $size;" : '');
+    $style  = '';
+    $style .= ($family and in_array($family, $all_fonts)) ? "font-family: $family; " : '';
+    $style .= (isset($params['size']) ? "font-size: $size;" : '');
 
     if ($style) {
         return "<$tag style=\"$style\">$data</$tag>";

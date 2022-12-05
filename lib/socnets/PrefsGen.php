@@ -22,7 +22,6 @@ use Feedback;
 */
 class PrefsGen
 {
-
     public static $providersPath = 'vendor_bundled/vendor/hybridauth/hybridauth/src/Provider/*.php';
 
     //We are using socPreffix etc. with an easier testing and incorporating changes in mind

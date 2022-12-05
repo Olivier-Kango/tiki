@@ -268,7 +268,7 @@ class UsersLib extends TikiLib
         $userInfo = $this->get_user_info($user);
         if ($prefs['login_multiple_forbidden'] === 'y') {
             $this->delete_user_cookie($userInfo['userId']);
-        } else if (! empty($_COOKIE[$user_cookie_site])) {
+        } elseif (! empty($_COOKIE[$user_cookie_site])) {
             $secret = explode('.', $_COOKIE[$user_cookie_site]);
             $this->delete_user_cookie($userInfo['userId'], $secret[0]);
         }
@@ -2341,7 +2341,7 @@ class UsersLib extends TikiLib
                     if (DisposableEmail::isDisposable($res['email'])) {
                         $res['disposable_email'] = true;
                     }
-                } catch (InvalidDomainListException|InvalidEmailException $e) {
+                } catch (InvalidDomainListException | InvalidEmailException $e) {
                     Feedback::error($e->getMessage());
                 }
             }
@@ -8830,14 +8830,14 @@ class UsersLib extends TikiLib
 
         $query = 'update `users_users` set `waiting`= ? where  `userId`= ?';
         $this->query($query, [ $user_lock_update, $userId ]);
-        
+
         $cachelib->invalidate('userslist');
-        
+
         // Notify user
         Scheduler_Manager::queueJob('Notify lock status to user', 'UserLockMailerCommandTask', ['user_login' => $user, 'lock_status' => $lock_status]);
 
         TikiLib::events()->trigger('tiki.user.update', ['type' => 'user', 'object' => $user]);
-                
+
         return true;
     }
 
@@ -8851,18 +8851,18 @@ class UsersLib extends TikiLib
 
         include_once('lib/webmail/tikimaillib.php');
         $languageEmail = $this->get_user_preference($user, 'language', $prefs['site_language']);
-        
+
         $smarty->assign('lock_status', $lock_status);
         $smarty->assign('user_name', $user);
-        $smarty->assign('mail_site',  $this_site);
+        $smarty->assign('mail_site', $this_site);
 
         $mail = new TikiMail();
-        $mail_data = $smarty->fetchLang($languageEmail, "mail/". $tpl ."_subject.tpl");
+        $mail_data = $smarty->fetchLang($languageEmail, "mail/" . $tpl . "_subject.tpl");
         $mail_data = sprintf($mail_data, $this_site);
         $mail->setSubject($mail_data);
         $mail_data = $smarty->fetchLang($languageEmail, "mail/" . $tpl . ".tpl");
         $mail->setText($mail_data);
-        
+
         $email = $this->get_user_email($user);
         $mail->send([$email]);
     }
@@ -8873,14 +8873,13 @@ class UsersLib extends TikiLib
         $now = time();
 
         if ($prefs['users_admin_auto_lock_user'] === 'y') {
-
             $before_account_get_locked = $prefs['users_admin_auto_lock_user_days_before_lock'];
             $days_ago_before_lock = $now - ($before_account_get_locked * 24 * 60 * 60);
             // Exclude already locked accounts
             $query = "select `login` from `users_users` where `waiting` <> ? and `lastLogin` < ?";
             $results = $this->query($query, ['l', $days_ago_before_lock]);
             $users = $results->result;
-            
+
             foreach ($users as $user) {
                 $this->update_user_lock_status($user['login'], 'lock');
             }

@@ -29,11 +29,11 @@ class Hm_Handler_load_tiki_contacts extends Hm_Handler_Module
         $contacts = $this->get('contact_store');
         $tiki_contacts = $contactlib->list_contacts($user);
         foreach ($tiki_contacts as $contact) {
-            $contacts->add_contact(array(
+            $contacts->add_contact([
                 'source' => 'tiki',
                 'email_address' => $contact['email'],
                 'display_name' => $contact['firstName'] . ($contact['lastName'] ? ' ' . $contact['lastName'] : '')
-            ));
+            ]);
         }
         $this->append('contact_sources', 'tiki');
         $this->out('contact_store', $contacts, false);
@@ -170,7 +170,7 @@ class Hm_Output_debug_mode_setting extends Hm_Output_Module
     protected function output()
     {
         $debug_mode = false;
-        $settings = $this->get('user_settings', array());
+        $settings = $this->get('user_settings', []);
         if (array_key_exists('debug_mode', $settings)) {
             $debug_mode = $settings['debug_mode'];
         }
@@ -204,8 +204,8 @@ class Hm_Output_allow_external_images_setting extends Hm_Output_Module
     protected function output()
     {
         $allow_external_images = false;
-        $settings = $this->get('user_settings', array());
-        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="'.Hm_Image_Sources::$refresh.'" /></span>';
+        $settings = $this->get('user_settings', []);
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="' . Hm_Image_Sources::$refresh . '" /></span>';
         if (array_key_exists('allow_external_images', $settings)) {
             $allow_external_images = $settings['allow_external_images'];
         }
@@ -268,9 +268,9 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
         $outlook_auth_uri = "https://login.live.com/oauth20_authorize.srf";
         $outlook_token_uri = "https://login.live.com/oauth20_token.srf";
         $outlook_refresh_uri = "https://login.live.com/oauth20_token.srf";
-        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="'.Hm_Image_Sources::$refresh.'" /></span>';
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="' . Hm_Image_Sources::$refresh . '" /></span>';
 
-        $settings = $this->get('user_settings', array());
+        $settings = $this->get('user_settings', []);
         if (array_key_exists('tiki_enable_oauth2_over_imap', $settings)) {
             $enable_oauth2_over_imap = $settings['tiki_enable_oauth2_over_imap'];
         }
@@ -323,7 +323,7 @@ class Hm_Output_clear_cache_link extends Hm_Output_Module
 {
     protected function output()
     {
-        $res = '<a href="#" class="clear_cache">'.$this->trans('[clear cache]').'</a>';
+        $res = '<a href="#" class="clear_cache">' . $this->trans('[clear cache]') . '</a>';
         if ($this->format == 'HTML5') {
             return $res;
         }
@@ -396,8 +396,8 @@ class Hm_Output_enable_gmail_contacts_module_setting extends Hm_Output_Module
     protected function output()
     {
         $enable_gmail_contacts_module = false;
-        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="'.Hm_Image_Sources::$refresh.'" /></span>';
-        $settings = $this->get('user_settings', array());
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="' . Hm_Image_Sources::$refresh . '" /></span>';
+        $settings = $this->get('user_settings', []);
         if (array_key_exists('tiki_enable_gmail_contacts_module', $settings)) {
             $enable_gmail_contacts_module = $settings['tiki_enable_gmail_contacts_module'];
         }

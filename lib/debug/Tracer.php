@@ -32,7 +32,6 @@
   //
 class Tracer
 {
-
     public $traces_are_on = false;
     public $trace_file_path = null;
     public $tiki_trace_active_ids = [];

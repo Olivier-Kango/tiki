@@ -259,7 +259,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
                 if (! empty($extra['allow_multiple'])) {
                     return [$amount, $currency];
                 } else {
-                    return $amount.$currency;
+                    return $amount . $currency;
                 }
             })
             ->setParseIntoTransform(function (&$info, $value) use ($permName) {

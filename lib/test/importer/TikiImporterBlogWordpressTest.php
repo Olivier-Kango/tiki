@@ -16,7 +16,6 @@ require_once(__DIR__ . '/../../importer/tikiimporter_blog_wordpress.php');
  */
 class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
 {
-
     protected function setUp(): void
     {
         date_default_timezone_set('UTC');

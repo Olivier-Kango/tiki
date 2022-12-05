@@ -17,7 +17,6 @@ use League\CommonMark\Extension\Table\Table;
 use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\Extension\Table\TableRenderer;
 use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
-
 use League\CommonMark\MarkdownConverter;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;

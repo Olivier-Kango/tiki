@@ -174,11 +174,11 @@ class Search_Query implements Search_Query_Interface
             $from = $temp;
         }
         if ($allow_empty) {
-            $parts = array_map(function($field) use ($from, $to) {
+            $parts = array_map(function ($field) use ($from, $to) {
                     return new Search_Expr_Range($from, $to, 'timestamp', $field);
-                }, explode(',', $field));
+            }, explode(',', $field));
             $parts[] = new Search_Expr_And(
-                array_map(function($field) {
+                array_map(function ($field) {
                     return new Search_Expr_Token('', 'timestamp', $field);
                 }, explode(',', $field))
             );

@@ -8,7 +8,6 @@
 
 class BOMChecker_Scanner
 {
-
     // Tiki source folder
     protected $sourceDir = __DIR__ . '/../../../';
 

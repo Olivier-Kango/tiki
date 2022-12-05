@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Find a list of all the vendor_bundled pagages in use in all (relevant) versions
  * in order to delete unused files from composer.tiki.org (which is full!)
@@ -8,9 +9,8 @@ if (PHP_SAPI !== 'cli') {
     die("Please run from a shell");
 }
 
-class ComposerGetPackages {
-
-
+class ComposerGetPackages
+{
     private string $repoUri;
 
     private string $lockFile;
@@ -28,7 +28,8 @@ class ComposerGetPackages {
         $this->gitLib = \TikiLib::lib('git');
     }
 
-    public function execute(array $args) {
+    public function execute(array $args)
+    {
         if (count($args) > 1) {
             $mode = $args[1];
         } else {
@@ -37,7 +38,7 @@ class ComposerGetPackages {
 
         if ($mode === 'current') {
             $file = $this->lockFile;
-        } else if (! $mode || $mode === 'all') {
+        } elseif (! $mode || $mode === 'all') {
             $file = $this->jsonFile;
         }
 
@@ -72,7 +73,7 @@ class ComposerGetPackages {
                         $outputData->require = new \stdClass();
                         $outputData->{'require-dev'} = new \stdClass();
                     }
-                    foreach( [$jsonData->require, $jsonData->{'require-dev'}] as $requires) {
+                    foreach ([$jsonData->require, $jsonData->{'require-dev'}] as $requires) {
                         foreach ($requires as $package => $versionString) {
                             //$versions = Composer\Semver\Semver::satisfiedBy([$versionString]);
                             if (! isset($packagesInUse[$package])) {
@@ -85,12 +86,11 @@ class ComposerGetPackages {
                     }
                 }
             }
-
         }
         echo "\nDone\n\n";
         ob_flush();
 
-        foreach($packagesInUse as $packageName => $versions) {
+        foreach ($packagesInUse as $packageName => $versions) {
             sort($versions);
             if ($mode === 'current') {
                 foreach ($versions as $version) {
@@ -102,17 +102,18 @@ class ComposerGetPackages {
         }
 
         if ($mode !== 'current') {
-            echo json_encode($outputData, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
+            echo json_encode($outputData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         }
     }
 
-    private function getBranches(int $minimumVersion) {
+    private function getBranches(int $minimumVersion)
+    {
 
         $output = $this->gitLib->run_git(['ls-remote']);
         $r = preg_match_all('/.*refs\/heads\/(.*)$/m', $output, $remotes);
         $branches = ['master'];
         if ($r) {
-            foreach($remotes[1] as $branchName) {
+            foreach ($remotes[1] as $branchName) {
                 preg_match('/\d+/', $branchName, $matches);
                 if ($matches) {
                     if ($matches[0] >= $minimumVersion) {
@@ -140,7 +141,6 @@ class ComposerGetPackages {
 
         return $data;
     }
-
 }
 
 
@@ -148,4 +148,3 @@ require_once('tiki-setup.php');
 
 $purger = new ComposerGetPackages();
 $purger->execute($argv);
-

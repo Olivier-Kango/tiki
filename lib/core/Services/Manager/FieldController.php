@@ -47,7 +47,7 @@ class Services_Manager_FieldController
         $db_prefix = $handler->getOption('newInstanceDbPrefix');
 
         if ($db_prefix) {
-            $db_prefix .= 'item'.$itemId.'field'.$fieldId;
+            $db_prefix .= 'item' . $itemId . 'field' . $fieldId;
         }
 
         // TODO: see if some other validation is needed (note that most of the valiation is in the actual create command and that error output is already passed to the user)
@@ -168,7 +168,7 @@ class Services_Manager_FieldController
     protected function addInstanceToFieldValue($instanceName, $handler, $item)
     {
         $instances = TikiManager\Application\Instance::getInstances(false);
-        $instances = array_filter($instances, function($i) use ($instanceName) {
+        $instances = array_filter($instances, function ($i) use ($instanceName) {
             return $i->name == $instanceName;
         });
         $instance = array_shift($instances);

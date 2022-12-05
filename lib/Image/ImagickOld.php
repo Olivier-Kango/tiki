@@ -13,7 +13,6 @@ namespace Tiki\Lib\Image;
  */
 class ImagickOld extends ImageAbstract
 {
-
     /**
      * @param $image
      * @param bool $isfile

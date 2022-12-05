@@ -18,7 +18,6 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 */
 class TaskLib extends TikiLib
 {
-
     public function get_task($user, $taskId, $task_version = null, $admin_mode = false)
     {
         if ($admin_mode) {

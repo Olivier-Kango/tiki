@@ -367,7 +367,7 @@ if (isset($_POST["gobackto"])) {
     $access->redirect($_POST["gobackto"]);
 }
 
-if($prefs['activity_custom_events'] === 'y'){
+if ($prefs['activity_custom_events'] === 'y') {
     $activity = TikiLib::lib("activity");
     $total = count($activity->getRules());
     $smarty->assign('activity_custom_events', $prefs['activity_custom_events']);

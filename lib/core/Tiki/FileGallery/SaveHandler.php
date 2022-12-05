@@ -25,7 +25,8 @@ class SaveHandler
         $this->fileDraftsTable = TikiLib::lib('filegal')->table('tiki_file_drafts');
     }
 
-    public function isReplacing() {
+    public function isReplacing()
+    {
         global $prefs;
         if (! $this->file->exists()) {
             return false;

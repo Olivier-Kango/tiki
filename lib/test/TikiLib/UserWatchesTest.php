@@ -8,7 +8,6 @@
 
 class UserWatchesTest extends TikiTestCase
 {
-
     private $lib;
 
     protected function setUp(): void

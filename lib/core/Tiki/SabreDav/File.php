@@ -14,7 +14,6 @@ use Tiki\FileGallery\File as TikiFile;
 
 class File extends DAV\File
 {
-
     private $file;
 
     public function __construct($path_or_id)

@@ -23,7 +23,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Table_Code_WidgetOptions extends Table_Code_Manager
 {
-
     public function setCode()
     {
         $wo[] = 'stickyHeaders : \'ts-stickyHeader\'';

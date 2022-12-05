@@ -301,7 +301,7 @@ class TikiMail
                         $new_body = $email_body . PHP_EOL . PHP_EOL . $prefs['email_footer'];
                         $this->mail->setBody($new_body);
                     } else {
-                        foreach($email_body->getParts() as $part) {
+                        foreach ($email_body->getParts() as $part) {
                             $content = $part->getContent();
                             if ($part->getType() === 'text/html') {
                                 $content = str_replace('</body>', '<br><br>' . $prefs['email_footer'] . '</body>', $content);

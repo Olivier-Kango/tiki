@@ -7,7 +7,6 @@
 // $Id$
 class Services_Score_Controller
 {
-
     public function setUp()
     {
     }

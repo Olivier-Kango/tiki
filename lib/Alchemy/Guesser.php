@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 
 class Guesser implements MimeTypeGuesserInterface
 {
-
     private $fileMimeTypes = [];
 
     public function add($filePath, $mimeType)

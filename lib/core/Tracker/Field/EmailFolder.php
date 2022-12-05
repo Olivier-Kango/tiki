@@ -155,7 +155,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                         TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
                         $view_path = smarty_modifier_sefurl($page_info['pageName']);
                         if (preg_match("/tiki-index\.php\?page=.*/", $view_path)) {
-                            $view_path = "tiki-index.php?page_id=".$parsed_fields['source_id'];
+                            $view_path = "tiki-index.php?page_id=" . $parsed_fields['source_id'];
                         }
                     }
                 }
@@ -164,7 +164,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                 } else {
                     $view_path .= '?';
                 }
-                $view_path .= "page=message&uid=".$parsed_fields['fileId']."&list_path=tracker_folder_".$parsed_fields['itemId']."_".$parsed_fields['fieldId']."&list_parent=tracker_".$parsed_fields['trackerId'];
+                $view_path .= "page=message&uid=" . $parsed_fields['fileId'] . "&list_path=tracker_folder_" . $parsed_fields['itemId'] . "_" . $parsed_fields['fieldId'] . "&list_parent=tracker_" . $parsed_fields['trackerId'];
                 $parsed_fields['view_path'] = $view_path;
                 $emails[$folder][] = $parsed_fields;
             }
@@ -229,7 +229,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
             TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
             $compose_path = smarty_modifier_sefurl($compose_page);
             if (preg_match("/tiki-index\.php\?page=.*/", $compose_path)) {
-                $compose_path = "tiki-index.php?page_id=".TikiLib::lib('tiki')->get_page_id_from_name($compose_page);
+                $compose_path = "tiki-index.php?page_id=" . TikiLib::lib('tiki')->get_page_id_from_name($compose_page);
             }
         } else {
             $compose_path = "tiki-webmail.php";
@@ -239,13 +239,15 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         } else {
             $compose_path .= '?';
         }
-        $compose_path .= "page=compose&list_path=tracker_folder_".$this->getItemId()."_".$this->getConfiguration('fieldId')."&list_parent=tracker_".$this->getTrackerDefinition()->getConfiguration('trackerId');
+        $compose_path .= "page=compose&list_path=tracker_folder_" . $this->getItemId() . "_" . $this->getConfiguration('fieldId') . "&list_parent=tracker_" . $this->getTrackerDefinition()->getConfiguration('trackerId');
 
         return $this->renderTemplate('trackeroutput/email_folder.tpl', $context, [
             'emails' => $emails,
             'count' => $this->getConfiguration('count'),
             'folders' => $this->getFolders(),
-            'opened' => array_map(function($folder) { return $this->folderHandle($folder); }, preg_split('/\s*,\s*/', $this->getOption('openedFolders'))),
+            'opened' => array_map(function ($folder) {
+                return $this->folderHandle($folder);
+            }, preg_split('/\s*,\s*/', $this->getOption('openedFolders'))),
             'compose_path' => $compose_path,
         ]);
     }
@@ -361,7 +363,8 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         return $schema;
     }
 
-    public function getFolders() {
+    public function getFolders()
+    {
         $folders = [
             'inbox' => $this->getOption('inboxName'),
             'sent' => $this->getOption('sentName'),
@@ -369,11 +372,14 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
             'archive' => $this->getOption('archiveName'),
         ];
         $custom = preg_split('/\s*,\s*/', $this->getOption('customFolders'));
-        $handles = array_map(function($folder){ return $this->folderHandle($folder); }, $custom);
+        $handles = array_map(function ($folder) {
+            return $this->folderHandle($folder);
+        }, $custom);
         return array_merge($folders, array_combine($handles, $custom));
     }
 
-    protected function folderHandle($folderName) {
+    protected function folderHandle($folderName)
+    {
         return preg_replace("/[^a-z0-9]+/", "", strtolower($folderName));
     }
 
@@ -398,7 +404,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
             if (($key = array_search($fileId, $existing[$folder])) !== false) {
                 unset($existing[$folder][$key]);
                 $existing[$folder] = array_values($existing[$folder]);
-                if ($this->getOption('useFolders') && $folder != 'trash' && $folder != 'archive' && !$skip_trash) {
+                if ($this->getOption('useFolders') && $folder != 'trash' && $folder != 'archive' && ! $skip_trash) {
                     $existing['trash'][] = $fileId;
                 } else {
                     $filegallib = TikiLib::lib('filegal');

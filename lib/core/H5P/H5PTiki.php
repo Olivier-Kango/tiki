@@ -14,7 +14,6 @@
  */
 class H5P_H5PTiki implements H5PFrameworkInterface
 {
-
     // properties for table objects
     private $tiki_h5p_contents = null;
     private $tiki_h5p_contents_libraries = null;
@@ -46,7 +45,7 @@ class H5P_H5PTiki implements H5PFrameworkInterface
 
         global $tikidomainslash;
 
-        self::$h5p_path =  "storage/{$tikidomainslash}public/h5p";
+        self::$h5p_path = "storage/{$tikidomainslash}public/h5p";
 
         if (! is_writable(self::$h5p_path)) {
             \Feedback::error(tr("H5P directory is not writable: %0", self::$h5p_path));
@@ -161,7 +160,7 @@ class H5P_H5PTiki implements H5PFrameworkInterface
      *
      * @return string The content (response body). null if something went wrong
      */
-    public function fetchExternalData($url, $data = null, $blocking = true, $stream = null, $fullData = false, $headers = array(), $files = array(), $method = 'POST')
+    public function fetchExternalData($url, $data = null, $blocking = true, $stream = null, $fullData = false, $headers = [], $files = [], $method = 'POST')
     {
         $handle = curl_init($url);
 

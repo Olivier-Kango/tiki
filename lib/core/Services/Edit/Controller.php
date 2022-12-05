@@ -14,7 +14,6 @@
  */
 class Services_Edit_Controller
 {
-
     public function setUp()
     {
         Services_Exception_Disabled::check('feature_wiki');
@@ -334,12 +333,11 @@ $(window).on("load", function(){
      *
      * @return string the converted markup
      */
-    public function action_convert_syntax(JitFilter $input) : string
+    public function action_convert_syntax(JitFilter $input): string
     {
         $converted = $input->data->wikicontent();
 
         try {
-
             $converted = TikiLib::lib('edit')->convertWikiSyntax(
                 $converted,
                 $input->syntax->word()

@@ -277,5 +277,3 @@ if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'pdf') {
     $smarty->assign('print_page', 'y');
     $smarty->display("tiki-print_article.tpl");
 }
-
-

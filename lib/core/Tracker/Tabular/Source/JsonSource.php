@@ -58,7 +58,7 @@ class JsonSource implements SourceInterface
             $contents = $this->file->fread($size);
             $entries = json_decode($contents, true);
             if (is_null($entries)) {
-               throw new \Exception(tr('Could not decode uploaded json file.'));
+                throw new \Exception(tr('Could not decode uploaded json file.'));
             }
         }
 

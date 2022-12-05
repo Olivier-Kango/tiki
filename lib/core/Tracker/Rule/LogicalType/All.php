@@ -10,5 +10,4 @@ namespace Tiki\Lib\core\Tracker\Rule\LogicalType;
 
 class All extends LogicalType
 {
-
 }

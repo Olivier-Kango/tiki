@@ -8,7 +8,6 @@
 
 class Search_Formatter_ValueFormatter_Templaterender extends Search_Formatter_ValueFormatter_Abstract
 {
-
     public function __construct($arguments)
     {
     }

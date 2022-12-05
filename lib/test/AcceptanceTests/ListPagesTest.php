@@ -13,7 +13,6 @@
 
 class AcceptanceTests_ListPagesTest extends TikiSeleniumTestCase
 {
-
     public function ___testRememberToReactivateTestsIn_AcceptanceTests_ListPagesTest()
     {
         $this->fail("don't forget!!");

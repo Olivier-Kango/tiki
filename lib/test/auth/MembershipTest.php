@@ -10,7 +10,6 @@
  */
 class MembershipTest extends TikiTestCase
 {
-
     protected $userlib;
 
     protected function setUp(): void

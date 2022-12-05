@@ -13,7 +13,6 @@ use Tiki\Lib\test\TestHelpers\GlobRecursiveHelper;
 
 class allTikiPhpFilesTest extends TestCase
 {
-
     private $phpFiles;
 
     public function __construct()

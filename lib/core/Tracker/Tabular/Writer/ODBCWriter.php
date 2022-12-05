@@ -108,7 +108,7 @@ class ODBCWriter
             $id = null;
         }
 
-        if ($pk && !$id) {
+        if ($pk && ! $id) {
             foreach ($columns as $column) {
                 if ($column->isUniqueKey() && isset($fullRow[$column->getRemoteField()])) {
                     // for single mapped remote fields marked as unique, check uniqeness remotely and if not, get next unique value

@@ -8,7 +8,6 @@
 
 class Perms_Check_Direct implements Perms_Check
 {
-
     /*
      * Check permission for a specific list of groups
      * @param Perms_Resolver $resolver

@@ -7,7 +7,6 @@ use WikiSuite\ILP\ILPSPSPClientAdaptorInterface;
 
 interface ILPPaymentAdapterInterface
 {
-
     public function isEnabled(): bool;
 
     public function getILPClient(): ILPSPSPClientAdaptorInterface;

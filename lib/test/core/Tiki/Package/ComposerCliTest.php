@@ -15,7 +15,6 @@ use org\bovigo\vfs\vfsStream;
 
 class Tiki_Package_ComposerCliTest extends TikiTestCase
 {
-
     public const COMPOSER_JSON_DIST = '{
     "name": "tiki/tiki-custom",
     "description": "Tiki Wiki CMS Groupware",

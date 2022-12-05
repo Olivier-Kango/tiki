@@ -24,7 +24,6 @@ if (realpath($argv[0]) == __FILE__) {
 
 class ContinuousIntegrationTesting
 {
-
     private $tiki_root_dir;
     private $testrunner;
     private $current_revision;

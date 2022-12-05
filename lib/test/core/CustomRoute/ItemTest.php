@@ -16,7 +16,6 @@ use Tiki\CustomRoute\Item;
  */
 class ItemTest extends TestCase
 {
-
     /** @var Item */
     protected $item;
 

@@ -28,10 +28,10 @@ function wikiplugin_countup_info()
         ['text' => tra('bold'), 'value' => 'bold'] ,
         ['text' => tra('lighter'), 'value' => 'lighter']
     ];
-    for($i = 100; $i <= 900; $i += 100) {
+    for ($i = 100; $i <= 900; $i += 100) {
         $fontWeightOptions[] = ['text' => $i, 'value' => $i];
     }
-    
+
     $fontStyleOptions = [
         ['text' => '', 'value' => ''],
         ['text' => tra('normal'), 'value' => 'normal'],
@@ -62,7 +62,7 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'string',
                 'options' => getFontOptions(),
-                'advanced'=> true
+                'advanced' => true
             ],
             'titleFontWeight' => [
                 'required' => false,
@@ -72,7 +72,7 @@ function wikiplugin_countup_info()
                 'filter' => 'text',
                 'options' => $fontWeightOptions,
                 'default' => 'normal',
-                'advanced'=> true,
+                'advanced' => true,
             ],
             'titleFontStyle' => [
                 'required' => false,
@@ -82,7 +82,7 @@ function wikiplugin_countup_info()
                 'filter' => 'text',
                 'options' => $fontStyleOptions,
                 'default' => 'normal',
-                'advanced'=> true,
+                'advanced' => true,
             ],
             'titleFontSize' => [
                 'required' => false,
@@ -91,18 +91,17 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'float',
                 'default' => 32,
-                'advanced'=> true
+                'advanced' => true
             ],
             'titleFontColor' => [
                 'required' => false,
                 'name' => tra('Title font color'),
-                'description' => tr('Counter title font color. For instance, use <code>blue</code> for blue color.' . 
-                    'You can also use the <code>hexadecimal rgb</code> code or the <code>rgba</code> syntax to specify the color.'
-                ),
+                'description' => tr('Counter title font color. For instance, use <code>blue</code> for blue color.' .
+                    'You can also use the <code>hexadecimal rgb</code> code or the <code>rgba</code> syntax to specify the color.'),
                 'since' => '25.0',
                 'filter' => 'alpha',
                 'default' => 'black',
-                'advanced'=> true
+                'advanced' => true
             ],
             'icon' => [
                 'required' => false,
@@ -145,7 +144,7 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'string',
                 'options' => getFontOptions(),
-                'advanced'=> true
+                'advanced' => true
             ],
             'descriptionFontWeight' => [
                 'required' => false,
@@ -155,7 +154,7 @@ function wikiplugin_countup_info()
                 'filter' => 'text',
                 'options' => $fontWeightOptions,
                 'default' => 'normal',
-                'advanced'=> true,
+                'advanced' => true,
             ],
             'descriptionFontStyle' => [
                 'required' => false,
@@ -165,7 +164,7 @@ function wikiplugin_countup_info()
                 'filter' => 'text',
                 'options' => $fontStyleOptions,
                 'default' => 'normal',
-                'advanced'=> true,
+                'advanced' => true,
             ],
             'descriptionFontSize' => [
                 'required' => false,
@@ -174,18 +173,17 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'float',
                 'default' => '12',
-                'advanced'=> true
+                'advanced' => true
             ],
             'descriptionFontColor' => [
                 'required' => false,
                 'name' => tra('Description font color'),
                 'description' => tr('Counter description font color. For instnace, use <code>blue</code> for blue color. ' .
-                    'You can also use the <code>hexadecimal rgb</code> code or the <code>rgba</code> syntax to specify the color.'
-                ),
+                    'You can also use the <code>hexadecimal rgb</code> code or the <code>rgba</code> syntax to specify the color.'),
                 'since' => '25.0',
                 'filter' => 'alpha',
                 'default' => 'black',
-                'advanced'=> true
+                'advanced' => true
             ],
             'startingNumber' => [
                 'required' => false,
@@ -209,7 +207,7 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'string',
                 'options' => getFontOptions(),
-                'advanced'=> true
+                'advanced' => true
             ],
             'numberFontWeight' => [
                 'required' => false,
@@ -219,7 +217,7 @@ function wikiplugin_countup_info()
                 'filter' => 'text',
                 'options' => $fontWeightOptions,
                 'default' => 'normal',
-                'advanced'=> true,
+                'advanced' => true,
             ],
             'numberFontStyle' => [
                 'required' => false,
@@ -229,7 +227,7 @@ function wikiplugin_countup_info()
                 'filter' => 'text',
                 'options' => $fontStyleOptions,
                 'default' => 'normal',
-                'advanced'=> true,
+                'advanced' => true,
             ],
             'numberFontSize' => [
                 'required' => false,
@@ -238,18 +236,17 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'float',
                 'default' => 32,
-                'advanced'=> true
+                'advanced' => true
             ],
             'numberFontColor' => [
                 'required' => false,
                 'name' => tra('Number font color'),
                 'description' => tr('This is the font color of the displayed number of counter at a certain time. For instance, use <code>blue</code> for blue color.' .
-                    'You can also use the <code>hexadecimal rgb</code> code or the <code>rgba</code> syntax to specify the color.'
-                ),
+                    'You can also use the <code>hexadecimal rgb</code> code or the <code>rgba</code> syntax to specify the color.'),
                 'since' => '25.0',
                 'filter' => 'alpha',
                 'default' => 'black',
-                'advanced'=> true
+                'advanced' => true
             ],
             'speed' => [
                 'required' => false,
@@ -277,7 +274,7 @@ function wikiplugin_countup_info()
             ],
             'suffix' => [
                 'required' => false,
-                'name' => tra ('Suffix'),
+                'name' => tra('Suffix'),
                 'description' => tra('Letter, number or symbol to use as suffix of the number counter (the number that is displayed in the counter at certain time).'),
                 'since' => '25.0',
                 'filter' => 'text',
@@ -306,18 +303,17 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'int',
                 'default' => 0,
-                'advanced'=> true
+                'advanced' => true
             ],
             'backgroundColor' => [
                 'required' => false,
                 'name' => tra('Background color'),
                 'description' => tra('Counter background color' .
-                    'You can use the color name, the <code>hexadecimal rgb</code> code or the <code>rgba</code> syntax to specify the color.'
-                ),
+                    'You can use the color name, the <code>hexadecimal rgb</code> code or the <code>rgba</code> syntax to specify the color.'),
                 'since' => '25.0',
                 'filter' => 'alhpa',
                 'default' => 'white',
-                'advanced'=> true
+                'advanced' => true
             ],
             'shadow' => [
                 'required' => false,
@@ -327,13 +323,12 @@ function wikiplugin_countup_info()
                     'with blur and spread radius and with a color. For instance, use <code>inset 2000px 0px 0px 0px #24a2c09c</code>' .
                     'for 2000px horizontal offset, 0px vertical offset, 0px blur radius, 0px spread radius and with a light blue color. ' .
                     'The inset keyword reverses the shadow inside. For the color value, you can use the color name, the hexadecimal rgb code ' .
-                    'or the rgba syntax. For more details See <a href="https://developer.mozilla.org/en/docs/Web/CSS/box-shadow">here</a>. '. 
-                    'Please be sure to respect the syntax given in the documentation to see the effect.'
-                ),
+                    'or the rgba syntax. For more details See <a href="https://developer.mozilla.org/en/docs/Web/CSS/box-shadow">here</a>. ' .
+                    'Please be sure to respect the syntax given in the documentation to see the effect.'),
                 'since' => '25.0',
                 'filter' => 'string',
                 'default' => '',
-                'advanced'=> true
+                'advanced' => true
             ]
         ]
     ];
@@ -342,11 +337,11 @@ function wikiplugin_countup_info()
 function wikiplugin_countup($data, $params)
 {
     TikiLib::lib('header')->add_jsfile("vendor_bundled/vendor/npm-asset/animejs/lib/anime.min.js", true);
-    
+
     $smarty = TikiLib::lib('smarty');
     $pluginInfos = $params;
     extract($params, EXTR_SKIP);
-    
+
     $counterId = uniqid(); // Counter identifier to distinguish counters as we can add multiple counters on a wiki page
     $mainContainerStyle = (isset($height) ? "height: $height" . "px; " : "height: 300px; ")
         . (isset($width) ? "width: $width" . "px; " : "width: 400px; ")
@@ -373,24 +368,24 @@ function wikiplugin_countup($data, $params)
         . (isset($numberFontColor) ? "color: $numberFontColor;" : ""
     );
 
-    if(!isset($speed)){
+    if (! isset($speed)) {
         $speed = 0.2;
     }
-    if(!isset($delay)){
+    if (! isset($delay)) {
         $delay = 1;
     }
     $cleanedTitle = preg_replace('/[^A-Za-z0-9_]/', '', $title); // Remove white spaces and some specials chars to prevent bug when calling the update function and  getting the counter DOM elemnt by id.
     $js = '
         //Number counter update function
-        function updateCounter' . $cleanedTitle . $counterId .'(){
+        function updateCounter' . $cleanedTitle . $counterId . '(){
             const counter = document.querySelector("#' . $cleanedTitle . 'Count_' . $counterId . '");
-            const delay = '. $delay * 1000 . '; // Converting delay in milliseconds
-            const duration = '. $speed * $endingNumber * 1000 . '; // As anime.js doesn\'t dispose a speed property, we use duration to adjust the speed of counting(animation). The duration is in milliseconds.
+            const delay = ' . $delay * 1000 . '; // Converting delay in milliseconds
+            const duration = ' . $speed * $endingNumber * 1000 . '; // As anime.js doesn\'t dispose a speed property, we use duration to adjust the speed of counting(animation). The duration is in milliseconds.
 
             // Call to animejs to animate the counter
             anime({
                 targets: counter,
-                textContent: '. $endingNumber . ',
+                textContent: ' . $endingNumber . ',
                 round: 1,
                 easing: "linear",
                 delay: delay,
@@ -399,11 +394,11 @@ function wikiplugin_countup($data, $params)
         }
     
         //Calling number counter function when the counter becomes visible in the Viewport
-        const '. $cleanedTitle . 'CounterObserver_' . $counterId . ' = new IntersectionObserver(function(entries) {
+        const ' . $cleanedTitle . 'CounterObserver_' . $counterId . ' = new IntersectionObserver(function(entries) {
             entries.forEach((entry) => {
                 if(entry.isIntersecting === true) {
                     if(entry.intersectionRatio === 1 || entry.intersectionRatio > 0.5) {
-                        updateCounter'. $cleanedTitle . $counterId . '();
+                        updateCounter' . $cleanedTitle . $counterId . '();
                     }
                 }
             });
@@ -411,7 +406,7 @@ function wikiplugin_countup($data, $params)
             threshold: [0, 0.5, 1]
         });
     
-        ' . $cleanedTitle . 'CounterObserver_' . $counterId .'.observe(document.querySelector("#' . $cleanedTitle . 'Count_' . $counterId . '"));
+        ' . $cleanedTitle . 'CounterObserver_' . $counterId . '.observe(document.querySelector("#' . $cleanedTitle . 'Count_' . $counterId . '"));
     ';
 
     $smarty->assign('pluginInfos', $pluginInfos);

@@ -8,7 +8,6 @@
 
 class Services_Scheduler_Controller
 {
-
     /**
      * @var SchedulersLib
      */

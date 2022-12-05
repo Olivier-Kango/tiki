@@ -17,15 +17,12 @@ $prefslib = TikiLib::lib('prefs');
 $tikilib = TikiLib::lib('tiki');
 $orphanPrefs = $prefslib->getOrphanPrefs();
 
-if (isset($_REQUEST['clear']) && ! empty($orphanPrefs))
-{
+if (isset($_REQUEST['clear']) && ! empty($orphanPrefs)) {
     $clear = $_REQUEST['clear'];
     $msg = "";
 
-    if ($clear == "all")
-    {
-        foreach ($orphanPrefs as $p) 
-        {
+    if ($clear == "all") {
+        foreach ($orphanPrefs as $p) {
             $tikilib->delete_preference($p['name']);
         }
         $msg = tr("All orphaned preference data has been successfully deleted!");
@@ -40,4 +37,3 @@ if (isset($_REQUEST['clear']) && ! empty($orphanPrefs))
     $orphanPrefs = $prefslib->getOrphanPrefs();
 }
 $smarty->assign('orphanPrefs', $orphanPrefs);
-

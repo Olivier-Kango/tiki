@@ -16,7 +16,6 @@
  */
 class Memcachelib
 {
-
     public $memcache;
     public $options;
 

@@ -124,7 +124,7 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
                 $value = $this->getOption('start', 1);
             } else {
                 if ($prefs['tracker_autoincrement_resettable'] == 'y') {
-                    $value = max($value + 1,$this->getOption('start', 1));
+                    $value = max($value + 1, $this->getOption('start', 1));
                 } else {
                     $value += 1;
                 }

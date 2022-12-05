@@ -133,8 +133,8 @@ function wikiplugin_autotoc($data, $params)
             return;
         }
 
-        if (!empty($params['tabs']) && $params['tabs']  == 'yes') {
-            if(! isset($params['tabset_names']) || ! isset($params['tabset_panes'])) {
+        if (! empty($params['tabs']) && $params['tabs'] == 'yes') {
+            if (! isset($params['tabset_names']) || ! isset($params['tabset_panes'])) {
                 Feedback::error(tra('Missing Tabs names (tabset_names) parameter: it must be filled in when the Tabs (tabs) parameter is set to yes'));
                 return;
             }

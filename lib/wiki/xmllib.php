@@ -61,12 +61,12 @@ class XmlLib extends TikiLib
     // exported pages, the exported images, the exported structure and the wiki.xml file.
     public function export_pages(
         $pages = null,              // Array of the names of the pages which should be exported,
-                                    // if any
+        // if any
         $structure = null,          // Name of the structure to be exported, if any
         $zipFile = 'dump/xml.zip',  // Name of the temporary Zip file, which is being generated
-        $config = null)             // Configuration (see the $config property, above). Overrides
+        $config = null
+    ) {             // Configuration (see the $config property, above). Overrides
                                     // the default configuration (above)
-    {
         // Setup the Zip archive, which is to be generated
         if (! class_exists('ZipArchive')) {
             $this->errors[] = 'Problem zip initialisation';
@@ -399,7 +399,6 @@ class XmlLib extends TikiLib
         // Create or update the page.
 
         if ($this->page_exists($info['name'])) {
-
             // Page already exists. Update it with the page from the Zip file.
             $old = true;
             $tikilib->update_page(
@@ -417,7 +416,6 @@ class XmlLib extends TikiLib
                 isset($info['wysiwyg']) ? $info['wysiwyg'] : null
             );
         } else {
-
             // Page doesn't exists yet. Create it.
             $old = false;
             $tikilib->create_page(
@@ -474,13 +472,13 @@ class XmlLib extends TikiLib
 
         // Add the attachments to the new or updated page.
 
-        if ($prefs['feature_wiki_attachments'] == 'y' 
-            && $tiki_p_wiki_attach_files == 'y' 
-            && ! empty($info['attachments'])) 
-        {
+        if (
+            $prefs['feature_wiki_attachments'] == 'y'
+            && $tiki_p_wiki_attach_files == 'y'
+            && ! empty($info['attachments'])
+        ) {
             // Interate over the attachments of the page
             foreach ($info['attachments'] as $attachment) {
-
                 // Unzip the attachment, save its data in $attachment['data'].
                 if (($attachment['data'] = $this->zip->getFromName($attachment['zip'])) === false) {
                     $this->errors[] = 'Can not unzip attachment';
@@ -515,7 +513,7 @@ class XmlLib extends TikiLib
                     $info['name'],
                     $attachment['filename'],
                     $attachment['filetype'],
-                    $attachment['filesize'],    
+                    $attachment['filesize'],
                     $attachment['data'],        // The data of the attachment, iff it is stored in the database
                     $attachment['comment'],
                     $attachment['user'],
@@ -553,7 +551,7 @@ class XmlLib extends TikiLib
 
 
         // Add the page history to the new or updated page.
-        
+
         if ($prefs['feature_history'] == 'y' && ! empty($info['history'])) {
             $query = 'select max(`version`) from `tiki_history` where `pageName`=?';
             $maxVersion = $this->getOne($query, [$info['name']]);
@@ -616,9 +614,7 @@ class XmlLib extends TikiLib
         }
 
         return true;
-
     } // create_page()
-
 } // class XmlLib
 
 
