@@ -302,7 +302,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
         margin-right: 0;
     }
 
-    .tiki-admin .dropdown-menu .dropdown-title {
+    .tiki-admin .dropdown-menu .dropdown-header {
         margin-left: -.9rem;
     }
 
@@ -483,7 +483,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 
-//.tiki-admin .bg-dark .dropdown-item .dropdown-title, .tiki-admin .bg-dark .dropdown-item label, .tiki-admin .navbar-dark .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-header, .tiki-admin .dropdown-item:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu a:hover, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .bg-dark a {
+//.tiki-admin .bg-dark .dropdown-item .dropdown-header, .tiki-admin .bg-dark .dropdown-item label, .tiki-admin .navbar-dark .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-header, .tiki-admin .dropdown-item:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu a:hover, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .bg-dark a {
 //    color: white !important;
 //}
 
@@ -524,7 +524,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     border: none;
 }
 
-//.tiki-admin .bg-light .dropdown-item .dropdown-title, .tiki-admin .bg-light .dropdown-item label, .tiki-admin .navbar-light .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-light-parent .dropdown-header, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .bg-light a {
+//.tiki-admin .bg-light .dropdown-item .dropdown-header, .tiki-admin .bg-light .dropdown-item label, .tiki-admin .navbar-light .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-light-parent .dropdown-header, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .bg-light a {
 //    color: $color-light;
 //}
 // Below: Nav links are especially important on admin pages - why make them smaller here? (gary)

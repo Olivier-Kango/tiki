@@ -14,7 +14,7 @@
                 {icon name='menu-extra'}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li class="dropdown-title">
+                <li class="dropdown-header">
                     {tr}Tracker item actions{/tr}
                 </li>
                 <li class="dropdown-divider"></li>

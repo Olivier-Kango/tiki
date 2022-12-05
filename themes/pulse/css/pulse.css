@@ -9767,17 +9767,6 @@ table.treetable.objectperms td.removed {
 .btn-primary.highlight:hover {
   background: #e50303;
 }
-.btn.active.btn-link {
-  color: #4e2b83;
-  text-decoration: underline;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn.active.btn-link:hover {
-  color: #593196;
-  background-color: transparent;
-  border-color: transparent;
-}
 .btn-primary.btn-link, .btn-primary.btn-link:hover {
   background: transparent;
   border: none;
