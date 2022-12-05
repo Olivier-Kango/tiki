@@ -23,9 +23,14 @@
                     {preference name=theme_option}
                     {preference name=theme_option_includes_main}
                     {preference name=theme_navbar_color_variant}
+                    {preference name=change_theme}
+                    <div class="adminoptionboxchild" id="change_theme_childcontainer">
+                        {preference name=available_themes}
+                    </div>
+                    {preference name=useGroupTheme}
                 </div>
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card me-lg-4">
                         <div class="card-body text-center">
                         {if $thumbfile}
                             <img src="{$thumbfile}" class="img-fluid" alt="{tr}Theme Screenshot{/tr}" id="theme_thumb">
@@ -35,10 +40,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            {preference name=change_theme}
-            <div class="adminoptionboxchild" id="change_theme_childcontainer">
-                {preference name=available_themes}
             </div>
 
             {* Fixed width is the first decision to make, so it needs to be visibly on the first tab. But its logical place is in the "layout" tab.
@@ -77,7 +78,7 @@
                     $('input[name=dummy_feature_fixed_width]').prop('checked', real);
                 });
             {/jq} *}
-            {preference name=useGroupTheme}
+
             <hr>
 
             <legend>{tr}Admin theme{/tr}</legend>
