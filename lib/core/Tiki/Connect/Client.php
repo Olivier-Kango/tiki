@@ -8,7 +8,6 @@
 
 class Tiki_Connect_Client extends Tiki_Connect_Abstract
 {
-
     private $votes = null;
 
     /**

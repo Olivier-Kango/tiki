@@ -24,7 +24,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Table_Settings_TikiForums extends Table_Settings_Standard
 {
-
     protected $ts = [
         'ajax' => [
             'url' => [
@@ -121,5 +120,4 @@ class Table_Settings_TikiForums extends Table_Settings_Standard
 
         parent::__construct($ts);
     }
-
 }

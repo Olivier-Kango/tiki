@@ -8,7 +8,6 @@
 
 class HistLib extends TikiLib
 {
-
     /*
         *   Removes a specific version of a page
         *
@@ -459,7 +458,6 @@ class HistLib extends TikiLib
  */
 class Document
 {
-
     /**
      * @var array   a list of words and whitespaces represented by an array(word,author,deleted,diffid,[deleted_by])
      */
@@ -1178,7 +1176,7 @@ class Document
 }
 
 
-function histlib_helper_setup_diff($page, $oldver, $newver, $diff_style = '',$current_ver=0)
+function histlib_helper_setup_diff($page, $oldver, $newver, $diff_style = '', $current_ver = 0)
 {
     global $prefs;
     $smarty = TikiLib::lib('smarty');
@@ -1219,13 +1217,13 @@ function histlib_helper_setup_diff($page, $oldver, $newver, $diff_style = '',$cu
     //
     if ($current_ver == 0 || $current_ver >= $info["version"]) {
         $curver =& $info;
-        $response=extractDataWikiDiff($info);
+        $response = extractDataWikiDiff($info);
         $smarty->assign_by_ref('object_curver', $response);
         $smarty->assign_by_ref('curver', $info);
     } else {
         if ($exists) {
             $curver = $histlib->get_page_from_history($page, $current_ver, true);
-            $response=extractDataWikiDiff($curver);
+            $response = extractDataWikiDiff($curver);
             $smarty->assign_by_ref('object_curver', $response);
             $smarty->assign_by_ref('curver', $curver);
         }
@@ -1298,8 +1296,9 @@ function histlib_strip_irrelevant($data)
     return $data;
 }
 
-function extractDataWikiDiff(array $curver){
-    if(isset($curver["data"])){
+function extractDataWikiDiff(array $curver)
+{
+    if (isset($curver["data"])) {
         $pattern = '/curver="y"/i';
         return preg_match($pattern, $curver["data"]);
     }

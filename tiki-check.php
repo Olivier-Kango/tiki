@@ -221,7 +221,8 @@ function checkServerRequirements($phpVersion, $dbEngine, $dbVersion)
         if (version_compare($phpVersion, $tikiVersion['php']['min'], '<')) {
             continue;
         }
-        if (isset($requirement['php']['max'])
+        if (
+            isset($requirement['php']['max'])
             && $requirement['php']['max'] !== $requirement['php']['min']
             && version_compare(PHP_VERSION, $requirement['php']['max'], '>')
         ) {
@@ -247,7 +248,8 @@ function checkServerRequirements($phpVersion, $dbEngine, $dbVersion)
             if (version_compare($dbVersion, $tikiVersion[$dbEngine]['min'], '<')) {
                 continue;
             }
-            if (isset($requirement[$dbEngine]['max'])
+            if (
+                isset($requirement[$dbEngine]['max'])
                 && $requirement[$dbEngine]['max'] !== $requirement[$dbEngine]['min']
                 && version_compare($dbVersion, $requirement[$dbEngine]['max'], '>')
             ) {
@@ -287,7 +289,7 @@ function checkServerRequirements($phpVersion, $dbEngine, $dbVersion)
 function getCompatibleVersions($dbEngine = '', $dbVersion = '')
 {
     $tikiRequirements = getTikiRequirements();
-    $compatibleVersions = [];
+    $compatibleVersions = array();
 
     $dbVersion = $dbVersion ?: 0;
     foreach ($tikiRequirements as $requirement) {
@@ -295,7 +297,8 @@ function getCompatibleVersions($dbEngine = '', $dbVersion = '')
             continue;
         }
 
-        if (isset($requirement['php']['max'])
+        if (
+            isset($requirement['php']['max'])
             && $requirement['php']['max'] !== $requirement['php']['min']
             && version_compare(PHP_VERSION, $requirement['php']['max'], '>')
         ) {
@@ -306,7 +309,8 @@ function getCompatibleVersions($dbEngine = '', $dbVersion = '')
             if (version_compare($dbVersion, $requirement[$dbEngine]['min'], '<')) {
                 continue;
             }
-            if (isset($requirement[$dbEngine]['max'])
+            if (
+                isset($requirement[$dbEngine]['max'])
                 && $requirement[$dbEngine]['max'] !== $requirement[$dbEngine]['min']
                 && version_compare($dbVersion, $requirement[$dbEngine]['max'], '>')
             ) {
@@ -470,7 +474,7 @@ if ($l) {
         'message' => tra('Errors will be logged, since log_errors is enabled. Also, display_errors is disabled. This is good practice for a production site, to log the errors instead of displaying them.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
         );
     } else {
-		$php_properties = [];
+        $php_properties = array();
         $php_properties['Error logging'] = array(
         'fitness' => tra('info'),
         'setting' => 'Enabled',
@@ -2049,14 +2053,14 @@ if (function_exists('apache_get_version')) {
     $s = false;
     $s = array_search('mod_rewrite', $apache_modules);
     if ($s) {
-		$apache_properties = [];
+        $apache_properties = array();
         $apache_properties['mod_rewrite'] = array(
             'setting' => 'Loaded',
             'fitness' => tra('good') ,
             'message' => tra('Tiki needs this module for Search Engine Friendly URLs via .htaccess. However, it can\'t be checked if this web server respects configurations made in .htaccess. For further information go to Admin->SefURL in your Tiki.')
         );
     } else {
-		$apache_properties = [];
+        $apache_properties = array();
         $apache_properties['mod_rewrite'] = array(
             'setting' => 'Not available',
             'fitness' => tra('unsure') ,
@@ -2593,7 +2597,7 @@ if ($s != "" && strpos($sn, $s) !== false) {
         'message' => tra('upload_tmp_dir is probably inside the Tiki directory. There is a risk that someone can upload any file to this directory and access it via web browser.')
     );
 } else {
-	$security=[];
+    $security = array();
     $security['upload_tmp_dir'] = array(
         'fitness' => tra('unknown') ,
         'setting' => $s,
@@ -3171,7 +3175,7 @@ if ($trimCapable) {
 }
 
 $dbEngine = $dbVersion = null;
-if ($connection || !$standalone) {
+if ($connection || ! $standalone) {
     $dbEngine = $isMariaDB ? 'mariadb' : 'mysql';
     $dbVersion = ! empty($mysql_properties['Version']['setting']) ? $mysql_properties['Version']['setting'] : null;
 } elseif (isset($_POST['db-engine'], $_POST['db-version'])) {
@@ -3182,14 +3186,14 @@ if ($connection || !$standalone) {
 $serverRequirements = checkServerRequirements(PHP_VERSION, $dbEngine, $dbVersion);
 $available_tiki_properties = getCompatibleVersions($dbEngine, $dbVersion);
 
-if (!$standalone) {
+if (! $standalone) {
     $serverRequirements['Tiki Version'] = array(
         'value' => $tikiBaseVersion,
         'fitness' => 'info',
         'message' => 'Current Tiki version',
     );
 } else {
-    $recTikiVersion = array_filter($available_tiki_properties, function($details) {
+    $recTikiVersion = array_filter($available_tiki_properties, function ($details) {
         return $details['fitness'] == 'good';
     });
     if ($recTikiVersion = reset($recTikiVersion)) {
@@ -3214,16 +3218,16 @@ if ($standalone && ! $nagios) {
     renderTable($serverRequirements);
 
     if (! $locked) {
-        if (!$connection) {
+        if (! $connection) {
             $render .= '<p>Unable to check the server compatibility and the recommended Tiki version.<br>';
             $render .= 'Use the form bellow to select the Database engine and version, to detect the recommended version.</p>';
             $render .= '<form method="post" action="' . $_SERVER['SCRIPT_NAME'] . '">';
             $render .= '<div class="form-group"><label for="db-engine">Database Engine</label>:';
             $render .= '<select name="db-engine" class="form-control">';
-            $render .= '<option value="mysql" ' .($dbEngine == 'mysql' ? 'selected' : '') . '>MySQL</option>';
+            $render .= '<option value="mysql" ' . ($dbEngine == 'mysql' ? 'selected' : '') . '>MySQL</option>';
             $render .= '<option value="mariadb" ' . ($dbEngine == 'mariadb' ? 'selected' : '') . '>MariaDB</option>';
             $render .= '</select></div>';
-            $render .= '<div class="form-group"><label for="db-engine">Database Version</label>: <input type="text"  class="form-control" id="db-version" name="db-version" value="'.$dbVersion.'"/></div>';
+            $render .= '<div class="form-group"><label for="db-engine">Database Version</label>: <input type="text"  class="form-control" id="db-version" name="db-version" value="' . $dbVersion . '"/></div>';
             $render .= '<div class="form-group"><input type="submit" class="btn btn-primary btn-sm" value="Check compatibility" /></div>';
             $render .= '</form>';
         }
@@ -3467,7 +3471,7 @@ if ($standalone && ! $nagios) {
     $smarty->assign_by_ref('current_tiki_version', $tikiBaseVersion);
     $is_compatible = checkTikiVersionCompatible($available_tiki_properties, $tikiBaseVersion);
     $smarty->assign_by_ref('is_compatible', $is_compatible);
-    $smarty->assign_by_ref('server_req',$serverRequirements);
+    $smarty->assign_by_ref('server_req', $serverRequirements);
     $smarty->assign_by_ref('is_compatible', $is_compatible);
     $smarty->assign_by_ref('available_tiki_properties', $available_tiki_properties);
     $smarty->assign_by_ref('server_information', $server_information);
@@ -3550,30 +3554,30 @@ if ($standalone && ! $nagios) {
     } else {
         $ws_listening = false;
     }
-    $realtime = [
-        'feature_enabled' => [
+    $realtime = array(
+        'feature_enabled' => array(
             'requirement' => 'Feature enabled',
             'status' => $prefs['feature_realtime'] === 'y' ? 'good' : 'bad',
             'message' => $prefs['feature_realtime'] === 'y' ? 'Feature is enabled.' : 'Feature is disabled in Tiki admin.',
-        ],
-        'port_listening' => [
+        ),
+        'port_listening' => array(
             'requirement' => 'Server listening',
             'status' => $ws_listening ? 'good' : 'unsure',
             'message' => $ws_listening ? 'Server is listening on local system port ' . $ws_port . '.' : 'No server found listening on default port ' . $ws_port . '. Server might be running on a different port or not running at all.',
-        ],
-        'connectivity' => [
+        ),
+        'connectivity' => array(
             'requirement' => 'Connectivity',
             'status' => 'js',
             'message_good' => 'Connection to WS server established successfully.',
             'message_bad' => 'Could not establish connection to WS server. Check if server is listening and web server proxy configured correctly.',
-        ],
-        'message_exchange' => [
+        ),
+        'message_exchange' => array(
             'requirement' => 'Message exchange',
             'status' => 'js',
             'message_good' => 'Successfully exchanged messages with realtime server.',
             'message_bad' => 'Could not exchange messages with realtime server. Check if server is running and configured correctly.',
-        ]
-    ];
+        )
+    );
     $smarty->assign('realtime', $realtime);
     $smarty->assign('realtime_url', preg_replace('#http://#', 'ws://', preg_replace('#https://#', 'wss://', $base_url)) . 'ws/');
 

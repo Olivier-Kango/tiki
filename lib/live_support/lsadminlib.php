@@ -8,7 +8,6 @@
 
 class LsAdminlib extends TikiLib
 {
-
     public function add_operator($user)
     {
         $this->getOne('delete from `tiki_live_support_operators` where `user`=?', [$user], false);

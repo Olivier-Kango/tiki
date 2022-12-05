@@ -18,7 +18,6 @@ use PHP_CodeSniffer\Files\File;
 
 class DisallowSymfonyProcessSniff implements Sniff
 {
-
     /**
      * @inheritdoc
      */

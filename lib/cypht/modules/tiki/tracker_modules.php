@@ -75,7 +75,7 @@ class Hm_Handler_check_path_redirect_after_sent extends Hm_Handler_Module
     {
         global $smarty;
         $smarty->loadPlugin('smarty_modifier_sefurl');
-        if (!$this->get('msg_sent')) {
+        if (! $this->get('msg_sent')) {
             return;
         }
         $path = $this->request->post['compose_msg_path'];
@@ -96,11 +96,11 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
     {
         global $smarty;
 
-        list($success, $form) = $this->process_form(array('tracker_field_id', 'tracker_item_id', 'imap_msg_ids', 'list_path', 'folder'));
+        list($success, $form) = $this->process_form(['tracker_field_id', 'tracker_item_id', 'imap_msg_ids', 'list_path', 'folder']);
         if (! $success) {
             return;
         }
-        
+
         $msg_ids = explode(',', $form['imap_msg_ids']);
         $errors = 0;
         $msgs = [];
@@ -177,7 +177,7 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
                 $imap_server_id = $full_path[1];
                 $folder = hex2bin($full_path[3]);
 
-                if (!in_array($imap_server_id, array_keys($imaps))) {
+                if (! in_array($imap_server_id, array_keys($imaps))) {
                     $cache = Hm_IMAP_List::get_cache($this->cache, $imap_server_id);
                     $imap_data = Hm_IMAP_List::connect($imap_server_id, $cache);
 
@@ -194,7 +194,7 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
                     $errors++;
                     continue;
                 }
-                
+
                 list($msgs[], $headers_array[]) = get_message_data($imap, $full_path[2]);
                 $ids[] = $full_path[2];
             }
@@ -224,7 +224,7 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
         foreach ($msgs as $key => $msg) {
             $headers = $headers_array[$key];
             if ($this->session->get('page_id')) {
-                $msg = "X-Tiki-Source: ".$this->session->get('page_id')."\r\n".$msg;
+                $msg = "X-Tiki-Source: " . $this->session->get('page_id') . "\r\n" . $msg;
             }
 
             $new_values[] = [
@@ -247,7 +247,7 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
         $total_msg_ids = count($msg_ids);
         if ($errors > 0 && $errors < $total_msg_ids) {
             Hm_Msgs::add('Some messages moved');
-        } else if ($total_msg_ids == $errors) {
+        } elseif ($total_msg_ids == $errors) {
             Hm_Msgs::add('ERRUnable to move/copy selected messages');
             return;
         } else {
@@ -278,7 +278,7 @@ class Hm_Handler_tiki_mark_as_answered extends Hm_Handler_Module
         }
 
         $uid = $this->request->post['compose_msg_uid'];
-        Hm_Msgs::add('Uid - '.$uid);
+        Hm_Msgs::add('Uid - ' . $uid);
         tiki_flag_message($uid, 'add', 'answered');
     }
 }
@@ -391,7 +391,7 @@ class Hm_Handler_tiki_delete_message extends Hm_Handler_Module
      */
     public function process()
     {
-        list($success, $form) = $this->process_form(array('imap_msg_uid', 'list_path'));
+        list($success, $form) = $this->process_form(['imap_msg_uid', 'list_path']);
         if ($success) {
             tiki_flag_message($form['imap_msg_uid'], 'add', 'deleted');
             tiki_flag_message($form['imap_msg_uid'], 'remove', 'archive');
@@ -434,7 +434,7 @@ class Hm_Handler_tiki_archive_message extends Hm_Handler_Module
      */
     public function process()
     {
-        list($success, $form) = $this->process_form(array('imap_msg_uid', 'list_path'));
+        list($success, $form) = $this->process_form(['imap_msg_uid', 'list_path']);
         if ($success) {
             tiki_flag_message($form['imap_msg_uid'], 'add', 'archive');
             tiki_flag_message($form['imap_msg_uid'], 'remove', 'deleted');
@@ -470,12 +470,14 @@ class Hm_Handler_tiki_archive_message extends Hm_Handler_Module
  * Flag a message
  * @subpackage tiki/handler
  */
-class Hm_Handler_flag_tiki_message extends Hm_Handler_Module {
+class Hm_Handler_flag_tiki_message extends Hm_Handler_Module
+{
     /**
      * Use IMAP to flag the selected message uid
      */
-    public function process() {
-        list($success, $form) = $this->process_form(array('imap_msg_uid', 'list_path'));
+    public function process()
+    {
+        list($success, $form) = $this->process_form(['imap_msg_uid', 'list_path']);
         if ($success) {
             $email = tiki_parse_message($form['list_path'], $form['imap_msg_uid']);
             if (! $email) {
@@ -492,9 +494,11 @@ class Hm_Handler_flag_tiki_message extends Hm_Handler_Module {
  * Perform an action against a Tiki stored message
  * @subpackage imap/handler
  */
-class Hm_Handler_tiki_message_action extends Hm_Handler_Module {
-    public function process() {
-        list($success, $form) = $this->process_form(array('action_type', 'imap_msg_uid', 'list_path'));
+class Hm_Handler_tiki_message_action extends Hm_Handler_Module
+{
+    public function process()
+    {
+        list($success, $form) = $this->process_form(['action_type', 'imap_msg_uid', 'list_path']);
         if ($success) {
             $email = tiki_parse_message($form['list_path'], $form['imap_msg_uid']);
             if (! $email) {
@@ -517,7 +521,7 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module
 {
     public function process()
     {
-        list($success, $form) = $this->process_form(array('imap_msg_uid'));
+        list($success, $form) = $this->process_form(['imap_msg_uid']);
         if (! $success) {
             return;
         }
@@ -609,7 +613,7 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module
         }
         $this->session->set(
             sprintf('reply_details_%s_%s', $this->request->post['list_path'], $form['imap_msg_uid']),
-            array('ts' => time(), 'msg_struct' => $msg_struct_current, 'msg_text' => $msg_text, 'msg_headers' => $msg_headers)
+            ['ts' => time(), 'msg_struct' => $msg_struct_current, 'msg_text' => $msg_text, 'msg_headers' => $msg_headers]
         );
     }
 }
@@ -676,7 +680,7 @@ class Hm_Handler_tiki_process_move extends Hm_Handler_Module
 {
     public function process()
     {
-        list($success, $form) = $this->process_form(array('imap_move_to', 'imap_move_action', 'imap_move_ids'));
+        list($success, $form) = $this->process_form(['imap_move_to', 'imap_move_action', 'imap_move_ids']);
         if ($success) {
             $moved = 0;
             $dest_path = explode('_', $form['imap_move_to']);
@@ -723,8 +727,10 @@ class Hm_Output_add_move_to_trackers extends Hm_Output_Module
  * Add move/copy dialog to the message list controls
  * @subpackage imap/output
  */
-class Hm_Output_add_multiple_move_to_trackers extends Hm_Output_Module {
-    protected function output() {
+class Hm_Output_add_multiple_move_to_trackers extends Hm_Output_Module
+{
+    protected function output()
+    {
         $res = tiki_move_to_tracker_dropdown($this);
         $this->concat('msg_controls_extra', $res);
     }

@@ -196,7 +196,7 @@ class StructLib extends TikiLib
 
     private function parent_page_name($data, $value)
     {
-        foreach($data as $node) {
+        foreach ($data as $node) {
             if ($node->item_id === $value) {
                 return $node->page_name;
             }
@@ -258,8 +258,7 @@ class StructLib extends TikiLib
                                 $fields['page_id'] = TikiLib::lib('tiki')->get_page_id_from_name($node->page_name);
                                 $fields['structure_id'] = $structure_id;
                                 $tiki_structures->insert($fields);
-                            }
-                            else {
+                            } else {
                                 $fields['page_id'] = TikiLib::lib('tiki')->get_page_id_from_name($node->page_name);
                                 $fields['structure_id'] = $structure_id;
                                 $tiki_structures->insert($fields);
@@ -1460,7 +1459,7 @@ class StructLib extends TikiLib
      * @param        $parent
      *
      */
-    public function getAllChildren(array & $children, int $parent): void
+    public function getAllChildren(array &$children, int $parent): void
     {
         $query = "SELECT `page_ref_id` FROM `tiki_structures` WHERE `parent_id`=?";
         $newchildren = $this->fetchAll("SELECT `page_ref_id` FROM `tiki_structures` WHERE `parent_id`=?", $parent);

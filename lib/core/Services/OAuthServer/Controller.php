@@ -104,7 +104,7 @@ class Services_OAuthServer_Controller
         $oauthserverlib = TikiLib::lib('oauthserver');
         $accesslib = TikiLib::lib('access');
         $servicelib = TikiLib::lib('service');
-        $form = array();
+        $form = [];
 
         if (empty($user)) {
             unset($_SESSION['loginfrom']);
@@ -164,7 +164,7 @@ class Services_OAuthServer_Controller
         $access = TikiLib::lib('access');
         $request = $this->utilities->tiki2Psr7Request($request);
         $access->check_permission('tiki_p_admin');
-        $params = array('delete' => null);
+        $params = ['delete' => null];
 
         if ($request->getMethod() !== 'POST') {
             $response = new JsonResponse(405, [], '');

@@ -19,7 +19,7 @@ function smarty_function_modulelist($params, $smarty)
 
     $tag = "div";
     $class = 'modules';
-    if (!empty($params['class'])) {
+    if (! empty($params['class'])) {
         $class .= ' ' . $params['class'];
         if (strpos($class, 'navbar') !== false) {
             $tag = 'nav';
@@ -27,7 +27,7 @@ function smarty_function_modulelist($params, $smarty)
     }
 
     $id = $zone . '_modules';
-    if (!empty($params['id'])) {
+    if (! empty($params['id'])) {
         $id = $params['id'];
     }
 
@@ -46,26 +46,26 @@ function smarty_function_modulelist($params, $smarty)
                 function ($module) {
                     $devices = $module["params"]["device"] ?? null;
                     $moduleContent = (isset($module['data']) ? $module['data'] : '');
-                    $device_classes =  '';
+                    $device_classes = '';
 
-                    if (isset($devices) && is_array($devices) && !empty($devices)) {
-                        if (!in_array('TABLET', $devices)) {
+                    if (isset($devices) && is_array($devices) && ! empty($devices)) {
+                        if (! in_array('TABLET', $devices)) {
                             $device_classes .= ' no_display_on_tablet';
                         }
 
-                        if (!in_array('MOBILE', $devices)) {
+                        if (! in_array('MOBILE', $devices)) {
                             $device_classes .= ' no_display_on_mobile';
                         }
 
-                        if (!in_array('LAPTOP', $devices)) {
+                        if (! in_array('LAPTOP', $devices)) {
                             $device_classes .= ' no_display_on_laptop';
                         }
 
-                        if (!in_array('DESKTOP', $devices)) {
+                        if (! in_array('DESKTOP', $devices)) {
                             $device_classes .= ' no_display_on_desktop';
                         }
 
-                        if (!in_array('PRINT', $devices)) {
+                        if (! in_array('PRINT', $devices)) {
                             $device_classes .= ' no_display_on_print';
                         }
                     } else {

@@ -4,7 +4,6 @@ namespace Tiki\Lib\core\Toolbar;
 
 use TikiLib;
 
-
 abstract class ToolbarItem
 {
     protected string $wysiwyg = '';
@@ -532,7 +531,8 @@ abstract class ToolbarItem
         }
         $smarty = TikiLib::lib('smarty');
         $smarty->loadPlugin('smarty_function_icon');
-        return smarty_function_icon([
+        return smarty_function_icon(
+            [
             'name'   => $iname,
             'ititle' => ':'
                 . htmlentities(
@@ -541,8 +541,9 @@ abstract class ToolbarItem
                     'UTF-8'
                 ),
             'iclass' => 'tips bottom',
-        ],
-            $smarty->getEmptyInternalTemplate());
+            ],
+            $smarty->getEmptyInternalTemplate()
+        );
     }
 
     public function getSelfLink(string $click, string $title, string $class): string

@@ -16,7 +16,6 @@ use Tiki\CustomRoute\Controller;
  */
 class ControllerTest extends TestCase
 {
-
     /**
      * @covers \Tiki\CustomRoute\Controller::populateFromRequest()
      */

@@ -23,7 +23,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Table_Code_Other extends Table_Code_Manager
 {
-
     public function setCode()
     {
         $smarty = TikiLib::lib('smarty');

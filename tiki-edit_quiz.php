@@ -163,7 +163,7 @@ $smarty->assign('timeLimit', $info["timeLimit"]);
 $smarty->assign('passingperct', $info["passingperct"]);
 
 if (isset($_REQUEST["remove"])) {
-    $access->checkCsrf(tra("Do you want to delete this quiz")." ?");
+    $access->checkCsrf(tra("Do you want to delete this quiz") . " ?");
     $quizlib->remove_quiz($_REQUEST["remove"]);
 }
 

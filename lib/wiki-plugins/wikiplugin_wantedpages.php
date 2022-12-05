@@ -132,7 +132,6 @@ function wikiplugin_wantedpages_info()
 
 class WikiPluginWantedPages extends PluginsLib
 {
-
     function getDefaultArguments()
     {
         return [    'ignore' => '', // originating pages to be ignored

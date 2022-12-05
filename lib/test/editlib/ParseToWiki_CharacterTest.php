@@ -13,7 +13,6 @@
 
 class EditLib_ParseToWiki_CharacterTest extends TikiTestCase
 {
-
     private $el; // the EditLib
 
 

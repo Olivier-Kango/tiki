@@ -67,8 +67,8 @@ class ToolbarPicker extends ToolbarItem
                 foreach ($rawList as $smiley) {
                     $tra = htmlentities(tra($smiley), ENT_QUOTES, 'UTF-8');
                     $list["(:$smiley:)"] = '<img src="' . $headerlib->convert_cdn(
-                            'img/smiles/icon_' . $smiley . '.gif'
-                        ) . '" alt="' . $tra . '" title="' . $tra . '" width="15" height="15" />';
+                        'img/smiles/icon_' . $smiley . '.gif'
+                    ) . '" alt="' . $tra . '" title="' . $tra . '" width="15" height="15" />';
                 }
 
                 break;
@@ -98,8 +98,8 @@ class ToolbarPicker extends ToolbarItem
 
                 if ($section == 'sheet') {
                     $list['reset'] = "<span title=':" . tra(
-                            "Reset Colors"
-                        ) . "' class='toolbars-picker-reset' reset='true'>" . tra("Reset") . "</span>";
+                        "Reset Colors"
+                    ) . "' class='toolbars-picker-reset' reset='true'>" . tra("Reset") . "</span>";
                 }
 
                 break;
@@ -129,8 +129,8 @@ class ToolbarPicker extends ToolbarItem
                 }
                 if ($section == 'sheet') {
                     $list['reset'] = "<span title='" . tra(
-                            "Reset Colors"
-                        ) . "' class='toolbars-picker-reset' reset='true'>" . tra("Reset") . "</span>";
+                        "Reset Colors"
+                    ) . "' class='toolbars-picker-reset' reset='true'>" . tra("Reset") . "</span>";
                 }
 
                 break;
@@ -251,7 +251,6 @@ class ToolbarPicker extends ToolbarItem
                 'el'      => "%~tuiToolbarItem{$this->markdown_wysiwyg}~%",
             ];
             return json_encode($item);
-
         }
         return '';
     }

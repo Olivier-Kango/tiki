@@ -73,15 +73,15 @@ function wikiplugin_webdocviewer($data, $params)
     }
 
     if (isset($url)) {
-        $srcUrl="//docs.google.com/viewer?embedded=true&url=";
-        $driveUrl="https://drive.google.com/file/d/";
-        $checkUrl=stristr($url,$driveUrl);
+        $srcUrl = "//docs.google.com/viewer?embedded=true&url=";
+        $driveUrl = "https://drive.google.com/file/d/";
+        $checkUrl = stristr($url, $driveUrl);
         if (strlen($checkUrl) > 0) {
-            $cleanUrl = explode($driveUrl,$url)[1];
-            $fileId = explode("/",$cleanUrl)[0];
-            $srcUrl = $driveUrl.$fileId."/preview";
-        }else{
-            $srcUrl.= $url;
+            $cleanUrl = explode($driveUrl, $url)[1];
+            $fileId = explode("/", $cleanUrl)[0];
+            $srcUrl = $driveUrl . $fileId . "/preview";
+        } else {
+            $srcUrl .= $url;
         }
         $iframe = ('<iframe src="' . $srcUrl . '" width="' . $params['width'] . '" height="' . $params['height'] . '" style="border: none;"></iframe>');
         return '~np~' . $iframe . '~/np~';

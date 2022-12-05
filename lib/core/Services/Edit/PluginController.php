@@ -252,9 +252,9 @@ class Services_Edit_PluginController
                 if ($selectedMod) {
                     $pluginArgs['type'] = $selectedMod;
                 }
-                
+
                 // Add field referred to the selected type
-                foreach ($info['referedParams']  as $key => $param) {
+                foreach ($info['referedParams'] as $key => $param) {
                     if ($param["refers_to"] == $selectedMod) {
                         $info['params'][$key] = $param;
                     }

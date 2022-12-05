@@ -10,7 +10,6 @@ use Tiki\Lib\Image\Image;
 
 class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
 {
-
     protected $replaceKeys = [
       '%file_name%' => 'file.filename',
       '%file_id%' => 'file.fileId',

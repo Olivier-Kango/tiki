@@ -40,7 +40,7 @@ class Tiki_Profile_InstallHandler_Tabular extends Tiki_Profile_InstallHandler
         $lib = TikiLib::lib('tabular');
         $tabularId = $lib->create($data['name'], $data['tracker']);
 
-        $reference_converter = function($field){
+        $reference_converter = function ($field) {
             if (is_numeric($field['field'])) {
                 if ($trk_field = TikiLib::lib('trk')->get_field_info($field['field'])) {
                     $field['field'] = $trk_field['permName'];
@@ -107,7 +107,7 @@ class Tiki_Profile_InstallHandler_Tabular extends Tiki_Profile_InstallHandler
             }
 
             $definition = Tracker_Definition::get($info['trackerId']);
-            $reference_converter = function($field) use ($writer, $definition) {
+            $reference_converter = function ($field) use ($writer, $definition) {
                 $field = Tiki_Profile::convertYesNo($field);
                 if ($trk_field = $definition->getFieldFromPermName($field['field'])) {
                     $field['field'] = $writer->getReference('tracker_field', $trk_field['fieldId']);

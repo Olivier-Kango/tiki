@@ -10,7 +10,6 @@
 
 class TikiLibTest extends TikiTestCase
 {
-
     private $some_page_name1 = 'SomePage1';
     private $some_page_name2 = 'SomePage2';
     private $some_page_name3 = 'SomePage3';

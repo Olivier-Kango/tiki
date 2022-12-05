@@ -23,7 +23,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Table_Code_MainOptions extends Table_Code_Manager
 {
-
     /**
      * Generates the code for the main options
      */

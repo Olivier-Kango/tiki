@@ -21,7 +21,7 @@ if (! ini_get('date.timezone')) {
 chdir(dirname(dirname(__DIR__)));
 define('PHPUNIT_COMPOSER_INSTALL', implode(DIRECTORY_SEPARATOR, ['vendor_bundled', 'vendor', 'autoload.php']));
 
-$options = getopt('', array('prepend:'));
+$options = getopt('', ['prepend:']);
 if (isset($options['prepend'])) {
     require $options['prepend'];
 }

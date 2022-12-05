@@ -16,7 +16,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Iptc
 {
-
     /**
      * Legend, label, suffix and format information for each field
      * See http://www.iptc.org/std/IIM/4.1/specification/IIMV4.1.pdf for specification source

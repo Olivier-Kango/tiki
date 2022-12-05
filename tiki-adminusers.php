@@ -290,12 +290,12 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
         $errors[] = tra('User login contains invalid characters.');
         $AddUser = false;
     }
-    if ($prefs['login_is_email'] == 'y' && strlen($_REQUEST['login'])>200) {
-        $errors[] = sprintf(tra('Username %s must be less than 200 characters.'),$_REQUEST['login']);
+    if ($prefs['login_is_email'] == 'y' && strlen($_REQUEST['login']) > 200) {
+        $errors[] = sprintf(tra('Username %s must be less than 200 characters.'), $_REQUEST['login']);
         $AddUser = false;
     }
-    if ($prefs['login_is_email'] == 'n' && (strlen($_REQUEST['login'])>$prefs['max_username_length'] || strlen($_REQUEST['login'])<$prefs['min_username_length'])) {
-        $errors[] = sprintf(tra('Username %s must be less than %s characters and more than %s character(s).'),$_REQUEST['login'],$prefs['max_username_length'],$prefs['min_username_length']);
+    if ($prefs['login_is_email'] == 'n' && (strlen($_REQUEST['login']) > $prefs['max_username_length'] || strlen($_REQUEST['login']) < $prefs['min_username_length'])) {
+        $errors[] = sprintf(tra('Username %s must be less than %s characters and more than %s character(s).'), $_REQUEST['login'], $prefs['max_username_length'], $prefs['min_username_length']);
         $AddUser = false;
     }
     // end verify newuser info
@@ -371,7 +371,6 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
     } else {
         $cookietab = 2;
     }
-
 } elseif (isset($_REQUEST['action'])) {
     if ($_REQUEST['action'] == 'email_due' && isset($_REQUEST['user']) && $access->checkCsrf()) {
         $result = $userlib->reset_email_due($_REQUEST['user']);
@@ -454,16 +453,15 @@ if (isset($_REQUEST['user']) and $_REQUEST['user']) {
         && $access->checkCsrf(true)
     ) {
         if (! empty($_POST['login'])) {
-            if ($prefs['login_is_email'] == 'y' && strlen($_REQUEST['login'])>200 && ($userinfo['login'] != $_POST['login'] || $userinfo['email'] != $_POST['email'])) {
-                $errors[] = sprintf(tra('Username %s must be less than 200 characters.'),$_REQUEST['login']);
-            }
-            elseif ($prefs['login_is_email'] == 'n' && (strlen($_REQUEST['login'])>$prefs['max_username_length'] || strlen($_REQUEST['login'])<$prefs['min_username_length']) && $userinfo['login'] != $_POST['login']) {
-                $errors[] = sprintf(tra('Username %s must be less than %s characters and more than %s character(s).'),$_REQUEST['login'],$prefs['max_username_length'],$prefs['min_username_length']);
+            if ($prefs['login_is_email'] == 'y' && strlen($_REQUEST['login']) > 200 && ($userinfo['login'] != $_POST['login'] || $userinfo['email'] != $_POST['email'])) {
+                $errors[] = sprintf(tra('Username %s must be less than 200 characters.'), $_REQUEST['login']);
+            } elseif ($prefs['login_is_email'] == 'n' && (strlen($_REQUEST['login']) > $prefs['max_username_length'] || strlen($_REQUEST['login']) < $prefs['min_username_length']) && $userinfo['login'] != $_POST['login']) {
+                $errors[] = sprintf(tra('Username %s must be less than %s characters and more than %s character(s).'), $_REQUEST['login'], $prefs['max_username_length'], $prefs['min_username_length']);
             } else {
                 if ($userinfo['login'] != $_POST['login'] && $userinfo['login'] != 'admin') {
                     if ($userlib->user_exists($_POST['login'])) {
                         $errors[] = tra('User already exists');
-                    } elseif (!empty($prefs['username_pattern']) && !preg_match($prefs['username_pattern'], $_POST['login'])) {
+                    } elseif (! empty($prefs['username_pattern']) && ! preg_match($prefs['username_pattern'], $_POST['login'])) {
                         $errors[] = tra('User login contains invalid characters.');
                     } elseif ($userlib->change_login($userinfo['login'], $_POST['login'])) {
                         Feedback::success(sprintf(

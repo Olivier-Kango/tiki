@@ -27,7 +27,6 @@ define("SERVER_ERROR", -1);
 
 class TikiPhpBBLib
 {
-
     public $db;
 
     public function check($user, $pass)

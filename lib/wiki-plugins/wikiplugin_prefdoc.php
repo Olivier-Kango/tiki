@@ -86,7 +86,6 @@ function wikiplugin_prefdoc($data, $params)
  */
 class PrefsDoc extends TWVersion
 {
-
     public $docTable;
     public $error;
     public $state;

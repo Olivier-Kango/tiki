@@ -147,7 +147,7 @@ class Services_ApiClient
                 $result = array_map('str_getcsv', preg_split("/\r?\n/", $data));
                 break;
             case 'ndjson':
-                $result = array_map(function($row) {
+                $result = array_map(function ($row) {
                     return json_decode($row, true);
                 }, preg_split("/\r?\n/", $data));
                 break;

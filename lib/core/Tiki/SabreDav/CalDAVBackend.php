@@ -27,7 +27,6 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
     CalDAV\Backend\SchedulingSupport,
     CalDAV\Backend\SharingSupport
 {
-
     /**
      * We need to specify a max date, because we need to stop *somewhere*
      *

@@ -27,10 +27,10 @@ $principalBackend = new PrincipalBackend();
 $carddavBackend = new CardDAVBackend();
 
 // Directory tree
-$tree = array(
+$tree = [
     new DAVACL\PrincipalCollection($principalBackend),
     new CardDAV\AddressBookRoot($principalBackend, $carddavBackend)
-);
+];
 
 // The object tree needs in turn to be passed to the server class
 $server = new DAV\Server($tree);

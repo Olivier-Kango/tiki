@@ -269,7 +269,8 @@ class Table_Plugin
                 'description' =>
                     tr(
                         'Enter %0y%1 to set default values based on the site setting. Set custom values as in the following example: ',
-                        '<code>', '</code>'
+                        '<code>',
+                        '</code>'
                     ) .
                     '<code>delivery:d;saveFileName:exported_teblesorter.csv</code>',
                 'since' => '12.0',
@@ -679,8 +680,8 @@ class Table_Plugin
         }
 
         // misc options
-        $s['showProcessing']    = $showProcessing    ?? 'y';
-        $s['ignoreCase']        = $ignoreCase        ?? 'y';
+        $s['showProcessing']    = $showProcessing ?? 'y';
+        $s['ignoreCase']        = $ignoreCase ?? 'y';
         $s['sortLocaleCompare'] = $sortLocaleCompare ?? 'y';
 
         $this->settings = $s;

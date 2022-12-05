@@ -13,7 +13,6 @@
  */
 class TikiFilter_PregFilter implements Laminas\Filter\FilterInterface
 {
-
     /**
      * @var
      */

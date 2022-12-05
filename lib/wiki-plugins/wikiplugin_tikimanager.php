@@ -61,7 +61,7 @@ function wikiplugin_tikimanager($data, $params)
     }
 
     try {
-        $utilities = new Services_Manager_Utilities;
+        $utilities = new Services_Manager_Utilities();
         $utilities->loadEnv();
     } catch (Exception $e) {
         return WikiParser_PluginOutput::error($e->getMessage());
@@ -76,7 +76,7 @@ function wikiplugin_tikimanager($data, $params)
     $hideactions ??= [];
 
     $instances = TikiManager\Application\Instance::getInstances(true);
-    $instances = array_filter($instances, function($i) use ($instanceIds) {
+    $instances = array_filter($instances, function ($i) use ($instanceIds) {
         return empty($instanceIds) || in_array($i->getId(), $instanceIds);
     });
 
@@ -84,12 +84,12 @@ function wikiplugin_tikimanager($data, $params)
     $available_actions = ['access', 'backup', 'blank', 'check', 'clone', 'cloneandupgrade', 'console', 'copysshkey', 'create', 'delete', 'detect', 'edit', 'fixpermissions', 'import', 'list', 'maintenance', 'patch_apply', 'patch_delete', 'patch_list', 'profile_apply', 'restore', 'revert', 'setup-scheduler-cron', 'stats', 'update', 'upgrade', 'watch', 'info', 'tiki_versions', 'test_send_email', 'setup_watch', 'checkout', 'clear_cache','setup_backup','manager_backup','manager_update'];
 
     if ($showactions) {
-        $available_actions = array_filter($available_actions, function($action) use ($showactions) {
+        $available_actions = array_filter($available_actions, function ($action) use ($showactions) {
             return in_array($action, $showactions);
         });
     }
     if ($hideactions) {
-        $available_actions = array_filter($available_actions, function($action) use ($hideactions) {
+        $available_actions = array_filter($available_actions, function ($action) use ($hideactions) {
             return ! in_array($action, $hideactions);
         });
     }

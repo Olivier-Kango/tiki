@@ -32,12 +32,12 @@ class ToolbarDialog extends ToolbarItem
                     '<label for="tbWLinkPage">' . tra("Link to this page") . '</label>',
                     '<input type="text" id="tbWLinkPage" class="ui-widget-content ui-corner-all" style="width: 98%" />',
                     $prefs['wikiplugin_alink'] == 'y' ? '<label for="tbWLinkAnchor">' . tra(
-                            "Anchor"
-                        ) . ':</label>' : '',
+                        "Anchor"
+                    ) . ':</label>' : '',
                     $prefs['wikiplugin_alink'] == 'y' ? '<input type="text" id="tbWLinkAnchor" class="ui-widget-content ui-corner-all" style="width: 98%" />' : '',
                     $prefs['feature_semantic'] == 'y' ? '<label for="tbWLinkRel">' . tra(
-                            "Semantic relation"
-                        ) . ':</label>' : '',
+                        "Semantic relation"
+                    ) . ':</label>' : '',
                     $prefs['feature_semantic'] == 'y' ? '<input type="text" id="tbWLinkRel" class="ui-widget-content ui-corner-all" style="width: 98%" />' : '',
                     '{"open": function () { dialogInternalLinkOpen(area_id, clickedElement); },
                         "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
@@ -58,7 +58,8 @@ class ToolbarDialog extends ToolbarItem
 
                 $smarty = TikiLib::lib('smarty');
                 $smarty->loadPlugin('smarty_function_object_selector');
-                $object_selector = smarty_function_object_selector([
+                $object_selector = smarty_function_object_selector(
+                    [
                                                                        '_id'        => 'tbOLinkObjectSelector',
                                                                        '_class'     => 'ui-widget-content ui-corner-all',
                                                                        //              '_format' => '{title}',
@@ -66,7 +67,8 @@ class ToolbarDialog extends ToolbarItem
                                                                        '_parent'    => 'tbOLinkObjectType',
                                                                        '_parentkey' => 'type',
                                                                    ],
-                                                                   $smarty->getEmptyInternalTemplate());
+                    $smarty->getEmptyInternalTemplate()
+                );
 
                 $list = [
                     tra('Object Link'),
@@ -102,8 +104,8 @@ class ToolbarDialog extends ToolbarItem
                     '<label for="tbLinkRel">' . tra("Relation") . ':</label>',
                     '<input type="text" id="tbLinkRel" class="ui-widget-content ui-corner-all" style="width: 98%" />',
                     $prefs['cachepages'] == 'y' ? '<br /><label for="tbLinkNoCache" style="display:inline;">' . tra(
-                            "No cache"
-                        ) . ':</label>' : '',
+                        "No cache"
+                    ) . ':</label>' : '',
                     $prefs['cachepages'] == 'y' ? '<input type="checkbox" id="tbLinkNoCache" class="ui-widget-content ui-corner-all" />' : '',
                     '{"width": 300, "open": function () { dialogExternalLinkOpen( area_id ) },
                         "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
@@ -276,7 +278,6 @@ class ToolbarDialog extends ToolbarItem
     public function getMarkdownWysiwyg(): string
     {
         if (in_array($this->name, ['tikilink'])) {
-
             \TikiLib::lib('header')->add_jq_onready(
                 "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').click(function () {
                         {$this->getOnClick()}
@@ -293,11 +294,9 @@ class ToolbarDialog extends ToolbarItem
                 'el'      => "%~tuiToolbarItem{$this->markdown_wysiwyg}~%",
             ];
             return json_encode($item);
-
-        } elseif($this->name === 'link') {
+        } elseif ($this->name === 'link') {
             return $this->name;
         }
         return '';
     }
-
 }

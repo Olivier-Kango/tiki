@@ -8,7 +8,6 @@
 
 class Scheduler_Task_HTTPGetCommandTask extends Scheduler_Task_CommandTask
 {
-
     public function execute($params = null)
     {
         try {

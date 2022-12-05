@@ -29,7 +29,7 @@ class TemplatesLib extends TikiLib
      */
     public function list_templates($section, $offset, $maxRecords, $sort_mode, $find)
     {
-        $bindvars = array($section);
+        $bindvars = [$section];
 
         if ($find) {
             $findesc = '%' . $find . '%';
@@ -45,13 +45,13 @@ class TemplatesLib extends TikiLib
         $query_cant .= "where tcts.`templateId`=tct.`templateId` and `section`=? $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
         $cant = $this->getOne($query_cant, $bindvars);
-        $ret = array();
+        $ret = [];
 
         while ($res = $result->fetchRow()) {
             $query2 = "select `section`  from `tiki_content_templates_sections` where `templateId`=?";
 
-            $result2 = $this->query($query2, array((int) $res["templateId"]));
-            $sections = array();
+            $result2 = $this->query($query2, [(int) $res["templateId"]]);
+            $sections = [];
             while ($res2 = $result2->fetchRow()) {
                 $sections[] = $res2["section"];
             }
@@ -60,10 +60,10 @@ class TemplatesLib extends TikiLib
         }
 
         // filter out according to perms
-        $ret = Perms::filter(array('type' => 'template'), 'object', $ret, array( 'object' => 'templateId' ), 'use_content_templates');
+        $ret = Perms::filter(['type' => 'template'], 'object', $ret, [ 'object' => 'templateId' ], 'use_content_templates');
         $cant = count($ret);
 
-        $retval = array();
+        $retval = [];
         $retval["data"] = $ret;
         $retval["cant"] = $cant;
         return $retval;
@@ -81,7 +81,7 @@ class TemplatesLib extends TikiLib
         TikiLib::lib('access')->check_permission('use_content_templates', 'Use templates', 'template', $templateId);
 
         $query = "select * from `tiki_content_templates` where `templateId`=?";
-        $result = $this->query($query, array((int) $templateId));
+        $result = $this->query($query, [(int) $templateId]);
 
         if (! $result->numRows()) {
             return false;
@@ -136,7 +136,7 @@ class TemplatesLib extends TikiLib
                     unset($data['galleryId'], $data['parentId'], $data['name'], $data['user']);
                     $res['content'] = $data;
                 } else {
-                    $res['content'] = array();
+                    $res['content'] = [];
                 }
                 break;
         }
@@ -187,7 +187,7 @@ class TemplatesLib extends TikiLib
         global $prefs, $user;
         $attributeslib = TikiLib::lib('attribute');
 
-        $bindvars = array();
+        $bindvars = [];
         if ($find) {
             $bindvars[] = '%' . $find . '%';
             $bindvars[] = '%' . $find . '%';
@@ -200,16 +200,16 @@ class TemplatesLib extends TikiLib
                             $this->convertSortMode($sort_mode);
 
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $ret = array();
+        $ret = [];
         $categlib = TikiLib::lib('categ');
 
         while ($res = $result->fetchRow()) {
-            $perms = Perms::get(array('type' => 'template', 'object' => $res["templateId"]));
+            $perms = Perms::get(['type' => 'template', 'object' => $res["templateId"]]);
 
             if ($perms->use_content_templates) {
                 $query2 = "select `section` from `tiki_content_templates_sections` where `templateId`=?";
-                $result2 = $this->query($query2, array((int)$res["templateId"]));
-                $sections = array();
+                $result2 = $this->query($query2, [(int)$res["templateId"]]);
+                $sections = [];
                 while ($res2 = $result2->fetchRow()) {
                     $sections[] = $res2["section"];
                 }
@@ -239,7 +239,7 @@ class TemplatesLib extends TikiLib
 
         $cant = count($ret);
 
-        $retval = array();
+        $retval = [];
         $retval["data"] = $ret;
         $retval["cant"] = $cant;
         return $retval;
@@ -258,20 +258,20 @@ class TemplatesLib extends TikiLib
     {
         TikiLib::lib('access')->check_permission('edit_content_templates', 'Edit template', 'template', $templateId);
 
-        $bindvars = array($content, $name, (int) $this->now, $type);
+        $bindvars = [$content, $name, (int) $this->now, $type];
         if ($templateId) {
             $query = "update `tiki_content_templates` set `content`=?, `name`=?, `created`=?, `template_type`=? where `templateId`=?";
             $bindvars[] = (int) $templateId;
         } else {
             $query = "delete from `tiki_content_templates` where `content`=? and `name`=?";
-            $this->query($query, array($content, $name), -1, -1, false);
+            $this->query($query, [$content, $name], -1, -1, false);
             $query = "insert into `tiki_content_templates`(`content`,`name`,`created`,`template_type`) values(?,?,?,?)";
         }
 
         $result = $this->query($query, $bindvars);
         $id = $this->getOne(
             "select max(`templateId`) from `tiki_content_templates` where `created`=? and `name`=?",
-            array((int) $this->now, $name)
+            [(int) $this->now, $name]
         );
 
         return $id;
@@ -289,14 +289,14 @@ class TemplatesLib extends TikiLib
 
         $this->query(
             "delete from `tiki_content_templates_sections` where `templateId`=? and `section`=?",
-            array((int) $templateId, $section),
+            [(int) $templateId, $section],
             -1,
             -1,
             false
         );
 
         $query = "insert into `tiki_content_templates_sections`(`templateId`,`section`) values(?,?)";
-        $result = $this->query($query, array((int) $templateId, $section));
+        $result = $this->query($query, [(int) $templateId, $section]);
     }
 
     /**
@@ -312,7 +312,7 @@ class TemplatesLib extends TikiLib
 
         return $this->query(
             "delete from `tiki_content_templates_sections` where `templateId`=? and `section`=?",
-            array((int) $templateId, $section)
+            [(int) $templateId, $section]
         );
     }
 
@@ -325,7 +325,7 @@ class TemplatesLib extends TikiLib
     {
         $cant = $this->getOne(
             "select count(*) from `tiki_content_templates_sections` where `templateId`=? and `section`=?",
-            array((int) $templateId, $section)
+            [(int) $templateId, $section]
         );
 
         return $cant;
@@ -342,9 +342,9 @@ class TemplatesLib extends TikiLib
         TikiLib::lib('access')->check_permission('admin_content_templates', 'Admin template', 'template', $templateId);
 
         $query = "delete from `tiki_content_templates` where `templateId`=?";
-        $result = $this->query($query, array((int) $templateId));
+        $result = $this->query($query, [(int) $templateId]);
         $query = "delete from `tiki_content_templates_sections` where `templateId`=?";
-        $this->query($query, array((int) $templateId));
+        $this->query($query, [(int) $templateId]);
         return $result;
     }
 }

@@ -52,7 +52,7 @@ class Directives
         if (is_array($value)) {
             $value = array_values($value)[0];
         }
-        if ($value instanceOf TaggedValue) {
+        if ($value instanceof TaggedValue) {
             return $value->getTag();
         }
         $directive = substr($value, 1, strpos($value, " ") - 1);
@@ -81,7 +81,7 @@ class Directives
             return true;
         }
 
-        if ($testValue instanceOf TaggedValue) {
+        if ($testValue instanceof TaggedValue) {
             $class = "\\Tiki\\Yaml\\Directive\\Directive" . ucfirst($this->directiveFromValue($testValue));
             if (! class_exists($class)) {
                 return false;

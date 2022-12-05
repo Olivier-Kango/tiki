@@ -179,8 +179,8 @@ add_output('ajax_hm_folders', 'info_page_link', true, 'developer', 'settings_men
 /* sieve filters */
 add_output('sieve_filters', 'tiki_filters_cron', true, 'tiki', 'sievefilters_settings_start', 'after');
 
-return array(
-  'allowed_pages' => array(
+return [
+  'allowed_pages' => [
     'groupmail',
     'ajax_tiki_groupmail',
     'ajax_take_groupmail',
@@ -197,25 +197,25 @@ return array(
     'ajax_tiki_flag_message',
     'ajax_tiki_message_action',
     'info',
-  ),
-  'allowed_get' => array(
+  ],
+  'allowed_get' => [
     'tiki_download_message' => FILTER_VALIDATE_BOOLEAN,
     'tiki_show_message'  => FILTER_VALIDATE_BOOLEAN,
-  ),
-  'allowed_output' => array(
-    'operator' => array(FILTER_SANITIZE_STRING, false),
-    'item_removed' => array(FILTER_VALIDATE_BOOLEAN, false),
-    'tiki_redirect_url' => array(FILTER_SANITIZE_STRING, false),
-    'msg_prev_link' => array(FILTER_SANITIZE_STRING, false),
-    'msg_prev_subject' => array(FILTER_SANITIZE_STRING, false),
-    'msg_next_link' => array(FILTER_SANITIZE_STRING, false),
-    'msg_next_subject' => array(FILTER_SANITIZE_STRING, false),
-    'delete_error' => array(FILTER_VALIDATE_BOOLEAN, false),
-    'archive_error' => array(FILTER_VALIDATE_BOOLEAN, false),
-    'show_archive' => array(FILTER_VALIDATE_BOOLEAN, false),
-    'flag_state' => array(FILTER_SANITIZE_STRING, false),
-  ),
-  'allowed_post' => array(
+  ],
+  'allowed_output' => [
+    'operator' => [FILTER_SANITIZE_STRING, false],
+    'item_removed' => [FILTER_VALIDATE_BOOLEAN, false],
+    'tiki_redirect_url' => [FILTER_SANITIZE_STRING, false],
+    'msg_prev_link' => [FILTER_SANITIZE_STRING, false],
+    'msg_prev_subject' => [FILTER_SANITIZE_STRING, false],
+    'msg_next_link' => [FILTER_SANITIZE_STRING, false],
+    'msg_next_subject' => [FILTER_SANITIZE_STRING, false],
+    'delete_error' => [FILTER_VALIDATE_BOOLEAN, false],
+    'archive_error' => [FILTER_VALIDATE_BOOLEAN, false],
+    'show_archive' => [FILTER_VALIDATE_BOOLEAN, false],
+    'flag_state' => [FILTER_SANITIZE_STRING, false],
+  ],
+  'allowed_post' => [
     'imap_server_id' => FILTER_VALIDATE_INT,
     'imap_msg_uid' => FILTER_SANITIZE_STRING,
     'imap_msg_ids' => FILTER_SANITIZE_STRING,
@@ -249,5 +249,5 @@ return array(
     'imap_move_action' => FILTER_SANITIZE_STRING,
     'action_type' => FILTER_SANITIZE_STRING,
     'tiki_archive_replied' => FILTER_VALIDATE_INT,
-  )
-);
+  ]
+];

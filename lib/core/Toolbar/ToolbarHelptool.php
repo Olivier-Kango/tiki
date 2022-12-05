@@ -76,7 +76,7 @@ class ToolbarHelptool extends ToolbarUtilityItem
         return parent::getMarkdownWysiwyg();
     }
 
-    private function getWysiwygJs(bool $isMarkdown = false) : string
+    private function getWysiwygJs(bool $isMarkdown = false): string
     {
         global $section;
 
@@ -100,7 +100,6 @@ class ToolbarHelptool extends ToolbarUtilityItem
         $this->setLabel(tra('WYSIWYG Help'));
 
         return '$.openModal({show: true, remote: "' . $servicelib->getUrl($params) . '"});';
-
     }
     protected function getOnClick(): string
     {

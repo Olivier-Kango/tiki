@@ -109,7 +109,7 @@ class ODBCManager
             if ($fullRow) {
                 $row = $fullRow;
             }
-            $row = array_filter($row, function($val) {
+            $row = array_filter($row, function ($val) {
                 if (is_bool($val) || is_int($val) || is_float($val)) {
                     return true;
                 }

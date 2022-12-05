@@ -1200,16 +1200,16 @@ class WikiLib extends TikiLib
             return [];
         }
     }
-    
+
     /**
-     * Tests removing 1 or 2 of the last characters from the URL to see 
+     * Tests removing 1 or 2 of the last characters from the URL to see
      * if it gets an existing page
-     * 
+     *
      * @param array $page           the page name
      * @param string $type          'wikiPage'|'tpl'
      * @param string $path          the path where to look for the template in the case $type = 'tpl'
      * @param string $prefix
-     * 
+     *
      * @return '' | redirect to the new url if page name retrieves an existing page
      */
     public function clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '')
@@ -1223,16 +1223,16 @@ class WikiLib extends TikiLib
         $tikilib = TikiLib::lib('tiki');
         $access = TikiLib::lib('access');
 
-        $request_uri = ($prefs['feature_sefurl'] == 'y' || ! $_SERVER['QUERY_STRING']) ? ($request_uri = basename(debug_backtrace()[0]['file']).'?page='.$page) : $base_uri;
+        $request_uri = ($prefs['feature_sefurl'] == 'y' || ! $_SERVER['QUERY_STRING']) ? ($request_uri = basename(debug_backtrace()[0]['file']) . '?page=' . $page) : $base_uri;
 
         $pathInfo = parse_url($request_uri);
         $queryString = $pathInfo['query'];
         parse_str($queryString, $queryArray);
 
         // search for a matching page
-        $possiblePages = array($page, substr($page,0,-1) , substr($page,0,-2));
+        $possiblePages = [$page, substr($page, 0, -1) , substr($page, 0, -2)];
         $newPage = '';
-        foreach ( $possiblePages as $p ) {
+        foreach ($possiblePages as $p) {
             if ($type == '' || $type == 'wikiPage') {
                 if ($tikilib->page_exists($p)) {
                     $newPage = $p;
@@ -1250,14 +1250,14 @@ class WikiLib extends TikiLib
             $queryArray['page'] = $newPage;
             $newQueryStr = http_build_query($queryArray, '', '&');
 
-            $new_url = $url_scheme . "://" . $url_host . $pathInfo['path'] . "?" .$newQueryStr;
+            $new_url = $url_scheme . "://" . $url_host . $pathInfo['path'] . "?" . $newQueryStr;
 
             // if feature_sefurl is enabled, create a sefurl
             if ($prefs['feature_sefurl'] == 'y' || ! $_SERVER['QUERY_STRING']) {
                 unset($queryArray['page']);
                 $newQueryStr = http_build_query($queryArray, '', '&');
                 $with_next = (empty($newQueryStr) ? '' : $newQueryStr);
-                
+
                 TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
                 $new_url = smarty_modifier_sefurl($newPage, '', $with_next);
             }
@@ -1450,7 +1450,7 @@ class WikiLib extends TikiLib
     //Set the last modified item (wiki page or tracker item)
     public function getBacklinkLastModif($page)
     {
-        $trackerlib = self::lib('trk');        
+        $trackerlib = self::lib('trk');
         $tikilib = self::lib('tiki');
         $lastModif = 'lastModif';
         $query = "select `fromPage` from `tiki_links` where `toPage` = ?";

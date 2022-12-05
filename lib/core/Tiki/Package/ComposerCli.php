@@ -16,7 +16,6 @@ use Tiki\Process\Process;
  */
 class ComposerCli
 {
-
     public const COMPOSER_URL = 'https://getcomposer.org/installer';
     public const COMPOSER_SETUP = 'temp/composer-setup.php';
     public const COMPOSER_PHAR = 'temp/composer.phar';
@@ -247,7 +246,7 @@ class ComposerCli
             $phpFinder = new \Symfony\Component\Process\PhpExecutableFinder();
             $this->phpCli = $phpFinder->find();
             return $this->phpCli;
-         }
+        }
 
         return $this->phpCli;
     }

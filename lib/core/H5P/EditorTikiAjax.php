@@ -7,7 +7,6 @@
 
 class H5P_EditorTikiAjax implements H5PEditorAjaxInterface
 {
-
     /**
      * Gets latest library versions that exists locally
      *

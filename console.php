@@ -114,7 +114,6 @@ if ($input->getFirstArgument() === null) {
     $output->writeln('<fg=cyan>To run a specific command (with default values): php console.php index:rebuild</>');
     $output->writeln('<fg=cyan>To get more help on a specific command, use the following pattern: php console.php index:rebuild --help</>');
     $output->writeln('');
-
 }
 if (isset($exceptionToRender)) {
     $output->writeln('<comment>An unexpected error interrupted console initialization</comment>');

@@ -17,7 +17,6 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 class UserFilesLib extends TikiLib
 {
-
     /**
      * @param $user
      * @return int

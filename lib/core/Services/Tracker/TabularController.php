@@ -473,7 +473,7 @@ class Services_Tracker_TabularController
                     ];
                 }
             );
-         }
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $info['odbc_config']) {
             $source = new \Tracker\Tabular\Source\ODBCSource($schema, $info['odbc_config']);

@@ -168,7 +168,8 @@ class ToolbarCkOnly extends ToolbarItem
         if (! empty($this->iconname)) {
             $smarty = TikiLib::lib('smarty');
             $smarty->loadPlugin('smarty_function_icon');
-            return smarty_function_icon([
+            return smarty_function_icon(
+                [
                                             'name'   => $this->iconname,
                                             'ititle' => ':'
                                                 . htmlentities(
@@ -178,7 +179,8 @@ class ToolbarCkOnly extends ToolbarItem
                                                 ),
                                             'iclass' => 'tips bottom',
                                         ],
-                                        $smarty->getEmptyInternalTemplate());
+                $smarty->getEmptyInternalTemplate()
+            );
         }
         if ((! empty($this->icon) && $this->icon !== 'img/icons/shading.png') || in_array($this->label, ['Autosave'])) {
             return parent::getIconHtml();
@@ -203,6 +205,6 @@ class ToolbarCkOnly extends ToolbarItem
 
     protected function getOnClick(): string
     {
-       return '';
+        return '';
     }
 }

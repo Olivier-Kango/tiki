@@ -23,6 +23,5 @@ class TikiLib_LibTest extends PHPUnit\Framework\TestCase
         $this->expectError();
         $this->expectErrorMessage(tr("%0 library not found. This may be due to a typo or caused by a recent update.", 'invalidClass'));
         $this->assertNull(TikiLib::lib('invalidClass'));
-
     }
 }

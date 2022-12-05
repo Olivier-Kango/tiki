@@ -103,7 +103,7 @@ class Tracker_Field_PageSelector extends Tracker_Field_Abstract
             }
         }
     }
-    
+
     // Called by trackerlib with final value saved
     public function postSaveHook($value)
     {
@@ -125,9 +125,9 @@ class Tracker_Field_PageSelector extends Tracker_Field_Abstract
         if (! $validation) {
             if (! preg_match("/^($page_regex)$/", $value)) {
                 return tr(
-                'Page name contains unallowed characters. Please remove those %0',
-                 $bad_chars
-                );                
+                    'Page name contains unallowed characters. Please remove those %0',
+                    $bad_chars
+                );
             }
         }
         return true;

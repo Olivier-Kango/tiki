@@ -483,7 +483,7 @@ function wikiplugin_listpages($data, $params)
     }
 
     // Display an error message if the $showNameAndDescriptionOnly and $showNameOnly options are all entered at the same time
-    if (isset($showNameAndDescriptionOnly) && $showNameAndDescriptionOnly == 'y' && isset($showNameOnly) && $showNameOnly == 'y'){
+    if (isset($showNameAndDescriptionOnly) && $showNameAndDescriptionOnly == 'y' && isset($showNameOnly) && $showNameOnly == 'y') {
         $smarty->assign('msg', tra("You cannot specify the showNameOnly and showNameAndDescriptionOnly options simultaneously, You must choose one of them."));
         $smarty->display("error.tpl");
         die;
@@ -491,7 +491,7 @@ function wikiplugin_listpages($data, $params)
 
     if (isset($showNameOnly) && $showNameOnly == 'y') {
         $ret = $smarty->fetch('wiki-plugins/wikiplugin_listpagenames.tpl');
-    } elseif(isset($showNameAndDescriptionOnly) && $showNameAndDescriptionOnly == 'y'){
+    } elseif (isset($showNameAndDescriptionOnly) && $showNameAndDescriptionOnly == 'y') {
         $ret = $smarty->fetch('wiki-plugins/wikiplugin_listpage_namesanddescription.tpl');
     } else {
         $ret = $smarty->fetch('tiki-listpages_content.tpl');

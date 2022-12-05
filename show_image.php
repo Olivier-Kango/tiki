@@ -19,24 +19,24 @@ global $tiki_p_admin, $prefs, $tikilib, $tikipath;
 include_once("tiki-setup.php");
 
 if ($prefs['feature_file_galleries'] == 'y' && $prefs['file_galleries_redirect_from_image_gallery'] == 'y') {
-
     $fileInfo = $tikilib->table('tiki_object_attributes')->fetchRow([], ['value' => $_REQUEST["id"], 'attribute' => 'tiki.file.imageid']);
     if ($fileInfo) {
         include_once($tikipath . 'tiki-sefurl.php');
         $newUrl = filter_out_sefurl('tiki-download_file.php?fileId=' . $fileInfo['itemId'] . '&display');
 
         if ($tiki_p_admin === 'y') {
-            Feedback::warning(tr('Image Galleries have been migrated but show_image.php is still in use.%0 Change "%1" to "%2"',
-                '<br>', 'show_image.php?id=' . $_REQUEST['id'], $newUrl
+            Feedback::warning(tr(
+                'Image Galleries have been migrated but show_image.php is still in use.%0 Change "%1" to "%2"',
+                '<br>',
+                'show_image.php?id=' . $_REQUEST['id'],
+                $newUrl
             ));
         }
 
         TikiLib::lib('access')->redirect($newUrl);
-
     } else {
         Feedback::error(tr('File info not found for migrated image gallery file #%0', $_REQUEST["id"]));
     }
-} else if ($tiki_p_admin === 'y') {
+} elseif ($tiki_p_admin === 'y') {
     Feedback::error(tr('Image Galleries have been removed. Run the migration script: `php console.php gallery:migrate`'));
 }
-

@@ -20,11 +20,13 @@ class RSSLib extends TikiDb_Bridge
         $this->modules = $this->table('tiki_rss_modules');
     }
 
-    public function enableUpdateArticles() {
+    public function enableUpdateArticles()
+    {
         $this->updateArticles = true;
     }
 
-    public function disableUpdateArticles() {
+    public function disableUpdateArticles()
+    {
         $this->updateArticles = false;
     }
 
@@ -275,7 +277,7 @@ class RSSLib extends TikiDb_Bridge
 
         foreach ($changes["data"] as $data) {
             $item = $feed->createEntry();
-            
+
             if (empty($data[$titleId]) || ! is_string($data[$titleId])) {
                 $data[$titleId] = tra('No title specified');
             }
@@ -299,7 +301,7 @@ class RSSLib extends TikiDb_Bridge
 
             if ($authorId != '' && $prefs['feed_' . $section . '_showAuthor'] == 'y') {
                 $author = $this->process_item_author($data[$authorId]);
-                
+
                 if (array_key_exists('name', $author) && ! empty($author['name']) && is_string($author['name'])) {
                     $item->addAuthor($author);
                 }

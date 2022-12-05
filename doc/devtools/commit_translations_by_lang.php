@@ -63,7 +63,7 @@ foreach ($final_commit_list as $trans) {
 }
 if (has_uncommited_changes("./lang")) {
     echo "there is uncommitted changes \n";
-    $description_merge = array();
+    $description_merge = [];
     $title_merge = "[TRA] Automatic Merge request of translations contributed to http://i18n.tiki.org";
     foreach ($user_translations as $all_translations) {
         if (empty($all_translations['user'])) {

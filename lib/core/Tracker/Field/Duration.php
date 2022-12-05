@@ -179,7 +179,7 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
         } else {
             $applicationId = 'new';
         }
-   
+
         $headerlib->add_jq_onready('
 window.registerApplication({
     name: "@vue-mf/duration-picker-" + ' . json_encode($applicationId) . ',
@@ -403,10 +403,10 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
         $output = '';
         foreach ($value as $unit => $amount) {
             // Remove s char if value is < 2
-            if($amount < 2) {
+            if ($amount < 2) {
                 $unit = substr($unit, 0, -1);
             }
-            $output .= ($output ? ', ' : '') . "$amount ".tra($unit);
+            $output .= ($output ? ', ' : '') . "$amount " . tra($unit);
         }
 
         return $output;
@@ -418,10 +418,10 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
 
         $output = 'P';
         foreach ($value as $unit => $amount) {
-            if (in_array($unit, ['hours', 'minutes', 'seconds']) && !strstr($output, 'T')) {
+            if (in_array($unit, ['hours', 'minutes', 'seconds']) && ! strstr($output, 'T')) {
                 $output .= 'T';
             }
-            $output .= "$amount".substr(ucfirst($unit), 0, 1);
+            $output .= "$amount" . substr(ucfirst($unit), 0, 1);
         }
 
         return $output;
@@ -441,7 +441,8 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
         );
     }
 
-    private function parseDurationFormat($data, $lowest = 'seconds') {
+    private function parseDurationFormat($data, $lowest = 'seconds')
+    {
         $struct = [
             'years' => 0,
             'months' => 0,
@@ -482,7 +483,7 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
                 'seconds' => 's|seconds?'
             ];
             foreach ($matches as $unit => $pattern) {
-                if (preg_match('/(\d+)\s*('.$pattern.')/i', $data, $m)) {
+                if (preg_match('/(\d+)\s*(' . $pattern . ')/i', $data, $m)) {
                     $struct[$unit] = $m[1];
                 }
             }

@@ -8,7 +8,7 @@
 use Tiki\Installer\Installer;
 
 /**
- * Set the default value on upgraded Tikis for http_header_frame_options, 
+ * Set the default value on upgraded Tikis for http_header_frame_options,
  * http_header_xss_protection, http_header_content_type_options, http_header_content_security_policy,
  * http_header_strict_transport_security and http_header_public_key_pins to 'n'
  *

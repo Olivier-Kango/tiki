@@ -618,27 +618,57 @@ class Comments extends TikiLib
                                 if ($part['disposition'] == 'attachment') {
                                     if (! empty($part['d_parameters']['filename'])) {
                                         $part_name = $part['d_parameters']['filename'];
-                                    } elseif (preg_match(
-                                        '/filename=([^;]*)/', $part['d_parameters']['atend'], $mm
-                                    )
+                                    } elseif (
+                                        preg_match(
+                                            '/filename=([^;]*)/',
+                                            $part['d_parameters']['atend'],
+                                            $mm
+                                        )
                                     ) {      // not sure what this is but it seems to have the filename in it
                                         $part_name = $mm[1];
                                     } else {
                                         $part_name = "Unnamed File";
                                     }
                                     $this->add_thread_attachment(
-                                        $forum_info, $threadId, $errors, $part_name, $part['type'], strlen($part['body']), 1, '', '', $part['body']
+                                        $forum_info,
+                                        $threadId,
+                                        $errors,
+                                        $part_name,
+                                        $part['type'],
+                                        strlen($part['body']),
+                                        1,
+                                        '',
+                                        '',
+                                        $part['body']
                                     );
                                 } elseif ($part['disposition'] == 'inline') {
                                     if (! empty($part['parts'])) {
                                         foreach ($part['parts'] as $p) {
                                             $this->add_thread_attachment(
-                                                $forum_info, $threadId, $errors, '-', $p['type'], strlen($p['body']), 1, '', '', $p['body']
+                                                $forum_info,
+                                                $threadId,
+                                                $errors,
+                                                '-',
+                                                $p['type'],
+                                                strlen($p['body']),
+                                                1,
+                                                '',
+                                                '',
+                                                $p['body']
                                             );
                                         }
                                     } elseif (! empty($part['body'])) {
                                         $this->add_thread_attachment(
-                                            $forum_info, $threadId, $errors, '-', $part['type'], strlen($part['body']), 1, '', '', $part['body']
+                                            $forum_info,
+                                            $threadId,
+                                            $errors,
+                                            '-',
+                                            $part['type'],
+                                            strlen($part['body']),
+                                            1,
+                                            '',
+                                            '',
+                                            $part['body']
                                         );
                                     }
                                 }

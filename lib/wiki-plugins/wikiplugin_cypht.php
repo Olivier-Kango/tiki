@@ -246,7 +246,7 @@ function wikiplugin_cypht($data, $params)
 
     if (TikiLib::lib('wiki')->get_page_by_slug($_GET['page']) == $page && $prefs['feature_sefurl'] !== 'y') {
         TikiLib::lib('access')->redirect('tiki-index.php?page_id=' . $tikilib->get_page_id_from_name($page));
-    } elseif ($prefs['feature_sefurl'] === 'y' && !empty($_GET['page_id'])) {
+    } elseif ($prefs['feature_sefurl'] === 'y' && ! empty($_GET['page_id'])) {
         TikiLib::lib('access')->redirect(TikiLib::lib('wiki')->sefurl($page));
     }
 
@@ -308,7 +308,7 @@ function wikiplugin_cypht($data, $params)
     if (
         empty($_SESSION[$session_prefix]['preference_name']) || $_SESSION[$session_prefix]['preference_name'] != $preference_name
         || (! empty($_SESSION[$session_prefix]['username']) && $_SESSION[$session_prefix]['username'] != $user)
-        || !empty($_REQUEST['clear_cache'])
+        || ! empty($_REQUEST['clear_cache'])
     ) {
         // resetting the session on purpose - could be coming from tiki-webmail
         $_SESSION[$session_prefix] = [];
@@ -357,14 +357,14 @@ function wikiplugin_cypht($data, $params)
 
     // merge existing configuration with plugin params for smtp/imap servers
     if (! empty($params['imap_server']) && ! empty($params['imap_username']) && ! empty($params['imap_password'])) {
-        $attributes = array(
+        $attributes = [
             'name' => empty($params['imap_name']) ? $params['imap_username'] : $params['imap_name'],
             'server' => $params['imap_server'],
             'port' => $params['imap_port'],
             'tls' => $params['imap_tls'] == 'y' ? '1' : '0',
             'user' => $params['imap_username'],
             'pass' => $params['imap_password']
-        );
+        ];
         if (empty($_SESSION[$session_prefix]['user_data']['imap_servers'])) {
             $_SESSION[$session_prefix]['user_data']['imap_servers'] = [];
         }
@@ -384,7 +384,7 @@ function wikiplugin_cypht($data, $params)
     }
 
     if (! empty($params['smtp_server']) && ! empty($params['smtp_username']) && ! empty($params['smtp_password'])) {
-        $attributes = array(
+        $attributes = [
             'name' => empty($params['smtp_name']) ? $params['smtp_username'] : $params['smtp_name'],
             'default' => true,
             'server' => $params['smtp_server'],
@@ -392,7 +392,7 @@ function wikiplugin_cypht($data, $params)
             'tls' => $params['smtp_tls'] == 'y',
             'user' => $params['smtp_username'],
             'pass' => $params['smtp_password']
-        );
+        ];
         if ($params['smtp_no_auth'] == 'y') {
             $attributes['no_auth'] = true;
         }

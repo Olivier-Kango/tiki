@@ -48,18 +48,18 @@ function wikiplugin_gdgraph_info()
                 'filter' => 'text',
                 'default' => '',
             ],
-			'axestext' => [
-				'required' => false,
-				'name' => tra('Axes text size'),
-				'description' => tra('Size options for the text used for the x and y axes values - the default selection is Large-Text'),
-				'since' => '24.1',
-				'filter' => 'text',
-				'default' => 'Large-Text',
-				'options' => [
-					['text' => tra('Large-Text'), 'value' => 'Large-Text'],
-					['text' => tra('Normal-Text'), 'value' => 'Normal-Text'],
-				],
-			],			
+            'axestext' => [
+                'required' => false,
+                'name' => tra('Axes text size'),
+                'description' => tra('Size options for the text used for the x and y axes values - the default selection is Large-Text'),
+                'since' => '24.1',
+                'filter' => 'text',
+                'default' => 'Large-Text',
+                'options' => [
+                    ['text' => tra('Large-Text'), 'value' => 'Large-Text'],
+                    ['text' => tra('Normal-Text'), 'value' => 'Normal-Text'],
+                ],
+            ],
             'alttag' => [
                 'required' => false,
                 'name' => tra('Alt Tag'),
@@ -92,7 +92,7 @@ function wikiplugin_gdgraph_info()
                 'required' => false,
                 'name' => tra('CSS Class'),
                 'description' => tra('In addition to the standard wp-gdgraph class, apply a second custom class to the surrounding DIV'),
-				'since' => '24.1',
+                'since' => '24.1',
                 'filter' => 'text',
                 'default' => '',
             ],
@@ -100,7 +100,7 @@ function wikiplugin_gdgraph_info()
                 'required' => false,
                 'name' => tra('ID'),
                 'description' => tra('Apply an id tag to the surrounding DIV'),
-				'since' => '24.1',
+                'since' => '24.1',
                 'filter' => 'text',
                 'default' => '',
             ],
@@ -108,36 +108,36 @@ function wikiplugin_gdgraph_info()
                 'required' => false,
                 'name' => tra('Float Position'),
                 'description' => tr(
-					'Set the alignment for the graph image. For elements with a width of less than 100%, other elements
+                    'Set the alignment for the graph image. For elements with a width of less than 100%, other elements
 					will wrap around it unless the %0 parameter is appropriately set.)',
-					'<code>clear</code>'
-				),
-				'since' => '24.1',
-				'filter' => 'text',
-				'default' => 'none',
-				'options' => [
-					['text' => tra('None'), 'value' => 'none'],
-					['text' => tra('Left'), 'value' => 'left'],
-					['text' => tra('Right'), 'value' => 'right']
-				],
+                    '<code>clear</code>'
+                ),
+                'since' => '24.1',
+                'filter' => 'text',
+                'default' => 'none',
+                'options' => [
+                    ['text' => tra('None'), 'value' => 'none'],
+                    ['text' => tra('Left'), 'value' => 'left'],
+                    ['text' => tra('Right'), 'value' => 'right']
+                ],
             ],
-			'clear' => [
-				'required' => false,
-				'safe' => true,
-				'name' => tra('Clear'),
-				'description' => tr(
-					'Text, etc. is not allowed to wrap around the box if this parameter is set to %0 (Yes)',
-					'<code>1</code>'
-				),
-				'since' => '1',
-				'filter' => 'digits',
-				'default' => '',
-				'options' => [
-					['text' => '', 'value' => ''],
-					['text' => tra('Yes'), 'value' => 1],
-					['text' => tra('No'), 'value' => 0]
-				],
-			],
+            'clear' => [
+                'required' => false,
+                'safe' => true,
+                'name' => tra('Clear'),
+                'description' => tr(
+                    'Text, etc. is not allowed to wrap around the box if this parameter is set to %0 (Yes)',
+                    '<code>1</code>'
+                ),
+                'since' => '1',
+                'filter' => 'digits',
+                'default' => '',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 1],
+                    ['text' => tra('No'), 'value' => 0]
+                ],
+            ],
         ],
     ];
 }
@@ -156,11 +156,11 @@ function wikiplugin_gdgraph($data, $params)
         $default["$key"] = $param['default'] ?? '';
     }
     $params = array_merge($default, $params);
-	
-	// check axestext values
+
+    // check axestext values
     if (($params['axestext'] !== 'Normal-Text' && $params['axestext'] !== 'Large-Text')) {
         return ("<span class='error'>wrong axestext parameter - only Normal-Text or Large-Text are allowed</span>");
-    }	
+    }
 
     // parse the body content to allow data to be generated from other plugins and strip tags
     $data = TikiLib::lib('parser')->parse_data($data, ['noparseplugins' => false, 'suppress_icons' => true]);
@@ -217,22 +217,22 @@ function wikiplugin_gdgraph($data, $params)
         'title' => $params['title'],
         'height' => $params['height'],
         'width' => $params['width'],
-		'axestext' => $params['axestext'],
+        'axestext' => $params['axestext'],
         'usexydata' => json_encode($xydata),
     ];
-	
-	if ( isset($params['float']) && $params['float'] != "none" ) {
-		$f = ' float: ' . $params['float'] . '; ';
-	} else {
-		$f = '';
-	}
-	
-	if ( isset($params['clear']) && $params['clear'] != 0) {
-		$c = " clear: both;";
-	} else {
-		$c = "";
-	}
-	
+
+    if (isset($params['float']) && $params['float'] != "none") {
+        $f = ' float: ' . $params['float'] . '; ';
+    } else {
+        $f = '';
+    }
+
+    if (isset($params['clear']) && $params['clear'] != 0) {
+        $c = " clear: both;";
+    } else {
+        $c = "";
+    }
+
     $ret = '<div class="wp-gdgraph ' . $params['class'] . '" id="' . $params['divid'] .
            '" style="width: ' . $params['width'] . 'px; margin-left: 10px; margin-right: 10px; ' . $f . $c . ' " >' .
            '<img src="tiki-gdgraph.php?' . http_build_query($imgparams, '', '&amp;') . '" alt="' . $params['alttag'] . '">' .

@@ -364,7 +364,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
         global $prefs;
         global $mimetypes;
         global $tikipath;
-        
+
 
         include('lib/mime/mimetypes.php');
         $galleryId = (int)$this->getOption('galleryId');
@@ -535,14 +535,12 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                     $viewicon = smarty_function_icon(['name' => 'view'], $smarty->getEmptyInternalTemplate());
 
                     if ($file['filetype'] == $mimetypes["pdf"] || (PDFHelper::canConvertToPDF($file['filetype']) && $prefs['fgal_convert_documents_pdf'] == 'y')) {
-
                         if ($pdfjsIsInstalled && $prefs['fgal_pdfjs_feature'] == 'y') {
                             $ret .= " <a href='tiki-display.php?fileId=" . $file['fileId']
                                 . "' target='_blank' class='tips' title='Preview: " . $file['filename'] . "'>
                                 $viewicon
                             </a>";
                         }
-                        
                     } elseif ($file['filetype'] == $mimetypes['mp3'] || $file['filetype'] == $mimetypes['oga']) {
                         global $base_url;
                         $src = smarty_modifier_sefurl($file['fileId'], 'display');
@@ -555,7 +553,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                                     <div class="modal-content">
                                         <div class="modal-body">
                                                 <audio controls style="width : 100%">
-                                                    <source src="'.$fileurl.'" type="audio/mpeg">
+                                                    <source src="' . $fileurl . '" type="audio/mpeg">
                                                 </audio>
                                         </div>
                                         <div class="modal-footer">
@@ -568,7 +566,6 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                         $ret .= $audiomodal . " <a type='button' href='' title='preview' data-bs-toggle='modal' data-backdrop='false' data-bs-target='#audioModal' >
                             $viewicon
                         </a>";
-
                     } else {
                         $dataAttributes = [];
 
@@ -724,7 +721,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
             $url = smarty_modifier_sefurl($file['fileId'], 'file');
             $result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
             $result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) . '</a>';
-            $result .= ' <a href="' . $url . '&amp;display" target="_blank" class="tips cboxElement" title="Preview" data-bs-content="'.smarty_modifier_escape($file['name']).'" data-box="box-3" data-bs-original-title="Preview">';
+            $result .= ' <a href="' . $url . '&amp;display" target="_blank" class="tips cboxElement" title="Preview" data-bs-content="' . smarty_modifier_escape($file['name']) . '" data-box="box-3" data-bs-original-title="Preview">';
             $result .= '<span class="icon icon-view fas fa-search-plus"></span></a><br/>';
         }
 

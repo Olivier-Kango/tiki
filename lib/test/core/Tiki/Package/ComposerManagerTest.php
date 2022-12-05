@@ -13,7 +13,6 @@ use org\bovigo\vfs\vfsStreamDirectory;
 
 class Tiki_Package_ComposerManagerTest extends TikiTestCase
 {
-
     /** @var vfsStreamDirectory */
     protected $root;
     /** @var string */

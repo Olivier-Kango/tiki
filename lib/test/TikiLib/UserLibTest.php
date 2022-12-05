@@ -2,7 +2,6 @@
 
 class UserLibTest extends TikiTestCase
 {
-
     protected function prepareLdapSyncUserDataUserLibMock($user, $name, $email, $country, $setWillBeCalled, $setValues)
     {
         $userLibMock = $this

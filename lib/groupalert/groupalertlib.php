@@ -14,7 +14,6 @@
  */
 class groupAlertLib extends TikiLib
 {
-
     /**
      * @param $ObjectType
      * @param $ObjectNumber

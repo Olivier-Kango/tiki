@@ -20,7 +20,6 @@ use Tiki\Files\CheckFileGallery;
  */
 class FilesCheckCommand extends Command
 {
-
     /**
      * Configure the command
      *

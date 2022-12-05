@@ -8,7 +8,6 @@
 
 class Tiki_Config_Ini extends Laminas\Config\Reader\Ini
 {
-
     public const SECTION_SEPARATOR = ':';
     public const SECTION_EXTENDS_KEY = ';extends';
 

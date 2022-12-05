@@ -14,7 +14,6 @@ use TikiLib;
 
 class AbsoluteToRelativeLinkTest extends TestCase
 {
-
     public const BASE_URL = 'https://tiki.org/';
     public const BASE_URL_HTTP = 'http://tiki.org/';
 

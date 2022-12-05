@@ -21,7 +21,7 @@ class Tiki_Render_Lazy
         if ($this->callback) {
             try {
                 $this->data = call_user_func($this->callback);
-            } catch (Exception $e ) {
+            } catch (Exception $e) {
                 TikiLib::lib('errortracking')->captureException($e);
                 trigger_error($e->getMessage());
                 $this->data = $e->getMessage();

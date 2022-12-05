@@ -127,12 +127,12 @@ If the whole parameter is absent (not recommended), all possible field values wi
 function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesParam, string $fieldPermName, array $fieldDefaultConfig)
 {
     //echo '<pre>Field';print_r($fieldHandler->getFieldDefinition());echo '</pre>';
-    if(!$fieldHandler instanceof Tracker_Field_EnumerableInterface) {
+    if (! $fieldHandler instanceof Tracker_Field_EnumerableInterface) {
         throw new TypeError(tra('The tracker field "%0" selected in parameter is of a type that is not enumerable (does not implement Tracker_Field_EnumerableInterface)', '', false, [
             $fieldPermName
         ]));
     }
-    if($fieldHandler->canHaveMultipleValues()) {
+    if ($fieldHandler->canHaveMultipleValues()) {
         throw new TypeError(tra('The tracker field "%0" selected in parameter is configured to allow multiple values.  This is not mappable in a kanban board', '', false, [
             $fieldPermName
         ]));
@@ -143,19 +143,19 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
     $fieldInfo = [];
 
     $appendAllPossibleFieldValues = false;
-    if (! $fieldValuesParam ) {
+    if (! $fieldValuesParam) {
         $appendAllPossibleFieldValues = true;
     }
 
-    if (count($fieldValuesParam) == 1 ) {
+    if (count($fieldValuesParam) == 1) {
         $fieldParamsArray = explode(',', $fieldValuesParam[0]);
         $fieldValue = trim($fieldParamsArray[0]);
-        if($fieldValue === '') {
+        if ($fieldValue === '') {
             //print_r("We have a single field in the configuration, and it's the empty value");
             $appendAllPossibleFieldValues = true;
         }
     }
-    if($appendAllPossibleFieldValues) {
+    if ($appendAllPossibleFieldValues) {
         //Get values from all the possible field values
         foreach ($fieldValuesMap as $value => $label) {
             $fieldInfo[$value] = array_merge($fieldDefaultConfig, ['title' => $label, 'value' => $value]);
@@ -167,7 +167,7 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
         $fieldParamsArray = explode(',', $fieldParams);
 
         $fieldValue = trim($fieldParamsArray[0]);
-        if ($fieldValue !== '' && !$fieldValuesMap[$fieldValue]) {
+        if ($fieldValue !== '' && ! $fieldValuesMap[$fieldValue]) {
             throw new TypeError(tra('Column value "%0" specified in parameter "%1=%2" is not found in tracker field "%3".  Possible values are %4', '', false, [
                 $fieldValue,
                 $fieldValuesParamName,
@@ -190,7 +190,7 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
         }
         //wip limit
         if (isset($fieldParamsArray[2]) && $fieldParamsArray[2] !== 'null') {
-            if (!is_numeric($fieldParamsArray[2])) {
+            if (! is_numeric($fieldParamsArray[2])) {
                 throw new TypeError(tra('Wip limit value "%0" specified in parameter "%1=%2" is not numeric', '', false, [
                     $fieldParamsArray[2],
                     $fieldValuesParamName,
@@ -201,7 +201,7 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
             $fieldInfo[$fieldValue]['wip'] = $wipValue;
         }
     }
-    
+
     //echo '<pre>_map_field returning:';print_r($fieldInfo);echo '</pre>';
     return $fieldInfo;
 }
@@ -302,9 +302,11 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 
     //Filter the cards
      //We only filter the swimlane or column field values if we don't allow empty values. Search_Query cannot include specific values plus the empty ones.
-    if ($jit->columnValues->text()
+    if (
+        $jit->columnValues->text()
         &&
-        !array_key_exists('', $columnsInfo)) {
+        ! array_key_exists('', $columnsInfo)
+    ) {
         foreach (array_keys($columnsInfo) as $index => $fieldValue) {
             $query->filterContent(implode(' OR ', array_keys($columnsInfo)), 'tracker_field_' . $columnFieldPermName);
         }
@@ -313,7 +315,6 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         $jit->swimlaneValues->text() &&
         ! array_key_exists('', $swimlanesInfo)
     ) {
-
         foreach (array_keys($swimlanesInfo) as $index => $fieldValue) {
             $query->filterContent(implode(' OR ', array_keys($swimlanesInfo)), 'tracker_field_' . $swimlaneFieldPermName);
         }
@@ -432,13 +433,13 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
             }
         }
         if ($jit->swimlaneValues->text()) {
-        if (! in_array($swimlaneValue, array_keys($swimlanesInfo))) {
-            /*print_r("<pre>SKIP card missing value in swimlane map");
-            print_r($swimlaneValue);
-            print_r($swimlanesInfo);
-            print_r("</pre>");*/
-            continue;  //Skip tracker items that have fields with values not in the mapped enumerable fields
-        }
+            if (! in_array($swimlaneValue, array_keys($swimlanesInfo))) {
+                /*print_r("<pre>SKIP card missing value in swimlane map");
+                print_r($swimlaneValue);
+                print_r($swimlanesInfo);
+                print_r("</pre>");*/
+                continue;  //Skip tracker items that have fields with values not in the mapped enumerable fields
+            }
         }
 
         $caslAbilities[] =
@@ -513,7 +514,9 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 function wikiplugin_kanban_format_list($handler)
 {
     $fieldData = $handler->getFieldData();
-    echo '<pre>';print_r($fieldData);echo '</pre>';
+    echo '<pre>';
+    print_r($fieldData);
+    echo '</pre>';
     $list = $formatted = [];
     if ($handler->getConfiguration('type') === 'd') {
         $list = $fieldData['possibilities'];

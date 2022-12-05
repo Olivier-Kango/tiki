@@ -2017,7 +2017,6 @@ class TikiSheetLabeledOutputHandler extends TikiSheetDataHandler
  */
 class TikiSheetHTMLTableHandler extends TikiSheetDataHandler
 {
-
     public $data;
 
     /** Constructor

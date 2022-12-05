@@ -19,16 +19,16 @@ class Tracker_Field_UserPreference extends Tracker_Field_Abstract
         global $prefs;
 
         $options = [
-            'email' => 'email', 
+            'email' => 'email',
             'password' => 'password',
             'location' => 'location',
             'avatar' => 'avatar',
         ];
-        
+
         foreach (array_keys($prefs) as $prefName) {
             $options[$prefName] = $prefName;
         }
-        
+
         return [
             'p' => [
                 'name' => tr('User Preference'),
@@ -77,7 +77,7 @@ class Tracker_Field_UserPreference extends Tracker_Field_Abstract
                             'lon' => (float) $tikilib->get_user_preference($itemUsers[0], 'lon', ''),
                             'zoom' => (int) $tikilib->get_user_preference($itemUsers[0], 'zoom', ''),
                         ];
-                        
+
                         $value = TikiLib::lib('geo')->build_location_string($location);
                     } elseif ($this->getOption('type') == 'avatar') {
                         $value = $tikilib->get_user_avatar($itemUsers[0]);

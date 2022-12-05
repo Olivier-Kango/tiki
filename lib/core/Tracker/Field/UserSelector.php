@@ -608,7 +608,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 
     public function canHaveMultipleValues()
     {
-        return (bool) $this->getOption("multiple"); 
+        return (bool) $this->getOption("multiple");
     }
 
     public function getPossibleItemValues()

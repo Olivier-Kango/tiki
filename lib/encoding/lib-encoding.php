@@ -8,7 +8,6 @@
 
 class Encoding
 {
-
     public $_inputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8'];
     public $_ouputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8',];
     public $_supportedEncodings = 'UTF-8,ISO-8859-1,ISO-8859-15';

@@ -15,7 +15,6 @@
 
 class Multilingual_MachineTranslation_GoogleTranslateWrapperTest extends TikiTestCase
 {
-
     ////////////////////////////////////////////////////////////////
     // Note: In the rest of these tests, you can assume that
     //       $this->translator is an instance of GoogleTranslateWrapper

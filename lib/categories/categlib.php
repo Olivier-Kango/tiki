@@ -2128,7 +2128,6 @@ class CategLib extends ObjectLib
         $cacheKey = serialize([$categories, $canchangeall, $forceincat]);
 
         if (! $res = $cachelib->getSerialized($cacheKey, 'cat_tree')) {
-
             $smarty = TikiLib::lib('smarty');
             include_once('lib/tree/BrowseTreeMaker.php');
             $tree_nodes = [];

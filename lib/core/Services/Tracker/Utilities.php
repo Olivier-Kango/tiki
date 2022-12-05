@@ -371,7 +371,7 @@ class Services_Tracker_Utilities
 
         $trklib = TikiLib::lib('trk');
         $options = $trklib->get_tracker_options($trackerId);
-        if (!empty($options['tabularSyncLastImport'])) {
+        if (! empty($options['tabularSyncLastImport'])) {
             $trklib->replace_tracker_option($trackerId, 'tabularSyncLastImport', null);
         }
 

@@ -14,7 +14,6 @@ require_once(__DIR__ . '/../../smarty_tiki/modifier.duration.php');
  */
 class ModifierDurationTest extends TikiTestCase
 {
-
     protected $inputs = [];
 
     protected function setUp(): void

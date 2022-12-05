@@ -103,10 +103,10 @@ function smarty_block_tabset($params, $content, $smarty, &$repeat)
             $count = 1;
             $ret .= '<div class="d-flex align-items-start">
                         <div class="nav flex-column nav-pills me-3" id="nav-' . $smarty_tabset_name . '" role="tablist" aria-orientation="vertical">' . $notabs . '<span style="height:5px;">&nbsp;</span>';
-                            foreach ($smarty_tabset[$tabset_index]['tabs'] as $value) {
-                                $ret .= '<a class="nav-link" id="v-pills-' . $value['id'] . '-tab" data-bs-toggle="tab" href="#v-pills-' . $value['id'] . '" role="tab" aria-controls="v-pills-' . $value['id'] . '" >' . $value['label'] . '</a>';
-                                ++$count;
-                            }
+            foreach ($smarty_tabset[$tabset_index]['tabs'] as $value) {
+                $ret .= '<a class="nav-link" id="v-pills-' . $value['id'] . '-tab" data-bs-toggle="tab" href="#v-pills-' . $value['id'] . '" role="tab" aria-controls="v-pills-' . $value['id'] . '" >' . $value['label'] . '</a>';
+                ++$count;
+            }
                         $ret .= "</div>";
                         $tabset_index--;
                         $ret .= '<div class="tab-content" id="v-pills-' . $smarty_tabset_name . '">' . $content . '</div>

@@ -16,7 +16,6 @@ use ImagickException;
  */
 class ImagickNew extends ImageAbstract
 {
-
     /**
      * @param $image
      * @param bool $isfile

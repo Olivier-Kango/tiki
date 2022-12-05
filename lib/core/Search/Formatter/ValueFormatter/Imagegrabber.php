@@ -8,7 +8,6 @@
 
 class Search_Formatter_ValueFormatter_Imagegrabber extends Search_Formatter_ValueFormatter_Abstract
 {
-
     private $max;
     private $height;
     private $width;

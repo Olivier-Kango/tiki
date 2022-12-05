@@ -27,9 +27,7 @@ abstract class ToolbarUtilityItem extends ToolbarItem
                 'el'      => "%~tuiToolbarItem{$this->markdown_wysiwyg}~%",
             ];
             return json_encode($item);
-
         }
         return '';
     }
-
 }

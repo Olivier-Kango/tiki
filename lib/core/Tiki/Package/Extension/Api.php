@@ -6,7 +6,6 @@ use Tiki\Package\ExtensionManager;
 
 class Api extends Utilities
 {
-
     protected static $objects = [];
 
     private function loadObjects($folder)

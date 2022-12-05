@@ -13,7 +13,6 @@ ThemeLib
 
 class ThemeLib extends TikiLib
 {
-
     /*
     @return array of folder names in themes directory
     */

@@ -330,7 +330,7 @@ return false;";
 
             $tikilib = TikiLib::lib('tiki');
             $data = $tikilib->convertAbsoluteLinksToRelative($data);
-            
+
             if (empty($data)) {
                 $errors['data'] = tr('Content is empty');
             }

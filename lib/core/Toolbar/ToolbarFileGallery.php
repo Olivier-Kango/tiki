@@ -7,7 +7,6 @@ use TikiLib;
 
 class ToolbarFileGallery extends ToolbarUtilityItem
 {
-
     public function __construct()
     {
         $this->setLabel(tra('Choose or upload images'))
@@ -29,8 +28,8 @@ class ToolbarFileGallery extends ToolbarUtilityItem
         if ($prefs['fgal_elfinder_feature'] !== 'y' || $prefs['fgal_elfinder_on_toolbar'] !== 'y') {
             $smarty->loadPlugin('smarty_function_filegal_manager_url');
             return 'openFgalsWindow(\'' . htmlentities(
-                    smarty_function_filegal_manager_url(['area_id' => $this->domElementId], $smarty->getEmptyInternalTemplate())
-                ) . '\', true);';
+                smarty_function_filegal_manager_url(['area_id' => $this->domElementId], $smarty->getEmptyInternalTemplate())
+            ) . '\', true);';
         } else {
             TikiLib::lib('header')->add_jq_onready(
                 'window.handleFinderInsertAt = function (file, elfinder, area_id) {

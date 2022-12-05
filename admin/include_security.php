@@ -14,7 +14,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 
 if ($_REQUEST['test_closed'] === 'y') {
     TikiLib::lib('access')->showSiteClosed('closed');
-} else if ($_REQUEST['test_busy'] === 'y') {
+} elseif ($_REQUEST['test_busy'] === 'y') {
     TikiLib::lib('access')->showSiteClosed('busy');
 }
 

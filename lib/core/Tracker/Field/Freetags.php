@@ -88,7 +88,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
                     $prefs['freetags_browse_amount_tags_suggestion'],
                     $itemLang
                 );
-            } else if ($this->getOption('hidesuggest') == 'all') {
+            } elseif ($this->getOption('hidesuggest') == 'all') {
                 $data['all_tags'] = $freetaglib->silly_list(-1);
             }
         }

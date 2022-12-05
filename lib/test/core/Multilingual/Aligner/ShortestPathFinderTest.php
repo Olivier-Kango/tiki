@@ -13,7 +13,6 @@
 
 class Multilingual_Aligner_ShortestPathFinderTest extends TikiTestCase
 {
-
     ////////////////////////////////////////////////////////////////
     // Documentation tests
     //    These tests illustrate how to use this class.

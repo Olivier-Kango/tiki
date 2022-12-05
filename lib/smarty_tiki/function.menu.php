@@ -9,7 +9,7 @@
 /**
  * Helper method to get proper link of a given menu item
  *
- * @param String $url_from_db The current url saved within the database 
+ * @param String $url_from_db The current url saved within the database
  *
  * @return String The new parsed link
  */
@@ -89,7 +89,7 @@ function smarty_function_menu($params, $smarty)
                     function ($categId) {
                         $categ = TikiLib::lib('categ')->get_category($categId);
                         $parent = TikiLib::lib('categ')->get_category($categ["parentId"]);
-                        if (!$parent || $parent["parentId"] != 0 || !$parent["tplGroupContainerId"]) {
+                        if (! $parent || $parent["parentId"] != 0 || ! $parent["tplGroupContainerId"]) {
                             return null;
                         }
                         $templatedgroupid = TikiLib::lib('attribute')->get_attribute("category", $categId, "tiki.category.templatedgroupid");
@@ -126,7 +126,7 @@ function smarty_function_menu($params, $smarty)
                 $element["url"] = str_replace("--groupname--", $catName, $element["name"]);
                 $element["sefurl"] = str_replace("--groupname--", $catName, $element["sefurl"]);
                 $element["canonic"] = str_replace("--groupname--", $catName, $element["canonic"]);
-            } elseif ($attribute && !$categGroups[$attribute]) {
+            } elseif ($attribute && ! $categGroups[$attribute]) {
                 continue;
             }
 
@@ -149,7 +149,7 @@ function smarty_function_menu($params, $smarty)
                 }
 
                 // Pushes the element at the end of selected element children.
-                if (!empty($branch['children'])) {
+                if (! empty($branch['children'])) {
                     array_push($branch['children'], $element);
                 } else {
                     $branch['children'] = [$element];
@@ -217,8 +217,9 @@ function smarty_function_menu($params, $smarty)
                 $icons_html = [];
                 foreach ($icons['icons'] as $iconName => $meta) {
                     foreach ($meta as $key => $iconID) {
-                        if($icons['prepend'])
+                        if ($icons['prepend']) {
                             array_push($icons_html, [$iconName, "<i class='" . $icons['prepend'] . $iconID . "'></i>"]);
+                        }
                     }
                 }
                 $icons_html_json = json_encode($icons_html);
@@ -227,8 +228,9 @@ function smarty_function_menu($params, $smarty)
                 $icons = TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->icons();
                 $icons_html = [];
                 foreach ($icons as $iconName => $meta) {
-                    if($meta['prepend'] AND  $meta['append'])
+                    if ($meta['prepend'] and  $meta['append']) {
                         array_push($icons_html, [$iconName, "<img src='" . $meta['prepend'] . $meta['id'] . $meta['append'] . "'/>"]);
+                    }
                 }
                 $icons_html_json = json_encode($icons_html);
                 break;
@@ -237,8 +239,9 @@ function smarty_function_menu($params, $smarty)
                 $icons_html = [];
                 foreach ($icons as $iconName => $meta) {
                     $prepend = $meta['prepend'] ?? "";
-                    if($prepend)
+                    if ($prepend) {
                         array_push($icons_html, [$iconName, "<i class='" . $prepend . $meta['id'] . "'></i>"]);
+                    }
                 }
                 $icons_html_json = json_encode($icons_html);
                 break;
@@ -247,8 +250,9 @@ function smarty_function_menu($params, $smarty)
                 $icons_html = [];
                 foreach ($icons as $iconName => $meta) {
                     $prepend = $meta['prepend'] ?? "";
-                    if($prepend)
+                    if ($prepend) {
                         array_push($icons_html, [$iconName, "<i class='" . $prepend . $meta['id'] . "'></i>"]);
+                    }
                 }
                 $icons_html_json = json_encode($icons_html);
                 break;
@@ -263,7 +267,7 @@ function smarty_function_menu($params, $smarty)
     }
     if ($params['css'] !== 'n' && $prefs['feature_cssmenus'] == 'y') {
         static $idCssmenu = 0;
-        if (!isset($css_id)) { //adding $css_id parameter to customize menu id and prevent automatic id renaming when a menu is removed
+        if (! isset($css_id)) { //adding $css_id parameter to customize menu id and prevent automatic id renaming when a menu is removed
             $smarty->assign('idCssmenu', $idCssmenu++);
         } else {
             $smarty->assign('idCssmenu', $css_id);
@@ -274,7 +278,7 @@ function smarty_function_menu($params, $smarty)
         }
         $smarty->assign('menu_type', $params['type']);
 
-        if (!empty($drilldown) && $drilldown == 'y') {
+        if (! empty($drilldown) && $drilldown == 'y') {
             $smarty->assign('drilldownmenu', 'y');
         }
 
@@ -311,10 +315,10 @@ function get_menu_with_selections($params)
 
     if ($cdata = $cachelib->getSerialized($cacheName, $cacheType)) {
         list($menu_info, $channels) = $cdata;
-    } elseif (!empty($structureId)) {
+    } elseif (! empty($structureId)) {
         $structlib = TikiLib::lib('struct');
 
-        if (!is_numeric($structureId)) {
+        if (! is_numeric($structureId)) {
             $structureId = $structlib->get_struct_ref_id($structureId);
         }
 
@@ -322,7 +326,7 @@ function get_menu_with_selections($params)
         $structure_info = $structlib->s_get_page_info($structureId);
         $channels = $structlib->to_menu($channels, $structure_info['pageName'], 0, 0, $params);
         $menu_info = ['type' => 'd', 'menuId' => $structureId, 'structure' => 'y'];
-    } elseif (!empty($id)) {
+    } elseif (! empty($id)) {
         $menu_info = $menulib->get_menu($id);
         $channels = $menulib->list_menu_options($id, 0, -1, 'position_asc', '', '', isset($prefs['mylevel']) ? $prefs['mylevel'] : 0);
         $channels = $menulib->sort_menu_options($channels);
@@ -332,12 +336,12 @@ function get_menu_with_selections($params)
     if (strpos($_SERVER['SCRIPT_NAME'], 'tiki-register') === false) {
         $cachelib->cacheItem($cacheName, serialize([$menu_info, $channels]), $cacheType);
     }
-    if (!isset($setSelected) || $setSelected !== 'n') {
+    if (! isset($setSelected) || $setSelected !== 'n') {
         $channels = $menulib->setSelected($channels, isset($sectionLevel) ? $sectionLevel : '', isset($toLevel) ? $toLevel : '', $params);
     }
 
     foreach ($channels['data'] as &$item) {
-        if (!empty($menu_info['parse']) && $menu_info['parse'] === 'y') {
+        if (! empty($menu_info['parse']) && $menu_info['parse'] === 'y') {
             //    $item['block'] = TikiLib::lib('parser')->contains_html_block($item['name']); // Only used for CSS menus
             $item['name'] = preg_replace('/(.*)\n$/', '$1', $item['name']); // parser adds a newline to everything
         }

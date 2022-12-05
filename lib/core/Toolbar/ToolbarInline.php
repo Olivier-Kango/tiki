@@ -4,7 +4,6 @@ namespace Tiki\Lib\core\Toolbar;
 
 class ToolbarInline extends ToolbarItem
 {
-
     public static function fromName($tagName): ?ToolbarItem
     {
         $markdown = '';

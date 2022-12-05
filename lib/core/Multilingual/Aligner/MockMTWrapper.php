@@ -10,7 +10,6 @@ require_once "SentenceAlignments.php";
 
 class Multilingual_Aligner_MockMTWrapper extends Multilingual_Aligner_SentenceAlignments
 {
-
     public function getTranslationInOtherLanguage($source_lng_sentence, $source_lng)
     {
 

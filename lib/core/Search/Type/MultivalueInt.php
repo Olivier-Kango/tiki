@@ -25,7 +25,6 @@ class Search_Type_MultivalueInt implements Search_Type_Interface
         $ints = [];
         foreach ($this->values as $val) {
             $ints[] = crc32($val);
-
         }
         return $ints;
     }

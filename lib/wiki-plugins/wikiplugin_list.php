@@ -97,7 +97,7 @@ function wikiplugin_list($data, $params)
 
     $listId = 'wplist-' . $i;
 
-    if (!empty($_REQUEST['download']) && $listId != $_REQUEST['listId'] ) {
+    if (! empty($_REQUEST['download']) && $listId != $_REQUEST['listId']) {
         return;
     }
 
@@ -193,7 +193,7 @@ function wikiplugin_list($data, $params)
 
     if ($params['cache'] == 'y') {
         // Clean rules setting
-        $rules = array();
+        $rules = [];
         foreach ($params['cachepurgerules'] as $r) {
             $parts = explode(':', $r, 2);
             $cleanrule['type'] = trim($parts[0]);
@@ -310,7 +310,7 @@ function wikiplugin_list($data, $params)
 
     $result->setTsSettings($builder->getTsSettings());
 
-    $formatter = $builder->getFormatter((boolean) $result->errorInQuery);
+    $formatter = $builder->getFormatter((bool) $result->errorInQuery);
 
     $result->setTsOn($tsret['tsOn']);
 

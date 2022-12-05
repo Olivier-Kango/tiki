@@ -23,7 +23,6 @@ require_once(__DIR__ . '/../debug/Tracer.php');
 
 class TestRunnerWithBaseline
 {
-
     private $baseline_log_fpath;
     private $current_log_fpath;
     private $output_fpath;

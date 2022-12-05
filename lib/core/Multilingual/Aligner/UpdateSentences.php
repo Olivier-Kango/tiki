@@ -21,7 +21,6 @@ include_once __DIR__ . '/MockMTWrapper.php';
 
 class Multilingual_Aligner_UpdateSentences
 {
-
     //$translation is 1 in case of source modification(H) and 0 in case of target modification(T"), final_diff is carrying end result
     public function DifferencebetweenOriginalFileandModifiedFile($unchangedSource_array, $changedSource_array, $alignments, $translator, $source_lng, $target_lng, $translation)
     {

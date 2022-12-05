@@ -408,7 +408,6 @@ class CalRecurrence extends TikiLib
                 $initial['recurrenceId'] = $this->getId();
                 $calendarlib->set_item($user, $initial['calitemId'], $initial);
             }
-
         }
         $tx->commit();
     }
@@ -427,7 +426,7 @@ class CalRecurrence extends TikiLib
         global $user;
         global $prefs;
 
-        
+
 
         $query = "SELECT calitemId,calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, "
                  . "user, created, lastModif, changed, recurrenceStart "

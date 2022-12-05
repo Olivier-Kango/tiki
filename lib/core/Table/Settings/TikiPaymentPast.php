@@ -23,7 +23,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Table_Settings_TikiPaymentPast extends Table_Settings_TikiPayment
 {
-
     protected function getTableSettings()
     {
         unset($this->ts['columns']['#req_date']);

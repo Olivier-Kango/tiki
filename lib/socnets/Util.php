@@ -21,7 +21,6 @@ use TikiLib;
 //this is a universal helper/logger - do not put anything socnets specific
 class Util
 {
-
     public static string $logfile = 'tikihybrid3.log';
  // public static string $logfile = 'arilect-com_443.error_log';
     public static string $msgPreffix = 'aris002: ';
@@ -42,7 +41,7 @@ class Util
         self::$logfile = $logfile;
     }
 
-  
+
 
 //should we make a param to exclude index.php and certain files?
     public static function getFileNamesPHP($path)

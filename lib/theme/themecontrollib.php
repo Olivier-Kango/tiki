@@ -12,7 +12,6 @@ ThemeControlLib
 */
 class ThemeControlLib extends ThemeLib
 {
-
     /*
     @param $categId
     @param $theme

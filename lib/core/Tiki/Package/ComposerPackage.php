@@ -202,5 +202,4 @@ class ComposerPackage
     {
         return $this->metadata;
     }
-
 }

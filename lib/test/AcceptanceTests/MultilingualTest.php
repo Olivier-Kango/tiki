@@ -17,7 +17,6 @@
 
 class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
 {
-
     public function _testRememberToReactivateAllTestsInMultilingualTest()
     {
         $this->fail("Don't forget to do this");

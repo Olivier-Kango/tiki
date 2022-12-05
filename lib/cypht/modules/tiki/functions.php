@@ -365,7 +365,8 @@ if (! hm_exists('tiki_send_email_through_cypht')) {
  * @return string trackers with email folder fields dropdown
  */
 if (! hm_exists('tiki_move_to_tracker_dropdown')) {
-    function tiki_move_to_tracker_dropdown($mod) {
+    function tiki_move_to_tracker_dropdown($mod)
+    {
         $trk = TikiLib::lib('trk');
         $fields = $trk->get_fields_by_type('EF');
         if (! $fields) {
@@ -378,7 +379,7 @@ if (! hm_exists('tiki_move_to_tracker_dropdown')) {
             if ($handler->getOption('useFolders')) {
                 $folder_list = [];
                 foreach ($handler->getFolders() as $folder => $folderName) {
-                    $folder_list[] = "<div><a href='#' class='object_selector_trigger' data-tracker='{$field['trackerId']}' data-field='{$field['fieldId']}' data-folder='".htmlspecialchars($folder)."'>{$folderName}</a></div>";
+                    $folder_list[] = "<div><a href='#' class='object_selector_trigger' data-tracker='{$field['trackerId']}' data-field='{$field['fieldId']}' data-folder='" . htmlspecialchars($folder) . "'>{$folderName}</a></div>";
                 }
                 $field_list[] = "<a href='#' class='tiki_folder_trigger'>{$tracker['name']} - {$field['name']}</a>"
                     . "<div class='tiki_folder_container' style='display: none'>" . implode("\n", $folder_list) . "</div>";
@@ -398,7 +399,8 @@ if (! hm_exists('tiki_move_to_tracker_dropdown')) {
  * @return string array message and headers
  */
 if (! hm_exists('get_message_data')) {
-    function get_message_data($imap, $msg_id) {
+    function get_message_data($imap, $msg_id)
+    {
         $msg = $imap->get_message_content($msg_id, 0);
         $msg = str_replace("\r\n", "\n", $msg);
         $msg = str_replace("\n", "\r\n", $msg);
@@ -406,7 +408,7 @@ if (! hm_exists('get_message_data')) {
 
         $headers = $imap->get_message_headers($msg_id);
         if (! empty($headers['Flags'])) {
-            $msg = "Flags: ".$headers['Flags']."\r\n".$msg;
+            $msg = "Flags: " . $headers['Flags'] . "\r\n" . $msg;
         }
 
         return [$msg, $headers];
@@ -418,7 +420,8 @@ if (! hm_exists('get_message_data')) {
  * @return string ensure file was saved before removing it from remote mailbox
  */
 if (! hm_exists('bind_tracker_item_update_event')) {
-    function bind_tracker_item_update_event($imap, $form, $msg_ids) {
+    function bind_tracker_item_update_event($imap, $form, $msg_ids)
+    {
         TikiLib::events()->bind('tiki.trackeritem.update', function ($args) {
             $imap = $args['imap'];
             $form = $args['form'];

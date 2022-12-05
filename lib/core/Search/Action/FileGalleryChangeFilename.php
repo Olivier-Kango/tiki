@@ -8,7 +8,6 @@
 
 class Search_Action_FileGalleryChangeFilename implements Search_Action_Action
 {
-
     protected $replaceKeys = [
       '%file_name%' => 'file.filename',
       '%file_id%' => 'file.fileId',

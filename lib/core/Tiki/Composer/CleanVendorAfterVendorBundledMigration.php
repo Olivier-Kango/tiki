@@ -24,7 +24,6 @@ use Symfony\Component\Finder\Finder;
  */
 class CleanVendorAfterVendorBundledMigration
 {
-
     // To calculate the md5 hash for the old vendor folder, on a linux server, you can use (inside the old vendor folder):
     //
     // $ STRING=$(ls -d */* | grep -v "^composer/" | grep -v "^bin/" | LC_COLLATE=C sort -fu | tr '\n' ':' | sed 's/:$//')

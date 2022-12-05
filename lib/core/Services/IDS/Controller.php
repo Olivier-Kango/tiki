@@ -8,7 +8,6 @@
 
 class Services_IDS_Controller
 {
-
     /**
      * @var TikiAccessLib
      */

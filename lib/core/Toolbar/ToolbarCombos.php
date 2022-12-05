@@ -7,7 +7,6 @@ namespace Tiki\Lib\core\Toolbar;
  */
 class ToolbarCombos
 {
-
     /**
      * Get the content of the format combo
      *

@@ -23,7 +23,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class AvatarLib extends TikiLib
 {
-
     /**
      * sets the avatar from a given image file's URL
      *

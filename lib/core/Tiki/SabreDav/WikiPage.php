@@ -14,7 +14,6 @@ use Perms;
 
 class WikiPage extends DAV\File
 {
-
     private $page;
 
     public function __construct($path)

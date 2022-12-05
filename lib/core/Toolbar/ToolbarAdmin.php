@@ -4,7 +4,6 @@ namespace Tiki\Lib\core\Toolbar;
 
 class ToolbarAdmin extends ToolbarUtilityItem
 {
-
     public function __construct()
     {
         $this->setLabel(tra('Admin Toolbars'))
@@ -21,7 +20,6 @@ class ToolbarAdmin extends ToolbarUtilityItem
     {
         global $prefs;
         if (! empty($this->wysiwyg)) {
-
             if ($prefs['feature_wysiwyg'] == 'y') {
                 $this->setupCKEditorTool($this->getOnClick());
             }

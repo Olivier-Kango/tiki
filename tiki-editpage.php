@@ -1110,13 +1110,11 @@ if (
         && ! $contribution_needed
         && ! $summary_needed
 ) {
-
     if (strtolower($_REQUEST["page"]) == 'sandbox' && $prefs['feature_sandbox'] === 'y') {
         $smarty->assign('msg', tra("The Sandbox page cannot be saved because Sandbox is a page where you can practice editing etc. and use the preview feature to check how the page looks. No version is stored for this page."));
         $smarty->display("error.tpl");
         die;
     } else {
-        
         check_ticket('edit-page');
         // Check if all Request values are delivered, and if not, set them
         // to avoid error messages. This can happen if some features are
@@ -1700,30 +1698,30 @@ possibly_set_pagedata_to_pretranslation_of_source_page();
 if ($need_lang) {
     $smarty->display('tiki-choose_page_language.tpl');
 } else {
-	// if ajax_autosave is disabled, create an alert to inform the user
-	if ($prefs['ajax_autosave'] == 'n') {
-		$content = tr('Feature <strong>%0</strong>  disabled.', 'ajax_autosave');
+    // if ajax_autosave is disabled, create an alert to inform the user
+    if ($prefs['ajax_autosave'] == 'n') {
+        $content = tr('Feature <strong>%0</strong>  disabled.', 'ajax_autosave');
 
-		if (Perms::get()->admin) {
-		    $smarty = TikiLib::lib('smarty');
-		    $smarty->loadPlugin('smarty_function_preference');
-		    $smarty->loadPlugin('smarty_modifier_escape');
-		    $smarty->loadPlugin('smarty_function_ticket');
-		    
-		    $content .= "<form method='post' action='tiki-admin.php'>";
-		    $content .= str_replace('"', "&quot;", smarty_function_preference(['name' => 'ajax_autosave'], $smarty->getEmptyInternalTemplate()));
-		    $content .= str_replace('"', "&quot;", smarty_function_ticket([], $smarty->getEmptyInternalTemplate()));
-		    $content .= "<input type='submit' class='btn btn-primary btn-sm' value='";
-		    $content .= smarty_modifier_escape(tra('Apply')) . "'>";
-		    $content .= '</form>';
-		}
-		$smarty->loadPlugin('smarty_block_remarksbox');
-		$remrepeat = false;
-		$smartyTemplate = $smarty->getEmptyInternalTemplate();
-		$remarksbox = str_replace('"', "'", smarty_block_remarksbox(['type' => 'warning', 'title' => 'Autosave', 'close'=>'y'], $content, $smartyTemplate, $remrepeat));
-		
-		$smarty->assign('alert_content', $remarksbox); 
-	}
+        if (Perms::get()->admin) {
+            $smarty = TikiLib::lib('smarty');
+            $smarty->loadPlugin('smarty_function_preference');
+            $smarty->loadPlugin('smarty_modifier_escape');
+            $smarty->loadPlugin('smarty_function_ticket');
+
+            $content .= "<form method='post' action='tiki-admin.php'>";
+            $content .= str_replace('"', "&quot;", smarty_function_preference(['name' => 'ajax_autosave'], $smarty->getEmptyInternalTemplate()));
+            $content .= str_replace('"', "&quot;", smarty_function_ticket([], $smarty->getEmptyInternalTemplate()));
+            $content .= "<input type='submit' class='btn btn-primary btn-sm' value='";
+            $content .= smarty_modifier_escape(tra('Apply')) . "'>";
+            $content .= '</form>';
+        }
+        $smarty->loadPlugin('smarty_block_remarksbox');
+        $remrepeat = false;
+        $smartyTemplate = $smarty->getEmptyInternalTemplate();
+        $remarksbox = str_replace('"', "'", smarty_block_remarksbox(['type' => 'warning', 'title' => 'Autosave', 'close' => 'y'], $content, $smartyTemplate, $remrepeat));
+
+        $smarty->assign('alert_content', $remarksbox);
+    }
     $smarty->display('tiki-editpage.tpl');
 }
 /**

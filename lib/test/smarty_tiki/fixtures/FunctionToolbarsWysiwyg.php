@@ -1,8 +1,8 @@
 <?php
 
-$expectedJsArray = array (
+$expectedJsArray = [
   10 =>
-  array (
+   [
     0 => 'if (typeof window.CKEDITOR !== "undefined" && !window.CKEDITOR.plugins.get("tikiimage")) {
     window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? \',tikiimage\' : \'tikiimage\' );
     window.CKEDITOR.plugins.add( \'tikiimage\', {
@@ -98,17 +98,17 @@ $expectedJsArray = array (
         }
     });
 }',
-  ),
+  ],
   2 =>
-  array (
+   [
     0 => 'window.dialogData[1] = ["Wiki Link","<label for=\\"tbWLinkDesc\\">Show this text<\\/label>","<input type=\\"text\\" id=\\"tbWLinkDesc\\" class=\\"ui-widget-content ui-corner-all\\" style=\\"width: 98%\\" \\/>","<label for=\\"tbWLinkPage\\">Link to this page<\\/label>","<input type=\\"text\\" id=\\"tbWLinkPage\\" class=\\"ui-widget-content ui-corner-all\\" style=\\"width: 98%\\" \\/>","","","","","{\\"open\\": function () { dialogInternalLinkOpen(area_id, clickedElement); },\\n                        \\"buttons\\": { \\"Cancel\\": function() { dialogSharedClose(area_id,this); },\\"Insert\\": function() { dialogInternalLinkInsert(area_id,this); }}}"];',
-  ),
+  ],
   3 =>
-  array (
+   [
     0 => 'window.dialogData[2] = ["External Link","<label for=\\"tbLinkDesc\\">Show this text<\\/label>","<input type=\\"text\\" id=\\"tbLinkDesc\\" class=\\"ui-widget-content ui-corner-all\\" style=\\"width: 98%\\" \\/>","<label for=\\"tbLinkURL\\">link to this URL<\\/label>","<input type=\\"text\\" id=\\"tbLinkURL\\" class=\\"ui-widget-content ui-corner-all\\" style=\\"width: 98%\\" \\/>","<label for=\\"tbLinkRel\\">Relation:<\\/label>","<input type=\\"text\\" id=\\"tbLinkRel\\" class=\\"ui-widget-content ui-corner-all\\" style=\\"width: 98%\\" \\/>","","","{\\"width\\": 300, \\"open\\": function () { dialogExternalLinkOpen( area_id ) },\\n                        \\"buttons\\": { \\"Cancel\\": function() { dialogSharedClose(area_id,this); },\\"Insert\\": function() { dialogExternalLinkInsert(area_id,this) }}}"];',
-  ),
+  ],
   6 =>
-  array (
+   [
     0 => 'window.dialogData[5] = ["Table Builder","{\\"open\\": function () { dialogTableOpen(area_id,this); },\\n                        \\"width\\": 320, \\"buttons\\": { \\"Cancel\\": function() { dialogSharedClose(area_id,this); },\\"Insert\\": function() { dialogTableInsert(area_id,this); }}}"];',
-  ),
-);
+  ],
+];

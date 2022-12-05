@@ -17,7 +17,6 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 class RefererLib extends TikiLib
 {
-
     public function clear_referer_stats()
     {
         $query = "delete from tiki_referer_stats";

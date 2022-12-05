@@ -8,7 +8,6 @@
 
 class Captcha_Questions extends Laminas\Captcha\AbstractWord
 {
-
     protected $name = "questions";
 
     /**

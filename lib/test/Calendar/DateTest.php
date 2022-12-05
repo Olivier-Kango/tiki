@@ -7,7 +7,6 @@
 // $Id$
 class Calendar_DateTest extends TikiTestCase
 {
-
     public function testMakeTime(): void
     {
         global $tikilib;

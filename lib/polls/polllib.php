@@ -21,7 +21,6 @@ include_once('lib/polls/polllib_shared.php');
  */
 class PollLib extends PollLibShared
 {
-
     /**
      * @param $offset
      * @param $maxRecords

@@ -120,8 +120,8 @@ if (
             $is_html ? 'y' : 'n',   // wysiwyg,
             ''
         );
-        
-        TikiLib::lib('wiki')->set_page_hide_title($prefs['wikiHomePage'], 0);	// set the page title of the Home Page to hidden
+
+        TikiLib::lib('wiki')->set_page_hide_title($prefs['wikiHomePage'], 0);   // set the page title of the Home Page to hidden
 
         unset($homePageContent, $homePageLang);
     }

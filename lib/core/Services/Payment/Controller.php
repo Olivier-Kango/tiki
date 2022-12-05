@@ -8,7 +8,6 @@
 
 class Services_Payment_Controller
 {
-
     public function setUp()
     {
         Services_Exception_Disabled::check('payment_feature', 'wikiplugin_addtocart');

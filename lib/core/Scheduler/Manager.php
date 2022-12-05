@@ -10,7 +10,6 @@ use Psr\Log\LoggerInterface;
 
 class Scheduler_Manager
 {
-
     private $logger;
     private $hasTempFolderOwnership = true;
 

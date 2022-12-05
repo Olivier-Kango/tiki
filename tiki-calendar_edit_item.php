@@ -376,7 +376,7 @@ if (! empty($_REQUEST['viewcalitemId']) && ! empty($_REQUEST['guests']) && isset
 
 if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["calitemId"]) and $tiki_p_change_events == 'y') {
     // There is no check for valid antibot code if anonymous allowed to delete events since this comes from a JS button at the tpl and bots are not know to use JS
-    $access->checkCsrf(tra('Are you sure you want to delete the event '.$calitem['name'].' ?'));
+    $access->checkCsrf(tra('Are you sure you want to delete the event ' . $calitem['name'] . ' ?'));
     $calitem = $calendarlib->get_item($_REQUEST['calitemId']);
     $calendarlib->drop_item($user, $_REQUEST["calitemId"]);
     if ($prefs['feature_actionlog'] == 'y') {
@@ -387,7 +387,7 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
     exit;
 } elseif (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["recurrenceId"]) and $tiki_p_change_events == 'y') {
     // There is no check for valid antibot code if anonymous allowed to delete events since this comes from a JS button at the tpl and bots are not know to use JS
-    $access->checkCsrf(tra('Are you sure you want to delete the event '.$calitem['name'].' ?'));
+    $access->checkCsrf(tra('Are you sure you want to delete the event ' . $calitem['name'] . ' ?'));
     $calRec = new CalRecurrence($_REQUEST['recurrenceId']);
     $calRec->delete();
     if ($prefs['feature_actionlog'] == 'y') {
@@ -494,7 +494,7 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
     } else {
         $now = $tikilib->now;
     }
-    $date_format_keeping_source_utc_timezone = function($format, $timestamp) {
+    $date_format_keeping_source_utc_timezone = function ($format, $timestamp) {
         return TikiLib::date_format($format, $timestamp, false, 5, true, false);
     };
     //if current time of day is within the calendar day (between startday and endday), then use now as start, otherwise use beginning of calendar day

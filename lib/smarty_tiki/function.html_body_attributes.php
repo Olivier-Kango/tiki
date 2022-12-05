@@ -31,7 +31,7 @@ function smarty_function_html_body_attributes($params, $smarty)
         $class .= ' fixed_width';
     }
 
-    if (strtolower($_REQUEST["page"]) === 'sandbox'){
+    if (strtolower($_REQUEST["page"]) === 'sandbox') {
         $class .= ' sandbox ';
     }
 

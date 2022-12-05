@@ -12,7 +12,6 @@
  */
 class H5P_EditorTikiStorage implements H5peditorStorage
 {
-
     /**
      * Will created and return the same instance of the H5peditor each time.
      *

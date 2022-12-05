@@ -176,7 +176,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
         }
         $data['element_id'] = 'area_' . uniqid();
         if ($this->getOption('wysiwyg') === 'y') {    // wysiwyg
-            $is_html = '<input type="hidden" name="allowhtml" value="' .  ($prefs['wysiwyg_htmltowiki'] == 'n' ? '1' : '0') . '">';
+            $is_html = '<input type="hidden" name="allowhtml" value="' . ($prefs['wysiwyg_htmltowiki'] == 'n' ? '1' : '0') . '">';
         } else {
             $is_html = '';
         }

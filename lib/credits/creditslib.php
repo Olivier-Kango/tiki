@@ -16,7 +16,6 @@
  */
 class CreditsLib extends TikiLib
 {
-
     public function getRawCredits($userId)
     {
         $result = $this->query(

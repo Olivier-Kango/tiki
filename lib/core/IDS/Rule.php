@@ -8,7 +8,6 @@
 
 class IDS_Rule
 {
-
     protected $id;
     protected $regex;
     protected $description;

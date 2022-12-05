@@ -316,8 +316,8 @@ EOF;
         $data = '<mxfile>' . implode('', $diagrams) . '</mxfile>';
     }
 
-    $slidePage=explode("/",$_SERVER['PHP_SELF']);
-    $slidePage=end($slidePage);
+    $slidePage = explode("/", $_SERVER['PHP_SELF']);
+    $slidePage = end($slidePage);
 
     $smarty = TikiLib::lib('smarty');
     $smarty->assign('index', $diagramIndex);

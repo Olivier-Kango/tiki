@@ -204,7 +204,7 @@ function wikiplugin_trackeritemfield($data, $params)
                 // testing for something
                 return $dataelse;
             }
-        } elseif(empty($info)) {
+        } elseif (empty($info)) {
             // item not found, nothing to show
             return '';
         }
@@ -301,11 +301,10 @@ function wikiplugin_trackeritemfield($data, $params)
                 $handler = $trklib->get_field_handler($field, $info);
                 $field = array_merge($field, $handler->getFieldData());     // some fields (such as DropDown and Category need this)
                 $handler = $trklib->get_field_handler($field, $info);
-                if (isset($params['list_mode']) && !empty($params['list_mode'])) {
+                if (isset($params['list_mode']) && ! empty($params['list_mode'])) {
                     $list_mode = $params['list_mode'];
                     $out = $handler->renderOutput(['list_mode' => $list_mode]);
-                }
-                else {
+                } else {
                     $out = $handler->renderOutput(['list_mode' => 'y']);
                 }
                 return $out;

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -37,7 +38,7 @@ function upgrade_20211126_timezone_date_update_tiki(Installer $installer): bool
     $old_tz = date_default_timezone_get();
     date_default_timezone_set('UTC');
 
-    $result = $installer->query("SELECT * FROM tiki_tracker_item_fields WHERE fieldId IN (".implode(',', $date_fields).")");
+    $result = $installer->query("SELECT * FROM tiki_tracker_item_fields WHERE fieldId IN (" . implode(',', $date_fields) . ")");
     while ($row = $result->fetchRow()) {
         if (empty($row['value'])) {
             continue;

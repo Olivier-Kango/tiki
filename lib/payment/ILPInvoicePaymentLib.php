@@ -9,11 +9,10 @@ use WikiSuite\ILP\Providers\ILPInvoiceServerClient;
 
 class ILPInvoicePaymentLib implements ILPPaymentAdapterInterface
 {
-
     public function isEnabled(): bool
     {
         global $prefs;
-        return !empty($prefs['payment_ilp_base_url']) && !empty($prefs['payment_ilp_token']);
+        return ! empty($prefs['payment_ilp_base_url']) && ! empty($prefs['payment_ilp_token']);
     }
 
     public function getILPClient(): ILPSPSPClientAdaptorInterface

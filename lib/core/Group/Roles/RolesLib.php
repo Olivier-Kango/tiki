@@ -9,7 +9,6 @@ use WikiParser_PluginMatcher;
 
 class RolesLib extends TikiLib
 {
-
     /**
      * Apply roles to a category and sync all children
      * @param $categoryId int Category Id to apply roles

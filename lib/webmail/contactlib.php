@@ -8,7 +8,6 @@
 
 class ContactLib extends TikiLib
 {
-
     // Contacts
     public function list_contacts(
         $user,

@@ -109,16 +109,15 @@ function module_reading_time($mod_reference, &$module_params)
     $words = $pagedata['data'];
 
     // Cleaning and assuring the counting work with accents and languages - non latin
-    $wordCleaned = preg_split( "/[\n\r\t ]+/", $words, 0, PREG_SPLIT_NO_EMPTY );
+    $wordCleaned = preg_split("/[\n\r\t ]+/", $words, 0, PREG_SPLIT_NO_EMPTY);
     $wordsCount = (count($wordCleaned));
-    $readingTime = bcdiv(($wordsCount/$module_params['wordsPerMinutes']), 1, 2);
+    $readingTime = bcdiv(($wordsCount / $module_params['wordsPerMinutes']), 1, 2);
 
     // Converting the time integer value to a human-readable time format
     $readingTimeMin = preg_replace('/[.,][0-9]+/', '', $readingTime);
     $readingTimeSec = $readingTime - $readingTimeMin ;
-    $readingTimeSec = bcmul($readingTimeSec,60, 0);
+    $readingTimeSec = bcmul($readingTimeSec, 60, 0);
 
     $smarty->assign('readingTimeMin', $readingTimeMin);
     $smarty->assign('readingTimeSec', $readingTimeSec);
-
 }

@@ -14,7 +14,6 @@
  */
 class PdfImagesLib
 {
-
     protected $binaryPath = 'pdfimages';
     protected $arguments;
     public $version;

@@ -52,7 +52,7 @@ class Services_Edit_Utilities
         }
 
         $perms = $tikilib->get_perm_object($page, 'wiki page', $info, false);
-        if ($perms['tiki_p_edit'] !== 'y' &&!empty($pluginArgs) && $is_allowed !== 'y') {
+        if ($perms['tiki_p_edit'] !== 'y' && ! empty($pluginArgs) && $is_allowed !== 'y') {
             throw new Services_Exception_Denied(tr('You do not have permission to edit "%0"', $page));
         }
 
