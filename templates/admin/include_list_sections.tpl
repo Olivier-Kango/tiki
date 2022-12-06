@@ -3,7 +3,8 @@
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
     {tr}Enable/disable Tiki features in {/tr}<a class="alert-link" href="tiki-admin.php?page=features">{tr}Control Panels{/tr}&nbsp;{$prefs.site_crumb_seper}&nbsp;{tr}Features{/tr}</a>{tr}, but configure them elsewhere{/tr}.
     <br/>
-    {tr _0="<strong>" _1="</strong>" _2="<a class='alert-link' target='tikihelp' href='https://doc.tiki.org/Preference+Filters'>" _3='</a>' _4='{icon name="filter"}'}See %0more options%1 after you enable more %2Preference Filters%3 above (%4){/tr}.
+    {capture assign='filterIcon'}{icon name="filter"}{/capture}
+    {tr _0="<strong>" _1="</strong>" _2="<a class='alert-link' target='tikihelp' href='https://doc.tiki.org/Preference+Filters'>" _3='</a>' _4=$filterIcon}See %0more options%1 after you enable more %2Preference Filters%3 above (%4){/tr}.
 {/remarksbox}
 
 {if $show_system_configuration_warning}
