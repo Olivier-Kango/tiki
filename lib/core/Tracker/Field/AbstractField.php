@@ -278,6 +278,10 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
             return false;
         }
 
+        if (isset($context['linkToItems']) && $context['linkToItems'] == 'y') {
+            return true;
+        }
+
         if (! empty($context['isMain_context'])) {
             return false;
         }

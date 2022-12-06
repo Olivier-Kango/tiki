@@ -7,7 +7,7 @@
 // $Id$
 use Tracker\Tabular\Schema;
 
-/**
+ /**
  * Handler class for DynamicList
  *
  * Letter key: ~w~
@@ -95,6 +95,16 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
                         ],
                         'legacy_index' => 6,
                     ],
+                    'linkToItems' => [
+                        'name' => tr('Display'),
+                        'description' => tr('How the link to the items should be rendered'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('Value'),
+                            1 => tr('Link'),
+                        ],
+                        'legacy_index' => 7,
+                    ]
                 ],
             ],
         ];
@@ -154,6 +164,7 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
         $originalValue = $this->getConfiguration('value');
         $hideBlank = $this->getOption('hideBlank');
         $selectMultipleValues = $this->getOption('selectMultipleValues', 0);
+        $linkToItems = $this->getOption('linkToItems');
 
         $filterFieldValueHere = $originalValue;
         if (! empty($context['itemId'])) {
@@ -199,7 +210,8 @@ $("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=
             originalValue:  "' . $originalValue . '",
             hideBlank: ' . (int)$hideBlank . ',
             selectMultipleValues: ' . $selectMultipleValues . ',
-            filterFieldValueHere: $(this).val() // We need the field value for the fieldId filterfield for the item $(this).val
+            filterFieldValueHere: $(this).val(), // We need the field value for the fieldId filterfield for the item $(this).val,
+            linkToItems: ' . $linkToItems . '
         },
         
         // callback
@@ -287,7 +299,14 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
             $remoteItemIds = array_filter($remoteItemIds);
         }
         $output = '';
-        $context['list_mode'] = 'csv';
+        $context['list_mode'] = '';
+
+        // If the request method = GET i.e there is no request for a csv export
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            if ($this->getOption('linkToItems')) {
+                $context['linkToItems'] = 'y';
+            }
+        }
 
         foreach ((array) $remoteItemIds as $remoteItemId) {
             $itemInfo = $trklib->get_tracker_item($remoteItemId);
