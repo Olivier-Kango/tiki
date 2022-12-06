@@ -32,6 +32,15 @@ function prefs_allocate_list()
         'tracker_import_items' => ['label' => tr('Tracker item import'), 'memory' => true, 'time' => true],
         'tracker_clear_items' => ['label' => tr('Tracker clear'), 'memory' => false, 'time' => true],
         'print_pdf' => ['label' => tr('Printing to PDF'), 'memory' => true, 'time' => true],
+        'secdb_check' => [
+            'label' => tr('Security check'),
+            'memory' => false,
+            'time' => true,
+            'extras_time' => [
+                'default' => 60,
+                'shorthint' => tr('time allocated to check all tiki files on tiki-admin_security.php'),
+           ],
+        ],
         'php_execution' => [
             'label' => tr('PHP execution'),
             'memory' => true,
@@ -72,6 +81,7 @@ function prefs_allocate_list()
                 'help' => 'Time-Limit',
                 'type' => 'text',
                 'default' => '',
+                'shorthint' => tr('for example: 30'),
                 'units' => tr('seconds'),
                 'size' => 8,
             ];
