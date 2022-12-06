@@ -50,10 +50,10 @@ class Services_Edit_PluginController
         $res = [];
 
         if ($filter) {
-            $query = 'wikiplugin_* AND ' . $filter;
+            $query = "wikiplugin AND $filter";
             $sort = '';
         } else {
-            $query = 'wikiplugin_*';
+            $query = "wikiplugin";
             $sort = 'object_id_asc';
         }
         $filters = TikiLib::lib('prefs')->getEnabledFilters();
