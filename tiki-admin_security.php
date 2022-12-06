@@ -249,7 +249,8 @@ function md5_check_dir($dir, &$result, $vcs_diff = [])
                 $result[$entry] = tra('File is not readable. Unable to check.');
             } else {
                 $md5val = md5_file($entry);
-                $dbresult = $tikilib->query($query, [$entry]);
+                $filename = str_replace('./vendor_bundled/vendor/', '%VB%', $entry);
+                $dbresult = $tikilib->query($query, [$filename]);
                 $is_tikifile = false;
                 $is_tikiver = [];
                 $valid_tikiver = [];
