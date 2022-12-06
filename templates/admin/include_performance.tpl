@@ -220,8 +220,9 @@
             {preference name=allocate_time_tracker_clear_items}
             {preference name=allocate_memory_print_pdf}
             {preference name=allocate_time_print_pdf}
-            {preference name="allocate_memory_unified_rebuild"}
-            {preference name="allocate_time_unified_rebuild"}
+            {preference name='allocate_memory_unified_rebuild'}
+            {preference name='allocate_time_unified_rebuild'}
+            {preference name='allocate_time_secdb_check'}
         {/tab}
 
     {/tabset}

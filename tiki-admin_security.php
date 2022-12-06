@@ -322,7 +322,14 @@ if (isset($_POST['check_files'])) {
         $svn_diff = [];
     }
 
-    md5_check_dir(".", $result, $svn_diff);
+    $result = TikiLib::lib('tiki')->allocate_extra(
+        'secdb_check',
+        function () use ($result, $svn_diff) {
+            md5_check_dir(".", $result, $svn_diff);
+            return $result;
+        }
+    );
+
     $smarty->assign('filecheck', true);
     $smarty->assign_by_ref('tikifiles', $result);
 }
