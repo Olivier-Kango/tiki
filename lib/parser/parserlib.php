@@ -3449,7 +3449,7 @@ class ParserLib extends TikiDb_Bridge
             if ($logger instanceof Psr\Log\LoggerInterface) {
                 $logger->debug(tr('Processing page: %0, is_html: %1', $apage['pageName'], $apage['is_html']));
             }
-            $page = $apage['pageName'];
+            $this->option['page'] = $apage['pageName'];
 
             $matches = WikiParser_PluginMatcher::match($apage['data']);
             foreach ($matches as $match) {
