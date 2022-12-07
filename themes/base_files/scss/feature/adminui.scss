@@ -166,14 +166,14 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 
 .tiki-admin aside.admin-nav .narrow .navbar-nav a.nav-link {
     display: block;
-    text-align: center;
-    padding: 4px 0;
+//    text-align: center;
+    padding: 4px 0 4px 1.5rem;
 }
 
-.tiki-admin aside.admin-nav .narrow .sections-header a .icon.icon-home,
-.tiki-admin aside.admin-nav .narrow li, .tiki-admin aside.admin-nav .narrow li .icon .icon {
-    width: 100%;
-}
+//.tiki-admin aside.admin-nav .narrow .sections-header a .icon.icon-home,
+//.tiki-admin aside.admin-nav .narrow li, .tiki-admin aside.admin-nav .narrow li .icon .icon {
+//    width: 100%;
+//}
 
 .tiki-admin aside.admin-nav .navbar-light.narrow .navbar-nav > li:after {
     border-bottom: 1px solid $color-light;
