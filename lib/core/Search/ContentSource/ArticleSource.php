@@ -50,11 +50,13 @@ class Search_ContentSource_ArticleSource implements Search_ContentSource_Interfa
         if ($rss_relations) {
             $rssId = reset($rss_relations);
             $rssModule = TikiLib::lib('rss')->get_rss_module($rssId);
-            if ($rssModule['sitetitle']) {
-                 $sitetitle = $rssModule['sitetitle'];
-            }
-            if ($rssModule['siteurl']) {
-                $siteurl = $rssModule['siteurl'];
+            if ($rssModule) {
+                if ($rssModule['sitetitle']) {
+                    $sitetitle = $rssModule['sitetitle'];
+                }
+                if ($rssModule['siteurl']) {
+                    $siteurl = $rssModule['siteurl'];
+                }
             }
         }
 
