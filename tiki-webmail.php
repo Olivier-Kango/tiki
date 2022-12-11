@@ -34,6 +34,7 @@ if (empty($_SESSION['cypht']['username']) || $_SESSION['cypht']['username'] != $
     $headerlib = TikiLib::lib('header');
     $headerlib->add_js('
 document.cookie = "hm_reload_folders=1";
+document.cookie = "hm_first_load=1";
 for(var i =0; i < sessionStorage.length; i++){
     var key = sessionStorage.key(i);
     if (key.indexOf(window.location.pathname) > -1) {
