@@ -29,8 +29,10 @@ header.navbar.fixed-top {
 }
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #AD3245;
   --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
   --tiki-admin-dropdown-light-bg: #AD3245;
   --tiki-admin-toggle-light-bg: #AD3245;
   --tiki-admin-navbar-dark-highlight-bg: #a61a32;
@@ -1223,13 +1225,12 @@ footer#footer .footer_liner .card-header {
 .layout_classic .page-header .bg-dark {
   background: #641E39 !important;
 }
-/*.layout_classic*/
-.top_modules > div:first-child {
+.top_modules:not(.uab) > div:first-child {
   background: url("../images/siteheader2.png") no-repeat top right !important;
   margin-left: -15px !important;
   color: #a51e37 !important;
 }
-.top_modules > div:first-child a {
+.top_modules:not(.uab) > div:first-child a {
   color: #a51e37 !important;
 }
 .layout_classic .sitetitle, .layout_classic .sitetitle a, .layout_classic .sitesubtitle {

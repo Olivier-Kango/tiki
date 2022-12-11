@@ -3085,11 +3085,11 @@ textarea.form-control-lg {
   color: var(--bs-dropdown-link-color);
 }
 .dropdown-menu-dark {
-  --bs-dropdown-color: #495057;
-  --bs-dropdown-bg: #e9ecef;
+  --bs-dropdown-color: #ababab;
+  --bs-dropdown-bg: #242424;
   --bs-dropdown-border-color: rgba(0, 0, 0, 0.15);
   --bs-dropdown-box-shadow: ;
-  --bs-dropdown-link-color: #495057;
+  --bs-dropdown-link-color: #ababab;
   --bs-dropdown-link-hover-color: #fff;
   --bs-dropdown-divider-bg: #e5e5e5;
   --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
@@ -10295,12 +10295,13 @@ textarea.form-control-lg {
 }
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
-  --tiki-admin-dropdown-dark-color: #d8d8d8;
+  --tiki-admin-dropdown-dark-color: #ababab;
   --tiki-admin-dropdown-dark-bg: #242424;
   --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-dropdown-light-color: #fff;
   --tiki-admin-dropdown-light-bg: #242424;
   --tiki-admin-toggle-light-bg: #242424;
-  --tiki-admin-navbar-dark-highlight-bg: transparent;
+  --tiki-admin-navbar-dark-highlight-bg: var(--tiki-top-bg-dark);
   --tiki-admin-navbar-dark-highlight-color: #e9ecef;
   --tiki-admin-navbar-light-highlight-bg: transparent;
   --tiki-admin-navbar-light-highlight-color: #e9ecef;

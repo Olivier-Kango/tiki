@@ -22,10 +22,11 @@
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
-    //    --tiki-admin-dropdown-dark-color: #{$dropdown-color};
+    --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark);
+    --tiki-admin-dropdown-dark-color: #fff;
     --tiki-admin-dropdown-dark-bg: #{$dropdown-bg};
     --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+    --tiki-admin-dropdown-light-color: #3585D0FF;
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
     --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};

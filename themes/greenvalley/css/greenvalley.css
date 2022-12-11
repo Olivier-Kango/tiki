@@ -10201,9 +10201,11 @@ textarea.form-control-lg {
   --tiki-topbar-dark-link-hover-color: rgba(255, 255, 255, 0.75);
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-navbar-dark-bg: #473119;
+  --tiki-admin-dropdown-dark-color: rgba(255, 255, 255, 0.95);
   --tiki-admin-dropdown-dark-bg: #fff;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-navbar-light-bg: var(--tiki-admin-navbar-dark-bg);
+  --tiki-admin-dropdown-light-color: #B52170;
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: #e9ecef;

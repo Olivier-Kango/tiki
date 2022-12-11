@@ -6,12 +6,12 @@
     --tiki-top-light-link-color: #FEA239;
     --tiki-top-light-link-hover-color: lighten(#FEA239,10%);
 
-    --tiki-topbar-bg-light: null;
+    --tiki-topbar-bg-light: #{$top-navbar-bg};
     --tiki-topbar-light-color: #{$gray-100};
     --tiki-topbar-light-link-color: #{$gray-100};
     --tiki-topbar-light-link-hover-color: #{$gray-200};
 
-    --tiki-top-bg-dark: null;
+    --tiki-top-bg-dark: #{$top-navbar-bg};
     --tiki-top-dark-color: #FEA239;
     --tiki-top-dark-link-color: #FEA239;
     --tiki-top-dark-link-hover-color: lighten(#FEA239,10%);
@@ -23,14 +23,15 @@
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
-    --tiki-admin-dropdown-dark-color: #{$dropdown-color};
+    --tiki-admin-navbar-dark-bg: #{$top-navbar-bg};
+    --tiki-admin-dropdown-dark-color: #{$gray-100};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+    --tiki-admin-navbar-light-bg: #{$top-navbar-bg};
+    --tiki-admin-dropdown-light-color: #{$gray-100};
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
-    --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};
+    --tiki-admin-navbar-dark-highlight-bg: #{$top-navbar-link-hover-bg};
     --tiki-admin-navbar-dark-highlight-color: #{$dropdown-link-hover-color};
-    --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
+    --tiki-admin-navbar-light-highlight-bg: #{$top-navbar-link-hover-bg};
     --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
 }

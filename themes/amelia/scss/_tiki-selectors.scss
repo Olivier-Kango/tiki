@@ -55,20 +55,25 @@ legend {
 }
 
 // Navs
-.bg-light-parent {
-    a,
-    .btn-link {
-        color: $navbar-light-color;
-        &:hover {
-            color: $navbar-light-hover-color;
-        }
-    }
+.nav-tabs .nav-link {
+    color: $link-color;
 }
 
+// Navs
+//.bg-light-parent {
+//    a,
+//    .btn-link {
+//        color: $navbar-light-color;
+//        &:hover {
+//            color: $navbar-light-hover-color;
+//        }
+//    }
+//}
+
 // Dropdowns
-.dropdown-menu.dropdown-menu-dark .dropdown-item {
-    color: $gray-300 !important;
-}
+//.dropdown-menu.dropdown-menu-dark .dropdown-item {
+//    color: $gray-300 !important;
+//}
 
 // Buttons
 .btn.btn-outline-dark {

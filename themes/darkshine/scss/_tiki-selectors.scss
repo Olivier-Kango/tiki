@@ -18,7 +18,8 @@ body.fullscreen,
 
 .layout_classic #middle,
 .layout_basic .row-middle,
-.layout_social .middle.container {
+.layout_social .middle.container,
+.tiki-admin .row-middle {
     background: #f3f3f3;
     border: solid 15px #600;
     border-top: none;
@@ -278,6 +279,11 @@ blockquote,
     }
 }
 
+.tiki.layout_basic .topbar_modules {
+    border-left: none !important;
+    border-right: none !important;
+}
+
 
 .tiki.layout_classic .topbar_modules,
 .layout_basic  #topbar.topbar_modules.bg-dark .module.box-menu a.nav-link,
@@ -358,7 +364,12 @@ blockquote,
     background: transparent;
 }
 
-footer.footer {
+.main-footer {
+    .footer_liner.w-100 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
     .card {
         border: none;
         background: transparent;
@@ -371,7 +382,9 @@ footer.footer {
         border-color: transparent;
     }
 }
-
+.footer_liner.w-100 {
+    padding: 0 !important;
+}
 // Accordion
 .accordion-button {
     color: #000;

@@ -196,7 +196,9 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 .tiki-admin aside nav {
-    border-radius: unset;
+    .dropdown-menu {
+        border-radius: 0 !important;
+    }
 }
 
 .tiki-admin .form-control {
@@ -262,6 +264,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
         left: 0;
         height: 100%;
         padding: 1.5rem 0;
+        border-radius: 0 !important;
     }
 
     .tiki-admin .top_modules .bg-dark-parent .dropdown-menu, .tiki-admin .bg-dark .navbar-collapse {
@@ -498,10 +501,10 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     font-size: .875rem;
 }
 
-.tiki-admin .dropdown-menu .dropdown-item:hover a {
-    color: white;
-    text-decoration: none;
-}
+//.tiki-admin .dropdown-menu .dropdown-item:hover a {
+//    color: white;
+//    text-decoration: none;
+//}
 
 .tiki-admin .bg-dark .dropdown-divider, .tiki-admin .bg-dark-parent .dropdown-divider {
     border-top: .5px solid white !important;
@@ -523,8 +526,14 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     border: none;
 }
 
+.tiki-admin .navbar-light.bg-light #admin-menu .nav-item > .nav-link {
+    color: var(--tiki-admin-dropdown-light-color);
+}
+.tiki-admin .navbar-dark.bg-dark #admin-menu .nav-item > .nav-link {
+    color: var(--tiki-admin-dropdown-dark-color);
+}
 //.tiki-admin .bg-light .dropdown-item .dropdown-header, .tiki-admin .bg-light .dropdown-item label, .tiki-admin .navbar-light .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-light-parent .dropdown-header, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .bg-light a {
-//    color: $color-light;
+//    color: var(--tiki-admin-dropdown-light-color);
 //}
 // Below: Nav links are especially important on admin pages - why make them smaller here? (gary)
 //.tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .top_modules.navbar-light-parent button, .tiki-admin .bg-light .navbar-collapse, .tiki-admin .bg-dark .navbar-collapse, .tiki-admin .bg-light .navbar-collapse .dropdown-item, .tiki-admin .bg-dark .navbar-collapse .dropdown-item, .tiki-admin .navbar-dark.admin-navbar .navbar-nav .nav-link {
@@ -756,9 +765,12 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 /* main content */
+.fixed_width.tiki-admin:not(.sidebar_collapsed) .row.row-middle, .fixed_width.tiki-admin .intertrans.text-center, .fixed_width.tiki-admin:not(.sidebar_collapsed) .footer {
+    margin-left: 60px !important; // Reduced from 268px due to tabs wrapping in some pages and no need for such a wide margin.
+}
 
 .tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center, .tiki-admin:not(.sidebar_collapsed) .footer {
-    margin-left: 268px !important;
+    margin-left: 290px !important; // Necessary when .fixed_width is off to prevent aside overlap
 }
 
 .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {

@@ -9927,9 +9927,10 @@ textarea.form-control-lg {
 }
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark);
-  --tiki-admin-dropdown-dark-color: var(--bs-body-color);
+  --tiki-admin-dropdown-dark-color: var(--bs-link-color);
   --tiki-admin-dropdown-dark-bg: #fff;
   --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-dropdown-light-color: #000;
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: #000;

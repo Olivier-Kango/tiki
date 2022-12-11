@@ -2838,7 +2838,7 @@ textarea.form-control-lg {
   --bs-dropdown-padding-y: 0.5rem;
   --bs-dropdown-spacer: 0.125rem;
   --bs-dropdown-font-size: 1rem;
-  --bs-dropdown-color: #495057;
+  --bs-dropdown-color: #fff;
   --bs-dropdown-bg: #4d90bd;
   --bs-dropdown-border-color: var(--bs-border-color-translucent);
   --bs-dropdown-border-radius: 0.375rem;
@@ -3098,11 +3098,11 @@ textarea.form-control-lg {
   color: var(--bs-dropdown-link-color);
 }
 .dropdown-menu-dark {
-  --bs-dropdown-color: #dee2e6;
-  --bs-dropdown-bg: #343a40;
+  --bs-dropdown-color: #fff;
+  --bs-dropdown-bg: #4d90bd;
   --bs-dropdown-border-color: var(--bs-border-color-translucent);
   --bs-dropdown-box-shadow: ;
-  --bs-dropdown-link-color: #dee2e6;
+  --bs-dropdown-link-color: #fff;
   --bs-dropdown-link-hover-color: #fff;
   --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
   --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
@@ -11014,9 +11014,10 @@ textarea.form-control-lg {
 }
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
-  --tiki-admin-dropdown-dark-color: #495057;
+  --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #4d90bd;
   --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-dropdown-light-color: #212529;
   --tiki-admin-dropdown-light-bg: #4d90bd;
   --tiki-admin-toggle-light-bg: #4d90bd;
   --tiki-admin-navbar-dark-highlight-bg: #3a759d;
