@@ -1,0 +1,62 @@
+commit a96186b926acddce1a11278e7c4e1096c56ac7ca
+Author: SoftStart Code <code@softstart.io>
+Date:   Sun Dec 11 09:41:19 2022 +0000
+
+    [FIX] Warnings for curly brackets access is deprecated
+
+diff --git a/SmartyLint/Cli.php b/SmartyLint/Cli.php
+index 05e2fd1..6ebba0d 100644
+--- a/SmartyLint/Cli.php
++++ b/SmartyLint/Cli.php
+@@ -69,14 +69,14 @@ class SmartyLint_Cli {
+                 continue;
+             }
+ 
+-            if ($arg{0} === '-') {
++            if ($arg[0] === '-') {
+                 if ($arg === '-' || $arg === '--') {
+                     // Empty argument, ignore it.
+                     continue;
+                 }
+ 
+ 
+-                if ($arg{1} === '-') {
++                if ($arg[1] === '-') {
+                     $values
+                         = $this->processLongArgument(substr($arg, 2), $i, $values);
+                 } else {
+diff --git a/SmartyLint/CommentParser/CommentElement.php b/SmartyLint/CommentParser/CommentElement.php
+index 302d05a..e1d36b7 100644
+--- a/SmartyLint/CommentParser/CommentElement.php
++++ b/SmartyLint/CommentParser/CommentElement.php
+@@ -134,7 +134,7 @@ class SmartyLint_CommentParser_CommentElement extends SmartyLint_CommentParser_S
+         for ($i = $pos; $i < $count; $i++) {
+             $content = trim($this->tokens[$i]);
+             if ($content !== '') {
+-                if ($content{0} === '@') {
++                if ($content[0] === '@') {
+                     return -1;
+                 }
+ 
+diff --git a/SmartyLint/CommentParser/FileCommentParser.php b/SmartyLint/CommentParser/FileCommentParser.php
+index ec5a5a6..5069448 100644
+--- a/SmartyLint/CommentParser/FileCommentParser.php
++++ b/SmartyLint/CommentParser/FileCommentParser.php
+@@ -156,7 +156,7 @@ class SmartyLint_CommentParser_FileCommentParser {
+                     $line = substr($line, 3);
+                 } else if (substr($line, -2, 2) === ('*'.$this->smartylFile->eDelimiter)) {
+                     $line = substr($line, 0, -2);
+-                } else if ($line{0} === '*') {
++                } else if ($line[0] === '*') {
+                     $line = substr($line, 1);
+                 }
+ 
+@@ -195,7 +195,7 @@ class SmartyLint_CommentParser_FileCommentParser {
+             if (trim($word) !== '') {
+                 $wordWasEmpty = false;
+             }
+-            if ($word{0} === '@') {
++            if ($word[0] === '@') {
+                 $tag = substr($word, 1);
+ 
+                 // Filter out @ tags in the comment description.

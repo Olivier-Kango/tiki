@@ -29,11 +29,15 @@
     "npm-asset/converse.js": {
       "Remove native javascript for bootstrap": "../installer/composer-patches/jcbrand-conversejs_remove-native-javascript-for-bootstrap.patch"
     },
-	"nicolaskruchten/pivottable": {
-	  "Sort rows and columns by key_z_to_a": "../installer/composer-patches/nicolaskruchten_pivottable__sort_by_key_z_to_a.patch"
-	},
-	"teqneers/shamir": {
-	  "Fix PHP 8.1 deprecated errors": "../installer/composer-patches/teqneers-shamir__php81_fix_deprecated_issues.patch"
-	}
+    "nicolaskruchten/pivottable": {
+      "Sort rows and columns by key_z_to_a": "../installer/composer-patches/nicolaskruchten_pivottable__sort_by_key_z_to_a.patch"
+    },
+    "teqneers/shamir": {
+      "Fix PHP 8.1 deprecated errors": "../installer/composer-patches/teqneers-shamir__php81_fix_deprecated_issues.patch"
+    },
+    "umakantp/smartylint": {
+      "Fix smartylint syntax with curly braces": "../installer/composer-patches/smartylint-warning-curly-bracket.patch",
+      "Fix smartylint missing index array error": "../installer/composer-patches/smartylint-missing-index-error.patch"
+    }
   }
 }
