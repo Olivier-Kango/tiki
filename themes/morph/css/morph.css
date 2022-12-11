@@ -10369,7 +10369,7 @@ header.navbar.fixed-top {
   --tiki-admin-dropdown-light-bg: rgba(240, 245, 250, 0.8);
   --tiki-admin-toggle-light-bg: rgba(240, 245, 250, 0.8);
   --tiki-admin-navbar-dark-highlight-bg: transparent;
-  --tiki-admin-navbar-dark-highlight-color: #444b40;
+  --tiki-admin-navbar-dark-highlight-color: #fff;
   --tiki-admin-navbar-light-highlight-bg: transparent;
   --tiki-admin-navbar-light-highlight-color: #444b40;
 }

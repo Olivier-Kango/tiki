@@ -31,7 +31,7 @@
     <div class="middle_outer" id="middle_outer">
         {if $smarty.session.fullscreen ne 'y'}
                 {if $prefs.theme_unified_admin_backend eq 'y' && $smarty.server.SCRIPT_NAME eq $url_path|cat:'tiki-admin.php'}
-                    {modulelist zone=top class="top_modules d-flex align-content-center justify-content-between top navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent w-100 mb-sm"}
+                    {modulelist zone=top class="top_modules uab d-flex align-content-center justify-content-between top navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent w-100 mb-sm"}
                 {/if}
             <div class="fixed-topbar"></div>
         {/if}

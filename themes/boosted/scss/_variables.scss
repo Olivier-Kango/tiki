@@ -1222,7 +1222,7 @@ $nav-link-padding-y:                $spacer * .5 !default;
 $nav-link-padding-x:                $spacer !default;
 $nav-link-font-size:                null !default;
 $nav-link-font-weight:              $font-weight-bold !default;
-$nav-link-color:                    var(--#{$prefix}link-color) !default;
+$nav-link-color:                    #fff;
 $nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
 $nav-link-transition:               null !default;
 $nav-link-disabled-color:           $gray-500 !default;

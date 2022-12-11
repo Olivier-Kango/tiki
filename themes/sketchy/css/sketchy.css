@@ -10112,9 +10112,11 @@ pre {
   --tiki-topbar-border-width: 2px;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark);
+  --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #fff;
   --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-dropdown-light-color: #333;
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: #333;

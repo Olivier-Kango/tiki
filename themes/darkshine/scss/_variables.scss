@@ -38,6 +38,12 @@ $theme-colors: (
 $min-contrast-ratio:   3;
 
 // Options
+$enable-gradients:            true;
+// Prefix for :root CSS variables
+
+$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
+
 // Gradient
 // Spacing
 // Position
@@ -82,13 +88,15 @@ $form-feedback-invalid-color: #C9312C;
 
 // Z-index master list
 // Navs
+$nav-link-color:                    #fff;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
 $nav-link-disabled-color: #666E75;
 
 // Navbar
-$navbar-light-color:                rgba($black, .5) !default;
-$navbar-light-hover-color:          rgba($black, .7) !default;
-$navbar-light-active-color:         rgba($black, .9) !default;
-$navbar-light-disabled-color:       rgba($black, .3) !default;
+//$navbar-light-color:                rgba($black, .5) !default;
+//$navbar-light-hover-color:          rgba($black, .7) !default;
+//$navbar-light-active-color:         rgba($black, .9) !default;
+//$navbar-light-disabled-color:       rgba($black, .3) !default;
 
 // Tabs
 //$nav-tabs-border-color: lighten( $body-bg, 90% );
@@ -145,3 +153,5 @@ $pre-border-color: #cccccc;
 $pre-scrollable-max-height: 340px;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
+$top-navbar-bg: linear-gradient(to bottom, #040404 0%,#060606 2%,#121212 55%,#0f0f0f 57%,#030303 59%,#000000 61%,#000000 100%);
+$top-navbar-link-hover-bg: linear-gradient(to bottom, #545454 0%,#4e4e4e 5%,#3d3d3d 51%,#3a3a3a 53%,#303030 54%,#2d2d2d 56%,#111111 97%,#0e0e0f 98%,#4a0000 100%);;

@@ -97,6 +97,9 @@ $dropdown-link-disabled-color: #f2f2f2;
 $dropdown-header-color: #ffffff;
 $dropdown-divider-bg: $dropdown-bg;
 
+$dropdown-dark-color: #fff;
+$dropdown-dark-bg: $dropdown-bg;
+
 // Pagination
 $nav-pills-link-active-bg: #b51360;
 $pagination-color: #b51360;
@@ -218,9 +221,10 @@ $page-header-link-color: #000;
 
 .tiki-admin {
     --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
-    //    --tiki-admin-dropdown-dark-color: #{$dropdown-color};
-    --tiki-admin-dropdown-dark-bg: #{$dropdown-bg};
+    --tiki-admin-dropdown-dark-color: #{$dropdown-dark-color};
+    --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
     --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+    --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
     --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};

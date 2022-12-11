@@ -3,7 +3,7 @@
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 
 // Colors
-// $white:    #fff !default;
+ $white:    #fff !default;
 // $gray-100: #f8f9fa !default;
 // $gray-200: #e9ecef !default;
 // $gray-300: #dee2e6 !default;
@@ -80,19 +80,20 @@ $table-border-color:            #aaa;
 // Dropdowns
 // Navs
 // Navbar
- //$navbar-dark-color: #ffffff;
+$navbar-dark-color: #ffffff;
 $navbar-dark-bg: transparent !important;
 $navbar-light-bg: transparent !important;
  //$navbar-dark-border: darken($navbar-dark-bg, 6.5%);
 
 // Navbarlinks ??
-$navbar-dark-color:                 rgba($black, .5) !default;
-$navbar-dark-hover-color:           rgba($black, .75) !default;
-$navbar-dark-active-color:          $black !default;
+//$navbar-dark-color:                 rgba($black, .5) !default;
+$navbar-dark-hover-color:           rgba($white, .75);
+//$navbar-dark-active-color:          $black !default;
 $navbar-dark-disabled-color:        rgba($black, .25) !default;
 $navbar-dark-toggler-icon-bg:       str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
 $navbar-dark-toggler-border-color:  rgba($black, .1) !default;
-
+$navbar-light-color:                rgba($black, .5) !default;
+$navbar-light-hover-color:          rgba($black, .7) !default;
 // Pagination
 // Jumbotron
 // Cards

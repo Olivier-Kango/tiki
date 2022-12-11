@@ -59,10 +59,14 @@ $form-feedback-valid-color: #388038;
 $form-feedback-invalid-color: #D1332E;
 
 // Dropdowns
+$dropdown-color: #fff;
 $dropdown-header-color: #d0cece;
 $dropdown-link-color: #fff;
 $dropdown-bg: #4d90bd;
 $dropdown-link-hover-bg: darken($dropdown-bg,10%);
+
+$dropdown-dark-color: $dropdown-color;
+$dropdown-dark-bg: $dropdown-bg;
 
 // Navs
 // Navbar

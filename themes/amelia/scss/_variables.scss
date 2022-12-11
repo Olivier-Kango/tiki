@@ -82,9 +82,19 @@ $input-placeholder-color: #585E65;
 
 // Form validation
 // Z-index master list
+
 // Navs
-$nav-link-color:                    $link-color;
-$nav-tabs-link-active-color: $body-color;
+$nav-link-color:                  #444;
+//$nav-link-color:                  var(--#{$prefix}link-color);
+$nav-link-hover-color:            var(--#{$prefix}link-hover-color);
+
+$nav-tabs-border-color:             $gray-300;
+$nav-tabs-link-active-color:        lighten(#444, 8%);
+$nav-tabs-link-hover-border-color:  $gray-200 $gray-200 $nav-tabs-border-color;
+$nav-tabs-link-active-color:        $gray-200;
+$nav-tabs-link-active-bg:           $body-bg;
+$nav-tabs-link-active-border-color: $gray-300 $gray-300 $nav-tabs-link-active-bg;
+
 $nav-link-disabled-color: darken($nav-link-color, 10%);
 $nav-pills-link-active-bg: darken($body-bg, 8%);
 
@@ -106,6 +116,7 @@ $navbar-link-active-color: $link-hover-color;
 // Navbar links
 
 // Dropdowns
+$dropdown-color:                   #444;
 $dropdown-bg:                      #fff;
 $dropdown-border-color:            #444;
 $dropdown-link-color:              #444;

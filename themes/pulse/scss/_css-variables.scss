@@ -23,8 +23,8 @@
 
 .tiki-admin {
     --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
-    //    --tiki-admin-dropdown-dark-color: #{$dropdown-color};
-    --tiki-admin-dropdown-dark-bg: #{$dropdown-bg};
+    --tiki-admin-dropdown-dark-color: var(--tiki-topbar-dark-link-color);
+ //   --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
     --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};

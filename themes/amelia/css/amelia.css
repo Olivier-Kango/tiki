@@ -2836,7 +2836,7 @@ textarea.form-control-lg {
   --bs-dropdown-padding-y: 0.5rem;
   --bs-dropdown-spacer: 0.125rem;
   --bs-dropdown-font-size: 1rem;
-  --bs-dropdown-color: #fff;
+  --bs-dropdown-color: #444;
   --bs-dropdown-bg: #fff;
   --bs-dropdown-border-color: #444;
   --bs-dropdown-border-radius: 0.375rem;
@@ -3182,9 +3182,9 @@ textarea.form-control-lg {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;
   --bs-nav-link-font-weight: ;
-  --bs-nav-link-color: #f2e8c0;
+  --bs-nav-link-color: #444;
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: #e9d896;
+  --bs-nav-link-disabled-color: #2b2b2b;
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -3218,7 +3218,7 @@ textarea.form-control-lg {
   --bs-nav-tabs-border-color: #dee2e6;
   --bs-nav-tabs-border-radius: 0.375rem;
   --bs-nav-tabs-link-hover-border-color: #e9ecef #e9ecef #dee2e6;
-  --bs-nav-tabs-link-active-color: #fff;
+  --bs-nav-tabs-link-active-color: #e9ecef;
   --bs-nav-tabs-link-active-bg: #0c6369;
   --bs-nav-tabs-link-active-border-color: #dee2e6 #dee2e6 #0c6369;
   border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
@@ -9783,9 +9783,9 @@ textarea.form-control-lg {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;
   --bs-nav-link-font-weight: ;
-  --bs-nav-link-color: #f2e8c0;
+  --bs-nav-link-color: #444;
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: #e9d896;
+  --bs-nav-link-disabled-color: #2b2b2b;
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -9819,7 +9819,7 @@ textarea.form-control-lg {
   --bs-nav-tabs-border-color: #dee2e6;
   --bs-nav-tabs-border-radius: 0.375rem;
   --bs-nav-tabs-link-hover-border-color: #e9ecef #e9ecef #dee2e6;
-  --bs-nav-tabs-link-active-color: #fff;
+  --bs-nav-tabs-link-active-color: #e9ecef;
   --bs-nav-tabs-link-active-bg: #0c6369;
   --bs-nav-tabs-link-active-border-color: #dee2e6 #dee2e6 #0c6369;
   border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
@@ -10312,7 +10312,7 @@ textarea.form-control-lg {
 }
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark);
-  --tiki-admin-dropdown-dark-color: #fff;
+  --tiki-admin-dropdown-dark-color: #444;
   --tiki-admin-dropdown-dark-bg: #fff;
   --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
   --tiki-admin-dropdown-light-bg: #fff;
@@ -11312,14 +11312,8 @@ legend {
 .card-title a, .card-title small, .card-title .small, .card-title small a, .card-title .small a {
   color: inherit;
 }
-.bg-light-parent a, .bg-light-parent .btn-link {
+.nav-tabs .nav-link {
   color: #f2e8c0;
-}
-.bg-light-parent a:hover, .bg-light-parent .btn-link:hover {
-  color: #ede0ab;
-}
-.dropdown-menu.dropdown-menu-dark .dropdown-item {
-  color: #dee2e6 !important;
 }
 .btn.btn-outline-dark {
   color: #de3b48;
@@ -11661,7 +11655,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #f2e8c0;
 }
 .tiki .ui-state-active a, .tiki .ui-state-active a:link, .tiki .ui-state-active a:visited {
-  color: #fff;
+  color: #e9ecef;
 }
 .tiki .ui-state-default, .tiki .ui-widget-content .ui-state-default, .tiki .ui-widget-header .ui-state-default, .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
@@ -11675,7 +11669,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: #e9ecef #e9ecef #dee2e6;
   background: #0c6369;
   font-weight: 400;
-  color: #fff;
+  color: #e9ecef;
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
@@ -11882,7 +11876,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff !important;
 }
 .tiki-webmail .ui-state-active, .tiki-cypht .ui-state-active, .mobile.tiki-cypht .ui-state-active, .inline-cypht .ui-state-active {
-  color: #fff !important;
+  color: #e9ecef !important;
 }
 .tiki-webmail .popover-header, .tiki-cypht .popover-header, .mobile.tiki-cypht .popover-header, .inline-cypht .popover-header {
   color: #fff !important;

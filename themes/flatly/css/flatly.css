@@ -9853,9 +9853,11 @@ header.navbar.fixed-top {
   --tiki-topbar-dark-link-hover-color: #18bc9c;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark);
+  --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #fff;
   --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-dropdown-light-color: #3585D0FF;
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: #2c3e50;

@@ -9842,6 +9842,7 @@ header.navbar.fixed-top {
 }
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-dropdown-dark-color: rgba(255, 255, 255, 0.55);
   --tiki-admin-dropdown-dark-bg: #fff;
   --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
   --tiki-admin-dropdown-light-bg: #fff;
