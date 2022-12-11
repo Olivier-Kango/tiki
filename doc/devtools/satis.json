@@ -1834,6 +1834,17 @@
         {
             "type": "package",
             "package": {
+                "name": "umakantp/smartylint",
+                "version": "0.1.5-tiki.1",
+                "dist": {
+                    "url": "https://github.com/umakantp/SmartyLint/archive/8e34e7a1cbaa34efd53e6643ff4643472d62b601.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "undojs/undojs",
                 "version": "1",
                 "dist": {
