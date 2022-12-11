@@ -159,23 +159,23 @@ $postbody-title-card-title-color: #fff;
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 :root {
-// Use this one instead of the next to get a light band on the side like an actual orange slice --tiki-top-bg-light: linear-gradient(90deg, rgba(192,180,108,1) 1%, rgba(190,133,20,1) 3%, rgba(199,159,29,1) 97%, rgba(202,172,78,1) 100%);
-    --tiki-top-bg-light: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
+// Use this one instead of the next to get a light band on the side like an actual orange slice --tiki-top-light-bg: linear-gradient(90deg, rgba(192,180,108,1) 1%, rgba(190,133,20,1) 3%, rgba(199,159,29,1) 97%, rgba(202,172,78,1) 100%);
+    --tiki-top-light-bg: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
     --tiki-top-light-color: #3C3106;
     --tiki-top-light-link-color: #3C3106;
     --tiki-top-light-link-hover-color: #3C3106FF;
 
-    --tiki-topbar-bg-light: #{$topbar-light-bg};
+    --tiki-topbar-light-bg: #{$topbar-light-bg};
     --tiki-topbar-light-color: #000;
     --tiki-topbar-light-link-color: #000;
     --tiki-topbar-light-link-hover-color: #3C3106FF;
 
-    --tiki-top-bg-dark: var(--tiki-top-bg-light);
+    --tiki-top-dark-bg: var(--tiki-top-light-bg);
     --tiki-top-dark-color: #{$top-dark-color};
     --tiki-top-dark-link-color: #{$top-dark-link-color};
     --tiki-top-dark-link-hover-color: #{$top-link-hover-color};
 
-    --tiki-topbar-bg-dark:#ea8a0b;
+    --tiki-topbar-dark-bg:#ea8a0b;
     --tiki-topbar-dark-color: #000;
     --tiki-topbar-dark-link-color: #000;
     --tiki-topbar-dark-link-hover-color: #3C3106FF;
@@ -195,10 +195,10 @@ header.navbar.fixed-top {
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+    --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
     --tiki-admin-dropdown-dark-color: #{$dropdown-dark-color};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+    --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
     --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
@@ -209,7 +209,7 @@ header.navbar.fixed-top {
 }
 
 .accordion {
-    --bs-accordion-active-bg: var(--tiki-topbar-bg-light);
+    --bs-accordion-active-bg: var(--tiki-topbar-light-bg);
     --bs-accordion-active-color: #000;
     --bs-accordion-btn-bg: #C79F1DFF;
 }

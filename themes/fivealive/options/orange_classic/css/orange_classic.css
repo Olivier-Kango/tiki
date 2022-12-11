@@ -1,17 +1,17 @@
 :root {
-  --tiki-top-bg-light: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
+  --tiki-top-light-bg: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
   --tiki-top-light-color: #3C3106;
   --tiki-top-light-link-color: #3C3106;
   --tiki-top-light-link-hover-color: #3C3106FF;
-  --tiki-topbar-bg-light: #ea8a0b;
+  --tiki-topbar-light-bg: #ea8a0b;
   --tiki-topbar-light-color: #000;
   --tiki-topbar-light-link-color: #000;
   --tiki-topbar-light-link-hover-color: #3C3106FF;
-  --tiki-top-bg-dark: var(--tiki-top-bg-light);
+  --tiki-top-dark-bg: var(--tiki-top-light-bg);
   --tiki-top-dark-color: #000;
   --tiki-top-dark-link-color: #000;
   --tiki-top-dark-link-hover-color: #1a1a1a;
-  --tiki-topbar-bg-dark:#ea8a0b;
+  --tiki-topbar-dark-bg:#ea8a0b;
   --tiki-topbar-dark-color: #000;
   --tiki-topbar-dark-link-color: #000;
   --tiki-topbar-dark-link-hover-color: #3C3106FF;
@@ -28,10 +28,10 @@ header.navbar.fixed-top {
   --tiki-topbar-light-border-color: #000;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
   --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #c44a23;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
   --tiki-admin-dropdown-light-bg: #c44a23;
   --tiki-admin-toggle-light-bg: #c44a23;
@@ -41,7 +41,7 @@ header.navbar.fixed-top {
   --tiki-admin-navbar-light-highlight-color: #f2f2f2;
 }
 .accordion {
-  --bs-accordion-active-bg: var(--tiki-topbar-bg-light);
+  --bs-accordion-active-bg: var(--tiki-topbar-light-bg);
   --bs-accordion-active-color: #000;
   --bs-accordion-btn-bg: #C79F1DFF;
 }

@@ -4,32 +4,32 @@
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 $imagePath: "../images/";
 :root {
-    --tiki-top-bg-light: linear-gradient(to bottom, #214d68 0%,#204c67 51%,#262f36 100%);
+    --tiki-top-light-bg: linear-gradient(to bottom, #214d68 0%,#204c67 51%,#262f36 100%);
     --tiki-top-light-color: #fff;
     --tiki-top-light-link-color: #fff;
     --tiki-top-light-link-hover-color: darken(#fff, 10%);
 
-    --tiki-topbar-bg-light: linear-gradient(to bottom, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%);
+    --tiki-topbar-light-bg: linear-gradient(to bottom, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%);
     --tiki-topbar-light-color: #{$navbar-light-color};
     --tiki-topbar-light-link-color: #{$navbar-light-color};
     --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
 
-    --tiki-top-bg-dark: linear-gradient(to bottom, #214d68 0%,#204c67 51%,#262f36 100%);
+    --tiki-top-dark-bg: linear-gradient(to bottom, #214d68 0%,#204c67 51%,#262f36 100%);
     --tiki-top-dark-color: #{$navbar-dark-color};
     --tiki-top-dark-link-color: #{$navbar-dark-color};
     --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
 
-    --tiki-topbar-bg-dark: linear-gradient(to bottom, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%);
+    --tiki-topbar-dark-bg: linear-gradient(to bottom, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%);
     --tiki-topbar-dark-color: #{$navbar-dark-color};
     --tiki-topbar-dark-link-color: #{$navbar-dark-color};
     --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+    --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
     //    --tiki-admin-dropdown-dark-color: #{$dropdown-color};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+    --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
     --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};

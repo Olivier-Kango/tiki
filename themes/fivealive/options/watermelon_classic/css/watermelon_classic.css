@@ -1,17 +1,17 @@
 :root {
-  --tiki-top-bg-light: linear-gradient(90deg, rgba(224,59,44,1) 0%, rgba(169,25,29,1) 49%, rgba(195,53,50,1) 100%);
+  --tiki-top-light-bg: linear-gradient(90deg, rgba(224,59,44,1) 0%, rgba(169,25,29,1) 49%, rgba(195,53,50,1) 100%);
   --tiki-top-light-color: #f9f9f9;
   --tiki-top-light-link-color: #f9f9f9;
   --tiki-top-light-link-hover-color: #f2f2f2;
-  --tiki-topbar-bg-light: #233b07;
+  --tiki-topbar-light-bg: #233b07;
   --tiki-topbar-light-color: #fff;
   --tiki-topbar-light-link-color: #f9f9f9;
   --tiki-topbar-light-link-hover-color: #f2f2f2;
-  --tiki-top-bg-dark: var(--tiki-top-bg-light);
+  --tiki-top-dark-bg: var(--tiki-top-light-bg);
   --tiki-top-dark-color: #fff;
   --tiki-top-dark-link-color: #f9f9f9;
   --tiki-top-dark-link-hover-color: #f2f2f2;
-  --tiki-topbar-bg-dark:#233b07;
+  --tiki-topbar-dark-bg:#233b07;
   --tiki-topbar-dark-color: #f9f9f9;
   --tiki-topbar-dark-link-color: #f9f9f9;
   --tiki-topbar-dark-link-hover-color: #f2f2f2;
@@ -28,10 +28,10 @@ header.navbar.fixed-top {
   --tiki-topbar-light-border-color: #000;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
   --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #AD3245;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
   --tiki-admin-dropdown-light-bg: #AD3245;
   --tiki-admin-toggle-light-bg: #AD3245;

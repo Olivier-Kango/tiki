@@ -199,22 +199,22 @@ $btn-link-disabled-color:     $gray-600 !default;
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 :root {
-    --tiki-top-bg-light: #f7b512;
+    --tiki-top-light-bg: #f7b512;
     --tiki-top-light-color: #3C3106;
     --tiki-top-light-link-color: #3C3106;
     --tiki-top-light-link-hover-color: #3C3106FF;
 
-    --tiki-topbar-bg-light: #ea8a0b;
+    --tiki-topbar-light-bg: #ea8a0b;
     --tiki-topbar-light-color: #000;
     --tiki-topbar-light-link-color: #000;
     --tiki-topbar-light-link-hover-color: #3C3106FF;
 
-    --tiki-top-bg-dark: #f7b512;
+    --tiki-top-dark-bg: #f7b512;
     --tiki-top-dark-color: #3C3106;
     --tiki-top-dark-link-color: #3C3106;
     --tiki-top-dark-link-hover-color: #3C3106FF;
 
-    --tiki-topbar-bg-dark: #ea8a0b;
+    --tiki-topbar-dark-bg: #ea8a0b;
     --tiki-topbar-dark-color: #000;
     --tiki-topbar-dark-link-color: #000;
     --tiki-topbar-dark-link-hover-color: #3C3106FF;
@@ -225,10 +225,10 @@ $btn-link-disabled-color:     $gray-600 !default;
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+    --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
     --tiki-admin-dropdown-dark-color: #{$dropdown-dark-color};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+    --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
     --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
@@ -239,7 +239,7 @@ $btn-link-disabled-color:     $gray-600 !default;
 }
 
 .accordion {
-    --bs-accordion-active-bg: var(--tiki-topbar-bg-light);
+    --bs-accordion-active-bg: var(--tiki-topbar-light-bg);
     --bs-accordion-active-color: #000;
-    --bs-accordion-btn-bg: var(--tiki-top-bg-light);
+    --bs-accordion-btn-bg: var(--tiki-top-light-bg);
 }

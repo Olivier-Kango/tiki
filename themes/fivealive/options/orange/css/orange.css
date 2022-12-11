@@ -1,18 +1,18 @@
 /*  The Orange theme option file for the FiveAlive theme of Tiki Wiki CMS Groupware. */
 :root {
-  --tiki-top-bg-light: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
+  --tiki-top-light-bg: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
   --tiki-top-light-color: #3C3106;
   --tiki-top-light-link-color: #3C3106;
   --tiki-top-light-link-hover-color: #3C3106FF;
-  --tiki-topbar-bg-light: #ea8a0b;
+  --tiki-topbar-light-bg: #ea8a0b;
   --tiki-topbar-light-color: #000;
   --tiki-topbar-light-link-color: #000;
   --tiki-topbar-light-link-hover-color: #3C3106FF;
-  --tiki-top-bg-dark: var(--tiki-top-bg-light);
+  --tiki-top-dark-bg: var(--tiki-top-light-bg);
   --tiki-top-dark-color: #000;
   --tiki-top-dark-link-color: #000;
   --tiki-top-dark-link-hover-color: #1a1a1a;
-  --tiki-topbar-bg-dark:#ea8a0b;
+  --tiki-topbar-dark-bg:#ea8a0b;
   --tiki-topbar-dark-color: #000;
   --tiki-topbar-dark-link-color: #000;
   --tiki-topbar-dark-link-hover-color: #3C3106FF;
@@ -29,10 +29,10 @@ header.navbar.fixed-top {
   --tiki-topbar-light-border-color: #000;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
   --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #c44a23;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
   --tiki-admin-dropdown-light-bg: #c44a23;
   --tiki-admin-toggle-light-bg: #c44a23;
@@ -42,7 +42,7 @@ header.navbar.fixed-top {
   --tiki-admin-navbar-light-highlight-color: #f2f2f2;
 }
 .accordion {
-  --bs-accordion-active-bg: var(--tiki-topbar-bg-light);
+  --bs-accordion-active-bg: var(--tiki-topbar-light-bg);
   --bs-accordion-active-color: #000;
   --bs-accordion-btn-bg: #C79F1DFF;
 }
@@ -1127,7 +1127,7 @@ footer#footer .footer_liner .card-header {
   color: #6B737B !important;
 }
 .layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent, .tiki-admin .navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
-  background: var(--tiki-top-bg-light) !important;
+  background: var(--tiki-top-light-bg) !important;
   color: var(--tiki-top-light-color);
   box-shadow: var(--tiki-top-light-box-shadow);
 }
@@ -1139,7 +1139,7 @@ footer#footer .footer_liner .card-header {
   background: var(--tiki-top-light-link-hover-bg);
 }
 .layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar-wrapper.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .admin-content .bg-light {
-  background: var(--tiki-topbar-bg-light) !important;
+  background: var(--tiki-topbar-light-bg) !important;
   color: var(--tiki-topbar-light-color);
   border: var(--tiki-topbar-light-border);
   border-width: var(--tiki-topbar-border-width);
@@ -1153,7 +1153,7 @@ footer#footer .footer_liner .card-header {
   background: var(--tiki-topbar-light-link-hover-bg);
 }
 .layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent, .tiki-admin .navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent, .layout_social header.navbar-light-parent.bg-dark-parent, .layout_social header.navbar.navbar-dark.bg-dark {
-  background: var(--tiki-top-bg-dark) !important;
+  background: var(--tiki-top-dark-bg) !important;
   color: var(--tiki-top-dark-color);
   box-shadow: var(--tiki-top-dark-box-shadow);
 }
@@ -1165,7 +1165,7 @@ footer#footer .footer_liner .card-header {
   background: var(--tiki-top-dark-link-hover-bg);
 }
 .layout_basic .topbar_modules.bg-dark, .layout_classic .topbar-wrapper.bg-dark-parent, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .admin-content .bg-dark {
-  background: var(--tiki-topbar-bg-dark) !important;
+  background: var(--tiki-topbar-dark-bg) !important;
   color: var(--tiki-topbar-dark-color);
   border: var(--tiki-topbar-dark-border);
   border-width: var(--tiki-topbar-border-width);

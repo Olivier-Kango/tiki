@@ -6,19 +6,19 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
 :root {
-  --tiki-top-bg-light: #E7E6AD;
+  --tiki-top-light-bg: #E7E6AD;
   --tiki-top-light-color: #413B06;
   --tiki-top-light-link-color: #413B06;
   --tiki-top-light-link-hover-color: #70650a;
-  --tiki-topbar-bg-light: #f0e04f;
+  --tiki-topbar-light-bg: #f0e04f;
   --tiki-topbar-light-color: #000;
   --tiki-topbar-light-link-color: #413B06;
   --tiki-topbar-light-link-hover-color: #70650a;
-  --tiki-top-bg-dark: var(--tiki-top-bg-light);
+  --tiki-top-dark-bg: var(--tiki-top-light-bg);
   --tiki-top-dark-color: #413B06;
   --tiki-top-dark-link-color: #413B06;
   --tiki-top-dark-link-hover-color: #70650a;
-  --tiki-topbar-bg-dark: var(--tiki-topbar-bg-light);
+  --tiki-topbar-dark-bg: var(--tiki-topbar-light-bg);
   --tiki-topbar-dark-color: #413B06;
   --tiki-topbar-dark-link-color: #413B06;
   --tiki-topbar-dark-link-hover-color: #70650a;
@@ -27,10 +27,10 @@
   --tiki-top-border-width: 0 0 5px 0;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
   --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #c75a29;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
   --tiki-admin-dropdown-light-bg: #c75a29;
   --tiki-admin-toggle-light-bg: #c75a29;
@@ -40,9 +40,9 @@
   --tiki-admin-navbar-light-highlight-color: #f2f2f2;
 }
 .accordion {
-  --bs-accordion-active-bg: var(--tiki-topbar-bg-light);
+  --bs-accordion-active-bg: var(--tiki-topbar-light-bg);
   --bs-accordion-active-color: #000;
-  --bs-accordion-btn-bg: var(--tiki-top-bg-light);
+  --bs-accordion-btn-bg: var(--tiki-top-light-bg);
 }
 :root {
   --bs-blue: #0d6efd;
@@ -1089,7 +1089,7 @@ footer#footer .footer_liner .card-header {
   color: #6B737B !important;
 }
 .layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent, .tiki-admin .navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
-  background: var(--tiki-top-bg-light) !important;
+  background: var(--tiki-top-light-bg) !important;
   color: var(--tiki-top-light-color);
   box-shadow: var(--tiki-top-light-box-shadow);
 }
@@ -1101,7 +1101,7 @@ footer#footer .footer_liner .card-header {
   background: var(--tiki-top-light-link-hover-bg);
 }
 .layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar-wrapper.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .admin-content .bg-light {
-  background: var(--tiki-topbar-bg-light) !important;
+  background: var(--tiki-topbar-light-bg) !important;
   color: var(--tiki-topbar-light-color);
   border: var(--tiki-topbar-light-border);
   border-width: var(--tiki-topbar-border-width);
@@ -1115,7 +1115,7 @@ footer#footer .footer_liner .card-header {
   background: var(--tiki-topbar-light-link-hover-bg);
 }
 .layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent, .tiki-admin .navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent, .layout_social header.navbar-light-parent.bg-dark-parent, .layout_social header.navbar.navbar-dark.bg-dark {
-  background: var(--tiki-top-bg-dark) !important;
+  background: var(--tiki-top-dark-bg) !important;
   color: var(--tiki-top-dark-color);
   box-shadow: var(--tiki-top-dark-box-shadow);
 }
@@ -1127,7 +1127,7 @@ footer#footer .footer_liner .card-header {
   background: var(--tiki-top-dark-link-hover-bg);
 }
 .layout_basic .topbar_modules.bg-dark, .layout_classic .topbar-wrapper.bg-dark-parent, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .admin-content .bg-dark {
-  background: var(--tiki-topbar-bg-dark) !important;
+  background: var(--tiki-topbar-dark-bg) !important;
   color: var(--tiki-topbar-dark-color);
   border: var(--tiki-topbar-dark-border);
   border-width: var(--tiki-topbar-border-width);
