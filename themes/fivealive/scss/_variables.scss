@@ -52,7 +52,7 @@ $link-hover-decoration: none !default;
 // Typography
 $font-family-sans-serif: "Open Sans", sans-serif; // Was Lato
 $headings-font-family: $font-family-sans-serif !default;
-$headings-font-weight: 700 !default;
+$headings-font-weight: 700;
 
 $text-muted:                  #6F7780;
 $blockquote-footer-color: $text-muted !default;

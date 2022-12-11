@@ -6,14 +6,9 @@ $imagePath: "../images/";
 // body {
 //    background-image: url('#{$imagePath}bg.jpg');
 
-//.page-header { Not needed now with tiki-pagetop_colors.scss
-//    h1,
-//    h2,
-//    h3 a,
-//    a,
-//    a:hover {
-//        color: $top-color; //#f8f8f8; //#101010;
-//    }
+// Fivealive value wasn't inherited
+//h1,h2,h3,h4,h5,h6 {
+///    font-weight: 700;
 //}
 
 // This is reduced from the amount in tiki_base.css - maybe that needs to be changed, too.
@@ -65,7 +60,7 @@ a:focus,
 
 
 hr {
-    border-top: 1px solid $hr-border-color;
+    border-top: 1px solid $hr-color;
 }
 
 .table th,
