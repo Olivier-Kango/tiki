@@ -30,6 +30,9 @@ function iconset_bootstrap_icon_font()
 //            ],
 //        ],
         'icons'       => [
+            'accordion'       => [
+                'id' => 'view-list',
+            ],
             'actions'       => [
                 'id' => 'play',
             ],

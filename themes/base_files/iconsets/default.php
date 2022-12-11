@@ -60,9 +60,11 @@ function iconset_default()
              * The key must be unique, it is the "name" parameter at the icon function,
              * so eg: {icon name="actions"}
              * will find 'actions' in the array and apply the specified configuration */
-
+            'accordion' => [
+                'id' => 'bars',    // id to match the defaults defined below
+            ],
             'actions' => [
-                'id' => 'play-circle',    // id to match the defaults defined below
+                'id' => 'play-circle',
             ],
             'admin' => [
                 'id' => 'cog',
