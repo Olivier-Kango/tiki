@@ -10995,28 +10995,28 @@ textarea.form-control-lg {
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 :root {
-  --tiki-top-bg-light:  linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%);
+  --tiki-top-light-bg:  linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%);
   --tiki-top-light-color: #212529;
   --tiki-top-light-link-color: #212529;
   --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-topbar-bg-light: linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%);
+  --tiki-topbar-light-bg: linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%);
   --tiki-topbar-light-color: #212529;
   --tiki-topbar-light-link-color: #212529;
   --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-top-bg-dark: linear-gradient(to bottom,  #3e7ca1 0%,#609ec3 3%,#163866 5%,#0b2d5b 8%,#0f2658 11%,#002552 16%,#002d57 24%,#052b58 27%,#0c3867 43%,#11406e 57%,#1b507c 76%,#235685 86%,#1c5b87 100%);
+  --tiki-top-dark-bg: linear-gradient(to bottom,  #3e7ca1 0%,#609ec3 3%,#163866 5%,#0b2d5b 8%,#0f2658 11%,#002552 16%,#002d57 24%,#052b58 27%,#0c3867 43%,#11406e 57%,#1b507c 76%,#235685 86%,#1c5b87 100%);
   --tiki-top-dark-color: rgba($white, .75);
   --tiki-top-dark-link-color: rgba($white, .75);
   --tiki-top-dark-link-hover-color: rgba($white, .85);
-  --tiki-topbar-bg-dark: linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
+  --tiki-topbar-dark-bg: linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
   --tiki-topbar-dark-color: rgba($white, .75);
   --tiki-topbar-dark-link-color: rgba($white, .75);
   --tiki-topbar-dark-link-hover-color: rgba($white, .85);
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark) !important;
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
   --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #4d90bd;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: #212529;
   --tiki-admin-dropdown-light-bg: #4d90bd;
   --tiki-admin-toggle-light-bg: #4d90bd;
@@ -11879,7 +11879,7 @@ blockquote {
   color: #e6f3f6;
 }
 .layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent, .tiki-admin .navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
-  background: var(--tiki-top-bg-light) !important;
+  background: var(--tiki-top-light-bg) !important;
   color: var(--tiki-top-light-color);
   box-shadow: var(--tiki-top-light-box-shadow);
 }
@@ -11891,7 +11891,7 @@ blockquote {
   background: var(--tiki-top-light-link-hover-bg);
 }
 .layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar-wrapper.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .admin-content .bg-light {
-  background: var(--tiki-topbar-bg-light) !important;
+  background: var(--tiki-topbar-light-bg) !important;
   color: var(--tiki-topbar-light-color);
   border: var(--tiki-topbar-light-border);
   border-width: var(--tiki-topbar-border-width);
@@ -11905,7 +11905,7 @@ blockquote {
   background: var(--tiki-topbar-light-link-hover-bg);
 }
 .layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent, .tiki-admin .navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent, .layout_social header.navbar-light-parent.bg-dark-parent, .layout_social header.navbar.navbar-dark.bg-dark {
-  background: var(--tiki-top-bg-dark) !important;
+  background: var(--tiki-top-dark-bg) !important;
   color: var(--tiki-top-dark-color);
   box-shadow: var(--tiki-top-dark-box-shadow);
 }
@@ -11917,7 +11917,7 @@ blockquote {
   background: var(--tiki-top-dark-link-hover-bg);
 }
 .layout_basic .topbar_modules.bg-dark, .layout_classic .topbar-wrapper.bg-dark-parent, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .admin-content .bg-dark {
-  background: var(--tiki-topbar-bg-dark) !important;
+  background: var(--tiki-topbar-dark-bg) !important;
   color: var(--tiki-topbar-dark-color);
   border: var(--tiki-topbar-dark-border);
   border-width: var(--tiki-topbar-border-width);

@@ -3,22 +3,22 @@
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 :root {
-    --tiki-top-bg-light: url('#{$imagePath}header_background_ltr.jpg')  0/100% auto no-repeat;
+    --tiki-top-light-bg: url('#{$imagePath}header_background_ltr.jpg')  0/100% auto no-repeat;
     --tiki-top-light-color: #{$navbar-light-color};
     --tiki-top-light-link-color: #{$navbar-light-color};
     --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
 
-    --tiki-topbar-bg-light: #473119 url('#{$imagePath}menubar-wood.jpg') 0/100% auto no-repeat;
+    --tiki-topbar-light-bg: #473119 url('#{$imagePath}menubar-wood.jpg') 0/100% auto no-repeat;
     --tiki-topbar-light-color: #{$navbar-light-color};
     --tiki-topbar-light-link-color: #{$navbar-light-color};
     --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
 
-    --tiki-top-bg-dark: var(--tiki-top-bg-light);
+    --tiki-top-dark-bg: var(--tiki-top-light-bg);
     --tiki-top-dark-color: #{$navbar-dark-color};
     --tiki-top-dark-link-color: #{$navbar-dark-color};
     --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
 
-    --tiki-topbar-bg-dark: var(--tiki-topbar-bg-light);
+    --tiki-topbar-dark-bg: var(--tiki-topbar-light-bg);
     --tiki-topbar-dark-color: #{$navbar-dark-color};
     --tiki-topbar-dark-link-color: #{$navbar-dark-color};
     --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};

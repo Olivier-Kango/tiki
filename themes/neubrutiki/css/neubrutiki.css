@@ -10382,7 +10382,7 @@ textarea.form-control-lg {
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 :root {
-  --tiki-top-bg-light: #ffdca8;
+  --tiki-top-light-bg: #ffdca8;
   --tiki-top-light-color: rgba(0, 0, 0, 0.7);
   --tiki-top-light-link-color: rgba(0, 0, 0, 0.7);
   --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.8);
@@ -10391,7 +10391,7 @@ textarea.form-control-lg {
   --tiki-top-light-link-active-bg: transparent;
   --tiki-top-light-border: solid #1a1a1a;
   --tiki-top-light-box-shadow: none;
-  --tiki-topbar-bg-light: #ffdca8;
+  --tiki-topbar-light-bg: #ffdca8;
   --tiki-topbar-light-color: rgba(0, 0, 0, 0.7);
   --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.7);
   --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.8);
@@ -10400,14 +10400,14 @@ textarea.form-control-lg {
   --tiki-topbar-light-link-active-bg: transparent;
   --tiki-topbar-light-border: solid #1a1a1a;
   --tiki-topbar-light-box-shadow: none;
-  --tiki-top-bg-dark: #212529;
+  --tiki-top-dark-bg: #212529;
   --tiki-top-dark-color: rgba(255, 255, 255, 0.55);
   --tiki-top-dark-link-color: rgba(255, 255, 255, 0.55);
   --tiki-top-dark-link-hover-color: #fff;
   --tiki-top-dark-link-hover-bg: transparent;
   --tiki-top-dark-border: none;
   --tiki-top-dark-box-shadow: none;
-  --tiki-topbar-bg-dark: #212529;
+  --tiki-topbar-dark-bg: #212529;
   --tiki-topbar-dark-color: rgba(255, 255, 255, 0.55);
   --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.55);
   --tiki-topbar-dark-link-hover-color: #fff;
@@ -10418,10 +10418,10 @@ textarea.form-control-lg {
   --tiki-topbar-border-width: 0 0.75rem 0.75rem 0.75rem;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark);
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg);
   --tiki-admin-dropdown-dark-color: rgba(255, 255, 255, 0.55);
   --tiki-admin-dropdown-dark-bg: #fff;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: rgba(0, 0, 0, 0.7);
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
@@ -11284,7 +11284,7 @@ blockquote {
   color: #ffdca8;
 }
 .layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent, .tiki-admin .navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
-  background: var(--tiki-top-bg-light) !important;
+  background: var(--tiki-top-light-bg) !important;
   color: var(--tiki-top-light-color);
   box-shadow: var(--tiki-top-light-box-shadow);
 }
@@ -11296,7 +11296,7 @@ blockquote {
   background: var(--tiki-top-light-link-hover-bg);
 }
 .layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar-wrapper.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .admin-content .bg-light {
-  background: var(--tiki-topbar-bg-light) !important;
+  background: var(--tiki-topbar-light-bg) !important;
   color: var(--tiki-topbar-light-color);
   border: var(--tiki-topbar-light-border);
   border-width: var(--tiki-topbar-border-width);
@@ -11310,7 +11310,7 @@ blockquote {
   background: var(--tiki-topbar-light-link-hover-bg);
 }
 .layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent, .tiki-admin .navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent, .layout_social header.navbar-light-parent.bg-dark-parent, .layout_social header.navbar.navbar-dark.bg-dark {
-  background: var(--tiki-top-bg-dark) !important;
+  background: var(--tiki-top-dark-bg) !important;
   color: var(--tiki-top-dark-color);
   box-shadow: var(--tiki-top-dark-box-shadow);
 }
@@ -11322,7 +11322,7 @@ blockquote {
   background: var(--tiki-top-dark-link-hover-bg);
 }
 .layout_basic .topbar_modules.bg-dark, .layout_classic .topbar-wrapper.bg-dark-parent, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .admin-content .bg-dark {
-  background: var(--tiki-topbar-bg-dark) !important;
+  background: var(--tiki-topbar-dark-bg) !important;
   color: var(--tiki-topbar-dark-color);
   border: var(--tiki-topbar-dark-border);
   border-width: var(--tiki-topbar-border-width);

@@ -6,22 +6,22 @@
 }
 
 :root {
-    --tiki-top-bg-light: rgb(68, 217, 232);
+    --tiki-top-light-bg: rgb(68, 217, 232);
     --tiki-top-light-color: rgba(0, 0, 0, 0.9);
     --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
     --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.9);
 
-    --tiki-topbar-bg-light: rgb(68, 217, 232);
+    --tiki-topbar-light-bg: rgb(68, 217, 232);
     --tiki-topbar-light-color: #fff;
     --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
     --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.9);
 
-    --tiki-top-bg-dark: rgb(111, 66, 193);
+    --tiki-top-dark-bg: rgb(111, 66, 193);
     --tiki-top-dark-color: #fff;
     --tiki-top-dark-link-color: rgba(255, 255, 255, 0.55);
     --tiki-top-dark-link-hover-color: rgba(255, 255, 255, 0.75);
 
-    --tiki-topbar-bg-dark: rgb(111, 66, 193);
+    --tiki-topbar-dark-bg: rgb(111, 66, 193);
     --tiki-topbar-dark-color: #fff;
     --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.55);
     --tiki-topbar-dark-link-hover-color: rgba(255, 255, 255, 0.75);
@@ -39,10 +39,10 @@
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-bg-dark);
+    --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg);
     --tiki-admin-dropdown-dark-color: #{$navbar-dark-color};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-top-bg-light);
+    --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
     --tiki-admin-dropdown-light-color: #{$navbar-light-color};
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
