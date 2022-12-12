@@ -13,10 +13,13 @@
         <!-- Most of TPL files uses {* *} as file docblock -->
         <rule name="Commenting.FileComment.WrongStyle"/>
 
+        <!-- And we are missing File docblock in plenty of files -->
+        <rule name="Commenting.FileNoComment.Missing"/>
+        <rule name="Commenting.FileComment.WrongPosition"/>
+
         <!-- ShortFullStop checker seems broken -->
         <rule name="Commenting.FileComment.ShortFullStop"/>
 
-        <rule name="Commenting.FileNoComment.Missing"/>
         <rule name="Indent.DisallowTabIndent.TabsUsed"/>
 
         <!-- At the moment Tiki has too many files with broken end of file, so disabling for now -->

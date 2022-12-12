@@ -37,7 +37,7 @@
     },
     "umakantp/smartylint": {
       "Fix smartylint syntax with curly braces": "../installer/composer-patches/smartylint-warning-curly-bracket.patch",
-      "Fix smartylint missing index array error": "../installer/composer-patches/smartylint-missing-index-error.patch"
+      "Fix smartylint PHP 8.1 support and other fixes": "../installer/composer-patches/smartylint-php8.1-and-other-fixes.patch"
     }
   }
 }

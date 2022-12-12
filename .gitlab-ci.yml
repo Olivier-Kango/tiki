@@ -147,7 +147,7 @@ smarty-lint:
   image: ${BASE_QA_IMAGE}
   script:
     - RUN_COMMAND_FILTER='\.tpl$'
-    - RUN_COMMAND="-I 0 php vendor_bundled/vendor/umakantp/smartylint/smartyl --files=0 --ignore-rules=doc/devtools/smartyl.rules.xml"
+    - RUN_COMMAND="-I 0 php vendor_bundled/vendor/umakantp/smartylint/smartyl --files=0 --rules=doc/devtools/smartyl.rules.xml"
     - *run_command_on_files_changed
   dependencies:
     - composer

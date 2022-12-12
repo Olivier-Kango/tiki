@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "554e07698d21073ae378fea140aca30f",
+    "content-hash": "e21118a5fcbac43572de3a6372d2882e",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -16968,11 +16968,11 @@
         },
         {
             "name": "umakantp/smartylint",
-            "version": "0.1.4",
+            "version": "0.1.4-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/umakantp/smartylint/umakantp-smartylint-0.1.4.zip",
-                "shasum": "7fd6d148e53164cbe04db28b5a477557e50d3927"
+                "url": "https://composer.tiki.org/dist/umakantp/smartylint/umakantp-smartylint-0.1.4-p1.zip",
+                "shasum": "db8c31c54599c95dcdd74d6b3ba6d60563dc7100"
             },
             "type": "library"
         }
