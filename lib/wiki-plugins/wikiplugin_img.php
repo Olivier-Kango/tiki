@@ -750,8 +750,12 @@ function wikiplugin_img($data, $params)
 
     if (empty($params['absoluteLinks'])) {
         // \WikiParser_Parsable::pluginExecute sends $this as the 4th param to all plugins
-        $parsable = func_get_arg(3);
-        $absolute_links = ! empty($parsable->option['absolute_links']);
+        if (func_num_args() >= 4) {
+            $parsable = func_get_arg(3);
+            $absolute_links = ! empty($parsable->option['absolute_links']);
+        } else {
+            $absolute_links = false;
+        }
     } else {
         $absolute_links = $params['absoluteLinks'] === 'y';
     }
