@@ -38,6 +38,7 @@
             </div>
         </div>
         <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
+            <div class="page-content-top-margin"  style="height: var(--tiki-page-content-top-margin)"></div>
             <div class="row row-middle" id="row-middle">
                 {if (zone_is_empty('left') or $prefs.feature_left_column eq 'n') and (zone_is_empty('right') or $prefs.feature_right_column eq 'n')}
                {* <div class="d-flex flex-row row w-100 gx-4"> *}

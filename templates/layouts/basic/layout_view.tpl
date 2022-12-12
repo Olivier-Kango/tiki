@@ -24,7 +24,7 @@
 
     <div class="row row-middle" id="row-middle">
         {modulelist zone=topbar class="topbar_modules d-flex align-content-center justify-content-between topbar navbar-{$navbar_color_variant} bg-{$navbar_color_variant} w-100 mb-sm"}
-
+        <div class="page-content-top-margin"  style="height: var(--tiki-page-content-top-margin)"></div>
         {if (zone_is_empty('left') or $prefs.feature_left_column eq 'n') and (zone_is_empty('right') or $prefs.feature_right_column eq 'n')}
             <div class="col col1 col-md-12 pb-4" id="col1">
                 {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
