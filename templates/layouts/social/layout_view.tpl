@@ -33,7 +33,7 @@
                 {if $prefs.theme_unified_admin_backend eq 'y' && $smarty.server.SCRIPT_NAME eq $url_path|cat:'tiki-admin.php'}
                     {modulelist zone=top class="top_modules uab d-flex align-content-center justify-content-between top navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent w-100 mb-sm"}
                 {/if}
-            <div class="fixed-topbar"></div>
+        {*    <div class="fixed-topbar"></div> *}
         {/if}
         <div class="topbar-wrapper navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent">
             <div class="topbar container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std navbar-{$navbar_color_variant} bg-{$navbar_color_variant}" id="topbar">
@@ -41,6 +41,7 @@
             </div>
         </div>
         <div class="middle-wrapper">
+            <div class="page-content-top-margin"  style="height: var(--tiki-page-content-top-margin)"></div>
         <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
 
             <div class="row row-middle" id="row-middle">
