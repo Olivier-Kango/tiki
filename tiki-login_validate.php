@@ -20,7 +20,7 @@ $access->check_feature(['validateUsers','validateRegistration'], '', 'login', tr
 $isvalid = false;
 if (isset($_REQUEST["user"]) && getenv('REQUEST_METHOD') != 'HEAD') {   // It seems outlook sends a HEAD request before the GET request. This getenv test ensures people are not told incorrectly the account has been already activated
     if (isset($_REQUEST["pass"])) {
-        if (! empty($user)) {
+        if (! empty($user) && $tiki_p_admin_users != 'y') {
             $error = USER_ALREADY_LOGGED;
         } else {
             if (empty($_REQUEST['pass']) && $tiki_p_admin_users === 'y') {// case: user invalidated his account with wrong password- no email was sent - admin must reactivate
@@ -75,7 +75,7 @@ if ($isvalid) {
         $mail->setSubject($smarty->fetch('mail/moderate_activation_mail_subject.tpl'));
         $mail->send([$email]);
         $logslib->add_log('register', 'validated account ' . $_REQUEST['user']);
-    } elseif (empty($user)) {
+    } elseif (empty($user) || $tiki_p_admin_users === 'y') {
         $userlib->confirm_user($_REQUEST['user']);
         if ($info['pass_confirm'] == 0) {
             if (! empty($info['provpass'])) {
@@ -95,10 +95,12 @@ if ($isvalid) {
             $smarty->display("tiki.tpl");
             die;
         } else {
-            $user = $_REQUEST['user'];
-            $userAutoLoggedIn = true;
-            $_SESSION["$user_cookie_site"] = $user;
-            TikiLib::lib('menu')->empty_menu_cache();
+            if ($tiki_p_admin_users != 'y') {
+                $user = $_REQUEST['user'];
+                $userAutoLoggedIn = true;
+                $_SESSION["$user_cookie_site"] = $user;
+                TikiLib::lib('menu')->empty_menu_cache();
+            }
         }
     }
 
@@ -138,7 +140,7 @@ if ($isvalid) {
     } elseif ($error == EMAIL_AMBIGUOUS) {
         $error = tra("There is more than one user account with this email. Please contact the administrator.");
     } elseif ($error == USER_ALREADY_LOGGED) {
-        $error = tra("You need first log out before validating another account");
+        $error = tra("You first need to log out before validating another account");
     } else {
         $error = tra('Invalid username or password');
     }
