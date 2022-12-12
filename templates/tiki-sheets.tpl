@@ -63,9 +63,9 @@
                         <textarea rows="5" class="form-control" name="description">{$description|escape}</textarea>
                     </div>
                 </div>
-                <!--<tr><td>{tr}Class Name:{/tr}</td><td><input type="text" name="className" value="{$className|escape}"></td></tr>
+                {*<tr><td>{tr}Class Name:{/tr}</td><td><input type="text" name="className" value="{$className|escape}"></td></tr>
                 <tr><td>{tr}Header Rows:{/tr}</td><td><input type="text" name="headerRow" value="{$headerRow|escape}"></td></tr>
-                <tr><td>{tr}Footer Rows:{/tr}</td><td><input type="text" name="footerRow" value="{$footerRow|escape}"></td></tr>-->
+                <tr><td>{tr}Footer Rows:{/tr}</td><td><input type="text" name="footerRow" value="{$footerRow|escape}"></td></tr>*}
                 <div class="mb-3 row">
                     <div class="form-check offset-sm-3">
                         <label for="parseValues" class="form-check-label">

@@ -40,4 +40,3 @@
     {/literal}{/jq}
     <div><input type="submit" class="btn btn-primary btn-sm" title="{tr}Apply Changes{/tr}" value="{tr}Apply{/tr}"></div>
 </form>
-

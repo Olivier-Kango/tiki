@@ -379,7 +379,7 @@
             {remarksbox title="{tr}Editing posts{/tr}"}
                 {tr}Use wiki syntax when editing the content of posts - HTML is not allowed. Please click on the following link for documentation on wiki syntax:{/tr} {wiki}[http://doc.tiki.org/Wiki-syntax]{/wiki}
             {/remarksbox}
-        </div> <!-- end forumpost -->
+        </div> {* end forumpost *}
     {/if}
     {if $prefs.feature_forum_content_search eq 'y' and $prefs.feature_search eq 'y'}
         <div class="row mb-4 mx-0">
@@ -909,7 +909,7 @@
                     <div class="card-body">
                         <form id='time_control' method="post" action="tiki-view_forum.php">
                             {if $comments_offset neq 0}
-                                <input type="hidden" name="comments_offset" value="0"><!--reset the offset when starting a new filtered search-->
+                                <input type="hidden" name="comments_offset" value="0">{*reset the offset when starting a new filtered search*}
                             {/if}
                             {if $comments_threadId neq 0}
                                 <input type="hidden" name="comments_threadId" value="{$comments_threadId|escape}">

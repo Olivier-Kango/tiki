@@ -35,7 +35,7 @@
                         <input type="text" class="form-control mr-sm-2" placeholder="Search" aria-label="{tr}Search{/tr}">
                         <button type="submit" class="btn btn-primary my-2 my-sm-0">{tr}Submit{/tr}</button>
                     </form>
-<!--
+{*
                     <ul class="navbar-nav navbar-right mr-auto">
                         <li><a href="javascript:void(0);">Link</a></li>
                         <li class="dropdown">
@@ -51,7 +51,7 @@
                             </ul>
                         </li>
                     </ul>
--->
+*}
                 </div>
             </nav>
         </div>

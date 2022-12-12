@@ -13,7 +13,7 @@
                 <option value="{$objectypes[ix]|escape}" {if $type eq $objectypes[ix]}selected="selected"{/if}>{$objectypes[ix]}</option>
             {/section}
         </select>
-        <!--<input type="submit" class="btn btn-primary btn-sm" name="settype" value="{tr}Set{/tr}">-->
+        {*<input type="submit" class="btn btn-primary btn-sm" name="settype" value="{tr}Set{/tr}">*}
         <label for="objdata" class="mr-2 mb-2">{tr}Object{/tr}</label>
         <select name="objdata" class="form-control mr-2 mb-2">
             {section name=ix loop=$objects}

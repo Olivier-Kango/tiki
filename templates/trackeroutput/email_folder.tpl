@@ -24,4 +24,3 @@
         {include file='trackeroutput/email_single_folder.tpl' emails=$data.emails.inbox}
     {/if}
 </div>
-

@@ -19,7 +19,7 @@
             <div class="mb-3">
                 <label class="sr-only">{tr}Search{/tr}</label>
                 <input id="highlight{$iSearch}" name="highlight" class="form-control me-3" type="text" accesskey="s" placeholder="{tr}Search{/tr}" value="{$words|escape}">
-                <!--/div-->
+                {*/div*}
                 {if $prefs.search_autocomplete eq 'y'}
                     {autocomplete element="#highlight$iSearch" type='pagename'}
                 {/if}

@@ -11,14 +11,14 @@
 <div class="table-responsive">
     <table class="table">
         <tr>
-            <!-- term -->
+            {* term *}
             <th><a href="tiki-search_stats.php?offset={$offset}&amp;sort_mode={if $sort_mode eq 'term_desc'}term_asc{else}term_desc{/if}">{tr}Word{/tr}</a></th>
 
-            <!-- searched -->
+            {* searched *}
             <th>
             <a href="tiki-search_stats.php?offset={$offset}&amp;sort_mode={if $sort_mode eq 'hits_desc'}hits_asc{else}hits_desc{/if}">{tr}Searched{/tr}</a></th>
 
-            <!-- How can we increase the number of items displayed on a page? -->
+            {* How can we increase the number of items displayed on a page? *}
 
         </tr>
 

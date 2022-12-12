@@ -11,35 +11,35 @@
     {button href="tiki-edit_quiz.php" _text="{tr}Admin Quizzes{/tr}"}
 </div>
 
-<!-- end link buttons -->
+{* end link buttons *}
 
 <h2>{tr}Quiz stats{/tr}</h2>
 
-<!-- begin table for stats data -->
+{* begin table for stats data *}
 <div class="table-responsive">
     <table class="table">
         <tr>
             <th>
-                <!-- sort user -->
+                {* sort user *}
                 <a href="tiki-quiz_stats_quiz.php?quizId={$quizId}&amp;offset={$offset}&amp;sort_mode={if $sort_mode eq 'user_desc'}user_asc{else}user_desc{/if}">{tr}User{/tr}</a>
             </th>
             {*
             Set the names of the table headings to reflect the names of the db
             *}
-            <!-- sort date -->
+            {* sort date *}
             <th>
                 <a href="tiki-quiz_stats_quiz.php?quizId={$quizId}&amp;offset={$offset}&amp;sort_mode={if $sort_mode eq 'timestamp_desc'}timestamp_asc{else}timestamp_desc{/if}">{tr}Date{/tr}</a>
             </th>
-                <!-- sort time taken -->
+                {* sort time taken *}
             <th>
                 <a href="tiki-quiz_stats_quiz.php?quizId={$quizId}&amp;offset={$offset}&amp;sort_mode={if $sort_mode eq 'timeTaken_desc'}timeTaken_asc{else}timeTaken_desc{/if}">{tr}time taken{/tr}</a>
             </th>
-                <!-- sort points-->
+                {* sort points*}
             <th>
                 <a href="tiki-quiz_stats_quiz.php?quizId={$quizId}&amp;offset={$offset}&amp;sort_mode={if $sort_mode eq 'points_desc'}points_asc{else}points_desc{/if}">{tr}points{/tr}</a>
             </th>
             <th>
-                <!-- sort results -->
+                {* sort results *}
                 <a href="tiki-quiz_stats_quiz.php?quizId={$quizId}&amp;offset={$offset}&amp;sort_mode={if $sort_mode eq 'resultId_desc'}resultId_asc{else}resultId_desc{/if}">{tr}Result{/tr}</a>
             </th>
             <th>{tr}Pass/Fail{/tr}</th>
@@ -73,7 +73,7 @@
 
 {pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
 
-<!-- begin second table -->
+{* begin second table *}
 <h2>{tr}Stats for this quiz Questions {/tr}</h2>
 
 {*first section beginning *}
@@ -83,10 +83,10 @@
 
     <div class="table-responsive">
         <table class="table">
-            <!-- begin header data for table -->
+            {* begin header data for table *}
 
             {* I'd like to have every table heading sorted for immediate analysis
-            <!-- sort options -->
+            {* sort options *}
             <th>
             <a href="tiki-quiz_stats_quiz.php?quizId={$quizId}&amp;offset={$offset}&amp;sort_mode={if $sort_mode eq 'options_desc'}options_asc{else}options_desc{/if}">{tr}Options{/tr}</a>
             </th>
@@ -98,7 +98,7 @@
                 <th>{tr}Average{/tr}</th>
             </tr>
 
-            <!-- begin looping of data from data base -->
+            {* begin looping of data from data base *}
             {*second section beginning *}
             {section name=jx loop=$questions[ix].options}
                 <tr class="odd">

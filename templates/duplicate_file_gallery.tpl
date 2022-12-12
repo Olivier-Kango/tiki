@@ -9,8 +9,8 @@
                 <input type="text" class="form-control" size="50" id="name" value="{$dupName|escape}" name="name" maxlength="80" value="">
                 <span class="form-text text-danger">{tr}{$incorrectInputValues.incorrect_name}.{/tr}</span>
                 {jq}
-					$("#name").attr("required", true);
-				{/jq}
+                    $("#name").attr("required", true);
+                {/jq}
             </div>
         </div>
         <div class="mb-3 row">

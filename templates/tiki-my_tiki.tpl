@@ -123,7 +123,7 @@
                 </div>
             {/tab}
         {/if}
-        
+
         {if $prefs.feature_messages eq 'y' and $mytiki_msgs eq 'y'}
             {tab name="{tr}Unread Messages{/tr}"}
                 <div id="content5" class="content clearfix mb-4">

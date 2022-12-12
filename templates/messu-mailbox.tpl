@@ -86,7 +86,7 @@
                     </td>
                     <td {if $items[user].isRead eq 'n'}style="font-weight:bold"{/if} class="prio{$items[user].priority}">{$items[user].user_from|userlink}</td>
                     <td {if $items[user].isRead eq 'n'}style="font-weight:bold"{/if} class="prio{$items[user].priority}"><a class="readlink" href="messu-read.php?offset={$offset}&amp;flag={$flag}&amp;priority={$items[user].priority}&amp;flagval={$flagval}&amp;sort_mode={$sort_mode}&amp;find={$find|escape:'url'}&amp;msgId={$items[user].msgId}">{$items[user].subject|escape}</a></td>
-                    <td {if $items[user].isRead eq 'n'}style="font-weight:bold"{/if} class="prio{$items[user].priority}">{$items[user].date|tiki_short_datetime}</td><!--date_format:"%d %b %Y [%H:%I]"-->
+                    <td {if $items[user].isRead eq 'n'}style="font-weight:bold"{/if} class="prio{$items[user].priority}">{$items[user].date|tiki_short_datetime}</td>{* date_format:"%d %b %Y [%H:%I]" *}
                     <td class="prio{$items[user].priority}">
                         {if $items[user].replyto_hash eq ""}&nbsp;{else}
                             <a class="readlink" href="messu-mailbox.php?origto={$items[user].replyto_hash}">

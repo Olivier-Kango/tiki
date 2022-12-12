@@ -182,7 +182,7 @@
                             </span>
                         {/if}
                     </div>
-                </div> <!-- / .mb-3 -->
+                </div> {* / .mb-3 *}
                 <div class="row">
                     <div class="col-sm-9 offset-sm-3">
                         {if $edit}
@@ -418,7 +418,7 @@
                             {/if}
                         </div>
                     </div>
-                </div> <!-- / .row -->
+                </div> {* / .row *}
             {/if}{* end recurrence *}
             <div class="row mt-md-3 mb-3 date">
                 <label class="col-form-label col-sm-3">{tr}Start{/tr}</label>
@@ -458,7 +458,7 @@
                         </div>
                     </div>
                 {/if}
-            </div> <!-- / .mb-3 -->
+            </div> {* / .mb-3 *}
             <div class="row mt-md-3 mb-3 date">
                 <label class="col-form-label col-sm-3">{tr}End{/tr}</label>
                 {if $edit}
@@ -512,7 +512,7 @@
                         {tr}Events cannot end before they start{/tr}
                     </span>
                 {/if}
-            </div> <!-- / .mb-3 -->
+            </div> {* / .mb-3 *}
             {if $edit or !empty($calitem.parsed)}
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Description{/tr}</label>
@@ -571,7 +571,7 @@
                         </div>
                     </div>
 
-                </div> <!-- / .mb-3 -->
+                </div> {* / .mb-3 *}
             {/if}
             {if $calendar.custompriorities eq 'y'}
                 <div class="mb-3 row clearfix">
@@ -591,10 +591,10 @@
                             </span>
                         {/if}
                     </div>
-                </div> <!-- / .mb-3 -->
+                </div> {* / .mb-3 *}
             {/if}
 
-            <!-- Form group global categorization -->
+            {* Form group global categorization *}
             {include file='categorize.tpl'}
 
             <div class="mb-3 row" style="display:{if $calendar.customcategories eq 'y'}block{else}none{/if};" id="calcat">
@@ -622,7 +622,7 @@
                         </span>
                     {/if}
                 </div>
-            </div> <!-- / .mb-3 -->
+            </div> {* / .mb-3 *}
             <div class="mb-3 row" style="display:{if $calendar.customlocations eq 'y'}block{else}none{/if};" id="calloc">
                 <label class="col-form-label col-sm-3">{tr}Location{/tr}</label>
                 <div class="col-sm-9">
@@ -646,7 +646,7 @@
                         </span>
                     {/if}
                 </div>
-            </div> <!-- / .mb-3 -->
+            </div> {* / .mb-3 *}
             {if $calendar.customurl ne 'n'}
                 <div class="mb-3 row" style="display:{if $calendar.customcategories eq 'y'}block{else}none{/if};">
                     <label class="col-form-label col-sm-3">{tr}URL{/tr}</label>
@@ -659,7 +659,7 @@
                             </a>
                         {/if}
                     </div>
-                </div> <!-- / .mb-3 -->
+                </div> {* / .mb-3 *}
             {/if}
             <div class="mb-3 row" style="display:{if $calendar.customlanguages eq 'y'}block{else}none{/if};" id="callang">
                 <label class="col-form-label col-sm-3">{tr}Language{/tr}</label>
@@ -678,7 +678,7 @@
                         {$calitem.lang|langname}
                     {/if}
                 </div>
-            </div> <!-- / .mb-3 -->
+            </div> {* / .mb-3 *}
             {if !empty($groupforalert) && $showeachuser eq 'y'}
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Choose users to alert{/tr}</label>
@@ -691,7 +691,7 @@
                             {/if}
                         {/section}
                     </div>
-                </div> <!-- / .mb-3 -->
+                </div> {* / .mb-3 *}
             {/if}
             <div class="mb-3 row" style="display:{if $calendar.customparticipants eq 'y'}block{else}none{/if};" id="calorg">
                 <label class="col-form-label col-sm-3">{tr}Organized by{/tr}</label>
@@ -706,7 +706,7 @@
                         {/if}
                     {/if}
                 </div>
-            </div> <!-- / .mb-3 -->
+            </div> {* / .mb-3 *}
             <div class="mb-3 row" style="display:{if $calendar.customparticipants eq 'y'}block{else}none{/if};" id="calpart">
                 <label class="col-form-label col-sm-3">{tr}Participants{/tr}</label>
                 <div class="col-sm-9">
@@ -787,7 +787,7 @@
                         {/if}
                     {/if}
                 </div>
-            </div> <!-- / .mb-3 -->
+            </div> {* / .mb-3 *}
             {if $edit}
                 {if $recurrence.id gt 0}
                     <div class="row">
@@ -813,11 +813,11 @@
                     {include file='antibot.tpl'}
                 {/if}
             {/if}
-        </div> <!-- /.wikitext -->
+        </div> {* /.wikitext *}
         {if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}
             {js_insert_icon type="jscalendar"}
         {/if}
-    </div> <!-- /.modal-body -->
+    </div> {* /.modal-body *}
     {if $edit}
         <div class="modal-footer">
             <div class="submit">

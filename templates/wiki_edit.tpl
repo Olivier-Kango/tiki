@@ -14,4 +14,3 @@
     <input type="hidden" name="newver" value="{$diff_newver|escape}">
     <input type="hidden" name="source_page" value="{$source_page|escape}">
 {/if}
-

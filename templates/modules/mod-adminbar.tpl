@@ -177,7 +177,7 @@
                 </div>
             </div>
             <div class="offset-md-1 col-md-7 mb-2 mb-md-0 pe-md-0 d-flex align-items-center">
-                <!-- Add prev arrow -->
+                {* Add prev arrow *}
                 <div class="swiper-button-prev">
 
                 </div>
@@ -202,7 +202,7 @@
                         {/foreach}
                     </div>
                 </div>
-                <!-- Add next Arrow -->
+                {* Add next Arrow *}
                 <div class="swiper-button-next">
 
                 </div>

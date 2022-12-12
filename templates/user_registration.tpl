@@ -16,7 +16,7 @@
                         <div class="row mb-4">
                             <div class="col-sm-8 offset-sm-4">
                               <input type="hidden" name="register" value="1">
-                              <button class="btn btn-primary registerSubmit submit" name="register" type="submit">{tr}Register{/tr} <!--i class="fa fa-check"></i--></button>
+                              <button class="btn btn-primary registerSubmit submit" name="register" type="submit">{tr}Register{/tr} {*<i class="fa fa-check"></i>*}</button>
                             </div>
                         </div>
                     </form>
@@ -37,4 +37,3 @@
 {else}
     {include file='modules/mod-login_box.tpl' nobox='y'}
 {/if}
-

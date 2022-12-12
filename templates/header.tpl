@@ -2,7 +2,7 @@
 {if $base_uri and ($dir_level gt 0 or $prefs.feature_html_head_base_tag eq 'y')}
     <base href="{$base_uri|escape}">
 {/if}
-<!--Latest IE Compatibility-->
+{* --- Latest IE Compatibility --- *}
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -217,8 +217,8 @@
 {/if}
 
 {if $prefs.tiki_monitor_performance eq 'y'}
-	<script type="text/javascript" src="vendor_bundled/vendor/npm-asset/boomerangjs/boomerang.js"></script>
-	<script type="text/javascript" src="vendor_bundled/vendor/npm-asset/boomerangjs/plugins/rt.js"></script>
+    <script type="text/javascript" src="vendor_bundled/vendor/npm-asset/boomerangjs/boomerang.js"></script>
+    <script type="text/javascript" src="vendor_bundled/vendor/npm-asset/boomerangjs/plugins/rt.js"></script>
 {/if}
 
 {if ($prefs.feature_blogs eq 'y' and $prefs.feature_blog_sharethis eq 'y') or ($prefs.feature_articles eq 'y' and $prefs.feature_cms_sharethis eq 'y') or ($prefs.feature_wiki eq 'y' and $prefs.feature_wiki_sharethis eq 'y')}

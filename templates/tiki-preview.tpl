@@ -1,4 +1,4 @@
-<!-- templates/tiki-preview.tpl start -->
+{* templates/tiki-preview.tpl start *}
 <div class="wikipreview" {if $prefs.ajax_autosave eq "y"}style="display:none;" id="autosave_preview"><div{/if}>
     {if $prefs.ajax_autosave eq "y"}
         <div class="mb-3 float-sm-end">
@@ -67,4 +67,4 @@
 </div>
 <hr style="clear:both; height:0px;"/> {* Information below the wiki content
 must not overlap the wiki content that could contain floated elements *}
-<!-- templates/tiki-preview.tpl end -->
+{* templates/tiki-preview.tpl end *}

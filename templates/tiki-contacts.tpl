@@ -290,4 +290,3 @@
 {literal}
     </script>
 {/literal}
-

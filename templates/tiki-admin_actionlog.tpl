@@ -619,7 +619,7 @@
                                         <td class="integer">{$nb}</td>
                                     {/if}
                                 {/foreach}
-                                <!-- {cycle} -->
+                                {* {cycle} *}
                             </tr>
                         {/foreach}
                     </table>

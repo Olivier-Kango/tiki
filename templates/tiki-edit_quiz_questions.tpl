@@ -54,7 +54,7 @@
     {/if}
 </h2>
 
-<!-- begin form area for importing questions -->
+{* begin form area for importing questions *}
 <form enctype="multipart/form-data" method="post" action="tiki-edit_quiz_questions.php?quizId={$quiz_info.quizId}">
     <div class="form-text">
         {tr}Instructions: Type, or paste your multiple choice questions below. Provide one line for the question, then provide as many answers on want on subsequent lines. Separate questions with a blank line. To indicate correct answers, you may initiate an answer with "*" (without the quotes). None, any or all the answers are possible to be marked as correct.{/tr}
@@ -73,7 +73,7 @@
     </div>
 </form>
 
-<!-- begin form for searching questions -->
+{* begin form for searching questions *}
 <h2>{tr}Questions{/tr}</h2>
 {include file='find.tpl'}
 
@@ -131,4 +131,4 @@
 </div>
 
 {pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
-<!-- tiki-edit_quiz_questions.tpl end -->
+{* tiki-edit_quiz_questions.tpl end *}

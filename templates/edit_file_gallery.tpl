@@ -23,8 +23,8 @@
                             <input type="text" id="name" name="name" maxlength="80" value="{$gal_info.name|escape}" class="form-control">
                             <span class="form-text text-danger">{tr}{$incorrectInputValues.incorrect_name}.{/tr}</span>
                             {jq}
-								$("#name").attr("required", true);
-							{/jq}
+                                $("#name").attr("required", true);
+                            {/jq}
                         {/if}
                     </div>
                 </div>
@@ -394,7 +394,7 @@ if ($(this).val() != '') {
 
             {/tab}
 
-<!-- display properties -->
+{* display properties *}
             {tab name="{tr}Display Settings{/tr}"}
                 <h2>{tr}Display Settings{/tr}</h2><br>
                 <div class="mb-3 row">

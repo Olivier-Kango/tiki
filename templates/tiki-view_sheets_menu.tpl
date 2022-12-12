@@ -18,8 +18,8 @@
                     <li><a onclick="sheetInstance.deleteRow(); return false;" title="{tr}Delets the current row thats highlighted.{/tr}">{tr}Delete Row{/tr}</a></li>
                     <li><a onclick="sheetInstance.controlFactory.addRow(null, true); return false;" title="{tr}Inserts an additional row after currently selected row.{/tr}">{tr}Insert Row Before{/tr}</a></li>
                     <li><a onclick="sheetInstance.controlFactory.addRow(); return false;" title="{tr}Inserts an additional row after currently selected row.{/tr}">{tr}Insert Row After{/tr}</a></li>
-                    <!--<li><a onclick="sheetInstance.toggleHide.rowAll();" title="{tr}Unhides all the hidden rows.{/tr}">{tr}Show All{/tr}</a></li>
-                    <li><a onclick="sheetInstance.toggleHide.row();" title="{tr}Hides or shows the currently selected row.{/tr}">{tr}Toggle Hide Row{/tr}</a></li>-->
+                    {*<li><a onclick="sheetInstance.toggleHide.rowAll();" title="{tr}Unhides all the hidden rows.{/tr}">{tr}Show All{/tr}</a></li>
+                    <li><a onclick="sheetInstance.toggleHide.row();" title="{tr}Hides or shows the currently selected row.{/tr}">{tr}Toggle Hide Row{/tr}</a></li>*}
                 </ul>
             </li>
             <li>
@@ -32,8 +32,8 @@
                     <li><a onclick="sheetInstance.controlFactory.addColumn(); return false;" title="{tr}Inserts an additional column after currently selected column.{/tr}">{tr}Insert Column After{/tr}</a></li>
                     <li><a onclick="sheetInstance.fillUpOrDown(); return false;" title="{tr}Fill down current cell value.{/tr}">{tr}Fill Down{/tr}</a></li>
                     <li><a onclick="sheetInstance.fillUpOrDown(true); return false;" title="{tr}Fill up current cell value.{/tr}">{tr}Fill Up{/tr}</a></li>
-                    <!--<li><a onclick="sheetInstance.toggleHide.columnAll();" title="{tr}Unhides all the hidden columns.{/tr}">{tr}Show All{/tr}</a></li>
-                    <li><a onclick="sheetInstance.toggleHide.column();" title="{tr}Hides or shows the currently selected column.{/tr}">{tr}Toggle Hide Column{/tr}</a></li>-->
+                    {*<li><a onclick="sheetInstance.toggleHide.columnAll();" title="{tr}Unhides all the hidden columns.{/tr}">{tr}Show All{/tr}</a></li>
+                    <li><a onclick="sheetInstance.toggleHide.column();" title="{tr}Hides or shows the currently selected column.{/tr}">{tr}Toggle Hide Column{/tr}</a></li>*}
                 </ul>
             </li>
             <li>

@@ -26,4 +26,3 @@ $results-&gt;getEstimate() | {$results->getEstimate()} | which is the estimate o
 {$result|@debug_print_var}
 </pre>
 {/foreach}
-

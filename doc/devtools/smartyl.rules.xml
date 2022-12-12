@@ -10,6 +10,25 @@
         </extensions>
     </conf>
     <ignore>
+        <!-- Some files will have html comments, e.g. IE specific checks -->
+        <rule name="Commenting.NoHTMLComment.HTMLCommentFound">
+            <!-- IE Conditional -->
+            <pattern>templates/header.tpl</pattern>
+            <!-- Javascript block comment -->
+            <pattern>templates/mxgraph/editor.tpl</pattern>
+            <pattern>templates/footer.tpl</pattern>
+            <pattern>templates/send_newsletter_footer.tpl</pattern>
+            <pattern>templates/send_newsletter_header.tpl</pattern>
+            <pattern>templates/tiki-install.tpl</pattern>
+            <pattern>templates/modules/mod-months_links.tpl</pattern>
+            <pattern>templates/tiki-plugins.tpl</pattern>
+            <!-- HTML comments used for nohighlight smarty filter -->
+            <pattern>templates/tiki-searchfacets.tpl</pattern>
+            <pattern>templates/tiki-searchindex_form.tpl</pattern>
+            <pattern>templates/tiki-searchresults.tpl</pattern>
+            <pattern>templates/tiki-view_tracker_item.tpl</pattern>
+        </rule>
+
         <!-- Most of TPL files uses {* *} as file docblock -->
         <rule name="Commenting.FileComment.WrongStyle"/>
 
@@ -17,13 +36,48 @@
         <rule name="Commenting.FileNoComment.Missing"/>
         <rule name="Commenting.FileComment.WrongPosition"/>
 
-        <!-- ShortFullStop checker seems broken -->
+        <!-- We do not really want to validate if File docblock ends with a full top -->
         <rule name="Commenting.FileComment.ShortFullStop"/>
 
-        <rule name="Indent.DisallowTabIndent.TabsUsed"/>
+        <!-- In some cases we want to ignore the number of new lines at the end of the file -->
+        <rule name="Files.EndFileNewline.TooMany">
+            <!-- Email templates may have extra lines, or none at all, at the end of the file -->
+            <pattern>templates/mail/</pattern>
+            <!-- templates/blog_* The rule take the commented block at the end of the file as "blank lines" -->
+            <pattern>templates/blog_heading.tpl</pattern>
+            <pattern>templates/blog_post_heading.tpl</pattern>
+        </rule>
+        <rule name="Files.EndFileNewline.NoneFound">
+            <!-- Email templates may have extra lines, or none at all, at the end of the file -->
+            <pattern>templates/mail/</pattern>
+        </rule>
 
-        <!-- At the moment Tiki has too many files with broken end of file, so disabling for now -->
-        <rule name="Files.EndFileNewline.TooMany"/>
-        <rule name="Files.EndFileNewline.NoneFound"/>
+        <!-- There are a number of tasks in the templates, adding the current list here, so we ignore only the existing -->
+        <rule name="Commenting.Todo.CommentFound">
+            <pattern>templates/tiki-export_comment_xml.tpl</pattern>
+            <pattern>templates/tiki-index_p.tpl</pattern>
+        </rule>
+        <rule name="Commenting.Todo.TaskFound">
+            <pattern>templates/admin/include_list_sections.tpl</pattern>
+            <pattern>templates/admin/include_look.tpl</pattern>
+            <pattern>templates/admin/include_profiles.tpl</pattern>
+            <pattern>templates/admin/include_search_report_string_in_db.tpl</pattern>
+            <pattern>templates/admin/include_textarea.tpl</pattern>
+            <pattern>templates/bootstrap_menu.tpl</pattern>
+            <pattern>templates/bootstrap_smartmenu.tpl</pattern>
+            <pattern>templates/bootstrap_smartmenu_children.tpl</pattern>
+            <pattern>templates/bootstrap_smartmenu_megamenu_children.tpl</pattern>
+            <pattern>templates/mail/tracker_changed_notification.tpl</pattern>
+            <pattern>templates/modules/mod-adminbar.tpl</pattern>
+            <pattern>templates/modules/mod-shoutbox.tpl</pattern>
+            <pattern>templates/tiki-admin_actionlog.tpl</pattern>
+            <pattern>templates/tiki-admin_menu_options.tpl</pattern>
+            <pattern>templates/tiki-edit_help.tpl</pattern>
+            <pattern>templates/tiki-flaggedrev_approval_header.tpl</pattern>
+            <pattern>templates/tiki-list_kaltura_entries_actions.tpl</pattern>
+            <pattern>templates/tiki-view_forum_thread.tpl</pattern>
+            <pattern>templates/tiki-webmail_contacts.tpl</pattern>
+            <pattern>templates/trackerinput/dropdown.tpl</pattern>
+        </rule>
     </ignore>
 </rules>

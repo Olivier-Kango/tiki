@@ -32,7 +32,7 @@
         {/if}
     </tr>
     <tr>
-        <!-- left column -->
+        {* left column *}
         {if $prefs.feature_left_column ne 'n' || count($modules_l) > 0}
             <td style="vertical-align: top">
                 <table class="table table-striped table-hover">
@@ -97,7 +97,7 @@
                 </table>
             </td>
         {/if}
-        <!-- right column -->
+        {* right column *}
         {if $prefs.feature_right_column ne 'n' || count($modules_r) > 0}
             <td style="vertical-align: top">
                 <table class="table table-striped table-hover">

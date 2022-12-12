@@ -44,4 +44,3 @@ $("#videoAction").submit(function () {
 {/if}
 
 {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
-

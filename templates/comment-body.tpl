@@ -75,7 +75,7 @@
 {if $thread_style != 'commentStyle_headers'}
 
     {$comment.parsed}
-    {* <span class="signature"><!-- SIGNATURE --></span> *}
+    {* <span class="signature"> SIGNATURE </span> *}
 
 {/if}
 

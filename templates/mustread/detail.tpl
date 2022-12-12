@@ -22,7 +22,7 @@
                         <ol class="list-unstyled">
                             <li><a href="{service controller=mustread action=list id=$item.itemId notification=sent}#contentmustread_detail-notification">{$counts.sent|escape}</a> {tr}Sent{/tr}</li>
                             <li><a href="{service controller=mustread action=list id=$item.itemId notification=open}#contentmustread_detail-notification">{$counts.open|escape}</a> {tr}Opened{/tr}</li>
-                            <!--<li><a href="">123</a> {tr}Logged In{/tr}</li>-->
+                            {*<li><a href="">123</a> {tr}Logged In{/tr}</li>*}
                             <li><a href="{service controller=mustread action=list id=$item.itemId notification=unopen}#contentmustread_detail-notification">{$counts.unopen|escape}</a> {tr}Unopened{/tr}</li>
                         </ol>
 

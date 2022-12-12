@@ -138,7 +138,7 @@
             <legend>{tr}Admin pages layout{/tr} (<small>{tr}Admin theme must be selected first{/tr}</small>)</legend>
             {preference name=site_layout_admin}
 
-            <!--legend>{tr}Fixed vs full width layout{/tr}</legend-->
+            {* <legend>{tr}Fixed vs full width layout{/tr}</legend> *}
             <hr>
 
             <legend>{tr}Logo and Title{/tr}</legend>

@@ -122,7 +122,7 @@
             <tr><td style="font-weight:bold;float: right">{tr}To:{/tr}</td><td style="padding-left: 10px">{$msg.user_to|escape}</td></tr>
             <tr><td style="font-weight:bold;float: right">{tr}Cc:{/tr}</td><td style="padding-left: 10px">{$msg.user_cc|escape}</td></tr>
             <tr><td style="font-weight:bold;float: right">{tr}Subject:{/tr}</td><td style="padding-left: 10px">{$msg.subject|escape}</td></tr>
-            <tr><td style="font-weight:bold;float: right">{tr}Date:{/tr}</td><td style="padding-left: 10px">{$msg.date|tiki_short_datetime}</td></tr><!--date_format:"%a %b %Y [%H:%I]"-->
+            <tr><td style="font-weight:bold;float: right">{tr}Date:{/tr}</td><td style="padding-left: 10px">{$msg.date|tiki_short_datetime}</td></tr>{* date_format:"%a %b %Y [%H:%I]" *}
         </table>
     </div>
     </div>

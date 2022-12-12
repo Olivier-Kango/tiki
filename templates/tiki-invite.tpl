@@ -69,7 +69,7 @@ To register, just follow this link:
 {literal}{link}{/literal}
 
 Kind regards
-{/if}</textarea> <!-- code style is broken because textarea contents must not have extra spaces -->
+{/if}</textarea> {* code style is broken because textarea contents must not have extra spaces *}
         </div>
 
         <br>
@@ -79,7 +79,7 @@ Kind regards
 
 You are here because you have just clicked on the link from my invitation email.
 
-{/if}</textarea> <!-- code style is broken because textarea contents must not have extra spaces -->
+{/if}</textarea> {* code style is broken because textarea contents must not have extra spaces *}
         </div>
 
         {if count($invitegroups) > 0 && count($usergroups) > 0}

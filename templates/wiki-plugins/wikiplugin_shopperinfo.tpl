@@ -6,4 +6,3 @@
     {/section}
     <input type="submit" class="btn btn-primary btn-sm" name="shopperinfo" value="{tr}Submit{/tr}">
 </form>
-

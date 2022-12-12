@@ -11,7 +11,7 @@
                         <h4>{tr}Installation{/tr}</h4>
                         <ol class="nav flex-column {if $lang eq 'he' or $lang eq 'ar'}px-4{/if}">
 
-                            <!-- step item base -->
+                            {* step item base *}
                             {function name="printStepItem" step=0 active=false disabled=false title=""}
                             <li class="nav-item {if $active}active{/if}">
                                 <button class="btn-link nav-link"
@@ -22,70 +22,70 @@
                             </li>
                             {/function}
 
-                            <!-- step 0 -->
+                            {* step 0 *}
                             {call name="printStepItem"
                                 step="0"
                                 title="{tr}Welcome{/tr}"
                                 disabled=$install_step==0
                                 active=$install_step==0}
 
-                            <!-- step 1 -->
+                            {* step 1 *}
                             {call name="printStepItem"
                                 step="1"
                                 title="{tr}License{/tr}"
                                 disabled=$install_step==1
                                 active=$install_step==1}
 
-                            <!-- step 2 -->
+                            {* step 2 *}
                             {call name="printStepItem"
                                 step="2"
                                 title="{tr}Review the System Requirements{/tr}"
                                 disabled=$install_step <= 2 && $dbcon !='y'
                                 active=$install_step==2}
 
-                            <!-- step 3 -->
+                            {* step 3 *}
                             {call name="printStepItem"
                                 step="3"
                                 title={{$dbcon eq 'y'}|ternary:"{tr}Reset the Database Connection{/tr}":"{tr}Database Connection{/tr}"}
                                 disabled=$install_step <= 3 && $dbcon !='y'
                                 active=$install_step==3}
 
-                            <!-- step 4 -->
+                            {* step 4 *}
                             {call name="printStepItem"
                                 step="4"
                                 title={$tikidb_created|ternary:"{tr}Install/Upgrade{/tr}":"{tr}Install{/tr}"}
                                 disabled=$install_step <= 4 && $dbcon !='y' || !isset($smarty.post.scratch) || isset($smarty.post.update)
                                 active=$install_step==4}
 
-                            <!-- step 5 -->
+                            {* step 5 *}
                             {call name="printStepItem"
                                 step="5"
                                 title={isset($smarty.post.update)|ternary:"{tr}Review the Upgrade{/tr}":"{tr}Review the Installation{/tr}"}
                                 disabled=$install_step <= 5 && !$tikidb_is20
                                 active=$install_step==5}
 
-                            <!-- step 6 -->
+                            {* step 6 *}
                             {call name="printStepItem"
                                 step="6"
                                 title="{tr}Configure the General Settings{/tr}"
                                 disabled=$install_step <= 6 && !$tikidb_is20 || isset($smarty.post.update)
                                 active=$install_step==6}
 
-                            <!-- step 7 -->
+                            {* step 7 *}
                             {call name="printStepItem"
                                 step="7"
                                 title="{tr}Last Notes{/tr}"
                                 disabled=$install_step <= 7 && !$tikidb_is20
                                 active=$install_step==7}
 
-                            <!-- step 8 -->
+                            {* step 8 *}
                             {call name="printStepItem"
                                 step="8"
                                 title="{tr}Enter Your Tiki{/tr}"
                                 disabled=$install_step <= 8 && !$tikidb_is20
                                 active=$install_step==8}
                         </ol>
-                    </form><!-- End of install-menu -->
+                    </form>{* End of install-menu *}
                     <div class="help-menu menu">
                         <h4>{tr}Help{/tr}</h4>
                         <ul class="nav flex-column {if $lang eq 'he' or $lang eq 'ar'}px-4{/if}">
@@ -155,7 +155,7 @@
                                 <input type="submit" class="btn btn-primary" value="{tr}Continue{/tr}">
                             </div>
                         </form>
-                    </div><!-- End of install-step0 -->
+                    </div>{* End of install-step0 *}
 
                     {elseif $install_step eq '1'}
                     <div class="install-step1">
@@ -173,7 +173,7 @@
                             </div>
                         </form>
 
-                    </div><!-- End of install-step1 -->
+                    </div>{* End of install-step1 *}
 
                     {elseif $install_step eq '2'}
                     <div class="install-step2">
@@ -277,7 +277,7 @@
                                 {if $lang}<input type="hidden" name="lang" value="{$lang}">{/if}
                             </div>
                         </form>
-                    </div><!-- End of install-step2 -->
+                    </div>{* End of install-step2 *}
 
                     {elseif $install_step eq '3' or ($dbcon eq 'n' or $resetdb eq 'y')}
                     {* we do not have a valid db connection or db reset is requested *}
@@ -437,7 +437,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div><!-- End of install-step3 -->
+                    </div>{* End of install-step3 *}
 
                     {elseif $install_step eq '4'}
                     <div class="install-step4">
@@ -527,9 +527,9 @@
                                                         <input type="submit" class="btn btn-warning" name="scratch" value="{if $tikidb_created}{tr}Reinstall{/tr}{else}{tr}Install{/tr}{/if}" style="margin: 32px;">
                                                     </p>
                                                 </div>
-                                            </div><!-- End of install-table -->
+                                            </div>{* End of install-table *}
                                         </div>
-                                        </div><!-- End of db-install -->
+                                        </div>{* End of db-install *}
                                         {if $tikidb_created}
                                             <div class="col-sm-6">
                                             <div class="db-upgrade card h-100">
@@ -544,7 +544,7 @@
                                                         <strong>{$tiki_version_name}</strong>.
                                                     {/remarksbox}
                                                     <p class="text-center"><input type="submit" class="btn btn-primary" name="update" value="{tr}Upgrade{/tr}"></p>
-                                                </div><!-- End of db-upgrade -->
+                                                </div>{* End of db-upgrade *}
                                             </div>
                                             </div>
                                             </div>
@@ -564,9 +564,9 @@
                                     </table>
                                 </form>
                             {/if}
-                            </div><!-- End of install-upgrade -->
+                            </div>{* End of install-upgrade *}
                         {/if}
-                    </div><!-- End of install-step4 -->
+                    </div>{* End of install-step4 *}
 
                     {elseif $install_step eq '5' or ($dbdone ne 'n')}
                     <div class="install-step5">
@@ -636,7 +636,7 @@
                         {if $lang}<input type="hidden" name="lang" value="{$lang}">{/if}
                     </div>
                     </form>
-                </div><!-- End of install-step5 -->
+                </div>{* End of install-step5 *}
 
                 {elseif $install_step eq '6'}
                 <div class="install-step6">
@@ -821,7 +821,7 @@
                             <input type="submit" class="btn btn-primary" value="{tr}Continue{/tr}">
                         </div>
                     </form>
-                </div><!-- End of install-step6 -->
+                </div>{* End of install-step6 *}
 
                 {elseif $install_step eq '7'}
                 <div class="install-step7">
@@ -867,7 +867,7 @@
                             <input type="submit" class="btn btn-primary" value="{tr}Continue{/tr}">
                         </div>
                     </form>
-                </div><!-- End of install-step7 -->
+                </div>{* End of install-step7 *}
 
                 {elseif $install_step eq '8'}
                 <div class="install-step8">
@@ -980,7 +980,7 @@
                             </form>
                         {/if}
                     {/if}
-                </div><!-- End of install-step8 -->
+                </div>{* End of install-step8 *}
 
                 {/if}{* end elseif $install_step... *}
 
@@ -1033,13 +1033,13 @@
                 {/if}
             </div>
         </div>
-    </div><!-- End of install-header -->
+    </div>{* End of install-header *}
 
     <div class="floating-links">
         <a href="https://tiki.org" target="_blank"
             title="{tr}Powered by{/tr} {tr}Tiki Wiki CMS Groupware{/tr} &copy; 2002–{$smarty.now|date_format:"%Y"} "
             class="btn"><img src="img/tiki/tikibutton.png" alt="{tr}Powered by Tiki Wiki CMS Groupware{/tr}"></a>
-    </div><!-- End of install-footer -->
+    </div>{* End of install-footer *}
 
-    {*</div><!-- End of install-body -->*}
-</div><!-- End of tiki-install container -->
+    {*</div>{* End of install-body *}*}
+</div>{* End of tiki-install container *}

@@ -116,7 +116,7 @@
                         </td>
                     {else}
                         <td><a href="{$row['pageName']|sefurl:wiki}"  class="link tips" title="{$row['pageName']}: {tr}View page{/tr}" target="_blank">{$value}</a></td>
-                        <!-- TODO: (but see note about object_link in templates/tiki-listpages_content.tpl) <td>{object_link type='wiki page' id={$row['pageName']|escape} class="link tips" title="{$val|escape}:{tr}View page{/tr}"}</td> -->
+                        {* TODO: (but see note about object_link in templates/tiki-listpages_content.tpl) <td>{object_link type='wiki page' id={$row['pageName']|escape} class="link tips" title="{$val|escape}:{tr}View page{/tr}"}</td> *}
                     {/if}
                 {elseif $column=='lastModif' || $column=='created' || $column=='commentDate' || $column=='publishDate' || $column=='expireDate'}
                     <td>{$value|tiki_short_datetime}</td>

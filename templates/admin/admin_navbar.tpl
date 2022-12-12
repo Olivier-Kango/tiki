@@ -52,8 +52,8 @@
                                         <br/><br/>
                                         <ul>
                                             <li>{tr}Icon for 'Like'{/tr} {$smarty.capture.likeicon|escape}</li>
-    <!--                                            <li>{tr}Icon for 'Fix me'{/tr} <img src=img/icons/connect_fix.png></li> -->
-    <!--                                            <li>{tr}Icon for 'What is this for?'{/tr} <img src=img/icons/connect_wtf.png></li> -->
+                                            {* <li>{tr}Icon for 'Fix me'{/tr} <img src=img/icons/connect_fix.png></li> 
+                                            <li>{tr}Icon for 'What is this for?'{/tr} <img src=img/icons/connect_wtf.png></li>  *}
                                         </ul>
                                         <br>
                                         {tr}Your votes will be sent when you connect with mother.tiki.org (currently only by clicking the 'Connect > <strong>Send Info</strong>' button){/tr}

@@ -15,7 +15,7 @@
 </td>
 {if $show_percent eq 'y'}<td class="{cycle advance=false}">%{$val.average|string_format:"%.2f"}</td>{/if}
 {if $show_bar eq 'y'}<td class="{cycle advance=false}">{quotabar length=$val.average}</td>{/if}
-<!-- {cycle} -->
+{* {cycle} *}
 </tr>
 {/foreach}
 {/section}

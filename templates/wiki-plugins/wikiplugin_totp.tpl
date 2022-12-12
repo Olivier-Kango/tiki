@@ -32,4 +32,3 @@
     $("#totp_{{$id}}").initTOTP();
 
 {/jq}
-

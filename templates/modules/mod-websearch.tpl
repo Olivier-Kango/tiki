@@ -13,9 +13,9 @@ $(document).ready(function(){
 {tikimodule error=$module_params.error title=$tpl_module_title name="websearch" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle style=$module_params.style}
     <form method="get"  id="search-form" action="#" target="Google" role="form" accept-charset="UTF-8">
         <div class="mb-3 row mx-0">
-            <!--<div class="col-sm-2">
+            {* <div class="col-sm-2">
                 <img src="img/googleg.gif" alt="Google" />
-            </div>//-->
+            </div> *}
             <div class="col-sm-12">
                 <input type="text" name="q" id="text-search" class="form-control" maxlength="100" placeholder = "{tr}Search{/tr}" required="true"/>
             </div>

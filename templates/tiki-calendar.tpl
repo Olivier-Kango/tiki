@@ -426,14 +426,14 @@ $("#filtercal").submit(function () {
     </style>
     <div id='calendar'></div>
 
-    <!--<div id='calendar_dialog'></div>-->
+    {*<div id='calendar_dialog'></div>*}
 
     <div id="calendar_dialog" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content" id="calendar_dialog_content">
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>{* /.modal-content *}
+        </div>{* /.modal-dialog *}
+    </div>{* /.modal *}
     <p>&nbsp;</p>
 </div>
 {if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}

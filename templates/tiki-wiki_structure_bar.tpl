@@ -36,23 +36,23 @@
 
                         {if !empty($smarty.section.ix.last) }
 
-                    		{if $structure_path[ix].page_alias}
-				                {$structure_path[ix].page_alias|escape}
-				            {else}
-				                {$structure_path[ix].stripped_pageName|pagename}
-				            {/if}
+                            {if $structure_path[ix].page_alias}
+                                {$structure_path[ix].page_alias|escape}
+                            {else}
+                                {$structure_path[ix].stripped_pageName|pagename}
+                            {/if}
 
-                    	{else}
+                        {else}
 
-                    		<a href="{sefurl page=$structure_path[ix].pageName structure=$home_info.pageName page_ref_id=$structure_path[ix].page_ref_id}">
-						        {if $structure_path[ix].page_alias}
-						            {$structure_path[ix].page_alias|escape}
-						        {else}
-						            {$structure_path[ix].stripped_pageName|pagename}
-						        {/if}
-                        	</a>
+                            <a href="{sefurl page=$structure_path[ix].pageName structure=$home_info.pageName page_ref_id=$structure_path[ix].page_ref_id}">
+                                {if $structure_path[ix].page_alias}
+                                    {$structure_path[ix].page_alias|escape}
+                                {else}
+                                    {$structure_path[ix].stripped_pageName|pagename}
+                                {/if}
+                            </a>
 
-                    	{/if}
+                        {/if}
 
                     </li>
             {/section}

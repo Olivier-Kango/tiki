@@ -23,7 +23,7 @@
                 <a class="linkmodule" href="tiki-calendar_edit_item.php?viewcalitemId={$event.calitemId}">{$event.name|escape}</a>
                 {if $desc}<br>{$event.parsed}{/if}
             </td>
-        </tr><!-- {cycle} -->
+        </tr>{* {cycle} *}
     {/foreach}
     </table>
     </div>

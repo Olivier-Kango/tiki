@@ -30,4 +30,3 @@
 <div class="mb-3 row">
     <div id="files" class="files text-center col-md-12"></div>
 </div>
-

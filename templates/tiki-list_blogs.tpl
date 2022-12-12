@@ -70,10 +70,10 @@
                     </td>
                 {/if}
                 {if $prefs.blog_list_created eq 'y'}
-                    <td class="date">&nbsp;{$listpages[changes].created|tiki_short_date}&nbsp;</td><!--tiki_date_format:"%b %d" -->
+                    <td class="date">&nbsp;{$listpages[changes].created|tiki_short_date}&nbsp;</td>{*tiki_date_format:"%b %d"*}
                 {/if}
                 {if $prefs.blog_list_lastmodif eq 'y'}
-                    <td class="date">&nbsp;{$listpages[changes].lastModif|tiki_short_datetime}&nbsp;</td><!--tiki_date_format:"%d of %b [%H:%M]"-->
+                    <td class="date">&nbsp;{$listpages[changes].lastModif|tiki_short_datetime}&nbsp;</td>{*tiki_date_format:"%d of %b [%H:%M]"*}
                 {/if}
                 {if $prefs.blog_list_user ne 'disabled'}
                     {if $prefs.blog_list_user eq 'link'}

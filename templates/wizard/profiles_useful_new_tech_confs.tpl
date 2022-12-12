@@ -102,7 +102,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <!--    <b>{tr}Profile X{/tr}</b> (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Profile_X&show_details_for=Profile_X&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)<br/>
+                {*    <b>{tr}Profile X{/tr}</b> (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Profile_X&show_details_for=Profile_X&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)<br/>
                     <br>
                     {tr}This profile allows to {/tr}
                     <ul>
@@ -111,10 +111,10 @@
                         <li>{tr}...{/tr}</li>
                         <br/><em>{tr}See also{/tr} <a href="https://doc.tiki.org/Feature_X" target="_blank">{tr}Feature_X in doc.tiki.org{/tr}</a></em>
                     </ul>
-                    -->
+                    *}
             </div>
             <div class="col-md-6">
-                <!--    <b>{tr}Profile X{/tr}</b> (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Profile_X&show_details_for=Profile_X&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)<br/>
+                {*    <b>{tr}Profile X{/tr}</b> (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Profile_X&show_details_for=Profile_X&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)<br/>
                     <br>
                     {tr}This profile allows to {/tr}
                     <ul>
@@ -123,7 +123,7 @@
                         <li>{tr}...{/tr}</li>
                         <br/><em>{tr}See also{/tr} <a href="https://doc.tiki.org/Feature_X" target="_blank">{tr}Feature_X in doc.tiki.org{/tr}</a></em>
                     </ul>
-                    -->
+                    *}
             </div>
         </div>
     </div>

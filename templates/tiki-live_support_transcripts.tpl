@@ -49,7 +49,7 @@
 
         {section name=ix loop=$items}
             <tr>
-                <td>{$items[ix].chat_started|tiki_short_datetime}</td><!--date_format:"%d %b [%H:%M]"-->
+                <td>{$items[ix].chat_started|tiki_short_datetime}</td>{*date_format:"%d %b [%H:%M]"*}
                 <td>{if $items[ix].tiki_user ne ""}{$items[ix].tiki_user}{else}{$items[ix].user|escape}{/if}</td>
                 <td>{$items[ix].reason}</td>
                 <td>{$items[ix].operator|escape}</td>

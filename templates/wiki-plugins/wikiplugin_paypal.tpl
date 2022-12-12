@@ -11,4 +11,3 @@
     <input type="image" src="{$wppaypal_button}" name="submit" alt="{$wppaypal_title|escape}">
     <img src="{$wppaypal_pixel}" width="1" height="1">
 </form>
-

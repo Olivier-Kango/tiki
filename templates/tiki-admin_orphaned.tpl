@@ -21,14 +21,14 @@
         </div>
     </div>
     <div class="mb-3 row">
-		<label for="search_tabular_tracker_fields" class="col-sm-3 form-check-label">{tr}Include import-export tracker fields{/tr}</label>
-		<div class="col-sm-9">
-			<div class="form-check">
-				<input type="checkbox" id="search_tabular_tracker_fields" class="form-check-input" name="search[]" value="tabular_tracker_fields" {if $tabular_tracker_fields_checked} checked {/if}>
-			</div>
-		</div>
-	</div>
-	<div class="mb-3 text-center">
+        <label for="search_tabular_tracker_fields" class="col-sm-3 form-check-label">{tr}Include import-export tracker fields{/tr}</label>
+        <div class="col-sm-9">
+            <div class="form-check">
+                <input type="checkbox" id="search_tabular_tracker_fields" class="form-check-input" name="search[]" value="tabular_tracker_fields" {if $tabular_tracker_fields_checked} checked {/if}>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 text-center">
         <input type="submit" class="btn btn-primary" name="submit" value="{tr}Search{/tr}">
     </div>
 </form>
@@ -46,8 +46,8 @@
                 {if !empty($row.page)}
                     <a href="{$row.page|sefurl}">Page: {$row.page}</a>
                 {elseif $row.tabularId}
-					<a href="{service controller='tabular' action='edit' tabularId=$row.tabularId }">Tabular: {$row.trackerName}</a>
-				{else}
+                    <a href="{service controller='tabular' action='edit' tabularId=$row.tabularId }">Tabular: {$row.trackerName}</a>
+                {else}
                     <a href="{service controller='tracker' action='edit_field' trackerId=$row.trackerId fieldId=$row.fieldId}" class="click-modal">Field: {$row.fieldId} {$row.fieldName}</a><br>
                     <a href="{$row.trackerId|sefurl:'trackerfields'}">Tracker: {$row.trackerName}</a>
                 {/if}

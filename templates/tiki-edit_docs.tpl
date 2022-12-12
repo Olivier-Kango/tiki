@@ -21,4 +21,3 @@
     <div id="tiki_doc" class="" style="min-height: 800px">
     </div>
 {/if}
-

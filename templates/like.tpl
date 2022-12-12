@@ -6,7 +6,7 @@
             {else}
                 <i class="far fa-thumbs-up fa-lg"></i>
             {/if}
-        </a><!--close anchor-->
+        </a>{* close anchor *}
     {/if}
     <span class="numlikes">{$count}</span> {tr}{$count_label}{/tr}
 </span>

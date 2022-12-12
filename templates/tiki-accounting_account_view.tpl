@@ -37,4 +37,3 @@
         {include file='tiki-accounting_journal.tpl'}
     </div>
 {/if}
-

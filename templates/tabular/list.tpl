@@ -107,5 +107,5 @@
     </table>
     {pagination_links resultset=$resultset}{service controller=tabular action=list tabularId=$tabularId _params=$baseArguments}{/pagination_links}
 {/if}
-</div><!-- .table-responsive END -->
+</div>{* .table-responsive END *}
 {/block}

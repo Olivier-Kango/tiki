@@ -93,12 +93,12 @@
     });
 
 {/jq}
-<!-- Modal -->
+{* Modal *}
 <div class="modal" id="modal_edit_group" role="dialog">
     <form id="edit_group_form">
 
         <div class="modal-dialog">
-            <!-- Modal content-->
+            {* Modal content*}
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"> </h4>

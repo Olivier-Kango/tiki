@@ -99,8 +99,8 @@
             {preference name=category_i18n_synced}
         </div>
 
-		{preference name=workspace_root_category}
-		{preference name=multidomain_default_not_categorized}
+        {preference name=workspace_root_category}
+        {preference name=multidomain_default_not_categorized}
         {preference name=feature_wiki_mandatory_category}
         {preference name=feature_blog_mandatory_category}
         {preference name=unified_add_to_categ_search}

@@ -100,7 +100,7 @@
     {wikiplugin _name=googleanalytics account=$prefs.site_google_analytics_account group_option=$prefs.site_google_analytics_group_option groups={','|implode:$prefs.site_google_analytics_groups}}{/wikiplugin}
 {/if}
 {interactivetranslation}
-<!-- Put JS at the end -->
+{* Put JS at the end *}
 {if $headerlib}
     {$headerlib->output_js_config()}
     {$headerlib->output_js_files()}
@@ -144,14 +144,14 @@ if (confirm("A problem occurred while detecting JavaScript on this page, click o
 {/if}
 
 {if $prefs.tiki_monitor_performance eq 'y'}
-	<script type="text/javascript">
-		BOOMR.init({
-			beacon_url: "{service controller='performance' action='beacon'}"
-		});
-	</script>
+    <script type="text/javascript">
+        BOOMR.init({
+            beacon_url: "{service controller='performance' action='beacon'}"
+        });
+    </script>
 {/if}
 
 {* Include mautic snipet code with mautic *}
 {if $prefs.site_mautic_enable eq 'y' && $prefs.wikiplugin_mautic eq 'y' && $prefs.site_mautic_tracking_script_location eq 'embed'}
     {wikiplugin _name=mautic type="inclusion"}{/wikiplugin}
-{/if} 
+{/if}

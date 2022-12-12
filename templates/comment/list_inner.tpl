@@ -96,14 +96,14 @@
                             </div>
                         {/if}
 
-                    </div><!-- End of comment-footer -->
-                </div><!-- End of comment-item -->
+                    </div>{* End of comment-footer *}
+                </div>{* End of comment-item *}
                 {if ! $level || $level lt 5}
                     {if $comment.replies_info.numReplies gt 0}
                         {include file='comment/list_inner.tpl' comments=$comment.replies_info.replies cant=$comment.replies_info.numReplies parentId=$comment.threadId level=(level) ? $level+1 : 0 repliedTo=$comment}
                     {/if}
                 {/if}
-            </div><!-- End of flex-grow-1 ms-3 -->
+            </div>{* End of flex-grow-1 ms-3 *}
         </li>
         {if $prefs.comments_threshold_indent neq '0' && $level && $level gte $prefs.comments_threshold_indent}
             {if $comment.replies_info.numReplies gt 0}

@@ -11,4 +11,3 @@
     {/section}
 {/modules_list}
 {/tikimodule}
-

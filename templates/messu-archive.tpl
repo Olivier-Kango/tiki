@@ -87,7 +87,7 @@ var CHECKBOX_LIST = [{{section name=user loop=$items}'msg[{$items[user].msgId}]'
                     <td class="prio{$items[user].priority|escape:"attr"}">{if $items[user].isFlagged eq 'y'}{icon name='flag' alt="{tr}Flagged{/tr}"}{/if}</td>
                     <td {if $items[user].isRead eq 'n'}style="font-weight:bold"{/if} class="prio{$items[user].priority|escape:"attr"}">{$items[user].user_from|userlink}</td>
                     <td {if $items[user].isRead eq 'n'}style="font-weight:bold"{/if} class="prio{$items[user].priority|escape:"attr"}"><a class="readlink" href="messu-read_archive.php?offset={$offset|escape:"url"}&amp;flag={$flag|escape:"url"}&amp;priority={$items[user].priority|escape:"url"}&amp;flagval={$flagval|escape:"url"}&amp;sort_mode={$sort_mode|escape:"url"}&amp;find={$find|escape:"url"}&amp;msgId={$items[user].msgId|escape:"url"}">{$items[user].subject|escape}</a></td>
-                    <td {if $items[user].isRead eq 'n'}style="font-weight:bold"{/if} class="prio{$items[user].priority|escape:"attr"}">{$items[user].date|tiki_short_datetime}</td><!--date_format:"%d %b %Y [%H:%I]"-->
+                    <td {if $items[user].isRead eq 'n'}style="font-weight:bold"{/if} class="prio{$items[user].priority|escape:"attr"}">{$items[user].date|tiki_short_datetime}</td>{*date_format:"%d %b %Y [%H:%I]"*}
                     <td style="text-align:right;{if $items[user].isRead eq 'n'}font-weight:bold;{/if}" class="prio{$items[user].priority|escape:"attr"}">{$items[user].len|kbsize|escape}</td>
                 </tr>
             {sectionelse}

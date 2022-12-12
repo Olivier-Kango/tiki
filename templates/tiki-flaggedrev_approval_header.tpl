@@ -24,7 +24,7 @@
                           <div class="col-md-6">
                             <input type="submit" class="btn btn-primary btn-sm" name="approve" value="{tr}Approve current revision{/tr}">
                           </div>
-                            <!-- TODO work on layout here -->
+                            {* TODO work on layout here *}
                             <div class="col-md-6">
                               <input type="text" name="reason" placeholder="Why is this not approved?">
                               <input type="submit" class="btn btn-primary btn-sm" name="reject" value="{tr}Reject current revision{/tr}">

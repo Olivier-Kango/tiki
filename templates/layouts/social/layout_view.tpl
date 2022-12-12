@@ -149,7 +149,7 @@
             <div class="footer_liner">
                 <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">
 
-                    {modulelist zone=bottom class='bottom_modules p-3 mx-n2point5'} <!-- div.modules -->
+                    {modulelist zone=bottom class='bottom_modules p-3 mx-n2point5'} {* div.modules *}
                 </div>
             </div>
         </footer>

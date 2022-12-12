@@ -101,7 +101,7 @@
     {/if}
 
     {if $comment.title neq '' && $comment.title neq 'Untitled' && (!isset($page) or $comment.title neq $page)}
-    <!-- <div class="title"> -->
+    {* <div class="title"> *}
     {if isset($first) and $first eq 'y'}
     <h2 class=" card-title">
         <span>{$comment.title|escape}</span>
@@ -113,7 +113,7 @@
     </h2>
     {/if}
 
-    <!-- </div> -->
+    {* </div> *}
     {/if}
 
     {if $thread_style eq 'commentStyle_headers'}

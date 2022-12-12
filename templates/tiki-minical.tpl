@@ -61,7 +61,7 @@
                     <table>
                         <tr>
                             <td>
-                                {$slots[ix].start|tiki_short_time}<!--<br>{$slots[ix].end|tiki_short_time}-->
+                                {$slots[ix].start|tiki_short_time}{*<br>{$slots[ix].end|tiki_short_time}*}
                             </td>
                             <td>
                                 {section name=jj loop=$slots[ix].events}

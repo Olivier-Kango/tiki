@@ -51,8 +51,8 @@
         {section name=i loop=$tabs}
             <div class="debugger-tab" id="{$tabs[i].tab_id}" style="display:{if $tabs[i].button_caption == 'console'}block{else}none{/if};">
                 {$tabs[i].tab_code}
-            </div><!-- Tab: {$tabs[i].tab_id} -->
+            </div>{* Tab: {$tabs[i].tab_id} *}
         {/section}
 
-    </div><!-- debug console -->
+    </div>{* debug console *}
 {/if}

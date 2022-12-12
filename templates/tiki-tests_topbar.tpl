@@ -1,4 +1,4 @@
-<!-- StartTikiTestRemoveMe -->
+{* StartTikiTestRemoveMe *}
 <div id="tiki-test-topbar" style="background-color:red;width:100%" class="clearfix">
     <table class="table">
         <tr>
@@ -44,4 +44,4 @@
         hide("tikitest_pause");
     {/if}}
 {/jq}
-<!-- EndTikiTestRemoveMe -->
+{* EndTikiTestRemoveMe *}

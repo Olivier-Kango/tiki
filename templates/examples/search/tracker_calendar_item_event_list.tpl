@@ -30,7 +30,7 @@
                 {ALTERNATE()}empty{ALTERNATE}
             {/literal}{/wikiplugin}{/strip}{/capture}
             {if $jsonval eq 'empty'}
-                <!-- error: tracker items not found for recurrence id {$calendarItem.recurrence_id} on cal item {$calendarItem.object_id} -->
+                {* error: tracker items not found for recurrence id {$calendarItem.recurrence_id} on cal item {$calendarItem.object_id} *}
 {*                {continue}*}
             {/if}
             {$trackerItem = $jsonval|json_decode:true}

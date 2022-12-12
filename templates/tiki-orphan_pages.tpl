@@ -9,4 +9,3 @@
 <div id="tiki-listpages-content">
     {include file='tiki-listpages_content.tpl'}
 </div>
-

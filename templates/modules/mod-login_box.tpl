@@ -281,7 +281,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
         {/if}
 
         <div class="mb-3 text-center">
-            <button class="btn btn-primary button submit" type="submit" name="login">{tr}Log in{/tr} <!--i class="fa fa-arrow-circle-right"></i--></button>
+            <button class="btn btn-primary button submit" type="submit" name="login">{tr}Log in{/tr} {* <i class="fa fa-arrow-circle-right"></i> *}</button>
         </div>
         {if $module_params.show_register eq 'y' or (isset($module_params.show_two_factor_auth) && $module_params.show_two_factor_auth)}
             <div {if $mode eq 'header'}class="text-end" style="display:inline;"{/if}>

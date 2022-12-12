@@ -64,7 +64,7 @@
         </th>
         <td>
             <strong itemprop="price">{$row.price}</strong>
-            <!-- meta itemprop="priceCurrency" content="USD" can't access prefs here sadly :(-->
+            {* meta itemprop="priceCurrency" content="USD" can't access prefs here sadly :(*}
         </td>
     </tr>
     <tr>

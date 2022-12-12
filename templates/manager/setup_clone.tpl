@@ -250,4 +250,3 @@ s{extends "layout_view.tpl"}
         }
     });
 {/jq}
-

@@ -139,4 +139,3 @@ var kaeCallbacksObj = {
     closeHandler: closeEditorHandler
 };
 {/jq}
-

@@ -10,4 +10,3 @@
         {/literal}
     {/wikiplugin}
 {/block}
-

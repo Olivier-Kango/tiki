@@ -303,4 +303,4 @@
         {/if}
     </form>
 </div>
-<!-- End of find -->
+{* End of find *}
