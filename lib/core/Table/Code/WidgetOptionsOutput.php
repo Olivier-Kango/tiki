@@ -13,9 +13,9 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 }
 
 /**
- * Class Table_Code_WidgetOptionsMath
+ * Class Table_Code_WidgetOptionsOutput
  *
- * Creates the code for the math widget options portion of the Tablesorter jQuery code
+ * Creates the code for the output (export) widget options portion of the Tablesorter jQuery code
  *
  * @package Tiki
  * @subpackage Table

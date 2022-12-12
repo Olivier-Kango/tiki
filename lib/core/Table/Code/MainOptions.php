@@ -180,7 +180,6 @@ class Table_Code_MainOptions extends Table_Code_Manager
         if (count($w) > 0) {
             $mo[] = $this->iterate($w, 'widgets : [', ']', '\'', '\'', ',');
         }
-        $w[] = 'output';
         /*** end widget section ***/
         //debug - uncomment the line below to show log of events in the browser console
 //      $mo[] = 'debug: true';
