@@ -78,6 +78,12 @@ class Services_OAuthServer_Controller
 
         $response = new JsonResponse();
         $response = $server->completeAuthorizationRequest($authRequest, $response);
+        $headers = $response->getHeaders();
+        if (isset($headers['Location'][0])) {
+            $headers['Location'][0] = html_entity_decode($headers['Location'][0]);
+        }
+        $response = new JsonResponse($response->getStatusCode(), $headers, $response->getBody(), $response->getProtocolVersion(), $response->getReasonPhrase());
+
         $this->utilities->processPsr7Response($response);
     }
 
