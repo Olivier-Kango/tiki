@@ -237,6 +237,7 @@ function prefs_site_list()
             'type' => 'list',
             'default' => 'basic',
             'help' => 'Site-Layout',
+            'hint' => tra('Important: when using the Classic Bootstrap (fixed top navbar) layout, be sure to set the fixed-top navbar height, below, to prevent content overlap.'),
             'tags' => ['advanced'],
             'options' => $available_layouts,
         ],
