@@ -58,6 +58,13 @@ a:focus,
     border-color: $input-border-top-color $input-border-left-color #ffffff;
 }
 
+// Copied from base_files/scss/_tiki-selectors.scss (which these child themes don't import)
+.tiki .wiki.external + .icon-link-external, // wikitext
+.tiki .wiki.external .icon-link-external,
+.editable-inline .icon { // Tracker inline editing
+    color: $link-color;
+}
+
 
 hr {
     border-top: 1px solid $hr-color;

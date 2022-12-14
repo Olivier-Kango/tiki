@@ -135,9 +135,9 @@ body {
 }
 hr {
   margin: 1rem 0;
-  color: inherit;
+  color: #e10c7c;
   border: 0;
-  border-top: 1px solid #e10c7c;
+  border-top: 1px solid;
   opacity: 0.25;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -913,6 +913,9 @@ body.layout_social.tiki.navbar-padding {
 }
 .middle .topbar {
   font-size: 0.925rem;
+}
+.tiki .wiki.external + .icon-link-external, .tiki .wiki.external .icon-link-external, .editable-inline .icon {
+  color: #b51360;
 }
 .postbody-title {
   background: #cd0a53 !important;

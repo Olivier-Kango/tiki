@@ -10014,6 +10014,9 @@ table.treetable.objectperms td.removed {
   background: transparent;
   border: none;
 }
+.tiki .wiki.external + .icon-link-external, .tiki .wiki.external .icon-link-external, .editable-inline .icon {
+  color: #2aa198;
+}
 #ajaxLoadingBG {
   background: transparent url("../../../img/overlay-light.png");
 }
@@ -10326,6 +10329,7 @@ body.wikitext {
 }
 .editable-inline .icon {
   font-size: small;
+  margin-left: 0.4rem;
 }
 .editable-inline.loaded {
   background: #073642;
