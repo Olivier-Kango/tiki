@@ -211,6 +211,12 @@ table.treetable.objectperms td.removed {
     border: none;
 }
 
+.tiki .wiki.external + .icon-link-external, // wikitext
+.tiki .wiki.external .icon-link-external,
+.editable-inline .icon { // Tracker inline editing
+    color: $link-color;
+ }
+
 //.btn-primary:focus {
 //    color: color-yiq($primary);
 //}
@@ -734,6 +740,7 @@ body.wikitext {
     display: inline-block;
     .icon {
         font-size: small;
+        margin-left: 0.4rem;
     }
 }
 

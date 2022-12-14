@@ -986,6 +986,9 @@ a:hover, .btn-link:hover, a:focus, .btn-link:focus {
   background-color: #f8f9d4;
   border-color: #f5fb86 #f5fb86 #ffffff;
 }
+.tiki .wiki.external + .icon-link-external, .tiki .wiki.external .icon-link-external, .editable-inline .icon {
+  color: #52702E;
+}
 hr {
   border-top: 1px solid #a59705;
 }

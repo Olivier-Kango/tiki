@@ -50,6 +50,13 @@ body.layout_social.tiki.navbar-padding {
     font-size: .925rem;
 }
 
+// Copied from base_files/scss/_tiki-selectors.scss (which these child themes don't import)
+.tiki .wiki.external + .icon-link-external, // wikitext
+.tiki .wiki.external .icon-link-external,
+.editable-inline .icon { // Tracker inline editing
+    color: $link-color;
+}
+
 //nav.fixed-top {
 //    border-bottom: 5px solid #000000;
 //}

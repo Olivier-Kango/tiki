@@ -135,6 +135,9 @@ table.treetable.objectperms td.removed {
   background: transparent;
   border: none;
 }
+.tiki .wiki.external + .icon-link-external, .tiki .wiki.external .icon-link-external, .editable-inline .icon {
+  color: #0d6efd;
+}
 #ajaxLoadingBG {
   background: transparent url("../../../img/overlay-light.png");
 }
@@ -447,6 +450,7 @@ body.wikitext {
 }
 .editable-inline .icon {
   font-size: small;
+  margin-left: 0.4rem;
 }
 .editable-inline.loaded {
   background: #fff;
@@ -1214,8 +1218,8 @@ textarea.wikiedit {
   margin-bottom: 0;
 }
 .tiki .wiki.external + .icon-link-external, .tiki .wiki.external .icon-link-external {
-  font-size: 70%;
-  margin-left: 1px;
+  font-size: 80%;
+  margin-left: 0.2rem;
 }
 .side-col-toggle {
   z-index: 2;
