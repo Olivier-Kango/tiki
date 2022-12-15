@@ -27,7 +27,7 @@ class AccessTokenEntity implements AccessTokenEntityInterface
             ->setSubject($this->getUserIdentifier())
             ->set('scopes', $this->getScopes());
 
-        if (is_null($privateKey)) {
+        if (is_null($privateKey) || (is_object($privateKey) && method_exists($privateKey, 'isNullKey') && $privateKey->isNullKey())) {
             $token->sign(new HMACSHA256(), $this->getClient()->getClientSecret());
         } else {
             $token->sign(new RSASHA256(), new Key($privateKey->getKeyPath(), $privateKey->getPassPhrase()));

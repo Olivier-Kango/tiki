@@ -21,4 +21,9 @@ class TikiCryptKey extends CryptKey
     {
         return new Key($this->key);
     }
+
+    public function isNullKey()
+    {
+        return is_null($this->key);
+    }
 }

@@ -57,8 +57,8 @@ class Services_OAuthServer_Controller
             $accesslib->checkCsrf(null, true, 'ticket', null, null, 'services');
         }
 
-        $oauthserverlib->determineServerGrant();
-        $server = $oauthserverlib->getServer();
+        $oauthserverlib->determineServerGrant($params['skip_keypair'] ?? false);
+        $server = $oauthserverlib->getServer($params['skip_keypair'] ?? false);
         $userEntity = $oauthserverlib->getUserEntity();
 
         // The oauth library give the default for "not set" info
