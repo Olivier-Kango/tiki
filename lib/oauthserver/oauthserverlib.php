@@ -84,14 +84,14 @@ class OAuthServerLib extends \TikiLib
         return new AccessTokenRepository();
     }
 
-    public function getServer()
+    public function getServer($skip_keypair = false)
     {
         if (empty($this->server)) {
             $this->server = new AuthorizationServer(
                 $this->getClientRepository(),
                 $this->getAccessTokenRepository(),
                 new ScopeRepository(),
-                $this->getPrivateKey(),
+                $skip_keypair ? new TikiCryptKey(null) : $this->getPrivateKey(),
                 $this->getEncryptionKey()
             );
         }
@@ -106,10 +106,10 @@ class OAuthServerLib extends \TikiLib
         return $entity;
     }
 
-    public function determineServerGrant()
+    public function determineServerGrant($skip_keypair = false)
     {
         global $user;
-        $server = $this->getServer();
+        $server = $this->getServer($skip_keypair);
 
         if (! empty($user)) {
             // TODO: this is legacy, see if xmpp/converse really need it

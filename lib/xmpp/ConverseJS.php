@@ -61,7 +61,8 @@ class ConverseJS
             'authorize_url' => TikiLib::lib('service')->getUrl([
                 'action' => 'authorize',
                 'controller' => 'oauthserver',
-                'response_type' => 'token'
+                'response_type' => 'token',
+                'skip_keypair' => 1,
             ])
         ];
     }
