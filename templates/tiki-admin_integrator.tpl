@@ -12,7 +12,7 @@
     <h2>{tr}Create New Repository{/tr}</h2>
 {/if}
 
-<div class="t_navbar btn-group mb-3 row">
+<div class="t_navbar btn-group mb-3">
     {button href="tiki-list_integrator_repositories.php" class="btn btn-info" _icon_name="list" _text="{tr}List{/tr}"}
     {button href="tiki-admin_integrator.php" class="btn btn-primary" _icon_name="create" _text="{tr}New{/tr}"}
     {if isset($repID) and $repID ne '0'}
