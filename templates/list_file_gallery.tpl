@@ -6,7 +6,7 @@
     && $tiki_p_view_fgal_explorer eq 'y' )
     or ( !empty($gallery_path) && $fgal_options.show_path.value eq 'y' && $tiki_p_view_fgal_path eq 'y' )
 }
-    <div class="fgal_top_bar mb-3 row mx-0">
+    <div class="fgal_top_bar mb-3">
         {if ! empty($tree) && $tiki_p_list_file_galleries != 'n'
             && $fgal_options.show_explorer.value eq 'y' && $tiki_p_view_fgal_explorer eq 'y'}
             {if $prefs.javascript_enabled eq 'y'}

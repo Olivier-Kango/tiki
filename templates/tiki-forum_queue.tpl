@@ -113,7 +113,7 @@
 {* FILTERING FORM *}
 {if $items or ($find ne '')}
     <form action="tiki-forum_queue.php" method="post" class="form">
-        <div class="mb-3 row">
+        <div class="mb-3">
             <input type="hidden" name="forumId" value="{$forumId|escape}">
             <input type="hidden" name="offset" value="{$offset|escape}">
             <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">
