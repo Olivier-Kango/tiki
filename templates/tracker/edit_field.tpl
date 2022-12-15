@@ -45,7 +45,16 @@
             {foreach from=$info.params key=param item=def}
                 <div class="mb-3 row mx-0">
                     <label for="option~{$param|escape}" class="col-form-label">{$def.name|escape}</label>
-                    {if !empty($def.options)}
+                    {if $def.separator && $def.options}
+                        <select multiple name="option~{$param|escape}[]" class="form-select">
+                            {foreach from=$def.options key=val item=label}
+                                <option value="{$label|escape}"
+                                    {if in_array($label, $options[$param])} selected="selected"{/if}>
+                                    {$label|escape}
+                                </option>
+                            {/foreach}
+                        </select>
+                    {elseif $def.options}
                         <select name="option~{$param|escape}" class="form-select">
                             {foreach from=$def.options key=val item=label}
                                 <option value="{$val|escape}"
