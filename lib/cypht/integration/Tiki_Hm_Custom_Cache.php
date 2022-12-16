@@ -79,7 +79,6 @@ class Tiki_Hm_Custom_Cache extends Hm_Cache {
      * @return boolean
      */
     private function tiki_set($key, $val) {
-        $this->backend->set($key, $val);
-        return true;
+        return $this->backend->set($key, $val);
     } 
 }
