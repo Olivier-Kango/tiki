@@ -4,7 +4,7 @@
             {include file='admin/include_anchors.tpl'}
         </aside>
     {/if}
-    <div class="admin-content">
+    <div class="admin-content w-100">
         {include file="admin/admin_navbar.tpl"}
         {if $prefs.sender_email eq ''}
             {remarksbox type=warning title="{tr}Warning{/tr}" close="y"}

@@ -93,7 +93,7 @@
 }
 /* Admin menu left */
 .tiki-admin aside.admin-nav .navbar-light.narrow, .tiki-admin aside.admin-nav .navbar-dark.narrow, .tiki-admin aside.admin-nav .narrow .admin-menu-collapser {
-  width: 60px !important;
+  width: 80px !important;
 }
 .tiki-admin aside.admin-nav .admin-menu-collapser a {
   width: 50px;
@@ -555,11 +555,8 @@
   overflow: hidden;
 }
 /* main content */
-.fixed_width.tiki-admin:not(.sidebar_collapsed) .row.row-middle, .fixed_width.tiki-admin .intertrans.text-center, .fixed_width.tiki-admin:not(.sidebar_collapsed) .footer {
-  margin-left: 60px !important;
-}
-.tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center, .tiki-admin:not(.sidebar_collapsed) .footer {
-  margin-left: 290px !important;
+.tiki-admin:not(.fixed_width) .col1 .admin-wrapper {
+  margin-left: 0;
 }
 .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
   margin-left: 283px;
@@ -567,15 +564,19 @@
 .tiki-admin.sidebar_collapsed #show-errors-button, .tiki-admin.sidebar_collapsed #errors {
   margin-left: 75px;
 }
-.tiki-admin.sidebar_collapsed .row.row-middle, .tiki-admin.sidebar_collapsed .intertrans.text-center, .tiki-admin.sidebar_collapsed .footer {
-  margin-left: 60px !important;
-}
 @media (max-width: 767.5px) {
-  .tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center, .tiki-admin:not(.sidebar_collapsed) .footer {
-    margin-left: 60px !important;
-  }
   .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
     margin-left: 75px;
+  }
+}
+@media (min-width: 767px) and (max-width: 991px) {
+  .tiki-admin:not(.fixed_width) .col1 .admin-wrapper {
+    margin-left: 70px;
+  }
+}
+@media (min-width: 992px) {
+  .tiki-admin:not(.fixed_width) .col1 .admin-wrapper, .tiki-admin:not(.fixed_width) .col1 #tikifeedback, .tiki-admin:not(.fixed_width) .main-footer {
+    margin-left: 283px;
   }
 }
 /* Filter */
@@ -701,9 +702,6 @@
 /* FIX: make it the same width as the height */
 .tiki-admin .bg-dark-parent .module.box-login_box button, .tiki-admin .bg-light-parent .module.box-login_box button {
   width: 2.1rem;
-}
-.tiki-admin .admin-content {
-  width: 100%;
 }
 .admin_modules .module.card {
   flex-grow: 1;
