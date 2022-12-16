@@ -9877,9 +9877,11 @@ header.navbar.fixed-top {
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg);
   --tiki-admin-dropdown-dark-color: rgba(255, 255, 255, 0.55);
+  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
   --tiki-admin-dropdown-dark-bg: #073642;
   --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: rgba(0, 0, 0, 0.9);
+  --tiki-admin-dropdown-light-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-admin-dropdown-light-bg: #073642;
   --tiki-admin-toggle-light-bg: #073642;
   --tiki-admin-navbar-dark-highlight-bg: #002b36;

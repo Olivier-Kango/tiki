@@ -30,15 +30,17 @@
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
   --tiki-admin-dropdown-dark-color: #fff;
+  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
   --tiki-admin-dropdown-dark-bg: #087f93;
   --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
-  --tiki-admin-dropdown-light-bg: #087f93;
-  --tiki-admin-toggle-light-bg: #087f93;
+  --tiki-admin-dropdown-light-hover-color: var(--tiki-top-light-hover-color);
+  --tiki-admin-dropdown-light-bg: #fff;
+  --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: #087084;
-  --tiki-admin-navbar-dark-highlight-color: #f2f2f2;
+  --tiki-admin-navbar-dark-highlight-color: #07262c;
   --tiki-admin-navbar-light-highlight-bg: #087084;
-  --tiki-admin-navbar-light-highlight-color: #f2f2f2;
+  --tiki-admin-navbar-light-highlight-color: #07262c;
 }
 .accordion {
   --bs-accordion-active-bg: #177F92;
@@ -1006,18 +1008,18 @@ nav:not(.topbar_modules, .top_modules).navbar-dark .open > a, nav:not(.topbar_mo
   background: transparent !important;
 }
 .dropdown-menu {
-  background-color: #087f93;
+  background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 .tiki .dropdown-item, .tiki .dropdown-item a, .tiki .dropdown-item .btn.btn-link {
-  color: #ffffff;
+  color: #11606E;
 }
 .tiki .dropdown-item:hover, .tiki .dropdown-item:focus, .tiki .dropdown-item a:hover, .tiki .dropdown-item a:focus, .tiki .dropdown-item .btn.btn-link:hover, .tiki .dropdown-item .btn.btn-link:focus {
-  color: #f2f2f2;
+  color: #07262c;
   background: #087084;
 }
 .tiki .dropdown-item:active, .tiki .dropdown-item.active, .tiki .dropdown-item a:active, .tiki .dropdown-item a.active, .tiki .dropdown-item .btn.btn-link:active, .tiki .dropdown-item .btn.btn-link.active {
-  color: #f2f2f2;
+  color: #07262c;
   background: #087084;
 }
 .tiki .dropdown-item.disabled, .tiki .dropdown-item:disabled, .tiki .dropdown-item a.disabled, .tiki .dropdown-item a:disabled, .tiki .dropdown-item .btn.btn-link.disabled, .tiki .dropdown-item .btn.btn-link:disabled {
@@ -1027,7 +1029,7 @@ nav:not(.topbar_modules, .top_modules).navbar-dark .open > a, nav:not(.topbar_mo
   color: #ffffff;
 }
 .tiki .dropdown-item .dropdown-divider, .tiki .dropdown-item a .dropdown-divider, .tiki .dropdown-item .btn.btn-link .dropdown-divider {
-  background: #087f93;
+  background: #fff;
 }
 .dropdown-item.btn-link {
   color: #fff;

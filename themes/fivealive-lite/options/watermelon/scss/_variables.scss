@@ -1,7 +1,6 @@
 // $Id$ Custom variables for the Watermelon theme option of the FiveAlive and FiveAlive-lite themes
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
-
 // Variables needed for button color variants (start)
 $theme-colors: (
     "primary":            #E61437, // #eb1e41,
@@ -157,7 +156,8 @@ $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 //$navbar-light-link-hover-bg: #003c4a;
 // Aug 18 2022 revamp end
 
-//$bg-light-alt: #851e0e !important;
+// Dropdowns
+$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 
 $side-column-heading-color: #6c0c02;
 
@@ -223,9 +223,11 @@ $btn-focus-width:             $input-btn-focus-width !default;
 .tiki-admin {
     --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
     --tiki-admin-dropdown-dark-color: #{$dropdown-dark-color};
+    --tiki-admin-dropdown-dark-hover-bg: #{$dropdown-dark-link-hover-bg};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
     --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
     --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
+    --tiki-admin-dropdown-light-hover-color: var(--tiki-top-light-hover-color);
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
     --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};

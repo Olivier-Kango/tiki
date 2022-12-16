@@ -30,9 +30,11 @@
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
   --tiki-admin-dropdown-dark-color: #fff;
+  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
   --tiki-admin-dropdown-dark-bg: #087f93;
   --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
+  --tiki-admin-dropdown-light-hover-color: var(--tiki-top-light-hover-color);
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: #087084;

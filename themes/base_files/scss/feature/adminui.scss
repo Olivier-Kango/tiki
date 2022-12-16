@@ -528,9 +528,17 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 
 .tiki-admin .navbar-light.bg-light #admin-menu .nav-item > .nav-link {
     color: var(--tiki-admin-dropdown-light-color);
+    &:hover,
+    &:focus {
+        color: var(--tiki-admin-dropdown-light-hover-color) !important;
+    }
 }
 .tiki-admin .navbar-dark.bg-dark #admin-menu .nav-item > .nav-link {
     color: var(--tiki-admin-dropdown-dark-color);
+    &:hover,
+    &:focus {
+        background: var(--tiki-admin-dropdown-dark-hover-bg) !important;
+    }
 }
 //.tiki-admin .bg-light .dropdown-item .dropdown-header, .tiki-admin .bg-light .dropdown-item label, .tiki-admin .navbar-light .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-light-parent .dropdown-header, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .bg-light a {
 //    color: var(--tiki-admin-dropdown-light-color);
@@ -727,15 +735,25 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 .tiki-admin aside.admin-nav nav .admin-menu-collapser {
-    background-color: var(--tiki-admin-dropdown-dark-bg); // $darkergrey;
     width: 268px;
     position: fixed;
     bottom: 0;
     height: 2.3rem;
 }
 
+.tiki-admin aside.admin-nav .bg-dark .admin-menu-collapser {
+    background-color: var(--tiki-admin-dropdown-dark-bg); // $lightgrey-dark;
+}
+
+.tiki-admin aside.admin-nav .bg-dark .admin-menu-collapser a.btn-link {
+    color: var(--tiki-admin-dropdown-dark-color);
+}
+
 .tiki-admin aside.admin-nav .bg-light .admin-menu-collapser {
-    background-color: var(--tiki-admin-toggle-light-bg); // $lightgrey-dark;
+    background-color: var(--tiki-admin-dropdown-light-bg); // $lightgrey-dark;
+}
+.tiki-admin aside.admin-nav .bg-light .admin-menu-collapser a.btn-link {
+    color: var(--tiki-admin-dropdown-light-color);
 }
 
 .tiki-admin aside.admin-nav .narrow ul > li {

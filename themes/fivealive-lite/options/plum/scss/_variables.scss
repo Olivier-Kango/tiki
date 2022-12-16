@@ -148,6 +148,9 @@ $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 //$navbar-light-link-hover-bg: #003c4a;
 // Aug 18 2022 revamp end
 
+// Dropdowns
+$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
+
 $bg-light-alt: #117485 !important;
 
 $side-column-heading-color: #49006c;
@@ -231,9 +234,11 @@ $btn-link-disabled-color:     $gray-600 !default;
 .tiki-admin {
     --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
     --tiki-admin-dropdown-dark-color: #{$dropdown-dark-color};
+    --tiki-admin-dropdown-dark-hover-bg: #{$dropdown-dark-link-hover-bg};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
     --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
     --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
+    --tiki-admin-dropdown-light-hover-color: var(--tiki-top-light-hover-color);
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
     --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};

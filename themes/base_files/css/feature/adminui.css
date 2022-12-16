@@ -373,8 +373,14 @@
 .tiki-admin .navbar-light.bg-light #admin-menu .nav-item > .nav-link {
   color: var(--tiki-admin-dropdown-light-color);
 }
+.tiki-admin .navbar-light.bg-light #admin-menu .nav-item > .nav-link:hover, .tiki-admin .navbar-light.bg-light #admin-menu .nav-item > .nav-link:focus {
+  color: var(--tiki-admin-dropdown-light-hover-color) !important;
+}
 .tiki-admin .navbar-dark.bg-dark #admin-menu .nav-item > .nav-link {
   color: var(--tiki-admin-dropdown-dark-color);
+}
+.tiki-admin .navbar-dark.bg-dark #admin-menu .nav-item > .nav-link:hover, .tiki-admin .navbar-dark.bg-dark #admin-menu .nav-item > .nav-link:focus {
+  background: var(--tiki-admin-dropdown-dark-hover-bg) !important;
 }
 .tiki-admin .row.row-middle {
   margin-top: 6rem;
@@ -512,14 +518,22 @@
   padding: 0;
 }
 .tiki-admin aside.admin-nav nav .admin-menu-collapser {
-  background-color: var(--tiki-admin-dropdown-dark-bg);
   width: 268px;
   position: fixed;
   bottom: 0;
   height: 2.3rem;
 }
+.tiki-admin aside.admin-nav .bg-dark .admin-menu-collapser {
+  background-color: var(--tiki-admin-dropdown-dark-bg);
+}
+.tiki-admin aside.admin-nav .bg-dark .admin-menu-collapser a.btn-link {
+  color: var(--tiki-admin-dropdown-dark-color);
+}
 .tiki-admin aside.admin-nav .bg-light .admin-menu-collapser {
-  background-color: var(--tiki-admin-toggle-light-bg);
+  background-color: var(--tiki-admin-dropdown-light-bg);
+}
+.tiki-admin aside.admin-nav .bg-light .admin-menu-collapser a.btn-link {
+  color: var(--tiki-admin-dropdown-light-color);
 }
 .tiki-admin aside.admin-nav .narrow ul > li {
   position: relative;
