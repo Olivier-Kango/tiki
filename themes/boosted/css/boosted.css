@@ -2980,7 +2980,7 @@ textarea.form-control-lg {
   --bs-nav-link-padding-x: 1.25rem;
   --bs-nav-link-padding-y: 0.625rem;
   --bs-nav-link-font-weight: 700;
-  --bs-nav-link-color: #fff;
+  --bs-nav-link-color: #000;
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
   --bs-nav-link-disabled-color: #ccc;
   display: flex;
@@ -9383,7 +9383,7 @@ textarea.form-control-lg {
   --bs-nav-link-padding-x: 1.25rem;
   --bs-nav-link-padding-y: 0.625rem;
   --bs-nav-link-font-weight: 700;
-  --bs-nav-link-color: #fff;
+  --bs-nav-link-color: #000;
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
   --bs-nav-link-disabled-color: #ccc;
   display: flex;
@@ -11810,7 +11810,7 @@ textarea.form-control-lg {
   --bs-nav-link-padding-x: 1.25rem;
   --bs-nav-link-padding-y: 0.625rem;
   --bs-nav-link-font-weight: 700;
-  --bs-nav-link-color: #fff;
+  --bs-nav-link-color: #000;
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
   --bs-nav-link-disabled-color: #ccc;
   display: flex;
