@@ -158,7 +158,7 @@ function smarty_function_menu($params, $smarty)
         }
 
         $smarty->assign('list', $structured);
-        $menu_icons = $tikilib->fetchAll('SELECT url, icon FROM tiki_menu_options WHERE url IS NOT NULL');
+        $menu_icons = $tikilib->fetchAll('SELECT optionId, url, icon FROM tiki_menu_options');
         $iconset_pref = $prefs['theme_iconset'];
         $menu_icons_searchable = [];
         foreach ($menu_icons as $key => $value) {
@@ -173,7 +173,7 @@ function smarty_function_menu($params, $smarty)
                             $iconForThisMenu = "<i class='menu-icon bi bi-$specific_one' ></i>";
                         }
                     }
-                    $menu_icons_searchable[helper_function_contruct_menu_url_from_db($value['url'])] = $iconForThisMenu ?? $default_icon;
+                    $menu_icons_searchable[$value['optionId']] = $iconForThisMenu ?? $default_icon;
                     unset($iconForThisMenu); #unset to detach reflexion on next iteration
                     break;
                 case "legacy":
@@ -184,7 +184,7 @@ function smarty_function_menu($params, $smarty)
                             $icon_html = "<img class='menu-icon' src='" . $icon["prepend"] . $icon["id"] . $icon["append"] . "'/>";
                         }
                     }
-                    $menu_icons_searchable[helper_function_contruct_menu_url_from_db($value['url'])] = $icon_html ?? $default_icon;
+                    $menu_icons_searchable[$value['optionId']] = $icon_html ?? $default_icon;
                     unset($icon_html);
                     break;
                 case "theme_specific_iconset":
@@ -195,7 +195,7 @@ function smarty_function_menu($params, $smarty)
                             $icon_html = "<i class='menu-icon " . $icon["prepend"] . $icon["id"] . "'></i>";
                         }
                     }
-                    $menu_icons_searchable[helper_function_contruct_menu_url_from_db($value['url'])] = $icon_html ?? $default_icon;
+                    $menu_icons_searchable[$value['optionId']] = $icon_html ?? $default_icon;
                     unset($icon_html);
                     break;
                 case "default": //default is fontwasemome
@@ -206,7 +206,7 @@ function smarty_function_menu($params, $smarty)
                             $icon_html = "<i class='menu-icon " . $icon["prepend"] . $icon["id"] . "'></i>";
                         }
                     }
-                    $menu_icons_searchable[helper_function_contruct_menu_url_from_db($value['url'])] = $icon_html ?? $default_icon;
+                    $menu_icons_searchable[$value['optionId']] = $icon_html ?? $default_icon;
                     unset($icon_html);
                     break;
             }

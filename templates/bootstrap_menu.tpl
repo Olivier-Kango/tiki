@@ -13,25 +13,42 @@
                 {if $module_params.type|default:null eq 'horiz'}
                     <li class="nav-item dropdown {$item.class|escape|default:null} {if !empty($item.selected)}active{/if}">
                         <a class="nav-link dropdown-toggle" id="menu_option{$item.optionId|escape}" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                            {if $prefs.menus_items_icons eq "y"}
+                                <span 
+                                    data-preset="icon-picker" 
+                                    tabindex="0" 
+                                    role="button" 
+                                    data-bs-toggle="popover" 
+                                    data-bs-trigger="focus" 
+                                    title="Pick an icon" 
+                                    data-icon-for="{$item.optionId}" 
+                                    data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
+                                >
+                                {* here we display the icon html passed constructed from function.menu.php *}
+                                {* TODO Add a way to modify the look: eg. the size,color,position etc*}
+                                {* Refer to the style section in this file to know how this is done manually*}
+                                {$menu_icons_html[$item.optionId]}
+                                </span>
+                            {/if}
                             {tr}{$item.name}{/tr}
                         </a>
                         <div class="dropdown-menu {if !empty($item.selected)}show{/if}" aria-labelledby="menu_option{$item.optionId|escape}">
                             {foreach from=$item.children item=sub}
                                 <a class="{*nav-item *}dropdown-item {$sub.class|escape} {if $sub.selected|default:null}active{/if}" href="{$sub.sefurl|escape}">
                                     {if $prefs.menus_items_icons eq "y"}
-                                        <span
-                                            data-preset="icon-picker"
-                                            tabindex="0"
-                                            role="button"
-                                            data-bs-toggle="popover"
-                                            data-bs-trigger="focus"
-                                            title="Pick an icon"
-                                            data-icon-for="{$sub.sefurl}" data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
+                                        <span 
+                                            data-preset="icon-picker" 
+                                            tabindex="0" 
+                                            role="button" 
+                                            data-bs-toggle="popover" 
+                                            data-bs-trigger="focus" 
+                                            title="Pick an icon"   
+                                            data-icon-for="{$sub.optionId}" data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
                                         >
                                         {* here we display the icon html passed constructed from function.menu.php *}
                                         {* TODO Add a way to modify the look: eg. the size,color,position etc*}
                                         {* Refer to the style section in this file to know how this is done manually*}
-                                        {$menu_icons_html[$sub.sefurl]}
+                                        {$menu_icons_html[$sub.optionId]}
                                         </span>
                                     {/if}
                                     {tr}{$sub.name}{/tr}
@@ -42,6 +59,23 @@
                 {else}
                     <li class="nav-item {$item.class|escape|default:null} {if !empty($item.selected)}active{/if}">
                         <a class="nav-link collapse-toggle" data-bs-toggle="collapse" href="#menu_option{$item.optionId|escape}" aria-expanded="false">
+                            {if $prefs.menus_items_icons eq "y"}
+                                <span 
+                                    data-preset="icon-picker" 
+                                    tabindex="0" 
+                                    role="button" 
+                                    data-bs-toggle="popover" 
+                                    data-bs-trigger="focus" 
+                                    title="Pick an icon" 
+                                    data-icon-for="{$item.optionId}" 
+                                    data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
+                                >
+                                {* here we display the icon html passed constructed from function.menu.php *}
+                                {* TODO Add a way to modify the look: eg. the size,color,position etc*}
+                                {* Refer to the style section in this file to know how this is done manually*}
+                                {$menu_icons_html[$item.optionId]}
+                                </span>
+                            {/if}
                             {tr}{$item.name}{/tr}&nbsp;<small>{icon name="caret-down"}</small>
                         </a>
                         <ul id="menu_option{$item.optionId|escape}" class="nav flex-column collapse {if !empty($item.selected)}show{/if}" aria-labelledby="#menu_option{$item.optionId|escape}">
@@ -49,20 +83,20 @@
                                 <li class="nav-item {$sub.class|escape|default:null} {if !empty($sub.selected)}active{/if}">
                                     <a class="nav-link {$sub.class|escape} {if $sub.selected|default:null}active{/if}" href="{$sub.sefurl|escape}">
                                         {if $prefs.menus_items_icons eq "y"}
-                                            <span
-                                                data-preset="icon-picker"
-                                                tabindex="0"
-                                                role="button"
-                                                data-bs-toggle="popover"
-                                                data-bs-trigger="focus"
-                                                title="Pick an icon"
-                                                data-icon-for="{$sub.sefurl}"
+                                            <span 
+                                                data-preset="icon-picker" 
+                                                tabindex="0" 
+                                                role="button" 
+                                                data-bs-toggle="popover" 
+                                                data-bs-trigger="focus" 
+                                                title="Pick an icon" 
+                                                data-icon-for="{$sub.optionId}" 
                                                 data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
                                             >
                                             {* here we display the icon html passed constructed from function.menu.php *}
                                             {* TODO Add a way to modify the look: eg. the size,color,position etc*}
                                             {* Refer to the style section in this file to know how this is done manually*}
-                                            {$menu_icons_html[$sub.sefurl]}
+                                            {$menu_icons_html[$sub.optionId]}
                                             </span>
                                         {/if}
                                         <small>{tr}{$sub.name}{/tr}</small>
@@ -77,19 +111,19 @@
                     <a class="nav-link" href="{$item.sefurl|escape}">
                         {if $prefs.menus_items_icons eq "y"}
                             <span
-                                data-preset="icon-picker"
-                                tabindex="0"
-                                role="button"
-                                data-bs-toggle="popover"
-                                data-bs-trigger="focus"
-                                title="Pick an icon"
-                                data-icon-for="{$item.sefurl}"
+                                data-preset="icon-picker" 
+                                tabindex="0" 
+                                role="button" 
+                                data-bs-toggle="popover" 
+                                data-bs-trigger="focus" 
+                                title="Pick an icon" 
+                                data-icon-for="{$item.optionId}" 
                                 data-icon-editable="{if $prefs.theme_iconeditable eq "y" AND $tiki_p_admin eq 'y'}yes{/if}"
                             >
                             {* here we display the icon html passed constructed from function.menu.php *}
                             {* TODO Add a way to modify the look: eg. the size,color,position etc*}
                             {* Refer to the style section in this file to know how this is done manually*}
-                            {$menu_icons_html[$item.sefurl]}
+                            {$menu_icons_html[$item.optionId]}
                             </span>
                         {/if}{tr}{$item.name}{/tr}
                     </a>
@@ -144,7 +178,7 @@
     }
     .popover-container{
         width:300px;
-        z-index: 99999;
+        z-index: 999999 !important;
     }
 
     .popover-body{
@@ -177,12 +211,12 @@
         })
     }
 
-    var change_menu_icon = function (el,url_action,icon_name){
+    var change_menu_icon = function (el,menu_option_id,icon_name){
         $(el).tikiModal(" ");
         $.post("tiki-ajax_services.php",{
             'controller':'iconpicker',
             'action':'change_menu_icon',
-            'unparsed_url':url_action,
+            'menu_option_id':menu_option_id,
             'icon_name':icon_name
         }).done(function(){
             location.reload();
@@ -202,9 +236,9 @@
                 event.stopPropagation();
                 event.preventDefault();
         })
-        var action_url = $(this).attr("data-icon-for");
+        var action_menu_option_id = $(this).attr("data-icon-for");
         var iconset_card = iconset.map(function(el){
-            return `<a onclick="change_menu_icon(this,'${action_url}','${el[0]}')" class="btn-xl m-2 icon-picker-container" data-icon-name="${el[0]}" data-url-action="${action_url}">${el[1]}</a>`;
+            return `<a onclick="change_menu_icon(this,'${action_menu_option_id}','${el[0]}')" class="btn-xl m-2 icon-picker-container" data-icon-name="${el[0]}" data-menu-option-id="${action_menu_option_id}">${el[1]}</a>`;
         });
 
         var html =`
