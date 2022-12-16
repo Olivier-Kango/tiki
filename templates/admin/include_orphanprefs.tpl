@@ -7,26 +7,31 @@
     <a href="tiki-admin.php?page=orphanprefs&clear=all" class="btn btn-primary" title="{tr}Delete all{/tr}">{icon name="trash"} {tr}Clear all data{/tr}</a>
 </div>
 
-<table class="table table-striped table-hover">
+<div class="table-responsive">
+  <table class="table table-striped">
     <thead>
-        <tr class="bg-info d-flex">
-            <th class="col-4">{tr}Preferences{/tr}</th>
-            <th class="col-7">{tr}Values{/tr}</th>
-            <th class="col-1"></th>
-        </tr>
+      <tr class="bg-info">
+        <th>{tr}Preferences{/tr}</th>
+        <th>{tr}Values{/tr}</th>
+        <th></th>
+      </tr>
     </thead>
     <tbody>
         {if ! (empty($orphanPrefs))}
             {foreach $orphanPrefs as $pref}
-                <tr class="d-flex">
-                    <td class="col-4"><b>{$pref.name|escape}</br></td>
-                    <td class="col-7">{$pref.value|truncate:55}</td>
-                    <td class="col-1"><a href="tiki-admin.php?page=orphanprefs&clear={$pref.name|escape}" class="tips" title=":{tr}Delete{/tr}">{icon name="trash"}</a></td>
-                </tr>
+              <tr>
+                <th scope="row">{$pref.name|escape}</th>
+                <td>{$pref.value|escape}</td>
+                <td><a href="tiki-admin.php?page=orphanprefs&clear={$pref.name|escape}" class="tips" title=":{tr}Delete{/tr}">{icon name="trash"}</a></td>
+              </tr>
             {/foreach}
         {else}
-            <td class="col text-center"><b>{tr}You have no orphan preferences. All is well !{/tr}</br></td>
+            <tr>
+                <td colspan="2" class="text-center"><b>{tr}You have no orphan preferences. All is well !{/tr}</br></td>
+                <td></td>
+            <tr>
         {/if}
     </tbody>
-</table>
+  </table>
+</div>
 <br>
