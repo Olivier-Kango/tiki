@@ -172,7 +172,7 @@ function wikiplugin_fancytable($data, $params)
     $wret = '<div class="table-responsive"><div id="wpfancytable' . $iFancytable . '-div"' . $style
         . ' class="ts-wrapperdiv">' . "\r\t";
     if (! empty($colwidths)) {  // if colwidths have been set then don't let the .table class set the width to 100%
-        $wret .= '<table class="table table-striped table-hover normal" style="width: auto;" id="wpfancytable' . $iFancytable . '">' . "\r\t";
+        $wret .= '<table class="table table-striped table-hover normal" id="wpfancytable' . $iFancytable . '">' . "\r\t";
     } else {
         $wret .= '<table class="table table-striped table-hover normal" id="wpfancytable' . $iFancytable . '">' . "\r\t";
     }
