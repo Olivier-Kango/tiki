@@ -10363,9 +10363,13 @@ header.navbar.fixed-top {
   --tiki-topbar-dark-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
-  --tiki-admin-dropdown-dark-bg: rgba(240, 245, 250, 0.8);
+  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg);
+  --tiki-admin-dropdown-dark-color: rgba(255, 255, 255, 0.75);
+  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
+  --tiki-admin-dropdown-dark-bg: #444b40;
   --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
+  --tiki-admin-dropdown-light-color: #506295;
+  --tiki-admin-dropdown-light-hover-color: #2c3653;
   --tiki-admin-dropdown-light-bg: rgba(240, 245, 250, 0.8);
   --tiki-admin-toggle-light-bg: rgba(240, 245, 250, 0.8);
   --tiki-admin-navbar-dark-highlight-bg: transparent;

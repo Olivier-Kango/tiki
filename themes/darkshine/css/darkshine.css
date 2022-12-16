@@ -10337,9 +10337,11 @@ textarea.form-control-lg {
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: linear-gradient(to bottom, #040404 0%, #060606 2%, #121212 55%, #0f0f0f 57%, #030303 59%, #000000 61%, #000000 100%);
   --tiki-admin-dropdown-dark-color: #f8f9fa;
-  --tiki-admin-dropdown-dark-bg: #fff;
+  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
+  --tiki-admin-dropdown-dark-bg: #343a40;
   --tiki-admin-navbar-light-bg: linear-gradient(to bottom, #040404 0%, #060606 2%, #121212 55%, #0f0f0f 57%, #030303 59%, #000000 61%, #000000 100%);
   --tiki-admin-dropdown-light-color: #f8f9fa;
+  --tiki-admin-dropdown-light-hover-color: rgba(33, 37, 41, 0.7);
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: linear-gradient(to bottom, #545454 0%, #4e4e4e 5%, #3d3d3d 51%, #3a3a3a 53%, #303030 54%, #2d2d2d 56%, #111111 97%, #0e0e0f 98%, #4a0000 100%);

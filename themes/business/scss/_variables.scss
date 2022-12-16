@@ -12,6 +12,7 @@ $warning:       #f0ad4e;
 $danger:        #B82D28; // #d9534f;
 $dark:          #01366c;
 $black: #000;
+$white: #fff;
 $light: #f6f6f6;
 
 $theme-colors: (
@@ -132,6 +133,8 @@ $dropdown-link-disabled-color:      $gray-500 !default;
 
 $dropdown-dark-color:               $gray-300;
 $dropdown-dark-bg:                  $gray-800;
+$dropdown-dark-link-hover-color:    $white !default;
+$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 // Pagination
 // Placeholders
 // Cards

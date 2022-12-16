@@ -20321,9 +20321,11 @@ legend {
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg);
   --tiki-admin-dropdown-dark-color: rgba(255, 255, 255, 0.55);
+  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
   --tiki-admin-dropdown-dark-bg: #3a3f44;
   --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: rgba(0, 0, 0, 0.55);
+  --tiki-admin-dropdown-light-hover-color: #3a3f44;
   --tiki-admin-dropdown-light-bg: #3a3f44;
   --tiki-admin-toggle-light-bg: #3a3f44;
   --tiki-admin-navbar-dark-highlight-bg: #272b30;

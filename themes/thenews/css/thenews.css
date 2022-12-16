@@ -10293,9 +10293,11 @@ textarea.form-control-lg {
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg);
   --tiki-admin-dropdown-dark-color: #333;
-  --tiki-admin-dropdown-dark-bg: #fff;
+  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
+  --tiki-admin-dropdown-dark-bg: #343a40;
   --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: #333;
+  --tiki-admin-dropdown-light-hover-color: #ff5c1a;
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: #e9ecef;

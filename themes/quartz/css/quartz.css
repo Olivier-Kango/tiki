@@ -10275,9 +10275,11 @@ body {
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
   --tiki-admin-dropdown-dark-color: #fff;
-  --tiki-admin-dropdown-dark-bg: #fff;
-  --tiki-admin-navbar-light-bg: #EBD6F9B3;
+  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
+  --tiki-admin-dropdown-dark-bg: #343a40;
+  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
   --tiki-admin-dropdown-light-color: rgba(52, 58, 64, 0.8);
+  --tiki-admin-dropdown-light-hover-color: #343a40;
   --tiki-admin-dropdown-light-bg: rgba(226, 214, 249, 0.63);
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: rgba(255, 255, 255, 0.4);

@@ -27,9 +27,11 @@ header.navbar.fixed-top {
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: #2C2C2C;
   --tiki-admin-dropdown-dark-color: #dee2e6;
+  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
   --tiki-admin-dropdown-dark-bg: #1C1C1C;
   --tiki-admin-navbar-light-bg: #F0F0F0;
   --tiki-admin-dropdown-light-bg: #e6e6e6;
+  --tiki-admin-dropdown-light-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-admin-toggle-light-bg: #dbdbdb;
   --tiki-admin-navbar-dark-highlight-bg: #007BFF;
   --tiki-admin-navbar-dark-highlight-color: #fff;
