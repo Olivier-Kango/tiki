@@ -393,8 +393,6 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
                 }
 
                 if (is_readable($entry)) {
-                    // shorten vendor_bundled path to avoid mysql index length issues
-                    $file = str_replace('./vendor_bundled/vendor/', '%VB%', $file);
                     $hash = md5_file($entry);
                     $queries[] = "('$file', '$hash', '$version')";
                 }
