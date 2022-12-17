@@ -213,7 +213,9 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
             $value = [];
         }
         $autoassign = (int) $this->getOption('autoassign');
-        if ((empty($value) && $autoassign == 1) || ($autoassign == 2 && ! in_array($user, $value))) {   // always use $user for last mod autoassign
+        if (empty($context['filter_render']) &&     // don't set current user when creating a filter for customsearch
+            ((empty($value) && $autoassign == 1) || ($autoassign == 2 && ! in_array($user, $value)))   // always use $user for last mod autoassign
+        ) {
             $value[] = $user;
         }
         if ($autoassign == 0 || $this->canChangeValue()) {
@@ -269,9 +271,9 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
                 return smarty_function_user_selector(
                     [
                         'user' => $name,
-                        'id'  => 'user_selector_' . $this->getConfiguration('fieldId'),
+                        'id'  => (! empty($context['id']) ? $context['id'] : 'user_selector_' . $this->getConfiguration('fieldId')),
                         'select' => $value,
-                        'name' => $this->getConfiguration('ins_id'),
+                        'name' => $this->getInsertId(),
                         'multiple' => ( $this->getOption('multiple') ? 'true' : 'false' ),
                         'editable' => 'y',
                         'allowNone' => 'y',
