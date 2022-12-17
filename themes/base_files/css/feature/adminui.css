@@ -91,7 +91,6 @@
 .tiki-admin .col-md-12.side-col-toggle-container {
   display: none;
 }
-/* Admin menu left */
 .tiki-admin aside.admin-nav .navbar-light.narrow, .tiki-admin aside.admin-nav .navbar-dark.narrow, .tiki-admin aside.admin-nav .narrow .admin-menu-collapser {
   width: 80px !important;
 }
@@ -170,9 +169,6 @@
   font-size: 1rem;
 }
 @media (max-width: 767.5px) {
-  /* Dropdown when open */
-  /* Font in Menu */
-  /* other changes in mobile menu */
   .tiki-admin .top_modules .dropdown-menu, .tiki-admin .navbar-collapse {
     width: 100%;
     position: fixed !important;
@@ -420,23 +416,6 @@
   background-color: var(--tiki-admin-navbar-dark-highlight-bg);
   color: var(--tiki-admin-navbar-dark-highlight-color);
 }
-/*
-.tiki-admin {
-    .top_modules.navbar-light-parent .dropdown-item {
-        &:focus,
-        &:active
-    .navbar-light {
-        .dropdown-item {
-            &.active,
-            &:active,
-            &:hover,
-            &:focus
-    aside.admin-nav .navbar-light .nav-link:hover {
-                background-color: $blue !important;
-                color: white !important;
-    }
-}
-*/
 .tiki-admin .btn-link:hover, .tiki-admin .top_modules.navbar-dark-parent .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .nav-link:hover, .tiki-admin .btn:focus, .tiki-admin .btn.focus {
   box-shadow: none;
   text-decoration: none;
@@ -550,11 +529,9 @@
 .tiki-admin .form-inline .form-check {
   padding-right: 0.5rem;
 }
-/* no overflow */
 .tiki-admin .container {
   overflow: hidden;
 }
-/* main content */
 .tiki-admin:not(.fixed_width) .col1 .admin-wrapper {
   margin-left: 0;
 }
@@ -575,15 +552,13 @@
   }
 }
 @media (min-width: 992px) {
-  .tiki-admin:not(.fixed_width) .col1 .admin-wrapper, .tiki-admin:not(.fixed_width) .col1 #tikifeedback, .tiki-admin:not(.fixed_width) .main-footer {
-    margin-left: 283px;
+  .tiki-admin .container.container-std {
+    margin-left: 285px;
   }
 }
-/* Filter */
 .tiki-admin .admin-wrapper .navbar-nav.filter-menu {
   width: auto;
 }
-/* Login Button */
 .tiki-admin .module.box-login_box button {
   background-color: transparent;
   border: none;
@@ -608,7 +583,6 @@
   right: 0;
   position: fixed;
 }
-/* Preference bar */
 .tiki-admin .admin-content nav.admin-navbar {
   background-color: transparent !important;
   background-image: none !important;
@@ -648,17 +622,13 @@
 .tiki-admin .admin-wrapper .navbar-toggler:focus {
   box-shadow: none;
 }
-/* Popovers */
 .tiki-admin .popover {
   z-index: 9999;
   max-width: 50vw;
 }
-/* Toggle interactive translation */
 .tiki-admin .form-check.intertrans {
   margin-top: 50px;
 }
-/* scrollbar */
-/* width */
 .tiki-admin nav::-webkit-scrollbar {
   width: 1.2rem;
 }
@@ -668,7 +638,6 @@
 .tiki-admin nav.navbar-light::-webkit-scrollbar-track {
   background-color: var(--tiki-admin-navbar-light-bg);
 }
-/* Handle */
 .tiki-admin nav.navbar-dark::-webkit-scrollbar-thumb {
   background: var(--tiki-admin-dropdown-dark-bg);
   border: 0.4rem solid var(--tiki-admin-navbar-dark-bg) !important;
@@ -679,7 +648,6 @@
   border: 0.4rem solid var(--tiki-admin-navbar-light-bg);
   border-radius: 2rem;
 }
-/* scrollbar in firefox */
 .tiki-admin nav.navbar-dark {
   scrollbar-color: var(--tiki-admin-dropdown-dark-bg);
   scrollbar-width: thin;
@@ -688,18 +656,15 @@
   scrollbar-color: var(--tiki-admin-toggle-light-bg);
   scrollbar-width: thin;
 }
-/* keep the basic/advanced filter aligned and the nav menu at the same place */
 .tiki-admin .admin-navbar ul.nav.navbar-nav.mr-auto {
   position: absolute;
   left: 295px;
   width: max-content;
 }
-/* little tweak of the position */
 .tiki-admin .admin-content nav.admin-navbar {
   padding-left: 6rem;
   top: 0;
 }
-/* FIX: make it the same width as the height */
 .tiki-admin .bg-dark-parent .module.box-login_box button, .tiki-admin .bg-light-parent .module.box-login_box button {
   width: 2.1rem;
 }

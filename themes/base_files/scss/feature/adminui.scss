@@ -2,22 +2,12 @@
 // Core variables and mixins
 $secondary: #6d35a6;
 
-//@import "../../../../vendor_bundled/vendor/twbs/bootstrap/scss/_functions.scss"; // None of these scss files were being used. And now CSS variables are used for theme variations.
-//@import "../../../default/scss/variables"; // Needs to come first, to override defaults. -- Changed to import default theme variables, which is up to date as it imports the vendor file. gary 11/27/2022
-//@import "../tiki-variables"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
-//@import "../tiki-selectors";
-//@import "../bs3-bs4-transition";
-//@import "../external-scripts";
+// SCSS file imports removed - none needed.
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-// $darkgrey: #2C2C2C; // now --tiki-admin-navbar-dark-bg
-// $darkergrey: #1C1C1C; // now --tiki-admin-dropdown-dark-bg
+// Most SCSS color variables replaced by CSS variables for easy theming
 $darkestgrey: #0f0f0f; // maybe replace later
-// $blue: #007BFF; now --tiki-admin-navbar-light-highlight-bg
-// $lightgrey-dark: #dbdbdb; // now --tiki-admin-toggle-light-bg
-// $lightgrey-middle: #e6e6e6; // now --tiki-admin-dropdown-light-bg
-// $lightgrey: #F0F0F0; // now --tiki-admin-navbar-light-bg
 $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor details
 
 .tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .navbar-dark-parent #top_modules {
@@ -34,7 +24,6 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 .tiki-admin .navbar-dark.bg-dark, .tiki-admin .navbar-dark.bg-dark, .tiki-admin .bg-dark, .tiki-admin .bg-light, .tiki-admin nav.top_modules, .tiki-admin #top_modules {
-//    background-image: none !important;
     border: none !important;
     min-height: unset;
 }
@@ -138,7 +127,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     display: none;
 }
 
-/* Admin menu left */
+// Admin menu left
 
 .tiki-admin aside.admin-nav .navbar-light.narrow, .tiki-admin aside.admin-nav .navbar-dark.narrow, .tiki-admin aside.admin-nav .narrow .admin-menu-collapser {
     width: 80px !important;
@@ -166,14 +155,8 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 
 .tiki-admin aside.admin-nav .narrow .navbar-nav a.nav-link {
     display: block;
-//    text-align: center;
     padding: 4px 0 4px 1.5rem;
 }
-
-//.tiki-admin aside.admin-nav .narrow .sections-header a .icon.icon-home,
-//.tiki-admin aside.admin-nav .narrow li, .tiki-admin aside.admin-nav .narrow li .icon .icon {
-//    width: 100%;
-//}
 
 .tiki-admin aside.admin-nav .navbar-light.narrow .navbar-nav > li:after {
     border-bottom: 1px solid $color-light;
@@ -208,10 +191,6 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 .tiki-admin .admin-nav .navbar-dark .nav-item .right.nav-link.collapse-toggle[aria-expanded="true"] {
     background-color: $darkestgrey;
 }
-
-//.tiki-admin .admin-nav .navbar-dark .nav-item .collapse.show {
-//    background-color: var(--tiki-admin-dropdown-dark-bg); //$darkergrey;
-//}
 
 .tiki-admin .admin-nav .navbar-light .nav-item .right.nav-link.collapse-toggle[aria-expanded="true"] {
     background: var(--tiki-admin-toggle-light-bg); // $lightgrey-dark;
@@ -254,7 +233,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 
 @media (max-width: 767.5px) {
 
-    /* Dropdown when open */
+    // Dropdown when open
 
     .tiki-admin .top_modules .dropdown-menu, .tiki-admin .navbar-collapse {
         width: 100%;
@@ -352,7 +331,6 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 
     .tiki-admin .navbar-collapse .navbar-nav.mr-auto li.dropdown {
         font-size: 1.1rem;
-//        margin: 1.2rem 0 !important; -- Too much empty space since 1.2rem + 1.2rem between each li? (gary)
         width: calc(100vw - 6rem);
     }
 
@@ -438,7 +416,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
         margin: 0 !important;
     }
 
-    /* Font in Menu */
+    // Font in Menu
     .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .navbar-light.admin-navbar .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin .navbar-dark.admin-navbar .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-menu a, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu a {
         font-size: 1.3rem !important;
         line-height: 1.2;
@@ -448,7 +426,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
         font-size: 1.1rem !important;
     }
 
-    /* other changes in mobile menu */
+    // other changes in mobile menu
     .tiki-admin .admin-navbar > .navbar-collapse > .navbar-nav > .nav-item > .nav-link.show {
         background-color: #007BFF !important;
         color: white !important;
@@ -485,13 +463,8 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 
-//.tiki-admin .bg-dark .dropdown-item .dropdown-header, .tiki-admin .bg-dark .dropdown-item label, .tiki-admin .navbar-dark .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-header, .tiki-admin .dropdown-item:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu a:hover, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .bg-dark a {
-//    color: white !important;
-//}
-
 .tiki-admin .top_modules .dropdown-header {
     font-family: "Roboto", sans-serif;
-//    font-size: .875rem; Seems too small to me (gary)
     font-weight: 500;
     text-shadow: none;
     border: none;
@@ -501,11 +474,6 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     font-size: .875rem;
 }
 
-//.tiki-admin .dropdown-menu .dropdown-item:hover a {
-//    color: white;
-//    text-decoration: none;
-//}
-
 .tiki-admin .bg-dark .dropdown-divider, .tiki-admin .bg-dark-parent .dropdown-divider {
     border-top: .5px solid white !important;
 }
@@ -513,14 +481,6 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 .tiki-admin .bg-light .dropdown-divider, .tiki-admin .bg-light-parent .dropdown-divider {
     border-top: .5px solid $color-light !important;
 }
-
-//.tiki-admin .bg-dark .text-muted {
-//    color: rgb(255 255 255 / 40%) !important;
-//}
-//
-//.tiki-admin .bg-light .text-muted {
-//    color: rgb(0 0 0 / 25%) !important;
-//}
 
 .tiki-admin .dropdown-menu {
     border: none;
@@ -540,13 +500,6 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
         background: var(--tiki-admin-dropdown-dark-hover-bg) !important;
     }
 }
-//.tiki-admin .bg-light .dropdown-item .dropdown-header, .tiki-admin .bg-light .dropdown-item label, .tiki-admin .navbar-light .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-light-parent .dropdown-header, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .bg-light a {
-//    color: var(--tiki-admin-dropdown-light-color);
-//}
-// Below: Nav links are especially important on admin pages - why make them smaller here? (gary)
-//.tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .top_modules.navbar-light-parent button, .tiki-admin .bg-light .navbar-collapse, .tiki-admin .bg-dark .navbar-collapse, .tiki-admin .bg-light .navbar-collapse .dropdown-item, .tiki-admin .bg-dark .navbar-collapse .dropdown-item, .tiki-admin .navbar-dark.admin-navbar .navbar-nav .nav-link {
-//    font-size: .9rem;
-//}
 
 .tiki-admin .row.row-middle {
     margin-top: 6rem;
@@ -567,12 +520,10 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 .tiki-admin .top_modules.navbar-dark-parent .dropdown-menu, .tiki-admin .bg-dark-parent .dropdown-item.mb-2.mt-2:hover, /*.tiki-admin .bg-dark .dropdown-menu,*/ .tiki-admin .filter-menu .dropdown-item:hover {
     color: var(--tiki-admin-dropdown-dark-color);
     background-color: var(--tiki-admin-dropdown-dark-bg); //$darkgrey !important;
-//    background-image: none;
 }
 
 .tiki-admin .top_modules.navbar-light-parent .dropdown-menu, .tiki-admin .bg-light-parent .dropdown-item.mb-2.mt-2:hover, .tiki-admin .bg-light .dropdown-menu, .tiki-admin .bg-light .filter-menu .dropdown-item:hover {
     background-color: var(--tiki-admin-dropdown-light-bg); // $lightgrey !important;
-//    background-image: none;
 }
 
 .tiki-admin .top_modules.navbar-dark-parent .dropdown-menu, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu {
@@ -610,23 +561,6 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     color: var(--tiki-admin-navbar-dark-highlight-color); // white !important;
 }
 
-/*
-.tiki-admin {
-    .top_modules.navbar-light-parent .dropdown-item {
-        &:focus,
-        &:active
-    .navbar-light {
-        .dropdown-item {
-            &.active,
-            &:active,
-            &:hover,
-            &:focus
-    aside.admin-nav .navbar-light .nav-link:hover {
-                background-color: $blue !important;
-                color: white !important;
-    }
-}
-*/
 .tiki-admin .btn-link:hover,
 .tiki-admin .top_modules.navbar-dark-parent .nav-link:hover,
 .tiki-admin .top_modules.navbar-light-parent .nav-link:hover,
@@ -634,7 +568,6 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 .tiki-admin .btn.focus {
     box-shadow: none;
     text-decoration: none;
-//    color: $blue;
 }
 
 .tiki-admin .admin-content nav.navbar-expand-md.mb-4 {
@@ -673,7 +606,6 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     border-color: #0062cc;
     color: white;
 }
-
 
 .tiki-admin aside.admin-nav .navbar-light > ul > li > a, .tiki-admin aside.admin-nav .navbar-dark > ul > li > a {
     font-weight: 500 !important;
@@ -776,23 +708,16 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     padding-right: .5rem;
 }
 
-/* no overflow */
+// no overflow
 
 .tiki-admin .container {
     overflow: hidden;
 }
 
-/* main content */
+// main content
 .tiki-admin:not(.fixed_width) .col1 .admin-wrapper {
     margin-left: 0;
 }
-//.fixed_width.tiki-admin:not(.sidebar_collapsed) .row.row-middle, .fixed_width.tiki-admin .intertrans.text-center, .fixed_width.tiki-admin:not(.sidebar_collapsed) .footer {
-//    margin-left: 60px !important; // Reduced from 268px due to tabs wrapping in some pages and no need for such a wide margin.
-//}
-
-//.tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center, .tiki-admin:not(.sidebar_collapsed) .footer {
-//    margin-left: 290px !important; // Necessary when .fixed_width is off to prevent aside overlap
-//}
 
 .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
     margin-left: 283px;
@@ -802,14 +727,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     margin-left: 75px;
 }
 
-//.tiki-admin.sidebar_collapsed .row.row-middle, .tiki-admin.sidebar_collapsed .intertrans.text-center, .tiki-admin.sidebar_collapsed .footer {
-//    margin-left: 60px !important;
-//}
-
 @media (max-width: 767.5px) {
- //   .tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center, .tiki-admin:not(.sidebar_collapsed) .footer {
- //       margin-left: 60px !important;
- //   }
     .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
         margin-left: 75px;
     }
@@ -821,21 +739,19 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 @media (min-width: 992px) {
-    .tiki-admin:not(.fixed_width) .col1 .admin-wrapper,
-    .tiki-admin:not(.fixed_width) .col1 #tikifeedback,
-    .tiki-admin:not(.fixed_width) .main-footer {
-        margin-left: 283px;
+    .tiki-admin .container.container-std {
+        margin-left: 285px;
     }
 }
 
 
-/* Filter */
+// Filter
 
 .tiki-admin .admin-wrapper .navbar-nav.filter-menu {
     width: auto;
 }
 
-/* Login Button */
+// Login Button
 
 .tiki-admin .module.box-login_box button {
     background-color: transparent;
@@ -866,14 +782,13 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     position: fixed;
 }
 
-/* Preference bar */
+// Preference bar
 
 .tiki-admin .admin-content nav.admin-navbar {
     background-color: transparent !important;
     background-image: none !important;
     position: fixed;
     left: 0;
-//    font-size: .9rem;
     padding-left: 7rem;
     z-index: 9999 !important;
 }
@@ -917,22 +832,22 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     box-shadow: none;
 }
 
-/* Popovers */
+// Popovers
 
 .tiki-admin .popover {
     z-index: 9999;
     max-width: 50vw;
 }
 
-/* Toggle interactive translation */
+// Toggle interactive translation
 
 .tiki-admin .form-check.intertrans {
     margin-top: 50px;
 }
 
-/* scrollbar */
+// scrollbar
 
-/* width */
+// width
 .tiki-admin nav::-webkit-scrollbar {
     width: 1.2rem;
 }
@@ -945,7 +860,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     background-color: var(--tiki-admin-navbar-light-bg); // $lightgrey;
 }
 
-/* Handle */
+// Handle
 .tiki-admin nav.navbar-dark::-webkit-scrollbar-thumb {
     background: var(--tiki-admin-dropdown-dark-bg); // $darkergrey;
     border: .4rem solid var(--tiki-admin-navbar-dark-bg) !important; //$darkgrey !important;
@@ -958,7 +873,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     border-radius: 2rem;
 }
 
-/* scrollbar in firefox */
+// scrollbar in firefox
 
 .tiki-admin nav.navbar-dark {
     scrollbar-color: var(--tiki-admin-dropdown-dark-bg); // $darkergrey transparent;
@@ -970,20 +885,20 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     scrollbar-width: thin;
 }
 
-/* keep the basic/advanced filter aligned and the nav menu at the same place */
+// keep the basic/advanced filter aligned and the nav menu at the same place
 .tiki-admin .admin-navbar ul.nav.navbar-nav.mr-auto {
     position: absolute;
     left: 295px;
     width: max-content;
 }
 
-/* little tweak of the position */
+// little tweak of the position
 .tiki-admin .admin-content nav.admin-navbar {
     padding-left: 6rem;
     top: 0;
 }
 
-/* FIX: make it the same width as the height */
+// FIX: make it the same width as the height
 .tiki-admin .bg-dark-parent .module.box-login_box button, .tiki-admin .bg-light-parent .module.box-login_box button {
     width: 2.1rem;
 }
