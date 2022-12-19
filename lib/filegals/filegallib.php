@@ -2336,6 +2336,24 @@ class FileGalLib extends TikiLib
 
     public function get_file_by_name($galleryId, $name, $column = 'name')
     {
+        switch ($column) {
+            case 'name':
+                $max = 200;
+                break;
+            case 'filename':
+                $max = 80;
+                break;
+            case 'path':
+                $max = 255;
+                break;
+            default:
+                $max = 9999;
+        }
+        if (function_exists('mb_substr')) {
+            $name = mb_substr($name, 0, $max);
+        } else {
+            $name = substr($name, 0, $max);
+        }
         $query = "select `fileId`,`path`,`galleryId`,`filename`,`filetype`,`data`,`filesize`,`name`,`description`,
                 `created`, `lastModif` from `tiki_files` where `galleryId`=? AND `$column`=? ORDER BY created DESC LIMIT 1";
         $result = $this->query($query, [(int) $galleryId, $name]);
@@ -2345,6 +2363,11 @@ class FileGalLib extends TikiLib
 
     public function get_file_by_filename($filename)
     {
+        if (function_exists('mb_substr')) {
+            $filename = mb_substr($filename, 0, 80);
+        } else {
+            $filename = substr($filename, 0, 80);
+        }
         $query = "select `fileId`,`path`,`galleryId`,`filename`,`filetype`,`data`,`filesize`,`name`,`description`,
                 `created` from `tiki_files` where `filename`=? ORDER BY created DESC LIMIT 1";
         $result = $this->query($query, [$filename]);
@@ -2353,6 +2376,11 @@ class FileGalLib extends TikiLib
 
     public function get_file_gallery_by_name($parentId, $name)
     {
+        if (function_exists('mb_substr')) {
+            $name = mb_substr($name, 0, 80);
+        } else {
+            $name = substr($name, 0, 80);
+        }
         return $this->table('tiki_file_galleries')->fetchFullRow(['parentId' => (int) $parentId, 'name' => $name]);
     }
 
