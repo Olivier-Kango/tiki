@@ -1,0 +1,38 @@
+// CSS variables
+:root {
+    --tiki-top-light-bg: linear-gradient(to bottom, #cbeba5 0%,#caeba2 30%,#c4e999 52%,#b4e27c 53%,#a4dc60 98%,#a3dc5f 99%,#9fda58 100%);
+    --tiki-top-light-color: #000;
+    --tiki-top-light-link-color: #000;
+    --tiki-top-light-link-hover-color: #2c2c2c;
+
+    --tiki-topbar-light-bg: linear-gradient(to bottom, #cbeba5 0%,#caeba2 30%,#c4e999 52%,#b4e27c 53%,#a4dc60 98%,#a3dc5f 99%,#9fda58 100%);
+    --tiki-topbar-light-color: #000;
+    --tiki-topbar-light-link-color: #000;
+    --tiki-topbar-light-link-hover-color: #2c2c2c;
+
+    --tiki-top-dark-bg:  linear-gradient(to bottom, #4c4c4c 0%,#4c4c4c 18%,#404040 52%,#232323 53%,#090909 93%,#070707 99%,#000000 100%);
+    --tiki-top-dark-color: #b8ec79;
+    --tiki-top-dark-link-color: #b8ec79;
+    --tiki-top-dark-link-hover-color: #c8f197;
+
+    --tiki-topbar-dark-bg: linear-gradient(to bottom, #4c4c4c 0%,#4c4c4c 18%,#404040 52%,#232323 53%,#090909 93%,#070707 99%,#000000 100%);
+    --tiki-topbar-dark-color: #b8ec79;
+    --tiki-topbar-dark-link-color: #b8ec79;
+    --tiki-topbar-dark-link-hover-color: #c8f197;
+}
+
+.tiki-admin {
+    --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
+    --tiki-admin-dropdown-dark-color: #{$dropdown-dark-color};
+    --tiki-admin-dropdown-dark-hover-bg: #{$dropdown-dark-link-hover-bg};
+    --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
+    --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
+    --tiki-admin-dropdown-light-color: #000;
+    --tiki-admin-dropdown-light-hover-color: #{$navbar-light-hover-color};
+    --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
+    --tiki-admin-toggle-light-bg: #{$dropdown-bg};
+    --tiki-admin-navbar-dark-highlight-bg: var(--tiki-top-dark-bg);
+    --tiki-admin-navbar-dark-highlight-color: #{$dropdown-link-hover-color};
+    --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
+    --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
+}
