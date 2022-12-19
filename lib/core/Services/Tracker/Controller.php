@@ -442,6 +442,9 @@ class Services_Tracker_Controller
                 'rules' => $rules,
                 'encryptionKeyId' => $input->encryption_key_id->int(),
                 'excludeFromNotification' => $input->exclude_from_notification->int() ? 'y' : 'n',
+                'visibleInViewMode' => $input->visible_in_view_mode->int() ? 'y' : 'n',
+                'visibleInEditMode' => $input->visible_in_edit_mode->int() ? 'y' : 'n',
+                'visibleInHistoryMode' => $input->visible_in_history_mode->int() ? 'y' : 'n',
             ];
 
             $submitted_keys = $input->keys();

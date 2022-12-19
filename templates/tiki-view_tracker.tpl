@@ -184,7 +184,7 @@
                                 {/if}
 
                                 {foreach from=$listfields key=ix item=field_value}
-                                    {if $field_value.isTblVisible eq 'y' and ( $field_value.type ne 'x' and $field_value.type ne 'h') and ($field_value.type ne 'p' or $field_value.options_array[0] ne 'password')}
+                                    {if $field_value.isTblVisible eq 'y' and ( $field_value.type ne 'x' and $field_value.type ne 'h') and ($field_value.type ne 'p' or $field_value.options_array[0] ne 'password') and $field_value.visibleInViewMode eq 'y'}
                                         <th class="auto">
                                             {self_link _sort_arg='sort_mode' _sort_field='f_'|cat:$field_value.fieldId}{$field_value.name|tra|truncate:255:"..."|escape|default:"&nbsp;"}{/self_link}
                                         </th>
@@ -244,7 +244,7 @@
                                             ($tiki_p_modify_tracker_items_closed eq 'y' and $items[user].status eq 'c')
                                     }
                                     {foreach from=$items[user].field_values key=ix item=field_value}
-                                        {if $field_value.isTblVisible eq 'y' and $field_value.type ne 'x' and $field_value.type ne 'h' and ($field_value.type ne 'p' or $field_value.options_array[0] ne 'password')}
+                                        {if $field_value.isTblVisible eq 'y' and $field_value.type ne 'x' and $field_value.type ne 'h' and ($field_value.type ne 'p' or $field_value.options_array[0] ne 'password') and $field_value.visibleInViewMode eq 'y'}
                                             <td class={if $field_value.type eq 'n' or $field_value.type eq 'q' or $field_value.type eq 'b'}"numeric"{else}"auto"{/if}>
                                                 {trackeroutput field=$field_value showlinks=y showpopup="y" item=$items[user] list_mode=y inTable=formcolor reloff=$itemoff editable=($ajaxedit and $listfields[$field_value.fieldId].editable) ? 'block' : ''}
                                             </td>

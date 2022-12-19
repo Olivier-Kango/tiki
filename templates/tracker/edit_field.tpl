@@ -265,6 +265,27 @@ $('select[name=type]').change(function () {
                     {tr}Data and changes to this field are not included in email notifications.{/tr}
                 </div>
             </div>
+            <div class="mb-3 row mx-0">
+                <label for="type" class="col-form-label">{tr}Visible in view mode{/tr}</label>
+                <select name="visible_in_view_mode" class="form-select"  data-original="{$field.visibleInViewMode}">
+                    <option value="0" {if $field.visibleInViewMode eq 'n'}selected="selected"{/if}>No</option>
+                    <option value="1" {if $field.visibleInViewMode eq 'y'}selected="selected"{/if}>Yes</option>
+                </select>
+            </div>
+            <div class="mb-3 row mx-0">
+                <label for="type" class="col-form-label">{tr}Visible in edit mode{/tr}</label>
+                <select name="visible_in_edit_mode" class="form-select"  data-original="{$field.visibleInEditMode}">
+                    <option value="0" {if $field.visibleInEditMode eq 'n'}selected="selected"{/if}>No</option>
+                    <option value="1" {if $field.visibleInEditMode eq 'y'}selected="selected"{/if}>Yes</option>
+                </select>
+            </div>
+            <div class="mb-3 row mx-0">
+                <label for="type" class="col-form-label">{tr}Visible in history mode{/tr}</label>
+                <select name="visible_in_history_mode" class="form-select"  data-original="{$field.visibleInHistoryMode}">
+                    <option value="0" {if $field.visibleInHistoryMode eq 'n'}selected="selected"{/if}>No</option>
+                    <option value="1" {if $field.visibleInHistoryMode eq 'y'}selected="selected"{/if}>Yes</option>
+                </select>
+            </div>
         {/accordion_group}
     {/accordion}
 

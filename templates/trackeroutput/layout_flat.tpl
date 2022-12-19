@@ -10,7 +10,7 @@
     {assign var=stick value="n"}
 
     {foreach from=$fields key=ix item=cur_field}
-        {if !($tracker_info.doNotShowEmptyField eq 'y' and isset($cur_field.field_is_empty) and $cur_field.field_is_empty)}
+        {if !($tracker_info.doNotShowEmptyField eq 'y' and isset($cur_field.field_is_empty) and $cur_field.field_is_empty) and $cur_field.visibleInViewMode eq 'y'}
 
             {if $cur_field.type eq 'h'}
                 </dl>

@@ -69,38 +69,40 @@
             {if $hist.value neq $hist.new}
                 {assign var='fieldId' value=$hist.fieldId}
                 {assign var='field_value' value=$field_option[$fieldId]}
-                <tr>
-                    {if $last_version neq $hist.version}
-                        <td class="id"><strong>{$hist.version|escape}</strong></td>
-                        <td class="date"><strong>{if not empty($hist.lastModif)}{$hist.lastModif|tiki_short_datetime}{/if}</strong></td>
-                        <td class="username"><strong>{$hist.user|username}</strong></td>
-                        {$last_version = $hist.version}
-                    {else}
-                        <td class="id">&nbsp;</td>
-                        <td class="date">&nbsp;</td>
-                        <td class="username">&nbsp;</td>
-                    {/if}
-                    <td class="text">
-                        {if $fieldId ne -1}{$fieldId}{/if}
-                    </td>
-                    <td class="text">
-                        {if $fieldId eq -1}_{tr}Status{/tr}_{else}{$field_option[$fieldId].name}{/if}
-                    </td>
-                    {if empty($diff_style)}
-                        {if !empty($field_value.fieldId)}
-                            <td class="text">{$field_value.value=$hist.value}{trackeroutput field=$field_value list_mode=csv item=$item_info history=y process=y}</td>
-                            <td class="text">{$field_value.value=$hist.new}{trackeroutput field=$field_value list_mode=csv item=$item_info history=y process=y}</td>
+                {if $field_value.visibleInHistoryMode eq 'y'}
+                    <tr>
+                        {if $last_version neq $hist.version}
+                            <td class="id"><strong>{$hist.version|escape}</strong></td>
+                            <td class="date"><strong>{if not empty($hist.lastModif)}{$hist.lastModif|tiki_short_datetime}{/if}</strong></td>
+                            <td class="username"><strong>{$hist.user|username}</strong></td>
+                            {$last_version = $hist.version}
                         {else}
-                            <td class="text">{$hist.value|escape}</td>
-                            <td class="text">{$hist.new|escape}</td>
+                            <td class="id">&nbsp;</td>
+                            <td class="date">&nbsp;</td>
+                            <td class="username">&nbsp;</td>
                         {/if}
-                    {else}
-                        <td colspan="2" class="tracker-diff {$diff_style}">
-                            {$field_value.value=$hist.new}
-                            {trackeroutput field=$field_value list_mode='y' history=y item=$item_info process=y oldValue=$hist.value diff_style=$diff_style}
+                        <td class="text">
+                            {if $fieldId ne -1}{$fieldId}{/if}
                         </td>
-                    {/if}
-                </tr>
+                        <td class="text">
+                            {if $fieldId eq -1}_{tr}Status{/tr}_{else}{$field_option[$fieldId].name}{/if}
+                        </td>
+                        {if empty($diff_style)}
+                            {if !empty($field_value.fieldId)}
+                                <td class="text">{$field_value.value=$hist.value}{trackeroutput field=$field_value list_mode=csv item=$item_info history=y process=y}</td>
+                                <td class="text">{$field_value.value=$hist.new}{trackeroutput field=$field_value list_mode=csv item=$item_info history=y process=y}</td>
+                            {else}
+                                <td class="text">{$hist.value|escape}</td>
+                                <td class="text">{$hist.new|escape}</td>
+                            {/if}
+                        {else}
+                            <td colspan="2" class="tracker-diff {$diff_style}">
+                                {$field_value.value=$hist.new}
+                                {trackeroutput field=$field_value list_mode='y' history=y item=$item_info process=y oldValue=$hist.value diff_style=$diff_style}
+                            </td>
+                        {/if}
+                    </tr>
+                {/if}
             {/if}
         {/foreach}
     </table>

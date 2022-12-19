@@ -3433,7 +3433,7 @@ class TrackerLib extends TikiLib
     }
 
 
-    public function replace_tracker_field($trackerId, $fieldId, $name, $type, $isMain, $isSearchable, $isTblVisible, $isPublic, $isHidden, $isMandatory, $position, $options, $description = '', $isMultilingual = '', $itemChoices = null, $errorMsg = '', $visibleBy = null, $editableBy = null, $descriptionIsParsed = 'n', $validation = '', $validationParam = '', $validationMessage = '', $permName = null, $rules = null, $encryptionKeyId = null, $excludeFromNotification = false)
+    public function replace_tracker_field($trackerId, $fieldId, $name, $type, $isMain, $isSearchable, $isTblVisible, $isPublic, $isHidden, $isMandatory, $position, $options, $description = '', $isMultilingual = '', $itemChoices = null, $errorMsg = '', $visibleBy = null, $editableBy = null, $descriptionIsParsed = 'n', $validation = '', $validationParam = '', $validationMessage = '', $permName = null, $rules = null, $encryptionKeyId = null, $excludeFromNotification = false, $visibleInViewMode = false, $visibleInEditMode = false, $visibleInHistoryMode = false)
     {
         // Serialize choosed items array (items of the tracker field to be displayed in the list proposed to the user)
         if (is_array($itemChoices) && count($itemChoices) > 0 && ! empty($itemChoices[0])) {
@@ -3488,7 +3488,10 @@ class TrackerLib extends TikiLib
             'validationMessage' => $validationMessage,
             'rules' => $rules,
             'encryptionKeyId' => $encryptionKeyId,
-            'excludeFromNotification' => $excludeFromNotification
+            'excludeFromNotification' => $excludeFromNotification,
+            'visibleInViewMode' => $visibleInViewMode,
+            'visibleInEditMode' => $visibleInEditMode,
+            'visibleInHistoryMode' => $visibleInHistoryMode
         ];
 
         $logOption = null;
@@ -4374,7 +4377,10 @@ class TrackerLib extends TikiLib
                 null,
                 $field['rules'],
                 $field['encryptionKeyId'],
-                $field['excludeFromNotification']
+                $field['excludeFromNotification'],
+                $field['visibleInViewMode'],
+                $field['visibleInEditMode'],
+                $field['visibleInHistoryMode']
             );
             if ($options['defaultOrderKey'] == $field['fieldId']) {
                 $options['defaultOrderKey'] = $newFieldId;
