@@ -10,7 +10,7 @@ body {
 
 .tiki .wiki.external + .icon-link-external,
 .tiki .wiki.external .icon-link-external,
-.editable-inline .ico {
+.editable-inline .icon-edit {
     color: $link-color;
     &:hover {
     color: $link-hover-color;
@@ -366,49 +366,6 @@ a.toggle_zone {
     color: #222;
 }
 
-//.table-striped {
-//    color: #222222;
-//    border: 1px solid #95da58;
-//}
-//
-//.table-striped > tbody > tr:nth-of-type(odd),
-//.tablesorter tr.odd td {
-//    background: #c6e99c;
-//    color: #222222;
-//}
-//
-//.table-striped > tbody > tr:nth-of-type(odd) a,
-//.tablesorter tr.odd td a {
-//    color: #626262;
-//}
-//
-//.table-striped > tbody > tr:nth-of-type(even),
-//.tablesorter tr.even td {
-//    background: #b0e077;
-//    color: #222222;
-//}
-
-//.table-striped > tbody > tr:nth-of-type(even) a,
-//.tablesorter tr.even td a {
-//    color: #3c3c3c;
-//}
-//
-//.table-hover > tbody > tr > td:hover,
-//.table-hover > tbody > tr > th:hover,
-//.table-hover > tbody > tr:hover > td,
-//.table-hover > tbody > tr:hover,
-//.table-hover > tbody > tr:hover > th {
-//    background: #3c3c3c;
-//}
-//
-//.table-striped.table-hover > tbody > tr > td:hover,
-//.table-striped.table-hover > tbody > tr > th:hover,
-//.table-striped.table-hover > tbody > tr:hover > td,
-//.table-striped.table-hover > tbody > tr:hover,
-//.table-striped.table-hover > tbody > tr:hover > th {
-//    background-color: #d2eeb1 !important;
-//}
-
 th,
 td.heading,
 tr.diffheader {
@@ -451,22 +408,14 @@ textarea,
 .alert a,
 .jumbotron a,
 textarea a,
-.form-control a,
-.chosen-container-single .chosen-single a,
-.chosen-container-active.chosen-with-drop .chosen-single a,
-.chosen-container .chosen-drop a,
-.chosen-container-multi .chosen-choices .search-choice a {
+.form-control a {
     color: #5da10a;
 }
 
 .alert a:hover,
 .jumbotron a:hover,
 textarea a:hover,
-.form-control a:hover,
-.chosen-container-single .chosen-single a:hover,
-.chosen-container-active.chosen-with-drop .chosen-single a:hover,
-.chosen-container .chosen-drop a:hover,
-.chosen-container-multi .chosen-choices .search-choice a:hover {
+.form-control a:hover {
     color: #417107;
 }
 
@@ -493,24 +442,9 @@ textarea a:hover,
     padding: 1em 1.4em;
 }
 
-
-
-//.nav-tabs > li > a {
-//    background: #0a0a0a url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_glass_40_0a0a0a_1x400.png') 50% 50% repeat-x;
-//    color: #b8ec79;
-//}
-//
-//.nav > li > a:hover,
-//.nav > li > a:focus,
-//.nav-tabs > li.active > a,
-//.nav-tabs > li.active > a:hover,
-//.nav-tabs > li.active > a:focus,
-//.nav .open > a,
-//.nav .open > a:hover,
-//.nav .open > a:focus {
-//    background: #4c4c4c url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') 50% 50% repeat-x;
-//    color: #ffffff !important;
-//}
+.even { // Counter jqui style
+    color: inherit;
+}
 
 .caltable .even,
 .caltable .odd {
@@ -571,4 +505,8 @@ td.calheadhighlight a:visited {
 code, pre.codelisting {
     background: #f8f8f8;
     color: #111111;
+}
+
+.card-accordian > .card-header h4.card-title a {
+    color: #000;
 }

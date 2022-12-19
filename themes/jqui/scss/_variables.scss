@@ -3,11 +3,59 @@
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 
 // Colors
-$primary: #0001a6;
-$dark: #ccc;
-$theme-colors: (
-     "primary": #0001a6,
+// scss-docs-start gray-color-variables
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+// scss-docs-end gray-color-variables
+
+// fusv-disable
+// scss-docs-start gray-colors-map
+$grays: (
+    "100": $gray-100,
+    "200": $gray-200,
+    "300": $gray-300,
+    "400": $gray-400,
+    "500": $gray-500,
+    "600": $gray-600,
+    "700": $gray-700,
+    "800": $gray-800,
+    "900": $gray-900
 );
+// scss-docs-end gray-colors-map
+// scss-docs-start theme-color-variables
+$primary:       #0001a6;
+$secondary:     #adb5bd;
+$success:       #56C07B;
+$info:          #39A0CB;
+$warning:       #F0AD4E;
+$danger:        #D9534F;
+$light:         $gray-100;
+$dark:          $gray-900;
+// scss-docs-end theme-color-variables
+
+// scss-docs-start theme-colors-map
+$theme-colors: (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
+);
+// scss-docs-end theme-colors-map
+
+
 
 // Options
 // Spacing
@@ -62,6 +110,17 @@ $card-border-color: #999999;
 // Tooltips
 // Popovers
 // Badges
+// Badges
+
+// scss-docs-start badge-variables
+$badge-font-size:                   .75em;
+//$badge-font-weight:                 $font-weight-bold;
+$badge-color:                       $black;
+$badge-padding-y:                   .35em;
+$badge-padding-x:                   .65em;
+//$badge-border-radius:               $border-radius;
+// scss-docs-end badge-variables
+
 // Modals
 // Alerts
 // Progress bars

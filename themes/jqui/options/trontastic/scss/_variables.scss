@@ -144,14 +144,14 @@ $headings-font-family: Play;
 $headings-font-weight: 700;
 
 // Tables
-$table-color:                 var(--#{$prefix}body-color);
-$table-bg:                    transparent;
-$table-accent-bg:             transparent;
+$table-color:                 $body-color;
+$table-bg:                    $body-bg;
+$table-accent-bg:             lighten($body-bg,5%);
 
 $table-th-font-weight:        null;
 
 $table-striped-color:         $table-color;
-$table-striped-bg-factor:     .05;
+$table-striped-bg-factor:     1;
 $table-striped-bg:            rgba($black, $table-striped-bg-factor);
 
 $table-active-color:          $table-color;
@@ -162,16 +162,16 @@ $table-hover-color:           $table-color;
 $table-hover-bg-factor:       .075;
 $table-hover-bg:              rgba($black, $table-hover-bg-factor);
 
-$table-border-factor:         .1;
+$table-border-factor:         .3;
 $table-border-width:          $border-width;
-$table-border-color:          var(--#{$prefix}border-color);
+$table-border-color:          #aaa;
 
 $table-striped-order:         odd;
 $table-striped-columns-order: even;
 
 $table-group-separator-color: currentcolor;
 
-$table-caption-color:         $text-muted;
+$table-caption-color:         $text-muted-readable;
 
 // Forms
 $input-color: #000;
@@ -186,6 +186,17 @@ $list-group-bg:                     $body-bg;
 
 // Figures
 $figure-caption-color:              $text-muted;
+
+// Badges
+
+// scss-docs-start badge-variables
+$badge-font-size:                   .75em !default;
+//$badge-font-weight:                 $font-weight-bold !default;
+$badge-color:                       $white !default;
+$badge-padding-y:                   .35em !default;
+$badge-padding-x:                   .65em !default;
+$badge-border-radius:               $border-radius !default;
+// scss-docs-end badge-variables
 
 // Code
 $code-font-size:                    1rem;
