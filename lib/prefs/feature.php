@@ -1982,6 +1982,8 @@ function prefs_feature_list($partial = false)
                 'vader' => 'vader',
             ],
             'default' => 'flick',   // theme for UI lib (see http://jqueryui.com/themeroller/ for list & demos - previously ui-darkness)
+            'tags' => ['deprecated'],
+            'warning' => tra('This feature has been redundant since Tiki 18 and will be removed after Tiki25.'),
         ],
         'feature_jquery_validation' => [
             'name' => tra('Validation'),
