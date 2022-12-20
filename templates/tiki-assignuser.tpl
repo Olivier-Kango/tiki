@@ -3,7 +3,7 @@
 {assign var=escuser value=$assign_user|escape:url}
 {title}{tr _0=$assign_user}Assign User %0 to Groups{/tr}{/title}
 
-<div class="t_navbar btn-group mb-3 row">
+<div class="t_navbar btn-group mb-3">
     {if $tiki_p_admin eq 'y'} {* only full admins can manage groups, not tiki_p_admin_users *}
         {button href="tiki-admingroups.php" class="btn btn-primary" _text="{tr}Admin groups{/tr}"}
     {/if}
