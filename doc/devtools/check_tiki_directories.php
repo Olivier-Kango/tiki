@@ -52,7 +52,7 @@ foreach (new RecursiveIteratorIterator($it) as $file) {
         continue;
     }
 
-    if (! file_exists($filePath . '/index.php') && ! file_exists($filePath . '/Index.php')) {
+    if (empty(glob($filePath . '/[iI][nN][dD][eE][xX].[pP][hH][pP]'))) { // index.php case-insensitive
         $missingIndexMessage .= color($filePath, 'blue') . PHP_EOL;
 
         if ($fixIndex) {
