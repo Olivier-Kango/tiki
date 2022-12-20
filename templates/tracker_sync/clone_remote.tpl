@@ -35,7 +35,7 @@
                 {if $list}
                     <input type="submit" class="btn btn-primary" value="{tr}Clone{/tr}">
                 {else}
-                    <input type="submit" class="btn btn-secondary" value="{tr}Search for trackers to clone{/tr}">
+                    <input type="submit" class="btn btn-info" value="{tr}Search for trackers to clone{/tr}">
                 {/if}
             </div>
         </form>

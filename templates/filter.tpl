@@ -115,7 +115,7 @@
         {/if}
 
     <div class="text-center">
-        <input type="submit" class="btn btn-primary" value="{tr}Search{/tr}">
+        <input type="submit" class="btn btn-info" value="{tr}Search{/tr}">
         {if $prefs.tracker_tabular_enabled eq 'y' && ! empty($smarty.get.tabularId)}
             <input type="hidden" name="tabularId" value="{$smarty.get.tabularId|escape}">
             <button class="tabular-export btn btn-secondary">
@@ -148,7 +148,7 @@
         {/if}
         {if $prefs.storedsearch_enabled eq 'y' and $user}
             <input type="hidden" name="storeAs" value=""/>
-            <a href="{service controller=search_stored action=select modal=true}" id="store-query" class="btn btn-secondary">{tr}Save Search{/tr}</a>
+            <a href="{service controller=search_stored action=select modal=true}" id="store-query" class="btn btn-info">{tr}Save Search{/tr}</a>
             <a href="{service controller=search_stored action=list}" class="btn btn-link">{tr}View Saved Searches{/tr}</a>
             {jq}
                 $('#store-query').clickModal({

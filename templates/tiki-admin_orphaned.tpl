@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<div class="mb-3 text-center">
-        <input type="submit" class="btn btn-primary" name="submit" value="{tr}Search{/tr}">
+        <input type="submit" class="btn btn-info" name="submit" value="{tr}Search{/tr}">
     </div>
 </form>
 
