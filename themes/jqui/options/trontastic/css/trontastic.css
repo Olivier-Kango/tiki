@@ -3690,6 +3690,12 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 body {
   background: url("../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_diagonals-small_50_262626_40x40.png") repeat !important;
 }
+.icon.icon-toggle-left, .icon.icon-toggle-right {
+  color: #b8ec79;
+}
+.icon.icon-toggle-left:hover, .icon.icon-toggle-right:hover {
+  color: #a0e64c;
+}
 .nav-item.show .nav-link.highlighted {
   color: #cbf19d;
 }
