@@ -22,9 +22,8 @@
             || $tiki_p_remove_submission == "y" || $tiki_p_edit_submission == "y")}
                 {button href="tiki-list_submissions.php" _type="link" class="btn btn-link" _icon_name="view" _text="{tr}View Submissions{/tr}"}
             {/if}
-            <div class="btn-group float-end">
-                {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-                <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
+
+                <a class="btn btn-sm btn-info dropdown-toggle float-end" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                     {icon name='menu-extra'}
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -45,8 +44,7 @@
                         </a>
                     {/if}
                 </div>
-                {if ! $js}</li></ul>{/if}
-            </div>
+
         </div>
     {/if}
 {/if}
