@@ -486,12 +486,15 @@ class CleanVendors
 
     private static function addIndexFiles(string $path): void
     {
+        // add index file if needed
+        $index = glob($path . '[iI][nN][dD][eE][xX].[pP][hH][pP]'); // index.php case-insensitive
+        if (empty($index)) {
+            file_put_contents($path . 'index.php', '');
+        }
+
+        // recursive call to all sub-directories
         $dirs = glob($path . '{,.}*[!.]', GLOB_MARK | GLOB_BRACE | GLOB_ONLYDIR);
         foreach ($dirs as $dir) {
-            $file = $dir . 'index.php';
-            if (! file_exists($file)) {
-                file_put_contents($file, '');
-            }
             self::addIndexFiles($dir);
         }
     }
