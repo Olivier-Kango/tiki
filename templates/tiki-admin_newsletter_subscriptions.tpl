@@ -2,7 +2,7 @@
 {assign var=nlId_urlencoded value=$nlId|urlencode}
 {title url="tiki-admin_newsletter_subscriptions.php?nlId=$nlId_urlencoded"}{tr}Admin newsletter subscriptions{/tr}{/title}
 
-<div class="t_navbar btn-group mb-3 row mb-4">
+<div class="t_navbar btn-group mb-4">
     {button href="tiki-newsletters.php" class="btn btn-info" _icon_name="list" _text="{tr}List{/tr}"}
     {assign var="nlid_encod" value=$nlId|urlencode}
     {button href="tiki-admin_newsletters.php?nlId=$nlid_encod" class="btn btn-primary" _icon_name="edit" _text="{tr}Edit{/tr}"}
