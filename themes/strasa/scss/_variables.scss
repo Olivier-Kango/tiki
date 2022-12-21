@@ -16,8 +16,8 @@ $gray-900: #212529 !default;
 $black:    #000 !default;
 
 $primary: #006699;
-$secondary: #7400c3;
-$success: #48ca3b;
+$secondary: #4416A1FF;
+$success: #318A28FF;
 $info: #4d3a7d;
 $warning: #debb27;
 $danger: #df6e1e;
@@ -36,10 +36,14 @@ $theme-colors: (
 $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
 
 // Options
+// Prefix for :root CSS variables
+
+$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
 // Spacing
 
 // Body
-$body-bg: #214d68;
+$body-bg: #fff; // #214d68;
 $body-color: $gray-800;
 
 // Links
@@ -72,7 +76,7 @@ $input-border: #4d7b9b;
 
 // Dropdowns
 // Navs
-$nav-tabs-link-active-color: #fff;
+//$nav-tabs-link-active-color: #fff;
 
   // Navbar
 $navbar-dark-color: #ffffff;

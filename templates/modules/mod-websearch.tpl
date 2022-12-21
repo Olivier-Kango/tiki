@@ -35,7 +35,7 @@ $(document).ready(function(){
         <div class="text-center">
             <button
                 type="submit"
-                class="btn btn-primary"
+                class="btn btn-info"
             >
                 {tr}Search{/tr}
             </button>

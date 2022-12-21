@@ -21,6 +21,10 @@ body.fullscreen.tiki.navbar-padding {
   background: #ffffff;
 }
 
+.layout_classic .topbar-wrapper {
+    width: 100%;
+}
+
 .even {
     background: #f0f0f0;
     color: #343a40;
@@ -45,13 +49,13 @@ body.fullscreen.tiki.navbar-padding {
 //  }
 //}
 
-.topbar {
-  margin-bottom: 20px;
-}
+//.topbar {
+//  margin-bottom: 20px;
+//}
 
-.navbar.bg-light,
-.navbar.bg-dark,
-.topbar,
+//.navbar.bg-light,
+//.navbar.bg-dark,
+//.topbar,
 // div:not(.topbar) .navbar-light .navbar-nav > li,
 // .topbar .nav > li,
 .siteloginbar_popup .dropdown-menu {
@@ -130,7 +134,7 @@ input,
   }
 
   h6 {
-    color: #909090;
+    color: #757575;
   }
 }
 
@@ -208,22 +212,6 @@ h3.card-title {
   border: none;
   background: transparent;
 }
-
-th,
-td.heading {
-  color: #5ae0ff;
-  background: #1b3a50;
-}
-
-th a:link,
-th a:visited,
-td.heading a:link,
-td.heading a:visited {
-  color: #5ae0ff;
-  text-decoration: none;
-}
-
-.adminanchors.card { background: transparent; }
 
 #footer {
     color: #999;

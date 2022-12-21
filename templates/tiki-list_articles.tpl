@@ -22,9 +22,11 @@
 </div>
 
 {if $listpages or ($find ne '') or ($types ne '') or ($topics ne '') or ($lang ne '') or ($categId ne '')}
-    <button class="btn btn-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#searchListArticles" aria-expanded="false" aria-controls="searchListArticles">
-        {tr}Search Tools{/tr}
-    </button>
+    <div class="search-button-container clearfix">
+        <button class="btn btn-info btn-sm mb-2 dropdown-toggle float-end" type="button" data-bs-toggle="collapse" data-bs-target="#searchListArticles" aria-expanded="false" aria-controls="searchListArticles" title="{tr}Search articles{/tr}">
+            {icon name="search"}
+        </button>
+    </div>
     <div class="collapse" id="searchListArticles">
         {include file='find.tpl' find_show_languages='y' find_show_categories_multi='y' find_show_num_rows='y' find_show_date_range='y'}
     </div>

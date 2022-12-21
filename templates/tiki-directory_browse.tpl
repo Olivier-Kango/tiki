@@ -36,7 +36,7 @@
                 <option value="all">{tr}in entire directory{/tr}</option>
                 <option value="cat">{tr}in current directory category{/tr}</option>
             </select>
-            <input type="submit" class="btn btn-primary btn-sm" value="{tr}Search{/tr}">
+            <input type="submit" class="btn btn-info btn-sm" value="{tr}Search{/tr}">
         </form>
     </div>
 {/if}

@@ -6,7 +6,14 @@
         {include file='blog_heading.tpl'}
     {/if}
     {if $use_find eq 'y'}
-        {include file='find.tpl' find_show_num_rows='y'}
+        <div class="search-button-container clearfix">
+            <button class="btn btn-info btn-sm mb-2 dropdown-toggle float-end" type="button" data-bs-toggle="collapse" data-bs-target="#searchBlogs" aria-expanded="false" aria-controls="searchBlogs" title="{tr}Search blogs{/tr}">
+                {icon name="search"}
+            </button>
+        </div>
+        <div class="collapse" id="searchBlogs">
+            {include file='find.tpl' find_show_num_rows='y'}
+        </div>
     {/if}
 {/if}
 
