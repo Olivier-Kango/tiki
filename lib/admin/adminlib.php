@@ -9,6 +9,7 @@
 /**
  *
  */
+
 class AdminLib extends TikiLib
 {
     /**
@@ -662,5 +663,97 @@ class AdminLib extends TikiLib
         }
 
         return $show_warning;
+    }
+
+    /**
+     * Check if System Configuration file contains something unusable/invalid
+     *
+     * @return array|false
+     */
+    public function checkConfigurationFileErrors()
+    {
+        $defaultPrefs = get_default_prefs();
+        // Retrieving all configuration file data
+        $configData = [];
+        try {
+            $configData = $this->retrieveConfigFileData(true);
+        } catch (Exception $e) {
+            Feedback::error($e->getMessage());
+        }
+
+        if (! $configData) {
+            return false;
+        }
+        $errors_data = [];
+        foreach ($configData as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $k => $v) {
+                    // prefs/rules defined without section
+                    if (
+                        ($key == "preference" && ! array_key_exists($k, $defaultPrefs))
+                        || ($key == "rules" && ! is_numeric($k))
+                    ) {
+                        $errors_data[] = $key . '.' . $k;
+                    } else if ($key != "preference" && $key != "rules") {
+                        // $v must be an array otherwise the user may have just introduced for example: feature_sefurl instead of preference.feature_sefurl
+                        // also reports an error if someone tries to use a key other than rules or preference
+                        if (! is_array($v) || ($k != "rules" && $k != "preference")) {
+                            $errors_data[] = $k;
+                        }
+                        foreach ($v as $index => $val) {
+                            // in case of pref, check if it is a valid preference
+                            // in case of rules, avoid something like rules.e
+                            if (
+                                ($k == "preference" && ! array_key_exists($index, $defaultPrefs))
+                                || ($k == "rules" && ! is_numeric($index))
+                            ) {
+                                $errors_data[] = $k . '.' . $index;
+                            }
+                        }
+                    }
+                }
+            } else {
+                $errors_data[] = $key;
+            }
+        }
+        return $errors_data;
+    }
+
+    /**
+     * Retrieving configuration file data
+     *
+     * @return array
+     * @throws Exception If configuration file is not readable
+     */
+    public function retrieveConfigFileData($retrieve_all_data = false)
+    {
+        global $system_configuration_identifier, $system_configuration_file;
+
+        if (! is_readable($system_configuration_file)) {
+            throw new Exception(tr('%0 configuration file could not be read', $system_configuration_file));
+        }
+        $configData = [];
+        if ($retrieve_all_data || ! isset($system_configuration_identifier)) {
+            $system_configuration_identifier = null;
+        }
+        $configReader = new Tiki_Config_Ini();
+        $configReader->setFilterSection($system_configuration_identifier);
+
+        if (preg_match('/\.ini.php$/', $system_configuration_file)) {
+            $retrieveIniContent = function ($system_configuration_file) {
+                ob_start();
+                include($system_configuration_file);
+                $system_configuration_file_content = ob_get_contents();
+                ob_end_clean();
+
+                return $system_configuration_file_content;
+            };
+
+            $system_configuration_content = $retrieveIniContent($system_configuration_file);
+            $configData = $configReader->fromString($system_configuration_content);
+        } else {
+            $configData = $configReader->fromFile($system_configuration_file);
+        }
+        return $configData;
     }
 }

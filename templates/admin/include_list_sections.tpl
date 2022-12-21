@@ -13,6 +13,17 @@
     {/remarksbox}
 {/if}
 
+{if $config_file_errors}
+    {remarksbox type="warning" title="{tr}Warning{/tr}"}
+        {tr _0='<strong><a href="https://doc.tiki.org/System-Configuration">https://doc.tiki.org/System-Configuration</a></strong>'}Possible error(s) in your system configuration file. Please check the doc %0 for the right syntax to use.{/tr}<br>
+        <ul>
+            {foreach from=$config_file_errors item=value}
+                <li>{tr}Error in .ini file near{/tr} <strong>{$value|escape}</strong></li>
+            {/foreach}
+        </ul>
+    {/remarksbox}
+{/if}
+
 {if $prefs.theme_unified_admin_backend eq 'y'}
     {modulelist zone='admin' id='admin_modules' class='mb-3 d-flex flex-wrap justify-content-between admin_modules'}
 

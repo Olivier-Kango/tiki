@@ -413,6 +413,11 @@ $smarty->assign('admin_icons', $admin_icons);
 $show_warning = $adminlib->checkSystemConfigurationFile();
 $smarty->assign('show_system_configuration_warning', $show_warning);
 
+if (isset($system_configuration_file)) {
+    $config_file_errors = $adminlib->checkConfigurationFileErrors();
+    $smarty->assign('config_file_errors', $config_file_errors);
+}
+
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template
