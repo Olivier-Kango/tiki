@@ -3757,7 +3757,6 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./lib/test/lib/accounting/AccountingLibTest.php', 'cbc1f3c14ab98982209d7c94e01ca568', '25.1vcs'),
 ('./lib/test/lib/accounting/index.php', 'e623b454c7d54784cde7dbab91b643a9', '25.1vcs'),
 ('./lib/test/lib/index.php', 'e623b454c7d54784cde7dbab91b643a9', '25.1vcs'),
-('./lib/test/local.php', '7df49c0ef33ef1bdcf8784288769c253', '25.1vcs'),
 ('./lib/test/notifications/NotificationEmailLibTest.php', '113981275154d55f664ddb037ece6bde', '25.1vcs'),
 ('./lib/test/notifications/index.php', 'b4e1712c18d01578ce3e314d5ded8447', '25.1vcs'),
 ('./lib/test/payment/CartTest.php', '7491aa872fb8cc9bb5c4fb79470d024d', '25.1vcs'),
@@ -10466,10 +10465,10 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBitbucket.js', 'c56b9776a25e4597d5ee8f0cf0321bb2', '25.1vcs'),
 ('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBitcoin.js', '14fbfe5dcbdf328f34abc248219a57ab', '25.1vcs'),
 ('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBity.js', 'aee690c337b4191c8fea1b24c18e4c8f', '25.1vcs'),
-('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBlackTie.js', '401bba34c2fdf54620e7fca13642fd4a', '25.1vcs');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBlackTie.js', '401bba34c2fdf54620e7fca13642fd4a', '25.1vcs'),
 ('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBlackberry.js', '970e7d5d420f2913d4c9ad8cc13a1508', '25.1vcs'),
-('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBlogger.js', 'ac7274335d78ce6cb32ca1e386ea5716', '25.1vcs'),
+('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBlogger.js', 'ac7274335d78ce6cb32ca1e386ea5716', '25.1vcs');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
 ('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBloggerB.js', 'ed6b9f1004d74a4131244f57ecb5e5b0', '25.1vcs'),
 ('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBluetooth.js', '03aee504fd93434ac80aa2e7ca038dcb', '25.1vcs'),
 ('./vendor_bundled/vendor/bower-asset/fontawesome/js-packages/@fortawesome/free-brands-svg-icons/faBluetoothB.js', 'bbd382319ff2143d8dacd93fe93b38bf', '25.1vcs'),
@@ -18063,10 +18062,10 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/OAuth/OAuthRequest.php', '3ee6a46db34609dd376915c3cb867e86', '25.1vcs'),
 ('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/OAuth/OAuthSignatureMethod.php', '60e04a43afc73b6aa03f8a10a8e0602f', '25.1vcs'),
 ('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/OAuth/OAuthSignatureMethodHMACSHA1.php', '32df68b7ef7c27b8491c2414aecbc663', '25.1vcs'),
-('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/OAuth/OAuthUtil.php', '9a839ce7e6723956648d8f0db8b0e22e', '25.1vcs');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/OAuth/OAuthUtil.php', '9a839ce7e6723956648d8f0db8b0e22e', '25.1vcs'),
 ('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/OAuth/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '25.1vcs'),
-('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/OpenID/LightOpenID.php', 'fb36e7576ad2f2e94bca1444323893c7', '25.1vcs'),
+('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/OpenID/LightOpenID.php', 'fb36e7576ad2f2e94bca1444323893c7', '25.1vcs');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
 ('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/OpenID/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '25.1vcs'),
 ('./vendor_bundled/vendor/hybridauth/hybridauth/src/Thirdparty/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '25.1vcs'),
 ('./vendor_bundled/vendor/hybridauth/hybridauth/src/User/Activity.php', '42b025d8077f63ef48c9946209026e04', '25.1vcs'),
@@ -25474,10 +25473,10 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/slide/slideToClickedSlide.js', '0f3d08178f0273121aae94076bbcc46b', '25.1vcs'),
 ('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/slide/slideToClosest.js', 'a029ccbe29177b64fdf21cb2f3429bdb', '25.1vcs'),
 ('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/slide/slideToLoop.js', '7e5c50c26ade715b81dd9c0ef41ed3c9', '25.1vcs'),
-('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/transition/index.js', '3b37fcec28625ddd26af10c499e0ec1c', '25.1vcs');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/transition/index.js', '3b37fcec28625ddd26af10c499e0ec1c', '25.1vcs'),
 ('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/transition/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '25.1vcs'),
-('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/transition/setTransition.js', '55285094d944579a2c562ff4ce338266', '25.1vcs'),
+('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/transition/setTransition.js', '55285094d944579a2c562ff4ce338266', '25.1vcs');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
 ('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/transition/transitionEnd.js', '5a0dc3f94aa3b6b948968e449276b23a', '25.1vcs'),
 ('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/transition/transitionStart.js', '4455c426422ed423d750f980c95f990f', '25.1vcs'),
 ('./vendor_bundled/vendor/nolimits4web/swiper/src/components/core/translate/getTranslate.js', '13781987380770988198d577909e0670', '25.1vcs'),
@@ -33727,10 +33726,10 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/studio-42/elfinder/php/libs/GdBmp.php', '372b00b7bee549cda913418b7b122e32', '25.1vcs'),
 ('./vendor_bundled/vendor/studio-42/elfinder/php/libs/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '25.1vcs'),
 ('./vendor_bundled/vendor/studio-42/elfinder/php/plugins/AutoResize/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '25.1vcs'),
-('./vendor_bundled/vendor/studio-42/elfinder/php/plugins/AutoResize/plugin.php', 'df10a306c75db7da35f1fac6c2d7108f', '25.1vcs');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/studio-42/elfinder/php/plugins/AutoResize/plugin.php', 'df10a306c75db7da35f1fac6c2d7108f', '25.1vcs'),
 ('./vendor_bundled/vendor/studio-42/elfinder/php/plugins/AutoRotate/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '25.1vcs'),
-('./vendor_bundled/vendor/studio-42/elfinder/php/plugins/AutoRotate/plugin.php', '77dc66f706a52ad28dfc2fd1edb5b995', '25.1vcs'),
+('./vendor_bundled/vendor/studio-42/elfinder/php/plugins/AutoRotate/plugin.php', '77dc66f706a52ad28dfc2fd1edb5b995', '25.1vcs');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
 ('./vendor_bundled/vendor/studio-42/elfinder/php/plugins/Normalizer/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '25.1vcs'),
 ('./vendor_bundled/vendor/studio-42/elfinder/php/plugins/Normalizer/plugin.php', 'c65e21dea6afdbdd051c0fc3f0f3ef61', '25.1vcs'),
 ('./vendor_bundled/vendor/studio-42/elfinder/php/plugins/Sanitizer/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '25.1vcs'),

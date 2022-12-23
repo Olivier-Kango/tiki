@@ -354,6 +354,11 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
 {
     $d = dir($dir);
     $link = null;
+    if (is_file('db/virtuals.inc')) {
+        $virtuals = array_map('trim', file('db/virtuals.inc'));
+    } else {
+        $virtuals = [];
+    }
 
     while (false !== ($e = $d->read())) {
         $entry = $dir . '/' . $e;
@@ -366,11 +371,17 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
                 build_secdb_queries($entry, $version, $queries, $excludes);
             }
         } else {
-            if (preg_match('/\.(sql|css|tpl|js|php)$/', $e) && realpath($entry) != __FILE__ && $entry != './db/local.php') {
+            if (preg_match('/\.(sql|css|tpl|js|php)$/', $e) && realpath($entry) != __FILE__ && ! preg_match('#/local.php$#', $entry)) {
                 $file = '.' . substr($entry, strlen(ROOT));
 
                 if (in_array($entry, $excludes)) {
                     continue;
+                }
+
+                foreach ($virtuals as $virtual) {
+                    if (strpos($entry, "/$virtual/") !== false) {
+                        continue 2;
+                    }
                 }
 
                 // Escape filename. Since this requires a connection to MySQL (due to the charset), do so conditionally to reduce the risk of connection failure.
