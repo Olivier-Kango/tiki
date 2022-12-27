@@ -2178,6 +2178,7 @@
         "symfony/finder": "^4.2",
         "symfony/filesystem": ">=2.3",
         "symfony/polyfill-ctype": ">=1.8",
+        "symfony/polyfill-intl-icu": "^1.27",
         "symfony/polyfill-mbstring": ">=1.0",
         "symfony/process": ">=3.2.6",
         "symfony/routing": ">=3.2.6",
