@@ -17,7 +17,7 @@
     {/if}
 {/if}
 
-{if $excerpt eq 'y'}
+{if !empty($excerpt) and $excerpt eq 'y'}
     {assign "request_context" "excerpt"}
 {else}
     {assign "request_context" "view_blog"}

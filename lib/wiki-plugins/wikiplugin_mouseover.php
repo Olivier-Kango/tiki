@@ -232,6 +232,7 @@ function wikiplugin_mouseover($data, $params)
 
     if (empty($params['label']) && empty($params['text'])) {
         $label = tra('No label specified');
+        $text = '';
     } else {
         $label = ! empty($params['label']) ? $params['label'] : $data;
         $text = ! empty($params['text']) ? $params['text'] : $data;

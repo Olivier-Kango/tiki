@@ -1157,7 +1157,7 @@ class CategLib extends ObjectLib
 
                 if ($type != 'roots') {
                     // Set relativePathString by stripping the length of the common ancestor plus 2 characters for the pathname separator ("::").
-                    $strippedLength = strlen($filterBaseCategory['categpath']) + 2;
+                    $strippedLength = strlen($filterBaseCategory['categpath'] ?? '') + 2;
                     foreach ($ret as &$category) {
                         $category['relativePathString'] = substr($category['categpath'], $strippedLength);
                     }

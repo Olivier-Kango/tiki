@@ -190,6 +190,16 @@ function wikiplugin_googledoc($data, $params)
         return tra('Required parameter "key" missing');
     }
 
+    if (! isset($editLink)) {
+        $editLink = '';
+    }
+
+    if (isset($name)) {
+        $frameName = $name;
+    } else {
+        $frameName = "Frame" . $key;
+    }
+
     if ($type == "spreadsheet") {
         $srcUrl = "\"https://docs.google.com/spreadsheets/d/$key\"";
         $editSrcUrl = "\"https://docs.google.com/spreadsheets/d/$key/edit#gid=0\"";
@@ -226,11 +236,6 @@ function wikiplugin_googledoc($data, $params)
 
     $ret = "";
 
-    if (isset($name)) {
-        $frameName = $name;
-    } else {
-        $frameName = "Frame" . $key;
-    }
     if ($editLink == 'both' or $editLink == 'top') {
         $ret .= $editHtml;
     }

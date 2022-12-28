@@ -128,7 +128,7 @@ function wikiplugin_footnote($data, $params, $offset, $context)
         $footnote = &$footnotes['lists'][$list]['entry'];
 
         // set the current number of list entries
-        $listNum = count($footnote) + 1;
+        $listNum = (is_array($footnote) ? count($footnote) : 0) + 1;
 
         if (isset($params["tag"]) && ! isset($footnotes['tag'][$params["tag"]])) {  // do nothing if duplicate tag
             // Keep track of where data can be found for this Tag

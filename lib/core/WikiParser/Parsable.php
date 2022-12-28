@@ -427,7 +427,7 @@ if ( \$('#$id') ) {
             return $this->convert_plugin_output($output, '', $outputFormat);
         }
 
-        if ($this->option['inside_pretty'] === true) {
+        if (! empty($this->option['inside_pretty']) && $this->option['inside_pretty'] === true) {
             $trklib = TikiLib::lib('trk');
             $trklib->replace_pretty_tracker_refs($args);
 
@@ -450,7 +450,7 @@ if ( \$('#$id') ) {
 
         $func_name = 'wikiplugin_' . $name;
 
-        if (! $validationPerformed && ! $this->option['wysiwyg']) {
+        if (! $validationPerformed && ! ($this->option['wysiwyg'] ?? false)) {
             $this->plugin_apply_filters($name, $data, $args);
         }
 
@@ -464,7 +464,11 @@ if ( \$('#$id') ) {
 
             $killtoc = false;
 
-            if ($pluginFormat === 'wiki' && $this->option['preview_mode'] === true && $_SESSION['wysiwyg'] === 'y') {   // fix lost new lines in wysiwyg plugins data
+            if (
+                $pluginFormat === 'wiki'
+                && ! empty($this->option['preview_mode']) && $this->option['preview_mode'] === true
+                && ! empty($_SESSION['wysiwyg']) && $_SESSION['wysiwyg'] === 'y'
+            ) { // fix lost new lines in wysiwyg plugins data
                 $data = nl2br($data);
             }
 
@@ -485,7 +489,7 @@ if ( \$('#$id') ) {
             $killtoc = false;
 
             $plugin_result = $this->convert_plugin_output($output, $pluginFormat, $outputFormat);
-            if ($this->option['wysiwyg'] == true) {
+            if (($this->option['wysiwyg'] ?? false)) {
                 return $this->convert_plugin_for_ckeditor($name, $args, $plugin_result, $data, $info);
             } else {
                 return $plugin_result;

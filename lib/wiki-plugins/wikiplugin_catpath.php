@@ -69,7 +69,7 @@ function wikiplugin_catpath($data, $params)
         $top = 'no';
     }
 
-    $objId = urldecode($_REQUEST['page']);
+    $objId = urldecode($_REQUEST['page'] ?? '');
 
     $cats = $categlib->get_object_categories('wiki page', $objId);
 

@@ -117,8 +117,10 @@ class File
 
     public function init($params)
     {
-        foreach ($params as $key => $val) {
-            $this->setParam($key, $val);
+        if (is_array($params)) {
+            foreach ($params as $key => $val) {
+                $this->setParam($key, $val);
+            }
         }
         if ($this->getParam('created') > 0) {
             $this->exists = true;

@@ -221,12 +221,12 @@ class Perms
      *                        loading.
      * @param $data array A list of records.
      * @param $contextMap mixed The key to fetch from each record as the object.
-     * @param $permission string The permission name to validate on each record.
+     * @param $permission string|array The permission name to validate on each record.
      * @return array What remains of the dataset after filtering.
      */
     public static function filter(array $baseContext, $bulkKey, array $data, array $contextMap, $permission)
     {
-        $cacheKey = md5(serialize($baseContext) . serialize($bulkKey) . serialize($data) . serialize($contextMap) . $permission);
+        $cacheKey = md5(serialize($baseContext) . serialize($bulkKey) . serialize($data) . serialize($contextMap) . serialize($permission));
 
         if (isset(self::$instance->filterCache[$cacheKey])) {
             return self::$instance->filterCache[$cacheKey];
