@@ -511,9 +511,11 @@ class PdfGenerator
                 }
             }
         }
-        $mpdf->setWatermarkText($pdfSettings['watermark']);
-        $mpdf->SetWatermarkImage($pdfSettings['watermark_image'], 0.15, '');
         //resetting header,footer
+        if ($pdfPages[count($pdfPages) - 1]['background_image']) {
+            $mpdf->SetWatermarkImage($pdfPage['background_image'], 1);
+            $mpdf->watermarkImgBehind = true;
+        }
         trim(strtolower($pdfSettings['header'])) == "off" ? $mpdf->SetHTMLHeader() : $mpdf->SetHTMLHeader($this->processHeaderFooter($pdfSettings['header'], $params['page']));
         if ($pdfPages[count($pdfPages) - 1]['footer'] == $pdfSettings['footer']) {
             trim(strtolower($pdfSettings['footer'])) == "off" ? $mpdf->SetHTMLFooter() : $mpdf->SetHTMLFooter($this->processHeaderFooter($pdfSettings['footer'], $params['page'], 'top'));
