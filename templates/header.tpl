@@ -22,12 +22,22 @@
 {/if}
 {* --- Blog description --- *}
 {if isset($section) and $section eq "blogs"}
-    {if not empty($post_info.parsed_excerpt)}
+    {if not empty($post_info) and not empty($post_info.parsed_excerpt)}
         {$metatag_description = $post_info.parsed_excerpt|strip_tags:false|truncate:200|escape}
-    {elseif not empty($post_info.parsed_data|strip_tags)}
+    {elseif not empty($post_info) and not empty($post_info.parsed_data|strip_tags)}
         {$metatag_description = $post_info.parsed_data|strip_tags:false|truncate:200|escape}
     {else}
-        {$metatag_description = $post_info.title|cat:' - '|cat:$blog_data.title|escape}
+        {if not empty($post_info) and not empty($post_info.title)}
+            {assign var='tmp_post_info_title' value=$post_info.title}
+        {else}
+            {assign var='tmp_post_info_title' value=''}
+        {/if}
+        {if not empty($blog_data) and not empty($blog_data.title)}
+            {assign var='tmp_blog_data_title' value=$blog_data.title}
+        {else}
+            {assign var='tmp_blog_data_title' value=''}
+        {/if}
+        {$metatag_description = $tmp_post_info_title|cat:' - '|cat:$tmp_blog_data_title|escape}
     {/if}
 {* --- Article description --- *}
 {elseif isset($section) and $section eq "cms"}

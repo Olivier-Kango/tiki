@@ -1801,7 +1801,7 @@ class ParserLib extends TikiDb_Bridge
                             $value = $this->option['page'];
                             break;
                         case 'pageid':
-                            if ($_REQUEST['page'] != null) {
+                            if (! empty($_REQUEST['page'])) {
                                 $value = $tikilib->get_page_id_from_name($_REQUEST['page']);
                                 break;
                             } else {
@@ -2470,7 +2470,7 @@ class ParserLib extends TikiDb_Bridge
                             if ($listlevel == count($listbeg)) {
                                 $listate = substr($line, $listlevel, 1);
                                 if (($listate == '+' || $listate == '-') && ! ($litype == '*' && ! strstr(current($listbeg), '</ul>') || $litype == '#' && ! strstr(current($listbeg), '</ol>'))) {
-                                    $thisid = 'id' . microtime() * 1000000;
+                                    $thisid = 'id' . microtime(true) * 1000000;
                                     if (! $this->option['wysiwyg']) {
                                         $data .= '<br /><a id="flipper' . $thisid . '" class="link" href="javascript:flipWithSign(\'' . $thisid . '\')">[' . ($listate == '-' ? '+' : '-') . ']</a>';
                                     }
@@ -2993,7 +2993,7 @@ class ParserLib extends TikiDb_Bridge
                     global $TOC_newstring, $TOC_oldstring ;
 
                     $TOC_newstring = $maketoc ; //===== get a copy of the newest TOC before we do anything to it
-                    if (strpos($maketoc, $TOC_oldstring)) { // larryg - if this MAKETOC contains previous chapter's TOC entries, remove that portion of the string
+                    if (! empty($TOC_oldstring) && strpos($maketoc, $TOC_oldstring) !== false) { // larryg - if this MAKETOC contains previous chapter's TOC entries, remove that portion of the string
                         $maketoc = substr($maketoc, 0, strpos($maketoc, $TOC_oldstring)) . substr($maketoc, strpos($maketoc, $TOC_oldstring) + strlen($TOC_oldstring)) ;
                     }
 

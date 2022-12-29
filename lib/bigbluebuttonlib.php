@@ -92,11 +92,11 @@ class BigBlueButtonLib
                 $values[$n->tagName] = $n->textContent;
             }
         }
-        if ($username && $values['fullName']) {
+        if ($username && ! empty($values['fullName'])) {
             preg_match('!\(([^\)]+)\)!', $values['fullName'], $match);
             $values['fullName'] = $match[1];
         } else {
-            $values['fullName'] = trim(preg_replace('!\(([^\)]+)\)!', '', $values['fullName']));
+            $values['fullName'] = trim(preg_replace('!\(([^\)]+)\)!', '', $values['fullName'] ?? ''));
         }
         return $values;
     }

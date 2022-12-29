@@ -240,13 +240,13 @@ function wikiplugin_bloglist($data, $params)
         $blog_data = TikiLib::lib('blog')->get_blog($params['Id']);
         $smarty->assign('blog_data', $blog_data);
 
-        $smarty->assign('ownsblog', $user && $user == $blog_data["user"] ? 'y' : 'n');
+        $smarty->assign('ownsblog', $user && ! empty($blog_data["user"]) && $user == $blog_data["user"] ? 'y' : 'n');
 
         if ($params['showIcons'] == 'n') {
             $smarty->assign('excerpt', 'y');
         }
 
-        if ($params['useExcerpt'] === 'y' && $blog_data['use_excerpt'] === 'y') {
+        if ($params['useExcerpt'] === 'y' && ! empty($blog_data['use_excerpt']) && $blog_data['use_excerpt'] === 'y') {
             $smarty->assign('use_excerpt', 'y');
             $smarty->assign('excerpt', 'n');    // no real idea why this gets assigned depending on showIcons above but it prevents excerpts being shown
         }

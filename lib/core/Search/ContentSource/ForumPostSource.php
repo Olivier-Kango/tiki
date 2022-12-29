@@ -64,7 +64,7 @@ class Search_ContentSource_ForumPostSource implements Search_ContentSource_Inter
 
         $thread = $commentslib->get_comments($comment['objectType'] . ':' . $comment['object'], $objectId, 0, 0);
         $forum_info = $commentslib->get_forum($comment['object']);
-        $forum_language = $forum_info['forumLanguage'] ? $forum_info['forumLanguage'] : 'unknown';
+        $forum_language = $forum_info['forumLanguage'] ?? 'unknown';
 
         if ($prefs['unified_forum_deepindexing'] == 'y') {
             foreach ($thread['data'] as $reply) {
@@ -85,8 +85,8 @@ class Search_ContentSource_ForumPostSource implements Search_ContentSource_Inter
             'contributors' => $typeFactory->multivalue(array_unique($author)),
 
             'forum_id' => $typeFactory->identifier($comment['object']),
-            'forum_section' => $typeFactory->identifier($forum_info['section']),
-            'forum_title' => $typeFactory->sortable($forum_info['name']),
+            'forum_section' => $typeFactory->identifier($forum_info['section'] ?? ''),
+            'forum_title' => $typeFactory->sortable($forum_info['name'] ?? ''),
 
             'post_content' => $typeFactory->wikitext($content),
             'post_author' => $typeFactory->wikitext($comment['userName']),

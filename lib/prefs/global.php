@@ -489,7 +489,7 @@ function feature_home_pages($partial = false)
         if ($prefs['home_blog'] != '0') {
             $bloglib = TikiLib::lib('blog');
             $hbloginfo = $bloglib->get_blog($prefs['home_blog']);
-            $home_blog_name = substr($hbloginfo['title'], 0, 20);
+            $home_blog_name = substr($hbloginfo['title'] ?? '', 0, 20);
         } else {
             $home_blog_name = tra('Set blogs homepage first');
         }

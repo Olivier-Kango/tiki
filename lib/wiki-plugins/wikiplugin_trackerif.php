@@ -56,7 +56,7 @@ function wikiplugin_trackerif($data, $params)
     }
 
     if (empty($_REQUEST["trackerId"])) {
-                $trackerId = $trklib->get_tracker_for_item($_REQUEST['itemId']);
+                $trackerId = ! empty($_REQUEST['itemId']) ? $trklib->get_tracker_for_item($_REQUEST['itemId']) : "";
     } else {
         $trackerId = $_REQUEST["trackerId"];
     }

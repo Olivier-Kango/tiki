@@ -8,6 +8,8 @@
 
 class timer
 {
+    public $timer;
+
     public function parseMicro($micro)
     {
         list($micro, $sec) = explode(' ', microtime());

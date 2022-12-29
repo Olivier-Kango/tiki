@@ -161,6 +161,10 @@ class Iconset
      */
     public function getIcon($name)
     {
+        if (empty($name)) { // ignore if the name is not provided
+            return null;
+        }
+
         if (isset($this->icons[$name])) {
             return $this->icons[$name];
         }
