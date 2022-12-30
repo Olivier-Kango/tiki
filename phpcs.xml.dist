@@ -2897,6 +2897,13 @@
         <exclude-pattern>lib/wiki-plugins/wikiplugin_archivebuilder.php</exclude-pattern>
     </rule>
 
+    <!-- ## Mark some rules as warnings until tiki gets in a better shape -->
+
+    <!-- Change severity to be able to filter if too many lines over 120 using cli option warning-severity=5 -->
+    <rule ref="Generic.Files.LineLength">
+        <severity>4</severity>
+    </rule>
+
     <!-- ## Overrides - at the end to make sure they are applied -->
     <!-- From ZF Standards -->
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
