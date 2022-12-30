@@ -32,7 +32,7 @@ class Tiki_Profile_InstallHandler_Tabular extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $data = $this->getData();
         $this->replaceReferences($data);

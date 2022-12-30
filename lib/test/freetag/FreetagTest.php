@@ -26,7 +26,7 @@ class FreetagTest extends TikiTestCase
 
     public function testDumbParseTagsShouldReturnParsedArray(): void
     {
-        //TODO: mock FreetagLib::_parse_tag() and FreetagLib::normalize_tag()
+        //TODO: mock FreetagLib::parse_tag() and FreetagLib::normalize_tag()
         $expectedResult = [
                 'data' => [
                     0 => ['tag' => 'first'],

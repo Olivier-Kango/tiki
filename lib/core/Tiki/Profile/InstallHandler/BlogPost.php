@@ -41,7 +41,7 @@ class Tiki_Profile_InstallHandler_BlogPost extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         global $prefs;
         $bloglib = TikiLib::lib('blog');

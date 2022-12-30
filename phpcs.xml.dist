@@ -170,10 +170,6 @@
 
     <!-- Temporary exceptions while codebase is not fixed -->
     <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
-        <exclude-pattern>lib/core/Tiki/Profile/InstallHandler.php</exclude-pattern>
-        <exclude-pattern>lib/core/Tiki/Profile/InstallHandler/*</exclude-pattern>
-        <exclude-pattern>lib/core/Tiki/Transition.php</exclude-pattern>
-        <exclude-pattern>lib/core/Tracker/Field/Freetags.php</exclude-pattern>
         <exclude-pattern>lib/credits/creditslib.php</exclude-pattern>
         <exclude-pattern>lib/diff.php</exclude-pattern>
         <exclude-pattern>lib/diff/Diff.php</exclude-pattern>
@@ -186,8 +182,6 @@
         <exclude-pattern>lib/diff/renderer_inline.php</exclude-pattern>
         <exclude-pattern>lib/diff/renderer_sidebyside.php</exclude-pattern>
         <exclude-pattern>lib/diff/renderer_unified.php</exclude-pattern>
-        <exclude-pattern>lib/filegals/filegallib.php</exclude-pattern>
-        <exclude-pattern>lib/freetag/freetaglib.php</exclude-pattern>
         <exclude-pattern>lib/graph-engine/abstract.gridbased.php</exclude-pattern>
         <exclude-pattern>lib/graph-engine/core.php</exclude-pattern>
         <exclude-pattern>lib/graph-engine/gd.php</exclude-pattern>
@@ -196,21 +190,14 @@
         <exclude-pattern>lib/graph-engine/graph.pie.php</exclude-pattern>
         <exclude-pattern>lib/graph-engine/pdflib.php</exclude-pattern>
         <exclude-pattern>lib/graph-engine/ps.php</exclude-pattern>
-        <exclude-pattern>lib/importer/tikiimporter_blog.php</exclude-pattern>
         <exclude-pattern>lib/language/LanguageTranslations.php</exclude-pattern>
         <exclude-pattern>lib/pdflib.php</exclude-pattern>
         <exclude-pattern>lib/prefslib.php</exclude-pattern>
         <exclude-pattern>lib/search/searchlib-mysql.php</exclude-pattern>
         <exclude-pattern>lib/sheet/grid.php</exclude-pattern>
-        <exclude-pattern>lib/test/freetag/FreetagTest.php</exclude-pattern>
-        <exclude-pattern>lib/test/importer/TikiImporterBlogTest.php</exclude-pattern>
         <exclude-pattern>lib/tikilib.php</exclude-pattern>
         <exclude-pattern>lib/trackers/trackerlib.php</exclude-pattern>
         <exclude-pattern>lib/userslib.php</exclude-pattern>
-        <exclude-pattern>lib/wiki-plugins/wikiplugin_freetagged.php</exclude-pattern>
-        <exclude-pattern>lib/wiki/pluginslib.php</exclude-pattern>
-        <exclude-pattern>tiki-browse_freetags.php</exclude-pattern>
-        <exclude-pattern>tiki-print_indexed.php</exclude-pattern>
     </rule>
 
     <!-- ## Mark some rules as warnings until tiki gets in a better shape -->

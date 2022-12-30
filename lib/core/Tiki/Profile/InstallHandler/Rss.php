@@ -42,7 +42,7 @@ class Tiki_Profile_InstallHandler_Rss extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $rsslib = TikiLib::lib('rss');
         $data = $this->getData();

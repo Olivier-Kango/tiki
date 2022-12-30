@@ -40,7 +40,7 @@ class Tiki_Profile_InstallHandler_DataChannel extends Tiki_Profile_InstallHandle
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         global $tikilib, $prefs;
         $channels = Tiki_Profile_ChannelList::fromConfiguration($prefs['profile_channels']);

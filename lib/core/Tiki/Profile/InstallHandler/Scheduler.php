@@ -59,7 +59,7 @@ class Tiki_Profile_InstallHandler_Scheduler extends Tiki_Profile_InstallHandler
     /**
      * @return int
      */
-    public function _install()
+    public function doInstall()
     {
         if ($this->canInstall()) {
             $params = [];

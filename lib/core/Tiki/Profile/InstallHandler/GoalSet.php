@@ -26,7 +26,7 @@ class Tiki_Profile_InstallHandler_GoalSet extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $this->fetchData();
         $this->replaceReferences($this->goals);

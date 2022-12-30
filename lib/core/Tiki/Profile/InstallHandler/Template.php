@@ -42,7 +42,7 @@ class Tiki_Profile_InstallHandler_Template extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $templateslib = TikiLib::lib('template');
 

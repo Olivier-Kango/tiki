@@ -43,7 +43,7 @@ class Tiki_Profile_InstallHandler_TrackerOption extends Tiki_Profile_InstallHand
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $input = $this->getData();
         $this->replaceReferences($input);

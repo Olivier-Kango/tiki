@@ -131,7 +131,7 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
         return $this->mode;
     }
 
-    public function _install()
+    public function doInstall()
     {
         global $prefs;
 

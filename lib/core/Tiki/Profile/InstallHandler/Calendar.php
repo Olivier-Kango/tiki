@@ -55,7 +55,7 @@ class Tiki_Profile_InstallHandler_Calendar extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         if ($this->canInstall()) {
             $calendarlib = TikiLib::lib('calendar');

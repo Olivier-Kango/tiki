@@ -29,7 +29,7 @@ class Tiki_Transition
 
     public function addGuard($type, $boundary, $set)
     {
-        if (method_exists($this, '_' . $type)) {
+        if (method_exists($this, $this->guardTypeToMethod($type))) {
             $this->guards[] = [$type, $boundary, $set];
         } else {
             $this->guards[] = ['unknown', 1, [$type]];
@@ -44,18 +44,26 @@ class Tiki_Transition
     public function explain()
     {
         $this->blockers = [];
-        $this->_exactly(1, [$this->from]);
-        $this->_exactly(0, [$this->to]);
+        $this->guardExactly(1, [$this->from]);
+        $this->guardExactly(0, [$this->to]);
 
         $this->applyGuards();
 
         return $this->blockers;
     }
 
+    /**
+     * Converts a guard type to a class method to be called
+     */
+    private function guardTypeToMethod($type)
+    {
+        return 'guard' . ucfirst($type);
+    }
+
     private function applyGuards()
     {
         foreach ($this->guards as $guard) {
-            $method = '_' . array_shift($guard);
+            $method = $this->guardTypeToMethod(array_shift($guard));
 
             call_user_func_array([$this, $method], $guard);
         }
@@ -66,7 +74,7 @@ class Tiki_Transition
         $this->blockers[] = ['class' => $type, 'count' => $amount, 'set' => array_values($set)];
     }
 
-    private function _exactly($amount, $list)
+    private function guardExactly($amount, $list)
     {
         if (count($list) < $amount) {
             $this->addBlocker('invalid', $amount, $list);
@@ -84,7 +92,7 @@ class Tiki_Transition
         }
     }
 
-    private function _atMost($amount, $list)
+    private function guardAtMost($amount, $list)
     {
         $intersect = array_intersect($this->states, $list);
         $count = count($intersect);
@@ -94,7 +102,7 @@ class Tiki_Transition
         }
     }
 
-    private function _atLeast($amount, $list)
+    private function guardAtLeast($amount, $list)
     {
         if (count($list) < $amount) {
             $this->addBlocker('invalid', $amount, $list);
@@ -110,7 +118,7 @@ class Tiki_Transition
         }
     }
 
-    private function _unknown($amount, $list)
+    private function guardUnknown($amount, $list)
     {
         $this->addBlocker('unknown', 1, $list);
     }

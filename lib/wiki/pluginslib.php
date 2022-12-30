@@ -172,7 +172,7 @@ class PluginsLib extends TikiLib
         return $this->_errors;
     }
 
-    public function _error($message)
+    public function setErrorDetail($message)
     {
         $this->_errors = $message;
         return false;

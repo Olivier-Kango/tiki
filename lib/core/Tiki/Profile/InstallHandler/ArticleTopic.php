@@ -31,7 +31,7 @@ class Tiki_Profile_InstallHandler_ArticleTopic extends Tiki_Profile_InstallHandl
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $artlib = TikiLib::lib('art');
         $data = $this->getData();

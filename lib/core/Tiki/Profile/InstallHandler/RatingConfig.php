@@ -32,7 +32,7 @@ class Tiki_Profile_InstallHandler_RatingConfig extends Tiki_Profile_InstallHandl
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $ratingconfiglib = TikiLib::lib('ratingconfig');
 

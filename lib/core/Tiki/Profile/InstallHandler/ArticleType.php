@@ -57,7 +57,7 @@ class Tiki_Profile_InstallHandler_ArticleType extends Tiki_Profile_InstallHandle
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $artlib = TikiLib::lib('art');
         $data = $this->getData();

@@ -228,7 +228,7 @@ function wikiplugin_freetagged($data, $params)
 
         $objects = $freetaglib->get_similar($object['type'], $object['object'], $maxReturned, $type);
     } else {
-        $tagArray = $freetaglib->_parse_tag($tags);
+        $tagArray = $freetaglib->parse_tag($tags);
         $objects = $freetaglib->get_objects_with_tag_combo($tagArray, $type, '', 0, $maxReturned, $sort_mode, $find, $broaden);
         $objects = $objects['data'];
     }

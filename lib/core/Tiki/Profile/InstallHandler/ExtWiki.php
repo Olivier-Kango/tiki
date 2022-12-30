@@ -25,7 +25,7 @@ class Tiki_Profile_InstallHandler_ExtWiki extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $data = $this->getData();
 

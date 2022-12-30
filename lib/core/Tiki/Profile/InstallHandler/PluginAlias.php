@@ -44,7 +44,7 @@ class Tiki_Profile_InstallHandler_PluginAlias extends Tiki_Profile_InstallHandle
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         global $tikilib;
         $data = $this->getData();

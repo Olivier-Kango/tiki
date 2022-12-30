@@ -108,7 +108,7 @@ class Tiki_Profile_InstallHandler_Forum extends Tiki_Profile_InstallHandler
         );
     }
 
-    public function _install()
+    public function doInstall()
     {
         $comments = TikiLib::lib('comments');
 
