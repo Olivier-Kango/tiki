@@ -515,7 +515,10 @@ class PdfGenerator
         $mpdf->SetWatermarkImage($pdfSettings['watermark_image'], 0.15, '');
         //resetting header,footer
         trim(strtolower($pdfSettings['header'])) == "off" ? $mpdf->SetHTMLHeader() : $mpdf->SetHTMLHeader($this->processHeaderFooter($pdfSettings['header'], $params['page']));
-        trim(strtolower($pdfSettings['footer'])) == "off" ? $mpdf->SetHTMLFooter() : $mpdf->SetHTMLFooter($this->processHeaderFooter($pdfSettings['footer'], $params['page'], 'top'));
+        if ($pdfPages[count($pdfPages) - 1]['footer'] == $pdfSettings['footer']) {
+            trim(strtolower($pdfSettings['footer'])) == "off" ? $mpdf->SetHTMLFooter() : $mpdf->SetHTMLFooter($this->processHeaderFooter($pdfSettings['footer'], $params['page'], 'top'));
+        }
+
         $this->clearTempImg($tempImgArr);
         $tempFile = fopen("temp/public/pdffile_" . session_id() . ".txt", "w");
         fwrite($tempFile, ($pagesTotal * 30));
