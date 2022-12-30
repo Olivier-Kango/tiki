@@ -220,7 +220,7 @@ class SieveFiltersCommand extends Command
                                 $values[] = 1;
                             }
                             $values = array_filter($values, function ($val) use ($cond) {
-                                $type = isset($cond['type'])? $cond['type']: 'tracker';
+                                $type = isset($cond['type']) ? $cond['type'] : 'tracker';
                                 $not = $type[0] == '!';
                                 if ($not) {
                                     $type = substr($type, 1);
@@ -349,7 +349,7 @@ class SieveFiltersCommand extends Command
                                         $this->action_move_to_tracker($imap, $msg, $output, $item[0]);
                                     }
                                 } elseif (in_array($action['action'], ['copytotracker', 'movetotracker'])) {
-                                    $action_name = $action['action'] == 'copytotracker'? 'copy': 'move';
+                                    $action_name = $action['action'] == 'copytotracker' ? 'copy' : 'move';
                                     $res = (array) json_decode(str_replace("'", '"', $action['value']));
                                     $this->action_move_to_tracker($imap, $msg, $output, $res, $action_name);
                                 }
@@ -437,7 +437,7 @@ class SieveFiltersCommand extends Command
     protected function action_move_to_tracker($imap, $msg, $output, $res, $action = 'move')
     {
         $msg_headers = $imap->get_message_headers($msg['uid']);
-        
+
         $trk = TikiLib::lib('trk');
         $item = $trk->get_item_info($res['itemId']);
         $field = $trk->get_field_info($res['fieldId']);
@@ -455,7 +455,7 @@ class SieveFiltersCommand extends Command
                     'type' => 'message/rfc822',
                     'content' => $msg_content
                 ],
-                'folder' => isset($res['folder'])? $res['folder']: 'inbox'
+                'folder' => isset($res['folder']) ? $res['folder'] : 'inbox',
             ];
 
             $trk->replace_item($item['trackerId'], $item['itemId'], [

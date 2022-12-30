@@ -5,13 +5,15 @@
  * @package framework
  * @subpackage cache
  */
-class Tiki_Hm_Tiki_Cache {
+class Tiki_Hm_Tiki_Cache
+{
     private $cachelib;
 
     /**
      * @param Hm_Config $config site config object
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->cachelib = TikiLib::lib('cache');
     }
 
@@ -22,7 +24,8 @@ class Tiki_Hm_Tiki_Cache {
      * @param boolean $session store in the session instead of the enabled cache
      * @return boolean
      */
-    public function set($key, $val) {
+    public function set($key, $val)
+    {
         return $this->cachelib->cacheItem($key, $val);
     }
 
@@ -32,7 +35,8 @@ class Tiki_Hm_Tiki_Cache {
      * @param boolean $session fetch from the session instead of the enabled cache
      * @return mixed
      */
-    public function get($key, $default=false) {
+    public function get($key, $default = false)
+    {
         return $this->cachelib->getCached($key) ?? $default;
     }
 
@@ -41,7 +45,8 @@ class Tiki_Hm_Tiki_Cache {
      * @param boolean $session fetch from the session instead of the enabled cache
      * @return boolean
      */
-    public function del($key) {
+    public function del($key)
+    {
         return $this->cachelib->invalidate($key);
     }
 }

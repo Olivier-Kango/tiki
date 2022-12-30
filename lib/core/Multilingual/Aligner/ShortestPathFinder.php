@@ -38,11 +38,11 @@ class Multilingual_Aligner_ShortestPathFinder
         $this -> map = &$ourMap;
         $this -> bestPath = 0;
 
-        $this->nodes = $this->_nodesInMmatrix($ourMap);
+        $this->nodes = $this->nodesInMmatrix($ourMap);
         $this -> numberOfNodes = count($this->nodes);
     }
 
-    public function _nodesInMmatrix($distanceMatrix)
+    public function nodesInMmatrix($distanceMatrix)
     {
         $nodes = [];
         foreach (array_keys($distanceMatrix) as $originNode) {

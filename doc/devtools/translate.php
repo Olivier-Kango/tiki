@@ -310,10 +310,10 @@ class EnglishDevUpdateCommand extends Command
             $count = 0;
             while (isset($strings['-'][$count])) {
                 // strip any end punctuation from both strings to support tikis punctuations translation functionality.
-                if (in_array(substr($strings['-'][$count], -1), Language::punctuations)) {
+                if (in_array(substr($strings['-'][$count], -1), Language::PUNCTUATIONS)) {
                     $strings['-'][$count] = substr($strings['-'][$count], 0, -1);
                 }
-                if (in_array(substr($strings['+'][$count], -1), Language::punctuations)) {
+                if (in_array(substr($strings['+'][$count], -1), Language::PUNCTUATIONS)) {
                     $strings['+'][$count] = substr($strings['+'][$count], 0, -1);
                 }
 
@@ -513,11 +513,11 @@ class EnglishDevUpdateCommand extends Command
                     $file = file_get_contents($directory . '/language.php');
                     foreach ($diffs as $key => $entry) {
                         // if the original string is in the language file
-                        if (preg_match('/^"' . preg_quote($entry['-'], '/') . '[' . implode('', Language::punctuations) . ']?".*/m', $file, $match)) {
+                        if (preg_match('/^"' . preg_quote($entry['-'], '/') . '[' . implode('', Language::PUNCTUATIONS) . ']?".*/m', $file, $match)) {
                             // if the replacement string does not already exist
                             if (! strpos($file, "\n\"" . $entry['+'] . '"')) {
                                 // then replace the original string with an exact copy and a 'updated' copy on the next line
-                                $replace = preg_replace('/"' . preg_quote($entry['-'], '/') . '[' . implode('', Language::punctuations) . ']?"/', '"' . $entry['+'] . '"', $match[0], 1);
+                                $replace = preg_replace('/"' . preg_quote($entry['-'], '/') . '[' . implode('', Language::PUNCTUATIONS) . ']?"/', '"' . $entry['+'] . '"', $match[0], 1);
                                 $file = str_replace($match[0], $match[0] . "\n" . $replace, $file);
 
                                 // keep track of overall numbers

@@ -52,6 +52,7 @@ function smarty_block_trackeritemcheck($params, $content, $smarty, $repeat)
             break;
         case 'view':
             $allowed = $item->canView();
+            break;
         default:
             break;
     }

@@ -34,7 +34,7 @@ class AcceptanceTests_SearchTest extends TikiSeleniumTestCase
     {
         $this->openTikiPage('tiki-index.php');
         $this->logInIfNecessaryAs('admin');
-        $this->_assertSearchFormIsWellFormed();
+        $this->assertSearchFormIsWellFormed();
     }
 
     /**
@@ -46,9 +46,9 @@ class AcceptanceTests_SearchTest extends TikiSeleniumTestCase
         $this->logInIfNecessaryAs('admin');
         $query = 'feature';
         //      echo $this->getBodyText();
-        $this->_searchFor($query);
+        $this->searchFor($query);
 
-        $this->_assertSearchResultsWere(
+        $this->assertSearchResultsWere(
             [
                 0 => "HomePage",
                 1 => 'Multilingual Test Page 1',
@@ -68,8 +68,8 @@ class AcceptanceTests_SearchTest extends TikiSeleniumTestCase
         $this->openTikiPage('tiki-index.php');
         $this->logInIfNecessaryAs('admin');
         $query = 'hello';
-        $this->_searchFor($query);
-        $this->_assertSearchResultsWere(
+        $this->searchFor($query);
+        $this->assertSearchResultsWere(
             [
                 0 => "test page for search 1",
                 1 => 'test page for search 2'
@@ -87,8 +87,8 @@ class AcceptanceTests_SearchTest extends TikiSeleniumTestCase
         $this->openTikiPage('tiki-index.php');
         $this->logInIfNecessaryAs('admin');
         $query = 'hello world';
-        $this->_searchFor($query);
-        $this->_assertSearchResultsWere(
+        $this->searchFor($query);
+        $this->assertSearchResultsWere(
             [
                 0 => "test page for search 1",
                 1 => "test page for search 2",
@@ -107,13 +107,13 @@ class AcceptanceTests_SearchTest extends TikiSeleniumTestCase
      * @param $query
      */
 
-    private function _searchFor($query)
+    private function searchFor($query)
     {
         $this->type("highlight", $query);
         $this->clickAndWait('search');
     }
 
-    private function _assertSearchFormIsWellFormed()
+    private function assertSearchFormIsWellFormed()
     {
 
         $this->assertElementPresent(
@@ -132,7 +132,7 @@ class AcceptanceTests_SearchTest extends TikiSeleniumTestCase
         );
     }
 
-    private function _assertSearchResultsWere($listOfHits, $query, $message)
+    private function assertSearchResultsWere($listOfHits, $query, $message)
     {
         $this->assertElementPresent(
             "xpath=//ul[@class='searchresults']",

@@ -510,7 +510,7 @@ function wikiplugin_rr($data, $params)
         if ($convertPath == 'NO_ACCESS') {
             return displayRrErrorBox("errors", "…R… " . tra("command unavailable"), tra("The path to the __convert__ command could not be found on your system.") . ' ' . tra("Maybe this file is inaccessible due to safe mode restrictions.") . "\n" . tra("See requirements on [https://doc.tiki.org/PluginR]."));
         }
-        define('convert', $convertPath);
+        define('CONVERT', $convertPath);
     } else {
         return displayRrErrorBox("errors", "…convert… " . tra("command unavailable"), tra("You need to ensure that you have __imagemagick__ installed successfully on the server.") . "\n" . tra("See requirements on [https://doc.tiki.org/PluginR]."));
     }
@@ -678,7 +678,7 @@ function wikiplugin_rr($data, $params)
 
         // execute R program
         $runR_errors = ['error' => false];
-        $fn   = runR($output, convert, $sha1, $data, $r_echo, $ws, $params, $user, $r_command, $r_dir, $graph_dir, $loadandsave, $use_cached_script, $cachestrategy, $runR_errors);
+        $fn   = runR($output, CONVERT, $sha1, $data, $r_echo, $ws, $params, $user, $r_command, $r_dir, $graph_dir, $loadandsave, $use_cached_script, $cachestrategy, $runR_errors);
 
         if ($runR_errors['error'] == true) {
             return displayRrErrorBox($runR_errors['type'], $runR_errors['title'], $runR_errors['body']);

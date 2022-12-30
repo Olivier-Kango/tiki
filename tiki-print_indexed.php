@@ -125,7 +125,8 @@ class ObjectList // {{{
             }
         }
     }
-} // }}}
+}
+// }}}
 
 /**
  *
@@ -176,7 +177,8 @@ abstract class ObjectRenderer // {{{
      * @return mixed
      */
     abstract function getIndexValue($key);
-} // }}}
+}
+// }}}
 
 /**
  *
@@ -268,7 +270,8 @@ class ObjectRenderer_TrackerItem extends ObjectRenderer // {{{
             }
         }
     }
-} // }}}
+}
+// }}}
 
 /**
  *
@@ -323,7 +326,8 @@ class ObjectRenderer_Wiki extends ObjectRenderer // {{{
                 return $this->info['pageName'];
         }
     }
-} // }}}
+}
+// }}}
 
 /**
  *
@@ -398,7 +402,8 @@ class ObjectRenderer_MultilingualWiki extends ObjectRenderer // {{{
 
         return reset($this->renderers)->getIndexValue($key);
     }
-} // }}}
+}
+// }}}
 
 // End of classes }}}
 

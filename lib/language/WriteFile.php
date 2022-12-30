@@ -81,7 +81,7 @@ class Language_WriteFile
                 $stringLength = strlen($string['name']);
                 $stringLastChar = $string['name'][$stringLength - 1];
 
-                if (in_array($stringLastChar, Language::punctuations)) {
+                if (in_array($stringLastChar, Language::PUNCTUATIONS)) {
                     $trimmedString = substr($string['name'], 0, $stringLength - 1);
                     $string['name'] = $trimmedString;
                     if (isset($this->translations[$trimmedString])) {

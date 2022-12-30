@@ -14,7 +14,7 @@ class Services_IconPicker_Controller
         $tikilib = TikiLib::lib('db');
         $icon_name = $input->icon_name->text();
         $menu_option_id = $input->menu_option_id->text();
-        $res = $tikilib->query("UPDATE tiki_menu_options SET icon = ? WHERE optionId = ?",[$icon_name,$menu_option_id]);
-        return $res?['element'=>$menu_option_id]:['element'=>NULL];
+        $res = $tikilib->query("UPDATE tiki_menu_options SET icon = ? WHERE optionId = ?", [$icon_name, $menu_option_id]);
+        return $res ? ['element' => $menu_option_id] : ['element' => null];
     }
 }

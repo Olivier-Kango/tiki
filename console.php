@@ -13,7 +13,7 @@ use Tiki\Command\ConsoleSetupException;
 use Tiki\Command\ConsoleApplicationBuilder;
 use Tiki\Installer\Installer;
 
-/**
+/*
  * Sets up the environment that the console will run in.
  * Initializes Tiki to the greatest capacity available,
  * and sets constants to define what state Tiki is being run in.

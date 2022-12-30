@@ -380,8 +380,8 @@ class WikiPluginWantedPages extends PluginsLib
         }
         $sOutput .= $endtable;
         return $sOutput;
-    } // run()
-} // class WikiPluginWantedPages
+    }
+}
 
 function wikiplugin_wantedpages($data, $params)
 {
@@ -438,8 +438,8 @@ if (! function_exists('fnmatch')) {
             return false;
         }
         return preg_match('/' . $npattern . '/i', $string);
-    } // function fnmatch
-} // !exists(fnmatch)
+    }
+}
 
 // A small function to determine whether a string is a [valid] preg expression.
 // From php help "Regular Expression Functions (Perl-Compatible)", http://www.php.net/pcre/
@@ -460,8 +460,8 @@ if (! function_exists('preg_ispreg')) {
             return strcmp($str, $matches[0]) != 0;
         }
         return true;
-    } // function preg_ispreg
-} //!exists(preg_ispreg)
+    }
+}
 
 if (! function_exists('debug_print')) {
     function debug_print($row, $debug, $message)

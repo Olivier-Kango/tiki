@@ -149,7 +149,7 @@ class Captcha
     {
         static $key = '';
 
-        if (!empty($key)) {
+        if (! empty($key)) {
             return $key;
         }
 

@@ -12,7 +12,7 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
     {
         $utilities = new \Services_Manager_Utilities();
         $options = $utilities::getAvailableActions();
-        
+
         return [
             'TM' => [
                 'name'        => tr('Tiki Manager'),

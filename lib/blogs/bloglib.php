@@ -1031,7 +1031,7 @@ class BlogLib extends TikiDb_Bridge
             $res['avatar'] = $tikilib->get_user_avatar($res['user']);
 
             if ($adjacent) {
-                $res['adjacent'] = $this->_get_adjacent_posts($res['blogId'], $res['created']);
+                $res['adjacent'] = $this->get_adjacent_posts($res['blogId'], $res['created']);
             }
         } else {
             return false;
@@ -1066,7 +1066,7 @@ class BlogLib extends TikiDb_Bridge
      * @param int $created when the post was created
      * @return array
      */
-    public function _get_adjacent_posts($blogId, $created, $publishDate = null, $user = null, $allowprivate = null)
+    public function get_adjacent_posts($blogId, $created, $publishDate = null, $user = null, $allowprivate = null)
     {
         $res = [];
 

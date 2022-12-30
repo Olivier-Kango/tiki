@@ -1252,7 +1252,10 @@ if ($prefs['feature_file_galleries_templates'] == 'y') {
 }
 
 $subGalleries = $filegallib->getSubGalleries(
-    (isset($_REQUEST['parentId']) && $galleryId == 0) ? $_REQUEST['parentId'] : $galleryId, true, 'view_file_gallery', true
+    (isset($_REQUEST['parentId']) && $galleryId == 0) ? $_REQUEST['parentId'] : $galleryId,
+    true,
+    'view_file_gallery',
+    true
 );
 $smarty->assign('treeRootId', $subGalleries['parentId']);
 

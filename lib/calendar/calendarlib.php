@@ -9,9 +9,6 @@
 if (! defined('ROLE_ORGANIZER')) {
     define('ROLE_ORGANIZER', '6');
 }
-if (! defined('weekInSeconds')) {
-    define('weekInSeconds', 604800);
-}
 
 /**
  *

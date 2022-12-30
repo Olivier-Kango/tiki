@@ -401,15 +401,15 @@ return false;";
 
     public function action_lock($input)
     {
-        return $this->_action_lock($input, 'lock');
+        return $this->executeActionLock($input, 'lock');
     }
 
     public function action_unlock($input)
     {
-        return $this->_action_lock($input, 'unlock');
+        return $this->executeActionLock($input, 'unlock');
     }
 
-    private function _action_lock($input, $mode)
+    private function executeActionLock($input, $mode)
     {
         $type = $input->type->text();
         $objectId = $input->objectId->pagename();

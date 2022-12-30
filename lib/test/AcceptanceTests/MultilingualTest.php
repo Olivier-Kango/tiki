@@ -17,7 +17,7 @@
 
 class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
 {
-    public function _testRememberToReactivateAllTestsInMultilingualTest()
+    public function disabledTestRememberToReactivateAllTestsInMultilingualTest()
     {
         $this->fail("Don't forget to do this");
     }
@@ -243,7 +243,7 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
     public function testMachineTranslationOfAPageCausesErrorMessageIfNotEnabled()
     {
         $this->logInIfNecessaryAs('admin');
-        $this->_setMachineTranslationFeatureTo('n');
+        $this->setMachineTranslationFeatureTo('n');
         $this->openTikiPage('tiki-index.php?page=HomePage&machine_translate_to_lang=fr');
         $this->assertTextPresent(
             'Machine Translation feature is not enabled.',
@@ -306,7 +306,7 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         );
     }
 
-    public function _setMachineTranslationFeatureTo($y_or_n)
+    public function setMachineTranslationFeatureTo($y_or_n)
     {
         global $tikilib, $prefs;
         $tikilib->set_preference('feature_machine_translation', $y_or_n);

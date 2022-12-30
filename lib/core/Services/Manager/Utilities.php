@@ -96,7 +96,7 @@ class Services_Manager_Utilities
             ';
             $headerLib->add_jq_onready($js);
     }
-    
+
     public static function getAvailableActions()
     {
         $available_actions = ['access', 'backup', 'blank', 'check', 'clone', 'cloneandupgrade', 'console', 'copysshkey', 'create', 'delete', 'detect', 'edit', 'fixpermissions', 'import', 'list', 'maintenance', 'patch_apply', 'patch_delete', 'patch_list', 'profile_apply', 'restore', 'revert', 'setup-scheduler-cron', 'stats', 'update', 'upgrade', 'watch', 'info'];

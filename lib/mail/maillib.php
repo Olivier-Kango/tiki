@@ -66,7 +66,7 @@ function encode_headers($in_str, $charset)
         $out_str = $start . $out_str . $end;
     }
     return $out_str;
-}// end function encode_headers
+}
 
 function tiki_mail_setup()
 {

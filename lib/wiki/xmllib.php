@@ -223,8 +223,7 @@ class XmlLib extends TikiLib
                         $this->errorsArgs[] = $file;
                         return false;
                     }
-                }
-
+                }// phpcs:disable Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace
                 // An image in an image gallery. No longer supported in Tiki 23 and not supported here as well.
                 /*elseif (! empty($args['src']) && preg_match('|show_image.php\?(.*)|', $args['src'], $m)) {
                     // TODO ImageGalleryRemoval23.x - replace with tiki.file.imageid fileId
@@ -232,6 +231,7 @@ class XmlLib extends TikiLib
 
                 // An image specified via "src" (an URL) in a file gallery (pointing to
                 // tiki-download_file.php).
+                // phpcs:enable Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace
                 elseif (! empty($args['src']) && preg_match('|tiki-download_file.php\?(.*)|', $args['src'], $m)) {
                     if (($i = strpos($args['src'], 'tiki-download_file.php')) > 0) {
                         $path = $_SERVER['HTTP_HOST'] . $tikiroot . substr($args['src'], $i);
@@ -614,8 +614,8 @@ class XmlLib extends TikiLib
         }
 
         return true;
-    } // create_page()
-} // class XmlLib
+    }
+}
 
 
 $xmllib = new XmlLib();

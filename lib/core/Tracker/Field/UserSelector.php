@@ -213,7 +213,8 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
             $value = [];
         }
         $autoassign = (int) $this->getOption('autoassign');
-        if (empty($context['filter_render']) &&     // don't set current user when creating a filter for customsearch
+        if (
+            empty($context['filter_render']) &&     // don't set current user when creating a filter for customsearch
             ((empty($value) && $autoassign == 1) || ($autoassign == 2 && ! in_array($user, $value)))   // always use $user for last mod autoassign
         ) {
             $value[] = $user;

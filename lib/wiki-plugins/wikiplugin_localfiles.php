@@ -55,7 +55,7 @@ function wikiplugin_localfiles_info()
             ],
         ],
     ];
-} // wikiplugin_localfiles_info()
+}
 
 
 function wikiplugin_localfiles($data, $params)

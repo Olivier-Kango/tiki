@@ -15,7 +15,7 @@ class MemcacheSession
      * Set up the session cache, hijacking handlers from ADODB_Session
      * presumably already in place.
      */
-    public function _init()
+    public function init()
     {
 
         session_set_save_handler(
@@ -98,4 +98,4 @@ class MemcacheSession
 }
 
 $memcache_session = new MemcacheSession();
-$memcache_session->_init();
+$memcache_session->init();

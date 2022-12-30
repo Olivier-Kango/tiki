@@ -71,7 +71,7 @@ class TikiDb_Pdo extends TikiDb
         return $this->db->quote($str);
     }
 
-    private function _query($query, $values = null, $numrows = -1, $offset = -1)
+    private function doQuery($query, $values = null, $numrows = -1, $offset = -1)
     {
         global $num_queries;
         $num_queries++;
@@ -144,7 +144,7 @@ class TikiDb_Pdo extends TikiDb
 
     public function fetchAll($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT)
     {
-        $result = $this->_query($query, $values, $numrows, $offset);
+        $result = $this->doQuery($query, $values, $numrows, $offset);
         if (! is_array($result)) {
             $this->handleQueryError($query, $values, $result, $reporterrors);
         }
@@ -154,7 +154,7 @@ class TikiDb_Pdo extends TikiDb
 
     public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT)
     {
-        $result = $this->_query($query, $values, $numrows, $offset);
+        $result = $this->doQuery($query, $values, $numrows, $offset);
         if ($result === false) {
             $this->handleQueryError($query, $values, $result, $reporterrors);
         }

@@ -62,7 +62,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
     public function testSegmentIntoSentences()
     {
         $text = "This is sentence 1! This is sentence 2\n* This is sentence 3";
-        $got_sentences = $this->aligner->_segment_into_sentences($text);
+        $got_sentences = $this->aligner->segment_into_sentences($text);
         $exp_sentences = [
                                 "This is sentence 1!",
                                 " This is sentence 2\n",
@@ -86,7 +86,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
         $exp_l1_sentences = ["This is sentence 1!", " This is sentence 2."];
         $exp_l2_sentences = ["Voici la phrase 1!", " Voici la phrase 2."];
 
-        $this->aligner->_segment_parallel_texts_to_sentences($l1_text, $l2_text);
+        $this->aligner->segment_parallel_texts_to_sentences($l1_text, $l2_text);
 
         $this->assertEquals(
             $exp_l1_sentences,
@@ -179,7 +179,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
         $this->fail("Expected distance matrix is missing some destinations after some changes we made. Fix it.");
 
         $this->setupSegmentedSentences();
-        $this->aligner->_generate_shortest_path_matrix();
+        $this->aligner->generate_shortest_path_matrix();
 
         $exp_cost_matrix = [];
 
@@ -374,18 +374,18 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 
         $this->assertEquals(
             '0m1|0m0',
-            $this->aligner->_generate_node_ID(0, 'm', 1, 0, 'm', 0)
+            $this->aligner->generate_node_ID(0, 'm', 1, 0, 'm', 0)
         );
 
         $this->assertEquals(
             '1m0|1m1',
-            $this->aligner->_generate_node_ID(1, 'm', 2, 1, 'm', 1),
+            $this->aligner->generate_node_ID(1, 'm', 2, 1, 'm', 1),
             "Node ID should never go passed the last L1 or L2 sentence number"
         );
 
         $this->assertEquals(
             '-1n0|-1n0',
-            $this->aligner->_generate_node_ID(-1, 'n', 0, -1, 'n', 0),
+            $this->aligner->generate_node_ID(-1, 'n', 0, -1, 'n', 0),
             "Node ID was wrong for START node '-1n0|-1n0'."
         );
     }
@@ -426,7 +426,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
     public function testSentencesPrecedingThisNode()
     {
         $node = '3m1|5m1';
-        $sentences_preceding_node = $this->aligner->_sentences_preceding_this_node($node);
+        $sentences_preceding_node = $this->aligner->sentences_preceding_this_node($node);
         $this->assertEquals(
             [3, 5],
             $sentences_preceding_node,
@@ -478,7 +478,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 
     private function assertSentenceLengthDeltaIs($l1_sentence, $l2_sentence, $exp_delta, $message)
     {
-        $got_delta = $this->aligner->_sentence_length_delta($l1_sentence, $l2_sentence);
+        $got_delta = $this->aligner->sentence_length_delta($l1_sentence, $l2_sentence);
         $message = $message . "\nSentence length delta was wrong.";
         $this->assertEqualsWithDelta($exp_delta, $got_delta, 0.001, $message);
     }
@@ -487,19 +487,19 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
     {
         $en_entences = "Hello earthlings. Take me to your leader.";
         $fr_sentences = "Bonjour terriens. Inutile de résister. Amenez moi à votre chef.";
-        $this->aligner->_segment_parallel_texts_to_sentences($en_entences, $fr_sentences);
+        $this->aligner->segment_parallel_texts_to_sentences($en_entences, $fr_sentences);
     }
 
     private function assertParseNodeIDYields($node_id, $exp_parsed_info, $message)
     {
         //       print "-- assert_parse_node_ID_yields: \$node_id=$node_id\n";
-        $parsed_info = $this->aligner->_parse_node_ID($node_id);
+        $parsed_info = $this->aligner->parse_node_ID($node_id);
         $this->assertEquals($exp_parsed_info, $parsed_info, "$message\nParsed info was wrong for node ID: '$node_id'");
     }
 
     private function assertSentencesAtThisNode($node_id, $exp_next_sentences, $message)
     {
-        $next_sentences = $this->aligner->_sentences_at_this_node($node_id);
+        $next_sentences = $this->aligner->sentences_at_this_node($node_id);
         $this->assertEquals(
             $exp_next_sentences,
             $next_sentences,
@@ -544,7 +544,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
         $message
     ) {
 
-        $got_cost = $this->aligner->_compute_node_transition_cost($destination_node);
+        $got_cost = $this->aligner->compute_node_transition_cost($destination_node);
         $tolerance = 0.01;
         $this->assertEqualsWithDelta(
             $exp_cost,

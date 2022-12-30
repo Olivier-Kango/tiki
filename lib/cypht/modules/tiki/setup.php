@@ -163,16 +163,16 @@ add_handler('ajax_tiki_message_action', 'tiki_message_action', true);
 /* get trackers script */
 setup_base_ajax_page('ajax_tiki_get_trackers', 'core');
 add_handler('ajax_tiki_get_trackers', 'load_imap_servers_from_config', true, 'imap', 'load_user_data', 'after');
-add_handler('ajax_tiki_get_trackers', 'settings_load_imap',  true);
-add_handler('ajax_tiki_get_trackers', 'tiki_get_trackers',  true);
-add_output('ajax_tiki_get_trackers', 'tiki_get_trackers_output',  true);
+add_handler('ajax_tiki_get_trackers', 'settings_load_imap', true);
+add_handler('ajax_tiki_get_trackers', 'tiki_get_trackers', true);
+add_output('ajax_tiki_get_trackers', 'tiki_get_trackers_output', true);
 
 /* get trackers script */
 setup_base_ajax_page('ajax_tiki_tracker_info', 'core');
 add_handler('ajax_tiki_tracker_info', 'load_imap_servers_from_config', true, 'imap', 'load_user_data', 'after');
-add_handler('ajax_tiki_tracker_info', 'settings_load_imap',  true);
-add_handler('ajax_tiki_tracker_info', 'tiki_tracker_info',  true);
-add_output('ajax_tiki_tracker_info', 'tiki_tracker_info_output',  true);
+add_handler('ajax_tiki_tracker_info', 'settings_load_imap', true);
+add_handler('ajax_tiki_tracker_info', 'tiki_tracker_info', true);
+add_output('ajax_tiki_tracker_info', 'tiki_tracker_info_output', true);
 
 /* setup sources */
 handler_source('developer');
@@ -219,19 +219,19 @@ return [
     'tiki_show_message'  => FILTER_VALIDATE_BOOLEAN,
   ],
   'allowed_output' => [
-    'operator' => array(FILTER_SANITIZE_STRING, false),
-    'item_removed' => array(FILTER_VALIDATE_BOOLEAN, false),
-    'tiki_redirect_url' => array(FILTER_SANITIZE_STRING, false),
-    'msg_prev_link' => array(FILTER_SANITIZE_STRING, false),
-    'msg_prev_subject' => array(FILTER_SANITIZE_STRING, false),
-    'msg_next_link' => array(FILTER_SANITIZE_STRING, false),
-    'msg_next_subject' => array(FILTER_SANITIZE_STRING, false),
-    'delete_error' => array(FILTER_VALIDATE_BOOLEAN, false),
-    'archive_error' => array(FILTER_VALIDATE_BOOLEAN, false),
-    'show_archive' => array(FILTER_VALIDATE_BOOLEAN, false),
-    'flag_state' => array(FILTER_SANITIZE_STRING, false),
-    'trackers' => array(FILTER_DEFAULT, false),
-    'tracker_data' => array(FILTER_DEFAULT, false),
+    'operator' => [FILTER_SANITIZE_STRING, false],
+    'item_removed' => [FILTER_VALIDATE_BOOLEAN, false],
+    'tiki_redirect_url' => [FILTER_SANITIZE_STRING, false],
+    'msg_prev_link' => [FILTER_SANITIZE_STRING, false],
+    'msg_prev_subject' => [FILTER_SANITIZE_STRING, false],
+    'msg_next_link' => [FILTER_SANITIZE_STRING, false],
+    'msg_next_subject' => [FILTER_SANITIZE_STRING, false],
+    'delete_error' => [FILTER_VALIDATE_BOOLEAN, false],
+    'archive_error' => [FILTER_VALIDATE_BOOLEAN, false],
+    'show_archive' => [FILTER_VALIDATE_BOOLEAN, false],
+    'flag_state' => [FILTER_SANITIZE_STRING, false],
+    'trackers' => [FILTER_DEFAULT, false],
+    'tracker_data' => [FILTER_DEFAULT, false],
   ],
   'allowed_post' => [
     'imap_server_id' => FILTER_VALIDATE_INT,

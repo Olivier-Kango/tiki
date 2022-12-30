@@ -11,13 +11,15 @@
  * @package framework
  * @subpackage cache
  */
-class Tiki_Hm_Custom_Cache extends Hm_Cache {
+class Tiki_Hm_Custom_Cache extends Hm_Cache
+{
     /**
      * @param Hm_Config $config site config object
      * @param object $session session object
      * @return void
      */
-    public function __construct($config, $session) {
+    public function __construct($config, $session)
+    {
         $this->backend = new Tiki_Hm_Tiki_Cache();
     }
 
@@ -28,7 +30,8 @@ class Tiki_Hm_Custom_Cache extends Hm_Cache {
      * @param boolean $session store in the session instead of the enabled cache
      * @return boolean
      */
-    public function set($key, $val, $lifetime=600, $session=false) {
+    public function set($key, $val, $lifetime = 600, $session = false)
+    {
         return $this->tiki_set($key, $val);
     }
 
@@ -38,7 +41,8 @@ class Tiki_Hm_Custom_Cache extends Hm_Cache {
      * @param boolean $session fetch from the session instead of the enabled cache
      * @return mixed
      */
-    public function get($key, $default=false, $session=false) {
+    public function get($key, $default = false, $session = false)
+    {
         return $this->tiki_get($key, $default);
     }
 
@@ -47,7 +51,8 @@ class Tiki_Hm_Custom_Cache extends Hm_Cache {
      * @param boolean $session fetch from the session instead of the enabled cache
      * @return boolean
      */
-    public function del($key, $session=false) {
+    public function del($key, $session = false)
+    {
         return $this->tiki_del($key);
     }
 
@@ -56,7 +61,8 @@ class Tiki_Hm_Custom_Cache extends Hm_Cache {
      * @param mixed $default value to return if not found
      * @return mixed
      */
-    private function tiki_get($key, $default) {
+    private function tiki_get($key, $default)
+    {
         $res = $this->backend->get($key, $default);
         if ($res === $default) {
             return $default;
@@ -68,7 +74,8 @@ class Tiki_Hm_Custom_Cache extends Hm_Cache {
      * @param string $key name to delete
      * @return boolean
      */
-    private function tiki_del($key) {
+    private function tiki_del($key)
+    {
         return $this->backend->del($key);
     }
 
@@ -78,7 +85,8 @@ class Tiki_Hm_Custom_Cache extends Hm_Cache {
      * @param integer $lifetime how long to cache (if applicable for the backend)
      * @return boolean
      */
-    private function tiki_set($key, $val) {
+    private function tiki_set($key, $val)
+    {
         return $this->backend->set($key, $val);
-    } 
+    }
 }

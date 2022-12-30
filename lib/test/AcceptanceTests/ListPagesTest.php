@@ -24,8 +24,8 @@ class AcceptanceTests_ListPagesTest extends TikiSeleniumTestCase
     public function testListPagesTableIsWellFormed()
     {
         $this->openTikiPage('tiki-listpages.php');
-        $this->_assertListPagesTableIsWellFormed();
-        $this->_assertListedPagesWere([0 => "HomePage", 1 => "EnglishTestPage"], "Listed pages");
+        $this->assertListPagesTableIsWellFormed();
+        $this->assertListedPagesWere([0 => "HomePage", 1 => "EnglishTestPage"], "Listed pages");
         $this->assertEquals("Page", $this->getTable("//div[@id='tiki-listpages-content']/form/table.0.1"));
         $this->assertEquals("Hits", $this->getTable("//div[@id='tiki-listpages-content']/form/table.0.2"));
         $this->assertEquals("Last mod", $this->getTable("//div[@id='tiki-listpages-content']/form/table.0.3"));
@@ -54,11 +54,11 @@ class AcceptanceTests_ListPagesTest extends TikiSeleniumTestCase
     {
         $this->openTikiPage('tiki-listpages.php');
         $this->logInIfNecessaryAs('admin');
-        $this->_assertListedPagesWere([0 => 'HomePage', 1 => 'EnglishTestPage'], "Listed pages");
+        $this->assertListedPagesWere([0 => 'HomePage', 1 => 'EnglishTestPage'], "Listed pages");
         $this->assertTrue($this->isElementPresent("//img[@alt='Remove']"));
         $this->clickAndWait("//img[@alt='Remove']");
         $this->open('http://localhost/tiki-trunk/tiki-listpages.php');
-        $this->_assertListedPagesWere([0 => "HomePage"], "Listed pages");
+        $this->assertListedPagesWere([0 => "HomePage"], "Listed pages");
     }
 
     /**
@@ -89,7 +89,7 @@ class AcceptanceTests_ListPagesTest extends TikiSeleniumTestCase
         $this->restoreDBforThisTest();
     }
 
-    private function _assertListPagesTableIsWellFormed()
+    private function assertListPagesTableIsWellFormed()
     {
 
         $this->assertElementPresent(
@@ -106,7 +106,7 @@ class AcceptanceTests_ListPagesTest extends TikiSeleniumTestCase
         );
     }
 
-    private function _assertListedPagesWere($listOfPages, $message)
+    private function assertListedPagesWere($listOfPages, $message)
     {
         $this->assertElementPresent(
             "xpath=//div[@id='tiki-listpages-content']",

@@ -86,7 +86,7 @@ $allowprivate = 'n';
 if (($user && $ownsblog == 'y') || $tiki_p_blog_admin == 'y') {
     $allowprivate = 'y';
 }
-$post_info['adjacent'] = $bloglib->_get_adjacent_posts($blogId, $post_info['created'], $tiki_p_blog_admin == 'y' ? null : $tikilib->now, $user, $allowprivate);
+$post_info['adjacent'] = $bloglib->get_adjacent_posts($blogId, $post_info['created'], $tiki_p_blog_admin == 'y' ? null : $tikilib->now, $user, $allowprivate);
 
 if ($prefs['feature_freetags'] == 'y') {
     // Get Tags

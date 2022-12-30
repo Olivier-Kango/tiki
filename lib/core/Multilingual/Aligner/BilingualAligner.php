@@ -19,7 +19,7 @@ class Multilingual_Aligner_BilingualAligner
     {
         $this->l1_sentences = $l1_sentences;
         $this->l2_sentences = $l2_sentences;
-        $this->_generate_shortest_path_matrix();
+        $this->generate_shortest_path_matrix();
 
         // TODO: Once the shortest path matrix has been generated, find the shortest
         //       path using ShortestPathFinder class.
@@ -30,20 +30,20 @@ class Multilingual_Aligner_BilingualAligner
         return;
     }
 
-    public function _segment_into_sentences($text)
+    public function segment_into_sentences($text)
     {
         $segmentor = new Multilingual_Aligner_SentenceSegmentor();
         $sentences = $segmentor->segment($text);
         return $sentences;
     }
 
-    public function _segment_parallel_texts_to_sentences($l1_text, $l2_text)
+    public function segment_parallel_texts_to_sentences($l1_text, $l2_text)
     {
-        $this->l1_sentences = $this->_segment_into_sentences($l1_text);
-        $this->l2_sentences = $this->_segment_into_sentences($l2_text);
+        $this->l1_sentences = $this->segment_into_sentences($l1_text);
+        $this->l2_sentences = $this->segment_into_sentences($l2_text);
     }
 
-    public function _generate_shortest_path_matrix()
+    public function generate_shortest_path_matrix()
     {
         //        print "-- _generate_shortest_path_matrix: invoked\n";
 
@@ -54,7 +54,7 @@ class Multilingual_Aligner_BilingualAligner
 
         while (count($this->nodes_at_current_level) > 0) {
             //         print "-- _generate_shortest_path_matrix: extending to next level.\n";
-            $this->_extend_shortest_path_matrix_by_one_level();
+            $this->extend_shortest_path_matrix_by_one_level();
         }
 
         /*
@@ -65,12 +65,12 @@ class Multilingual_Aligner_BilingualAligner
         */
     }
 
-    public function _extend_shortest_path_matrix_by_one_level()
+    public function extend_shortest_path_matrix_by_one_level()
     {
         //      print "-- _extend_shortest_path_matrix_by_one_level: \$this->nodes_at_current_level=\n";var_dump($this->nodes_at_current_level);print "\n";
         $this->nodes_at_next_level = [];
         foreach ($this->nodes_at_current_level as $a_node_to_extend) {
-            $this->_extend_shortest_path_matrix_from_this_node($a_node_to_extend);
+            $this->extend_shortest_path_matrix_from_this_node($a_node_to_extend);
         }
 
         // NOTE: Once this method is finished, replace line below by
@@ -79,26 +79,26 @@ class Multilingual_Aligner_BilingualAligner
         $this->nodes_at_current_level = $this->nodes_at_next_level;
     }
 
-    public function _extend_shortest_path_matrix_from_this_node($node_to_extend)
+    public function extend_shortest_path_matrix_from_this_node($node_to_extend)
     {
         //      print "-- _extend_shortest_path_matrix_from_this_node: \$node_to_extend='$node_to_extend'\n";
-        $this->_match_current_l1_and_l2_sentences($node_to_extend, 1, 1);
-        $this->_match_current_l1_and_l2_sentences($node_to_extend, 1, 2);
-        $this->_match_current_l1_and_l2_sentences($node_to_extend, 2, 1);
-        $this->_skip_current_l1_or_l2_sentence($node_to_extend, 1, 0);
-        $this->_skip_current_l1_or_l2_sentence($node_to_extend, 0, 1);
+        $this->match_current_l1_and_l2_sentences($node_to_extend, 1, 1);
+        $this->match_current_l1_and_l2_sentences($node_to_extend, 1, 2);
+        $this->match_current_l1_and_l2_sentences($node_to_extend, 2, 1);
+        $this->skip_current_l1_or_l2_sentence($node_to_extend, 1, 0);
+        $this->skip_current_l1_or_l2_sentence($node_to_extend, 0, 1);
     }
 
-    public function _match_current_l1_and_l2_sentences($node_to_extend, $l1_n_matches, $l2_n_matches)
+    public function match_current_l1_and_l2_sentences($node_to_extend, $l1_n_matches, $l2_n_matches)
     {
 
         //      print "-- _match_current_l1_and_l2_sentences: extending node: \$node_to_extend='$node_to_extend'\n";
 
-        $sentences_this_node = $this->_sentences_at_this_node($node_to_extend);
+        $sentences_this_node = $this->sentences_at_this_node($node_to_extend);
         $l1_curr_sentence = $sentences_this_node[0];
         $l2_curr_sentence = $sentences_this_node[1];
 
-        $new_node = $this->_generate_node_ID(
+        $new_node = $this->generate_node_ID(
             $l1_curr_sentence,
             'm',
             $l1_n_matches,
@@ -127,13 +127,13 @@ class Multilingual_Aligner_BilingualAligner
         return;
     }
 
-    public function _skip_current_l1_or_l2_sentence($node_to_extend, $l1_n_skips, $l2_n_skips)
+    public function skip_current_l1_or_l2_sentence($node_to_extend, $l1_n_skips, $l2_n_skips)
     {
-        $sentences_this_node = $this->_sentences_at_this_node($node_to_extend);
+        $sentences_this_node = $this->sentences_at_this_node($node_to_extend);
         $l1_curr_sentence = $sentences_this_node[0];
         $l2_curr_sentence = $sentences_this_node[1];
 
-        $new_node = $this->_generate_node_ID(
+        $new_node = $this->generate_node_ID(
             $l1_curr_sentence,
             'm',
             $l1_n_skips,
@@ -179,7 +179,7 @@ class Multilingual_Aligner_BilingualAligner
      *       sentence 32, and remaining at L2 sentence 35.
      */
 
-    public function _parse_node_ID($node_id)
+    public function parse_node_ID($node_id)
     {
         //       print "-- _parse_node_ID: \$node_id='$node_id'\n";
         preg_match('/([\-\d]+)([msn])([\d]+)\|([\-\d]+)([msn])([\d]+)/', $node_id, $info);
@@ -187,7 +187,7 @@ class Multilingual_Aligner_BilingualAligner
         return [$info[1], $info[2], $info[3], $info[4], $info[5], $info[6]];
     }
 
-    public function _generate_node_ID(
+    public function generate_node_ID(
         $l1_sentence_num,
         $l1_operation,
         $l1_n_times,
@@ -208,7 +208,7 @@ class Multilingual_Aligner_BilingualAligner
         return $id;
     }
 
-    public function _sentence_length_delta($l1_sentence, $l2_sentence)
+    public function sentence_length_delta($l1_sentence, $l2_sentence)
     {
         $l1_length = strlen($l1_sentence);
         $l2_length = strlen($l2_sentence);
@@ -225,9 +225,9 @@ class Multilingual_Aligner_BilingualAligner
         return $delta;
     }
 
-    public function _sentences_at_this_node($node_id)
+    public function sentences_at_this_node($node_id)
     {
-        $node_info = $this->_parse_node_ID($node_id);
+        $node_info = $this->parse_node_ID($node_id);
         $l1_sentence = $node_info[0];
         $l1_operation = $node_info[1];
         $l1_advance_by = $node_info[2];
@@ -242,21 +242,21 @@ class Multilingual_Aligner_BilingualAligner
         return [$l1_next_sentence, $l2_next_sentence];
     }
 
-    public function _sentences_preceding_this_node($node_id)
+    public function sentences_preceding_this_node($node_id)
     {
-        $node_info = $this->_parse_node_ID($node_id);
+        $node_info = $this->parse_node_ID($node_id);
         $l1_sentence = $node_info[0];
         $l2_sentence = $node_info[3];
         return [$l1_sentence, $l2_sentence];
     }
 
-    public function _compute_node_transition_cost($destination_node)
+    public function compute_node_transition_cost($destination_node)
     {
-        $end_sentences = $this->_sentences_at_this_node($destination_node);
+        $end_sentences = $this->sentences_at_this_node($destination_node);
         $l1_end_sentence = $end_sentences[0];
         $l2_end_sentence = $end_sentences[1];
 
-        $preceding_sentences = $this->_sentences_preceding_this_node($destination_node);
+        $preceding_sentences = $this->sentences_preceding_this_node($destination_node);
         $l1_prec_sentence = $preceding_sentences[0];
         $l2_prec_sentence = $preceding_sentences[1];
 
@@ -278,7 +278,7 @@ class Multilingual_Aligner_BilingualAligner
         //      print "\n-- BilingualAlignner._compute_node_transition_cost: \$l1_text='$l1_text', length=".strlen($l1_text)."\n";
         //      print "-- BilingualAlignner._compute_node_transition_cost: \$l2_text='$l2_text', length=".strlen($l2_text)."\n";
 
-        $transition_cost = $this->_sentence_length_delta($l1_text, $l2_text);
+        $transition_cost = $this->sentence_length_delta($l1_text, $l2_text);
 
         return $transition_cost;
     }
