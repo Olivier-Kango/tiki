@@ -763,7 +763,7 @@ class Hm_Handler_tiki_tracker_info extends Hm_Handler_Module
 {
     public function process()
     {
-        list($success, $form) = $this->process_form(array('tracker_field_id', 'tracker_item_id', 'folder'));
+        list($success, $form) = $this->process_form(['tracker_field_id', 'tracker_item_id', 'folder']);
         if (! $success) {
             return;
         }

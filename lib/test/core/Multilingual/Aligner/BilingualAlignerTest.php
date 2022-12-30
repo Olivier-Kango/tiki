@@ -13,7 +13,7 @@
 
 class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 {
-    public function ___testReminder()
+    public function disabledTestReminder()
     {
         $this->fail("remember to reactivate all tests in BilingualAlignerTest");
     }
@@ -173,7 +173,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
         );
     }
 
-    public function __testGenerateShortestPathMatrix()
+    public function disabledTestGenerateShortestPathMatrix()
     {
 
         $this->fail("Expected distance matrix is missing some destinations after some changes we made. Fix it.");
