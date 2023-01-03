@@ -170,8 +170,16 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
             }
         }
 
-        foreach ($emails as $key => $value) {
-            array_multisort(array_column($emails[$key], 'date'), SORT_DESC, $emails[$key]);
+        foreach ($emails as $folder => $_) {
+            usort($emails[$folder], function($e1, $e2) {
+                if ($e1['date'] > $e2['date']) {
+                    return -1;
+                } elseif ($e1['date'] < $e2['date']) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
         }
         return [
             'galleryId' => $galleryId,
