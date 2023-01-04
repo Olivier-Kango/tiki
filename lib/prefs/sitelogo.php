@@ -43,5 +43,12 @@ function prefs_sitelogo_list()
             'default' => 'img/tiki/tikilogo_icon.png',
             'tags' => ['basic'],
         ],
+        'sitelogo_upload_icon' => [
+            'name' => tra('Site logo upload icon'),
+            'description' => tra('Display an icon for admins to be able to change or upload the site logo.'),
+            'type' => 'flag',
+            'default' => 'y',
+            'tags' => ['basic'],
+        ],
     ];
 }
