@@ -386,7 +386,7 @@ class TikiMail
                 }
                 return $encoded;
             case 'unicode':
-            case 'y':// for previous compatibility
+            //case 'y':// for previous compatibility (commented out as smarty {mailto} now encodes the whole link in tiki 24+)
                 $encoded = '';
                 for ($i = 0, $istrlen_email = strlen($email); $i < $istrlen_email; $i++) {
                     $encoded .= '&#' . ord($email[$i]) . ';';
