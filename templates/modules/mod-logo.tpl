@@ -19,7 +19,15 @@
                 {if $prefs.site_layout neq 'social'}</div></div>{/if}
             {/if}
         </a>
-            {if $tiki_p_admin eq "y"}<a class="btn btn-primary btn-sm bottom my-3 mx-1 position-absolute tips" href="tiki-admin.php?page=look&cookietab=2&highlight=sitelogo_src#feature_sitelogo_childcontainer" style="left: 0; bottom: 0; opacity: .5" title="{tr}Change the logo:{/tr} {tr}Click to change or upload new logo{/tr}">{icon name="image"}</a>{/if}
+            {if $tiki_p_admin eq 'y' and $prefs.sitelogo_upload_icon eq 'y'}
+                <a class="btn btn-link bottom mb-2 position-absolute tips"
+                   href="tiki-admin.php?page=look&cookietab=2&highlight=sitelogo_src#feature_sitelogo_childcontainer"
+                   style="left: 0; bottom: 0; opacity: .5"
+                   title="{tr}Change the logo:{/tr} {tr}Click to change or upload new logo{/tr}"
+                >
+                    {icon name="upload"}
+                </a>
+            {/if}
        {* </div> *}
     {/tikimodule}
 {/strip}

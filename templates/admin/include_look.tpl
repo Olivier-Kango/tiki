@@ -149,6 +149,7 @@
                     {preference name=sitelogo_src}
                     {preference name=sitelogo_title}
                     {preference name=sitelogo_alt}
+                    {preference name=sitelogo_upload_icon}
                 </fieldset>
                 <fieldset>
                     <legend>{tr}Title{/tr}</legend>
