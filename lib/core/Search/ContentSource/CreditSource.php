@@ -40,8 +40,8 @@ class Search_ContentSource_CreditSource implements Search_ContentSource_Interfac
             ];
             return [
                 'title' => $typeFactory->sortable($credit_type['display_text'] . ' ' . $credit_user['login']),
-                'creation_date' => $typeFactory->timestamp($credit['creation_date']),
-                'expiration_date' => $typeFactory->timestamp($credit['expiration_date']),
+                'creation_date' => $typeFactory->timestamp($credit['creation_date'] ? strtotime($credit['creation_date'] . ' UTC') : null),
+                'expiration_date' => $typeFactory->timestamp($credit['expiration_date'] ? strtotime($credit['expiration_date'] . ' UTC') : null),
                 'contributors' => $typeFactory->multivalue([$credit_user['login']]),
                 'user' => $typeFactory->identifier($credit_user['login']),
                 'credit_type' => $typeFactory->identifier($credit['credit_type']),
