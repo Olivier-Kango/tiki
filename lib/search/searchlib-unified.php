@@ -768,7 +768,12 @@ class UnifiedSearchLib
         }
 
         if ($prefs['goal_enabled'] == 'y') {
+            $aggregator->addContentSource('goal', new Search_ContentSource_GoalSource());
             $aggregator->addContentSource('goalevent', new Search_ContentSource_GoalEventSource());
+        }
+
+        if ($prefs['feature_credits'] === 'y') {
+            $aggregator->addContentSource('credit', new Search_ContentSource_CreditSource());
         }
 
         if ($prefs['feature_webservices'] === 'y') {
