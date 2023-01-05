@@ -123,6 +123,7 @@ function prefs_theme_list($partial = false)
             'units' => 'px',
             'help' => 'Themes',
             'description' => tra('For the Classic Bootstrap or equivalent layout, specify the height of the navbar in fixed position at the top of the page. The logo module image assigned to the top module zone will scale to display correctly here.'),
+            'hint' => tra('Clear the Tiki system cache for this change to take effect.'),
             'default' => '',
             'keywords' => tra('top navbar offset, page-top padding, fixed-top navbar, site logo size'),
             'tags' => ['basic'],

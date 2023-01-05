@@ -5278,7 +5278,7 @@ $lang_current = array(
 "Smarty template usage indicator" => "Kiashiria cha matumizi ya template ya Smarty",
 "Add HTML comment at start and end of each Smarty template (.tpl file)" => "Ongeza maoni ya HTML katika mwanzo na mwisho wa kila template ya Smarty (.tpl file) \"=>\" Ongeza maelezo au format HTML au début na mwisho wa kila template Smarty (TPL)",
 "Use only for development, not in production at a live site, because these warnings are added to emails as well, and are visible to users in the page source." => "Tumia tu kwa maendeleo, si kwa uzalishaji kwa sababu maonyo haya yanaongezwa kwa barua pepe pia, na yanaonekana kwa watumiaji",
-"You need to clear your Tiki template cache for this change to take effect" => "Unahitaji kufuta cache yako ya template ya Tiki kwa mabadiliko haya ya kuchukua athari",
+"Clear the Tiki system cache for this change to take effect." => "Unahitaji kufuta cache yako ya template ya Tiki kwa mabadiliko haya ya kuchukua athari",
 "Log SQL" => "Kumbukumbu za SQL",
 "All SQL queries will be registered in the database in the adodb_logsql table. " => "Swali zote za SQL zitasajiliwa kwenye darasani kwenye meza ya adodb_logsql.",
 "Do not enable this feature all the time. It can be very resource intensive and will impact performance" => "Usiwashe kipengele hiki kila wakati. Inaweza kuwa na rasilimali nyingi na itaathiri utendaji",
