@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<ruleset name="TikiIgnore">
+  <description>Ignore specific issues with Tiki code base</description>
+  <arg name="extensions" value="php" />
+</ruleset>

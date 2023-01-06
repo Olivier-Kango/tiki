@@ -94,9 +94,7 @@ phpcs:
   stage: lint
   image: ${BASE_QA_IMAGE}
   script:
-    - RUN_COMMAND_FILTER='\.php$'
-    - RUN_COMMAND="php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs -s --runtime-set ignore_warnings_on_exit true"
-    - *run_command_on_files_changed
+    - php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs -s --runtime-set ignore_warnings_on_exit true --parallel=16
   dependencies:
     - composer
   needs:
