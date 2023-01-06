@@ -171,7 +171,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         }
 
         foreach ($emails as $folder => $_) {
-            usort($emails[$folder], function($e1, $e2) {
+            usort($emails[$folder], function ($e1, $e2) {
                 if ($e1['date'] > $e2['date']) {
                     return -1;
                 } elseif ($e1['date'] < $e2['date']) {
