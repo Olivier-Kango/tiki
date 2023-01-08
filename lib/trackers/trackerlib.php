@@ -1946,7 +1946,7 @@ class TrackerLib extends TikiLib
         $_GET = $get;
     }
 
-    public function replace_item($trackerId, $itemId, $ins_fields, $status = '', $ins_categs = 0, $bulk_import = false, $skip_sync = false)
+    public function replace_item($trackerId, $itemId, $ins_fields, $status = '', $ins_categs = 0, $bulk_import = false, $skip_sync = false, $deleted_files = [])
     {
         global $user, $prefs, $tiki_p_admin_trackers, $tiki_p_admin_users;
         $final_event = 'tiki.trackeritem.update';
@@ -2244,6 +2244,9 @@ class TrackerLib extends TikiLib
             foreach ($final as $job) {
                 if (isset($job['field']['value'])) {
                     $data[$job['field']['permName']] = $job['field']['value'];
+                }
+                if ($job['handler']->getConfiguration('type') == 'FG' && isset($deleted_files[$job['field']['fieldId']])) {
+                    $data['deleted_files'] = $deleted_files[$job['field']['fieldId']];
                 }
                 $value = $job['handler']->handleFinalSave($data);
                 $data[$job['field']['permName']] = $value;

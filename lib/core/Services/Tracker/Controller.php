@@ -985,11 +985,14 @@ class Services_Tracker_Controller
                 }
             }
 
+            $deletedFiles = $itemObject->deletedFiles($input);
+
             $itemId = $this->utilities->insertItem(
                 $definition,
                 [
                     'status' => $input->status->word(),
                     'fields' => $fields,
+                    'deletedFiles' => $deletedFiles
                 ]
             );
 
@@ -1225,12 +1228,15 @@ class Services_Tracker_Controller
                 }
             }
 
+            $deletedFiles = $itemObject->deletedFiles($input);
+
             $result = $this->utilities->updateItem(
                 $definition,
                 [
                     'itemId' => $itemId,
                     'status' => $input->status->word(),
                     'fields' => $fields,
+                    'deletedFiles' => $deletedFiles
                 ]
             );
 

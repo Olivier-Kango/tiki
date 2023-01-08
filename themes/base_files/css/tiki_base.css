@@ -2411,18 +2411,12 @@ table.treetable tr.expanded span.indenter a {
 .tracker-item-files li img, .tracker-item-files li span {
   margin-right: 6px;
 }
-.tracker-item-files a.file-delete-icon {
+.tracker-item-files .file-actions {
   position: absolute;
   top: 0;
   right: 0;
 }
 .tracker-item-files {
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-  -moz-column-gap: 30px;
-  -webkit-column-gap: 30px;
-  column-gap: 30px;
   padding-left: 20px;
 }
 .file-drop {

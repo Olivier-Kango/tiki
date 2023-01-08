@@ -15,6 +15,7 @@ class Services_Tracker_Utilities
             'skip_categories' => false,
             'bulk_import' => isset($item['bulk_import']) ? $item['bulk_import'] : false,
             'skip_sync' => $item['skip_sync'] ?? false,
+            'deleted_files' => isset($item['deletedFiles']) ? $item['deletedFiles'] : []
         ]);
 
         return $newItem;
@@ -27,6 +28,7 @@ class Services_Tracker_Utilities
             'skip_categories' => false,
             'bulk_import' => isset($item['bulk_import']) ? $item['bulk_import'] : false,
             'skip_sync' => $item['skip_sync'] ?? false,
+            'deleted_files' => isset($item['deletedFiles']) ? $item['deletedFiles'] : []
         ]);
     }
 
@@ -99,7 +101,7 @@ class Services_Tracker_Utilities
         }
 
         if (! $options['validate'] || count($errors) == 0) {
-            $newItem = $trklib->replace_item($trackerId, $itemId, ['data' => $fields], $status, 0, $options['bulk_import'], $options['skip_sync']);
+            $newItem = $trklib->replace_item($trackerId, $itemId, ['data' => $fields], $status, 0, $options['bulk_import'], $options['skip_sync'], $options['deleted_files'] ?? []);
             return $newItem;
         }
 

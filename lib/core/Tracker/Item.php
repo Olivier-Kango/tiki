@@ -482,6 +482,21 @@ class Tracker_Item
         return array_filter($output);
     }
 
+    public function deletedFiles($input)
+    {
+        $deleteFiles = [];
+        foreach ($input as $k => $v) {
+            if (substr($k, 0, 4) == 'del_') {
+                $key = substr($k, 4);
+                if ($this->canModifyField($key)) {
+                    $deleteFiles[$key] = $v;
+                }
+            }
+        }
+
+        return $deleteFiles;
+    }
+
     public function prepareOutput()
     {
         $fields = $this->definition->getFields();

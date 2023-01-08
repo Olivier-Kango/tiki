@@ -619,6 +619,22 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
         ];
     }
 
+    public function handleFinalSave(array &$data)
+    {
+        if (isset($data['deleted_files'])) {
+            $filegallib = TikiLib::lib('filegal');
+            $deletedFiles = explode(',', $data['deleted_files']);
+
+            foreach ($deletedFiles as $fileId) {
+                $fileInfo = $filegallib->get_file_info($fileId);
+                $filegallib->remove_file($fileInfo);
+            }
+        }
+        $name = $this->getConfiguration('permName');
+
+        return $data[$name];
+    }
+
     /**
      * called from action_clone_item and duplicates the related files if option duplicateGalleryID is set
      */

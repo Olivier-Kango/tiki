@@ -29,13 +29,19 @@
                             {$info.name|escape}
                         </a>
                     {/if}
-                    <a href="#" class="file-delete-icon text-danger">
-                        {icon name='delete'}
-                    </a>
+                    <div class="file-actions d-inline-block">
+                        <a href="#" class="file-hard-delete-icon text-danger">
+                            {icon name='trash'}
+                        </a>
+                        <a href="#" class="file-delete-icon text-danger">
+                            {icon name='delete'}
+                        </a>
+                    </div>
                 </li>
             {/foreach}
         </ol>
         <input class="input" type="text" name="{$field.ins_id|escape}" value="{$field.value|escape}" style="display: none">
+        <input class="deleted" type="hidden" name="del_{$field.fieldId|escape}">
         {if $field.options_map.displayMode eq 'vimeo'}
             {wikiplugin _name='vimeo' fromFieldId=$field.fieldId|escape fromItemId=$item.itemId|escape galleryId=$field.galleryId|escape}{/wikiplugin}
         {else}
@@ -89,6 +95,7 @@
             var $files = $('.current-list', this);
             var $warning = $('.alert', this);
             var $field = $('.input', this);
+            var $deleted = $('.deleted', this);
             var $url = $('.url', this);
             var replaceFile = $(this).is('.replace');
 
@@ -112,7 +119,7 @@
                 $field.input_csv('add', ',', fileId);
 
                 li.prepend($.fileTypeIcon(fileId, { type: type, name: name }));
-                li.append($('<a class="file-delete-icon text-danger">{{icon name='delete'}}</a>'));
+                li.append($('<div class="file-actions d-inline-block"><a class="file-hard-delete-icon text-danger">{{icon name='trash'}}</a><a class="file-delete-icon text-danger">{{icon name='delete'}}</a></div>'));
 
                 if (replaceFile && $self.data('firstfile') > 0) {
                     li.prev('li').remove();
@@ -181,6 +188,17 @@
                     toggleWarning();
                 }
                 return false;
+            });
+
+            $files.parent().on('click', '.file-hard-delete-icon', function (e) {
+                var fileId = $(e.target).closest('li').data('file-id');
+                if (fileId && confirm(tr('Are you sure you want to permanently delete this item'))) {
+                    $deleted.input_csv('add', ',', fileId);
+                    $field.input_csv('delete', ',', fileId);
+                    $(e.target).closest('li').remove();
+                    $field.change();
+                    toggleWarning();
+                }
             });
 
             $url.keypress(function (e) {
