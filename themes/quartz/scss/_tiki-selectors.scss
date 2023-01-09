@@ -5,6 +5,10 @@ $imagePath: "../images/";
 // body {
 //    background-image: url('#{$imagePath}bg.jpg');
 // }
+// Moved from .card, where it was apparently causing focus to be lost in (Smartmenu) .card .dropdown-menu
+.dropdown-menu {
+    backdrop-filter: blur(5px);
+}
 
 .pagetitle a {color: $body-color; }
 
