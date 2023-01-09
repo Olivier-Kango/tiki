@@ -55,8 +55,27 @@ class TikiLib_MarkdownParserTest extends TikiTestCase
         $user = 'admin';
         $prefs['markdown_enabled'] = 'y';
         $prefs['feature_wiki_argvariable'] = 'y';
-
+        $heading_links_pref = $prefs['wiki_heading_links'];
+        $prefs['wiki_heading_links'] = 'n';
+        
         $this->assertEquals($this->html(), TikiLib::lib('parser')->parse_data('{syntax type=markdown}' . $this->markdown()));
+
+        $prefs['wiki_heading_links'] = $heading_links_pref;
+    }
+
+    public function testMarkdownParserWithHeadingLinks(): void
+    {
+        global $prefs, $user;
+
+        $user = 'admin';
+        $prefs['markdown_enabled'] = 'y';
+        $prefs['feature_wiki_argvariable'] = 'y';
+        $heading_links_pref = $prefs['wiki_heading_links'];
+        $prefs['wiki_heading_links'] = 'y';
+
+        $this->assertEquals($this->html(true), TikiLib::lib('parser')->parse_data('{syntax type=markdown}' . $this->markdown()));
+
+        $prefs['wiki_heading_links'] = $heading_links_pref;
     }
 
     public function testReplaceLinks(): void
@@ -170,12 +189,21 @@ Duplicated footnote reference[^second].
 ";
     }
 
-    protected function html(): string
+    protected function html($with_heading_links = false): string
     {
-        return '<hr />
+        if ($with_heading_links) {
+            $res = '<hr />
+<h2 class="showhide_heading" id="User:_admin">User: admin<a href="#User:_admin" class="heading-link"><img src="img/icons/green_question.png" alt="Question" width="16" height="16" name="link" title="Question" class="icon" /></a></h2>
+<h2 class="showhide_heading" id="Plugin_test:_12">Plugin test: <sup><strong>12</strong></sup><a href="#Plugin_test:_12" class="heading-link"><img src="img/icons/green_question.png" alt="Question" width="16" height="16" name="link" title="Question" class="icon" /></a></h2>
+<h1 class="showhide_heading" id="h1_Heading_8-_">h1 Heading <img alt="B-)" title="cool" src="img/smiles/icon_cool.gif" /><a href="#h1_Heading_8-_" class="heading-link"><img src="img/icons/green_question.png" alt="Question" width="16" height="16" name="link" title="Question" class="icon" /></a></h1>';
+        } else {
+            $res = '<hr />
 <h2>User: admin</h2>
 <h2>Plugin test: <sup><strong>12</strong></sup></h2>
-<h1>h1 Heading <img alt="B-)" title="cool" src="img/smiles/icon_cool.gif" /></h1>
+<h1>h1 Heading <img alt="B-)" title="cool" src="img/smiles/icon_cool.gif" /></h1>';
+        }
+
+$res .= '
 <p><strong>This is bold text</strong></p>
 <p><strong>This is bold text</strong></p>
 <p><em>This is italic text</em></p>
@@ -288,5 +316,7 @@ line 3 of code
 <li class="footnote" id="fn:second" role="doc-endnote"><p>Footnote text.&nbsp;<a class="footnote-backref" rev="footnote" href="#fnref:second" role="doc-backlink">↩</a>&nbsp;<a class="footnote-backref" rev="footnote" href="#fnref:second__2" role="doc-backlink">↩</a></p></li>
 <li class="footnote" id="fn:text-of-inline-footn" role="doc-endnote"><p>Text of inline footnote&nbsp;<a class="footnote-backref" rev="footnote" href="#fnref:text-of-inline-footn" role="doc-backlink">↩</a></p></li></ol></div>
 ';
+
+        return $res;
     }
 }

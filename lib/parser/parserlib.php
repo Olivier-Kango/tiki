@@ -2322,6 +2322,7 @@ class ParserLib extends TikiDb_Bridge
         $hdr_structure = [];
         $show_title_level = [];
         $last_hdr = [];
+        $all_anchors = [];
         $nb_last_hdr = 0;
         $nb_hdrs = 0;
         $inTable = 0;
@@ -2651,27 +2652,7 @@ class ParserLib extends TikiDb_Bridge
                         $title_text_base = substr($line, $hdrlevel + $addremove);
                         $title_text = $current_title_num . $title_text_base;
 
-                        // create stable anchors for all headers
-                        // use header but replace non-word character sequences
-                        // with one underscore (for XHTML 1.0 compliance)
-                        // Workaround pb with plugin replacement and header id
-                        //  first we remove hash from title_text for headings beginning
-                        //  with images and HTML tags
-                        $thisid = preg_replace('/§[a-z0-9]{32}§/', '', $title_text);
-                        $thisid = preg_replace('#</?[^>]+>#', '', $thisid);
-                        $thisid = preg_replace('/[^a-zA-Z0-9\:\.\-\_]+/', '_', $thisid);
-                        $thisid = preg_replace('/^[^a-zA-Z]*/', '', $thisid);
-                        if (empty($thisid)) {
-                            $thisid = 'a' . md5($title_text);
-                        }
-
-                        // Add a number to the anchor if it already exists, to avoid duplicated anchors
-                        if (isset($all_anchors[$thisid])) {
-                            $all_anchors[$thisid]++;
-                            $thisid .= '_' . $all_anchors[$thisid];
-                        } else {
-                            $all_anchors[$thisid] = 1;
-                        }
+                        $thisid = $this->get_clean_anchor($title_text, $all_anchors);
 
                         // Collect TOC entry if any {maketoc} is present on the page
                         //if ( $need_maketoc !== false ) {
@@ -3573,5 +3554,32 @@ class ParserLib extends TikiDb_Bridge
         }
 
         return $content;
+    }
+
+    protected function get_clean_anchor($title_text, &$all_anchors)
+    {
+        // create stable anchors for all headers
+        // use header but replace non-word character sequences
+        // with one underscore (for XHTML 1.0 compliance)
+        // Workaround pb with plugin replacement and header id
+        //  first we remove hash from title_text for headings beginning
+        //  with images and HTML tags
+        $thisid = preg_replace('/§[a-z0-9]{32}§/', '', $title_text);
+        $thisid = preg_replace('#</?[^>]+>#', '', $thisid);
+        $thisid = preg_replace('/[^a-zA-Z0-9\:\.\-\_]+/', '_', $thisid);
+        $thisid = preg_replace('/^[^a-zA-Z]*/', '', $thisid);
+        if (empty($thisid)) {
+            $thisid = 'a' . md5($title_text);
+        }
+
+        // Add a number to the anchor if it already exists, to avoid duplicated anchors
+        if (isset($all_anchors[$thisid])) {
+            $all_anchors[$thisid]++;
+            $thisid .= '_' . $all_anchors[$thisid];
+        } else {
+            $all_anchors[$thisid] = 1;
+        }
+
+        return $thisid;
     }
 }
