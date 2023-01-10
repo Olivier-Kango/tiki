@@ -59,9 +59,22 @@ function smarty_function_html_body_attributes($params, $smarty)
         }
     }
 
-    if ($prefs['feature_perspective'] == 'y' && ! empty($_SESSION['current_perspective'])) {
-        $class .= ' perspective' . $_SESSION['current_perspective'];
-        $class .= ' perspective_' . preg_replace("/[^a-z0-9]/", "_", strtolower($_SESSION['current_perspective_name']));
+    if ($prefs['feature_perspective'] == 'y') {
+        $perspectivelib = TikiLib::lib('perspective');
+        $perspectiveId = 0;
+        $perspectiveName = '';
+        if (! empty($_SESSION['current_perspective'])) {
+            $perspectiveId = $_SESSION['current_perspective'];
+            $perspectiveName = $_SESSION['current_perspective_name'];
+        } elseif (empty($_SESSION['current_perspective']) && $perspectivelib->get_current_perspective($prefs) && $perspectivelib->get_current_perspective($prefs) > 0) {
+            $perspectiveId = $perspectivelib->get_current_perspective($prefs);
+            $perspectiveName = $perspectivelib->get_perspective_name($perspectivelib->get_current_perspective($prefs));
+            $perspectivelib->set_perspective($perspectiveId);
+        }
+        if ($perspectiveId > 0) {
+            $class .= ' perspective' . $perspectiveId;
+            $class .= ' perspective_' . preg_replace("/[^a-z0-9]/", "_", strtolower($perspectiveName));
+        }
     }
 
     if ($categories = $smarty->getTemplateVars('objectCategoryIds')) {
