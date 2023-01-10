@@ -142,8 +142,7 @@ class Table_Plugin
                 . '<br>' . tr('Set %0 to one of the following:', '<code>type</code>') . ' <code>text</code>,
                     <code>digit</code>, <code>currency</code>, <code>percent</code>, <code>usLongDate</code>,
                     <code>shortDate</code>, <code>isoDate</code>, <code>dateFormat-ddmmyyyy</code>,
-                    <code>ipAddress</code>, <code>url</code>, <code>time</code>',
-                '<code>nosort</code>'
+                    <code>ipAddress</code>, <code>url</code>, <code>time</code>, <code>nosort</code>'
                 . '<br>' . tr('Also handle strings in numeric columns with:') . ' <code>string-min</code>,
                     </code>string-max</code>' . tr('Handle empty cells with:') . ' <code>empty-top<code>,
                     <code>empty-bottom</code>,  <code>empty-zero</code>.<br>'
