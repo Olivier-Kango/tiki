@@ -6,7 +6,13 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_ContentSource_GoalSource implements Search_ContentSource_Interface
+namespace Tiki\Search\ContentSource;
+
+use Search_ContentSource_Interface;
+use Search_Type_Factory_Interface;
+use TIkiDb;
+
+class GoalSource implements Search_ContentSource_Interface
 {
     private $table;
 
