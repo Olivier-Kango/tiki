@@ -3546,7 +3546,7 @@ if ($standalone && ! $nagios) {
         'OpenSSL' => $criptLib->getUserCryptDataStats('openssl'),
         'MCrypt' => $criptLib->getUserCryptDataStats('mcrypt'),
     ));
-    $ws_port = $prefs['realtime_port'] ?? '8080';
+    $ws_port = $prefs['realtime_port'] ? $prefs['realtime_port'] : '8080';
     $ws_conn = @fsockopen('localhost', $ws_port);
     if (is_resource($ws_conn)) {
         $ws_listening = true;
