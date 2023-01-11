@@ -5,6 +5,9 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
+
+use Tiki\Search\ContentSource\CreditSource;
+use Tiki\Search\ContentSource\GoalSource;
 use Tiki\TikiInit;
 
 /**
@@ -768,12 +771,12 @@ class UnifiedSearchLib
         }
 
         if ($prefs['goal_enabled'] == 'y') {
-            $aggregator->addContentSource('goal', new Search_ContentSource_GoalSource());
+            $aggregator->addContentSource('goal', new GoalSource());
             $aggregator->addContentSource('goalevent', new Search_ContentSource_GoalEventSource());
         }
 
         if ($prefs['feature_credits'] === 'y') {
-            $aggregator->addContentSource('credit', new Search_ContentSource_CreditSource());
+            $aggregator->addContentSource('credit', new CreditSource());
         }
 
         if ($prefs['feature_webservices'] === 'y') {
