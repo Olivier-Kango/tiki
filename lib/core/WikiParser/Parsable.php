@@ -34,11 +34,11 @@ class WikiParser_Parsable extends ParserLib
     /**
      * Parser search for syntax wiki plugin which changes the syntax of this data block
      *
-     * @param string $data markup contents
+     * @param string|null $data markup contents
      *
      * @return array|void [syntax, editor]
      */
-    public function guess_syntax(string &$data): ?array
+    public function guess_syntax(&$data): ?array
     {
         global $prefs;
 
