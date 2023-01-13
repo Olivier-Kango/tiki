@@ -589,9 +589,22 @@ class ParserLib extends TikiDb_Bridge
             }
         }
 
+        $access = \TikiLib::lib('access');
         if (count($missing) > 0) {
-            $output = WikiParser_PluginOutput::disabled($name, $missing);
-            return false;
+            // verify if the plugin is used in the admin panel
+            $is_used_in_admin_pannel = false;
+            $url = $access->get_origin_url();
+            if ($url) {
+                $len = strlen('tiki-admin.php');
+                $is_used_in_admin_pannel = substr($url, 0, $len) === 'tiki-admin.php';
+            }
+
+            // if the plugin is not used in the admin panel, show the warning so the user can activate it
+            // otherwise we run it even if the required preference is not enabled.
+            if (! $is_used_in_admin_pannel) {
+                $output = WikiParser_PluginOutput::disabled($name, $missing);
+                return false;
+            }
         }
 
         return true;

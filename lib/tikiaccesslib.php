@@ -152,19 +152,10 @@ class TikiAccessLib extends TikiLib
             if ($perms->admin) {
                 $smarty->assign('required_preferences', $features);
             }
-
-            // set the (current relative) url to gobackto to where we were after the preference change.
-            if (! empty($base_uri)) {
-                $pathInfo = parse_url($base_uri);
-                $pathData = explode('/', $pathInfo["path"]);
-                $gobackto = end($pathData);
-
-                if (! empty($pathInfo['query'])) {
-                    $gobackto .= '?' . $pathInfo['query'];
-                }
-                if (! empty($gobackto)) {
-                    $smarty->assign('gobackto', $gobackto);
-                }
+            // go back to where we were after the preference change.
+            $gobackto = self::get_origin_url();
+            if (! empty($gobackto)) {
+                $smarty->assign('gobackto', $gobackto);
             }
 
             $msg = tr(
@@ -174,6 +165,29 @@ class TikiAccessLib extends TikiLib
 
             $this->display_error('', $msg, 'no_redirect_login');
         }
+    }
+
+    /**
+     * get_origin_url: Get the url of where we were
+     *
+     * @return string
+     *
+     */
+    public static function get_origin_url()
+    {
+        global $base_uri;
+
+        $gobackto = '';
+        if (! empty($base_uri)) {
+            $pathInfo = parse_url($base_uri);
+            $pathData = explode('/', $pathInfo["path"]);
+            $gobackto = end($pathData);
+
+            if (! empty($pathInfo['query'])) {
+                $gobackto .= '?' . $pathInfo['query'];
+            }
+        }
+        return $gobackto;
     }
 
     /**

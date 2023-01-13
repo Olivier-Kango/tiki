@@ -74,6 +74,10 @@ class WikiParser_PluginOutput
 
     public static function disabled($name, $preferences)
     {
+        // this will allow us to return to where we were if the required preference is activated in the page
+        include_once('lib/tikiaccesslib.php');
+        $gobackto = TikiAccessLib::get_origin_url();
+
         $content = tr('Plugin <strong>%0</strong> cannot be executed.', $name);
 
         if (Perms::get()->admin) {
@@ -88,6 +92,9 @@ class WikiParser_PluginOutput
             $content .= smarty_function_ticket([], $smarty->getEmptyInternalTemplate());
             $content .= '<input type="submit" class="btn btn-primary btn-sm" value="'
                 . smarty_modifier_escape(tra('Set')) . '">';
+            if (! empty($gobackto)) {
+                $content .= '<input type="hidden" name="gobackto" value="' . $gobackto . '" >';
+            }
             $content .= '</form>';
         }
         return self::error(tra('Plugin disabled'), $content);
