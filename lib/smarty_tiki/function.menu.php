@@ -287,7 +287,6 @@ function smarty_function_menu($params, $smarty)
         $tpl = 'tiki-user_menu.tpl';
     }
 
-    
     $tpl = 'tiki-user_menu.tpl';
     $data = $smarty->fetch($tpl);
     return MenuLib::clean_menu_html($data);
