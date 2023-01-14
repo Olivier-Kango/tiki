@@ -495,6 +495,9 @@ class PdfGenerator
                     }
                     if ($pdfPage['background'] != '') {
                         $bgColor = "background: linear-gradient(top, " . $pdfPage['background'] . ", " . $pdfPage['background'] . ");";
+                        $cssStyles = '<style>html { background:' . $pdfPage['background'] . ' } body { background:' . $pdfPage['background'] . ' }</style>';
+                    } else {
+                        $cssStyles = '<style>html { background:#fff; } body { background:#fff; }</style>';
                     }
 
                     $pdfPage['pageContent'] = $this->getHtmlLayout($pdfPage['pageContent']);
