@@ -153,7 +153,7 @@ class TikiAccessLib extends TikiLib
                 $smarty->assign('required_preferences', $features);
             }
             // go back to where we were after the preference change.
-            $gobackto = self::get_origin_url();
+            $gobackto = $this->getOriginUrl();
             if (! empty($gobackto)) {
                 $smarty->assign('gobackto', $gobackto);
             }
@@ -168,12 +168,12 @@ class TikiAccessLib extends TikiLib
     }
 
     /**
-     * get_origin_url: Get the url of where we were
+     * getOriginUrl: Get the url of where we were
      *
      * @return string
      *
      */
-    public static function get_origin_url()
+    public function getOriginUrl()
     {
         global $base_uri;
 

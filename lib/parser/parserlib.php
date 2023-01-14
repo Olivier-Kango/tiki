@@ -593,7 +593,7 @@ class ParserLib extends TikiDb_Bridge
         if (count($missing) > 0) {
             // verify if the plugin is used in the admin panel
             $is_used_in_admin_pannel = false;
-            $url = $access->get_origin_url();
+            $url = $access->getOriginUrl();
             if ($url) {
                 $len = strlen('tiki-admin.php');
                 $is_used_in_admin_pannel = substr($url, 0, $len) === 'tiki-admin.php';

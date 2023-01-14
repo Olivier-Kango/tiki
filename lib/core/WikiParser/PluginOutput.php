@@ -75,8 +75,8 @@ class WikiParser_PluginOutput
     public static function disabled($name, $preferences)
     {
         // this will allow us to return to where we were if the required preference is activated in the page
-        include_once('lib/tikiaccesslib.php');
-        $gobackto = TikiAccessLib::get_origin_url();
+        $accessLib = TikiLib::lib('access');
+        $gobackto = $accessLib->getOriginUrl();
 
         $content = tr('Plugin <strong>%0</strong> cannot be executed.', $name);
 
