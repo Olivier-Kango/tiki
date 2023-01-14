@@ -89,12 +89,11 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $data = $converter->convert($data)->getContent();
 
         $data = $this->parse_data_wikilinks($data, false, $this->option['wysiwyg']);
-        
 
         if ($prefs['wiki_heading_links'] == 'y') {
             $data = $this->addHeadingLinks($data);
         }
-    
+
         return $data;
     }
 
@@ -105,8 +104,8 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $icon = smarty_function_icon(['name' => 'link'], $smarty->getEmptyInternalTemplate());
         $all_anchors = [];
 
-        $data = preg_replace_callback('#<h([1-6])>(.+?)</h\1>#is', function ($matches) use($icon, $all_anchors) {
-            $anchor = $this->get_clean_anchor($matches[2], $all_anchors);
+        $data = preg_replace_callback('#<h([1-6])>(.+?)</h\1>#is', function ($matches) use ($icon, $all_anchors) {
+            $anchor = $this->getCleanAnchor($matches[2], $all_anchors);
             return '<h' . $matches[1] . ' class="showhide_heading" id="' . $anchor . '">' . $matches[2] . '<a href="#' . $anchor . '" class="heading-link">' . $icon . '</a></h' . $matches[1] . '>';
         }, $data);
 

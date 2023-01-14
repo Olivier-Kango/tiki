@@ -57,7 +57,7 @@ class TikiLib_MarkdownParserTest extends TikiTestCase
         $prefs['feature_wiki_argvariable'] = 'y';
         $heading_links_pref = $prefs['wiki_heading_links'];
         $prefs['wiki_heading_links'] = 'n';
-        
+
         $this->assertEquals($this->html(), TikiLib::lib('parser')->parse_data('{syntax type=markdown}' . $this->markdown()));
 
         $prefs['wiki_heading_links'] = $heading_links_pref;
@@ -203,7 +203,7 @@ Duplicated footnote reference[^second].
 <h1>h1 Heading <img alt="B-)" title="cool" src="img/smiles/icon_cool.gif" /></h1>';
         }
 
-$res .= '
+        $res .= '
 <p><strong>This is bold text</strong></p>
 <p><strong>This is bold text</strong></p>
 <p><em>This is italic text</em></p>

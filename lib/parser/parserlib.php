@@ -2665,7 +2665,7 @@ class ParserLib extends TikiDb_Bridge
                         $title_text_base = substr($line, $hdrlevel + $addremove);
                         $title_text = $current_title_num . $title_text_base;
 
-                        $thisid = $this->get_clean_anchor($title_text, $all_anchors);
+                        $thisid = $this->getCleanAnchor($title_text, $all_anchors);
 
                         // Collect TOC entry if any {maketoc} is present on the page
                         //if ( $need_maketoc !== false ) {
@@ -3569,7 +3569,7 @@ class ParserLib extends TikiDb_Bridge
         return $content;
     }
 
-    protected function get_clean_anchor($title_text, &$all_anchors)
+    protected function getCleanAnchor($title_text, &$all_anchors)
     {
         // create stable anchors for all headers
         // use header but replace non-word character sequences
