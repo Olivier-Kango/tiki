@@ -200,7 +200,7 @@ function wikiplugin_archivebuilder_pagetopdf($file, $pageName)
     $generator = new PdfGenerator();
     if (! empty($generator->error)) {
         Feedback::error($generator->error);
-        $access = Tikilib::lib('access');
+        $access = TikiLib::lib('access');
         $access->redirect($_SERVER['HTTP_REFERER']);
     } else {
         $params = [ 'page' => $pageName ];

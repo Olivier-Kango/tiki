@@ -1428,7 +1428,7 @@ class CalendarLib extends TikiLib
         if ($previous['day'] > $previous['daysInMonth']) {
             $previous['day'] = $previous['daysInMonth'];
         }
-        $previous['date'] = Tikilib::make_time(0, 0, 0, $previous['month'], $previous['day'], $previous['year']);
+        $previous['date'] = TikiLib::make_time(0, 0, 0, $previous['month'], $previous['day'], $previous['year']);
         $previous = $this->infoDate($previous['date']); // get back real day, month, year
         return $previous;
     }
@@ -1454,7 +1454,7 @@ class CalendarLib extends TikiLib
         if ($next['day'] > $next['daysInMonth']) {
             $next['day'] = $next['daysInMonth'];
         }
-        $next['date'] = Tikilib::make_time(0, 0, 0, $next['month'], $next['day'], $next['year']);
+        $next['date'] = TikiLib::make_time(0, 0, 0, $next['month'], $next['day'], $next['year']);
         $next = $this->infoDate($next['date']); // get back real day, month, year
         return $next;
     }

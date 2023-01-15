@@ -389,7 +389,7 @@ class ocrLib extends TikiLib
                 $fileName = $tempFile;
                 $tempFile = null;                                // we zero this out so the file is not deleted later.
             } elseif (in_array($file['filetype'], self::PDF_MIME)) {
-                Tikilib::lib('pdfimages');
+                TikiLib::lib('pdfimages');
                 $image = new PdfImagesLib();
                 $image->setBinaryPath();
                 $image->setArgument('tiff');

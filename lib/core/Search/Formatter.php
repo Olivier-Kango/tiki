@@ -202,7 +202,7 @@ class Search_Formatter
         } elseif ($target == Search_Formatter_Plugin_Interface::FORMAT_HTML && $pluginFormat == Search_Formatter_Plugin_Interface::FORMAT_WIKI) {
             $out = "~/np~$rawOutput~np~";
         } elseif ($target == Search_Formatter_Plugin_Interface::FORMAT_CSV) {
-            $out = strip_tags(Tikilib::lib('parser')->parse_data($rawOutput, ['is_html' => true]));
+            $out = strip_tags(TikiLib::lib('parser')->parse_data($rawOutput, ['is_html' => true]));
         }
 
         $out = str_replace(['~np~~/np~', '~/np~~np~'], '', $out);

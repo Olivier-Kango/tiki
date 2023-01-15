@@ -93,7 +93,7 @@ if (isset($_REQUEST["filegalredosearch"])) {
     Feedback::success(tr("The search text was reindexed for a total of %0 files.", $searchTextReindexedFilesAmount));
 }
 
-$ocr = Tikilib::lib('ocr');
+$ocr = TikiLib::lib('ocr');
 if (isset($_POST["ocrstalledreset"])) {
     $ocrCount = $ocr->releaseAllStalled();
     if ($ocrCount) {

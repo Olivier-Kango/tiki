@@ -41,7 +41,7 @@ function wikiplugin_coil($data, $params)
         $userPaywall = $tikilib->get_user_preference($user, 'webmonetization_paywall_text');
     }
 
-    $headerLib = Tikilib::lib('header');
+    $headerLib = TikiLib::lib('header');
     if (! empty($headerLib->metatags['monetization']) && $pointer !== $headerLib->metatags['monetization']) {
         $pointer = $headerLib->metatags['monetization'];
     }

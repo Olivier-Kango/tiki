@@ -62,7 +62,7 @@ function wikiplugin_friend($data, $params)
         $remove_button_text = tra("Remove from Friend Network");
     }
 
-    $relationlib = Tikilib::lib('relation');
+    $relationlib = TikiLib::lib('relation');
     $is_friend = $relationlib->get_relation_id("tiki.friend.follow", "user", $user, "user", $other_user);
 
     if ($is_friend) {

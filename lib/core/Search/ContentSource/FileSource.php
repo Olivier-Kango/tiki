@@ -40,7 +40,7 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
     {
         global $prefs;
 
-        $filegallib = Tikilib::lib('filegal');
+        $filegallib = TikiLib::lib('filegal');
 
         $file = $filegallib->get_file_info($objectId, true, false);
 

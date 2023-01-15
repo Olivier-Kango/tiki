@@ -160,7 +160,7 @@ class HeaderLib
         global $prefs, $tikiroot;
 
         // using this method, also reverse proxy / ssl offloading will continue to work
-        $httpScheme = Tikilib::httpScheme();
+        $httpScheme = TikiLib::httpScheme();
         $https_mode = ($httpScheme == 'https') ? true : false;
 
         $cdn_ssl_uri = array_filter(preg_split('/\s+/', $prefs['tiki_cdn_ssl']));
@@ -553,7 +553,7 @@ class HeaderLib
          // check for user defined cdns: prefs: tiki_cdn_ssl, tiki_cdn
          // the current prefs ask for complete urls including the scheme-name (http / https)
 
-         $httpScheme = Tikilib::httpScheme();
+         $httpScheme = TikiLib::httpScheme();
          $cdnType  = ($httpScheme == 'http') ? 'tiki_cdn' : 'tiki_cdn_ssl';
          if (isset($prefs[$cdnType])) {
 

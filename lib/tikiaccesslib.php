@@ -350,7 +350,7 @@ class TikiAccessLib extends TikiLib
             $this->setTicketInCookie();
         }
 
-        Tikilib::lib('smarty')->assign('ticket', $this->ticket);
+        TikiLib::lib('smarty')->assign('ticket', $this->ticket);
     }
 
     /**

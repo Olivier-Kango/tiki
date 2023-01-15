@@ -214,7 +214,7 @@ return false;";
                             $parent_name = $artlib->get_title($objectId);
                             $notification_url = 'tiki-read_article.php?articleId=' . $objectId;
                         } elseif ($type == 'trackeritem') {
-                            $trk = Tikilib::lib('trk');
+                            $trk = TikiLib::lib('trk');
                             $trackerId = $trk->get_tracker_for_item($objectId);
                             $parent_name = $trk->get_isMain_value($trackerId, $objectId);
                             $notification_url = 'tiki-view_tracker_item.php?itemId=' . $objectId;

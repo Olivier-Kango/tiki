@@ -2423,7 +2423,7 @@ if (! $standalone) {
      * Tesseract Binary dependency Check
      */
 
-    $ocr = Tikilib::lib('ocr');
+    $ocr = TikiLib::lib('ocr');
     $langCount = count($ocr->getTesseractLangs());
 
     if ($langCount >= 5) {
@@ -2509,7 +2509,7 @@ if (! $standalone) {
     );
 
 
-    $pdfimages = Tikilib::lib('pdfimages');
+    $pdfimages = TikiLib::lib('pdfimages');
     $pdfimages->setVersion();
 
     //lets fall back to configured options for a binary path if its not found with default options.

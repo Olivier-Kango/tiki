@@ -77,7 +77,7 @@ function wikiplugin_quote($data, $params)
         $date = strtotime($params['date']);
     }
 
-    $smarty = Tikilib::lib('smarty');
+    $smarty = TikiLib::lib('smarty');
 
     $smarty->assign('date', $date);
     $smarty->assign('comment_info', $comment_info);

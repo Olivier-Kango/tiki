@@ -21,7 +21,7 @@ class StatsLib extends TikiLib
     }
 
     // obsolete, but keeped for compatibility purposes
-    // use Tikilib::list_pages() instead
+    // use TikiLib::list_pages() instead
     /**
      * @param int $offset
      * @param $maxRecords
@@ -455,7 +455,7 @@ class StatsLib extends TikiLib
                 break;
 
             case 'lastday':
-                $begin = Tikilib::make_time($hour - 24, $min, $sec, $month, $day, $year);
+                $begin = TikiLib::make_time($hour - 24, $min, $sec, $month, $day, $year);
                 break;
 
             case 'week':
@@ -470,7 +470,7 @@ class StatsLib extends TikiLib
                 break;
 
             case 'lastweek':
-                $begin = Tikilib::make_time($hour, $min, $sec, $month, $day - 7, $year);
+                $begin = TikiLib::make_time($hour, $min, $sec, $month, $day - 7, $year);
                 break;
 
             case 'month':

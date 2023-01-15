@@ -1472,14 +1472,14 @@ class UnifiedSearchLib
         }
 
         if (isset($types['blog post'])) {
-            $last_blog_post = Tikilib::lib('blog')->list_blog_posts(0, false, 0, 1, 'lastModif_desc');
+            $last_blog_post = TikiLib::lib('blog')->list_blog_posts(0, false, 0, 1, 'lastModif_desc');
             if (! empty($last_blog_post['data'][0]['lastModif']) && $last_blog_post['data'][0]['lastModif'] > $threshold) {
                 return true;
             }
         }
 
         if (isset($types['article'])) {
-            $last_article = Tikilib::lib('art')->list_articles(0, 1, 'lastModif_desc');
+            $last_article = TikiLib::lib('art')->list_articles(0, 1, 'lastModif_desc');
             if (! empty($last_article['data'][0]['lastModif']) && $last_article['data'][0]['lastModif'] > $threshold) {
                 return true;
             }

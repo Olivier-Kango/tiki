@@ -146,7 +146,7 @@ if (isset($_REQUEST['pdf'])) {
                 . "<br \>"
                 . tr('Export to PDF error: %0', $generator->getError())
             );
-            $access = Tikilib::lib('access');
+            $access = TikiLib::lib('access');
             $access->redirect(
                 str_replace(
                     'tiki-slideshow.php?',

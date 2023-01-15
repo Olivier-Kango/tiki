@@ -36,7 +36,7 @@ class FileHelper
         global $tikilib, $user;
         $smarty = TikiLib::lib('smarty');
         $accesslib = TikiLib::lib('access');
-        $headerlib = Tikilib::lib('header');
+        $headerlib = TikiLib::lib('header');
         $template = false;
 
         if (DiagramHelper::isDiagram($file['fileId'])) {

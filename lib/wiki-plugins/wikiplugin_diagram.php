@@ -163,7 +163,7 @@ function wikiplugin_diagram($data, $params)
         return;
     }
 
-    $headerlib = $tikilib::lib('header');
+    $headerlib = TikiLib::lib('header');
     $headerlib->add_js_config("var diagramVendorPath = '{$vendorPath}';");
     $headerlib->add_jsfile('lib/jquery_tiki/tiki-mxgraph.js', true);
     $headerlib->add_jsfile($vendorPath . '/tikiwiki/diagram/js/app.min.js');

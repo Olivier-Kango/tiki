@@ -1098,7 +1098,7 @@ if (isset($_GET['slideshow'])) {
                     $smarty->assign('ocrdata', $info['ocr_data'] ? $info['ocr_data'] : tr('OCR produced no results.'));
                 }
                 $ocrLangs = TikiLib::lib('ocr')->listFileLanguages($fileId);
-                $ocrLangs = Tikilib::lib('language')->findLanguageNames($ocrLangs, 'translated');
+                $ocrLangs = TikiLib::lib('language')->findLanguageNames($ocrLangs, 'translated');
                 $ocrLangs = implode(', ', $ocrLangs);
 
                 $smarty->assign('ocrlangs', $ocrLangs);

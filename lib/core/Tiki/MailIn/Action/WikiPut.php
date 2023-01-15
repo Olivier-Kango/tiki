@@ -231,7 +231,7 @@ class WikiPut implements ActionInterface
     {
         $page = $message->getSubject();
 
-        $wikilib = Tikilib::lib('wiki');
+        $wikilib = TikiLib::lib('wiki');
         $page = $wikilib->remove_badchars($page);
 
         if ($this->namespace) {

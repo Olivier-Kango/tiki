@@ -70,7 +70,7 @@ function module_months_links($mod_reference, $module_params)
     }
 
     if (isset($link)) {
-        $tikilib = TIkiLib::lib('tiki');
+        $tikilib = TikiLib::lib('tiki');
         if ($module_params['feature'] == 'blogs') {
             $bloglib = TikiLib::lib('blog');
         } elseif ($module_params['feature'] == 'cms') {
