@@ -99,7 +99,7 @@ phpcs:
     - composer
   needs:
     - composer
-  allow_failure: true
+  allow_failure: false
 
 phplint:
   stage: lint
