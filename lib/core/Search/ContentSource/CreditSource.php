@@ -52,6 +52,7 @@ class Search_ContentSource_CreditSource implements Search_ContentSource_Interfac
 				'total_amount' => $typeFactory->numeric($credit['total_amount']),
 				'used_amount' => $typeFactory->numeric($credit['used_amount']),
 				'product_id' => $typeFactory->numeric($credit['product_id']),
+				'allowed_groups' => $typeFactory->multivalue(['Anonymous', 'Registered']),
 			];
 		} else {
 			return false;
