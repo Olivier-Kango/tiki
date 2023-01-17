@@ -1218,6 +1218,9 @@ footer#footer .footer_liner .card-header {
 .page-item.disabled, .list-group-item.disabled {
   color: #6B737B !important;
 }
+.navbar {
+  --bs-navbar-padding-y: 0.5rem;
+}
 .layout_classic .header_container {
   box-shadow: inset 0 44px 0 0 #641E39;
 }
@@ -1228,12 +1231,20 @@ footer#footer .footer_liner .card-header {
 .layout_classic .page-header .bg-dark {
   background: #641E39 !important;
 }
-.top_modules:not(.uab) > div:first-child {
+.top_modules .module:not(.box-login_box):first-child {
+  margin-top: calc(var(--bs-navbar-padding-y) * -1) !important;
+  margin-bottom: calc(var(--bs-navbar-padding-y) * -1) !important;
+  padding-top: var(--bs-navbar-padding-y);
+  padding-bottom: var(--bs-navbar-padding-y);
+  padding-left: 15px;
+  padding-right: var(--tiki-fivealive-classic-logo-module-padding-right);
+}
+.top_modules .module:not(.box-login_box):first-child {
   background: url("../images/siteheader2.png") no-repeat top right !important;
   margin-left: -15px !important;
   color: #a51e37 !important;
 }
-.top_modules:not(.uab) > div:first-child a {
+.top_modules .module:not(.box-login_box):first-child a {
   color: #a51e37 !important;
 }
 .layout_classic .sitetitle, .layout_classic .sitetitle a, .layout_classic .sitesubtitle {
