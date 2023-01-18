@@ -40,7 +40,7 @@ $smarty->assign('page_mode', 'form');
 
 $grid = new TikiSheet();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $access->checkCsrf()) {
     $smarty->assign('page_mode', 'submit');
 
     $sheetId = $_REQUEST['sheetId'];
