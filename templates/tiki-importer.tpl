@@ -32,6 +32,7 @@
 {elseif isset($softwareSpecificOptions)}
     <h2>Options:</h2>
     <form method="post" enctype="multipart/form-data" action="tiki-importer.php" onsubmit="return confirm('{tr}WARNING: make sure to have a backup before running the script. If you do not have a backup this is the last chance to cancel the importer by clicking on the cancel button.{/tr}');";>
+        {ticket}    
         <input type="hidden" name="importerClassName" value="{$importerClassName}">
         {foreach from=$importerOptions item=option}
             {if $option.type eq 'checkbox'}
