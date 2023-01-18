@@ -182,12 +182,7 @@ function wikiplugin_slideshowslide($data, $params)
     $slideSettings = '';
     foreach ($slideShowSlideParams as $key => $param) {
         if ($params[$param]) {
-            $slideSettings .= $key;
-            if (! in_array($param, $slideshowslideDigitsParams)) {
-                $slideSettings .= "='" . $params[$param] . "' ";
-            } else {
-                $slideSettings .= "='" . $params[$param] . "' ";
-            }
+            $slideSettings .= $key . "='" . $params[$param] . "' " ;
         }
     }
     $slideSettings = str_replace(["'y'","'n'"], ["'true'","'false'"], $slideSettings);

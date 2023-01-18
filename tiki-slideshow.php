@@ -165,12 +165,49 @@ if (isset($_REQUEST['pdf'])) {
             $_POST['html'] = '<' . $_REQUEST['pdfSettings'] . ' />'
                 . $_POST['html'];
         }
+
+        // initialize background image
+        $imgBackgroundCSS = '';
+
         //checking if to export slideshow
         if ($_REQUEST['printslides']) {
             $customCSS
                 = "<style type='text/css'>img{max-height:300px;width:auto;} body{font-size:1em} h1{font-size:1.5em;text-transform:none !important;}  section{height:300px;border:1px solid #000;margin-bottom:1%;padding:1%;}</style> ";
             $pdata = $customCSS . '<pdfsettings printFriendly="y" header="off" footer="off"></pdfsettings>' . $pdata;
         } else {
+            $doc = new DOMDocument();
+            libxml_use_internal_errors(true);
+            $doc->loadHTML($pdata, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_clear_errors();
+
+            $sections = $doc->getElementsByTagName('section');
+
+            foreach ($sections as $key => $section) {
+                // Remove saveHTML call
+                $color = $section->getAttribute('data-background-color');
+                $imgBackground = $section->getAttribute('data-background-image');
+
+                if (! empty($imgBackground)) {
+                    $class = $section->getAttribute('class');
+                    $section->setAttribute("class", 'section_bg_image_' . $key . ' ' . $class);
+
+                    $imgBackgroundCSS .= ' .section_bg_image_' . $key . '{ 
+                        background-image: url("' . $imgBackground . '"); 
+                        background-position: top left;
+                        background-repeat: no-repeat;
+                        background-image-resize: 4; 
+                        background-image-resolution: from-image;
+                    }';
+                }
+
+                if (! empty($color)) {
+                    $style = $section->getAttribute('style');
+                    $section->setAttribute("style", "background-color:" . $color . ";" . $style);
+                }
+            }
+
+            $pdata = $doc->saveHTML();
+
             //getting css
             $customCSS = file_get_contents(
                 'vendor_bundled/vendor/npm-asset/reveal.js/css/reveal.css'
@@ -179,9 +216,9 @@ if (isset($_REQUEST['pdf'])) {
                 'vendor_bundled/vendor/npm-asset/reveal.js/css/theme/' . $theme
                 . '.css'
             );
-            $customCSS .= '.reveal section{width:90%;text-align:center;padding-top:30px;margin:auto;} section{text-align:center;margin: auto;width:100%;} .ss-heading{line-height:2.5em,padding-bottom:20px;}';
-            $pdata = '<pdfsettings header="off" footer="off" margin_top="0" margin_bottom="0" margin_left="0" margin_right="0" printfriendly="n"></pdfsettings><div class="reveal" style="padding:2%">' . $pdata . '</div>';
 
+            $customCSS .= '.reveal section{width:100%; height:100%;text-align:center;margin:auto;} section{text-align:center;margin: auto;width:100%;} .ss-heading{line-height:2.5em,padding-bottom:20px;} ' . $imgBackgroundCSS;
+            $pdata = '<pdfsettings header="off" footer="off" margin_top="0" margin_bottom="0" margin_left="0" margin_right="0" printfriendly="n"></pdfsettings><div class="reveal">' . $pdata . '</div>';
             $pdata = str_replace(
                 "</section><section",
                 "</section><pagebreak /><section",
@@ -496,8 +533,8 @@ function formatContent($content, $tagArr)
     //replacment for slideshowslide
 
     return html_entity_decode(str_replace(
-        ['<sslide', '<sheading','</sheading>'],
-        [$slideEnd . '</section><section', $headingStart . '<h1','</sheading>' . $slideStart],
+        ['<sslide', '<sheading','</sheading>', '</sslide>'],
+        [$slideEnd . '</section><section', $headingStart . '<h1','</h1>' . $slideStart],
         $slideContent
     ));
 }
