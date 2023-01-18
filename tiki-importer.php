@@ -50,7 +50,7 @@ if (isset($_SESSION['tiki_importer_feedback'])) {
         $smarty->assign('wordpressUrls', $_SESSION['tiki_importer_wordpress_urls']);
         unset($_SESSION['tiki_importer_wordpress_urls']);
     }
-} elseif (! empty($_FILES['importFile'])) {
+} elseif (! empty($_FILES['importFile']) && $access->checkCsrf()) {
     // third step: start the importing process
 
     if ($_FILES['importFile']['error'] === UPLOAD_ERR_OK) {
