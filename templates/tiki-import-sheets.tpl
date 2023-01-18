@@ -37,6 +37,7 @@
 {else}
     <form method="post" action="tiki-import_sheet.php?mode=import&sheetId={$sheetId}" enctype="multipart/form-data" class="mb-4">
         <h2>{tr}Import From File{/tr}</h2>
+        {ticket}
         <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Format:{/tr}</label>
             <div class="col-sm-6">
@@ -75,6 +76,7 @@
 
     <form method="post" action="tiki-import_sheet.php?mode=import&sheetId={$sheetId}">
         <h2>{tr}Grab Wiki Tables{/tr}</h2>
+        {ticket}
         <div class="mb-3 row">
             <div class="col-sm-6">
                 <input id="querypage" type="text" name="page" class="form-control">
