@@ -5504,15 +5504,7 @@ class TikiLib extends TikiDb_Bridge
 
         $recipients = $this->plugin_get_email_users_with_perm();
 
-        $mail->setBcc($recipients);
-
-        if (! empty($prefs['sender_email'])) {
-            $mail->send([$prefs['sender_email']]);
-        } elseif ($admin_email = TikiLib::lib('user')->get_user_email('admin')) {
-            $recipients = array_diff($recipients, [$admin_email]);
-            $mail->setBcc($recipients);
-            $mail->send([$admin_email]);
-        }
+        $mail->send($recipients);
     }
 
     /**
