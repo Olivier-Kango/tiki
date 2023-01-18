@@ -37,6 +37,7 @@
 {else}
 	<form method="post" action="tiki-import_sheet.php?mode=import&sheetId={$sheetId}" enctype="multipart/form-data">
 		<h2>{tr}Import From File{/tr}</h2>
+		{ticket}
 		{tr}Format:{/tr}
 		<select name="handler">
 			{section name=key loop=$handlers}
@@ -57,6 +58,7 @@
 	</form>
 	<form method="post" action="tiki-import_sheet.php?mode=import&sheetId={$sheetId}">
 		<h2>{tr}Grab Wiki Tables{/tr}</h2>
+		{ticket}
 		<input id="querypage" type="text" name="page">
 		<input type="hidden" name="handler" value="TikiSheetWikiTableHandler">
 		<input type="submit" class="btn btn-default btn-sm" value="Import">
