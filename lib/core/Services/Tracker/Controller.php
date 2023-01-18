@@ -354,8 +354,8 @@ class Services_Tracker_Controller
                     'editable_by' => 'groupname',
                 ]
             );
-            $visibleBy = $input->asArray('visible_by', ',');
-            $editableBy = $input->asArray('editable_by', ',');
+            $visibleBy = $input->asArray('visible_by', false);
+            $editableBy = $input->asArray('editable_by', false);
 
             $options = $this->utilities->buildOptions(new JitFilter($input->option), $typeInfo);
 
@@ -504,6 +504,10 @@ class Services_Tracker_Controller
         if ($definition->getConfiguration('tabularSync', false)) {
             $validation_types['remotelock'] = tr('Remote Lock');
         }
+
+        $userlib = TikiLib::lib('user');
+        $groups = $userlib->list_all_groups();
+        $field['all_groups'] = $groups;
 
         return [
             'title' => tr('Edit') . " " . tr('%0', $field['name']),

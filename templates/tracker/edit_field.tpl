@@ -158,8 +158,9 @@
 
             <div class="mb-3 row mx-0">
                 <label for="visible_by" class="groupselector col-form-label">{tr}Visible by{/tr}</label>
-                <input type="text" name="visible_by" id="visible_by" value="{foreach from=$field.visibleBy item=group}{$group|escape}, {/foreach}" class="form-control">
-                {autocomplete element='#visible_by' type='groupname' options="multiple:true,multipleSeparator:','"}{* note, multiple doesn't work in jquery-ui 1.8 *}
+                <select multiple name="visible_by[]" id="visible_by" class="form-select">
+                    {foreach from=$field.all_groups item=group}<option value="{$group|escape}" {if in_array($group, $field.visibleBy)}selected="selected"{/if}>{$group|escape}</option> {/foreach}
+                </select>
                 <div class="form-text">
                     {tr}List of Group names with permission to see this field{/tr}. {tr}Separated by comma (,){/tr}
                 </div>
@@ -167,8 +168,9 @@
 
             <div class="mb-3 row mx-0">
                 <label for="editable_by" class="groupselector col-form-label">{tr}Editable by{/tr}</label>
-                <input type="text" name="editable_by" id="editable_by" value="{foreach from=$field.editableBy item=group}{$group|escape}, {/foreach}" class="form-control">
-                {autocomplete element='#editable_by' type='groupname' options="multiple:true,multipleSeparator:','"}{* note, multiple doesn't work in jquery-ui 1.8 *}
+                <select multiple name="editable_by[]" id="editable_by" class="form-select">
+                    {foreach from=$field.all_groups item=group}<option value="{$group|escape}" {if in_array($group, $field.editableBy)}selected="selected"{/if}>{$group|escape}</option> {/foreach}
+                </select>
                 <div class="form-text">
                     {tr}List of Group names with permission to edit this field{/tr}. {tr}Separated by comma (,){/tr}
                 </div>

@@ -27,7 +27,9 @@ function wikiplugin_group_info()
                     Example:') . ' <code>Admins|Developers</code>',
                 'since' => '1',
                 'filter' => 'groupname',
-                'default' => ''
+                'default' => '',
+                'separator' => '|',
+                'profile_reference' => 'group',
             ],
             'notgroups' => [
                 'required' => false,
@@ -35,7 +37,9 @@ function wikiplugin_group_info()
                 'description' => tra('Pipe-separated list of groups not allowed to view the block.'),
                 'since' => '1',
                 'filter' => 'groupname',
-                'default' => ''
+                'default' => '',
+                'separator' => '|',
+                'profile_reference' => 'group',
             ],
             'friends' => [
                 'required' => false,
@@ -53,7 +57,9 @@ function wikiplugin_group_info()
                     list of groups) is outstanding.'),
                 'since' => '13.0',
                 'filter' => 'groupname',
-                'default' => ''
+                'default' => '',
+                'separator' => '|',
+                'profile_reference' => 'group',
             ],
             'notpending' => [
                 'required' => false,
@@ -62,7 +68,9 @@ function wikiplugin_group_info()
                     groups) is not pending.'),
                 'since' => '13.0',
                 'filter' => 'groupname',
-                'default' => ''
+                'default' => '',
+                'separator' => '|',
+                'profile_reference' => 'group',
             ],
         ],
     ];
@@ -84,10 +92,10 @@ function wikiplugin_group($data, $params)
     }
 
     if (! empty($params['groups'])) {
-        $groups = explode('|', $params['groups']);
+        $groups = $params['groups'];
     }
     if (! empty($params['notgroups'])) {
-        $notgroups = explode('|', $params['notgroups']);
+        $notgroups = $params['notgroups'];
     }
     $userPending = [];
     if (! empty($params['pending']) || ! empty($params['notpending'])) {
@@ -95,7 +103,7 @@ function wikiplugin_group($data, $params)
         $attributes = $attributelib->get_attributes('user', $user);
         $userlib = TikiLib::lib('user');
         if (! empty($params['pending'])) {
-            $pending = explode('|', $params['pending']);
+            $pending = $params['pending'];
             foreach ($pending as $pgrp) {
                 $grpinfo = $userlib->get_group_info($pgrp);
                 $attname = 'tiki.memberextend.' . $grpinfo['id'];
@@ -105,7 +113,7 @@ function wikiplugin_group($data, $params)
             }
         }
         if (! empty($params['notpending'])) {
-            $notpending = explode('|', $params['notpending']);
+            $notpending = $params['notpending'];
             foreach ($notpending as $npgrp) {
                 $grpinfo = $userlib->get_group_info($npgrp);
                 $attname = 'tiki.memberextend.' . $grpinfo['id'];
