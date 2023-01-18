@@ -5490,7 +5490,7 @@ class TikiLib extends TikiDb_Bridge
     {
         require_once('lib/webmail/tikimaillib.php');
         global $prefs, $base_url;
-        $mail = new TikiMail(null, $prefs['sender_email']);
+        $mail = new TikiMail(null, $prefs['sender_email'], $prefs['sender_name']);
         $mail->setSubject(tr("Plugin %0 pending approval", $plugin_name));
 
         $smarty = TikiLib::lib('smarty');
