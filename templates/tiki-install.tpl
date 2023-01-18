@@ -1041,5 +1041,5 @@
             class="btn"><img src="img/tiki/tikibutton.png" alt="{tr}Powered by Tiki Wiki CMS Groupware{/tr}"></a>
     </div>{* End of install-footer *}
 
-    {*</div>{* End of install-body *}*}
+    {*</div>*}{* End of install-body *}
 </div>{* End of tiki-install container *}
