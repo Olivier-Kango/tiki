@@ -669,11 +669,14 @@ if (isset($calitem['recurrenceId']) && $calitem['recurrenceId'] > 0) {
 }
 $headerlib->add_jsfile('lib/jquery_tiki/calendar_edit_item.js');
 
-if (! empty($calitem['start'])) {
-    $calitem['start'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
-}
-if (! empty($calitem['end'])) {
-    $calitem['end'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
+//Do not apply the timezone in view mode, because it is already applied in the training function
+if (empty($_REQUEST['viewcalitemId'])) {
+    if (! empty($calitem['start'])) {
+        $calitem['start'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
+    }
+    if (! empty($calitem['end'])) {
+        $calitem['end'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
+    }
 }
 
 $smarty->assign('calitem', $calitem);
