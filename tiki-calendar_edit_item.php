@@ -376,7 +376,7 @@ if (! empty($_REQUEST['viewcalitemId']) && ! empty($_REQUEST['guests']) && isset
 
 if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["calitemId"]) and $tiki_p_change_events == 'y') {
     // There is no check for valid antibot code if anonymous allowed to delete events since this comes from a JS button at the tpl and bots are not know to use JS
-    $access->checkCsrf(tra('Are you sure you want to delete the event '.$calitem['name'].' ?'));
+    $access->checkCsrf(tra('Are you sure you want to delete the event ' . $calitem['name'] . ' ?'));
     $calitem = $calendarlib->get_item($_REQUEST['calitemId']);
     $calendarlib->drop_item($user, $_REQUEST["calitemId"]);
     if ($prefs['feature_actionlog'] == 'y') {
@@ -387,7 +387,7 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
     exit;
 } elseif (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["recurrenceId"]) and $tiki_p_change_events == 'y') {
     // There is no check for valid antibot code if anonymous allowed to delete events since this comes from a JS button at the tpl and bots are not know to use JS
-    $access->checkCsrf(tra('Are you sure you want to delete the event '.$calitem['name'].' ?'));
+    $access->checkCsrf(tra('Are you sure you want to delete the event ' . $calitem['name'] . ' ?'));
     $calRec = new CalRecurrence($_REQUEST['recurrenceId']);
     $calRec->delete();
     if ($prefs['feature_actionlog'] == 'y') {
@@ -666,11 +666,14 @@ if (isset($calitem['recurrenceId']) && $calitem['recurrenceId'] > 0) {
 }
 $headerlib->add_jsfile('lib/jquery_tiki/calendar_edit_item.js');
 
-if (! empty($calitem['start'])) {
-    $calitem['start'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
-}
-if (! empty($calitem['end'])) {
-    $calitem['end'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
+//Do not apply the timezone in view mode, because it is already applied in the training function
+if (empty($_REQUEST['viewcalitemId'])) {
+    if (! empty($calitem['start'])) {
+        $calitem['start'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
+    }
+    if (! empty($calitem['end'])) {
+        $calitem['end'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
+    }
 }
 
 $smarty->assign('calitem', $calitem);
