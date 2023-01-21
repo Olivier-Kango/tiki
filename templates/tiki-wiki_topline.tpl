@@ -176,7 +176,7 @@
                                         if (!getCookie("wiki_plugin_edit_view")) {$(".editplugin, .icon_edit_section").hide(); } else { $("#wiki_plugin_edit_view").click(); }
                                     {/jq}
                                     <a class="dropdown-item" href="#" id="wiki_plugin_edit_view" title="{tr}Click to toggle on/off{/tr}">
-                                        <span class="d-flex align-items-center text-with-toggle"><span class="text flex-fill d-flex order-2">{icon name='plugin' iclass="order-2"} <span class="order-1 mx-1">{tr}Edit icons{/tr}</span> </span> {icon iclass="toggle-icon order-1" name="toggle-off"}</span>
+                                        <span class="align-items-center text-with-toggle"><span class="text">{icon name='plugin' iclass="d-inline"} <span class="mx-1">{tr}Edit icons{/tr}</span> </span> {icon iclass="toggle-icon" name="toggle-off"}</span>
                                             {assign var="hasPageAction" value="1"}
                                         </a>
                                 {/if}
