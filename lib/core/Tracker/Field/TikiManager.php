@@ -156,7 +156,8 @@ class Tracker_Field_TikiManager extends \Tracker\Field\AbstractField
         }
 
         if (! class_exists('TikiManager\Config\Environment')) {
-            $ret['error'] = tr('Tiki Manager not found. Please check if it is installed from Admin->Packages.');
+            $linkTo_installed_packages = "<a href='tiki-admin.php?page=packages#contenttabs_admin_packages-1'><strong>" . tr(' Admin->Packages.') . "</strong></a>";
+            $ret['error'] = tr('Tiki Manager not found. Please check if it is installed from') . $linkTo_installed_packages;
             return $ret;
         }
 

@@ -1,5 +1,5 @@
 {if !empty($field.error)}
-<div class="error">{$field.error|escape}</div>
+<div class="error">{$field.error}</div>
 {/if}
 {if !$field.id}
     {remarksbox type="info" title="{tr}Item must be created first{/tr}" close="n"}

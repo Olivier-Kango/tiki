@@ -57,7 +57,8 @@ function wikiplugin_tikimanager($data, $params)
     }
 
     if (! class_exists('TikiManager\Config\Environment')) {
-        return WikiParser_PluginOutput::error(tra('Error'), tr('Tiki Manager not found. Please check if it is installed from Admin->Packages.'));
+        $linkTo_installed_packages = "<a href='tiki-admin.php?page=packages#contenttabs_admin_packages-1'><strong>" . tr(' Admin->Packages.') . "</strong></a>";
+        return WikiParser_PluginOutput::error(tra('Error'), tr('Tiki Manager not found. Please check if it is installed from') . $linkTo_installed_packages);
     }
 
     try {

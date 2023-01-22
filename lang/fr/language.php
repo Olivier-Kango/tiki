@@ -22054,5 +22054,7 @@ $lang_current = array(
 "Fix double encoding issues (Make sure to have a backup, and test thoroughly after this operation)" => "Résoudre les problèmes de double encodage (assurez-vous d'avoir une sauvegarde et testez soigneusement après cette opération)",
 "You can not include a page within itself" => "Vous ne pouvez pas inclure une page en elle-même",
 "You are using a correct database encoding and allowed legacy collation as required to complete the installation." => "Vous utilisez un encodage correct de la base de données et votre 'legacy collation' convient pour terminer l'installation.",
+"Tiki Manager not found. Please check if it is installed from" => "Tiki Manager est introuvable. Veuillez vérifier s'il est installé à partir de",
+" Admin->Packages." => " Admin->Packages."
 );
 $lang = array_replace($lang, $lang_current);
