@@ -328,6 +328,11 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
             } else {
                 $defaultGalleryId = 0;
             }
+            $defaultVolumeId = TikiLib::lib('filegal')->getGallerySpecialRoot($defaultGalleryId);
+            if (! $defaultVolumeId) {
+                // assume normal filegals if $defaultGalleryId is empty
+                $defaultVolumeId = $prefs['fgal_root_id'];
+            }
             $deepGallerySearch = $this->getOption('deepGallerySearch');
             //in case $deepGallerySearch is false
             $deepGallerySearch = $deepGallerySearch == 1 ? 1 : 0;
@@ -340,6 +345,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                 $context['onclick'] = 'return openElFinderDialog(this, {
     defaultGalleryId:' . $defaultGalleryId . ',
     deepGallerySearch: ' . $deepGallerySearch . ',
+    defaultVolumeId:' . $defaultVolumeId . ',
     ticket: \'' . smarty_function_ticket(['mode' => 'get'], $smarty) . '\',
     getFileCallback: function(file,elfinder){ window.handleFinderFile(file,elfinder); },
     eventOrigin:this
