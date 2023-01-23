@@ -107,7 +107,7 @@ function get_tag_revision($releaseNumber)
     $revision = 0;
 
     // --stop-on-copy makes it only return the tag commit, not the whole history since time began
-    $log = trim(`git describe --tags $releaseNumber`);
+    $log = trim(`git describe --tags tags/$releaseNumber`);
     if (preg_match('/^r(\d+)/ms', $log, $matches)) {
         $revision = (int)$matches[1];
     }

@@ -1466,10 +1466,10 @@ function get_contributors_data($path, &$contributors, $minRevision, $maxRevision
     }
 
     get_contributors($path, $contributors, $minRevision, $maxRevision, $step);
-    $nbCommiters = array_filter($contributors, function ($contributor) {
+    $nbCommiters = count(array_filter($contributors, function ($contributor) {
         // Get count contributors with commits
         return count($contributor) > 2;
-    });
+    }));
     return $contributors;
 }
 
