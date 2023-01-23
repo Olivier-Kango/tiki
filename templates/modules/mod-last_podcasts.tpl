@@ -18,24 +18,6 @@
                         {$modLastFiles[ix].name|escape:'html'}
                     </a>
                 </div>
-                <div class="module podcast">
-                    {if $mediaplayer ne ""}
-                        {if $modLastFiles[ix].path ne ""}
-                            <object type="application/x-shockwave-flash" data="{$mediaplayer}?mp3={$prefs.fgal_podcast_dir}/{$modLastFiles[ix].path}" width="190" height="20">
-                                <param name="movie" value="{$mediaplayer}?mp3=files/{$modLastFiles[ix].path}">
-                            </object>
-                            {if $verbose eq 'y'}
-                                <div class="moduledescription" >
-                                    {$modLastFiles[ix].description|nl2br}
-                                </div>
-                            {/if}
-                        {else} {* This probably means it is not an mp3, or it was not uploaded into a file gallery of type "Podcast (Audio)" *}
-                            {tr}This is likely not a podcast file.{/tr}
-                        {/if}
-                    {else}
-                        {tr}The path to a podcast player is required.{/tr}
-                    {/if}
-                </div>
             </li>
             {/section}
         {if $nonums != 'y'}</ol>{else}</ul>{/if}

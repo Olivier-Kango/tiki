@@ -27,7 +27,7 @@ class Podcast extends FileSystem
       // file can be called directly if name is known,
         $extension = '';
         $path_parts = pathinfo($file->name);
-        if (in_array(strtolower($path_parts['extension']), ['m4a', 'mp3', 'mov', 'mp4', 'm4v', 'pdf', 'flv', 'swf', 'wmv'])) {
+        if (in_array(strtolower($path_parts['extension']), ['m4a', 'mp3', 'mov', 'mp4', 'm4v', 'pdf', 'wmv'])) {
             $extension = '.' . strtolower($path_parts['extension']);
         }
         $fhash = md5($file->name);

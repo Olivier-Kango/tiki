@@ -25,22 +25,6 @@ function module_last_podcasts_info()
                 'separator' => ':',
                 'profile_reference' => 'file_gallery',
             ],
-            'width' => [
-                'required' => false,
-                'name' => tra('width'),
-                'description' => tra('Width of mediaplayer in pixels.'),
-                'default' => 190,
-            ],
-            'height' => [
-                'required' => false,
-                'name' => tra('height'),
-                'description' => tra('Height of mediaplayer in pixels.'),
-                'default' => 20,
-            ],
-            'mediaplayer' => [
-                'name' => tra('mediaplayer'),
-                'description' => tra('Path to mp3 player. For instance media/player_mp3_maxi.swf if you downloaded player_mp3_maxi.swf from http://flash-mp3-player.net/players/maxi/download/ to directory media/ (directory needs to be created or you can chose another place).'),
-            ],
             'link_url' => [
                 'required' => false,
                 'name' => tra('Bottom Link URL'),
@@ -86,12 +70,9 @@ function module_last_podcasts($mod_reference, $module_params)
     $mediaplayer = (isset($module_params['mediaplayer']) && is_readable($module_params['mediaplayer'])) ? $module_params['mediaplayer'] : '';
 
     $smarty->assign('modLastFiles', $mediafiles['data']);
-    $smarty->assign('mediaplayer', $mediaplayer);
     $smarty->assign('nonums', isset($module_params['nonums']) ? $module_params['nonums'] : 'n');
     $smarty->assign('verbose', isset($module_params['verbose']) ? $module_params['verbose'] : 'y');
     $smarty->assign('link_url', isset($module_params['link_url']) ? $module_params['link_url'] : '');
     $smarty->assign('link_text', isset($module_params['link_text']) ? $module_params['link_text'] : 'More Podcasts');
-    $smarty->assign('player_width', isset($module_params['width']) ? $module_params['width'] : '190');
-    $smarty->assign('player_height', isset($module_params['height']) ? $module_params['height'] : '20');
     $smarty->assign('module_rows', $mod_reference["rows"]);
 }
