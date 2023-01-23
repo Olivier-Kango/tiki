@@ -290,7 +290,7 @@
         .page-header.has-admin-bar-sliding-panel {
             /*padding-top: 7rem;*/
             position: relative;
-            z-index: 3;
+            z-index: 1;
         }
 
         .box-logo {
