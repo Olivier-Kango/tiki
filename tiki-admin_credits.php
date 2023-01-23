@@ -11,6 +11,7 @@
 // $Id$
 
 require_once 'tiki-setup.php';
+require_once('admin/include_credits.php');
 $creditslib = TikiLib::lib('credits');
 //get_strings tra('Admin credits')
 
@@ -70,10 +71,7 @@ if (isset($_REQUEST['update_types'])) {
     }
 }
 
-$creditTypes = $creditslib->getCreditTypes();
-$staticCreditTypes = $creditslib->getCreditTypes(true);
-$smarty->assign('credit_types', $creditTypes);
-$smarty->assign('static_credit_types', $staticCreditTypes);
+list($creditTypes, $staticCreditTypes) = creditTypes();
 
 if (isset($_REQUEST['userfilter'])) {
     $smarty->assign('userfilter', $_REQUEST['userfilter']);
@@ -81,45 +79,15 @@ if (isset($_REQUEST['userfilter'])) {
     $editing = $userlib->get_user_info($_REQUEST['userfilter']);
 
     if ($editing) {
-        $userPlans = [];
-        foreach ($creditTypes as $ct => $v) {
-            $userPlans[$ct]['nextbegin'] = $creditslib->getNextPlanBegin($editing['userId'], $ct);
-            $userPlans[$ct]['currentbegin'] = $creditslib->getLatestPlanBegin($editing['userId'], $ct);
-            $userPlans[$ct]['expiry'] = $creditslib->getPlanExpiry($editing['userId'], $ct);
-        }
-        $smarty->assign('userPlans', $userPlans);
-
-        $credits = $creditslib->getRawCredits($editing['userId']);
-        $smarty->assign('credits', $credits);
-        $smarty->assign('editing', $editing);
-
-        // Get usage information
+        $credits = userPlansAndCredits();
 
         // date values
-        if (isset($_REQUEST['startDate_Year']) || isset($_REQUEST['endDate_Year'])) {
-            $smarty->assign(
-                'startDate',
-                $tikilib->make_time(0, 0, 0, $_REQUEST['startDate_Month'], $_REQUEST['startDate_Day'], $_REQUEST['startDate_Year'])
-            );
-
-            $smarty->assign(
-                'endDate',
-                $tikilib->make_time(23, 59, 59, $_REQUEST['endDate_Month'], $_REQUEST['endDate_Day'], $_REQUEST['endDate_Year'])
-            );
-
-            $start_date = $_REQUEST['startDate_Year'] . '-' . $_REQUEST['startDate_Month'] . '-' . $_REQUEST['startDate_Day'];
-            $end_date = $_REQUEST['endDate_Year'] . '-' . $_REQUEST['endDate_Month'] . '-' . $_REQUEST['endDate_Day'] . ' 23:59:59';
-        } else {
-            $start_date = $tikilib->now - 3600 * 24 * 30;
-            $smarty->assign('startDate', $start_date);
-            $end_date = date('Y-m-d 23:59:59');
-        }
+        list($start_date, $end_date) = getStartDateFromRequest();
 
         $req_type = $_REQUEST['action_type'];
         $smarty->assign('act_type', $req_type);
 
-        $consumption_data = $creditslib->getCreditsUsage($editing['userId'], $req_type, $start_date, $end_date);
-        $smarty->assign('consumption_data', $consumption_data);
+        consumptionData();
 
         if (isset($_POST['save'], $_POST['credits'])) {
             foreach ($_POST['credits'] as $key => $values) {

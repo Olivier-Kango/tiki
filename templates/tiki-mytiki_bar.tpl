@@ -68,6 +68,10 @@
                 <a class="dropdown-item" href="tiki-socialnetworks.php"> {icon name="admin_socialnetworks"} {tr}Social networks{/tr}</a>
             {/if}
 
+            {if $prefs.feature_credits eq 'y' and !empty($user)}
+                <a class="dropdown-item" href="tiki-user_credits.php"> {icon name="credit-card"} {tr}Credits{/tr}</a>
+            {/if}
+
             {if $prefs.feature_mailin eq 'y' and !empty($user) and ($tiki_p_send_mailin eq 'y' or $tiki_p_admin_mailin eq 'y')}
                 <a class="dropdown-item" href="tiki-user_mailin.php"> {icon name="reply"} {tr}Mail-in{/tr}</a>
             {/if}

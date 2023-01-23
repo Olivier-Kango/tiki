@@ -59,25 +59,7 @@
     </div>
 </form>
 
-<h2>{tr}User Credits Expiry Summary (Plans){/tr}</h2>
-<div class="table-responsive">
-    <table class="table">
-        <tr>
-            <th>{tr}User Plan{/tr}</th>
-            <th>{tr}Start of Latest Plan{/tr}</th>
-            <th>{tr}Start of Next Plan{/tr}</th>
-            <th>{tr}Expiry{/tr}</th>
-        </tr>
-        {foreach key=id item=data from=$userPlans}
-            <tr>
-                <td>{$id|escape}</td>
-                <td>{if !empty($data.currentbegin)}{$data.currentbegin|escape}{else}-{/if}</td>
-                <td>{if !empty($data.nextbegin)}{$data.nextbegin|escape}{else}-{/if}</td>
-                <td>{if !empty($data.expiry)}{$data.expiry|escape}{else}-{/if}</td>
-            </tr>
-        {/foreach}
-    </table>
-</div>
+{include file='include_credits_expiry.tpl' userPlans=$userPlans}
 
 <h2>{tr}Use User Credits{/tr}</h2>
 <form method="post" action="tiki-admin_credits.php">
@@ -107,44 +89,7 @@
     <input type="submit" name="restore_credit" value="{tr}Restore{/tr}">
 </form>
 
-<h2>{tr}Historical Usage Report{/tr}</h2>
-    <div>
-        <form method="post" action="tiki-admin_credits.php">
-            <input type="hidden" name="userfilter" value="{$userfilter|escape}">
-            <table class='normal'>
-                <tr>
-                    <td>
-                        {html_select_date time=$startDate prefix="startDate_" end_year="-10" day_value_format="%02d" field_order=$prefs.display_field_order}
-                    <br>
-                        {html_select_date time=$endDate prefix="endDate_" end_year="-10" day_value_format="%02d" field_order=$prefs.display_field_order}
-                    </td>
-                    <td>
-                        <select  class="form-control" name="action_type">
-                            <option value="">{tr}all types{/tr}</option>
-                            {foreach key=id item=data from=$credit_types}
-                                <option value="{$id}" {if $act_type eq '{$id}'}selected="selected"{/if}>{$id|escape}</option>
-                            {/foreach}
-                        </select>
-                    </td>
-
-                    <td>&nbsp;</td>
-                    <td><input class="btn btn-primary" type="submit" value="{tr}filter{/tr}"><br/><br/></td>
-                </tr>
-                <tr>
-                    <th>{tr}Type{/tr}</th>
-                    <th>{tr}Usage Date{/tr}</th>
-                    <th colspan='2'>{tr}Amount Used{/tr}</th>
-                </tr>
-                {foreach item=con_data from=$consumption_data}
-                    <tr>
-                        <td>{$con_data.credit_type}</td>
-                        <td>{$con_data.usage_date|date_format:"%d-%m-%Y %H:%M:%S"}</td>
-                        <td colspan='2'>{$con_data.used_amount}</td>
-                    </tr>
-                {/foreach}
-            </table>
-        </form>
-    </div>
+{include file='include_credits_usage_report.tpl' userfilter=$userfilter consumption_data=$consumption_data credit_types=$credit_types startDate=$startDate endDate=$endDate page='tiki-admin_credits.php'}
 {else}
     {tr}No such user{/tr}
 {/if}
