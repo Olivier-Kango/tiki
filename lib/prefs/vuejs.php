@@ -45,5 +45,16 @@ function prefs_vuejs_list()
             ],
             'keywords' => 'vue js vuejs vue_js',
         ],
+        'vuejs_toolbar_dialogs' => [
+            'name'        => tra('Enable Vue.js Toolbar Dislaogs'),
+            'description' => tra(''),
+            'type'        => 'flag',
+            'default'     => 'n',
+            'tags'        => ['experimental'],
+            'keywords' => 'vue js vuejs vue_js',
+            'dependencies' => [
+                'vuejs_enable',
+            ],
+        ],
     ];
 }

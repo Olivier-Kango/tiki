@@ -9,6 +9,7 @@ class ToolbarDialog extends ToolbarItem
     private array $list;
     private int $index;
     private string $name;
+    static $applicationId = 0;
 
     public static function fromName(string $tagName): ?ToolbarItem
     {
@@ -202,7 +203,7 @@ class ToolbarDialog extends ToolbarItem
         ++$toolbarDialogIndex;
         $tag->index = $toolbarDialogIndex;
 
-        ToolbarDialog::setupJs();
+        $tag->setupJs();
 
         return $tag;
     }
@@ -216,16 +217,45 @@ class ToolbarDialog extends ToolbarItem
 
     public function getOnClick(): string
     {
-        return 'displayDialog( this, ' . $this->index . ', \'' . $this->domElementId . '\')';
+        global $toolbarDialogIndex, $prefs;
+        if ($prefs['vuejs_toolbar_dialogs'] === 'y') {
+            return 'toolbarDialog(\'' . $this->name . '\',\'' . $this->domElementId . '\')';
+        } else {
+            return 'displayDialog( this, ' . $this->index . ', \'' . $this->domElementId . '\')';
+        }
     }
 
-    public static function setupJs()
+    public function setupJs()
     {
-        TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
+        global $toolbarDialogIndex, $prefs;
+
+        if ($prefs['vuejs_toolbar_dialogs'] === 'y') {
+            TikiLib::lib('header')->add_jq_onready('
+    window.registerApplication({
+        name: "@vue-mf/toolbar-dialogs-" + ' . json_encode($this->index) . ',
+        app: () => System.import("@vue-mf/toolbar-dialogs"),
+        activeWhen: (location) => {
+            let condition = true;
+            return condition;
+        },
+        customProps: {
+            type: ' . json_encode($this->name) . ',
+        },
+    });
+    onDOMElementRemoved("single-spa-application:@vue-mf/toolbar-dialogs-" + ' . json_encode($toolbarDialogIndex) . ', function () {
+        window.unregisterApplication("@vue-mf/toolbar-dialogs-" + ' . json_encode($toolbarDialogIndex) . ');
+    });
+    ');
+
+        } else {
+            TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
+        }
     }
 
     public function getWikiHtml(): string
     {
+        global $prefs, $toolbarDialogIndex;
+
         $headerlib = TikiLib::lib('header');
         $headerlib->add_js(
             "if (! window.dialogData) { window.dialogData = {}; } window.dialogData[$this->index] = "
@@ -233,11 +263,18 @@ class ToolbarDialog extends ToolbarItem
             1 + $this->index
         );
 
-        return $this->getSelfLink(
-            $this->getOnClick(),
-            htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
-            $this->getClass()
-        );
+        if ($prefs['vuejs_toolbar_dialogs'] === 'y') {
+            $appHtml = '<div id="single-spa-application:@vue-mf/toolbar-dialogs-' . $toolbarDialogIndex . '" class="toolbar-dialogs" style="display:none"></div>';
+        } else {
+            $appHtml = '';
+        }
+
+        return $appHtml .
+            $this->getSelfLink(
+                $this->getOnClick(),
+                htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
+                $this->getClass()
+            );
     }
 
     public function getWysiwygToken(): string

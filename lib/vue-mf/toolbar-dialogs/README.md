@@ -1,6 +1,6 @@
 # toolbar-dialogs
 
-Temporary parking place while i work out how vue.js 3 works, then will be merged into https://gitlab.com/tikiwiki/tiki
+Replacement dialogs for normal mode edit toolbars
 
 ## Recommended IDE Setup
 
