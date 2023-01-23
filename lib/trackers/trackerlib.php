@@ -2245,7 +2245,7 @@ class TrackerLib extends TikiLib
                 if (isset($job['field']['value'])) {
                     $data[$job['field']['permName']] = $job['field']['value'];
                 }
-                if ($job['handler']->getConfiguration('type') == 'FG' && isset($deleted_files[$job['field']['fieldId']])) {
+                if ($job['handler']->getConfiguration('type') == 'FG' && ! empty($deleted_files[$job['field']['fieldId']])) {
                     $data['deleted_files'] = $deleted_files[$job['field']['fieldId']];
                 }
                 $value = $job['handler']->handleFinalSave($data);
