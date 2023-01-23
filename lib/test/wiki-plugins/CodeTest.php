@@ -24,9 +24,9 @@ class WikiPlugin_CodeTest extends PHPUnit\Framework\TestCase
     public function provider(): array
     {
         return [
-            ['', '<pre class="codelisting"  data-theme="off"  data-wrap="1"  dir="ltr"  style="white-space:pre-wrap; overflow-wrap: break-word; word-wrap: break-word;" id="codebox1" ></pre>'],
-            ['<script>alert(document.cookie);</script>', '<pre class="codelisting"  data-theme="off"  data-wrap="1"  dir="ltr"  style="white-space:pre-wrap; overflow-wrap: break-word; word-wrap: break-word;" id="codebox2" ><script>alert(document.cookie);</script></pre>', ['ishtml' => 1]],
-            ['~np~~tc~{img fileId="42"}~/tc~~/np~', '<pre class="codelisting"  data-theme="off"  data-wrap="1"  dir="ltr"  style="white-space:pre-wrap; overflow-wrap: break-word; word-wrap: break-word;" id="codebox3" >~np~~tc~{img fileId=&quot;42&quot;}~/tc~~/np~</pre>']
+            ['', '<div class="codelisting_container"><span class="far fa-clipboard icon_copy_code"  id="copy1" tabindex="0" data-toggle="tooltip_copy_code" title="Copy to clipboard"  data-clipboard-target="#codebox1" ></span><pre class="codelisting"  data-theme="off"  data-wrap="1"  dir="ltr"  style="white-space:pre-wrap; overflow-wrap: break-word; word-wrap: break-word;" id="codebox1" ><div class="code"></div></pre></div>'],
+            ['<script>alert(document.cookie);</script>', '<div class="codelisting_container"><span class="far fa-clipboard icon_copy_code"  id="copy2" tabindex="0" data-toggle="tooltip_copy_code" title="Copy to clipboard"  data-clipboard-target="#codebox2" ></span><pre class="codelisting"  data-theme="off"  data-wrap="1"  dir="ltr"  style="white-space:pre-wrap; overflow-wrap: break-word; word-wrap: break-word;" id="codebox2" ><div class="code"><script>alert(document.cookie);</script></div></pre></div>', ['ishtml' => 1]],
+            ['~np~~tc~{img fileId="42"}~/tc~~/np~', '<div class="codelisting_container"><span class="far fa-clipboard icon_copy_code"  id="copy3" tabindex="0" data-toggle="tooltip_copy_code" title="Copy to clipboard"  data-clipboard-target="#codebox3" ></span><pre class="codelisting"  data-theme="off"  data-wrap="1"  dir="ltr"  style="white-space:pre-wrap; overflow-wrap: break-word; word-wrap: break-word;" id="codebox3" ><div class="code">~np~~tc~{img fileId=&quot;42&quot;}~/tc~~/np~</div></pre></div>']
         ];
     }
 }
