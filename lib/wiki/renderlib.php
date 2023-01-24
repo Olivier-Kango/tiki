@@ -209,6 +209,15 @@ class WikiRenderer
             $this->smartyassign('translationsCount', count($this->trads));
             $pageLang = $this->info['lang'];
             $this->smartyassign('pageLang', $pageLang);
+
+            $headerlib = TikiLib::lib('header');
+            $links = [];
+            foreach ($this->trads as $trad) {
+                if ($trad['lang'] != $this->info['lang']) {
+                    $links[] = '<link rel="alternate" href="tiki-index.php?page=' . $trad['objName'] . '" hreflang="' . $trad['lang'] . '">';
+                }
+            }
+            $headerlib->add_rawhtml(implode("\n", $links) . "\n");
         }
 
         if ($prefs['feature_machine_translation'] == 'y' && $prefs['lang_machine_translate_wiki'] == 'y' && ! empty($this->info['lang'])) {
