@@ -323,7 +323,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 
     .tiki-admin .admin-navbar button[aria-expanded="true"] {
         position: fixed;
-        right: 0;
+        right: 1rem;
         left: unset;
         z-index: 999;
         margin-top: .3rem;
@@ -386,11 +386,11 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     }
 
     .tiki-admin .admin-wrapper .navbar-toggler {
-        top: .5rem !important;
+        top: .8rem !important;
     }
 
     .tiki-admin .row.row-middle, .tiki-admin .intertrans.text-center {
-        margin-left: 60px !important;
+ //       margin-left: 60px !important;
     }
 
     .tiki-admin .filter-menu .nav-item.dropdown {
@@ -501,10 +501,10 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     }
 }
 
-.tiki-admin .row.row-middle {
-    margin-top: 6rem;
-}
-
+//.tiki-admin .row.row-middle { -- Isn't it better to have admin content than empty space at the top of the page?
+//    margin-top: 6rem;
+//}
+//
 .tiki-admin .top_modules .nav-link {
     margin-top: .9rem;
 }
@@ -714,18 +714,22 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     overflow: hidden;
 }
 
+.tiki-admin .container.container-std .col1 {
+    padding-left: 90px;
+}
+
 // main content
-.tiki-admin:not(.fixed_width) .col1 .admin-wrapper {
-    margin-left: 0;
-}
+//.tiki-admin:not(.fixed_width) .col1 .admin-wrapper { Replaced with above rule
+//    margin-left: 0;
+//}
 
-.tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
-    margin-left: 283px;
-}
+//.tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
+//    margin-left: 283px;
+//}
 
-.tiki-admin.sidebar_collapsed #show-errors-button, .tiki-admin.sidebar_collapsed #errors {
-    margin-left: 75px;
-}
+//.tiki-admin.sidebar_collapsed #show-errors-button, .tiki-admin.sidebar_collapsed #errors {
+//    margin-left: 75px;
+//}
 
 @media (max-width: 767.5px) {
     .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
@@ -739,8 +743,8 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 @media (min-width: 992px) {
-    .tiki-admin .container.container-std {
-        margin-left: 285px;
+    .tiki-admin .container.container-std .col1 {
+        padding-left: 290px;
     }
 }
 
@@ -812,7 +816,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 .tiki-admin .admin-wrapper .navbar-toggler {
     position: absolute;
     border: none;
-    left: 2.9rem;
+    left: 3.5rem;
 }
 
 .tiki-admin .admin-navbar .navbar-toggler-icon {
