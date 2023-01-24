@@ -33,6 +33,11 @@ $imagePathToIcons: "../../../img/icons/";
     display: inline-block;
 }
 
+// to appear in front of autotoc
+.wikiactions .dropdown-menu.show {
+    z-index: 1021;
+}
+
 // /* wikiplugin_convene */
 
 .conveneHeaderRow td {
