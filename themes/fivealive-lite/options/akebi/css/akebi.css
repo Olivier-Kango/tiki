@@ -38,9 +38,9 @@
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: #087084;
-  --tiki-admin-navbar-dark-highlight-color: #07262c;
+  --tiki-admin-navbar-dark-highlight-color: #0e4d58;
   --tiki-admin-navbar-light-highlight-bg: #087084;
-  --tiki-admin-navbar-light-highlight-color: #07262c;
+  --tiki-admin-navbar-light-highlight-color: #0e4d58;
 }
 .accordion {
   --bs-accordion-active-bg: #177F92;
@@ -980,11 +980,11 @@ hr {
   color: #11606E;
 }
 .tiki .dropdown-item:hover, .tiki .dropdown-item:focus, .tiki .dropdown-item a:hover, .tiki .dropdown-item a:focus, .tiki .dropdown-item .btn.btn-link:hover, .tiki .dropdown-item .btn.btn-link:focus {
-  color: #07262c;
+  color: #0e4d58;
   background: #087084;
 }
 .tiki .dropdown-item:active, .tiki .dropdown-item.active, .tiki .dropdown-item a:active, .tiki .dropdown-item a.active, .tiki .dropdown-item .btn.btn-link:active, .tiki .dropdown-item .btn.btn-link.active {
-  color: #07262c;
+  color: #0e4d58;
   background: #087084;
 }
 .tiki .dropdown-item.disabled, .tiki .dropdown-item:disabled, .tiki .dropdown-item a.disabled, .tiki .dropdown-item a:disabled, .tiki .dropdown-item .btn.btn-link.disabled, .tiki .dropdown-item .btn.btn-link:disabled {
@@ -1177,7 +1177,7 @@ header.navbar.fixed-top.bg-dark {
   box-shadow: none;
   border: none;
 }
-.tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
+.tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
@@ -1266,4 +1266,4 @@ body.layout_basic {
 .badge.bg-danger {
   color: #fff;
 }
-
+/*# sourceMappingURL=akebi.css.map */

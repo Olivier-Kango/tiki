@@ -11311,7 +11311,7 @@ header.navbar.fixed-top.bg-dark {
   box-shadow: none;
   border: none;
 }
-.tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
+.tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
@@ -12267,4 +12267,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
-
+/*# sourceMappingURL=morph.css.map */

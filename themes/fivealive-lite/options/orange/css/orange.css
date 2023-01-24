@@ -1170,7 +1170,7 @@ header.navbar.fixed-top.bg-dark {
   box-shadow: none;
   border: none;
 }
-.tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
+.tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
@@ -1319,4 +1319,4 @@ body.layout_basic {
 .tiki .dropdown-item {
   color: #fff !important;
 }
-
+/*# sourceMappingURL=orange.css.map */
