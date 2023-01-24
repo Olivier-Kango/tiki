@@ -18,7 +18,7 @@ variables:
 workflow:
   rules:
     # IGNORE PUSHES ON NON VERSION BRANCHES
-    - if: '$CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH != "master" && $CI_COMMIT_BRANCH != /^\d*\.x$/)'
+    - if: '$CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH != "master" && $CI_COMMIT_BRANCH !~ /^\d*\.x$/)'
       when: never
     # THIS WILL TRIGGER PIPELINES FOR MERGE REQUESTS AND SCHEDULES, AND PUSHES ON VERSION BRANCHES LIKE 21.x. 18.x
     - when: always
