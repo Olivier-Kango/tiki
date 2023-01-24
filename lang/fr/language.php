@@ -13890,7 +13890,7 @@ $lang_current = array(
 "If you lose your login module, use tiki-login_scr.php to be able to login!" => "Si vous perdez votre module 'login' utiliser tiki-login_scr.php pour pouvoir vous connecter !",
 "Composer not found" => "Composer non trouvé",
 "Composer could not be executed, so the automated check on the packages cannot be performed" => "Composer n'a pas pu s'exécuter, donc les vérifications automatiques des paquets n'ont pu être réalisées",
-// "In <a href=\"javascript:void(0)\" class=\"install-composer alert-link\">Diagnose</a> tab you can install composer" => "In <a href=\"javascript:void(0)\" class=\"install-composer alert-link\">Diagnose</a> tab you can install composer",
+"In %0Diagnose%1 tab you can install composer." => "Dans l'onglet %0Diagnostiquer%1, vous pouvez installer composer.",
 // "Result of executing the changes to the packages" => "Result of executing the changes to the packages",
 // "Composer errors" => "Composer errors",
 "Composer returned some errors" => "Composer a retourné quelques erreurs",

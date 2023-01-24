@@ -4,7 +4,7 @@
     {remarksbox type="warning" title="{tr}Composer not found{/tr}"}
     {tr}Composer could not be executed, so the automated check on the packages cannot be performed.{/tr}
     <br/>
-    {tr _0='<a href="javascript:void(0)" class="install-composer alert-link">{tr}Diagnose{/tr}</a>' _1='</a>'}In %0Diagnose%1 tab you can install composer.{/tr}
+    {tr _0='<a href="javascript:void(0)" class="install-composer alert-link">' _1='</a>'}In %0Diagnose%1 tab you can install composer.{/tr}
     {/remarksbox}
 {/if}
 
