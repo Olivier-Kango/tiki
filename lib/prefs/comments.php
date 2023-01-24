@@ -68,9 +68,18 @@ function prefs_comments_list()
         ],
         'comments_allow_correction' => [
             'name' => tr('Allow comments to be edited by their author'),
-            'description' => tr('Allow a comment to be modified by its author for a 30-minute period after posting it, for clarifications, correction of errors, etc.'),
+            'description' => tr('Allow a comment to be modified by its author after posting it, for clarifications, correction of errors, etc.'),
             'type' => 'flag',
             'default' => 'y',
+            'tags' => ['advanced'],
+        ],
+        'comments_correction_timeout' => [
+            'name' => tra('Comment edition timeout'),
+            'description' => tra('The period(time) in minutes during which a comment can be modified by its author after posting it, for clarifications, correction of errors, etc.'),
+            'type' => 'text',
+            'filter' => 'digits',
+            'units' => tra('minutes'),
+            'default'  => 90,
             'tags' => ['advanced'],
         ],
         'comments_inline_annotator' => [

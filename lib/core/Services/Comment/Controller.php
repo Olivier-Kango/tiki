@@ -775,9 +775,9 @@ return false;";
         }
 
         $tikilib = TikiLib::lib('tiki');
-        $thirtyMinutes = 30 * 60;
+        $editionTimeout = (int) $prefs['comments_correction_timeout'] * 60;
 
-        if ($comment['commentDate'] < $tikilib->now - $thirtyMinutes) {
+        if ($comment['commentDate'] < $tikilib->now - $editionTimeout) {
             return false;
         }
 
