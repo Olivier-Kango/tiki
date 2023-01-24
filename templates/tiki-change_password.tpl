@@ -53,7 +53,7 @@
                 <div class="mb-3 row">
                     <label class="col-md-4 col-form-label" for="pass1">{tr}New Password{/tr}</label>
                     <div class="col-md-8">
-                        <input type="password" class="form-control" placeholder="{tr}New Password{/tr}" name="pass" id="pass1" autocomplete="new-password">
+                        <input required type="password" class="form-control" placeholder="{tr}New Password{/tr}" name="pass" id="pass1" autocomplete="new-password">
                         <div style="margin-left:5px;">
                             <div id="mypassword_text">{icon name='ok' istyle='display:none'}{icon name='error' istyle='display:none' } <span id="mypassword_text_inner"></span></div>
                             <div id="mypassword_bar" style="font-size: 5px; height: 2px; width: 0px;"></div>
@@ -66,7 +66,7 @@
                 <div class="mb-3 row">
                     <label class="col-md-4 col-form-label" for="pass2">{tr}Repeat Password{/tr}</label>
                     <div class="col-md-8">
-                        <input type="password" class="form-control" name="passAgain" id="pass2" placeholder="{tr}Repeat Password{/tr}" autocomplete="new-password">
+                        <input required type="password" class="form-control" name="passAgain" id="pass2" placeholder="{tr}Repeat Password{/tr}" autocomplete="new-password">
                         <div id="mypassword2_text">
                             <div id="match" style="display:none">
                                 {icon name='ok' istyle='color:#0ca908'} {tr}Passwords match{/tr}
@@ -91,7 +91,7 @@
                     <div class="mb-3 row">
                         <label class="col-md-4 col-form-label" for="email">{tr}Email{/tr}</label>
                         <div class="col-md-8">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="{tr}Email{/tr}" value="{if not empty($email)}{$email|escape}{/if}" autocomplete="email">
+                            <input required type="email" class="form-control" name="email" id="email" placeholder="{tr}Email{/tr}" value="{if not empty($email)}{$email|escape}{/if}" autocomplete="email">
                         </div>
                     </div>
                 {/if}
