@@ -4055,6 +4055,9 @@ table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, t
 .wikiactions > .btn-group {
   display: inline-block;
 }
+.wikiactions .dropdown-menu.show {
+  z-index: 1021;
+}
 .conveneHeaderRow td {
   text-align: center;
 }
