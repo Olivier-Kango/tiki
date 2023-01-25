@@ -3748,6 +3748,7 @@ CREATE TABLE `tiki_credits` (
     `total_amount` FLOAT NOT NULL DEFAULT 0,
     `used_amount` FLOAT NOT NULL DEFAULT 0,
     `product_id` INT( 8 ) NULL ,
+    `goalId` INT NULL ,
     PRIMARY KEY ( `creditId` ) ,
     INDEX ( `userId` , `credit_type` )
 ) ENGINE=MyISAM;

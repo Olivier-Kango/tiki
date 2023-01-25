@@ -63,7 +63,7 @@ class GoalRewardLib
                     if (! empty($creditTypes[$reward['creditType']])) {
                         $userId = TikiLib::lib('tiki')->get_user_id($user);
                         $lib = TikiLib::lib('credits');
-                        $lib->addCredits($userId, $reward['creditType'], $reward['creditQuantity']);
+                        $lib->addCredits($userId, $reward['creditType'], $reward['creditQuantity'], null, null, $reward['goalId'] ?? null);
                     }
                 },
                 'applyGroup' => function ($group, $reward) {

@@ -199,7 +199,7 @@ class CreditsLib extends TikiLib
     /**
      * Adds a new credits entry for the user.
      */
-    public function addCredits($userId, $creditType, $amount, $expirationDate = null, $validFrom = null)
+    public function addCredits($userId, $creditType, $amount, $expirationDate = null, $validFrom = null, $goalId = null)
     {
         if (! $amount) {
             return false;
@@ -225,9 +225,9 @@ class CreditsLib extends TikiLib
 
         $this->query(
             "INSERT INTO `tiki_credits`
-            (`userId`, `credit_type`, `total_amount`, `expiration_date`, `creation_date`)
-            VALUES(?,?,?,if (? = '', NULL, ?),if (?='', NULL, ?))",
-            [$userId, $creditType, $amount, $expirationDate, $expirationDate, $validFrom, $validFrom]
+            (`userId`, `credit_type`, `total_amount`, `expiration_date`, `creation_date`, `goalId`)
+            VALUES(?,?,?,if (? = '', NULL, ?),if (?='', NULL, ?),?)",
+            [$userId, $creditType, $amount, $expirationDate, $expirationDate, $validFrom, $validFrom, $goalId]
         );
 
         return true;
