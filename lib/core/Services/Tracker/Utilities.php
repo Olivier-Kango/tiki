@@ -642,6 +642,13 @@ EXPORT;
         $itemObject = Tracker_Item::fromId($id);
 
         foreach (TikiLib::lib('trk')->get_child_items($itemId) as $info) {
+            $field = TikiLib::lib('trk')->get_tracker_field($info['field']);
+            $factory = new Tracker_Field_Factory();
+            $options = Tracker_Options::fromSerialized($field['options'], $factory->getFieldInfo($field['type']));
+            if (! $options->getParam('duplicateCascade')) {
+                continue;
+            }
+
             $childItem = Tracker_Item::fromId($info['itemId']);
 
             if ($childItem->canView()) {

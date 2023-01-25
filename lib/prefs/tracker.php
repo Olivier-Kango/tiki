@@ -29,7 +29,7 @@ function prefs_tracker_list()
         ],
         'tracker_clone_item' => [
             'name' => tr('Duplicate tracker items'),
-            'description' => tr('Allow copying tracker item information to a new tracker item.'),
+            'description' => tr('Allow copying tracker item information to a new tracker item. If the item has an item-link linked, it will automatically create new child item. This last can be turned on and off per case on the item-link tracker fields options.'),
             'type' => 'flag',
             'default' => 'n',
         ],

@@ -228,6 +228,20 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
                         ],
                         'legacy_index' => 14,
                     ],
+                    'duplicateCascade' => [
+                        'name' => tr('Duplicate cascade action'),
+                        'description' => tr('Duplicate (Duplicate tracker items feature) an item in the master/parent tracker (Tracker to link to) silently creates a slave/child item in this tracker (yes by default).'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'default' => '1',
+                        'depends' => [
+                            'pref' => 'tracker_clone_item',
+                        ],
+                        'legacy_index' => 15,
+                    ],
                 ],
             ],
         ];

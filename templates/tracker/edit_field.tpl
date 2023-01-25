@@ -90,7 +90,7 @@
                             <div class="form-text">{tr}Separate multiple with &quot;{$def.separator}&quot;{/tr}</div>
                         {/if}
                     {/if}
-                    {if !empty($def.depends)}
+                    {if !empty($def.depends.field)}
                     {jq}
                         $("input[name='option~{{$def.depends.field|escape}}'],textarea[name='option~{{$def.depends.field|escape}}'],select[name='option~{{$def.depends.field|escape}}']")
                         .change(function(){
@@ -102,6 +102,11 @@
                                 fg.hide();
                             }
                         }).change();
+                    {/jq}
+                    {/if}
+                    {if !empty($def.depends.pref) && (empty($prefs[$def.depends.pref]) || $prefs[$def.depends.pref] == 'n')}
+                    {jq}
+                        $("input[name='option~{{$param|escape}}'],textarea[name='option~{{$param|escape}}'],select[name='option~{{$param|escape}}']").closest('.mb-3').hide();
                     {/jq}
                     {/if}
                 </div>
