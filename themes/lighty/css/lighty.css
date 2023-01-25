@@ -11342,12 +11342,14 @@ body.tiki.navbar-padding {
 #col1 {
   background: #fff;
   margin-bottom: 20px;
+}
+body:not(.tiki-admin) #col1 {
   padding: 15px;
 }
 #right_modules {
   margin-right: -15px;
 }
-.panel-title {
+.card-title {
   text-transform: uppercase;
   text-align: center;
 }
@@ -11498,7 +11500,7 @@ ul.social-network li {
 .filter-menu a {
   text-align: center;
 }
-.blogpost .panel-footer {
+.blogpost .card-footer {
   margin-top: 40px;
   border-top: 3px solid #f0f0f0;
 }
@@ -11590,20 +11592,20 @@ ul.social-network li {
   font-weight: 500;
   color: #ddd;
 }
-.comment-form .panel-heading {
+.comment-form .card-heading {
   padding: 30px 0 15px;
 }
 .comment-form input {
   border: 3px solid #f0f0f0;
 }
-.comment-form .panel-footer {
+.comment-form .card-footer {
   padding: 0;
   background-color: #fff;
   border-top: 1px solid #dddddd;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.comment-form .panel-body {
+.comment-form .card-body {
   padding: 0;
 }
 .add-comment-zone {
@@ -11613,11 +11615,11 @@ ul.social-network li {
 .add-comment-zone input {
   border: 3px solid #f0f0f0;
 }
-.add-comment-zone .panel-footer {
+.add-comment-zone .card-footer {
   padding: 10px;
   border-top: 1px solid transparent;
 }
-.add-comment-zone .panel-body {
+.add-comment-zone .card-body {
   padding: 10px;
 }
 .comment-post {

@@ -402,6 +402,22 @@
   right: 0;
   margin-top: 3.1rem;
 }
+.tiki-admin .top_modules.navbar-light-parent .dropdown-menu .dropdown-item {
+  color: var(--tiki-admin-navbar-light-color);
+  background: var(--tiki-admin-navbar-light-bg);
+}
+.tiki-admin .top_modules.navbar-light-parent .dropdown-menu .dropdown-item:hover {
+  color: var(--tiki-admin-navbar-light-highlight-color);
+  background: var(--tiki-admin-navbar-light-highlight-bg);
+}
+.tiki-admin .top_modules.navbar-dark-parent .dropdown-menu .dropdown-item {
+  color: var(--tiki-admin-navbar-dark-color) !important;
+  background: var(--tiki-admin-navbar-dark-bg) !important;
+}
+.tiki-admin .top_modules.navbar-dark-parent .dropdown-menu .dropdown-item:hover {
+  color: var(--tiki-admin-navbar-dark-highlight-color) !important;
+  background: var(--tiki-admin-navbar-dark-highlight-bg) !important;
+}
 .tiki-admin .navbar-light .dropdown-item.active, .tiki-admin .navbar-light .dropdown-item:active, .tiki-admin .navbar-light .dropdown-item:hover, .tiki-admin .navbar-light .dropdown-item:focus, .tiki-admin .top_modules.navbar-light-parent a.dropdown-item:focus, .tiki-admin .top_modules.navbar-light-parent a.dropdown-item:active, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin aside.admin-nav .navbar-light .dropdown-item.active {
   background-color: var(--tiki-admin-navbar-light-highlight-bg);
   color: var(--tiki-admin-navbar-light-highlight-color);
@@ -581,6 +597,7 @@
 }
 .tiki-admin #col1 {
   z-index: unset !important;
+  padding-top: 5rem;
 }
 .tiki-admin .navbar-expand-md .form-inline {
   width: auto !important;
