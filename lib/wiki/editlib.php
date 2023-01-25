@@ -1525,7 +1525,11 @@ class EditLib
         $syntaxPluginResult = $wikiParserParsable->guess_syntax($data);
         $source_syntax = $syntaxPluginResult['syntax'];
         $wikiParserParsable->stripPlugins('code');
-        $html = $wikiParserParsable->parse(['noparseplugins' => true, 'noparseargvariables' => true]);
+        $html = $wikiParserParsable->parse([
+            'noparseplugins' => true,
+            'noparseargvariables' => true,
+            'suppress_icons' => true,
+        ]);
 
         $prefs['wiki_heading_links'] = $old_pref;
 
