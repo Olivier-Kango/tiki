@@ -168,6 +168,12 @@ class GoalLib
                 'group' => $context['group'],
             ]);
 
+            if (! empty($goal['rewards'])) {
+                foreach ($goal['rewards'] as &$reward) {
+                    $reward['goalId'] = $goal['goalId'];
+                }
+            }
+
             $rewardlib = TikiLib::lib('goalreward');
             if ($goal['type'] == 'group') {
                 $rewardlib->giveRewardsToMembers($context['group'], $goal['rewards']);
