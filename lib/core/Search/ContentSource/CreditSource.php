@@ -33,7 +33,7 @@ class CreditSource implements Search_ContentSource_Interface
 
         $credit_types = TikiLib::lib('credits')->getCreditTypes();
 
-        $credit = $this->table->fetchRow(['userId', 'credit_type', 'creation_date', 'expiration_date', 'total_amount', 'used_amount', 'product_id'], [
+        $credit = $this->table->fetchRow(['userId', 'credit_type', 'creation_date', 'expiration_date', 'total_amount', 'used_amount', 'product_id', 'goalId'], [
             'creditId' => $objectId,
         ]);
 
@@ -59,6 +59,7 @@ class CreditSource implements Search_ContentSource_Interface
                 'total_amount' => $typeFactory->numeric($credit['total_amount']),
                 'used_amount' => $typeFactory->numeric($credit['used_amount']),
                 'product_id' => $typeFactory->numeric($credit['product_id']),
+                'goal_id' => $typeFactory->numeric($credit['goalId']),
                 'allowed_groups' => $typeFactory->multivalue(['Anonymous', 'Registered']),
             ];
         } else {
@@ -71,7 +72,7 @@ class CreditSource implements Search_ContentSource_Interface
         return [
             'title', 'creation_date', 'expiration_date', 'contributors', 'user', 'credit_type',
             'credit_type_text', 'credit_type_unit', 'credit_type_static_level', 'credit_type_scaling_divisor',
-            'total_amonut', 'used_amount', 'product_id'
+            'total_amonut', 'used_amount', 'product_id', 'goal_id'
         ];
     }
 
@@ -91,6 +92,7 @@ class CreditSource implements Search_ContentSource_Interface
             'total_amount' => 'numeric',
             'used_amount' => 'numeric',
             'product_id' => 'numeric',
+            'goal_id' => 'numeric',
         ];
     }
 
