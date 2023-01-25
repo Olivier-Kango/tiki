@@ -81,6 +81,7 @@ class ParserLib extends TikiDb_Bridge
                 'noparseplugins' => false,
                 'stripplugins' => false,
                 'noheaderinc' => false,
+                'noparseargvariables' => false,
                 'page' => $page,
                 'print' => false,
                 'parseimgonly' => false,
@@ -1797,6 +1798,10 @@ class ParserLib extends TikiDb_Bridge
         global $prefs, $user;
         $tikilib = TikiLib::lib('tiki');
         $smarty = TikiLib::lib('smarty');
+
+        if (! empty($this->option['noparseargvariables'])) {
+            return;
+        }
 
         if ($prefs['feature_wiki_argvariable'] == 'y' && ! $this->option['wysiwyg']) {
             if (preg_match_all("/\\{\\{((\w+)(\\|([^\\}]*))?)\\}\\}/", $data, $args, PREG_SET_ORDER)) {
