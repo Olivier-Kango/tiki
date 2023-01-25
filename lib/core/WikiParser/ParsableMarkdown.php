@@ -89,6 +89,7 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $data = $converter->convert($data)->getContent();
 
         $data = $this->parse_data_wikilinks($data, false, $this->option['wysiwyg']);
+        $data = $this->parse_data_externallinks($data, false);
 
         if ($prefs['wiki_heading_links'] == 'y') {
             $data = $this->addHeadingLinks($data);
