@@ -328,12 +328,14 @@ body.tiki.navbar-padding {
 #col1 {
     background: #fff;
     margin-bottom: 20px;
+}
+body:not(.tiki-admin) #col1 {
     padding: 15px;
 }
 #right_modules {
     margin-right: -15px;
 }
-.panel-title {
+.card-title {
     text-transform: uppercase;
     text-align: center;
 }
@@ -522,7 +524,7 @@ ul.social-network {
     }
 }
 .blogpost {
-    .panel-footer {
+    .card-footer {
         margin-top: 40px;
         border-top: 3px solid #f0f0f0;
     }
@@ -622,20 +624,20 @@ ul.social-network {
     }
 }
 .comment-form {
-    .panel-heading {
+    .card-heading {
         padding: 30px 0 15px;
     }
     input {
         border: 3px solid #f0f0f0;
     }
-    .panel-footer {
+    .card-footer {
         padding: 0;
         background-color: #fff;
         border-top: 1px solid #dddddd;
         border-bottom-right-radius: 3px;
         border-bottom-left-radius: 3px;
     }
-    .panel-body {
+    .card-body {
         padding: 0;
     }
 }
@@ -643,13 +645,13 @@ ul.social-network {
     input {
         border: 3px solid #f0f0f0;
     }
-    .panel-footer {
+    .card-footer {
         padding: 10px;
         border-top: 1px solid transparent;
     }
     background: #f0f0f0;
     padding-top: 30px;
-    .panel-body {
+    .card-body {
         padding: 10px;
     }
 }

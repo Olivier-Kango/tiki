@@ -501,7 +501,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     }
 }
 
-//.tiki-admin .row.row-middle { -- Isn't it better to have admin content than empty space at the top of the page?
+//.tiki-admin .row.row-middle { -- Replaced with padding-top on #col1
 //    margin-top: 6rem;
 //}
 //
@@ -538,6 +538,23 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
     margin-top: 3.1rem;
 }
 
+// Login module dropdown .tiki-admin .top_modules.navbar-light-parent
+.tiki-admin .top_modules.navbar-light-parent .dropdown-menu .dropdown-item {
+    color: var(--tiki-admin-navbar-light-color);
+    background: var(--tiki-admin-navbar-light-bg);
+    &:hover {
+        color: var(--tiki-admin-navbar-light-highlight-color);
+        background: var(--tiki-admin-navbar-light-highlight-bg);
+    }
+}
+.tiki-admin .top_modules.navbar-dark-parent .dropdown-menu .dropdown-item {
+    color: var(--tiki-admin-navbar-dark-color) !important;
+    background: var(--tiki-admin-navbar-dark-bg) !important;
+    &:hover {
+        color: var(--tiki-admin-navbar-dark-highlight-color) !important;
+        background: var(--tiki-admin-navbar-dark-highlight-bg) !important;
+    }
+}
 .tiki-admin .navbar-light .dropdown-item.active,
 .tiki-admin .navbar-light .dropdown-item:active,
 .tiki-admin .navbar-light .dropdown-item:hover,
@@ -799,6 +816,7 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 
 .tiki-admin #col1 {
     z-index: unset !important;
+    padding-top: 5rem; // avoid top_modules overlapping page content
 }
 
 .tiki-admin .navbar-expand-md .form-inline {
