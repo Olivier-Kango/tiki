@@ -28,7 +28,7 @@
                         <td style="font-size:smaller;">
                             {foreach from=$persp.preferences key=name item=val}
                                 {if is_array($val)}
-                                    {$name}={$val|implode:','}<br>
+                                    {$name}={','|implode:$val}<br>
                                 {else}
                                     {$name}={$val}<br>
                                 {/if}
