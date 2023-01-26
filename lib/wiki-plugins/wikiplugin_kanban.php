@@ -145,9 +145,7 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
     $appendAllPossibleFieldValues = false;
     if (! $fieldValuesParam) {
         $appendAllPossibleFieldValues = true;
-    }
-
-    if (count($fieldValuesParam) == 1) {
+    } elseif (count($fieldValuesParam) === 1) {
         $fieldParamsArray = explode(',', $fieldValuesParam[0]);
         $fieldValue = trim($fieldParamsArray[0]);
         if ($fieldValue === '') {
@@ -155,6 +153,7 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
             $appendAllPossibleFieldValues = true;
         }
     }
+
     if ($appendAllPossibleFieldValues) {
         //Get values from all the possible field values
         foreach ($fieldValuesMap as $value => $label) {
