@@ -2,3 +2,4 @@ svn+ssh test by luci
 git test by jonnyb
 automerge test by drsassafras
 subgit (svn to git) test by rjsmelo
+24x is a nice LTS
