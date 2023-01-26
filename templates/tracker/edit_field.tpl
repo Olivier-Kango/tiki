@@ -74,9 +74,9 @@
                             </div>
                         {/if}
                     {elseif $def.separator}
-                        <input type="text" name="option~{$param|escape}" value="{$options[$param]|implode:$def.separator|escape}" class="form-control">
+                        <input type="text" name="option~{$param|escape}" value="{$def.separator|implode:$options[$param]|escape}" class="form-control">
                     {elseif $def.count eq '*'}
-                        <input type="text" name="option~{$param|escape}" value="{$options[$param]|implode:','|escape}" class="form-control">
+                        <input type="text" name="option~{$param|escape}" value="{','|implode:$options[$param]|escape}" class="form-control">
                     {elseif $def.type eq 'textarea'}
                         <textarea name="option~{$param|escape}" class="form-control">{$options[$param]|escape}</textarea>
                     {else}

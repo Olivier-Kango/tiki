@@ -13,7 +13,7 @@
                 {foreach item=tmp_prop key=tmp_propname from=$file.share.data}
                     {$email[]=$tmp_prop.email}
                 {/foreach}
-                {assign var=propval value=$email|implode:','}
+                {assign var=propval value=','|implode:$email}
             {else}
                 {assign var=propval value=$file.$propname}
             {/if}
