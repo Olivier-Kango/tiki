@@ -117,7 +117,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * with description
          */
         $inData = '[#A_Heading|Link to heading]';
-        $ex = '<a class="wiki" href="#A_Heading" rel="">Link to heading</a>';
+        $ex = '<a class="wiki" href="#A_Heading" rel="" title="External link: Link to heading">Link to heading</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $out = preg_replace('/ {2}/', ' ', $out); // the parser writes to many spaces
         $this->assertStringContainsString($ex, $out);
@@ -127,7 +127,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * no description
          */
         $inData = '[#A_Heading]';
-        $ex = '<a class="wiki" href="#A_Heading" rel="">#A_Heading</a>';
+        $ex = '<a class="wiki" href="#A_Heading" rel="" title="External link">#A_Heading</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $out = preg_replace('/ {2}/', ' ', $out); // the parser writes to many spaces
         $this->assertStringContainsString($ex, $out);
@@ -144,7 +144,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * e-mail
          */
         $inData = '[mailto:sombody@nowhere.xyz]';
-        $ex = '<a class="wiki"  href="mailto:sombody@nowhere.xyz" rel="">mailto:sombody@nowhere.xyz</a>';
+        $ex = '<a class="wiki"  href="mailto:sombody@nowhere.xyz" rel="" title="External link">mailto:sombody@nowhere.xyz</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
@@ -153,7 +153,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * e-mail with description
          */
         $inData = '[mailto:sombody@nowhere.xyz|Mail to "Somebody"]';
-        $ex = '<a class="wiki"  href="mailto:sombody@nowhere.xyz" rel="">Mail to "Somebody"</a>';
+        $ex = '<a class="wiki"  href="mailto:sombody@nowhere.xyz" rel="" title="External link: Mail to Somebody">Mail to "Somebody"</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
     }
@@ -169,12 +169,12 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * article
          */
         $inData = '[article1]';
-        $ex = '<a class="wiki"  href="article1" rel="">article1</a>';
+        $ex = '<a class="wiki"  href="article1" rel="" title="External link">article1</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
         $inData = '[article1|An Article]';
-        $ex = '<a class="wiki"  href="article1" rel="">An Article</a>';
+        $ex = '<a class="wiki"  href="article1" rel="" title="External link: An Article">An Article</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
@@ -183,12 +183,12 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * blog
          */
         $inData = '[blog1]';
-        $ex = '<a class="wiki"  href="blog1" rel="">blog1</a>';
+        $ex = '<a class="wiki"  href="blog1" rel="" title="External link">blog1</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
         $inData = '[blog1|A Blog]';
-        $ex = '<a class="wiki"  href="blog1" rel="">A Blog</a>';
+        $ex = '<a class="wiki"  href="blog1" rel="" title="External link: A Blog">A Blog</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
@@ -197,12 +197,12 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * forum
          */
         $inData = '[forum1]';
-        $ex = '<a class="wiki"  href="forum1" rel="">forum1</a>';
+        $ex = '<a class="wiki"  href="forum1" rel="" title="External link">forum1</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
         $inData = '[forum1|A Forum]';
-        $ex = '<a class="wiki"  href="forum1" rel="">A Forum</a>';
+        $ex = '<a class="wiki"  href="forum1" rel="" title="External link: A Forum">A Forum</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
     }
@@ -224,7 +224,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * - link
          */
         $inData = '[http://www.tiki.org]';
-        $ex = '<a class="wiki external" target="_blank" href="http://www.tiki.org" rel="external">http://www.tiki.org</a>';
+        $ex = '<a class="wiki external" target="_blank" href="http://www.tiki.org" rel="external" title="External link">http://www.tiki.org</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
@@ -235,7 +235,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * - description
          */
         $inData = '[http://www.tiki.org|Tiki Wiki CMS Groupware]';
-        $ex = '<a class="wiki external" target="_blank" href="http://www.tiki.org" rel="external">Tiki Wiki CMS Groupware</a>';
+        $ex = '<a class="wiki external" target="_blank" href="http://www.tiki.org" rel="external" title="External link: Tiki Wiki CMS Groupware">Tiki Wiki CMS Groupware</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
@@ -247,7 +247,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          * - anchor
          */
         $inData = '[http://www.tiki.org#Tiki_News_|News of the Tiki Wiki CMS Groupware]';
-        $ex = '<a class="wiki external" target="_blank" href="http://www.tiki.org#Tiki_News_" rel="external">News of the Tiki Wiki CMS Groupware</a>';
+        $ex = '<a class="wiki external" target="_blank" href="http://www.tiki.org#Tiki_News_" rel="external" title="External link: News of the Tiki Wiki CMS Groupware">News of the Tiki Wiki CMS Groupware</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
@@ -272,7 +272,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
 *
          */
         $inData = '[http://www.youtube.com/v/KBewVCducWw&autoplay=1|nocache]';
-        $ex = '<a class="wiki external" target="_blank" href="http://www.youtube.com/v/KBewVCducWw&autoplay=1" rel="external">http://www.youtube.com/v/KBewVCducWw&autoplay=1</a>';
+        $ex = '<a class="wiki external" target="_blank" href="http://www.youtube.com/v/KBewVCducWw&autoplay=1" rel="external" title="External link">http://www.youtube.com/v/KBewVCducWw&autoplay=1</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
@@ -285,7 +285,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
         $inData
             = '[http://www.youtube.com/v/KBewVCducWw&autoplay=1|You Tube video in their flash player|nocache]';
         $ex
-            = '<a class="wiki external" target="_blank" href="http://www.youtube.com/v/KBewVCducWw&autoplay=1" rel="external">You Tube video in their flash player</a>';
+            = '<a class="wiki external" target="_blank" href="http://www.youtube.com/v/KBewVCducWw&autoplay=1" rel="external" title="External link: You Tube video in their flash player">You Tube video in their flash player</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
