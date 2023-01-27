@@ -10,7 +10,7 @@ namespace Tiki\Search\ContentSource;
 
 use Search_ContentSource_Interface;
 use Search_Type_Factory_Interface;
-use TIkiDb;
+use TikiDb;
 
 class GoalSource implements Search_ContentSource_Interface
 {
@@ -43,9 +43,10 @@ class GoalSource implements Search_ContentSource_Interface
                 'day_span' => $typeFactory->numeric($goal['daySpan']),
                 'from' => $typeFactory->timestamp($goal['from'] ? strtotime($goal['from'] . ' UTC') : null),
                 'to' => $typeFactory->timestamp($goal['to'] ? strtotime($goal['to'] . ' UTC') : null),
-                'eligible' => $typeFactory->json($goal['eligile']),
+				'eligible' => $typeFactory->json($goal['eligible']),
                 'conditions' => $typeFactory->json($goal['conditions']),
                 'rewards' => $typeFactory->json($goal['rewards']),
+				'allowed_groups' => $typeFactory->multivalue(['Anonymous', 'Registered']),
             ];
         } else {
             return false;
