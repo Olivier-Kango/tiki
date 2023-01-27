@@ -426,13 +426,6 @@ if (isset($_REQUEST['filterGroup'])) {
 }
 $smarty->assign('filterGroup', $filterGroup);
 
-if (isset($_REQUEST['filterEmail'])) {
-    $filterEmail = $_REQUEST['filterEmail'];
-} else {
-    $filterEmail = '';
-}
-$smarty->assign('filterEmail', $filterEmail);
-
 list($username, $usermail, $usersTrackerId, $chlogin) = ['', '', '',    false];
 $trklib = TikiLib::lib('trk');
 
@@ -594,7 +587,7 @@ $users = $userlib->get_users(
     $initial,
     true,
     $filterGroup,
-    $filterEmail,
+    $find,
     ! empty($_REQUEST['filterEmailNotConfirmed']),
     ! empty($_REQUEST['filterNotValidated']),
     ! empty($_REQUEST['filterNeverLoggedIn'])

@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     {autocomplete element='#find' type='username'}
-                    <div class="col-sm-12" id="search" {if $filterGroup or $filterEmail}style="display:block;"{else}style="display:none;"{/if}>
+                    <div class="col-sm-12" id="search" {if $filterGroup}style="display:block;"{else}style="display:none;"{/if}>
                         <div class="mb-3 row">
                             <label class="col-form-label col-sm-5" for="filterGroup">{tr}Group (direct){/tr}</label>
                             <div class="col-sm-7">
