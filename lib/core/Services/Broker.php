@@ -99,9 +99,14 @@ class Services_Broker
                 $handler = $this->container->get("tiki.controller.$controller");
             }
 
-            $method = 'action_' . $action;
+            $method = 'action_' . $action; // old format action_someAction
+            $actionExists = method_exists($handler, $method);
+            if (! $actionExists) { // using the new PSR12 format actionCamelCase
+                $method = 'action' . ucfirst($action);
+                $actionExists = method_exists($handler, $method);
+            }
 
-            if (method_exists($handler, $method)) {
+            if ($actionExists) {
                 if (method_exists($handler, 'getSection')) {
                     $banningOnly = true;
                     $ajaxRequest = true;
