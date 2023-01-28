@@ -1848,7 +1848,7 @@ function wikiplugin_tracker($data, $params)
             if ($registration == 'y') {
                 // email validation
                 $customvalidation .= 'email: { ';
-                if ($prefs['user_unique_email'] == 'y') {
+                if ($prefs['user_unique_email'] === 'y' && $prefs['user_unique_email_validation'] === 'y') {
                     $customvalidation .= '
                         remote: {
                                 url: "validate-ajax.php",

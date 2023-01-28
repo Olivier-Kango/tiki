@@ -28,6 +28,16 @@ function prefs_user_list($partial = false)
             'type' => 'flag',
             'default' => 'n',
         ],
+        'user_unique_email_validation' => [
+            'name' => tra('Show emails validation'),
+            'help' => 'User-Preferences',
+            'description' => tra('Show if an email is already in use on the registration form. Will confirm an email is registered here if so without completing the form.'),
+            'type' => 'flag',
+            'default' => 'y',
+            'dependencies' => [
+                'user_unique_email',
+            ],
+        ],
         'user_tracker_infos' => [
             'name' => tra('Display user tracker information on the user information page'),
             'description' => tra('Display user tracker information on the user information page'),
