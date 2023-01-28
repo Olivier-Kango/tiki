@@ -21,14 +21,14 @@
         </div>
     </div>
     <div class="mb-3 row">
-		<label for="search_tabular_tracker_fields" class="col-sm-3 form-check-label">{tr}Include tabular tracker fields{/tr}</label>
-		<div class="col-sm-9">
-			<div class="form-check">
-				<input type="checkbox" id="search_tabular_tracker_fields" class="form-check-input" name="search[]" value="tabular_tracker_fields" {if $tabular_tracker_fields_checked} checked {/if}>
-			</div>
-		</div>
-	</div>
-	<div class="mb-3 text-center">
+        <label for="search_tabular_tracker_fields" class="col-sm-3 form-check-label">{tr}Include tabular tracker fields{/tr}</label>
+        <div class="col-sm-9">
+            <div class="form-check">
+                <input type="checkbox" id="search_tabular_tracker_fields" class="form-check-input" name="search[]" value="tabular_tracker_fields" {if $tabular_tracker_fields_checked} checked {/if}>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 text-center">
         <input type="submit" class="btn btn-info" name="submit" value="{tr}Search{/tr}">
     </div>
 </form>

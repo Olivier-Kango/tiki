@@ -1,0 +1,11 @@
+path: ./
+jobs: 16
+cache: phplint.cache
+extensions:
+  - php
+exclude:
+  - temp/
+  - vendor/
+  - vendor_bundled/vendor
+warning: false
+memory_limit: -1

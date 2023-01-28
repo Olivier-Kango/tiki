@@ -12,5 +12,8 @@
             "error",
             "always"
         ]
+    },
+    "parserOptions": {
+        "ecmaVersion": 11
     }
 }

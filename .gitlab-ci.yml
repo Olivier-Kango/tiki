@@ -49,13 +49,20 @@ composer:
     - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d vendor_bundled --no-progress --prefer-dist -n
   cache:
-    key:
-      prefix: "composer"
-      files:
-        - vendor_bundled/vendor/composer.lock
-    paths:
-      - .composercache/files
-    policy: pull-push
+    - key:
+        prefix: "composer"
+        files:
+          - vendor_bundled/vendor/composer.lock
+      paths:
+        - .composercache/files
+      policy: pull-push
+    - key:
+        prefix: "vendor_bundled"
+        files:
+          - vendor_bundled/vendor/composer.lock
+      paths:
+        - vendor_bundled/vendor/
+      policy: pull-push
   artifacts:
     paths:
       - vendor_bundled/vendor/
@@ -94,59 +101,71 @@ phpcs:
   stage: lint
   image: ${BASE_QA_IMAGE}
   script:
-    - php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs -s --runtime-set ignore_warnings_on_exit true --parallel=16
+    - php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs --cache=phpcs.cache -s --runtime-set ignore_warnings_on_exit true --parallel=16
   dependencies:
     - composer
   needs:
     - composer
+  cache:
+    - key:
+        prefix: "phpcs"
+        files:
+          - phpcs.xml.dist
+      paths:
+        - phpcs.cache
+      policy: pull-push
   allow_failure: false
 
-phplint:
+phplint74:
   stage: lint
-  image: ${BASE_QA_IMAGE}
+  image: rjsmelo/ubuntu-php:7.4-qa
   script:
-    - RUN_COMMAND_FILTER='\.php$'
-    - RUN_COMMAND="php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n"
-    - *run_command_on_files_changed
+    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
   dependencies:
     - composer
   needs:
     - composer
   allow_failure: false
+  cache:
+    key: phplint74
+    paths:
+      - phplint.cache
 
 phplint80:
   stage: lint
   image: rjsmelo/ubuntu-php:8.0-qa
   script:
-    - RUN_COMMAND_FILTER='\.php$'
-    - RUN_COMMAND="php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n"
-    - *run_command_on_files_changed
+    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
   dependencies:
     - composer
   needs:
     - composer
   allow_failure: false
+  cache:
+    key: phplint80
+    paths:
+      - phplint.cache
 
 phplint81:
   stage: lint
   image: xorti/ubuntu-php:8.1-qa
   script:
-    - RUN_COMMAND_FILTER='\.php$'
-    - RUN_COMMAND="php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n"
-    - *run_command_on_files_changed
+    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
   dependencies:
     - composer
   needs:
     - composer
   allow_failure: false
+  cache:
+    key: phplint81
+    paths:
+      - phplint.cache
 
 smarty-lint:
   stage: lint
   image: ${BASE_QA_IMAGE}
   script:
-    - RUN_COMMAND_FILTER='\.tpl$'
-    - RUN_COMMAND="-I 0 php vendor_bundled/vendor/umakantp/smartylint/smartyl --files=0 --rules=doc/devtools/smartyl.rules.xml"
-    - *run_command_on_files_changed
+    - php vendor_bundled/vendor/umakantp/smartylint/smartyl -p --files=lib/test,templates,themes --rules=doc/devtools/smartyl.rules.xml
   dependencies:
     - composer
   needs:
@@ -159,9 +178,7 @@ eslint:
   services:
     - docker:stable-dind
   script:
-    - RUN_COMMAND_FILTER='\.js$'
-    - RUN_COMMAND="docker run -v \"$PWD\":/data --volume /var/run/docker.sock:/var/run/docker.sock cytopia/eslint"
-    - *run_command_on_files_changed
+    - docker run -v "$PWD":/data --volume /var/run/docker.sock:/var/run/docker.sock cytopia/eslint .
   allow_failure: true
   dependencies: []
   needs: []

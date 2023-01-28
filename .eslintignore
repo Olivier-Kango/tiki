@@ -1,3 +1,5 @@
 **/*.min.js
 **/*-min.js
 **/vendor/
+**/lib/vue-mf/
+**/storage/public/vue-mf/

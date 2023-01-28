@@ -1,5 +1,5 @@
 const OFFLINE_URL = 'lib/pwa/offline.html';
-importScripts("vendor/npm-asset/dexie/dist/dexie.min.js")
+importScripts("vendor/npm-asset/dexie/dist/dexie.min.js");
 const staticAssets = [
     '.',
     'themes/base_files/css/tiki_base.css',
@@ -72,7 +72,7 @@ self.addEventListener('fetch', event => {
                             return response;
                         });
                     }).catch(error => {
-                        console.warn(cachedResponse, url)
+                        console.warn(cachedResponse, url);
                         if (cachedResponse) {
                             return cachedResponse;
                         }
@@ -102,17 +102,17 @@ self.addEventListener('fetch', event => {
                                 };
 
                                 if (cachedResponse) {
-                                    console.warn("fetch", event.request.url)
-                                    body = cachedResponse.body
+                                    console.warn("fetch", event.request.url);
+                                    body = cachedResponse.body;
                                 } else {
                                     let url = normalizeRequest(event.request.referrer);
-                                    console.warn("fetch", url)
+                                    console.warn("fetch", url);
                                     return caches.match(url).then(cachedResponse => {
-                                        console.warn("cache", cachedResponse)
+                                        console.warn("cache", cachedResponse);
                                         if (cachedResponse)
-                                            body = cachedResponse.body
+                                            body = cachedResponse.body;
                                         return new Response(body, init);
-                                    })
+                                    });
                                 }
 
                                 return new Response(body, init);
@@ -172,8 +172,8 @@ function cachePut(event, store) {
         };
         return store.put(entry).then(value => {
             return store.get(entry.key).then(function () {
-            })
-        })
+            });
+        });
     });
 }
 
