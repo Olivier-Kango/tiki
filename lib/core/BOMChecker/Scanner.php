@@ -8,6 +8,9 @@
 
 class BOMChecker_Scanner
 {
+    public const BOM_UTF8 = 'BOM-UTF8';
+    public const BOM_UTF16 = 'BOM-UTF16';
+
     // Tiki source folder
     protected $sourceDir = __DIR__ . '/../../../';
 
@@ -16,14 +19,18 @@ class BOMChecker_Scanner
 
     protected $scanExtensions = [
         'php',
-        'tpl'
+        'tpl',
+        'js',
     ];
 
     // The number of files scanned.
     protected $scannedFiles = 0;
 
     // The list of files detected with BOM
-    protected $bomFiles = [];
+    protected $bomFiles = [
+        self::BOM_UTF8 => [],
+        self::BOM_UTF16 => [],
+    ];
 
     // The list of files detected without BOM
     protected $withoutBomFiles = [];
@@ -37,6 +44,8 @@ class BOMChecker_Scanner
         if (! empty($scanDir) && is_dir($scanDir)) {
             $this->sourceDir = $scanDir;
         }
+
+        $this->sourceDir = realpath($this->sourceDir);
 
         if (is_array($scanExtensions) && count($scanExtensions)) {
             $this->scanExtensions = $scanExtensions;
@@ -64,7 +73,7 @@ class BOMChecker_Scanner
             $this->checkDir($this->sourceDir);
         }
 
-        return $this->bomFiles;
+        return $this->getBomFiles();
     }
 
     /**
@@ -85,8 +94,8 @@ class BOMChecker_Scanner
         $sourceDirHandler = opendir($sourceDir);
 
         while ($file = readdir($sourceDirHandler)) {
-            // Skip ".", ".." and hidden fields (Unix).
-            if (substr($file, 0, 1) == '.') {
+            // Skip ".", ".." .
+            if ($file == '.' || $file == '..') {
                 continue;
             }
 
@@ -99,17 +108,16 @@ class BOMChecker_Scanner
             if (
                 ! is_file($sourcefilePath)
                 || ! in_array($this->getFileExtension($sourcefilePath), $this->scanExtensions)
-                || ! $this->checkUtf8Bom($sourcefilePath)
             ) {
-                if (
-                    in_array($this->getFileExtension($sourcefilePath), $this->scanExtensions)
-                    && ! $this->checkUtf8Bom($sourcefilePath)
-                ) {
-                    $this->withoutBomFiles[] = $sourcefilePath;
-                }
                 continue;
             }
-            $this->bomFiles[] = str_replace($this->sourceDir, '', $sourcefilePath);
+
+            if (! $type = $this->checkUtfBom($sourcefilePath)) {
+                $this->withoutBomFiles[] = $sourcefilePath;
+                continue;
+            }
+
+            $this->bomFiles[$type][] = str_replace($this->sourceDir . '/', '', $sourcefilePath);
         }
     }
 
@@ -127,10 +135,10 @@ class BOMChecker_Scanner
 
         foreach ($listFiles as $file) {
             if (in_array($this->getFileExtension($file), $this->scanExtensions)) {
-                if (! $this->checkUtf8Bom($file)) {
+                if (! $type = $this->checkUtfBom($file)) {
                     $this->withoutBomFiles[] = $file;
                 } else {
-                    $this->bomFiles[] = $file;
+                    $this->bomFiles[$type][] = $file;
                 }
             }
         }
@@ -166,20 +174,31 @@ class BOMChecker_Scanner
     }
 
     /**
-     * Check if UTF-8 BOM codification file
+     * Check if UTF-8 / UTF-16 BOM codification file
      *
      * @param string $filePath
-     * @return bool
+     * @return bool|string false if not found, a string with the type of BOM if found
      */
-    protected function checkUtf8Bom($filePath)
+    protected function checkUtfBom($filePath)
     {
         $file = fopen($filePath, 'r');
-        $data = fgets($file, 10);
+        $data = fgets($file, 3);
         fclose($file);
 
         $this->scannedFiles++;
 
-        return (substr($data, 0, 3) == "\xEF\xBB\xBF");
+        if (substr($data, 0, 3) == "\xEF\xBB\xBF") {
+            return self::BOM_UTF8;
+        }
+
+        if (
+            (substr($data, 0, 2) == "\xFE\xFF") // UTF-16 big-endian BOM
+            || (substr($data, 0, 2) == "\xFF\xFE") // UTF-16 little-endian BOM
+        ) {
+            return self::BOM_UTF16;
+        }
+
+        return false;
     }
 
     /**
@@ -199,7 +218,26 @@ class BOMChecker_Scanner
      */
     public function getBomFiles()
     {
-        return $this->bomFiles;
+        $allFiles = [];
+        foreach ($this->bomFiles as $files) {
+            $allFiles = array_merge($allFiles, $files);
+        }
+
+        return $allFiles;
+    }
+
+    /**
+     * Get the list of files detected with BOM.
+     *
+     * @return array
+     */
+    public function getBomFilesByType($type = null)
+    {
+        if (! $type) {
+            return $this->bomFiles;
+        }
+
+        return $this->bomFiles[$type] ?? [];
     }
 
     /**
@@ -210,5 +248,21 @@ class BOMChecker_Scanner
     public function getWithoutBomFiles()
     {
         return $this->withoutBomFiles;
+    }
+
+    /**
+     * Returs true if there is at least one file found with BOM
+     *
+     * @return bool
+     */
+    public function bomFilesFound()
+    {
+        foreach ($this->bomFiles as $result) {
+            if (! empty($result)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
