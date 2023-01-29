@@ -13,12 +13,13 @@ if (PHP_SAPI !== 'cli') {
 require dirname(__FILE__) . '/svntools.php';
 require dirname(__DIR__) . '/../lib/core/BOMChecker/Scanner.php';
 
-$dir = __DIR__ . '/../../';
+$dir = realpath(__DIR__ . '/../../') ;
 
 $excludeFolders = [
-    $dir . 'vendor',
-    $dir . 'vendor_bundled',
-    $dir . 'temp'
+    $dir . '/vendor',
+    $dir . '/vendor_bundled',
+    $dir . '/temp',
+    $dir . '/.git',
 ];
 
 $extensions = [
@@ -45,14 +46,25 @@ foreach ($paramList as $paramFile) {
 $BOMScanner = new BOMChecker_Scanner($dir, $extensions, $excludeFolders, $listFiles);
 $BOMFiles = $BOMScanner->scan();
 $totalFilesScanned = $BOMScanner->getScannedFiles();
-$listBOMFiles = $BOMScanner->getBomFiles();
 
-if (! empty($listBOMFiles)) {
-    echo color('Found ' . $totalFilesScanned . ' files with BOM encoding:', 'yellow') . PHP_EOL;
-    foreach ($listBOMFiles as $files) {
-        info($files);
+echo PHP_EOL;
+info($totalFilesScanned . ' files scanned...');
+
+if ($BOMScanner->bomFilesFound()) {
+    foreach ($BOMScanner->getBomFilesByType() as $type => $listBOMFiles) {
+        if (! count($listBOMFiles)) {
+            continue;
+        }
+        echo PHP_EOL;
+        echo color('=> Found ' . $type . ' in ' . count($listBOMFiles) . ' files:', 'red') . PHP_EOL . PHP_EOL;
+        foreach ($listBOMFiles as $files) {
+            echo color($files, 'red') . PHP_EOL;
+        }
     }
-    exit(1);
 } else {
-    important('Files without BOM encoding');
+    echo PHP_EOL;
+    important('No problem found in the files.');
 }
+
+echo PHP_EOL;
+exit($BOMScanner->bomFilesFound() ? 1 : 0);
