@@ -42,6 +42,10 @@
     <exclude-pattern>*/lang/*/language.js</exclude-pattern>
     <exclude-pattern>*/lib/test/language/fixtures/language_*</exclude-pattern>
 
+    
+    <!-- local config files -->
+    <exclude-pattern>*/local.php</exclude-pattern>
+    
     <!-- other directories that should not contain core code -->
     <!-- <exclude-pattern>*/doc/*</exclude-pattern> -->
     <exclude-pattern>*/bin/*</exclude-pattern>

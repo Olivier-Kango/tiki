@@ -1,4 +1,5 @@
 <?php
+
 /*
 If you run the following, you can use this file as-is to run tests:
 
@@ -21,10 +22,10 @@ See https://dev.tiki.org/Tiki-Unit-Testing for more info
 */
 $api_tiki = 'pdo';
 
-$db_tiki='mysqli';
-$dbversion_tiki='22.0';
-$host_tiki='localhost';
-$user_tiki='tiki_tester';
-$pass_tiki='tiki_tester_pass';
-$dbs_tiki='tiki_unit_test';
-$client_charset='utf8mb4';
+$db_tiki = 'mysqli';
+$dbversion_tiki = '22.0';
+$host_tiki = 'localhost';
+$user_tiki = 'tiki_tester';
+$pass_tiki = 'tiki_tester_pass';
+$dbs_tiki = 'tiki_unit_test';
+$client_charset = 'utf8mb4';

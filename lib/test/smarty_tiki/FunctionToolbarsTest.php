@@ -45,7 +45,7 @@ class FunctionToolbarsTest extends TikiTestCase
         $result = smarty_function_toolbars($params, $this->smarty);
 
         // It's a real problem that the templated generates a href that both depends on the path AND the filename used to call phpunit.  It makes this test extremely brittle.  I don't know which file actually generates the href and how to inject it. - benoitg
-        
+
         // currently the fixture used for comparing is commited with this path, which needs to be stripped, because it may or may not be how phpunit is called
         $expectedResults = str_replace('vendor_bundled/vendor/phpunit/phpunit/', '', $expectedResults);
         $result = str_replace('vendor_bundled/vendor/phpunit/phpunit/', '', $result);
