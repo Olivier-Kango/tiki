@@ -93,7 +93,7 @@
             <label for="full-list-w">{tr}Formatting Tools{/tr}</label>
             <ul id="full-list-w" class="full">
             {foreach from=$display_w item=tool}
-                <li class="{$qtelement[$tool].class}">{$qtelement[$tool].html}</li>
+                <li title=":{$qtelement[$tool].label|escape}" class="tips {$qtelement[$tool].class}">{$qtelement[$tool].html}</li>
             {/foreach}
             </ul>
         </div>
@@ -101,7 +101,7 @@
             <label for="full-list-p">{tr}Plugin Tools{/tr}</label>
             <ul id="full-list-p" class="full">
             {foreach from=$display_p item=tool}
-                <li class="{$qtelement[$tool].class}">{$qtelement[$tool].html}</li>
+                <li title=":{$qtelement[$tool].label|escape}" class="tips {$qtelement[$tool].class}">{$qtelement[$tool].html}</li>
             {/foreach}
             </ul>
         </div>
@@ -183,7 +183,7 @@
             <a href="#" id="toolbar_add_custom">{icon name="add" ititle=":{tr}Add a new custom tool{/tr}" iclass="tips"}</a>
             <ul id="full-list-c" class="full">
             {foreach from=$display_c item=tool}
-                <li class="{$qtelement[$tool].class}">{$qtelement[$tool].html}</li>
+                <li title=":{$qtelement[$tool].label|escape}" class="tips {$qtelement[$tool].class}">{$qtelement[$tool].html}</li>
             {/foreach}
             </ul>
         </div>
