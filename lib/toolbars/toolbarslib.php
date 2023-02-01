@@ -756,7 +756,7 @@ class ToolbarInline extends Toolbar
                 $syntax = '--text--';
                 break;
             case 'code':
-                $label = tra('Code');
+                $label = tra('Inline Code');
                 $icon = tra('img/icons/page_white_code.png');
                 $iconname = 'code';
                 $wysiwyg = 'Code';
