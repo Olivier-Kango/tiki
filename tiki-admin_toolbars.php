@@ -247,10 +247,13 @@ foreach ($qtlist as $name) {
         $visible = (strpos($wiki, 'qt-sheet') !== false);
     }
 
+		$text_label = $tag->getLabel($name);
+
     $qtelement[$name] = [
         'name' => $name,
         'class' => "toolbar qt-$name $wys $wiki $wyswik $plug $cust $avail $margins",
         'html' => "$icon<span>$label</span>",
+        'label' => $text_label,
         'visible' => $visible,
     ];
 }
