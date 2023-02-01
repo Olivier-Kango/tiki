@@ -4,7 +4,7 @@
     <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#"title="{tr}Blog post actions{/tr}">
         {icon name="menu-extra"}
     </a>
-    <div class="dropdown-menu">
+    <div class="dropdown-menu dropdown-menu-right">
         <h6 class="dropdown-header">
             {tr}Blog post actions{/tr}
         </h6>
