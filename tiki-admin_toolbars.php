@@ -247,7 +247,7 @@ foreach ($qtlist as $name) {
         $visible = (strpos($wiki, 'qt-sheet') !== false);
     }
 
-		$text_label = $tag->getLabel($name);
+    $text_label = $tag->getLabel($name);
 
     $qtelement[$name] = [
         'name' => $name,
