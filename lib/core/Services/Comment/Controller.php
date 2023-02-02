@@ -22,7 +22,8 @@ class Services_Comment_Controller
 		}
 
 		if ($objectId !== $input->objectId->none()) {
-			throw new Services_Exception(tr('Invalid %0 ID: %1', $type, $input->objectId->none()), 403);
+			$objectId = $input->objectId->xss();
+			throw new Services_Exception(tr('Invalid %0 ID: %1', $type, $objectId), 403);
 		}
 
 		if (! $this->isEnabled($type, $objectId)) {
@@ -696,7 +697,7 @@ class Services_Comment_Controller
 		return $perms->admin_comments;
 	}
 
-	private function markEditable(& $comments)
+	private function markEditable(&$comments)
 	{
 		foreach ($comments as & $comment) {
 			$comment['can_edit'] = $this->canEdit($comment);
