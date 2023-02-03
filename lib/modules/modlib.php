@@ -1001,7 +1001,7 @@ class ModLib extends TikiLib
                 ],
                 'flip' => [
                     'name' => tra('Flip'),
-                    'description' => tra('Users can open and close the module.'),
+                    'description' => tra('y|yc|n Users can open and close the module. y: module initially open. yc: module initially closed. n: module always open (default).'),
                     'filter' => 'alpha',
                     'section' => 'appearance',
                 ],
