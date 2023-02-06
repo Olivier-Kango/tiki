@@ -2417,7 +2417,11 @@ table.treetable tr.expanded span.indenter a {
   right: 0;
 }
 .tracker-item-files {
-  padding-left: 20px;
+  padding-left: 15px;
+}
+#tracker_selector {
+  z-index: 1;
+  min-width: 250px;
 }
 .file-drop {
   min-height: 100px;

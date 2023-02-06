@@ -625,6 +625,20 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
         ];
     }
 
+    public function bindFiles($values, $attach = true)
+    {
+        $oldValues = array_filter(explode(',', $this->getValue()));
+        $incomingValues = array_filter(explode(',', $values));
+
+        if ($attach) {
+            $newValues = array_merge($oldValues, $incomingValues);
+        } else {
+            $newValues = array_diff($oldValues, $incomingValues);
+        }
+
+        return implode(',', $newValues);
+    }
+
     public function handleFinalSave(array &$data)
     {
         if (isset($data['deleted_files'])) {

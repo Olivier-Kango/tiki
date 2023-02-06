@@ -2791,4 +2791,113 @@ class Services_Tracker_Controller
         }
         return $fieldHandler->renderOutput();
     }
+
+    public function actionFileTrackers($input)
+    {
+        $trk = TikiLib::lib('trk');
+
+        $fields = $trk->get_fields_by_type('FG');
+        $fields_data = [];
+        foreach ($fields as $field) {
+            $tracker = $trk->get_tracker($field['trackerId']);
+            $fields_data[] = [
+                'tracker_id' => $field['trackerId'],
+                'field_id' => $field['fieldId'],
+                'name' => $tracker['name'] . ' - ' . $field['name']
+            ];
+        }
+
+        return [
+            'title' => tr('Select Tracker'),
+            'fields_data' => $fields_data
+        ];
+    }
+
+    public function actionMoveItemFile($input)
+    {
+        $trklib = TikiLib::lib('trk');
+
+        if (! $sourceItemId = $input->sourceItemId->int()) {
+            throw new Services_Exception_MissingValue('sourceItemId');
+        }
+
+        if (! $targetItemId = $input->targetItemId->int()) {
+            throw new Services_Exception_MissingValue('targetItemId');
+        }
+
+        if (! $sourceFieldId = $input->sourceFieldId->int()) {
+            throw new Services_Exception_MissingValue('sourceFieldId');
+        }
+
+        if (! $targetFieldId = $input->targetFieldId->int()) {
+            throw new Services_Exception_MissingValue('targetFieldId');
+        }
+
+        if (! $fileId = $input->fileId->int()) {
+            throw new Services_Exception_MissingValue('fileId');
+        }
+
+        $sourceItemInfo = $trklib->get_tracker_item($sourceItemId);
+        $targetItemInfo = $trklib->get_tracker_item($targetItemId);
+        if (! $sourceItemInfo || ! $targetItemInfo) {
+            throw new Services_Exception_NotFound();
+        }
+
+        $targetFieldInfo = $trklib->get_field_info($targetFieldId);
+        if (! $targetFieldInfo) {
+            throw new Services_Exception_NotFound();
+        }
+
+        $targetItemObject = Tracker_Item::fromInfo($targetItemInfo);
+        if (! $targetItemObject->canModify()) {
+            throw new Services_Exception_Denied();
+        }
+
+        $targetTrackerDefinition = Tracker_Definition::get($targetItemInfo['trackerId']);
+
+        if (! $targetField = $targetTrackerDefinition->getField($targetFieldId)) {
+            throw new Services_Exception_NotFound();
+        }
+
+        $sourceFieldInfo = $trklib->get_field_info($sourceFieldId);
+        if (! $sourceFieldInfo) {
+            throw new Services_Exception_NotFound();
+        }
+
+        $sourceTrackerDefinition = Tracker_Definition::get($sourceItemInfo['trackerId']);
+
+        if (! $sourceField = $sourceTrackerDefinition->getField($sourceFieldId)) {
+            throw new Services_Exception_NotFound();
+        }
+
+        $targetHandler = $trklib->get_field_handler($targetFieldInfo, $targetItemInfo);
+
+        $this->utilities->updateItem(
+            $targetTrackerDefinition,
+            [
+                'itemId' => $targetItemId,
+                'fields' => [
+                    $targetField['permName'] => $targetHandler->bindFiles($fileId)
+                ]
+            ]
+        );
+
+        if ($input->doAction->word() == 'move') {
+            $sourceHandler = $trklib->get_field_handler($sourceFieldInfo, $sourceItemInfo);
+
+            $this->utilities->updateItem(
+                $sourceTrackerDefinition,
+                [
+                    'itemId' => $sourceItemId,
+                    'fields' => [
+                        $sourceField['permName'] => $sourceHandler->bindFiles($fileId, false)
+                    ]
+                ]
+            );
+        }
+
+        return [
+            'success' => true
+        ];
+    }
 }

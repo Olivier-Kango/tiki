@@ -1,4 +1,4 @@
-<div id="display_f{$field.fieldId|escape}" class="files-field display_f{$field.fieldId|escape} uninitialized {if !empty($data.replaceFile)}replace{/if}" data-galleryid="{$field.galleryId|escape}" data-firstfile="{$field.firstfile|escape}" data-filter="{$field.filter|escape}" data-limit="{$field.limit|escape}">
+<div id="display_f{$field.fieldId|escape}" class="files-field display_f{$field.fieldId|escape} uninitialized {if !empty($data.replaceFile)}replace{/if}" data-galleryid="{$field.galleryId|escape}" data-firstfile="{$field.firstfile|escape}" data-filter="{$field.filter|escape}" data-limit="{$field.limit|escape}" data-item-id="{$item.itemId|escape}" data-field-id="{$field.fieldId|escape}">
     {if !empty($field.canUpload)}
         {if !empty($field.limit)}
             {if $field.limit == 1}
@@ -30,6 +30,16 @@
                         </a>
                     {/if}
                     <div class="file-actions d-inline-block">
+                        <div class="d-inline-block">
+                            <a href="#" class="file-move-to-tracker-icon text-danger" data-action="copy">
+                                {icon name='copy'}
+                            </a>
+                        </div>
+                        <div class="d-inline-block">
+                            <a href="#" class="file-move-to-tracker-icon text-danger" data-action="move">
+                                {icon name='move'}
+                            </a>
+                        </div>
                         <a href="#" class="file-hard-delete-icon text-danger">
                             {icon name='trash'}
                         </a>
@@ -119,7 +129,7 @@
                 $field.input_csv('add', ',', fileId);
 
                 li.prepend($.fileTypeIcon(fileId, { type: type, name: name }));
-                li.append($('<div class="file-actions d-inline-block"><a class="file-hard-delete-icon text-danger">{{icon name='trash'}}</a><a class="file-delete-icon text-danger">{{icon name='delete'}}</a></div>'));
+                li.append($('<div class="file-actions d-inline-block"><div class="d-inline-block"><a href="#" class="file-move-to-tracker-icon text-danger" data-action="copy">{{icon name='copy'}}</a></div><a class="file-hard-delete-icon text-danger">{{icon name='trash'}}</a><a class="file-delete-icon text-danger">{{icon name='delete'}}</a></div>'));
 
                 if (replaceFile && $self.data('firstfile') > 0) {
                     li.prev('li').remove();
@@ -199,6 +209,58 @@
                     $field.change();
                     toggleWarning();
                 }
+            });
+
+            $files.parent().on('change', 'input[name=tracker_item_selector]', function (e) {
+                var caller = $(this).parent().prev();
+                var action = caller.parent().prev().data('action');
+                var target_item_id = $(this).val().replace('trackeritem:', '');
+                if (target_item_id == $self.data('item-id') && $self.data('field-id') == caller.data('field')) {
+                    feedback(tr('Cannot move to same source'), 'error');
+                    return;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: $.service('tracker', 'moveItemFile'),
+                    dataType: 'json',
+                    data: {
+                        targetItemId: target_item_id,
+                        fileId: caller.closest('li').data('file-id'),
+                        sourceItemId: $self.data('item-id'),
+                        sourceFieldId: $self.data('field-id'),
+                        targetFieldId: caller.data('field'),
+                        doAction: action
+                    },
+                    success: function (data) {
+                        if (action == 'move') {
+                            caller.closest('li').remove();
+                        }
+                        feedback(tr('File move complete'), 'success');
+                    },
+                    error: function (jqxhr) {
+                        $(this).showError(jqxhr);
+                    },
+                    complete: function () {
+                        $('#tracker_selector').remove();
+                    }
+                });
+            });
+
+            $files.parent().on('click', '.file-move-to-tracker-icon', function (e) {
+                e.preventDefault();
+                var caller = $(this);
+                if ($('#tracker_selector').length) {
+                    $('#tracker_item_selector').remove();
+                    $('#tracker_selector').show().insertAfter(caller);
+                    return;
+                }
+                var url = $.service('tracker', 'fileTrackers');
+                $.ajax({
+                    url: url,
+                    success: function (data) {
+                        $(data).insertAfter(caller);
+                    }
+                });
             });
 
             $url.keypress(function (e) {
