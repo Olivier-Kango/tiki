@@ -21,6 +21,8 @@
                     <th>{tr}Plugin{/tr} </th>
                     <th>{tr}Location{/tr} </th>
                     <th>{tr}Added By{/tr} </th>
+                    <th>{tr}Creation Date{/tr} </th>
+                    <th>{tr}Plugin body{/tr} </th>
                     <th></th>
                 </tr>
                 {foreach name=foo from=$plugin_list item=plugin}
@@ -35,6 +37,8 @@
                             {/if}
                         </td>
                         <td class="text">{if !empty($plugin.added_by)}{$plugin.added_by|userlink}{else}{tr}Unknown{/tr}{/if}</td>
+                        <td class="text">{$plugin.last_update|escape}</td>
+                        <td class="text">{$plugin.body|escape|truncate:100:'...':true:true}</td>
                         <td class="action">
                             {actions}
                                 {strip}

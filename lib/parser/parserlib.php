@@ -664,7 +664,7 @@ class ParserLib extends TikiDb_Bridge
             return true;
         }
 
-        $val = $this->plugin_fingerprint_check($fingerprint, $dont_modify);
+        $val = $this->plugin_fingerprint_check($fingerprint, $data, $dont_modify);
         if (strpos($val, 'accept') === 0) {
             return true;
         } elseif (strpos($val, 'reject') === 0) {
@@ -704,7 +704,7 @@ class ParserLib extends TikiDb_Bridge
     }
 
     //*
-    public function plugin_fingerprint_check($fp, $dont_modify = false)
+    public function plugin_fingerprint_check($fp, $body, $dont_modify = false)
     {
         global $user;
         $tikilib = TikiLib::lib('tiki');
@@ -744,7 +744,7 @@ class ParserLib extends TikiDb_Bridge
             $pluginSecurity = $tikilib->table('tiki_plugin_security');
             $pluginSecurity->delete(['fingerprint' => $fp]);
             $pluginSecurity->insert(
-                ['fingerprint' => $fp, 'status' => 'pending',   'added_by' => $user,    'last_objectType' => $objectType, 'last_objectId' => $objectId]
+                ['fingerprint' => $fp, 'status' => 'pending', 'added_by' => $user, 'last_objectType' => $objectType, 'last_objectId' => $objectId, 'body' => $this->unprotectSpecialChars($body, true)]
             );
         }
 
@@ -783,7 +783,7 @@ class ParserLib extends TikiDb_Bridge
     public function list_plugins_pending_approval()
     {
         $tikilib = TikiLib::lib('tiki');
-        return $tikilib->fetchAll("SELECT `fingerprint`, `added_by`, `last_update`, `last_objectType`, `last_objectId` FROM `tiki_plugin_security` WHERE `status` = 'pending' ORDER BY `last_update` DESC");
+        return $tikilib->fetchAll("SELECT `fingerprint`, `added_by`, `last_update`, `last_objectType`, `last_objectId`, `body` FROM `tiki_plugin_security` WHERE `status` = 'pending' ORDER BY `last_update` DESC");
     }
 
     /**
@@ -816,7 +816,7 @@ class ParserLib extends TikiDb_Bridge
         $tikilib = TikiLib::lib('tiki');
 
         $pluginSecurity = $tikilib->table('tiki_plugin_security');
-        $pluginSecurity->updateMultiple(['status' => 'accept', 'approval_by' => $user], ['status' => 'pending',]);
+        $pluginSecurity->updateMultiple(['status' => 'accept', 'approval_by' => $user, 'body' => ''], ['status' => 'pending',]);
     }
 
     //*
@@ -826,7 +826,7 @@ class ParserLib extends TikiDb_Bridge
         $tikilib = TikiLib::lib('tiki');
 
         $pluginSecurity = $tikilib->table('tiki_plugin_security');
-        $pluginSecurity->update(['status' => 'accept', 'approval_by' => $user], ['fingerprint' => $fp]);
+        $pluginSecurity->update(['status' => 'accept', 'approval_by' => $user, 'body' => ''], ['fingerprint' => $fp]);
     }
 
     //*
