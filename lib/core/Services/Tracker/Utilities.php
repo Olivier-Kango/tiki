@@ -684,4 +684,18 @@ EXPORT;
 
         return $itemObject;
     }
+
+    public static function convertToDefaultCurrency($data)
+    {
+        $trk = TikiLib::lib('trk');
+        $rates = $trk->exchange_rates($data['date']);
+
+        $defaultCurrency = array_search(1, $rates);
+        if (empty($defaultCurrency)) {
+            $defaultCurrency = 'USD';
+        }
+
+        $currency = new Math_Formula_Currency($data['amount'], $data['currency'], $rates);
+        return $currency->convertTo($defaultCurrency)->getAmount();
+    }
 }

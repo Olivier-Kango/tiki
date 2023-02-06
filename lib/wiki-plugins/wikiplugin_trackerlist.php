@@ -2216,7 +2216,9 @@ function wikiplugin_trackerlist($data, $params)
                     foreach ($items['data'] as $i => $item) {
                         foreach ($item['field_values'] as $field) {
                             if ($field['fieldId'] == $fieldId) {
-                                if (preg_match('/^ *$/', $field['value']) || ! is_numeric($field['value'])) {
+                                if ($field['type'] == 'b') {
+                                    $amount[$i] = Services_Tracker_Utilities::convertToDefaultCurrency($field);
+                                } elseif (preg_match('/^ *$/', $field['value']) || ! is_numeric($field['value'])) {
                                     $amount[$i] = '0';
                                 } else {
                                     $amount[$i] = $field['value'];
