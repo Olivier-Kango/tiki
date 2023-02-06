@@ -182,6 +182,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
                 'symbol' => $this->getOption('symbol'),
                 'allSymbol' => $this->getOption('all_symbol'),
                 'reloff' => $context['reloff'] ?? null,
+                'csv' => $context['list_mode'] === 'csv'
             ],
             $smarty->getEmptyInternalTemplate()
         );

@@ -59,9 +59,18 @@ function smarty_function_currency($params, $smarty)
     $smarty->loadPlugin('smarty_modifier_money_format');
     $id = uniqid();
 
-    $out = '<div style="display:inline" id="currency_output_' . $id . '" class="currency_output">';
+    $export = isset($csv) && $csv;
+
+    $out = '';
+    if (! $export) {
+        $out = '<div style="display:inline" id="currency_output_' . $id . '" class="currency_output">';
+    }
     if ($prepend) {
-        $out .= '<span class="formunit">' . smarty_modifier_escape($prepend) . '</span>';
+        if ($export) {
+            $out .= ' ' . smarty_modifier_escape($prepend);
+        } else {
+            $out .= '<span class="formunit">' . smarty_modifier_escape($prepend) . '</span>';
+        }
     }
     if (empty($locale)) {
         $locale = 'en_US';
@@ -88,8 +97,16 @@ function smarty_function_currency($params, $smarty)
         $out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 1);
     }
     if ($append) {
-        $out .= '<span class="formunit">' . smarty_modifier_escape($append) . '</span>';
+        if ($export) {
+            $out .= ' ' . smarty_modifier_escape($append);
+        } else {
+            $out .= '<span class="formunit">' . smarty_modifier_escape($append) . '</span>';
+        }
     }
+    if ($export) {
+        return $out;
+    }
+
     $out .= '</div>';
     if ($conversions) {
         $out .= '
