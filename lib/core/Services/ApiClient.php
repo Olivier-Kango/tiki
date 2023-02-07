@@ -52,6 +52,9 @@ class Services_ApiClient
                 $key = key($body);
                 $error = $body->$key;
             }
+            if (! is_string($error)) {
+                $error = json_encode($error);
+            }
             throw new Services_Exception(tr('Remote service inaccessible (%0), error: "%1"', $response->getStatusCode(), $error), 400);
         }
 
