@@ -664,4 +664,32 @@ class Tracker_Item
             }
         }
     }
+
+    /**
+     * Helper method to prepare field values for item fields that do not store their
+     * info in database - e.g. ItemsList or need additional data than the database
+     * raw values - e.g. Duration field.
+     * @param array data to be modified
+     */
+    public function prepareFieldValues(&$data)
+    {
+        $fieldData = ['itemId' => $this->info['itemId']];
+        foreach ($data as $permName => $value) {
+            $field = $this->definition->getField($permName);
+            if ($field) {
+                $fieldData[$field['fieldId']] = $value;
+            }
+        }
+        foreach ($data as $permName => $value) {
+            $field = $this->definition->getField($permName);
+            if ($field && ($field['type'] == 'l' || $field['type'] == 'REL')) {
+                $handler = $this->definition->getFieldFactory()->getHandler($field, $fieldData);
+                $data[$permName] = $handler->getItemValues();
+            }
+            if ($field && $field['type'] == 'DUR') {
+                $handler = $this->definition->getFieldFactory()->getHandler($field, $fieldData);
+                $data[$permName] = $handler->getValueInSeconds();
+            }
+        }
+    }
 }
