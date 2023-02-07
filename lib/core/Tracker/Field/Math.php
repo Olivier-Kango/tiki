@@ -278,31 +278,12 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
     }
 
     /**
-     * Helper method to prepare field values for item fields that do not store their
-     * info in database - e.g. ItemsList or need additional data than the database
-     * raw values - e.g. Duration field.
-     * @param array data to be modified
+     * @see Tracker_Item::prepareFieldValues
      */
     private function prepareFieldValues(&$data)
     {
-        $fieldData = ['itemId' => $this->getItemId()];
-        foreach ($data as $permName => $value) {
-            $field = $this->getTrackerDefinition()->getFieldFromPermName($permName);
-            if ($field) {
-                $fieldData[$field['fieldId']] = $value;
-            }
-        }
-        foreach ($data as $permName => $value) {
-            $field = $this->getTrackerDefinition()->getFieldFromPermName($permName);
-            if ($field && ($field['type'] == 'l' || $field['type'] == 'REL')) {
-                $handler = TikiLib::lib('trk')->get_field_handler($field, $fieldData);
-                $data[$permName] = $handler->getItemValues();
-            }
-            if ($field && $field['type'] == 'DUR') {
-                $handler = TikiLib::lib('trk')->get_field_handler($field, $fieldData);
-                $data[$permName] = $handler->getValueInSeconds();
-            }
-        }
+        $item = Tracker_Item::fromId($this->getItemId());
+        $item->prepareFieldValues($data);
     }
 
     private function getFormulaRunner()
