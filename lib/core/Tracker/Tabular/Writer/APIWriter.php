@@ -89,7 +89,11 @@ class APIWriter
                         $client->setContextUser($user);
                         $method = strtolower($this->config['update_method'] ?? 'patch');
                         $formatted_row = $this->formatRow(@$this->config['update_format'], $columns, $row);
-                        $result = $client->$method('', $formatted_row);
+                        if (is_string($formatted_row) && @json_decode($formatted_row) !== null) {
+                            $result = $client->$method('', $formatted_row, 'application/json');
+                        } else {
+                            $result = $client->$method('', $formatted_row);
+                        }
                     } else {
                         $skipped++;
                         continue;
@@ -101,7 +105,11 @@ class APIWriter
                         $client->setContextUser($user);
                         $method = strtolower($this->config['create_method'] ?? 'post');
                         $formatted_row = $this->formatRow(@$this->config['create_format'], $columns, $row);
-                        $result = $client->$method('', $formatted_row);
+                        if (is_string($formatted_row) && @json_decode($formatted_row) !== null) {
+                            $result = $client->$method('', $formatted_row, 'application/json');
+                        } else {
+                            $result = $client->$method('', $formatted_row);
+                        }
                     } else {
                         $skipped++;
                         continue;

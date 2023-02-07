@@ -37,11 +37,15 @@ class Services_ApiClient
     {
         $endpoint = $args[0] ?? '';
         $arguments = $args[1] ?? [];
+        $content_type = $args[2] ?? null;
 
         $client = $this->getClient($method, $endpoint, $arguments);
 
         $headers = $client->getRequest()->getHeaders();
         $headers->addHeaders(['Accept' => $this->getAcceptHeader()]);
+        if ($content_type) {
+            $headers->addHeaders(['Content-Type' => $content_type]);
+        }
 
         $response = $client->send();
         if (! $response->isSuccess()) {
