@@ -158,15 +158,11 @@
                 {/if}
                 {foreach from=$column item=col}
                     <td{if not empty($col.class)} class="{$col.class}"{/if}>
-                        <ul>
-                            <li style="list-style:none">
-                                {if isset($col.mode) && $col.mode eq 'raw'}
-                                    {if !empty($row[$col.field])}{$row[$col.field]}{/if}
-                                    {else}
-                                    {if !empty($row[$col.field])}{$row[$col.field]|escape}{/if}
-                                {/if}
-                            </li>
-                        </ul>
+                        {if isset($col.mode) && $col.mode eq 'raw'}
+                            {if !empty($row[$col.field])}{$row[$col.field]}{/if}
+                        {else}
+                            {if !empty($row[$col.field])}{$row[$col.field]|escape}{/if}
+                        {/if}
                     </td>
                 {/foreach}
             </tr>
