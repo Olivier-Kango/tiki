@@ -2591,18 +2591,26 @@ class TikiLib extends TikiDb_Bridge
      * @param $data
      * @return array
      */
-    public function get_links($data)
+    public function get_links($data, $is_markdown = false)
     {
         $links = [];
 
         /// Prevent the substitution of link [] inside a <tag> ex: <input name="tracker[9]" ... >
         $data = preg_replace("/<[^>]*>/", "", $data);
 
-        /// Match things like [...], but ignore things like [[foo].
-        // -Robin
-        if (preg_match_all("/(?<!\[)\[([^\[\|\]]+)(?:\|?[^\[\|\]]*){0,2}\]/", $data, $r1)) {
-            $res = $r1[1];
-            $links = array_unique($res);
+        if ($is_markdown) {
+            // markdown syntax needs to ignore ^[] inline footnotes, [^footnotes] and [foo](link)
+            if (preg_match_all("/(?<![\[\^])\[([^\[\|\]\^]+)(?:\|?[^\[\|\]]*){0,2}\](?!\()/", $data, $r1)) {
+                $res = $r1[1];
+                $links = array_unique($res);
+            }
+        } else {
+            /// Match things like [...], but ignore things like [[foo].
+            // -Robin
+            if (preg_match_all("/(?<!\[)\[([^\[\|\]]+)(?:\|?[^\[\|\]]*){0,2}\]/", $data, $r1)) {
+                $res = $r1[1];
+                $links = array_unique($res);
+            }
         }
 
         return $links;
