@@ -100,6 +100,7 @@ class ParserLib extends TikiDb_Bridge
                 'include_plugins' => [],
                 'typography' => true,
                 'autotoc' => false,
+                'markdown_conversion' => false,
             ],
             empty($option) ? [] : (array) $this->option,
             (array)$option
@@ -1277,6 +1278,10 @@ class ParserLib extends TikiDb_Bridge
     //*
     public function autolinks($text)
     {
+        if ($this->option['markdown_conversion']) {
+            return $text;
+        }
+
         if ($text) {
             global $prefs;
             static $mail_protect_pattern = '';
@@ -1467,6 +1472,10 @@ class ParserLib extends TikiDb_Bridge
     {
         global $page_regex, $prefs;
 
+        if ($this->option['markdown_conversion']) {
+            return $data;
+        }
+
         // definitively put out the protected words ))protectedWord((
         if ($prefs['feature_wikiwords'] == 'y') {
             preg_match_all("/\)\)(\S+?)\(\(/", $data, $matches);
@@ -1546,6 +1555,10 @@ class ParserLib extends TikiDb_Bridge
     {
         global $prefs;
         $tikilib = TikiLib::lib('tiki');
+
+        if ($this->option['markdown_conversion']) {
+            return $data;
+        }
 
         // *****
         // This section handles external links of the form [url] and such.

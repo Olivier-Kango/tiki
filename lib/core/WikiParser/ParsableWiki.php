@@ -103,15 +103,29 @@ class WikiParser_ParsableWiki extends ParserLib
 
         // Replace boxes
         $delim = (isset($prefs['feature_simplebox_delim']) && $prefs['feature_simplebox_delim'] != "" ) ? preg_quote($prefs['feature_simplebox_delim']) : preg_quote("^");
-        $data = preg_replace("/${delim}(.+?)${delim}/s", "<div class=\"card bg-light\"><div class=\"card-body\">$1</div></div>", $data);
+        if ($this->option['markdown_conversion']) {
+            $data = preg_replace("/${delim}(.+?)${delim}/s", "{BOX()}$1{BOX}", $data);
+        } else {
+            $data = preg_replace("/${delim}(.+?)${delim}/s", "<div class=\"card bg-light\"><div class=\"card-body\">$1</div></div>", $data);
+        }
 
         // Underlined text
-        $data = preg_replace("/===(.+?)===/", "<u>$1</u>", $data);
-        // Center text
-        if ($prefs['feature_use_three_colon_centertag'] == 'y' || ($prefs['namespace_enabled'] == 'y' && $prefs['namespace_separator'] == '::')) {
-            $data = preg_replace("/:::(.+?):::/", "<div style=\"text-align: center;\">$1</div>", $data);
+        if ($this->option['markdown_conversion']) {
+            $data = preg_replace("/===(.+?)===/", "{TAG(tag='u')}$1{TAG}", $data);
         } else {
-            $data = preg_replace("/::(.+?)::/", "<div style=\"text-align: center;\">$1</div>", $data);
+            $data = preg_replace("/===(.+?)===/", "<u>$1</u>", $data);
+        }
+
+        // Center text
+        if ($this->option['markdown_conversion']) {
+            $replacement = "{DIV(style='text-align: center')}$1{DIV}";
+        } else {
+            $replacement = "<div style=\"text-align: center;\">$1</div>";
+        }
+        if ($prefs['feature_use_three_colon_centertag'] == 'y' || ($prefs['namespace_enabled'] == 'y' && $prefs['namespace_separator'] == '::')) {
+            $data = preg_replace("/:::(.+?):::/", $replacement, $data);
+        } else {
+            $data = preg_replace("/::(.+?)::/", $replacement, $data);
         }
 
         // reinsert hash-replaced links into page
