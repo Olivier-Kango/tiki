@@ -86,10 +86,19 @@ class WikiParser_ParsableMarkdown extends ParserLib
         );
 
         $converter = new MarkdownConverter($environment);
-        $data = $converter->convert($data)->getContent();
 
+        // autolinking, wiki links and external links go first, otherwise GFM converts the links without Tiki additions (e.g. external icon, target=_blank, semantic)
+        if ($prefs['feature_autolinks'] == 'y') {
+            $data = $this->autolinks($data);
+        }
+
+        // wiki page links and external links are handled in Tiki-syntax to allow sister sites and other semantic linking
         $data = $this->parse_data_wikilinks($data, false, $this->option['wysiwyg']);
         $data = $this->parse_data_externallinks($data, false);
+
+        $data = $converter->convert($data)->getContent();
+
+        // TODO: use Mention extension for autolinking @username mentions and other jit expansions
 
         if ($prefs['wiki_heading_links'] == 'y') {
             $data = $this->addHeadingLinks($data);

@@ -1515,9 +1515,6 @@ class EditLib
         $old_pref = $prefs['wiki_heading_links'];
         $prefs['wiki_heading_links'] = 'n';
 
-        // keep semantic versioned links (including page aliases) from parsing
-        $data = preg_replace("/\(([a-z0-9-]+\( *$page_regex *\|?[^\)]*?\))\)/", "??skipsem??$1??/skipsem??", $data);
-
         $wikiParserParsable = new WikiParser_Parsable($data);
         if (! $wikiParserParsable->convertable($data)) {
             throw new Exception(tr("Content has plugins that cannot be automatically converted. You should proceed with manual content conversion."));
@@ -1529,11 +1526,10 @@ class EditLib
             'noparseplugins' => true,
             'noparseargvariables' => true,
             'suppress_icons' => true,
+            'markdown_conversion' => true,
         ]);
 
         $prefs['wiki_heading_links'] = $old_pref;
-
-        $html = str_replace(['??skipsem??', '??/skipsem??'], ['(', ')'], $html);
 
         if ($target_syntax == 'markdown') {
             // convert to markdown
@@ -1554,6 +1550,14 @@ class EditLib
             $pattern = "/^(\s*{[^}]*)\\\\([*_\\[\\]\\\\][^}]*}\s*)$/m";
             while (preg_match($pattern, $converted)) {
                 $converted = preg_replace($pattern, "$1$2", $converted);
+            }
+
+            // bring back escaped link syntax
+            if (preg_match_all('/\\\\\[(.*?)\\\\\]/', $converted, $matches)) {
+                foreach ($matches[1] as $key => $link) {
+                    $link = preg_replace('/\\\\([*_])/', '$1', $link);
+                    $converted = str_replace($matches[0][$key], '[' . $link . ']', $converted);
+                }
             }
         } else {
             // convert to tiki syntax
