@@ -1318,7 +1318,12 @@ class ParserLib extends TikiDb_Bridge
             $replacements = [];
 
             // protocol://suffix
-            $patterns[] = "#([\n\( ])([a-z0-9]+?)://([^<,\) \n\r]+)#i";
+            if ($this->option['is_markdown']) {
+                // ignore [markdown](http://links)
+                $patterns[] = "#(?<!\])([\n\( ])([a-z0-9]+?)://([^<,\) \n\r]+)#i";
+            } else {
+                $patterns[] = "#([\n\( ])([a-z0-9]+?)://([^<,\) \n\r]+)#i";
+            }
             $replacements[] = "\\1<a $attrib href=\"\\2://\\3\">\\2://\\3$ext_icon</a>";
 
             // www.domain.ext/optionalpath
@@ -1577,7 +1582,7 @@ class ParserLib extends TikiDb_Bridge
         // This section handles external links of the form [url] and such.
         // *****
 
-        $links = $tikilib->get_links($data);
+        $links = $tikilib->get_links($data, $this->option['is_markdown']);
         $notcachedlinks = $tikilib->get_links_nocache($data);
         $cachedlinks = array_diff($links, $notcachedlinks);
         $tikilib->cache_links($cachedlinks);
