@@ -446,14 +446,15 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
                 'action' => 'update',
                 'subject' => 'Tracker_Item',
                 'fields' => $updatableFields,
-                'conditions' => ['itemId' => $trackerItem->getId()]
+                //This explicit cast is required because getId aparently returns strings or int depending on php version or some other factor
+                'conditions' => ['itemId' => (int)$trackerItem->getId()]
             ];
 
         $caslAbilities[] =
             [
                 'action' => 'delete',
                 'subject' => 'Tracker_Item',
-                'conditions' => ['itemId' => $trackerItem->getId()]
+                'conditions' => ['itemId' => (int)$trackerItem->getId()]
             ];
 
         //if ($perms['tiki_p_create_tracker_items'] == 'n' && empty($itemId)) {
@@ -491,7 +492,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
             'user' => $user,
             'CASLAbilityRules' => $caslAbilities
         ];
-    //echo ("<pre>");print_r($kanbanData);echo ("</pre>");
+    //echo ("<pre>");var_dump($kanbanData);echo ("</pre>");
     $smarty->assign(
         'kanbanData',
         $kanbanData
