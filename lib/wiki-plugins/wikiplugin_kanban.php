@@ -460,7 +460,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         //if ($perms['tiki_p_create_tracker_items'] == 'n' && empty($itemId)) {
 
         $boardCards[] = [
-            'id' => $row['object_id'],
+            'id' => (int)$row['object_id'],
             'title' => $row[$boardFields['title']['permName']],
             'description' => $row[$boardFields['description']['permName']],
             'row' => $swimlaneValue,

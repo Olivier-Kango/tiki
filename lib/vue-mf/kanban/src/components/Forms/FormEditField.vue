@@ -13,7 +13,9 @@ import defineAbilityFor from '../../auth/defineAbility'
 import { subject } from "@casl/ability"
 
 const props = defineProps({
-    id: [Number, String],
+    id: {
+        type: Number
+    },
     title: {
         type: String
     }
@@ -58,7 +60,11 @@ const handleSaveTitle = event => {
 
 const handleEditClick = event => {
     const ability = defineAbilityFor(store.getters.getRules)
-    const canUpdate = ability.can('update', subject('Tracker_Item', {itemId: props.id}), store.getters.getTitleField)
+    
+    const canUpdate = ability.can('update', subject('Tracker_Item', {itemId: props.id}), store.getters.getTitleField);
+    
+    //const rule = ability.relevantRuleFor('update', subject('Tracker_Item', { itemId: props.id }));
+    //console.log("FormEditField::handleEditClick: canUpdate?", canUpdate, rule)
     if (canUpdate) showEditField.value = true
 }
 </script>
