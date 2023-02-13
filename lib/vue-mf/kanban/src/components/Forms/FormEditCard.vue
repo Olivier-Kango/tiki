@@ -14,7 +14,9 @@ import defineAbilityFor from '../../auth/defineAbility'
 import { subject } from "@casl/ability"
 
 const props = defineProps({
-    id: [Number, String],
+    id: {
+        type: Number
+    },
     title: {
         type: String
     },
@@ -43,6 +45,7 @@ watchEffect(() => {
 const handleEditClick = event => {
     const ability = defineAbilityFor(store.getters.getRules)
     const canUpdate = ability.can('update', subject('Tracker_Item', {itemId: props.id}), store.getters.getTitleField)
+    //console.log("FormEditCard::handleEditClick(): canUpdate?", canUpdate)
     if (canUpdate) showEditField.value = true
 }
 
