@@ -2867,9 +2867,8 @@ class TrackerLib extends TikiLib
 
             foreach ($ins_fields['data'] as $f) {
                 if ($f['type'] == 'b' && ! empty($f['value'])) {
-                    if (is_numeric($f['value'])) {
-                        $f['name'] = $f['name'] . ' Currency';
-                        $mandatory_fields[] = $f;
+                    if (! preg_match('/^[-\d\.]+[A-Za-z]*$/', $f['value'])) {
+                        $erroneous_values[] = $f;
                     }
                 }
                 if ($f['type'] == 'f' && $f['isMandatory'] != 'y' && empty($f['value'])) {
