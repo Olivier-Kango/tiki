@@ -665,7 +665,7 @@ class ParserLib extends TikiDb_Bridge
             return true;
         }
 
-        $val = $this->plugin_fingerprint_check($fingerprint, $data, $dont_modify);
+        $val = $this->plugin_fingerprint_check($fingerprint, $data, $args, $dont_modify);
         if (strpos($val, 'accept') === 0) {
             return true;
         } elseif (strpos($val, 'reject') === 0) {
@@ -705,7 +705,7 @@ class ParserLib extends TikiDb_Bridge
     }
 
     //*
-    public function plugin_fingerprint_check($fp, $body, $dont_modify = false)
+    public function plugin_fingerprint_check($fp, $body, $args, $dont_modify = false)
     {
         global $user;
         $tikilib = TikiLib::lib('tiki');
@@ -745,7 +745,7 @@ class ParserLib extends TikiDb_Bridge
             $pluginSecurity = $tikilib->table('tiki_plugin_security');
             $pluginSecurity->delete(['fingerprint' => $fp]);
             $pluginSecurity->insert(
-                ['fingerprint' => $fp, 'status' => 'pending', 'added_by' => $user, 'last_objectType' => $objectType, 'last_objectId' => $objectId, 'body' => $this->unprotectSpecialChars($body, true)]
+                ['fingerprint' => $fp, 'status' => 'pending', 'added_by' => $user, 'last_objectType' => $objectType, 'last_objectId' => $objectId, 'body' => $this->unprotectSpecialChars($body, true), 'arguments' => serialize($args)]
             );
         }
 
@@ -785,6 +785,13 @@ class ParserLib extends TikiDb_Bridge
     {
         $tikilib = TikiLib::lib('tiki');
         return $tikilib->fetchAll("SELECT `fingerprint`, `added_by`, `last_update`, `last_objectType`, `last_objectId`, `body` FROM `tiki_plugin_security` WHERE `status` = 'pending' ORDER BY `last_update` DESC");
+    }
+
+    public function getPluginInfo($fingerprint)
+    {
+        $tikilib = TikiLib::lib('tiki');
+        $pluginSecurity = $tikilib->table('tiki_plugin_security');
+        return $pluginSecurity->fetchRow(['fingerprint', 'status', 'last_update', 'last_objectType', 'last_objectId', 'body', 'arguments'], ['fingerprint' => $fingerprint]);
     }
 
     /**

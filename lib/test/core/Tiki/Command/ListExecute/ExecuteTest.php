@@ -131,6 +131,7 @@ class Tiki_Command_ListExecute_ExecuteTest extends TikiTestCase
                 'last_objectType' => 'wiki page',
                 'last_objectId'   => TikiLib::lib('tiki')->get_page_id_from_name(self::PAGE_NAME),
                 'body' => trim(preg_replace('/{LISTEXECUTE\(?\)?}/', '', self::CONTENT_FOR_FINGERPRINT)),
+                'arguments' => 'a:0:{}',
             ]
         );
     }

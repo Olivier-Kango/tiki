@@ -3488,6 +3488,7 @@ CREATE TABLE `tiki_plugin_security` (
   `last_objectType` VARCHAR(20) NOT NULL,
   `last_objectId` VARCHAR(200) NOT NULL,
   `body` text,
+  `arguments` text NOT NULL,
   PRIMARY KEY (`fingerprint`(191)),
   KEY `last_object` (last_objectType, last_objectId(171))
 ) ENGINE=MyISAM;

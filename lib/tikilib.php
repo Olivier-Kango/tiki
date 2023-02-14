@@ -5470,7 +5470,7 @@ class TikiLib extends TikiDb_Bridge
 
                 // when plugin status is pending, $status equals plugin fingerprint
                 if ($prefs['wikipluginprefs_pending_notification'] == 'y' && $status !== true && $status != 'rejected') {
-                    $this->plugin_pending_notification($plugin_name, $body, $arguments, $context);
+                    $this->plugin_pending_notification($plugin_name, $body, $arguments);
                 }
 
                 WikiPlugin_Negotiator_Wiki_Alias::findImplementation($plugin_name, $body, $arguments);
@@ -5494,25 +5494,39 @@ class TikiLib extends TikiDb_Bridge
      * @param array $context object type and id
      * @return void
      */
-    private function plugin_pending_notification($plugin_name, $body, $arguments, $context)
+    private function plugin_pending_notification($plugin_name, $body, $arguments)
     {
-        require_once('lib/webmail/tikimaillib.php');
-        global $prefs, $base_url;
+        $parserlib = TikiLib::lib('parser');
+
+        $meta = $parserlib->plugin_info($plugin_name, $arguments);
+        $fingerprint = $parserlib->plugin_fingerprint($plugin_name, $meta, $body, $arguments);
+
+        $runTime = strtotime('+10 minutes');
+        $mm = date('i', $runTime);
+        $hh = date('H', $runTime);
+
+        Scheduler_Manager::queueJob("Plugin approval $fingerprint", 'ConsoleCommandTask', ['console_command' => "plugin:pending -f $fingerprint"], "$mm $hh * * *");
+    }
+
+    public function sendPluginApprovalNotificationEmail($pluginInfo)
+    {
+        global $prefs;
+
         $mail = new TikiMail(null, $prefs['sender_email'], $prefs['sender_name']);
-        $mail->setSubject(tr("Plugin %0 pending approval", $plugin_name));
+        $mail->setSubject(tr("Plugin %0 pending approval", $pluginInfo['name']));
 
         $smarty = TikiLib::lib('smarty');
-        $smarty->assign('plugin_name', $plugin_name);
-        $smarty->assign('type', $context['type']);
-        $smarty->assign('objectId', $context['object']);
-        $smarty->assign('arguments', $arguments);
-        $smarty->assign('body', $body);
+        $smarty->assign('plugin_name', $pluginInfo['name']);
+        $smarty->assign('type', $pluginInfo['last_objectType']);
+        $smarty->assign('objectId', $pluginInfo['last_objectId']);
+        $smarty->assign('arguments', unserialize($pluginInfo['arguments']));
+        $smarty->assign('body', $pluginInfo['body']);
 
         $mail->setHtml(nl2br($smarty->fetch('mail/plugin_pending_notification.tpl')));
 
         $recipients = $this->plugin_get_email_users_with_perm();
 
-        $mail->send($recipients);
+        return $mail->send($recipients);
     }
 
     /**

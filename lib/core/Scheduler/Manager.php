@@ -18,7 +18,7 @@ class Scheduler_Manager
         $this->logger = $logger;
     }
 
-    public static function queueJob(string $name, string $task, array $params)
+    public static function queueJob(string $name, string $task, array $params, $runTime = "* * * * *")
     {
         $className = 'Scheduler_Task_' . $task;
         if (! class_exists($className)) {
@@ -39,7 +39,7 @@ class Scheduler_Manager
         }
 
         $schedLib = TikiLib::lib('scheduler');
-        $schedLib->set_scheduler($name, "", $task, json_encode($params), "* * * * *", 'active', false, true);
+        $schedLib->set_scheduler($name, "", $task, json_encode($params), $runTime, 'active', false, true);
     }
 
     public function run()

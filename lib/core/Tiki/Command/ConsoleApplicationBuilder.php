@@ -115,6 +115,7 @@ class ConsoleApplicationBuilder
                 new ProfileBaselineCommand(),
                 new PluginApproveRunCommand(),
                 new PluginListRunCommand(),
+                new PluginPendingRunCommand(),
                 new PluginRefreshRunCommand(),
                 new PatchCommand(),
                 new UpdateCommand(),
