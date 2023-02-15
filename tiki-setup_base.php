@@ -48,6 +48,10 @@ ini_set('allow_call_time_pass_reference', 'On');
 
 $memory_limiter = new Tiki_MemoryLimit('128M'); // Keep in variable to hold scope
 
+if (in_array('phar', stream_get_wrappers())) {
+	stream_wrapper_unregister('phar');
+}
+
 // ---------------------------------------------------------------------
 // inclusions of mandatory stuff and setup
 require_once('lib/setup/tikisetup.class.php');
