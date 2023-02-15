@@ -14,7 +14,7 @@ function validator_smarty($input, $parameter = '', $message = '')
         return true;
     }
 
-    TikiLib::lib('events')->bind('tiki.process.shutdown', function() {
+    TikiLib::lib('events')->bind('tiki.process.shutdown', function () {
         $content = ob_get_contents();
         if (strstr($content, 'Fatal error')) {
             ob_end_clean();

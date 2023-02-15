@@ -1953,7 +1953,7 @@ class UsersLib extends TikiLib
                 }
                 return [USER_VALID, $user];
             } else {
-                $this->handle_unsuccessful_login($user);
+                $this->handleUnsuccessfulLogin($user);
                 return [PASSWORD_INCORRECT, $user];      // if the password was incorrect, dont give the md5's a spin
             }
         }
@@ -1971,12 +1971,12 @@ class UsersLib extends TikiLib
             return [USER_VALID, $user];
         }
 
-        $this->handle_unsuccessful_login($user);
+        $this->handleUnsuccessfulLogin($user);
 
         return [PASSWORD_INCORRECT, $user];
     }
 
-    public function handle_unsuccessful_login($user)
+    public function handleUnsuccessfulLogin($user)
     {
         global $prefs, $base_url;
 
@@ -7424,7 +7424,7 @@ class UsersLib extends TikiLib
         $google2fa = new Google2FA();
         $result = $google2fa->verifyKey($twoFactorSecret, $pin, 2);
         if (! $result) {
-            $this->handle_unsuccessful_login($user);
+            $this->handleUnsuccessfulLogin($user);
         }
         return $result;
     }
