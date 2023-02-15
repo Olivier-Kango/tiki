@@ -10,13 +10,13 @@
  * Adapted by the Tiki Community for Tiki Wiki CMS Groupware
 */
 /*!
-   * Bootstrap  v5.2.2 (https://getbootstrap.com/)
+   * Bootstrap  v5.2.3 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
 /*!
-   * Bootstrap  v5.2.2 (https://getbootstrap.com/)
+   * Bootstrap  v5.2.3 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -5236,14 +5236,12 @@ textarea.form-control-lg {
 .carousel-item.active, .carousel-item-next, .carousel-item-prev {
   display: block;
 }
-/* rtl:begin:ignore */
 .carousel-item-next:not(.carousel-item-start), .active.carousel-item-end {
   transform: translateX(100%);
 }
 .carousel-item-prev:not(.carousel-item-end), .active.carousel-item-start {
   transform: translateX(-100%);
 }
-/* rtl:end:ignore */
 .carousel-fade .carousel-item {
   opacity: 0;
   transition-property: opacity;
@@ -10964,6 +10962,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .pvtUi {
   color: #333;
   background: #fff;
+  margin-bottom: 30px;
 }
 .tiki table.pvtTable {
   font-size: 1rem;
@@ -11709,4 +11708,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-left: 30px;
   margin-right: 30px;
 }
-/*# sourceMappingURL=united.css.map */
+

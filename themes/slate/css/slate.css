@@ -10,13 +10,13 @@
  * Adapted by the Tiki Community for Tiki Wiki CMS Groupware
 */
 /*!
-   * Bootstrap  v5.2.2 (https://getbootstrap.com/)
+   * Bootstrap  v5.2.3 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
 /*!
-   * Bootstrap  v5.2.2 (https://getbootstrap.com/)
+   * Bootstrap  v5.2.3 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -5236,14 +5236,12 @@ textarea.form-control-lg {
 .carousel-item.active, .carousel-item-next, .carousel-item-prev {
   display: block;
 }
-/* rtl:begin:ignore */
 .carousel-item-next:not(.carousel-item-start), .active.carousel-item-end {
   transform: translateX(100%);
 }
 .carousel-item-prev:not(.carousel-item-end), .active.carousel-item-start {
   transform: translateX(-100%);
 }
-/* rtl:end:ignore */
 .carousel-fade .carousel-item {
   opacity: 0;
   transition-property: opacity;
@@ -14996,14 +14994,12 @@ textarea.form-control-lg {
 .carousel-item.active, .carousel-item-next, .carousel-item-prev {
   display: block;
 }
-/* rtl:begin:ignore */
 .carousel-item-next:not(.carousel-item-start), .active.carousel-item-end {
   transform: translateX(100%);
 }
 .carousel-item-prev:not(.carousel-item-end), .active.carousel-item-start {
   transform: translateX(-100%);
 }
-/* rtl:end:ignore */
 .carousel-fade .carousel-item {
   opacity: 0;
   transition-property: opacity;
@@ -20177,6 +20173,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 legend {
   color: #fff;
 }
+.form-control {
+  color-scheme: light;
+}
 .input-group-addon {
   background-image: linear-gradient(#8a9196, #7a8288 60%, #70787d);
   filter: none;
@@ -21477,6 +21476,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .pvtUi {
   color: #aaa;
   background: #272b30;
+  margin-bottom: 30px;
 }
 .tiki table.pvtTable {
   font-size: 1rem;
@@ -22233,4 +22233,4 @@ body.fullscreen {
 .card-body .navbar {
   border: none;
 }
-/*# sourceMappingURL=slate.css.map */
+

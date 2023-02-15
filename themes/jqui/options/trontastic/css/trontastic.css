@@ -2,7 +2,7 @@
 /*  The Trontastic theme option file for the Jqui theme of Tiki Wiki CMS Groupware. */
 @import url(http://fonts.googleapis.com/css?family=Play);
 /*!
-   * Bootstrap  v5.2.2 (https://getbootstrap.com/)
+   * Bootstrap  v5.2.3 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -2990,6 +2990,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .pvtUi {
   color: #fff;
   background: #000;
+  margin-bottom: 30px;
 }
 .tiki table.pvtTable {
   font-size: 1rem;
@@ -3977,4 +3978,4 @@ code, pre.codelisting {
 .card-accordian > .card-header h4.card-title a, .card-accordian > .card-header .card-title.h4 a {
   color: #000;
 }
-/*# sourceMappingURL=trontastic.css.map */
+
