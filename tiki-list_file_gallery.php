@@ -1035,7 +1035,6 @@ if (! empty($_REQUEST['find_sub']) && ($_REQUEST['find_sub'] == 'on' || $_REQUES
 
 if (isset($_GET['slideshow'])) {
     $_REQUEST['maxRecords'] = $maxRecords = -1;
-    $offset = 0;
     $files = $filegallib->get_files(
         0,
         -1,
@@ -1056,6 +1055,7 @@ if (isset($_GET['slideshow'])) {
         false,
         $find
     );
+    $smarty->assign('offset', $_REQUEST['offset'] ?? 0);
     $smarty->assign('cant', $files['cant']);
     $smarty->assign_by_ref('files', $files['data']);
 

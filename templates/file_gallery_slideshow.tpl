@@ -17,7 +17,7 @@
             overlayClose: false,
             close: ''
         {/if}}
-    });
+    }).eq({{$offset}}).click();
         {/jq}
 
 {if (!$slideshow_noclose)}
