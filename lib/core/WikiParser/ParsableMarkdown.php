@@ -47,7 +47,6 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $environment->addExtension(new FootnoteExtension());
 
         if ($this->option['autotoc']) {
-            $environment->addExtension(new HeadingPermalinkExtension());
             $environment->addExtension(new TableOfContentsExtension());
         }
 
