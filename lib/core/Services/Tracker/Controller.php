@@ -108,12 +108,14 @@ class Services_Tracker_Controller
                 throw new Services_Exception_MissingValue('name');
             }
 
-            if ($definition->getFieldFromName($name)) {
-                throw new Services_Exception_DuplicateValue('name', $name);
+            if ($definition->getFieldFromNameMaj($name)) {
+                Feedback::error(tr('This field name %0 is already used in this tracker', $name));
+                return Services_Utilities::closeModal();
             }
 
             if ($definition->getFieldFromPermName($permName)) {
-                throw new Services_Exception_DuplicateValue('permName', $permName);
+                Feedback::error(tr('This permanent name %0 is already used', $permName));
+                return Services_Utilities::closeModal();
             }
 
             $fieldId = $this->utilities->createField(
@@ -339,7 +341,13 @@ class Services_Tracker_Controller
         $permName = $input->permName->word();
         if ($field['permName'] != $permName) {
             if ($definition->getFieldFromPermName($permName)) {
-                throw new Services_Exception_DuplicateValue('permName', $permName);
+                throw new Services_Exception_DuplicateValue('permName', tr('This permanent name %0 is already used', $permName));
+            }
+        }
+        $name = $input->name->word();
+        if ($field['name'] != $name) {
+            if ($definition->getFieldFromNameMaj($name)) {
+                throw new Services_Exception_DuplicateValue('name', tr('This field name %0 is already used in this tracker', $name));
             }
         }
 

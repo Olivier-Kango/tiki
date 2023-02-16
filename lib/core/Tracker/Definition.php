@@ -150,6 +150,16 @@ class Tracker_Definition
         }
     }
 
+    public function getFieldFromNameMaj($name)
+    {
+        $name = strtoupper($name);
+        foreach ($this->getFields() as $f) {
+            if (strtoupper($f['name']) == $name) {
+                return $f;
+            }
+        }
+    }
+
     public function getPopupFields()
     {
         if (! empty($this->trackerInfo['showPopup'])) {
