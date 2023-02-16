@@ -1515,6 +1515,10 @@ class EditLib
         $old_pref = $prefs['wiki_heading_links'];
         $prefs['wiki_heading_links'] = 'n';
 
+        if ($target_syntax == 'markdown') {
+            $data = preg_replace('/^\s*-=(.+)=-\s*$/m', '{DIV(class=titlebar)}$1{DIV}', $data);
+        }
+
         $wikiParserParsable = new WikiParser_Parsable($data);
         if (! $wikiParserParsable->convertable($data)) {
             throw new Exception(tr("Content has plugins that cannot be automatically converted. You should proceed with manual content conversion."));
