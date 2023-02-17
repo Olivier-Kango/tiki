@@ -37,6 +37,10 @@ class WikiParser_ParsableMarkdown extends ParserLib
             'html_input' => 'allow',
             'allow_unsafe_links' => false,
             'max_nesting_level' => 100,
+            'heading_permalink' => [
+                'symbol' => 'removeme-' . uniqid(),
+            ],
+
         ];
         $environment = new Environment($config);
 
@@ -47,6 +51,7 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $environment->addExtension(new FootnoteExtension());
 
         if ($this->option['autotoc']) {
+            $environment->addExtension(new HeadingPermalinkExtension());
             $environment->addExtension(new TableOfContentsExtension());
         }
 
@@ -96,6 +101,10 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $data = $this->parse_data_externallinks($data, false);
 
         $data = $converter->convert($data)->getContent();
+
+        // markdown permalinks conflict with header links in Tiki kept for backwards compatibility, thus remove the markdown ones
+        // unfortunately, heading permalinks extension classes are final and cannot be extended and reused...
+        $data = preg_replace('/<a[^>]*>' . $config['heading_permalink']['symbol'] . '<\/a>/', '', $data);
 
         // TODO: use Mention extension for autolinking @username mentions and other jit expansions
 
