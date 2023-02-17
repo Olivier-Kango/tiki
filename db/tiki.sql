@@ -1523,7 +1523,7 @@ CREATE TABLE `tiki_mailin_accounts` (
   `categoryId` int(12) NULL,
   `namespace` varchar(20) default NULL,
   `respond_email` char(1) NOT NULL default 'y',
-  `leave_email` char(1) NOT NULL default 'n',
+  `leave_email` char(1) NOT NULL default 'y',
   `galleryId` int(11) NULL DEFAULT NULL,
   `trackerId` int(11) NULL DEFAULT NULL,
   `preferences` TEXT NULL DEFAULT NULL,

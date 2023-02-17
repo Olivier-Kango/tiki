@@ -112,7 +112,7 @@ class Services_MailIn_Controller
                     'categoryId' => 0,
                     'namespace' => '',
                     'respond_email' => 'y',
-                    'leave_email' => 'n',
+                    'leave_email' => 'y',
                     'galleryId' => '',
                     'trackerId' => '',
                     'preferences' => ''

@@ -137,7 +137,7 @@ class MailinLib extends TikiDb_Bridge
      * @param  mixed $preferences
      * @return bool
      */
-    public function replace_mailin_account($accountId, $account, $protocol, $host, $port, $username, $clearpass, $type, $active, $anonymous, $admin, $attachments, $tracker_attachments, $routing, $article_topicId = null, $article_type = null, $discard_after = null, $show_inlineImages = 'n', $save_html = 'y', $categoryId = 0, $namespace = '', $respond_email = 'y', $leave_email = 'n', $galleryId = null, $trackerId = null, $preferences = null)
+    public function replace_mailin_account($accountId, $account, $protocol, $host, $port, $username, $clearpass, $type, $active, $anonymous, $admin, $attachments, $tracker_attachments, $routing, $article_topicId = null, $article_type = null, $discard_after = null, $show_inlineImages = 'n', $save_html = 'y', $categoryId = 0, $namespace = '', $respond_email = 'y', $leave_email = 'y', $galleryId = null, $trackerId = null, $preferences = null)
     {
         // Fix values
         if ($attachments == null) {

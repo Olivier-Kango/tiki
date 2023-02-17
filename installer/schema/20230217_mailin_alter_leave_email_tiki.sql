@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_mailin_accounts` ALTER COLUMN `leave_email` set default 'y';
