@@ -254,11 +254,13 @@
                 "@vue-mf/styleguide": "{$tikiroot}storage/public/vue-mf/styleguide/vue-mf-styleguide.min.js",
                 "@vue-mf/root-config": "{$tikiroot}storage/public/vue-mf/root-config/vue-mf-root-config.min.js",
                 "@vue-mf/kanban": "{$tikiroot}storage/public/vue-mf/kanban/vue-mf-kanban.min.js",
-                "@vue-mf/duration-picker": "{$tikiroot}storage/public/vue-mf/duration-picker/vue-mf-duration-picker.min.js"
+                "@vue-mf/duration-picker": "{$tikiroot}storage/public/vue-mf/duration-picker/vue-mf-duration-picker.min.js",
+                "@vue-mf/toolbar-dialogs": "{$tikiroot}storage/public/vue-mf/toolbar-dialogs/vue-mf-toolbar-dialogs.min.js"
             }
         }
     </script>
     <link rel="stylesheet" type="text/css" href="{$tikiroot}storage/public/vue-mf/kanban/assets/vue-mf-kanban.min.css">
+    <link rel="stylesheet" type="text/css" href="{$tikiroot}storage/public/vue-mf/toolbar-dialogs/assets/style.css">
     {* Note: JS code in the page might try to use these functions before they are actually loaded by systemjs, so provide stubs here *}
     <script>
         window.registerApplication = function(opts) {

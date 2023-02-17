@@ -6,16 +6,19 @@ use TikiLib;
 
 class ToolbarDialog extends ToolbarItem
 {
+    private $isMarkdown;
+    private $isWysiwyg;
     private array $list;
     private int $index;
     private string $name;
 
-    public static function fromName(string $tagName): ?ToolbarItem
+    public static function fromName(string $tagName, bool $is_wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = ''): ?ToolbarItem
     {
         global $prefs;
 
         $tool_prefs = [];
         $markdown_wysiwyg = '';
+        $markdown = '';
 
         switch ($tagName) {
             case 'tikilink':
@@ -92,8 +95,9 @@ class ToolbarDialog extends ToolbarItem
                 $wysiwyg = 'Link';
                 $label = tra('External Link');
                 $iconname = 'link-external';
+                $iconname = 'external-link-alt';    // for isVueTool but will work if not too
                 $icon = tra('img/icons/world_link.png');
-                $markdown = ''; // TODO
+                $markdown = 'link';
                 $markdown_wysiwyg = 'link';
                 $list = [
                     tra('External Link'),
@@ -185,14 +189,20 @@ class ToolbarDialog extends ToolbarItem
 
         $tag = new self();
         $tag->name = $tagName;
+
+        $tag->isMarkdown = $is_markdown;
+        $tag->isWysiwyg = $is_wysiwyg;
+
         $tag->setWysiwygToken($wysiwyg)
             ->setMarkdownWysiwyg($markdown_wysiwyg)
+            ->setMarkdownSyntax($markdown)
             ->setLabel($label)
             ->setIconName(! empty($iconname) ? $iconname : 'help')
             ->setIcon(! empty($icon) ? $icon : 'img/icons/shading.png')
             ->setList($list)
             ->setType('Dialog')
-            ->setClass('qt-picker');
+            ->setClass('qt-picker')
+            ->setDomElementId($domElementId);
 
         foreach ($tool_prefs as $pref) {
             $tag->addRequiredPreference($pref);
@@ -202,7 +212,7 @@ class ToolbarDialog extends ToolbarItem
         ++$toolbarDialogIndex;
         $tag->index = $toolbarDialogIndex;
 
-        ToolbarDialog::setupJs();
+        $tag->setupJs();
 
         return $tag;
     }
@@ -216,12 +226,49 @@ class ToolbarDialog extends ToolbarItem
 
     public function getOnClick(): string
     {
-        return 'displayDialog( this, ' . $this->index . ', \'' . $this->domElementId . '\')';
+        if ($this->isVueTool()) {
+            return 'toolbarDialog(\'' . $this->name . '\',\'' . $this->domElementId . '\')';
+        } else {
+            return 'displayDialog( this, ' . $this->index . ', \'' . $this->domElementId . '\')';
+        }
     }
 
-    public static function setupJs()
+    public function setupJs(): void
     {
-        TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
+        global $toolbarDialogIndex;
+
+        TikiLib::lib('header')->add_js_module('
+            import "@vue-mf/root-config";
+            import "@vue-mf/toolbar-dialogs";
+        ');
+
+        $data = get_object_vars($this);
+        unset($data['list']);
+        $data['editor']['isMarkdown'] = $this->isMarkdown;
+        $data['editor']['isWysiwyg'] = $this->isWysiwyg;
+
+        if ($this->isVueTool()) {
+            // language=JavaScript
+            TikiLib::lib('header')->add_jq_onready('
+    window.registerApplication({
+        name: "@vue-mf/toolbar-dialogs-" + ' . json_encode($this->index) . ',
+        app: () => importShim("@vue-mf/toolbar-dialogs"),
+        activeWhen: (location) => {
+            let condition = true;
+            return condition;
+        },
+        customProps: {
+            toolbarObject: ' . json_encode($data) . ',
+            syntax: ""
+        },
+    })
+    onDOMElementRemoved("single-spa-application:@vue-mf/toolbar-dialogs-" + ' . json_encode($toolbarDialogIndex) . ', function () {
+        window.unregisterApplication("@vue-mf/toolbar-dialogs-" + ' . json_encode($toolbarDialogIndex) . ');
+    });
+    ');
+        } else {
+            TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
+        }
     }
 
     public function getWikiHtml(): string
@@ -233,11 +280,24 @@ class ToolbarDialog extends ToolbarItem
             1 + $this->index
         );
 
-        return $this->getSelfLink(
-            $this->getOnClick(),
-            htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
-            $this->getClass()
-        );
+        if ($this->isVueTool()) {
+            return '<span id="single-spa-application:@vue-mf/toolbar-dialogs-' . $this->index . '" class="toolbar-dialogs"></span>';
+        } else {
+            return $this->getSelfLink(
+                $this->getOnClick(),
+                htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
+                $this->getClass()
+            );
+        }
+    }
+
+    public function getMarkdownHtml(): string
+    {
+        if ($this->markdown) {
+            return $this->getWikiHtml();
+        } else {
+            return '';
+        }
     }
 
     public function getWysiwygToken(): string
@@ -277,7 +337,19 @@ class ToolbarDialog extends ToolbarItem
 
     public function getMarkdownWysiwyg(): string
     {
-        if (in_array($this->name, ['tikilink'])) {
+        if ($this->isVueTool()) {
+            $html = $this->getWikiHtml();
+
+            \TikiLib::lib('header')->add_jq_onready(
+                "tuiToolbarItem$this->markdown_wysiwyg = $('$html').get(0);"
+            );
+            $item = [
+                'name'    => $this->markdown_wysiwyg,
+                'tooltip' => $this->label,
+                'el'      => "%~tuiToolbarItem{$this->markdown_wysiwyg}~%",
+            ];
+            return json_encode($item);
+        } elseif (in_array($this->name, ['tikilink'])) {
             \TikiLib::lib('header')->add_jq_onready(
                 "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').click(function () {
                         {$this->getOnClick()}
@@ -298,5 +370,22 @@ class ToolbarDialog extends ToolbarItem
             return $this->name;
         }
         return '';
+    }
+
+    /**
+     * Tell if current dialog is a vue-toolbar-dialogs tool
+     *
+     * @return bool
+     */
+    private function isVueTool(): bool
+    {
+        global $prefs;
+
+        // not for ckeditor (yet)
+        if (! $this->isMarkdown && $this->isWysiwyg) {
+            return false;
+        }
+
+        return $prefs['vuejs_toolbar_dialogs'] === 'y' && in_array($this->name, ['tikilink', 'link']);
     }
 }

@@ -119,7 +119,13 @@ class ToolbarsList
                         $group = [];
                     }
                 } elseif (
-                    ($tag = ToolbarItem::getTag($tagName, $this->wysiwyg, $this->is_html, $this->syntax === 'markdown'))
+                    ($tag = ToolbarItem::getTag(
+                        $tagName,
+                        $this->wysiwyg,
+                        $this->is_html,
+                        $this->syntax === 'markdown',
+                        $this->domElementId
+                    ))
                     && $tag->isAccessible()
                 ) {
                     $group[] = $tag->setDomElementId($this->domElementId);
