@@ -134,6 +134,7 @@
             {preference name=site_layout}
             {preference name=site_layout_per_object}
             {preference name=theme_navbar_fixed_topbar_offset}
+            {preference name=theme_header_and_adress_bar_color}
 
             <legend>{tr}Admin pages layout{/tr} (<small>{tr}Admin theme must be selected first{/tr}</small>)</legend>
             {preference name=site_layout_admin}

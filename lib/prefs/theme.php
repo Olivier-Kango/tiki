@@ -155,5 +155,13 @@ function prefs_theme_list($partial = false)
             'help' => 'Icon-Picker',
             'tags' => ['basic'],
         ],
+        'theme_header_and_adress_bar_color' => [
+            'name' => tra('Header bar and Address bar color'),
+            'type' => 'flag',
+            'help' => 'Themes',
+            'description' => tra('Change the color of header bar and address bar according to the theme.'),
+            'default' => 'n',
+            'tags' => ['basic'],
+        ],
     ];
 }

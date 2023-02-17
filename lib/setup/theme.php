@@ -195,5 +195,24 @@ if ($prefs['webmonetization_all_website'] === 'y' && ! empty($prefs['webmonetiza
     $headerlib->add_meta('monetization', $prefs['webmonetization_default_payment_pointer']);
 }
 
+// set the color of header bar and address bar
+if ($prefs['theme_header_and_adress_bar_color'] === 'y') {
+    if ($section === 'admin' || empty($section)) {
+        $css_color_variable = "--tiki-top-" . $prefs['theme_navbar_color_variant_admin'] . "-bg";
+    } else {
+        $css_color_variable = "--tiki-top-" . $prefs['theme_navbar_color_variant'] . "-bg";
+    }
+    // construct jq to get the value of the $css_color_variable
+    $jq = "var color = window.getComputedStyle(document.documentElement).getPropertyValue('" . $css_color_variable . "');";
+    $jq .= "$('meta[name=\"theme-color\"]').attr('content', color);";
+
+    // add meta tag
+    $headerlib->add_meta("theme-color", "");
+    // iOS Safari
+    $headerlib->add_meta("apple-mobile-web-app-capable", "yes");
+    $headerlib->add_meta("apple-mobile-web-app-status-bar-style", "black-translucent");
+    // add jq to set content of theme-color Meta Tag to the current theme navbar color
+    $headerlib->add_jq_onready($jq, 5);
+}
 //finish
 $smarty->initializePaths();
