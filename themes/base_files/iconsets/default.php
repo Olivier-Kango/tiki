@@ -1280,7 +1280,7 @@ function iconset_default()
                 'id' => 'text-width',
             ],
             'toggle-left' => [
-                'id' => 'caret-square-left',
+                'id' => 'chevron-left',
                 'prepend' => 'far fa-'
             ],
             'toggle-off' => [
@@ -1290,7 +1290,7 @@ function iconset_default()
                 'id' => 'toggle-on',
             ],
             'toggle-right' => [
-                'id' => 'caret-square-right',
+                'id' => 'chevron-right',
                 'prepend' => 'far fa-'
             ],
             'trackers' => [

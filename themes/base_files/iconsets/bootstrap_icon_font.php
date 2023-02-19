@@ -309,6 +309,12 @@ function iconset_bootstrap_icon_font()
             'th-list' => [
                 'id' => 'list-columns-reverse',
             ],
+            'toggle-left' => [
+                'id' => 'chevron-left',
+            ],
+            'toggle-right' => [
+                'id' => 'chevron-right',
+            ],
             'underline' => [
                 'id' => 'type-underline',
             ],
