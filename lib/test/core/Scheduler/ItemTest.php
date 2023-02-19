@@ -8,6 +8,8 @@
 
 namespace Tiki\Tests\Scheduler;
 
+use DateInterval;
+use DateTime;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
@@ -222,39 +224,69 @@ class ItemTest extends TestCase
         $this->assertFalse((bool)$lastRun['healed']);
     }
 
-    public function testGetPreviousRunDateWithNoDelay()
+    /**
+     * @dataProvider dateTimeGenerator
+     */
+    public function testGetPreviousRunDateWithNoDelay($minute, DateTime $now)
     {
         $schedulerStub = $this->createPartialMock(Scheduler_Item::class, []);
         $schedulerStub->user_run_now = 1;
         $schedulerStub->run_time = '0 * * * *'; // Every hour
 
-        $time = time();
+        $time = $now->getTimestamp() - 1;
+        $time-- ; // If we are looking at the exact same minute, then last run was previous hour, so offset by one
         $expectedTime = $time - ($time % 3600); // We want the hour on 0 minutes
-        $runDate = $schedulerStub->getPreviousRunDate();
+        $limitTime = $now->getTimestamp();
+
+        $runDate = $schedulerStub->getPreviousRunDate($now);
 
         $this->assertEquals($expectedTime, $runDate);
+        $this->assertLessThan($limitTime, $runDate);
     }
 
-    public function testGetPreviousRunDateWithDelay()
+    /**
+     * @dataProvider dateTimeGenerator
+     */
+    public function testGetPreviousRunDateWithDelay($minute, DateTime $now)
     {
         global $prefs;
+
         $delay = 30; // 30 min delay
         $prefs['scheduler_delay'] = $delay;
 
         $schedulerStub = $this->createPartialMock(Scheduler_Item::class, []);
         $schedulerStub->user_run_now = 1;
         $schedulerStub->run_time = '0 * * * *'; // Every hour
-        $time = strtotime($delay . ' minutes ago');
-        $adjustToTheHour = ($time % 3600);
-        if ($adjustToTheHour < 60) {
-            // If matches the exact running time
-            // then the previous run was 1h before
-            $adjustToTheHour += 3600;
-        }
-        $expectedTime = $time - $adjustToTheHour + ($delay * 60); // We want the hour on 0 minutes
-        $runDate = $schedulerStub->getPreviousRunDate();
+
+        $delayOffsetTime = clone $now;
+        $time = $delayOffsetTime->sub(DateInterval::createFromDateString($delay . ' minutes'))->getTimestamp();
+        $time-- ; // If we are looking at the exact same minute, then last run was previous hour, so offset by one
+        $expectedTime = $time - ($time % 3600) + ($delay * 60); // We want the hour on 0 minutes + delay
+        $limitTime = $now->getTimestamp();
+
+        $runDate = $schedulerStub->getPreviousRunDate($now);
 
         $this->assertEquals($expectedTime, $runDate);
-        $this->assertLessThan(time(), $runDate);
+        $this->assertLessThan($limitTime, $runDate);
+    }
+
+    /**
+     * Returns DateTime for multiple minutes in the same hour
+     * @return array
+     */
+    public function dateTimeGenerator()
+    {
+        $minutes = [0, 10, 15, 30, 45, 50, 59];
+
+        $now = new DateTime();
+        $values = [];
+
+        foreach ($minutes as $minute) {
+            $t = clone $now;
+            $t->setTime((int)$now->format('G'), $minute);
+            $values[] = [$minute, $t];
+        }
+
+        return $values;
     }
 }
