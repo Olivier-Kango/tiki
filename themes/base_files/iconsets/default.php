@@ -1281,7 +1281,7 @@ function iconset_default()
             ],
             'toggle-left' => [
                 'id' => 'chevron-left',
-                'prepend' => 'far fa-'
+                'prepend' => 'fas fa-'
             ],
             'toggle-off' => [
                 'id' => 'toggle-off',
@@ -1291,7 +1291,7 @@ function iconset_default()
             ],
             'toggle-right' => [
                 'id' => 'chevron-right',
-                'prepend' => 'far fa-'
+                'prepend' => 'fas fa-'
             ],
             'trackers' => [
                 'id' => 'database',
