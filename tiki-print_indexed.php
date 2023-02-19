@@ -125,7 +125,8 @@ class ObjectList // {{{
             }
         }
     }
-} // }}}
+}
+// }}}
 
 /**
  *
@@ -152,7 +153,7 @@ abstract class ObjectRenderer // {{{
     function render($smarty, $options)
     {
         $options['decorator_template'] = 'print/print-decorator_' . $options['decorator'] . '.tpl';
-        $smarty->assign('body', $this->_render($smarty, $options));
+        $smarty->assign('body', $this->doRender($smarty, $options));
         $smarty->display($options['decorator_template']);
     }
 
@@ -169,14 +170,15 @@ abstract class ObjectRenderer // {{{
      * @param $template
      * @return mixed
      */
-    abstract function _render($smarty, $template);
+    abstract function doRender($smarty, $template);
 
     /**
      * @param $key
      * @return mixed
      */
     abstract function getIndexValue($key);
-} // }}}
+}
+// }}}
 
 /**
  *
@@ -235,7 +237,7 @@ class ObjectRenderer_TrackerItem extends ObjectRenderer // {{{
      * @param $options
      * @return mixed
      */
-    function _render($smarty, $options)
+    function doRender($smarty, $options)
     {
         $smarty->assign('title', $this->getTitle());
         $smarty->assign('tracker', $this->tracker);
@@ -268,7 +270,8 @@ class ObjectRenderer_TrackerItem extends ObjectRenderer // {{{
             }
         }
     }
-} // }}}
+}
+// }}}
 
 /**
  *
@@ -304,7 +307,7 @@ class ObjectRenderer_Wiki extends ObjectRenderer // {{{
      * @param $options
      * @return mixed
      */
-    function _render($smarty, $options)
+    function doRender($smarty, $options)
     {
         $options['display_template'] = 'print/print-' . $options['display'] . '_wiki.tpl';
         $smarty->assign('info', $this->info);
@@ -323,7 +326,8 @@ class ObjectRenderer_Wiki extends ObjectRenderer // {{{
                 return $this->info['pageName'];
         }
     }
-} // }}}
+}
+// }}}
 
 /**
  *
@@ -362,7 +366,7 @@ class ObjectRenderer_MultilingualWiki extends ObjectRenderer // {{{
      * @param $options
      * @return string
      */
-    function _render($smarty, $options)
+    function doRender($smarty, $options)
     {
         $out = '';
 
@@ -373,7 +377,7 @@ class ObjectRenderer_MultilingualWiki extends ObjectRenderer // {{{
 
         foreach ($languages as $lang) {
             if ($this->renderers[$lang]) {
-                $out .= $this->renderers[$lang]->_render($smarty, $options);
+                $out .= $this->renderers[$lang]->doRender($smarty, $options);
             }
         }
 
@@ -398,7 +402,8 @@ class ObjectRenderer_MultilingualWiki extends ObjectRenderer // {{{
 
         return reset($this->renderers)->getIndexValue($key);
     }
-} // }}}
+}
+// }}}
 
 // End of classes }}}
 

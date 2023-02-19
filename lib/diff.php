@@ -114,11 +114,11 @@ class _WikiDiffEngine
         }
 
         // Find the LCS.
-        $this->_compareseq(0, count($this->xv), 0, count($this->yv));
+        $this->compareSeq(0, count($this->xv), 0, count($this->yv));
 
         // Merge edits when possible
-        $this->_shift_boundaries($xlines, $this->xchanged, $this->ychanged);
-        $this->_shift_boundaries($ylines, $this->ychanged, $this->xchanged);
+        $this->shiftBoundaries($xlines, $this->xchanged, $this->ychanged);
+        $this->shiftBoundaries($ylines, $this->ychanged, $this->xchanged);
 
         // Compute the edit operations.
         $this->edits = [];
@@ -190,7 +190,7 @@ class _WikiDiffEngine
      * match. The caller must trim matching lines from the beginning and end
      * of the portions it is going to specify.
      */
-    public function _diag($xoff, $xlim, $yoff, $ylim, $nchunks)
+    protected function diag($xoff, $xlim, $yoff, $ylim, $nchunks)
     {
         $flip = false;
 
@@ -234,7 +234,7 @@ class _WikiDiffEngine
                 reset($matches);
                 foreach ($matches as $y) {
                     if (empty($this->in_seq[$y])) {
-                        $k = $this->_lcs_pos($y);
+                        $k = $this->lcsPos($y);
                         USE_ASSERTS && assert($k > 0);
                         $ymids[$k] = $ymids[$k - 1];
                         break;
@@ -250,7 +250,7 @@ class _WikiDiffEngine
                         $this->seq[$k] = $y;
                         $this->in_seq[$y] = 1;
                     } elseif (empty($this->in_seq[$y])) {
-                        $k = $this->_lcs_pos($y);
+                        $k = $this->lcsPos($y);
                         USE_ASSERTS && assert($k > 0);
                         $ymids[$k] = $ymids[$k - 1];
                     }
@@ -274,7 +274,7 @@ class _WikiDiffEngine
      * @param $ypos
      * @return mixed
      */
-    public function _lcs_pos($ypos)
+    protected function lcsPos($ypos)
     {
         $end = $this->lcs;
         if ($end == 0 || $ypos > $this->seq[$end]) {
@@ -319,7 +319,7 @@ class _WikiDiffEngine
      * @param $yoff
      * @param $ylim
      */
-    public function _compareseq($xoff, $xlim, $yoff, $ylim)
+    protected function compareSeq($xoff, $xlim, $yoff, $ylim)
     {
         // Slide down the bottom initial diagonal.
         while ($xoff < $xlim && $yoff < $ylim && $this->xv[$xoff] == $this->yv[$yoff]) {
@@ -340,7 +340,7 @@ class _WikiDiffEngine
             //$nchunks = sqrt(min($xlim - $xoff, $ylim - $yoff) / 2.5);
             //$nchunks = max(2,min(8,(int)$nchunks));
             $nchunks = min(7, $xlim - $xoff, $ylim - $yoff) + 1;
-            list ($lcs, $seps) = $this->_diag($xoff, $xlim, $yoff, $ylim, $nchunks);
+            list ($lcs, $seps) = $this->diag($xoff, $xlim, $yoff, $ylim, $nchunks);
         }
 
         if ($lcs == 0) {
@@ -358,7 +358,7 @@ class _WikiDiffEngine
             reset($seps);
             $pt1 = $seps[0];
             while ($pt2 = next($seps)) {
-                $this->_compareseq($pt1[0], $pt2[0], $pt1[1], $pt2[1]);
+                $this->compareSeq($pt1[0], $pt2[0], $pt1[1], $pt2[1]);
                 $pt1 = $pt2;
             }
         }
@@ -377,7 +377,7 @@ class _WikiDiffEngine
      *
      * This is extracted verbatim from analyze.c (GNU diffutils-2.7).
      */
-    public function _shift_boundaries($lines, &$changed, $other_changed)
+    protected function shiftBoundaries($lines, &$changed, $other_changed)
     {
         $i = 0;
         $j = 0;
@@ -783,7 +783,7 @@ class WikiDiff
      *
      * This is here only for debugging purposes.
      */
-    public function _check($from_lines, $to_lines)
+    public function check($from_lines, $to_lines)
     {
         $test = $this->apply($from_lines);
         if (serialize($test) != serialize($to_lines)) {
@@ -852,7 +852,7 @@ class WikiDiffFormatter
     {
         $html = '<table style="background-color: black" ' .
             'cellspacing="2" cellpadding="2" border="0">';
-        $html .= $this->_format($diff->edits, $from_lines);
+        $html .= $this->doFormat($diff->edits, $from_lines);
         $html .= "</table>\n";
 
         return $html;
@@ -863,7 +863,7 @@ class WikiDiffFormatter
      * @param $from_lines
      * @return string
      */
-    public function _format($edits, $from_lines)
+    protected function doFormat($edits, $from_lines)
     {
         $html = '';
         $x = 0;
@@ -933,7 +933,7 @@ class WikiDiffFormatter
                         list ($xbeg, $xlen, $ybeg, $ylen) = [$ybeg, $ylen, $xbeg, $xlen];
                     }
 
-                    $html .= $this->_emit_diff($xbeg, $xlen, $ybeg, $ylen, $hunks);
+                    $html .= $this->emitDiff($xbeg, $xlen, $ybeg, $ylen, $hunks);
                     unset($hunks);
                 } elseif ($ncopy) {
                     $hunks[] = $hunk;
@@ -961,7 +961,7 @@ class WikiDiffFormatter
      * @param $color
      * @return string
      */
-    public function _emit_lines($lines, $prefix, $color)
+    protected function emitLines($lines, $prefix, $color)
     {
         $html = '';
         reset($lines);
@@ -981,12 +981,12 @@ class WikiDiffFormatter
      * @param $hunks
      * @return string
      */
-    public function _emit_diff($xbeg, $xlen, $ybeg, $ylen, $hunks)
+    protected function emitDiff($xbeg, $xlen, $ybeg, $ylen, $hunks)
     {
         $html = '<tr><td><table style="background-color: white"'
             . ' cellspacing="0" border="0" cellpadding="4">'
             . '<tr bgcolor="#cccccc"><td><tt>'
-            . $this->_diff_header($xbeg, $xlen, $ybeg, $ylen)
+            . $this->diffHeader($xbeg, $xlen, $ybeg, $ylen)
             . "</tt></td></tr>\n<tr><td>\n"
             . '<table cellspacing="0" border="0" cellpadding="2">';
 
@@ -1007,13 +1007,13 @@ class WikiDiffFormatter
 
         for (reset($hunks), $currenthunks = current($hunks); $hunk = $currenthunks; next($hunks)) {
             if (! empty($hunk['c'])) {
-                $html .= $this->_emit_lines($hunk['c'], $this->context_prefix, '#ffffff');
+                $html .= $this->emitLines($hunk['c'], $this->context_prefix, '#ffffff');
             }
             if (! empty($hunk['d'])) {
-                $html .= $this->_emit_lines($hunk['d'], $this->deletes_prefix, '#ffcccc');
+                $html .= $this->emitLines($hunk['d'], $this->deletes_prefix, '#ffcccc');
             }
             if (! empty($hunk['a'])) {
-                $html .= $this->_emit_lines($hunk['a'], $this->adds_prefix, '#ccffcc');
+                $html .= $this->emitLines($hunk['a'], $this->adds_prefix, '#ccffcc');
             }
         }
 
@@ -1028,7 +1028,7 @@ class WikiDiffFormatter
      * @param $ylen
      * @return string
      */
-    public function _diff_header($xbeg, $xlen, $ybeg, $ylen)
+    protected function diffHeader($xbeg, $xlen, $ybeg, $ylen)
     {
         $what = $xlen ? ($ylen ? 'c' : 'd') : 'a';
         $xlen = $xlen > 1 ? ',' . ($xbeg + $xlen - 1) : '';
@@ -1070,7 +1070,7 @@ class WikiUnifiedDiffFormatter extends WikiDiffFormatter
      * @param $ylen
      * @return string
      */
-    public function _diff_header($xbeg, $xlen, $ybeg, $ylen)
+    public function diffHeader($xbeg, $xlen, $ybeg, $ylen)
     {
         $xlen = $xlen == 1 ? '' : ",$xlen";
         $ylen = $ylen == 1 ? '' : ",$ylen";

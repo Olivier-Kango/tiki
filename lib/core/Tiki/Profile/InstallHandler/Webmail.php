@@ -44,7 +44,7 @@ class Tiki_Profile_InstallHandler_Webmail extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         global $tikilib, $tikipath, $user;
         $data = $this->getData();

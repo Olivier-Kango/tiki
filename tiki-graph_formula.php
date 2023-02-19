@@ -75,7 +75,11 @@ function convert_formula($formula)
 
     $formula = str_replace('x', '$x', $formula);
 
-    return create_function('$x', "return $formula;");
+    $function = function ($x) use ($formula) {
+        eval('$result = ' . $formula . ';');
+        return $result;
+    };
+    return $function;
 }
 
 $access->check_permission('feature_sheet');

@@ -13,7 +13,7 @@
 
 class Multilingual_Aligner_SentenceAlignmentsTest extends TikiTestCase
 {
-    public function ___testReminder()
+    public function disabledTestReminder()
     {
         $this->fail("remember to reactivate all tests in SentenceAlignments");
     }
@@ -63,7 +63,7 @@ class Multilingual_Aligner_SentenceAlignmentsTest extends TikiTestCase
     /**
      * @group multilingual
      */
-    public function __testThisIsHowYouRetrieveAsentenceInTheOtherLanguage()
+    public function disabledTestThisIsHowYouRetrieveAsentenceInTheOtherLanguage()
     {
         $en_sentence = "hello world";
         $fr_sentence = $this->alignments->getSentenceInOtherLanguage($en_sentence, 'en');

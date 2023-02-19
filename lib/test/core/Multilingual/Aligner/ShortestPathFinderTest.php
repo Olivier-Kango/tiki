@@ -97,7 +97,7 @@ class Multilingual_Aligner_ShortestPathFinderTest extends TikiTestCase
         $distances_matrix['london']['ottawa'] = 2000;
         $exp_nodes = ['london', 'ottawa', 'paris', 'rome'];
 
-        $nodes_list = $this->pfinder->_nodesInMmatrix($distances_matrix);
+        $nodes_list = $this->pfinder->nodesInMmatrix($distances_matrix);
 
         $this->assertEquals($exp_nodes, $nodes_list, "Bad list of nodes.");
     }

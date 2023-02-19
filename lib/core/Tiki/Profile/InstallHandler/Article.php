@@ -46,7 +46,7 @@ class Tiki_Profile_InstallHandler_Article extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         global $prefs;
         $artlib = TikiLib::lib('art');

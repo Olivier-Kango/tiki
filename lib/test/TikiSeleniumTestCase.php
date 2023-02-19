@@ -128,7 +128,7 @@ class TikiSeleniumTestCase extends PHPUnit_Extensions_Selenium2TestCase
         return true;
     }
 
-    public function implodeWithKey($glue = null, $pieces, $hifen = '=>')
+    public function implodeWithKey($glue, $pieces, $hifen = '=>')
     {
         $return = null;
         foreach ($pieces as $tk => $tv) {

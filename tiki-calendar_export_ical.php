@@ -209,9 +209,7 @@ if (((is_array($calendarIds) && (count($calendarIds) > 0)) or isset($_REQUEST["c
         header("Content-Type:text/calendar; method=REQUEST; charset=iso-8859-15");
         header("Content-Transfer-Encoding:quoted-printable");
         $re_encode = stripos($_SERVER['HTTP_USER_AGENT'], 'windows');   // only re-encode to ISO-8859-15 if client on Windows
-        if (function_exists('recode') && $re_encode !== false) {
-            print(recode('utf-8..iso8859-15', $calendar_str));
-        } elseif (function_exists('iconv') && $re_encode !== false) {
+        if (function_exists('iconv') && $re_encode !== false) {
             print(iconv("UTF-8", "ISO-8859-15", $calendar_str));
         } else {
             print($calendar_str);   // UTF-8 is good for other platforms

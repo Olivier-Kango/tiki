@@ -2067,6 +2067,9 @@ class ParserLib extends TikiDb_Bridge
                                 if ($version_info['version'] != null) {
                                     $value = $version_info['version'];
                                     break;
+                                } else {
+                                    $value = '';
+                                    break;
                                 }
                             } else {
                                 $histlib = TikiLib::lib('hist');

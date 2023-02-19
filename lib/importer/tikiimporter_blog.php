@@ -298,7 +298,7 @@ class TikiImporter_Blog extends TikiImporter
         $freetaglib = TikiLib::lib('freetag');
         global $user;
 
-        $freetaglib->_tag_object_array($user, $objId, $type, $tags);
+        $freetaglib->tag_object_array($user, $objId, $type, $tags);
     }
 
     /**

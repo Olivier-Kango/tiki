@@ -32,7 +32,7 @@ class Tiki_Profile_InstallHandler_WebserviceTemplate extends Tiki_Profile_Instal
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         global $tikilib;
         $data = $this->getData();

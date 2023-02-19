@@ -866,9 +866,9 @@ class FreetagLib extends ObjectLib
         }
 
         // Perform tag parsing
-        $tagArray = $this->_parse_tag($tag_string);
+        $tagArray = $this->parse_tag($tag_string);
 
-        $this->_tag_object_array($user, $itemId, $type, $tagArray, $lang);
+        $this->tag_object_array($user, $itemId, $type, $tagArray, $lang);
 
         return true;
     }
@@ -889,7 +889,7 @@ class FreetagLib extends ObjectLib
     {
 
         // Perform tag parsing
-        $tagArray = $this->_parse_tag($tag_string);
+        $tagArray = $this->parse_tag($tag_string);
 
         $oldTags = $this->get_tags_on_object($itemId, $type, 0, -1, $old_user);
 
@@ -899,19 +899,19 @@ class FreetagLib extends ObjectLib
             }
         }
 
-        $this->_tag_object_array($user, $itemId, $type, $tagArray, $lang);
+        $this->tag_object_array($user, $itemId, $type, $tagArray, $lang);
 
         return true;
     }
 
     /**
-     * _parse_tag
+     * parse_tag
      *
      * @param mixed $tag_string
      * @access protected
      * @return
      */
-    public function _parse_tag($tag_string)
+    public function parse_tag($tag_string)
     {
         $query = trim($tag_string);
 
@@ -934,7 +934,7 @@ class FreetagLib extends ObjectLib
     }
 
     /**
-     * _tag_object_array
+     * tag_object_array
      *
      * @param mixed $user
      * @param mixed $itemId
@@ -944,7 +944,7 @@ class FreetagLib extends ObjectLib
      * @access protected
      * @return void
      */
-    public function _tag_object_array($user, $itemId, $type, $tagArray, $lang = null)
+    public function tag_object_array($user, $itemId, $type, $tagArray, $lang = null)
     {
         // first check for lang of object
         if (! $lang) {
@@ -1637,7 +1637,7 @@ class FreetagLib extends ObjectLib
             return [];
         }
 
-        $tagArray = $this->_parse_tag($tagString);
+        $tagArray = $this->parse_tag($tagString);
 
         $tags = [];
 

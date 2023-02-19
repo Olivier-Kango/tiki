@@ -6,13 +6,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-if (! defined('weekInSeconds')) {
-    define('weekInSeconds', 604800);
-}
-if (! defined('dayInSeconds')) {
-    define('dayInSeconds', 86400);
-}
-
 /**
  *
  */

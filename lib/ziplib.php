@@ -535,9 +535,8 @@ class ZipWriter
         }
 
         if (! empty($attrib['write_protected'])) {
-            $atx = (0100444 << 16) | 1; // S_IFREG + read permissions to
-        } // everybody.
-        else {
+            $atx = (0100444 << 16) | 1; // S_IFREG + read permissions to everybody.
+        } else {
             $atx = (0100644 << 16); // Add owner write perms.
         }
 
@@ -645,7 +644,7 @@ class ZipReader
         }
     }
 
-    public function _read($nbytes)
+    protected function read($nbytes)
     {
         $chunk = fread($this->fp, $nbytes);
 
@@ -665,7 +664,7 @@ class ZipReader
 
     public function readFile()
     {
-        $head = $this->_read(30);
+        $head = $this->read(30);
 
         extract(
             unpack(
@@ -698,13 +697,13 @@ class ZipReader
             ExitWiki('Postponed CRC not yet supported.');
         }
 
-        $filename = $this->_read($filename_len);
+        $filename = $this->read($filename_len);
 
         if ($extrafld_len != 0) {
-            $attrib['extra_field'] = $this->_read($extrafld_len);
+            $attrib['extra_field'] = $this->read($extrafld_len);
         }
 
-        $data = $this->_read($comp_size);
+        $data = $this->read($comp_size);
 
         if ($comp_type == ZIP_DEFLATE) {
             $data = zip_inflate($data, $crc32, $uncomp_size);

@@ -382,9 +382,9 @@ class TikiImporter_Blog_Test extends TikiImporter_TestCase
         $this->markTestSkipped('2016-09-26 Skipped as dependency injection has stopped mock objects working like this.');
 
         $freetaglib = $this->getMockBuilder('FreetagLib')
-            ->onlyMethods(['_tag_object_array'])
+            ->onlyMethods(['tag_object_array'])
             ->getMock();
-        $freetaglib->expects($this->once())->method('_tag_object_array');
+        $freetaglib->expects($this->once())->method('tag_object_array');
 
         $tags = ['tag1', 'tag2', 'tag3', 'tag4'];
 

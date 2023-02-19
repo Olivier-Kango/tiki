@@ -67,6 +67,8 @@ function smarty_function_object_link($params, $smarty)
         case 'trackeritemfield':
             $type = 'trackeritem';
             $object = (int)(explode(':', $object)[0]);
+            $function = 'smarty_function_object_link_trackeritem';
+            break;
         case 'trackeritem':
             $function = 'smarty_function_object_link_trackeritem';
             break;

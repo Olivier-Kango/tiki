@@ -22,7 +22,7 @@ abstract class Tiki_Profile_InstallHandler
 
     final public function install()
     {
-        $id = $this->_install();
+        $id = $this->doInstall();
         if (empty($id)) {
             die('Handler failure: ' . get_class($this) . "\n");
         }
@@ -39,5 +39,5 @@ abstract class Tiki_Profile_InstallHandler
         $this->obj->replaceReferences($data, $this->userData);
     }
 
-    abstract public function _install();
+    abstract public function doInstall();
 }

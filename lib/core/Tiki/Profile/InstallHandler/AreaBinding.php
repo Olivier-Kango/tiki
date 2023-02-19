@@ -32,7 +32,7 @@ class Tiki_Profile_InstallHandler_AreaBinding extends Tiki_Profile_InstallHandle
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $areaslib = TikiLib::lib('areas');
 

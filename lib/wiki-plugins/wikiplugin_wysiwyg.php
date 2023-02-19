@@ -55,7 +55,7 @@ function wikiplugin_wysiwyg_info()
             ],
         ],
     ];
-} // wikiplugin_wysiwyg_info()
+}
 
 
 function wikiplugin_wysiwyg($data, $params)

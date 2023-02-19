@@ -315,12 +315,12 @@ class WikipluginDBReportStyle
     public function __construct(&$token)
     {
         if (is_object($token)) {
-            if ($token->content['class']) {
+            if ($token->content['class'] ?? '') {
                 $subtoken =& $token->content['class'];
                 unset($this->class);
                 $this->class = new WikipluginDBReportContent($subtoken);
             }
-            if ($token->content['style']) {
+            if ($token->content['style'] ?? '') {
                 $subtoken =& $token->content['style'];
                 unset($this->style);
                 $this->style = new WikipluginDBReportContent($subtoken);
@@ -934,6 +934,8 @@ function wikiplugin_dbreport_next_token(&$code, $len, $pos)
                         switch ($c) {
                             case '`':
                                 $state = 0;
+                                $token->content .= $c;
+                                break;
                             default:
                                 $token->content .= $c;
                         }
@@ -945,6 +947,8 @@ function wikiplugin_dbreport_next_token(&$code, $len, $pos)
                                 break;
                             case '\'':
                                 $state = 0;
+                                $token->content .= $c;
+                                break;
                             default:
                                 $token->content .= $c;
                         }
@@ -956,6 +960,8 @@ function wikiplugin_dbreport_next_token(&$code, $len, $pos)
                                 break;
                             case '"':
                                 $state = 0;
+                                $token->content .= $c;
+                                break;
                             default:
                                 $token->content .= $c;
                         }
@@ -1026,6 +1032,8 @@ function wikiplugin_dbreport_next_token(&$code, $len, $pos)
                                 break;
                             case '[':
                                 $state = 2;
+                                $class->content .= $c;
+                                break;
                             default:
                                 $class->content .= $c;
                         }
@@ -1056,6 +1064,8 @@ function wikiplugin_dbreport_next_token(&$code, $len, $pos)
                         switch ($tc) {
                             case ']':
                                 $state = 0;
+                                $class->content .= $c;
+                                break;
                             default:
                                 $class->content .= $c;
                         }
@@ -1064,6 +1074,8 @@ function wikiplugin_dbreport_next_token(&$code, $len, $pos)
                         switch ($tc) {
                             case ']':
                                 $state = 1;
+                                $style->content .= $c;
+                                break;
                             default:
                                 $style->content .= $c;
                         }
@@ -1072,6 +1084,8 @@ function wikiplugin_dbreport_next_token(&$code, $len, $pos)
                         switch ($tc) {
                             case '\'':
                                 $state = 1;
+                                $style->content .= $c;
+                                break;
                             default:
                                 $style->content .= $c;
                         }
@@ -1080,6 +1094,8 @@ function wikiplugin_dbreport_next_token(&$code, $len, $pos)
                         switch ($tc) {
                             case '"':
                                 $state = 1;
+                                $style->content .= $c;
+                                break;
                             default:
                                 $style->content .= $c;
                         }
@@ -1468,6 +1484,7 @@ function wikiplugin_dbreport_parse(&$code)
                             switch (TikiLib::strtoupper($token->content)) {
                                 case '<':
                                     return wikiplugin_dbreport_parse_error($token, "Unexpected '<' in Link. '>' expected.");
+                                    break;
                                 case '>':
                                     unset($next_token);     // consume the token
                                     $parse_state = $parse_link_return;  // return to previous state
@@ -1475,6 +1492,7 @@ function wikiplugin_dbreport_parse(&$code)
                                 default:
                                     return wikiplugin_dbreport_parse_error($token, "Unexpected Keyword '$token->content' in Link. '>' expected.");
                             }
+                            break;
                         default:
                             $parse_state = $parse_link_return;  // switch state and reparse the token
                     }
@@ -1670,7 +1688,11 @@ function wikiplugin_dbreport_parse(&$code)
                 default:
                     $parse_state = 0;
             }
-            $token = $next_token;
+            if (isset($next_token)) {
+                $token = $next_token;
+            } else {
+                unset($token);
+            }
         }
     }
 }
@@ -1814,15 +1836,16 @@ function wikiplugin_dbreport($data, $params)
         return tra('Missing db or dsn parameter');
     }
     // parse the report definition
-    $parse_fix = ($_REQUEST['preview']) && ($prefs['tiki_release'] == '2.2');
+    $parse_fix = (! empty($_REQUEST['preview'])) && ($prefs['tiki_release'] == '2.2');
     if ($parse_fix) {
-        $report =& wikiplugin_dbreport_parse($data);
+        $report = wikiplugin_dbreport_parse($data);
     } else {
-        $report =& wikiplugin_dbreport_parse(html_entity_decode($data));
+        $data = html_entity_decode($data);
+        $report = wikiplugin_dbreport_parse($data);
     }
     // were there errors?
     if ($wikiplugin_dbreport_errors) {
-        $ret .= wikiplugin_dbreport_error_box($wikiplugin_dbreport_errors);
+        $ret = wikiplugin_dbreport_error_box($wikiplugin_dbreport_errors);
         return $ret;
     }
     // create the bind variables array

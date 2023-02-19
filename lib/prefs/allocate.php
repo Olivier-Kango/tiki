@@ -39,7 +39,7 @@ function prefs_allocate_list()
             'extras_time' => [
                 'default' => 60,
                 'shorthint' => tr('time allocated to check all tiki files on tiki-admin_security.php'),
-           ],
+            ],
         ],
         'php_execution' => [
             'label' => tr('PHP execution'),

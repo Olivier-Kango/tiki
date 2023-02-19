@@ -49,7 +49,7 @@ class Tiki_Profile_InstallHandler_MenuOption extends Tiki_Profile_InstallHandler
         }
         return true;
     }
-    public function _install()
+    public function doInstall()
     {
         $menulib = TikiLib::lib('menu');
 

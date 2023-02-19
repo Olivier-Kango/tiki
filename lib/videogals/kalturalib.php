@@ -150,7 +150,7 @@ class KalturaLib
         return $session;
     }
 
-    private function _getPlayersUiConfs()
+    private function internalGetPlayersUiConfs()
     {
         if ($client = $this->getClient()) {
             $filter = new UiConfFilter();
@@ -175,7 +175,7 @@ class KalturaLib
 
         if (! $configurations = $cachelib->getSerialized(self::CONFIGURATION_LIST)) {
             try {
-                $obj = $this->_getPlayersUiConfs()->objects;
+                $obj = $this->internalGetPlayersUiConfs()->objects;
             } catch (Exception $e) {
                 Feedback::error(tr("There was an issue with the integration with Kaltura: %0", $e->getMessage()));
                 return [];

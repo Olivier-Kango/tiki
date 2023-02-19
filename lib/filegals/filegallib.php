@@ -1264,7 +1264,7 @@ class FileGalLib extends TikiLib
      * @param Array &$subtree Output - The children Ids are appended
      * @param int $parentId The parent whichs children are to be listed
      */
-    public function _getGalleryChildrenIdsList($allIds, &$subtree, $parentId)
+    protected function getGalleryChildrenIdsList($allIds, &$subtree, $parentId)
     {
         if (empty($allIds[$parentId])) {
             return;
@@ -1273,7 +1273,7 @@ class FileGalLib extends TikiLib
         foreach ($allIds[$parentId] as $child) {
             $galleryId = $child;
             $subtree[] = (int)$galleryId;
-            $this->_getGalleryChildrenIdsList($allIds, $subtree, $galleryId);
+            $this->getGalleryChildrenIdsList($allIds, $subtree, $galleryId);
         }
     }
 
@@ -1286,7 +1286,7 @@ class FileGalLib extends TikiLib
      * @param Array &$subtree Output - The children Ids are appended
      * @param int $parentId The parent whichs children are to be listed
      */
-    public function _getGalleryChildrenIdsTree($allIds, &$subtree, $parentId)
+    protected function getGalleryChildrenIdsTree($allIds, &$subtree, $parentId)
     {
         if (empty($allIds[$parentId])) {
             return;
@@ -1295,7 +1295,7 @@ class FileGalLib extends TikiLib
         foreach ($allIds[$parentId] as $child) {
             $galleryId = $child;
             $subtree[ (int)$galleryId ] = [];
-            $this->_getGalleryChildrenIdsTree($allIds, $subtree[$galleryId], $galleryId);
+            $this->getGalleryChildrenIdsTree($allIds, $subtree[$galleryId], $galleryId);
         }
     }
     // Get a tree or a list of a gallery children ids, optionnally under a specific parentId
@@ -1311,11 +1311,11 @@ class FileGalLib extends TikiLib
 
         switch ($format) {
             case 'list':
-                $this->_getGalleryChildrenIdsList($allChildIds, $subtree, $parentId);
+                $this->getGalleryChildrenIdsList($allChildIds, $subtree, $parentId);
                 break;
             case 'tree':
             default:
-                $this->_getGalleryChildrenIdsTree($allChildIds, $subtree, $parentId);
+                $this->getGalleryChildrenIdsTree($allChildIds, $subtree, $parentId);
         }
     }
 
@@ -1624,10 +1624,10 @@ class FileGalLib extends TikiLib
 
         $all = $this->table('tiki_file_galleries')->fetchAll($cols, []);
         $list = [];
-        $this->_getGalleryParentsColumns($all, $list, $galleryId, $columns);
+        $this->internalGetGalleryParentsColumns($all, $list, $galleryId, $columns);
         return $list;
     }
-    public function _getGalleryParentsColumns($all, &$list, $galleryId, $columns = [])
+    protected function internalGetGalleryParentsColumns($all, &$list, $galleryId, $columns = [])
     {
         foreach ($all as $fgal) {
             if ($fgal['galleryId'] == $galleryId) {
@@ -1635,7 +1635,7 @@ class FileGalLib extends TikiLib
                     $fgal['size'] = $this->getUsedSize($galleryId);
                 }
                 $list[] = $fgal;
-                $this->_getGalleryParentsColumns($all, $list, $fgal['parentId'], $columns);
+                $this->internalGetGalleryParentsColumns($all, $list, $fgal['parentId'], $columns);
                 return;
             }
         }
@@ -1701,14 +1701,14 @@ class FileGalLib extends TikiLib
             $objectId = $objectlib->add_object($context['type'], $context['object'], false, $context['description'], $context['name'], $context['href']);
         }
         if (! empty($objectId)) {
-            $this->_replaceBacklinks($objectId, $fileIds);
+            $this->internalReplaceBacklinks($objectId, $fileIds);
         }
         //echo 'REPLACEBACKLINK'; print_r($context);print_r($fileIds);echo '<pre>'; debug_print_backtrace(); echo '</pre>';die;
     }
-    public function _replaceBacklinks($objectId, $fileIds = [])
+    protected function internalReplaceBacklinks($objectId, $fileIds = [])
     {
         $backlinks = $this->table('tiki_file_backlinks');
-        $this->_deleteBacklinks($objectId);
+        $this->internalDeleteBacklinks($objectId);
 
         foreach ($fileIds as $fileId) {
             $backlinks->insert(['objectId' => (int) $objectId, 'fileId' => (int) $fileId]);
@@ -1721,13 +1721,13 @@ class FileGalLib extends TikiLib
             $objectlib = TikiLib::lib('object');
             $objectId = $objectlib->get_object_id($context['type'], $context['object']);
             if (! empty($objectId)) {
-                $this->_deleteBacklinks($objectId);
+                $this->internalDeleteBacklinks($objectId);
             }
         } else {
-            $this->_deleteBacklinks(null, $fileId);
+            $this->internalDeleteBacklinks(null, $fileId);
         }
     }
-    public function _deleteBacklinks($objectId, $fileId = null)
+    protected function internalDeleteBacklinks($objectId, $fileId = null)
     {
         $backlinks = $this->table('tiki_file_backlinks');
         if (empty($fileId)) {
@@ -3013,8 +3013,8 @@ class FileGalLib extends TikiLib
     /*shared*/
     public function actionHandler($action, $params)
     {
-        $method_name = '_actionHandler_' . $action;
-        if (! is_callable([ $this, $method_name ])) {
+        $method_name = 'actionHandler' . ucfirst($action);
+        if (empty($action) || ! is_callable([ $this, $method_name ])) {
             return false;
         }
 
@@ -3026,7 +3026,7 @@ class FileGalLib extends TikiLib
      * @return bool|TikiDb_Adodb_Result|TikiDb_Pdo_Result
      * @throws Exception
      */
-    private function _actionHandler_removeFile($params)
+    private function actionHandlerRemoveFile($params)
     {
         // mandatory params: int fileId
         // optional params: boolean draft, array gal_info
@@ -3079,7 +3079,7 @@ class FileGalLib extends TikiLib
     }
 
     //Note that file edits are handled here along with uploads
-    private function _actionHandler_uploadFile($params)
+    private function actionHandlerUploadFile($params)
     {
         global $user, $prefs, $tiki_p_admin, $tiki_p_batch_upload_files;
         $logslib = TikiLib::lib('logs');

@@ -81,7 +81,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
                 }
             }
             $freetaglib = TikiLib::lib('freetag');
-            $data['freetags'] = $freetaglib->_parse_tag($data['value']);
+            $data['freetags'] = $freetaglib->parse_tag($data['value']);
             if ($this->getOption('hidesuggest') == '') {
                 $data['tag_suggestion'] = $freetaglib->get_tag_suggestion(
                     implode(' ', $data['freetags']),
@@ -99,7 +99,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
     public function addValue($value)
     {
         $freetaglib = TikiLib::lib('freetag');
-        $tags = $freetaglib->_parse_tag($this->getValue());
+        $tags = $freetaglib->parse_tag($this->getValue());
         if (! in_array($value, $tags)) {
             $tags[] = $value;
         }
@@ -111,7 +111,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
     public function removeValue($value)
     {
         $freetaglib = TikiLib::lib('freetag');
-        $tags = $freetaglib->_parse_tag($this->getValue());
+        $tags = $freetaglib->parse_tag($this->getValue());
         $tags = array_filter($tags, function ($t) use ($value) {
             return $t != $value;
         });

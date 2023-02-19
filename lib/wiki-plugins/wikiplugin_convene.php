@@ -189,9 +189,7 @@ function wikiplugin_convene($data, $params): string
         $dataArrays = json_decode($data, true);
         $dataArray = $dataArrays[0]; // Default data votes
         $dataArrayComments = $dataArrays[1]; //Data comments
-    }
-    /** To support the old data structure */
-    else {
+    } else { /** To support the old data structure */
         $dataArray = json_decode($data, true); // Default data votes
         $dataArrayComments = null; //Data comments
     }

@@ -390,7 +390,7 @@ class JisonParser_Phraser
             $this->match = '';
         }
 
-        $rules = $this->_currentRules();
+        $rules = $this->currentRules();
         for ($i = 0, $j = count($rules); $i < $j; $i++) {
             preg_match($this->rules[$rules[$i]], $this->_input, $tempMatch);
             if ($tempMatch && (empty($match) || count($tempMatch[0]) > count($match[0]))) {
@@ -467,7 +467,7 @@ class JisonParser_Phraser
         return array_pop($this->conditionStack);
     }
 
-    public function _currentRules()
+    protected function currentRules()
     {
         return $this->conditions[
             $this->conditionStack[

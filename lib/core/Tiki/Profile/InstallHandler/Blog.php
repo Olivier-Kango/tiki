@@ -43,7 +43,7 @@ class Tiki_Profile_InstallHandler_Blog extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $bloglib = TikiLib::lib('blog');
 

@@ -114,7 +114,8 @@ function feature_pattern(&$featureNameIndex) // {{{
         $featureNameIndex = 1;
         return "/\\\$prefs\s*\[$q(\w+)$q\]\s*(!=|==)=?\s*$q(y|n)$q/";
     }
-} // }}}
+}
+// }}}
 
 /**
  * @param $permissionNameIndex
@@ -125,7 +126,8 @@ function permission_pattern(&$permissionNameIndex) // {{{
     global $major, $minor, $revision;
     $permissionNameIndex = 1;
     return "/\\$(tiki_p_\w+)\s*(!=|==)=?\s*[\"'](y|n)[\"']/";
-} // }}}
+}
+// }}}
 
 /**
  * @return string
@@ -133,7 +135,8 @@ function permission_pattern(&$permissionNameIndex) // {{{
 function includeonly_pattern() // {{{
 {
     return "/strpos\s*\(\s*\\\$_SERVER\s*\[\s*[\"']SCRIPT_NAME[\"']\s*\]\s*,\s*basename\s*\(\s*__FILE__\s*\)\s*\)\s*!==\s*(false|FALSE)/";
-} // }}}
+}
+// }}}
 
 /**
  * @return string
@@ -141,7 +144,8 @@ function includeonly_pattern() // {{{
 function includeonly_pattern3() // {{{
 {
     return "/basename\s*\(\s*\\\$_SERVER\s*\[\s*[\"']SCRIPT_NAME[\"']\s*\]\s*\)\s*===?\s*basename\s*\(\s*__FILE__\s*\)\s*\)/";
-} // }}}
+}
+// }}}
 
 
 /**
@@ -150,7 +154,8 @@ function includeonly_pattern3() // {{{
 function includeonly_pattern2() // {{{
 {
     return "/\\\$access\s*->\s*check_script\s*\(\s*\\\$_SERVER\s*\[\s*[\"']SCRIPT_NAME[\"']\s*\]\s*,\s*basename\s*\(\s*__FILE__\s*\)\s*\)/s";
-} // }}}
+}
+// }}}
 
 /**
  * @return string
@@ -158,7 +163,8 @@ function includeonly_pattern2() // {{{
 function noweb_pattern() // {{{
 {
     return "/if\s*\(\s*isset\s*\(\s*\\\$_SERVER\[\s*[\"']REQUEST_METHOD[\"']\]\s*\)\s*\)\s*die/";
-} // }}}
+}
+// }}}
 
 /**
  * @return string
@@ -166,7 +172,8 @@ function noweb_pattern() // {{{
 function tikisetup_pattern() // {{{
 {
     return "/(require(_once)?|include(_once)?)\s*\(?\s*['\"]tiki-setup.php['\"]/";
-} // }}}
+}
+// }}}
 
 /**
  * @param $folder
@@ -197,7 +204,8 @@ function scanfiles($folder, &$files) // {{{
             $filesHash[$path] = $analysis;
         }
     }
-} // }}}
+}
+// }}}
 
 // TODO This is an inefficient function, but more flexible than in_array
 /**
@@ -288,7 +296,8 @@ function analyse_file_path($path) // {{{
         'tikisetup' => false,
         'unsafeextract' => false,
     ];
-} // }}}
+}
+// }}}
 
 /**
  * @param $file
@@ -347,7 +356,8 @@ function perform_feature_check(&$file) // {{{
     }
     */
     return $featuresInFile;
-} // }}}
+}
+// }}}
 
 /**
  * @param $file
@@ -369,7 +379,8 @@ function perform_permission_check(&$file) // {{{
     );
 
     $file['permissions'] = $permissions;
-} // }}}
+}
+// }}}
 
 /**
  * @param $file
@@ -388,7 +399,8 @@ function perform_includeonly_check(&$file) // {{{
     preg_match_all($pattern, get_content($file['path']), $parts3);
 
     $file['includeonly'] = count($parts[0]) > 0 || count($parts2[0]) > 0 || count($parts3[0]) > 0;
-} // }}}
+}
+// }}}
 
 /**
  * @param $file
@@ -401,7 +413,8 @@ function perform_noweb_check(&$file) // {{{
     preg_match_all($pattern, get_content($file['path']), $parts);
 
     $file['noweb'] = count($parts[0]) > 0;
-} // }}}
+}
+// }}}
 
 /**
  * @param $file
@@ -415,7 +428,8 @@ function perform_tikisetup_check(&$file) // {{{
     preg_match_all($pattern, get_content($file['path']), $parts);
 
     $file['tikisetup'] = count($parts[0]) > 0;
-} // }}}
+}
+// }}}
 
 /**
  * @param $file
@@ -431,7 +445,8 @@ function perform_extract_skip_check(&$file) // {{{
             $file['unsafeextract'] = true;
         }
     }
-} // }}}
+}
+// }}}
 
 /**
  * @param $file
@@ -459,7 +474,8 @@ function access_check_call($file, $type) // {{{
     }
 
     return $checks;
-} // }}}
+}
+// }}}
 
 /**
  * @param $tokens
@@ -485,7 +501,8 @@ function access_checks($tokens, $from) // {{{
     }
 
     return $features;
-} // }}}
+}
+// }}}
 
 /**
  * @param $file
@@ -505,7 +522,8 @@ function permission_check_accessors($file) // {{{
     }
 
     return $perms;
-} // }}}
+}
+// }}}
 
 /**
  * @param $tokens
@@ -536,7 +554,8 @@ function tokenizer_get_subset($tokens, $from) // {{{
     }
 
     return $out;
-} // }}}
+}
+// }}}
 
 /**
  * @param $tokens
@@ -563,7 +582,8 @@ function permission_check_condition($tokens) // {{{
     }
 
     return $permissions;
-} // }}}
+}
+// }}}
 
 /* Build Files structures */
 // a hash of filenames, each element is a hash of attributes of that file

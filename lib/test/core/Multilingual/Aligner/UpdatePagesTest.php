@@ -51,7 +51,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
     }
 
 
-    public function __testReminder()
+    public function disabledTestReminder()
     {
         $this->fail("remember to reactivate all tests in UpdateSentences");
     }

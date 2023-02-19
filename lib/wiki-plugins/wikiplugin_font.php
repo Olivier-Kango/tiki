@@ -67,7 +67,7 @@ function wikiplugin_font_info()
             ],
         ],
     ];
-} // wikiplugin_font_info()
+}
 
 
 function wikiplugin_font($data, $params)

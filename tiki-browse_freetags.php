@@ -80,7 +80,7 @@ if (isset($_REQUEST['broaden']) && $_REQUEST['broaden'] == 'y') {
     $broaden = 'n';
 }
 $smarty->assign('broaden', $broaden);
-$tagArray = $freetaglib->_parse_tag((isset($_REQUEST['tag'])) ? $_REQUEST['tag'] : '');
+$tagArray = $freetaglib->parse_tag((isset($_REQUEST['tag'])) ? $_REQUEST['tag'] : '');
 $tagString = '';
 foreach ($tagArray as $t_ar) {
     if (strstr($t_ar, ' ')) {

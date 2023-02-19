@@ -26,7 +26,7 @@ class Tiki_Profile_InstallHandler_ActivityRuleSet extends Tiki_Profile_InstallHa
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $this->fetchData();
         $this->replaceReferences($this->rules);

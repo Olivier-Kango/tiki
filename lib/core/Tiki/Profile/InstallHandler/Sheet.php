@@ -30,7 +30,7 @@ class Tiki_Profile_InstallHandler_Sheet extends Tiki_Profile_InstallHandler
         }
     }
 
-    public function _install()
+    public function doInstall()
     {
         if ($this->canInstall()) {
             global $user;

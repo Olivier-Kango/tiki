@@ -2,6 +2,10 @@
 <ruleset name="Tiki Coding Standard">
     <description>Tiki Coding Standard</description>
 
+    <!--
+        # Files and folders to check
+    -->
+
     <!-- Paths to check -->
     <file>.</file>
 
@@ -9,7 +13,7 @@
 
     <!-- vendor folders -->
     <exclude-pattern>*/vendor/*</exclude-pattern>
-    <exclude-pattern>*/vendor_bundled/*</exclude-pattern>
+    <exclude-pattern>*/vendor_bundled/vendor/*</exclude-pattern>
     <exclude-pattern>*/vendor_custom/*</exclude-pattern>
     <exclude-pattern>*/vendor_extra/*</exclude-pattern>
     <exclude-pattern>*/node_modules/*</exclude-pattern>
@@ -40,22 +44,91 @@
 
     <!-- other directories that should not contain core code -->
     <!-- <exclude-pattern>*/doc/*</exclude-pattern> -->
+    <exclude-pattern>*/bin/*</exclude-pattern>
     <exclude-pattern>*/dump/*</exclude-pattern>
     <exclude-pattern>*/img/*</exclude-pattern>
     <exclude-pattern>*/storage/*</exclude-pattern>
     <exclude-pattern>*/temp/*</exclude-pattern>
+
+    <!--
+        # Default arguments for phpcs
+    -->
 
     <!-- display progress -->
     <arg value="p"/>
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
 
+    <!--
+        # Exceptions for Tiki - will be removed as we improve the code
+        #
+        # Using this process allow to allow specific violation of standards instead of ignoring
+        # blindly all the file, allowing to catch new violations in existing files.
+    -->
+
+    <rule ref="./doc/devtools/codesniffer/standards/TikiIgnore"/>
+
+    <!--
+        # Compatibility check with PHP versions supported
+    -->
+
     <!-- Check for compatibility for PHP >= 7.4 -->
     <config name="testVersion" value="7.4-"/>
     <rule ref="PHPCompatibility"/>
+
+    <!-- ## Exceptions for compatibility check -->
+
+    <!-- tiki-check.php is shared across tiki versions, so may refer to old software -->
     <rule ref="PHPCompatibility.Extensions.RemovedExtensions">
         <exclude-pattern>*/tiki-check.php</exclude-pattern>
     </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mysql_queryDeprecatedRemoved">
+        <exclude-pattern>*/tiki-check.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mysql_fetch_arrayDeprecatedRemoved">
+        <exclude-pattern>*/tiki-check.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mysql_connectDeprecatedRemoved">
+        <exclude-pattern>*/tiki-check.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.IniDirectives.RemovedIniDirectives.mbstring_func_overloadDeprecated">
+        <exclude-pattern>*/tiki-check.php</exclude-pattern>
+    </rule>
+
+    <!-- tiki-installer check the value of this setting, but we do not change the value -->
+    <rule ref="PHPCompatibility.IniDirectives.RemovedIniDirectives.mbstring_func_overloadDeprecated">
+        <exclude-pattern>*/installer/tiki-installer.php</exclude-pattern>
+    </rule>
+
+    <!-- These constants were removed from PHP but are declared in tiki-admin_security.php, so available -->
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.s_irgrpRemoved">
+        <exclude-pattern>tiki-admin_security.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.s_irothRemoved">
+        <exclude-pattern>tiki-admin_security.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.s_irusrRemoved">
+        <exclude-pattern>tiki-admin_security.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.s_iwgrpRemoved">
+        <exclude-pattern>tiki-admin_security.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.s_iwothRemoved">
+        <exclude-pattern>tiki-admin_security.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.s_iwusrRemoved">
+        <exclude-pattern>tiki-admin_security.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.s_ixgrpRemoved">
+        <exclude-pattern>tiki-admin_security.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.s_ixothRemoved">
+        <exclude-pattern>tiki-admin_security.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.s_ixusrRemoved">
+        <exclude-pattern>tiki-admin_security.php</exclude-pattern>
+    </rule>
+
     <!-- Skip check compatibility for functions included as polyfill -->
     <rule ref="PHPCompatibility">
         <!-- https://github.com/symfony/polyfill-php80/blob/main/bootstrap.php -->
@@ -83,19 +156,47 @@
         <exclude name="PHPCompatibility.Interfaces.NewInterfaces.returntypewillchangeFound"/>
     </rule>
 
+    <!-- Skip mcrypt related checks in cryptlib.php since is there for compatibility -->
+    <rule ref="PHPCompatibility.Extensions.RemovedExtensions.mcryptDeprecatedRemoved">
+        <exclude-pattern>lib/crypt/cryptlib.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_module_openDeprecatedRemoved">
+        <exclude-pattern>lib/crypt/cryptlib.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_module_closeDeprecatedRemoved">
+        <exclude-pattern>lib/crypt/cryptlib.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_enc_get_iv_sizeDeprecatedRemoved">
+        <exclude-pattern>lib/crypt/cryptlib.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_decryptDeprecatedRemoved">
+        <exclude-pattern>lib/crypt/cryptlib.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_rijndael_256DeprecatedRemoved">
+        <exclude-pattern>lib/crypt/cryptlib.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_mode_cbcDeprecatedRemoved">
+        <exclude-pattern>lib/crypt/cryptlib.php</exclude-pattern>
+    </rule>
+
+    <!--
+        # PHP Coding Standards
+    -->
+
     <!-- Tiki uses the Zend Coding Standards
         reference: https://github.com/zendframework/zend-coding-standard/blob/master/ruleset.xml -->
     <rule ref="PSR12"/>
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax">
-        <exclude-pattern>*/tiki-check.php</exclude-pattern>
-    </rule>
-    <!-- latest tiki-check.php may be used to test servers with a old version of php -->
-    <rule ref="Generic.Arrays.DisallowShortArraySyntax">
-        <include-pattern>*/tiki-check.php</include-pattern>
-    </rule>
+
+    <!--  Other rules to enforce the ZF standards -->
     <rule ref="Generic.Formatting.SpaceAfterNot"/>
     <rule ref="Squiz.WhiteSpace.OperatorSpacing">
         <properties>
+            <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1"/>
             <property name="ignoreNewlines" value="true"/>
         </properties>
     </rule>
@@ -108,93 +209,97 @@
     </rule>
     -->
 
-    <!--  Other rules to enforce the ZF standards -->
-    <rule ref="Squiz.Strings.ConcatenationSpacing">
-        <properties>
-            <property name="spacing" value="1"/>
-            <property name="ignoreNewlines" value="true"/>
-        </properties>
+    <!-- ## Exceptions for coding standards -->
+
+    <!-- Tiki have some guard code in most of the files, leading to both declaring and executing code in the same file -->
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <exclude-pattern>*.php</exclude-pattern>
     </rule>
+
+    <!-- latest tiki-check.php may be used to test servers with a old version of php, so use long array syntax -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax">
+        <exclude-pattern>*/tiki-check.php</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Arrays.DisallowShortArraySyntax">
+        <include-pattern>*/tiki-check.php</include-pattern>
+    </rule>
+
+    <!-- elFinderVolumeTikiFiles.class.php is mostly a clone of upstream files, so ignore method name -->
+    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+        <exclude-pattern>lib/jquery_tiki/elfinder/elFinderVolumeTikiFiles.class.php</exclude-pattern>
+    </rule>
+
+    <!-- Temporary exceptions while codebase is not fixed -->
+    <rule ref="PHPCompatibility.Attributes.NewAttributes.Found">
+        <exclude-pattern>lib/core/JitFilter.php</exclude-pattern>
+        <exclude-pattern>lib/core/Math/Formula/Element.php</exclude-pattern>
+        <exclude-pattern>lib/core/Perms/Accessor.php</exclude-pattern>
+        <exclude-pattern>lib/core/Services/ResultLoader.php</exclude-pattern>
+        <exclude-pattern>lib/core/Tiki/Profile/SymbolLoader.php</exclude-pattern>
+        <exclude-pattern>lib/core/WikiParser/PluginDefinition.php</exclude-pattern>
+        <exclude-pattern>lib/core/WikiParser/PluginMatcher.php</exclude-pattern>
+        <exclude-pattern>lib/wiki-plugins/wikiplugin_fitnesse.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.filter_sanitize_stringDeprecated">
+        <exclude-pattern>lib/core/Services/H5P/Controller.php</exclude-pattern>
+        <exclude-pattern>lib/cypht/modules/tiki/setup.php</exclude-pattern>
+        <exclude-pattern>lib/wizard/pages/user_preferences_reports.php</exclude-pattern>
+        <exclude-pattern>tiki-admin_tokens.php</exclude-pattern>
+        <exclude-pattern>tiki-importer.php</exclude-pattern>
+        <exclude-pattern>tiki-user_reports.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionDeclarations.RemovedCallingDestructAfterConstructorExit.Found">
+        <exclude-pattern>lib/core/TikiDb/Adodb.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionDeclarations.RemovedCallingDestructAfterConstructorExit.NeedsInspection">
+        <exclude-pattern>lib/core/TikiDb/Pdo.php</exclude-pattern>
+        <exclude-pattern>lib/socnets/TikiHybrid.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.NeedsInspection">
+        <exclude-pattern>lib/core/Perms.php</exclude-pattern>
+        <exclude-pattern>lib/parser/parserlib.php</exclude-pattern>
+        <exclude-pattern>lib/wiki-plugins/wikiplugin_archivebuilder.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.strftimeDeprecated">
+        <exclude-pattern>lib/smarty_tiki/function.html_select_date.php</exclude-pattern>
+        <exclude-pattern>lib/smarty_tiki/function.html_select_time.php</exclude-pattern>
+        <exclude-pattern>lib/wiki-plugins/wikiplugin_contributionsdashboard.php</exclude-pattern>
+        <exclude-pattern>lib/wiki-plugins/wikiplugin_events.php</exclude-pattern>
+        <exclude-pattern>lib/wiki-plugins/wikiplugin_now.php</exclude-pattern>
+        <exclude-pattern>tiki-calendar_edit_item.php</exclude-pattern>
+        <exclude-pattern>tiki-invite.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.IniDirectives.RemovedIniDirectives.auto_detect_line_endingsDeprecated">
+        <exclude-pattern>lib/core/Tracker/Tabular/Source/CsvSource.php</exclude-pattern>
+        <exclude-pattern>lib/core/Tracker/Tabular/Source/JsonSource.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.IniDirectives.RemovedIniDirectives.mbstring_func_overloadDeprecatedRemoved">
+        <exclude-pattern>installer/tiki-installer.php</exclude-pattern>
+        <exclude-pattern>tiki-check.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.ParameterValues.RemovedAssertStringAssertion.Removed">
+        <exclude-pattern>lib/diff.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Variables.ForbiddenGlobalVariableVariable.NonBareVariableFound">
+        <exclude-pattern>lib/init/tra.php</exclude-pattern>
+        <exclude-pattern>lib/language/Language.php</exclude-pattern>
+        <exclude-pattern>lib/language/LanguageTranslations.php</exclude-pattern>
+        <exclude-pattern>lib/search/searchlib-mysql.php</exclude-pattern>
+        <exclude-pattern>lib/test/language/LanguageTranslationsTest.php</exclude-pattern>
+        <exclude-pattern>lib/tikiaccesslib.php</exclude-pattern>
+        <exclude-pattern>lib/trackers/trackerlib.php</exclude-pattern>
+        <exclude-pattern>lib/wiki-plugins/wikiplugin_perm.php</exclude-pattern>
+        <exclude-pattern>lib/wiki-plugins/wikiplugin_sql.php</exclude-pattern>
+    </rule>
+
+    <!-- ## Mark some rules as warnings until tiki gets in a better shape -->
 
     <!-- Change severity to be able to filter if too many lines over 120 using cli option warning-severity=5 -->
     <rule ref="Generic.Files.LineLength">
         <severity>4</severity>
     </rule>
 
-    <!-- Exceptions to PSR-2 -->
-    <!-- Avoid warnings in the lang files that normally have really long lines -->
-    <rule ref="Generic.Files.LineLength">
-        <exclude-pattern>*/lang/*/language.php</exclude-pattern>
-    </rule>
-
-    <!-- Relax some PRS-1/PSR-2 Rules to match current status.
-        Instead of error, these rules will return warning, and the severity is 6 so you can
-        display only these warning using the cli option warning-severity=6 -->
-
-    <!-- Relax PSR -->
-    <!-- Namespaces and classes MUST follow PSR-0.
-        This means each class is in a file by itself, and is in a namespace of at least one level: a top-level vendor name. -->
-    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
-        <message>Tiki PSR1 Relaxed: Each %s must be in a namespace of at least one level (a top-level vendor name)</message>
-        <type>warning</type>
-        <severity>6</severity>
-    </rule>
-    <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
-        <message>Tiki PSR1 Relaxed: Each class must be in a file by itself</message>
-        <type>warning</type>
-        <severity>6</severity>
-    </rule>
-    <!-- Class names MUST be declared in StudlyCaps. -->
-    <rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
-        <message>Tiki PSR1 Relaxed: %s name "%s" is not in camel caps format</message>
-        <type>warning</type>
-        <severity>6</severity>
-    </rule>
-    <!-- Method names MUST be declared in camelCase(). -->
-    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
-        <message>Tiki PSR1 Relaxed: Method name "%s" is not in camel caps format</message>
-        <type>warning</type>
-        <severity>6</severity>
-    </rule>
-    <!-- Visibility MUST be declared on all properties -->
-    <rule ref="PSR2.Classes.PropertyDeclaration.ScopeMissing">
-        <message>Tiki PSR2 Relaxed: Visibility must be declared on property "%s"</message>
-        <type>warning</type>
-        <severity>6</severity>
-    </rule>
-    <!-- The var keyword MUST NOT be used to declare a property -->
-    <rule ref="PSR2.Classes.PropertyDeclaration.VarUsed">
-        <message>Tiki PSR2 Relaxed: The var keyword must not be used to declare a property</message>
-        <type>warning</type>
-        <severity>6</severity>
-    </rule>
-    <!-- Visibility MUST be declared on all methods. -->
-    <rule ref="Squiz.Scope.MethodScope.Missing">
-        <message>Tiki PSR2 Relaxed: Visibility must be declared on method "%s"</message>
-        <type>warning</type>
-        <severity>6</severity>
-    </rule>
-    <!-- ~ PSR -->
-
-    <!-- Relax ZF Coding Standards -->
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax">
-        <message>Tiki ZF CS Relaxed: Short array syntax must be used to define arrays</message>
-        <type>warning</type>
-        <severity>6</severity>
-    </rule>
-    <!-- ~ ZF Coding Standards -->
-
-    <!-- Extra rules to improve code quality and avoid deprecated code -->
-    <rule ref="Generic.PHP.DeprecatedFunctions"/>
-    <!--
-    <rule ref="Generic.Classes.DuplicateClassName"/>
-    <rule ref="Generic.Files.OneClassPerFile"/>
-    <rule ref="Generic.Files.OneInterfacePerFile"/>
-    <rule ref="Generic.Files.OneTraitPerFile"/>
-    <rule ref="Generic.PHP.BacktickOperator"/>
-    -->
-
-    <!-- Overrides - at the end to make sure they are applied -->
+    <!-- ## Overrides - at the end to make sure they are applied -->
     <!-- From ZF Standards -->
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
         <properties>

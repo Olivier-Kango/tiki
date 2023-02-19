@@ -47,7 +47,7 @@ class Tiki_Profile_InstallHandler_ActivityStreamRule extends Tiki_Profile_Instal
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $this->fetchData();
         $this->replaceReferences($this->eventType);

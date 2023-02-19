@@ -73,7 +73,7 @@ class Tiki_Profile_InstallHandler_TrackerItem extends Tiki_Profile_InstallHandle
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         $data = $this->getData();
         $converters = $this->getConverters();

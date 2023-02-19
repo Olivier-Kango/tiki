@@ -67,7 +67,7 @@ class Tiki_Profile_InstallHandler_User extends Tiki_Profile_InstallHandler
         }
     }
 
-    public function _install()
+    public function doInstall()
     {
         global $prefs;
 

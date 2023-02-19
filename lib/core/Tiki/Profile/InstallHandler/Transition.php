@@ -44,7 +44,7 @@ class Tiki_Profile_InstallHandler_Transition extends Tiki_Profile_InstallHandler
         return true;
     }
 
-    public function _install()
+    public function doInstall()
     {
         require_once 'lib/transitionlib.php';
 
