@@ -12,12 +12,27 @@ if (PHP_SAPI !== 'cli') {
 
 require dirname(__FILE__) . '/svntools.php';
 
-$dir = __DIR__ . '/../../';
+$dir = realpath(__DIR__ . '/../../');
 
-$excludeDir = [
-    $dir . 'vendor',
-    $dir . 'vendor_bundled',
-    $dir . 'temp'
+$excludePattern = [
+    // composer related folders
+    $dir . '/vendor',
+    $dir . '/vendor_bundled',
+
+    // temp folder (generated files)
+    $dir . '/temp',
+
+    // folders where node modules can be installed
+    $dir . '/lib/vue-mf/duration-picker/node_modules',
+    $dir . '/lib/vue-mf/kanban/node_modules',
+    $dir . '/lib/vue-mf/styleguide/node_modules',
+
+    // libraries included in tiki, so taking it as is
+    $dir . '/lib/openlayers/theme/default/style.tidy.css',
+    $dir . '/lib/openlayers/theme/default/ie6-style.tidy.css',
+    $dir . '/lib/openlayers/theme/default/google.tidy.css',
+    $dir . '/lib/openlayers/theme/default/style.mobile.tidy.css',
+    $dir . '/lib/vue/lib/ui-predicate-vue.css',
 ];
 
 $extensions = [
@@ -53,23 +68,27 @@ foreach ($iterator as $file) {
     }
 
     $fileInfo = pathinfo($currentFile);
-    $excludeFile = (str_replace($excludeDir, '', $currentFile) != $currentFile);
+    $excludeFile = (str_replace($excludePattern, '', $currentFile) != $currentFile);
 
     if ($excludeFile === false) {
         if (isset($fileInfo['extension']) && in_array($fileInfo['extension'], $extensions)) {
             $data = file($currentFile);
+            if (! count($data)) {
+                // empty file
+                continue;
+            }
             $lastLine = $data[count($data) - 1];
             $lineEnding = substr($lastLine, -1);
 
-            if ($lineEnding !== PHP_EOL) {
-                $message .= $currentFile . PHP_EOL;
+            if ($lineEnding !== "\n") {
+                $message .= str_replace($dir . DIRECTORY_SEPARATOR, '', $currentFile) . PHP_EOL;
             }
         }
     }
 }
 
 if (! empty($message)) {
-    echo color('Files without unix ending line:', 'yellow') . PHP_EOL;
+    echo color('Files that do not end with a unix style end of line:', 'yellow') . PHP_EOL;
     info($message);
     exit(1);
 } else {

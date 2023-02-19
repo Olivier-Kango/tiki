@@ -23,17 +23,6 @@ workflow:
     # THIS WILL TRIGGER PIPELINES FOR MERGE REQUESTS AND SCHEDULES, AND PUSHES ON VERSION BRANCHES LIKE 21.x. 18.x
     - when: always
 
-# Utilities
-
-.run_command_on_files_changed: &run_command_on_files_changed
-  - if [ -z "$RUN_COMMAND" ] ; then echo "Environment variable RUN_COMMAND is not defined, I do not know what command to run!" ; exit 1 ; fi
-  - if [ -z "$RUN_COMMAND_FILTER" ] ; then RUN_COMMAND_FILTER="." ; fi
-  - if [ -z "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" ] ; then TARGET="HEAD^" ; else TARGET="origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"; git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME ; fi
-  - echo "Comparing with '$TARGET' to check files changed"
-  - git diff --name-only --diff-filter=d $TARGET | grep ${RUN_COMMAND_FILTER} - 2>&1 > /dev/null || { git log -m -1 --name-only && echo && echo 'No files to be processed. Skipping...' && echo && exit 0; }
-  - git diff --name-status --diff-filter=d $TARGET
-  - git diff --name-only --diff-filter=d $TARGET | grep ${RUN_COMMAND_FILTER} | eval "xargs ${RUN_COMMAND}"
-
 #
 # build
 #
@@ -114,7 +103,6 @@ phpcs:
       paths:
         - phpcs.cache
       policy: pull-push
-  allow_failure: false
 
 phplint74:
   stage: lint
@@ -125,7 +113,6 @@ phplint74:
     - composer
   needs:
     - composer
-  allow_failure: false
   cache:
     key: phplint74
     paths:
@@ -140,7 +127,6 @@ phplint80:
     - composer
   needs:
     - composer
-  allow_failure: false
   cache:
     key: phplint80
     paths:
@@ -155,7 +141,6 @@ phplint81:
     - composer
   needs:
     - composer
-  allow_failure: false
   cache:
     key: phplint81
     paths:
@@ -170,7 +155,6 @@ smarty-lint:
     - composer
   needs:
     - composer
-  allow_failure: false
 
 eslint:
   stage: lint
@@ -179,7 +163,6 @@ eslint:
     - docker:stable-dind
   script:
     - docker run -v "$PWD":/data --volume /var/run/docker.sock:/var/run/docker.sock cytopia/eslint .
-  allow_failure: true
   dependencies: []
   needs: []
   tags:
@@ -196,7 +179,6 @@ sql-engine:
     - php -d display_errors=On doc/devtools/check_sql_engine.php
   dependencies: []
   needs: []
-  allow_failure: false
 
 schema-sql-drop:
   stage: tiki-check
@@ -205,7 +187,6 @@ schema-sql-drop:
     - php -d display_errors=On doc/devtools/check_schema_sql_drop.php
   dependencies: []
   needs: []
-  allow_failure: false
 
 schema-naming-convention:
   stage: tiki-check
@@ -214,7 +195,6 @@ schema-naming-convention:
     - php -d display_errors=On doc/devtools/check_schema_naming_convention.php
   dependencies: []
   needs: []
-  allow_failure: false
 
 translation:
   stage: tiki-check
@@ -236,27 +216,22 @@ translation-standards:
     - composer
   needs:
     - composer
-  allow_failure: false
 
 check-bom-encoding:
   stage: tiki-check
   image: ${BASE_QA_IMAGE}
   script:
-    - RUN_COMMAND="php doc/devtools/check_bom_encoding.php"
-    - *run_command_on_files_changed
+    - php doc/devtools/check_bom_encoding.php
   dependencies: []
   needs: []
-  allow_failure: false
 
 unix-ending-line:
   stage: tiki-check
   image: ${BASE_QA_IMAGE}
   script:
-    - RUN_COMMAND="php doc/devtools/check_unix_ending_line.php"
-    - *run_command_on_files_changed
+    - php doc/devtools/check_unix_ending_line.php
   dependencies: []
   needs: []
-  allow_failure: false
 
 check-directories:
   image: ${BASE_QA_IMAGE}
@@ -265,7 +240,6 @@ check-directories:
     - php doc/devtools/check_tiki_directories.php
   dependencies: []
   needs: []
-  allow_failure: false
 
 composer-lock:
   image: ${BASE_QA_IMAGE}
@@ -310,7 +284,6 @@ composer-lock:
       - tikinew.sql
     expire_in: 7 days
     when: always
-  allow_failure: false
 
 db-upgrade-22-mysql8:
   <<: *template-tiki-schema-upgrade
@@ -423,19 +396,6 @@ sql-engine-conversion:
       - tikinew.sql
     expire_in: 7 days
     when: always
-  allow_failure: false
-
-tiki-sniffs:
-  stage: tiki-check
-  image: ${BASE_QA_IMAGE}
-  script:
-    - RUN_COMMAND_FILTER='\.php$'
-    - RUN_COMMAND="php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs --standard=./doc/devtools/codesniffer/standards/Tiki -s --runtime-set ignore_warnings_on_exit true"
-    - *run_command_on_files_changed
-  dependencies:
-    - composer
-  needs:
-    - composer
 
 #
 # Unit Tests
@@ -513,43 +473,47 @@ tiki-package:
   image: ${BASE_QA_IMAGE}
   stage: package-tiki
   script:
-    # cleanup local copy
+    # Remove dev dependencies in composer
+    - echo "=> Removing Composer dev dependencies ..."
     - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d vendor_bundled --no-dev --optimize-autoloader --no-progress --prefer-dist -n # remove dev packages
-    - rm -fr temp && git checkout temp # clean temp
-    # create packing dir
-    - mkdir tiki-${CI_COMMIT_REF_SLUG}
-    - cp -a $(ls -1 | grep -v tiki-${CI_COMMIT_REF_SLUG}) tiki-${CI_COMMIT_REF_SLUG}
-    - cd tiki-${CI_COMMIT_REF_SLUG}
-    # cleanup folders not bundled
-    - '[ -d tests ] && rm -fr tests'
-    - '[ -d doc/devtools ] && rm -fr doc/devtools'
-    - '[ -d bin ] && rm -fr bin'
-    - '[ -f .gitignore ] && rm .gitignore'
+    # Cleanup folders that may have data, and we do not want to be packed
+    - echo "=> Cleanup ..."
+    # Assure temp folder is empty
+    - rm -fr temp && git checkout temp
+    # remove bin directory
+    - rm -fr bin
+    # Log files that are not part of GIT in the folder (exclude the ones expected)
+    - echo "=> Files in the folder not tracked in git ..."
+    - git ls-files --others | grep -v vendor_bundled/vendor/ | grep -v .composercache/ || echo "Ignore Failure"
     # remove comments from language files
-    - find lang/ -name language.php -exec php ../doc/devtools/stripcomments.php {} \;
+    - echo "=> Optimize language files ..."
+    - find lang/ -name language.php -exec php doc/devtools/stripcomments.php {} \;
     # set Permissions
+    - echo "=> Fix permissions ..."
     - find . -type f -exec chmod 0664 {} \;
+    - chown 0775 setup.sh
     - find . -type d -exec chmod 0755 {} \;
     # pack
-    - cd ..
-    - tar --exclude *.DS_Store -pczf tiki-${CI_COMMIT_REF_SLUG}.tar.gz tiki-${CI_COMMIT_REF_SLUG}
+    - echo "=> Pack tiki ..."
+    - tar --exclude *.DS_Store --exclude tests --exclude doc/devtools --exclude .git --exclude .gitignore --exclude .composercache -pczf tiki-${CI_COMMIT_SHORT_SHA}-${CI_COMMIT_REF_SLUG}.tar.gz *
   cache:
-    key:
-      prefix: "composer"
-      files:
-        - vendor_bundled/vendor/composer.lock
-    paths:
-      - vendor_bundled/vendor/
-      - .composercache/files
-    policy: pull
-  dependencies: []
-  #dependencies:
-  #  - composer
+    - key:
+        prefix: "composer"
+        files:
+          - vendor_bundled/vendor/composer.lock
+      paths:
+        - .composercache/files
+      policy: pull
+  dependencies:
+    - composer
+  needs:
+    - composer
   artifacts:
     paths:
-      - tiki-${CI_COMMIT_REF_SLUG}.tar.gz
+      - tiki-${CI_COMMIT_SHORT_SHA}-${CI_COMMIT_REF_SLUG}.tar.gz
     expire_in: 30 days
+  allow_failure: true
 
 # Vendors Security
 #
