@@ -320,7 +320,7 @@ class Scheduler_Item
     /**
      * Return timestamp of the last time the scheduler should have run
      */
-    public function getPreviousRunDate()
+    public function getPreviousRunDate($currentTime = null)
     {
         $cron = $this->run_time;
 
@@ -330,10 +330,22 @@ class Scheduler_Item
 
         $cron = Cron\CronExpression::factory($cron);
 
+        if ($currentTime instanceof DateTime) {
+            $anchorTime = clone $currentTime;
+        } elseif ($currentTime instanceof DateTimeImmutable) {
+            $anchorTime = DateTime::createFromFormat('U', $currentTime->format('U'));
+        } elseif (\is_string($currentTime)) {
+            $anchorTime = new DateTime($currentTime);
+        } else {
+            $anchorTime = new DateTime('now');
+        }
+
         $delayMinutes = (int)TikiLib::lib('tiki')->get_preference('scheduler_delay', 0);
         $delaySeconds = $delayMinutes * 60;
 
-        return $cron->getPreviousRunDate("{$delayMinutes} minutes ago")->getTimestamp() + $delaySeconds;
+        $anchorTime->sub(DateInterval::createFromDateString($delayMinutes . ' minutes'));
+
+        return $cron->getPreviousRunDate($anchorTime)->getTimestamp() + $delaySeconds;
     }
 
     /**
