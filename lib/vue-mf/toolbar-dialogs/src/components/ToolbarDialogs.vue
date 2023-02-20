@@ -3,6 +3,7 @@ import { ref } from "vue";
 import BootstrapModal from "./BootstrapModal.vue";
 import ExternalLink from "./ExternalLink.vue";
 import WikiLink from "./WikiLink.vue";
+import TableBuilder from "./table/Table.vue";
 
 const props = defineProps({
     toolbarObject: {
@@ -17,10 +18,11 @@ const props = defineProps({
 
 const toolbarObject = ref(props.toolbarObject);
 
-// hopefully these refs cold be automated somehow
+// hopefully these refs could be automated somehow
 const bootstrapModalRef = ref(null);
 const link = ref(null);
 const tikilink = ref(null);
+const table = ref(null);
 
 function showModal() {
     // cheat with jQuery - get the DOM element from the "ref" object
@@ -42,6 +44,9 @@ function save() {
         case "tikilink":
             syntax = tikilink.value.save();
             break;
+        case "table":
+            syntax = table.value.save();
+            break;
     }
     bootstrapModalRef.value.close();
 
@@ -54,10 +59,11 @@ function save() {
     <a class="toolbar btn btn-sm px-2 tips bottom qt-inline" :title="toolbarObject.label" @click="showModal()">
         <span :class="'icon icon' + toolbarObject.iconname + ' fas fa-' + toolbarObject.iconname"></span>
     </a>
-    <BootstrapModal ref="bootstrapModalRef" :title="toolbarObject.label">
+    <BootstrapModal ref="bootstrapModalRef" :title="toolbarObject.label" :size="toolbarObject.name === 'table' ? ' modal-lg' : ''">
         <template #body>
             <ExternalLink v-if="toolbarObject.name === 'link'" ref="link" :toolbar-object="toolbarObject" />
             <WikiLink v-if="toolbarObject.name === 'tikilink'" ref="tikilink" :toolbar-object="toolbarObject" />
+            <TableBuilder v-if="toolbarObject.name === 'table'" ref="table" :toolbar-object="toolbarObject" />
         </template>
         <template #footer>
             <button class="btn btn-primary btn-sm" @click="save()">Apply</button>

@@ -122,7 +122,7 @@ class ToolbarDialog extends ToolbarItem
                 $iconname = 'table';
                 $icon = tra('img/icons/table.png');
                 $wysiwyg = 'Table';
-                $markdown = ''; // TODO
+                $markdown = 'table';
                 $markdown_wysiwyg = 'table';
                 $label = tra('Table Builder');
                 $list = [
@@ -368,6 +368,8 @@ class ToolbarDialog extends ToolbarItem
             return json_encode($item);
         } elseif ($this->name === 'link') {
             return $this->name;
+        } elseif ($this->name === 'table') {
+            return $this->name;
         }
         return '';
     }
@@ -386,6 +388,12 @@ class ToolbarDialog extends ToolbarItem
             return false;
         }
 
-        return $prefs['vuejs_toolbar_dialogs'] === 'y' && in_array($this->name, ['tikilink', 'link']);
+        $supported = ['tikilink', 'link'];
+
+        if (! $this->isWysiwyg) {   // not working in toast yet TODO
+            $supported[] = 'table';
+        }
+
+        return $prefs['vuejs_toolbar_dialogs'] === 'y' && in_array($this->name, $supported);
     }
 }

@@ -12,6 +12,10 @@ defineProps({
         type: String,
         default: "<<Title goes here>>",
     },
+    size: {
+        type: String,
+        default: "",
+    }
 });
 let modalElement = ref(null);
 let thisModalObj = null;
@@ -37,7 +41,7 @@ defineExpose({ show: _show, shown: _shown, close: _close });
 
 <template>
     <div ref="modalElement" class="modal modal-sm fade" tabIndex="-1" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog">
+        <div :class="'modal-dialog' + size">
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 id="exampleModalLabel" class="modal-title">{{ title }}</h6>
