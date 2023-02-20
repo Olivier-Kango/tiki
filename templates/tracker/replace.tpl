@@ -223,8 +223,6 @@
             </div>
         {/accordion_group}
     {accordion_group title="{tr}Section Format{/tr}"}
-        <div class="card">
-            <div class="card-body">
                 <div class="mb-3 row mx-0">
                     <label for="sectionFormat">{tr}Section format{/tr}</label>
                     <select name="sectionFormat" id="sectionFormat" class="form-select">
@@ -264,8 +262,6 @@
                         {tr}wiki:pageName for a wiki page or tpl:tplName for a template{/tr}
                     </div>
                 </div>
-            </div>
-        </div>
     {/accordion_group}
         {accordion_group title="{tr}Status{/tr}"}
             <div class="mb-3 row mx-0">
