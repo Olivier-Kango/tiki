@@ -2047,10 +2047,13 @@ class TrackerLib extends TikiLib
         }
 
         // If this is a user tracker it needs to be detected right here before actual looping of fields happen
-        $trackersync_user = $user;
+        $trackersync_user = null;
         foreach ($ins_fields["data"] as $i => $array) {
-            if (isset($array['type']) && $array['type'] == 'u' && isset($array['options_array'][0]) && $array['options_array'][0] == '1') {
-                if ($prefs['user_selector_realnames_tracker'] == 'y' && $array['type'] == 'u') {
+            $is_user_field = isset($array['type']) && $array['type'] == 'u';
+            $is_auto_assign = isset($array['options_map']['autoassign']) && $array['options_map']['autoassign'] == '1';
+            $is_item_owner = isset($array['options_map']['owner']) && $array['options_map']['owner'] == '1';
+            if ($is_user_field && ($is_auto_assign || $is_item_owner)) {
+                if ($prefs['user_selector_realnames_tracker'] == 'y') {
                     if (! $userlib->user_exists($array['value'])) {
                         $finalusers = $userlib->find_best_user([$array['value']], '', 'login');
                         if (! empty($finalusers[0]) && ! (isset($_REQUEST['register']) && isset($_REQUEST['name']) && $_REQUEST['name'] == $array['value'])) {
@@ -2113,7 +2116,7 @@ class TrackerLib extends TikiLib
 
             $value = isset($array["value"]) ? $array["value"] : null;
 
-            if (isset($array['type']) && $array['type'] == 'p' && ($user == $trackersync_user || $tiki_p_admin_users == 'y')) {
+            if (isset($array['type']) && $array['type'] == 'p' && ($user == $trackersync_user || $tiki_p_admin_users == 'y') && $trackersync_user) {
                 if ($array['options_array'][0] == 'password') {
                     if (! empty($array['value']) && $prefs['change_password'] == 'y' && ($e = $userlib->check_password_policy($array['value'])) == '') {
                         $userlib->change_user_password($trackersync_user, $array['value']);
@@ -5857,14 +5860,16 @@ class TrackerLib extends TikiLib
 
     private function get_tracker_item_users($trackerId, $values)
     {
-        global $user, $prefs;
-        $userlib = TikiLib::lib('user');
-        $trackersync_users = [$user];
+        $trackersync_users = [];
 
         $definition = Tracker_Definition::get($trackerId);
 
         if ($definition) {
             $fieldId = $definition->getUserField();
+            if (empty($fieldId)) {
+                $ownerFields = $definition->getItemOwnerFields();
+                $fieldId = array_shift($ownerFields);
+            }
             $value = isset($values[$fieldId]) ? $values[$fieldId] : '';
 
             if ($value) {
