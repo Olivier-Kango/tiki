@@ -259,6 +259,7 @@
             }
         }
     </script>
+    <link rel="stylesheet" type="text/css" href="{$tikiroot}storage/public/vue-mf/duration-picker/assets/vue-mf-duration-picker.min.css">
     <link rel="stylesheet" type="text/css" href="{$tikiroot}storage/public/vue-mf/kanban/assets/vue-mf-kanban.min.css">
     <link rel="stylesheet" type="text/css" href="{$tikiroot}storage/public/vue-mf/toolbar-dialogs/assets/style.css">
     {* Note: JS code in the page might try to use these functions before they are actually loaded by systemjs, so provide stubs here *}
