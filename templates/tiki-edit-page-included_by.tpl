@@ -7,8 +7,11 @@
     {if !empty($include.start)}
     {tr}from{/tr} "{$include.start}"
     {/if}
-    {if !empty($include.end)}
-    {tr}to{/tr} "{$include.end}"
+    {if !empty($include.stop)}
+    {tr}to{/tr} "{$include.stop}"
+    {/if}
+    {if !empty($include.version)}
+      {tr}Version Of page{/tr} "{$include.version}"
     {/if}
 
   </li>

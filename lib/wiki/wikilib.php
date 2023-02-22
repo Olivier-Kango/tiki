@@ -688,7 +688,8 @@ class WikiLib extends TikiLib
                         'type' => $relation['type'],
                         'itemId' => $relation['itemId'],
                         'start' => $arguments['start'],
-                        'end' => $arguments['end']
+                        'stop' => $arguments['stop'],
+                        'version' => $arguments['page_version']
                     ];
                 }
             }

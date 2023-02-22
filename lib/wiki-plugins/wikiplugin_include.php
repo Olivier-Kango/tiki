@@ -141,6 +141,14 @@ function wikiplugin_include_info()
                 'filter' => 'int',
                 'default' => '',
             ],
+            'page_version' => [
+                'required' => false,
+                'name' => tr('version of page'),
+                'description' => tr('Get the version of page included'),
+                'since' => '26.0',
+                'filter' => 'int',
+                'default' => '',
+            ],
         ],
     ];
 }
@@ -154,6 +162,7 @@ function wikiplugin_include($dataIn, $params)
 
     static $data;
     $tikilib = TikiLib::lib('tiki');
+    $histlib = TikiLib::lib('hist');
 
     $killtoc = true;
     $params = array_merge([
@@ -233,6 +242,14 @@ function wikiplugin_include($dataIn, $params)
         $linkoriginal_text = tr($params['linkoriginal_text']);
     } else {
         $linkoriginal_text = tr('Read more');
+    }
+
+    if ($page_version) {
+        $history = $histlib->get_version($page, $page_version);
+        if ($history['data'] !== null) {
+            $data[$fragmentIdentifier]['data'] = $history['data'];
+            $data[$fragmentIdentifier]['is_html'] = $history['is_html'];
+        }
     }
 
     if ($data[$fragmentIdentifier]) {
