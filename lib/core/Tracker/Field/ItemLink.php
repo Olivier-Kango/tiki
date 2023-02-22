@@ -1089,9 +1089,93 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
         $permName = $this->getConfiguration('permName');
         $name = $this->getConfiguration('name');
 
-        if (! $this->getOption('selectMultipleValues')) {
-            // Cannot handle multiple values when exporting
+        if ($this->getOption('selectMultipleValues')) {
+            $itemIdLookup = function ($itemId) {
+                return TikiLib::lib('trk')->get_item_value($this->getConfiguration('trackerId'), $itemId, $this->getConfiguration('fieldId'));
+            };
+            $schema->addNew($permName, 'id')
+                ->setLabel($name)
+                ->addQuerySource('itemId', 'object_id')
+                ->setRenderTransform(function ($value, $extra) use ($itemIdLookup) {
+                    return $itemIdLookup($extra['itemId']);
+                })
+                ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                    $info['fields'][$permName] = $value;
+                })
+                ;
 
+            $fullLookup = new Tracker\Tabular\Schema\CachedLookupHelper();
+            $fullLookup->setLookup(function ($value) {
+                return $this->getItemLabel($value, ['list_mode' => 'csv']);
+            });
+            $schema->addNew($permName, 'lookup')
+                ->setLabel($name)
+                ->setReadOnly(true)
+                ->addQuerySource('itemId', 'object_id')
+                ->addQuerySource('text', "tracker_field_{$permName}_text")
+                ->setRenderTransform(function ($value, $extra) use ($fullLookup, $itemIdLookup) {
+                    if (isset($extra['text'])) {
+                        return $extra['text'];
+                    } else {
+                        $values = [];
+                        $itemIds = $itemIdLookup($extra['itemId']);
+                        foreach (explode(',', $itemIds) as $itemId) {
+                            $values[] = $fullLookup->get($itemId);
+                        }
+                        return implode(', ', $values);
+                    }
+                })
+                ;
+
+            if ($fieldId = $this->getOption('fieldId')) {
+                $simpleField = Tracker\Tabular\Schema\CachedLookupHelper::fieldLookup($fieldId);
+                $invertField = Tracker\Tabular\Schema\CachedLookupHelper::fieldInvert($fieldId);
+
+                // if using displayFieldsList then only export the 'value' of the field, i.e. the title of the linked item
+                $useTextLabel = empty(array_filter($this->getOption('displayFieldsList')));
+
+                $schema->addNew($permName, 'lookup-simple')
+                    ->setLabel($name)
+                    ->addIncompatibility($permName, 'id')
+                    ->addQuerySource('itemId', "object_id")
+                    ->addQuerySource('text', "tracker_field_{$permName}_text")
+                    ->setRenderTransform(function ($value, $extra) use ($simpleField, $useTextLabel, $itemIdLookup) {
+                        if (isset($extra['text']) && $useTextLabel) {
+                            return $extra['text'];
+                        } else {
+                            $values = [];
+                            $itemIds = $itemIdLookup($extra['itemId']);
+                            foreach (explode(',', $itemIds) as $itemId) {
+                                $values[] = $simpleField->get($itemId);
+                            }
+                            return implode("\n", $values);
+                        }
+                    })
+                    ->setParseIntoTransform(function (&$info, $value) use ($permName, $invertField) {
+                        $itemIds = [];
+                        foreach (explode("\n", $value) as $val) {
+                            if ($id = $invertField->get($val)) {
+                                $itemIds[] = $id;
+                            }
+                        }
+                        $info['fields'][$permName] = implode(',', $itemIds);
+                    })
+                    ;
+            }
+
+            $schema->addNew($permName, 'name')
+                ->setLabel($name)
+                ->setReadOnly(true)
+                ->addQuerySource('itemId', 'object_id')
+                ->setRenderTransform(function ($value) use ($fullLookup, $itemIdLookup) {
+                    $values = [];
+                    $itemIds = $itemIdLookup($extra['itemId']);
+                    foreach (explode(',', $itemIds) as $itemId) {
+                        $values[] = $fullLookup->get($itemId);
+                    }
+                    return implode(', ', $values);
+                });
+        } else {
             $schema->addNew($permName, 'id')
                 ->setLabel($name)
                 ->setRenderTransform(function ($value) {
