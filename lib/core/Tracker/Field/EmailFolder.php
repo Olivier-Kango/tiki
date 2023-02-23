@@ -77,6 +77,16 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                             'value' => '1'
                         ],
                     ],
+                    'draftName' => [
+                        'name' => tr('Draft Name'),
+                        'description' => tr('Name of the Draft folder.'),
+                        'filter' => 'text',
+                        'default' => 'Draft',
+                        'depends' => [
+                            'field' => 'useFolders',
+                            'value' => '1'
+                        ],
+                    ],
                     'customFolders' => [
                         'name' => tr('Custom Folders'),
                         'description' => tr('Comma separated list of additional folders to use.'),
@@ -378,6 +388,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
             'sent' => $this->getOption('sentName'),
             'trash' => $this->getOption('trashName'),
             'archive' => $this->getOption('archiveName'),
+            'draft' => $this->getOption('draftName'),
         ];
         $custom = preg_split('/\s*,\s*/', $this->getOption('customFolders'));
         $handles = array_map(function ($folder) {
