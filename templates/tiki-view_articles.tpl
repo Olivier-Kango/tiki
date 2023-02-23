@@ -62,18 +62,6 @@
         {/if}
     {/strip}{/capture}
     {if $listpages[ix].disp_article eq 'y'}
-        {if $prefs.feature_freetags eq 'y' and $tiki_p_view_freetags eq 'y' and $listpages[ix].freetags.data|@count >0}
-            <div class="freetaglist">
-                {foreach from=$listpages[ix].freetags.data item=taginfo}
-                    {capture name=tagurl}
-                        {if (strstr($taginfo.tag, ' '))}"{$taginfo.tag}"{else}{$taginfo.tag}{/if}
-                    {/capture}
-                    <a class="freetag" href="tiki-browse_freetags.php?tag={$smarty.capture.tagurl|escape:'url'}">
-                        {$taginfo.tag}
-                    </a>
-                {/foreach}
-            </div>
-        {/if}
         <article class="clearfix article {if !empty($container_class)} {$container_class}{/if} article{$smarty.section.ix.index} mt-1 mb-5">
             {if ($listpages[ix].show_avatar eq 'y')}
                 <div class="avatar float-start mr-3">
@@ -218,6 +206,10 @@
                     {/if}
 
             <div class="articletrailer clearfix">
+                {if $prefs.feature_freetags eq 'y' and $tiki_p_view_freetags eq 'y' and $listpages[ix].freetags.data|@count >0}
+                    {$freetags = $listpages[ix].freetags}
+                    {include file='freetag_list.tpl'}
+                {/if}
                 {if ($listpages[ix].size > 0) or (($prefs.feature_article_comments eq 'y') and ($listpages[ix].perms.tiki_p_read_comments eq 'y'))}
                 <ul class="list-inline float-start">
                     {if ($listpages[ix].perms.tiki_p_read_article eq 'y' and $listpages[ix].heading_only ne 'y' and (!isset($fullbody) or $fullbody ne "y"))}
