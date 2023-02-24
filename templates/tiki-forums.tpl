@@ -69,7 +69,7 @@
 {/if}
 <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}> {*the table-responsive class cuts off dropdown menus *}
     <table id="{$ts.tableid}" class="table table-striped table-hover table-forum normal" data-count="{$cant|escape}">
-        {block name=forum-header}
+        {block name=forumheader}
         <thead>
             <tr>
                 {$numbercol = 1}
@@ -112,7 +112,7 @@
                     {assign var=section_old value=$section}
                     <td class="third info" colspan="{$numbercol}">{tr}{$section|escape}{/tr}</td>
                 {/if}
-                {block name=forum-row}
+                {block name=forumrow}
                 <tr>
                     <td class="text">
                         {if (isset($channels[user].individual) and $channels[user].individual eq 'n')

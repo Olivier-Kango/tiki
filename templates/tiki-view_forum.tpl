@@ -409,7 +409,7 @@
         </div>
     </div>
     <table id="{$ts.tableid}" class="table table-striped table-hover table-forum normal" data-count="{$cant|escape}">
-        {block name=forum-header}
+        {block name=forumheader}
             <thead>
             <tr>
                 {$numbercol = 1}
@@ -452,7 +452,7 @@
                 {assign var=section_old value=$section}
                 <td class="third info" colspan="{$numbercol}">{tr}{$section|escape}{/tr}</td>
             {/if}
-            {block name=forum-row}
+            {block name=forumrow}
                 <tr>
                     <td class="text">
                         {if (isset($channels[user].individual) and $channels[user].individual eq 'n')
@@ -619,7 +619,7 @@
     {* Use css menus as fallback for item dropdown action menu if javascript is not being used *}
     <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}>
         <table id="{$ts.tableid}" class="table normal table-striped table-hover table-forum" data-count="{$comments_cant|escape}">
-            {block name=forum-header}
+            {block name=forumheader}
             <thead>
                 <tr>
                     {$cntcol = 0}
@@ -692,7 +692,7 @@
                     {else}
                         {assign var="newtopic" value=""}
                     {/if}
-                    {block name=forum-row}
+                    {block name=forumrow}
                     <tr>
                         {if $tiki_p_admin_forum eq 'y'}
                             <td class="checkbox-cell">
