@@ -87,7 +87,7 @@ class Search_MySql_Table extends TikiDb_Table
 
 		$this->loadDefinition();
 
-		if (! isset($this->definition[$fieldName]) && $prefs['search_error_missing_field'] === 'y') {
+		if (! isset($this->definition[$fieldName])) {
 			if (preg_match('/^tracker_field_/', $fieldName)) {
 				$msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', $fieldName);
 			} else {
