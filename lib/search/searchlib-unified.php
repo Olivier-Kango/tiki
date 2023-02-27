@@ -225,6 +225,8 @@ class UnifiedSearchLib
                         global $prefs;
                         if (! empty($prefs['unified_manticore_index_current']) && $prefs['unified_manticore_index_current'] !== $indexName) {
                             $index->destroy();
+                            $indexpq = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $indexName . 'pq');
+                            $indexpq->destroy();
                         }
                         $tikilib->delete_preference('unified_manticore_index_rebuilding');
                     }

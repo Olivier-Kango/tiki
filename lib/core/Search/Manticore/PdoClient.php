@@ -25,11 +25,8 @@ class Search_Manticore_PdoClient
     {
         $status = ['status' => 0];
         $result = $this->pdo->query('SHOW STATUS');
-        $result = $result->fetch();
-        if (! empty($result['data'])) {
-            foreach ($result['data'] as $row) {
-                $status[$row['Counter']] = $row['Value'];
-            }
+        while ($row = $result->fetch()) {
+            $status[$row['Counter']] = $row['Value'];
         }
         return $status;
     }
@@ -54,7 +51,7 @@ class Search_Manticore_PdoClient
     {
         $cols = [];
         foreach ($definition as $field => $opts) {
-            $def = $field . ' ' . $opts['type'];
+            $def = '`' . $field . '` ' . $opts['type'];
             if (! empty($opts['options'])) {
                 $def .= ' ' . implode(' ', $opts['options']);
             }
@@ -157,6 +154,26 @@ class Search_Manticore_PdoClient
     {
         $stmt = $this->pdo->prepare("OPTIMIZE INDEX $index");
         $stmt->execute();
+    }
+
+    public function percolate($index, $document)
+    {
+        try {
+            $stmt = $this->pdo->prepare("CALL PQ(?, ?, 1 as query)");
+            $stmt->execute([$index . 'pq', json_encode($document)]);
+            $results = $stmt->fetchAll();
+            return array_map(function ($item) {
+                return $item['tags'];
+            }, $results);
+        } catch (PDOException $e) {
+            throw new Search_Manticore_Exception($e);
+        }
+    }
+
+    public function unstoreQuery($index, $name)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM {$index}pq WHERE tags = :tags");
+        $stmt->execute(['tags' => $name]);
     }
 
     protected function connect()

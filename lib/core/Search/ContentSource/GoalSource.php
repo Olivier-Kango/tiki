@@ -41,8 +41,8 @@ class GoalSource implements Search_ContentSource_Interface
                 'goal_type' => $typeFactory->identifier($goal['type']),
                 'enabled' => $typeFactory->numeric($goal['enabled']),
                 'day_span' => $typeFactory->numeric($goal['daySpan']),
-                'from' => $typeFactory->timestamp($goal['from'] ? strtotime($goal['from'] . ' UTC') : null),
-                'to' => $typeFactory->timestamp($goal['to'] ? strtotime($goal['to'] . ' UTC') : null),
+                'span_from' => $typeFactory->timestamp($goal['from'] ? strtotime($goal['from'] . ' UTC') : null),
+                'span_to' => $typeFactory->timestamp($goal['to'] ? strtotime($goal['to'] . ' UTC') : null),
                 'eligible' => $typeFactory->json($goal['eligible']),
                 'conditions' => $typeFactory->json($goal['conditions']),
                 'rewards' => $typeFactory->json($goal['rewards']),
@@ -55,7 +55,7 @@ class GoalSource implements Search_ContentSource_Interface
 
     public function getProvidedFields()
     {
-        return ['title', 'description', 'goal_type', 'enabled', 'day_span', 'from', 'to', 'eligible', 'conditions', 'rewards'];
+        return ['title', 'description', 'goal_type', 'enabled', 'day_span', 'span_from', 'span_to', 'eligible', 'conditions', 'rewards'];
     }
 
     public function getProvidedFieldTypes()
@@ -66,8 +66,8 @@ class GoalSource implements Search_ContentSource_Interface
             'goal_type' => 'identifier',
             'enabled' => 'numeric',
             'day_span' => 'numeric',
-            'from' => 'timestamp',
-            'to' => 'timestamp',
+            'span_from' => 'timestamp',
+            'span_to' => 'timestamp',
             'eligible' => 'json',
             'conditions' => 'json',
             'rewards' => 'json',

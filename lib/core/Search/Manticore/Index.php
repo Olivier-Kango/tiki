@@ -72,11 +72,19 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             $data
         );
 
+        foreach ($data as $field => $value) {
+            if (isset($this->providedMappings[$field . '_nsort'])) {
+                $data[$field . '_nsort'] = @floatval($value);
+            }
+        }
+
         return $data;
     }
 
     private function generateMapping($type, $data)
     {
+        global $prefs;
+
         // stored conversion of manticore field names to tiki field names
         $fieldMapping = $this->getUnifiedFieldMapping();
 
@@ -95,11 +103,15 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         );
 
         // observe 256 full-text fields index limit - convert the rest to string attributes
-        $indexedFields = $this->getIndexedFields();
-        foreach ($mapping as $field => $type) {
-            if ($type['type'] == 'text' && ! in_array($field, $indexedFields)) {
-                $mapping[$field] = ['type' => 'string'];
+        if ($this->indexer) {
+            $indexedFields = $this->getIndexedFields();
+            foreach ($mapping as $field => $type) {
+                if ($type['type'] == 'text' && ! in_array($field, $indexedFields)) {
+                    $mapping[$field] = ['type' => 'string'];
+                }
             }
+        } else {
+            // lack of indexer means we cannot build up the field list, so keep the mapping as it is
         }
 
         // cache date-only field list
@@ -107,6 +119,13 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             if (! empty($type['dateonly'])) {
                 unset($mapping[$field]['dateonly']);
                 $dateFields[] = $field;
+            }
+        }
+
+        // add nsort numeric field counterparts to the string attribute fields
+        foreach ($mapping as $field => $type) {
+            if (($type['type'] == 'string' || $type['type'] == 'text') && ! isset($mapping[$field . '_nsort'])) {
+                $mapping[$field . '_nsort'] = ['type' => 'float'];
             }
         }
 
@@ -128,8 +147,31 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             $fieldMapping[strtolower($field)] = $field;
         }
 
+        if ($prefs['storedsearch_enabled'] == 'y' && $mapping) {
+            // update percolate index
+            $pq_mapping = [];
+            foreach ($this->providedMappings as $field => $opts) {
+                $pq_mapping[strtolower($field)] = [
+                    'type' => $opts['types'][0],
+                    //'options' => $opts['options'],
+                ];
+            }
+            $this->updatePercolateIndex($this->index, $pq_mapping);
+        }
+
         TikiLib::lib('tiki')->set_preference('unified_field_mapping', json_encode($fieldMapping));
         TikiLib::lib('tiki')->set_preference('unified_date_fields', json_encode($dateFields));
+    }
+
+    private function updatePercolateIndex($index, $mapping)
+    {
+        $name = $index . 'pq';
+        $status = $this->pdo_client->getIndexStatus($name);
+        if (! empty($status)) {
+            $this->pdo_client->deleteIndex($name);
+        }
+        $name = $this->pdo_client->createIndex($name, $mapping, ['type' => 'pq']);
+        return $name;
     }
 
     private function getIndexSettings()
@@ -293,6 +335,12 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             $search->maxMatches($resultStart + $resultCount);
         }
 
+        $compiled = $search->compile();
+        if (isset($compiled['query']['bool']) && count($compiled['query']) == 1 && empty($compiled['query']['bool'])) {
+            // empty queries return no results
+            return new Search_Manticore_ResultSet([], 0, $resultStart, $resultCount);
+        }
+
         $result = $search->get();
 
         $fieldMapping = $this->getUnifiedFieldMapping();
@@ -401,7 +449,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     public function getMatchingQueries(array $document)
     {
         $document = $this->generateDocument($document);
-        return $this->client->percolate($this->index, $document);
+        return $this->pdo_client->percolate($this->index, $document);
     }
 
     public function store($name, Search_Expr_Interface $expr)
@@ -417,7 +465,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     public function unstore($name)
     {
-        $this->client->unstoreQuery($this->index, $name);
+        $this->pdo_client->unstoreQuery($this->index, $name);
     }
 
     public function setFacetCount($count)
