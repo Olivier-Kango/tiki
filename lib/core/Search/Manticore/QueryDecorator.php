@@ -22,6 +22,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
     protected $factory;
     protected $matches;
     protected $must_nots;
+    protected $weights;
     protected $documentReader;
 
     public function __construct(\Manticoresearch\Search $search, Search_Manticore_Index $index)
@@ -46,6 +47,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
     {
         $this->matches = [];
         $this->must_nots = [];
+        $this->weights = [];
         $q = $expr->traverse($this);
         if (! $q) {
             $q = new Query\BoolQuery();
@@ -57,6 +59,20 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         }
         foreach ($this->must_nots as $subq) {
             $q->mustNot($subq);
+        }
+        if ($this->weights) {
+            $min = min($this->weights);
+            if ($min > 0 && $min < 1) {
+                $multiplier = 1;
+                while ($min < 1) {
+                    $min *= 10;
+                    $multiplier *= 10;
+                }
+                foreach ($this->weights as $field => $weight) {
+                    $this->weights[$field] *= $multiplier;
+                }
+            }
+            $this->search->option('field_weights', $this->weights);
         }
         $this->search->search($q);
     }
@@ -129,8 +145,10 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
                 return null;
             }
         } elseif ($node instanceof Initial) {
+            $this->weights[$this->getNodeField($node)] = $node->getWeight();
             return new Query\Equals('REGEX(' . $this->getNodeField($node) . ', "^' . $this->getTerm($node) . '")', 1);
         } elseif ($node instanceof Range) {
+            $this->weights[$this->getNodeField($node)] = $node->getWeight();
             $from = $this->getTerm($node->getToken('from'));
             $to = $this->getTerm($node->getToken('to'));
             if (empty($from)) {
@@ -150,6 +168,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
             $content = $node->getContent() ?: $this->getDocumentContent($type, $object);
             // TODO: https://play.manticoresearch.com/mlt/ possible implementation
         } elseif ($node instanceof Distance) {
+            $this->weights[$this->getNodeField($node)] = $node->getWeight();
             return new Query\Distance([
                 'location_anchor' => ["lat" => $node->getLat(), "lon" => $node->getLon()],
                 'location_source' => $this->getNodeField($node),
@@ -185,13 +204,15 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
     {
         global $prefs;
 
+        $this->weights[$this->getNodeField($node)] = $node->getWeight();
+
         $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
         if ($mapping && in_array('indexed', $mapping['options'])) {
             $phrase = $this->getTerm($node);
             if ($prefs['unified_search_default_operator'] != 1) {
                 $phrase = preg_replace('/\s+/', ' | ', $phrase);
             }
-            if ($node->getType() == 'identifier') {
+            if ($node->getType() == 'identifier' || preg_match('/^[\d\.]+$/', $phrase)) {
                 return new Query\MatchPhrase($phrase, $this->getNodeField($node));
             } else {
                 return new Query\MatchQuery($phrase, $this->getNodeField($node));

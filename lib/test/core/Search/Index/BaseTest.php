@@ -211,7 +211,7 @@ abstract class Search_Index_BaseTest extends PHPUnit\Framework\TestCase
         $this->assertResultCount(1, 'filterRelation', "$invert_product and $invert_user", ['tiki.content.link', 'tiki.user.favorite']);
     }
 
-    private function assertResultCount($count, $filterMethod, $argument)
+    protected function assertResultCount($count, $filterMethod, $argument)
     {
         $arguments = func_get_args();
         $arguments = array_slice($arguments, 2);

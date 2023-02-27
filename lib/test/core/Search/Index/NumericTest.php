@@ -40,7 +40,7 @@ abstract class Search_Index_NumericTest extends PHPUnit\Framework\TestCase
         $this->assertResultCount(1, '2.5');
     }
 
-    private function assertResultCount($count, $argument)
+    protected function assertResultCount($count, $argument)
     {
         $query = new Search_Query();
         $query->filterContent($argument);

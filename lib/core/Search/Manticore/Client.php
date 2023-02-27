@@ -150,45 +150,14 @@ class Search_Manticore_Client
     public function storeQuery($index, $query, $name)
     {
         try {
-            return $this->client->pq()->doc([
-                'index' => $index,
+            $res = $this->client->pq()->doc([
+                'index' => $index . 'pq',
                 'body' => [
-                    'query' => $query,
+                    'query' => $query['query'],
                     'tags' => [$name],
                 ]
             ]);
-        } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
-        }
-    }
-
-    public function unstoreQuery($index, $name)
-    {
-        try {
-            return $this->client->pq()->deleteByQuery([
-                'index' => $index,
-                'body' => [
-                    'tags' => [$name],
-                ]
-            ]);
-        } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
-        }
-    }
-
-    public function percolate($index, $document)
-    {
-        try {
-            return $this->client->pq()->search([
-                'index' => $index,
-                'body' => [
-                    'query' => [
-                        'percolate' => [
-                            'document' => $document
-                        ],
-                    ],
-                ],
-            ]);
+            return $res;
         } catch (ManticoreException $e) {
             throw new Search_Manticore_ClientException($e);
         }

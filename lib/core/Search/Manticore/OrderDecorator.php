@@ -19,16 +19,17 @@ class Search_Manticore_OrderDecorator extends Search_Manticore_Decorator
             $this->search->expression("sort_" . $field, $arguments['source']);
             $this->search->sort("sort_" . $field, $order->getOrder());
         } elseif ($field !== Search_Query_Order::FIELD_SCORE) {
-            $this->ensureHasField($field);
-            if ($order->getMode() == Search_Query_Order::MODE_NUMERIC) {
-                // TODO: real casting of strings to numbers is unsupported by Manticore even in expressions
-                // Solution would be to index possible numeric strings as numbers at index time
-                $this->search->sort($field, $order->getOrder());
+            $mapping = $this->index ? $this->index->getFieldMapping($field) : [];
+            if ($order->getMode() == Search_Query_Order::MODE_NUMERIC && $mapping && ! in_array('float', $mapping['types']) && substr($field, -6) != '_nsort') {
+                $this->ensureHasField($field . '_nsort');
+                $this->search->sort($field . '_nsort', $order->getOrder());
             } elseif ($order->getMode() == Search_Query_Order::MODE_DISTANCE) {
+                $this->ensureHasField($field);
                 $arguments = $order->getArguments();
                 $fields = preg_split('/\s*,\s*/', $field);
                 $this->search->sort("GEODIST(" . $arguments['lat'] . ", " . $arguments['lon'] . ", " . $fields[0] . ", " . $fields[1] . ")", $order->getOrder());
             } else {
+                $this->ensureHasField($field);
                 $this->search->sort($field, $order->getOrder());
             }
         }
