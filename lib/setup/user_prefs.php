@@ -27,22 +27,15 @@ $smarty->assign_by_ref('u_info', $u_info);
 $smarty->assign_by_ref('user', $user);
 $user_preferences = []; // Used for cache
 
+// Defaults that are not in global prefs
+initDefaultPrefsNotInGlobal();
+
 if ($user) {
     $default_group = $group = $_SESSION['u_info']['group'];
     $smarty->assign('group', $group); // do not use by_ref as $group can be changed in the .php
     $smarty->assign('default_group', $group);
 
     // Initialize user preferences
-
-    // Defaults that are not in global prefs
-    $prefs['user_article_watch_editor'] = 'n';
-    $prefs['user_blog_watch_editor'] = 'n';
-    $prefs['user_calendar_watch_editor'] = 'n';
-    $prefs['user_wiki_watch_editor'] = 'n';
-    $prefs['user_tracker_watch_editor'] = 'n';
-    $prefs['user_comment_watch_editor'] = 'n';
-    $prefs['user_category_watch_editor'] = 'n';
-    $prefs['user_plugin_approval_watch_editor'] = 'n';
 
     // Get all user prefs in one query
     $tikilib->get_user_preferences($user);
@@ -91,4 +84,17 @@ if ($prefs['language'] != $prefs['site_language']) {
             $prefs[$preference . '_translated'] = $prefs[$preference . '_' . $prefs['language']];
         }
     }
+}
+
+function initDefaultPrefsNotInGlobal()
+{
+    global $prefs;
+    $prefs['user_article_watch_editor'] = 'n';
+    $prefs['user_blog_watch_editor'] = 'n';
+    $prefs['user_calendar_watch_editor'] = 'n';
+    $prefs['user_wiki_watch_editor'] = 'n';
+    $prefs['user_tracker_watch_editor'] = 'n';
+    $prefs['user_comment_watch_editor'] = 'n';
+    $prefs['user_category_watch_editor'] = 'n';
+    $prefs['user_plugin_approval_watch_editor'] = 'n';
 }
