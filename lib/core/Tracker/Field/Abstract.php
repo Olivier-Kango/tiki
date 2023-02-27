@@ -184,6 +184,10 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
         } else {
             $new = $this->getValue('');
         }
+        $innerOutputContext = ['list_mode' => 'csv'];
+        if (isset($context['history'])) {
+            $innerOutputContext['history'] = $context['history'];
+        }
         if (isset($context['renderedOldValue'])) {
             $old = $context['renderedOldValue'];
         } else {
@@ -194,12 +198,12 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
             }
             $this->definition = array_merge($this->definition, $this->getFieldData([$key => $old]));
             $this->itemData[$this->getConfiguration('fieldId')] = $old;
-            $old = $this->renderInnerOutput(['list_mode' => 'csv']);
+            $old = $this->renderInnerOutput($innerOutputContext);
             $old = str_replace(['%%%', '<br>', '<br/>'], ["\n", ' ', ' '], $old);
             $this->definition = $old_definition;
             $this->itemData[$this->getConfiguration('fieldId')] = $new;
         }
-        $new = $this->renderInnerOutput(['list_mode' => 'csv']);
+        $new = $this->renderInnerOutput($innerOutputContext);
         $new = str_replace(['%%%', '<br>', '<br/>'], ["\n", ' ', ' '], $new);
         if (empty($context['diff_style'])) {
             $context['diff_style'] = 'inlinediff';

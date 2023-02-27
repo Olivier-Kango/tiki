@@ -332,6 +332,18 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
             if (! is_array($value)) {
                 $value = TikiLib::lib('trk')->parse_user_field($value);
             }
+            if (isset($context['history'])) {
+                Feedback::removeIf(function ($item) use ($value) {
+                    if ($item['type'] == 'error') {
+                        foreach ($value as $user) {
+                            if (in_array(tr('User "%0" not found', $user), $item['mes'])) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                });
+            }
             if ($this->getOption('showRealname')) {
                 TikiLib::lib('smarty')->loadPlugin('smarty_modifier_username');
                 return implode(', ', array_map('smarty_modifier_username', $value));
