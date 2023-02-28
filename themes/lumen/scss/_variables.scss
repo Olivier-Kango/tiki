@@ -19,16 +19,16 @@ $gray-800: #333 !default;
 $gray-900: #222 !default;
 $black:    #000 !default;
 
-$blue:    #158cba !default;
+$blue:    #137FAA; // #158cba !default; WCAG
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
-$red:     #ff4136 !default;
+$red:     #EB0C00; // #ff4136 !default; WCAG
 $orange:  #fd7e14 !default;
-$yellow:  #ff851b !default;
-$green:   #28b62c !default;
+$yellow:  #BD5800; // #ff851b !default; WCAG
+$green:   #1D8621; // #28b62c !default; WCAG
 $teal:    #20c997 !default;
-$cyan:    #75caeb !default;
+$cyan:    #187DA5; // #75caeb !default; WCAG
 
 $primary:       $blue !default;
 $secondary:     $gray-200 !default;
@@ -41,14 +41,29 @@ $dark:          $gray-700 !default;
 
 $min-contrast-ratio:   1.75 !default;
 
+// Links (added for Tiki)
+//
+// Style anchor elements.
+
+$link-color:                              #117197;
+
 // Fonts
 
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:      "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
+$text-muted:                  #707070 !important; // added for Tiki
+$blockquote-footer-color:     #707070 !important; // added for Tiki
+
 // Tables
 
 $table-bg-scale:              0 !default;
+
+// Form validation (added for Tiki)
+
+// scss-docs-start form-feedback-variables
+$form-feedback-valid-color:         #1d8720;
+$form-feedback-invalid-color:       #C20A00;
 
 // Buttons
 
@@ -56,7 +71,7 @@ $btn-font-weight:             700 !default;
 
 // Dropdowns
 
-$dropdown-link-color:         rgba(0, 0, 0, .5) !default;
+$dropdown-link-color:         #707070; // Changed for Tiki (WCAG)
 
 // Navs
 
@@ -64,6 +79,7 @@ $nav-tabs-border-color:             $gray-200 !default;
 $nav-tabs-link-hover-border-color:  $nav-tabs-border-color !default;
 $nav-tabs-link-active-color:        $gray-900 !default;
 $nav-tabs-link-active-border-color: $nav-tabs-border-color !default;
+$nav-link-disabled: #696969; // Changed for Tiki (WCAG)
 
 // Pagination
 
@@ -72,8 +88,14 @@ $pagination-bg:                     $gray-200 !default;
 $pagination-hover-color:            $pagination-color !default;
 $pagination-hover-bg:               $pagination-bg !default;
 $pagination-active-border-color:    darken($primary, 5%) !default;
-$pagination-disabled-color:         $gray-600 !default;
+$pagination-disabled-color:         #696969; // Changed for Tiki - WCAG
 $pagination-disabled-bg:            $pagination-bg !default;
+
+// Accordion (added for Tiki)
+$accordion-button-color: #106E93;
+
+// Figures (added for Tiki)
+$figure-caption-color:              #707070 !important;
 
 // Breadcrumbs
 
@@ -81,6 +103,7 @@ $breadcrumb-padding-y:              .375rem !default;
 $breadcrumb-padding-x:              .75rem !default;
 $breadcrumb-bg:                     $pagination-bg !default;
 $breadcrumb-border-radius:          .25rem !default;
+$breadcrumb-active-color: #696969; // Added for Tiki (WCAG)
 
 // Modals
 
