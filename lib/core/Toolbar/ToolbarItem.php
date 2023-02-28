@@ -57,7 +57,7 @@ abstract class ToolbarItem
     }
 
 
-    public static function getTag(string $tagName, bool $wysiwyg = false, bool $is_html = false, bool $is_markdown = false): ?ToolbarItem
+    public static function getTag(string $tagName, bool $wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = ''): ?ToolbarItem
     {
         global $section;
 
@@ -78,7 +78,7 @@ abstract class ToolbarItem
             return $tag;
         } elseif ($tag = ToolbarPicker::fromName($tagName)) {
             return $tag;
-        } elseif ($tag = ToolbarDialog::fromName($tagName)) {
+        } elseif ($tag = ToolbarDialog::fromName($tagName, $wysiwyg, $is_html, $is_markdown, $domElementId)) {
             return $tag;
         } elseif ($tagName == 'fullscreen') {
             return new ToolbarFullscreen();

@@ -28,6 +28,7 @@
                 {preference name=feature_wysiwyg}
                 {preference name=ajax_autosave}
                 {preference name=ajax_edit_previews}
+                {preference name=vuejs_toolbar_dialogs}
             </fieldset>
 
             <fieldset>
