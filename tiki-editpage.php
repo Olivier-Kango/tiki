@@ -169,11 +169,13 @@ if (strtolower($_REQUEST["page"]) == 'sandbox' && $prefs['feature_sandbox'] !== 
 
 $page = $_REQUEST["page"];
 
-$max_pagedescription_length = 201;
-if (mb_strlen($_REQUEST["description"]) > $max_pagedescription_length) {
-    $smarty->assign('msg', tra("The description of the page should not exceed 200 characters."));
-    $smarty->display("error.tpl");
-    die;
+if (isset($_REQUEST["description"])) {
+    $max_pagedescription_length = 201;
+    if (mb_strlen($_REQUEST["description"]) > $max_pagedescription_length) {
+        $smarty->assign('msg', tra("The description of the page should not exceed 200 characters."));
+        $smarty->display("error.tpl");
+        die;
+    }
 }
 
 // Copy namespace from structure parent page
