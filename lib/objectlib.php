@@ -431,7 +431,7 @@ class ObjectLib extends TikiLib
             case 'wiki page':
                 $tikilib = TikiLib::lib('tiki');
                 $info = $tikilib->get_page_info($object);
-                return ['title' => $object, 'data' => $info['data'], 'is_html' => $info['is_html']];
+                return ['title' => $object, 'data' => isset($info['data']) ? $info['data'] : "", 'is_html' => isset($info['is_html']) ? $info['is_html'] : ""];
 
             case 'article':
                 $artlib = TikiLib::lib('art');
