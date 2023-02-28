@@ -639,7 +639,7 @@ $headerlib->add_cssfile('themes/base_files/feature_css/calendar.css', 20);
 
 if ($prefs['feature_categories'] == 'y') {
     $cat_type = 'calendaritem';
-    $cat_objid = $_REQUEST['viewcalitemId'] ? $_REQUEST['viewcalitemId'] : ($_REQUEST['calitemId'] ? $_REQUEST['calitemId'] : 0);
+    $cat_objid = isset($_REQUEST['viewcalitemId']) ? $_REQUEST['viewcalitemId'] : (isset($_REQUEST['calitemId']) ? $_REQUEST['calitemId'] : 0);
     include_once("categorize_list.php");
     $cs = $categlib->get_object_categories('calendaritem', $cat_objid);
     if (! empty($cs)) {
