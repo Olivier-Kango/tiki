@@ -12,8 +12,8 @@ This is how we implement the Tiki Social Contract.
 http://tiki.org/Social+Contract
 
 List of members of the Community
-As of 2022-09-20, the community has:
-  * 628 members on SourceForge.net,
+As of 2023-03-01, the community has:
+  * 629 members on SourceForge.net,
   * Array of those people who made at least one code commit
 
 This list is automatically generated and alphabetically sorted
@@ -30,6 +30,11 @@ the list provides a general idea.
 Nickname: Adrien Maloba
 First Commit: Wed Jul 1 23:06:50 2020 +0200
 Last Commit: Wed Jul 1 23:06:50 2020 +0200
+Number of Commits: 1
+
+Nickname: Alvin Bauma
+First Commit: Wed Jan 18 17:53:55 2023 +0200
+Last Commit: Wed Jan 18 17:53:55 2023 +0200
 Number of Commits: 1
 
 Nickname: Domeshow
@@ -89,8 +94,8 @@ Number of Commits: 5
 
 Nickname: Marc Laporte
 First Commit: Thu Oct 15 00:03:20 2020 +0000
-Last Commit: Thu Oct 15 00:03:20 2020 +0000
-Number of Commits: 1
+Last Commit: Thu Jan 26 03:35:17 2023 +0000
+Number of Commits: 2
 
 Nickname: Medvedvvs
 First Commit: Mon Aug 26 14:07:01 2019 +0000
@@ -125,12 +130,17 @@ Number of Commits: 1
 Nickname: RobertPlummer
 First Commit: Tue Mar 20 18:24:02 2012 +0000
 Last Commit: Tue Jan 26 14:52:38 2016 +0000
-Number of Commits: 956
+Number of Commits: 944
 
 Nickname: Roberto Kirschbaum
 First Commit: Mon Feb 26 17:57:13 2018 +0000
-Last Commit: Tue Sep 20 17:34:43 2022 +0100
-Number of Commits: 29
+Last Commit: Wed Mar 1 14:38:37 2023 +0000
+Number of Commits: 36
+
+Nickname: Rodriguez Nyiringabo
+First Commit: Wed Jan 18 18:01:38 2023 +0200
+Last Commit: Thu Feb 2 00:10:29 2023 +0000
+Number of Commits: 2
 
 Nickname: Serge Kishiko
 First Commit: Wed Aug 7 22:50:20 2019 +0200
@@ -149,8 +159,8 @@ Number of Commits: 1
 
 Nickname: Victor Emanouilov
 First Commit: Fri Jan 25 10:17:56 2019 +0000
-Last Commit: Fri Jan 29 15:44:32 2021 +0200
-Number of Commits: 11
+Last Commit: Mon Feb 27 09:33:27 2023 +0200
+Number of Commits: 18
 
 Nickname: abbasmousavi
 SF Role: Developer
@@ -640,9 +650,6 @@ SF Role: Developer
 
 Nickname: dan-btown
 Name: Dan.BTown
-SF Role: Developer
-
-Nickname: daniam
 SF Role: Developer
 
 Nickname: darzee
@@ -1366,7 +1373,7 @@ Nickname: jonnybradley
 Name: jonny Bradley
 First Commit: 2007-08-15
 Last Commit: Mon Jun 25 15:54:32 2018 +0000
-Number of Commits: 5202
+Number of Commits: 5197
 SF Role: Admin
 
 Nickname: josefgc
@@ -2091,7 +2098,7 @@ Nickname: nkoth
 Name: Nelson
 First Commit: 2007-05-17
 Last Commit: Sat Nov 9 05:19:50 2019 +0000
-Number of Commits: 728
+Number of Commits: 726
 SF Role: Developer
 
 Nickname: normandaoust
@@ -2460,9 +2467,9 @@ SF Role: Developer
 Nickname: robertokir
 Name: Roberto Kirschbaum
 First Commit: 2017-06-27
-Last Commit: Tue Mar 10 09:54:36 2020 +0000
-Number of Commits: 162
-SF Role: Admin, Developer, Release Technicians
+Last Commit: Thu Feb 23 10:19:16 2023 +0000
+Number of Commits: 163
+SF Role: Admin, Developer
 
 Nickname: robertplummer
 Name: Robert Plummer
