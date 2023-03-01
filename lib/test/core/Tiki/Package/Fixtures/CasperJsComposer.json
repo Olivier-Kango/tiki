@@ -1,11 +1,14 @@
 {
-    "minimum-stability": "stable",
     "config": {
-        "process-timeout": 5000,
         "bin-dir": "bin",
         "component-dir": "vendor/components",
-        "prepend-autoloader": false
+        "platform": {
+            "php": "7.4.0"
+        },
+        "prepend-autoloader": false,
+        "process-timeout": 5000
     },
+    "minimum-stability": "stable",
     "repositories": [
         {
             "type": "composer",
