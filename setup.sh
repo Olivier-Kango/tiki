@@ -42,8 +42,9 @@ WHAT_NEXT_AFTER_f='x'
 
 # Composer: If you are installing via a released Tiki package (zip, tar.gz,
 # tar.bz2, 7z), you can and should skip using Composer. If you are installing and
-# upgrading via SVN or git, you need to run Composer after 'svn checkout' and 'svn
-# upgrade'. More info at https://doc.tiki.org/Composer
+# upgrading via GIT, you need to run Composer after 'git clone' and 'git pull'.
+# More info at https://doc.tiki.org/Composer
+
 if [ -d ".svn" ] || [ -d ".git" ]; then
     DEFAULT_WHAT='c'
 else
@@ -1082,14 +1083,15 @@ tiki_setup_default_menu() {
  Tiki setup.sh - your options
  ============================
 
-Composer: If you are installing via a released Tiki package (zip, tar.gz, tar.bz2, 7z), you can and should skip using Composer. If you are installing and upgrading via SVN, you need to run Composer after 'svn checkout' and 'svn upgrade'. More info at https://doc.tiki.org/Composer
+Composer: If you are installing via a released Tiki package (zip, tar.gz, tar.bz2, 7z), you can and should skip using Composer. If you are installing
+and upgrading via GIT, you need to run Composer after 'git clone' and 'git pull'. More info at https://doc.tiki.org/Composer
   
  c run composer (log output on screen, not all warnings) and exit (recommended to be done first)
  L run composer (log output to logfile) and exit (recommended to be done first)
  V run composer (verbose log output on screen) and exit (recommended to be done first)
  H make composer download packages over HTTP and return here
 
-For all Tiki instances (via SVN or via a released package):
+For all Tiki instances (via GIT or via a released package):
 
  f fix file & directory permissions (classic default)          o open file and directory permissions (classic option)
  S clear screen
