@@ -78,4 +78,11 @@ class Search_Index_AbstractIndexDecorator implements Search_Index_Interface
             return $this->parent;
         }
     }
+
+    public function setIndexer($indexer)
+    {
+        if (method_exists($this->parent, 'setIndexer')) {
+            $this->parent->setIndexer($indexer);
+        }
+    }
 }
