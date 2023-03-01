@@ -31,7 +31,7 @@ class ComposerCli
     ];
     public const PHP_MIN_VERSION = '7.4.0';
 
-    public const FALLBACK_COMPOSER_JSON = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components", "prepend-autoloader": false}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
+    public const FALLBACK_COMPOSER_JSON = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components", "prepend-autoloader": false, "platform": {"php":"' . self::PHP_MIN_VERSION . '"}}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
 
     /**
      * @var string path to the base folder from tiki
