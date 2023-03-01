@@ -236,11 +236,14 @@ class ToolbarDialog extends ToolbarItem
     public function setupJs(): void
     {
         global $toolbarDialogIndex;
+        global $prefs;
 
-        TikiLib::lib('header')->add_js_module('
-            import "@vue-mf/root-config";
-            import "@vue-mf/toolbar-dialogs";
-        ');
+        if ($prefs['vuejs_enable'] === 'y') {
+            TikiLib::lib('header')->add_js_module('
+                import "@vue-mf/root-config";
+                import "@vue-mf/toolbar-dialogs";
+            ');
+        }
 
         $data = get_object_vars($this);
         unset($data['list']);
