@@ -386,7 +386,9 @@ if ($prefs['feature_warn_on_edit'] === 'y') {
             $beingedited = 'y';
         } else {
             $serviceLib->internal('semaphore', 'unset', ['object_id' => $page]);
-            $serviceLib->internal('semaphore', 'unset', ['object_id' => 'togetherjs ' . $page]);
+            if ($serviceLib->internal('semaphore', 'is_set', ['object_id' => 'togetherjs ' . $page])) {
+                $serviceLib->internal('semaphore', 'unset', ['object_id' => 'togetherjs ' . $page]);
+            }
         }
     }
     if ($editpageconflict === 'y' && ! isset($_REQUEST["conflictoverride"])) {
