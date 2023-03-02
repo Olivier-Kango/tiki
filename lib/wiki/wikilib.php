@@ -1480,7 +1480,7 @@ class WikiLib extends TikiLib
         $parent_pages = [];
         $backlinks_info = $this->get_backlinks($child_page);
         foreach ($backlinks_info as $index => $backlink) {
-            $parent_pages[] = $backlink['fromPage'];
+            $parent_pages[] = $backlink['objectId'];
         }
         return $parent_pages;
     }
