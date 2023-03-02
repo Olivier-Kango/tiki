@@ -433,7 +433,7 @@ class UnifiedSearchLib
      * @return string    path to index directory
      * @throws Exception
      */
-    private function getIndexLocation($indexType = 'data', $engine = null)
+    public function getIndexLocation($indexType = 'data', $engine = null)
     {
         global $prefs, $tikidomain;
         $mapping = [
@@ -441,16 +441,19 @@ class UnifiedSearchLib
                 'data' => $prefs['unified_elastic_index_current'],
                 'preference' => $prefs['unified_elastic_index_prefix'] . 'pref_' . $prefs['language'],
                 'connect' => $prefs['unified_elastic_index_prefix'] . 'connect',
+                'ondemand' => $prefs['unified_elastic_index_prefix'] . 'ondemand',
             ],
             'mysql' => [
                 'data' => $prefs['unified_mysql_index_current'],
                 'preference' => 'index_' . 'pref_' . $prefs['language'],
                 'connect' => 'index_connect',
+                'ondemand' => 'index_ondemand',
             ],
             'manticore' => [
                 'data' => $prefs['unified_manticore_index_current'] ?? '',
                 'preference' => $prefs['unified_manticore_index_prefix'] . 'pref_' . str_replace('-', '_', $prefs['language']),
                 'connect' => $prefs['unified_manticore_index_prefix'] . 'connect',
+                'ondemand' => $prefs['unified_manticore_index_prefix'] . 'ondemand',
             ],
         ];
 
@@ -636,7 +639,7 @@ class UnifiedSearchLib
      * @param int $loggit 0=no logging, 1=log to Search_Indexer.log, 2=log to Search_Indexer_console.log
      * @return Search_Indexer
      */
-    private function buildIndexer($index, $loggit = 0)
+    public function buildIndexer($index, $loggit = 0)
     {
         global $prefs;
 
