@@ -80,6 +80,7 @@ class ConsoleApplicationBuilder
             'commands'  => [
                 new ConfigureCommand(),
                 new InstallerLockCommand(),
+                new InstallerUnlockCommand(),
                 new ScssCompileCommand(),
                 new EnglishUpdateCommand(),
                 new VCSUpdateCommand(),
