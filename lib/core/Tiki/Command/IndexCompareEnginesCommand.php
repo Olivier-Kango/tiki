@@ -30,14 +30,18 @@ class IndexCompareEnginesCommand extends Command
             ->setName('index:compare-engines')
             ->setDescription('Compare search engine results in wikiplugins')
             ->setHelp(
-                'Check unified search plugin results inside wiki pages by comparing Elasticsearch results with its MySQL fallback counterpart.
-Only plugins that use the unified search results are verified.'
+                'Check unified search plugin results inside wiki pages by comparing different search index results. Only plugins that use the unified search results are verified.'
             )
             ->addOption(
                 'page',
                 null,
                 InputOption::VALUE_REQUIRED,
                 'The page name to check',
+            )->addOption(
+                'engine',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Search engines to compare: specify exactly two engines, should be one of: elastic, mysql or manticore'
             )
             ->addOption(
                 'html',
@@ -57,11 +61,14 @@ Only plugins that use the unified search results are verified.'
     {
         global $prefs, $tikidomainslash;
 
+        $orig_prefs = $prefs;
+
         $io = new SymfonyStyle($input, $output);
 
-        if ($prefs['unified_engine'] != 'elastic' || $prefs['unified_elastic_mysql_search_fallback'] != 'y') {
+        $engines = $input->getOption('engine');
+        if (count($engines) != 2) {
             $io->error(
-                'To execute this script you need your unified search engine configured with Elasticsearch and MySQL fallback has to be enabled.'
+                'To execute this script you need to specify exactly two engines to compare.'
             );
             return 1;
         }
@@ -83,40 +90,68 @@ Only plugins that use the unified search results are verified.'
 
         $reindex = $input->getOption('reindex');
         $unifiedSearchLib = TikiLib::lib('unifiedsearch');
-        $elasticStatus = $unifiedSearchLib->checkElasticsearch();
 
-        if ($elasticStatus['error']) {
-            $io->error('Elasticsearch Error' . PHP_EOL . $elasticStatus['feedback']);
-            exit(1);
+        foreach ($engines as $engine) {
+            switch ($engine) {
+                case 'elastic':
+                    $prefs['unified_engine'] = 'elastic';
+                    $elasticStatus = $unifiedSearchLib->checkElasticsearch();
+                    if ($elasticStatus['error']) {
+                        $io->error('Elasticsearch Error' . PHP_EOL . $elasticStatus['feedback']);
+                        exit(1);
+                    }
+                    if (! $reindex && ! $unifiedSearchLib->getIndex()->exists()) {
+                        $io->error('Elasticsearch index not found. Use --reindex to rebuild the index.');
+                        exit(1);
+                    }
+                    break;
+                case 'mysql':
+                    $prefs['unified_engine'] = 'mysql';
+                    $mysqlStatus = $unifiedSearchLib->checkMySql();
+                    if ($mysqlStatus['error'] && ! $reindex) {
+                        $io->error($mysqlStatus['feedback']);
+                        exit(1);
+                    }
+                    break;
+                case 'manticore':
+                    $prefs['unified_engine'] = 'manticore';
+                    $manticoreStatus = $unifiedSearchLib->checkManticore();
+                    if ($manticoreStatus['error']) {
+                        $io->error('Manticore Error' . PHP_EOL . $manticoreStatus['feedback']);
+                        exit(1);
+                    }
+                    if (! $reindex && ! $unifiedSearchLib->getIndex()->exists()) {
+                        $io->error('Manticore index not found. Use --reindex to rebuild the index.');
+                        exit(1);
+                    }
+                    break;
+            }
         }
 
-        if (! $reindex && ! $unifiedSearchLib->getIndex()->exists()) {
-            $io->error('Elasticsearch index not found. Use --reindex to rebuild the index.');
-            exit(1);
-        }
+        $prefs = $orig_prefs;
 
-        $prefs['unified_engine'] = 'mysql'; // Check if mysql index table exists
-        $mysqlStatus = $unifiedSearchLib->checkMySql();
-
-        if ($mysqlStatus['error'] && ! $reindex) {
-            $io->error($mysqlStatus['feedback']);
-            exit(1);
-        }
-
-        $prefs['unified_engine'] = 'elastic'; // Restore original value
+        $indices = [];
 
         if ($input->getOption('reindex')) {
             $io->writeln('Rebuilding index, please wait...');
-            @TikiLib::lib('unifiedsearch')->rebuild();
+            foreach ($engines as $engine) {
+                $prefs['unified_engine'] = $engine;
+                $indices[$engine] = TikiLib::lib('unifiedsearch')->getIndexLocation('ondemand');
+                $index = TikiLib::lib('unifiedsearch')->getIndex('ondemand');
+                $indexer = TikiLib::lib('unifiedsearch')->buildIndexer($index);
+                $indexer->rebuild();
+                $index->endUpdate();
+                unset($indexer);
+                unset($index);
+            }
             $io->writeln('Index rebuild finished.');
             $io->newLine(2);
         }
 
+        $prefs = $orig_prefs;
+
         $parserLib = TikiLib::lib('parser');
         $differentOutputs = [];
-
-        // Disable fallback, in case of elastic failure does not use the mysql results
-        $prefs['unified_elastic_mysql_search_fallback'] = 'n';
 
         foreach ($pages as $page) {
             $plugins = \WikiParser_PluginMatcher::match($page['data']);
@@ -125,9 +160,7 @@ Only plugins that use the unified search results are verified.'
                 continue;
             }
 
-            for ($i = 0; $i < $plugins->count(); $i++) {
-                $plugin = $plugins->next();
-
+            foreach ($plugins as $plugin) {
                 $rawPlugin = strval($plugin);
 
                 if (! in_array($plugin->getName(), static::PLUGINS_TO_CHECK)) {
@@ -136,54 +169,68 @@ Only plugins that use the unified search results are verified.'
 
                 $pluginName = $plugin->getName();
 
-                \Search_Formatter_Factory::$counter = 0; // Reset counter index
-                $elasticOutput = @$parserLib->parse_data($rawPlugin);
-                TikiLib::lib('unifiedsearch')->invalidateIndicesCache();
+                $output = [];
+                foreach ($engines as $engine) {
+                    $prefs['unified_engine'] = $engine;
+                    if ($indices) {
+                        $prefs['unified_' . $engine . '_index_current'] = $indices[$engine];
+                    }
 
-                $prefs['unified_engine'] = 'mysql';
-                \Search_Formatter_Factory::$counter = 0; // Reset counter index (different engine)
-                $fallbackOutput = @$parserLib->parse_data($rawPlugin);
-                $prefs['unified_engine'] = 'elastic';
+                    \Search_Formatter_Factory::$counter = 0; // Reset counter index
+                    $output[$engine] = @$parserLib->parse_data($rawPlugin);
 
-                // Remove static $id usage to avoid differences used by pivottable plugin
-                if ($pluginName == 'pivottable') {
-                    $regex = '/pivottable.?\d+/';
-                    $elasticOutput = preg_replace($regex, 'pivottable', $elasticOutput);
-                    $fallbackOutput = preg_replace($regex, 'pivottable', $fallbackOutput);
+                    // Remove static $id usage to avoid differences used by pivottable plugin
+                    if ($pluginName == 'pivottable') {
+                        $regex = '/pivottable.?\d+/';
+                        $output[$engine] = preg_replace($regex, 'pivottable', $output[$engine]);
+                    }
+
+                    // Remove static $id usage to avoid differences used by listexecute plugin
+                    if ($pluginName == 'listexecute') {
+                        $regex = '/listexecute.?\d+/';
+                        $output[$engine] = preg_replace($regex, 'listexecute', $output[$engine]);
+
+                        $regex = '/listexecute-download-\d+/';
+                        $output[$engine] = preg_replace($regex, 'listexecute-download', $output[$engine]);
+
+                        $regex = '/objects\d+\[\]/';
+                        $output[$engine] = preg_replace($regex, 'objects[]', $output[$engine]);
+                    }
+
+                    // Remove static $id usage to avoid differences used by list plugin
+                    if ($pluginName == 'list') {
+                        $regex = '/list.?(\d+)/';
+
+                        $output[$engine] = preg_replace($regex, 'list', $output[$engine]);
+                    }
+
+                    // Remove currency output id/class names
+                    $regex = '/currency_output_[a-z0-9]+/';
+                    $output[$engine] = preg_replace($regex, 'currency_output', $output[$engine]);
+
+                    // Remove object selector ids
+                    $regex = '/object_selector(_multi)?_\d+/';
+                    $output[$engine] = preg_replace($regex, 'object_selector', $output[$engine]);
+
+                    // Remove list filter ids
+                    $regex = '/list_filter\d+/';
+                    $output[$engine] = preg_replace($regex, 'list_filter', $output[$engine]);
                 }
 
-                // Remove static $id usage to avoid differences used by listexecute plugin
-                if ($pluginName == 'listexecute') {
-                    $regex = '/listexecute.?\d+/';
-                    $elasticOutput = preg_replace($regex, 'listexecute', $elasticOutput);
-                    $fallbackOutput = preg_replace($regex, 'listexecute', $fallbackOutput);
-
-                    $regex = '/objects\d+\[\]/';
-                    $elasticOutput = preg_replace($regex, 'objects[]', $elasticOutput);
-                    $fallbackOutput = preg_replace($regex, 'objects[]', $fallbackOutput);
-                }
-
-                // Remove static $id usage to avoid differences used by list plugin
-                if ($pluginName == 'list') {
-                    $regex = '/list.?(\d+)/';
-
-                    $elasticOutput = preg_replace($regex, 'list', $elasticOutput);
-                    $fallbackOutput = preg_replace($regex, 'list', $fallbackOutput);
-                }
-
-                if ($elasticOutput !== $fallbackOutput) {
+                if ($output[$engines[0]] !== $output[$engines[1]]) {
                     $differentOutputs[] = [
                         'page'     => $page['pageName'],
                         'plugin'   => $rawPlugin,
-                        'elastic'  => $elasticOutput,
-                        'fallback' => $fallbackOutput,
+                        'output'   => $output,
                     ];
                 }
             }
         }
 
+        $prefs = $orig_prefs;
+
         if (empty($differentOutputs)) {
-            $io->writeln('Plugin outputs using Elasticsearch and the MySQL fallback are identical.');
+            $io->writeln('Plugin outputs using selected engines are identical.');
             return 0;
         }
 
@@ -196,7 +243,7 @@ Only plugins that use the unified search results are verified.'
             foreach ($differentOutputs as $output) {
                 $pageName = $output['page'];
                 $pluginCode = wikiplugin_code($output['plugin'], ['colors' => 'tiki'], null, []);
-                $diff = diff2($output['elastic'], $output['fallback']);
+                $diff = diff2($output['output'][$engines[0]], $output['output'][$engines[1]]);
                 $htmlOutput .= <<<HTML
 <table class='table table-striped' style='margin-top: 40px'>
     <tbody>
@@ -209,7 +256,7 @@ Only plugins that use the unified search results are verified.'
             <td>{$pluginCode}</td>
         </tr>
         <tr>
-            <td>Output diff (Elastic/MySQL)</td>
+            <td>Output diff ({$engines[0]}/{$engines[1]})</td>
             <td><table style='width:100%'>{$diff}</table></td>
         </tr>
     </tbody>
@@ -248,7 +295,7 @@ HTML;
             return 1;
         }
 
-        $builder = new UnifiedDiffOutputBuilder("--- Elastic\n+++ MySQL\n");
+        $builder = new UnifiedDiffOutputBuilder("--- {$engines[0]}\n+++ {$engines[1]}\n");
         $differ = new Differ($builder);
 
         foreach ($differentOutputs as $output) {
@@ -257,9 +304,17 @@ HTML;
             $io->writeln($output['plugin']);
             $io->newLine(2);
 
-            $diff = $differ->diff($output['elastic'], $output['fallback']);
+            $diff = $differ->diff($output['output'][$engines[0]], $output['output'][$engines[1]]);
             $io->writeln($diff);
         }
+
+        foreach ($indices as $engine => $index) {
+            $prefs['unified_engine'] = $engine;
+            $index = TikiLib::lib('unifiedsearch')->getIndex('ondemand');
+            $index->destroy();
+        }
+
+        $prefs = $orig_prefs;
 
         return 1;
     }
