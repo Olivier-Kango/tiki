@@ -859,7 +859,7 @@ if ($itemObject->canModify() && $prefs['tracker_legacy_insert'] == 'y' && $prefs
 // View
 $viewItemPretty = [
         'override' => false,
-        'value' => $tracker_info['viewItemPretty'],
+        'value' => isset($tracker_info['viewItemPretty']) ? $tracker_info['viewItemPretty'] : "",
         'type' => 'wiki'
 ];
 if (! empty($tracker_info['viewItemPretty'])) {
