@@ -877,7 +877,7 @@ $smarty->assign('viewItemPretty', $viewItemPretty);
 // Edit
 $editItemPretty = [
     'override' => false,
-    'value' => $tracker_info['editItemPretty'],
+    'value' => isset($tracker_info['editItemPretty']) ? $tracker_info['editItemPretty'] : '',
     'type' => 'wiki'
 ];
 if (! empty($tracker_info['editItemPretty'])) {
