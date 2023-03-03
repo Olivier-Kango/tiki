@@ -2095,7 +2095,9 @@ class TrackerLib extends TikiLib
                     'field' => $array,
                     'handler' => $handler,
                 ];
-                continue;
+                if (! method_exists($handler, 'handleSave')) {
+                    continue;
+                }
             }
 
             if (method_exists($handler, 'handleSave')) {
