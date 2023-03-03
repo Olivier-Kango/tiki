@@ -224,6 +224,8 @@ $(window).on("load", function(){
                 } else {
                     $footnote = $wikilib->get_footnote($user, $page);
                 }
+            } else {
+                $footnote = '';
             }
 
             return ['parsed' => $parsed, 'parsed_footnote' => $footnote];
