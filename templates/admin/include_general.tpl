@@ -13,9 +13,7 @@
             <br>
             <fieldset>
                 <legend>{tr}Release check{/tr}</legend>
-                {if $prefs.theme_unified_admin_backend neq 'y'}
-                    {include file='admin/version_check.tpl'}
-                {/if}
+                {include file='admin/version_check.tpl'}
             </fieldset>
             <fieldset>
                 <legend>{tr}Site identity{/tr}</legend>
