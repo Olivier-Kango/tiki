@@ -290,8 +290,8 @@ class JisonParser_Phraser
     public $EOF = 1;
     public $S = "";
     public $yy = "";
-    public $yylineno = "";
-    public $yyleng = "";
+    public $yylineno = 0;
+    public $yyleng = 0;
     public $yytext = "";
     public $match = "";
     public $matched = "";
