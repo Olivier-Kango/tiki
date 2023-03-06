@@ -503,7 +503,8 @@ if (! empty($filepath) and ! $content_changed) {
         $content = htmlspecialchars($content);
     }
     if (function_exists('mb_strlen')) {
-        header('Content-Length: ' . mb_strlen($content));
+        // use 8bit encoding which works for binary files as well (resized images end up here)
+        header('Content-Length: ' . mb_strlen($content, '8bit'));
     } else {
         header('Content-Length: ' . strlen($content));
     }
