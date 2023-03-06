@@ -458,12 +458,18 @@ if (! empty($filepath) and ! $content_changed) {
     $filesize = filesize($filepath);
     header("Accept-Ranges: bytes");
     if (empty($_SERVER['HTTP_RANGE'])) {
-        header('Content-Length: ' . $filesize);
         if (strpos($info['filetype'], 'text/') === false) {
+            header('Content-Length: ' . $filesize);
             readfile($filepath);
         } else {
             $content = file_get_contents($filepath);
-            echo htmlspecialchars($content);
+            $content = htmlspecialchars($content);
+            if (function_exists('mb_strlen')) {
+                header('Content-Length: ' . mb_strlen($content));
+            } else {
+                header('Content-Length: ' . strlen($content));
+            }
+            echo $content;
         }
     } else {
         // support media range requests here, e.g. bytes=524288-524288 bytes=0- or bytes=0-1 etc
@@ -493,14 +499,13 @@ if (! empty($filepath) and ! $content_changed) {
         }
     }
 } else {
+    if (strpos($info['filetype'], 'text/') !== false) {
+        $content = htmlspecialchars($content);
+    }
     if (function_exists('mb_strlen')) {
-        header('Content-Length: ' . mb_strlen($content, '8bit'));
+        header('Content-Length: ' . mb_strlen($content));
     } else {
         header('Content-Length: ' . strlen($content));
     }
-    if (strpos($info['filetype'], 'text/') === false) {
-        echo "$content";
-    } else {
-        echo htmlspecialchars($content);
-    }
+    echo "$content";
 }
