@@ -127,6 +127,9 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             if (($type['type'] == 'string' || $type['type'] == 'text') && ! isset($mapping[$field . '_nsort'])) {
                 $mapping[$field . '_nsort'] = ['type' => 'float'];
             }
+            if (($type['type'] == 'timestamp') && ! isset($mapping[$field . '_nsort'])) {
+                $mapping[$field . '_nsort'] = ['type' => 'timestamp'];
+            }
         }
 
         // create or update the index
