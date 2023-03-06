@@ -100,6 +100,9 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $data = $this->parse_data_wikilinks($data, false, $this->option['wysiwyg']);
         $data = $this->parse_data_externallinks($data, false);
 
+        // converter/parser expects UTF-8, try to cleanup invalid characters
+        $data = mb_convert_encoding($data, 'UTF-8', 'UTF-8');
+
         $data = $converter->convert($data)->getContent();
 
         // markdown permalinks conflict with header links in Tiki kept for backwards compatibility, thus remove the markdown ones
