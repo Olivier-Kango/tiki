@@ -432,6 +432,27 @@ class Installer extends TikiDb_Bridge implements SplSubject
     {
         return count(Patch::getPatches([Patch::NOT_APPLIED])) > 0;
     }
+
+    /**
+     * @return string[]
+     */
+    public function missingPatches()
+    {
+        $patchDir = "installer/schema/";
+        $patches = Patch::getPatches([Patch::NOT_APPLIED]);
+        $patchesFilesNames = [];
+        foreach ($patches as $key => $patch) {
+            if (file_exists($patchDir . $key . ".sql")) {
+                array_push($patchesFilesNames, $key . ".sql");
+            } elseif (file_exists($patchDir . $key . ".yml")) {
+                array_push($patchesFilesNames, $key . ".yml");
+            } else {
+                array_push($patchesFilesNames, $key . ".php");
+            }
+        }
+        return $patchesFilesNames;
+    }
+
     public function checkInstallerLocked()
     {
         $iniFile = __DIR__ . '/../db/lock';

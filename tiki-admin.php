@@ -461,6 +461,7 @@ $smarty->assign('vendor_autoload_disabled', $vendorAutoloadDisabled);
 include_once('installer/installlib.php');
 $installer = Installer::getInstance();
 $smarty->assign('db_requires_update', $installer->requiresUpdate());
+$smarty->assign('missing_patches', $installer->missingPatches());
 $smarty->assign('installer_not_locked', $installer->checkInstallerLocked());
 $smarty->assign('db_engine_type', getCurrentEngine());
 

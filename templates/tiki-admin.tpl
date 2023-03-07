@@ -29,6 +29,18 @@
                     {tr _0='<a class="alert-link" href="tiki-install.php">' _1="</a>"}Your database requires an update to match the current Tiki version. Please proceed to %0the installer%1. Using Tiki with an incorrect database version usually provokes errors{/tr}
                     {tr}If you have shell (SSH) access, you can also use the following, on the command line, from the root of your Tiki installation:{/tr}
                     <kbd>php console.php{if not empty($tikidomain)} --site={$tikidomain|replace:'/':''}{/if} database:update</kbd>
+                    <div class="h6 mt-3">
+                        <a class="collapse-toggle alert-link" data-bs-toggle="collapse" href="#missingpatches">
+                            {tr}List of missing DB patches{/tr} <span class="icon icon-caret-down fas fa-caret-down"></span>
+                        </a>
+                    </div>
+                    <div id="missingpatches" class="collapse">
+                        <ul>
+                            {foreach from=$missing_patches item=patch}
+                                <li>{$patch}</li>
+                            {/foreach}
+                        </ul>
+                    </div>
                 {/remarksbox}
             {/if}
 
