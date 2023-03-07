@@ -278,7 +278,6 @@
                 {preference name=home_blog}
                 {preference name=home_forum}
                 {preference name=home_file_gallery}
-                {preference name=home_gallery}
             </fieldset>
             <fieldset>
                 <legend>{tr}Redirects{/tr}</legend>
