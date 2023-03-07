@@ -62,8 +62,13 @@
                 {if $prefs.feature_backlinks eq 'y' and $backlinks|default:null and $tiki_p_view_backlink eq 'y'}
                     <div class="btn-group backlinks">
                         {if ! $js}<ul><li>{/if}
-                        <a href="#" role="button" data-bs-toggle="dropdown" data-hover="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr}Backlinks{/tr}">
+                        {if $backlinks|count eq 1}
+                        <a href="#" role="button" data-bs-toggle="dropdown" data-hover="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr}1 page is linked to this page{/tr}">
+                        {elseif $backlinks|count gt 1}
+                        <a href="#" role="button" data-bs-toggle="dropdown" data-hover="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr _0=$backlinks|count}%0 pages are linked to this page{/tr}">
+                        {/if}
                             {icon name="backlink"}
+                            <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill bg-secondary">{$backlinks|count}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" role="menu">
                             <h6 class="dropdown-header">
