@@ -450,15 +450,17 @@ $file = basename($info['filename']);
 // If the content has not changed, ask the browser to download it (instead of displaying it)
 if ((! $content_changed and ! isset($_GET['display'])) || isset($_GET['pdf'])) {
     header("Content-Disposition: attachment; filename=\"$file\"");
+    $downloading  = true;
 } else {
     header("Content-Disposition: filename=\"$file\"");
+    $downloading  = false;
 }
 
 if (! empty($filepath) and ! $content_changed) {
     $filesize = filesize($filepath);
     header("Accept-Ranges: bytes");
     if (empty($_SERVER['HTTP_RANGE'])) {
-        if (strpos($info['filetype'], 'text/') === false) {
+        if (strpos($info['filetype'], 'text/') === false || $downloading) {
             header('Content-Length: ' . $filesize);
             readfile($filepath);
         } else {
@@ -499,7 +501,7 @@ if (! empty($filepath) and ! $content_changed) {
         }
     }
 } else {
-    if (strpos($info['filetype'], 'text/') !== false) {
+    if (strpos($info['filetype'], 'text/') !== false && ! $downloading) {
         $content = htmlspecialchars($content);
     }
     if (function_exists('mb_strlen')) {
