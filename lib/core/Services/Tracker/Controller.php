@@ -501,6 +501,16 @@ class Services_Tracker_Controller
             $validation_types['remotelock'] = tr('Remote Lock');
         }
 
+        $fields = $definition->getFields();
+        if ($definition->getConfiguration('showStatus') === 'y') {
+            $fields[] = [
+                'type' => 'status',
+                'fieldId' => 'status',
+                'name' => tr('Item Status'),
+                'rules' => null,
+            ];
+        }
+
         return [
             'title' => tr('Edit') . " " . tr('%0', $field['name']),
             'field' => $field,
@@ -509,7 +519,7 @@ class Services_Tracker_Controller
             'validation_types' => $validation_types,
             'types' => $types,
             'permNameMaxAllowedSize' => Tracker_Item::PERM_NAME_MAX_ALLOWED_SIZE,
-            'fields' => $definition->getFields(),
+            'fields' => $fields,
             'encryption_keys' => $encryption_keys,
         ];
     }
