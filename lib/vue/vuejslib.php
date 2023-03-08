@@ -175,7 +175,7 @@ observeVueApp(vm);
         return $appHtml;
     }
 
-    public function generateTrackerRulesJS($fields, $parentSelector = '.form-group:first')
+    public function generateTrackerRulesJS($fields, $parentSelector = '.tracker-field-group:first')
     {
 
         $js = '';
@@ -319,11 +319,18 @@ observeVueApp(vm);
             case 'q':    // auto increment (not used client-side)
                 $field = [];
                 return;
+            case 'status':    // item status
+                $field['argumentType'] = 'Status';
+                break;
             default:
                 $field['argumentType'] = 'Text';
                 break;
         }
-        $field['ins_id'] = $insPrefix . $field['fieldId'];
+        if ($field['type'] !== 'status') {
+            $field['ins_id'] = $insPrefix . $field['fieldId'];
+        } else {
+            $field['ins_id'] = $field['fieldId'];   // it's just status
+        }
 
         if (
             $field['type'] === 'r' && $field['options_map']['selectMultipleValues']    // ItemLink
