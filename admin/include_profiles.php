@@ -224,7 +224,7 @@ if (isset($_GET['getinfo'], $_GET['pd'], $_GET['pp'])) {
         }
         $parsed = $parserlib->parse_data($profile->pageContent);
         $installed = $installer->isInstalled($profile);
-        $url = $profile->url;
+        $url = $profile->pageUrl;
         $feedback = $profile->getFeedback();
     }
     echo json_encode(
