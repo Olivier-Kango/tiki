@@ -466,8 +466,10 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
                         return '#invalid';
                     } else {
                         $first = reset($categories);
-                        if (isset($sourceCategories[$first])) {
+                        if ($first && isset($sourceCategories[$first])) {
                             return $sourceCategories[$first]['name'];
+                        } else {
+                            return '';
                         }
                     }
                 })
