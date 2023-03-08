@@ -758,16 +758,18 @@ class CalendarLib extends TikiLib
             $this->update_item_categories($calitemId, $_REQUEST['cat_managed'], $_REQUEST['cat_categories'], $data['name'], $data['description']);
         }
 
-        foreach ($roles as $role) {
-            if (empty($role['partstat'])) {
-                foreach ($existing_roles as $erole) {
-                    if ($role['username'] == $erole['username']) {
-                        $role['partstat'] = $erole['partstat'];
+        if ($roles !== null) {
+            foreach ($roles as $role) {
+                if (empty($role['partstat'])) {
+                    foreach ($existing_roles as $erole) {
+                        if ($role['username'] == $erole['username']) {
+                            $role['partstat'] = $erole['partstat'];
+                        }
                     }
                 }
+                $query = "insert into `tiki_calendar_roles` (`calitemId`,`username`,`role`,`partstat`) values (?,?,?,?)";
+                $this->query($query, [(int)$calitemId, $role['username'], $role['role'] ?? 0, $role['partstat'] ?? null]);
             }
-            $query = "insert into `tiki_calendar_roles` (`calitemId`,`username`,`role`,`partstat`) values (?,?,?,?)";
-            $this->query($query, [(int)$calitemId, $role['username'], $role['role'] ?? 0, $role['partstat'] ?? null]);
         }
 
         if ($prefs['feature_user_watches'] == 'y') {
