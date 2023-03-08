@@ -140,7 +140,7 @@ class Rules
      * @param       $predicate
      * @param array $conditions
      *
-     * @return array
+     * @return string
      */
     private function getPredicateSyntax($predicate, $parentClass)
     {
