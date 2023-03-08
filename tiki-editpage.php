@@ -212,7 +212,7 @@ if ($editlib->isNewTranslationMode() || $editlib->isUpdateTranslationMode()) {
 $editlib->make_sure_page_to_be_created_is_not_an_alias($page, $info);
 guess_new_page_attributes_from_parent_pages($page, $info);
 
-if ($translation_mode === 'n' && translationsToThisPageAreInProgress($info['page_id'])) {
+if ($translation_mode === 'n' && isset($info['page_id']) ? translationsToThisPageAreInProgress($info['page_id']) : false) {
     $smarty->assign('prompt_for_edit_or_translate', 'y');
     include_once('modules/mod-func-translation.php');
     execute_module_translation();
@@ -628,7 +628,7 @@ if (isset($_REQUEST["parsehtml"])) {
     $parsehtml = $_REQUEST["parsehtml"] === 'on' ? 'y' : 'n';
 } else {
     // FIXME: If the user hasn't checked, we attempt to unparse anyway if ! is_html. Better not display the checkbox than ignoring its value
-    $parsehtml = $info['is_html'] ? 'n' : 'y';
+    $parsehtml = isset($info['is_html']) ? ($info['is_html'] ? 'n' : 'y') : 'n';
 }
 $smarty->assign('parsehtml', $parsehtml);
 
@@ -677,7 +677,7 @@ if (isset($info['wiki_cache'])) {
     $smarty->assign('wiki_cache', $prefs['wiki_cache']);
 }
 
-if ($info["flag"] === 'L' && ! $wikilib->is_editable($page, $user, $info)) {
+if (isset($info["flag"]) ? $info["flag"] === 'L' : false && ! $wikilib->is_editable($page, $user, $info)) {
     $smarty->assign('msg', tra("The page cannot be edited because it is locked"));
     $smarty->display("error.tpl");
     die;
@@ -996,7 +996,9 @@ if (! isset($_REQUEST['preview']) && ! isset($_REQUEST['save'])) {
             );
         }
     }
-    $tikilib->check_duplicate_alias($edit_data, $info['pageName']);
+    if (isset($info['pageName'])) {
+        $tikilib->check_duplicate_alias($edit_data, $info['pageName']);
+    }
 }
 
 if (empty($parsed)) {
@@ -1310,19 +1312,21 @@ if (
             $relationlib = TikiLib::lib('relation');
             $attributelib = TikiLib::lib('attribute');
 
-            // We erase the preexisting relation either because there are no more maintainers,
-            // or because there are maintainers and we want to make sure old maintainers that have been replaced get removed
-            $relationlib -> remove_relations_from('wiki page', $info['pageName'], 'tiki.object.maintainer');
+            if (isset($info['pageName'])) {
+                // We erase the preexisting relation either because there are no more maintainers,
+                // or because there are maintainers and we want to make sure old maintainers that have been replaced get removed
+                $relationlib -> remove_relations_from('wiki page', $info['pageName'], 'tiki.object.maintainer');
 
-            if (! empty($_REQUEST["maintainers"])) {
-                $maintainers = explode(';', $_REQUEST["maintainers"]);
-                TikiLib::lib('object') -> set_maintainers($info['pageName'], $maintainers, 'wiki page');
-            }
+                if (! empty($_REQUEST["maintainers"])) {
+                    $maintainers = explode(';', $_REQUEST["maintainers"]);
+                    TikiLib::lib('object') -> set_maintainers($info['pageName'], $maintainers, 'wiki page');
+                }
 
-            if (! empty($_REQUEST["update_frequency"]) && $_REQUEST["update_frequency"] > 0) {
-                $attributelib -> set_attribute('wiki page', $info['pageName'], 'tiki.object.update_frequency', $_REQUEST["update_frequency"]);
-            } else { // Erase potentially preexisting update frequency
-                $attributelib -> set_attribute('wiki page', $info['pageName'], 'tiki.object.update_frequency', ''); // param $value === '' means delete
+                if (! empty($_REQUEST["update_frequency"]) && $_REQUEST["update_frequency"] > 0) {
+                    $attributelib -> set_attribute('wiki page', $info['pageName'], 'tiki.object.update_frequency', $_REQUEST["update_frequency"]);
+                } else { // Erase potentially preexisting update frequency
+                    $attributelib -> set_attribute('wiki page', $info['pageName'], 'tiki.object.update_frequency', ''); // param $value === '' means delete
+                }
             }
         }
 
@@ -1594,18 +1598,21 @@ if ($prefs['feature_categories'] === 'y') {
 }
 
 if ($prefs['object_maintainers_enable'] === 'y') {
-    $object_maintainers = TikiLib::lib('relation')->get_relations_from('wiki page', $info['pageName'], 'tiki.object.maintainer');
-    if (! empty($object_maintainers)) {
-        $maintainers = [];
-        foreach ($object_maintainers as $object_maintainer) {
-            $maintainers[] = $object_maintainer['itemId'];
+    if (isset($info['pageName'])) {
+        $object_maintainers = TikiLib::lib('relation')->get_relations_from('wiki page', $info['pageName'], 'tiki.object.maintainer');
+        if (! empty($object_maintainers)) {
+            $maintainers = [];
+            foreach ($object_maintainers as $object_maintainer) {
+                $maintainers[] = $object_maintainer['itemId'];
+            }
+            $smarty->assign('object_maintainers', implode(';', $maintainers));
         }
-        $smarty->assign('object_maintainers', implode(';', $maintainers));
-    }
-
-    $update_frequency = TikiLib::lib('attribute')->get_attribute('wiki page', $info['pageName'], 'tiki.object.update_frequency');
-    if (! empty($update_frequency)) {
-        $smarty->assign('update_frequency', $update_frequency);
+        $update_frequency = TikiLib::lib('attribute')->get_attribute('wiki page', $info['pageName'], 'tiki.object.update_frequency');
+        if (! empty($update_frequency)) {
+            $smarty->assign('update_frequency', $update_frequency);
+        } else {
+            $smarty->assign('update_frequency', $prefs['object_maintainers_default_update_frequency']);
+        }
     } else {
         $smarty->assign('update_frequency', $prefs['object_maintainers_default_update_frequency']);
     }
@@ -1646,7 +1653,7 @@ if (! empty($prefs['geo_locate_wiki']) && $prefs['geo_locate_wiki'] == 'y') {
     $smarty->assign('geolocation_string', TikiLib::lib('geo')->get_coordinates_string('wiki page', $page));
 }
 
-if ($prefs['feature_multilingual'] === 'y') {
+if ($prefs['feature_multilingual'] === 'y' && $tikilib->page_exists($page)) {
     $multilinguallib = TikiLib::lib('multilingual');
     $trads = $multilinguallib->getTranslations('wiki page', $info['page_id'], $page, $info['lang']);
     $smarty->assign('trads', $trads);
@@ -1693,7 +1700,7 @@ $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 $smarty->assign('showtags', 'n');
 $smarty->assign('qtnum', '1');
 $smarty->assign('qtcycle', '');
-$smarty->assign('outputType', $info['outputType']);
+$smarty->assign('outputType', (isset($info['outputType'])) ? $info['outputType'] : '');
 
 possibly_set_pagedata_to_pretranslation_of_source_page();
 
