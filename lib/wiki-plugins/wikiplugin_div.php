@@ -34,6 +34,7 @@ function wikiplugin_div_info()
                     ['text' => tra('None'), 'value' => ''],
                     ['text' => tra('Div'), 'value' => 'div'],
                     ['text' => tra('Span'), 'value' => 'span'],
+                    ['text' => tra('Section'), 'value' => 'section'],
                     ['text' => tra('Pre'), 'value' => 'pre'],
                     ['text' => tra('Bold'), 'value' => 'b'],
                     ['text' => tra('Italic'), 'value' => 'i'],
@@ -202,7 +203,7 @@ function wikiplugin_div($content, $params)
     $style = '';
     extract($params);
 
-    $possibletypes = ['div','span','pre','b','i','tt','p','blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+    $possibletypes = ['div','span','section','pre','b','i','tt','p','blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     $t    = (isset($type) and in_array($type, $possibletypes)) ? "$type" : "div";
     $c    = (isset($class)) ? " class='$class'" : "";
     $id   = (isset($id)) ? " id='$id'" : "";
