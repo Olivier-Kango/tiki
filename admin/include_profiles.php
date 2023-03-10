@@ -310,7 +310,7 @@ $smarty->assign('modules_for_export', $assigned_modules_for_export);
 $pagesToExport = $tikilib->get_all_pages(['page_id', 'pageName']);
 $smarty->assign('pages_for_export', $pagesToExport);
 
-if ($tiki_p_admin_trackers == 'y') {
+if (isset($prefs['feature_trackers']) && $prefs['feature_trackers'] == 'y' && $tiki_p_admin_trackers == 'y') {
     $trackersToExport = TikiLib::lib('trk')->list_trackers();
     $smarty->assign('trackers_for_export', $trackersToExport['data']);
 }
