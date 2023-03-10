@@ -1572,7 +1572,9 @@ class Services_Tracker_Controller
             $permName = isset($field['permName']) ? $field['permName'] : null;
             if (isset($fieldsProcessed[$permName])) {
                 $field['value'] = $fieldsProcessed[$permName]['value'];
-                $field['pvalue'] = $fieldsProcessed[$permName]['pvalue'];
+                if (isset($field['pvalue'])) {
+                    $field['pvalue'] = $fieldsProcessed[$permName]['pvalue'];
+                }
                 if (isset($fieldsProcessed[$permName]['relations'])) {
                     $field['relations'] = $fieldsProcessed[$permName]['relations'];
                 }
