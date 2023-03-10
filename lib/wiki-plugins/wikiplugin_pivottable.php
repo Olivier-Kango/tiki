@@ -44,7 +44,7 @@ function wikiplugin_pivottable_info()
             'width' => [
                 'required' => false,
                 'name' => tra('Width'),
-                'description' => tr('Width of pivot table. Units: % or px.'),
+                'description' => tr('Width of charts. You have to only put the value (Unit: px). For instance, use <code>500</code> for 500 pixels.'),
                 'since' => '',
                 'filter' => 'word',
                 'default' => '100%',
@@ -52,7 +52,7 @@ function wikiplugin_pivottable_info()
             'height' => [
                 'required' => false,
                 'name' => tra('Height'),
-                'description' => tr('Height of pivot table. Units: px'),
+                'description' => tr('Height of charts. You have to only put the value (Unit: px). For instance, use <code>500</code> for 500 pixels.'),
                 'since' => '',
                 'filter' => 'word',
                 'default' => '400px',

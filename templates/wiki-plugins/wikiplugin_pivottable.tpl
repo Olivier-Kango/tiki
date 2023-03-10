@@ -26,6 +26,12 @@
                     all: "{tr}All{/tr}",
                     mine: "{tr}Mine{/tr}",
                 },
+                c3: {
+                    size: {
+                        width: {{$pivottable.width|json_encode}},
+                        height: {{$pivottable.height|json_encode}}
+                    }
+                },
                 xAxisLabel: {{$pivottable.xAxisLabel|json_encode}},
                 yAxisLabel: {{$pivottable.yAxisLabel|json_encode}},
                 chartTitle: {{$pivottable.chartTitle|json_encode}},
@@ -35,8 +41,6 @@
             cols: {{$pivottable.tcolumns|json_encode}}, rows: {{$pivottable.trows|json_encode}},
             rendererName: {{$pivottable.rendererName|json_encode}},
             dataClass: $.pivotUtilities.SubtotalPivotData,
-            width: {{$pivottable.width|json_encode}},
-            height: {{$pivottable.height|json_encode}},
             aggregatorName: pivotLocale && pivotLocale.aggregators[{{$pivottable.aggregatorName|json_encode}}] ? {{$pivottable.aggregatorName|json_encode}} : null,
             vals: {{$pivottable.vals|json_encode}},
             inclusions: {{$pivottable.inclusions}},
