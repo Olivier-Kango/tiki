@@ -24,7 +24,7 @@ class Search_Manticore_Prefilter
                 }
                 // MVA is an array of ints - crc32 values should be re-fetched from db when displaying
                 if (is_array($entry[$field])) {
-                    $ints = array_filter($entry[$field], function($elem) {
+                    $ints = array_filter($entry[$field], function ($elem) {
                         return is_numeric($elem) && (string)intval($elem) == $elem;
                     });
                     if (count($ints) == count($entry[$field])) {
