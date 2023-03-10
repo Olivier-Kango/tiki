@@ -69,6 +69,11 @@
                 {include file='tiki-edit-page-included_by.tpl'}
                 {/remarksbox}
         {/if}
+    {if $recursive_include eq 'y'}
+        {remarksbox type='warning' title="{tr}Warning{/tr}"}
+            {tr}You can not include a page within itself{/tr}
+        {/remarksbox}
+    {/if}
     {if $category_needed eq 'y'}
         {remarksbox type='Warning' title="{tr}Warning{/tr}"}
             <div class="alert alert-warning alert-dismissible"><em class=''>{tr}A category is mandatory{/tr}</em></div>

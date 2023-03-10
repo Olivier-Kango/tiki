@@ -22052,6 +22052,7 @@ $lang_current = array(
 "Fix double encoding issues" => "Résoudre les problèmes de double encodage",
 "Previous table encoding:" => "Encodage précédent de la table",
 "Fix double encoding issues (Make sure to have a backup, and test thoroughly after this operation)" => "Résoudre les problèmes de double encodage (assurez-vous d'avoir une sauvegarde et testez soigneusement après cette opération)",
+"You can not include a page within itself" => "Vous ne pouvez pas inclure une page en elle-même",
 "You are using a correct database encoding and allowed legacy collation as required to complete the installation." => "Vous utilisez un encodage correct de la base de données et votre 'legacy collation' convient pour terminer l'installation.",
 );
 $lang = array_replace($lang, $lang_current);

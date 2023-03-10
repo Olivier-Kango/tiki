@@ -189,6 +189,12 @@ function wikiplugin_include($dataIn, $params)
 
     $returnto = ! empty($GLOBALS['page']) ? $GLOBALS['page'] : $_SERVER['REQUEST_URI'];
 
+    if ($returnto == $page) {
+        Feedback::warning(tr('You can not include a page within itself'));
+        trigger_error(tr('You can not include a page within itself (page = "%0")', $page), E_USER_WARNING);
+        return '';
+    }
+
     // This variable is for accessing included page name within plugins in that page
     global $wikiplugin_included_page;
     $wikiplugin_included_page = $page;

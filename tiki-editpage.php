@@ -407,6 +407,11 @@ if (sizeof($included_by) > 0) {
     $smarty->assign_by_ref('included_by', $included_by);
 }
 
+$recursive_include = in_array($page, array_column($included_by, 'itemId'));
+if ($recursive_include) {
+    $smarty->assign('recursive_include', 'y');
+}
+
 $category_needed = false;
 $contribution_needed = false;
 if (isset($_REQUEST['lock_it']) && $_REQUEST['lock_it'] === 'on') {
