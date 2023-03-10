@@ -105,7 +105,7 @@ class Services_Tracker_SyncController
             }
 
             $handler = $factory->getHandler($info);
-            if (! $handler instanceof Tracker_Field_Synchronizable) {
+            if (! $handler instanceof \Tracker\Field\SynchronizableInterface) {
                 continue;
             }
 
@@ -261,7 +261,7 @@ class Services_Tracker_SyncController
         $factory = $definition->getFieldFactory();
         foreach ($data as $info) {
             $handler = $factory->getHandler($info);
-            if ($handler instanceof Tracker_Field_Synchronizable) {
+            if ($handler instanceof \Tracker\Field\SynchronizableInterface) {
                 $importable = $handler->importRemoteField($info, $syncInfo);
                 $this->utilities->importField($trackerId, new JitFilter($importable), false);
             }

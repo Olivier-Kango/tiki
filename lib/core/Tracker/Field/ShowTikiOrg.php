@@ -9,7 +9,7 @@
 use phpseclib\Crypt\RSA;
 use phpseclib\Net\SSH2;
 
-class Tracker_Field_ShowTikiOrg extends Tracker_Field_Abstract
+class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractField
 {
     public static function getTypes()
     {

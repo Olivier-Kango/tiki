@@ -12,7 +12,7 @@
  * Letter key: ~p~
  *
  */
-class Tracker_Field_UserPreference extends Tracker_Field_Abstract
+class Tracker_Field_UserPreference extends \Tracker\Field\AbstractField
 {
     public static function getTypes()
     {

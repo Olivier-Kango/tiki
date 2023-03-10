@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Tracker_Field_Icon extends Tracker_Field_Abstract
+class Tracker_Field_Icon extends \Tracker\Field\AbstractField
 {
     public static function getTypes()
     {

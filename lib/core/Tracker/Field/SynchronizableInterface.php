@@ -5,13 +5,13 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
+namespace Tracker\Field;
 
-interface Tracker_Field_Filterable
+interface SynchronizableInterface extends FieldInterface
 {
-    public function getFilterCollection();
+    public function importRemote($value);
 
-    /**
-     * Defined in abstract, but needed when using remote indexing.
-     */
-    public function setBaseKeyPrefix($prefix);
+    public function exportRemote($value);
+
+    public function importRemoteField(array $info, array $syncInfo);
 }

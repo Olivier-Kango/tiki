@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Tracker_Field_Language extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable
+class Tracker_Field_Language extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
 {
     const OPT_AUTOASSIGN = 0;
 

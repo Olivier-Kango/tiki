@@ -399,7 +399,7 @@ class Schema
 
         $handler = $factory->getHandler($field);
 
-        if (! $handler instanceof \Tracker_Field_Exportable) {
+        if (! $handler instanceof \Tracker\Field\ExportableInterface) {
             throw new Exception\ModeNotSupported($permName, 'any mode');
         }
 

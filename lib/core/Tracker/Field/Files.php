@@ -9,7 +9,7 @@
 use Tiki\File\PDFHelper;
 use Tiki\Package\ComposerManager;
 
-class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Field_Exportable
+class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface
 {
     public static function getTypes()
     {

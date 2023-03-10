@@ -12,7 +12,7 @@
  * Letter key: ~usergroups~
  *
  */
-class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker_Field_Filterable
+class Tracker_Field_UserGroups extends \Tracker\Field\AbstractField implements \Tracker\Field\FilterableInterface
 {
     public static function getTypes()
     {

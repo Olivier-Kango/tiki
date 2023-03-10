@@ -207,7 +207,7 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
 
     public static function getIndexableHandlers($definition, $item = [])
     {
-        return self::getHandlersMatching('Tracker_Field_Indexable', $definition, $item);
+        return self::getHandlersMatching('\Tracker\Field\IndexableInterface', $definition, $item);
     }
 
     private static function getHandlersMatching($interface, $definition, $item)

@@ -12,7 +12,7 @@
  * Letter key: ~G~
  *
  */
-class Tracker_Field_Location extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Exportable
+class Tracker_Field_Location extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface
 {
     public static function getTypes()
     {

@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Tracker_Field_Relation extends Tracker_Field_Abstract implements Tracker_Field_Exportable, Tracker_Field_Filterable
+class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     const OPT_RELATION = 'relation';
     const OPT_FILTER = 'filter';

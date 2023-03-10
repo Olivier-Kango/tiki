@@ -5472,7 +5472,7 @@ class TrackerLib extends TikiLib
      * );
      * </pre
      * @param array $item - array('itemId1' => value1, 'itemid2' => value2)
-     * @return Tracker_Field_Abstract $tracker_field_handler - i.e. Tracker_Field_Text
+     * @return \Tracker\Field\AbstractField $tracker_field_handler - i.e. Tracker_Field_Text
      */
     public function get_field_handler($field, $item = [])
     {
@@ -6293,8 +6293,8 @@ class TrackerLib extends TikiLib
      *        'item' => array('fieldId1' => fieldValue1, 'fieldId2' => fieldValue2) // optional
      *        'itemId' = 5                  // itemId
      *        'process' => 'y'              // renders the value using the correct field handler
-     *        'oldValue' => ''              // renders the new and old values using \Tracker_Field_Abstract::renderDiff
-     *        'list_mode' => ''             // i.e. 'y', 'cvs' or 'text' will be used in \Tracker_Field_Abstract::renderOutput
+     *        'oldValue' => ''              // renders the new and old values using \Tracker\Field\AbstractField::renderDiff
+     *        'list_mode' => ''             // i.e. 'y', 'cvs' or 'text' will be used in \Tracker\Field\AbstractField::renderOutput
      *        'smarty_assign' => 'y'        // set to n to not assign the value to the $f_fieldId smarty value for pretty trackers
      * )
      * </pre>

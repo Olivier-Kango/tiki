@@ -5,8 +5,9 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
+namespace Tracker\Field;
 
-interface Tracker_Field_Interface
+interface FieldInterface
 {
     public static function getTypes();
 
@@ -46,10 +47,6 @@ interface Tracker_Field_Interface
      */
     public function watchCompare($old, $new);
 
-    //function handleSave($value, $oldValue);
-
-    //function isValid($ins_fields_data);
-
     /**
      * Augmentable fields allow adding a value to the set of pre-existing values.
      */
@@ -59,4 +56,39 @@ interface Tracker_Field_Interface
      * Augmentable fields allow removing a value from the set of pre-existing values.
      */
     public function removeValue($value);
+
+    // The following methods are commented out, because trackerlib,php calls method_exists() on them
+    // This is confusing in IDEs, and should probably be replaced with a different pattern.
+
+    /**
+     * Called by trackerlib with final value saved
+     */
+    /*
+    public function postSaveHook($value)
+    {
+        return;
+    }
+    */
+    /**
+     * Computes the final value to be saved by the field, otherwise the implementation in trakckerlib is used
+     * @returns Final value to be saved
+     */
+    /*
+    public function handleSave($value, $old_value) {
+
+    }
+    */
+    /**
+     * handleFinalSave is use to compute final value when it depends on the value of other fields.
+     * It will be called after all other fields are saved, and  will get as parameter all other field data (other than ones that also use handleFinalSave).
+     * @returns Final value to be saved */
+    /*
+    public function handleFinalSave($data)    {
+        return;
+    }
+    */
+    /**
+     * @returns true if the field value is valid, the error message to display otherwise
+     */
+    //function isValid($ins_fields_data);
 }

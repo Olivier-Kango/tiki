@@ -13,7 +13,7 @@
  * Possibly doesn't need "non-simple" handling apart from defaultvalue?
  *
  */
-class Tracker_Field_PageSelector extends Tracker_Field_Abstract
+class Tracker_Field_PageSelector extends \Tracker\Field\AbstractField
 {
     public static function getTypes()
     {

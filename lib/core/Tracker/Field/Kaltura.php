@@ -12,7 +12,7 @@
  * Letter key: ~kaltura~
  *
  */
-class Tracker_Field_Kaltura extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable
+class Tracker_Field_Kaltura extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
 {
     public static function getTypes()
     {

@@ -12,7 +12,7 @@
  * Letter key: ~W~
  *
  */
-class Tracker_Field_WebService extends Tracker_Field_Abstract
+class Tracker_Field_WebService extends \Tracker\Field\AbstractField
 {
     public static function getTypes()
     {

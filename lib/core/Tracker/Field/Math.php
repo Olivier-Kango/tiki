@@ -12,7 +12,7 @@
  * Letter key: ~GF~
  *
  */
-class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Indexable, Tracker_Field_Exportable, Tracker_Field_Filterable
+class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\IndexableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     private static $runner;
 
@@ -127,7 +127,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
         $handler = $this->getMirroredHandler();
         $out = [];
 
-        if ($handler && $handler instanceof Tracker_Field_Indexable) {
+        if ($handler && $handler instanceof \Tracker\Field\IndexableInterface) {
             $out = $handler->getDocumentPart($typeFactory);
         } else {
             $baseKey = $this->getBaseKey();
@@ -140,7 +140,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
     public function getProvidedFields()
     {
         $handler = $this->getMirroredHandler();
-        if ($handler && $handler instanceof Tracker_Field_Indexable) {
+        if ($handler && $handler instanceof \Tracker\Field\IndexableInterface) {
             return $handler->getProvidedFields();
         } else {
             $baseKey = $this->getBaseKey();
@@ -151,7 +151,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
     public function getProvidedFieldTypes()
     {
         $handler = $this->getMirroredHandler();
-        if ($handler && $handler instanceof Tracker_Field_Indexable) {
+        if ($handler && $handler instanceof \Tracker\Field\IndexableInterface) {
             return $handler->getProvidedFieldTypes();
         } else {
             $baseKey = $this->getBaseKey();
@@ -232,7 +232,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
         $baseKey = $this->getBaseKey();
         $handler = $this->getMirroredHandler();
 
-        if ($handler && $handler instanceof Tracker_Field_Filterable) {
+        if ($handler && $handler instanceof \Tracker\Field\FilterableInterface) {
             $sub = $handler->getFilterCollection();
             foreach ($sub->getFilters() as $subfilter) {
                 $subfilter->setLabel($name);

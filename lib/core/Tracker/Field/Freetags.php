@@ -12,7 +12,7 @@
  * Letter key: ~F~
  *
  */
-class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Exportable, Tracker_Field_Filterable
+class Tracker_Field_Freetags extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     public static function getTypes()
     {

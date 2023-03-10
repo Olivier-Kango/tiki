@@ -11,7 +11,7 @@
  *
  * Letter key ~I~
  */
-class Tracker_Field_Ip extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable
+class Tracker_Field_Ip extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
 {
     public static function getTypes()
     {

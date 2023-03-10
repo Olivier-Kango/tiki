@@ -5,10 +5,11 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
+namespace Tracker\Field;
 
-interface Tracker_Field_Indexable extends Tracker_Field_Interface
+interface IndexableInterface extends \Tracker\Field\FieldInterface
 {
-    public function getDocumentPart(Search_Type_Factory_Interface $typeFactory);
+    public function getDocumentPart(\Search_Type_Factory_Interface $typeFactory);
 
     public function getProvidedFields();
 

@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Tracker_Field_Articles extends Tracker_Field_Abstract
+class Tracker_Field_Articles extends \Tracker\Field\AbstractField
 {
     private $articleSource;
 

@@ -12,7 +12,7 @@
  * Letter key: ~A~
  *
  */
-class Tracker_Field_File extends Tracker_Field_Abstract
+class Tracker_Field_File extends \Tracker\Field\AbstractField
 {
     public static function getTypes()
     {

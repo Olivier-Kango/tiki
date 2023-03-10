@@ -12,7 +12,7 @@
  * Letter key: ~r~
  *
  */
-class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Exportable, Search_FacetProvider_Interface, Tracker_Field_Filterable, Tracker_Field_EnumerableInterface
+class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, Search_FacetProvider_Interface, \Tracker\Field\FilterableInterface, \Tracker\Field\EnumerableInterface
 {
     const CASCADE_NONE = 0;
     const CASCADE_CATEG = 1;
@@ -1370,7 +1370,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
                 $field = $definition->getField($fieldId);
                 $handler = $factory->getHandler($field, $item);
 
-                if ($handler instanceof Tracker_Field_Filterable) {
+                if ($handler instanceof \Tracker\Field\FilterableInterface) {
                     $handler->setBaseKeyPrefix($permName . '_');
                     $sub = $handler->getFilterCollection();
                     $collection->addCloned($permName, $sub);

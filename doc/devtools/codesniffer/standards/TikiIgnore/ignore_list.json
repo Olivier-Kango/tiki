@@ -1278,9 +1278,6 @@
         "lib\/core\/Tracker\/Field\/Category.php": {
             "class:Tracker_Field_Category": true
         },
-        "lib\/core\/Tracker\/Field\/Exportable.php": {
-            "interface:Tracker_Field_Exportable": true
-        },
         "lib\/oauthserver\/entities\/UserEntity.php": {
             "class:UserEntity": true
         },
@@ -1317,9 +1314,6 @@
         },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Sorthandle.php": {
             "class:Search_Formatter_ValueFormatter_Sorthandle": true
-        },
-        "lib\/core\/Tracker\/Field\/EnumerableInterface.php": {
-            "interface:Tracker_Field_EnumerableInterface": true
         },
         "lib\/core\/Search\/Elastic\/Connection.php": {
             "class:Search_Elastic_Connection": true
@@ -2053,9 +2047,6 @@
         "lib\/core\/TikiDb\/Expr.php": {
             "class:TikiDb_Expr": true
         },
-        "lib\/core\/Tracker\/Field\/Abstract.php": {
-            "class:Tracker_Field_Abstract": true
-        },
         "lib\/test\/core\/Search\/FormatterTest.php": {
             "class:Search_FormatterTest": true,
             "class:Search_FormatterTest_HighlightHelper": true
@@ -2376,9 +2367,6 @@
         "lib\/core\/Tracker\/Field\/WebService.php": {
             "class:Tracker_Field_WebService": true
         },
-        "lib\/core\/Tracker\/Field\/Interface.php": {
-            "interface:Tracker_Field_Interface": true
-        },
         "lib\/vue\/vuejslib.php": {
             "class:VueJsLib": true
         },
@@ -2624,9 +2612,6 @@
         "lib\/core\/Tracker\/Field\/Ip.php": {
             "class:Tracker_Field_Ip": true
         },
-        "lib\/core\/Tracker\/Field\/Synchronizable.php": {
-            "interface:Tracker_Field_Synchronizable": true
-        },
         "lib\/core\/Tiki\/Event\/Chain.php": {
             "class:Tiki_Event_Chain": true
         },
@@ -2638,12 +2623,6 @@
         },
         "lib\/core\/Tracker\/Field\/Ldap.php": {
             "class:Tracker_Field_Ldap": true
-        },
-        "lib\/core\/Tracker\/Field\/Filterable.php": {
-            "interface:Tracker_Field_Filterable": true
-        },
-        "lib\/core\/Tracker\/Field\/Indexable.php": {
-            "interface:Tracker_Field_Indexable": true
         },
         "lib\/core\/Tiki\/Event\/Customizer\/Executor.php": {
             "class:Tiki_Event_Customizer_Executor": true
@@ -5062,9 +5041,6 @@
         "lib\/core\/Tracker\/Field\/Category.php": {
             "Tracker_Field_Category": true
         },
-        "lib\/core\/Tracker\/Field\/Exportable.php": {
-            "Tracker_Field_Exportable": true
-        },
         "lib\/core\/Tiki\/Profile\/InstallHandler\/RatingConfig.php": {
             "Tiki_Profile_InstallHandler_RatingConfig": true
         },
@@ -5095,9 +5071,6 @@
         },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Sorthandle.php": {
             "Search_Formatter_ValueFormatter_Sorthandle": true
-        },
-        "lib\/core\/Tracker\/Field\/EnumerableInterface.php": {
-            "Tracker_Field_EnumerableInterface": true
         },
         "lib\/core\/Search\/Elastic\/Connection.php": {
             "Search_Elastic_Connection": true
@@ -5708,9 +5681,7 @@
         "lib\/core\/TikiDb\/Expr.php": {
             "TikiDb_Expr": true
         },
-        "lib\/core\/Tracker\/Field\/Abstract.php": {
-            "Tracker_Field_Abstract": true
-        },
+
         "lib\/test\/core\/Search\/FormatterTest.php": {
             "Search_FormatterTest": true,
             "Search_FormatterTest_HighlightHelper": true
@@ -5955,9 +5926,6 @@
         "lib\/core\/Tracker\/Field\/WebService.php": {
             "Tracker_Field_WebService": true
         },
-        "lib\/core\/Tracker\/Field\/Interface.php": {
-            "Tracker_Field_Interface": true
-        },
         "lib\/core\/Search\/MySql\/Table.php": {
             "Search_MySql_Table": true
         },
@@ -6157,9 +6125,6 @@
         "lib\/core\/Tracker\/Field\/Ip.php": {
             "Tracker_Field_Ip": true
         },
-        "lib\/core\/Tracker\/Field\/Synchronizable.php": {
-            "Tracker_Field_Synchronizable": true
-        },
         "lib\/core\/Tiki\/Event\/Chain.php": {
             "Tiki_Event_Chain": true
         },
@@ -6171,12 +6136,6 @@
         },
         "lib\/core\/Tracker\/Field\/Ldap.php": {
             "Tracker_Field_Ldap": true
-        },
-        "lib\/core\/Tracker\/Field\/Filterable.php": {
-            "Tracker_Field_Filterable": true
-        },
-        "lib\/core\/Tracker\/Field\/Indexable.php": {
-            "Tracker_Field_Indexable": true
         },
         "lib\/core\/Tiki\/Event\/Customizer\/Executor.php": {
             "Tiki_Event_Customizer_Executor": true

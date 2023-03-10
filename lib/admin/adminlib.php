@@ -694,7 +694,7 @@ class AdminLib extends TikiLib
                         || ($key == "rules" && ! is_numeric($k))
                     ) {
                         $errors_data[] = $key . '.' . $k;
-                    } else if ($key != "preference" && $key != "rules") {
+                    } elseif ($key != "preference" && $key != "rules") {
                         // $v must be an array otherwise the user may have just introduced for example: feature_sefurl instead of preference.feature_sefurl
                         // also reports an error if someone tries to use a key other than rules or preference
                         if (! is_array($v) || ($k != "rules" && $k != "preference")) {

@@ -447,7 +447,7 @@ class TrackerDatesTimezoneTest extends TikiTestCase
 
             $subquery = new Search_Query(null, 'or');
 
-            $filter = Tracker\Filter\Collection::getFilter('test_date', 'range', true);
+            $filter = \Tracker\Filter\Collection::getFilter('test_date', 'range', true);
             $input = new JitFilter([
                 'tf_' . $field . '_range_from' => $d - 180 * 60,
                 'tf_' . $field . '_range_to' => $d - 180 * 60,

@@ -12,7 +12,7 @@
  * Letter key: ~U~
  *
  */
-class Tracker_Field_UserSubscription extends Tracker_Field_Abstract
+class Tracker_Field_UserSubscription extends \Tracker\Field\AbstractField
 {
     public static function getTypes()
     {

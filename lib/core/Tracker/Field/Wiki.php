@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exportable
+class Tracker_Field_Wiki extends Tracker_Field_Text implements \Tracker\Field\ExportableInterface
 {
     public static function getTypes()
     {

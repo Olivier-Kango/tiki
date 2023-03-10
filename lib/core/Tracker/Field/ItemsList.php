@@ -12,7 +12,7 @@
  * Letter key: ~l~
  *
  */
-class Tracker_Field_ItemsList extends Tracker_Field_Abstract implements Tracker_Field_Exportable, Tracker_Field_Filterable
+class Tracker_Field_ItemsList extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     private static $itemValuesLocalCache = [];
 
@@ -177,7 +177,7 @@ class Tracker_Field_ItemsList extends Tracker_Field_Abstract implements Tracker_
 
     /**
      * Get field data
-     * @see Tracker_Field_Interface::getFieldData()
+     * @see \Tracker\Field\AbstractField::getFieldData()
      *
      */
     public function getFieldData(array $requestData = [])

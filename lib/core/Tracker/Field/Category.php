@@ -11,9 +11,9 @@
  *
  * Letter key: ~e~
  *
- * N.B. Implements Tracker_Field_Indexable so items can be recategorised when indexing
+ * N.B. Implements \Tracker\Field\IndexableInterface so items can be recategorised when indexing
  */
-class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Exportable, Tracker_Field_Filterable, Tracker_Field_Indexable
+class Tracker_Field_Category extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, \Tracker\Field\IndexableInterface
 {
     public static function getTypes()
     {

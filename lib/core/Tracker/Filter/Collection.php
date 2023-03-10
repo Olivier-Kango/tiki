@@ -145,7 +145,7 @@ class Collection
 
         $handler = $factory->getHandler($field);
 
-        if (! $handler instanceof \Tracker_Field_Filterable) {
+        if (! $handler instanceof \Tracker\Field\FilterableInterface) {
             throw new Exception\ModeNotSupported($permName, 'any mode');
         }
 

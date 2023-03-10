@@ -12,7 +12,7 @@
  * Letter key: ~c~
  *
  */
-class Tracker_Field_Checkbox extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Exportable, Tracker_Field_Filterable
+class Tracker_Field_Checkbox extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     public static function getTypes()
     {

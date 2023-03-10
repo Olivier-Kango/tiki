@@ -12,7 +12,7 @@
  * Letter key: ~y~
  *
  */
-class Tracker_Field_CountrySelector extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Exportable, Tracker_Field_Filterable
+class Tracker_Field_CountrySelector extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     public static function getTypes()
     {

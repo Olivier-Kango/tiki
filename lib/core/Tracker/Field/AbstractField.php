@@ -5,14 +5,14 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
-
+namespace Tracker\Field;
 
 /**
  * Foundation of all trackerfields. Each trackerfield defines its own class that derives from this one and also
- * hast to implement Tracker_Field_Interface, Tracker_Field_Indexable.
+ * has to implement Tracker\Field\FieldInterface, Tracker\Field\IndexableInterface.
  *
  */
-abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracker_Field_Indexable
+abstract class AbstractField implements FieldInterface, IndexableInterface
 {
     /**
      * @var string - ???
@@ -51,7 +51,7 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
      */
     public function __construct($fieldInfo, $itemData, $trackerDefinition)
     {
-        $this->options = Tracker_Options::fromSerialized($fieldInfo['options'], $fieldInfo);
+        $this->options = \Tracker_Options::fromSerialized($fieldInfo['options'], $fieldInfo);
 
         if (! isset($fieldInfo['options_array'])) {
             $fieldInfo['options_array'] = $this->options->buildOptionsArray();
@@ -526,7 +526,7 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
         return $smarty->fetch($file, $file);
     }
 
-    public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+    public function getDocumentPart(\Search_Type_Factory_Interface $typeFactory)
     {
         $baseKey = $this->getBaseKey();
         return [

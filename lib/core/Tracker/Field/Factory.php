@@ -63,14 +63,18 @@ class Tracker_Field_Factory
         }
 
         foreach ($paths as $path => $prefix) {
-            foreach (glob("$path/*.php") as $file) {
-                if ($file === "$path/index.php") {
+            foreach (glob("$path/[!_]*.php") as $file) {
+                if (
+                    $file === "$path/index.php" ||
+                    strstr($file, "Interface") ||
+                    strstr($file, "Abstract")
+                ) {
                     continue;
                 }
                 $class = $prefix . substr($file, strlen($path) + 1, -4);
                 $reflected = new ReflectionClass($class);
 
-                if ($reflected->isInstantiable() && $reflected->implementsInterface('Tracker_Field_Interface')) {
+                if ($reflected->isInstantiable() && $reflected->implementsInterface('\Tracker\Field\FieldInterface')) {
                     $providedFields = call_user_func([$class, 'getTypes']);
                     foreach ($providedFields as $key => $info) {
                         $this->typeMap[$key] = $class;

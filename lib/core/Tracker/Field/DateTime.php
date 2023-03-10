@@ -12,7 +12,7 @@
  * Letter key: ~f~
  *
  */
-class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Exportable, Tracker_Field_Filterable, Search_FacetProvider_Interface
+class Tracker_Field_DateTime extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, Search_FacetProvider_Interface
 {
     public static function getTypes()
     {

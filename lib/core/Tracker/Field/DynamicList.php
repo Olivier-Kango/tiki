@@ -14,7 +14,7 @@ use Tracker\Tabular\Schema;
  *
  */
 // TODO: validate parameters (several required)
-class Tracker_Field_DynamicList extends Tracker_Field_Abstract implements Tracker_Field_Exportable
+class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface
 {
     public static function getTypes()
     {
