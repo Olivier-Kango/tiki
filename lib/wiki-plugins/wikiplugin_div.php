@@ -35,9 +35,12 @@ function wikiplugin_div_info()
                     ['text' => tra('Div'), 'value' => 'div'],
                     ['text' => tra('Span'), 'value' => 'span'],
                     ['text' => tra('Section'), 'value' => 'section'],
+                    ['text' => tra('Aside'), 'value' => 'aside'],
+                    ['text' => tra('Header'), 'value' => 'header'],
+                    ['text' => tra('Footer'), 'value' => 'footer'],
                     ['text' => tra('Pre'), 'value' => 'pre'],
-                    ['text' => tra('Bold'), 'value' => 'b'],
-                    ['text' => tra('Italic'), 'value' => 'i'],
+                    ['text' => tra('Strong'), 'value' => 'strong'],
+                    ['text' => tra('Emphasis'), 'value' => 'em'],
                     ['text' => tra('Teletype'), 'value' => 'tt'],
                     ['text' => tra('Paragraph'), 'value' => 'p'],
                     ['text' => tra('Block quote'), 'value' => 'blockquote'],
@@ -203,7 +206,7 @@ function wikiplugin_div($content, $params)
     $style = '';
     extract($params);
 
-    $possibletypes = ['div','span','section','pre','b','i','tt','p','blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+    $possibletypes = ['div','span','section','aside','header','footer','pre','strong','em','tt','p','blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     $t    = (isset($type) and in_array($type, $possibletypes)) ? "$type" : "div";
     $c    = (isset($class)) ? " class='$class'" : "";
     $id   = (isset($id)) ? " id='$id'" : "";
