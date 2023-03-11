@@ -864,7 +864,7 @@ class Services_Manager_Controller
                 return [
                     'title' => tr('Apply a profile'),
                     'info' => '',
-                    'instanceId' => $input->instanceId->int(),
+                    'instanceId' => $instanceId,
                     'profiles' => $this->action_get_profiles($input),
                     'default_repository' => "profiles.tiki.org",
                 ];
