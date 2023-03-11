@@ -234,8 +234,8 @@ header.container {
     padding-bottom: 20px;
 }
 
-.col1,
-.col3 {
+#col1,
+#col3 {
     padding-top: 30px;
     background: #ffffff url('#{$imagePath}page.jpg') repeat-x;
 }
@@ -250,7 +250,7 @@ body.fullscreen {
     .container { border: none; }
 }
 
-.col2 {
+#col2 {
     background: #a8cce2 url('#{$imagePath}columnbg.jpg') repeat-x;
     .navbar {
         background: transparent;

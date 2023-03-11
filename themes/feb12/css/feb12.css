@@ -12089,7 +12089,7 @@ header.container {
   background: #ffffff url("../images/page.jpg") repeat-x;
   padding-bottom: 20px;
 }
-.col1, .col3 {
+#col1, #col3 {
   padding-top: 30px;
   background: #ffffff url("../images/page.jpg") repeat-x;
 }
@@ -12102,13 +12102,13 @@ body.fullscreen {
 body.fullscreen .container {
   border: none;
 }
-.col2 {
+#col2 {
   background: #a8cce2 url("../images/columnbg.jpg") repeat-x;
 }
-.col2 .navbar {
+#col2 .navbar {
   background: transparent;
 }
-.col2 .navbar .nav-link {
+#col2 .navbar .nav-link {
   color: #214D73;
 }
 .bottom_modules nav.navbar.navbar-light.bg-light.navbar-dark.bg-dark {
