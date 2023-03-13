@@ -16,6 +16,10 @@ class Services_Cypht_Controller
 
         require_once $tikipath . '/lib/cypht/integration/classes.php';
 
+        // all ajax cypht requests work with closed session, so they can run concurrently
+        // handle reopening upon write in the integration class
+        session_write_close();
+
         /* get configuration */
         $config = new Tiki_Hm_Site_Config_File(APP_PATH . 'hm3.rc', $session_prefix, @$_SESSION[$session_prefix]['settings_per_page']);
 
