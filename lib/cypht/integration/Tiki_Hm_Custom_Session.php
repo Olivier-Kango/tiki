@@ -20,6 +20,15 @@ class Tiki_Hm_Custom_Session extends Hm_Session
     }
 
     /**
+     * Tiki sessions are always active
+     * @return bool
+     */
+    public function is_active()
+    {
+        return true;
+    }
+
+    /**
      * Start the session. This could be an existing session or a new login
      * @param object $request request details
      * @return void
@@ -66,10 +75,20 @@ class Tiki_Hm_Custom_Session extends Hm_Session
      */
     public function set($name, $value, $user = false)
     {
+        $just_started = false;
+        if (session_status() == PHP_SESSION_NONE) {
+            // need to start the session again as ajax requests close it to allow concurrency
+            session_start();
+            $just_started = true;
+        }
         if ($user) {
             $_SESSION[$this->session_prefix()]['user_data'][$name] = $value;
         } else {
             $_SESSION[$this->session_prefix()][$name] = $value;
+        }
+        if ($just_started) {
+            // keep it closed if it was closed
+            session_write_close();
         }
     }
 
