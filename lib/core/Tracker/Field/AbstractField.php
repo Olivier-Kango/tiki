@@ -111,7 +111,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
             }
 
             $classList = ['tablename'];
-            $metadata = TikiLib::lib('object')->get_metadata('trackeritem', $itemId, $classList);
+            $metadata = \TikiLib::lib('object')->get_metadata('trackeritem', $itemId, $classList);
 
             require_once('lib/smarty_tiki/modifier.sefurl.php');
             $href = smarty_modifier_sefurl($itemId, 'trackeritem');
@@ -129,7 +129,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
                 } elseif (strpos($context['url'], 'itemId') !== false) {
                     $context['url'] = preg_replace('/([&|\?])itemId=?[^&]*/', '\\1itemId=' . $itemId, $context['url']);
                 } elseif (isset($context['reloff']) && strpos($context['url'], 'offset') !== false) {
-                    $smarty = TikiLib::lib('smarty');
+                    $smarty = \TikiLib::lib('smarty');
                     $context['url'] = preg_replace('/([&|\?])tr_offset=?[^&]*/', '\\1tr_offset' . $smarty->tpl_vars['iTRACKERLIST']
                         . '=' . $context['reloff'], $context['url']);
                 }
@@ -286,7 +286,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
         if (empty($itemId)) {
             return false;
         }
-        $itemObject = Tracker_Item::fromInfo($this->itemData);
+        $itemObject = \Tracker_Item::fromInfo($this->itemData);
 
         $status = $this->getData('status');
 
@@ -330,7 +330,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
         $doNotShowEmptyField = $tracker_info['doNotShowEmptyField'];
 
         $popupFields = [];
-        $item = Tracker_Item::fromInfo($this->itemData);
+        $item = \Tracker_Item::fromInfo($this->itemData);
 
         foreach ($fields as $id) {
             if (! $item->canViewField($id)) {
@@ -363,7 +363,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
             }
         }
 
-        $smarty = TikiLib::lib('smarty');
+        $smarty = \TikiLib::lib('smarty');
         $smarty->assign('popupFields', $popupFields);
         $smarty->assign('popupItem', $this->itemData);
         return trim($smarty->fetch('trackeroutput/popup.tpl'));
@@ -511,7 +511,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
 
     protected function renderTemplate($file, $context = [], $data = [])
     {
-        $smarty = TikiLib::lib('smarty');
+        $smarty = \TikiLib::lib('smarty');
 
         //ensure value is set, because it may not always come from definition
         if (! isset($this->definition['value'])) {
