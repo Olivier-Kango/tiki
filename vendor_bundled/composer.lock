@@ -7542,10 +7542,10 @@
         },
         {
             "name": "npm-asset/toast-ui--editor",
-            "version": "3.2.0",
+            "version": "3.2.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@toast-ui/editor/-/editor-3.2.0.tgz"
+                "url": "https://registry.npmjs.org/@toast-ui/editor/-/editor-3.2.2.tgz"
             },
             "require": {
                 "npm-asset/dompurify": ">=2.3.3,<3.0.0",
