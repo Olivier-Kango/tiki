@@ -21,6 +21,8 @@ class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
             'groups' => [],
             'items' => [],
             'cache' => 0,
+            'parse' => 'n',
+            'use_items_icons' => 'n',
         ];
 
         $data = array_merge($defaults, $this->obj->getData());
@@ -140,10 +142,10 @@ class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
             $type = 'e';
         }
         if ($data['use_items_icons'] == null) {
-            $data['use_items_icons'] = '';
+            $data['use_items_icons'] = 'n';
         }
         if ($data['parse'] == null) {
-            $data['parse'] = '';
+            $data['parse'] = 'n';
         }
 
         $menulib->replace_menu(0, $data['name'], $data['description'], $type, $data['icon'], $data['use_items_icons'], $data['parse']);
@@ -163,7 +165,7 @@ class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
         }
 
         // Set up module only as a custom module if position is set to 'none'
-        if ($data['position'] == 'none') {
+        if (isset($data['position']) && $data['position'] == 'none') {
             // but still allow module_arguments but keep it simple and don't include the $key=
             $extra = '';
             if (isset($data['module_arguments'])) {
