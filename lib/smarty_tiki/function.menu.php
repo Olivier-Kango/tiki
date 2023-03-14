@@ -178,7 +178,7 @@ function smarty_function_menu($params, $smarty)
                     break;
                 case "legacy":
                     $default_icon = "<img class='menu-icon' src='img/icons/pencil.png'/>"; #get prepend from any icon within the set
-                    $icon = TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->getIcon($value['icon']);
+                    $icon = TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->getIcon($value['icon'], true);
                     if ($icon) {
                         if (count($icon) == 4) { //legacy icons has 4 meta datas
                             $icon_html = "<img class='menu-icon' src='" . $icon["prepend"] . $icon["id"] . $icon["append"] . "'/>";
@@ -189,7 +189,7 @@ function smarty_function_menu($params, $smarty)
                     break;
                 case "theme_specific_iconset":
                     $default_icon = "<i class='menu-icon fas fa-pencil'></i>";
-                    $icon = TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->getIcon($value['icon']);
+                    $icon = TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->getIcon($value['icon'], true);
                     if ($icon) {
                         if (count($icon) == 2) {
                             $icon_html = "<i class='menu-icon " . $icon["prepend"] . $icon["id"] . "'></i>";
@@ -200,7 +200,7 @@ function smarty_function_menu($params, $smarty)
                     break;
                 case "default": //default is fontwasemome
                     $default_icon = "<i class='menu-icon fas fa-pencil'></i>";
-                    $icon = TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->getIcon($value['icon']);
+                    $icon = TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->getIcon($value['icon'], true);
                     if ($icon) {
                         if (count($icon) == 2) {
                             $icon_html = "<i class='menu-icon " . $icon["prepend"] . $icon["id"] . "'></i>";

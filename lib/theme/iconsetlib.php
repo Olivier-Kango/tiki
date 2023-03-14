@@ -156,11 +156,12 @@ class Iconset
      * Get an icon definition by name
      *
      * @param string $name
-     *
+     * @param boolean $theme_prefetch silent error when icon is loaded from specific script that want to get icon meta
      * @return array|null
      */
-    public function getIcon($name)
+    public function getIcon($name, $theme_prefetch = false)
     {
+
         if (empty($name)) { // ignore if the name is not provided
             return null;
         }
@@ -181,7 +182,9 @@ class Iconset
                 'append'  => $this->styles['outline']['append'],
             ];
         } else {
-            trigger_error(tr('Icon not found: %0', $name));
+            if (! $theme_prefetch) {
+                trigger_error(tr('Icon not found: %0', $name));
+            }
             return null;
         }
     }
