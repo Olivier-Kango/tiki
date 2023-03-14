@@ -40,6 +40,7 @@ class Tiki_Profile_InstallHandler_Forum extends Tiki_Profile_InstallHandler
             'attachments_store' => 'db',
             'attachments_store_dir' => '',
             'attachments_max_size' => 10000000,
+            'list_att_nb' => 'n',
             'forum_last_n' => 0,
             'comments_per_page' => '',
             'thread_style' => '',
@@ -57,6 +58,7 @@ class Tiki_Profile_InstallHandler_Forum extends Tiki_Profile_InstallHandler
             'show_description' => 'n',
 
             'enable_flood_control' => 'n',
+            'mail' => '',
             'enable_inbound_mail' => 'n',
             'enable_prune_unreplied' => 'n',
             'enable_prune_old' => 'n',
