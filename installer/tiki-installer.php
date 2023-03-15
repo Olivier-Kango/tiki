@@ -82,9 +82,7 @@ try {
     $_POST = $inputFilter->filter($_POST);
     $_REQUEST = array_merge($_GET, $_POST);
 } catch (Exception $e) {
-    $errors .= '<strong>' . $e->getMessage() . '</strong><br>
-Check <a href="tiki-check.php">tiki-check.php</a> {tr}to ensure your system is ready for Tiki or refer to{/tr} <a href="https://doc.tiki.org/Requirements">https://doc.tiki.org/Requirements</a> {tr}for more information.{/tr}
-    ';
+    $errors .= '<strong>' . $e->getMessage() . '</strong><br>' . tr('Check') . '<a href="tiki-check.php">tiki-check.php</a>' . tr('to ensure your system is ready for Tiki or refer to') . '<a href="https://doc.tiki.org/Requirements">https://doc.tiki.org/Requirements</a>' . tr('for more information.');
     error_and_exit();
 }
 
@@ -215,9 +213,7 @@ global $tikidomain;
 try {
     $smarty = TikiLib::lib('smarty');
 } catch (Exception $e) {
-    $errors .= '<strong>' . $e->getMessage() . '</strong><br>
-Check <a href="tiki-check.php">tiki-check.php</a> to ensure your system is ready for Tiki or refer to <a href="https://doc.tiki.org/Requirements">https://doc.tiki.org/Requirements</a> for more information.
-    ';
+    $errors .= '<strong>' . $e->getMessage() . '</strong><br>' . tr('Check') . '<a href="tiki-check.php">tiki-check.php</a>' . tr('to ensure your system is ready for Tiki or refer to') . '<a href="https://doc.tiki.org/Requirements">https://doc.tiki.org/Requirements</a>' . tr('for more information.');
     error_and_exit();
 }
 
