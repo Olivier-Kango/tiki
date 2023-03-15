@@ -6,6 +6,37 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+/*
+The Relation field type create a Many-to-Many relationship through the table tiki_object_relations (also used by wiki pages and other objects) and the table tracker_item_fields
+
+The data saved in tiki_object_relations by this code has the following structure:
+
+    relationId: int, the primary key of the related pair.
+    relation: string, the relation namespace. Variously named type or name in the code and namespace in the web docs.
+    source_type: string, In the case of tracker relations, always 'trackeritem'
+    source_itemId: string, id of the source tracker item
+    target_type: string, 'trackeritem', 'wiki page', 'user' depending on the target object type
+    target_itemId: string, actual value may be an int (ex: tracker items) or a string  (ex: Wiki page)
+
+ As of 2023-03-15, this structure is never edited, always replaced.  That is removing a link to an object, saving, and adding it back will result in a row with a new relationId.
+
+ The data saved in tracker_item_fields value column will have a structure like so:
+
+"trackeritem:28\ntrackeritem:34\nwiki page:HomePage"
+
+So it is a list of target_type:target_itemId pairs.  It is only manipulated by the code in this file.
+
+If there are 3 links, there will be one row in tracker_item_fields and 3 in tiki_object_relations
+
+ A lot of this code is hard to grasp by inspection, because it is spread out in multiple places:
+ - Some of it lives here
+ - Some of the code is implemented in the class RelationLib  (lib/attributes/relationlib.php) relationlib.php and is referenced as "relation" through db/config/tiki.xml
+- Some of the code lives directly in the class TikiLib lib/tikilib.php (such as replace_link())
+ - Some of the code lives in Services_Relation_Controller (lib/core/Services/Relation/Controller.php)
+
+Part of the documentation is at https://dev.tiki.org/Object+Attributes+and+Relations and https://doc.tiki.org/Relations-Tracker-Field
+*/
+
 class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     const OPT_RELATION = 'relation';
@@ -28,9 +59,9 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                 'params' => [
                     'relation' => [
                         'name' => tr('Relation'),
-                        'description' => tr('Relation qualifier. Must be a three-part qualifier containing letters and separated by dots.'),
+                        'description' => tr('Mandatory.  Relation qualifier. Must be a three-part qualifier containing letters and separated by dots.  The field will silently refuse to save values if it\'s empty.'),
                         'filter' => 'attribute_type',
-                        'legacy_index' => 0,
+                        'legacy_index' => 0
                     ],
                     'filter' => [
                         'name' => tr('Filter'),
