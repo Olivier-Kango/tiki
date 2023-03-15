@@ -8,6 +8,8 @@
 
 function smarty_function_currency($params, $smarty)
 {
+    global $prefs;
+
     extract($params);
 
     if (! isset($amount)) {
@@ -52,6 +54,10 @@ function smarty_function_currency($params, $smarty)
         }
     }
 
+    if (empty($locale)) {
+        $locale = $prefs['tracker_currency_default_locale'];
+    }
+
     // NOTE: php 7.4+ (including 8.0) has a serious memory leak issue (https://bugs.php.net/bug.php?id=79519 and https://bugs.php.net/bug.php?id=76982)
     // which makes $smarty->fetch here leak a lot - e.g. indexing 50K tracker items requiring 5GB+ of RAM
     // build the output inline here for now instead of fetching currency_output.tpl and switch to the tpl once the issue is resolved
@@ -71,9 +77,6 @@ function smarty_function_currency($params, $smarty)
         } else {
             $out .= '<span class="formunit">' . smarty_modifier_escape($prepend) . '</span>';
         }
-    }
-    if (empty($locale)) {
-        $locale = 'en_US';
     }
     if ($sourceCurrency) {
         $currency = $sourceCurrency;

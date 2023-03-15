@@ -60,6 +60,7 @@
                 {preference name=tracker_field_rules}
                 {preference name=unified_numeric_field_scroll}
                 {preference name=tracker_autoincrement_resettable}
+                {preference name=tracker_currency_default_locale}
             </fieldset>
 
             <fieldset class="admin">

@@ -227,6 +227,12 @@ function prefs_tracker_list()
             'tags' => ['experimental'],
             'warning' => tra('Use with care, potential for data loss.'),
         ],
+        'tracker_currency_default_locale' => [
+            'name' => tr('Default locale for currency formatting'),
+            'description' => tr('Currency fields use a system locale to format the output of currency values. Set the default one here when none is selected in the field themselves. Visit "Server Check" page for a list of available system locales.'),
+            'type' => 'text',
+            'default' => '',
+        ],
         'tracker_system_currency' => [
             'name' => tr('Exchange rates tracker'),
             'description' => tr('Allow defining a specific tracker to hold the exchange rates for currency calculations. You should manually create a tracker with at least 3 fields to hold Currency, Rate and Date.'),
