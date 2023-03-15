@@ -83,6 +83,7 @@
         {tab name="{tr}Forum Listing{/tr}"}
             <br>
             {preference name=forums_ordering}
+            {preference name=forums_section_ordering}
             {preference name=forum_list_topics}
             {preference name=forum_list_posts}
             {preference name=forum_list_ppd}
