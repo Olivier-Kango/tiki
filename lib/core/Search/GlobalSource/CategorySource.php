@@ -23,6 +23,7 @@ class Search_GlobalSource_CategorySource implements Search_GlobalSource_Interfac
             while ($res = $result->fetchRow()) {
                 $map[crc32($res['categId'])] = $res['categId'];
             }
+            $map[crc32('orphan')] = 'orphan';
         }
 
         $facets = [
