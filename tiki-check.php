@@ -3066,6 +3066,11 @@ if ($standalone && ! $nagios) {
         'MCrypt' => $criptLib->getUserCryptDataStats('mcrypt'),
     ));
 
+    $locales = `locale -a`;
+    $locales = array_filter(preg_split("/\r?\n/", $locales));
+    sort($locales, SORT_STRING | SORT_FLAG_CASE);
+    $smarty->assign('locales', $locales);
+
     $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
     $smarty->assign('mid', 'tiki-check.tpl');
     $smarty->display('tiki.tpl');
