@@ -173,7 +173,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         if (! empty($status)) {
             $this->pdo_client->deleteIndex($name);
         }
-        $name = $this->pdo_client->createIndex($name, $mapping, ['type' => 'pq']);
+        $this->pdo_client->createIndex($name, $mapping, ['type' => 'pq']);
         return $name;
     }
 
