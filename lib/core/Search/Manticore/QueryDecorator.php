@@ -35,7 +35,6 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         $this->documentReader = function ($type, $object) {
             return null;
         };
-        // TODO: field weights supported by SQL search only
     }
 
     public function setDocumentReader($callback)
@@ -71,6 +70,9 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
                 foreach ($this->weights as $field => $weight) {
                     $this->weights[$field] *= $multiplier;
                 }
+            }
+            foreach ($this->weights as $field => $weight) {
+                $this->weights[$field] = round($weight);
             }
             $this->search->option('field_weights', $this->weights);
         }
