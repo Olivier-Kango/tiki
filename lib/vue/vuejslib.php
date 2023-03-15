@@ -175,7 +175,7 @@ observeVueApp(vm);
         return $appHtml;
     }
 
-    public function generateTrackerRulesJS($fields, $parentSelector = '.tracker-field-group:first')
+    public function generateTrackerRulesJS($fields, $parentSelector = '.form-group:first')
     {
 
         $js = '';
