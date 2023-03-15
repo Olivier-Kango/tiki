@@ -60,10 +60,10 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
                         'legacy_index' => 3,
                     ],
                     'locale' => [
-                        'name' => tr('Locale'),
-                        'description' => tr('Set locale for currency formatting, for example en_US or en_US.UTF-8 or en_US.ISO-8559-1. Default is en_US.'),
+                        'name' => tr('Override Locale'),
+                        'description' => tr('Set locale for currency formatting, for example en_US or en_US.UTF-8 or en_US.ISO-8559-1. Default is defined in admin tracker settings.'),
                         'filter' => 'text',
-                        'default' => 'en_US',
+                        'default' => '',
                         'legacy_index' => 4,
                     ],
                     'currency' => [
@@ -142,7 +142,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
     public function renderInnerOutput($context = [])
     {
         $data = $this->getFieldData();
-        $locale = $this->getOption('locale', 'en_US');
+        $locale = $this->getOption('locale');
         $currency = $data['currency'] ?? $this->getOption('currency', 'USD');
         $symbol = $this->getOption('symbol');
         if (empty($symbol)) {

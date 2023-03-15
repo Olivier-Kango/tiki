@@ -33,13 +33,13 @@
  * @return formatted number
  */
 
-function smarty_modifier_money_format($number, $local, $currency, $format = '%(#10n', $display = 0)
+function smarty_modifier_money_format($number, $locale, $currency, $format = '%(#10n', $display = 0)
 {
 
-    if (! empty($local)) {
-        $ret = setlocale(LC_MONETARY, $local);
+    if (! empty($locale)) {
+        $ret = setlocale(LC_MONETARY, $locale);
         if ($ret === false) {
-            Feedback::error(tr('"%0" is not supported by this system.', $local));
+            Feedback::error(tr('"%0" is not supported by this system.', $locale));
             return $number;
         }
     }

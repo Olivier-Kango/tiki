@@ -900,3 +900,21 @@ if (ws) {
 }
 {/jq}
 </div>
+
+<h2 class="showhide_heading" id="System_Locales">{tr}System Locales{/tr}<a href="#System_Locales" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
+<div class="table-responsive">
+    <table class="table table-striped table-hover"><thead>
+        <tr>
+            <th>{tr}Locale{/tr}</th>
+        </tr></thead>
+        <tbody>
+
+        {foreach from=$locales item=item}
+            <tr>
+                <td class="text">{$item|escape}</td>
+            </tr>
+        {foreachelse}
+            {norecords}
+        {/foreach}</tbody>
+    </table>
+</div>

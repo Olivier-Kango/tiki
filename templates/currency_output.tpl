@@ -3,11 +3,6 @@
 {if $prepend}
     <span class="formunit">{$prepend|escape}</span>
 {/if}
-{if empty($locale)}
-    {assign var=locale value='en_US'}
-{else}
-    {assign var=locale value=$locale}
-{/if}
 {if $currency}
     {assign var=currency value=$currency}
 {elseif empty($defaultCurrency)}
