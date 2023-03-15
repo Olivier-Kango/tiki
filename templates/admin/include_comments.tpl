@@ -48,6 +48,9 @@
         {preference name=feature_inline_comments}
         <div class="adminoptionboxchild" id="feature_inline_comments_childcontainer">
             {preference name=comments_inline_annotator}
+            <div class="adminoptionboxchild" id="comments_inline_annotator_childcontainer">
+                {preference name=comments_inline_annotator_with_info}
+            </div>
         </div>
     </fieldset>
     <fieldset>

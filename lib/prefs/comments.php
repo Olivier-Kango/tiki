@@ -93,6 +93,17 @@ function prefs_comments_list()
             ],
             'keywords' => 'annotation annotatorjs',
         ],
+        'comments_inline_annotator_with_info' => [
+            'name' => tr('Show extra info'),
+            'description' => tr('Show author and date on Open Annotator inline comments.'),
+            'type' => 'flag',
+            'default' => 'y',
+            'tags' => ['advanced', 'experimental'],
+            'dependencies' => [
+                'comments_inline_annotator',
+            ],
+            'keywords' => 'annotation annotatorjs',
+        ],
         'comments_heading_links' => [
             'name' => tr('Anchor links on headings'),
             'description' => tr('Cause a link icon to appear on hover over each heading, useful for sharing the URL to an exact location on a page.'),
