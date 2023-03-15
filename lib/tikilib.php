@@ -5836,7 +5836,7 @@ class TikiLib extends TikiDb_Bridge
      */
     public function get_iso8601_datetime($timestamp, $user = false)
     {
-        return $this->date_format('%Y-%m-%dT%H:%M:%S%O', $timestamp, $user);
+        return $this->date_format(DateTimeInterface::ATOM, $timestamp, $user, 5, false);
     }
 
     /**
