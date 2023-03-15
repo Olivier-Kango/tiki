@@ -348,7 +348,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
                         }
                     }
                 } else {
-                    $this->itemData[$field['fieldId']] = TikiLib::lib('trk')->get_item_value(
+                    $this->itemData[$field['fieldId']] = \TikiLib::lib('trk')->get_item_value(
                         $this->trackerDefinition->getConfiguration('trackerId'),
                         $this->itemData['itemId'],
                         $id
