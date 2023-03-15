@@ -381,11 +381,13 @@ class Tiki_Profile
                     return;
                 }
 
-                foreach ($data as $key => $value) {
-                    if (array_key_exists($key, $this->data)) {
-                        $this->data[$key] = $this->mergeData($this->data[$key], $value);
-                    } else {
-                        $this->data[$key] = $value;
+                if ($data != null) {
+                    foreach ($data as $key => $value) {
+                        if (array_key_exists($key, $this->data)) {
+                            $this->data[$key] = $this->mergeData($this->data[$key], $value);
+                        } else {
+                            $this->data[$key] = $value;
+                        }
                     }
                 }
             }
