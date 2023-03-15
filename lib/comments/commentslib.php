@@ -1438,8 +1438,10 @@ class Comments extends TikiLib
      * @param int $parentId (0 to get forums without parents, <0 to get all forums, >0 to get forums of specific parent)
      * @return array
      */
-    public function list_forums($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $parentId = 0)
+    public function list_forums($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $parentId = 0, $sectionOrder = null)
     {
+        global $prefs;
+
         $bindvars = [];
 
         $categlib = TikiLib::lib('categ');
@@ -1475,7 +1477,12 @@ class Comments extends TikiLib
         }
         $bindvars[] = $parentId;
 
-        $query = "select * from `tiki_forums` $join WHERE 1=1 $where $mid order by `section` asc," . $this->convertSortMode('`tiki_forums`.' . $query_sort_mode);
+        $sectionOrder = $sectionOrder ?? $prefs['forums_section_ordering'];
+
+        $query = "select * from `tiki_forums` $join WHERE 1=1 $where $mid order by " .
+            $this->convertSortMode('`tiki_forums`.' . $sectionOrder) . ',' .
+            $this->convertSortMode('`tiki_forums`.' . $query_sort_mode);
+
         $result = $this->fetchAll($query, $bindvars);
         $result = Perms::filter(['type' => 'forum'], 'object', $result, ['object' => 'forumId'], 'forum_read');
         $count = 0;

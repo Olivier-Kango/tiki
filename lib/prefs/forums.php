@@ -26,5 +26,14 @@ function prefs_forums_list()
             ],
             'default' => 'created_desc',
         ],
+        'forums_section_ordering' => [
+            'name' => tra('Section order'),
+            'type' => 'list',
+            'options' => [
+                'section_asc' => tra('Name (asc)'),
+                'section_desc' => tra('Name (desc)'),
+            ],
+            'default' => 'section_asc',
+        ],
     ];
 }
