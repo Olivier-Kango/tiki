@@ -9,10 +9,9 @@
 {/title}
 <div id="calscreen">
     <div class="t_navbar mb-4">
-        <a class="btn btn-info btn-sm dropdown-toggle float-end" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Calendar actions{/tr}">
         <div class="btn-group float-end">
             {if ! $js}<ul><li>{/if}
-            <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
+            <a class="btn btn-link border-radius--0" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Calendar actions{/tr}">
                 {icon name='menu-extra'}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -46,8 +45,7 @@
                     </a>
                 </li>
             </ul>
-
-
+        </div>
         {if $tiki_p_admin_calendar eq 'y' or $tiki_p_admin eq 'y'}
             {if $displayedcals|@count eq 1}
                 {button href="tiki-admin_calendars.php?calendarId={$displayedcals[0]}" _type="link" _text="{tr}Edit{/tr}" _icon_name="edit"}
@@ -55,7 +53,7 @@
             {button href="tiki-admin_calendars.php?cookietab=1" _type="link" _text="{tr}Admin{/tr}" _icon_name="admin"}
         {/if}
 
-{* avoid Add Event being shown if no calendar is displayed *}
+        {* avoid Add Event being shown if no calendar is displayed *}
         {if $tiki_p_add_events eq 'y'}
             {button href="tiki-calendar_edit_item.php" _type="link" _text="{tr}Add Event{/tr}" _icon_name="create"}
         {/if}
@@ -92,16 +90,17 @@
                         </li>
                     </ul>
                 </form>
-                {jq}// handle calendar switcher form submit
-$("#filtercal").submit(function () {
-    if ($("input[type=checkbox]:not(#clickall):not(:checked)", this).length === 0) {
-        location.href = (jqueryTiki.sefurl ? "calendar" : "tiki-calendar.php") + "?allCals=y";
-        return false;
-    } else {
-        return true;
-    }
-});
-{/jq}
+                {jq}
+                    // handle calendar switcher form submit
+                    $("#filtercal").submit(function () {
+                        if ($("input[type=checkbox]:not(#clickall):not(:checked)", this).length === 0) {
+                            location.href = (jqueryTiki.sefurl ? "calendar" : "tiki-calendar.php") + "?allCals=y";
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    });
+                {/jq}
             </div>
 
             {if $tiki_p_view_events eq 'y' and $prefs.calendar_export eq 'y'}
