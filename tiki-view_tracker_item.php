@@ -417,7 +417,9 @@ unset($fieldDefinition);
 
 if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUEST['save_and_comment'])) {
     if ($prefs['feature_warn_on_edit'] == 'y') {
-        TikiLib::lib('service')->internal('semaphore', 'unset', ['object_id' => $itemId, 'object_type' => 'trackeritem']);
+        if (TikiLib::lib('service')->internal('semaphore', 'is_set', ['object_id' => $itemId, 'object_type' => 'trackeritem'])) {
+            TikiLib::lib('service')->internal('semaphore', 'unset', ['object_id' => $itemId, 'object_type' => 'trackeritem']);
+        }
     }
     foreach ($fieldDefinitions as $i => $current_field) {
         $fid = $current_field["fieldId"];
