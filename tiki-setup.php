@@ -782,7 +782,9 @@ if ($prefs['feature_inline_comments'] === 'y' && $prefs['comments_inline_annotat
         $headerlib
             ->add_jsfile('vendor_bundled/vendor/openannotation/annotator/annotator-full.min.js')
             ->add_cssfile('vendor_bundled/vendor/openannotation/annotator/annotator.min.css')
-            ->add_jq_onready('var annotatorContent = $("#top").annotator({readOnly: ' . ($canPost ? 'false' : 'true') . '});
+            // language=JavaScript
+            ->add_jq_onready('
+var annotatorContent = $("#top").annotator({readOnly: ' . ($canPost ? 'false' : 'true') . '});
 annotatorContent.annotator("addPlugin", "Store", {
     prefix: "tiki-ajax_services.php?controller=annotation&action=",
 
@@ -813,6 +815,10 @@ annotatorContent.annotator("addPlugin", "Permissions", {
     userAuthorize: function(action, annotation, user) {
         return annotation.permissions[action];
     }
+});
+
+$(".annotator-outer.annotator-viewer").on("load", function (event, annotations) {
+    $(this).find(".annotator-user").text(annotations[0].realName + " - " + annotations[0].commentDate);
 });
 ');
     }

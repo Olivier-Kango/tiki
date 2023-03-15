@@ -178,7 +178,10 @@ class Services_Comment_AnnotationController
 
     public function action_search($input)
     {
+        global $prefs;
+
         $tikilib = TikiLib::lib('tiki');
+        $userlib = TikiLib::lib('user');
 
         $limit = $input->limit->int();      // unused so far
         $offset = $input->offset->int();    // TODO pagination
@@ -214,16 +217,23 @@ class Services_Comment_AnnotationController
                     'delete' => $list['allow_remove'],
                 ];
 
-                $comments[] = [
-                    'id' => $comment['threadId'],
-                    'text' => $text,
-                    'quote' => $quote,
-                    'created' => $tikilib->get_iso8601_datetime($comment['commentDate']),
-                    'updated' => $tikilib->get_iso8601_datetime($comment['commentDate']),   // we don't have a commentUpdated column?
-                    'ranges' => $ranges ? $ranges : [],
+                $annotation = [
+                    'id'          => $comment['threadId'],
+                    'text'        => $text,
+                    'quote'       => $quote,
+                    'created'     => $tikilib->get_iso8601_datetime($comment['commentDate']),
+                    'updated'     => $tikilib->get_iso8601_datetime($comment['commentDate']),   // we don't have a commentUpdated column?
+                    'ranges'      => $ranges ? $ranges : [],
                     'permissions' => $permissions,
-
                 ];
+
+                if ($prefs['comments_inline_annotator_with_info'] === 'y') {
+                    $annotation['commentDate'] = $tikilib->get_short_datetime($comment['commentDate']);
+                    $annotation['user']        = $comment['userName'];
+                    $annotation['realName']    = $userlib->clean_user($comment['userName']);
+                }
+
+                $comments[] = $annotation;
             }
         };
 
