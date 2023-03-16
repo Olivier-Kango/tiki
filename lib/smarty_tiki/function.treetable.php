@@ -88,10 +88,18 @@ function smarty_function_treetable($params, $smarty)
     $_openall = isset($_openall) ? $_openall : 'n';
     $_showSelected = isset($_showSelected) ? $_showSelected : 'n';
     $_selectAllHiddenToo = isset($_selectAllHiddenToo) ? $_selectAllHiddenToo : 'n';
+    $_checkboxColumnIndex = empty($_checkboxColumnIndex) ? 0 : $_checkboxColumnIndex;
+    $_valueColumnIndex = empty($_valueColumnIndex) ? 0 : $_valueColumnIndex;
 
     if (is_string($_checkbox) && strpos($_checkbox, ',') !== false) {
         $_checkbox = preg_split('/,/', trim($_checkbox));
     }
+
+    if (! empty($_checkbox) && ! is_array($_checkbox)) {
+        $_checkbox = [$_checkbox];
+        $_checkboxColumnIndex = [$_checkboxColumnIndex];
+    }
+
     if (! empty($_checkboxColumnIndex)) {
         if (is_string($_checkboxColumnIndex) && strpos($_checkboxColumnIndex, ',') !== false) {
             $_checkboxColumnIndex = preg_split('/,/', trim($_checkboxColumnIndex));
@@ -111,13 +119,6 @@ function smarty_function_treetable($params, $smarty)
         if (count($_checkbox) != count($_checkboxTitles)) {
             return 'Number of items in _checkboxTitles doesn not match items in _checkbox';
         }
-    }
-    $_checkboxColumnIndex = empty($_checkboxColumnIndex) ? 0 : $_checkboxColumnIndex;
-    $_valueColumnIndex = empty($_valueColumnIndex) ? 0 : $_valueColumnIndex;
-
-    if (! empty($_checkbox) && ! is_array($_checkbox)) {
-            $_checkbox = [$_checkbox];
-            $_checkboxColumnIndex = [$_checkboxColumnIndex];
     }
 
     $_columnsContainHtml = isset($_columnsContainHtml) ? $_columnsContainHtml : 'n';
