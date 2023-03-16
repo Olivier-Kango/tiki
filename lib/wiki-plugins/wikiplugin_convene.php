@@ -231,7 +231,7 @@ function wikiplugin_convene($data, $params): string
             if (empty($votes[$stamp])) {
                 $votes[$stamp] = 0;
             }
-            $votes[$stamp] += $vote;
+            $votes[$stamp] += (int)$vote;
         }
         $dateLabels[$stamp] = [];
         if ($params['dateformat'] === "long") {
