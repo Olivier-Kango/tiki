@@ -53,6 +53,16 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         return $return;
     }
 
+    public function append($list)
+    {
+        foreach ($list as $item) {
+            parent::append($item);
+        }
+        $this->count += count($list);
+        $this->maxRecords += count($list);
+        $this->checkNestedObjectPerms();
+    }
+
     public function setHighlightHelper(Laminas\Filter\FilterInterface $helper)
     {
         $this->highlightHelper = $helper;

@@ -312,6 +312,24 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
      */
     public function find(Search_Query_Interface $query, $resultStart, $resultCount)
     {
+        if ($resultCount > 100) {
+            // scrolling through result to help with memory limit issues
+            $perPage = 100;
+            $hasMore = true;
+            $resultSet = null;
+            for ($from = $resultStart; $hasMore && $from < $resultStart + $resultCount; $from += $perPage) {
+                $limit = min($perPage, $resultStart + $resultCount - $from);
+                $result = $this->find($query, $from, $limit);
+                if ($resultSet) {
+                    $resultSet->append($result);
+                } else {
+                    $resultSet = $result;
+                }
+                $hasMore = $result->hasMore();
+            }
+            return $resultSet;
+        }
+
         $search = $this->initSearch();
 
         $decorator = new Search_Manticore_QueryDecorator($search, $this);
@@ -359,6 +377,11 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         $entries = [];
         foreach ($result as $entry) {
             $data = (array) $entry->getData();
+            foreach ($data as $key => $_) {
+                if (substr($key, -6) == '_nsort') {
+                    unset($data[$key]);
+                }
+            }
 
             if (isset($data['_score'])) {
                 $data['score'] = round($data['_score'], 2);
