@@ -99,7 +99,7 @@ class Tracker_Definition
         }
 
         $trklib = TikiLib::lib('trk');
-        $trackerId = $this->trackerInfo['trackerId'];
+        $trackerId = $this->trackerInfo['trackerId'] ?? 0;
 
         if ($trackerId) {
             $fields = $trklib->list_tracker_fields($trackerId, 0, -1, 'position_asc', '', false /* Translation must be done from the views to avoid translating the sources on edit. */);
