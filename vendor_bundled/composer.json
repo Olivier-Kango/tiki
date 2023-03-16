@@ -334,8 +334,7 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "https://composer.tiki.org",
-            "canonical": false
+            "url": "https://composer.tiki.org"
         },
         {
             "type": "composer",
