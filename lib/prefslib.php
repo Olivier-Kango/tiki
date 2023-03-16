@@ -119,6 +119,7 @@ class PreferencesLib
             'type' => '',
             'helpurl' => '',
             'help' => '',
+            'adminurl' => 'tiki-admin.php?lm_criteria=' . urlencode($name) . '&amp;exact',
             'dependencies' => [],
             'packages_required' => [],
             'extensions' => [],
@@ -758,7 +759,7 @@ class PreferencesLib
                     'name' => $dep,
                     'label' => $info['name'],
                     'type' => $info['type'],
-                    'link' => 'tiki-admin.php?lm_criteria=' . urlencode($info['name']),
+                    'link' => $info['adminurl'],
                     'met' =>
                         ( $info['type'] == 'flag' && $info['value'] == 'y' )
                         || ( $info['type'] != 'flag' && ! empty($info['value']) )

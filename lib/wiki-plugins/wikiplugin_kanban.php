@@ -210,7 +210,10 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     static $id = 0;
 
     if ($prefs['auth_api_tokens'] !== 'y') {
-        return WikiParser_PluginOutput::userError(tr('Security -> API access is disabled but Kanban plugin needs it.'));
+        //This is a proof of concept, this should really be handled by a parent class of wikiplugin, using a dependencies definition
+        $prefslib = TikiLib::lib('prefs');
+        $adminurl = $prefslib->getPreference('auth_api_tokens')['adminurl'];
+        return WikiParser_PluginOutput::userError(tr('API access is disabled but Kanban plugin needs it.  You can enable it here: %0', "<a href='$adminurl'>$adminurl</a>"));
     }
 
     //set defaults
