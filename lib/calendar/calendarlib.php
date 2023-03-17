@@ -1804,7 +1804,7 @@ class CalendarLib extends TikiLib
         $this->query('replace into tiki_calendar_options(calendarId, optionName, value) values(?, ?, ?)', [
             $calendarId,
             'synctoken',
-            $options['synctoken'] + 1,
+            isset($options['synctoken']) ? $options['synctoken'] + 1 : 1,
         ]);
     }
 
