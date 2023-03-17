@@ -208,7 +208,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements \Tracker\Field\Ex
             if (! empty($requestData[$insForPagenameField])) {
                 $page_name = $requestData[$insForPagenameField];    // from tabular import replace
                 $itemId = isset($requestData['itemId']) ? $requestData['itemId'] : 0;
-            } elseif (! empty($requestData['itemId'])) {
+            } elseif (! empty($requestData['itemId']) || $this->getItemId()) {
                 $itemData = $this->getItemData();                   // calculated field types like auto-increment need rendering
                 $definition = $this->getTrackerDefinition();
                 $factory = $definition->getFieldFactory();
