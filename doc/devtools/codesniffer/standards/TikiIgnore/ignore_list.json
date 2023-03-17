@@ -7544,8 +7544,7 @@
         "lib\/cypht\/integration\/Tiki_Hm_Custom_Session.php": {
             "Tiki_Hm_Custom_Session::close_early": true,
             "Tiki_Hm_Custom_Session::dedup_page_links": true,
-            "Tiki_Hm_Custom_Session::session_prefix": true,
-            "Tiki_Hm_Custom_Session::is_active": true
+            "Tiki_Hm_Custom_Session::session_prefix": true
         },
         "lib\/todolib.php": {
             "TodoLib::listObjectsTodo_tracker": true,

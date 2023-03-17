@@ -158,8 +158,10 @@ class Services_Broker
         }
 
         $access = TikiLib::lib('access');
-        foreach ($output as $key => $value) {
-            $smarty->assign($key, $value);
+        if ($output != null) {
+            foreach ($output as $key => $value) {
+                $smarty->assign($key, $value);
+            }
         }
 
         $layout = null;
