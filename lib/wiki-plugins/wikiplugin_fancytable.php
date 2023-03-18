@@ -169,8 +169,8 @@ function wikiplugin_fancytable($data, $params)
 
     //Start the table
     $style = $sort === true ? ' style="visibility:hidden"' : '';
-    $wret = '<div class="table-responsive"><div id="wpfancytable' . $iFancytable . '-div"' . $style
-        . ' class="ts-wrapperdiv">' . "\r\t";
+    $wret = '<div id="wpfancytable' . $iFancytable . '-div"' . $style
+        . ' class="table-responsive ts-wrapperdiv">' . "\r\t";
     if (! empty($colwidths)) {  // if colwidths have been set then don't let the .table class set the width to 100%
         $wret .= '<table class="table table-striped table-hover normal" id="wpfancytable' . $iFancytable . '">' . "\r\t";
     } else {
@@ -248,7 +248,7 @@ function wikiplugin_fancytable($data, $params)
             $wret .= $footer;
         }
     }
-    $wret .= "\r" . '</table></div></div>' . "\r" . $msg;
+    $wret .= "\r" . '</table></div>' . "\r" . $msg;
     return $wret;
 }
 
