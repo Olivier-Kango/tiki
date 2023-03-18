@@ -322,7 +322,7 @@ if (! empty($_REQUEST['remove'])) {
         $item_info = $trklib->get_item_info($batchid);
         $actionObject = Tracker_Item::fromInfo($item_info);
         if ($actionObject->canModify()) {
-            $trklib->replace_item($_REQUEST['trackerId'], $batchid, ['data' => ''], $_REQUEST['batchaction']);
+            $trklib->replace_item($_REQUEST['trackerId'], $batchid, ['data' => []], $_REQUEST['batchaction']);
         }
     }
 
