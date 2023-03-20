@@ -2166,20 +2166,18 @@ class TrackerLib extends TikiLib
                 $fil[$fieldId] = $value;
                 $this->modify_field($currentItemId, $array['fieldId'], $value);
             } elseif (isset($array['type']) && $array['type'] == 'k') { //page selector
-                if ($array['value'] != '') {
-                    $this->modify_field($currentItemId, $array['fieldId'], $value);
-                    if ($itemId) {
-                        // On update, save old value
-                        $this->log($version, $itemId, $array['fieldId'], $old_value);
-                    }
-                    $fil[$fieldId] = $value;
-                    if (! $this->page_exists($array['value'])) {
-                        $opts = $array['options_array'];
-                        if (! empty($opts[2])) {
-                            $IP = $this->get_ip_address();
-                            $info = $this->get_page_info($opts[2]);
-                            $this->create_page($array['value'], 0, $info['data'], $this->now, '', $user, $IP, $info['description'], $info['lang'], $info['is_html'], [], $info['wysiwyg'], $info['wiki_authors_style']);
-                        }
+                $this->modify_field($currentItemId, $array['fieldId'], $value);
+                if ($itemId) {
+                    // On update, save old value
+                    $this->log($version, $itemId, $array['fieldId'], $old_value);
+                }
+                $fil[$fieldId] = $value;
+                if ($array['value'] != '' && ! $this->page_exists($array['value'])) {
+                    $opts = $array['options_array'];
+                    if (! empty($opts[2])) {
+                        $IP = $this->get_ip_address();
+                        $info = $this->get_page_info($opts[2]);
+                        $this->create_page($array['value'], 0, $info['data'], $this->now, '', $user, $IP, $info['description'], $info['lang'], $info['is_html'], [], $info['wysiwyg'], $info['wiki_authors_style']);
                     }
                 }
             } else {
