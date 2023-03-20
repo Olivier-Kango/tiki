@@ -4061,6 +4061,9 @@
         "lib\/core\/TikiFilter\/AttributeType.php": {
             "TikiFilter_AttributeType": true
         },
+        "lib\/core\/TikiFilter\/Array.php": {
+            "TikiFilter_Array": true
+        },
         "lib\/core\/Search\/EngineResult\/Elastic.php": {
             "Search_EngineResult_Elastic": true
         },
