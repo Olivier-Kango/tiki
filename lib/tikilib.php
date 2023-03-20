@@ -5519,6 +5519,7 @@ class TikiLib extends TikiDb_Bridge
         $smarty->assign('plugin_name', $pluginInfo['name']);
         $smarty->assign('type', $pluginInfo['last_objectType']);
         $smarty->assign('objectId', $pluginInfo['last_objectId']);
+        $smarty->assign('base_url', $pluginInfo['base_url']);
         $smarty->assign('arguments', unserialize($pluginInfo['arguments']));
         $smarty->assign('body', $pluginInfo['body']);
 
