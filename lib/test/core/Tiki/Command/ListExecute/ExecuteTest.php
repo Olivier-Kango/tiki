@@ -121,6 +121,7 @@ class Tiki_Command_ListExecute_ExecuteTest extends TikiTestCase
 
     protected function updatePluginStatus($status)
     {
+        global $base_url;
         $this->pluginSecurity = TikiLib::get()->table('tiki_plugin_security');
 
         $this->pluginSecurity->insert(
@@ -130,6 +131,7 @@ class Tiki_Command_ListExecute_ExecuteTest extends TikiTestCase
                 'added_by'        => 'user',
                 'last_objectType' => 'wiki page',
                 'last_objectId'   => TikiLib::lib('tiki')->get_page_id_from_name(self::PAGE_NAME),
+                'base_url'        => $base_url,
                 'body' => trim(preg_replace('/{LISTEXECUTE\(?\)?}/', '', self::CONTENT_FOR_FINGERPRINT)),
                 'arguments' => 'a:0:{}',
             ]
