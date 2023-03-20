@@ -3019,6 +3019,7 @@ function prefs_feature_list($partial = false)
             'description' => tra('When the requested page does not exist, tests removing 1 or 2 of the last characters from the URL to see if it gets an existing page.'),
             'type' => 'flag',
             'default' => 'n',
+            'help' => 'Url-Suffix-Cleaner',
         ],
         'feature_realtime' => [
             'name' => tra('Realtime Tiki'),
