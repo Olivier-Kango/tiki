@@ -185,7 +185,7 @@
         "ext-openssl": "*",
         "ext-iconv": "*",
         "ext-zip": "*",
-        "npm-asset/select2": "^4.0",
+        "npm-asset/select2": "^4.1.0-RC.0",
         "npm-asset/select2-bootstrap-5-theme": "^1.2",
         "npm-asset/sortablejs": "^1.13",
         "npm-asset/systemjs": "^6.12",

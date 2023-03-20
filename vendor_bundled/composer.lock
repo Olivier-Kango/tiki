@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3d3057ca1671e8052913c581e24f127",
+    "content-hash": "20dbd8df3b67dc56c452bf41e6308b2f",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -743,7 +743,7 @@
             "version": "6.3.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
                 "reference": "d02961b018153506364077343b0edcde0a39d27e"
             },
             "dist": {
@@ -7320,11 +7320,11 @@
         },
         {
             "name": "npm-asset/select2",
-            "version": "4.0.13",
+            "version": "4.1.0-RC.0",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/select2/npm-asset-select2-4.0.13.zip",
-                "shasum": "ade5a148806745f0956dff6713a9480595223790"
+                "url": "https://composer.tiki.org/dist/npm-asset/select2/npm-asset-select2-4.1.0-RC.0.zip",
+                "shasum": "336a5ca561afc048c422d96f87653edbcd29be80"
             },
             "type": "npm-asset",
             "license": [
@@ -15738,13 +15738,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "0dbd981248575889ab6568c289917a541be2a9f3"
+                "reference": "4576a17265003ec9146daf8cf6e782234259cf6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-0dbd981248575889ab6568c289917a541be2a9f3-zip-ee5894.zip",
-                "reference": "0dbd981248575889ab6568c289917a541be2a9f3",
-                "shasum": "ff9befb239226e875e855744f23da6581365606e"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-4576a17265003ec9146daf8cf6e782234259cf6c-zip-58a8aa.zip",
+                "reference": "4576a17265003ec9146daf8cf6e782234259cf6c",
+                "shasum": "edb018fafc26deb3b898515643136ff108d9c975"
             },
             "require": {
                 "php": ">=5.4",
@@ -15800,7 +15800,7 @@
                 "standards",
                 "static analysis"
             ],
-            "time": "2023-03-08T13:51:55+00:00"
+            "time": "2023-03-18T19:07:01+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -17246,6 +17246,7 @@
         "teqneers/shamir": 20,
         "zendframework/zendservice-akismet": 20,
         "montefuscolo/xmpp": 20,
+        "npm-asset/select2": 5,
         "rubix/extras": 10,
         "bafs/testify": 20,
         "phpcompatibility/php-compatibility": 20,
