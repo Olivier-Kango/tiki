@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_Manticore_FatalException extends Search_Manticore_Exception
+namespace Search\Manticore;
+
+class FatalException extends Exception
 {
 }

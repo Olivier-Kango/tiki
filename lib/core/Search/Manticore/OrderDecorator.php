@@ -6,7 +6,11 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_Manticore_OrderDecorator extends Search_Manticore_Decorator
+namespace Search\Manticore;
+
+use Search_Query_Order;
+
+class OrderDecorator extends Decorator
 {
     public function decorate(Search_Query_Order $order)
     {

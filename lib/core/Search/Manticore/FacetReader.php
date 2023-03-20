@@ -6,45 +6,44 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_Manticore_FacetReader
-{
-    private $result;
+namespace Search\Manticore;
 
-    public function __construct($result)
+class FacetReader
+{
+    private $results;
+
+    public function __construct(array $results)
     {
-        $this->result = $result;
+        $this->results = $results;
     }
 
-    public function getFacetFilter(Search_Query_Facet_Interface $facet)
+    public function getFacetFilter(\Search_Query_Facet_Interface $facet)
     {
-        $facetName = $facet->getName();
         $entry = null;
 
-        $facets = $this->result->getFacets();
+        foreach ($this->results as $i => $result) {
+            if ($i == 0) {
+                continue;
+            }
+            if (array_key_first($result[0]) == $facet->getName()) {
+                $entry = $result;
+                break;
+            }
+        }
 
-        if (empty($facets[$facetName]['buckets']) || count($facets[$facetName]['buckets']) < 2) {
+        if ($entry) {
+            return new \Search_ResultSet_FacetFilter($facet, $this->getFromBucket($entry));
+        } else {
             return null;
         }
-
-        if (isset($facets[$facetName])) {
-            $entry = $facets[$facetName];
-        }
-
-        return new Search_ResultSet_FacetFilter($facet, $this->getFromBucket($entry));
     }
 
     private function getFromBucket($entry)
     {
         $out = [];
-
-        if (! empty($entry['buckets'])) {
-            foreach ($entry['buckets'] as $bucket) {
-                if ('' !== $bucket['key']) {
-                    $out[] = ['value' => $bucket['key'], 'count' => $bucket['doc_count']];
-                }
-            }
+        foreach ($entry as $row) {
+            $out[] = ['value' => array_shift($row), 'count' => array_pop($row)];
         }
-
         return $out;
     }
 }

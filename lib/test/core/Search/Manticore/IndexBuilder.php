@@ -17,9 +17,9 @@ trait IndexBuilder
         $mysql_port = empty(getenv('MANTICORE_MYSQL_PORT')) ? '9306' : getenv('MANTICORE_MYSQL_PORT');
 
         try {
-            $http_client = new \Search_Manticore_Client($dsn, $http_port);
-            $mysql_client = new \Search_Manticore_PdoClient($dsn, $mysql_port);
-        } catch (\Search_Manticore_Exception $e) {
+            $http_client = new Client($dsn, $http_port);
+            $mysql_client = new PdoClient($dsn, $mysql_port);
+        } catch (Exception $e) {
             $this->markTestSkipped('Manticore needs to be available on ' . $dsn . ':' . $mysql_port . ' for the test to run. Error: ' . $e->getMessage());
         }
 
@@ -28,6 +28,6 @@ trait IndexBuilder
             $this->markTestSkipped('Manticore needs to be available on ' . $dsn . ':' . $mysql_port . ' for the test to run.');
         }
 
-        return new \Search_Manticore_Index($http_client, $mysql_client, 'test_index' . $suffix);
+        return new Index($http_client, $mysql_client, 'test_index' . $suffix);
     }
 }

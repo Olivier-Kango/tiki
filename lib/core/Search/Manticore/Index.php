@@ -6,7 +6,11 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_Manticore_Index implements Search_Index_Interface, Search_Index_QueryRepository
+namespace Search\Manticore;
+
+use TikiLib;
+
+class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
 {
     private $client;
     private $pdo_client;
@@ -20,13 +24,23 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     private $multisearchStack;
 
 
-    public function __construct(Search_Manticore_Client $client, Search_Manticore_PdoClient $pdo_client, $index)
+    public function __construct(Client $client, PdoClient $pdo_client, $index)
     {
         $this->client = $client;
         $this->pdo_client = $pdo_client;
         $this->index = $index;
         $this->indexer = null;
         $this->providedMappings = $this->pdo_client->describe($index);
+    }
+
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    public function getPdoClient()
+    {
+        return $this->pdo_client;
     }
 
     public function setIndexer($indexer)
@@ -217,7 +231,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
         if (count($data) > 256) {
             $data = null;
-            throw new Search_Manticore_FatalException(tr('Fatal Manticore error: you have defined more than 256 fields to be indexed as full-text. Please edit search setting "unified_manticore_always_index" to decrease the number of fields.'));
+            throw new FatalException(tr('Fatal Manticore error: you have defined more than 256 fields to be indexed as full-text. Please edit search setting "unified_manticore_always_index" to decrease the number of fields.'));
         }
 
         if (! $this->indexer) {
@@ -243,31 +257,31 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     private function convertToManticoreType($entry)
     {
-        if ($entry instanceof Search_Type_Numeric) {
+        if ($entry instanceof \Search_Type_Numeric) {
             return [
                 "type" => "float",
             ];
-        } elseif ($entry instanceof Search_Type_Whole) {
+        } elseif ($entry instanceof \Search_Type_Whole) {
             return [
                 "type" => "string",
             ];
-        } elseif ($entry instanceof Search_Type_MultivalueJson) {
+        } elseif ($entry instanceof \Search_Type_MultivalueJson) {
             return [
                 "type" => "json",
             ];
-        } elseif ($entry instanceof Search_Type_MultivalueInt) {
+        } elseif ($entry instanceof \Search_Type_MultivalueInt) {
             return [
                 "type" => "multi",
             ];
-        } elseif ($entry instanceof Search_Type_JsonEncoded) {
+        } elseif ($entry instanceof \Search_Type_JsonEncoded) {
             return [
                 "type" => "json",
             ];
-        } elseif ($entry instanceof Search_Type_DateTime) {
+        } elseif ($entry instanceof \Search_Type_DateTime) {
             return [
                 "type" => "timestamp",
             ];
-        } elseif ($entry instanceof Search_Type_Timestamp) {
+        } elseif ($entry instanceof \Search_Type_Timestamp) {
             return [
                 "type" => "timestamp",
                 'dateonly' => $entry->isDateOnly(),
@@ -304,65 +318,61 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         return $search;
     }
 
-    /**
-     * @param Search_Query $query
-     * @param int $resultStart
-     * @param int $resultCount
-     * @return Search_Manticore_ResultSet
-     */
-    public function find(Search_Query_Interface $query, $resultStart, $resultCount)
+    public function find(\Search_Query_Interface $query, $resultStart, $resultCount)
     {
-        if ($resultCount > 100) {
-            // scrolling through result to help with memory limit issues
-            $perPage = 100;
-            $hasMore = true;
-            $resultSet = null;
-            for ($from = $resultStart; $hasMore && $from < $resultStart + $resultCount; $from += $perPage) {
-                $limit = min($perPage, $resultStart + $resultCount - $from);
-                $result = $this->find($query, $from, $limit);
-                if ($resultSet) {
-                    $resultSet->append($result);
-                } else {
-                    $resultSet = $result;
-                }
-                $hasMore = $result->hasMore();
-            }
-            return $resultSet;
+        $builder = new QueryBuilder($this);
+        $built = $builder->build($query->getExpr());
+
+        $condition = $built['query'];
+        $select = $built['select'];
+
+        if (empty($condition)) {
+            // empty queries return no results
+            return new ResultSet([], 0, $resultStart, $resultCount);
         }
 
-        $search = $this->initSearch();
+        $builder = new OrderBuilder($this);
+        $order = $builder->build($query->getSortOrder());
 
-        $decorator = new Search_Manticore_QueryDecorator($search, $this);
-        $decorator->setDocumentReader($this->createDocumentReader());
-        $decorator->decorate($query->getExpr());
-
-        $decorator = new Search_Manticore_OrderDecorator($search, $this);
-        $decorator->decorate($query->getSortOrder());
-
-        $decorator = new Search_Manticore_FacetDecorator($search, $this, $this->facetCount);
-        $decorator->decorate($query->getFacets());
+        $builder = new FacetBuilder($this);
+        $facets = $builder->build($query->getFacets());
 
         // TODO: multi-query/foreign indexes (federation)
         // $foreign = array_map(function ($query) use ($builder) {
         //     return $builder->build($query->getExpr());
         // }, $query->getForeignQueries());
 
-        $search->offset($resultStart)
-            ->limit($resultCount)
-            ->highlight(['contents'], ['pre_tags' => '<em>', 'post_tags' => '</em>'])
-            ->option('cutoff', 0);
+        $sql = "SELECT *";
+
+        foreach ($select as $key => $expr) {
+            $sql .= ", $expr as $key";
+        }
+
+        $sql .= " FROM {$this->index} WHERE $condition";
+
+        if ($order) {
+            $sql .= " ORDER BY $order";
+        }
+
+        $sql .= " LIMIT $resultStart, $resultCount option not_terms_only_allowed=1,cutoff=0";
 
         if ($resultStart + $resultCount > 1000) {
-            $search->maxMatches($resultStart + $resultCount);
+            $sql .= ',max_matches=' . ($resultStart + $resultCount);
         }
 
-        $compiled = $search->compile();
-        if (isset($compiled['query']['bool']) && count($compiled['query']) == 1 && empty($compiled['query']['bool'])) {
-            // empty queries return no results
-            return new Search_Manticore_ResultSet([], 0, $resultStart, $resultCount);
+        if ($facets) {
+            $sql .= ' ' . $facets;
         }
 
-        $result = $search->get();
+        $results = $this->pdo_client->fetchAllRowsets($sql);
+        $result = $results[0];
+
+        $meta = $this->pdo_client->fetchAll('SHOW META');
+        foreach ($meta as $row) {
+            if ($row['Variable_name'] == 'total_found') {
+                $totalCount = intval($row['Value']);
+            }
+        }
 
         $fieldMapping = $this->getUnifiedFieldMapping();
         $dateFields = $this->getUnifiedDateFields();
@@ -375,10 +385,12 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         }
 
         $entries = [];
-        foreach ($result as $entry) {
-            $data = (array) $entry->getData();
+        foreach ($result as $data) {
             foreach ($data as $key => $_) {
                 if (substr($key, -6) == '_nsort') {
+                    unset($data[$key]);
+                }
+                if (isset($select[$key])) {
                     unset($data[$key]);
                 }
             }
@@ -387,19 +399,12 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
                 $data['score'] = round($data['_score'], 2);
             }
 
-            $highlight = $entry->getHighlight();
-            if (! empty($highlight['contents'])) {
-                $data['_highlight'] = implode('...', $highlight['contents']);
-            } else {
-                $data['_highlight'] = '';
-            }
-
             // Manticore stores datetimes as timestamp values while MySQL/ES store as datetime strings
             // Tiki interface expects datetime strings in GMT, so we need a conversion before using the result
             foreach ($timestampFields as $tsField) {
                 if (! empty($data[$tsField])) {
                     $isDateOnly = in_array($fieldMapping[$tsField] ?? $tsField, $dateFields);
-                    $dt = new Search_Type_DateTime($data[$tsField], $isDateOnly);
+                    $dt = new \Search_Type_DateTime($data[$tsField], $isDateOnly);
                     $data[$tsField] = $dt->getValue();
                     $data['ignored_fields'][] = $fieldMapping[$tsField] ?? $tsField;
                 }
@@ -419,12 +424,12 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             $entries[] = $data;
         }
 
-        $resultSet = new Search_Manticore_ResultSet($entries, $result->getTotal(), $resultStart, $resultCount);
+        $resultSet = new ResultSet($entries, $totalCount, $resultStart, $resultCount);
 
         $words = $this->getWords($query->getExpr());
-        $resultSet->setHighlightHelper(new Search_MySql_HighlightHelper($words));
+        $resultSet->setHighlightHelper(new \Search_MySql_HighlightHelper($words));
 
-        $reader = new Search_Manticore_FacetReader($result);
+        $reader = new FacetReader($results);
         foreach ($query->getFacets() as $facet) {
             if ($filter = $reader->getFacetFilter($facet)) {
                 $resultSet->addFacetFilter($filter);
@@ -434,7 +439,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         return $resultSet;
     }
 
-    public function scroll(Search_Query_Interface $query)
+    public function scroll(\Search_Query_Interface $query)
     {
         $perPage = 100;
         $hasMore = true;
@@ -451,7 +456,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     public function getTypeFactory()
     {
-        return new Search_Manticore_TypeFactory();
+        return new TypeFactory();
     }
 
     private function createDocumentReader()
@@ -478,10 +483,10 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         return $this->pdo_client->percolate($this->index, $document);
     }
 
-    public function store($name, Search_Expr_Interface $expr)
+    public function store($name, \Search_Expr_Interface $expr)
     {
         $search = $this->initSearch();
-        $decorator = new Search_Manticore_QueryDecorator($search, $this);
+        $decorator = new QueryDecorator($search, $this);
         $decorator->setDocumentReader($this->createDocumentReader());
         $decorator->decorate($expr);
 
@@ -501,8 +506,24 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     public function getFieldMapping($field)
     {
+        if (array_key_exists($field, $this->providedMappings)) {
+            return $this->providedMappings[$field];
+        }
         if (array_key_exists(strtolower($field), $this->providedMappings)) {
             return $this->providedMappings[strtolower($field)];
+        }
+        $lowcase = array_map(function ($el) {
+            return strtolower($el);
+        }, array_keys($this->providedMappings));
+        $key = array_search(strtolower($field), $lowcase);
+        if ($key !== false) {
+            $i = 0;
+            foreach ($this->providedMappings as $field => $mapping) {
+                if ($i == $key) {
+                    return $mapping;
+                }
+                $i++;
+            }
         }
         return [];
     }
@@ -522,6 +543,31 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         return array_combine(array_map(function ($field) {
             return strtolower($field);
         }, $fields), $fields);
+    }
+
+    public function ensureHasField($field)
+    {
+        global $prefs;
+
+        $fields = preg_split('/\s*,\s*/', $field);
+        foreach ($fields as $field) {
+            $mapping = $this->getFieldMapping($field);
+            if (empty($mapping) && $prefs['search_error_missing_field'] === 'y') {
+                if (preg_match('/^tracker_field_/', $field)) {
+                    $msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', $field);
+                    if ($prefs['unified_exclude_nonsearchable_fields'] === 'y') {
+                        $msg .= ' ' . tr('You have disabled indexing non-searchable tracker fields. Check if this field is marked as searchable.');
+                    }
+                } else {
+                    $msg = tr('Field %0 does not exist in the current index. If this is a tracker field, the proper syntax is tracker_field_%0.', $field, $field);
+                }
+                $e = new Exception($msg);
+                if ($field == 'tracker_id') {
+                    $e->suppress_feedback = true;
+                }
+                throw $e;
+            }
+        }
     }
 
     protected function getUnifiedFieldMapping()
@@ -551,10 +597,10 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     protected function getWords($expr)
     {
         $words = [];
-        $factory = new Search_Type_Factory_Direct();
+        $factory = new \Search_Type_Factory_Direct();
         $expr->walk(
             function ($node) use (&$words, $factory) {
-                if ($node instanceof Search_Expr_Token && $node->getField() !== 'searchable') {
+                if ($node instanceof \Search_Expr_Token && $node->getField() !== 'searchable') {
                     $word = $node->getValue($factory)->getValue();
                     if (is_string($word) && ! in_array($word, $words)) {
                         $words[] = $word;

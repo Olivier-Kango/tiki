@@ -6,11 +6,13 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_Manticore_FacetDecorator extends Search_Manticore_Decorator
+namespace Search\Manticore;
+
+class FacetDecorator extends Decorator
 {
     private $count;
 
-    public function __construct(\Manticoresearch\Search $search, Search_Manticore_Index $index, $count = 10)
+    public function __construct(\Manticoresearch\Search $search, Index $index, $count = 10)
     {
         parent::__construct($search, $index);
         $this->count = $count;
@@ -38,7 +40,7 @@ class Search_Manticore_FacetDecorator extends Search_Manticore_Decorator
                 // TODO: facet ordering is supported only in SQL
                 try {
                     $this->search->facet($this->getNodeField($facet), $facet->getName(), $this->count);
-                } catch (Search_Manticore_Exception $e) {
+                } catch (Exception $e) {
                     // ignore fields not found in the index
                 }
             }

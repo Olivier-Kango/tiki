@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+namespace Search\Manticore;
+
 use Search_Expr_Token as Token;
 use Search_Expr_And as AndX;
 use Search_Expr_Or as OrX;
@@ -17,7 +19,7 @@ use Search_Expr_ImplicitPhrase as ImplicitPhrase;
 use Search_Expr_Distance as Distance;
 use Manticoresearch\Query;
 
-class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
+class QueryDecorator extends Decorator
 {
     protected $factory;
     protected $matches;
@@ -25,13 +27,13 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
     protected $weights;
     protected $documentReader;
 
-    public function __construct(\Manticoresearch\Search $search, Search_Manticore_Index $index)
+    public function __construct(\Manticoresearch\Search $search, Index $index)
     {
         global $prefs;
 
         parent::__construct($search, $index);
 
-        $this->factory = new Search_Manticore_TypeFactory();
+        $this->factory = new TypeFactory();
         $this->documentReader = function ($type, $object) {
             return null;
         };
@@ -42,7 +44,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
         $this->documentReader = $callback;
     }
 
-    public function decorate(Search_Expr_Interface $expr)
+    public function decorate(\Search_Expr_Interface $expr)
     {
         $this->matches = [];
         $this->must_nots = [];

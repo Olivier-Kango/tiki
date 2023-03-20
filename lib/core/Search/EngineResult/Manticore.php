@@ -9,7 +9,7 @@ class Search_EngineResult_Manticore implements Search_EngineResult_Interface
 {
     private $index = null;
 
-    public function __construct(Search_Manticore_Index $index)
+    public function __construct(\Search\Manticore\Index $index)
     {
         $this->index = $index;
     }

@@ -14,6 +14,7 @@ use Search_Expr_Not as NotX;
 class Search_MySql_FieldQueryBuilder
 {
     private $invert = false;
+    private $boolean_or = ' ';
 
     public function build(Search_Expr_Interface $expr, Search_Type_Factory_Interface $factory)
     {
@@ -35,7 +36,7 @@ class Search_MySql_FieldQueryBuilder
                     }
                     return (count($childNodes) == 1)
                         ? reset($childNodes)
-                        : '(' . implode(' ', $childNodes) . ')';
+                        : '(' . implode($this->boolean_or, $childNodes) . ')';
                 } elseif ($node instanceof AndX) {
                     $negatives = 0;
                     foreach ($childNodes as $node) {
@@ -77,5 +78,10 @@ class Search_MySql_FieldQueryBuilder
     public function isInverted()
     {
         return $this->invert;
+    }
+
+    public function setBooleanOrOperator($op = ' ')
+    {
+        $this->boolean_or = $op;
     }
 }

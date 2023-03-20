@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_Manticore_Exception extends Search_Exception
+namespace Search\Manticore;
+
+class Exception extends \Search_Exception
 {
 }
