@@ -3487,6 +3487,7 @@ CREATE TABLE `tiki_plugin_security` (
   `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_objectType` VARCHAR(20) NOT NULL,
   `last_objectId` VARCHAR(200) NOT NULL,
+  `base_url` text,
   `body` text,
   `arguments` text,
   PRIMARY KEY (`fingerprint`(191)),
