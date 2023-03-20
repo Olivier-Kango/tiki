@@ -2358,15 +2358,9 @@ class UsersLib extends TikiLib
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
         $cant = $this->getOne($query_cant, $mbindvars);
 
-        $perms = Perms::get(['type' => 'group', 'object' => $group]);
-        foreach ($ret as &$res) {
-            if (! $perms->admin_users) {
-                // Filter out sensitive data
-                unset($res['email']);
-                unset($res['hash']);
-                unset($res['provpass']);
-            }
+        Perms::bulk([ 'type' => 'group' ], 'object', $group);
 
+        foreach ($ret as &$res) {
             $res['user'] = $res['login'];
             $user = $res['user'];
 
@@ -2374,6 +2368,24 @@ class UsersLib extends TikiLib
                 $groups = $this->get_user_groups_inclusion($user);
             } else {
                 $groups = $this->get_user_groups($user);
+            }
+
+            $group_intersect = array_intersect($groups, $group);
+
+            $is_admin = false;
+            foreach ($group_intersect as $object) {
+                $perms = Perms::get(['type' => 'group', 'object' => $object]);
+                if ($perms->admin_users) {
+                    $is_admin = true;
+                    break;
+                }
+            }
+
+            if (! $is_admin) {
+                // Filter out sensitive data
+                unset($res['email']);
+                unset($res['hash']);
+                unset($res['provpass']);
             }
 
             $res['groups'] = $groups;
