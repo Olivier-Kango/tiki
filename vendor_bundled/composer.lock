@@ -2872,9 +2872,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-84b772e596d9164f8287337cfffcf41aaee212ff-zip-39d1af.zip",
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-50f5c3b27986fbf92357f956065605c9c3fe3336-zip-d2684e.zip",
                 "reference": "84b772e596d9164f8287337cfffcf41aaee212ff",
-                "shasum": "d562c4fef278cc25dd5a5106364fc20035e8158a"
+                "shasum": "2de748515acdfddcce7a0ccd0f8cce786de54d92"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
