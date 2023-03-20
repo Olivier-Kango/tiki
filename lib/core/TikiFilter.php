@@ -29,7 +29,7 @@ class TikiFilter
      * Provides an object implementing Laminas\Filter\FilterInterface based on the input
      *
      * @param FilterInterface|string $filter        A filter shortcut name, or the filter itself.
-     * @return TikiFilter_Alnum|TikiFilter_Alpha|TikiFilter_AttributeType|TikiFilter_HtmlPurifier|TikiFilter_IsoDate|TikiFilter_Lang|TikiFilter_None|TikiFilter_PregFilter|TikiFilter_PreventXss|TikiFilter_RawUnsafe|TikiFilter_RelativeURL|TikiFilter_WikiContent|Boolean|Digits|FilterInterface|PregReplace|StripTags|ToInt
+     * @return TikiFilter_Alnum|TikiFilter_Alpha|TikiFilter_AttributeType|TikiFilter_HtmlPurifier|TikiFilter_IsoDate|TikiFilter_Lang|TikiFilter_None|TikiFilter_PregFilter|TikiFilter_PreventXss|TikiFilter_RawUnsafe|TikiFilter_RelativeURL|TikiFilter_WikiContent|Boolean|Digits|FilterInterface|PregReplace|StripTags|ToInt|TikiFilter_Array
      *
      * @link https://dev.tiki.org/Filtering+Best+Practices
      * @link https://zendframework.github.io/zend-filter/
@@ -68,6 +68,8 @@ class TikiFilter
                     'type'          => Boolean::TYPE_ALL,
                     'translations'  => ['n' => false, 'N' => false]
                 ]);
+            case 'array':
+                return new TikiFilter_Array();
 
             /** Special Filters (may return mixed types or blank sting upon error) **/
             case 'isodate':

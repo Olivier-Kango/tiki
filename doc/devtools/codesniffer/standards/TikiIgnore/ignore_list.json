@@ -260,6 +260,9 @@
         "lib\/core\/TikiFilter\/Alpha.php": {
             "class:TikiFilter_Alpha": true
         },
+        "lib\/core\/TikiFilter\/Array.php": {
+            "class:TikiFilter_Array": true
+        },
         "lib\/core\/Math\/Formula\/Function\/Eval.php": {
             "class:Math_Formula_Function_Eval": true
         },
