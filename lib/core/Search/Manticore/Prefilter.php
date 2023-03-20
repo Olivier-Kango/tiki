@@ -6,7 +6,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_Manticore_Prefilter
+namespace Search\Manticore;
+
+class Prefilter
 {
     /**
      * Returns Manticore prefilter logic to possibly insert in a closure

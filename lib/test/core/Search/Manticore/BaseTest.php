@@ -29,12 +29,13 @@ class BaseTest extends \Search_Index_BaseTest
 
     protected function assertResultCount($count, $filterMethod, $argument)
     {
+        $arguments = func_get_args();
+        $arguments = array_slice($arguments, 2);
+
         if ($filterMethod == 'filterTextRange') {
             $this->addWarning('Manticore does not support text range searches.');
             return;
         } else {
-            $arguments = func_get_args();
-            $arguments = array_slice($arguments, 2);
             return parent::assertResultCount($count, $filterMethod, ...$arguments);
         }
     }

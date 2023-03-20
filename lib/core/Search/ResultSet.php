@@ -259,14 +259,19 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         }
         foreach ($this as &$item) {//for each element in resultset
             if (isset($item['relation_objects'])) {
-                foreach ($item['relation_objects'] as $key => $obj) {
+                if (is_string($item['relation_objects'])) {
+                    $objects = json_decode($item['relation_objects'], true);
+                } else {
+                    $objects = $item['relation_objects'];
+                }
+                foreach ($objects as $key => $obj) {
                     $in_group = array_intersect($obj->allowed_groups, $user_groups);
                     $in_user = in_array($user, $obj->allowed_users);
                     if (! $in_group && ! $in_user) {
-                        unset($item['relation_objects'][$key]);
+                        unset($objects[$key]);
                     }
                 }
-                $item['relation_objects'] = array_values($item['relation_objects']); //rebase keys
+                $item['relation_objects'] = array_values($objects); //rebase keys
             }
         }
     }

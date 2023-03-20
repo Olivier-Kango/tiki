@@ -6,9 +6,15 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_Manticore_PdoClient
+namespace Search\Manticore;
+
+use Feedback;
+use PDO;
+use PDOException;
+
+class PdoClient
 {
-    const QUERY_RETRIES = 1;
+    protected const QUERY_RETRIES = 1;
 
     protected $dsn;
     protected $port;
@@ -166,7 +172,7 @@ class Search_Manticore_PdoClient
                 return $item['tags'];
             }, $results);
         } catch (PDOException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Exception($e);
         }
     }
 
@@ -176,12 +182,33 @@ class Search_Manticore_PdoClient
         $stmt->execute(['tags' => $name]);
     }
 
+    public function fetchAll($query)
+    {
+        $stmt = $this->pdo->query($query);
+        return $stmt->fetchAll();
+    }
+
+    public function fetchAllRowsets($query)
+    {
+        $stmt = $this->pdo->query($query);
+        $result = [$stmt->fetchAll()];
+        while ($stmt->nextRowset()) {
+            $result[] = $stmt->fetchAll();
+        }
+        return $result;
+    }
+
+    public function quote($string)
+    {
+        return $this->pdo->quote($string);
+    }
+
     protected function connect()
     {
         $dsn = rtrim($this->dsn, '/');
         $parsed = parse_url($dsn);
         if ($parsed === false) {
-            throw new Search_Manticore_Exception(tr("Malformed Manticore connection url: %0", $this->dsn));
+            throw new Exception(tr("Malformed Manticore connection url: %0", $this->dsn));
         }
 
         $dsn = "mysql:host=" . $parsed['host'] . ";port=" . $this->port;
@@ -191,7 +218,7 @@ class Search_Manticore_PdoClient
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            throw new Search_Manticore_Exception(tr("Error connecting to Manticore service: %0", $e->getMessage()));
+            throw new Exception(tr("Error connecting to Manticore service: %0", $e->getMessage()));
         }
     }
 
@@ -206,7 +233,7 @@ class Search_Manticore_PdoClient
                     $this->executeWithRetry($stmt, $params, $tries + 1);
                 }
             } else {
-                throw new Search_Manticore_Exception($e->getMessage());
+                throw new Exception($e->getMessage());
             }
         }
     }

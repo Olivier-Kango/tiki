@@ -214,7 +214,7 @@ class UnifiedSearchLib
                 break;
             case 'manticore':
                 $indexName = $prefs['unified_manticore_index_prefix'] . 'main_' . uniqid();
-                $index = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $indexName);
+                $index = new \Search\Manticore\Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $indexName);
                 $engineResults = new Search_EngineResult_Manticore($index);
                 $tikilib->set_preference('unified_manticore_index_rebuilding', $indexName);
                 $tikilib->set_preference('unified_date_fields', json_encode([]));
@@ -225,7 +225,7 @@ class UnifiedSearchLib
                         global $prefs;
                         if (! empty($prefs['unified_manticore_index_current']) && $prefs['unified_manticore_index_current'] !== $indexName) {
                             $index->destroy();
-                            $indexpq = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $indexName . 'pq');
+                            $indexpq = new \Search\Manticore\Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $indexName . 'pq');
                             $indexpq->destroy();
                         }
                         $tikilib->delete_preference('unified_manticore_index_rebuilding');
@@ -877,13 +877,13 @@ class UnifiedSearchLib
 
         if ($engine == 'manticore' && $index = $this->getIndexLocation($indexType)) {
             try {
-                $index = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $index);
+                $index = new \Search\Manticore\Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $index);
 
                 if ($useCache) {
                     $this->indices[$indexType] = $index;
                 }
                 return $index;
-            } catch (Search_Manticore_Exception $e) {
+            } catch (\Search\Manticore\Exception $e) {
                 if ($tiki_p_admin == 'y') {
                     Feedback::error($e->getMessage());
                 }
@@ -1094,10 +1094,10 @@ class UnifiedSearchLib
 
         switch ($type) {
             case "http":
-                $client = new Search_Manticore_Client($target, $prefs['unified_manticore_http_port']);
+                $client = new \Search\Manticore\Client($target, $prefs['unified_manticore_http_port']);
                 break;
             case "mysql":
-                $client = new Search_Manticore_PdoClient($target, $prefs['unified_manticore_mysql_port']);
+                $client = new \Search\Manticore\PdoClient($target, $prefs['unified_manticore_mysql_port']);
                 break;
             default:
                 throw new Exception(tr('Invalid Manticore Search client type: %0', $type));
@@ -1140,7 +1140,7 @@ class UnifiedSearchLib
 
                 if (isset($status['version'])) {
                     $dataSource->setPrefilter(function ($fields, $entry) {
-                        return (new Search_Manticore_Prefilter())->get($fields, $entry);
+                        return (new \Search\Manticore\Prefilter())->get($fields, $entry);
                     });
                 }
             }

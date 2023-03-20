@@ -6,9 +6,11 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+namespace Search\Manticore;
+
 use Manticoresearch\Exceptions\ExceptionInterface as ManticoreException;
 
-class Search_Manticore_ClientException extends Search_Manticore_Exception
+class ClientException extends Exception
 {
     protected $context;
 

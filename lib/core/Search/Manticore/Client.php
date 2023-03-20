@@ -6,9 +6,11 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+namespace Search\Manticore;
+
 use Manticoresearch\Exceptions\ExceptionInterface as ManticoreException;
 
-class Search_Manticore_Client
+class Client
 {
     protected $dsn;
     protected $client;
@@ -19,7 +21,7 @@ class Search_Manticore_Client
 
         $parsed = parse_url($this->dsn);
         if ($parsed === false) {
-            throw new Search_Manticore_Exception(tr("Malformed Manticore connection url: %0", $this->dsn));
+            throw new Exception(tr("Malformed Manticore connection url: %0", $this->dsn));
         }
 
         $config = [
@@ -31,9 +33,9 @@ class Search_Manticore_Client
             'connection_timeout' => 5,
         ];
         try {
-            $this->client = new \Manticoresearch\Client($config, new Tiki_Log('Manticore', \Psr\Log\LogLevel::WARNING));
+            $this->client = new \Manticoresearch\Client($config, new \Tiki_Log('Manticore', \Psr\Log\LogLevel::WARNING));
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 
@@ -76,7 +78,7 @@ class Search_Manticore_Client
             $index = $this->client->index($index);
             return $index->status();
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 
@@ -86,10 +88,10 @@ class Search_Manticore_Client
             $index = $this->client->index($index);
             $response = $index->create($definition, $settings, $silent);
             if (! empty($response['error'])) {
-                throw new Search_Manticore_Exception($response['error']);
+                throw new Exception($response['error']);
             }
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 
@@ -99,7 +101,7 @@ class Search_Manticore_Client
             $index = $this->client->index($index);
             return $index->drop(true);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 
@@ -133,7 +135,7 @@ class Search_Manticore_Client
             $index = $this->client->index($index);
             return $index->alter($operation, $field, $type);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 
@@ -143,7 +145,7 @@ class Search_Manticore_Client
             $index = $this->client->index($index);
             return $index->search($query);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 
@@ -159,7 +161,7 @@ class Search_Manticore_Client
             ]);
             return $res;
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 
@@ -169,7 +171,7 @@ class Search_Manticore_Client
             $index = $this->client->index($index);
             return $index->addDocument($data);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 
@@ -182,7 +184,7 @@ class Search_Manticore_Client
                 'object_id' => $id,
             ]);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 
@@ -203,7 +205,7 @@ class Search_Manticore_Client
             $result = new ResultSet($this->client->search($params, true));
             return $result->current();
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_ClientException($e);
+            throw new ClientException($e);
         }
     }
 

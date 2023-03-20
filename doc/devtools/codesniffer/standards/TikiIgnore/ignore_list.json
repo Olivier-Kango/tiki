@@ -2029,9 +2029,6 @@
         "lib\/core\/Search\/ResultSet.php": {
             "class:Search_ResultSet": true
         },
-        "lib\/core\/Search\/Manticore\/FacetDecorator.php": {
-            "class:Search_Manticore_FacetDecorator": true
-        },
         "lib\/test\/attributes\/RelationTest.php": {
             "class:RelationTest": true
         },
@@ -2096,12 +2093,6 @@
         "lib\/core\/Tiki\/Profile\/InstallHandler\/DataChannel.php": {
             "class:Tiki_Profile_InstallHandler_DataChannel": true
         },
-        "lib\/core\/Search\/Manticore\/PdoClient.php": {
-            "class:Search_Manticore_PdoClient": true
-        },
-        "lib\/core\/Search\/Manticore\/Prefilter.php": {
-            "class:Search_Manticore_Prefilter": true
-        },
         "lib\/core\/Tiki\/Profile\/InstallHandler\/GoalSet.php": {
             "class:Tiki_Profile_InstallHandler_GoalSet": true
         },
@@ -2155,9 +2146,6 @@
         },
         "lib\/core\/Services\/Tracker\/TabularController.php": {
             "class:Services_Tracker_TabularController": true
-        },
-        "lib\/core\/Search\/Manticore\/QueryDecorator.php": {
-            "class:Search_Manticore_QueryDecorator": true
         },
         "lib\/core\/Services\/Tracker\/TodoController.php": {
             "class:Services_Tracker_TodoController": true
@@ -2213,38 +2201,11 @@
         "lib\/payment\/israelpostlib.php": {
             "class:IsraelPostLib": true
         },
-        "lib\/core\/Search\/Manticore\/Index.php": {
-            "class:Search_Manticore_Index": true
-        },
         "lib\/core\/Tiki\/Profile\/InstallHandler\/Template.php": {
             "class:Tiki_Profile_InstallHandler_Template": true
         },
-        "lib\/core\/Search\/Manticore\/ClientException.php": {
-            "class:Search_Manticore_ClientException": true
-        },
-        "lib\/core\/Search\/Manticore\/ResultSet.php": {
-            "class:Search_Manticore_ResultSet": true
-        },
         "lib\/test\/core\/Multilingual\/Aligner\/ShortestPathFinderTest.php": {
             "class:Multilingual_Aligner_ShortestPathFinderTest": true
-        },
-        "lib\/core\/Search\/Manticore\/FacetReader.php": {
-            "class:Search_Manticore_FacetReader": true
-        },
-        "lib\/core\/Search\/Manticore\/Decorator.php": {
-            "class:Search_Manticore_Decorator": true
-        },
-        "lib\/core\/Search\/Manticore\/TypeFactory.php": {
-            "class:Search_Manticore_TypeFactory": true
-        },
-        "lib\/core\/Search\/Manticore\/Exception.php": {
-            "class:Search_Manticore_Exception": true
-        },
-        "lib\/core\/Search\/Manticore\/OrderDecorator.php": {
-            "class:Search_Manticore_OrderDecorator": true
-        },
-        "lib\/core\/Search\/Manticore\/FatalException.php": {
-            "class:Search_Manticore_FatalException": true
         },
         "lib\/wiki\/renderlib.php": {
             "class:WikiRenderer": true
@@ -2339,9 +2300,6 @@
         },
         "lib\/test\/filegals\/FilegalsTest.php": {
             "class:FilegalsTest": true
-        },
-        "lib\/core\/Search\/Manticore\/Client.php": {
-            "class:Search_Manticore_Client": true
         },
         "lib\/test\/editlib\/ParseToWysiwyg_LinkTest.php": {
             "class:EditLib_ParseToWysiwyg_LinkTest": true
@@ -5672,9 +5630,6 @@
         "lib\/core\/Search\/ResultSet.php": {
             "Search_ResultSet": true
         },
-        "lib\/core\/Search\/Manticore\/FacetDecorator.php": {
-            "Search_Manticore_FacetDecorator": true
-        },
         "lib\/core\/TikiDb\/Bridge.php": {
             "TikiDb_Bridge": true
         },
@@ -5722,12 +5677,6 @@
         "lib\/core\/Tiki\/Profile\/InstallHandler\/DataChannel.php": {
             "Tiki_Profile_InstallHandler_DataChannel": true
         },
-        "lib\/core\/Search\/Manticore\/PdoClient.php": {
-            "Search_Manticore_PdoClient": true
-        },
-        "lib\/core\/Search\/Manticore\/Prefilter.php": {
-            "Search_Manticore_Prefilter": true
-        },
         "lib\/core\/Tiki\/Profile\/InstallHandler\/GoalSet.php": {
             "Tiki_Profile_InstallHandler_GoalSet": true
         },
@@ -5766,9 +5715,6 @@
         },
         "lib\/core\/Services\/Tracker\/TabularController.php": {
             "Services_Tracker_TabularController": true
-        },
-        "lib\/core\/Search\/Manticore\/QueryDecorator.php": {
-            "Search_Manticore_QueryDecorator": true
         },
         "lib\/core\/Services\/Tracker\/TodoController.php": {
             "Services_Tracker_TodoController": true
@@ -5809,38 +5755,11 @@
         "lib\/core\/Tiki\/Profile\/InstallHandler\/Tracker.php": {
             "Tiki_Profile_InstallHandler_Tracker": true
         },
-        "lib\/core\/Search\/Manticore\/Index.php": {
-            "Search_Manticore_Index": true
-        },
         "lib\/core\/Tiki\/Profile\/InstallHandler\/Template.php": {
             "Tiki_Profile_InstallHandler_Template": true
         },
-        "lib\/core\/Search\/Manticore\/ClientException.php": {
-            "Search_Manticore_ClientException": true
-        },
-        "lib\/core\/Search\/Manticore\/ResultSet.php": {
-            "Search_Manticore_ResultSet": true
-        },
         "lib\/test\/core\/Multilingual\/Aligner\/ShortestPathFinderTest.php": {
             "Multilingual_Aligner_ShortestPathFinderTest": true
-        },
-        "lib\/core\/Search\/Manticore\/FacetReader.php": {
-            "Search_Manticore_FacetReader": true
-        },
-        "lib\/core\/Search\/Manticore\/Decorator.php": {
-            "Search_Manticore_Decorator": true
-        },
-        "lib\/core\/Search\/Manticore\/TypeFactory.php": {
-            "Search_Manticore_TypeFactory": true
-        },
-        "lib\/core\/Search\/Manticore\/Exception.php": {
-            "Search_Manticore_Exception": true
-        },
-        "lib\/core\/Search\/Manticore\/OrderDecorator.php": {
-            "Search_Manticore_OrderDecorator": true
-        },
-        "lib\/core\/Search\/Manticore\/FatalException.php": {
-            "Search_Manticore_FatalException": true
         },
         "lib\/core\/Search\/MySql\/Index.php": {
             "Search_MySql_Index": true
@@ -5901,9 +5820,6 @@
         },
         "lib\/core\/Tiki\/Profile\/InstallHandler\/WikiPage.php": {
             "Tiki_Profile_InstallHandler_WikiPage": true
-        },
-        "lib\/core\/Search\/Manticore\/Client.php": {
-            "Search_Manticore_Client": true
         },
         "lib\/test\/editlib\/ParseToWysiwyg_LinkTest.php": {
             "EditLib_ParseToWysiwyg_LinkTest": true
@@ -7159,9 +7075,6 @@
         },
         "lib\/core\/TikiDb\/SanitizeEncoding.php": {
             "INVALID_CHAR_REPLACEMENT": true
-        },
-        "lib\/core\/Search\/Manticore\/PdoClient.php": {
-            "QUERY_RETRIES": true
         },
         "lib\/core\/Scheduler\/Item.php": {
             "STATUS_ACTIVE": true,

@@ -195,11 +195,7 @@ class Search_Indexer
         foreach ($data as $entry) {
             try {
                 $this->searchIndex->addDocument($entry);
-            } catch (Search_Manticore_ClientException $e) {
-                // TODO: calm this down once integration is stable
-                echo $e->getMessage() . "\n";
-                var_dump($e->getContext());
-            } catch (Search_Manticore_FatalException $e) {
+            } catch (\Search\Manticore\FatalException $e) {
                 throw new Exception($e->getMessage());
             } catch (Exception $e) {
                 $msg = tr(
