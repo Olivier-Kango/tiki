@@ -234,7 +234,7 @@ return [
     'tracker_data' => [FILTER_DEFAULT, false],
   ],
   'allowed_post' => [
-    'imap_server_id' => FILTER_VALIDATE_INT,
+    'imap_server_id' => FILTER_SANITIZE_STRING,
     'imap_msg_uid' => FILTER_SANITIZE_STRING,
     'imap_msg_ids' => FILTER_SANITIZE_STRING,
     'imap_msg_part' => FILTER_SANITIZE_STRING,
