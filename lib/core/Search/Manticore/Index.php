@@ -378,9 +378,13 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $dateFields = $this->getUnifiedDateFields();
 
         $timestampFields = [];
+        $multiFields = [];
         foreach ($this->providedMappings as $field => $mapping) {
             if (in_array('timestamp', $mapping['types'])) {
                 $timestampFields[] = $field;
+            }
+            if (in_array('multi', $mapping['types']) || in_array('mva', $mapping['types'])) {
+                $multiFields[] = $field;
             }
         }
 
@@ -409,6 +413,15 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
                     $data['ignored_fields'][] = $fieldMapping[$tsField] ?? $tsField;
                 } else {
                     $data[$tsField] = '';
+                }
+            }
+
+            // convert MVA fields to array of ints (they get returned as comma-separated string)
+            foreach ($multiFields as $mField) {
+                if (! empty($data[$mField])) {
+                    $data[$mField] = explode(',', $data[$mField]);
+                } else {
+                    $data[$mField] = [];
                 }
             }
 
