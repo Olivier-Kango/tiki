@@ -31,8 +31,9 @@ class FacetReader
             }
         }
 
-        if ($entry) {
-            return new \Search_ResultSet_FacetFilter($facet, $this->getFromBucket($entry));
+        $entries = $this->getFromBucket($entry);
+        if ($entries) {
+            return new \Search_ResultSet_FacetFilter($facet, $entries);
         } else {
             return null;
         }
@@ -42,7 +43,11 @@ class FacetReader
     {
         $out = [];
         foreach ($entry as $row) {
-            $out[] = ['value' => array_shift($row), 'count' => array_pop($row)];
+            $value = array_shift($row);
+            $count = array_pop($row);
+            if ($value != '') {
+                $out[] = ['value' => $value, 'count' => $count];
+            }
         }
         return $out;
     }
