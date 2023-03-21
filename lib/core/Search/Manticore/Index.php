@@ -407,6 +407,8 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
                     $dt = new \Search_Type_DateTime($data[$tsField], $isDateOnly);
                     $data[$tsField] = $dt->getValue();
                     $data['ignored_fields'][] = $fieldMapping[$tsField] ?? $tsField;
+                } else {
+                    $data[$tsField] = '';
                 }
             }
 
