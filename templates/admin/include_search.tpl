@@ -70,6 +70,8 @@
                             <b>{tr}Elasticsearch:{/tr} </b><br>
                             {tr}Advantages:{/tr} {tr}Most advanced, fast and scalable search engine. Enables some very advanced/new features of Tiki{/tr}.<br>
                             {tr}Disadvantages:{/tr} {tr}Needs to be separately installed from Tiki and requires more configuration{/tr} (See this <a class='alert-link' href='http://doc.tiki.org/Elasticsearch'>{tr}link{/tr}</a> {tr}for more information) {/tr}<br>
+                            <b>{tr}Manticore Search:{/tr} </b><br>
+                            {tr}Advantages:{/tr} {tr}Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine{/tr}.<br>
                         {/remarksbox}
                     </div>
 
