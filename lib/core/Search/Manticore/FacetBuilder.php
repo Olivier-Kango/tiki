@@ -49,7 +49,12 @@ class FacetBuilder
             $count = $facet->getCount() ?: $this->count;
             $order = $facet->getOrder();
             $field = strtolower($facet->getField());
-            $this->index->ensureHasField($field);
+            try {
+                $this->index->ensureHasField($field);
+            } catch (Exception $e) {
+                // ignore facet requests for missing fields
+                return '';
+            }
             $out = 'FACET ' . $facet->getName() . ' BY ' . $field;
             if ($order) {
                 foreach ($order as $field => $direction) {
