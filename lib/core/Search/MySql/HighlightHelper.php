@@ -14,7 +14,9 @@ class Search_MySql_HighlightHelper implements Laminas\Filter\FilterInterface
 
     public function __construct(array $words)
     {
-        $this->words = $words;
+        $this->words = array_filter($words, function ($word) {
+            return strlen($word) > 2;
+        });
 
         $counter = -1;
 

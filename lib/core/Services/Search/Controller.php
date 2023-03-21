@@ -136,6 +136,8 @@ class Services_Search_Controller
         try {
             $filter = $input->filter->none() ?: [];
             $format = $input->format->text() ?: '{title}';
+            $titleFilter = null;
+            $highlightHelper = null;
 
             /** @var UnifiedSearchLib $lib */
             $lib = TikiLib::lib('unifiedsearch');
@@ -146,6 +148,7 @@ class Services_Search_Controller
                 unset($filter['title']);
                 $query = $lib->buildQuery($filter);
                 $query->filterContent($titleFilter, $matches[1]);
+                $highlightHelper = new Search_MySql_HighlightHelper(explode(' ', $titleFilter));
             } else {
                 $query = $lib->buildQuery($filter);
             }
@@ -155,12 +158,12 @@ class Services_Search_Controller
 
             $result = $query->search($lib->getIndex());
 
-            $result->applyTransform(function ($item) use ($format, $smarty) {
+            $result->applyTransform(function ($item) use ($format, $smarty, $titleFilter, $highlightHelper) {
                 $transformed = [
                     'object_type' => $item['object_type'],
                     'object_id' => $item['object_id'],
                     'parent_id' => $item['gallery_id'],
-                    'title' => preg_replace_callback('/\{(\w+)\}/', function ($matches) use ($item, $format) {
+                    'title' => preg_replace_callback('/\{(\w+)\}/', function ($matches) use ($item, $format, $titleFilter, $highlightHelper) {
                         $key = $matches[1];
                         if (isset($item[$key])) {
                             // if this is a trackeritem we do not want only the name but also the trackerid listed when setting up a field
@@ -177,6 +180,9 @@ class Services_Search_Controller
                                         implode(',', $item[$key]);
                                 } elseif (! empty($item[$key . '_text'])) {
                                     $value = $item[$key . '_text'];
+                                }
+                                if ($titleFilter) {
+                                    $value = $highlightHelper->filter($value);
                                 }
                                 return $value;
                             }
