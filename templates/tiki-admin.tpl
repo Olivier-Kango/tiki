@@ -1,4 +1,4 @@
-<div class="admin-wrapper">
+<div class="admin-wrapper {if $prefs.theme_unified_admin_backend eq 'y'}overflow-scroll{/if}">
     {if $prefs.theme_unified_admin_backend eq 'y'}
         <aside class="admin-nav">
             {include file='admin/include_anchors.tpl'}
