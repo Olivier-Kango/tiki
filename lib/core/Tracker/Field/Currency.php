@@ -197,7 +197,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
     {
         $value = $this->getValue();
         $data = $this->getFieldData();
-        $defaultAmount = $this->convertToDefaultCurrency($data);
+        $defaultAmount = Services_Tracker_Utilities::convertToDefaultCurrency($data);
         $baseKey = $this->getBaseKey();
 
         $out = [
@@ -291,10 +291,10 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
                     $data = $this->getFieldData();
                     $data['amount'] = $control->getFrom();
                     $data['currency'] = $control->getFromCurrency();
-                    $from = round($this->convertToDefaultCurrency($data), 2);
+                    $from = round(Services_Tracker_Utilities::convertToDefaultCurrency($data), 2);
                     $data['amount'] = $control->getTo();
                     $data['currency'] = $control->getToCurrency();
-                    $to = round($this->convertToDefaultCurrency($data), 2);
+                    $to = round(Services_Tracker_Utilities::convertToDefaultCurrency($data), 2);
                     $query->filterNumericRange($from, $to, "{$baseKey}_base");
                 }
             });
@@ -320,19 +320,5 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
         }
 
         return $data;
-    }
-
-    private function convertToDefaultCurrency($data)
-    {
-        $trk = TikiLib::lib('trk');
-        $rates = $trk->exchange_rates($data['date']);
-
-        $defaultCurrency = array_search(1, $rates);
-        if (empty($defaultCurrency)) {
-            $defaultCurrency = 'USD';
-        }
-
-        $currency = new Math_Formula_Currency($data['amount'], $data['currency'], $rates);
-        return $currency->convertTo($defaultCurrency)->getAmount();
     }
 }
