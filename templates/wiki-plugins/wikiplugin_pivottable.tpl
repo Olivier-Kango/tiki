@@ -126,7 +126,7 @@
         createEditBtn({{$pivottable.id|json_encode}});
     });
     //adding bind call for pdf creation
-    $('.icon-pdf').parent().click(function(){
+    $('a.generate-pdf').click(function(){
         storeSortTable('#container_{{$pivottable.id}}',$('#container_{{$pivottable.id}}').find(".pvtRendererArea"))
     });
 {/jq}

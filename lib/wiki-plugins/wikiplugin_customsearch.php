@@ -556,7 +556,7 @@ window.customsearch_$id = customsearch$id;
     }
 
     global $page;
-    $script .= "$('.icon-pdf').parent().click(function(){storeSortTable('#customsearch_" . $id . "_results',$('#customsearch_" . $id . "_results'))});
+    $script .= "$('a.generate-pdf').click(function(){storeSortTable('#customsearch_" . $id . "_results',$('#customsearch_" . $id . "_results'))});
 customsearch$id._load = function (receive) {
     var datamap = {
         definition: this.definition,

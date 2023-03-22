@@ -139,7 +139,7 @@
                         </h6>
                         <div class="dropdown-divider"></div>
                         {if $pdf_export eq 'y' and $pdf_warning eq 'n'}
-                            <a class="dropdown-item" href="tiki-print.php?{query _keepall='y' display="pdf" page=$page}">
+                            <a class="dropdown-item generate-pdf" href="tiki-print.php?{query _keepall='y' display="pdf" page=$page}">
                                 {icon name="pdf"} {tr} PDF{/tr}
                                 {assign var="hasPageAction" value="1"}
                             </a>
