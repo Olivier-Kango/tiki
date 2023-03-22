@@ -88,7 +88,7 @@ If the whole parameter is absent (not recommended), all possible field values wi
             ],
             'order' => [
                 'name' => tr('Card relative order field'),
-                'description' => tr('Sort order for cards within a cell.  Must be a numeric field.  You will have to create it if the board represents an existing tracker.  It is not meant to be displayed to the user, or represent something global like "priority" (that would make no sense on a partial representation).  It merely means that the card is displayed above any card wifh lower value, and below any card with a higher one if displayed in the same cell.  When a card is moved board will halve the value of the two surrounding cards to compute the new value.'),
+                'description' => tr('Sort order for cards within a cell.  Must be a numeric field.  You will have to create it if the board represents an existing tracker.  It is not meant to be displayed to the user, or represent something global like "priority" (that would make no sense on a partial representation).  It merely means that the card is displayed above any card with lower value, and below any card with a higher one if displayed in the same cell.  When a card is moved board will halve the value of the two surrounding cards to compute the new value.'),
                 'hint' => tr('e.g. "kanbanOrder"'),
                 'since' => '25.0',
                 'required' => true,
@@ -303,7 +303,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     //print_r(array_keys($swimlanesInfo));
 
     //Filter the cards
-     //We only filter the swimlane or column field values if we don't allow empty values. Search_Query cannot include specific values plus the empty ones.
+    //We only filter the swimlane or column field values if we don't allow empty values. Search_Query cannot include specific values plus the empty ones.
     if (
         $jit->columnValues->text()
         &&
@@ -391,15 +391,16 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
                 $updatableFields[] = $field['permName'];
             }
         }
-        if (count($updatableFields) == 0) {
+        if (count($updatableFields) > 0) {
             $updatableFields = null;
+
+            $caslAbilities[] =
+                [
+                    'action' => 'create',
+                    'subject' => 'Tracker_Item',
+                    'fields' => $updatableFields
+                ];
         }
-        $caslAbilities[] =
-            [
-                'action' => 'create',
-                'subject' => 'Tracker_Item',
-                'fields' => $updatableFields
-            ];
     }
     foreach ($entries as $row) {
         //echo '<pre>ROW:';print_r($row);echo '</pre>';
@@ -443,22 +444,24 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
                 continue;  //Skip tracker items that have fields with values not in the mapped enumerable fields
             }
         }
+        if (count($updatableFields) > 0) {
+            $caslAbilities[] =
+                [
+                    'action' => 'update',
+                    'subject' => 'Tracker_Item',
+                    'fields' => $updatableFields,
+                    //This explicit cast is required because getId aparently returns strings or int depending on php version or some other factor
+                    'conditions' => ['itemId' => (int)$trackerItem->getId()]
+                ];
+            //We assume yes here, TODO:  add a method in Tracker to check effective permission for that specific item, checking tiki_p_remove_tracker_items is not suffuciend
+            $caslAbilities[] =
+                [
+                    'action' => 'delete',
+                    'subject' => 'Tracker_Item',
+                    'conditions' => ['itemId' => (int)$trackerItem->getId()]
+                ];
+        }
 
-        $caslAbilities[] =
-            [
-                'action' => 'update',
-                'subject' => 'Tracker_Item',
-                'fields' => $updatableFields,
-                //This explicit cast is required because getId aparently returns strings or int depending on php version or some other factor
-                'conditions' => ['itemId' => (int)$trackerItem->getId()]
-            ];
-
-        $caslAbilities[] =
-            [
-                'action' => 'delete',
-                'subject' => 'Tracker_Item',
-                'conditions' => ['itemId' => (int)$trackerItem->getId()]
-            ];
 
         //if ($perms['tiki_p_create_tracker_items'] == 'n' && empty($itemId)) {
 
