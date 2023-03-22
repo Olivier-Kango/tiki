@@ -7409,7 +7409,7 @@ class UsersLib extends TikiLib
             $query = 'SELECT 1 FROM tiki_password_blacklist WHERE BINARY password=?;';
             $result = $this->query($query, [$pass]);
             $isCommon = $result->fetchRow();
-            if ($isCommon[1] == 1) {
+            if (! empty($isCommon) && $isCommon[1] == 1) {
                 $errors[] = tra('The password is blacklisted because it is too common.');
             }
         }
