@@ -307,12 +307,12 @@ observeVueApp(vm);
                 break;
             case 'n':    // number
             case 'b':    // currency
+            case 'e':    // Category
                 $field['argumentType'] = 'Number';
                 break;
             case 'c':    // checkbox
                 $field['argumentType'] = 'Boolean';
                 break;
-            case 'e':    // Category
             case 'M':    // Multiselect
                 $field['argumentType'] = 'Collection';
                 break;
@@ -332,10 +332,23 @@ observeVueApp(vm);
             $field['ins_id'] = $field['fieldId'];   // it's just status
         }
 
+        // check for optional "collections" (multiple)
         if (
             $field['type'] === 'r' && $field['options_map']['selectMultipleValues']    // ItemLink
             ||
-            $field['type'] === 'w' && $field['options_map']['selectMultipleValues']   // DynamicItemsList
+            $field['type'] === 'w' && $field['options_map']['selectMultipleValues']    // DynamicItemsList
+        ) {
+            $field['argumentType'] = 'Collection';
+            $field['ins_id'] = $field['ins_id'] . '[]';
+        }
+
+        if (
+            $field['type'] === 'e' &&    // Category but only if listbox or multiple checkboxes
+            (
+                $field['options_map']['inputtype'] === 'm'
+                ||
+                $field['options_map']['inputtype'] === 'checkbox'
+            )
         ) {
             $field['argumentType'] = 'Collection';
             $field['ins_id'] = $field['ins_id'] . '[]';
