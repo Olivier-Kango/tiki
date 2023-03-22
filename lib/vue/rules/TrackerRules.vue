@@ -278,7 +278,7 @@
                 return {
                     logicalType_id: "any",
                     predicates: [{
-                        target_id: "ins_" + field.fieldId,
+                        target_id: "ins_" + field.fieldId + (field.argumentType === "Collection" ? "[]" : ""),
                         operator_id: operatorId,
                         argument: "",
                     }]
