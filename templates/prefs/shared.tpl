@@ -1,14 +1,4 @@
-{if !empty($p.helpurl)}
-    {$icon = "help"}
-{elseif $p.description}
-    {$icon = "information"}
-{/if}
-{if isset($icon)}
-    <a {if !empty($p.helpurl)} href="{$p.helpurl|escape}" target="tikihelp"{/if}
-         class="tikihelp text-info tikihelp-prefs" title="{$p.name|escape}" data-bs-original-title="{$p.name|escape}" data-bs-content="{$p.description|escape} <p class='text-muted pt-2 small'>{tr _0="<code>`$p.preference`</code>"}Preference name: %0{/tr}</p>{if $p.separator && $p.type neq 'multiselector'}<br>{tr _0=$p.separator}Use &quot;%0&quot; to separate values.{/tr}{/if}">
-        {icon name=$icon}
-    </a>
-{/if}
+{* Content moved from here to shared-help-icon.tpl *}
 
 {if !empty($p.warning)}
     <a href="#" target="tikihelp" class="tikihelp text-warning" title="{tr}Warning:{/tr} {$p.warning|escape}">
@@ -57,17 +47,7 @@
     {/foreach}
 {/if}
 
-{* The 3 elements below are displayed with simple parsing (parse_data_simple()), which is probably better than using parse_data(), for performance and to obtain a more predictable parsing.
-Converting these elements to HTML may still be better. Chealer *}
-{if !empty($p.shorthint)}
-    <div class="form-text">{$p.shorthint|parse:true}</div>
-{/if}
-{if !empty($p.detail)}
-    <div class="form-text">{$p.detail|parse:true}</div>
-{/if}
-{if !empty($p.hint)}
-    <div class="form-text">{$p.hint|parse:true}</div>
-{/if}
+{* Contents moved to shared-form-text.tpl, to display under input. *}
 
 {* Used by some preferences of type text (and textarea) *}
 {if $p.translatable eq 'y'}
