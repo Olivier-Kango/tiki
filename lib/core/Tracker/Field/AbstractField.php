@@ -342,6 +342,10 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
             }
             $field = $this->trackerDefinition->getField($id);
 
+            if (! (isset($field) && count($field) > 0)) {
+                continue;
+            }
+
             if (! isset($this->itemData[$field['fieldId']])) {
                 if (! empty($this->itemData['field_values'])) {
                     foreach ($this->itemData['field_values'] as $fieldVal) {
