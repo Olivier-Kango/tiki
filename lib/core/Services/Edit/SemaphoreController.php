@@ -81,7 +81,7 @@ class Services_Edit_SemaphoreController
         $object_type = $object_type ? $object_type : 'wiki page';
         $lock = $input->lock->int();
 
-        $lock = $lock ? $lock : $_SESSION[$this->getSessionId($input)];
+        $lock = $lock ?? ($_SESSION[$this->getSessionId($input)] ?? 0);
 
         $this->table->delete(
             [
@@ -91,7 +91,9 @@ class Services_Edit_SemaphoreController
             ]
         );
 
-        unset($_SESSION[$this->getSessionId($input)]);
+        if (isset($_SESSION[$this->getSessionId($input)])) {
+            unset($_SESSION[$this->getSessionId($input)]);
+        }
 
         return [true];
     }
