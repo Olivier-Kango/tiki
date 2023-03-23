@@ -58,6 +58,20 @@ const checkMove = (event) => {
     return canUpdate;
 }
 
+const checkEditAction = elementId => {
+    const rules = store.getters.getRules;
+    const ability = defineAbilityFor(rules);
+    const canUpdate = ability.can('update', subject('Tracker_Item', { itemId: parseInt(elementId) }), store.getters.getXaxisField)
+    return canUpdate;
+}
+
+const checkLinkViewAction = () => {
+    const rules = store.getters.getRules;
+    const ability = defineAbilityFor(rules);
+    const canRead = ability.can('read', 'Tracker_Item');
+    return canRead;
+}
+
 const handleEditCard = element => {
     if (!dragging.value) emit('editCard', element)
 }
@@ -147,8 +161,8 @@ const setItem = (itemId, newIndex) => {
                 </div>
                 <template v-slot:menu>
                     <div class="card-menu">
-                        <a class="p-1 mr-3" :href="getTrackerItemLink(element.id)" target="_blank"><i class="fas fa-link"></i></a>
-                        <a class="p-1 mr-1" :href="getTrackerItemEditLink(element.id)" target="_blank"><i class="fas fa-edit"></i></a>
+                        <a v-if="checkLinkViewAction()" class="p-1 mr-3" :href="getTrackerItemLink(element.id)" target="_blank"><i class="fas fa-link"></i></a>
+                        <a v-if="checkEditAction(element.id)" class="p-1 mr-1" :href="getTrackerItemEditLink(element.id)" target="_blank"><i class="fas fa-edit"></i></a>
                         <!-- <Button class="d-inline-block" variant="default" sm @click="handleEditCard(element)"> -->
                     </div>
                 </template>

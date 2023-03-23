@@ -381,6 +381,15 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 
     $caslAbilities = []; //Spec at https://casl.js.org/
     $trackerPerms = Perms::get(['type' => 'tracker', 'object' => $trackerId]);
+    $tracker_info = $mappedTrackerDefinition->getInformation();
+
+    if ($tracker_info['adminOnlyViewEditItem'] === 'n' || $trackerPerms['tiki_p_admin_trackers']) {
+        $caslAbilities[] =
+            [
+                'action' => 'read',
+                'subject' => 'Tracker_Item'
+            ];
+    }
 
     if ($trackerPerms['tiki_p_create_tracker_items']) {
         //We need this to check field permissions.
