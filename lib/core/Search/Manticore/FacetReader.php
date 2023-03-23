@@ -19,10 +19,13 @@ class FacetReader
 
     public function getFacetFilter(\Search_Query_Facet_Interface $facet)
     {
-        $entry = null;
+        $entry = [];
 
         foreach ($this->results as $i => $result) {
             if ($i == 0) {
+                continue;
+            }
+            if (empty($result)) {
                 continue;
             }
             if (array_key_first($result[0]) == $facet->getName()) {
