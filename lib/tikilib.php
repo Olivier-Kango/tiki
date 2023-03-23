@@ -4925,6 +4925,8 @@ class TikiLib extends TikiDb_Bridge
 
         if ($res = $result->fetchRow()) {
             $id = $res['version'];
+        } else {
+            return false;
         }
 
         // FIXME: Are these lines necessary? If so, what is the proper status to use?
