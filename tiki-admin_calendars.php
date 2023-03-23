@@ -22,15 +22,21 @@ if (! isset($_REQUEST["calendarId"])) {
     $access->check_permission(['tiki_p_admin_calendar']);
     $_REQUEST['calendarId'] = 0;
 } else {
-    $info = $calendarlib->get_calendar($_REQUEST['calendarId']);
-    if (empty($info)) {
+    if ($calendarlib->calendarExists($_REQUEST['calendarId'])) {
+        $info = $calendarlib->get_calendar($_REQUEST['calendarId']);
+        if (empty($info)) {
+            $smarty->assign('msg', tra('Incorrect param'));
+            $smarty->display('error.tpl');
+            die;
+        }
+        $objectperms = Perms::get('calendar', $_REQUEST['calendarId']);
+        if (! $objectperms->admin_calendar) {
+            $access->display_error('', tra('Permission denied') . ": " . 'tiki_p_admin_calendar', '403');
+        }
+    } else {
         $smarty->assign('msg', tra('Incorrect param'));
         $smarty->display('error.tpl');
         die;
-    }
-    $objectperms = Perms::get('calendar', $_REQUEST['calendarId']);
-    if (! $objectperms->admin_calendar) {
-        $access->display_error('', tra('Permission denied') . ": " . 'tiki_p_admin_calendar', '403');
     }
 }
 if (isset($_REQUEST["drop"]) && $access->checkCsrf(true)) {

@@ -221,6 +221,18 @@ class CalendarLib extends TikiLib
         return $cal;
     }
 
+    /**
+     * @param $calendarId
+     * @return bool
+     */
+    public function calendarExists($calendarId)
+    {
+        $res = $this->query("select `calendarId` from `tiki_calendars` where `calendarId`=?", [(int)$calendarId]);
+        $cal = $res->fetchRow();
+
+        return empty($cal) ? false : true;
+    }
+
     public function get_calendar_options($calendarId)
     {
         $opts = [];
