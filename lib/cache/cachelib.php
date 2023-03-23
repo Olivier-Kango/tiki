@@ -57,7 +57,7 @@ class Cachelib
         $data = $this->getCached($key, $type, $lastModif);
 
         if ($data) {
-            return unserialize($data);
+            return @unserialize($data);
         }
     }
 
