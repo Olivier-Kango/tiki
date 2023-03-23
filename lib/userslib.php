@@ -2301,6 +2301,8 @@ class UsersLib extends TikiLib
             $mmid = $mid;
             $bindvars = $group;
             $mbindvars = $bindvars;
+        } else {
+            $group = [];
         }
 
         if (! empty($email) && ! empty($find)) {
