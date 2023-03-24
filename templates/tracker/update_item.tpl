@@ -42,7 +42,7 @@
                     <input type="submit" class="btn btn-primary" onclick="$('#saveAndComment').val(1);" value="{tr}Save and Comment{/tr}">
                 {/if}
                 {if $save_return eq 'y'}
-                    <input type="submit" class="btn btn-primary" name="save_return" value="{tr}Save Returning to Item List{/tr}" onclick="needToConfirm=false">
+                    <input type="submit" class="btn btn-primary" name="save_return" value="{tr}Save Returning to Item List{/tr}" onclick="$('input[name=redirect]').val('{$trackerId|sefurl:'tracker'}'); needToConfirm=false">
                 {/if}
                 <input type="hidden" name="itemId" value="{$itemId|escape}">
                 <input type="hidden" name="trackerId" value="{$trackerId|escape}">
