@@ -601,9 +601,6 @@ if ($prefs['jquery_smartmenus_enable'] == 'y') {
 if ($prefs['feature_jquery_reflection'] == 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/reflection-jquery/js/reflection.js');
 }
-if ($prefs['feature_jquery_media'] == 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/media/jquery.media.js');
-}
 if ($prefs['feature_jquery_tablesorter'] == 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/mottie/tablesorter/js/jquery.tablesorter.combined.js');
     $headerlib->add_jsfile('vendor_bundled/vendor/mottie/tablesorter/js/parsers/parser-input-select.js');

@@ -2006,13 +2006,6 @@ function prefs_feature_list($partial = false)
             'help' => 'JQuery#TableSorter',
             'default' => 'n',   // sortable tables ([will] override existing)
         ],
-        'feature_jquery_media' => [
-            'name' => tra('jQuery media'),
-            'description' => tra('Provides a media player via Plugin MediaPlayer that can be used in wiki pages or other wiki text area to play media files including .flv, .mp3, .mp4, .swf, .avi, .wmv, .ram, .mov, .mpeg, and .pdf. A Flash-based open source media player is used.'),
-            'type' => 'flag',
-            'help' => 'PluginMediaPlayer',
-            'default' => 'n',
-        ],
         'feature_jquery_tagcanvas' => [
             'name' => tra('TagCanvas'),
             'description' => tra('TagCanvas is a Javascript class which will draw and animate an HTML5 canvas-based tag cloud.'),

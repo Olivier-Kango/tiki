@@ -3116,16 +3116,6 @@
             "type": "library"
         },
         {
-            "name": "jquery-plugins/media",
-            "version": "0.98",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/jquery-plugins/media/jquery-plugins-media-0.98.zip",
-                "shasum": "b9f29feb8e53b1a97f673e92ab6580b24262769d"
-            },
-            "type": "library"
-        },
-        {
             "name": "jquery-plugins/nestedsortable",
             "version": "1.3.4",
             "dist": {
@@ -6665,10 +6655,7 @@
                 "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.21.2.zip",
                 "shasum": "a49351277e99d55edcc1adc013f13ffe1fcfce13"
             },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
+            "type": "npm-asset"
         },
         {
             "name": "npm-asset/base64-arraybuffer",
@@ -9052,26 +9039,6 @@
                 }
             ],
             "time": "2023-03-06T12:45:53+00:00"
-        },
-        {
-            "name": "player/flv",
-            "version": "1.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/player/flv/player-flv-1.0.zip",
-                "shasum": "ee7da0fa6ecfba99ae07e9fa9a1a68f0c02dc24f"
-            },
-            "type": "library"
-        },
-        {
-            "name": "player/mp3",
-            "version": "1.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/player/mp3/player-mp3-1.0.zip",
-                "shasum": "b9e69e3cfc554dbabebea7f93995646252788570"
-            },
-            "type": "library"
         },
         {
             "name": "plotly/plotly.js",

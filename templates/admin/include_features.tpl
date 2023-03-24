@@ -186,7 +186,6 @@
             <fieldset class="mb-3 w-100 clearfix featurelist">
                 <legend><h4 class="showhide_heading" id="jQuery_plugins_and_add-ons"> {tr}jQuery plugins and add-ons{/tr}  <a href="#jQuery_plugins_and_add" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
                 {preference name=feature_jquery_autocomplete}
-                {preference name=feature_jquery_media}
                 {preference name=feature_jquery_reflection}
                 <div class="adminoptionbox">
                     {preference name=jquery_smartmenus_enable}

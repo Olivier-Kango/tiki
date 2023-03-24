@@ -47,7 +47,6 @@
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend> {tr}jQuery plugins and add-ons{/tr} </legend>
-            {preference name=feature_jquery_media}
             {preference name=feature_jquery_reflection}
             {preference name=feature_jquery_zoom}
             {preference name=feature_jquery_carousel} <img src="img/icons/bug_error.png" alt="{tr}Experimental{/tr}" title="{tr}Experimental{/tr}">
