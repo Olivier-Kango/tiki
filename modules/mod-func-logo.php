@@ -21,11 +21,6 @@ function module_logo_info()
                 'description' => tra('Source URL for the site logo image file. Defaults to sitelogo_src preference (set on Look & Feel admin).'),
                 'filter' => 'url',
             ],
-        //    'bgcolor' => [
-        //        'name' => tra('Background Color'),
-        //        'description' => tra('CSS colour to use as background. Defaults to sitelogo_bgcolor preference.'),
-        //        'filter' => 'text',
-        //    ],
             'title_attr' => [               // seems module params called title disappear?
                 'name' => tra('HTML Image Title'),
                 'description' => tra('Image title attribute. Defaults to sitelogo_title preference.'),
@@ -76,7 +71,6 @@ function module_logo($mod_reference, &$module_params)
     $module_params = array_merge(
         [
             'src'          => $prefs['sitelogo_src'],
-            'bgcolor'      => $prefs['sitelogo_bgcolor'],
             'title_attr'   => $prefs['sitelogo_title'],
             'alt_attr'     => $prefs['sitelogo_alt'],
             'link'         => './',

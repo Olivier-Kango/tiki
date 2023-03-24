@@ -12821,7 +12821,6 @@ $lang_current = array(
 "Site logo, title and subtitle" => "Site logo, title and subtitle",
 "Image URL" => "Image URL",
 "Source URL for the site logo image file. Defaults to sitelogo_src preference (set on Look & Feel admin)." => "Source URL for the site logo image file. Defaults to sitelogo_src preference (set on Look & Feel admin).",
-"CSS colour to use as background. Defaults to sitelogo_bgcolor preference" => "CSS colour to use as background. Defaults to sitelogo_bgcolor preference",
 "Image title attribute. Defaults to sitelogo_title preference" => "Image title attribute. Defaults to sitelogo_title preference",
 "Alt" => "Alt",
 "Image alt attribute for screen readers, etc. Defaults to sitelogo_alt preference." => "Image alt attribute for screen readers, etc. Defaults to sitelogo_alt preference.",
