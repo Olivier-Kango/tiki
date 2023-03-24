@@ -267,13 +267,12 @@ function wikiplugin_fluidgrid($data, $params, $pos)
     // We will store the final widths in this array
     $w_array = [] ;
 
+    // colsize is specified
     if (isset($colsize)) {
-      // colsize is specified
+        // Check for a percent symbol on any column
+        $percent = ( strpos($colsize, '%') !== false );
 
-           // Check for a percent symbol on any column
-        $percent = ( strpos($colsize, '%') !== false ) ;
-
-            // Count the total size and the number of unsized columns
+        // Count the total size and the number of unsized columns
         $tdsize   = explode("|", $colsize);
         $tdtotal  = 0 ;
         $tdtotalPercent  = 0 ;
@@ -307,49 +306,64 @@ function wikiplugin_fluidgrid($data, $params, $pos)
                     $w = abs((int) trim($tdsize[$i])); //The size must always be positive
 
                     if ($isPercentCol) {
-                    // Percentage mode. Save the width and increment the total percent size ($tdtotalPercent).
-                        $s_array[$i] = $w ;
-                        $tdtotalPercent     += $w ;
-                        echo "Percentage mode : $w, avec Total percent size : $tdtotalPercent<hr/>";
+                        // Percentage mode. Save the width and increment the total percent size ($tdtotalPercent).
+                        $s_array[$i] = $tdsize[$i] ;
+                        $tdtotalPercent += $w ;
                     } else {
-                    // Normal case. Save the width and increment the total normal size ($tdtotal).
+                        // Normal case. Save the width and increment the total normal size ($tdtotal).
                         $s_array[$i] = $w ;
-                        $tdtotal     += $w ;
-                        echo "Normal case : $w,avec Total size : $tdtotal<hr/>";
+                        $tdtotal += $w ;
                     }
                 } else {
-                // Size not specified for this column.
+                    // Size not specified for this column.
                     $s_array[$i] = 0 ;
                     $tdnosize++ ;
-                    echo "Size not specified for this column. $s_array[$i] avec Total size $tdtotal<hr/>";
                 }
             }
 
             // [2] Setting the final column sizes
-            // [2.1] We first handle the case where all the cols are in percent mode
             if ($tdtotal == 0) {
+                // [2.1] We first handle the case where all the cols are in percent mode
                 if (( $tdtotalPercent + $tdnosize ) <= 100) {
-                    // Use the values as specified.
-                    // Share the remaining space out among the unsized columns
-                    $remaining = 100 - $tdtotalPercent ;
-
+                    // Remaining value to distribute to columns without specified size
+                    $remaining = 100 - $tdtotalPercent;
                     for ($i = 0; $i < $maxcols; $i++) {
                         if ($s_array[$i] == 0) {
-                            $w_array[$i] = ceil(round(($remaining / $tdnosize * 12) / 100)) ;
+                            $w_array[$i] = ceil(round(($remaining / $tdnosize * 12) / 100));
                             $remaining   -= ceil($remaining / $tdnosize) ;
                             $tdnosize-- ;
                         } else {
-                            $w_array[$i] = round(($s_array[$i] * 12) / 100) ;
+                            $w_array[$i] = round(( abs((int) trim($s_array[$i])) * 12) / 100);
                         }
                     }
+                } else {
+                    return "<b class='text-danger'>" . tra("Fluidgrid plugin: ERROR: The values set in the colsize parameter are greater than 100% of the width as expected when you set the values in percentage") . "</b>";
+                }
+            } else {
+                // [2.2] Handle the case where some cols are in percent mode and others in normal mode
+                $totalWidthInPercentage = $tdtotalPercent + ($tdtotal * (100 / 12)) + $tdnosize;
+                if ($totalWidthInPercentage <= 100) {
+                    // Remaining value to distribute to columns without specified size
+                    $remaining = 100 - $tdtotalPercent - ($tdtotal * (100 / 12));
+                    for ($i = 0; $i < $maxcols; $i++) {
+                        $isValuePercent = ( strpos($s_array[$i], '%') !== false );
+                        if ($s_array[$i] == 0) {
+                            // No size specified
+                            $w_array[$i] = ceil(round(($remaining / $tdnosize * 12) / 100)) ;
+                            $remaining -= ceil($remaining / $tdnosize) ;
+                            $tdnosize-- ;
+                        } elseif ($isValuePercent) {
+                            // Size specified in percent mode
+                            $w_array[$i] = round(( abs((int) trim($s_array[$i])) * 12) / 100) ;
+                        } else {
+                            // Size specified in normal mode
+                            $w_array[$i] = $s_array[$i] ;
+                        }
+                    }
+                } else {
+                    return "<b class='text-danger'>" . tra("Fluidgrid plugin: ERROR: The values set in the colsize parameter are greater than 100% of the width as expected when you set the values in percentage") . "</b>";
                 }
             }
-
-            // [2.2] Handle the case where some cols are in percent mode and others in normal mode
-            //******************** */
-            //******************** */
-            //******************** */
-            //******************** */
         } else {
             // There are two parts to this algorithm:
             // [1] Gathering information
