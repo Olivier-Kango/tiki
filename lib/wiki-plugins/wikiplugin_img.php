@@ -1186,13 +1186,7 @@ function wikiplugin_img($data, $params)
         ! $printing &&
         (empty($params['lazyLoad']) || $params['lazyLoad'] !== 'n')
     ) {
-        $lozadJsPath = VendorHelper::getAvailableVendorPath('lozad', 'npm-asset/lozad/dist/lozad.js');
-
-        if (! $lozadJsPath) {
-            Feedback::error(tr('Image lazy loading is enabled but Tiki requires package npm-asset/lozad. If you do not have permission to install this package, ask the site administrator.'));
-        } else {
-            $lozardImg = true;
-        }
+        $lozardImg = true;
     }
 
     $tagName = '';
@@ -1217,9 +1211,7 @@ function wikiplugin_img($data, $params)
     } else {
         $tagName = 'img';
         $replimg = '<img src="' . $src . '" ';
-        if ($lozardImg) {
-            $replimg = '<img';
-        }
+
         if ($srcset) {
             $replimg .= 'srcset="' . $srcset . '" ';
         }
@@ -1237,36 +1229,8 @@ function wikiplugin_img($data, $params)
     }
 
     if ($lozardImg) {
-        $imgdata['class'] .= ' lozad';
+        $replimg .= 'loading="lazy" ';
         $imgdata['data-src'] = true;
-        TikiLib::lib('header')->add_css('
-            .lozadFade {
-                animation-name: lozadFade;
-                animation-duration: 1s;
-            }
-            @keyframes lozadFade {
-                from {
-                    opacity: 0;
-                }
-                to {
-                    opacity: 1;
-                }
-            }
-        ');
-        TikiLib::lib('header')->add_jsfile($lozadJsPath);
-        $lozadScript = "
-            const observer = lozad();
-            observer.observe();
-            
-            lozad('.lozad', {
-                loaded: function(el) {
-                    el.onload = function() {
-                        el.classList.add('lozadFade');
-                    }
-                }
-            }).observe();
-        ";
-        TikiLib::lib('header')->add_jq_onready($lozadScript);
     }
 
     if (! empty($imgdata_dim)) {

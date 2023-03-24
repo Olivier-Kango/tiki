@@ -109,7 +109,6 @@ function prefs_global_list($partial = false)
             'description' => tr('Allow that images are loaded in a lazy way'),
             'default' => 'n',
             'tags' => ['advanced'],
-            'packages_required' => ['npm-asset/lozad' => VendorHelper::getAvailableVendorPath('lozad', 'npm-asset/lozad/dist/lozad.js')],
         ],
         'wikiLicensePage' => [
             'name' => tra('License page'),
