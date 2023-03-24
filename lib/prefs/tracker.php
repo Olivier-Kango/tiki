@@ -57,7 +57,7 @@ function prefs_tracker_list()
         ],
         'tracker_legacy_insert' => [
             'name' => tr('Insert and edit items in a tab'),
-            'description' => tr('Use the legacy tracker insertion screen (a tab) instead of a popup dialog.'),
+            'description' => tr('Edit tracker items in a tab instead of a popup dialog.'),
             'type' => 'flag',
             'default' => 'n',
         ],
