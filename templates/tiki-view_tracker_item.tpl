@@ -213,6 +213,7 @@
     {if (! isset($print_page) || $print_page ne 'y') && $canModify && $prefs.tracker_legacy_insert eq 'y'}
         {tab name=$editTitle}
             <h2>{tr}Edit Item{/tr}</h2>
+            {* FIXME: format='flat' here prevents the view and edit tabs getting mixed up *}
             {service_inline controller='tracker' action='update_item' trackerId=$trackerId itemId=$itemId format='flat' save_return='y'}
 
         {/tab}
