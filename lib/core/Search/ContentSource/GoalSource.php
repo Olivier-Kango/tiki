@@ -43,9 +43,9 @@ class GoalSource implements Search_ContentSource_Interface
                 'day_span' => $typeFactory->numeric($goal['daySpan']),
                 'span_from' => $typeFactory->timestamp($goal['from'] ? strtotime($goal['from'] . ' UTC') : null),
                 'span_to' => $typeFactory->timestamp($goal['to'] ? strtotime($goal['to'] . ' UTC') : null),
-                'eligible' => $typeFactory->json($goal['eligible']),
-                'conditions' => $typeFactory->json($goal['conditions']),
-                'rewards' => $typeFactory->json($goal['rewards']),
+                'eligible' => $typeFactory->json(json_decode($goal['eligible'])),
+                'conditions' => $typeFactory->json(json_decode($goal['conditions'])),
+                'rewards' => $typeFactory->json(json_decode($goal['rewards'])),
                 'allowed_groups' => $typeFactory->multivalue(['Anonymous', 'Registered']),
             ];
         } else {
