@@ -1,1 +1,0 @@
-ALTER TABLE `tiki_plugin_security` ADD `base_url` text AFTER `last_objectId`;
