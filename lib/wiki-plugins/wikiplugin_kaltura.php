@@ -103,18 +103,6 @@ function wikiplugin_kaltura_info()
                 'since' => '10.0',
                 'default' => tra('Add media'),
             ],
-            'type' => [
-                'required' => false,
-                'name' => tra('Player Type'),
-                'description' => tra('Set player type'),
-                'since' => '11.0',
-                'default' => 'html5',
-                'filter' => 'word',
-                'options' => [
-                    ['text' => tra('KDP'), 'value' => 'kdp'],
-                    ['text' => tra('HTML5'), 'value' => 'html5'],
-                ],
-            ],
         ],
     ];
 }
@@ -233,23 +221,23 @@ REG
     if (! empty($params['float'])) {
         $style .= "float:{$params['float']};";
     }
-    if ($params['type'] === 'html5') {
-        $embedIframeJs = '/embedIframeJs';  // TODO add as params?
-        $leadWithHTML5 = 'true';
-        $autoPlay = 'false';
 
-        if ($playlistObject) {
-            parse_str(str_replace(['k_pl_0_u', 'k_pl_0_n'], ['kpl0U', 'kpl0N'], $playlistObject->executeUrl), $playlistAPI);
-            $playlistAPI['kpl0Id'] = $params['id'];
-            $playlistAPI = '"playlistAPI": ' . json_encode($playlistAPI);
-        } else {
-            $playlistAPI = '';
-        }
+    $embedIframeJs = '/embedIframeJs';  // TODO add as params?
+    $leadWithHTML5 = 'true';
+    $autoPlay = 'false';
 
-        TikiLib::lib('header')
-            ->add_jsfile_cdn("{$prefs['kaltura_kServiceUrl']}/p/{$prefs['kaltura_partnerId']}/sp/{$prefs['kaltura_partnerId']}00{$embedIframeJs}/uiconf_id/{$params['player_id']}/partner_id/{$prefs['kaltura_partnerId']}")
-            ->add_jq_onready(
-                "
+    if ($playlistObject) {
+        parse_str(str_replace(['k_pl_0_u', 'k_pl_0_n'], ['kpl0U', 'kpl0N'], $playlistObject->executeUrl), $playlistAPI);
+        $playlistAPI['kpl0Id'] = $params['id'];
+        $playlistAPI = '"playlistAPI": ' . json_encode($playlistAPI);
+    } else {
+        $playlistAPI = '';
+    }
+
+    TikiLib::lib('header')
+        ->add_jsfile_cdn("{$prefs['kaltura_kServiceUrl']}/p/{$prefs['kaltura_partnerId']}/sp/{$prefs['kaltura_partnerId']}00{$embedIframeJs}/uiconf_id/{$params['player_id']}/partner_id/{$prefs['kaltura_partnerId']}")
+        ->add_jq_onready(
+            "
 mw.setConfig('Kaltura.LeadWithHTML5', $leadWithHTML5);
 
 kWidget.embed({
@@ -269,30 +257,12 @@ kWidget.embed({
         console.log('Player:' + playerId + ' is ready ');
     }
 });"
-            );
-        if (is_numeric($params['width'])) {
-            $params['width'] .= 'px';
-        }
-        if (is_numeric($params['height'])) {
-            $params['height'] .= 'px';
-        }
-        return "<div id='kaltura_player$instance' style='width:{$params['width']};height:{$params['height']};$style'></div>";
-    } elseif ($params['type'] === 'kdp') {
-        if ($playlistObject) {
-            $params['playlistAPI'] = '&' . str_replace(['k_pl_0_u', 'k_pl_0_n'], ['playlistAPI.kpl0U', 'playlistAPI.kpl0N'], $playlistObject->executeUrl);
-        } else {
-            $params['playlistAPI'] = '';
-        }
-
-        $smarty = TikiLib::lib('smarty');
-        $smarty->assign('kaltura', $params);
-        $code = $smarty->fetch('wiki-plugins/wikiplugin_kaltura.tpl');
-        if (! empty($style)) {
-            $code = "<div style='$style'>$code</div>";
-        }
-        return $code;
-    } else {
-        TikiLib::lib('erroreport')->report(tra('Kaltura player: unsupported type.'));
-        return '';
+        );
+    if (is_numeric($params['width'])) {
+        $params['width'] .= 'px';
     }
+    if (is_numeric($params['height'])) {
+        $params['height'] .= 'px';
+    }
+    return "<div id='kaltura_player$instance' style='width:{$params['width']};height:{$params['height']};$style'></div>";
 }
