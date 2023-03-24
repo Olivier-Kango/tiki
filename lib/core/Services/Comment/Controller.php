@@ -136,6 +136,7 @@ return false;";
         $anonymous_name = '';
         $anonymous_email = '';
         $anonymous_website = '';
+        $diffInfo = []; // for saveAndComment
 
         if (empty($user) || $prefs['feature_comments_post_as_anonymous'] == 'y') {
             $anonymous_name = $input->anonymous_name->text();
@@ -176,7 +177,6 @@ return false;";
                 $title = 'Untitled ' . TikiLib::lib('tiki')->get_long_datetime(TikiLib::lib('tikidate')->getTime());
             }
 
-            $diffInfo = []; // for saveAndComment
 
             if (count($errors) === 0) {
                 $message_id = ''; // By ref
