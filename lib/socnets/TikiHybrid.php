@@ -33,7 +33,7 @@ use Tiki\Lib\Logs\LogsLib;
 class TikiHybrid extends LogsLib
 {
     //TODO when for strings assign null or when ''? or don't need anything?
-    protected static string $socPreffix = 'socnets_';
+    protected static string $socPrefix = 'socnets_';
     protected string $namedpreffix = '';
     protected string $providerName = '';
     public $adapter = null;
@@ -47,8 +47,8 @@ class TikiHybrid extends LogsLib
         try {
             global $prefs;
             $this -> providerName = $providerName;
-            self::$socPreffix = PrefsGen::getSocPreffix();
-            $this->namedprefix = self::$socPreffix . $providerName;
+            self::$socPrefix = PrefsGen::getSocPrefix();
+            $this->namedprefix = self::$socPrefix . $providerName;
             Util::log2('tikiHybrid  constructor namedprefix:', $this -> namedprefix);
 
 

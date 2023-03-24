@@ -22,7 +22,7 @@ $smarty->assign('callbackUrl', $url);
 
 $smarty->assign('socnetsAll', PrefsGen::getHybridProvidersPHP());
 $smarty->assign('socBasePrefs', PrefsGen::getBasePrefs());
-$smarty->assign('socPreffix', PrefsGen::getSocPreffix());
+$smarty->assign('socPrefix', PrefsGen::getSocPrefix());
 
 // legacy socialnetworks setup
 require_once('lib/socialnetworkslib.php');

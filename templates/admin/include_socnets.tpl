@@ -21,7 +21,7 @@
              <ol>
              <li> {tr}If you cannot see or want to change appearance of login buttons for the corresponding socnets you need to tweak login module mod-login.tpl and/or CSS{/tr}.</li>
              <li> {tr}If you see only number 1. but not the enabled socnets or encounter other problems, then, first of all, you need to clear Tiki caches and rebuild index{/tr}.</li>
-             <li> {tr}Also, if some settings become disabled (like user preffix), you need to execute following sequence: disable-apply-enable-apply for ther corresponding socnet.{/tr}</li>
+             <li> {tr}Also, if some settings become disabled (like user prefix), you need to execute following sequence: disable-apply-enable-apply for ther corresponding socnet.{/tr}</li>
          </ol>
      {/remarksbox}
 
@@ -39,9 +39,9 @@
 {tab name ="{tr}Enabled{/tr}" }
 
 <ol>
-{foreach from=$prefs["`$socPreffix`enabledProviders"]  key=k  item=pNum}
+{foreach from=$prefs["`$socPrefix`enabledProviders"]  key=k  item=pNum}
 {$providerName = $socnetsAll[$pNum]}
-{$prefname="`$socPreffix``$providerName`_socnetEnabled" }
+{$prefname="`$socPrefix``$providerName`_socnetEnabled" }
 {$prefs[$prefname] = 'y'}
 <strong><li>{$providerName}  {* debug pNum={$pNum} k={$k} *}</li></strong>
 {/foreach}
@@ -49,7 +49,7 @@
 
 <fieldset>
     <div class="adminoptionbox">
-        {$prefName = "`$socPreffix`enabledProviders"}
+        {$prefName = "`$socPrefix`enabledProviders"}
     {preference name=$prefName visible="always"}
     </div>
 
@@ -58,7 +58,7 @@
 {tab name="{tr}Settings{/tr}"}
 
 <ol>
-{foreach from=$prefs["`$socPreffix`enabledProviders"]  key=k  item=pNum}
+{foreach from=$prefs["`$socPrefix`enabledProviders"]  key=k  item=pNum}
 {$providerName = $socnetsAll[$pNum]}
 {* TODO check in which cases is needed lower *}
 {$providername = $providerName|lower}
@@ -69,7 +69,7 @@
     <ol>
     <br>
     {foreach from=$socBasePrefs key=basePref item=prefItem}
-    {$prefname="`$socPreffix``$providerName``$basePref`"}
+    {$prefname="`$socPrefix``$providerName``$basePref`"}
         {if ($basePref === '_socnetEnabled')}
               {* skip this iteration *}
               {continue}
@@ -136,7 +136,7 @@
 {************************************}
 {tab name ="{tr}Debug and Logs{/tr}" }
 <div class="adminoptionbox">
-    {$prefname = "`$socPreffix`socLoginBaseUrl"}
+    {$prefname = "`$socPrefix`socLoginBaseUrl"}
     {$prefs[$prefname]}
     {preference name=$prefname}
 </div>

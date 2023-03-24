@@ -24,15 +24,15 @@ class PrefsGen
 {
     public static $providersPath = 'vendor_bundled/vendor/hybridauth/hybridauth/src/Provider/*.php';
 
-    //We are using socPreffix etc. with an easier testing and incorporating changes in mind
+    //We are using socPrefix etc. with an easier testing and incorporating changes in mind
     //for extra socnets login libs and also maybe Packages in the future
-    protected static string $socPreffix = 'socnets_';
+    protected static string $socPrefix = 'socnets_';
     public static string $socLoginSuffix = 'tiki-login_hybridauth.php?provider=';
     public static string $socBaseSuffix = 'tiki-login_hybridauth.php';
 
-    public static function getSocPreffix()
+    public static function getSocPrefix()
     {
-        return self::$socPreffix;
+        return self::$socPrefix;
     }
 
 
@@ -46,7 +46,7 @@ class PrefsGen
     public static function getPrefsSocLoginBaseUrl()
     {
         global $prefs;
-        return $prefs[self::$socPreffix . 'socLoginBaseUrl'];
+        return $prefs[self::$socPrefix . 'socLoginBaseUrl'];
     }
 
     public static function getPrefsSocLoginUrl($providerName)
@@ -234,21 +234,21 @@ class PrefsGen
 
     */
         if ($key2 === '_loginEnabled') {
-            $value2['dependencies'][0] = self::$socPreffix . $providerName . $value2['dependencies'][0];
-            $value2['dependencies'][1] = self::$socPreffix . $providerName . $value2['dependencies'][1];
-            $value2['dependencies'][2] = self::$socPreffix . $providerName . $value2['dependencies'][2];
+            $value2['dependencies'][0] = self::$socPrefix . $providerName . $value2['dependencies'][0];
+            $value2['dependencies'][1] = self::$socPrefix . $providerName . $value2['dependencies'][1];
+            $value2['dependencies'][2] = self::$socPrefix . $providerName . $value2['dependencies'][2];
             $value2['description'] = 'Let ' . $providerName . " " . $value2['description'];
         } elseif ($key2 === '_autocreateuser') {
-            $value2['dependencies'][0] = self::$socPreffix . $providerName . $value2['dependencies'][0];
+            $value2['dependencies'][0] = self::$socPrefix . $providerName . $value2['dependencies'][0];
             $value2['description'] = 'Let ' . $providerName . " " . $value2['description'];
         } elseif ($key2 === '_autocreate_prefix') {
-            $value2['dependencies'][0] = self::$socPreffix . $providerName . $value2['dependencies'][0];
-            $value2['dependencies'][1] = self::$socPreffix . $providerName . $value2['dependencies'][1];
+            $value2['dependencies'][0] = self::$socPrefix . $providerName . $value2['dependencies'][0];
+            $value2['dependencies'][1] = self::$socPrefix . $providerName . $value2['dependencies'][1];
             $value2['description'] = 'What ' . $providerName . " " . $value2['description'];
             $value2['default'] = (strlen($providerName) < 5) ? substr($providerName, 0, strlen($providerName)) . "_" : substr($providerName, 0, 4) . "_";
         } elseif (substr($key2, 0, 12) === '_autocreate_') {
-            $value2['dependencies'][0] = self::$socPreffix . $providerName . $value2['dependencies'][0];
-            $value2['dependencies'][1] = self::$socPreffix . $providerName . $value2['dependencies'][1];
+            $value2['dependencies'][0] = self::$socPrefix . $providerName . $value2['dependencies'][0];
+            $value2['dependencies'][1] = self::$socPrefix . $providerName . $value2['dependencies'][1];
             $value2['description'] = 'Let ' . $providerName . " " . $value2['description'];
         } else {
             $value2['description'] = $providerName . " " . $value2['description'];
@@ -267,7 +267,7 @@ class PrefsGen
         $prefs2 = [];
         foreach ($socprefs as $key2 => $value2) {
                 $p = self::getOneSocPref($providerName, $key2, $value2);
-                $prefName = self::$socPreffix . $providerName . $key2;
+                $prefName = self::$socPrefix . $providerName . $key2;
                 $prefs2[ $prefName ] = $p;
         }
         return $prefs2;
@@ -306,10 +306,10 @@ class PrefsGen
             $ret[$name] =
                          [
                              'callback' => $loginUrl . $name,
-                            'enabled' => $prefs[self::$socPreffix . $name . '_loginEnabled'],
+                            'enabled' => $prefs[self::$socPrefix . $name . '_loginEnabled'],
                             'keys' => [
-                    'id' => $prefs[self::$socPreffix . $name . '_app_id'],
-                    'secret' => $prefs[self::$socPreffix . $name . '_app_secret'],
+                    'id' => $prefs[self::$socPrefix . $name . '_app_id'],
+                    'secret' => $prefs[self::$socPrefix . $name . '_app_secret'],
                         ],
     //          'scope' => $value['scope'],  //TODO TEST hybridauth reaction to : 'scope' => null or empty?
                 ];
@@ -336,15 +336,15 @@ class PrefsGen
         $ret = [];
         $socnets = self::getHybridProvidersPHP();
         foreach ($socnets as $name) {
-            $prefName = self::$socPreffix . $name . '_socnetEnabled';
+            $prefName = self::$socPrefix . $name . '_socnetEnabled';
             if (isset($prefs[$prefName]) && $prefs[$prefName] === 'y') {
                 $ret[] = $name;
             }
         }
 
-        //Util::log2('get socnetsAll prefs:', $prefs[self::$socPreffix . 'socnetsAll'] );
+        //Util::log2('get socnetsAll prefs:', $prefs[self::$socPrefix . 'socnetsAll'] );
         //Util::log2('getEnabledProvidersNames ret:', $ret );
-        //Util::log2('getEnabledProviders prefs:', $prefs[self::$socPreffix . 'enabledProviders'] );
+        //Util::log2('getEnabledProviders prefs:', $prefs[self::$socPrefix . 'enabledProviders'] );
 
         return $ret;
     }
@@ -352,17 +352,17 @@ class PrefsGen
     //this is main PrefGen initialization. Kind of _construct() ;)
     public static function getSocPrefs($socprefix1)
     {
-        self::$socPreffix = $socprefix1;
+        self::$socPrefix = $socprefix1;
 
         Util::logclear();
         Util::log('getSocPrefs start');
         $allProviders = self::getHybridProvidersPHP();
 
-        //Util::log2('socPreffix:', self::$socPreffix);
+        //Util::log2('socPrefix:', self::$socPrefix);
         //Util::deletePrefsStarts('sochybrid');
 
         $prefs1 = [
-            self::$socPreffix . 'socnetsAll' => [
+            self::$socPrefix . 'socnetsAll' => [
                 'name' => tra('Enabled settings socnets:'),
                 'description' => tra('Hybridauth enabled settings socnets'),
                 'type' => 'multicheckbox',
@@ -370,14 +370,14 @@ class PrefsGen
                 'default' => $allProviders,
                 ],
                 //TODO rename to remove confusion with loginEnabled
-            self::$socPreffix . 'enabledProviders' => [
+            self::$socPrefix . 'enabledProviders' => [
                 'name' => tra('Enabled settings socnets:'),
                 'description' => tra('Hybridauth enabled settings socnets'),
                 'type' => 'multicheckbox',
                 'options' => $allProviders,
                 'default' => [],
                 ],
-            self::$socPreffix . 'enabledProvidersNames' => [
+            self::$socPrefix . 'enabledProvidersNames' => [
                 'name' => tra('Enabled socnets Names- DO NOT USE in FORMS:'),
                 'description' => tra('Hybridauth enabled socnets Names'),
                 'type' => 'array',
@@ -385,14 +385,14 @@ class PrefsGen
                 'hidden' => 'y',
                 //TODO does this array and hidden work? It looks like it is not...
                 ],
-            self::$socPreffix . 'socLoginBaseUrl' => [
+            self::$socPrefix . 'socLoginBaseUrl' => [
                 'name' => tra('socnets Login Base Url:'),
                 'description' => tra('this is for programmers - just add socnet Name for new socnet'),
                 'type' => 'text',
                 'default' => self::getSocLoginBaseUrl(),
                 ],
             /*
-            self::$socPreffix . 'hybridauthConfig' => [
+            self::$socPrefix . 'hybridauthConfig' => [
                  'name' => tra('Hybridauth config- DO NOT USE in FORMS:'),
                  'description' =>  tra('Hybridauth config'),
                  'type' => 'array',
@@ -405,8 +405,8 @@ class PrefsGen
 
         $prefs3 = array_merge($prefs1, self::getPrefsAllProviders());
 
-    //  Util::log2(' getSocPrefs enabledProvidersNames:', $prefs[self::$socPreffix . 'enabledProvidersNames'] );
-    //  Util::log2(' getSocPrefs enabledProviders:', $prefs[self::$socPreffix . 'enabledProviders'] );
+    //  Util::log2(' getSocPrefs enabledProvidersNames:', $prefs[self::$socPrefix . 'enabledProvidersNames'] );
+    //  Util::log2(' getSocPrefs enabledProviders:', $prefs[self::$socPrefix . 'enabledProviders'] );
     //  Util::log2(' getSocPrefs prefs1:', $prefs1);
 
         return $prefs3;
