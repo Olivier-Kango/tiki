@@ -194,6 +194,9 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
                     if ($entry instanceof Search_Type_SimpleText) {
                         $ret["analyzer"] = "sortable"; // sortable without any extras, best results for wildcard
                     }
+                    if ($this->connection->getVersion() > 8) {
+                        $ret['fielddata'] = true;
+                    }
                     return $ret;
                 }
             },
@@ -373,7 +376,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
             $builder = new Search_Elastic_OrderBuilder($this);
             $orderPart = $builder->build($query->getSortOrder());
 
-            $builder = new Search_Elastic_FacetBuilder($this->facetCount, $this->connection->getVersion() >= 2.0);
+            $builder = new Search_Elastic_FacetBuilder($this->facetCount, $this->connection->getVersion() >= 2.0, $this->connection->getVersion() >= 8.0);
             $facetPart = $builder->build($query->getFacets());
 
             if ($this->connection->getVersion() >= 6.0 && $query->getSortOrder()->getField() === Search_Query_Order::FIELD_SCORE) {
