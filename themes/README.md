@@ -28,20 +28,26 @@ FOR DEVELOPERS
 
 Web developers/designers with some knowledge of CSS can create or adapt a visual theme for Tiki. Please see the links below.
 
+DESCRIPTION OF THEME DIRECTORIES
+--------------------------------
+
+To make your own theme (for example, a theme called "ABC"), the layout of the files is:
+
 These are the supported theme sub-directories and their contents:
-* css: contains the theme .css files (manually editable or compiled from SCSS files)
+* css: contains the theme .css files (manually editable or compiled from SCSS files).  After this directory and file are created, you can select the theme on http://example.com/tiki-admin.php?page=look
 * favicons: where you can place your theme-specific favicons (check the Tiki favicon feature)
-* fonts: contains theme-specific custom fonts
-* icons: contains theme-specific custom icons
+* fonts: contains theme-specific custom fonts (For fonts that are stored locally rather than imported via CSS)
+* icons: contains theme-specific custom icons (For a custom icon font set, as an option to the Font Awesome icon set that is bundled with Tiki)
 * images: contains theme-specific images (primarily background images but could also be logos, etc)
 * jquery-ui: contains theme-specific jquery scripts
 * js: contains theme-specific JavaScript
 * less: (Tiki 13 to 18) contains Less files to be compiled to create the theme CSS file
 * options: contains "child" themes that are variants of the main theme (for example, check the FiveAlive theme)
-* scss: (Tiki 19 and newer) contains SCSS files to be compiled to create the theme CSS file
-* templates: contains theme-specific variants of the default Smarty template (.tpl) files
+* scss: (Tiki 19 and newer) contains SCSS files to be compiled to create the theme CSS file.  Best practice is to create the theme stylesheet by compiling SCSS files, which go in this directory.
+* templates: contains theme-specific variants of the default Smarty template (.tpl) files which override same-name equivalents in tiki's templates/
 
 For more details and help:
+https://themes.tiki.org/How+To+Add+a+New+Bootstrap+Theme
 https://themes.tiki.org/Creating-a-Tiki-theme
 https://themes.tiki.org/Theme-making-Questions-and-Answers
 https://themes.tiki.org/Customizing-Icons

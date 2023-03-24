@@ -1,0 +1,1 @@
+The current "storage" dir is for things that third party features such as h5p need to have local and web accessible.
