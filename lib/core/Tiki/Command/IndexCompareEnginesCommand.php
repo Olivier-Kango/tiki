@@ -61,6 +61,8 @@ class IndexCompareEnginesCommand extends Command
     {
         global $prefs, $tikidomainslash;
 
+        ini_set('max_execution_time', 0);
+
         $orig_prefs = $prefs;
 
         $io = new SymfonyStyle($input, $output);
