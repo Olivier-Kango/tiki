@@ -99,7 +99,7 @@ if ($email == '') {
     $email = $userlib->get_admin_email();
 }
 $smarty->assign('email0', $email);
-$email = TikiMail::scrambleEmail($email, $tikilib->get_user_preference('admin', "email is public"));
+$email = TikiLib::scrambleEmail($email);
 $smarty->assign('email', $email);
 
 $smarty->assign('priority', $priority);

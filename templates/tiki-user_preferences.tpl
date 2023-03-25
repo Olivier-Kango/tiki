@@ -193,13 +193,13 @@
                     <div class="col-md-8">
                         {if !empty($userinfo.email)}
                             <select id="email_isPublic" name="email_isPublic" class="form-select">
-                                {section name=ix loop=$scramblingMethods}
-                                    <option value="{$scramblingMethods[ix]|escape}" {if $user_prefs.email_isPublic eq $scramblingMethods[ix]}selected="selected"{/if}>
-                                        {$scramblingEmails[ix]}
-                                    </option>
-                                {/section}
+                                <option value="n" {if $user_prefs.email_isPublic eq 'n'}selected="selected"{/if}>
+                                    {tr}no{/tr}
+                                </option>
+                                <option value="y" {if $user_prefs.email_isPublic neq 'n'}selected="selected"{/if}>
+                                    {tr}yes{/tr}
+                                </option>
                             </select>
-                            <span class="form-text">{tr}If email is public, select a scrambling method to prevent spam{/tr}</span>
                         {else}
                             <p class="form-control-plaintext">{tr}Unavailable - please set your email below{/tr}</p>
                         {/if}

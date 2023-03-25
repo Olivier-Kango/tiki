@@ -5082,6 +5082,16 @@ class TikiLib extends TikiDb_Bridge
         return "<a class=\"convert-mailto\" href=\"mailto:nospam@example.com\" data-encode-name=\"$name\" data-encode-domain=\"$domain\">$name " . tra("at", "", true) . " $domain</a>";
     }
 
+    /**
+     * @param $email
+     * @return string
+     */
+    public static function scrambleEmail($email)
+    {
+        $ar = explode('@', $email);
+        return self::protect_email($ar[0], $ar[1]);
+    }
+
     //Updates a dynamic variable found in some object
     /*Shared*/
     /**

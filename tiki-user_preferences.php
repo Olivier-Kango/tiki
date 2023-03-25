@@ -542,15 +542,6 @@ $user_items = TikiLib::lib('trk')->get_user_items($userwatch);
 $smarty->assign_by_ref('user_items', $user_items);
 $flags = $tikilib->get_flags('', '', '', true);
 $smarty->assign_by_ref('flags', $flags);
-$scramblingMethods = ["n", "strtr", "unicode", "x", 'y']; // email_isPublic utilizes 'n'
-$smarty->assign_by_ref('scramblingMethods', $scramblingMethods);
-$scramblingEmails = [
-        tra("no"),
-        TikiMail::scrambleEmail($userinfo['email'], 'strtr'),
-        TikiMail::scrambleEmail($userinfo['email'], 'unicode') . "-" . tra("unicode"),
-        TikiMail::scrambleEmail($userinfo['email'], 'x'), $userinfo['email'],
-    ];
-$smarty->assign_by_ref('scramblingEmails', $scramblingEmails);
 $avatar = $tikilib->get_user_avatar($userwatch);
 $smarty->assign_by_ref('avatar', $avatar);
 $mailCharsets = ['utf-8', 'iso-8859-1'];

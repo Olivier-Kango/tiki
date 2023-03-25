@@ -148,8 +148,7 @@ class Tracker_Field_Email extends \Tracker\Field\AbstractField implements \Track
             return $value;
         } else {
             if ($opt == 1) {
-                $ar = explode('@', $value);
-                return TikiLib::lib('tiki')->protect_email($ar[0], $ar[1]);
+                return TikiLib::scrambleEmail($value);
             } else {    // link == 2
                 return "<a href=\"mailto:$value\">$value</a>";
             }

@@ -132,7 +132,7 @@ $smarty->assign('user_information', $user_information);
 $userinfo = $userlib->get_user_info($userwatch);
 $email_isPublic = $tikilib->get_user_preference($userwatch, 'email is public', 'n');
 if ($email_isPublic != 'n') {
-    $smarty->assign('scrambledEmail', TikiMail::scrambleEmail($userinfo['email'], $email_isPublic));
+    $smarty->assign('scrambledEmail', TikiLib::scrambleEmail($userinfo['email']));
 }
 $userinfo['score'] = TikiLib::lib('score')->get_user_score($userwatch);
 $smarty->assign_by_ref('userinfo', $userinfo);

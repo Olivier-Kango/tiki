@@ -51,7 +51,7 @@
 
 {if strlen($email)>0}
     <h2>{tr}Contact us by email{/tr}</h2>
-    {tr}Click here to send us an email:{/tr} {mailto text="$email" address="$email0" encode="javascript" extra='class="link"'}
+    {tr}Click here to send us an email:{/tr} {$email}
 {else}
     <p><a class="link" href="tiki-contact.php">{tr}Send another message{/tr}</a></p>
 {/if}

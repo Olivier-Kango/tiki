@@ -75,12 +75,7 @@
                         {if $email_isPublic neq 'n' and $userinfo.email neq ''}
                             <tr class="profile-info">
                                 <td class="profile-info-label">{tr}Email:{/tr}</td>
-                                <td class="profile-info-value">{mailto address=$userinfo.email text=$scrambledEmail encode="javascript"}</td>
-                            </tr>
-                        {elseif $email_isPublic eq 'n' and $userinfo.email neq '' and $tiki_p_admin eq 'y'}
-                            <tr class="profile-info">
-                                <td class="profile-info-label">{tr}Email:{/tr}</td>
-                                <td class="profile-info-value">{mailto address=$userinfo.email encode="javascript"} <i>{tr}(non public){/tr}</i></td>
+                                <td class="profile-info-value">{$userinfo.scrambledEmail}</td>
                             </tr>
                         {/if}
                         {if $prefs.change_theme ne 'n'}

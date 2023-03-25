@@ -13,11 +13,12 @@
                     <td>
                         {if !empty($userinfo.email)}
                             <select name="email_isPublic">
-                                {section name=ix loop=$scramblingMethods}
-                                    <option value="{$scramblingMethods[ix]|escape}" {if $email_isPublic eq $scramblingMethods[ix]}selected="selected"{/if}>
-                                        {$scramblingEmails[ix]}
-                                    </option>
-                                {/section}
+                                <option value="n" {if $email_isPublic eq 'n'}selected="selected"{/if}>
+                                    {tr}no{/tr}
+                                </option>
+                                <option value="y" {if $email_isPublic neq 'n'}selected="selected"{/if}>
+                                    {tr}yes{/tr}
+                                </option>
                             </select>
                         {else}
                             {tr}Unavailable - please set your email below{/tr}

@@ -69,15 +69,7 @@
                             {if $email_isPublic neq 'n' and $userinfo.email neq ''}
                                 <div class="row mb-3">
                                     <div class="col-sm-4">{tr}Email:{/tr}</div>
-                                    <div class="col-sm-8">{mailto address=$userinfo.email text=$scrambledEmail encode="javascript"}</div>
-                                </div>
-                            {elseif $email_isPublic eq 'n' and $userinfo.email neq '' and $tiki_p_admin eq 'y'}
-                                <div class="row mb-3">
-                                    <div class="col-sm-4">{tr}Email:{/tr}</div>
-                                    <div class="col-sm-8">
-                                        {mailto address=$userinfo.email encode="javascript"}
-                                        <i>{tr}(non public){/tr}</i>
-                                    </div>
+                                    <div class="col-sm-8">{$scrambledEmail}</div>
                                 </div>
                             {/if}
                             {if !empty($country) and $country != 'Other'}

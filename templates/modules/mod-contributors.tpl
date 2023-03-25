@@ -8,7 +8,7 @@
         {$contributor.login|userlink}<span style="float:right">{$contributor.avatar}</span>
         {if !empty($contributor.realName)}<br>{$contributor.realName|escape}{/if}
         {if isset($contributor.country)}<br>{$contributor.login|countryflag} {tr}{$contributor.country|stringfix}{/tr}{/if}
-        {if isset($contributor.email)}<br>{mailto address=$contributor.email text=$contributor.scrambledEmail encode="javascript"}{/if}
+        {if isset($contributor.email)}<br>{$contributor.scrambledEmail}{/if}
         {if !empty($contributor.homePage)}<br><a href="{$contributor.homePage|escape}" class="link" target="_blank">{tr}Homepage{/tr}</a>{/if}
     </div>
     {/foreach}

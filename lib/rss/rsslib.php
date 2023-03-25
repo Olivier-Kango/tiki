@@ -339,7 +339,7 @@ class RSSLib extends TikiDb_Bridge
 
             if ($tikilib->get_user_preference($login, 'email is public', 'n') != 'n') {
                 $res = $userlib->get_user_info($login, false);
-                $author['email'] = TikiMail::scrambleEmail($res['email']);
+                $author['email'] = TikiLib::scrambleEmail($res['email']);
             }
         } else {
             $author['name'] = $login;

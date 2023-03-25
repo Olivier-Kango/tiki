@@ -110,15 +110,6 @@ class UserWizardPreferencesParams extends Wizard
         $smarty->assign_by_ref('user_blogs', $user_blogs);
         $user_items = TikiLib::lib('trk')->get_user_items($userwatch);
         $smarty->assign_by_ref('user_items', $user_items);
-        $scramblingMethods = ["n", "strtr", "unicode", "x", 'y']; // email_isPublic utilizes 'n'
-        $smarty->assign_by_ref('scramblingMethods', $scramblingMethods);
-        $scramblingEmails = [
-                tra("no"),
-                TikiMail::scrambleEmail($userinfo['email'], 'strtr'),
-                TikiMail::scrambleEmail($userinfo['email'], 'unicode') . "-" . tra("unicode"),
-                TikiMail::scrambleEmail($userinfo['email'], 'x'), $userinfo['email'],
-            ];
-        $smarty->assign_by_ref('scramblingEmails', $scramblingEmails);
         $mailCharsets = ['utf-8', 'iso-8859-1'];
         $smarty->assign_by_ref('mailCharsets', $mailCharsets);
         $smarty->assign_by_ref('user_prefs', $user_preferences[$userwatch]);
