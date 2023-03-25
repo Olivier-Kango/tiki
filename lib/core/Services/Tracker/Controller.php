@@ -1628,7 +1628,7 @@ class Services_Tracker_Controller
             if (strstr($trackerInfo["orderAttachments"], '|')) {
                 $attextra = 'y';
             }
-            $attfields = explode(',', strtok($trackerInfo["orderAttachments"], '|'));
+            $attfields = explode(',', strtok($trackerInfo["orderAttachments"] ?? '', '|'));
             $atts = $trklib->list_item_attachments($itemId, 0, -1, 'comment_asc', '');
             $smarty->assign('atts', $atts["data"]);
             $smarty->assign('attCount', $atts["cant"]);
