@@ -331,7 +331,7 @@ if (! empty($multiprint_pages)) {
     // Exact match and single result, go to page directly
     if (count($listpages['data']) == 1 && ! $ts['ajax']) {
         $result = reset($listpages['data']);
-        if (TikiLib::strtolower($find) == TikiLib::strtolower($result['pageName'])) {
+        if (! $access->is_xml_http_request() && TikiLib::strtolower($find) == TikiLib::strtolower($result['pageName'])) {
             $wikilib = TikiLib::lib('wiki');
             header('Location: ' . $wikilib->sefurl($result['pageName'], '', $all_langs));
             exit;
