@@ -68,9 +68,16 @@ class IndexCompareEnginesCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $engines = $input->getOption('engine');
-        if (count($engines) != 2) {
+        if (count($engines) < 2) {
             $io->error(
-                'To execute this script you need to specify exactly two engines to compare.'
+                'To execute this script you need to specify at least two engines to compare.'
+            );
+            return 1;
+        }
+
+        if (count($engines) == 3 && $input->getOption('html')) {
+            $io->error(
+                'Comparing all three engines works in text-mode only, you cannot specify the --html option.'
             );
             return 1;
         }
@@ -137,6 +144,7 @@ class IndexCompareEnginesCommand extends Command
         if ($input->getOption('reindex')) {
             $io->writeln('Rebuilding index, please wait...');
             foreach ($engines as $engine) {
+                $io->writeln('Rebuilding ' . $engine);
                 $prefs['unified_engine'] = $engine;
                 $indices[$engine] = TikiLib::lib('unifiedsearch')->getIndexLocation('ondemand');
                 $index = TikiLib::lib('unifiedsearch')->getIndex('ondemand');
@@ -148,7 +156,14 @@ class IndexCompareEnginesCommand extends Command
             }
             $io->writeln('Index rebuild finished.');
             $io->newLine(2);
+        } else {
+            foreach ($engines as $engine) {
+                $prefs['unified_engine'] = $engine;
+                $indices[$engine] = TikiLib::lib('unifiedsearch')->getIndexLocation('ondemand');
+            }
         }
+
+        var_dump($indices);
 
         $prefs = $orig_prefs;
 
@@ -217,6 +232,10 @@ class IndexCompareEnginesCommand extends Command
                     // Remove list filter ids
                     $regex = '/list_filter\d+/';
                     $output[$engine] = preg_replace($regex, 'list_filter', $output[$engine]);
+
+                    // remove calendar selector uids
+                    $regex = '/uiCal_[a-z0-9]+/';
+                    $output[$engine] = preg_replace($regex, 'uiCal', $output[$engine]);
                 }
 
                 if ($output[$engines[0]] !== $output[$engines[1]]) {
@@ -236,7 +255,30 @@ class IndexCompareEnginesCommand extends Command
             return 0;
         }
 
-        if ($input->getOption('html')) {
+        if (count($engines) == 3) {
+            foreach ($engines as $i => $engine) {
+                $io->writeln(($i+1) . ': ' . $engine);
+            }
+            foreach ($differentOutputs as $output) {
+                $io->section('Tiki Page - ' . $output['page']);
+                $io->writeln('Plugin Declaration:');
+                $io->writeln($output['plugin']);
+                $io->newLine(2);
+
+                $filenames = [];
+                foreach ($engines as $engine) {
+                    $fname = tempnam($tikipath . 'temp', 'indexcompare');
+                    file_put_contents($fname, $output['output'][$engine]);
+                    $filenames[] = $fname;
+                }
+
+                $io->writeln(`diff3 $filenames[0] $filenames[1] $filenames[2]`);
+
+                foreach ($filenames as $fname) {
+                    unlink($fname);
+                }
+            }
+        } elseif ($input->getOption('html')) {
             include_once 'lib/diff/difflib.php';
             include_once 'lib/wiki-plugins/wikiplugin_code.php';
 
@@ -294,26 +336,19 @@ HTML;
             file_put_contents($finalPath, $htmlOutput);
 
             $io->writeln("Plugin differences found. Please check the file '$finalPath' for more details.");
-            return 1;
-        }
+        } else {
+            $builder = new UnifiedDiffOutputBuilder("--- {$engines[0]}\n+++ {$engines[1]}\n");
+            $differ = new Differ($builder);
 
-        $builder = new UnifiedDiffOutputBuilder("--- {$engines[0]}\n+++ {$engines[1]}\n");
-        $differ = new Differ($builder);
+            foreach ($differentOutputs as $output) {
+                $io->section('Tiki Page - ' . $output['page']);
+                $io->writeln('Plugin Declaration:');
+                $io->writeln($output['plugin']);
+                $io->newLine(2);
 
-        foreach ($differentOutputs as $output) {
-            $io->section('Tiki Page - ' . $output['page']);
-            $io->writeln('Plugin Declaration:');
-            $io->writeln($output['plugin']);
-            $io->newLine(2);
-
-            $diff = $differ->diff($output['output'][$engines[0]], $output['output'][$engines[1]]);
-            $io->writeln($diff);
-        }
-
-        foreach ($indices as $engine => $index) {
-            $prefs['unified_engine'] = $engine;
-            $index = TikiLib::lib('unifiedsearch')->getIndex('ondemand');
-            $index->destroy();
+                $diff = $differ->diff($output['output'][$engines[0]], $output['output'][$engines[1]]);
+                $io->writeln($diff);
+            }
         }
 
         $prefs = $orig_prefs;
