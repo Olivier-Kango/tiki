@@ -30,9 +30,9 @@ class Table_Code_MainOptions extends Table_Code_Manager
     {
         $mo = [];
 
-        $mo[] = 'showProcessing: ' . (parent::$s['showProcessing'] === 'y' ? 'true' : 'false');
-        $mo[] = 'ignoreCase: ' . (parent::$s['ignoreCase'] === 'y' ? 'true' : 'false');
-        $mo[] = 'sortLocaleCompare : ' . (parent::$s['sortLocaleCompare'] === 'y' ? 'true' : 'false');
+        $mo[] = 'showProcessing: ' . (isset(parent::$s['showProcessing']) && parent::$s['showProcessing'] === 'y' ? 'true' : 'false');
+        $mo[] = 'ignoreCase: ' . (isset(parent::$s['ignoreCase']) && parent::$s['ignoreCase'] === 'y' ? 'true' : 'false');
+        $mo[] = 'sortLocaleCompare : ' . (isset(parent::$s['sortLocaleCompare']) && parent::$s['sortLocaleCompare'] === 'y' ? 'true' : 'false');
 
         /***  onRenderHeader option - change html elements before table renders. Repeated for each column. ***/
         $orh = [];
