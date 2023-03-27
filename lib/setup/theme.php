@@ -196,7 +196,7 @@ if ($prefs['webmonetization_all_website'] === 'y' && ! empty($prefs['webmonetiza
 }
 
 // set the color of header bar and address bar
-if ($prefs['theme_header_and_adress_bar_color'] === 'y') {
+if ($prefs['theme_header_and_address_bar_color'] === 'y') {
     if ($section === 'admin' || empty($section)) {
         $css_color_variable = "--tiki-top-" . $prefs['theme_navbar_color_variant_admin'] . "-bg";
     } else {
