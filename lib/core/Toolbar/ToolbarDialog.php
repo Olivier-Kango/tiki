@@ -236,14 +236,6 @@ class ToolbarDialog extends ToolbarItem
     public function setupJs(): void
     {
         global $toolbarDialogIndex;
-        global $prefs;
-
-        if ($prefs['vuejs_enable'] === 'y') {
-            TikiLib::lib('header')->add_js_module('
-                import "@vue-mf/root-config";
-                import "@vue-mf/toolbar-dialogs";
-            ');
-        }
 
         $data = get_object_vars($this);
         unset($data['list']);
@@ -251,6 +243,11 @@ class ToolbarDialog extends ToolbarItem
         $data['editor']['isWysiwyg'] = $this->isWysiwyg;
 
         if ($this->isVueTool()) {
+            TikiLib::lib('header')->add_js_module('
+                import "@vue-mf/root-config";
+                import "@vue-mf/toolbar-dialogs";
+            ');
+
             // language=JavaScript
             TikiLib::lib('header')->add_jq_onready('
     window.registerApplication({
@@ -397,6 +394,6 @@ class ToolbarDialog extends ToolbarItem
             $supported[] = 'table';
         }
 
-        return $prefs['vuejs_toolbar_dialogs'] === 'y' && in_array($this->name, $supported);
+        return $prefs['vuejs_enable'] === 'y' && $prefs['vuejs_toolbar_dialogs'] === 'y' && in_array($this->name, $supported);
     }
 }
