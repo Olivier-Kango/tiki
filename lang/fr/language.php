@@ -21842,6 +21842,7 @@ $lang_current = array(
 "Please provide a username or email address" => "Merci de fournir un nom d'utilisateur ou une adresse mail",
 "Please contact the Administrator if you do not get the email, or if there is an issue with resetting the password" => "Veuillez contacter l'Administrateur du site si vous ne recevez pas l'e-mail, ou s'il y a un problème avec la réinitialisation du mot de passe",
 "An email with a link to reset your password has been sent " => "Un courriel comportant un lien qui permet de réinitialiser votre mot de passe a été envoyé ",
+"An email with a link to reset your password has been sent to the address on record if you have one, if you do not receive one shortly, please contact the administrator." => "Un courriel contenant un lien pour réinitialiser votre mot de passe a été envoyé à l’adresse indiquée sur le formulaire. Si vous n’en recevez pas sous peu, veuillez communiquer avec l’administrateur.",
 "to the email" => "à l'e-mail",
 "to the registered email address for" => "à l'adresse électronique inscrite pour",
 "Rename wiki page" => "Renommer la page wiki",
