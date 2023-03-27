@@ -21,7 +21,7 @@ $auto_query_args = ['calendarId', 'sort_mode', 'find', 'offset'];
 if (! isset($_REQUEST["calendarId"])) {
     $access->check_permission(['tiki_p_admin_calendar']);
     $_REQUEST['calendarId'] = 0;
-} else {
+} elseif ($_REQUEST['calendarId'] != 0) {
     if ($calendarlib->calendarExists($_REQUEST['calendarId'])) {
         $info = $calendarlib->get_calendar($_REQUEST['calendarId']);
         if (empty($info)) {
