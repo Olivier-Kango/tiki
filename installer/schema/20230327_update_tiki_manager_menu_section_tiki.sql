@@ -1,0 +1,1 @@
+UPDATE `tiki_menu_options` SET `section` = 'feature_tiki_manager' WHERE `menuId` = 42 AND `name` = 'Tiki Manager' AND `url` = 'tiki-ajax_services.php?controller=manager&action=index' AND `position` = 1247;
