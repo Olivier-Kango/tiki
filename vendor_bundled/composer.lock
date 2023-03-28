@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "187a77264399b6d3ac949d2560ff8ed3",
+    "content-hash": "96f2e11629acac22f691ef297aede98f",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -316,17 +316,17 @@
         },
         {
             "name": "amphp/parallel",
-            "version": "v1.4.2",
+            "version": "v1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/parallel.git",
-                "reference": "75853e1623efa5aa5e65e986ec9a97db573a5267"
+                "reference": "3aac213ba7858566fd83d38ccb85b91b2d652cb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/amphp/parallel/amphp-parallel-75853e1623efa5aa5e65e986ec9a97db573a5267-zip-955f0f.zip",
-                "reference": "75853e1623efa5aa5e65e986ec9a97db573a5267",
-                "shasum": "e21f4c4b64478fdd3f479ba46d51ae53acaaf63f"
+                "url": "https://composer.tiki.org/dist/amphp/parallel/amphp-parallel-3aac213ba7858566fd83d38ccb85b91b2d652cb0-zip-59206a.zip",
+                "reference": "3aac213ba7858566fd83d38ccb85b91b2d652cb0",
+                "shasum": "d4b367f4e082cf1406b829dbbd5a463b8d23d33b"
             },
             "require": {
                 "amphp/amp": "^2",
@@ -382,7 +382,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-30T00:21:42+00:00"
+            "time": "2023-03-23T08:04:23+00:00"
         },
         {
             "name": "amphp/parser",
@@ -743,7 +743,7 @@
             "version": "6.3.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
                 "reference": "d02961b018153506364077343b0edcde0a39d27e"
             },
             "dist": {
@@ -945,17 +945,17 @@
         },
         {
             "name": "ckeditor/ckeditor",
-            "version": "4.20.2",
+            "version": "4.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "8cc8f1b065f93d90c305c2609fec4e4215dd20ba"
+                "reference": "af71d07caa2172c53e0e426250e3b0189137915b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-8cc8f1b065f93d90c305c2609fec4e4215dd20ba-zip-58067d.zip",
-                "reference": "8cc8f1b065f93d90c305c2609fec4e4215dd20ba",
-                "shasum": "de6fc89229454f18446fa2bae1412866bf2b44d5"
+                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-af71d07caa2172c53e0e426250e3b0189137915b-zip-81241c.zip",
+                "reference": "af71d07caa2172c53e0e426250e3b0189137915b",
+                "shasum": "7ae9e525df2875defe8c96006ab859f018e45bef"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -983,7 +983,7 @@
                 "text",
                 "wysiwyg"
             ],
-            "time": "2023-02-15T12:55:37+00:00"
+            "time": "2023-03-22T10:37:38+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -2868,13 +2868,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "84b772e596d9164f8287337cfffcf41aaee212ff"
+                "reference": "8391edb408756e83464ee3b32d3000978c8ab906"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-84b772e596d9164f8287337cfffcf41aaee212ff-zip-39d1af.zip",
-                "reference": "84b772e596d9164f8287337cfffcf41aaee212ff",
-                "shasum": "d562c4fef278cc25dd5a5106364fc20035e8158a"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-8391edb408756e83464ee3b32d3000978c8ab906-zip-beb9e7.zip",
+                "reference": "8391edb408756e83464ee3b32d3000978c8ab906",
+                "shasum": "68b401236fdfc1563898f156200b7c02a36948ef"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2928,7 +2928,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-03-16T08:15:35+00:00"
+            "time": "2023-03-24T04:29:58+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5175,17 +5175,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.3.9",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c1e114f74e518daca2729ea8c4bf1167038fa4b5"
+                "reference": "d44a24690f16b8c1808bf13b1bd54ae4c63ea048"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-c1e114f74e518daca2729ea8c4bf1167038fa4b5-zip-6d608c.zip",
-                "reference": "c1e114f74e518daca2729ea8c4bf1167038fa4b5",
-                "shasum": "e6356996777295ca573015682675c8981026d392"
+                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-d44a24690f16b8c1808bf13b1bd54ae4c63ea048-zip-aae956.zip",
+                "reference": "d44a24690f16b8c1808bf13b1bd54ae4c63ea048",
+                "shasum": "cf27a4a886e238bd1a6f88d9bda82b640e07deee"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -5220,7 +5220,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.4-dev"
+                    "dev-main": "2.5-dev"
                 }
             },
             "autoload": {
@@ -5270,7 +5270,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-15T14:07:24+00:00"
+            "time": "2023-03-24T15:16:10+00:00"
         },
         {
             "name": "league/config",
@@ -5766,17 +5766,17 @@
         },
         {
             "name": "manticoresoftware/manticoresearch-php",
-            "version": "v2.3.1",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/manticoresoftware/manticoresearch-php.git",
-                "reference": "5685440a5f3faa89d8a6eeaa8f3009ebf4d2f047"
+                "reference": "ff2e7cff77e403ea1d7c5b191aa8602b539fdcb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/manticoresoftware/manticoresearch-php/manticoresoftware-manticoresearch-php-5685440a5f3faa89d8a6eeaa8f3009ebf4d2f047-zip-8b3afd.zip",
-                "reference": "5685440a5f3faa89d8a6eeaa8f3009ebf4d2f047",
-                "shasum": "9983f3b88931b3bd89879cae9ff0e656cd15453b"
+                "url": "https://composer.tiki.org/dist/manticoresoftware/manticoresearch-php/manticoresoftware-manticoresearch-php-ff2e7cff77e403ea1d7c5b191aa8602b539fdcb4-zip-1f1fe2.zip",
+                "reference": "ff2e7cff77e403ea1d7c5b191aa8602b539fdcb4",
+                "shasum": "6d5bb2f61318f20f5cfe3f27da0d8b477ac15962"
             },
             "require": {
                 "ext-json": "*",
@@ -5824,7 +5824,7 @@
                 "manticoresearch",
                 "search"
             ],
-            "time": "2023-03-09T08:00:51+00:00"
+            "time": "2023-03-10T10:16:05+00:00"
         },
         {
             "name": "matthiasmullie/minify",
@@ -7656,11 +7656,11 @@
         },
         {
             "name": "npm-asset/zxing--library",
-            "version": "0.19.1",
+            "version": "0.19.2",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/zxing--library/npm-asset-zxing--library-0.19.1.zip",
-                "shasum": "5e7f51a89c57e6f59bfc6d2254c8c78c2ae687c4"
+                "url": "https://composer.tiki.org/dist/npm-asset/zxing--library/npm-asset-zxing--library-0.19.2.zip",
+                "shasum": "22cf492793e878cc598f7b2363aa3b0fa2ef4c06"
             },
             "require": {
                 "npm-asset/ts-custom-error": ">=3.0.0,<4.0.0",
@@ -8655,38 +8655,44 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "1.14.3",
+            "version": "1.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "31d8ee46d0215108df16a8527c7438e96a4d7735"
+                "reference": "5cc428320191ac1d0b6520034c2dc0698628ced5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-31d8ee46d0215108df16a8527c7438e96a4d7735-zip-a8a8d7.zip",
-                "reference": "31d8ee46d0215108df16a8527c7438e96a4d7735",
-                "shasum": "e984f61bfdb78ef60e5776d692e941d5f1279be1"
+                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-5cc428320191ac1d0b6520034c2dc0698628ced5-zip-b14d82.zip",
+                "reference": "5cc428320191ac1d0b6520034c2dc0698628ced5",
+                "shasum": "b20c816b3cf03f1995d1ff934d5237c92aeef129"
             },
             "require": {
+                "composer-plugin-api": "^1.0|^2.0",
                 "php": "^7.1 || ^8.0"
             },
             "conflict": {
                 "nyholm/psr7": "<1.0"
             },
+            "provide": {
+                "php-http/async-client-implementation": "*",
+                "php-http/client-implementation": "*",
+                "psr/http-client-implementation": "*",
+                "psr/http-factory-implementation": "*",
+                "psr/http-message-implementation": "*"
+            },
             "require-dev": {
+                "composer/composer": "^1.0.2|^2.0",
                 "graham-campbell/phpspec-skip-example-extension": "^5.0",
                 "php-http/httplug": "^1.0 || ^2.0",
                 "php-http/message-factory": "^1.0",
-                "phpspec/phpspec": "^5.1 || ^6.1"
+                "phpspec/phpspec": "^5.1 || ^6.1 || ^7.3",
+                "symfony/phpunit-bridge": "^6.2"
             },
-            "suggest": {
-                "php-http/message": "Allow to use Guzzle, Diactoros or Slim Framework factories"
-            },
-            "type": "library",
+            "type": "composer-plugin",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.9-dev"
-                }
+                "class": "Http\\Discovery\\Composer\\Plugin",
+                "plugin-optional": true
             },
             "autoload": {
                 "psr-4": {
@@ -8703,7 +8709,7 @@
                     "email": "mark.sagikazar@gmail.com"
                 }
             ],
-            "description": "Finds installed HTTPlug implementations and PSR-7 message factories",
+            "description": "Finds and installs PSR-7, PSR-17, PSR-18 and HTTPlug implementations",
             "homepage": "http://php-http.org",
             "keywords": [
                 "adapter",
@@ -8712,9 +8718,10 @@
                 "factory",
                 "http",
                 "message",
+                "psr17",
                 "psr7"
             ],
-            "time": "2022-07-11T14:04:40+00:00"
+            "time": "2023-02-11T08:28:41+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -11254,32 +11261,31 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.16.0",
+            "version": "3.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "5326a8786b8c7c3a51ea0c6d06e6cb6a9dfa6779"
+                "reference": "95d2e932383cf684f77acff0d2a5aef5ad2f1933"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-5326a8786b8c7c3a51ea0c6d06e6cb6a9dfa6779-zip-dadea8.zip",
-                "reference": "5326a8786b8c7c3a51ea0c6d06e6cb6a9dfa6779",
-                "shasum": "4e35c7a9ab54600ff0de9490e3483dd951fa1f3c"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-95d2e932383cf684f77acff0d2a5aef5ad2f1933-zip-b08fd7.zip",
+                "reference": "95d2e932383cf684f77acff0d2a5aef5ad2f1933",
+                "shasum": "82a93c6664658e89628e06d40d3708eb0b6334c5"
             },
             "require": {
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "guzzlehttp/promises": "^1.4",
-                "guzzlehttp/psr7": "^1.8.4|^2.1.1",
                 "jean85/pretty-package-versions": "^1.5|^2.0.4",
                 "php": "^7.2|^8.0",
                 "php-http/async-client-implementation": "^1.0",
                 "php-http/client-common": "^1.5|^2.0",
-                "php-http/discovery": "^1.11, <1.15",
+                "php-http/discovery": "^1.15",
                 "php-http/httplug": "^1.1|^2.0",
                 "php-http/message": "^1.5",
                 "psr/http-factory": "^1.0",
-                "psr/http-message-implementation": "^1.0",
+                "psr/http-factory-implementation": "^1.0",
                 "psr/log": "^1.0|^2.0|^3.0",
                 "symfony/options-resolver": "^3.4.43|^4.4.30|^5.0.11|^6.0",
                 "symfony/polyfill-php80": "^1.17"
@@ -11290,6 +11296,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.19|3.4.*",
+                "guzzlehttp/psr7": "^1.8.4|^2.1.1",
                 "http-interop/http-factory-guzzle": "^1.0",
                 "monolog/monolog": "^1.6|^2.0|^3.0",
                 "nikic/php-parser": "^4.10.3",
@@ -11350,7 +11357,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-03-16T10:37:16+00:00"
+            "time": "2023-03-26T21:54:06+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -11364,28 +11371,27 @@
         },
         {
             "name": "slm/mail",
-            "version": "v4.2.4",
+            "version": "v4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Webador/SlmMail.git",
-                "reference": "6ab57a8322bd246d46f1e95a4ff4937a7c9133cb"
+                "reference": "dcef5ae1780f832ea152a90a8f965346c1f7b69a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/slm/mail/slm-mail-6ab57a8322bd246d46f1e95a4ff4937a7c9133cb-zip-deabc1.zip",
-                "reference": "6ab57a8322bd246d46f1e95a4ff4937a7c9133cb",
-                "shasum": "959deae9cfa6b38cb9d88edfbd30f6588c2a7807"
+                "url": "https://composer.tiki.org/dist/slm/mail/slm-mail-dcef5ae1780f832ea152a90a8f965346c1f7b69a-zip-082aa3.zip",
+                "reference": "dcef5ae1780f832ea152a90a8f965346c1f7b69a",
+                "shasum": "aa536e314dc8ee02a27f2df4656b24eb89c63a7c"
             },
             "require": {
                 "laminas/laminas-http": "^2.8",
                 "laminas/laminas-mail": "^2.9",
                 "laminas/laminas-mime": "^2.7",
-                "laminas/laminas-servicemanager": "^3.3",
-                "php": "^7.2 || ^8.0"
+                "laminas/laminas-servicemanager": "^3.11",
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "^3.184",
-                "container-interop/container-interop": "^1.1",
+                "aws/aws-sdk-php": "^3.208.4",
                 "doctrine/instantiator": "^1.3",
                 "guzzlehttp/guzzle": "^7.4",
                 "laminas/laminas-config": "^3.3",
@@ -11395,7 +11401,8 @@
                 "laminas/laminas-mvc": "^3.1",
                 "laminas/laminas-serializer": "^2.9",
                 "laminas/laminas-view": "^2.11",
-                "phpunit/phpunit": "^8.5.8 || ^9.4.2",
+                "phpunit/phpunit": "^9.6.5",
+                "psr/container": "^1.0 || ^2.0",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "suggest": {
@@ -11403,7 +11410,7 @@
             },
             "type": "library",
             "extra": {
-                "zf": {
+                "laminas": {
                     "component": "SlmMail",
                     "config-provider": "SlmMail\\ConfigProvider"
                 }
@@ -11450,7 +11457,7 @@
                 "sendgrid",
                 "transactional email"
             ],
-            "time": "2022-07-21T12:39:11+00:00"
+            "time": "2023-03-23T08:18:34+00:00"
         },
         {
             "name": "smarty/smarty",
@@ -15738,13 +15745,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "0dbd981248575889ab6568c289917a541be2a9f3"
+                "reference": "b06c4e39eada52ca22eac4d95cc4d4fe6ce67728"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-0dbd981248575889ab6568c289917a541be2a9f3-zip-ee5894.zip",
-                "reference": "0dbd981248575889ab6568c289917a541be2a9f3",
-                "shasum": "ff9befb239226e875e855744f23da6581365606e"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-b06c4e39eada52ca22eac4d95cc4d4fe6ce67728-zip-931b2e.zip",
+                "reference": "b06c4e39eada52ca22eac4d95cc4d4fe6ce67728",
+                "shasum": "9e91a429d37f776a7cd61e2bad777613290e2098"
             },
             "require": {
                 "php": ">=5.4",
@@ -15800,7 +15807,7 @@
                 "standards",
                 "static analysis"
             ],
-            "time": "2023-03-08T13:51:55+00:00"
+            "time": "2023-03-28T00:06:55+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",

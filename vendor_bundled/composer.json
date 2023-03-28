@@ -85,7 +85,7 @@
         "league/flysystem": ">=2.0.0-beta.3",
         "league/commonmark": "^2.3",
         "league/html-to-markdown": "^5.1",
-        "manticoresoftware/manticoresearch-php": "^2.2",
+        "manticoresoftware/manticoresearch-php": "^3.0",
         "matthiasmullie/minify": "^1.3.58",
         "mautic/api-library": "~3.0.0",
         "mediumjs/mediumjs": "1.0.1",
@@ -230,7 +230,8 @@
             "oomphinc/composer-installers-extender": true,
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "robloach/component-installer": true
+            "robloach/component-installer": true,
+            "php-http/discovery": true
         }
     },
     "autoload": {
