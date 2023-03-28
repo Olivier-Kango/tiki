@@ -26,7 +26,7 @@ class Tiki_Hm_Tiki_Cache
      */
     public function set($key, $val)
     {
-        return $this->cachelib->cacheItem($key, $val);
+        return $this->cachelib->cacheItem($key, Hm_transform::stringify($val));
     }
 
     /**
@@ -37,7 +37,8 @@ class Tiki_Hm_Tiki_Cache
      */
     public function get($key, $default = false)
     {
-        return $this->cachelib->getCached($key) ?? $default;
+        $data = $this->cachelib->getCached($key);
+        return $data ? Hm_transform::unstringify($data) : $default;
     }
 
     /**
