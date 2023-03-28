@@ -554,7 +554,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
 
                         //Audio preview modal
                         $audiomodal = '
-                            <div class="modal fade" id="audioModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                            <div class="modal fade" id="audioModal' . $fileId . '" tabindex="-1" role="dialog"  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
@@ -569,7 +569,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
                                 </div>
                             </div>';
 
-                        $ret .= $audiomodal . " <a type='button' href='' title='preview' data-bs-toggle='modal' data-backdrop='false' data-bs-target='#audioModal' >
+                        $ret .= $audiomodal . " <a type='button' href='' title='preview' data-bs-toggle='modal' data-backdrop='false' data-bs-target='#audioModal$fileId' >
                             $viewicon
                         </a>";
                     } else {
