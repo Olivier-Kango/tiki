@@ -83,6 +83,7 @@ class IndexCompareEnginesCommand extends Command
         }
 
         $tikiLib = TikiLib::lib('tiki');
+        $unifiedSearchLib = TikiLib::lib('unifiedsearch');
 
         if ($page = $input->getOption('page')) {
             $pageInfo = $tikiLib->get_page_info($page) ?: null;
@@ -98,7 +99,6 @@ class IndexCompareEnginesCommand extends Command
         }
 
         $reindex = $input->getOption('reindex');
-        $unifiedSearchLib = TikiLib::lib('unifiedsearch');
 
         foreach ($engines as $engine) {
             switch ($engine) {
@@ -145,10 +145,17 @@ class IndexCompareEnginesCommand extends Command
             $io->writeln('Rebuilding index, please wait...');
             foreach ($engines as $engine) {
                 $io->writeln('Rebuilding ' . $engine);
+                // change prefs
                 $prefs['unified_engine'] = $engine;
-                $indices[$engine] = TikiLib::lib('unifiedsearch')->getIndexLocation('ondemand');
-                $index = TikiLib::lib('unifiedsearch')->getIndex('ondemand');
-                $indexer = TikiLib::lib('unifiedsearch')->buildIndexer($index);
+                $indices[$engine] = $unifiedSearchLib->getIndexLocation('ondemand');
+                // destroy existing index
+                $unifiedSearchLib->invalidateIndicesCache();
+                $index = $unifiedSearchLib->getIndex('ondemand');
+                $index->destroy();
+                // rebuild a new one
+                $unifiedSearchLib->invalidateIndicesCache();
+                $index = $unifiedSearchLib->getIndex('ondemand');
+                $indexer = $unifiedSearchLib->buildIndexer($index);
                 $indexer->rebuild();
                 $index->endUpdate();
                 unset($indexer);
@@ -159,11 +166,9 @@ class IndexCompareEnginesCommand extends Command
         } else {
             foreach ($engines as $engine) {
                 $prefs['unified_engine'] = $engine;
-                $indices[$engine] = TikiLib::lib('unifiedsearch')->getIndexLocation('ondemand');
+                $indices[$engine] = $unifiedSearchLib->getIndexLocation('ondemand');
             }
         }
-
-        var_dump($indices);
 
         $prefs = $orig_prefs;
 
@@ -192,6 +197,7 @@ class IndexCompareEnginesCommand extends Command
                     if ($indices) {
                         $prefs['unified_' . $engine . '_index_current'] = $indices[$engine];
                     }
+                    $unifiedSearchLib->invalidateIndicesCache();
 
                     \Search_Formatter_Factory::$counter = 0; // Reset counter index
                     $output[$engine] = @$parserLib->parse_data($rawPlugin);
@@ -257,7 +263,7 @@ class IndexCompareEnginesCommand extends Command
 
         if (count($engines) == 3) {
             foreach ($engines as $i => $engine) {
-                $io->writeln(($i+1) . ': ' . $engine);
+                $io->writeln(($i + 1) . ': ' . $engine);
             }
             foreach ($differentOutputs as $output) {
                 $io->section('Tiki Page - ' . $output['page']);
