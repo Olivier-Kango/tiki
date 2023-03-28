@@ -160,7 +160,9 @@ if ($prefs['userTracker'] == 'y' && isset($_REQUEST['view']) && $_REQUEST['view'
 }
 if ((! isset($trackerId) || ! $trackerId) && isset($itemId)) {
     $item_info = $trklib->get_tracker_item($itemId);
-    $trackerId = $item_info['trackerId'];
+    if (isset($item_info['trackerId'])) {
+        $trackerId = $item_info['trackerId'];
+    }
 }
 if (! isset($trackerId) || ! $trackerId) {
     $smarty->assign('msg', tra("No tracker indicated"));

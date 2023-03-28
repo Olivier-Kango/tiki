@@ -327,6 +327,8 @@
                                         data = data.replace(/<h[\s\S]*?<\/h.*?>/mgi, "");    // remove headings
                                         $(".popover-body", ".popover.show").empty().append(data);
                                         $(".popover").popover("update");
+                                        let y = $(window).scrollTop();
+                                        $(window).scrollTop(y+1).scrollTop(y-1);
                                     });
                                 }
                             });
