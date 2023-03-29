@@ -348,7 +348,9 @@ if (isset($_POST['act'])) {
                     $logslib->add_action('Updated', 'event ' . $calitemId . ' in calendar ' . $save['calendarId'], 'calendar event');
                 }
                 if ($prefs['feature_groupalert'] == 'y') {
-                    $groupalertlib->Notify($_REQUEST['listtoalert'], "tiki-calendar_edit_item.php?viewcalitemId=" . $calitemId);
+                    if (isset($_REQUEST['listtoalert'])) {
+                        $groupalertlib->Notify($_REQUEST['listtoalert'], "tiki-calendar_edit_item.php?viewcalitemId=" . $calitemId);
+                    }
                 }
 
                 $access->redirect($redirectUrl);
