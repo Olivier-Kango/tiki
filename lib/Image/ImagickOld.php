@@ -200,6 +200,7 @@ class ImagickOld extends ImageAbstract
                 'uyvy',
                 'vicar',
                 'viff',
+                'webp',
                 'wbmp',
                 'wpg',
                 'xbm',

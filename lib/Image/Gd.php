@@ -147,6 +147,9 @@ class Gd extends ImageAbstract
                 case 'svg':
                     echo $this->data;
                     break;
+                case 'webp':
+                    imagewebp($this->data);
+                    break;
                 default:
                     ob_end_clean();
                     return null;
@@ -196,6 +199,7 @@ class Gd extends ImageAbstract
             $gdinfo["PNG Support"] = preg_match('/PNG Support.*enabled/', ob_get_contents());
             $gdinfo["GIF Create Support"] = preg_match('/GIF Create Support.*enabled/', ob_get_contents());
             $gdinfo["WBMP Support"] = preg_match('/WBMP Support.*enabled/', ob_get_contents());
+            $gdinfo["WEBP Support"] = preg_match('/WEBP Support.*enabled/', ob_get_contents());
             $gdinfo["XBM Support"] = preg_match('/XBM Support.*enabled/', ob_get_contents());
             ob_end_clean();
         }
@@ -244,6 +248,12 @@ class Gd extends ImageAbstract
                     return true;
                 } else {
                     return ( imagetypes() & IMG_WBMP );
+                }
+            case 'webp':
+                if (isset($gdinfo) && $gdinfo['WEBP Support']) {
+                    return true;
+                } else {
+                    return ( imagetypes() & IMG_WEBP );
                 }
             case 'xpm':
                 if (isset($gdinfo) && $gdinfo['XPM Support']) {
