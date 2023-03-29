@@ -1212,7 +1212,7 @@ function wikiplugin_trackerlist($data, $params)
             //convert tablesorter filter syntax to tiki syntax
             if (! empty($_REQUEST['filter'])) {
                 $i = (! empty($filterfield) && is_array($filterfield)) ? count($filterfield) : 0;
-                $tsfiltersArray = explode('|', $tsfilters);
+                $tsfiltersArray = (! empty($tsfilters)) ? explode('|', $tsfilters) : [];
                 foreach ($_REQUEST['filter'] as $col => $ajaxfilter) {
                     $fieldtype = $allfields['data'][$col + $adjustCol]['type'];
                     $id = $allfields['data'][$col + $adjustCol]['fieldId'];
@@ -1253,7 +1253,7 @@ function wikiplugin_trackerlist($data, $params)
                                 $filter[$filteredField . 'After'] = $stamp;
                             }
                         }
-                    } elseif (strpos($tsfiltersArray[$col], 'type:date') !== false && in_array($fieldtype, ['f', 'j'])) {
+                    } elseif (! empty($tsfiltersArray) && strpos($tsfiltersArray[$col], 'type:date') !== false && in_array($fieldtype, ['f', 'j'])) {
                         $datefilter = explode(' - ', $ajaxfilter);
                         $filterfield[$i] = $id;
                         //a range (from and to filters) will have 2 items in the array
