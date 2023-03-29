@@ -15,7 +15,6 @@
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/vendor_bundled/vendor/*</exclude-pattern>
     <exclude-pattern>*/vendor_custom/*</exclude-pattern>
-    <exclude-pattern>*/vendor_extra/*</exclude-pattern>
     <exclude-pattern>*/node_modules/*</exclude-pattern>
 
     <!-- libraries bundled with tiki -->

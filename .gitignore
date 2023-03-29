@@ -86,6 +86,7 @@ permissioncheck/.htaccess
 /.phpunit.result.cache
 /.phplint.yml
 /phplint
+/phplint.cache
 /lib/vue-mf/*/package-lock.json
 lib/cypht/site.js
 lib/cypht/site.css

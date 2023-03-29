@@ -160,14 +160,6 @@ class Tracker_Field_Duration extends \Tracker\Field\AbstractField implements \Tr
 
         // vue.js integration
         $headerlib = TikiLib::lib('header');
-
-        // if ($prefs['vuejs_always_load'] === 'n') {
-        //     $headerlib->add_jsfile_cdn("vendor_bundled/vendor/npm-asset/vue/dist/{$prefs['vuejs_build_mode']}");
-        // }
-
-        // $headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
-        // $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/moment-duration-format/lib/moment-duration-format.js');
-        // $headerlib->add_jsfile('lib/vue/duration/store.js');
         $value = $this->getValue();
         if (! $value) {
             $value = 0;

@@ -100,7 +100,7 @@ class GetStringsCommand extends Command
         $options = [];
         $options['lang'] = $input->getOption('lang') ?: null;
         $options['outputFiles'] = $input->getOption('outputfiles') ?: null;
-        $excludeDirs = ['_custom', 'dump', 'img', 'lang', 'bin', 'installer/schema', 'vendor_bundled', 'vendor', 'vendor_extra', 'vendor_custom',
+        $excludeDirs = ['_custom', 'dump', 'img', 'lang', 'bin', 'installer/schema', 'vendor_bundled', 'vendor', 'vendor_custom',
                         'lib/test', 'temp', 'permissioncheck', 'storage', 'tiki_tests', 'doc', 'db', 'lib/openlayers', 'tests'];
         $excludeDirs = array_filter($excludeDirs, 'is_dir'); // only keep in the exclude list if the dir exists
 

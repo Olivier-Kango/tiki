@@ -1,4 +1,29 @@
+This directory is processed by lib/theme/themelib.php and contains:
+* All tiki themes distributed with tiki in nameofthetheme/ subdirectories
+* default/, which is the tiki default theme
+* base_files which is not really a theme, more a collection of base stylesheet and icons used in tiki.
+
+DESCRIPTION OF THEME SUBDIRECTORIES
+-----------------------------------
+
+To make a new theme (for example, a theme called "abc"), add a new directory abc with the following layout:
+
+These are the supported theme sub-directories and their contents:
+* css: Contains the theme's .css files (manually editable or compiled from SCSS files).  There may be more than one css file here, but there must be one named abc.css 
+* css/abc.css The theme will be available in the list of themes once a .css file with the parent folder's name.  You can then select it at http://example.com/tiki-admin.php?page=look
+* favicons: where you can place your theme-specific favicons (check the Tiki favicon feature)
+* fonts: contains theme-specific custom fonts (For fonts that are stored locally rather than imported via CSS)
+* icons: contains theme-specific custom icons (For a custom icon font set, as an option to the Font Awesome icon set that is bundled with Tiki)
+* images: contains theme-specific images (primarily background images but could also be logos, etc)
+* jquery-ui: contains theme-specific jquery scripts
+* js/custom.js: contains theme-specific JavaScript.  Will be included by lib/setup/javascript.php
+* less: (Tiki 13 to 18) contains Less files to be compiled to create the theme CSS file
+* options: contains "child" themes that are variants of the main theme (for example, check the FiveAlive theme)
+* scss: (Tiki 19 and newer) contains SCSS files to be compiled to create the theme CSS file.  Best practice is to create the theme stylesheet by compiling SCSS files, which go in this directory.
+* templates: contains theme-specific variants of the default Smarty template (.tpl) files which override same-name equivalents in tiki's templates/
+
 TIKI THEMES
+-----------
 
 A number of visual themes (also known as skins or templates) are distributed with Tiki but more are available, and you can
 create an original theme or adapt an existing theme made for plain HTML or for another platform such as WordPress (respecting licence restrictions) for your own purpose.
@@ -25,28 +50,10 @@ Please note that Tiki also has a theme customizer that is currently partially fu
 
 
 FOR DEVELOPERS
+--------------
 
-Web developers/designers with some knowledge of CSS can create or adapt a visual theme for Tiki. Please see the links below.
+Web developers/designers with some knowledge of CSS can create or adapt a visual theme for Tiki. Please see the links below for more details and help:
 
-DESCRIPTION OF THEME DIRECTORIES
---------------------------------
-
-To make your own theme (for example, a theme called "ABC"), the layout of the files is:
-
-These are the supported theme sub-directories and their contents:
-* css: contains the theme .css files (manually editable or compiled from SCSS files).  After this directory and file are created, you can select the theme on http://example.com/tiki-admin.php?page=look
-* favicons: where you can place your theme-specific favicons (check the Tiki favicon feature)
-* fonts: contains theme-specific custom fonts (For fonts that are stored locally rather than imported via CSS)
-* icons: contains theme-specific custom icons (For a custom icon font set, as an option to the Font Awesome icon set that is bundled with Tiki)
-* images: contains theme-specific images (primarily background images but could also be logos, etc)
-* jquery-ui: contains theme-specific jquery scripts
-* js: contains theme-specific JavaScript
-* less: (Tiki 13 to 18) contains Less files to be compiled to create the theme CSS file
-* options: contains "child" themes that are variants of the main theme (for example, check the FiveAlive theme)
-* scss: (Tiki 19 and newer) contains SCSS files to be compiled to create the theme CSS file.  Best practice is to create the theme stylesheet by compiling SCSS files, which go in this directory.
-* templates: contains theme-specific variants of the default Smarty template (.tpl) files which override same-name equivalents in tiki's templates/
-
-For more details and help:
 https://themes.tiki.org/How+To+Add+a+New+Bootstrap+Theme
 https://themes.tiki.org/Creating-a-Tiki-theme
 https://themes.tiki.org/Theme-making-Questions-and-Answers
