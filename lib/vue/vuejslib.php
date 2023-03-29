@@ -307,12 +307,12 @@ observeVueApp(vm);
                 break;
             case 'n':    // number
             case 'b':    // currency
-            case 'e':    // Category
                 $field['argumentType'] = 'Number';
                 break;
             case 'c':    // checkbox
                 $field['argumentType'] = 'Boolean';
                 break;
+            case 'e':    // Category
             case 'M':    // Multiselect
                 $field['argumentType'] = 'Collection';
                 break;
@@ -339,19 +339,6 @@ observeVueApp(vm);
             $field['type'] === 'w' && $field['options_map']['selectMultipleValues']    // DynamicItemsList
         ) {
             $field['argumentType'] = 'Collection';
-            $field['ins_id'] = $field['ins_id'] . '[]';
-        }
-
-        if (
-            $field['type'] === 'e' &&    // Category but only if listbox or multiple checkboxes
-            (
-                $field['options_map']['inputtype'] === 'm'
-                ||
-                $field['options_map']['inputtype'] === 'checkbox'
-            )
-        ) {
-            $field['argumentType'] = 'Collection';
-            $field['ins_id'] = $field['ins_id'] . '[]';
         }
 
         if ($field['type'] === 'u' && $field['options_map']['multiple']) {  // UserSelector
@@ -361,8 +348,10 @@ observeVueApp(vm);
 
             if ($prefs['user_selector_threshold'] > $count) {
                 $field['argumentType'] = 'Collection';
-                $field['ins_id'] = $field['ins_id'] . '[]';
             }
+        }
+        if ($field['argumentType'] === 'Collection') {
+            $field['ins_id'] = $field['ins_id'] . '[]';
         }
     }
 }
