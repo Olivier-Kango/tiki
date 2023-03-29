@@ -16,6 +16,10 @@ function smarty_function_currency($params, $smarty)
         return tra('Parameter amount is not specified.');
     }
 
+    if ($amount === '') {
+        return '';
+    }
+
     if (! isset($sourceCurrency)) {
         return tra('Parameter sourceCurrency is not specified.');
     }
