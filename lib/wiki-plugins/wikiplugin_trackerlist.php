@@ -1211,7 +1211,7 @@ function wikiplugin_trackerlist($data, $params)
             $adjustCol = (isset($showstatus) && $showstatus == 'y' && $definition->isEnabled('showStatus')) ? -1 : 0;
             //convert tablesorter filter syntax to tiki syntax
             if (! empty($_REQUEST['filter'])) {
-                $i = is_array($filterfield) ? count($filterfield) : 0;
+                $i = (! empty($filterfield) && is_array($filterfield)) ? count($filterfield) : 0;
                 $tsfiltersArray = explode('|', $tsfilters);
                 foreach ($_REQUEST['filter'] as $col => $ajaxfilter) {
                     $fieldtype = $allfields['data'][$col + $adjustCol]['type'];
