@@ -23,6 +23,7 @@ use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Block\Element\FencedCode;
 use League\CommonMark\Block\Renderer\FencedCodeRenderer;
+use Tiki\WikiParser\Markdown\Extension as TikiExtension;
 
 class WikiParser_ParsableMarkdown extends ParserLib
 {
@@ -40,7 +41,9 @@ class WikiParser_ParsableMarkdown extends ParserLib
             'heading_permalink' => [
                 'symbol' => 'removeme-' . uniqid(),
             ],
-
+            'renderer' => [
+                'soft_break'      => "<br/>\n",
+            ],
         ];
         $environment = new Environment($config);
 
@@ -49,6 +52,7 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $environment->addExtension(new TableExtension());
         $environment->addExtension(new DescriptionListExtension());
         $environment->addExtension(new FootnoteExtension());
+        $environment->addExtension(new TikiExtension());
 
         if ($this->option['autotoc']) {
             $environment->addExtension(new HeadingPermalinkExtension());

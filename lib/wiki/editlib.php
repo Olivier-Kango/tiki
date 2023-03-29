@@ -1516,7 +1516,15 @@ class EditLib
         $prefs['wiki_heading_links'] = 'n';
 
         if ($target_syntax == 'markdown') {
+            // handle some Tiki syntax to Wiki plugins that are not supported in Markdown
             $data = preg_replace('/^\s*-=(.+)=-\s*$/m', '{DIV(class=titlebar)}$1{DIV}', $data);
+            $data = preg_replace_callback('/^(!+)([+\-#]+)(.*)$/m', function ($matches) {
+                $level = strlen($matches[1]);
+                if ($level < 1 || $level > 6) {
+                    return $matches[0];
+                }
+                return "{tikiheading level=$level options=$matches[2]}" . trim($matches[3]) . "{/tikiheading}";
+            }, $data);
         }
 
         $wikiParserParsable = new WikiParser_Parsable($data);
@@ -1545,6 +1553,7 @@ class EditLib
                 $converter = new League\HTMLToMarkdown\HtmlConverter([
                     'strip_tags' => false,
                     'hard_break' => true,
+                    'header_style' => 'atx',
                 ]);
                 $converter->getEnvironment()->addConverter(new League\HTMLToMarkdown\Converter\TableConverter());
             }
@@ -1572,6 +1581,12 @@ class EditLib
         }
 
         $converted = $wikiParserParsable->restorePlugins($converted);
+
+        if ($target_syntax == 'markdown') {
+            $converted = preg_replace_callback('/\{tikiheading level=(.*) options=(.*)\}(.*?)\{\/tikiheading\}/', function ($matches) {
+                return str_repeat('!', $matches[1]) . $matches[2] . ' ' . $matches[3];
+            }, $converted);
+        }
 
         return $converted;
     }
