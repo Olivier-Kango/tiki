@@ -52,7 +52,11 @@ if (isset($info['groupname']) && ! is_array($info['groupname'])) {
 $all_groups = $userlib->list_all_groups();
 if (is_array($all_groups)) {
     foreach ($all_groups as $g) {
-        $option_groups[$g] = (is_array($info['groupname']) && in_array($g, $info['groupname'])) ? 'selected="selected"' : '';
+        if (isset($info) && isset($info['groupname'])) {
+            $option_groups[$g] = (is_array($info['groupname']) && in_array($g, $info['groupname'])) ? 'selected="selected"' : '';
+        } else {
+            $option_groups[$g] = '';
+        }
     }
 }
 $smarty->assign_by_ref('option_groups', $option_groups);
