@@ -599,6 +599,10 @@ class Search_Query_WikiBuilder
             }
         }
 
+        if (empty($tsc)) {
+            return $ret;
+        }
+
         if (Table_Check::isFilter()) {
             foreach ($_REQUEST['filter'] as $key => $filter) {
                 if ($hasactions) {
