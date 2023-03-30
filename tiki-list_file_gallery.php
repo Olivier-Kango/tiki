@@ -695,10 +695,14 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
         }
         $old_gal_info = $filegallib->get_file_gallery_info($galleryId);
 
-        // first validate length of OCR languages, then save if they conform.
-        $ocrLangs = json_encode($_POST['ocr_lang']);
-        if (strlen($ocrLangs) > 255) {
-            Feedback::error(tr('You may not use that many OCR languages. Use fewer languages.'));
+        if ($prefs['ocr_enable'] === 'y') {
+            // first validate length of OCR languages, then save if they conform.
+            $ocrLangs = json_encode($_POST['ocr_lang']);
+            if (strlen($ocrLangs) > 255) {
+                Feedback::error(tr('You may not use that many OCR languages. Use fewer languages.'));
+                $ocrLangs = $old_gal_info['ocr_lang'];
+            }
+        } else {
             $ocrLangs = $old_gal_info['ocr_lang'];
         }
 
