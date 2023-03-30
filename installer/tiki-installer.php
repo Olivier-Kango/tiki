@@ -239,7 +239,7 @@ $smarty->assign('tiki_version_short', $tikiVersionShort);
 // Available DB Servers
 $dbservers = [];
 if (function_exists('mysqli_connect')) {
-    $dbservers['mysqli'] = tra('MySQL Improved (mysqli)');
+    $dbservers['mysqli'] = tra('MySQL/MariabDB Improved (mysqli)');
 }
 if (function_exists('mysql_connect')) {
     $dbservers['mysql'] = tra('MySQL classic (mysql)');
@@ -248,7 +248,7 @@ if (function_exists('mysql_connect')) {
 if (function_exists('pdo_drivers')) {
     $_pdos = pdo_drivers();
     if (in_array('mysql', $_pdos)) {
-        $dbservers['pdo'] = tra('MySQL PDO');
+        $dbservers['pdo'] = tra('MySQL/MariabDB PDO');
     }
 }
 
