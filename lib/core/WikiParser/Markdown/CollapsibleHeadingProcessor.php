@@ -50,7 +50,11 @@ class CollapsibleHeadingProcessor
     {
         $container = new CollapsibleContainer($id, $heading->getOpen());
         $next = $heading->next();
-        $next->replaceWith($container);
-        $container->appendChild($next);
+        if ($next) {
+            $next->replaceWith($container);
+            $container->appendChild($next);
+        } else {
+            $heading->insertAfter($container);
+        }
     }
 }
