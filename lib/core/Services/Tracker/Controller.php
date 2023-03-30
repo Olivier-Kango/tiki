@@ -2130,7 +2130,7 @@ class Services_Tracker_Controller
                 'saveAndComment' => $input->saveAndComment->int() ? 'y' : 'n',
                 'useAttachments' => $input->useAttachments->int() ? 'y' : 'n',
                 'showAttachments' => $input->showAttachments->int() ? 'y' : 'n',
-                'orderAttachments' => implode(',', $input->orderAttachments->word()),
+                'orderAttachments' => (! empty($input->orderAttachments)) ? implode(',', $input->orderAttachments->word()) : '',
                 'start' => $input->start->int() ? $this->readDate($input, 'start') : 0,
                 'end' => $input->end->int() ? $this->readDate($input, 'end') : 0,
                 'autoCreateGroup' => $input->autoCreateGroup->int() ? 'y' : 'n',
