@@ -1572,6 +1572,12 @@ class EditLib
                     $converted = str_replace($matches[0][$key], '[' . $link . ']', $converted);
                 }
             }
+
+            // bring back escaped underscores in wiki plugins
+            $pattern = "/({[^}]*)\\\\_([^}]*})/";
+            while (preg_match($pattern, $converted)) {
+                $converted = preg_replace($pattern, "$1_$2", $converted);
+            }
         } else {
             // convert to tiki syntax
             if ($source_syntax == 'tiki') {
