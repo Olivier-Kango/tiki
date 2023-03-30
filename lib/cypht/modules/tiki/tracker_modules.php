@@ -253,10 +253,6 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
         } else {
             Hm_Msgs::add('Messages moved');
         }
-
-        $smarty->loadPlugin('smarty_modifier_sefurl');
-        $url = smarty_modifier_sefurl($item['itemId'], 'trackeritem');
-        $this->out('tiki_redirect_url', $url);
     }
 }
 
