@@ -450,6 +450,16 @@ if ( \$('#$id') ) {
 
         $func_name = 'wikiplugin_' . $name;
 
+        if ($this->option['is_markdown'] && ! preg_match('/\{.*\}/', $data)) {
+            $inline = preg_match("/[\r\n]/", $data) ? false : true;
+            $parsable = new WikiParser_ParsableMarkdown($data);
+            $parsable->setOptions($this->option);
+            $data = $parsable->wikiParse($data);
+            if ($inline) {
+                $data = preg_replace('/^\s*<p>(.*)<\/p>\s*$/', '$1', $data);
+            }
+        }
+
         if (! $validationPerformed && ! ($this->option['wysiwyg'] ?? false)) {
             $this->plugin_apply_filters($name, $data, $args);
         }
