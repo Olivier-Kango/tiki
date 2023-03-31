@@ -5,7 +5,15 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
-
+/**
+ * This file handles most of the routing in tiki.
+ *
+ * http://dev.tiki.org/URL+Rewriting+Revamp
+ * https://doc.tiki.org/Custom-Routes
+ * https://doc.tiki.org/Search-Engine-Friendly-URL
+ * https://doc.tiki.org/Apache-Clean-URLs
+ *
+ */
 // Adding support for an other web server? Check the end of the file
 use Tiki\TikiInit;
 

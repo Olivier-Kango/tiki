@@ -41,5 +41,5 @@ echo "Remove cdn"
 $MYSQLCOMMAND $DOGFOODMYSQLDB -e "update tiki_preferences set value = \"\" where name = \"tiki_cdn\";"
 echo "Upgrading HTACCESS"
 rm .htaccess
-sh htaccess.sh on
+sh doc/devtools/htaccess.sh on
 popd

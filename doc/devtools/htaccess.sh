@@ -12,9 +12,9 @@
 # For example, along with doc/devtools/svnup.sh
 #
 # usage:
-# sh htaccess.sh
+# sh doc/devtools/htaccess.sh
 #
- 
+
 OLD=_htaccess
 NEW=.htaccess
 ACTION=activating

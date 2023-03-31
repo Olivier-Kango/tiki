@@ -57,7 +57,6 @@ Disallow: /admin/
 Disallow: /backup/
 Disallow: /db/
 Disallow: /doc/
-Disallow: /dump/
 Disallow: /installer/
 Disallow: /lang/
 Allow: /lang/*.js$

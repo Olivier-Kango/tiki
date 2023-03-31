@@ -62,7 +62,7 @@ if ($request->hasProperty('outputFiles')) {
 }
 
 $excludeDirs = [
-    'dump' , 'img', 'lang', 'bin', 'installer/schema',
+    'img', 'lang', 'bin', 'installer/schema',
     'vendor_bundled', 'vendor', 'vendor_custom',
      'lib/test',    'temp', 'permissioncheck',
     'storage',  'tiki_tests', 'doc', 'db','lib/openlayers','tests'

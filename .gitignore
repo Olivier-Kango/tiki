@@ -25,7 +25,6 @@ db/virtuals.inc
 doc/devtools/dbdiff/cache
 doc/devtools/dbdiff/vendor
 /dummy.php
-/dump
 /files
 img/wiki/*.gif
 img/wiki/*.pad_xml

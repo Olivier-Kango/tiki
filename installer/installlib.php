@@ -90,7 +90,6 @@ function create_dirs($domain = '')
     global $tikipath;
     $dirs = [
         'db',
-        'dump',
         'img/wiki',
         'img/wiki_up',
         'img/trackers',

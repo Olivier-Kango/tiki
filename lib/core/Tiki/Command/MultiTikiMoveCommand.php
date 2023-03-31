@@ -91,7 +91,7 @@ class MultiTikiMoveCommand extends Command
                 }
 
                 $dirs = [   // from setup.sh currently
-                    'db', 'dump', 'img/wiki', 'img/wiki_up', 'img/trackers',
+                    'db', 'img/wiki', 'img/wiki_up', 'img/trackers',
                     'temp', 'temp/cache', 'temp/public', 'temp/templates_c',
                     'templates', 'themes', 'whelp',
                     'mods', 'files', 'tiki_tests/tests',

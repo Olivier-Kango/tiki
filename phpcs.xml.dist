@@ -48,7 +48,6 @@
     <!-- other directories that should not contain core code -->
     <!-- <exclude-pattern>*/doc/*</exclude-pattern> -->
     <exclude-pattern>*/bin/*</exclude-pattern>
-    <exclude-pattern>*/dump/*</exclude-pattern>
     <exclude-pattern>*/img/*</exclude-pattern>
     <exclude-pattern>*/storage/*</exclude-pattern>
     <exclude-pattern>*/temp/*</exclude-pattern>
