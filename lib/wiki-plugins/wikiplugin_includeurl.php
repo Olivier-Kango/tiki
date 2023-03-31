@@ -14,6 +14,7 @@ function wikiplugin_includeurl_info()
 		'prefs' => ['wikiplugin_includeurl'],
 		'iconname' => 'link-external',
 		'introduced' => 15,
+		'validate' => 'all',
 		'tags' => [ 'basic' ],
 		'format' => 'html',
 		'params' => [
