@@ -8,7 +8,7 @@
     --tiki-top-light-link-color: #{$navbar-light-color};
     --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
 
-    --tiki-topbar-light-bg: #473119 url('#{$imagePath}menubar-wood.jpg') 0/100% auto no-repeat;
+    --tiki-topbar-light-bg: white; // #473119 url('#{$imagePath}menubar-wood.jpg') 0/100% auto no-repeat;
     --tiki-topbar-light-color: #{$navbar-light-color};
     --tiki-topbar-light-link-color: #{$navbar-light-color};
     --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
@@ -18,18 +18,18 @@
     --tiki-top-dark-link-color: #{$navbar-dark-color};
     --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
 
-    --tiki-topbar-dark-bg: var(--tiki-topbar-light-bg);
+    --tiki-topbar-dark-bg: #473119 url('#{$imagePath}menubar-wood.jpg') 50% 50% no-repeat; //var(--tiki-topbar-light-bg);
     --tiki-topbar-dark-color: #{$navbar-dark-color};
     --tiki-topbar-dark-link-color: #{$navbar-dark-color};
     --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: #473119;
+    --tiki-admin-navbar-dark-bg: #473119; // url('#{$imagePath}menubar-wood.jpg') 50% 50% no-repeat;
     --tiki-admin-dropdown-dark-color: #{$navbar-dark-color};
     --tiki-admin-dropdown-dark-hover-bg: #{$dropdown-dark-link-hover-bg};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-admin-navbar-dark-bg);
+    --tiki-admin-navbar-light-bg: #{$card-bg};
     --tiki-admin-dropdown-light-color: #{$navbar-light-color};
     --tiki-admin-dropdown-light-hover-color: #{$navbar-light-hover-color};
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};

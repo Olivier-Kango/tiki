@@ -15,7 +15,7 @@ $gray-300: #dee2e6;
 $gray-200: #e9ecef;
 $gray-100: #f8f9fa ;
 $white: #fff;
-$black: #000;
+$black: #212529;
 
 $primary: #F5CDC2; // #f5af9f;  // #F3C9C9;
 $secondary: #E2CBCB;
@@ -50,7 +50,7 @@ $body-color: #fff;
 
 // Utility maps
 // Links
-$link-color: lighten(#E4D081FF, 15%); //lighten($warning, 15%);
+$link-color: #f2e8c0; //lighten($warning, 15%);
 $link-hover-color: lighten($warning, 10%);
 $link-hover-decoration: underline;
 
@@ -83,8 +83,7 @@ $input-placeholder-color: #585E65;
 // Form validation
 // Z-index master list
 
-// Navs
-$nav-link-color:                  #444;
+// Navbar
 //$nav-link-color:                  var(--#{$prefix}link-color);
 $nav-link-hover-color:            var(--#{$prefix}link-hover-color);
 
@@ -95,7 +94,7 @@ $nav-tabs-link-active-color:        $gray-200;
 $nav-tabs-link-active-bg:           $body-bg;
 $nav-tabs-link-active-border-color: $gray-300 $gray-300 $nav-tabs-link-active-bg;
 
-$nav-link-disabled-color: darken($nav-link-color, 10%);
+//$nav-link-disabled-color: darken($nav-link-color, 10%);
 $nav-pills-link-active-bg: darken($body-bg, 8%);
 
 // Navbar
@@ -104,7 +103,7 @@ $navbar-dark-hover-color:           lighten($navbar-dark-color, 25%);
 $navbar-dark-active-color:          $navbar-dark-color;
 $navbar-dark-disabled-color:        lighten($navbar-dark-color, 50%);
 
-$navbar-light-color:                $link-color; // $black;
+$navbar-light-color:                $black;
 $navbar-light-hover-color:          rgba($black, .7) !default;
 $navbar-light-active-color:         rgba($black, .9) !default;
 $navbar-light-disabled-color:       rgba($black, .3) !default;

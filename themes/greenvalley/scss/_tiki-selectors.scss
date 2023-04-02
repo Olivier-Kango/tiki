@@ -41,9 +41,9 @@ header.fixed-top {
     margin-bottom: 20px;
 }
 
-.topbar,
-.navbar-dark,
-.navbar-fixed-top,
+//.topbar,
+//.navbar-dark,
+//.navbar-fixed-top,
 .accordion-button:not(.collapsed) {        // Accordion active button
     background: #473119 url('#{$imagePath}menubar-wood.jpg') 50% 50% no-repeat !important;
     background-size: cover;
@@ -52,38 +52,38 @@ header.fixed-top {
     border-radius: 0;
 }
 
-.topbar .navbar-dark,
-.topbar .navbar-dark .navbar-nav > li,
-.topbar .nav > li {
-    background: transparent !important;
-}
+//.topbar .navbar-dark,
+//.topbar .navbar-dark .navbar-nav > li,
+//.topbar .nav > li {
+//    background: transparent !important;
+//}
 
-.navbar-dark .navbar-nav > li > a:hover,
-.navbar-dark .navbar-nav > li > a:focus { background: transparent !important; }
+//.navbar-dark .navbar-nav > li > a:hover,
+//.navbar-dark .navbar-nav > li > a:focus { background: transparent !important; }
 
-.navbar-dark .navbar-nav > .active {
-    > a,
-    > a:hover,
-    > a:focus {
-        background: transparent;
-    }
-}
+//.navbar-dark .navbar-nav > .active {
+//    > a,
+//    > a:hover,
+//    > a:focus {
+//        background: transparent;
+//    }
+//}
 
-.topbar_modules {
-    background: #473119 url('#{$imagePath}menubar-wood.jpg') 50% 50% no-repeat !important;
-    background-size: cover;
-    -webkit-box-shadow: inset 0 -3px 10px #331a00;
-    box-shadow: inset 0 -3px 10px #331a00;
-    border: none;
-    border-radius: 0;
-    .navbar-dark {
-        background: transparent;
-        border: none;
-    }
-    .mb-3 {
-        margin-bottom: 0;
-    }
-}
+//.topbar_modules {
+//    background: #473119 url('#{$imagePath}menubar-wood.jpg') 50% 50% no-repeat !important;
+//    background-size: cover;
+//    -webkit-box-shadow: inset 0 -3px 10px #331a00;
+//    box-shadow: inset 0 -3px 10px #331a00;
+//    border: none;
+//    border-radius: 0;
+//    .navbar-dark {
+//        background: transparent;
+//        border: none;
+//    }
+//    .mb-3 {
+//        margin-bottom: 0;
+//    }
+//}
 
 .row-middle {
     background: #fff url('#{$imagePath}page_background_ltr.jpg') repeat;

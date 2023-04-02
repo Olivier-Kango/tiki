@@ -155,18 +155,16 @@
 </nav>
 
 {if $lm_searchresults}
-    <div class="card card-primary alert alert-dismissible pe-0" id="pref_searchresults">
+    <div class="alert alert-secondary alert-dismissible pe-3" id="pref_searchresults">
         <button type="button" id="pref_searchresults-close" class="btn-close mt-3" aria-hidden="true"></button>
-        <div class="card-header">
-            <h3 class="card-title">{tr}Preference Search Results{/tr}</h3>
-        </div>
-        <form method="post" href="tiki-admin.php" class="table" role="form">
-            <div class="pref_search_results card-body">
+            <h3 class=alert-heading">{tr}Preference Search Results{/tr}</h3>
+        <form method="post" href="tiki-admin.php" class="px-4" role="form">
+            <div class="pref_search_results">
                 {foreach from=$lm_searchresults item=prefName}
                     {preference name=$prefName get_pages='y' visible='always'}
                 {/foreach}
             </div>
-            <div class="card-footer text-center">
+            <div class="text-center">
                 <input class="btn btn-primary" type="submit" title="{tr}Apply Changes{/tr}" value="{tr}Apply{/tr}">
             </div>
             <input type="hidden" name="lm_criteria" value="{$lm_criteria|escape}">
