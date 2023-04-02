@@ -335,7 +335,7 @@ class TrackerLib extends TikiLib
         $options["attachment"] = ["attId" => $attId, "filename" => $filename, "comment" => $comment];
         $watchers = $this->get_notification_emails($trackerId, $itemId, $options);
 
-        if (count($watchers > 0)) {
+        if (count($watchers) > 0) {
             $smarty = TikiLib::lib('smarty');
             $trackerName = $this->trackers()->fetchOne('name', ['trackerId' => (int) $trackerId]);
 
