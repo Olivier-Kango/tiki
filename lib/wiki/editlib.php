@@ -1578,6 +1578,16 @@ class EditLib
             while (preg_match($pattern, $converted)) {
                 $converted = preg_replace($pattern, "$1_$2", $converted);
             }
+
+            // bring back html entities in wiki plugins
+            $pattern = "/({[^}]*)&gt;([^}]*})/";
+            while (preg_match($pattern, $converted)) {
+                $converted = preg_replace($pattern, "$1>$2", $converted);
+            }
+            $pattern = "/({[^}]*)&lt;([^}]*})/";
+            while (preg_match($pattern, $converted)) {
+                $converted = preg_replace($pattern, "$1<$2", $converted);
+            }
         } else {
             // convert to tiki syntax
             if ($source_syntax == 'tiki') {
