@@ -307,10 +307,14 @@ function wikiplugin_convene($data, $params): string
     $canEdit = $perms->edit;
     if ($params['adminperms'] !== 'y') {
         $canAdmin = $canEdit;
-    } elseif ($currentObject['type'] === 'wiki page') {
-        $canAdmin = $perms->admin_wiki;
-    } elseif ($currentObject['type'] === 'trackeritem') {
-        $canAdmin = $perms->admin_trackers;
+    } elseif (isset($currentObject['type'])) {
+        if ($currentObject['type'] === 'wiki page') {
+            $canAdmin = $perms->admin_wiki;
+        } elseif ($currentObject['type'] === 'trackeritem') {
+            $canAdmin = $perms->admin_trackers;
+        } else {
+            $canAdmin = $perms->admin;  // global for other object types
+        }
     } else {
         $canAdmin = $perms->admin;  // global for other object types
     }
