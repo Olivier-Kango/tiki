@@ -52,7 +52,7 @@
             {/if}
 
             {if $prefs.feature_userfiles eq 'y' and $tiki_p_userfiles eq 'y'}
-                <a class="dropdown-item" href="tiki-userfiles.php"> {icon name="files"} {tr}MyFiles{/tr}</a>
+                <a class="dropdown-item" href="tiki-userfiles.php"> {icon name="file"} {tr}MyFiles{/tr}</a>
             {/if}
 
             {if $prefs.feature_minical eq 'y' and $tiki_p_minical eq 'y'}
