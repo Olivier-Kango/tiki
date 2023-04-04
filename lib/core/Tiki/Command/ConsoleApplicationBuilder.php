@@ -172,7 +172,6 @@ class ConsoleApplicationBuilder
                 new RecommendationBatchCommand(),
                 new RefreshRssCommand(),
                 new RssClearCacheCommand(),
-                new SchedulerRunCommand(),
                 new ThemeInstallCommand(),
                 new ThemeRemoveCommand(),
                 new ThemeUpdateCommand(),
@@ -194,6 +193,7 @@ class ConsoleApplicationBuilder
                 new MLTrainCommand(),
                 new TranslationExportCommand(),
                 new TranslationPercentageCommand(),
+                new SchedulerRunCommand(),
                 ],
             ],[
             'condition' => 'checkIsOCRAvailable',
