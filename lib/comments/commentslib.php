@@ -1906,14 +1906,14 @@ class Comments extends TikiLib
 
         if ($res) { //if there is a comment with that id
             $this->add_comments_extras($res, $forum_info);
-        }
 
-        if (! empty($res['objectType']) && $res['objectType'] == 'forum') {
-            $res['deliberations'] = $this->get_forum_deliberations($res['threadId']);
-        }
+            if (! empty($res['objectType']) && $res['objectType'] == 'forum') {
+                $res['deliberations'] = $this->get_forum_deliberations($res['threadId']);
+            }
 
-        if (! empty($res['objectType']) && $res['objectType'] == 'trackeritem') {
-            $res['version'] = TikiLib::lib('attribute')->get_attribute('comment', $res['threadId'], 'tiki.comment.version');
+            if (! empty($res['objectType']) && $res['objectType'] == 'trackeritem') {
+                $res['version'] = TikiLib::lib('attribute')->get_attribute('comment', $res['threadId'], 'tiki.comment.version');
+            }
         }
 
         return $res;
@@ -3814,7 +3814,7 @@ class Comments extends TikiLib
             die;
         }
         $parent_comment_info = $this->get_comment($parent_id);
-        if ($parent_comment_info['locked'] == 'y') {
+        if ($parent_comment_info && $parent_comment_info['locked'] == 'y') {
             $smarty->assign('msg', tra("This thread is locked"));
             $smarty->display("error.tpl");
             die;
