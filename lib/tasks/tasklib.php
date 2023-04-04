@@ -310,7 +310,7 @@ class TaskLib extends TikiLib
     **/
     public function list_tasks($user, $offset = 0, $maxRecords = -1, $find = null, $sort_mode = 'priority_asc', $show_private = true, $show_submitted = true, $show_received = true, $show_shared = true, $use_show_shared_for_group = false, $show_shared_for_group = null, $show_trash = false, $show_completed = false, $use_admin_mode = false)
     {
-        $list_tasks_start = microtime();
+        $list_tasks_start = microtime(true);
         $values = [];
         if ($use_admin_mode) {
             $query  = "FROM `tiki_user_tasks_history` AS `t_history`, `tiki_user_tasks` AS `t_head` ";
@@ -429,7 +429,7 @@ class TaskLib extends TikiLib
         $retval["data"] = $tasklist;
         $retval["cant"] = $cant;
 
-        $list_tasks_end = microtime();
+        $list_tasks_end = microtime(true);
         $list_tasks_time = $list_tasks_end - $list_tasks_start;
         return $retval;
     }
