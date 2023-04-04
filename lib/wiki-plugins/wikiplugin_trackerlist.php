@@ -1210,7 +1210,7 @@ function wikiplugin_trackerlist($data, $params)
             // if status is enabled, need to adjust field index by -1 - need to check both - tracker config and plugin config
             $adjustCol = (isset($showstatus) && $showstatus == 'y' && $definition->isEnabled('showStatus')) ? -1 : 0;
             //convert tablesorter filter syntax to tiki syntax
-            if (! empty($_REQUEST['filter'])) {
+            if (! empty($_REQUEST['filter']) && is_array($_REQUEST['filter'])) {
                 $i = (! empty($filterfield) && is_array($filterfield)) ? count($filterfield) : 0;
                 $tsfiltersArray = (! empty($tsfilters)) ? explode('|', $tsfilters) : [];
                 foreach ($_REQUEST['filter'] as $col => $ajaxfilter) {
