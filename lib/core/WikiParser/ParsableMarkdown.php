@@ -40,6 +40,7 @@ class WikiParser_ParsableMarkdown extends ParserLib
             'max_nesting_level' => 100,
             'heading_permalink' => [
                 'symbol' => 'removeme-' . uniqid(),
+                'fragment_prefix' => 'tikitoc',
             ],
             'renderer' => [
                 'soft_break'      => "<br/>\n",
@@ -119,6 +120,10 @@ class WikiParser_ParsableMarkdown extends ParserLib
             $data = $this->addHeadingLinks($data);
         }
 
+        if ($this->option['autotoc']) {
+            $data = $this->fixAutoTocAnchors($data);
+        }
+
         return $data;
     }
 
@@ -132,6 +137,17 @@ class WikiParser_ParsableMarkdown extends ParserLib
         $data = preg_replace_callback('#<h([1-6])>(.+?)</h\1>#is', function ($matches) use ($icon, $all_anchors) {
             $anchor = $this->getCleanAnchor($matches[2], $all_anchors);
             return '<h' . $matches[1] . ' class="showhide_heading" id="' . $anchor . '">' . $matches[2] . '<a href="#' . $anchor . '" class="heading-link">' . $icon . '</a></h' . $matches[1] . '>';
+        }, $data);
+
+        return $data;
+    }
+
+    private function fixAutoTocAnchors($data)
+    {
+        $all_anchors = [];
+        $data = preg_replace_callback('/<a(.+?)?href="#tikitoc-(.+?)"(.+?)?>(.+?)<\/a>/', function ($matches) use ($all_anchors) {
+            $anchor = $this->getCleanAnchor($matches[4], $all_anchors);
+            return '<a' . $matches[1] . 'href="#' . $anchor . '"' . $matches[3] . '>' . $matches[4] . '</a>';
         }, $data);
 
         return $data;
