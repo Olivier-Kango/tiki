@@ -630,6 +630,16 @@ class Smarty_Tiki extends Smarty
 
     /*
     Add smarty template paths from where tpl files should be loaded. This function also gets called from lib/setup/theme.php to initialize theme specific paths
+
+    The load order for main templates is 
+    - templates/
+    - theme_option path
+    - theme path
+    - tikidomain path
+    - themes/templates/ 
+    - tiki extension modules templates/
+    
+    The effective template will be the present in the last directory loaded.
     */
     public function initializePaths()
     {
@@ -647,7 +657,7 @@ class Smarty_Tiki extends Smarty
             );
         }
 
-        $this->setTemplateDir([]);
+        $this->setTemplateDir([]);  //Load main templates/ dir
 
         // when called from release.php TikiLib isn't initialised so we can ignore the themes and addons
         if (class_exists('TikiLib')) {
@@ -695,7 +705,7 @@ class Smarty_Tiki extends Smarty
                 $this->addTemplatedir($this->main_template_dir . '/' . $tikidomainslash); // legacy tpls just in case, for example: /templates/mydomain.ltd/
             }
 
-            $this->addTemplateDir(TIKI_PATH . "/themes/templates/"); //This dir stores templates for all the themes
+            $this->addTemplateDir(TIKI_PATH . "/themes/templates/"); //This dir stores templates that override templates for any base theme if it has the name of the theme
 
             //Addon templates
             foreach (\Tiki\Package\ExtensionManager::getPaths() as $path) {

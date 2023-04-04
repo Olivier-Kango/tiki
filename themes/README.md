@@ -1,7 +1,15 @@
+themes/
+-------
+
 This directory is processed by lib/theme/themelib.php and contains:
-* All tiki themes distributed with tiki in nameofthetheme/ subdirectories
+
 * default/, which is the tiki default theme
-* base_files which is not really a theme, more a collection of base stylesheet and icons used in tiki.
+* nameofthetheme/ subdirectories,  all tiki themes distributed with tiki, as well as any user created custom ones
+
+* base_files/ which is not really a theme, more a collection of base stylesheet and icons used in tiki.
+* [templates/](templates/README.md), override templates
+* [css/](css/README.md), fallback custom css
+* [js/](js/README.md), additional custom javascript
 
 DESCRIPTION OF THEME SUBDIRECTORIES
 -----------------------------------
@@ -9,18 +17,21 @@ DESCRIPTION OF THEME SUBDIRECTORIES
 To make a new theme (for example, a theme called "abc"), add a new directory abc with the following layout:
 
 These are the supported theme sub-directories and their contents:
-* css: Contains the theme's .css files (manually editable or compiled from SCSS files).  There may be more than one css file here, but there must be one named abc.css 
+
+* css/: Contains the theme's .css files (manually editable or compiled from SCSS files).  There may be more than one css file here, but there must be one named abc.css (possibly compiled from scss/abc.css)
 * css/abc.css The theme will be available in the list of themes once a .css file with the parent folder's name.  You can then select it at http://example.com/tiki-admin.php?page=look
-* favicons: where you can place your theme-specific favicons (check the Tiki favicon feature)
-* fonts: contains theme-specific custom fonts (For fonts that are stored locally rather than imported via CSS)
-* icons: contains theme-specific custom icons (For a custom icon font set, as an option to the Font Awesome icon set that is bundled with Tiki)
-* images: contains theme-specific images (primarily background images but could also be logos, etc)
-* jquery-ui: contains theme-specific jquery scripts
+* css/custom.css  This file will be included in tiki if present.  The previous file is still mandatory.  The point of this is (I presume benoitg - 2023-04-04) is to have custom css that is not generated from scss, possibly copied from a javascript library or something similar.
+* favicons/: where you can place your theme-specific favicons (check the Tiki favicon feature)
+* fonts/: contains theme-specific custom fonts (For fonts that are stored locally rather than imported via CSS)
+* icons/: contains theme-specific custom icons (For a custom icon font set, as an option to the Font Awesome icon set that is bundled with Tiki)
+* images/: contains theme-specific images (primarily background images but could also be logos, etc)
+* jquery-ui/: contains theme-specific jquery scripts
 * js/custom.js: contains theme-specific JavaScript.  Will be included by lib/setup/javascript.php
-* less: (Tiki 13 to 18) contains Less files to be compiled to create the theme CSS file
-* options: contains "child" themes that are variants of the main theme (for example, check the FiveAlive theme)
-* scss: (Tiki 19 and newer) contains SCSS files to be compiled to create the theme CSS file.  Best practice is to create the theme stylesheet by compiling SCSS files, which go in this directory.
-* templates: contains theme-specific variants of the default Smarty template (.tpl) files which override same-name equivalents in tiki's templates/
+* less/: (Tiki 13 to 18) contains Less files to be compiled to create the theme CSS file
+* layouts:  Allows a theme to define custom layouts for prefs site_layout and site_layout_admin.  See <https://gitlab.com/tikiwiki/tiki/-/commit/4f41519a14ad9e268618dd28ca111684efed8cb5>
+* options/: contains "child" themes that are variants of the main theme (for example, check the FiveAlive theme)
+* scss/: (Tiki 19 and newer) contains SCSS files to be compiled to create the theme CSS file.  Best practice is to create the theme stylesheet by compiling SCSS files, which go in this directory.
+* templates/: contains theme-specific variants of the default Smarty template (.tpl) files which override same-name equivalents in tiki's templates/
 
 TIKI THEMES
 -----------

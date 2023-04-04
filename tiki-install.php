@@ -157,7 +157,7 @@ function createPage($title, $content)
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link type="text/css" rel="stylesheet" href="themes/base_files/css/tiki_base.css" />
         <link type="text/css" rel="stylesheet" href="themes/default/css/default.css" />
-        <link type="text/css" rel="stylesheet" href="themes/css/tiki-install.css" />
+        <link type="text/css" rel="stylesheet" href="themes/base_files/css/tiki-install.css" />
         <title>$title</title>
     </head>
     <body class="installer-body">
