@@ -101,7 +101,7 @@ class Tracker_Field_Rating extends \Tracker\Field\AbstractField
         }
 
         return [
-            'my_rate' => $data['my_rate'],
+            'my_rate' => empty($data['my_rate']) ? false : $data['my_rate'],
             'numvotes' => empty($data['numvotes']) ? 0 : $data['numvotes'],
             'voteavg' => empty($data['voteavg']) ? 0 : $data['voteavg'],
             'request_rate' => (isset($requestData[$ins_id]))
