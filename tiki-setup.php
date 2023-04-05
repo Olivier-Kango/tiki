@@ -839,7 +839,8 @@ $("#top").on("annotationCreated", function (e, annotation) {
             second: date.getSeconds()
         });
     annotation.realName = jqueryTiki.userRealName || jqueryTiki.username;
-});');
+});'
+            );
         }
     }
 }
