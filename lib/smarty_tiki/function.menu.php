@@ -77,7 +77,7 @@ function smarty_function_menu($params, $smarty)
     $smarty->assignByRef('bs_menu_class', $bs_menu_class);
 
     list($menu_info, $channels) = get_menu_with_selections($params);
-    $smarty->assign('menu_channels', $channels['data']);
+    $smarty->assign('menu_channels', $channels['data'] ?? []);
     $smarty->assign('menu_info', $menu_info);
 
     $objectCategories = TikiLib::lib('categ')->get_current_object_categories();
@@ -114,45 +114,47 @@ function smarty_function_menu($params, $smarty)
         $structured = [];
 
         // Unification with structure menus - adds sectionLevel
-        if (empty($menu_info['structure'])) {
+        if (empty($menu_info['structure']) and ! empty($channels['data'])) {
             $channels['data'] = add_section_levels_to_menu_data($channels['data']);
         }
 
-        // Builds Menus nested tree of options
-        foreach ($channels['data'] as $element) {
-            $attribute = TikiLib::lib('attribute')->get_attribute('menu', $element["optionId"], 'tiki.menu.templatedgroupid');
-            if ($attribute && $catName = $categGroups[$attribute]) {
-                $element["name"] = str_replace("--groupname--", $catName, $element["name"]);
-                $element["url"] = str_replace("--groupname--", $catName, $element["name"]);
-                $element["sefurl"] = str_replace("--groupname--", $catName, $element["sefurl"]);
-                $element["canonic"] = str_replace("--groupname--", $catName, $element["canonic"]);
-            } elseif ($attribute && ! $categGroups[$attribute]) {
-                continue;
-            }
-
-            if ($element['type'] !== '-') {
-                $level = $element['sectionLevel'];
-                // Creates new branch at level 0
-                if ($level === 0) {
-                    array_push($structured, $element);
+        if (! empty($channels['data'])) {
+            // Builds Menus nested tree of options
+            foreach ($channels['data'] as $element) {
+                $attribute = TikiLib::lib('attribute')->get_attribute('menu', $element["optionId"], 'tiki.menu.templatedgroupid');
+                if ($attribute && $catName = $categGroups[$attribute]) {
+                    $element["name"] = str_replace("--groupname--", $catName, $element["name"]);
+                    $element["url"] = str_replace("--groupname--", $catName, $element["name"]);
+                    $element["sefurl"] = str_replace("--groupname--", $catName, $element["sefurl"]);
+                    $element["canonic"] = str_replace("--groupname--", $catName, $element["canonic"]);
+                } elseif ($attribute && ! $categGroups[$attribute]) {
                     continue;
                 }
 
-                // Always selects last branch at level 0
-                $branch = &$structured[count($structured) - 1];
-
-                // Selects nested part of the branch at element level
-                for ($i = 0; $i < $level - 1; $i++) {
-                    if ($branch['children']) {
-                        $branch = &$branch['children'][count($branch['children']) - 1];
+                if ($element['type'] !== '-') {
+                    $level = $element['sectionLevel'];
+                    // Creates new branch at level 0
+                    if ($level === 0) {
+                        array_push($structured, $element);
+                        continue;
                     }
-                }
 
-                // Pushes the element at the end of selected element children.
-                if (! empty($branch['children'])) {
-                    array_push($branch['children'], $element);
-                } else {
-                    $branch['children'] = [$element];
+                    // Always selects last branch at level 0
+                    $branch = &$structured[count($structured) - 1];
+
+                    // Selects nested part of the branch at element level
+                    for ($i = 0; $i < $level - 1; $i++) {
+                        if ($branch['children']) {
+                            $branch = &$branch['children'][count($branch['children']) - 1];
+                        }
+                    }
+
+                    // Pushes the element at the end of selected element children.
+                    if (! empty($branch['children'])) {
+                        array_push($branch['children'], $element);
+                    } else {
+                        $branch['children'] = [$element];
+                    }
                 }
             }
         }
@@ -311,7 +313,13 @@ function get_menu_with_selections($params)
     if (isset($structureId)) {
         $cacheType = 'structure_' . $structureId . '_';
     } else {
-        $cacheType = 'menu_' . $id . '_';
+        if (array_key_exists('id', $params)) {
+            $cacheType = 'menu_' . $id . '_';
+        } else {
+            Feedback::error('The menu ID is not provided');
+            $id = 0;
+            $cacheType = 'menu_' . $id . '_';
+        }
     }
 
     if ($cdata = $cachelib->getSerialized($cacheName, $cacheType)) {
