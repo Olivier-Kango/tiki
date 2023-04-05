@@ -175,22 +175,23 @@ $smarty->assign('topics_next_offset', $_REQUEST['topics_offset'] + 1);
 $smarty->assign('topics_prev_offset', $_REQUEST['topics_offset'] - 1);
 
 $threads = $commentslib->get_forum_topics($forumId, max(0, $_REQUEST['topics_offset'] - 1), 3, $_REQUEST["topics_sort_mode"]);
-if ($threads[0]['threadId'] == $_REQUEST['comments_parentId'] && count($threads) >= 1 && isset($threads[1])) {
-    $next_thread = $threads[1];
-    $smarty->assign('next_topic', $next_thread['threadId']);
-} elseif (count($threads) >= 2 && $threads[1]['threadId'] == $_REQUEST['comments_parentId']) {
-    $next_thread = $threads[2];
-    $smarty->assign('next_topic', $next_thread['threadId']);
-} else {
-    $smarty->assign('next_topic', false);
+if ($threads) {
+    if ($threads[0]['threadId'] == $_REQUEST['comments_parentId'] && count($threads) >= 1 && isset($threads[1])) {
+        $next_thread = $threads[1];
+        $smarty->assign('next_topic', $next_thread['threadId']);
+    } elseif (count($threads) >= 2 && $threads[1]['threadId'] == $_REQUEST['comments_parentId']) {
+        $next_thread = $threads[2];
+        $smarty->assign('next_topic', $next_thread['threadId']);
+    } else {
+        $smarty->assign('next_topic', false);
+    }
+    if ($threads[0]['threadId'] != $_REQUEST['comments_parentId']) {
+        $prev_thread = $threads[0];
+        $smarty->assign('prev_topic', $prev_thread['threadId']);
+    } else {
+        $smarty->assign('prev_topic', false);
+    }
 }
-if ($threads[0]['threadId'] != $_REQUEST['comments_parentId']) {
-    $prev_thread = $threads[0];
-    $smarty->assign('prev_topic', $prev_thread['threadId']);
-} else {
-    $smarty->assign('prev_topic', false);
-}
-
 if ($tiki_p_admin_forum == 'y') {
     if ($prefs['feature_forum_topics_archiving'] == 'y' && isset($_REQUEST['archive']) && isset($_REQUEST['comments_parentId'])) {
         check_ticket('view-forum');

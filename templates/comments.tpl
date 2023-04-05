@@ -164,6 +164,10 @@
                 </div>
             {/if}
         </div>
+    {else}
+        {remarksbox type=info}
+            {tr}There are no comments at this time.{/tr}
+        {/remarksbox}
     {/if}
 {/if} {* end read comment *}
 {if $section eq 'forums'}<a id="comments"></a>{/if}
