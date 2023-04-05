@@ -1097,7 +1097,7 @@ input[type="checkbox"].preffilter-toggle-round + label {
 input[type="checkbox"].preffilter-toggle-round + label:before {
     color: $input-color;
     background-color: $input-bg;
-    border-color: darken($input-bg, 10%);
+    //    border-color: darken($input-bg, 10%);  - Causes SCSS compile error when using Bootstrap 5.3 alpha 3 ( BS53 ); no apparent visible effect from commenting this out. g_c-l
 }
 
 input[type="checkbox"].preffilter-toggle-round + label:after {
