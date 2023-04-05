@@ -821,12 +821,29 @@ annotatorContent.annotator("addPlugin", "Permissions", {
     userAuthorize: function(action, annotation, user) {
         return annotation.permissions[action];
     }
-});
-
+});'
+            );
+        // handling for extra info
+        if ($prefs['comments_inline_annotator_with_info'] === 'y') {
+            $headerlib->add_jq_onready(
+                '// a little glue to show the author name and date
 $(".annotator-outer.annotator-viewer").on("load", function (event, annotations) {
     $(this).find(".annotator-user").text(annotations[0].realName + " - " + annotations[0].commentDate);
 });
-');
+// update the annotaion object with the user name and date for newly created annotations
+$("#top").on("annotationCreated", function (e, annotation) {
+    const date = new Date();
+    annotation.commentDate = $.datepicker.formatDate(jqueryTiki.shortDateFormat, date) + " " +
+        $.datepicker.formatTime(jqueryTiki.shortTimeFormat, {
+            hour: date.getHours(),
+            minute: date.getMinutes(),
+            second: date.getSeconds()
+        });
+    annotation.realName = jqueryTiki.userRealName || jqueryTiki.username;
+});
+'
+            );
+        }
     }
 }
 
