@@ -29,7 +29,7 @@ class ThemeLib extends TikiLib
             $themes[$theme] = tr($theme);
         }
         //make sure non-theme directories are removed from the array
-        unset($themes['base_files']); 
+        unset($themes['base_files']);
         unset($themes['templates']);
         unset($themes['css']);
         unset($themes['js']);

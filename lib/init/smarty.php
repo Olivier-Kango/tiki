@@ -631,14 +631,14 @@ class Smarty_Tiki extends Smarty
     /*
     Add smarty template paths from where tpl files should be loaded. This function also gets called from lib/setup/theme.php to initialize theme specific paths
 
-    The load order for main templates is 
+    The load order for main templates is
     - templates/
     - theme_option path
     - theme path
     - tikidomain path
-    - themes/templates/ 
+    - themes/templates/
     - tiki extension modules templates/
-    
+
     The effective template will be the present in the last directory loaded.
     */
     public function initializePaths()
