@@ -821,8 +821,7 @@ annotatorContent.annotator("addPlugin", "Permissions", {
     userAuthorize: function(action, annotation, user) {
         return annotation.permissions[action];
     }
-});'
-            );
+});');
         // handling for extra info
         if ($prefs['comments_inline_annotator_with_info'] === 'y') {
             $headerlib->add_jq_onready(
@@ -840,9 +839,7 @@ $("#top").on("annotationCreated", function (e, annotation) {
             second: date.getSeconds()
         });
     annotation.realName = jqueryTiki.userRealName || jqueryTiki.username;
-});
-'
-            );
+});');
         }
     }
 }
