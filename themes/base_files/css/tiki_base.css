@@ -20,6 +20,10 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-bottom-width: 0px;
   --tiki-fixed-top-border-left-width: 0px;
 }
+:root {
+  --tiki-tooltip-link-color: #88b6fc;
+  --tiki-tooltip-link-hover-color: $tooltip-color;
+}
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);
 }
@@ -511,15 +515,15 @@ body.wikitext {
 .wp-cookie-consent-required {
   color: #dc3545;
 }
-.wp-sign {
+.tooltip-inner {
   color: #fff;
   background-color: #000;
 }
-.wp-sign a, .wp-sign a:visited {
-  color: white;
+.tooltip-inner a, .tooltip-inner a:visited {
+  color: var(--tiki-tooltip-link-color);
 }
-.wp-sign a:hover, .wp-sign a:visited:hover {
-  color: white;
+.tooltip-inner a:hover, .tooltip-inner a:visited:hover {
+  color: var(--tiki-tooltip-link-hover-color);
   text-decoration: none;
 }
 .toc {

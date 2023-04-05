@@ -839,14 +839,15 @@ body.wikitext {
     color: $danger;
 }
 
-.wp-sign {
+// PluginSign
+.tooltip-inner {
     color: $tooltip-color;
     background-color: $tooltip-bg;
     a,
     a:visited {
-        color: adjust-hue($tooltip-color, 30%);
+        color: var(--tiki-tooltip-link-color); //adjust-hue($tooltip-color, 30%);
         &:hover {
-            color: adjust-hue($tooltip-color, 45%);
+            color: var(--tiki-tooltip-link-hover-color); //adjust-hue($tooltip-color, 45%);
             text-decoration: none;
         }
     }
