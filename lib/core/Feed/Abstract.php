@@ -12,7 +12,6 @@ use Tiki\FileGallery;
 //
 // Programmer: Robert Plummer
 //
-// Purpose: The base class reused in FutureLink, PastLink and others
 
 abstract class Feed_Abstract
 {

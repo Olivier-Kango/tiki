@@ -483,7 +483,6 @@ img/graph.multibar.png -text
 img/graph.multiline.png -text
 img/graph.pie.png -text
 img/h_trenner.gif -text
-img/icons/PastLink.svg -text
 img/icons/accept.png -text
 img/icons/add.png -text
 img/icons/anchor.png -text
@@ -2351,12 +2350,6 @@ lib/core/H5P/index.php -text
 lib/core/IDS/Rule.php -text
 lib/core/IDS/index.php -text
 lib/core/IDS/log.php -text
-lib/core/JisonParser/Phraser.jison -text
-lib/core/JisonParser/Phraser.js -text
-lib/core/JisonParser/Phraser.php -text
-lib/core/JisonParser/Phraser/Handler.php -text
-lib/core/JisonParser/Phraser/index.php -text
-lib/core/JisonParser/index.php -text
 lib/core/JitFilter.php -text
 lib/core/JitFilter/Element.php -text
 lib/core/JitFilter/index.php -text
@@ -3756,8 +3749,6 @@ lib/pdflib.php -text
 lib/perspective/binderlib.php -text
 lib/perspective/index.php -text
 lib/perspectivelib.php -text
-lib/phpseclib_tiki/index.php -text
-lib/phpseclib_tiki/tikisecure.php -text
 lib/polls/index.php -text
 lib/polls/polllib.php -text
 lib/polls/polllib_shared.php -text
@@ -3935,8 +3926,6 @@ lib/profilelib/shell.php -text
 lib/queuelib.php -text
 lib/quizzes/index.php -text
 lib/quizzes/quizlib.php -text
-lib/rangy_tiki/index.php -text
-lib/rangy_tiki/rangy-phraser.js -text
 lib/rankings/index.php -text
 lib/rankings/ranklib.php -text
 lib/rating/configlib.php -text

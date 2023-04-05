@@ -3768,9 +3768,6 @@
         "lib\/metadata\/datatypes\/basicinfo.php": {
             "class:BasicInfo": true
         },
-        "lib\/phpseclib_tiki\/tikisecure.php": {
-            "class:TikiSecure": true
-        },
         "lib\/featured_links\/flinkslib.php": {
             "class:FlinksLib": true
         },
@@ -3859,12 +3856,6 @@
         },
         "lib\/notepad\/notepadlib.php": {
             "class:NotepadLib": true
-        },
-        "lib\/core\/JisonParser\/Phraser.php": {
-            "class:JisonParser_Phraser": true
-        },
-        "lib\/core\/JisonParser\/Phraser\/Handler.php": {
-            "class:JisonParser_Phraser_Handler": true
         },
         "lib\/stats\/statslib.php": {
             "class:StatsLib": true
@@ -6801,12 +6792,6 @@
             "HW_QuizQuestion": true,
             "HW_QuizQuestionMultipleChoice": true,
             "HW_QuizQuestionYesNo": true
-        },
-        "lib\/core\/JisonParser\/Phraser.php": {
-            "JisonParser_Phraser": true
-        },
-        "lib\/core\/JisonParser\/Phraser\/Handler.php": {
-            "JisonParser_Phraser_Handler": true
         },
         "lib\/core\/Category\/Manipulator.php": {
             "Category_Manipulator": true
@@ -10358,12 +10343,6 @@
             "NotepadLib::remove_note": true,
             "NotepadLib::list_notes": true
         },
-        "lib\/core\/JisonParser\/Phraser.php": {
-            "JisonParser_Phraser::parser_performAction": true,
-            "JisonParser_Phraser::parser_lex": true,
-            "JisonParser_Phraser::lexer_lex": true,
-            "JisonParser_Phraser::lexer_performAction": true
-        },
         "lib\/stats\/statslib.php": {
             "StatsLib::is_stats_hit": true,
             "StatsLib::list_orphan_pages": true,
@@ -10952,9 +10931,6 @@
         "lib\/diff\/Renderer.php": {
             "$_leading_context_lines": true,
             "$_trailing_context_lines": true
-        },
-        "lib\/core\/JisonParser\/Phraser.php": {
-            "$_input": true
         }
     },
     "PSR2.Classes.PropertyDeclaration.VarUsed": {

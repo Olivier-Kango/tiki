@@ -141,7 +141,6 @@ abstract class ToolbarItem
                     'h2',
                     'h3',
                     'titlebar',
-                    'pastlink',
                     'toc',
                     'list',
                     'numlist',
