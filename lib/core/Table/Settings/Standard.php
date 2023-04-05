@@ -42,5 +42,8 @@ class Table_Settings_Standard extends Table_Settings_Abstract
         'colselect' => [
             'type' => true,
         ],
+        'output' => [
+            'type' => true,
+        ],
     ];
 }
