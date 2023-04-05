@@ -298,6 +298,7 @@
                 {preference name='url_after_validation'}
                 {preference name='feature_alternate_registration_page'}
                 {preference name='feature_url_suffix_cleaner'}
+                {preference name='feature_url_fragment_guesser'}
             </fieldset>
             <fieldset>
                 <legend>{tr}User{/tr}</legend>
