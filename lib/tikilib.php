@@ -7168,6 +7168,49 @@ class TikiLib extends TikiDb_Bridge
         return empty($errors);
     }
 
+    public function urlFragmentString($txt)
+    {
+        $txt = preg_replace('/[\s]+/mu', '-', trim($txt));
+        $arr = mb_str_split($txt);
+        $frag = "";
+
+        for ($i = 0; $i < count($arr); $i++) {
+            $chr = $arr[$i];
+            $ord = IntlChar::ord($chr);
+            $no_characters = '0x' . dechex($ord);
+
+            if (
+                (preg_match('/^[A-Za-z0-9_~\-!@\$\'\/&+,.:;=?\*\(\)]+$/', $chr) || ($ord >= 0x00A0 && $ord <= 0x10FFFD))
+
+                // surrogates
+                && ! ($ord >= 0xD800 && $ord <= 0xDFFF)
+
+                // noncharacters
+                && ! (preg_match('/^0x([1-9]?|[A-F]|10){1}F{3}(E|F)$/i', $no_characters) || ($ord >= 0xFDD0 && $ord <= 0xFDEF))
+            ) {
+                // Add allowed character to fragment
+                $frag .= $chr;
+            } else {
+                // Unallowed character - must be percent-encoded.
+                $bytes = str_split($chr);
+                for ($j = 0; $j < count($bytes); $j++) {
+                    $frag .= "%" . bin2hex($bytes[$j]);
+                }
+            }
+        }
+        return $frag;
+    }
+
+    public function attValue(string $txt): string
+    {
+        $txt = preg_replace('/[\s]+/mu', '-', trim($txt)); // Replace any space(s) at the start, middle or end of the text with a dash
+        $txt = preg_replace("/&/", "&amp;", $txt);
+        $txt = preg_replace("/</", "&lt;", $txt);
+        $txt = preg_replace("/\"/", "&quot;", $txt);
+
+        return "\"$txt\"";
+    }
+
     /**
      * @param $arr - array of data to convert to csv
      * @return string - csv formatted string
