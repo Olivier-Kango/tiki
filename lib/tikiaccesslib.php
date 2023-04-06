@@ -1288,7 +1288,7 @@ class TikiAccessLib extends TikiLib
             return ['json' => 'application/json'];
         }
 
-        $accept = explode(',', $_SERVER['HTTP_ACCEPT']);
+        $accept = explode(',', $_SERVER['HTTP_ACCEPT'] ?? '');
 
         if (isset($_REQUEST['httpaccept'])) {
             $accept = array_merge(explode(',', $_REQUEST['httpaccept']), $accept);
