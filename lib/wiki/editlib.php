@@ -12,6 +12,8 @@
  *
  */
 
+use Tiki\WikiParser\Markdown\Converter\DefinitionListConverter;
+
 class EditLib
 {
     private $tracesOn = false;
@@ -1556,6 +1558,7 @@ class EditLib
                     'header_style' => 'atx',
                 ]);
                 $converter->getEnvironment()->addConverter(new League\HTMLToMarkdown\Converter\TableConverter());
+                $converter->getEnvironment()->addConverter(new DefinitionListConverter());
             }
             $converted = $converter->convert($html);
 
