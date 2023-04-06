@@ -6,10 +6,10 @@
     {include file='access/include_items.tpl'}
     {$iname = ''}
     {if $extra.version === 'last'}
-        {$iname = '{tr}all{/tr}'}
+        {$iname = 'all'}
         {$idesc = '{tr}all versions{/tr}'}
     {elseif $extra.version === 'all'}
-        {$iname = '{tr}last{/tr}'}
+        {$iname = 'last'}
         {$idesc = '{tr}last version only{/tr}'}
     {/if}
         {if isset($included_by)}
