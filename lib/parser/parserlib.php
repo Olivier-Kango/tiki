@@ -61,6 +61,7 @@ class ParserLib extends TikiDb_Bridge
      * Or replace setOptions() with individual setters?
      */
     public $option = []; // An associative array of (most) parameters (despite the singular)
+    public $core_options = [];
 
     public function setOptions($option = [])
     {
@@ -1416,6 +1417,9 @@ class ParserLib extends TikiDb_Bridge
     //*
     public function parse_data($data, $option = [])
     {
+        if ($this->core_options) {
+            $option = array_merge($this->option, $option);
+        }
         return (new WikiParser_Parsable($data))->parse($option);
     }
 

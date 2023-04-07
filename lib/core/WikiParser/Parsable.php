@@ -348,7 +348,12 @@ if ( \$('#$id') ) {
 
         $data = $this->markup;
 
-        $this->guess_syntax($data);
+        // keep core parser options the same during recursive plugin parsing
+        if (empty(TikiLib::lib('parser')->core_options)) {
+            $this->guess_syntax($data);
+            TikiLib::lib('parser')->core_options = TikiLib::lib('parser')->option;
+            TikiLib::lib('parser')->setOptions($this->option);
+        }
 
         $this->parse_wiki_argvariable($data);
 
@@ -386,6 +391,10 @@ if ( \$('#$id') ) {
         if ($this->option['typography'] && ! $this->option['wysiwyg']) {
             $data = typography($data, $this->option['language']);
         }
+
+        // restore core parser options at the end of parsing
+        TikiLib::lib('parser')->setOptions(TikiLib::lib('parser')->core_options);
+        TikiLib::lib('parser')->core_options = [];
 
         return $data;
     }
@@ -450,14 +459,13 @@ if ( \$('#$id') ) {
 
         $func_name = 'wikiplugin_' . $name;
 
-        if ($this->option['is_markdown'] && ! preg_match('/\{.*\}/', $data)) {
-            $inline = preg_match("/[\r\n]/", $data) ? false : true;
+        $plugins_parsing_data = ['accordion', 'benchmark', 'button', 'fade', 'footnote', 'gdgraph', 'html', 'htmlfeed', 'markdown', 'pdfpage', 'quote',
+                                'registermemberpayment', 'rr_info', 'shorten', 'slideshowslide', 'swiper', 'tabs', 'tour', 'tracker', 'trackerquerytemplate'];
+        if ($this->option['is_markdown'] && ! preg_match('/\{.*\}/', $data) && ! in_array($name, $plugins_parsing_data)) {
             $parsable = new WikiParser_ParsableMarkdown($data);
             $parsable->setOptions($this->option);
             $data = $parsable->wikiParse($data);
-            if ($inline) {
-                $data = preg_replace('/^\s*<p>(.*)<\/p>\s*$/', '$1', $data);
-            }
+            $data = preg_replace('/^\s*<p>(.*)<\/p>\s*$/s', '$1', $data);
         }
 
         if (! $validationPerformed && ! ($this->option['wysiwyg'] ?? false)) {
