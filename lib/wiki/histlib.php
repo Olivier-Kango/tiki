@@ -1215,15 +1215,15 @@ function histlib_helper_setup_diff($page, $oldver, $newver, $diff_style = '', $c
         }
     }
     //
-    if ($current_ver == 0 || $current_ver >= $info["version"]) {
-        $curver =& $info;
-        $response = extractDataWikiDiff($info);
+    if ($current_ver == 0) {
+        $curver = null;
+        $response = 'n';
         $smarty->assign_by_ref('object_curver', $response);
-        $smarty->assign_by_ref('curver', $info);
+        $smarty->assign_by_ref('curver', $curver);
     } else {
         if ($exists) {
             $curver = $histlib->get_page_from_history($page, $current_ver, true);
-            $response = extractDataWikiDiff($curver);
+            $response = 'y';
             $smarty->assign_by_ref('object_curver', $response);
             $smarty->assign_by_ref('curver', $curver);
         }
@@ -1294,12 +1294,4 @@ function histlib_strip_irrelevant($data)
 {
     $data = preg_replace("/<(h1|h2|h3|h4|h5|h6|h7)\s+([^\\\\>]+)>/i", '<$1>', $data);
     return $data;
-}
-
-function extractDataWikiDiff(array $curver)
-{
-    if (isset($curver["data"])) {
-        $pattern = '/curver="y"/i';
-        return preg_match($pattern, $curver["data"]);
-    }
 }

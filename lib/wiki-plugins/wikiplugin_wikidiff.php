@@ -58,8 +58,8 @@ function wikiplugin_wikidiff_info()
             ],
             'curver' => [
                 'required' => false,
-                'name' => tra('show current version link'),
-                'description' => tra('show the link of the current version to help go back to the current version of the page') ,
+                'name' => tra('Show current version link'),
+                'description' => tra('Show the link of the current version to help go back to the current version of the page') ,
                 'filter' => 'text',
                 'default' => 'y',
                 'since' => '23',
