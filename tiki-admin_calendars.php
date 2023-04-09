@@ -110,7 +110,14 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     }
     $options['allday'] = isset($_REQUEST['allday']) ? 'y' : 'n';
     $options['nameoneachday'] = isset($_REQUEST['nameoneachday']) ? 'y' : 'n';
-    $_REQUEST["calendarId"] = $calendarlib->set_calendar($_REQUEST["calendarId"], $user, $_REQUEST["name"], $_REQUEST["description"], $customflags, $options);
+    $valid_custom_flags = array_map(function ($customflag) {
+        $flag = strtolower(trim($customflag));
+        if (! in_array($flag, ['n', 'y', 'yes'])) {
+            $flag = 'n';
+        }
+        return substr($flag, 0, 1);
+    }, $customflags);
+    $_REQUEST["calendarId"] = $calendarlib->set_calendar($_REQUEST["calendarId"], $user, $_REQUEST["name"], $_REQUEST["description"], $valid_custom_flags, $options);
     $info = $calendarlib->get_calendar($_REQUEST['calendarId']);
     if ($prefs['feature_groupalert'] == 'y') {
         $groupalertlib->AddGroup('calendar', $_REQUEST["calendarId"], $_REQUEST['groupforAlert'], ! empty($_REQUEST['showeachuser']) ? $_REQUEST['showeachuser'] : 'n');
