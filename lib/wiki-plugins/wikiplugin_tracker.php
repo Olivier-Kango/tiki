@@ -740,6 +740,15 @@ function wikiplugin_tracker($data, $params)
 
     $smarty->loadPlugin('smarty_function_ticket');
 
+    $registrationTrackerId = null;
+    $itemId = null;
+    $newItemRate = null;
+    $fieldsfill = null;
+    $fieldsfillseparator = '';
+    $fill_line_cant = null;
+    $fill_flds = [];
+    $fill_flds_defaults = [];
+
     static $iTRACKER = 0;
     ++$iTRACKER;
     if (isset($params['itemId']) && empty($params['itemId'])) {
@@ -1332,15 +1341,25 @@ function wikiplugin_tracker($data, $params)
                     $status = '';
                 }
 
-                $saveThis = [   'trackerId' => $trackerId, 'request' => $_REQUEST, 'chosenGroup' => $chosenGroup,
-                                    'registration' => $registration, 'registrationTrackerId' => $registrationTrackerId,
-                                    'validateusers' => $validateusers, 'status' => $status,
-                                    'ins_fields' => $ins_fields, 'itemId' => $itemId,
-                                    'ins_categs' => $ins_categs, 'newItemRate' => $newItemRate,
-                                    'skipUserCreation' => ! empty($skipUserCreation) && $skipUserCreation == 'y',
-                                    'fieldsfill' => $fieldsfill, 'fieldsfillseparator' => $fieldsfillseparator, 'fill_line_cant' => $fill_line_cant,
-                                    'fill_flds' => $fill_flds, 'fill_flds_defaults' => $fill_flds_defaults,
-                                    ];
+                $saveThis = [
+                    'trackerId' => $trackerId,
+                    'request' => $_REQUEST,
+                    'chosenGroup' => $chosenGroup,
+                    'registration' => $registration,
+                    'registrationTrackerId' => $registrationTrackerId,
+                    'validateusers' => $validateusers,
+                    'status' => $status,
+                    'ins_fields' => $ins_fields,
+                    'itemId' => $itemId,
+                    'ins_categs' => $ins_categs,
+                    'newItemRate' => $newItemRate,
+                    'skipUserCreation' => ! empty($skipUserCreation) && $skipUserCreation == 'y',
+                    'fieldsfill' => $fieldsfill,
+                    'fieldsfillseparator' => $fieldsfillseparator,
+                    'fill_line_cant' => $fill_line_cant,
+                    'fill_flds' => $fill_flds,
+                    'fill_flds_defaults' => $fill_flds_defaults,
+                ];
                 //-- check if we are in a transaction
                 if (isset($transactionName)) {
                     $transactionValues = [];
