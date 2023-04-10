@@ -274,6 +274,14 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
             return false;
         }
 
+        if (isset($context['linkToItems']) && $context['linkToItems'] == 'y') {
+            return true;
+        }
+
+        if (! empty($context['isMain_context'])) {
+            return false;
+        }
+
         $itemId = $this->getItemId();
         if (empty($itemId)) {
             return false;
