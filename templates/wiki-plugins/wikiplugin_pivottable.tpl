@@ -132,12 +132,10 @@
 {/jq}
 
 <style type="text/css">
-    {literal}
-        #output_{$pivottable.id} .pvtVals,.pvtAxisContainer, .pvtUnused,.pvtRenderer, .pvtAxisContainer {
-            display:none;
+    #output_{$pivottable.id} .pvtVals,.pvtAxisContainer, .pvtUnused,.pvtRenderer, .pvtAxisContainer {
+        display:none;
 
-        }
-    {/literal}
+    }
 </style>
 
 <div id="container_{$pivottable.id}">

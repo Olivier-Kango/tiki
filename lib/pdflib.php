@@ -495,11 +495,7 @@ class PdfGenerator
                     }
                     if ($pdfPage['background'] != '') {
                         $bgColor = "background: linear-gradient(top, " . $pdfPage['background'] . ", " . $pdfPage['background'] . ");";
-                        $cssStyles = '<style>html { background:' . $pdfPage['background'] . ' } body { background:' . $pdfPage['background'] . ' }</style>';
-                    } else {
-                        $cssStyles = '<style>html { background:#fff; } body { background:#fff; }</style>';
                     }
-
                     $pdfPage['pageContent'] = $this->getHtmlLayout($pdfPage['pageContent']);
 
                     $mpdf->WriteHTML('<html><body class="' . $bodycss . '" style="margin:0px;padding:0px;">' . $cssStyles);
@@ -809,10 +805,10 @@ class PdfGenerator
 
     public function _getImages(&$html, &$tempImgArr)
     {
-            $doc = new DOMDocument();
-            @$doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $doc = new DOMDocument();
+        @$doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
-            $tags = $doc->getElementsByTagName('img');
+        $tags = $doc->getElementsByTagName('img');
 
         foreach ($tags as $tag) {
             $imgSrc = $tag->getAttribute('src');
@@ -828,7 +824,7 @@ class PdfGenerator
             }
         }
 
-                $html = @$doc->saveHTML();
+        $html = @$doc->saveHTML();
     }
 
     public function file_get_contents_by_fget($url)
@@ -887,7 +883,7 @@ class PdfGenerator
 
         //defining array of plugins to be sorted
         $pluginArr = [["class","customsearch_results","div"],["id","container_pivottable","div"],["class","dynavar","a"], ["class", "tiki_sheet", "div"]];
-        $tagsArr = [["input","tablesorter-filter","class"],["select","tablesorter-filter","class"],["select","pvtRenderer","class"],["select","pvtAggregator","class"],["td","pvtCols","class"],["td","pvtUnused","class"],["td","pvtRows","class"],["div","plot-container","class"],["a","heading-link","class"],["a","tablename","class","1"], ["div", "jSScroll", "class"], ["span", "jSTabContainer", "class"], ["a", "tiki_sheeteditbtn", "class"],["div","comment-footer","class"],["div","buttons comment-form","class"],["div","clearfix tabs","class"],["a","pvtRowOrder","class"],["a","pvtColOrder","class"],["select","pvtAttrDropdown","class"]];
+        $tagsArr = [["input","tablesorter-filter","class"],["select","tablesorter-filter","class"],["select","pvtRenderer","class"],["select","pvtAggregator","class"],["td","pvtCols","class"],["td","pvtUnused","class"],["td","pvtRows","class"],["div","plot-container","class",true],["a","heading-link","class"],["a","tablename","class","1"], ["div", "jSScroll", "class"], ["span", "jSTabContainer", "class"], ["a", "tiki_sheeteditbtn", "class"],["div","comment-footer","class"],["div","buttons comment-form","class"],["div","clearfix tabs","class"],["a","pvtRowOrder","class"],["a","pvtColOrder","class"],["select","pvtAttrDropdown","class"], ["div", "modebar-container", "class"], ["div", "gl-container", "class"]];
 
         foreach ($pluginArr as $pluginInfo) {
             $customdivs = $xpath->query('//*[contains(@' . $pluginInfo[0] . ', "' . $pluginInfo[1] . '")]');
