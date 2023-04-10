@@ -1,5 +1,17 @@
+# Ignore minified files anywhere
 **/*.min.js
 **/*-min.js
-**/vendor/
-**/lib/vue-mf/
-**/storage/public/vue-mf/
+
+# Ignore included libraries
+/vendor/
+/vendor_bundled/
+
+# Ignore site.js installed by composer from included library
+/lib/cypht/site.js
+
+# Ignore Generated Files
+/temp/**/*.js
+
+# These folders have their own rules, so ignore in main eslint
+/lib/vue-mf/
+/storage/public/vue-mf/
