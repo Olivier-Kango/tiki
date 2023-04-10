@@ -264,7 +264,7 @@ if ($isUpload) {
     }
 }
 
-$fileparts = pathinfo($fileInfo['filename']);
+$fileparts = (! empty($fileInfo['filename'])) ? pathinfo($fileInfo['filename']) : [];
 $fileInfo['extension'] = isset($fileparts['extension']) ? $fileparts['extension'] : '';
 $smarty->assign_by_ref('fileInfo', $fileInfo);
 $smarty->assign('editFileId', (int) $fileId);
