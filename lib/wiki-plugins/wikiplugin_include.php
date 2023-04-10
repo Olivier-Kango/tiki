@@ -250,7 +250,7 @@ function wikiplugin_include($dataIn, $params)
         $linkoriginal_text = tr('Read more');
     }
 
-    if ($page_version) {
+    if (! empty($page_version)) {
         $history = $histlib->get_version($page, $page_version);
         if ($history['data'] !== null) {
             $data[$fragmentIdentifier]['data'] = $history['data'];
