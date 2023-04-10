@@ -41,7 +41,7 @@
             <div class="page-content-top-margin"  style="height: var(--tiki-page-content-top-margin)"></div>
             <div class="row row-middle" id="row-middle">
                 {if (zone_is_empty('left') or $prefs.feature_left_column eq 'n') and (zone_is_empty('right') or $prefs.feature_right_column eq 'n')}
-                    <div class="col col1 col-md-12" id="col1 pb-4">
+                    <div class="col col1 col-md-12 pb-4" id="col1">
                         {if $prefs.feature_layoutshadows eq 'y'}<div id="tiki-center-shadow">{eval var=$prefs.center_shadow_start}{/if}
                         {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                             {modulelist zone=pagetop}
