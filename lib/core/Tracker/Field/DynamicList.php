@@ -429,6 +429,12 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
         ];
     }
 
+    public function getGlobalFields()
+    {
+        $baseKey = $this->getBaseKey();
+        return ["{$baseKey}_text" => true];
+    }
+
     public function getItemList()
     {
         return TikiLib::lib('trk')->get_all_items(
