@@ -92,7 +92,7 @@ function prefs_site_list()
                 'only' => tra('Only browser title, no current page\'s descriptor'),
             ],
             'tags' => ['basic'],
-            'default' => 'before',
+            'default' => 'after',
         ],
         'site_title_breadcrumb' => [
             'name' => tra('Browser title display mode'),
