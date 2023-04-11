@@ -44,7 +44,7 @@ class HeadingAutonumberingCollapsibleParser implements BlockStartParserInterface
 
     private function getCustomHeader(Cursor $cursor)
     {
-        $match = RegexHelper::matchFirst('/^(#{1,6})([+\-]{0,1})(\$?)(?:[ \t]+|$)/', $cursor->getRemainder());
+        $match = RegexHelper::matchFirst('/^(#{1,6})(\$?)([+\-]{0,1})(?:[ \t]+|$)/', $cursor->getRemainder());
         if (! $match) {
             return null;
         }
@@ -59,12 +59,12 @@ class HeadingAutonumberingCollapsibleParser implements BlockStartParserInterface
         $level = \strlen(\trim($match[1]));
         $str = $cursor->getRemainder();
 
-        if ($match[3] === '$') {
+        if ($match[2] === '$') {
             $str = $this->autonumber($str, $level);
         }
 
-        if (! empty($match[2])) {
-            $open = $match[2] === '+';
+        if (! empty($match[3])) {
+            $open = $match[3] === '+';
             return new CollapsibleHeadingParser($level, $open, $str);
         } else {
             return new HeadingParser($level, $str);

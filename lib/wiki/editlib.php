@@ -1606,7 +1606,7 @@ class EditLib
 
         if ($target_syntax == 'markdown') {
             $converted = preg_replace_callback('/\{tikiheading level=(.*) options=(.*)\}(.*?)\{\/tikiheading\}/', function ($matches) {
-                return str_repeat('#', $matches[1]) . str_replace('#', '$', $matches[2]) . ' ' . $matches[3];
+                return str_repeat('#', $matches[1]) . str_replace(['+#', '-#', '#'], ['$+', '$-', '$'], $matches[2]) . ' ' . $matches[3];
             }, $converted);
         }
 
