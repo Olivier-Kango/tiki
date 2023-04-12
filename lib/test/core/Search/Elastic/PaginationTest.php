@@ -13,7 +13,7 @@ class Search_Elastic_PaginationTest extends Search_Index_PaginationTest
         static $count = 0;
 
         $elasticSearchHost = empty(getenv('ELASTICSEARCH_HOST')) ? 'localhost' : getenv('ELASTICSEARCH_HOST');
-        $connection = new Search_Elastic_Connection('http://' . $elasticSearchHost . ':9200');
+        $connection = Search_Elastic_Connection::build('http://' . $elasticSearchHost . ':9200');
         $connection->startBulk(100);
 
         $status = $connection->getStatus();

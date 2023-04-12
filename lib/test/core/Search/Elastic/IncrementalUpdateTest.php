@@ -21,7 +21,7 @@ class Search_Elastic_IncrementalUpdateTest extends Search_Index_IncrementalUpdat
     protected function getIndex()
     {
         $elasticSearchHost = empty(getenv('ELASTICSEARCH_HOST')) ? 'localhost' : getenv('ELASTICSEARCH_HOST');
-        $connection = new Search_Elastic_Connection('http://' . $elasticSearchHost . ':9200');
+        $connection = Search_Elastic_Connection::build('http://' . $elasticSearchHost . ':9200');
 
         $status = $connection->getStatus();
         if (! $status->ok) {
