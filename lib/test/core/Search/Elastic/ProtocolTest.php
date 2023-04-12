@@ -11,7 +11,7 @@ class Search_Elastic_ProtocolTest extends PHPUnit\Framework\TestCase
     public function testObtainStatus()
     {
         $elasticSearchHost = empty(getenv('ELASTICSEARCH_HOST')) ? 'localhost' : getenv('ELASTICSEARCH_HOST');
-        $connection = new Search_Elastic_Connection('http://' . $elasticSearchHost . ':9200');
+        $connection = Search_Elastic_Connection::build('http://' . $elasticSearchHost . ':9200');
         $status = $connection->getStatus();
 
         if (! $status->ok) {
@@ -24,7 +24,7 @@ class Search_Elastic_ProtocolTest extends PHPUnit\Framework\TestCase
     public function testObtainVersion()
     {
         $elasticSearchHost = empty(getenv('ELASTICSEARCH_HOST')) ? 'localhost' : getenv('ELASTICSEARCH_HOST');
-        $connection = new Search_Elastic_Connection('http://' . $elasticSearchHost . ':9200');
+        $connection = Search_Elastic_Connection::build('http://' . $elasticSearchHost . ':9200');
         $status = $connection->getStatus();
 
         if (! $status->ok) {

@@ -83,7 +83,7 @@ class FederatedSearchLib
 
     public function createIndex($location, $index, $type, array $mapping)
     {
-        $connection = new Search_Elastic_Connection($location);
+        $connection = Search_Elastic_Connection::buildFromPrefs($location);
         $connection->mapping(
             $index,
             [$type],

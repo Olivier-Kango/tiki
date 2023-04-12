@@ -77,6 +77,11 @@
 
                     <div class="adminoptionboxchild unified_engine_childcontainer elastic">
                         {preference name="unified_elastic_url"}
+                        {preference name="unified_elastic_auth"}
+                        <div class="adminoptionboxchild unified_elastic_auth_childcontainer basic">
+                            {preference name="unified_elastic_user"}
+                            {preference name="unified_elastic_pass"}
+                        </div>
                         {preference name="unified_elastic_index_prefix"}
                         {preference name="unified_elastic_index_current"}
                         {preference name="unified_elastic_field_limit"}

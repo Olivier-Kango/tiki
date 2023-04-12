@@ -9,6 +9,7 @@
 class Search_Elastic_Connection
 {
     private $dsn;
+    private $auth = [];
     private $version;
     private $mapping_type;
     private $dirty = [];
@@ -17,9 +18,36 @@ class Search_Elastic_Connection
 
     private $bulk;
 
-    public function __construct($dsn)
+    public static function build($url, $options = [])
     {
-        $this->dsn = rtrim($dsn, '/');
+        $options['url'] = $url;
+        return new Search_Elastic_Connection($options);
+    }
+
+    public static function buildFromPrefs($url = null)
+    {
+        global $prefs;
+
+        $options = [];
+        if (! empty($prefs['unified_elastic_auth']) && $prefs['unified_elastic_auth'] == 'basic') {
+            $options['auth'] = [
+                'user' => $prefs['unified_elastic_user'] ?? '',
+                'pass' => $prefs['unified_elastic_pass'] ?? '',
+            ];
+        }
+
+        return self::build($url ?? $prefs['unified_elastic_url'], $options);
+    }
+
+    public function __construct($options)
+    {
+        if (! isset($options['url'])) {
+            throw new Search_Elastic_Exception(tr("Required URL parameter for Elasticsearch connection missing."));
+        }
+        $this->dsn = rtrim($options['url'], '/');
+        if (isset($options['auth']['user'], $options['auth']['pass'])) {
+            $this->auth = $options['auth'];
+        }
         $this->version = null;
         if ($this->getVersion() >= 6.2) {
             $this->mapping_type = '_doc'; // compatible with 7+ but not supported before 6.2
@@ -587,7 +615,11 @@ class Search_Elastic_Connection
 
         $tikilib = TikiLib::lib('tiki');
         try {
-            return $tikilib->get_http_client($full, $options);
+            $client = $tikilib->get_http_client($full, $options);
+            if ($this->auth) {
+                $client->setAuth($this->auth['user'], $this->auth['pass'], Laminas\Http\Client::AUTH_BASIC);
+            }
+            return $client;
         } catch (\Laminas\Http\Exception\ExceptionInterface $e) {
             throw new Search_Elastic_TransportException($e->getMessage());
         }

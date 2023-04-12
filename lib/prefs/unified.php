@@ -196,6 +196,36 @@ function prefs_unified_list()
             'default' => 'http://localhost:9200',
             'size' => 40,
         ],
+        'unified_elastic_auth' => [
+            'name' => tra('Elasticsearch Authentication'),
+            'description' => tra('When Elasticsearch security module is enabled, user authentication can be set up here.'),
+            'type' => 'list',
+            'options' => [
+                '' => tra('No Authentication'),
+                'basic' => tra('Basic Authentication'),
+            ],
+            'default' => '',
+        ],
+        'unified_elastic_user' => [
+            'name' => tra('Elasticsearch User'),
+            'description' => tra('HTTP basic authentication user to be sent with each request to Elasticsearch.'),
+            'type' => 'text',
+            'default' => '',
+            'size' => 20,
+            'dependencies' => [
+                'unified_elastic_auth'
+            ],
+        ],
+        'unified_elastic_pass' => [
+            'name' => tra('Elasticsearch Password'),
+            'description' => tra('HTTP basic authentication password to be sent with each request to Elasticsearch.'),
+            'type' => 'password',
+            'default' => '',
+            'size' => 20,
+            'dependencies' => [
+                'unified_elastic_auth'
+            ],
+        ],
         'unified_elastic_index_prefix' => [
             'name' => tra('Elasticsearch index prefix'),
             'description' => tra('The prefix that is used for all indexes for this installation in Elasticsearch'),
