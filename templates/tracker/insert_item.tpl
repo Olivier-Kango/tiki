@@ -40,6 +40,7 @@
                 <input
                     type="submit"
                     class="btn btn-primary"
+                    onclick="needToConfirm=false;"
                     value="{tr}Create{/tr}"
                 >
                 {foreach from=$forced key=permName item=value}
