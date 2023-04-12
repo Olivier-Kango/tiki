@@ -1029,7 +1029,7 @@ class PreferencesLib
                 $value = [];
             }
         } else {
-            $value = $data[$name];
+            $value = $data[$name] ?? null;
         }
 
         if (isset($info['filter']) && $filter = TikiFilter::get($info['filter'])) {
