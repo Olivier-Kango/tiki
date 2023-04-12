@@ -539,4 +539,13 @@ if ( \$('#$id') ) {
         }
         return $data;
     }
+
+    public function stripNP()
+    {
+        $this->markup = preg_replace_callback('/~np~.*?~\/np~/', function ($match) {
+            $key = md5($match[0]);
+            $this->stripped[$key] = $match[0];
+            return '??strippedplugin??' . $key . '??/skippedplugin??';
+        }, $this->markup);
+    }
 }
