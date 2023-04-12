@@ -3,15 +3,15 @@
 	{title}{$title|escape}{/title}
 {/block}
 {block name="content"}
-	{include file='access/include_items.tpl'}
-	{$iname = ''}
-	{if $extra.version === 'last'}
-		{$iname = '{tr}all{/tr}'}
-		{$idesc = '{tr}all versions{/tr}'}
-	{elseif $extra.version === 'all'}
-		{$iname = '{tr}last{/tr}'}
-		{$idesc = '{tr}last version only{/tr}'}
-	{/if}
+    {include file='access/include_items.tpl'}
+    {$iname = ''}
+    {if $extra.version === 'last'}
+        {$iname = 'all'}
+        {$idesc = '{tr}all versions{/tr}'}
+    {elseif $extra.version === 'all'}
+        {$iname = 'last'}
+        {$idesc = '{tr}last version only{/tr}'}
+    {/if}
         {if isset($included_by)}
                 {remarksbox type='Warning' title="Warning"}
                         {tr}The following item(s) include page(s) being deleted and will break.{/tr}
