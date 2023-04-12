@@ -212,7 +212,7 @@ class ESRescueCommand extends Command
     private function getWikiPageEditEvents($startDate, $endDate)
     {
         $unifiedsearchlib = \TikiLib::lib('unifiedsearch');
-        $connection = new \Search_Elastic_Connection($this->elasticUri);
+        $connection = \Search_Elastic_Connection::build($this->elasticUri);
         $esIndex = new \Search_Elastic_Index($connection, $this->indexName);
 
         $query = new \Search_Query();
@@ -294,7 +294,7 @@ class ESRescueCommand extends Command
     private function getWikiPage($page)
     {
         $unifiedsearchlib = \TikiLib::lib('unifiedsearch');
-        $connection = new \Search_Elastic_Connection($this->elasticUri);
+        $connection = \Search_Elastic_Connection::build($this->elasticUri);
         $esIndex = new \Search_Elastic_Index($connection, $this->indexName);
 
         $query = new \Search_Query();

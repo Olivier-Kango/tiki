@@ -399,7 +399,7 @@ class UnifiedSearchLib
 
         switch ($prefs['unified_engine']) {
             case 'elastic':
-                $elasticsearch = new \Search_Elastic_Connection($prefs['unified_elastic_url']);
+                $elasticsearch = Search_Elastic_Connection::buildFromPrefs();
                 $engine = 'Elastic';
                 $version = $elasticsearch->getVersion();
                 $index = $prefs['unified_elastic_index_current'];
@@ -1073,7 +1073,7 @@ class UnifiedSearchLib
             return $connections[$target];
         }
 
-        $connection = new Search_Elastic_Connection($target);
+        $connection = Search_Elastic_Connection::buildFromPrefs($target);
         $connection->startBulk();
         $connection->persistDirty(TikiLib::events());
 
