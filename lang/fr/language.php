@@ -22043,6 +22043,7 @@ $lang_current = array(
 "You can not include a page within itself" => "Vous ne pouvez pas inclure une page en elle-même",
 "You are using a correct database encoding and allowed legacy collation as required to complete the installation." => "Vous utilisez un encodage correct de la base de données et votre 'legacy collation' convient pour terminer l'installation.",
 "Tiki Manager not found. Please check if it is installed from" => "Tiki Manager est introuvable. Veuillez vérifier s'il est installé à partir de",
-" Admin->Packages." => " Admin->Packages."
+" Admin->Packages." => " Admin->Packages.",
+"Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Moteur de recherche moderne, rapide, léger et complet, doté d'excellentes capacités de recherche en texte intégral. Il est basé sur le moteur de recherche Sphinx",
 );
 $lang = array_replace($lang, $lang_current);

@@ -21933,6 +21933,7 @@ $lang_current = array(
 // "Item is currently being edited" => "Item is currently being edited",
 // "You don't have a personal tracker item yet. Click here to make one" => "You don't have a personal tracker item yet. Click here to make one",
 // "This tracker item is being edited by user %0. Please check with the user before editing, otherwise conflicts will occur and data might be lost" => "This tracker item is being edited by user %0. Please check with the user before editing, otherwise conflicts will occur and data might be lost",
+// "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine",
 // "That tracker does not use extras" => "That tracker does not use extras",
 // "Address book" => "Address book",
 // "Top pages" => "Top pages",

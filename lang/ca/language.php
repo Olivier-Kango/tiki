@@ -22001,5 +22001,6 @@ $lang_current = array(
 "Top pages" => "Les pàgines més actives",
 "Last pages" => "Les últimes pàgines",
 // "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace" => "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace",
+// "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine",
 );
 $lang = array_replace($lang, $lang_current);

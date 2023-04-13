@@ -21948,4 +21948,5 @@ $lang = array(
 // "You are using a correct database encoding and allowed legacy collation as required to complete the installation." => "You are using a correct database encoding and allowed legacy collation as required to complete the installation.",
 // "Tiki Manager not found. Please check if it is installed from" => "Tiki Manager not found. Please check if it is installed from",
 // " Admin->Packages." => " Admin->Packages."
+// "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine",
 );
