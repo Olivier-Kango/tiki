@@ -56,7 +56,6 @@
 /lib/test/traces-phpunit_with_baseline.txt
 /permissioncheck/.htaccess
 /project.index
-/profiles/.htaccess
 /profiles/info.ini
 /profiles/*/*
 
