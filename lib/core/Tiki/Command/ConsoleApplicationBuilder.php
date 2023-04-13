@@ -441,7 +441,7 @@ class ConsoleApplicationBuilder
     protected function checkForLocalRedactDb(): void
     {
         if (! isset($_SERVER['TIKI_VIRTUAL']) || $_SERVER['TIKI_VIRTUAL'] !== 'redact' || ! is_file(TIKI_PATH . '/db/redact/local.php')) {
-            throw new UnavailableException('The /profiles/info.ini file does not exist', 312);
+            throw new UnavailableException('The /db/redact/local.php file does not exist', 312);
         }
         $this->checkIsDatabaseInstalled();
     }

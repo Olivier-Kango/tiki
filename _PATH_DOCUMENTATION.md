@@ -18,6 +18,17 @@ Today (2023) this document aims allow finishing the path reorganisation effort b
   * Permit for not versioning (committing to Git) generated files, and compatibility with modern build approaches like vite.js
   * Facilitate to eventually move code out of the server root (for increased security, etc.)
 
+### Files at the root of tiki
+
+Many need to stay there, either because:
+
+* developpers expect them there
+* tooling expect them there and will pick them up by default (ex:  .gitignore, phpunit.xml.dist, .gitlab-ci.xml, etc.)
+* They can really use the visibility even if they technically belong somewhere else (ex:  setup.sh, console.php)
+
+Most of the tiki-*.php will progressively move to either src/php/routes or public/
+
+
 ## The directories
 
 ### KEEP paths (Currently implemented, should be hyperlinked to the adequate directory README.md)
@@ -35,8 +46,8 @@ This is the documentation, will hyperlink to the readme in each directory once m
 #### legend
 
 * **newpath/**
-  * ^= oldpath means oldpath is moved to newpath
-  * <= oldpath means oldpath is moved INTO newpath as newpath/oldpath
+  * ^= oldpath (means content of oldpath is moved to newpath)
+  * <= oldpath (means oldpath becomes a subdirectory of newpath: newpath/oldpath)
 
 #### TODO
 
@@ -45,10 +56,11 @@ This is the documentation, will hyperlink to the readme in each directory once m
   * Not versionned in Git (with some exceptions)
   * The whole tree needs to be backed up
   * **config/**
-    * <= db/
+    * ^= db/
+    * ^= db/config
   * **customisations/**
     * The structure would follow whatever mecanism multi-tiki and multi-domain require
-    * ^= _custom/
+    * ^= [_custom/](_custom/README.md)
   * **storage/**
     * Private storage.  Storage in the sense "Nonvolatile files manipulated by server code".  All files that need to be
       1. rw from PHP code
@@ -89,6 +101,9 @@ This is the documentation, will hyperlink to the readme in each directory once m
       2. Need to be served over HTTP directly by the webserver
       3. Need to be backed-up (are not volatile)
     * ^= storage/*  but only files that need to be served by the web server directly. So NOT fgal, prefsdoc and tiki-manager.
+    * <= img/trackers/ as tracker_field_image (As of 2023-04-13, this is still used by lib/core/Tracker/Field/Image.php) 
+    * <= img/wiki_up/ as plugin_img (As of 2023-04-13, this is still used by lib/wikiplugin/wikiplugin_img.php)
+    * =< whelp/ as structure_webhelp (As of 2023-04-13, this is still used by lib/structures/structlib.php)
 
 * **temp/**
   * Already exists, but progressively organise it and move more files to it.
@@ -97,19 +112,20 @@ This is the documentation, will hyperlink to the readme in each directory once m
     * ^= storage/prefsdoc/
 
 * **tests/** (both Vue and phpunit use testS, plural, so we do to)
-  * **js/** 
+  * **js/**
     * Only if we have js without the tests alongside, which will likely not be the case
-  * **php/** 
+  * **php/**
     * Alternative would be phpunit/, if we are not going to have the tests beside the code, may as well split them by tooling.
-    * <= lib/test/* split out, mostly in unit Naming moslty from https://docs.phpunit.de/en/10.0/
+    * <= [lib/test/](lib/test/README.md)* split out, mostly in unit/ Naming moslty from <https://docs.phpunit.de/en/10.0/>
     * **unit/** Most current tests
 
 * **tools/**
   * Developper tools and scripts. The difference with bin is that these cannot be called directly
-    * ^= doc/devtools
-    * <= permissioncheck
+    * ^= [doc/devtools](README.md)
+    * <= [permissioncheck/](permissioncheck/README.md)
 
 * **src/**
+  * <= [installer/](installer/README.md)
   * **js/**
     * Should be organised according to framework and build systems.
     * Formerly static js should only move as they are processed by the build system, ideally we should avoid moving them to public/static/js
@@ -118,22 +134,22 @@ This is the documentation, will hyperlink to the readme in each directory once m
     * <= lib/tiki-js.js
     * <= lib/ckeditor_tiki
   * **lang/**
-    * ^= lang/  
+    * ^= [lang/](lang/README.md)
   * **lib/**
     * This needs to happen progressively, as this directory needs to be ASSUMED not part of the document root (although that is not yet the case). So the js files need to move first.
     * Internal reoganisations is out of scope until the sub-directories all have a README.md
-    * ^= Most of current lib/
-    * <= admin/ , renamed as adminpages/
-    * <= installer/
-    **routes/**
+    * ^= Most of current [lib/](lib/README.md)
+    * <= [admin/](admin/README.md), renamed as adminpages/
+    * **routes/**
       * <= Most of the current tiki-*.php if/when we move to a php routing solution
       * <= lists
   * **templates/**
+    * ^= [templates/](templates/README.md)
     * They mirror the structure of the php sources, but are technically smarty, and are overridable in themes, and other mechanisms, and thus don't go into php/
   * **modules/**
-    * ^= modules/
+    * ^= [modules/](modules/README.md)
   * **wikiplugins**
-    * ^= lib/wikiplugins/
+    * ^= [lib/wikiplugins/](lib/wikiplugins/README.md)
 
 ### DEPRECATED paths
 
@@ -151,19 +167,10 @@ Keep for a time, but don't add anything there.
 
 ### DELETE paths (including content)
 
+Some of these may be created by scripts, and not currently versionned in git.
+
 * **tests/**
   * Was that commited in error?
-* **tiki_tests/tests/**
-
-### The files remaining at root
-
-Many need to stay there, either because:
-
-* developpers expect them there
-* tooling expect them there and will pick them up by default (ex:  .gitignore, phpunit.xml.dist, .gitlab-ci.xml, etc.)
-* They could really use the visibility even if they technically belong somewhere else (ex:  setup.sh, console.php)
-
-Most of the tiki-*.php will progressively move to either src/php/routes or public/
 
 ## Discussion
 
