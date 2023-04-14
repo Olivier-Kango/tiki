@@ -45,7 +45,7 @@ class Init extends Command
         order deny,allow
         deny from all
     </IfModule>
-</FilesMatch>
+</FilesMatch>\n
 HTACCESS;
         file_put_contents("profiles/.htaccess", $htaccess);
 
