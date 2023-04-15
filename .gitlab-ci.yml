@@ -14,6 +14,9 @@ variables:
   MYSQL_PASSWORD: tikipass
   ELASTICSEARCH_HOST: elasticsearch
   BASE_QA_IMAGE: rjsmelo/ubuntu-php:7.4-qa
+  # Set this variable in your project as an empty variable to skip dependency proxy
+  # (If you are doing it from gitlab UI you may need to use a workaround https://gitlab.com/gitlab-org/gitlab/-/issues/225470)
+  DEPENDENCY_PROXY_PREFIX: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/
 
 workflow:
   rules:
@@ -29,7 +32,7 @@ workflow:
 
 composer:
   stage: build
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   variables:
     COMPOSER_DISCARD_CHANGES: "true"
     COMPOSER_NO_INTERACTION: "1"
@@ -60,7 +63,7 @@ composer:
 
 composer-dbdiff:
   stage: build
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   variables:
     COMPOSER_DISCARD_CHANGES: "true"
     COMPOSER_NO_INTERACTION: "1"
@@ -88,7 +91,7 @@ composer-dbdiff:
 
 phpcs:
   stage: lint
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs --cache=phpcs.cache -s --runtime-set ignore_warnings_on_exit true --parallel=16
   dependencies:
@@ -106,7 +109,7 @@ phpcs:
 
 phplint74:
   stage: lint
-  image: rjsmelo/ubuntu-php:7.4-qa
+  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:7.4-qa
   script:
     - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
   dependencies:
@@ -120,7 +123,7 @@ phplint74:
 
 phplint80:
   stage: lint
-  image: rjsmelo/ubuntu-php:8.0-qa
+  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:8.0-qa
   script:
     - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
   dependencies:
@@ -134,7 +137,7 @@ phplint80:
 
 phplint81:
   stage: lint
-  image: xorti/ubuntu-php:8.1-qa
+  image: ${DEPENDENCY_PROXY_PREFIX}xorti/ubuntu-php:8.1-qa
   script:
     - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
   dependencies:
@@ -148,7 +151,7 @@ phplint81:
 
 smarty-lint:
   stage: lint
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php vendor_bundled/vendor/umakantp/smartylint/smartyl -p --files=lib/test,templates,themes --rules=doc/devtools/smartyl.rules.xml
   dependencies:
@@ -159,7 +162,7 @@ smarty-lint:
 eslint:
   stage: lint
   image:
-    name: cytopia/eslint:latest
+    name: ${DEPENDENCY_PROXY_PREFIX}cytopia/eslint:latest
     entrypoint: ["/bin/sh", "-c"]
   script:
     - eslint .
@@ -174,7 +177,7 @@ eslint:
 
 sql-engine:
   stage: tiki-check
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php -d display_errors=On doc/devtools/check_sql_engine.php
   dependencies: []
@@ -182,7 +185,7 @@ sql-engine:
 
 schema-sql-drop:
   stage: tiki-check
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php -d display_errors=On doc/devtools/check_schema_sql_drop.php
   dependencies: []
@@ -190,7 +193,7 @@ schema-sql-drop:
 
 schema-naming-convention:
   stage: tiki-check
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php -d display_errors=On doc/devtools/check_schema_naming_convention.php
   dependencies: []
@@ -198,7 +201,7 @@ schema-naming-convention:
 
 translation:
   stage: tiki-check
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - git log --first-parent --pretty="format:%h" -1 --skip=1 | xargs -I gitHash php -d display_errors=On doc/devtools/translate.php --diff-command="git diff gitHash" --git --audit
   dependencies:
@@ -209,7 +212,7 @@ translation:
 
 translation-standards:
   stage: tiki-check
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php doc/devtools/check_template_translation_standards.php --all
   dependencies:
@@ -219,7 +222,7 @@ translation-standards:
 
 check-bom-encoding:
   stage: tiki-check
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php doc/devtools/check_bom_encoding.php
   dependencies: []
@@ -227,14 +230,14 @@ check-bom-encoding:
 
 unix-ending-line:
   stage: tiki-check
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php doc/devtools/check_unix_ending_line.php
   dependencies: []
   needs: []
 
 check-directories:
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: tiki-check
   script:
     - php doc/devtools/check_tiki_directories.php
@@ -242,7 +245,7 @@ check-directories:
   needs: []
 
 composer-lock:
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: tiki-check
   script:
     - cp $(command -v composer) temp/composer.phar
@@ -255,10 +258,10 @@ composer-lock:
   allow_failure: true
 
 .template-tiki-schema-upgrade: &template-tiki-schema-upgrade
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: tiki-check
   services:
-    - name: $IMAGE
+    - name: ${DEPENDENCY_PROXY_PREFIX}$IMAGE
       alias: mysql
   script:
     - 'mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql --skip-column-names -B -e "SELECT CONCAT(''Version: '', VERSION(), CHAR(13), ''sql_mode: '', @@GLOBAL.sql_mode)"'
@@ -285,17 +288,20 @@ composer-lock:
     expire_in: 7 days
     when: always
 
-db-upgrade-22-mysql8:
+.template-tiki-schema-upgrade-mysql8: &template-tiki-schema-upgrade-mysql8
   <<: *template-tiki-schema-upgrade
+  services:
+    - name: ${DEPENDENCY_PROXY_PREFIX}$IMAGE
+      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
+      alias: mysql
+
+db-upgrade-22-mysql8:
+  <<: *template-tiki-schema-upgrade-mysql8
   variables:
     DBFILE: ci_22.sql
     DBVER: 22
     IMAGE: mysql:8.0.4
     ENGINE: InnoDB
-  services:
-    - name: $IMAGE
-      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
-      alias: mysql
 
 db-upgrade-22:
   <<: *template-tiki-schema-upgrade
@@ -306,16 +312,12 @@ db-upgrade-22:
     ENGINE: InnoDB
 
 db-upgrade-21-mysql8:
-  <<: *template-tiki-schema-upgrade
+  <<: *template-tiki-schema-upgrade-mysql8
   variables:
     DBFILE: ci_21.sql
     DBVER: 21
     IMAGE: mysql:8.0.4
     ENGINE: InnoDB
-  services:
-    - name: $IMAGE
-      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
-      alias: mysql
 
 db-upgrade-21:
   <<: *template-tiki-schema-upgrade
@@ -326,16 +328,12 @@ db-upgrade-21:
     ENGINE: InnoDB
 
 db-upgrade-20-mysql8:
-  <<: *template-tiki-schema-upgrade
+  <<: *template-tiki-schema-upgrade-mysql8
   variables:
     DBFILE: ci_20.sql
     DBVER: 20
     IMAGE: mysql:8.0.4
     ENGINE: InnoDB
-  services:
-    - name: $IMAGE
-      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
-      alias: mysql
 
 db-upgrade-20:
   <<: *template-tiki-schema-upgrade
@@ -371,9 +369,10 @@ db-upgrade-18-lts-myisam:
 
 sql-engine-conversion:
   stage: tiki-check
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   services:
-    - mysql:5.6
+    - name: ${DEPENDENCY_PROXY_PREFIX}mysql:5.6
+      alias: mysql
   script:
     - 'mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql --skip-column-names -B -e "SELECT CONCAT(''Version: '', VERSION(), CHAR(13), ''sql_mode: '', @@GLOBAL.sql_mode)"'
     - echo "GRANT ALL ON tikiold.* TO '${MYSQL_USER}';" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
@@ -403,9 +402,12 @@ sql-engine-conversion:
 
 .template-unit-tests: &template-unit-tests
   stage: unit-tests
+  image: ${DEPENDENCY_PROXY_PREFIX}${IMAGE}
   services:
-    - mysql:5.6
-    - elasticsearch:5
+    - name: ${DEPENDENCY_PROXY_PREFIX}mysql:5.6
+      alias: mysql
+    - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
+      alias: elasticsearch
   script:
     - curl -sS -XGET 'http://elasticsearch:9200'
     - mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql --skip-column-names -B -e 'SELECT VERSION()'
@@ -424,45 +426,45 @@ sql-engine-conversion:
       junit: report.xml
     expire_in: 7 days
 
-unit-tests-74:
+.template-unit-tests-mysql8: &template-unit-tests-mysql8
   <<: *template-unit-tests
-  image: rjsmelo/ubuntu-php:7.4-qa
-
-unit-tests-74-mysql8:
-  <<: *template-unit-tests
-  image: rjsmelo/ubuntu-php:7.4-qa
   services:
-    - elasticsearch:5
-    - name: mysql:8.0.4
+    - name: ${DEPENDENCY_PROXY_PREFIX}mysql:8.0.4
       command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
       alias: mysql
+    - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
+      alias: elasticsearch
+
+unit-tests-74:
+  <<: *template-unit-tests
+  variables:
+    IMAGE: rjsmelo/ubuntu-php:7.4-qa
+
+unit-tests-74-mysql8:
+  <<: *template-unit-tests-mysql8
+  variables:
+    IMAGE: rjsmelo/ubuntu-php:7.4-qa
 
 unit-tests-80:
   <<: *template-unit-tests
-  image: rjsmelo/ubuntu-php:8.0-qa
+  variables:
+    IMAGE: rjsmelo/ubuntu-php:8.0-qa
 
 unit-tests-80-mysql8:
-  <<: *template-unit-tests
-  image: rjsmelo/ubuntu-php:8.0-qa
-  services:
-    - elasticsearch:5
-    - name: mysql:8.0.4
-      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
-      alias: mysql
+  <<: *template-unit-tests-mysql8
+  variables:
+    IMAGE: rjsmelo/ubuntu-php:8.0-qa
 
 unit-tests-81:
   <<: *template-unit-tests
-  image: xorti/ubuntu-php:8.1-qa
+  variables:
+    IMAGE: xorti/ubuntu-php:8.1-qa
   allow_failure: true
 
 unit-tests-81-mysql8:
-  <<: *template-unit-tests
-  image: xorti/ubuntu-php:8.1-qa
-  services:
-    - elasticsearch:5
-    - name: mysql:8.0.4
-      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
-      alias: mysql
+  <<: *template-unit-tests-mysql8
+  variables:
+    IMAGE: xorti/ubuntu-php:8.1-qa
   allow_failure: true
 
 #
@@ -470,7 +472,7 @@ unit-tests-81-mysql8:
 #
 
 tiki-package:
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: package-tiki
   script:
     # Remove dev dependencies in composer
@@ -519,7 +521,7 @@ tiki-package:
 #
 
 sensiolabs-vendor-security-check:
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: vendors-security
   script:
     - composer -V | grep "version 2" || composer self-update --2
@@ -552,7 +554,7 @@ sensiolabs-vendor-security-check:
       - $SCHEDULER == "vendor_check"
 
 sensiolabs-vendor-bundled-security-check:
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: vendors-security
   script:
     - php bin/security-checker security:check vendor_bundled/composer.lock
@@ -567,7 +569,7 @@ sensiolabs-vendor-bundled-security-check:
       - $SCHEDULER == "vendor_check"
 
 update_vendor_bundled_dependencies:
-  image: ${BASE_QA_IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: vendors_update
   dependencies:
     - composer
