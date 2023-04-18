@@ -20,38 +20,8 @@
         </div>
     {/if}
 
-    {if !empty($stat)}
-        {remarksbox type='feedback' title="{tr}Indexed{/tr}"}
-            <ul>
-                {foreach from=$stat key=what item=nb}
-                    <li>{$what|escape}: {$nb|escape}</li>
-                {/foreach}
-            </ul>
-        {/remarksbox}
-        {if $fallback_search_set}
-            {if $fallback_search_indexed}
-                {remarksbox type='feedback' title="{tr}Fallback search engine{/tr}"}
-                    <p>{tr}Fallback search index was rebuilt.{/tr}</p>
-                {/remarksbox}
-            {else}
-                {remarksbox type='error' title="{tr}Fallback search engine{/tr}"}
-                    <p>{tr}Fallback search index was not rebuilt.{/tr}</p>
-                {/remarksbox}
-            {/if}
-        {/if}
-        {if $num_queries}
-            {remarksbox type='feedback' title="{tr}Execution Statistics{/tr}"}
-                <ul>
-                    <li>{tr}Execution time:{/tr} {$execution_time}</li>
-                    <li>{tr}Current Memory usage:{/tr} {$memory_usage}</li>
-                    <li>{tr}Memory peak usage before indexing:{/tr} {$memory_peak_usage_before}</li>
-                    <li>{tr}Memory peak usage after indexing:{/tr} {$memory_peak_usage_after}</li>
-                    <li>{tr}Number of queries:{/tr} {$num_queries}</li>
-                </ul>
-            {/remarksbox}
-        {/if}
-    {else}
-        <form method="post" class="no-ajax" action="{service controller=search action=rebuild}" onsubmit="$(this).parent().tikiModal('{tr}Rebuilding index...{/tr}')">
+    {if $showForm}
+        <form method="post"{if ! $isAjax}class="no-ajax"{/if} action="{service controller=search action=rebuild}" onsubmit="$(this).parent().tikiModal('{tr}Rebuilding index...{/tr}')">
             <div class="mb-3 row mx-2">
                 <div class="form-check">
                     <label class="form-check-label">

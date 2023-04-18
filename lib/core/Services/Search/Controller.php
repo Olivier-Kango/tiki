@@ -32,6 +32,7 @@ class Services_Search_Controller
         $num_queries_before = $num_queries;
 
         $unifiedsearchlib = TikiLib::lib('unifiedsearch');
+        $access = TikiLib::lib('access');
         $stat = null;
 
 
@@ -77,29 +78,54 @@ class Services_Search_Controller
         $lastLogItem = $unifiedsearchlib->getLastLogItem();
         list($fallbackEngine, $fallbackEngineName, $fallbackVersion, $fallbackIndex) = $unifiedsearchlib->getFallbackEngineDetails();
 
+        if (! empty($stat)) {
+            $msg = '<ul>';
+            foreach ($stat['default']['counts'] as $what => $nb) {
+                $msg .= "<li>$what: $nb</li>";
+            }
+            $msg .= '</ul>';
+            Feedback::success(['title' => tr('Indexed'), 'mes' => $msg]);
+        }
+
+        if ($fallbackEngine != null) {
+            if (! empty($stat['fallback'])) {
+                Feedback::success(['title' => tr('Fallback search engine'), 'mes' => tr('Fallback search index was rebuilt.')]);
+            } else {
+                Feedback::error(['title' => tr('Fallback search engine'), 'mes' => tr('Fallback search index was not rebuilt.')]);
+            }
+        }
+
+        $num_queries = ($num_queries_after - $num_queries_before);
+
+        if ($num_queries) {
+            $msg = '<ul>';
+            $msg .= '<li>' . tr('Execution time:') . ' ' . FormatterHelper::formatTime($timer->stop()) . '</li>';
+            $msg .= '<li>' . tr('Current Memory usage:') . ' ' . FormatterHelper::formatMemory(memory_get_usage()) . '</li>';
+            $msg .= '<li>' . tr('Memory peak usage before indexing:') . ' ' . FormatterHelper::formatMemory($memory_peak_usage_before) . '</li>';
+            $msg .= '<li>' . tr('Memory peak usage after indexing:') . ' ' . FormatterHelper::formatMemory(memory_get_peak_usage()) . '</li>';
+            $msg .= '<li>' . tr('Number of queries:') . ' ' . $num_queries . '</li>';
+            $msg .= '</ul>';
+            Feedback::success(['title' => tr('Execution Statistics'), 'mes' => $msg]);
+        }
+
         return [
             'title' => $input->getlaststats->int() ? '' : tr('Rebuild Index'),
             'stat' => $stat['default']['counts'],
             'search_engine' => $engine,
             'search_version' => $version,
             'search_index' => $index,
-            'fallback_search_set' => $fallbackEngine != null,
-            'fallback_search_indexed' => ! empty($stat['fallback']),
             'fallback_search_engine' => isset($fallbackEngineName) ? $fallbackEngineName : '',
             'fallback_search_version' => isset($fallbackVersion) ? $fallbackVersion : '',
             'fallback_search_index' => isset($fallbackIndex) ? $fallbackIndex : '',
             'queue_count' => $unifiedsearchlib->getQueueCount(),
-            'execution_time' => FormatterHelper::formatTime($timer->stop()),
-            'memory_usage' => FormatterHelper::formatMemory(memory_get_usage()),
-            'memory_peak_usage_before' => FormatterHelper::formatMemory($memory_peak_usage_before),
-            'memory_peak_usage_after' => FormatterHelper::formatMemory(memory_get_peak_usage()),
-            'num_queries' => ($num_queries_after - $num_queries_before),
             'log_file_browser' => $unifiedsearchlib->getLogFilename(1),
             'fallback_log_file_browser' => $unifiedsearchlib->getLogFilename(1, $fallbackEngine),
             'log_file_console' => $unifiedsearchlib->getLogFilename(2),
             'fallback_log_file_console' => $unifiedsearchlib->getLogFilename(2, $fallbackEngine),
             'lastLogItemWeb' => $lastLogItem['web'] ?: tr('Unable to get info from log file.'),
             'lastLogItemConsole' => $lastLogItem['console'] ?: tr('Unable to get info from log file.'),
+            'isAjax' => $access->is_xml_http_request(),
+            'showForm' => empty($stat)
         ];
     }
 
