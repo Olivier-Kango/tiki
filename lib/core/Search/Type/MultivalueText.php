@@ -24,7 +24,7 @@ class Search_Type_MultivalueText implements Search_Type_Interface
     {
         $strings = [];
         foreach ($this->values as $val) {
-            $val = md5($val);
+            $val = md5((string)$val);
             $raw = 'token' . $val;
 
             // Must strip numbers to prevent tokenization
