@@ -674,7 +674,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Embed the tracker in a form tag'),
                 'description' => tr(
-                    'If set to Yes (%0), the tracker is contained in a <form> tag and has action buttons',
+                    'If set to Yes (%0), the tracker is contained in a <code>form</code> tag and has action buttons',
                     '<code>y</code>'
                 ),
                 'since' => '6.4',

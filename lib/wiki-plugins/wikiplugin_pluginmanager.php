@@ -365,7 +365,7 @@ class WikiPluginPluginManager extends PluginsLib
                 . tra('Preferences required:') . '</em> ' . implode(', ', $infoPlugin['prefs']) . '<br/>' : '';
             $title .= isset($infoPlugin['introduced']) && $params['showtopinfo'] !== 'n' ? '<em>' .
                 tr('Introduced in %0', 'Tiki ' . $infoPlugin['introduced']) . '.</em>' : '';
-            $link .= '[' . $sourcecode . '|' . tra('Go to the source code') . ']';
+            $link = '[' . $sourcecode . '|' . tra('Go to the source code') . ']';
             $required = ! empty($filteredparams) ? array_column($filteredparams, 'required') : false;
             $bold = in_array(true, $required) > 0 ? '<em> ' . tr(
                 'Required parameters are in%0 %1bold%2',
