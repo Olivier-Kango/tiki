@@ -800,6 +800,11 @@ function sendCommentNotification($type, $id, $title, $content, $commentId, $anon
     global $user, $prefs;
     $smarty = TikiLib::lib('smarty');
     $tikilib = TikiLib::lib('tiki');
+
+    if ($type === 'wiki page') {
+        $type = 'wiki';
+    }
+
     if ($type == 'wiki') {
         $events = 'wiki_comment_changes';
     } elseif ($type == 'article') {
@@ -810,7 +815,7 @@ function sendCommentNotification($type, $id, $title, $content, $commentId, $anon
     } elseif ($type == 'blog') {
         $events = 'blog_comment_changes';
     } else {
-        throw new Exception('Unknown type');
+        throw new Exception('Unknown type %0', $type);
     }
 
     if ($type == 'trackeritem') {
