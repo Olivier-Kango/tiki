@@ -146,10 +146,15 @@ function tiki_mail_setup()
         $transportOptions = new Laminas\Mail\Transport\SmtpOptions($options);
         $transport->setOptions($transportOptions);
     } elseif ($prefs['zend_mail_handler'] === 'file') {
+        $mail_debug_path = TIKI_PATH . '/temp/mail_debug';
+        if (! file_exists($mail_debug_path)) {
+            mkdir($mail_debug_path);
+            chmod($mail_debug_path, 0751); // no public read perm
+        }
         $transport = new Laminas\Mail\Transport\File();
         $transportOptions = new Laminas\Mail\Transport\FileOptions(
             [
-                'path' => TIKI_PATH . '/temp',
+                'path' => $mail_debug_path,
                 'callback' => function ($transport) {
                     return 'Mail_' . date('YmdHis') . '_' . mt_rand() . '.eml';
                 },
