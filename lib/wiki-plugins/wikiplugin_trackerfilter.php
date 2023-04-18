@@ -492,6 +492,9 @@ function wikiplugin_trackerfilter_build_trackerlist_filter($input, $formats, &$f
                 }
 
                 $values[] = "%$val%";
+            } elseif ($field['type'] == 'M') {
+                $ffs[] = $fieldId;
+                $values[] = $val;
             } else {
                 if (preg_match("/\d+_(from|to)(Month|Day|Year|Hour|Minute|Second)?/", $fieldId, $m)) { // range filter
                     $fieldId = (int)$fieldId;
