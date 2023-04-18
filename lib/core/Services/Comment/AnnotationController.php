@@ -90,6 +90,9 @@ class Services_Comment_AnnotationController
             json_encode($ranges)
         );
 
+        require_once(__DIR__ . '/../../../notifications/notificationemaillib.php');
+        sendCommentNotification($objectType, $objectId, $title, $comment, $threadId, '');
+
         return [
             'id' => $threadId,
         ];
