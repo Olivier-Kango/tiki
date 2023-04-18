@@ -444,6 +444,11 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
         );
     }
 
+    public function getPossibleItemValues()
+    {
+        return $this->getItemList();
+    }
+
     /**
      * Get tabular schema
      * @return Schema
