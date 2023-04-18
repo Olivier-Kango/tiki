@@ -62,7 +62,7 @@ function wikiplugin_fancylist($data, $params)
         // replace all before and including the ")"
         $part = preg_replace("/^[\w]+\)(.*)/", "$1", $line);
         if (isset($div)) {
-            $result .= '<div><span class=' . count . '>' . $count . '</span><p>' . $part . '</p></div>';
+            $result .= '<div><span class="count">' . $count . '</span><p>' . $part . '</p></div>';
             $count++;
         } else {
             $result .= '<li><p>' . $part . '</p></li>';
