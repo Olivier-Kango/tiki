@@ -464,7 +464,7 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
     $body = $tikilib->convertAbsoluteLinksToRelative($body);
     $smarty->assign('size', strlen($body));
 
-    $parsed_body = $parserlib->parse_data($body, ['is_html' => $artlib->is_html([$body])]);
+    $parsed_body = $parserlib->parse_data($body, ['is_html' => $artlib->is_html(['body' => $body])]);
     $parsed_heading = $parserlib->parse_data($heading, ['is_html' => 'y']);
 
     $smarty->assign('parsed_body', $parsed_body);
