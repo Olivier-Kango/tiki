@@ -7,12 +7,14 @@
         {else}
             {button href="?view=list" _class="btn btn-info" _text="{tr}List View{/tr}"}
         {/if}
-        {button href="#" _onclick="flip('editform');return false;" _class="btn btn-primary" _text="{tr}Create/edit contacts{/tr}"}
-        {button href="tiki-user_contacts_prefs.php" _class="btn btn-primary" _text="{tr}Preferences{/tr}"}
-        {if $prefs.feature_webmail eq 'y' and $tiki_p_use_webmail eq 'y'}
-            {button href="tiki-webmail.php" _class="btn btn-primary" _text="{tr}Webmail{/tr}"}
+        {if $user neq null}
+            {button href="#" _onclick="flip('editform');return false;" _class="btn btn-primary" _text="{tr}Create/edit contacts{/tr}"}
+            {button href="tiki-user_contacts_prefs.php" _class="btn btn-primary" _text="{tr}Preferences{/tr}"}
+            {if $prefs.feature_webmail eq 'y' and $tiki_p_use_webmail eq 'y' and $tiki_p_use_group_webmail eq 'y'}
+                {button href="tiki-webmail.php" _class="btn btn-primary" _text="{tr}Webmail{/tr}"}
+            {/if}
+            {button href="tiki-carddav.php/addressbooks/{$user}/webmail" _class="btn btn-primary" _text="{tr}CardDAV{/tr}"}
         {/if}
-        {button href="tiki-carddav.php/addressbooks/{$user}/webmail" _class="btn btn-primary" _text="{tr}CardDAV{/tr}"}
     </div>
 </div>
 
@@ -23,35 +25,35 @@
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}First Name{/tr}</label>
         <div class="col-sm-7">
-            <input type="text" maxlength="80" size="20" name="firstName" value="{$info.firstName|escape}" class="form-control">
+            <input {if $user eq null}readonly{/if} type="text" maxlength="80" size="20" name="firstName" value="{$info.firstName|escape}" class="form-control {if $user eq null}form-control-plaintext{/if}">
         </div>
     </div>
 
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Last Name{/tr}</label>
         <div class="col-sm-7">
-            <input type="text" maxlength="80" size="20" name="lastName" value="{$info.lastName|escape}" class="form-control">
-        </div>
-    </div>
-
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label">{tr}Email{/tr}</label>
-        <div class="col-sm-7">
-            <input type="text" maxlength="80" size="20" name="email" value="{$info.email|escape}" class="form-control">
+            <input {if $user eq null}readonly{/if} type="text" maxlength="80" size="20" name="lastName" value="{$info.lastName|escape}" class="form-control {if $user eq null}form-control-plaintext{/if}">
         </div>
     </div>
 
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Nickname{/tr}</label>
         <div class="col-sm-7">
-            <input type="text" maxlength="80" size="20" name="nickname" value="{$info.nickname|escape}" class="form-control">
+            <input {if $user eq null}readonly{/if} type="text" maxlength="80" size="20" name="nickname" value="{$info.nickname|escape}" class="form-control {if $user eq null}form-control-plaintext{/if}">
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">{tr}Email{/tr}</label>
+        <div class="col-sm-7">
+            <input {if $user eq null}readonly{/if} type="text" maxlength="80" size="20" name="email" value="{$info.email|escape}" class="form-control {if $user eq null}form-control-plaintext{/if}">
         </div>
     </div>
 
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Publish this contact to groups{/tr}</label>
         <div class="col-sm-7">
-            <select multiple="multiple" name="groups[]" size="6" class="form-control">
+            <select {if $user eq null}disabled{/if} multiple="multiple" name="groups[]" size="6" class="form-control">
                 <option value=""></option>
                 {foreach item=group from=$groups}
                     <option value="{$group|escape}"{if in_array($group,$info.groups)} selected="selected"{/if}>{$group}</option>
@@ -60,14 +62,16 @@
         </div>
     </div>
 
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label">{tr}Extra Fields{/tr}</label>
-        <div class="col-sm-7">
-            <select id='select_exts' onchange='ext_select();' class="form-control">
-                <option>{tr}More...{/tr}</option>
-            </select>
+    {if $user neq null}
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">{tr}Extra Fields{/tr}</label>
+            <div class="col-sm-7">
+                <select id='select_exts' onchange='ext_select();' class="form-control">
+                    <option>{tr}More...{/tr}</option>
+                </select>
+            </div>
         </div>
-    </div>
+    {/if}
 
     <div id="extra-fields-placeholder">
         <div class="mb-3 d-none">
@@ -81,12 +85,14 @@
         </div>
     </div>
 
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label"></label>
-        <div class="col-sm-7">
-            <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
+    {if $user neq null}
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-7">
+                <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
+            </div>
         </div>
-    </div>
+    {/if}
 </form>
 
 {include file='find.tpl' find_show_num_rows='y'}
@@ -149,7 +155,7 @@
                         </a>
                     </td>
                     <td class="email">
-                        {if $prefs.feature_webmail eq 'y'}
+                        {if $prefs.feature_webmail eq 'y' and $tiki_p_use_webmail eq 'y' and $tiki_p_use_group_webmail eq 'y'}
                             {self_link _script='tiki-webmail.php' page='compose' compose_to=$channels[user].email}{$channels[user].email}{/self_link}
                         {else}
                             <a class="link" href="mailto:{$channels[user].email}">{$channels[user].email}</a>
