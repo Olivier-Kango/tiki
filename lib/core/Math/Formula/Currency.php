@@ -70,12 +70,12 @@ class Math_Formula_Currency implements Math_Formula_Applicator
 
     public function convertTo($another_currency)
     {
-        if (isset($this->rates[$this->currency])) {
+        if (! empty($this->rates[$this->currency])) {
             $defaultAmount = (float)$this->amount / (float)$this->rates[$this->currency];
         } else {
             $defaultAmount = $this->amount;
         }
-        if (isset($this->rates[$another_currency])) {
+        if (! empty($this->rates[$another_currency])) {
             $amount = (float)$defaultAmount * (float)$this->rates[$another_currency];
         } else {
             $amount = $defaultAmount;
