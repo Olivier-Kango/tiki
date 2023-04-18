@@ -143,13 +143,14 @@ function smarty_block_tabset($params, $content, $smarty, &$repeat)
  */
 function getTabsetName($params, $tabset_index)
 {
+    $tikilib = TikiLib::lib('tiki');
     if (! empty($params['name'])) {
         $smarty_tabset_name = $params['name'];    // names have to be unique
     } else {
         $short_name = str_replace(['tiki-', '.php'], '', basename($_SERVER['SCRIPT_NAME']));
         $smarty_tabset_name = '-' . $short_name . $tabset_index;
     }
-    $smarty_tabset_name = TikiLib::urlFragmentString($smarty_tabset_name);
+    $smarty_tabset_name = $tikilib->urlFragmentString($smarty_tabset_name);
     return $smarty_tabset_name;
 }
 
