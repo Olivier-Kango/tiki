@@ -50,7 +50,7 @@ class EditLib
             $error_msg .= tra("If you want to create the page, you must first edit each of the pages above to remove the alias link they may contain. This link should look something like this");
             $error_msg .= ": <b>(alias($page))</b>";
 
-            $access->display_error(page, $error_title, "", true, $error_msg);
+            $access->display_error($page, $error_title, "", true, $error_msg);
         }
     }
 
