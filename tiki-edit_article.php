@@ -232,7 +232,7 @@ if (isset($_REQUEST['allowhtml'])) {
         $smarty->assign('allowhtml', 'n');
     }
 } else {
-    $smarty->assign('allowhtml', ($_SESSION['wysiwyg'] === 'y' && $artlib->is_html($article_data)) ? 'y' : 'n');
+    $smarty->assign('allowhtml', ($_SESSION['wysiwyg'] === 'y' && ! empty($article_data) && $artlib->is_html($article_data)) ? 'y' : 'n');
 }
 
 if (isset($_REQUEST['ispublished'])) {
