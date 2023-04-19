@@ -206,7 +206,7 @@ invalidHandler: function(event, validator) {
         }
         var containerScrollTop = $scroller.scrollTop(),
             $firstError = $(validator.errorList[0].element),
-            $scrollElement = $firstError.parents(".form-group");
+            $scrollElement = $firstError.parents(".tracker-field-group");
 
         if (! $scrollElement.length) {
             $scrollElement = $firstError;

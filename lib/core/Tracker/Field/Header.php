@@ -120,7 +120,7 @@ class Tracker_Field_Header extends Tracker_Field_Abstract implements Tracker_Fie
             return false;
         }
     }
-    $(".hdrField").parents(".form-group row").each(function() {
+    $(".hdrField").parents(".tracker-field-group row").each(function() {
         processTrackerPageForHeaders($(this));
     });
 })();';
