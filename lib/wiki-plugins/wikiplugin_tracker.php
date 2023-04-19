@@ -705,7 +705,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Field rules parent selector'),
                 'description' => tra('JQuery selector for the parent object to show or hide when executing field rules.'),
-                'default' => '.form-group:first',
+                'default' => '.tracker-field-group:first',
                 'advanced' => true,
                 'filter' => 'text',
             ],
@@ -759,7 +759,7 @@ function wikiplugin_tracker($data, $params)
                 'showfieldsdesc'       => 'y', 'sort' => 'n', 'showmandatory' => 'y', 'status' => '',
                 'transactionFinalStep' => '', 'registration' => 'n', 'chosenGroup' => 'Registered',
                 'validateusers'        => '', 'emailformat' => 'text', 'ajax' => 'n',
-                'rules' => 'n', 'rulesparent' => '.form-group:first'];
+                'rules' => 'n', 'rulesparent' => '.tracker-field-group:first'];
     $params = array_merge($default, $params);
     $item = [];
 

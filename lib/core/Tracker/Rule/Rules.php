@@ -50,7 +50,7 @@ class Rules
         $selectors = [];
 
         if (empty($parentSelector)) {
-            $parentSelector = '.form-group:first';
+            $parentSelector = '.tracker-field-group:first';
         }
 
         // radio buttons need to trigger from all in the group (by name)
@@ -85,7 +85,7 @@ class Rules
 
         foreach ($this->actions->predicates as $predicate) {
             if ($predicate->operator_id !== 'NoOp') {
-                $targetSelector = "\$(\"[name='{$predicate->target_id}']\", $(this).form())";
+                $targetSelector = "\$(\"[name='{$predicate->target_id}']:last\", $(this).form())";
                 $actions[]
                     = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
                 if (strpos($predicate->operator_id, 'Required') === false) {
@@ -106,7 +106,7 @@ class Rules
         if ($this->else->predicates) {
             foreach ($this->else->predicates as $predicate) {
                 if ($predicate->operator_id !== 'NoOp') {
-                    $targetSelector = "\$(\"[name='{$predicate->target_id}']\", $(this).form())";
+                    $targetSelector = "\$(\"[name='{$predicate->target_id}']:last\", $(this).form())";
                     $else[]
                         = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
                     if (strpos($predicate->operator_id, 'Required') === false) {

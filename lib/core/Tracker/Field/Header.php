@@ -120,7 +120,7 @@ class Tracker_Field_Header extends \Tracker\Field\AbstractField implements \Trac
             return false;
         }
     }
-    $(".hdrField").parents(".form-group row").each(function() {
+    $(".hdrField").parents(".tracker-field-group row").each(function() {
         processTrackerPageForHeaders($(this));
     });
 })();';
