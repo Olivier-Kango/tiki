@@ -653,7 +653,7 @@ class WikiRenderer
 
     private function setupComments()
     {
-        $count_comments = TikiLib::lib('comments')->count_comments('wiki page:' . $this->page, 'n');
+        $count_comments = TikiLib::lib('comments')->count_comments('wiki page:' . $this->page);
         $this->smartyassign('count_comments', $count_comments);
     }
 }
