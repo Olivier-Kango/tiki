@@ -10,12 +10,12 @@
     </div>
     <div class="col-sm-6">
         {tr}Select user(s):{/tr}
-        <input type="hidden" name="{$field.ins_id}[]" value="">
         <select name="{$field.ins_id}[]" id="user_selector_{$field.fieldId}" multiple="multiple" class="form-select">
             {section name=ix loop=$data.selected_users}
                 <option value="{$data.selected_users[ix]}" selected>{if ($field.showRealname == 'y')}{$data.selected_users[ix]|username}{else}{$data.selected_users[ix]}{/if}</option>
             {/section}
         </select>
+        <input type="hidden" name="{$field.ins_id}[]" value="">
         <p id="info" class="italic" style="font-style: italic; font-size: 0.8em; color: red"></p>
     </div>
 </div>
