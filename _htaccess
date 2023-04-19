@@ -338,5 +338,5 @@ FileETag none
 #SetEnv TZ America/New_York
 
 # If the packages control panel is picking up the wrong version of php (as seen in the "diagnose" tab)
-# it might be bacause the apache PATH directive is set wrongly, so try something like this:
+# it might be because the apache PATH directive is set wrongly, so try something like this:
 #SetEnv PATH /opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
