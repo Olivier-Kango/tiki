@@ -1527,6 +1527,7 @@ class EditLib
                 }
                 return "{tikiheading level=$level options=$matches[2]}" . trim($matches[3]) . "{/tikiheading}";
             }, $data);
+            $data = preg_replace('/~~(.+?):(.+?)~~/', '{HTML()}<span style="color:$1">$2</span>{HTML}', $data);
         }
 
         $wikiParserParsable = new WikiParser_Parsable($data);
