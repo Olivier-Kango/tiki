@@ -326,7 +326,7 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["create_zone"])) {
             $toTime,
             $_REQUEST["maxImpressions"],
             $_REQUEST["maxClicks"],
-            $_REQUEST["zone"],
+            $_REQUEST["zone"] ?? null,
             $_REQUEST["maxUserImpressions"],
             $_REQUEST['onlyInURIs'],
             $_REQUEST['exceptInURIs']
