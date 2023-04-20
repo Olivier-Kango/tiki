@@ -106,7 +106,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">{tr}To date:{/tr}</label>
                 <div class="col-sm-7 short">
-                    {html_select_date time=$fromDate prefix="fromDate_" end_year="+2" field_order=$prefs.display_field_order}
+                    {html_select_date time=$toDate prefix="toDate_" start_year="+0" end_year=$prefs.calendar_end_year field_order=$prefs.display_field_order}
                 </div>
             </div>
             <div class="mb-3 row">
