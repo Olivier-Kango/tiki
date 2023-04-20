@@ -662,6 +662,10 @@ if ($prefs['feature_equal_height_rows_js'] == 'y') {
     $headerlib->add_jsfile("vendor_bundled/vendor/Sam152/Javascript-Equal-Height-Responsive-Rows/grids.min.js");
 }
 
+//This must always be loaded (early), as it's curently used by any Vue3 module using single-spa to make onDOMElementRemoved() available
+$headerlib->add_jsfile('lib/jquery_tiki/tiki-vue.js');
+
+//The following pref is (currently) only used for Vue2 code.  It's probably going to be removed once all code moves to vue3, as vue3 is always enabled.
 if ($prefs['vuejs_enable'] === 'y' && $prefs['vuejs_always_load'] === 'y') {
     $headerlib->add_jsfile_cdn("vendor_bundled/vendor/npm-asset/vue/dist/{$prefs['vuejs_build_mode']}");
 }
@@ -684,7 +688,6 @@ if ($prefs['feature_file_galleries'] == 'y') {
 
 if ($prefs['feature_trackers'] == 'y') {
     $headerlib->add_jsfile('lib/jquery_tiki/tiki-trackers.js');
-    $headerlib->add_jsfile('lib/jquery_tiki/tiki-vue.js');
 
     if ($prefs['feed_tracker'] === 'y') {
         $opts = TikiLib::lib('trk')->get_trackers_options(null, 'publishRSS', 'y');

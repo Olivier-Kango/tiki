@@ -64,9 +64,8 @@ function smarty_block_vue($params, $content, $smarty, &$repeat)
         return '';
     }
 
-    if ($prefs['vuejs_always_load'] === 'n') {
-        $headerlib->add_jsfile_cdn("vendor_bundled/vendor/npm-asset/vue/dist/{$prefs['vuejs_build_mode']}");
-    }
+    //The js loader will deduplicate if necessary
+    $headerlib->add_jsfile_cdn("vendor_bundled/vendor/npm-asset/vue/dist/{$prefs['vuejs_build_mode']}");
 
     // all ready? then we shall begin
 
