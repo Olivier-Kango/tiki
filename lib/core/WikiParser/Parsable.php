@@ -97,7 +97,12 @@ class WikiParser_Parsable extends ParserLib
             $found = true;
             $match->replaceWith('');
         }
+
         $data = $matches->getText();
+        if ($found) {
+            $data = ltrim($data);
+        }
+
         // if we removed the syntax plugin then clean up the leftover linefeed
         if ($found && (strpos($data, "\r\n") === 0 || strpos($data, "\n") === 0)) {
             $data = substr($data, strpos($data, "\r\n") === 0 ? 2 : 1);
