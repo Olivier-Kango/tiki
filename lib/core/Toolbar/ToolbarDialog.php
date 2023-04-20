@@ -237,6 +237,12 @@ class ToolbarDialog extends ToolbarItem
     {
         global $toolbarDialogIndex;
 
+        TikiLib::lib('header')->add_js_module('
+            import "@vue-mf/root-config";
+            import "@vue-mf/toolbar-dialogs";
+        ');
+        TikiLib::lib('header')->add_cssfile('storage/public/vue-mf/toolbar-dialogs/assets/vue-mf-toolbar-dialogs.min.css');
+
         $data = get_object_vars($this);
         unset($data['list']);
         $data['editor']['isMarkdown'] = $this->isMarkdown;

@@ -512,11 +512,13 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         'kanbanData',
         $kanbanData
     );
-    TikiLib::lib('header')
-        ->add_js_module('
+    $headerlib = TikiLib::lib('header');
+    $headerlib->add_js_module('
         import \'@vue-mf/root-config\';
         import \'@vue-mf/kanban\';
     ');
+    $headerlib->add_cssfile('storage/public/vue-mf/kanban/assets/vue-mf-kanban.min.css');
+
     $out = "";
     //$out = str_replace(['~np~', '~/np~'], '', $formatter->renderFilters());
 
