@@ -340,6 +340,8 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
             $image_y = $this->getOption('image_y');
 
             if ($prefs['fgal_elfinder_feature'] == 'y') {
+                include_once 'lib/jquery_tiki/elfinder/tikiElFinder.php';
+                tikiElFinder::loadJSCSS();
                 $smarty = TikiLib::lib('smarty');
                 $smarty->loadPlugin('smarty_function_ticket');
                 $context['onclick'] = 'return openElFinderDialog(this, {

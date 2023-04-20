@@ -454,19 +454,9 @@ if (isset($prefs['javascript_cdn']) && $prefs['javascript_cdn'] == 'google') {
 }
 
 if (isset($prefs['fgal_elfinder_feature']) && $prefs['fgal_elfinder_feature'] === 'y') {
-    $str = $prefs['tiki_minify_javascript'] === 'y' ? 'min' : 'full';
-    // elfinder is sensible to js compression - problem is inside elfinder
-    // see http://stackoverflow.com/questions/11174170/js-invalid-left-hand-side-expression-in-postfix-operation for more general details
-    $headerlib->add_jsfile('vendor_bundled/vendor/studio-42/elfinder/js/elfinder.' . $str . '.js', true)
-            ->add_cssfile('vendor_bundled/vendor/studio-42/elfinder/css/elfinder.' . $str . '.css')
-            ->add_cssfile('vendor_bundled/vendor/studio-42/elfinder/css/theme.css')
-            ->add_jsfile('lib/jquery_tiki/elfinder/tiki-elfinder.js');
-
-    $elFinderLang = str_replace(['cn', 'pt-br'], ['zh_CN', 'pt_BR'], $language);
-
-    if (file_exists('vendor_bundled/vendor/studio-42/elfinder/js/i18n/elfinder.' . $elFinderLang . '.js')) {
-        $headerlib->add_jsfile('vendor_bundled/vendor/studio-42/elfinder/js/i18n/elfinder.' . $elFinderLang . '.js');
-    }
+    //Loading javascript which is huge, has been moved in tikiElFinder::loadJSCSS to load on demand.
+    //Loading CSS hasn't been moved yet, as there are css load order issues if we blindly move it there.  benoitg - 2023-04-20
+    $headerlib->add_cssfile('vendor_bundled/vendor/studio-42/elfinder/css/elfinder.min.css')->add_cssfile('vendor_bundled/vendor/studio-42/elfinder/css/theme.css');
 }
 
 $headerlib->add_jsfile('lib/jquery_tiki/tiki-jquery.js');

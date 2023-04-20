@@ -10,6 +10,22 @@
 
 class tikiElFinder extends elFinder
 {
+    public static function loadJSCSS()
+    {
+        global $prefs;
+        $headerlib = TikiLib::lib('header');
+            $str = $prefs['tiki_minify_javascript'] === 'y' ? 'min' : 'full';
+    // elfinder is sensitive to js compression - problem is inside elfinder
+    // see http://stackoverflow.com/questions/11174170/js-invalid-left-hand-side-expression-in-postfix-operation for more general details
+        $headerlib->add_jsfile('vendor_bundled/vendor/studio-42/elfinder/js/elfinder.' . $str . '.js', true)
+            ->add_jsfile('lib/jquery_tiki/elfinder/tiki-elfinder.js');
+
+        $elFinderLang = str_replace(['cn', 'pt-br'], ['zh_CN', 'pt_BR'], $prefs['language']);
+
+        if (file_exists('vendor_bundled/vendor/studio-42/elfinder/js/i18n/elfinder.' . $elFinderLang . '.js')) {
+            $headerlib->add_jsfile('vendor_bundled/vendor/studio-42/elfinder/js/i18n/elfinder.' . $elFinderLang . '.js');
+        }
+    }
     public function __construct($opts)
     {
         parent::__construct($opts);

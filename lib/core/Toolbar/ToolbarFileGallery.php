@@ -31,6 +31,8 @@ class ToolbarFileGallery extends ToolbarUtilityItem
                 smarty_function_filegal_manager_url(['area_id' => $this->domElementId], $smarty->getEmptyInternalTemplate())
             ) . '\', true);';
         } else {
+            include_once 'lib/jquery_tiki/elfinder/tikiElFinder.php';
+            \tikiElFinder::loadJSCSS();
             TikiLib::lib('header')->add_jq_onready(
                 'window.handleFinderInsertAt = function (file, elfinder, area_id) {
                     $.getJSON($.service("file_finder", "finder"), { cmd: "tikiFileFromHash", hash: file.hash },
