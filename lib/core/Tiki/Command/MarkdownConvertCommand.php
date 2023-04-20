@@ -73,6 +73,10 @@ class MarkdownConvertCommand extends Command
 
         if ($pageInfo = $input->getOption('page')) {
             $pageInfo = $tikilib->get_page_info($pageInfo) ?: null;
+            if (empty($pageInfo)) {
+                $io->error(tr('Page not found!'));
+                return 1;
+            }
             $pages = [$pageInfo];
         } else {
             $allPages = $tikilib->list_pages();
