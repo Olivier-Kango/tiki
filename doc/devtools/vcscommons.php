@@ -35,7 +35,8 @@ function color($string, $color)
  */
 function error($message)
 {
-    die(color($message, 'red') . "\n");
+    echo color($message, 'red') . "\n";
+    exit(1);
 }
 
 /**

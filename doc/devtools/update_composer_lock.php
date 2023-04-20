@@ -4,7 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
+
+/**
+ * This tool allows updating vendor_bundled/composer.lock when vendor_bundled/composer.json is updated, and is also used bu the CI to warn about dependency issues.
+ */
 
 if (isset($_SERVER['REQUEST_METHOD'])) {
     die('Only available through command-line.');
@@ -30,11 +33,17 @@ if (! file_exists($composerPharFile)) {
 }
 
 $composerLockBefore = file_get_contents($composerLockFile);
-exec('cd ' . $vendorBundledDir . ' && ../temp/composer.phar update nothing  --no-progress');
+$composerOutput = null;
+$composerRetval = null;
+exec('cd ' . $vendorBundledDir . ' && ../temp/composer.phar update nothing  --no-progress', $composerOutput, $composerRetval);
+if ($composerRetval !== 0) {
+    error("composer update failed with exit code $composerRetval.  Unable to update and compare composer.lock, see the output above.");
+}
+
 $composerLockAfter = file_get_contents($composerLockFile);
 
 if ($composerLockBefore != $composerLockAfter) {
-    important('composer.lock updated');
+    important('composer.lock was updated by composer update.  Most likely there were updated packages compatible with the versions specified in vendor_bundled/composer.json, and you likely want to commit vendor_bundled/composer.lock now.');
     exit(1);
 } else {
     important('composer.lock is up to date');
