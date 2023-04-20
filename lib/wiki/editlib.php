@@ -1599,6 +1599,8 @@ class EditLib
             while (preg_match($pattern, $converted)) {
                 $converted = preg_replace($pattern, "$1<$2", $converted);
             }
+
+            $converted = preg_replace('/^(#+)\s+(.+?)/m', "$1 $2", $converted);
         } else {
             // convert to tiki syntax
             if ($source_syntax == 'tiki') {
