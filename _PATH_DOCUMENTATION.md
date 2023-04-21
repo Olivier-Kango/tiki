@@ -188,7 +188,7 @@ Some of these may be created by scripts, and not currently versionned in git.
 
 ### 2 aspects were not considered in previous discussions
 
-1. The importance of JavaScript kept rising, which now (2023) makes not requiring npm impossible for develompent environments.
+1. The importance of JavaScript kept rising, which now (2023) makes not requiring npm impossible for development environments.
 2. The local/ and system/ separation that was planned is not realistic at top level, because it would preclude us from ever moving anything out of the document root, which makes security and ease of sysadmin harder (and a separate document root is the way PHP development is going).
 
 ### Moving the document root in the future
