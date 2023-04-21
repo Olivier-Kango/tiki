@@ -17,6 +17,8 @@
 /node_modules
 /phpmyadmin
 /nbproject
+/phpcs.json
+/phpcs.cache
 
 #PRODUCTION AND SYSADMIN SECTION
 
