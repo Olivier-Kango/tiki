@@ -947,6 +947,16 @@ function cs_design_select($id, $fieldname, $fieldid, $arguments, $default, &$scr
             strpos($arguments['_field'], 'tracker_field_') === 0 && ! empty($arguments['_trackerId'])
     ) {
         $definition = Tracker_Definition::get($arguments['_trackerId']);
+        if (! $definition) {
+            Feedback::error(
+                tr(
+                    'Custom search select _field=%0 _trackerId=%1 not found',
+                    $arguments['_field'],
+                    $arguments['_trackerId']
+                )
+            );
+            return '';
+        }
         $field = $definition->getFieldFromPermName(str_replace('tracker_field_', '', $arguments['_field']));
         $handler = TikiLib::lib('trk')->get_field_handler($field);
         if ($field['type'] === 'r') {    // Item Link
