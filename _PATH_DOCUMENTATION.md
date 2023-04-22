@@ -31,7 +31,7 @@ Today (2023) this document aims continue and finish the path reorganisation effo
 
 Many need to stay here, either because:
 
-* developpers expect them there
+* developers expect them there
 * tooling expect them there and will pick them up by default (ex:  .gitignore, phpunit.xml.dist, .gitlab-ci.xml, etc.)
 * They can really use the visibility even if they technically belong somewhere else (ex:  setup.sh, console.php)
 
@@ -131,7 +131,7 @@ This is the documentation for subdirectories, with hyperlinks to their respectiv
     4. private/template_overrides/ for behaviours currently in themes/templates/
 
 * **tools/**
-  * Developper tools and scripts. The difference with bin is that these cannot be called directly
+  * Developer tools and scripts. The difference with bin is that these cannot be called directly
     * ^= [doc/devtools](README.md)
     * <= [permissioncheck/](permissioncheck/README.md)
 
@@ -190,7 +190,7 @@ Some of these may be created by scripts, and not currently versionned in git.
 
 ### Removing generated files from Git, and depending on node for javascript build
 
-There are currently many gererated files (or trivially generatable files) in git:
+There are currently many generated files (or trivially generatable files) in git:
 
 * index.php and .htaccess designed to disallow directory listing in apache.  We already have code in doc/devtools/check_tiki_directories.php to generate and check.
 * Vue3 javascript files currently in /lib/vue_mf
