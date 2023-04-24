@@ -178,21 +178,21 @@
     <h2>{tr}Preview menu{/tr}</h2>
 
 
-            <form action="{service controller='menu' action='preview'}" class="d-flex flex-row flex-wrap align-items-center preview mb-4">
+            <form action="{service controller='menu' action='preview'}" class="d-flex flex-row flex-wrap align-items-end preview mb-4">
                 <input type="hidden" name="menuId" value="{$menuId}">
-                <div class="mb-3 col-sm-3">
+                <div class="col-6 col-sm-3">
                     <label for="preview_type" class="col-form-label me-2">{tr}Type:{/tr}</label>
                     <select id="preview_type" class="form-control" name="preview_type">
                         <option value="vert"{if $preview_type eq 'vert'} selected{/if}>{tr}Vertical{/tr}</option>
                         <option value="horiz"{if $preview_type eq 'horiz'} selected{/if}>{tr}Horizontal{/tr}</option>
                     </select>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-6 col-sm-4 ps-2">
                     <div class="form-check">
+                        <input type="checkbox" id="preview_bootstrap" class="form-check-input" name="preview_bootstrap"{if $preview_bootstrap eq 'y'} checked="checked"{/if}>
                         <label for="preview_bootstrap" class="form-check-label">
                             Bootstrap
                         </label>
-                        <input type="checkbox" id="preview_bootstrap" class="form-check-input ms-2" name="preview_bootstrap"{if $preview_bootstrap eq 'y'} checked="checked"{/if}>
                     </div>
                 </div>
             {*    <div class="col-sm-2"> 
@@ -203,9 +203,9 @@
                         <input type="checkbox" id="preview_css" class="form-check-input ms-2" name="preview_css"{if $preview_css eq 'y'} checked="checked"{/if}>
                     </div>
                 </div> *}
-                <div class="mb-3 col-sm-3">
-                    <label for="preview_position" class="col-form-label me-2">
-                        {tr}Position{/tr}
+                <div class="col-6 col-sm-3 pe-2">
+                    <label for="preview_position" class="col-form-label">
+                        {tr}Position:{/tr}
                     </label>
                     <select id="preview_position" class="form-control">
                         {foreach from=$module_zone_list key=code item=zone}
@@ -213,7 +213,7 @@
                         {/foreach}
                     </select>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-6 col-sm-2">
                     {button _text='{tr}Deploy{/tr}' _class='deploy_menu btn btn-primary' _type='primary' _ajax='n'}
                 </div>
             </form>
