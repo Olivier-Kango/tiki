@@ -2068,7 +2068,7 @@ function wikiplugin_tracker($data, $params)
         if (empty($tpl) && empty($wiki)) {
             $back .= '<div class="wikiplugin_tracker">';
             if (! empty($showstatus) && $showstatus == 'y') {
-                $back .= '<div class="form-group row tracker_input_status"><label class="col-md-3 col-form-label" for="ins_status">' . tra('Status') . '</label><div class="col-md-9 tracker_input_status">' . $status_input . '</div></div>'; // <tr><td>'.tra('Status').'</td><td>'.$status_input.'</td></tr>
+                $back .= '<div class="mb-3 row tracker_input_status"><label class="col-md-3 col-form-label" for="ins_status">' . tra('Status') . '</label><div class="col-md-9 tracker_input_status">' . $status_input . '</div></div>'; // <tr><td>'.tra('Status').'</td><td>'.$status_input.'</td></tr>
             }
             if ($registration == 'y' && $prefs["user_register_prettytracker"] != 'y') {
                 $back .= $smarty->fetch('register-form.tpl');
@@ -2154,7 +2154,7 @@ function wikiplugin_tracker($data, $params)
                         $smarty->assign('f_' . $f['permName'], $prettyout);
                     }
                 } else {
-                    $back .= '<div class="form-group row tracker_input_label tracker_field' . $f['fieldId'] . '"';
+                    $back .= '<div class="mb-3 row tracker_input_label tracker_field' . $f['fieldId'] . '"';
 
                     // If type is has a samerow param and samerow is "No", show text on one line and the input field on the next
                     $isTextOnSameRow = true;
@@ -2241,7 +2241,7 @@ function wikiplugin_tracker($data, $params)
 
                 if ($f['type'] != 'S' && empty($tpl) && empty($wiki)) {
                     if ($showfieldsdesc == 'y' && $f['description']) {
-                        $back .= '<div class="form-group row tracker-form-text tracker_field' . $f['fieldId'] . ' ">';
+                        $back .= '<div class="mb-3 row tracker-form-text tracker_field' . $f['fieldId'] . ' ">';
                         {
                             $back .= '<div class="col-md-9 offset-md-3 trackerplugindesc form-text">';
                         if ($f['descriptionIsParsed'] == 'y') {
@@ -2274,7 +2274,7 @@ function wikiplugin_tracker($data, $params)
             }
         }
         if (isset($params['fieldsfill']) && ! empty($params['fieldsfill']) && empty($itemId)) {
-            $back .= '<div class="form-group row ins_fill"><label class="col-md-3 col-form-label" for="ins_fill">' . tra("Insert one item per line:")
+            $back .= '<div class="mb-3 row ins_fill"><label class="col-md-3 col-form-label" for="ins_fill">' . tra("Insert one item per line:")
                 . '<br />'
                 . '<br />'
                 . '<br />'
@@ -2320,9 +2320,9 @@ FILL;
 
         if ($params['formtag'] == 'y') {
             if (empty($wiki) && empty($tpl)) {
-                $back .= '<div class="form-group row"><div class="input_submit_container btn-bar ' . $buttonclass . '">';
+                $back .= '<div class="mb-3 row"><div class="input_submit_container btn-bar ' . $buttonclass . '">';
             } else {
-                $back .= '<div class="form-group row"><div class="input_submit_container btn-bar">';
+                $back .= '<div class="mb-3 row"><div class="input_submit_container btn-bar">';
             }
 
             if (! empty($transactionPreviousLabel) && ! empty($transactionPreviousURL)) {
@@ -2341,7 +2341,7 @@ FILL;
             $back .= '</div></div>';
         }
         if ($showmandatory == 'y' and $onemandatory) {
-            $back .= "<br><br><div class='form-group'>";
+            $back .= "<br><br><div class='mb-3'>";
             if (empty($wiki) && empty($tpl)) {
                 $back .= "<div class='" . $buttonclass . "'><div class='text-center alert alert-danger'><em>" . tra("Fields marked with an * are mandatory.") . "</em></div></div>";
             } else {

@@ -43,7 +43,7 @@ function smarty_function_listfilter($params, $smarty)
         $childPrefix = isset($childPrefix) ? $childPrefix : 'child-of-';
         $exclude = isset($exclude) ? $exclude : '';
 
-        $input = ' <div class="form-horizontal my-2"><div class="form-group form-row"><div class="col"><div class="input-group"><div class="input-group-prepend"><label class="col-form-label input-group-text">';
+        $input = ' <div class="form-horizontal my-2"><div class="mb-3 form-row"><div class="col"><div class="input-group"><div class="input-group-prepend"><label class="col-form-label input-group-text">';
 
         if (! isset($prefix)) {
             $input .= tra("Filter:");
