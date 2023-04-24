@@ -237,7 +237,7 @@ class WikiPluginPluginManager extends PluginsLib
             }
             $headbegin = "\n\t\t" . '<th class="heading">';
             $cellbegin = "\n\t\t" . '<td>';
-            $header = "\n\t" . '<tr class="heading">' . $headbegin . 'Parameters</td>';
+            $header = "\n\t" . '<tr class="heading sticky-top bg-light">' . $headbegin . 'Parameters</td>';
             $rows = '';
             if (isset($numparams) && $numparams > 0) {
                 $header .= $headbegin . tra('Accepted Values') . '</th>';
@@ -265,7 +265,7 @@ class WikiPluginPluginManager extends PluginsLib
                         || (! empty($paraminfo['doctype']) && $params['paramtype'] == $paraminfo['doctype']))
                     ) {
                         $filteredparams[] = $paraminfo;
-                        $rows .= "\n\t" . '<tr>' . $cellbegin;
+                        $rows .= "\n\t" . '<tr style="word-break: break-all;">' . $cellbegin;
                         //Parameters column
                         if (isset($paraminfo['required']) && $paraminfo['required'] == true) {
                             $rows .= '<strong><code>' . $paramname . '</code></strong>';
@@ -373,7 +373,7 @@ class WikiPluginPluginManager extends PluginsLib
                 '<strong><code>',
                 '</code></strong>.'
             ) : '';
-            $sOutput = $title . $bold . '<br>' . $link . '<br>' . $pluginprefs . '<br> <div class="table-responsive">' .
+            $sOutput = $title . $bold . '<br>' . $link . '<br>' . $pluginprefs . '<br> <div class="table-responsive overflow-visible">' .
                 '<table class="table table-striped table-hover">' . $header . $rows . '</table></div>' . "\n";
             return $sOutput;
         }
