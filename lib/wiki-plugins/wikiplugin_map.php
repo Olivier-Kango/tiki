@@ -55,7 +55,7 @@ function wikiplugin_map_info()
                 'filter' => 'digits',
             ],
             'center' => [
-                'requied' => false,
+                'required' => false,
                 'name' => tra('Center'),
                 'description' => tr('Format: %0x,y,zoom%1 where %0x%1 is the longitude, and %0y%1 is the latitude.
                     %0zoom%1 is between %00%1 (view Earth) and %019%1.', '<code>', '</code>'),
