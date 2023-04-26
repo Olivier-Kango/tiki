@@ -91,7 +91,7 @@ if (isset($_REQUEST["bannerId"]) && $_REQUEST["bannerId"] > 0) {
     $smarty->assign('maxUserImpressions', -1);
     $smarty->assign('maxClicks', -1);
     $smarty->assign('fromDate', $tikilib->now);
-    $cur_time = explode(',', $tikilib->date_format('%Y,%m,%d,%H,%M,%S', $publishDate));
+    $cur_time = explode(',', $tikilib->date_format('%Y,%m,%d,%H,%M,%S', $tikilib->now));
     $smarty->assign('toDate', $tikilib->make_time($cur_time[3], $cur_time[4], $cur_time[5], $cur_time[1], $cur_time[2], $cur_time[0] + 1));
     $smarty->assign('useDates', 'n');
     $smarty->assign('fromTime', '00:00');
