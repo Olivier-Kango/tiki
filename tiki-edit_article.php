@@ -56,7 +56,7 @@ if (isset($_REQUEST['cancel_edit'])) {
         die;
     }
     include_once('tiki-sefurl.php');
-    header('location: ' . filter_out_sefurl("tiki-read_article.php?articleId=$articleId", 'article', $artice_data['title']));
+    header('location: ' . filter_out_sefurl("tiki-read_article.php?articleId=$articleId", 'article', $article_data['title']));
     die;
 }
 
