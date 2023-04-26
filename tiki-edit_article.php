@@ -311,8 +311,12 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
     $smarty->assign('arttitle', $_REQUEST['title']);
     $smarty->assign('authorName', $_REQUEST['authorName']);
     $smarty->assign('topicId', $_REQUEST['topicId']);
-    $smarty->assign('topicName', $topics[$_REQUEST['topicId']]['name']);
-
+    if (! empty($_REQUEST['topicId']) && isset($topics[$_REQUEST['topicId']])) {
+        $topicName = $topics[$_REQUEST['topicId']]['name'];
+    } else {
+        $topicName = tr('not found');
+    }
+    $smarty->assign('topicName', $topicName);
     if (isset($_REQUEST['useImage']) && $_REQUEST['useImage'] == 'on') {
         $useImage = 'y';
     } else {
