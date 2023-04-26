@@ -804,7 +804,7 @@ if ($prefs['feature_multilingual'] == 'y') {
     $smarty->assign('translations', $translations);
 
     // get article
-    $articles = $artlib->list_articles($_REQUEST['articleId']);
+    $articles = $artlib->list_articles($_REQUEST['articleId'] ?? null);
     $smarty->assign('articles', $articles['data']);
 }
 
