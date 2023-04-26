@@ -59,6 +59,7 @@ function getTikiRequirements()
             'version' => 25,
             'php'     => array(
                 'min' => '7.4',
+                'max' => '7.4',
             ),
             'mariadb' => array(
                 'min' => '5.5',
@@ -72,6 +73,7 @@ function getTikiRequirements()
             'version' => 24,
             'php'     => array(
                 'min' => '7.4',
+                'max' => '7.4',
             ),
             'mariadb' => array(
                 'min' => '5.5',
