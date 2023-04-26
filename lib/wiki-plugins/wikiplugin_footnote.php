@@ -172,7 +172,7 @@ function wikiplugin_footnote($data, $params, $offset, $context)
                 $smarty->assign('listNum', $sameas);// legacy support for number pointing.
                 $smarty->assign('listType', $footnotes['lists']['.def.']['listType']);
                 if (isset($footnotes['lists']['.def.']['entry'][$sameas])) {    // if the entry already exists
-                    $uniqueId = $sameas . '-' . (count($footnotes['lists']['.def.']['entry'][$sameas]['sameas']) + 1);
+                    $uniqueId = $sameas . '-' . ((isset($footnotes['lists']['.def.']['entry'][$sameas]['sameas']) ? count($footnotes['lists']['.def.']['entry'][$sameas]['sameas']) : 0) + 1);
                     $footnotes['lists']['.def.']['entry'][$sameas]['sameas'][] = $uniqueId;
                     $smarty->assign('uniqueId', $uniqueId);
                     $smarty->assign('unique', $footnotes['lists']['.def.']['entry'][$sameas]['unique']);
