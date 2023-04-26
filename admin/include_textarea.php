@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $pluginsAlias = WikiPlugin_Negotiator_Wiki_Alias::getList();
     }
     if (
-        ! empty($_REQUEST['plugin_alias'] && $access->checkCsrf())
+        ! empty($_REQUEST['plugin_alias']) && $access->checkCsrf()
         && ! in_array($_POST['plugin_alias'], $pluginsReal)
         && (getCookie('admin_textarea', 'tabs') == '#contentadmin_textarea-plugin_alias')
     ) {
