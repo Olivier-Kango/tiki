@@ -14,18 +14,31 @@ variables:
   MYSQL_PASSWORD: tikipass
   ELASTICSEARCH_HOST: elasticsearch
   BASE_QA_IMAGE: rjsmelo/ubuntu-php:7.4-qa
-  # Set this variable in your project as an empty variable to skip dependency proxy
-  # (If you are doing it from gitlab UI you may need to use a workaround https://gitlab.com/gitlab-org/gitlab/-/issues/225470)
-  DEPENDENCY_PROXY_PREFIX: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/
+  # You can set SKIP_GITLAB_PROXY to "true" in your project configuration to skip using the gitlab dependency proxy.
+  SKIP_GITLAB_PROXY: ''
+  # To use a custom DEPENDENCY_PROXY_PREFIX, you need to also set SKIP_GITLAB_PROXY to "true"
+  DEPENDENCY_PROXY_PREFIX: ''
 
 workflow:
   rules:
     # IGNORE PUSHES ON NON VERSION BRANCHES
     - if: '$CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH != "master" && $CI_COMMIT_BRANCH !~ /^\d*\.x$/)'
       when: never
+    #CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX was terribly defined by gitlab, because you need to append a / to every image name.
+    #So you can't just use CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX prepended to every image name.
+    #The following is a workround: 
+    #gitlab-ci-local doesn't support rules variables yet, so it skips anyway
+    #https://github.com/firecow/gitlab-ci-local/issues/691
+    #
+    #But since DEPENDENCY_PROXY_PREFIX is set to the empty string above, 
+    #DEPENDENCY_PROXY_PREFIX will have no effect
+    #This will run in gitlab-ci-local
+    #
+    - if: $CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX != "" && $SKIP_GITLAB_PROXY == ''
+      variables:
+        DEPENDENCY_PROXY_PREFIX: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/
     # THIS WILL TRIGGER PIPELINES FOR MERGE REQUESTS AND SCHEDULES, AND PUSHES ON VERSION BRANCHES LIKE 21.x. 18.x
     - when: always
-
 #
 # build
 #
@@ -36,7 +49,7 @@ composer:
   variables:
     COMPOSER_DISCARD_CHANGES: "true"
     COMPOSER_NO_INTERACTION: "1"
-    COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composercache"
+    COMPOSER_CACHE_DIR: ".composercache"
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d vendor_bundled --no-progress --prefer-dist -n
@@ -44,14 +57,14 @@ composer:
     - key:
         prefix: "composer"
         files:
-          - vendor_bundled/vendor/composer.lock
+          - vendor_bundled/composer.lock
       paths:
-        - .composercache/files
+        - .composercache/
       policy: pull-push
     - key:
         prefix: "vendor_bundled"
         files:
-          - vendor_bundled/vendor/composer.lock
+          - vendor_bundled/composer.lock
       paths:
         - vendor_bundled/vendor/
       policy: pull-push
@@ -67,7 +80,7 @@ composer-dbdiff:
   variables:
     COMPOSER_DISCARD_CHANGES: "true"
     COMPOSER_NO_INTERACTION: "1"
-    COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composercache-dbdiff"
+    COMPOSER_CACHE_DIR: ".composercache-dbdiff"
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d doc/devtools/dbdiff/ --no-progress --prefer-dist -n
@@ -77,7 +90,7 @@ composer-dbdiff:
       files:
         - doc/devtools/dbdiff/composer.lock
     paths:
-      - .composercache-dbdiff/files
+      - .composercache-dbdiff/
     policy: pull-push
   artifacts:
     paths:
@@ -93,7 +106,8 @@ phpcs:
   stage: lint
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
-    - php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs --cache=phpcs.cache -s --runtime-set ignore_warnings_on_exit true --parallel=16
+    - env
+    - php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs --cache=phpcs.cache -s --runtime-set ignore_warnings_on_exit true --parallel=8
   dependencies:
     - composer
   needs:
@@ -503,9 +517,9 @@ tiki-package:
     - key:
         prefix: "composer"
         files:
-          - vendor_bundled/vendor/composer.lock
+          - vendor_bundled/composer.lock
       paths:
-        - .composercache/files
+        - .composercache/
       policy: pull
   dependencies:
     - composer

@@ -9,6 +9,7 @@
 /ZendStudioServer
 /.buildpath
 /.cache
+/.gitlab-ci-local/
 /phpunit
 /.phpunit.result.cache
 /.phplint.yml
@@ -19,6 +20,13 @@
 /nbproject
 /phpcs.json
 /phpcs.cache
+
+#CI SECTION
+#dbdiff
+tikiold.sql
+tikinew.sql
+#phpunit report
+report.xml
 
 #PRODUCTION AND SYSADMIN SECTION
 

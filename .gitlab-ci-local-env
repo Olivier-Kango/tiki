@@ -1,0 +1,4 @@
+# Always runs needed jobs, when gitlab-ci-local <job-name> is called
+NEEDS=true # --needs
+
+

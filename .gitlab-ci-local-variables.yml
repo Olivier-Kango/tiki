@@ -1,0 +1,9 @@
+---
+#The following line will not work:
+#DEPENDENCY_PROXY_PREFIX: 'something'
+#Note that as of 2023-04-25, the variables here will not supersede the global variables.
+#To to use a local dependency prefix, you need to use
+#gitlab-ci-local --variable DEPENDENCY_PROXY_PREFIX=something ...
+
+#In case gitlab-ci-local ever defines $CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX or support workflow rules in the future
+SKIP_GITLAB_PROXY: "true"
