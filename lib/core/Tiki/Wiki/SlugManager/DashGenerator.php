@@ -22,7 +22,7 @@ class DashGenerator implements Generator
 
     public function generate($pageName, $suffix = null)
     {
-        $slug = preg_replace('/\s+/', '-', trim($pageName));
+        $slug = preg_replace('/[\s]+/u', '-', trim($pageName));
 
         if ($suffix) {
             $slug .= '-' . $suffix;

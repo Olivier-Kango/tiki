@@ -22,7 +22,7 @@ class UnderscoreGenerator implements Generator
 
     public function generate($pageName, $suffix = null)
     {
-        $slug = preg_replace('/\s+/', '_', trim($pageName));
+        $slug = preg_replace('/[\s]+/u', '_', trim($pageName));
 
         if ($suffix) {
             $slug .= '_' . $suffix;
