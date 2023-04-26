@@ -72,7 +72,7 @@
                 var target = $('.modal.fade:not(.in)').first();
                 $.post(url, $(form).serialize() + '&modal=1', function (data) {
                     $(".modal-content", target).html(data);
-                    target.modal();
+                    target.modal('show');
                 });
                 return false;
 
