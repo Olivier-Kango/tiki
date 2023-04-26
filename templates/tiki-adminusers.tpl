@@ -180,6 +180,11 @@
                                                     <br>
                                                     {tr}Need to validate email{/tr}
                                                 {/if}
+
+                                                {if $users[user].waiting eq 'a'}
+                                                    <br>
+                                                    {tr}Need to validate user{/tr}
+                                                {/if}
                                             </td>
                                             <td class="text">
                                                 {$users[user].registrationDate|tiki_short_datetime}
@@ -275,7 +280,7 @@
                                                                         <input type="hidden" name="user" value="{$users[user].user|escape:'attr'}">
                                                                         <input type="hidden" name="pass" value="{$users[user].provpass|md5|escape:'attr'}">
                                                                         <button type="submit" class="btn btn-link link-list">
-                                                                            {icon name="thumbs-up"} {tr}Validate user{/tr}
+                                                                            {icon name="thumbs-up"} {tr}Validate email{/tr}
                                                                         </button>
                                                                     </form>
                                                                 </action>
