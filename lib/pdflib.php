@@ -59,7 +59,7 @@ class PdfGenerator
                 }
             }
         } elseif ($printMode == self::WEBSERVICE) {
-            $path = $prefs['path'];
+            $path = $prefs['print_pdf_webservice_url'];
             if (! empty($path)) {
                 $this->mode = 'webservice';
                 $this->location = $path;
