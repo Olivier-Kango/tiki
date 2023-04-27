@@ -20,7 +20,7 @@ class SortTest extends \Search_Index_SortTest
         $this->unified_stopwords = $prefs['unified_stopwords'];
         $prefs['unified_stopwords'] = [];
 
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_sort');
         $this->index->destroy();
 
         $this->populate($this->index);

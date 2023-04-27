@@ -14,7 +14,7 @@ class NumericTest extends \Search_Index_NumericTest
 
     protected function setUp(): void
     {
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_numeric');
         $this->index->destroy();
 
         $this->populate($this->index);

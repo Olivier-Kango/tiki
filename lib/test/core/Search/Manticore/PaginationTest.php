@@ -14,7 +14,7 @@ class PaginationTest extends \Search_Index_PaginationTest
 
     protected function setUp(): void
     {
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_pagination');
         $this->index->destroy();
     }
 

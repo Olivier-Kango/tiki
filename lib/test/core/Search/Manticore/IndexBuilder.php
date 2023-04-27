@@ -8,9 +8,22 @@
 
 namespace Search\Manticore;
 
+use Search_Index_Interface;
+
 trait IndexBuilder
 {
-    protected function getIndex($suffix = '')
+    protected ?Search_Index_Interface $indexBuilderLastIndexCreated = null;
+
+    protected function getIndex()
+    {
+        if ($this->indexBuilderLastIndexCreated !== null) {
+            return $this->indexBuilderLastIndexCreated;
+        }
+
+        return $this->createIndex();
+    }
+
+    protected function createIndex($suffix = '')
     {
         $dsn = empty(getenv('MANTICORE_DSN')) ? 'http://127.0.0.1' : getenv('MANTICORE_DSN');
         $http_port = empty(getenv('MANTICORE_HTTP_PORT')) ? '9308' : getenv('MANTICORE_HTTP_PORT');
@@ -28,6 +41,8 @@ trait IndexBuilder
             $this->markTestSkipped('Manticore needs to be available on ' . $dsn . ':' . $mysql_port . ' for the test to run.');
         }
 
-        return new Index($http_client, $mysql_client, 'test_index' . $suffix);
+        $this->indexBuilderLastIndexCreated = new Index($http_client, $mysql_client, 'test_index' . $suffix);
+
+        return $this->indexBuilderLastIndexCreated;
     }
 }

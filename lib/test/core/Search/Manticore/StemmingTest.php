@@ -21,7 +21,7 @@ class StemmingTest extends \Search_Index_StemmingTest
         $prefs['unified_manticore_morphology'] = 'stem_en';
         $prefs['unified_engine'] = 'manticore';
 
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_stemming');
         $this->index->destroy();
 
         $this->populate($this->index);

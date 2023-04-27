@@ -16,7 +16,7 @@ class IncrementalUpdateTest extends \Search_Index_IncrementalUpdateTest
 
     protected function setUp(): void
     {
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_incremental_update');
         $this->index->destroy();
 
         $this->populate($this->index);

@@ -14,6 +14,7 @@ variables:
   MYSQL_PASSWORD: tikipass
   ELASTICSEARCH_HOST: elasticsearch
   BASE_QA_IMAGE: rjsmelo/ubuntu-php:7.4-qa
+  MANTICORE_DSN: http://manticore
   # You can set SKIP_GITLAB_PROXY to "true" in your project configuration to skip using the gitlab dependency proxy.
   SKIP_GITLAB_PROXY: ''
   # To use a custom DEPENDENCY_PROXY_PREFIX, you need to also set SKIP_GITLAB_PROXY to "true"
@@ -422,10 +423,16 @@ sql-engine-conversion:
       alias: mysql
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
       alias: elasticsearch
+    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:dev
+      alias: manticore
+  variables:
+    EXTRA: 1
+    MCL: 1
   script:
-    - curl -sS -XGET 'http://elasticsearch:9200'
-    - mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql --skip-column-names -B -e 'SELECT VERSION()'
-    - php -v
+    - 'echo -n "PHP Version: " && php -v | grep "^PHP"'
+    - 'echo -n "MySQL/MariaDB Version: " && mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql --skip-column-names -B -e "SELECT VERSION()" 2>/dev/null'
+    - 'echo -n "ElasticSearch Version: " && curl -sS -XGET ''http://elasticsearch:9200'' | grep ''"number"'' | sed ''s/.*:.*"\(.*\)".*/\1/'''
+    - 'echo -n "Manticore Version: " && mysql -h manticore -P 9306 -e "status" | grep "Server version:" | sed "s/^[^:]*:[[:space:]]*//"'
     - echo '<?php $db_tiki = "mysqli"; $dbversion_tiki = "21.0"; $host_tiki = "mysql"; $user_tiki = "tikiuser"; $pass_tiki = "tikipass"; $dbs_tiki = "tikitest"; $client_charset = "utf8mb4"; ' > lib/test/local.php
     - php -d display_errors=On vendor_bundled/vendor/phpunit/phpunit/phpunit --colors=always --log-junit report.xml
   dependencies:
@@ -448,6 +455,8 @@ sql-engine-conversion:
       alias: mysql
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
       alias: elasticsearch
+    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:dev
+      alias: manticore
 
 unit-tests-74:
   <<: *template-unit-tests

@@ -16,7 +16,7 @@ class PartialUpdateTest extends \Search_Index_PartialUpdateTest
 
     protected function setUp(): void
     {
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_partial_update');
         $this->index->destroy();
     }
 

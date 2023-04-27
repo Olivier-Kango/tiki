@@ -21,7 +21,7 @@ class QueryRepositoryTest extends \Search\Index\QueryRepositoryTest
         $prefs['storedsearch_enabled'] = 'y';
         $prefs['unified_engine'] = 'manticore';
 
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_query_repository');
         $this->index->destroy();
 
         $this->populate($this->index);
@@ -34,7 +34,7 @@ class QueryRepositoryTest extends \Search\Index\QueryRepositoryTest
 
         if ($this->index) {
             $this->index->destroy();
-            $index = $this->getIndex('pq');
+            $index = $this->createIndex('pq');
             if ($index) {
                 $index->destroy();
             }

@@ -195,7 +195,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     {
         global $prefs;
 
-        $stopwords_file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'manticore-stopwords-' . $this->index;
+        $stopwords_file = TIKI_PATH . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . 'manticore-stopwords-' . $this->index;
         file_put_contents($stopwords_file, implode("\n", $prefs['unified_stopwords']));
 
         $settings = [

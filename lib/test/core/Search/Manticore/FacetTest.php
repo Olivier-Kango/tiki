@@ -20,7 +20,7 @@ class FacetTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_facet');
         $this->index->destroy();
 
         $this->populate($this->index);

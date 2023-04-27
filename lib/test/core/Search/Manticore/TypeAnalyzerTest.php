@@ -16,7 +16,7 @@ class TypeAnalyzerTest extends \Search_Index_TypeAnalyzerTest
 
     protected function setUp(): void
     {
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_type_analyzer');
         $this->index->destroy();
     }
 

@@ -19,7 +19,7 @@ class ComplexQueriesTest extends \PHPUnit\Framework\TestCase
         global $prefs;
         $this->old_prefs = $prefs;
 
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_complex_queries');
         $this->index->destroy();
 
         $typeFactory = $this->index->getTypeFactory();

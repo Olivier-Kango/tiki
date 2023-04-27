@@ -14,7 +14,7 @@ class BaseTest extends \Search_Index_BaseTest
 
     protected function setUp(): void
     {
-        $this->index = $this->getIndex();
+        $this->index = $this->createIndex('_base');
         $this->index->destroy();
 
         $this->populate($this->index);
