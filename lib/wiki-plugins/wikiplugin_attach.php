@@ -9,6 +9,7 @@
 function wikiplugin_attach_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Attachment'),
         'documentation' => 'PluginAttach',
         'description' => tra('Display an attachment or a list of them'),

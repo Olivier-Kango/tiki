@@ -9,6 +9,7 @@
 function wikiplugin_box_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Box'),
         'documentation' => 'PluginBox',
         'description' => tra('Create a formatted box with a title bar'),

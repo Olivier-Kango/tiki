@@ -11,6 +11,7 @@ require_once("lib/copyrights/copyrightslib.php");
 function wikiplugin_copyright_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Copyright'),
         'documentation' => 'PluginCopyright',
         'description' => tra('Insert copyright notices'),

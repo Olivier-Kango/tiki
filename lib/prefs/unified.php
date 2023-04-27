@@ -154,21 +154,12 @@ function prefs_unified_list()
             'separator' => ',',
             'default' => [],
         ],
-        'unified_exclude_all_plugins' => [
-            'name' => tra('Exclude all plugins'),
-            'description' => tra('Indexing will exclude all plugins.'),
-            'type' => 'flag',
-            'default' => 'y',
-        ],
         'unified_included_plugins' => [
-            'name' => tra('Except included plugins'),
-            'description' => tra('List of plugin names that are required to be included while indexing, when excluding all.') . ' ' . tra('Example: fancytable,list,trackerlist,trackerfilter'),
+            'name' => tra('Additional plugins searchable by default'),
+            'description' => tra('List of plugin names that are required to additionnaly include while indexing.') . ' ' . tra('Example: fancytable,list,trackerlist,trackerfilter'),
             'type' => 'text',
             'filter' => 'word',
             'separator' => ',',
-            'dependencies' => [
-                'unified_exclude_all_plugins',
-            ],
             'default' => [],
         ],
         'unified_exclude_nonsearchable_fields' => [

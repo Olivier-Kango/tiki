@@ -97,7 +97,6 @@ class ParserLib extends TikiDb_Bridge
                 'namespace' => false,
                 'protect_email' => true,
                 'exclude_plugins' => [],
-                'exclude_all_plugins' => false,
                 'include_plugins' => [],
                 'typography' => true,
                 'autotoc' => false,

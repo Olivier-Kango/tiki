@@ -9,6 +9,7 @@
 function wikiplugin_sub_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Subscript'),
         'documentation' => 'PluginSub',
         'description' => tra('Apply subscript font to text'),

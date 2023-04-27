@@ -9,6 +9,7 @@
 function wikiplugin_indent_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Indentation'),
         'documentation' => 'PluginIndent',
         'description' => tra('Indent a block of wiki content by one level'),

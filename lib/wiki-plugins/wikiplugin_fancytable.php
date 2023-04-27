@@ -93,6 +93,7 @@ function wikiplugin_fancytable_info()
         $tsparams
     );
     return [
+        'searchable_by_default' => true,
         'name' => tra('Fancy Table'),
         'documentation' => 'PluginFancyTable',
         'description' => tra('Create a formatted table that can be filtered and sorted'),

@@ -9,6 +9,7 @@
 function wikiplugin_fancylist_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Fancy List'),
         'documentation' => 'PluginFancyList',
         'description' => tra('Create a formatted numbered list'),

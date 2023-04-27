@@ -27,6 +27,7 @@ function wikiplugin_code_info()
     }
 
     return [
+        'searchable_by_default' => true,
         'name' => tra('Code'),
         'documentation' => 'PluginCode',
         'description' => tra('Display code with syntax highlighting and line numbering.'),

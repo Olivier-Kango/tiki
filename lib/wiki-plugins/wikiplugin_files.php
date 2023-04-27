@@ -10,6 +10,7 @@ function wikiplugin_files_info()
 {
     global $prefs;
     return [
+        'searchable_by_default' => true,
         'name' => tra('Files'),
         'documentation' => 'PluginFiles',
         'description' => tra('List files by ID, gallery or category, or show a slideshow of image files'),

@@ -11,6 +11,7 @@ function wikiplugin_div_info()
     global $prefs;
 
     $info = [
+        'searchable_by_default' => true,
         'name' => tra('Div'),
         'documentation' => 'PluginDiv',
         'description' => tra('Define and format sections of a page or text'),

@@ -9,6 +9,7 @@
 function wikiplugin_markdown_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Markdown'),
         'documentation' => 'PluginMarkdown',
         'description' => tra('Parse the body of the plugin using a Markdown parser.'),

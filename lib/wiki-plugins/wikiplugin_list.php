@@ -11,6 +11,7 @@ require_once 'lib/wiki/pluginslib.php';
 function wikiplugin_list_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('List'),
         'documentation' => 'PluginList',
         'description' => tra('Search for, list, and filter all types of items and display custom-formatted results.'),

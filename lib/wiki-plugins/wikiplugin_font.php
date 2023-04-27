@@ -31,6 +31,7 @@ function wikiplugin_font_getfontoptions()
 function wikiplugin_font_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Font'),
         'format' => 'wiki',
         'documentation' => 'PluginFont',

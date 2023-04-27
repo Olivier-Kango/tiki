@@ -160,14 +160,29 @@ class WikiParser_Parsable extends ParserLib
             $plugin_parent = isset($plugin_name) ? $plugin_name : false;
             $plugin_name = $match->getName();
 
-            if (! $this->option['exclude_all_plugins'] && ! empty($this->option['exclude_plugins']) && in_array($plugin_name, $this->option['exclude_plugins'])) {
-                $match->replaceWith('');
-                continue;
-            }
+            if (! empty($this->option['indexing'])) {
+                $info = $this->plugin_info(strtolower($plugin_name));
+                //We are in an indexing context, check if plugins should be indexed, and strip them out if not
+                $shouldIndexPlugin = false;
 
-            if ($this->option['exclude_all_plugins'] && (empty($this->option['include_plugins']) || ! in_array($plugin_name, $this->option['include_plugins']))) {
-                $match->replaceWith('');
-                continue;
+                if (in_array($plugin_name, $this->option['exclude_plugins'])) {
+                    //exclude_plugins should always take precedence plugins that crash the indexing process or corrupt the index can be excluded.
+                    $shouldIndexPlugin = false;
+                } elseif ($info['searchable_by_default']) {
+                    //Keep in mind that the following two cases will be added above in the near future:
+                    //Future: else if 'searchable'===true (from plugin syntax parameter)
+                    //Future: else if 'searchable'===false
+                    //No explicit 'searchable' request, so we use default value
+                    $shouldIndexPlugin = true;
+                } elseif (in_array($plugin_name, $this->option['include_plugins'])) {
+                    //include_plugins is called include_plugins for historical reasond.  It's more of an additional_default_searchable_plugins now.
+                    $shouldIndexPlugin = true;
+                }
+
+                if (! $shouldIndexPlugin) {
+                    $match->replaceWith('');
+                    continue;
+                }
             }
 
             $plugin_data = $match->getBody();

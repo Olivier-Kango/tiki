@@ -9,6 +9,7 @@
 function wikiplugin_mono_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Monospace'),
         'documentation' => 'PluginMono',
         'description' => tra('Display text in a monospace font'),

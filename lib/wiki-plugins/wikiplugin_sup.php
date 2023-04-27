@@ -9,6 +9,7 @@
 function wikiplugin_sup_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Superscript'),
         'documentation' => 'PluginSup',
         'description' => tra('Apply superscript font to text'),

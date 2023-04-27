@@ -9,6 +9,7 @@
 function wikiplugin_dl_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Definition List'),
         'documentation' => 'PluginDL',
         'description' => tra('Create a definition list'),

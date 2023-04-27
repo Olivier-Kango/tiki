@@ -9,6 +9,7 @@
 function wikiplugin_scroll_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Scroll'),
         'documentation' => 'PluginScroll',
         'description' => tra('Show animated text that scrolls up or down'),

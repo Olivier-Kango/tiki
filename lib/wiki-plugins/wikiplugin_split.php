@@ -9,6 +9,7 @@
 function wikiplugin_split_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Split'),
         'documentation' => 'PluginSplit',
         'description' => tra('Arrange content on a page into rows and columns'),

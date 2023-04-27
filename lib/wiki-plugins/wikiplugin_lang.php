@@ -9,6 +9,7 @@
 function wikiplugin_lang_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Language'),
         'documentation' => 'PluginLang',
         'description' => tra('Show alternative content based on the page language'),

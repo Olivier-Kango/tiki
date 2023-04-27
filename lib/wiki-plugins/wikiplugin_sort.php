@@ -9,6 +9,7 @@
 function wikiplugin_sort_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Sort'),
         'documentation' => 'PluginSort',
         'description' => tra('Sort lines of text'),

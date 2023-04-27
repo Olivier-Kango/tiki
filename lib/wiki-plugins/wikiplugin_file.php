@@ -13,6 +13,7 @@ function wikiplugin_file_info()
 {
     global $prefs;
     $info = [
+        'searchable_by_default' => true,
         'name' => tra('File'),
         'documentation' => 'PluginFile',
         'description' => tra('Link to a file that\'s attached or in a gallery or archive'),

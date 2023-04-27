@@ -9,6 +9,7 @@
 function wikiplugin_quote_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Quote'),
         'documentation' => 'PluginQuote',
         'description' => tra('Format text as a quote'),

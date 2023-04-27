@@ -110,11 +110,7 @@
                     {preference name="unified_search_default_operator"}
                     {preference name=unified_excluded_categories}
                     {preference name=unified_excluded_plugins}
-
-                    {preference name=unified_exclude_all_plugins}
-                    <div class="adminoptionboxchild" id="unified_exclude_all_plugins_childcontainer">
-                        {preference name=unified_included_plugins}
-                    </div>
+                    {preference name=unified_included_plugins}
 
                     {preference name=unified_exclude_nonsearchable_fields}
                     {preference name=unified_forum_deepindexing}

@@ -9,6 +9,7 @@
 function wikiplugin_footnote_info()
 {
     return [
+        'searchable_by_default' => true,
         'name' => tra('Footnote'),
         'documentation' => 'PluginFootnote',
         'description' => tra('Create automatically numbered footnotes (together with PluginFootnoteArea)'),
