@@ -223,6 +223,12 @@ class Smarty_Tiki extends Smarty
         // restore tiki's own escape function
         $this->loadPlugin('smarty_modifier_escape');
         $this->registerPlugin('modifier', 'escape', 'smarty_modifier_escape');
+
+        // register PHP functions used as smarty modifiers in Tiki templates
+        $list = ['addslashes', 'array_reverse', 'count', 'explode', 'implode', 'is_array', 'json_decode', 'json_encode', 'md5', 'stristr', 'strpos', 'tra', 'trim', 'ucfirst', 'ucwords', 'urlencode', 'var_dump'];
+        foreach ($list as $func) {
+            $this->registerPlugin('modifier', $func, $func);
+        }
     }
 
     /**
