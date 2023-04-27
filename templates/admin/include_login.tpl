@@ -167,6 +167,10 @@
 					</div>
 				</fieldset>
 				{preference name=feature_banning}
+				<div class="adminoptionboxchild" id="feature_banning_childcontainer">
+					{preference name=feature_banning_attempts}
+					{preference name=feature_banning_duration}
+				</div>
 			</fieldset>
 			<fieldset>
 				<legend>{tr}Username{/tr}</legend>

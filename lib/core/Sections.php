@@ -164,6 +164,12 @@ class Sections
 			'key' => 'nlId',
 			'objectType' => 'newsletter',
 		],
+		'validate email' => [
+			'feature' => 'validateEmail',
+			'dependencies' => ['feature_banning'],
+			'itemkey' => '',
+			'objectType' => 'list'
+		],
 	];
 
 	/**
