@@ -301,6 +301,7 @@ CREATE TABLE `tiki_banning` (
   `use_dates` char(1) default NULL,
   `created` int(14) default NULL,
   `message` text,
+  `attempts` INT NULL,
   PRIMARY KEY (`banId`),
   INDEX ban(`use_dates`, `date_from`, `date_to`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
