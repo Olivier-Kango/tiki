@@ -191,7 +191,11 @@ class ODBCWriter
             if (! isset($item[$field])) {
                 continue;
             }
-            if ($item[$field] == $value) {
+            $local = $item[$field];
+            if (is_array($local) && ! is_array($value)) {
+                $local = implode(',', $local);
+            }
+            if ($local == $value) {
                 continue;
             }
             $diff[$field] = $value;

@@ -206,7 +206,11 @@ class Manager
                 foreach ($diff as $permName => $value) {
                     $field = $definition->getFieldFromPermName($permName);
                     \TikiLib::lib('trk')->modify_field($itemId, $field['fieldId'], $value);
-                    $error .= "\n" . $field['name'] . ' | ' . $item[$permName] . ' | ' . $value;
+                    $local = $item[$permName];
+                    if (is_array($local)) {
+                        $local = implode(',', $local);
+                    }
+                    $error .= "\n" . $field['name'] . ' | ' . $local . ' | ' . $value;
                 }
                 return $error;
             } else {
