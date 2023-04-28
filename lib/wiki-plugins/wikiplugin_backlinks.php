@@ -128,6 +128,7 @@ class WikiPluginBackLinks extends PluginsLib
         $tBackRequest = [];
         $counttbi = 0;
         $aBackLinks = $wikilib->get_backlinks($page);
+        $aPages = [];
         foreach ($aBackLinks as $backlink) {
             if (
                 $backlink['type'] == 'wiki page'
@@ -172,7 +173,9 @@ class WikiPluginBackLinks extends PluginsLib
             }
             $sOutput .= "\n";
         }
-        $sOutput .= PluginsLibUtil::createTable($aPages["data"], $info);
+        if (! empty($aPages)) {
+            $sOutput .= PluginsLibUtil::createTable($aPages["data"], $info);
+        }
         //If any backlink in a tracker item field
         $sOutput .= "\n";
         if ($counttbi > 0) {
