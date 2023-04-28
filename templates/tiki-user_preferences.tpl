@@ -118,15 +118,15 @@
                         </label>
                         <div class="col-md-8">
                             {if $userPageExists eq 'y'}
-                                <a class="link" href="tiki-index.php?page={$prefs.feature_wiki_userpage_prefix}{$userinfo.login}" title="View">
-                                    {$prefs.feature_wiki_userpage_prefix}{$userinfo.login|escape}
+                                <a class="link" href="tiki-index.php?page={$prefs.feature_wiki_userpage_prefix}{$user_wiki_page_name}" title="View">
+                                    {$prefs.feature_wiki_userpage_prefix}{$user_wiki_page_name|escape}
                                 </a>
-                                (<a class="link" href="tiki-editpage.php?page={$prefs.feature_wiki_userpage_prefix}{$userinfo.login}">
+                                (<a class="link" href="tiki-editpage.php?page={$prefs.feature_wiki_userpage_prefix}{$user_wiki_page_name}">
                                     {tr}Edit{/tr}
                                 </a>)
                             {else}
-                                {$prefs.feature_wiki_userpage_prefix}{$userinfo.login|escape}
-                                (<a class="link" href="tiki-editpage.php?page={$prefs.feature_wiki_userpage_prefix}{$userinfo.login}">
+                                {$prefs.feature_wiki_userpage_prefix}{$user_wiki_page_name|escape}
+                                (<a class="link" href="tiki-editpage.php?page={$prefs.feature_wiki_userpage_prefix}{$user_wiki_page_name}">
                                 {tr}Create{/tr}
                             </a>)
                             {/if}
