@@ -126,7 +126,7 @@ class GD_GRenderer extends GRenderer // {{{1
 
     public function getTextWidth($text, $style) // {{{2
     {
-        return imagefontwidth($style['font']) * strlen($text) / $this->width;
+        return imagefontwidth($style['font']) * strlen(is_array($text) ? $text['value'] : $text) / $this->width;
     }
 
     public function getTextHeight($style) // {{{2
@@ -287,7 +287,7 @@ class GD_GRenderer extends GRenderer // {{{1
 
     public function _drawLeftText($string, $left, $height, $style) // {{{2
     {
-        imagestring($this->gd, $style['font'], $left, $height, $string, $this->_getColor('Black'));
+        imagestring($this->gd, $style['font'], $left, $height, is_array($string) ? $string['value'] : $string, $this->_getColor('Black'));
     }
 
     public function _drawCenterText($string, $left, $right, $height, $style) // {{{2
