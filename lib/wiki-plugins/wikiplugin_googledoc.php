@@ -243,17 +243,17 @@ function wikiplugin_googledoc($data, $params)
     $ret .= '<iframe ';
     $ret .= " name=\"$frameName\"";
 
-    if ($size == 'small') {
-        $width = 410;
-        $height = 342;
-    }
-    if ($size == 'medium') {
-        $width = 555;
-        $height = 451;
-    }
-    if ($size == 'large') {
-        $width = 700;
-        $height = 559;
+    if (isset($size)) {
+        if ($size == 'small') {
+            $width = 410;
+            $height = 342;
+        } elseif ($size == 'medium') {
+            $width = 555;
+            $height = 451;
+        } elseif ($size == 'large') {
+            $width = 700;
+            $height = 559;
+        }
     }
 
     if (isset($width)) {
