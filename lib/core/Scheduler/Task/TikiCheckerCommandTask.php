@@ -87,5 +87,6 @@ class Scheduler_Task_TikiCheckerCommandTask extends Scheduler_Task_CommandTask
 
     public function getParams()
     {
+        return [];
     }
 }
