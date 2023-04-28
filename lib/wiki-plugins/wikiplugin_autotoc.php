@@ -109,6 +109,7 @@ function wikiplugin_autotoc_info()
 
 function wikiplugin_autotoc($data, $params)
 {
+    global $prefs;
     $defaults = [
         'align' => 'right',
         'levels' => '',
