@@ -691,7 +691,7 @@ if (isset($_REQUEST['save']) && empty($errors)) {
         $_REQUEST['rating'],
         $isfloat,
         $emails,
-        $_REQUEST['from'],
+        $_REQUEST['from'] ?? 0,
         $_REQUEST['list_image_x'],
         $_REQUEST['list_image_y'],
         $ispublished
