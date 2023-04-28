@@ -49,7 +49,7 @@ if ((! isset($_REQUEST['type']) || $_REQUEST['type'] == 'wiki page' || $_REQUEST
     $type = "wiki page";
     $objId = $info['page_id'];
     $langpage = $info['lang'];
-    $fullLangName = $langmapping[$langpage][0];
+    $fullLangName = (! empty($langmapping[$langpage])) ? $langmapping[$langpage][0] : null;
     $smarty->assign('languageName', $fullLangName);
     $cat_type = 'wiki page';
     $cat_objid = $name;
