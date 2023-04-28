@@ -271,7 +271,7 @@ if (isset($_REQUEST['assign']) && ! isset($_REQUEST['quick_perms']) && $access->
         }
     }
 
-    if (in_array('tiki_p_admin', $changed['deleted']['Admins'])) {
+    if (isset($changed['deleted']['Admins']) && in_array('tiki_p_admin', $changed['deleted']['Admins'])) {
         unset($changed['deleted']['Admins'][array_search('tiki_p_admin', $changed['deleted']['Admins'])]);
     }
 
