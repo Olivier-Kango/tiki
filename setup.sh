@@ -72,6 +72,13 @@ for ADDPATH in ${SEARCHPATH} ; do
         fi
     fi
 done
+# Virtualmin per-domain php versions
+PREPENDPATH="`dirname $0`/bin `dirname $0`/../bin"
+for PREPPATH in ${PREPENDPATH} ; do
+    if [ -d ${PREPPATH} ] ; then
+        PATH="${PREPPATH}:${PATH}"
+    fi
+done
 if [ ${DEBUG_PATH} = '1' ] ; then
     echo ${DEBUG_PREFIX}
     echo ${DEBUG_PREFIX} new path: ${PATH}

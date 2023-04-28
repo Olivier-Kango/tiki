@@ -843,6 +843,11 @@ if (version_compare(PHP_VERSION, '5.6.0', '<')) {
 if (function_exists('exec')) {
     $cliSearchList = array('php', 'php56', 'php5.6', 'php5.6-cli');
     $isUnix = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? false : true;
+    if ($isUnix) {
+        // add virtualmin per-domain php configurations
+        array_unshift($cliSearchList, __DIR__ . '/bin/php');
+        array_unshift($cliSearchList, __DIR__ . '../bin/php');
+    }
     $cliCommand = '';
     $cliVersion = '';
     foreach ($cliSearchList as $command) {
