@@ -201,21 +201,24 @@ class ComposerCli
 
         $this->phpCli = false;
 
+        // add virtualmin per-domain locations first
+        $command_locations = self::PHP_COMMAND_NAMES;
+        array_unshift($command_locations, $this->basePath . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'php');
+        array_unshift($command_locations, $this->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'php');
+
         // try to check the PHP binary path using operating system resolution mechanisms
-        foreach (self::PHP_COMMAND_NAMES as $cli) {
-            $possibleCli = $cli;
-            $prefix = 'command';
+        foreach ($command_locations as $cli) {
             if (\Tiki\TikiInit::isWindows()) {
-                $possibleCli .= '.exe';
-                $prefix = 'where';
+                $process = new Process(['where', $cli . '.exe']);
+            } else {
+                $process = new Process([$cli, '--version']);
             }
-            $process = new Process([$prefix, $possibleCli]);
             $process->inheritEnvironmentVariables();
             $process->setTimeout($this->timeout);
             $process->run();
             $output = $process->getOutput();
             if ($output) {
-                $this->phpCli = trim($output);
+                $this->phpCli = $cli;
                 return $this->phpCli;
             }
         }
