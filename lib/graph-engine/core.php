@@ -452,13 +452,16 @@ class Graphic
 
         foreach ($this->legend as $key => $info) {
             list( $color, $value, $url ) = $info;
+            $topValue = $y + $box_offset;
+            $rightValue = $x + $box_size;
+            $bottomValue = $y + $box_size + $box_offset;
             $this->_drawLegendBox(
                 new Fake_GRenderer(
                     $renderer,
                     $x,
-                    $y + $box_offset,
-                    $x + $box_size,
-                    $y + $box_size + $box_offset
+                    $topValue,
+                    $rightValue,
+                    $bottomValue
                 ),
                 $color
             );
