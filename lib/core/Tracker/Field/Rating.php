@@ -179,9 +179,6 @@ class Tracker_Field_Rating extends \Tracker\Field\AbstractField
 
         $options_array = $this->getOption('option', [1, 2, 3, 4, 5]);
         $labels_array = $this->getOption('labels', $options_array);
-        if ($mode == 'stars') {
-            $labels_array = [];
-        }
 
         if ($mode == 'like') {
             $rating_options = [0,1];

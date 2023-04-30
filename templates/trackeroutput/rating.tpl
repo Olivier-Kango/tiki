@@ -48,7 +48,7 @@
             {if ($tiki_p_tracker_vote_ratings eq 'y' && (!isset($field.my_rate) || $field.my_rate === false)) ||
             ($tiki_p_tracker_revote_ratings eq 'y' && isset($field.my_rate) && $field.my_rate !== false)}
                 {$endtag = '</a>'}
-                {capture name=thisvote}{tr}Click to vote for this value:{/tr} {$field.rating_options[i]}{/capture}
+                {capture name=thisvote}{tr}Click to vote for this value:{/tr} {tr}{$field.labels[i]}{/tr}{/capture}
                 <a
                 href="{$smarty.server.REQUEST_URI}"
                 data-vote="{$field.rating_options[i]}"
