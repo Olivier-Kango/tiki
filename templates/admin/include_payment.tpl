@@ -65,14 +65,6 @@
                             {preference name=payment_ilp_scale}
                         </div>
                     {/accordion_group}
-                    {accordion_group title="{tr}Israel Post payment module{/tr}"}
-                        <div class="admin payment">
-                            {preference name=payment_israelpost_environment}
-                            {preference name=payment_israelpost_business_id}
-                            {preference name=payment_israelpost_api_password}
-                            {preference name=payment_israelpost_request_preauth}
-                        </div>
-                    {/accordion_group}
                     {accordion_group title="{tr}Cclite{/tr}"}
                         <div class="admin payment">
                             {remarksbox title="{tr}Experimental{/tr}" type="warning" icon="bricks"}

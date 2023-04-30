@@ -488,12 +488,6 @@ class PaymentLib extends TikiDb_Bridge
         if (isset($this->gateways[$name])) {
             return $this->gateways[$name];
         }
-
-        switch ($name) {
-            case 'israelpost':
-                require_once 'lib/payment/israelpostlib.php';
-                return $this->gateways[$name] = new IsraelPostLib($this);
-        }
     }
 
     private function addFilterSort(array $filter, $sort, array &$bindvars)
