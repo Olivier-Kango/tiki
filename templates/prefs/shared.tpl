@@ -40,9 +40,9 @@
         {if !empty($dep.met)}
             {icon name="ok" class="pref_dependency tips text-success" title="{tr}Requires:{/tr} "|cat:$dep.label|escape|cat:" (OK)"}
         {elseif $dep.type eq 'profile'}
-            <div class="alert alert-warning pref_dependency highlight"{if not $p.modified} style="display:none;"{/if}>{tr}You need apply profile{/tr} <a href="{$dep.link|escape}" class="alert-link">{$dep.label|escape}</a></div>
+            <div class="alert alert-warning pref_dependency d-inline-block"{if not $p.modified} style="display:none;"{/if}>{tr}You need apply profile{/tr} <a href="{$dep.link|escape}" class="alert-link">{$dep.label|escape}</a></div>
         {else}
-            <div class="alert alert-warning pref_dependency highlight"{if not $p.modified} style="display:none;"{/if}>{tr}You need to set{/tr} <a href="{$dep.link|escape}" class="alert-link">{$dep.label|escape}</a></div>
+            <div class="alert alert-warning pref_dependency d-inline-block"{if not $p.modified} style="display:none;"{/if}>{tr}You need to set{/tr} <a href="{$dep.link|escape}" class="alert-link">{$dep.label|escape}</a></div>
         {/if}
     {/foreach}
 {/if}
@@ -60,7 +60,7 @@
         {if !empty($dep.met)}
             {icon name="ok" class="pref_dependency tips text-success" title="{tr}Requires package:{/tr} "|cat:$dep.label|escape|cat:" (OK)"}
         {else}
-            <div class="alert alert-warning pref_dependency highlight"{if not $p.modified and not $p.value} style="display:none;"{/if}>
+            <div class="alert alert-warning pref_dependency d-inline-block"{if not $p.modified and not $p.value} style="display:none;"{/if}>
                 {tr}A Tiki package is missing:{/tr} <a href="tiki-admin.php?page=packages" class="alert-link">{$dep.label|escape}</a>
             </div>
         {/if}
