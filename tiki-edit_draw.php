@@ -28,7 +28,6 @@ $filegallib = TikiLib::lib('filegal');
 $access->check_feature('feature_draw');
 $access->check_feature('feature_file_galleries');
 
-include_once("categorize_list.php");
 include_once('tiki-section_options.php');
 include_once('lib/mime/mimetypes.php');
 global $mimetypes;
@@ -36,7 +35,6 @@ global $mimetypes;
 ask_ticket('draw');
 
 $_REQUEST['fileId'] = (int)$_REQUEST['fileId'];
-$smarty->assign('fileId', $_REQUEST['fileId']);
 
 if ($_REQUEST['fileId'] > 0) {
     $fileInfo = $filegallib->get_file_info($_REQUEST['fileId']);
@@ -46,6 +44,11 @@ if ($_REQUEST['fileId'] > 0) {
 } else {
     $fileInfo = [];
 }
+$cat_type = 'file gallery';
+$cat_objid = $_REQUEST['galleryId'];
+
+include_once("categorize_list.php");
+$smarty->assign('fileId', $_REQUEST['fileId']);
 
 //This allows the document to be edited, but only the most recent of that group if it is an archive
 if (! empty($fileInfo['archiveId']) && $fileInfo['archiveId'] > 0) {
