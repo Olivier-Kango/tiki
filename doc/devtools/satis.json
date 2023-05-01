@@ -2045,6 +2045,7 @@
         "melbahja/seo": "^1.0||^2.0",
         "michelf/php-smartypants": ">=1.7.1",
         "mikey179/vfsStream": ">=v1.1.0",
+        "minishlink/web-push" : "~7.0.0",
         "moment/moment": "^2.22",
         "montefuscolo/xmpp": ">=0.7.0",
         "morteza/bootstrap-rtl": ">=3.3.2",
