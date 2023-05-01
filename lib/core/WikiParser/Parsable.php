@@ -297,7 +297,7 @@ if ( \$('#$id') ) {
                     . ', '
                     . json_encode($plugin_name)
                     . ', '
-                    . json_encode($current_index)
+                    . json_encode($current_index ?? '')
                     . ', '
                     . json_encode($this->option['page'])
                     . ', '
