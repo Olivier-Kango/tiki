@@ -223,7 +223,7 @@ if (isset($_REQUEST['assign']) || isset($_REQUEST['preview'])) {
     // Verify that required parameters are present
     $missing_params = [];
     $modinfo = $modlib->get_module_info($_REQUEST['assign_name']);
-    if ($_REQUEST['moduleId'] > 0) {
+    if (isset($_REQUEST['moduleId']) && $_REQUEST['moduleId'] > 0) {
         foreach ($modinfo['params'] as $pname => $param) {
             if ($param['required'] && empty($_REQUEST['assign_params'][$pname])) {
                 $missing_params[] = $param['name'];
