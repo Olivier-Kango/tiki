@@ -266,10 +266,22 @@ composer-lock:
     - cp $(command -v composer) temp/composer.phar
     - php temp/composer.phar -V | grep "version 2" || php temp/composer.phar self-update --2
     - php doc/devtools/update_composer_lock.php
+  before_script:
+    - mkdir before || true
+    - cp vendor_bundled/composer.json vendor_bundled/composer.lock before
+  after_script:
+    - mkdir after || true
+    - cp vendor_bundled/composer.json vendor_bundled/composer.lock after
   dependencies:
     - composer
   needs:
     - composer
+  artifacts:
+    paths:
+      - before
+      - after
+    expire_in: 7 days
+    when: always
   allow_failure: true
 
 .template-tiki-schema-upgrade: &template-tiki-schema-upgrade
