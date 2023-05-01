@@ -11433,7 +11433,7 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-e28cb0915b4e3749bf57d4ebae2984e25395cfe5-zip-781d67.zip",
                 "reference": "e28cb0915b4e3749bf57d4ebae2984e25395cfe5",
-                "shasum": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+                "shasum": "56e9287e4966c253d68dcd1bb04a362b80193ab4"
             },
             "require": {
                 "php": "^7.1 || ^8.0"
@@ -15715,9 +15715,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-053e7c33db8cae16d6505fbb4173b815941462d8-zip-e76b56.zip",
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-e69363c385081d127bd5bd010697bea25d15ca43-zip-9d24b5.zip",
                 "reference": "053e7c33db8cae16d6505fbb4173b815941462d8",
-                "shasum": "55b837f0c062127a02f599d138ff2e77dbcb6f2e"
+                "shasum": "c087f9b268d401094fe28988f2d1f74a456d546f"
             },
             "require": {
                 "php": ">=5.4",
