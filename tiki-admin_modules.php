@@ -301,7 +301,7 @@ if (isset($_REQUEST['preview'])) {
                 $function(
                     [
                             'name' => $_REQUEST['assign_name'],
-                            'position' => $_REQUEST['assign_position'],
+                            'position' => $_REQUEST['assign_position'] ?? '',
                             'ord' => $_REQUEST['assign_order'],
                             'cache_time' => $_REQUEST['assign_cache'] ?? '',
                             'rows' => $module_rows
