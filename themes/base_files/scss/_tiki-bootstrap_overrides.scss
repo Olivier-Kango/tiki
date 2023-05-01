@@ -174,57 +174,57 @@ body.fullscreen.tiki.navbar-padding {
 }
 
 
-.layout_social,
-.layout_social_modules {
-    a.navbar-brand img {
-        display: inline;
-    }
-    h1.sitetitle {
-        font-size: 1.8rem;
-        margin-top: 10px;
-        margin-bottom: 0;
-    }
-    h2.sitesubtitle {
-        font-size: 1.2rem
-    }
-    h1.sitetitle,
-    h2.sitesubtitle {
-        display: inline-block
-    }
-    .sitetitle,
-    .sitesubtitle {
-        margin-right: 1rem
-    }
-
-    #topbar_modules {
-        display: inline-block;
-    }
-}
-
-.layout_social_modules {
-    #topbar_modules {
-        display: block;
-    }
-}
-
-.header_outer.navbar {
-    margin-bottom: 0;
-}
-
-.navbar-fixed-top,
-#navbar-collapse-social {
-    .navbar {
-        margin-bottom: 0;
-        min-height: 32px;
-    }
-}
-
-.navbar-nav {
-    -ms-flex-negative: 0;
-}
-
-#topbar_modules_social { float: left; }
-
+//.layout_social,                   Selectors no longer match the HTML - g_c-l.
+//.layout_social_modules {
+//    a.navbar-brand img {
+//        display: inline;
+//    }
+//    h1.sitetitle {
+//        font-size: 1.8rem;
+//        margin-top: 10px;
+//        margin-bottom: 0;
+//    }
+//    h2.sitesubtitle {
+//        font-size: 1.2rem
+//    }
+//    h1.sitetitle,
+//    h2.sitesubtitle {
+//        display: inline-block
+//    }
+//    .sitetitle,
+//    .sitesubtitle {
+//        margin-right: 1rem
+//    }
+//
+//    #topbar_modules {               flexbox is now used.
+//        display: inline-block;
+//    }
+//}
+//
+//.layout_social_modules {        Selectors don't match any HTML
+//    #topbar_modules {
+//        display: block;
+//    }
+//}
+//
+//.header_outer.navbar {
+//    margin-bottom: 0;
+//}
+//
+//.navbar-fixed-top,                 Selectors don't match anything anymore, next 20 lines. g_c-l
+//#navbar-collapse-social {
+//    .navbar {
+//        margin-bottom: 0;
+//        min-height: 32px;
+//    }
+//}
+//
+//.navbar-nav {
+//    -ms-flex-negative: 0;
+//}
+//
+//#topbar_modules_social { float: left; }
+//
 // Commented this out for BS4 because it conflicts with img-fluid.
 // https://github.com/twbs/bootstrap/issues/16120
 // .img-thumbnail {
@@ -232,17 +232,17 @@ body.fullscreen.tiki.navbar-padding {
 //        max-width: none;
 //    }
 //}
-
+//
 // Update: .form-horizontal was dropped with Bootstrap 4, so this hasn't worked for a long time.
 // Needed to align checkbox with label, which has a top margin (admin forms with labels on left of input)
 //.tiki .form-horizontal .mb-3 label + div > input[type="checkbox"] { margin-top: .8em; }
 //.tiki .form-horizontal .checkbox input[type="checkbox"] {margin-top: .4em;}
-
-
-.control-label.text-left {
-    text-align: left;
-}
-
+//
+//
+//.control-label.text-left {
+//    text-align: left;
+//}
+//
 // Update: .form-horizontal was dropped with Bootstrap 4, so this hasn't worked for a long time.
 // .form-horizontal .control-label.text-left {
 //    text-align: left;
@@ -250,17 +250,17 @@ body.fullscreen.tiki.navbar-padding {
 
 .affix-top {position: static; }
 .affix { position: fixed; top: 10px; max-height: calc(100vh - 20px); overflow-y: auto !important; }
-.affix-bottom { position: absolute; left: 0!important; }
+.affix-bottom { position: absolute; left: 0 !important; }
 
 // default width "auto" causes the input to overflow outside of narrow divs.
 .col-sm-2 .form-inline .form-control,
 .col-md-2 .form-inline .form-control { width: 100%; }
 
 // Remove negative side margins on div.row in forms, etc. to keep left and right whitespace
-.mb-3.row {
-    margin-left: 0;
-    margin-right: 0;
-}
+//.mb-3.row {                        Probably no longer needed as row was removed from .row.mb-3 in forms for Bootstap 5
+//    margin-left: 0;
+//    margin-right: 0;
+//}
 
 ///// User layout columns (module zones) switching / toggling (resurrected feature)
 // .side-col-toggle-container {width: 100%; height: 1.5rem; margin-top: -.8rem; display:flex;} - Bootstrap classes in tpl already provide these properties

@@ -682,7 +682,6 @@ input[type="checkbox"].preffilter-toggle-round + label {
 input[type="checkbox"].preffilter-toggle-round + label:before {
   color: #212529;
   background-color: #fff;
-  border-color: #e6e6e6;
 }
 input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   background-color: #198754;
@@ -3636,45 +3635,6 @@ body.fullscreen.tiki.navbar-padding {
 .tiki .table-responsive > .table td.action {
   white-space: nowrap;
 }
-.layout_social a.navbar-brand img, .layout_social_modules a.navbar-brand img {
-  display: inline;
-}
-.layout_social h1.sitetitle, .layout_social_modules h1.sitetitle {
-  font-size: 1.8rem;
-  margin-top: 10px;
-  margin-bottom: 0;
-}
-.layout_social h2.sitesubtitle, .layout_social_modules h2.sitesubtitle {
-  font-size: 1.2rem;
-}
-.layout_social h1.sitetitle, .layout_social h2.sitesubtitle, .layout_social_modules h1.sitetitle, .layout_social_modules h2.sitesubtitle {
-  display: inline-block;
-}
-.layout_social .sitetitle, .layout_social .sitesubtitle, .layout_social_modules .sitetitle, .layout_social_modules .sitesubtitle {
-  margin-right: 1rem;
-}
-.layout_social #topbar_modules, .layout_social_modules #topbar_modules {
-  display: inline-block;
-}
-.layout_social_modules #topbar_modules {
-  display: block;
-}
-.header_outer.navbar {
-  margin-bottom: 0;
-}
-.navbar-fixed-top .navbar, #navbar-collapse-social .navbar {
-  margin-bottom: 0;
-  min-height: 32px;
-}
-.navbar-nav {
-  -ms-flex-negative: 0;
-}
-#topbar_modules_social {
-  float: left;
-}
-.control-label.text-left {
-  text-align: left;
-}
 .affix-top {
   position: static;
 }
@@ -3690,10 +3650,6 @@ body.fullscreen.tiki.navbar-padding {
 }
 .col-sm-2 .form-inline .form-control, .col-md-2 .form-inline .form-control {
   width: 100%;
-}
-.mb-3.row {
-  margin-left: 0;
-  margin-right: 0;
 }
 @media (max-width: 575.98px) {
   .side-col-toggle-container {
