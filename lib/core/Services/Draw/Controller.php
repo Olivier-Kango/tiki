@@ -42,7 +42,7 @@ class Services_Draw_Controller
         $_REQUEST['fileId'] = $input->fileId->int();
         $_REQUEST['galleryId'] = $input->galleryId->int();
         $imgParams = $input->imgParams;
-        if ($imgParams->fromFieldId) {
+        if (isset($imgParams->fromFieldId) && $imgParams->fromFieldId) {
             $_REQUEST['fromFieldId'] = $input->imgParams->fromFieldId->int();
             $_REQUEST['fromItemId'] = $input->imgParams->fromItemId->int();
         }
