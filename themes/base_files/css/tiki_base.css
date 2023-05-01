@@ -1456,17 +1456,16 @@ header:not(.fixed-top) a.sitelogo {
   display: inline-block;
 }
 .sitetitles .sitetitle {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: var(--tiki-site-title-font-size);
+  font-weight: var(--tiki-site-title-font-weight);
 }
 .sitetitles .sitesubtitle {
-  font-size: 1.6rem;
-  font-weight: 500;
+  font-size: var(--tiki-site-subtitle-font-size);
+  font-weight: var(--tiki-site-subtitle-font-weight);
 }
 .sitetitles .d-flex {
   justify-content: center;
   flex-direction: column;
-  align-content: center;
   height: 100%;
 }
 .layout_social .fixed-top .navbar-brand, .layout_social .fixed-top .sitetitle, .layout_social .fixed-top .sitesubtitle {

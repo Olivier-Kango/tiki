@@ -221,21 +221,21 @@ header:not(.fixed-top) a.sitelogo {
     padding-bottom: $spacer * .7;
 }
 
-// This CSS doesn't currently match anything because div.sitetitles has been removed. Todo: check if replacement CSS is needed.
+// Basic layout (layout_social) and Classic Tiki layout (layout_classic)
 .sitetitles {
     display: inline-block;
     .sitetitle {
-        font-size: 2rem;
-        font-weight: 700;
+        font-size: var(--tiki-site-title-font-size); // 2rem; These CSS variables are defined in base_files/scss/_tiki-variables.scss or by each theme or in L&F custom CSS.
+        font-weight: var(--tiki-site-title-font-weight); // 700;
     }
     .sitesubtitle {
-        font-size: 1.6rem;
-        font-weight: 500;
+        font-size: var(--tiki-site-subtitle-font-size); // 1.6rem;
+        font-weight: var(--tiki-site-subtitle-font-weight); // 500;
     }
     .d-flex {
         justify-content: center;
         flex-direction: column;
-        align-content: center;
+//        align-content: center; Doesn't seem to have any effect here.
         height: 100%;
     }
 }
