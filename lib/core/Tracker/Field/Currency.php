@@ -141,8 +141,12 @@ class Tracker_Field_Currency extends \Tracker\Field\AbstractField implements \Tr
 
     public function renderInnerOutput($context = [])
     {
+        global $prefs;
         $data = $this->getFieldData();
         $locale = $this->getOption('locale');
+        if (empty($locale)) {
+            $locale = $prefs['tracker_currency_default_locale'];
+        }
         $currency = $data['currency'] ?? $this->getOption('currency', 'USD');
         $symbol = $this->getOption('symbol');
         if (empty($symbol)) {
