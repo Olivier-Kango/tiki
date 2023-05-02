@@ -240,7 +240,9 @@ $smarty->assign('preview', 'n');
 if (isset($_REQUEST['preview'])) {
     $smarty->assign('preview', 'y');
     $smarty->assign_by_ref('assign_name', $_REQUEST['assign_name']);
-    if (! is_array($_REQUEST['assign_params'])) {
+    if (! isset($_REQUEST['assign_params'])) {
+        $module_params = [];
+    } elseif (! is_array($_REQUEST['assign_params'])) {
         parse_str($_REQUEST['assign_params'], $module_params);
     } else {
         $module_params = $_REQUEST['assign_params'];
@@ -306,7 +308,7 @@ if (isset($_REQUEST['preview'])) {
                             'cache_time' => $_REQUEST['assign_cache'] ?? '',
                             'rows' => $module_rows
                             ],
-                    $_REQUEST['assign_params']
+                    $_REQUEST['assign_params'] ?? []
                 ); // Warning: First argument should have all tiki_modules table fields. This is just a best effort.
             }
         }
