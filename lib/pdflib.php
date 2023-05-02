@@ -1027,7 +1027,66 @@ class PdfGenerator
 
     public function bootstrapReplace()
     {
-        return ".col-xs-12 {width: 100%;}.col-xs-11 {width: 81.66666667%;}.col-xs-10 {width: 72%;}.col-xs-9 {width: 64%;}.col-xs-8 {width: 62%;}.col-xs-7 {width: 49%;}.col-xs-6 {width: 45.7%;}.col-xs-5 {width: 35%;}.col-xs-4 {width: 28%;}.col-xs-3{width: 20%;}.col-xs-2 {width: 12.2%;}.col-xs-1 {width: 3.92%;}    .table-striped {border:1px solid #ccc;} .table-striped td { padding: 8px; line-height: 1.42857143;vertical-align: center;border-top: 1px solid #ccc;} .table-striped th { padding: 10px; line-height: 1.42857143;vertical-align: center;   } .table-striped .odd {padding:10px;} .table-striped .even {padding:10px;}.trackerfilter form, .list_filter form{display:none;} table.pvtTable tr td {border:1px solid}.wp-sign{position:relative;display:block;background-color:#fff;color:#666;font-size:10px} .wp-sign a,.wp-sign a:visited{color:#999} .icon-link-external{margin-left:10px;font-size:10px} .ui-widget-content{width:100%} .ui-widget-content td{border:solid 1px #ccc;padding:5px} .jSBarLeft{width:30px} .dl-horizontal dt {float: left;width: 160px;clear: left;text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}.dl-horizontal dd {margin-left: 180px;}.media-left, .media-right, .media-body {border:none !important;float:left;display:inline-block;width:55px;}.media-body{width:80%}.media comment{clear:both}";
+        return <<<TEXT
+.col-xs-12 { width: 100%; float:left; }
+.col-xs-11 { width: 81.66666667%; float:left; }
+.col-xs-10 { width: 72%; float:left; }
+.col-xs-9 { width: 64%; float:left; }
+.col-xs-8 { width: 62%; float:left; }
+.col-xs-7 { width: 49%; float:left; }
+.col-xs-6 { width: 45.7%; float:left; }
+.col-xs-5 { width: 35%; float:left; }
+.col-xs-4 { width: 28%; float:left; }
+.col-xs-3 { width: 20%; float:left; }
+.col-xs-2 { width: 12.2%; float:left; }
+.col-xs-1 { width: 3.92%; float:left; }
+.table-striped { border: 0.75pt solid #ccc; }
+.table-striped td { 
+    padding: 6pt;
+    line-height: 1.42857143;
+    vertical-align: center;
+    border-top: 0.75pt solid #ccc; 
+}
+.table-striped th { 
+    padding: 7.5pt;
+    line-height: 1.42857143;
+    vertical-align: center;
+}
+.table-striped .odd { padding: 7.5pt; }
+.table-striped .even { padding: 7.5pt; }
+.trackerfilter form, .list_filter form { display: none; }
+table.pvtTable tr td { border: 0.75pt solid; }
+.wp-sign {
+    position: relative;
+    display: block;
+    background-color: #fff;
+    color: #666;
+    font-size: 7.5pt;
+}
+.wp-sign a, .wp-sign a:visited { color: #999; }
+.icon-link-external { margin-left: 7.5pt; font-size: 7.5pt; }
+.ui-widget-content { width: 100% }
+.ui-widget-content td { border: solid 0.75pt #ccc; padding: 3.75pt; }
+.jSBarLeft { width: 22.5pt; }
+.dl-horizontal dt {
+    float: left;
+    width: 120pt;
+    clear: left;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.dl-horizontal dd { margin-left: 135pt; }
+.media-left, .media-right, .media-body {
+    border: none !important;
+    float: left;
+    display: inline-block;
+    width: 41.25pt;
+}
+.media-body { width: 80%; }
+.media comment { clear: both; }
+TEXT;
     }
 
     public function sortContent(&$table, &$tempValue, &$sortedContent, $tag)
