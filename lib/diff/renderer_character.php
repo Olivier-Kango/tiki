@@ -58,7 +58,7 @@ class Text_Diff_Renderer_character extends Tiki_Text_Diff_Renderer
         } elseif ($type == 'added' || $type == 'change-added') {
             $l = "";
             foreach ($lines as $line) {
-                $l .= htmlspecialchars($line);
+                $l .= empty($line) ? '<br>' : htmlspecialchars($line);
             }
             if (! empty($l)) {
                 $this->final .= '<ins class="diffchar inserted"><strong>' . $l . "</strong></ins>";
@@ -66,7 +66,7 @@ class Text_Diff_Renderer_character extends Tiki_Text_Diff_Renderer
         } elseif ($type == 'deleted' || $type == 'change-deleted') {
             $l = "";
             foreach ($lines as $line) {
-                $l .= htmlspecialchars($line);
+                $l .= empty($line) ? '<br>' : htmlspecialchars($line);
             }
             if (! empty($l)) {
                 $this->orig .= '<del class="diffchar deleted"><strong>' . $l . "</strong></del>";
