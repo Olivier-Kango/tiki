@@ -772,7 +772,8 @@ class WikiLib extends TikiLib
             'namespace' => $info['namespace'],
         ];
 
-        if ($prefs['wiki_auto_toc'] === 'y' && $this->get_page_auto_toc($page) >= 0) {
+        $pageAutoToc = $this->get_page_auto_toc($page);
+        if ($prefs['wiki_auto_toc'] === 'y' && ($pageAutoToc >= 0 || ($pageAutoToc == 0 && $prefs['wiki_toc_default'] == 'on'))) {
             $parse_options['autotoc'] = true;
         }
 
@@ -1894,9 +1895,12 @@ class WikiLib extends TikiLib
                 // Use page specific setting?
                 if ($isAutoTocActive > 0) {
                     $isAutoTocActive = true;
-                } elseif ($isAutoTocActive <= 0) {
+                } elseif ($isAutoTocActive < 0) {
                     $isAutoTocActive = false;
+                } else {
+                    $isAutoTocActive = $prefs['wiki_toc_default'] == 'on';
                 }
+
                 // Add Auto TOC if enabled
                 if ($isAutoTocActive) {
                     // Enable Auto TOC

@@ -74,7 +74,7 @@ Some more text
         $wikilib->processPageDisplayOptions();
         $tags = $headerlib->output_js_files();
         $expected = 'lib/jquery_tiki/autoToc.js';
-        $this->assertStringNotContainsString($expected, $tags, 'Autotoc on, page set to default');
+        $this->assertStringContainsString($expected, $tags, 'Autotoc on, page set to default');
 
         $headerlib->clear_js(true);
         $wikilib->set_page_auto_toc($this->pageName, -1);

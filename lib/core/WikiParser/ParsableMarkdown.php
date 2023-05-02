@@ -16,7 +16,6 @@ use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\Table\Table;
 use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\Extension\Table\TableRenderer;
-use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
 use League\CommonMark\MarkdownConverter;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
@@ -57,7 +56,6 @@ class WikiParser_ParsableMarkdown extends ParserLib
 
         if ($this->option['autotoc']) {
             $environment->addExtension(new HeadingPermalinkExtension());
-            $environment->addExtension(new TableOfContentsExtension());
         }
 
         if ($prefs['markdown_gfm'] === 'y') {
