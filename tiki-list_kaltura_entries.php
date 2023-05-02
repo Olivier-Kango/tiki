@@ -143,18 +143,17 @@ try {
 
     if ($_REQUEST['list'] == 'media') {
         $kalturaadminlib = TikiLib::lib('kalturaadmin');
-        if ($jitRequest->view->alpha() != 'browse') {
-            $kmedialist = $kalturaadminlib->listMedia($sort_mode, $page, $page_size, $find);
-
-            for ($i = 0; $i < $kmedialist->totalCount; $i++) {
-                $kmedialist->objects[$i]->mediaType = $mediaTypeAsString[$kmedialist->objects[$i]->mediaType];
-                $kmedialist->objects[$i]->statusString = $statusAsString[$kmedialist->objects[$i]->status];
+        $kmedialist = $kalturaadminlib->listMedia($sort_mode, $page, $page_size, $find);
+        if ($kmedialist) {
+            if ($jitRequest->view->alpha() != 'browse') {
+                for ($i = 0; $i < $kmedialist->totalCount; $i++) {
+                    $kmedialist->objects[$i]->mediaType = $mediaTypeAsString[$kmedialist->objects[$i]->mediaType];
+                    $kmedialist->objects[$i]->statusString = $statusAsString[$kmedialist->objects[$i]->status];
+                }
             }
-        } else {
-            $kmedialist = $kalturaadminlib->listMedia($sort_mode, $page, $page_size, $find);
+            $smarty->assign('klist', $kmedialist->objects);
+            $smarty->assign('cant', $kmedialist->totalCount);
         }
-        $smarty->assign('klist', $kmedialist->objects);
-        $smarty->assign('cant', $kmedialist->totalCount);
         $smarty->assign('entryType', 'media');
         $smarty->assign('view', $jitRequest->view->alpha());
     }
