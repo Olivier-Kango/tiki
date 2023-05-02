@@ -33,10 +33,10 @@ function color($string, $color)
 /**
  * @param $message
  */
-function error($message)
+function error($message, $exitCode = 1)
 {
     echo color($message, 'red') . "\n";
-    exit(1);
+    exit($exitCode);
 }
 
 /**

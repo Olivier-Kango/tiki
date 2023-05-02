@@ -35,9 +35,9 @@ if (! file_exists($composerPharFile)) {
 $composerLockBefore = file_get_contents($composerLockFile);
 $composerOutput = null;
 $composerRetval = null;
-exec('cd ' . $vendorBundledDir . ' && ../temp/composer.phar update nothing  --no-progress', $composerOutput, $composerRetval);
+exec('cd ' . $vendorBundledDir . ' && ../temp/composer.phar update --lock  --no-progress', $composerOutput, $composerRetval);
 if ($composerRetval !== 0) {
-    error("composer update failed with exit code $composerRetval.  Unable to update and compare composer.lock, see the output above.");
+    error("composer update failed with exit code $composerRetval.  Unable to update and compare composer.lock, see the output above.", $composerRetval);
 }
 
 $composerLockAfter = file_get_contents($composerLockFile);

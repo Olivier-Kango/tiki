@@ -50,7 +50,11 @@ composer:
   variables:
     COMPOSER_DISCARD_CHANGES: "true"
     COMPOSER_NO_INTERACTION: "1"
-    COMPOSER_CACHE_DIR: ".composercache"
+    #Be carefull here, composer cache dir handling can be a bit surprising.
+    #If cache dir is a relative path, it's relative to the working directory, or the -d parameter if specified.
+    #If cache dir in an absolute path, it's used as is.
+    #Since we use multiple vendor directories, and gitlab-ci has different rules for cache, and we want a global cache, we use ${CI_PROJECT_DIR} here so it's always at the root
+    COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d vendor_bundled --no-progress --prefer-dist -n
@@ -81,7 +85,7 @@ composer-dbdiff:
   variables:
     COMPOSER_DISCARD_CHANGES: "true"
     COMPOSER_NO_INTERACTION: "1"
-    COMPOSER_CACHE_DIR: ".composercache-dbdiff"
+    COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache-dbdiff
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d doc/devtools/dbdiff/ --no-progress --prefer-dist -n
@@ -259,9 +263,46 @@ check-directories:
   dependencies: []
   needs: []
 
+#This is a non-network check
+composer-validates:
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  stage: tiki-check
+  script:
+    - composer -V | grep "version 2" || composer self-update --2
+    - composer validate -d vendor_bundled --no-check-all
+  dependencies: []
+  needs: []
+
+#This tests if composer COULD update the current composer.lock (it is coherent and installable).
+#This is a network check, it could fail because composer.tiki.org is not up to date or some other non-code related reason.
+composer-could-update-lock:
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  variables:
+    COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
+  stage: tiki-check
+  script:
+    - composer -V | grep "version 2" || composer self-update --2
+    - composer update -d vendor_bundled --lock --dry-run
+  dependencies:
+    - composer
+  needs:
+    - composer
+  cache:
+    - key:
+        prefix: "composer"
+        files:
+          - vendor_bundled/composer.lock
+      paths:
+        - .composercache/
+      #We need push, because otherwise repo information isn't cached
+      policy: pull-push
+
+#This tests if composer WOULD update the current composer.lock.  This should only be important at release
 composer-lock:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: tiki-check
+  variables:
+      COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   script:
     - cp $(command -v composer) temp/composer.phar
     - php temp/composer.phar -V | grep "version 2" || php temp/composer.phar self-update --2
@@ -272,6 +313,7 @@ composer-lock:
   after_script:
     - mkdir after || true
     - cp vendor_bundled/composer.json vendor_bundled/composer.lock after
+    - diff -u before/composer.lock after/composer.lock
   dependencies:
     - composer
   needs:
@@ -282,7 +324,16 @@ composer-lock:
       - after
     expire_in: 7 days
     when: always
-  allow_failure: true
+  cache:
+    - key:
+        prefix: "composer"
+        files:
+          - vendor_bundled/composer.lock
+      paths:
+        - .composercache/
+      policy: pull-push
+  allow_failure:
+      exit_codes: 1
 
 .template-tiki-schema-upgrade: &template-tiki-schema-upgrade
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
@@ -509,6 +560,8 @@ unit-tests-81-mysql8:
 tiki-package:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: package-tiki
+  variables:
+    COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   script:
     # Remove dev dependencies in composer
     - echo "=> Removing Composer dev dependencies ..."

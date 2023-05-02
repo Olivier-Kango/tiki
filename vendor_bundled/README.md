@@ -4,6 +4,9 @@ For user installed tiki packages not managed by composer (https://packages.tiki.
 
 They are shown in 'Packages Bundled' in Tiki Packages section.
 
+For developpers, if you need to update the packages here, you need to make them available to satis.  See <https://dev.tiki.org/composer-tiki-org>
+
+
 More details at:
  * https://dev.tiki.org/Composer
  * https://doc.tiki.org/Packages 
