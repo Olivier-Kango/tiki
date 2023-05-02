@@ -116,17 +116,15 @@
     });
     //adding bind call for pdf creation
     $('a.generate-pdf').click(function(){
-        storeSortTable('#container_{{$pivottable.id}}',$('#container_{{$pivottable.id}}').find(".pvtRendererArea"))
+        storeSortTable('#container_{{$pivottable.id}}',$('#container_{{$pivottable.id}}').find(".pvtRendererArea").html())
     });
 {/jq}
 
 <style type="text/css">
-    {literal}
-        #output_{$pivottable.id} .pvtVals,.pvtAxisContainer, .pvtUnused,.pvtRenderer, .pvtAxisContainer {
-            display:none;
+    #output_{$pivottable.id} .pvtVals,.pvtAxisContainer, .pvtUnused,.pvtRenderer, .pvtAxisContainer {
+        display:none;
 
-        }
-    {/literal}
+    }
 </style>
 
 <div id="container_{$pivottable.id}">
