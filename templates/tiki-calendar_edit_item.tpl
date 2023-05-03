@@ -546,7 +546,9 @@
                                     {tr}Tentative{/tr}
                                 </label>
                             {else}
-                                {tr}Tentative{/tr}
+                                {if (!empty($calitem) and $calitem.status eq 0) or (empty($calitem) and $calendar.defaulteventstatus eq 0)}
+                                    <label class="badge bg-secondary">{tr}Tentative{/tr}</label>
+                                {/if}
                             {/if}
                         </div>
                         <div class="statusbox">
@@ -556,7 +558,9 @@
                                     {tr}Confirmed{/tr}
                                 </label>
                             {else}
-                                {tr}Confirmed{/tr}
+                                {if (!empty($calitem) and $calitem.status eq 1) or (empty($calitem) and $calendar.defaulteventstatus eq 1)}
+                                    <label class="badge bg-success">{tr}Confirmed{/tr}</label>
+                                {/if}
                             {/if}
                         </div>
                         <div class="statusbox">
@@ -566,7 +570,9 @@
                                     {tr}Cancelled{/tr}
                                 </label>
                             {else}
-                                {tr}Cancelled{/tr}
+                                {if (!empty($calitem) and $calitem.status eq 2) or (empty($calitem) and $calendar.defaulteventstatus eq 2)}
+                                    <label class="badge bg-danger">{tr}Cancelled{/tr}</label>
+                                {/if}
                             {/if}
                         </div>
                     </div>
