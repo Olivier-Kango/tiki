@@ -39,6 +39,11 @@ Many need to stay here, either because:
 
 Most of the tiki-*.php will progressively move to either src/php/routes or public/
 
+Some files a user would still have to backup individually if he uses/customizes them:
+
+* .user.ini <https://www.php.net/manual/en/configuration.file.per-user.php>
+* robot.txt
+
 ## The directories
 
 ### TO KEEP (Currently implemented, or partially implemented)
@@ -54,6 +59,10 @@ This is the documentation for subdirectories, with hyperlinks to their respectiv
   * **dev/** For development/build/CI tools (vitejs, SCSS, GitLab-ci etc.). Need to be rw for the developper/sysadmin. Does not preclude having invisible files/folders at the root, but encourages putting devtool caches here for easy inspection/clearing/exclusion from backups
   * **prod/** //For tiki server operation, needs to be rw for PHP, and possibly other tools.
     * ^= storage/prefsdoc/
+  * **export/**
+    * ^= profiles/
+      * Written to by console.php profile:export:init, and profile exports, which creates profiles/info.ini and profiles/name_of_exported_profile/
+      * This is a write-only export process - benoitg, confirmed by jonny
 * **[vendor/](vendor/README.md)**
 * **[vendor_bundled/](vendor_bundled/README.md)**
 * **[vendor_custom/](vendor_custom/README.md)**
@@ -75,6 +84,7 @@ This is the documentation for subdirectories, with hyperlinks to their respectiv
   * **config/**
     * ^= db/
     * ^= db/config
+    * ^= db/tiki.ini.php (change the example system_configuration_file in ConfigureCommand.php)
   * **customisations/**
     * The structure would follow whatever mecanism multi-tiki and multi-domain require
     * ^= [_custom/](_custom/README.md)
@@ -84,6 +94,8 @@ This is the documentation for subdirectories, with hyperlinks to their respectiv
       2. do NOT need to be served over HTTP directly by the webserver
       3. Need to be backed-up
     * <= storage/fgal  According to the doc it should NOT be readable by webserver
+  * **lang_overrides/**
+    * For what's currently in lang/??/custom.php (customFilePath from lib/language/LanguageTranslation.php)
 
 * **public/**
   * All files that need to be served over HTTP directly by the webserver
@@ -106,7 +118,7 @@ This is the documentation for subdirectories, with hyperlinks to their respectiv
     * <= img/wiki_up/ as img_plugin_img (As of 2023-04-13, this is still used by lib/wikiplugin/wikiplugin_img.php)
     * =< whelp/ as structure_webhelp (As of 2023-04-13, this is still used by lib/structures/structlib.php)
   * **temp/**  
-    * Only temp files that need to be readable over http and do not need to be backed-up.
+    * Only temp files that need to be readable over http and do NOT need to be backed-up.
     * ^= [temp/public](temp/public/README.md)
 
 * **tests/** (both Vue and phpunit use testS, plural, so we do to)
@@ -127,7 +139,7 @@ This is the documentation for subdirectories, with hyperlinks to their respectiv
   * This directory will be split in 4 and removed.  It will make versionning easier, and things clearer:
     1. public/static/base_themes for themes distributed in tiki.  This require the theme lookup code to look in two places.
     2. public/storage/themes for themes installed from the theme installer or user custom themes.
-    3. public/custom_css and public/custom_js for behaviours currently in themes/css/custom.css and themes/js/custom.js.  The naming is still up for discussion.
+    3. public/storage/custom_css and public/storage/custom_js for behaviours currently in themes/css/custom.css and themes/js/custom.js.  The naming is still up for discussion.
     4. private/template_overrides/ for behaviours currently in themes/templates/
 
 * **tools/**
@@ -169,9 +181,6 @@ These paths may or may not still be used by code, or need more information to de
   * What does that do, what uses it?
 * **files/**
   * I think this is a remnant of Image Gallery (File gallery stores in storage/fgal by default).  benoitg 2023-04-04
-* **profiles/**
-  * Written to by console.php profile:export:init, and profile exports, which creates profiles/info.ini and profiles/name_of_exported_profile/
-  * I cannot find anywhere this is actually read from except during the export process, but I'm having trouble believing that is true - benoitg 2023-04-12
 
 ### To DELETE paths (including content)
 As far as we can tell, these are not referenced by any active code and are ready to be removed from git, setup scripts, .gitignore, etc.
