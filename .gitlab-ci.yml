@@ -296,6 +296,8 @@ composer-could-update-lock:
         - .composercache/
       #We need push, because otherwise repo information isn't cached
       policy: pull-push
+  #This test should only run when composer-validates fail (because changes in the upstream deps can make this fail without code changes).  But I could find no way to have a test only run in gitlab-ci if a specific one fails.  So allow it to fail like composer-lock for now - benoitg 2023-05-03
+  allow_failure: true
 
 #This tests if composer WOULD update the current composer.lock.  This should only be important at release
 composer-lock:
