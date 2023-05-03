@@ -825,7 +825,8 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             $list = TikiLib::lib('trk')->get_all_items(
                 $this->getOption('trackerId'),
                 $this->getOption('fieldId'),
-                $this->getOption('status', 'opc')
+                $this->getOption('status', 'opc'),
+                $this->getValue()
             );
             $list = $this->handleDuplicates($list);
         }

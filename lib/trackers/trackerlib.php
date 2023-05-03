@@ -997,7 +997,7 @@ class TrackerLib extends TikiLib
      * @param string $status
      * @return array
      */
-    public function get_all_items($trackerId, $fieldId, $status = 'o')
+    public function get_all_items($trackerId, $fieldId, $status = 'o', $selected = [])
     {
         global $prefs, $user;
         $cachelib = TikiLib::lib('cache');
@@ -1038,12 +1038,21 @@ class TrackerLib extends TikiLib
 
         $cacheKey = md5($cacheKey);
 
-        if (( ! $ret = $cachelib->getSerialized($cacheKey) ) || ! $this->valid_status($status)) {
+        if (( ! $ret = $cachelib->getSerialized($cacheKey) ) || ! $this->valid_status($status) || $selected) {
             $sts = preg_split('//', $status, -1, PREG_SPLIT_NO_EMPTY);
             $mid = " (" . implode('=? or ', array_fill(0, count($sts), 'tti.`status`')) . "=?) ";
+            $bindvars = $sts;
+            if ($selected) {
+                // append selected values to the list as their status might be omitted
+                if (! is_array($selected)) {
+                    $selected = [$selected];
+                }
+                $mid = " ($mid or tti.`itemId` in (" . implode(',', array_fill(0, count($selected), '?')) . "))";
+                $bindvars = array_merge($bindvars, $selected);
+            }
             $fieldIdArray = preg_split('/\|/', $fieldId, -1, PREG_SPLIT_NO_EMPTY);
             $mid .= " and (" . implode('=? or ', array_fill(0, count($fieldIdArray), 'ttif.`fieldId`')) . "=?) ";
-            $bindvars = array_merge($sts, $fieldIdArray);
+            $bindvars = array_merge($bindvars, $fieldIdArray);
             $join = '';
             if (! empty($jail)) {
                 $categlib->getSqlJoin($jail, 'trackeritem', 'tti.`itemId`', $join, $mid, $bindvars);
