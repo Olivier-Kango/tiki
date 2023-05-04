@@ -268,7 +268,7 @@ class FileGalLib extends TikiLib
         if ($auser === null) {
             $auser = $user;
         }
-        $name = $gal_info['name'];
+        $name = $gal_info['name'] ?? '';
 
         if (! empty($auser) && $prefs['feature_use_fgal_for_user_files'] == 'y') {
             if ($gal_info['type'] === 'user' && $gal_info['parentId'] == $prefs['fgal_root_user_id']) {
