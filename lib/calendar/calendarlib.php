@@ -618,8 +618,8 @@ class CalendarLib extends TikiLib
             $data['categoryId'] = 0;
         }
 
+        $roles = [];
         if ($caldata['customparticipants'] == 'y') {
-            $roles = [];
             if ($data["organizers"]) {
                 if (is_string($data['organizers'])) {
                     $data['organizers'] = preg_split('/\s*,\s*/', $data['organizers']);
