@@ -428,8 +428,6 @@ if (
             $prefs[$preference . '_translated'] = $prefs[$preference . '_' . $prefs['language']];
         }
     }
-
-    TikiLib::lib('multilingual')->setupBiDi();
 }
 
 $page = $info['pageName'];

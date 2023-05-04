@@ -21,10 +21,6 @@ $inputConfiguration = [
 ];
 require_once('tiki-setup.php');
 
-if (Language::isRTL()) {
-    TikiLib::lib('header')->add_cssfile('vendor_bundled/vendor/hesammousavi/bootstrap-v4-rtl/bootstrap-rtl.min.css', 99); // 99 is high rank order as it should load after all other css files
-}
-
 $access->check_feature('change_password');
 
 if (empty($_REQUEST['user']) || ! $userlib->user_exists($_REQUEST['user'])) {

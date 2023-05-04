@@ -67,5 +67,3 @@ if (! isValidLocale($prefs['language'])) {
     // Override broken user locales
     setLanguage($prefs['site_language']);
 }
-
-TikiLib::lib('multilingual')->setupBiDi();

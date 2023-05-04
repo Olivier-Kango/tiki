@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a513cb6145b38d8016133cdfdd8a21a5",
+    "content-hash": "b897c5c3f242ba1dd653cfb970c43f15",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2614,38 +2614,6 @@
                 "sieve"
             ],
             "time": "2022-09-13T14:28:15+00:00"
-        },
-        {
-            "name": "hesammousavi/bootstrap-v4-rtl",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Hesammousavi/bootstrap-v4-rtl.git",
-                "reference": "1dff86c411b08d86b0810f80070c2389692d466e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/hesammousavi/bootstrap-v4-rtl/hesammousavi-bootstrap-v4-rtl-1dff86c411b08d86b0810f80070c2389692d466e-zip-21d94c.zip",
-                "reference": "1dff86c411b08d86b0810f80070c2389692d466e",
-                "shasum": "2d6780eba9300b5d61174c96a35f6f8728746dfa"
-            },
-            "type": "project",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Hesam Mousavi",
-                    "email": "hesammoousavi@gmail.com"
-                }
-            ],
-            "description": "boootstrap4 right to left",
-            "keywords": [
-                "bootstra",
-                "bootstrap-rtl"
-            ],
-            "time": "2020-09-01T05:04:14+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -8643,17 +8611,17 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "1.17.0",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "bd810d15957cf165230e65d9e1a130793265e3b7"
+                "reference": "29ae6fae35f4116bbfe4c8b96ccc3f687eb07cd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-bd810d15957cf165230e65d9e1a130793265e3b7-zip-c7b093.zip",
-                "reference": "bd810d15957cf165230e65d9e1a130793265e3b7",
-                "shasum": "1dbb41fed9577dd28daee0e77b793fea67f7594f"
+                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-29ae6fae35f4116bbfe4c8b96ccc3f687eb07cd9-zip-be08a2.zip",
+                "reference": "29ae6fae35f4116bbfe4c8b96ccc3f687eb07cd9",
+                "shasum": "8e104b27ac0b2d0054100f4648f499d20368009b"
             },
             "require": {
                 "composer-plugin-api": "^1.0|^2.0",
@@ -8713,7 +8681,7 @@
                 "psr17",
                 "psr7"
             ],
-            "time": "2023-04-26T15:39:13+00:00"
+            "time": "2023-05-03T14:49:12+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -9869,23 +9837,23 @@
         },
         {
             "name": "react/promise",
-            "version": "v2.9.0",
+            "version": "v2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "234f8fd1023c9158e2314fa9d7d0e6a83db42910"
+                "reference": "f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/react/promise/react-promise-234f8fd1023c9158e2314fa9d7d0e6a83db42910-zip-d00fa9.zip",
-                "reference": "234f8fd1023c9158e2314fa9d7d0e6a83db42910",
-                "shasum": "068cee6ff795834ee5ed02440b955b0cafb1997b"
+                "url": "https://composer.tiki.org/dist/react/promise/react-promise-f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38-zip-a26c17.zip",
+                "reference": "f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38",
+                "shasum": "490b9b48c9ef006ad35d66eac2b0bd0cff8ec6bc"
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.36"
+                "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.36"
             },
             "type": "library",
             "autoload": {
@@ -9929,15 +9897,11 @@
             ],
             "funding": [
                 {
-                    "url": "https://github.com/WyriHaximus",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/clue",
-                    "type": "github"
+                    "url": "https://opencollective.com/reactphp",
+                    "type": "open_collective"
                 }
             ],
-            "time": "2022-02-11T10:27:51+00:00"
+            "time": "2023-05-02T15:15:43+00:00"
         },
         {
             "name": "react/promise-timer",
@@ -11223,17 +11187,17 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.17.0",
+            "version": "3.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "95d2e932383cf684f77acff0d2a5aef5ad2f1933"
+                "reference": "2041f2ed3f82a55eaca31079e106c8b17c89dbda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-95d2e932383cf684f77acff0d2a5aef5ad2f1933-zip-b08fd7.zip",
-                "reference": "95d2e932383cf684f77acff0d2a5aef5ad2f1933",
-                "shasum": "82a93c6664658e89628e06d40d3708eb0b6334c5"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-2041f2ed3f82a55eaca31079e106c8b17c89dbda-zip-4fec3d.zip",
+                "reference": "2041f2ed3f82a55eaca31079e106c8b17c89dbda",
+                "shasum": "dd5c39b3d6f3bb61b551f1f919bb6bd35b1ffecc"
             },
             "require": {
                 "ext-json": "*",
@@ -11319,7 +11283,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-03-26T21:54:06+00:00"
+            "time": "2023-05-03T10:21:22+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -15711,12 +15675,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "053e7c33db8cae16d6505fbb4173b815941462d8"
+                "reference": "e69363c385081d127bd5bd010697bea25d15ca43"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-e69363c385081d127bd5bd010697bea25d15ca43-zip-9d24b5.zip",
-                "reference": "053e7c33db8cae16d6505fbb4173b815941462d8",
+                "reference": "e69363c385081d127bd5bd010697bea25d15ca43",
                 "shasum": "c087f9b268d401094fe28988f2d1f74a456d546f"
             },
             "require": {
@@ -15773,7 +15737,7 @@
                 "standards",
                 "static analysis"
             ],
-            "time": "2023-04-20T23:33:28+00:00"
+            "time": "2023-05-01T14:28:28+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -17211,7 +17175,6 @@
         "candy-chat/xmpp-prebind-php": 20,
         "erusev/parsedown": 10,
         "henrique-borba/php-sieve-manager": 20,
-        "hesammousavi/bootstrap-v4-rtl": 20,
         "jason-munro/cypht": 20,
         "league/flysystem": 10,
         "npm-asset/html2canvas": 5,

@@ -1226,16 +1226,4 @@ class MultilingualLib extends TikiLib
 
         return $default_lang;
     }
-
-    public function setupBiDi()
-    {
-        global $prefs;
-
-        // Some languages need BiDi support. Add their code names here ...
-        if (Language::isRTL()) {
-            TikiLib::lib('header')->add_cssfile('vendor_bundled/vendor/hesammousavi/bootstrap-v4-rtl/bootstrap-rtl.min.css', 99); // 99 is high rank order as it should load after all other css files
-        } else {
-            TikiLib::lib('header')->drop_cssfile('vendor_bundled/vendor/hesammousavi/bootstrap-v4-rtl/bootstrap-rtl.min.css');
-        }
-    }
 }
