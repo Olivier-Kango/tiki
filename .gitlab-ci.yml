@@ -15,9 +15,9 @@ variables:
   ELASTICSEARCH_HOST: elasticsearch
   BASE_QA_IMAGE: rjsmelo/ubuntu-php:7.4-qa
   MANTICORE_DSN: http://manticore
-  # You can set SKIP_GITLAB_PROXY to "true" in your project configuration to skip using the gitlab dependency proxy.
-  SKIP_GITLAB_PROXY: ''
-  # To use a custom DEPENDENCY_PROXY_PREFIX, you need to also set SKIP_GITLAB_PROXY to "true"
+  # You can set USE_GITLAB_PROXY to "true" in your project configuration to use the gitlab dependency proxy. (default not using as it may cause issues for some accounts)
+  USE_GITLAB_PROXY: ''
+  # Default value for DEPENDENCY_PROXY_PREFIX (not using any proxy), you can set this on your project also if you do not set USE_GITLAB_PROXY to "true"
   DEPENDENCY_PROXY_PREFIX: ''
 
 workflow:
@@ -35,7 +35,7 @@ workflow:
     #DEPENDENCY_PROXY_PREFIX will have no effect
     #This will run in gitlab-ci-local
     #
-    - if: $CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX != "" && $SKIP_GITLAB_PROXY == ''
+    - if: $CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX != "" && $USE_GITLAB_PROXY == 'true'
       variables:
         DEPENDENCY_PROXY_PREFIX: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/
     # THIS WILL TRIGGER PIPELINES FOR MERGE REQUESTS AND SCHEDULES, AND PUSHES ON VERSION BRANCHES LIKE 21.x. 18.x
