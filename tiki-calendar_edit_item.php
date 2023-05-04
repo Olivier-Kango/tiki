@@ -339,7 +339,7 @@ if (isset($_POST['act'])) {
                 if (isset($_POST['saveas'])) {
                     $save['calitemId'] = 0;
                 }
-                $calitemId = $calendarlib->set_item($user, $save['calitemId'], $save->asArray());
+                $calitemId = $calendarlib->set_item($user, $save['calitemId'] ?? 0, $save->asArray());
                 // Save the ip at the log for the addition of new calendar items
                 if ($prefs['feature_actionlog'] == 'y' && empty($save['calitemId']) && $caladd["$newcalid"]['tiki_p_add_events']) {
                     $logslib->add_action('Created', 'event ' . $calitemId . ' in calendar ' . $save['calendarId'], 'calendar event');
