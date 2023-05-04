@@ -22,6 +22,8 @@ class VueJsLib
 
     public function processVue($str, $name = '', $app = false, $data = [], $minify = false)
     {
+        $headerlib = TikiLib::lib('header');
+
         if (is_readable($str)) {
             $str = file_get_contents($str);
         }
