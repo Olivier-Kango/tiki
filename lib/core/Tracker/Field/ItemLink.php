@@ -1096,7 +1096,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
                 // if using displayFieldsList then only export the 'value' of the field, i.e. the title of the linked item
                 $useTextLabel = empty(array_filter($this->getOption('displayFieldsList')));
 
-                $getRenderTransformFunction = function($separator) use ($simpleField, $useTextLabel, $itemIdLookup) {
+                $getRenderTransformFunction = function ($separator) use ($simpleField, $useTextLabel, $itemIdLookup) {
                     return function ($value, $extra) use ($separator, $simpleField, $useTextLabel, $itemIdLookup) {
                         if (isset($extra['text']) && $useTextLabel) {
                             return $extra['text'];
@@ -1111,7 +1111,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
                     };
                 };
 
-                $getParseIntoTransformFunction = function($separator) use ($permName, $invertField) {
+                $getParseIntoTransformFunction = function ($separator) use ($permName, $invertField) {
                     return function (&$info, $value) use ($separator, $permName, $invertField) {
                         $itemIds = [];
                         foreach (explode($separator, $value) as $val) {
