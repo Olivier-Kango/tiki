@@ -1135,12 +1135,8 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                 // if using displayFieldsList then only export the 'value' of the field, i.e. the title of the linked item
                 $useTextLabel = empty(array_filter($this->getOption('displayFieldsList')));
 
-                $schema->addNew($permName, 'lookup-simple')
-                    ->setLabel($name)
-                    ->addIncompatibility($permName, 'id')
-                    ->addQuerySource('itemId', "object_id")
-                    ->addQuerySource('text', "tracker_field_{$permName}_text")
-                    ->setRenderTransform(function ($value, $extra) use ($simpleField, $useTextLabel, $itemIdLookup) {
+                $getRenderTransformFunction = function($separator) use ($simpleField, $useTextLabel, $itemIdLookup) {
+                    return function ($value, $extra) use ($separator, $simpleField, $useTextLabel, $itemIdLookup) {
                         if (isset($extra['text']) && $useTextLabel) {
                             return $extra['text'];
                         } else {
@@ -1149,19 +1145,34 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                             foreach (explode(',', $itemIds) as $itemId) {
                                 $values[] = $simpleField->get($itemId);
                             }
-                            return implode("\n", $values);
+                            return implode($separator, $values);
                         }
-                    })
-                    ->setParseIntoTransform(function (&$info, $value) use ($permName, $invertField) {
+                    };
+                };
+
+                $getParseIntoTransformFunction = function($separator) use ($permName, $invertField) {
+                    return function (&$info, $value) use ($separator, $permName, $invertField) {
                         $itemIds = [];
-                        foreach (explode("\n", $value) as $val) {
+                        foreach (explode($separator, $value) as $val) {
                             if ($id = $invertField->get($val)) {
                                 $itemIds[] = $id;
                             }
                         }
                         $info['fields'][$permName] = implode(',', $itemIds);
-                    })
-                    ;
+                    };
+                };
+
+                foreach (["\n" => 'new line', ' ' => 'space', ', ' => 'comma', '; ' => 'semicolon'] as $separator => $separator_name) {
+                    $column = $schema->addNew($permName, 'lookup-simple ' . $separator_name . ' separated')
+                        ->setLabel($name)
+                        ->addIncompatibility($permName, 'id')
+                        ->addQuerySource('itemId', "object_id")
+                        ->setRenderTransform($getRenderTransformFunction($separator))
+                        ->setParseIntoTransform($getParseIntoTransformFunction($separator));
+                    if ($separator == ', ') {
+                        $column->addQuerySource('text', "tracker_field_{$permName}_text");
+                    }
+                }
             }
 
             $schema->addNew($permName, 'name')
