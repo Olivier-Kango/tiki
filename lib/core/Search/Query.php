@@ -500,9 +500,9 @@ class Search_Query implements Search_Query_Interface
 
     private function parse($query)
     {
-        if (is_string($query)) {
+        if (is_scalar($query)) {
             $parser = new Search_Expr_Parser();
-            $query = $parser->parse($query);
+            $query = $parser->parse(strval($query));
         } elseif ($query instanceof Search_Expr_Interface) {
             $query = clone $query;
         }
