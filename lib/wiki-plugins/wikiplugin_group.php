@@ -141,6 +141,9 @@ function wikiplugin_group($data, $params)
     if (! empty($groups) || ! empty($pending)) {
         $ok = false;
         if (! empty($groups)) {
+            if (! is_array($groups)) {
+                $groups = explode('|', $groups);
+            }
             foreach ($userGroups as $grp) {
                 if (in_array($grp, $groups)) {
                     $ok = true;
@@ -177,7 +180,6 @@ function wikiplugin_group($data, $params)
             return $dataelse;
         }
     }
-
 
     return $data;
 }
