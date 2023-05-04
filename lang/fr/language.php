@@ -729,6 +729,7 @@ $lang_current = array(
 "Survey" => "Enquête",
 "Newsletter" => "Lettre d'informations",
 "Please type this word backwards" => "Veuillez taper ce mot en arrière",
+"BigBlueButton server location is not defined" => "L'emplacement du serveur BigBlueButton n'est pas défini",
 "Empty CAPTCHA value" => "Valeur de captcha vide",
 "You have mistyped the anti-bot verification code. Please try again" => "Vous avez mal tapé le code de vérification anti-robot. Veuillez réessayer",
 "Failed to validate CAPTCHA" => "La validation du captcha a échoué",

@@ -104,6 +104,11 @@ function wikiplugin_bigbluebutton($data, $params)
 {
     try {
         global $prefs, $user;
+
+        if (empty($prefs['bigbluebutton_server_location'])) {
+            return WikiParser_PluginOutput::error(tr('Warning'), tr('BigBlueButton server location is not defined'));
+        }
+
         $bigbluebuttonlib = TikiLib::lib('bigbluebutton');
         $meeting = $params['name']; // Meeting is more descriptive than name, but parameter name was already decided.
         $smarty = TikiLib::lib('smarty');
