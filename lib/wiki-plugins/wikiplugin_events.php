@@ -184,7 +184,7 @@ function wikiplugin_events($data, $params)
             'start_asc',
             1,
             0,
-            $start
+            $start ?? 0
         );
     }
 
@@ -196,7 +196,7 @@ function wikiplugin_events($data, $params)
             'start_asc',
             1,
             0,
-            $start
+            $start ?? 0
         );
     }
 
@@ -208,7 +208,7 @@ function wikiplugin_events($data, $params)
             'start_desc',
             0,
             -1,
-            $start
+            $start ?? 0
         );
     }
 
@@ -230,7 +230,7 @@ function wikiplugin_events($data, $params)
     // Pagination
     if ($usePagination == 'y') {
         $smarty->assign('maxEvents', $max);
-        $smarty->assign_by_ref('offset', $start);
+        $smarty->assign_by_ref('offset', $start ?? 0);
         $smarty->assign_by_ref('cant', $events['cant']);
     }
 
