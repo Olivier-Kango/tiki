@@ -237,6 +237,22 @@
         <exclude-pattern>lib/jquery_tiki/elfinder/elFinderVolumeTikiFiles.class.php</exclude-pattern>
     </rule>
 
+    <!-- Cypth Integration requires specific naming, etc -->
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>lib/cypht/integration/*</exclude-pattern>
+        <exclude-pattern>lib/cypht/modules/*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
+        <exclude-pattern>lib/cypht/integration/*</exclude-pattern>
+        <exclude-pattern>lib/cypht/modules/*</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
+        <exclude-pattern>lib/cypht/modules/*</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>lib/cypht/integration/*</exclude-pattern>
+    </rule>
+
     <!-- Temporary exceptions while codebase is not fixed -->
     <rule ref="PHPCompatibility.ParameterValues.NewHTMLEntitiesFlagsDefault.NotSet">
         <exclude-pattern>*</exclude-pattern>

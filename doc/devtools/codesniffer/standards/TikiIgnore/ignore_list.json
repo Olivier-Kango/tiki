@@ -428,14 +428,8 @@
         "lib\/core\/Math\/Formula\/Function\/Avg.php": {
             "class:Math_Formula_Function_Avg": true
         },
-        "lib\/cypht\/integration\/Tiki_Hm_Output_HTTP.php": {
-            "class:Tiki_Hm_Output_HTTP": true
-        },
         "lib\/core\/Math\/Formula\/Function\/Div.php": {
             "class:Math_Formula_Function_Div": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Custom_Cache.php": {
-            "class:Tiki_Hm_Custom_Cache": true
         },
         "lib\/core\/Math\/Formula\/Function\/Pad.php": {
             "class:Math_Formula_Function_Pad": true
@@ -533,14 +527,8 @@
         "lib\/core\/Search\/Action\/Sequence.php": {
             "class:Search_Action_Sequence": true
         },
-        "lib\/cypht\/integration\/Tiki_Hm_Site_Config_File.php": {
-            "class:Tiki_Hm_Site_Config_File": true
-        },
         "lib\/core\/Search\/Action\/ReportingTransform.php": {
             "class:Search_Action_ReportingTransform": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Sieve_Client_Factory.php": {
-            "class:Tiki_Hm_Sieve_Client_Factory": true
         },
         "lib\/test\/payment\/CartTest.php": {
             "class:Payment_CartTest": true
@@ -554,9 +542,6 @@
         "lib\/wizard\/pages\/user_preferences_reports.php": {
             "class:UserWizardPreferencesReports": true
         },
-        "lib\/cypht\/integration\/Tiki_Hm_User_Config.php": {
-            "class:Tiki_Hm_User_Config": true
-        },
         "lib\/wizard\/pages\/admin_text_area.php": {
             "class:AdminWizardTextArea": true
         },
@@ -565,9 +550,6 @@
         },
         "lib\/wizard\/pages\/changes_new_in_20.php": {
             "class:ChangesWizardNewIn20": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Tiki_Cache.php": {
-            "class:Tiki_Hm_Tiki_Cache": true
         },
         "lib\/core\/Services\/Scheduler\/Controller.php": {
             "class:Services_Scheduler_Controller": true
@@ -710,14 +692,8 @@
         "lib\/core\/Search\/Query\/Facet\/Interface.php": {
             "interface:Search_Query_Facet_Interface": true
         },
-        "lib\/cypht\/integration\/Tiki_Hm_Custom_Session.php": {
-            "class:Tiki_Hm_Custom_Session": true
-        },
         "lib\/core\/Search\/Query\/Facet\/Term.php": {
             "class:Search_Query_Facet_Term": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Sieve_Custom_Client.php": {
-            "class:Tiki_Hm_Sieve_Custom_Client": true
         },
         "lib\/core\/Search\/Query\/Facet\/DateRange.php": {
             "class:Search_Query_Facet_DateRange": true
@@ -1001,21 +977,6 @@
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Number.php": {
             "class:Search_Formatter_ValueFormatter_Number": true
         },
-        "lib\/cypht\/modules\/tiki\/groupmail_modules.php": {
-            "class:Hm_Handler_load_data_sources": true,
-            "class:Hm_Handler_groupmail_fetch_messages": true,
-            "class:Hm_Handler_check_groupmail_setting": true,
-            "class:Hm_Handler_prepare_groupmail_settings": true,
-            "class:Hm_Handler_take_groupmail": true,
-            "class:Hm_Handler_put_back_groupmail": true,
-            "class:Hm_Output_groupmail_page_link": true,
-            "class:Hm_Output_groupmail_heading": true,
-            "class:Hm_Output_groupmail_start": true,
-            "class:Hm_Output_groupmail_end": true,
-            "class:Hm_Output_filter_groupmail_data": true,
-            "class:Hm_Output_take_groupmail_response": true,
-            "class:Hm_Output_put_back_groupmail_response": true
-        },
         "lib\/core\/Search\/GlobalSource\/FreeTagSource.php": {
             "class:Search_GlobalSource_FreeTagSource": true
         },
@@ -1030,14 +991,6 @@
         },
         "lib\/test\/language\/CollectFilesTest.php": {
             "class:Language_CollectFilesTest": true
-        },
-        "lib\/cypht\/modules\/tiki\/calendar_modules.php": {
-            "class:Hm_Handler_check_calendar_invitations_imap": true,
-            "class:Hm_Handler_event_rsvp_action": true,
-            "class:Hm_Handler_add_to_calendar": true,
-            "class:Hm_Handler_update_participant_status": true,
-            "class:Hm_Handler_remove_from_calendar": true,
-            "class:Hm_Output_add_rsvp_actions": true
         },
         "lib\/core\/Table\/Check.php": {
             "class:Table_Check": true
@@ -1255,26 +1208,6 @@
         "lib\/core\/Tiki\/Profile\/InstallHandler\/Rss.php": {
             "class:Tiki_Profile_InstallHandler_Rss": true
         },
-        "lib\/cypht\/modules\/tiki\/general_modules.php": {
-            "class:Hm_Handler_load_tiki_contacts": true,
-            "class:Hm_Handler_check_for_tiki_redirect": true,
-            "class:Hm_Handler_add_file_attachment": true,
-            "class:Hm_Output_tiki_contacts_page_link": true,
-            "class:Hm_Handler_process_debug_mode": true,
-            "class:Hm_Handler_process_allow_external_images": true,
-            "class:Hm_Handler_before_save_user_settings": true,
-            "class:Hm_Handler_after_save_user_settings": true,
-            "class:Hm_Output_debug_mode_setting": true,
-            "class:Hm_Output_start_advanced_settings": true,
-            "class:Hm_Output_allow_external_images_setting": true,
-            "class:Hm_Handler_process_enable_oauth2_over_imap": true,
-            "class:Hm_Output_enable_oauth2_over_imap_setting": true,
-            "class:Hm_Output_clear_cache_link": true,
-            "class:Hm_Output_filter_message_headers_mpdf": true,
-            "class:Hm_Handler_process_enable_gmail_contacts_module": true,
-            "class:Hm_Handler_http_headers_tiki": true,
-            "class:Hm_Output_enable_gmail_contacts_module_setting": true
-        },
         "lib\/oauthserver\/entities\/AccessTokenEntity.php": {
             "class:AccessTokenEntity": true
         },
@@ -1304,10 +1237,6 @@
         },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Wikiplugin.php": {
             "class:Search_Formatter_ValueFormatter_Wikiplugin": true
-        },
-        "lib\/cypht\/modules\/tiki\/sievefilters_modules.php": {
-            "class:Hm_Output_tiki_filters_cron": true,
-            "class:Hm_Handler_tiki_sieve_placeholder": true
         },
         "lib\/core\/Tracker\/Field\/Kaltura.php": {
             "class:Tracker_Field_Kaltura": true
@@ -1456,30 +1385,6 @@
         },
         "lib\/core\/Search\/Formatter\/Transform\/FieldPermissionEnforcer.php": {
             "class:Search_Formatter_Transform_FieldPermissionEnforcer": true
-        },
-        "lib\/cypht\/modules\/tiki\/tracker_modules.php": {
-            "class:Hm_Handler_tracker_message_list_type": true,
-            "class:Hm_Handler_check_path_redirect": true,
-            "class:Hm_Handler_check_path_redirect_after_sent": true,
-            "class:Hm_Handler_move_to_tracker": true,
-            "class:Hm_Handler_tiki_mark_as_answered": true,
-            "class:Hm_Handler_tiki_save_sent": true,
-            "class:Hm_Handler_tiki_archive_replied": true,
-            "class:Hm_Handler_tiki_delete_message": true,
-            "class:Hm_Handler_tiki_archive_message": true,
-            "class:Hm_Handler_flag_tiki_message": true,
-            "class:Hm_Handler_tiki_message_action": true,
-            "class:Hm_Handler_tiki_message_content": true,
-            "class:Hm_Handler_tiki_download_message": true,
-            "class:Hm_Handler_tiki_process_move": true,
-            "class:Hm_Output_add_move_to_trackers": true,
-            "class:Hm_Output_add_multiple_move_to_trackers": true,
-            "class:Hm_Handler_tiki_get_trackers": true,
-            "class:Hm_Output_tiki_get_trackers_output": true,
-            "class:Hm_Handler_tiki_tracker_info": true,
-            "class:Hm_Output_tiki_tracker_info_output": true,
-            "class:Hm_Output_forward_variables": true,
-            "class:Hm_Output_pass_redirect_url": true
         },
         "lib\/core\/Search\/Type\/PlainShortText.php": {
             "class:Search_Type_PlainShortText": true
@@ -4307,14 +4212,8 @@
         "lib\/core\/Math\/Formula\/Function\/Avg.php": {
             "Math_Formula_Function_Avg": true
         },
-        "lib\/cypht\/integration\/Tiki_Hm_Output_HTTP.php": {
-            "Tiki_Hm_Output_HTTP": true
-        },
         "lib\/core\/Math\/Formula\/Function\/Div.php": {
             "Math_Formula_Function_Div": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Custom_Cache.php": {
-            "Tiki_Hm_Custom_Cache": true
         },
         "lib\/core\/Math\/Formula\/Function\/Pad.php": {
             "Math_Formula_Function_Pad": true
@@ -4400,26 +4299,14 @@
         "lib\/core\/Search\/Action\/Sequence.php": {
             "Search_Action_Sequence": true
         },
-        "lib\/cypht\/integration\/Tiki_Hm_Site_Config_File.php": {
-            "Tiki_Hm_Site_Config_File": true
-        },
         "lib\/core\/Search\/Action\/ReportingTransform.php": {
             "Search_Action_ReportingTransform": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Sieve_Client_Factory.php": {
-            "Tiki_Hm_Sieve_Client_Factory": true
         },
         "lib\/test\/payment\/CartTest.php": {
             "Payment_CartTest": true
         },
-        "lib\/cypht\/integration\/Tiki_Hm_User_Config.php": {
-            "Tiki_Hm_User_Config": true
-        },
         "lib\/test\/core\/Search\/IndexerTest.php": {
             "Search_IndexerTest": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Tiki_Cache.php": {
-            "Tiki_Hm_Tiki_Cache": true
         },
         "lib\/core\/Services\/Scheduler\/Controller.php": {
             "Services_Scheduler_Controller": true
@@ -4517,14 +4404,8 @@
         "lib\/core\/Search\/Query\/Facet\/Interface.php": {
             "Search_Query_Facet_Interface": true
         },
-        "lib\/cypht\/integration\/Tiki_Hm_Custom_Session.php": {
-            "Tiki_Hm_Custom_Session": true
-        },
         "lib\/core\/Search\/Query\/Facet\/Term.php": {
             "Search_Query_Facet_Term": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Sieve_Custom_Client.php": {
-            "Tiki_Hm_Sieve_Custom_Client": true
         },
         "lib\/core\/Search\/Query\/Facet\/DateRange.php": {
             "Search_Query_Facet_DateRange": true
@@ -4770,21 +4651,6 @@
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Number.php": {
             "Search_Formatter_ValueFormatter_Number": true
         },
-        "lib\/cypht\/modules\/tiki\/groupmail_modules.php": {
-            "Hm_Handler_load_data_sources": true,
-            "Hm_Handler_groupmail_fetch_messages": true,
-            "Hm_Handler_check_groupmail_setting": true,
-            "Hm_Handler_prepare_groupmail_settings": true,
-            "Hm_Handler_take_groupmail": true,
-            "Hm_Handler_put_back_groupmail": true,
-            "Hm_Output_groupmail_page_link": true,
-            "Hm_Output_groupmail_heading": true,
-            "Hm_Output_groupmail_start": true,
-            "Hm_Output_groupmail_end": true,
-            "Hm_Output_filter_groupmail_data": true,
-            "Hm_Output_take_groupmail_response": true,
-            "Hm_Output_put_back_groupmail_response": true
-        },
         "lib\/core\/Search\/GlobalSource\/FreeTagSource.php": {
             "Search_GlobalSource_FreeTagSource": true
         },
@@ -4799,14 +4665,6 @@
         },
         "lib\/test\/language\/CollectFilesTest.php": {
             "Language_CollectFilesTest": true
-        },
-        "lib\/cypht\/modules\/tiki\/calendar_modules.php": {
-            "Hm_Handler_check_calendar_invitations_imap": true,
-            "Hm_Handler_event_rsvp_action": true,
-            "Hm_Handler_add_to_calendar": true,
-            "Hm_Handler_update_participant_status": true,
-            "Hm_Handler_remove_from_calendar": true,
-            "Hm_Output_add_rsvp_actions": true
         },
         "lib\/core\/Table\/Check.php": {
             "Table_Check": true
@@ -4973,26 +4831,6 @@
         "lib\/core\/Tiki\/Profile\/InstallHandler\/Rss.php": {
             "Tiki_Profile_InstallHandler_Rss": true
         },
-        "lib\/cypht\/modules\/tiki\/general_modules.php": {
-            "Hm_Handler_load_tiki_contacts": true,
-            "Hm_Handler_check_for_tiki_redirect": true,
-            "Hm_Handler_add_file_attachment": true,
-            "Hm_Output_tiki_contacts_page_link": true,
-            "Hm_Handler_process_debug_mode": true,
-            "Hm_Handler_process_allow_external_images": true,
-            "Hm_Handler_before_save_user_settings": true,
-            "Hm_Handler_after_save_user_settings": true,
-            "Hm_Output_debug_mode_setting": true,
-            "Hm_Output_start_advanced_settings": true,
-            "Hm_Output_allow_external_images_setting": true,
-            "Hm_Handler_process_enable_oauth2_over_imap": true,
-            "Hm_Output_enable_oauth2_over_imap_setting": true,
-            "Hm_Output_clear_cache_link": true,
-            "Hm_Output_filter_message_headers_mpdf": true,
-            "Hm_Handler_process_enable_gmail_contacts_module": true,
-            "Hm_Handler_http_headers_tiki": true,
-            "Hm_Output_enable_gmail_contacts_module_setting": true
-        },
         "lib\/core\/Tracker\/Field\/Category.php": {
             "Tracker_Field_Category": true
         },
@@ -5013,10 +4851,6 @@
         },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Wikiplugin.php": {
             "Search_Formatter_ValueFormatter_Wikiplugin": true
-        },
-        "lib\/cypht\/modules\/tiki\/sievefilters_modules.php": {
-            "Hm_Output_tiki_filters_cron": true,
-            "Hm_Handler_tiki_sieve_placeholder": true
         },
         "lib\/core\/Tracker\/Field\/Kaltura.php": {
             "Tracker_Field_Kaltura": true
@@ -5144,30 +4978,6 @@
         },
         "lib\/core\/Search\/Formatter\/Transform\/FieldPermissionEnforcer.php": {
             "Search_Formatter_Transform_FieldPermissionEnforcer": true
-        },
-        "lib\/cypht\/modules\/tiki\/tracker_modules.php": {
-            "Hm_Handler_tracker_message_list_type": true,
-            "Hm_Handler_check_path_redirect": true,
-            "Hm_Handler_check_path_redirect_after_sent": true,
-            "Hm_Handler_move_to_tracker": true,
-            "Hm_Handler_tiki_mark_as_answered": true,
-            "Hm_Handler_tiki_save_sent": true,
-            "Hm_Handler_tiki_archive_replied": true,
-            "Hm_Handler_tiki_delete_message": true,
-            "Hm_Handler_tiki_archive_message": true,
-            "Hm_Handler_flag_tiki_message": true,
-            "Hm_Handler_tiki_message_action": true,
-            "Hm_Handler_tiki_message_content": true,
-            "Hm_Handler_tiki_download_message": true,
-            "Hm_Handler_tiki_process_move": true,
-            "Hm_Output_add_move_to_trackers": true,
-            "Hm_Output_add_multiple_move_to_trackers": true,
-            "Hm_Handler_tiki_get_trackers": true,
-            "Hm_Output_tiki_get_trackers_output": true,
-            "Hm_Handler_tiki_tracker_info": true,
-            "Hm_Output_tiki_tracker_info_output": true,
-            "Hm_Output_forward_variables": true,
-            "Hm_Output_pass_redirect_url": true
         },
         "lib\/core\/Search\/Type\/PlainShortText.php": {
             "Search_Type_PlainShortText": true
@@ -7351,16 +7161,6 @@
             "mime::get_bodies": true,
             "mime::get_attachments": true
         },
-        "lib\/cypht\/integration\/Tiki_Hm_Output_HTTP.php": {
-            "Tiki_Hm_Output_HTTP::send_response": true,
-            "Tiki_Hm_Output_HTTP::output_headers": true,
-            "Tiki_Hm_Output_HTTP::output_content": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Custom_Cache.php": {
-            "Tiki_Hm_Custom_Cache::tiki_get": true,
-            "Tiki_Hm_Custom_Cache::tiki_del": true,
-            "Tiki_Hm_Custom_Cache::tiki_set": true
-        },
         "lib\/debug\/debug-command_watch.php": {
             "DbgCmd_Watch::store_watches": true,
             "DbgCmd_Watch::draw_interface": true,
@@ -7395,9 +7195,6 @@
             "MailinLib::replace_mailin_account": true,
             "MailinLib::remove_mailin_account": true,
             "MailinLib::get_mailin_account": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_User_Config.php": {
-            "Tiki_Hm_User_Config::filter_servers": true
         },
         "lib\/core\/Services\/Scheduler\/Controller.php": {
             "Services_Scheduler_Controller::action_remove": true,
@@ -7444,12 +7241,6 @@
             "Search_Query_WikiBuilder::wpquery_group_boost": true,
             "Search_Query_WikiBuilder::wpquery_index_federated": true,
             "Search_Query_WikiBuilder::get_fields_from_arguments": true
-        },
-        "lib\/cypht\/integration\/Tiki_Hm_Custom_Session.php": {
-            "Tiki_Hm_Custom_Session::close_early": true,
-            "Tiki_Hm_Custom_Session::dedup_page_links": true,
-            "Tiki_Hm_Custom_Session::session_prefix": true,
-            "Tiki_Hm_Custom_Session::is_active": true
         },
         "lib\/todolib.php": {
             "TodoLib::listObjectsTodo_tracker": true,
@@ -10659,74 +10450,8 @@
             "class:CacheLibMemcache": true,
             "class:CacheLibNoCache": true
         },
-        "lib\/cypht\/modules\/tiki\/groupmail_modules.php": {
-            "class:Hm_Handler_groupmail_fetch_messages": true,
-            "class:Hm_Handler_check_groupmail_setting": true,
-            "class:Hm_Handler_prepare_groupmail_settings": true,
-            "class:Hm_Handler_take_groupmail": true,
-            "class:Hm_Handler_put_back_groupmail": true,
-            "class:Hm_Output_groupmail_page_link": true,
-            "class:Hm_Output_groupmail_heading": true,
-            "class:Hm_Output_groupmail_start": true,
-            "class:Hm_Output_groupmail_end": true,
-            "class:Hm_Output_filter_groupmail_data": true,
-            "class:Hm_Output_take_groupmail_response": true,
-            "class:Hm_Output_put_back_groupmail_response": true
-        },
-        "lib\/cypht\/modules\/tiki\/calendar_modules.php": {
-            "class:Hm_Handler_event_rsvp_action": true,
-            "class:Hm_Handler_add_to_calendar": true,
-            "class:Hm_Handler_update_participant_status": true,
-            "class:Hm_Handler_remove_from_calendar": true,
-            "class:Hm_Output_add_rsvp_actions": true
-        },
-        "lib\/cypht\/modules\/tiki\/general_modules.php": {
-            "class:Hm_Handler_check_for_tiki_redirect": true,
-            "class:Hm_Handler_add_file_attachment": true,
-            "class:Hm_Output_tiki_contacts_page_link": true,
-            "class:Hm_Handler_process_debug_mode": true,
-            "class:Hm_Handler_process_allow_external_images": true,
-            "class:Hm_Handler_before_save_user_settings": true,
-            "class:Hm_Handler_after_save_user_settings": true,
-            "class:Hm_Output_debug_mode_setting": true,
-            "class:Hm_Output_start_advanced_settings": true,
-            "class:Hm_Output_allow_external_images_setting": true,
-            "class:Hm_Handler_process_enable_oauth2_over_imap": true,
-            "class:Hm_Output_enable_oauth2_over_imap_setting": true,
-            "class:Hm_Output_clear_cache_link": true,
-            "class:Hm_Output_filter_message_headers_mpdf": true,
-            "class:Hm_Handler_process_enable_gmail_contacts_module": true,
-            "class:Hm_Handler_http_headers_tiki": true,
-            "class:Hm_Output_enable_gmail_contacts_module_setting": true
-        },
-        "lib\/cypht\/modules\/tiki\/sievefilters_modules.php": {
-            "class:Hm_Handler_tiki_sieve_placeholder": true
-        },
         "lib\/core\/Search\/Formatter\/Transform\/DynamicLoader.php": {
             "class:Search_Formatter_Transform_DynamicLoaderWrapper": true
-        },
-        "lib\/cypht\/modules\/tiki\/tracker_modules.php": {
-            "class:Hm_Handler_check_path_redirect": true,
-            "class:Hm_Handler_check_path_redirect_after_sent": true,
-            "class:Hm_Handler_move_to_tracker": true,
-            "class:Hm_Handler_tiki_mark_as_answered": true,
-            "class:Hm_Handler_tiki_save_sent": true,
-            "class:Hm_Handler_tiki_archive_replied": true,
-            "class:Hm_Handler_tiki_delete_message": true,
-            "class:Hm_Handler_tiki_archive_message": true,
-            "class:Hm_Handler_flag_tiki_message": true,
-            "class:Hm_Handler_tiki_message_action": true,
-            "class:Hm_Handler_tiki_message_content": true,
-            "class:Hm_Handler_tiki_download_message": true,
-            "class:Hm_Handler_tiki_process_move": true,
-            "class:Hm_Output_add_move_to_trackers": true,
-            "class:Hm_Output_add_multiple_move_to_trackers": true,
-            "class:Hm_Handler_tiki_get_trackers": true,
-            "class:Hm_Output_tiki_get_trackers_output": true,
-            "class:Hm_Handler_tiki_tracker_info": true,
-            "class:Hm_Output_tiki_tracker_info_output": true,
-            "class:Hm_Output_forward_variables": true,
-            "class:Hm_Output_pass_redirect_url": true
         },
         "tiki-print_indexed.php": {
             "class:ObjectRenderer": true,
