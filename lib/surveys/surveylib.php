@@ -330,9 +330,11 @@ class SurveyLib extends TikiLib
         $qoptions = [];
         $votes = 0;
 
-        foreach ($options as $option) {
-            $qoptions[] = $option;
-            $votes += $option["votes"];
+        if ($options) {
+            foreach ($options as $option) {
+                $qoptions[] = $option;
+                $votes += $option["votes"];
+            }
         }
 
         $question["ovotes"] = $votes;
@@ -682,6 +684,7 @@ class SurveyLib extends TikiLib
         $conditions['id'] = 'survey' . $surveyId;
         $conditions['optionId'] = 0;
         $result = $this->votesTable->fetchAll(['user'], $conditions);
+        $ret = [];
         foreach ($result as $r) {
             $ret[] = $r['user'];
         }
