@@ -116,6 +116,7 @@ class Services_File_Controller
         if (isset($_FILES['data'])) {
             // used by $this->action_upload_multiple and file gallery Files fields (possibly others)
             if (is_uploaded_file($_FILES['data']['tmp_name'])) {
+                $_SESSION['lastUploadGalleryId'] = $gal_info["galleryId"];
                 $file = new JitFilter($_FILES['data']);
                 $name = $file->name->text();
                 $size = $file->size->int();

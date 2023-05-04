@@ -205,6 +205,11 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
         $filegallib = TikiLib::lib('filegal');
 
         $galleryId = (int) $this->getOption('galleryId');
+
+        //If there is no gallery choosen we'll take the last used gallery
+        if ($galleryId == 0 && ! empty($_SESSION['lastUploadGalleryId'])) {
+            $galleryId = (int) $_SESSION['lastUploadGalleryId'];
+        }
         $count = (int) $this->getOption('count');
         $deepGallerySearch = (bool) $this->getOption('deepGallerySearch');
 

@@ -19056,6 +19056,7 @@ $lang_current = array(
 "File description" => "Description",
 // "Re-upload from disk" => "Re-upload from disk",
 "Use Gallery default resize settings for images <span id=\"imageResizeInfo\">{if \$gal_info[\"image_max_size_x\"]}({\$gal_info[\"image_max_size_x\"]}px X {\$gal_info[\"image_max_size_y\"]} px){else}(No resize){/if}</span>" => "Utiliser les paramètres de redimensionnement par défaut de la Galerie pour les images <span id=\"imageResizeInfo\">{if \$gal_info[\"image_max_size_x\"]}({\$gal_info[\"image_max_size_x\"]}px X {\$gal_info[\"image_max_size_y\"]} px){else}(pas de redimensionnement){/if}</span>",
+"Use current gallery" => "Utiliser la galerie actuelle",
 // "pixel" => "pixel",
 // "If an image is wider than this, it will be resized. Attention: In this case, the original image will be lost. (0=unlimited)" => "If an image is wider than this, it will be resized. Attention: In this case, the original image will be lost. (0=unlimited)",
 // "If an image is higher than this, it will be resized. Attention: In this case, the original image will be lost. (0=unlimited)" => "If an image is higher than this, it will be resized. Attention: In this case, the original image will be lost. (0=unlimited)",

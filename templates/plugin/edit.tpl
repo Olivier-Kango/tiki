@@ -17,7 +17,8 @@
                 <strong class="mandatory_star text-danger tips" title="|{tr}Required{/tr}">*</strong>
             {/if}
             {if not empty($param.type)}
-                {$onclick = "openFgalsWindow('{$prefs.home_file_gallery|sefurl:'file gallery':true}filegals_manager={$param.area|escape}&id=1', true);return false;"}
+                {$lastUploadGalleryId = ($smarty.session.lastUploadGalleryId)?$smarty.session.lastUploadGalleryId:$prefs.home_file_gallery}
+                {$onclick = "openFgalsWindow('{$lastUploadGalleryId|sefurl:'file gallery':true}filegals_manager={$param.area|escape}&id=1', true);return false;"}
                 {if $param.type eq 'image'}
                     <br>{icon name='image' title='{tr}Select image{/tr}' onclick=$onclick class='btn btn-sm btn-primary'}
                 {elseif $param.type eq 'fileId'}

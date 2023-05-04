@@ -49,6 +49,11 @@ if (isset($_REQUEST['galleryId']) && ! is_array($_REQUEST['galleryId'])) {
     $requestGalleryId = $_REQUEST['galleryId'];
     $_REQUEST['galleryId'] = [ $requestGalleryId ];
 }
+//If there is no gallery choosen we'll take the last used gallery
+if (empty($_REQUEST['galleryId']) && ! empty($_SESSION['lastUploadGalleryId'])) {
+    $requestGalleryId = $_SESSION['lastUploadGalleryId'];
+    $_REQUEST['galleryId'] = [ $_SESSION['lastUploadGalleryId'] ];
+}
 
 $fileInfo = null;
 $fileId = null;

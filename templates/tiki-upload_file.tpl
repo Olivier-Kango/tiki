@@ -266,6 +266,11 @@
                                             {/if}
                                         {/section}
                                     </select>
+                                    <div class="form-check mt-3 d-none" id="current_gallery_group">
+                                        <label for="current_gallery" class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" id="current_gallery" name="current_gallery" value="yes" />{tr}Use current gallery{/tr}
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         {else}
@@ -574,9 +579,43 @@ $("#imagesize").click(function () {
     }
 });
 
+$.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+        return 0;
+    }
+    return decodeURI(results[1]) || 0;
+}
+
+function isCurrentGallery() {
+    if (($.urlParam('galleryId') == "0" &&  $("#galleryId").val() == rootGalleryId) || $.urlParam('galleryId') ==  $("#galleryId").val()) {
+        $("#current_gallery_group").addClass('d-none').hide();
+    } else {
+        $("#current_gallery_group").removeClass('d-none').show();
+    }
+}
+
+var rootGalleryId = $("#galleryId").find("option:first-child").val();
+isCurrentGallery();
+
+$("#current_gallery").change(function (e) {
+    const checked = $(this).is(':checked');
+    var currentGalleryId = ($.urlParam('galleryId') != "0") ? $.urlParam('galleryId') : rootGalleryId;
+
+    if (checked) {
+        $("#galleryId")
+            .val(currentGalleryId)
+            .trigger('change');
+
+        $('#current_gallery').prop('checked', false);
+    }
+});
+
 $("#galleryId").change(function(){
     var galleryId = $("#galleryId").val();
     var action = $("#galleryId").attr('data-action');
+
+    isCurrentGallery();
 
     $.ajax({
         method: 'GET',
