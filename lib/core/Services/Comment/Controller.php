@@ -345,7 +345,7 @@ return false;";
                     'comment' => $comment,
                 ];
             }
-        } elseif ($comment['version']) {    // not the post
+        } elseif (! empty($comment['version']) && $comment['version']) {    // not the post
             $diffInfo = $this->setUpDiffInfo($comment['objectType'], $comment['object'], $comment['version']);
         }
 
