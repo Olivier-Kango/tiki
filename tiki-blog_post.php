@@ -235,7 +235,7 @@ if (isset($_POST['save']) && ! $contribution_needed && $access->checkCsrf()) {
     $cat_desc = TikiFilter::get('purifier')->filter(substr($edit_data, 0, 200));
     $cat_name = $title;
     $cat_href = "tiki-view_blog_post.php?postId=" . urlencode($postId);
-    $cat_lang = $_POST['lang'];
+    $cat_lang = $_POST['lang'] ?? '';
     include_once("freetag_apply.php");
     include_once("categorize.php");
 
