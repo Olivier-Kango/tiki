@@ -91,7 +91,7 @@ class Services_Language_Utilities
         switch ($type) {
             case 'wiki page':
                 $info = TikiLib::lib('tiki')->get_page_info($object);
-                $lang = $info['lang'];
+                $lang = $info['lang'] ?? '';
                 break;
             case 'article':
                 $info = TikiLib::lib('art')->get_article($object);
