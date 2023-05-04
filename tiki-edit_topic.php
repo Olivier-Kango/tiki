@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+define('DB_ERROR', -1);
 $section = 'cms';
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');
