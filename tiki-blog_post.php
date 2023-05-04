@@ -214,7 +214,7 @@ if (isset($_POST['save']) && ! $contribution_needed && $access->checkCsrf()) {
     $title = isset($_POST['title']) ? $_POST['title'] : '';
 
     if ($postId > 0) {
-        $bloglib->update_post($postId, $_POST["blogId"], $edit_data, $_POST['excerpt'], $data["user"], $title, isset($_POST['contributions']) ? $_POST['contributions'] : '', $blogpriv, $publishDate, $is_wysiwyg);
+        $bloglib->update_post($postId, $_POST["blogId"], $edit_data, $_POST['excerpt'] ?? '', $data["user"], $title, isset($_POST['contributions']) ? $_POST['contributions'] : '', $blogpriv, $publishDate, $is_wysiwyg);
     } else {
         if ($blog_data['always_owner'] == 'y') {
             $author = $blog_data['user'];
