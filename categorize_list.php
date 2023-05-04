@@ -20,7 +20,7 @@ $smarty = TikiLib::lib('smarty');
 
 global $prefs;
 
-$catobjperms = Perms::get([ 'type' => $cat_type ?? null, 'object' => $cat_objid ]);
+$catobjperms = Perms::get([ 'type' => $cat_type ?? null, 'object' => $cat_objid ?? null]);
 
 $smarty->assign('mandatory_category', '-1');
 if ($prefs['feature_categories'] == 'y' && isset($cat_type) && isset($cat_objid)) {
