@@ -481,7 +481,7 @@ if ( \$('#$id') ) {
 
         $plugins_parsing_data = ['accordion', 'benchmark', 'button', 'fade', 'footnote', 'gdgraph', 'html', 'htmlfeed', 'markdown', 'pdfpage', 'quote',
                                 'registermemberpayment', 'rr_info', 'shorten', 'slideshowslide', 'swiper', 'tabs', 'tour', 'tracker', 'trackerquerytemplate'];
-        if ($this->option['is_markdown'] && ! preg_match('/\{.*\}/', $data) && ! in_array($name, $plugins_parsing_data)) {
+        if (($this->option['is_markdown'] ?? false) && ! preg_match('/\{.*\}/', $data) && ! in_array($name, $plugins_parsing_data)) {
             $parsable = new WikiParser_ParsableMarkdown($data);
             $parsable->setOptions($this->option);
             $data = $parsable->wikiParse($data);
