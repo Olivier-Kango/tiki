@@ -234,7 +234,7 @@ function wikiplugin_events($data, $params)
         $smarty->assign_by_ref('cant', $events['cant']);
     }
 
-    $smarty->assign('usePagination', $usePagination);
+    $smarty->assign('usePagination', $usePagination ?? 'n');
     $smarty->assign_by_ref('events', $events['data']);
     $smarty->assign_by_ref('actions', $actions);
 
