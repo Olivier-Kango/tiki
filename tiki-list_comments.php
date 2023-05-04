@@ -46,8 +46,8 @@ if (isset($_REQUEST['types'])) {
     $requested_types = $_REQUEST['types'];
     $default_list_value = 'n';
 } else {
-    $requested_types = [];
     $default_list_value = 'y';
+    $requested_types = [];
 }
 $smarty->assign_by_ref('title', $title);
 
@@ -60,7 +60,7 @@ foreach ($sections_enabled as $k => $info) {
     // The logic below obviously does not work for tracker comments, so let's handle them in a way that is simpler to understand
     if ($k == 'trackers' && $prefs['feature_trackers'] == 'y') {
         $show_types['trackeritem'] = 'Tracker Item';
-        if ($default_list_value == 'y' || in_array('trackeritem', $requested_types)) {
+        if ($default_list_value == 'y' || (! empty($requested_types) && in_array('trackeritem', $requested_types))) {
             $selected_types[] = 'trackeritem';
         }
         continue;
@@ -69,7 +69,7 @@ foreach ($sections_enabled as $k => $info) {
         if (isset($info[$sfeature]) && $prefs[$info[$sfeature]] == 'y' && isset($info[$stype])) {
             $comment_type = $info[$stype];
             $show_types[$comment_type] = ucwords($comment_type);
-            if ($default_list_value == 'y' || in_array($comment_type, $requested_types)) {
+            if ($default_list_value == 'y' || (! empty($requested_types) && in_array($comment_type, $requested_types))) {
                 $selected_types[] = $comment_type;
             }
         }
