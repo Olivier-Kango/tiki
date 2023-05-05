@@ -2106,9 +2106,6 @@
         "lib\/core\/TikiFilter.php": {
             "class:TikiFilter": true
         },
-        "lib\/payment\/israelpostlib.php": {
-            "class:IsraelPostLib": true
-        },
         "lib\/core\/Tiki\/Profile\/InstallHandler\/Template.php": {
             "class:Tiki_Profile_InstallHandler_Template": true
         },
@@ -7850,10 +7847,6 @@
             "AddressBookLib::create_card": true,
             "AddressBookLib::update_card": true,
             "AddressBookLib::delete_card": true
-        },
-        "lib\/payment\/israelpostlib.php": {
-            "IsraelPostLib::check_payment": true,
-            "IsraelPostLib::capture_payment": true
         },
         "lib\/openpgp\/openpgplib.php": {
             "OpenPGPLib::gpg_encrypt": true,
