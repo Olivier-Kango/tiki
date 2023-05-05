@@ -152,6 +152,8 @@ class TikiSheet
 
     public $contributions;
     public $id;
+    public $name;
+    public $type;
 
     public $rangeBeginRow = -1;
     public $rangeEndRow   = -1;
@@ -572,7 +574,7 @@ class TikiSheet
         if (isset($handler->id)) {
             $this->id = $handler->id;
         }
-        $this->type = $handler->type;
+        $this->type = (isset($handler->type) ? $handler->type : $this->type);
         $this->cssName = $handler->cssName;
         $this->rowCount = (isset($handler->rowCount) ? $handler->rowCount : $this->rowCount);
         $this->columnCount = (isset($handler->columnCount) ? $handler->columnCount : $this->columnCount);
