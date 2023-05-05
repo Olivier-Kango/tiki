@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "742c11cfc6888cca7b912ee6ab4f1e69",
+    "content-hash": "f8ad897b83f327bda43d7b1b06fdca15",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -740,17 +740,17 @@
         },
         {
             "name": "bower-asset/fontawesome",
-            "version": "6.4.0",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "0698449d50f2b95517562295a59d414afc68b369"
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "reference": "d02961b018153506364077343b0edcde0a39d27e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-0698449d50f2b95517562295a59d414afc68b369-zip-74027f.zip",
-                "reference": "0698449d50f2b95517562295a59d414afc68b369",
-                "shasum": "f34fced6a60f4f648003595b0add10e02a4bfe27"
+                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-d02961b018153506364077343b0edcde0a39d27e-zip-7b6699.zip",
+                "reference": "d02961b018153506364077343b0edcde0a39d27e",
+                "shasum": "496b962423da26b2d2552229fbef6a7403a200ff"
             },
             "type": "bower-asset"
         },
@@ -6129,6 +6129,68 @@
             "time": "2022-07-06T16:00:01+00:00"
         },
         {
+            "name": "montefuscolo/xmpp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabiomontefuscolo/xmpp.git",
+                "reference": "9df9c05d14ef54b8cbeb9c1bed51ae668b7c1a9a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/montefuscolo/xmpp/montefuscolo-xmpp-9df9c05d14ef54b8cbeb9c1bed51ae668b7c1a9a-zip-a7cf14.zip",
+                "reference": "9df9c05d14ef54b8cbeb9c1bed51ae668b7c1a9a",
+                "shasum": "b4ef5274421d5155abe1d59acbee611842e36387"
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "behat/behat": "^2.5.5",
+                "monolog/monolog": "^1.22",
+                "phpunit/phpunit": "^5.7.20",
+                "satooshi/php-coveralls": "^1.0",
+                "symfony/console": "^2.8",
+                "symfony/dependency-injection": "^2.8",
+                "symfony/finder": "^2.8"
+            },
+            "suggest": {
+                "psr/log-implementation": "Allows more advanced logging of the xmpp connection"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fabiang\\Xmpp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabian Grutschus",
+                    "email": "f.grutschus@lubyte.de",
+                    "homepage": "http://www.lubyte.de/",
+                    "role": "developer"
+                }
+            ],
+            "description": "Library for XMPP protocol (Jabber) connections",
+            "homepage": "https://github.com/fabiang/xmpp",
+            "keywords": [
+                "jabber",
+                "xmpp"
+            ],
+            "abandoned": true,
+            "time": "2019-05-20T19:04:46+00:00"
+        },
+        {
             "name": "mottie/tablesorter",
             "version": "v2.31.3",
             "source": {
@@ -9701,33 +9763,31 @@
         },
         {
             "name": "react/event-loop",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/event-loop.git",
-                "reference": "187fb56f46d424afb6ec4ad089269c72eec2e137"
+                "reference": "6e7e587714fff7a83dcc7025aee42ab3b265ae05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/react/event-loop/react-event-loop-187fb56f46d424afb6ec4ad089269c72eec2e137-zip-30f514.zip",
-                "reference": "187fb56f46d424afb6ec4ad089269c72eec2e137",
-                "shasum": "4f1d20ecae9b44288843c2db07ee741cd3290157"
+                "url": "https://composer.tiki.org/dist/react/event-loop/react-event-loop-6e7e587714fff7a83dcc7025aee42ab3b265ae05-zip-52bedf.zip",
+                "reference": "6e7e587714fff7a83dcc7025aee42ab3b265ae05",
+                "shasum": "daae933dbe4fd15c5f4223437cd418e939cba9eb"
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35"
+                "phpunit/phpunit": "^9.6 || ^5.7 || ^4.8.36"
             },
             "suggest": {
-                "ext-event": "~1.0 for ExtEventLoop",
-                "ext-pcntl": "For signal handling support when using the StreamSelectLoop",
-                "ext-uv": "* for ExtUvLoop"
+                "ext-pcntl": "For signal handling support when using the StreamSelectLoop"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "React\\EventLoop\\": "src"
+                    "React\\EventLoop\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -9763,15 +9823,11 @@
             ],
             "funding": [
                 {
-                    "url": "https://github.com/WyriHaximus",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/clue",
-                    "type": "github"
+                    "url": "https://opencollective.com/reactphp",
+                    "type": "open_collective"
                 }
             ],
-            "time": "2022-03-17T11:10:22+00:00"
+            "time": "2023-05-05T10:11:24+00:00"
         },
         {
             "name": "react/promise",
@@ -17049,6 +17105,7 @@
         "henrique-borba/php-sieve-manager": 20,
         "jason-munro/cypht": 20,
         "league/flysystem": 10,
+        "montefuscolo/xmpp": 20,
         "npm-asset/html2canvas": 5,
         "sorich87/bootstrap-tour": 20,
         "teqneers/shamir": 20,
