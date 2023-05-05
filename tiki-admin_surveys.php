@@ -32,7 +32,7 @@ if (isset($_REQUEST["save"])) {
     check_ticket('admin-surveys');
     $sid = $srvlib->replace_survey($_REQUEST["surveyId"], $_REQUEST["name"], $_REQUEST["description"], $_REQUEST["status"]);
     $cat_type = 'survey';
-    $cat_objid = $sid;
+    $cat_objid = is_int($sid) ? $sid : $_REQUEST["surveyId"];
     $cat_desc = substr($_REQUEST["description"], 0, 200);
     $cat_name = $_REQUEST["name"];
     $cat_href = "tiki-take_survey.php?surveyId=" . $cat_objid;
