@@ -48,5 +48,6 @@ class IndexCatchUpCommand extends Command
         }
 
         \Feedback::printToConsole($output);
+        return Command::SUCCESS;
     }
 }

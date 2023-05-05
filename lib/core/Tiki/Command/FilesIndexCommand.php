@@ -34,5 +34,6 @@ class FilesIndexCommand extends Command
     {
         $searchTextReindexedFilesAmount = TikiLib::lib('filegal')->reindex_all_files_for_search_text();
         $output->writeln("<info>" . tr("The search text was reindexed for a total of %0 files.", $searchTextReindexedFilesAmount) . "</info>");
+        return Command::SUCCESS;
     }
 }

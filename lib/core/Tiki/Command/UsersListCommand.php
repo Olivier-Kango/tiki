@@ -93,5 +93,6 @@ class UsersListCommand extends Command
 
         $table->setRows($rows);
         $table->render();
+        return Command::SUCCESS;
     }
 }

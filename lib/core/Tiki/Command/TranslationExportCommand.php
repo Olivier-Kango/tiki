@@ -65,6 +65,6 @@ class TranslationExportCommand extends Command
         }
 
         $io->success(sprintf('Wrote %d new strings and updated %d to lang/%s/language.php', $stats['new'], $stats['modif'], $language->lang));
-        return 0;
+        return Command::SUCCESS;
     }
 }

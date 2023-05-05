@@ -195,6 +195,7 @@ class FakerTrackerCommand extends Command
                 $trackerLib->replace_item($trackerId, 0, ['data' => $fieldData], $status);
             }
         }
+        return Command::SUCCESS;
     }
 
     /**

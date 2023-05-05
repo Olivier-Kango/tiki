@@ -74,5 +74,6 @@ class CacheClearCommand extends Command
                     $output->writeln('<error>Invalid cache requested.</error>');
             }
         }
+        return Command::SUCCESS;
     }
 }

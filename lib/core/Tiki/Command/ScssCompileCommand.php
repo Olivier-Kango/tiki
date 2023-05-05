@@ -77,7 +77,7 @@ class ScssCompileCommand extends Command
             LogLevel::INFO   => OutputInterface::VERBOSITY_NORMAL,
             LogLevel::DEBUG   => OutputInterface::VERBOSITY_VERBOSE,
         ]);
-        $exitStatus = 0; //Command::SUCCESS;
+        $exitStatus = Command::SUCCESS;
         $only = array_filter(explode(',', $input->getArgument('themes')));
         $all = empty($only);
 
@@ -178,7 +178,7 @@ class ScssCompileCommand extends Command
                     $output->writeln('<info>' . $e->getMessage() . '</info>');
                 }
                 if (isset($e)) {
-                    $exitStatus = 1; //Command::FAILURE;
+                    $exitStatus = Command::FAILURE;
                 }
                 if (isset($e) && ! $continueOnError) {
                     break 2;
@@ -188,7 +188,7 @@ class ScssCompileCommand extends Command
 
         $output->writeln('Clearing all caches');
         $cachelib->empty_cache();
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**

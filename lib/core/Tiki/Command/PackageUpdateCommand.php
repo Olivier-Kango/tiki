@@ -132,6 +132,7 @@ class PackageUpdateCommand extends Command
             $this->updatePackage($package);
         }
         $logslib->add_action('package update', 'system', 'system', count($packagesToUpdate) . ' packages updated.');
+        return Command::SUCCESS;
     }
 
     protected function promptPackageUpdate($packages)

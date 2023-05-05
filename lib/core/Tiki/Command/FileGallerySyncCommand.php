@@ -54,5 +54,6 @@ class FileGallerySyncCommand extends Command
             $def = new Definition($gal_info);
             $def->sync();
         }
+        return Command::SUCCESS;
     }
 }

@@ -70,6 +70,6 @@ class TrackerClearCommand extends Command
             $output->writeln("<info>  All items in tracker #$trackerId \"$name\" will be deleted.</info>");
         }
 
-        return(0);
+        return Command::SUCCESS;
     }
 }

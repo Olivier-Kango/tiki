@@ -93,10 +93,11 @@ class ThemeInstallCommand extends Command
             $logslib->add_action('theme install', 'system', 'system', 'Theme ' . $themeName . ' installed.');
         } catch (Exception $ex) {
             $output->writeln($ex->getMessage());
-            return;
+            return Command::FAILURE;
         } finally {
             $this->removeTemp($sourceFolder);
         }
+        return Command::SUCCESS;
     }
 
     public function removeTemp($folder)

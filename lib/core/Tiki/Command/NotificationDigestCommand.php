@@ -100,5 +100,6 @@ class NotificationDigestCommand extends Command
                 $output->writeln("No data for {$info['email']}");
             }
         }
+        return Command::SUCCESS;
     }
 }

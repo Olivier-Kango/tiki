@@ -46,5 +46,6 @@ class SitemapGenerateCommand extends Command
 
         $output->writeln('<info>' . tra('New sitemap created.') . '</info>');
         $output->writeln('<info>' . $sitemap->getSitemapPath() . '</info>');
+        return Command::SUCCESS;
     }
 }

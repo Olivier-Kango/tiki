@@ -92,5 +92,6 @@ class OCRAllCommand extends Command
             "<comment>Finished the OCR of $OCRCount files.</comment>\n"
         );
         $progress->finish();
+        return Command::SUCCESS;
     }
 }

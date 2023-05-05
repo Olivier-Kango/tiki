@@ -75,11 +75,12 @@ class UsersPasswordCommand extends Command
             $output->writeln("<error>User encryption feature is enabled.\n" .
                 "Changing the user password might loose encrypted data.\n\n" .
                 "Use -f to force changing password.</error>");
-            exit(1);
+            return Command::FAILURE;
         }
 
         $userlib->change_user_password($user, $password);
         $output->writeln('Password changed successfully.');
         $logslib->add_action('adminusers', 'system', 'system', 'Password changed for ' . $user);
+        return Command::SUCCESS;
     }
 }

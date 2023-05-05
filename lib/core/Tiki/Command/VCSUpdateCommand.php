@@ -647,6 +647,7 @@ class VCSUpdateCommand extends Command
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_QUIET) {
             $output->writeln('');
         }
+        return Command::SUCCESS;
     }
 
     /**

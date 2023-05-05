@@ -54,5 +54,6 @@ class MLTrainCommand extends Command
         } catch (Exception $e) {
             $output->writeln("<error>Error while trying to train model " . $model['name'] . ": " . $e->getMessage() . "</error>");
         }
+        return Command::SUCCESS;
     }
 }

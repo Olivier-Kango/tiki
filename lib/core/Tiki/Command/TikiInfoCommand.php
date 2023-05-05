@@ -43,6 +43,8 @@ class TikiInfoCommand extends Command
             $output->writeln("<info>" . $tikiVersion . "</info>");
         } else {
             $output->writeln("<info>Unknown argument '" . $tikiPhpArgument . "'</info>");
+            return Command::INVALID;
         }
+        return Command::SUCCESS;
     }
 }

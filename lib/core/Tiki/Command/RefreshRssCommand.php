@@ -55,5 +55,6 @@ class RefreshRssCommand extends Command
         }
 
         $output->writeln('<info>Done.</info>');
+        return Command::SUCCESS;
     }
 }

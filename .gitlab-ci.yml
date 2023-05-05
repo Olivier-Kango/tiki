@@ -57,7 +57,7 @@ composer:
     COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   script:
     - composer -V | grep "version 2" || composer self-update --2
-    - composer --ansi install -d vendor_bundled --no-progress --prefer-dist -n
+    - composer --ansi install -d vendor_bundled --no-progress --prefer-dist --no-interaction
   cache:
     - key:
         prefix: "composer"
@@ -222,7 +222,7 @@ translation:
   stage: tiki-check
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
-    - git log --first-parent --pretty="format:%h" -1 --skip=1 | xargs -I gitHash php -d display_errors=On doc/devtools/translate.php --diff-command="git diff gitHash" --git --audit
+    - git log --first-parent --pretty="format:%h" -1 --skip=1 | xargs -I gitHash php -d display_errors=On console.php translation:englishupdate --diff-command="git diff gitHash" --git --audit
   dependencies:
     - composer
   needs:
@@ -610,12 +610,16 @@ tiki-package:
 # Vendors Security
 #
 
-sensiolabs-vendor-security-check:
+#disabled
+.vendor-security-check:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: vendors-security
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - cp composer.json.dist composer.json
+    # These are packages frequently installed with tiki, but not distributed with it
+    # This should be generated from /lib/core/Tiki/Package/ComposerPackages.yml
+    # It wasn't automated before, and I don't know how we were supposed to get some of these packages locally.  php console.php package:list can generate the list, but I can find no command to install them all - benoitg - 2023-05-04
     - composer require jerome-breton/casperjs-installer:dev-master --no-progress
     - composer require enygma/expose:^3.0 --no-progress
     - composer require fullcalendar/fullcalendar-scheduler ^1.9 --no-progress
@@ -631,7 +635,10 @@ sensiolabs-vendor-security-check:
     - composer require npm-asset/pdfjs-dist ~2.0.487 --no-progress
     - composer require bower-asset/wodo.texteditor ^0.5.9 --no-progress
     - composer require j0k3r/php-readability ^1.1.10 --no-progress
-    - php bin/security-checker security:check composer.lock
+    - cd vendor_bundled
+    - php vendor/thibautselingue/local-php-security-checker-installer/bin/local-php-security-checker-installer
+    - cd ..
+    - bin/local-php-security-checker --path=composer.lock
   allow_failure: false
   dependencies:
     - composer
@@ -643,20 +650,31 @@ sensiolabs-vendor-security-check:
     variables:
       - $SCHEDULER == "vendor_check"
 
-sensiolabs-vendor-bundled-security-check:
+vendor-bundled-security-check:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: vendors-security
   script:
-    - php bin/security-checker security:check vendor_bundled/composer.lock
+    - composer -V | grep "version 2" || composer self-update --2
+    - cd vendor_bundled
+    - php vendor/thibautselingue/local-php-security-checker-installer/bin/local-php-security-checker-installer
+    - cd ..
+    - bin/local-php-security-checker --path=vendor_bundled/composer.lock
   dependencies:
     - composer
   needs:
     - composer
-  only:
-    refs:
-      - schedules
-    variables:
-      - $SCHEDULER == "vendor_check"
+  #We do want our pipeline to spontaneously warn us if a security advisory is released, but we don't want it to stop the development process
+  allow_failure: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - 'vendor_bundled/composer.json'
+        - 'vendor_bundled/composer.lock'
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - 'vendor_bundled/composer.json'
+        - 'vendor_bundled/composer.lock'
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULER == "vendor_check"
 
 update_vendor_bundled_dependencies:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}

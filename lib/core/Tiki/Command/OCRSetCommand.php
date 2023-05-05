@@ -149,5 +149,6 @@ class OCRSetCommand extends Command
             $numrows = '<error>' . $numrows . '</error>';
         }
         $output->writeln('<comment>Status of ' . $numrows . ' files updated.</comment>');
+        return Command::SUCCESS;
     }
 }

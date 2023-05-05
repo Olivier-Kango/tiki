@@ -84,5 +84,6 @@ class ProfileForgetCommand extends Command
         } else {
             $output->writeln('<info>Profile was not installed or did not create any objects.</info>');
         }
+        return Command::SUCCESS;
     }
 }

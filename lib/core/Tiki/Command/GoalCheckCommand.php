@@ -41,5 +41,6 @@ class GoalCheckCommand extends Command
 
         $goallib = TikiLib::lib('goal');
         $goallib->evaluateAllGoals();
+        return Command::SUCCESS;
     }
 }

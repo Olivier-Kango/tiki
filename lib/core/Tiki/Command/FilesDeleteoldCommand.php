@@ -73,5 +73,6 @@ class FilesDeleteoldCommand extends Command
                 }
             }
         }
+        return Command::SUCCESS;
     }
 }

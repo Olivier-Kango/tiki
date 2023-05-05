@@ -78,6 +78,8 @@ class ThemeRemoveCommand extends Command
             );
         } catch (IOExceptionInterface $e) {
             $output->writeln('<error>' . tr('An error occurred while deleting theme') . $themeName . '</error>');
+            return Command::FAILURE;
         }
+        return Command::SUCCESS;
     }
 }

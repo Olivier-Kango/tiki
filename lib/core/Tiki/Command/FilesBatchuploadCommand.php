@@ -200,5 +200,6 @@ class FilesBatchuploadCommand extends Command
             }
             $output->writeln("<info>Use the --confirm option to proceed with the upload operation.</info>");
         }
+        return Command::SUCCESS;
     }
 }

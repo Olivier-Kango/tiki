@@ -88,5 +88,6 @@ class PluginPendingRunCommand extends Command
         $logslib->add_action('plugin approval', 'system', 'system', 'Plugin approval notification sent');
 
         $output->writeln(tr('Plugin pending notification sent with success'));
+        return Command::SUCCESS;
     }
 }

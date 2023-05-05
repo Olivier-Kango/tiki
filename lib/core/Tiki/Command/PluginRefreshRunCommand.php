@@ -33,5 +33,6 @@ class PluginRefreshRunCommand extends Command
         $parserLib->pluginRefresh($logger);
 
         $output->writeln(tr('Plugin list refreshed with success'));
+        return Command::SUCCESS;
     }
 }

@@ -199,6 +199,7 @@ EOT;
             $output->writeln('<error>Error: database config not found</error>');
             $output->writeln('* Try running this command again, or follow instructions in lib/test/local.php.dist', OutputInterface::VERBOSITY_VERBOSE);
         }
+        return Command::SUCCESS;
     }
 
     /**

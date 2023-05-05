@@ -83,5 +83,6 @@ class OCRFileCommand extends Command
         } catch (Exception $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }
+        return Command::SUCCESS;
     }
 }

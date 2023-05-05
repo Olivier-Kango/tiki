@@ -61,6 +61,7 @@ class FilesCheckCommand extends Command
         $checkAttachmentGallery = new CheckAttachmentGallery('f');
         $result = $checkAttachmentGallery->analyse();
         $this->printResults($output, $result, tr('Forum Attachments'));
+        return Command::SUCCESS;
     }
 
     /**

@@ -27,6 +27,9 @@ tikiold.sql
 tikinew.sql
 #phpunit report
 report.xml
+/.composercache
+/before
+/after
 
 #PRODUCTION AND SYSADMIN SECTION
 

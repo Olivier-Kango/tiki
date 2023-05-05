@@ -55,5 +55,6 @@ class MultiTikiListCommand extends Command
                 $output->writeln("<info>No multitikis found in $path</info>");
             }
         }
+        return Command::SUCCESS;
     }
 }

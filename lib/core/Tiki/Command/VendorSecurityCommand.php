@@ -62,12 +62,30 @@ class VendorSecurityCommand extends Command
         }
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    private function check($lockFile, $output)
+    {
+         $output->writeln("<info>Checking $lockFile</info>");
+        $command = 'bin/local-php-security-checker';
+        $commandOutputArray = [];
+        exec($command, $commandOutputArray, $resultCode);
+        if ($resultCode != 0) {
+            foreach ($commandOutputArray as &$line) {
+                $output->writeln("<info>$line</info>");
+            }
+            throw new Exception("$command security check failed", $resultCode);
+        }
+        foreach ($commandOutputArray as &$line) {
+            $output->writeln("<info>$line</info>");
+        }
+
+        return $commandOutputArray;
+    }
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         // die gracefully if shell_exec is not enabled;
-        if (! is_callable('shell_exec')) {
-            $output->writeln('<error>shell_exec must be enabled</error>');
-            return;
+        if (! is_callable('exec')) {
+            $output->writeln('<error>exec must be enabled</error>');
+            return Command::FAILURE;
         }
         // remove horrible red backgrounds from errors
         $outputStyle = new OutputFormatterStyle('red');
@@ -75,23 +93,22 @@ class VendorSecurityCommand extends Command
 
         $composerManager = new ComposerManager(TIKI_PATH);
 
-        $checker = new SecurityChecker();
         $lockFile = 'vendor_bundled/composer.lock';
         try {
-            $alerts = $checker->check($lockFile, 'json');
+            $checkOutput = $this->check($lockFile, $output);
         } catch (Exception $e) {
             $output->writeln('<error>Could not fetch security advisories</error>');
             $output->writeln('<comment>Error message:</comment> ' . $e->getMessage());
             return;
         }
-        $alerts = json_decode((string)$alerts, true);
+        /*$alerts = json_decode((string)$alerts, true);
         $output->writeln('<info>Tiki Vendor Advisories</info>');
         $this->renderAdvisories($output, $alerts, 'vendor_bundled');
-
+*/
         $lockFile = 'composer.lock';
         // check if packages lockfile exists
         if (is_readable($lockFile)) {
-            $installedCount = count($composerManager->getInstalled());
+            /*$installedCount = count($composerManager->getInstalled());
             $availableComposerPackages = $composerManager->getAvailable();
             $totalCount = $installedCount + count($availableComposerPackages);
             $output->writeln("<info>Tiki Package Advisories ($installedCount of $totalCount checked)</info>");
@@ -102,16 +119,18 @@ class VendorSecurityCommand extends Command
                 }
                 $output->writeln('& the dependencies thereof. They must be installed to check advisories.');
                 $output->writeln('You may run "php composer.php packages:install --install-all" to install the missing dependencies.', OutputInterface::VERBOSITY_VERBOSE);
-            }
+            }*/
             try {
-                $alerts = $checker->check($lockFile, 'json');
+                $alerts = $this->check($lockFile, $output);
             } catch (Exception $e) {
                 $output->writeln('<error>Could not fetch security advisories</error>');
                 $output->writeln('<comment>Error message:</comment> ' . $e->getMessage());
                 return;
             }
+            /*
             $alerts = json_decode((string)$alerts, true);
-            $this->renderAdvisories($output, $alerts);
+            $this->renderAdvisories($output, $alerts);*/
         }
+        return Command::SUCCESS;
     }
 }

@@ -49,5 +49,6 @@ class PreferencesGetCommand extends Command
         }
 
         $output->writeln(sprintf('Preference %s has value %s', $preference, $value));
+        return Command::SUCCESS;
     }
 }

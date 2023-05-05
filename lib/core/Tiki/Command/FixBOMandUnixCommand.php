@@ -93,6 +93,7 @@ class FixBOMandUnixCommand extends Command
                 $progress->setMessage("<comment>$filesUpdated files updated, you may now review and commit.</comment>");
         }
         $progress->finish();
+        return Command::SUCCESS;
     }
 
     /**

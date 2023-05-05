@@ -29,5 +29,6 @@ class RecommendationBatchCommand extends Command
     {
         $batch = TikiLib::lib('recommendationcontentbatch');
         $batch->process();
+        return Command::SUCCESS;
     }
 }

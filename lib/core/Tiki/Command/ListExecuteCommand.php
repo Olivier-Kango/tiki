@@ -111,5 +111,6 @@ class ListExecuteCommand extends Command
         TikiLib::lib('parser')->parse_data($pageInfo['data']);
 
         $output->writeln("Action $action executed on page $page.");
+        return 0; // Command::SUCCESS;
     }
 }

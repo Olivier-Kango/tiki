@@ -1,6 +1,6 @@
 # temp/public/
 
-For temp files that need to be http readable by the end user's browser.
+DEPRECATED For temp files that need to be http readable by the end user's browser.  Will all move to public/temp
 
 What's here:
 

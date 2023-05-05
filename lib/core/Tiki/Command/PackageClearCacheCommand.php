@@ -42,7 +42,8 @@ class PackageClearCacheCommand extends Command
             $output->writeln($result);
         } else {
             $output->writeln('<error>' . tr('Composer could not be executed.') . '</error>');
-            return;
+            return Command::FAILURE;
         }
+        return Command::SUCCESS;
     }
 }

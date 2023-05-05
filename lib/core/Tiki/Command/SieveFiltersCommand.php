@@ -364,6 +364,7 @@ class SieveFiltersCommand extends Command
                 }
             }
         }
+        return Command::SUCCESS;
     }
 
     protected function action_reject($imap, $msg, $body, $to, $config, $hmod, $output)

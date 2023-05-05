@@ -112,5 +112,6 @@ class FilesMoveCommand extends Command
             'system',
             'Moving files from gallery #' . $galleryId . ' to folder' . $destinationPath . ' completed.' . count($files) . ' Files moved.'
         );
+        return Command::SUCCESS;
     }
 }

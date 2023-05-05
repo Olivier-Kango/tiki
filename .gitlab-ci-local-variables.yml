@@ -6,4 +6,4 @@
 #gitlab-ci-local --variable DEPENDENCY_PROXY_PREFIX=something ...
 
 #In case gitlab-ci-local ever defines $CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX or support workflow rules in the future
-SKIP_GITLAB_PROXY: "true"
+USE_GITLAB_PROXY: "false"

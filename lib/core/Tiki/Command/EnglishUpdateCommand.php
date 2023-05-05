@@ -363,7 +363,8 @@ class EnglishUpdateCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
 
-            return $output->writeln(' --email, only available when running in --audit mode.');
+            $output->writeln(' --email, only available when running in --audit mode.');
+            return Command::INVALID;
         }
         // check that scm is being used and validate
         $scm = $input->getOption('scm');
@@ -372,7 +373,8 @@ class EnglishUpdateCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
 
-            return $output->writeln('<error> --scm, invalid value. ex: svn or git. </error>');
+            $output->writeln('<error> --scm, invalid value. ex: svn or git. </error>');
+            return Command::INVALID;
         }
 
         if (empty($scm)) {//detect if is svn or git repo
@@ -381,7 +383,8 @@ class EnglishUpdateCommand extends Command
             } elseif (file_exists(TIKI_PATH . DIRECTORY_SEPARATOR . '.svn')) {
                 $scm = 'svn';
             } else {
-                return $output->writeln('<error>SCM not found in this tiki installation</error>');
+                $output->writeln('<error>SCM not found in this tiki installation</error>');
+                return Command::FAILURE;
             }
         }
 
@@ -395,12 +398,14 @@ class EnglishUpdateCommand extends Command
                 $help->setCommand($this);
                 $help->run($input, $output);
 
-                return $output->writeln('<error>Invalid option for --lag, must be a positive integer.</error>');
+                $output->writeln('<error>Invalid option for --lag, must be a positive integer.</error>');
+                return Command::INVALID;
             }
         } elseif ($revision) {
             $revisions = explode(':', $revision);
             if (count($revisions) > 2) {
-                return $output->writeln('<error>Invalid amount of revisions</error>');
+                $output->writeln('<error>Invalid amount of revisions</error>');
+                return Command::INVALID;
             }
         }
 
@@ -421,7 +426,7 @@ class EnglishUpdateCommand extends Command
             $progress->setMessage('<error>Translation string update Failed. Could not execute shell_exec()</error>');
             $progress->finish();
 
-            return false;
+            return Command::FAILURE;
         }
 
         $progress->setMessage('Getting String Changes');
@@ -593,6 +598,6 @@ class EnglishUpdateCommand extends Command
             $output->writeln("\n\nOptionally run php get_strings.php to remove any unused translation strings.");
             $output->writeln("Verify before committing.\n");
         }
-        exit(0);
+        return Command::SUCCESS;
     }
 }

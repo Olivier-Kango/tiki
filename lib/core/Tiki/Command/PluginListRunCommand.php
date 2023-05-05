@@ -73,5 +73,6 @@ class PluginListRunCommand extends Command
         } else {
             $logger->warning(tr('No plugins found!'));
         }
+        return Command::SUCCESS;
     }
 }

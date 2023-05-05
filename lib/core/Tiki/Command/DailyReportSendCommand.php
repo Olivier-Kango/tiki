@@ -40,5 +40,6 @@ class DailyReportSendCommand extends Command
         $reportsManager->send();
 
         $output->writeln('Finished.');
+        return Command::SUCCESS;
     }
 }

@@ -44,5 +44,6 @@ class SchedulerHealCommand extends Command
 
         $manager = new \Scheduler_Manager($logger);
         $manager->heal($schedulerId);
+        return Command::SUCCESS;
     }
 }

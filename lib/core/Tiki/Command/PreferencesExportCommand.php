@@ -153,6 +153,7 @@ class PreferencesExportCommand extends Command
         }
 
         $output->writeln(sprintf("Preferences exported in %s", $filename));
+        return Command::SUCCESS;
     }
 
     /**

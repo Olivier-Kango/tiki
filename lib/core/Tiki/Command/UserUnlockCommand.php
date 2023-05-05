@@ -88,5 +88,6 @@ class UserUnlockCommand extends Command
             $table->setRows($result);
             $table->render();
         }
+        return Command::SUCCESS;
     }
 }

@@ -109,5 +109,6 @@ class MarkdownConvertCommand extends Command
                 $io->writeln($converted);
             }
         }
+        return Command::SUCCESS;
     }
 }

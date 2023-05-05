@@ -41,5 +41,6 @@ class MailInPollCommand extends Command
             $account = MailIn\Account::fromDb($acc);
             $account->check();
         }
+        return Command::SUCCESS;
     }
 }

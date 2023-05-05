@@ -31,5 +31,6 @@ class TokensClearCommand extends Command
 
         $output->writeln(tr('%0 tokens deleted.', $affectedRows->numrows), OutputInterface::VERBOSITY_VERBOSE);
         $output->writeln('<comment>' . tr('Expired tokens were removed.') . '</comment>');
+        return Command::SUCCESS;
     }
 }

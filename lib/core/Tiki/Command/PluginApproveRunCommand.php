@@ -73,5 +73,6 @@ class PluginApproveRunCommand extends Command
         }
 
         $output->writeln(tr('Plugins approved with success'));
+        return Command::SUCCESS;
     }
 }

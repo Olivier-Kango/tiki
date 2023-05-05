@@ -50,5 +50,6 @@ class OCRStatusCommand extends Command
             ['ocr_state' => $ocrLib::OCR_STATUS_SKIP]
         );
         $output->writeln("Will not OCR:       $count");
+        return Command::SUCCESS;
     }
 }

@@ -54,5 +54,6 @@ class PerformanceCheckCommand extends Command
         }
 
         $maximumLoadTimeTable->render();
+        return Command::SUCCESS;
     }
 }

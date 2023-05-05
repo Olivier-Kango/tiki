@@ -123,5 +123,6 @@ class ObjectsNotifyMaintainersCommand extends Command
                 }
             }
         }
+        return Command::SUCCESS;
     }
 }

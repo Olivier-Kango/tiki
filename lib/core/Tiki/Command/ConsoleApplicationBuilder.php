@@ -271,7 +271,6 @@ class ConsoleApplicationBuilder
             'actions'   => [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_CALLABLE],
             'commands'  => [
                 new VCSUpdateCommand(),
-                new FixSVNKeyIdsCommand(),
                 new SemiAutoMergeCommand(),
                 new DevConfigureCommand(),
                 ],

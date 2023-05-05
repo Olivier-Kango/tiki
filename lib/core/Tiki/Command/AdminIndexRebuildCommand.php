@@ -28,5 +28,6 @@ class AdminIndexRebuildCommand extends Command
     {
         \TikiLib::lib('prefs')->rebuildIndex();
         $output->writeln('Preferences index was rebuilt successfully.');
+        return 0; // Command::SUCCESS;
     }
 }

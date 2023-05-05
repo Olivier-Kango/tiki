@@ -123,5 +123,6 @@ class TranslationPercentageCommand extends Command
         } else {
             echo $output;
         }
+        return Command::SUCCESS;
     }
 }

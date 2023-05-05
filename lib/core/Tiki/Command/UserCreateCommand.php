@@ -100,5 +100,6 @@ class UserCreateCommand extends Command
         $user = $userlib->get_user_info($user);
         $output->write(json_encode($user, JSON_PRETTY_PRINT));
         $logslib->add_action('adminusers', 'system', 'system', 'New user created with username ' . $user['login']);
+        return Command::SUCCESS;
     }
 }

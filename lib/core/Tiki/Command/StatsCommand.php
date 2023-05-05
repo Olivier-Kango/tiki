@@ -120,5 +120,6 @@ class StatsCommand extends Command
                 ->setRows($kpis);
             $table->render();
         }
+        return Command::SUCCESS;
     }
 }

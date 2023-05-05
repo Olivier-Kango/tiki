@@ -50,5 +50,6 @@ class PreferencesDeleteCommand extends Command
 
         $output->writeln(sprintf('Preference %s was deleted', $preference));
         $logslib->add_action('feature', $preference, 'system', 'deleted');
+        return Command::SUCCESS;
     }
 }

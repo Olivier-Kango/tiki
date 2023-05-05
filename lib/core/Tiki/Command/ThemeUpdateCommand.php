@@ -158,7 +158,8 @@ class ThemeUpdateCommand extends Command
             }
         } catch (Exception $ex) {
             $output->writeln('<error>' . tr('Could not open file') . '</error>');
-            return;
+            return Command::FAILURE;
         }
+        return Command::SUCCESS;
     }
 }

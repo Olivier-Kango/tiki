@@ -72,5 +72,6 @@ class InstallCommand extends Command
         } else {
             $output->writeln('<error>' . tr('Database already exists.') . '</error>');
         }
+        return Command::SUCCESS;
     }
 }

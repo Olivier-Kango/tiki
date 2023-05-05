@@ -42,7 +42,7 @@ if ($ignoreExists) {
 
 system(
     'php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs'
-    . ' -s --runtime-set ignore_warnings_on_exit true --parallel=32'
+    . ' -s --runtime-set ignore_warnings_on_exit true --cache=phpcs.cache --parallel=8'
     . ' --report=json --report-file=' . $jsonReport
 );
 

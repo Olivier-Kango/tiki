@@ -70,7 +70,8 @@ class PackageListCommand extends Command
             }
         } else {
             $output->writeln('<error>' . tr('Composer could not be executed.') . '</error>');
-            return;
+            return Command::FAILURE;
         }
+        return Command::SUCCESS;
     }
 }

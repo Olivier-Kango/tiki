@@ -82,5 +82,6 @@ class RssClearCacheCommand extends Command
 
         $output->writeln('<info>Done.</info>');
         $logslib->add_action('rss clear cache', 'system', 'system', 'RSS cache cleared');
+        return Command::SUCCESS;
     }
 }

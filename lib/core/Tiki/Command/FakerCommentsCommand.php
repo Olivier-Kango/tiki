@@ -245,6 +245,6 @@ class FakerCommentsCommand extends Command
 
         $prefs['user_show_realnames'] = $showRealNames;
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

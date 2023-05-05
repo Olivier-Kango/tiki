@@ -34,7 +34,7 @@ class SemiAutoMergeCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln("Verifying...");
 
@@ -160,6 +160,7 @@ class SemiAutoMergeCommand extends Command
 
         $output->writeln('<info>Please verify local copy now. All changes in the working copy will be committed.</info>');
         $this->commitChanges($input, $output);
+        return Command::SUCCESS;
     }
 
     /**

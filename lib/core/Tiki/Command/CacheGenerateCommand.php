@@ -60,5 +60,6 @@ class CacheGenerateCommand extends Command
         }
 
         $output->writeln('Caches generated');
+        return Command::SUCCESS;
     }
 }

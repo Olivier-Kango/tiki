@@ -90,5 +90,6 @@ LOCALPHP;
         file_put_contents($local_php, $out);
 
         $output->writeln("Wrote $local_php");
+        return Command::SUCCESS;
     }
 }

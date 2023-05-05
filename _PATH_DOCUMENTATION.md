@@ -56,8 +56,8 @@ This is the documentation for subdirectories, with hyperlinks to their respectiv
   * Already exists, but progressively re-organise it and move more files to it.
   * Must not be backed-up, that's why it's not in private/.  Any file that cannot be reconstructed by tiki (such as mail queues) should go to private/storage
   * Shouldn't be expected to be readable over http
-  * **dev/** For development/build/CI tools (vitejs, SCSS, GitLab-ci etc.). Need to be rw for the developper/sysadmin. Does not preclude having invisible files/folders at the root, but encourages putting devtool caches here for easy inspection/clearing/exclusion from backups
-  * **prod/** //For tiki server operation, needs to be rw for PHP, and possibly other tools.
+  * **[dev/](temp/dev/README.md)** For development/build/CI tools (vitejs, SCSS, GitLab-ci etc.).
+  * **prod/** For tiki server operation, needs to be rw for PHP, and possibly other tools.
     * ^= storage/prefsdoc/
   * **export/**
     * ^= profiles/
@@ -201,7 +201,7 @@ Some of these may be created by scripts, and not currently versionned in git.
 
 There are currently many generated files (or trivially generatable files) in git:
 
-* index.php and .htaccess designed to disallow directory listing in apache.  We already have code in doc/devtools/check_tiki_directories.php to generate and check.
+* index.php and .htaccess designed to disallow directory listing in apache.  We already have code in php doc/devtools/check_tiki_directories.php to check and even generate (php doc/devtools/check_tiki_directories.php fix-index).
 * Vue3 javascript files currently in /lib/vue_mf
 * A limited number of other js files.
 * scss files

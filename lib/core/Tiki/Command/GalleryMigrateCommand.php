@@ -57,5 +57,6 @@ class GalleryMigrateCommand extends Command
         } else {
             $output->writeln('<error>' . tr('No files migrated, default file gallery path is not writable.') . '</error>');
         }
+        return Command::SUCCESS;
     }
 }

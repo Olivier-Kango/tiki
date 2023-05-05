@@ -121,5 +121,6 @@ class DevUnInstallCommand extends Command
         } else {
             $output->writeln('Unit test configuration file not found');
         }
+        return Command::SUCCESS;
     }
 }

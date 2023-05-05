@@ -32,5 +32,6 @@ class IndexOptimizeCommand extends Command
         $unifiedsearchlib->getIndex('data-write')->optimize();
 
         $output->writeln('Optimizing index done');
+        return Command::SUCCESS;
     }
 }

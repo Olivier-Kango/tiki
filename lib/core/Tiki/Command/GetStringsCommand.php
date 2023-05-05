@@ -92,7 +92,7 @@ class GetStringsCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $timer = new timer();
         $timer->start();
@@ -144,5 +144,6 @@ class GetStringsCommand extends Command
         $output->writeln(
             '<info>Warning: Committing the results of getstrings will prevent identifying broken strings with translation:englishupdate so englishupdate should be run first to prevent gradual translation loss. See englishupdate help for details.</info>'
         );
+        return Command::SUCCESS;
     }
 }

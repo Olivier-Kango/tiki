@@ -28,5 +28,6 @@ class CookiesClearCommand extends Command
 
         $output->writeln(tr('%0 cookies deleted.', $affectedRows->numrows), OutputInterface::VERBOSITY_VERBOSE);
         $output->writeln('<comment>' . tr('Expired cookies were removed.') . '</comment>');
+        return Command::SUCCESS;
     }
 }

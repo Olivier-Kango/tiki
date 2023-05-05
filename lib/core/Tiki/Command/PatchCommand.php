@@ -75,5 +75,6 @@ class PatchCommand extends Command
         $output->writeln('<info>Queries executed successfully: ' . count($installer->queries['successful']) . '</info>');
 
         \TikiLib::lib('cache')->empty_cache();
+        return Command::SUCCESS;
     }
 }

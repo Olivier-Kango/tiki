@@ -200,5 +200,6 @@ class RedactDBCommand extends Command
         $output->writeln('<comment>Read the disclaimer!</comment>');
         $output->writeln('<comment>The following means jack:</comment>');
         $output->writeln('<info>Finished redacting database.</info>');
+        return Command::SUCCESS;
     }
 }

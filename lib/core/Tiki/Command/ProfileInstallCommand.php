@@ -156,5 +156,6 @@ class ProfileInstallCommand extends Command
         } else {
             $output->writeln('<info>' . tr('Profile was already applied. Nothing happened.') . '</info>');
         }
+        return Command::SUCCESS;
     }
 }

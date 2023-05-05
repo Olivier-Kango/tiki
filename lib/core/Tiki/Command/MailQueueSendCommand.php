@@ -77,5 +77,6 @@ class MailQueueSendCommand extends Command
             }
         }
         $output->writeln('Mail queue processed...');
+        return Command::SUCCESS;
     }
 }

@@ -86,9 +86,8 @@ class DevFixStyleCommand extends Command
             $files = $matches[0];
         }
 
-        $totalFiles = count($files);
-        $totalFiles--;                      // We reduce by one to sync the numbers with the array key values
-        $progress = new ProgressBar($output, count($files));
+        $numTotalFiles = count($files);
+        $progress = new ProgressBar($output, $numTotalFiles);
         if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
             $progress->setOverwrite(false);
         }
@@ -101,21 +100,22 @@ class DevFixStyleCommand extends Command
         $filesUpdated = 0;
         $processing = 0;
         $processes = [];
+        if ($numTotalFiles > 0) {
         // Now we start multithreading the phpcbf process, because its SO SLOW!
-        for ($fileProcess = 0; $fileProcess < 8; $fileProcess++) {
-            if ($files[$fileProcess]) {
-                $processing++;
-                $processes[$processing] = new Process(
-                    ['php',
-                     'vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcbf',
-                     $files[$fileProcess]]
-                );
-                $processes[$processing]->start();
-            } else {
-                break;
+            for ($fileProcess = 0; $fileProcess < 8 && $fileProcess < $numTotalFiles; $fileProcess++) {
+                if ($files[$fileProcess]) {
+                    $processing++;
+                    $processes[$processing] = new Process(
+                        ['php',
+                        'vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcbf',
+                        $files[$fileProcess]]
+                    );
+                    $processes[$processing]->start();
+                } else {
+                    break;
+                }
             }
         }
-
 
         /**
          * Find if one of the processes has finished
@@ -142,7 +142,7 @@ class DevFixStyleCommand extends Command
                 if ($processes[$processId]->getExitCode() === 1) {
                     $filesUpdated++;
                 }
-                if ($processing < $totalFiles) {                        // If there is still more files to process
+                if ($processing < $numTotalFiles) {                        // If there is still more files to process
                     $processes[$processId] = new Process(
                         ['php',
                          'vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcbf',
@@ -162,6 +162,7 @@ class DevFixStyleCommand extends Command
             $progress->setMessage("<comment>$filesUpdated files updated, you may now review and commit.</comment>");
         }
         $progress->finish();
+        return Command::SUCCESS;
     }
 
     /**

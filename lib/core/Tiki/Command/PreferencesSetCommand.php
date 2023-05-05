@@ -71,5 +71,6 @@ class PreferencesSetCommand extends Command
         } else {
             $logslib->add_action('feature', $preference, 'system', is_array($value) ? implode(',', $value) : $value);
         }
+        return Command::SUCCESS;
     }
 }

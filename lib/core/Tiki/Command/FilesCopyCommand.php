@@ -94,5 +94,6 @@ class FilesCopyCommand extends Command
             'system',
             'Copying files from gallery #' . $galleryId . ' to folder' . $destinationPath . ' completed.' . count($files) . ' Files copied.'
         );
+        return Command::SUCCESS;
     }
 }

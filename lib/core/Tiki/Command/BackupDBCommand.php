@@ -100,5 +100,6 @@ class BackupDBCommand extends Command
         $command = "mysqldump --quick --create-options --extended-insert $args | gzip -5 > " . escapeshellarg($outputFile);
         exec($command);
         $output->writeln('<comment>Database backup completed: ' . $outputFile . '</comment>');
+        return 0; // Command::SUCCESS;
     }
 }

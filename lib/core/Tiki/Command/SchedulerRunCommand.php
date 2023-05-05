@@ -55,5 +55,6 @@ class SchedulerRunCommand extends Command
         }
 
         $manager->run();
+        return Command::SUCCESS;
     }
 }

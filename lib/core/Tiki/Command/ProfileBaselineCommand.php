@@ -119,6 +119,7 @@ class ProfileBaselineCommand extends Command
 
         $output->writeln("");
         $output->writeln("-- Dump completed");
+        return Command::SUCCESS;
     }
 
     private function generateSymbol($type, $name)

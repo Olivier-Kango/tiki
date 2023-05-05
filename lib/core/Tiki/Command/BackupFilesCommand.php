@@ -123,5 +123,6 @@ class BackupFilesCommand extends Command
         $command = "tar -cjf $tar $source";
         exec($command);
         $output->writeln('<comment>Backup complete: ' . $tarLocation . '</comment>');
+        return Command::SUCCESS;
     }
 }

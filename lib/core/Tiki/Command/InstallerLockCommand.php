@@ -39,8 +39,10 @@ LOCK;
         $file = 'db/lock';
         if (! file_put_contents($file, $out)) {
             $output->writeln("<error>Could not lock installer</error>");
+            return Command::FAILURE;
         } else {
             $output->writeln("<info>Installer locked</info>");
+            return Command::SUCCESS;
         }
     }
 }

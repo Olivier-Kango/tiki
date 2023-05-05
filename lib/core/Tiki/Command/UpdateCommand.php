@@ -74,6 +74,8 @@ class UpdateCommand extends Command
             $cachelib->empty_cache();
         } else {
             $output->writeln('<error>Database not found.</error>');
+            return Command::FAILURE;
         }
+        return Command::SUCCESS;
     }
 }
