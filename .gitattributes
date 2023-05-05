@@ -3739,7 +3739,6 @@ lib/payment/cclitelib.php -text
 lib/payment/creditspaylib.php -text
 lib/payment/discountlib.php -text
 lib/payment/index.php -text
-lib/payment/israelpostlib.php -text
 lib/payment/paymentlib.php -text
 lib/payment/paypallib.php -text
 lib/pdf/fontdata/fa-codes.json -text
@@ -6283,7 +6282,6 @@ templates/tiki-page_contribution.tpl -text
 templates/tiki-page_contribution_form.tpl -text
 templates/tiki-pagehistory.tpl -text
 templates/tiki-payment-cclite.tpl -text
-templates/tiki-payment-israelpost.tpl -text
 templates/tiki-payment-list-past.tpl -text
 templates/tiki-payment-list.tpl -text
 templates/tiki-payment-paypal.tpl -text
