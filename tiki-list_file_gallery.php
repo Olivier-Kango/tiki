@@ -1367,7 +1367,9 @@ $smarty->assign('isAwsSdkInstalled', $isAwsSdkInstalled);
 // Display the template
 if (! empty($_REQUEST['filegals_manager'])) {
     $smarty->assign('filegals_manager', $_REQUEST['filegals_manager']);
-    $smarty->assign('insertion_syntax', $_REQUEST['insertion_syntax']);
+    if (! empty($_REQUEST['insertion_syntax'])) {
+        $smarty->assign('insertion_syntax', $_REQUEST['insertion_syntax']);
+    }
     $smarty->display('tiki_full.tpl');
 } else {
     $smarty->display('tiki.tpl');
