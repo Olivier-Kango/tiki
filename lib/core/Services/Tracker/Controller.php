@@ -1645,7 +1645,7 @@ class Services_Tracker_Controller
         // View
         $viewItemPretty = [
                 'override' => false,
-                'value' => $trackerInfo['viewItemPretty'],
+                'value' => $trackerInfo['viewItemPretty'] ?? "",
                 'type' => 'wiki'
         ];
         if (! empty($trackerInfo['viewItemPretty'])) {
