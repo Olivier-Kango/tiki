@@ -968,7 +968,7 @@ class CalendarLib extends TikiLib
         global $user;
         $smarty = TikiLib::lib('smarty');
         $fields = false;
-        if ($fhandle = fopen($fname, 'r')) {
+        if (! empty($fname) && ($fhandle = fopen($fname, 'r'))) {
             $fields = fgetcsv($fhandle, 1000);
         }
         if ($fields === false || ! array_search('name', $fields)) {
