@@ -39,7 +39,7 @@
                     <input type="file" name="file[]" {if $limit !== 1}multiple{/if} {if $typeFilter}accept="{$typeFilter|escape}"{/if}
                            class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
                             onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
-                    <label class="form-label custom-file-label" for="inputFile">{tr}Choose file{/tr}</label>
+                    <label class="form-label custom-file-label btn btn-primary" for="inputFile">{tr}Choose file{/tr}</label>
                 </div>
             </div>
             <p class="drop-message text-center">
@@ -81,7 +81,7 @@
                     <input type="file" name="file[]" {if $limit !== 1}multiple{/if} {if $typeFilter}accept="{$typeFilter|escape}"{/if}
                            class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
                             onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
-                    <label class="form-label custom-file-label" for="inputFile">{tr}Choose file{/tr}</label>
+                    <label class="form-label custom-file-label btn btn-primary" for="inputFile">{tr}Choose file{/tr}</label>
                 </div>
             </div>
 
