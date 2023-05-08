@@ -56,29 +56,32 @@ class UserPrefsLib extends TikiLib
     public function get_public_avatar_path($user)
     {
         global $prefs, $tikidomainslash;
+        $file = '';
+        if (! empty($user)) {
+            if ($prefs['users_serve_avatar_static'] == 'y') {
+                $hash = md5($user);
+                $files = glob("temp/public/{$tikidomainslash}avatar_$hash.{jpg,jpeg,gif,png}", GLOB_BRACE);
 
-        if ($prefs['users_serve_avatar_static'] == 'y') {
-            $hash = md5($user);
-            $files = glob("temp/public/{$tikidomainslash}avatar_$hash.{jpg,jpeg,gif,png}", GLOB_BRACE);
-
-            if (! empty($files[0])) {
-                $file = $files[0];
-            } else {
-                $file = $this->generate_avatar_file($user);
-            }
-            if ($lastmod = filemtime($file)) {
-                $file .= '?v=' . $lastmod;
-            }
-        } else {
-            $info = $this->get_user_avatar_img($user);
-            $content = $info["avatarData"];
-            if (! empty($content)) {
-                $file = "tiki-show_user_avatar.php?user=" . urlencode($user);
-            } else {
-                $file = 'img/noavatar.png';
+                if (! empty($files[0])) {
+                    $file = $files[0];
+                } else {
+                    $file = $this->generate_avatar_file($user);
+                }
                 if ($lastmod = filemtime($file)) {
                     $file .= '?v=' . $lastmod;
                 }
+            } else {
+                $info = $this->get_user_avatar_img($user);
+                $content = $info["avatarData"];
+                if (! empty($content)) {
+                    $file = "tiki-show_user_avatar.php?user=" . urlencode($user);
+                }
+            }
+        }
+        if (empty($file)) {
+            $file = 'img/noavatar.png';
+            if ($lastmod = filemtime($file)) {
+                $file .= '?v=' . $lastmod;
             }
         }
         if (TikiLib::lib('parser')->option['absolute_links']) {

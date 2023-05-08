@@ -541,7 +541,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
         }
     }
 
-    public function attach(SplObserver $observable)
+    public function attach(SplObserver $observable): void
     {
         if (method_exists($observable, 'update')) {
             $this->observers->attach($observable);
@@ -550,12 +550,12 @@ class Installer extends TikiDb_Bridge implements SplSubject
         }
     }
 
-    public function detach(SplObserver $observable)
+    public function detach(SplObserver $observable): void
     {
         $this->observers->detach($observable);
     }
 
-    public function notify()
+    public function notify(): void
     {
         foreach ($this->observers as $observer) {
             $observer->update($this);
