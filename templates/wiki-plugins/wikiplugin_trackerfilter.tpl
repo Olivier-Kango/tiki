@@ -77,10 +77,18 @@
                             {trackerinput field=$filter.field inForm="y"}
     {*------range *}
                         {elseif $filter.format eq 'range'}
-                            {tr}From:{/tr}&nbsp;
-                            {trackerinput field=$filter.opts.from inForm="y"}
-                            {tr}To:{/tr}&nbsp;
-                            {trackerinput field=$filter.opts.to inForm="y"}
+                            <div class="row">
+                                <div class="col-sm-2">{tr}From:{/tr}</div>
+                                <div class="col-sm-10">
+                                    {trackerinput field=$filter.opts.from inForm="y"}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">{tr}To:{/tr}</div>
+                                <div class="col-sm-10">
+                                    {trackerinput field=$filter.opts.to inForm="y"}
+                                </div>
+                            </div>
     {*------text *}
                         {elseif $filter.format eq 't' or $filter.format eq 'T' or $filter.format eq 'i'}
                             {if $filter.format eq 'i'}
