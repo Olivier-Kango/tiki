@@ -686,25 +686,27 @@ class RSSLib extends TikiDb_Bridge
         $result = $this->modules->fetchOne('actions', ['rssId' => $rssId]);
         $actions = json_decode($result);
         $categories = [];
-        foreach ($actions as $action) {
-            if (isset($action->custom_atype)) {
-                foreach ($action->custom_atype as $source_category => $atype) {
-                    $categories[$source_category]['atype'] = $atype;
+        if (isset($actions)) {
+            foreach ($actions as $action) {
+                if (isset($action->custom_atype)) {
+                    foreach ($action->custom_atype as $source_category => $atype) {
+                        $categories[$source_category]['atype'] = $atype;
+                    }
                 }
-            }
-            if (isset($action->custom_topic)) {
-                foreach ($action->custom_topic as $source_category => $topic) {
-                    $categories[$source_category]['topic'] = $topic;
+                if (isset($action->custom_topic)) {
+                    foreach ($action->custom_topic as $source_category => $topic) {
+                        $categories[$source_category]['topic'] = $topic;
+                    }
                 }
-            }
-            if (isset($action->custom_rating)) {
-                foreach ($action->custom_rating as $source_category => $rating) {
-                    $categories[$source_category]['rating'] = $rating;
+                if (isset($action->custom_rating)) {
+                    foreach ($action->custom_rating as $source_category => $rating) {
+                        $categories[$source_category]['rating'] = $rating;
+                    }
                 }
-            }
-            if (isset($action->custom_priority)) {
-                foreach ($action->custom_priority as $source_category => $priority) {
-                    $categories[$source_category]['priority'] = $priority;
+                if (isset($action->custom_priority)) {
+                    foreach ($action->custom_priority as $source_category => $priority) {
+                        $categories[$source_category]['priority'] = $priority;
+                    }
                 }
             }
         }
