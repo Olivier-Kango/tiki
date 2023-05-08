@@ -303,11 +303,13 @@ if (! empty($_REQUEST['remove'])) {
     $access->checkCsrf(tr('Are you sure you want to delete the selected items?'));
     $transaction = $tikilib->begin();
 
-    foreach ($_REQUEST['action'] as $batchid) {
-        $item_info = $trklib->get_item_info($batchid);
-        $actionObject = Tracker_Item::fromInfo($item_info);
-        if ($actionObject->canRemove()) {
-            $trklib->remove_tracker_item($batchid);
+    foreach ($_REQUEST['action'] ?? [] as $batchid) {
+        if (! empty($batchid)) {
+            $item_info = $trklib->get_item_info($batchid);
+            $actionObject = Tracker_Item::fromInfo($item_info);
+            if ($actionObject->canRemove()) {
+                $trklib->remove_tracker_item($batchid);
+            }
         }
     }
 
