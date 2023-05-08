@@ -227,6 +227,8 @@ class TikiLib extends TikiDb_Bridge
     private function prepare_http_client($client, $url, $user = null)
     {
         $info = parse_url($url);
+        $info['scheme'] = $info['scheme'] ?? '';
+        $info['host'] = $info['host'] ?? '';
 
         // Obtain all methods matching the scheme and domain
         $table = $this->table('tiki_source_auth');
