@@ -344,7 +344,7 @@ class SieveFiltersCommand extends Command
                                             $output->writeln(tr("Error adding bounce for msg %0, recipient %1: %2", $msg['uid'], $bounce['mailbox'], $e->getMessage()));
                                         }
                                     }
-                                } elseif ($action['action'] == 'movetooriginaltrackerinbox') {
+                                } elseif ($action['action'] == 'movetooriginatingtrackerinbox') {
                                     if (isset($is_tracker_reply) && $is_tracker_reply) {
                                         $this->action_move_to_tracker($imap, $msg, $output, $item[0]);
                                     }
