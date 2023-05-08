@@ -317,7 +317,9 @@ if (! empty($_REQUEST['remove'])) {
 
     $smarty->loadPlugin('smarty_modifier_sefurl');
     // redirect to the tracker item list of the last item deleted
-    $access->redirect(smarty_modifier_sefurl($item_info['trackerId'], 'tracker'));
+    if (isset($item_info) && ! empty($item_info['trackerId'])) {
+        $access->redirect(smarty_modifier_sefurl($item_info['trackerId'], 'tracker'));
+    }
 } elseif (isset($_REQUEST['batchaction']) and ($_REQUEST['batchaction'] == 'o' || $_REQUEST['batchaction'] == 'p' || $_REQUEST['batchaction'] == 'c')) {
     check_ticket('view-trackers');
     $transaction = $tikilib->begin();
