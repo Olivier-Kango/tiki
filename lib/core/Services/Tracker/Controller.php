@@ -1627,7 +1627,7 @@ class Services_Tracker_Controller
             }
             // If anything below here is changed, please change lib/wiki-plugins/wikiplugin_attach.php as well.
             $attextra = 'n';
-            if (strstr($trackerInfo["orderAttachments"], '|')) {
+            if (isset($trackerInfo['orderAttachments']) && strstr($trackerInfo["orderAttachments"], '|')) {
                 $attextra = 'y';
             }
             $attfields = explode(',', strtok($trackerInfo["orderAttachments"] ?? '', '|'));

@@ -521,7 +521,7 @@ if ($tracker_info['useComments'] == 'y' && ($tracker_info['showComments'] == 'y'
         }
     }
 }
-if ($tracker_info['useAttachments'] == 'y' && $tracker_info['showAttachments'] == 'y') {
+if ((isset($tracker_info['useAttachments']) && $tracker_info['useAttachments'] == 'y') && (isset($tracker_info['showAttachments']) && $tracker_info['showAttachments'] == 'y')) {
     foreach ($items["data"] as $itkey => $oneitem) {
         $res = $trklib->get_item_nb_attachments($items["data"][$itkey]['itemId']);
         $items["data"][$itkey]['attachments'] = $res['attachments'];
