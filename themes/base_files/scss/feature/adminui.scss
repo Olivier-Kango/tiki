@@ -760,7 +760,8 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 }
 
 @media (min-width: 992px) {
-    .tiki-admin .container.container-std .col1 {
+    .tiki-admin .container.container-std .col1,
+    .tiki-admin .middle_outer .main-footer {
         padding-left: 290px;
     }
 }

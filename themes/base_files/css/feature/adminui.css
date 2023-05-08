@@ -556,7 +556,7 @@
   }
 }
 @media (min-width: 992px) {
-  .tiki-admin .container.container-std .col1 {
+  .tiki-admin .container.container-std .col1, .tiki-admin .middle_outer .main-footer {
     padding-left: 290px;
   }
 }
