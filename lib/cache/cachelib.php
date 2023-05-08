@@ -254,6 +254,7 @@ class Cachelib
                 (isset($prefs['wikiplugin_rr']) && $prefs['wikiplugin_rr'] == 'y') ||
                 (isset($prefs['wikiplugin_r']) && $prefs['wikiplugin_r'] == 'y')
             ) {
+                // .RData case needed to clean also cached data created through mod PluginR
                 $extracheck = 'RData';
             } else {
                 $extracheck = '';
@@ -261,18 +262,17 @@ class Cachelib
 
             // Folders created by unoconv/libreoffice that should be removed
             $unoconvFolders = ['.cache', '.config'];
-
             while (false !== ($file = readdir($dir))) {
                 if (
-// .RData case needed to clean also cached data created through mod PluginR
-                            ( substr($file, 0, 1) == "." && substr($file, -5) != $extracheck ) or
-                            $file == 'CVS' or
-                            $file == '.svn' or
-                            $file == "index.php" or
-                            $file == "README" or
-                            $file == "web.config" or
-                            ($virtuals && in_array($file, $virtuals)) and
-                            ! in_array($file, $unoconvFolders)
+                    ( substr($file, 0, 1) == "." && substr($file, -5) != $extracheck ) or
+                    $file == 'CVS' or
+                    $file == '.svn' or
+                    $file == "index.php" or
+                    $file == "README" or
+                    $file == "README.md" or
+                    $file == "web.config" or
+                    ($virtuals && in_array($file, $virtuals)) and
+                    ! in_array($file, $unoconvFolders)
                 ) {
                     continue;
                 }

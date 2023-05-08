@@ -31,7 +31,7 @@ class CacheClearCommand extends Command
                 'all',
                 null,
                 InputOption::VALUE_NONE,
-                'Clear all caches'
+                'Clear all caches and rebuild the index'
             );
     }
 
@@ -43,35 +43,41 @@ class CacheClearCommand extends Command
         require_once('lib/cache/cachelib.php');
         require_once('lib/tikilib.php');
         $cachelib = new \Cachelib();
-        $cachelib->empty_cache();
 
         if ($all) {
+            // Probably there for historical reasons, this ignores the command argument - benoitg 2023-05-08
             $output->writeln('Clearing all caches');
             $cachelib->empty_cache();
-
-            // Also rebuild admin index
+            $output->writeln('Rebuilding admin index');
             \TikiLib::lib('prefs')->rebuildIndex();
         } else {
             switch ($type) {
                 case 'public':
                     $output->writeln('Clearing public caches');
-                    return $cachelib->empty_cache('temp_public');
+                    $cachelib->empty_cache('temp_public');
+                    break;
                 case 'private':
                     $output->writeln('Clearing private caches');
-                    return $cachelib->empty_cache('temp_cache');
+                    $cachelib->empty_cache('temp_cache');
+                    break;
                 case 'templates':
                     $output->writeln('Clearing template caches');
-                    return $cachelib->empty_cache('templates_c');
+                    $cachelib->empty_cache('templates_c');
+                    break;
                 case 'modules':
                     $output->writeln('Clearing module caches');
-                    return $cachelib->empty_cache('modules_cache');
+                    $cachelib->empty_cache('modules_cache');
+                    break;
                 case 'all':
                     $output->writeln('Clearing all caches');
-                    return $cachelib->empty_cache();
+                    $cachelib->empty_cache();
+                    break;
                 case '':
-                    return $output->writeln('Missing parameter.');
+                    return $output->writeln('<error>Missing "cache" parameter.</error>');
+                    return Command::INVALID;
                 default:
                     $output->writeln('<error>Invalid cache requested.</error>');
+                    return Command::INVALID;
             }
         }
         return Command::SUCCESS;
