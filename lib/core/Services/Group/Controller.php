@@ -308,7 +308,7 @@ class Services_Group_Controller
                 }
                 $extras = [];
                 $oldIncluded = $userlib->get_included_groups($input['olgroup'], false);
-                $oldIncludes = array_diff($oldIncluded, $input['include_groups'] ? $input['include_groups']->toArray() : []);
+                $oldIncludes = array_diff($oldIncluded, isset($input['include_groups']) ? $input['include_groups']->toArray() : []);
                 $oldGroups = $userlib->get_group_info(array_values($oldIncludes));
                 $parentGroupsIds = array_map(function ($item) {
                     return $item["id"];
@@ -368,7 +368,7 @@ class Services_Group_Controller
                 $params['color'],
                 $params['isRole'],
                 $params['isTplGroup'],
-                $params['include_groups']
+                isset($params['include_groups']) ? $params['include_groups'] : []
             );
 
 
