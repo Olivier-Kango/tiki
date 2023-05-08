@@ -83,7 +83,7 @@ class Services_Menu_Controller
         }
         //information for the menu management screen
         return [
-            'title' => $info['menuId'] ? tr('Edit Menu') : tr('Create Menu'),
+            'title' => isset($info['menuId']) ? tr('Edit Menu') : tr('Create Menu'),
             'info' => $info,
             'symbol' => $symbol,
         ];
@@ -521,7 +521,7 @@ class Services_Menu_Controller
         $menuId = $input['menuId'];
         $menuDetails = $this->get_menu_details($menuId);
 
-        if (! $menuDetails['info']['menuId']) {
+        if (! isset($menuDetails['info']['menuId'])) {
             throw new Services_Exception_NotFound(tr('Menu %0 not found', $menuId));
         }
 
@@ -539,7 +539,7 @@ class Services_Menu_Controller
             } else {
                 Feedback::error(tr('The %0 menu has not been removed', $menuDetails['info']['name']));
             }
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh($util->extra['referer'] ?? false);
         } else {
             return [
                 'FORWARD' => [
