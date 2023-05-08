@@ -23,7 +23,7 @@ class DCSLib extends TikiLib
         foreach ($result as &$row) {
             $row['page_name'] = '';
 
-            if ($row['content_type'] == 'page' && substr($row['data'], 0, 5) == 'page:') {
+            if (isset($row['content_type']) && $row['content_type'] == 'page' && substr($row['data'], 0, 5) == 'page:') {
                 $row['page_name'] = substr($row['data'], 5);
 
                 $row['data'] = $this->get_content_from_page($row['page_name'], $lang);

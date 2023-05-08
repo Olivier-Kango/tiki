@@ -28,8 +28,7 @@ if (! isset($_REQUEST["contentId"])) {
 $smarty->assign('contentId', $_REQUEST["contentId"]);
 $smarty->assign('pId', 0);
 $info = $dcslib->get_content($_REQUEST["contentId"]);
-$smarty->assign('description', $info["description"]);
-
+$smarty->assign('description', $info["description"] ?? '');
 if (isset($_REQUEST["remove"])) {
     $access->check_authenticity();
     $dcslib->remove_programmed_content($_REQUEST["remove"]);
@@ -79,9 +78,9 @@ if (isset($_REQUEST["edit"])) {
     $actual = $dcslib->get_actual_content_date($_REQUEST["contentId"]);
     $smarty->assign('info', $info);
     $smarty->assign('actual', $actual);
-    $smarty->assign('data', $info["data"]);
-    $smarty->assign('publishDate', $info["publishDate"]);
-    $smarty->assign('pId', $info["pId"]);
+    $smarty->assign('data', $info["data"] ?? '');
+    $smarty->assign('publishDate', $info["publishDate"] ?? '');
+    $smarty->assign('pId', $info["pId"] ?? 0);
 }
 
 $actual = $dcslib->get_actual_content_date($_REQUEST["contentId"]);
