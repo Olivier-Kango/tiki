@@ -3189,7 +3189,7 @@ class FileGalLib extends TikiLib
                 // Before feature_use_fgal_for_wiki_attachments, the wiki page attachments had a comment field which was stored and displayed.
                 // With feature_use_fgal_for_wiki_attachments, wiki page attachments are normal file gallery files which allow showing and editing the description field, but not the comment field.
                 // The comment field should probably be deprecated but the upload interface still asks for a comment field, so we put it as a description if there is none as well as as a comment.
-                if (isset($prefs['feature_use_fgal_for_wiki_attachments']) && $prefs['feature_use_fgal_for_wiki_attachments'] = 'y') {
+                if (isset($prefs['feature_use_fgal_for_wiki_attachments']) && $prefs['feature_use_fgal_for_wiki_attachments'] == 'y') {
                     if (! isset($params['description'][$key])) {
                         $params['description'][$key] = $params['comment'][$key];
                     }
@@ -3375,7 +3375,7 @@ class FileGalLib extends TikiLib
                         }
                         include_once('categorize.php');
                         // Print progress
-                        if (empty($params['returnUrl']) && $prefs['javascript_enabled'] == 'y' && empty($params['fileId'])) {
+                        if (empty($params['returnUrl']) && $prefs['javascript_enabled'] == 'y' && empty($params['fileId']) && empty($params['returnTransfer'])) {
                             $smarty->assign("name", $aux['name']);
                             $smarty->assign("size", $aux['size']);
                             $smarty->assign("fileId", $aux['fileId']);
@@ -3446,6 +3446,10 @@ class FileGalLib extends TikiLib
             Feedback::error(['mes' => $errors]);
         }
         $smarty->assign('uploads', $uploads);
+
+        if (! empty($params['returnTransfer'])) {
+            return $uploads;
+        }
 
         if (! empty($params['returnUrl'])) {
             if (! empty($errors)) {

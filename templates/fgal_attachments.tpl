@@ -27,33 +27,37 @@
 
     {if ($tiki_p_wiki_attach_files eq 'y' or $tiki_p_wiki_admin_attachments eq 'y')
         and (empty($attach_box) or $attach_box ne 'n')}
-        <form role="form" enctype="multipart/form-data" action="tiki-index.php?page={$page|escape:"url"}" method="post">
-            {if $page_ref_id}
-                <input type="hidden" name="page_ref_id" value="{$page_ref_id}">
-            {/if}
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="attach-upload">{tr}Upload file{/tr}</label>
-                <div class="col-sm-10">
-                    <input size="16" name="userfile[0]" type="file" class="form-control" id="attach-upload">
-                </div>
+        <div class="file-upload card bg-light">
+            <div class="card-body">
+                <form role="form" enctype="multipart/form-data" action="tiki-index.php?page={$page|escape:"url"}" method="post">
+                    {if $page_ref_id}
+                        <input type="hidden" name="page_ref_id" value="{$page_ref_id}">
+                    {/if}
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label" for="attach-upload">{tr}Upload file{/tr}</label>
+                        <div class="col-sm-10">
+                            <input size="16" name="userfile[0]" type="file" class="form-control" id="attach-upload">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label" for="attach-comment">{tr}Comment{/tr}</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" name="s_f_attachments-comment" maxlength="250" id="attach-comment" placeholder="{tr}File upload comment{/tr}...">
+                        </div>
+                        <div class="col-sm-2">
+                            <input
+                                type="submit"
+                                class="btn btn-primary"
+                                name="s_f_attachments-upload"
+                                value="{tr}Attach{/tr}"
+                            >
+                            <input type="hidden" name="s_f_attachments-page" value="{$page|escape}">
+                            {ticket}
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="attach-comment">{tr}Comment{/tr}</label>
-                <div class="col-sm-10">
-                    <input type="text" name="s_f_attachments-comment" maxlength="250" id="attach-comment">
-                </div>
-            </div>
-            <div class="mb-3 float-sm-end">
-                <input
-                    type="submit"
-                    class="btn btn-primary btn-sm"
-                    name="s_f_attachments-upload"
-                    value="{tr}Attach{/tr}"
-                >
-                <input type="hidden" name="s_f_attachments-page" value="{$page|escape}">
-                {ticket}
-            </div>
-        </form>
+        </div>
     {/if}
 </div>
 {/if}

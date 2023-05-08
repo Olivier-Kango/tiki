@@ -568,7 +568,7 @@ class WikiLib extends TikiLib
         $tikilib = TikiLib::lib('tiki');
         $smarty = TikiLib::lib('smarty');
         if ($prefs['feature_use_fgal_for_wiki_attachments'] == 'y') {
-            $query = 'update `tiki_file_galleries` set `name`=? where `name`=?';
+            $query = 'update `tiki_file_galleries` set `name`=? where `name`=? and type = "attachments"';
             $this->query($query, [ $newName, $oldName ]);
         }
 

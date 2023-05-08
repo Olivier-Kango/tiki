@@ -613,14 +613,38 @@ if (($prefs['feature_wiki_pictures'] === 'y') && (isset($tiki_p_upload_picture))
     }
 }
 if ($prefs['feature_wiki_attachments'] === 'y' && isset($_REQUEST["attach"]) && ($tiki_p_wiki_attach_files === 'y' || $tiki_p_wiki_admin_attachments === 'y')) {
-    if (isset($_FILES['userfile2']) && is_uploaded_file($_FILES['userfile2']['tmp_name'])) {
-        $ret = $tikilib->attach_file($_FILES['userfile2']['name'], $_FILES['userfile2']['tmp_name'], $prefs['w_use_db'] === 'y' ? 'db' : 'dir');
-        if ($ret['ok']) {
-            $wikilib->wiki_attach_file($page, $_FILES['userfile2']['name'], $_FILES['userfile2']['type'], $_FILES['userfile2']['size'], ($prefs['w_use_db'] === 'dir') ? '' : $ret['data'], $_REQUEST["attach_comment"], $user, $ret['fhash']);
-        } else {
-                $smarty->assign('msg', $ret['error']);
-                $smarty->display("error.tpl");
-                die();
+    if ($prefs['feature_use_fgal_for_wiki_attachments'] != 'y') {
+        if (isset($_FILES['userfile2']) && is_uploaded_file($_FILES['userfile2']['tmp_name'])) {
+            $ret = $tikilib->attach_file($_FILES['userfile2']['name'], $_FILES['userfile2']['tmp_name'], $prefs['w_use_db'] === 'y' ? 'db' : 'dir');
+            if ($ret['ok']) {
+                $wikilib->wiki_attach_file($page, $_FILES['userfile2']['name'], $_FILES['userfile2']['type'], $_FILES['userfile2']['size'], ($prefs['w_use_db'] === 'dir') ? '' : $ret['data'], $_REQUEST["attach_comment"], $user, $ret['fhash']);
+            } else {
+                    $smarty->assign('msg', $ret['error']);
+                    $smarty->display("error.tpl");
+                    die();
+            }
+        }
+    } else {
+        if (isset($_FILES['userfile']) && isset($_FILES['userfile']['tmp_name'][0]) && is_uploaded_file($_FILES['userfile']['tmp_name'][0])) {
+            $filegallib = TikiLib::lib('filegal');
+            $galleryId = $filegallib->get_attachment_gallery($page, 'wiki page', true);
+            $uploads = $filegallib->actionHandler(
+                'uploadFile',
+                [
+                    'galleryId' => [$galleryId],
+                    'comment' => [$_REQUEST["attach_comment"]],
+                    'returnTransfer' => true,
+                ]
+            );
+            if ($uploads) {
+                if (isset($_REQUEST['edit'])) {
+                    $smarty->loadPlugin('smarty_modifier_sefurl');
+                    foreach ($uploads as $upload) {
+                        $_REQUEST['edit'] .= '[' . smarty_modifier_sefurl($upload['fileId'], 'file') . '|' . $upload['name'] . ']';
+                    }
+                }
+                Feedback::success(tr('File uploaded'));
+            }
         }
     }
 }

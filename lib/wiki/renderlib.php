@@ -437,8 +437,20 @@ class WikiRenderer
     {
         global $prefs;
         $wikilib = TikiLib::lib('wiki');
+        $filegallib = TikiLib::lib('filegal');
 
-        if ($prefs['feature_wiki_attachments'] != 'y' || $prefs['feature_use_fgal_for_wiki_attachments'] == 'y') {
+        if ($prefs['feature_wiki_attachments'] != 'y') {
+            return;
+        }
+
+        if ($prefs['feature_use_fgal_for_wiki_attachments'] == 'y') {
+            $galleryId = $filegallib->get_attachment_gallery($this->page, 'wiki page');
+            if (! empty($galleryId)) {
+                $files = $filegallib->get_files(0, -1, '', '', $galleryId);
+            } else {
+                $files = ['data' => [], 'cant' => 0];
+            }
+            $this->smartyassign('atts_count', $files['cant']);
             return;
         }
 
@@ -450,7 +462,7 @@ class WikiRenderer
 
         $atts = $wikilib->list_wiki_attachments($this->page, 0, -1, $this->sortMode, '');
         $this->smartyassign('atts', $atts["data"]);
-        $this->smartyassign('atts_count', count($atts['data']));
+        $this->smartyassign('atts_count', $atts['cant']);
     }
 
     private function setupFootnotes()

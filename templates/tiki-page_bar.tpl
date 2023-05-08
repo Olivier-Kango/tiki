@@ -143,23 +143,23 @@
                 {if $prefs.feature_wiki_attachments == 'y'
                     && (
                         $tiki_p_wiki_view_attachments == 'y'
-                        && (isset($atts) && $atts|@count gt 0)
+                        && (isset($atts_count) && $atts_count gt 0)
                         || $tiki_p_wiki_attach_files == 'y'
                         || $tiki_p_wiki_admin_attachments == 'y')}
 
                     {capture assign=thistext}
                         {strip}
-                            {if (!isset($atts) or $atts|@count == 0) || $tiki_p_wiki_attach_files == 'y'
+                            {if (!isset($atts_count) or $atts_count == 0) || $tiki_p_wiki_attach_files == 'y'
                                 && $tiki_p_wiki_view_attachments == 'n' && $tiki_p_wiki_admin_attachments == 'n'}
                                 {tr}Files{/tr}
                             {else}
                                 {tr}Files{/tr}
-                                &nbsp;<span class="atts_count badge bg-info">{$atts|@count}</span>
+                                &nbsp;<span class="atts_count badge bg-info">{$atts_count}</span>
                             {/if}
                         {/strip}
                     {/capture}
 
-                    {if (isset($atts) and $atts|@count gt 0) || $editable}
+                    {if (isset($atts_count) and $atts_count gt 0) || $editable}
                         {button href="#attachments" _flip_id="attzone{if isset($pagemd5)}{$pagemd5}{/if}" _type="secondary mb-2" _text=$thistext _flip_default_open=$prefs.w_displayed_default _flip_hide_text="n"}
                     {/if}
                 {/if}{* attachments *}
