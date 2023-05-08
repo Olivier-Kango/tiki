@@ -194,7 +194,11 @@ function module_since_last_visit_new($mod_reference, $params = null)
             $visible = $userlib->user_has_perm_on_object($user, $res['object'], $res['objectType'], 'tiki_p_admin_comments');
         } elseif ($res['objectType'] === 'trackeritem') {
             $item = Tracker_Item::fromId($res['object']);
-            $visible = $item->canView();
+            if ($item) {
+                $visible = $item->canView();
+            } else {
+                $visible = false;
+            }
         } elseif ($res['objectType'] == 'blog post') {
             $visible = false;
             // Only show new comments related to posts the user is allowed to see
