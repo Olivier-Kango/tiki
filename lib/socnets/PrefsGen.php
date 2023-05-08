@@ -105,14 +105,14 @@ class PrefsGen
             /*
             '_authType' => [
                 'name' => tra('socnet login AuthType?'),
-                'description' => tra('socnet login authentication type such as OAuth2 OAuth1 etc. Most websites now use more secure OAuth2'),
+                'description' => tra('Social network login authentication type such as OAuth2 OAuth1, etc. Most websites now use the more secure OAuth2.'),
                 'keywords' => 'social login',
                 'type' => 'radio',
                 'options' => [
                     'oauth2' => tra('OAuth2'),
                     'openidconnect' => tra('OpenIdConnect'),
                     'oauth' => tra('OAuth'),
-                    'other auth' => tra('Other authentiction not implemented in tiki'),
+                    'other auth' => tra('Other authentication not implemented in tiki'),
                 ],
                 'default' => 'oauth2',
             ],
@@ -127,7 +127,7 @@ class PrefsGen
             ],
              '_app_secret' => [
                 'name' => tra('Application secret'),
-                'description' => tra('Application secret generated when registering this Tiki site as an application with them.'),
+                'description' => tra('Application secret generated when registering this Tiki site as an application with them'),
                 'keywords' => 'social login',
                 'type' => 'text',
                 'size' => 100,
@@ -135,7 +135,7 @@ class PrefsGen
             ],
             '_app_api' => [
                 'name' => tra('API (or Graph) version - NOT YET'),
-                'description' => tra('socnets API (or Graph) version. Hybridauth default will be used until implemented'),
+                'description' => tra('Social network API (or graph) version - Hybridauth default will be used until implemented.'),
                 'keywords' => 'social login',
                 'type' => 'text',
                 'size' => 30,
@@ -143,7 +143,7 @@ class PrefsGen
             ],
             '_app_site_name' => [
                 'name' => tra('site name'),
-                'description' => tra('The default website name that will be used by socnet for every web page. This parameter will be used instead of the browser title.'),
+                'description' => tra('The default website name that will be used by the social network for every web page. This parameter will be used instead of the browser title.'),
                 'keywords' => 'social login',
                 'type' => 'text',
                 'size' => 60,
@@ -151,7 +151,7 @@ class PrefsGen
             ],
             '_app_site_image' => [
                 'name' => tra('site image'),
-                'description' => tra('The default image (logo, picture, etc) that will be used by socnet for every web page. The image must be specified as a URL or/and uploaded to socnet site.'),
+                'description' => tra('The default image (logo, picture, etc) that will be used by the social network for every web page. The image must be specified as a URL or/and uploaded to the social network site.'),
                 'keywords' => 'social login',
                 'type' => 'text',
                 'size' => 60,
@@ -159,7 +159,7 @@ class PrefsGen
             ],
             '_autocreateuser' => [
                 'name' => tra('auto-create user?'),
-                'description' => tra('automatically create a Tiki user by the username of fb_xxxxxxxx for eg users logging in using Facebook if they do not yet have a Tiki account. If not, they will be asked to link or register a Tiki account'),
+                'description' => tra('Automatically create a Tiki user by the username of fb_xxxxxxxx for eg users logging in using Facebook if they do not yet have a Tiki account. If not, they will be asked to link or register a Tiki account'),
                 'keywords' => 'social networks',
                 'type' => 'flag',
                 'dependencies' => [
@@ -169,8 +169,8 @@ class PrefsGen
             ],
 
             '_autocreate_prefix' => [
-                'name' => tra('user prefix to auto-create'),
-                'description' => tra('Tiki user prefix auto-creates. Eg xx_nnnnnnn etc. Press reset if there is none!'),
+                'name' => tra('User prefix to auto-create'),
+                'description' => tra('A Tiki user prefix is auto-created such as xx_nnnnnnn, etc. Click reset if no prefix should be created.'),
                 'keywords' => 'social networks',
                 'type' => 'text',
                 'size' => 20,
@@ -181,8 +181,8 @@ class PrefsGen
                 'default' => 'soc_',
             ],
             '_autocreate_email' => [
-                'name' => tra('auto-create user email?'),
-                'description' => tra('automatically set a Tiki user email from socnet account.'),
+                'name' => tra('Auto-create user email'),
+                'description' => tra('Automatically create a Tiki user email from the social network account'),
                 'keywords' => 'social networks',
                 'type' => 'flag',
                 'dependencies' => [
@@ -192,8 +192,8 @@ class PrefsGen
                 'default' => 'n',
             ],
             '_autocreate_user_trackeritem' => [
-                'name' => tra('auto-create user tracker item?'),
-                'description' => tra('automatically set a Tiki user tracker item from socnet account.'),
+                'name' => tra('Auto-create user tracker item'),
+                'description' => tra('Automatically set a Tiki user tracker item from the social network account'),
                 'keywords' => 'social networks',
                 'type' => 'flag',
                 'dependencies' => [
@@ -203,8 +203,8 @@ class PrefsGen
                 'default' => 'n',
             ],
             '_autocreate_names' => [
-                'name' => tra('auto-create user name(s)?'),
-                'description' => tra('automatically set a Tiki user name/name from socnet account.'),
+                'name' => tra('Auto-create user name(s)'),
+                'description' => tra('Automatically create a Tiki user name/name from the social network account'),
                 'keywords' => 'social networks',
                 'type' => 'flag',
                 'dependencies' => [
@@ -287,7 +287,7 @@ class PrefsGen
     }
 
 
-//TODO maybe test if it is faster to load settings for all socnets
+//TODO maybe test if it is faster to load settings for all social networks (socnets)
 // fix errors and add custom scopes
 /*
     public static function getHybridauthConfig()
@@ -363,31 +363,31 @@ class PrefsGen
 
         $prefs1 = [
             self::$socPrefix . 'socnetsAll' => [
-                'name' => tra('Enabled settings socnets:'),
-                'description' => tra('Hybridauth enabled settings socnets'),
+                'name' => tra('Social networks selected for configuration:'),
+                'description' => tra('Enable site users to sign in to and interact with social networks via Hybridauth'),
                 'type' => 'multicheckbox',
                 'options' => $allProviders,
                 'default' => $allProviders,
                 ],
                 //TODO rename to remove confusion with loginEnabled
             self::$socPrefix . 'enabledProviders' => [
-                'name' => tra('Enabled settings socnets:'),
-                'description' => tra('Hybridauth enabled settings socnets'),
+                'name' => tra('Social networks selected for configuration:'),
+                'description' => tra('Enable site users to sign in to and interact with social networks via Hybridauth'),
                 'type' => 'multicheckbox',
                 'options' => $allProviders,
                 'default' => [],
                 ],
             self::$socPrefix . 'enabledProvidersNames' => [
-                'name' => tra('Enabled socnets Names- DO NOT USE in FORMS:'),
-                'description' => tra('Hybridauth enabled socnets Names'),
+                'name' => tra('Enabled social network names- Do not use in forms:'),
+                'description' => tra('Hybridauth-enabled social network names'),
                 'type' => 'array',
                 'default' => self::getEnabledProvidersNames(),
                 'hidden' => 'y',
                 //TODO does this array and hidden work? It looks like it is not...
                 ],
             self::$socPrefix . 'socLoginBaseUrl' => [
-                'name' => tra('socnets Login Base Url:'),
-                'description' => tra('this is for programmers - just add socnet Name for new socnet'),
+                'name' => tra('Social networks login base URL:'),
+                'description' => tra('This is for programmers - just add a social network name for a new social network.'),
                 'type' => 'text',
                 'default' => self::getSocLoginBaseUrl(),
                 ],

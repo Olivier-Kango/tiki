@@ -30,19 +30,19 @@
             </fieldset>
 
             {remarksbox type="note" title="{tr}Note{/tr}"}
-                {tr}To use socnets integration and/or login you need at least:{/tr}
+                {tr}To enable social network login and/or integration, these steps are required{/tr}
                 <ol>
-                    <li>{tr}Register your site as a web application at the corresponding socnets site(s){/tr}.</li>
-                    <li>{tr}Enable that socnet settings with a tick in the ENABLED tab below{/tr}.</li>
-                    <li>{tr}Copy and enter{/tr} a) <strong>your app id</strong> {tr}and{/tr} b) <strong>your app secret</strong> {tr}from those sites and into the corresponding fields here below{/tr}.</li>
-                    <li>{tr}Copy your site's URLs as shown in the settings below as callbacks to the corresponding socnets sites{/tr}.</li>
-                    <li>{tr}Configure - enable login and other (some are optional!) settings - for the corresponding socnet in the SETTINGS tab below{/tr}.</li>
+                    <li>{tr}Register your site as a web application at the chosen social network site.{/tr}</li>
+                    <li>{tr}Select the social network for configuration, above.{/tr}</li>
+                    <li>{tr}Copy these items from the social network site -{/tr} <strong>your app id</strong> {tr}and{/tr} <strong>your app secret</strong> {tr}- and input them into the corresponding fields for the social network under the Settings tab.{/tr}</li>
+                    <li>{tr}Copy your website's URLs as shown at the bottom of the settings for each social network as callbacks to the corresponding social network site.{/tr}</li>
+                    <li>{tr}Configure the settings to enable login and other settings (some are optional) for the social network under the Settings tab.{/tr}</li>
                  </ol>
-                P.S.
+                {tr}Also{/tr}
                 <ol>
-                     <li> {tr}If you cannot see or want to change appearance of login buttons for the corresponding socnets you need to tweak login module mod-login.tpl and/or CSS{/tr}.</li>
-                     <li> {tr}If you see only number 1. but not the enabled socnets or encounter other problems, then, first of all, you need to clear Tiki caches and rebuild index{/tr}.</li>
-                     <li> {tr}Also, if some settings become disabled (like user prefix), you need to execute following sequence: disable-apply-enable-apply for ther corresponding socnet.{/tr}</li>
+                     <li> {tr}If the login button for the corresponding social network can't be seen or if its appearance needs to be modified, the login module template file (mod-login.tpl) and/or related CSS might need to be adjusted.{/tr}</li>
+                     <li> {tr}If only number 1. is visible but not the configured social network, or there are other problems, then clear the Tiki caches and rebuild the search index.{/tr}</li>
+                     <li> {tr}Also, if some settings become disabled (such as the user prefix), execute the following sequence: disable-apply-enable-apply for the affected social network.{/tr}</li>
                 </ol>
             {/remarksbox}
         {/tab}
@@ -56,7 +56,7 @@
                     <strong><em>{$providerName}</em></strong>
 
                     {* START of adminoptionsbox for {$providerName} *}
-                    <div class="adminoptionbox {$providername} card">
+                    <div class="adminoptionbox {$providername} card pb-3">
                         <ol>
                             <br>
                             {foreach from=$socBasePrefs key=basePref item=prefItem}
@@ -69,8 +69,8 @@
                                     {* start of _loginEnabled for {$providerName} *}
                                     <div class="col-sm-12 {$providername} _loginEnabled" style="padding-top:5px;">
                                         {preference name=$prefname}
-                                        <button class="{$providername} socbutton btn-secondary" style="border: none;">
-                                            more/less... <i class="{$providername} fa fa-caret-right"></i>
+                                        <button class="{$providername} socbutton btn btn-secondary dropdown-toggle"  type="button" id="{$providername}dropdownMenuButton" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {tr}More/less...{/tr} <i class="{$providername} fa fa-caret-right d-none"></i>
                                         </button>
                                     </div> {* end of _loginEnabled for {$providerName} *}
                                 {else}
