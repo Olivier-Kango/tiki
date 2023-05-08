@@ -60,6 +60,14 @@ class Services_PDF_Controller
                     $nodeToRemove = $nodes->item($i);
                     $nodeToRemove->parentNode->removeChild($nodeToRemove);
                 }
+
+                $legends = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' legendtoggle ')]");
+                if ($legends->length) {
+                    foreach ($legends as $legend) {
+                        $legend->setAttribute('fill', 'transparent');
+                    }
+                }
+
                 $subject = str_replace(['<html>', '</html>', '<body>', '</body>'], ['', '', '', ''], @$doc->saveHTML());
 
                 return preg_replace('/^<!DOCTYPE.+?>/', '', $subject);
