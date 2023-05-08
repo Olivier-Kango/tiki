@@ -71,9 +71,10 @@ class Search_Query_WikiBuilder
         $called = false;
         foreach ($arguments as $key => $value) {
             $function = "wpquery_{$name}_{$key}";
+            $group = empty($arguments['group']) ? null : 'wikibuilder_' . $arguments['group'];
 
             if (method_exists($this, $function)) {
-                call_user_func([$this, $function], $this->query, $value, $arguments);
+                call_user_func([$this, $function], $this->query->getSubQuery($group), $value, $arguments);
                 $called = true;
             }
         }
