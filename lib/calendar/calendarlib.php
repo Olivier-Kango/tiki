@@ -88,9 +88,10 @@ class CalendarLib extends TikiLib
                     $r['timezone'] = $instance['timezone'];
                     $r['access'] = $instance['access'];
                     $r['calendarInstanceId'] = $instance['calendarInstanceId'];
-                } else {
-                    $r['calendarInstanceId'] = 0;
                 }
+            }
+            if (! isset($r['calendarInstanceId'])) {
+                $r['calendarInstanceId'] = 0;
             }
             $r['name'] = tra($r['name']);
             $res["$k"] = $r;

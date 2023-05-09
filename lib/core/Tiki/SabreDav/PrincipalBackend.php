@@ -118,7 +118,7 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
         }
 
         $principal = [
-            'id'  => $user['userId'],
+            'id'  => $user,
             'uri' => self::mapUserToUri($user),
             $this->fieldMap['name'] => TikiLib::lib('tiki')->get_user_preference($user, 'realName'),
             $this->fieldMap['email'] => TikiLib::lib('user')->get_user_email($user),
