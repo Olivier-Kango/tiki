@@ -324,6 +324,19 @@ function wikiplugin_pivottable_info()
                     ['text' => tra('No'), 'value' => 'n'],
                     ['text' => tra('Yes'), 'value' => 'y']
                 ]
+            ],
+            'allowStickyHeaders' => [
+                'name' => tr('Allow Sticky Headers'),
+                'description' => tr('Sticky Headers for the Pivot Table when scrolling top or left') . ' ' . tr('Default value: No'),
+                'since' => '26',
+                'required' => false,
+                'filter' => 'alpha',
+                'default' => 'n',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('No'), 'value' => 'n'],
+                    ['text' => tra('Yes'), 'value' => 'y']
+                ]
             ]
         ],
     ];
@@ -999,7 +1012,8 @@ function wikiplugin_pivottable($data, $params)
         'chartTitle' => empty($params['chartTitle']) ? null : $params['chartTitle'],
         'chartHoverBar' => empty($params['chartHoverBar']) ? null : $params['chartHoverBar'],
         'translate' => empty($params['translate']) ? null : $params['translate'],
-        'index' => $id
+        'index' => $id,
+        'allowStickyHeaders' => empty($params['allowStickyHeaders']) ? 'n' : $params['allowStickyHeaders'],
     ]);
 
     $out .= $smarty->fetch('wiki-plugins/wikiplugin_pivottable.tpl');

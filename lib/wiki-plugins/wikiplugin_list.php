@@ -82,6 +82,19 @@ function wikiplugin_list_info()
                 'filter' => 'text',
                 'since' => '20.0',
             ],
+            'allowStickyHeaders' => [
+                'name' => tr('Allow Sticky Headers'),
+                'description' => tr('Sticky Headers for the table when scrolling top') . ' ' . tr('Default value: No'),
+                'since' => '26',
+                'required' => false,
+                'filter' => 'alpha',
+                'default' => 'n',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('No'), 'value' => 'n'],
+                    ['text' => tra('Yes'), 'value' => 'y']
+                ]
+            ]
         ],
     ];
 }
@@ -307,7 +320,7 @@ function wikiplugin_list($data, $params)
     $builder->setId('wplist-' . $i);
     $builder->setCount($result->count());
     $builder->setTsOn($tsret['tsOn']);
-    $builder->apply($matches);
+    $builder->apply($matches, $params);
 
     $result->setTsSettings($builder->getTsSettings());
 

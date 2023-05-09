@@ -54,13 +54,13 @@ class Search_Formatter_Builder
         $this->isDownload = $isDownload;
     }
 
-    public function apply($matches)
+    public function apply($matches, $params = null)
     {
         foreach ($matches as $match) {
             $name = $match->getName();
 
             if ($name == 'output') {
-                $this->handleOutput($match);
+                $this->handleOutput($match, $params);
             }
 
             if ($name == 'format') {
@@ -158,7 +158,7 @@ class Search_Formatter_Builder
      *
      * @throws Exception
      */
-    private function handleOutput($output)
+    private function handleOutput($output, $params)
     {
         $smarty = TikiLib::lib('smarty');
         $tikilib = TikiLib::lib('tiki');
@@ -192,6 +192,7 @@ class Search_Formatter_Builder
                 $outputData[$k] = $this->paginationArguments[$k];
             }
             if (strstr($arguments['template'], 'table')) {
+                $outputData['sticky'] = $sticky = isset($params['allowStickyHeaders']) && $params['allowStickyHeaders'] == 'y' ? true : false;
                 $outputData['actions'] = $this->actions;
                 if (isset($arguments['downloadable'])) {
                     $outputData['downloadable'] = true;

@@ -120,7 +120,7 @@
                 {/jq}
             {/if}
 
-            <div class="table-responsive">
+        <div class="table-responsive {if $sticky}table-sticky{/if}">
                 <table class="table table-striped table-hover normal wikiplugin_trackerlist" id="wptrackerlist{$listTrackerId}-{$iTRACKERLIST}"
                     {if isset($displaysheet) && $displaysheet eq 'true'}title="{$tracker_info.name}" readonly="true"{/if}
                     {if isset($tableassheet) && $tableassheet eq 'true'}title="{tr}Tracker - {/tr}{$tracker_info.name}" readonly="true"{/if}
@@ -128,7 +128,7 @@
                 >
 
                     {if $showfieldname ne 'n' and empty($tpl)}
-                        <thead>
+                        <thead class="{if $sticky}bg-light{/if}">
                             <tr>
                                 {$precols = 0}
                                 {$fieldcount = 0}

@@ -58,6 +58,9 @@
                     return $.pivotUtilities.sortAs(attributesOrder[attr]);
                 }
             },
+            onRefresh: function() {
+                stickyTableHeaders({{$pivottable.id|json_encode}}, {{$pivottable.allowStickyHeaders|json_encode}});
+            },
 
             {{if !empty($pivottable.heatmapParams)}}
             rendererOptions: {
@@ -124,6 +127,7 @@
         });
 
         createEditBtn({{$pivottable.id|json_encode}});
+        stickyTableHeaders({{$pivottable.id|json_encode}}, {{$pivottable.allowStickyHeaders|json_encode}})
     });
     //adding bind call for pdf creation
     $('a.generate-pdf').click(function(){

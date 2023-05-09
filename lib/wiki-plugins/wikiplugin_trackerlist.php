@@ -1003,6 +1003,19 @@ function wikiplugin_trackerlist_info()
                     ['text' => tra('No'), 'value' => 'n']
                 ]
              ],
+             'allowStickyHeaders' => [
+                 'name' => tr('Allow Sticky Headers'),
+                 'description' => tr('Sticky Headers for the table when scrolling top') . ' ' . tr('Default value: No'),
+                 'since' => '26',
+                 'required' => false,
+                 'filter' => 'alpha',
+                 'default' => 'n',
+                 'options' => [
+                     ['text' => '', 'value' => ''],
+                     ['text' => tra('No'), 'value' => 'n'],
+                     ['text' => tra('Yes'), 'value' => 'y']
+                 ]
+             ]
         ],
         $tsparams
     );
@@ -1529,6 +1542,9 @@ function wikiplugin_trackerlist($data, $params)
             $allowtableexpansion = 'n';
         }
         $smarty->assign_by_ref('allowtableexpansion', $allowtableexpansion);
+
+        $sticky = isset($allowStickyHeaders) && $allowStickyHeaders == 'y' ? true : false;
+        $smarty->assign_by_ref('sticky', $sticky);
         if (! isset($sortchoice)) {
             $sortchoice = '';
         } else {

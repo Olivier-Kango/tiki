@@ -81,9 +81,9 @@
         {tr}Items found:{/tr} <span class='badge bg-secondary'>{$count}</span>
     </div>
 {/if}
-<div {if $id}id="{$id}-div" {/if}class="table-responsive ts-wrapperdiv" {if $tsOn}style="visibility:hidden;"{/if}>
+<div {if $id}id="{$id}-div" {/if}class="table-responsive ts-wrapperdiv {if $sticky}table-sticky{/if}" {if $tsOn}style="visibility:hidden;"{/if}>
     <table {if $id}id="{$id}" {/if}class="table normal table-hover table-striped" data-count="{$count}">
-        <thead>
+        <thead class="{if $sticky}bg-light{/if}">
         {$header=false}
         {foreach from=$column item=col}
             {if !empty($col.label) or !empty($col.sort)}

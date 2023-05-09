@@ -89,6 +89,19 @@ function wikiplugin_fancytable_info()
                  'since' => '4.1',
                  'filter' => 'text',
              ],
+             'allowStickyHeaders' => [
+                 'name' => tr('Allow Sticky Headers'),
+                 'description' => tr('Sticky Headers for the table when scrolling top') . ' ' . tr('Default value: No'),
+                 'since' => '26',
+                 'required' => false,
+                 'filter' => 'alpha',
+                 'default' => 'n',
+                 'options' => [
+                     ['text' => '', 'value' => ''],
+                     ['text' => tra('No'), 'value' => 'n'],
+                     ['text' => tra('Yes'), 'value' => 'y']
+                 ]
+             ]
         ],
         $tsparams
     );
@@ -169,9 +182,10 @@ function wikiplugin_fancytable($data, $params)
     }
 
     //Start the table
+    $sticky = isset($allowStickyHeaders) && $allowStickyHeaders == 'y' ? true : false;
     $style = $sort === true ? ' style="visibility:hidden"' : '';
     $wret = '<div id="wpfancytable' . $iFancytable . '-div"' . $style
-        . ' class="table-responsive ts-wrapperdiv">' . "\r\t";
+        . ' class="table-responsive ts-wrapperdiv ' . ($sticky ? 'table-sticky' : '') . '">' . "\r\t";
     if (! empty($colwidths)) {  // if colwidths have been set then don't let the .table class set the width to 100%
         $wret .= '<table class="table table-striped table-hover normal" id="wpfancytable' . $iFancytable . '">' . "\r\t";
     } else {
@@ -211,7 +225,7 @@ function wikiplugin_fancytable($data, $params)
         $headhtml = $headrows['html'];
         postprocess_section($headhtml, $tagremove, $pluginremove);
 
-        $wret .= '<thead>' . $headhtml . "\r\t" . '</thead>' . "\r\t";
+        $wret .= '<thead class=' . ($sticky ? 'bg-light' : '') . '>' . $headhtml . "\r\t" . '</thead>' . "\r\t";
     }
 
     //Body
