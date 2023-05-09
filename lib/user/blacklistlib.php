@@ -111,7 +111,7 @@ WHERE table_name = \'tiki_password_index\'
 LIMIT 1;';
         $result = $this->query($query, []);
         $tableExists = $result->fetchRow();
-        if ($tableExists[1] != 1) {
+        if (empty($tableExists) || $tableExists[1] != 1) {
             return 0;
         }
 
