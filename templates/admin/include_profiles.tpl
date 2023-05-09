@@ -190,7 +190,7 @@
                             {foreach from=$modified_list key="name" item="data"}
                                 <li class="form-check">
                                     {if is_array($data.current.expanded)}
-                                        {assign var=current value=$data.current.expanded|implode:", "}
+                                        {assign var=current value=", "|implode:$data.current.expanded}
                                         {assign var=current value="[$current]"}
                                     {else}
                                         {assign var=current value=$data.current.expanded}
@@ -206,7 +206,7 @@
                                                 {if empty($data.default)}
                                                     ('')
                                                 {else}
-                                                    {if is_array($data.default)}{assign var=default value=$data.default|implode:", "}{else}{assign var=default value=$data.default}{/if}
+                                                    {if is_array($data.default)}{assign var=default  value=", "|implode:$data.default}{else}{assign var=default value=$data.default}{/if}
                                                     ('{$default|truncate:20:"...":true|escape}')
                                                 {/if}
                                             {else}
