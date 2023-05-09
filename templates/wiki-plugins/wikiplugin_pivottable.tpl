@@ -123,7 +123,7 @@
     });
     //adding bind call for pdf creation
     $('a.generate-pdf').click(function(){
-        storeSortTable('#container_{{$pivottable.id}}',$('#container_{{$pivottable.id}}').find(".pvtRendererArea"))
+        storeSortTable('#container_{{$pivottable.id}}',$('#container_{{$pivottable.id}}').find(".pvtRendererArea").html())
     });
 {/jq}
 
