@@ -646,20 +646,17 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
         return implode(',', $newValues);
     }
 
-    public function handleFinalSave(array &$data)
+    public function postSaveHook($deletedFiles)
     {
-        if (isset($data['deleted_files'])) {
+        if ($deletedFiles) {
             $filegallib = TikiLib::lib('filegal');
-            $deletedFiles = explode(',', $data['deleted_files']);
+            $deletedFiles = explode(',', $deletedFiles);
 
             foreach ($deletedFiles as $fileId) {
                 $fileInfo = $filegallib->get_file_info($fileId);
                 $filegallib->remove_file($fileInfo);
             }
         }
-        $name = $this->getConfiguration('permName');
-
-        return $data[$name];
     }
 
     /**

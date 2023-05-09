@@ -2257,9 +2257,6 @@ class TrackerLib extends TikiLib
                 if (isset($job['field']['value'])) {
                     $data[$job['field']['permName']] = $job['field']['value'];
                 }
-                if ($job['handler']->getConfiguration('type') == 'FG' && ! empty($deleted_files[$job['field']['fieldId']])) {
-                    $data['deleted_files'] = $deleted_files[$job['field']['fieldId']];
-                }
                 $value = $job['handler']->handleFinalSave($data);
                 $data[$job['field']['permName']] = $value;
                 $this->modify_field($currentItemId, $job['field']['fieldId'], $value);
@@ -2269,7 +2266,11 @@ class TrackerLib extends TikiLib
         }
 
         foreach ($postSave as $job) {
-            $value = $fil[$job['fieldId']];
+            if ($job['handler'] instanceof Tracker_Field_Files) {
+                $value = $deleted_files[$job['fieldId']] ?? '';
+            } else {
+                $value = $fil[$job['fieldId']];
+            }
             $job['handler']->postSaveHook($value);
         }
 
