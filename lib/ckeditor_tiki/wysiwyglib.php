@@ -252,6 +252,7 @@ ajaxLoadingShow("' . $dom_id . '");
         }
 
         $newContent .= substr($content, $position);
+        $newContent = $this->processSpecialHeadings($newContent);
 
         $content = $newContent;
 
@@ -436,6 +437,41 @@ tikiToastEditor($jsonOptions);
         ];
 
         return isset($langMap[$lang]) ? $langMap[$lang] : $lang;
+    }
+
+    private function processSpecialHeadings($content)
+    {
+        $lines = explode("\r\n", $content);
+        $newLines = '';
+        $totalLines = count($lines);
+        $r = '/#{1,6}[\$[\+\-]]?\s/';
+        for ($i = 0; $i < $totalLines; $i++) {
+            if ($lines[$i] && preg_match($r, $lines[$i])) {
+                $nextKey = $i + 1;
+                if ($nextKey < $totalLines && $lines[$nextKey] && ! preg_match($r, $lines[$nextKey])) {
+                    $newLines .= "\$\$tiki\r\n" . $lines[$i];
+                    $i++;
+                    while ($i < $totalLines && $lines[$i] && ! preg_match($r, $lines[$i])) {
+                        $newLines .= "\r\n" . $lines[$i];
+                        if (isset($lines[$i + 1]) && ! preg_match($r, $lines[$i + 1])) {
+                            $i++;
+                        } else {
+                            break;
+                        }
+                    }
+                    $newLines .= "\r\n$$";
+                } else {
+                    $newLines .= $lines[$i];
+                }
+            } else {
+                $newLines .= $lines[$i];
+            }
+            if ($i < ($totalLines - 1)) {
+                $newLines .= "\r\n";
+            }
+        }
+
+        return $newLines;
     }
 }
 
