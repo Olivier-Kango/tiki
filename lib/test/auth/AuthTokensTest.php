@@ -172,7 +172,7 @@ class AuthTokensTest extends TikiDatabaseTestCase
         $url = 'http://example.com/tiki/tiki-index.php?page=SomePage';
         $new = $this->obj->includeToken($url);
 
-        $this->assertRegExp('/TOKEN=[a-z0-9]{32}/i', $new);
+        $this->assertMatchesRegularExpression('/TOKEN=[a-z0-9]{32}/i', $new);
         $this->assertStringContainsString('http://example.com/tiki/tiki-index.php', $new);
         $this->assertStringContainsString('page=SomePage', $new);
     }
@@ -182,7 +182,7 @@ class AuthTokensTest extends TikiDatabaseTestCase
         $url = 'http://example.com/tiki-index.php';
         $new = $this->obj->includeToken($url);
 
-        $this->assertRegExp('/TOKEN=[a-z0-9]{32}/i', $new);
+        $this->assertMatchesRegularExpression('/TOKEN=[a-z0-9]{32}/i', $new);
         $this->assertStringContainsString('http://example.com/tiki-index.php', $new);
     }
 
@@ -191,7 +191,7 @@ class AuthTokensTest extends TikiDatabaseTestCase
         $url = 'http://example.com/tiki-index.php#Test';
         $new = $this->obj->includeToken($url);
 
-        $this->assertRegExp('/TOKEN=[a-z0-9]{32}#Test/i', $new);
+        $this->assertMatchesRegularExpression('/TOKEN=[a-z0-9]{32}#Test/i', $new);
     }
 
     public function testGetTokensShouldReturnEmptyArrayIfNoToken(): void

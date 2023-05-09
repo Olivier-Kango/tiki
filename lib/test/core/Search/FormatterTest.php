@@ -196,10 +196,10 @@ OUT;
             )
         );
 
-        $this->assertRegExp('/<li[^>]*><a[^>]*>1<\/a><\/li>/', $output);
-        $this->assertRegExp('/<li[^>]*><a[^>]*>2<\/a><\/li>/', $output);
-        $this->assertRegExp('/<li[^>]*><a[^>]*>2<\/a><\/li>/', $output);
-        $this->assertRegExp('/<li[^>]*><span[^>]*>3 <span[^>]*>/', $output);
+        $this->assertMatchesRegularExpression('/<li[^>]*><a[^>]*>1<\/a><\/li>/', $output);
+        $this->assertMatchesRegularExpression('/<li[^>]*><a[^>]*>2<\/a><\/li>/', $output);
+        $this->assertMatchesRegularExpression('/<li[^>]*><a[^>]*>2<\/a><\/li>/', $output);
+        $this->assertMatchesRegularExpression('/<li[^>]*><span[^>]*>3 <span[^>]*>/', $output);
         $this->assertStringNotContainsString('>4<', $output);
     }
 

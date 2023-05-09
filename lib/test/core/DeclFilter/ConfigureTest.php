@@ -47,12 +47,9 @@ class DeclFilterConfigureTest extends TikiTestCase
         $this->assertEquals('UNDECLARED', $data['bar']);
     }
 
-    /**
-     * Triggered errors become exceptions...
-     */
     public function testDisallowed()
     {
-        $this->expectError();
+        $this->expectException('Exception');
         $configuration = [
             ['catchAllFilter' => new Laminas\Filter\StringToUpper()],
         ];
@@ -62,7 +59,7 @@ class DeclFilterConfigureTest extends TikiTestCase
 
     public function testMissingLevel()
     {
-        $this->expectError();
+        $this->expectException('Exception');
         $configuration = [
             'catchAllUnset' => null,
         ];

@@ -97,7 +97,7 @@ class Multilingual_MachineTranslation_GoogleTranslateWrapperTest extends TikiTes
     {
         $text = "<a href='blah'>Hello world</a>";
         $translation = $this->translator->translateText($text);
-        $this->assertRegExp("/<a href='blah'>\s?Ciao mondo<\/a>/", $translation, "The translation was not correct for text: $text.");
+        $this->assertMatchesRegularExpression("/<a href='blah'>\s?Ciao mondo<\/a>/", $translation, "The translation was not correct for text: $text.");
     }
 
 
@@ -218,7 +218,7 @@ class Multilingual_MachineTranslation_GoogleTranslateWrapperTest extends TikiTes
     {
         $text = "*Hello world";
         $translation = $this->translator->translateText($text);
-        $this->assertRegExp("/\*\s?Ciao mondo/", $translation, "The translation was not correct for text: $text.");
+        $this->assertMatchesRegularExpression("/\*\s?Ciao mondo/", $translation, "The translation was not correct for text: $text.");
     }
 
     public function testGoogleShouldNotTranslateWikiSyntaxIndentedText()

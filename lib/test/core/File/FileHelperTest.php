@@ -22,7 +22,7 @@ class FileHelperTest extends TestCase
         $dir = vfsStream::setup(uniqid('', true));
         $path = $dir->url() . '/file-test.csv';
 
-        $this->assertFileNotExists($path);
+        $this->assertFileDoesNotExist($path);
 
         $header = ['id', 'name'];
         $rows = [

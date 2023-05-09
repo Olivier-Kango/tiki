@@ -53,7 +53,7 @@ class Tiki_FileGallery_DefinitionTest extends TikiTestCase
 
         $file->galleryDefinition()->delete($file);
 
-        $this->assertFileNotExists($prefs['fgal_use_dir'] . '/abcdtest');
+        $this->assertFileDoesNotExist($prefs['fgal_use_dir'] . '/abcdtest');
     }
 
     public function testFixFileLocationDbToDb()
@@ -101,7 +101,7 @@ class Tiki_FileGallery_DefinitionTest extends TikiTestCase
         $this->assertEquals('test contents', $file->data);
         $this->assertEquals('', $file->path);
 
-        $this->assertFileNotExists($prefs['fgal_use_dir'] . '/abcdtest');
+        $this->assertFileDoesNotExist($prefs['fgal_use_dir'] . '/abcdtest');
     }
 
     public function testFixFileLocationDiskToDisk()

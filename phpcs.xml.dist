@@ -273,6 +273,7 @@
         <exclude-pattern>lib/core/Math/Formula/Element.php</exclude-pattern>
         <exclude-pattern>lib/core/Perms/Accessor.php</exclude-pattern>
         <exclude-pattern>lib/core/Services/ResultLoader.php</exclude-pattern>
+        <exclude-pattern>lib/core/Search/ResultSet.php</exclude-pattern>
         <exclude-pattern>lib/core/Tiki/Profile/SymbolLoader.php</exclude-pattern>
         <exclude-pattern>lib/core/WikiParser/PluginDefinition.php</exclude-pattern>
         <exclude-pattern>lib/core/WikiParser/PluginMatcher.php</exclude-pattern>

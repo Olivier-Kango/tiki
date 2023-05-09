@@ -36,7 +36,7 @@ class allTikiPhpFilesTest extends TestCase
                 if (! $count && strpos($buffer, '#!') !== 0) {
                     $fileContent .= $buffer;
                     if (stripos($buffer, '<?php') !== false) { // match several different comment styles
-                        $this->assertNotRegExp('/([\S\s]+)<\?php/iU', $fileContent, $fileName . ' does not start with <?php');
+                        $this->assertDoesNotMatchRegularExpression('/([\S\s]+)<\?php/iU', $fileContent, $fileName . ' does not start with <?php');
                         break;
                     }
                 }

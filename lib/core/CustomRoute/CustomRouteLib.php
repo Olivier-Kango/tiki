@@ -50,7 +50,7 @@ class CustomRouteLib extends TikiLib
      * @return int
      *   The route id value
      */
-    public function setRoute($type, $from, $redirect, $description, $active, $shortUrl, $id)
+    public function setRoute($type, $from, $redirect, $description, $active, $shortUrl, $id): int
     {
 
         if (

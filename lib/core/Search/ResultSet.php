@@ -53,7 +53,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         return $return;
     }
 
-    public function append($list)
+    public function append($list): void
     {
         foreach ($list as $item) {
             parent::append($item);
@@ -125,7 +125,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         return $this->offset;
     }
 
-    public function count()
+    public function count(): int
     {
         return $this->count;
     }
@@ -276,6 +276,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return [

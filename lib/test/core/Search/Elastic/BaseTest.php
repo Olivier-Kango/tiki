@@ -42,7 +42,7 @@ class Search_Elastic_BaseTest extends Search_Index_BaseTest
         $formatter = new Search_Formatter($plugin);
         $output = $formatter->format($resultSet);
 
-        $this->assertRegExp('/<em.*>Bonjour<\/em>/', $output);
+        $this->assertMatchesRegularExpression('/<em.*>Bonjour<\/em>/', $output);
         $this->assertStringNotContainsString('<body>', $output);
     }
 }

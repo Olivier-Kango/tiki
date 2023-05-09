@@ -40,7 +40,6 @@ class CustomRouteTest extends TestCase
         $route = CustomRoute::getShortUrlRoute($url, 'Test route');
 
         self::$routes[] = $route->id;
-
         $this->assertNotEmpty($route);
         $this->assertEquals(Item::TYPE_DIRECT, $route->type);
 
@@ -57,7 +56,6 @@ class CustomRouteTest extends TestCase
     {
         $url = 'https://tiki.org/Homepage';
         $route = CustomRoute::getShortUrlRoute($url, 'Test route');
-
         $this->assertContains($route->id, self::$routes);
     }
 

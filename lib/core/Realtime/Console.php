@@ -43,7 +43,7 @@ class Console extends SessionAwareApp
             return;
         }
 
-        $command = PHP_BINARY . ' console.php ' . implode(' ', array_map('escapeshellarg', preg_split('/\s+/', $msg)));
+        $command = array_merge([PHP_BINARY, 'console.php'], array_map('escapeshellarg', preg_split('/\s+/', $msg)));
 
         $process = new Process($command);
         $process->start();

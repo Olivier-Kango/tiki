@@ -162,20 +162,22 @@ class WikiParser_Parsable extends ParserLib
 
             if (! empty($this->option['indexing'])) {
                 $info = $this->plugin_info(strtolower($plugin_name));
+                $isSearchableByDefault = isset($info['searchable_by_default']) ? $info['searchable_by_default'] : false;
                 //We are in an indexing context, check if plugins should be indexed, and strip them out if not
+
                 $shouldIndexPlugin = false;
 
                 if (in_array($plugin_name, $this->option['exclude_plugins'])) {
                     //exclude_plugins should always take precedence plugins that crash the indexing process or corrupt the index can be excluded.
                     $shouldIndexPlugin = false;
-                } elseif ($info['searchable_by_default']) {
+                } elseif ($isSearchableByDefault) {
                     //Keep in mind that the following two cases will be added above in the near future:
                     //Future: else if 'searchable'===true (from plugin syntax parameter)
                     //Future: else if 'searchable'===false
                     //No explicit 'searchable' request, so we use default value
                     $shouldIndexPlugin = true;
                 } elseif (in_array($plugin_name, $this->option['include_plugins'])) {
-                    //include_plugins is called include_plugins for historical reasond.  It's more of an additional_default_searchable_plugins now.
+                    //include_plugins is called include_plugins for historical reasons.  It's more of an additional_default_searchable_plugins now.
                     $shouldIndexPlugin = true;
                 }
 

@@ -203,7 +203,7 @@ class Tiki_Package_ComposerManagerTest extends TikiTestCase
             __DIR__ . DIRECTORY_SEPARATOR . 'Fixtures' . DIRECTORY_SEPARATOR . 'ComposerPackages.yml'
         );
 
-        $this->assertRegexp('/__PACKAGE__INSTALLED__/', $composerManager->installPackage('CasperJS'));
+        $this->assertMatchesRegularExpression('/__PACKAGE__INSTALLED__/', $composerManager->installPackage('CasperJS'));
 
         $this->assertJsonFileEqualsJsonFile(
             __DIR__ . DIRECTORY_SEPARATOR . 'Fixtures' . DIRECTORY_SEPARATOR . 'CasperJsComposer.json',

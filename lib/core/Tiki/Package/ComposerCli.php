@@ -176,7 +176,6 @@ class ComposerCli
     protected function getPhpVersion($php)
     {
         $process = new Process([$php, '--version']);
-        $process->inheritEnvironmentVariables();
         $process->run();
         foreach (explode("\n", $process->getOutput()) as $line) {
             $parts = explode(' ', $line);
@@ -213,7 +212,6 @@ class ComposerCli
             } else {
                 $process = new Process([$cli, '--version']);
             }
-            $process->inheritEnvironmentVariables();
             $process->setTimeout($this->timeout);
             $process->run();
             $output = $process->getOutput();
@@ -322,7 +320,6 @@ class ComposerCli
             }
 
             $process = new Process($args, null, $env);
-            $process->inheritEnvironmentVariables();
             $command = $process->getCommandLine();
             $process->setTimeout($this->timeout);
             $process->run();
@@ -743,7 +740,6 @@ class ComposerCli
 
         $command = [$this->getPhpPath(), self::COMPOSER_SETUP, '--quiet', '--install-dir=temp'];
         $process = new Process($command, null, $env);
-        $process->inheritEnvironmentVariables();
         $process->run();
 
         $output = $process->getOutput();
@@ -776,7 +772,6 @@ class ComposerCli
 
         $command = [$this->getComposerPharPath(), 'self-update', '--no-progress'];
         $process = new Process($command, null, $env);
-        $process->inheritEnvironmentVariables();
         $process->start();
         $output = '';
         foreach ($process as $type => $data) {

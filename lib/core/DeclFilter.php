@@ -39,11 +39,11 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
                     ) {
                         $filter->$real($argument);
                     } else {
-                        trigger_error('Disallowed filtering rule: ' . $method, E_USER_WARNING);
+                        throw new Exception('Disallowed filtering rule: ' . $method);
                     }
                 }
             } else {
-                trigger_error('Invalid input configuration structure', E_USER_WARNING);
+                throw new Exception('Invalid input configuration structure', E_USER_WARNING);
             }
         }
 

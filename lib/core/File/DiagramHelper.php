@@ -13,6 +13,7 @@ use Tiki\FileGallery\File as TikiFile;
 use Tiki\FileGallery\File;
 use Tiki\Package\VendorHelper;
 use Tiki\Process\Process;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use TikiLib;
 use WikiParser_PluginArgumentParser;
 use WikiParser_PluginMatcher;
@@ -332,7 +333,7 @@ EOF;
         }
 
         if (file_exists($jsfile)) {
-            $command = $casperBin . ' ' . $scriptPath . ' --htmlfile=' . $htmlFile . ' --filename=' . $fileIdentifier;
+            $command = [$casperBin, $scriptPath, '--htmlfile=' . $htmlFile, '--filename=' . $fileIdentifier];
 
             $process = new Process($command);
             if (! empty($params['timeout'])) {

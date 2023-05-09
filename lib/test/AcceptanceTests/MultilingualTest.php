@@ -186,7 +186,7 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         $this->assertElementPresent("link=Page de test multilingue 1");
         $this->clickAndWait("link=Page de test multilingue 1");
         //assert that up-to-dateness is now less than 100%
-        $this->assertRegExp("/Up-to-date-ness: [0-9]{2}%/", $this->getText("//div[@id='mod-translationr10']/div[1]"), "Up-to-dateness should have been less than 100%.");
+        $this->assertMatchesRegularExpression("/Up-to-date-ness: [0-9]{2}%/", $this->getText("//div[@id='mod-translationr10']/div[1]"), "Up-to-dateness should have been less than 100%.");
         $this->assertTextPresent("Better translations: Multilingual Test Page 1 (en)");
     }
 
@@ -222,14 +222,14 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         $this->clickAndWait("save");
         $this->click("link=More...");
         $this->clickAndWait("link=Page de test multilingue 1");
-        $this->assertRegExp("/Up-to-date-ness: [0-9]{2}%/", $this->getText("//div[@id='mod-translationr10']/div[1]"));
+        $this->assertMatchesRegularExpression("/Up-to-date-ness: [0-9]{2}%/", $this->getText("//div[@id='mod-translationr10']/div[1]"));
         if (preg_match("/Up-to-date-ness: ([0-9]{2})%/", $this->getText("//div[@id='mod-translationr10']/div[1]"), $matches)) {
             $first_percentage = $matches[1];
         }
         $this->clickAndWait("//img[@alt='update from it']");
         $this->type("editwiki", "Ceci est la première page multilingue de test.\n\nAjout du texte à traduire.");
         $this->clickAndWait("partial_save");
-        $this->assertRegExp("/Up-to-date-ness: [0-9]{2}%/", $this->getText("//div[@id='mod-translationr10']/div[1]"));
+        $this->assertMatchesRegularExpression("/Up-to-date-ness: [0-9]{2}%/", $this->getText("//div[@id='mod-translationr10']/div[1]"));
         if (preg_match("/Up-to-date-ness: ([0-9]{2})%/", $this->getText("//div[@id='mod-translationr10']/div[1]"), $matches)) {
             $second_percentage = $matches[1];
         }

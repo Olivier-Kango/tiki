@@ -38,7 +38,7 @@ class GitLib extends TikiLib
 
         if ($php_os === 'LINUX') {
             ob_start();
-            $process = new Process('which git');
+            $process = new Process(['which','git']);
             $process->inheritEnvironmentVariables();
             $process->run();
             $git = trim($process->getOutput());
