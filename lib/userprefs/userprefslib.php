@@ -53,11 +53,11 @@ class UserPrefsLib extends TikiLib
         return $res;
     }
 
-    public function get_public_avatar_path($user)
+    public function get_public_avatar_path($user): string
     {
         global $prefs, $tikidomainslash;
-        $file = '';
-        if (! empty($user)) {
+        $file = null;
+        if ($user) {
             if ($prefs['users_serve_avatar_static'] == 'y') {
                 $hash = md5($user);
                 $files = glob("temp/public/{$tikidomainslash}avatar_$hash.{jpg,jpeg,gif,png}", GLOB_BRACE);
@@ -78,8 +78,8 @@ class UserPrefsLib extends TikiLib
                 }
             }
         }
-        if (empty($file)) {
-            $file = 'img/noavatar.png';
+        if (! $file) {
+                $file = 'img/noavatar.png';
             if ($lastmod = filemtime($file)) {
                 $file .= '?v=' . $lastmod;
             }
