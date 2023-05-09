@@ -597,7 +597,6 @@ function wikiplugin_img($data, $params)
     $imgdata = [];
 
     $imgdata['src'] = '';
-    $imgdata['id'] = '';
     $imgdata['fileId'] = '';
     $imgdata['randomGalleryId'] = '';
     $imgdata['galleryId'] = '';
@@ -643,6 +642,8 @@ function wikiplugin_img($data, $params)
     }, $params);
 
     $imgdata = array_merge($imgdata, $params);
+    //var_dump($params);
+    //die;
 
     $srcset = '';
     $sizes = '';
@@ -675,12 +676,12 @@ function wikiplugin_img($data, $params)
 
     //////////////////////////////////////////////////// Error messages and clean javascript //////////////////////////////
     // Must set at least one image identifier
-    $set = ! empty($imgdata['fileId']) + ! empty($imgdata['id']) + ! empty($imgdata['src']) + ! empty($imgdata['attId'])
+    $set = ! empty($imgdata['fileId']) + ! empty($imgdata['src']) + ! empty($imgdata['attId'])
         + ! empty($imgdata['randomGalleryId']) + ! empty($imgdata['fgalId']);
     if ($set == 0) {
-        return tra("''No image specified. One of the following parameters must be set: fileId, randomGalleryId, fgalId, attId, id, or src.''");
+        return tra("''No image specified. One of the following parameters must be set: fileId, randomGalleryId, fgalId, attId or src.''");
     } elseif ($set > 1) {
-        return tra("''Use one and only one of the following parameters: fileId, randomGalleryId, fgalId, attId, id, or src.''");
+        return tra("''Use one and only one of the following parameters: fileId, randomGalleryId, fgalId, attId or src.''");
     }
     // Clean up src URLs to exclude javascript
     if (stristr(str_replace(' ', '', $imgdata['src']), 'javascript:')) {
@@ -698,12 +699,10 @@ function wikiplugin_img($data, $params)
     //////////////////////Process multiple images //////////////////////////////////////
     //Process "|" or "," separated images
     $notice = '<!--' . tra('PluginImg: User lacks permission to view image') . '-->';
-    $srcmash = $imgdata['fileId'] . $imgdata['id'] . $imgdata['attId'] . $imgdata['src'];
+    $srcmash = $imgdata['fileId'] . $imgdata['attId'] . $imgdata['src'];
     if (( strpos($srcmash, '|') !== false ) || (strpos($srcmash, ',') !== false ) || ! empty($imgdata['fgalId'])) {
         $separator = '';
-        if (! empty($imgdata['id'])) {
-            $id = 'id';
-        } elseif (! empty($imgdata['fileId'])) {
+        if (! empty($imgdata['fileId'])) {
             $id = 'fileId';
         } elseif (! empty($imgdata['attId'])) {
             $id = 'attId';
@@ -773,9 +772,7 @@ function wikiplugin_img($data, $params)
     }
 
     if (empty($imgdata['src'])) {
-        if (! empty($imgdata['id'])) {
-            $src = $imagegalpath . $imgdata['id'];
-        } elseif (! empty($imgdata['fileId'])) {
+        if (! empty($imgdata['fileId'])) {
             $smarty->loadPlugin('smarty_modifier_sefurl');
             $src = smarty_modifier_sefurl($imgdata['fileId'], 'file');
 
@@ -820,7 +817,7 @@ function wikiplugin_img($data, $params)
         $imageObj = '';
         //Deal with images with info in tiki databases (file and image galleries and attachments)
         if (
-            empty($imgdata['randomGalleryId']) && (! empty($imgdata['id']) || ! empty($imgdata['fileId'])
+            empty($imgdata['randomGalleryId']) && (! empty($imgdata['fileId'])
             || ! empty($imgdata['attId']))
         ) {
             //Try to get image from database
@@ -839,7 +836,7 @@ function wikiplugin_img($data, $params)
                 $basepath = $prefs['w_use_dir'];
             }
             //Give error messages if file doesn't exist, isn't an image. Display nothing if user lacks permission
-            if (! empty($imgdata['fileId']) || ! empty($imgdata['id']) || ! empty($imgdata['attId'])) {
+            if (! empty($imgdata['fileId']) || ! empty($imgdata['attId'])) {
                 if (! $dbinfo) {
                     return '^' . tra('File not found.') . '^';
                 } elseif (substr($dbinfo['filetype'], 0, 5) != 'image' and ! preg_match('/thumbnail/i', $imgdata['fileId'])) {
@@ -1406,8 +1403,6 @@ function wikiplugin_img($data, $params)
             if (! empty($imgdata['thumb']) && $imgdata['thumb'] === 'y') {
                 $imgtarget = " target='_blank' ";
             }
-        } elseif ((($imgdata['thumb'] == 'browse') || ($imgdata['thumb'] == 'browsepopup')) && ! empty($imgdata['id'])) {
-            $link = 'tiki-browse_image.php?imageId=' . $imgdata['id'];
         } elseif ($javaset == 'true') {
             $link = 'javascript:void(0)';
             $fwidth = empty($fwidth) ? '' : $fwidth;
@@ -1561,16 +1556,12 @@ function wikiplugin_img($data, $params)
         //Enlarge button div and link string (innermost div)
         if (! empty($imgdata['button'])) {
             if (empty($link) || (! empty($link) && ! empty($javaset))) {
-                if ((($imgdata['button'] == 'browse') || ($imgdata['button'] == 'browsepopup')) && ! empty($imgdata['id'])) {
-                    $link_button = 'tiki-browse_image.php?imageId=' . $imgdata['id'];
+                if (! empty($imgdata['fileId']) && $imgdata['button'] != 'download') {
+                    $link_button = $browse_full_image . '&display';
+                } elseif (! empty($imgdata['attId']) && $imgdata['thumb'] == 'download') {
+                    $link_button = $browse_full_image . '&download=y';
                 } else {
-                    if (! empty($imgdata['fileId']) && $imgdata['button'] != 'download') {
-                        $link_button = $browse_full_image . '&display';
-                    } elseif (! empty($imgdata['attId']) && $imgdata['thumb'] == 'download') {
-                        $link_button = $browse_full_image . '&download=y';
-                    } else {
-                        $link_button = $browse_full_image;
-                    }
+                    $link_button = $browse_full_image;
                 }
                 $link_button = filter_out_sefurl($link_button);
             } else {
