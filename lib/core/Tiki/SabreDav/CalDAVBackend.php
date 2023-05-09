@@ -119,7 +119,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
                 '{http://sabredav.org/ns}sync-token'                                 => $row['synctoken'] ?? '0',
                 '{' . CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new CalDAV\Xml\Property\SupportedCalendarComponentSet($components),
                 '{' . CalDAV\Plugin::NS_CALDAV . '}schedule-calendar-transp'         => new CalDAV\Xml\Property\ScheduleCalendarTransp($row['transparent'] ?? 'opaque'),
-                'share-resource-uri'                                                 => '/ns/share/' . $row['id'],
+                'share-resource-uri'                                                 => '/ns/share/' . $row['calendarId'],
             ];
 
             $calendar['share-access'] = $row['access'] ?? 1; // if no access is defined, user is the owner
