@@ -103,17 +103,18 @@
                                 <label for="assign_params[{$name|escape}]">{$param.name|escape}{if !empty($param.required)}<span class="attention">({tr}required{/tr})</span>{/if}</label>
                                 {if isset($name) and $name eq 'type' and $assign_info.name eq 'Menu'}
                                     <select id="assign_params[{$name|escape}]" name="assign_params[{$name|escape}]" class="form-control">
-                                        <option value="horiz" {if $param.value eq 'horiz'}selected="selected"{/if}>horiz</option>
-                                        <option value="vert" {if $param.value eq 'vert'}selected="selected"{/if}>vert</option>
+                                        <option value="horiz" {if isset($param.value) && $param.value eq 'horiz'}selected="selected"{/if}>horiz</option>
+                                        <option value="vert" {if isset($param.value) && $param.value eq 'vert'}selected="selected"{/if}>vert</option>
                                     </select>
                                 {elseif isset($name) and $name eq 'device'}
                                     <select multiple="multiple" id="assign_params[{$name|escape}]" name="assign_params[{$name|escape}][]" class="form-control">
-                                        <option value="MOBILE" {if in_array("MOBILE", $param.value)}selected="selected"{/if}>Mobile</option>
-                                        <option value="TABLET" {if in_array("TABLET", $param.value)}selected="selected"{/if}>Tablet</option>
-                                        <option value="LAPTOP" {if in_array("LAPTOP", $param.value)}selected="selected"{/if}>Laptop</option>
-                                        <option value="DESKTOP" {if in_array("DESKTOP", $param.value)}selected="selected"{/if}>Desktop</option>
-                                        <option value="PRINT" {if in_array("PRINT", $param.value)}selected="selected"{/if}>Print</option>
+                                        <option value="MOBILE" {if isset($param.value) && in_array("MOBILE", $param.value)}selected="selected"{/if}>Mobile</option>
+                                        <option value="TABLET" {if isset($param.value) && in_array("TABLET", $param.value)}selected="selected"{/if}>Tablet</option>
+                                        <option value="LAPTOP" {if isset($param.value) && in_array("LAPTOP", $param.value)}selected="selected"{/if}>Laptop</option>
+                                        <option value="DESKTOP" {if isset($param.value) && in_array("DESKTOP", $param.value)}selected="selected"{/if}>Desktop</option>
+                                        <option value="PRINT" {if isset($param.value) && in_array("PRINT", $param.value)}selected="selected"{/if}>Print</option>
                                     </select>
+
                                 {elseif $param.type eq 'textarea'}
                                     <textarea type="text" id="assign_params[{$name|escape}]" name="assign_params[{$name|escape}]"{if !empty($param.filter)} class="{$param.filter} form-control"{else} class="{$param.filter} form-control"{/if}>{$param.value|escape}</textarea>
                                 {else}
