@@ -193,6 +193,12 @@ add_output('ajax_hm_folders', 'info_page_link', true, 'developer', 'settings_men
 /* sieve filters */
 add_output('sieve_filters', 'tiki_filters_cron', true, 'tiki', 'sievefilters_settings_start', 'after');
 
+setup_base_ajax_page('ajax_tiki_sieve_get_mailboxes', 'core');
+add_handler('ajax_tiki_sieve_get_mailboxes', 'load_imap_servers_from_config', true, 'imap', 'load_user_data', 'after');
+add_handler('ajax_tiki_sieve_get_mailboxes', 'settings_load_imap', true);
+add_handler('ajax_tiki_sieve_get_mailboxes', 'tiki_sieve_get_mailboxes_script', true);
+add_output('ajax_tiki_sieve_get_mailboxes', 'tiki_sieve_get_mailboxes_output', true);
+
 return [
   'allowed_pages' => [
     'groupmail',
@@ -212,6 +218,7 @@ return [
     'ajax_tiki_message_action',
     'ajax_tiki_get_trackers',
     'ajax_tiki_tracker_info',
+    'ajax_tiki_sieve_get_mailboxes',
     'info',
   ],
   'allowed_get' => [
@@ -232,6 +239,7 @@ return [
     'flag_state' => [FILTER_SANITIZE_STRING, false],
     'trackers' => [FILTER_DEFAULT, false],
     'tracker_data' => [FILTER_DEFAULT, false],
+    'mailboxes' => [FILTER_UNSAFE_RAW, false]
   ],
   'allowed_post' => [
     'imap_server_id' => FILTER_SANITIZE_STRING,
@@ -266,6 +274,7 @@ return [
     'imap_move_to' => FILTER_SANITIZE_STRING,
     'imap_move_action' => FILTER_SANITIZE_STRING,
     'action_type' => FILTER_SANITIZE_STRING,
+    'imap_account' => FILTER_SANITIZE_STRING,
     'tiki_archive_replied' => FILTER_VALIDATE_INT,
   ]
 ];

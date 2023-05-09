@@ -267,7 +267,11 @@ class SieveFiltersCommand extends Command
                                     } else {
                                         $output->writeln(tr('Moved msg uid %0 to %1', $msg['uid'], $action['value']));
                                     }
-                                    imap_move_same_server([$idx => [$msg['folder'] => [$msg['uid']]]], $action['action'], $cypht_cache, [2 => bin2hex($action['value'])]);
+                                    if (preg_match('/^imap_(\d+)_(.+)/', $action['value'], $matches)) {
+                                        imap_move_different_server([$idx => [$msg['folder'] => [$msg['uid']]]], $action['action'], [1 => $matches[1], 2 => bin2hex($matches[2])], $cypht_cache);
+                                    } else {
+                                        imap_move_same_server([$idx => [$msg['folder'] => [$msg['uid']]]], $action['action'], $cypht_cache, [2 => bin2hex($action['value'])]);
+                                    }
                                 } elseif ($action['action'] == 'flag' || $action['action'] == 'addflag') {
                                     $msg_action = $flag = false;
                                     switch ($action['value']) {

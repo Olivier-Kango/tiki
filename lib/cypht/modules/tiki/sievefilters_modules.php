@@ -58,3 +58,57 @@ class Hm_Handler_tiki_sieve_placeholder extends Hm_Handler_Module
         // noop
     }
 }
+
+
+/**
+ * @subpackage sievefilters/handler
+ */
+class Hm_Handler_tiki_sieve_get_mailboxes_script extends Hm_Handler_Module
+{
+    public function process()
+    {
+        list($success, $form) = $this->process_form(['imap_account']);
+        if (! $success) {
+            return;
+        }
+        $mailboxes = [];
+
+        $servers = $this->user_config->get('imap_servers');
+
+        $names = array_column($servers, 'name');
+        $server_id = array_search($this->request->post['imap_account'], $names);
+
+        if (isset($servers[$server_id]['sieve_config_host'])) {
+            // Handled by sieve
+            $search_servers = [$server_id => $servers[$server_id]];
+        } else {
+            // Handled with tiki
+            $search_servers = $servers;
+        }
+
+        foreach ($search_servers as $imap_server_id => $m) {
+            $cache = Hm_IMAP_List::get_cache($this->cache, $imap_server_id);
+            $imap = Hm_IMAP_List::connect($imap_server_id, $cache);
+            if (imap_authed($imap)) {
+                foreach ($imap->get_mailbox_list() as $mailbox) {
+                    if ($server_id != $imap_server_id) {
+                        $mailboxes[$m['name']][] = 'imap_' . $imap_server_id . '_' . $mailbox['name'];
+                    } else {
+                        $mailboxes[$m['name']][] = $mailbox['name'];
+                    }
+                }
+            }
+        }
+        $this->out('mailboxes', json_encode($mailboxes));
+    }
+}
+
+
+class Hm_Output_tiki_sieve_get_mailboxes_output extends Hm_Output_Module
+{
+    public function output()
+    {
+        $mailboxes = $this->get('mailboxes', '');
+        $this->out('mailboxes', $mailboxes);
+    }
+}
