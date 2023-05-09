@@ -592,7 +592,7 @@ class BlogLib extends TikiDb_Bridge
             $bindvars[] = (int)$blogId;
 
             $blog_data = $this->get_blog($blogId);
-            if ($user && $user == $blog_data["user"]) {
+            if ($user && isset($blog_data["user"]) && $user == $blog_data["user"]) {
                 $ownsblog = 'y';
             }
         } elseif (count($blogIds) > 1) {    // There is more than one blog Id
