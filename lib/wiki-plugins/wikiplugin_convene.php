@@ -64,7 +64,7 @@ function wikiplugin_convene_info(): array
             'dateformatother' => [
                 'required' => false,
                 'name' => tra('Other Date-Time Format'),
-                'description' => tra('Use a custom format string for the dates using PHP "strftime" or "date_format" parameters'),
+                'description' => tr('Use a custom format string for the dates using PHP "DateTime::format" parameters, e.g. %0', 'D j M h:i'),
                 'since' => '23.0',
                 'filter' => 'text',
                 'default' => '',

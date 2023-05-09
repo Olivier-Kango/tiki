@@ -55,20 +55,20 @@
                             </td>
                             {foreach $row as $stamp => $vote}
                                 {if $vote gt 0}
-                                    {$class = 'convene-ok text-center alert-success'}
+                                    {$class = 'convene-ok text-center text-success'}
                                     {$icon = 'ok'}
                                 {elseif $vote lt 0}
-                                    {$class = 'convene-no text-center alert-danger'}
+                                    {$class = 'convene-no text-center text-danger'}
                                     {$icon = 'remove'}
                                 {else}
-                                    {$class = 'convene-unconfirmed text-center alert-light'}
+                                    {$class = 'convene-unconfirmed text-center text-secondary'}
                                     {$icon = 'help'}
                                 {/if}
 
                                 {if $comments[$stamp][$voter] eq ""}
                                     {$voteComment = "{tr}No Comment{/tr}"}
                                 {else}
-                                    {$voteComment = "{tr}Comment{/tr} : "|cat:$comments[$stamp][$voter]}
+                                    {$voteComment = $comments[$stamp][$voter]}
                                 {/if}
                                 <td class='align-middle flex-align-center {$class}'>
                                     {icon name=$icon size=2 iclass='tips' ititle="{tr}Vote value{/tr} $vote:$voteComment "  }
