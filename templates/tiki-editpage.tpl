@@ -594,22 +594,24 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            {if $trads|@count > 1 and $urgent_allowed}
-                                <div class="mb-3 row">
-                                    <label for="" class="col-md-4 col-form-label">{tr}Translation{/tr}</label>
-                                    <div class="col-md-8">
-                                        <fieldset {if $prefs.feature_urgent_translation neq 'y' or $diff_style} style="display:none;"{/if}>
-                                            <legend>{tr}Translation request:{/tr}</legend>
-                                            <input type="hidden" name="lang" value="{$lang|escape}">
-                                            <input type="checkbox" id="translation_critical" name="translation_critical" id="translation_critical"{if $translation_critical} checked="checked"{/if}>
-                                            <label for="translation_critical">{tr}Send urgent translation request.{/tr}</label>
-                                            {if $diff_style}
-                                                <input type="hidden" name="oldver" value="{$diff_oldver|escape}">
-                                                <input type="hidden" name="newver" value="{$diff_newver|escape}">
-                                            {/if}
-                                        </fieldset>
+                            {if $trads}
+                                {if $trads|@count > 1 and $urgent_allowed}
+                                    <div class="mb-3 row">
+                                        <label for="" class="col-md-4 col-form-label">{tr}Translation{/tr}</label>
+                                        <div class="col-md-8">
+                                            <fieldset {if $prefs.feature_urgent_translation neq 'y' or $diff_style} style="display:none;"{/if}>
+                                                <legend>{tr}Translation request:{/tr}</legend>
+                                                <input type="hidden" name="lang" value="{$lang|escape}">
+                                                <input type="checkbox" id="translation_critical" name="translation_critical" id="translation_critical"{if $translation_critical} checked="checked"{/if}>
+                                                <label for="translation_critical">{tr}Send urgent translation request.{/tr}</label>
+                                                {if $diff_style}
+                                                    <input type="hidden" name="oldver" value="{$diff_oldver|escape}">
+                                                    <input type="hidden" name="newver" value="{$diff_newver|escape}">
+                                                {/if}
+                                            </fieldset>
+                                        </div>
                                     </div>
-                                </div>
+                                {/if}
                             {/if}
                         {/if}
                         {if $prefs.geo_locate_wiki eq 'y'}
