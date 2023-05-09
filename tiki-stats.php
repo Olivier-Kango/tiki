@@ -86,11 +86,11 @@ if (isset($_REQUEST['startDate_Year']) || isset($_REQUEST['endDate_Year'])) {
     $smarty->assign('startDate', $start_date);
     $smarty->assign('endDate', $end_date);
 } else {
-    $start_date = $site_stats['started'];
+    $start_date = (int)$site_stats['started'];
     $end_date = $tikilib->make_time(23, 59, 59, date("m"), date("d"), date("Y"));
     $smarty->assign('startDate', $start_date);
 }
-$smarty->assign('start_year', date('Y', $site_stats['started']));
+$smarty->assign('start_year', date('Y', $start_date));
 $smarty->assign('end_year', date('Y', $tikilib->now));
 $best_objects_stats_lastweek = $statslib->best_overall_object_stats(20, 7);
 $smarty->assign_by_ref('best_objects_stats_lastweek', $best_objects_stats_lastweek);

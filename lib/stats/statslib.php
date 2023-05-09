@@ -246,6 +246,8 @@ class StatsLib extends TikiLib
             $stats['ppd'] = sprintf("%.2f", ($stats['days'] ? $stats['pageviews'] / $stats['days'] : 0));
             $b = 0;
             $w = 0;
+            $stats['bestday'] = "";
+            $stats['worstday'] = "";
             //for each in case there's more than one max day and more than one min day
             foreach ($views as $view) {
                 if ($view['views'] == $maxvar) {
@@ -345,13 +347,13 @@ class StatsLib extends TikiLib
 
         while ($res = $result->fetchRow()) {
             if (strpos($res["object"], "?")) {
-                list($stats[$i]->ID,$stats[$i]->object) = explode("?", $res["object"], 2);
+                list($stats[$i]['ID'],$stats[$i]['object']) = explode("?", $res["object"], 2);
             } else {
-                $stats[$i]->object = $res["object"];
-                $stats[$i]->ID = $res["object"];
+                $stats[$i]['object'] = $res["object"];
+                $stats[$i]['ID'] = $res["object"];
             }
-            $stats[$i]->type = $res["type"];
-            $stats[$i]->hits = $res["hits"];
+            $stats[$i]['type'] = $res["type"];
+            $stats[$i]['hits'] = $res["hits"];
             $i++;
         }
         return $stats;

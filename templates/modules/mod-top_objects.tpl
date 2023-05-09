@@ -2,7 +2,7 @@
 {modules_list list=$modTopObjects nonums=$nonums}
     {section name=ix loop=$modTopObjects}
         <li>
-            {$modTopObjects[ix]->object|escape} ({$modTopObjects[ix]->type})
+            {$modTopObjects[ix]['object']|escape} ({$modTopObjects[ix]['type']})
         </li>
     {/section}
 {/modules_list}
