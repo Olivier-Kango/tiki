@@ -192,7 +192,7 @@
                 <div class="col-sm-9">
                     <select id="articleClipTypes" name="articleClipTypes[]" class="form-control" multiple="multiple">
                         {section name=type loop=$articleTypes}
-                            <option value="{$articleTypes[type]}" {if in_array($articleTypes[type], $info.articleClipTypes)}selected="selected"{/if}>{$articleTypes[type]|escape}</option>
+                            <option value="{$articleTypes[type]}" {if is_array($info.articleClipTypes) && in_array($articleTypes[type], $info.articleClipTypes)}selected="selected"{/if}>{$articleTypes[type]|escape}</option>
                         {/section}
                     </select>
                 </div>

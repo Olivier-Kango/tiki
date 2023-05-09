@@ -454,12 +454,12 @@ if (isset($_REQUEST["send"]) && $_REQUEST["nlId"] && $prefs['newsletter_throttle
 }
 if (
     (isset($_REQUEST["send"]) && ! empty($_REQUEST["sendingUniqId"]) || $resend == 'y')
-    && $csrfCheck = $access->checkCsrf(null, null, null, $unsetTicket)
+    && $csrfCheck = $access->checkCsrf(null, null, null, (bool) $unsetTicket)
 ) {
     @set_time_limit(0);
 
     if ($resend != 'y') {
-        if (! is_array($_SESSION["sendingUniqIds"])) {
+        if (! isset($_SESSION["sendingUniqIds"]) || ! is_array($_SESSION["sendingUniqIds"])) {
             $_SESSION["sendingUniqIds"] = [];
         }
 

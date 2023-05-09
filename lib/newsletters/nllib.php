@@ -892,7 +892,7 @@ class NlLib extends TikiLib
             $mid = '';
         }
 
-        $query = "select tn.nlId, tn.`name`, tn.`description`, tn.`users`, tn.`editions`, tn.`author`, max(tsn.`sent`) as lastSent 
+        $query = "select tn.nlId, tn.`name`, tn.`description`, tn.`users`, tn.`editions`, tn.`author`, max(tsn.`sent`) as lastSent, tn.`allowTxt`, tn.`allowArticleClip`
         from `tiki_newsletters` tn 
         left join `tiki_sent_newsletters` tsn on (tn.`nlId` = tsn.`nlId`) $mid 
         group by tn.`nlId`, tn.`name`, tn.`description`, tn.`users`, tn.`editions`, tn.`author`
