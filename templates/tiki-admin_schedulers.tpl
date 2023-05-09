@@ -200,7 +200,7 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label class="col-sm-2 form-check-label" for="scheduler_catch">{tr}Run if missed{/tr}</label>
+            <label class="col-sm-2 form-check-label" for="scheduler_rerun">{tr}Run if missed{/tr}</label>
             <div class="col-sm-10">
                 <div class="form-check">
                     <input type="checkbox" id="scheduler_rerun" class="form-check-input" name="scheduler_rerun"
@@ -209,7 +209,7 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label class="col-sm-2 form-check-label" for="scheduler_catch">{tr}Run only once{/tr}</label>
+            <label class="col-sm-2 form-check-label" for="scheduler_run_only_once">{tr}Run only once{/tr}</label>
             <div class="col-sm-10">
                 <div class="form-check">
                     <input type="checkbox" id="scheduler_run_only_once" class="form-check-input" name="scheduler_run_only_once"
