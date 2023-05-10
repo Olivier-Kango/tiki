@@ -48,7 +48,7 @@
     {/remarksbox}
     <form method="post" action="{$smarty.server.PHP_SELF|escape}" role="form" class"form">
         <div class="input-group">
-            <input type="text" name="zipPath" value="{$zipPath|escape}" class="form-control" placeholder="{tr}Full Path to the Zip File{/tr}">
+            <input type="text" name="zipPath" value="{$zipPath|escape}" class="form-control" placeholder="{tr}Full Path to the Zip File{/tr}" required="true">
             <button type="submit" class="btn btn-primary" name="zip" title="{tr}ZIP{/tr}">{icon name="zip"} {tr}Generate zip{/tr}</button>
         </div>
         {if $zipPath}
