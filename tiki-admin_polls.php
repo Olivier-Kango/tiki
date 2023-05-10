@@ -95,11 +95,11 @@ if ((isset($_REQUEST["save"]) || isset($_REQUEST["add"])) && $access->checkCsrf(
             if ($option == "") {
                 if (isset($_REQUEST['optionsId']) && isset($_REQUEST['optionsId'][$i])) {
                     $result = $polllib->remove_poll_option($_REQUEST['optionsId'][$i]);
-                }
-                if ($result && $result->numRows()) {
-                    $optionSuccess++;
-                    // unset $result to avoid false counts
-                    unset($result);
+                    if ($result && $result->numRows()) {
+                        $optionSuccess++;
+                        // unset $result to avoid false counts
+                        unset($result);
+                    }
                 }
             } else {
                 $oid = isset($_REQUEST['optionsId']) && isset($_REQUEST['optionsId'][$i]) ? $_REQUEST['optionsId'][$i] : null;
