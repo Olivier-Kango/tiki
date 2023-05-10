@@ -138,6 +138,7 @@ class ConsoleApplicationBuilder
                 UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_AVAILABLE,
                 ],
             'commands'  => [
+                new AttachmentsMigrateCommand(),
                 new PackageDisableCommand(),
                 new PackageEnableCommand(),
                 new DailyReportSendCommand(),

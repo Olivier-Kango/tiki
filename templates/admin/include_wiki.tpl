@@ -219,19 +219,27 @@
             <div class="adminoptionbox clearfix">
                 <fieldset class="mb-3 w-100">
                     <legend>{tr}Attachments{/tr}</legend>
-                    {preference name=feature_use_fgal_for_wiki_attachments}
                     {preference name=feature_wiki_attachments}
                     <div class="adminoptionboxchild" id="feature_wiki_attachments_childcontainer">
                         {preference name=w_displayed_default}
-                        {preference name=w_use_db}
-                        <div class="adminoptionboxchild w_use_db_childcontainer n">
-                            {preference name=w_use_dir}
-                        </div>
-                        {if !empty($prefs.w_use_dir)}
-                            {tr}If you change storage, it is better to move all the files for easy backup...{/tr}
-                            {button href="tiki-admin.php?page=wikiatt&all2db=1" _text="{tr}Change all to db{/tr}" _onclick="confirmPopup('{tr}Move all attachments to database?{/tr}', '{ticket mode=get}')"}
-                            {button href="tiki-admin.php?page=wikiatt&all2file=1" _text="{tr}Change all to file{/tr}" _onclick="confirmPopup('{tr}Move all attachments to file system?{/tr}', '{ticket mode=get}')"}
+                        {preference name=feature_use_fgal_for_wiki_attachments mode=invert}
+                        {if $prefs.feature_use_fgal_for_wiki_attachments eq 'y' and $legacy_attachments_count > 0}
+                            <div class="alert alert-warning">{tr _0=$legacy_attachments_count}Legacy attachments (%0) found in the database. Please use attachments:migrate console command to move them to File Galleries.{/tr}</div>
                         {/if}
+                        {if $prefs.feature_use_fgal_for_wiki_attachments neq 'y' and $fgal_attachments_count > 0}
+                            <div class="alert alert-warning">{tr _0=$fgal_attachments_count}File gallery attachments (%0) found in the database. You can use attachments:migrate console command to move them to legacy storage but will need to update the related wiki pages manually.{/tr}</div>
+                        {/if}
+                        <div class="adminoptionboxchild" id="feature_use_fgal_for_wiki_attachments_childcontainer">
+                            {preference name=w_use_db}
+                            <div class="adminoptionboxchild w_use_db_childcontainer n">
+                                {preference name=w_use_dir}
+                            </div>
+                            {if !empty($prefs.w_use_dir)}
+                                {tr}If you change storage, it is better to move all the files for easy backup...{/tr}
+                                {button href="tiki-admin.php?page=wikiatt&all2db=1" _text="{tr}Change all to db{/tr}" _onclick="confirmPopup('{tr}Move all attachments to database?{/tr}', '{ticket mode=get}')"}
+                                {button href="tiki-admin.php?page=wikiatt&all2file=1" _text="{tr}Change all to file{/tr}" _onclick="confirmPopup('{tr}Move all attachments to file system?{/tr}', '{ticket mode=get}')"}
+                            {/if}
+                        </div>
                     </div>
                     {preference name=feature_wiki_pictures}
                     <div class="adminoptionboxchild" id="feature_wiki_pictures_childcontainer">

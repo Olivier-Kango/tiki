@@ -1650,12 +1650,11 @@ function prefs_feature_list($partial = false)
             'name' => tra('Use file galleries for wiki attachments'),
             'type' => 'flag',
             'help' => 'File-Gallery-Config',
-            'description' => tra('Wiki attachments will be stored in the file gallery.'),
+            'description' => tra('Wiki attachments will be stored in the file gallery. This is the preferred way to store attachments starting Tiki 26+.'),
             'dependencies' => [
                 'feature_file_galleries','feature_wiki_attachments'
             ],
-            'default' => 'n',
-            'tags' => ['experimental'],
+            'default' => 'y',
         ],
         'feature_file_galleries_author' => [
             'name' => tra("Require file creator's name for anonymous uploads"),

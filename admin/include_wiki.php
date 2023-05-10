@@ -112,6 +112,18 @@ if (isset($_REQUEST['downloaddump'])) {
     }
 }
 
+if ($prefs['feature_wiki_attachments'] === 'y') {
+    if ($prefs['feature_use_fgal_for_wiki_attachments'] === 'y') {
+        // check for legacy attachments
+        $count = TikiLib::lib('wiki')->attachmentsCount();
+        $smarty->assign('legacy_attachments_count', $count);
+    } else {
+        // check for fgal attachments
+        $count = TikiLib::lib('filegal')->fileGalleryAttachmentsCount();
+        $smarty->assign('fgal_attachments_count', $count);
+    }
+}
+
 $smarty->assign('isDump', is_file($path));
 $smarty->assign('dumpPath', $path);
 $tags = $adminlib->get_tags();

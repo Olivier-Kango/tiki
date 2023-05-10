@@ -1,3 +1,8 @@
+{if $prefs.feature_use_fgal_for_wiki_attachments eq 'y'}
+{remarksbox type="warning" title="{tr}Warning{/tr}"}
+    {tr _0=$prefs.fgal_root_wiki_attachments_id|sefurl:'file gallery'}File galleries are used to store wiki attachments. You have to go to the corresponding <a href="%0">File Gallery</a> to manage them.{/tr}
+{/remarksbox}
+{/if}
 <fieldset class="mb-3 w-100">
     <legend>{tr}Wiki attachments{/tr}</legend>
     <form action="tiki-admin.php?page=wikiatt" method="post">

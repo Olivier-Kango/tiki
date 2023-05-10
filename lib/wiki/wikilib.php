@@ -969,6 +969,11 @@ class WikiLib extends TikiLib
         return $retval;
     }
 
+    public function attachmentsCount()
+    {
+        return $this->getOne("select count(*) from `tiki_wiki_attachments`");
+    }
+
     public function file_to_db($path, $attId)
     {
         if (is_file($path)) {
@@ -1014,10 +1019,14 @@ class WikiLib extends TikiLib
 
     public function get_item_attachement_data($att_info)
     {
+        global $prefs;
+
         if ($att_info['path']) {
-            return file_get_contents($att_info['filename']);
-        } else {
+            return file_get_contents($prefs['w_use_dir'] . $att_info['path']);
+        } elseif (isset($att_info['data'])) {
             return $att_info['data'];
+        } else {
+            return $this->getOne('select `data` from `tiki_wiki_attachments` where `attId` = ?', [$att_info['attId']]);
         }
     }
 

@@ -4112,6 +4112,15 @@ class FileGalLib extends TikiLib
         }
         return $htmlnodes;
     }
+
+    /**
+     * Calculates number of wiki attachments stored in file galleries
+     * @return int count
+     */
+    public function fileGalleryAttachmentsCount()
+    {
+        return $this->getOne("select count(*) from `tiki_files` tf left join `tiki_file_galleries` tfg on tf.galleryId = tfg.galleryId where tfg.type = 'attachments'");
+    }
 }
 
 /**
