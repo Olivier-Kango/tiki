@@ -7,5 +7,5 @@ exclude:
   - temp/
   - vendor/
   - vendor_bundled/vendor
-warning: false
+warning: true
 memory_limit: -1

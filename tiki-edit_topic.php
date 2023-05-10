@@ -8,6 +8,7 @@ define('DB_ERROR', -1);
 $section = 'cms';
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');
+$smarty = TikiLib::lib('smarty');
 
 $access->check_feature('feature_articles');
 $access->check_permission('tiki_p_admin_cms');

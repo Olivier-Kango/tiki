@@ -331,6 +331,7 @@ $maxRecords = $prefs['maxRecords'];
 $smarty->assignByRef('maxRecords', $maxRecords);
 
 $userlib = TikiLib::lib('user');
+$user = null;  //We are still in the global scope, this variable will be available everywhere as a global.  This assignment is here so IDEs will find it.
 require_once('lib/breadcrumblib.php');
 // ------------------------------------------------------
 // DEAL WITH XSS-TYPE ATTACKS AND OTHER REQUEST ISSUES
@@ -525,7 +526,6 @@ if (TIKI_API) {
     if (
         $prefs['rememberme'] !== 'disabled' &&
         ! empty($login_cookie_value) &&
-        empty($user) &&
         empty($_SESSION["$user_cookie_site"])
     ) {
         if ($prefs['feature_intertiki'] == 'y' and ! empty($prefs['feature_intertiki_mymaster']) and $prefs['feature_intertiki_sharedcookie'] == 'y') {
@@ -593,7 +593,6 @@ if (TIKI_API) {
 
     // if the username is already saved in the session, pull it from there
     if (isset($_SESSION["$user_cookie_site"])) {
-        $user = $_SESSION["$user_cookie_site"];
         // There could be a case where the session contains a user that doesn't exists in this tiki
         // or that has never used the login step in this tiki.
         // Example : If using the same PHP SESSION cookies for more than one tiki.

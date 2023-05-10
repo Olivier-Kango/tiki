@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "325c3d3585e978adead5bb8916916295",
+    "content-hash": "efbb136328487c69abc4959b72516471",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1880,17 +1880,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "3.4.6",
+            "version": "3.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "3a8c654f7e74a1070d00c8e70a6064ac6873c432"
+                "reference": "188afe3976f4e39459fa6fd08357aab2f3125b53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-3a8c654f7e74a1070d00c8e70a6064ac6873c432-zip-53b886.zip",
-                "reference": "3a8c654f7e74a1070d00c8e70a6064ac6873c432",
-                "shasum": "dd2108ba3886d6828a0ecc21ff91e333b39e9517"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-188afe3976f4e39459fa6fd08357aab2f3125b53-zip-21159b.zip",
+                "reference": "188afe3976f4e39459fa6fd08357aab2f3125b53",
+                "shasum": "b4310610abd55b35390959fdfcab65f19446763f"
             },
             "require": {
                 "php": "^7.4|^8.0"
@@ -1920,7 +1920,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2023-05-19T07:33:18+00:00"
+            "time": "2023-05-26T07:33:16+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -10203,17 +10203,17 @@
         },
         {
             "name": "rubix/ml",
-            "version": "2.3.2",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RubixML/ML.git",
-                "reference": "79100cb37aa0513e4c313d6568b29143a6766d7f"
+                "reference": "e804cdc318801545307ed4a0f3a835fcf22f5864"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/rubix/ml/rubix-ml-79100cb37aa0513e4c313d6568b29143a6766d7f-zip-10260f.zip",
-                "reference": "79100cb37aa0513e4c313d6568b29143a6766d7f",
-                "shasum": "1ff78108087854298153853fddbbb5f79b1b9b6f"
+                "url": "https://composer.tiki.org/dist/rubix/ml/rubix-ml-e804cdc318801545307ed4a0f3a835fcf22f5864-zip-1918b0.zip",
+                "reference": "e804cdc318801545307ed4a0f3a835fcf22f5864",
+                "shasum": "2d01cd0f976b688f092b378fa322b3320865e29e"
             },
             "require": {
                 "amphp/parallel": "^1.3",
@@ -10240,8 +10240,7 @@
                 "ext-gd": "For image support",
                 "ext-mbstring": "For fast multibyte string manipulation",
                 "ext-svm": "For Support Vector Machine engine (libsvm)",
-                "ext-tensor": "For fast Matrix/Vector computing",
-                "rubix/extras": "For experimental features"
+                "ext-tensor": "For fast Matrix/Vector computing"
             },
             "type": "library",
             "autoload": {
@@ -10355,7 +10354,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-05-13T19:12:38+00:00"
+            "time": "2023-05-26T16:49:18+00:00"
         },
         {
             "name": "rubix/tensor",
@@ -16085,6 +16084,105 @@
                 "utility"
             ],
             "time": "2023-04-17T16:27:27+00:00"
+        },
+        {
+            "name": "phpstan/phpstan",
+            "version": "1.10.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-762c4dac4da6f8756eebb80e528c3a47855da9bd-zip-7af42e.zip",
+                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd",
+                "shasum": "fee1bf9d9dd9e9b51808861515f90004f4a646b2"
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan-shim": "*"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/phpstan",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-05-09T15:28:01+00:00"
+        },
+        {
+            "name": "phpstan/phpstan-deprecation-rules",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
+                "reference": "a22b36b955a2e9a3d39fe533b6c1bb5359f9c319"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan-deprecation-rules/phpstan-phpstan-deprecation-rules-a22b36b955a2e9a3d39fe533b6c1bb5359f9c319-zip-563d03.zip",
+                "reference": "a22b36b955a2e9a3d39fe533b6c1bb5359f9c319",
+                "shasum": "a38d406359224b2322815c4b24056c6075f204f3"
+            },
+            "require": {
+                "php": "^7.2 || ^8.0",
+                "phpstan/phpstan": "^1.10"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/phpstan-php-parser": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
+            "time": "2023-03-17T07:50:08+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
