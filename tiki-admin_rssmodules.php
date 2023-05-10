@@ -57,12 +57,14 @@ if (isset($_REQUEST["rssId"])) {
     $info["showTitle"] = 'n';
     $info["showPubDate"] = 'n';
 }
-$smarty->assign('name', $info["name"]);
-$smarty->assign('description', $info["description"]);
-$smarty->assign('url', $info["url"]);
-$smarty->assign('refreshSeconds', $info["refresh"]);
-$smarty->assign('showTitle', $info["showTitle"]);
-$smarty->assign('showPubDate', $info["showPubDate"]);
+if (! $_REQUEST["save"]) {
+    $smarty->assign('name', $info["name"]);
+    $smarty->assign('description', $info["description"]);
+    $smarty->assign('url', $info["url"]);
+    $smarty->assign('refreshSeconds', $info["refresh"]);
+    $smarty->assign('showTitle', $info["showTitle"]);
+    $smarty->assign('showPubDate', $info["showPubDate"]);
+}
 
 if ((isset($_REQUEST["refresh_all"]) || ! empty($_REQUEST["refresh"])) && $access->checkCsrf()) {
     if (isset($_REQUEST["refresh_all"])) {
@@ -176,46 +178,50 @@ if (isset($_REQUEST['article']) && $prefs['feature_articles'] == 'y') {
 }
 
 if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
-    if (isset($_REQUEST['showTitle']) == 'on') {
-        $smarty->assign('showTitle', 'y');
-        $info["showTitle"] = 'y';
+    if (empty($_REQUEST["name"]) || empty($_REQUEST["url"])) {
+        Feedback::error(tr("The name or URL is empty, the external feed has not been created"));
     } else {
-        $smarty->assign('showTitle', 'n');
-        $info["showTitle"] = 'n';
-    }
-    if (isset($_REQUEST['showPubDate']) == 'on') {
-        $smarty->assign('showPubDate', 'y');
-        $info["showPubDate"] = 'y';
-    } else {
-        $smarty->assign('showPubDate', 'n');
-        $info["showPubDate"] = 'n';
-    }
-    $result = $rsslib->replace_rss_module(
-        $_REQUEST["rssId"],
-        $_REQUEST["name"],
-        $_REQUEST["description"],
-        $_REQUEST["url"],
-        $_REQUEST["refreshMinutes"],
-        $info["showTitle"],
-        $info["showPubDate"]
-    );
-    $smarty->assign('rssId', 0);
-    $smarty->assign('name', '');
-    $smarty->assign('description', '');
-    $smarty->assign('url', '');
-    $smarty->assign('refreshSeconds', 900);
-    $smarty->assign('showTitle', 'n');
-    $smarty->assign('showPubDate', 'n');
-    $cookietab = 1;
-    if (is_numeric($result)) {
-        if (! empty($_REQUEST["rssId"])) {
-            $msg = tr('External feed updated');
+        if (isset($_REQUEST['showTitle']) == 'on') {
+            $smarty->assign('showTitle', 'y');
+            $info["showTitle"] = 'y';
         } else {
-            $msg = tr('External feed saved');
+            $smarty->assign('showTitle', 'n');
+            $info["showTitle"] = 'n';
         }
-        Feedback::success($msg);
-    } else {
-        Feedback::note(tr('No changes made to external feed'));
+        if (isset($_REQUEST['showPubDate']) == 'on') {
+            $smarty->assign('showPubDate', 'y');
+            $info["showPubDate"] = 'y';
+        } else {
+            $smarty->assign('showPubDate', 'n');
+            $info["showPubDate"] = 'n';
+        }
+        $result = $rsslib->replace_rss_module(
+            $_REQUEST["rssId"],
+            $_REQUEST["name"],
+            $_REQUEST["description"],
+            $_REQUEST["url"],
+            $_REQUEST["refreshMinutes"],
+            $info["showTitle"],
+            $info["showPubDate"]
+        );
+        $smarty->assign('rssId', 0);
+        $smarty->assign('name', '');
+        $smarty->assign('description', '');
+        $smarty->assign('url', '');
+        $smarty->assign('refreshSeconds', 900);
+        $smarty->assign('showTitle', 'n');
+        $smarty->assign('showPubDate', 'n');
+        $cookietab = 1;
+        if (is_numeric($result)) {
+            if (! empty($_REQUEST["rssId"])) {
+                $msg = tr('External feed updated');
+            } else {
+                $msg = tr('External feed saved');
+            }
+            Feedback::success($msg);
+        } else {
+            Feedback::note(tr('No changes made to external feed'));
+        }
     }
 }
 if (! isset($_REQUEST["sort_mode"])) {

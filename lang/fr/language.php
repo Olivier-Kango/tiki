@@ -16464,6 +16464,7 @@ $lang_current = array(
 "Dynamic content blocks" => "Blocs de contenu dynamique",
 "Use dynamic content" => "Utiliser du contenu dynamique",
 "External feeds" => "Flux externes",
+"The name or URL is empty, the external feed has not been created" => "Le nom ou l'URL est vide, le flux externe n'a pas été créé",
 // "Use RSS module" => "Use RSS module",
 "Banner zones" => "Zone de bannières",
 // "Use banner zone" => "Use banner zone",
