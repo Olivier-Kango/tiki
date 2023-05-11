@@ -74,9 +74,9 @@ class CCLiteLib extends TikiDb_Bridge
             $reg = $this->get_registry();
         }
 
-        $i = array_search($reg, $this->registries);
+        $i = array_search($reg, is_array($this->registries) ? $this->registries : []);
 
-        if ($i !== false) {
+        if ($i !== false && is_array($this->currencies)) {
             return $this->currencies[$i];
         } else {
             return $prefs['payment_currency'];
