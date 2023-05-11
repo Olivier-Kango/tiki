@@ -3617,7 +3617,7 @@ class TikiLib extends TikiDb_Bridge
      * @param string $ref
      * @return array
      */
-    public function list_pages($offset = 0, $maxRecords = -1, $sort_mode = 'pageName_desc', $find = '', $initial = '', $exact_match = true, $onlyName = false, $forListPages = false, $only_orphan_pages = false, $filter = '', $onlyCant = false, $ref = '', $exclude_pages = '')
+    public function list_pages($offset = 0, $maxRecords = -1, $sort_mode = 'pageName_desc', $find = '', $initial = '', $exact_match = true, $onlyName = false, $forListPages = false, $only_orphan_pages = false, $filter = [], $onlyCant = false, $ref = '', $exclude_pages = '')
     {
         global $prefs, $tiki_p_wiki_view_ratings;
 
