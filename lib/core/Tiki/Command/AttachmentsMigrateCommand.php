@@ -16,6 +16,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Exception;
 use TikiLib;
 use Tiki\FileGallery\File as TikiFile;
+use WikiParser_PluginMatcher;
+use WikiParser_PluginArgumentParser;
 
 class AttachmentsMigrateCommand extends Command
 {
@@ -36,6 +38,7 @@ class AttachmentsMigrateCommand extends Command
         }
 
         $wikilib = TikiLib::lib('wiki');
+        $tikilib = TikiLib::lib('tiki');
         $filegallib = TikiLib::lib('filegal');
 
         if ($prefs['feature_use_fgal_for_wiki_attachments'] === 'y') {
@@ -74,7 +77,55 @@ class AttachmentsMigrateCommand extends Command
                 $fileId = $file->replace($data, $att['filetype'], $att['filename'], $att['filename']);
                 // remove wiki attachment row
                 $wikilib->remove_wiki_attachment($att['attId']);
-                // TODO: replace attachment usage in wiki page
+                // replace attachment usage in wiki page
+                $pageInfo = $tikilib->get_page_info($att['page']);
+                if ($pageInfo) {
+                    $updated = false;
+                    $matches = WikiParser_PluginMatcher::match($pageInfo['data']);
+                    $argumentParser = new WikiParser_PluginArgumentParser();
+                    foreach ($matches as $match) {
+                        $pluginName = $match->getName();
+                        if ($pluginName == 'img') {
+                            $arguments = $argumentParser->parse($match->getArguments());
+                            $newArgs = [];
+                            $modified = false;
+                            foreach ($arguments as $key => $val) {
+                                if ($key == 'attId' && $val == $att['attId']) {
+                                    $newArgs[] = "fileId=$fileId";
+                                    $modified = true;
+                                } elseif ($key == 'src' && preg_match('/tiki-download_wiki_attachment\.php\?attId=(\d+)/', $val, $m) && $m[1] == $att['attId']) {
+                                    $newArgs[] = "fileId=$fileId";
+                                    $modified = true;
+                                } else {
+                                    $newArgs[] = "$key=\"$val\"";
+                                }
+                            }
+                            if ($modified) {
+                                $match->replaceWith('{file ' . implode(' ', $newArgs) . '}');
+                                $updated = true;
+                            }
+                        } elseif ($pluginName == 'file') {
+                            $arguments = $argumentParser->parse($match->getArguments());
+                            $newArgs = [];
+                            $modified = false;
+                            foreach ($arguments as $key => $val) {
+                                if ($key == 'name' && $val == $att['filename']) {
+                                    $newArgs[] = "fileId=$fileId";
+                                    $modified = true;
+                                } else {
+                                    $newArgs[] = "$key=\"$val\"";
+                                }
+                            }
+                            if ($modified) {
+                                $match->replaceWith('{file ' . implode(' ', $newArgs) . '}');
+                                $updated = true;
+                            }
+                        }
+                    }
+                    if ($updated) {
+                        $tikilib->update_page($pageInfo['pageName'], $matches->getText(), tra('attachment conversion'), 'admin', '127.0.0.1', null, 0, '', null, null, null, '', '', true);
+                    }
+                }
                 $count++;
             }
             $output->writeln('<comment>' . tr('Finished migrating legacy attachments to file galleries. Total files migrated: %0', $count) . '</comment>');
@@ -92,7 +143,7 @@ class AttachmentsMigrateCommand extends Command
                     if ($prefs['w_use_db'] === 'y') {
                         $fhash = '';
                     } else {
-                        $fhash = TikiLib::lib('tiki')->get_attach_hash_file_name($file->filename);
+                        $fhash = $tikilib->get_attach_hash_file_name($file->filename);
                         $fp = fopen($prefs['w_use_dir'] . $fhash, "wb");
                         fwrite($fp, $data);
                         fclose($fp);
