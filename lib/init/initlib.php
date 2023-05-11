@@ -91,13 +91,16 @@ spl_autoload_register('Tiki\PSR12Migration\Autoload::autoloadAlias');
 spl_autoload_register('Tiki_Autoload::autoload');
 
 /**
- * set how Tiki will report Errors
+ * A callback for PHP set_error_handler()
+ * Set how Tiki will report Errors
  * @param $errno
  * @param $errstr
  * @param $errfile
  * @param $errline
+ *
+ * @return bool Skip the built-in php error handler after this.
  */
-function tiki_error_handling($errno, $errstr, $errfile, $errline)
+function tiki_error_handling($errno, $errstr, $errfile, $errline): bool
 {
     global $prefs, $phpErrors;
 
@@ -106,7 +109,7 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline)
     if (0 === (error_reporting() & $errno)) {
         // This error was triggered when evaluating an expression prepended by the at sign (@) error control operator, but since we are in a custom error handler, we have to ignore it manually.
         // See http://ca3.php.net/manual/en/language.operators.errorcontrol.php#98895 and http://php.net/set_error_handler
-        return;
+        return true;
     }
 
     // FIXME: Optionally return false so errors are still logged
@@ -147,13 +150,13 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline)
         case E_USER_DEPRECATED:
             if (! defined('THIRD_PARTY_LIBS_PATTERN') ||  ! preg_match(THIRD_PARTY_LIBS_PATTERN, $errfile)) {
                 if (! empty($prefs['smarty_notice_reporting']) && $prefs['smarty_notice_reporting'] != 'y' && strstr($errfile, '.tpl.php')) {
-                    return;
+                    return true;
                 }
             }
             $type = 'NOTICE';
             break;
         default:
-            return;
+            return true;
     }
 
     $back = "<div class='rbox-data p-3 mb-3' style='font-size: 12px; border: 1px solid'>";
@@ -162,6 +165,7 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline)
     $back .= "</div>";
 
     $phpErrors[] = $back;
+    return true;
 }
 
 // Patch missing $_SERVER['REQUEST_URI'] on IIS6

@@ -36,12 +36,18 @@ function prefs_error_list()
             'description' => tra('Enable integration with error tracking service(ex: Sentry, GlitchTip) for PHP.'),
             'type'        => 'flag',
             'default'     => 'n',
+            'dependencies' => [
+                'error_tracking_dsn'
+            ],
         ],
         'error_tracking_enabled_js'  => [
             'name'        => tra('Track JavaScript errors'),
             'description' => tra('Enable integration with error tracking service(ex: Sentry, GlitchTip) for JavaScript.'),
             'type'        => 'flag',
             'default'     => 'n',
+            'dependencies' => [
+                'error_tracking_dsn'
+            ],
         ],
         'error_tracking_dsn'         => [
             'name'        => tra('Data Source Name (DSN)'),

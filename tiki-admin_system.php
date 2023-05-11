@@ -16,6 +16,8 @@ $access->check_permission(['tiki_p_clean_cache']);
 $done = '';
 $output = '';
 $buf = '';
+
+use Tiki\Process\Process;
 $cachelib = TikiLib::lib('cache');
 if (isset($_GET['do'])) {
     $cachelib->empty_cache($_GET['do']);

@@ -419,7 +419,7 @@ if ($prefs['rating_advanced'] == 'y' && $prefs['rating_recalculation'] == 'rando
     $ratinglib = TikiLib::lib('rating');
     $ratinglib->attempt_refresh();
 }
-
+//Why isn't this in lib/setup/error_tracking.php? - benoitg - 2023-05-11
 $errorTrkLib = TikiLib::lib('errortracking');
 if ($errorTrkLib->isJSEnabled()) {
     $dsn = $errorTrkLib->getDSN();

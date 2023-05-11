@@ -124,7 +124,7 @@ $tikilib->get_preferences($needed_prefs, true, true);
 global $systemConfiguration;
 $prefs = $systemConfiguration->preference->toArray() + $prefs;
 
-// Initialize ErrorTracking instance (Sentry/GlitchTip)
+// Initialize ErrorTracking instance (Sentry/GlitchTip) as early as possible
 TikiLib::lib('errortracking')->init();
 
 // Handle load balancers or reverse proxy (most reliable to do it early on as much code depends on these 2 server vars)

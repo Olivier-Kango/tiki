@@ -12,6 +12,9 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) != false) {
     header('location: index.php');
     exit;
 }
+
+/* This file handles reporting PHP errors in the HTML user interface */
+
 $smarty = TikiLib::lib('smarty');
 if ($prefs['error_reporting_adminonly'] == 'y' and $tiki_p_admin != 'y') {
     $errorReportingLevel = 0;
