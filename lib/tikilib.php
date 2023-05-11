@@ -5515,6 +5515,7 @@ class TikiLib extends TikiDb_Bridge
         $mail = new TikiMail(null, $prefs['sender_email'], $prefs['sender_name']);
         $mail->setSubject(tr("Plugin %0 pending approval", $pluginInfo['name']));
 
+        self::setExternalContext(true);
         $smarty = TikiLib::lib('smarty');
         $smarty->assign('plugin_name', $pluginInfo['name']);
         $smarty->assign('type', $pluginInfo['last_objectType']);
