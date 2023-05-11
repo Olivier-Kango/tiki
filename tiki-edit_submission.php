@@ -118,43 +118,43 @@ $parserlib = TikiLib::lib('parser');
 if (! empty($_REQUEST['subId'])) {
     $article_data = $artlib->get_submission($_REQUEST['subId']);
 
-    $publishDate = $article_data['publishDate'];
-    $expireDate = $article_data['expireDate'];
-    $smarty->assign('arttitle', $article_data['title']);
-    $smarty->assign('topline', $article_data['topline']);
-    $smarty->assign('subtitle', $article_data['subtitle']);
-    $smarty->assign('linkto', $article_data['linkto']);
-    $smarty->assign('image_caption', $article_data['image_caption']);
-    $smarty->assign('lang', $article_data['lang']);
-    $smarty->assign('authorName', $article_data['authorName']);
-    $smarty->assign('topicId', $article_data['topicId']);
-    $smarty->assign('useImage', $article_data['useImage']);
-    $smarty->assign('isfloat', $article_data['isfloat']);
-    $smarty->assign('image_name', $article_data['image_name']);
-    $smarty->assign('image_type', $article_data['image_type']);
-    $smarty->assign('image_size', $article_data['image_size']);
-    $smarty->assign('image_data', urlencode($article_data['image_data']));
-    $smarty->assign('reads', $article_data['nbreads']);
-    $smarty->assign('image_x', $article_data['image_x']);
-    $smarty->assign('image_y', $article_data['image_y']);
-    $smarty->assign('type', $article_data['type']);
-    $smarty->assign('rating', $article_data['rating']);
+    $publishDate = $article_data['publishDate'] ?? null;
+    $expireDate = $article_data['expireDate'] ?? null;
+    $smarty->assign('arttitle', $article_data['title'] ?? null);
+    $smarty->assign('topline', $article_data['topline'] ?? null);
+    $smarty->assign('subtitle', $article_data['subtitle'] ?? null);
+    $smarty->assign('linkto', $article_data['linkto'] ?? null);
+    $smarty->assign('image_caption', $article_data['image_caption'] ?? null);
+    $smarty->assign('lang', $article_data['lang'] ?? null);
+    $smarty->assign('authorName', $article_data['authorName'] ?? null);
+    $smarty->assign('topicId', $article_data['topicId'] ?? null);
+    $smarty->assign('useImage', $article_data['useImage'] ?? null);
+    $smarty->assign('isfloat', $article_data['isfloat'] ?? null);
+    $smarty->assign('image_name', $article_data['image_name'] ?? null);
+    $smarty->assign('image_type', $article_data['image_type'] ?? null);
+    $smarty->assign('image_size', $article_data['image_size'] ?? null);
+    $smarty->assign('image_data', urlencode($article_data['image_data'] ?? null));
+    $smarty->assign('reads', $article_data['nbreads'] ?? null);
+    $smarty->assign('image_x', $article_data['image_x'] ?? null);
+    $smarty->assign('image_y', $article_data['image_y'] ?? null);
+    $smarty->assign('type', $article_data['type'] ?? null);
+    $smarty->assign('rating', $article_data['rating'] ?? null);
 
-    if (strlen($article_data['image_data']) > 0) {
+    if (strlen($article_data['image_data'] ?? null) > 0) {
         $smarty->assign('hasImage', 'y');
 
         $hasImage = 'y';
     }
 
-    $smarty->assign('heading', $article_data['heading']);
-    $smarty->assign('body', $article_data['body']);
+    $smarty->assign('heading', $article_data['heading'] ?? null);
+    $smarty->assign('body', $article_data['body'] ?? null);
     $smarty->assign('edit_data', 'y');
 
-    $data = $article_data['image_data'];
-    $imgname = $article_data['image_name'];
+    $data = $article_data['image_data'] ?? null;
+    $imgname = $article_data['image_name'] ?? null;
 
-    $body = $article_data['body'];
-    $heading = $article_data['heading'];
+    $body = $article_data['body'] ?? null;
+    $heading = $article_data['heading'] ?? null;
     $smarty->assign('parsed_body', $parserlib->parse_data($body, ['is_html' => 'y']));
     $smarty->assign('parsed_heading', $parserlib->parse_data($heading), ['is_html' => 'y']);
 }
