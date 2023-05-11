@@ -256,7 +256,7 @@ if (! empty($multiprint_pages)) {
         $filter
     );
 
-    possibly_look_for_page_aliases($find);
+    $aliases = possibly_look_for_page_aliases($find);
     // Only show the 'Actions' column if the user can do at least one action on one of the listed pages
     $show_actions = 'n';
     $actions_perms = ['tiki_p_edit', 'tiki_p_wiki_view_history', 'tiki_p_assign_perm_wiki_page', 'tiki_p_remove'];
@@ -449,6 +449,12 @@ if (! empty($multiprint_pages)) {
                 }
             }
 
+            if (! empty($aliases)) {
+                foreach ($aliases as $alias) {
+                    $pages[] = $alias['toPage'];
+                }
+            }
+
             if (isset($_REQUEST['exclude_page'])) {
                 $exclude = $_REQUEST['exclude_page'];
                 $exclude = explode(",", $exclude);
@@ -528,6 +534,7 @@ function possibly_look_for_page_aliases($query)
         $lang = $_REQUEST['lang'];
     }
 
+    $aliases = null;
     if ($prefs['feature_wiki_pagealias'] == 'y' && $query) {
         $semanticlib = TikiLib::lib('semantic');
         $aliases = $semanticlib->getAliasContaining($query, false, $lang);
@@ -537,11 +544,8 @@ function possibly_look_for_page_aliases($query)
                 $alias['parsedAlias'] = TikiLib::lib('slugmanager')->generate($prefs['wiki_url_scheme'], $alias['toPage'], $prefs['url_only_ascii'] === 'y', true);
             }
         }
-
-        $smarty->assign('aliases', $aliases);
-    } else {
-        $smarty->assign('aliases', null);
     }
+    $smarty->assign('aliases', $aliases);
 
     if (! empty($aliases) > 0) {
         $smarty->assign('aliases_were_found', 'y');
@@ -560,6 +564,8 @@ function possibly_look_for_page_aliases($query)
     $smarty->assign('alias_found', $alias_found);
 
     set_category_for_new_page_creation();
+
+    return $aliases;
 }
 
 function set_category_for_new_page_creation()
