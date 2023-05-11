@@ -176,17 +176,17 @@
         height: auto;
         width: 25px;
     }
-    .popover-container{
+    .popover-container{ /* custom class passed during the popover building in javascript*/
         width:300px;
         z-index: 999999 !important;
     }
 
-    .popover-body{
+    .popover-container .popover-body{
         max-height: 300px;
         overflow-y: auto;
     }
 
-    .popover-body .icons{
+    .popover-container .popover-body .icons{
         display: grid;
         grid-template-columns: 20px 20px 20px 20px 20px 20px 20px 20px;
         grid-gap: 10px;
