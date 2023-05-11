@@ -291,15 +291,23 @@ class Smarty_Tiki extends Smarty
         $this->assign_layout_sections($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
 
         $_smarty_tpl_file = $this->get_filename($_smarty_tpl_file);
+        try {
+            if ($_smarty_display) {
+                $html = parent::display($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
+            } else {
+                $html = parent::fetch($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
+            }
 
-        if ($_smarty_display) {
-            $html = parent::display($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
-        } else {
-            $html = parent::fetch($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
-        }
-
-        if (! $this->extends_recursion) {
-            $this->extends_recursion = true;
+            if (! $this->extends_recursion) {
+                $this->extends_recursion = true;
+            }
+        } catch (Error $e) {
+            TikiLib::lib('errortracking')->captureException($e);
+            $html = '<div class="error">';
+            $html .= "Fatal error rendering template file $_smarty_tpl_file\n<br/>";
+            $html .= '</div><pre>';
+            $html .= $e;
+            $html .= '</pre>';
         }
 
         return $html;
