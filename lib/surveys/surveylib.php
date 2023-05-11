@@ -264,8 +264,7 @@ class SurveyLib extends TikiLib
                 'surveyId'    => $surveyId,
             ]
         );
-
-        $questionId = $newId ? $newId : $questionId;
+        $questionId = ! is_object($newId) ? $newId : $questionId;
 
         $userOptions = $this->parse_options($options);
 
