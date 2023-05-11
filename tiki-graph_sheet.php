@@ -130,7 +130,7 @@ if (isset($_REQUEST['title'])) {
     }
 
     if (file_exists($cache_file) && time() - filemtime($cache_file) < 3600) {
-        $renderer->httpHeaders("graph.$ext");
+        $renderer->httpOutput("graph.$ext");
         readfile($cache_file);
         exit;
     }
