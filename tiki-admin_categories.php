@@ -273,9 +273,10 @@ if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["na
                 $_REQUEST["parentId"],
                 $_REQUEST["name"],
                 $_REQUEST["description"],
-                $_REQUEST["tplGroupContainer"],
-                $_REQUEST["tplGroupPattern"]
+                $_REQUEST["tplGroupContainer"] ?? null,
+                $_REQUEST["tplGroupPattern"] ?? null
             );
+            $_REQUEST["categId"] = $newcategId;
             if ($tiki_p_admin_categories != 'y' || ! empty($_REQUEST['parentPerms'])) {
                 $userlib->copy_object_permissions($_REQUEST['parentId'], $newcategId, 'category');
                 Perms::getInstance()->clear();
@@ -284,7 +285,6 @@ if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["na
         } catch (Exception $e) {
             $errors['mes'] = $e->getMessage();
         }
-        $_REQUEST["categId"] = $newcategId;
     }
 
     $cRolesInput = isset($_REQUEST["categoryRole"]) ? $_REQUEST["categoryRole"] : [];
@@ -301,7 +301,7 @@ if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["na
             $rolesRepo->insertOrUpdateSelectedCategoryRole($categId, $categRoleId, $groupRoleId, $groupId);
         }
     }
-    if ($_REQUEST['applyRoles'] == "on" && ! empty($_REQUEST['rolesToApply'])) {
+    if (! empty($_REQUEST['applyRoles']) && $_REQUEST['applyRoles'] == "on" && ! empty($_REQUEST['rolesToApply'])) {
         $rolesRepo->applyRoles($_REQUEST["categId"], $_REQUEST['rolesToApply']);
     } else {
         $rolesRepo->applyRoles($_REQUEST["categId"], []);
