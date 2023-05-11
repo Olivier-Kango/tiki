@@ -144,10 +144,10 @@ function wikiplugin_split($data, $params, $pos)
     $rows = [];
     $maxcols = 0;
     foreach ($sections as $i) {
-        // split by --- but not by ----
+        // split by --- but not by ---- or by |---| which is a markdown syntax
         //  $rows[] = preg_split("/([^\-]---[^\-]|^---[^\-]|[^\-]---$|^---$)+/", $i);
         //  not to eat the character close to - and to split on --- and not ----
-        $rows[] = preg_split("/(?<!-)---(?!-)/", $i);
+        $rows[] = preg_split("/(?<![\-|])---(?![\-|])/", $i);
         $maxcols = max($maxcols, count(end($rows)));
     }
 
@@ -215,7 +215,7 @@ function wikiplugin_split($data, $params, $pos)
                     // Insert "\n" at data begin (so start-of-line-sensitive syntaxes will be parsed OK)
                     . "\n"
                     // now prepend any carriage return and newline char with br
-                    . preg_replace("/\r?\n/", "<br />\r\n", $i)
+                    . (TikiLib::lib('parser')->option['is_markdown'] ? $i : preg_replace("/\r?\n/", "<br />\r\n", $i))
                     . '</td>';
             }
 
@@ -259,7 +259,7 @@ function wikiplugin_split($data, $params, $pos)
                 } else {
                     $result .= '<div>';
                 }
-                $result .= "\n" . preg_replace("/\r?\n/", "<br />\r\n", $i) . '</div>';
+                $result .= "\n" . (TikiLib::lib('parser')->option['is_markdown'] ? $i : preg_replace("/\r?\n/", "<br />\r\n", $i)) . '</div>';
                 ++$icell;
             }
             ++$idx;
