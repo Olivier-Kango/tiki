@@ -206,7 +206,7 @@ function wikiplugin_convene($data, $params): string
         foreach ($lines as $line) {
             $line = trim($line);
 
-            if (! empty($line)) {
+            if (! empty($line) && str_contains($line, ':')) {
                 $parts = explode(':', $line);
                 $dataArray[trim($parts[0])] = trim($parts[1]);
             }
@@ -215,7 +215,7 @@ function wikiplugin_convene($data, $params): string
         $data = TikiFilter_PrepareInput::delimiter('_')->prepare($dataArray);
         //end flat static text to prepared array
 
-        $data = $data['dates'];
+        $data = $data['dates'] ?? [];
     } else {
         $data = $dataArray;
     }
@@ -253,10 +253,12 @@ function wikiplugin_convene($data, $params): string
 
     //start find top vote stamps
     $topVoteStamps = [];
-    $topVotes = max($votes);
-    foreach ($votes as $stamp => $vote) {
-        if ($vote === $topVotes) {
-            $topVoteStamps[] = $stamp;
+    if (! empty($votes)) {
+        $topVotes = max($votes);
+        foreach ($votes as $stamp => $vote) {
+            if ($vote === $topVotes) {
+                $topVoteStamps[] = $stamp;
+            }
         }
     }
     //end find top vote stamp
