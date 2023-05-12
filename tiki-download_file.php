@@ -106,7 +106,18 @@ if (! $skip) {
             $access->display_error('', tra('Permission denied'), 401);
         }
 
-        if (! $zip && $tiki_p_admin_file_galleries != 'y' && ! $userlib->user_has_perm_on_object($user, $info['fileId'], 'file', 'tiki_p_download_files') && ! $filegallib->isBacklinkedFromAViewableTrackerItem($info['fileId'])) {
+        $attachment_perms = false;
+        if ($prefs['feature_use_fgal_for_wiki_attachments'] === 'y' && $tiki_p_admin_file_galleries !== 'y') {
+            $gal_info = $filegallib->get_file_gallery_info($info['galleryId']);
+            if ($gal_info['type'] == 'attachments') {
+                $perms = Perms::get(['object' => $gal_info['name'], 'type' => 'wiki page']);
+                if (($perms->view && $perms->wiki_view_attachments) || $perms->wiki_admin_attachments) {
+                    $attachment_perms = true;
+                }
+            }
+        }
+
+        if (! $zip && ! $attachment_perms && $tiki_p_admin_file_galleries != 'y' && ! $userlib->user_has_perm_on_object($user, $info['fileId'], 'file', 'tiki_p_download_files') && ! $filegallib->isBacklinkedFromAViewableTrackerItem($info['fileId'])) {
             if (! $user && $prefs['permission_denied_login_box'] === 'y' && empty($_SESSION['loginfrom'])) {
                 $_SESSION['loginfrom'] = $_SERVER['HTTP_REFERER'];
             }
@@ -114,7 +125,7 @@ if (! $skip) {
         }
         if (isset($_GET['thumbnail']) && is_numeric($_GET['thumbnail'])) { //check also perms on thumb
             $info_thumb = $filegallib->get_file($_GET['thumbnail']);
-            if (! $zip && $tiki_p_admin_file_galleries != 'y' && ! $userlib->user_has_perm_on_object($user, $info_thumb['fileId'], 'file', 'tiki_p_download_files')) {
+            if (! $zip && ! $attachment_perms && $tiki_p_admin_file_galleries != 'y' && ! $userlib->user_has_perm_on_object($user, $info_thumb['fileId'], 'file', 'tiki_p_download_files')) {
                 if (! $user && $prefs['permission_denied_login_box'] === 'y' && empty($_SESSION['loginfrom'])) {
                     $_SESSION['loginfrom'] = $_SERVER['HTTP_REFERER'];
                 }

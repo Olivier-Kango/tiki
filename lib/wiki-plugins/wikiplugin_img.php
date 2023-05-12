@@ -842,8 +842,16 @@ function wikiplugin_img($data, $params)
                 } elseif (! Image::isAvailable()) {
                     return '^' . tra('Server does not support image manipulation.') . '^';
                 } elseif (! empty($imgdata['fileId'])) {
-                    if (! $userlib->user_has_perm_on_object($user, $imgdata['fileId'], 'file', 'tiki_p_download_files')) {
-                        return $notice;
+                    $gal_info = TikiLib::lib('filegal')->get_file_gallery_info($dbinfo['galleryId']);
+                    if ($gal_info && $gal_info['type'] == 'attachments') {
+                        $perms = Perms::get(['object' => $gal_info['name'], 'type' => 'wiki page']);
+                        if ((! $perms->view || ! $perms->wiki_view_attachments) && ! $perms->wiki_admin_attachments) {
+                            return $notice;
+                        }
+                    } else {
+                        if (! $userlib->user_has_perm_on_object($user, $imgdata['fileId'], 'file', 'tiki_p_download_files')) {
+                            return $notice;
+                        }
                     }
                 } elseif (! empty($imgdata['attId'])) {
                     if (! $userlib->user_has_perm_on_object($user, $dbinfo['page'], 'wiki page', 'tiki_p_wiki_view_attachments')) {

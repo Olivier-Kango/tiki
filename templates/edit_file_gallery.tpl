@@ -15,7 +15,7 @@
                 <div class="mb-3 row">
                     <label for="name" class="col-sm-4 col-form-label">{tr}Name{/tr}</label>
                     <div class="col-sm-8">
-                        {if $galleryId eq $treeRootId or $gal_info.type eq 'user'}
+                        {if $galleryId eq $treeRootId or $gal_info.type eq 'user' or $gal_info.type eq 'attachments'}
                             <b>{tr}{$gal_info.name}{/tr}</b>
                             <input type="hidden" name="name" value="{$gal_info.name|escape}" class="form-control">
                         {else}
@@ -59,7 +59,7 @@ if ($(this).val() != '') {
                 <div class="mb-3 row">
                     <label for="fgal_type" class="col-sm-4 col-form-label">{tr}Type{/tr}</label>
                     <div class="col-sm-8">
-                        {if $galleryId eq $treeRootId or $gal_info.type eq 'user' or ($gal_info.type eq 'direct' and ($gal_info.direct.adapter eq 'inherit' or $gal_info.direct.adapter eq ''))}
+                        {if $galleryId eq $treeRootId or $gal_info.type eq 'user' or $gal_info.type eq 'attachments' or ($gal_info.type eq 'direct' and ($gal_info.direct.adapter eq 'inherit' or $gal_info.direct.adapter eq ''))}
                             {if $gal_info.type eq 'system'}
                                 {tr}System{/tr}
                             {elseif $gal_info.type eq 'user'}

@@ -755,6 +755,9 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
 
         if ($_REQUEST['direct']) {
             $gal_info['direct'] = json_encode($_REQUEST['direct']);
+            if ($gal_info['type'] != 'direct') {
+                $gal_info['direct'] = null;
+            }
         }
 
         if ($prefs['feature_file_galleries_templates'] == 'y' && isset($_REQUEST['fgal_template']) && ! empty($_REQUEST['fgal_template'])) {
