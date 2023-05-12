@@ -120,6 +120,7 @@ function wikiplugin_contributionsdashboard($data, $params)
         };"
     );
 
+    $result = "";
     foreach ($types as $type) {
         if ($type == "trackeritems") {
             $data = [];
