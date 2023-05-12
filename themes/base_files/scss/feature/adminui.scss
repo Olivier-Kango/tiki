@@ -10,6 +10,10 @@ $secondary: #6d35a6;
 $darkestgrey: #0f0f0f; // maybe replace later
 $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor details
 
+body.tiki-admin {
+    padding-top: 0 !important; // Needed to override CSS-variable-set fixed-navbar height/body padding-top.
+}
+
 .tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .navbar-dark-parent #top_modules {
     background: var(--tiki-admin-navbar-dark-bg) !important; //$darkgrey !important;
 }

@@ -1,10 +1,10 @@
-<div class="admin-wrapper {if $prefs.theme_unified_admin_backend eq 'y'}overflow-scroll{/if}">
+<div class="admin-wrapper {if $prefs.theme_unified_admin_backend eq 'y'}overflow-auto{/if}">
     {if $prefs.theme_unified_admin_backend eq 'y'}
         <aside class="admin-nav">
             {include file='admin/include_anchors.tpl'}
         </aside>
     {/if}
-    <div class="admin-content w-100">
+    <div class="admin-content w-100 mx-3">
         {include file="admin/admin_navbar.tpl"}
         {if $prefs.sender_email eq ''}
             {remarksbox type=warning title="{tr}Warning{/tr}" close="y"}
