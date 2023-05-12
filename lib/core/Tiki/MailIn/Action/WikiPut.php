@@ -8,6 +8,7 @@ namespace Tiki\MailIn\Action;
 
 use Tiki\MailIn\Account;
 use Tiki\MailIn\Source\Message;
+use Tiki\FileGallery\File as TikiFile;
 use TikiLib;
 
 class WikiPut implements ActionInterface
@@ -268,11 +269,27 @@ class WikiPut implements ActionInterface
 
     private function attachFile($page, $att, $user)
     {
-        // TODO make it work with feature_use_fgal_for_wiki_attachments
+        global $prefs;
+
         if (! $att['link']) {
-            $wikilib = TikiLib::lib('wiki');
-            $attId = $wikilib->wiki_attach_file($page, $att['name'], $att['type'], $att['size'], $att['data'], "attached by mail $user", $user, '');
-            return 'tiki-download_wiki_attachment.php?attId=' . $attId . '&page=' . urlencode($page);
+            if ($prefs['feature_use_fgal_for_wiki_attachments'] === 'y') {
+                $galleryId = TikiLib::lib('filegallib')->get_attachment_gallery($page, 'wiki page', true);
+                if (! $galleryId) {
+                    return '';
+                }
+                $file = new TikiFile([
+                    'galleryId' => $galleryId,
+                    'description' => "attached by mail $user",
+                    'user' => $user,
+                    'comment' => "attached by mail $user",
+                ]);
+                $fileId = $file->replace($att['data'], $att['type'], $att['name'], $att['name']);
+                return 'tiki-download_file.php?fileId=' . $fileId;
+            } else {
+                $wikilib = TikiLib::lib('wiki');
+                $attId = $wikilib->wiki_attach_file($page, $att['name'], $att['type'], $att['size'], $att['data'], "attached by mail $user", $user, '');
+                return 'tiki-download_wiki_attachment.php?attId=' . $attId . '&page=' . urlencode($page);
+            }
         } else {
             return $att['link'];
         }
