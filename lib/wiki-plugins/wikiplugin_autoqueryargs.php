@@ -32,7 +32,7 @@ function wikiplugin_autoqueryargs_info()
 function wikiplugin_autoqueryargs($data, $params)
 {
     global $user;
-    $arguments = $params['arguments'];
+    $arguments = ! empty($params['arguments']) ? $params['arguments'] : [];
     if (count($arguments) > 0 && is_array($arguments)) {
         global $auto_query_args;
         $auto_query_args = empty($auto_query_args) ? $arguments : array_merge($auto_query_args, $arguments);
