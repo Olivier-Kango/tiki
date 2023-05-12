@@ -16481,6 +16481,7 @@ $lang_current = array(
 "Validate Addresses" => "Valider les adresses",
 "Add To List" => "Ajouter à la liste",
 "Subscribed" => "inscrit",
+"rcontent: Param id is required" => "rcontent: Le paramètre id est obligatoire",
 // "Mark subscription as valid" => "Mark subscription as valid",
 "Unsubscribed" => "Désinscrit",
 // "Remove selected subscriptions" => "Remove selected subscriptions",
