@@ -396,7 +396,7 @@ function wikiplugin_module($data, $params)
         $data = "<div class=\"alert alert-danger\" role=\"alert\"><button type=\"button\" class=\"close\" data-bs-dismiss=\"alert\" aria-label=\"" . tra("Close") . "\"><span aria-hidden=\"true\">&times;</span></button>" . tra("Sorry, no such module") . "<br><b>$module</b></div>" . $data;
     }
 
-    if ($module == 'register') {
+    if (isset($module) && $module == 'register') {
         // module register (maybe others too?) adds ~np~ to plugin output so remove them
         $data = preg_replace('/~[\/]?np~/ms', '', $data);
     }
