@@ -56,7 +56,7 @@ function wikiplugin_trackercomments($data, $params)
     global $user;
     extract($params, EXTR_SKIP);
     $ret = '';
-    if ($shownbitems == 'y') {
+    if (isset($shownbitems) && $shownbitems == 'y') {
         $ret .= tra('Comments found:') . ' ' . $trklib->nbComments($user);
     }
     return $ret;
