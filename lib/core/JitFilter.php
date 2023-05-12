@@ -45,7 +45,7 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 
         $filter = $this->getFilter($key);
 
-        if (is_array($this->stored[$key])) {
+        if (isset($this->stored[$key]) && is_array($this->stored[$key])) {
             $this->stored[$key] = new self($this->stored[$key]);
 
             if ($filter) {
@@ -60,12 +60,15 @@ class JitFilter implements ArrayAccess, Iterator, Countable
                 return $this->lastUsed[$key][1];
             }
 
+            if (! isset($this->stored[$key])) {
+                return null;
+            }
 
             $this->lastUsed[$key] = [$filter, $filter->filter($this->stored[$key])];
             return $this->lastUsed[$key][1];
         } else {
             // No filtering has no special behavior
-            return $this->stored[$key];
+            return $this->stored[$key] ?? null;
         }
     }
 
@@ -84,10 +87,12 @@ class JitFilter implements ArrayAccess, Iterator, Countable
     {
         if ($key === false) {
             $ret = [];
-            foreach (array_keys($this->stored) as $k) {
-                $ret[$k] = $this->offsetGet($k);
-                if ($ret[$k] instanceof self) {
-                    $ret[$k] = $ret[$k]->asArray();
+            if (is_array($this->stored)) {
+                foreach (array_keys($this->stored) as $k) {
+                    $ret[$k] = $this->offsetGet($k);
+                    if ($ret[$k] instanceof self) {
+                        $ret[$k] = $ret[$k]->asArray();
+                    }
                 }
             }
 
