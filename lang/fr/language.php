@@ -12262,6 +12262,7 @@ $lang_current = array(
 "HTML color code, e.g. ffffff" => "Code couleur HTML, par exemple ffffff",
 // "Toolbar border colors. Use an HTML color code" => "Toolbar border colors. Use an HTML color code",
 "Plugin YouTube error: the movie parameter is empty" => "Erreur plugiciel YouTube : le paramètre film est vide",
+"Plugin Translated error" => "Erreur plugiciel Translated",
 // "Invalid YouTube URL provided" => "Invalid YouTube URL provided",
 "Zotero Citation" => "Citation Zotero",
 "Retrieves and includes a Zotero reference in the page." => "Retrouve et inclut une référence Zotero dans la page.",

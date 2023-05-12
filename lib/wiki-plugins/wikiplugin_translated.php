@@ -42,6 +42,10 @@ function wikiplugin_translated($data, $params)
     extract($params, EXTR_SKIP);
     $img = '';
 
+    if (empty($lang)) {
+        return WikiParser_PluginOutput::error(tr('Plugin Translated error'), tr('Incorrect parameter.'));
+    }
+
     $h = opendir("img/flags/");
     while ($file = readdir($h)) {
         if (substr($file, 0, 1) != '.' and substr($file, -4, 4) == '.png') {
