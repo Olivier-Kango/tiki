@@ -893,7 +893,7 @@ class FreetagLib extends ObjectLib
 
         $oldTags = $this->get_tags_on_object($itemId, $type, 0, -1, $old_user);
 
-        if (isset($oldTags['data']) && is_array($oldTags['data'])) {
+        if ($oldTags) {
             foreach ($oldTags['data'] as $tag) {
                 if (! in_array($tag['raw_tag'], $tagArray)) {
                     $this->delete_object_tag($itemId, $type, $tag['raw_tag'], $old_user);
