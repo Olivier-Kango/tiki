@@ -206,7 +206,7 @@
                     {/if}
 
             <div class="articletrailer clearfix">
-                {if $prefs.feature_freetags eq 'y' and $tiki_p_view_freetags eq 'y' and $listpages[ix].freetags.data|@count >0}
+                {if $prefs.feature_freetags eq 'y' and $tiki_p_view_freetags eq 'y' and isset($listpages[ix].freetags) and $listpages[ix].freetags.data|@count >0}
                     {$freetags = $listpages[ix].freetags}
                     {include file='freetag_list.tpl'}
                 {/if}
