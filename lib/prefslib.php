@@ -230,7 +230,11 @@ class PreferencesLib
             $info['modified'] = false;
             trigger_error(tr('Missing default for preference "%0"', $name), E_USER_WARNING);
         } else {
-            $info['modified'] = str_replace("\r\n", "\n", $info['value']) != $info['default'];
+            if (is_string($info['default'])) {
+                $info['modified'] = str_replace("\r\n", "\n", $info['value']) != $info['default'];
+            } else {
+                $info['modified'] = false;
+            }
         }
 
         if ($get_pages) {
