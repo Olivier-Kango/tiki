@@ -56,7 +56,7 @@ function wikiplugin_shopperinfo($data, $params)
 {
     global $user;
     $smarty = TikiLib::lib('smarty');
-    if ($user && $params['showifloggedin'] != 'y' || empty($params['values'])) {
+    if ($user && (isset($params['showifloggedin']) && $params['showifloggedin'] != 'y') || empty($params['values'])) {
         return '';
     }
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['shopperinfo'])) {
