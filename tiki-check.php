@@ -844,7 +844,7 @@ if (function_exists('exec')) {
     if ($isUnix) {
         // add virtualmin per-domain php configurations
         array_unshift($cliSearchList, __DIR__ . '/bin/php');
-        array_unshift($cliSearchList, __DIR__ . '../bin/php');
+        array_unshift($cliSearchList, __DIR__ . '/../bin/php');
     }
     $cliCommand = '';
     $cliVersion = '';
