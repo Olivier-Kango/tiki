@@ -18,7 +18,7 @@ function smarty_function_payment($params, $smarty)
 
     $objectperms = Perms::get('payment', $invoice);
     $info = $paymentlib->get_payment($invoice);
-    if ($user && $info['userId'] == $userlib->get_user_id($user)) {
+    if ($user && isset($info['userId']) && $info['userId'] == $userlib->get_user_id($user)) {
         $theguy = true;
     } else {
         $theguy = false;
