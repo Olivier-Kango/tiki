@@ -200,6 +200,9 @@ class PluginsLibUtil
         if (! is_array($aInfo)) {
             $aInfo = false;
         }
+        if (! is_array($aData)) {
+            $aData = (array) $aData;
+        }
         // ~contract
         $sOutput = '';
         if ($aInfo) {
