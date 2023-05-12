@@ -12,7 +12,7 @@
 
 use Tiki\TikiInit;
 
-const MIN_PHP_VERSION = '7.4.0';
+const MIN_PHP_VERSION = '8.1.0';
 
 $in_installer = 1;
 define('TIKI_IN_INSTALLER', 1);

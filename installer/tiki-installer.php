@@ -943,10 +943,6 @@ function isMissingPHPRequirements(int $tikiVersionShort): array
         }
     }
 
-    if (ini_get('mbstring.func_overload') !== "0") {
-        $missing[] = tr('Function %0 not found', 'mbstring.func_overload');
-    }
-
     $eval = eval('return 42;');
     if ($eval !== 42) {
         $missing[] = tr('Function %0 not found', 'eval');

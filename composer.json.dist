@@ -12,7 +12,7 @@
         "component-dir": "vendor/components",
         "prepend-autoloader": false,
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         }
     },
     "repositories": [

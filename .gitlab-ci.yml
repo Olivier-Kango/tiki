@@ -13,7 +13,7 @@ variables:
   MYSQL_USER: tikiuser
   MYSQL_PASSWORD: tikipass
   ELASTICSEARCH_HOST: elasticsearch
-  BASE_QA_IMAGE: rjsmelo/ubuntu-php:7.4-qa
+  BASE_QA_IMAGE: xorti/ubuntu-php:8.1-qa
   MANTICORE_DSN: http://manticore
   # You can set USE_GITLAB_PROXY to "true" in your project configuration to use the gitlab dependency proxy. (default not using as it may cause issues for some accounts)
   USE_GITLAB_PROXY: ''
@@ -125,34 +125,6 @@ phpcs:
       paths:
         - phpcs.cache
       policy: pull-push
-
-phplint74:
-  stage: lint
-  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:7.4-qa
-  script:
-    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
-  dependencies:
-    - composer
-  needs:
-    - composer
-  cache:
-    key: phplint74
-    paths:
-      - phplint.cache
-
-phplint80:
-  stage: lint
-  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:8.0-qa
-  script:
-    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
-  dependencies:
-    - composer
-  needs:
-    - composer
-  cache:
-    key: phplint80
-    paths:
-      - phplint.cache
 
 phplint81:
   stage: lint
@@ -307,7 +279,7 @@ composer-lock:
       COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   script:
     - cp $(command -v composer) temp/composer.phar
-    - php temp/composer.phar -V | grep "version 2" || php temp/composer.phar self-update --2
+    - composer -V | grep "version 2" || composer self-update --2
     - php doc/devtools/update_composer_lock.php
   before_script:
     - mkdir before || true
@@ -523,37 +495,17 @@ sql-engine-conversion:
     - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:dev
       alias: manticore
 
-unit-tests-74:
-  <<: *template-unit-tests
-  variables:
-    IMAGE: rjsmelo/ubuntu-php:7.4-qa
-
-unit-tests-74-mysql8:
-  <<: *template-unit-tests-mysql8
-  variables:
-    IMAGE: rjsmelo/ubuntu-php:7.4-qa
-
-unit-tests-80:
-  <<: *template-unit-tests
-  variables:
-    IMAGE: rjsmelo/ubuntu-php:8.0-qa
-
-unit-tests-80-mysql8:
-  <<: *template-unit-tests-mysql8
-  variables:
-    IMAGE: rjsmelo/ubuntu-php:8.0-qa
-
 unit-tests-81:
   <<: *template-unit-tests
   variables:
     IMAGE: xorti/ubuntu-php:8.1-qa
-  allow_failure: true
+  allow_failure: false
 
 unit-tests-81-mysql8:
   <<: *template-unit-tests-mysql8
   variables:
     IMAGE: xorti/ubuntu-php:8.1-qa
-  allow_failure: true
+  allow_failure: false
 
 #
 # Package this Tiki build
@@ -610,7 +562,7 @@ tiki-package:
 # Vendors Security
 #
 
-#disabled
+#disabled, showld be generated from /lib/core/Tiki/Package/ComposerPackages.yml
 .vendor-security-check:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: vendors-security

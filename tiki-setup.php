@@ -13,7 +13,7 @@
 // die if called directly.
 use Tiki\Package\VendorHelper;
 
-const MIN_PHP_VERSION = '7.4.0';
+const MIN_PHP_VERSION = '8.1.0';
 
 /**
  * @global array $prefs

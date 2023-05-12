@@ -27,9 +27,9 @@ class ComposerCli
         'php7.4',
         'php7.4-cli',
     ];
-    public const PHP_MIN_VERSION = '7.4.0';
+    public const MIN_PHP_VERSION = '8.1.0';
 
-    public const FALLBACK_COMPOSER_JSON = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components", "prepend-autoloader": false, "platform": {"php":"' . self::PHP_MIN_VERSION . '"}}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
+    public const FALLBACK_COMPOSER_JSON = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components", "prepend-autoloader": false, "platform": {"php":"' . self::MIN_PHP_VERSION . '"}}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
 
     /**
      * @var string path to the base folder from tiki
@@ -229,7 +229,7 @@ class ComposerCli
                     }
                     if (file_exists($possibleCli) && is_executable($possibleCli)) {
                         $version = $this->getPhpVersion($possibleCli);
-                        if (version_compare($version, self::PHP_MIN_VERSION, '<')) {
+                        if (version_compare($version, self::MIN_PHP_VERSION, '<')) {
                             continue;
                         }
                         $this->phpCli = $possibleCli;

@@ -54,6 +54,20 @@ function getTikiRequirements()
 {
     return array(
         array(
+            'name'    => 'Tiki 26.x',
+            'version' => 26,
+            'php'     => array(
+                'min' => '8.1',
+                'max' => '8.2',
+            ),
+            'mariadb' => array(
+                'min' => '5.5',
+            ),
+            'mysql'   => array(
+                'min' => '5.7',
+            ),
+        ),
+        array(
             'name'    => 'Tiki 25.x',
             'version' => 25,
             'php'     => array(
@@ -1435,26 +1449,11 @@ if ($s) {
 // mbstring
 $s = extension_loaded('mbstring');
 if ($s) {
-    $func_overload = ini_get('mbstring.func_overload');
-    if ($func_overload == 0 && function_exists('mb_split')) {
-        $php_properties['mbstring'] = array(
-            'fitness' => tra('good'),
-            'setting' => 'Loaded',
-            'message' => tra('mbstring extension is needed for an UTF-8 compatible lower case filter, in the admin search for example.')
-        );
-    } elseif ($func_overload != 0) {
-        $php_properties['mbstring'] = array(
-            'fitness' => tra('unsure'),
-            'setting' => 'Badly configured',
-            'message' => tra('mbstring extension is loaded, but mbstring.func_overload = ' . ' ' . $func_overload . '.' . ' ' . 'Tiki only works with mbstring.func_overload = 0. Please check the php.ini file.')
-        );
-    } else {
-        $php_properties['mbstring'] = array(
-            'fitness' => tra('bad'),
-            'setting' => 'Badly installed',
-            'message' => tra('mbstring extension is loaded, but missing important functions such as mb_split(). Reinstall it with --enable-mbregex or ask your a server administrator to do it.')
-        );
-    }
+    $php_properties['mbstring'] = array(
+        'fitness' => tra('bad'),
+        'setting' => 'Badly installed',
+        'message' => tra('mbstring extension is loaded, but missing important functions such as mb_split(). Reinstall it with --enable-mbregex or ask your a server administrator to do it.')
+    );
 } else {
     $php_properties['mbstring'] = array(
         'fitness' => tra('bad'),

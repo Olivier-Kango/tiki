@@ -4,7 +4,7 @@ RUN sudo apt-get update &&  \
     sudo apt-get -y install \
     apache2 \
     mariadb-server \
-    php7.4 \
+    php8.1 \
     libapache2-mod-php \
     php-mysql \
     php-curl \
@@ -19,7 +19,7 @@ RUN sudo apt-get update &&  \
     php-xdebug
 
 COPY .gitpod/mysql/mysql.cnf /etc/mysql/mariadb.conf.d/60-server_custom.cnf
-COPY .gitpod/php/xdebug.ini /etc/php/7.4/apache2/conf.d/20-xdebug.ini
+COPY .gitpod/php/xdebug.ini /etc/php/8.1/apache2/conf.d/20-xdebug.ini
 COPY .gitpod/apache/apache.conf /etc/apache2/apache2.conf
 COPY .gitpod/apache/envvars /etc/apache2/envvars
 
