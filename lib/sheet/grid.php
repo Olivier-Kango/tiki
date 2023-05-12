@@ -308,6 +308,10 @@ class TikiSheet
         return (
             $dataGrid == $sheetDataGrid
             && $calcGrid == $sheetCalcGrid
+            && isset($sheetCellInfo['value'])
+            && isset($cellInfo['value'])
+            && isset($sheetCellInfo['calculation'])
+            && isset($cellInfo['calculation'])
             && $cellInfo['value'] == $sheetCellInfo['value']
             && $cellInfo['calculation'] == $sheetCellInfo['calculation']
             && $cellInfo['width'] == $sheetCellInfo['width']

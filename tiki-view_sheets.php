@@ -30,7 +30,7 @@ $auto_query_args = [
 $access->check_feature('feature_sheet');
 $access->check_feature('feature_jquery_ui');
 
-$info = $sheetlib->get_sheet_info($_REQUEST['sheetId']);
+$info = $sheetlib->get_sheet_info($_REQUEST['sheetId'] ?? 0);
 
 if (empty($info) && ! isset($_REQUEST['file']) && ! isset($_REQUEST['fileId'])) {
     $smarty->assign('Incorrect parameter');
