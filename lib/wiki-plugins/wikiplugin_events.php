@@ -103,6 +103,11 @@ function wikiplugin_events_info()
     ];
 }
 
+/**
+ * @param $data
+ * @param $params
+ * @return string
+ */
 function wikiplugin_events($data, $params)
 {
     global $tiki_p_admin, $tiki_p_view_calendar, $user;
@@ -125,6 +130,9 @@ function wikiplugin_events($data, $params)
     }
     if (! isset($desc)) {
         $desc = 1;
+    }
+    if (! isset($usePagination)) {
+        $usePagination = 'n';
     }
 
     // Pagination
@@ -229,8 +237,9 @@ function wikiplugin_events($data, $params)
 
     // Pagination
     if ($usePagination == 'y') {
+        $start = $start ?? 0;
         $smarty->assign('maxEvents', $max);
-        $smarty->assign_by_ref('offset', $start ?? 0);
+        $smarty->assign_by_ref('offset', $start);
         $smarty->assign_by_ref('cant', $events['cant']);
     }
 
