@@ -3420,6 +3420,7 @@ $lang_current = array(
 "Author (owner)" => "Auteur (propriétaire)",
 "Author name (as displayed)" => "Nom de l'auteur (tel qu'affiché)",
 "Author rating" => "Évaluation de l'Auteur",
+"The author parameter is missing" => "Le paramètre auteur est manquant",
 "Users rating" => "Note des utilisateurs",
 "Reads" => "Lectures",
 "Is published" => "Est publié",

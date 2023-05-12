@@ -41,9 +41,8 @@ function wikiplugin_author_info()
                 'filter' => 'text',
                 'default' => 0,
                 'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                    ['text' => tra('No'), 'value' => '0'],
+                    ['text' => tra('No'), 'value' => 0],
+                    ['text' => tra('Yes'), 'value' => 1],
                 ],
             ],
             'popup' => [
@@ -54,9 +53,8 @@ function wikiplugin_author_info()
                 'filter' => 'text',
                 'default' => 0,
                 'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                    ['text' => tra('No'), 'value' => '0'],
+                    ['text' => tra('No'), 'value' => 0],
+                    ['text' => tra('Yes'), 'value' => 1],
                 ],
             ],
         ], // params
@@ -79,6 +77,16 @@ function wikiplugin_author($data, $params)
     $params = array_merge($default, $params);
     if (! is_array($authors)) {
         $authors = [];
+    }
+    if (empty($params['author'])) {
+        Feedback::error(tra('The author parameter is missing'));
+        return;
+    }
+    if (empty($params['visible'])) {
+        $params['visible'] = 0;
+    }
+    if (empty($params['popup'])) {
+        $params['popup'] = 0;
     }
 
     $author = $params['author'];
