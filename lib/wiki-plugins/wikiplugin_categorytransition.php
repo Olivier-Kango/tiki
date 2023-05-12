@@ -50,6 +50,10 @@ function wikiplugin_categorytransition($data, $params)
 
     extract($params, EXTR_SKIP);
 
+    if (empty($params['objType'] || $params['objId'])) {
+        Feedback::error(tra('The parameter objType and/or objId are missing'));
+        return;
+    }
     if (empty($redirect)) {
         $redirect = $_SERVER['REQUEST_URI'];
     }

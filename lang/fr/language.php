@@ -16036,6 +16036,7 @@ $lang_current = array(
 // "{\$actionlog.objectType}" => "{\$actionlog.objectType}",
 // "{\$actionlog.ip}" => "{\$actionlog.ip}",
 // "Delete action from log" => "Delete action from log",
+"The parameter objType and/or objId are missing" => "Le paramètre objType et/ou objId est manquant",
 "Select action to perform with checked" => " Sélectionnez l'action à effectuer avec cochée",
 // "Delete selected actions from log" => "Delete selected actions from log",
 "Edit Action" => "Modifier l'action",
