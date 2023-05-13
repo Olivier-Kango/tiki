@@ -187,6 +187,10 @@ function wikiplugin_memberpayment($data, $params, $offset)
     $userlib = TikiLib::lib('user');
     $smarty = TikiLib::lib('smarty');
 
+    if (empty($params['price']) || empty($params['group'])) {
+        return WikiParser_PluginOutput::error(tr('Plugin Memberpayment error'), tr('Params group and price are required'));
+    }
+
     $iPluginMemberpayment++;
     $smarty->assign('iPluginMemberpayment', $iPluginMemberpayment);
     $smarty->assign('returnurl', ! empty($params['returnurl']) ? $params['returnurl'] : '');
@@ -201,7 +205,15 @@ function wikiplugin_memberpayment($data, $params, $offset)
     $post = isset($_POST['wp_member_offset']);
     $oneuser = false;
 
-    if (( $info = $userlib->get_group_info($params['group']) ) && ( $info['expireAfter'] > 0 || $info['anniversary'] > '')) {
+    $info = $userlib->get_group_info($params['group']);
+
+    //when there is only perms key in the array (no group info found)
+    if (count($info) <= 1) {
+        return '{REMARKSBOX(type=warning, title=' . tr('Plugin Memberpayment error') . ')}' . tra('The group ') . '<em>' . $params['group']
+            . '</em>' . tra(' does not exist') . '{REMARKSBOX}';
+    }
+
+    if ((int)$info['expireAfter'] > 0 || $info['anniversary'] != '') {
         $attributelib = TikiLib::lib('attribute');
         $paymentlib = TikiLib::lib('payment');
         $tikilib = TikiLib::lib('tiki');
@@ -423,13 +435,13 @@ function wikiplugin_memberpayment($data, $params, $offset)
         }
 
         return '~np~' . $smarty->fetch('wiki-plugins/wikiplugin_memberpayment.tpl') . '~/np~';
-    } elseif ($info['expireAfter'] == 0 && $params['group'] == $info['groupName']) {
-        return '{REMARKSBOX(type=warning, title=Plugin Memberpayment Error)}' . tra('The group ') . '<em>' . $info['groupName']
+    } elseif ($info['expireAfter'] == 0 && strtolower($params['group']) == strtolower($info['groupName'])) {
+        return '{REMARKSBOX(type=warning, title=' . tr('Plugin Memberpayment error') . ')}' . tra('The group ') . '<em>' . $info['groupName']
                 . '</em>' . tra(' does not have a membership term.') . tra(' Go to ') . '<em>' . tra('Admin > Groups') . '</em>'
                 . tra(' to specify a term for this group by automatically unassigning users after a certain number of days.')
                 . '{REMARKSBOX}';
     } else {
-        return '{REMARKSBOX(type=warning, title=Plugin Memberpayment Error)}' . tra('The group ') . '<em>' . $params['group']
-                . '</em>' . tra(' does not exist') . '{REMARKSBOX}';
+        return '{REMARKSBOX(type=warning, title=' . tr('Plugin Memberpayment error') . ')}' . tra('The group ') . '<em>' . $params['group']
+            . '</em>' . tra(' does not exist') . '{REMARKSBOX}';
     }
 }
