@@ -76,6 +76,8 @@ function wikiplugin_perm($data, $params)
 {
     global $user;
     $userlib = TikiLib::lib('user');
+    $perms = "";
+    $notperms = "";
     if (! empty($params['perms'])) {
         $perms = $params['perms'];
     }
