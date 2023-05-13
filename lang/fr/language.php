@@ -19419,6 +19419,7 @@ $lang_current = array(
 "What would you like to add" => "Que voudriez-vous ajouter",
 "New spreadsheet" => "Nouvelle feuille de calcul",
 "Existing spreadsheet" => "Feuille de calcul existante",
+"Spreadsheet not found" => "Feuille de calcul introuvable",
 // "Tracker as a spreadsheet" => "Tracker as a spreadsheet",
 // "Spreadsheet from file gallery" => "Spreadsheet from file gallery",
 "Cell" => "Cellule",

@@ -1,6 +1,6 @@
 {* $Id$ *}
 
-{title help="Spreadsheet"}{tr}Spreadsheets{/tr}{/title}
+{title help="Spreadsheet"}{tr}{$headtitle}{/tr}{/title}
 
 {tabset}
     {tab name="{tr}List{/tr}"}

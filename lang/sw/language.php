@@ -19371,6 +19371,7 @@ $lang_current = array(
 "What would you like to add" => "Ungependa kuongeza nini",
 "New spreadsheet" => "Lahajedwali mpya",
 "Existing spreadsheet" => "Lahajedwali iliyopo",
+"Spreadsheet not found" => "Lahajedwali haipatikani",
 // "Tracker as a spreadsheet" => "Tracker as a spreadsheet",
 // "Spreadsheet from file gallery" => "Spreadsheet from file gallery",
 "Cell" => "Kiini",

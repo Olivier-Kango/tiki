@@ -9,7 +9,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
-
+$section = 'sheet';
 require_once('tiki-setup.php');
 
 $sheetlib = TikiLib::lib("sheet");
@@ -29,6 +29,11 @@ if (! isset($_REQUEST["sheetId"])) {
         $cookietab = 2;
     }
     $info = $sheetlib->get_sheet_info($_REQUEST["sheetId"]);
+    if (empty($info)) {
+        $smarty->assign('msg', tra("Spreadsheet not found"));
+        $smarty->display('error.tpl');
+        die;
+    }
     if ($tiki_p_admin == 'y' || $tiki_p_admin_sheet == 'y' || $tikilib->user_has_perm_on_object($user, $_REQUEST['sheetId'], 'sheet', 'tiki_p_view_sheet')) {
         $tiki_p_view_sheet = 'y';
     } else {
