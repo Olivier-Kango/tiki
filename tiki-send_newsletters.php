@@ -67,7 +67,7 @@ if ($_REQUEST["nlId"]) {
     $smarty->assign('allowTxt', $newsletters['data'][0]['allowTxt']);
     $smarty->assign('allowArticleClip', $newsletters['data'][0]['allowTxt']);
 }
-if ($_REQUEST["editionId"]) {
+if (isset($_REQUEST["editionId"]) && $_REQUEST["editionId"]) {
     $info = $nllib->get_edition($_REQUEST["editionId"]);
     $smarty->assign('nlId', $info['nlId']);
     if (! empty($_REQUEST['resend'])) {
