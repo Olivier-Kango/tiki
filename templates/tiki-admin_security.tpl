@@ -79,7 +79,7 @@
 {/remarksbox}
 
 
-{if $permcheck}
+{if isset($permcheck) && $permcheck eq true}
     <div class="table-responsive secperm-table">
         <table class="table table-striped table-hover">
             <tr>
