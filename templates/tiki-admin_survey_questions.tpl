@@ -129,7 +129,8 @@
                 {remarksbox type="tip" title="{tr}Tip{/tr}"}
                     <p class="type_option type_c"><strong>{$types.c}:</strong> {tr}Single choice using radio buttons.{/tr}<br>{tr}Example: "one, two, many, lots".{/tr}<br>{tr}(Use "\," to include a comma.{/tr})</p>
                     <p class="type_option type_m"><strong>{$types.m}:</strong> {tr}Multiple choice using checkboxes.{/tr}<br>{tr}Example: "one, two, many, lots".{/tr}<br>{tr}(Use "\," to include a comma.{/tr})</p>
-                    <p class="type_option type_r type_s"><strong>{$types.r}:</strong> {tr}For a rate, you can give the maximum value.{/tr}</p>
+                    <p class="type_option type_r"><strong>{$types.r}:</strong> {tr}For a rate, you can give the maximum value.{/tr}</p>
+                    <p class="type_option type_s"><strong>{$types.s}:</strong> {tr}For a rate, you can give the maximum value.{/tr}</p>
                     <p class="type_option type_g"><strong>{$types.g}:</strong> {tr}Multiple choices of thumbnail from a file gallery, options contains Gallery ID.{/tr}<br>{tr}Example: 4{/tr}</p>
                     <p class="type_option type_x"><strong>{$types.x}:</strong> {tr}Options are: rows,columns,toolbars.{/tr}<br>{tr}Example: 10,60,n (toolbar can be "y", "n" or "c" for comments toolbar){/tr}</p>
                     <p class="type_option type_t"><strong>{$types.t}:</strong> {tr}For the 'short text' type, options are: columns.{/tr}<br>{tr}Example: 60{/tr}</p>
