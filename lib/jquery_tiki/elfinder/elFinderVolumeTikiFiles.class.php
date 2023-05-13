@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * Started life as copy of elFinderVolumeMySQL.class.php
  * Initial convertion to work with Tiki filegals for Tiki 10

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $fb|count > 0}
     {if $fb|count == 1}
         {$title = "{tr}The following change has been applied{/tr}"}

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // this returns the ISO 8601 date for microformats
 function smarty_modifier_isodate($string)
 {

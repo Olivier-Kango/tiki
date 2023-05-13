@@ -1,4 +1,3 @@
-{* $Id$ *}
 {jq}
 $(document).ready(function(){
     var pagehelp ="";

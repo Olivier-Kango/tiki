@@ -1,4 +1,3 @@
-{* $Id$ *}
 {extends "layout_plain.tpl"}
 
 {block name="title"}

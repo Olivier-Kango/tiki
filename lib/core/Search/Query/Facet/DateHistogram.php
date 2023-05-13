@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 class Search_Query_Facet_DateHistogram extends Search_Query_Facet_Abstract implements Search_Query_Facet_Interface
 {
     private $interval;

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * Class JitFilter_Element
  * @method Laminas\I18n\Filter\Alpha|TikiFilter_Alpha alpha

@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="item-link" id="il{$field.ins_id}">
     {if !empty($data.selectMultipleValues)}
         <input type="hidden" name="{$field.ins_id}_old" value="{$field.value|escape}" />

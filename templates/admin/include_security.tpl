@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class="t_navbar btn-group mb-3">
     <a role="link" class="btn btn-link" href="tiki-admingroups.php" title="{tr}Admin groups{/tr}">
         {icon name="group"} {tr}Admin Groups{/tr}

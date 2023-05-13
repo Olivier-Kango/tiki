@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Spreadsheet"}{$title}{/title}
 
 <div class="description form-text">

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $facets|@count}
     <div class="facets" style="width: 25%; float: right;">
         {foreach from=$facets item=facet}

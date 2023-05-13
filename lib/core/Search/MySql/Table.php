@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 class Search_MySql_Table extends TikiDb_Table
 {
     const MAX_MYSQL_INDEXES_PER_TABLE = 64;

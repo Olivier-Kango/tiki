@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="tikimenu{if isset($menu_info.structure) && $menu_info.structure eq 'y'} structuremenu{/if}">
     {assign var=opensec value='0'}
     {assign var=sep value=''}

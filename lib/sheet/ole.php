@@ -22,8 +22,6 @@ if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id$
-
 
 /**
 * Constants for OLE package

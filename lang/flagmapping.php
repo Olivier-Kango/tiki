@@ -5,8 +5,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /** \brief This table associates language country (flag name) and language name in the current language
 * PLEASE : Translators, update this file with your flag for your own language (if applicable)
 **/

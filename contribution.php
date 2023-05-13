@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // the script uses the var $_REQUEST['contributions'] = the list of selected contributions to preselect the contributions
 //                      $contributionItemId = the commentId if the object exists and you want to preselect  the comment contribuions
 //                      $section: to know where you are

@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {assign var=escuser value=$assign_user|escape:url}
 {title}{tr _0=$assign_user}Assign User %0 to Groups{/tr}{/title}
 

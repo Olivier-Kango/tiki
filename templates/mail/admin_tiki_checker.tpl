@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $upgrade_messages|count}
     {if $upgrade_messages|count eq 1}
         {$title="{tr}Upgrade Available{/tr}"}

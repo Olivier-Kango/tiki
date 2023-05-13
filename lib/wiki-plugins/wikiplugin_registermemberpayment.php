@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 function wikiplugin_registermemberpayment_info()
 {
     require_once('lib/wiki-plugins/wikiplugin_memberpayment.php');

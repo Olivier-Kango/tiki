@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * @param int $time future time to calculate number of day to go
  * @param string $format PHP date format for the displayed date set in $time.

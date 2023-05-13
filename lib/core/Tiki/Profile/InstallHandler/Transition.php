@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 use Symfony\Component\Yaml\Yaml;
 
 class Tiki_Profile_InstallHandler_Transition extends Tiki_Profile_InstallHandler

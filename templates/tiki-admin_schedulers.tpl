@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Scheduler" admpage="general" url="tiki-admin_schedulers.php"}{tr}Scheduler{/tr}{/title}
 <div class="t_navbar mb-4">
     {if isset($schedulerinfo.id)}

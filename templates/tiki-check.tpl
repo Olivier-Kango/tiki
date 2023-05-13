@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Server Check"}{tr}Server Check{/tr}{/title}
 
 <h2  class="showhide_heading" id="Server_Compatibility">{tr}Server compatibility{/tr} <a href="#Server_Compatibility" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>

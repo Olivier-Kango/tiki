@@ -1,4 +1,3 @@
-{* $Id$ *}
 <form method="get" action="{$filter_action|escape}" class="filter">
     <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">{tr}Content{/tr}</label>

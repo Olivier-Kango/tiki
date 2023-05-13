@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class="d-flex">
     <div class="flex-shrink-0">
         {icon name="check" size=2} {tr}Congratulations{/tr}. {tr}You are done with the admin wizard{/tr}.<br>

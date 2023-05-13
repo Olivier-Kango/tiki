@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $blog_data.use_title eq 'y'}
     {capture name="blog_actions"}{/capture}{include file='blog_actions.tpl'}
     {title actions="{$smarty.capture.blog_actions}"}{$title}{/title}

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {remarksbox type="tip" title="{tr}Tip{/tr}"}{tr}Allows a copyright to be determined for various objects{/tr}.{/remarksbox}
 <form role="form" action="tiki-admin.php?page=copyright" method="post" class="admin">
     {ticket}

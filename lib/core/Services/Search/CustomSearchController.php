@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // Controller to process requests from the custom search plugin using the list plugin to display results
 // Refactored from customsearch_ajax.php for Tiki
 

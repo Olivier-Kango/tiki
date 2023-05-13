@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * This Math function is a bit different than the rest.
  * It's purpose is to format the result of a calculation involving Tracker Currency

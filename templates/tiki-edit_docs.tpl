@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Docs"}{$name}{/title}
 
 {if $missingPackage}

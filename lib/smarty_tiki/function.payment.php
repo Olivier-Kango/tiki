@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // @param numeric $id: id of the payment
 // @params url $returnurl: optional return url
 function smarty_function_payment($params, $smarty)

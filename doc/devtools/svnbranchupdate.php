@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 require __DIR__ . '/svntools.php';
 
 important('Warning: this script is deprecated. Please use php console.php vcs:automerge');

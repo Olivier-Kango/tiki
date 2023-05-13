@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $prefs.flaggedrev_approval eq 'y' and $revision_approval}
     {if ($revision_approved or $revision_displayed) and $revision_approved neq $lastVersion and ($tiki_p_wiki_view_latest eq 'y' or $tiki_p_edit eq 'y')}
         {if $lastVersion eq $revision_displayed}

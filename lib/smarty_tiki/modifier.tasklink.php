@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // Martin Hausner
 
 function smarty_modifier_tasklink($taskId, $class_name = "link", $offset = "0", $sort_mode = "priority_desc")

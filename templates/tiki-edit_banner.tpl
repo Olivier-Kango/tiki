@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Banners"}{tr}Create or edit banners{/tr}{/title}
 
 <div class="t_navbar mb-4">

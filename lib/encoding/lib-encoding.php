@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 class Encoding
 {
     public $_inputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8'];

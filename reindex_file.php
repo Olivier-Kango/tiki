@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // This script will send a 1x1 transparent gif image, close connection and reindex the file corresponding to the id url argument
 // The goal is to process reindexation in a background job for which the user won't have to wait
 //

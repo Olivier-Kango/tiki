@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
     {tr}Please see the <a class='alert-link' target='tikihelp' href='http://doc.tiki.org/Features'>evaluation of each feature</a> on Tiki's developer site.{/tr}
 {/remarksbox}

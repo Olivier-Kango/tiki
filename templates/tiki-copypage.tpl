@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title}{tr}Copy page:{/tr} {$page}{/title}
 
 <div class="t_navbar">

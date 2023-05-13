@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 if (PHP_SAPI !== 'cli') {
     die('Only available through command-line.');
 }
@@ -65,7 +63,6 @@ foreach (new RecursiveIteratorIterator($it) as $file) {
             $indexContent = '<?php' . PHP_EOL . PHP_EOL . '// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project' . PHP_EOL;
             $indexContent .= '//' . PHP_EOL . '// All Rights Reserved. See copyright.txt for details and a complete list of authors.' . PHP_EOL;
             $indexContent .= '// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.' . PHP_EOL;
-            $indexContent .= '// $Id$' . PHP_EOL;
             $indexContent .= PHP_EOL . '// This redirects to the sites root to prevent directory browsing' . PHP_EOL;
             $indexContent .= 'header("location: ' . $indexPath . 'index.php");' . PHP_EOL;
             $indexContent .= 'die;' . PHP_EOL;

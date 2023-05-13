@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 include('db/local.php');
 $ADODB_SESSION_DRIVER = $db_tiki;
 $ADODB_SESSION_CONNECT = $host_tiki;

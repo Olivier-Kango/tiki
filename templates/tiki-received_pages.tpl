@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title help="Communication Center"}{tr}Received Pages{/tr}{/title}
 
 {if $receivedPageId > 0 or $view eq 'y'}

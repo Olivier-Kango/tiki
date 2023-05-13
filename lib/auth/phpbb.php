@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // Tikiwiki authentication backend for phpBB3 with adodb
 // By Jacob 'jacmoe2' Moen 10 Dec 2009
 // Based on:

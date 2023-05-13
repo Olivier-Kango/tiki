@@ -3,7 +3,7 @@
 /**
  * Try to get changes from an Elasticsearch index and perform each wiki page change event
  *
- * $Id$
+ *
  */
 
 namespace Tiki\Command;

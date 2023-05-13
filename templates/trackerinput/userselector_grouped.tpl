@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="row">
     <div class="col-sm-6">
         {tr}Filter by group:{/tr}

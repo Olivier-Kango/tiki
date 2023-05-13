@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <form action="tiki-admin.php?page=messages" method="post" name="messages">
     {ticket}
 

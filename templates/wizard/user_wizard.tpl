@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class="userWizardIconleft"><img src="img/icons/large/wizard_user48x48.png" alt="{tr}Tiki User Wizard{/tr}" /></div>
 {tr}This wizard will help you fill in data and main settings for your account on this website{/tr}.
 {tr}Depending on the features enabled by the site admin, you will be offered more or less options{/tr}.

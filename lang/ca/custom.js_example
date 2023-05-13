@@ -8,7 +8,7 @@
  *
  * Reanomena a custom.js per a que funcioni
  *
- * $Id$
+ *
  */
 
 lang = $.extend(lang, {

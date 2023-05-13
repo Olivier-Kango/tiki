@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // TESTING STEPS:
 // 1. Use browser with the base uri
 // 2. Use davfs or other webdav client

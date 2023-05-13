@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * default for wysiwyg_htmltowiki changed between tiki 10 and 11 in r45440 - this maintains previous default setting
  *

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {assign var="baseURI" value="{$smarty.server.REQUEST_URI}"}
 {$headerlib->add_jsfile("lib/jquery_tiki/tiki-profile.js")}
 

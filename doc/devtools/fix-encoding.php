@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*
 
 Please note that this script is experimental. Run it on backup copies of tiki to see if it fixes the messed-up encoding.

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
     {tr}Look under "<a href="tiki-admin_rssmodules.php" target="_blank" class="alert-link">External Feeds</a>" on the application menu if you are searching for the <a href="https://doc.tiki.org/Article+generator" target="_blank" class="alert-link">"Article Generator" on RSS feeds</a>{/tr}.
 {/remarksbox}

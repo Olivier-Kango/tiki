@@ -1,6 +1,5 @@
 -- Definitions of all fulltext indexes.
 -- The file is installed, if the engine supports fulltext indexing
--- $Id$
 CREATE FULLTEXT INDEX ft ON tiki_articles(`title`, `heading`, `body`);
 CREATE FULLTEXT INDEX ft ON tiki_blog_posts(`data`, `title`);
 CREATE FULLTEXT INDEX ft ON tiki_blogs(`title`, `description`);

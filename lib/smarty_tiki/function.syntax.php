@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*
  * ignore syntax lines in tpls and other smarty parsed code
  * they are used to distinguish if content is markdown or tiki

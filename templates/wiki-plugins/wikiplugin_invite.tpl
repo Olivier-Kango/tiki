@@ -1,4 +1,3 @@
-{* $Id$ *}
 <form method="post">
     <div class="mb-3 row">
         <label for="email" class="col-sm-4 col-form-label">{tr}Email address of invitee{/tr}</label>

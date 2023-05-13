@@ -1,4 +1,3 @@
-{* $Id$ *}
 {strip}
 <ul>
     {section name=ix loop=$listpages}

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {* ==> put in this file what is not displayed in the layout (javascript, debug..)*}
 <div id="bootstrap-modal" class="modal fade footer-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

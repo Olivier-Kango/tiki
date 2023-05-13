@@ -8,8 +8,6 @@
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
 
-// $Id$
-
 require_once('check_composer_exists.php');
 
 $inputConfiguration = [

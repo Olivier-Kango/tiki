@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title adminpage='login'}{tr}Registration{/tr}{/title}
 {if !empty($showmsg) && $showmsg eq 'y'}
     <div class="simplebox highlight">

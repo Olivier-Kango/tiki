@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Blogs" admpage="blogs"}{tr}Blogs{/tr}{/title}
 
 <div class="t_navbar mb-4">

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\Field\ExportableInterface
 {
     public static function getTypes()

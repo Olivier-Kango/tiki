@@ -10,8 +10,6 @@
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
 
-// $Id$
-
 use Tiki\TikiInit;
 
 const MIN_PHP_VERSION = '7.4.0';

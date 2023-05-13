@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /****
  * Initially just a collection of the functions dotted around tiki-editpage.php for v4.0
  * Started in the edit_fixup experimental branch - jonnybradley Aug 2009

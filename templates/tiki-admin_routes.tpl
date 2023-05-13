@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Custom Route" admpage="sefurl" url="tiki-admin_routes.php"}{tr}Custom Route{/tr}{/title}
 <div class="t_navbar mb-4">
     {if isset($route.id)}

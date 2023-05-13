@@ -4,7 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
 require_once 'lib/auth/tokens.php';
 require_once __DIR__ . '/ConverseJS.php';
 require_once __DIR__ . '/TikiXmppChat.php';

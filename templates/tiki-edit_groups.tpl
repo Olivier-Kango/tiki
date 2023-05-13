@@ -1,4 +1,3 @@
-{* $Id$ *}
 <table id="group_table" class="table normal table-striped table-hover" >
     <thead>
     <tr>

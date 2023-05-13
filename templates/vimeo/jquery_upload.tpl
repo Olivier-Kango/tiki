@@ -1,4 +1,3 @@
-{* $Id$ *}
 {* Used by smarty_function_vimeo_uploader() *}
 
 <div class="mb-3 row">

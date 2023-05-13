@@ -1,4 +1,3 @@
-{* $Id$ *}
 {capture name=actions}{strip}
     {if $tiki_p_view_videos eq 'y' or $tiki_p_admin_kaltura eq 'y' or $tiki_p_admin eq 'y'}
         <a href="tiki-kaltura_video.php?{$entryType}Id={$item->id}" title="{tr}View{/tr}">

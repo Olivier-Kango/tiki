@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title admpage="wiki" help="Using Wiki Pages#Backlinks_REAL_AMP_Orphan_Pages"}{tr}Orphan Pages{/tr}{/title}
 
 {if $listpages or ($find ne '')}

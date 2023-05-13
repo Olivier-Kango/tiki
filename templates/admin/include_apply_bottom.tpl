@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if empty($applyTitle)}
     {$applyTitle="{tr}Apply changes{/tr}"}
 {/if}

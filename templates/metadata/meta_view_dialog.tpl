@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div id="{$id|escape}" title="{tr}Image Metadata for{/tr} {$filename|escape}" style="display:none">
     {if $type eq 'data'}
         {if isset($metarray.basiconly) and $metarray.basiconly}

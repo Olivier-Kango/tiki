@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title admpage="security" url="tiki-admin_ids.php"}{tr}IDS Rules{/tr}{/title}
 <div class="t_navbar mb-4">
     {if isset($ruleinfo.id)}

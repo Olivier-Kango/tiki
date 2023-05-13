@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if !$viewItemPretty.override}
     {title help="trackers"}{$tracker_item_main_value}{/title}
 {/if}

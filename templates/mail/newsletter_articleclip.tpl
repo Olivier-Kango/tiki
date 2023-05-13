@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {* {tr}Start of article{/tr} *}
 <div class="articleclip_single">
 {if $nlArticleClipTitle}<h3 class="articleclip_title"><a href="{$base_url}{$nlArticleClipId|sefurl:'article'}">{$prefs.mail_template_custom_text}{$nlArticleClipTitle|escape}</a></h3>{/if}

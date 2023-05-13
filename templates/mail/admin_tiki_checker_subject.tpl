@@ -1,1 +1,1 @@
-{* $Id$ *}{tr}{$subject}{/tr}
+{tr}{$subject}{/tr}

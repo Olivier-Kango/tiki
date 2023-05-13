@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $prefs.connect_feature eq "y"}
 <div class="d-flex flex-wrap mx-0 provide-feedback">
     <div class="col">

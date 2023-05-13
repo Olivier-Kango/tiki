@@ -1,4 +1,4 @@
-{* $Id$ *}<!DOCTYPE html>
+<!DOCTYPE html>
 <html id="installer" lang="{if !empty($pageLang)}{$pageLang}{else}{$prefs.language}{/if}">
     <head>
 {include file='header.tpl'}

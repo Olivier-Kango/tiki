@@ -1,4 +1,3 @@
-{* $Id$ *}
 {strip}
     {if $prefs.cookie_consent_mode eq 'dialog'}
         <div class="modal" tabindex="-1" role="dialog" id="{$prefs.cookie_consent_dom_id}">

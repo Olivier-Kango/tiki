@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id$ [This line is used to check that this configuration file is up to date. Do not edit this line and leave it as the second line.] -->
+<!-- [This line is used to check that this configuration file is up to date. Do not edit this line and leave it as the second line.] -->
 <!-- DEVELOPERS: 
 This is the sample configuration file for IIS.  Must be linked to web.config to be active.
 
@@ -46,7 +46,7 @@ This configuration must be kept synchronized with the configuration for other We
        </staticContent>
     <rewrite>
         <rules>
-        <!--# $Id$ [This line is used to check that this configuration file is up to date. Do not edit this line and leave it as the first line.]-->
+        <!--# [This line is used to check that this configuration file is up to date. Do not edit this line and leave it as the first line.]-->
         <!--# These are suggested configuration directives for use with Tiki.-->
         <!--# They enhance security and permit clean URLs.-->
         <!--# In your Tiki instance, visit tiki-admin.php?page=sefurl to make Tiki use clean URLs in generated links.-->

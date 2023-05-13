@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 include_once __DIR__ . '/../../../diff/Diff.php';
 include_once __DIR__ . '/../../..//diff/difflib.php';
 include_once __DIR__ . '/../../..//diff/Renderer.php';

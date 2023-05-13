@@ -1,4 +1,3 @@
-{* $Id$ *}
 {extends 'layout_edit.tpl'}
 
 {block name=content}

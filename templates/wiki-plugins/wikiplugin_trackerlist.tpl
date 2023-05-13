@@ -1,4 +1,3 @@
-{* $Id$ *}
 {strip}
     {capture assign=tdinstyle}overflow:hidden{/capture}
     {capture assign=tdstyle}style="{$tdinstyle}"{/capture}

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*
 The Relation field type create a Many-to-Many relationship through the table tiki_object_relations (also used by wiki pages and other objects) and the table tracker_item_fields
 

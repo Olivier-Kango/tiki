@@ -4,7 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
 use Laminas\Mail\Exception\ExceptionInterface as ZendMailException;
 use SlmMail\Exception\ExceptionInterface as SlmMailException;
 

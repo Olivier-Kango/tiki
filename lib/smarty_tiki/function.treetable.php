@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * Tree Table Smarty func - smarty_function_treetable()
  * Renders a tree table (for use with http://plugins.jquery.com/project/treeTable)

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title}{tr}Organizer{/tr}{/title}
 <div class="t_navbar mb-4 clearfix">
     {button href="tiki-browse_categories.php?parentId=$parentId" _type="link" _icon_name="view" _text="{tr}Browse Categories{/tr}" _title="{tr}Browse the category system{/tr}"}

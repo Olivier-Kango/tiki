@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if isset($tstotals)}
     {$rowtotal = 0}
     {if !empty($tstotals.row)}

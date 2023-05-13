@@ -4,7 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
 //author : aris002@yahoo.co.uk
 require_once('lib/socnets/PrefsGen.php');
 use TikiLib\Socnets\PrefsGen\PrefsGen;

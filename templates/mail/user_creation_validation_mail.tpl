@@ -1,4 +1,4 @@
-{* $Id$ *}{tr}Hi,{/tr}
+{tr}Hi,{/tr}
 
 {tr}An administrator of the {$prefs.mail_template_custom_text}site below has added you as a new user:{/tr}
     {if !empty($prefs.sitetitle)}{$prefs.sitetitle} - {/if}{$mail_site}

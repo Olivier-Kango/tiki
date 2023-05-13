@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class="d-flex">
     <div class="flex-grow-1 ms-3">
         <p class="wizardCongrat text-success">

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 class Tiki_Profile_Writer_Helper
 {
     public static function type_colon_object(Tiki_Profile_Writer $writer, $object)

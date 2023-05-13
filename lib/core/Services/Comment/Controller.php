@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 
 // NOTE : This controller excludes anything related to the comments. Previous code mixed comments and forums
 //        as they use the same storage. However, the way the are interacted with is so different that the code

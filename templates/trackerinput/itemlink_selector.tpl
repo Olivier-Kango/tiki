@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="item-link">
     {object_selector _id=$data.selector_id _simplevalue=$field.value _simplename=$field.ins_id _placeholder=$data.placeholder type="trackeritem" tracker_id=$field.options_map.trackerId tracker_status=$data.status _format=$data.format _sort=$data.sort}
     {if $field.options_map.addItems and $data.createTrackerItems}

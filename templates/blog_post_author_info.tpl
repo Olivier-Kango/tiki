@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="author_info">
     {if $blog_data.show_avatar eq 'y'}
         {$post_info.avatar}

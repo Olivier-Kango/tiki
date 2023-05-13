@@ -3,7 +3,6 @@
 # 
 # All Rights Reserved. See copyright.txt for details and a complete list of authors.
 # Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-# $Id$
 
 # Usage: ./doc/devtools/cleanwatch.sh <email> [multi]
 # it has to be launched from tiki root dir

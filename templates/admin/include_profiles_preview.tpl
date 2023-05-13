@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if !empty($track_profile_changes)}
     {foreach $track_profile_changes as $profile_changes}
         {if $profile_changes|is_array}

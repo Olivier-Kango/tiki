@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="postbody-content card-body">
 
     <div class="clearfix author">

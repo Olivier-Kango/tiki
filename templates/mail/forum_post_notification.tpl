@@ -1,4 +1,4 @@
-{* $Id$ *}{if $new_topic}
+{if $new_topic}
 {tr}A new message was posted to {$prefs.mail_template_custom_text}forum:{/tr} {$mail_forum}
 
 {tr}New topic:{/tr} {$mail_topic}

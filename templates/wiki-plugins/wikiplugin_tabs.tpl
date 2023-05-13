@@ -1,4 +1,4 @@
-{* $Id$
+{*
  * smarty template for tabs wiki plugin
  *}
 {if isset($is_slideshow) and $is_slideshow eq 'y'}

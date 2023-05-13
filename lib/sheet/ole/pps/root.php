@@ -17,8 +17,6 @@
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id$
-
 
 /**
 * Class for creating Root PPS's for OLE containers

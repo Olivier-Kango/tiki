@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 function validator_smarty($input, $parameter = '', $message = '')
 {
     // since this is used only in Tiki modules, we skip validation if user is not allowed to admin modules

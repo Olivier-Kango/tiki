@@ -1,4 +1,3 @@
-{* $Id$ *}
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
     {tr}Text area (that apply throughout many features){/tr}
 {/remarksbox}

@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="blogactions">
     <div class="btn-group">
         {if ! $js}<ul><li>{/if}

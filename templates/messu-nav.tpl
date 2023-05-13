@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class="t_navbar mb-4 btn-group">
     {button class="btn btn-primary" href="messu-mailbox.php" _class="btn btn-primary" _text="{tr}Mailbox{/tr}"}
     {button class="btn btn-primary" href="messu-compose.php" _class="btn btn-primary" _text="{tr}Compose{/tr}"}

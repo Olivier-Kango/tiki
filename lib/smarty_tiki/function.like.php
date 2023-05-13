@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * This is a like smarty function. It sets a thumb button link that allows you to like (and unlike) an object. It also
  * provides a count of likes thus far on that particular object.

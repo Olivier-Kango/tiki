@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 require_once('tiki-setup.php');
 include_once('lib/minical/minicallib.php');
 $access->check_feature('feature_minical');

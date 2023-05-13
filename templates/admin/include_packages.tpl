@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {if ! $composer_available}
     {remarksbox type="warning" title="{tr}Composer not found{/tr}"}
     {tr}Composer could not be executed, so the automated check on the packages cannot be performed.{/tr}

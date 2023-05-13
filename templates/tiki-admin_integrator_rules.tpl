@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title help="Integrator"}{tr}Edit Rules for Repository:{/tr} {$name}{/title}
 
 <div class="t_navbar mb-4">

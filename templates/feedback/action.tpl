@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div id="alert-wrapper">
     {foreach $fb as $item}
         {remarksbox type="{$item.type}" title="{$item.title}"}

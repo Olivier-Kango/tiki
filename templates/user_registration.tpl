@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if empty($user)}
 
     {include file='password_jq.tpl'}

@@ -1,4 +1,4 @@
-{* $Id$ *}<!DOCTYPE html>
+<!DOCTYPE html>
 {if ! isset($noheader) || $noheader !== 'y'}
     <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">{$title|escape}{block name=subtitle}{/block}</h4>

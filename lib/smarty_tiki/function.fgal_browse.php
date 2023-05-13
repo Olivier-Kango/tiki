@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*
  * smarty_function_fgal_browse: Display the content of a file gallery in browse mode (i.e. with thumbnails)
  *

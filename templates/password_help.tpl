@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $prefs.feature_jquery_validation eq 'n'}
     {if $prefs.min_pass_length gt 1}
         <div class="highlight"><em>{tr _0=$prefs.min_pass_length}Minimum %0 characters long{/tr}</em></div>

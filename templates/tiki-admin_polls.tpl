@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Polls" admpage="polls"}{tr}Admin Polls{/tr}{/title}
 
 <div class="t_navbar mb-4">

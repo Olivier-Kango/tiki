@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * Iterator to read from paginated results until the end is reached. Allows to read
  * a complete result set without loading it all into memory at once. The loader uses

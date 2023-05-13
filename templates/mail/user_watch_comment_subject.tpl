@@ -1,4 +1,4 @@
-{* $Id$ *}{if $objecttype eq 'wiki'}
+{if $objecttype eq 'wiki'}
 {tr}The {$prefs.mail_template_custom_text}Wiki page "{$mail_objectname}" was commented on by{/tr} {if $mail_user}{$mail_user|username}{else}{tr}an anonymous user{/tr}{/if}.
 {* Blog comment mail *}
 {elseif $objecttype eq 'blog'}

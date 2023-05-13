@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <table style="width:100%">
     <tr>
         <td colspan="3" style="text-align:left; width:270px">

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 require_once(__DIR__ . '/../../wiki-plugins/wikiplugin_translationof.php');
 require_once(__DIR__ . '/../../test/TestHelpers.php');
 $relationlib = TikiLib::lib('relation');

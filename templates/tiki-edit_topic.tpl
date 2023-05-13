@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title help="Articles"}{tr}Admin Article Topics{/tr}{/title}
 <h2>{tr}Edit article topic{/tr}</h2>
 

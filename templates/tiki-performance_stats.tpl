@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title help="Real User Measurement"}{tr}Search performance statistics{/tr}{/title}
 
 <div class="t_navbar">

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
     {tr}See also{/tr} <a class="alert-link" href="tiki-admin.php?page=metatags">{tr}Meta tags{/tr}</a>.
 {/remarksbox}

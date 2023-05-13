@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Security Admin" admpage="security"}{tr}Security Admin{/tr}{/title}
 
 {remarksbox type="tip" title="{tr}Tip{/tr}"}

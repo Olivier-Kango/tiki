@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if !isset($versioned) or not $versioned}
     {capture assign=more_section}
         {if $page|lower ne 'sandbox'}

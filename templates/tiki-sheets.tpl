@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title help="Spreadsheet"}{tr}{$headtitle}{/tr}{/title}
 
 {tabset}

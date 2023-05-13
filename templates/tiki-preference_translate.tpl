@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title url="tiki-preference_translate.php?pref={if isset($pref)}{$pref}{/if}"}{tr}Preference translation{/tr}{if isset($pref)}: {$pref}{/if}{/title}
 
 <form method="post" action="tiki-preference_translate.php" class="form">

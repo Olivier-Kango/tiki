@@ -1,4 +1,3 @@
-{* $Id$ *}
 <form action="tiki-admin.php?page=ads" onreset="return(confirm("{tr}Cancel Edit{/tr}"))" class="admin" method="post">
     {ticket}
     <div class="row">

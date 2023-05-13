@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 require_once('tiki-setup.php');
 $structlib = TikiLib::lib('struct');
 $categlib = TikiLib::lib('categ');

@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <form action="tiki-admin.php?page=socnets" method="post">
     {ticket}
 
@@ -31,12 +29,9 @@
         {include file='admin/include_apply_top.tpl'}
     </div>
 </div>
-
-
 {tabset}
 
-{************************************}
-{tab name ="{tr}Enabled{/tr}" }
+{tab name ="{tr}Enabled{/tr}"}
 
 <ol>
 {foreach from=$prefs["`$socPrefix`enabledProviders"]  key=k  item=pNum}

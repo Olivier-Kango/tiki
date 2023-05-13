@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 class Scheduler_Task_UserLockMailerCommandTask extends Scheduler_Task_CommandTask
 {
     public function execute($params = null)

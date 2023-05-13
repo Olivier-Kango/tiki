@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if !$ts.ajax}
     {title help="Forums" admpage="forums" url='tiki-admin_forums.php'}
         {tr}Admin Forums{/tr}{if isset($parent)}: {$parent.name}{/if}

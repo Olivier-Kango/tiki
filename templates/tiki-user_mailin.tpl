@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title}{tr}My Mail-in{/tr}{/title}
 
 {include file='tiki-mytiki_bar.tpl'}

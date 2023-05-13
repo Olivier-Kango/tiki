@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title admpage=freetags}{tr}Browse Tags{/tr}{/title}
 
 {jq}

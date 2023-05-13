@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Quiz"}{tr}Quizzes{/tr}{/title}
 
 <div class="t_navbar mb-4">

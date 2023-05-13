@@ -1,4 +1,3 @@
-{* $Id$ *}
 {tabset}
     {tab name="{tr}My books{/tr}"}
         <div id="booklist" class="table-responsive">

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * Abstract class to provide basic functionalities to wiki importers.
  * Based on the work done on http://dev.tiki.org/MediaWiki+to+TikiWiki+converter

@@ -1,4 +1,3 @@
-{* $Id$ *}
 <h2 class="card-title">{tr}Occurrences of string in database{/tr}</h2>
 <div class="adminoptionbox clearfix mb-3 row">
     <label for="string_in_db_search_table" class="col-form-label col-sm-4">

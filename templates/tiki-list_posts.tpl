@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title help="Blogs"}{if isset($blogTitle)}{tr _0=$blogTitle}Blog: %0{/tr}{else}{tr}Blog Posts{/tr}{/if}{/title}
 
 <div class="t_navbar mb-4">

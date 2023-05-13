@@ -1,4 +1,3 @@
-{*$Id$*}
 {if $tikiShowSuggestionsPopup}
     <div id="suggestionsPopup">
         <div class="sug-header">

@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="postfooter card-footer clearfix">
     <div class="status float-sm-end">
     {if $prefs.feature_contribution eq 'y' and $prefs.feature_contribution_display_in_comment eq 'y'}

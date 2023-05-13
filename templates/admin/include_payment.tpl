@@ -1,4 +1,3 @@
-{* $Id$ *}
 <form action="tiki-admin.php?page=payment" method="post">
     {ticket}
     <div class="row">

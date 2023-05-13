@@ -1,4 +1,3 @@
-{* $Id$ *}
 {jq notonready=true}
     {* Test for caps lock - used below *}
     var divRegCapson = $('#divRegCapson');

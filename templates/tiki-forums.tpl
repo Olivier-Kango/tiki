@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if !$ts.ajax}
     {block name=title}
         {title help="Forums" admpage="forums"}{tr}Forums{/tr}{/title}

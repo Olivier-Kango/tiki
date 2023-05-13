@@ -1,4 +1,3 @@
-{* $Id$ *}
 {include file="register-login.tpl"}
 {include file="register-email.tpl"}
 {include file="register-passcode.tpl"}

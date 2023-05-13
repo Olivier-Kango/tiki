@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $tiki_p_admin == 'y'}
 {strip}
     {tikimodule error=$module_params.error title=$tpl_module_title name="switch_lang_admin" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $prefs.feature_trackers ne 'y'}
     <span class="alert-warning">{tr}This feature is disabled{/tr}</span>
 {else}

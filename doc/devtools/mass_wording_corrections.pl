@@ -3,7 +3,6 @@
 # 
 # All Rights Reserved. See copyright.txt for details and a complete list of authors.
 # Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-# $Id$
 
 ################################################################################
 # Initial version contributed by Council of Europe - Conseil de l'Europe to the 

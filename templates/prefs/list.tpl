@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="adminoptionbox preference mb-3 row d-flex {$p.tagstring|escape}{if isset($smarty.request.highlight) and $smarty.request.highlight eq $p.preference} highlight{/if}" style="text-align: left;">
     <label class="col-sm-3 col-form-label" for="{$p.id|escape}">{$p.name|escape|breakline}
         {include file="prefs/shared-help-icon.tpl"}

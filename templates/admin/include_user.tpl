@@ -1,4 +1,3 @@
-{* $Id$ *}
 {jq}
     var frm = $('form[id="UsrForm"]'),
         days_before_lock = $('input[name="users_admin_auto_lock_user_days_before_lock"]'),

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 function smarty_function_user_registration($params, $smarty)
 {
     global $prefs, $https_mode, $base_url_https, $user;

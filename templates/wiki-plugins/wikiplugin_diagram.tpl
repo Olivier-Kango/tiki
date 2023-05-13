@@ -1,4 +1,3 @@
-{* $Id$ *}
 {extends file="file_displays/diagram.tpl"}
 {block name="diagram_extra"}
     {if $allow_edit}

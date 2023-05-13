@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title}{tr}Mass Search and Replace{/tr}{/title}
 
 {remarksbox type="note" title="{tr}Note{/tr}"}

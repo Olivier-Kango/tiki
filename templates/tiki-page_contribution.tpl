@@ -1,4 +1,3 @@
-{* $Id$ *}
 <h1 class="pagetitle"><a href="tiki-index.php?page={$page}">{tr}Contributions to{/tr} {$page}
     ({if $lastversion==0}{tr}current version{/tr}{else}{tr}version{/tr} {$lastversion}{/if})</a>
 </h1>

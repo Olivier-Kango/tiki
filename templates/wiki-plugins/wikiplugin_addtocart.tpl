@@ -1,4 +1,3 @@
-{* $Id$ *}
 <form method="post" action="{query _type=relative _keepall=y}" style="display: inline;" class="wp_addtocart_form"{$form_data}>
     <div class="d-flex flex-wrap mx-0 align-items-center">
         <input type="hidden" name="code" value="{$params.code|escape}">

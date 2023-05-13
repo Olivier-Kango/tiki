@@ -4,7 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
 class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
 {
     protected $_RESPONSE  = 'g-recaptcha-response';

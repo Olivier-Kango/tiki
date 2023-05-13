@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // Handle special actions of the smarty_function_attachments smarty plugin
 function s_f_attachments_actionshandler($params)
 {

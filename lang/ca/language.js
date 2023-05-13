@@ -2,7 +2,7 @@
  * JavaScript translation definition
  * Example in Catalan
  *
- * $Id$
+ *
  */
 
 lang = {

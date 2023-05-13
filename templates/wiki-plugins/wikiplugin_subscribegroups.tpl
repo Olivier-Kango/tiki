@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="subscribeGroups">
 {if !empty($userGroups)}
 <h3>{tr}Groups you are in{/tr}</h3>

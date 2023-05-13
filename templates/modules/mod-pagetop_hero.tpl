@@ -1,4 +1,3 @@
-{* $Id$ *}
 {tikimodule error=$module_error title=$tpl_module_title name=$tpl_module_name flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle type=$module_type}
 <div id="pagetop-hero" class="pagetop-hero w-100 p-4">
     <div class="bg-image-wrapper" id="bg-image-wrapper" {if $bgimage neq ''}style="background-image: url('{$bgimage}')"{/if}></div>

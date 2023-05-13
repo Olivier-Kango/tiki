@@ -1,4 +1,3 @@
-{* $Id$ *}
 {strip}
     {if $file.isgal eq 1}
         {if $file.perms.tiki_p_view_file_gallery eq 'y'}

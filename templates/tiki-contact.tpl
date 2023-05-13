@@ -1,4 +1,3 @@
-{*$Id$*}
 {title}{tr}Contact Us{/tr}{/title}
 
 {if !$sent}

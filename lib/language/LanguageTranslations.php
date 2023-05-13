@@ -4,7 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id: LanguageTranslations.php 71042 2019-09-23 14:00:20Z alexandre2908 $
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $tiki_p_create_file_galleries eq 'y' or (not empty($user) and $user eq $gal_info.user and $gal_info.type eq 'user' and $tiki_p_userfiles eq 'y')}
     {if isset($individual) and $individual eq 'y'}
         {remarksbox type="tip" title="{tr}Permissions{/tr}"}

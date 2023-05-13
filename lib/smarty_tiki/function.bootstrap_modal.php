@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * Returns a string with the href and data attributes to make a bootstrap modal appear on a link
  * Note: Expects to be inside a "double quoted" href attribute in an html anchor

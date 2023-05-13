@@ -1,6 +1,3 @@
-# $Id$
-
-#
 # If you are using Tiki 3.x or later, this script will automatically be run by the installer when it detects that your data is from pre 3.x
 #
 # This approach of making one .sql file per version is obsolete. The new system is explained at: http://dev.tiki.org/Database+Schema+Upgrade

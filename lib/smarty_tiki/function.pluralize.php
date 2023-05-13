@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * \brief Smarty plugin to return plural or singular form of given word based on count
  * Usage format {pluralize word_count=2 singular_form="mouse" plural_form="mice"}

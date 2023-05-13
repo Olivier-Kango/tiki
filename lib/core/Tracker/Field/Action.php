@@ -4,7 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
 //print_r(\Tracker\Field\AbstractField);
 
 class Tracker_Field_Action implements \Tracker\Field\FieldInterface

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Token Access"}{tr}Admin Tokens{/tr}{/title}
 
 {tabset name="tabs_admtokens"}

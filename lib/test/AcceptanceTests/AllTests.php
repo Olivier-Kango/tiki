@@ -4,7 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
 require_once('AcceptanceTests/CollaborativeMultilingualTerminologyTest.php');
 require_once('AcceptanceTests/ListPagesTest.php');
 require_once('AcceptanceTests/MultilingualTest.php');

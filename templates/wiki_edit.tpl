@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class='edit-zone clearfix'> {* grid class col-md-9 was added here for correct layout in form-horizontal (UPDATE: form-horizontal class is obsolete) tracker plugin but nested col-md-9s resulted; testing. *}
     {if $textarea__toolbars ne 'n'}
         <div class='textarea-toolbar nav-justified' id='{$textarea_id|default:editwiki}_toolbar'>

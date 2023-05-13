@@ -1,4 +1,3 @@
-{* $ID:$ *}
 <form method="post" action="tiki-admin.php?page=webservices">
     {ticket}
 

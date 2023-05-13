@@ -10,8 +10,6 @@
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
 
-// $Id$
-
 // die if called directly.
 use Tiki\Package\VendorHelper;
 

@@ -1,4 +1,3 @@
-{** Commented variable $Id$ .**}
 {title help="Menus" url="tiki-admin_menu_options.php?menuId=$menuId" admpage="general&amp;cookietab=3"}{tr}Menu:{/tr} {$editable_menu_info.name}{/title}
 
 <div class="t_navbar mb-4">

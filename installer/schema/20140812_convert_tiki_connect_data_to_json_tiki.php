@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 function upgrade_20140812_convert_tiki_connect_data_to_json_tiki($installer)
 {
     $tiki_connect = TikiDb::get()->table('tiki_connect');

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {strip}
 {* Simple remarks box used by Smarty entity block.remarksbox.php & wikiplugin_remarksbox.php *}
 <div {if $remarksbox_id}id="{$remarksbox_id|escape}"{/if} class="alert {$remarksbox_class|escape}{if $remarksbox_close} alert-dismissible{/if}{if $remarksbox_highlight} {$remarksbox_highlight}{/if}{if $remarksbox_hidden} d-none{/if}">

@@ -8,7 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
 // Live Support CHAT server.
 // This PHP script handles all the messaging between the clients
 // and the server (this script). Messaging is done using a REST

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {* Used by smarty_function_filegal_uploader() when $prefs.file_galleries_use_jquery_upload is enabled *}
 {* The fileinput-button span is used to style the file input field as button *}
 <div class="mb-3 row">

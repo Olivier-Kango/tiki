@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // NB, all PayPal supported "HTML Variables" will be passed on to the button, even if not mentioned here
 
 function wikiplugin_paypal_info()

@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 define('PATTERN_TO_CLEAN_TEXT', '/\W/u');
 define('CLEAN_CHAR', '-');
 define('TITLE_SEPARATOR', '-');

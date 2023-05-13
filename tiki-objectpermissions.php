@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 include_once('tiki-setup.php');
 if (! empty($_REQUEST['objectType']) && $_REQUEST['objectType'] != 'global') {
     if (! isset($_REQUEST['objectName']) || empty($_REQUEST['objectId'])) {

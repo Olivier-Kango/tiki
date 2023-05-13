@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // Only to be called from edit_banner or view_banner to display the banner without adding
 // impressions to the banner
 if (! isset($_REQUEST["id"])) {

@@ -1,7 +1,5 @@
 <?php
 
-// $Id$
-
 /**
  * Smarty plugin
  * @package Smarty

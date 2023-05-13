@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="table-responsive">
     <table cellpadding="0" cellspacing="0" border="0" class="table normal table-striped table-hover" style="table-layout: fixed">
         <tr>

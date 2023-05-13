@@ -1,4 +1,3 @@
-{* $Id$ *}
 {capture assign="viewuser"}{$userwatch|escape:"url"}{/capture}
 {title url="tiki-user_information.php?view_user=$viewuser"}{tr}User Information{/tr}{/title}
 

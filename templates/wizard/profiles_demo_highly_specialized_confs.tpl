@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class="d-flex">
     <div class="flex-shrink-0">
         <span class="fa-stack fa-lg" style="width: 100px;" title="{tr}Configuration Profiles Wizard{/tr}" >

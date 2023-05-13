@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class="userWizardIconleft"><img src="img/icons/large/wizard_user48x48.png" alt="{tr}User Wizard{/tr}" /></div>
 {tr}Set up the general settings for your account{/tr}.<br/><br/><br/>
 <div class="userWizardContent">

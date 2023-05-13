@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 require 'tiki-setup.php';
 
 trigger_error(tr('Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace'));

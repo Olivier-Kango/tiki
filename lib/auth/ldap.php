@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*
  *  Class that adds LDAP Authentication to Tiki and aids Tiki to get User/Group Information
  *  from a LDAP directory

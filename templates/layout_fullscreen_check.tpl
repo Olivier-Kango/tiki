@@ -1,4 +1,3 @@
-{* $Id$ *}
 {* this tpl is included in the various layout tpl's to show the *}
 {* clickable fullscreen icon if the full screen feature has been set *}
 

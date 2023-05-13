@@ -11,8 +11,6 @@
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
 
-// $Id$
-
 // die if called directly.
 if (basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__)) {
     header("location: index.php");

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {extends 'layout_view.tpl'}
 
 {* Separate the content display from the display of the whole page.

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if !empty($category_related_objects)}
 <div class="related">
     <h4>{tr}Related content{/tr}</h4>

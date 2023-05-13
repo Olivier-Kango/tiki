@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="mb-4 nohighlight">
     {if $prefs.feature_search_show_search_box eq 'y'}
         {filter action="tiki-searchindex.php" filter=$filter}{/filter}

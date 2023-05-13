@@ -3,7 +3,6 @@
 # 
 # All Rights Reserved. See copyright.txt for details and a complete list of authors.
 # Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-# $Id$
 #
 # A script to dump a TW and SCP copy it somewhere
 # Make sure you change the default values for your setup!

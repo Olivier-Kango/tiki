@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // initially from https://github.com/Studio-42/elFinder/wiki/Adding-file-description-to-Properties-dialog
 
 class tikiElFinder extends elFinder

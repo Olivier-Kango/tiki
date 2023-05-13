@@ -1,4 +1,4 @@
-{* $Id$ *}{if $mail_action eq 'deleted'}{tr}Tracker item {$mail_itemId} was deleted in the tracker {tr}{$mail_trackerName}{/tr} by {tr}{$mail_user|username}{/tr} on {tr}{$mail_date|tiki_short_datetime:"":"n"}{/tr} {/tr}
+{if $mail_action eq 'deleted'}{tr}Tracker item {$mail_itemId} was deleted in the tracker {tr}{$mail_trackerName}{/tr} by {tr}{$mail_user|username}{/tr} on {tr}{$mail_date|tiki_short_datetime:"":"n"}{/tr} {/tr}
 {elseif $mail_action eq 'status'}{tr}New status for ItemID {$mail_itemId} {$mail_item_desc} for the {$prefs.mail_template_custom_text}tracker {tr}{$mail_trackerName}:{/tr}{/tr} {if $status eq 'o'}{tr}open{/tr}{elseif $status eq 'p'}{tr}pending{/tr}{elseif $status eq 'c'}{tr}closed{/tr}{/if}
 {else}{$mail_action}
 

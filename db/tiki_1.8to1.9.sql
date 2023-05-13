@@ -1,4 +1,3 @@
-# $Id$
 
 #
 # IMPORTANT: If you are upgrading from 1.8.x, you first need to upgrade your data to 1.9.x before upgrading to 2.x and up.

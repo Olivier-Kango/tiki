@@ -1,4 +1,3 @@
-{* $Id$ *}
 {* changes 24.01.2021 by bob_romoxi *}
 {* if for controls and pagination *}
 {if $carousel and $carousel.id}{$containerId = $carousel.id}{else}{$containerId = 'wp_list_carousel'}{/if}

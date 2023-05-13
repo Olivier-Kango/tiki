@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // To (re-)enable this script the file has to be named tiki-installer.php and the following four lines
 // must start with two '/' and 'stopinstall:'. (Make sure there are no spaces inbetween // and stopinstall: !)
 

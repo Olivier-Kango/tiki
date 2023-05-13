@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {if $prefs.javascript_enabled eq 'y' && $area_id}
     <a href="javascript:void(0);" onclick="needToConfirm=false;$.closeModal();$(document).one('hidden.bs.modal', function () {ldelim}popupPluginForm('{$area_id}','{$plugin_name|lower|@addslashes}');{rdelim}); return false;">{icon name=$plugin.iconname|default:"plugin" _text="{tr}Insert{/tr}"}</a>
 {/if}

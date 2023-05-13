@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // If you put some traces in this script, and can't see them
 // because the script automatically forwards to another URL
 // with a call to header(), then you will not see the traces

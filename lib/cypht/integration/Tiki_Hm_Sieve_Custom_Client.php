@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * Pretent storing sieve filters and scripts without Sieve client.
  * Use Tiki user preferences for storage to make Sieve filters UI

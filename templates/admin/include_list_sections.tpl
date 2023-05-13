@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
     {tr}Enable/disable Tiki features in {/tr}<a class="alert-link" href="tiki-admin.php?page=features">{tr}Control Panels{/tr}&nbsp;{$prefs.site_crumb_seper}&nbsp;{tr}Features{/tr}</a>{tr}, but configure them elsewhere{/tr}.
     <br/>

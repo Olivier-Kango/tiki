@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 include_once "vendor_bundled/vendor/studio-42/elfinder/php/elFinderConnector.class.php";
 include_once "vendor_bundled/vendor/studio-42/elfinder/php/elFinder.class.php";
 include_once "vendor_bundled/vendor/studio-42/elfinder/php/elFinderVolumeDriver.class.php";

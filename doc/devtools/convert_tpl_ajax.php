@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*
  * Simple script to convert html anchors in smarty templates to self_links for ajax (tiki 6)
  * couldn't work out a clever enough regexp so trying in php

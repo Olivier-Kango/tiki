@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /** Just in time filters.  For filtering object or array values when the type cannot be known before the script is executed.
  *
  *  See https://dev.tiki.org/Filtering-Best-Practices

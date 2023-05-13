@@ -10,8 +10,6 @@
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
 
-// $Id: index.php
-
 // This redirects to the sites root to prevent directory browsing
 header("location: ../tiki-index.php");
 die;

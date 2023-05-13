@@ -1,1 +1,1 @@
-{* $Id$ *}{tr}Your account lock status has changed for %s{/tr}
+{tr}Your account lock status has changed for %s{/tr}

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 //THIS HANDLER STILL DON'T WORK PROPERLY. USE WITH CAUTION.
 class Tiki_Profile_InstallHandler_Calendar extends Tiki_Profile_InstallHandler
 {

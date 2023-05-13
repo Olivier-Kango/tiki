@@ -1,4 +1,3 @@
-{* $Id$ *}
 <tr>
     <td class="text">
         {if !empty($sheet.parentSheetId)}

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title admpage="i18n"}{tr}Edit languages{/tr}{/title}
 <div class="t_navbar mb-4">
     {if $smarty.session.interactive_translation_mode eq 'on'}

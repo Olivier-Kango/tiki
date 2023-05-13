@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $source_link}
     <div class="iframe-container">
         <iframe src="{$source_link}" /></iframe>

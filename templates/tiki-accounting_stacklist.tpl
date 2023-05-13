@@ -1,4 +1,3 @@
-{* $Id$ *}
 <a class="icon" href="tiki-accounting_export.php?action=print&what=stack&bookId={$bookId}" target="new">
     {icon name="print" alt="{tr}printable version{/tr}"}
 </a>

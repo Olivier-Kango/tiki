@@ -1,4 +1,3 @@
-{* $Id$ *}
 {* Debug console tab -- to display result of command *}
 
 

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // plugin that uses lib/graph-engine/ to produce simple bar charts on screen
 // Usage
 // {GDGRAPH(various parameters)}

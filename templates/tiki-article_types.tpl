@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title admpage="articles" url="tiki-article_types.php" help=Articles}{tr}Article Types{/tr}{/title}
 <div class="t_navbar mb-4">
     {if $tiki_p_admin eq 'y' or $tiki_p_admin_cms eq 'y'}

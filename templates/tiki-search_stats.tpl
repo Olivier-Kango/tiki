@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title help="SearchStats"}{tr}Search statistics{/tr}{/title}
 
 <div class="t_navbar">

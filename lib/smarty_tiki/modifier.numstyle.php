@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * Converts a positive integer into a selected format.
  * Obe may choose a CSS list-style-type value. Some language specific options have not been implemented.

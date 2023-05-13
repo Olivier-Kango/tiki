@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="object-selector-multi">
 <textarea
     id="{$object_selector_multi.id|escape}"

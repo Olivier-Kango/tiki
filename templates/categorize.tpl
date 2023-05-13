@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $prefs.feature_categories eq 'y' and $tiki_p_modify_object_categories eq 'y' and ((is_array($categories) and count($categories) gt 0) or $tiki_p_admin_categories eq 'y')}
     {if !isset($labelcol)}
         {$labelcol = '4'}

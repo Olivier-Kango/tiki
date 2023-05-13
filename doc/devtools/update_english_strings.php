@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // Used to automatically update all lang/*/language.php files when a English
 // string is changed in Tiki source code
 // This script is experimental. Always review the changes to language.php file before

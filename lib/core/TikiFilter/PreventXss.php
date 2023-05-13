@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // FIXME: This may quietly alter the value. Users of this filter should report if the value is modified.
 class TikiFilter_PreventXss implements Laminas\Filter\FilterInterface
 {

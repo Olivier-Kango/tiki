@@ -1,4 +1,4 @@
-{* $Id$ *}{if $threadId}{tr}Note that this is an edited post{/tr}
+{if $threadId}{tr}Note that this is an edited post{/tr}
 
 {/if}
 {if $new_topic}

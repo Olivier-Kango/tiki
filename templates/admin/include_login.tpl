@@ -1,4 +1,3 @@
-{* $Id$ *}
 {jq}
     $("#genPass").click(function () {
         var passcodeId = $("input[name=registerPasscode]").attr('id');

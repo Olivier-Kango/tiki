@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if empty($groups)}
     &mdash;
 {else}

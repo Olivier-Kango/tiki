@@ -1,4 +1,3 @@
-{* $Id$ *}
 {strip}
 {if $files|count}
     <ul class="localfiles">

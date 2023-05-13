@@ -1,4 +1,3 @@
-{* $Id$ *}
 {* navbar buttons at the top of the tracker pages *}
 <div class="btn-group">
 

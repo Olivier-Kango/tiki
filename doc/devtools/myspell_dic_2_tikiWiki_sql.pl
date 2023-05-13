@@ -3,7 +3,6 @@
 # 
 # All Rights Reserved. See copyright.txt for details and a complete list of authors.
 # Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-# $Id$
 
 ##########################
     print "ATTENTION\n##################\nThis is not a script, it is a concrete poem!\n";

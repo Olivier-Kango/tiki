@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 if ($argc < 3) {
     $helpMsg = "\nUsage: php doc/devtools/convert_tracker_attachments.php trackerId fieldId [fileGalId] ['remove|copy']\n";
     $helpMsg .= "\nRuns in preview mode unless remove or copy are specified (n.b. remove does copy as well)\n";

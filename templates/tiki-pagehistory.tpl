@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title admpage="wiki" url='tiki-pagehistory.php?page='|cat:$page|escape}{tr}History:{/tr} {$page}{/title}
 
 <div class="t_navbar mb-4">

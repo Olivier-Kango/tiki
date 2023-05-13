@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div id="tikifeedback">
     {if !empty($tikifeedback)}
         {foreach $tikifeedback as $tpl => $fb}

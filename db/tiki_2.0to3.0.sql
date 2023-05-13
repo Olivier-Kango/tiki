@@ -1,4 +1,3 @@
-# $Id$
 
 #
 # If you are using Tiki 3.x or later, this script will automatically be run by the installer when it detects that your data is from pre 3.x

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Webservices" admpage="webservices"}{tr}Webservices{/tr}{/title}
 
 <form action="tiki-admin_webservices.php" method="post">

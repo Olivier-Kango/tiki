@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // This is about improving wikiplugin_footnote, no relation to the "footnote" feature
 function prefs_footnote_list()
 {

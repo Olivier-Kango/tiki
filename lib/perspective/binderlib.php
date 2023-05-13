@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // For documentation how to use this file please see the comment at the end of this file
 
 //this script may only be included - so its better to die if called  directly.

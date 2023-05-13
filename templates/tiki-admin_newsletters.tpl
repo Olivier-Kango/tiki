@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Newsletters"}{tr}Admin newsletters{/tr}{/title}
 
 <div class="t_navbar mb-3 row mb-4">

@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class="d-flex">
     <div class="flex-shrink-0 mb-3">
     <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">

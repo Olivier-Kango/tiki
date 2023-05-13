@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if isset($validationjs)}{jq}
 $("#editItemForm{{$trackerEditFormId}}").validate({
     {{$validationjs}},

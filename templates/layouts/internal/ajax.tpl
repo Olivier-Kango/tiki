@@ -1,4 +1,4 @@
-{* $Id$ *}<!DOCTYPE html>
+<!DOCTYPE html>
 {if ! $plain}
     {block name=title}{/block}
 {/if}

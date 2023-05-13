@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title help="Directory" admpage="directory"}{tr}Admin Directory{/tr}{/title}
 
 {include file='tiki-directory_admin_bar.tpl'} <br>

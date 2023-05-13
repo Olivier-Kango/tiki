@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {if $prefs.feature_socialnetworks eq 'y'}
     {if ! empty($module_params.rows)}
         {$rows = $module_params.rows}

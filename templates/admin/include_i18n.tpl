@@ -1,4 +1,3 @@
-{* $Id$ *}
 {jq}
     function updateList( active )
     {

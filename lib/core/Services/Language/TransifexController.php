@@ -4,7 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
 // TransifexContoller extends the language controller with Transifex (www.transifex.com) related functionalities
 
 class Services_Language_TransifexController extends Services_Language_Controller

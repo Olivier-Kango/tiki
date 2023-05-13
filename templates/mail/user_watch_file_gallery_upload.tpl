@@ -1,4 +1,4 @@
-{* $Id$ *}{tr _0=$prefs.mail_template_custom_text}A new file was posted to %0file gallery:{/tr} {$galleryName}
+{tr _0=$prefs.mail_template_custom_text}A new file was posted to %0file gallery:{/tr} {$galleryName}
 
 {tr}Posted by:{/tr} {$author|username}
 {tr}Date:{/tr} {$mail_date|tiki_short_datetime:"":"n"}

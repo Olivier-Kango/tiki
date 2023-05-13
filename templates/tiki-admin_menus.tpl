@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Menus" admpage="general&amp;cookietab=3"}{tr}Menus{/tr}{/title}
 
 {if $tiki_p_admin eq 'y'}

@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 use Kaltura\Client\Client;
 use Kaltura\Client\Configuration;
 use Kaltura\Client\Enum\UiConfCreationMode;

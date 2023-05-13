@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 
 // This defines the XmlLib class, which takes care of import and export of wiki pages and structures
 // from/to a Zip file. The Zip file contains the file "wiki.xml" file, which describes the pages and

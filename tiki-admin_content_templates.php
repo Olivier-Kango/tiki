@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 $section = 'admin';
 require_once('tiki-setup.php');
 $access->check_feature(['feature_wiki_templates','feature_cms_templates','feature_file_galleries_templates'], '', 'features', true);

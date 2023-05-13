@@ -1,4 +1,3 @@
-{* $Id$ *}
 {jq notonready=true}
     function loadMedia(entryId) {
         $('#kaltura_player1')[0].sendNotification("changeMedia", {entryId:entryId});

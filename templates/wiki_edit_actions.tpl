@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="actions d-flex justify-content-center">
     <input type="hidden" name="no_bl" value="y">
     <input type="submit" class="wikiaction btn btn-secondary me-2 previewBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">

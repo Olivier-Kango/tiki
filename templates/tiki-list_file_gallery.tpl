@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="File Galleries" admpage="fgal"}
     {if $edit_mode eq 'y' and $galleryId eq 0}
         {tr}Create a File Gallery{/tr}

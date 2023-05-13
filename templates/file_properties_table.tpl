@@ -1,4 +1,3 @@
-{* $Id$ *}
 {strip}
 <table class="table">
     {foreach item=prop key=propname from=$fgal_listing_conf}

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $prefs.login_autogenerate eq 'y'}
     {*do nothing*}
 {elseif $prefs.user_register_prettytracker eq 'y' and $prefs.user_register_prettytracker_tpl and $prefs.socialnetworks_user_firstlogin != 'y'}

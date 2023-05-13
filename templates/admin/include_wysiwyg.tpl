@@ -1,4 +1,3 @@
-{* $Id$ *}
 {remarksbox type="tip" title="{tr}Tip{/tr}"}{tr}WYSIWYG means What You See Is What You Get, and is handled in Tiki by <a class="alert-link" href="http://ckeditor.com/">CKEditor</a>{/tr}.{/remarksbox}
 <form action="tiki-admin.php?page=wysiwyg" method="post" class="admin">
     {ticket}

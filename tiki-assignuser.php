@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // This script is used to assign groups to a particular user
 // ASSIGN USER TO GROUPS
 require_once('tiki-setup.php');

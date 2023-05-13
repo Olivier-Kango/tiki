@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title url="tiki-user_credits.php" help="Credits"}{tr}User Credits{/tr}{/title}
 
 <div class="table-responsive">

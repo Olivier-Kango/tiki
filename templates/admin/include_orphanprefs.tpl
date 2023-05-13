@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {remarksbox type="note" title="{tr}Tip{/tr}"}{tr}<b>Orphan preferences </b> are preferences that exist in previous versions of Tiki but for various reasons have been removed. This page allows you to view the values you have configured for these preferences and gives you the option to clear the data if necessary.{/tr}
 {/remarksbox}
 

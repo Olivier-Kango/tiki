@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if empty($comment.doNotShow) or $comment.doNotShow != 1}
     <article class="card post {$thread_style}{if $prefs.feature_comments_moderation eq 'y'} post-approved-{$comment.approved}{/if} {if $prefs.comments_archive eq 'y' && $comment.archived eq 'y'}archived_comment{/if} mb-3" {if isset($comment.threadId)}id="threadId{$comment.threadId}" {/if}{if $prefs.comments_archive eq 'y' && $comment.archived eq 'y'}style="display: none;"{/if}>
         <div class="postbody">

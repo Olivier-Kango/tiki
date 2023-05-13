@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title url=$trackerId|sefurl:'tracker' adm="trackers"}{tr}{$tracker_info.name}{/tr}{/title}
 {if !empty($tracker_info.description)}
     {if $tracker_info.descriptionIsParsed eq 'y'}

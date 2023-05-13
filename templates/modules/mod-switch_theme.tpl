@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if !isset($tpl_module_title)}
     {capture assign=tpl_module_title}{tr}Switch Theme{/tr}
         {if not $switchtheme_enabled}

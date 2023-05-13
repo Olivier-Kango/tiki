@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="card {if $permsType eq 'object'}bg-danger text-white{/if}">
     <div class="card-body">
         {capture name=permType}{$objectType}s{/capture}

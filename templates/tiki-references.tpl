@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="References" admpage="wiki" url="tiki-references.php"}{tr}References{/tr}{/title}
 <div class="t_navbar mb-4">
     {if isset($referenceinfo.ref_id)}

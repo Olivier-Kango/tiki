@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 require_once('tiki-setup.php');
 $access->check_feature('wiki_feature_copyrights');
 $access->check_permission(['tiki_p_edit_copyrights'], tra("Copyright management"));

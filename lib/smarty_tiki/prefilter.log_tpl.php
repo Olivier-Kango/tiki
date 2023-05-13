@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // To disable for certain templates where this would break, temporarily set a log_tpl template variable to false.
 function smarty_prefilter_log_tpl($source, $smarty)
 {

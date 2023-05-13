@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $user}
     {tikimodule error=$module_params.error title=$tpl_module_title name="since_last_visit_new" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
         <div style="margin-bottom: 5px; text-align:center;">

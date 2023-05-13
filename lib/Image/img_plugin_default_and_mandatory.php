@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*Admin default and mandatory settings (must be set by changing this fle or using plugin alias). Default will be used if not overridden
 by user. Mandatory will override user settings. Examples below set parameters depending on whether the image is in an article, a module, or
 whether mobile mode is set, etc.*/

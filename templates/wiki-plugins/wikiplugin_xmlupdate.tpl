@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <p>The current values for the {$xmlcount} items from the XML management file are shown in the input fields below.</p>
 
 <p>Change any individual values and click the 'Update' button to submit the revised values and to resave them in the File Gallery XML file.</p>

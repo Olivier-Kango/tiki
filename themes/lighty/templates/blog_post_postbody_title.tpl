@@ -1,4 +1,3 @@
-{* $Id$ *}
 <header class="clearfix panel-heading">
     <div class="blog-postbody-title">
         {if $blog_post_context eq 'view_blog'}

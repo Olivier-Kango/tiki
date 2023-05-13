@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title url='tiki-admin_surveys.php' help="Surveys"}{tr}Admin surveys{/tr}{/title}
 
 <div class="t_navbar btn-group mb-3">

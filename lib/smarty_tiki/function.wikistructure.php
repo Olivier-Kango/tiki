@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 //copy this file to lib/smarty_tiki
 //create a new module and put the following
 //{wikistructure id=1 detail=1}

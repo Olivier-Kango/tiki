@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {title admpage="wiki" help="Using Wiki Pages#Displaying_Last_Changes" url="tiki-lastchanges.php?days=$days"}{tr}Last Changes{/tr}{/title}
 
 <div class="t_navbar btn-group mb-4">

@@ -1,4 +1,3 @@
-{* $Id$ *}
 <span class="ratingChoice">
     {if $prefs.rating_smileys eq 'y'}
         {foreach from=$rating_options item=v key=i}

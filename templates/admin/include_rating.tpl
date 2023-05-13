@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <form class="admin" id="performance" name="performance" action="tiki-admin.php?page=rating" method="post">
     {ticket}
     <div class="row">

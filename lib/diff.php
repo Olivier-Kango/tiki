@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // A PHP diff engine for phpwiki.
 //
 // Copyright (C) 2000 Geoffrey T. Dairiki <dairiki@dairiki.org>

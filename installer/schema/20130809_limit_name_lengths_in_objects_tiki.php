@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*
 This patch will TRUNCATE the tiki_objects.itemId and name values so they don't exceed the maximum allowed page name length
 The current maximum allowed page name length = 158 characters.

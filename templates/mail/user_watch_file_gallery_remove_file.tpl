@@ -1,4 +1,4 @@
-{* $Id$ *}{tr _0=$prefs.mail_template_custom_text}A file was removed from the %0file gallery:{/tr} {$galleryName}
+{tr _0=$prefs.mail_template_custom_text}A file was removed from the %0file gallery:{/tr} {$galleryName}
 
 {tr}Removed by:{/tr} {$author|username}
 {tr}Name:{/tr} {$fname}

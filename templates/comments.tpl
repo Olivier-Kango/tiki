@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <section>
 
 {if $tiki_p_forum_read eq 'y'}

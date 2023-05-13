@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title admpage="wiki" help="Using Wiki Pages#Listing_Pages"}{tr}Pages{/tr}{/title}
 
 {tabset name='tabs_wikipages'}

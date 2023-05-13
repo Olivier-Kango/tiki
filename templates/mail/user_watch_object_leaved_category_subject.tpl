@@ -1,1 +1,1 @@
-{* $Id$ *}{tr _0=$prefs.mail_template_custom_text}An object was removed from %0category{/tr} {$categoryName}
+{tr _0=$prefs.mail_template_custom_text}An object was removed from %0category{/tr} {$categoryName}

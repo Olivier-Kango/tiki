@@ -1,4 +1,3 @@
-{* $Id$ *}
 {foreach $fb as $info}
     {if $info.count > 0}
         {if $info.count == 1}

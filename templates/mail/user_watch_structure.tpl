@@ -1,4 +1,4 @@
-{* $Id$ *}{if $action eq 'add'}
+{if $action eq 'add'}
 {tr _0=$prefs.mail_template_custom_text}A page has been added to your watched %0sub-structure:{/tr}
 {$name}
 {$mail_machine}/tiki-index.php?page_ref_id={$page_ref_id}

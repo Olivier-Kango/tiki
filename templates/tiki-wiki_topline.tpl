@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div class="wikitopline clearfix" style="clear: both;">
     <div class="content">
         {if !isset($hide_page_header) or !$hide_page_header}

@@ -8,8 +8,6 @@
  * @licence LGPL-2.1. See license.txt for details.
  */
 
-// $Id$
-
 $version = '0.2';
 
 include 'tiki-setup.php';

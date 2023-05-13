@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if empty($user) || $user eq 'anonymous' || !empty($showantibot)}
     <style>
     .antibot.ml-15 {

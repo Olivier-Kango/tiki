@@ -8,8 +8,6 @@
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
 
-// $Id$
-
 /*
   this page is used as doxygen output mainpage,
   content is pasted in from README.

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if isset($new_user_validation) && $new_user_validation eq 'y'}
     {title}{tr}Your account has been validated.{/tr}{/title}
     {remarksbox type="warning" title="{tr}Warning{/tr}" close="n"}{tr}You have to choose a password to use this account.{/tr}{/remarksbox}

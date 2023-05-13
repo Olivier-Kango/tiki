@@ -1,4 +1,3 @@
-{* $Id$ *}
 {strip}
     {tikimodule error=$module_params.error title=$tpl_module_title name="short_url" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
         <div id="short-url-module">

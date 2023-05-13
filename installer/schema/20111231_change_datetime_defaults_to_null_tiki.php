@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /**
  * Added in 2018 for tiki 19 - need to change the defaults for datetimes from 0000-00-00 to null for mysql > 5.6
  * @param $installer

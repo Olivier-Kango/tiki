@@ -1,7 +1,5 @@
 <?php
 
-// $Id$
-
 /**
  * Smarty plugin for Tiki using jQuery ClueTip instead of OverLib
  */

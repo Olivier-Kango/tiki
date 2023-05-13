@@ -1,5 +1,3 @@
-{* $Id$ *}
-
         {tab name="{tr}Bytecode Cache{/tr}"}
             {if $opcode_cache}
                 <p>{tr _0=$opcode_cache}Using <strong>%0</strong>.These stats affect all PHP applications running on the server.{/tr}</p>

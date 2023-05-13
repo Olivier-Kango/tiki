@@ -1,4 +1,3 @@
-{* $Id$ *}
 <header class="clearfix card-header p-0">
     <div class="blog-postbody-title">
         {if $blog_post_context eq 'view_blog'}

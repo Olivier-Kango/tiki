@@ -1,4 +1,3 @@
-{* $Id$ *}
 <header class="card-header clearfix postbody-title media-overflow-visible"> {*the card-header class cut off dropdowns so need media-overflow-visible class in BS3. Also true for card-header in BS4? *}
     {if $prefs.feature_comments_locking neq 'y' or
         ( $comment.locked neq 'y' and $thread_is_locked neq 'y' )}

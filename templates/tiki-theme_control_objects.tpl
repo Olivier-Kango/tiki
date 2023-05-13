@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Theme Control"}{tr}Theme Control:{/tr} {tr}Objects{/tr}{/title}
 <div class="t_navbar btn-group">
     {button href="tiki-theme_control.php" class="btn btn-primary" _text="{tr}Control by Categories{/tr}"}

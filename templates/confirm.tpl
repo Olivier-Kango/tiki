@@ -1,4 +1,3 @@
-{* $Id$ *}
 {extends 'internal/ajax.tpl'}
 {block name="title"}
     {title}{$title|escape}{/title}

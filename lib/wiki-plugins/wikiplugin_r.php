@@ -4,7 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
 //
 // Initial inspiration from the R Plugin for Mediawiki (2006- Sigbert Klinke (sigbert@wiwi.hu-berlin.de), Markus Cozowicz, Michael Cassin)
 // Fully rewritten by the Tiki community for LGPL licencing compliance
@@ -15,8 +14,6 @@
 // Usage:
 // {R()}R code{R}. See documentation: http://doc.tiki.org/PluginR
 //
-// $Id$
-
 
 require_once('lib/wiki-plugins/wikiplugin_rr.php');
 

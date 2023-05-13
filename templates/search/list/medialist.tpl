@@ -1,4 +1,3 @@
-{* $Id$ *}
 <ul class="list-unstyled media-list">
     {foreach from=$results item=row}
         <li class="media">

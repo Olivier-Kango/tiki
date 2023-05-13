@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
     {tr}Use the 'Quick Edit' module to easily create or edit wiki pages.{/tr} <a class="btn btn-link alert-link" href="tiki-admin_modules.php">{icon name="module"} {tr}Modules{/tr}</a>
 {/remarksbox}

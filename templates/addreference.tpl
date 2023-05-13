@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $prefs.wikiplugin_addreference eq 'y' && $showBiblioSection eq '1'}
 
 

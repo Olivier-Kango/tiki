@@ -7,8 +7,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*
  * CryptLib (aims to) safely store encrypted data, e.g. passwords for external systems, in Tiki.
  * The encrypted data can only be decrypted by the owner/user.

@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 {if (! empty($tree)
     && $tiki_p_list_file_galleries != 'n'
     && $fgal_options.show_explorer.value eq 'y'

@@ -3,8 +3,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 // heaviled modified get_strings.php
 // dedicated as a tool for use in an eventual test suite
 // mose@tikiwiki.org

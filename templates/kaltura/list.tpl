@@ -1,4 +1,3 @@
-{* $Id$ *}
 {extends 'layout_view.tpl'}
 
 {block name="title"}

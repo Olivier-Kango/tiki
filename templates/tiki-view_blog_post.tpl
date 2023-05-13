@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if strlen($blog_data.post_heading) > 0 and $prefs.feature_blog_heading eq 'y'}
     {eval var=$blog_data.post_heading}
 {else}

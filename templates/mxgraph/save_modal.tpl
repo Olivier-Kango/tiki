@@ -1,4 +1,3 @@
-{* $Id$ *}
 <div style="text-align:center; padding: 20px">
     <div class="diagram-saving">
         <p>{tr}Saving{/tr}</p>

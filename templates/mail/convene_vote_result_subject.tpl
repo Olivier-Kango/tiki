@@ -1,1 +1,1 @@
-{* $Id$ *}{tr}Vote Result for %s on %s{/tr}
+{tr}Vote Result for %s on %s{/tr}

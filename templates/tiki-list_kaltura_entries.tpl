@@ -1,4 +1,3 @@
-{* $Id$ *}
 {title help="Kaltura" admpage="video"}{if $entryType eq "mix"}{tr}Remix Entries{/tr}{else}{if $view ne "browse"}{tr}List Media{/tr}{else}{tr}Browse Media{/tr}{/if}{/if}{/title}
 
 <div class="row mb-3 row">

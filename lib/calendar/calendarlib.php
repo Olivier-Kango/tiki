@@ -4,8 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 if (! defined('ROLE_ORGANIZER')) {
     define('ROLE_ORGANIZER', '6');
 }

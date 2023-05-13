@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if !$ts.ajax}
     {title help="Users Management" admpage="login" url="tiki-adminusers.php"}{tr}Admin Users{/tr}{/title}
 

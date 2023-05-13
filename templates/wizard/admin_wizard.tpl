@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div class="col-lg-12">
     <fieldset>
         <legend><h2>{tr}Get Started{/tr}</h2></legend>

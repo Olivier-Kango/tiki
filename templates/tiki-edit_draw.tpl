@@ -1,4 +1,3 @@
-{* $Id$ *}
 {if $drawFullscreen neq 'true'}
     {title help="Draw"}{$name}{/title}
 {/if}

@@ -1,4 +1,3 @@
-{* $Id$ *}
 {foreach from=$data item=$diagram name=diagrams}
     <div id="graph-container{if isset($index)}-{$index}{/if}-{$smarty.foreach.diagrams.iteration|escape}" class="diagram text-{{$alignment}}" page="{$page_name}"></div>
 {/foreach}

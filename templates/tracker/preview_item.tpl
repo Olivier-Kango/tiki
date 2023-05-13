@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <div align="center" class="attention" style="padding-top: 20px; padding-bottom: 20px;">
     <strong>{tr}Note: Remember that this is only a preview, and has not yet been saved!{/tr}</strong>
 </div>

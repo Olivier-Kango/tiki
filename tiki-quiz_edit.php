@@ -8,8 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id$
-
 /*
 (The expire date must be rigid.  That is, papers will not be accepted after the expire
 date, even if the quiz was started before the expire date.  Otherwise, in cases where

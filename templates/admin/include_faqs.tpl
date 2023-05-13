@@ -1,4 +1,3 @@
-{* $Id$ *}
 <form role="form" action="tiki-admin.php?page=faqs" method="post">
     {ticket}
     <div class="t_navbar mb-4 clearfix">

@@ -1,5 +1,3 @@
-{* $Id$ *}
-
 <h5>Total number of uncategorised {$objecttype} objects: {$totalcount}</h5>
 {foreach from=$orphans item=orphan}
     {if $objecttype eq 'wiki'}<a href="{$orphan.pageName|sefurl}">{$orphan.pageName|escape}</a><br>

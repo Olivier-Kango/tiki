@@ -3,7 +3,6 @@
 # 
 # All Rights Reserved. See copyright.txt for details and a complete list of authors.
 # Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-# $Id$
 
 # Provide a report on CSS classes used in a stylesheet 
 # Usage: ./csscheck.sh tikineat
