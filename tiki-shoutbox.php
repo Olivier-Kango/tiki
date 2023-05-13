@@ -53,7 +53,12 @@ if ($tiki_p_post_shoutbox == 'y') {
                 $smarty->assign_by_ref('message', $_REQUEST['message']);
             }
         } else {
-            $shoutboxlib->replace_shoutbox($_REQUEST['msgId'], $owner, $_REQUEST['message'], ($_REQUEST['tweet'] == 1));
+            $shoutboxlib->replace_shoutbox(
+                $_REQUEST['msgId'],
+                $owner,
+                $_REQUEST['message'],
+                (isset($_REQUEST['tweet']) ? $_REQUEST['tweet'] == 1 : false)
+            );
             $smarty->assign('msgId', '0');
             $smarty->assign('message', '');
         }
