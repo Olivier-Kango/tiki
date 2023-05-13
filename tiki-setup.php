@@ -142,13 +142,6 @@ if ($prefs['login_multiple_forbidden'] == 'y') {
 }
 
 require_once('lib/setup/cookies.php');
-
-if ($prefs['mobile_feature'] === 'y') {
-    require_once('lib/setup/mobile.php');   // needs to be before js_detect but after cookies
-} else {
-    $prefs['mobile_mode'] = 'n';
-}
-
 require_once('lib/setup/user_prefs.php');
 require_once('lib/setup/language.php');
 require_once('lib/setup/wiki.php');

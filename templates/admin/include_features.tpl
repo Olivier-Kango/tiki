@@ -229,16 +229,6 @@
                     </fieldset>
                 </div>
             </fieldset>
-
-            <fieldset class="mb-3 w-100 clearfix featurelist">
-                <legend><h4 class="showhide_heading" id="Mobile"> {tr}Mobile{/tr}  <a href="#Mobile" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
-                {preference name=mobile_feature}
-
-                    <div class="adminoptionboxchild" id="mobile_feature_childcontainer">
-                        {preference name=mobile_perspectives}
-                    </div>
-            </fieldset>
-
         {/tab}
 
         {tab name="{tr}Programmer{/tr}" key=programmer}
