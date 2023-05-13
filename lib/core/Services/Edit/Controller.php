@@ -90,7 +90,7 @@ class Services_Edit_Controller
             $part = urldecode($part);
         }
 
-        $page = $autoSaveIdParts[2];    // plugins use global $page for approval
+        $page = $autoSaveIdParts[2] ?? '';    // plugins use global $page for approval
 
         if (! Perms::get('wiki page', $page)->edit || $user != TikiLib::lib('service')->internal('semaphore', 'get_user', ['object_id' => $page, 'check' => 1])) {
             return '';
