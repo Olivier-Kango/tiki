@@ -52,8 +52,17 @@ function wikiplugin_addtogooglecal($data, $params)
     $access->check_feature('feature_calendar');
     $calendarlib = TikiLib::lib('calendar');
 
+    if (! isset($params['calitemid'])) {
+        return WikiParser_PluginOutput::argumentError(['calitemid']);
+    }
+
     $cal_item_id = $params['calitemid'];
     $cal_id = $calendarlib->get_calendarid($cal_item_id);
+
+    if (! $cal_id) {
+        return WikiParser_PluginOutput::error(tr('Error'), tr("Calendar %0 not found", $cal_item_id));
+    }
+
     $calperms = Perms::get([ 'type' => 'calendar', 'object' => $cal_id ]);
     if (! $calperms->view_events) {
         return '';
