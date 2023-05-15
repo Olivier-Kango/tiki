@@ -24,7 +24,7 @@ class TikiCalendarLib extends CalendarLib
      * @param string $find
      * @return array
      */
-    public function list_items_by_day($tikiobj, $user, $tstart, $tstop, $offset, $maxRecords, $sort_mode = 'name_desc', $find = '')
+    public function list_items_by_day($tikiobj, $user, $tstart, $tstop, $offset, $maxRecords, $sort_mode = 'name_desc', $find = '', $customs = [])
     {
         return $this->list_tiki_items($tikiobj, $user, $tstart, $tstop, $offset, $maxRecords, $sort_mode, $find);
     }
@@ -37,9 +37,9 @@ class TikiCalendarLib extends CalendarLib
      * @param string $item_name
      * @return array
      */
-    public function getCalendar($calIds, &$viewstart, &$viewend, $group_by = '', $item_name = 'actions')
+    public function getCalendar($calIds, &$viewstart, &$viewend, $group_by = '', $item_name = 'actions', $listmode = false)
     {
-        return parent::getCalendar($calIds, $viewstart, $viewend, $group_by, $item_name);
+        return parent::getCalendar($calIds, $viewstart, $viewend, $group_by, $item_name, $listmode);
     }
 
     /**
