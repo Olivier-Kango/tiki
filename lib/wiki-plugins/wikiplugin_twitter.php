@@ -156,54 +156,61 @@ function wikiplugin_twitter_info()
 
 function wikiplugin_twitter($data, $params)
 {
+    // Initialize default values
+    $datachromehtml_ = '';
+    $width_ = 'auto';
+    $height_ = 300;
+    $theme_ = 'light';
+
     $default = ['shellbg' => '', 'shellcolor' => '', 'tweetbg' => '', 'tweetcolor' => '', 'width' => 'auto', 'height' => 300];
     $params = array_merge($default, $params);
     extract($params, EXTR_SKIP);
 
     // Variables sanitizing
-    $tweetlimit = (int)$tweetlimit;
-    $tweetbg = preg_replace('/[^#0-9a-zA-Z]/', '', $tweetbg);
-    $tweetcolor = preg_replace('/[^#0-9a-zA-Z]/', '', $tweetcolor);
-    $tweet = preg_replace('/[^#0-9a-zA-Z%\/=]/', '', $tweet);
-    $widgetId = preg_replace('/[^0-9]/', '', $widgetId);
-    if ($theme != 'dark') {
-        $theme = 'light';
-    }
+    $tweetlimit = isset($tweetlimit) ? (int)$tweetlimit : 0;
+    $tweetbg = isset($tweetbg) ? preg_replace('/[^#0-9a-zA-Z]/', '', $tweetbg) : '';
+    $tweetcolor = isset($tweetcolor) ? preg_replace('/[^#0-9a-zA-Z]/', '', $tweetcolor) : '';
+    $tweet = isset($tweet) ? preg_replace('/[^#0-9a-zA-Z%\/=]/', '', $tweet) : '';
+    $widgetId = isset($widgetId) ? preg_replace('/[^0-9]/', '', $widgetId) : '';
+
     $datachrome = [];
-    if ($noheader == 'y') {
+    if (isset($noheader) && $noheader == 'y') {
         $datachrome[] = 'noheader';
     }
-    if ($nofooter == 'y') {
+    if (isset($nofooter) && $nofooter == 'y') {
         $datachrome[] = 'nofooter';
     }
-    if ($noborders == 'y') {
+    if (isset($noborders) && $noborders == 'y') {
         $datachrome[] = 'noborders';
     }
-    if ($noscrollbar == 'y') {
+    if (isset($noscrollbar) && $noscrollbar == 'y') {
         $datachrome[] = 'noscrollbar';
     }
-    if ($shellbg == 'transparent') {
+    if (isset($shellbg) && $shellbg == 'transparent') {
         $datachrome[] = 'transparent' ;
     }
     if (count($datachrome) > 0) {
-        $datachromehtml = "data-chrome=' " . implode(' ', $datachrome) . "' ";
+        $datachromehtml_ = isset($datachromehtml) ? "data-chrome=' " . implode(' ', $datachrome) . "' " : '';
     }
-    if ($width != 'auto') {
-        $width = preg_replace('/[^0-9]/', '', $width);
+    if (isset($theme) && $theme != 'dark') {
+        $theme_ = 'light';
     }
-    $height = (int)$height;
+    if (isset($width) && $width != 'auto') {
+        $width_ = isset($width) ? preg_replace('/[^0-9]/', '', $width) : '';
+    }
+    $height_ = isset($height) ? (int)$height : 300;
 
     // Inspiration: http://stackoverflow.com/questions/14303710/how-to-customize-twitter-widget-style
     // and https://dev.twitter.com/web/embedded-timelines
     // Note: the $widgetId is more important than the $tweet in defining what is displayed
     $html = "<a class=\"twitter-timeline\"  href=\"https://twitter.com/$tweet\" data-widget-id=\"$widgetId\"
-$datachromehtml 
+$datachromehtml_ 
 " . (empty($tweetlimit) ? '' : " data-tweet-limit='$tweetlimit'\n") .
     (empty($tweetcolor) ? "" : " data-link-color='$tweetcolor'\n") .
     (empty($tweetbg) ? "" : " data-border-color='$tweetbg'\n") .
-    "data-theme='$theme' 
-height='$height'
-width='$width'
+    "data-theme='$theme_' 
+height='$height_'
+width='$width_'
 " .
     "data-show-replies='false'
 data-aria-polite='polite'>Tweets from @$tweet</a>
