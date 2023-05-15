@@ -17,7 +17,6 @@ $done = '';
 $output = '';
 $buf = '';
 
-use Tiki\Process\Process;
 $cachelib = TikiLib::lib('cache');
 if (isset($_GET['do'])) {
     $cachelib->empty_cache($_GET['do']);

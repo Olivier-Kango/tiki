@@ -13,7 +13,7 @@ use Sentry\EventHint;
 class ErrorTracking
 {
     /** Set this to true when developing this tool.  It will ignore preferences and activate the code with a dummy DSN */
-    private static bool $LOCAL_DEBUG_MODE = false;
+    private const LOCAL_DEBUG_MODE = false;
 
     const STATE_DISABLED = 0;
     const STATE_HOLD = 1;
@@ -78,7 +78,7 @@ class ErrorTracking
         global $prefs;
         $this->phpEnabled = ($prefs['error_tracking_enabled_php'] ?? 'n') === 'y';
         $this->jsEnabled = ($prefs['error_tracking_enabled_js'] ?? 'n') === 'y';
-        if (! self::$LOCAL_DEBUG_MODE) {
+        if (! self::LOCAL_DEBUG_MODE) {
             $this->dsn = $prefs['error_tracking_dsn'] ?? false;
         } else {
             //Sentry is picky about DSN format. This will work:
@@ -96,7 +96,7 @@ class ErrorTracking
         if ($this->isInitialised) {
             throw new Error('Error tracking can only be initialised once, so we can control where that happens');
         }
-        if (! self::$LOCAL_DEBUG_MODE && (! isset($this->dsn) || ! $this->phpEnabled || $this->state !== self::STATE_DISABLED)) {
+        if (! self::LOCAL_DEBUG_MODE && (! isset($this->dsn) || ! $this->phpEnabled || $this->state !== self::STATE_DISABLED)) {
             return;
         }
         try {
@@ -105,7 +105,7 @@ class ErrorTracking
             'http_proxy'  => ($prefs['use_proxy'] ?? 'n') === 'y' ? $this->getProxyURL() : null,
             'sample_rate' => $this->getSampleRate(),
             'before_send' => function (Event $event, ?EventHint $hint): ?Event {
-                if (true && self::$LOCAL_DEBUG_MODE) {
+                if (true && self::LOCAL_DEBUG_MODE) {
                     echo '<pre>';
                     print_r("Incoming sentry event:<br/>");
                     //cho $event->getId();
@@ -124,7 +124,7 @@ class ErrorTracking
                 return null;
             },
                         'before_send_transaction' => function (Event $transaction): ?Event {
-                            if (false && self::$LOCAL_DEBUG_MODE) {
+                            if (false && self::LOCAL_DEBUG_MODE) {
                                 echo '<pre>';
                                 print_r("Incoming sentry transaction:<br/>");
                                 var_dump($transaction);
@@ -232,7 +232,7 @@ class ErrorTracking
     {
         if ($this->state !== self::STATE_DISABLED) {
             $manager->bind(
-                'tiki . process . shutdown',
+                'tiki.process.shutdown',
                 function () {
                     // Events were already sampled when prepared
                     // Setting to 1 will send all of them
