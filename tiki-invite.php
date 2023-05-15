@@ -68,8 +68,10 @@ function parsemails_all($bloc)
 
 $previous = [];
 $res = $tikilib->query("SELECT * FROM `tiki_invite` ORDER BY `ts` DESC");
+$tikidate = new TikiDate();
 while (is_array($row = $res->fetchRow())) {
-    $row['datetime'] = strftime('%c', $row['ts']);
+    $tikidate->setDate($row['ts']);
+    $row['datetime'] = $tikidate->format('%c', true);
     $previous[$row['id']] = $row;
 }
 $smarty->assign('previous', $previous);

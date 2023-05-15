@@ -57,6 +57,7 @@ function smarty_function_html_select_date($params, $smarty)
     $display_months  = true;
     $display_years   = true;
     $month_format    = "%B";
+    $tikidate = new TikiDate();
 
     /* Write months as numbers by default  GL */
     $month_value_format = "%m";
@@ -167,17 +168,19 @@ function smarty_function_html_select_date($params, $smarty)
 
     // make syntax "+N" or "-N" work with start_year and end_year
     if (preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match)) {
+        $tikidate->setDate(time());
         if ($match[1] == '+') {
-            $end_year = strftime('%Y') + $match[2];
+            $end_year = $tikidate->format('%Y', true) + $match[2];
         } else {
-            $end_year = strftime('%Y') - $match[2];
+            $end_year = $tikidate->format('%Y', true) - $match[2];
         }
     }
     if (preg_match('!^(\+|\-)\s*(\d+)$!', $start_year, $match)) {
+        $tikidate->setDate(time());
         if ($match[1] == '+') {
-            $start_year = strftime('%Y') + $match[2];
+            $start_year = $tikidate->format('%Y', true) + $match[2];
         } else {
-            $start_year = strftime('%Y') - $match[2];
+            $start_year = $tikidate->format('%Y', true) - $match[2];
         }
     }
     if (strlen($time[0]) > 0) {
@@ -209,8 +212,9 @@ function smarty_function_html_select_date($params, $smarty)
             //tra('January') tra('February') tra('March') tra('April') tra('May') tra('June')
             // tra('July') tra('August') tra('September') tra('October') tra('November') tra('December')
 
-            $month_names[$i] = ucfirst(tra(utf8_encode(strftime($month_format, mktime(0, 0, 0, $i, 1, 2000)))));
-            $month_values[$i] = strftime($month_value_format, mktime(0, 0, 0, $i, 1, 2000));
+            $tikidate->setDate(mktime(0, 0, 0, $i, 1, 2000));
+            $month_names[$i] = ucfirst(tra(utf8_encode($tikidate->format($month_format, true))));
+            $month_values[$i] = $tikidate->format($month_value_format, true);
         }
 
         $month_result .= '<select class="form-control date" name=';
@@ -230,11 +234,12 @@ function smarty_function_html_select_date($params, $smarty)
         }
         $month_result .= $extra_attrs . '>' . "\n";
 
+        $tikidate->setDate(mktime(0, 0, 0, (int) $time[1], 1, 2000));
         $month_result .= smarty_function_html_options(
             [
                 'output'     => $month_names,
                 'values'     => $month_values,
-                'selected'   => (int) $time[1] ? strftime($month_value_format, mktime(0, 0, 0, (int) $time[1], 1, 2000)) : '',
+                'selected'   => (int) $time[1] ? $tikidate->format($month_value_format, true) : '',
                 'print_result' => false
             ],
             $smarty

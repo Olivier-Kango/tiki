@@ -39,6 +39,7 @@ function smarty_function_html_select_time($params, $smarty)
     $minute_interval    = 1;
     $second_interval    = 1;
     $hour_minmax        = '0-23';
+    $tikidate = new TikiDate();
     /* Should the select boxes be part of an array when returned from PHP?
        e.g. setting it to "birthday", would create "birthday[Hour]",
        "birthday[Minute]", "birthday[Seconds]" & "birthday[Meridian]".
@@ -157,7 +158,8 @@ function smarty_function_html_select_time($params, $smarty)
         }
 
         if ($time !== '--') {
-            $minute = strftime('%M', $time);
+            $tikidate->setDate($time);
+            $minute = $tikidate->format('%M', true);
         } else {
             $minute = '00';
         }
@@ -184,7 +186,8 @@ function smarty_function_html_select_time($params, $smarty)
             } elseif (in_array($minute, $minutes)) {
                 $selected = $minute;
             } else {
-                $selected = (int)(floor(strftime('%M', $time) / $minute_interval) * $minute_interval);
+                $tikidate->setDate($time);
+                $selected = (int)(floor($tikidate->format('%M', true) / $minute_interval) * $minute_interval);
             }
         }
 
@@ -233,10 +236,12 @@ function smarty_function_html_select_time($params, $smarty)
             $seconds[] = 59;
         }
 
-        if ($prefix == 'end_' && ($time_hr24 == '000000' || strftime('%M', $time) == 59)) {
+        $tikidate->setDate($time);
+
+        if ($prefix == 'end_' && ($time_hr24 == '000000' || $tikidate->format('%M', true) == 59)) {
             $selected = 59;
         } else {
-            $selected = $time == '--' ? $second_empty : (int)(floor(strftime('%S', $time) / $second_interval) * $second_interval);
+            $selected = $time == '--' ? $second_empty : (int)(floor($tikidate->format('%S', true) / $second_interval) * $second_interval);
         }
 
         $html_result .= '<div class="col"><select class="' . $class . '" name=';

@@ -257,13 +257,17 @@ function wikiplugin_events($data, $params)
 
     $repl .= '<table class="table-bordered">';
     $repl .= '<tr class="heading"><td colspan="2">' . tra("Upcoming Events") . '</td></tr>';
+    $tikidateStart = new TikiDate();
+    $tikidateEnd = new TikiDate();
     for ($j = 0; $j < $max; $j++) {
+        $tikidateStart->setDate($events[$j]["start"]);
+        $tikidateEnd->setDate($events[$j]["end"]);
         if ($datetime != 1) {
-            $eventStart = str_replace(" ", "&nbsp;", strftime($tikilib->get_short_date_format(), $events[$j]["start"]));
-            $eventEnd = str_replace(" ", "&nbsp;", strftime($tikilib->get_short_date_format(), $events[$j]["end"]));
+            $eventStart = str_replace(" ", "&nbsp;", $tikidateStart->format($tikilib->get_short_date_format(), true));
+            $eventEnd = str_replace(" ", "&nbsp;", $tikidateEnd->format($tikilib->get_short_date_format(), true));
         } else {
-            $eventStart = str_replace(" ", "&nbsp;", strftime($tikilib->get_short_datetime_format(), $events[$j]["start"]));
-            $eventEnd = str_replace(" ", "&nbsp;", strftime($tikilib->get_short_datetime_format(), $events[$j]["end"]));
+            $eventStart = str_replace(" ", "&nbsp;", $tikidateStart->format($tikilib->get_short_datetime_format(), true));
+            $eventEnd = str_replace(" ", "&nbsp;", $tikidateEnd->format($tikilib->get_short_datetime_format(), true));
         }
         if ($j % 2) {
             $style = "odd";

@@ -185,6 +185,11 @@ function wikiplugin_contributionsdashboard($data, $params)
         }
     }
 
+    $tikidateStart = new TikiDate();
+    $tikidateStart->setDate($start);
+    $tikidateEnd = new TikiDate();
+    $tikidateEnd->setDate($end);
+
     return "
             <style>
                 .header {
@@ -202,8 +207,8 @@ function wikiplugin_contributionsdashboard($data, $params)
                     " . tr("Contributions Dashboard") . "
                     <form class='headerHelper'>
                         " . tr("Date Range") . "
-                        <input type='text' name='raphaelStart$i' id='raphaelStart$i' class='cDashDate' value='" . strftime("%m/%d/%Y", $start) . "' />
-                        <input type='text' name='raphaelEnd$i' id='raphaelEnd$i' class='cDashDate' value='" . strftime("%m/%d/%Y", $end) . "' />
+                        <input type='text' name='raphaelStart$i' id='raphaelStart$i' class='cDashDate' value='" . $tikidateStart->format("%m/%d/%Y", true) . "' />
+                        <input type='text' name='raphaelEnd$i' id='raphaelEnd$i' class='cDashDate' value='" . $tikidateEnd->format("%m/%d/%Y", true) . "' />
                         <input type='hidden' name='refresh' value='1' />
                         <input type='submit' id='raphaelUpdate$i' value='" . tr("Update") . "' />
                     </form>

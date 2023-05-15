@@ -261,8 +261,12 @@ if (isset($_POST['act'])) {
                 $calRecurrence->setCalendarId($save['calendarId']);
                 $tz = date_default_timezone_get();
                 date_default_timezone_set('UTC');
-                $calRecurrence->setStart(strftime('%H%M', $save['start']));
-                $calRecurrence->setEnd(strftime('%H%M', $save['end']));
+                $tikidateStart = new TikiDate();
+                $tikidateStart->setDate($save['start']);
+                $tikidateEnd = new TikiDate();
+                $tikidateEnd->setDate($save['end']);
+                $calRecurrence->setStart($tikidateStart->format("%H%M", true));
+                $calRecurrence->setEnd($tikidateEnd->format("%H%M", true));
                 date_default_timezone_set($tz);
                 $calRecurrence->setAllday($save['allday']);
                 $calRecurrence->setLocationId($save['locationId']);
