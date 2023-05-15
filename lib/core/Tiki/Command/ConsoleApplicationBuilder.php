@@ -355,7 +355,7 @@ class ConsoleApplicationBuilder
      */
     protected function checkIsDbRunning(): void
     {
-        if (! DB_RUNNING) {
+        if (defined('DB_RUNNING') && DB_RUNNING !== true) {
             throw new UnavailableException(
                 'Your database must be running and have valid credentials in the local.php file. See http://doc.tiki.org/Installation for more information.',
                 UnavailableException::CHECK_RUNNING
