@@ -67,15 +67,18 @@ report.xml
 /lib/test/phpunit-log.current.json
 /lib/test/templates_c
 /lib/test/traces-phpunit_with_baseline.txt
+/modules/cache
 /permissioncheck/.htaccess
 /project.index
 /profiles/info.ini
+/profiles/*.yml
 /profiles/*/*
 
 /storage/tiki-manager
 /storage/public/*
 !/storage/public/vue-mf
 /storage/public/vue-mf/*/*.map
+/storage/prefsdoc
 /storage/fgal/*
 /svn-commit.tmp
 /temp/*
