@@ -707,7 +707,7 @@ class ParserLib extends TikiDb_Bridge
     //*
     public function plugin_fingerprint_check($fp, $body, $args, $dont_modify = false)
     {
-        global $user;
+        global $prefs, $base_url, $user;
         $tikilib = TikiLib::lib('tiki');
         $limit = date('Y-m-d H:i:s', time() - 15 * 24 * 3600);
         $result = $this->query("SELECT `status`, if (`status`='pending' AND `last_update` < ?, 'old', '') flag FROM `tiki_plugin_security` WHERE `fingerprint` = ?", [ $limit, $fp ]);
@@ -743,6 +743,9 @@ class ParserLib extends TikiDb_Bridge
             }
 
             $pluginSecurity = $tikilib->table('tiki_plugin_security');
+            if (empty($prefs['fallbackBaseUrl'])) {
+                $tikilib->set_preference('fallbackBaseUrl', $base_url);
+            }
             $pluginSecurity->delete(['fingerprint' => $fp]);
             $pluginSecurity->insert(
                 ['fingerprint' => $fp, 'status' => 'pending', 'added_by' => $user, 'last_objectType' => $objectType, 'last_objectId' => $objectId, 'body' => $this->unprotectSpecialChars($body, true), 'arguments' => serialize($args)]
