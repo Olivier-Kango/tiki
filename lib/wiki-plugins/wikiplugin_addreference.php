@@ -50,10 +50,11 @@ function wikiplugin_addreference($data, $params)
             $page = urldecode($_REQUEST['page']);
             $page_id = TikiLib::lib('tiki')->get_page_id_from_name($page);
             $page_info = TikiLib::lib('tiki')->get_page_info($page);
-        } else {
-            $object = current_object();
+        } else if ($object = current_object()) {
             $page_id = TikiLib::lib('tiki')->get_page_id_from_name($object['object']);
             $page_info = TikiLib::lib('tiki')->get_page_info($object['object']);
+        } else {
+            return '';
         }
 
         if (empty($params['biblio_code']) || (is_array($params['biblio_code']) && count($params['biblio_code']) == 0)) {
