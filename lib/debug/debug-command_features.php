@@ -58,7 +58,9 @@ class DbgFeatures extends DebuggerCommand
         $perms = [];
         $len = strlen($mask);
 
-        foreach ($tpl_vars as $key => $val) {
+        global $prefs;
+
+        foreach ($prefs as $key => $val) {
             if ((! $len || $len && preg_match('/' . $mask . '/', $key)) && preg_match('/feature_/', $key)) {
                 $perms[] = [
                     'name' => $key,

@@ -6,27 +6,26 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-function smarty_function_debugger($params, $smarty)
+function smarty_function_debugger($params, $smarty): string
 {
-
     global $prefs;
     if ($prefs['feature_debug_console'] == 'y') {
         global $debugger;
 
-        require_once('lib/debug/debugger.php');
+        require_once 'lib/debug/debugger.php';
 
         // Get current URL
-        $smarty->assign('console_father', $_SERVER["REQUEST_URI"]);
+        $smarty->assign('console_father', $_SERVER['REQUEST_URI']);
 
         // Set default value
         $smarty->assign('result_type', NO_RESULT);
 
         // Exec user command in internal debugger
-        if (isset($_REQUEST["command"])) {
+        if (isset($_REQUEST['command'])) {
             // Exec command in debugger
-            $command_result = $debugger->execute($_REQUEST["command"]);
+            $command_result = $debugger->execute($_REQUEST['command']);
 
-            $smarty->assign('command', $_REQUEST["command"]);
+            $smarty->assign('command', $_REQUEST['command']);
             $smarty->assign('result_type', $debugger->result_type());
 
             // If result need temlate then we have $command_result array...
@@ -38,14 +37,14 @@ function smarty_function_debugger($params, $smarty)
                 $smarty->assign('command_result', $command_result);
             }
         } else {
-            $smarty->assign('command', "");
+            $smarty->assign('command', '');
         }
 
         // Draw tabs to array. Note that it MUST be AFTER exec command.
         // Bcouse 'exec' can change state of smth so tabs content should be changed...
         $tabs_list = $debugger->background_tabs_draw();
         // Add results tab which is always exists...
-        $tabs_list["console"] = $smarty->fetch("debug/tiki-debug_console_tab.tpl");
+        $tabs_list['console'] = $smarty->fetch('debug/tiki-debug_console_tab.tpl');
         ksort($tabs_list);
         $tabs = [];
 
@@ -61,39 +60,29 @@ function smarty_function_debugger($params, $smarty)
 
             //
             $tabs[] = [
-                "button_caption" => $tname,
-                "tab_id" => md5($tname),
-                "button_href" => $href . 'return false;',
-                "tab_code" => $tcode
+                'button_caption' => $tname,
+                'tab_id' => md5($tname),
+                'button_href' => $href . 'return false;',
+                'tab_code' => $tcode
             ];
         }
 
         // Debug console open/close
         //require_once('lib/setup/cookies.php');
         $c = getCookie('debugconsole', 'menu');
-        $smarty->assign('debugconsole_style', $c == 'o' ? 'display:block;' : 'display:none;');
+        $smarty->assign('debugconsole_style', $c == 'o' ? 'display:block; opacity:0;' : 'display:none;');
 
         $smarty->assignByRef('tabs', $tabs);
 
         $js = '';
-        if ($prefs['feature_jquery_ui'] == 'y') {
-            $headerlib = TikiLib::lib('header');
-            $headerlib->add_jq_onready(
-                "
-\$('#debugconsole').draggable({
-    stop: function(event, ui) {
-        var off = \$('#debugconsole').offset();
-           setCookie('debugconsole_position', off.left + ',' + off.top);
-    }
-});
-debugconsole_pos = getCookie('debugconsole_position')
-if (debugconsole_pos) {debugconsole_pos = debugconsole_pos.split(',');}
-if (debugconsole_pos) {
-    \$('#debugconsole').css({'left': debugconsole_pos[0] + 'px', 'top': debugconsole_pos[1] + 'px'});
-}
-"
-            );
+        $prepend_jq = "";
+        if ($_REQUEST['command'] != "help") {
+            $prepend_jq .= "$('.selectable').css('cursor','text');";
         }
+        $headerlib = TikiLib::lib('header');
+        $headerlib->add_jsfile('./vendor_bundled/vendor/npm-asset/interactjs/dist/interact.js');
+        $headerlib->add_jq_onready($prepend_jq);
+        $headerlib->add_jsfile('./lib/jquery_tiki/function.debugger.js');
         $ret = $smarty->fetch('debug/function.debugger.tpl');
         return $ret;
     }

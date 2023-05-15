@@ -1,0 +1,73 @@
+/* Additional styles for the debugger console */
+
+$breakpoint-small: 576px;
+$breakpoint-medium: 768px;
+
+#debugconsole {
+    word-wrap: break-word;
+    overflow: auto;
+    max-height: 95vh;
+    padding: 20px;
+    border-radius: 5px;
+    touch-action: none;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #eadfdf;
+        border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #000000;
+        border-radius: 20px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #1b1a1a;
+    }
+
+    & a.btn.btn-primary {
+        color: white;
+    }
+
+    @media screen and ( #{$breakpoint-small - 1} < width < $breakpoint-medium) {
+        & {
+            width: 80%;
+        }
+    }
+
+    @media screen and (width < $breakpoint-small) {
+        & {
+            width: 90%;
+        }
+    }
+
+    & .debugger-tab {
+        span.no-wrap {
+            white-space: nowrap;
+        }
+        span.off-option {
+            opacity: 0.7;
+        }
+        span.on-option {
+            color: #0d6efd;
+        }
+        td {
+            padding-right: 10px;
+        }
+    }
+}
+
+#copyButton {
+    cursor: pointer;
+    transition: all 500ms;
+
+    &:hover {
+        color: #0d6efd;
+    }
+}
+
+/* End of file */

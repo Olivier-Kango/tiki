@@ -60,24 +60,19 @@ class DbgSQLQuery extends DebuggerCommand
 
         //
         if (strlen(trim($params)) != 0) {
-            global $tikilib;
-
-            $qr = $tikilib->db->query($params);
-
-            if (DB::isError($qr)) {
-                $result = '<span class="dbgerror">' . $qr->getMessage() . '</span>';
-            } else {
+            try {
+                $query = TikiDb::get()->query($params, null, -1, -1, 'exception');
                 // Check if result value an array or smth else
-                if (is_object($qr)) {
+                if (is_object($query)) {
                     // Looks like 'SELECT...' return table to us...
                     // So our result will be 2 dimentional array
                     // with elements count and fields number for element
                     // as dimensions...
                     $first_time = true;
 
-                    $result = '<table id="sqltable">';
+                    $result = '<table id="sqltable" class="table table-bordered">';
 
-                    while ($res = $qr->fetchRow(DB_FETCHMODE_ASSOC)) {
+                    while ($res = $query->fetchRow(DB_FETCHMODE_ASSOC)) {
                         if ($first_time) {
                             // Form 1st element with field names
                             foreach ($res as $key => $val) {
@@ -104,8 +99,10 @@ class DbgSQLQuery extends DebuggerCommand
                     $result .= '</table>';
                 } else {
                     // Let PHP to dump result :)
-                    $result = 'Query result: ' . print_r($qr, true);
+                    $result = 'Query result: ' . print_r($query, true);
                 }
+            } catch (Exception $e) {
+                $result = '<span class="dbgerror">' . $e->getmessage() . '</span>';
             }
         } else {
             $result = "Empty query to tiki DB";

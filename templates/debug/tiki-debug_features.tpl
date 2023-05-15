@@ -12,8 +12,8 @@
                 {/if}
 
                 <td>
-                    <span class="o{if $command_result[i].value == 'y'}n{else}ff{/if}-option">
-                        {$command_result[i].name}
+                    <span class="o{if $command_result[i].value == 'y'}n{else}ff{/if}-option no-wrap">
+                        {if $command_result[i].value == 'y'}&#10003;{else}&#10008;{/if}{$command_result[i].name}
                     </span>
                 </td>
 
