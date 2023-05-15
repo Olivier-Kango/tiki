@@ -299,7 +299,9 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
             $remoteItemIds = array_filter($remoteItemIds);
         }
         $output = '';
-        $context['list_mode'] = '';
+        if (! array_key_exists('list_mode', $context)) {
+            $context['list_mode'] = '';
+        }
 
         // If the request method = GET i.e there is no request for a csv export
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -311,7 +313,11 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
         foreach ((array) $remoteItemIds as $remoteItemId) {
             $itemInfo = $trklib->get_tracker_item($remoteItemId);
 
-            $output .= $output ? '<br>' : '';   // just line breaks for now
+            if ($context['list_mode'] == 'csv' || $context['search_render'] == 'y') {
+                $output .= $output ? ', ' : '';
+            } else {
+                $output .= $output ? '<br>' : '';
+            }
 
             switch ($listFieldThere['type']) {
                 // e = category
@@ -403,7 +409,7 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
         $baseKey = $this->getBaseKey();
 
         $out = [
-            "{$baseKey}_text" => $typeFactory->sortable($this->renderInnerOutput()),
+            "{$baseKey}_text" => $typeFactory->sortable($this->renderInnerOutput(['list_mode' => 'csv'])),
         ];
         if ($this->getOption('selectMultipleValues') && ! is_array($item)) {
             $out[$baseKey] = $typeFactory->multivalue(explode(',', $item));
