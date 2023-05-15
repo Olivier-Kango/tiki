@@ -48,7 +48,7 @@
     <br>
 </div>
 
-{if $filecheck}
+{if isset($filecheck) && $filecheck eq true}
     <div class="table-responsive secfile-table">
         <table class="table table-striped table-hover">
             <tr>
