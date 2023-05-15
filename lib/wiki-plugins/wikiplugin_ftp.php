@@ -50,6 +50,18 @@ function wikiplugin_ftp_info()
                 'since' => '3.0',
                 'filter' => 'text',
                 'default' => ''
+            ],
+            'ftpMode' => [
+                'required' => false,
+                'name' => tra('FTP mode'),
+                'description' => tra('Defines how data connections are initiated. Please use the passive mode to avoid data connections errors in case the client is behind firewall.'),
+                'since' => '26.0',
+                'filter' => 'string',
+                'default' => 'passive',
+                'options' => [
+                    ['text' => tra('Passive'), 'value' => 'passive'],
+                    ['text' => tra('Active'), 'value' => 'active']
+                ]
             ]
         ],
     ];
@@ -61,6 +73,9 @@ function wikiplugin_ftp($data, $params)
     if (empty($server) || empty($user) || empty($password)) {
         return tra('missing parameters');
     }
+
+    $smarty = TikiLib::lib('smarty');
+
     if (! empty($_REQUEST['ftp_download']) && $_REQUEST['file'] == $data) {
         if (! ($conn_id = ftp_connect($server))) {
             ftp_close($conn_id);
@@ -70,6 +85,16 @@ function wikiplugin_ftp($data, $params)
             ftp_close($conn_id);
             return tra('Incorrect param');
         }
+
+        ftp_pasv($conn_id, ($ftpMode == 'passive') ? true : false);
+
+        // Check if the file exists on the FTP server before processing the download to avaoid errors due to missing files
+        if (ftp_size($conn_id, $data) === -1) {
+            $smarty->assign('msg', tra("The file you are trying to download was not found on the server or you may not have permissions to access it!"));
+            $smarty->display("error.tpl");
+            die;
+        }
+
         $local = "temp/$data";
         if (! ftp_get($conn_id, $local, $data, FTP_BINARY)) {
             ftp_close($conn_id);
@@ -87,7 +112,6 @@ function wikiplugin_ftp($data, $params)
         echo "$content";
         die;
     } else {
-        $smarty = TikiLib::lib('smarty');
         if (isset($title)) {
             $smarty->assign('ftptitle', $title);
         }
