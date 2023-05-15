@@ -6750,7 +6750,7 @@ class TikiLib extends TikiDb_Bridge
         // if jail is zero, we should allow non-categorized objects to be seen as well, i.e. consider as no jail
         if (
             ! empty($prefs['feature_categories']) &&  $prefs['feature_categories'] == 'y' &&
-                ! empty($prefs['category_jail']) && $prefs['category_jail'] != [0 => 0]
+                ! empty($prefs['category_jail']) && $prefs['category_jail'] != [0 => 0] && array_filter($prefs['category_jail'])
         ) {
             $expanded = [];
             if ($descendants) {
