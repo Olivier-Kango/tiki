@@ -78,13 +78,32 @@ class Services_Search_Controller
         $lastLogItem = $unifiedsearchlib->getLastLogItem();
         list($fallbackEngine, $fallbackEngineName, $fallbackVersion, $fallbackIndex) = $unifiedsearchlib->getFallbackEngineDetails();
 
+        $formattedStats = null;
         if (! empty($stat)) {
-            $msg = '<ul>';
-            foreach ($stat['default']['counts'] as $what => $nb) {
-                $msg .= "<li>$what: $nb</li>";
+            $list = false;
+            $unifiedsearchlib->formatStats($stat, function ($line) use (&$msg, &$list) {
+                if (substr($line, 0, 2) === '  ') {
+                    if (! $list) {
+                        $list = true;
+                        $msg .= "<ul>";
+                    }
+                    $msg .= "<li>$line</li>";
+                } else {
+                    if ($list) {
+                        $list = false;
+                        $msg .= '</ul>';
+                    }
+                    $msg .= "<strong>$line</strong>";
+                }
+            });
+            if ($list) {
+                $msg .= '</ul>';
             }
-            $msg .= '</ul>';
-            Feedback::success(['title' => tr('Indexed'), 'mes' => $msg]);
+            if ($input->getlaststats->int()) {
+                $formattedStats = $msg;
+            } else {
+                Feedback::success(['title' => tr('Indexed stats'), 'mes' => $msg]);
+            }
         }
 
         if ($fallbackEngine != null) {
@@ -110,7 +129,7 @@ class Services_Search_Controller
 
         return [
             'title' => $input->getlaststats->int() ? '' : tr('Rebuild Index'),
-            'stat' => $stat['default']['counts'],
+            'formattedStats' => $formattedStats,
             'search_engine' => $engine,
             'search_version' => $version,
             'search_index' => $index,

@@ -165,10 +165,9 @@ class IndexRebuildCommand extends Command
                     $output->writeln('');
                 }
                 if (! $error) {
-                    $output->writeln("Indexed");
-                    foreach ($result['default']['counts'] as $key => $val) {
-                        $output->writeln("  $key: $val");
-                    }
+                    $unifiedsearchlib->formatStats($result, function ($line) use ($output) {
+                        $output->writeln($line);
+                    });
                     $output->writeln('Rebuilding index done');
 
                     list($engine, $version, $index) = $unifiedsearchlib->getCurrentEngineDetails();

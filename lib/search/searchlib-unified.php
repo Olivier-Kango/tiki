@@ -250,7 +250,6 @@ class UnifiedSearchLib
 
         $stat = [];
         $indexer = null;
-        $totalFieldsUsedIn = 'total fields used in the ' . $prefs['unified_engine'] . ' search index: ';
         try {
             $indexDecorator = new Search_Index_TypeAnalysisDecorator($index);
             $indexer = $this->buildIndexer($indexDecorator, $loggit);
@@ -274,7 +273,7 @@ class UnifiedSearchLib
                 $fieldsCount = $engineResults->getEngineFieldsCount();
 
                 if ($fieldsCount !== $stat['total tiki fields indexed']) {
-                    $stat[$totalFieldsUsedIn] = $fieldsCount;
+                    $stat['total fields used in the ' . $prefs['unified_engine'] . ' search index: '] = $fieldsCount;
                 }
                 $tikilib->set_preference('unified_total_fields', $fieldsCount);
             }
@@ -288,15 +287,9 @@ class UnifiedSearchLib
             // Force destruction to clear locks
             if ($indexer) {
                 $indexer->clearSources();
-                $indexer->log->info("Indexed");
-                foreach ($stats['default']['counts'] as $key => $val) {
-                    $indexer->log->info("  $key: $val");
-                }
-                $indexer->log->info("  total tiki fields indexed: {$stats['default']['total tiki fields indexed']}");
-                if (isset($stats['default'][$totalFieldsUsedIn])) {
-                    $indexer->log->info("  total fields used in the mysql search index: : {$stats['default'][$totalFieldsUsedIn]}");
-                }
-
+                $this->formatStats($stats, function ($line) use ($indexer) {
+                    $indexer->log->info($line);
+                });
                 unset($indexer);
             }
 
@@ -1742,5 +1735,34 @@ class UnifiedSearchLib
         }
 
         return $searchIndex;
+    }
+
+    /**
+     * Format indexing stats for output and use a writer function to write the output
+     * @param closure function to write the log entry
+     */
+    public function formatStats(array $stats, closure $logit)
+    {
+        global $prefs;
+
+        $logit("Indexed");
+        foreach ($stats['default']['counts'] as $key => $val) {
+            $logit("  $key: $val");
+        }
+        $logit("  total tiki fields indexed: {$stats['default']['total tiki fields indexed']}");
+        $key = 'total fields used in the ' . $prefs['unified_engine'] . ' search index: ';
+        if (isset($stats['default'][$key])) {
+            $logit("  $key{$stats['default'][$key]}");
+        }
+        if (isset($stats['default']['fulltext fields'])) {
+            $logit("Fulltext fields");
+            foreach ($stats['default']['fulltext fields'] as $key => $val) {
+                if (is_array($val)) {
+                    $logit("  $key: " . implode(', ', $val));
+                } else {
+                    $logit("  $key: $val");
+                }
+            }
+        }
     }
 }

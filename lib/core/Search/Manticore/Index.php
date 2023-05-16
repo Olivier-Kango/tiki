@@ -23,6 +23,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     private $multisearchIndices;
     private $multisearchStack;
 
+    public static $searchedFields = ['fulltext' => [], 'others' => []];
 
     public function __construct(Client $client, PdoClient $pdo_client, $index)
     {
@@ -241,6 +242,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $typeFactory = $this->getTypeFactory();
 
         $fields = $this->indexer->getAvailableFieldTypes();
+        $converted = [];
         foreach ($fields as $name => $type) {
             if (empty($type)) {
                 continue;
@@ -250,7 +252,15 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             if ($field['type'] == 'text' && count($data) < 256 && ! in_array($name, $data)) {
                 $data[] = $name;
             }
+            if ($field['type'] == 'text' && ! in_array($name, $data) && ! in_array($name, $converted)) {
+                $converted[] = $name;
+            }
         }
+
+        $this->indexer->addStats('fulltext fields', [
+            'indexed' => $data,
+            'converted to string' => $converted,
+        ]);
 
         return $data;
     }
@@ -583,6 +593,45 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
                 throw $e;
             }
         }
+    }
+
+    /**
+     * Store fields used in search queries and if they are fulltext searches or not
+     */
+    public static function addSearchedField(string $field, string $type)
+    {
+        if ($type !== 'fulltext') {
+            $type = 'others';
+        }
+        if (! in_array($field, self::$searchedFields[$type])) {
+            self::$searchedFields[$type][] = $field;
+        }
+    }
+
+    /**
+     * Warn user if there is a mismatch between indexed fulltext fields and actual fields
+     * used in the search queries.
+     */
+    public function generateSearchedFieldIndexStats()
+    {
+        $stats = $this->indexer->getStats('fulltext fields');
+        $stats['indexed but not used in fulltext queries'] = [];
+        $stats['indexed but used in non-fulltext queries'] = [];
+        foreach ($stats['indexed'] as $field) {
+            if (! in_array($field, Index::$searchedFields['fulltext'])) {
+                $stats['indexed but not used in fulltext queries'][] = $field;
+            }
+            if (in_array($field, Index::$searchedFields['others'])) {
+                $stats['indexed but used in non-fulltext queries'][] = $field;
+            }
+        }
+        $stats['not indexed but used in queries'] = [];
+        foreach ($stats['converted to string'] as $field) {
+            if (in_array($field, Index::$searchedFields['others'])) {
+                $stats['not indexed but used in queries'][] = $field;
+            }
+        }
+        $this->indexer->addStats('fulltext fields', $stats);
     }
 
     protected function getUnifiedFieldMapping()

@@ -20,6 +20,10 @@
         </div>
     {/if}
 
+    {if !empty($formattedStats)}
+        {$formattedStats}
+    {/if}
+
     {if $showForm}
         <form method="post"{if ! $isAjax}class="no-ajax"{/if} action="{service controller=search action=rebuild}" onsubmit="$(this).parent().tikiModal('{tr}Rebuilding index...{/tr}')">
             <div class="mb-3 row mx-2">

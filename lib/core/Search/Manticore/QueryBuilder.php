@@ -70,8 +70,10 @@ class QueryBuilder
         $fields = $this->getFields($node);
 
         if ($node instanceof Token && count($fields) == 1 && $this->getQuoted($node) === $this->pdo_client->quote('')) {
+            $field = $this->getField($node);
+            Index::addSearchedField($node->getField(), 'others');
             $value = $this->getQuoted($node);
-            return "{$this->getField($node)} = $value";
+            return "$field = $value";
         }
 
         try {
@@ -85,6 +87,15 @@ class QueryBuilder
                 if ($this->fieldBuilder->isInverted()) {
                     $query = "!($query)";
                 }
+                $originalFields = [];
+                $node->walk(
+                    function ($node) use (&$originalFields) {
+                        if (method_exists($node, 'getField')) {
+                            $originalFields[] = $node->getField();
+                        }
+                    }
+                );
+                Index::addSearchedField($originalFields[0], 'fulltext');
                 return ['match' => $query];
             }
         } catch (\Search_MySql_QueryException $e) {
@@ -157,21 +168,27 @@ class QueryBuilder
         } elseif ($node instanceof Token) {
             return $this->handleToken($node);
         } elseif ($node instanceof Initial) {
+            $field = $this->getField($node);
+            Index::addSearchedField($node->getField(), 'others');
             $value = $this->getQuoted($node, '^');
-            return "REGEX({$this->getField($node)}, $value)";
+            return "REGEX($field, $value)";
         } elseif ($node instanceof Range) {
+            $field = $this->getField($node);
+            Index::addSearchedField($node->getField(), 'others');
             $raw = $this->getRaw($node->getToken('from'));
             if ($raw === "" || is_null($raw)) {
                 $to = $this->getQuoted($node->getToken('to'));
-                return "{$this->getField($node)} <= $to";
+                return "$field <= $to";
             } else {
                 $from = $this->getQuoted($node->getToken('from'));
                 $to = $this->getQuoted($node->getToken('to'));
-                return "{$this->getField($node)} BETWEEN $from AND $to";
+                return "$field BETWEEN $from AND $to";
             }
         } elseif ($node instanceof Distance) {
+            $field = $this->getField($node);
+            Index::addSearchedField($node->getField(), 'others');
             // TODO: test this, possibly convert from jsonencoded to 2 lan/lon fields
-            return "GEODIST({$node->getLat()}, {$node->getLon()}, '{$this->getField($node)}.lat', '{$this->getFIeld($node)}.lon') < {$node->getDistance()}";
+            return "GEODIST({$node->getLat()}, {$node->getLon()}, '{$field}.lat', '{$field}.lon') < {$node->getDistance()}";
         } else {
             // Throw initial exception if fallback fails
             throw $exception ?: new \Exception(tr('Feature not supported: %0', get_class($node)));
@@ -180,16 +197,18 @@ class QueryBuilder
 
     private function handleToken($node)
     {
+        $field = $this->getField($node);
+        Index::addSearchedField($node->getField(), 'others');
         $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
         if (isset($mapping['types']) && (in_array('multi', $mapping['types']) || in_array('mva', $mapping['types']))) {
             $terms = $this->getRaw($node, 'multivalue');
-            return 'ANY(' . $this->getField($node) . ')' . ' IN (' . implode(',', $terms) . ')';
+            return 'ANY(' . $field . ')' . ' IN (' . implode(',', $terms) . ')';
         } elseif ($node->getType() == 'identifier' || ($mapping && in_array('timestamp', $mapping['types']))) {
             $value = $this->getQuoted($node);
-            return "{$this->getField($node)} = $value";
+            return "{$field} = $value";
         } else {
             $value = $this->getQuoted($node);
-            return "REGEX({$this->getField($node)}, $value)";
+            return "REGEX({$field}, $value)";
         }
     }
 

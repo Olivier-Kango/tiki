@@ -85,4 +85,11 @@ class Search_Index_AbstractIndexDecorator implements Search_Index_Interface
             $this->parent->setIndexer($indexer);
         }
     }
+
+    public function generateSearchedFieldIndexStats()
+    {
+        if (method_exists($this->parent, 'generateSearchedFieldIndexStats')) {
+            return $this->parent->generateSearchedFieldIndexStats();
+        }
+    }
 }

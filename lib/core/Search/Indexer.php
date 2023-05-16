@@ -18,6 +18,7 @@ class Search_Indexer
     private $cacheGlobals = null;
     private $cacheTypes = [];
     private $cacheErrors = [];
+    private $stats;
 
     private $contentFilters = [];
 
@@ -129,9 +130,9 @@ class Search_Indexer
         if ($progress) {
             $progress->start();
         }
-        $stat = [];
-        $stat['counts'] = $contentTypes;
-        $stat['times'] = $contentTypes;
+        $this->stats = [];
+        $this->stats['counts'] = $contentTypes;
+        $this->stats['times'] = $contentTypes;
 
         $timer = new timer();
 
@@ -148,23 +149,27 @@ class Search_Indexer
             $documents = $contentSource->getDocuments();
 
             foreach ($documents as $objectId) {
-                $stat['counts'][$objectType] += $this->addDocument($objectType, $objectId);
+                $this->stats['counts'][$objectType] += $this->addDocument($objectType, $objectId);
 
                 if ($progress) {
                     $progress->advance($docTime);
                 }
             }
 
-            $stat['times'][$objectType] = $timer->stop();
+            $this->stats['times'][$objectType] = $timer->stop();
+        }
+
+        if (method_exists($this->searchIndex, 'generateSearchedFieldIndexStats')) {
+            $this->searchIndex->generateSearchedFieldIndexStats();
         }
 
         $totalTime = 0;
 
-        foreach ($stat['times'] as $time) {
+        foreach ($this->stats['times'] as $time) {
             $totalTime += $time;
         }
 
-        $stat['times']['total'] = $totalTime;
+        $this->stats['times']['total'] = $totalTime;
 
         global $prefs;
         if ($prefs['unified_engine'] !== 'elastic') {
@@ -173,7 +178,23 @@ class Search_Indexer
             $this->log('Finished optimization');
         }
         $this->log('Finished rebuild');
-        return $stat;
+        return $this->stats;
+    }
+
+    /**
+     * Get current rebuild stats for a given key
+     */
+    public function getStats($key)
+    {
+        return $this->stats[$key] ?? null;
+    }
+
+    /**
+     * Augment statistics during rebuild
+     */
+    public function addStats($key, $value)
+    {
+        $this->stats[$key] = $value;
     }
 
     public function update(array $objectList)
