@@ -179,7 +179,7 @@ if (isset($_REQUEST['allowhtml'])) {
         $smarty->assign('allowhtml', 'n');
     }
 } else {
-    $smarty->assign('allowhtml', ($_SESSION['wysiwyg'] === 'y' && $prefs['wysiwyg_htmltowiki'] !== 'y') ? 'y' : 'n');
+    $smarty->assign('allowhtml', ($_SESSION['wysiwyg'] ?? '') === 'y' && $prefs['wysiwyg_htmltowiki'] !== 'y' ? 'y' : 'n');
 }
 
 if (
