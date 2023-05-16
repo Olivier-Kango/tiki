@@ -221,6 +221,11 @@ body.tiki-admin {
     display: none;
 }
 
+// Added for accordion implementation
+.tiki-admin aside.admin-nav .narrow .narrow-hide {
+    display: none;
+}
+
 .tiki-admin .form-inline .mb-3, .tiki-admin .form-inline .mb-3 .input-group {
     width: 100%;
 }
@@ -490,14 +495,14 @@ body.tiki-admin {
     border: none;
 }
 
-.tiki-admin .navbar-light.bg-light #admin-menu .nav-item > .nav-link {
+.tiki-admin .navbar-light.bg-light /*#admin-menu*/ .nav-item /*>*/ .nav-link { // Scope widened to include accordion.
     color: var(--tiki-admin-dropdown-light-color);
     &:hover,
     &:focus {
         color: var(--tiki-admin-dropdown-light-hover-color) !important;
     }
 }
-.tiki-admin .navbar-dark.bg-dark #admin-menu .nav-item > .nav-link {
+.tiki-admin .navbar-dark.bg-dark /*#admin-menu*/ .nav-item /*>*/ .nav-link {
     color: var(--tiki-admin-dropdown-dark-color);
     &:hover,
     &:focus {
@@ -628,7 +633,8 @@ body.tiki-admin {
     color: white;
 }
 
-.tiki-admin aside.admin-nav .navbar-light > ul > li > a, .tiki-admin aside.admin-nav .navbar-dark > ul > li > a {
+.tiki-admin aside.admin-nav .navbar-light > ul > li > a, .tiki-admin aside.admin-nav .navbar-dark > ul > li > a,
+.tiki-admin aside .accordion-header .nav-link {
     font-weight: 500 !important;
     font-size: 1.1rem;
 }

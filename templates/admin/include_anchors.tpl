@@ -1,8 +1,8 @@
 {if $prefs.theme_unified_admin_backend eq 'y'}
     <nav class="navbar-{$navbar_color_variant} bg-{$navbar_color_variant}
              d-flex align-items-start flex-column{if not empty($smarty.cookies.sidebar_collapsed)} narrow{/if}" role="navigation">
-        <ul class="nav navbar-nav mb-auto" id="admin-menu">
-            <li class="nav-item">
+        <div class="was-accordion accordion-flush w-100 border-end" id="admin-menu-accordion">
+            <div class="accordion-item pb-2">
                 <form method="post" class="d-flex justify-content-center my-md-0 ms-auto" role="form">
                     <div class="my-1">
                         <input type="hidden" name="filters">
@@ -12,37 +12,42 @@
                         </div>
                     </div>
                 </form>
-            </li>
+            </div>
             {if not empty($smarty.request.page)}
-                <li class="nav-item sections-header mt-2">
-                    <a href="tiki-admin.php" class="tips right nav-link" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
+                <div class="nav-item was-accordion-item tips right" {* style="padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);" *}>
+                    <div class="accordion-header">
+                    <a href="tiki-admin.php" class="nav-link px-4 py-2 fw-semibold" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
                         {icon name='home' iclass='fa-fw'}
-                        <span>{tr}Admin Dashboard{/tr}</span>
+                        <span class="narrow-hide">{tr}Admin Dashboard{/tr}</span>
                     </a>
-                </li>
+                    </div>
+                </div>
             {/if}
             {foreach $admin_icons as $section => $secInfo}
-                <li class="nav-item">
-                    <a href="#" class="tips right nav-link icon collapse-toggle" data-bs-toggle="collapse" data-bs-target="#collapse{$section}"
-                            title="{$secInfo.title}|{$secInfo.description}">
-                        {icon name=$secInfo.icon iclass='fa-fw'}
-                        <span>{$secInfo.title}</span>
-                    </a>
-                    <div class="dropdown-menu{if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if} collapse {if not empty($secInfo.selected)}show{/if}" id="collapse{$section}" data-parent="#admin-menu">
-                        {foreach $secInfo.children as $page => $info}
-
+                <div class="nav-item was-accordion-item tips right" title="{$secInfo.title}|{$secInfo.description}">
+                    <div class="accordion-header" id="flush-heading-{$section}">
+                        <a class="nav-link was-accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{$section}" aria-expanded="false" aria-controls="flush-collapse-{$section}">
+                            {icon name=$secInfo.icon iclass='fa-fw'}
+                                    <span class="ms-1 narrow-hide">{$secInfo.title}</span>
+                        </a>
+                    </div>
+                    <div id="flush-collapse-{$section}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{$section}" data-bs-parent="#admin-menu-accordion">
+                        <div class="accordion-body p-0">
+                           <div class="dropdown-menu show position-relative {if $prefs.theme_navbar_color_variant_admin eq 'dark'}dropdown-menu-dark{/if}">
+                            {foreach $secInfo.children as $page => $info}
                                 <a href="{if not empty($info.url)}{$info.url}{else}tiki-admin.php?page={$page}{/if}"
                                         class="tips right icon dropdown-item{if !empty($info.selected)} active{/if}{if !empty($info.disabled)} item-disabled text-muted{/if}"
                                         data-alt="{$info.title} {$info.description}" title="{$info.title}|{$info.description}">
                                     {icon name="admin_$page" iclass='fa-fw'}
-                                    <span>{$info.title}</span>
+                                    <span class="ms-1">{$info.title}</span>
                                 </a>
-
-                        {/foreach}
+                            {/foreach}
+                        </div>
+                        </div>
                     </div>
-                </li>
+                </div>
             {/foreach}
-        </ul>
+        </div>
         <div class="admin-menu-collapser">
             {if not empty($smarty.cookies.sidebar_collapsed)}
                 {icon name='angle-double-right' title='{tr}Collapse/expand this sidebar{/tr}'}
