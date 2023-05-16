@@ -13471,7 +13471,7 @@ $lang_current = array(
 // "Not what you expected? Try %0rebuilding%1 the preferences search index" => "Not what you expected? Try %0rebuilding%1 the preferences search index",
 "Access" => "Upatikanaji",
 "Users" => "Watumiaji",
-// "Banning" => "Banning",
+"Banning" => "Kupiga Marufuku",
 "Directories" => "Saraka",
 "External Feeds" => "RSS ya nje",
 "HTML Pages" => "Kurasa za HTML",
@@ -21987,5 +21987,7 @@ $lang_current = array(
 "Last pages" => "Kurasa za mwisho",
 // "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace" => "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace",
 // "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine",
+" Control Panels" => "Paneli za Kudhibiti",
+"System Menu" => "Menyu ya Mfumo",
 );
 $lang = array_replace($lang, $lang_current);
