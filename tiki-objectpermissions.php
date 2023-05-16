@@ -212,8 +212,8 @@ if (isset($_REQUEST['assign']) && ! isset($_REQUEST['quick_perms']) && $access->
     }
 
     //identify permissions changed for feedback message
-    $newPerms = $_REQUEST['perm'];
-    $oldPerms = $_REQUEST['old_perm'];
+    $newPerms = $_REQUEST['perm'] ?? [];
+    $oldPerms = $_REQUEST['old_perm'] ?? [];
     $groupNames = array_unique(array_merge(array_keys($newPerms), array_keys($oldPerms)));
     $changed = [];
     foreach ($groupNames as $groupName) {
