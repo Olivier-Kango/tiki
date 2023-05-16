@@ -50,6 +50,9 @@
                     {preference name=feature_live_support}
                     {preference name=feature_machine_learning}
                     {preference name=feature_tiki_manager}
+                    <div class="adminoptionboxchild" id="feature_tiki_manager_childcontainer">
+                        {preference name=tikimanager_storage_path}
+                    </div>
                 </div>
             </fieldset>
 

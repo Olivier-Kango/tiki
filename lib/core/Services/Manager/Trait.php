@@ -50,12 +50,17 @@ trait Services_Manager_Trait
      */
     protected function loadManagerEnv($isWeb = true)
     {
-        global $tikipath;
+        global $tikipath, $prefs;
 
-        $storage_path = $tikipath . 'storage/tiki-manager';
+        if (empty($prefs['tikimanager_storage_path'])) {
+            $storage_path = $tikipath . 'storage/tiki-manager';
+        } else {
+            $storage_path = $prefs['tikimanager_storage_path'];
+        }
+
         if (! is_dir($storage_path)) {
             if (! is_writable(dirname($storage_path))) {
-                throw new TikiManager\Config\Exception\ConfigurationErrorException(tr('Unable to create data storage directory for Tiki Manager. Check if storage directory is writable by running permission fix.'));
+                throw new TikiManager\Config\Exception\ConfigurationErrorException(tr('Unable to create data storage directory %0 for Tiki Manager. Check if storage directory is correctly set and is writable.', $storage_path));
             }
             mkdir($storage_path, 0777, true);
         }
