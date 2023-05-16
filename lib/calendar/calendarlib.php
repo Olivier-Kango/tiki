@@ -1638,7 +1638,7 @@ class CalendarLib extends TikiLib
                     $e = -1;
 
                     foreach ($listtikievents["$dday"] as $lte) {
-                        $lte['desc_name'] = $lte['name'];
+                        $lte['desc_name'] = $lte['name'] ?? '';
                         if ($group_by_item != 'n') {
                             if ($group_by != 'day') {
                                 $key = $lte['id'] . '|' . $lte['type'];
@@ -1649,8 +1649,8 @@ class CalendarLib extends TikiLib
                                     $leday[$key]['description'] = [$lte['where'] => [$lte['group_description']]];
                                     $leday[$key]['head'] = TikiLib::date_format($prefs['short_date_format'], $cell[$i][$w]['day']);
                                 } else {
-                                    $leday[$key]['description'] = ' - <b>' . $lte['when'] . '</b> : ' . tra($lte['action']) . ' ' . $lte['description'];
-                                    $leday[$key]['head'] = $lte['name'] . ', <i>' . tra('in') . ' ' . $lte['where'] . '</i>';
+                                    $leday[$key]['description'] = ' - <b>' . $lte['when'] . '</b> : ' . tra($lte['action'] ?? '') . ' ' . $lte['description'];
+                                    $leday[$key]['head'] = $lte['name'] ?? '' . ', <i>' . tra('in') . ' ' . $lte['where'] . '</i>';
                                 }
                                 $leday[$key]['desc_name'] = '';
                             } else {
@@ -1667,7 +1667,7 @@ class CalendarLib extends TikiLib
                                     $leday_item['desc_name'] = $leday_item['action'] . ' ' . tra($item_name) . ': ';
                                     $leday_item['description'][$lte['where']][] = $lte['group_description'];
                                 } else {
-                                    $leday_item['name'] = $lte['name'] . ' (x ' . $leday_item['action'] . ')';
+                                    $leday_item['name'] = $lte['name'] ?? '' . ' (x ' . $leday_item['action'] . ')';
                                     $leday_item['desc_name'] = $leday_item['action'] . ' ' . tra($item_name);
                                     if ($lte['show_description'] == 'y' && ! empty($lte['description'])) {
                                         $leday_item['description'] .= ",\n<br /> - <b>" . $lte['when'] . '</b> : ' . tra($lte['action']) . ' ' . $lte['description'];

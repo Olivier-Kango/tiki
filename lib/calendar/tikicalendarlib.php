@@ -91,7 +91,7 @@ class TikiCalendarLib extends CalendarLib
                             $res['time'] = TikiLib::date_format('%H%M', $res['start']);
                             $res['when'] = TikiLib::date_format('%H:%M', $res['start']);
                             $when = '<b>' . $res['when'] . '</b>';
-                            $url_vars = [$res['id'], $res['id2']];
+                            $url_vars = [$res['id'], $res['id2'] ?? null];
 
                             switch ($res['type']) {
                                 case 'art':
@@ -132,33 +132,42 @@ class TikiCalendarLib extends CalendarLib
 
                             $res['url'] = $this->get_object_url($res['type'], $url_vars);
 
-                            if ($res['user'] != '') {
-                                include_once('lib/smarty_tiki/modifier.username.php');
-                                $res['user'] = smarty_modifier_username($res['user']);
-                                if (! strpos($res['description'], '%s')) {
-                                    $br = ( $res['description'] == '' ) ? '' : '<br />';
-                                    $res['description'] = '<i>' . tra('by') . ' %s</i>' . $br . $res['description'];
+                            if (isset($res['user'])) {
+                                if ($res['user'] != '') {
+                                    include_once('lib/smarty_tiki/modifier.username.php');
+                                    $res['user'] = smarty_modifier_username($res['user']);
+                                    $des = isset($res['description']) ? $res['description'] : '';
+                                    if (! strpos($des, '%s')) {
+                                        $br = ( $des == '' ) ? '' : '<br />';
+                                        $res['description'] = '<i>' . tra('by') . ' %s</i>' . $br . $des;
+                                    }
+                                    $res['description'] = sprintf($res['description'], $res['user']);
                                 }
-                                $res['description'] = sprintf($res['description'], $res['user']);
                             }
 
                             $res['description'] = str_replace(['"',"\n|\r"], ["'",''], $res['description']);
 
-                            if ($res['name'] == '') {
-                                $res['name'] = $res['id'];
+                            if (isset($res['name'])) {
+                                if ($res['name'] == '') {
+                                    $res['name'] = $res['id'];
+                                }
                             }
 
-                            $res['where'] = str_replace("\n|\r", '', addslashes($res['parent']));
+                            $res['where'] = str_replace("\n|\r", '', addslashes($res['parent'] ?? ''));
 
-                            if (( ! isset($where) || $where == '' ) && $res['parent'] != '') {
-                                $where = ' ' . tra('in') . ' <b>' . $res['where'] . '</b>';
+                            if (isset($res['parent'])) {
+                                if (( ! isset($where) || $where == '' ) && $res['parent'] != '') {
+                                    $where = ' ' . tra('in') . ' <b>' . $res['where'] . '</b>';
+                                }
                             }
 
-                            if ($res['head'] == '') {
-                                $res['head'] = $when . $where;
+                            if (isset($res['head'])) {
+                                if ($res['head'] == '') {
+                                    $res['head'] = $when . $where;
+                                }
                             }
 
-                            $res['group_description'] = $res['name'];
+                            $res['group_description'] = $res['name'] ?? '';
 
                             $ret[$dstart][] = $res;
 
