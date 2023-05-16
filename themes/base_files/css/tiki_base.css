@@ -624,25 +624,6 @@ div.drillshow {
 .tiki .col1 .table-responsive .table {
   border: 1px solid var(--bs-border-color);
 }
-.tiki .table-sticky {
-  overflow: visible !important;
-}
-.tiki .table-sticky thead {
-  position: -webkit-sticky;
-  /* for Safari */
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
-.tiki .table-sticky tbody th {
-  position: sticky;
-  position: -webkit-sticky;
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
-  left: 0px;
-  z-index: 1;
-}
 .codecaption {
   display: inline-block;
   color: #212529;

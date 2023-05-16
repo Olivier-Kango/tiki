@@ -4,7 +4,7 @@ $secondary: #6d35a6;
 
 // SCSS file imports removed - none needed.
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap'); This font is already specified by "default" theme; no need to impose this font on all themes.
 
 // Most SCSS color variables replaced by CSS variables for easy theming
 $darkestgrey: #0f0f0f; // maybe replace later
@@ -42,7 +42,7 @@ body.tiki-admin {
 }
 
 .tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin aside.admin-nav .navbar-light, .tiki-admin .top_modules.navbar-light-parent {
-    font-family: 'Roboto', sans-serif;
+ //   font-family: 'Roboto', sans-serif;
     position: fixed;
     left: 0;
     top: 0;
@@ -57,7 +57,7 @@ body.tiki-admin {
 }
 
 .tiki-admin .admin-navbar .form-check-label {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+ //   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     letter-spacing: initial;
 }
 
@@ -473,7 +473,7 @@ body.tiki-admin {
 
 
 .tiki-admin .top_modules .dropdown-header {
-    font-family: "Roboto", sans-serif;
+ //   font-family: "Roboto", sans-serif;
     font-weight: 500;
     text-shadow: none;
     border: none;

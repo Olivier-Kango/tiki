@@ -1,5 +1,4 @@
 /* The AdminUI "feature" theme for Tiki Wiki CMS Groupware */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 body.tiki-admin {
   padding-top: 0 !important;
 }
@@ -25,7 +24,6 @@ body.tiki-admin {
   border-radius: unset;
 }
 .tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin aside.admin-nav .navbar-light, .tiki-admin .top_modules.navbar-light-parent {
-  font-family: "Roboto", sans-serif;
   position: fixed;
   left: 0;
   top: 0;
@@ -37,7 +35,6 @@ body.tiki-admin {
   z-index: 9999;
 }
 .tiki-admin .admin-navbar .form-check-label {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   letter-spacing: initial;
 }
 .tiki-admin .top_modules .box-quickadmin {
@@ -352,7 +349,6 @@ body.tiki-admin {
   }
 }
 .tiki-admin .top_modules .dropdown-header {
-  font-family: "Roboto", sans-serif;
   font-weight: 500;
   text-shadow: none;
   border: none;
