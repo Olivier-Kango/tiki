@@ -18,6 +18,8 @@ use TWVersion;
  */
 class CheckSchemaUpgrade
 {
+    //These database are actually from here:  https://gitlab.com/tikiwiki/tikiwiki-ci-databases
+    //Todo:  Try to get them from https://gitlab.com/tikiwiki/tikiwiki-ci-databases/-/blob/master/ci_%d.sql.gz and gunzip them, or better yet clone them in the cache and gunzip them
     const DB_URL_TEMPLATE = 'http://tiki.org/ci_%d.sql';
 
     const DB_OLD = 'OLD';
@@ -118,9 +120,9 @@ class CheckSchemaUpgrade
 
             $this->printMessage('Updating database 1 from previous major to version ' . $tikiVersion->getVersion());
             $this->runDatabaseUpdate();
-
+            $this->printMessage('Updating database 1 done, now scrubbing');
             $this->scrubDbCleanThingsThatShouldChange($dbConnectionOld, $this->oldDb, self::DB_OLD);
-
+            $this->printMessage('Scrubbing database 1 done');
             //
             // Run clean db install
             //
@@ -128,9 +130,9 @@ class CheckSchemaUpgrade
             $this->writeLocalConfig($this->newDb);
             $dbConnectionNew = $this->prepareDb($this->newDb);
             $this->runDatabaseInstall();
-
+            $this->printMessage('Installing database 2 done, now scrubbing');
             $this->scrubDbCleanThingsThatShouldChange($dbConnectionNew, $this->newDb, self::DB_NEW);
-
+            $this->printMessage('Scrubbing database 2 done');
             //
             // Compare the DBS
             //
@@ -344,8 +346,9 @@ class CheckSchemaUpgrade
     {
         $db = new PDO('mysql:host=' . $dbConfig['host'], $dbConfig['user'], $dbConfig['pass']);
         $db->query('DROP DATABASE IF EXISTS `' . $dbConfig['dbs'] . '`;');
+        //The default collation for utf8mb4 differs between MySQL 5.7 and 8.0 ( utf8mb4_general_ci for 5.7, utf8mb4_0900_ai_ci for 8.0).  Force utf8mb4_unicode_ci so DBDiff won't get confused
         $db->query(
-            'CREATE DATABASE `' . $dbConfig['dbs'] . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;'
+            'CREATE DATABASE `' . $dbConfig['dbs'] . '` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
         );
         $db->query('USE `' . $dbConfig['dbs'] . '`');
         return $db;
@@ -413,18 +416,20 @@ class CheckSchemaUpgrade
             $sql = file_get_contents($cachedDbFile);
             return $sql;
         }
-
-        $dbContent = file_get_contents(sprintf(self::DB_URL_TEMPLATE, $major));
+        $dbUrl = sprintf(self::DB_URL_TEMPLATE, $major);
+        $dbContent = file_get_contents($dbUrl);
         /** @noinspection SyntaxError */
         if (! empty($dbContent) && strpos($dbContent, 'CREATE TABLE `tiki_schema`') !== false) { //check that looks like a sql file
             $sql = $dbContent;
             file_put_contents($cachedDbFile, $dbContent);
             return $sql;
         }
-
+        $this->printMessageError(
+            "Failed to find the database schema for $major, in either  $cachedDbFile or $dbUrl"
+        );
         // TODO: try to install old version of Tiki to get the db generated, instead of rely om pre generated files
 
-        return '';
+        return false;
     }
 
     /**
@@ -571,7 +576,7 @@ class CheckSchemaUpgrade
         $dbConnection->exec("UPDATE  `tiki_live_support_modules_tmp` SET `modId`=NULL");
         $dbConnection->exec("DELETE FROM `tiki_live_support_modules`");
         $dbConnection->exec("ALTER TABLE `tiki_live_support_modules` AUTO_INCREMENT = 1");
-        $dbConnection->exec("INSERT INTO `tiki_live_support_modules` SELECT * FROM `tiki_live_support_modulestmp`");
+        $dbConnection->exec("INSERT INTO `tiki_live_support_modules` SELECT * FROM `tiki_live_support_modules_tmp`");
         $dbConnection->exec("DROP TABLE `tiki_live_support_modules_tmp`");
 
         // reload tiki_menu_options in the upgraded tiki to account for the case where an old entry is removed

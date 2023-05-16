@@ -47,28 +47,39 @@ class InstallCommand extends Command
 
         if (! $installed || $force) {
             $installer->cleanInstall();
-            $output->writeln(tr('Installation completed.'));
+            $output->writeln('<info>' . tr('Installed from files:') . '</info>');
+
+            foreach ($installer->queries['files'] as $file) {
+                $output->writeln('<info>' . $file . '</info>');
+            }
             $output->writeln('<info>' . tr('Queries executed successfully: %0', count($installer->queries['successful'])) . '</info>');
 
             if (count($installer->queries['failed'])) {
+                $output->writeln('<error>' . tr('Queries executed unsuccessfully: %0', count($installer->queries['failed'])) . '</error>');
                 foreach ($installer->queries['failed'] as $key => $error) {
                     list($query, $message, $patch) = $error;
 
                     $output->writeln("<error>" . tr('Error %0 in', $key) . " $patch\n\t$query\n\t$message</error>");
                 }
+                return Command::FAILURE;
+            } else {
+                $output->writeln('<success>' . tr('Installation completed successfully.') . '</success>');
             }
 
-            if (! DB_STATUS) { // see console.php
-                return;
+            if (! DB_STATUS) { // see console.php  DB_STATUS: Database connected, but tiki not installed.
+                return Command::SUCCESS;
             }
-
             include_once 'tiki-setup.php';
+            $output->writeln('<info>' . tr('Clearing cache.') . '</info>');
             \TikiLib::lib('cache')->empty_cache();
+            $output->writeln('<info>' . tr('Initializing prefs.') . '</info>');
             initialize_prefs(true);
+            $output->writeln('<info>' . tr('Rebuilding indexes.') . '</info>');
             \TikiLib::lib('unifiedsearch')->rebuild();
             \TikiLib::lib('prefs')->rebuildIndex();
         } else {
             $output->writeln('<error>' . tr('Database already exists.') . '</error>');
+            return Command::INVALID;
         }
         return Command::SUCCESS;
     }

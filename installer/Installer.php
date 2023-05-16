@@ -13,6 +13,7 @@ use SplObjectStorage;
 use SplObserver;
 use TWVersion;
 use Exception;
+use TikiDb_Pdo_Result;
 
 /**
  * @see Patch
@@ -30,7 +31,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
         'currentFile' => '',
         'executed' => 0,
         'total' => 0,
-
+        'files' => [], //path of the files executed
         'successful' => [],
         'failed' => []
     ];
@@ -59,19 +60,19 @@ class Installer extends TikiDb_Bridge implements SplSubject
     public function cleanInstall()
     {
         if ($image = $this->getBaseImage()) {
-            $this->runFile($image);
+            $this->runFile($image, true, true);
             $this->buildPatchList();
             $this->buildScriptList();
         } else {
             // No image specified, standard install
             $this->runFile(__DIR__ . '/../db/tiki.sql');
             if ($this->isMySQLFulltextSearchSupported()) {
-                $this->runFile(__DIR__ . '/../db/tiki_fulltext_indexes.sql');
+                $this->runFile(__DIR__ . '/../db/tiki_fulltext_indexes.sql', true, true);
             }
             if ($this->useInnoDB) {
-                $this->runFile(__DIR__ . '/../db/tiki_innodb.sql');
+                $this->runFile(__DIR__ . '/../db/tiki_innodb.sql', true, true);
             } else {
-                $this->runFile(__DIR__ . '/../db/tiki_myisam.sql');
+                $this->runFile(__DIR__ . '/../db/tiki_myisam.sql', true, true);
             }
             $this->buildPatchList();
             $this->buildScriptList();
@@ -288,14 +289,13 @@ class Installer extends TikiDb_Bridge implements SplSubject
 
     /**
      * @param $file
-     * @return bool
+     * @return bool Did running the schema file succeed without error
      */
-    public function runFile($file, $convertFormat = true)
+    public function runFile($file, $convertFormat = true, $throwOnError = false): bool
     {
         if (! is_file($file) || ! $command = file_get_contents($file)) {
             throw new Exception('Fatal: Cannot open ' . $file);
         }
-
         // split the file into several queries?
         $statements = preg_split("#(;\s*\n)|(;\s*\r\n)#", $command);
         $statements = array_filter($statements, function ($st) {
@@ -303,6 +303,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
         });
 
         $this->queries['currentFile'] = basename($file);
+        array_push($this->queries['files'], $file);
         $this->queries['total'] += count($statements);
 
         $status = true;
@@ -314,6 +315,9 @@ class Installer extends TikiDb_Bridge implements SplSubject
 
             if ($this->query($statement, [], -1, -1, true, $file) === false) {
                 $status = false;
+                if ($throwOnError) {
+                    throw new Exception("Failed running query $statement from file $file");
+                }
             }
 
             $this->queries['executed'] += 1;
@@ -334,7 +338,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
      * @param $offset
      * @param bool $reporterrors
      * @param string $patch
-     * @return bool
+     * @return TikiDb_Pdo_Result or false if the query failed
      */
     public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true, $patch = '')
     {

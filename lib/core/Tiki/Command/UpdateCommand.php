@@ -57,13 +57,16 @@ class UpdateCommand extends Command
 
             $output->writeln('<info>Queries executed successfully: ' . count($installer->queries['successful']) . '</info>');
 
-            foreach ($installer->queries['failed'] as $error) {
-                list( $query, $message, $patch ) = $error;
-                if (! $patch) {
-                    // Installer::query() does not set a meaningful third element when the error is caused by a PHP script. Needs some architectural work to solve properly
-                    $patch = 'unknown patch script';
+            if (count($installer->queries['failed']) > 0) {
+                $output->writeln('<warning>Queries executed unsuccessfully: ' . count($installer->queries['failed']) . '</warning>');
+                foreach ($installer->queries['failed'] as $error) {
+                    list( $query, $message, $patch ) = $error;
+                    if (! $patch) {
+                        // Installer::query() does not set a meaningful third element when the error is caused by a PHP script. Needs some architectural work to solve properly
+                        $patch = 'unknown patch script';
+                    }
+                    $output->writeln("<error>Error in $patch\n\t$query\n\t$message</error>");
                 }
-                $output->writeln("<error>Error in $patch\n\t$query\n\t$message</error>");
             }
 
             // tiki-setup.php may not have been run yet, so load the minimum required libs to be able to clear the caches

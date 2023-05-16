@@ -9,7 +9,5 @@ CREATE FULLTEXT INDEX ft ON tiki_directory_sites(`name`,`description`);
 CREATE FULLTEXT INDEX ft ON tiki_faq_questions(`question`,`answer`);
 CREATE FULLTEXT INDEX ft ON tiki_faqs(`title`,`description`);
 CREATE FULLTEXT INDEX ft ON tiki_files(`name`,`description`,`search_data`,`filename`);
-CREATE FULLTEXT INDEX ft ON tiki_galleries(`name`,`description`);
-CREATE FULLTEXT INDEX ft ON tiki_images(`name`,`description`);
 CREATE FULLTEXT INDEX ft ON tiki_pages(`pageName`,`description`,`data`);
 CREATE FULLTEXT INDEX ft ON tiki_tracker_item_fields(`value`);

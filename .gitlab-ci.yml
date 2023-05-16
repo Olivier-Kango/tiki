@@ -13,7 +13,15 @@ variables:
   MYSQL_USER: tikiuser
   MYSQL_PASSWORD: tikipass
   ELASTICSEARCH_HOST: elasticsearch
+  #The source for these images is at https://github.com/rjsmelo/docker-ubuntu-php
+  #Would be nice to update them from code, similar to https://medium.com/devops-with-valentine/how-to-build-a-docker-image-and-push-it-to-the-gitlab-container-registry-from-a-gitlab-ci-pipeline-acac0d1f26df
   BASE_QA_IMAGE: xorti/ubuntu-php:8.1-qa
+  #DBDiff is sensitive to mysql version.  
+  #The schemas dumped for prior tikis on https://gitlab.com/tikiwiki/tikiwiki-ci-databases have explicit COLLATION() statements for each table column.  Later versions of mysql (8.0.11+, but not sure) will not dump the same whits explicit collations.
+  #Running php doc/devtools/check_schema_upgrade.php -m 22 --db1=tiki:tiki@localhost:tikiold --db2=tiki:tiki@localhost:tikinew gives other errors localy that are false positives.  But locally, unless you decompress https://gitlab.com/tikiwiki/tikiwiki-ci-databases into doc/devtool/dbdiff/cache, tiki.org won't give the schemas to you, and will blacklist your IP address!  benoitg - 2023-05-16
+
+  MYSQL_8_IMAGE: mysql:8.0.11
+  MYSQL_5_IMAGE: mysql:5.6
   MANTICORE_DSN: http://manticore
   # You can set USE_GITLAB_PROXY to "true" in your project configuration to use the gitlab dependency proxy. (default not using as it may cause issues for some accounts)
   USE_GITLAB_PROXY: ''
@@ -279,7 +287,7 @@ composer-lock:
       COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   script:
     - cp $(command -v composer) temp/composer.phar
-    - composer -V | grep "version 2" || composer self-update --2
+    - php temp/composer.phar -V | grep "version 2" || php temp/composer.phar self-update --2
     - php doc/devtools/update_composer_lock.php
   before_script:
     - mkdir before || true
@@ -314,7 +322,8 @@ composer-lock:
   stage: tiki-check
   services:
     - name: ${DEPENDENCY_PROXY_PREFIX}$IMAGE
-      alias: mysql
+      alias: mysql,
+      command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
   script:
     - 'mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql --skip-column-names -B -e "SELECT CONCAT(''Version: '', VERSION(), CHAR(13), ''sql_mode: '', @@GLOBAL.sql_mode)"'
     - echo "GRANT ALL ON tikiold.* TO '${MYSQL_USER}';" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
@@ -325,8 +334,8 @@ composer-lock:
   after_script:
     - echo "SHOW CREATE DATABASE tikiold" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
     - echo "SHOW CREATE DATABASE tikinew" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
-    - mysqldump --column-statistics=0 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikiold > tikiold.sql
-    - mysqldump --column-statistics=0 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikinew > tikinew.sql
+    - mysqldump --column-statistics=0  --default-character-set=utf8mb4 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikiold > tikiold.sql
+    - mysqldump --column-statistics=0  --default-character-set=utf8mb4 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikinew > tikinew.sql
   dependencies:
     - composer
     - composer-dbdiff
@@ -347,12 +356,12 @@ composer-lock:
       command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
       alias: mysql
 
-db-upgrade-22-mysql8:
+.db-upgrade-22-mysql8:
   <<: *template-tiki-schema-upgrade-mysql8
   variables:
     DBFILE: ci_22.sql
     DBVER: 22
-    IMAGE: mysql:8.0.4
+    IMAGE: ${MYSQL_8_IMAGE}
     ENGINE: InnoDB
 
 db-upgrade-22:
@@ -360,15 +369,15 @@ db-upgrade-22:
   variables:
     DBFILE: ci_22.sql
     DBVER: 22
-    IMAGE: mysql:5.6
+    IMAGE: ${MYSQL_5_IMAGE}
     ENGINE: InnoDB
 
-db-upgrade-21-mysql8:
+.db-upgrade-21-mysql8:
   <<: *template-tiki-schema-upgrade-mysql8
   variables:
     DBFILE: ci_21.sql
     DBVER: 21
-    IMAGE: mysql:8.0.4
+    IMAGE: ${MYSQL_8_IMAGE}
     ENGINE: InnoDB
 
 db-upgrade-21:
@@ -376,15 +385,15 @@ db-upgrade-21:
   variables:
     DBFILE: ci_21.sql
     DBVER: 21
-    IMAGE: mysql:5.6
+    IMAGE: ${MYSQL_5_IMAGE}
     ENGINE: InnoDB
 
-db-upgrade-20-mysql8:
+.db-upgrade-20-mysql8:
   <<: *template-tiki-schema-upgrade-mysql8
   variables:
     DBFILE: ci_20.sql
     DBVER: 20
-    IMAGE: mysql:8.0.4
+    IMAGE: ${MYSQL_8_IMAGE}
     ENGINE: InnoDB
 
 db-upgrade-20:
@@ -392,7 +401,7 @@ db-upgrade-20:
   variables:
     DBFILE: ci_20.sql
     DBVER: 20
-    IMAGE: mysql:5.6
+    IMAGE: ${MYSQL_5_IMAGE}
     ENGINE: InnoDB
 
 db-upgrade-19:
@@ -400,7 +409,7 @@ db-upgrade-19:
   variables:
     DBFILE: ci_19.sql
     DBVER: 19
-    IMAGE: mysql:5.6
+    IMAGE: ${MYSQL_5_IMAGE}
     ENGINE: InnoDB
 
 db-upgrade-18-lts:
@@ -408,7 +417,7 @@ db-upgrade-18-lts:
   variables:
     DBFILE: ci_18.sql
     DBVER: 18
-    IMAGE: mysql:5.6
+    IMAGE: ${MYSQL_5_IMAGE}
     ENGINE: InnoDB
 
 db-upgrade-18-lts-myisam:
@@ -423,7 +432,7 @@ sql-engine-conversion:
   stage: tiki-check
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   services:
-    - name: ${DEPENDENCY_PROXY_PREFIX}mysql:5.6
+    - name: ${DEPENDENCY_PROXY_PREFIX}${MYSQL_5_IMAGE}
       alias: mysql
   script:
     - 'mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql --skip-column-names -B -e "SELECT CONCAT(''Version: '', VERSION(), CHAR(13), ''sql_mode: '', @@GLOBAL.sql_mode)"'
@@ -456,7 +465,7 @@ sql-engine-conversion:
   stage: unit-tests
   image: ${DEPENDENCY_PROXY_PREFIX}${IMAGE}
   services:
-    - name: ${DEPENDENCY_PROXY_PREFIX}mysql:5.6
+    - name: ${DEPENDENCY_PROXY_PREFIX}${MYSQL_5_IMAGE}
       alias: mysql
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
       alias: elasticsearch
@@ -487,7 +496,7 @@ sql-engine-conversion:
 .template-unit-tests-mysql8: &template-unit-tests-mysql8
   <<: *template-unit-tests
   services:
-    - name: ${DEPENDENCY_PROXY_PREFIX}mysql:8.0.4
+    - name: ${DEPENDENCY_PROXY_PREFIX}${MYSQL_8_IMAGE}
       command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
       alias: mysql
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5

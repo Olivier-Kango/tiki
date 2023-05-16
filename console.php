@@ -5,6 +5,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Tiki\Command\ConsoleSetupException;
@@ -84,7 +86,7 @@ if (DB_TIKI_SETUP) {
         $permissionContext = new Perms_Context($asUser);
     }
 }
-$exitCode = 0;
+$exitCode = Command::SUCCESS;
 $output = new ConsoleOutput();
 $console = new ConsoleApplicationBuilder();
 $console = $console->create();
@@ -95,6 +97,7 @@ try {
     $output->writeln('<comment>A error was encountered while running a command</comment>');
     TikiLib::lib('errortracking')->captureException($e);
     $output->write('<error>' . $e->getMessage() . '</error> on line ' . $e->getLine() . ' of ' . $e->getFile());
+    $exitCode = Command::FAILURE;
 }
 $output->writeln('');
 
