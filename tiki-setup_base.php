@@ -711,7 +711,6 @@ try {
             'staticKeyFilters'          => [
                 'menu'                        => 'striptags',
                 'cat_categorize'              => 'alpha',
-                'mobile_mode'                 => 'alpha',
                 'categ'                       => 'striptags',
                 'preview'                     => 'text',
                 'rbox'                        => 'text',

@@ -237,7 +237,6 @@ if (! timezone) {
     $jqueryTiki['googleStreetViewOverlay'] = $prefs['geo_google_streetview_overlay'] === 'y' ? true : false;
     $jqueryTiki['googleMapsAPIKey'] = $prefs['gmap_key'];
     $jqueryTiki['structurePageRepeat'] = $prefs['page_n_times_in_a_structure'] === 'y' ? true : false;
-    $jqueryTiki['mobile'] = $prefs['mobile_mode'] === 'y' ? true : false;
     $jqueryTiki['no_cookie'] = false;
     $jqueryTiki['cookie_consent_analytics'] = $prefs['cookie_consent_analytics'] === 'y' ? true : false;
     $jqueryTiki['language'] = $prefs['language'];
