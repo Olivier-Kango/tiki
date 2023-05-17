@@ -174,7 +174,9 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
 
     public function getGlobalFields()
     {
-        return [
+        global $prefs;
+
+        $fields = [
             'title' => true,
             'description' => true,
             'date' => true,
@@ -184,5 +186,14 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
             'file_content' => false,
             'ocr_content' => false,
         ];
+
+        if ($prefs['fgal_enable_email_indexing'] === 'y') {
+            $fields['email_subject'] = true;
+            $fields['email_body'] = true;
+            $fields['email_plaintext'] = true;
+            $fields['email_html'] = true;
+        }
+
+        return $fields;
     }
 }
