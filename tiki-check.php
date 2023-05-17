@@ -1832,7 +1832,7 @@ $mysql_variables = false;
 if ($connection || ! $standalone) {
     // MySQL version
     $query = 'SELECT VERSION();';
-    $result = query($query, $connection);
+    $result = query($query, $connection) ?? array();
     $mysql_version = $result[0]['VERSION()'];
     $isMariaDB = preg_match('/mariadb/i', $mysql_version);
     $minVersion = $isMariaDB ? '5.5' : '5.7';
@@ -2033,7 +2033,7 @@ if ($connection || ! $standalone) {
 
     // MySQL Variables
     $query = "SHOW VARIABLES;";
-    $result = query($query, $connection);
+    $result = query($query, $connection) ?? array();
     foreach ($result as $value) {
         $mysql_variables[$value['Variable_name']] = array('value' => $value['Value']);
     }
