@@ -142,14 +142,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         }
 
         $value = $this->getValue();
-        $decoded = json_decode($value, true);
-        if ($decoded !== null) {
-            $fileIds = $decoded;
-        } else {
-            $fileIds = [
-                'inbox' => array_filter(explode(',', $value))
-            ];
-        }
+        $fileIds = $this->sanitizeFieldData($value);
 
         // Obtain the information from the database for display
         $emails = [];
@@ -159,34 +152,11 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
                 if (empty($fileId)) {
                     continue;
                 }
-                $file_object = Tiki\FileGallery\File::id($fileId);
-                if (! $file_object->exists()) {
+                $email = $this->getEmailFromFile($fileId);
+                if (! $email) {
                     continue;
                 }
-                $parsed_fields = (new Tiki\FileGallery\Manipulator\EmailParser($file_object))->run();
-                $parsed_fields['fileId'] = $fileId;
-                $parsed_fields['trackerId'] = $this->getTrackerDefinition()->getConfiguration('trackerId');
-                $parsed_fields['itemId'] = $this->getItemId();
-                $parsed_fields['fieldId'] = $this->getConfiguration('fieldId');
-                $view_path = 'tiki-webmail.php';
-                if (! empty($parsed_fields['source_id'])) {
-                    $page_info = TikiLib::lib('tiki')->get_page_info_from_id($parsed_fields['source_id']);
-                    if ($page_info && stristr($page_info['data'], "cypht")) {
-                        TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
-                        $view_path = smarty_modifier_sefurl($page_info['pageName']);
-                        if (preg_match("/tiki-index\.php\?page=.*/", $view_path)) {
-                            $view_path = "tiki-index.php?page_id=" . $parsed_fields['source_id'];
-                        }
-                    }
-                }
-                if (strstr($view_path, '?')) {
-                    $view_path .= '&';
-                } else {
-                    $view_path .= '?';
-                }
-                $view_path .= "page=message&uid=" . $parsed_fields['fileId'] . "&list_path=tracker_folder_" . $parsed_fields['itemId'] . "_" . $parsed_fields['fieldId'] . "&list_parent=tracker_" . $parsed_fields['trackerId'];
-                $parsed_fields['view_path'] = $view_path;
-                $emails[$folder][] = $parsed_fields;
+                $emails[$folder][] = $email;
             }
         }
 
@@ -207,6 +177,50 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
             'count' => count($fileIds, COUNT_RECURSIVE),
             'value' => $value,
         ];
+    }
+
+    private function sanitizeFieldData($value)
+    {
+        $decoded = json_decode($value, true);
+        if ($decoded !== null) {
+            return $decoded;
+        } else {
+            return [
+                'inbox' => array_filter(explode(',', $value))
+            ];
+        }
+    }
+
+    private function getEmailFromFile($fileId)
+    {
+        $file_object = Tiki\FileGallery\File::id($fileId);
+        if (! $file_object->exists()) {
+            return false;
+        }
+        $parsed_fields = (new Tiki\FileGallery\Manipulator\EmailParser($file_object))->run();
+        $parsed_fields['fileId'] = $fileId;
+        $parsed_fields['trackerId'] = $this->getTrackerDefinition()->getConfiguration('trackerId');
+        $parsed_fields['itemId'] = $this->getItemId();
+        $parsed_fields['fieldId'] = $this->getConfiguration('fieldId');
+        $view_path = 'tiki-webmail.php';
+        if (! empty($parsed_fields['source_id'])) {
+            $page_info = TikiLib::lib('tiki')->get_page_info_from_id($parsed_fields['source_id']);
+            if ($page_info && stristr($page_info['data'], "cypht")) {
+                TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
+                $view_path = smarty_modifier_sefurl($page_info['pageName']);
+                if (preg_match("/tiki-index\.php\?page=.*/", $view_path)) {
+                    $view_path = "tiki-index.php?page_id=" . $parsed_fields['source_id'];
+                }
+            }
+        }
+        if (strstr($view_path, '?')) {
+            $view_path .= '&';
+        } else {
+            $view_path .= '?';
+        }
+        $view_path .= "page=message&uid=" . $parsed_fields['fileId'] . "&list_path=tracker_folder_" . $parsed_fields['itemId'] . "_" . $parsed_fields['fieldId'] . "&list_parent=tracker_" . $parsed_fields['trackerId'];
+        $parsed_fields['view_path'] = $view_path;
+        return $parsed_fields;
     }
 
     function renderInput($context = [])
@@ -397,23 +411,8 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
     {
         $filegallib = TikiLib::lib('filegal');
 
-        $decoded = json_decode($old, true);
-        if ($decoded !== null) {
-            $old = $decoded;
-        } else {
-            $old = [
-                'inbox' => array_filter(explode(',', $old))
-            ];
-        }
-
-        $decoded = json_decode($new, true);
-        if ($decoded !== null) {
-            $new = $decoded;
-        } else {
-            $new = [
-                'inbox' => array_filter(explode(',', $new))
-            ];
-        }
+        $old = $this->sanitizeFieldData($old);
+        $new = $this->sanitizeFieldData($new);
 
         $output = "[-[" . $this->getConfiguration('name') . "]-]:\n";
         foreach ($new as $folder => $_) {
@@ -435,6 +434,76 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
             $output .= $diff;
         }
         return $output;
+    }
+
+    public function renderDiff($context = [])
+    {
+        if ($context['oldValue']) {
+            $old = $context['oldValue'];
+        } else {
+            $old = '';
+        }
+        if ($context['value']) {
+            $new = $context['value'];
+        } else {
+            $new = $this->getValue('');
+        }
+        if (empty($context['diff_style'])) {
+            $context['diff_style'] = 'sidediff';
+        }
+
+        $old = $this->sanitizeFieldData($old);
+        $new = $this->sanitizeFieldData($new);
+
+        $changes = ['removed' => [], 'added' => []];
+
+        foreach ($new as $folder => $_) {
+            $oldFileIds = empty($old[$folder]) ? [] : $old[$folder];
+            $newFileIds = empty($new[$folder]) ? [] : $new[$folder];
+
+            $removed = array_diff($oldFileIds, $newFileIds);
+            $added = array_diff($newFileIds, $oldFileIds);
+
+            if ($removed) {
+                $changes['removed'][$folder] = $removed;
+            }
+
+            if ($added) {
+                $changes['added'][$folder] = $added;
+            }
+        }
+
+        $result = '<table class="table"><tr><td class="diffdeleted">-</td><td class="diffdeleted"><del class="diffchar deleted">';
+        foreach ($changes['removed'] as $folder => $removed) {
+            $result .= '</del><strong>' . ucfirst($folder) . ':</strong><br><del class="diffchar deleted">';
+            foreach ($removed as $fileId) {
+                $email = $this->getEmailFromFile($fileId);
+                if ($email) {
+                    $subject = ($email['date'] ? TikiLib::lib('tiki')->get_long_date($email['date']) . ' ' : '') . $email['subject'];
+                    $result .= "<a href='{$email['view_path']}'>" . $subject . '</a><br>';
+                } else {
+                    $result .= $fileId . '<br>';
+                }
+            }
+        }
+
+        $result .= '</del></td><td class="diffadded">+</td><td class="diffadded"><ins class="diffchar inserted">';
+        foreach ($changes['added'] as $folder => $added) {
+            $result .= '</ins><strong>' . ucfirst($folder) . ':</strong><br><ins class="diffchar inserted">';
+            foreach ($added as $fileId) {
+                $email = $this->getEmailFromFile($fileId);
+                if ($email) {
+                    $subject = ($email['date'] ? TikiLib::lib('tiki')->get_long_date($email['date']) . ' ' : '') . $email['subject'];
+                    $result .= "<a href='{$email['view_path']}'>" . $subject . '</a><br>';
+                } else {
+                    $result .= $fileId . '<br>';
+                }
+            }
+        }
+
+        $result .= '</ins></td></tr></table>';
+
+        return $result;
     }
 
     public function getFolders()
