@@ -179,9 +179,11 @@ $usedqt = [];
 $qt_p_list = [];
 $qt_w_list = [];
 
-foreach ($current as &$line) {
-    foreach ($line as $bit) {
-        $usedqt = array_merge($usedqt, $bit);
+if (is_array($current) || is_object($current) || is_iterable($current)) {
+    foreach ($current as &$line) {
+        foreach ($line as $bit) {
+            $usedqt = array_merge($usedqt, $bit);
+        }
     }
 }
 
