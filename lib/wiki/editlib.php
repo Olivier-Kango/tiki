@@ -1529,6 +1529,7 @@ class EditLib
             }, $data);
             $data = preg_replace('/~~(.+?):(.+?)~~/', '{HTML()}<span style="color:$1">$2</span>{HTML}', $data);
         }
+        $data = $this->convertSmileysToUnicode($data);
 
         $wikiParserParsable = new WikiParser_Parsable($data);
         if (! $wikiParserParsable->convertable($data)) {
@@ -1611,6 +1612,7 @@ class EditLib
         }
 
         $converted = $wikiParserParsable->restorePlugins($converted);
+        $converted = preg_replace('/&amp;(#\d{6}|rarr|excl|quest);/', "&$1;", $converted);
 
         if ($target_syntax == 'markdown') {
             $converted = preg_replace_callback('/\{tikiheading level=(.*) options=(.*)\}(.*?)\{\/tikiheading\}/', function ($matches) {
@@ -1619,5 +1621,44 @@ class EditLib
         }
 
         return $converted;
+    }
+
+    private function convertSmileysToUnicode($data)
+    {
+        $conversion = [
+            'biggrin' => '&#128512;',
+            'confused' => '&#128533;',
+            'cool' => '&#128526;',
+            'cry' => '&#128557;',
+            'eek' => '&#128563;',
+            'evil' => '&#128123;',
+            'exclaim' => '&excl;',
+            'frown' => '&#128577;',
+            'idea' => '&#128161;',
+            'lol' => '&#128514;',
+            'mad' => '&#128551;',
+            'mrgreen' => '&#128513;',
+            'neutral' => '&#128528;',
+            'question' => '&quest;',
+            'razz' => '&#128539;',
+            'redface' => '&#128545;',
+            'rolleyes' => '&#128580;',
+            'sad' => '&#128529;',
+            'smile' => '&#128522;',
+            'surprised' => '&#1F60E;',
+            'twisted' => '&#128576;',
+            'wink' => '&#128521;',
+            'arrow' => '&rarr;',
+            'santa' => '&#127877;',
+        ];
+
+        $data = preg_replace_callback('/\(:(\w+):\)/i', function ($matches) use ($conversion) {
+            if (! isset($conversion[$matches[1]])) {
+                return $matches[0];
+            }
+            return $conversion[$matches[1]];
+        }, $data);
+
+        return $data;
     }
 }
