@@ -190,7 +190,7 @@
                             {foreach from=$available_states item=label key=value}
                                 <div class="form-check mt-1">
                                     <label class="form-check-label" for="state-from-{$value|escape}">
-                                        <input type="radio" name="from" class="form-check-input" value="{$value|escape}" id="state-from-{$value|escape}"{if $selected_transition && $selected_transition.from eq $value} checked="checked"{/if}>
+                                        <input type="radio" name="from" required class="form-check-input" value="{$value|escape}" id="state-from-{$value|escape}"{if $selected_transition && $selected_transition.from eq $value} checked="checked"{/if}>
                                         {$label|escape}
                                     </label>
                                 </div>
@@ -203,7 +203,7 @@
                             {foreach from=$available_states item=label key=value}
                                 <div class="form-check mt-1">
                                     <label class="form-check-label" for="state-to-{$value|escape}">
-                                        <input type="radio" name="to" class="form-check-input" value="{$value|escape}" id="state-to-{$value|escape}"{if $selected_transition && $selected_transition.to eq $value} checked="checked"{/if}>
+                                        <input type="radio" name="to" required class="form-check-input" value="{$value|escape}" id="state-to-{$value|escape}"{if $selected_transition && $selected_transition.to eq $value} checked="checked"{/if}>
                                         {$label|escape}
                                     </label>
                                 </div>
