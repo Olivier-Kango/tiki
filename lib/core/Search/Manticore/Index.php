@@ -53,6 +53,10 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     {
         if ($this->pdo_client->deleteIndex($this->index)) {
             $this->providedMappings = [];
+            $stopwords_file = $this->getStopwordsFilePath();
+            if (file_exists($stopwords_file)) {
+                unlink($stopwords_file);
+            }
             return true;
         }
         return false;
@@ -196,7 +200,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     {
         global $prefs;
 
-        $stopwords_file = TIKI_PATH . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . 'manticore-stopwords-' . $this->index;
+        $stopwords_file = $this->getStopwordsFilePath();
         file_put_contents($stopwords_file, implode("\n", $prefs['unified_stopwords']));
 
         $settings = [
@@ -207,6 +211,32 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         ];
 
         return $settings;
+    }
+
+    /**
+     * Returns the actual path to the stopwords file for this index
+     * Tiki temp is preferred but if that is not world-readable,
+     * Manticore might not be able to read it, so fallback to system temp
+     */
+    private function getStopwordsFilePath()
+    {
+        $dir = realpath(TIKI_PATH . DIRECTORY_SEPARATOR . 'temp');
+        $parent = $dir;
+        while ($parent) {
+            $stat = stat($parent);
+            $others_bit = decoct($stat['mode'] & 000007);
+            $executable = $others_bit & 001;
+            if (! $executable) {
+                $dir = sys_get_temp_dir();
+                break;
+            }
+            if (dirname($parent) != $parent) {
+                $parent = dirname($parent);
+            } else {
+                $parent = false;
+            }
+        }
+        return $dir . DIRECTORY_SEPARATOR . 'manticore-stopwords-' . $this->index;
     }
 
     private function getIndexedFields()
