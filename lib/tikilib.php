@@ -4308,7 +4308,8 @@ class TikiLib extends TikiDb_Bridge
         $cachelib->invalidate('global_preferences');
 
         $definition = $prefslib->getPreference($name);
-        $value = $definition['default'];
+        // an empty string is assigned if there's not default preference value, this is done to match PreferencesLib::getDefaults()
+        $value = $definition['default'] ?? '';
         if (isset($prefs)) {
             if (in_array($name, $user_overrider_prefs)) {
                 $prefs['site_' . $name] = $value;
