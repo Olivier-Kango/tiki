@@ -258,6 +258,38 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
         }
     }
 
+    public function watchCompareList(array $old, array $new, \closure $describeListItem): string
+    {
+        $old = array_filter($old);
+        $new = array_filter($new);
+
+        $output = "[-[" . $this->getConfiguration('name') . "]-]:\n";
+
+        $added = array_diff($new, $old);
+        $removed = array_diff($old, $new);
+        $remaining = array_diff($new, $added);
+
+        if (count($added) > 0) {
+            $output .= "  -[Added]-:\n";
+            foreach ($added as $item) {
+                $output .= '    ' . $describeListItem($item) . "\n";
+            }
+        }
+        if (count($removed) > 0) {
+            $output .= "  -[Removed]-:\n";
+            foreach ($removed as $item) {
+                $output .= '    ' . $describeListItem($item) . "\n";
+            }
+        }
+        if (count($remaining) > 0) {
+            $output .= "  -[Remaining]-:\n";
+            foreach ($remaining as $item) {
+                $output .= '    ' . $describeListItem($item) . "\n";
+            }
+        }
+
+        return $output;
+    }
 
     private function isLink($context = [])
     {

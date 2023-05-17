@@ -304,7 +304,9 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         } elseif (isset($value['archive'])) {
             $this->archiveEmail($existing, $value['archive']);
         }
-        return parent::handleSave(json_encode($existing), $oldValue);
+        return [
+            'value' => json_encode($existing)
+        ];
     }
 
     function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
@@ -389,6 +391,50 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
             });
 
         return $schema;
+    }
+
+    public function watchCompare($old, $new)
+    {
+        $filegallib = TikiLib::lib('filegal');
+
+        $decoded = json_decode($old, true);
+        if ($decoded !== null) {
+            $old = $decoded;
+        } else {
+            $old = [
+                'inbox' => array_filter(explode(',', $old))
+            ];
+        }
+
+        $decoded = json_decode($new, true);
+        if ($decoded !== null) {
+            $new = $decoded;
+        } else {
+            $new = [
+                'inbox' => array_filter(explode(',', $new))
+            ];
+        }
+
+        $output = "[-[" . $this->getConfiguration('name') . "]-]:\n";
+        foreach ($new as $folder => $_) {
+            $oldFileIds = empty($old[$folder]) ? [] : $old[$folder];
+            $newFileIds = empty($new[$folder]) ? [] : $new[$folder];
+
+            $diff = parent::watchCompareList($oldFileIds, $newFileIds, function ($item) {
+                $file_object = Tiki\FileGallery\File::id($item);
+                if ($file_object->exists()) {
+                    $parsed_fields = (new Tiki\FileGallery\Manipulator\EmailParser($file_object))->run();
+                    return ($parsed_fields['date'] ? TikiLib::lib('tiki')->get_long_date($parsed_fields['date']) . ' ' : '') . $parsed_fields['subject'];
+                } else {
+                    return $item;
+                }
+            });
+            $diff = preg_replace('/^[^\n]+\n/', '', $diff);
+
+            $output .= "  [-[" . ucfirst($folder) . "]-]:\n";
+            $output .= $diff;
+        }
+        return $output;
     }
 
     public function getFolders()

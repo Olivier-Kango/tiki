@@ -365,6 +365,10 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
 
     public function watchCompare($old, $new)
     {
+        return parent::watchCompareList(explode("\n", $old), explode("\n", $new), function ($item) {
+            list($type, $object) = explode(':', $item, 2);
+            return TikiLib::lib('object')->get_title($type, $object, $this->getOption('format'));
+        });
     }
 
     /**

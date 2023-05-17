@@ -420,4 +420,21 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractField implements \Tr
 
         return true;
     }
+
+    public function watchCompare($old, $new)
+    {
+        if ($this->getConfiguration('type') === 'M') {
+            if (! is_array($old)) {
+                $old = explode(',', $old);
+            }
+            if (! is_array($new)) {
+                $new = explode(',', $new);
+            }
+            return parent::watchCompareList($old, $new, function ($item) {
+                return $item;
+            });
+        } else {
+            return parent::watchCompare($old, $new);
+        }
+    }
 }

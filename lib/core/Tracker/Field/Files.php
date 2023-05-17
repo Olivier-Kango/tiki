@@ -688,9 +688,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
 
     public function watchCompare($old, $new)
     {
-        $name = $this->getConfiguration('name');
         $isVisible = $this->getConfiguration('isHidden', 'n') == 'n';
-
         if (! $isVisible) {
             return;
         }
@@ -703,16 +701,17 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
         $oldFileInfos = empty($oldFileIds) ? [] : $filegallib->get_files_info(null, $oldFileIds);
         $newFileInfos = empty($newFileIds) ? [] : $filegallib->get_files_info(null, $newFileIds);
 
-        $oldValueLines = '';
+        $mapping = [];
         foreach ($oldFileInfos as $info) {
-            $oldValueLines .= '> ' . $info['filename'];
+            $mapping[$info['fileId']] = $info['filename'];
         }
-        $newValueLines = '';
         foreach ($newFileInfos as $info) {
-            $newValueLines .= '> ' . $info['filename'];
+            $mapping[$info['fileId']] = $info['filename'];
         }
 
-        return "[-[$name]-]:\n--[Old]--:\n$oldValueLines\n\n*-[New]-*:\n$newValueLines";
+        return parent::watchCompareList($oldFileIds, $newFileIds, function ($item) use ($mapping) {
+            return $mapping[$item];
+        });
     }
 
     public function renderDiff($context = [])

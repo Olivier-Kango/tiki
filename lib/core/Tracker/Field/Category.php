@@ -276,40 +276,11 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractField implements \Tr
 
     public function watchCompare($old, $new)
     {
-        $old = array_filter(explode(',', $old));
-        $new = array_filter(explode(',', $new));
-
-        $output = $this->getConfiguration('name') . ":\n";
-
-        $new_categs = array_diff($new, $old);
-        $del_categs = array_diff($old, $new);
-        $remain_categs = array_diff($new, $new_categs);
-
-        if (count($new_categs) > 0) {
-            $output .= "  -[Added]-:\n";
-            $output .= $this->describeCategoryList($new_categs);
-        }
-        if (count($del_categs) > 0) {
-            $output .= "  -[Removed]-:\n";
-            $output .= $this->describeCategoryList($del_categs);
-        }
-        if (count($remain_categs) > 0) {
-            $output .= "  -[Remaining]-:\n";
-            $output .= $this->describeCategoryList($remain_categs);
-        }
-
-        return $output;
-    }
-
-    private function describeCategoryList($categs)
-    {
         $categlib = TikiLib::lib('categ');
-        $res = '';
-        foreach ($categs as $cid) {
-            $info = $categlib->get_category($cid);
-            $res .= '    ' . $info['name'] . "\n";
-        }
-        return $res;
+        return parent::watchCompareList(explode(',', $old), explode(',', $new), function ($item) use ($categlib) {
+            $info = $categlib->get_category($item);
+            return $info['name'];
+        });
     }
 
     private function getIds($categories)

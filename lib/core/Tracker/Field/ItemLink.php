@@ -1024,10 +1024,21 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
     public function watchCompare($old, $new)
     {
-        $o = $this->getItemLabel($old);
-        $n = $this->getItemLabel($new);
-
-        return parent::watchCompare($o, $n);    // then compare as text
+        if ($this->getOption('selectMultipleValues')) {
+            if (! is_array($old)) {
+                $old = explode(',', $old);
+            }
+            if (! is_array($new)) {
+                $new = explode(',', $new);
+            }
+            return parent::watchCompareList($old, $new, function ($item) {
+                return $this->getItemLabel($item, ['list_mode' => 'csv']);
+            });
+        } else {
+            $o = $this->getItemLabel($old);
+            $n = $this->getItemLabel($new);
+            return parent::watchCompare($o, $n);    // then compare as text
+        }
     }
 
     /**

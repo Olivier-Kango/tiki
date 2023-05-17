@@ -90,10 +90,6 @@ class Tracker_Field_Language extends \Tracker\Field\AbstractField implements \Tr
         ];
     }
 
-    public function watchCompare($old, $new)
-    {
-    }
-
     public static function update_language($args)
     {
         $definition = Tracker_Definition::get($args['trackerId']);
