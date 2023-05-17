@@ -192,6 +192,17 @@ Some of these may be created by scripts, and not currently versionned in git.
 
 ## Discussion/justifications
 
+### How does the code even know about this?
+
+ASIDE from the features that actually use these paths, we have many partial lists of these paths in string format.  As of 2023-05-17, that is at least:
+
+* installer/installlib.php in create_dirs()
+* tiki-check.php, look for the $dirs[] variable.
+* installlib.php, look for the $dirs[] variable.
+* lib/core/Tiki/Command/MultiTikiMoveCommand.php, look for $dirs
+* setup.sh, look for DIRS=
+
+We need to unify these in proper constants, and end up with 2 files to update, one for PHP, one for bash.
 ### 2 aspects were not considered in previous discussions
 
 1. The importance of JavaScript kept rising, which now (2023) makes not requiring npm impossible for development environments.
