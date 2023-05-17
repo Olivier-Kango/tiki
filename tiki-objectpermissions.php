@@ -167,6 +167,7 @@ $OBJECTPERM_ADMIN_MAX_GROUPS = 4;
 
 if ($group_filter === false) {
     $c = 0;
+    $group_filter = [];
     foreach ($groups['data'] as $g) {   //  filter out if too many groups and hide Admins by default
         if ($c < $OBJECTPERM_ADMIN_MAX_GROUPS && $g['groupName'] != 'Admins') {
             $group_filter[] = $g['id'];
