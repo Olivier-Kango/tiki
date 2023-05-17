@@ -14,6 +14,10 @@
         {button _icon_name="watch" _type="link" _text="{tr}My Watches{/tr}" href="tiki-user_watches.php"}
     {/if}
 
+    {if $prefs.user_favorites eq 'y' and $prefs.feature_wiki_argvariable eq 'y'}
+        {button _icon_name="star" _type="link" _text="{tr}My Favorites{/tr}" href="tiki-user_favorites.php"}
+    {/if}
+    
     <div class="btn-group">
         <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
                 {tr}More{/tr}
