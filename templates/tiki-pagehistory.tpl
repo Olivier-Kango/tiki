@@ -315,7 +315,7 @@
                         {/if}
                         <th></th>
                         {if $prefs.default_wiki_diff_style != "old" and $history}
-                            <th colspan="2">
+                            <th colspan="3" class="text-center">
                                 <input type="submit" class="btn btn-info btn-sm" name="compare" value="{tr}Compare{/tr}">
                             </th>
                         {/if}
