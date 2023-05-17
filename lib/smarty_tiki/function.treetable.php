@@ -334,6 +334,12 @@ $("#' . $id . '_showSelected").click( function () {
                 $tt_id = 'child_of_' . $id . '_' . $treeTypeId . '_' . $oddEvenCounter;
 
                 if (! empty($treeType) && ! in_array($treeTypeId, $treeSectionsAdded)) {
+                    if (! is_array($_columns) && ! is_object($_columns)) {
+                        $_columns = [];
+                    }
+                    if (! is_array($_checkbox) && ! is_object($_checkbox)) {
+                        $_checkbox = [];
+                    }
                     $html .= '<tr data-tt-id="' . $tt_parent_id . '"><td colspan="' . (count($_columns) + count($_checkbox)) . '">';
                     $html .= $treeType . '</td></tr>' . $nl;
 
