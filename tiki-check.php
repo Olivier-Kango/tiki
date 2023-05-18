@@ -14,6 +14,9 @@ tiki-check.php is designed to run in 2 modes
 1) Regular mode. From inside Tiki, in Admin | General
 2) Stand-alone mode. Used to check a server pre-Tiki installation, by copying (only) tiki-check.php onto the server and pointing your browser to it.
 tiki-check.php should not crash but rather avoid running tests which lead to tiki-check crashes.
+
+IMPORTANT:
+1) Be careful, this file will copied to past branches as-is, so it needs to run on the oldest php version that supported tiki versions managed by this tool runs. As of 2023-05-18, it is Tiki 18, and thus PHP 7.2
 */
 
 use Tiki\Lib\Alchemy\AlchemyLib;
@@ -62,9 +65,11 @@ function getTikiRequirements()
             ),
             'mariadb' => array(
                 'min' => '5.5',
+                'max' => null
             ),
             'mysql'   => array(
                 'min' => '5.7',
+                'max' => null
             ),
         ),
         array(
@@ -76,9 +81,11 @@ function getTikiRequirements()
             ),
             'mariadb' => array(
                 'min' => '5.5',
+                'max' => null
             ),
             'mysql'   => array(
                 'min' => '5.7',
+                'max' => null
             ),
         ),
         array(
@@ -90,9 +97,11 @@ function getTikiRequirements()
             ),
             'mariadb' => array(
                 'min' => '5.5',
+                'max' => null
             ),
             'mysql'   => array(
                 'min' => '5.7',
+                'max' => null
             ),
         ),
         array(
@@ -104,9 +113,11 @@ function getTikiRequirements()
             ),
             'mariadb' => array(
                 'min' => '5.5',
+                'max' => null
             ),
             'mysql'   => array(
                 'min' => '5.7',
+                'max' => null
             ),
         ),
         array(
@@ -118,9 +129,11 @@ function getTikiRequirements()
             ),
             'mariadb' => array(
                 'min' => '5.5',
+                'max' => null
             ),
             'mysql'   => array(
                 'min' => '5.7',
+                'max' => null
             ),
         ),
         array(
@@ -132,9 +145,11 @@ function getTikiRequirements()
             ),
             'mariadb' => array(
                 'min' => '5.5',
+                'max' => null
             ),
             'mysql'   => array(
                 'min' => '5.7',
+                'max' => null
             ),
         ),
         array(
@@ -184,39 +199,7 @@ function getTikiRequirements()
                 'min' => '5.0',
                 'max' => '5.7',
             ),
-        ),
-        array(
-            'name'    => 'Tiki 15.x',
-            'version' => 15,
-            'php'     => array(
-                'min' => '5.5',
-                'max' => '5.6',
-            ),
-            'mariadb' => array(
-                'min' => '5.0',
-                'max' => '10.1',
-            ),
-            'mysql'   => array(
-                'min' => '5.0',
-                'max' => '5.6',
-            ),
-        ),
-        array(
-            'name'    => 'Tiki 12.x LTS',
-            'version' => 12,
-            'php'     => array(
-                'min' => '5.3',
-                'max' => '5.6',
-            ),
-            'mariadb' => array(
-                'min' => '5.0',
-                'max' => '5.5',
-            ),
-            'mysql'   => array(
-                'min' => '5.0',
-                'max' => '5.5',
-            ),
-        ),
+        )
     );
 }
 
@@ -1449,11 +1432,26 @@ if ($s) {
 // mbstring
 $s = extension_loaded('mbstring');
 if ($s) {
-    $php_properties['mbstring'] = array(
-        'fitness' => tra('bad'),
-        'setting' => 'Badly installed',
-        'message' => tra('mbstring extension is loaded, but missing important functions such as mb_split(). Reinstall it with --enable-mbregex or ask your a server administrator to do it.')
-    );
+    $func_overload = ini_get('mbstring.func_overload');
+    if (! function_exists('mb_split')) {
+        $php_properties['mbstring'] = array(
+            'fitness' => tra('bad'),
+            'setting' => 'Badly installed',
+            'message' => tra('mbstring extension is loaded, but missing important functions such as mb_split(). Reinstall it with --enable-mbregex or ask your a server administrator to do it.')
+        );
+    } elseif ($func_overload !== false || $func_overload > 0) {//Yes, this reads weird.  But in php 8 func_overload no longer exists.  See https://www.php.net/manual/en/mbstring.overload.php
+        $php_properties['mbstring'] = array(
+            'fitness' => tra('unsure'),
+            'setting' => 'Badly configured',
+            'message' => tra('mbstring extension is loaded, but mbstring.func_overload = ' . ' ' . $func_overload . '.' . ' ' . 'Tiki only works with mbstring.func_overload = 0. Please check the php.ini file.')
+            );
+    } else {
+        $php_properties['mbstring'] = array(
+            'fitness' => tra('good'),
+            'setting' => 'Loaded',
+            'message' => tra('mbstring extension is needed for an UTF-8 compatible lower case filter, in the admin search for example.')
+        );
+    }
 } else {
     $php_properties['mbstring'] = array(
         'fitness' => tra('bad'),
@@ -1825,8 +1823,8 @@ if ($has_xdebug) {
 }
 
 // Get MySQL properties and check them
-$mysql_properties = false;
-$mysql_variables = false;
+$mysql_properties = array();
+$mysql_variables = array();
 if ($connection || ! $standalone) {
     // MySQL version
     $query = 'SELECT VERSION();';

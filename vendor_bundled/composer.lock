@@ -1934,17 +1934,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "3.4.4",
+            "version": "3.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "29b2fd171a0b8e979a5782927eb0c6c91ebd6221"
+                "reference": "6c4e72c40c5a3a5af4e22c88bf7051008a7b6864"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-29b2fd171a0b8e979a5782927eb0c6c91ebd6221-zip-a4a68d.zip",
-                "reference": "29b2fd171a0b8e979a5782927eb0c6c91ebd6221",
-                "shasum": "72843f66e6296d613d9cf15cc1caef7c40a35d46"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-6c4e72c40c5a3a5af4e22c88bf7051008a7b6864-zip-038304.zip",
+                "reference": "6c4e72c40c5a3a5af4e22c88bf7051008a7b6864",
+                "shasum": "4f95afd64614b35f9c2a5a62c08bcbdaf0e44fa2"
             },
             "require": {
                 "php": "^7.4|^8.0"
@@ -1974,7 +1974,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2023-05-12T07:32:53+00:00"
+            "time": "2023-05-18T07:33:16+00:00"
         },
         {
             "name": "erusev/parsedown",

@@ -203,6 +203,7 @@ ASIDE from the features that actually use these paths, we have many partial list
 * setup.sh, look for DIRS=
 
 We need to unify these in proper constants, and end up with 2 files to update, one for PHP, one for bash.
+
 ### 2 aspects were not considered in previous discussions
 
 1. The importance of JavaScript kept rising, which now (2023) makes not requiring npm impossible for development environments.

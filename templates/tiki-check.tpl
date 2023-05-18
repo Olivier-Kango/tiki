@@ -35,7 +35,7 @@
         </tbody>
     </table>
 </div>
-<h3>{tr}Supported Tiki versions{/tr}</h3>
+<h3>{tr}Tiki versions compatible with your current server configuration{/tr}</h3>
 <div class="table-responsive">
     <table class="table table-striped table-hover">
         <thead>
