@@ -304,7 +304,7 @@ class WikiLib extends TikiLib
 
     // This method renames a wiki page
     // If you think this is easy you are very very wrong
-    public function wiki_rename_page($oldName, $newName, $renameHomes = true, $user = '')
+    public function wiki_rename_page($oldName, $newName, $renameHomes = true, $user = '', $skipCharsCheck = false)
     {
         global $prefs;
         $tikilib = TikiLib::lib('tiki');
@@ -317,7 +317,7 @@ class WikiLib extends TikiLib
             }
         }
 
-        if ($this->contains_badchars($newName) && $prefs['wiki_badchar_prevent'] == 'y') {
+        if (! $skipCharsCheck && $this->contains_badchars($newName) && $prefs['wiki_badchar_prevent'] == 'y') {
             throw new Exception("Bad characters", 1);
         }
 
