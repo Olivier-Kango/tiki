@@ -4851,7 +4851,7 @@ class TikiLib extends TikiDb_Bridge
             $wikilib = TikiLib::lib('wiki');
             $temppage = md5($this->now . $name);
             $wikilib->wiki_rename_page($name, $temppage, false, $user);
-            $wikilib->wiki_rename_page($temppage, $name, false, $user);
+            $wikilib->wiki_rename_page($temppage, $name, false, $user, filter_var($name, FILTER_VALIDATE_URL));
         }
 
         $tracer->trace('tikilib.create_page', "** Returning");
