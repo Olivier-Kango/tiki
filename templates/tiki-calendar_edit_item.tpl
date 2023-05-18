@@ -244,20 +244,73 @@
                                 {/if}
                                 {if $recurrence.id eq 0 or $recurrence.monthly}
                                 <div class="mb-3 px-5">
-                                    <div class="input-group">
-                                        <span class="input-group-text">{tr}Each{/tr}</span>
-                                        <select name="dayOfMonth" class="form-control">
-                                            {section name=k start=1 loop=32}
-                                                <option value="{$smarty.section.k.index}" {if $recurrence.dayOfMonth eq $smarty.section.k.index} selected="selected" {/if} >
-                                                    {if $smarty.section.k.index lt 10}
-                                                        0
-                                                    {/if}
-                                                    {$smarty.section.k.index}
+                                    {if $recurrence.id eq 0 or $recurrence.monthlyType eq 'date'}
+                                        <div class="input-group">
+                                            {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" checked="checked" name="recurrenceTypeMonthy" value="date"></span>{/if}
+                                            <span class="input-group-text">{tr}Each{/tr}</span>
+                                            <select name="dayOfMonth" class="form-control">
+                                                {section name=k start=1 loop=32}
+                                                    <option value="{$smarty.section.k.index}" {if $recurrence.dayOfMonth eq $smarty.section.k.index} selected="selected" {/if} >
+                                                        {if $smarty.section.k.index lt 10}0{/if}{$smarty.section.k.index}
+                                                    </option>
+                                                {/section}
+                                            </select>
+                                            <span class="input-group-text">{tr}of the month{/tr}</span>
+                                        </div>
+                                    {/if}
+                                    {if $recurrence.id eq 0}
+                                        <div class="text-center py-2"><span>{tr}OR{/tr}</span></div>
+                                    {/if}
+                                    {if $recurrence.id eq 0 or $recurrence.monthlyType eq 'weekday'}
+                                        <div class="input-group">
+                                            {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" name="recurrenceTypeMonthy" value="weekday"></span>{/if}
+                                            <span class="input-group-text">{tr}Each{/tr}</span>
+                                            <select name="weekNumberByMonth" class="form-control" {if $recurrence.id neq 0}disabled{/if}>
+                                                <option value="1" {if $recurrence.monthlyWeekdayValue[0] eq '1'} selected="selected" {/if}>
+                                                    {tr}First{/tr}
                                                 </option>
-                                            {/section}
-                                        </select>
-                                        <span class="input-group-text">{tr}of the month{/tr}</span>
-                                    </div>
+                                                <option value="2" {if $recurrence.monthlyWeekdayValue[0] eq '2'} selected="selected" {/if}>
+                                                    {tr}Second{/tr}
+                                                </option>
+                                                <option value="3" {if $recurrence.monthlyWeekdayValue[0] eq '3'} selected="selected" {/if}>
+                                                    {tr}Third{/tr}
+                                                </option>
+                                                <option value="4" {if $recurrence.monthlyWeekdayValue[0] eq '4'} selected="selected" {/if}>
+                                                    {tr}Fourth{/tr}
+                                                </option>
+                                                <option value="5" {if $recurrence.monthlyWeekdayValue[0] eq '5'} selected="selected" {/if}>
+                                                    {tr}Fifth{/tr}
+                                                </option>
+                                                <option value="-1" {if strpos($recurrence.monthlyWeekdayValue, '-1') eq true} selected="selected" {/if}>
+                                                    {tr}Last{/tr}
+                                                </option>
+                                            </select>
+                                            <select name="monthlyWeekday" class="form-control" {if $recurrence.id neq 0}disabled{/if}>
+                                                <option value="SU" {if strpos($recurrence.monthlyWeekdayValue, 'SU') eq true} selected="selected" {/if}>
+                                                    {tr}Sunday{/tr}
+                                                </option>
+                                                <option value="MO" {if strpos($recurrence.monthlyWeekdayValue, 'MO') eq true} selected="selected" {/if}>
+                                                    {tr}Monday{/tr}
+                                                </option>
+                                                <option value="TU" {if strpos($recurrence.monthlyWeekdayValue, 'TU') eq true} selected="selected" {/if}>
+                                                    {tr}Tuesday{/tr}
+                                                </option>
+                                                <option value="WE" {if strpos($recurrence.monthlyWeekdayValue, 'WE') eq true} selected="selected" {/if}>
+                                                    {tr}Wednesday{/tr}
+                                                </option>
+                                                <option value="TH" {if strpos($recurrence.monthlyWeekdayValue, 'TH') eq true} selected="selected" {/if}>
+                                                    {tr}Thursday{/tr}
+                                                </option>
+                                                <option value="FR" {if strpos($recurrence.monthlyWeekdayValue, 'FR') eq true} selected="selected" {/if}>
+                                                    {tr}Friday{/tr}
+                                                </option>
+                                                <option value="SA" {if strpos($recurrence.monthlyWeekdayValue, 'SA') eq true} selected="selected" {/if}>
+                                                    {tr}Saturday{/tr}
+                                                </option>
+                                            </select>
+                                            <span class="input-group-text">{tr}of the month{/tr}</span>
+                                        </div>
+                                    {/if}
                                     <hr/>
                                 </div>
                                 {/if}

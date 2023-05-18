@@ -286,8 +286,14 @@ if (isset($_POST['act'])) {
                     case "monthly":
                         $calRecurrence->setWeekly(false);
                         $calRecurrence->setMonthly(true);
-                        $calRecurrence->setDayOfMonth($_POST['dayOfMonth']);
                         $calRecurrence->setYearly(false);
+                        $calRecurrence->setMonthlyType($_POST['recurrenceTypeMonthy']);
+                        if ($_POST['recurrenceTypeMonthy'] && $_POST['recurrenceTypeMonthy'] === 'weekday') {
+                            $monthlyWeekdayValue = $_POST['weekNumberByMonth'] . $_POST['monthlyWeekday'];
+                            $calRecurrence->setMonthlyWeekdayValue($monthlyWeekdayValue);
+                        } else {
+                            $calRecurrence->setDayOfMonth($_POST['dayOfMonth']);
+                        }
                         break;
                     case "yearly":
                         $calRecurrence->setWeekly(false);
