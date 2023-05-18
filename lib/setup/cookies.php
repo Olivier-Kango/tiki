@@ -66,7 +66,7 @@ function getCookie($name, $section = null, $default = null)
     }
 }
 
-function setCookieSection($name, $value, $section = '', $expire = null, $path = '', $domain = '', $secure = '')
+function setCookieSection($name, $value, $section = '', $expire = 0, $path = '', $domain = '', $secure = '')
 {
     global $feature_no_cookie;
 
