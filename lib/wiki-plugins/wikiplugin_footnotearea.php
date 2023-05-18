@@ -10,7 +10,7 @@ function wikiplugin_footnotearea_info()
         'name' => tra('Footnote Area'),
         'documentation' => 'PluginFootnoteArea',
         'description' => tra('Create automatically numbered footnotes (together with PluginFootnote)'),
-        'prefs' => ['wikiplugin_footnote'],
+        'prefs' => ['wikiplugin_footnotearea', 'wikiplugin_footnote'],
         'iconname' => 'superscript',
         'format' => 'html',
         'introduced' => 3,
