@@ -1,30 +1,34 @@
 //--------------------------- Tiki CSS variables
-:root {
-    --tiki-top-light-bg: rgb(255, 255, 255);
-    --tiki-top-light-color: rgba(0, 0, 0, 0.9);
-    --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
-    --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+.tiki-nav-light {
+    --tiki-top-bg: rgb(255, 255, 255);
+    --tiki-top-color: rgba(0, 0, 0, 0.9);
+    --tiki-top-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-top-link-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-top-border: solid #dedede;
 
-    --tiki-topbar-light-bg: rgb(255, 255, 255);
-    --tiki-topbar-light-color: rgba(0, 0, 0, 0.9);
-    --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
-    --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-topbar-bg: rgb(255, 255, 255);
+    --tiki-topbar-color: rgba(0, 0, 0, 0.9);
+    --tiki-topbar-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-link-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-topbar-border: solid #dedede;
+}
 
-    --tiki-top-dark-bg: #d9230f ;
-    --tiki-top-dark-color: #fff;
-    --tiki-top-dark-link-color: rgba(255, 255, 255, 0.75);
-    --tiki-top-dark-link-hover-color: #fff;
+.tiki-nav-dark {
+    --tiki-top-bg: #d9230f;
+    --tiki-top-color: #fff;
+    --tiki-top-link-color: rgba(255, 255, 255, 0.75);
+    --tiki-top-link-hover-color: #fff;
+    --tiki-top-border: solid #bd1e0d;
 
-    --tiki-topbar-dark-bg: #d9230f ;
-    --tiki-topbar-dark-color: #fff;
-    --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.75);
-    --tiki-topbar-dark-link-hover-color: #fff;
+    --tiki-topbar-bg: #d9230f;
+    --tiki-topbar-color: #fff;
+    --tiki-topbar-link-color: rgba(255, 255, 255, 0.75);
+    --tiki-topbar-link-hover-color: #fff;
+    --tiki-topbar-border: solid #bd1e0d;
+}
 
-    --tiki-top-light-border: solid #dedede;
-    --tiki-top-dark-border: solid #bd1e0d;
+.tiki-nav-light, .tiki-nav-dark {
     --tiki-top-border-width: 1px;
-    --tiki-topbar-light-border: solid #dedede;
-    --tiki-topbar-dark-border: solid #bd1e0d;
     --tiki-topbar-border-width: 1px;
 }
 

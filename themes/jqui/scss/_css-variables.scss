@@ -1,25 +1,27 @@
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
-:root {
-    --tiki-top-light-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
-    --tiki-top-light-color: #{$navbar-light-color};
-    --tiki-top-light-link-color: #{$navbar-light-color};
-    --tiki-top-light-link-hover-color: #{$navbar-light-hover-color};
+.tiki-nav-light {
+    --tiki-top-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+    --tiki-top-color: #{$navbar-light-color};
+    --tiki-top-link-color: #{$navbar-light-color};
+    --tiki-top-link-hover-color: #{$navbar-light-hover-color};
 
-    --tiki-topbar-light-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
-    --tiki-topbar-light-color: #{$navbar-light-color};
-    --tiki-topbar-light-link-color: #{$navbar-light-color};
-    --tiki-topbar-light-link-hover-color: #{$navbar-dark-hover-color};
+    --tiki-topbar-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+    --tiki-topbar-color: #{$navbar-light-color};
+    --tiki-topbar-link-color: #{$navbar-light-color};
+    --tiki-topbar-link-hover-color: #{$navbar-dark-hover-color};
+}
 
-    --tiki-top-dark-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
-    --tiki-top-dark-color: #{$navbar-dark-color};
-    --tiki-top-dark-link-color: #{$navbar-dark-color};
-    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
+.tiki-nav-dark {
+    --tiki-top-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+    --tiki-top-color: #{$navbar-dark-color};
+    --tiki-top-link-color: #{$navbar-dark-color};
+    --tiki-top-link-hover-color: #{$navbar-dark-hover-color};
 
-    --tiki-topbar-dark-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
-    --tiki-topbar-dark-color: #{$navbar-dark-color};
-    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
-    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
+    --tiki-topbar-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+    --tiki-topbar-color: #{$navbar-dark-color};
+    --tiki-topbar-link-color: #{$navbar-dark-color};
+    --tiki-topbar-link-hover-color: #{$navbar-dark-hover-color};
 }
 
 .tiki-admin {

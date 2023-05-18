@@ -1,29 +1,33 @@
 //--------------------------- Tiki CSS variables
-:root {
-    --tiki-top-light-bg: rgba(246, 246, 246, 1);
-    --tiki-top-light-color: rgba(0, 0, 0, 0.55);
-    --tiki-top-light-link-color: rgba(0, 0, 0, 0.55);
-    --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.7);
+.tiki-nav-light {
+    --tiki-top-bg: rgba(246, 246, 246, 1);
+    --tiki-top-color: rgba(0, 0, 0, 0.55);
+    --tiki-top-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-top-link-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-top-border: solid #eee;
 
-    --tiki-topbar-light-bg: rgba(246, 246, 246, 1);
-    --tiki-topbar-light-color: rgba(0, 0, 0, 0.55);
-    --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
-    --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-topbar-bg: rgba(246, 246, 246, 1);
+    --tiki-topbar-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-link-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-topbar-border: solid #eee;
+}
 
-    --tiki-top-dark-bg: #{$primary};
-    --tiki-top-dark-color: rgba(255, 255, 255, 0.55);
-    --tiki-top-dark-link-color: rgba(255, 255, 255, 0.55);
-    --tiki-top-dark-link-hover-color: rgba(0, 0, 0, 0.7);
+.tiki-nav-dark {
+    --tiki-top-bg: #{$primary};
+    --tiki-top-color: rgba(255, 255, 255, 0.55);
+    --tiki-top-link-color: rgba(255, 255, 255, 0.55);
+    --tiki-top-link-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-top-border: solid #4d4d4d;
 
-    --tiki-topbar-dark-bg: #{$primary};
-    --tiki-topbar-dark-color: rgba(255, 255, 255, 0.55);
-    --tiki-topbar-dark-link-color: rgba(255, 255, 255, 0.55);
-    --tiki-topbar-dark-link-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-topbar-bg: #{$primary};
+    --tiki-topbar-color: rgba(255, 255, 255, 0.55);
+    --tiki-topbar-link-color: rgba(255, 255, 255, 0.55);
+    --tiki-topbar-link-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-topbar--border: solid #4d4d4d;
+}
 
-    --tiki-top-light-border: solid #eee;
-    --tiki-topbar-light-border: solid #eee;
-    --tiki-top-dark-border: solid #4d4d4d;
-    --tiki-topbar-dark-border: solid #4d4d4d;
+.tiki-nav-light, .tiki-nav-dark {
     --tiki-top-border-width: 0 1px 4px 1px;
     --tiki-topbar-border-width: 0 1px 4px 1px
 }

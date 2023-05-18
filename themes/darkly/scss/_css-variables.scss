@@ -1,24 +1,26 @@
 //--------------------------- Tiki CSS variables
-:root {
-    --tiki-top-light-bg: #{rgba($gray-800, 1)}; // #{$light};
-    --tiki-top-light-color: #{rgba($white, .6)}; //#{$navbar-light-color};
-    --tiki-top-light-link-color: #{rgba($white, .6)}; //#{$navbar-light-color};
-    --tiki-top-light-link-hover-color:  #{$white}; //#{$navbar-light-hover-color};
+.tiki-nav-light {
+    --tiki-top-bg: #{rgba($gray-800, 1)}; // #{$light};
+    --tiki-top-color: #{rgba($white, .6)}; //#{$navbar-light-color};
+    --tiki-top-link-color: #{rgba($white, .6)}; //#{$navbar-light-color};
+    --tiki-top-link-hover-color: #{$white}; //#{$navbar-light-hover-color};
 
-    --tiki-topbar-light-bg: #444; //#{$light};
-    --tiki-topbar-light-color:  #{rgba($white, .6)}; //#{$navbar-light-color};
-    --tiki-topbar-light-link-color: #{rgba($white, .6)}; //#{$navbar-light-color};
-    --tiki-topbar-light-link-hover-color: #{$white}; //#{$navbar-light-hover-color};
+    --tiki-topbar-bg: #444; //#{$light};
+    --tiki-topbar-color: #{rgba($white, .6)}; //#{$navbar-light-color};
+    --tiki-topbar-link-color: #{rgba($white, .6)}; //#{$navbar-light-color};
+    --tiki-topbar-link-hover-color: #{$white}; //#{$navbar-light-hover-color};
+}
 
-    --tiki-top-dark-bg: #{rgba($gray-800, 1)};
-    --tiki-top-dark-color: #{rgba($white, .6)};
-    --tiki-top-dark-link-color: #{rgba($white, .6)};
-    --tiki-top-dark-link-hover-color: #{$white};
+.tiki-nav-dark {
+    --tiki-top-bg: #{rgba($gray-800, 1)};
+    --tiki-top-color: #{rgba($white, .6)};
+    --tiki-top-link-color: #{rgba($white, .6)};
+    --tiki-top-link-hover-color: #{$white};
 
-    --tiki-topbar-dark-bg: #444; //#{rgba($gray-800, 1)};
-    --tiki-topbar-dark-color: #{rgba($white, .6)};
-    --tiki-topbar-dark-link-color: #{rgba($white, .6)};
-    --tiki-topbar-dark-link-hover-color: #{$white};
+    --tiki-topbar-bg: #444; //#{rgba($gray-800, 1)};
+    --tiki-topbar-color: #{rgba($white, .6)};
+    --tiki-topbar-link-color: #{rgba($white, .6)};
+    --tiki-topbar-link-hover-color: #{$white};
 }
 
 .tiki-admin {

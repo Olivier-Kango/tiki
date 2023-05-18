@@ -159,30 +159,34 @@ $postbody-title-card-title-color: #fff;
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
-:root {
-// Use this one instead of the next to get a light band on the side like an actual orange slice --tiki-top-light-bg: linear-gradient(90deg, rgba(192,180,108,1) 1%, rgba(190,133,20,1) 3%, rgba(199,159,29,1) 97%, rgba(202,172,78,1) 100%);
-    --tiki-top-light-bg: linear-gradient(90deg, rgba(190,133,20,1) 2%, rgba(199,159,29,1) 93%, rgba(202,172,78,1) 100%);
-    --tiki-top-light-color: #3C3106;
-    --tiki-top-light-link-color: #3C3106;
-    --tiki-top-light-link-hover-color: #3C3106FF;
+.tiki-nav-light {
+    // Use this one instead of the next to get a light band on the side like an actual orange slice --tiki-top-light-bg: linear-gradient(90deg, rgba(192,180,108,1) 1%, rgba(190,133,20,1) 3%, rgba(199,159,29,1) 97%, rgba(202,172,78,1) 100%);
+    --tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
+    --tiki-top-color: #3C3106;
+    --tiki-top-link-color: #3C3106;
+    --tiki-top-link-hover-color: #3C3106FF;
+    --tiki-top-border: solid #000;
 
-    --tiki-topbar-light-bg: #{$topbar-light-bg};
-    --tiki-topbar-light-color: #000;
-    --tiki-topbar-light-link-color: #000;
-    --tiki-topbar-light-link-hover-color: #3C3106FF;
+    --tiki-topbar-bg: #{$topbar-light-bg};
+    --tiki-topbar-color: #000;
+    --tiki-topbar-link-color: #000;
+    --tiki-topbar-link-hover-color: #3C3106FF;
+}
 
-    --tiki-top-dark-bg: var(--tiki-top-light-bg);
-    --tiki-top-dark-color: #{$top-dark-color};
-    --tiki-top-dark-link-color: #{$top-dark-link-color};
-    --tiki-top-dark-link-hover-color: #{$top-link-hover-color};
+.tiki-nav-dark {
+    --tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
+    --tiki-top-color: #{$top-dark-color};
+    --tiki-top-link-color: #{$top-dark-link-color};
+    --tiki-top-link-hover-color: #{$top-link-hover-color};
+    --tiki-top-border: solid #000;
 
-    --tiki-topbar-dark-bg:#ea8a0b;
-    --tiki-topbar-dark-color: #000;
-    --tiki-topbar-dark-link-color: #000;
-    --tiki-topbar-dark-link-hover-color: #3C3106FF;
+    --tiki-topbar-bg: #ea8a0b;
+    --tiki-topbar-color: #000;
+    --tiki-topbar-link-color: #000;
+    --tiki-topbar-link-hover-color: #3C3106FF;
+}
 
-    --tiki-top-light-border: solid #000;
-    --tiki-top-dark-border: solid #000;
+.tiki-nav-light, .tiki-nav-dark {
     --tiki-top-border-top-width: 0px;
     --tiki-top-border-bottom-width: 5px;
 }

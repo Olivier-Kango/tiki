@@ -1,24 +1,26 @@
 //--------------------------- CSS variables
-:root {
-    --tiki-top-light-bg:  #fff;
-    --tiki-top-light-color: #{$navbar-light-color};
-    --tiki-top-light-link-color: #000;
-    --tiki-top-light-link-hover-color: #000;
+.tiki-nav-light {
+    --tiki-top-bg: #fff;
+    --tiki-top-color: #{$navbar-light-color};
+    --tiki-top-link-color: #000;
+    --tiki-top-link-hover-color: #000;
 
-    --tiki-topbar-light-bg: #fff;
-    --tiki-topbar-light-color: #888;
-    --tiki-topbar-light-link-color: #595959;
-    --tiki-topbar-light-link-hover-color: #888;
+    --tiki-topbar-bg: #fff;
+    --tiki-topbar-color: #888;
+    --tiki-topbar-link-color: #595959;
+    --tiki-topbar-link-hover-color: #888;
+}
 
-    --tiki-top-dark-bg:  #fafafa;
-    --tiki-top-dark-color: #333;
-    --tiki-top-dark-link-color: #333;
-    --tiki-top-dark-link-hover-color: #333;
+.tiki-nav-dark {
+    --tiki-top-bg:  #fafafa;
+    --tiki-top-color: #333;
+    --tiki-top-link-color: #333;
+    --tiki-top-link-hover-color: #333;
 
-    --tiki-topbar-dark-bg: #fafafa;
-    --tiki-topbar-dark-color: #333;
-    --tiki-topbar-dark-link-color: #333;
-    --tiki-topbar-dark-link-hover-color: #333;
+    --tiki-topbar-bg: #fafafa;
+    --tiki-topbar-color: #333;
+    --tiki-topbar-link-color: #333;
+    --tiki-topbar-link-hover-color: #333;
 }
 
 .tiki-admin {

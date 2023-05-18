@@ -17,6 +17,10 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-bottom-width: 0px;
   --tiki-fixed-top-border-left-width: 0px;
 }
+:root {
+  --tiki-tooltip-link-color: #88b6fc;
+  --tiki-tooltip-link-hover-color: $tooltip-color;
+}
 body {
   background: #fff;
   color: #212529;

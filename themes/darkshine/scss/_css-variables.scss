@@ -1,25 +1,27 @@
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
-:root {
-    --tiki-top-light-bg: null;
-    --tiki-top-light-color: #FEA239;
-    --tiki-top-light-link-color: #FEA239;
-    --tiki-top-light-link-hover-color: lighten(#FEA239,10%);
+.tiki-nav-light {
+    --tiki-top-bg: null;
+    --tiki-top-color: #FEA239;
+    --tiki-top-link-color: #FEA239;
+    --tiki-top-link-hover-color: lighten(#FEA239, 10%);
 
-    --tiki-topbar-light-bg: #{$top-navbar-bg};
-    --tiki-topbar-light-color: #{$gray-100};
-    --tiki-topbar-light-link-color: #{$gray-100};
-    --tiki-topbar-light-link-hover-color: #{$gray-200};
+    --tiki-topbar-bg: #{$top-navbar-bg};
+    --tiki-topbar-color: #{$gray-100};
+    --tiki-topbar-link-color: #{$gray-100};
+    --tiki-topbar-link-hover-color: #{$gray-200};
+}
 
-    --tiki-top-dark-bg: #{$top-navbar-bg};
-    --tiki-top-dark-color: #FEA239;
-    --tiki-top-dark-link-color: #FEA239;
-    --tiki-top-dark-link-hover-color: lighten(#FEA239,10%);
+.tiki-nav-dark {
+    --tiki-top-bg: #{$top-navbar-bg};
+    --tiki-top-color: #FEA239;
+    --tiki-top-link-color: #FEA239;
+    --tiki-top-link-hover-color: lighten(#FEA239,10%);
 
-    --tiki-topbar-dark-bg: null;
-    --tiki-topbar-dark-color: #{$gray-100};
-    --tiki-topbar-dark-link-color: #{$gray-100};
-    --tiki-topbar-dark-link-hover-color: #{$gray-200};
+    --tiki-topbar-bg: null;
+    --tiki-topbar-color: #{$gray-100};
+    --tiki-topbar-link-color: #{$gray-100};
+    --tiki-topbar-link-hover-color: #{$gray-200};
 }
 
 .tiki-admin {

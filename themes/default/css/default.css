@@ -24,6 +24,10 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-bottom-width: 0px;
   --tiki-fixed-top-border-left-width: 0px;
 }
+:root {
+  --tiki-tooltip-link-color: #88b6fc;
+  --tiki-tooltip-link-hover-color: $tooltip-color;
+}
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: #2C2C2C;
   --tiki-admin-dropdown-dark-color: #dee2e6;
@@ -10773,15 +10777,15 @@ body.wikitext {
 .wp-cookie-consent-required {
   color: #dc3545;
 }
-.wp-sign {
+.tooltip-inner {
   color: #fff;
   background-color: #000;
 }
-.wp-sign a, .wp-sign a:visited {
-  color: white;
+.tooltip-inner a, .tooltip-inner a:visited {
+  color: var(--tiki-tooltip-link-color);
 }
-.wp-sign a:hover, .wp-sign a:visited:hover {
-  color: white;
+.tooltip-inner a:hover, .tooltip-inner a:visited:hover {
+  color: var(--tiki-tooltip-link-hover-color);
   text-decoration: none;
 }
 .toc {
@@ -10798,11 +10802,13 @@ body.wikitext {
   background: #198754;
   --bs-table-bg: #198754;
   color: #aff0d2;
+  word-break: break-all;
 }
 .diffdeleted {
   background: #dc3545;
   --bs-table-bg: #dc3545;
   color: white;
+  word-break: break-all;
 }
 .diffadded a, .diffadded a:hover {
   color: white;
@@ -10938,7 +10944,6 @@ input[type="checkbox"].preffilter-toggle-round + label {
 input[type="checkbox"].preffilter-toggle-round + label:before {
   color: #212529;
   background-color: #fff;
-  border-color: #e6e6e6;
 }
 input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   background-color: #198754;

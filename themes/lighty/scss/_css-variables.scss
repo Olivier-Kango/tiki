@@ -1,28 +1,30 @@
 //--------------------------- Tiki CSS variables
-:root {
-    --tiki-top-light-bg: #{$navbar-light-bg};
-    --tiki-top-light-color: #6B7785;
-    --tiki-top-light-link-color: #{$gray-800};
-    --tiki-top-light-link-hover-color: #{$gray-800};
+.tiki-nav-light {
+    --tiki-top-bg: #{$navbar-light-bg};
+    --tiki-top-color: #6B7785;
+    --tiki-top-link-color: #{$gray-800};
+    --tiki-top-link-hover-color: #{$gray-800};
 
-    --tiki-topbar-light-bg: #{$navbar-light-bg};
-    --tiki-topbar-light-color: #6B7785;
-    --tiki-topbar-light-link-color: #{$gray-800};
-    --tiki-topbar-light-link-hover-color: #{$gray-800};
+    --tiki-topbar-bg: #{$navbar-light-bg};
+    --tiki-topbar-color: #6B7785;
+    --tiki-topbar-link-color: #{$gray-800};
+    --tiki-topbar-link-hover-color: #{$gray-800};
+}
 
-    --tiki-top-dark-bg: #{$navbar-dark-bg};
-    --tiki-top-dark-color: #fff;
-    --tiki-top-dark-link-color: #{$navbar-dark-color};
-    --tiki-top-dark-link-hover-color: #{$navbar-dark-hover-color};
-    --tiki-top-dark-link-hover-bg: #{darken($navbar-dark-bg, 6.5%)};
-    --tiki-top-dark-link-active-bg: #{darken($navbar-dark-bg, 6.5%)};
+.tiki-nav-dark {
+    --tiki-top-bg: #{$navbar-dark-bg};
+    --tiki-top-color: #fff;
+    --tiki-top-link-color: #{$navbar-dark-color};
+    --tiki-top-link-hover-color: #{$navbar-dark-hover-color};
+    --tiki-top-link-hover-bg: #{darken($navbar-dark-bg, 6.5%)};
+    --tiki-top-link-active-bg: #{darken($navbar-dark-bg, 6.5%)};
 
-    --tiki-topbar-dark-bg: #{$navbar-dark-bg};
-    --tiki-topbar-dark-color: #fff;
-    --tiki-topbar-dark-link-color: #{$navbar-dark-color};
-    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-hover-color};
-    --tiki-topbar-dark-link-hover-bg: #{darken($navbar-dark-bg, 6.5%)};
-    --tiki-topbar-dark-link-active-bg: #{darken($navbar-dark-bg, 6.5%)};
+    --tiki-topbar-bg: #{$navbar-dark-bg};
+    --tiki-topbar-color: #fff;
+    --tiki-topbar-link-color: #{$navbar-dark-color};
+    --tiki-topbar-link-hover-color: #{$navbar-dark-hover-color};
+    --tiki-topbar-link-hover-bg: #{darken($navbar-dark-bg, 6.5%)};
+    --tiki-topbar-link-active-bg: #{darken($navbar-dark-bg, 6.5%)};
 
     //    --tiki-top-light-border: 1px solid rgba(0, 0, 0, 0.1);
     //    --tiki-topbar-light-border: 1px solid rgba(0, 0, 0, 0.1);

@@ -9816,6 +9816,10 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-left-width: 0px;
 }
 :root {
+  --tiki-tooltip-link-color: #88b6fc;
+  --tiki-tooltip-link-hover-color: $tooltip-color;
+}
+:root {
   color-scheme: light;
 }
 .btn {
@@ -10338,27 +10342,29 @@ header.navbar.fixed-top {
 .list-group-item {
   background-color: transparent;
 }
-:root {
-  --tiki-top-light-bg: rgba(240, 245, 250, 1);
-  --tiki-top-light-color: #485785;
-  --tiki-top-light-link-color: rgba(0, 0, 0, 0.6);
-  --tiki-top-light-link-hover-color: #485785;
-  --tiki-topbar-light-bg: rgba(240, 245, 250, 1);
-  --tiki-topbar-light-color: #485785;
-  --tiki-topbar-light-link-color: #7b8ab8;
-  --tiki-topbar-light-link-hover-color: #485785;
-  --tiki-top-dark-bg: #B0C0D5;
-  --tiki-top-dark-color: #506295;
-  --tiki-top-dark-link-color: #506295;
-  --tiki-top-dark-link-hover-color: #697baf;
-  --tiki-topbar-dark-bg: #B0C0D5;
-  --tiki-topbar-dark-color: #506295;
-  --tiki-topbar-dark-link-color: #506295;
-  --tiki-topbar-dark-link-hover-color: #697baf;
-  --tiki-top-light-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
-  --tiki-topbar-light-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
-  --tiki-top-dark-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
-  --tiki-topbar-dark-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+.tiki-nav-light {
+  --tiki-top-bg: rgba(240, 245, 250, 1);
+  --tiki-top-color: #485785;
+  --tiki-top-link-color: rgba(0, 0, 0, 0.6);
+  --tiki-top-link-hover-color: #485785;
+  --tiki-top-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+  --tiki-topbar-bg: rgba(240, 245, 250, 1);
+  --tiki-topbar-color: #485785;
+  --tiki-topbar-link-color: #7b8ab8;
+  --tiki-topbar-link-hover-color: #485785;
+  --tiki-topbar-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+}
+.tiki-nav-dark {
+  --tiki-top-bg: #B0C0D5;
+  --tiki-top-color: #506295;
+  --tiki-top-link-color: #506295;
+  --tiki-top-link-hover-color: #697baf;
+  --tiki-top-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+  --tiki-topbar-bg: #B0C0D5;
+  --tiki-topbar-color: #506295;
+  --tiki-topbar-link-color: #506295;
+  --tiki-topbar-link-hover-color: #697baf;
+  --tiki-topbar-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
 }
 .tiki-admin {
   --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg);
@@ -10866,15 +10872,15 @@ body.wikitext {
 .wp-cookie-consent-required {
   color: #e52527;
 }
-.wp-sign {
+.tooltip-inner {
   color: #506295;
   background-color: rgba(240, 245, 250, 0.8);
 }
-.wp-sign a, .wp-sign a:visited {
-  color: #615095;
+.tooltip-inner a, .tooltip-inner a:visited {
+  color: var(--tiki-tooltip-link-color);
 }
-.wp-sign a:hover, .wp-sign a:visited:hover {
-  color: #725095;
+.tooltip-inner a:hover, .tooltip-inner a:visited:hover {
+  color: var(--tiki-tooltip-link-hover-color);
   text-decoration: none;
 }
 .toc {
@@ -10891,11 +10897,13 @@ body.wikitext {
   background: #43cc29;
   --bs-table-bg: #43cc29;
   color: #f8fdf7;
+  word-break: break-all;
 }
 .diffdeleted {
   background: #e52527;
   --bs-table-bg: #e52527;
   color: white;
+  word-break: break-all;
 }
 .diffadded a, .diffadded a:hover {
   color: white;
@@ -11031,7 +11039,6 @@ input[type="checkbox"].preffilter-toggle-round + label {
 input[type="checkbox"].preffilter-toggle-round + label:before {
   color: #506295;
   background-color: #f0f5fa;
-  border-color: #cadced;
 }
 input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   background-color: #43cc29;
@@ -11232,57 +11239,57 @@ blockquote {
   background-color: #506295;
   color: #d9e3f1;
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent, .tiki-admin .navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent, .layout_social header.navbar-light-parent.bg-light-parent, .layout_social header.navbar.navbar-light.bg-light {
-  background: var(--tiki-top-light-bg) !important;
-  color: var(--tiki-top-light-color);
-  box-shadow: var(--tiki-top-light-box-shadow);
+.tiki-nav-light {
+  background: var(--tiki-top-bg) !important;
+  color: var(--tiki-top-color);
+  box-shadow: var(--tiki-top-box-shadow);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a:not(.dropdown-item), .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_classic .header_outer.bg-light-parent a:not(.dropdown-item), .layout_classic .header_outer.bg-light-parent .btn.btn-link, .tiki-admin .navbar-light-parent a:not(.dropdown-item), .tiki-admin .navbar-light-parent .btn.btn-link, .tiki-admin .top_modules.navbar-light-parent a:not(.dropdown-item), .tiki-admin .top_modules.navbar-light-parent .btn.btn-link, .layout_social header.navbar-light-parent.bg-light-parent a:not(.dropdown-item), .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social header.navbar.navbar-light.bg-light a:not(.dropdown-item), .layout_social header.navbar.navbar-light.bg-light .btn.btn-link {
-  color: var(--tiki-top-light-link-color);
+.tiki-nav-light a:not(.dropdown-item), .tiki-nav-light .btn.btn-link {
+  color: var(--tiki-top-link-color);
 }
-.layout_basic .page-header.navbar-light-parent.bg-light-parent a:not(.dropdown-item):hover, .layout_basic .page-header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-light-parent a:not(.dropdown-item):hover, .layout_classic .header_outer.bg-light-parent .btn.btn-link:hover, .tiki-admin .navbar-light-parent a:not(.dropdown-item):hover, .tiki-admin .navbar-light-parent .btn.btn-link:hover, .tiki-admin .top_modules.navbar-light-parent a:not(.dropdown-item):hover, .tiki-admin .top_modules.navbar-light-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-light-parent a:not(.dropdown-item):hover, .layout_social header.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social header.navbar.navbar-light.bg-light a:not(.dropdown-item):hover, .layout_social header.navbar.navbar-light.bg-light .btn.btn-link:hover {
-  color: var(--tiki-top-light-link-hover-color);
-  background: var(--tiki-top-light-link-hover-bg);
+.tiki-nav-light a:not(.dropdown-item):hover, .tiki-nav-light .btn.btn-link:hover {
+  color: var(--tiki-top-link-hover-color);
+  background: var(--tiki-top-link-hover-bg);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light, .layout_classic .topbar-wrapper.bg-light-parent, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent, .admin-content .bg-light {
-  background: var(--tiki-topbar-light-bg) !important;
-  color: var(--tiki-topbar-light-color);
-  border: var(--tiki-topbar-light-border);
+.tiki-nav-light {
+  background: var(--tiki-topbar-bg) !important;
+  color: var(--tiki-topbar-color);
+  border: var(--tiki-topbar-border);
   border-width: var(--tiki-topbar-border-width);
-  box-shadow: var(--tiki-topbar-light-box-shadow);
+  box-shadow: var(--tiki-topbar-box-shadow);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a:not(.dropdown-item), .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link, .layout_classic .topbar-wrapper.bg-light-parent a:not(.dropdown-item), .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:not(.dropdown-item), .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link, .admin-content .bg-light a:not(.dropdown-item), .admin-content .bg-light .btn.btn-link, .admin-content .bg-light a.nav-link {
-  color: var(--tiki-topbar-light-link-color);
+.tiki-nav-light a:not(.dropdown-item), .tiki-nav-light .btn.btn-link, .tiki-nav-light a.nav-link {
+  color: var(--tiki-topbar-color);
 }
-.layout_basic .topbar_modules.navbar-light.bg-light a:not(.dropdown-item):hover, .layout_basic .topbar_modules.navbar-light.bg-light .btn.btn-link:hover, .layout_basic .topbar_modules.navbar-light.bg-light a.nav-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a:not(.dropdown-item):hover, .layout_classic .topbar-wrapper.bg-light-parent .btn.btn-link:hover, .layout_classic .topbar-wrapper.bg-light-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a:not(.dropdown-item):hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent a.nav-link:hover, .admin-content .bg-light a:not(.dropdown-item):hover, .admin-content .bg-light .btn.btn-link:hover, .admin-content .bg-light a.nav-link:hover {
-  color: var(--tiki-topbar-light-link-hover-color);
-  background: var(--tiki-topbar-light-link-hover-bg);
+.tiki-nav-light a:not(.dropdown-item):hover, .tiki-nav-light .btn.btn-link:hover, .tiki-nav-light a.nav-link:hover {
+  color: var(--tiki-topbar-link-hover-color);
+  background: var(--tiki-topbar-link-hover-bg);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent, .layout_classic .header_outer.bg-dark-parent, .tiki-admin .navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent, .layout_social header.navbar-light-parent.bg-dark-parent, .layout_social header.navbar.navbar-dark.bg-dark {
-  background: var(--tiki-top-dark-bg) !important;
-  color: var(--tiki-top-dark-color);
-  box-shadow: var(--tiki-top-dark-box-shadow);
+.tiki-nav-dark {
+  background: var(--tiki-top-bg) !important;
+  color: var(--tiki-top-color);
+  box-shadow: var(--tiki-top-box-shadow);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent a.nav-link, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item), .layout_classic .header_outer.bg-dark-parent .btn.btn-link, .layout_classic .header_outer.bg-dark-parent a.nav-link, .tiki-admin .navbar-dark-parent a:not(.dropdown-item), .tiki-admin .navbar-dark-parent .btn.btn-link, .tiki-admin .navbar-dark-parent a.nav-link, .tiki-admin .top_modules.navbar-dark-parent a:not(.dropdown-item), .tiki-admin .top_modules.navbar-dark-parent .btn.btn-link, .tiki-admin .top_modules.navbar-dark-parent a.nav-link, .layout_social header.navbar-light-parent.bg-dark-parent a:not(.dropdown-item), .layout_social header.navbar-light-parent.bg-dark-parent .btn.btn-link, .layout_social header.navbar-light-parent.bg-dark-parent a.nav-link, .layout_social header.navbar.navbar-dark.bg-dark a:not(.dropdown-item), .layout_social header.navbar.navbar-dark.bg-dark .btn.btn-link, .layout_social header.navbar.navbar-dark.bg-dark a.nav-link {
-  color: var(--tiki-top-dark-link-color);
+.tiki-nav-dark a:not(.dropdown-item), .tiki-nav-dark .btn.btn-link, .tiki-nav-dark a.nav-link {
+  color: var(--tiki-top-link-color);
 }
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_basic .page-header.navbar-dark-parent.bg-dark-parent a.nav-link:hover, .layout_classic .header_outer.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .header_outer.bg-dark-parent .btn.btn-link:hover, .layout_classic .header_outer.bg-dark-parent a.nav-link:hover, .tiki-admin .navbar-dark-parent a:not(.dropdown-item):hover, .tiki-admin .navbar-dark-parent .btn.btn-link:hover, .tiki-admin .navbar-dark-parent a.nav-link:hover, .tiki-admin .top_modules.navbar-dark-parent a:not(.dropdown-item):hover, .tiki-admin .top_modules.navbar-dark-parent .btn.btn-link:hover, .tiki-admin .top_modules.navbar-dark-parent a.nav-link:hover, .layout_social header.navbar-light-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_social header.navbar-light-parent.bg-dark-parent .btn.btn-link:hover, .layout_social header.navbar-light-parent.bg-dark-parent a.nav-link:hover, .layout_social header.navbar.navbar-dark.bg-dark a:not(.dropdown-item):hover, .layout_social header.navbar.navbar-dark.bg-dark .btn.btn-link:hover, .layout_social header.navbar.navbar-dark.bg-dark a.nav-link:hover {
-  color: var(--tiki-top-dark-link-hover-color);
-  background: var(--tiki-top-dark-link-hover-bg);
+.tiki-nav-dark a:not(.dropdown-item):hover, .tiki-nav-dark .btn.btn-link:hover, .tiki-nav-dark a.nav-link:hover {
+  color: var(--tiki-top-link-hover-color);
+  background: var(--tiki-top-link-hover-bg);
 }
-.layout_basic .topbar_modules.bg-dark, .layout_classic .topbar-wrapper.bg-dark-parent, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent, .admin-content .bg-dark {
-  background: var(--tiki-topbar-dark-bg) !important;
+.tiki-nav-dark {
+  background: var(--tiki-topbar-bg) !important;
   color: var(--tiki-topbar-dark-color);
-  border: var(--tiki-topbar-dark-border);
+  border: var(--tiki-topbar-border);
   border-width: var(--tiki-topbar-border-width);
-  box-shadow: var(--tiki-topbar-dark-box-shadow);
+  box-shadow: var(--tiki-topbar-box-shadow);
 }
-.layout_basic .topbar_modules.bg-dark a:not(.dropdown-item), .layout_basic .topbar_modules.bg-dark .btn.btn-link, .layout_basic .topbar_modules.bg-dark a.nav-link, .layout_classic .topbar-wrapper.bg-dark-parent a:not(.dropdown-item), .layout_classic .topbar-wrapper.bg-dark-parent .btn.btn-link, .layout_classic .topbar-wrapper.bg-dark-parent a.nav-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item), .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a.nav-link, .admin-content .bg-dark a:not(.dropdown-item), .admin-content .bg-dark .btn.btn-link, .admin-content .bg-dark a.nav-link {
-  color: var(--tiki-topbar-dark-link-color);
+.tiki-nav-dark a:not(.dropdown-item), .tiki-nav-dark .btn.btn-link, .tiki-nav-dark a.nav-link {
+  color: var(--tiki-topbar-link-color);
 }
-.layout_basic .topbar_modules.bg-dark a:not(.dropdown-item):hover, .layout_basic .topbar_modules.bg-dark .btn.btn-link:hover, .layout_basic .topbar_modules.bg-dark a.nav-link:hover, .layout_classic .topbar-wrapper.bg-dark-parent a:not(.dropdown-item):hover, .layout_classic .topbar-wrapper.bg-dark-parent .btn.btn-link:hover, .layout_classic .topbar-wrapper.bg-dark-parent a.nav-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a:not(.dropdown-item):hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent .btn.btn-link:hover, .layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent a.nav-link:hover, .admin-content .bg-dark a:not(.dropdown-item):hover, .admin-content .bg-dark .btn.btn-link:hover, .admin-content .bg-dark a.nav-link:hover {
-  color: var(--tiki-topbar-dark-link-hover-color);
-  background: var(--tiki-topbar-dark-link-hover-bg);
+.tiki-nav-dark a:not(.dropdown-item):hover, .tiki-nav-dark .btn.btn-link:hover, .tiki-nav-dark a.nav-link:hover {
+  color: var(--tiki-topbar-link-hover-color);
+  background: var(--tiki-topbar-link-hover-bg);
 }
 header.navbar.fixed-top {
   border-top-width: var(--tiki-fixed-top-border-top-width);
@@ -11315,7 +11322,7 @@ header.navbar.fixed-top.bg-dark {
   box-shadow: none;
   border: none;
 }
-.tiki.layout_social:not(.tiki-admin) header .top_modules, .tiki.layout_social:not(.tiki-admin) header .top_modules .navbar, .tiki.layout_social:not(.tiki-admin) .topbar-wrapper .topbar, .tiki.layout_social:not(.tiki-admin) .topbar .navbar {
+.layout_social header .top_modules, .layout_social header .top_modules .navbar, .layout_social .topbar, .layout_social .topbar .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;

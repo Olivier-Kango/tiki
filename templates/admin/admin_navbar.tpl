@@ -1,4 +1,4 @@
-<nav class="navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} admin-navbar mb-4" role="navigation">
+<nav class="navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-nav-{$navbar_color_variant} admin-navbar mb-4" role="navigation">
     {if $prefs.theme_unified_admin_backend eq 'y'}
         <a class="navbar-brand" href="./" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{tr}Back to the home page{/tr}">
             {if $prefs.sitelogo_icon && $prefs.sitelogo_icon neq 'img/tiki/tikilogo_icon.png'}
@@ -150,7 +150,7 @@
         {/if}
     </div>
     {if $include != "list_sections" and $prefs.theme_unified_admin_backend neq 'y'}
-        <div class="adminanchors card"><div class="{*card-body*}p-3 navbar-{$navbar_color_variant} bg-{$navbar_color_variant}"><ul class="nav navbar-nav d-flex flex-wrap justify-content-between" style="gap: 0 1rem;">{include file='admin/include_anchors.tpl'}</ul></div></div>
+        <div class="adminanchors card"><div class="{*card-body*}p-3 navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-nav-{$navbar_color_variant}"><ul class="nav navbar-nav d-flex flex-wrap justify-content-between" style="gap: 0 1rem;">{include file='admin/include_anchors.tpl'}</ul></div></div>
     {/if}
 </nav>
 

@@ -1,28 +1,30 @@
 //--------------------------- Tiki CSS variables
-:root {
-    --tiki-top-light-bg: rgb(248, 249, 250);
-    --tiki-top-light-color: #000;
-    --tiki-top-light-link-color: #000;
-    --tiki-top-light-link-hover-color: rgba(0, 0, 0, 0.05);
-    --tiki-top-light-link-hover-bg: rgba(0, 0, 0, 0.03);
+.tiki-nav-light {
+    --tiki-top-bg: rgb(248, 249, 250);
+    --tiki-top-color: #000;
+    --tiki-top-link-color: #000;
+    --tiki-top-link-hover-color: rgba(0, 0, 0, 0.05);
+    --tiki-top-link-hover-bg: rgba(0, 0, 0, 0.03);
 
-    --tiki-topbar-light-bg: rgb(248, 249, 250);
-    --tiki-topbar-light-color: rgba(0, 0, 0, 0.9);
-    --tiki-topbar-light-link-color: rgba(0, 0, 0, 0.55);
-    --tiki-topbar-light-link-hover-color: rgba(0, 0, 0, 0.05);
-    --tiki-topbar-light-link-hover-bg: rgba(0, 0, 0, 0.03);
+    --tiki-topbar-bg: rgb(248, 249, 250);
+    --tiki-topbar-color: rgba(0, 0, 0, 0.9);
+    --tiki-topbar-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-link-hover-color: rgba(0, 0, 0, 0.05);
+    --tiki-topbar-link-hover-bg: rgba(0, 0, 0, 0.03);
+}
 
-    --tiki-top-dark-bg: rgba(52, 89, 230, 1.0);
-    --tiki-top-dark-color: #fff;
-    --tiki-top-dark-link-color: #fff;
-    --tiki-top-dark-link-hover-color: #fff;
-    --tiki-top-dark-link-hover-bg: rgba(255, 255, 255, 0.1);
+.tiki-nav-dark {
+    --tiki-top-bg: rgba(52, 89, 230, 1.0);
+    --tiki-top-color: #fff;
+    --tiki-top-link-color: #fff;
+    --tiki-top-link-hover-color: #fff;
+    --tiki-top-link-hover-bg: rgba(255, 255, 255, 0.1);
 
-    --tiki-topbar-dark-bg: rgba(33, 37, 41, 1.0);
-    --tiki-topbar-dark-color: #fff;
-    --tiki-topbar-dark-link-color: #fff;
-    --tiki-topbar-dark-link-hover-color: #fff;
-    --tiki-topbar-dark-link-hover-bg: rgba(255, 255, 255, 0.1);
+    --tiki-topbar-bg: rgba(33, 37, 41, 1.0);
+    --tiki-topbar-color: #fff;
+    --tiki-topbar-link-color: #fff;
+    --tiki-topbar-link-hover-color: #fff;
+    --tiki-topbar-link-hover-bg: rgba(255, 255, 255, 0.1);
 }
 
 .tiki-admin {

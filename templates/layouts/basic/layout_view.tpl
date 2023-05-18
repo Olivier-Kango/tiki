@@ -15,13 +15,13 @@
 <div class="container{if isset($smarty.session.fullscreen) && $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">
     {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
         <div class="row">
-            <header class="page-header w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent" id="page-header">
-                {modulelist zone=top class="top_modules d-flex justify-content-between navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent"}
+            <header class="page-header w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-nav-{$navbar_color_variant}" id="page-header">
+                {modulelist zone=top class="top_modules d-flex justify-content-between navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent  tiki-nav-{$navbar_color_variant}"}
             </header>
         </div>
     {/if}
     <div class="row row-middle" id="row-middle">
-        {modulelist zone=topbar class="topbar_modules d-flex align-content-center justify-content-between topbar navbar-{$navbar_color_variant} bg-{$navbar_color_variant} w-100 mb-sm"}
+        {modulelist zone=topbar class="topbar_modules d-flex align-content-center justify-content-between topbar navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-nav-{$navbar_color_variant} w-100 mb-sm"}
         <div class="page-content-top-margin"  style="height: var(--tiki-page-content-top-margin)"></div>
         {if (zone_is_empty('left') or $prefs.feature_left_column eq 'n') and (zone_is_empty('right') or $prefs.feature_right_column eq 'n')}
             <div class="col col1 col-md-12 pb-4" id="col1">
