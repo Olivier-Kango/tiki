@@ -26,12 +26,12 @@ class SelectorItem implements \ArrayAccess
         return $this->selector->getTitle($this->type, $this->object, $this->format);
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return in_array($offset, ['type', 'id', 'title']);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         switch ($offset) {
             case 'type':
@@ -43,11 +43,11 @@ class SelectorItem implements \ArrayAccess
         }
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
     }
 
