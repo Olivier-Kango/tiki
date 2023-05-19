@@ -161,7 +161,11 @@ class WikiPluginBackLinks extends PluginsLib
         //
         if (! isset($noheader) || ! $noheader) {
             // Create header
-            $count = $aPages["cant"];
+            if (! empty($aPages["cant"])) {
+                $count = $aPages["cant"];
+            } else {
+                $count = 0;
+            }
             if (! $count == 0) {
                 if ($count == 1) {
                     $sOutput .= tra("One page links to") . " (($page))";
