@@ -2483,12 +2483,6 @@ table.treetable tr.expanded span.indenter a {
   right: 0;
 }
 .tracker-item-files {
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-  -moz-column-gap: 30px;
-  -webkit-column-gap: 30px;
-  column-gap: 30px;
   padding-left: 20px;
 }
 .file-drop {
@@ -2557,11 +2551,6 @@ table.treetable tr.expanded span.indenter a {
   border: 1px solid #ced4da !important;
 }
 @media (max-width: 767.98px) {
-  .tracker-item-files {
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-    column-count: 1;
-  }
   .tracker-item-files li {
     padding-bottom: 5px;
   }
