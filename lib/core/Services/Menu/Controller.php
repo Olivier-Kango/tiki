@@ -150,6 +150,7 @@ class Services_Menu_Controller
         $optionId = $input->optionId->int();
         if ($optionId) {
             $optionInfo = $menuLib->get_menu_option($optionId);
+            $optionInfo['optionId'] = $optionId;
 
             if (! $optionInfo) {
                 throw new Services_Exception_NotFound(tr('Menu option %0 not found', $optionId));
