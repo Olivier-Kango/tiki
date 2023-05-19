@@ -631,7 +631,7 @@ class Tiki_Profile
                 unset($data[$old]);
             }
         } else {
-            if (preg_match(self::SHORT_PATTERN, $data, $parts)) {
+            if (preg_match(self::SHORT_PATTERN, $data ?? "", $parts)) {
                 $object = $this->convertReference($parts);
 
                 $value = self::getObjectReference($object);
@@ -644,7 +644,7 @@ class Tiki_Profile
             $needles = [];
             $replacements = [];
 
-            if (preg_match_all(self::LONG_PATTERN, $data, $parts, PREG_SET_ORDER)) {
+            if (preg_match_all(self::LONG_PATTERN, $data ?? "", $parts, PREG_SET_ORDER)) {
                 foreach ($parts as $row) {
                     $object = $this->convertReference($row);
 
@@ -656,7 +656,7 @@ class Tiki_Profile
                 }
             }
 
-            if (preg_match_all(self::INFO_REQUEST, $data, $parts, PREG_SET_ORDER)) {
+            if (preg_match_all(self::INFO_REQUEST, $data ?? "", $parts, PREG_SET_ORDER)) {
                 foreach ($parts as $row) {
                     list($full, $label, $junk, $filter, $default) = $row;
 
@@ -689,7 +689,7 @@ class Tiki_Profile
             $replacements = [];
 
             // Replace date formats D(...) to unix timestamps
-            if (preg_match_all("/D\\(([^\\)]+)\\)/", $data, $parts, PREG_SET_ORDER)) {
+            if (preg_match_all("/D\\(([^\\)]+)\\)/", $data ?? "", $parts, PREG_SET_ORDER)) {
                 foreach ($parts as $row) {
                     list($full, $date) = $row;
 
@@ -700,7 +700,7 @@ class Tiki_Profile
                 }
             }
 
-            if (preg_match_all(self::PREFERENCE_PATTERN, $data, $parts, PREG_SET_ORDER)) {
+            if (preg_match_all(self::PREFERENCE_PATTERN, $data ?? "", $parts, PREG_SET_ORDER)) {
                 foreach ($parts as $row) {
                     $preferenceName = $row[1];
                     $definition = TikiLib::lib('prefs')->getPreference($preferenceName);
