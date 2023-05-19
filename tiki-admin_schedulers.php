@@ -123,6 +123,7 @@ $auto_query_args = [
 
 $schedLib = TikiLib::lib('scheduler');
 $schedulerTasks = Scheduler_Item::getAvailableTasks();
+$scheduler = 0;
 
 if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset($_POST['scheduler']))) && $access->checkCsrf()) {
     // If scheduler saved, it redirects to the schedulers page, cleaning the add/edit scheduler form.
@@ -139,9 +140,8 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
         $schedulerinfo['run_time'] = '';
         $schedulerinfo['status'] = '';
         $schedulerinfo['re_run'] = '';
-
-        $_REQUEST['scheduler'] = 0;
     } else {
+        $scheduler = $_REQUEST['scheduler'];
         $schedulerinfo['params'] = json_decode($schedulerinfo['params'], true);
 
         if (empty($_REQUEST['offset'])) {
@@ -160,8 +160,8 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
 
         $tikilib = TikiLib::lib('tiki');
         $numOfLogs = $tikilib->get_preference('scheduler_keep_logs');
-        $schedulerRuns = $schedLib->get_scheduler_runs($_REQUEST['scheduler'], $numRows, $offset);
-        $runsCount = $schedLib->countRuns($_REQUEST['scheduler']);
+        $schedulerRuns = $schedLib->get_scheduler_runs($scheduler, $numRows, $offset);
+        $runsCount = $schedLib->countRuns($scheduler);
 
         if ($runsCount > $numOfLogs && $numOfLogs > 0) {
             $runsCount = $numOfLogs;
@@ -204,8 +204,7 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
             $schedulerinfo['params'][$paramName] = $_GET[$paramName] ?? '';
         }
     }
-
-    $_REQUEST['scheduler'] = 0;
+    $scheduler = 0;
 }
 
 $tasks = $schedLib->get_scheduler(null, null, ['run_only_once' => 0]);
@@ -232,7 +231,7 @@ if (isset($_REQUEST['add'])) {
 $headerlib->add_jsfile('lib/jquery_tiki/tiki-schedulers.js');
 $smarty->assign('schedulerinfo', $schedulerinfo);
 $smarty->assign('schedulerruns', isset($schedulerRuns) ? $schedulerRuns : []);
-$smarty->assign('schedulerId', $_REQUEST['scheduler']);
+$smarty->assign('schedulerId', $scheduler);
 $smarty->assign('schedulerTasks', $schedulerTasks);
 $smarty->assign('selectedTask', '');
 $smarty->assign('schedulerStatus', [
