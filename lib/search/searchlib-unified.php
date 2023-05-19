@@ -55,21 +55,22 @@ class UnifiedSearchLib
 
     /**
      * @param int $count
+     * @param bool $force run at the end of index rebuild and skip checking conditions
      */
-    public function processUpdateQueue($count = 10)
+    public function processUpdateQueue($count = 10, $force = false)
     {
         global $prefs;
-        if (! isset($prefs['unified_engine'])) {
+        if (! isset($prefs['unified_engine']) && ! $force) {
             return;
         }
 
-        if ($this->batchToken) {
+        if ($this->batchToken && ! $force) {
             return;
         }
 
         $queuelib = TikiLib::lib('queue');
         $toProcess = $queuelib->pull(self::INCREMENT_QUEUE, $count);
-        if ($this->rebuildInProgress()) {
+        if ($this->rebuildInProgress() && ! $force) {
             // Requeue to add to new index too (that is rebuilding)
             $queuelib->pushAll(self::INCREMENT_QUEUE_REBUILD, $toProcess);
         }
@@ -364,7 +365,7 @@ class UnifiedSearchLib
         $queueLib->pushAll(self::INCREMENT_QUEUE, $toProcess);
 
         // Process the documents updated while we were processing the update
-        $this->processUpdateQueue(1000);
+        $this->processUpdateQueue(1000, true);
 
         if ($prefs['storedsearch_enabled'] == 'y') {
             TikiLib::lib('storedsearch')->reloadAll();
