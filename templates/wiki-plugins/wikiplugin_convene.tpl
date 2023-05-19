@@ -55,13 +55,16 @@
                             </td>
                             {foreach $row as $stamp => $vote}
                                 {if $vote gt 0}
-                                    {$class = 'convene-ok text-center text-success'}
+                                    {$class = 'convene-ok text-center'}
+                                    {$iconClass = 'text-success'}
                                     {$icon = 'ok'}
                                 {elseif $vote lt 0}
-                                    {$class = 'convene-no text-center text-danger'}
+                                    {$class = 'convene-no text-center'}
+                                    {$iconClass = 'text-danger'}
                                     {$icon = 'remove'}
                                 {else}
-                                    {$class = 'convene-unconfirmed text-center text-secondary'}
+                                    {$class = 'convene-unconfirmed text-center'}
+                                    {$iconClass = 'text-secondary'}
                                     {$icon = 'help'}
                                 {/if}
 
@@ -71,7 +74,7 @@
                                     {$voteComment = $comments[$stamp][$voter]}
                                 {/if}
                                 <td class='align-middle flex-align-center {$class}'>
-                                    {icon name=$icon size=2 iclass='tips' ititle="{tr}Vote value{/tr} $vote:$voteComment "  }
+                                    {icon name=$icon size=2 iclass="tips $iconClass" ititle="{tr}Vote value{/tr} $vote:$voteComment "  }
                                     <input type='hidden' name='dates_{$stamp}_{$voter}' value='{$vote}' class='conveneUserVote' data-voter="{$voter}" data-date="{$stamp}" data-comment="{$comments[$stamp][$voter]}">
                                 </td>
                             {/foreach}
