@@ -87,7 +87,10 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
         }
         global $jitRequest;
         if (! empty($jitRequest)) {
-            $smarty->assign('adddata', json_decode($jitRequest->adddata->text(), true));
+            $adddata = $jitRequest->adddata->text();
+            if (! is_null($adddata)) {
+                $smarty->assign('adddata', json_decode($adddata, true));
+            }
         }
 
         return $smarty->fetch($this->templateFile);
