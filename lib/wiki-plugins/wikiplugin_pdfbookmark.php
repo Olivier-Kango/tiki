@@ -13,7 +13,7 @@ function wikiplugin_pdfbookmark_info()
                 'description' => tra('Manual bookmark entry for a PDF file'),
                 'tags' => [ 'advanced' ],
                 'iconname' => 'pdf',
-                'prefs' => [ 'wikiplugin_pdf' ],
+                'prefs' => [ 'wikiplugin_pdfbookmark' ],
                 'introduced' => 18,
                 'params' => [
                     'content' => [
