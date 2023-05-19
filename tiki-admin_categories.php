@@ -311,7 +311,7 @@ if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["na
     }
     $cookietab = 1;
 }
-if (isset($_REQUEST['import']) && isset($_FILES['csvlist']['tmp_name']) && $access->checkCsrf()) {
+if (isset($_REQUEST['import']) && ! empty($_FILES['csvlist']['tmp_name']) && $access->checkCsrf()) {
     $fhandle = fopen($_FILES['csvlist']['tmp_name'], 'r');
     if (! $fhandle) {
         Feedback::error(tr("The file has incorrect syntax or is not a CSV file"));
