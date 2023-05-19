@@ -85,7 +85,7 @@ class Services_AutoSave_Controller
     {
         global $page, $user;
 
-        $referer = explode(':', $referer);  // user, section, object id
+        $referer = explode(':', $referer ?? "");  // user, section, object id
         $isok = false;
 
         if ($referer && count($referer) === 3 && $referer[1] === 'wiki_page') {
