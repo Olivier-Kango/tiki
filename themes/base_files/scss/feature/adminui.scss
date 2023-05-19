@@ -770,8 +770,8 @@ body.tiki-admin {
 }
 
 @media (min-width: 992px) {
-    .tiki-admin .container.container-std .col1,
-    .tiki-admin .middle_outer .main-footer {
+    .tiki-admin:not(.fixed_width) .container.container-std .col1,
+    .tiki-admin:not(.fixed_width) .middle_outer .main-footer {
         padding-left: 290px;
     }
 }
