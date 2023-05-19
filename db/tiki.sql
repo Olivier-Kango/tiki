@@ -201,7 +201,7 @@ CREATE TABLE `tiki_articles` (
   `votes` int(8) default NULL,
   `points` int(14) default NULL,
   `type` varchar(50) default NULL,
-  `rating` decimal(3,2) default NULL,
+  `rating` decimal(5,2) default NULL,
   `isfloat` char(1) default NULL,
   `ispublished` char(1) NOT NULL DEFAULT 'y',
   PRIMARY KEY (`articleId`),

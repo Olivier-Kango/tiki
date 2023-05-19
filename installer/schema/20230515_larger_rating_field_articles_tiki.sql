@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_articles` MODIFY COLUMN `rating` DECIMAL(5,2) default NULL;
