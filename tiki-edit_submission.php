@@ -233,9 +233,19 @@ if (isset($_REQUEST['preview']) || ! empty($errors)) {
     $smarty->assign('edit_data', 'y');
     $smarty->assign('arttitle', $_REQUEST['title']);
     $smarty->assign('authorName', $_REQUEST['authorName']);
-    $smarty->assign('topicId', $_REQUEST['topicId']);
-    $smarty->assign('topicName', $topics[$_REQUEST['topicId']]['name']);
-
+    if (isset($_REQUEST['topicId'])) {
+        $topicId = $_REQUEST['topicId'];
+        $smarty->assign('topicId', $topicId);
+        if (isset($topics[$topicId]['name'])) {
+            $topicName = $topics[$topicId]['name'];
+        } else {
+            $topicName = '';
+        }
+    } else {
+        $topicId = '';
+        $topicName = '';
+    }
+    $smarty->assign('topicName', $topicName);
     if (isset($_REQUEST['useImage']) && $_REQUEST['useImage'] == 'on') {
         $useImage = 'y';
     } else {
