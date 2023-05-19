@@ -55,7 +55,7 @@ if (isset($_REQUEST["rssId"])) {
     $info["showTitle"] = 'n';
     $info["showPubDate"] = 'n';
 }
-if (! $_REQUEST["save"]) {
+if (! isset($_REQUEST["save"])) {
     $smarty->assign('name', $info["name"]);
     $smarty->assign('description', $info["description"]);
     $smarty->assign('url', $info["url"]);
