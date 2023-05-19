@@ -12,7 +12,7 @@ function wikiplugin_pdfpagebreak_info()
                 'description' => tra('Helpful to format PDF files created, plugin adds page break in PDF file generated.'),
                 'tags' => [ 'basic' ],
                 'iconname' => 'pdf',
-                'prefs' => [ 'wikiplugin_pdf' ],
+                'prefs' => [ 'wikiplugin_pdfpagebreak' ],
                 'introduced' => 17,
 
                            ];
