@@ -17,7 +17,7 @@ class Selector
 
     public function read($input, $format = null)
     {
-        $parts = explode(':', trim($input), 2);
+        $parts = explode(':', trim($input ?? ''), 2);
 
         if (count($parts) === 2) {
             list($type, $object) = $parts;
@@ -30,7 +30,7 @@ class Selector
     public function readMultiple($input, $format = null)
     {
         if (! is_array($input)) {
-            $input = explode("\n", $input);
+            $input = explode("\n", $input ?? '');
         }
 
         $raw = array_map('trim', $input);
