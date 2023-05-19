@@ -2,24 +2,28 @@
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
-.tiki-nav-light {
+.tiki-top-nav-light {
     --tiki-top-bg: url('#{$imagePath}header_background_ltr.jpg') 0/100% auto no-repeat;
     --tiki-top-color: #{$navbar-light-color};
     --tiki-top-link-color: #{$navbar-light-color};
     --tiki-top-link-hover-color: #{$navbar-light-hover-color};
+}
 
+.tiki-topbar-nav-light {
     --tiki-topbar-bg: white; // #473119 url('#{$imagePath}menubar-wood.jpg') 0/100% auto no-repeat;
     --tiki-topbar-color: #{$navbar-light-color};
     --tiki-topbar-link-color: #{$navbar-light-color};
     --tiki-topbar-link-hover-color: #{$navbar-dark-hover-color};
 }
 
-.tiki-nav-dark {
-    --tiki-top-bg: var(--tiki-top-light-bg);
+.tiki-top-nav-dark {
+    --tiki-top-bg:  url('#{$imagePath}header_background_ltr.jpg') 0/100% auto no-repeat;
     --tiki-top-color: #{$navbar-dark-color};
     --tiki-top-link-color: #{$navbar-dark-color};
     --tiki-top-link-hover-color: #{$navbar-dark-hover-color};
+}
 
+.tiki-topbar-nav-dark {
     --tiki-topbar-bg: #473119 url('#{$imagePath}menubar-wood.jpg') 50% 50% no-repeat; //var(--tiki-topbar-light-bg);
     --tiki-topbar-color: #{$navbar-dark-color};
     --tiki-topbar-link-color: #{$navbar-dark-color};

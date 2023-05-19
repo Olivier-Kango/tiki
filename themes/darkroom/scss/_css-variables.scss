@@ -1,22 +1,26 @@
 // CSS variables
-.tiki-nav-light {
+.tiki-top-nav-light {
     --tiki-top-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
     --tiki-top-color: #{$navbar-light-color};
     --tiki-top-link-color: #{$navbar-light-color};
     --tiki-top-link-hover-color: #{$navbar-light-hover-color};
+}
 
+.tiki-topbar-nav-light {
     --tiki-topbar-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
     --tiki-topbar-color: #{$navbar-light-color};
     --tiki-topbar-link-color: #{$navbar-light-color};
     --tiki-topbar-link-hover-color: #{$navbar-light-hover-color};
 }
 
-.tiki-nav-dark {
-    --tiki-top-bg:  linear-gradient(to bottom, #818181 0%, #393939 100%);
+.tiki-top-nav-dark {
+    --tiki-top-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
     --tiki-top-color: #{$navbar-dark-color};
     --tiki-top-link-color: #{$navbar-dark-color};
     --tiki-top-link-hover-color: #{$navbar-dark-hover-color};
+}
 
+.tiki-topbar-nav-dark {
     --tiki-topbar-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
     --tiki-topbar-color: #{$navbar-dark-color};
     --tiki-topbar-link-color: #{$navbar-dark-color};
@@ -24,16 +28,16 @@
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
+    --tiki-admin-navbar-dark-bg: linear-gradient(to bottom, #818181 0%, #393939 100%) !important;
     --tiki-admin-dropdown-dark-color: #{$dropdown-dark-color};
     --tiki-admin-dropdown-dark-hover-bg: #{$dropdown-dark-link-hover-bg};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
+    --tiki-admin-navbar-light-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
     --tiki-admin-dropdown-light-color: #{$navbar-light-color};
     --tiki-admin-dropdown-light-hover-color: #{$navbar-light-hover-color};
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
-    --tiki-admin-navbar-dark-highlight-bg: var(--tiki-top-dark-bg);
+    --tiki-admin-navbar-dark-highlight-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
     --tiki-admin-navbar-dark-highlight-color: #{$dropdown-link-hover-color};
     --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
     --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};

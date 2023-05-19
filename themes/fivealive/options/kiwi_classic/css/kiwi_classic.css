@@ -1,26 +1,30 @@
-.tiki-nav-light {
+.tiki-top-nav-light {
   --tiki-top-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
   --tiki-top-color: #212529;
   --tiki-top-link-color: #212529;
   --tiki-top-link-hover-color: #383f45;
   --tiki-top-border: solid #000;
+}
+.tiki-topbar-nav-light {
   --tiki-topbar-bg: #063035;
   --tiki-topbar-color: #fff;
   --tiki-topbar-link-color: #fff;
   --tiki-topbar-link-hover-color: darken(#fff, 8%);
 }
-.tik-nav-dark {
+.tiki-top-nav-dark {
   --tiki-top-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
   --tiki-top-color: #000;
   --tiki-top-link-color: #000;
   --tiki-top-link-hover-color: #343a40;
   --tiki-top-border: solid #000;
+}
+.tiki-topbar-nav-dark {
   --tiki-topbar-bg: #332f02;
   --tiki-topbar-color: #fff;
   --tiki-topbar-link-color: #fff;
   --tiki-topbar-link-hover-color: darken(#fff, 8%);
 }
-.tiki-nav-light, .tiki-nav-dark {
+.tiki-top-nav-light, .tiki-top-nav-dark {
   --tiki-top-border-top-width: 0px;
   --tiki-top-border-bottom-width: 5px;
 }
@@ -32,11 +36,11 @@ header.navbar.fixed-top {
   --tiki-topbar-light-border-color: #000;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
-  --tiki-admin-dropdown-dark-color: #fff;
+  --tiki-admin-navbar-dark-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%) !important;
+  --tiki-admin-dropdown-dark-color: #52702E;
   --tiki-admin-dropdown-dark-bg: #087f93;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
-  --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
+  --tiki-admin-navbar-light-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
+  --tiki-admin-dropdown-light-color:  #212529;
   --tiki-admin-dropdown-light-bg: #baba25;
   --tiki-admin-toggle-light-bg: #baba25;
   --tiki-admin-navbar-dark-highlight-bg: #638637;

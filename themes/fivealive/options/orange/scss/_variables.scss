@@ -159,34 +159,38 @@ $postbody-title-card-title-color: #fff;
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
-.tiki-nav-light {
+.tiki-top-nav-light {
     // Use this one instead of the next to get a light band on the side like an actual orange slice --tiki-top-light-bg: linear-gradient(90deg, rgba(192,180,108,1) 1%, rgba(190,133,20,1) 3%, rgba(199,159,29,1) 97%, rgba(202,172,78,1) 100%);
     --tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
     --tiki-top-color: #3C3106;
     --tiki-top-link-color: #3C3106;
     --tiki-top-link-hover-color: #3C3106FF;
     --tiki-top-border: solid #000;
+}
 
+.tiki-topbar-nav-light {
     --tiki-topbar-bg: #{$topbar-light-bg};
     --tiki-topbar-color: #000;
     --tiki-topbar-link-color: #000;
     --tiki-topbar-link-hover-color: #3C3106FF;
 }
 
-.tiki-nav-dark {
+.tiki-top-nav-dark {
     --tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
     --tiki-top-color: #{$top-dark-color};
     --tiki-top-link-color: #{$top-dark-link-color};
     --tiki-top-link-hover-color: #{$top-link-hover-color};
     --tiki-top-border: solid #000;
+}
 
+.tiki-topbar-nav-dark {
     --tiki-topbar-bg: #ea8a0b;
     --tiki-topbar-color: #000;
     --tiki-topbar-link-color: #000;
     --tiki-topbar-link-hover-color: #3C3106FF;
 }
 
-.tiki-nav-light, .tiki-nav-dark {
+.tiki-top-nav-light, .tiki-top-nav-dark {
     --tiki-top-border-top-width: 0px;
     --tiki-top-border-bottom-width: 5px;
 }
@@ -200,11 +204,11 @@ header.navbar.fixed-top {
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
+    --tiki-admin-navbar-dark-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%) !important;
     --tiki-admin-dropdown-dark-color: #{$dropdown-dark-color};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
-    --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
+    --tiki-admin-navbar-light-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
+    --tiki-admin-dropdown-light-color: #3C3106;
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
     --tiki-admin-toggle-light-bg: #{$dropdown-bg};
     --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};
@@ -214,7 +218,7 @@ header.navbar.fixed-top {
 }
 
 .accordion {
-    --bs-accordion-active-bg: var(--tiki-topbar-light-bg);
+    --bs-accordion-active-bg: #{$topbar-light-bg};
     --bs-accordion-active-color: #000;
     --bs-accordion-btn-bg: #C79F1DFF;
 }

@@ -1,23 +1,27 @@
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
-.tiki-nav-light {
+.tiki-top-nav-light {
     --tiki-top-bg: null;
     --tiki-top-color: #FEA239;
     --tiki-top-link-color: #FEA239;
     --tiki-top-link-hover-color: lighten(#FEA239, 10%);
+}
 
+.tiki-topbar-nav-light {
     --tiki-topbar-bg: #{$top-navbar-bg};
     --tiki-topbar-color: #{$gray-100};
     --tiki-topbar-link-color: #{$gray-100};
     --tiki-topbar-link-hover-color: #{$gray-200};
 }
 
-.tiki-nav-dark {
+.tiki-top-nav-dark {
     --tiki-top-bg: #{$top-navbar-bg};
     --tiki-top-color: #FEA239;
     --tiki-top-link-color: #FEA239;
-    --tiki-top-link-hover-color: lighten(#FEA239,10%);
+    --tiki-top-link-hover-color: lighten(#FEA239, 10%);
+}
 
+.tiki-topbar-nav-dark {
     --tiki-topbar-bg: null;
     --tiki-topbar-color: #{$gray-100};
     --tiki-topbar-link-color: #{$gray-100};

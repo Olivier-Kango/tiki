@@ -19,11 +19,11 @@
     {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
     {if $prefs.feature_layoutshadows eq 'y'}
     <div id="header-shadow">{eval var=$prefs.header_shadow_start}{/if}
-        <div class="header_outer bg-{$navbar_color_variant}-parent tiki-nav-{$navbar_color_variant} tiki-nav-{$navbar_color_variant}" id="header_outer">
+        <div class="header_outer bg-{$navbar_color_variant}-parent navbar-{$navbar_color_variant} tiki-top-nav-{$navbar_color_variant}" id="header_outer">
             <div class="header_container">
                 <div class="container{* {if $smarty.session.fullscreen eq 'y'}*}-fluid{*{/if}*} container-std">
                     <header class="header page-header row" id="page-header">
-                        {modulelist zone=top class="top_modules d-flex justify-content-between w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-nav-{$navbar_color_variant}"}
+                        {modulelist zone=top class="top_modules d-flex justify-content-between w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-top-nav-{$navbar_color_variant}"}
                     </header>
                 </div>
             </div>
@@ -32,9 +32,9 @@
 {/if}
 
     <div class="middle_outer" id="middle_outer" >
-        <div class="topbar-wrapper navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-nav-{$navbar_color_variant}">
-            <div class="topbar container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-nav-{$navbar_color_variant}" id="topbar">
-                {modulelist zone=topbar class="topbar_modules d-flex align-content-center justify-content-between w-100 navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-nav-{$navbar_color_variant}"}
+        <div class="topbar-wrapper navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-topbar-nav-{$navbar_color_variant}">
+            <div class="topbar container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-topbar-nav-{$navbar_color_variant}" id="topbar">
+                {modulelist zone=topbar class="topbar_modules d-flex align-content-center justify-content-between w-100 navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-topbar-nav-{$navbar_color_variant}"}
             </div>
         </div>
         <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">

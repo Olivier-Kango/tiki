@@ -1,6 +1,6 @@
 //------- Tiki CSS variables
 
-.tiki-nav-light {
+.tiki-top-nav-light {
     --tiki-top-bg: #fff;
     --tiki-top-color: #000;
     --tiki-top-link-color: #000;
@@ -10,7 +10,9 @@
     --tiki-top-link-active-bg: #ff7900;
     --tiki-top-order: solid #000;
     //    --tiki-top-light-box-shadow:;
+}
 
+.tiki-topbar-nav-light {
     --tiki-topbar-bg: #fff;
     --tiki-topbar-color: #000;
     --tiki-topbar-link-color: #000;
@@ -22,7 +24,7 @@
     //    --tiki-topbar-box-shadow:;
 }
 
-.tiki-nav-dark {
+.tiki-top-nav-dark {
     --tiki-top-bg: rgba(0, 0, 0, 1);
     --tiki-top-color: #fff;
     --tiki-top-link-color: #fff;
@@ -30,7 +32,9 @@
     //  --tiki-top-link-hover-bg:;
     //  --tiki-top-border:;
     //  --tiki-top-box-shadow:;
+}
 
+.tiki-topbar-nav-dark {
     --tiki-topbar-bg: rgba(0, 0, 0, 1);
     --tiki-topbar-color: #fff;
     --tiki-topbar-link-color: #fff;

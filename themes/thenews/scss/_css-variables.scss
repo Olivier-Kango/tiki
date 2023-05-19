@@ -2,24 +2,28 @@
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
-.tiki-nav-light {
+.tiki-top-nav-light {
     --tiki-top-bg: #F3F6F9;
     --tiki-top-color: #{$navbar-light-color};
     --tiki-top-link-color: #{$navbar-light-color};
     --tiki-top-link-hover-color: #{$navbar-light-hover-color};
+}
 
+.tiki-topbar-nav-light {
     --tiki-topbar-bg: #F3F6F9;
     --tiki-topbar-color: #{$navbar-light-color};
     --tiki-topbar-link-color: #{$navbar-light-color};
     --tiki-topbar-link-hover-color: #{$navbar-dark-hover-color};
 }
 
-.tiki-nav-dark {
+.tiki-top-nav-dark {
     --tiki-top-bg: #efefef;
     --tiki-top-color: #{$navbar-dark-color};
     --tiki-top-link-color: #{$navbar-dark-color};
     --tiki-top-link-hover-color: #{$navbar-dark-hover-color};
+}
 
+.tiki-topbar-nav-dark {
     --tiki-topbar-bg: #efefef;
     --tiki-topbar-color: #{$navbar-dark-color};
     --tiki-topbar-link-color: #{$navbar-dark-color};
@@ -27,11 +31,11 @@
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg);
+    --tiki-admin-navbar-dark-bg: #efefef;
     --tiki-admin-dropdown-dark-color: #{$navbar-dark-color};
     --tiki-admin-dropdown-dark-hover-bg: #{$dropdown-dark-link-hover-bg};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
+    --tiki-admin-navbar-light-bg: #F3F6F9;
     --tiki-admin-dropdown-light-color: #{$navbar-light-color};
     --tiki-admin-dropdown-light-hover-color: #{$navbar-light-hover-color};
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};

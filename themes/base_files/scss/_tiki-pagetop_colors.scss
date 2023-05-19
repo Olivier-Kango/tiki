@@ -41,7 +41,6 @@
 // background colors, only the top-most ancestor should have the color specified, just like with bg-images. Otherwise, the bg image is applied to the top-most parent, but it's overlaid
 // by the colored background that it contains.
 
-
 // Top module zone and parent divs - Light color
 //.layout_basic .page-header.navbar-light-parent.bg-light-parent,        // Single-container layout -- Parent of the top module zone
 //.layout_classic .header_outer.bg-light-parent,                         // Classic Tiki layout -- Parent of the top module zone
@@ -49,7 +48,7 @@
 //.tiki-admin .top_modules.navbar-light-parent,
 //.layout_social header.navbar-light-parent.bg-light-parent,             // Classic Bootstrap layout (fixed-top navbar) -- Complete header
 //.layout_social header.navbar.navbar-light.bg-light                     // Classic Bootstrap layout -- Menu itself
-.tiki-nav-light
+.tiki .tiki-top-nav-light
 {
     background: var(--tiki-top-bg) !important;
     color: var(--tiki-top-color);
@@ -62,6 +61,7 @@
         }
     }
     box-shadow: var(--tiki-top-box-shadow);
+    border-color: var(--tiki-top-border-color);
 }
 
 // Topbar module zone and parent divs - light color
@@ -69,7 +69,7 @@
 //.layout_classic .topbar-wrapper.bg-light-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
 //.layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent,   // Classic Bootstrap topbar wrapper
 //.admin-content .bg-light                                              // Admin navbar and icons when UAB is off
-.tiki-nav-light
+.tiki .tiki-topbar-nav-light
 {
     background: var(--tiki-topbar-bg) !important;
     color: var(--tiki-topbar-color);
@@ -94,7 +94,7 @@
 //.tiki-admin .top_modules.navbar-dark-parent,
 //.layout_social header.navbar-light-parent.bg-dark-parent,             // Classic Bootstrap layout (fixed-top navbar) -- Complete header
 //.layout_social header.navbar.navbar-dark.bg-dark                     // Classic Bootstrap layout -- Menu itself
-.tiki-nav-dark
+.tiki .tiki-top-nav-dark
 {
     background: var(--tiki-top-bg) !important;
     color: var(--tiki-top-color);
@@ -110,6 +110,7 @@
 //    border: var(--tiki-top-dark-border);
 //    border-width: var(--tiki-top-border-width);
     box-shadow: var(--tiki-top-box-shadow);
+    border-color: var(--tiki-top-border-color);
 }
 
 // Topbar module zone and parent divs - dark color
@@ -117,7 +118,7 @@
 //.layout_classic .topbar-wrapper.bg-dark-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
 //.layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent,     // Classic Bootstrap topbar wrapper
 //.admin-content .bg-dark
-.tiki-nav-dark
+.tiki .tiki-topbar-nav-dark
 {
     background: var(--tiki-topbar-bg) !important;
     color: var(--tiki-topbar-dark-color);
@@ -143,12 +144,12 @@ header.navbar.fixed-top {
     border-bottom-width: var(--tiki-fixed-top-border-bottom-width);
     border-left-width: var(--tiki-fixed-top-border-left-width);
     border-style: solid;
-    &.bg-light {
-        border-color: var(--tiki-top-light-border-color);
-    }
-    &.bg-dark {
-        border-color: var(--tiki-top-dark-border-color);
-    }
+//    &.bg-light {
+//        border-color: var(--tiki-top-light-border-color);
+//    }
+//    &.bg-dark {
+//        border-color: var(--tiki-top-dark-border-color);
+//    }
 }
 
 // Classic Tiki and Single Container layout top zone border
@@ -188,7 +189,7 @@ header.navbar.fixed-top {
 //    background: transparent !important;
 //}
 
-.layout_social/*:not (.tiki-admin)*/ {
+.layout_social:not(.tiki-admin) {
     header .top_modules,
     header .top_modules .navbar,
     .topbar,

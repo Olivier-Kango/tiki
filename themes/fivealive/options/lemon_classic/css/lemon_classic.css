@@ -1,26 +1,30 @@
-.tiki-nav-light {
+.tiki-top-nav-light {
   --tiki-top-bg: linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
   --tiki-top-color: #151414;
-  --tiki-top-link-color: var(--tiki-top-color);
+  --tiki-top-link-color: #151414;
   --tiki-top-link-hover-color: lighten(#151414, 8%);
   --tiki-top-border: solid #000;
-  --tiki-topbar-bg: #f0e04f;
-  --tiki-topbar-color: var(--tiki-top-color);
-  --tiki-topbar-link-color: var(--tiki-topbar-color);
-  --tiki-topbar-link-hover-color: var(--tiki-top-link-hover-color);
 }
-.tiki-nav-dark {
-  --tiki-top-bg: var(--tiki-top-light-bg);
+.tiki-topbar-nav-light {
+  --tiki-topbar-bg: #f0e04f;
+  --tiki-topbar-color: #151414;
+  --tiki-topbar-link-color: #151414;
+  --tiki-topbar-link-hover-color: lighten(#151414, 8%);
+}
+.tiki-top-nav-dark {
+  --tiki-top-bg: linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
   --tiki-top-color: #151414;
-  --tiki-top-link-color: var(--tiki-top-color);
-  --tiki-top-link-hover-color: var(--tiki-topbar-link-hover-color);
+  --tiki-top-link-color: #151414;
+  --tiki-top-link-hover-color: lighten(#151414, 8%);
   --tiki-top-border: solid #000;
-  --tiki-topbar-bg: #f0e04f;
-  --tiki-topbar-color: var(--tiki-top-color);
-  --tiki-topbar-link-color: var(--tiki-top-link-color);
-  --tiki-topbar-link-hover-color: var(--tiki-top-link-hover-color);
 }
-.tiki-nav-light, .tiki-nav-dark {
+.tiki-topbar-nav-dark {
+  --tiki-topbar-bg: #f0e04f;
+  --tiki-topbar-color: #151414;
+  --tiki-topbar-link-color: #151414;
+  --tiki-topbar-link-hover-color:  lighten(#151414, 8%);
+}
+.tiki-top-nav-light, .tiki-top-nav-dark {
   --tiki-top-border-top-width: 0px;
   --tiki-top-border-bottom-width: 5px;
 }
@@ -32,11 +36,11 @@ header.navbar.fixed-top {
   --tiki-topbar-light-border-color: #000;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
-  --tiki-admin-dropdown-dark-color: #fff;
+  --tiki-admin-navbar-dark-bg: linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%) !important;
+  --tiki-admin-dropdown-dark-color: #151414;
   --tiki-admin-dropdown-dark-bg: #c75a29;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
-  --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
+  --tiki-admin-navbar-light-bg: linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
+  --tiki-admin-dropdown-light-color: #151414;
   --tiki-admin-dropdown-light-bg: #c75a29;
   --tiki-admin-toggle-light-bg: #c75a29;
   --tiki-admin-navbar-dark-highlight-bg: #b25025;

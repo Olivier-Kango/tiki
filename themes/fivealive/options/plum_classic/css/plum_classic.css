@@ -1,26 +1,30 @@
-.tiki-nav-light {
+.tiki-top-nav-light {
   --tiki-top-bg: linear-gradient(to right, #300149 0%, #15001F 100%);
   --tiki-top-color: #f9f9f9;
   --tiki-top-link-color: #f9f9f9;
   --tiki-top-link-hover-color: #f2f2f2;
   --tiki-top-border: solid #000;
+}
+.tiki-topbar-nav-light {
   --tiki-topbar-bg: #180124;
   --tiki-topbar-color: #f9f9f9;
   --tiki-topbar-link-color: #f9f9f9;
   --tiki-topbar-link-hover-color: #f2f2f2;
 }
-.tiki-nav-dark {
+.tiki-top-nav-dark {
   --tiki-top-bg: linear-gradient(to right, #300149 0%, #15001F 100%);
   --tiki-top-color: #000;
   --tiki-top-link-color: #f9f9f9;
   --tiki-top-link-hover-color: #f2f2f2;
   --tiki-top-border: solid #000;
+}
+.tiki-topbar-nav-dark {
   --tiki-topbar-bg: #180124;
   --tiki-topbar-color: #f9f9f9;
   --tiki-topbar-link-color: #f9f9f9;
   --tiki-topbar-link-hover-color: #f2f2f2;
 }
-.tiki-nav-light, .tiki-nav-dark {
+.tiki-top-nav-light, .tiki-top-nav-dark {
   --tiki-top-border-top-width: 0px;
   --tiki-top-border-bottom-width: 5px;
 }
@@ -32,11 +36,11 @@ header.navbar.fixed-top {
   --tiki-topbar-light-border-color: #000;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
+  --tiki-admin-navbar-dark-bg: linear-gradient(to right, #300149 0%, #15001F 100%) !important;
   --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-bg: #49006c;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
-  --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
+  --tiki-admin-navbar-light-bg:  linear-gradient(to right, #300149 0%, #15001F 100%);
+  --tiki-admin-dropdown-light-color: #f9f9f9;
   --tiki-admin-dropdown-light-bg: #49006c;
   --tiki-admin-toggle-light-bg: #49006c;
   --tiki-admin-navbar-dark-highlight-bg: #15001f;

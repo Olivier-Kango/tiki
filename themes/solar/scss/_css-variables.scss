@@ -4,13 +4,15 @@
 }
 
 //--------------------------- Tiki CSS variables
-.tiki-nav-light {
+.tiki-top-nav-light {
     --tiki-top-bg: rgb(255, 255, 255);
     --tiki-top-color: rgba(0, 0, 0, 0.9);
     --tiki-top-link-color: rgba(0, 0, 0, 0.55);
     --tiki-top-link-hover-color: rgba(0, 0, 0, 0.7);
     --tiki-top-border: solid #333;
+}
 
+.tiki-topbar-nav-light {
     --tiki-topbar-bg: rgb(255, 255, 255);
     --tiki-topbar-color: rgba(0, 0, 0, 0.9);
     --tiki-topbar-link-color: rgba(0, 0, 0, 0.55);
@@ -18,13 +20,15 @@
     --tiki-topbar-border: solid #333;
 }
 
-.tiki-nav-dark {
+.tiki-top-nav-dark {
     --tiki-top-bg: rgba(7, 54, 66, 1);
     --tiki-top-color: #fff;
     --tiki-top-link-color: #fff;
     --tiki-top-link-hover-color: #fff;
     --tiki-top-border: solid rgb(85, 85, 85);
+}
 
+.tiki-topbar-nav-dark {
     --tiki-topbar-bg: rgba(7, 54, 66, 1);
     --tiki-topbar-color: #fff;
     --tiki-topbar-link-color: #fff;
@@ -32,17 +36,17 @@
     --tiki-topbar-border: solid rgb(85, 85, 85);
 }
 
-.tiki-nav-light, .tiki-nav-dark {
+.tiki-top-nav-light, .tiki-top-nav-dark {
     --tiki-top-border-width: 2px;
     --tiki-topbar-border-width: 2px;
 }
 
 .tiki-admin {
-    --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg);
+    --tiki-admin-navbar-dark-bg: rgba(7, 54, 66, 1);
     --tiki-admin-dropdown-dark-color: #{$navbar-dark-color};
     --tiki-admin-dropdown-dark-hover-bg: #{$dropdown-dark-link-hover-bg};
     --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
-    --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
+    --tiki-admin-navbar-light-bg: rgb(255, 255, 255);
     --tiki-admin-dropdown-light-color: #{$navbar-light-color};
     --tiki-admin-dropdown-light-hover-color: #{$navbar-light-hover-color};
     --tiki-admin-dropdown-light-bg: #{$dropdown-bg};

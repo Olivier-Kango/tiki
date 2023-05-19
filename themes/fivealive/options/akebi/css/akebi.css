@@ -5,38 +5,44 @@
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
-.tiki-nav-light {
+.tiki-top-nav-light {
   --tiki-top-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%);
   --tiki-top-color: #f9f9f9;
   --tiki-top-link-color: #f9f9f9;
   --tiki-top-link-hover-color: #f2f2f2;
   --tiki-top-border: solid #000;
+}
+.tiki-topbar-nav-light {
   --tiki-topbar-bg: #063035;
   --tiki-topbar-color: #f9f9f9;
   --tiki-topbar-link-color: #f9f9f9;
   --tiki-topbar-link-hover-color: #f2f2f2;
 }
-.tiki-nav-dark {
-  --tiki-top-bg: linear-gradient(to right,  #0a8794 0%,#169fb6 53%,#18a4bc 72%,#19a5bd 100%);
+.tiki-top-nav-dark {
+  --tiki-top-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%);
   --tiki-top-color: #f9f9f9;
   --tiki-top-link-color: #f9f9f9;
   --tiki-top-link-hover-color: #f2f2f2;
   --tiki-top-border: solid #000;
+}
+.tiki-topbar-nav-dark {
   --tiki-topbar-bg: #063035;
   --tiki-topbar-color: #f9f9f9;
   --tiki-topbar-link-color: #f9f9f9;
   --tiki-topbar-link-hover-color: #f2f2f2;
+}
+.tiki-top-nav-light, .tiki-top-nav-dark {
   --tiki-fixed-top-border-top-width: 0px;
   --tiki-fixed-top-border-bottom-width: 5px;
 }
 .tiki-admin {
-  --tiki-admin-navbar-dark-bg: var(--tiki-top-dark-bg) !important;
+  --tiki-admin-navbar-dark-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%) !important;
   --tiki-admin-dropdown-dark-color: #fff;
   --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
   --tiki-admin-dropdown-dark-bg: #087f93;
-  --tiki-admin-navbar-light-bg: var(--tiki-top-light-bg);
-  --tiki-admin-dropdown-light-color: var(--tiki-top-light-color);
-  --tiki-admin-dropdown-light-hover-color: var(--tiki-top-light-hover-color);
+  --tiki-admin-navbar-light-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%);
+  --tiki-admin-dropdown-light-color:#f9f9f9;
+  --tiki-admin-dropdown-light-hover-color: #f2f2f2;
   --tiki-admin-dropdown-light-bg: #fff;
   --tiki-admin-toggle-light-bg: #fff;
   --tiki-admin-navbar-dark-highlight-bg: #087084;
@@ -1147,55 +1153,57 @@ footer#footer .footer_liner .card-header {
 .page-item.disabled, .list-group-item.disabled {
   color: #6B737B !important;
 }
-.tiki-nav-light {
+.tiki .tiki-top-nav-light {
   background: var(--tiki-top-bg) !important;
   color: var(--tiki-top-color);
   box-shadow: var(--tiki-top-box-shadow);
+  border-color: var(--tiki-top-border-color);
 }
-.tiki-nav-light a:not(.dropdown-item), .tiki-nav-light .btn.btn-link {
+.tiki .tiki-top-nav-light a:not(.dropdown-item), .tiki .tiki-top-nav-light .btn.btn-link {
   color: var(--tiki-top-link-color);
 }
-.tiki-nav-light a:not(.dropdown-item):hover, .tiki-nav-light .btn.btn-link:hover {
+.tiki .tiki-top-nav-light a:not(.dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
   color: var(--tiki-top-link-hover-color);
   background: var(--tiki-top-link-hover-bg);
 }
-.tiki-nav-light {
+.tiki .tiki-topbar-nav-light {
   background: var(--tiki-topbar-bg) !important;
   color: var(--tiki-topbar-color);
   border: var(--tiki-topbar-border);
   border-width: var(--tiki-topbar-border-width);
   box-shadow: var(--tiki-topbar-box-shadow);
 }
-.tiki-nav-light a:not(.dropdown-item), .tiki-nav-light .btn.btn-link, .tiki-nav-light a.nav-link {
+.tiki .tiki-topbar-nav-light a:not(.dropdown-item), .tiki .tiki-topbar-nav-light .btn.btn-link, .tiki .tiki-topbar-nav-light a.nav-link {
   color: var(--tiki-topbar-color);
 }
-.tiki-nav-light a:not(.dropdown-item):hover, .tiki-nav-light .btn.btn-link:hover, .tiki-nav-light a.nav-link:hover {
+.tiki .tiki-topbar-nav-light a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
   color: var(--tiki-topbar-link-hover-color);
   background: var(--tiki-topbar-link-hover-bg);
 }
-.tiki-nav-dark {
+.tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
   color: var(--tiki-top-color);
   box-shadow: var(--tiki-top-box-shadow);
+  border-color: var(--tiki-top-border-color);
 }
-.tiki-nav-dark a:not(.dropdown-item), .tiki-nav-dark .btn.btn-link, .tiki-nav-dark a.nav-link {
+.tiki .tiki-top-nav-dark a:not(.dropdown-item), .tiki .tiki-top-nav-dark .btn.btn-link, .tiki .tiki-top-nav-dark a.nav-link {
   color: var(--tiki-top-link-color);
 }
-.tiki-nav-dark a:not(.dropdown-item):hover, .tiki-nav-dark .btn.btn-link:hover, .tiki-nav-dark a.nav-link:hover {
+.tiki .tiki-top-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
   color: var(--tiki-top-link-hover-color);
   background: var(--tiki-top-link-hover-bg);
 }
-.tiki-nav-dark {
+.tiki .tiki-topbar-nav-dark {
   background: var(--tiki-topbar-bg) !important;
   color: var(--tiki-topbar-dark-color);
   border: var(--tiki-topbar-border);
   border-width: var(--tiki-topbar-border-width);
   box-shadow: var(--tiki-topbar-box-shadow);
 }
-.tiki-nav-dark a:not(.dropdown-item), .tiki-nav-dark .btn.btn-link, .tiki-nav-dark a.nav-link {
+.tiki .tiki-topbar-nav-dark a:not(.dropdown-item), .tiki .tiki-topbar-nav-dark .btn.btn-link, .tiki .tiki-topbar-nav-dark a.nav-link {
   color: var(--tiki-topbar-link-color);
 }
-.tiki-nav-dark a:not(.dropdown-item):hover, .tiki-nav-dark .btn.btn-link:hover, .tiki-nav-dark a.nav-link:hover {
+.tiki .tiki-topbar-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
   color: var(--tiki-topbar-link-hover-color);
   background: var(--tiki-topbar-link-hover-bg);
 }
@@ -1205,12 +1213,6 @@ header.navbar.fixed-top {
   border-bottom-width: var(--tiki-fixed-top-border-bottom-width);
   border-left-width: var(--tiki-fixed-top-border-left-width);
   border-style: solid;
-}
-header.navbar.fixed-top.bg-light {
-  border-color: var(--tiki-top-light-border-color);
-}
-header.navbar.fixed-top.bg-dark {
-  border-color: var(--tiki-top-dark-border-color);
 }
 .layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent {
   border: var(--tiki-static-top-light-border);
@@ -1230,7 +1232,7 @@ header.navbar.fixed-top.bg-dark {
   box-shadow: none;
   border: none;
 }
-.layout_social header .top_modules, .layout_social header .top_modules .navbar, .layout_social .topbar, .layout_social .topbar .navbar {
+.layout_social:not(.tiki-admin) header .top_modules, .layout_social:not(.tiki-admin) header .top_modules .navbar, .layout_social:not(.tiki-admin) .topbar, .layout_social:not(.tiki-admin) .topbar .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
