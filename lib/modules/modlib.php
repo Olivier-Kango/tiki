@@ -1191,6 +1191,7 @@ class ModLib extends TikiLib
 
                 if ($this->is_admin_mode() && $timer) {
                     $elapsed = round($timer->stop('module'), 3);
+                    $data = isset($data) ? $data : '';
                     $data = preg_replace('/<div /', '<div title="Module Execution Time ' . $elapsed . 's" ', $data, 1);
                 }
 
