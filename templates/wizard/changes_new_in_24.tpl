@@ -19,7 +19,7 @@
         </a>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}New Features{/tr}</legend>
-            {* preference name='foo1' *}
+            {preference name=auth_api_tokens}
             <div class="offset-sm-1 col-sm-11">
                 {tr}Interledger Protocol payments (ILP).{/tr}
                 <a href="https://doc.tiki.org/Interledger-Protocol-payments">{tr}More Information{/tr}...</a><br/><br/>
