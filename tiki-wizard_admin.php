@@ -127,6 +127,9 @@ if ($useDefaultPrefs) {
     $pages[] = new ChangesWizardNewIn17();
 */
 
+    require_once('lib/wizard/pages/changes_new_in_25.php');
+    $pages[] = new ChangesWizardNewIn25();
+
     require_once('lib/wizard/pages/changes_new_in_24.php');
     $pages[] = new ChangesWizardNewIn24();
 

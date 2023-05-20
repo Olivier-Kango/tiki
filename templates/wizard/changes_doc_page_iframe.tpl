@@ -12,10 +12,10 @@
         <div>
             <div class="simplebox">
                 <div class='titlebar'>
-                    <b>doc.t.o/Tiki24:</b> {tr}To see it in full size out of this frame,{/tr} <a class="wiki external" target="_blank" href="https://doc.tiki.org/tiki-index_p.php?page=Tiki24" rel="external nofollow">{tr}click here{/tr}</a>
+                    <b>doc.t.o/Tiki25:</b> {tr}To see it in full size out of this frame,{/tr} <a class="wiki external" target="_blank" href="https://doc.tiki.org/tiki-index_p.php?page=Tiki25" rel="external nofollow">{tr}click here{/tr}</a>
                     <img src="img/icons/external_link.gif" width="15" height="14" class="icon" />
                 </div>
-                <p><iframe name="Documentation of changes from Tiki 23 to Tiki 24" width="100%" height="300" align="middle" frameborder="1" marginheight="0" marginwidth="0" scrolling="auto" src="https://doc.tiki.org/tiki-index_p.php?page=Tiki24"></iframe></p>
+                <p><iframe name="Documentation of changes from Tiki 24 to Tiki 25" width="100%" height="300" align="middle" frameborder="1" marginheight="0" marginwidth="0" scrolling="auto" src="https://doc.tiki.org/tiki-index_p.php?page=Tiki25"></iframe></p>
             </div>
             <br/><br/>
         </div>
