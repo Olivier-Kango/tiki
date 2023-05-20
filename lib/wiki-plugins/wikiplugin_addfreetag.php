@@ -49,7 +49,7 @@ function wikiplugin_addfreetag($data, $params)
     if ($object['type'] == 'trackeritem') {
         $permobject = TikiLib::lib('trk')->get_tracker_for_item($object['object']);
         $permobjecttype = 'tracker';
-    } else if ($object) {
+    } elseif ($object) {
         $permobject = $object['object'];
         $permobjecttype = $object['type'];
     } else {

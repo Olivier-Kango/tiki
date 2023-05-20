@@ -48,7 +48,7 @@ function wikiplugin_addreference($data, $params)
             $page = urldecode($_REQUEST['page']);
             $page_id = TikiLib::lib('tiki')->get_page_id_from_name($page);
             $page_info = TikiLib::lib('tiki')->get_page_info($page);
-        } else if ($object = current_object()) {
+        } elseif ($object = current_object()) {
             $page_id = TikiLib::lib('tiki')->get_page_id_from_name($object['object']);
             $page_info = TikiLib::lib('tiki')->get_page_info($object['object']);
         } else {
