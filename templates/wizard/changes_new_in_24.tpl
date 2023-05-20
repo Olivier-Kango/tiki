@@ -27,7 +27,6 @@
             <fieldset class="mb-3 w-100 clearfix featurelist">
                 <legend>{tr}New Wiki Plugins{/tr}</legend>
                 {preference name=wikiplugin_figlet}
-                {preference name=wikiplugin_kanban}
             </fieldset>
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
