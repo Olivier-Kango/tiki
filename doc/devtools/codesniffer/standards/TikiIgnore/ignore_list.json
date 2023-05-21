@@ -587,6 +587,12 @@
         "lib\/wizard\/pages\/changes_new_in_23.php": {
             "class:ChangesWizardNewIn23": true
         },
+        "lib\/wizard\/pages\/changes_new_in_25.php": {
+            "class:ChangesWizardNewIn25": true
+        },
+        "lib\/wizard\/pages\/changes_new_in_26.php": {
+            "class:ChangesWizardNewIn26": true
+        },
         "lib\/core\/Services\/IconPicker\/Controller.php": {
             "class:Services_IconPicker_Controller": true
         },
