@@ -131,7 +131,7 @@ if (! empty($_REQUEST['subId'])) {
     $smarty->assign('image_name', $article_data['image_name'] ?? null);
     $smarty->assign('image_type', $article_data['image_type'] ?? null);
     $smarty->assign('image_size', $article_data['image_size'] ?? null);
-    $smarty->assign('image_data', urlencode($article_data['image_data'] ?? null));
+    $smarty->assign('image_data', urlencode($article_data['image_data'] ?? ''));
     $smarty->assign('reads', $article_data['nbreads'] ?? null);
     $smarty->assign('image_x', $article_data['image_x'] ?? null);
     $smarty->assign('image_y', $article_data['image_y'] ?? null);
