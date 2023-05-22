@@ -142,7 +142,7 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
         $smod_params['tiki_search'] = 'none';
         $smarty->assign('module_error', tra('Search is disabled.'));
         return;
-    } elseif ($prefs['feature_search'] == 'n' && $smod_params['tiki_search'] == 'y') {
+    } elseif ($prefs['feature_search'] == 'n' && isset($smod_params['tiki_search']) && $smod_params['tiki_search'] == 'y') {
         $smod_params['tiki_search'] = 'n';
     } elseif ($prefs['feature_search_fulltext'] == 'n' && (empty($smod_params['tiki_search']) || $smod_params['tiki_search'] != 'y')) {
         $smod_params['tiki_search'] = 'y';
@@ -173,7 +173,7 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
         'default_button' => 'search',
         'input_size' => 0,
         'select_size' => 10,
-        'search_action' => $smod_params['tiki_search'] === 'y' ? 'tiki-searchindex.php' : 'tiki-searchresults.php',
+        'search_action' => (isset($smod_params['tiki_search']) && $smod_params['tiki_search'] === 'y') ? 'tiki-searchindex.php' : 'tiki-searchresults.php',
         'search_submit' => tra('Search'),
         'go_action' => 'tiki-listpages.php',
         'go_submit' => tra('Go'),
@@ -188,7 +188,7 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
 
     $smod_params = array_merge($defaults, $smod_params);
 
-    if ($smod_params['tiki_search'] == 'y') {
+    if (isset($smod_params['tiki_search']) && $smod_params['tiki_search'] == 'y') {
         $smod_params['advanced_search'] = 'n';
         $smod_params['advanced_search_option'] = 'n';
         $smod_params['advanced_search_help'] = 'n';
