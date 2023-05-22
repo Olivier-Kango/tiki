@@ -1557,7 +1557,7 @@ class WikiLib extends TikiLib
             array_walk_recursive(
                 $plugins,
                 function (&$item) use ($commonKey, $area_id) {
-                    $item = str_replace($commonKey, $area_id, $item);
+                    $item = str_replace($commonKey, $area_id, $item ?? '');
                 }
             );
             return $plugins;
