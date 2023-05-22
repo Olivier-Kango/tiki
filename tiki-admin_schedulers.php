@@ -11,13 +11,17 @@ function saveScheduler()
     $addTask = true;
     $errors = [];
 
+    $params = '';
     $name = $_POST['scheduler_name'];
     $description = $_POST['scheduler_description'];
     $task = $_POST['scheduler_task'];
     $runTime = trim($_POST['scheduler_time']);
     $status = $_POST['scheduler_status'];
-    $reRun = $_POST['scheduler_rerun'] == 'on' ? 1 : 0;
-    $runOnlyOnce = $_POST['scheduler_run_only_once'] == 'on' ? 1 : 0;
+    $reRun = $_POST['scheduler_rerun'] ?? 0;
+    $reRun = $reRun == 'on' ? 1 : 0;
+    $runOnlyOnce = $_POST['scheduler_run_only_once'] ?? 0;
+    $runOnlyOnce = $runOnlyOnce == 'on' ? 1 : 0;
+
 
     if (empty($name)) {
         $errors[] = tra('Name is required');
