@@ -14,7 +14,7 @@ function wikiplugin_pdfpage_info()
 				'description' => tra('Insert page with new settings in PDF'),
 				'tags' => [ 'advanced' ],
 				'body' => tra('Page Content'),
-				'prefs' => [ 'wikiplugin_pdf' ],
+				'prefs' => [ 'wikiplugin_pdfpage' ],
 				'format' => 'html',
 				'iconname' => 'pdf',
 				'introduced' => 18,
