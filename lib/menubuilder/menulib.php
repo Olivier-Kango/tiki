@@ -628,6 +628,10 @@ class MenuLib extends TikiLib
     {
         $res = $this->table('tiki_menus')->fetchFullRow(['menuId' => (int) $menuId]);
 
+        if (! is_array($res)) {
+            $res = [];
+        }
+
         if (empty($res['icon'])) {
             $res['oicon'] = null;
         } else {
