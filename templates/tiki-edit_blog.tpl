@@ -81,6 +81,12 @@
                         </label>
                     </div>
                     <div class="form-check">
+                        <label for="blogs-comments" class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="allow_post_categorization" id="blogs-allow_post_categorization" {if $allow_post_categorization eq 'y' or $allow_post_categorization eq 'c'}checked='checked'{/if}{if $prefs.feature_blogposts_comments ne 'y'} disabled="disabled"{/if}>
+                            {tr}Allow categorisation of each blog post. Otherwise blog posts inherit blog categorisation.{/tr}
+                        </label>
+                    </div>
+                    <div class="form-check">
                         <label for="blogs-post-use-excerpt" class="form-check-label">
                             <input type="checkbox" class="form-check-input" name="use_excerpt" id="blogs-post-use-excerpt" {if $use_excerpt eq 'y'}checked='checked'{/if}>
                             {tr}Use post excerpt{/tr}

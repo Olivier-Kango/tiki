@@ -37,6 +37,7 @@ $smarty->assign('use_description', 'y');
 $smarty->assign('use_breadcrumbs', 'n');
 $smarty->assign('use_author', 'y');
 $smarty->assign('allow_comments', 'y');
+$smarty->assign('allow_post_categorization', 'n');
 $smarty->assign('show_avatar', 'n');
 $smarty->assign('show_related', 'n');
 $smarty->assign('related_max', 5);
@@ -79,6 +80,7 @@ if (isset($_REQUEST["blogId"]) && $_REQUEST["blogId"] > 0) {
     $smarty->assign('use_breadcrumbs', $data["use_breadcrumbs"]);
     $smarty->assign('use_author', $data["use_author"]);
     $smarty->assign('allow_comments', $data["allow_comments"]);
+    $smarty->assign('allow_post_categorization', $data["allow_post_categorization"]);
     $smarty->assign('show_avatar', $data["show_avatar"]);
     $smarty->assign('show_related', $data["show_related"]);
     $smarty->assign('related_max', $data["related_max"]);
@@ -131,6 +133,7 @@ if (isset($_REQUEST["save"]) && $prefs['feature_categories'] == 'y' && $prefs['f
     }
 
     $allow_comments = isset($_REQUEST["allow_comments"]) ? 'y' : 'n';
+    $allow_post_categorization = isset($_REQUEST["allow_post_categorization"]) ? 'y' : 'n';
     $show_avatar = isset($_REQUEST['show_avatar']) ? 'y' : 'n';
     $show_related = isset($_REQUEST['show_related']) ? 'y' : 'n';
     $related_max = isset($_REQUEST['related_max']) ? $_REQUEST['related_max'] : 5;
@@ -161,6 +164,7 @@ if (isset($_REQUEST["save"]) && $prefs['feature_categories'] == 'y' && $prefs['f
             $add_date,
             $use_find,
             $allow_comments,
+            $allow_post_categorization,
             $show_avatar,
             $alwaysOwner,
             $post_heading,
@@ -198,6 +202,7 @@ if (isset($_REQUEST['preview']) || $category_needed) {
     $smarty->assign('use_excerpt', isset($_REQUEST['use_excerpt']) ? 'y' : 'n');
     $smarty->assign('add_date', isset($_REQUEST["add_date"]) ? 'y' : 'n');
     $smarty->assign('allow_comments', isset($_REQUEST["allow_comments"]) ? 'y' : 'n');
+    $smarty->assign('allow_post_categorization', isset($_REQUEST["allow_post_categorization"]) ? 'y' : 'n');
     $smarty->assign('maxPosts', $_REQUEST["maxPosts"]);
     $smarty->assign('heading', $heading);
     $smarty->assign('creator', $_REQUEST["creator"]);
@@ -220,6 +225,7 @@ if (isset($_REQUEST['preview']) || $category_needed) {
             'add_date' => $add_date,
             'use_find' => $use_find,
             'allow_comments' => $allow_comments,
+            'allow_post_categorization' => $allow_post_categorization,
             'show_avatar' => $show_avatar,
             'always_owner' => $alwaysOwner,
             'post_heading' => $post_heading,

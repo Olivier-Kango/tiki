@@ -159,7 +159,8 @@ class EmailTest extends TestCase
 
         $commentsLib = TikiLib::lib('comments');
         $blogLib = TikiLib::lib('blog');
-        $blogId = $blogLib->replace_blog('Test Blog', '', 'admin', 'y', 25, 0, '', 'y', 'y', 'y', 'y', 'y', 'y', 'n', 'y', 'n', 'n', '', 'n', 5, 'n');
+        $blogId = $blogLib->replace_blog('Test Blog', '', 'admin', 'y', 25, 0, '', 'y', 'y', 'y', 'y', 'y', 'y', 'n', 'y', 'n', 'n', 'n', '', 'n', 5, 'n');
+
 
         self::$objects['blogs'][] = $blogId;
 

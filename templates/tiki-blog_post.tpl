@@ -138,7 +138,9 @@
         {if $prefs.feature_contribution eq 'y'}
             {include file='contribution.tpl'}
         {/if}
-        {include file='categorize.tpl'}
+        {if $blog_data.allow_post_categorization === 'y'}
+            {include file='categorize.tpl'}
+        {/if}
     </fieldset>
     <div class="text-center">
         <input type="submit" class="wikiaction btn btn-secondary" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
