@@ -59,7 +59,7 @@ function smarty_function_preference($params, $smarty)
         $info['pages'] = $pages_string;
 
         if (! isset($info['separator'])) {
-            $info['separator'] = [];
+            $info['separator'] = '';
         }
         if (isset($params['size'])) {
             $info['size'] = $params['size'];
