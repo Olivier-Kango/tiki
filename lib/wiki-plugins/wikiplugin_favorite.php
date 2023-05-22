@@ -37,6 +37,14 @@ function wikiplugin_favorite_info()
 }
 function wikiplugin_favorite($data, $params)
 {
+    if (empty($params['objectType'])) {
+        Feedback::error(tr('The %0 parameter is missing', 'objectType'));
+        return;
+    }
+    if (empty($params['objectId'])) {
+        Feedback::error(tr('The %0 parameter is missing', 'objectId'));
+        return;
+    }
     $smarty = TikiLib::lib('smarty');
     if ($params['objectType'] == 'usertracker') {
         $objectType = 'trackeritem';

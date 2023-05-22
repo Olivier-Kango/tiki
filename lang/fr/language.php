@@ -2274,6 +2274,7 @@ $lang_current = array(
 "Tracker Field Factory Error: Pref \"%0\" required for field type \"%1\"" => "Erreur gestionnaire champ de formulaire : Préférence \"%0\" requise pour le type de champ \"%1\"",
 "Attachment" => "Fichier joint",
 // "Deprecated in favor of the Files field" => "Deprecated in favor of the Files field",
+"The %0 parameter is missing" => "Le paramètre %0 est manquant",
 "List View" => "Vue en liste",
 "Defines how attachments will be displayed within the field" => "Définit comment les pièces jointes seront affichées dans le champ",
 "name" => "nom",
