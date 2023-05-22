@@ -26,7 +26,7 @@ class Services_Broker
 
             $output = $this->attemptProcess($controller, $action, $request);
 
-            if (isset($output['FORWARD'])) {
+            if (! empty($output['FORWARD'])) {
                 $output['FORWARD'] = array_merge(
                     [
                         'controller' => $controller,

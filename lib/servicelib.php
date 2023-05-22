@@ -63,7 +63,7 @@ class ServiceLib
             $url = 'tiki-ajax_services.php';
         }
 
-        if (count($params)) {
+        if (! empty($params) && count($params)) {
             $url .= '?' . http_build_query($params, '', '&');
         }
 
