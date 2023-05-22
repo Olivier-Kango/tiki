@@ -302,7 +302,8 @@ class Graphic
         $right -= $layout['content-margin'];
         $top += $layout['content-margin'];
         $bottom -= $layout['content-margin'];
-        $this->_drawContent(new Fake_GRenderer($renderer, $left, $top, $right, $bottom));
+        $fake_grender = new Fake_GRenderer($renderer, $left, $top, $right, $bottom);
+        $this->_drawContent($fake_grender);
 
         if ($layout['legend-active'] && count($this->legend) > 0 && $layout['legend-location'] == 'static') {
             $this->_drawLegend($renderer, $left, $top, $right, $bottom, $layout);
