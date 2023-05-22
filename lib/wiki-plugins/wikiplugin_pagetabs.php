@@ -21,7 +21,7 @@ function wikiplugin_pagetabs_info()
         'body' => null,
         'params' => [
             'pages' => [
-                'required' => false,
+                'required' => true,
                 'name' => tra('Wiki page names'),
                 'description' => tr('The wiki pages you would like to use in this plugin, optional, separate with
                     pipe %0|%1. Or a table with the class of "pagetabs" on the main page. On child pages use as a way
@@ -47,6 +47,10 @@ function wikiplugin_pagetabs($data, $params)
     ++$pagetabsindex;
     extract($params, EXTR_SKIP);
 
+    if (empty($params['pages'])) {
+        Feedback::error(tr('The %0 parameter is missing', 'pages'));
+        return;
+    }
     $pages = json_encode($pages);
 
     $pageTabs = true;
