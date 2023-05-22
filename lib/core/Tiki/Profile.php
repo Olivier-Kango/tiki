@@ -303,11 +303,11 @@ class Tiki_Profile
             $value = '$simple_test:' . $value;
         }
 
-        if (preg_match(self::SHORT_PATTERN, $value, $parts)) {
+        if (preg_match(self::SHORT_PATTERN, $value ?? "", $parts)) {
             return true;
-        } elseif (preg_match_all(self::LONG_PATTERN, $value, $parts, PREG_SET_ORDER)) {
+        } elseif (preg_match_all(self::LONG_PATTERN, $value ?? "", $parts, PREG_SET_ORDER)) {
             return true;
-        } elseif (preg_match(self::SHORTER_PATTERN, $value, $parts)) {
+        } elseif (preg_match(self::SHORTER_PATTERN, $value ?? "", $parts)) {
             return true;
         }
         return false;
@@ -515,13 +515,13 @@ class Tiki_Profile
             foreach ($value as $v) {
                 $array = array_merge($array, $this->traverseForReferences($v));
             }
-        } elseif (preg_match(self::SHORT_PATTERN, $value, $parts)) {
+        } elseif (preg_match(self::SHORT_PATTERN, $value ?? "", $parts)) {
             $array[] = $this->convertReference($parts);
-        } elseif (preg_match_all(self::LONG_PATTERN, $value, $parts, PREG_SET_ORDER)) {
+        } elseif (preg_match_all(self::LONG_PATTERN, $value ?? "", $parts, PREG_SET_ORDER)) {
             foreach ($parts as $row) {
                 $array[] = $this->convertReference($row);
             }
-        } elseif (preg_match(self::SHORTER_PATTERN, $value, $parts)) {
+        } elseif (preg_match(self::SHORTER_PATTERN, $value ?? "", $parts)) {
             $array[] = $this->convertReference($parts);
         }
 
@@ -575,7 +575,7 @@ class Tiki_Profile
             foreach ($value as $v) {
                 $array = array_merge($array, $this->traverseForRequiredInput($v));
             }
-        } elseif (preg_match(self::INFO_REQUEST, $value, $parts)) {
+        } elseif (preg_match(self::INFO_REQUEST, $value ?? "", $parts)) {
             $array[$parts[1]] = $parts[4];
         }
 
