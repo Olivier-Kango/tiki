@@ -47,9 +47,30 @@
 @import "_tiki-installer.scss";
 @import "_tiki-oauthserver.scss";
 @import "_tiki-menus.scss";
-@import "_tiki-debugger_console.scss"
+@import "_tiki-debugger_console.scss";
 //@import "_pivot-tiki.scss";
 //@import "_conversejs-tiki.scss";
+
+// Sticky tables
+.tiki .table-sticky {
+    overflow: visible !important;
+}
+.tiki .table-sticky thead {
+    position: -webkit-sticky;
+    /* for Safari */
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+.tiki .table-sticky tbody th {
+    position: sticky;
+    position: -webkit-sticky;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    left: 0px;
+    z-index: 1;
+}
 
 
 /* End of file */

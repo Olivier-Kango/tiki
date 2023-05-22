@@ -5037,4 +5037,24 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
   color: #0d6efd;
 }
 /* End of file */
+.tiki .table-sticky {
+  overflow: visible !important;
+}
+.tiki .table-sticky thead {
+  position: -webkit-sticky;
+  /* for Safari */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.tiki .table-sticky tbody th {
+  position: sticky;
+  position: -webkit-sticky;
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+  left: 0px;
+  z-index: 1;
+}
+/* End of file */
 
