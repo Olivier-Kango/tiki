@@ -32,6 +32,8 @@ class TikiDate
 
     public $translated_trad = [];
     public $date;
+    public $search;
+    public $replace;
     public $translation_array = [
                 '%a' => 'D',
                 '%A' => 'l',
