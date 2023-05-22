@@ -22,7 +22,8 @@ class Tiki_Profile_InstallHandler_Blog extends Tiki_Profile_InstallHandler
             'heading' => '',
             'post_heading' => '',
             'use_find' => 'y',
-            'comments' => 'n',
+            'allow_comments' => 'n',
+            'allow_post_categorization' => 'n',
             'show_avatar' => 'n',
         ];
 
@@ -63,6 +64,7 @@ class Tiki_Profile_InstallHandler_Blog extends Tiki_Profile_InstallHandler
             $data['add_date'],
             $data['use_find'],
             $data['allow_comments'],
+            $data['allow_post_categorization'],
             $data['show_avatar'],
             $data['post_heading'],
             $data['use_find'],

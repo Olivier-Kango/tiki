@@ -377,6 +377,7 @@ CREATE TABLE `tiki_blogs` (
   `add_date` char(1) default NULL,
   `add_poster` char(1) default NULL,
   `allow_comments` char(1) default NULL,
+  `allow_post_categorization` char(1) default 'y',
   `show_avatar` char(1) default NULL,
   `always_owner` char(1) default NULL,
   `show_related` char(1) default NULL,

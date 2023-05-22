@@ -255,6 +255,7 @@ class TikiImporter_Blog extends TikiImporter
             'y',
             'y',
             'y',
+            'n',
             'y',
             'n',
             '',
