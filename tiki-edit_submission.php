@@ -138,7 +138,7 @@ if (! empty($_REQUEST['subId'])) {
     $smarty->assign('type', $article_data['type'] ?? null);
     $smarty->assign('rating', $article_data['rating'] ?? null);
 
-    if (strlen($article_data['image_data'] ?? null) > 0) {
+    if (strlen($article_data['image_data'] ?? '') > 0) {
         $smarty->assign('hasImage', 'y');
 
         $hasImage = 'y';
