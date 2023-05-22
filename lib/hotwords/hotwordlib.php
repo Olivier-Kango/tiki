@@ -40,7 +40,7 @@ class HotwordsLib extends TikiLib
         $cant = $this->getOne($query_cant, $bindvars);
         $ret = [];
 
-        while ($res = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+        while ($res = $result->fetchRow()) {
             $ret[] = $res;
         }
 

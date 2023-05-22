@@ -52,7 +52,7 @@ class MailinLib extends TikiDb_Bridge
         $cant = $this->getOne($query_cant, $bindvars);
         $ret = [];
 
-        while ($res = $result->fetchRow('DB_FETCHMODE_ASSOC')) {
+        while ($res = $result->fetchRow()) {
             // Decrypt the password
             $pwd = $this->decryptPassword($res['pass']);
             $res['pass'] = $pwd;
@@ -91,7 +91,7 @@ class MailinLib extends TikiDb_Bridge
         $cant = $this->getOne($query_cant, $bindvars);
         $ret = [];
 
-        while ($res = $result->fetchRow('DB_FETCHMODE_ASSOC')) {
+        while ($res = $result->fetchRow()) {
             // Decrypt the password
             $pwd = $this->decryptPassword($res['pass']);
             $res['pass'] = $pwd;
@@ -222,7 +222,7 @@ class MailinLib extends TikiDb_Bridge
         if (! $result->numRows()) {
             return false;
         }
-        $res = $result->fetchRow('DB_FETCHMODE_ASSOC');
+        $res = $result->fetchRow();
 
         // Decrypt the password
         $pwd = $this->decryptPassword($res['pass']);

@@ -33,7 +33,7 @@ class TikiIntegrator
         $query = "select * from `tiki_integrator_reps` " . $cond . " order by `name`";
         $result = $tikilib->query($query, $values);
         $ret = [];
-        while ($res = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+        while ($res = $result->fetchRow()) {
             $ret[] = $res;
         }
         return $ret;
@@ -70,7 +70,7 @@ class TikiIntegrator
             if (! $result->numRows()) {
                 return false;
             }
-            $res = $result->fetchRow(DB_FETCHMODE_ASSOC);
+            $res = $result->fetchRow();
             $c_rep = $res;
         }
         return $res;
@@ -100,7 +100,7 @@ class TikiIntegrator
         $query = "select * from `tiki_integrator_rules` where `repID`=? order by `ord`";
         $result = $tikilib->query($query, [$repID]);
         $ret = [];
-        while ($res = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+        while ($res = $result->fetchRow()) {
             $ret[] = $res;
         }
         return $ret;
@@ -138,7 +138,7 @@ class TikiIntegrator
         if (! $result->numRows()) {
             return false;
         }
-        $res = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        $res = $result->fetchRow();
         return $res;
     }
     /// Remove rule

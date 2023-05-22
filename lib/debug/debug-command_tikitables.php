@@ -56,7 +56,7 @@ class DbgSQLTables extends DebuggerCommand
         $qr = $tikilib->query("show tables;");
         $tbls = [];
 
-        while ($res = $qr->fetchRow(DB_FETCHMODE_ASSOC)) {
+        while ($res = $qr->fetchRow()) {
             /*
                  * Sample output from MySQL. I.e. array(1) have unpredictable key
                  * (bcouse of name user defined table)...

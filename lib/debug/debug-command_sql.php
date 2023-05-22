@@ -70,7 +70,7 @@ class DbgSQLQuery extends DebuggerCommand
 
                     $result = '<table id="sqltable" class="table table-bordered">';
 
-                    while ($res = $query->fetchRow(DB_FETCHMODE_ASSOC)) {
+                    while ($res = $query->fetchRow()) {
                         if ($first_time) {
                             // Form 1st element with field names
                             foreach ($res as $key => $val) {
