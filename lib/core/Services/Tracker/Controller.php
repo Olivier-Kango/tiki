@@ -348,9 +348,10 @@ class Services_Tracker_Controller
                 throw new Services_Exception_DuplicateValue('name', tr('This field name %0 is already used in this tracker', $name));
             }
         }
-
-        if (strlen($permName) > Tracker_Item::PERM_NAME_MAX_ALLOWED_SIZE) {
-            throw new Services_Exception(tr('Tracker Field permanent name cannot contain more than %0 characters', Tracker_Item::PERM_NAME_MAX_ALLOWED_SIZE), 400);
+        if (! empty($permName)) {
+            if (strlen($permName) > Tracker_Item::PERM_NAME_MAX_ALLOWED_SIZE) {
+                throw new Services_Exception(tr('Tracker Field permanent name cannot contain more than %0 characters', Tracker_Item::PERM_NAME_MAX_ALLOWED_SIZE), 400);
+            }
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input->name->text()) {
