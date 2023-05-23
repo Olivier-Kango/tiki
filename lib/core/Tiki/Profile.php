@@ -414,7 +414,9 @@ class Tiki_Profile
     {
         if (is_array($data)) {
             foreach ($data as &$value) {
-                $this->traverseForExternals($value);
+                if (! is_null($value)) {
+                    $this->traverseForExternals($value);
+                }
             }
         } elseif (0 === strpos($data, 'wikicontent:')) {
             $pageName = substr($data, strlen('wikicontent:'));
