@@ -129,17 +129,11 @@ class ComposerCli
     }
 
     /**
-     * Return the composer.json parsed as array, or a default version for the composer.json if do not exists
-     * First try to load the dist version, if not use a hardcoded version with the minimal setup
-     * @return array|bool
+     * Return the composer.json.dist parsed or default minimal setup
+     * @return array
      */
-    public function getComposerConfigOrDefault()
+    protected function getComposerDistConfig()
     {
-        $content = $this->getComposerConfig();
-        if (! is_array($content)) {
-            $content = [];
-        }
-
         $distFile = $this->workingPath . self::COMPOSER_CONFIG . '.dist';
         $distContent = [];
         if (file_exists($distFile)) {
@@ -152,6 +146,23 @@ class ComposerCli
         if (empty($distContent)) {
             $distContent = json_decode(self::FALLBACK_COMPOSER_JSON, true);
         }
+
+        return $distContent;
+    }
+
+    /**
+     * Return the composer.json parsed as array, or a default version for the composer.json if do not exists
+     * First try to load the dist version, if not use a hardcoded version with the minimal setup
+     * @return array|bool
+     */
+    public function getComposerConfigOrDefault()
+    {
+        $content = $this->getComposerConfig();
+        if (! is_array($content)) {
+            $content = [];
+        }
+
+        $distContent = $this->getComposerDistConfig();
 
         return array_merge($distContent, $content);
     }
@@ -518,6 +529,8 @@ class ComposerCli
             return false;
         }
 
+        $this->verifyMinPhpVersion();
+
         $composerJson = $this->getComposerConfigOrDefault();
         $composerJson = $this->addComposerPackageToJson(
             $composerJson,
@@ -549,6 +562,8 @@ class ComposerCli
             return false;
         }
 
+        $this->verifyMinPhpVersion();
+
         list($commandOutput, $errors) = $this->execComposer(
             ['require', $package->getName() . ':' . $package->getRequiredVersion(), '--update-no-dev', '-d', $this->workingPath, '--no-ansi', '--no-interaction']
         );
@@ -572,6 +587,8 @@ class ComposerCli
         if (! $this->canExecuteComposer() || ! $this->checkConfigExists()) {
             return false;
         }
+
+        $this->verifyMinPhpVersion();
 
         list($commandOutput, $errors) = $this->execComposer(
             ['remove', $package->getName(), '--update-no-dev', '-d', $this->workingPath, '--no-ansi', '--no-interaction']
@@ -803,5 +820,33 @@ class ComposerCli
         }
 
         return $proxy;
+    }
+
+    /**
+     * Compare composer.json platform php version against Tiki supported min PHP version
+     * and update composer.json if necessary.
+     */
+    private function verifyMinPhpVersion()
+    {
+        $config = $this->getComposerConfig();
+        if (! $config) {
+            return;
+        }
+
+        $distConfig = $this->getComposerDistConfig();
+
+        if (! isset($config['config']['platform']['php'])) {
+            return;
+        }
+
+        if (! isset($distConfig['config']['platform']['php'])) {
+            return;
+        }
+
+        if (floatval($config['config']['platform']['php']) < floatval($distConfig['config']['platform']['php'])) {
+            $config['config']['platform']['php'] = $distConfig['config']['platform']['php'];
+            $fileContent = json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            file_put_contents($this->getComposerConfigFilePath(), $fileContent);
+        }
     }
 }

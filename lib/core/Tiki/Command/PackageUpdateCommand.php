@@ -86,7 +86,7 @@ class PackageUpdateCommand extends Command
                 tr('No packages found in composer.json in the root of the project.') .
                 '</comment>'
             );
-            return;
+            return Command::SUCCESS;
         }
 
         $handleDeprecated = $input->getOption('handle-deprecated');
@@ -98,7 +98,7 @@ class PackageUpdateCommand extends Command
 
         if (empty($updatablePackages)) {
             $output->writeln('<comment>' . tr('No packages available to be updated.') . '</comment>');
-            return;
+            return Command::SUCCESS;
         }
 
         $packagesToUpdate = [];
@@ -110,7 +110,7 @@ class PackageUpdateCommand extends Command
             && ! in_array($packageKey, array_column($updatablePackages, 'key'))
         ) {
             $output->writeln('<error>' . tr('Package `%0` not available for update.', $packageKey) . '</error>');
-            return;
+            return Command::SUCCESS;
         }
 
         if ($all) {
