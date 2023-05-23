@@ -28,7 +28,7 @@ class Math_Formula_Function_Add extends Math_Formula_Function
                 if ($carry instanceof Math_Formula_Applicator) {
                     return $carry->add($item);
                 } else {
-                    return $carry + $item;
+                    return floatval($carry) + floatval($item);
                 }
             }, $initial);
         }

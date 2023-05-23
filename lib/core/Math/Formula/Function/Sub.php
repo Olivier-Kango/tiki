@@ -28,7 +28,8 @@ class Math_Formula_Function_Sub extends Math_Formula_Function
             if ($out instanceof Math_Formula_Applicator) {
                 $out = $out->sub($element);
             } elseif (is_numeric($element)) {
-                $out -= $element;
+                $out = floatval($out);
+                $out -= floatval($element);
             }
         }
 

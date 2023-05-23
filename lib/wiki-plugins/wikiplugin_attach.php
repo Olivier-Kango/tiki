@@ -178,7 +178,7 @@ function wikiplugin_attach($data, $params)
         $atts = [];
     }
 
-    if (! is_array($atts) || ! array_key_exists("data", $atts) || count($atts["data"]) < 1) {
+    if (! is_array($atts) || ! array_key_exists("data", $atts) || ! is_array($atts['data']) || count($atts["data"]) < 1) {
         // We're being called from a preview or something; try to build the atts ourselves.
 
         // See if we're being called from a tracker page.

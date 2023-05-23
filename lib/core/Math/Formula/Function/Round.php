@@ -24,7 +24,7 @@ class Math_Formula_Function_Round extends Math_Formula_Function
         if ($number instanceof Math_Formula_Applicator) {
             return $number->round($decimals);
         } else {
-            return round($number, $decimals);
+            return round(floatval($number), $decimals);
         }
     }
 }
