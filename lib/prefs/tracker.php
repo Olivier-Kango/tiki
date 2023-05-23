@@ -375,5 +375,72 @@ function prefs_tracker_list()
             'parentkey' => 'tracker_id',
             'profile_reference' => 'tracker_field',
         ],
+        'tracker_system_relations' => [
+            'name' => tr('Relation metadata tracker'),
+            'description' => tr('Used to describe relations and their particular metadata like description, label, direction, type (like many-to-one).'),
+            'type' => 'flag',
+            'dependencies' => [
+                'trackerfield_relation',
+            ],
+            'default' => 'n',
+        ],
+        'tracker_system_relations_tracker' => [
+            'name' => tr('Choose tracker'),
+            'description' => tr('Choose which tracker will store the relation metdata information.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_relations',
+            ],
+            'default' => '',
+            'profile_reference' => 'tracker',
+        ],
+        'tracker_system_relations_description' => [
+            'name' => tr('Description field'),
+            'description' => tr('Choose the field that stores the description of the relation. Might be a dropdown field with values like "related to", "blocks", "child of", "parent of" or just a text field for manual description.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_relations',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_relations_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_relations_label' => [
+            'name' => tr('Label field'),
+            'description' => tr('Choose the field that stores the label of the particular relation - most probably a text field.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_relations',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_relations_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_relations_direction' => [
+            'name' => tr('Direction field'),
+            'description' => tr('Choose the field that stores the direction of the relation. It is advisable to use a checkbox for directional or non-directional relation.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_relations',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_relations_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_relations_type' => [
+            'name' => tr('Type field'),
+            'description' => tr('Choose the field that stores the type of relation. Type could be one of: one-to-one, one-to-many, many-to-one, many-to-many.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_relations',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_relations_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
     ];
 }

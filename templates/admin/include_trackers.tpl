@@ -106,6 +106,19 @@
                     {preference name=tracker_system_bounces_hard_total}
                     {preference name=tracker_system_bounces_blacklisted}
                 </div>
+                {preference name=tracker_system_relations}
+                <div class="adminoptionboxchild" id="tracker_system_relations_childcontainer">
+                    {if !$prefs.tracker_system_relations_tracker}
+                    <button role="button" type="submit" class="btn btn-primary" name="create-relations-tracker" value="1">
+                        {tr}Automatically create tracker and assign field configuration{/tr}
+                    </button>
+                    {/if}
+                    {preference name=tracker_system_relations_tracker}
+                    {preference name=tracker_system_relations_description}
+                    {preference name=tracker_system_relations_label}
+                    {preference name=tracker_system_relations_direction}
+                    {preference name=tracker_system_relations_type}
+                </div>
             </fieldset>
         {/tab}
 

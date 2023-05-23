@@ -50,6 +50,12 @@ if (isset($_POST['all2db']) && $access->checkCsrf()) {
         }
     }
 }
+
+if (isset($_POST['create-relations-tracker'])) {
+    $creator = new Tiki\Relation\SystemTrackerCreator();
+    $creator->initFromAdmin();
+    Feedback::success(tr('Relation metadata system tracker created.'));
+}
 //*** end state-changing actions
 
 if (! empty($_REQUEST['find'])) {

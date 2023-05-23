@@ -3678,8 +3678,10 @@ CREATE TABLE `tiki_object_relations` (
     `source_itemId` varchar(160) NOT NULL,
     `target_type` varchar(50) NOT NULL,
     `target_itemId` varchar(160) NOT NULL,
+    `metadata_itemId` INT(12) default NULL,
     KEY `relation_source_ix` (`source_type`, `source_itemId`),
-    KEY `relation_target_ix` (`target_type`, `target_itemId`)
+    KEY `relation_target_ix` (`target_type`, `target_itemId`),
+    KEY `metadata_itemId` (`metadata_itemId`)
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_todo`;

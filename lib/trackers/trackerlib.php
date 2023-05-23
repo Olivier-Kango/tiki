@@ -6814,4 +6814,74 @@ class TrackerLib extends TikiLib
         $objectType = 'trackeritemfield';
         $wikilib->update_wikicontent_relations($value, $objectType, $itemId);
     }
+
+    /**
+     * Parses input array and returns tracker options with default
+     * values initialized for everything not set in the user input.
+     */
+    public function trackerOptionsFromInput(JitFilter $input): array
+    {
+        return [
+            'fieldPrefix' => $input->fieldPrefix->text(),
+            'permName' => $input->permName->text(),
+            'showStatus' => $input->showStatus->int() ? 'y' : 'n',
+            'showStatusAdminOnly' => $input->showStatusAdminOnly->int() ? 'y' : 'n',
+            'showCreated' => $input->showCreated->int() ? 'y' : 'n',
+            'showCreatedView' => $input->showCreatedView->int() ? 'y' : 'n',
+            'showCreatedBy' => $input->showCreatedBy->int() ? 'y' : 'n',
+            'showCreatedFormat' => $input->showCreatedFormat->text(),
+            'showLastModif' => $input->showLastModif->int() ? 'y' : 'n',
+            'showLastModifView' => $input->showLastModifView->int() ? 'y' : 'n',
+            'showLastModifBy' => $input->showLastModifBy->int() ? 'y' : 'n',
+            'showLastModifFormat' => $input->showLastModifFormat->text(),
+            'defaultOrderKey' => $input->defaultOrderKey->int() ? $input->defaultOrderKey->int() : -1,
+            'defaultOrderDir' => $input->defaultOrderDir->word() ? $input->defaultOrderDir->word() : 'asc',
+            'doNotShowEmptyField' => $input->doNotShowEmptyField->int() ? 'y' : 'n',
+            'showPopup' => $input->showPopup->text(),
+            'defaultStatus' => implode('', (array) $input->defaultStatus->word()),
+            'newItemStatus' => $input->newItemStatus->word() ? $input->newItemStatus->word() : 'o',
+            'modItemStatus' => $input->modItemStatus->word(),
+            'outboundEmail' => $input->outboundEmail->email(),
+            'simpleEmail' => $input->simpleEmail->int() ? 'y' : 'n',
+            'userCanSeeOwn' => $input->userCanSeeOwn->int() ? 'y' : 'n',
+            'groupCanSeeOwn' => $input->groupCanSeeOwn->int() ? 'y' : 'n',
+            'writerCanModify' => $input->writerCanModify->int() ? 'y' : 'n',
+            'writerCanRemove' => $input->writerCanRemove->int() ? 'y' : 'n',
+            'userCanTakeOwnership' => $input->userCanTakeOwnership->int() ? 'y' : 'n',
+            'oneUserItem' => $input->oneUserItem->int() ? 'y' : 'n',
+            'writerGroupCanModify' => $input->writerGroupCanModify->int() ? 'y' : 'n',
+            'writerGroupCanRemove' => $input->writerGroupCanRemove->int() ? 'y' : 'n',
+            'useRatings' => $input->useRatings->int() ? 'y' : 'n',
+            'showRatings' => $input->showRatings->int() ? 'y' : 'n',
+            'ratingOptions' => $input->ratingOptions->text(),
+            'useComments' => $input->useComments->int() ? 'y' : 'n',
+            'showComments' => $input->showComments->int() ? 'y' : 'n',
+            'showLastComment' => $input->showLastComment->int() ? 'y' : 'n',
+            'saveAndComment' => $input->saveAndComment->int() ? 'y' : 'n',
+            'useAttachments' => $input->useAttachments->int() ? 'y' : 'n',
+            'showAttachments' => $input->showAttachments->int() ? 'y' : 'n',
+            'orderAttachments' => (! empty($input->orderAttachments)) ? implode(',', $input->orderAttachments->word()) : '',
+            'start' => $input->start->int(),
+            'end' => $input->end->int(),
+            'autoCreateGroup' => $input->autoCreateGroup->int() ? 'y' : 'n',
+            'autoCreateGroupInc' => $input->autoCreateGroupInc->groupname(),
+            'autoAssignCreatorGroup' => $input->autoAssignCreatorGroup->int() ? 'y' : 'n',
+            'autoAssignCreatorGroupDefault' => $input->autoAssignCreatorGroupDefault->int() ? 'y' : 'n',
+            'autoAssignGroupItem' => $input->autoAssignGroupItem->int() ? 'y' : 'n',
+            'autoCopyGroup' => $input->autoCopyGroup->int() ? 'y' : 'n',
+            'viewItemPretty' => $input->viewItemPretty->text(),
+            'editItemPretty' => $input->editItemPretty->text(),
+            'autoCreateCategories' => $input->autoCreateCategories->int() ? 'y' : 'n',
+            'publishRSS' => $input->publishRSS->int() ? 'y' : 'n',
+            'sectionFormat' => $input->sectionFormat->word() ? $input->sectionFormat->word() : 'flat',
+            'adminOnlyViewEditItem' => $input->adminOnlyViewEditItem->int() ? 'y' : 'n',
+            'logo' => $input->logo->text(),
+            'useFormClasses' => $input->useFormClasses->int() ? 'y' : 'n',
+            'formClasses' => $input->formClasses->text(),
+            'tabularSync' => $input->tabularSync->int(),
+            'tabularSyncModifiedField' => $input->tabularSyncModifiedField->int(),
+            'tabularSyncLastImport' => $input->tabularSyncLastImport->int(),
+            'notifyOn' => $input->notifyOn->word() ? $input->notifyOn->word() : 'both',
+        ];
+    }
 }

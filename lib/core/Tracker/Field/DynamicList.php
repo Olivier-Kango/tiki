@@ -303,7 +303,7 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
         }
 
         // If the request method = GET i.e there is no request for a csv export
-        if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
+        if (! empty($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
             if ($this->getOption('linkToItems')) {
                 $context['linkToItems'] = 'y';
             }
