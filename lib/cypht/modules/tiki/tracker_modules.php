@@ -289,7 +289,7 @@ class Hm_Handler_tiki_save_sent extends Hm_Handler_Module
             return;
         }
         $mime = $this->get('save_sent_msg');
-        $msg = $mime->get_mime_msg();
+        $msg = "Flags: \Seen\r\n" . $mime->get_mime_msg();
         $headers = $mime->get_headers();
 
         $path = $this->request->post['compose_msg_path'];
