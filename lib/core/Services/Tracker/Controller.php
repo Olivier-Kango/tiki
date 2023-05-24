@@ -343,7 +343,7 @@ class Services_Tracker_Controller
             }
         }
         $name = $input->name->word();
-        if ($field['name'] != $name) {
+        if (isset($name) && $field['name'] != $name) {
             if ($definition->getFieldFromNameMaj($name)) {
                 throw new Services_Exception_DuplicateValue('name', tr('This field name %0 is already used in this tracker', $name));
             }
