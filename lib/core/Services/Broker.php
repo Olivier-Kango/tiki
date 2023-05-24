@@ -26,14 +26,18 @@ class Services_Broker
 
             $output = $this->attemptProcess($controller, $action, $request);
 
-            if (! empty($output['FORWARD'])) {
-                $output['FORWARD'] = array_merge(
-                    [
-                        'controller' => $controller,
-                        'action' => $action,
-                    ],
-                    $output['FORWARD']
-                );
+            if (isset($output['FORWARD'])) {
+                if (is_array($output['FORWARD'])) {
+                    $output['FORWARD'] = array_merge(
+                        [
+                            'controller' => $controller,
+                            'action' => $action,
+                        ],
+                        $output['FORWARD']
+                    );
+                } else {
+                    $output['FORWARD'] = null;
+                }
             }
 
             if ($access->is_serializable_request()) {
