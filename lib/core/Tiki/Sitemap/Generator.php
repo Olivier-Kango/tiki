@@ -62,7 +62,7 @@ class Generator
         $user = null;
 
         $baseUrl = rtrim($baseUrl, '/');
-        $relativePath = $this->getRelativePath();
+        $relativePath = self::getRelativePath();
 
         $sitemap = new Sitemap($baseUrl);
         $sitemap->setSavePath($this->basePath . $relativePath);
@@ -106,7 +106,7 @@ class Generator
      */
     public function getSitemapPath($relative = true)
     {
-        $path = $this->getRelativePath() . $this->getSitemapFilename();
+        $path = self::getRelativePath() . $this->getSitemapFilename();
 
         if (! $relative) {
             $path = $this->basePath . $path;
@@ -130,7 +130,7 @@ class Generator
      *
      * @return mixed|string
      */
-    public function getRelativePath()
+    public static function getRelativePath()
     {
         global $tikidomain;
 
