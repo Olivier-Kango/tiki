@@ -32,7 +32,7 @@ $smarty->assign('edit', false);
 $smarty->assign('recurrent', '');
 $hour_minmax = '';
 $recurrence = [
-    'id'                => '',
+    'id'                => 0,
     'weekly'            => '',
     'weekdays'          => [],
     'monthly'           => '',
