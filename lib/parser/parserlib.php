@@ -742,7 +742,9 @@ class ParserLib extends TikiDb_Bridge
 
             $pluginSecurity = $tikilib->table('tiki_plugin_security');
             if (empty($prefs['fallbackBaseUrl'])) {
-                $tikilib->set_preference('fallbackBaseUrl', $base_url);
+                if (! empty($base_url)) {
+                    $tikilib->set_preference('fallbackBaseUrl', $base_url);
+                }
             }
             $pluginSecurity->delete(['fingerprint' => $fp]);
             $pluginSecurity->insert(

@@ -118,10 +118,17 @@ $url_host = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_SERVER['S
 list($url_host,) = preg_split('/:/', $url_host);    // Strip url port
 $url_port = $https_mode ? $prefs['https_port'] : $prefs['http_port'];
 $url_path = $tikiroot;
-$base_host = $url_scheme . '://' . $url_host . (($url_port != '') ? ':' . $url_port : '');
-$base_url = $url_scheme . '://' . $url_host . (($url_port != '') ? ':' . $url_port : '') . $url_path;
-$base_url_http = 'http://' . $url_host . (($prefs['http_port'] != '') ? ':' . $prefs['http_port'] : '') . $url_path;
-$base_url_https = 'https://' . $url_host . (($prefs['https_port'] != '') ? ':' . $prefs['https_port'] : '') . $url_path;
+if ($url_host) {
+    $base_host = $url_scheme . '://' . $url_host . (($url_port != '') ? ':' . $url_port : '');
+    $base_url = $url_scheme . '://' . $url_host . (($url_port != '') ? ':' . $url_port : '') . $url_path;
+    $base_url_http = 'http://' . $url_host . (($prefs['http_port'] != '') ? ':' . $prefs['http_port'] : '') . $url_path;
+    $base_url_https = 'https://' . $url_host . (($prefs['https_port'] != '') ? ':' . $prefs['https_port'] : '') . $url_path;
+} else {
+    $base_host = '';
+    $base_url = '';
+    $base_url_http = '';
+    $base_url_https = '';
+}
 
 // for <base> tag, which needs the "absolute URI that acts as the base URI for resolving relative URIs", not just the root of the site
 // however, if the actual path/request_uri contains a slash (i.e. via a rewrite rule in htaccess) then use the real script name
