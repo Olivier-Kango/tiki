@@ -83,7 +83,7 @@ function module_change_category($mod_reference, $module_params)
     $smarty->assign('showmodule', false);
 
     $object = current_object();
-    if ($object || $modlib->is_admin_mode(true)) {
+    if (($object['type'] && $object['object']) || $modlib->is_admin_mode(true)) {
         $categlib = TikiLib::lib('categ');
 
         if (! empty($module_params['id'])) {

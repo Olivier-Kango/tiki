@@ -554,7 +554,7 @@ class ObjectLib extends TikiLib
             case 'group':
                 return $id;
             case 'user':
-                if (is_int($id)) {
+                if (is_numeric($id)) {
                     $id = TikiLib::lib('tiki')->get_user_login($id);
                 }
                 return TikiLib::lib('user')->clean_user($id);
