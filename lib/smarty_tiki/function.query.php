@@ -63,7 +63,7 @@ function smarty_function_query($params, $smarty)
                 if ($param_name == 'page') {
                     $list = [$param_value];
                 } else {
-                    $list = explode(",", $param_value);
+                    $list = explode(",", $param_value ?? "");
                 }
                 if (isset($_REQUEST[$param_name]) and in_array($_REQUEST[$param_name], $list)) {
                     $query[$param_name] = $list[(array_search($_REQUEST[$param_name], $list) + 1) % count($list)];
