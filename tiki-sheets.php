@@ -28,7 +28,7 @@ if (! isset($_REQUEST["sheetId"])) {
         $cookietab = 2;
     }
     $info = $sheetlib->get_sheet_info($_REQUEST["sheetId"]);
-    if (empty($info)) {
+    if (empty($info) && $_SERVER['REQUEST_METHOD'] == 'GET') {
         $smarty->assign('msg', tra("Spreadsheet not found"));
         $smarty->display('error.tpl');
         die;
@@ -51,7 +51,7 @@ if (! isset($_REQUEST["sheetId"])) {
         $tiki_p_view_sheet_history = 'n';
     }
     $smarty->assign('tiki_p_view_sheet_history', $tiki_p_view_sheet_history);
-    $smarty->assign('headtitle', tra('Spreadsheet - ') . $info['title']);
+    $smarty->assign('headtitle', tra('Spreadsheet - ') . $_REQUEST['title']);
 }
 
 $access->check_permission('tiki_p_view_sheet');
