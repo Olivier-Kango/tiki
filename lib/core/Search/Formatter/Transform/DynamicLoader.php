@@ -32,15 +32,16 @@ class Search_Formatter_Transform_DynamicLoaderWrapper extends ArrayObject
         }
     }
 
-    public function offsetGet($name)
+    public function offsetGet($name): mixed
     {
         $this->load($name);
         if (isset($this[$name])) {
             return parent::offsetGet($name);
         }
+        return null;
     }
 
-    public function offsetExists($name)
+    public function offsetExists($name): bool
     {
         return parent::offsetExists($name);
     }
