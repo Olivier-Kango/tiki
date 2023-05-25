@@ -186,6 +186,21 @@ function wikiplugin_trackerprefill_info()
 function wikiplugin_trackerprefill($data, $params)
 {
     $smarty = TikiLib::lib('smarty');
+
+    if (! isset($params['page'])) {
+        Feedback::error(tr('The %0 parameter is missing', 'page'));
+        return;
+    }
+    if (! isset($params['field1'])) {
+        Feedback::error(tr('The %0 parameter is missing', 'field1'));
+        return;
+    }
+    if (! isset($params['value1'])) {
+        Feedback::error(tr('The %0 parameter is missing', 'value1'));
+        return;
+    }
+
+
     $prefills = [];
     foreach ($params as $param => $value) {
         if (strstr($param, 'field')) {
