@@ -2366,11 +2366,11 @@ class UsersLib extends TikiLib
 
             if ($inclusion) {
                 $groups = $this->get_user_groups_inclusion($user);
+                $group_intersect = $groups;
             } else {
                 $groups = $this->get_user_groups($user);
+                $group_intersect = array_intersect($groups, $group);
             }
-
-            $group_intersect = array_intersect($groups, $group);
 
             $is_admin = false;
             foreach ($group_intersect as $object) {
