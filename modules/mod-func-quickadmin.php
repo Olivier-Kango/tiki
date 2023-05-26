@@ -46,10 +46,14 @@ function module_quickadmin($mod_reference, $module_params)
     }
     if ($module_params['display'] == 'shortcuts') {
         TikiLib::lib('smarty')->assign('only_shortcuts', 'y');
+    } else {
+        TikiLib::lib('smarty')->assign('only_shortcuts', 'n');
     }
     if ($module_params['display'] == 'history') {
         TikiLib::lib('smarty')->assign('only_prefs_history', 'y');
         TikiLib::lib('smarty')->assign('recent_prefs', TikiLib::lib('prefs')->getRecent());
+    } else {
+        TikiLib::lib('smarty')->assign('only_prefs_history', 'n');
     }
     if ($module_params['display'] == 'both') {
         TikiLib::lib('smarty')->assign('recent_prefs', TikiLib::lib('prefs')->getRecent());
