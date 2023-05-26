@@ -324,7 +324,9 @@ if ( \$('#$id') ) {
 
             // End plugin handling
 
-            $ret = str_replace('~/np~~np~', '', $ret);
+            if ($ret !== null) {
+                $ret = str_replace('~/np~~np~', '', $ret);
+            }
             $match->replaceWith($ret);
         }
 
