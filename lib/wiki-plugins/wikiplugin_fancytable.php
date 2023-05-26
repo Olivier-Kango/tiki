@@ -388,8 +388,8 @@ function process_section($data, $type, $line_sep, $cellbeg, $cellend, $widths, $
     $trbeg = "\r\t\t<tr>";
     $trend = "\r\t\t</tr>";
     $l = 0;
-    $rnum1 = '';
-    $rnum2 = '';
+    $rnum1 = 0;
+    $rnum2 = 0;
     $wret = '';
     $row_is_odd = true;
     //Each row
