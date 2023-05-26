@@ -1476,14 +1476,16 @@ class TikiAccessLib extends TikiLib
         // now load try accessing the file and check for a 200 (ok) or 300 (moved)
         // lets check http first
         $response = @get_headers($base_url_http . $filename);
-        $response = substr($response[0], 9, 1);
-        if ($response == '2' || $response == '3') {
-            return true;
-        } else {  // now we try https, just to be sure.
-            $response = @get_headers($base_url_https . $filename);
+        if (! isset($response)) {
             $response = substr($response[0], 9, 1);
             if ($response == '2' || $response == '3') {
                 return true;
+            } else {  // now we try https, just to be sure.
+                $response = @get_headers($base_url_https . $filename);
+                $response = substr($response[0], 9, 1);
+                if ($response == '2' || $response == '3') {
+                    return true;
+                }
             }
         }
         // if all else has failed, conclude that the file is not accessible
