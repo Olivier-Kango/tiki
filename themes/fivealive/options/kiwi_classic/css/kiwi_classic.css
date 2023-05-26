@@ -35,18 +35,35 @@ header.navbar.fixed-top {
   --tiki-fixed-top-border-left-width: 0px;
   --tiki-topbar-light-border-color: #000;
 }
-.tiki-admin {
-  --tiki-admin-navbar-dark-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%) !important;
-  --tiki-admin-dropdown-dark-color: #52702E;
-  --tiki-admin-dropdown-dark-bg: #087f93;
-  --tiki-admin-navbar-light-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
-  --tiki-admin-dropdown-light-color:  #212529;
-  --tiki-admin-dropdown-light-bg: #baba25;
-  --tiki-admin-toggle-light-bg: #baba25;
-  --tiki-admin-navbar-dark-highlight-bg: #638637;
-  --tiki-admin-navbar-dark-highlight-color: #1a1a1a;
-  --tiki-admin-navbar-light-highlight-bg: #638637;
-  --tiki-admin-navbar-light-highlight-color: #1a1a1a;
+.tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
+  --tiki-admin-top-nav-color: #212529;
+  --tiki-admin-top-nav-link-color: #212529;
+  --tiki-admin-top-nav-link-hover-color: #383f45;
+  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-aside-nav-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-dropdown-bg: #baba25;
+  --tiki-admin-dropdown-color: #212529;
+  --tiki-admin-dropdown-hover-color: #1a1a1a;
+  --tiki-admin-dropdown-hover-bg: #638637;
+}
+.tiki.tiki-admin .top_modules.navbar-light-parent {
+  --tiki-admin-top-nav-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
+}
+.tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
+  --tiki-admin-top-nav-link-color: #52702E;
+  --tiki-admin-top-nav-link-hover-color: #52702E;
+  --tiki-admin-aside-nav-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%) !important;
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-dropdown-color: #fff;
+  --tiki-admin-dropdown-bg: #8a8309;
+  --tiki-admin-dropdown-hover-color: #1a1a1a;
+  --tiki-admin-dropdown-hover-bg: #638637;
+}
+.tiki.tiki-admin .top_modules.navbar-dark-parent {
+  --tiki-admin-top-nav-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%) !important;
 }
 .accordion {
   --bs-accordion-active-bg: #063035;
@@ -318,7 +335,7 @@ a {
 }
 a:hover {
   color: var(--bs-link-hover-color);
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
@@ -532,7 +549,6 @@ progress {
 }
 .btn:hover {
   color: var(--bs-btn-hover-color);
-  text-decoration: none;
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
 }
@@ -840,7 +856,7 @@ progress {
   text-decoration: none;
 }
 .btn-link:hover, .btn-link:focus-visible {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:focus-visible {
   color: var(--bs-btn-color);
@@ -888,7 +904,6 @@ progress {
 }
 .nav-link:hover, .nav-link:focus {
   color: var(--bs-nav-link-hover-color);
-  text-decoration: none;
 }
 .nav-link.disabled {
   color: var(--bs-nav-link-disabled-color);

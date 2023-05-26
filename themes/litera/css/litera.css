@@ -9942,19 +9942,38 @@ table, .table {
   --tiki-topbar-link-color: rgba(255, 255, 255, 0.9);
   --tiki-topbar-link-hover-color: #80EAD5FF;
 }
-.tiki-admin {
-  --tiki-admin-navbar-dark-bg: #02b875;
-  --tiki-admin-dropdown-dark-color: #343a40;
-  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
-  --tiki-admin-dropdown-dark-bg: #343a40;
-  --tiki-admin-navbar-light-bg: #fff;
-  --tiki-admin-dropdown-light-bg: #fff;
-  --tiki-admin-dropdown-light-hover-color: #343a40;
-  --tiki-admin-toggle-light-bg: #fff;
-  --tiki-admin-navbar-dark-highlight-bg: #e9ecef;
-  --tiki-admin-navbar-dark-highlight-color: #1e2125;
-  --tiki-admin-navbar-light-highlight-bg: #e9ecef;
-  --tiki-admin-navbar-light-highlight-color: #1e2125;
+.tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
+  --tiki-admin-top-nav-bg: #fff;
+  --tiki-admin-navbar-bg: #fff;
+  --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.55);
+  --tiki-admin-top-nav-link-color: rgba(0, 0, 0, 0.55);
+  --tiki-admin-top-nav-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-aside-nav-bg: #fff;
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-dropdown-bg: #fff;
+  --tiki-admin-dropdown-color: rgba(0, 0, 0, 0.55);
+  --tiki-admin-dropdown-hover-color: #1e2125;
+  --tiki-admin-dropdown-hover-bg: #e9ecef;
+}
+.tiki.tiki-admin .top_modules.navbar-light-parent {
+  --tiki-admin-top-nav-bg: #fff;
+}
+.tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
+  --tiki-admin-top-nav-bg: #02b875;
+  --tiki-admin-top-nav-link-color: rgba(255, 255, 255, 0.9);
+  --tiki-admin-top-nav-link-hover-color: #fff;
+  --tiki-admin-aside-nav-bg: #02b875;
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-dropdown-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-dropdown-bg: #343a40;
+  --tiki-admin-dropdown-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.15);
+}
+.tiki.tiki-admin .top_modules.navbar-dark-parent {
+  --tiki-admin-top-nav-bg: #02b875;
 }
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.6);
@@ -10815,7 +10834,7 @@ blockquote {
   color: #fff;
 }
 .tiki .tiki-top-nav-light {
-  background: var(--tiki-top-bg) !important;
+  background: var(--tiki-top-bg);
   color: var(--tiki-top-color);
   box-shadow: var(--tiki-top-box-shadow);
   border-color: var(--tiki-top-border-color);

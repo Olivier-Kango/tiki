@@ -28,20 +28,38 @@
   --tiki-fixed-top-border-top-width: 0px;
   --tiki-fixed-top-border-bottom-width: 5px;
 }
-.tiki-admin {
-  --tiki-admin-navbar-dark-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%) !important;
-  --tiki-admin-dropdown-dark-color: #fff;
-  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
-  --tiki-admin-dropdown-dark-bg: #087f93;
-  --tiki-admin-navbar-light-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%);
-  --tiki-admin-dropdown-light-color:#f9f9f9;
-  --tiki-admin-dropdown-light-hover-color: #f2f2f2;
-  --tiki-admin-dropdown-light-bg: #fff;
-  --tiki-admin-toggle-light-bg: #fff;
-  --tiki-admin-navbar-dark-highlight-bg: #087084;
-  --tiki-admin-navbar-dark-highlight-color: #07262c;
-  --tiki-admin-navbar-light-highlight-bg: #087084;
-  --tiki-admin-navbar-light-highlight-color: #07262c;
+.tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
+  --tiki-admin-top-nav-color: #f9f9f9;
+  --tiki-admin-top-nav-link-color: #f9f9f9;
+  --tiki-admin-top-nav-link-hover-color: ;
+  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-aside-nav-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%);
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-link-hover-bg: #087084;
+  --tiki-admin-dropdown-bg: #fff;
+  --tiki-admin-dropdown-color: #f9f9f9;
+  --tiki-admin-dropdown-hover-color: #07262c;
+  --tiki-admin-dropdown-hover-bg: #087084;
+}
+.tiki.tiki-admin .top_modules.navbar-light-parent {
+  --tiki-admin-top-nav-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%);
+}
+.tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
+  --tiki-admin-top-nav-link-color: #f9f9f9;
+  --tiki-admin-top-nav-link-hover-color: #f9f9f9;
+  --tiki-admin-top-nav-link-hover-bg: #f2f2f2;
+  --tiki-admin-aside-nav-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%) !important;
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-link-hover-bg: #087084;
+  --tiki-admin-dropdown-color: #fff;
+  --tiki-admin-dropdown-bg: #087f93;
+  --tiki-admin-dropdown-hover-color: #07262c;
+  --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.15);
+}
+.tiki.tiki-admin .top_modules.navbar-dark-parent {
+  --tiki-admin-top-nav-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%) !important;
 }
 .accordion {
   --bs-accordion-active-bg: #177F92;
@@ -285,7 +303,7 @@ a {
 }
 a:hover {
   color: var(--bs-link-hover-color);
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
@@ -501,7 +519,6 @@ progress {
 }
 .btn:hover {
   color: var(--bs-btn-hover-color);
-  text-decoration: none;
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
 }
@@ -815,7 +832,7 @@ progress {
   background-image: none;
 }
 .btn-link:hover, .btn-link:focus-visible {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:focus-visible {
   color: var(--bs-btn-color);
@@ -863,7 +880,6 @@ progress {
 }
 .nav-link:hover, .nav-link:focus {
   color: var(--bs-nav-link-hover-color);
-  text-decoration: none;
 }
 .nav-link.disabled {
   color: var(--bs-nav-link-disabled-color);

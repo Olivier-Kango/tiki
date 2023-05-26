@@ -10039,28 +10039,28 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
 .tiki-top-nav-light {
   --tiki-top-bg: rgba(246, 246, 246, 1);
   --tiki-top-color: rgba(0, 0, 0, 0.55);
-  --tiki-top-link-color: rgba(0, 0, 0, 0.55);
+  --tiki-top-link-color: #6E6E6E;
   --tiki-top-link-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-top-border: solid #eee;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgba(246, 246, 246, 1);
-  --tiki-topbar-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-color: #6E6E6E;
   --tiki-topbar-link-color: rgba(0, 0, 0, 0.55);
   --tiki-topbar-link-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-topbar-border: solid #eee;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: #137FAA;
-  --tiki-top-color: rgba(255, 255, 255, 0.55);
-  --tiki-top-link-color: rgba(255, 255, 255, 0.55);
-  --tiki-top-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-color: rgba(255, 255, 255, 1);
+  --tiki-top-link-color: rgba(255, 255, 255, 1);
+  --tiki-top-link-hover-color: rgba(255, 255, 255, 0.7);
   --tiki-top-border: solid #4d4d4d;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #137FAA;
-  --tiki-topbar-color: rgba(255, 255, 255, 0.55);
-  --tiki-topbar-link-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-color: rgba(255, 255, 255, 1);
+  --tiki-topbar-link-color: rgba(255, 255, 255, 1);
   --tiki-topbar-link-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-topbar--border: solid #4d4d4d;
 }
@@ -10069,20 +10069,42 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
   --tiki-topbar-border-width: 0 1px 4px 1px
 }
 
-.tiki-admin {
-    --tiki-admin-navbar-dark-bg: #137FAA;
-  --tiki-admin-dropdown-dark-color: rgba(255, 255, 255, 0.55);
-  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
-  --tiki-admin-dropdown-dark-bg: #333;
-  --tiki-admin-navbar-light-bg: rgba(246, 246, 246, 1);
-  --tiki-admin-dropdown-light-color: rgba(0, 0, 0, 0.55);
-  --tiki-admin-dropdown-light-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-admin-dropdown-light-bg: #fff;
-  --tiki-admin-toggle-light-bg: #fff;
-  --tiki-admin-navbar-dark-highlight-bg: #f0f0f0;
-  --tiki-admin-navbar-dark-highlight-color: #656565;
-  --tiki-admin-navbar-light-highlight-bg: #f0f0f0;
-  --tiki-admin-navbar-light-highlight-color: #656565;
+// - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
+
+// Light navbar minus top nav
+.tiki .tiki-admin-top-nav-light,
+.tiki .tiki-admin-aside-nav-light {
+    --tiki-admin-top-nav-color: #6E6E6E;
+  --tiki-admin-top-nav-link-color: #6E6E6E;
+  --tiki-admin-top-nav-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-admin-top-nav-link-hover-bg: none;
+  --tiki-admin-aside-nav-bg: rgba(246, 246, 246, 1);
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-dropdown-color: rgba(0, 0, 0, 0.55);
+  --tiki-admin-dropdown-hover-color: #656565;
+}
+.tiki .tiki-admin-top-nav-light .dropdown-menu, .tiki .tiki-admin-aside-nav-light .dropdown-menu {
+  --tiki-admin-dropdown-bg: rgba(246, 246, 246, 1);
+  --tiki-admin-dropdown-hover-bg: #f0f0f0;
+}
+.tiki.tiki-admin .top_modules.navbar-light-parent {
+  --tiki-admin-top-nav-bg: rgba(246, 246, 246, 1);
+}
+.tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
+  --tiki-admin-top-nav-link-color: rgba(255, 255, 255, 1);
+  --tiki-admin-top-nav-link-hover-color: rgba(255, 255, 255, 0.7);
+  --tiki-admin-top-nav-link-hover-bg: rgba(255, 255, 255, 0.75);
+  --tiki-admin-aside-nav-bg: #137FAA;
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-dropdown-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-dropdown-bg: #333;
+  --tiki-admin-dropdown-hover-color: #656565;
+  --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.15);
+}
+.tiki.tiki-admin .top_modules.navbar-dark-parent {
+  --tiki-admin-top-nav-bg: #137FAA;
 }
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);
@@ -10949,7 +10971,7 @@ blockquote {
   color: #fff;
 }
 .tiki .tiki-top-nav-light {
-  background: var(--tiki-top-bg) !important;
+  background: var(--tiki-top-bg);
   color: var(--tiki-top-color);
   box-shadow: var(--tiki-top-box-shadow);
   border-color: var(--tiki-top-border-color);

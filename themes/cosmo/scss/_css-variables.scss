@@ -27,26 +27,44 @@
     --tiki-topbar-link-hover-color: #{$white};
 }
 
-//.tiki-top-nav-light, .tiki-top-nav-dark {
-    //    --tiki-top-border-width: 0; -- Thinking about if these are needed.
-    //    --tiki-top-light-border-color: transparent;
-    //    --tiki-top-dark-border-color: transparent;
-    //    --tiki-topbar-border-width: 0;
-    //    --tiki-topbar-light-border-color: transparent;
-    //    --tiki-topbar-dark-border-color: transparent;
-//}
+// - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
 
-.tiki-admin {
-    --tiki-admin-navbar-dark-bg: #{$dark};
-    --tiki-admin-dropdown-dark-color: #{$navbar-dark-color};
-    --tiki-admin-dropdown-dark-hover-bg: #{$dropdown-dark-link-hover-bg};
-    --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
-    --tiki-admin-navbar-light-bg:  #{$light};
-    --tiki-admin-dropdown-light-hover-color: #{$navbar-light-hover-color};
-    --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
-    --tiki-admin-toggle-light-bg: #{$dropdown-bg};
-    --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};
-    --tiki-admin-navbar-dark-highlight-color: #{$dropdown-link-hover-color};
-    --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
-    --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
+// Light navbar minus top nav
+.tiki .tiki-admin-top-nav-light,
+.tiki .tiki-admin-aside-nav-light {
+    --tiki-admin-navbar-bg: #f7f7f7;
+    --tiki-admin-top-nav-color: #{$blue};
+    --tiki-admin-top-nav-link-color: #{$blue};
+    --tiki-admin-top-nav-link-hover-color: #{lighten($blue, 10%)};
+    --tiki-admin-top-nav-link-hover-bg: #{$dropdown-link-hover-bg};
+    --tiki-admin-aside-nav-bg: #f7f7f7;
+    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+    --tiki-admin-aside-nav-link-hover-color: #{$dropdown-link-hover-color};
+    --tiki-admin-dropdown-bg: #{$light};
+    --tiki-admin-dropdown-color: var(--bs-dropdown-color);
+    --tiki-admin-dropdown-hover-color: #{lighten($blue, 10%)};
+    --tiki-admin-dropdown-hover-bg:  var(--bs-dropdown-hover-bg);
+}
+// Light top nav
+.tiki.tiki-admin .top_modules.navbar-light-parent {
+    --tiki-admin-top-nav-bg: #f7f7f7;
+}
+
+// Dark navbar minus top nav
+.tiki .tiki-admin-top-nav-dark,
+.tiki .tiki-admin-aside-nav-dark {
+    --tiki-admin-top-nav-link-color: rgba(255, 255, 255, 0.55);
+    --tiki-admin-top-nav-link-hover-color: #{$white};
+    --tiki-admin-top-nav-link-hover-bg: #{$dropdown-link-hover-bg};
+    --tiki-admin-aside-nav-bg: #{$dark};
+    --tiki-admin-aside-nav-link-color: rgba(255, 255, 255, 0.55);
+    --tiki-admin-aside-nav-link-hover-color: #{$dropdown-link-hover-color};
+    --tiki-admin-dropdown-color: rgba(255, 255, 255, 0.55);;
+    --tiki-admin-dropdown-bg: #4d5154;
+    --tiki-admin-dropdown-hover-color: #{$white};
+    --tiki-admin-dropdown-hover-bg: #{$dropdown-dark-link-hover-bg};
+}
+// Dark top nav
+.tiki.tiki-admin .top_modules.navbar-dark-parent {
+    --tiki-admin-top-nav-bg: #{$dark};
 }

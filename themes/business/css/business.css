@@ -10143,20 +10143,37 @@ textarea.form-control-lg {
   --tiki-topbar-link-color: #ffffff;
   --tiki-topbar-link-hover-color: #e6e6e6;
 }
-.tiki-admin {
-  --tiki-admin-navbar-dark-bg: linear-gradient(to bottom, #1f5daa 0%, #3977c4 2%, #3b7ac7 3%, #3877c6 5%, #3a7cca 7%, #3778c8 9%, #3674c7 19%, #2c6abf 43%, #1c5cb3 69%, #1454ac 93%, #1455a9 97%, #1a57a8 98%, #346dba 100%);
-  --tiki-admin-dropdown-dark-color: #ffffff;
-  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
-  --tiki-admin-dropdown-dark-bg: #404040;
-  --tiki-admin-navbar-light-bg: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%);
-  --tiki-admin-dropdown-light-color: #005999;
-  --tiki-admin-dropdown-light-hover-color: #0068b3;
-  --tiki-admin-dropdown-light-bg: #fff;
-  --tiki-admin-toggle-light-bg: #fff;
-  --tiki-admin-navbar-dark-highlight-bg: #a6a6a6;
-  --tiki-admin-navbar-dark-highlight-color: #00508a;
-  --tiki-admin-navbar-light-highlight-bg: #a6a6a6;
-  --tiki-admin-navbar-light-highlight-color: #00508a;
+.tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
+  --tiki-admin-navbar-bg: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%);
+  --tiki-admin-top-nav-color: ;
+  --tiki-admin-top-nav-link-color: ;
+  --tiki-admin-top-nav-link-hover-color: ;
+  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-aside-nav-bg: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%);
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-dropdown-bg: #fff;
+  --tiki-admin-dropdown-color: #005999;
+  --tiki-admin-dropdown-hover-color: #0068b3;
+  --tiki-admin-dropdown-hover-bg: #a6a6a6;
+}
+.tiki.tiki-admin .top_modules.navbar-light-parent {
+  --tiki-admin-top-nav-bg: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%);
+}
+.tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
+  --tiki-admin-top-nav-link-color: #fff;
+  --tiki-admin-top-nav-link-hover-color: #f6f6f6;
+  --tiki-admin-top-nav-link-hover-bg: none;
+  --tiki-admin-aside-nav-bg: linear-gradient(to bottom, #1f5daa 0%, #3977c4 2%, #3b7ac7 3%, #3877c6 5%, #3a7cca 7%, #3778c8 9%, #3674c7 19%, #2c6abf 43%, #1c5cb3 69%, #1454ac 93%, #1455a9 97%, #1a57a8 98%, #346dba 100%);
+  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-dropdown-color: #ffffff;
+  --tiki-admin-dropdown-bg: #404040;
+  --tiki-admin-dropdown-hover-color: #00508a;
+  --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.15);
+}
+.tiki.tiki-admin .top_modules.navbar-dark-parent {
+  --tiki-admin-top-nav-bg: linear-gradient(to bottom, #1f5daa 0%, #3977c4 2%, #3b7ac7 3%, #3877c6 5%, #3a7cca 7%, #3778c8 9%, #3674c7 19%, #2c6abf 43%, #1c5cb3 69%, #1454ac 93%, #1455a9 97%, #1a57a8 98%, #346dba 100%);
 }
 .navbar-dark > a {
   color: #ffffff;
@@ -11017,9 +11034,10 @@ blockquote {
   color: #fff;
 }
 .tiki .tiki-top-nav-light {
-  background: var(--tiki-top-bg) !important;
+  background: var(--tiki-top-bg);
   color: var(--tiki-top-color);
   box-shadow: var(--tiki-top-box-shadow);
+  border-color: var(--tiki-top-border-color);
 }
 .tiki .tiki-top-nav-light a:not(.dropdown-item), .tiki .tiki-top-nav-light .btn.btn-link {
   color: var(--tiki-top-link-color);
@@ -11046,6 +11064,7 @@ blockquote {
   background: var(--tiki-top-bg) !important;
   color: var(--tiki-top-color);
   box-shadow: var(--tiki-top-box-shadow);
+  border-color: var(--tiki-top-border-color);
 }
 .tiki .tiki-top-nav-dark a:not(.dropdown-item), .tiki .tiki-top-nav-dark .btn.btn-link, .tiki .tiki-top-nav-dark a.nav-link {
   color: var(--tiki-top-link-color);
@@ -11074,12 +11093,6 @@ header.navbar.fixed-top {
   border-bottom-width: var(--tiki-fixed-top-border-bottom-width);
   border-left-width: var(--tiki-fixed-top-border-left-width);
   border-style: solid;
-}
-header.navbar.fixed-top.bg-light {
-  border-color: var(--tiki-top-light-border-color);
-}
-header.navbar.fixed-top.bg-dark {
-  border-color: var(--tiki-top-dark-border-color);
 }
 .layout_basic .page-header.navbar-light-parent.bg-light-parent, .layout_classic .header_outer.bg-light-parent {
   border: var(--tiki-static-top-light-border);

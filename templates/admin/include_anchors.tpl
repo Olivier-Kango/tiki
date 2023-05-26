@@ -1,10 +1,11 @@
 {if $prefs.theme_unified_admin_backend eq 'y'}
-    <nav class="navbar-{$navbar_color_variant} bg-{$navbar_color_variant}
+    <nav class="navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}
+    <nav class="navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}
              d-flex align-items-start flex-column{if not empty($smarty.cookies.sidebar_collapsed)} narrow{/if}" role="navigation">
         <div class="was-accordion accordion-flush w-100 border-end" id="admin-menu-accordion">
             <div class="accordion-item pb-2">
                 <form method="post" class="d-flex justify-content-center my-md-0 ms-auto" role="form">
-                    <div class="my-1">
+                    <div class="my-1 mx-4">
                         <input type="hidden" name="filters">
                         <div class="input-group">
                             <input type="text" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">
@@ -33,7 +34,7 @@
                     </div>
                     <div id="flush-collapse-{$section}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{$section}" data-bs-parent="#admin-menu-accordion">
                         <div class="accordion-body p-0">
-                           <div class="dropdown-menu show position-relative {if $prefs.theme_navbar_color_variant_admin eq 'dark'}dropdown-menu-dark{/if}">
+                           <div class="dropdown-menu show position-relative {* {if $prefs.theme_navbar_color_variant_admin eq 'dark'}dropdown-menu-dark{/if} *}border-0 rounded-0">
                             {foreach $secInfo.children as $page => $info}
                                 <a href="{if not empty($info.url)}{$info.url}{else}tiki-admin.php?page={$page}{/if}"
                                         class="tips right icon dropdown-item{if !empty($info.selected)} active{/if}{if !empty($info.disabled)} item-disabled text-muted{/if}"
