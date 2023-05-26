@@ -27,7 +27,8 @@ define('TITLE_SEPARATOR', '-');
 function filter_out_sefurl($tpl_output, $type = null, $title = '', $with_next = null, $with_title = 'y')
 {
     global $sefurl_regex_out, $prefs, $base_url, $in_installer;
-    if ($prefs['feature_sefurl'] != 'y' || ! empty($in_installer) || ( preg_match('#^http(|s)://#', $tpl_output) and strpos($tpl_output, $base_url) !== 0 )) {
+
+    if ($prefs['feature_sefurl'] != 'y' || ! empty($in_installer) || empty($tpl_output) || ( preg_match('#^http(|s)://#', $tpl_output) and strpos($tpl_output, $base_url) !== 0 )) {
         return $tpl_output;
     }
     $cachelib = TikiLib::lib('cache');
