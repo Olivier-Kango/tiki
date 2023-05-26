@@ -287,6 +287,7 @@ if (isset($_REQUEST['prefrebuild'])) {
 
 global $admin_icons;
 include_once 'admin/define_admin_icons.php';
+$smarty->assign('template_not_found', 'n');
 
 if (isset($_REQUEST['page'])) {
     $adminPage = $_REQUEST['page'];
@@ -329,7 +330,6 @@ if (isset($_REQUEST['page'])) {
     $helpDescription = tr("Help on %0 Config", $admintitle);
 
     $smarty->assign('include', $adminPage);
-    $smarty->assign('template_not_found', 'n');
     if (substr($adminPage, 0, 3) == 'tp_' && ! file_exists("admin/include_$adminPage.tpl")) {
         $packageAdminTplFile = $utilities->getExtensionFilePath("templates/admin/include_$adminPage.tpl");
         if (! file_exists($packageAdminTplFile)) {
