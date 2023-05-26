@@ -125,7 +125,7 @@ class WikiParser_Parsable extends ParserLib
                 continue;
             }
             $arguments = $argumentParser->parse($match->getArguments());
-            if ($arguments['wiki'] == 1) {
+            if (isset($arguments['wiki']) && $arguments['wiki'] == 1) {
                 return false;
             }
         }
