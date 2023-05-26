@@ -70,7 +70,7 @@ body.tiki-admin {
   background: none !important;
   border: none;
 }
-.tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin aside.admin-nav .navbar-light, .tiki-admin .top_modules.navbar-light-parent {
+.tiki-admin aside.admin-nav > nav, .tiki-admin .top_modules {
   position: fixed;
   left: 0;
   top: 0;
@@ -114,12 +114,12 @@ body.tiki-admin {
 .tiki-admin aside.admin-nav {
   padding: 0 !important;
 }
-.tiki-admin .page-header .top_modules {
+.tiki-admin .top_modules {
   width: 100%;
   height: 50px;
   padding: 0 1.6rem;
 }
-.tiki-admin-aside-nav-light, .tiki-admin-aside-nav-dark {
+.tiki-admin aside.admin-nav > nav {
   height: calc(100% - 50px - 2.3rem);
   width: 268px !important;
   overflow-y: auto;

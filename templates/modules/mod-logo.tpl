@@ -10,7 +10,7 @@
                     <div class="{$module_params.class_titles|escape}"><div class="d-flex">
                 {/if}
                 {if !empty($module_params.sitetitle)}
-                    <div class="sitetitle">{tr}{$module_params.sitetitle|escape}{/tr}</div>
+                    <div class="sitetitle me-5">{tr}{$module_params.sitetitle|escape}{/tr}</div>
                 {/if}
                 {if !empty($module_params.sitesubtitle)}
                     <div class="sitesubtitle">{tr}{$module_params.sitesubtitle|escape}{/tr}</div>

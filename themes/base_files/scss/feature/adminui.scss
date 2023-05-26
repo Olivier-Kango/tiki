@@ -175,8 +175,8 @@ body.tiki-admin {
 //    border-radius: unset;
 //}
 
-.tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin aside.admin-nav .navbar-light, .tiki-admin .top_modules.navbar-light-parent {
- //   font-family: 'Roboto', sans-serif;
+.tiki-admin aside.admin-nav > nav,
+.tiki-admin .top_modules {
     position: fixed;
     left: 0;
     top: 0;
@@ -239,14 +239,12 @@ body.tiki-admin {
     padding: 0 !important;
 }
 
-.tiki-admin .page-header .top_modules {
+.tiki-admin /*.page-header*/ .top_modules { //  The Classic Bootstrap layout was missing this rule because, in UAB, .top_modules is in #middle_outer, not in .page-header.
     width: 100%;
     height: 50px;
     padding: 0 1.6rem;
 }
-
-.tiki-admin-aside-nav-light,
-.tiki-admin-aside-nav-dark {
+.tiki-admin aside.admin-nav > nav {
     height: calc(100% - 50px - 2.3rem);
     width: 268px !important;
     overflow-y: auto;

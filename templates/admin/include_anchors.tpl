@@ -1,7 +1,5 @@
 {if $prefs.theme_unified_admin_backend eq 'y'}
-    <nav class="navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}
-    <nav class="navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}
-             d-flex align-items-start flex-column{if not empty($smarty.cookies.sidebar_collapsed)} narrow{/if}" role="navigation">
+    <nav class="navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin} d-flex align-items-start flex-column{if not empty($smarty.cookies.sidebar_collapsed)} narrow{/if}" role="navigation">
         <div class="was-accordion accordion-flush w-100 border-end" id="admin-menu-accordion">
             <div class="accordion-item pb-2">
                 <form method="post" class="d-flex justify-content-center my-md-0 ms-auto" role="form">
@@ -15,9 +13,9 @@
                 </form>
             </div>
             {if not empty($smarty.request.page)}
-                <div class="nav-item was-accordion-item tips right" {* style="padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);" *}>
+                <div class="nav-item was-accordion-item tips right" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}" {* style="padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);" *}>
                     <div class="accordion-header">
-                    <a href="tiki-admin.php" class="nav-link px-4 py-2 fw-semibold" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
+                    <a href="tiki-admin.php" class="nav-link px-4 py-2 fw-semibold">
                         {icon name='home' iclass='fa-fw'}
                         <span class="narrow-hide">{tr}Admin Dashboard{/tr}</span>
                     </a>

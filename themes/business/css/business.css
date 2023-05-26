@@ -10169,7 +10169,7 @@ textarea.form-control-lg {
   --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
   --tiki-admin-dropdown-color: #ffffff;
   --tiki-admin-dropdown-bg: #404040;
-  --tiki-admin-dropdown-hover-color: #00508a;
+  --tiki-admin-dropdown-hover-color: #fff;
   --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.15);
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
