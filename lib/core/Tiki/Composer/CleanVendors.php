@@ -392,17 +392,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'ahand/mobileesp',
-            [
-                'ASP_NET',
-                'Cpp',
-                'Java',
-                'JavaScript',
-                'MobileESP_UA-Test-Strings',
-                'Python',
-            ]
-        );
-        self::remove(
             $vendors . 'plotly/plotly.js/',
             [
                 'src',
