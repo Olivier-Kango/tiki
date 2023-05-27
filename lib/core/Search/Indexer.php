@@ -68,7 +68,7 @@ class Search_Indexer
                     $error = $this->errorContext . ': ' . $error;
                 }
 
-                $this->cacheErrors[] = compact('error', 'errstr', 'errfile', 'errline');
+                $this->cacheErrors[] = compact('error', 'errno', 'errstr', 'errfile', 'errline');
 
                 return true;
             }, E_ALL);
@@ -224,13 +224,16 @@ class Search_Indexer
                     $e->getMessage()
                 );
                 Feedback::error($msg);
+                TikiLib::lib('errortracking')->captureException($e);
             }
             foreach ($this->cacheErrors as $err) {
                 $this->log->err($err['error'] . ': ' . $err['errstr'], [
-                        'code' => $err['errno'],
-                        'file' => $err['errfile'],
-                        'line' => $err['errline'],
-                    ]);
+                    'code' => $err['errno'],
+                    'file' => $err['errfile'],
+                    'line' => $err['errline'],
+                ]);
+                $e = new ErrorException($err['errstr'], 0, $err['errno'], $err['errfile'], $err['errline']);
+                TikiLib::lib('errortracking')->captureException($e);
             }
             $this->cacheErrors = [];
             // log file display feedback messages after each document line to make it easier to track

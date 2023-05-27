@@ -141,15 +141,18 @@ function custom_error_handler($number, $message, $file, $line): void
     // Determine if this error is one of the enabled ones in php config (php.ini, .htaccess, etc)
     $error_is_enabled = (bool)($number & (int)ini_get('error_reporting'));
 
-    // Fatal Errors
-    // throw an Error Exception, to be handled by whatever Exception handling logic is available in this context
-    if (in_array($number, [E_USER_ERROR, E_RECOVERABLE_ERROR]) && $error_is_enabled) {
-        throw new ErrorException($message, 0, $number, $file, $line);
-    }
-
-    // Non-Fatal Errors (ERROR/WARNING/NOTICE)
-    // Log the error if it's enabled, otherwise just ignore it
     if ($error_is_enabled) {
+        $exception = new ErrorException($message, 0, $number, $file, $line);
+        TikiLib::lib('errortracking')->captureException($exception);
+
+        // Fatal Errors
+        // throw an Error Exception, to be handled by whatever Exception handling logic is available in this context
+        if (in_array($number, [E_USER_ERROR, E_RECOVERABLE_ERROR]) && $error_is_enabled) {
+            throw $exception;
+        }
+
+        // Non-Fatal Errors (ERROR/WARNING/NOTICE)
+        // Log the error if it's enabled, otherwise just ignore it
         error_log($message . ' on line ' . $line . ' of ' . $file, 0);
     }
 }
