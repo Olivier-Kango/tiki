@@ -207,15 +207,14 @@ class WikiParser_Parsable extends ParserLib
             }
 
             $pluginOutput = null;
+            static $plugin_indexes = [];
+
+            if (! array_key_exists($plugin_name, $plugin_indexes)) {
+                $plugin_indexes[$plugin_name] = 0;
+            }
+            $current_index = ++$plugin_indexes[$plugin_name];
+
             if ($this->plugin_enabled($plugin_name, $pluginOutput) || $this->option['wysiwyg']) {
-                static $plugin_indexes = [];
-
-                if (! array_key_exists($plugin_name, $plugin_indexes)) {
-                    $plugin_indexes[$plugin_name] = 0;
-                }
-
-                $current_index = ++$plugin_indexes[$plugin_name];
-
                 // get info to test for preview with auto_save
                 if (! $this->option['skipvalidation']) {
                     $status = $this->plugin_can_execute($plugin_name, $plugin_data, $arguments, $this->option['preview_mode'] || $this->option['wysiwyg']);
