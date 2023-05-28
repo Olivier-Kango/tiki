@@ -22065,5 +22065,6 @@ $lang_current = array(
 "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Moteur de recherche moderne, rapide, léger et complet, doté d'excellentes capacités de recherche en texte intégral. Il est basé sur le moteur de recherche Sphinx",
 " Control Panels" => "Panneaux de contrôle",
 "Tiki detected system configuration files with %0 extension, under the root folder of Tiki. It is recommended to change it to %1. Check %2 for examples." => "Tiki a détecté des fichiers de configuration système avec l'extension %0, sous le dossier racine de Tiki. Il est recommandé de le remplacer par %1. Vérifiez %2 pour des exemples.",
+"Double click to edit" => "Double-cliquez pour éditer",
 );
 $lang = array_replace($lang, $lang_current);
