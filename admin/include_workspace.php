@@ -9,6 +9,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
     header('location: index.php');
     exit;
 }
+$areas = [];
 
 if ($prefs['feature_areas'] === 'y') {
     $areaslib = TikiLib::lib('areas');
@@ -28,7 +29,6 @@ if ($prefs['feature_areas'] === 'y') {
     $areas_table = $areaslib->table('tiki_areas');
 
     $result = $areas_table->fetchAll(['categId', 'perspectives', 'exclusive', 'share_common', 'enabled']);
-    $areas = [];
     $perspectivelib = TikiLib::lib('perspective');
     $perspectives = [];
 
@@ -50,6 +50,5 @@ if ($prefs['feature_areas'] === 'y') {
         $area['description'] = $areaslib->get_category_description($item['categId']);
         $areas[] = $area;
     }
-
-    $smarty->assign_by_ref('areas', $areas);
 }
+$smarty->assign_by_ref('areas', $areas);
