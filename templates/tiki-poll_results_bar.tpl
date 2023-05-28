@@ -26,6 +26,6 @@
     {/if}
     {if is_numeric($poll_info.total)}
         {tr}Total:{/tr} {$poll_info.total}<br>
-        {tr}Average:{/tr} {math equation="x/y" x=$poll_info.total y=$poll_info.votes format="%.2f"}
+        {tr}Average:{/tr} {if $poll_info.votes > 0}{math equation="x/y" x=$poll_info.total y=$poll_info.votes format="%.2f"}{else}{tr}(n/a){/tr}{/if}
     {/if}
 </div>
