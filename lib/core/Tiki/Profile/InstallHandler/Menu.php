@@ -152,7 +152,7 @@ class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
         $menuId = reset($row);
 
         foreach ($data['items'] as $item) {
-            $menulib->replace_menu_option($menuId, 0, $item['name'], $item['url'], $item['type'], $item['position'], $item['section'], implode(',', $item['permissions']), implode(',', $item['groups']), $item['level'], $item['icon']);
+            $menulib->replace_menu_option($menuId, 0, $item['name'], $item['url'], $item['type'], $item['position'], $item['section'], implode(',', $item['permissions']), implode(',', $item['groups']), $item['level'], $item['icon'] ?? '');
         }
 
         // Set module title to menu_nn if it is not set by a parameter
