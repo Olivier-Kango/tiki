@@ -125,7 +125,7 @@ foreach ($chans as $chan) {
     if ($lastid == 0) {
         $result = $tikilib->query("SELECT * FROM tiki_minichat WHERE channel=? ORDER by id desc LIMIT 100", [$channel]);
         $msgtotal = "";
-        while (($row = $result->fetchRow($resultat))) {
+        while ($row = $result->fetchRow()) {
             if (! $lastid) {
                 $lastid = $row['id'];
                 echo "minichat_updatelastid('$channel', $lastid);\n";
