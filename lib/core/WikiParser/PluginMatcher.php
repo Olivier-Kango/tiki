@@ -357,6 +357,7 @@ class WikiParser_PluginMatcher_Match
 
     private $matchType = false;
     private $nameEnd = false;
+    private $name = false;
     private $bodyStart = false;
     private $bodyEnd = false;
 
@@ -390,7 +391,7 @@ class WikiParser_PluginMatcher_Match
             $this->matchType = self::LONG;
 
             // Parenthesis required when using long syntax
-            if ($candidate[strlen($name)] != '(') {
+            if (isset($candidate[strlen($name)]) && $candidate[strlen($name)] != '(') {
                 $this->invalidate();
                 return false;
             }
