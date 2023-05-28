@@ -9937,9 +9937,9 @@ legend {
   --tiki-admin-aside-nav-color: #2a9fd6;
   --tiki-admin-aside-nav-hover-color: #55b2de;
   --tiki-admin-dropdown-bg: #282828;
-  --tiki-admin-dropdown-color: #2a9fd6;
-  --tiki-admin-dropdown-hover-color:  #fff;
-  --tiki-admin-dropdown-hover-bg: #2a9fd6;
+  --tiki-admin-dropdown-link-color: #2a9fd6;
+  --tiki-admin-dropdown-link-hover-color:  #fff;
+  --tiki-admin-dropdown-link-hover-bg: #2a9fd6;
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
   --tiki-admin-top-nav-bg:  #222;
@@ -9951,10 +9951,10 @@ legend {
   --tiki-admin-aside-nav-bg: #060606;
   --tiki-admin-aside-nav-color: rgba(255, 255, 255, 0.55);
   --tiki-admin-aside-nav-hover-color: #fff;
-  --tiki-admin-dropdown-color:  #dee2e6;
+  --tiki-admin-dropdown-link-color:  #dee2e6;
   --tiki-admin-dropdown-bg: #222;
-  --tiki-admin-dropdown-hover-color: #fff;
-  --tiki-admin-dropdown-hover-bg: #2a9fd6;
+  --tiki-admin-dropdown-link-hover-color: #fff;
+  --tiki-admin-dropdown-link-hover-bg: #2a9fd6;
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: #060606;

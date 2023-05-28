@@ -36,14 +36,14 @@ body.tiki-admin {
 .tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu,
 .tiki-admin .tiki-admin-top-nav-light .dropdown-menu,
 .tiki-admin-aside-nav-light .dropdown-menu {
-    color: var(--tiki-admin-dropdown-color);
+    color: var(--tiki-admin-dropdown-link-color);
     background-color: var(--tiki-admin-dropdown-bg);
     .dropdown-item:not(.active) {
-        color: var(--tiki-admin-dropdown-color);
+        color: var(--tiki-admin-dropdown-link-color);
         &:focus,
         &:hover {
-            color: var(--tiki-admin-dropdown-hover-color);
-            background: var(--tiki-admin-dropdown-hover-bg);
+            color: var(--tiki-admin-dropdown-link-hover-color);
+            background: var(--tiki-admin-dropdown-link-hover-bg);
         }
     }
 }
@@ -68,14 +68,14 @@ body.tiki-admin {
 .tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu,
 .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu,
 .tiki-admin-aside-nav-dark .dropdown-menu {
-    color: var(--tiki-admin-dropdown-color);
+    color: var(--tiki-admin-dropdown-link-color);
     background-color: var(--tiki-admin-dropdown-bg);
     .dropdown-item {
-        color: var(--tiki-admin-dropdown-color);
+        color: var(--tiki-admin-dropdown-link-color);
         &:focus,
         &:hover {
-            color: var(--tiki-admin-dropdown-hover-color);
-            background: var(--tiki-admin-dropdown-hover-bg);
+            color: var(--tiki-admin-dropdown-link-hover-color);
+            background: var(--tiki-admin-dropdown-link-hover-bg);
         }
     }
 }
@@ -95,7 +95,7 @@ body.tiki-admin {
 }
 .tiki .tiki-admin-aside-nav-light .admin-menu-collapser {
     background-color: var(--tiki-admin-dropdown-bg);
-    color: var(--tiki-admin-dropdown-color);
+    color: var(--tiki-admin-dropdown-link-color);
 }
 
 // Aside nav dark ---------------------------------------------------------

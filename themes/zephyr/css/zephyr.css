@@ -9968,8 +9968,8 @@ thead th {
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #fff;
   --tiki-admin-dropdown-color: #000;
-  --tiki-admin-dropdown-hover-color: #fff;
-  --tiki-admin-dropdown-hover-bg: #3459e6;
+  --tiki-admin-dropdown-link-hover-color: #fff;
+  --tiki-admin-dropdown-link-hover-bg: #3459e6;
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
   --tiki-admin-top-nav-bg: rgb(248, 249, 250);
@@ -9983,8 +9983,8 @@ thead th {
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-color: #fff;
   --tiki-admin-dropdown-bg: #343a40;
-  --tiki-admin-dropdown-hover-color: #fff;
-  --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.15);
+  --tiki-admin-dropdown-link-hover-color: #fff;
+  --tiki-admin-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: rgba(52, 89, 230, 1.0);

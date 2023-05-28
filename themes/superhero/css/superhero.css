@@ -9929,8 +9929,8 @@ label, .radio label, .checkbox label, .help-block {
   --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-link-hover-color);
   --tiki-admin-dropdown-bg: #4e5d6c;
-  --tiki-admin-dropdown-color: rgba(255, 255, 255, 0.9);
-  --tiki-admin-dropdown-hover-color: #ebebeb;
+  --tiki-admin-dropdown-link-color: rgba(255, 255, 255, 0.9);
+  --tiki-admin-dropdown-link-hover-color: #ebebeb;
   --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.075);
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
@@ -9943,7 +9943,7 @@ label, .radio label, .checkbox label, .help-block {
   --tiki-admin-aside-nav-bg: rgb(32, 55, 76);
   --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-link-hover-color);
-  --tiki-admin-dropdown-color: #6FADEC;
+  --tiki-admin-dropdown-link-color: #6FADEC;
   --tiki-admin-dropdown-bg: #343a40;
   --tiki-admin-dropdown-hover-color: #ebebeb;
   --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.15);

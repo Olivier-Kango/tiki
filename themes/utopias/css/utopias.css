@@ -10306,9 +10306,9 @@ textarea.form-control-lg {
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #fff;
-  --tiki-admin-dropdown-color: #888888;
-  --tiki-admin-dropdown-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-admin-dropdown-hover-bg: #e9ecef;
+  --tiki-admin-dropdown-link-color: #888888;
+  --tiki-admin-dropdown-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-admin-dropdown-link-hover-bg: #e9ecef;
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
   --tiki-admin-top-nav-bg: #fff;
@@ -10320,10 +10320,10 @@ textarea.form-control-lg {
   --tiki-admin-aside-nav-bg: #fafafa;
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
-  --tiki-admin-dropdown-color: #333;
+  --tiki-admin-dropdown-link-color: #333;
   --tiki-admin-dropdown-bg: #fff;
-  --tiki-admin-dropdown-hover-color: #1e2125;
-  --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.15);
+  --tiki-admin-dropdown-link-hover-color: #1e2125;
+  --tiki-admin-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: #fafafa;

@@ -12,15 +12,15 @@ body.tiki-admin {
   color: var(--tiki-admin-top-nav-hover-color);
 }
 .tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu, .tiki-admin-aside-nav-light .dropdown-menu {
-  color: var(--tiki-admin-dropdown-color);
+  color: var(--tiki-admin-dropdown-link-color);
   background-color: var(--tiki-admin-dropdown-bg);
 }
 .tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active), .tiki-admin .tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active), .tiki-admin-aside-nav-light .dropdown-menu .dropdown-item:not(.active) {
-  color: var(--tiki-admin-dropdown-color);
+  color: var(--tiki-admin-dropdown-link-color);
 }
 .tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin-aside-nav-light .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin-aside-nav-light .dropdown-menu .dropdown-item:not(.active):hover {
-  color: var(--tiki-admin-dropdown-hover-color);
-  background: var(--tiki-admin-dropdown-hover-bg);
+  color: var(--tiki-admin-dropdown-link-hover-color);
+  background: var(--tiki-admin-dropdown-link-hover-bg);
 }
 .tiki.tiki-admin .tiki-top-nav-dark, .tiki.tiki-admin .top_modules.navbar-dark-parent, .tiki.tiki-admin .navbar-dark-parent .top_modules {
   background: var(--tiki-admin-top-nav-bg);
@@ -32,15 +32,15 @@ body.tiki-admin {
   color: var(--tiki-admin-top-nav-hover-color);
 }
 .tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu, .tiki-admin-aside-nav-dark .dropdown-menu {
-  color: var(--tiki-admin-dropdown-color);
+  color: var(--tiki-admin-dropdown-link-color);
   background-color: var(--tiki-admin-dropdown-bg);
 }
 .tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item, .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item {
-  color: var(--tiki-admin-dropdown-color);
+  color: var(--tiki-admin-dropdown-link-color);
 }
 .tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:focus, .tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:hover, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:focus, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:hover, .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item:focus, .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item:hover {
-  color: var(--tiki-admin-dropdown-hover-color);
-  background: var(--tiki-admin-dropdown-hover-bg);
+  color: var(--tiki-admin-dropdown-link-hover-color);
+  background: var(--tiki-admin-dropdown-link-hover-bg);
 }
 .tiki .tiki-admin-aside-nav-light, .tiki-admin aside.admin-nav .bg-light {
   background: var(--tiki-admin-aside-nav-bg) !important;
@@ -54,7 +54,7 @@ body.tiki-admin {
 }
 .tiki .tiki-admin-aside-nav-light .admin-menu-collapser {
   background-color: var(--tiki-admin-dropdown-bg);
-  color: var(--tiki-admin-dropdown-color);
+  color: var(--tiki-admin-dropdown-link-color);
 }
 .tiki .tiki-admin-aside-nav-dark, .tiki-admin aside.admin-nav .navbar-dark {
   background: var(--tiki-admin-aside-nav-bg) !important;
