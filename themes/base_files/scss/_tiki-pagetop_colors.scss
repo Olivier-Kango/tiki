@@ -76,7 +76,7 @@
     a:not(.dropdown-item),
     .btn.btn-link,
     a.nav-link {
-        color: var(--tiki-topbar-color);
+        color: var(--tiki-topbar-link-color);
         &:hover {
             color: var(--tiki-topbar-hover-color);
             background: var(--tiki-topbar-hover-bg);
