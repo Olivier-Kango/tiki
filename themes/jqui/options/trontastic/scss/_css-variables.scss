@@ -2,29 +2,25 @@
 .tiki-top-nav-light {
     --tiki-top-bg: linear-gradient(to bottom, #cbeba5 0%, #caeba2 30%, #c4e999 52%, #b4e27c 53%, #a4dc60 98%, #a3dc5f 99%, #9fda58 100%);
     --tiki-top-color: #000;
-    --tiki-top-link-color: #000;
-    --tiki-top-link-hover-color: #2c2c2c;
+    --tiki-top-hover-color: #2c2c2c;
 }
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: linear-gradient(to bottom, #cbeba5 0%, #caeba2 30%, #c4e999 52%, #b4e27c 53%, #a4dc60 98%, #a3dc5f 99%, #9fda58 100%);
     --tiki-topbar-color: #000;
-    --tiki-topbar-link-color: #000;
-    --tiki-topbar-link-hover-color: #2c2c2c;
+    --tiki-topbar-hover-color: #2c2c2c;
 }
 
 .tiki-top-nav-dark {
     --tiki-top-bg: linear-gradient(to bottom, #4c4c4c 0%, #4c4c4c 18%, #404040 52%, #232323 53%, #090909 93%, #070707 99%, #000000 100%);
     --tiki-top-color: #b8ec79;
-    --tiki-top-link-color: #b8ec79;
-    --tiki-top-link-hover-color: #c8f197;
+    --tiki-top-hover-color: #c8f197;
 }
 
 .tiki-topbar-nav-dark {
     --tiki-topbar-bg: linear-gradient(to bottom, #4c4c4c 0%,#4c4c4c 18%,#404040 52%,#232323 53%,#090909 93%,#070707 99%,#000000 100%);
     --tiki-topbar-color: #b8ec79;
-    --tiki-topbar-link-color: #b8ec79;
-    --tiki-topbar-link-hover-color: #c8f197;
+    --tiki-topbar-hover-color: #c8f197;
 }
 
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
@@ -36,12 +32,11 @@
 .tiki-admin .tiki-admin-top-nav-light .dropdown-item,
 .tiki .tiki-admin-top-nav-light {
     --tiki-admin-top-nav-color: #000;
-    --tiki-admin-top-nav-link-color: #000;
-    --tiki-admin-top-nav-link-hover-color: #2c2c2c;
-    --tiki-admin-top-nav-link-hover-bg: none ;
+    --tiki-admin-top-nav-hover-color: #2c2c2c;
+    --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: linear-gradient(to bottom, #cbeba5 0%, #caeba2 30%, #c4e999 52%, #b4e27c 53%, #a4dc60 98%, #a3dc5f 99%, #9fda58 100%);
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+    --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-bg: #{$dropdown-bg};
     --tiki-admin-dropdown-color: #b8ec79;
     --tiki-admin-dropdown-hover-color: #c8f197;
@@ -58,12 +53,12 @@
 .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu,
 .tiki-admin .tiki-admin-top-nav-dark .dropdown-item,
 .tiki .tiki-admin-top-nav-dark {
-    --tiki-admin-top-nav-link-color: #b8ec79;
-    --tiki-admin-top-nav-link-hover-color: #b8ec79;
-    --tiki-admin-top-nav-link-hover-bg: #c8f197;
+    --tiki-admin-top-nav-color: #b8ec79;
+    --tiki-admin-top-nav-hover-color: #b8ec79;
+    --tiki-admin-top-nav-hover-bg: #c8f197;
     --tiki-admin-aside-nav-bg: linear-gradient(to bottom, #4c4c4c 0%, #4c4c4c 18%, #404040 52%, #232323 53%, #090909 93%, #070707 99%, #000000 100%);
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+    --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-color: #{$dropdown-dark-color};
     --tiki-admin-dropdown-bg: #{$dropdown-dark-bg};
     --tiki-admin-dropdown-hover-color: #{$dropdown-link-hover-color};

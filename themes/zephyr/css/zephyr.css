@@ -9938,39 +9938,34 @@ thead th {
 .tiki-top-nav-light {
   --tiki-top-bg: rgb(248, 249, 250);
   --tiki-top-color: #000;
-  --tiki-top-link-color: #000;
-  --tiki-top-link-hover-color: rgba(0, 0, 0, 0.05);
-  --tiki-top-link-hover-bg: rgba(0, 0, 0, 0.03);
+  --tiki-top-hover-color: rgba(0, 0, 0, 0.05);
+  --tiki-top-hover-bg: rgba(0, 0, 0, 0.03);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgb(248, 249, 250);
-  --tiki-topbar-color: rgba(0, 0, 0, 0.9);
-  --tiki-topbar-link-color: rgba(0, 0, 0, 0.55);
-  --tiki-topbar-link-hover-color: rgba(0, 0, 0, 0.05);
-  --tiki-topbar-link-hover-bg: rgba(0, 0, 0, 0.03);
+  --tiki-topbar-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-hover-color: rgba(0, 0, 0, 0.05);
+  --tiki-topbar-hover-bg: rgba(0, 0, 0, 0.03);
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: rgba(52, 89, 230, 1.0);
   --tiki-top-color: #fff;
-  --tiki-top-link-color: #fff;
-  --tiki-top-link-hover-color: #fff;
-  --tiki-top-link-hover-bg: rgba(255, 255, 255, 0.1);
+  --tiki-top-hover-color: #fff;
+  --tiki-top-hover-bg: rgba(255, 255, 255, 0.1);
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgba(33, 37, 41, 1.0);
   --tiki-topbar-color: #fff;
-  --tiki-topbar-link-color: #fff;
-  --tiki-topbar-link-hover-color: #fff;
-  --tiki-topbar-link-hover-bg: rgba(255, 255, 255, 0.1);
+  --tiki-topbar-hover-color: #fff;
+  --tiki-topbar-hover-bg: rgba(255, 255, 255, 0.1);
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-top-nav-color: #000;
-  --tiki-admin-top-nav-link-color: #000;
-  --tiki-admin-top-nav-link-hover-color: rgba(0, 0, 0, 0.05);
-  --tiki-admin-top-nav-link-hover-bg: rgba(0, 0, 0, 0.03);
+  --tiki-admin-top-nav-hover-color: rgba(0, 0, 0, 0.05);
+  --tiki-admin-top-nav-hover-bg: rgba(0, 0, 0, 0.03);
   --tiki-admin-aside-nav-bg: rgb(248, 249, 250);
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #fff;
   --tiki-admin-dropdown-color: #000;
   --tiki-admin-dropdown-hover-color: #fff;
@@ -9980,12 +9975,12 @@ thead th {
   --tiki-admin-top-nav-bg: rgb(248, 249, 250);
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
-  --tiki-admin-top-nav-link-color: #fff;
-  --tiki-admin-top-nav-link-hover-color: #fff;
-  --tiki-admin-top-nav-link-hover-bg: rgba(52, 89, 230, 0.9);
+  --tiki-admin-top-nav-color: #fff;
+  --tiki-admin-top-nav-hover-color: #fff;
+  --tiki-admin-top-nav-hover-bg: rgba(52, 89, 230, 0.9);
   --tiki-admin-aside-nav-bg: rgba(52, 89, 230, 1.0);
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-color: #fff;
   --tiki-admin-dropdown-bg: #343a40;
   --tiki-admin-dropdown-hover-color: #fff;
@@ -10862,8 +10857,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-light a:not(.dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-light {
   background: var(--tiki-topbar-bg) !important;
@@ -10876,8 +10871,8 @@ blockquote {
   color: var(--tiki-topbar-color);
 }
 .tiki .tiki-topbar-nav-light a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 .tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
@@ -10889,8 +10884,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-dark {
   background: var(--tiki-topbar-bg) !important;
@@ -10903,8 +10898,8 @@ blockquote {
   color: var(--tiki-topbar-link-color);
 }
 .tiki .tiki-topbar-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 header.navbar.fixed-top {
   border-top-width: var(--tiki-fixed-top-border-top-width);

@@ -2632,35 +2632,30 @@ progress {
 .tiki-top-nav-light {
   --tiki-top-bg: linear-gradient(to bottom, #cbeba5 0%, #caeba2 30%, #c4e999 52%, #b4e27c 53%, #a4dc60 98%, #a3dc5f 99%, #9fda58 100%);
   --tiki-top-color: #000;
-  --tiki-top-link-color: #000;
-  --tiki-top-link-hover-color: #2c2c2c;
+  --tiki-top-hover-color: #2c2c2c;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(to bottom, #cbeba5 0%, #caeba2 30%, #c4e999 52%, #b4e27c 53%, #a4dc60 98%, #a3dc5f 99%, #9fda58 100%);
   --tiki-topbar-color: #000;
-  --tiki-topbar-link-color: #000;
-  --tiki-topbar-link-hover-color: #2c2c2c;
+  --tiki-topbar-hover-color: #2c2c2c;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: linear-gradient(to bottom, #4c4c4c 0%, #4c4c4c 18%, #404040 52%, #232323 53%, #090909 93%, #070707 99%, #000000 100%);
   --tiki-top-color: #b8ec79;
-  --tiki-top-link-color: #b8ec79;
-  --tiki-top-link-hover-color: #c8f197;
+  --tiki-top-hover-color: #c8f197;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: linear-gradient(to bottom, #4c4c4c 0%,#4c4c4c 18%,#404040 52%,#232323 53%,#090909 93%,#070707 99%,#000000 100%);
   --tiki-topbar-color: #b8ec79;
-  --tiki-topbar-link-color: #b8ec79;
-  --tiki-topbar-link-hover-color: #c8f197;
+  --tiki-topbar-hover-color: #c8f197;
 }
 .tiki.tiki-admin .tiki-top-nav-light, .tiki .tiki-admin-aside-nav-light, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu, .tiki-admin .tiki-admin-top-nav-light .dropdown-item, .tiki .tiki-admin-top-nav-light {
   --tiki-admin-top-nav-color: #000;
-  --tiki-admin-top-nav-link-color: #000;
-  --tiki-admin-top-nav-link-hover-color: #2c2c2c;
-  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-top-nav-hover-color: #2c2c2c;
+  --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: linear-gradient(to bottom, #cbeba5 0%, #caeba2 30%, #c4e999 52%, #b4e27c 53%, #a4dc60 98%, #a3dc5f 99%, #9fda58 100%);
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #000;
   --tiki-admin-dropdown-color: #b8ec79;
   --tiki-admin-dropdown-hover-color: #c8f197;
@@ -2670,12 +2665,12 @@ progress {
   --tiki-admin-top-nav-bg: linear-gradient(to bottom, #cbeba5 0%, #caeba2 30%, #c4e999 52%, #b4e27c 53%, #a4dc60 98%, #a3dc5f 99%, #9fda58 100%);
 }
 .tiki.tiki-admin .tiki-top-nav-dark, .tiki .tiki-admin-aside-nav-dark, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu, .tiki-admin .tiki-admin-top-nav-dark .dropdown-item, .tiki .tiki-admin-top-nav-dark {
-  --tiki-admin-top-nav-link-color: #b8ec79;
-  --tiki-admin-top-nav-link-hover-color: #b8ec79;
-  --tiki-admin-top-nav-link-hover-bg: #c8f197;
+  --tiki-admin-top-nav-color: #b8ec79;
+  --tiki-admin-top-nav-hover-color: #b8ec79;
+  --tiki-admin-top-nav-hover-bg: #c8f197;
   --tiki-admin-aside-nav-bg: linear-gradient(to bottom, #4c4c4c 0%, #4c4c4c 18%, #404040 52%, #232323 53%, #090909 93%, #070707 99%, #000000 100%);
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-color: #fff;
   --tiki-admin-dropdown-bg: #000;
   --tiki-admin-dropdown-hover-color: #e6e6e6;
@@ -2697,8 +2692,8 @@ progress {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-light a:not(.dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-light {
   background: var(--tiki-topbar-bg) !important;
@@ -2711,8 +2706,8 @@ progress {
   color: var(--tiki-topbar-color);
 }
 .tiki .tiki-topbar-nav-light a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 .tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
@@ -2724,8 +2719,8 @@ progress {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-dark {
   background: var(--tiki-topbar-bg) !important;
@@ -2738,8 +2733,8 @@ progress {
   color: var(--tiki-topbar-link-color);
 }
 .tiki .tiki-topbar-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 header.navbar.fixed-top {
   border-top-width: var(--tiki-fixed-top-border-top-width);

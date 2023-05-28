@@ -184,22 +184,19 @@ $bg-dark-info: #00DAE6;
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki .tiki-top-nav-light {
     --tiki-top-bg: #{$top-light-bg};
-    --tiki-top-color: #{$top-light-color};
     --tiki-top-link-color: #{$top-link-color};
-    --tiki-top-link-hover-color: #{$top-link-hover-color};
+    --tiki-top-hover-color: #{$top-link-hover-color};
     --tiki-top-border: solid #000;
 }
 
 .tiki .tiki-topbar-nav-light {
     --tiki-topbar-bg: #{$topbar-light-bg};
-    --tiki-topbar-color: #{$topbar-light-color};
-    --tiki-topbar-link-color: #{$topbar-link-color};
-    --tiki-topbar-link-hover-color: #{$navbar-light-link-hover-color};
+     --tiki-topbar-link-color: #{$topbar-link-color};
+    --tiki-topbar-hover-color: #{$navbar-light-link-hover-color};
 }
 
 .tiki .tiki-top-nav-dark {
     --tiki-top-bg: #{$top-dark-bg};
-    --tiki-top-color: #{$navbar-dark-link-color};
     --tiki-top-link-color: #{$navbar-dark-link-color};
     --tiki-top-ink-hover-color: #{$navbar-dark-link-hover-color};
     --tiki-top-border: solid #000;
@@ -207,9 +204,8 @@ $bg-dark-info: #00DAE6;
 
 .tiki .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #{$topbar-dark-bg};
-    --tiki-topbar-color: #{$navbar-dark-link-color};
     --tiki-topbar-link-color: #{$navbar-dark-link-color};
-    --tiki-topbar-link-hover-color: #{$navbar-dark-link-hover-color};
+    --tiki-topbar-hover-color: #{$navbar-dark-link-hover-color};
 }
 
 .tiki-nav-top-light, .tiki-nav-top-dark {

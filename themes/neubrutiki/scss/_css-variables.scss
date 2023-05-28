@@ -1,44 +1,40 @@
 //------- Tiki CSS variables
 .tiki-top-nav-light {
     --tiki-top-bg: #{$body-bg};
-    --tiki-top-color: #{$navbar-light-color};
     --tiki-top-link-color: #{$navbar-light-color};
     --tiki-top--link-hover-color: #{$navbar-light-hover-color};
-    --tiki-top-link-active-color: #{$navbar-light-hover-color};
-    --tiki-top-link-hover-bg: transparent;
-    --tiki-top-link-active-bg: transparent;
+    --tiki-top-active-color: #{$navbar-light-hover-color};
+    --tiki-top-hover-bg: transparent;
+    --tiki-top-active-bg: transparent;
     --tiki-top-border: solid #1a1a1a;
     --tiki-top-box-shadow: none;
 }
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: #{$body-bg};
-    --tiki-topbar-color: #{$navbar-light-color};
     --tiki-topbar-link-color: #{$navbar-light-color};
-    --tiki-topbar-link-hover-color: #{$navbar-light-hover-color};
-    --tiki-topbar-link-active-color: #{$navbar-light-hover-color};
-    --tiki-topbar-link-hover-bg: transparent;
-    --tiki-topbar-link-active-bg: transparent;
+    --tiki-topbar-hover-color: #{$navbar-light-hover-color};
+    --tiki-topbar-active-color: #{$navbar-light-hover-color};
+    --tiki-topbar-hover-bg: transparent;
+    --tiki-topbar-active-bg: transparent;
     --tiki-topbar-border: solid #1a1a1a;
     --tiki-topbar-box-shadow: none;
 }
 
 .tiki-top-nav-dark {
     --tiki-top-bg: #{$dark};
-    --tiki-top-color: #{$navbar-dark-color};
     --tiki-top-link-color: #{$navbar-dark-color};
-    --tiki-top-link-hover-color: #{$white};
-    --tiki-top-link-hover-bg: transparent;
+    --tiki-top-hover-color: #{$white};
+    --tiki-top-hover-bg: transparent;
     --tiki-top-border: none;
     --tiki-top-box-shadow: none;
 }
 
 .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #{$dark};
-    --tiki-topbar-color: #{$navbar-dark-color};
     --tiki-topbar-link-color: #{$navbar-dark-color};
-    --tiki-topbar-link-hover-color: #{$white};
-    --tiki-topbar-link-hover-bg: transparent;
+    --tiki-topbar-hover-color: #{$white};
+    --tiki-topbar-hover-bg: transparent;
     --tiki-topbar-border: none;
     --tiki-topbar-box-shadow: none;
 }

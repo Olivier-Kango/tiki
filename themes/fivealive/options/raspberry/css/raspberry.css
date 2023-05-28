@@ -2,27 +2,23 @@
 .tiki-top-nav-light {
   --tiki-top-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
   --tiki-top-color: #f9f9f9;
-  --tiki-top-link-color: #f9f9f9;
-  --tiki-top-link-hover-color: #f2f2f2;
+  --tiki-top-hover-color: #f2f2f2;
   --tiki-top-border: solid #000;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #063035;
   --tiki-topbar-color: #f9f9f9;
-  --tiki-topbar-link-color: #f9f9f9;
-  --tiki-topbar-link-hover-color: #f2f2f2;
+  --tiki-topbar-hover-color: #f2f2f2;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
-  --tiki-top-color: #fff;
   --tiki-top-link-color: #f9f9f9;
-  --tiki-top-link-hover-color: #f2f2f2;
+  --tiki-top-hover-color: #f2f2f2;
   --tiki-top-border: solid #000;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #35061d;
   --tiki-topbar-color: #f9f9f9;
-  --tiki-topbar-link-color: #f9f9f9;
   --tiki-topbar-ink-hover-color: #f2f2f2;
 }
 .tiki-top-nav-light, .tiki-top-nav-dark {
@@ -38,12 +34,12 @@ header.navbar.fixed-top {
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-top-nav-color: #f9f9f9;
-  --tiki-admin-top-nav-link-color: #f9f9f9;
-  --tiki-admin-top-nav-link-hover-color: #f2f2f2;
-  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-top-nav-color: #f9f9f9;
+  --tiki-admin-top-nav-hover-color: #f2f2f2;
+  --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #771437;
   --tiki-admin-dropdown-color: #f9f9f9;
   --tiki-admin-dropdown-hover-color: #f2f2f2;
@@ -55,10 +51,10 @@ header.navbar.fixed-top {
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
   --tiki-admin-top-nav-color: #fff;
   --tiki-admin-top-nav-link-color: #fff;
-  --tiki-admin-top-nav-link-hover-color: #f2f2f2;
+  --tiki-admin-top-nav-hover-color: #f2f2f2;
   --tiki-admin-aside-nav-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-color: #fff;
   --tiki-admin-dropdown-bg: #771437;
   --tiki-admin-dropdown-hover-color: #f2f2f2;
@@ -1169,8 +1165,8 @@ footer#footer .footer_liner .card-header {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-light a:not(.dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-light {
   background: var(--tiki-topbar-bg) !important;
@@ -1183,8 +1179,8 @@ footer#footer .footer_liner .card-header {
   color: var(--tiki-topbar-color);
 }
 .tiki .tiki-topbar-nav-light a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 .tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
@@ -1196,8 +1192,8 @@ footer#footer .footer_liner .card-header {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-dark {
   background: var(--tiki-topbar-bg) !important;
@@ -1210,8 +1206,8 @@ footer#footer .footer_liner .card-header {
   color: var(--tiki-topbar-link-color);
 }
 .tiki .tiki-topbar-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 header.navbar.fixed-top {
   border-top-width: var(--tiki-fixed-top-border-top-width);

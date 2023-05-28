@@ -10297,36 +10297,31 @@ textarea.form-control-lg {
 .tiki-top-nav-light {
   --tiki-top-bg: #5AE3ED;
   --tiki-top-color: #322B0B;
-  --tiki-top-link-color: #322B0B;
-  --tiki-top-link-hover-color: #5B5015;
+  --tiki-top-hover-color: #5B5015;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #68D6DE;
   --tiki-topbar-color: #3C320B;
-  --tiki-topbar-link-color: #3C320B;
-  --tiki-topbar-link-hover-color: #615314;
+  --tiki-topbar-hover-color: #615314;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: #ad1d28 !important;
   --tiki-top-color: #f2e8c0;
-  --tiki-top-link-color: #f2e8c0;
-  --tiki-top-link-hover-color: white;
+  --tiki-top-hover-color: white;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #6e0d0d;
   --tiki-topbar-color: #f2e8c0;
-  --tiki-topbar-link-color: #f2e8c0;
-  --tiki-topbar-link-hover-color: white;
+  --tiki-topbar-hover-color: white;
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-navbar-bg: #68D6DE;
   --tiki-admin-top-nav-color: #322B0B;
-  --tiki-admin-top-nav-link-color: #322B0B;
-  --tiki-admin-top-nav-link-hover-color: #5B5015;
-  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-top-nav-hover-color: #5B5015;
+  --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: #68D6DE;
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #fff;
   --tiki-admin-dropdown-color: #212529;
   --tiki-admin-dropdown-hover-color: #fff;
@@ -10337,12 +10332,12 @@ textarea.form-control-lg {
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
   --tiki-admin-top-nav-bg: #ad1d28;
-  --tiki-admin-top-nav-link-color: #f2e8c0;
-  --tiki-admin-top-nav-link-hover-color: #f2e8c0;
-  --tiki-admin-top-nav-link-hover-bg: white;
+  --tiki-admin-top-nav-color: #f2e8c0;
+  --tiki-admin-top-nav-hover-color: #f2e8c0;
+  --tiki-admin-top-nav-hover-bg: white;
   --tiki-admin-aside-nav-bg: #ad1d28;
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-color: #f2e8c0;
   --tiki-admin-dropdown-bg: #343a40;
   --tiki-admin-dropdown-hover-color: #fff;
@@ -11225,8 +11220,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-light a:not(.dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-light {
   background: var(--tiki-topbar-bg) !important;
@@ -11239,8 +11234,8 @@ blockquote {
   color: var(--tiki-topbar-color);
 }
 .tiki .tiki-topbar-nav-light a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 .tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
@@ -11252,8 +11247,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-dark {
   background: var(--tiki-topbar-bg) !important;
@@ -11266,8 +11261,8 @@ blockquote {
   color: var(--tiki-topbar-link-color);
 }
 .tiki .tiki-topbar-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 header.navbar.fixed-top {
   border-top-width: var(--tiki-fixed-top-border-top-width);

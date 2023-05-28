@@ -163,31 +163,27 @@ $postbody-title-card-title-color: #fff;
     // Use this one instead of the next to get a light band on the side like an actual orange slice --tiki-top-light-bg: linear-gradient(90deg, rgba(192,180,108,1) 1%, rgba(190,133,20,1) 3%, rgba(199,159,29,1) 97%, rgba(202,172,78,1) 100%);
     --tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
     --tiki-top-color: #3C3106;
-    --tiki-top-link-color: #3C3106;
-    --tiki-top-link-hover-color: #3C3106FF;
+    --tiki-top-hover-color: #3C3106FF;
     --tiki-top-border: solid #000;
 }
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: #{$topbar-light-bg};
     --tiki-topbar-color: #000;
-    --tiki-topbar-link-color: #000;
-    --tiki-topbar-link-hover-color: #3C3106FF;
+    --tiki-topbar-hover-color: #3C3106FF;
 }
 
 .tiki-top-nav-dark {
     --tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
-    --tiki-top-color: #{$top-dark-color};
     --tiki-top-link-color: #{$top-dark-link-color};
-    --tiki-top-link-hover-color: #{$top-link-hover-color};
+    --tiki-top-hover-color: #{$top-link-hover-color};
     --tiki-top-border: solid #000;
 }
 
 .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #ea8a0b;
     --tiki-topbar-color: #000;
-    --tiki-topbar-link-color: #000;
-    --tiki-topbar-link-hover-color: #3C3106FF;
+    --tiki-topbar-hover-color: #3C3106FF;
 }
 
 .tiki-top-nav-light, .tiki-top-nav-dark {
@@ -224,12 +220,12 @@ header.navbar.fixed-top {
 .tiki .tiki-admin-aside-nav-light {
 //    --tiki-admin-navbar-bg: ; //
     --tiki-admin-top-nav-color: #3C3106;
-    --tiki-admin-top-nav-link-color: #3C3106;
-    --tiki-admin-top-nav-link-hover-color: #3C3106FF;
-    --tiki-admin-top-nav-link-hover-bg: none ;
+    --tiki-admin-top-nav-color: #3C3106;
+    --tiki-admin-top-nav-hover-color: #3C3106FF;
+    --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-color);
+    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-bg: #{$dropdown-bg};
     --tiki-admin-dropdown-color: #{$dropdown-link-color};
     --tiki-admin-dropdown-hover-color: #{$dropdown-link-hover-color};
@@ -243,12 +239,12 @@ header.navbar.fixed-top {
 // Dark navbar minus top nav
 .tiki .tiki-admin-top-nav-dark,
 .tiki .tiki-admin-aside-nav-dark {
-    --tiki-admin-top-nav-link-color: #{$top-dark-link-color};
-    --tiki-admin-top-nav-link-hover-color: #{$top-link-hover-color};
-//    --tiki-admin-top-nav-link-hover-bg: #{$navbar-dark-hover-color};
+    --tiki-admin-top-nav-color: #{$top-dark-link-color};
+    --tiki-admin-top-nav-hover-color: #{$top-link-hover-color};
+//    --tiki-admin-top-nav-hover-bg: #{$navbar-dark-hover-color};
     --tiki-admin-aside-nav-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-color);
+    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-color: #{$dropdown-dark-color};
     --tiki-admin-dropdown-bg: #{$dropdown-dark-bg};
     --tiki-admin-dropdown-hover-color: #{$dropdown-link-hover-color};

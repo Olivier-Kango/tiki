@@ -10280,29 +10280,24 @@ textarea.form-control-lg {
 }
 .tiki-top-nav-light {
   --tiki-top-bg: #28AAE1FF;
-  --tiki-top-color: #ffffff;
   --tiki-top-link-color: #ffffff;
-  --tiki-top-link-hover-color: #f9f9f9;
+  --tiki-top-hover-color: #f9f9f9;
   --tiki-top-border-color: #000;
 }
 .tiki-topbar-nav-light {
-  --tiki-topbar-bg: #28aae1;
-  --tiki-topbar-color: #ffffff;
   --tiki-topbar-link-color: #ffffff;
-  --tiki-topbar-link-hover-color: #f9f9f9;
+  --tiki-topbar-hover-color: #f9f9f9;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: #1a8cbc;
-  --tiki-top-color: #ffffff;
   --tiki-top-link-color: #ffffff;
-  --tiki-top-link-hover-color: #f9f9f9;
+  --tiki-top-hover-color: #f9f9f9;
   --tiki-top-border-color: #000;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #28aae1;
-  --tiki-topbar-color: #ffffff;
   --tiki-topbar-link-color: #ffffff;
-  --tiki-topbar-link-hover-color: #f9f9f9;
+  --tiki-topbar-hover-color: #f9f9f9;
 }
 .tiki-top-nav-light, .tiki-top-nav-dark {
   --tiki-top-border-top-width: 0px;
@@ -11215,8 +11210,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-light a:not(.dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-light {
   background: var(--tiki-topbar-bg) !important;
@@ -11229,8 +11224,8 @@ blockquote {
   color: var(--tiki-topbar-color);
 }
 .tiki .tiki-topbar-nav-light a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 .tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
@@ -11242,8 +11237,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-dark {
   background: var(--tiki-topbar-bg) !important;
@@ -11256,8 +11251,8 @@ blockquote {
   color: var(--tiki-topbar-link-color);
 }
 .tiki .tiki-topbar-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 header.navbar.fixed-top {
   border-top-width: var(--tiki-fixed-top-border-top-width);

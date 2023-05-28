@@ -51,13 +51,13 @@
 .tiki .tiki-top-nav-light
 {
     background: var(--tiki-top-bg)/* !important*/;
-    color: var(--tiki-top-color);
+    color: var(--tiki-top-color); // The idea for this was text, etc. that isn't a link, but probably anything in these nav zones that isn't a link will have its own CSS rules already.
     a:not(.dropdown-item),
     .btn.btn-link {
         color: var(--tiki-top-link-color);
         &:hover {
-            color: var(--tiki-top-link-hover-color);
-            background: var(--tiki-top-link-hover-bg);
+            color: var(--tiki-top-hover-color);
+            background: var(--tiki-top-hover-bg);
         }
     }
     box-shadow: var(--tiki-top-box-shadow);
@@ -78,8 +78,8 @@
     a.nav-link {
         color: var(--tiki-topbar-color);
         &:hover {
-            color: var(--tiki-topbar-link-hover-color);
-            background: var(--tiki-topbar-link-hover-bg);
+            color: var(--tiki-topbar-hover-color);
+            background: var(--tiki-topbar-hover-bg);
         }
     }
     border: var(--tiki-topbar-border);
@@ -103,8 +103,8 @@
     a.nav-link  {
         color: var(--tiki-top-link-color);
         &:hover {
-            color: var(--tiki-top-link-hover-color);
-            background: var(--tiki-top-link-hover-bg);
+            color: var(--tiki-top-hover-color);
+            background: var(--tiki-top-hover-bg);
         }
     }
 //    border: var(--tiki-top-dark-border);
@@ -127,8 +127,8 @@
     a.nav-link  {
         color: var(--tiki-topbar-link-color);
         &:hover {
-            color: var(--tiki-topbar-link-hover-color);
-            background: var(--tiki-topbar-link-hover-bg);
+            color: var(--tiki-topbar-hover-color);
+            background: var(--tiki-topbar-hover-bg);
         }
     }
     border: var(--tiki-topbar-border);

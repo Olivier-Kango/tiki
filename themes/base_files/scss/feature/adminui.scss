@@ -25,10 +25,10 @@ body.tiki-admin {
 
 // Top links
 .tiki-admin .tiki-admin-top-nav-light .nav-item .nav-link { // Scope widened to include accordion.
-    color: var(--tiki-admin-top-nav-link-color);
+    color: var(--tiki-admin-top-nav-color);
     &:hover,
     &:focus {
-        color: var(--tiki-admin-top-nav-link-hover-color);
+        color: var(--tiki-admin-top-nav-hover-color);
     }
 }
 
@@ -57,10 +57,10 @@ body.tiki-admin {
 
 // Top links
 .tiki-admin .tiki-admin-top-nav-dark .nav-item .nav-link { // Scope widened to include accordion.
-    color: var(--tiki-admin-top-nav-link-color);
+    color: var(--tiki-admin-top-nav-color);
     &:hover,
     &:focus {
-        color: var(--tiki-admin-top-nav-link-hover-color);
+        color: var(--tiki-admin-top-nav-hover-color);
     }
 }
 
@@ -87,10 +87,10 @@ body.tiki-admin {
 }
 
 .tiki .tiki-admin-aside-nav-light .nav-link {
-    color: var(--tiki-admin-aside-nav-link-color);
+    color: var(--tiki-admin-aside-nav-color);
     &:hover {
-        color: var(--tiki-admin-aside-nav-link-hover-color);
-        background: var(--tiki-admin-aside-nav-link-hover-bg);
+        color: var(--tiki-admin-aside-nav-hover-color);
+        background: var(--tiki-admin-aside-nav-hover-bg);
     }
 }
 .tiki .tiki-admin-aside-nav-light .admin-menu-collapser {
@@ -105,10 +105,10 @@ body.tiki-admin {
 }
 
 .tiki .tiki-admin-aside-nav-dark .nav-link {
-    color: var(--tiki-admin-aside-nav-link-color);
+    color: var(--tiki-admin-aside-nav-color);
     &:hover {
-        color: var(--tiki-admin-aside-nav-link-hover-color);
-        background: var(--tiki-admin-aside-nav-link-hover-bg);
+        color: var(--tiki-admin-aside-nav-hover-color);
+        background: var(--tiki-admin-aside-nav-hover-bg);
     }
 }
 // Unsorted

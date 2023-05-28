@@ -2,29 +2,25 @@
 .tiki-top-nav-light {
     --tiki-top-bg: #{rgba($gray-800, 1)}; // #{$light};
     --tiki-top-color: #{rgba($white, .6)}; //#{$navbar-light-color};
-    --tiki-top-link-color: #{rgba($white, .6)}; //#{$navbar-light-color};
-    --tiki-top-link-hover-color: #{$white}; //#{$navbar-light-hover-color};
+    --tiki-top-hover-color: #{$white}; //#{$navbar-light-hover-color};
 }
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: #444; //#{$light};
     --tiki-topbar-color: #{rgba($white, .6)}; //#{$navbar-light-color};
-    --tiki-topbar-link-color: #{rgba($white, .6)}; //#{$navbar-light-color};
-    --tiki-topbar-link-hover-color: #{$white}; //#{$navbar-light-hover-color};
+    --tiki-topbar-hover-color: #{$white}; //#{$navbar-light-hover-color};
 }
 
 .tiki-top-nav-dark {
     --tiki-top-bg: #{rgba($gray-800, 1)};
     --tiki-top-color: #{rgba($white, .6)};
-    --tiki-top-link-color: #{rgba($white, .6)};
-    --tiki-top-link-hover-color: #{$white};
+    --tiki-top-hover-color: #{$white};
 }
 
 .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #444; //#{rgba($gray-800, 1)};
     --tiki-topbar-color: #{rgba($white, .6)};
-    --tiki-topbar-link-color: #{rgba($white, .6)};
-    --tiki-topbar-link-hover-color: #{$white};
+    --tiki-topbar-hover-color: #{$white};
 }
 
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
@@ -34,12 +30,11 @@
 .tiki .tiki-admin-aside-nav-light {
     --tiki-admin-navbar-bg: #{rgba($gray-800, 1)};
     --tiki-admin-top-nav-color: #{rgba($white, .6)};
-    --tiki-admin-top-nav-link-color: #{rgba($white, .6)};
-    --tiki-admin-top-nav-link-hover-color: #{$white};
-    --tiki-admin-top-nav-link-hover-bg: none ;
+    --tiki-admin-top-nav-hover-color: #{$white};
+    --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: #{rgba($gray-800, 1)};
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+    --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-bg: #{$dropdown-bg};
     --tiki-admin-dropdown-color: #{$navbar-light-color};
     --tiki-admin-dropdown-hover-color: #{$dropdown-link-hover-color};
@@ -53,12 +48,12 @@
 // Dark navbar minus top nav
 .tiki .tiki-admin-top-nav-dark,
 .tiki .tiki-admin-aside-nav-dark {
-    --tiki-admin-top-nav-link-color:#{rgba($white, .6)};
-    --tiki-admin-top-nav-link-hover-color: #{$white};
-    --tiki-admin-top-nav-link-hover-bg: none;
+    --tiki-admin-top-nav-color:#{rgba($white, .6)};
+    --tiki-admin-top-nav-hover-color: #{$white};
+    --tiki-admin-top-nav-hover-bg: none;
     --tiki-admin-aside-nav-bg: #{rgba($gray-800, 1)};
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+    --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-color: #{$dropdown-dark-color};
     --tiki-admin-dropdown-bg: #{$dropdown-dark-bg};
     --tiki-admin-dropdown-hover-color: #{$dropdown-link-hover-color};

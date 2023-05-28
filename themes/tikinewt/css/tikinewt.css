@@ -9891,35 +9891,31 @@ textarea.form-control-lg {
 .tiki-top-nav-light {
   --tiki-top-bg: #F3F6F9;
   --tiki-top-color: rgba(0, 0, 0, 0.5);
-  --tiki-top-link-color: rgba(0, 0, 0, 0.5);
-  --tiki-top-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #F3F6F9;
   --tiki-topbar-color: rgba(0, 0, 0, 0.5);
-  --tiki-topbar-link-color: rgba(0, 0, 0, 0.5);
-  --tiki-topbar-link-hover-color: #42515f;
+  --tiki-topbar-hover-color: #42515f;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: #c7d0d9;
   --tiki-top-color: #2d3741;
-  --tiki-top-link-color: #2d3741;
-  --tiki-top-link-hover-color: #42515f;
+  --tiki-top-hover-color: #42515f;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #c7d0d9;
   --tiki-topbar-color: #2d3741;
-  --tiki-topbar-link-color: #2d3741;
-  --tiki-topbar-link-hover-color: #42515f;
+  --tiki-topbar-hover-color: #42515f;
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.5);
-  --tiki-admin-top-nav-link-color: rgba(0, 0, 0, 0.5);
-  --tiki-admin-top-nav-link-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.5);
+  --tiki-admin-top-nav-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: #F3F6F9;
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #fff;
   --tiki-admin-dropdown-color: rgba(0, 0, 0, 0.5);
   --tiki-admin-dropdown-hover-color: rgba(0, 0, 0, 0.7);
@@ -9929,11 +9925,11 @@ textarea.form-control-lg {
   --tiki-admin-top-nav-bg: #F3F6F9;
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
-  --tiki-admin-top-nav-link-color: #2d3741;
-  --tiki-admin-top-nav-link-hover-color: #42515f;
+  --tiki-admin-top-nav-color: #2d3741;
+  --tiki-admin-top-nav-hover-color: #42515f;
   --tiki-admin-aside-nav-bg: #c7d0d9;
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-color: #2d3741;
   --tiki-admin-dropdown-bg: #fff;
   --tiki-admin-dropdown-hover-color: #1e2125;
@@ -10810,8 +10806,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-light a:not(.dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-light {
   background: var(--tiki-topbar-bg) !important;
@@ -10824,8 +10820,8 @@ blockquote {
   color: var(--tiki-topbar-color);
 }
 .tiki .tiki-topbar-nav-light a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 .tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
@@ -10837,8 +10833,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-dark {
   background: var(--tiki-topbar-bg) !important;
@@ -10851,8 +10847,8 @@ blockquote {
   color: var(--tiki-topbar-link-color);
 }
 .tiki .tiki-topbar-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 header.navbar.fixed-top {
   border-top-width: var(--tiki-fixed-top-border-top-width);

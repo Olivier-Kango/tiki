@@ -205,32 +205,28 @@ $bg-dark-info: #00DAE6;
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki-top-nav-light {
     --tiki-top-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
-    --tiki-top-color: #{$navbar-light-color};
-    --tiki-top-link-color: #{$navbar-light-link-color};
-    --tiki-top-link-hover-color: #{$navbar-light-link-hover-color};
+    --tiki-top-color: #{$navbar-light-link-color};
+    --tiki-top-hover-color: #{$navbar-light-link-hover-color};
     --tiki-top-border: solid #000;
 }
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: #{$topbar-light-bg};
     --tiki-topbar-color: #fff;
-    --tiki-topbar-link-color: #fff;
-    --tiki-topbar-link-hover-color: darken(#fff, 8%);
+    --tiki-topbar-hover-color: darken(#fff, 8%);
 }
 
 .tiki-top-nav-dark {
     --tiki-top-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
-    --tiki-top-color: #{$top-dark-color};
-    --tiki-top-link-color: #{$top-dark-link-color};
-    --tiki-top-link-hover-color: #{$top-link-hover-color};
+    --tiki-top-color: #{$top-dark-link-color};
+    --tiki-top-hover-color: #{$top-link-hover-color};
     --tiki-top-border: solid #000;
 }
 
 .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #{$topbar-dark-bg};
     --tiki-topbar-color: #fff;
-    --tiki-topbar-link-color: #fff;
-    --tiki-topbar-link-hover-color: darken(#fff, 8%);
+    --tiki-topbar-hover-color: darken(#fff, 8%);
 }
 
 .tiki-top-nav-light, .tiki-top-nav-dark {
@@ -253,11 +249,11 @@ header.navbar.fixed-top {
 .tiki .tiki-admin-aside-nav-light {
     --tiki-admin-top-nav-color: #{$navbar-light-color};
     --tiki-admin-top-nav-link-color: #{$navbar-light-link-color};
-    --tiki-admin-top-nav-link-hover-color: #{$navbar-light-link-hover-color};
-    --tiki-admin-top-nav-link-hover-bg: none ;
+    --tiki-admin-top-nav-hover-color: #{$navbar-light-link-hover-color};
+    --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-link-color);
+    --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-bg: #{$dropdown-bg};
     --tiki-admin-dropdown-color: #{$navbar-light-color};
     --tiki-admin-dropdown-hover-color: #{$dropdown-link-hover-color};
@@ -272,11 +268,11 @@ header.navbar.fixed-top {
 .tiki .tiki-admin-top-nav-dark,
 .tiki .tiki-admin-aside-nav-dark {
     --tiki-admin-top-nav-link-color: #{$link-color};
-    --tiki-admin-top-nav-link-hover-color: #{$link-color};
-//    --tiki-admin-top-nav-link-hover-bg: #{$navbar-dark-hover-color};
+    --tiki-admin-top-nav-hover-color: #{$link-color};
+//    --tiki-admin-top-nav-hover-bg: #{$navbar-dark-hover-color};
     --tiki-admin-aside-nav-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%) !important;
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-link-color);
+    --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-color: #{$white};
     --tiki-admin-dropdown-bg: #{$dropdown-dark-bg};
     --tiki-admin-dropdown-hover-color: #{$dropdown-link-hover-color};

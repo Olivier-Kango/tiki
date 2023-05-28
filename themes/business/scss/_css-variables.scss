@@ -4,29 +4,25 @@
 .tiki-top-nav-light {
     --tiki-top-bg: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%); //#{$light};
     --tiki-top-color: #{$navbar-light-color};
-    --tiki-top-link-color: #{$navbar-light-color};
-    --tiki-top-link-hover-color: #{$navbar-light-hover-color};
+    --tiki-top-hover-color: #{$navbar-light-hover-color};
 }
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%); //#{$light};
     --tiki-topbar-color: #{$navbar-light-color};
-    --tiki-topbar-link-color: #{$navbar-light-color};
-    --tiki-topbar-link-hover-color: #1a1a1a; // same as #{$navbar-light-hover-color};
+    --tiki-topbar-hover-color: #1a1a1a; // same as #{$navbar-light-hover-color};
 }
 
 .tiki-top-nav-dark {
     --tiki-top-bg: linear-gradient(to bottom, #1f5daa 0%, #3977c4 2%, #3b7ac7 3%, #3877c6 5%, #3a7cca 7%, #3778c8 9%, #3674c7 19%, #2c6abf 43%, #1c5cb3 69%, #1454ac 93%, #1455a9 97%, #1a57a8 98%, #346dba 100%); //#{$navbar-dark-bg};
     --tiki-top-color: #{$navbar-dark-color};
-    --tiki-top-link-color: #{$navbar-dark-color};
-    --tiki-top-link-hover-color: #{$navbar-dark-hover-color};
+    --tiki-top-hover-color: #{$navbar-dark-hover-color};
 }
 
 .tiki-topbar-nav-dark {
     --tiki-topbar-bg: linear-gradient(to bottom, #1f5daa 0%, #3977c4 2%, #3b7ac7 3%, #3877c6 5%, #3a7cca 7%, #3778c8 9%, #3674c7 19%, #2c6abf 43%, #1c5cb3 69%, #1454ac 93%, #1455a9 97%, #1a57a8 98%, #346dba 100%);
     --tiki-topbar-color: #{$navbar-dark-color};
-    --tiki-topbar-link-color: #{$navbar-dark-color};
-    --tiki-topbar-link-hover-color: #{$navbar-dark-hover-color};
+    --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
 }
 
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
@@ -35,13 +31,13 @@
 .tiki .tiki-admin-top-nav-light,
 .tiki .tiki-admin-aside-nav-light {
     --tiki-admin-navbar-bg: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%);
+    --tiki-admin-top-nav-color: ; // --wastiki-top-color
     --tiki-admin-top-nav-color: ; // --tiki-top-color
-    --tiki-admin-top-nav-link-color: ; // --tiki-top-link-color
-    --tiki-admin-top-nav-link-hover-color: ; // --tiki-topbar-link-hover-color
-    --tiki-admin-top-nav-link-hover-bg: none ;
+    --tiki-admin-top-nav-hover-color: ; // --tiki-topbar-hover-color
+    --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: linear-gradient(to bottom, #e8e8e8 0%, #f2f2f2 50%, #f2f2f2 100%);
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+    --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-bg: #{$dropdown-bg};
     --tiki-admin-dropdown-color: #{$navbar-light-color};
     --tiki-admin-dropdown-hover-color: #{$navbar-light-hover-color};
@@ -55,12 +51,12 @@
 // Dark navbar minus top nav
 .tiki .tiki-admin-top-nav-dark,
 .tiki .tiki-admin-aside-nav-dark {
-    --tiki-admin-top-nav-link-color: #{$white};
-    --tiki-admin-top-nav-link-hover-color: #{$light};
-    --tiki-admin-top-nav-link-hover-bg: none;
+    --tiki-admin-top-nav-color: #{$white};
+    --tiki-admin-top-nav-hover-color: #{$light};
+    --tiki-admin-top-nav-hover-bg: none;
     --tiki-admin-aside-nav-bg: linear-gradient(to bottom, #1f5daa 0%, #3977c4 2%, #3b7ac7 3%, #3877c6 5%, #3a7cca 7%, #3778c8 9%, #3674c7 19%, #2c6abf 43%, #1c5cb3 69%, #1454ac 93%, #1455a9 97%, #1a57a8 98%, #346dba 100%);
-    --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-    --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+    --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-color: #{$navbar-dark-color};
     --tiki-admin-dropdown-bg: #{$dropdown-dark-bg};
     --tiki-admin-dropdown-hover-color: #{$white};

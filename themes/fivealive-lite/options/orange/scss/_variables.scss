@@ -203,32 +203,28 @@ $btn-link-disabled-color:     $gray-600 !default;
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki .tiki-top-nav-light {
     --tiki-top-bg: #f7b512;
-    --tiki-top-color: #3C3106;
     --tiki-top-link-color: #3C3106;
-    --tiki-top-link-hover-color: #3C3106FF;
+    --tiki-top-hover-color: #3C3106FF;
     --tiki-top-border: solid #000;
 }
 
 .tiki .tiki-topbar-nav-light {
     --tiki-topbar-bg: #ea8a0b;
-    --tiki-topbar-color: #000;
     --tiki-topbar-link-color: #000;
-    --tiki-topbar-link-hover-color: #3C3106FF;
+    --tiki-topbar-hover-color: #3C3106FF;
 }
 
 .tiki .tiki-top-nav-dark {
     --tiki-top-bg: #f7b512;
-    --tiki-top-color: #3C3106;
     --tiki-top-link-color: #3C3106;
-    --tiki-top-link-hover-color: #3C3106FF;
+    --tiki-top-hover-color: #3C3106FF;
     --tiki-top-border: solid #000;
 }
 
 .tiki .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #ea8a0b;
-    --tiki-topbar-color: #000;
     --tiki-topbar-link-color: #000;
-    --tiki-topbar-link-hover-color: #3C3106FF;
+    --tiki-topbar-hover-color: #3C3106FF;
 }
 
 .tiki-nav-top-light, .tiki-nav-top-dark {

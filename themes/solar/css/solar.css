@@ -9854,30 +9854,26 @@ header.navbar.fixed-top {
 }
 .tiki-top-nav-light {
   --tiki-top-bg: rgb(255, 255, 255);
-  --tiki-top-color: rgba(0, 0, 0, 0.9);
-  --tiki-top-link-color: rgba(0, 0, 0, 0.55);
-  --tiki-top-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-color: rgba(0, 0, 0, 0.55);
+  --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-top-border: solid #333;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgb(255, 255, 255);
-  --tiki-topbar-color: rgba(0, 0, 0, 0.9);
-  --tiki-topbar-link-color: rgba(0, 0, 0, 0.55);
-  --tiki-topbar-link-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-topbar-border: solid #333;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: rgba(7, 54, 66, 1);
   --tiki-top-color: #fff;
-  --tiki-top-link-color: #fff;
-  --tiki-top-link-hover-color: #fff;
+  --tiki-top-hover-color: #fff;
   --tiki-top-border: solid rgb(85, 85, 85);
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgba(7, 54, 66, 1);
   --tiki-topbar-color: #fff;
-  --tiki-topbar-link-color: #fff;
-  --tiki-topbar-link-hover-color: #fff;
+  --tiki-topbar-hover-color: #fff;
   --tiki-topbar-border: solid rgb(85, 85, 85);
 }
 .tiki-top-nav-light, .tiki-top-nav-dark {
@@ -9885,13 +9881,12 @@ header.navbar.fixed-top {
   --tiki-topbar-border-width: 2px;
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
-  --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.9);
-  --tiki-admin-top-nav-link-color: rgba(0, 0, 0, 0.55);
-  --tiki-admin-top-nav-link-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.55);
+  --tiki-admin-top-nav-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: #fdf6e3;
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #073642;
   --tiki-admin-dropdown-color: rgba(0, 0, 0, 0.9);
   --tiki-admin-dropdown-hover-color: rgba(255, 255, 255, 0.75);
@@ -9901,11 +9896,11 @@ header.navbar.fixed-top {
   --tiki-admin-top-nav-bg: #fdf6e3;
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
-  --tiki-admin-top-nav-link-color: #fff;
-  --tiki-admin-top-nav-link-hover-color: #fff;
+  --tiki-admin-top-nav-color: #fff;
+  --tiki-admin-top-nav-hover-color: #fff;
   --tiki-admin-aside-nav-bg: rgba(7, 54, 66, 1);
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-color: #2aa198;
   --tiki-admin-dropdown-bg: #073642;
   --tiki-admin-dropdown-hover-color: rgba(255, 255, 255, 0.75);
@@ -10794,8 +10789,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-light a:not(.dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-light {
   background: var(--tiki-topbar-bg) !important;
@@ -10808,8 +10803,8 @@ blockquote {
   color: var(--tiki-topbar-color);
 }
 .tiki .tiki-topbar-nav-light a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 .tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
@@ -10821,8 +10816,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-dark {
   background: var(--tiki-topbar-bg) !important;
@@ -10835,8 +10830,8 @@ blockquote {
   color: var(--tiki-topbar-link-color);
 }
 .tiki .tiki-topbar-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 header.navbar.fixed-top {
   border-top-width: var(--tiki-fixed-top-border-top-width);

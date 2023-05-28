@@ -30,42 +30,37 @@ header.navbar.fixed-top {
 }
 .tiki-top-nav-light {
   --tiki-top-bg: #ffffff;
-  --tiki-top-color: #6B7785;
-  --tiki-top-link-color: #343a40;
-  --tiki-top-link-hover-color: #343a40;
+  --tiki-top-color: #343a40;
+  --tiki-top-hover-color: #343a40;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #ffffff;
-  --tiki-topbar-color: #6B7785;
-  --tiki-topbar-link-color: #343a40;
-  --tiki-topbar-link-hover-color: #343a40;
+  --tiki-topbar-color: #343a40;
+  --tiki-topbar-hover-color: #343a40;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: #222;
-  --tiki-top-color: #fff;
-  --tiki-top-link-color: #ffffff;
-  --tiki-top-link-hover-color: #dee2e6;
-  --tiki-top-link-hover-bg: #111;
-  --tiki-top-link-active-bg: #111;
+  --tiki-top-color: #ffffff;
+  --tiki-top-hover-color: #dee2e6;
+  --tiki-top-hover-bg: #111;
+  --tiki-top-active-bg: #111;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #222;
-  --tiki-topbar-color: #fff;
-  --tiki-topbar-link-color: #ffffff;
-  --tiki-topbar-link-hover-color: #dee2e6;
-  --tiki-topbar-link-hover-bg: #111;
-  --tiki-topbar-link-active-bg: #111;
+  --tiki-topbar-color: #ffffff;
+  --tiki-topbar-hover-color: #dee2e6;
+  --tiki-topbar-hover-bg: #111;
+  --tiki-topbar-active-bg: #111;
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-top-nav-bg: #ffffff;
   --tiki-admin-navbar-bg: #ffffff;
-  --tiki-admin-top-nav-color: #6B7785;
-  --tiki-admin-top-nav-link-color: #343a40;
-  --tiki-admin-top-nav-link-hover-color: #343a40;
-  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-top-nav-color: #343a40;
+  --tiki-admin-top-nav-hover-color: #343a40;
+  --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: #ffffff;
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #fff;
   --tiki-admin-dropdown-color: #6C727F;
   --tiki-admin-dropdown-hover-color: #343a40;
@@ -75,12 +70,12 @@ header.navbar.fixed-top {
   --tiki-admin-top-nav-bg: #ffffff;
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
-  --tiki-admin-top-nav-link-color: #fff;
-  --tiki-admin-top-nav-link-hover-color: #dee2e6;
-  --tiki-admin-top-nav-link-hover-bg: #111;
+  --tiki-admin-top-nav-color: #fff;
+  --tiki-admin-top-nav-hover-color: #dee2e6;
+  --tiki-admin-top-nav-hover-bg: #111;
   --tiki-admin-aside-nav-bg: #222;
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-color: #ffffff;
   --tiki-admin-dropdown-bg: #343a40;
   --tiki-admin-dropdown-hover-color: #dee2e6;
@@ -11047,8 +11042,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-light a:not(.dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-light {
   background: var(--tiki-topbar-bg) !important;
@@ -11061,8 +11056,8 @@ blockquote {
   color: var(--tiki-topbar-color);
 }
 .tiki .tiki-topbar-nav-light a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 .tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
@@ -11074,8 +11069,8 @@ blockquote {
   color: var(--tiki-top-link-color);
 }
 .tiki .tiki-top-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
-  color: var(--tiki-top-link-hover-color);
-  background: var(--tiki-top-link-hover-bg);
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-dark {
   background: var(--tiki-topbar-bg) !important;
@@ -11088,8 +11083,8 @@ blockquote {
   color: var(--tiki-topbar-link-color);
 }
 .tiki .tiki-topbar-nav-dark a:not(.dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
-  color: var(--tiki-topbar-link-hover-color);
-  background: var(--tiki-topbar-link-hover-bg);
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
 }
 header.navbar.fixed-top {
   border-top-width: var(--tiki-fixed-top-border-top-width);
