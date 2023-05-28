@@ -492,7 +492,7 @@ class Services_Tracker_Controller
                 $param['parentkey'] = isset($param['parentkey']) ? $param['parentkey'] : null;
                 $param['sort_order'] = isset($param['sort_order']) ? $param['sort_order'] : null;
                 $param['format'] = isset($param['format']) ? $param['format'] : null;
-                if ($param['selector_type'] === 'trackerfield' && $field['options_map']['mirrorField']) {
+                if ($param['selector_type'] === 'trackerfield' && isset($field['options_map']['mirrorField'])) {
                     $param['searchfilter'] = ['object_id' => 'NOT ' . $fieldId];
                 }
             } else {
