@@ -59,7 +59,7 @@ class Tiki_Profile_InstallHandler_BlogPost extends Tiki_Profile_InstallHandler
             }
         }
 
-        $entryId = $bloglib->blog_post($data['blog'], $data['content'], $data['excerpt'], $data['user'], $data['title'], '', $data['private']);
+        $entryId = $bloglib->blog_post($data['blog'], $data['content'], $data['excerpt'] ?? '', $data['user'], $data['title'], '', $data['private']);
 
         if ($prefs['geo_locate_blogpost'] == 'y' && ! empty($data['geolocation'])) {
             TikiLib::lib('geo')->set_coordinates('blog post', $entryId, $data['geolocation']);
