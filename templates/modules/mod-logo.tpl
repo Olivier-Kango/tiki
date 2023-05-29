@@ -10,10 +10,10 @@
                     <div class="{$module_params.class_titles|escape}"><div class="d-flex">
                 {/if}
                 {if !empty($module_params.sitetitle)}
-                    <div class="sitetitle me-5" style="color: var(--tiki-sitetitle-color)">{tr}{$module_params.sitetitle|escape}{/tr}</div>
+                    <div class="sitetitle me-5" style="color: var(--tiki-site-title-color)">{tr}{$module_params.sitetitle|escape}{/tr}</div>
                 {/if}
                 {if !empty($module_params.sitesubtitle)}
-                    <div class="sitesubtitle" style="color: var(--tiki-sitesubtitle-color)">{tr}{$module_params.sitesubtitle|escape}{/tr}</div>
+                    <div class="sitesubtitle" style="color: var(--tiki-site-subtitle-color)">{tr}{$module_params.sitesubtitle|escape}{/tr}</div>
                 {/if}
                 {if $prefs.site_layout neq 'social'}</div></div>{/if}
             {/if}

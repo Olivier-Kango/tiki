@@ -197,7 +197,7 @@ $postbody-title-card-title-color: #fff;
 
 .tiki-top-nav-dark {
     --tiki-top-bg: linear-gradient(90deg, rgba(224, 59, 44, 1) 0%, rgba(169, 25, 29, 1) 49%, rgba(195, 53, 50, 1) 100%);
-    --tiki-top-link-color: #{$navbar-dark-link-color}; // #{$top-dark-color};
+    --tiki-top-color: #{$navbar-dark-link-color}; // #{$top-dark-color};
     --tiki-top-hover-color: #{$navbar-dark-link-hover-color};
     --tiki-top-border: solid #152304;
     --tiki-top-border-color: #152304;

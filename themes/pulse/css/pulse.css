@@ -10544,7 +10544,7 @@ blockquote {
   box-shadow: var(--tiki-top-box-shadow);
 }
 .tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-light .btn.btn-link {
-  color: var(--tiki-top-link-color);
+  color: var(--tiki-top-color);
 }
 .tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
   color: var(--tiki-top-hover-color);

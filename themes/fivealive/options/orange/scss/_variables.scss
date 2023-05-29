@@ -175,7 +175,7 @@ $postbody-title-card-title-color: #fff;
 
 .tiki-top-nav-dark {
     --tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
-    --tiki-top-link-color: #{$top-dark-link-color};
+    --tiki-top-color: #{$top-dark-link-color};
     --tiki-top-hover-color: #{$top-link-hover-color};
     --tiki-top-border: solid #000;
 }

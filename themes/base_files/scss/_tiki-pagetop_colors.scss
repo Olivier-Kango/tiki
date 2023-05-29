@@ -21,7 +21,7 @@
     // color: var(--tiki-top-color); // The idea for this was text, etc. that isn't a link, but probably anything in these nav zones that isn't a link will have its own CSS rules already.
     a:not(.navbar-brand,.dropdown-item),
     .btn.btn-link {
-        color: var(--tiki-top-link-color);
+        color: var(--tiki-top-color);
         &:hover {
             color: var(--tiki-top-hover-color);
             background: var(--tiki-top-hover-bg);

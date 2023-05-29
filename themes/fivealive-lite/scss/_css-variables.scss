@@ -2,7 +2,7 @@
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki-top-nav-light {
     --tiki-top-bg: #28AAE1FF; // #{$header_outer-bg};
-    --tiki-top-link-color: #{$navbar-dark-color}; // #{$header-color};
+    --tiki-top-color: #{$navbar-dark-color}; // #{$header-color};
     --tiki-top-hover-color: #{$navbar-dark-hover-color};
     --tiki-top-border-color: #000;
 }
@@ -14,7 +14,7 @@
 
 .tiki-top-nav-dark {
     --tiki-top-bg: #{$header_outer-bg};
-    --tiki-top-link-color: #{$navbar-dark-color}; // #{$header-color};
+    --tiki-top-color: #{$navbar-dark-color}; // #{$header-color};
     --tiki-top-hover-color: #{$navbar-dark-hover-color};
     --tiki-top-border-color: #000;
 }

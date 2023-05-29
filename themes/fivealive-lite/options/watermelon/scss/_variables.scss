@@ -196,7 +196,7 @@ $btn-focus-width:             $input-btn-focus-width !default;
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki-top-nav-light {
     --tiki-top-bg: #{$top-light-bg};
-    --tiki-top-link-color: #{$top-link-color};
+    --tiki-top-color: #{$top-link-color};
     --tiki-top-hover-color: #{$top-link-hover-color};
     --tiki-top-border: solid #000;
 }
@@ -209,7 +209,7 @@ $btn-focus-width:             $input-btn-focus-width !default;
 
 .tiki-top-nav-dark {
     --tiki-top-bg: #{$top-dark-bg};
-    --tiki-top-link-color: #{$navbar-dark-link-color};
+    --tiki-top-color: #{$navbar-dark-link-color};
     --tiki-top-hover-color: #{$navbar-dark-link-hover-color};
     --tiki-top-border: solid #000;
 }

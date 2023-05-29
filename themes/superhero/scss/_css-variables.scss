@@ -5,7 +5,7 @@
 
 .tiki-top-nav-light {
     --tiki-top-bg: rgba(171, 182, 184, 1);
-    --tiki-top-link-color: rgba(0, 0, 0, 0.55); // rgba(0, 0, 0, 0.9);
+    --tiki-top-color: rgba(0, 0, 0, 0.55); // rgba(0, 0, 0, 0.9);
     --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -17,7 +17,7 @@
 
 .tiki-top-nav-dark {
     --tiki-top-bg: rgb(32, 55, 76);
-    --tiki-top-link-color: rgba(255, 255, 255, 0.75); //  #fff;
+    --tiki-top-color: rgba(255, 255, 255, 0.75); //  #fff;
     --tiki-top-hover-color: #fff;
 }
 

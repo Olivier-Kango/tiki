@@ -12,7 +12,7 @@
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: linear-gradient(90deg, rgba(224, 59, 44, 1) 0%, rgba(169, 25, 29, 1) 49%, rgba(195, 53, 50, 1) 100%);
-  --tiki-top-link-color: #f9f9f9;
+  --tiki-top-color: #f9f9f9;
   --tiki-top-hover-color: #f2f2f2;
   --tiki-top-border: solid #152304;
   --tiki-top-border-color: #152304;

@@ -12,7 +12,7 @@
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
-  --tiki-top-link-color: #f9f9f9;
+  --tiki-top-color: #f9f9f9;
   --tiki-top-hover-color: #f2f2f2;
   --tiki-top-border: solid #000;
 }
@@ -1162,7 +1162,7 @@ footer#footer .footer_liner .card-header {
   box-shadow: var(--tiki-top-box-shadow);
 }
 .tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-light .btn.btn-link {
-  color: var(--tiki-top-link-color);
+  color: var(--tiki-top-color);
 }
 .tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
   color: var(--tiki-top-hover-color);

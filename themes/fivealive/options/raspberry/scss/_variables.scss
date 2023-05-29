@@ -188,7 +188,7 @@ $btn-focus-width:             $input-btn-focus-width;
 
 .tiki-top-nav-dark {
     --tiki-top-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
-    --tiki-top-link-color: #{$navbar-dark-link-color}; // #{$top-dark-color};
+    --tiki-top-color: #{$navbar-dark-link-color}; // #{$top-dark-color};
     --tiki-top-hover-color: #{$navbar-dark-link-hover-color};
     --tiki-top-border: solid #000;
 }

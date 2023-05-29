@@ -1,7 +1,7 @@
 //------- Tiki CSS variables
 .tiki-top-nav-light {
     --tiki-top-bg: #{$body-bg};
-    --tiki-top-link-color: #{$navbar-light-color};
+    --tiki-top-color: #{$navbar-light-color};
     --tiki-top--link-hover-color: #{$navbar-light-hover-color};
     --tiki-top-active-color: #{$navbar-light-hover-color};
     --tiki-top-hover-bg: transparent;
@@ -23,7 +23,7 @@
 
 .tiki-top-nav-dark {
     --tiki-top-bg: #{$dark};
-    --tiki-top-link-color: #{$navbar-dark-color};
+    --tiki-top-color: #{$navbar-dark-color};
     --tiki-top-hover-color: #{$white};
     --tiki-top-hover-bg: transparent;
     --tiki-top-border: none;

@@ -9902,7 +9902,7 @@ label, .radio label, .checkbox label, .help-block {
 }
 .tiki-top-nav-light {
   --tiki-top-bg: rgba(171, 182, 184, 1);
-  --tiki-top-link-color: rgba(0, 0, 0, 0.55);
+  --tiki-top-color: rgba(0, 0, 0, 0.55);
   --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
 }
 .tiki-topbar-nav-light {
@@ -9912,7 +9912,7 @@ label, .radio label, .checkbox label, .help-block {
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: rgb(32, 55, 76);
-  --tiki-top-link-color: rgba(255, 255, 255, 0.75);
+  --tiki-top-color: rgba(255, 255, 255, 0.75);
   --tiki-top-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
@@ -10828,7 +10828,7 @@ blockquote {
   box-shadow: var(--tiki-top-box-shadow);
 }
 .tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-light .btn.btn-link {
-  color: var(--tiki-top-link-color);
+  color: var(--tiki-top-color);
 }
 .tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
   color: var(--tiki-top-hover-color);

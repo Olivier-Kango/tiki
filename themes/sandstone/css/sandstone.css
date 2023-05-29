@@ -9887,7 +9887,7 @@ header.navbar.fixed-top {
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: rgba(50, 93, 136, 1);
-  --tiki-top-link-color: rgba(255, 255, 255, 0.8);
+  --tiki-top-color: rgba(255, 255, 255, 0.8);
   --tiki-top-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
@@ -10813,7 +10813,7 @@ blockquote {
   box-shadow: var(--tiki-top-box-shadow);
 }
 .tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-light .btn.btn-link {
-  color: var(--tiki-top-link-color);
+  color: var(--tiki-top-color);
 }
 .tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
   color: var(--tiki-top-hover-color);
