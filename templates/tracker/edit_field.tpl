@@ -76,7 +76,11 @@
                     {elseif $def.separator}
                         <input type="text" name="option~{$param|escape}" value="{$def.separator|implode:$options[$param]|escape}" class="form-control">
                     {elseif $def.count eq '*'}
-                        <input type="text" name="option~{$param|escape}" value="{','|implode:$options[$param]|escape}" class="form-control">
+                        {if is_array($options[$param])}
+                            <input type="text" name="option~{$param|escape}" value="{','|implode:$options[$param]|escape}" class="form-control">
+                        {else}
+                            <input type="text" name="option~{$param|escape}" value="{$options[$param]|escape}" class="form-control">
+                        {/if}
                     {elseif $def.type eq 'textarea'}
                         <textarea name="option~{$param|escape}" class="form-control">{$options[$param]|escape}</textarea>
                     {else}
