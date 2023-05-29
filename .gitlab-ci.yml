@@ -280,7 +280,7 @@ composer-could-update-lock:
   allow_failure: true
 
 #This tests if composer WOULD update the current composer.lock.  This should only be important at release
-composer-lock:
+.composer-lock:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: tiki-check
   variables:
