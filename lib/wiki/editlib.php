@@ -1563,6 +1563,7 @@ class EditLib
                 $converter->getEnvironment()->addConverter(new DefinitionListConverter());
             }
             $converted = $converter->convert($html);
+            $converted = preg_replace('/\\\\([\[\]])/', '$1', $converted);
 
             // bring back escaped wiki plugin code
             $pattern = "/^(\s*{[^}]*)\\\\([*_\\[\\]\\\\][^}]*}\s*)$/m";
@@ -1611,6 +1612,7 @@ class EditLib
 
         $converted = $wikiParserParsable->restorePlugins($converted);
         $converted = preg_replace('/&amp;(#\d{6}|rarr|excl|quest);/', "&$1;", $converted);
+        $converted = str_replace('[[[[', "[[", $converted);
 
         if ($target_syntax == 'markdown') {
             $converted = preg_replace_callback('/\{tikiheading level=(.*) options=(.*)\}(.*?)\{\/tikiheading\}/', function ($matches) {
