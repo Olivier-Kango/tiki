@@ -168,10 +168,11 @@ function push_create_merge_request($merge_title, $merge_desciption, $target_bran
  */
 function get_logs_contrib($localPath, $minRevision, $maxRevision = 'HEAD')
 {
-    if (empty($minRevision) || empty($maxRevision)) {
+    $step = 20000;
+    if (empty($maxRevision)) {
         return false;
     }
-    $logs = `git --no-pager log --pretty=format:"%H;%x09;%an;%x09;%ad;%x09;%s" $minRevision..$maxRevision`;
+    $logs = `git --no-pager log -n $step --pretty=format:"%H;%x09;%an;%x09;%ad;%x09;%s" $maxRevision`;
     return $logs;
 }
 
@@ -194,13 +195,22 @@ function get_logs($localPath, $minRevision, $maxRevision = 'HEAD')
  */
 function get_contributors($path, &$contributors, $minRevision, $maxRevision, $step = 20000)
 {
-    if (! $minRevision || $minRevision == 1) {
-        $minRevision = `git --no-pager log -n $step --pretty=format:"%H"  $maxRevision | tail -n 1`;
-    }
+    $logsHistory = [];
 
-    echo "\rRetrieving logs from revision $minRevision to $maxRevision ...\t\t\t";
-    $logs = get_logs_contrib($path, $minRevision, $maxRevision);
-    foreach (preg_split("/((\r?\n)|(\r\n?))/", $logs) as $line) {
+    do {
+        if (! $minRevision || $minRevision == 1) {
+            $minRevision = `git --no-pager log -n $step --pretty=format:"%H" $maxRevision | tail -n 1`;
+        }
+
+        echo "\rRetrieving logs from revision $minRevision to $maxRevision ...\t\t\t";
+        $logs = get_logs_contrib($path, $minRevision, $maxRevision);
+        $logs = preg_split("/((\r?\n)|(\r\n?))/", $logs);
+        $logsHistory = array_merge($logsHistory, $logs);
+        $maxRevision = $minRevision;
+        $minRevision = 1;
+    } while ($step <= count($logs));
+
+    foreach ($logsHistory as $line) {
         $data = explode(';', $line);
         $author = $data[2];
 

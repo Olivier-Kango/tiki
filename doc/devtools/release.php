@@ -1334,7 +1334,7 @@ function update_copyright_file($newVersion)
     if (! is_readable(COPYRIGHTS) || ! is_writable(COPYRIGHTS)) {
         error('The copyright file "' . COPYRIGHTS . '" is not readable or writable.');
     }
-    global $nbCommiters, $options;
+    global $nbCommiters, $nbMembersSf, $options;
     $nbCommiters = 0;
     $contributors = [];
 
@@ -1367,7 +1367,8 @@ http://tiki.org/Social+Contract
 
 List of members of the Community
 As of $now, the community has:
-  * $totalContributors members on SourceForge.net,
+  * $totalContributors members,
+  * $nbMembersSf members on SourceForge.net,
   * $nbCommiters of those people who made at least one code commit
 
 This list is automatically generated and alphabetically sorted
@@ -1457,11 +1458,12 @@ function parse_copyrights()
  */
 function get_contributors_data($path, &$contributors, $minRevision, $maxRevision, $step = 20000)
 {
-    global $nbCommiters;
+    global $nbCommiters, $nbMembersSf;
     if (empty($contributors)) {
         get_contributors_sf_data($contributors);
         info(">> Retrieved members list from Sourceforge.");
     }
+    $nbMembersSf = count($contributors);
 
     get_contributors($path, $contributors, $minRevision, $maxRevision, $step);
     $nbCommiters = count(array_filter($contributors, function ($contributor) {
