@@ -1,46 +1,13 @@
 // This file can be imported by themes to solve the problem of specifying different colors for the top zone and topbar zone,
 // since this isn't possible with the standard Bootstrap navbar-dark and navbar-light variables.
-// Use of this file assumes one color set for the top zone and its parents, and one color set for the topbar zone and its parents.
+// Use of this file assumes one color set for the top zone and its parents, and one color set for the topbar zone and its parents,
+// although these can be the same.
 // Admin navbar and anchors (when UAB is off) also can get color information here for themes that include this file.
 // Exceptions can be made as needed with specific CSS.
-// Tiki CSS variables aren't added yet for borders and box-shadows so these should be added with a SCSS/CSS rule for top parents like .topbar-wrapper.
-//
-// Themes using this file should define these variables (example is from Cerulean theme _variabls.scss):
-//:root {
-//    --tiki-top-light-bg:  linear-gradient(#50b3eb, #2fa4e7 60%, #2c9ad9);
-//    --tiki-top-light-color: #{$navbar-light-color};
-//    --tiki-top-light-link-color: #{$navbar-light-color};
-//    --tiki-top-light-link-hover-color: #{$navbar-light-link-hover-color};
-//    --tiki-top-light-border: ;
-//    --tiki-top-light-box-shadow: ;
-//
-//
-//    --tiki-topbar-light-bg: linear-gradient(#50b3eb, #2fa4e7 60%, #2c9ad9);
-//    --tiki-topbar-light-color: #{$navbar-light-color};
-//    --tiki-topbar-light-link-color: #{$navbar-light-link-color};
-//    --tiki-topbar-light-link-hover-color: #{$navbar-light-link-hover-color};
-//    --tiki-topbar-light-border: ;
-//    --tiki-topbar-light-box-shadow: ;
-//
-//    --tiki-top-dark-bg:  linear-gradient(#545a5f, #343a40 60%, #31373c);
-//    --tiki-top-dark-color: #{$navbar-dark-color};
-//    --tiki-top-dark-link-color: #{$navbar-dark-link-color};
-//    --tiki-top-dark-link-hover-color: #{$navbar-dark-link-hover-color};
-//    --tiki-top-dark-border: ;
-//    --tiki-top-dark-box-shadow: ;
-//
-//    --tiki-topbar-dark-bg: linear-gradient(#545a5f, #343a40 60%, #31373c);
-//    --tiki-topbar-dark-color: #{$navbar-dark-color};
-//    --tiki-topbar-dark-link-color: #{$navbar-dark-link-color};
-//    --tiki-topbar-dark-link-hover-color: #{$navbar-dark-link-hover-color};
-//    --tiki-topbar-dark-border: ;
-//    --tiki-topbar-dark-box-shadow: ;
-//}
 
-// To combine specifications for background colors and background images into one file, and running into problems testing with Amelia, I believe now that, in the case of
-// background colors, only the top-most ancestor should have the color specified, just like with bg-images. Otherwise, the bg image is applied to the top-most parent, but it's overlaid
-// by the colored background that it contains.
+// Themes using this file should define the variables used in this file as described on https://themes.tiki.org/CSS Variables in Tiki
 
+// Formerly used selectors that were replaced by one selector for each module zone and color choice:
 // Top module zone and parent divs - Light color
 //.layout_basic .page-header.navbar-light-parent.bg-light-parent,        // Single-container layout -- Parent of the top module zone
 //.layout_classic .header_outer.bg-light-parent,                         // Classic Tiki layout -- Parent of the top module zone
@@ -51,8 +18,8 @@
 .tiki .tiki-top-nav-light
 {
     background: var(--tiki-top-bg)/* !important*/;
-    color: var(--tiki-top-color); // The idea for this was text, etc. that isn't a link, but probably anything in these nav zones that isn't a link will have its own CSS rules already.
-    a:not(.dropdown-item),
+    // color: var(--tiki-top-color); // The idea for this was text, etc. that isn't a link, but probably anything in these nav zones that isn't a link will have its own CSS rules already.
+    a:not(.navbar-brand,.dropdown-item),
     .btn.btn-link {
         color: var(--tiki-top-link-color);
         &:hover {
@@ -60,8 +27,9 @@
             background: var(--tiki-top-hover-bg);
         }
     }
+    border: var(--tiki-top-border); // Style and color, for example, solid black
+    border-width: var(--tiki-top-border-width); // For example, 1px, or 0px 0px 4px 0px
     box-shadow: var(--tiki-top-box-shadow);
-    border-color: var(--tiki-top-border-color);
 }
 
 // Topbar module zone and parent divs - light color
@@ -72,18 +40,18 @@
 .tiki .tiki-topbar-nav-light
 {
     background: var(--tiki-topbar-bg) !important;
-    color: var(--tiki-topbar-color);
-    a:not(.dropdown-item),
+    //color: var(--tiki-topbar-color);
+    a:not(.navbar-brand,.dropdown-item),
     .btn.btn-link,
     a.nav-link {
-        color: var(--tiki-topbar-link-color);
+        color: var(--tiki-topbar-color);
         &:hover {
             color: var(--tiki-topbar-hover-color);
             background: var(--tiki-topbar-hover-bg);
         }
     }
-    border: var(--tiki-topbar-border);
-    border-width: var(--tiki-topbar-border-width);
+    border: var(--tiki-topbar-border); // Style and color, for example, solid black
+    border-width: var(--tiki-topbar-border-width); // For eaxmple, 1px, or 0px 0px 4px 0px
     box-shadow: var(--tiki-topbar-box-shadow);
 }
 
@@ -97,20 +65,19 @@
 .tiki .tiki-top-nav-dark
 {
     background: var(--tiki-top-bg) !important;
-    color: var(--tiki-top-color);
-    a:not(.dropdown-item),
+    // color: var(--tiki-top-color);
+    a:not(.navbar-brand,.dropdown-item),
     .btn.btn-link,
     a.nav-link  {
-        color: var(--tiki-top-link-color);
+        color: var(--tiki-top-color);
         &:hover {
             color: var(--tiki-top-hover-color);
             background: var(--tiki-top-hover-bg);
         }
     }
-//    border: var(--tiki-top-dark-border);
-//    border-width: var(--tiki-top-border-width);
+    border: var(--tiki-top-border);
+    border-width: var(--tiki-top-border-width);
     box-shadow: var(--tiki-top-box-shadow);
-    border-color: var(--tiki-top-border-color);
 }
 
 // Topbar module zone and parent divs - dark color
@@ -121,11 +88,11 @@
 .tiki .tiki-topbar-nav-dark
 {
     background: var(--tiki-topbar-bg) !important;
-    color: var(--tiki-topbar-dark-color);
-    a:not(.dropdown-item),
+    // color: var(--tiki-topbar-dark-color);
+    a:not(.navbar-brand,.dropdown-item),
     .btn.btn-link,
     a.nav-link  {
-        color: var(--tiki-topbar-link-color);
+        color: var(--tiki-topbar-color);
         &:hover {
             color: var(--tiki-topbar-hover-color);
             background: var(--tiki-topbar-hover-bg);
@@ -136,33 +103,8 @@
     box-shadow: var(--tiki-topbar-box-shadow);
 }
 
-// Borders
-// Classic Bootstrap (social) layout fixed-top header border
-header.navbar.fixed-top {
-    border-top-width: var(--tiki-fixed-top-border-top-width);
-    border-right-width: var(--tiki-fixed-top-border-right-width);
-    border-bottom-width: var(--tiki-fixed-top-border-bottom-width);
-    border-left-width: var(--tiki-fixed-top-border-left-width);
-    border-style: solid;
-//    &.bg-light {
-//        border-color: var(--tiki-top-light-border-color);
-//    }
-//    &.bg-dark {
-//        border-color: var(--tiki-top-dark-border-color);
-//    }
-}
-
-// Classic Tiki and Single Container layout top zone border
-.layout_basic .page-header.navbar-light-parent.bg-light-parent,
-.layout_classic .header_outer.bg-light-parent {
-    border: var(--tiki-static-top-light-border);
-}
-.layout_basic .page-header.navbar-dark-parent.bg-dark-parent,
-.layout_classic .header_outer.bg-dark-parent {
-    border: var(--tiki-static-top-dark-border);
-}
-
 // Apply background: transparent to children of uppermost parent to prevent nested gradients
+
 .tiki.layout_basic:not(.tiki-admin) {
     .page-header .top_modules,
     .page-header .top_modules .navbar,
@@ -185,9 +127,6 @@ header.navbar.fixed-top {
         border: none;
     }
 }
-//.layout_social header .top_modules .navbar {
-//    background: transparent !important;
-//}
 
 .layout_social:not(.tiki-admin) {
     header .top_modules,
