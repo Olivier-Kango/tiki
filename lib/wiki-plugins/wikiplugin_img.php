@@ -640,8 +640,6 @@ function wikiplugin_img($data, $params)
     }, $params);
 
     $imgdata = array_merge($imgdata, $params);
-    //var_dump($params);
-    //die;
 
     $srcset = '';
     $sizes = '';
@@ -964,37 +962,7 @@ function wikiplugin_img($data, $params)
                     $fheight = $svgdim[2];
                 }
             }
-            //Convert % and px in height and width
-            $scale = '';
-            if (strpos($imgdata['height'], '%') !== false || strpos($imgdata['width'], '%') !== false) {
-                if (
-                    (strpos($imgdata['height'], '%') !== false && strpos($imgdata['width'], '%') !== false)
-                    && (empty($imgdata['fileId']) || (empty($urlx[0]) && empty($urly[0])))
-                ) {
-                    $imgdata['height'] = floor(rtrim($imgdata['height'], '%') / 100 * $fheight);
-                    $imgdata['width'] = floor(rtrim($imgdata['width'], '%') / 100 * $fwidth);
-                } elseif (strpos($imgdata['height'], '%') !== false) {
-                    if ($imgdata['fileId']) {
-                        $scale = rtrim($imgdata['height'], '%') / 100;
-                        $height = floor($scale * $fheight);
-                    } else {
-                        $imgdata['height'] = floor(rtrim($imgdata['height'], '%') / 100 * $fheight);
-                    }
-                } else {
-                    if ($imgdata['fileId']) {
-                        $scale = rtrim($imgdata['width'], '%') / 100;
-                        $width = floor($scale * $fwidth);
-                    } else {
-                        $imgdata['width'] = floor(rtrim($imgdata['width'], '%') / 100 * $fwidth);
-                    }
-                }
-            } elseif (strpos($imgdata['height'], 'px') !== false || strpos($imgdata['width'], 'px') !== false) {
-                if (strpos($imgdata['height'], 'px') !== false) {
-                    $imgdata['height'] = rtrim($imgdata['height'], 'px');
-                } else {
-                    $imgdata['width'] = rtrim($imgdata['width'], 'px');
-                }
-            }
+
             // Adjust for max setting, keeping aspect ratio
             if (! empty($imgdata['max'])) {
                 if (($fwidth > $imgdata['max']) || ($fheight > $imgdata['max'])) {
@@ -1050,7 +1018,7 @@ function wikiplugin_img($data, $params)
                     $height = $imgdata['height'];
                 }
             // If not otherwise set, use default setting for thumbnail height if thumb is set
-            } elseif ((! empty($imgdata['thumb']) || ! empty($urlthumb))  && empty($scale)) {
+            } elseif ((! empty($imgdata['thumb']) || ! empty($urlthumb))) {
                 if (! empty($imgdata['fileId'])) {
                     $thumbdef = $prefs['fgal_thumb_max_size'];
                 } else {
@@ -1086,9 +1054,7 @@ function wikiplugin_img($data, $params)
                 $srcIsEditable = true;
                 $src .= '&display';
             }
-            if (! empty($scale) && empty($urlscale[0])) {
-                $src .= '&scale=' . $scale;
-            } elseif (
+            if (
                 (! empty($imgdata['max']) && $imgdata['thumb'] != 'download')
                     && (empty($urlthumb) && empty($urlmax[0]) && empty($urlprev))
             ) {
@@ -1097,16 +1063,13 @@ function wikiplugin_img($data, $params)
                 $imgdata_dim .= ' height="' . $height . '"';
             } elseif (! empty($width) || ! empty($height)) {
                 if ((! empty($width) && ! empty($height)) && (empty($urlx[0]) && empty($urly[0]) && empty($urlscale[0]))) {
-                    $src .= '&x=' . $width . '&y=' . $height;
                     $imgdata_dim .= ' width="' . $width . '"';
                     $imgdata_dim .= ' height="' . $height . '"';
                 } elseif (! empty($width) && (empty($urlx[0]) && empty($urlthumb) && empty($urlscale[0]))) {
-                    $src .= '&x=' . $width;
                     $height = $fheight;
                     $imgdata_dim .= ' width="' . $width . '"';
                     $imgdata_dim .= ' height="' . $height . '"';
                 } elseif (! empty($height) && (empty($urly[0]) && empty($urlthumb) && empty($urlscale[0]))) {
-                    $src .= '&y=' . $height;
                     $width = $fwidth;
                     $imgdata_dim .= ' width="' . $width . '"';
                     $imgdata_dim .= ' height="' . $height . '"';
@@ -1322,7 +1285,7 @@ function wikiplugin_img($data, $params)
     }
 
     //src
-    if (! empty($imgdata['src'])) {
+    if (! empty($imgdata['src']) || ! empty($src)) {
         $replimg .= ' src="' . $src . '"';
     }
 
