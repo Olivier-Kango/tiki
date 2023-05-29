@@ -122,7 +122,9 @@ class Tiki_Profile_Object
         $array = [];
         if (is_array($value)) {
             foreach ($value as $v) {
-                $array = array_merge($array, $this->traverseForReferences($v));
+                if (! is_null($v)) {
+                    $array = array_merge($array, $this->traverseForReferences($v));
+                }
             }
         } elseif (preg_match(Tiki_Profile::SHORT_PATTERN, $value, $parts)) {
             $ref = $this->profile->convertReference($parts);
