@@ -235,7 +235,7 @@
                             {/section}
                         </div>
                     {/if}
-                    {if $user_blog_posts|@count > 0}
+                    {if isset($user_blog_posts) && $user_blog_posts|@count > 0}
                         <h3>{tr}Blogs Posts{/tr}</h3>
 
                         <div class="table normal">
