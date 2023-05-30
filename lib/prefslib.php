@@ -1058,14 +1058,17 @@ class PreferencesLib
     private function _getTextareaValue($info, $data)
     {
         $name = $info['preference'];
+        $value = $data[$name] ?? null;
+
+        if (is_null($value)) {
+            return null;
+        }
 
         if (isset($info['filter']) && $filter = TikiFilter::get($info['filter'])) {
             $value = $filter->filter($data[$name]);
-        } else {
-            $value = $data[$name];
         }
-        $value = str_replace("\r", "", $value);
 
+        $value = str_replace("\r", "", $value);
         if (isset($info['unserialize'])) {
             $fnc = $info['unserialize'];
 
