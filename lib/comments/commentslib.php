@@ -1852,7 +1852,7 @@ class Comments extends TikiLib
      * @param string $type
      * @return array
      */
-    public function get_user_forum_comments($user, $max, $type = '')
+    public function get_user_forum_comments($user, $max, $type = '', $offset = -1)
     {
         // get parent title as well, especially useful in flat forum
         $parentinfo = '';
@@ -1869,7 +1869,7 @@ class Comments extends TikiLib
         }
         $query = "select a.`threadId`, a.`object`, a.`title`, a.`parentId`, a.`commentDate` $parentinfo, a.`userName` from `tiki_comments` a $mid ORDER BY a.`commentDate` desc";
 
-        $result = $this->fetchAll($query, [$user], $max);
+        $result = $this->fetchAll($query, [$user], $max, $offset);
         if ($type == 'topics') {
             $ret = Perms::filter(['type' => 'thread'], 'object', $result, ['object' => 'threadId', 'creator' => 'userName'], 'forum_read');
         } elseif ($type == 'replies') {

@@ -1590,15 +1590,26 @@ class WikiLib extends TikiLib
         }
     }
 
-    // get all modified pages for a user (if actionlog is not clean)
-    public function get_user_all_pages($user, $sort_mode)
+    /**
+     * get all modified pages for a user (if actionlog is not clean)
+     * @param string $user
+     * @param bool $sort_mode
+     * @param int $offset
+     * @param int $row_count
+     * @return array
+     */
+    public function get_user_all_pages($user, $sort_mode, $offset = -1, $row_count = -1)
     {
         $query = "select p.`pageName`, p.`user` as lastEditor, p.`creator`, max(a.`lastModif`) as date" .
             " from `tiki_actionlog` as a, `tiki_pages` as p" .
             " where a.`object`= p.`pageName` and a.`user`= ? and (a.`action`=? or a.`action`=?)" .
             " group by p.`pageName`, p.`user`, p.`creator` order by " . $this->convertSortMode($sort_mode);
 
-        $result = $this->query($query, [$user, 'Updated', 'Created']);
+        if ($row_count) {
+            $result = $this->query($query, [$user, 'Updated', 'Created'], $row_count, $offset);
+        } else {
+            $result = $this->query($query, [$user, 'Updated', 'Created']);
+        }
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -1607,6 +1618,19 @@ class WikiLib extends TikiLib
             }
         }
         return $ret;
+    }
+
+    //Get page count for a user (if actionlog is not clean)
+    public function getPagesCount($user)
+    {
+        $countquery = "select count(DISTINCT p.`pageName`) as count from `tiki_actionlog` as a, `tiki_pages` as p where a.`object`= p.`pageName` and a.`user`= ? and (a.`action`=? or a.`action`=?)";
+        $result = $this->query($countquery, [$user, 'Updated', 'Created']);
+        while ($res = $result->fetchRow()) {
+            if ($this->user_has_perm_on_object($user, $res['pageName'], 'wiki page', 'tiki_p_view')) {
+                $ret = $res;
+            }
+        }
+        return $ret['count'];
     }
 
     public function get_default_wiki_page()

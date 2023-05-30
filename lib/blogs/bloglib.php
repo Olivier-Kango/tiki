@@ -160,9 +160,11 @@ class BlogLib extends TikiDb_Bridge
      *
      * @param string $user
      * @param bool $include_public whether or include public blogs (that belongs to other users)
+     * @param int $offset
+     * @param int $row_count
      * @return array
      */
-    public function list_user_blogs($user, $include_public = false)
+    public function list_user_blogs($user, $include_public = false, $offset = -1, $row_count = -1)
     {
         $tikilib = TikiLib::lib('tiki');
 
@@ -173,7 +175,7 @@ class BlogLib extends TikiDb_Bridge
             $bindvars[] = 'y';
         }
         $query .= "order by `title` asc";
-        $result = $this->fetchAll($query, $bindvars);
+        $result = $this->fetchAll($query, $bindvars, $row_count, $offset);
         $ret = [];
 
         //FIXME Perm::filter ?

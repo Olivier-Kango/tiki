@@ -617,14 +617,14 @@ class TrackerLib extends TikiLib
     }
 
     /*shared*/
-    public function get_user_items($auser, $with_groups = true)
+    public function get_user_items($auser, $with_groups = true, $max = -1, $offset = -1)
     {
         global $user;
         $items = [];
 
         $query = "select ttf.`trackerId`, tti.`itemId` from `tiki_tracker_fields` ttf, `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif";
         $query .= " where ttf.`fieldId`=ttif.`fieldId` and ttif.`itemId`=tti.`itemId` and `type`=? and tti.`status`=? and `value`=?";
-        $result = $this->fetchAll($query, ['u','o',$auser]);
+        $result = $this->fetchAll($query, ['u','o',$auser], $max, $offset);
         $ret = [];
 
         $trackers = $this->table('tiki_trackers');
@@ -662,7 +662,7 @@ class TrackerLib extends TikiLib
             foreach ($groups as $group) {
                 $query = "select ttf.`trackerId`, tti.`itemId` from `tiki_tracker_fields` ttf, `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif ";
                 $query .= " where ttf.`fieldId`=ttif.`fieldId` and ttif.`itemId`=tti.`itemId` and `type`=? and tti.`status`=? and `value`=?";
-                $result = $this->fetchAll($query, ['g', 'o', $group]);
+                $result = $this->fetchAll($query, ['g', 'o', $group], $max, $offset);
 
                 foreach ($result as $res) {
                     $itemId = $res["itemId"];
