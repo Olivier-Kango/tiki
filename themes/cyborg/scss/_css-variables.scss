@@ -50,11 +50,11 @@
 // Dark navbar minus top nav
 .tiki .tiki-admin-top-nav-dark,
 .tiki .tiki-admin-aside-nav-dark {
-    --tiki-admin-top-nav-color: rgba(255, 255, 255, 0.55);
+    --tiki-admin-top-nav-color: rgba(255, 255, 255, 0.85);
     --tiki-admin-top-nav-hover-color: #{$white};
     --tiki-admin-top-nav-hover-bg: none;
     --tiki-admin-aside-nav-bg: #060606;
-    --tiki-admin-aside-nav-color: rgba(255, 255, 255, 0.55);
+    --tiki-admin-aside-nav-color: rgba(255, 255, 255, 0.85);
     --tiki-admin-aside-nav-hover-color: #{$white};
     --tiki-admin-dropdown-link-color:  #{$dropdown-dark-color};
     --tiki-admin-dropdown-bg: #{$dropdown-dark-bg};

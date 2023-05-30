@@ -18,7 +18,7 @@ body.tiki-admin {
 .tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active), .tiki-admin .tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active), .tiki-admin-aside-nav-light .dropdown-menu .dropdown-item:not(.active) {
   color: var(--tiki-admin-dropdown-link-color);
 }
-.tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin-aside-nav-light .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin-aside-nav-light .dropdown-menu .dropdown-item:not(.active):hover {
+.tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin .admin-navbar.tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active) .active, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu .dropdown-item:not(.active) .active, .tiki-admin-aside-nav-light .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin-aside-nav-light .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin-aside-nav-light .dropdown-menu .dropdown-item:not(.active) .active {
   color: var(--tiki-admin-dropdown-link-hover-color);
   background: var(--tiki-admin-dropdown-link-hover-bg);
 }
@@ -35,10 +35,10 @@ body.tiki-admin {
   color: var(--tiki-admin-dropdown-link-color);
   background-color: var(--tiki-admin-dropdown-bg);
 }
-.tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item, .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item {
+.tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:not(.active), .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:not(.active), .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item:not(.active) {
   color: var(--tiki-admin-dropdown-link-color);
 }
-.tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:focus, .tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:hover, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:focus, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:hover, .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item:focus, .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item:hover {
+.tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin .admin-navbar.tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:not(.active) .active, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin .tiki-admin-top-nav-dark .dropdown-menu .dropdown-item:not(.active) .active, .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item:not(.active):focus, .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item:not(.active):hover, .tiki-admin-aside-nav-dark .dropdown-menu .dropdown-item:not(.active) .active {
   color: var(--tiki-admin-dropdown-link-hover-color);
   background: var(--tiki-admin-dropdown-link-hover-bg);
 }

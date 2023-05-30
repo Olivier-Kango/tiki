@@ -136,13 +136,28 @@ $navbar-light-disabled-color:       $text-muted !default;
 
 // Dropdowns
 
-$dropdown-bg:                       rgba($gray-100, .8) !default;
+//$dropdown-bg:                       rgba($gray-100, .8) !default;
 $dropdown-border-color:             transparent !default;
 $dropdown-box-shadow:               $box-shadow-lg, inset 1px 1px 3px rgba($white, .5), inset -5px -5px 20px rgba($black, .05) !default;
 
-$dropdown-link-color:               $gray-700 !default;
-$dropdown-link-hover-color:         $gray-800 !default;
-$dropdown-link-hover-bg:            transparent !default;
+//$dropdown-link-color:               $gray-700 !default;
+//$dropdown-link-hover-color:         $gray-800 !default;
+//$dropdown-link-hover-bg:            transparent !default;
+
+$dropdown-color:                    $body-color !default;
+$dropdown-bg:                       $white !default;
+$dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
+
+$dropdown-link-color:               $gray-900 !default;
+$dropdown-link-hover-color:         shade-color($dropdown-link-color, 10%) !default;
+$dropdown-link-hover-bg:            $gray-200 !default;
+
+$dropdown-dark-color:               $gray-300 !default;
+$dropdown-dark-bg:                  $gray-800 !default;
+
+$dropdown-dark-link-color:          $dropdown-dark-color !default;
+$dropdown-dark-link-hover-color:    $white !default;
+$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 
 // Pagination
 

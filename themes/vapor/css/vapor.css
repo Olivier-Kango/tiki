@@ -10180,9 +10180,9 @@ legend {
   --tiki-admin-aside-nav-bg: rgb(111, 66, 193);
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
-  --tiki-admin-dropdown-link-color: rgba(255, 255, 255, 0.55);
+  --tiki-admin-dropdown-link-color: #dee2e6;
   --tiki-admin-dropdown-bg: #343a40;
-  --tiki-admin-dropdown-link-hover-color: #150225;
+  --tiki-admin-dropdown-link-hover-color: #fff;
   --tiki-admin-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {

@@ -3211,7 +3211,7 @@ textarea.form-control-lg {
 .navbar {
   --bs-navbar-padding-x: 0;
   --bs-navbar-padding-y: 1.2rem;
-  --bs-navbar-color: rgba(0, 0, 0, 0.4);
+  --bs-navbar-color: rgba(0, 0, 0, 0.7);
   --bs-navbar-hover-color: rgba(0, 0, 0, 0.7);
   --bs-navbar-disabled-color: rgba(0, 0, 0, 0.2);
   --bs-navbar-active-color: rgba(0, 0, 0, 0.7);
@@ -3224,7 +3224,7 @@ textarea.form-control-lg {
   --bs-navbar-toggler-padding-y: 0.25rem;
   --bs-navbar-toggler-padding-x: 0.75rem;
   --bs-navbar-toggler-font-size: 1.25rem;
-  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.4%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   --bs-navbar-toggler-border-color: rgba(0, 0, 0, 0.1);
   --bs-navbar-toggler-border-radius: 0.375rem;
   --bs-navbar-toggler-focus-width: 0.25rem;
@@ -9631,13 +9631,13 @@ header.navbar.fixed-top {
 }
 .tiki-top-nav-light {
   --tiki-top-bg: rgba(249, 248, 252, 1);
-  --tiki-top-color: rgba(0, 0, 0, 0.4);
-  --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-hover-color: rgba(0, 0, 0, 0.9);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgba(249, 248, 252, 1);
-  --tiki-topbar-color: rgba(0, 0, 0, 0.4);
-  --tiki-topbar-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-hover-color: rgba(0, 0, 0, 0.9);
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: rgba(89, 49, 150, 1);
@@ -9651,14 +9651,14 @@ header.navbar.fixed-top {
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-navbar-bg: rgba(249, 248, 252, 1);
-  --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.4);
+  --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.7);
   --tiki-admin-top-nav-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: rgba(249, 248, 252, 1);
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #fff;
-  --tiki-admin-dropdown-link-color: rgba(0, 0, 0, 0.4);
+  --tiki-admin-dropdown-link-color: rgba(0, 0, 0, 0.7);
   --tiki-admin-dropdown-link-hover-color: #fff;
   --tiki-admin-dropdown-link-hover-bg: #593196;
 }
@@ -9875,7 +9875,7 @@ form.simple label .warning {
   border: solid 1px #009cdc;
 }
 .navbar-light .dropdown-toggle, .navbar-light a.nav-link.dropdown-toggle, .navbar-light h1.sitetitle a, .navbar-light .sitetitle.h1 a, .navbar-light h2.sitesubtitle, .navbar-light .sitesubtitle.h2 {
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.7);
 }
 .navbar-dark .dropdown-toggle, .navbar-dark a.nav-link.dropdown-toggle, .navbar-dark h1.sitetitle a, .navbar-dark .sitetitle.h1 a, .navbar-dark h2.sitesubtitle, .navbar-dark .sitesubtitle.h2 {
   color: rgba(255, 255, 255, 0.55);
@@ -11236,7 +11236,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #000 !important;
 }
 .tiki-webmail .navbar-light .navbar-nav .nav-link, .tiki-cypht .navbar-light .navbar-nav .nav-link, .mobile.tiki-cypht .navbar-light .navbar-nav .nav-link, .inline-cypht .navbar-light .navbar-nav .nav-link {
-  color: rgba(0, 0, 0, 0.4) !important;
+  color: rgba(0, 0, 0, 0.7) !important;
 }
 .tiki-webmail .navbar-light .navbar-nav .nav-link:hover, .tiki-webmail .navbar-light .navbar-nav .nav-link:focus, .tiki-cypht .navbar-light .navbar-nav .nav-link:hover, .tiki-cypht .navbar-light .navbar-nav .nav-link:focus, .mobile.tiki-cypht .navbar-light .navbar-nav .nav-link:hover, .mobile.tiki-cypht .navbar-light .navbar-nav .nav-link:focus, .inline-cypht .navbar-light .navbar-nav .nav-link:hover, .inline-cypht .navbar-light .navbar-nav .nav-link:focus {
   color: rgba(0, 0, 0, 0.7) !important;

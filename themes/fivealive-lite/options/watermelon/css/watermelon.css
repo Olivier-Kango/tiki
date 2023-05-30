@@ -26,30 +26,29 @@
 }
 .tiki.tiki-admin .tiki-top-nav-light, .tiki .tiki-admin-aside-nav-light, .tiki-admin .tiki-admin-top-nav-light .dropdown-menu, .tiki-admin .tiki-admin-top-nav-light .dropdown-item, .tiki .tiki-admin-top-nav-light {
   --tiki-admin-top-nav-color: #fff;
-  --tiki-admin-top-nav-link-color: #fff;
-  --tiki-admin-top-nav-link-hover-color: #f9f9f9;
-  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-top-nav-hover-color: #f9f9f9;
+  --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: #E72326;
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #AD3245;
-  --tiki-admin-dropdown-color: #fff;
-  --tiki-admin-dropdown-hover-color: #f9f9f9;
-  --tiki-admin-dropdown-hover-bg: #a61a32;
+  --tiki-admin-dropdown-link-color: #fff;
+  --tiki-admin-dropdown-link-hover-color: #f9f9f9;
+  --tiki-admin-dropdown-link-hover-bg: #a61a32;
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
   --tiki-admin-top-nav-bg: #E72326;
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
-  --tiki-admin-top-nav-link-color: #fff;
-  --tiki-admin-top-nav-link-hover-color: #f2f2f2;
+  --tiki-admin-top-nav-color: #fff;
+  --tiki-admin-top-nav-hover-color: #f2f2f2;
   --tiki-admin-aside-nav-bg: #E72326;
-  --tiki-admin-aside-nav-link-color: var(--tiki-admin-top-nav-link-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-link-hover-color);
-  --tiki-admin-dropdown-color: #fff;
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
+  --tiki-admin-dropdown-link-color: #fff;
   --tiki-admin-dropdown-bg: #AD3245;
-  --tiki-admin-dropdown-hover-color: #f9f9f9;
-  --tiki-admin-dropdown-hover-bg: rgba(255, 255, 255, 0.15);
+  --tiki-admin-dropdown-link-hover-color: #f9f9f9;
+  --tiki-admin-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: #E72326;

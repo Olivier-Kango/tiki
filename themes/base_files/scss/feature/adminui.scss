@@ -41,7 +41,8 @@ body.tiki-admin {
     .dropdown-item:not(.active) {
         color: var(--tiki-admin-dropdown-link-color);
         &:focus,
-        &:hover {
+        &:hover,
+        & .active {
             color: var(--tiki-admin-dropdown-link-hover-color);
             background: var(--tiki-admin-dropdown-link-hover-bg);
         }
@@ -70,10 +71,11 @@ body.tiki-admin {
 .tiki-admin-aside-nav-dark .dropdown-menu {
     color: var(--tiki-admin-dropdown-link-color);
     background-color: var(--tiki-admin-dropdown-bg);
-    .dropdown-item {
+    .dropdown-item:not(.active) {
         color: var(--tiki-admin-dropdown-link-color);
         &:focus,
-        &:hover {
+        &:hover,
+        & .active {
             color: var(--tiki-admin-dropdown-link-hover-color);
             background: var(--tiki-admin-dropdown-link-hover-bg);
         }

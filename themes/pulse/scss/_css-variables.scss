@@ -1,14 +1,14 @@
 //--------------------------- Tiki CSS variables
 .tiki-top-nav-light {
     --tiki-top-bg: rgba(249, 248, 252, 1);
-    --tiki-top-color: rgba(0, 0, 0, 0.4);
-    --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-top-color: rgba(0, 0, 0, 0.7);
+    --tiki-top-hover-color: rgba(0, 0, 0, 0.9);
 }
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: rgba(249, 248, 252, 1);
-    --tiki-topbar-color: rgba(0, 0, 0, 0.4);
-    --tiki-topbar-hover-color: rgba(0, 0, 0, 0.7);
+    --tiki-topbar-color: rgba(0, 0, 0, 0.7);
+    --tiki-topbar-hover-color: rgba(0, 0, 0, 0.9);
 }
 
 .tiki-top-nav-dark {
@@ -29,7 +29,7 @@
 .tiki .tiki-admin-top-nav-light,
 .tiki .tiki-admin-aside-nav-light {
     --tiki-admin-navbar-bg: rgba(249, 248, 252, 1);
-    --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.4); // rgba(0, 0, 0, 0.7);
+    --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.7); // rgba(0, 0, 0, 0.7);
     --tiki-admin-top-nav-hover-color: rgba(0, 0, 0, 0.7);
     --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: rgba(249, 248, 252, 1);

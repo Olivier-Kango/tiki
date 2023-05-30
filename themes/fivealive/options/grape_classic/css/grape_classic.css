@@ -35,7 +35,7 @@
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #8e286a !important;
-  --tiki-admin-dropdown-color: #dee2e6;
+  --tiki-admin-dropdown-link-color: #dee2e6;
   --tiki-admin-dropdown-link-hover-color: #f2f2f2;
   --tiki-admin-dropdown-link-hover-bg: #742157;
 }
@@ -47,8 +47,8 @@
   --tiki-admin-top-nav-hover-color: #f2f2f2;
   --tiki-admin-aside-nav-bg: linear-gradient(to right, #642759 0%, #732860 19%, #92286b 43%, #a32872 67%, #a52873 100%) !important;
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
-  --tiki-admin-aside-nav-link-hover-color: var(--tiki-admin-top-nav-hover-color);
-  --tiki-admin-dropdown-color: #dee2e6;
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
+  --tiki-admin-dropdown-link-color: #dee2e6;
   --tiki-admin-dropdown-bg: #8e286a !important;
   --tiki-admin-dropdown-link-hover-color: #f2f2f2;
   --tiki-admin-dropdown-link-hover-bg: #742157;

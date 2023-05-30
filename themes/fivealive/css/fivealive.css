@@ -10314,7 +10314,6 @@ header.navbar.fixed-top {
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-navbar-bg: #28AAE1FF;
   --tiki-admin-top-nav-color: #ffffff;
-  --tiki-admin-top-nav-color: #ffffff;
   --tiki-admin-top-nav-hover-color: #fff;
   --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: #28AAE1FF;
@@ -10326,7 +10325,7 @@ header.navbar.fixed-top {
   --tiki-admin-dropdown-link-hover-bg: #0e567a;
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
-  --tiki-admin-top-nav-bg: #28AAE1FF;
+  --tiki-admin-top-nav-bg: null;
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
   --tiki-admin-top-nav-color: #ffffff;
@@ -11281,7 +11280,7 @@ blockquote {
 html {
   background-color: #414141;
 }
-.header_outer, .layout_basic #top_modules {
+.header_outer, .layout_basic .top_modules {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#136d9f+0,28a7de+100 */
   background: #136d9f;
   /* Old browsers */
@@ -11295,7 +11294,7 @@ html {
   /* IE6-9 */
   color: #000000;
 }
-.header_outer .siteloginbar_popup > .btn-link, .layout_basic #top_modules .siteloginbar_popup > .btn-link {
+.header_outer .siteloginbar_popup > .btn-link, .layout_basic .top_modules .siteloginbar_popup > .btn-link {
   color: #f8f8f8;
 }
 #fullscreenbutton a {
@@ -11314,7 +11313,7 @@ html {
 .layout_classic #topbar_modules .module .navbar.bg-dark, .layout_classic #topbar_modules .module .navbar.bg-light {
   background: transparent !important;
 }
-.layout_classic #top_modules.bg-dark, .layout_classic #topbar_modules, .layout_classic #topbar.bg-dark {
+.layout_classic .top_modules.bg-dark, .layout_classic .topbar_modules, .layout_classic .topbar.bg-dark {
   background: transparent !important;
 }
 .topbar form .form-control, .topbar form .btn {

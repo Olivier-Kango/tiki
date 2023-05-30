@@ -46,7 +46,6 @@ header.navbar.fixed-top {
 .tiki .tiki-admin-aside-nav-light {
     --tiki-admin-navbar-bg: #28AAE1FF;
     --tiki-admin-top-nav-color: #{$header-color};
-    --tiki-admin-top-nav-color: #{$header-color};
     --tiki-admin-top-nav-hover-color: #{$navbar-dark-hover-color};
     --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: #28AAE1FF;
@@ -59,7 +58,7 @@ header.navbar.fixed-top {
 }
 // Light top nav
 .tiki.tiki-admin .top_modules.navbar-light-parent {
-    --tiki-admin-top-nav-bg: #28AAE1FF;
+    --tiki-admin-top-nav-bg: null; //#28AAE1FF;
 }
 
 // Dark navbar minus top nav

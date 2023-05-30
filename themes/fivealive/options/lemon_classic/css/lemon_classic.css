@@ -49,10 +49,10 @@ header.navbar.fixed-top {
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
   --tiki-admin-top-nav-color: #BB5525;
-  --tiki-admin-top-nav-link-hover-color: #BB5525;
+  --tiki-admin-top-nav-hover-color: #BB5525;
   --tiki-admin-aside-nav-bg: linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%) !important;
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
-  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-link-hover-color);
+  --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-link-color: #151414;
   --tiki-admin-dropdown-bg: #f0e04f;
   --tiki-admin-dropdown-link-hover-color: #f2f2f2;

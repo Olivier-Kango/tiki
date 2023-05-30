@@ -29,7 +29,7 @@ html {
 //}
 
 .header_outer,
-.layout_basic #top_modules {
+.layout_basic .top_modules {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#136d9f+0,28a7de+100 */
     background: #136d9f; /* Old browsers */
     background: -moz-linear-gradient(left, #136d9f 0%, #28a7de 100%); /* FF3.6-15 */
@@ -84,9 +84,9 @@ textarea,
 }
 
 .layout_classic {
-    #top_modules.bg-dark,
-    #topbar_modules,
-    #topbar.bg-dark {
+    .top_modules.bg-dark,
+    .topbar_modules,
+    .topbar.bg-dark {
         background: transparent !important;
     }
 }

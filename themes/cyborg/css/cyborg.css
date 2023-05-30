@@ -1740,7 +1740,7 @@ progress {
 .form-text {
   margin-top: 0.25rem;
   font-size: 0.875em;
-  color: #555;
+  color: #adafae;
 }
 .form-control {
   display: block;
@@ -9945,11 +9945,11 @@ legend {
   --tiki-admin-top-nav-bg:  #222;
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
-  --tiki-admin-top-nav-color: rgba(255, 255, 255, 0.55);
+  --tiki-admin-top-nav-color: rgba(255, 255, 255, 0.85);
   --tiki-admin-top-nav-hover-color: #fff;
   --tiki-admin-top-nav-hover-bg: none;
   --tiki-admin-aside-nav-bg: #060606;
-  --tiki-admin-aside-nav-color: rgba(255, 255, 255, 0.55);
+  --tiki-admin-aside-nav-color: rgba(255, 255, 255, 0.85);
   --tiki-admin-aside-nav-hover-color: #fff;
   --tiki-admin-dropdown-link-color:  #dee2e6;
   --tiki-admin-dropdown-bg: #222;

@@ -47,8 +47,8 @@ $link-hover-color:      darken($link-color, 15%);
 $link-hover-decoration: none; // underline;
 
 // Components
-$component-active-color:    #fff;
-$component-active-bg:       $primary;
+$component-active-color:    $warning; // #fff;
+$component-active-bg:       lighten($warning, 80%);
 
 // Fonts
 $enable-responsive-font-sizes:                true; // from "Options"

@@ -2836,7 +2836,7 @@ textarea.form-control-lg {
   --bs-dropdown-spacer: 0.125rem;
   --bs-dropdown-font-size: 1rem;
   --bs-dropdown-color: #506295;
-  --bs-dropdown-bg: rgba(240, 245, 250, 0.8);
+  --bs-dropdown-bg: #fff;
   --bs-dropdown-border-color: transparent;
   --bs-dropdown-border-radius: 0.375rem;
   --bs-dropdown-border-width: 0;
@@ -2844,9 +2844,9 @@ textarea.form-control-lg {
   --bs-dropdown-divider-bg: transparent;
   --bs-dropdown-divider-margin-y: 0.5rem;
   --bs-dropdown-box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
-  --bs-dropdown-link-color: #506925;
-  --bs-dropdown-link-hover-color: #444b40;
-  --bs-dropdown-link-hover-bg: transparent;
+  --bs-dropdown-link-color: #212529;
+  --bs-dropdown-link-hover-color: #1e2125;
+  --bs-dropdown-link-hover-bg: #d9e3f1;
   --bs-dropdown-link-active-color: #fff;
   --bs-dropdown-link-active-bg: #378dfc;
   --bs-dropdown-link-disabled-color: #adb5bd;
@@ -4656,7 +4656,7 @@ textarea.form-control-lg {
   --bs-toast-max-width: 350px;
   --bs-toast-font-size: 0.875rem;
   --bs-toast-color: ;
-  --bs-toast-bg: rgba(240, 245, 250, 0.8);
+  --bs-toast-bg: #fff;
   --bs-toast-border-width: 0;
   --bs-toast-border-color: var(--bs-border-color-translucent);
   --bs-toast-border-radius: 0.375rem;
@@ -4717,7 +4717,7 @@ textarea.form-control-lg {
   --bs-modal-padding: 1rem;
   --bs-modal-margin: 0.5rem;
   --bs-modal-color: ;
-  --bs-modal-bg: rgba(240, 245, 250, 0.8);
+  --bs-modal-bg: #fff;
   --bs-modal-border-color: var(--bs-border-color-translucent);
   --bs-modal-border-width: 0;
   --bs-modal-border-radius: 0.5rem;
@@ -4994,7 +4994,7 @@ textarea.form-control-lg {
   --bs-tooltip-margin: ;
   --bs-tooltip-font-size: 0.875rem;
   --bs-tooltip-color: #506295;
-  --bs-tooltip-bg: rgba(240, 245, 250, 0.8);
+  --bs-tooltip-bg: #fff;
   --bs-tooltip-border-radius: 0.375rem;
   --bs-tooltip-opacity: 0.9;
   --bs-tooltip-arrow-width: 0.8rem;
@@ -5087,7 +5087,7 @@ textarea.form-control-lg {
   --bs-popover-zindex: 1070;
   --bs-popover-max-width: 276px;
   --bs-popover-font-size: 0.875rem;
-  --bs-popover-bg: rgba(240, 245, 250, 0.8);
+  --bs-popover-bg: #fff;
   --bs-popover-border-width: 0;
   --bs-popover-border-color: var(--bs-border-color-translucent);
   --bs-popover-border-radius: 0.5rem;
@@ -5468,7 +5468,7 @@ textarea.form-control-lg {
   --bs-offcanvas-padding-x: 1rem;
   --bs-offcanvas-padding-y: 1rem;
   --bs-offcanvas-color: ;
-  --bs-offcanvas-bg: rgba(240, 245, 250, 0.8);
+  --bs-offcanvas-bg: #fff;
   --bs-offcanvas-border-width: 0;
   --bs-offcanvas-border-color: var(--bs-border-color-translucent);
   --bs-offcanvas-box-shadow: 0 0.125rem 0.25rem rgba(55, 94, 148, 0.2);
@@ -10374,10 +10374,10 @@ header.navbar.fixed-top {
   --tiki-admin-aside-nav-bg: rgba(240, 245, 250, 1);
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
-  --tiki-admin-dropdown-bg: rgba(240, 245, 250, 0.8);
-  --tiki-admin-dropdown-color: #485785;
-  --tiki-admin-dropdown-link-hover-color: #444b40;
-  --tiki-admin-dropdown-link-hover-bg: transparent;
+  --tiki-admin-dropdown-bg: #fff;
+  --tiki-admin-dropdown-link-color: #485785;
+  --tiki-admin-dropdown-link-hover-color: #1e2125;
+  --tiki-admin-dropdown-link-hover-bg: #d9e3f1;
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
   --tiki-admin-top-nav-bg: rgba(240, 245, 250, 1);
@@ -10388,9 +10388,9 @@ header.navbar.fixed-top {
   --tiki-admin-aside-nav-bg: #B0C0D5;
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
-  --tiki-admin-dropdown-color: rgba(255, 255, 255, 0.75);
-  --tiki-admin-dropdown-bg: #2c3653;
-  --tiki-admin-dropdown-link-hover-color: #444b40;
+  --tiki-admin-dropdown-link-color: #dee2e6;
+  --tiki-admin-dropdown-bg: #444b40;
+  --tiki-admin-dropdown-link-hover-color: #fff;
   --tiki-admin-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
@@ -10478,7 +10478,7 @@ table.treetable.objectperms td.removed {
 }
 .progressContainer {
   border: solid 1px var(--bs-border-color-translucent);
-  background-color: rgba(240, 245, 250, 0.8);
+  background-color: #fff;
 }
 .filter-panel-heading a:after {
   color: #adb5bd;
@@ -10722,7 +10722,7 @@ ul.all_languages > li {
   border: 1px solid #43cc29;
 }
 .plugin-mouseover {
-  background: rgba(240, 245, 250, 0.8);
+  background: #fff;
   border: 1px solid var(--bs-border-color-translucent);
 }
 .mandatory_note {
@@ -10829,7 +10829,7 @@ body.wikitext {
   margin-left: 0.4rem;
 }
 .editable-inline.loaded {
-  background: rgba(240, 245, 250, 0.8);
+  background: #fff;
   padding: 6px;
   border: 1px solid #eee;
   border-radius: 4px;
@@ -10882,14 +10882,14 @@ body.wikitext {
 }
 .imgbox {
   border: 1px solid var(--bs-border-color-translucent);
-  background-color: rgba(240, 245, 250, 0.8);
+  background-color: #fff;
 }
 .wp-cookie-consent-required {
   color: #e52527;
 }
 .tooltip-inner {
   color: #506295;
-  background-color: rgba(240, 245, 250, 0.8);
+  background-color: #fff;
 }
 .tooltip-inner a, .tooltip-inner a:visited {
   color: var(--tiki-tooltip-link-color);
@@ -10952,17 +10952,17 @@ div.drillshow {
   justify-content: space-between;
 }
 .tiki .ui-widget-content, span.plugin-mouseover {
-  background: rgba(240, 245, 250, 0.8);
+  background: #fff;
   color: #506295;
   border: 1px solid var(--bs-border-color-translucent);
 }
 .tiki .ui-widget-header {
-  background: rgba(240, 245, 250, 0.8);
+  background: #fff;
   color: #506295;
   border-color: var(--bs-border-color-translucent);
 }
 .tiki .ui-dialog-content {
-  background: rgba(240, 245, 250, 0.8);
+  background: #fff;
   color: #506295;
 }
 .tiki .ui-dialog-content select, .tiki .ui-dialog-content input, .tiki .ui-dialog-content optgroup, .tiki .ui-dialog-content textarea {
@@ -11198,7 +11198,7 @@ blockquote {
   color: #e52527;
 }
 .dropdown-menu.mega-menu a {
-  color: #506925;
+  color: #212529;
 }
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {
   --bs-btn-padding-x: 0.75rem;
@@ -11589,7 +11589,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   z-index: 100;
   width: 280px;
   border: 1px solid var(--bs-border-color);
-  background-color: rgba(240, 245, 250, 0.8);
+  background-color: #fff;
   position: absolute;
   padding: 20px;
   text-align: center;
@@ -11901,7 +11901,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #2c3653 !important;
 }
 .tiki-webmail .dropdown-menu, .tiki-cypht .dropdown-menu, .mobile.tiki-cypht .dropdown-menu, .inline-cypht .dropdown-menu {
-  background-color: rgba(240, 245, 250, 0.8) !important;
+  background-color: #fff !important;
   border-color: transparent !important;
 }
 .tiki-webmail .dropdown-divider, .tiki-cypht .dropdown-divider, .mobile.tiki-cypht .dropdown-divider, .inline-cypht .dropdown-divider {
@@ -11968,10 +11968,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-radius: 0;
 }
 .tiki-webmail .dropdown-menu .dropdown-item, .tiki-webmail .dropdown-menu .dropdown-item .icon, .tiki-cypht .dropdown-menu .dropdown-item, .tiki-cypht .dropdown-menu .dropdown-item .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item, .mobile.tiki-cypht .dropdown-menu .dropdown-item .icon, .inline-cypht .dropdown-menu .dropdown-item, .inline-cypht .dropdown-menu .dropdown-item .icon {
-  color: #506925 !important;
+  color: #212529 !important;
 }
 .tiki-webmail .dropdown-menu .dropdown-item:hover, .tiki-webmail .dropdown-menu .dropdown-item:hover .icon, .tiki-webmail .dropdown-menu .dropdown-item:focus, .tiki-webmail .dropdown-menu .dropdown-item:focus .icon, .tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .inline-cypht .dropdown-menu .dropdown-item:hover, .inline-cypht .dropdown-menu .dropdown-item:hover .icon, .inline-cypht .dropdown-menu .dropdown-item:focus, .inline-cypht .dropdown-menu .dropdown-item:focus .icon {
-  color: #444b40 !important;
+  color: #1e2125 !important;
 }
 .inline-cypht {
   background: transparent;
@@ -11986,7 +11986,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #232b42 !important;
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell, .inline-cypht .compose_page, .inline-cypht .message_list, .inline-cypht .msg_text, .inline-cypht .selected_part, .inline-cypht .server_content, .inline-cypht .profile_content, .inline-cypht .user_settings, .inline-cypht .nux_add_account, .inline-cypht .imap_server_setup, .inline-cypht .pop3_server_setup, .inline-cypht .configured_server, .inline-cypht .add_server {
-  background-color: rgba(240, 245, 250, 0.8);
+  background-color: #fff;
   color: #506295;
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell {
@@ -12131,7 +12131,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background: transparent !important;
 }
 .mobile.tiki-cypht .folder_list, .mobile.tiki-webmail .folder_list {
-  background-color: rgba(240, 245, 250, 0.8);
+  background-color: #fff;
   color: #506295;
   border: 1px solid #bed1e6;
 }

@@ -11103,7 +11103,7 @@ textarea.form-control-lg {
   --tiki-admin-top-nav-hover-color: #53BAEA;
   --tiki-admin-top-nav-hover-bg: #1784b7;
   --tiki-admin-aside-nav-bg: #efefef;
-  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-link-color);
+  --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-link-color: #53BAEA;
   --tiki-admin-dropdown-bg: #343a40;
