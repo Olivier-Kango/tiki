@@ -693,6 +693,11 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
         }
         $old_gal_info = $filegallib->get_file_gallery_info($galleryId);
 
+        // When there is not an old gallery, initialize with default values (used for the main gallery listing)
+        if (! is_array($old_gal_info)) {
+            $old_gal_info = $filegallib->get_file_gallery();
+        }
+
         if ($prefs['ocr_enable'] === 'y') {
             // first validate length of OCR languages, then save if they conform.
             $ocrLangs = json_encode($_POST['ocr_lang']);
@@ -718,7 +723,7 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
             'show_size' => $_REQUEST['fgal_list_size'],
             'show_description' => $_REQUEST['fgal_list_description'],
             'show_created' => $_REQUEST['fgal_list_created'],
-            'show_hits' => $_REQUEST['fgal_list_hits'],
+            'show_hits' => $_REQUEST['fgal_list_hits'] ?? $prefs['fgal_list_hits'],
             'show_lastDownload' => $_REQUEST['fgal_list_lastDownload'],
             'max_desc' => $_REQUEST['max_desc'],
             'type' => $_REQUEST['fgal_type'],
@@ -730,10 +735,10 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
             'show_modified' => $_REQUEST['fgal_list_lastModif'],
             'show_creator' => $_REQUEST['fgal_list_creator'],
             'show_deleteAfter' => $_REQUEST['fgal_list_deleteAfter'],
-            'show_checked' => $_REQUEST['fgal_show_checked'],
+            'show_checked' => $_REQUEST['fgal_show_checked'] ?? $prefs['fgal_checked'],
             'show_share' => $_REQUEST['fgal_list_share'],
             'show_author' => $_REQUEST['fgal_list_author'],
-            'subgal_conf' => $_REQUEST['subgal_conf'],
+            'subgal_conf' => $_REQUEST['subgal_conf'] ?? "",
             'show_last_user' => $_REQUEST['fgal_list_last_user'],
             'show_comment' => $_REQUEST['fgal_list_comment'],
             'show_files' => $_REQUEST['fgal_list_files'],
