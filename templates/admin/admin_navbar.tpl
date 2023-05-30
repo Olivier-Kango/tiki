@@ -107,7 +107,6 @@
                             $('.preffilter-toggle').change(function () {
                                 var checked = $(this).is(":checked");
                                 $("input.preffilter[value=advanced]").prop("checked", checked);
-                                $(".filter-menu.nav").css("display", checked ? "block" : "none");
                                 updateVisible();
                             });
 

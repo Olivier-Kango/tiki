@@ -146,6 +146,23 @@
                 {tr _0="page" _1={$include|escape}}The <strong>%0</strong> parameter has an invalid value: <strong>%1</strong>.{/tr}
             {/remarksbox}
         {else}
+            {if empty($pref_filters.advanced.selected)}
+                <div class="toggle-advanced-preffilter-alertbox d-none">
+                    {remarksbox type="note" close="n" title="{tr}Some advanced features are hidden{/tr}"}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                {tr}You can switch to <strong>Advanced</strong> mode at any time from the switch button on the right or from the preference filters menu in the top left to see all preferences{/tr} <br/>
+                                <button id="dont-show-toggle-advanced-preffilter-alertbox" data-bs-dismiss="alert" aria-label="Close" class="btn btn-secondary btn-sm mt-2">{icon name="close"} {tr}Don't show again{/tr}</button>
+                            </div>
+                            <div class="col-auto form-check">
+                                {ticket}
+                                <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if !empty($pref_filters.advanced.selected)} checked="checked"{/if}>
+                                <label for="preffilter-toggle-1" class="form-check-label"></label>
+                            </div>
+                        </div>
+                    {/remarksbox}
+                </div>
+            {/if}
             {include file="admin/include_$include.tpl"}
         {/if}
     </div>
