@@ -15,19 +15,21 @@ function smarty_modifier_sefurl($source, $type = 'wiki', $with_next = '', $all_l
 
     $sefurl = $prefs['feature_sefurl'] == 'y';
 
-    switch ($type) {
-        case 'wiki page':
-        case 'wikipage':
-            $type = 'wiki';
-            break;
-        case 'post':
-        case 'blog post':
-            $type = 'blogpost';
-            break;
+    if (isset($type)) {
+        switch ($type) {
+            case 'wiki page':
+            case 'wikipage':
+                $type = 'wiki';
+                break;
+            case 'post':
+            case 'blog post':
+                $type = 'blogpost';
+                break;
+        }
     }
 
     $urlAnchor = '';
-    if (substr($type, -7) == 'comment') {
+    if (isset($type) && substr($type, -7) == 'comment') {
         $urlAnchor = '#threadId=' . (int)$source;
         $type = substr($type, 0, strlen($type) - 8);
         $info = TikiLib::lib('comments')->get_comment((int)$source);
