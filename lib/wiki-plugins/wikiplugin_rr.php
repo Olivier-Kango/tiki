@@ -538,7 +538,7 @@ function wikiplugin_rr($data, $params)
             // Convert strange characters into some simple character to avoid R complaining because it can't create such folder in the server
             // Also prefix with page id to ensure uniqueness
             $page_id = $tikilib->get_page_id_from_name($_REQUEST['page']);
-            $wikipage = "page${page_id}_" . preg_replace('/[^a-zA-Z0-9]/', "_", $_REQUEST['page']);
+            $wikipage = "page{$page_id}_" . preg_replace('/[^a-zA-Z0-9]/', "_", $_REQUEST['page']);
         }
 
         // added ' .$tikidomainslash. ' in path to consider the case of multitikis
