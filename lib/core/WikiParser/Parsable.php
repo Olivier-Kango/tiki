@@ -80,7 +80,8 @@ class WikiParser_Parsable extends ParserLib
                     );
             }
             if (empty($this->option['parse_wiki'])) {
-                switch (@$arguments['editor']) {
+                $editor = $arguments['editor'] ?? '';
+                switch ($editor) {
                     case 'wysiwyg':
                         $this->option['wysiwyg'] = true;
                         $return['editor'] = 'wysiwyg';
