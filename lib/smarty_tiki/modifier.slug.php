@@ -15,8 +15,8 @@
  * Example: href="Page-Name-{$row.object_id}-{$row.title|slug}"
  *
  * @param string to be slugified
- * @param int  $length    defaults to 70
- * @param bool $mixedCase set true to preserve capitalisation
+ * @param int  $maxLength  defaults to 70
+ * @param bool $mixedCase  set true to preserve capitalisation
  * @param bool $breakWords set true to break words
  *
  * @return string
@@ -24,18 +24,19 @@
  * @throws SmartyException
  */
 
-function smarty_modifier_slug($string, $length = 70, $mixedCase = false, $breakWords = false)
+function smarty_modifier_slug($string, $maxLength = 70, $mixedCase = false, $breakWords = false)
 {
     global $prefs;
     TikiLib::lib('smarty')->loadPlugin('smarty_modifier_nonp');
+    $length = strlen($string);
 
-    if (! $breakWords) {
-        $offset = strrpos($string, ' ', $length - strlen($string));
+    if (! $breakWords && $length > $maxLength) {
+        $offset = strrpos($string, ' ', $maxLength - $length);
         if ($offset) {
-            $length = $offset;
+            $maxLength = $offset;
         }
     }
-    $string = substr(smarty_modifier_nonp($string), 0, $length);
+    $string = substr(smarty_modifier_nonp($string), 0, $maxLength);
     if (! $mixedCase) {
         $string = mb_strtolower($string);
     }
