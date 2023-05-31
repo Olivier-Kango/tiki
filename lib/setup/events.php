@@ -48,7 +48,8 @@ function tiki_setup_events()
         }
 
         if ($prefs['xmpp_feature'] === 'y') {
-            $events->bind('tiki.wiki.save', $defer('xmpp', 'create_room_from_wikipage'));
+// not working due to removal of montefuscolo/xmpp following php8.1 upgrade
+// FIXME            $events->bind('tiki.wiki.save', $defer('xmpp', 'create_room_from_wikipage'));
         }
     }
 
