@@ -126,7 +126,7 @@ class Math_Formula_Currency implements Math_Formula_Applicator
 
     public function round($decimals)
     {
-        return new self(round($this->amount, $decimals), $this->currency, $this->rates);
+        return new self(round((float) $this->amount, $decimals), $this->currency, $this->rates);
     }
 
     public function lessThan($another)
