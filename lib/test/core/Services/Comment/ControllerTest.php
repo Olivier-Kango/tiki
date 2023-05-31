@@ -28,6 +28,14 @@ class Services_Comment_ControllerTest extends PHPUnit\Framework\TestCase
         Perms::set($perms);
 
         $this->subject = new Services_Comment_Controller();
+
+        //Create the article for the test
+        TikiLib::lib('art')->table('tiki_articles')->insert(
+            [
+                'articleId' => 1,
+                'title' => 'test'
+            ]
+        );
     }
 
     public function testPostSimpleComment()
@@ -122,5 +130,11 @@ class Services_Comment_ControllerTest extends PHPUnit\Framework\TestCase
             'title' => 'Simple comment',
             'data' => 'This is a test ' . uniqid("", true),
         ];
+    }
+
+    protected function tearDown(): void
+    {
+        //Delete the article created for test
+        TikiLib::lib('art')->table('tiki_articles')->delete(['articleId' => 1]);
     }
 }

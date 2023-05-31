@@ -30,7 +30,7 @@ class Services_Comment_Controller
             $objectId = $input->objectId->digits();
         }
 
-        if ($objectId !== $input->objectId->none()) {
+        if ($objectId !== $input->objectId->none() || ! $this->isValidObject($type, $objectId)) {
             $objectId = $input->objectId->xss();
             throw new Services_Exception(tr('Invalid %0 ID: %1', $type, $objectId), 403);
         }
@@ -110,6 +110,11 @@ return false;";
 
         if (! $this->canPost($type, $objectId)) {
             throw new Services_Exception(tr('Permission denied.'), 403);
+        }
+
+        if (! $this->isValidObject($type, $objectId)) {
+            $objectId = $input->objectId->xss();
+            throw new Services_Exception(tr('Invalid %0 ID: %1', $type, $objectId), 403);
         }
 
         $commentslib = TikiLib::lib('comments');
@@ -816,6 +821,57 @@ return false;";
         }
 
         $_SESSION['created_comments'][] = $threadId;
+    }
+
+    private function isValidObject($type, $objectId)
+    {
+        if ($type === 'wiki page') {
+            $page_id = TikiLib::lib('tiki')->get_page_id_from_name($objectId);
+            if ($page_id) {
+                return true;
+            }
+        } elseif ($type === 'blog post') {
+            $post_info = TikiLib::lib('blog')->get_post($objectId);
+            if ($post_info) {
+                return true;
+            }
+        } elseif ($type === 'article') {
+            $article_info = TikiLib::lib('art')->get_article($objectId, false);
+            if ($article_info !== '') {
+                return true;
+            }
+        } elseif ($type === 'trackeritem') {
+            $item = Tracker_Item::fromId($objectId);
+            if ($item != null) {
+                return true;
+            }
+        } elseif ($type === 'poll') {
+            $poll = TikiLib::lib('poll')->get_poll($objectId);
+            if ($poll != null) {
+                return true;
+            }
+        } elseif ($type === 'faq') {
+            $fac = TikiLib::lib('faq')->get_faq($objectId);
+            if ($fac != null) {
+                return true;
+            }
+        } elseif ($type === 'file gallery') {
+            $file = TikiLib::lib('filegal')->get_file_info($objectId);
+            if ($file != false) {
+                return true;
+            }
+        } elseif ($type === 'forum') {
+            $forum_info = TikiLib::lib('comments')->get_forum($objectId);
+            if ($forum_info != false) {
+                return true;
+            }
+        } elseif ($type === 'activity') {
+            $activity = TikiLib::lib('activity')->getActivity($objectId);
+            if ($activity != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
