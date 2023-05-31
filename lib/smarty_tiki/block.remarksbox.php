@@ -90,6 +90,18 @@ function smarty_block_remarksbox($params, $content, $smarty, &$repeat)
             $class = 'alert-info';
             $icon = 'comment';
             break;
+        case 'light':
+            $class = 'alert-light';
+            $icon = 'information';
+            break;
+        case 'dark':
+            $class = 'alert-dark';
+            $icon = 'information';
+            break;
+        case 'secondary':
+            $class = 'alert-secondary';
+            $icon = 'information';
+            break;
         case 'info':
         case 'note':
         case 'tip':
