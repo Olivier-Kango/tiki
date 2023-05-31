@@ -228,6 +228,9 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
             TikiLib::lib('header')->add_jq_onready('
 $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . $this->getOption('fieldIdHere') . ']").trigger("change", "initial");
 ', 1);
+
+            $this->getClickModalJQ();
+
             return '<div name="' . $this->getInsertId() . '"></div>';
         }
     }
@@ -283,7 +286,15 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
                 $data['itemPermissions'] = $itemPermissions;
                 $data['addItemText'] = $canCreate ? $this->getOption('addItemText') : '';
                 $data['otherFieldPermName'] = $fieldThere['permName'];
-                $data['parentItemId'] = $this->getItemId();
+                if (empty($this->getOption('fieldIdHere'))) {
+                    $data['parentItemId'] = $this->getItemId();
+                } else {
+                    // other field not an ItemLink - sent by ajax from \Services_Tracker_Controller::action_itemslist_output
+                    $itemData = $this->getItemData();
+                    $data['parentItemId'] = $itemData[$this->getOption('fieldIdHere')];
+                }
+
+                $this->getClickModalJQ();
             }
             return $this->renderTemplate(
                 'trackeroutput/itemslist.tpl',
@@ -856,5 +867,36 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         self::$itemValuesLocalCache[$cache_key] = $itemsValues;
 
         return $itemsValues;
+    }
+
+    /**
+     * Adds the javascript to the page to make the edit buttons open a modal popup
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function getClickModalJQ(): void
+    {
+        TikiLib::lib('header')->add_jq_onready(
+            '
+// a custom handler to load the action in a modal
+$(document).on("click", "a.itemslist-btn", $.clickModal({
+    button: this,
+    backdrop: "static",
+    success: function (data) {
+        let $itemsList = $(this).closest(".itemslist-field");
+        let url = $.service("tracker", "fetch_item_field", {
+            trackerId: $itemsList.data("trackerid"),
+            itemId: $itemsList.data("itemid"),
+            fieldId: $itemsList.data("fieldid"),
+            listMode: $itemsList.data("list_mode"),
+            mode: "output"
+        })
+        $.closeModal();
+
+        $itemsList.tikiModal(tr("Loading...")).load(url.replace(/&amp;/g, "&"), function () {$itemsList.tikiModal();});
+    }
+}));'
+        );
     }
 }
