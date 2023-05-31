@@ -3845,6 +3845,7 @@ class TrackerLib extends TikiLib
             $factory = new Tracker_Field_Factory();
             $options = Tracker_Options::fromSerialized($res['options'], $factory->getFieldInfo($res['type']));
             $res['options_array'] = $options->buildOptionsArray();
+            $res['options_map'] = $options->getAllParameters();
             $res['itemChoices'] = ! empty($res['itemChoices']) ? unserialize($res['itemChoices']) : [];
             $res['visibleBy'] = ! empty($res['visibleBy']) ? unserialize($res['visibleBy']) : [];
             $res['editableBy'] = ! empty($res['editableBy']) ? unserialize($res['editableBy']) : [];
