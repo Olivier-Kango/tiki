@@ -137,15 +137,10 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
     $smarty->assign('module_error', '');
     $smarty->assign_by_ref('smod_params', $smod_params);
 
-    // Deal with the two search types (sigh). If the requested search type is disabled but the other one is enabled, use it as a fallback.
-    if ($prefs['feature_search'] == 'n' && $prefs['feature_search_fulltext'] == 'n') {
+    if ($prefs['feature_search'] == 'n') {
         $smod_params['tiki_search'] = 'none';
-        $smarty->assign('module_error', tra('Search is disabled.'));
+        $smarty->assign('module_error', tra('feature_search is disabled.'));
         return;
-    } elseif ($prefs['feature_search'] == 'n' && isset($smod_params['tiki_search']) && $smod_params['tiki_search'] == 'y') {
-        $smod_params['tiki_search'] = 'n';
-    } elseif ($prefs['feature_search_fulltext'] == 'n' && (empty($smod_params['tiki_search']) || $smod_params['tiki_search'] != 'y')) {
-        $smod_params['tiki_search'] = 'y';
     }
 
     if (isset($smod_params['go_action']) && $smod_params['go_action'] == 'ti') {    // temporary fix for 5.0 in case params were truncated in the db
@@ -164,6 +159,7 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
         'legacy_mode' => '',
         'show_object_filter' => 'n',
         'use_autocomplete' => 'y',
+        'tiki_search' => 'y',
         'advanced_search' => 'y',
         'advanced_search_option' => 'n',
         'advanced_search_help' => 'n',
@@ -173,7 +169,7 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
         'default_button' => 'search',
         'input_size' => 0,
         'select_size' => 10,
-        'search_action' => (isset($smod_params['tiki_search']) && $smod_params['tiki_search'] === 'y') ? 'tiki-searchindex.php' : 'tiki-searchresults.php',
+        'search_action' => 'tiki-searchindex.php',
         'search_submit' => tra('Search'),
         'go_action' => 'tiki-listpages.php',
         'go_submit' => tra('Go'),
