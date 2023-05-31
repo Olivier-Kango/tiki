@@ -59,25 +59,5 @@
                 {icon name='create' _menu_text='y' _menu_icon='y' ititle="{$data.addItemText}" alt="{$data.addItemText}"}
             </a>
         </div>
-        {jq}
-            // a custom handler to reload the data in this field on success
-            $(document).on("click", "a.itemslist-btn", $.clickModal({
-                button: this,
-                backdrop: "static",
-                success: function (data) {
-                    let $itemsList = $(this).closest(".itemslist-field");
-                    let url = $.service("tracker", "fetch_item_field", {
-                        trackerId: $itemsList.data("trackerid"),
-                        itemId: $itemsList.data("itemid"),
-                        fieldId: $itemsList.data("fieldid"),
-                        listMode: $itemsList.data("list_mode"),
-                        mode: "output"
-                    })
-                    $.closeModal();
-
-                    $itemsList.tikiModal(tr("Loading...")).load(url.replace(/&amp;/g, "&"), function () {$itemsList.tikiModal();});
-                }
-            }));
-        {/jq}
     {/if}
 </div>
