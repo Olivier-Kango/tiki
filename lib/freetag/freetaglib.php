@@ -1659,7 +1659,7 @@ class FreetagLib extends ObjectLib
         $result = $this->fetchAll($query);
 
         foreach ($result as &$row) {
-            $row['params'] = ['url' => $row['tagId']];
+            $row['params'] = ['url' => (string) $row['tagId']];
         }
 
         return new Laminas\Tag\Cloud(['tags' => $result]);
