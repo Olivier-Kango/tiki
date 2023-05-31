@@ -836,7 +836,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     {
         $uniqueList = array_unique($list);
         if ($this->getOption('displayOneItem') != 'multi') {
-            $value = $this->getValue();
+            $value = (int) $this->getValue();
             if ($value && isset($list[$value]) && ! isset($uniqueList[$value])) {
                 // if we already have a value set make sure we return the correct itemId one
                 $uniqueList = [];
