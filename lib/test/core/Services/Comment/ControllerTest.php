@@ -33,7 +33,8 @@ class Services_Comment_ControllerTest extends PHPUnit\Framework\TestCase
         TikiLib::lib('art')->table('tiki_articles')->insert(
             [
                 'articleId' => 1,
-                'title' => 'test'
+                'title' => 'test',
+                'rating' => 0
             ]
         );
     }
