@@ -32,7 +32,7 @@ function smarty_block_modules_list($params, $content, $smarty, &$repeat)
         return;
     }
 
-    if (count($params["list"]) > 0) {
+    if (! empty($params["list"]) && count($params["list"]) > 0) {
         if ($params["nonums"] == "y") {
             $ret = '<ul>' . $content . '</ul>';
         } else {
