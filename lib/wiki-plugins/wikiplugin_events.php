@@ -117,6 +117,11 @@ function wikiplugin_events($data, $params)
 
     extract($params, EXTR_SKIP);
 
+    if (empty($params['calendarid'])) {
+        Feedback::error(tr('The %0 parameter is missing', 'calendarid'));
+        return;
+    }
+
     if (! isset($maxdays)) {
         $maxdays = 365;
     }
