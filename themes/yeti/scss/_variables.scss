@@ -19,6 +19,20 @@ $gray-800: #333 !default;
 $gray-900: #222 !default;
 $black:    #000 !default;
 
+// scss-docs-start gray-colors-map
+$grays: (
+    "100": $gray-100,
+    "200": $gray-200,
+    "300": $gray-300,
+    "400": $gray-400,
+    "500": $gray-500,
+    "600": $gray-600,
+    "700": $gray-700,
+    "800": $gray-800,
+    "900": $gray-900
+) !default;
+// scss-docs-end gray-colors-map
+
 $blue:    #008cba !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
@@ -30,6 +44,28 @@ $green:   #43ac6a !default;
 $teal:    #20c997 !default;
 $cyan:    #5bc0de !default;
 
+// scss-docs-start colors-map
+$colors: (
+    "blue":       $blue,
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "black":      $black,
+    "white":      $white,
+    "gray":       $gray-600,
+    "gray-dark":  $gray-800
+) !default;
+// scss-docs-end colors-map
+
+$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%) !default;
+
 $primary:       $blue !default;
 $secondary:     $gray-200 !default;
 $success:       $green !default;
@@ -39,10 +75,27 @@ $danger:        $red !default;
 $light:         $gray-200 !default;
 $dark:          $gray-900 !default;
 
+// scss-docs-start theme-colors-map
+$theme-colors: (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
+) !default;
+// scss-docs-end theme-colors-map
+
+// Prefix for :root CSS variables
+$prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+
 $min-contrast-ratio:   1.9 !default;
 
 // Links
 $link-color: #007EA8; // Darkened for WCAG compliance
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
 // Components
 
@@ -61,6 +114,26 @@ $headings-font-weight:        300 !default;
 $table-bg-scale:              0 !default;
 
 // Buttons
+// Forms
+// Form validation
+// Z-index master list
+// Navs (four below added for Bootstrap 53)
+$nav-link-color:                    var(--#{$prefix}link-color) !default;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
+$nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default;
+$nav-link-font-size:                null !default;
+
+// Navbar (four below added for Bootstrap 53)
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
+$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
+$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
+
+$navbar-dark-color:                 rgba($white, .55) !default;
+$navbar-dark-hover-color:           rgba($white, .75) !default;
+$navbar-dark-active-color:          $white !default;
+$navbar-dark-disabled-color:        rgba($white, .25) !default;
 
 $input-btn-padding-x:         .5rem !default;
 $btn-font-weight:             300 !default;
@@ -124,5 +197,8 @@ $breadcrumb-border-radius:          3px !default;
 $btn-close-color:            $gray-600 !default;
 $btn-close-opacity:          .6 !default;
 $btn-close-hover-opacity:    1 !default;
+
+// Code
+$code-color:                        $pink !default; // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables

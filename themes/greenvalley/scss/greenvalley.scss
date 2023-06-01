@@ -4,6 +4,7 @@
 @import "../../base_files/scss/_tiki-bootstrap_functions"; // Required Bootstrap
 
 @import "variables"; // Theme overrides of Bootstrap defaults plus any additional variables
+@import "variables-dark";
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "../../default/scss/variables"; // Bootstrap default variables, with a few Tiki overrides
 

@@ -77,3 +77,17 @@
     --bs-accordion-btn-bg: #A32872;
     --bs-accordion-btn-color: #fff;
 }
+
+
+$imagePath: "../images/";
+
+[data-bs-theme="light"] {
+    --tiki-greenvalley-row-middle-bg-color: #fff; // url('#{$imagePath}page_background_ltr.jpg') repeat;
+    --tiki-greenvalley-row-middle-bg-img-opacity: 1;
+}
+
+[data-bs-theme="dark"] {
+    --tiki-greenvalley-row-middle-bg-color: #052101; // url('#{$imagePath}page_background_ltr.jpg') repeat;
+    --tiki-greenvalley-row-middle-bg-img-opacity: 0.075;
+    --tiki-card-bg: transparent;
+}

@@ -29,6 +29,42 @@ $grays: (
     "900": $gray-900
 );
 // scss-docs-end gray-colors-map
+
+// scss-docs-start color-variables
+$blue:    #0d6efd !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #198754 !default; // Bootstrap 5.3
+$teal:    #20c997 !default;
+$cyan:    #0dcaf0 !default;
+// scss-docs-end color-variables
+
+// scss-docs-start colors-map
+$colors: (
+    "blue":       $blue,
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "black":      $black,
+    "white":      $white,
+    "gray":       $gray-600,
+    "gray-dark":  $gray-800
+) !default;
+// scss-docs-end colors-map
+
+$red-300: tint-color($red, 40%) !default;
+$green-300: tint-color($green, 40%) !default;
+
 // scss-docs-start theme-color-variables
 $primary:       #0001a6;
 $secondary:     #adb5bd;
@@ -56,8 +92,9 @@ $theme-colors: (
 
 
 // Options
-// Prefix for :root CSS variables
-$prefix:                      bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+//Prefix for :root CSS variables
+$prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$enable-gradients: true;
 
 // Spacing
 
@@ -65,7 +102,9 @@ $prefix:                      bs- !default; // Deprecated in v5.2.0 for the shor
 $body-color: #222;
 
 // Links
+$link-color:                              $primary !default;
 $link-hover-decoration: none;
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
 // Components
 $component-active-bg: #aaaaaa;
@@ -104,8 +143,22 @@ $dropdown-dark-link-color:          $dropdown-dark-color !default;
 $dropdown-dark-link-hover-color:    $white !default;
 $dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 // Navs
+// Navs (four below added for Bootstrap 53)
+$nav-link-color:                    var(--#{$prefix}link-color) !default;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
+$nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default;
 
-// Navbar
+// Navbar// Navbar (8 below added for Bootstrap 53)
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
+$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
+$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
+
+$navbar-dark-color:                 rgba($white, .55) !default;
+$navbar-dark-hover-color:           rgba($white, .75) !default;
+$navbar-dark-active-color:          $white !default;
+$navbar-dark-disabled-color:        rgba($white, .25) !default;
 $navbar-light-border: #aaaaaa;
 
 // Navbarlinks ??
@@ -150,6 +203,6 @@ $badge-padding-x:                   .65em;
 $code-color: $body-color;
 $code-bg: #eee;
 
-$enable-gradients: true;
+
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //

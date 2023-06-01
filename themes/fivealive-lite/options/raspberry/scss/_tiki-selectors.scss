@@ -3,12 +3,9 @@
 
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
 // CSS is used because Bootstrap partials aren't available for theme variables, etc.
-body.layout_basic {
-    background-image: linear-gradient(to right bottom, #c8aab4, #d7aeac, #deb4a2, #dbbe99, #cdcb98, #c7c58e, #c0c085, #baba7b, #c39f66, #c5825f, #bf6765, #ac5271);
-}
-.row-middle {
-    background-color: #fff;
-}
+//body.layout_basic {
+//    background-image: linear-gradient(to right bottom, #c8aab4, #d7aeac, #deb4a2, #dbbe99, #cdcb98, #c7c58e, #c0c085, #baba7b, #c39f66, #c5825f, #bf6765, #ac5271);
+//}
 
 .text-danger {
     color: $danger !important; // #B85B19 !important; // $danger !important;

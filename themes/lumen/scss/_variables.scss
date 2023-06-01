@@ -41,13 +41,17 @@ $dark:          $gray-700 !default;
 
 $min-contrast-ratio:   1.75 !default;
 
+$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%) !default;
+
 // Links (added for Tiki)
 //
 // Style anchor elements.
 
 $link-color:                              #117197;
 
-// Fonts
+// Typography
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:      "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
@@ -115,6 +119,8 @@ $btn-close-color:            $white !default;
 $btn-close-opacity:          .4 !default;
 $btn-close-hover-opacity:    1 !default;
 
+// Code
+$code-color:                        $pink !default; // Bootstrap 5.3
 //--------------------------- Tiki SCSS variables
 
 

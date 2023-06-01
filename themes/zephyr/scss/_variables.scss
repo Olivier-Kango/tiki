@@ -19,6 +19,20 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
 
+// scss-docs-start gray-colors-map
+$grays: (
+    "100": $gray-100,
+    "200": $gray-200,
+    "300": $gray-300,
+    "400": $gray-400,
+    "500": $gray-500,
+    "600": $gray-600,
+    "700": $gray-700,
+    "800": $gray-800,
+    "900": $gray-900
+) !default;
+// scss-docs-end gray-colors-map
+
 $blue:    #3459e6 !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
@@ -29,6 +43,28 @@ $yellow:  #f4bd61 !default;
 $green:   #2fb380 !default;
 $teal:    #20c997 !default;
 $cyan:    #287bb5 !default;
+
+// scss-docs-start colors-map
+$colors: (
+    "blue":       $blue,
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "black":      $black,
+    "white":      $white,
+    "gray":       $gray-600,
+    "gray-dark":  $gray-800
+) !default;
+// scss-docs-end colors-map
+
+$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%) !default;
 
 $primary:       $blue !default;
 $secondary:     $white !default;
@@ -41,6 +77,14 @@ $dark:          $gray-900 !default;
 
 $min-contrast-ratio:   1.65 !default;
 
+// Options
+$enable-dark-mode:            true !default;
+$color-mode-type:             data !default; // `data` or `media-query`
+$enable-negative-margins:       true;
+
+// Prefix for :root CSS variables
+$prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+
 $enable-shadows:              true !default;
 
 // Body
@@ -48,6 +92,9 @@ $enable-shadows:              true !default;
 $body-color:                $gray-700 !default;
 
 $headings-color:              $gray-900 !default;
+
+// Links
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
 // Fonts
 
@@ -93,13 +140,18 @@ $input-group-addon-bg:                  $gray-100 !default;
 
 // Navs
 
-$nav-link-color:                    $body-color !default;
-$nav-link-hover-color:              $body-color !default;
+// Navs (four below added for Bootstrap 53)
+$nav-link-color:                    var(--#{$prefix}link-color) !default;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
 
 $nav-tabs-border-radius:            0 !default;
 $nav-tabs-link-active-color:        $primary !default;
 
-// Navbar
+// Navbar (four below added for Bootstrap 53)
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
+$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
+$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
 
 $navbar-padding-y:                  .85rem !default;
 
@@ -167,4 +219,6 @@ $breadcrumb-padding-x:              1rem !default;
 
 $breadcrumb-divider:                quote(">") !default;
 
+// Code
+$code-color:                        $pink !default; // Bootstrap 5.3
 //--------------------------- Tiki SCSS variables

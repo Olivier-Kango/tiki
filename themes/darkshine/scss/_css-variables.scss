@@ -72,3 +72,16 @@
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
     --tiki-admin-top-nav-bg: #{$top-navbar-bg};
 }
+
+[data-bs-theme="dark"] {
+    .layout_classic #middle, .layout_basic .row-middle, .layout_social .middle.container, .tiki-admin .row-middle {
+        background: #212529;
+    }
+    .textarea-toolbar > div, .textarea-toolbar > ul { // .textarea-toolbar > div,
+        background-color: var(--bs-secondary-bg);
+        border-color: var(--bs-secondary-color);
+    }
+    a.toolbar, li.toolbar {
+        color: var(--bs-secondary-text-emphasis);
+    }
+}

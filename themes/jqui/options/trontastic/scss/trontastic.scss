@@ -5,6 +5,7 @@
 @import "../../../../base_files/scss/_tiki-bootstrap_functions";
 
 @import "variables";
+@import "variables-dark";
 @import "../../../../default/scss/variables";
 @import "../../../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins";

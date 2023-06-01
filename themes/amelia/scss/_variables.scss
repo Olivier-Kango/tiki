@@ -14,7 +14,13 @@ $gray-300: #dee2e6;
 $gray-200: #e9ecef;
 $gray-100: #f8f9fa ;
 $white: #fff;
-$black: #212529;
+$black: #000;
+
+$red:     #dc3545 !default; // BS53
+$pink:    #d63384 !default; // BS53 (code color)
+$green:   #198754 !default; // BS53
+$green-300: tint-color($green, 40%) !default; // BS53
+$red-300: tint-color($red, 40%) !default; // BS53
 
 $primary: #F5CDC2; // #f5af9f;  // #F3C9C9;
 $secondary: #E2CBCB;
@@ -49,7 +55,8 @@ $body-color: #fff;
 
 // Utility maps
 // Links
-$link-color: #f2e8c0; //lighten($warning, 15%);
+$link-color: lighten(#E4D081FF, 15%); //lighten($warning, 15%);
+$link-shade-percentage:                   20% !default; // BS53
 $link-hover-color: lighten($warning, 10%);
 $link-hover-decoration: underline;
 
@@ -81,8 +88,11 @@ $input-placeholder-color: #585E65;
 
 // Form validation
 // Z-index master list
+$form-feedback-invalid-color:       $danger !default; // BS53
+$form-invalid-color:                $form-feedback-invalid-color !default; // BS53
 
-// Navbar
+// Navs
+$nav-link-color:                  #444;
 //$nav-link-color:                  var(--#{$prefix}link-color);
 $nav-link-hover-color:            var(--#{$prefix}link-hover-color);
 
@@ -93,7 +103,7 @@ $nav-tabs-link-active-color:        $gray-200;
 $nav-tabs-link-active-bg:           $body-bg;
 $nav-tabs-link-active-border-color: $gray-300 $gray-300 $nav-tabs-link-active-bg;
 
-//$nav-link-disabled-color: darken($nav-link-color, 10%);
+$nav-link-disabled-color: darken($nav-link-color, 10%);
 $nav-pills-link-active-bg: darken($body-bg, 8%);
 
 // Navbar
@@ -102,7 +112,7 @@ $navbar-dark-hover-color:           lighten($navbar-dark-color, 25%);
 $navbar-dark-active-color:          $navbar-dark-color;
 $navbar-dark-disabled-color:        lighten($navbar-dark-color, 50%);
 
-$navbar-light-color:                $black;
+$navbar-light-color:                $link-color; // $black;
 $navbar-light-hover-color:          rgba($black, .7) !default;
 $navbar-light-active-color:         rgba($black, .9) !default;
 $navbar-light-disabled-color:       rgba($black, .3) !default;
@@ -222,6 +232,7 @@ $breadcrumb-active-color: #BDBDBD;
 // Close
 // Offcanvas
 // Code
+$code-color:                        $pink !default; // BS53
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 

@@ -69,23 +69,14 @@ $imagePath: "../images/";
 }
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
 
-//.tiki-admin {
-//    --tiki-admin-navbar-dark-bg: linear-gradient(to bottom, #214d68 0%, #204c67 51%, #262f36 100%) !important;
-//    //    --tiki-admin-dropdown-dark-color: #{$dropdown-color};
-//    --tiki-admin-dropdown-dark-hover-bg: #{$dropdown-dark-link-hover-bg};
-//    --tiki-admin-dropdown-dark-bg: #{$dropdown-dark-bg};
-//    --tiki-admin-navbar-light-bg: linear-gradient(to bottom, #214d68 0%, #204c67 51%, #262f36 100%);
-//    --tiki-admin-dropdown-light-color: #{$navbar-light-color};
-//    --tiki-admin-dropdown-light-hover-color: #{$navbar-light-hover-color};
-//    --tiki-admin-dropdown-light-bg: #{$dropdown-bg};
-//    --tiki-admin-toggle-light-bg: #{$dropdown-bg};
-//    --tiki-admin-navbar-dark-highlight-bg: #{$dropdown-link-hover-bg};
-//    --tiki-admin-navbar-dark-highlight-color: #{$dropdown-link-hover-color};
-//    --tiki-admin-navbar-light-highlight-bg: #{$dropdown-link-hover-bg};
-//    --tiki-admin-navbar-light-highlight-color: #{$dropdown-link-hover-color};
-//}
-
 .accordion {
     --bs-accordion-active-bg: #209ECB;
     --bs-accordion-active-color: #fff;
+}
+
+
+[data-bs-theme="dark"] {
+    .container, #autosave_preview, .odd {
+        background: #212529;
+    }
 }

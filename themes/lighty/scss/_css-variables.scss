@@ -72,3 +72,8 @@
     --tiki-admin-top-nav-bg: #{$navbar-dark-bg};
 }
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
+
+[data-bs-theme="dark"] {
+    --tiki-lighty-col1-bg: #212529;
+    //   --tiki-lighty-card-bg: var(--tiki-lighty-col-bg);
+}

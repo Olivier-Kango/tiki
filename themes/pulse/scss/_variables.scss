@@ -39,6 +39,9 @@ $danger:        $red !default;
 $light:         $gray-200 !default;
 $dark:          $gray-900 !default;
 
+$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%) !default;
+
 $min-contrast-ratio:   2.1 !default;
 
 // Options
@@ -49,8 +52,8 @@ $enable-rounded: false !default;
 
 $body-color:                $gray-700 !default;
 
-// Links
-
+// Typography
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
 $link-hover-color:          $primary !default;
 
 // Tables
@@ -95,4 +98,6 @@ $list-group-active-color:           $white !default;
 $list-group-active-bg:              $list-group-bg !default;
 $list-group-disabled-color:         lighten($list-group-bg, 30%) !default;
 
+// Code
+$code-color:                        $pink !default; // Bootstrap 5.3
 //--------------------------- Tiki SCSS variables

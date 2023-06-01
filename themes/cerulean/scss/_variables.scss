@@ -39,21 +39,36 @@ $danger:        $red;
 $light:         $gray-100;
 $dark:          $gray-800;
 
-$min-contrast-ratio:   2.75;
+$green-300: tint-color($green, 40%) !default; // Bootstrap 53
+$red-300: tint-color($red, 40%) !default; // Bootstrap 53
+
+$min-contrast-ratio:   2.75 !default;
+
+// Options
+$prefix:                      bs- !default;
+$prefixTiki:                  tiki-;
 
 // Body
 
 $body-color:    $gray-700;
+
+// Links
+$link-color:                              $primary !default;
+$link-shade-percentage:                   20% !default;
+$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
 
 // Fonts
 
 $headings-color:         $cyan;
 
 // Dropdowns
-
 $dropdown-link-color:           $body-color;
 $dropdown-link-hover-color:     $white;
 $dropdown-link-hover-bg:        $primary;
+
+// Navs
+$nav-link-color:                    var(--#{$prefix}link-color) !important; // !important seems to be necessary to override the Bootstrap default caused by importing vendor bootstrap.scss.
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !important;
 
 // Navbar
 $navbar-dark-color:       #fff; // Updated for Tiki
@@ -62,6 +77,8 @@ $navbar-dark-color:       #fff; // Updated for Tiki
 $accordion-button-active-bg: #2fa4e7;
 $accordion-button-active-color: #fff;
 
+// Code
+$code-color:                        $pink !default; // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables
 $navbar-dark-bg: #343a40;

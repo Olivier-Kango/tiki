@@ -3,6 +3,26 @@
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 
 // Color system
+//$gray-500: #737373; //lighten(@gray-base, 33.5%); (Old)
+//$gray-800: darken($gray-500,20%);
+//$gray-700: darken($gray-500, 15%);
+//$gray-600: darken($gray-500, 10%);
+//$gray-300: lighten($gray-500, 10%);
+//$gray-200: lighten($gray-500, 20%);
+
+// scss-docs-start gray-color-variables
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+// scss-docs-end gray-color-variables
 
 $primary:       #0074C7;
 $secondary:     #7400c3; // $gray-600 !default;
@@ -15,21 +35,22 @@ $black: #000;
 $white: #fff;
 $light: #f6f6f6;
 
+$green:   #198754 !default; // Bootstrap 5.3
+$red:     #dc3545 !default;
+$pink:    #d63384 !default; // Bootstrap 5.3
+$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%) !default;
+
 $theme-colors: (
     "primary": #0074C7,
     "secondary": #7400c3,
     "success": #214A21, //#5cb85c,
     "info": #20809D, //#5bc0de,
     "warning": #975D0C, // #f0ad4e,
-    "danger": #B82D28 // #d9534f
+    "danger": #B82D28, // #d9534f
+    "light":      $light,
+    "dark":       $dark
 );
-
-$gray-500: #737373; //lighten(@gray-base, 33.5%);
-$gray-800: darken($gray-500,20%);
-$gray-700: darken($gray-500, 15%);
-$gray-600: darken($gray-500, 10%);
-$gray-300: lighten($gray-500, 10%);
-$gray-200: lighten($gray-500, 20%);
 
 // Options
 // Prefix for :root CSS variables
@@ -41,10 +62,13 @@ $prefix:                      $variable-prefix !default;
 // Position
 // Body
 $body-color: $gray-800;
+$body-bg: #fff;
 
 // Utility maps
 //Links
 $link-color: #005999; //#0074C7;
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
 
 // Grid breakpoints
 // Grid containers
@@ -86,10 +110,8 @@ $input-group-addon-bg: #DBDBDB;
 // Z-index master list
 
 // Navs
-$nav-link-color:                    $link-color;
-//$nav-link-hover-color:             $link-hover-color;
-$nav-link-color:                    var(--#{$prefix}link-color) !default;
-$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
+$nav-link-color:                    var(--#{$prefix}link-color); // !important;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color); // !important;
 
 //Navbar
 $navbar-dark-color:             #ffffff;
@@ -163,8 +185,15 @@ $modal-header-border-color:   #386dbb;
 // Close
 // Offcanvas
 // Code
+$code-color:                        $pink !default; // Bootstrap 5.3
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 
 // base_files/scss/tiki-variables.scss overrides start
 $tiki-module-h3-card-title-font-size: .95rem;
+
+//------- Tiki SCSS variables
+
+$tiki-nav-link-vertical-color: $link-color;
+$tiki-nav-link-vertical-hover-color: $link-hover-color;
+$tiki-nav-link-vertical-focus-color: $link-hover-color;

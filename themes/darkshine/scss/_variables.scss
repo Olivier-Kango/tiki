@@ -13,6 +13,9 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
 
+$red:     #E60032; // #ff0039 Updated for Tiki to meet WCAG color contrast guidelines
+$green:   #2F8712; // #3fb618 Updated for Tiki to meet WCAG color contrast guidelines
+
 $primary: #C04402; // #CF4A02; // #fd7931;
 $secondary: #A75A01; // #B25F01; // #feb768;
 $success: #1B7E2B; // #1D872E; // #24a238;
@@ -32,6 +35,9 @@ $theme-colors: (
     "light":           #ffffff,
      "dark":           #000000
 );
+
+$green-300: tint-color($green, 40%) !default; // Bootstrap 53
+$red-300: tint-color($red, 40%) !default; // Bootstrap 53
 
 $min-contrast-ratio:   3;
 
@@ -55,6 +61,7 @@ $body-color: #212529;
 // Links
 $link-color: #600000;
 $link-hover-color: darken($link-color, 15%);
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
 // Paragraphs
 // Grid breakpoints
@@ -64,7 +71,7 @@ $link-hover-color: darken($link-color, 15%);
 // Components
 $component-active-color: #140000;
 $component-active-bg: #fd7c32;
-
+$border-color:                #896b6b; //$gray-300 !default;
 
 // Typography
 $font-family-sans-serif: Arial, sans-serif;
@@ -73,10 +80,13 @@ $headings-color: #8a0700;
 $blockquote-footer-color: #485060;
 
 // Tables
+$table-border-color:          var(--#{$prefix}border-color);
+
 // Buttons + Forms
 // Buttons
 // Forms
-$input-bg: #fff;
+$input-bg: var(--#{$prefix}body-bg);
+$input-border-color:                    var(--#{$prefix}border-color);
 $input-group-addon-bg: #E9ECEF;
 $form-text-color: #485060;
 
@@ -127,7 +137,7 @@ $accordion-border-color:                  rgba($black, .125) !default;
 // List group
 // Image thumbnails
 // Figures
-$figure-caption-color: #485060;
+$figure-caption-color:              var(--#{$prefix}secondary-color); // #485060;
 
 // Breadcrumbs
 $breadcrumb-active-color: #687078;
@@ -141,10 +151,12 @@ $close-text-shadow: 0 1px 0 #ffffff;
 // Offcanvas
 // Code
 $code-color: #c7254e;
-$kbd-bg: #f9f2f4;
+//$kbd-bg: #f9f2f4;
 
-$kbd-color: #ffffff;
-$kbd-bg: #333333;
+$kbd-color:                         var(--#{$prefix}body-color); // !default;
+$kbd-bg:                            var(--#{$prefix}body-bg);
+//$kbd-color: #ffffff;
+//$kbd-bg: #333333;
 
 $pre-bg: #f5f5f5;
 $pre-color: $gray-900;

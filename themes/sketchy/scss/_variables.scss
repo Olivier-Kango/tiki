@@ -39,11 +39,15 @@ $danger:        $red !default;
 $light:         $white !default;
 $dark:          $gray-700 !default;
 
+$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%) !default;
+
 $min-contrast-ratio:   1.6 !default;
 
 // Links
 
 $link-decoration:           underline !default;
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
 // Components
 
@@ -158,5 +162,8 @@ $btn-close-color:            inherit !default;
 $btn-close-opacity:          1 !default;
 $btn-close-hover-opacity:    1 !default;
 $btn-close-focus-shadow:     none !default;
+
+// Code
+$code-color:                        $pink !default; // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables

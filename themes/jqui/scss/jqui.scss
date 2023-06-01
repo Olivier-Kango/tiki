@@ -1,11 +1,11 @@
 //  jqui/scss/jqui.scss; compile to make
 /*  jqui/css/jqui.css - the Jqui theme style sheet for Tiki Wiki CMS Groupware. */
 
-@import "../../base_files/scss/_tiki-bootstrap_functions"; // Required Bootstrap
-
-@import "variables"; // Theme overrides of Bootstrap defaults plus any additional variables
+@import "../../base_files/scss/_tiki-bootstrap_functions";
+@import "variables"; // Needs to come first, to override defaults.
+@import "variables-dark";
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
-@import "../../default/scss/variables"; // Bootstrap default variables, with a few Tiki overrides
+//@import "../../default/scss/variables"; // Bootstrap default variables, with a few Tiki overrides
 
 @import "../../base_files/scss/_tiki-bootstrap_layout_and_components"; // Optional Bootstrap
 @import "css-variables"; // Needs to be loaded after default variables to override them

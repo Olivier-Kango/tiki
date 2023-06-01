@@ -65,3 +65,7 @@
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
     --tiki-admin-top-nav-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
 }
+
+[data-bs-theme="dark"] {
+    #col1, .card {background: #0c0c0c};
+}

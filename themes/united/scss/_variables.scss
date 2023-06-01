@@ -30,6 +30,9 @@ $green:   #38b44a !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 
+$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%) !default;
+
 $primary:       $orange !default;
 $secondary:     $gray-500 !default;
 $success:       $green !default;
@@ -47,6 +50,7 @@ $body-color:                $gray-800 !default;
 
 // Link color
 $link-color: #D14715; // Darkened for WCAG compliance
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
 // Fonts
 
@@ -57,5 +61,8 @@ $font-family-sans-serif:      Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe 
 
 $table-dark-bg:               $dark !default;
 $table-dark-border-color:     darken($dark, 5%) !default;
+
+// Code
+$code-color:                        $pink !default; // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables

@@ -63,3 +63,9 @@
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
     --tiki-admin-top-nav-bg: #{$dark};
 }
+
+[data-bs-theme="dark"] {
+    #col1, #col3 {
+        background: #212529;
+    }
+}

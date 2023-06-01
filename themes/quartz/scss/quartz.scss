@@ -8,12 +8,11 @@
  *
  * Adapted by the Tiki Community for Tiki Wiki CMS Groupware
 */
-// Spacing
-
 
 @import "../../base_files/scss/_tiki-bootstrap_functions";
 
 @import "variables";
+@import "variables-dark";
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "bootswatch";

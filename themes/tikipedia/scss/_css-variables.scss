@@ -68,3 +68,18 @@
     --tiki-admin-top-nav-bg: #{$dark};
 }
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
+
+$imagePath: "../images/";
+
+:root {
+    --tiki-tikipedia-body-bg: #f6f6f6 url('#{$imagePath}page-base.png');
+    --tiki-tikipedia-col1co13-bg:  #ffffff url('#{$imagePath}border.png') repeat-y;
+    --tiki-tikipedia-pagetitle-color: --bs-body-color;
+}
+
+[data-bs-theme="dark"] {
+    --tiki-tikipedia-body-bg: #212121;
+    --tiki-tikipedia-col1co13-bg:  #212529;
+    --tiki-tikipedia-pagetitle-color: --bs-body-color-dark;
+    .navbar { background-image: none;}
+}

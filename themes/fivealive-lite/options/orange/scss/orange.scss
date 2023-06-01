@@ -5,7 +5,7 @@
 @import "../../../../base_files/scss/_tiki-bootstrap_functions";
 
 @import "variables";
-//@import "../../../scss/variables";
+@import "variables-dark";
 @import "../../../../default/scss/variables";
 
 @import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/maps";

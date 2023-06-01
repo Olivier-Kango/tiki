@@ -13,6 +13,22 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
 
+// scss-docs-start color-variables
+$blue:    #0d6efd !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #198754 !default; // Bootstrap 5.3
+$teal:    #20c997 !default;
+$cyan:    #0dcaf0 !default;
+// scss-docs-end color-variables
+
+$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%) !default;
+
 $primary: #757575; // #aaaaaa; contrast increased
 $secondary: #212529;
 $success: #218739; // #28a745; contrast increased
@@ -31,16 +47,76 @@ $theme-colors: (
      "dark":              #000000
 );
 
+// scss-docs-start theme-text-variables
+$primary-text-emphasis:   shade-color($primary, 60%) !default;
+$secondary-text-emphasis: shade-color($secondary, 60%) !default;
+$success-text-emphasis:   shade-color($success, 60%) !default;
+$info-text-emphasis:      shade-color($info, 60%) !default;
+$warning-text-emphasis:   shade-color($warning, 60%) !default;
+$danger-text-emphasis:    shade-color($danger, 60%) !default;
+$light-text-emphasis:     $gray-700 !default;
+$dark-text-emphasis:      $gray-700 !default;
+// scss-docs-end theme-text-variables
+
+// scss-docs-start theme-bg-subtle-variables
+$primary-bg-subtle:       tint-color($primary, 80%) !default;
+$secondary-bg-subtle:     tint-color($secondary, 80%) !default;
+$success-bg-subtle:       tint-color($success, 80%) !default;
+$info-bg-subtle:          tint-color($info, 80%) !default;
+$warning-bg-subtle:       tint-color($warning, 80%) !default;
+$danger-bg-subtle:        tint-color($danger, 80%) !default;
+$light-bg-subtle:         mix($gray-100, $white) !default;
+$dark-bg-subtle:          $gray-400 !default;
+// scss-docs-end theme-bg-subtle-variables
+
+// scss-docs-start theme-border-subtle-variables
+$primary-border-subtle:   tint-color($primary, 60%) !default;
+$secondary-border-subtle: tint-color($secondary, 60%) !default;
+$success-border-subtle:   tint-color($success, 60%) !default;
+$info-border-subtle:      tint-color($info, 60%) !default;
+$warning-border-subtle:   tint-color($warning, 60%) !default;
+$danger-border-subtle:    tint-color($danger, 60%) !default;
+$light-border-subtle:     $gray-200 !default;
+$dark-border-subtle:      $gray-500 !default;
+// scss-docs-end theme-border-subtle-variable
+$body-color: #000;
+$body-secondary-color:      rgba($body-color, .75) !default;
+$body-secondary-bg:         $gray-200 !default;
+
+$body-tertiary-color:       rgba($body-color, .5) !default;
+$body-tertiary-bg:          $gray-100 !default;
+
+$body-emphasis-color:       $black !default;
+
+
+
 // Options
+$enable-dark-mode:            true !default;
+$color-mode-type:             data !default; // `data` or `media-query`
+$enable-negative-margins:       true;
+
+// Prefix for :root CSS variables
+$prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+
+// Gradient
 // Spacing
 
 // Body
 $body-bg: #eee;
-$body-color: #000;
+
+$body-secondary-color:      rgba($body-color, .75) !default;
+$body-secondary-bg:         $gray-200 !default;
+
+$body-tertiary-color:       rgba($body-color, .5) !default;
+$body-tertiary-bg:          $gray-100 !default;
+
+$body-emphasis-color:       $black !default;
 
 // Links
 $link-color: $primary;
-$link-hover-color: #999999;
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-hover-color: #999;
+
 // Components
 //$padding-base-vertical: .5rem;
 //$padding-large-vertical: .9rem;
@@ -68,11 +144,22 @@ $btn-secondary-border: darken($btn-secondary-bg, 5%);
 $dropdown-dark-color:               $gray-300 !default;
 $dropdown-dark-bg:                  $gray-800 !default;
 
-// Navs
+// Navs (four below added for Bootstrap 53)
+$nav-link-color:                    var(--#{$prefix}link-color) !default;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
+$nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default;
+
+// Navbar (four below added for Bootstrap 53)
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
+$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
+$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
 // Navbar
-$navbar-light-color: #888888;
-$bg-light: #fafafa;
-$navbar-light-border: darken($bg-light, 6.5%);
+
+//$navbar-light-color: #888888;
+//$bg-light: #fafafa;
+//$navbar-light-border: darken($bg-light, 6.5%);
 
 // Navbar links
 $navbar-light-color: #888888;
@@ -84,10 +171,15 @@ $navbar-light-color: #888888;
 //$navbar-dark-active-color: #ffffff;
 //$navbar-dark-active-bg: #3270bd;
 //$navbar-dark-disabled-color: #cccccc;
+$navbar-dark-color:                 rgba($white, .55) !default;
+$navbar-dark-hover-color:           rgba($white, .75) !default;
+$navbar-dark-active-color:          $white !default;
+$navbar-dark-disabled-color:        rgba($white, .25) !default;
 
 // Pagination
 // Jumbotron
 // Cards
+$card-bg:                           var(--tiki-utopias-container-bg);
 //$card-border-radius: $border-radius-lg;
 //$card-text: #fff;//@gray-lighter;
 //$card-header-bg: #386dbb;
@@ -108,6 +200,8 @@ $figure-caption-color: #6D747E;
 // Carousel
 // Close
 // Code
+$code-color:                        $pink !default; // Bootstrap 5.3
+
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 

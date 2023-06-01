@@ -1,35 +1,50 @@
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 
 // Colors
-// $white:    #fff !default;
-// $gray-100: #f8f9fa !default;
-// $gray-200: #e9ecef !default;
-// $gray-300: #dee2e6 !default;
-// $gray-400: #ced4da !default;
-// $gray-500: #adb5bd !default;
-// $gray-600: #868e96 !default;
-// $gray-700: #495057 !default;
-// $gray-800: #343a40 !default;
-// $gray-900: #212529 !default;
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
 $black:    #000;
 $light:                #c7d0d9;
 $dark: #c7d0d9;
 
+$blue:    #446e9b !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #cd0200 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #d47500 !default;
+$green:   #3cb521 !default;
+$teal:    #20c997 !default;
+$cyan:    #3399f3 !default;
+
+$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%) !default;
+
 $primary:         #6c839b;
-//$success: #48ca3b;
-//$info: #4d3a7d;
-//$warning: #debb27;
-//$danger: #df6e1e;
+$secondary: $primary;
+$success: $primary;
+$info: $primary;
+$warning: $primary;
+$danger: $primary;
 
 $theme-colors: (
      "primary":            #6c839b,
-//     "secondary":         #dddddd,
-//     "success":             #5cb85c,
-//     "info":               #5bc0de,
-//     "warning":             #f0ad4e,
-//     "danger":              #d9534f,
-    "light":            #f4f4f4,
-     "dark":                #c7d0d9
+     "secondary":          #6c839b,
+     "success":              #6c839b,
+     "info":                #6c839b,
+     "warning":              #6c839b,
+     "danger":               #6c839b,
+    "light":             #6c839b,
+     "dark":                 #6c839b
 );
 
 // Options
@@ -41,6 +56,8 @@ $body-color: #222;
 
 // Links
 $link-color: #2d3741;
+$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+
 // Components
 //$padding-base-vertical: .5rem;
 //$padding-large-vertical: .9rem;
@@ -115,6 +132,7 @@ $card-cap-bg: #f3f6f9;
 // Carousel
 // Close
 // Code
+$code-color:                        $pink !default; // Bootstrap 5.3
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 

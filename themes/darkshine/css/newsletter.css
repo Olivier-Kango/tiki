@@ -39,9 +39,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .card {
   margin-bottom: 1.5;
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   border: 1px solid transparent;
-  border-radius: 0.375rem;
+  border-radius: var(--bs-border-radius);
 }
 .card-header {
   border-bottom: 1px solid transparent;
