@@ -105,7 +105,9 @@ function get_tag_revision($releaseNumber)
     $revision = 0;
 
     // --stop-on-copy makes it only return the tag commit, not the whole history since time began
-    $log = trim(`git describe --tags tags/$releaseNumber`);
+    $log = `git describe --tags tags/$releaseNumber`;
+    $log = ! empty($log) ? trim($log) : '';
+
     if (preg_match('/^r(\d+)/ms', $log, $matches)) {
         $revision = (int)$matches[1];
     }
@@ -239,7 +241,10 @@ function get_contributors($path, &$contributors, $minRevision, $maxRevision, $st
 function tag_exists($tag, $remote = false)
 {
     `git fetch --all --tags --prune`;
-    return trim(`git tag --list '$tag'`) ? true : false;
+    $searchedTag = `git tag --list '$tag'`;
+    $searchedTag = ! empty($searchedTag) ? trim($searchedTag) : '';
+
+    return ! empty($searchedTag) ? true : false;
 }
 
 /**
