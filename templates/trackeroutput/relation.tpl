@@ -7,8 +7,8 @@
                 <a class="toggle" href="#display_f{$field.fieldId|escape}">{tr _0=$data.relations|count}%0 element(s){/tr}</a>
             {/if}
             <ul>
-                {foreach from=$data.relations item=identifier}
-                    <li>{object_link identifier=$identifier format=$data.format}</li>
+                {foreach from=$data.relations item=rel}
+                    <li>{object_link identifier=':'|implode([$rel.type, $rel.itemId]) format=$data.format}</li>
                 {/foreach}
             </ul>
         </div>

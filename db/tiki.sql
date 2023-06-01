@@ -3676,10 +3676,11 @@ CREATE TABLE `tiki_object_relations` (
     `relation` varchar(70) NOT NULL,
     `source_type` varchar(50) NOT NULL,
     `source_itemId` varchar(160) NOT NULL,
+    `source_fieldId` int(12) NULL,
     `target_type` varchar(50) NOT NULL,
     `target_itemId` varchar(160) NOT NULL,
     `metadata_itemId` INT(12) default NULL,
-    KEY `relation_source_ix` (`source_type`, `source_itemId`),
+    KEY `relation_source_ix` (`source_type`, `source_itemId`, `source_fieldId`),
     KEY `relation_target_ix` (`target_type`, `target_itemId`),
     KEY `metadata_itemId` (`metadata_itemId`)
 ) ENGINE=MyISAM;

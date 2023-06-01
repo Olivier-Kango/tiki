@@ -342,18 +342,6 @@ class Tracker_Definition
         return $out;
     }
 
-    public function getRelationField($relation)
-    {
-        foreach ($this->getFields() as $field) {
-            if (
-                $field['type'] == 'REL'
-                && $field['options_map']['relation'] == $relation
-            ) {
-                return $field['fieldId'];
-            }
-        }
-    }
-
     /**
      * Get the names of the item user(s) if any.
      * An item user is defined if a 'user selector' field

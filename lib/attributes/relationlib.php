@@ -45,6 +45,28 @@ class RelationLib extends TikiDb_Bridge
         return $this->table->fetchAll($fields, $cond, $max, -1, $orderBy);
     }
 
+    /**
+     * Similar to get_relations_from but uses the fieldId parameter to filter the related object rows.
+     * This makes use of the source index for quicker retrieval and doesn't depend on relation qualifier.
+     */
+    public function getRelationsFromField($type, $object, $fieldId)
+    {
+        $cond = [
+            'source_type' => $type,
+            'source_itemId' => $object,
+            'source_fieldId' => $fieldId,
+        ];
+
+        $fields = [
+            'relationId',
+            'relation',
+            'type' => 'target_type',
+            'itemId' => 'target_itemId',
+        ];
+
+        return $this->table->fetchAll($fields, $cond);
+    }
+
 
     /**
      * Obtain a list of objects that have a given relation
@@ -132,7 +154,7 @@ class RelationLib extends TikiDb_Bridge
      * relation naming, and document new tiki.*.* names that you add.
      * (also grep "add_relation" just in case there are undocumented names already used)
      */
-    public function add_relation($relation, $src_type, $src_object, $target_type, $target_object, $ignoreExisting = false)
+    public function add_relation($relation, $src_type, $src_object, $target_type, $target_object, $ignoreExisting = false, $src_field_id = null)
     {
         $relation = TikiFilter::get('attribute_type')->filter($relation);
 
@@ -141,12 +163,13 @@ class RelationLib extends TikiDb_Bridge
         }
 
         if ($relation) {
-            if (! $id = $this->get_relation_id($relation, $src_type, $src_object, $target_type, $target_object)) {
+            if (! $id = $this->get_relation_id($relation, $src_type, $src_object, $target_type, $target_object, $src_field_id)) {
                 $id = $this->table->insert(
                     [
                         'relation' => $relation,
                         'source_type' => $src_type,
                         'source_itemId' => $src_object,
+                        'source_fieldId' => $src_field_id,
                         'target_type' => $target_type,
                         'target_itemId' => $target_object,
                     ]
@@ -160,6 +183,7 @@ class RelationLib extends TikiDb_Bridge
                 'relation' => $relation,
                 'sourcetype' => $src_type,
                 'sourceobject' => $src_object,
+                'sourcefield' => $src_field_id,
                 'type' => $target_type,
                 'object' => $target_object,
                 'user' => $GLOBALS['user'],
@@ -181,7 +205,7 @@ class RelationLib extends TikiDb_Bridge
      * @param $target_object
      * @return int
      */
-    public function get_relation_id($relation, $src_type, $src_object, $target_type, $target_object)
+    public function get_relation_id($relation, $src_type, $src_object, $target_type, $target_object, $src_field_id = null)
     {
         $relation = TikiFilter::get('attribute_type')->filter($relation);
 
@@ -191,15 +215,19 @@ class RelationLib extends TikiDb_Bridge
 
         $id = 0;
         if ($relation) {
+            $cond = [
+                'relation' => $relation,
+                'source_type' => $src_type,
+                'source_itemId' => $src_object,
+                'target_type' => $target_type,
+                'target_itemId' => $target_object,
+            ];
+            if ($src_field_id) {
+                $cond['source_fieldId'] = $src_field_id;
+            }
             $id = $this->table->fetchOne(
                 'relationId',
-                [
-                    'relation' => $relation,
-                    'source_type' => $src_type,
-                    'source_itemId' => $src_object,
-                    'target_type' => $target_type,
-                    'target_itemId' => $target_object,
-                ]
+                $cond
             );
         }
         return $id;
@@ -306,6 +334,7 @@ class RelationLib extends TikiDb_Bridge
             'relation' => $relation_info['relation'],
             'sourcetype' => $relation_info['source_type'],
             'sourceobject' => $relation_info['source_itemId'],
+            'sourcefield' => $relation_info['source_fieldId'],
             'type' => $relation_info['target_type'],
             'object' => $relation_info['target_itemId'],
             'user' => $GLOBALS['user'],
@@ -318,16 +347,14 @@ class RelationLib extends TikiDb_Bridge
     /**
      * Remove all relations from that type and source items belonging to that tracker
      * @param $relation - the relation type
-     * @param $trackerId - the tracker id
+     * @param $fieldId - the field where this relation was used
      */
-    public function remove_relation_type($relation, $trackerId)
+    public function remove_relation_type($relation, $fieldId)
     {
         return $this->query("DELETE FROM tiki_object_relations
             WHERE relation = ?
             AND source_type = 'trackeritem'
-            AND source_itemId IN(
-                SELECT itemId FROM tiki_tracker_items WHERE trackerId = ?
-            )", [$relation, $trackerId]);
+            AND source_fieldId = ?", [$relation, $fieldId]);
     }
 
     /**
@@ -352,13 +379,15 @@ class RelationLib extends TikiDb_Bridge
      *
      * @param $from - old relation name
      * @param $to - new relation name
+     * @param $fieldId - the field using this relation
      */
-    public function update_relation($from, $to)
+    public function update_relation($from, $to, $fieldId)
     {
         $this->table->updateMultiple([
             'relation' => $to
         ], [
-            'relation' => $from
+            'relation' => $from,
+            'source_fieldId' => $fieldId
         ]);
     }
 
