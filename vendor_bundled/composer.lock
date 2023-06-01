@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed651214e7e0d23ea00d777a35b44778",
+    "content-hash": "963bc8c4f322a0ab086d522c7df57757",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -14158,17 +14158,17 @@
         },
         {
             "name": "voku/portable-ascii",
-            "version": "1.5.6",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "80953678b19901e5165c56752d087fc11526017c"
+                "reference": "b56450eed252f6801410d810c8e1727224ae0743"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/voku/portable-ascii/voku-portable-ascii-80953678b19901e5165c56752d087fc11526017c-zip-f96096.zip",
-                "reference": "80953678b19901e5165c56752d087fc11526017c",
-                "shasum": "6a1eb45dea7c0380232db391c4ea11bfc8e425f9"
+                "url": "https://composer.tiki.org/dist/voku/portable-ascii/voku-portable-ascii-b56450eed252f6801410d810c8e1727224ae0743-zip-4867cc.zip",
+                "reference": "b56450eed252f6801410d810c8e1727224ae0743",
+                "shasum": "c837600adc5ec0a9bead08b555f790648a13f67c"
             },
             "require": {
                 "php": ">=7.0.0"
@@ -14224,21 +14224,21 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-12T00:07:28+00:00"
+            "time": "2022-03-08T17:03:00+00:00"
         },
         {
             "name": "voku/portable-utf8",
-            "version": "5.4.51",
+            "version": "6.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-utf8.git",
-                "reference": "578f5266725dc9880483d24ad0cfb39f8ce170f7"
+                "reference": "b8ce36bf26593e5c2e81b1850ef0ffb299d2043f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/voku/portable-utf8/voku-portable-utf8-578f5266725dc9880483d24ad0cfb39f8ce170f7-zip-bd129f.zip",
-                "reference": "578f5266725dc9880483d24ad0cfb39f8ce170f7",
-                "shasum": "4fea0c3410a5a325e6cc8a11c6bf81545d7a07f6"
+                "url": "https://composer.tiki.org/dist/voku/portable-utf8/voku-portable-utf8-b8ce36bf26593e5c2e81b1850ef0ffb299d2043f-zip-5abc13.zip",
+                "reference": "b8ce36bf26593e5c2e81b1850ef0ffb299d2043f",
+                "shasum": "8869f8435e3844272964fe4d5aaf3bc495d9e085"
             },
             "require": {
                 "php": ">=7.0.0",
@@ -14247,10 +14247,14 @@
                 "symfony/polyfill-intl-normalizer": "~1.0",
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/polyfill-php72": "~1.0",
-                "voku/portable-ascii": "~1.5.6"
+                "voku/portable-ascii": "~2.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
+                "phpstan/phpstan": "1.9.*@dev",
+                "phpstan/phpstan-strict-rules": "1.4.*@dev",
+                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0",
+                "thecodingmachine/phpstan-strict-rules": "1.0.*@dev",
+                "voku/phpstan-rules": "3.1.*@dev"
             },
             "suggest": {
                 "ext-ctype": "Use Ctype for e.g. hexadecimal digit detection",
@@ -14319,7 +14323,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-02T01:58:49+00:00"
+            "time": "2023-03-08T08:35:38+00:00"
         },
         {
             "name": "walkermatt/ol-layerswitcher",
@@ -14333,21 +14337,21 @@
         },
         {
             "name": "wamania/php-stemmer",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wamania/php-stemmer.git",
-                "reference": "eab7b93465eb3d5da372806c8e1b01da5766aea5"
+                "reference": "8ea32b6fa27d6888587fe860b64a8763525c5a66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/wamania/php-stemmer/wamania-php-stemmer-eab7b93465eb3d5da372806c8e1b01da5766aea5-zip-30e6a9.zip",
-                "reference": "eab7b93465eb3d5da372806c8e1b01da5766aea5",
-                "shasum": "20f0586bb2dbf934d0ad46157ffe7bb8f8c9377c"
+                "url": "https://composer.tiki.org/dist/wamania/php-stemmer/wamania-php-stemmer-8ea32b6fa27d6888587fe860b64a8763525c5a66-zip-d60bad.zip",
+                "reference": "8ea32b6fa27d6888587fe860b64a8763525c5a66",
+                "shasum": "fab8d7d131ca3fc3fd16834aff33015db1f02e33"
             },
             "require": {
                 "php": ">=7.3",
-                "voku/portable-utf8": "^5.4"
+                "voku/portable-utf8": "^5.4|^6.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.0"
@@ -14374,7 +14378,7 @@
                 "porter",
                 "stemmer"
             ],
-            "time": "2021-08-17T18:16:34+00:00"
+            "time": "2023-05-11T10:50:27+00:00"
         },
         {
             "name": "webklex/composer-info",
@@ -15948,13 +15952,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "5f319e4d92aeb657b7f57fc847f0898d60ce3881"
+                "reference": "1f824051a524c950ff60e9f5fb82d2c05a244fbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-5f319e4d92aeb657b7f57fc847f0898d60ce3881-zip-6cb85c.zip",
-                "reference": "5f319e4d92aeb657b7f57fc847f0898d60ce3881",
-                "shasum": "ee3205499688a6dcdbec2b00cd9521e1c03f7a39"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-1f824051a524c950ff60e9f5fb82d2c05a244fbd-zip-deb804.zip",
+                "reference": "1f824051a524c950ff60e9f5fb82d2c05a244fbd",
+                "shasum": "7f4ff7c9191dfaf24aef1ecc5358c5c7ab43c2d0"
             },
             "require": {
                 "php": ">=5.4",
@@ -16010,7 +16014,7 @@
                 "standards",
                 "static analysis"
             ],
-            "time": "2023-05-27T12:29:26+00:00"
+            "time": "2023-06-04T17:47:26+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -16082,17 +16086,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.15",
+            "version": "1.10.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd"
+                "reference": "352bdbb960bb523e3d71b834862589f910921c23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-762c4dac4da6f8756eebb80e528c3a47855da9bd-zip-7af42e.zip",
-                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd",
-                "shasum": "fee1bf9d9dd9e9b51808861515f90004f4a646b2"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-352bdbb960bb523e3d71b834862589f910921c23-zip-a0e2cd.zip",
+                "reference": "352bdbb960bb523e3d71b834862589f910921c23",
+                "shasum": "0711221e8f148f05e8af280b47e4c9bf379c0140"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -16133,7 +16137,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-09T15:28:01+00:00"
+            "time": "2023-06-05T08:21:46+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -16694,6 +16698,63 @@
                 "psr-6"
             ],
             "time": "2021-02-03T23:23:37+00:00"
+        },
+        {
+            "name": "rector/rector",
+            "version": "0.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rectorphp/rector.git",
+                "reference": "d8da002b107c9b64d464bb48101290d4d078df4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-d8da002b107c9b64d464bb48101290d4d078df4b-zip-b61046.zip",
+                "reference": "d8da002b107c9b64d464bb48101290d4d078df4b",
+                "shasum": "0b89a24ffb6b4de94fd66364f45614ec228bf69a"
+            },
+            "require": {
+                "php": "^7.2|^8.0",
+                "phpstan/phpstan": "^1.10.15"
+            },
+            "conflict": {
+                "rector/rector-doctrine": "*",
+                "rector/rector-downgrade-php": "*",
+                "rector/rector-phpunit": "*",
+                "rector/rector-symfony": "*"
+            },
+            "bin": [
+                "bin/rector"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.15-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
+            "keywords": [
+                "automation",
+                "dev",
+                "migration",
+                "refactoring"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-01T09:42:59+00:00"
         },
         {
             "name": "sebastian/cli-parser",

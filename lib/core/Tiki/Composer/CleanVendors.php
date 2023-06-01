@@ -13,7 +13,8 @@ use Exception;
 class CleanVendors
 {
 /** @var array Files or directories to remove anywhere in vendor files. Case-insensitive. Must specify as lower case.  */
-    private static $standardFiles = [
+    private static $standardFiles = [];
+    /*private static $standardFiles = [
         'development',
         'demo',
         'demo1',
@@ -32,7 +33,7 @@ class CleanVendors
         'example.html',
         'example.md',
         'test',
-        'testing',
+//      'testing',  //  needed by rector/rector
         'tests',
         'test.html',
 //      'vendor',   // needed by twbs/bootstrap
@@ -109,7 +110,7 @@ class CleanVendors
         'credits.md',
         'notice',
         'index.html',
-    ];
+    ];*/
 
     /**
      * Performs post-composer cleanup routines on vendor files.
@@ -443,6 +444,9 @@ class CleanVendors
 
     private static function addIndexFiles(string $path): void
     {
+        $excludeDirs = [
+            'rector/rector'  //It breaks rector, and it's a devtool, so won't be bundled anyway.
+        ];
         // add index file if needed
         $index = glob($path . '[iI][nN][dD][eE][xX].[pP][hH][pP]'); // index.php case-insensitive
         if (empty($index)) {
@@ -452,7 +456,11 @@ class CleanVendors
         // recursive call to all sub-directories
         $dirs = glob($path . '{,.}*[!.]', GLOB_MARK | GLOB_BRACE | GLOB_ONLYDIR);
         foreach ($dirs as $dir) {
-            self::addIndexFiles($dir);
+            if (empty(array_filter($excludeDirs, fn($item) => strpos($dir, $item) !== false))) {
+                self::addIndexFiles($dir);
+            } else {
+                //echo "Skiping adding index.php from $dir matching excludeDirs\n";
+            }
         }
     }
 
@@ -467,6 +475,7 @@ class CleanVendors
         $files = glob($base . '/{,.}*[!.]', GLOB_MARK | GLOB_BRACE);
         foreach ($files as $file) {
             if (in_array(strtolower(basename($file)), self::$standardFiles, true)) {
+                //echo "Deleting file: $file\n";
                 $fs->remove($file);
             } elseif (is_dir($file)) {
                 self::removeStandard($file);

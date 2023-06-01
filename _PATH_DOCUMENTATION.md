@@ -213,7 +213,7 @@ We need to unify these in proper constants, and end up with 2 files to update, o
 
 There are currently many generated files (or trivially generatable files) in git:
 
-* index.php and .htaccess designed to disallow directory listing in apache.  We already have code in php doc/devtools/check_tiki_directories.php to check and even generate (php doc/devtools/check_tiki_directories.php fix-index).
+* index.php and .htaccess designed to disallow directory listing in apache.  We already have code in php doc/devtools/check_tiki_directories.php to check and even generate (php doc/devtools/check_tiki_directories.php fix-index).  And another, different one, in lib/core/Tiki/Composer/CleanVendors.php (addIndexFiles())
 * Vue3 javascript files currently in /lib/vue_mf
 * A limited number of other js files.
 * scss files
