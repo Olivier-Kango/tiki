@@ -1095,8 +1095,6 @@ class ModLib extends TikiLib
             $defaults = [
                 'style' => '',
                 'nonums' => 'n',
-                'megamenu' => ! empty($mod_reference['params']['megamenu']) ? $mod_reference['params']['megamenu'] : 'n',
-                'megamenu_static' => ! empty($mod_reference['params']['megamenu_static']) ? $mod_reference['params']['megamenu_static'] : 'n',
             ];
             $module_params = isset($mod_reference['params']) ? (array) $mod_reference['params'] : [];
             $module_params = array_merge($defaults, $module_params); // not sure why style doesn't get set sometime but is used in the tpl

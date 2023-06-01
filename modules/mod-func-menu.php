@@ -119,10 +119,23 @@ function module_menu_info()
  * @param $mod_reference
  * @param $module_params
  */
-function module_menu($mod_reference, $module_params)
+function module_menu($mod_reference, &$module_params)
 {
     $smarty = TikiLib::lib('smarty');
     $smarty->assign('module_error', '');
+
+    if (! isset($module_params['navbar_brand'])) {
+        $module_params['navbar_brand'] = "";
+    }
+    if (! isset($module_params['type'])) {
+        $module_params['type'] = "vert";
+    }
+    if (! isset($module_params['megamenu'])) {
+        $module_params['megamenu'] = "n";
+    }
+    if (! isset($module_params['megamenu_static'])) {
+        $module_params['megamenu_static'] = "y";
+    }
     if (empty($module_params['id']) && empty($module_params['structureId'])) {
         $smarty->assign('module_error', tr('One of these parameters has to be set:') . ' ' . tr('Menu') . ', ' . tr('Structure') . '.');
     }
