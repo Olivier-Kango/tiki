@@ -10,6 +10,13 @@
 
 require_once('tiki-setup.php');
 
+if (getenv('REQUEST_METHOD') == 'HEAD') {
+    // It seems Outlook sends a HEAD request before the GET request.
+    // This ensures the one-time secret string is not invalidated before users actually access the page
+    Feedback::errorPage(tr('Invalid request.'));
+    die();
+}
+
 if ((isset($prefs['email_due']) && $prefs['email_due'] < 0 ) && $prefs['validateUsers'] != 'y') {
 	Feedback::errorPage(tr('This feature is disabled') . ': validateUsers');
 }
