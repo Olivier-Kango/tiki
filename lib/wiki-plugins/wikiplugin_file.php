@@ -171,6 +171,21 @@ function wikiplugin_file_info()
 function wikiplugin_file($data, $params)
 {
     global $tikilib, $prefs, $info, $page_view_date;
+
+    if (empty($params['type'])) {
+        return WikiParser_PluginOutput::error(tr('Error'), tr('The %0 parameter is missing', 'type'));
+    } elseif ($params['type'] != "gallery" && $params['type'] != "attachment") {
+        return WikiParser_PluginOutput::error(tr('Error'), tra('Incorrect parameter') . ' type');
+    } elseif ($params['type'] == "gallery") {
+        if (empty($params['fileId'])) {
+            return WikiParser_PluginOutput::error(tr('Error'), tr('The %0 parameter is missing', 'fileId'));
+        }
+    } elseif ($params['type'] == "attachment") {
+        if (empty($params['name'])) {
+            return WikiParser_PluginOutput::error(tr('Error'), tr('The %0 parameter is missing', 'name'));
+        }
+    }
+
     if (isset($params['fileId'])) {
         $filegallib = TikiLib::lib('filegal');
         if ($prefs['feature_file_galleries'] != 'y') {
