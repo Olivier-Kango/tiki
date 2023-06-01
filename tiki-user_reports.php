@@ -17,9 +17,9 @@ $reportsManager = Reports_Factory::build('Reports_Manager');
 
 //Enable User Reports
 if (isset($_POST['report_preferences']) && $_POST['use_daily_reports'] == "true" && $access->checkCsrf()) {
-    $interval = filter_input(INPUT_POST, 'interval', FILTER_SANITIZE_STRING);
-    $view = filter_input(INPUT_POST, 'view', FILTER_SANITIZE_STRING);
-    $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+    $interval = filter_input(INPUT_POST, 'interval', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $view = filter_input(INPUT_POST, 'view', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $always_email = filter_input(INPUT_POST, 'always_email', FILTER_SANITIZE_NUMBER_INT);
     if ($always_email != 1) {
         $always_email = 0;

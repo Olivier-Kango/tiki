@@ -33,10 +33,10 @@ if ($action == 'delete' && $tokenId > 0) {
 }
 
 if ($action == 'add') {
-    $url = filter_input(INPUT_POST, 'entry', FILTER_SANITIZE_STRING);
+    $url = filter_input(INPUT_POST, 'entry', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $entry = parse_url($url, PHP_URL_PATH);
 
-    $groups = filter_input(INPUT_POST, 'groups', FILTER_SANITIZE_STRING);
+    $groups = filter_input(INPUT_POST, 'groups', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $groups = str_replace(' ', '', $groups);
     $groups = explode(',', $groups);
 

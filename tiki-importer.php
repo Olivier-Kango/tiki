@@ -16,7 +16,7 @@ require_once('lib/wiki/editlib.php');
 $access->check_permission('tiki_p_admin_importer');
 
 if (! empty($_POST['importerClassName'])) {
-    $importerClassName = filter_input(INPUT_POST, 'importerClassName', FILTER_SANITIZE_STRING);
+    $importerClassName = filter_input(INPUT_POST, 'importerClassName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     switch ($importerClassName) {
         case 'TikiImporter_Wiki_Mediawiki':

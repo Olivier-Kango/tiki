@@ -283,7 +283,7 @@ class Services_H5P_Controller
 
         $editor = \H5P_EditorTikiStorage::get_h5peditor_instance();
 
-        $name = filter_input(INPUT_GET, 'machineName', FILTER_SANITIZE_STRING);
+        $name = filter_input(INPUT_GET, 'machineName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $major_version = filter_input(INPUT_GET, 'majorVersion', FILTER_SANITIZE_NUMBER_INT);
         $minor_version = filter_input(INPUT_GET, 'minorVersion', FILTER_SANITIZE_NUMBER_INT);
 
