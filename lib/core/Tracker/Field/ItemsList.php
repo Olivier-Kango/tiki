@@ -616,14 +616,14 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		// not sure this is working
 		// r = item link
 		if ($tracker && $filterFieldThere && (! $filterFieldIdHere || $filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w')) {
-			if ($filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w') {
+			if (isset($filterFieldThere['type']) && $filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w') {
 				$technique = 'id';
 			}
 		}
 
 		// not sure this is working
 		// q = Autoincrement
-		if ($filterFieldHere['type'] == 'q' && isset($filterFieldHere['options_array'][3]) && $filterFieldHere['options_array'][3] == 'itemId') {
+		if (isset($filterFieldHere['type']) && $filterFieldHere['type'] == 'q' && isset($filterFieldHere['options_array'][3]) && $filterFieldHere['options_array'][3] == 'itemId') {
 			$technique = 'id';
 		}
 
@@ -648,16 +648,16 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 				return [$localValue];
 			}
 			// r = item link - not sure this is working
-			if ($filterFieldHere['type'] == 'r' && isset($filterFieldHere['options_array'][0]) && isset($filterFieldHere['options_array'][1])) {
+			if (isset($filterFieldHere['type']) && $filterFieldHere['type'] == 'r' && isset($filterFieldHere['options_array'][0]) && isset($filterFieldHere['options_array'][1])) {
 				$localValue = $trklib->get_item_value($filterFieldHere['options_array'][0], $localValue, $filterFieldHere['options_array'][1]);
 			}
 
 			// w = dynamic item list - localvalue is the itemid of the target item. so rewrite.
-			if ($filterFieldHere['type'] == 'w') {
+			if (isset($filterFieldHere['type']) && $filterFieldHere['type'] == 'w') {
 				$localValue = $trklib->get_item_value($trackerId, $localValue, $filterFieldIdThere);
 			}
 			// u = user selector, might be mulitple users so need to find multiple values
-			if ($filterFieldHere['type'] == 'u' && ! empty($filterFieldHere['options_map']['multiple'])
+			if (isset($filterFieldHere['type']) && $filterFieldHere['type'] == 'u' && ! empty($filterFieldHere['options_map']['multiple'])
 				&& $localValue
 			) {
 				if (! is_array($localValue)) {
@@ -676,7 +676,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 				return $items;
 			}
 			// e = category, might be mulitple categories so need to find multiple values
-			if ($filterFieldHere['type'] == 'e' && $localValue) {
+			if (isset($filterFieldHere['type']) && $filterFieldHere['type'] == 'e' && $localValue) {
 				if (! is_array($localValue)) {
 					$categories = explode(',', $localValue);
 				} else {
