@@ -422,6 +422,11 @@ class ObjectLib extends TikiLib
         }
     }
 
+    /**
+     * @param $objectType
+     * @param $object
+     * @return array. If the object is not found the 'title' will be empty (['title' => '']).
+     */
     public function get_info($objectType, $object)
     {
         switch ($objectType) {
@@ -429,49 +434,49 @@ class ObjectLib extends TikiLib
             case 'wiki page':
                 $tikilib = TikiLib::lib('tiki');
                 $info = $tikilib->get_page_info($object);
-                return ['title' => $object, 'data' => isset($info['data']) ? $info['data'] : "", 'is_html' => isset($info['is_html']) ? $info['is_html'] : ""];
+                return ['title' => $object ?? "", 'data' => isset($info['data']) ? $info['data'] : "", 'is_html' => isset($info['is_html']) ? $info['is_html'] : ""];
 
             case 'article':
                 $artlib = TikiLib::lib('art');
                 $info = $artlib->get_article($object);
-                return ['title' => $info['title'], 'data' => $info['body']];
+                return ['title' => $info['title'] ?? "", 'data' => $info['body']];
 
             case 'file gallery':
                 $info = TikiLib::lib('filegal')->get_file_gallery_info($object);
-                return ['title' => $info['name']];
+                return ['title' => $info['name'] ?? ""];
 
             case 'blog':
                 $info = TikiLib::lib('blog')->get_blog($object);
-                return ['title' => $info['title']];
+                return ['title' => $info['title'] ?? ""];
 
             case 'post':
             case 'blog post':
             case 'blogpost':
                 $info = TikiLib::lib('blog')->get_post($object);
-                return ['title' => $info['title']];
+                return ['title' => $info['title'] ?? ""];
 
             case 'forum':
                 $info = TikiLib::lib('comments')->get_forum($object);
-                return ['title' => $info['name']];
+                return ['title' => $info['name'] ?? ""];
 
             case 'forum post':
                 $info = TikiLib::lib('comments')->get_comment($object);
-                return ['title' => $info['title']];
+                return ['title' => $info['title'] ?? ""];
 
             case 'tracker':
                 $info = TikiLib::lib('trk')->get_tracker($object);
-                return ['title' => $info['name']];
+                return ['title' => $info['name'] ?? ""];
 
             case 'trackerfield':
                 $info = TikiLib::lib('trk')->get_tracker_field($object);
-                return ['title' => $info['name']];
+                return ['title' => $info['name'] ?? ""];
 
             case 'goal':
                 return TikiLib::lib('goal')->fetchGoal($object);
 
             case 'template':
                 $info = TikiLib::lib('template')->get_template($object);
-                return ['title' => $info['name']];
+                return ['title' => $info['name'] ?? ""];
         }
         return (['error' => 'true']);
     }
