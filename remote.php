@@ -11,9 +11,9 @@
 $version = '0.2';
 
 include 'tiki-setup.php';
-use PhpXmlRpc\Server;
-use PhpXmlRpc\Response;
-use PhpXmlRpc\Value;
+use PhpXmlRpc\Server as XML_RPC_Server;
+use PhpXmlRpc\Response as XML_RPC_Response;
+use PhpXmlRpc\Value as XML_RPC_Value;
 
 if ($prefs['feature_intertiki'] != 'y' || $prefs['feature_intertiki_server'] != 'y' || $prefs['feature_intertiki_mymaster']) {
     echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse><fault><value><struct><member><name>faultCode</name><value><int>403</int></value></member>";
@@ -61,7 +61,7 @@ $map = [
         'intertiki.registerUser' => ['function' => 'register_user']
 ];
 
-$s = new Server($map);
+$s = new XML_RPC_Server($map);
 
 /**
  * @param $params
@@ -97,7 +97,7 @@ function validate($params)
         }
 
         $logslib->add_log('intertiki', $msg . ' from ' . $prefs['known_hosts'][$key]['name'], $login);
-        return new Response(0, 101, $msg);
+        return new XML_RPC_Response(0, 101, $msg);
     }
 
     list($isvalid, $dummy, $error) = $userlib->validate_user($login, $pass);
@@ -115,9 +115,9 @@ function validate($params)
             // slave client is supposed to disguise 102 code as 101 not to show
             // crackers that user does not exists. 102 is required for telling slave
             // to delete user there
-            return new Response(0, 102, $msg);
+            return new XML_RPC_Response(0, 102, $msg);
         } else {
-            return new Response(0, 101, $msg);
+            return new XML_RPC_Response(0, 101, $msg);
         }
     }
 
@@ -140,13 +140,13 @@ function validate($params)
 
         $user_details = $userlib->get_user_details($login);
         $user_info = $userlib->get_user_info($login);
-        $ret['avatarData'] = new Value($user_info['avatarData'], 'base64');
-        $ret['user_details'] = new Value(serialize($user_details), 'string');
+        $ret['avatarData'] = new XML_RPC_Value($user_info['avatarData'], 'base64');
+        $ret['user_details'] = new XML_RPC_Value(serialize($user_details), 'string');
 
-        return new Response(new Value($ret, 'struct'));
+        return new XML_RPC_Response(new XML_RPC_Value($ret, 'struct'));
     } else {
         $logslib->add_log('intertiki', 'auth granted from ' . $prefs['known_hosts'][$key]['name'], $login);
-        return new Response(new Value(1, 'boolean'));
+        return new XML_RPC_Response(new XML_RPC_Value(1, 'boolean'));
     }
 }
 

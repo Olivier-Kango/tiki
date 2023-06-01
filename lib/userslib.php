@@ -41,9 +41,9 @@ use OneLogin\Saml2;
 use ElliotJReed\DisposableEmail\DisposableEmail;
 use ElliotJReed\DisposableEmail\Exceptions\InvalidDomainListException;
 use ElliotJReed\DisposableEmail\Exceptions\InvalidEmailException;
-use PhpXmlRpc\Value;
-use PhpXmlRpc\Request;
-use PhpXmlRpc\Client;
+use PhpXmlRpc\Value as XML_RPC_Value;
+use PhpXmlRpc\Request as XML_RPC_Message;
+use PhpXmlRpc\Client as XML_RPC_Client;
 
 class UsersLib extends TikiLib
 {
@@ -8176,17 +8176,17 @@ class UsersLib extends TikiLib
         $protocol = stripos($remote['host'], 'https') === 0 ? 'https' : 'http';
         $remote['path'] = preg_replace('/^\/?/', '/', $remote['path']);
         $remote['host'] = parse_url( $remote['host'], PHP_URL_HOST);
-        $client = new Client($remote['path'], $remote['host'], $remote['port'], $protocol);
+        $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
         $client->setDebug(0);
 
-        $msg = new Request(
+        $msg = new XML_RPC_Message(
             'intertiki.validate',
             [
-                new Value($prefs['tiki_key'], 'string'),
-                new Value($user, 'string'),
-                new Value($pass, 'string'),
-                new Value($get_info, 'boolean'),
-                new Value($hashkey, 'string')
+                new XML_RPC_Value($prefs['tiki_key'], 'string'),
+                new XML_RPC_Value($user, 'string'),
+                new XML_RPC_Value($pass, 'string'),
+                new XML_RPC_Value($get_info, 'boolean'),
+                new XML_RPC_Value($hashkey, 'string')
             ]
         );
         $result = $client->send($msg);
