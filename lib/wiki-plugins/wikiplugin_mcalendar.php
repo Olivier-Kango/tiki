@@ -195,10 +195,11 @@ function wikiplugin_mcalendar($data, $params)
 
     $template = strtolower($template);
 
-    $today = $grdate;
     // Set default date to Today.
     if (! isset($grdate)) {
         $today = date('d.m.Y');
+    } else {
+        $today = $grdate;
     }
 
     // If date is not in DD.MM.YYYY format display error message
