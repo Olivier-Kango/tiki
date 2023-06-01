@@ -8175,7 +8175,7 @@ class UsersLib extends TikiLib
         $hashkey = $this->get_cookie_check() . '.' . ($this->now + $prefs['remembertime']);
         $protocol = stripos($remote['host'], 'https') === 0 ? 'https' : 'http';
         $remote['path'] = preg_replace('/^\/?/', '/', $remote['path']);
-        $remote['host'] = parse_url( $remote['host'], PHP_URL_HOST);
+        $remote['host'] = parse_url($remote['host'], PHP_URL_HOST);
         $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
         $client->setDebug(0);
 
