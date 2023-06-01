@@ -10,6 +10,13 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 require_once('tiki-setup.php');
 
+if (getenv('REQUEST_METHOD') == 'HEAD') {
+    // It seems Outlook sends a HEAD request before the GET request.
+    // This ensures the one-time secret string is not invalidated before users actually access the page
+    Feedback::errorPage(tr('Invalid request.'));
+    die();
+}
+
 global $tiki_p_admin_users;
 
 // Admins can validate users even if preference is not active.
