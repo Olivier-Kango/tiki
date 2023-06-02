@@ -12,8 +12,29 @@ class Semantics
     const MANY_TO_MANY = 1;
     const ONE_TO_MANY = 2;
     const BEHAVIOUR_LIST = [
-        'GENERIC_DIRECTINAL' => ['cardiality' => self::MANY_TO_MANY, 'directional' => true],
-        'GENERIC_NON_DIRECTIONAL' => ['cardiality' => self::MANY_TO_MANY, 'directional' => false],
-        'GENERIC_ONE_TO_MANY' => ['cardiality' => self::ONE_TO_MANY, 'directional' => true],
+        'GENERIC_DIRECTIONAL' => ['cardinality' => self::MANY_TO_MANY, 'directional' => true],
+        'GENERIC_NON_DIRECTIONAL' => ['cardinality' => self::MANY_TO_MANY, 'directional' => false],
+        'GENERIC_ONE_TO_MANY' => ['cardinality' => self::ONE_TO_MANY, 'directional' => true],
     ];
+
+    protected string $behaviour = '';
+
+    public function __construct($behaviour) {
+        if (! isset(self::BEHAVIOUR_LIST[$behaviour])) {
+            throw new \Exception(tr('Incorrect relationship behaviour requested:') . ' ' . $behaviour);
+        }
+        $this->behaviour = $behaviour;
+        return $this;
+    }
+
+    public function isMultiple()
+    {
+
+        return self::BEHAVIOUR_LIST[$this->behaviour]['cardinality'] == self::MANY_TO_MANY;
+    }
+
+    public function isDirectional()
+    {
+        return self::BEHAVIOUR_LIST[$this->behaviour]['directional'];
+    }
 }

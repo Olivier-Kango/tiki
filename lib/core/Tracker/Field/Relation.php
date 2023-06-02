@@ -69,6 +69,13 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                         'description' => tr('Customize display of search results of object selection. Default is {title} listing the object title. Note that including other fields in the format will make search look up exactly those fields intead of the title field.'),
                         'filter' => 'text',
                     ],
+                    'relationshipTrackerId' => [
+                        'name' => tr('Relationship Tracker ID'),
+                        'description' => tr('Optionally describe the relationship with a metadata system tracker.'),
+                        'filter' => 'int',
+                        'profile_reference' => 'tracker',
+                        'selector_filter' => 'relationship-trackers'
+                    ],
                     'readonly' => [
                         'name' => tr('Read-only'),
                         'description' => tr('Only display the incoming relations instead of manipulating them.'),
@@ -196,16 +203,33 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             $filter['object_id'] = 'NOT ' . $this->getItemId(); // exclude this item if we are related to the same tracker_id
         }
 
+        $params = [
+            'existing' => $data['value'],
+            'filter' => $filter,
+            'format' => $this->getOption('format'),
+            'parent' => $this->getOption('parentFilter'),
+            'parentkey' => $this->getOption('parentFilterKey'),
+        ];
+
+        $relationshipTracker = $relationshipFields = null;
+        if ($trackerId = $this->getOption('relationshipTrackerId')) {
+            $relationshipTracker = Tracker_Definition::get($trackerId);
+        }
+        $params['relationshipTracker'] = $relationshipTracker;
+        if ($relationshipTracker) {
+            $itemObject = Tracker_Item::newItem($relationshipTracker->getConfiguration('trackerId'));
+            // TODO: fill existing and separate by relation object item
+            $params['relationshipFields'] = $itemObject->prepareInput(new JitFilter([]));
+            foreach ($params['relationshipFields'] as &$field) {
+                $field['ins_id'] = $this->getInsertId() . '[meta][' . $field['ins_id'] . ']';
+            }
+            $params['relationshipBehaviour'] = $relationshipTracker->getRelationshipBehaviour();
+        }
+
         return $this->renderTemplate(
             'trackerinput/relation.tpl',
             $context,
-            [
-                'existing' => $data['value'],
-                'filter' => $filter,
-                'format' => $this->getOption('format'),
-                'parent' => $this->getOption('parentFilter'),
-                'parentkey' => $this->getOption('parentFilterKey'),
-            ]
+            $params
         );
     }
 
@@ -292,8 +316,9 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         }
     }
 
-    public function handleSave($value, $oldValue)
+    public function handleSpecialSave($field)
     {
+        $value = $field['value'] ?? null;
         if ($value && ! is_array($value)) {
             $target = explode("\n", trim($value));
         } elseif ($value) {
@@ -348,7 +373,24 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                 continue;
             }
 
-            $relationlib->add_relation($this->getOption(self::OPT_RELATION), 'trackeritem', $this->getItemId(), $type, $id, $this->getFieldId());
+            if (! empty($field['meta'])) {
+                $relationshipTracker = Tracker_Definition::get($this->getOption('relationshipTrackerId'));
+                $itemObject = Tracker_Item::newItem($relationshipTracker->getConfiguration('trackerId'));
+                $fields = $itemObject->prepareInput(new JitFilter($field['meta']));
+                $utils = new Services_Tracker_Utilities;
+                // TODO: handle validation
+                $metadataItemId = $utils->insertItem(
+                    $relationshipTracker,
+                    [
+                        'status' => 'o',
+                        'fields' => $fields,
+                    ]
+                );
+            } else {
+                $metadataItemId = null;
+            }
+
+            $relationlib->add_relation($this->getOption(self::OPT_RELATION), 'trackeritem', $this->getItemId(), $type, $id, $this->getFieldId(), $metadataItemId);
         }
 
         if ($this->getOption('refresh') == 'save') {

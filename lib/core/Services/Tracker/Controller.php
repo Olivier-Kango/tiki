@@ -478,7 +478,7 @@ class Services_Tracker_Controller
             }
         }
 
-        array_walk($typeInfo['params'], function (&$param) use ($fieldId, $field) {
+        array_walk($typeInfo['params'], function (&$param) use ($fieldId, $field, $prefs) {
             if (isset($param['profile_reference'])) {
                 $lib = TikiLib::lib('object');
                 $param['selector_type'] = $lib->getSelectorType($param['profile_reference']);
@@ -494,6 +494,9 @@ class Services_Tracker_Controller
                 $param['format'] = isset($param['format']) ? $param['format'] : null;
                 if ($param['selector_type'] === 'trackerfield' && isset($field['options_map']['mirrorField'])) {
                     $param['searchfilter'] = ['object_id' => 'NOT ' . $fieldId];
+                }
+                if (! empty($param['selector_filter']) && $param['selector_filter'] == 'relationship-trackers') {
+                    $param['searchfilter'] = ['object_id' => implode(' OR ', $prefs['tracker_system_relations_trackers'])];
                 }
             } else {
                 $param['selector_type'] = null;

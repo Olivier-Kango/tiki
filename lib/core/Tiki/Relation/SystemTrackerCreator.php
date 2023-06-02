@@ -51,7 +51,7 @@ class SystemTrackerCreator
         $input = new JitFilter([
             'fieldPrefix' => 'genericRelationship',
             'permName' => 'genericRelationship',
-            'relationshipBehaviour' => 'GENERIC_DIRECTINAL',
+            'relationshipBehaviour' => 'GENERIC_DIRECTIONAL',
         ]);
         $data = $this->trklib->trackerOptionsFromInput($input);
         $trackerId = $this->trklib->replace_tracker(0, $name, $description, $data, $descriptionIsParsed);

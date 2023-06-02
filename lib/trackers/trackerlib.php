@@ -2116,13 +2116,29 @@ class TrackerLib extends TikiLib
                     'field' => $array,
                     'handler' => $handler,
                 ];
-                if (! method_exists($handler, 'handleSave')) {
+                if (! method_exists($handler, 'handleSave') && ! method_exists($handler, 'handleSpecialSave')) {
                     continue;
                 }
             }
 
             if (method_exists($handler, 'handleSave')) {
                 $array = array_merge($array, $handler->handleSave(! isset($array['value']) ? null : $array['value'], $old_value));
+                $value = ! isset($array['value']) ? null : $array['value'];
+
+                if ($value !== false) {
+                    $this->modify_field($currentItemId, $array['fieldId'], $value);
+
+                    if ($itemId && $old_value != $value) {
+                        // On update, save old value
+                        $this->log($version, $itemId, $array['fieldId'], $old_value);
+                    }
+                    $fil[$fieldId] = $value;
+                }
+                continue;
+            }
+
+            if (method_exists($handler, 'handleSpecialSave')) {
+                $array = array_merge($array, $handler->handleSpecialSave($array));
                 $value = ! isset($array['value']) ? null : $array['value'];
 
                 if ($value !== false) {

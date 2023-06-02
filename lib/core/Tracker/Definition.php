@@ -85,6 +85,14 @@ class Tracker_Definition
         return $this->getConfiguration($key) === 'y';
     }
 
+    public function getRelationshipBehaviour()
+    {
+        if ($behaviour = $this->getConfiguration('relationshipBehaviour')) {
+            return new Tiki\Relation\Semantics($behaviour);
+        }
+        return null;
+    }
+
     public function getFieldsIdKeys()
     {
         $fields = [];
