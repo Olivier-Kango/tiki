@@ -10,6 +10,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 include_once("tiki-setup.php");
 include_once('lib/commcenter/commlib.php');
+use PhpXmlRpc\Server as XML_RPC_Server;
+use PhpXmlRpc\Response as XML_RPC_Response;
+use PhpXmlRpc\Value as XML_RPC_Value;
 
 if ($tikilib->get_preference("feature_comm", 'n') != 'y') {
     die;

@@ -21,6 +21,10 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 require_once('lib/tikilib.php'); // httpScheme(), get_user_preference
 require_once('lib/webmail/tikimaillib.php');
 require_once('lib/db/tiki_registration_fields.php');
+use PhpXmlRpc\Value as XML_RPC_Value;
+use PhpXmlRpc\Request as XML_RPC_Message;
+use PhpXmlRpc\Client as XML_RPC_Client;
+use PhpXmlRpc\Encoder as XML_RPC_Encoder;
 
 if (! isset($Debug)) {
     $Debug = false;
@@ -464,13 +468,16 @@ class RegistrationLib extends TikiLib
         global $prefs;
 
         $remote = $prefs['interlist'][$prefs['feature_intertiki_mymaster']];
-        $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port']);
+        $protocol = stripos($remote['host'], 'https') === 0 ? 'https' : 'http';
+        $remote['path'] = preg_replace('/^\/?/', '/', $remote['path']);
+        $remote['host'] = parse_url($remote['host'], PHP_URL_HOST);
+        $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
         $client->setDebug(0);
 
         $msg = new XML_RPC_Message(
             'intertiki.registerUser',
             [new XML_RPC_Value($prefs['tiki_key'], 'string'),
-            XML_RPC_encode($registration)]
+            XML_RPC_Encoder::encode($registration)]
         );
 
         $result = $client->send($msg);
@@ -480,7 +487,7 @@ class RegistrationLib extends TikiLib
         }
 
         $result = $result->value();
-        $result = XML_RPC_decode($result);
+        $result = XML_RPC_Encoder::decode($result);
         if (array_key_exists('field', $result) && array_key_exists('msg', $result)) {
             // this is a RegistrationError
             $result = new RegistrationError($result['field'], $result['msg']);
@@ -728,7 +735,7 @@ class RegistrationLib extends TikiLib
                 }
 
                 $result = $result->value();
-                $result = XML_RPC_decode($result);
+                $result = XML_RPC_Encoder::decode($result);
 
                 if (isset($result['field']) && isset($result['msg'])) {
                     // this is a RegistrationError

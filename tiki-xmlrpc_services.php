@@ -18,6 +18,9 @@
  */
 
 include_once('tiki-setup.php');
+use PhpXmlRpc\Value as XML_RPC_Value;
+use PhpXmlRpc\Response as XML_RPC_Response;
+use PhpXmlRpc\Server as XML_RPC_Server;
 $bloglib = TikiLib::lib('blog');
 
 if ($prefs['feature_xmlrpc'] != 'y') {

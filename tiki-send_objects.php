@@ -5,6 +5,10 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 require_once('tiki-setup.php');
+use PhpXmlRpc\Value as XML_RPC_Value;
+use PhpXmlRpc\Request as XML_RPC_Message;
+use PhpXmlRpc\Client as XML_RPC_Client;
+
 $structlib = TikiLib::lib('struct');
 
 //get_strings tra("Send Pages");
@@ -105,7 +109,10 @@ $msg = '';
 if (isset($_REQUEST['send'])) {
     check_ticket('send-objects');
     // Create XMLRPC object
-    $client = new XML_RPC_Client($_REQUEST['path'], $_REQUEST['site'], 80);
+    $protocol = stripos($remote['site'], 'https') === 0 ? 'https' : 'http';
+    $_REQUEST['path'] = preg_replace('/^\/?/', '/', $_REQUEST['path']);
+    $_REQUEST['site'] = parse_url($_REQUEST['site'], PHP_URL_HOST);
+    $client = new XML_RPC_Client($_REQUEST['path'], $_REQUEST['site'], 80, $protocol);
     $client->setDebug((isset($_REQUEST['dbg']) && $_REQUEST['dbg'] == 'on') ? true : false);
     foreach ($sendstructures as $structure) {
         $spages = $structlib->s_get_structure_pages($structure);

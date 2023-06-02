@@ -14,6 +14,7 @@ include 'tiki-setup.php';
 use PhpXmlRpc\Server as XML_RPC_Server;
 use PhpXmlRpc\Response as XML_RPC_Response;
 use PhpXmlRpc\Value as XML_RPC_Value;
+use PhpXmlRpc\Encoder as XML_RPC_Encoder;
 
 if ($prefs['feature_intertiki'] != 'y' || $prefs['feature_intertiki_server'] != 'y' || $prefs['feature_intertiki_mymaster']) {
     echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<methodResponse><fault><value><struct><member><name>faultCode</name><value><int>403</int></value></member>";
@@ -352,7 +353,7 @@ function get_registration_prefs($params)
         return new XML_RPC_Response(0, 101, 'Users are not allowed to register via intertiki on this master.');
     }
 
-    return new XML_RPC_Response(XML_RPC_encode($registrationlib->merged_prefs));
+    return new XML_RPC_Response(XML_RPC_Encoder::encode($registrationlib->merged_prefs));
 }
 
 /**
@@ -389,7 +390,7 @@ function register_user($params)
         return new XML_RPC_Response(0, 101, 'Users are not allowed to register via intertiki on this master.');
     }
 
-    $result = $registrationlib->register_new_user_from_intertiki(XML_RPC_decode($params->getParam(1)));
+    $result = $registrationlib->register_new_user_from_intertiki(XML_RPC_Encoder::decode($params->getParam(1)));
 
-    return new XML_RPC_Response(XML_RPC_encode($result));
+    return new XML_RPC_Response(XML_RPC_Encoder::encode($result));
 }
