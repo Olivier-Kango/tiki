@@ -2344,7 +2344,7 @@ class Services_Tracker_Controller
                     $line = str_replace(["\r\n", "\n", "<br/>", "<br />"], $cr, $line);
 
                     if ($encoding === 'ISO-8859-1') {
-                        echo utf8_decode($line) . "\n";
+                        echo mb_convert_encoding($line, 'ISO-8859-1', 'UTF-8') . "\n";
                     } else {
                         echo $line . "\n";
                     }

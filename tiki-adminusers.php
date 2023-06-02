@@ -87,7 +87,7 @@ function batchImportUsers()
                 && function_exists('mb_detect_encoding')
                 && mb_detect_encoding($data[$i], 'ASCII, UTF-8, ISO-8859-1') == 'ISO-8859-1'
             ) {
-                $data[$i] = utf8_encode($data[$i]);
+                $data[$i] = mb_convert_encoding($data[$i], 'UTF-8', 'ISO-8859-1');
             }
             @$ar[$fields[$i]] = $data[$i];
         }

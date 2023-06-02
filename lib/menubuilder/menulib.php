@@ -608,7 +608,7 @@ class MenuLib extends TikiLib
         if (empty($encoding)) {
             $encoding = 'UTF-8';
         } elseif ($encoding == 'ISO-8859-1') {
-            $data = utf8_decode($data);
+            $data = mb_convert_encoding($data, 'ISO-8859-1', 'UTF-8');
         }
         header("Content-type: text/comma-separated-values; charset:" . $encoding);
         header("Content-Disposition: attachment; filename=" . tra('menu') . "_" . $menuId . ".csv");

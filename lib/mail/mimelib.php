@@ -78,7 +78,7 @@ class mime
                 }
 
                 if ($charset == 'iso-8859-1') {
-                    $text = utf8_encode($text);
+                    $text = mb_convert_encoding($text, 'UTF-8', 'ISO-8859-1');
                 } elseif ($charset != 'utf-8' && function_exists('mb_convert_encoding')) {
                     $text = mb_convert_encoding($text, 'utf-8', $charset);
                 }
@@ -161,9 +161,9 @@ class mime
                             and isset($back['ctype_parameters'])
                             and $back['ctype_parameters']
                             and (! isset($back['ctype_parameters']['charset']) or strtolower($back['ctype_parameters']['charset']) == 'iso-8858-1')
-                            and function_exists('utf8_encode')
+                            and function_exists('mb_convert_encoding')
                     ) {
-                        $back[$type][] = utf8_encode($back['body']);
+                        $back[$type][] = mb_convert_encoding($back['body'], 'UTF-8', 'ISO-8859-1');
                     } elseif (
                         array_key_exists('ctype_parameters', $back)
                                         and isset($back['ctype_parameters'])

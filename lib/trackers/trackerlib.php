@@ -2402,7 +2402,7 @@ class TrackerLib extends TikiLib
         }
         for ($i = 0; $i < $max; $i++) {
             if ($encoding == 'ISO-8859-1') {
-                $header[$i] = utf8_encode($header[$i]);
+                $header[$i] = mb_convert_encoding($header[$i], 'UTF-8', 'ISO-8859-1');
             }
             $header[$i] = preg_replace('/ -- [0-9]*$/', ' -- ', $header[$i]);
         }
@@ -2440,7 +2440,7 @@ class TrackerLib extends TikiLib
             $line++;
             if ($encoding == 'ISO-8859-1') {
                 for ($i = 0; $i < $max; $i++) {
-                    $data[$i] = utf8_encode($data[$i]);
+                    $data[$i] = mb_convert_encoding($data[$i], 'UTF-8', 'ISO-8859-1');
                 }
             }
             $itemId = 0;
@@ -2485,7 +2485,7 @@ class TrackerLib extends TikiLib
             $cats = '';
             for ($i = 0; $i < $max; $i++) {
                 if ($encoding == 'ISO-8859-1') {
-                    $data[$i] = utf8_encode($data[$i]);
+                    $data[$i] = mb_convert_encoding($data[$i], 'UTF-8', 'ISO-8859-1');
                 }
                 if ($header[$i] == 'status') {
                     if ($data[$i] == 'o' || $data[$i] == 'p' || $data[$i] == 'c') {

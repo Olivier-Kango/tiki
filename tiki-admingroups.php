@@ -349,7 +349,7 @@ if (! empty($_REQUEST['group']) && isset($_REQUEST['export'])) {
     $smarty->assign_by_ref('listfields', $listfields);
     $data = $smarty->fetch('tiki-export_users.tpl');
     if (! empty($_REQUEST['encoding']) && $_REQUEST['encoding'] == 'ISO-8859-1') {
-        $data = utf8_decode($data);
+        $data = mb_convert_encoding($data, 'ISO-8859-1', 'UTF-8');
     } else {
         $_REQUEST['encoding'] = "UTF-8";
     }
@@ -377,7 +377,7 @@ if (! empty($_REQUEST['group']) && isset($_REQUEST['import']) && $access->checkC
         $data = @fgetcsv($fhandle, 1000);
         while ($data != false) {
             if (function_exists("mb_detect_encoding") && mb_detect_encoding($data[0], "ASCII, UTF-8, ISO-8859-1") == "ISO-8859-1") {
-                $data[0] = utf8_encode($data[0]);
+                $data[0] = mb_convert_encoding($data[0], 'UTF-8', 'ISO-8859-1');
             }
             $data[0] = trim($data[0]);
             if (! $userlib->user_exists($data[0])) {

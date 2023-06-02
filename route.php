@@ -305,7 +305,7 @@ switch (PHP_SAPI) {
         //  route.php comes first in the processing.  Avoid dependencies.
         if (isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'IIS') !== false) {
             if (mb_detect_encoding($_SERVER['REQUEST_URI'], 'UTF-8', true) == false) {
-                $_SERVER['REQUEST_URI'] = utf8_encode($_SERVER['REQUEST_URI']);
+                $_SERVER['REQUEST_URI'] = mb_convert_encoding($_SERVER['REQUEST_URI'], 'UTF-8', 'ISO-8859-1');
             }
         }
 

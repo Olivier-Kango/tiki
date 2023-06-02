@@ -219,7 +219,7 @@ class Pop3 implements SourceInterface
 
         if ($part->getHeaders()->get('Content-Type')) {
             if (preg_match('/charset="?iso-8859-1"?/i', $part->getHeader('Content-Type')->getFieldValue())) {
-                $content = utf8_encode($content); //convert to utf8
+                $content = mb_convert_encoding($content, 'UTF-8', 'ISO-8859-1'); //convert to utf8
             }
         }
 

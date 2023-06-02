@@ -13,7 +13,7 @@ use function count;
 use function sort;
 use function tr;
 use function tra;
-use function utf8_decode;
+use function mb_convert_encoding;
 
 class LogsLib extends TikiLib
 {
@@ -1314,7 +1314,7 @@ class LogsLib extends TikiLib
         $iy = 0;
 
         foreach ($contributions['data'] as $contribution) {
-            $ret['label'][] = utf8_decode($contribution['name']);
+            $ret['label'][] = mb_convert_encoding($contribution['name'], 'ISO-8859-1', 'UTF-8');
             $vol = 0;
             for ($ix = 0; $ix < $contributionStat['nbCols']; ++$ix) {
                 if (! empty($contributionStat['data'][$contribution['contributionId']]['stat'][$ix])) {
@@ -1343,7 +1343,7 @@ class LogsLib extends TikiLib
         $iy = 0;
 
         foreach ($contributions['data'] as $contribution) {
-            $ret['label'][] = utf8_decode($contribution['name']);
+            $ret['label'][] = mb_convert_encoding($contribution['name'], 'ISO-8859-1', 'UTF-8');
             for ($ix = 0; $ix < $contributionStat['nbCols']; ++$ix) {
                 if (
                     empty($contributionStat['data'][$contribution['contributionId']])
@@ -1367,14 +1367,14 @@ class LogsLib extends TikiLib
         $ret['totalVol'] = 0;
 
         foreach ($userStat['data'] as $user => $stats) {
-            $ret['x'][] = utf8_decode($user);
+            $ret['x'][] = mb_convert_encoding($user, 'ISO-8859-1', 'UTF-8');
         }
 
         $ret['color'] = $this->get_colors($contributions['cant']);
         $iy = 0;
 
         foreach ($contributions['data'] as $contribution) {
-            $ret['label'][] = utf8_decode($contribution['name']);
+            $ret['label'][] = mb_convert_encoding($contribution['name'], 'ISO-8859-1', 'UTF-8');
             foreach ($userStat['data'] as $user => $stats) {
                 if (empty($stats[$contribution['contributionId']])) {
                     $ret["y$iy"][] = 0;
@@ -1395,14 +1395,14 @@ class LogsLib extends TikiLib
         $ret['totalVol'] = 0;
 
         foreach ($groupContributions as $group => $stats) {
-            $ret['x'][] = utf8_decode($group);
+            $ret['x'][] = mb_convert_encoding($group, 'ISO-8859-1', 'UTF-8');
         }
 
         $ret['color'] = $this->get_colors($contributions['cant']);
         $iy = 0;
 
         foreach ($contributions['data'] as $contribution) {
-            $ret['label'][] = utf8_decode($contribution['name']);
+            $ret['label'][] = mb_convert_encoding($contribution['name'], 'ISO-8859-1', 'UTF-8');
             foreach ($groupContributions as $group => $stats) {
                 if (empty($stats[$contribution['name']])) {
                     $ret["y$iy"][] = 0;

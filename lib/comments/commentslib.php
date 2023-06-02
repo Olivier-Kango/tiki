@@ -299,7 +299,7 @@ class Comments extends TikiLib
                         $parts['attachments'][] = $aux;
                     } else {
                         if (isset($obj->ctype_parameters) && ($obj->ctype_parameters['charset'] == "iso-8859-1" || $obj->ctype_parameters['charset'] == "ISO-8859-1")) {
-                            $parts['text'][] = utf8_encode($obj->body);
+                            $parts['text'][] = mb_convert_encoding($obj->body, 'UTF-8', 'ISO-8859-1');
                         } else {
                             $parts['text'][] = $obj->body;
                         }

@@ -250,7 +250,7 @@ if (empty($_REQUEST['itemId'])) {
         $data = $smarty->fetch('tiki-export_tracker_item.tpl');
         $data = preg_replace("/^\n/", "", $data);
         if (empty($_REQUEST['encoding']) || $_REQUEST['encoding'] == 'ISO-8859-1') {
-            $data = utf8_decode($data);
+            $data = mb_convert_encoding($data, 'ISO-8859-1', 'UTF-8');
         }
 
         $offset += $maxRecords;
@@ -279,7 +279,7 @@ if (empty($_REQUEST['itemId'])) {
     $data = $smarty->fetch('tiki-export_tracker_item.tpl');
     $data = preg_replace("/^\n/", "", $data);
     if (empty($_REQUEST['encoding']) || $_REQUEST['encoding'] == 'ISO-8859-1') {
-        $data = utf8_decode($data);
+        $data = mb_convert_encoding($data, 'ISO-8859-1', 'UTF-8');
     }
     if (! empty($fp)) {
         fwrite($fp, $data);

@@ -211,7 +211,7 @@ function smarty_function_html_select_date($params, $smarty)
             // tra('July') tra('August') tra('September') tra('October') tra('November') tra('December')
 
             $tikidate->setDate(mktime(0, 0, 0, $i, 1, 2000));
-            $month_names[$i] = ucfirst(tra(utf8_encode($tikidate->format($month_format, true))));
+            $month_names[$i] = ucfirst(tra(mb_convert_encoding($tikidate->format($month_format, true), 'UTF-8', 'ISO-8859-1')));
             $month_values[$i] = $tikidate->format($month_value_format, true);
         }
 

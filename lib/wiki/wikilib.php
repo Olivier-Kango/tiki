@@ -79,8 +79,8 @@ class WikiLib extends TikiLib
             return $found;
         }
 
-        if (function_exists('utf8_encode')) {
-            $slug_utf8 = utf8_encode($slug);
+        if (function_exists('mb_convert_encoding')) {
+            $slug_utf8 = mb_convert_encoding($slug, 'UTF-8', 'ISO-8859-1');
             if ($slug != $slug_utf8) {
                 $found = $pages->fetchOne('pageName', ['pageSlug' => $slug_utf8]);
                 if ($found) {
