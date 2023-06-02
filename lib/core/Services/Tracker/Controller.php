@@ -2142,6 +2142,7 @@ class Services_Tracker_Controller
             'showeachuser' => $groupalertlib->GetShowEachUser('tracker', 'trackerId', $groupforAlert),
             'sectionFormats' => $trklib->getGlobalSectionFormats(),
             'remoteTabulars' => TikiLib::lib('tabular')->getList(['odbc_config' => new TikiDb_Expr('$$ != ? AND $$ IS NOT NULL', ['[]'])]),
+            'relationshipBehaviourList' => array_keys(Tiki\Relation\Semantics::BEHAVIOUR_LIST),
         ];
     }
 

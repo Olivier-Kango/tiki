@@ -51,10 +51,13 @@ if (isset($_POST['all2db']) && $access->checkCsrf()) {
     }
 }
 
-if (isset($_POST['create-relations-tracker'])) {
+if (! empty($_POST['createRelationsTracker'])) {
     $creator = new Tiki\Relation\SystemTrackerCreator();
-    $creator->initFromAdmin();
-    Feedback::success(tr('Relation metadata system tracker created.'));
+    if ($creator->createRelationshipTracker($_POST['relationshipTrackerType'])) {
+        Feedback::success(tr('Relationship metadata system tracker created.'));
+    } else {
+        Feedback::error(tr('Relationship type cannot be empty.'));
+    }
 }
 //*** end state-changing actions
 
@@ -85,3 +88,4 @@ foreach ($factory->getFieldTypes() as $type) {
 }
 
 $smarty->assign('fieldPreferences', $fieldPreferences);
+$smarty->assign('relationshipBehaviourList', array_keys(Tiki\Relation\Semantics::BEHAVIOUR_LIST));

@@ -30,6 +30,10 @@ class Tracker_Definition
                 $tracker_info = array_merge($t, $tracker_info);
             }
 
+            if (in_array($trackerId, $trklib->getSystemTrackerIds())) {
+                $tracker_info['system_tracker'] = true;
+            }
+
             $definition = new self($tracker_info);
         }
 

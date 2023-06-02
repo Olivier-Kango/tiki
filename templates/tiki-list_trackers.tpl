@@ -92,6 +92,9 @@
                             {else}
                                 {$tracker.description|escape|nl2br}
                             {/if}
+                            {if $tracker.system_tracker}
+                                <div>{tr}(system tracker){/tr}</div>
+                            {/if}
                         </div>
                     </td>
                     <td class="date">{$tracker.created|tiki_short_date}</td>

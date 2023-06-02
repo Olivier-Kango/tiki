@@ -106,18 +106,22 @@
                     {preference name=tracker_system_bounces_hard_total}
                     {preference name=tracker_system_bounces_blacklisted}
                 </div>
-                {preference name=tracker_system_relations}
-                <div class="adminoptionboxchild" id="tracker_system_relations_childcontainer">
-                    {if !$prefs.tracker_system_relations_tracker}
-                    <button role="button" type="submit" class="btn btn-primary" name="create-relations-tracker" value="1">
-                        {tr}Automatically create tracker and assign field configuration{/tr}
-                    </button>
-                    {/if}
-                    {preference name=tracker_system_relations_tracker}
-                    {preference name=tracker_system_relations_description}
-                    {preference name=tracker_system_relations_label}
-                    {preference name=tracker_system_relations_direction}
-                    {preference name=tracker_system_relations_type}
+                {preference name=tracker_system_relations_trackers}
+                <div class="adminoptionboxchild">
+                    <div class="row">
+                        <div class="col-sm-6"> 
+                            <select name="relationshipTrackerType">
+                                <option value="">{tr}Choose example tracker type{/tr}</option>
+                                <option value="generic">Generic description</option>
+                                <option value="parent-child">Parent-child</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <button role="button" type="submit" class="btn btn-primary" name="createRelationsTracker" value="1">
+                                {tr}Create Relationship Tracker{/tr}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
         {/tab}

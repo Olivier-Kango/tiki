@@ -9,13 +9,11 @@ namespace Tiki\Relation;
 
 class Semantics
 {
-    const GENERIC = 1;
-    const BLOCKS = 2;
-    const IS_BLOCKED_BY = 3;
-    const DUPLICATES = 4;
-    const IS_DUPLICATED_BY = 5;
-    const CHILD_OF = 6;
-    const PARENT_OF = 7;
-    const FIXES = 8;
-    const IS_FIXED_BY = 9;
+    const MANY_TO_MANY = 1;
+    const ONE_TO_MANY = 2;
+    const BEHAVIOUR_LIST = [
+        'GENERIC_DIRECTINAL' => ['cardiality' => self::MANY_TO_MANY, 'directional' => true],
+        'GENERIC_NON_DIRECTIONAL' => ['cardiality' => self::MANY_TO_MANY, 'directional' => false],
+        'GENERIC_ONE_TO_MANY' => ['cardiality' => self::ONE_TO_MANY, 'directional' => true],
+    ];
 }

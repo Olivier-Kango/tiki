@@ -807,6 +807,7 @@ class TrackerLib extends TikiLib
         $cant = $this->getOne($query_cant, $bindvars);
         $ret = [];
         $list = [];
+        $systemTrackerIds = $this->getSystemTrackerIds();
         //FIXME Perm:filter ?
         foreach ($result as $res) {
             global $user;
@@ -815,6 +816,7 @@ class TrackerLib extends TikiLib
                 if ($includePermissions) {
                     $res['permissions'] = Perms::get('tracker', $res['trackerId']);
                 }
+                $res['system_tracker'] = in_array($res['trackerId'], $systemTrackerIds);
                 $ret[] = $res;
                 $list[$res['trackerId']] = $res['name'];
             }
@@ -824,6 +826,26 @@ class TrackerLib extends TikiLib
         $retval["data"] = $ret;
         $retval["cant"] = $cant;
         return $retval;
+    }
+
+    /**
+     * Return a list of tracker IDs used as system trackers.
+     */
+    public function getSystemTrackerIds()
+    {
+        global $prefs;
+        $trackerIds = [];
+        foreach (['tracker_system_currency_tracker', 'tracker_system_bounces_tracker', 'tracker_system_relations_trackers'] as $pref) {
+            if (! empty($prefs[$pref])) {
+                if (is_array($prefs[$pref])) {
+                    $trackerIds = array_merge($trackerIds, $prefs[$pref]);
+                } else {
+                    $trackerIds[] = $prefs[$pref];
+                }
+            }
+        }
+        return $trackerIds;
+
     }
 
     /**
@@ -6882,6 +6904,7 @@ class TrackerLib extends TikiLib
             'tabularSyncModifiedField' => $input->tabularSyncModifiedField->int(),
             'tabularSyncLastImport' => $input->tabularSyncLastImport->int(),
             'notifyOn' => $input->notifyOn->word() ? $input->notifyOn->word() : 'both',
+            'relationshipBehaviour' => $input->relationshipBehaviour->text(),
         ];
     }
 }
