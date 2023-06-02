@@ -182,6 +182,14 @@ function smarty_function_object_link_default($smarty, $object, $title = null, $t
         );
     }
 
+    if (! empty($params['metaItemId'])) {
+        $html .= smarty_function_icon([
+            'name' => 'clipboard-list',
+            'title' => tr('show metadata'),
+            'href' => smarty_modifier_escape(smarty_modifier_sefurl($params['metaItemId'], 'trackeritem')),
+        ], $smarty) . '</a>';
+    }
+
     return $html;
 }
 
