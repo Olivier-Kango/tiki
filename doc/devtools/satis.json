@@ -2003,7 +2003,7 @@
         "jquery/plugins/timeago": ">=1.4.3",
         "jquery/plugins/treetable": ">=3.0.2",
         "jquery/plugins/zoom": ">=1.7.10",
-        "kaltura/api-client-library": "12.20.*||^18.15",
+        "kaltura/api-client-library": "12.20.*||^18.15||^19.4",
         "kint-php/kint": "^4.1",
         "kornrunner/dbunit": "^5.0.1||^7",
         "kriswallsmith/assetic": "^1.1.2",
