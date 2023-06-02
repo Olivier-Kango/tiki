@@ -160,7 +160,7 @@ function wikiplugin_footnote($data, $params, $offset, $context)
         if (isset($sameas)) {
             if (isset($footnotes['tag'][$sameas])) {
                 $listNum = $footnotes['tag'][$sameas]['num'];
-                $uniqueId = $sameas . '-' . (@count($footnotes['lists'][ $footnotes['tag'][$sameas]['class'] ]['entry'][$listNum]['sameas']) + 1);
+                $uniqueId = $sameas . '-' . (@count($footnotes['lists'][ $footnotes['tag'][$sameas]['class'] ]['entry'][$listNum]['sameas'] ?? []) + 1);
                 $footnotes['lists'][$footnotes['tag'][$sameas]['class']]['entry'][$listNum]['sameas'][] = $uniqueId;
                 $smarty->assign('listNum', $listNum);
                 $smarty->assign('uniqueId', $uniqueId);
