@@ -8,7 +8,7 @@
             {/if}
             <ul>
                 {foreach from=$data.relations item=rel}
-                    <li>{object_link identifier=':'|implode([$rel.type, $rel.itemId]) format=$data.format}</li>
+                    <li>{object_link identifier=':'|implode:[$rel.type,$rel.itemId] format=$data.format}</li>
                 {/foreach}
             </ul>
         </div>
