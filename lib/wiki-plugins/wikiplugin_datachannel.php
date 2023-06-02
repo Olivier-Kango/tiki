@@ -171,6 +171,10 @@ function wikiplugin_datachannel($data, $params)
     $headerlib = TikiLib::lib('header');
     $executionId = 'datachannel-exec-' . ++$execution;
 
+    if (empty($params['channel'])) {
+        return WikiParser_PluginOutput::error(tr('Error'), tr('The %0 parameter is missing', 'channel'));
+    }
+
     $datachannelWithTemplate = empty($params['template']) ? false : true;
 
     if (isset($params['price']) && $params['price'] == 0) {
