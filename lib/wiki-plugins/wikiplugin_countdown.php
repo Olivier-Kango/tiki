@@ -153,7 +153,7 @@ function wikiplugin_countdown($data, $params)
     //set now date and time
     global $tikilib;
     $tz = $tikilib->get_display_timezone();
-    $nowobj = new DateTime(null, new DateTimeZone($tz));
+    $nowobj = new DateTime('now', new DateTimeZone($tz));
     //set then date & time
     try {
         $thenobj = new DateTime($enddate, new DateTimeZone($tz));
