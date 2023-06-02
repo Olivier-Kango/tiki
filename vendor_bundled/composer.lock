@@ -6561,11 +6561,11 @@
         },
         {
             "name": "npm-asset/bootstrap",
-            "version": "5.2.3",
+            "version": "5.3.0",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/bootstrap/npm-asset-bootstrap-5.2.3.zip",
-                "shasum": "fadaabd97614573c32827e518f529b8790bdf479"
+                "url": "https://composer.tiki.org/dist/npm-asset/bootstrap/npm-asset-bootstrap-5.3.0.zip",
+                "shasum": "bd1d39d443dbf5af32f809ec4c3a82af57f197c5"
             },
             "type": "npm-asset",
             "license": [
