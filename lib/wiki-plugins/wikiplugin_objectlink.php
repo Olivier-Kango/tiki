@@ -39,6 +39,14 @@ function wikiplugin_objectlink_info()
 
 function wikiplugin_objectlink($data, $params)
 {
+    if (empty($params['type'])) {
+        Feedback::error(tr('The %0 parameter is missing', 'Type'));
+        return;
+    }
+    if (empty($params['id'])) {
+        Feedback::error(tr('The %0 parameter is missing', 'Object ID'));
+        return;
+    }
     $smarty = TikiLib::lib('smarty');
     $smarty->loadPlugin('smarty_function_object_link');
 
