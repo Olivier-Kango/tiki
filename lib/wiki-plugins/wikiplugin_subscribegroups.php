@@ -202,6 +202,8 @@ function wikiplugin_subscribegroups($data, $params)
             }
         }
         unset($g);
+    } else {
+        $smarty->assign('alwaysallowleave', 'n');
     }
 
     $userGroups = $userlib->get_user_groups_inclusion($user);
