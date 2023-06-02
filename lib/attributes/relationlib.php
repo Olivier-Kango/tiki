@@ -39,6 +39,7 @@ class RelationLib extends TikiDb_Bridge
             'relation',
             'type' => 'target_type',
             'itemId' => 'target_itemId',
+            'metaItemId' => 'metadata_itemId',
         ];
 
         $cond = $this->apply_relation_condition($relation, $cond);
@@ -62,6 +63,7 @@ class RelationLib extends TikiDb_Bridge
             'relation',
             'type' => 'target_type',
             'itemId' => 'target_itemId',
+            'metaItemId' => 'metadata_itemId',
         ];
 
         return $this->table->fetchAll($fields, $cond);
@@ -141,6 +143,7 @@ class RelationLib extends TikiDb_Bridge
             'relation',
             'type' => 'source_type',
             'itemId' => 'source_itemId',
+            'metaItemId' => 'metadata_itemId',
         ];
 
         $cond = $this->apply_relation_condition($relation, $cond);

@@ -363,6 +363,10 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
 
         foreach ($toRemove as $v) {
             $id = $map[$v];
+            $relation = $relationlib->get_relation($id);
+            if (! empty($relation['metadata_itemId'])) {
+                TikiLib::lib('trk')->remove_tracker_item($relation['metadata_itemId'], true);
+            }
             $relationlib->remove_relation($id);
         }
 
@@ -375,22 +379,20 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
 
             if (! empty($field['meta'])) {
                 $relationshipTracker = Tracker_Definition::get($this->getOption('relationshipTrackerId'));
-                $itemObject = Tracker_Item::newItem($relationshipTracker->getConfiguration('trackerId'));
-                $fields = $itemObject->prepareInput(new JitFilter($field['meta']));
                 $utils = new Services_Tracker_Utilities;
                 // TODO: handle validation
                 $metadataItemId = $utils->insertItem(
                     $relationshipTracker,
                     [
                         'status' => 'o',
-                        'fields' => $fields,
+                        'fields' => $field['meta'],
                     ]
                 );
             } else {
                 $metadataItemId = null;
             }
 
-            $relationlib->add_relation($this->getOption(self::OPT_RELATION), 'trackeritem', $this->getItemId(), $type, $id, $this->getFieldId(), $metadataItemId);
+            $relationlib->add_relation($this->getOption(self::OPT_RELATION), 'trackeritem', $this->getItemId(), $type, $id, false, $this->getFieldId(), $metadataItemId);
         }
 
         if ($this->getOption('refresh') == 'save') {

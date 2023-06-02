@@ -523,11 +523,12 @@ class ObjectLib extends TikiLib
      * @param string      $type
      * @param string      $id
      * @param string|null $format - trackeritem format coming from ItemLink field or null by default
+     * @param int|null    $metaItemId - id of a trackeritem used to describe the relation/result
      *
      * @return void|string
      * @throws Exception
      */
-    public function get_title($type, string $id, ?string $format = null)
+    public function get_title($type, string $id, ?string $format = null, ?int $metaItemId = null)
     {
         $detail = '';
         switch ($type) {
@@ -543,7 +544,7 @@ class ObjectLib extends TikiLib
             case 'trackeritem':
                 $defaultTitle = TikiLib::lib('trk')->get_isMain_value(null, $id);
                 $extra = $extra ?? '';
-                return $this->getFormattedTitle($type, $id, $defaultTitle, $format, $extra);
+                return $this->getFormattedTitle($type, $id, $defaultTitle, $format, $extra, $metaItemId);
             case 'category':
                 return TikiLib::lib('categ')->get_category_name($id);
             case 'file':
@@ -595,26 +596,38 @@ class ObjectLib extends TikiLib
      * @param string      $id usually an int but strings for wiki pages
      * @param string|null $defaultTitle
      * @param string|null $format
-     *
      * @param string|null $extra
+     * @param string|null $metaItemId
      *
      * @return string
      * @throws Exception
      */
-    public function getFormattedTitle(string $type, string $id, ?string $defaultTitle, ?string $format = '', ?string $extra = ''): string
+    public function getFormattedTitle(string $type, string $id, ?string $defaultTitle, ?string $format = '', ?string $extra = '', ?string $metaItemId = null): string
     {
         if ($format) {
             $lib = TikiLib::lib('unifiedsearch');
+            if ($metaItemId) {
+                $query = $lib->buildQuery([
+                    'object_type' => 'trackeritem',
+                    'object_id'   => $metaItemId
+                ]);
+                $result = $query->search($lib->getIndex());
+                $metadata = $result[0];
+            } else {
+                $metadata = null;
+            }
             $query = $lib->buildQuery([
                 'object_type' => $type,
                 'object_id'   => $id
             ]);
             $result = $query->search($lib->getIndex());
-            $result->applyTransform(function ($item) use ($format) {
-                return preg_replace_callback('/\{(\w+)\}/', function ($matches) use ($item, $format) {
+            $result->applyTransform(function ($item) use ($format, $metadata) {
+                return preg_replace_callback('/\{([\w\.]+)\}/', function ($matches) use ($item, $format, $metadata) {
                     $key = $matches[1];
                     if (isset($item[$key])) {
                         return $item[$key];
+                    } elseif (substr($key, 0, 5) == 'meta.') {
+                        return $metadata[substr($key, 5)] ?? '';
                     } elseif (! $format || $format == '{title}') {
                         return tr('empty');
                     } else {

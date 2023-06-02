@@ -96,7 +96,7 @@ function smarty_function_object_link_default($smarty, $object, $title = null, $t
     $smarty->loadPlugin('smarty_modifier_escape');
 
     if (empty($title)) {
-        $title = TikiLib::lib('object')->get_title($type, $object, empty($params['format']) ? null : $params['format']);
+        $title = TikiLib::lib('object')->get_title($type, $object, empty($params['format']) ? null : $params['format'], $params['metaItemId'] ?? null);
     }
 
     if (empty($title) && ! empty($params['backuptitle'])) {
@@ -215,7 +215,7 @@ function smarty_function_object_link_trackeritem($smarty, $object, $title = null
         $smarty->loadPlugin('smarty_modifier_escape');
 
         if (empty($title)) {
-            $title = TikiLib::lib('object')->get_title($type, $object, empty($params['format']) ? null : $params['format']);
+            $title = TikiLib::lib('object')->get_title($type, $object, empty($params['format']) ? null : $params['format'], $params['metaItemId'] ?? null);
         }
 
         return $pre . smarty_modifier_escape($title);
