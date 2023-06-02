@@ -4970,9 +4970,9 @@ class TikiLib extends TikiDb_Bridge
      * @param $pageName
      * @param bool $retrieve_datas
      * @param bool $skipCache
-     * @return bool
+     * @return array|false
      */
-    public function get_page_info($pageName, $retrieve_datas = true, $skipCache = false)
+    public function get_page_info($pageName, $retrieve_datas = true, $skipCache = false): array|false
     {
         global $prefs;
         $pageNameEncode = urlencode($pageName);

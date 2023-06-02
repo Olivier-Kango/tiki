@@ -1499,12 +1499,14 @@ if (
             }
         }
 
-        if ($prefs['feature_multilingual'] === 'y') {
-            if (empty($info['version'])) {
-                $info['version'] = 1;
-            }
-        } else {
-            $info['version'] = ($info['version'] ?? 0) + 1; // FIXME: for some strange reason when multilingual is disabled it reports version - 1 so we adjust the version number here (if someone finds the culprit please fix there and remove the condition here)
+        if ($info == false) {
+            //This is a new page
+            $info = [];
+            $info['version'] = $prefs['feature_multilingual'] === 'y' ? 1 : 0;
+        }
+
+        if ($prefs['feature_multilingual'] !== 'y') {
+            $info['version'] += 1; // FIXME: for some strange reason when multilingual is disabled it reports version - 1 so we adjust the version number here (if someone finds the culprit please fix there and remove the condition here)
         }
 
         if ($prefs['feature_history'] === 'y' && $tiki_p_wiki_view_history === 'y' && $info['version'] > 1) {
