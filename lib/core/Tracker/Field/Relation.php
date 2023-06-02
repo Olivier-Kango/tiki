@@ -345,8 +345,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $map = [];
         foreach ($current as $rel) {
             $key = $rel['type'] . ':' . $rel['itemId'];
-            $id = $rel['relationId'];
-            $map[$key] = $id;
+            $map[$key] = $rel;
         }
         // TODO: inverts
         // if ($this->getOption(self::OPT_INVERT)) {
@@ -362,8 +361,8 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $toAdd = array_diff($target, array_keys($map));
 
         foreach ($toRemove as $v) {
-            $id = $map[$v];
-            $relation = $relationlib->get_relation($id);
+            $relation = $map[$v];
+            $id = $relation['relationId'];
             if (! empty($relation['metadata_itemId'])) {
                 TikiLib::lib('trk')->remove_tracker_item($relation['metadata_itemId'], true);
             }
@@ -393,6 +392,37 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             }
 
             $relationlib->add_relation($this->getOption(self::OPT_RELATION), 'trackeritem', $this->getItemId(), $type, $id, false, $this->getFieldId(), $metadataItemId);
+        }
+
+        // TODO: handle when UI is broken down in individual blocks of metadata and items
+        if (! empty($field['meta'])) {
+            $toKeep = array_intersect(array_keys($map), $target);
+            foreach ($toKeep as $key) {
+                $relation = $map[$key];
+                $relationshipTracker = Tracker_Definition::get($this->getOption('relationshipTrackerId'));
+                $utils = new Services_Tracker_Utilities;
+                if (! empty($relation['metaItemId'])) {
+                    $result = $utils->updateItem(
+                        $relationshipTracker,
+                        [
+                            'itemId' => $relation['metaItemId'],
+                            'status' => 'o',
+                            'fields' => $field['meta'],
+                        ]
+                    );
+                } else {
+                    $metadataItemId = $utils->insertItem(
+                        $relationshipTracker,
+                        [
+                            'status' => 'o',
+                            'fields' => $field['meta'],
+                        ]
+                    );
+                    if ($metadataItemId) {
+                        $relationlib->updateMetadataItemId($relation['relationId'], $metadataItemId);
+                    }
+                }
+            }
         }
 
         if ($this->getOption('refresh') == 'save') {

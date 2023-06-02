@@ -395,6 +395,11 @@ class RelationLib extends TikiDb_Bridge
         ]);
     }
 
+    public function updateMetadataItemId(int $id, int $metadata_item_id)
+    {
+        return $this->table->update(['metadata_itemId' => $metadata_item_id], ['relationId' => $id]);
+    }
+
     /**
      * @param $relation
      * @param $cond
