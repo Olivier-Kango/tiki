@@ -28,6 +28,9 @@ function wikiplugin_rcontent_info()
 
 function wikiplugin_rcontent($data, $params)
 {
+    if (empty($params['id'])) {
+        return WikiParser_PluginOutput::error('rcontent', tr('The %0 parameter is missing', 'id'));
+    }
 
     $dcslib = TikiLib::lib('dcs');
 
@@ -36,9 +39,5 @@ function wikiplugin_rcontent($data, $params)
         $lang = TikiLib::lib('parser')->option['language'];
     }
 
-    if ($params['id']) {
-        return $dcslib->get_random_content((int) $params['id'], $lang);
-    } else {
-            Feedback::error(tr('rcontent: Param id is required'));
-    }
+    return $dcslib->get_random_content((int) $params['id'], $lang);
 }
