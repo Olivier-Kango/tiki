@@ -16,6 +16,7 @@ class Memcachelib
 {
     public $memcache;
     public $options;
+    public $key_prefix;
 
     /**
      * Memcachelib constructor.
