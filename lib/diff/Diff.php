@@ -20,8 +20,20 @@ class Text_Diff
      * Array of changes.
      *
      * @var array $_edits
+     * @var array $xind
+     * @var array $yind
+     * @var array $xv
+     * @var array $yv
+     * @var array $xchanged
+     * @var array $ychanged
      */
     public $_edits;
+    public $xind;
+    public $yind;
+    public $xv;
+    public $yv;
+    public $xchanged;
+    public $ychanged;
 
     /**
      * Computes diffs between sequences of strings.
