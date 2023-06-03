@@ -329,6 +329,11 @@ class FreetagLib extends ObjectLib
                 }
             } elseif ($tiki_p_admin == 'y') {
                                 $ok = true;
+            } elseif ($row['type'] == 'trackeritem') {
+                $itemObject = Tracker_Item::fromId($row['itemId']);
+                if ($itemObject->canView()) {
+                    $ok = true;
+                }
             } elseif ($this->user_has_perm_on_object($user, $row['itemId'], $row['type'], $permMap[$row['type']])) {
                 $ok = true;
             }
