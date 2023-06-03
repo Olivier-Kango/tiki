@@ -42,6 +42,8 @@ if (! defined("_ECHOSERVER_HTML_PARSER")) {
         public $tagreg;
         public $wasquot;
         public $slevel;
+        public $sc;
+        public $slevelpos;
 /**********************************************************************************
  * Class constructor
  **********************************************************************************/
