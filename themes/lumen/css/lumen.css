@@ -11027,13 +11027,27 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
   --tiki-top-bg: #137FAA;
   --tiki-top-color: rgba(255, 255, 255, 1);
   --tiki-top-hover-color: rgba(255, 255, 255, 0.7);
+  --tiki-top-border-width: 0px 0px 1px 0px;
   --tiki-top-border: solid #4d4d4d;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #137FAA;
   --tiki-topbar-color: rgba(255, 255, 255, 1);
   --tiki-topbar-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-topbar--border: solid #4d4d4d;
+  --tiki-topbar-border-width: 0;
+}
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: #137FAA;
+  --tiki-top-color: rgba(255, 255, 255, 1);
+  --tiki-top-hover-color: rgba(255, 255, 255, 0.7);
+  --tiki-top-border-width: 0px 0px 1px 0px;
+  --tiki-top-border: solid #4d4d4d;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: #137FAA;
+  --tiki-topbar-color: rgba(255, 255, 255, 1);
+  --tiki-topbar-hover-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-border-width: 0;
 }
 .tiki-top-nav-light, .tiki-top-nav-dark {
   --tiki-top-border-width: 0 1px 4px 1px;

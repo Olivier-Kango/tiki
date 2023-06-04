@@ -13,7 +13,7 @@ $imagePath: "../images/";
 // -------------------- Body (large elements -------------------- //
 // -------------------- Links -------------------- //
 .pagetitle a {
-    color: $body-color;
+    color: var(--bs-body-color);
 }
 
 .wikitext a:not(.btn,.nav-link) {

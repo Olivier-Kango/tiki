@@ -34,3 +34,21 @@
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
 }
+
+// Make links visible in dark mode
+#col2 .navbar {
+    background: transparent;
+    .nav-link {
+        color: var(--tiki-vert-nav-link-color);
+        &:hover {
+            color: var(--tiki-vert-nav-link-hover-color);
+        }
+    }
+}
+// Tiki - match to button radius inside the input
+.input-group {
+    border-radius: 50rem;
+    & > .form-control {
+        padding-left: 2rem; // No start padding seems wrong
+    }
+}

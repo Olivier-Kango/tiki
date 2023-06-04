@@ -12,7 +12,7 @@ $tiki-topmodules-row-sidemargins: 0;
 $tiki-topbar-row-sidemargins: -15px;
 
 .container {
-  background-color: #ffffff;
+  background-color: var(--tiki-utopias-container-bg-color); //#ffffff;
 }
 
 a,
@@ -26,7 +26,10 @@ a:visited,
 
 
 h1 {
-  color: #000000;
+  color: $primary; //$body-color; // #000000;
+}
+h1.pagetitle > a {
+    color: $primary; // $body-color;
 }
 
 .topbar .navbar-collapse {
@@ -60,7 +63,7 @@ h1 {
 }
 
 .card-body a:not(.btn) {
-  color: #333333;
+  color: var(--tiki-utopias-card-link-color);// #333333;
   font-weight: normal;
 }
 
@@ -70,13 +73,13 @@ h1 {
 }
 
 
-.navbar-dark {
-  background-color: #fafafa;
-  color: #333333;
-}
+//.navbar-dark { Commented out for BS53 check about reinstating later
+//  background-color: #fafafa;
+//  color: #333333;
+//}
 
 .card {
-  background: #ffffff;
+//  background: #ffffff;
   border: 1px solid #dddddd;
   //  margin: 0 0 .2em;
 }
@@ -102,4 +105,15 @@ h1 {
 
 .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
     color: #616A70 !important;
+}
+
+// Dark mode
+.card {
+    border-color: var(--tiki-card-border-color); //$light-border-subtle-dark;
+    .card-header {
+        background: var(--tiki-card-header-bg); ///$dark-bg-subtle-dark;
+        .card-title {
+            color: var(--tiki-card-title-color); // $body-color-dark;
+        }
+    }
 }

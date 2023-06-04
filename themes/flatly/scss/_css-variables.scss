@@ -1,4 +1,21 @@
 //--------------------------- Tiki CSS variables
+
+// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
+// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
+
+// Used for L&F nav color choice and color mode override
+@mixin top-nav-dark {
+    --tiki-top-bg: rgba(42, 62, 80, 1);
+    --tiki-top-color: #{rgba($white, .6)};
+    --tiki-top-hover-color: #18bc9c;
+}
+
+@mixin topbar-nav-dark {
+    --tiki-topbar-bg: #203141; //rgba(42,62,80, 1);
+    --tiki-topbar-color: #{rgba($white, .6)};
+    --tiki-topbar-hover-color: #18bc9c;
+}
+
 .tiki-top-nav-light {
     --tiki-top-bg: #F4F7F7; //#{$light};
     --tiki-top-color: rgba(0, 0, 0, 0.55);
@@ -12,15 +29,21 @@
 }
 
 .tiki-top-nav-dark {
-    --tiki-top-bg: rgba(42, 62, 80, 1);
-    --tiki-top-color: #{rgba($white, .6)};
-    --tiki-top-hover-color: #18bc9c;
+    @include top-nav-dark;
 }
 
 .tiki-topbar-nav-dark {
-    --tiki-topbar-bg: #203141; //rgba(42,62,80, 1);
-    --tiki-topbar-color: #{rgba($white, .6)};
-    --tiki-topbar-hover-color: #18bc9c;
+    @include topbar-nav-dark;
+}
+
+// Color mode preference trumps L&F admin light navbar option
+[data-bs-theme=dark] {                              // color mode
+    .tiki-top-nav-light {                           // light top selector
+        @include top-nav-dark;                      // dark values
+    }
+    .tiki-topbar-nav-light {
+        @include topbar-nav-dark;
+    }
 }
 
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //

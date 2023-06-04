@@ -44,6 +44,10 @@ $dark:          $purple !default;
 
 $min-contrast-ratio:   1.8 !default;
 
+// Options
+$enable-dark-mode:            true !default;
+$color-mode-type:             data !default; // `data` or `media-query`
+
 // Body
 
 $body-color:                $gray-800 !default;

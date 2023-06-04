@@ -10603,14 +10603,14 @@ header.navbar.fixed-top {
   color: #5c507c;
 }
 .tiki-top-nav-light {
-  --tiki-top-bg: rgba(249, 248, 252, 1);
-  --tiki-top-color: rgba(0, 0, 0, 0.7);
-  --tiki-top-hover-color: rgba(0, 0, 0, 0.9);
+  --tiki-top-bg: rgba(89, 49, 150, 1);
+  --tiki-top-color: rgba(255, 255, 255, 0.55);
+  --tiki-top-hover-color: rgba(255, 255, 255, 0.9);
 }
 .tiki-topbar-nav-light {
-  --tiki-topbar-bg: rgba(249, 248, 252, 1);
-  --tiki-topbar-color: rgba(0, 0, 0, 0.7);
-  --tiki-topbar-hover-color: rgba(0, 0, 0, 0.9);
+  --tiki-topbar-bg: rgba(89, 49, 150, 1);
+  --tiki-topbar-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-hover-color: rgba(255, 255, 255, 0.9);
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: rgba(89, 49, 150, 1);
@@ -10618,6 +10618,26 @@ header.navbar.fixed-top {
   --tiki-top-hover-color: rgba(255, 255, 255, 0.9);
 }
 .tiki-topbar-nav-dark {
+  --tiki-topbar-bg: rgba(89, 49, 150, 1);
+  --tiki-topbar-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-hover-color: rgba(255, 255, 255, 0.9);
+}
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: rgba(89, 49, 150, 1);
+  --tiki-top-color: rgba(255, 255, 255, 0.55);
+  --tiki-top-hover-color: rgba(255, 255, 255, 0.9);
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: rgba(89, 49, 150, 1);
+  --tiki-topbar-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-hover-color: rgba(255, 255, 255, 0.9);
+}
+[data-bs-theme=light] .tiki-top-nav-dark {
+  --tiki-top-bg: rgba(89, 49, 150, 1);
+  --tiki-top-color: rgba(255, 255, 255, 0.55);
+  --tiki-top-hover-color: rgba(255, 255, 255, 0.9);
+}
+[data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgba(89, 49, 150, 1);
   --tiki-topbar-color: rgba(255, 255, 255, 0.55);
   --tiki-topbar-hover-color: rgba(255, 255, 255, 0.9);

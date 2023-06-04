@@ -41,6 +41,17 @@
 .btn:not(.btn-link) {
     color: #000 !important;
 }
-.navbar {
-    --bs-navbar-color: #3A826E; //$link-color;
+//.navbar {
+//    --bs-navbar-color: #3A826E; //$link-color;
+//}
+
+// Make links visible in dark mode
+#col2 .navbar {
+    background: transparent;
+    .nav-link {
+        color: var(--tiki-vert-nav-link-color);
+        &:hover {
+            color: var(--tiki-vert-nav-link-hover-color);
+        }
+    }
 }

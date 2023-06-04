@@ -67,3 +67,17 @@
     --tiki-admin-top-nav-bg: #B0C0D5;
 }
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
+
+
+:root {
+    --tiki-vert-nav-link-color: $link-color;
+    --tiki-vert-nav-link-hover-color: $link-hover-color;
+}
+
+[data-bs-theme="dark"] {
+    .card {
+        background: #{$dark-bg-subtle-dark} !important;
+    }
+    --tiki-vert-nav-link-color: rgba(var(--bs-link-color-rgb));
+    --tiki-vert-nav-link-hover-color: rgba(var(--bs-link-hover-color-rgb));
+}

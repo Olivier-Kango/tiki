@@ -11316,6 +11316,16 @@ textarea.form-control-lg {
   --tiki-topbar-color: #f2e8c0;
   --tiki-topbar-hover-color: white;
 }
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: #ad1d28 !important;
+  --tiki-top-color: #f2e8c0;
+  --tiki-top-hover-color: white;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: #6e0d0d;
+  --tiki-topbar-color: #f2e8c0;
+  --tiki-topbar-hover-color: white;
+}
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-navbar-bg: #68D6DE;
   --tiki-admin-top-nav-color: #322B0B;
@@ -11347,15 +11357,6 @@ textarea.form-control-lg {
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: #ad1d28;
-}
-[data-bs-theme=dark] {
-  --tiki-top-dark-bg: black !important;
-  --tiki-top-light-bg: black !important;
-  --tiki-topbar-dark-bg: black !important;
-  --tiki-topbar-light-bg: black !important;
-}
-[data-bs-theme=light] {
-  --tiki-top-light-bg: var(--tiki-topbar-light-bg);
 }
 .navbar-dark > a {
   color: #f2e8c0;

@@ -57,7 +57,7 @@ $light: #fff;
 $dark: #000;
 
 $theme-colors: (
-     "primary":     #2623a9,
+     "primary":     #3071a9,
      "secondary":   #dddddd,
      "success":     #5cb85c,
      "info":        #5bc0de,
@@ -68,6 +68,8 @@ $theme-colors: (
 );
 
 // Options
+$prefix:         bs-;
+
 $enable-gradients:          true;
 $enable-negative-margins:     true;
 
@@ -78,6 +80,7 @@ $body-bg: #e6f3f6;
 $body-color: $gray-700;
 
 // Links
+$link-color: $primary;
 $link-hover-decoration: none;
 $link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
@@ -92,7 +95,7 @@ $blockquote-footer-color: #4D4D4D;
 
 // Tables
 // Buttons
-$btn-primary: $primary;
+$btn-primary: yellow; /// $primary;
 
 // Forms
 // Form validation
@@ -110,8 +113,11 @@ $dropdown-dark-color: $dropdown-color;
 $dropdown-dark-bg: $dropdown-bg;
 
 // Navs
+$nav-link-color:                    var(--#{$prefix}link-color) !default; // Changing this seems to have no effect in top,topbar, or system menu.
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
+
 // Navbar
-$navbar-dark-color: #ffffff;
+///$navbar-dark-color: #ffffff;
 $navbar-dark-bg: #426d95;
 
 // Navbar links
@@ -119,7 +125,7 @@ $navbar-dark-color:                 rgba($white, .75);
 $navbar-dark-hover-color:           rgba($white, .85);
 $navbar-dark-active-color:          $white;
 $navbar-dark-disabled-color:        rgba($white, .25);
-$navbar-light-color:                rgba($black, .5);
+$navbar-light-color:                rgba($black, .5); // Used for nav-link in col2 also.
 $navbar-light-hover-color:          rgba($black, .7);
 $navbar-light-active-color:         rgba($black, .9);
 $navbar-light-disabled-color:       rgba($black, .3);
@@ -128,11 +134,14 @@ $navbar-dark-active-color: $navbar-dark-hover-color;
 $navbar-dark-active-bg: transparent;
 
 // Navbar light
-$navbar-light-color: $gray-900;
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
+$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
+$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
 $navbar-bg-light: #3e7ca1;
 
 // Inverted navbar links
-$navbar-link-color: #f5f5f5;
+//$navbar-link-color: #f5f5f5; obsolete
 
 // Pagination
 // Jumbotron

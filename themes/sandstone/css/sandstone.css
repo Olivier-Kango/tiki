@@ -10870,6 +10870,16 @@ header.navbar.fixed-top {
   --tiki-topbar-link-color: rgba(255, 255, 255, 0.8);
   --tiki-topbar-hover-color: #fff;
 }
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: rgba(50, 93, 136, 1);
+  --tiki-top-color: rgba(255, 255, 255, 0.8);
+  --tiki-top-hover-color: #fff;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: rgba(50, 93, 136, 1);
+  --tiki-topbar-link-color: rgba(255, 255, 255, 0.8);
+  --tiki-topbar-hover-color: #fff;
+}
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-navbar-bg: rgba(248, 245, 240, 1);
   --tiki-admin-top-nav-color: #000;
@@ -10901,21 +10911,6 @@ header.navbar.fixed-top {
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: rgba(50, 93, 136, 1);
-}
-.tiki-admin {
-  --tiki-admin-navbar-dark-bg: rgba(50, 93, 136, 1);
-  --tiki-admin-dropdown-dark-color: rgba(255, 255, 255, 0.55);
-  --tiki-admin-dropdown-dark-hover-bg: rgba(255, 255, 255, 0.15);
-  --tiki-admin-dropdown-dark-bg: #3e3f3a;
-  --tiki-admin-navbar-light-bg: rgba(248, 245, 240, 1);
-  --tiki-admin-dropdown-light-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
-  --tiki-admin-dropdown-light-hover-color: #000;
-  --tiki-admin-dropdown-light-bg: var(--bs-body-bg);
-  --tiki-admin-toggle-light-bg: var(--bs-body-bg);
-  --tiki-admin-navbar-dark-highlight-bg: #f8f5f0;
-  --tiki-admin-navbar-dark-highlight-color: #8e8c84;
-  --tiki-admin-navbar-light-highlight-bg: #f8f5f0;
-  --tiki-admin-navbar-light-highlight-color: #8e8c84;
 }
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);

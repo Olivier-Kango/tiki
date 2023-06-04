@@ -1026,7 +1026,7 @@ $input-padding-y-lg:                    $input-btn-padding-y-lg !default;
 $input-padding-x-lg:                    $input-btn-padding-x-lg !default;
 $input-font-size-lg:                    $input-btn-font-size-lg !default;
 
-$input-bg:                              $body-bg !default;
+$input-bg:                              $body-bg;
 $input-disabled-color:                  $gray-700 !default; // Boosted mod
 $input-disabled-bg:                     $gray-300 !default;
 $input-disabled-border-color:           null !default;
@@ -1040,7 +1040,7 @@ $input-border-radius:                   $border-radius !default;
 // Boosted mod: no input-sm
 $input-border-radius-lg:                $border-radius-lg !default;
 
-$input-focus-bg:                        $input-bg !default;
+$input-focus-bg:                        $input-bg;
 $input-focus-border-color:              currentcolor !default;
 $input-focus-color:                     $input-color !default;
 $input-focus-width:                     $input-btn-focus-width !default;

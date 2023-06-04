@@ -69,3 +69,13 @@
     margin-top: .5rem;
     margin-bottom: .5rem;
 }
+// Make links visible in dark mode
+#col2 .navbar {
+    background: transparent;
+    .nav-link {
+        color: var(--tiki-vert-nav-link-color);
+        &:hover {
+            color: var(--tiki-vert-nav-link-hover-color);
+        }
+    }
+}

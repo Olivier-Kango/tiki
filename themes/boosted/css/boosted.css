@@ -10911,6 +10911,32 @@ textarea.form-control-lg {
   --tiki-topbar-color: #fff;
   --tiki-topbar-hover-color: #ff7900;
 }
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: rgba(0, 0, 0, 1);
+  --tiki-top-color: #fff;
+  --tiki-top-hover-color: #ff7900;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: rgba(0, 0, 0, 1);
+  --tiki-topbar-color: #fff;
+  --tiki-topbar-hover-color: #ff7900;
+}
+[data-bs-theme=light] .tiki-top-nav-dark {
+  --tiki-top-bg: #fff;
+  --tiki-top-color: #000;
+  --tiki-top-hover-color: #ff7900;
+  --tiki-top-active-color: #000;
+  --tiki-top-active-bg: #ff7900;
+  --tiki-top-order: solid #000;
+}
+[data-bs-theme=light] .tiki-topbar-nav-dark {
+  --tiki-topbar-bg: #fff;
+  --tiki-topbar-color: #000;
+  --tiki-topbar-hover-color: #ff7900;
+  --tiki-topbar-active-color: #000;
+  --tiki-topbar-active-bg: #ff7900;
+  --tiki-topbar-border: solid #000;
+}
 :root {
   --tiki-top-border-width:  0 0 .125rem 0;
   --tiki-topbar-border-width: 0 0 .125rem 0;
@@ -11925,8 +11951,6 @@ blockquote {
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.25;
-  color: var(--bs-body-color);
-  background-color: #fff;
   background-clip: padding-box;
   border: 0.125rem solid #ccc;
   appearance: none;

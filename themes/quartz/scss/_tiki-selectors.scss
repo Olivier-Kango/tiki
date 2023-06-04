@@ -2,6 +2,10 @@
 
 // Image path example:
 $imagePath: "../images/";
+
+body {
+    background-image: var(--tiki-quartz-body-bg-image);
+}
 // body {
 //    background-image: url('#{$imagePath}bg.jpg');
 // }

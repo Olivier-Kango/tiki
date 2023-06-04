@@ -11662,6 +11662,16 @@ select[multiple], select.form-control[multiple] {
   --tiki-topbar-color: rgba(255, 255, 255, 0.75);
   --tiki-topbar-hover-color: #fff;
 }
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: rgba(34, 34, 34, 1);
+  --tiki-top-color: rgba(255, 255, 255, 0.75);
+  --tiki-top-hover-color: #fff;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: rgba(34, 34, 34, 1);
+  --tiki-topbar-color: rgba(255, 255, 255, 0.75);
+  --tiki-topbar-hover-color: #fff;
+}
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-navbar-bg: rgba(248, 249, 250, 1);
   --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.55);

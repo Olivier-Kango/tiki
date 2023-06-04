@@ -12131,6 +12131,9 @@ blockquote {
   background-color: #fff;
   color: #686dc3;
 }
+body {
+  background-image: var(--tiki-quartz-body-bg-image);
+}
 .dropdown-menu {
   backdrop-filter: blur(5px);
 }

@@ -14,7 +14,7 @@ $imagePath: "../images/";
 .btn-secondary { border-color: #a2a9b1; }
 
 body {
-  background: #f6f6f6 url('#{$imagePath}page-base.png');
+  background: var(--tiki-tikipedia-body-bg);
 }
 
 #bottom_modules {
@@ -28,10 +28,14 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   border-bottom: 1px solid #aaaaaa;
-  color: #000000;
+//  color: #000000;
   font-weight: normal;
   padding-bottom: 0.17em;
   padding-top: 0.5em;
+}
+
+.dropdown-item {
+    font-size: .8rem;
 }
 
 #page-bar {
@@ -146,10 +150,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: 0.25em;
   padding: 0;
-  color: #000000;
+  color: var(--tiki-tikipedia-pagetitle-color); //#000000;
 
   & > a {
-    color: $body-color;
+    color: var(--tiki-tikipedia-pagetitle-color);
   }
 }
 
@@ -159,14 +163,12 @@ h1, h2, h3, h4, h5, h6 {
 
 #col1,
 #col3 {
-  background: #ffffff url('#{$imagePath}border.png') repeat-y;
+  background: var(--tiki-tikipedia-col1co13-bg);
   border: solid #a7d7f9;
   border-width: 1px 0;
   padding-top: 1.25em;
   padding-bottom: 1.25em;
 }
-
-#col3 { background: #fff; }
 
 body.fullscreen #col1 {
   background: #ffffff;
@@ -406,7 +408,7 @@ article {
     padding-top: 0;
 
     a {
-      color: $body-color;
+      color: var(--bs-body-color); //$body-color;
     }
   }
 }

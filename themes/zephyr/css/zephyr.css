@@ -11618,7 +11618,19 @@ thead th {
   --tiki-top-hover-bg: rgba(255, 255, 255, 0.1);
 }
 .tiki-topbar-nav-dark {
-  --tiki-topbar-bg: rgba(33, 37, 41, 1.0);
+  --tiki-topbar-bg: rgb(35, 60, 154);
+  --tiki-topbar-color: #fff;
+  --tiki-topbar-hover-color: #fff;
+  --tiki-topbar-hover-bg: rgba(255, 255, 255, 0.1);
+}
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: rgba(52, 89, 230, 1.0);
+  --tiki-top-color: #fff;
+  --tiki-top-hover-color: #fff;
+  --tiki-top-hover-bg: rgba(255, 255, 255, 0.1);
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: rgb(35, 60, 154);
   --tiki-topbar-color: #fff;
   --tiki-topbar-hover-color: #fff;
   --tiki-topbar-hover-bg: rgba(255, 255, 255, 0.1);

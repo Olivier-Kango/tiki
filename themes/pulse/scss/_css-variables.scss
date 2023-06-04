@@ -1,26 +1,63 @@
 //--------------------------- Tiki CSS variables
-.tiki-top-nav-light {
-    --tiki-top-bg: rgba(249, 248, 252, 1);
-    --tiki-top-color: rgba(0, 0, 0, 0.7);
-    --tiki-top-hover-color: rgba(0, 0, 0, 0.9);
-}
+// Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 
-.tiki-topbar-nav-light {
-    --tiki-topbar-bg: rgba(249, 248, 252, 1);
-    --tiki-topbar-color: rgba(0, 0, 0, 0.7);
-    --tiki-topbar-hover-color: rgba(0, 0, 0, 0.9);
-}
-
-.tiki-top-nav-dark {
+// Used for L&F nav color choice and color mode override
+@mixin top-nav-dark {
     --tiki-top-bg: rgba(89, 49, 150, 1);
     --tiki-top-color: rgba(255, 255, 255, 0.55);
     --tiki-top-hover-color: rgba(255, 255, 255, 0.9);
 }
 
-.tiki-topbar-nav-dark {
+@mixin topbar-nav-dark {
     --tiki-topbar-bg: rgba(89, 49, 150, 1);
     --tiki-topbar-color: rgba(255, 255, 255, 0.55);
     --tiki-topbar-hover-color: rgba(255, 255, 255, 0.9);
+}
+
+@mixin top-nav-light {
+    @include top-nav-dark; // Decided purple (dark) bg should always be used. Same below.
+//    --tiki-top-bg: rgba(249, 248, 252, 1);
+//    --tiki-top-color: rgba(0, 0, 0, 0.7);
+//    --tiki-top-hover-color: rgba(0, 0, 0, 0.9);
+}
+
+@mixin topbar-nav-light {
+    @include topbar-nav-dark;
+//    --tiki-topbar-bg: rgba(249, 248, 252, 1);
+//    --tiki-topbar-color: rgba(0, 0, 0, 0.7);
+//    --tiki-topbar-hover-color: rgba(0, 0, 0, 0.9);
+}
+
+.tiki-top-nav-light {
+    @include top-nav-light;
+}
+.tiki-topbar-nav-light {
+    @include topbar-nav-light;
+}
+.tiki-top-nav-dark {
+    @include top-nav-dark;
+}
+.tiki-topbar-nav-dark {
+    @include topbar-nav-dark;
+}
+
+// Color mode preference trumps L&F admin light navbar option
+[data-bs-theme=dark] {                              // color mode
+    .tiki-top-nav-light {                           // light top selector
+        @include top-nav-dark;                      // dark values
+    }
+    .tiki-topbar-nav-light {
+        @include topbar-nav-dark;
+    }
+}
+// Color mode preference trumps L&F admin dark navbar option
+[data-bs-theme=light] {                              // color mode
+    .tiki-top-nav-dark {                           // dark top selector
+        @include top-nav-light;                      // light values
+    }
+    .tiki-topbar-nav-dark {
+        @include topbar-nav-light;
+    }
 }
 
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //

@@ -25,6 +25,8 @@
 @import "../../base_files/scss/_select2-tiki_colors.scss";
 
 // Additional for Tiki
+.alert { color: inherit; }
+
 // Fix bad contrast
 .dropdown-item.text-danger {
     background: #fff;
@@ -35,10 +37,10 @@
 }
 
 // Update for Smartmenus
-.navbar-dark.bg-dark .dropdown-menu.mega-menu a,
-.dropdown-item {
-    color: $navbar-dark-color;
-}
+//.navbar-dark.bg-dark .dropdown-menu.mega-menu a,
+//.dropdown-item {
+//    color: $navbar-dark-color;          -- Check on this. Doesn't work now with color modes.
+//}
 
 .navbar-dark.bg-dark .dropdown-menu.mega-menu a:hover,
 .navbar-dark.bg-dark .dropdown-menu.mega-menu a:hover:focus  {
@@ -52,11 +54,11 @@
     margin-bottom: .5rem;
 }
 
-.topbar_modules {
-    margin-left: 30px;
-    margin-right: 30px;
-}
-
-.navbar {
-    --bs-navbar-color: #{$link-color};
-}
+//.topbar_modules {
+//    margin-left: 30px;
+//    margin-right: 30px;
+//}
+//
+//.navbar {
+//    --bs-navbar-color: #{$link-color};
+//}

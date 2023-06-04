@@ -11346,6 +11346,16 @@ textarea.form-control-lg {
   --tiki-topbar-color: white;
   --tiki-topbar-hover-color: #fff;
 }
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: #343a40;
+  --tiki-top-color: white;
+  --tiki-top-hover-color: #fff;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: #343a40;
+  --tiki-topbar-color: white;
+  --tiki-topbar-hover-color: #fff;
+}
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-top-nav-color: #222;
   --tiki-admin-top-nav-hover-color: black;
@@ -11374,6 +11384,14 @@ textarea.form-control-lg {
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: #343a40;
+}
+:root {
+  --tiki-vert-nav-link-color: $link-color;
+  --tiki-vert-nav-link-hover-color: $link-hover-color;
+}
+[data-bs-theme="dark"] {
+  --tiki-vert-nav-link-color: rgba(var(--bs-link-color-rgb));
+  --tiki-vert-nav-link-hover-color: rgba(var(--bs-link-hover-color-rgb));
 }
 .navbar-dark > a {
   color: white;
@@ -12560,13 +12578,14 @@ table.table {
   display: block;
   line-height: 1;
 }
-.cssmenu_horiz ul li a, .cssmenu_vert ul li a {
-  font-size: 18px;
-  padding-top: 3px;
-  padding-bottom: 3px;
+#col2 .navbar {
+  background: transparent;
 }
-.sf-arrows .sf-with-ul {
-  padding-right: 1.75em;
+#col2 .navbar .nav-link {
+  color: var(--tiki-vert-nav-link-color);
+}
+#col2 .navbar .nav-link:hover {
+  color: var(--tiki-vert-nav-link-hover-color);
 }
 div:not(#col1) .card.module, .blogpost .card {
   border: none;

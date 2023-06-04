@@ -11302,21 +11302,20 @@ textarea.form-control-lg {
   --tiki-topbar-hover-color: rgba(255, 255, 255, 0.75);
 }
 .tiki-top-nav-dark {
-  --tiki-top-bg: #212529;
-  --tiki-top-color: rgba(255, 255, 255, 0.55);
-  --tiki-top-hover-color: rgba(255, 255, 255, 0.75);
+  --tiki-top-bg: #F3F6F9;
+  --tiki-top-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
+  --tiki-top-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
 }
 .tiki-topbar-nav-dark {
-  --tiki-topbar-bg: #212529;
-  --tiki-topbar-link-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-bg: #F3F6F9;
+  --tiki-topbar-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
   --tiki-topbar-hover-color: rgba(255, 255, 255, 0.75);
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-top-nav-bg: #F3F6F9;
   --tiki-admin-top-nav-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
-  --tiki-admin-top-nav-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
   --tiki-admin-top-nav-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
-  --tiki-admin-top-nav-link-hover-bg: none ;
+  --tiki-admin-top-nav-hover-bg: none ;
   --tiki-admin-aside-nav-bg: #F3F6F9;
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
@@ -11332,7 +11331,7 @@ textarea.form-control-lg {
   --tiki-admin-top-nav-bg: #212529;
   --tiki-admin-top-nav-color: rgba(255, 255, 255, 0.55);
   --tiki-admin-top-nav-hover-color: rgba(255, 255, 255, 0.55);
-  --tiki-admin-top-nav-link-hover-bg: rgba(255, 255, 255, 0.75);
+  --tiki-admin-top-nav-hover-bg: rgba(255, 255, 255, 0.75);
   --tiki-admin-aside-nav-bg: #212529;
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
@@ -12298,7 +12297,7 @@ blockquote {
   border-color: #a2a9b1;
 }
 body {
-  background: #f6f6f6 url("../images/page-base.png");
+  background: var(--tiki-tikipedia-body-bg);
 }
 #bottom_modules {
   margin-left: 16.66666667%;
@@ -12309,10 +12308,12 @@ body {
 }
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   border-bottom: 1px solid #aaaaaa;
-  color: #000000;
   font-weight: normal;
   padding-bottom: 0.17em;
   padding-top: 0.5em;
+}
+.dropdown-item {
+  font-size: 0.8rem;
 }
 #page-bar {
   position: absolute;
@@ -12394,23 +12395,20 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   margin-top: 0;
   margin-bottom: 0.25em;
   padding: 0;
-  color: #000000;
+  color: var(--tiki-tikipedia-pagetitle-color);
 }
 .pagetitle > a {
-  color: #252525;
+  color: var(--tiki-tikipedia-pagetitle-color);
 }
 .tiki_wiki_page:not(.manage) .pagetitle {
   margin-top: -4px;
 }
 #col1, #col3 {
-  background: #ffffff url("../images/border.png") repeat-y;
+  background: var(--tiki-tikipedia-col1co13-bg);
   border: solid #a7d7f9;
   border-width: 1px 0;
   padding-top: 1.25em;
   padding-bottom: 1.25em;
-}
-#col3 {
-  background: #fff;
 }
 body.fullscreen #col1 {
   background: #ffffff;
@@ -12561,7 +12559,7 @@ article .card-title {
   padding-top: 0;
 }
 .articletitle h1 a, .articletitle .h1 a, .articletitle h2 a, .articletitle .h2 a {
-  color: #252525;
+  color: var(--bs-body-color);
 }
 .wikiactions_wrapper.clearfix, .clearfix.articletrailer {
   float: right;

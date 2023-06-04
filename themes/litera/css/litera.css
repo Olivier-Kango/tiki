@@ -10904,12 +10904,22 @@ table, .table {
   --tiki-topbar-border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .tiki-top-nav-dark {
-  --tiki-top-bg: #02b875;
+  --tiki-top-bg: #027e50;
   --tiki-top-color: rgba(255, 255, 255, 0.9);
   --tiki-top-hover-color: #80EAD5FF;
 }
 .tiki-topbar-nav-dark {
-  --tiki-topbar-bg: #02b875;
+  --tiki-topbar-bg: #027E50FF;
+  --tiki-topbar-color: rgba(255, 255, 255, 0.9);
+  --tiki-topbar-hover-color: #80EAD5FF;
+}
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: #027e50;
+  --tiki-top-color: rgba(255, 255, 255, 0.9);
+  --tiki-top-hover-color: #80EAD5FF;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: #027E50FF;
   --tiki-topbar-color: rgba(255, 255, 255, 0.9);
   --tiki-topbar-hover-color: #80EAD5FF;
 }

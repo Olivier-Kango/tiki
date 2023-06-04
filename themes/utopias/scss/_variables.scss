@@ -12,6 +12,7 @@ $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
+$dark: $black;
 
 // scss-docs-start color-variables
 $blue:    #0d6efd !default;
@@ -79,7 +80,7 @@ $danger-border-subtle:    tint-color($danger, 60%) !default;
 $light-border-subtle:     $gray-200 !default;
 $dark-border-subtle:      $gray-500 !default;
 // scss-docs-end theme-border-subtle-variable
-$body-color: #000;
+$body-color: $dark;
 $body-secondary-color:      rgba($body-color, .75) !default;
 $body-secondary-bg:         $gray-200 !default;
 

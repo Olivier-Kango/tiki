@@ -1791,13 +1791,13 @@ progress {
 }
 .table-dark {
   --bs-table-color: #fff;
-  --bs-table-bg: #212529;
-  --bs-table-border-color: #373b3e;
-  --bs-table-striped-bg: #2c3034;
+  --bs-table-bg: #000;
+  --bs-table-border-color: #1a1a1a;
+  --bs-table-striped-bg: #0d0d0d;
   --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #373b3e;
+  --bs-table-active-bg: #1a1a1a;
   --bs-table-active-color: #fff;
-  --bs-table-hover-bg: #323539;
+  --bs-table-hover-bg: #131313;
   --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -11979,17 +11979,36 @@ textarea.form-control-lg {
   --tiki-topbar-hover-color: #888;
 }
 .tiki-top-nav-dark {
-  --tiki-top-bg: #fafafa;
-  --tiki-top-color: #333;
-  --tiki-top-hover-color: #333;
+  --tiki-top-bg: #252729;
+  --tiki-top-color: rgba(255, 255, 255, 0.7);
+  --tiki-top-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
-  --tiki-topbar-bg: #fafafa;
-  --tiki-topbar-color: #333;
-  --tiki-topbar-hover-color: #333;
+  --tiki-topbar-bg: #252729;
+  --tiki-top-color: rgba(255, 255, 255, 0.7);
+  --tiki-top-hover-color: #fff;
+}
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: #252729;
+  --tiki-top-color: rgba(255, 255, 255, 0.7);
+  --tiki-top-hover-color: #fff;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: #252729;
+  --tiki-top-color: rgba(255, 255, 255, 0.7);
+  --tiki-top-hover-color: #fff;
+}
+[data-bs-theme=light] .tiki-top-nav-dark {
+  --tiki-top-bg: #fff;
+  --tiki-top-color: #888888;
+  --tiki-top-hover-color: #000;
+}
+[data-bs-theme=light] .tiki-topbar-nav-dark {
+  --tiki-topbar-bg: #fff;
+  --tiki-topbar-color: #595959;
+  --tiki-topbar-hover-color: #888;
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
-  --tiki-admin-top-nav-color: #888888;
   --tiki-admin-top-nav-color: #000;
   --tiki-admin-top-nav-hover-color: #000;
   --tiki-admin-top-nav-hover-bg: none ;
@@ -12025,12 +12044,18 @@ textarea.form-control-lg {
 :root {
   --tiki-utopias-container-bg-color: #fff;
   --tiki-utopias-card-link-color: #6B6B6B;
+  --tiki-card-border-color: #dddddd;
+  --tiki-card-header-bg: #f4f4f4;
+  --tiki-card-title-color: #555555;
 }
-[data-bs-theme="dark"] {
+[data-bs-theme=dark] {
   --tiki-utopias-container-bg-color: #212529;
   --tiki-utopias-card-link-color: #acacac;
+  --tiki-card-border-color: #495057;
+  --tiki-card-header-bg: #1a1d20;
+  --tiki-card-title-color: #adb5bd;
 }
-[data-bs-theme="dark"] body {
+[data-bs-theme=dark] body {
   background-color: #000;
 }
 .navbar-dark > a {
@@ -12608,7 +12633,7 @@ div.drillshow {
 }
 .tiki .ui-widget button {
   background: #f8f9fa;
-  color: #212529;
+  color: #000;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;
@@ -12962,13 +12987,16 @@ blockquote {
   border: none;
 }
 .container {
-  background-color: #ffffff;
+  background-color: var(--tiki-utopias-container-bg-color);
 }
 a, a:visited, .popover button.btn-link.link-list, .popover button.btn-link.link-list .icon, .dropdown-item button.btn-link.link-list, .dropdown-item button.btn-link.link-list .icon {
   font-weight: bold;
 }
 h1, .h1 {
-  color: #000000;
+  color: #757575;
+}
+h1.pagetitle > a, .pagetitle.h1 > a {
+  color: #757575;
 }
 .topbar .navbar-collapse {
   padding-left: 0;
@@ -12990,19 +13018,14 @@ h1, .h1 {
   padding-right: 0;
 }
 .card-body a:not(.btn) {
-  color: #333333;
+  color: var(--tiki-utopias-card-link-color);
   font-weight: normal;
 }
 .card-body a:not(.btn):hover {
   color: #999999;
   text-decoration: none;
 }
-.navbar-dark {
-  background-color: #fafafa;
-  color: #333333;
-}
 .card {
-  background: #ffffff;
   border: 1px solid #dddddd;
 }
 .card-header {
@@ -13020,6 +13043,15 @@ h1, .h1 {
 }
 .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
   color: #616A70 !important;
+}
+.card {
+  border-color: var(--tiki-card-border-color);
+}
+.card .card-header {
+  background: var(--tiki-card-header-bg);
+}
+.card .card-header .card-title {
+  color: var(--tiki-card-title-color);
 }
 table.tablesorter thead tr.tablesorter-headerRow {
   background-color: #eee;
@@ -13319,7 +13351,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: var(--bs-border-radius);
-  color: #212529;
+  color: #000;
 }
 .tiki .pvtFilterBox button:hover {
   background: #dae0e5;
@@ -13364,7 +13396,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: #dee2e6;
   background: #f8f9fa;
   font-weight: normal;
-  color: #212529;
+  color: #000;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {

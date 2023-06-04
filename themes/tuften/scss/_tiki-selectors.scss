@@ -387,17 +387,18 @@ table.table {
 	line-height: 1;
 }
 
-// -------------------- Dropdowns -------------------- //
-.cssmenu_horiz ul li a,
-.cssmenu_vert ul li a {
-    font-size: 18px;
-    padding-top: 3px;
-    padding-bottom: 3px;
+#col2 .navbar {
+    background: transparent;
+    .nav-link {
+        color: var(--tiki-vert-nav-link-color); //#214D73;
+        &:hover {
+            color: var(--tiki-vert-nav-link-hover-color);
+        }
+    }
 }
 
-.sf-arrows .sf-with-ul {
-    padding-right: 1.75em;
-}
+// -------------------- Dropdowns -------------------- //
+
 
 // -------------------- Pagination -------------------- //
 // -------------------- Jumbotron -------------------- //

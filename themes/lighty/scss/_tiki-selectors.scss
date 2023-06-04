@@ -109,6 +109,18 @@ ul.dropdown-menu {
         border: 1px solid #fff;
     }
 }
+
+// Make links visible in dark mode (Tiki 26+)
+#col2 .navbar {
+    background: transparent;
+    .nav-link {
+        color: var(--tiki-vert-nav-link-color);
+        &:hover {
+            color: var(--tiki-vert-nav-link-hover-color);
+        }
+    }
+}
+
 #page-bar {
     padding: 15px 0 0 15px;
 }
@@ -209,28 +221,12 @@ ul.dropdown-menu {
 .label {
     border-radius: 0;
 }
-// Update: .form-horizontal was dropped with Bootstrap 4, so this hasn't worked for a long time.
-//.form-horizontal {
-//    .control-label {
-//        text-align: left;
-//        padding-bottom: 7px;
-//                margin: 5px;
-        // Commented out because it causes the checkbox or other input
-        // to wrap under the label (too wide) - Gary
-//    }
-//}
+
 .form-control {
 //  height: 38px; Textareas are also form-control so a height can't be set by CSS.
   border: 3px solid $input-border;
 }
 
-// Update: .form-horizontal was dropped with Bootstrap 4, so this hasn't worked for a long time.
-//.form-horizontal {
-//    .mb-3 {
-//         margin-left: 0;
-//         margin-right: 0;
-//     }
-//}
 #loginbox-1 {
     margin: 0;
     padding: 15px 6px 0;
@@ -326,7 +322,7 @@ body.tiki.navbar-padding {
     padding-top: 80px;
   }
 #col1 {
-    background: #fff;
+    background: var(--tiki-lighty-col1-bg); //#fff;
     margin-bottom: 20px;
 }
 body:not(.tiki-admin) #col1 {

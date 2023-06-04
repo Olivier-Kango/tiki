@@ -19,6 +19,52 @@ $success: #5cb85c; //#48ca3b;
 $warning: #f0ad4e; //#debb27;
 $danger: #FF3D3D;
 
+// scss-docs-start color-variables
+$blue:    #0d6efd !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #198754 !default;
+$teal:    #20c997 !default;
+$cyan:    #0dcaf0 !default;
+// scss-docs-end color-variables
+
+// scss-docs-start colors-map
+$colors: (
+    "blue":       $blue,
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "black":      $black,
+    "white":      $white,
+    "gray":       $gray-600,
+    "gray-dark":  $gray-800
+) !default;
+// scss-docs-end colors-map
+
+
+$red-300: tint-color($red, 40%) !default;
+$green-300: tint-color($green, 40%) !default;
+
+$primary:       #087EB4;
+$secondary:     #1784b7;
+$success:       #5cb85c;
+$info:          #5bc0de;
+$warning:       #f0ad4e;
+$danger:        #FF3D3D;
+$light:         $gray-100 !default;
+//$dark:          $gray-900 !default;
+// scss-docs-end theme-color-variables
+
 $theme-colors: (
   "primary":         #087EB4, // #56c4f7,
   "secondary": #1784b7,
@@ -26,7 +72,7 @@ $theme-colors: (
   "info":             #5bc0de,
   "warning":          #f0ad4e,
   "danger":           #FF3D3D,
-    "light":      #1784b7,
+//    "light":      #1784b7,
   "dark":       #000000,
   "mono":           #0a1218,
   "color_white": #ffffff,
@@ -50,6 +96,8 @@ $body-color: #fff;
 // Links
 $link-color: #53BAEA; // #56c4f7; lightened for WCAG 2 compliance
 $link-hover-color: #56c4f7;
+$link-shade-percentage:                   20% !default;
+
 // Components
 $border-radius:               0.5rem;
 $border-radius-lg:            .2rem;
@@ -137,6 +185,7 @@ $breadcrumb-bg: rgba(86, 196, 247, 0.5);
 // Carousel
 // Close
 // Code
+$code-color: pink;
 
 $nav-pills-border-radius: 0.2rem;
 

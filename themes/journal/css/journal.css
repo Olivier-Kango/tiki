@@ -10798,16 +10798,14 @@ header.navbar.fixed-top {
   text-decoration: none;
 }
 .tiki-top-nav-light {
-  --tiki-top-bg: #f8f9fa;
-  --tiki-top-color: rgba(0, 0, 0, 0.55);
-  --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-top-border: 1px solid #eee;
+  --tiki-top-bg: rgba(42, 62, 80, 1);
+  --tiki-top-color: rgba(255, 255, 255, 0.6);
+  --tiki-top-hover-color: #18bc9c;
 }
 .tiki-topbar-nav-light {
-  --tiki-topbar-bg: #f8f9fa;
-  --tiki-topbar-color: rgba(0, 0, 0, 0.55);
-  --tiki-topbar-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-topbar-border: 1px solid #eee;
+  --tiki-topbar-bg: #20445C;
+  --tiki-topbar-color: rgba(255, 255, 255, 0.6);
+  --tiki-topbar-hover-color: #18bc9c;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: rgba(42, 62, 80, 1);
@@ -10825,6 +10823,16 @@ header.navbar.fixed-top {
   --tiki-top-hover-color: #18bc9c;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: #20445C;
+  --tiki-topbar-color: rgba(255, 255, 255, 0.6);
+  --tiki-topbar-hover-color: #18bc9c;
+}
+[data-bs-theme=light] .tiki-top-nav-dark {
+  --tiki-top-bg: rgba(42, 62, 80, 1);
+  --tiki-top-color: rgba(255, 255, 255, 0.6);
+  --tiki-top-hover-color: #18bc9c;
+}
+[data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #20445C;
   --tiki-topbar-color: rgba(255, 255, 255, 0.6);
   --tiki-topbar-hover-color: #18bc9c;

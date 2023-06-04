@@ -10909,12 +10909,6 @@ header.navbar.fixed-top {
 .card h1, .card .h1, .card h2, .card .h2, .card h3, .card .h3, .card h4, .card .h4, .card h5, .card .h5, .card h6, .card .h6, .list-group-item h1, .list-group-item .h1, .list-group-item h2, .list-group-item .h2, .list-group-item h3, .list-group-item .h3, .list-group-item h4, .list-group-item .h4, .list-group-item h5, .list-group-item .h5, .list-group-item h6, .list-group-item .h6 {
   color: inherit;
 }
-.tiki-top-nav-light {
-  --tiki-top-bg: linear-gradient(#f2f2f2, #eee 50%, #dbdbdb);
-  --tiki-top-color: rgba(0, 0, 0, 0.7);
-  --tiki-top-hover-color: #3399f3;
-  --tiki-top-border: solid #bebebe;
-}
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(#f2f2f2, #eee 50%, #dbdbdb);
   --tiki-topbar-color: rgba(0, 0, 0, 0.7);
@@ -10934,9 +10928,21 @@ header.navbar.fixed-top {
   --tiki-topbar-border: solid rgb(85, 85, 85)
 }
 
+.tiki-top-nav-light {
+    --tiki-top-bg: linear-gradient(#f2f2f2, #eee 50%, #dbdbdb);
+  --tiki-top-color: rgba(0, 0, 0, 0.7);
+  --tiki-top-hover-color: #3399f3;
+  --tiki-top-border: solid #bebebe;
+}
 .tiki-top-nav-light, .tiki-top-nav-dark {
-    --tiki-top-border-width: 1px;
+  --tiki-top-border-width: 1px;
   --tiki-topbar-border-width: 1px;
+}
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: linear-gradient(#646464, #333 50%, #2f2f2f);
+  --tiki-top-color: rgba(255, 255, 255, 0.75);
+  --tiki-top-hover-color: #fff;
+  --tiki-top-border: solid rgb(85, 85, 85);
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.4);

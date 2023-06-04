@@ -12188,8 +12188,19 @@ header.fixed-top {
   border: none;
   border-radius: 0;
 }
+.row-middle::before {
+  content: "";
+  background: url("../images/page_background_ltr.jpg") repeat;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: var(--tiki-greenvalley-row-middle-bg-img-opacity);
+}
 .row-middle {
-  background: #fff url("../images/page_background_ltr.jpg") repeat;
+  position: relative;
+  background: var(--tiki-greenvalley-row-middle-bg-color);
   margin-top: -20px;
   padding-top: 20px;
   padding-bottom: 20px;

@@ -58,14 +58,6 @@ h2.sitesubtitle {
   padding-top: 1em;
 }
 
-.layout_classic .middle_outer,
-body:not(.layout_classic) #middle.container-std.middle,
-.layout_basic .row-middle {  // Moved from #col1 for Bootstrap 5
-  background: #fbfbfb url('#{$imagePath}image2.jpg') 100% 0 no-repeat;
-}
-
-
-
 #footer .container,
 footer.main-footer .container {
   min-height: 60px;
@@ -127,30 +119,10 @@ h3.card-title {
   z-index: 2;
 }
 
-//.popover { Moved to variables
-//  color: $body-color;
-//}
-
-//// prevent gradient on gradient or on middle box-shadow
-//.bg-dark .bg-dark,
-//.tiki .navbar.bg-dark .navbar.navbar-dark.bg-dark,
-////.tiki.navbar.bg-light .navbar.bg-light
-////.page-header
-//{
-//  background-image: none !important;
-//  background: transparent !important;
-//  border-left: none;
-//  border-right: none;
-//}
-
-//.layout_classic .navbar-dark-parent {
-//    background: transparent !important;
-//}
-
 // Update for Smartmenus
 .navbar .navbar-nav.sm-vertical {
     .dropdown { border: none;
-     a { color: #005999; }
+ //    a { color: #005999; }
     }
 }
 

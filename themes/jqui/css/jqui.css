@@ -11310,11 +11310,31 @@ textarea.form-control-lg {
   --tiki-topbar-hover-color: #0001cf;
 }
 .tiki-top-nav-dark {
+  --tiki-top-bg: linear-gradient(180deg, rgba(69,69,69,1) 0%, rgba(0,0,0,1) 100%);
+  --tiki-top-color: #e0e0e0;
+  --tiki-top-hover-color: #fff;
+}
+.tiki-topbar-nav-dark {
+  --tiki-topbar-bg: linear-gradient(180deg, rgba(69,69,69,1) 0%, rgba(0,0,0,1) 100%);
+  --tiki-topbar-color: #e0e0e0;
+  --tiki-topbar-hover-color: #fff;
+}
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: linear-gradient(180deg, rgba(69,69,69,1) 0%, rgba(0,0,0,1) 100%);
+  --tiki-top-color: #e0e0e0;
+  --tiki-top-hover-color: #fff;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: linear-gradient(180deg, rgba(69,69,69,1) 0%, rgba(0,0,0,1) 100%);
+  --tiki-topbar-color: #e0e0e0;
+  --tiki-topbar-hover-color: #fff;
+}
+[data-bs-theme=light] .tiki-top-nav-dark {
   --tiki-top-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
   --tiki-top-color: #0001a6;
   --tiki-top-hover-color: #0001cf;
 }
-.tiki-topbar-nav-dark {
+[data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
   --tiki-topbar-color: #0001a6;
   --tiki-topbar-hover-color: #0001cf;
@@ -11348,6 +11368,16 @@ textarea.form-control-lg {
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+}
+:root {
+  --tiki-card-header-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+  --tiki-vert-nav-link-color: $link-color;
+  --tiki-vert-nav-link-hover-color: $link-hover-color;
+}
+[data-bs-theme="dark"] {
+  --tiki-card-header-bg: #343a40;
+  --tiki-vert-nav-link-color: rgba(var(--bs-link-color-rgb));
+  --tiki-vert-nav-link-hover-color: rgba(var(--bs-link-hover-color-rgb));
 }
 .navbar-dark > a {
   color: #0001a6;
@@ -12288,13 +12318,22 @@ blockquote {
   border-left: none;
 }
 .card-header, .tiki .bg-dark:not(.navbar-dark) {
-  background-image: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
+  background-image: var(--tiki-card-header-bg);
 }
 .topbar .nav-link {
   font-weight: bold;
 }
 .topbar .nav-link:first-of-type {
   border-left: none;
+}
+#col2 .navbar {
+  background: transparent;
+}
+#col2 .navbar .nav-link {
+  color: var(--tiki-vert-nav-link-color);
+}
+#col2 .navbar .nav-link:hover {
+  color: var(--tiki-vert-nav-link-hover-color);
 }
 .card.postbody, .card.postbody .card-header {
   border: 1px solid #999;

@@ -10831,6 +10831,16 @@ header.navbar.fixed-top {
   --tiki-topbar-color: rgba(255, 255, 255, 0.6);
   --tiki-topbar-hover-color: #18bc9c;
 }
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: rgba(42, 62, 80, 1);
+  --tiki-top-color: rgba(255, 255, 255, 0.6);
+  --tiki-top-hover-color: #18bc9c;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: #203141;
+  --tiki-topbar-color: rgba(255, 255, 255, 0.6);
+  --tiki-topbar-hover-color: #18bc9c;
+}
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-navbar-bg: #F4F7F7;
   --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.55);
