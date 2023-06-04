@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "efbb136328487c69abc4959b72516471",
+    "content-hash": "ed651214e7e0d23ea00d777a35b44778",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -3121,17 +3121,17 @@
         },
         {
             "name": "kaltura/api-client-library",
-            "version": "v18.20.0",
+            "version": "v19.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53.git",
-                "reference": "8d9e1752310c681f60abd69dddefb84e76d75cc6"
+                "reference": "edfe3dca3d1a9858173b0030585c4b146651d3ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/kaltura/api-client-library/kaltura-api-client-library-8d9e1752310c681f60abd69dddefb84e76d75cc6-zip-72ef20.zip",
-                "reference": "8d9e1752310c681f60abd69dddefb84e76d75cc6",
-                "shasum": "d79d8b44b0384f83f2705dba3ea7f1aeea188a22"
+                "url": "https://composer.tiki.org/dist/kaltura/api-client-library/kaltura-api-client-library-edfe3dca3d1a9858173b0030585c4b146651d3ed-zip-87e0e6.zip",
+                "reference": "edfe3dca3d1a9858173b0030585c4b146651d3ed",
+                "shasum": "f666723a85079619e2eca22cea867d245eb49fb8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3161,7 +3161,7 @@
                 "video",
                 "video platform"
             ],
-            "time": "2023-01-03T17:53:32+00:00"
+            "time": "2023-03-23T18:04:05+00:00"
         },
         {
             "name": "laminas/laminas-captcha",
