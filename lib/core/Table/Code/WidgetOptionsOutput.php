@@ -29,7 +29,9 @@ class Table_Code_WidgetOptionsOutput extends Table_Code_WidgetOptions
         if (parent::$output) {
             foreach (parent::$s['output'] as $key => $val) {
                 if ($key === 'button') {
-                    $m[] = $pre . $key . ' : "button#' . parent::$s['output']['button']['id'] . '"';
+                    if (isset(parent::$s['output']['button']['id'])) {
+                        $m[] = $pre . $key . ' : "button#' . parent::$s['output']['button']['id'] . '"';
+                    }
                 } elseif (! is_numeric($key)) {
                     $m[] = $pre . $key . ' : "' . $val . '"';
                 }
