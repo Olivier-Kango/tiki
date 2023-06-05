@@ -3126,6 +3126,7 @@ table.objectperms .checkBoxHeader > div, table.objectperms > tbody .checkBoxLabe
   text-overflow: ellipsis;
   line-height: 2;
   text-indent: 1.7em;
+  z-index: 1;
 }
 .objectperms .checkBoxHeader > div > label {
   width: 140px;
