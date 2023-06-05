@@ -109,7 +109,7 @@ function wikiplugin_groupmailcore($data, $params)
     $trackerparams['fields'] = $params['fromFId'] . ':' . $params['operatorFId'] . ':' . $params['subjectFId'] . ':' . $params['datetimeFId'];
     $trackerparams['popup'] = $params['fromFId'] . ':' . $params['contentFId'];
     $trackerparams['filterfield'] = $params['fromFId'] . ':' . $params['accountFId'];
-    $trackerparams['filtervalue'] = $params['fromEmail'] . ':' . $params['accountName'];
+    $trackerparams['filtervalue'] = $params['fromEmail'] . ':' . (isset($params['accountName']) ? $params['accountName'] : '');
     $trackerparams['stickypopup'] = 'n';
     $trackerparams['showlinks'] = 'y';
     $trackerparams['shownbitems'] = 'n';
