@@ -475,7 +475,7 @@ function process_section($data, $type, $line_sep, $cellbeg, $cellend, $widths, $
         $l++;//increment row number
     }
     $ret['html'] = $wret;
-    $ret['cols'] = count($parts);
+    $ret['cols'] = count($parts ?? []);
     return $ret;
 }
 
