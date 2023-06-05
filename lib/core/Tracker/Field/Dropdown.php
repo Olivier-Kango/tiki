@@ -265,11 +265,11 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractField implements \Tr
         $baseKey = $this->getBaseKey();
 
         $data = [
-            $baseKey          => $typeFactory->identifier($value),
+            $baseKey => $typeFactory->identifier($value),
         ];
 
         if ($this->getConfiguration('type') === 'M') {
-            $values = array_filter(explode(',', $value));
+            $values = array_filter(explode(',', $value), 'strlen');
             $labels = array_map([$this, 'getValueLabel'], $values);
             $data["{$baseKey}_text"] = $typeFactory->sortable(implode(',', $labels));
             $data["{$baseKey}_multi"] = $typeFactory->multivalue($values);
