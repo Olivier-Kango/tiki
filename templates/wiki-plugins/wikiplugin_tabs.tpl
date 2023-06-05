@@ -3,10 +3,18 @@
  *}
 {if isset($is_slideshow) and $is_slideshow eq 'y'}
     {foreach from=$tabs key=i item=tab}
-        {$tabcontent[$i]}
+        {if isset($tabcontent[$i])}
+            {$tabcontent[$i]}
+        {/if}
     {/foreach}
 {else}
 ~np~{tabset toggle=$toggle params=$params name=$tabsetname|escape}
-    {section name=ix loop=$tabs}{tab params=$params name=$tabs[ix]|escape}{$tabcontent[ix]}{/tab}{/section}
+    {section name=ix loop=$tabs}
+        {tab params=$params name=$tabs[ix]|escape}
+            {if isset($tabcontent[ix])}
+                {$tabcontent[ix]}
+            {/if}
+        {/tab}
+    {/section}
 {/tabset}~/np~
 {/if}

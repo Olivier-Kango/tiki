@@ -337,6 +337,7 @@ function wikiplugin_tabs($data, $params)
     } else {
         return "''" . tra("No tab title specified. At least one must be specified in order for the tabs to appear.") . "''";
     }
+    $tabData = [];
     if (! empty($data)) {
         $data = TikiLib::lib('parser')->parse_data($data, ['suppress_icons' => true, 'inside_pretty' => $inside_pretty]);
         $tabData = explode('/////', $data);
