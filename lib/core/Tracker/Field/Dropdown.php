@@ -285,7 +285,7 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractField implements \Tr
         $data = [$baseKey, $baseKey . '_text'];
 
         if ($this->getConfiguration('type') === 'M') {
-            $data[] ="{$baseKey}_multi";
+            $data[] = "{$baseKey}_multi";
         }
 
         return $data;
