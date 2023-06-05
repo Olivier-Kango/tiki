@@ -91,6 +91,36 @@ class CalRecurrence extends TikiLib
                 $this->setLastModif($row['lastModif']);
                 $this->setUri($row['uri']);
                 $this->setUid($row['uid']);
+            } else {
+                $this->setCalendarId(0);
+                $this->setStart(0);
+                $this->setEnd(0);
+                $this->setAllday(0);
+                $this->setLocationId(0);
+                $this->setCategoryId(0);
+                $this->setNlId(0);
+                $this->setPriority(0);
+                $this->setStatus(0);
+                $this->setUrl('');
+                $this->setLang('');
+                $this->setName('');
+                $this->setDescription('');
+                $this->setWeekly(0);
+                $this->setWeekdays([]);
+                $this->setMonthly(0);
+                $this->setDayOfMonth('');
+                $this->setMonthlyType('');
+                $this->setMonthlyWeekdayValue(0);
+                $this->setYearly(0);
+                $this->setDateOfYear(0);
+                $this->setNbRecurrences(0);
+                $this->setStartPeriod(0);
+                $this->setEndPeriod(0);
+                $this->setUser('');
+                $this->setCreated(0);
+                $this->setLastModif(0);
+                $this->setUri('');
+                $this->setUid('');
             }
         }
     }

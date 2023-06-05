@@ -8,6 +8,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+echo("File to be removed as part of https://gitlab.com/tikiwiki/tiki/-/tree/tiki-calendar-service-revamp\n\n\n\n\n\n\n");
+
 $section = 'calendar';
 require_once('tiki-setup.php');
 
@@ -707,9 +710,6 @@ $wikilib = TikiLib::lib('wiki');
 $plugins = $wikilib->list_plugins(true, 'editwiki');
 $smarty->assign_by_ref('plugins', $plugins);
 $smarty->assign('impossibleDates', $impossibleDates);
-if (! empty($_REQUEST['fullcalendar'])) {
-    $smarty->display('calendar.tpl');
-} else {
-    $smarty->assign('mid', 'tiki-calendar_edit_item.tpl');
-    $smarty->display('tiki.tpl');
-}
+
+$smarty->assign('mid', 'tiki-calendar_edit_item.tpl');
+$smarty->display('tiki.tpl');

@@ -258,7 +258,7 @@ $curtikidate->setTZbyID($display_tz);
 $curtikidate->setLocalTime($dloop, $mloop, $yloop, 0, 0, 0, 0);
 
 $smarty->assign('display_tz', $display_tz);
-
+/*
 $smarty->assign('day', $daystart);
 
 $firstDay = false;
@@ -821,7 +821,7 @@ $smarty->assign('var', '');
 $smarty->assign('myurl', $myurl);
 $smarty->assign('exportUrl', $exportUrl);
 $smarty->assign('iCalAdvParamsUrl', $iCalAdvParamsUrl);
-
+*/
 if ($prefs['feature_user_watches'] == 'y' && $user && count($_SESSION['CalendarViewGroups']) == 1) {
     $calId = $_SESSION['CalendarViewGroups'][0];
     if (isset($_REQUEST['watch_event']) && isset($_REQUEST['watch_action'])) {
@@ -868,25 +868,31 @@ $headerlib->add_css('.fc-day-grid-event > .fc-content { white-space: normal; }')
 $headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
 $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/fullcalendar/main.js', true);
 
-$smarty->assign('minHourOfDay', $minHourOfDay . ':00:00');
-$smarty->assign('maxHourOfDay', $maxHourOfDay . ':00:00');
-if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_default'] == 'y') {
-    TikiLib::lib('wysiwyg')->setUpEditor(false, 'editwiki');        // init ckeditor if default editor
-}
+// repeat from above TODO better
+$calperms = Perms::get([ 'type' => 'calendar', 'object' => $cal_id ]);
 
-if (isset($_REQUEST['editmode']) && ($_REQUEST['editmode'] == 'add' || $_REQUEST['editmode'] == 'edit')) {
-    $smarty->assign('mid', 'tiki-calendar_add_event.tpl');
-} else {
-    // Detect if we have a PDF export mod installed
-    $smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : 'n');
-    $smarty->assign('pdf_warning', 'n');
-    //checking if mPDF package is available
-
-    if ($prefs['print_pdf_from_url'] == "mpdf" && ! class_exists('\\Mpdf\\Mpdf')) {
-        $smarty->assign('pdf_warning', 'y');
+if ($calperms->add_events || $calperms->change_events) {
+    $smarty->assign('minHourOfDay', $minHourOfDay . ':00:00');
+    $smarty->assign('maxHourOfDay', $maxHourOfDay . ':00:00');
+    if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_default'] == 'y') {
+        TikiLib::lib('wysiwyg')->setUpEditor(false, 'editwiki');        // init ckeditor if default editor
     }
-    $smarty->assign('mid', 'tiki-calendar.tpl');
+
+    TikiLib::lib('header')
+        ->add_cssfile('themes/base_files/feature_css/calendar.css', 20)
+        ->add_jsfile('lib/jquery_tiki/calendar_edit_item.js');
 }
+
+// Detect if we have a PDF export mod installed
+$smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : 'n');
+$smarty->assign('pdf_warning', 'n');
+//checking if mPDF package is available
+
+if ($prefs['print_pdf_from_url'] == "mpdf" && ! class_exists('\\Mpdf\\Mpdf')) {
+    $smarty->assign('pdf_warning', 'y');
+}
+$smarty->assign('mid', 'tiki-calendar.tpl');
+
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

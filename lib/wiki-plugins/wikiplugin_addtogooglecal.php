@@ -58,7 +58,7 @@ function wikiplugin_addtogooglecal($data, $params)
     $cal_id = $calendarlib->get_calendarid($cal_item_id);
 
     if (! $cal_id) {
-        return WikiParser_PluginOutput::error(tr('Error'), tr("Calendar %0 not found", $cal_item_id));
+        return '';  // event not saved yet, so no add to google button
     }
 
     $calperms = Perms::get([ 'type' => 'calendar', 'object' => $cal_id ]);

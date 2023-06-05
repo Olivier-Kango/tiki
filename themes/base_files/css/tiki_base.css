@@ -1112,8 +1112,6 @@ span.btn-link {
   margin-right: 2px;
 }
 select.form-control.date {
-  padding: 0;
-  margin-left: 0;
   width: auto;
   display: inline;
 }
@@ -5058,4 +5056,4 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
   z-index: 1;
 }
 /* End of file */
-
+/*# sourceMappingURL=tiki_base.css.map */

@@ -186,7 +186,7 @@
         {jq}
             var year = {{$viewyear}};
             var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            window.calendar = new FullCalendar.Calendar(calendarEl, {
                 themeSystem: 'bootstrap5',
                 eventTimeFormat: {
                   hour: 'numeric',
@@ -310,49 +310,42 @@
                     let $this = $(info.el).tikiModal(" ");
                     var event = info.event;
                     if (event.url) {
-                        $.ajax({
-                            dataType: 'html',
-                            url: event.url + '&fullcalendar=y&modal=1',
-                            success: function(data){
-                                var $dialog = $('#calendar_dialog');
-                                var $options = {
-                                    backdrop:'static',
-                                    focus:true
-                                };
-                                $('#calendar_dialog_content', $dialog ).html(data);
-                                $dialog.find(".modal-dialog").addClass("modal-lg");
-                                $dialog.appendTo('body');
+                        $.openModal({
+                            title: "{tr}New event{/tr}",
+                            size: "modal-lg",
+                            remote: event.url + '&modal=1',
+                            open: function () {
                                 $this.tikiModal();
-                                var tikiModalShow=new bootstrap.Modal($dialog,$options);
-                                tikiModalShow.show();
+
+                                $("form:not(.no-ajax)", this)
+                                    .addClass('no-ajax') // Remove default ajax handling, we replace it
+                                    .submit(ajaxSubmitEventHandler(function (data) {
+                                        calendarEditSubmit(data, this);
+                                    }));
                             }
                         });
                     }
                 },
                 dateClick: function(info) {
-                    let $this = $(info.dayEl).tikiModal(" "); //the html reference of the clicked date is no longer info.el but info.dayEl
+                    let $this = $(info.dayEl).tikiModal(" ");
                     var countCals = $("#filtercal ul li").length;
                     if (countCals >= 1) {
-                        $.ajax({
-                            dataType: 'html',
-                            url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&modal=1',
-                            success: function(data) {
-                                var $dialog = $('#calendar_dialog');
-                                var $options = {
-                                    backdrop:'static',
-                                    focus:true
-                                };
-                                $('#calendar_dialog_content', $dialog ).html(data);
-                                $dialog.find(".modal-dialog").addClass("modal-lg");
-                                $dialog.appendTo('body');
+                        $.openModal({
+                            title: "{tr}New event{/tr}",
+                            size: "modal-lg",
+                            remote: $.service("calendar", "edit_item", {todate: info.date.toUnix(), modal: 1}),
+                            open: function () {
                                 $this.tikiModal();
-                                var tikiModalShow=new bootstrap.Modal($dialog,$options);
-                                tikiModalShow.show();
+
+                                $("form:not(.no-ajax)", this)
+                                    .addClass('no-ajax') // Remove default ajax handling, we replace it
+                                    .submit(ajaxSubmitEventHandler(function (data) {
+                                        calendarEditSubmit(data, this);
+                                    }));
                             }
                         });
-                    }
-                    else {
-                        location.href="tiki-calendar_edit_item.php";
+                    } else {
+                        location.href="tiki-calendar.php";
                     }
                 },
                 eventResize: function(info) {
@@ -423,16 +416,6 @@
         }
     </style>
     <div id='calendar'></div>
-
-    {*<div id='calendar_dialog'></div>*}
-
-    <div id="calendar_dialog" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" id="calendar_dialog_content">
-            </div>{* /.modal-content *}
-        </div>{* /.modal-dialog *}
-    </div>{* /.modal *}
-    <p>&nbsp;</p>
 </div>
 {if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}
     {js_insert_icon type="jscalendar"}
