@@ -48,7 +48,7 @@ class Services_Search_CustomSearchController
         /** @var Search_Query_FacetWikiBuilder $facetsBuilder */
         $facetsBuilder = $definition['facets'];
 
-        $tsettings = $definition['tsettings'];
+        $tsettings = $definition['tsettings'] ?? null;
         $tsret = $definition['tsret'];
 
         $matches = WikiParser_PluginMatcher::match($definition['data']);
