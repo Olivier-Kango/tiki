@@ -242,7 +242,7 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractField implements \Tr
             $value = substr($value, 1, strlen($value) - 2);
         }
 
-        return $value;
+        return trim($value);
     }
 
     private function getLabelPortion($value)
@@ -255,7 +255,7 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractField implements \Tr
             $value = substr($value, 1, strlen($value) - 2);
         }
 
-        return $value;
+        return trim($value);
     }
 
     public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
@@ -264,16 +264,31 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractField implements \Tr
         $label = $this->getValueLabel($value);
         $baseKey = $this->getBaseKey();
 
-        return [
-            $baseKey => $typeFactory->identifier($value),
-            "{$baseKey}_text" => $typeFactory->sortable($label),
+        $data = [
+            $baseKey          => $typeFactory->identifier($value),
         ];
+
+        if ($this->getConfiguration('type') === 'M') {
+            $values = array_filter(explode(',', $value));
+            $labels = array_map([$this, 'getValueLabel'], $values);
+            $data["{$baseKey}_text"] = $typeFactory->sortable(implode(',', $labels));
+            $data["{$baseKey}_multi"] = $typeFactory->multivalue($values);
+        } else {
+            $data["{$baseKey}_text"] = $typeFactory->sortable($label);
+        }
+        return $data;
     }
 
     public function getProvidedFields()
     {
         $baseKey = $this->getBaseKey();
-        return [$baseKey, $baseKey . '_text'];
+        $data = [$baseKey, $baseKey . '_text'];
+
+        if ($this->getConfiguration('type') === 'M') {
+            $data[] ="{$baseKey}_multi";
+        }
+
+        return $data;
     }
 
     public function getProvidedFieldTypes()
