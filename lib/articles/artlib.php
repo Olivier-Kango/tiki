@@ -224,6 +224,10 @@ class ArtLib extends TikiLib
         return true;
     }
 
+    /**
+     * @return int
+     * @throws Exception If a problem occurs while replacing a submission
+    */
     public function replace_submission($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $expireDate, $user, $subId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $lang, $rating = 0, $isfloat = 'n')
     {
         global $tiki_p_autoapprove_submission, $prefs;
@@ -238,6 +242,7 @@ class ArtLib extends TikiLib
             $imgdata = '';
         }
 
+        $id = null;
         $notificationlib = TikiLib::lib('notification');
         $query = 'select `name` from `tiki_topics` where `topicId` = ?';
         $topicName = $this->getOne($query, [(int) $topicId]);
@@ -272,16 +277,23 @@ class ArtLib extends TikiLib
         ];
 
         $article_table = $this->table('tiki_submissions');
-        if ($subId) {
-            $article_table->update($info, [
-                'subId' => (int) $subId,
-            ]);
+        if (! empty($subId)) {
+            // Only update the article with the specified ID
+            $affectedRows = $article_table->update($info, ['subId' => (int)$subId]);
+            if ($affectedRows > 0) {
+                $id = (int)$subId;
+            } else {
+                throw new Exception("Failed to update the article with subId: $subId");
+            }
         } else {
             $info['created'] = (int) $this->now;
             $info['nbreads'] = 0;
             $info['votes'] = 0;
             $info['points'] = 0;
-            $id = $article_table->insert($info);
+            $id = (int) $article_table->insert($info);
+            if ($id == 0) {
+                throw new Exception("Failed to insert the new article");
+            }
         }
 
         if ($tiki_p_autoapprove_submission != 'y') {
@@ -331,8 +343,10 @@ class ArtLib extends TikiLib
             ],
             [ 'content' => $heading . "\n" . $body ]
         );
-
-        return $id;
+        if ($id !== null) {
+            return $id;
+        }
+        throw new Exception("Failed to insert the new article. Invalid Id");
     }
 
     public function replace_article($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $expireDate, $user, $articleId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $lang, $rating = 0, $isfloat = 'n', $emails = '', $from = '', $list_image_x = '', $list_image_y = '', $ispublished = 'y', $fromurl = false)
