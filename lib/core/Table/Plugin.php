@@ -628,7 +628,7 @@ class Table_Plugin
             $tst = Table_Check::parseParam($tstotals);
             if (is_array($tst)) {
                 foreach ($tst as $key => $tinfo) {
-                    if (! empty($tinfo['type'] && in_array($tinfo['type'], ['col', 'row', 'all']))) {
+                    if (! empty($tinfo['type']) && in_array($tinfo['type'], ['col', 'row', 'all'])) {
                         $s['math']['totals'][$tinfo['type']][$key]['formula'] = ! empty($tinfo['formula'])
                         && in_array($tinfo['formula'], $this->mathtypes) ? $tinfo['formula'] : 'sum';
                         if (! empty($tinfo['filter']) && isset($this->totalfilters[$tinfo['filter']])) {
