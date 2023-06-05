@@ -82,7 +82,7 @@ function wikiplugin_footnotearea($data, $params, $offset, $context)
 function genFootnoteArea($list)
 {
     $smarty = TikiLib::lib('smarty');
-    $smarty->assign('footnotes', $list['entry']);
+    $smarty->assign('footnotes', $list['entry'] ?? null);
     $smarty->assign('listType', $list['listType']);
 
     return $smarty->fetch('templates/wiki-plugins/wikiplugin_footnotearea.tpl');
