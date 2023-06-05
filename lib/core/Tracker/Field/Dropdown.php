@@ -294,10 +294,16 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractField implements \Tr
     public function getProvidedFieldTypes()
     {
         $baseKey = $this->getBaseKey();
-        return [
-            $baseKey => 'identifier',
+        $data = [
+            $baseKey           => 'identifier',
             $baseKey . '_text' => 'sortable'
         ];
+
+        if ($this->getConfiguration('type') === 'M') {
+            $data["{$baseKey}_multi"] = 'multivalue';
+        }
+
+        return $data;
     }
 
     public function getGlobalFields()
