@@ -8,6 +8,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\Lib\Image\Image;
+
 $inputConfiguration = [
     [
         'staticKeyFilters' => [
@@ -31,6 +33,10 @@ include_once('lib/mime/mimetypes.php');
 global $mimetypes;
 
 ask_ticket('draw');
+
+if (! isset($_REQUEST['fileId']) || $_REQUEST['fileId'] < 1) {
+    $access->display_error('', tra('Incorrect param'), 400);
+}
 
 $_REQUEST['fileId'] = (int)$_REQUEST['fileId'];
 
@@ -88,7 +94,7 @@ if (! empty($_REQUEST['name']) || ! empty($fileInfo['name'])) {
 
 $_REQUEST['name'] = htmlspecialchars(str_replace(".svg", "", $_REQUEST['name']));
 
-//Upload to file gallery
+//Upload to a file gallery
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['data'])) {
     $_REQUEST["galleryId"] = (int)$_REQUEST["galleryId"];
     $_REQUEST["fileId"] = (int)$_REQUEST["fileId"];
@@ -96,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['data'])) {
     $dom = new DOMDocument();
     if (! $dom->loadXML($_REQUEST['data'], LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_NONET)) {
         // Not good error handling, but no error handling interface is available.
-        // If we got here, user is trying to hack the system, this silent error won't happen in
+        // If we got here, user is trying to hack the system; this silent error won't happen in
         // normal usage
         die;
     }
@@ -196,20 +202,17 @@ if ($fileInfo['filetype'] == $mimetypes["svg"]) {
     $data = $fileInfo["data"];
 } else { //we already confirmed that this is an image, here we make it compatible with svg
     $src = $tikilib->tikiUrl() . 'tiki-download_file.php?fileId=' . $fileInfo['fileId'];
-    $w = @imagesx($src);        // can't see how this can ever work - imagesx param is a resource not a string url (jb)
-    $h = @imagesy($src);
 
-    if (empty($w) || empty($h)) { //go ahead and download the image, it may exist off-site, copywrited content
-        $image = imagecreatefromstring(file_get_contents($src));
-        $w = imagesx($image);
-        $h = imagesy($image);
-    }
+    $file = new \Tiki\FileGallery\File($fileInfo);
+
+    $image = imagecreatefromstring($file->getContents());
+    $w = imagesx($image);
+    $h = imagesy($image);
 
     if ($w == 0 && $h == 0) {
         $w = 640;
         $h = 480;
     }
-
     $data = '<svg width="' . $w . '" height="' . $h
         . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g>
@@ -221,11 +224,11 @@ if ($fileInfo['filetype'] == $mimetypes["svg"]) {
 
 //echo $data;die;
 $smarty->assign("data", $data);
-//Obtain fileId, DO NOT LET ANYTHING OTHER THAN NUMBERS BY (for injection free code)
-if (is_numeric($_REQUEST['fileId']) == false) {
+//Obtain fileId, DO NOT LET ANYTHING OTHER THAN NUMBERS BY (for injection-free code)
+if (! is_numeric($_REQUEST['fileId'])) {
     $_REQUEST['fileId'] = 0;
 }
-if (is_numeric($_REQUEST['galleryId']) == false) {
+if (! is_numeric($_REQUEST['galleryId'])) {
     $_REQUEST['galleryId'] = 0;
 }
 
@@ -237,8 +240,8 @@ $archive = isset($_REQUEST['archive']) ? htmlspecialchars($_REQUEST['archive']) 
 $index = isset($_REQUEST['index']) ? htmlspecialchars($_REQUEST['index']) : "";
 $page = isset($_REQUEST['page']) ? htmlspecialchars($_REQUEST['page']) : "";
 $label = isset($_REQUEST['label']) ? htmlspecialchars($_REQUEST['label']) : "";
-$width = isset($_REQUEST['width']) ? htmlspecialchars($_REQUEST['width']) : 0;
-$height = isset($_REQUEST['height']) ? htmlspecialchars($_REQUEST['height']) : 0;
+$width = isset($_REQUEST['width']) ? htmlspecialchars($_REQUEST['width']) : 640;
+$height = isset($_REQUEST['height']) ? htmlspecialchars($_REQUEST['height']) : 480;
 
 $smarty->assign("page", $page);
 $smarty->assign("isFromPage", isset($page));
@@ -302,7 +305,7 @@ if (
     $headerlib->add_jq_onready($jsTracking);
 }
 
-if ($drawFullscreen == true || isset($_REQUEST['raw'])) {
+if ($drawFullscreen || isset($_REQUEST['raw'])) {
     echo $headerlib->output_js();
     $smarty->assign('drawFullscreen', 'true');
     echo $smarty->fetch('tiki-edit_draw.tpl');
@@ -310,6 +313,6 @@ if ($drawFullscreen == true || isset($_REQUEST['raw'])) {
     $headerlib->add_jq_onready($jsFunctionality);
     // Display the template
     $smarty->assign('mid', 'tiki-edit_draw.tpl');
-    // use tiki_full to include include CSS and JavaScript
+    // use tiki_full to include CSS and JavaScript
     $smarty->display("tiki.tpl");
 }
