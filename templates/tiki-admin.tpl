@@ -5,6 +5,33 @@
         </aside>
     {/if}
     <div class="admin-content w-100 mx-3">
+        {if $adminpage eq ''}
+            <form class="d-none toggle-unified-admin-panel-alertbox">
+                {ticket}
+                <div class="alert alert-dismissible toggle-unified-admin-panel">
+                    <p class="my-0">
+                        {if $prefs.theme_unified_admin_backend eq 'y'}
+                            <span>{tr}You are currently using <strong>Unified Admin Backend</strong>, {/tr}</span>
+                            <a target="_blank" href="https://doc.tiki.org/VideoTutorial-2750-%20%20New%20Unified%20Admin%20Backend%20in%20Tiki">{tr}Learn more{/tr}</a><br/>
+                            <span class="d-none d-sm-block">{tr}Toggle the switch to change the administration UI from Unified Admin Backend to legacy Admin Panels.{/tr}</span>
+                        {else}
+                            <span>{tr}A new modern layout for admin UI is available,{/tr}</span>
+                            <a target="_blank" href="https://doc.tiki.org/VideoTutorial-2750-%20%20New%20Unified%20Admin%20Backend%20in%20Tiki">{tr}Learn more{/tr}</a><br/>
+                            <span class="d-none d-sm-block">{tr}Toggle the switch to change the administration UI from legacy Admin Panels to Unified Admin Backend.{/tr}</span>
+                        {/if}
+                        <button id="dont-show-toggle-unified-admin-panel-alertbox" data-bs-dismiss="alert" aria-label="Close" class="btn btn-secondary btn-sm mt-2">{icon name="close"} {tr}Don't show again{/tr}</button>
+                    </p>
+                    <div class="d-flex flex-column toggle-btn align-items-end">
+                        <span>{tr}Use unified panel ?{/tr}</span>
+                        <div class="form-check">
+                            <input type="checkbox" id="toggle-unified-admin-panel-btn" class="simple-toggle simple-toggle-round form-check-input" value="yes"{if $prefs.theme_unified_admin_backend eq 'y'} checked="checked"{/if}>
+                            <label for="toggle-unified-admin-panel-btn"></label>
+                        </div>
+                        <span class="p-2 d-none" id="loader-toggle-uap"><i class="fa fa-spinner fa-spin"></i></span>
+                    </div>
+                </div>
+            </form>
+        {/if}
         {include file="admin/admin_navbar.tpl"}
         {if $prefs.sender_email eq ''}
             {remarksbox type=warning title="{tr}Warning{/tr}" close="y"}

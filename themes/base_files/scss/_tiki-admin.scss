@@ -142,13 +142,15 @@ a.admbox.btn.btn-primary.disabled.disabled-clickable {
 
 // Admin navbar switch
 
-input[type="checkbox"].preffilter-toggle {
+input[type="checkbox"].preffilter-toggle,
+input[type="checkbox"].simple-toggle {
     position: absolute;
     margin-left: -9999px;
     visibility: hidden;
 }
 
-input[type="checkbox"].preffilter-toggle + label {
+input[type="checkbox"].preffilter-toggle + label,
+input[type="checkbox"].simple-toggle + label {
     display: block;
     position: relative;
     cursor: pointer;
@@ -159,7 +161,8 @@ input[type="checkbox"].preffilter-toggle + label {
     user-select: none;
 }
 
-input[type="checkbox"].preffilter-toggle-round + label {
+input[type="checkbox"].preffilter-toggle-round + label,
+input[type="checkbox"].simple-toggle-round + label {
     width: 100px;
     height: 30px;
     background-color: #dddddd;
@@ -169,7 +172,9 @@ input[type="checkbox"].preffilter-toggle-round + label {
 }
 
 input[type="checkbox"].preffilter-toggle-round + label:before,
-input[type="checkbox"].preffilter-toggle-round + label:after {
+input[type="checkbox"].preffilter-toggle-round + label:after,
+input[type="checkbox"].simple-toggle-round + label:before,
+input[type="checkbox"].simple-toggle-round + label:after {
     display: block;
     position: absolute;
     top: 1px;
@@ -178,7 +183,8 @@ input[type="checkbox"].preffilter-toggle-round + label:after {
     content: "";
 }
 
-input[type="checkbox"].preffilter-toggle-round + label:before {
+input[type="checkbox"].preffilter-toggle-round + label:before,
+input[type="checkbox"].simple-toggle-round + label:before {
     right: 1px;
     background-color: #f1f1f1;
     border-radius: 20px;
@@ -193,7 +199,12 @@ input[type="checkbox"].preffilter-toggle-round + label:before {
     padding-top: 0.2rem;
 }
 
-input[type="checkbox"].preffilter-toggle-round + label:after {
+input[type="checkbox"].simple-toggle-round + label:before {
+    content: "NO" !important;
+}
+
+input[type="checkbox"].preffilter-toggle-round + label:after,
+input[type="checkbox"].simple-toggle-round + label:after {
     width: 28px;
     background-color: #fff;
     border-radius: 100%;
@@ -205,7 +216,8 @@ input[type="checkbox"].preffilter-toggle-round + label:after {
     transition: margin 0.4s;
 }
 
-input[type="checkbox"].preffilter-toggle-round:checked + label:before {
+input[type="checkbox"].preffilter-toggle-round:checked + label:before,
+input[type="checkbox"].simple-toggle-round:checked + label:before {
     background-color: #8ce196;
     content: "Advanced";
     font-size: 0.8rem;
@@ -214,7 +226,14 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
     padding-top: 0.2rem;
 }
 
-input[type="checkbox"].preffilter-toggle-round:checked + label:after {
+input[type="checkbox"].simple-toggle-round:checked + label:before {
+    background-color: #17a2e8 !important;
+    padding-left: 30px !important;
+    content: "YES" !important;
+}
+
+input[type="checkbox"].preffilter-toggle-round:checked + label:after,
+input[type="checkbox"].simple-toggle-round:checked + label:after {
     margin-left: 70px;
 }
 
@@ -341,3 +360,32 @@ table.objectperms thead th { display: none; }
 
 // Applies the same padding to admin (horiz) menu items when UAB is off as when it is on - remove when legacy admin screen is removed.
 .tiki-admin .navbar-expand-md .navbar-nav.mr-auto .nav-link { padding: 0 0.4rem; }
+
+.toggle-unified-admin-panel {
+    background-color: #effbff !important;
+    padding: 16px;
+    width: 100%;
+    border: 1px solid #bceeff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 575.98px) {
+    .toggle-unified-admin-panel {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .toggle-unified-admin-panel p {
+        text-align: center;
+    }
+  
+    .toggle-unified-admin-panel .toggle-btn {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+}

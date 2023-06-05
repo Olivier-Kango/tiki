@@ -676,14 +676,15 @@ pre.codelisting code {
 div.highlight.adminoptionbox a {
   color: #fff !important;
 }
-input[type="checkbox"].preffilter-toggle-round + label {
+input[type="checkbox"].preffilter-toggle-round + label, input[type="checkbox"].simple-toggle-round + label {
   background-color: #dee2e6;
+
 }
-input[type="checkbox"].preffilter-toggle-round + label:before {
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
+input[type="checkbox"].preffilter-toggle-round + label:before, input[type="checkbox"].simple-toggle-round + label:before {
+  color: #212529;
+  background-color: #fff;
 }
-input[type="checkbox"].preffilter-toggle-round:checked + label:before {
+input[type="checkbox"].preffilter-toggle-round:checked + label:before, input[type="checkbox"].simple-toggle-round:checked + label:before {
   background-color: #198754;
   border-color: #0257d5;
   color: white;
@@ -3019,12 +3020,12 @@ a.admbox.btn.btn-primary.disabled.disabled-clickable {
 .tiki-admin fieldset {
   width: 100%;
 }
-input[type="checkbox"].preffilter-toggle {
+input[type="checkbox"].preffilter-toggle, input[type="checkbox"].simple-toggle {
   position: absolute;
   margin-left: -9999px;
   visibility: hidden;
 }
-input[type="checkbox"].preffilter-toggle + label {
+input[type="checkbox"].preffilter-toggle + label, input[type="checkbox"].simple-toggle + label {
   display: block;
   position: relative;
   cursor: pointer;
@@ -3034,7 +3035,7 @@ input[type="checkbox"].preffilter-toggle + label {
   -ms-user-select: none;
   user-select: none;
 }
-input[type="checkbox"].preffilter-toggle-round + label {
+input[type="checkbox"].preffilter-toggle-round + label, input[type="checkbox"].simple-toggle-round + label {
   width: 100px;
   height: 30px;
   background-color: #dddddd;
@@ -3042,7 +3043,7 @@ input[type="checkbox"].preffilter-toggle-round + label {
   float: left;
   margin: 7px 0 0 5px;
 }
-input[type="checkbox"].preffilter-toggle-round + label:before, input[type="checkbox"].preffilter-toggle-round + label:after {
+input[type="checkbox"].preffilter-toggle-round + label:before, input[type="checkbox"].preffilter-toggle-round + label:after, input[type="checkbox"].simple-toggle-round + label:before, input[type="checkbox"].simple-toggle-round + label:after {
   display: block;
   position: absolute;
   top: 1px;
@@ -3050,7 +3051,7 @@ input[type="checkbox"].preffilter-toggle-round + label:before, input[type="check
   bottom: 1px;
   content: "";
 }
-input[type="checkbox"].preffilter-toggle-round + label:before {
+input[type="checkbox"].preffilter-toggle-round + label:before, input[type="checkbox"].simple-toggle-round + label:before {
   right: 1px;
   background-color: #f1f1f1;
   border-radius: 20px;
@@ -3064,7 +3065,10 @@ input[type="checkbox"].preffilter-toggle-round + label:before {
   padding-left: 40px;
   padding-top: 0.2rem;
 }
-input[type="checkbox"].preffilter-toggle-round + label:after {
+input[type="checkbox"].simple-toggle-round + label:before {
+  content: "NO" !important;
+}
+input[type="checkbox"].preffilter-toggle-round + label:after, input[type="checkbox"].simple-toggle-round + label:after {
   width: 28px;
   background-color: #fff;
   border-radius: 100%;
@@ -3075,7 +3079,7 @@ input[type="checkbox"].preffilter-toggle-round + label:after {
   -o-transition: margin 0.4s;
   transition: margin 0.4s;
 }
-input[type="checkbox"].preffilter-toggle-round:checked + label:before {
+input[type="checkbox"].preffilter-toggle-round:checked + label:before, input[type="checkbox"].simple-toggle-round:checked + label:before {
   background-color: #8ce196;
   content: "Advanced";
   font-size: 0.8rem;
@@ -3083,7 +3087,12 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   padding-left: 10px;
   padding-top: 0.2rem;
 }
-input[type="checkbox"].preffilter-toggle-round:checked + label:after {
+input[type="checkbox"].simple-toggle-round:checked + label:before {
+  background-color: #17a2e8 !important;
+  padding-left: 30px !important;
+  content: "YES" !important;
+}
+input[type="checkbox"].preffilter-toggle-round:checked + label:after, input[type="checkbox"].simple-toggle-round:checked + label:after {
   margin-left: 70px;
 }
 .filter-menu.navbar-nav > li > a {
@@ -3172,7 +3181,7 @@ table.objectperms thead th {
   .admin-navbar .form-inline {
     min-width: 100%;
   }
-  .admin-navbar input[type="checkbox"].preffilter-toggle-round + label {
+  .admin-navbar input[type="checkbox"].preffilter-toggle-round + label, .admin-navbar input[type="checkbox"].preffilter-toggle-round + label {
     margin-left: 10px;
   }
   .meta-tabs-col1 {
@@ -5034,6 +5043,31 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
 }
 #copyButton:hover {
   color: #0d6efd;
+}
+.toggle-unified-admin-panel {
+  background-color: #effbff !important;
+  padding: 16px;
+  width: 100%;
+  border: 1px solid #bceeff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+@media (max-width: 575.98px) {
+  .toggle-unified-admin-panel {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .toggle-unified-admin-panel p {
+    text-align: center;
+  }
+  .toggle-unified-admin-panel .toggle-btn {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
 }
 /* End of file */
 .tiki .table-sticky {
