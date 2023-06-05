@@ -21948,4 +21948,6 @@ $lang = array(
 // " Admin->Packages." => " Admin->Packages.",
 // "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine",
 // "Double click to edit" => "Double click to edit",
+// "Missing some forums order, please specify the order of the forums." => "Missing some forums order, please specify the order of the forums.",
+// "No forums were selected. Please select the forums to reorder." => "No forums were selected. Please select the forums to reorder.",
 );

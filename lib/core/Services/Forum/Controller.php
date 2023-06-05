@@ -443,8 +443,11 @@ class Services_Forum_Controller
      */
     public function action_order_forum($input)
     {
+
         $util = new Services_Utilities();
-        $util->setVars($input, $this->filters, 'forumsId');
+        $util->setVars($input, $this->filters, 'checked');
+        $forum_order_util = new Services_Utilities();
+        $forum_order_util->setVars($input, $this->filters, 'forumsId');
         $perms = Perms::get('forum', $util->items);
         if (! $perms->admin_forum) {
             throw new Services_Exception_Denied(tr('Reserved for forum administrators'));
@@ -452,11 +455,17 @@ class Services_Forum_Controller
 
         if ($util->notConfirmPost()) {
             if ($util->itemsCount > 0) {
-                $util->items = $this->getForumNames($util->items);
-                $msg = tra('Reorder the following forums?');
-                return $util->confirm($msg, tra('Reorder'));
+                if ($forum_order_util->itemsCount == $util->itemsCount) {
+                    $util->items = $this->getForumNames($util->items);
+                    $msg = tra('Reorder the following forums?');
+                    return $util->confirm($msg, tra('Reorder'));
+                } elseif ($forum_order_util->itemsCount == 0) {
+                    Services_Utilities::modalException(tra('No forum order specified, please specify the order of the forums.'));
+                } else {
+                    Services_Utilities::modalException(tra('Missing some forums order, please specify the order of the forums.'));
+                }
             } else {
-                Services_Utilities::modalException(tra('No forum order specified, please specify the order of the forums.'));
+                Services_Utilities::modalException(tra('No forums were selected. Please select the forums to reorder.'));
             }
         } elseif ($util->checkCsrf()) {
             $util->setVars($input, $this->filters, 'items');
