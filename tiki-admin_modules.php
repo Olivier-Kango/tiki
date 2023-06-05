@@ -297,16 +297,17 @@ if (isset($_REQUEST['preview'])) {
             }
             include_once($phpfuncfile);
             $function = 'module_' . $_REQUEST['assign_name'];
+            $assign_param = $_REQUEST['assign_params'] ?? [];
             if (function_exists($function)) {
                 $function(
                     [
-                            'name' => $_REQUEST['assign_name'],
-                            'position' => $_REQUEST['assign_position'] ?? '',
-                            'ord' => $_REQUEST['assign_order'] ?? '',
-                            'cache_time' => $_REQUEST['assign_cache'] ?? '',
-                            'rows' => $module_rows
-                            ],
-                    $_REQUEST['assign_params'] ?? []
+                        'name' => $_REQUEST['assign_name'],
+                        'position' => $_REQUEST['assign_position'] ?? '',
+                        'ord' => $_REQUEST['assign_order'] ?? '',
+                        'cache_time' => $_REQUEST['assign_cache'] ?? '',
+                        'rows' => $module_rows
+                    ],
+                    $assign_param
                 ); // Warning: First argument should have all tiki_modules table fields. This is just a best effort.
             }
         }
