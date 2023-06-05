@@ -53,19 +53,19 @@
 
         {* avoid Add Event being shown if no calendar is displayed *}
         {if $tiki_p_add_events eq 'y'}
-            {button href="tiki-calendar_edit_item.php" _type="link" _text="{tr}Add Event{/tr}" _icon_name="create"}
+            {button href='tiki-calendar-edit_item' _type='primary' _text='{tr}Add Event{/tr}' _icon_name="create" _class='click-modal'}
         {/if}
 
         {if $viewlist eq 'list'}
             {capture name=href}?viewlist=table{if !empty($smarty.request.todate)}&amp;todate={$smarty.request.todate}{/if}{/capture}
-            {button href=$smarty.capture.href _text="{tr}Calendar View{/tr}" _icon_name="calendar"}
+            {button href=$smarty.capture.href _text='{tr}Calendar View{/tr}' _icon_name='calendar' _type='info'}
         {else}
             {capture name=href}?viewlist=list{if !empty($smarty.request.todate)}&amp;todate={$smarty.request.todate}{/if}{/capture}
-            {button href=$smarty.capture.href _text="{tr}List View{/tr}" _icon_name="list"}
+            {button href=$smarty.capture.href _text='{tr}List View{/tr}' _icon_name='list' _type='info'}
         {/if}
 
         {if count($listcals) >= 1}
-            {button href="#" _onclick="toggle('filtercal');return false;" _text="{tr}Calendars{/tr}" _icon_name="eye"}
+            {button href="#" _onclick="toggle('filtercal');return false;" _text='{tr}Calendars{/tr}' _icon_name='eye' _type='info'}
             <div class="d-inline-block">
                 <form class="card" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
                     <div class="card-header caltitle py-1 px-2">
@@ -102,7 +102,7 @@
             </div>
 
             {if $tiki_p_view_events eq 'y' and $prefs.calendar_export eq 'y'}
-                {button href="#" _onclick="toggle('exportcal');return false;" _text="{tr}Export{/tr}" _icon_name="export"}
+                {button href="#" _onclick="toggle('exportcal');return false;" _text='{tr}Export{/tr}' _icon_name='export' _type='info'}
                 <div class="d-inline-block">
                     <form id="exportcal" class="card" method="post" action="{$exportUrl}" name="f" style="display:none;">
                         <input type="hidden" name="export" value="y">

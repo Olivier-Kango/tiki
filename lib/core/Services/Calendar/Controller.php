@@ -488,7 +488,7 @@ class Services_Calendar_Controller
                 }
 
                 global $user;
-                $calitemId = $this->lib->set_item($user, $calitem['calitemId'] ?? 0, $calitem);
+                $calitemId = $this->calendarLib->set_item($user, $calitem['calitemId'] ?? 0, $calitem);
                 // Save the ip at the log for the addition of new calendar items
                 if ($this->logsLib) {
                     $this->logsLib->add_action(
