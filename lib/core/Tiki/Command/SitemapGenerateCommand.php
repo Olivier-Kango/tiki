@@ -15,11 +15,11 @@ use Tiki\Sitemap\Generator as SiteMapGenerator;
 
 class SitemapGenerateCommand extends Command
 {
+    protected static $defaultDescription = 'Generate sitemap';
     protected function configure()
     {
         $this
             ->setName('sitemap:generate')
-            ->setDescription('Generate sitemap')
             ->addArgument(
                 'url',
                 InputArgument::REQUIRED,
@@ -27,13 +27,13 @@ class SitemapGenerateCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 
         if (! isset($prefs['sitemap_enable']) || $prefs['sitemap_enable'] != 'y') {
             $output->writeln('<error>' . tra('Preference "sitemap_enable" is not enabled.') . '</error>');
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $url = $input->getArgument('url');

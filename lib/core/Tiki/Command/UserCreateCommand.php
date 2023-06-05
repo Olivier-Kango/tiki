@@ -18,11 +18,11 @@ use TikiLib;
 
 class UserCreateCommand extends Command
 {
+    protected static $defaultDescription = 'Create a new user';
     protected function configure()
     {
         $this
             ->setName('users:create')
-            ->setDescription('Create a new user')
             ->addArgument(
                 'login',
                 InputArgument::REQUIRED,
@@ -48,7 +48,7 @@ class UserCreateCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 

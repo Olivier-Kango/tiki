@@ -20,11 +20,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class TranslationExportCommand extends Command
 {
+    protected static $defaultDescription = 'Update language.php translations from the database';
     protected function configure(): void
     {
         $this
             ->setName('translation:export')
-            ->setDescription('Update language.php translations from the database')
             ->setHelp('Scans database translations and update language file.')
             ->addOption(
                 'lang',
@@ -34,14 +34,14 @@ class TranslationExportCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $langCode = $input->getOption('lang') ?: null;
 
         if (! $langCode) {
             $io->error('No language code specified. Please use --lang=<LANG_CODE>');
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         require_once('lang/langmapping.php');
@@ -50,7 +50,7 @@ class TranslationExportCommand extends Command
 
         if (! array_key_exists($langCode, $langmapping)) {
             $io->error('Invalid language code.');
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $language = new \LanguageTranslations($langCode);
@@ -59,7 +59,7 @@ class TranslationExportCommand extends Command
             $stats = $language->writeLanguageFile();
         } catch (\Exception $e) {
             $io->error($e->getMessage());
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $io->success(sprintf('Wrote %d new strings and updated %d to lang/%s/language.php', $stats['new'], $stats['modif'], $language->lang));

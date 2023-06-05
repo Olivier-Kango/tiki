@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class BackupDBCommand extends Command
 {
+    protected static $defaultDescription = 'Create a database backup (with mysqldump)';
     protected function configure()
     {
         $this
             ->setName('database:backup')
-            ->setDescription('Create a database backup (with mysqldump)')
             ->addArgument(
                 'path',
                 InputArgument::REQUIRED,
@@ -32,7 +32,7 @@ class BackupDBCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $path = $input->getArgument('path');
         if (substr($path, -1) == '/') {
@@ -41,13 +41,13 @@ class BackupDBCommand extends Command
 
         if (! is_dir($path)) {
             $output->writeln('<error>Error: Provided path not found</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $local = \Tiki\TikiInit::getCredentialsFile();
         if (! is_readable($local)) {
             $output->writeln('<error>Error: "' . $local . '" not readable.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $dateFormat = $input->getArgument('dateFormat');
@@ -98,6 +98,6 @@ class BackupDBCommand extends Command
         $command = "mysqldump --quick --create-options --extended-insert $args | gzip -5 > " . escapeshellarg($outputFile);
         exec($command);
         $output->writeln('<comment>Database backup completed: ' . $outputFile . '</comment>');
-        return 0; // Command::SUCCESS;
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

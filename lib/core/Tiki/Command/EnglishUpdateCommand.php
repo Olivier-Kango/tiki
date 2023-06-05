@@ -24,11 +24,11 @@ use Language_FileType_Php;
 
 class EnglishUpdateCommand extends Command
 {
+    protected static $defaultDescription = 'Fix English strings after modifying them.';
     protected function configure()
     {
         $this
             ->setName('translation:englishupdate')
-            ->setDescription('Fix English strings after modifying them.')
             ->setHelp('Update translation files with updates made to English strings. Will compare working copy by default.')
             ->addOption(
                 'scm',
@@ -344,7 +344,7 @@ class EnglishUpdateCommand extends Command
         return $filtered;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('*******************************************************');
         $output->writeln('*                     <info>Limitations</info>                     *');

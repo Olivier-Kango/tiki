@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Preference extends ObjectWriter
 {
+    protected static $defaultDescription = 'Include a preference within the profile definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:preference')
-            ->setDescription('Include a preference within the profile definition')
             ->addOption(
                 'all',
                 null,
@@ -31,14 +31,14 @@ class Preference extends ObjectWriter
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $preference = $input->getArgument('name');
         $all = $input->getOption('all');
 
         if (! $all && empty($preference)) {
             $output->writeln('<error>' . tra('Not enough arguments (missing: "name" or "--all" options)') . '</error>');
-            return false;
+            return (int) false;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -51,5 +51,6 @@ class Preference extends ObjectWriter
         } else {
             $output->writeln("Preference not found: $preference");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

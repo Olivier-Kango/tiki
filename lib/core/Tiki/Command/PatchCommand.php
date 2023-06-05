@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PatchCommand extends Command
 {
+    protected static $defaultDescription = 'Apply a specific database schema patch';
     protected function configure()
     {
         $this
             ->setName('database:patch')
-            ->setDescription('Apply a specific database schema patch')
             ->addArgument('name', InputArgument::REQUIRED, 'Name of the patch applied')
             ->addOption(
                 'force-application',
@@ -33,7 +33,7 @@ class PatchCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $name = $input->getArgument('name');
         $forceApplication = $input->getOption('force-application');
@@ -42,7 +42,7 @@ class PatchCommand extends Command
         $installer = \Tiki\Installer\Installer::getInstance();
         if (! $installer->isInstalled()) {
             $output->writeln('<error>Database not found</error>');
-            return false;
+            return (int) false;
         }
         try {
             $installer->installPatch($name, $forceApplication);
@@ -51,7 +51,7 @@ class PatchCommand extends Command
             switch ($e->getCode()) {
                 case 1:
                     $output->writeln("<error>Unknown patch</error>");
-                    return;
+                    return \Symfony\Component\Console\Command\Command::SUCCESS;
                 case 2:
                     $output->writeln("<error>Application failed</error>");
                     foreach ($installer->queries['failed'] as $key => $error) {

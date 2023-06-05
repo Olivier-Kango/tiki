@@ -16,11 +16,11 @@ use TikiLib;
 
 class TrackerImportCommand extends Command
 {
+    protected static $defaultDescription = 'Import a CSV file into a tracker using a tracker import-export format or initiate an ODBC import';
     protected function configure()
     {
         $this
             ->setName('tracker:import')
-            ->setDescription('Import a CSV file into a tracker using a tracker import-export format or initiate an ODBC import')
             ->addArgument(
                 'tabularId',
                 InputArgument::REQUIRED,
@@ -40,7 +40,7 @@ class TrackerImportCommand extends Command
             ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
         $output->writeln('Importing tracker...');

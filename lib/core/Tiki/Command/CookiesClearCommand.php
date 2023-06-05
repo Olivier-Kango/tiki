@@ -12,14 +12,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CookiesClearCommand extends Command
 {
+    protected static $defaultDescription = 'Remove expired cookies';
     protected function configure()
     {
         $this
-            ->setName('users:remove-cookies')
-            ->setDescription('Remove expired cookies');
+            ->setName('users:remove-cookies');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $userlib = \TikiLib::lib('user');
         $affectedRows = $userlib->deleteExpiredCookies();

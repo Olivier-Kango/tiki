@@ -15,11 +15,11 @@ use TikiLib;
 
 class ProfileInstallCommand extends Command
 {
+    protected static $defaultDescription = 'Apply a profile';
     protected function configure()
     {
         $this
             ->setName('profile:apply')
-            ->setDescription('Apply a profile')
             ->addArgument(
                 'profile',
                 InputArgument::REQUIRED,
@@ -45,7 +45,7 @@ class ProfileInstallCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $profileName = $input->getArgument('profile');
         $repository = $input->getArgument('repository');
@@ -56,19 +56,19 @@ class ProfileInstallCommand extends Command
 
         if (! $profile) {
             $output->writeln('<error>Profile not found.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $profileData = $profile->getData();
         if (! empty($profileData['error'])) {
             $output->writeln('<error>' . tr('There were some errors while trying to load the profile definition') . '</error>');
             $output->writeln('<error>' . $profileData['error'] . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if (! $profile->validateNamedObjectsReferences()) { // sanity check on the Named Objects references
             $output->writeln('<error>' . tr('Some of the named object references in the profile are invalid') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $tikilib = \TikiLib::lib('tiki');

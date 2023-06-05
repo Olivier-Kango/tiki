@@ -18,6 +18,7 @@ use Tiki\Files\CheckFileGallery;
  */
 class FilesCheckCommand extends Command
 {
+    protected static $defaultDescription = 'Detect orphan or extra files';
     /**
      * Configure the command
      *
@@ -25,8 +26,7 @@ class FilesCheckCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('files:check')
-            ->setDescription('Detect orphan or extra files');
+        $this->setName('files:check');
     }
 
     /**
@@ -36,7 +36,7 @@ class FilesCheckCommand extends Command
      * @param OutputInterface $output
      * @return void
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $checkFileGallery = new CheckFileGallery();
         $result = $checkFileGallery->analyse();

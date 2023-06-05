@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UpdateCommand extends Command
 {
+    protected static $defaultDescription = 'Update the database to the latest schema';
     protected function configure()
     {
         $this
             ->setName('database:update')
-            ->setDescription('Update the database to the latest schema')
             ->addOption(
                 'auto-register',
                 'a',
@@ -26,7 +26,7 @@ class UpdateCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $autoRegister = $input->getOption('auto-register');
         $installer = \Tiki\Installer\Installer::getInstance();

@@ -17,6 +17,7 @@ use TikiLib;
 
 class IndexCompareEnginesCommand extends Command
 {
+    protected static $defaultDescription = 'Compare search engine results in wikiplugins';
     /**
      * Add or remove plugins to this array to be considered when checking the results
      */
@@ -26,7 +27,6 @@ class IndexCompareEnginesCommand extends Command
     {
         $this
             ->setName('index:compare-engines')
-            ->setDescription('Compare search engine results in wikiplugins')
             ->setHelp(
                 'Check unified search plugin results inside wiki pages by comparing different search index results. Only plugins that use the unified search results are verified.'
             )
@@ -55,7 +55,7 @@ class IndexCompareEnginesCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs, $tikidomainslash;
 
@@ -70,14 +70,14 @@ class IndexCompareEnginesCommand extends Command
             $io->error(
                 'To execute this script you need to specify at least two engines to compare.'
             );
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         if (count($engines) == 3 && $input->getOption('html')) {
             $io->error(
                 'Comparing all three engines works in text-mode only, you cannot specify the --html option.'
             );
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $tikiLib = TikiLib::lib('tiki');
@@ -93,7 +93,7 @@ class IndexCompareEnginesCommand extends Command
 
         if (! $pages) {
             $io->writeln('There are no wiki pages to check.');
-            return 0;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $reindex = $input->getOption('reindex');
@@ -256,7 +256,7 @@ class IndexCompareEnginesCommand extends Command
 
         if (empty($differentOutputs)) {
             $io->writeln('Plugin outputs using selected engines are identical.');
-            return 0;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if (count($engines) == 3) {
@@ -357,6 +357,6 @@ HTML;
 
         $prefs = $orig_prefs;
 
-        return 1;
+        return \Symfony\Component\Console\Command\Command::FAILURE;
     }
 }

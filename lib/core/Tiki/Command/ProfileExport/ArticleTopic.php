@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ArticleTopic extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export an article topic definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:article-topic')
-            ->setDescription('Export an article topic definition')
             ->addArgument(
                 'topic',
                 InputArgument::REQUIRED,
@@ -27,7 +27,7 @@ class ArticleTopic extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $id = $input->getArgument('topic');
 
@@ -40,5 +40,6 @@ class ArticleTopic extends ObjectWriter
         } else {
             $output->writeln("Topic not found: $id");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

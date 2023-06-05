@@ -16,11 +16,11 @@ use TikiLib;
 
 class TrackerClearCommand extends Command
 {
+    protected static $defaultDescription = 'Clear all items from a tracker without warning or notifications. Use with care!';
     protected function configure()
     {
         $this
             ->setName('tracker:clear')
-            ->setDescription('Clear all items from a tracker without warning or notifications. Use with care!')
             ->addArgument(
                 'trackerId',
                 InputArgument::REQUIRED,
@@ -35,7 +35,7 @@ class TrackerClearCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var LogsLib $logslib */
         $logslib = TikiLib::lib('logs');

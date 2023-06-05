@@ -13,7 +13,7 @@ use MediaAlchemyst\Specification\Image;
 use MediaVorus\Media\MediaInterface;
 use MediaVorus\MediaVorus;
 use Neutron\TemporaryFilesystem\Manager as FsManager;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
+use Symfony\Component\Mime\MimeTypes;
 use TikiLib;
 
 /**
@@ -181,7 +181,7 @@ class AlchemyLib
     {
         if (null === self::$mimeTypeGuesserInstance) {
             self::$mimeTypeGuesserInstance = new Guesser();
-            MimeTypeGuesser::getInstance()->register(self::$mimeTypeGuesserInstance);
+            MimeTypes::getInstance()->registerGuesser(self::$mimeTypeGuesserInstance);
         }
 
         return self::$mimeTypeGuesserInstance;

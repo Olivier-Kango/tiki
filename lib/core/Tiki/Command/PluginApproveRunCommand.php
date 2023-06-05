@@ -38,7 +38,7 @@ class PluginApproveRunCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logger = new ConsoleLogger($output);
 
@@ -54,7 +54,7 @@ class PluginApproveRunCommand extends Command
                 . tr('You must either use the option --all or provide a list of fingerprints to approve.')
                 . '</error>'
             );
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if ($all) {

@@ -32,17 +32,17 @@ use Hm_Handler_tiki_sieve_placeholder;
 
 class SieveFiltersCommand extends Command
 {
+    protected static $defaultDescription = 'Execute defined Sieve filters in Cypht';
     protected function configure()
     {
         $this
             ->setName('sieve:filters')
-            ->setDescription('Execute defined Sieve filters in Cypht')
             ->setHelp(
                 'Run periodically to execute defined filters and block list in Cypht for mailboxes without access to Sieve backend.'
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $user, $tikipath, $tikiroot;
 

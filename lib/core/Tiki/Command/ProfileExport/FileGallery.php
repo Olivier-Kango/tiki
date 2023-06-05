@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class FileGallery extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a file gallery definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:file-gallery')
-            ->setDescription('Export a file gallery definition')
             ->addOption(
                 'with-parents',
                 null,
@@ -45,7 +45,7 @@ class FileGallery extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $galId = $input->getArgument('fileGallery');
         $withParents = $input->getOption('with-parents');
@@ -62,5 +62,6 @@ class FileGallery extends ObjectWriter
         } else {
             $output->writeln("File gallery not found: $galId");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

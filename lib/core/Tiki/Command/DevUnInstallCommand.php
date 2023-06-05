@@ -21,15 +21,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DevUnInstallCommand extends Command
 {
+    protected static $defaultDescription = 'Uninstall development files';
     protected function configure()
     {
         $this
             ->setName('dev:remove')
-            ->setDescription('Uninstall development files')
             ->setHelp('Remove composer development vendor files and unit test config. Leaves unit testing database intact.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Lets first check that some requirements are met.
         if (! is_callable('exec')) {

@@ -14,11 +14,11 @@ use TikiLib;
 
 class PreferencesSetCommand extends Command
 {
+    protected static $defaultDescription = 'Set a preference';
     protected function configure()
     {
         $this
             ->setName('preferences:set')
-            ->setDescription('Set a preference')
             ->addArgument(
                 'name',
                 InputArgument::REQUIRED,
@@ -31,7 +31,7 @@ class PreferencesSetCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logslib = TikiLib::lib('logs');
         $preference = $input->getArgument('name');
@@ -44,12 +44,12 @@ class PreferencesSetCommand extends Command
 
         if (empty($preferenceInfo)) {
             $output->write('<error>Preference not found.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if ($preferenceInfo['type'] == 'flag' && ! in_array($value, ['y', 'n'])) {
             $output->writeln(sprintf('Preference %s is of type flag, allowed values are "y" or "n", you used %s.', $preference, $value));
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if (! empty($preferenceInfo['separator']) && ! is_array($value)) {

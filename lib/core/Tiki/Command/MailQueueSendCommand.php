@@ -18,14 +18,14 @@ error_reporting(E_ALL);
 
 class MailQueueSendCommand extends Command
 {
+    protected static $defaultDescription = 'Send the messages stored in the Mail Queue';
     protected function configure()
     {
         $this
-            ->setName('mail-queue:send')
-            ->setDescription('Send the messages stored in the Mail Queue');
+            ->setName('mail-queue:send');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         require_once('lib/mail/maillib.php');
         global $prefs;

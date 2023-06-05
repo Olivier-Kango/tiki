@@ -13,6 +13,7 @@ use Tiki\Package\ComposerManager;
 
 class PackageClearCacheCommand extends Command
 {
+    protected static $defaultDescription = 'Deletes all content from Composer\'s cache directories.';
     /**
      * Configures the current command.
      */
@@ -20,7 +21,6 @@ class PackageClearCacheCommand extends Command
     {
         $this
             ->setName('package:clearcache')
-            ->setDescription('Deletes all content from Composer\'s cache directories.')
             ->setHelp('This command allows you to clear the composer cache.');
     }
 
@@ -30,7 +30,7 @@ class PackageClearCacheCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $tikipath;
         $composerManager = new ComposerManager($tikipath);

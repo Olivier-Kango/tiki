@@ -20,6 +20,7 @@ use TikiLib;
 
 class PackageUpdateCommand extends Command
 {
+    protected static $defaultDescription = 'Update package';
     private $output;
 
     /* @var SymfonyStyle */
@@ -35,7 +36,6 @@ class PackageUpdateCommand extends Command
     {
         $this
             ->setName('package:update')
-            ->setDescription('Update package')
             ->setHelp('This command allows you to update packages.')
             ->addArgument(
                 'package',
@@ -62,7 +62,7 @@ class PackageUpdateCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $tikipath;
         $this->io = new SymfonyStyle($input, $output);
@@ -76,7 +76,7 @@ class PackageUpdateCommand extends Command
             $output->writeln(
                 '<error>' . tr('Composer could not be executed.') . '</error>'
             );
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $installedPackages = $this->composerManager->getInstalled();

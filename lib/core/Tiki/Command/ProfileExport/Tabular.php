@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Tabular extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a tracker import-export format definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:tabular')
-            ->setDescription('Export a tracker import-export format definition')
             ->addOption(
                 'all',
                 null,
@@ -33,20 +33,20 @@ class Tabular extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $tabularId = $input->getArgument('tabular');
         $all = $input->getOption('all');
 
         if (! $all && empty($tabularId)) {
             $output->writeln('<error>' . tra('Not enough arguments (missing: "tabular" or "--all" option)') . '</error>');
-            return false;
+            return (int) false;
         }
 
         $ref = $input->getOption('reference');
         if ($ref && ! \Tiki_Profile::isValidReference($ref, true)) {
             $output->writeln('<error>The value provided for the parameter reference do not have the right format: ' . $ref . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -58,5 +58,6 @@ class Tabular extends ObjectWriter
         } else {
             $output->writeln("Import-Export not found: $tabularId");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

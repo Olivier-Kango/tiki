@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Module extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a module definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:module')
-            ->setDescription('Export a module definition')
             ->addArgument(
                 'module',
                 InputArgument::REQUIRED,
@@ -27,7 +27,7 @@ class Module extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $moduleId = $input->getArgument('module');
 
@@ -40,5 +40,6 @@ class Module extends ObjectWriter
         } else {
             $output->writeln("Module not found: $moduleId");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

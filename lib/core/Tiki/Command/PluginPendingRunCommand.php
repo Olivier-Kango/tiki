@@ -32,7 +32,7 @@ class PluginPendingRunCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 
@@ -42,7 +42,7 @@ class PluginPendingRunCommand extends Command
                 . tr('Preference wikipluginprefs_pending_notification not enabled.')
                 . '</error>'
             );
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $logger = new ConsoleLogger($output);
@@ -58,7 +58,7 @@ class PluginPendingRunCommand extends Command
                 . tr('You must provide a fingerprint to send notification.')
                 . '</error>'
             );
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $pluginInfo = $parserLib->getPluginInfo($fingerprint);
@@ -69,12 +69,12 @@ class PluginPendingRunCommand extends Command
                 . tr('Cannot find fingerprint.')
                 . '</error>'
             );
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if ($pluginInfo['status'] != 'pending') {
             $output->writeln(tr('Plugin approved already processed'));
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $logger->info(tr('Sending plugin approval notification sent'));

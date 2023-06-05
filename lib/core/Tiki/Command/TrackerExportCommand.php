@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class TrackerExportCommand extends Command
 {
+    protected static $defaultDescription = 'Export a CSV file from a tracker using a tracker import-export format';
     protected function configure()
     {
         $this
             ->setName('tracker:export')
-            ->setDescription('Export a CSV file from a tracker using a tracker import-export format')
             ->addArgument(
                 'tabularId',
                 InputArgument::REQUIRED,
@@ -30,7 +30,7 @@ class TrackerExportCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
         $output->writeln('Exporting tracker...');

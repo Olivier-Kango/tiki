@@ -17,11 +17,11 @@ use WikiParser_Parsable;
 
 class MarkdownConvertCommand extends Command
 {
+    protected static $defaultDescription = 'Convert wiki pages between Tiki syntax and Markdown';
     protected function configure()
     {
         $this
             ->setName('markdown:convert')
-            ->setDescription('Convert wiki pages between Tiki syntax and Markdown')
             ->setHelp(
                 'Use this command to convert Tiki wiki syntax stored in one or more pages to Markdown or vice-versa.'
             )
@@ -51,7 +51,7 @@ class MarkdownConvertCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs, $page;
 
@@ -59,12 +59,12 @@ class MarkdownConvertCommand extends Command
 
         if ($prefs['markdown_enabled'] !== 'y') {
             $io->error(tr('Markdown is not enabled in Editing settings.'));
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         if (! $input->getOption('markdown') && ! $input->getOption('tiki')) {
             $io->error(tr('You should specify either --markdown or --tiki option.'));
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $tikilib = TikiLib::lib('tiki');
@@ -73,7 +73,7 @@ class MarkdownConvertCommand extends Command
             $pageInfo = $tikilib->get_page_info($pageInfo) ?: null;
             if (empty($pageInfo)) {
                 $io->error(tr('Page not found!'));
-                return 1;
+                return \Symfony\Component\Console\Command\Command::FAILURE;
             }
             $pages = [$pageInfo];
         } else {
@@ -83,7 +83,7 @@ class MarkdownConvertCommand extends Command
 
         if (! $pages) {
             $io->writeln(tr('There are no wiki pages to convert.'));
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $syntax = $input->getOption('markdown') ? 'markdown' : 'tiki';

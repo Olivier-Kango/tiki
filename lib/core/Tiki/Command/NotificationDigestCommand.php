@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class NotificationDigestCommand extends Command
 {
+    protected static $defaultDescription = 'Send out email notification digests';
     protected function configure()
     {
         $this
             ->setName('notification:digest')
-            ->setDescription('Send out email notification digests')
             ->addArgument(
                 'domain',
                 InputArgument::OPTIONAL,
@@ -51,7 +51,7 @@ class NotificationDigestCommand extends Command
             ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs, $url_scheme, $url_host, $tikiroot, $url_port;
         $days = (int)$input->getArgument('days') ?: 7;
@@ -77,7 +77,7 @@ class NotificationDigestCommand extends Command
 
         if (empty($url_host)) {
             $output->writeln('<error>Error: Please define domain name as argument or set "Fallback for tiki base URL" preference.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $list = \TikiDb::get()->fetchAll("

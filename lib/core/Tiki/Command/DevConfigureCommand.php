@@ -21,17 +21,17 @@ use TikiLib;
 
 class DevConfigureCommand extends Command
 {
+    protected static $defaultDescription = 'Install or update development files';
     protected function configure()
     {
         $this
             ->setName('dev:configure')
-            ->setDescription('Install or update development files')
             ->setHelp(
                 'Install or update and configure composer development vendor files and unit test config & database.'
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Lets first check that some requirements are met.
         if (! is_callable('exec')) {

@@ -15,14 +15,14 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class OCRAllCommand extends Command
 {
+    protected static $defaultDescription = 'OCR all queued files';
     protected function configure()
     {
         $this
-            ->setName('ocr:all')
-            ->setDescription('OCR all queued files');
+            ->setName('ocr:all');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $ocrLib = \TikiLib::lib('ocr');
         $outputStyle = new OutputFormatterStyle('red');
@@ -34,7 +34,7 @@ class OCRAllCommand extends Command
             $output->writeln(
                 '<error>' . $e->getMessage() . '</error>'
             );
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         //Retrieve the number of files marked as waiting to be processed.
@@ -63,7 +63,7 @@ class OCRAllCommand extends Command
                 "<comment>Reset processing files, run again to perform OCR.</comment>\n"
             );
             $progress->finish();
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $ocrLib->setNextOCRFile();
@@ -71,7 +71,7 @@ class OCRAllCommand extends Command
         if (! $ocrLib->nextOCRFile) {
             $progress->setMessage("<comment>No files to OCR</comment>\n");
             $progress->finish();
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         while ($ocrLib->nextOCRFile) {

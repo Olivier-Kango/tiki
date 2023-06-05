@@ -16,13 +16,13 @@ use TWVersion;
 
 class SemiAutoMergeCommand extends Command
 {
+    protected static $defaultDescription = 'Semi Auto Merge';
     private $branch;
 
     protected function configure()
     {
         $this
             ->setName('vcs:automerge')
-            ->setDescription('Semi Auto Merge')
             ->setHelp('While in trunk, semi auto merge changes from the previous branch.')
             ->addOption(
                 'no-check-vcs',
@@ -32,7 +32,7 @@ class SemiAutoMergeCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln("Verifying...");
 

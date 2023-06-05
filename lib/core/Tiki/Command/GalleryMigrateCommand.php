@@ -23,7 +23,7 @@ class GalleryMigrateCommand extends Command
             ->setDescription(tra('Migrate images from the Image Gallery to the File Gallery'));
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 

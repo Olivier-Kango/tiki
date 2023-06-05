@@ -16,11 +16,11 @@ use TikiLib;
 
 class FilesBatchuploadCommand extends Command
 {
+    protected static $defaultDescription = 'Batch upload files into the file galleries';
     protected function configure()
     {
         $this
             ->setName('files:batchupload')
-            ->setDescription('Batch upload files into the file galleries')
             ->addArgument(
                 'galleryId',
                 InputArgument::OPTIONAL,
@@ -89,7 +89,7 @@ class FilesBatchuploadCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 
@@ -121,7 +121,7 @@ class FilesBatchuploadCommand extends Command
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln('<comment>No files to upload</comment>');
             }
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $subdirToSubgal = $input->getOption('subdirToSubgal');

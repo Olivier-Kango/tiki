@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RecentChanges extends ObjectWriter
 {
+    protected static $defaultDescription = 'List the recent changes in prevision of export';
     protected function configure()
     {
         $this
             ->setName('profile:export:recent-changes')
-            ->setDescription('List the recent changes in prevision of export')
             ->addOption(
                 'since',
                 null,
@@ -32,7 +32,7 @@ class RecentChanges extends ObjectWriter
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if ($since = $input->getOption('since')) {
             $since = strtotime($since);
@@ -83,5 +83,6 @@ class RecentChanges extends ObjectWriter
         $queue->filterInstalled(new \Tiki_Profile_Writer_ProfileFinder());
 
         $output->writeln((string) $queue);
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

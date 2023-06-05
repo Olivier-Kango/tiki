@@ -16,6 +16,7 @@ use Tiki\Package\PackageCommandHelper;
 
 class PackageListCommand extends Command
 {
+    protected static $defaultDescription = 'List installed/available to install packages';
     /**
      * Configures the current command.
      */
@@ -23,7 +24,6 @@ class PackageListCommand extends Command
     {
         $this
             ->setName('package:list')
-            ->setDescription('List installed/available to install packages')
             ->setHelp('This command allows you to list installed and available to install packages.');
     }
 
@@ -33,7 +33,7 @@ class PackageListCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $tikipath;
         $composerManager = new ComposerManager($tikipath);

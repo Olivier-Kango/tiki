@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ArticleType extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export an article type definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:article-type')
-            ->setDescription('Export an article type definition')
             ->addArgument(
                 'type',
                 InputArgument::REQUIRED,
@@ -27,7 +27,7 @@ class ArticleType extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $name = $input->getArgument('type');
 
@@ -40,5 +40,6 @@ class ArticleType extends ObjectWriter
         } else {
             $output->writeln("Type not found: $name");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

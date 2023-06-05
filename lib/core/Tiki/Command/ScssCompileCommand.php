@@ -21,11 +21,11 @@ use Psr\Log\LogLevel;
 
 class ScssCompileCommand extends Command
 {
+    protected static $defaultDescription = 'Compile SCSS theme files into CSS';
     protected function configure()
     {
         $this
             ->setName('scss:compile')
-            ->setDescription('Compile SCSS theme files into CSS')
             ->addArgument(
                 'themes',
                 InputArgument::OPTIONAL,
@@ -68,7 +68,7 @@ class ScssCompileCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logger = new ConsoleLogger($output, [
             LogLevel::NOTICE => OutputInterface::VERBOSITY_NORMAL,

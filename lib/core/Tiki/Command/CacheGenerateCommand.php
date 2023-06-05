@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CacheGenerateCommand extends Command
 {
+    protected static $defaultDescription = 'Generate Tiki caches';
     protected function configure()
     {
         $this
             ->setName('cache:generate')
-            ->setDescription('Generate Tiki caches')
             ->addArgument(
                 'cache',
                 InputArgument::OPTIONAL,
@@ -27,7 +27,7 @@ class CacheGenerateCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $type = $input->getArgument('cache');
 
@@ -54,7 +54,7 @@ class CacheGenerateCommand extends Command
                 break;
             default:
                 $output->writeln('<error>Invalid cache requested.</error>');
-                return;
+                return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $output->writeln('Caches generated');

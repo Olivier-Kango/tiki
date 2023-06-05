@@ -26,6 +26,7 @@ use Tiki\Installer\Installer;
  */
 class ThemeUpdateCommand extends Command
 {
+    protected static $defaultDescription = 'Update a theme';
     /**
      * Configures the current command.
      */
@@ -33,7 +34,6 @@ class ThemeUpdateCommand extends Command
     {
         $this
             ->setName('theme:update')
-            ->setDescription('Update a theme')
             ->addArgument(
                 'file',
                 InputArgument::REQUIRED,
@@ -48,7 +48,7 @@ class ThemeUpdateCommand extends Command
      * @param OutputInterface $output
      * @return null
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $tikipath;
         $tikiRootFolder = ! empty($tikipath) ? $tikipath : dirname(dirname(dirname(dirname(__DIR__))));
@@ -59,14 +59,14 @@ class ThemeUpdateCommand extends Command
         $file = $input->getArgument('file');
         if (! file_exists($file)) {
             $output->writeln('<error>' . tr('File not found') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $themeZip = new ThemeZip();
         $isZipFile = $themeZip->isZipFile($file);
         if (! $isZipFile) {
             $output->writeln('<error>' . tr('File is not a .zip file.') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         try {
@@ -80,11 +80,11 @@ class ThemeUpdateCommand extends Command
 
                 if (! $themeHandler->themeExists($camelCaseThemeName)) {
                     $output->writeln('<error>' . tr('Theme not found') . '</error>');
-                    return;
+                    return \Symfony\Component\Console\Command\Command::SUCCESS;
                 }
                 if (! $themeZip->getExistCssFolder()) {
                     $output->writeln('<error>' . tr('CSS folder not found') . '</error>');
-                    return;
+                    return \Symfony\Component\Console\Command\Command::SUCCESS;
                 }
                 $zip->extractTo($themeZip->getTemporaryFolder());
                 $zip->close();

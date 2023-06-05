@@ -14,15 +14,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class InstallerLockCommand extends Command
 {
+    protected static $defaultDescription = 'Disable the installer';
     protected function configure()
     {
         $this
             ->setName('installer:lock')
-            ->setDescription('Disable the installer')
             ->setHelp('Lock the installer so that users can\'t destroy the database through the browser');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $out = <<<LOCK
 This lock file was created with:

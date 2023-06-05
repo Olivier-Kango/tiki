@@ -13,16 +13,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AllModules extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export all module definitions';
     protected function configure()
     {
         $this
-            ->setName('profile:export:all-modules')
-            ->setDescription('Export all module definitions');
+            ->setName('profile:export:all-modules');
 
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $writer = $this->getProfileWriter($input);
 
@@ -33,5 +33,6 @@ class AllModules extends ObjectWriter
         }
 
         $writer->save();
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

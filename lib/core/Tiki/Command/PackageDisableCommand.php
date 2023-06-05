@@ -17,11 +17,11 @@ use TikiLib;
 
 class PackageDisableCommand extends Command
 {
+    protected static $defaultDescription = 'Disable a Tiki Package';
     protected function configure()
     {
         $this
             ->setName('package:disable')
-            ->setDescription('Disable a Tiki Package')
             ->addArgument(
                 'package',
                 InputArgument::REQUIRED,
@@ -35,7 +35,7 @@ class PackageDisableCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logslib = TikiLib::lib('logs');
 
@@ -57,7 +57,7 @@ class PackageDisableCommand extends Command
 
         if (empty($basePath)) {
             $io->error('No folder was found. Did you forgot to install');
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $rollback = $input->getOption('revert');
@@ -69,10 +69,10 @@ class PackageDisableCommand extends Command
 
         if ($success) {
             $io->success(tr('Extension %0 is now disabled', $packageName));
-            return 0;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $io->error(tr('Extension %0 was not disabled.', $packageName));
-        return 1;
+        return \Symfony\Component\Console\Command\Command::FAILURE;
     }
 }

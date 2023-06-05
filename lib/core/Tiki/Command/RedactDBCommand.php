@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RedactDBCommand extends Command
 {
+    protected static $defaultDescription = 'Redact database';
     protected function configure()
     {
         $this
             ->setName('database:redact')
-            ->setDescription('Redact database')
             ->addOption(
                 'force',
                 null,
@@ -27,7 +27,7 @@ class RedactDBCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Not used, just a reminder
         $force = $input->getOption('force');

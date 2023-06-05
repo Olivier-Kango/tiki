@@ -27,6 +27,7 @@ use Tiki\Installer\Installer;
  */
 class ThemeInstallCommand extends Command
 {
+    protected static $defaultDescription = 'Install a new theme';
     /**
      * Configures the current command.
      */
@@ -34,7 +35,6 @@ class ThemeInstallCommand extends Command
     {
         $this
             ->setName('theme:install')
-            ->setDescription('Install a new theme')
             ->addArgument(
                 'file',
                 InputArgument::REQUIRED,
@@ -49,7 +49,7 @@ class ThemeInstallCommand extends Command
      * @param OutputInterface $output
      * @return null
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $tikipath;
         $tikiRootFolder = ! empty($tikipath) ? $tikipath : dirname(dirname(dirname(dirname(__DIR__))));
@@ -59,7 +59,7 @@ class ThemeInstallCommand extends Command
         $file = $input->getArgument('file');
         if (! file_exists($file)) {
             $output->writeln('<error>' . tr('File not found') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $themeZip = new ThemeZip();
@@ -67,7 +67,7 @@ class ThemeInstallCommand extends Command
         $path_parts = pathinfo($file);
         if (! $isZipFile) {
             $output->writeln('<error>' . tr('File is not a .zip file.') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
         $uniqueHash = 'ThemeZipTmp_' . uniqid('', true) . rand(0, PHP_INT_MAX);
         $sourceFolder = $tikiRootFolder . '/temp/' . $uniqueHash ;

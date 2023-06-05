@@ -13,22 +13,23 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class GoalSet extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export all goals into a set';
     protected function configure()
     {
         $this
             ->setName('profile:export:goal-set')
-            ->setDescription('Export all goals into a set')
             ;
 
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $writer = $this->getProfileWriter($input);
 
         if (\Tiki_Profile_InstallHandler_GoalSet::export($writer)) {
             $writer->save();
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

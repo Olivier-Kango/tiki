@@ -14,11 +14,11 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class TrackerItem extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a tracker item definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:tracker-item')
-            ->setDescription('Export a tracker item definition')
             ->addArgument(
                 'tracker',
                 InputArgument::REQUIRED,
@@ -38,7 +38,7 @@ class TrackerItem extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $trackerId = $input->getArgument('tracker');
         $itemFilterList = $input->getOption('items');
@@ -50,7 +50,7 @@ class TrackerItem extends ObjectWriter
         $trackerDefinition = \Tracker_Definition::get($trackerId);
         if (! $trackerDefinition) {
             $output->writeln('<error>' . tr('Tracker not found') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $exportFields = $trackerDefinition->getFields();
@@ -62,7 +62,7 @@ class TrackerItem extends ObjectWriter
 
         if (! $items || empty($items['data']) || ! is_array($items['data'])) {
             $output->writeln('<error>' . tr('No Items found to export') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -79,6 +79,7 @@ class TrackerItem extends ObjectWriter
         $writer->save();
 
         $output->writeln('<info>' . tr("Tracker items for tracker %0 exported", $trackerId) . '</info>');
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 
     /**

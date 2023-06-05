@@ -23,11 +23,11 @@ use TikiLib;
  */
 class TranslationPercentageCommand extends Command
 {
+    protected static $defaultDescription = 'Get the translation percentage for each language.php file';
     protected function configure(): void
     {
         $this
             ->setName('translation:percentage')
-            ->setDescription('Get the translation percentage for each language.php file')
             ->setHelp('Calculate translation percentage for each language.php file by scanning all Tiki files and output the result as wiki syntax.')
             ->addOption(
                 'page',
@@ -37,7 +37,7 @@ class TranslationPercentageCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 
@@ -47,7 +47,7 @@ class TranslationPercentageCommand extends Command
 
         if (! empty($wikiPage) && ! $tikilib->page_exists($wikiPage)) {
             $io->error(sprintf('%s doesn\'t exist', $wikiPage));
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         try {
@@ -56,7 +56,7 @@ class TranslationPercentageCommand extends Command
             $command->run($commandInput, $output);
         } catch (Exception $e) {
             $io->error($e->getMessage());
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         require_once('lang/langmapping.php');

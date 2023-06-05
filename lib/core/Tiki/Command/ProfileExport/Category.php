@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Category extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a category';
     protected function configure()
     {
         $this
             ->setName('profile:export:category')
-            ->setDescription('Export a category')
             ->addArgument(
                 'category',
                 InputArgument::OPTIONAL,
@@ -51,7 +51,7 @@ class Category extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $category = $input->getArgument('category');
         $deep = $input->getOption('deep');
@@ -59,7 +59,7 @@ class Category extends ObjectWriter
 
         if (! $all && empty($category)) {
             $output->writeln('<error>' . tra('Not enough arguments (missing: "category" or "--all" options)') . '</error>');
-            return false;
+            return (int) false;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -84,7 +84,8 @@ class Category extends ObjectWriter
             $writer->save();
         } else {
             $output->writeln("<error>Category not found: $category</error>");
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

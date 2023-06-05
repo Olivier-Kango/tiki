@@ -14,14 +14,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class IndexOptimizeCommand extends Command
 {
+    protected static $defaultDescription = 'Optimize the unified search index';
     protected function configure()
     {
         $this
-            ->setName('index:optimize')
-            ->setDescription('Optimize the unified search index');
+            ->setName('index:optimize');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $unifiedsearchlib = \TikiLib::lib('unifiedsearch');
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 /*
 
-To run rector on a file or directory, run:
+To run rector (https://getrector.com/documentation) on a file or directory, run:
 
-php vendor_bundled/vendor/rector/rector/bin/rector --dry-run -vv process -- lib
+php vendor_bundled/vendor/rector/rector/bin/rector --memory-limit=4G --dry-run process -- lib
 
 Obviously, always run --dry-run first.
 
@@ -57,7 +57,9 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '*/vendor/*',
     ]);
 
-    /* Register sets of rules.  They are not documented in a single place in rector doc unfortunately.
+    /* Register sets of rules.
+
+    They are not documented in a single place in rector doc unfortunately.
     Some can be found in
     https://github.com/rectorphp/rector/blob/main/packages/Set/ValueObject/LevelSetList.php
     https://github.com/rectorphp/rector/blob/main/packages/Set/ValueObject/SetList.php
@@ -65,12 +67,13 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
         //LevelSetList::UP_TO_PHP_81,
         //PHPUnitSetList::PHPUNIT_100,
-        //SymfonyLevelSetList::UP_TO_SYMFONY_54,
+        SymfonyLevelSetList::UP_TO_SYMFONY_54, //Applied globally starting 2023-05-05
     ]);
 
-    /* register a individial rules
-    Available rules for rector are found and documented here: https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#codequality
-        */
+    /* Register individial rules.
+
+    Available rules for rector are found and documented here: https://getrector.com/documentation/rules-overview
+    */
     $rectorConfig->rules([
         //ReturnTypeFromStrictNativeCallRector::class,
         //ReturnTypeFromStrictScalarReturnExprRector::class,

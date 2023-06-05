@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MLTrainCommand extends Command
 {
+    protected static $defaultDescription = 'Train a particular machine learning model';
     protected function configure()
     {
         $this
             ->setName('ml:train')
-            ->setDescription('Train a particular machine learning model')
             ->addArgument(
                 'mlmId',
                 InputArgument::REQUIRED,
@@ -33,7 +33,7 @@ class MLTrainCommand extends Command
             ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $mlmId = $input->getArgument('mlmId');
         $mllib = \TikiLib::lib('ml');
@@ -41,7 +41,7 @@ class MLTrainCommand extends Command
         $model = $mllib->get_model($mlmId);
         if (! $model) {
             $output->writeln("<error>Model $mlmId not found.</error>");
-            return false;
+            return (int) false;
         }
 
         $test = $input->getOption('test');

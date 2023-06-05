@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class IncludeProfile extends ObjectWriter
 {
+    protected static $defaultDescription = 'Includes references from an other profile as valid objects';
     protected function configure()
     {
         $this
             ->setName('profile:export:include-profile')
-            ->setDescription('Includes references from an other profile as valid objects')
             ->addArgument(
                 'repository',
                 InputArgument::REQUIRED,
@@ -36,7 +36,7 @@ class IncludeProfile extends ObjectWriter
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $repository = $input->getArgument('repository');
         $profile = $input->getArgument('profile');
@@ -58,5 +58,6 @@ class IncludeProfile extends ObjectWriter
         }
 
         $writer->save();
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

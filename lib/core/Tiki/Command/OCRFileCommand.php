@@ -16,13 +16,11 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class OCRFileCommand extends Command
 {
+    protected static $defaultDescription = 'Attempt to OCR a file. Defaults to queued OCR job';
     protected function configure()
     {
         $this
             ->setName('ocr:file')
-            ->setDescription(
-                'Attempt to OCR a file. Defaults to queued OCR job'
-            )
             ->addArgument(
                 'File ID',
                 InputArgument::OPTIONAL,
@@ -30,7 +28,7 @@ class OCRFileCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $ocrLib = \TikiLib::lib('ocr');
         $outputStyle = new OutputFormatterStyle('red');
@@ -42,7 +40,7 @@ class OCRFileCommand extends Command
             $output->writeln(
                 '<error>' . $e->getMessage() . '</error>'
             );
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         // Set $nextOCRFile with the fileid of the next file scheduled to be processed by the OCR engine.
@@ -59,20 +57,20 @@ class OCRFileCommand extends Command
                 $output->writeln(
                     "<error>File ID must be an int, $fgalId is an illegal value."
                 );
-                return;
+                return \Symfony\Component\Console\Command\Command::SUCCESS;
             }
         }
 
         if (! $ocrLib->nextOCRFile) {
             $output->writeln('<comment>No files to OCR</comment>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         try {
             $ocrLib->checkFileGalID();
         } catch (Exception $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         try {

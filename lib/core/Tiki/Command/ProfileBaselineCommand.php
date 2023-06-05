@@ -15,11 +15,11 @@ use TikiDb;
 
 class ProfileBaselineCommand extends Command
 {
+    protected static $defaultDescription = 'Generate the SQL patch to assign profile symbols for an existing installation.';
     protected function configure()
     {
         $this
             ->setName('profile:baseline')
-            ->setDescription('Generate the SQL patch to assign profile symbols for an existing installation.')
             ->addArgument(
                 'repository',
                 InputArgument::OPTIONAL,
@@ -59,7 +59,7 @@ class ProfileBaselineCommand extends Command
             ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $profile = $input->getArgument('profile');
         $repository = $input->getArgument('repository');

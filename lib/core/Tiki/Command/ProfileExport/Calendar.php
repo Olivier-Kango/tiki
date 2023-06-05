@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Calendar extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a calendar';
     protected function configure()
     {
         $this
             ->setName('profile:export:calendar')
-            ->setDescription('Export a calendar')
             ->addOption(
                 'all',
                 null,
@@ -33,14 +33,14 @@ class Calendar extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $calendarId = $input->getArgument('calendar');
         $all = $input->getOption('all');
 
         if (! $all && empty($calendarId)) {
             $output->writeln('<error>' . tra('Not enough arguments (missing: "calendar" or "--all" option)') . '</error>');
-            return false;
+            return (int) false;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -48,7 +48,8 @@ class Calendar extends ObjectWriter
             $writer->save();
         } else {
             $output->writeln("<error>Calendar not found: $calendarId</error>");
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

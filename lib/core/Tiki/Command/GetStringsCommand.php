@@ -46,11 +46,11 @@ use timer;
 
 class GetStringsCommand extends Command
 {
+    protected static $defaultDescription = 'Update language.php files with new strings';
     protected function configure(): void
     {
         $this
             ->setName('translation:getstrings')
-            ->setDescription('Update language.php files with new strings')
             ->setHelp('Scans all Tiki files and adds new English strings to language files. Also reorganizes existing strings.')
             ->addOption(
                 'lang',
@@ -90,7 +90,7 @@ class GetStringsCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $timer = new timer();
         $timer->start();

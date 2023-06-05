@@ -16,11 +16,11 @@ use TikiLib;
 
 class RssClearCacheCommand extends Command
 {
+    protected static $defaultDescription = 'Clear incoming RSS feed cache';
     protected function configure()
     {
         $this
             ->setName('rss:clear')
-            ->setDescription('Clear incoming RSS feed cache')
             ->addArgument(
                 'rssId',
                 InputArgument::OPTIONAL,
@@ -47,7 +47,7 @@ class RssClearCacheCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var LogsLib $logslib */
         $logslib = TikiLib::lib('logs');

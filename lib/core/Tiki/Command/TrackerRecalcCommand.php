@@ -18,11 +18,11 @@ use Tracker_Definition;
 
 class TrackerRecalcCommand extends Command
 {
+    protected static $defaultDescription = 'Recalculate all math fields items from a tracker';
     protected function configure()
     {
         $this
             ->setName('tracker:recalc')
-            ->setDescription('Recalculate all math fields items from a tracker')
             ->addOption(
                 'trackerId',
                 null,
@@ -31,7 +31,7 @@ class TrackerRecalcCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $trackerLib = TikiLib::lib('trk');
@@ -40,7 +40,7 @@ class TrackerRecalcCommand extends Command
 
         if (empty($trackerIds)) {
             $io->error('No trackerId was specified. Please use --trackerId=<TRACKER_ID');
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         foreach ($trackerIds as $trackerId) {

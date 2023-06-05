@@ -14,15 +14,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class InstallerUnlockCommand extends Command
 {
+    protected static $defaultDescription = 'Enable the installer';
     protected function configure()
     {
         $this
             ->setName('installer:unlock')
-            ->setDescription('Enable the installer')
             ->setHelp('Unlock the installer so that users can re-install Tiki through the browser');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $file = 'db/lock';
         if (file_exists($file)) {
@@ -37,5 +37,6 @@ class InstallerUnlockCommand extends Command
             $output->writeln("<info>Installer is already unlocked</info>");
             return Command::SUCCESS;
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

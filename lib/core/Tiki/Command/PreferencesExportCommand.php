@@ -24,11 +24,11 @@ use TikiLib;
 
 class PreferencesExportCommand extends Command
 {
+    protected static $defaultDescription = 'Export preferences';
     protected function configure()
     {
         $this
             ->setName('preferences:export')
-            ->setDescription('Export preferences')
             ->addArgument(
                 'filename',
                 InputArgument::REQUIRED,
@@ -48,7 +48,7 @@ class PreferencesExportCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $filename = $input->getArgument('filename');
 

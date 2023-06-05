@@ -40,7 +40,7 @@ class FilesMoveCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 
@@ -70,7 +70,7 @@ class FilesMoveCommand extends Command
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln('<comment>' . tra('No files to move') . '</comment>');
             }
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $confirm = $input->getOption('confirm');

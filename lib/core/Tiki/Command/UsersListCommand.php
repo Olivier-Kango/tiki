@@ -15,11 +15,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UsersListCommand extends Command
 {
+    protected static $defaultDescription = 'Display the list of users in the system';
     protected function configure()
     {
         $this
             ->setName('users:list')
-            ->setDescription('Display the list of users in the system')
             ->addOption(
                 'find',
                 null,
@@ -52,7 +52,7 @@ class UsersListCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
         $find = $input->getOption('find');

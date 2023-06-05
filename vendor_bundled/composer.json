@@ -261,6 +261,7 @@
         "symfony/config": "^4.1",
         "symfony/console": "^5.4.23",
         "symfony/dependency-injection": "^4.4",
+        "symfony/mime": "^5.4.23",
         "symfony/finder": "^5.4.21",
         "symfony/polyfill-ctype": "^1.27",
         "symfony/polyfill-iconv": "^1.27",

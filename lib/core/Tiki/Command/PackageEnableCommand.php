@@ -16,11 +16,11 @@ use TikiLib;
 
 class PackageEnableCommand extends Command
 {
+    protected static $defaultDescription = 'Enable a Tiki Package';
     protected function configure()
     {
         $this
             ->setName('package:enable')
-            ->setDescription('Enable a Tiki Package')
             ->addArgument(
                 'package',
                 InputArgument::REQUIRED,
@@ -28,7 +28,7 @@ class PackageEnableCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logslib = TikiLib::lib('logs');
         $io = new SymfonyStyle($input, $output);
@@ -39,7 +39,7 @@ class PackageEnableCommand extends Command
 
         if (empty($path)) {
             $io->error('Package was not found. Did you forgot to install');
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $extensionPackage = ExtensionManager::get($packageName);
@@ -52,15 +52,15 @@ class PackageEnableCommand extends Command
 
         if ($success && $update) {
             $io->success(tr('Extension %0 was updated', $packageName));
-            return 0;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if ($success) {
             $io->success(tr('Extension %0 is now enabled', $packageName));
-            return 0;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $io->error(tr('Extension %0 was not enabled.', $packageName));
-        return 1;
+        return \Symfony\Component\Console\Command\Command::FAILURE;
     }
 }

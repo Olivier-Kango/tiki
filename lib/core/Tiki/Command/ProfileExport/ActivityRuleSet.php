@@ -13,22 +13,23 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ActivityRuleSet extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export all activity stream rules into a set';
     protected function configure()
     {
         $this
             ->setName('profile:export:activity-rule-set')
-            ->setDescription('Export all activity stream rules into a set')
             ;
 
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $writer = $this->getProfileWriter($input);
 
         if (\Tiki_Profile_InstallHandler_ActivityRuleSet::export($writer)) {
             $writer->save();
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

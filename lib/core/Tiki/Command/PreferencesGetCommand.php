@@ -14,11 +14,11 @@ use TikiLib;
 
 class PreferencesGetCommand extends Command
 {
+    protected static $defaultDescription = 'Get a preference';
     protected function configure()
     {
         $this
             ->setName('preferences:get')
-            ->setDescription('Get a preference')
             ->addArgument(
                 'name',
                 InputArgument::REQUIRED,
@@ -26,7 +26,7 @@ class PreferencesGetCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $preference = $input->getArgument('name');
 
@@ -37,7 +37,7 @@ class PreferencesGetCommand extends Command
 
         if (empty($preferenceInfo)) {
             $output->write('<error>Preference not found.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $value = $tikilib->get_preference($preference);

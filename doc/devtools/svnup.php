@@ -57,11 +57,11 @@ if ($error) {
 
 class SvnUpCommand extends Command
 {
+    protected static $defaultDescription = "Updates SVN repository to latest version and performs necessary tasks in Tiki for a smooth update. Suitable for both development and production.";
     protected function configure()
     {
         $this
             ->setName('svnup')
-            ->setDescription("Updates SVN repository to latest version and performs necessary tasks in Tiki for a smooth update. Suitable for both development and production.")
             ->addOption(
                 'no-secdb',
                 's',
@@ -173,7 +173,7 @@ class SvnUpCommand extends Command
     }
 
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
         $tikiBase = realpath(__DIR__ . '/../..');
@@ -195,7 +195,7 @@ class SvnUpCommand extends Command
             $help = new HelpCommand();
             $help->setCommand($this);
             $help->run($input, $output);
-            return $logger->notice("Invalid option for --conflict, see usage above.");
+            return (int) $logger->notice("Invalid option for --conflict, see usage above.");
         }
 
         // check that the --lag option is valid, and complain if its not.
@@ -204,7 +204,7 @@ class SvnUpCommand extends Command
                 $help = new HelpCommand();
                 $help->setCommand($this);
                 $help->run($input, $output);
-                return $logger->notice('Invalid option for --lag, must be a positive integer.');
+                return (int) $logger->notice('Invalid option for --lag, must be a positive integer.');
             }
             // current time minus number of days specified through lag
             $rev = date('{"Y-m-d H:i"}', time() - $input->getOption('lag') * 60 * 60 * 24);
@@ -434,6 +434,7 @@ class SvnUpCommand extends Command
 
         $progress->finish();
         echo "\n";
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }
 

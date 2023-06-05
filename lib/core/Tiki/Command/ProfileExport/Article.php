@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Article extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export an article definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:article')
-            ->setDescription('Export an article definition')
             ->addOption(
                 'with-topic',
                 null,
@@ -45,7 +45,7 @@ class Article extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $id = $input->getArgument('article');
         $withTopic = $input->getOption('with-topic');
@@ -54,7 +54,7 @@ class Article extends ObjectWriter
 
         if (! $all && empty($id)) {
             $output->writeln('<error>' . tra('Not enough arguments (missing: "article" or "--all" options)') . '</error>');
-            return false;
+            return (int) false;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -66,5 +66,6 @@ class Article extends ObjectWriter
         } else {
             $output->writeln("Article not found: $id");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

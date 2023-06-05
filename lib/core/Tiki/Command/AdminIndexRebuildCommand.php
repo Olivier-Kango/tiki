@@ -15,17 +15,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AdminIndexRebuildCommand extends Command
 {
+    protected static $defaultDescription = 'Fully rebuild the preferences index';
     protected function configure()
     {
         $this
-            ->setName('preferences:rebuild-index')
-            ->setDescription('Fully rebuild the preferences index');
+            ->setName('preferences:rebuild-index');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         \TikiLib::lib('prefs')->rebuildIndex();
         $output->writeln('Preferences index was rebuilt successfully.');
-        return 0; // Command::SUCCESS;
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

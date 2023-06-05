@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CacheClearCommand extends Command
 {
+    protected static $defaultDescription = 'Clear Tiki caches';
     protected function configure()
     {
         $this
             ->setName('cache:clear')
-            ->setDescription('Clear Tiki caches')
             ->addArgument(
                 'cache',
                 InputArgument::OPTIONAL,
@@ -33,7 +33,7 @@ class CacheClearCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $all = $input->getOption('all');
         $type = $input->getArgument('cache');
@@ -71,7 +71,7 @@ class CacheClearCommand extends Command
                     $cachelib->empty_cache();
                     break;
                 case '':
-                    return $output->writeln('<error>Missing "cache" parameter.</error>');
+                    return (int) $output->writeln('<error>Missing "cache" parameter.</error>');
                     return Command::INVALID;
                 default:
                     $output->writeln('<error>Invalid cache requested.</error>');

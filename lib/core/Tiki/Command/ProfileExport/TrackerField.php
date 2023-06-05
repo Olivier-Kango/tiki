@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class TrackerField extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a tracker field definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:tracker-field')
-            ->setDescription('Export a tracker field definition')
             ->addArgument(
                 'tracker-field',
                 InputArgument::REQUIRED,
@@ -27,7 +27,7 @@ class TrackerField extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $fieldId = $input->getArgument('tracker-field');
 
@@ -40,5 +40,6 @@ class TrackerField extends ObjectWriter
         } else {
             $output->writeln("Tracker field not found: $fieldId");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

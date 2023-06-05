@@ -23,6 +23,7 @@ use Tiki\Faker as TikiFaker;
  */
 class FakerCommentsCommand extends Command
 {
+    protected static $defaultDescription = 'Generate comments fake data';
     /**
      * Configures the current command.
      */
@@ -30,7 +31,6 @@ class FakerCommentsCommand extends Command
     {
         $this
             ->setName('faker:comments')
-            ->setDescription('Generate comments fake data')
             ->addArgument(
                 'object',
                 InputArgument::REQUIRED,
@@ -102,7 +102,7 @@ class FakerCommentsCommand extends Command
      * @return null|int
      * @throws Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 
@@ -111,7 +111,7 @@ class FakerCommentsCommand extends Command
 
         if (! class_exists('\Faker\Factory')) {
             $output->writeln('<error>' . tra('Please install Faker package') . '</error>');
-            return null;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $objectId = $input->getArgument('object');
@@ -120,13 +120,13 @@ class FakerCommentsCommand extends Command
         // check for object's existence
         if (! TikiLib::lib('object')->get_object_id($objectType, $objectId)) {
             $output->writeln('<error>' . tr('Object "%0" of type "%1" not found', $objectId, $objectType) . '</error>');
-            return null;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $numberItems = $input->getOption('items');
         if (! is_numeric($numberItems)) {
             $output->writeln('<error>' . tra('The value of items is not a number') . '</error>');
-            return null;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $numberItems = (int)$numberItems;

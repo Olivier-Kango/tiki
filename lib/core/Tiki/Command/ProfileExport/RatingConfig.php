@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RatingConfig extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export an advanced rating configuration';
     protected function configure()
     {
         $this
             ->setName('profile:export:rating-config')
-            ->setDescription('Export an advanced rating configuration')
             ->addArgument(
                 'config',
                 InputArgument::REQUIRED,
@@ -27,7 +27,7 @@ class RatingConfig extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $id = $input->getArgument('config');
 
@@ -40,5 +40,6 @@ class RatingConfig extends ObjectWriter
         } else {
             $output->writeln("Configuration not found: $id");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

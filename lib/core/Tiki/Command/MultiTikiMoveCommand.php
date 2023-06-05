@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MultiTikiMoveCommand extends Command
 {
+    protected static $defaultDescription = 'Moves a MultiTiki site from one tiki instance to another';
     protected function configure()
     {
         $this
             ->setName('multitiki:move')
-            ->setDescription('Moves a MultiTiki site from one tiki instance to another')
             ->addArgument(
                 'site',
                 InputArgument::REQUIRED,
@@ -43,7 +43,7 @@ class MultiTikiMoveCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $confirm = $input->getOption('confirm');
 
@@ -149,7 +149,7 @@ class MultiTikiMoveCommand extends Command
                     }
                 }
 
-                return 0;
+                return \Symfony\Component\Console\Command\Command::SUCCESS;
             } else {
                 $output->writeln("<error>Site $site not found in $from</error>");
             }

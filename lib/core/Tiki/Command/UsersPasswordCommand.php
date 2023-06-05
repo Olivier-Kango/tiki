@@ -15,11 +15,11 @@ use TikiLib;
 
 class UsersPasswordCommand extends Command
 {
+    protected static $defaultDescription = 'Set the password to a given user';
     protected function configure()
     {
         $this
             ->setName('users:password')
-            ->setDescription('Set the password to a given user')
             ->addOption(
                 'force',
                 'f',
@@ -38,7 +38,7 @@ class UsersPasswordCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
         global $prefs;

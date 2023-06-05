@@ -32,7 +32,7 @@ class FilesCopyCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 
@@ -62,7 +62,7 @@ class FilesCopyCommand extends Command
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln('<comment>' . tra('No files to copy') . '</comment>');
             }
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {

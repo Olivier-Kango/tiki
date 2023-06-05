@@ -18,11 +18,11 @@ use Symfony\Component\Console\Command\HelpCommand;
 
 class OCRSetCommand extends Command
 {
+    protected static $defaultDescription = 'Set the OCR status of files (Queue, Skip)';
     protected function configure()
     {
         $this
             ->setName('ocr:set')
-            ->setDescription('Set the OCR status of files (Queue, Skip)')
             ->addArgument(
                 'Queue or Skip',
                 InputArgument::REQUIRED,
@@ -71,7 +71,7 @@ class OCRSetCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $ocrLib = \TikiLib::lib('ocr');
         $outputStyle = new OutputFormatterStyle('red');
@@ -89,7 +89,7 @@ class OCRSetCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
             $output->writeln('<error>You may only specify 1 option</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
         if ($input->getOption('stalled')) {
             $conditions['ocr_state'] = $ocrLib::OCR_STATUS_STALLED;
@@ -120,7 +120,7 @@ class OCRSetCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
             $output->writeln('<error>Must specify a valid option. Use Q to Queue files or S to Skip Files.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
         $range = TikiFilter::get('intscolons')->filter($input->getArgument('File ID'));
         $range = explode(':', $range);
@@ -138,7 +138,7 @@ class OCRSetCommand extends Command
             $question = new ConfirmationQuestion("Set OCR status of $fileCount files to '$task'? (y or n) ", false);
 
             if (! $helper->ask($input, $output, $question)) {
-                return;
+                return \Symfony\Component\Console\Command\Command::SUCCESS;
             }
         }
         $updated = $update->updateMultiple($state, $conditions);

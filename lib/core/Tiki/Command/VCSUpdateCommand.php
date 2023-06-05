@@ -30,6 +30,7 @@ use Tiki\Package\ComposerCli;
 
 class VCSUpdateCommand extends Command
 {
+    protected static $defaultDescription = 'Update Tiki to latest version & perform tasks for a smooth update.';
     /**
      * @var ConsoleLogger
      */
@@ -39,7 +40,6 @@ class VCSUpdateCommand extends Command
     {
         $this
             ->setName('vcs:update')
-            ->setDescription('Update Tiki to latest version & perform tasks for a smooth update.')
             ->setHelp('Updates Tiki repository to latest version and performs necessary tasks in Tiki for a smooth update. Suitable for both development and production.')
             ->addOption(
                 'no-secdb',
@@ -294,7 +294,7 @@ class VCSUpdateCommand extends Command
         }
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logger = $this->logger;
         $errors = false;
@@ -324,7 +324,7 @@ class VCSUpdateCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
             $logger->notice('Invalid option for --conflict, see usage above.');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if ($isGit && ! in_array($conflict, ['abort', 'ours', 'theirs'])) {
@@ -332,7 +332,7 @@ class VCSUpdateCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
             $logger->notice('Invalid option for --strategy-option, see usage above.');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         // check that the --lag option is valid, and complain if its not.
@@ -342,7 +342,7 @@ class VCSUpdateCommand extends Command
                 $help->setCommand($this);
                 $help->run($input, $output);
                 $logger->notice('Invalid option for --lag, must be a positive integer.');
-                return;
+                return \Symfony\Component\Console\Command\Command::SUCCESS;
             }
 
             // current time minus number of days specified through lag
@@ -355,7 +355,7 @@ class VCSUpdateCommand extends Command
 
                 if (! $rev) {
                     $logger->error('Failed to determine the commit hash to checkout before ' . date('Y-m-d H:i', $timestamp));
-                    return 1;
+                    return \Symfony\Component\Console\Command\Command::FAILURE;
                 }
             }
         }
@@ -400,7 +400,7 @@ class VCSUpdateCommand extends Command
         $httpModeFile = $tikipath . 'doc/devtools/composer_http_mode.php';
         if ($noHttps && ! file_exists($httpModeFile)) {
             $logger->error('composer_http_mode.php file not found.');
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $progress = new ProgressBar($output, $max);
@@ -529,7 +529,7 @@ class VCSUpdateCommand extends Command
             $gitUpdate = $this->gitUpdate($rev, $conflict);
             $this->OutputErrors($logger, $gitUpdate, 'Problem with git merge, check for conflicts.', $errors, ! $noDb);
             if ($logger->hasErrored()) {
-                return 2;
+                return \Symfony\Component\Console\Command\Command::INVALID;
             }
             $endRev = $this->getGitRevision();
             $this->execCommand('git gc 2>&1');

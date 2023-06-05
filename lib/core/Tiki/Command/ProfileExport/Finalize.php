@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Finalize extends ObjectWriter
 {
+    protected static $defaultDescription = 'Clean-up the working profile of intermediate data';
     protected function configure()
     {
         $this
             ->setName('profile:export:finalize')
-            ->setDescription('Clean-up the working profile of intermediate data')
             ->addOption(
                 'force',
                 null,
@@ -38,7 +38,7 @@ class Finalize extends ObjectWriter
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $force = $input->getOption('force');
 
@@ -94,5 +94,6 @@ class Finalize extends ObjectWriter
         if ($input->getOption('dump')) {
             $output->writeln($writer->dump());
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

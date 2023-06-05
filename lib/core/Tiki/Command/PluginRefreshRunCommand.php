@@ -23,7 +23,7 @@ class PluginRefreshRunCommand extends Command
             ->setDescription(tr('Parses all the pages to refresh the list of plugin invocations/calls'));
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logger = new ConsoleLogger($output);
 

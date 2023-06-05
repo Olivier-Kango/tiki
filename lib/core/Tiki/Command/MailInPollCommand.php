@@ -18,14 +18,14 @@ use TikiLib;
 
 class MailInPollCommand extends Command
 {
+    protected static $defaultDescription = 'Read the mail-in messages';
     protected function configure()
     {
         $this
-            ->setName('mail-in:poll')
-            ->setDescription('Read the mail-in messages');
+            ->setName('mail-in:poll');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $mailinlib = TikiLib::lib('mailin');
         $accs = $mailinlib->list_active_mailin_accounts(0, -1, 'account_desc', '');

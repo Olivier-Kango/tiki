@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Init extends Command
 {
+    protected static $defaultDescription = 'Initialize profile export for current site.';
     protected function configure()
     {
         $this
             ->setName('profile:export:init')
-            ->setDescription('Initialize profile export for current site.')
             ->addArgument(
                 'profile',
                 InputArgument::REQUIRED,
@@ -26,7 +26,7 @@ class Init extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $profileName = $input->getArgument('profile');
 
@@ -55,5 +55,6 @@ INI;
         if (! file_exists("profiles/$profileName")) {
             mkdir("profiles/$profileName");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

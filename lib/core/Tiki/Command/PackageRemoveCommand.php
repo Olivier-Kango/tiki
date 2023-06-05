@@ -17,6 +17,7 @@ use TikiLib;
 
 class PackageRemoveCommand extends Command
 {
+    protected static $defaultDescription = 'Remove package';
     /**
      * Configures the current command.
      */
@@ -24,7 +25,6 @@ class PackageRemoveCommand extends Command
     {
         $this
             ->setName('package:remove')
-            ->setDescription('Remove package')
             ->setHelp('This command allows you to remove packages.')
             ->addArgument(
                 'package',
@@ -39,7 +39,7 @@ class PackageRemoveCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $tikipath;
         $composerManager = new ComposerManager($tikipath);
@@ -66,7 +66,7 @@ class PackageRemoveCommand extends Command
                             $output->writeln($result);
                         } else {
                             $output->writeln('<error>' . tr('Invalid Package: ') . $packageKey . '</error>');
-                            return;
+                            return \Symfony\Component\Console\Command\Command::SUCCESS;
                         }
                     } else {
                         $io->newLine();

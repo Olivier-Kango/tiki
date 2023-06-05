@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MultiTikiListCommand extends Command
 {
+    protected static $defaultDescription = 'List MultiTikis in a path';
     protected function configure()
     {
         $this
             ->setName('multitiki:list')
-            ->setDescription('List MultiTikis in a path')
             ->addArgument(
                 'path',
                 InputArgument::OPTIONAL,
@@ -26,7 +26,7 @@ class MultiTikiListCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $path = $input->getArgument('path');
 

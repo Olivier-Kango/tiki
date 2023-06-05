@@ -12,14 +12,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class TokensClearCommand extends Command
 {
+    protected static $defaultDescription = 'Remove expired tokens';
     protected function configure()
     {
         $this
-            ->setName('tokens:clear')
-            ->setDescription('Remove expired tokens');
+            ->setName('tokens:clear');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
         require_once 'lib/auth/tokens.php';

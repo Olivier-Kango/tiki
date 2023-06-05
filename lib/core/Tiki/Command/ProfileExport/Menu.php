@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Menu extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a menu definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:menu')
-            ->setDescription('Export a menu definition')
             ->addOption(
                 'all',
                 null,
@@ -33,14 +33,14 @@ class Menu extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $menuId = $input->getArgument('menu');
         $all = $input->getOption('all');
 
         if (! $all && empty($menuId)) {
             $output->writeln('<error>' . tra('Not enough arguments (missing: "menu" or "--all" option)') . '</error>');
-            return false;
+            return (int) false;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -52,5 +52,6 @@ class Menu extends ObjectWriter
         } else {
             $output->writeln("Menu not found: $menuId");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

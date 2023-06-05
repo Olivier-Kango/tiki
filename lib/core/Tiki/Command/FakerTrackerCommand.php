@@ -21,6 +21,7 @@ use Tracker_Definition;
  */
 class FakerTrackerCommand extends Command
 {
+    protected static $defaultDescription = 'Generate tracker fake data';
     /**
      * Configures the current command.
      */
@@ -28,7 +29,6 @@ class FakerTrackerCommand extends Command
     {
         $this
             ->setName('faker:tracker')
-            ->setDescription('Generate tracker fake data')
             ->addArgument(
                 'tracker',
                 InputArgument::REQUIRED,
@@ -69,12 +69,12 @@ class FakerTrackerCommand extends Command
      * @param OutputInterface $output
      * @return null|int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
         if (! class_exists('\Faker\Factory')) {
             $output->writeln('<error>' . tra('Please install Faker package') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $trackerId = $input->getArgument('tracker');
@@ -85,13 +85,13 @@ class FakerTrackerCommand extends Command
 
         if (! is_numeric($numberItems)) {
             $output->writeln('<error>' . tra('The value of items is not a number') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $trackerDefinition = Tracker_Definition::get($trackerId);
         if (! $trackerDefinition) {
             $output->writeln('<error>' . tr('Tracker not found') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $fieldFakerOverride = [];
@@ -102,7 +102,7 @@ class FakerTrackerCommand extends Command
 
             if (is_null($fieldReference) || is_null($action)) {
                 $output->writeln('<error>' . tr('Invalid field definition: %0', $fieldDefinition) . '</error>');
-                return;
+                return \Symfony\Component\Console\Command\Command::SUCCESS;
             }
 
             if (empty($arguments)) {

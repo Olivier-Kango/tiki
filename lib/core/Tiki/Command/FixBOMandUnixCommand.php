@@ -30,15 +30,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class FixBOMandUnixCommand extends Command
 {
+    protected static $defaultDescription = 'Fix BOM and line endings for all files';
     protected function configure()
     {
         $this
             ->setName('dev:fixbom')
-            ->setDescription('Fix BOM and line endings for all files')
             ->setHelp('Fixes BOM encoding, converts windows to Unix line endings and fixes other invisible weirdness in all Tiki files.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Lets first check that some requirements are met.
         if (! is_callable('exec')) {

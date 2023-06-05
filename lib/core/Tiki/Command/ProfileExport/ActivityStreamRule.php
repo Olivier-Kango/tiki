@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ActivityStreamRule extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export an activity stream rule';
     protected function configure()
     {
         $this
             ->setName('profile:export:activity-stream-rule')
-            ->setDescription('Export an activity stream rule')
             ->addArgument(
                 'rule',
                 InputArgument::REQUIRED,
@@ -27,7 +27,7 @@ class ActivityStreamRule extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $rule = $input->getArgument('rule');
 
@@ -37,7 +37,8 @@ class ActivityStreamRule extends ObjectWriter
             $writer->save();
         } else {
             $output->writeln("<error>Rule not found: $rule</error>");
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

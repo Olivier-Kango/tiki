@@ -19,6 +19,7 @@ use TikiLib;
 
 class PackageInstallCommand extends Command
 {
+    protected static $defaultDescription = 'Install package';
     /**
      * Configures the current command.
      */
@@ -26,7 +27,6 @@ class PackageInstallCommand extends Command
     {
         $this
             ->setName('package:install')
-            ->setDescription('Install package')
             ->setHelp('This command allows you to install packages.')
             ->addArgument(
                 'package',
@@ -81,7 +81,7 @@ class PackageInstallCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logslib = TikiLib::lib('logs');
         global $tikipath;
@@ -104,7 +104,7 @@ class PackageInstallCommand extends Command
                         $output->writeln($result);
                     } else {
                         $output->writeln('<error>' . tr('Invalid Package: ') . $packageKey . '</error>');
-                        return;
+                        return \Symfony\Component\Console\Command\Command::SUCCESS;
                     }
                 } else {
                     $availablePackagesInfo = PackageCommandHelper::getAvailablePackagesInfo($availableComposerPackages);

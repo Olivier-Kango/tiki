@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Tracker extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a tracker definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:tracker')
-            ->setDescription('Export a tracker definition')
             ->addOption(
                 'all',
                 null,
@@ -33,20 +33,20 @@ class Tracker extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $trackerId = $input->getArgument('tracker');
         $all = $input->getOption('all');
 
         if (! $all && empty($trackerId)) {
             $output->writeln('<error>' . tra('Not enough arguments (missing: "tracker" or "--all" option)') . '</error>');
-            return false;
+            return (int) false;
         }
 
         $ref = $input->getOption('reference');
         if ($ref && ! \Tiki_Profile::isValidReference($ref, true)) {
             $output->writeln('<error>The value provided for the parameter reference do not have the right format: ' . $ref . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -58,5 +58,6 @@ class Tracker extends ObjectWriter
         } else {
             $output->writeln("Tracker not found: $trackerId");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

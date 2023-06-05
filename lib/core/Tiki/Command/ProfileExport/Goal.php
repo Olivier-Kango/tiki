@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Goal extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a goal';
     protected function configure()
     {
         $this
             ->setName('profile:export:goal')
-            ->setDescription('Export a goal')
             ->addArgument(
                 'goal',
                 InputArgument::REQUIRED,
@@ -27,7 +27,7 @@ class Goal extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $goal = $input->getArgument('goal');
 
@@ -37,7 +37,8 @@ class Goal extends ObjectWriter
             $writer->save();
         } else {
             $output->writeln("<error>Goal not found: $goal</error>");
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

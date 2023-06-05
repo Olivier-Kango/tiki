@@ -23,11 +23,11 @@ use Tiki\Process\Process;
 
 class DevFixStyleCommand extends Command
 {
+    protected static $defaultDescription = 'Fix code style of changed files';
     protected function configure()
     {
         $this
             ->setName('dev:fixstyle')
-            ->setDescription('Fix code style of changed files')
             ->setHelp('Fixes code style issues that are correctable with phpcbf via Tiki\'s coding standard. Will only change files modified in your working copy.')
             ->addOption(
                 'directory',
@@ -43,7 +43,7 @@ class DevFixStyleCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Lets first check that some requirements are met.
         if (! is_callable('proc_open')) {

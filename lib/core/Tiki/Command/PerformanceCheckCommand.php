@@ -18,14 +18,14 @@ use TikiLib;
  */
 class PerformanceCheckCommand extends Command
 {
+    protected static $defaultDescription = 'Check statistics of some performance related statistics';
     protected function configure()
     {
         $this
-            ->setName('performance:check')
-            ->setDescription('Check statistics of some performance related statistics');
+            ->setName('performance:check');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $performanceStatsLib = TikiLib::lib('performancestats');
 

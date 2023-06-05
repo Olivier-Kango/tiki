@@ -17,11 +17,11 @@ use WikiParser_PluginMatcher;
 
 class ListExecuteCommand extends Command
 {
+    protected static $defaultDescription = 'Performs Plugin ListExecute command on a particular page';
     protected function configure()
     {
         $this
             ->setName('list:execute')
-            ->setDescription('Performs Plugin ListExecute command on a particular page')
             ->addArgument(
                 'page',
                 InputArgument::REQUIRED,
@@ -46,7 +46,7 @@ class ListExecuteCommand extends Command
             ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $page = $input->getArgument('page');
         $action = $input->getArgument('action');
@@ -54,7 +54,7 @@ class ListExecuteCommand extends Command
         $tikilib = TikiLib::lib('tiki');
         if (! $pageInfo = $tikilib->get_page_info($page)) {
             $output->writeln("Page $page not found.");
-            return false;
+            return (int) false;
         }
 
         if ($request = $input->getOption('request')) {
@@ -100,7 +100,7 @@ class ListExecuteCommand extends Command
                             'ListExecute plugin is pending for approval.';
 
                         $output->write("<error>$outputMessage</error>");
-                        return 1;
+                        return \Symfony\Component\Console\Command\Command::FAILURE;
                     }
                 }
             }
@@ -109,6 +109,6 @@ class ListExecuteCommand extends Command
         TikiLib::lib('parser')->parse_data($pageInfo['data']);
 
         $output->writeln("Action $action executed on page $page.");
-        return 0; // Command::SUCCESS;
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RefreshRssCommand extends Command
 {
+    protected static $defaultDescription = 'Refresh incoming RSS feeds';
     protected function configure()
     {
         $this
             ->setName('rss:refresh')
-            ->setDescription('Refresh incoming RSS feeds')
             ->addArgument(
                 'rssId',
                 InputArgument::OPTIONAL,
@@ -32,7 +32,7 @@ class RefreshRssCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $all = $input->getOption('all');
         $rssId = $input->getArgument('rssId');

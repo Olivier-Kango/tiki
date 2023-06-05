@@ -15,6 +15,7 @@ use Psr\Log\LogLevel;
 
 class SchedulerHealCommand extends Command
 {
+    protected static $defaultDescription = 'Heal scheduled tasks';
     protected function configure()
     {
         $this
@@ -23,11 +24,10 @@ class SchedulerHealCommand extends Command
                 'schedulerId',
                 InputArgument::OPTIONAL,
                 'Scheduler Id to be healed'
-            )
-            ->setDescription('Heal scheduled tasks');
+            );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $schedulerId = $input->getArgument('schedulerId');
 

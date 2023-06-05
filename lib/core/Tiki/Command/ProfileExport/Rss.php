@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Rss extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export an RSS Feed definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:rss')
-            ->setDescription('Export an RSS Feed definition')
             ->addArgument(
                 'rss',
                 InputArgument::REQUIRED,
@@ -27,7 +27,7 @@ class Rss extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $id = $input->getArgument('rss');
 
@@ -40,5 +40,6 @@ class Rss extends ObjectWriter
         } else {
             $output->writeln("RSS Feed not found: $id");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

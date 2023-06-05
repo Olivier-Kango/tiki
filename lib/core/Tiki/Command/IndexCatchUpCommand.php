@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class IndexCatchUpCommand extends Command
 {
+    protected static $defaultDescription = 'Catch-up on incremental indexing.';
     protected function configure()
     {
         $this
             ->setName('index:catch-up')
-            ->setDescription('Catch-up on incremental indexing.')
             ->addArgument(
                 'amount',
                 InputArgument::OPTIONAL,
@@ -26,7 +26,7 @@ class IndexCatchUpCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $amount = (int) $input->getArgument('amount');
 

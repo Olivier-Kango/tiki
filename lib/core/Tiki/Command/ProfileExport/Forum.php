@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Forum extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a forum definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:forum')
-            ->setDescription('Export a forum definition')
             ->addOption(
                 'all',
                 null,
@@ -33,14 +33,14 @@ class Forum extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $forumId = $input->getArgument('forum');
         $all = $input->getOption('all');
 
         if (! $all && empty($forumId)) {
             $output->writeln('<error>' . tra('Not enough arguments (missing: "forum" or "--all" option)') . '</error>');
-            return false;
+            return (int) false;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -52,5 +52,6 @@ class Forum extends ObjectWriter
         } else {
             $output->writeln("Forum not found: $forumId");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

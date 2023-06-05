@@ -14,11 +14,11 @@ use TikiLib;
 
 class FilesDeleteoldCommand extends Command
 {
+    protected static $defaultDescription = 'Remove expired files which were uploaded using the deleteAfter option';
     protected function configure()
     {
         $this
             ->setName('files:deleteold')
-            ->setDescription('Remove expired files which were uploaded using the deleteAfter option')
             ->addOption(
                 'confirm',
                 null,
@@ -28,7 +28,7 @@ class FilesDeleteoldCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $confirm = $input->getOption('confirm');
 

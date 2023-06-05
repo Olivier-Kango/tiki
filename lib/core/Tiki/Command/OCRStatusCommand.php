@@ -12,14 +12,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class OCRStatusCommand extends Command
 {
+    protected static $defaultDescription = 'Give statistics on file OCR status (Queued, Processing, Finished, Skipped)';
     protected function configure()
     {
         $this
-            ->setName('ocr:status')
-            ->setDescription('Give statistics on file OCR status (Queued, Processing, Finished, Skipped)');
+            ->setName('ocr:status');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $ocrLib = \TikiLib::lib('ocr');
 

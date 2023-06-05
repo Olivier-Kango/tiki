@@ -15,11 +15,11 @@ use TikiLib;
 
 class PreferencesDeleteCommand extends Command
 {
+    protected static $defaultDescription = 'Delete a preference';
     protected function configure()
     {
         $this
             ->setName('preferences:delete')
-            ->setDescription('Delete a preference')
             ->addArgument(
                 'name',
                 InputArgument::REQUIRED,
@@ -27,7 +27,7 @@ class PreferencesDeleteCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
         $preference = $input->getArgument('name');
@@ -41,7 +41,7 @@ class PreferencesDeleteCommand extends Command
 
         if (empty($preferenceInfo)) {
             $output->write('<error>Preference not found.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $tikilib->delete_preference($preference);

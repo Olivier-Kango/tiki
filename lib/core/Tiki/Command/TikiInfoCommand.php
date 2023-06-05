@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class TikiInfoCommand extends Command
 {
+    protected static $defaultDescription = 'Displays the Tiki and/or PHP version';
     protected function configure()
     {
         $this
             ->setName('tiki:info')
-            ->setDescription('Displays the Tiki and/or PHP version')
             ->addArgument(
                 'tiki_php',
                 InputArgument::OPTIONAL,
@@ -25,7 +25,7 @@ class TikiInfoCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $tikiPhpArgument = $input->getArgument('tiki_php');
 

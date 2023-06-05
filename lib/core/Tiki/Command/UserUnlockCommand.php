@@ -17,11 +17,11 @@ use TikiLib;
 
 class UserUnlockCommand extends Command
 {
+    protected static $defaultDescription = 'Unlock a user';
     protected function configure()
     {
         $this
             ->setName('users:unlock')
-            ->setDescription('Unlock a user')
             ->addArgument(
                 'identifiers',
                 InputArgument::IS_ARRAY | InputArgument::REQUIRED,
@@ -68,7 +68,7 @@ class UserUnlockCommand extends Command
         return $return;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $identifiers = $input->getArgument('identifiers');
         $format = $input->getOption('format') ?? 'table';

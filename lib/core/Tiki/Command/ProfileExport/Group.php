@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Group extends ObjectWriter
 {
+    protected static $defaultDescription = 'Export a group definition';
     protected function configure()
     {
         $this
             ->setName('profile:export:group')
-            ->setDescription('Export a group definition')
             ->addArgument(
                 'group',
                 InputArgument::REQUIRED,
@@ -40,7 +40,7 @@ class Group extends ObjectWriter
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $writer = $this->getProfileWriter($input);
         $group = $input->getArgument('group');
@@ -52,5 +52,6 @@ class Group extends ObjectWriter
         } else {
             $output->writeln("<error>Group '$group' not found.</error>");
         }
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

@@ -16,11 +16,11 @@ use TikiLib;
 
 class ProfileForgetCommand extends Command
 {
+    protected static $defaultDescription = 'Forget a profile installation';
     protected function configure()
     {
         $this
             ->setName('profile:forget')
-            ->setDescription('Forget a profile installation')
             ->addArgument(
                 'profile',
                 InputArgument::REQUIRED,
@@ -39,7 +39,7 @@ class ProfileForgetCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $profileName = $input->getArgument('profile');
         $repository = $input->getArgument('repository');
@@ -48,7 +48,7 @@ class ProfileForgetCommand extends Command
 
         if (! $profile) {
             $output->writeln('<error>Profile not found.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $tikilib = TikiLib::lib('tiki');

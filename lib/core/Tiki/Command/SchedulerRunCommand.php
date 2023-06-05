@@ -16,11 +16,11 @@ use Tiki\TikiInit;
 
 class SchedulerRunCommand extends Command
 {
+    protected static $defaultDescription = 'Run scheduled tasks';
     protected function configure()
     {
         $this
             ->setName('scheduler:run')
-            ->setDescription('Run scheduled tasks')
             ->addOption(
                 'skip-check-user',
                 null,
@@ -29,7 +29,7 @@ class SchedulerRunCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 

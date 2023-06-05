@@ -14,21 +14,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ObjectsNotifyMaintainersCommand extends Command
 {
+    protected static $defaultDescription = 'Send out email notification to maintainers for objects whose freshness is greater than the limit';
     protected function configure()
     {
         $this
             ->setName('objects:notify-maintainers')
-            ->setDescription('Send out email notification to maintainers for objects whose freshness is greater than the limit')
             ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 
         if ($prefs['object_maintainers_enable'] !== 'y') {
             $output->writeln('<error>Error: preference "Object maintainers and freshness" not enabled (object_maintainers_enable).</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $objectlib = \TikiLib::lib('object');

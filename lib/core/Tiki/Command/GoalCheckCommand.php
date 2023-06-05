@@ -15,21 +15,21 @@ use TikiLib;
 
 class GoalCheckCommand extends Command
 {
+    protected static $defaultDescription = 'Reviews all active goals and assigns rewards.';
     protected function configure()
     {
         $this
             ->setName('goal:check')
-            ->setDescription('Reviews all active goals and assigns rewards.')
             ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;
 
         if ($prefs['goal_enabled'] != 'y') {
             $output->writeln('<error>Goals not enabled.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         // Set-up reporting for achieved goals

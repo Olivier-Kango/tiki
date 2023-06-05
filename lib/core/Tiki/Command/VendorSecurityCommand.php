@@ -17,11 +17,11 @@ use Tiki\Package\ComposerManager;
 
 class VendorSecurityCommand extends Command
 {
+    protected static $defaultDescription = 'Check vendor files against known security issues.';
     protected function configure()
     {
         $this
             ->setName('security:vendorcheck')
-            ->setDescription('Check vendor files against known security issues.')
             ->addOption(
                 'packages',
                 'p',
@@ -78,7 +78,7 @@ class VendorSecurityCommand extends Command
 
         return $commandOutputArray;
     }
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // die gracefully if shell_exec is not enabled;
         if (! is_callable('exec')) {
@@ -97,7 +97,7 @@ class VendorSecurityCommand extends Command
         } catch (Exception $e) {
             $output->writeln('<error>Could not fetch security advisories</error>');
             $output->writeln('<comment>Error message:</comment> ' . $e->getMessage());
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
         /*$alerts = json_decode((string)$alerts, true);
         $output->writeln('<info>Tiki Vendor Advisories</info>');
@@ -123,7 +123,7 @@ class VendorSecurityCommand extends Command
             } catch (Exception $e) {
                 $output->writeln('<error>Could not fetch security advisories</error>');
                 $output->writeln('<comment>Error message:</comment> ' . $e->getMessage());
-                return;
+                return \Symfony\Component\Console\Command\Command::SUCCESS;
             }
             /*
             $alerts = json_decode((string)$alerts, true);

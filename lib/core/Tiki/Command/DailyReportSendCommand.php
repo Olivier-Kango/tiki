@@ -18,14 +18,14 @@ use Reports_Factory;
 
 class DailyReportSendCommand extends Command
 {
+    protected static $defaultDescription = 'Send daily user reports';
     protected function configure()
     {
         $this
-            ->setName('daily-report:send')
-            ->setDescription('Send daily user reports');
+            ->setName('daily-report:send');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $access = TikiLib::lib('access');
 

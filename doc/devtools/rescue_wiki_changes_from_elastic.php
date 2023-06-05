@@ -28,6 +28,7 @@ require_once('tiki-setup.php');
  */
 class ESRescueCommand extends Command
 {
+    protected static $defaultDescription = "Rescues wiki changes from the activity stream in an Elasticsearch index\nExample usage: php doc/devtools/rescue_wiki_changes_from_elastic.php rescue -u http://elastic.example.com:9200/ -i mytiki_main";
     private $elasticUri;
     private $indexName;
 
@@ -35,7 +36,6 @@ class ESRescueCommand extends Command
     {
         $this
             ->setName('rescue')
-            ->setDescription("Rescues wiki changes from the activity stream in an Elasticsearch index\nExample usage: php doc/devtools/rescue_wiki_changes_from_elastic.php rescue -u http://elastic.example.com:9200/ -i mytiki_main")
             ->addOption(
                 'elasticuri',
                 'u',
@@ -72,7 +72,7 @@ class ESRescueCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->elasticUri = $input->getOption('elasticuri');
         $this->elasticUri = strrpos($this->elasticUri, '/') !== (strlen($this->elasticUri) - 1) ? $this->elasticUri . '/' : $this->elasticUri;
@@ -91,6 +91,7 @@ class ESRescueCommand extends Command
         }
 
         $this->makeThePageUpdates($results, $output, $confirm);
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 
     /**

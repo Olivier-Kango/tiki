@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class BackupFilesCommand extends Command
 {
+    protected static $defaultDescription = 'Create a backup of Tiki instance files';
     protected function configure()
     {
         $this
             ->setName('backup:files')
-            ->setDescription('Create a backup of Tiki instance files')
             ->addArgument(
                 'path',
                 InputArgument::REQUIRED,
@@ -43,7 +43,7 @@ class BackupFilesCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $tikilib = \TikiLib::lib('tiki');
 
@@ -54,13 +54,13 @@ class BackupFilesCommand extends Command
 
         if (! is_dir($path)) {
             $output->writeln('<error>Error: Provided path not found</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $local = \Tiki\TikiInit::getCredentialsFile();
         if (! is_readable($local)) {
             $output->writeln('<error>Error: "' . $local . '" not readable.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $dateFormat = $input->getArgument('dateFormat');
@@ -73,7 +73,7 @@ class BackupFilesCommand extends Command
         $root = getcwd();
         if (! $root) {
             $output->writeln('<error>Error: Unable to derive source path</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         if ($input->getOption('storageonly')) {
@@ -113,7 +113,7 @@ class BackupFilesCommand extends Command
 
         if (! $source) {
             $output->writeln('<error>Error: No backup sources found.</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $tarLocation = $path . '/' . $dbs_tiki . '_' . date($dateFormat) . '.tar.bz2';

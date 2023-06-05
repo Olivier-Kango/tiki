@@ -6,11 +6,14 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Lib\Alchemy;
 
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
-
-class Guesser implements MimeTypeGuesserInterface
+class Guesser implements \Symfony\Component\Mime\MimeTypeGuesserInterface
 {
     private $fileMimeTypes = [];
+
+    public function isGuesserSupported(): bool
+    {
+        return true;
+    }
 
     public function add($filePath, $mimeType)
     {
@@ -20,7 +23,7 @@ class Guesser implements MimeTypeGuesserInterface
     /**
      * @inheritdoc
      */
-    public function guess($path)
+    public function guessMimeType($path): ?string
     {
         if (array_key_exists($path, $this->fileMimeTypes)) {
             return $this->fileMimeTypes[$path];

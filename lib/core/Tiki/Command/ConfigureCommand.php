@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ConfigureCommand extends Command
 {
+    protected static $defaultDescription = 'Database: Configure (write local.php)';
     protected function configure()
     {
         $this
             ->setName('database:configure')
-            ->setDescription('Database: Configure (write local.php)')
             ->setHelp('Creates the db/local.php file with the specified database credentials')
             ->addArgument(
                 'username',
@@ -43,7 +43,7 @@ class ConfigureCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');

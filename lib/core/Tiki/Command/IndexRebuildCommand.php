@@ -16,11 +16,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class IndexRebuildCommand extends Command
 {
+    protected static $defaultDescription = 'Fully rebuild the unified search index';
     protected function configure()
     {
         $this
             ->setName('index:rebuild')
-            ->setDescription('Fully rebuild the unified search index')
             ->addOption(
                 'log',
                 null,
@@ -41,7 +41,7 @@ class IndexRebuildCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $num_queries;
         global $prefs;
@@ -199,7 +199,7 @@ class IndexRebuildCommand extends Command
         } else {
             $output->writeln("\n<error>Search index rebuild failed. Last messages shown above.</error>");
             \TikiLib::lib('logs')->add_action('rebuild indexes', 'Search index rebuild failed.', 'system');
-            return (1);
+            return (\Symfony\Component\Console\Command\Command::FAILURE);
         }
     }
 }

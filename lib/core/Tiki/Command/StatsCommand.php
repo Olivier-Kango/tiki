@@ -17,11 +17,11 @@ use TikiLib;
 
 class StatsCommand extends Command
 {
+    protected static $defaultDescription = 'Display a table with the KPIs';
     protected function configure()
     {
         $this
             ->setName('tiki:stats')
-            ->setDescription('Display a table with the KPIs')
             ->addOption(
                 'json',
                 null,
@@ -30,7 +30,7 @@ class StatsCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $dateFormat = 'Y-m-d H:i:s';
         $dates = [];

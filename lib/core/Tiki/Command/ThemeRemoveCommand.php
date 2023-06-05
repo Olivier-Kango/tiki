@@ -21,6 +21,7 @@ use TikiLib;
  */
 class ThemeRemoveCommand extends Command
 {
+    protected static $defaultDescription = 'Remove a theme';
     /**
      * Configures the current command.
      */
@@ -28,7 +29,6 @@ class ThemeRemoveCommand extends Command
     {
         $this
             ->setName('theme:remove')
-            ->setDescription('Remove a theme')
             ->addArgument(
                 'theme',
                 InputArgument::REQUIRED,
@@ -43,7 +43,7 @@ class ThemeRemoveCommand extends Command
      * @param OutputInterface $output
      * @return null
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $tikipath;
         $tikiRootFolder = ! empty($tikipath) ? $tikipath : dirname(dirname(dirname(dirname(__DIR__))));
@@ -59,7 +59,7 @@ class ThemeRemoveCommand extends Command
         $listThemes = $themelib->get_themes();
         if (! in_array($themeName, $listThemes)) {
             $output->writeln('<error>' . tr('Theme not found') . '</error>');
-            return;
+            return \Symfony\Component\Console\Command\Command::SUCCESS;
         }
 
         $currentFolder = $tikiRootFolder;
