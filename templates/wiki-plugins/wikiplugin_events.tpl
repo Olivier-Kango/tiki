@@ -19,7 +19,7 @@
                 {/if}
             </td>
             <td style=white-space:normal;">
-                <a class="linkmodule" href="tiki-calendar_edit_item.php?viewcalitemId={$event.calitemId}">{$event.name|escape}</a>
+                <a class="linkmodule" href="tiki-ajax_services.php?controller=calendar&action=view_item&calitemId={$event.calitemId}">{$event.name|escape}</a>
                 {if $desc}<br>{$event.parsed}{/if}
             </td>
         </tr>{* {cycle} *}

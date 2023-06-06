@@ -1,6 +1,6 @@
 {title admpage="calendar"}
     {if $displayedcals|@count eq 1}
-        {tr}Calendar:{/tr} {assign var=x value=$displayedcals[0]}{$infocals[$x].name}
+        {tr}Calendar:{/tr} {$calendars[$displayedcals[0]].name}
     {else}
         {tr}Calendar{/tr}
     {/if}
@@ -20,11 +20,11 @@
                 {if $displayedcals|@count eq 1 and $user and $prefs.feature_user_watches eq 'y'}
                     <li class="dropdown-item">
                         {if $user_watching eq 'y'}
-                            <a href="tiki-calendar.php?watch_event=calendar_changed&amp;watch_action=remove" hspace="1">
+                            <a href="tiki-calendar.php?watch_event=calendar_changed&amp;watch_action=remove">
                                 {icon name="stop-watching"} {tr}Stop monitoring{/tr}
                             </a>
                         {else}
-                            <a href="tiki-calendar.php?watch_event=calendar_changed&amp;watch_action=add" hspace="1">
+                            <a href="tiki-calendar.php?watch_event=calendar_changed&amp;watch_action=add">
                                 {icon name="watch"} {tr}Monitor{/tr}
                             </a>
                         {/if}
@@ -32,13 +32,13 @@
                 {/if}
                 {if $displayedcals|@count eq 1 and $prefs.feature_group_watches eq 'y' and ( $tiki_p_admin_users eq 'y' or $tiki_p_admin eq 'y' )}
                     <li class="dropdown-item">
-                        <a href="tiki-object_watches.php?objectId={$displayedcals[0]|escape:"url"}&amp;watch_event=calendar_changed&amp;objectType=calendar&amp;objectName={$infocals[$x].name|escape:"url"}&amp;objectHref={'tiki-calendar.php?calIds[]='|cat:$displayedcals[0]|escape:"url"}" hspace="1">
+                        <a href="tiki-object_watches.php?objectId={$displayedcals[0]|escape:"url"}&amp;watch_event=calendar_changed&amp;objectType=calendar&amp;objectName={$calendars[$x].name|escape:"url"}&amp;objectHref={'tiki-calendar.php?calIds[]='|cat:$displayedcals[0]|escape:"url"}">
                             {icon name="watch-group"} {tr}Group Monitor{/tr}
                         </a>
                     </li>
                 {/if}
                 <li class="dropdown-item">
-                    <a href="tiki-calendar.php?generate_availability=1&amp;ltodate={$smarty.request.todate}&amp;calIds[]={"&calIds[]="|implode:$displayedcals}" hspace="1">
+                    <a href="tiki-calendar.php?generate_availability=1&amp;ltodate={$smarty.request.todate}&amp;calIds[]={"&calIds[]="|implode:$displayedcals}">
                         {icon name="calendar-week"} {tr}Availability (NLG){/tr}
                     </a>
                 </li>
@@ -53,7 +53,7 @@
 
         {* avoid Add Event being shown if no calendar is displayed *}
         {if $tiki_p_add_events eq 'y'}
-            {button href='tiki-calendar-edit_item' _type='primary' _text='{tr}Add Event{/tr}' _icon_name="create" _class='click-modal'}
+            {button href='tiki-ajax_services.php?controller=calendar&action=edit_item' _type='primary' _text='{tr}Add Event{/tr}' _icon_name="create" _class='click-modal'}
         {/if}
 
         {if $viewlist eq 'list'}
@@ -64,7 +64,7 @@
             {button href=$smarty.capture.href _text='{tr}List View{/tr}' _icon_name='list' _type='info'}
         {/if}
 
-        {if count($listcals) >= 1}
+        {if count($calendars) >= 1}
             {button href="#" _onclick="toggle('filtercal');return false;" _text='{tr}Calendars{/tr}' _icon_name='eye' _type='info'}
             <div class="d-inline-block">
                 <form class="card" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
@@ -76,10 +76,11 @@
                         <li class="caltoggle">
                             {select_all checkbox_names='calIds[]' label="{tr}Check / Uncheck All{/tr}"}
                         </li>
-                        {foreach item=k from=$listcals}
+                        {foreach $calendars as $calendarId => $calendar}
                             <li class="calcheckbox">
-                                <input type="checkbox" name="calIds[]" value="{$k|escape}" id="groupcal_{$k}" {if $thiscal.$k}checked="checked"{/if}>
-                                <label for="groupcal_{$k}" class="calId{$k}">{$infocals.$k.name|escape} (id #{$k})</label>
+                                <input type="checkbox" name="calIds[]" value="{$calendarId|escape}" id="groupcal_{$k}"
+                                    {if in_array($calendarId, $displayedcals)}checked="checked"{/if}>
+                                <label for="groupcal_{$k}" class="calId{$k}">{$calendar.name|escape} (id #{$k})</label>
                             </li>
                         {/foreach}
                         <li class="calinput">
@@ -110,10 +111,11 @@
                         <div class="caltoggle">
                             {select_all checkbox_names='calendarIds[]' label="{tr}Check / Uncheck All{/tr}"}
                         </div>
-                        {foreach item=k from=$listcals}
+                        {foreach $calendars as $calendarId => $calendar}
                             <div class="calcheckbox">
-                                <input type="checkbox" name="calendarIds[]" value="{$k|escape}" id="groupexcal_{$k}" {if $thiscal.$k}checked="checked"{/if}>
-                                <label for="groupexcal_{$k}" class="calId{$k}">{$infocals.$k.name|escape}</label>
+                                <input type="checkbox" name="calendarIds[]" value="{$calendarId|escape}" id="groupexcal_{$calendarId}"
+                                    {if in_array($calendarId, $displayedcals)}checked="checked"{/if}>
+                                <label for="groupexcal_{$calendarId}" class="calId{$calendarId}">{$calendar.name|escape}</label>
                             </div>
                         {/foreach}
                         <div class="calcheckbox">
@@ -127,27 +129,27 @@
                 </div>
             {/if}
 
-            {if count($thiscal)}
-                <div id="configlinks" class="mb-3 text-end">
-                    {assign var='maxCalsForButton' value=20}
-                    {if count($checkedCals) > $maxCalsForButton}<select size="5">{/if}
-                    {foreach item=k from=$listcals name=listc}
-                        {if $thiscal.$k}
-                            {assign var=thiscustombgcolor value=$infocals.$k.custombgcolor}
-                            {assign var=thiscustomfgcolor value=$infocals.$k.customfgcolor}
-                            {assign var=thisinfocalsname value=$infocals.$k.name|escape}
-                            {if count($checkedCals) > $maxCalsForButton}
-                                <option style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};" onclick="toggle('filtercal')">{$thisinfocalsname}</option>
+            <div id="configlinks" class="mb-3 text-end">
+                {if count($checkedCalIds)}
+                    {$maxCalsForButton = 20}
+                    {if count($checkedCalIds) > $maxCalsForButton}<select size="5">{/if}
+                    {foreach $checkedCalIds as $checkedCalId}
+                        {if $calendarId}
+                            {$thiscustombgcolor = $calendars[$checkedCalId].custombgcolor}
+                            {$thiscustomfgcolor = $calendars[$checkedCalId].customfgcolor}
+                            {$thiscalendarsname = $calendars[$checkedCalId].name|escape}
+                            {if count($checkedCalIds) > $maxCalsForButton}
+                                <option style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};" onclick="toggle('filtercal')">
+                                    {$thiscalendarsname}
+                                </option>
                             {else}
-                                {button href="{$k|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="$thisinfocalsname" _class='btn btn-sm me-2'}
+                                {button href="{$checkedCalId|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="$thiscalendarsname" _class='btn btn-sm me-2'}
                             {/if}
                         {/if}
                     {/foreach}
-                    {if count($checkedCals) > $maxCalsForButton}</select>{/if}
-                </div>
-            {else}
-                {button href="" _style="background-color:#fff;padding:0 4px;" _text="{tr}None{/tr}"}
-            {/if}
+                    {if count($checkedCalIds) > $maxCalsForButton}</select>{/if}
+                {/if}
+            </div>
         {/if}
         {if $nlg_availability}
             <div class="alert alert-info">
@@ -184,185 +186,7 @@
         {include file='tiki-calendar_listmode.tpl'}
     {else}
         {jq}
-            var year = {{$viewyear}};
-            var calendarEl = document.getElementById('calendar');
-            window.calendar = new FullCalendar.Calendar(calendarEl, {
-                themeSystem: 'bootstrap5',
-                eventTimeFormat: {
-                  hour: 'numeric',
-                  minute: '2-digit',
-                  meridiem: '{{$timeFormat}}',
-                  hour12: '{{$timeFormat}}'
-                },
-                timeZone: '{{$prefs.display_timezone}}',
-                locale: '{{$prefs.language}}',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'year,semester,quarter,dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                editable: true,
-                selectable:true,
-                events: 'tiki-calendar_json.php',
-                slotMinTime: '{{$minHourOfDay}}',
-                slotMaxTime: '{{$maxHourOfDay}}',
-                buttonText: {
-                    today: "{tr}today{/tr}",
-                    year: "{tr}year{/tr}",
-                    semester: "{tr}semester{/tr}",
-                    quarter: "{tr}quarter{/tr}",
-                    month: "{tr}month{/tr}",
-                    week: "{tr}week{/tr}",
-                    day: "{tr}day{/tr}"
-                },
-                allDayText: '{tr}all-day{/tr}',
-                firstDay: {{$firstDayofWeek}},
-                slotDuration: '00:{{if $prefs.calendar_timespan|count_characters == 1}}0{{/if}}{{$prefs.calendar_timespan}}',
-                initialView: {{if $prefs.calendar_view_mode === 'week'}}'timeGridWeek'{{elseif $prefs.calendar_view_mode === 'day'}}'timeGridDay'{{elseif $prefs.calendar_view_mode === 'month'}}'dayGridMonth'{{else}}'{{$prefs.calendar_view_mode}}'{{/if}},
-                views: {
-                    quarter: {
-                        type: 'dayGrid',
-                        duration: { months: 3 },
-                        buttonText: 'quarter',
-                        dayCellContent: function(dayCell) {
-                            return moment(dayCell.date).format('M/D');
-                        },
-                        visibleRange: function(currentDate) {
-                            return {
-                                start: moment(currentDate).startOf('month').toDate(),
-                                end: moment(currentDate).add('2', 'months').endOf('month').toDate()
-                            };
-                        }
-                    },
-                    semester: {
-                        type: 'dayGrid',
-                        duration: { months: 6 },
-                        buttonText: 'semester',
-                        dayCellContent: function(dayCell) {
-                            return moment(dayCell.date).format('M/D');
-                        },
-                        visibleRange: function(currentDate) {
-                            return {
-                                start: moment(currentDate).startOf('month').toDate(),
-                                end: moment(currentDate).add('5', 'months').endOf('month').toDate()
-                            };
-                        }
-                    },
-                    year: {
-                        type: 'dayGrid',
-                        buttonText: '{tr}year{/tr}',
-                        dayCellContent: function($x) {
-                            return moment($x.date).format('M/D');
-                        },
-                        visibleRange: function(currentDate) {
-                            return {
-                                start: moment(currentDate).startOf('year').toDate(),
-                                end: moment(currentDate).startOf('year').add('11', 'months').endOf('month').toDate()
-                            };
-                        }
-                    }
-                },
-                eventDataTransform: function(event) {
-                    if (event.allDay) {
-                        // show all day events as including the end date day
-                        event.end = moment(event.end).add(1, 'days').format('YYYY-MM-DD HH:mm:SSZ')
-                    }
-                    return event;
-                },
-                eventDidMount: function(arg) {
-                    var event = arg.event;
-                    var element = $(arg.el);
-                    var dayGrid = $('.fc-daygrid-event').length;
-                    if (dayGrid > 0) {
-                        var backgroundColor = event._def.ui.backgroundColor;
-                        var textColor = event._def.ui.textColor;
-                        var eventDotElement = element.find('.fc-daygrid-event-dot'), defaultBackgroundColor;
-                        if (eventDotElement.length === 0) {
-                            eventDotElement = element;
-                        }
-                        var styleDot = getComputedStyle(eventDotElement[0]);
-                        var borderCol = styleDot.border || styleDot.borderColor || styleDot.borderTopColor || styleDot.borderTopColor;
-                        var matches = String(borderCol).match(/(rgb\(\d+,\s*\d+,\s*\d+\))/i) || ["rgb(55, 136, 216)"];
-                        var defaultBackgroundColor = matches[0];
-                        if (eventDotElement !== element) {
-                            $(eventDotElement[0]).remove();
-                        }
-                        var titleElement = element.find('.fc-event-title');
-
-                        var styleElement = getComputedStyle(titleElement[0]);
-                        var defaultTextColor = styleElement.color;
-                        if (backgroundColor == '#') {
-                            backgroundColor = defaultBackgroundColor
-                        }
-                        if (textColor == '#') {
-                            textColor = defaultTextColor;
-                        }
-                        $(element).attr('style', 'background-color: ' + backgroundColor + '; border: 1px solid ' + textColor);
-                        $(element).children('.fc-event-time').attr('style', 'color: ' + textColor);
-                        $(element).children('.fc-event-title').attr('style', 'color: ' + textColor);
-                    }
-                    element.attr('title', event.title);
-                    element.data('content', event.extendedProps.description);
-                    element.popover({ trigger: 'hover', html: true, 'container': 'body', placement: 'bottom'});
-                },
-                eventClick: function(info) {
-                    info.jsEvent.preventDefault();
-                    let $this = $(info.el).tikiModal(" ");
-                    var event = info.event;
-                    if (event.url) {
-                        $.openModal({
-                            title: "{tr}New event{/tr}",
-                            size: "modal-lg",
-                            remote: event.url + '&modal=1',
-                            open: function () {
-                                $this.tikiModal();
-
-                                $("form:not(.no-ajax)", this)
-                                    .addClass('no-ajax') // Remove default ajax handling, we replace it
-                                    .submit(ajaxSubmitEventHandler(function (data) {
-                                        calendarEditSubmit(data, this);
-                                    }));
-                            }
-                        });
-                    }
-                },
-                dateClick: function(info) {
-                    let $this = $(info.dayEl).tikiModal(" ");
-                    var countCals = $("#filtercal ul li").length;
-                    if (countCals >= 1) {
-                        $.openModal({
-                            title: "{tr}New event{/tr}",
-                            size: "modal-lg",
-                            remote: $.service("calendar", "edit_item", {todate: info.date.toUnix(), modal: 1}),
-                            open: function () {
-                                $this.tikiModal();
-
-                                $("form:not(.no-ajax)", this)
-                                    .addClass('no-ajax') // Remove default ajax handling, we replace it
-                                    .submit(ajaxSubmitEventHandler(function (data) {
-                                        calendarEditSubmit(data, this);
-                                    }));
-                            }
-                        });
-                    } else {
-                        location.href="tiki-calendar.php";
-                    }
-                },
-                eventResize: function(info) {
-                    $.post($.service('calendar', 'resize'), {
-                        calitemId: info.event.id,
-                        delta: info.endDelta
-                    });
-                },
-                eventDrop: function(info) {
-                    $.post($.service('calendar', 'move'), {
-                        calitemId: info.event.id,
-                        delta: info.delta
-                    });
-                },
-                height: 'auto'
-            });
-            calendar.render();
+            $("#calendar").setupFullCalendar({{$fullCalendarParams|json_encode}});
             {{if $prefs.print_pdf_from_url neq 'none'}addFullCalendarPrint('#calendar', '#calendar-pdf-btn', calendar);{/if}}
         {/jq}
     {/if}

@@ -126,7 +126,6 @@ class Permissions
             ],
             'calendar' => [
                 'tiki-calendar.php',
-                'tiki-calendar_edit_item.php',
                 'tiki-admin_calendars.php',
                 'tiki-calendar_import.php'
             ],

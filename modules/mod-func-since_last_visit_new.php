@@ -605,7 +605,7 @@ function module_since_last_visit_new($mod_reference, $params = null)
         $count = 0;
         while ($res = $result->fetchRow()) {
             if ($userlib->user_has_perm_on_object($user, $res['calendarId'], 'calendar', 'tiki_p_view_events')) {
-                $ret['items']['events']['list'][$count]['href']  = filter_out_sefurl('tiki-calendar_edit_item.php?viewcalitemId=' . $res['calitemId'], 'event', $res['name']);
+                $ret['items']['events']['list'][$count]['href']  = filter_out_sefurl('tiki-ajax_services.php?controller=calendar&action=view_item&calitemId=' . $res['calitemId'], 'event', $res['name']);
                 $ret['items']['events']['list'][$count]['title'] = $tikilib->get_short_datetime($res['created']) . ' ' . tra('by') . ' ' . smarty_modifier_username($res['user']) . ', ' . tra('starting on') . ' ' . $tikilib->get_short_datetime($res['start']) ;
                 $ret['items']['events']['list'][$count]['label'] = $res['name'];
                 $count++;

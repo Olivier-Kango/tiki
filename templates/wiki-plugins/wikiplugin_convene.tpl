@@ -126,7 +126,7 @@
                                         &nbsp
                                         {icon name='ok' iclass='alert-success tips' ititle=':{tr}Selected Date{/tr}'}
                                         {if $canAddEvents and count($topVoteStamps) eq 1 and $total gte $params.minvotes}
-                                            <a class='btn btn-success btn-sm mx-1 text-white' href='tiki-calendar_edit_item.php?todate={$stamp}&calendarId={$params.calendarid}'>
+                                            <a class='btn btn-success btn-sm mx-1 text-white' href='tiki-ajax_services.php?controller=calendar&action=edit_item&todate={$stamp}&calendarId={$params.calendarid}'>
                                                 {icon name='calendar' iclass='tips' ititle=':{tr}Add as Calendar Event{/tr}'}
                                             </a>
                                         {/if}

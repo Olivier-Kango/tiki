@@ -305,7 +305,6 @@
         <exclude-pattern>lib/wiki-plugins/wikiplugin_contributionsdashboard.php</exclude-pattern>
         <exclude-pattern>lib/wiki-plugins/wikiplugin_events.php</exclude-pattern>
         <exclude-pattern>lib/wiki-plugins/wikiplugin_now.php</exclude-pattern>
-        <exclude-pattern>tiki-calendar_edit_item.php</exclude-pattern>
         <exclude-pattern>tiki-invite.php</exclude-pattern>
     </rule>
     <rule ref="PHPCompatibility.IniDirectives.RemovedIniDirectives.auto_detect_line_endingsDeprecated">

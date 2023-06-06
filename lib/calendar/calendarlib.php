@@ -1998,7 +1998,7 @@ class CalendarLib extends TikiLib
         // The following needed to ensure category field exist for item (to be readable by list_items)
         // Update 2016: Needs to be the non-sefurl in case the feature is disabled later as this is stored in tiki_objects
         // and used in tiki-browse_categories.php and other places
-        $cat_href = "tiki-calendar_edit_item.php?calitemId=$itemId";
+        $cat_href = "tiki-ajax_services.php?controller=calendar&action=view_item&calitemId=$itemId";
 
         $categlib->update_object_categories($categories, $itemId, 'calendaritem', $cat_desc, $cat_name, $cat_href, $managed_categories);
     }

@@ -465,7 +465,7 @@ class SearchLib extends TikiLib
             'data' => 'c.`description`',
             'hits' => 'c.`priority`',
             'lastModif' => 'c.`lastmodif`',
-            'href' => 'tiki-calendar_edit_item.php?viewcalitemId=%d',
+            'href' => 'tiki-ajax_services.php?controller=calendar&action=view_item&calitemId=%d',
             'id' => ['calitemId'],
             'pageName' => 'c.`name`',
             'search' => ['c.`name`', 'c.`description`'],

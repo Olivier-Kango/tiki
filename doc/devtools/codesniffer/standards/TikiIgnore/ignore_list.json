@@ -7587,6 +7587,7 @@
         "lib\/core\/Services\/Calendar\/Controller.php": {
             "Services_Calendar_Controller::action_move": true,
             "Services_Calendar_Controller::action_resize": true,
+            "Services_Calendar_Controller::action_list_items": true,
             "Services_Calendar_Controller::action_edit_item": true,
             "Services_Calendar_Controller::action_copy_item": true,
             "Services_Calendar_Controller::action_view_item": true,

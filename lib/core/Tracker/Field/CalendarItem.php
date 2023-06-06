@@ -243,9 +243,9 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
                 $itemId = 0;
             }
             if ($event) {
-                $editUrl = 'tiki-calendar_edit_item.php?fullcalendar=y&modal=1&trackerItemId=' . $itemId . '&calitemId=' . $event['calitemId'];
+                $editUrl = 'tiki-ajax_services.php?controller=calendar&action=edit_item&modal=1&trackerItemId=' . $itemId . '&calitemId=' . $event['calitemId'];
             } else {
-                $editUrl = 'tiki-calendar_edit_item.php?fullcalendar=y&modal=1&trackerItemId=' . $itemId . '&calendarId=' . $this->getOption('calendarId');
+                $editUrl = 'tiki-ajax_services.php?controller=calendar&action=edit_item&modal=1&trackerItemId=' . $itemId . '&calendarId=' . $this->getOption('calendarId');
             }
             $headerlib = TikiLib::lib('header');
 

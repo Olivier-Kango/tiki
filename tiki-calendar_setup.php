@@ -141,7 +141,6 @@ $calendarViewList = array_key_exists('CalendarViewList', $_SESSION) ? $_SESSION[
 $calendarGroupByItem = $_SESSION['CalendarGroupByItem'];
 
 $firstDayofWeek = $calendarlib->firstDayofWeek();
-$smarty->assign('firstDayofWeek', $firstDayofWeek);
 
 $strRef = tra("%H:%M %Z");
 if (strstr($strRef, "%h") || strstr($strRef, "%g")) {
@@ -199,9 +198,6 @@ if (isset($request_year)) {
     $focus_year = $request_year;
 }
 
-$smarty->assign('viewmonth', $focus_month);
-$smarty->assign('viewday', $focus_day);
-$smarty->assign('viewyear', $focus_year);
 
 // calculate timespan for sql query
 if ($viewlist == 'list' && $prefs['calendar_list_begins_focus'] == 'y') {
@@ -420,6 +416,40 @@ if (! function_exists('correct_start_day')) {
         return $tmp;
     }
 }
+
+global $minHourOfDay, $maxHourOfDay;
+
+$slotDuration = '00:' . str_pad($prefs['calendar_timespan'], 2, '0', STR_PAD_LEFT);
+switch ($prefs['calendar_view_mode']) {
+    case 'week':
+        $initialView = 'timeGridWeek';
+        break;
+    case 'day':
+        $initialView = 'timeGridDay';
+        break;
+    case 'month':
+        $initialView = 'dayGridMonth';
+        break;
+    default:
+        $initialView = $prefs['calendar_view_mode'];
+}
+
+$smarty->assign(
+    'fullCalendarParams',
+    [
+        'firstDayofWeek'   => $firstDayofWeek,
+        'viewmonth'        => $focus_month,
+        'viewday'          => $focus_day,
+        'viewyear'         => $focus_year,
+        'display_timezone' => $prefs['display_timezone'],
+        'language'         => $prefs['language'],
+        'minHourOfDay'     => $minHourOfDay,
+        'maxHourOfDay'     => $maxHourOfDay,
+        'slotDuration'     => $slotDuration,
+        'initialView'      => $initialView,
+    ]
+);
+
 
 if (empty($myurl)) {
     $myurl = 'tiki-calendar.php';

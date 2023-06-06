@@ -74,8 +74,7 @@ class Services_Calendar_Controller
         $itemId = $this->getItemId($input);
         $delta = $input->delta->int();
 
-        $calendarlib = TikiLib::lib('calendar');
-        $calendarlib->move_item($itemId, $delta);
+        $this->calendarlib->move_item($itemId, $delta);
 
         return [
             'calitemId' => $itemId,
@@ -87,12 +86,101 @@ class Services_Calendar_Controller
         $itemId = $this->getItemId($input);
         $delta = $input->delta->int();
 
-        $calendarlib = TikiLib::lib('calendar');
-        $calendarlib->resize_item($itemId, $delta);
+        $this->calendarlib->resize_item($itemId, $delta);
 
         return [
             'calitemId' => $itemId,
         ];
+    }
+
+    /**
+     * Retreives visible events for full calendar via ajax
+     *
+     * @param $input JitFilter
+     *
+     * @return array
+     * @throws Services_Exception_Denied
+     */
+    public function action_list_items($input): array
+    {
+        global $user, $prefs;
+
+        $rawcals = $this->calendarLib->list_calendars();
+        $rawcals['data'] = Perms::filter(
+            ['type' => 'calendar'],
+            'object',
+            $rawcals['data'],
+            [ 'object' => 'calendarId' ],
+            'view_calendar'
+        );
+
+        if (empty($rawcals['data'])) {
+            throw new Services_Exception_Denied(tr('No calendars found'));
+        }
+
+        $calendars = [];
+
+        foreach ($rawcals['data'] as $calendar) {
+            $calendar['perms'] = Perms::get([ 'type' => 'calendar', 'object' => $calendar['calendarId']]);
+
+            $calendars[$calendar['calendarId']] = $calendar;
+        }
+
+        $viewstart = $input->start->date();
+        $viewend = $input->end->date();
+
+        $viewstart = new DateTime($viewstart);
+        $viewstart = $viewstart->getTimestamp();
+
+        $viewend = new DateTime($viewend);
+        $viewend = $viewend->getTimestamp();
+
+        if ($_SESSION['CalendarViewGroups']) {
+            $listevents = $this->calendarLib->list_raw_items(
+                $_SESSION['CalendarViewGroups'],
+                $user,
+                $viewstart,
+                $viewend,
+                0,
+                -1
+            );
+
+            foreach ($listevents as & $event) {
+                $event['perms'] = Perms::get([ 'type' => 'calendaritem', 'object' => $event['calitemId']]);
+            }
+        } else {
+            $listevents = [];
+        }
+
+        $parserLib = TikiLib::lib('parser');
+        $events = [];
+
+        foreach ($listevents as $event) {
+            $url = TikiLib::lib('service')->getUrl([
+                'controller' => 'calendar',
+                'action'     => $event['perms']->change_events ? 'edit_item' : 'view_item',
+                'calitemId'  => $event['calitemId'],
+            ]);
+
+            $events[] = [
+                'id'          => $event['calitemId'],
+                'title'       => $event['name'],
+                'extendedProps' => [
+                    'description' => ! empty($event['description']) ? $parserLib->parse_data(
+                        $event['description'],
+                        ['is_html' => $prefs['calendar_description_is_html'] === 'y']
+                    ) : '',
+                ],
+                'url'         => $url,
+                'allDay'      => $event['allday'] != 0,
+                'start'       => TikiLib::date_format("c", $event['date_start'], false, 5, false),
+                'end'         => TikiLib::date_format("c", $event['date_end'], false, 5, false),
+                'editable'    => $event['perms']->change_events,
+                'color'       => '#' . $calendars[$event['calendarId']]['custombgcolor'],
+                'textColor'   => '#' . $calendars[$event['calendarId']]['customfgcolor'],
+            ];
+        }
+        return $events;
     }
 
     /**
@@ -139,9 +227,9 @@ class Services_Calendar_Controller
 
                 // save event
                 if ($input->act->word() === 'save' || $input->act->word() === 'saveas') {
-                    $calitemId = $this->saveEvent($calitem, $calendar, $input);
+                    $saved = $this->saveEvent($calitem, $calendar, $input);
 
-                    if ($calitemId) { // then redirect?
+                    if ($saved) { // then redirect?
                         if ($input->offsetExists('redirect')) {
                             return ['url' => $input->redirect->url()];
                         } else {
@@ -257,7 +345,7 @@ class Services_Calendar_Controller
         if (! $input->modal->int()) {
             TikiLib::lib('header')
                 ->add_cssfile('themes/base_files/feature_css/calendar.css', 20)
-                ->add_jsfile('lib/jquery_tiki/calendar_edit_item.js');
+                ->add_jsfile('lib/jquery_tiki/tiki-calendar_edit_item.js');
         }
 
         return [
@@ -363,9 +451,9 @@ class Services_Calendar_Controller
      * @param array     $calendar calendar it belongs to
      * @param JitFilter $input    the whole input
      *
-     * @return int
+     * @return bool
      */
-    private function saveEvent(array $calitem, array $calendar, JitFilter $input): int
+    private function saveEvent(array $calitem, array $calendar, JitFilter $input): bool
     {
         global $prefs;
         $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
@@ -423,8 +511,9 @@ class Services_Calendar_Controller
                         $calRecurrence->setMonthly(true);
                         $calRecurrence->setYearly(false);
                         $calRecurrence->setMonthlyType($input->recurrenceTypeMonthy->word());
-                        if ($input->recurrenceTypeMonthy->word() && $input->recurrenceTypeMonthy->word() === 'weekday') {
-                            $monthlyWeekdayValue = $input->weekNumberByMonth->word() . $input->monthlyWeekday->word();  // actually ints
+                        if ($input->recurrenceTypeMonthy->word() === 'weekday') {
+                            // actually ints
+                            $monthlyWeekdayValue = $input->weekNumberByMonth->word() . $input->monthlyWeekday->word();
                             $calRecurrence->setMonthlyWeekdayValue($monthlyWeekdayValue);
                         } else {
                             $calRecurrence->setDayOfMonth($input->dayOfMonth->word());
@@ -472,7 +561,7 @@ class Services_Calendar_Controller
                     // store the initial event if it was already created
                     $calRecurrence->setInitialItem($calitem);
                 }
-                $calRecurrence->save(! empty($input->affect->word()) && $input->affect->word() === 'all');
+                $saved = $calRecurrence->save($input->affect->word() === 'all');
 
                 if ($this->logsLib) {
                     $this->logsLib->add_action(
@@ -481,6 +570,7 @@ class Services_Calendar_Controller
                         'calendar event'
                     );
                 }
+                return $saved;
             } else {
                 if ($input->offsetExists('recurrenceId')) {
                     $calitem['recurrenceId'] = $input->recurrenceId->int();
@@ -501,13 +591,14 @@ class Services_Calendar_Controller
                     if ($input->offsetExists('listtoalert')) {
                         TikiLib::lib('groupalert')->Notify(
                             $input->listtoalert->int(),
-                            "tiki-calendar-view_item?calitemId=" . $calitemId
+                            "tiki-ajax_services.php?controller=calendar&action=view_item&calitemId=" . $calitemId
                         );
                     }
                 }
-                return $calitemId;
+                return $calitemId > 0;
             }
         }
+        return false;
     }
 
     /**

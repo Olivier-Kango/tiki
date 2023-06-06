@@ -79,7 +79,15 @@ function tiki_route($path)
     tiki_route_attempt('|^blog(\d+)(\-.*)?$|', 'tiki-view_blog.php', tiki_route_single(1, 'blogId'));
     tiki_route_attempt('|^blogpost(\d+)(\-.*)?$|', 'tiki-view_blog_post.php', tiki_route_single(1, 'postId'));
     tiki_route_attempt('|^cat(\d+)(\-.*)?$|', 'tiki-browse_categories.php', tiki_route_single(1, 'parentId'));
-    tiki_route_attempt('/^event(\d+)(\-.*)?$/', 'tiki-calendar_edit_item.php', tiki_route_single(1, 'viewcalitemId'));
+    tiki_route_attempt(
+        '/^event(\d+)(\-.*)?$/',
+        'tiki-ajax_services.php',
+        tiki_route_single(1, 'calitemId'),
+        [
+            'controller' => 'calendar',
+            'action'     => 'view_item',
+        ]
+    );
 
     tiki_route_attempt(
         '|^cal(\d+[\d,]*)(\-.*)?$|',
@@ -98,7 +106,15 @@ function tiki_route($path)
     tiki_route_attempt_prefix('file', 'tiki-list_file_gallery.php', 'galleryId');
     tiki_route_attempt_prefix('forum', 'tiki-view_forum.php', 'forumId');
     tiki_route_attempt('|^forumthread(\d+)(\-.*)?$|', 'tiki-view_forum_thread.php', tiki_route_single(1, 'comments_parentId'));
-    tiki_route_attempt_prefix('calevent', 'tiki-calendar_edit_item.php', 'viewcalitemId');
+    tiki_route_attempt_prefix(
+        'calevent',
+        'tiki-ajax_services.php',
+        'calitemId',
+        [
+            'controller' => 'calendar',
+            'action'     => 'view_item',
+        ]
+    );
     // TODO ImageGalleryRemoval23.x remove these eventually, or now?
     tiki_route_attempt_prefix('img', 'show_image.php', 'id');
     tiki_route_attempt_prefix('image', 'show_image.php', 'id');

@@ -53,11 +53,11 @@ function smarty_modifier_sefurl($source, $type = 'wiki', $with_next = '', $all_l
             break;
 
         case 'calendaritem':
-            $href = "tiki-calendar_edit_item.php?viewcalitemId=$source";
+            $href = "tiki-ajax_services.php?controller=calendar&action=view_item&calitemId=$source";
             break;
 
         case 'calendar event':
-            $href = $sefurl ? "calevent$source" : "tiki-calendar_edit_item.php?viewcalitemId=$source";
+            $href = $sefurl ? "calevent$source" : "tiki-ajax_services.php?controller=calendar&action=view_item&calitemId=$source";
             break;
 
         case 'article':

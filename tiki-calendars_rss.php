@@ -45,7 +45,7 @@ if ($output["data"] == "EMPTY") {
     $descId = "body";
     $dateId = "start";
     $authorId = "user";
-    $readrepl = "tiki-calendar_edit_item.php?viewcalitemId=%s";
+    $readrepl = "tiki-ajax_services.php?controller=calendar&action=view_item&calitemId=%s";
 
     $rawcals = $calendarlib->list_calendars();
     $rawcals['data'] = Perms::filter([ 'type' => 'calendar' ], 'object', $rawcals['data'], [ 'object' => 'calendarId' ], 'view_calendar');

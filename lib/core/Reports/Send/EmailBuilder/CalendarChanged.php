@@ -24,7 +24,7 @@ class Reports_Send_EmailBuilder_CalendarChanged extends Reports_Send_EmailBuilde
         $output = tr(
             '%0 added or updated event %1',
             "<u>{$change['data']['user']}</u>",
-            "<a href='{$base_url}tiki-calendar_edit_item.php?viewcalitemId={$change['data']['calitemId']}'>{$item['name']}</a>"
+            "<a href='{$base_url}tiki-ajax_services.php?controller=calendar&action=view_item&calitemId={$change['data']['calitemId']}'>{$item['name']}</a>"
         );
         return $output;
     }

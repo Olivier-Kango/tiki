@@ -88,7 +88,7 @@ rules =
                 {filter field="calendar_id" content="2"}
                 {filter field="recurrence_id" content="{/literal}{$row.tracker_field_calTestDate_recurrenceId}{literal}"}
                 {sort mode="start_date_nasc"}
-                {OUTPUT()}* [tiki-calendar_edit_item.php?viewcalitemId={display name="object_id"}|{display name="start_date" format="date"}]
+                {OUTPUT()}* [tiki-ajax_services.php?controller=calendar&action=view_item&calitemId={display name="object_id"}|{display name="start_date" format="date"}]
 {OUTPUT}
                 {ALTERNATE()}^No recurring calendar event found^{ALTERNATE}
             {/literal}{/wikiplugin}
@@ -99,7 +99,7 @@ rules =
                 {filter field="calendar_id" content="2"}
                 {filter field="object_id" content="{/literal}{$row.tracker_field_calTestDate_calitemid}{literal}"}
                 {sort mode="start_date_nasc"}
-                {OUTPUT()}* [tiki-calendar_edit_item.php?viewcalitemId={display name="object_id"}|{display name="start_date" format="date"}]
+                {OUTPUT()}* [tiki-ajax_services.php?controller=calendar&action=view_item&calitemId={display name="object_id"}|{display name="start_date" format="date"}]
 {OUTPUT}
                 {ALTERNATE()}^No calendar event found^{ALTERNATE}
             {/literal}{/wikiplugin}

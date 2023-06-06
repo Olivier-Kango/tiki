@@ -125,13 +125,4 @@
             {button _text="{tr}Add me to the list of participants{/tr}" href="?add_me=y&viewcalitemId=$calitemId"}
         {/if}
     {/if}
-    {if $tiki_p_calendar_add_guest_particip eq 'y'}
-        {* Nested forms do not work
-            <form action="tiki-calendar_edit_item.php" method="post">
-                <input type ="hidden" name="viewcalitemId" value="{$calitemId}">
-                <input type="text" name="guests">{help desc="{tr}Format:{/tr} {tr}Participant names separated by comma{/tr}" url='calendar'}
-                <input type="button" class="btn btn-primary btn-sm" name="add_guest" value="Add guests">
-            </form>
-        *}
-    {/if}
 {/block}

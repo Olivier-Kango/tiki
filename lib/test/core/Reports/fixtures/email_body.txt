@@ -19,7 +19,7 @@ Last Report sent on Sunday 15 of January, 2012.<br /><br />
 <b>File galleries changed:</b><br />
 &nbsp;&nbsp;&nbsp;2012-03-30 13:49: <u>admin</u> uploaded the file <a href="tiki-download_file.php?fileId=2">tiki</a> onto <a href="tiki-list_file_gallery.php?galleryId=1">File Galleries</a>.<br>
 <b>New calendar events:</b><br />
-&nbsp;&nbsp;&nbsp;2012-03-30 13:50: <u>admin</u> added or updated event <a href='tiki-calendar_edit_item.php?viewcalitemId=1'></a><br>
+&nbsp;&nbsp;&nbsp;2012-03-30 13:50: <u>admin</u> added or updated event <a href='tiki-ajax_services.php?controller=calendar&action=view_item&calitemId=1'></a><br>
 <b>Changes in categories:</b><br />
 &nbsp;&nbsp;&nbsp;2012-03-30 13:51: <u>admin</u> added the wiki page <a href="tiki-index.php?page=HomePage">HomePage</a> to the category <a href="tiki-browse_categories.php?parentId=1&deep=off">Test category</a><br>
 &nbsp;&nbsp;&nbsp;2012-03-30 13:51: <u>admin</u> added the wiki page <a href="tiki-index.php?page=My+Resume">My Resume</a> to the category <a href="tiki-browse_categories.php?parentId=1&deep=off">Test category</a><br>
