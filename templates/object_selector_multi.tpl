@@ -24,6 +24,7 @@
     data-filters="{$object_selector_multi.filter|escape}"
     data-threshold="{$object_selector_multi.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-searchfield="{$object_selector_multi.searchfield|escape}"
+    data-relationshiptrackerid="{$object_selector_multi.relationshipTrackerId}"
 >{"\n"|implode:$object_selector_multi.current_selection}</textarea>
     <div class="basic-selector d-none">
         <select class="form-select" multiple>
@@ -53,7 +54,10 @@
                             {if $object|substring:0:11 eq 'trackeritem'}
                                 {tracker_item_status_icon item=$object|substring:12}
                             {/if}
-                            {$object.title|escape}
+                            {$object->getTitle($object_selector_multi.format)|escape}
+                            {if isset($object.metadata) && $object.metadata}
+                                {icon name='clipboard-list' title='edit metadata'|tra href=$object.metadata.itemId|sefurl:'trackeritem'}
+                            {/if}
                         </label>
                     </div>
                 {/foreach}
@@ -63,6 +67,12 @@
             </p>
         </div>
     </div>
+
+    {if $object_selector_multi.relationshipTrackerId}
+    <div class="metadata-icon-template d-none">
+        {icon name="clipboard-list" title="add metadata"|tra href={service controller='tracker' action="insert_item" trackerId=$object_selector.relationshipTrackerId modal=1}}
+    </div>
+    {/if}
 </div>
 
 {jq}

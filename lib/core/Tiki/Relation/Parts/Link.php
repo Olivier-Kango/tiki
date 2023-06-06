@@ -4,31 +4,25 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-namespace Tiki\ObjectSelector;
 
-class SelectorItem implements \ArrayAccess
+namespace Tiki\Relation\Parts;
+
+use TikiLib;
+
+abstract class Link implements \ArrayAccess
 {
-    private $selector;
-    private $type;
-    private $object;
-    private $format;
+    public string $type;
+    public string $itemId;
 
-    public function __construct($selector, $type, $object, $format = null)
+    public function __construct(string $type, string $itemId)
     {
-        $this->selector = $selector;
         $this->type = $type;
-        $this->object = $object;
-        $this->format = $format;
-    }
-
-    public function getTitle($format = null)
-    {
-        return $this->selector->getTitle($this->type, $this->object, $format ?? $this->format);
+        $this->itemId = $itemId;
     }
 
     public function offsetExists($offset): bool
     {
-        return in_array($offset, ['type', 'id', 'title']);
+        return in_array($offset, ['type', 'itemId']);
     }
 
     public function offsetGet($offset): mixed
@@ -36,8 +30,8 @@ class SelectorItem implements \ArrayAccess
         switch ($offset) {
             case 'type':
                 return $this->type;
-            case 'id':
-                return $this->object;
+            case 'itemId':
+                return $this->itemId;
             case 'title':
                 return $this->getTitle();
         }
@@ -53,6 +47,15 @@ class SelectorItem implements \ArrayAccess
 
     public function __toString()
     {
-        return "{$this->type}:{$this->object}";
+        return $this->type . ':' . $this->itemId;
+    }
+
+    public function getTitle($format = null)
+    {
+        $title = TikiLib::lib('object')->get_title($this->type, $this->itemId, $format);
+        if (empty($title)) {
+            $title = strval($this);
+        }
+        return $title;
     }
 }

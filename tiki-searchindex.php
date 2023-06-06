@@ -304,7 +304,7 @@ function tiki_searchindex_get_excluded_facets()
     global $prefs;
 
     return array_merge(
-        $prefs['search_excluded_facets'],
+        (array)$prefs['search_excluded_facets'],
         [
             'date_histogram',
             'date_range',

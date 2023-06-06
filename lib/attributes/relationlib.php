@@ -9,6 +9,9 @@
  *
  * @uses TikiDb_Bridge
  */
+
+use Tiki\Relation\ObjectRelation;
+
 class RelationLib extends TikiDb_Bridge
 {
     private $table;
@@ -49,24 +52,23 @@ class RelationLib extends TikiDb_Bridge
     /**
      * Similar to get_relations_from but uses the fieldId parameter to filter the related object rows.
      * This makes use of the source index for quicker retrieval and doesn't depend on relation qualifier.
+     * @return array of ObjectRelation objects filled with all relation data
      */
-    public function getRelationsFromField($type, $object, $fieldId)
+    public function getObjectRelationsFromField($type, $object, $fieldId)
     {
         $cond = [
             'source_type' => $type,
             'source_itemId' => $object,
             'source_fieldId' => $fieldId,
         ];
+        $rows = $this->table->fetchAll($this->table->all(), $cond);
 
-        $fields = [
-            'relationId',
-            'relation',
-            'type' => 'target_type',
-            'itemId' => 'target_itemId',
-            'metaItemId' => 'metadata_itemId',
-        ];
+        $result = [];
+        foreach ($rows as $row) {
+            $result[] = new ObjectRelation($row);
+        }
 
-        return $this->table->fetchAll($fields, $cond);
+        return $result;
     }
 
 

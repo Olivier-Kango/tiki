@@ -45,7 +45,9 @@ function smarty_function_object_selector_multi($params, $smarty)
         'sort' => null,
         'wildcard' => 'n',
         'extra_type' => null,
-        'selector_type_reference' => null
+        'selector_type_reference' => null,
+        'relations' => [],
+        'relationshipTrackerId' => null,
     ];
 
     // Handle reserved parameters
@@ -85,7 +87,9 @@ function smarty_function_object_selector_multi($params, $smarty)
 
     $selector = TikiLib::lib('objectselector');
 
-    if ($arguments['simplevalue'] && ! empty($arguments['filter']['type']) && $arguments['separator']) {
+    if ($arguments['relations']) {
+        $arguments['current_selection'] = $arguments['relations'];
+    } elseif ($arguments['simplevalue'] && ! empty($arguments['filter']['type']) && $arguments['separator']) {
         $arguments['current_selection'] = $selector->readMultipleSimple($arguments['filter']['type'], $arguments['simplevalue'], $arguments['separator'], $arguments['format']);
     } else {
         $arguments['current_selection'] = $selector->readMultiple($arguments['value'], $arguments['format']);
@@ -99,6 +103,10 @@ function smarty_function_object_selector_multi($params, $smarty)
         $arguments['class'] .= ' d-none';
     } else {
         $arguments['simpleclass'] .= ' d-none';
+    }
+
+    if ($arguments['relationshipTrackerId']) {
+        $arguments['threshold'] = 0;
     }
 
     $arguments['current_selection_simple'] = array_map(function ($item) {

@@ -41,6 +41,8 @@ function smarty_function_object_selector($params, $smarty)
         'format' => null,
         'placeholder' => tr('Title'),
         'sort' => null,
+        'relations' => [],
+        'relationshipTrackerId' => null,
     ];
 
     // Handle reserved parameters
@@ -82,6 +84,12 @@ function smarty_function_object_selector($params, $smarty)
         $arguments['value'] = "{$arguments['filter']['type']}:{$arguments['simplevalue']}";
         $arguments['simpleclass'] = null;
         $arguments['class'] .= ' d-none';
+    }
+
+    if ($arguments['relations']) {
+        $rel = array_shift($arguments['relations']);
+        $arguments['value'] = strval($rel->target);
+        $arguments['metadata'] = $rel->metadata;
     }
 
     $selector = TikiLib::lib('objectselector');

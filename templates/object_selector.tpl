@@ -26,13 +26,18 @@
     data-threshold="{$object_selector.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-searchfield="{$object_selector.searchfield|escape}"
 >
-    <div class="basic-selector d-none mb-3">
+    <div class="basic-selector d-none mb-3{if $object_selector.metadata or $object_selector.relationshipTrackerId} include-icon{/if}">
         <select class="form-select">
             <option value="" class="protected">&mdash;</option>
             {if !empty($object_selector.current_selection)}
                 <option value="{$object_selector.current_selection|escape}" selected="selected">{$object_selector.current_selection.title|escape}</option>
             {/if}
         </select>
+        {if $object_selector.metadata}
+            {icon name="clipboard-list" title="edit metadata"|tra href=$object_selector.metadata.itemId|sefurl:'trackeritem'}
+        {elseif $object_selector.relationshipTrackerId}
+            {icon name="clipboard-list" title="add metadata"|tra href={service controller='tracker' action="insert_item" trackerId=$object_selector.relationshipTrackerId modal=1}}
+        {/if}
     </div>
 
     <div class="card d-none">

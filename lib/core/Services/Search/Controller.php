@@ -206,7 +206,7 @@ class Services_Search_Controller
                     'object_type' => $item['object_type'],
                     'object_id' => $item['object_id'],
                     'parent_id' => $item['gallery_id'],
-                    'title' => preg_replace_callback('/\{(\w+)\}/', function ($matches) use ($item, $format, $titleFilter, $highlightHelper) {
+                    'title' => preg_replace_callback('/\{([\w\.]+)\}/', function ($matches) use ($item, $format, $titleFilter, $highlightHelper) {
                         $key = $matches[1];
                         if (isset($item[$key])) {
                             // if this is a trackeritem we do not want only the name but also the trackerid listed when setting up a field
@@ -229,6 +229,8 @@ class Services_Search_Controller
                                 }
                                 return $value;
                             }
+                        } elseif (substr($key, 0, 5) == 'meta.') {
+                            return '';
                         } elseif ($format == '{title}') {
                             return tr('empty');
                         } else {

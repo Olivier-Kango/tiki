@@ -408,6 +408,16 @@ span.btn-link {
     margin-right: 2px;
 }
 
+.include-icon .form-select, .include-icon .select2-container--bootstrap-5 {
+    width: calc(100% - #{$btn-padding-x}*2 - 20px) !important;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.form-check-label .btn {
+    --bs-btn-padding-y: 0;
+}
+
 //date picker dropdowns
 select.form-control.date {
     width: auto;
