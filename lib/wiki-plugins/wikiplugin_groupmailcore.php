@@ -105,8 +105,8 @@ function wikiplugin_groupmailcore($data, $params)
     require_once('lib/wiki-plugins/wikiplugin_trackerlist.php');
 
     $trackerparams = [];
-    $trackerparams['trackerId'] = $params['trackerId'];
-    $trackerparams['fields'] = $params['fromFId'] . ':' . ($params['operatorFId'] ?? 0) . ':' . $params['subjectFId'] . ':' . $params['datetimeFId'];
+    $trackerparams['trackerId'] = $params['trackerId'] ?? 0;
+    $trackerparams['fields'] = $params['fromFId'] . ':' . $params['operatorFId'] . ':' . $params['subjectFId'] . ':' . $params['datetimeFId'];
     $trackerparams['popup'] = $params['fromFId'] . ':' . $params['contentFId'];
     $trackerparams['filterfield'] = $params['fromFId'] . ':' . $params['accountFId'];
     $trackerparams['filtervalue'] = $params['fromEmail'] . ':' . (isset($params['accountName']) ? $params['accountName'] : '');
