@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4c59a7f09e5443883d876758b1c3f35",
+    "content-hash": "5218fa63f1d8e564ee5ed1d9190faf83",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -8900,9 +8900,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gggeek/phpxmlrpc/zipball/ac18e315ac200692f3b02c773036c24be0acbefa",
+                "url": "https://composer.tiki.org/dist/phpxmlrpc/phpxmlrpc/phpxmlrpc-phpxmlrpc-ac18e315ac200692f3b02c773036c24be0acbefa-zip-46f3e7.zip",
                 "reference": "ac18e315ac200692f3b02c773036c24be0acbefa",
-                "shasum": ""
+                "shasum": "380fd8adbb5458e4eed28ecefc29856e476f7526"
             },
             "require": {
                 "ext-xml": "*",
@@ -8944,10 +8944,6 @@
                 "xml-rpc",
                 "xmlrpc"
             ],
-            "support": {
-                "issues": "https://github.com/gggeek/phpxmlrpc/issues",
-                "source": "https://github.com/gggeek/phpxmlrpc/tree/4.10.1"
-            },
             "time": "2023-02-22T12:25:19+00:00"
         },
         {
