@@ -240,7 +240,10 @@ if (! empty($varcheck_errors) && ! TIKI_API) {
         Feedback::error($varcheck_errors, true);
         exit(1);
     } else {
-        $varcheck_errors['tpl'] = 'error_raw.tpl';
+        $varcheck_errors = [
+            'tpl' => 'error_raw.tpl',
+            'mes' => $varcheck_errors,
+        ];
         Feedback::errorPage($varcheck_errors);
     }
 }
