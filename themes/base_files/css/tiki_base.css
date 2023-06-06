@@ -676,15 +676,14 @@ pre.codelisting code {
 div.highlight.adminoptionbox a {
   color: #fff !important;
 }
-input[type="checkbox"].preffilter-toggle-round + label, input[type="checkbox"].simple-toggle-round + label {
+input[type="checkbox"].preffilter-toggle-round + label {
   background-color: #dee2e6;
-
 }
-input[type="checkbox"].preffilter-toggle-round + label:before, input[type="checkbox"].simple-toggle-round + label:before {
-  color: #212529;
-  background-color: #fff;
+input[type="checkbox"].preffilter-toggle-round + label:before {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
 }
-input[type="checkbox"].preffilter-toggle-round:checked + label:before, input[type="checkbox"].simple-toggle-round:checked + label:before {
+input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   background-color: #198754;
   border-color: #0257d5;
   color: white;
@@ -3133,7 +3132,6 @@ table.objectperms .checkBoxHeader > div, table.objectperms > tbody .checkBoxLabe
   text-overflow: ellipsis;
   line-height: 2;
   text-indent: 1.7em;
-  z-index: 1;
 }
 .objectperms .checkBoxHeader > div > label {
   width: 140px;
@@ -3181,7 +3179,7 @@ table.objectperms thead th {
   .admin-navbar .form-inline {
     min-width: 100%;
   }
-  .admin-navbar input[type="checkbox"].preffilter-toggle-round + label, .admin-navbar input[type="checkbox"].preffilter-toggle-round + label {
+  .admin-navbar input[type="checkbox"].preffilter-toggle-round + label {
     margin-left: 10px;
   }
   .meta-tabs-col1 {
@@ -3196,6 +3194,31 @@ table.objectperms thead th {
 }
 .tiki-admin .navbar-expand-md .navbar-nav.mr-auto .nav-link {
   padding: 0 0.4rem;
+}
+.toggle-unified-admin-panel {
+  background-color: #effbff !important;
+  padding: 16px;
+  width: 100%;
+  border: 1px solid #bceeff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+@media (max-width: 575.98px) {
+  .toggle-unified-admin-panel {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .toggle-unified-admin-panel p {
+    text-align: center;
+  }
+  .toggle-unified-admin-panel .toggle-btn {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
 }
 form.simple label.error {
   padding: 4px 0 0 20px;
@@ -5044,31 +5067,6 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
 #copyButton:hover {
   color: #0d6efd;
 }
-.toggle-unified-admin-panel {
-  background-color: #effbff !important;
-  padding: 16px;
-  width: 100%;
-  border: 1px solid #bceeff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-@media (max-width: 575.98px) {
-  .toggle-unified-admin-panel {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .toggle-unified-admin-panel p {
-    text-align: center;
-  }
-  .toggle-unified-admin-panel .toggle-btn {
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-}
 /* End of file */
 .tiki .table-sticky {
   overflow: visible !important;
@@ -5090,4 +5088,4 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
   z-index: 1;
 }
 /* End of file */
-/*# sourceMappingURL=tiki_base.css.map */
+

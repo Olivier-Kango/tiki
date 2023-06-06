@@ -516,7 +516,7 @@ body.tiki-admin {
   }
 }
 @media (min-width: 992px) {
-  .tiki-admin:not(.fixed_width) .container.container-std .col1, .tiki-admin:not(.fixed_width) .middle_outer .main-footer {
+  .tiki-admin:not(.fixed_width) .container.container-std .col1, .tiki-admin:not(.fixed_width) .middle_outer .main-footer, .tiki-admin.layout_basic:not(.fixed_width) .container-std .main-footer {
     padding-left: 290px;
   }
 }
@@ -639,4 +639,4 @@ body.tiki-admin {
   width: min-content;
   margin: 0.5rem;
 }
-/*# sourceMappingURL=adminui.css.map */
+
