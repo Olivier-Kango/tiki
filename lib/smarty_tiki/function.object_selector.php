@@ -86,14 +86,12 @@ function smarty_function_object_selector($params, $smarty)
         $arguments['class'] .= ' d-none';
     }
 
-    if ($arguments['relations']) {
-        $rel = array_shift($arguments['relations']);
-        $arguments['value'] = strval($rel->target);
-        $arguments['metadata'] = $rel->metadata;
-    }
-
     $selector = TikiLib::lib('objectselector');
-    $arguments['current_selection'] = $selector->read($arguments['value'], $arguments['format']);
+    if ($arguments['relations']) {
+        $arguments['current_selection'] = array_shift($arguments['relations']);
+    } else {
+        $arguments['current_selection'] = $selector->read($arguments['value'], $arguments['format']);
+    }
 
     $arguments['filter'] = json_encode($arguments['filter']);
 

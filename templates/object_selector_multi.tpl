@@ -56,7 +56,7 @@
                             {/if}
                             {$object->getTitle($object_selector_multi.format)|escape}
                             {if isset($object.metadata) && $object.metadata}
-                                {icon name='clipboard-list' title='edit metadata'|tra href=$object.metadata.itemId|sefurl:'trackeritem'}
+                                <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object.metadata.trackerId itemId=$object.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
                             {/if}
                         </label>
                     </div>
@@ -70,7 +70,7 @@
 
     {if $object_selector_multi.relationshipTrackerId}
     <div class="metadata-icon-template d-none">
-        {icon name="clipboard-list" title="add metadata"|tra href={service controller='tracker' action="insert_item" trackerId=$object_selector.relationshipTrackerId modal=1}}
+        <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector_multi.relationshipTrackerId skipRefresh=1}" title="add metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
     </div>
     {/if}
 </div>

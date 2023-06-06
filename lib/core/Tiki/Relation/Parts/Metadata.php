@@ -7,6 +7,8 @@
 
 namespace Tiki\Relation\Parts;
 
+use TikiLib;
+
 class Metadata implements \ArrayAccess
 {
     public int $itemId;
@@ -18,7 +20,7 @@ class Metadata implements \ArrayAccess
 
     public function offsetExists($offset): bool
     {
-        return $offset == 'itemId';
+        return in_array($offset, ['itemId', 'trackerId']);
     }
 
     public function offsetGet($offset): mixed
@@ -26,6 +28,9 @@ class Metadata implements \ArrayAccess
         switch ($offset) {
             case 'itemId':
                 return $this->itemId;
+            case 'trackerId':
+                $item = TikiLib::lib('trk')->get_tracker_item($this->itemId);
+                return $item['trackerId'] ?? null;
         }
     }
 

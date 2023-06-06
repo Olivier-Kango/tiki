@@ -26,17 +26,17 @@
     data-threshold="{$object_selector.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-searchfield="{$object_selector.searchfield|escape}"
 >
-    <div class="basic-selector d-none mb-3{if $object_selector.metadata or $object_selector.relationshipTrackerId} include-icon{/if}">
+    <div class="basic-selector d-none mb-3{if !empty($object_selector.current_selection.metadata) or $object_selector.relationshipTrackerId} include-icon{/if}">
         <select class="form-select">
             <option value="" class="protected">&mdash;</option>
             {if !empty($object_selector.current_selection)}
                 <option value="{$object_selector.current_selection|escape}" selected="selected">{$object_selector.current_selection.title|escape}</option>
             {/if}
         </select>
-        {if $object_selector.metadata}
-            {icon name="clipboard-list" title="edit metadata"|tra href=$object_selector.metadata.itemId|sefurl:'trackeritem'}
+        {if !empty($object_selector.current_selection.metadata)}
+            <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
         {elseif $object_selector.relationshipTrackerId}
-            {icon name="clipboard-list" title="add metadata"|tra href={service controller='tracker' action="insert_item" trackerId=$object_selector.relationshipTrackerId modal=1}}
+            <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1}" title="add metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
         {/if}
     </div>
 
@@ -61,6 +61,9 @@
                     <div class="form-check">
                         <input type="radio" checked="checked" value="{$object_selector.current_selection|escape}" name="{$object_selector.id|escape}_sel" name="{$object_selector.id|escape}_sel_selected">
                         <label class="form-check-label" for="{$object_selector.id|escape}_sel_selected">{$object_selector.current_selection.title|escape}</label>
+                        {if !empty($object_selector.current_selection.metadata)}
+                            <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
+                        {/if}
                     </div>
                 {/if}
             </div>

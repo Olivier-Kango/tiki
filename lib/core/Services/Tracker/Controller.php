@@ -1326,8 +1326,14 @@ class Services_Tracker_Controller
                     $referer = Services_Utilities::noJsPath();
 
                     // Return item data and refresh info
-                    $return = Services_Utilities::refresh($referer);
-                    $return = array_merge($return, $item);
+                    if ($input->skipRefresh->bool()) {
+                        $return = Services_Utilities::closeModal($referer);
+                        $return = array_merge($return, $item);
+                    } else {
+                        $return = Services_Utilities::refresh($referer);
+                        $return = array_merge($return, $item);
+                    }
+
                     // send a new ticket back to allow subsequent updates
                     $util = new Services_Utilities();
                     $util->setTicket();
@@ -1433,6 +1439,7 @@ class Services_Tracker_Controller
             'saveAndComment' => $saveAndComment,
             'suppressFeedback' => $suppressFeedback,
             'conflictoverride' => $input->conflictoverride->int(),
+            'skipRefresh' => $input->skipRefresh->bool(),
         ];
     }
 

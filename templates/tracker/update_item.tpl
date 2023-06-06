@@ -31,6 +31,7 @@
                 {/if}
                 <input type="hidden" name="redirect" value="{$redirect|escape}">
                 <input type="hidden" name="conflictoverride" value="{$conflictoverride|escape}">
+                <input type="hidden" name="skipRefresh" value="{$skipRefresh|escape}">
                 <input type="submit" class="btn btn-primary" value="{$button_label}" onclick="needToConfirm=false;">
             </div>
         </form>
@@ -52,6 +53,7 @@
                 {/foreach}
                 <input type="hidden" name="redirect" value="{$redirect|escape}">
                 <input type="hidden" name="conflictoverride" value="{$conflictoverride|escape}">
+                <input type="hidden" name="skipRefresh" value="{$skipRefresh|escape}">
                 <input type="submit" class="btn btn-primary" value="{$button_label}" onclick="needToConfirm=false;">
             </div>
         </form>
