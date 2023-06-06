@@ -106,10 +106,10 @@ function wikiplugin_groupmailcore($data, $params)
 
     $trackerparams = [];
     $trackerparams['trackerId'] = $params['trackerId'] ?? 0;
-    $trackerparams['fields'] = $params['fromFId'] . ':' . $params['operatorFId'] . ':' . $params['subjectFId'] . ':' . $params['datetimeFId'];
-    $trackerparams['popup'] = $params['fromFId'] . ':' . $params['contentFId'];
-    $trackerparams['filterfield'] = ($params['fromFId'] ?? 0) . ':' . $params['accountFId'];
-    $trackerparams['filtervalue'] = $params['fromEmail'] . ':' . $params['accountName'];
+    $trackerparams['fields'] = ($params['fromFId'] ?? 0) . ':' . ($params['operatorFId'] ?? 0) . ':' . ($params['subjectFId'] ?? 0) . ':' . ($params['datetimeFId'] ?? 0);
+    $trackerparams['popup'] = ($params['fromFId'] ?? 0) . ':' . ($params['contentFId'] ?? 0);
+    $trackerparams['filterfield'] = ($params['fromFId'] ?? 0) . ':' . ($params['accountFId'] ?? 0);
+    $trackerparams['filtervalue'] = (isset($params['fromEmail']) ? $params['fromEmail'] : '') . ':' . (isset($params['accountName']) ? $params['accountName'] : '');
     $trackerparams['stickypopup'] = 'n';
     $trackerparams['showlinks'] = 'y';
     $trackerparams['shownbitems'] = 'n';
