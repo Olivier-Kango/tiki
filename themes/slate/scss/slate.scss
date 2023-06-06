@@ -30,7 +30,7 @@ body {
   background: #272b30;
 }
 
-body.fullscreen { background: $body-bg; }
+body.fullscreen { background: var(--#{$prefix}body-bg); }
 
 // Increase navbar height to reinstate Bootswatch style
 .topbar_modules > * {

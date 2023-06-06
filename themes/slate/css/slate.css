@@ -2977,11 +2977,11 @@ textarea.form-control-lg {
   --bs-dropdown-divider-bg: rgba(0, 0, 0, 0.15);
   --bs-dropdown-divider-margin-y: 0.5rem;
   --bs-dropdown-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  --bs-dropdown-link-color: #aaa;
+  --bs-dropdown-link-color: var(--bs-body-color);
   --bs-dropdown-link-hover-color: #fff;
-  --bs-dropdown-link-hover-bg: #272b30;
+  --bs-dropdown-link-hover-bg: var(--bs-body-bg);
   --bs-dropdown-link-active-color: #fff;
-  --bs-dropdown-link-active-bg: #272b30;
+  --bs-dropdown-link-active-bg: var(--bs-body-bg);
   --bs-dropdown-link-disabled-color: var(--bs-tertiary-color);
   --bs-dropdown-item-padding-x: 1rem;
   --bs-dropdown-item-padding-y: 0.25rem;
@@ -3236,7 +3236,7 @@ textarea.form-control-lg {
   --bs-dropdown-divider-bg: rgba(0, 0, 0, 0.15);
   --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
   --bs-dropdown-link-active-color: #fff;
-  --bs-dropdown-link-active-bg: #272b30;
+  --bs-dropdown-link-active-bg: var(--bs-body-bg);
   --bs-dropdown-link-disabled-color: #999;
   --bs-dropdown-header-color: #999;
 }
@@ -13716,11 +13716,11 @@ textarea.form-control-lg {
   --bs-dropdown-divider-bg: rgba(0, 0, 0, 0.15);
   --bs-dropdown-divider-margin-y: 0.5rem;
   --bs-dropdown-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  --bs-dropdown-link-color: #aaa;
+  --bs-dropdown-link-color: var(--bs-body-color);
   --bs-dropdown-link-hover-color: #fff;
-  --bs-dropdown-link-hover-bg: #272b30;
+  --bs-dropdown-link-hover-bg: var(--bs-body-bg);
   --bs-dropdown-link-active-color: #fff;
-  --bs-dropdown-link-active-bg: #272b30;
+  --bs-dropdown-link-active-bg: var(--bs-body-bg);
   --bs-dropdown-link-disabled-color: var(--bs-tertiary-color);
   --bs-dropdown-item-padding-x: 1rem;
   --bs-dropdown-item-padding-y: 0.25rem;
@@ -13975,7 +13975,7 @@ textarea.form-control-lg {
   --bs-dropdown-divider-bg: rgba(0, 0, 0, 0.15);
   --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
   --bs-dropdown-link-active-color: #fff;
-  --bs-dropdown-link-active-bg: #272b30;
+  --bs-dropdown-link-active-bg: var(--bs-body-bg);
   --bs-dropdown-link-disabled-color: #999;
   --bs-dropdown-header-color: #999;
 }
@@ -22625,18 +22625,18 @@ form.simple label .warning {
   color: #aaa;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #e9ecef;
-  border: outset 1px #e9ecef;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #aaa;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #eaeaea;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {
@@ -23135,7 +23135,7 @@ blockquote {
   color: #ee5f5b;
 }
 .dropdown-menu.mega-menu a {
-  color: #aaa;
+  color: var(--bs-body-color);
 }
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {
   --bs-btn-padding-x: 0.75rem;
@@ -23905,7 +23905,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-radius: 0;
 }
 .tiki-webmail .dropdown-menu .dropdown-item, .tiki-webmail .dropdown-menu .dropdown-item .icon, .tiki-cypht .dropdown-menu .dropdown-item, .tiki-cypht .dropdown-menu .dropdown-item .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item, .mobile.tiki-cypht .dropdown-menu .dropdown-item .icon, .inline-cypht .dropdown-menu .dropdown-item, .inline-cypht .dropdown-menu .dropdown-item .icon {
-  color: #aaa !important;
+  color: var(--bs-body-color) !important;
 }
 .tiki-webmail .dropdown-menu .dropdown-item:hover, .tiki-webmail .dropdown-menu .dropdown-item:hover .icon, .tiki-webmail .dropdown-menu .dropdown-item:focus, .tiki-webmail .dropdown-menu .dropdown-item:focus .icon, .tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .inline-cypht .dropdown-menu .dropdown-item:hover, .inline-cypht .dropdown-menu .dropdown-item:hover .icon, .inline-cypht .dropdown-menu .dropdown-item:focus, .inline-cypht .dropdown-menu .dropdown-item:focus .icon {
   color: #fff !important;
@@ -24205,7 +24205,7 @@ body {
   background: #272b30;
 }
 body.fullscreen {
-  background: #272b30;
+  background: var(--bs-body-bg);
 }
 .topbar_modules > * {
   margin-top: 0.5rem;

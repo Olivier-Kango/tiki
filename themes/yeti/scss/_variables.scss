@@ -145,7 +145,7 @@ $dropdown-divider-bg:               rgba($black, .1) !default;
 
 // Navs
 
-$nav-link-disabled-color:           $gray-400 !default;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $gray-400 !default;
 $nav-tabs-border-color:             $dropdown-border-color !default;
 $nav-tabs-link-hover-border-color:  $nav-tabs-border-color !default;
 $nav-tabs-link-active-border-color: $nav-tabs-border-color !default;

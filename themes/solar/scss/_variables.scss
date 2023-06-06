@@ -45,6 +45,11 @@ $min-contrast-ratio:   2.5 !default;
 $green-300: tint-color($green, 40%) !default;
 $red-300: tint-color($red, 40%) !default;
 
+// Prefix for :root CSS variables
+
+$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
+
 // Body
 
 $body-bg:                   $gray-900 !default;
@@ -72,7 +77,7 @@ $table-hover-bg:              rgba($white, .075) !default;
 $table-border-color:          $component-active-bg !default;
 $table-dark-bg:               $gray-500 !default;
 $table-dark-border-color:     darken($gray-500, 3%) !default;
-$table-dark-color:            $body-bg !default;
+$table-dark-color:            var(--#{$prefix}body-bg);
 
 $table-bg-scale:              0 !default;
 
@@ -102,17 +107,17 @@ $form-file-button-color:          $gray-600 !default;
 // Dropdowns
 
 $dropdown-bg:                       $gray-800 !default;
-$dropdown-divider-bg:               $body-bg !default;
-$dropdown-link-color:               $body-color !default;
+$dropdown-divider-bg:               var(--#{$prefix}body-bg);
+$dropdown-link-color:               var(--#{$prefix}body-color);
 $dropdown-link-hover-color:         rgba(255, 255, 255, .75) !default;
-$dropdown-link-hover-bg:            $body-bg !default;
+$dropdown-link-hover-bg:            var(--#{$prefix}body-bg);
 
 // Navs
 
 $nav-tabs-border-color:             $gray-800 !default;
 $nav-tabs-link-hover-border-color:  $nav-tabs-border-color !default;
 $nav-tabs-link-active-color:        $component-active-color !default;
-$nav-tabs-link-active-bg:           $body-bg !default;
+$nav-tabs-link-active-bg:           var(--#{$prefix}body-bg);
 $nav-tabs-link-active-border-color: $nav-tabs-border-color !default;
 
 // Navbars
@@ -142,7 +147,7 @@ $card-bg:                           rgba($gray-200, .125) !default;
 // Popovers
 
 $popover-bg:                        $gray-800 !default;
-$popover-border-color:              $body-bg !default;
+$popover-border-color:              var(--#{$prefix}body-bg);
 $popover-header-bg:                 $gray-800 !default;
 
 // Toasts
@@ -156,8 +161,8 @@ $toast-header-border-color:         $toast-border-color !default;
 // Modals
 
 $modal-content-bg:                  $gray-800 !default;
-$modal-content-border-color:        $body-bg !default;
-$modal-header-border-color:         $body-bg !default;
+$modal-content-border-color:        var(--#{$prefix}body-bg);
+$modal-header-border-color:         var(--#{$prefix}body-bg);
 
 // Progress bars
 

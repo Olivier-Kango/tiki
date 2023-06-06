@@ -2975,12 +2975,12 @@ textarea.form-control-lg {
   --bs-dropdown-border-radius: var(--bs-border-radius);
   --bs-dropdown-border-width: var(--bs-border-width);
   --bs-dropdown-inner-border-radius: calc(var(--bs-border-radius) - var(--bs-border-width));
-  --bs-dropdown-divider-bg: #002b36;
+  --bs-dropdown-divider-bg: var(--bs-body-bg);
   --bs-dropdown-divider-margin-y: 0.5rem;
   --bs-dropdown-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  --bs-dropdown-link-color: #839496;
+  --bs-dropdown-link-color: var(--bs-body-color);
   --bs-dropdown-link-hover-color: rgba(255, 255, 255, 0.75);
-  --bs-dropdown-link-hover-bg: #002b36;
+  --bs-dropdown-link-hover-bg: var(--bs-body-bg);
   --bs-dropdown-link-active-color: rgba(255, 255, 255, 0.75);
   --bs-dropdown-link-active-bg: #073642;
   --bs-dropdown-link-disabled-color: var(--bs-tertiary-color);
@@ -3234,7 +3234,7 @@ textarea.form-control-lg {
   --bs-dropdown-box-shadow: ;
   --bs-dropdown-link-color: #dee2e6;
   --bs-dropdown-link-hover-color: #fff;
-  --bs-dropdown-divider-bg: #002b36;
+  --bs-dropdown-divider-bg: var(--bs-body-bg);
   --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
   --bs-dropdown-link-active-color: rgba(255, 255, 255, 0.75);
   --bs-dropdown-link-active-bg: #073642;
@@ -3359,7 +3359,7 @@ textarea.form-control-lg {
   --bs-nav-tabs-border-radius: var(--bs-border-radius);
   --bs-nav-tabs-link-hover-border-color: #073642;
   --bs-nav-tabs-link-active-color: rgba(255, 255, 255, 0.75);
-  --bs-nav-tabs-link-active-bg: #002b36;
+  --bs-nav-tabs-link-active-bg: var(--bs-body-bg);
   --bs-nav-tabs-link-active-border-color: #073642;
   border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
 }
@@ -4867,7 +4867,7 @@ textarea.form-control-lg {
   --bs-modal-margin: 0.5rem;
   --bs-modal-color: ;
   --bs-modal-bg: #073642;
-  --bs-modal-border-color: #002b36;
+  --bs-modal-border-color: var(--bs-body-bg);
   --bs-modal-border-width: var(--bs-border-width);
   --bs-modal-border-radius: var(--bs-border-radius-lg);
   --bs-modal-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
@@ -4875,12 +4875,12 @@ textarea.form-control-lg {
   --bs-modal-header-padding-x: 1rem;
   --bs-modal-header-padding-y: 1rem;
   --bs-modal-header-padding: 1rem 1rem;
-  --bs-modal-header-border-color: #002b36;
+  --bs-modal-header-border-color: var(--bs-body-bg);
   --bs-modal-header-border-width: var(--bs-border-width);
   --bs-modal-title-line-height: 1.5;
   --bs-modal-footer-gap: 0.5rem;
   --bs-modal-footer-bg: ;
-  --bs-modal-footer-border-color: #002b36;
+  --bs-modal-footer-border-color: var(--bs-body-bg);
   --bs-modal-footer-border-width: var(--bs-border-width);
   position: fixed;
   top: 0;
@@ -5236,7 +5236,7 @@ textarea.form-control-lg {
   --bs-popover-font-size: 0.875rem;
   --bs-popover-bg: #073642;
   --bs-popover-border-width: var(--bs-border-width);
-  --bs-popover-border-color: #002b36;
+  --bs-popover-border-color: var(--bs-body-bg);
   --bs-popover-border-radius: var(--bs-border-radius-lg);
   --bs-popover-inner-border-radius: calc(var(--bs-border-radius-lg) - var(--bs-border-width));
   --bs-popover-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
@@ -5624,7 +5624,7 @@ textarea.form-control-lg {
   --bs-offcanvas-color: var(--bs-body-color);
   --bs-offcanvas-bg: var(--bs-body-bg);
   --bs-offcanvas-border-width: var(--bs-border-width);
-  --bs-offcanvas-border-color: #002b36;
+  --bs-offcanvas-border-color: var(--bs-body-bg);
   --bs-offcanvas-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   --bs-offcanvas-transition: transform 0.3s ease-in-out;
   --bs-offcanvas-title-line-height: 1.5;
@@ -10863,9 +10863,9 @@ header.navbar.fixed-top {
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #073642;
-  --tiki-admin-dropdown-link-color: #839496;
+  --tiki-admin-dropdown-link-color: var(--bs-body-color);
   --tiki-admin-dropdown-link-hover-color: rgba(255, 255, 255, 0.75);
-  --tiki-admin-dropdown-link-hover-bg: #002b36;
+  --tiki-admin-dropdown-link-hover-bg: var(--bs-body-bg);
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
   --tiki-admin-top-nav-bg: #fdf6e3;
@@ -10971,7 +10971,7 @@ table.treetable.objectperms td.removed {
   color: #fff;
 }
 .progressContainer {
-  border: solid 1px #002b36;
+  border: solid 1px var(--bs-body-bg);
   background-color: #073642;
 }
 .filter-panel-heading a:after {
@@ -11188,18 +11188,18 @@ form.simple label .warning {
   color: #839496;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #eee8d5;
-  border: outset 1px #eee8d5;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #839496;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #c8d0d0;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {
@@ -11223,7 +11223,7 @@ ul.all_languages > li {
 }
 .plugin-mouseover {
   background: #073642;
-  border: 1px solid #002b36;
+  border: 1px solid var(--bs-body-bg);
 }
 .mandatory_note {
   color: #d33682;
@@ -11381,7 +11381,7 @@ body.wikitext {
   color: #073642;
 }
 .imgbox {
-  border: 1px solid #002b36;
+  border: 1px solid var(--bs-body-bg);
   background-color: #073642;
 }
 .wp-cookie-consent-required {
@@ -11454,12 +11454,12 @@ div.drillshow {
 .tiki .ui-widget-content, span.plugin-mouseover {
   background: #073642;
   color: #839496;
-  border: 1px solid #002b36;
+  border: 1px solid var(--bs-body-bg);
 }
 .tiki .ui-widget-header {
   background: #073642;
   color: #839496;
-  border-color: #002b36;
+  border-color: var(--bs-body-bg);
 }
 .tiki .ui-dialog-content {
   background: #073642;
@@ -11698,7 +11698,7 @@ blockquote {
   color: #d33682;
 }
 .dropdown-menu.mega-menu a {
-  color: #839496;
+  color: var(--bs-body-color);
 }
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {
   --bs-btn-padding-x: 0.75rem;
@@ -12158,7 +12158,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .ui-state-active, .tiki .ui-widget-content .ui-state-active, .tiki .ui-widget-header .ui-state-active, .tiki a.ui-button:active, .tiki .ui-button:active, .tiki .ui-button.ui-state-active:hover {
   border: 1px solid;
   border-color: #073642;
-  background: #002b36;
+  background: var(--bs-body-bg);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.75);
 }
@@ -12405,7 +12405,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: var(--bs-border-color-translucent) !important;
 }
 .tiki-webmail .dropdown-divider, .tiki-cypht .dropdown-divider, .mobile.tiki-cypht .dropdown-divider, .inline-cypht .dropdown-divider {
-  border-color: #002b36 !important;
+  border-color: var(--bs-body-bg) !important;
 }
 .tiki-webmail .dropdown-header, .tiki-cypht .dropdown-header, .mobile.tiki-cypht .dropdown-header, .inline-cypht .dropdown-header {
   color: #839496 !important;
@@ -12468,7 +12468,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-radius: 0;
 }
 .tiki-webmail .dropdown-menu .dropdown-item, .tiki-webmail .dropdown-menu .dropdown-item .icon, .tiki-cypht .dropdown-menu .dropdown-item, .tiki-cypht .dropdown-menu .dropdown-item .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item, .mobile.tiki-cypht .dropdown-menu .dropdown-item .icon, .inline-cypht .dropdown-menu .dropdown-item, .inline-cypht .dropdown-menu .dropdown-item .icon {
-  color: #839496 !important;
+  color: var(--bs-body-color) !important;
 }
 .tiki-webmail .dropdown-menu .dropdown-item:hover, .tiki-webmail .dropdown-menu .dropdown-item:hover .icon, .tiki-webmail .dropdown-menu .dropdown-item:focus, .tiki-webmail .dropdown-menu .dropdown-item:focus .icon, .tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .inline-cypht .dropdown-menu .dropdown-item:hover, .inline-cypht .dropdown-menu .dropdown-item:hover .icon, .inline-cypht .dropdown-menu .dropdown-item:focus, .inline-cypht .dropdown-menu .dropdown-item:focus .icon {
   color: rgba(255, 255, 255, 0.75) !important;

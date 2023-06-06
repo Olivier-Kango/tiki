@@ -87,7 +87,7 @@ $box-shadow-sm:               0 1px 1px rgba($black, .1);
 
 $headings-font-weight:        700;
 
-$text-muted:                  rgba($white, .7);
+$text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- rgba($white, .7);
 
 $blockquote-footer-color:     $text-muted;
 
@@ -111,7 +111,7 @@ $btn-box-shadow:              $box-shadow;
 // Forms
 
 $input-bg:                              transparent;
-$input-disabled-bg:                     rgba($white, .1);
+$input-disabled-bg:                     var(--#{$prefix}secondary-bg) !default; // rgba($white, .1);
 
 $input-border-color:                    rgba($white, .4);
 $input-border-width:                    1px;
@@ -119,7 +119,7 @@ $input-border-width:                    1px;
 $input-focus-border-color:              $input-border-color;
 $input-focus-box-shadow:                none;
 
-$input-placeholder-color:               $text-muted;
+$input-placeholder-color:               var(--#{$prefix}secondary-color) !default; // $text-muted;
 
 $form-switch-color:               $white;
 
@@ -133,13 +133,13 @@ $form-check-input-border:                 1px solid $border-color;
 $form-select-indicator-color:       $white;
 $form-select-focus-box-shadow:    none;
 
-$form-range-track-bg:             rgba($black, .2);
+$form-range-track-bg:             var(--#{$prefix}tertiary-bg) !default; // rgba($black, .2);
 
-$form-range-thumb-disabled-bg:             $gray-500;
+$form-range-thumb-disabled-bg:             var(--#{$prefix}secondary-color) !default; // $gray-500;
 
 // Navs
 
-$nav-link-disabled-color:           $text-muted;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $text-muted;
 
 $nav-tabs-border-width:             0;
 $nav-tabs-border-radius:            0;

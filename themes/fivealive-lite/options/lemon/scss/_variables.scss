@@ -114,6 +114,12 @@ $color-contrast-dark:             $gray-900 !default;
 $color-contrast-light:            $white !default;
 $enable-gradients:          false;
 
+// Options
+
+// Prefix
+$prefix: -bs;
+
+
 $body-bg:                   $white !default;
 $bg-light: #f9a013 !important;
 
@@ -148,7 +154,7 @@ $dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 
 // Typography
 $hr-color: #ffc506;
-$text-muted:  #6B737B;
+$text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B;
 
 // Cards
 $card-border-color: #e4af00;
@@ -161,9 +167,9 @@ $table-hover-bg: #f5f5f5;
 $component-active-bg: $card-border-color; // From Grape
 
 // Forms
-$input-color: #555555;
-$input-bg: #fdf1d0;
-$input-border-color: #fee194;
+$input-color: var(--#{$prefix}body-color) !default; // #555555;
+$input-bg: var(--#{$prefix}body-bg) !default; // #fdf1d0;
+$input-border-color: var(--#{$prefix}border-color) !default; // #fee194;
 $input-border-top-color: #ceb688;
 $input-border-right-color: #fff;
 $input-border-bottom-color: #fff;

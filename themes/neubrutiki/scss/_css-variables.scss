@@ -120,3 +120,14 @@
     --tiki-admin-top-nav-bg: #{$dark};
 }
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
+:root {
+    --tiki-card-bg: #fff;
+    --tiki-card-color: var(--bs-body-color);
+//    --tiki-card-link-color:
+}
+
+[data-bs-theme=dark] {
+    --tiki-card-bg: #{$body-secondary-bg-dark};
+    --tiki-card-color: var(--bs-body-color);
+//    --tiki-card-link-color:
+}

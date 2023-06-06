@@ -103,6 +103,11 @@ $color-contrast-light:            $white !default;
 //$bg-light: #f4dded;
 $bg-light: #a02871 !important;
 
+// Options
+
+// Prefix
+$prefix: -bs;
+
 // Links
 $link-color: #a02871;
 $link-hover-color: #a02871;
@@ -117,7 +122,7 @@ $nav-tabs-link-active-bg: #742157; // same as $dropdown-link-hover-bg;
 // Navbars
 
 // Typography
-$text-muted:  #6B737B;
+$text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B;
 $hr-color: #a02871;
 $headings-font-weight: 700;
 
@@ -133,9 +138,9 @@ $table-hover-bg: #f5f5f5;
 $component-active-bg: $card-border-color;
 
 // Forms
-$input-color: #555555;
-$input-bg: #f4dded;
-$input-border-color: #e4afd3;
+$input-color: var(--#{$prefix}body-color) !default; // #555555;
+$input-bg: var(--#{$prefix}body-bg) !default; // #f4dded;
+$input-border-color: var(--#{$prefix}border-color) !default; // #e4afd3;
 $input-border-top-color: #e4afd3;
 $input-border-right-color: #fff;
 $input-border-bottom-color: #fff;

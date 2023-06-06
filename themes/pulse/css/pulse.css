@@ -10964,18 +10964,18 @@ form.simple label .warning {
   color: #444;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #f9f8fc;
-  border: outset 1px #f9f8fc;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #444;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #848484;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {

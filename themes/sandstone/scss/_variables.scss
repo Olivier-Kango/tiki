@@ -44,6 +44,10 @@ $red-300: tint-color($red, 40%) !default;
 
 $min-contrast-ratio:   2 !default;
 
+// Options
+//Prefix
+$prefix: bs-;
+
 // Body
 
 $body-color:                $gray-800 !default;
@@ -69,7 +73,7 @@ $dropdown-link-active-bg:           $dropdown-link-hover-bg !default;
 // Navs
 
 $nav-link-padding-x:                .9rem !default;
-$nav-link-disabled-color:           $gray-300 !default;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $gray-300 !default;
 $nav-tabs-border-color:             $gray-300 !default;
 $nav-tabs-link-hover-border-color:  $gray-300 !default;
 $nav-tabs-link-active-bg:           $white !default;

@@ -14,7 +14,7 @@ $imagePath: "../images/";
 
 blockquote,
 .blockquote {
-    color: $body-color; // For better color contrast.
+    color: var(--#{$prefix}body-color); // For better color contrast.
     border-left-color: $table-border-color;
 }
 

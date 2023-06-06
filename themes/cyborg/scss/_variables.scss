@@ -70,7 +70,7 @@ $headings-color:          $white !default;
 
 // Tables
 
-$table-color:                   $white !default;
+$table-color:                   var(--#{$prefix}body-color) !default; // $white !default;
 $table-accent-bg:               rgba($white, .05) !default;
 $table-hover-bg:                rgba($white, .075) !default;
 $table-border-color:            $gray-700 !default;
@@ -85,11 +85,11 @@ $input-btn-padding-x:       1rem !default;
 
 // Forms
 
-$input-bg:                          $body-bg;
-$input-disabled-bg:                 $gray-400 !default;
+$input-bg:                          var(--#{$prefix}body-bg);
+$input-disabled-bg:                 var(--#{$prefix}secondary-bg) !default; // $gray-400 !default;
 
-$input-color:                       $body-color;
-$input-border-color:                $body-color;
+$input-color:                       var(--#{$prefix}body-color);
+$input-border-color:                var(--#{$prefix}body-color);
 $input-border-width:                0 !default;
 
 $input-group-addon-color:           $white !default;
@@ -101,7 +101,7 @@ $form-check-input-border:                 none !default;
 
 $form-file-button-color:          $white !default;
 
-$form-text-color: $body-color;
+$form-text-color: var(--#{$prefix}body-color);
 
 // Dropdowns
 
@@ -164,7 +164,7 @@ $popover-bg:                        $gray-700 !default;
 $toast-color:                       $white !default;
 $toast-background-color:            $gray-800 !default;
 $toast-border-color:                $gray-700 !default;
-$toast-header-color:                $body-color !default;
+$toast-header-color:                var(--#{$prefix}body-color);
 $toast-header-background-color:     $toast-background-color !default;
 $toast-header-border-color:         $toast-border-color !default;
 

@@ -1850,7 +1850,7 @@ progress {
   font-weight: 400;
   line-height: 1.5;
   color: var(--bs-body-color);
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
   background-clip: padding-box;
   border: 0 solid var(--bs-border-color);
   appearance: none;
@@ -1870,7 +1870,7 @@ progress {
 }
 .form-control:focus {
   color: var(--bs-body-color);
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
   border-color: #8d8d8d;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(26, 26, 26, 0.25);
@@ -1889,7 +1889,7 @@ progress {
   opacity: 1;
 }
 .form-control:disabled {
-  background-color: #eceeef;
+  background-color: var(--bs-secondary-bg);
   opacity: 1;
 }
 .form-control::file-selector-button {
@@ -1990,7 +1990,7 @@ textarea.form-control-lg {
   font-weight: 400;
   line-height: 1.5;
   color: var(--bs-body-color);
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
   background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
   background-repeat: no-repeat;
   background-position: right 1.5rem center;
@@ -2015,7 +2015,7 @@ textarea.form-control-lg {
   background-image: none;
 }
 .form-select:disabled {
-  background-color: #eceeef;
+  background-color: var(--bs-secondary-bg);
 }
 .form-select:-moz-focusring {
   color: transparent;
@@ -2057,7 +2057,7 @@ textarea.form-control-lg {
   margin-left: 0;
 }
 .form-check-input {
-  --bs-form-check-bg: #f7f7f9;
+  --bs-form-check-bg: var(--bs-body-bg);
   width: 1em;
   height: 1em;
   margin-top: 0.25em;
@@ -2294,7 +2294,7 @@ textarea.form-control-lg {
   z-index: -1;
   height: 1.5em;
   content: "";
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
 }
 .form-floating > .form-control:-webkit-autofill ~ label {
   color: rgba(var(--bs-body-color-rgb), 0.65);
@@ -2307,7 +2307,7 @@ textarea.form-control-lg {
   color: #919aa1;
 }
 .form-floating > :disabled ~ label::after {
-  background-color: #eceeef;
+  background-color: var(--bs-secondary-bg);
 }
 .input-group {
   position: relative;
@@ -2342,7 +2342,7 @@ textarea.form-control-lg {
   color: var(--bs-body-color);
   text-align: center;
   white-space: nowrap;
-  background-color: #eceeef;
+  background-color: var(--bs-tertiary-bg);
   border: 0 solid var(--bs-border-color);
 }
 .input-group-lg > .form-control, .input-group-lg > .form-select, .input-group-lg > .input-group-text, .input-group-lg > .btn {
@@ -10824,7 +10824,7 @@ div #metadata fieldset.tabcontent, div #metadata div.tabs {
   background-color: transparent;
 }
 input:-webkit-autofill {
-  background-color: #f7f7f9 !important;
+  background-color: var(--bs-body-bg) !important;
   /* needs important because Chrome has it already important */
   background-image: none !important;
   color: var(--bs-body-color) !important;
@@ -10956,18 +10956,18 @@ form.simple label .warning {
   color: #55595c;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #f7f7f9;
-  border: outset 1px #f7f7f9;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #55595c;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #94999c;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {
@@ -11234,7 +11234,7 @@ div.drillshow {
   color: #55595c;
 }
 .tiki .ui-dialog-content select, .tiki .ui-dialog-content input, .tiki .ui-dialog-content optgroup, .tiki .ui-dialog-content textarea {
-  background: #f7f7f9;
+  background: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
 .tiki .ui-widget button {
@@ -11243,7 +11243,7 @@ div.drillshow {
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #eceeef;
-  background: #f7f7f9;
+  background: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content .ui-menu-item-wrapper {
@@ -11321,7 +11321,7 @@ input[type="checkbox"].preffilter-toggle-round + label {
 }
 input[type="checkbox"].preffilter-toggle-round + label:before {
   color: var(--bs-body-color);
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
 }
 input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   background-color: #56c07b;
@@ -11827,7 +11827,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .pvtAggregator, .tiki .pvtRenderer, .tiki .pvtSearch, .tiki .pvtAttrDropdown {
   margin-bottom: 5px;
-  background: #f7f7f9;
+  background: var(--bs-body-bg);
   color: var(--bs-body-color);
   border: 1px solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
@@ -11845,7 +11845,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .pvtAxisContainer li span.pvtAttr {
   -webkit-text-size-adjust: 100%;
   color: var(--bs-body-color);
-  background: #f7f7f9;
+  background: var(--bs-body-bg);
   padding: 2px 5px;
   white-space: nowrap;
   border: 1px solid var(--bs-border-color);
@@ -11978,12 +11978,12 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #151515;
 }
 .tiki #conversejs input[type=text], .tiki #conversejs textarea, .tiki #conversejs select, .tiki #conversejs.converse-embedded input[type=text], .tiki #conversejs.converse-embedded textarea, .tiki #conversejs.converse-embedded select {
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border-color: var(--bs-border-color);
 }
 .tiki #conversejs form input[type=text], .tiki #conversejs form textarea, .tiki #conversejs form select, .tiki #conversejs.converse-embedded form input[type=text], .tiki #conversejs.converse-embedded form textarea, .tiki #conversejs.converse-embedded form select {
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border-color: var(--bs-border-color);
 }
@@ -12036,7 +12036,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #55595c;
 }
 .tiki #conversejs #controlbox #converse-roster .roster-filter-form .roster-filter, .tiki #conversejs.converse-embedded #controlbox #converse-roster .roster-filter-form .roster-filter {
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border-color: var(--bs-border-color);
 }
@@ -12045,7 +12045,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border: 1px solid var(--bs-border-color);
 }
 .tiki #conversejs .chatbox form.sendXMPPMessage, .tiki #conversejs.converse-embedded .chatbox form.sendXMPPMessage {
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
 }
 .tiki #conversejs .chatbox form.sendXMPPMessage .chat-toolbar, .tiki #conversejs.converse-embedded .chatbox form.sendXMPPMessage .chat-toolbar {
   background-color: #1a1a1a;
@@ -12200,7 +12200,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #151515 !important;
 }
 .tiki-webmail .form-control, .tiki-cypht .form-control, .mobile.tiki-cypht .form-control, .inline-cypht .form-control {
-  background-color: #f7f7f9 !important;
+  background-color: var(--bs-body-bg) !important;
   border-color: var(--bs-border-color) !important;
   color: var(--bs-body-color) !important;
 }
@@ -12503,7 +12503,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-weight: 400;
   line-height: 1.5;
   color: var(--bs-body-color);
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
   border: 0 solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
@@ -12513,13 +12513,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: var(--bs-body-color);
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown {
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
   border: 0 solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
 .tiki .select2-results__options .select2-results__option {
   color: var(--bs-body-color);
-  background: #f7f7f9;
+  background: var(--bs-body-bg);
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field {
   display: block;
@@ -12530,7 +12530,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-weight: 400;
   line-height: 1.5;
   color: var(--bs-body-color);
-  background-color: #f7f7f9;
+  background-color: var(--bs-body-bg);
   border: 1px solid var(--bs-border-color);
   border-radius: 0.25rem;
   transition: var(--bs-border-color) 0.15s ease-in-out, inset 0 1px 2px rgba(0, 0, 0, 0.075) 0.15s ease-in-out;

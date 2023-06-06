@@ -136,7 +136,7 @@ $form-label-font-weight:                500 !default;
 
 $input-box-shadow:                      $box-shadow !default;
 
-$input-group-addon-bg:                  $gray-100 !default;
+$input-group-addon-bg:                  var(--#{$prefix}tertiary-bg) !default; // $gray-100 !default;
 
 // Navs
 

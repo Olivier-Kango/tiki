@@ -604,7 +604,7 @@ progress {
   margin-top: -1rem;
   margin-bottom: 1rem;
   font-size: 0.875em;
-  color: #6F7780;
+  color: var(--bs-secondary-color);
 }
 .blockquote-footer::before {
   content: "— ";
@@ -12350,18 +12350,18 @@ form.simple label .warning {
   color: #000;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #e9ecef;
-  border: outset 1px #e9ecef;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #000;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #404040;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {

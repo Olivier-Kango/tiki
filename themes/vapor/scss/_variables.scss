@@ -42,6 +42,10 @@ $dark:          $gray-900 !default;
 $min-contrast-ratio:   1.2 !default;
 
 // Options
+// Prefix for :root CSS variables
+
+$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
 
 // $enable-rounded:              false !default;
 
@@ -52,7 +56,7 @@ $body-color:                $cyan !default;
 
 // Links
 
-$link-color:                              $body-color !default;
+$link-color:                             $body-color;
 
 // Components
 
@@ -80,16 +84,16 @@ $table-bg-scale:              0 !default;
 
 // Forms
 
-$input-bg:                              lighten($body-bg, 10%) !default;
-$input-disabled-bg:                     lighten($body-bg, 5%) !default;
+//$input-bg:                              lighten($body-bg, 10%) !default;
+//$input-disabled-bg:                     lighten($body-bg, 5%) !default;
 
 $input-color:                           $white !default;
 
 $input-placeholder-color:               rgba($white, .4) !default;
 
-$input-group-addon-bg:                  $input-disabled-bg !default;
+//$input-group-addon-bg:                  $input-disabled-bg !default;
 
-$form-range-track-bg:             $input-bg !default;
+//$form-range-track-bg:             $input-bg !default;
 
 $form-range-thumb-disabled-bg:             $purple !default;
 
@@ -144,12 +148,12 @@ $modal-content-bg:                  $primary !default;
 
 // Progress bars
 
-$progress-bg:                       $input-disabled-bg !default;
+//$progress-bg:                       $input-disabled-bg !default;
 
 // List group
 
 $list-group-color:                  $white !default;
-$list-group-bg:                     $input-disabled-bg !default;
+//$list-group-bg:                     $input-disabled-bg !default;
 $list-group-hover-bg:               $pink !default;
 $list-group-disabled-color:         $text-muted !default;
 $list-group-action-color:           $body-color !default;

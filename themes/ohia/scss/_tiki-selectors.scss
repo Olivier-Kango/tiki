@@ -97,7 +97,7 @@ footer.footer .modules {
 }
 
 body.fullscreen {
-    background: $body-bg;
+    background: var(--#{$prefix}body-bg);
     .container {
         border: none;
     }

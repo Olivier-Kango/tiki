@@ -44,6 +44,10 @@ $min-contrast-ratio:   1.85 !default;
 $green-300: tint-color($green, 40%) !default;
 $red-300: tint-color($red, 40%) !default;
 
+// Options
+// Prefix
+$prefix: bs-;
+
 $body-color:                $gray-800 !default;
 
 // Typography
@@ -77,8 +81,8 @@ $btn-border-radius-sm:        .844em !default;
 
 // Forms
 
-$input-border-color:                    rgba(0, 0, 0, .1) !default;
-$input-group-addon-bg:                  $gray-200 !default !default;
+$input-border-color:                    var(--#{$prefix}border-color) !default; // rgba(0, 0, 0, .1) !default;
+$input-group-addon-bg:                  var(--#{$prefix}tertiary-bg) !default; // $gray-200 !default !default;
 
 // Navbar
 

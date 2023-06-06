@@ -51,7 +51,7 @@ header.fixed-top {
     border-radius: 0;
 }
 
-.row-middle::before {
+body:not(.tiki-admin) .row-middle::before {
     content: "";
     background: url('#{$imagePath}page_background_ltr.jpg') repeat;
     position: absolute;

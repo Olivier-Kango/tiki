@@ -75,6 +75,12 @@ $min-contrast-ratio:  3;
 $color-contrast-dark:             $gray-900;
 $color-contrast-light:            $white;
 
+// Options
+
+// Prefix
+$prefix: bs-;
+
+
 
 // $bg-light: #18a3bb !important; (Changing tactics for Bootstrap 5)
 $body-bg: #fff;
@@ -107,7 +113,7 @@ $dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 $hr-color: #18a3bb;
 $text-success: #288040 !important;
 $text-danger: #d63d00 !important;
-$text-muted:  #6B737B;
+$text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B;
 
 // Tables
 $table-border-color: #1296a9;
@@ -115,9 +121,9 @@ $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
 // Forms
-$input-color: #3d3d3d;
-$input-bg: #ddf8f9;
-$input-border-color: #b4f3fb;
+$input-color: var(--#{$prefix}body-color) !default; // #3d3d3d;
+$input-bg: var(--#{$prefix}body-bg) !default; // #ddf8f9;
+$input-border-color: var(--#{$prefix}border-color) !default; // #b4f3fb;
 $input-border-top-color: #83c5ce;
 $input-border-right-color: #fff;
 $input-border-bottom-color: #fff;

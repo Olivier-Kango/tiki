@@ -20,3 +20,8 @@ $imagePath: "../images/";
 button.dropdown-toggle + .dropdown-menu  .btn.dropdown-item {
     border-radius: 0;
     background-color: transparent; }
+
+.tiki .textarea-toolbar > div,
+.tiki .textarea-toolbar > ul {
+    border: none !important;
+}

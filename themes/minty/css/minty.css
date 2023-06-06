@@ -11195,18 +11195,18 @@ form.simple label .warning {
   color: #595959;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #f7f7f9;
-  border: outset 1px #f7f7f9;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #595959;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #999;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {
@@ -12773,9 +12773,6 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .navbar-light.bg-light {
   background: #f3969a !important;
-}
-.btn:not(.btn-link) {
-  color: #000 !important;
 }
 #col2 .navbar {
   background: transparent;

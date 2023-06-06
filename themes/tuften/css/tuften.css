@@ -1886,7 +1886,7 @@ progress {
   font-weight: 400;
   line-height: 1.5;
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   background-clip: padding-box;
   border: var(--bs-border-width) solid var(--bs-border-color);
   appearance: none;
@@ -1906,7 +1906,7 @@ progress {
 }
 .form-control:focus {
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   border-color: white;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(162, 93, 37, 0.25);
@@ -2035,7 +2035,7 @@ textarea.form-control-lg {
   font-weight: 400;
   line-height: 1.5;
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
@@ -2109,7 +2109,7 @@ textarea.form-control-lg {
   margin-left: 0;
 }
 .form-check-input {
-  --bs-form-check-bg: #fff;
+  --bs-form-check-bg: var(--bs-body-bg);
   width: 1em;
   height: 1em;
   margin-top: 0.25em;
@@ -2354,7 +2354,7 @@ textarea.form-control-lg {
   z-index: -1;
   height: 1.5em;
   content: "";
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   border-radius: var(--bs-border-radius);
 }
 .form-floating > .form-control:-webkit-autofill ~ label {
@@ -2403,7 +2403,7 @@ textarea.form-control-lg {
   color: var(--bs-body-color);
   text-align: center;
   white-space: nowrap;
-  background-color: #dee2e6;
+  background-color: var(--bs-tertiary-bg);
   border: var(--bs-border-width) solid #ccc;
   border-radius: var(--bs-border-radius);
 }
@@ -3367,7 +3367,7 @@ textarea.form-control-lg {
   --bs-nav-link-font-weight: ;
   --bs-nav-link-color: var(--bs-link-color);
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: #4C5357;
+  --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -3914,7 +3914,7 @@ textarea.form-control-lg {
   --bs-card-cap-color: ;
   --bs-card-height: ;
   --bs-card-color: ;
-  --bs-card-bg: white;
+  --bs-card-bg: var(--bs-body-bg);
   --bs-card-img-overlay-padding: 1rem;
   --bs-card-group-margin: 0.75rem;
   position: relative;
@@ -4199,9 +4199,9 @@ textarea.form-control-lg {
   --bs-breadcrumb-margin-bottom: 1rem;
   --bs-breadcrumb-bg: transparent;
   --bs-breadcrumb-border-radius: ;
-  --bs-breadcrumb-divider-color: #343a40;
+  --bs-breadcrumb-divider-color: var(--bs-body-color);
   --bs-breadcrumb-item-padding-x: 0.5rem;
-  --bs-breadcrumb-item-active-color: #343a40;
+  --bs-breadcrumb-item-active-color: var(--bs-body-color);
   display: flex;
   flex-wrap: wrap;
   padding: var(--bs-breadcrumb-padding-y) var(--bs-breadcrumb-padding-x);
@@ -10796,7 +10796,7 @@ textarea.form-control-lg {
   --bs-nav-link-font-weight: ;
   --bs-nav-link-color: var(--bs-link-color);
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: #4C5357;
+  --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -11559,7 +11559,7 @@ div #metadata fieldset.tabcontent, div #metadata div.tabs {
   background-color: transparent;
 }
 input:-webkit-autofill {
-  background-color: #fff !important;
+  background-color: var(--bs-body-bg) !important;
   /* needs important because Chrome has it already important */
   background-image: none !important;
   color: var(--bs-body-color) !important;
@@ -11691,18 +11691,18 @@ form.simple label .warning {
   color: #343a40;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #e9ecef;
-  border: outset 1px #e9ecef;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #343a40;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #6d7a86;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {
@@ -11714,7 +11714,7 @@ a.toolbar:active, li.toolbar:active {
   color: #357935;
 }
 #intertrans-form {
-  background-color: white;
+  background-color: var(--bs-body-bg);
   border: 1px solid var(--bs-border-color-translucent);
   color: #343a40;
 }
@@ -11804,7 +11804,7 @@ ul.all_languages > li {
   border-left-color: #783C12 !important;
 }
 .autotoc > .nav {
-  background: white;
+  background: var(--bs-body-bg);
   border: 1px solid var(--bs-border-color-translucent);
   border-radius: 0.375rem;
 }
@@ -11969,7 +11969,7 @@ div.drillshow {
   color: #343a40;
 }
 .tiki .ui-dialog-content select, .tiki .ui-dialog-content input, .tiki .ui-dialog-content optgroup, .tiki .ui-dialog-content textarea {
-  background: #fff;
+  background: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
 .tiki .ui-widget button {
@@ -11978,7 +11978,7 @@ div.drillshow {
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;
-  background: #fff;
+  background: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content .ui-menu-item-wrapper {
@@ -12056,7 +12056,7 @@ input[type="checkbox"].preffilter-toggle-round + label {
 }
 input[type="checkbox"].preffilter-toggle-round + label:before {
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
 }
 input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   background-color: #357935;
@@ -13005,7 +13005,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .pvtAggregator, .tiki .pvtRenderer, .tiki .pvtSearch, .tiki .pvtAttrDropdown {
   margin-bottom: 5px;
-  background: #fff;
+  background: var(--bs-body-bg);
   color: var(--bs-body-color);
   border: 1px solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
@@ -13023,7 +13023,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .pvtAxisContainer li span.pvtAttr {
   -webkit-text-size-adjust: 100%;
   color: var(--bs-body-color);
-  background: #fff;
+  background: var(--bs-body-bg);
   padding: 2px 5px;
   white-space: nowrap;
   border: 1px solid var(--bs-border-color);
@@ -13156,12 +13156,12 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: black;
 }
 .tiki #conversejs input[type=text], .tiki #conversejs textarea, .tiki #conversejs select, .tiki #conversejs.converse-embedded input[type=text], .tiki #conversejs.converse-embedded textarea, .tiki #conversejs.converse-embedded select {
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border-color: var(--bs-border-color);
 }
 .tiki #conversejs form input[type=text], .tiki #conversejs form textarea, .tiki #conversejs form select, .tiki #conversejs.converse-embedded form input[type=text], .tiki #conversejs.converse-embedded form textarea, .tiki #conversejs.converse-embedded form select {
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border-color: var(--bs-border-color);
 }
@@ -13214,7 +13214,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #343a40;
 }
 .tiki #conversejs #controlbox #converse-roster .roster-filter-form .roster-filter, .tiki #conversejs.converse-embedded #controlbox #converse-roster .roster-filter-form .roster-filter {
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border-color: var(--bs-border-color);
 }
@@ -13223,7 +13223,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border: 1px solid var(--bs-border-color);
 }
 .tiki #conversejs .chatbox form.sendXMPPMessage, .tiki #conversejs.converse-embedded .chatbox form.sendXMPPMessage {
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
 }
 .tiki #conversejs .chatbox form.sendXMPPMessage .chat-toolbar, .tiki #conversejs.converse-embedded .chatbox form.sendXMPPMessage .chat-toolbar {
   background-color: #a25D25;
@@ -13378,7 +13378,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: black !important;
 }
 .tiki-webmail .form-control, .tiki-cypht .form-control, .mobile.tiki-cypht .form-control, .inline-cypht .form-control {
-  background-color: #fff !important;
+  background-color: var(--bs-body-bg) !important;
   border-color: var(--bs-border-color) !important;
   color: var(--bs-body-color) !important;
 }
@@ -13684,7 +13684,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-weight: 400;
   line-height: 1.5;
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
@@ -13694,13 +13694,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: var(--bs-body-color);
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown {
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
 .tiki .select2-results__options .select2-results__option {
   color: var(--bs-body-color);
-  background: #fff;
+  background: var(--bs-body-bg);
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field {
   display: block;
@@ -13711,7 +13711,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-weight: 400;
   line-height: 1.5;
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   border: 1px solid var(--bs-border-color);
   border-radius: 0.25rem;
   transition: var(--bs-border-color) 0.15s ease-in-out, inset 0 1px 2px rgba(0, 0, 0, 0.075) 0.15s ease-in-out;

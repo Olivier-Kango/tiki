@@ -1857,7 +1857,7 @@ progress {
   font-weight: 400;
   line-height: 1.5;
   color: #fff;
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   background-clip: padding-box;
   border: var(--bs-border-width) solid var(--bs-border-color);
   appearance: none;
@@ -1877,7 +1877,7 @@ progress {
 }
 .form-control:focus {
   color: #fff;
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   border-color: #f59cdc;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.25);
@@ -1896,7 +1896,7 @@ progress {
   opacity: 1;
 }
 .form-control:disabled {
-  background-color: #250d49;
+  background-color: var(--bs-secondary-bg);
   opacity: 1;
 }
 .form-control::file-selector-button {
@@ -2001,7 +2001,7 @@ textarea.form-control-lg {
   font-weight: 400;
   line-height: 1.5;
   color: #fff;
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
@@ -2026,7 +2026,7 @@ textarea.form-control-lg {
   background-image: none;
 }
 .form-select:disabled {
-  background-color: #250d49;
+  background-color: var(--bs-secondary-bg);
 }
 .form-select:-moz-focusring {
   color: transparent;
@@ -2070,7 +2070,7 @@ textarea.form-control-lg {
   margin-left: 0;
 }
 .form-check-input {
-  --bs-form-check-bg: #30115e;
+  --bs-form-check-bg: var(--bs-body-bg);
   width: 1em;
   height: 1em;
   margin-top: 0.25em;
@@ -2219,7 +2219,7 @@ textarea.form-control-lg {
   height: 0.5rem;
   color: transparent;
   cursor: pointer;
-  background-color: #30115e;
+  background-color: var(--bs-tertiary-bg);
   border-color: transparent;
   border-radius: 1rem;
 }
@@ -2245,7 +2245,7 @@ textarea.form-control-lg {
   height: 0.5rem;
   color: transparent;
   cursor: pointer;
-  background-color: #30115e;
+  background-color: var(--bs-tertiary-bg);
   border-color: transparent;
   border-radius: 1rem;
 }
@@ -2315,7 +2315,7 @@ textarea.form-control-lg {
   z-index: -1;
   height: 1.5em;
   content: "";
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   border-radius: var(--bs-border-radius);
 }
 .form-floating > .form-control:-webkit-autofill ~ label {
@@ -2329,7 +2329,7 @@ textarea.form-control-lg {
   color: #6c757d;
 }
 .form-floating > :disabled ~ label::after {
-  background-color: #250d49;
+  background-color: var(--bs-secondary-bg);
 }
 .input-group {
   position: relative;
@@ -2364,7 +2364,7 @@ textarea.form-control-lg {
   color: #fff;
   text-align: center;
   white-space: nowrap;
-  background-color: #250d49;
+  background-color: var(--bs-tertiary-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
@@ -4380,7 +4380,7 @@ textarea.form-control-lg {
 .progress, .progress-stacked {
   --bs-progress-height: 1rem;
   --bs-progress-font-size: 0.75rem;
-  --bs-progress-bg: #250d49;
+  --bs-progress-bg: var(--bs-secondary-bg);
   --bs-progress-border-radius: var(--bs-border-radius);
   --bs-progress-box-shadow: var(--bs-box-shadow-inset);
   --bs-progress-bar-color: #fff;
@@ -4429,7 +4429,7 @@ textarea.form-control-lg {
 }
 .list-group {
   --bs-list-group-color: #fff;
-  --bs-list-group-bg: #250d49;
+  --bs-list-group-bg: var(--bs-body-bg);
   --bs-list-group-border-color: var(--bs-border-color);
   --bs-list-group-border-width: var(--bs-border-width);
   --bs-list-group-border-radius: var(--bs-border-radius);
@@ -4441,7 +4441,7 @@ textarea.form-control-lg {
   --bs-list-group-action-active-color: var(--bs-body-color);
   --bs-list-group-action-active-bg: #ea39b8;
   --bs-list-group-disabled-color: rgba(50, 251, 226, 0.3);
-  --bs-list-group-disabled-bg: #250d49;
+  --bs-list-group-disabled-bg: var(--bs-body-bg);
   --bs-list-group-active-color: #fff;
   --bs-list-group-active-bg: #ea39b8;
   --bs-list-group-active-border-color: #ea39b8;
@@ -11329,7 +11329,7 @@ div #metadata fieldset.tabcontent, div #metadata div.tabs {
   background-color: transparent;
 }
 input:-webkit-autofill {
-  background-color: #30115e !important;
+  background-color: var(--bs-body-bg) !important;
   /* needs important because Chrome has it already important */
   background-image: none !important;
   color: #fff !important;
@@ -11461,18 +11461,18 @@ form.simple label .warning {
   color: #32fbe2;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #e9ecef;
-  border: outset 1px #e9ecef;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #32fbe2;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #affdf4;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {
@@ -11739,7 +11739,7 @@ div.drillshow {
   color: #32fbe2;
 }
 .tiki .ui-dialog-content select, .tiki .ui-dialog-content input, .tiki .ui-dialog-content optgroup, .tiki .ui-dialog-content textarea {
-  background: #30115e;
+  background: var(--bs-body-bg);
   color: #fff;
 }
 .tiki .ui-widget button {
@@ -11748,7 +11748,7 @@ div.drillshow {
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;
-  background: #30115e;
+  background: var(--bs-body-bg);
   color: #fff;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content .ui-menu-item-wrapper {
@@ -11826,7 +11826,7 @@ input[type="checkbox"].preffilter-toggle-round + label {
 }
 input[type="checkbox"].preffilter-toggle-round + label:before {
   color: #fff;
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
 }
 input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   background-color: #3cf281;
@@ -12321,7 +12321,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .pvtAggregator, .tiki .pvtRenderer, .tiki .pvtSearch, .tiki .pvtAttrDropdown {
   margin-bottom: 5px;
-  background: #30115e;
+  background: var(--bs-body-bg);
   color: #fff;
   border: 1px solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
@@ -12339,7 +12339,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .pvtAxisContainer li span.pvtAttr {
   -webkit-text-size-adjust: 100%;
   color: #fff;
-  background: #30115e;
+  background: var(--bs-body-bg);
   padding: 2px 5px;
   white-space: nowrap;
   border: 1px solid var(--bs-border-color);
@@ -12472,12 +12472,12 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #28c9b5;
 }
 .tiki #conversejs input[type=text], .tiki #conversejs textarea, .tiki #conversejs select, .tiki #conversejs.converse-embedded input[type=text], .tiki #conversejs.converse-embedded textarea, .tiki #conversejs.converse-embedded select {
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   color: #fff;
   border-color: var(--bs-border-color);
 }
 .tiki #conversejs form input[type=text], .tiki #conversejs form textarea, .tiki #conversejs form select, .tiki #conversejs.converse-embedded form input[type=text], .tiki #conversejs.converse-embedded form textarea, .tiki #conversejs.converse-embedded form select {
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   color: #fff;
   border-color: var(--bs-border-color);
 }
@@ -12530,7 +12530,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #32fbe2;
 }
 .tiki #conversejs #controlbox #converse-roster .roster-filter-form .roster-filter, .tiki #conversejs.converse-embedded #controlbox #converse-roster .roster-filter-form .roster-filter {
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   color: #fff;
   border-color: var(--bs-border-color);
 }
@@ -12539,7 +12539,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border: 1px solid var(--bs-border-color);
 }
 .tiki #conversejs .chatbox form.sendXMPPMessage, .tiki #conversejs.converse-embedded .chatbox form.sendXMPPMessage {
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
 }
 .tiki #conversejs .chatbox form.sendXMPPMessage .chat-toolbar, .tiki #conversejs.converse-embedded .chatbox form.sendXMPPMessage .chat-toolbar {
   background-color: #6f42c1;
@@ -12694,7 +12694,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #28c9b5 !important;
 }
 .tiki-webmail .form-control, .tiki-cypht .form-control, .mobile.tiki-cypht .form-control, .inline-cypht .form-control {
-  background-color: #30115e !important;
+  background-color: var(--bs-body-bg) !important;
   border-color: var(--bs-border-color) !important;
   color: #fff !important;
 }
@@ -12997,7 +12997,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-weight: 400;
   line-height: 1.5;
   color: #fff;
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
@@ -13007,13 +13007,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown {
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
 .tiki .select2-results__options .select2-results__option {
   color: #fff;
-  background: #30115e;
+  background: var(--bs-body-bg);
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field {
   display: block;
@@ -13024,7 +13024,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-weight: 400;
   line-height: 1.5;
   color: #fff;
-  background-color: #30115e;
+  background-color: var(--bs-body-bg);
   border: 1px solid var(--bs-border-color);
   border-radius: 0.25rem;
   transition: var(--bs-border-color) 0.15s ease-in-out, inset 0 1px 2px rgba(0, 0, 0, 0.075) 0.15s ease-in-out;

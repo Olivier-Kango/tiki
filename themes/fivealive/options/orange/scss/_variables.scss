@@ -92,6 +92,9 @@ $theme-colors: (
     "dark":                #e77d4f
 );
 
+// Options
+$prefix: -bs;
+
 $link-color: #c74b23;
 $link-hover-color:               darken($link-color, 15%);
 $link-shade-percentage:                   20% !default;
@@ -106,7 +109,7 @@ $nav-tabs-link-active-bg: #e36732; // Same as $dropdown-link-hover-bg;
 
 // Typography
 $hr-color: #e77d4f;
-$text-muted:  #6B737B;
+$text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 - #6B737B;
 $headings-font-weight: 700;
 
 // Cards
@@ -118,9 +121,9 @@ $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
 // Forms
-$input-color: #555555;
-$input-bg: #f8e4dd;
-$input-border-color: #fac5b1;
+$input-color: var(--#{$prefix}body-color) !default; // #555555;
+$input-bg: var(--#{$prefix}body-bg) !default; // #f8e4dd;
+$input-border-color: var(--#{$prefix}border-color) !default; // #fac5b1;
 $input-border-top-color: #fac5b1;
 $input-border-right-color: #fbf1ed;
 $input-border-bottom-color: #fbf1ed;

@@ -44,6 +44,10 @@ $red-300: tint-color($red, 40%) !default;
 
 $min-contrast-ratio:   2.15 !default;
 
+// Options
+// Prefix
+$prefix: bs-;
+
 $enable-gradients: true !default;
 
 // Body
@@ -73,18 +77,18 @@ $input-padding-y-lg:             ($font-size-base * 1.25) !default;
 $input-padding-x-lg:             0 !default;
 $input-bg:                       transparent !default;
 $input-disabled-bg:              transparent !default;
-$input-color:                    $gray-600 !default;
+$input-color:                    var(--#{$prefix}body-color) !default; // $gray-600 !default;
 $input-border-color:             transparent !default;
 $input-border-width:             0 !default;
 $input-border-radius:            0 !default;
 $input-border-radius-lg:         0 !default;
 $input-border-radius-sm:         0 !default;
-$input-placeholder-color:        rgba(0, 0, 0, .4) !default;
+$input-placeholder-color:        var(--#{$prefix}secondary-color) !default; // rgba(0, 0, 0, .4) !default;
 $input-group-addon-bg:           transparent !default;
 
 // Navs
 
-$nav-link-disabled-color:       $gray-500 !default;
+$nav-link-disabled-color:       var(--#{$prefix}secondary-color) !default; // $gray-500 !default;
 $nav-tabs-border-color:         transparent !default;
 
 // Navbar

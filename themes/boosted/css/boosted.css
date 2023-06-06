@@ -1727,9 +1727,9 @@ progress {
   font-weight: 700;
   line-height: 1.25;
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   background-clip: padding-box;
-  border: 0.125rem solid #ccc;
+  border: 0.125rem solid var(--bs-border-color);
   appearance: none;
   border-radius: 0;
   transition: border-color 0.2s ease-in-out, outline-offset 0.2s ease-in-out;
@@ -1747,7 +1747,7 @@ progress {
 }
 .form-control:focus {
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   border-color: currentcolor;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(255, 121, 0, 0.25);
@@ -1762,12 +1762,12 @@ progress {
   padding: 0;
 }
 .form-control::placeholder {
-  color: #666;
+  color: var(--bs-secondary-color);
   opacity: 1;
 }
 .form-control:disabled {
   color: #666;
-  background-color: #eee;
+  background-color: var(--bs-secondary-bg);
   opacity: 1;
 }
 .form-control::file-selector-button {
@@ -1775,7 +1775,7 @@ progress {
   margin: -0.5rem -0.625rem;
   margin-inline-end: 0.625rem;
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-tertiary-bg);
   pointer-events: none;
   border-color: inherit;
   border-style: solid;
@@ -1790,7 +1790,7 @@ progress {
   }
 }
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
-  background-color: #f2f2f2;
+  background-color: var(--bs-secondary-bg);
 }
 .form-control-plaintext {
   display: block;
@@ -1869,12 +1869,12 @@ textarea.form-control-lg {
   font-weight: 700;
   line-height: 1.25;
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
   background-repeat: no-repeat;
   background-position: right 0.625rem top calc(50% + 1px);
   background-size: 0.875rem 1rem;
-  border: 0.125rem solid #ccc;
+  border: 0.125rem solid var(--bs-border-color);
   border-radius: 0;
   transition: border-color 0.2s ease-in-out, outline-offset 0.2s ease-in-out;
   appearance: none;
@@ -1937,7 +1937,7 @@ textarea.form-control-lg {
   margin-left: 0;
 }
 .form-check-input {
-  --bs-form-check-bg: #fff;
+  --bs-form-check-bg: var(--bs-body-bg);
   width: 1em;
   height: 1em;
   margin-top: calc(18 / 16) - 1em * 0.5;
@@ -1947,7 +1947,7 @@ textarea.form-control-lg {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  border: 0.125rem solid #ccc;
+  border: 0.125rem solid var(--bs-border-color);
   appearance: none;
   print-color-adjust: exact;
   transition: all 0.2s ease-in-out;
@@ -2081,7 +2081,7 @@ textarea.form-control-lg {
   height: 0.375rem;
   color: transparent;
   cursor: pointer;
-  background-color: #eee;
+  background-color: var(--bs-tertiary-bg);
   border-color: transparent;
 }
 .form-range::-moz-range-thumb {
@@ -2105,17 +2105,17 @@ textarea.form-control-lg {
   height: 0.375rem;
   color: transparent;
   cursor: pointer;
-  background-color: #eee;
+  background-color: var(--bs-tertiary-bg);
   border-color: transparent;
 }
 .form-range:disabled {
   pointer-events: none;
 }
 .form-range:disabled::-webkit-slider-thumb {
-  background-color: #ccc;
+  background-color: var(--bs-secondary-color);
 }
 .form-range:disabled::-moz-range-thumb {
-  background-color: #ccc;
+  background-color: var(--bs-secondary-color);
 }
 .form-floating {
   position: relative;
@@ -2174,7 +2174,7 @@ textarea.form-control-lg {
   z-index: -1;
   height: 1.5em;
   content: "";
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
 }
 .form-floating > .form-control:-webkit-autofill ~ label {
   color: rgba(var(--bs-body-color-rgb), 0.65);
@@ -2187,7 +2187,7 @@ textarea.form-control-lg {
   color: #999;
 }
 .form-floating > :disabled ~ label::after {
-  background-color: #eee;
+  background-color: var(--bs-secondary-bg);
 }
 .input-group {
   position: relative;
@@ -2223,7 +2223,7 @@ textarea.form-control-lg {
   text-align: center;
   white-space: nowrap;
   background-color: var(--bs-tertiary-bg);
-  border: 0.125rem solid #ccc;
+  border: 0.125rem solid var(--bs-border-color);
 }
 .input-group-lg > .form-control, .input-group-lg > .form-select, .input-group-lg > .input-group-text, .input-group-lg > .btn {
   padding: 0.8125rem 1.25rem;
@@ -3134,7 +3134,7 @@ textarea.form-control-lg {
   --bs-nav-link-font-weight: 700;
   --bs-nav-link-color: var(--bs-link-color);
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: #ccc;
+  --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -10361,7 +10361,7 @@ textarea.form-control-lg {
   --bs-nav-link-font-weight: 700;
   --bs-nav-link-color: var(--bs-link-color);
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: #ccc;
+  --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -11145,7 +11145,7 @@ div #metadata fieldset.tabcontent, div #metadata div.tabs {
   background-color: transparent;
 }
 input:-webkit-autofill {
-  background-color: #fff !important;
+  background-color: var(--bs-body-bg) !important;
   /* needs important because Chrome has it already important */
   background-image: none !important;
   color: var(--bs-body-color) !important;
@@ -11277,18 +11277,18 @@ form.simple label .warning {
   color: #000;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #f6f6f6;
-  border: outset 1px #f6f6f6;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #000;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #404040;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {
@@ -11555,7 +11555,7 @@ div.drillshow {
   color: #000;
 }
 .tiki .ui-dialog-content select, .tiki .ui-dialog-content input, .tiki .ui-dialog-content optgroup, .tiki .ui-dialog-content textarea {
-  background: #fff;
+  background: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
 .tiki .ui-widget button {
@@ -11564,7 +11564,7 @@ div.drillshow {
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #000;
-  background: #fff;
+  background: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content .ui-menu-item-wrapper {
@@ -11642,7 +11642,7 @@ input[type="checkbox"].preffilter-toggle-round + label {
 }
 input[type="checkbox"].preffilter-toggle-round + label:before {
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
 }
 input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   background-color: #218321;
@@ -11952,7 +11952,7 @@ blockquote {
   font-weight: 700;
   line-height: 1.25;
   background-clip: padding-box;
-  border: 0.125rem solid #ccc;
+  border: 0.125rem solid var(--bs-border-color);
   appearance: none;
   border-radius: 0;
   transition: border-color 0.2s ease-in-out, outline-offset 0.2s ease-in-out;
@@ -11970,7 +11970,7 @@ blockquote {
 }
 .form-control:focus {
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   border-color: currentcolor !important;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(255, 121, 0, 0.25);
@@ -11979,12 +11979,12 @@ blockquote {
   height: 1.25em;
 }
 .form-control::placeholder {
-  color: #666;
+  color: var(--bs-secondary-color);
   opacity: 1;
 }
 .form-control:disabled {
   color: #666;
-  background-color: #eee;
+  background-color: var(--bs-secondary-bg);
   opacity: 1;
 }
 .form-control::file-selector-button {
@@ -11992,7 +11992,7 @@ blockquote {
   margin: calc((0.5rem - 1px) * -1) -0.625rem calc((0.5rem + 1px) * -1);
   margin-inline-end: 0.625rem;
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-tertiary-bg);
   pointer-events: none;
   border-color: inherit;
   border-style: solid;
@@ -12008,10 +12008,10 @@ blockquote {
 }
 .form-control:disabled::file-selector-button {
   color: #666;
-  background-color: #eee;
+  background-color: var(--bs-secondary-bg);
 }
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
-  background-color: #f2f2f2;
+  background-color: var(--bs-secondary-bg);
 }
 .form-control-plaintext {
   display: block;
@@ -12074,12 +12074,12 @@ textarea.form-control-lg {
   font-weight: 700;
   line-height: 1.25;
   color: var(--bs-body-color);
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 7'%3e%3cpath d='M7 7 0 0h14L7 7z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 0.625rem top calc(50% + 1px);
   background-size: 0.875rem 1rem;
-  border: 0.125rem solid #ccc;
+  border: 0.125rem solid var(--bs-border-color);
   border-radius: 0;
   transition: border-color 0.2s ease-in-out, outline-offset 0.2s ease-in-out;
   appearance: none;
@@ -12139,11 +12139,11 @@ textarea.form-control-lg {
   height: 1em;
   margin-top: 0.125em;
   vertical-align: top;
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  border: 0.125rem solid #ccc;
+  border: 0.125rem solid var(--bs-border-color);
   appearance: none;
   print-color-adjust: exact;
   transition: all 0.2s ease-in-out;
@@ -12187,7 +12187,7 @@ textarea.form-control-lg {
 }
 .form-check-input:disabled {
   pointer-events: none;
-  background-color: #eee;
+  background-color: var(--bs-secondary-bg);
   filter: none;
   opacity: 0.5;
 }
@@ -12402,7 +12402,7 @@ textarea.form-control-lg {
   height: 0.375rem;
   color: transparent;
   cursor: pointer;
-  background-color: #eee;
+  background-color: var(--bs-tertiary-bg);
   border-color: transparent;
 }
 .form-range::-moz-range-thumb {
@@ -12429,7 +12429,7 @@ textarea.form-control-lg {
   height: 0.375rem;
   color: transparent;
   cursor: pointer;
-  background-color: #eee;
+  background-color: var(--bs-tertiary-bg);
   border-color: transparent;
 }
 .form-range::-moz-range-progress {
@@ -12441,14 +12441,14 @@ textarea.form-control-lg {
 }
 .form-range:disabled::-webkit-slider-thumb {
   cursor: default;
-  border-color: #ccc;
+  border-color: var(--bs-secondary-color);
 }
 .form-range:disabled::-moz-range-thumb {
   cursor: default;
-  border-color: #ccc;
+  border-color: var(--bs-secondary-color);
 }
 .form-range:disabled::-moz-range-progress {
-  background-color: #ccc;
+  background-color: var(--bs-secondary-color);
 }
 .input-group {
   position: relative;
@@ -12484,7 +12484,7 @@ textarea.form-control-lg {
   text-align: center;
   white-space: nowrap;
   background-color: var(--bs-tertiary-bg);
-  border: 0.125rem solid #ccc;
+  border: 0.125rem solid var(--bs-border-color);
 }
 .input-group-lg > .form-control, .input-group-lg > .form-select, .input-group-lg > .input-group-text, .input-group-lg > .btn {
   padding: 0.8125rem 1.25rem;
@@ -12837,7 +12837,7 @@ textarea.form-control-lg {
   --bs-nav-link-font-weight: 700;
   --bs-nav-link-color: var(--bs-link-color);
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: #ccc;
+  --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -13231,9 +13231,9 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .pvtAggregator, .tiki .pvtRenderer, .tiki .pvtSearch, .tiki .pvtAttrDropdown {
   margin-bottom: 5px;
-  background: #fff;
+  background: var(--bs-body-bg);
   color: var(--bs-body-color);
-  border: 1px solid #ccc;
+  border: 1px solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
 .tiki .pvtAxisContainer, .tiki .pvtVals {
@@ -13249,10 +13249,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .pvtAxisContainer li span.pvtAttr {
   -webkit-text-size-adjust: 100%;
   color: var(--bs-body-color);
-  background: #fff;
+  background: var(--bs-body-bg);
   padding: 2px 5px;
   white-space: nowrap;
-  border: 1px solid #ccc;
+  border: 1px solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
 .tiki .pvtTriangle {
@@ -13382,14 +13382,14 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #f16e00;
 }
 .tiki #conversejs input[type=text], .tiki #conversejs textarea, .tiki #conversejs select, .tiki #conversejs.converse-embedded input[type=text], .tiki #conversejs.converse-embedded textarea, .tiki #conversejs.converse-embedded select {
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
-  border-color: #ccc;
+  border-color: var(--bs-border-color);
 }
 .tiki #conversejs form input[type=text], .tiki #conversejs form textarea, .tiki #conversejs form select, .tiki #conversejs.converse-embedded form input[type=text], .tiki #conversejs.converse-embedded form textarea, .tiki #conversejs.converse-embedded form select {
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
-  border-color: #ccc;
+  border-color: var(--bs-border-color);
 }
 .tiki #conversejs form.converse-form, .tiki #conversejs.converse-embedded form.converse-form {
   background-color: inherit;
@@ -13440,16 +13440,16 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #000;
 }
 .tiki #conversejs #controlbox #converse-roster .roster-filter-form .roster-filter, .tiki #conversejs.converse-embedded #controlbox #converse-roster .roster-filter-form .roster-filter {
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
-  border-color: #ccc;
+  border-color: var(--bs-border-color);
 }
 .tiki #conversejs .chatbox .box-flyout, .tiki #conversejs.converse-embedded .chatbox .box-flyout {
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid var(--bs-border-color);
 }
 .tiki #conversejs .chatbox form.sendXMPPMessage, .tiki #conversejs.converse-embedded .chatbox form.sendXMPPMessage {
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
 }
 .tiki #conversejs .chatbox form.sendXMPPMessage .chat-toolbar, .tiki #conversejs.converse-embedded .chatbox form.sendXMPPMessage .chat-toolbar {
   background-color: #ff7900;
@@ -13604,8 +13604,8 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #f16e00 !important;
 }
 .tiki-webmail .form-control, .tiki-cypht .form-control, .mobile.tiki-cypht .form-control, .inline-cypht .form-control {
-  background-color: #fff !important;
-  border-color: #ccc !important;
+  background-color: var(--bs-body-bg) !important;
+  border-color: var(--bs-border-color) !important;
   color: var(--bs-body-color) !important;
 }
 .tiki-webmail .nav-tabs, .tiki-cypht .nav-tabs, .mobile.tiki-cypht .nav-tabs, .inline-cypht .nav-tabs {
@@ -13673,7 +13673,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: var(--bs-body-color);
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell {
-  border: 1px solid #ccc;
+  border: 1px solid var(--bs-border-color);
 }
 .inline-cypht .content_cell {
   max-width: 500px !important;
@@ -13814,7 +13814,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .mobile.tiki-cypht .folder_list, .mobile.tiki-webmail .folder_list {
   background-color: #ddd;
   color: var(--bs-body-color);
-  border: 1px solid #ccc;
+  border: 1px solid var(--bs-border-color);
 }
 .mobile.tiki-cypht .folder_list .src_name, .mobile.tiki-webmail .folder_list .src_name {
   background: #ddd;
@@ -13822,7 +13822,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-left-color: transparent;
 }
 .mobile.tiki-cypht .nux_dev_news table td:last-child, .mobile.tiki-webmail .nux_dev_news table td:last-child {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--bs-border-color);
 }
 .tiki .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear, .tiki .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
   position: absolute;
@@ -13907,8 +13907,8 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-weight: 700;
   line-height: 1.25;
   color: var(--bs-body-color);
-  background-color: #fff;
-  border: 0.125rem solid #ccc;
+  background-color: var(--bs-body-bg);
+  border: 0.125rem solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
 .tiki .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option {
@@ -13917,13 +13917,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: var(--bs-body-color);
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown {
-  background-color: #fff;
-  border: 0.125rem solid #ccc;
+  background-color: var(--bs-body-bg);
+  border: 0.125rem solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
 .tiki .select2-results__options .select2-results__option {
   color: var(--bs-body-color);
-  background: #fff;
+  background: var(--bs-body-bg);
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field {
   display: block;
@@ -13934,10 +13934,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-weight: 700;
   line-height: 1.25;
   color: var(--bs-body-color);
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
   border-radius: 0.25rem;
-  transition: #ccc 0.15s ease-in-out, inset 0 1px 2px rgba(0, 0, 0, 0.075) 0.15s ease-in-out;
+  transition: var(--bs-border-color) 0.15s ease-in-out, inset 0 1px 2px rgba(0, 0, 0, 0.075) 0.15s ease-in-out;
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected="true"] {
   color: #000;

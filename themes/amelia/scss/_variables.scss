@@ -74,7 +74,7 @@ $padding-large-vertical: .9rem;
 $font-family-sans-serif: "Cabin", Arial, sans-serif;
 $headings-font-family: 'Lobster', cursive;
 $blockquote-footer-color: #E6E8EA;
-$text-muted:                  $gray-200;
+$text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0
 
 // Tables
 $table-bg: transparent;
@@ -82,9 +82,9 @@ $table-head-bg: #108a93;
 $table-head-color: #fff;
 
 // Forms
-$input-bg: $gray-100;
-$input-color: $gray-800;
-$input-placeholder-color: #585E65;
+$input-bg: var(--#{$prefix}body-bg) !default; // $gray-100;
+$input-color: var(--#{$prefix}body-color) !default; // $gray-800;
+$input-placeholder-color: var(--#{$prefix}secondary-color) !default; // #585E65;
 
 // Form validation
 // Z-index master list
@@ -92,7 +92,7 @@ $form-feedback-invalid-color:       $danger !default; // BS53
 $form-invalid-color:                $form-feedback-invalid-color !default; // BS53
 
 // Navs
-$nav-link-color:                  #444;
+$nav-link-color:                  var(--#{$prefix}link-color) !default; // #444;
 //$nav-link-color:                  var(--#{$prefix}link-color);
 $nav-link-hover-color:            var(--#{$prefix}link-hover-color);
 
@@ -100,10 +100,10 @@ $nav-tabs-border-color:             $gray-300;
 $nav-tabs-link-active-color:        lighten(#444, 8%);
 $nav-tabs-link-hover-border-color:  $gray-200 $gray-200 $nav-tabs-border-color;
 $nav-tabs-link-active-color:        $gray-200;
-$nav-tabs-link-active-bg:           $body-bg;
+$nav-tabs-link-active-bg:           var(--#{$prefix}body-bg) !default;
 $nav-tabs-link-active-border-color: $gray-300 $gray-300 $nav-tabs-link-active-bg;
 
-$nav-link-disabled-color: darken($nav-link-color, 10%);
+$nav-link-disabled-color: var(--#{$prefix}secondary-color) !default; // darken($nav-link-color, 10%);
 $nav-pills-link-active-bg: darken($body-bg, 8%);
 
 // Navbar
@@ -139,7 +139,7 @@ $dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 $pagination-bg: #0C5055;
 
 // Pagination
-$pagination-bg: $body-bg;
+$pagination-bg: var(--#{$prefix}body-bg) !default;
 $pagination-focus-color: darken($link-color,8%);
 $pagination-focus-bg: darken($pagination-bg,8%);
 $pagination-hover-color: $link-color;
@@ -150,7 +150,7 @@ $pagination-disabled-color: $pagination-focus-color;
 $pagination-disabled-bg: #094344;
 
     // Jumbotron (retired)
-$jumbotron-bg: darken($body-bg, 5%);
+$jumbotron-bg: darken($body-bg, 5%); // Todo
 
 // Cards
 $card-bg: #0D6C73;
@@ -163,7 +163,7 @@ $card-cap-bg: #0D676E;
 $accordion-padding-y:                     1rem !default;
 $accordion-padding-x:                     1.25rem !default;
 $accordion-color:                         var(--#{$prefix}body-color) !default;
-$accordion-bg:                            $body-bg !default;
+$accordion-bg:                            var(--#{$prefix}body-bg) !default;
 //$accordion-border-width:                  $border-width !default;
 $accordion-border-color:                  var(--#{$prefix}border-color) !default;
 //$accordion-border-radius:                 $border-radius !default;
@@ -205,7 +205,7 @@ $popover-header-color: #fff;
 $badge-color: #000;
 
 // Modals
-$modal-content-bg: $body-bg;
+$modal-content-bg: var(--#{$prefix}body-bg) !default;
 
 // Alerts
 // Progress bars
@@ -216,7 +216,7 @@ $progress-bar-color:                $black; // $white !default;
 $progress-bar-bg:                   $primary !default;
 
     // List group
-$list-group-bg: $body-bg;
+$list-group-bg: var(--#{$prefix}body-bg) !default;
 $list-group-color: darken($body-color, 8%);
 $list-group-disabled-color: darken($list-group-color, 10%);
 

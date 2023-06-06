@@ -82,7 +82,7 @@ $border-radius-lg: 8px;
 $font-family-sans-serif: 'Merriweather Sans', sans-serif;
 $headings-font-weight:        400;
 
-$text-muted:                  $gray-700;
+$text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- $gray-700;
 
 $blockquote-color: #4D4D4D;
 
@@ -104,7 +104,7 @@ $btn-info-border: #17a2b8;
 
 // Forms
 $input-border: #dddddd;
-$input-group-addon-bg: #DBDBDB;
+$input-group-addon-bg: var(--#{$prefix}tertiary-bg) !default; // #DBDBDB;
 
 // Form validation
 // Z-index master list

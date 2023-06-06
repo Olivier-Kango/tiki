@@ -152,55 +152,20 @@ table.table {
     }
 }
 
+.card.module {
+    background: var(--tiki-card-bg);
+    color: var(--tiki-card-color);
+    a {
+        color: var(--tiki-card-link-color);
+    }
+    &:hover {
+        color: var(--tiki-card-link-hover-color);
+    }
+}
+
 .article {
     padding: 1rem;
 }
-
-//.article-trailer
-//.modules .card.module:nth-child(1n),
-//#page-data .card#module_wikiplugin_3,
-    //.col1 article.blogpost:nth-child(1n),
-    //.col1 article.article:nth-child(1n)
-//{
-//    .card-header {
-//        background: (darken(#E87352,5%));
-//        color: #fff;
-//    }
-//}
-
-//.modules .card.module:nth-child(2n),
-//#page-data .card#module_wikiplugin_2,
-    //.col1 article.blogpost:nth-child(2n),
-    //.col1 article.article:nth-child(2n),
-//.modal-content,
-//.tiki .ui-widget-content,
-//.tiki .ui-dialog-titlebar //,
-    // #page-data .card:nth-child(1n)
-//{
-//    .card-header {
-//        background: (darken(#EBC85E, 5%));
-//    }
-//}
-
-//.modules .card.module:nth-child(3n),
-//#page-data .card#module_wikiplugin_1,
-    //.col1 article.blogpost:nth-child(3n),
-    //.col1 article.article:nth-child(3n)
-//{
-//    .card-header {
-//        background: (darken(#3BBEC0, 5%));
-//    }
-//}
-
-//.modules .card.module:nth-child(4n),
-//#page-data .card#module_wikiplugin_3,
-    //.col1 article.blogpost:nth-child(4n),
-    //.col1 article.article:nth-child(4n)
-//{
-//    .card-header {
-//        background: (darken(#5cb85c, 5%));
-//    }
-//}
 
 .col2 .modules .card.module {
     &:nth-child(1) .card-header { background: #cbffa8; }
@@ -233,9 +198,14 @@ table.table {
     &:nth-child(7) .card-header { background: #ffb0a8; }
     &:nth-child(4) .card-header { background: #a8f8ff; }
     &:nth-child(8) .card-header { background: #ffe3a8; }
+    &:nth-child(5) .card-header { background: #cbffa8; }
 }
 
-
+.col2 .modules .card.module .card-title,
+.col3 .modules .card.module .card-title,
+.main-footer .bottom_modules .card.module .card-title {
+    color: #000; // Not color mode responsive, because backgrounds aren't.
+}
 
 // -------------------- Accordions -------------------- //
 .accordion-header .accordion-button {

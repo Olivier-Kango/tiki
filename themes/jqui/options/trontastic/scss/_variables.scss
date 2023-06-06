@@ -2,7 +2,6 @@
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 // Variables needed for button color variants (start)
-$text-muted-readable: #acabab; // I'm having trouble getting $text-muted to be recognized.
 
 $white:    #fff;
 $gray-100: #f8f9fa;
@@ -79,6 +78,10 @@ $min-contrast-ratio:  3;
 $color-contrast-dark:             $gray-900;
 $color-contrast-light:            $white;
 
+// Options
+//Prefix
+$prefix: -bs;
+
 $body-bg: #000;
 $body-color: #fff;
 
@@ -86,6 +89,9 @@ $link-color: #b8ec79;
 $link-hover-color:   #a0e64c;
 $link-hover-decoration:       underline;
 $link-shade-percentage:                   20% !default;
+
+$text-muted-readable: var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #acabab; // I'm having trouble getting $text-muted to be recognized.
+
 
 $border-radius:               .375rem; // = 6px default
 $border-radius-sm:            .25rem;
@@ -103,8 +109,8 @@ $variable-prefix:             bs-; // Deprecated in v5.2.0 for the shorter `$pre
 $prefix:                      $variable-prefix;
 
 // Navs
-$nav-link-color:                    $link-color;
-$nav-link-hover-color:              lighten($link-color,8%);
+$nav-link-color:                    var(--#{$prefix}link-color) !default; // $link-color;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default; // lighten($link-color,8%);
 
 //#b8ec79
 $nav-tabs-border-color:             $black;
@@ -147,8 +153,8 @@ $dropdown-border-color: #6d6c6b;
 // scss-docs-start accordion-variables
 $accordion-padding-y:                     0.5rem;
 $accordion-padding-x:                     0.7rem;
-$accordion-color:                         $body-color;
-$accordion-bg:                            $body-bg;
+$accordion-color:                         var(--#{$prefix}body-color);
+$accordion-bg:                            var(--#{$prefix}body-bg);
 $accordion-border-width:                  $border-width;
 $accordion-border-color:                  var(--#{$prefix}border-color);
 $accordion-border-radius:                 6px;
@@ -168,7 +174,7 @@ $accordion-button-active-icon:  url("data:image/svg+xml,<svg xmlns='http://www.w
 // scss-docs-end accordion-variables
 
 // Popovers
-$popover-body-color:                $body-color;
+$popover-body-color:                var(--#{$prefix}body-color);
 
 // Typography
 $hr-color: #18a3bb;
@@ -179,8 +185,8 @@ $headings-font-family: Play;
 $headings-font-weight: 700;
 
 // Tables
-$table-color:                 $body-color;
-$table-bg:                    $body-bg;
+$table-color:                 var(--#{$prefix}body-color);
+$table-bg:                    var(--#{$prefix}body-bg);
 $table-accent-bg:             lighten($body-bg,5%);
 
 $table-th-font-weight:        null;
@@ -209,15 +215,15 @@ $table-group-separator-color: currentcolor;
 $table-caption-color:         $text-muted-readable;
 
 // Forms
-$input-color: #000;
-$input-bg: #c6e99c;
+$input-color: var(--#{$prefix}body-color) !default; // #000;
+$input-bg: var(--#{$prefix}body-bg) !default; // #c6e99c;
 $form-text-color: $text-muted-readable;
 
 // Form validation
 
 // List group
 $list-group-color:                  #fff;
-$list-group-bg:                     $body-bg;
+$list-group-bg:                     var(--#{$prefix}body-bg);
 
 // Figures
 $figure-caption-color:              $text-muted;

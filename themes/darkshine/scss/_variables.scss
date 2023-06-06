@@ -113,15 +113,15 @@ $nav-link-disabled-color: #666E75;
 $nav-tabs-link-active-bg: #C04802; // Actually a gradient is used but this value fixes contrast error
 
 // Dropdowns
-$dropdown-color:                    $body-color;
+$dropdown-color:                    var(--#{$prefix}body-color);
 $dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 // Pagination
 
 // Placeholders
 // Cards
 // Accordion
-$accordion-color:                         $body-color;
-$accordion-bg:                            #fff;
+$accordion-color:                         var(--#{$prefix}body-color);
+$accordion-bg:                            var(--#{$prefix}body-bg);
 $accordion-button-active-color: #000;
 
 //$accordion-border-width:                  $border-width !default;

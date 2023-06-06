@@ -3317,7 +3317,7 @@ textarea.form-control-lg {
   --bs-nav-link-font-weight: ;
   --bs-nav-link-color: var(--bs-link-color);
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: #dfd7ca;
+  --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -10787,7 +10787,7 @@ header.navbar.fixed-top {
   color: #8e8c84;
 }
 .nav-tabs .nav-link.disabled, .nav-tabs .nav-link.disabled:hover, .nav-tabs .nav-link.disabled:focus {
-  color: #dfd7ca;
+  color: var(--bs-secondary-color);
   background-color: #f8f5f0;
   border-color: #dfd7ca;
 }
@@ -11210,18 +11210,18 @@ form.simple label .warning {
   color: #3e3f3a;
 }
 .textarea-toolbar > div, .textarea-toolbar > ul {
-  background-color: #f8f5f0;
-  border: outset 1px #f8f5f0;
+  background-color: var(--bs-secondary-bg);
+  border: outset 1px var(--bs-secondary-color);
 }
 a.toolbar, li.toolbar {
   /* each tool button */
   border: none;
   background: transparent;
-  color: #3e3f3a;
+  color: var(--bs-body-color);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:hover, li.toolbar:hover {
-  color: #7f8177;
+  color: var(--bs-tertiary-color);
   text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.2);
 }
 a.toolbar:active, li.toolbar:active {

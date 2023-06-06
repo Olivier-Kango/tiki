@@ -1,7 +1,7 @@
 // Darkly tiki-selectors less file
 
 
-body.fullscreen { background: $body-bg; }
+body.fullscreen { background: var(--#{$prefix}body-bg); }
 
 // Update for Smartmenus
 $dropdown-item: $dropdown-link-color;

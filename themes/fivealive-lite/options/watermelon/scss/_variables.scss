@@ -115,6 +115,12 @@ $bg-dark: #a51e37;
 $red-300: tint-color($red, 40%) !default;
 $green-300: tint-color($green, 40%) !default;
 
+// Options
+
+// Prefix
+$prefix: -bs;
+
+
 $body-bg:                   $white !default;
 
 // Links
@@ -147,7 +153,7 @@ $page-header-link-color: #000;
 
 // Typography
 $hr-color: #faada1;
-$text-muted:  #6B737B;
+$text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B;
 
 // Cards
 $card-border-color: #49006c;
@@ -158,9 +164,9 @@ $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
 // Forms
-$input-color: #555555;
-$input-bg: #ffdace;
-$input-border-color: #faada1;
+$input-color: var(--#{$prefix}body-color) !default; // #555555;
+$input-bg: var(--#{$prefix}body-bg) !default; // #ffdace;
+$input-border-color: var(--#{$prefix}border-color) !default; // #faada1;
 $input-border-top-color: #faada1;
 $input-border-right-color: #fcf6f9;
 $input-border-bottom-color: #fcf6f9;

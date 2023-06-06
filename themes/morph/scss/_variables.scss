@@ -44,6 +44,12 @@ $red-300: tint-color($red, 40%) !default;
 
 $min-contrast-ratio:   1.5 !default;
 
+// Options
+// Prefix for :root CSS variables
+
+$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
+
 $enable-shadows:              true !default;
 
 // Body
@@ -75,7 +81,7 @@ $font-family-sans-serif:      Nunito, -apple-system, BlinkMacSystemFont, "Segoe 
 
 $headings-color:              $link-color !default;
 
-$text-muted:                  lighten($body-color, 15%) !default;
+$text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- lighten($body-color, 15%) !default;
 
 // Buttons + Forms
 
@@ -99,28 +105,28 @@ $btn-border-radius-lg:        $border-radius-pill !default;
 
 $form-label-font-weight:                $btn-font-weight !default;
 
-$input-bg:                              $gray-100 !default;
+$input-bg:                              var(--#{$prefix}body-bg) !default; // $gray-100 !default;
 
-$input-placeholder-color:               $text-muted !default;
+$input-placeholder-color:               var(--#{$prefix}secondary-color) !default; // $text-muted !default;
 
 $form-switch-color:               $white !default;
 $form-switch-focus-color:         $form-switch-color !default;
 
-$form-select-indicator-color:       $body-color !default;
+$form-select-indicator-color:       var(--#{$prefix}body-color);
 $form-select-box-shadow:          $box-shadow-inset !default;
 
-$form-range-track-bg:             rgba(darken($body-bg, 50%), .15) !default;
+$form-range-track-bg:             var(--#{$prefix}tertiary-bg) !default; // rgba(darken($body-bg, 50%), .15) !default;
 $form-range-thumb-bg:                      $gray-100 !default;
 $form-range-thumb-active-bg:               $form-range-thumb-bg !default;
-$form-range-thumb-disabled-bg:             $gray-200 !default;
+$form-range-thumb-disabled-bg:             var(--#{$prefix}secondary-color) !default; // $gray-200 !default;
 
-$form-file-button-bg:             $gray-100 !default;
+$form-file-button-bg:             var(--#{$prefix}tertiary-bg) !default; // $gray-100 !default;
 
 // Navs
 
-$nav-link-color:                    $body-color !default;
+$nav-link-color:                    var(--#{$prefix}body-color);
 $nav-link-hover-color:              $nav-link-color !default;
-$nav-link-disabled-color:           $text-muted !default;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $text-muted !default;
 
 $nav-tabs-border-radius:            0 !default;
 $nav-tabs-link-active-color:        $white !default;
@@ -133,7 +139,7 @@ $navbar-dark-hover-color:           $white !default;
 $navbar-dark-active-color:          $navbar-dark-hover-color !default;
 $navbar-dark-disabled-color:        rgba($white, .25) !default;
 
-$navbar-light-color:                $body-color !default;
+$navbar-light-color:                var(--#{$prefix}body-color);
 $navbar-light-hover-color:          $link-color !default;
 $navbar-light-active-color:         $navbar-light-hover-color !default;
 $navbar-light-disabled-color:       $text-muted !default;
@@ -148,7 +154,7 @@ $dropdown-box-shadow:               $box-shadow-lg, inset 1px 1px 3px rgba($whit
 //$dropdown-link-hover-color:         $gray-800 !default;
 //$dropdown-link-hover-bg:            transparent !default;
 
-$dropdown-color:                    $body-color !default;
+$dropdown-color:                    var(--#{$prefix}body-color);
 $dropdown-bg:                       $white !default;
 $dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
 
@@ -171,7 +177,7 @@ $pagination-padding-y-sm:           .5rem !default;
 $pagination-padding-y-lg:           1.5rem !default;
 
 $pagination-color:                  $gray-700 !default;
-$pagination-bg:                     $body-bg !default;
+$pagination-bg:                     var(--#{$prefix}body-bg);
 
 $pagination-active-color:           darken($pagination-color, 20%) !default;
 $pagination-active-bg:              transparent !default;
@@ -189,7 +195,7 @@ $card-bg:                           lighten($body-bg, 3%) !default;
 
 // Tooltips
 
-$tooltip-color:                     $body-color !default;
+$tooltip-color:                     var(--#{$prefix}body-color);
 $tooltip-bg:                        $dropdown-bg !default;
 
 // Popovers
@@ -203,7 +209,7 @@ $popover-header-bg:                 transparent !default;
 $toast-background-color:            $dropdown-bg !default;
 $toast-border-width:                0 !default;
 
-$toast-header-color:                $body-color !default;
+$toast-header-color:                var(--#{$prefix}body-color);
 $toast-header-background-color:     transparent !default;
 
 // Badges

@@ -240,9 +240,9 @@ textarea,
     // border-color: $input-border-top-color $input-border-right-color $input-border-bottom-color $input-border-left-color; //#b4f3fb #ffffff #ffffff #b4f3fb;
 }
 
-input[type="checkbox"].preffilter-toggle-round:checked + label::before {
-    background: darken($input-bg, 8%);
-}
+//input[type="checkbox"].preffilter-toggle-round:checked + label::before {
+//    background: darken($input-bg, 8%);
+//}
 
 
 #footer {

@@ -116,6 +116,12 @@ $color-contrast-light:            $white !default;
 
 $bg-light: #a02871 !important;
 
+// Options
+
+// Prefix
+$prefix: -bs;
+
+
 $body-bg:                   $white !default;
 
 // Links
@@ -148,7 +154,7 @@ $bg-dark-link-hover-bg: #003c4a;
 $dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 
 // Typography
-$text-muted:  #6B737B;
+$text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B;
 $hr-color: #a02871;
 
 // Cards
@@ -162,9 +168,9 @@ $table-hover-bg: #f5f5f5;
 $component-active-bg: $card-border-color;
 
 // Forms
-$input-color: #555555;
-$input-bg: #f4dded;
-$input-border-color: #e4afd3;
+$input-color: var(--#{$prefix}body-color) !default; // #555555;
+$input-bg: var(--#{$prefix}body-bg) !default; // #f4dded;
+$input-border-color: var(--#{$prefix}border-color) !default; // #e4afd3;
 $input-border-top-color: #e4afd3;
 $input-border-right-color: #fff;
 $input-border-bottom-color: #fff;

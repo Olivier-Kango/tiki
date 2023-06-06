@@ -92,6 +92,12 @@ $theme-colors: (
     "dark":                #b50964
 );
 
+// Options
+
+// Prefix
+$prefix: -bs;
+
+
 $link-color:                   #b51360;
 $link-hover-color:               darken($link-color, 15%);
 $link-hover-decoration:       none;
@@ -109,7 +115,7 @@ $nav-tabs-link-active-bg: #61102d; // Same as $dropdown-link-hover-bg;
 
 // Typography
 $hr-color: #e10c7c;
-$text-muted:  #6B737B;
+$text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B;
 $headings-font-weight: 700;
 
 // Cards
@@ -121,9 +127,9 @@ $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
 // Forms
-$input-color: #555555;
-$input-bg: #f9ebed; //#f9dcec;
-$input-border-color: #fa9ccd;
+$input-color: var(--#{$prefix}body-color) !default; // #555555;
+$input-bg: var(--#{$prefix}body-bg) !default; // #f9ebed; //#f9dcec;
+$input-border-color: var(--#{$prefix}border-color) !default; // #fa9ccd;
 $input-border-top-color: #fa9ccd;
 $input-border-right-color: #fcf6f9;
 $input-border-bottom-color: #fcf6f9;

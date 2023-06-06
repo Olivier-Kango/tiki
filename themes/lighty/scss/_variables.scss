@@ -116,7 +116,7 @@ $h4-color:                $gray-500;
 $h4-font-weight:          300;
 $h4-margin:               0;
 $h6-margin:               10/16rem 0;
-$text-muted:              #6B737B; // Darkened for WCAG compliance
+$text-muted:              var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B; // Darkened for WCAG compliance
 $blockquote-footer-color:     $text-muted; // also darkened
 
 // Tables
