@@ -100,11 +100,11 @@ if (! array_key_exists('view', get_defined_vars())) {
     }
 }
 if ($view == 'admin') {
-    $fgal_options['show_explorer'] = 'n';
-    $fgal_options['show_path'] = 'n';
-    $fgal_options['show_slideshow'] = 'n';
-    $fgal_options['default_view'] = 'list';
-    $fgal_options['icon_fileId'] = '';
+    $fgal_options['show_explorer']['value'] = 'n';
+    $fgal_options['show_path']['value'] = 'n';
+    $fgal_options['show_slideshow']['value'] = 'n';
+    $fgal_options['default_view']['value'] = 'list';
+    $fgal_options['icon_fileId']['value'] = '';
 } else {
     foreach ($fgal_options as $k_gal => $v) {
         // Validate that option exists.
