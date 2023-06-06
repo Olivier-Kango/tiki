@@ -103,9 +103,6 @@ body.tiki-admin {
   margin-top: 50px !important;
   overflow: auto;
 }
-.tiki-admin .admin-navbar form {
-  width: unset !important;
-}
 .tiki-admin aside .admin-navbar .dropdown-menu {
   border-top-left-radius: unset;
   border-top-right-radius: unset;
@@ -159,10 +156,6 @@ body.tiki-admin {
 }
 .tiki-admin aside.admin-nav .narrow .navbar-nav .nav-item {
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-}
-.tiki-admin .admin-wrapper .navbar-nav {
-  padding: 0;
-  width: 100%;
 }
 .tiki-admin aside.admin-nav ul .nav-item a, .tiki-admin .admin-wrapper .form-inline {
   padding-left: 1.6rem;
@@ -516,12 +509,12 @@ body.tiki-admin {
   }
 }
 @media (min-width: 992px) {
-  .tiki-admin:not(.fixed_width) .container.container-std .col1, .tiki-admin:not(.fixed_width) .middle_outer .main-footer, .tiki-admin.layout_basic:not(.fixed_width) .container-std .main-footer {
+  .tiki-admin:not(.fixed_width) .container.container-std .col1 {
     padding-left: 290px;
   }
-}
-.tiki-admin .admin-wrapper .navbar-nav.filter-menu {
-  width: auto;
+  .layout_social.tiki-admin:not(.fixed_width) .middle_outer .main-footer, .layout_classic.tiki-admin:not(.fixed_width) .main-footer, .layout_basic.tiki-admin:not(.fixed_width) .container-std .main-footer {
+    margin-left: 290px;
+  }
 }
 .tiki-admin .module.box-login_box button {
   background-color: transparent;

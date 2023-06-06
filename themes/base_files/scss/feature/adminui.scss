@@ -227,9 +227,9 @@ body.tiki-admin {
     overflow: auto;
 }
 
-.tiki-admin .admin-navbar form {
-    width: unset !important;
-}
+//.tiki-admin .admin-navbar form { -- Conflicted with inline style 15rem width; commented that out also.
+//    width: unset !important;
+//}
 
 .tiki-admin aside .admin-navbar .dropdown-menu { // limit to aside dropdowns
     border-top-left-radius: unset;
@@ -302,10 +302,10 @@ body.tiki-admin {
     border-bottom: 1px solid $color-light;
 }
 
-.tiki-admin .admin-wrapper .navbar-nav {
-    padding: 0;
-    width: 100%;
-}
+//.tiki-admin .admin-wrapper .navbar-nav {
+//    padding: 0;
+//    width: 100%;
+//}
 
 .tiki-admin aside.admin-nav ul .nav-item a, .tiki-admin .admin-wrapper .form-inline {
     padding-left: 1.6rem;
@@ -864,19 +864,23 @@ body.tiki-admin {
 }
 
 @media (min-width: 992px) {
-    .tiki-admin:not(.fixed_width) .container.container-std .col1,
-    .tiki-admin:not(.fixed_width) .middle_outer .main-footer,
-    .tiki-admin.layout_basic:not(.fixed_width) .container-std .main-footer {
+    .tiki-admin:not(.fixed_width) .container.container-std .col1 {
         padding-left: 290px;
+    }
+
+    .layout_social.tiki-admin:not(.fixed_width) .middle_outer .main-footer,
+    .layout_classic.tiki-admin:not(.fixed_width) .main-footer,
+    .layout_basic.tiki-admin:not(.fixed_width) .container-std .main-footer {
+       margin-left: 290px;
     }
 }
 
 
 // Filter
 
-.tiki-admin .admin-wrapper .navbar-nav.filter-menu {
-    width: auto;
-}
+//.tiki-admin .admin-wrapper .navbar-nav.filter-menu {
+//    width: auto;
+//}
 
 // Login Button
 
