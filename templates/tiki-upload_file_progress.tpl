@@ -18,7 +18,7 @@
     {else}
         {$imagetypes = 'n'}
     {/if}
-    <div class="media-left mr-3">
+    <div class="media-left me-3">
         {if $imagetypes eq 'y' or $prefs.theme_iconset eq 'legacy'}
             {if !empty($filegals_manager)}
                 <a {$alink}>

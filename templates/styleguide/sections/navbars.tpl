@@ -9,7 +9,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item active">
                             <a href="javascript:void(0);" class="nav-link">Link <span class="sr-only">(current)</span></a>
                         </li>
@@ -32,11 +32,11 @@
                         </li>
                     </ul>
                     <form class="d-flex flex-row flex-wrap align-items-center my-2 my-lg-0">
-                        <input type="text" class="form-control mr-sm-2" placeholder="Search" aria-label="{tr}Search{/tr}">
+                        <input type="text" class="form-control me-sm-2" placeholder="Search" aria-label="{tr}Search{/tr}">
                         <button type="submit" class="btn btn-primary my-2 my-sm-0">{tr}Submit{/tr}</button>
                     </form>
 {*
-                    <ul class="navbar-nav navbar-right mr-auto">
+                    <ul class="navbar-nav navbar-right me-auto">
                         <li><a href="javascript:void(0);">Link</a></li>
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

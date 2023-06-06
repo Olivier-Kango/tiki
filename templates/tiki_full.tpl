@@ -43,8 +43,8 @@
                     <option value="">{tr}Off{/tr}</option>
                 </select>
             </div>
-            <div class="p-2" id="reveal-controls"><span class="fas fa-fast-backward mr-1"  id="firstSlide" title="Go to First Slide"></span><span class="fas fa-step-backward mr-1" id="prevSlide" title="Go to Previous Slide"></span><span class="fas fa-play-circle mr-1" id="play"></span><span class="fas fa-undo mr-1 icon-inactive" id="loop" title="Auto-play in loop"></span><span class="fas fa-step-forward mr-1"  id="nextSlide" title="Go to Next Slide"></span><span class="fas fa-fast-forward"  id="lastSlide" title="Go to Last Slide"></span></div>
-            <div class="p-2" id="listSlides"><span class="fas fa-list mr-1"   title="List Slides"></span> List Slides</div>
+            <div class="p-2" id="reveal-controls"><span class="fas fa-fast-backward me-1"  id="firstSlide" title="Go to First Slide"></span><span class="fas fa-step-backward me-1" id="prevSlide" title="Go to Previous Slide"></span><span class="fas fa-play-circle me-1" id="play"></span><span class="fas fa-undo me-1 icon-inactive" id="loop" title="Auto-play in loop"></span><span class="fas fa-step-forward me-1"  id="nextSlide" title="Go to Next Slide"></span><span class="fas fa-fast-forward"  id="lastSlide" title="Go to Last Slide"></span></div>
+            <div class="p-2" id="listSlides"><span class="fas fa-list me-1"   title="List Slides"></span> List Slides</div>
 
             {if $prefs.feature_slideshow_pdfexport eq 'y'}
                 <div class="p-2"><a href="tiki-slideshow.php?page={$page}&pdf=1&landscape=1" target="_blank" id="exportPDF"><span class="far fa-file-pdf"></span> {tr}Export PDF{/tr}</a></div>

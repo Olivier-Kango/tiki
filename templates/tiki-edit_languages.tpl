@@ -163,8 +163,8 @@
                                 <div class="d-flex flex-row flex-wrap align-items-center float-end">
                                     {if $prefs.lang_control_contribution eq 'y'}
                                         <div class="mb-3 mx-md-1" {if ! isset($item.id)}style="display: none"{/if}{* Only translations in the database have an id. *}>
-                                            <label class="my-1 mr-sm-2" for="scope_{$smarty.foreach.translations.index}" >{tr}Contribute:{/tr}</label>
-                                            <select class="{*custom-select*}form-select my-1 mr-sm-2" name="scope_{$smarty.foreach.translations.index}" id="scope_{$smarty.foreach.translations.index}">
+                                            <label class="my-1 me-sm-2" for="scope_{$smarty.foreach.translations.index}" >{tr}Contribute:{/tr}</label>
+                                            <select class="{*custom-select*}form-select my-1 me-sm-2" name="scope_{$smarty.foreach.translations.index}" id="scope_{$smarty.foreach.translations.index}">
                                                 <option {if ! isset($item.general)}selected {/if}value="">{tr}Undecided{/tr}</option>
                                                 <option {if $item.general === true}selected {/if}value="general">{tr}Yes{/tr}</option>
                                                 <option {if $item.general === false}selected {/if}value="local">{tr}No{/tr}</option>

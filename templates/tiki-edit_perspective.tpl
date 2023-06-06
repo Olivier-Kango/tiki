@@ -75,9 +75,9 @@
         {tab name="{tr}Create{/tr}"}
             <h2>{tr}Create{/tr}</h2>
             <form method="post" action="tiki-edit_perspective.php" class="d-flex flex-row flex-wrap align-items-center">
-                    <label for="name" class="col-form-label mr-2">{tr}Name:{/tr} </label>
-                    <input type="text" name="name" class="form-control mr-2">
-                <input type="submit" class="btn btn-primary mr-2" name="create" value="{tr}Create{/tr}">
+                    <label for="name" class="col-form-label me-2">{tr}Name:{/tr} </label>
+                    <input type="text" name="name" class="form-control me-2">
+                <input type="submit" class="btn btn-primary me-2" name="create" value="{tr}Create{/tr}">
             </form>
         {/tab}
     {/if}

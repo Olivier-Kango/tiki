@@ -184,8 +184,8 @@
                         {if !empty($export_action)}
                             <input class="button submit btn btn-primary" type="submit" name="export_filter" value="{tr}{$export_action}{/tr}">
                         {elseif $action and $action neq " "}
-                            <input class="button submit btn btn-primary mr-1 mb-1" type="submit" name="filter" value="{if empty($action)}{tr}Filter{/tr}{else}{tr}{$action}{/tr}{/if}">
-                            <input class="button submit btn btn-primary mr-1 mb-1" type="submit" name="reset_filter" value="{tr}Reset{/tr}">
+                            <input class="button submit btn btn-primary me-1 mb-1" type="submit" name="filter" value="{if empty($action)}{tr}Filter{/tr}{else}{tr}{$action}{/tr}{/if}">
+                            <input class="button submit btn btn-primary me-1 mb-1" type="submit" name="reset_filter" value="{tr}Reset{/tr}">
                         {else}
                             &nbsp;
                         {/if}

@@ -208,7 +208,7 @@
                                         if (getCookie("wysiwyg_inline_edit", "preview")) { $("#wysiwyg_inline_edit").click(); }
                                     {/jq}
                                     <a class="dropdown-item" href="#" id="wysiwyg_inline_edit" title="{tr}Click to toggle on/off{/tr}">
-                                            <span class="d-flex align-items-center text-with-toggle"><span class="text flex-fill mr-3">{icon name='edit'} {tr}Inline edit{/tr} ({tr}Wysiwyg{/tr})</span> {icon iclass="toggle-icon" name="toggle-off"}</span>
+                                            <span class="d-flex align-items-center text-with-toggle"><span class="text flex-fill me-3">{icon name='edit'} {tr}Inline edit{/tr} ({tr}Wysiwyg{/tr})</span> {icon iclass="toggle-icon" name="toggle-off"}</span>
                                             {assign var="hasPageAction" value="1"}
                                     </a>
                                 {/if}

@@ -1,12 +1,12 @@
 {title}{tr}Rankings{/tr}{/title}
     <form action="{$rpage}" method="post" class="d-flex flex-row flex-wrap align-items-center mb-3" role="form">
         <div class="mb-3">
-            <select name="which" class="form-select mr-3 mb-4">
+            <select name="which" class="form-select me-3 mb-4">
                 {section name=ix loop=$allrankings}
                     <option value="{$allrankings[ix].value|escape}" {if $which eq $allrankings[ix].value}selected="selected"{/if}>{$allrankings[ix].name}</option>
                 {/section}
             </select>
-            <select name="limit" class="form-select mr-3 mb-4">
+            <select name="limit" class="form-select me-3 mb-4">
                 <option value="10" {if $limit eq 10}selected="selected"{/if}>{tr}Top 10{/tr}</option>
                 <option value="20" {if $limit eq 20}selected="selected"{/if}>{tr}Top 20{/tr}</option>
                 <option value="50" {if $limit eq 50}selected="selected"{/if}>{tr}Top 50{/tr}</option>

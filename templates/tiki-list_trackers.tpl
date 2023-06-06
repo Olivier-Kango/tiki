@@ -7,11 +7,11 @@
 {block name="navigation"}
     {if $tiki_p_admin_trackers eq 'y'}
         <div class="mb-3">{* Class provides 15px bottom margin. *}
-            <a class="btn btn-link mr-2" href="{bootstrap_modal controller=tracker action=replace}">
+            <a class="btn btn-link me-2" href="{bootstrap_modal controller=tracker action=replace}">
                 {icon name="create"} {tr}Create{/tr}
             </a>
             {if $trackers|count gt 0}
-                <a class="btn btn-link mr-2" href="{bootstrap_modal controller=tracker action=duplicate}">
+                <a class="btn btn-link me-2" href="{bootstrap_modal controller=tracker action=duplicate}">
                     {icon name="copy"} {tr}Duplicate{/tr}
                 </a>
             {/if}

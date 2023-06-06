@@ -116,7 +116,7 @@
         >
         <input type="submit" class="btn btn-primary btn-sm" name="archive" value="{tr}Archive{/tr}">
         <input type="submit" class="btn btn-primary btn-sm no-timeout" name="download" value="{tr}Download{/tr}">
-        <select name="action" class="form-select ms-4 mr-2">
+        <select name="action" class="form-select ms-4 me-2">
             <option value="isRead_y">{tr}Mark as read{/tr}</option>
             <option value="isRead_n">{tr}Mark as unread{/tr}</option>
             <option value="isFlagged_y">{tr}Mark as flagged{/tr}</option>

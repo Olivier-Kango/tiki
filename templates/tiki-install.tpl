@@ -969,7 +969,7 @@
                                                 <option value="ucs2" title="Unicode (multilingual), Binary">ucs2</option>
                                                 <option value="ujis" title="Japanese, Binary">ujis</option>
                                             </select>
-                                            <input type="submit" class="btn btn-danger btn-sm ml-2" name="fix_double_encoding" value="{tr}Click to fix double encoding (dangerous){/tr}">
+                                            <input type="submit" class="btn btn-danger btn-sm ms-2" name="fix_double_encoding" value="{tr}Click to fix double encoding (dangerous){/tr}">
                                         </div>
                                         <input type="hidden" name="install_step" value="8">
                                     </div>

@@ -139,7 +139,7 @@
                             {if count($checkedCals) > $maxCalsForButton}
                                 <option style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};" onclick="toggle('filtercal')">{$thisinfocalsname}</option>
                             {else}
-                                {button href="{$k|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="$thisinfocalsname" _class='btn btn-sm mr-2'}
+                                {button href="{$k|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="$thisinfocalsname" _class='btn btn-sm me-2'}
                             {/if}
                         {/if}
                     {/foreach}

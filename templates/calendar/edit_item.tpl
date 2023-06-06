@@ -334,7 +334,7 @@
                             <div class="offset-sm-1 col-sm-6">
                                 <div class="input-group">
                                     <input type="number" min="1" name="nbRecurrences" class="form-control" value="{if $recurrence.nbRecurrences gt 0}{$recurrence.nbRecurrences}{else}1{/if}">
-                                    <div class="input-group-append mr-4">
+                                    <div class="input-group-append me-4">
                                         <span class="input-group-text">
                                             {if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}
                                         </span>

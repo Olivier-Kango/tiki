@@ -346,8 +346,8 @@
                             <div class="mb-3 row">
                                 <label for="suck_url" class="col-md-4 col-form-label">{tr}Import HTML{/tr}</label>
                                 <div class="col-md-8 d-flex flex-row flex-wrap align-items-center">
-                                    <input class="form-control wikiedit mr-2" type="text" id="suck_url" name="suck_url" value="{$suck_url|escape}">
-                                    <input type="submit" class="wikiaction btn btn-primary mr-2" name="do_suck" value="{tr}Import{/tr}" onclick="needToConfirm=false;">
+                                    <input class="form-control wikiedit me-2" type="text" id="suck_url" name="suck_url" value="{$suck_url|escape}">
+                                    <input type="submit" class="wikiaction btn btn-primary me-2" name="do_suck" value="{tr}Import{/tr}" onclick="needToConfirm=false;">
                                     <label><input type="checkbox" name="parsehtml" {if $parsehtml eq 'y'}checked="checked"{/if}>&nbsp;
                                     {tr}Try to convert HTML to wiki{/tr}</label>
                                 </div>
@@ -358,7 +358,7 @@
                                 <label for="userfile1" class="col-md-4 col-form-label">{tr}Import page{/tr}</label>
                                 <div class="col-md-8 d-flex flex-row flex-wrap align-items-center">
                                     <input type="hidden" name="MAX_FILE_SIZE" value="1000000000">
-                                    <input class="form-control mr-2" id="userfile1" name="userfile1" type="file">
+                                    <input class="form-control me-2" id="userfile1" name="userfile1" type="file">
                                     <input type="submit" class="wikiaction btn btn-primary" name="attach" value="{tr}Import{/tr}" onclick="javascript:needToConfirm=false; insertImgFile('editwiki','userfile2','hasAlreadyInserted2','file', 'page2', 'attach_comment'); return true;">
                                 </div>
                             </div>
@@ -382,7 +382,7 @@
                                         <input name="{if $prefs.feature_use_fgal_for_wiki_attachments neq 'y'}userfile2{else}userfile[0]{/if}" type="file" id="attach-upload" class="form-control">
                                     </div>
                                     <div class="col-sm-8 offset-sm-4 d-flex flex-row flex-wrap align-items-center">
-                                        <input type="text" name="attach_comment" class="col-sm-10 form-control mr-2" maxlength="250" id="attach-comment" placeholder="{tr}Comment{/tr}">
+                                        <input type="text" name="attach_comment" class="col-sm-10 form-control me-2" maxlength="250" id="attach-comment" placeholder="{tr}Comment{/tr}">
                                         <input type="submit" class="wikiaction btn btn-primary" name="attach" value="{tr}Attach{/tr}" onclick="javascript:needToConfirm=false;{if $prefs.feature_use_fgal_for_wiki_attachments neq 'y'}insertImgFile('editwiki','userfile2','hasAlreadyInserted2','file', 'page2', 'attach_comment');{/if} return true;">
                                     </div>
                                 </div>
@@ -686,7 +686,7 @@
                                     <label for="object_layout" class="col-md-4 col-form-label">{tr}Update Frequency{/tr}</label>
                                     <div class="col-sm-8 mb-2">
                                         <div class="input-group">
-                                            <input type="text" name="update_frequency" class="col-sm-10 form-control mr-2" maxlength="4" id="update_frequency" value="{$update_frequency}" placeholder="{tr}Days{/tr}">
+                                            <input type="text" name="update_frequency" class="col-sm-10 form-control me-2" maxlength="4" id="update_frequency" value="{$update_frequency}" placeholder="{tr}Days{/tr}">
                                             <span class="input-group-text">{tr}days{/tr}</span>
                                         </div>
                                     </div>

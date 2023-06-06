@@ -35,7 +35,7 @@
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Votes to show{/tr}</label>
         <div class="col-sm-9">
-            <input type="radio" name="which_date" value="between"{if $which_date eq 'between'} checked="checked"{/if} class="mr-2"><label class="col-form-label-sm">{tr}Within a date range{/tr}</label>
+            <input type="radio" name="which_date" value="between"{if $which_date eq 'between'} checked="checked"{/if} class="me-2"><label class="col-form-label-sm">{tr}Within a date range{/tr}</label>
             <div class="mb-3 row mt-2">
                 <label class="col-sm-2 col-form-label-sm">{tr}Start{/tr}</label>
                 <div class="col-sm-7">
@@ -59,7 +59,7 @@
                     {tr}All votes with time span consideration{/tr}
                 </label>
             {else}
-                <input type="radio" name="which_date" value="all"{if $which_date eq 'all' or $which_date eq ''} checked="checked"{/if} class="mr-2"><label class="col-form-label-sm">{tr}All votes{/tr}</label>
+                <input type="radio" name="which_date" value="all"{if $which_date eq 'all' or $which_date eq ''} checked="checked"{/if} class="me-2"><label class="col-form-label-sm">{tr}All votes{/tr}</label>
             {/if}
             <input type="submit" class="btn btn-primary btn-sm" name="search" value="{tr}Find{/tr}">
         </div>

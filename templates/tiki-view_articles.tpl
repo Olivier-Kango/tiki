@@ -64,7 +64,7 @@
     {if $listpages[ix].disp_article eq 'y'}
         <article class="clearfix article {if !empty($container_class)} {$container_class}{/if} article{$smarty.section.ix.index} mt-1 mb-5">
             {if ($listpages[ix].show_avatar eq 'y')}
-                <div class="avatar float-start mr-3">
+                <div class="avatar float-start me-3">
                     {$listpages[ix].author|avatarize}
                 </div>
             {/if}

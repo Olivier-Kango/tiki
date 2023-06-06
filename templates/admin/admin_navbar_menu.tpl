@@ -1,6 +1,6 @@
 {* navbar menu for admin_navbar.tpl *}
-<ul class="nav navbar-nav mr-auto">
-    <li class="nav-item dropdown  mr-1">
+<ul class="nav navbar-nav me-auto">
+    <li class="nav-item dropdown  me-1">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{tr}Access{/tr}</a>
         <ul class="dropdown-menu tiki-admin-top-nav-{$prefs.theme_navbar_color_variant_admin}">
             {if $tiki_p_admin eq "y" and $tiki_p_admin_users eq "y"}
@@ -87,7 +87,7 @@
         </ul>
     </li>
     <li class="nav-item dropdown me-1">
-        <a href="#" class="nav-link dropdown-toggle mr-2" data-bs-toggle="dropdown">{tr}System{/tr}</a>
+        <a href="#" class="nav-link dropdown-toggle me-2" data-bs-toggle="dropdown">{tr}System{/tr}</a>
         <ul class="dropdown-menu{*{if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if}*}">
             {if $tiki_p_admin eq "y"}
                 <a class="dropdown-item" href="{service controller=managestream action=list}">{tr}Activity Rules{/tr}</a>
