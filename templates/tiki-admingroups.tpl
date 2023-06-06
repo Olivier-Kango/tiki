@@ -494,7 +494,7 @@
             {/if}
             {if $group ne '' and $groupname neq 'Anonymous'}
                 <div class="mb-3 row">
-                    <label class="col-form-label col-md-3">{tr}Assign group<em>management</em>permissions{/tr}</label>
+                    <label class="col-form-label col-md-3">{tr}Assign group <em>management</em> permissions{/tr}</label>
                     <div class="col-md-9">
                         {self_link _script="tiki-objectpermissions.php" objectType="group" objectId=$groupname objectName=$groupname permType="group"}
                         {icon _text="{tr}Assign Permissions{/tr}" name="key"}
