@@ -47,11 +47,11 @@
                 </div>
             {/foreach}
         </div>
-        <div class="admin-menu-collapser">
+        <div class="admin-menu-collapser navbar-{$navbar_color_variant} bg-{$navbar_color_variant}">
             {if not empty($smarty.cookies.sidebar_collapsed)}
-                {icon name='angle-double-right' title='{tr}Collapse/expand this sidebar{/tr}'}
+                {icon name='angle-double-right' class="nav-link float-end pt-1 pe-4" title='{tr}Collapse/expand this sidebar{/tr}'}
             {else}
-                {icon name='angle-double-left' title='{tr}Collapse/expand this sidebar{/tr}'}
+                {icon name='angle-double-left' class="nav-link float-end pt-1 pe-4" title='{tr}Collapse/expand this sidebar{/tr}'}
             {/if}
         </div>
     </nav>
