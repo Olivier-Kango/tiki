@@ -361,6 +361,14 @@ class RelationLib extends TikiDb_Bridge
      */
     public function remove_relation_type($relation, $fieldId)
     {
+        $results = $this->table->fetchAll(['metadata_itemId'], [
+            'relation' => $relation,
+            'source_fieldId' => $fieldId,
+            'metadata_itemId' => $this->table->not(''),
+        ]);
+        foreach ($results as $row) {
+            TikiLib::lib('trk')->remove_tracker_item($row['metadata_itemId'], true);
+        }
         return $this->query("DELETE FROM tiki_object_relations
             WHERE relation = ?
             AND source_type = 'trackeritem'
@@ -375,6 +383,15 @@ class RelationLib extends TikiDb_Bridge
      */
     public function remove_relations_from($fromType, $fromId, $relationType)
     {
+        $results = $this->table->fetchAll(['metadata_itemId'], [
+            'relation' => $relationType,
+            'source_type' => $fromType,
+            'source_itemId' => $fromId,
+            'metadata_itemId' => $this->table->not(''),
+        ]);
+        foreach ($results as $row) {
+            TikiLib::lib('trk')->remove_tracker_item($row['metadata_itemId'], true);
+        }
         return $this->table->deleteMultiple(
             [
                 'relation' => $relationType,
