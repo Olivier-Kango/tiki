@@ -235,7 +235,7 @@ class TikiSheet
         $this->headerRow = $headerRow;
         $this->footerRow = $footerRow;
         $this->parseValues = $parseValues;
-        $this->metadata = json_decode($metadata);
+        $this->metadata = json_decode($metadata ?? "");
     }
 
     /** getColumnIndex
