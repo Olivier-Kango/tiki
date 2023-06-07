@@ -247,7 +247,6 @@ class ToolbarDialog extends ToolbarItem
                 import "@vue-mf/root-config";
                 import "@vue-mf/toolbar-dialogs";
             ');
-            TikiLib::lib('header')->add_cssfile('storage/public/vue-mf/toolbar-dialogs/assets/vue-mf-toolbar-dialogs.min.css');
 
             // language=JavaScript
             TikiLib::lib('header')->add_jq_onready('
