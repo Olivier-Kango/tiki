@@ -3,7 +3,11 @@
     {assign var=sep value=''}
 
     {foreach key=pos item=chdata from=$menu_channels}
-        {assign var=cname value=$menu_info.menuId|cat:'__'|cat:$chdata.position}
+        {if not empty($chdata.position)}
+            {assign var=cname value=$menu_info.menuId|cat:'__'|cat:$chdata.position}
+        {else}
+            {assign var=cname value=$menu_info.menuId}
+        {/if}
         {* ----------------------------- section *}
         {if $chdata.type ne 'o' and $chdata.type ne '-'}
 
