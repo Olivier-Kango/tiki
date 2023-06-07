@@ -15,8 +15,7 @@ $access->check_feature('feature_articles');
 // PERMISSIONS: NEEDS p_admin or tiki_p_articles_admin_topics
 $access->check_permission(['tiki_p_articles_admin_topics']);
 
-if (isset($_REQUEST["addtopic"])) {
-    check_ticket('admin-topics');
+if (isset($_REQUEST["addtopic"]) && $access->checkCsrf()) {
     if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
         $filegallib = TikiLib::lib('filegal');
         try {
@@ -50,12 +49,10 @@ if (isset($_REQUEST["removeall"])) {
     $access->checkCsrf(tra('Are you sure you want to remove this topic AND all the articles related?'));
     $artlib->remove_topic($_REQUEST["removeall"], 1);
 }
-if (isset($_REQUEST["activate"])) {
-    check_ticket('admin-topics');
+if (isset($_REQUEST["activate"]) && $access->checkCsrf()) {
     $artlib->activate_topic($_REQUEST["activate"]);
 }
-if (isset($_REQUEST["deactivate"])) {
-    check_ticket('admin-topics');
+if (isset($_REQUEST["deactivate"]) && $access->checkCsrf()) {
     $artlib->deactivate_topic($_REQUEST["deactivate"]);
 }
 $topics = $artlib->list_topics();
@@ -64,7 +61,6 @@ $topics = $artlib->list_topics();
  */
 $topics = array_values($topics);
 $smarty->assign('topics', $topics);
-ask_ticket('admin-topics');
 include_once('tiki-section_options.php');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
