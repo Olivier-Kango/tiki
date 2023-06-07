@@ -47,7 +47,7 @@ function wikiplugin_sort($data, $params)
 
     $lines = preg_split("/\n+/", $data, -1, PREG_SPLIT_NO_EMPTY); // separate lines into array
     // $lines = array_filter( $lines, "chop" ); // remove \n
-    srand((float) microtime() * 1000000); // needed for shuffle;
+    srand(intval(microtime(true) * 1000000)); // needed for shuffle;
 
     if ($sort == "asc") {
         natcasesort($lines);
