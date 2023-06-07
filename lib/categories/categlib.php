@@ -88,6 +88,9 @@ class CategLib extends ObjectLib
         $query = "select `name`,`parentId` from `tiki_categories` where `categId`=?";
         $result = $this->query($query, [(int)$categId]);
         $res = $result->fetchRow();
+        if (empty($res)) {
+            return "";
+        }
         if ($real) {
             return $res['name'];
         }
