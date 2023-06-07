@@ -1783,7 +1783,7 @@ class TikiSheetOutputHandler extends TikiSheetDataHandler
                     $append .= " rowspan='{$height}'";
                 }
 
-                if (! empty($sheet->calcGrid[$i][$j])) {
+                if (! empty($sheet->calcGrid[$i][$j]['calculation'])) {
                     $append .= ' data-formula="=' . str_replace('"', "'", $sheet->calcGrid[$i][$j]['calculation']) . '"';
                 }
 
