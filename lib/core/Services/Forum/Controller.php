@@ -448,10 +448,7 @@ class Services_Forum_Controller
         $util->setVars($input, $this->filters, 'checked');
         $forum_order_util = new Services_Utilities();
         $forum_order_util->setVars($input, $this->filters, 'forumsId');
-        $perms = Perms::get('forum', $util->items);
-        if (! $perms->admin_forum) {
-            throw new Services_Exception_Denied(tr('Reserved for forum administrators'));
-        }
+        $allowed = Perms::filter([ 'type' => 'forum' ], 'object', $util->items, [ 'object' => null ], 'admin_forum');
 
         if ($util->notConfirmPost()) {
             if ($util->itemsCount > 0) {
@@ -471,7 +468,7 @@ class Services_Forum_Controller
             $util->setVars($input, $this->filters, 'items');
             $orders = $util->extra['order'];
             $i = 0;
-            foreach ($util->items as $id => $name) {
+            foreach ($allowed as $id => $name) {
                 if (is_numeric($id)) {
                     $this->lib->reorder_forum($id, $orders[$i]);
                 }
