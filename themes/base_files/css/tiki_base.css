@@ -1121,7 +1121,7 @@ span.btn-link {
   display: inline-block;
   margin-right: 2px;
 }
-.form-check-label .btn {
+.form-check-label .btn, ul.relation-list .btn {
   --bs-btn-padding-y: 0;
 }
 select.form-control.date {

@@ -1,4 +1,5 @@
 {if $data.relationshipTracker}
+	<input type="hidden" name="{$field.ins_id}[meta]" value="{$data.meta|escape}">
 	{if $data.relationshipBehaviour && $data.relationshipBehaviour->isMultiple()}
 		{object_selector_multi _name=$field.ins_id|cat:'[objects]' _relations=$data.relations _relationshipTrackerId=$data.relationshipTrackerId _filter=$data.filter _format=$data.format _parent=$data.parent _parentkey=$data.parentkey}
 	{else}

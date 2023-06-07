@@ -1051,6 +1051,23 @@ class Services_Tracker_Controller
                         Feedback::success(tr('New tracker item %0 successfully created.', $itemId));
                     }
                 }
+                if ($input->skipRefresh->bool()) {
+                    $return = Services_Utilities::closeModal();
+                    $item = array_merge($return, $item);
+                }
+                if ($input->refreshMeta->raw()) {
+                    $item['editHref'] = TikiLib::lib('service')->getUrl([
+                        'controller' => 'tracker',
+                        'action' => 'update_item',
+                        'trackerId' => $trackerId,
+                        'itemId' => $itemId,
+                        'modal' => 1,
+                        'skipRefresh' => 1,
+                    ]);
+                    $item['editTitle'] = tr('edit metadata');
+                    $item['refreshMeta'] = str_replace('[objects]', '[meta]', $input->refreshMeta->raw());
+                    $item['refreshObject'] = $input->refreshObject->raw();
+                }
                 // send a new ticket back to allow subsequent new items
                 $util->setTicket();
                 $item['nextTicket'] = $util->getTicket();
@@ -1115,6 +1132,9 @@ class Services_Tracker_Controller
             'editItemPretty' => $editItemPretty,
             'next' => $input->next->url(),
             'suppressFeedback' => $suppressFeedback,
+            'skipRefresh' => $input->skipRefresh->bool(),
+            'refreshMeta' => $input->refreshMeta->raw(),
+            'refreshObject' => $input->refreshObject->raw(),
         ];
     }
 

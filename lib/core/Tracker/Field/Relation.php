@@ -139,17 +139,20 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
 
         $data = [];
         $relations = [];
-        $meta = null;
+        $meta = [];
         if (! $this->getOption(self::OPT_READONLY) && isset($requestData[$insertId])) {
             $selector = TikiLib::lib('objectselector');
             $entries = $selector->readMultiple($requestData[$insertId]['objects']);
             $data = array_map('strval', $entries);
-            $meta = $requestData[$insertId]['meta'];
+            $meta = json_decode($requestData[$insertId]['meta'], true);
         } else {
             $relation = $this->getOption(self::OPT_RELATION);
             $relations = TikiLib::lib('relation')->getObjectRelationsFromField('trackeritem', $this->getItemId(), $this->getFieldId());
             foreach ($relations as $rel) {
                 $data[] = strval($rel->target);
+                if ($rel->metadata) {
+                    $meta[strval($rel->target)] = $rel->metadata->itemId;
+                }
             }
             // TODO: handle inverts as part of the metadata tracker holding info on the relation
             // if ($this->getOption(self::OPT_INVERT)) {
@@ -208,6 +211,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $params = [
             'existing' => $data['value'],
             'relations' => $data['relations'],
+            'meta' => json_encode($data['meta']),
             'filter' => $filter,
             'format' => $this->getOption('format'),
             'parent' => $this->getOption('parentFilter'),
@@ -221,12 +225,6 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $params['relationshipTracker'] = $relationshipTracker;
         if ($relationshipTracker) {
             $params['relationshipTrackerId'] = $relationshipTracker->getConfiguration('trackerId');
-            // $itemObject = Tracker_Item::newItem($relationshipTracker->getConfiguration('trackerId'));
-            // // TODO: fill existing and separate by relation object item
-            // $params['relationshipFields'] = $itemObject->prepareInput(new JitFilter([]));
-            // foreach ($params['relationshipFields'] as &$field) {
-            //     $field['ins_id'] = $this->getInsertId() . '[meta][' . $field['ins_id'] . ']';
-            // }
             $params['relationshipBehaviour'] = $relationshipTracker->getRelationshipBehaviour();
         }
 
@@ -354,9 +352,6 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
 
         foreach ($toRemove as $v) {
             $relation = $map[$v];
-            if ($relation->metadata) {
-                TikiLib::lib('trk')->remove_tracker_item($relation->metadata->itemId, true);
-            }
             $relationlib->remove_relation($relation->id);
         }
 
@@ -367,51 +362,18 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                 continue;
             }
 
-            if (! empty($field['meta'])) {
-                $relationshipTracker = Tracker_Definition::get($this->getOption('relationshipTrackerId'));
-                $utils = new Services_Tracker_Utilities;
-                // TODO: handle validation
-                $metadataItemId = $utils->insertItem(
-                    $relationshipTracker,
-                    [
-                        'status' => 'o',
-                        'fields' => $field['meta'],
-                    ]
-                );
-            } else {
-                $metadataItemId = null;
-            }
+            $metadataItemId = $field['meta'][$key] ?? $field['meta'][$this->getInsertId() . '[objects]'] ?? null;
 
             $relationlib->add_relation($this->getOption(self::OPT_RELATION), 'trackeritem', $this->getItemId(), $type, $id, false, $this->getFieldId(), $metadataItemId);
         }
 
-        // TODO: handle when UI is broken down in individual blocks of metadata and items
         if (! empty($field['meta'])) {
             $toKeep = array_intersect(array_keys($map), $target);
             foreach ($toKeep as $key) {
                 $relation = $map[$key];
-                $relationshipTracker = Tracker_Definition::get($this->getOption('relationshipTrackerId'));
-                $utils = new Services_Tracker_Utilities;
-                if ($relation->metadata) {
-                    $result = $utils->updateItem(
-                        $relationshipTracker,
-                        [
-                            'itemId' => $relation->metadata->itemId,
-                            'status' => 'o',
-                            'fields' => $field['meta'],
-                        ]
-                    );
-                } else {
-                    $metadataItemId = $utils->insertItem(
-                        $relationshipTracker,
-                        [
-                            'status' => 'o',
-                            'fields' => $field['meta'],
-                        ]
-                    );
-                    if ($metadataItemId) {
-                        $relationlib->updateMetadataItemId($relation->id, $metadataItemId);
-                    }
+                $metadataItemId = $field['meta'][$key] ?? $field['meta'][$this->getInsertId() . '[objects]'] ?? null;
+                if ($relation->getMetadataItemId() != $metadataItemId) {
+                    $relationlib->updateMetadataItemId($relation->id, $metadataItemId);
                 }
             }
         }

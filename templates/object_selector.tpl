@@ -25,6 +25,7 @@
     data-filters="{$object_selector.filter|escape}"
     data-threshold="{$object_selector.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-searchfield="{$object_selector.searchfield|escape}"
+    data-relationshiptrackerid="{$object_selector.relationshipTrackerId}"
 >
     <div class="basic-selector d-none mb-3{if !empty($object_selector.current_selection.metadata) or $object_selector.relationshipTrackerId} include-icon{/if}">
         <select class="form-select">
@@ -36,7 +37,7 @@
         {if !empty($object_selector.current_selection.metadata)}
             <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
         {elseif $object_selector.relationshipTrackerId}
-            <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1}" title="add metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
+            <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name refreshObject=$object_selector.name}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object_selector.name|escape}">{icon name="clipboard-list"}</a>
         {/if}
     </div>
 
@@ -60,10 +61,14 @@
                 {if !empty($object_selector.current_selection)}
                     <div class="form-check">
                         <input type="radio" checked="checked" value="{$object_selector.current_selection|escape}" name="{$object_selector.id|escape}_sel" name="{$object_selector.id|escape}_sel_selected">
-                        <label class="form-check-label" for="{$object_selector.id|escape}_sel_selected">{$object_selector.current_selection.title|escape}</label>
-                        {if !empty($object_selector.current_selection.metadata)}
-                            <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
-                        {/if}
+                        <label class="form-check-label" for="{$object_selector.id|escape}_sel_selected">
+                            {$object_selector.current_selection.title|escape}
+                            {if !empty($object_selector.current_selection.metadata)}
+                                <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
+                            {elseif $object_selector.relationshipTrackerId}
+                                <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name refreshObject=$object|escape}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object|escape}">{icon name="clipboard-list"}</a>
+                            {/if}
+                        </label>
                     </div>
                 {/if}
             </div>
@@ -72,6 +77,12 @@
             </p>
         </div>
     </div>
+
+    {if $object_selector.relationshipTrackerId}
+    <div class="metadata-icon-template d-none">
+        <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name}" title="add metadata"|tra class="btn btn-link metadata-insert-item">{icon name="clipboard-list"}</a>
+    </div>
+    {/if}
 </div>
 
 {jq}

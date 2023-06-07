@@ -6,7 +6,7 @@
             {if $data.display eq 'toggle'}
                 <a class="toggle" href="#display_f{$field.fieldId|escape}">{tr _0=$data.relations|count}%0 element(s){/tr}</a>
             {/if}
-            <ul>
+            <ul class="relation-list">
                 {foreach from=$data.relations item=rel}
                     <li>{object_link identifier=':'|implode:[$rel.target.type,$rel.target.itemId] format=$data.format metaItemId=$rel->getMetadataItemId()}</li>
                 {/foreach}

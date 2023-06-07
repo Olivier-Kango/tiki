@@ -336,6 +336,10 @@ class RelationLib extends TikiDb_Bridge
             ]
         );
 
+        if (! empty($relation_info['metadata_itemId'])) {
+            TikiLib::lib('trk')->remove_tracker_item($relation_info['metadata_itemId'], true);
+        }
+
         TikiLib::events()->trigger('tiki.social.relation.remove', [
             'relation' => $relation_info['relation'],
             'sourcetype' => $relation_info['source_type'],
