@@ -6,9 +6,9 @@ $imagePath: "../images/";
 //    background-image: url('#{$imagePath}bg.jpg');
 //  }
 
-.pagetitle a {
-  color: $body-color;
-}
+//.pagetitle a {
+//  color: $body-color;
+//}
 
 $tiki-topmodules-row-sidemargins: 0;
 $tiki-topbar-row-sidemargins: -15px;
@@ -26,10 +26,10 @@ $tiki-topbar-row-sidemargins: -15px;
 }
 
 //
-
-.bg-dark {
-  background: #efefef !important;
-}
+//
+//.bg-dark {
+//  background: #efefef !important;
+//}
 
 //.navbar-nav {
 //  display: flex;
@@ -44,7 +44,7 @@ $tiki-topbar-row-sidemargins: -15px;
   font-family: Mukta, sans-serif;
   text-transform: uppercase;
   font-weight: 800;
-  font-size: .875rem;
+  //font-size: .875rem;
   border-left: 1px solid var(--tiki-nav-link-border-left-color);
   border-bottom: 3px solid #09c;
 }
