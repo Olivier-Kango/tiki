@@ -535,13 +535,7 @@ class PdfGenerator
 
         clearstatcache();
 
-        preg_match_all('#\"(.*?)\"#', $prefs['print_pdf_modules'], $match);
-        $modules_to_print = array_map(
-            function ($item) {
-                return str_replace('"', '', $item);
-            },
-            $match[0]
-        );
+        $modules_to_print = $prefs['print_pdf_modules'];
         $modules_to_print_contents = [];
 
         $modules = $modlib->get_modules_for_user($user);
