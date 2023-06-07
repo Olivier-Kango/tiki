@@ -5,7 +5,11 @@
     <table class="table">
         <tr>
             {if $gal_info.show_checked ne 'n' and ($tiki_p_admin_file_galleries eq 'y' or $tiki_p_upload_files eq 'y')}
-                {assign var=nbCols value=$nbCols+1}
+                {if isset($nbCols)}
+                    {assign var=nbCols value=$nbCols+1}
+                {else}
+                    {assign var=nbCols value=1}
+                {/if}
                 <th class="checkbox-cell">
                     <div class="form-check">
                         {select_all checkbox_names='file[],subgal[]'}
@@ -74,7 +78,11 @@
                     {/if}
 
                     {if $propname eq 'name' and ( $gal_info.show_name eq 'a' or $gal_info.show_name eq 'f' )}
-                        {assign var=nbCols value=$nbCols+1}
+                        {if isset($nbCols)}
+                            {assign var=nbCols value=$nbCols+1}
+                        {else}
+                            {assign var=nbCols value=1}
+                        {/if}
                         <th{$td_args}>
                             {self_link _sort_arg=$sort_arg _sort_field='filename'}
                                 {tr}Filename{/tr}
@@ -85,7 +93,11 @@
                     {if !(empty($galleryId) and $propname eq 'lockedby') and ($propname neq 'name'
                         or ( $gal_info.show_name eq 'a' or $gal_info.show_name eq 'n' )) and ($propname neq 'description'
                         or $gal_info.show_name neq 'n')}
-                        {assign var=nbCols value=$nbCols+1}
+                        {if isset($nbCols)}
+                            {assign var=nbCols value=$nbCols+1}
+                        {else}
+                            {assign var=nbCols value=1}
+                        {/if}
                         <th{$td_args}>
                             {self_link _sort_arg=$sort_arg _sort_field=$propname _title=":$link_title" _class='tips'}
                                 {if !empty($propicon)}
@@ -112,7 +124,11 @@
             {/if}
 
             {if !empty($other_columns_selected)}
-                {assign var=nbCols value=$nbCols+1}
+                {if isset($nbCols)}
+                    {assign var=nbCols value=$nbCols+1}
+                {else}
+                    {assign var=nbCols value=1}
+                {/if}
                 <th>
                     {self_link _sort_arg=$sort_arg _sort_field=$other_columns_selected _title=$fgal_listing_conf.$other_columns_selected.name}
                         {$fgal_listing_conf.$other_columns_selected.name}
@@ -122,14 +138,22 @@
 
             {if ( $prefs.use_context_menu_icon neq 'y' and $prefs.use_context_menu_text neq 'y' )
                 or (isset($gal_info.show_action) && $gal_info.show_action eq 'y') or $prefs.javascript_enabled neq 'y'}
-                {assign var=nbCols value=$nbCols+1}
+                {if isset($nbCols)}
+                    {assign var=nbCols value=$nbCols+1}
+                {else}
+                    {assign var=nbCols value=1}
+                {/if}
                 <th>
                     {tr}Actions{/tr}
                 </th>
             {/if}
 
             {if ( !empty($other_columns) or !empty($other_columns_selected)) and $prefs.javascript_enabled eq 'y'}
-                {assign var=nbCols value=$nbCols+1}
+                {if isset($nbCols)}
+                    {assign var=nbCols value=$nbCols+1}
+                {else}
+                    {assign var=nbCols value=1}
+                {/if}
                 <th style="width: 1em">
                     {if !empty($other_columns)}
                         <a href='#' {popup fullhtml="1" text=$smarty.capture.over_other_columns trigger="click"} title="{tr}Other Sorts{/tr}">
@@ -157,7 +181,7 @@
                 {/if}
 
                 {capture name=over_preview}{strip}
-                    {if $files[changes].type|truncate:6:'':true eq 'image/'}
+                    {if isset($files[changes].type) && $files[changes].type|truncate:6:'':true eq 'image/'}
                         <div class='opaque'>
                             <img src="{$files[changes].id|sefurl:thumbnail}">
                         </div>
@@ -318,7 +342,7 @@
                         {* build link *}
                         {capture assign=link}
                             {strip}
-                                {if $files[changes].isgal eq 1}
+                                {if isset($files[changes].isgal) && $files[changes].isgal eq 1}
                                     {if empty($filegals_manager)}
                                         {$query = ''}
                                     {else}
@@ -338,7 +362,7 @@
                                     or (!isset($files[changes].p_download_files) and $files[changes].perms.tiki_p_download_files eq 'y')}
                                         {if $gal_info.type eq 'podcast' or $gal_info.type eq 'vidcast'}
                                             href="{$prefs.fgal_podcast_dir}{$files[changes].path}" title="{tr}Download{/tr}"
-                                        {elseif $prefs.h5p_enabled eq 'y' and $files[changes].type eq 'application/zip' and preg_match('/\.h5p$/i', $files[changes].filename)}
+                                        {elseif $prefs.h5p_enabled eq 'y' and isset($files[changes].type) and $files[changes].type eq 'application/zip' and preg_match('/\.h5p$/i', $files[changes].filename)}
                                             href="{service controller='h5p' action='embed' fileId=$files[changes].id}" title="{tr}View{/tr}"
                                         {else}
                                             href="{$files[changes].id|sefurl:file}" title="{tr}Download{/tr}"
@@ -461,7 +485,7 @@
                         {/if}
                         {if $propname eq 'name' and ( $gal_info.show_name eq 'a' or $gal_info.show_name eq 'f' )}
                             <td>
-                                {if $link neq ''}<a class='fgalname fileLink' fileId='{$files[changes].id}' type='{$files[changes].type}' {$link}>{/if}{$files[changes].filename|escape}{if $link neq ''}</a>{/if}
+                                {if $link neq ''}<a class='fgalname fileLink' fileId='{$files[changes].id}' type='{if isset($files[changes].type)}{$files[changes].type}{/if}' {$link}>{/if}{if isset($files[changes].filename)}{$files[changes].filename|escape}{/if}{if $link neq ''}</a>{/if}
                             </td>
                         {/if}
 
@@ -490,7 +514,7 @@
                     <td>{include file='fgal_context_menu.tpl'}</td>
                 {/if}
 
-                {if ( $other_columns neq '' or $other_columns_selected neq '' ) and $prefs.javascript_enabled eq 'y'}
+                {if isset($other_columns) and isset($other_columns_selected) and ( $other_columns neq '' or $other_columns_selected neq '' ) and $prefs.javascript_enabled eq 'y'}
                     <td>
                         {if $show_infos eq 'y'}
                             {if $over_infos eq ''}
