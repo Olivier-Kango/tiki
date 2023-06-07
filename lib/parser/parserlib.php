@@ -1912,7 +1912,7 @@ class ParserLib extends TikiDb_Bridge
                             $histlib = TikiLib::lib('hist');
                             // get_page_history arguments: page name, page contents (set to "false" to save memory), history_offset (none, therefore "0"), max. records (just one for this case);
                             $history = $histlib->get_page_history($this->option['page'], false, 0, 1);
-                            if ($history[0]['version'] != null) {
+                            if (isset($history[0]['version']) && $history[0]['version'] != null) {
                                 $value = $history[0]['version'];
                                 break;
                             } else {
@@ -1924,7 +1924,7 @@ class ParserLib extends TikiDb_Bridge
 
                             // get_page_history arguments: page name, page contents (set to "false" to save memory), history_offset (none, therefore "0"), max. records (just one for this case);
                             $history = $histlib->get_page_history($this->option['page'], false, 0, 1);
-                            if ($history[0]['user'] != null) {
+                            if (isset($history[0]['user']) && $history[0]['user'] != null) {
                                 if ($prefs['user_show_realnames'] == 'y') {
                                     $value = TikiLib::lib('user')->clean_user($history[0]['user']);
                                     break;
@@ -2063,7 +2063,7 @@ class ParserLib extends TikiDb_Bridge
                                 }
                             }
 
-                            if ($approval['lastModif'] != null) {
+                            if (isset($approval['lastModif']) && $approval['lastModif'] != null) {
                                 $value = $tikilib->get_short_datetime($approval['lastModif']);
                                 break;
                             } else {
@@ -2082,7 +2082,7 @@ class ParserLib extends TikiDb_Bridge
                                 }
                             }
 
-                            if ($version_info['version'] != null) {
+                            if (isset($version_info['version']) && $version_info['version'] != null) {
                                 $value = $version_info['version'];
                                 break;
                             } else {
