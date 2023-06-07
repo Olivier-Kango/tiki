@@ -9830,111 +9830,32 @@
             "time": "2023-05-02T15:15:43+00:00"
         },
         {
-            "name": "react/promise-timer",
-            "version": "v1.9.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/reactphp/promise-timer.git",
-                "reference": "aa7a73c74b8d8c0f622f5982ff7b0351bc29e495"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/react/promise-timer/react-promise-timer-aa7a73c74b8d8c0f622f5982ff7b0351bc29e495-zip-959452.zip",
-                "reference": "aa7a73c74b8d8c0f622f5982ff7b0351bc29e495",
-                "shasum": "4bb8888ea045047d6652c4e5193eff9503e4d063"
-            },
-            "require": {
-                "php": ">=5.3",
-                "react/event-loop": "^1.2",
-                "react/promise": "^3.0 || ^2.7.0 || ^1.2.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
-                "psr-4": {
-                    "React\\Promise\\Timer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Lück",
-                    "email": "christian@clue.engineering",
-                    "homepage": "https://clue.engineering/"
-                },
-                {
-                    "name": "Cees-Jan Kiewiet",
-                    "email": "reactphp@ceesjankiewiet.nl",
-                    "homepage": "https://wyrihaximus.net/"
-                },
-                {
-                    "name": "Jan Sorgalla",
-                    "email": "jsorgalla@gmail.com",
-                    "homepage": "https://sorgalla.com/"
-                },
-                {
-                    "name": "Chris Boden",
-                    "email": "cboden@gmail.com",
-                    "homepage": "https://cboden.dev/"
-                }
-            ],
-            "description": "A trivial implementation of timeouts for Promises, built on top of ReactPHP.",
-            "homepage": "https://github.com/reactphp/promise-timer",
-            "keywords": [
-                "async",
-                "event-loop",
-                "promise",
-                "reactphp",
-                "timeout",
-                "timer"
-            ],
-            "funding": [
-                {
-                    "url": "https://github.com/WyriHaximus",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/clue",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-06-13T13:41:03+00:00"
-        },
-        {
             "name": "react/socket",
-            "version": "v1.12.0",
+            "version": "v1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/socket.git",
-                "reference": "81e1b4d7f5450ebd8d2e9a95bb008bb15ca95a7b"
+                "reference": "cff482bbad5848ecbe8b57da57e4e213b03619aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/react/socket/react-socket-81e1b4d7f5450ebd8d2e9a95bb008bb15ca95a7b-zip-5b753f.zip",
-                "reference": "81e1b4d7f5450ebd8d2e9a95bb008bb15ca95a7b",
-                "shasum": "6b4b6949cd9401e88328401f654a8c610dbffaaf"
+                "url": "https://composer.tiki.org/dist/react/socket/react-socket-cff482bbad5848ecbe8b57da57e4e213b03619aa-zip-7c17ee.zip",
+                "reference": "cff482bbad5848ecbe8b57da57e4e213b03619aa",
+                "shasum": "e06593ebe178f11bd73c3b2cfaf165ebae6e9cfe"
             },
             "require": {
                 "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
                 "php": ">=5.3.0",
-                "react/dns": "^1.8",
+                "react/dns": "^1.11",
                 "react/event-loop": "^1.2",
                 "react/promise": "^3 || ^2.6 || ^1.2.1",
-                "react/promise-timer": "^1.9",
                 "react/stream": "^1.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35",
+                "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.35",
                 "react/async": "^4 || ^3 || ^2",
-                "react/promise-stream": "^1.4"
+                "react/promise-stream": "^1.4",
+                "react/promise-timer": "^1.9"
             },
             "type": "library",
             "autoload": {
@@ -9978,15 +9899,11 @@
             ],
             "funding": [
                 {
-                    "url": "https://github.com/WyriHaximus",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/clue",
-                    "type": "github"
+                    "url": "https://opencollective.com/reactphp",
+                    "type": "open_collective"
                 }
             ],
-            "time": "2022-08-25T12:32:25+00:00"
+            "time": "2023-06-07T10:28:34+00:00"
         },
         {
             "name": "react/stream",
@@ -14079,17 +13996,17 @@
         },
         {
             "name": "thomaspark/bootswatch",
-            "version": "v5.2.3",
+            "version": "v5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thomaspark/bootswatch.git",
-                "reference": "886fc4f76dea089ccb08e8459611751ff8227add"
+                "reference": "55d226be5d8f5f762ecff140ae49e15677709f23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/thomaspark/bootswatch/thomaspark-bootswatch-886fc4f76dea089ccb08e8459611751ff8227add-zip-c09d07.zip",
-                "reference": "886fc4f76dea089ccb08e8459611751ff8227add",
-                "shasum": "42b7e84a4570b07e8eb09768e5fc261477c50184"
+                "url": "https://composer.tiki.org/dist/thomaspark/bootswatch/thomaspark-bootswatch-55d226be5d8f5f762ecff140ae49e15677709f23-zip-6b1ca0.zip",
+                "reference": "55d226be5d8f5f762ecff140ae49e15677709f23",
+                "shasum": "a7fc6f30815a5db8c37b97c304d73da581d8e6c1"
             },
             "suggest": {
                 "robloach/component-installer": "Allows installation of Components via Composer"
@@ -14116,7 +14033,7 @@
                 }
             ],
             "description": "Themes for Bootstrap",
-            "time": "2022-12-10T16:28:14+00:00"
+            "time": "2023-06-01T05:29:49+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
