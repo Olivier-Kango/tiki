@@ -84,12 +84,14 @@
     <table {if $id}id="{$id}" {/if}class="table normal table-hover table-striped" data-count="{$count}">
         <thead class="{if $sticky}bg-light{/if}">
         {$header=false}
-        {foreach from=$column item=col}
-            {if !empty($col.label) or !empty($col.sort)}
-                {$header=true}
-                {break}
-            {/if}
-        {/foreach}
+        {if isset($column)}
+            {foreach from=$column item=col}
+                {if !empty($col.label) or !empty($col.sort)}
+                    {$header=true}
+                    {break}
+                {/if}
+            {/foreach}
+        {/if}
         {if $header}
             {$fieldcount = 0}
             <tr>
@@ -100,45 +102,47 @@
                         <input type="hidden" name="objects{$iListExecute}[]" value="" class="listexecute-all">
                     </th>
                 {/if}
-                {foreach from=$column item=col}
-                    {$fieldcount = $fieldcount + 1}
-                    <th{if not empty($col.class)} class="{$col.class}"{/if}>
-                        {if isset($col.sort) && $col.sort}
-                            {if !empty($sort_jsvar) and !empty($_onclick)}
-                                {$order = '_asc'}
-                                {if !empty($smarty.request.sort_mode) and stristr($smarty.request.sort_mode, $col.sort) neq false}
-                                    {if stristr($smarty.request.sort_mode, '_asc')}
-                                        {$order = '_desc'}
-                                    {elseif stristr($smarty.request.sort_mode, '_nasc')}
-                                        {$order = '_ndesc'}
-                                    {elseif stristr($smarty.request.sort_mode, '_desc')}
-                                        {$order = '_asc'}
-                                    {elseif stristr($smarty.request.sort_mode, '_ndesc')}
-                                        {$order = '_nasc'}
+                {if isset($column)}
+                    {foreach from=$column item=col}
+                        {$fieldcount = $fieldcount + 1}
+                        <th{if not empty($col.class)} class="{$col.class}"{/if}>
+                            {if isset($col.sort) && $col.sort}
+                                {if !empty($sort_jsvar) and !empty($_onclick)}
+                                    {$order = '_asc'}
+                                    {if !empty($smarty.request.sort_mode) and stristr($smarty.request.sort_mode, $col.sort) neq false}
+                                        {if stristr($smarty.request.sort_mode, '_asc')}
+                                            {$order = '_desc'}
+                                        {elseif stristr($smarty.request.sort_mode, '_nasc')}
+                                            {$order = '_ndesc'}
+                                        {elseif stristr($smarty.request.sort_mode, '_desc')}
+                                            {$order = '_asc'}
+                                        {elseif stristr($smarty.request.sort_mode, '_ndesc')}
+                                            {$order = '_nasc'}
+                                        {/if}
+                                    {/if}
+                                    {$click = $sort_jsvar|cat:'=\''|cat:$col.sort|cat:$order|cat:'\';'|cat:$_onclick}
+                                    {if isset($col.translatelabel) && $col.translatelabel == 'y'}
+                                        {self_link _onclick=$click _ajax='y' _sort_arg='sort_mode' _sort_field=$col.sort}{$col.label|tra|escape}{/self_link}
+                                    {else}
+                                        {self_link _onclick=$click _ajax='y' _sort_arg='sort_mode' _sort_field=$col.sort}{$col.label|escape}{/self_link}
+                                    {/if}
+                                {else}
+                                    {if isset($col.translatelabel) && $col.translatelabel == 'y'}
+                                        {self_link _sort_arg=$sort_arg _sort_field=$col.sort}{$col.label|tra|escape}{/self_link}
+                                    {else}
+                                        {self_link _sort_arg=$sort_arg _sort_field=$col.sort}{$col.label|escape}{/self_link}
                                     {/if}
                                 {/if}
-                                {$click = $sort_jsvar|cat:'=\''|cat:$col.sort|cat:$order|cat:'\';'|cat:$_onclick}
-                                {if isset($col.translatelabel) && $col.translatelabel == 'y'}
-                                    {self_link _onclick=$click _ajax='y' _sort_arg='sort_mode' _sort_field=$col.sort}{$col.label|tra|escape}{/self_link}
-                                {else}
-                                    {self_link _onclick=$click _ajax='y' _sort_arg='sort_mode' _sort_field=$col.sort}{$col.label|escape}{/self_link}
-                                {/if}
                             {else}
                                 {if isset($col.translatelabel) && $col.translatelabel == 'y'}
-                                    {self_link _sort_arg=$sort_arg _sort_field=$col.sort}{$col.label|tra|escape}{/self_link}
+                                    {$col.label|tra|escape}
                                 {else}
-                                    {self_link _sort_arg=$sort_arg _sort_field=$col.sort}{$col.label|escape}{/self_link}
+                                    {$col.label|escape}
                                 {/if}
                             {/if}
-                        {else}
-                            {if isset($col.translatelabel) && $col.translatelabel == 'y'}
-                                {$col.label|tra|escape}
-                            {else}
-                                {$col.label|escape}
-                            {/if}
-                        {/if}
-                    </th>
-                {/foreach}
+                        </th>
+                    {/foreach}
+                {/if}
             </tr>
         {/if}
         </thead>
@@ -155,15 +159,17 @@
                         {/if}
                     </td>
                 {/if}
-                {foreach from=$column item=col}
-                    <td{if not empty($col.class)} class="{$col.class}"{/if}>
-                        {if isset($col.mode) && $col.mode eq 'raw'}
-                            {if !empty($row[$col.field])}{$row[$col.field]|strip}{/if}
-                        {else}
-                            {if !empty($row[$col.field])}{$row[$col.field]|escape|strip}{/if}
-                        {/if}
-                    </td>
-                {/foreach}
+                {if isset($column)}
+                    {foreach from=$column item=col}
+                        <td{if not empty($col.class)} class="{$col.class}"{/if}>
+                            {if isset($col.mode) && $col.mode eq 'raw'}
+                                {if !empty($row[$col.field])}{$row[$col.field]|strip}{/if}
+                            {else}
+                                {if !empty($row[$col.field])}{$row[$col.field]|escape|strip}{/if}
+                            {/if}
+                        </td>
+                    {/foreach}
+                {/if}
             </tr>
         {/foreach}
         </tbody>
