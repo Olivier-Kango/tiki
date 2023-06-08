@@ -162,7 +162,12 @@ if (! empty($_REQUEST['translationOf'])) {
 }
 
 if (! empty($_REQUEST['subId'])) {
-    if (($tiki_p_edit_submission != 'y' and $article_data['author'] != $user) or $user == '') {
+    if (is_array($article_data)) {
+        $same_user = $article_data['author'] == $user;
+    } else {
+        $same_user = false;
+    }
+    if (($tiki_p_edit_submission != 'y' && ! $same_user != $user) or $user == '') {
         $smarty->assign('errortype', 401);
         $smarty->assign('msg', tra('You do not have permission to edit submissions'));
         $smarty->display('error.tpl');
