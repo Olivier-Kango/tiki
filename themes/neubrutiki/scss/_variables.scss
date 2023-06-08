@@ -919,7 +919,7 @@ $dropdown-padding-y:                .5rem !default;
 $dropdown-spacer:                   .125rem !default;
 $dropdown-font-size:                $font-size-base !default;
 $dropdown-color:                    var(--#{$prefix}body-color);
-$dropdown-bg:                       $white !default;
+$dropdown-bg:                       var(--#{$prefix}body-bg);
 $dropdown-border-color:             #000; // rgba($black, .15) !default; New
 $dropdown-border-radius:            $border-radius !default;
 $dropdown-border-width:             $border-width !default;
@@ -928,8 +928,8 @@ $dropdown-divider-bg:               $dropdown-border-color !default;
 $dropdown-divider-margin-y:         $spacer * .5 !default;
 $dropdown-box-shadow:               $box-shadow-lg; // $box-shadow !default; - New
 
-$dropdown-link-color:               $gray-900 !default;
-$dropdown-link-hover-color:         shade-color($dropdown-link-color, 10%) !default;
+$dropdown-link-color:               var(--#{$prefix}link-color);
+$dropdown-link-hover-color:         var(--#{$prefix}link-hover-color); //shade-color($dropdown-link-color, 10%) !default;
 $dropdown-link-hover-bg:            $gray-200 !default;
 
 $dropdown-link-active-color:        $component-active-color !default;

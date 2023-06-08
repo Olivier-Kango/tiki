@@ -10,7 +10,7 @@
 
 @mixin topbar-nav-dark {
     --tiki-topbar-bg: rgba(50, 93, 136, 1);
-    --tiki-topbar-link-color: rgba(255, 255, 255, 0.8); //  #fff;
+    --tiki-topbar-color: rgba(255, 255, 255, 0.8); //  #fff;
     --tiki-topbar-hover-color: #fff;
 }
 
@@ -22,7 +22,7 @@
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: rgba(248, 245, 240, 1);
-    --tiki-topbar-link-color: rgba(0, 0, 0, 0.55);
+    --tiki-topbar-color: rgba(0, 0, 0, 0.55);
     --tiki-topbar-hover-color: #000;
 }
 

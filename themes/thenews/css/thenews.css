@@ -12296,6 +12296,12 @@ blockquote {
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
+.navbar .nav-item {
+  text-align: center;
+}
+.navbar .nav-item * {
+  text-align: inherit;
+}
 .nav-link {
   font-family: Mukta, sans-serif;
   text-transform: uppercase;

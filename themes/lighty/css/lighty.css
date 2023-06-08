@@ -29,50 +29,46 @@ header.navbar.fixed-top {
 }
 .tiki-top-nav-light {
   --tiki-top-bg: #ffffff;
-  --tiki-top-color: #343a40;
+  --tiki-top-color: #6C727F;
   --tiki-top-hover-color: #343a40;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #ffffff;
-  --tiki-topbar-color: #343a40;
+  --tiki-topbar-color: #6C727F;
   --tiki-topbar-hover-color: #343a40;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: #222;
   --tiki-top-color: #ffffff;
   --tiki-top-hover-color: #dee2e6;
-  --tiki-top-hover-bg: #111;
   --tiki-top-active-bg: #111;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #222;
   --tiki-topbar-color: #ffffff;
   --tiki-topbar-hover-color: #dee2e6;
-  --tiki-topbar-hover-bg: #111;
   --tiki-topbar-active-bg: #111;
 }
 [data-bs-theme=dark] .tiki-top-nav-light {
   --tiki-top-bg: #222;
   --tiki-top-color: #ffffff;
   --tiki-top-hover-color: #dee2e6;
-  --tiki-top-hover-bg: #111;
   --tiki-top-active-bg: #111;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: #222;
   --tiki-topbar-color: #ffffff;
   --tiki-topbar-hover-color: #dee2e6;
-  --tiki-topbar-hover-bg: #111;
   --tiki-topbar-active-bg: #111;
 }
 [data-bs-theme=light] .tiki-top-nav-dark {
   --tiki-top-bg: #ffffff;
-  --tiki-top-color: #343a40;
+  --tiki-top-color: #6C727F;
   --tiki-top-hover-color: #343a40;
 }
 [data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #ffffff;
-  --tiki-topbar-color: #343a40;
+  --tiki-topbar-color: #6C727F;
   --tiki-topbar-hover-color: #343a40;
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
@@ -86,7 +82,7 @@ header.navbar.fixed-top {
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: var(--bs-body-bg);
   --tiki-admin-dropdown-link-color: #6C727F;
-  --tiki-admin-dropdown-link-hover-color: #343a40;
+  --tiki-admin-dropdown-link-hover-color: var(--bs-body-color);
   --tiki-admin-dropdown-link-hover-bg: var(--bs-tertiary-bg);
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
@@ -3006,7 +3002,7 @@ textarea.form-control-lg {
   --bs-dropdown-divider-margin-y: 0.5rem;
   --bs-dropdown-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   --bs-dropdown-link-color: var(--bs-body-color);
-  --bs-dropdown-link-hover-color: #343a40;
+  --bs-dropdown-link-hover-color: var(--bs-body-color);
   --bs-dropdown-link-hover-bg: var(--bs-tertiary-bg);
   --bs-dropdown-link-active-color: #adb5bd;
   --bs-dropdown-link-active-bg: #e2d4d4;
@@ -13584,7 +13580,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: var(--bs-body-color) !important;
 }
 .tiki-webmail .dropdown-menu .dropdown-item:hover, .tiki-webmail .dropdown-menu .dropdown-item:hover .icon, .tiki-webmail .dropdown-menu .dropdown-item:focus, .tiki-webmail .dropdown-menu .dropdown-item:focus .icon, .tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .inline-cypht .dropdown-menu .dropdown-item:hover, .inline-cypht .dropdown-menu .dropdown-item:hover .icon, .inline-cypht .dropdown-menu .dropdown-item:focus, .inline-cypht .dropdown-menu .dropdown-item:focus .icon {
-  color: #343a40 !important;
+  color: var(--bs-body-color) !important;
 }
 .inline-cypht {
   background: transparent;

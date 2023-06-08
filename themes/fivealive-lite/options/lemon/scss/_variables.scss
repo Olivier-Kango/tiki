@@ -117,7 +117,7 @@ $enable-gradients:          false;
 // Options
 
 // Prefix
-$prefix: -bs;
+$prefix: bs-;
 
 
 $body-bg:                   $white !default;
@@ -286,7 +286,7 @@ $btn-link-disabled-color:     $gray-600 !default;
 
 .tiki .tiki-topbar-nav-light {
     --tiki-topbar-bg: #f0e04f;
-    --tiki-topbar-link-color: #{$top-light-color}; // #{$topbar-light-color};
+    --tiki-topbar-color: #{$top-light-color}; // #{$topbar-light-color};
     --tiki-topbar-hover-color: #{$top-link-hover-color};
 }
 
@@ -299,7 +299,7 @@ $btn-link-disabled-color:     $gray-600 !default;
 
 .tiki .tiki-topbar-nav-dark {
     --tiki-topbar-bg:  #f0e04f;
-    --tiki-topbar-link-color: #000; //#{$navbar-dark-link-color};
+    --tiki-topbar-color: #000; //#{$navbar-dark-link-color};
     --tiki-topbar-hover-color: #{$top-link-hover-color};
 }
 

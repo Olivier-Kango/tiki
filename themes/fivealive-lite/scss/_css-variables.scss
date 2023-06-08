@@ -8,7 +8,7 @@
 }
 
 .tiki-topbar-nav-light {
-    --tiki-topbar-link-color: #{$navbar-dark-color}; // #{$bg-dark};
+    --tiki-topbar-color: #{$navbar-dark-color}; // #{$bg-dark};
     --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
 }
 
@@ -21,7 +21,7 @@
 
 .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #{$bg-dark};
-    --tiki-topbar-link-color: #{$navbar-dark-color};
+    --tiki-topbar-color: #{$navbar-dark-color};
     --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
 }
 

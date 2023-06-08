@@ -116,7 +116,7 @@ $light: #D10A74; // #e10c7c;
 // Options
 
 // Prefix
-$prefix: -bs;
+$prefix: bs-;
 
 
 $body-bg:                   $white !default;
@@ -284,7 +284,7 @@ $page-header-link-color: #000;
 
 .tiki .tiki-topbar-nav-light {
     --tiki-topbar-bg: #{$topbar-light-bg};
-    --tiki-topbar-link-color: #{$top-light-color};
+    --tiki-topbar-color: #{$top-light-color};
     --tiki-topbar-hover-color: #{$navbar-light-link-hover-color};
 }
 
@@ -297,7 +297,7 @@ $page-header-link-color: #000;
 
 .tiki .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #{$topbar-dark-bg};
-    --tiki-topbar-link-color: #{$navbar-dark-link-color};
+    --tiki-topbar-color: #{$navbar-dark-link-color};
     --tiki-topbar-hover-color: #{$navbar-dark-link-hover-color};
 }
 

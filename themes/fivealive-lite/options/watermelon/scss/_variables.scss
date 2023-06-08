@@ -118,7 +118,7 @@ $green-300: tint-color($green, 40%) !default;
 // Options
 
 // Prefix
-$prefix: -bs;
+$prefix: bs-;
 
 
 $body-bg:                   $white !default;
@@ -283,7 +283,7 @@ $btn-focus-width:             $input-btn-focus-width !default;
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: #{$topbar-light-bg};
-    --tiki-topbar-link-color: #{$top-light-color};
+    --tiki-topbar-color: #{$top-light-color};
     --tiki-topbar-hover-color: #{$navbar-light-link-hover-color};
 }
 
@@ -296,7 +296,7 @@ $btn-focus-width:             $input-btn-focus-width !default;
 
 .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #{$topbar-dark-bg};
-      --tiki-topbar-link-color: #{$navbar-dark-link-color};
+      --tiki-topbar-color: #{$navbar-dark-link-color};
     --tiki-topbar-hover-color: #{$navbar-dark-link-hover-color};
 }
 

@@ -119,7 +119,7 @@ $bg-light: #a02871 !important;
 // Options
 
 // Prefix
-$prefix: -bs;
+$prefix: bs-;
 
 
 $body-bg:                   $white !default;
@@ -271,7 +271,7 @@ $bg-dark-info: #00DAE6;
 
 .tiki .tiki-topbar-nav-light {
     --tiki-topbar-bg: #{$topbar-light-bg};
-    --tiki-topbar-link-color: #{$top-light-color};
+    --tiki-topbar-color: #{$top-light-color};
     --tiki-topbar-hover-color: #{$navbar-light-link-hover-color};
 }
 
@@ -284,7 +284,7 @@ $bg-dark-info: #00DAE6;
 
 .tiki .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #{$topbar-dark-bg};
-    --tiki-topbar-link-color: #{$navbar-dark-link-color};
+    --tiki-topbar-color: #{$navbar-dark-link-color};
     --tiki-topbar-hover-color: #{$navbar-dark-link-hover-color};
 }
 

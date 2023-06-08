@@ -12,18 +12,18 @@
 }
 .tiki .tiki-topbar-nav-light {
   --tiki-topbar-bg: #063035;
-  --tiki-topbar-link-color: #fff;
+  --tiki-topbar-color: #fff;
   --tiki-topbar-hover-color: #f2f2f2;
 }
 .tiki .tiki-top-nav-dark {
   --tiki-top-bg: #117485;
   --tiki-top-color: #f9f9f9;
-  --tiki-top-ink-hover-color: #f2f2f2;
+  --tiki-top-hover-color: #f2f2f2;
   --tiki-top-border: solid #000;
 }
 .tiki .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #063035;
-  --tiki-topbar-link-color: #f9f9f9;
+  --tiki-topbar-color: #f9f9f9;
   --tiki-topbar-hover-color: #f2f2f2;
 }
 .tiki-nav-top-light, .tiki-nav-top-dark {

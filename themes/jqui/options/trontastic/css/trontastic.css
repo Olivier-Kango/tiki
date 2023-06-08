@@ -1264,7 +1264,7 @@ table {
 caption {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  color: var(---bssecondary-color);
+  color: var(--bs-secondary-color);
   text-align: left;
 }
 th {
@@ -3932,7 +3932,7 @@ a.list-group-item:hover .list-group-item-heading, .list-group-item:hover {
   color: #222222 !important;
 }
 .form-text, blockquote, .blockquote, .figure-caption {
-  color: var(---bssecondary-color) !important;
+  color: var(--bs-secondary-color) !important;
 }
 blockquote {
   border-left: 5px solid #b8ec79;

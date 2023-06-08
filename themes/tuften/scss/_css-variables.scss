@@ -93,9 +93,13 @@
 :root {
     --tiki-vert-nav-link-color: $link-color;
     --tiki-vert-nav-link-hover-color: $link-hover-color;
+    --tiki-wikitext-link-text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+    --tiki-wikitext-link-background: #b4d5fe;
 }
 
 [data-bs-theme="dark"] {
     --tiki-vert-nav-link-color: rgba(var(--bs-link-color-rgb));
     --tiki-vert-nav-link-hover-color: rgba(var(--bs-link-hover-color-rgb));
+    --tiki-wikitext-link-text-shadow: none;
+    --tiki-wikitext-link-background: none;
 }

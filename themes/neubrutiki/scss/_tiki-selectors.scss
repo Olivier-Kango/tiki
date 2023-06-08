@@ -12,7 +12,7 @@ $imagePath: "../images/";
 // -------------------- Color system -------------------- //
 // -------------------- Body (large elements -------------------- //
 // -------------------- Links -------------------- //
-.pagetitle a {
+.pagetitle a:not(.btn) {
     color: var(--bs-body-color);
 }
 
@@ -139,8 +139,15 @@ table.table {
 // -------------------- Cards -------------------- //
 .tiki_blogs .card.blogpost,
 .article {
-    background: $white;
+    background: var(--tiki-card-bg);
+    color: var(--tiki-card-color);
     border: $card-border-width solid $card-border-color;
+    a:not(.btn) {
+        color: var(--tiki-card-link-color);
+    }
+    &:not(.btn):hover {
+        color: var(--tiki-card-link-hover-color);
+    }
     .card-header,
     header.article-title {
         border-bottom: $card-border-width solid $card-border-color;

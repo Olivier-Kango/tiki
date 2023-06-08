@@ -98,7 +98,7 @@ $bg-light: #f9a013 !important;
 // Options
 
 // Prefix
-$prefix: -bs;
+$prefix: bs-;
 
 
 $link-color: #BB5525; //#c75a28;
@@ -255,7 +255,7 @@ $postbody-title-card-title-color: #fff;
 
 .tiki-topbar-nav-light {
     --tiki-topbar-bg: #f0e04f;
-    --tiki-topbar-link-color: #151414;
+    --tiki-topbar-color: #151414;
     --tiki-topbar-hover-color: lighten(#151414, 8%);
 }
 
@@ -268,7 +268,7 @@ $postbody-title-card-title-color: #fff;
 
 .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #f0e04f;
-    --tiki-topbar-link-color: #151414;
+    --tiki-topbar-color: #151414;
     --tiki-topbar-hover-color:  lighten(#151414, 8%);
 }
 

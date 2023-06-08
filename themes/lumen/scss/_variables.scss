@@ -46,7 +46,7 @@ $red-300: tint-color($red, 40%) !default;
 
 // Options
 //Prefix
-$prefix: -bs;
+$prefix: bs-;
 
 
 // Links (added for Tiki)
@@ -54,6 +54,10 @@ $prefix: -bs;
 // Style anchor elements.
 
 $link-color:                              #117197;
+
+// Components
+$component-active-color:      $white !default;
+$component-active-bg:         $primary !default;
 
 // Typography
 $link-shade-percentage:                   20% !default; // Bootstrap 5.3
@@ -81,6 +85,32 @@ $btn-font-weight:             700 !default;
 // Dropdowns
 
 $dropdown-link-color:         #707070; // Changed for Tiki (WCAG)
+$dropdown-color:                    var(--#{$prefix}body-color) !default;
+$dropdown-bg:                       var(--#{$prefix}body-bg) !default;
+
+$dropdown-link-color:               var(--#{$prefix}body-color) !default;
+$dropdown-link-hover-color:         $dropdown-link-color !default;
+$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
+
+$dropdown-link-active-color:        $component-active-color !default;
+$dropdown-link-active-bg:           $component-active-bg !default;
+$dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
+$dropdown-divider-bg:               $dropdown-border-color !default;
+//$dropdown-divider-margin-y:         $spacer * .5 !default;
+//$dropdown-box-shadow:               $box-shadow !default;
+
+$dropdown-dark-color:               $gray-200; // $gray-300 !default;
+$dropdown-dark-bg:                  $gray-800 !default;
+$dropdown-dark-border-color:        $dropdown-border-color !default;
+$dropdown-dark-divider-bg:          $dropdown-divider-bg !default;
+$dropdown-dark-box-shadow:          null !default;
+$dropdown-dark-link-color:          $dropdown-dark-color !default;
+$dropdown-dark-link-hover-color:    $white !default;
+$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
+$dropdown-dark-link-active-color:   $dropdown-link-active-color !default;
+$dropdown-dark-link-active-bg:      $dropdown-link-active-bg !default;
+$dropdown-dark-link-disabled-color: $gray-500 !default;
+$dropdown-dark-header-color:        $gray-500 !default;
 
 // Navs
 

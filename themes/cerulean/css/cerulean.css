@@ -2976,9 +2976,9 @@ textarea.form-control-lg {
   --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
   --bs-dropdown-divider-margin-y: 0.5rem;
   --bs-dropdown-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  --bs-dropdown-link-color: #495057;
-  --bs-dropdown-link-hover-color: #fff;
-  --bs-dropdown-link-hover-bg: #157BB7;
+  --bs-dropdown-link-color: var(--bs-body-color);
+  --bs-dropdown-link-hover-color: var(--bs-body-color);
+  --bs-dropdown-link-hover-bg: var(--bs-tertiary-bg);
   --bs-dropdown-link-active-color: #fff;
   --bs-dropdown-link-active-bg: #157BB7;
   --bs-dropdown-link-disabled-color: var(--bs-tertiary-color);
@@ -10870,8 +10870,8 @@ header.navbar.fixed-top {
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #f8f9fa;
   --tiki-admin-dropdown-link-color: #000;
-  --tiki-admin-dropdown-link-hover-color: #fff;
-  --tiki-admin-dropdown-link-hover-bg: #157BB7;
+  --tiki-admin-dropdown-link-hover-color: var(--bs-body-color);
+  --tiki-admin-dropdown-link-hover-bg: var(--bs-tertiary-bg);
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
   --tiki-admin-top-nav-bg: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb);
@@ -10886,7 +10886,7 @@ header.navbar.fixed-top {
   --tiki-admin-dropdown-link-color: #fff;
   --tiki-admin-dropdown-bg: #343a40;
   --tiki-admin-dropdown-link-hover-color: #fff;
-  --tiki-admin-dropdown-link-hover-bg: #157BB7;
+  --tiki-admin-dropdown-link-hover-bg: var(--bs-tertiary-bg);
 }
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: linear-gradient(#545a5f, #343a40 60%, #31373c) !important;
@@ -11693,7 +11693,7 @@ blockquote {
   color: #c71c22;
 }
 .dropdown-menu.mega-menu a {
-  color: #495057;
+  color: var(--bs-body-color);
 }
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {
   --bs-btn-padding-x: 0.75rem;
@@ -12463,10 +12463,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-radius: 0;
 }
 .tiki-webmail .dropdown-menu .dropdown-item, .tiki-webmail .dropdown-menu .dropdown-item .icon, .tiki-cypht .dropdown-menu .dropdown-item, .tiki-cypht .dropdown-menu .dropdown-item .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item, .mobile.tiki-cypht .dropdown-menu .dropdown-item .icon, .inline-cypht .dropdown-menu .dropdown-item, .inline-cypht .dropdown-menu .dropdown-item .icon {
-  color: #495057 !important;
+  color: var(--bs-body-color) !important;
 }
 .tiki-webmail .dropdown-menu .dropdown-item:hover, .tiki-webmail .dropdown-menu .dropdown-item:hover .icon, .tiki-webmail .dropdown-menu .dropdown-item:focus, .tiki-webmail .dropdown-menu .dropdown-item:focus .icon, .tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .inline-cypht .dropdown-menu .dropdown-item:hover, .inline-cypht .dropdown-menu .dropdown-item:hover .icon, .inline-cypht .dropdown-menu .dropdown-item:focus, .inline-cypht .dropdown-menu .dropdown-item:focus .icon {
-  color: #fff !important;
+  color: var(--bs-body-color) !important;
 }
 .inline-cypht {
   background: transparent;

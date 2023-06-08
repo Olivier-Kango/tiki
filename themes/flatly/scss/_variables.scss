@@ -156,7 +156,11 @@ $body-emphasis-color:       $black !default;
 
 // Options
 // Prefix
-$prefix: -bs;
+$prefix: bs-;
+
+// Components
+$component-active-color:      $white !default;
+$component-active-bg:         $primary !default;
 
 // Links
 
@@ -180,9 +184,16 @@ $table-bg-scale:              0 !default;
 
 // Dropdowns
 
-$dropdown-link-color:               #707070; // WCAG
-$dropdown-link-hover-color:         $white !default;
-$dropdown-link-hover-bg:            $primary !default;
+$dropdown-color:                    var(--#{$prefix}body-color) !default;
+$dropdown-bg:                       var(--#{$prefix}body-bg) !default;
+$dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
+
+$dropdown-link-color:               var(--#{$prefix}body-color) !default;
+$dropdown-link-hover-color:         $dropdown-link-color !default;
+$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
+
+$dropdown-link-active-color:        $component-active-color !default;
+$dropdown-link-active-bg:           $component-active-bg !default;
 
 // Navs
 

@@ -102,11 +102,12 @@ $color-contrast-light:            $white;
 // Options
 
 // Prefix
-$prefix: --bs;
+$prefix: bs-;
 
 
 // $bg-light: #18a3bb !important; (Changing tactics for Bootstrap 5)
 $body-bg: #fff;
+$body-color: $black;
 
 $link-color: #11606E;
 $link-hover-color:            darken($link-color, 15%);

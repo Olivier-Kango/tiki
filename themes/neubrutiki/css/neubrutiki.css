@@ -3037,7 +3037,7 @@ textarea.form-control-lg {
   --bs-dropdown-spacer: 0.125rem;
   --bs-dropdown-font-size: 1.1rem;
   --bs-dropdown-color: var(--bs-body-color);
-  --bs-dropdown-bg: #fff;
+  --bs-dropdown-bg: var(--bs-body-bg);
   --bs-dropdown-border-color: #000;
   --bs-dropdown-border-radius: 0.25rem;
   --bs-dropdown-border-width: 4px;
@@ -3045,8 +3045,8 @@ textarea.form-control-lg {
   --bs-dropdown-divider-bg: #000;
   --bs-dropdown-divider-margin-y: 0.5rem;
   --bs-dropdown-box-shadow: 0.4rem 0.4rem 0 black;
-  --bs-dropdown-link-color: #212529;
-  --bs-dropdown-link-hover-color: #1e2125;
+  --bs-dropdown-link-color: var(--bs-link-color);
+  --bs-dropdown-link-hover-color: var(--bs-link-hover-color);
   --bs-dropdown-link-hover-bg: #e9ecef;
   --bs-dropdown-link-active-color: #fff;
   --bs-dropdown-link-active-bg: #0d6efd;
@@ -11383,7 +11383,7 @@ textarea.form-control-lg {
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #ffdca8;
-  --tiki-topbar-link-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-color: rgba(0, 0, 0, 0.7);
   --tiki-topbar-hover-color: rgba(0, 0, 0, 0.8);
   --tiki-topbar-active-color: rgba(0, 0, 0, 0.8);
   --tiki-topbar-hover-bg: transparent;
@@ -11401,7 +11401,7 @@ textarea.form-control-lg {
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #212529;
-  --tiki-topbar-link-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-color: rgba(255, 255, 255, 0.55);
   --tiki-topbar-hover-color: #fff;
   --tiki-topbar-hover-bg: transparent;
   --tiki-topbar-border: none;
@@ -11417,7 +11417,7 @@ textarea.form-control-lg {
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: #212529;
-  --tiki-topbar-link-color: rgba(255, 255, 255, 0.55);
+  --tiki-topbar-color: rgba(255, 255, 255, 0.55);
   --tiki-topbar-hover-color: #fff;
   --tiki-topbar-hover-bg: transparent;
   --tiki-topbar-border: none;
@@ -11435,7 +11435,7 @@ textarea.form-control-lg {
 }
 [data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #ffdca8;
-  --tiki-topbar-link-color: rgba(0, 0, 0, 0.7);
+  --tiki-topbar-color: rgba(0, 0, 0, 0.7);
   --tiki-topbar-hover-color: rgba(0, 0, 0, 0.8);
   --tiki-topbar-active-color: rgba(0, 0, 0, 0.8);
   --tiki-topbar-hover-bg: transparent;
@@ -11450,15 +11450,14 @@ textarea.form-control-lg {
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-navbar-bg: #ffdca8;
   --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.7);
-  --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.7);
   --tiki-admin-top-nav-hover-color: rgba(0, 0, 0, 0.8);
   --tiki-admin-top-nav-link-hover-bg: none ;
   --tiki-admin-aside-nav-bg: #ffdca8;
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
-  --tiki-admin-dropdown-bg: #fff;
+  --tiki-admin-dropdown-bg: var(--bs-body-bg);
   --tiki-admin-dropdown-link-color: rgba(0, 0, 0, 0.7);
-  --tiki-admin-dropdown-link-hover-color: #1e2125;
+  --tiki-admin-dropdown-link-hover-color: var(--bs-link-hover-color);
   --tiki-admin-dropdown-link-hover-bg: #e9ecef;
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
@@ -12289,7 +12288,7 @@ blockquote {
   color: #dc3545;
 }
 .dropdown-menu.mega-menu a {
-  color: #212529;
+  color: var(--bs-link-color);
 }
 .inline-cypht input[type="button"], .inline-cypht button, .inline-cypht input[type="submit"] {
   --bs-btn-padding-x: 0.75rem;
@@ -12415,7 +12414,7 @@ blockquote {
   box-shadow: none;
   border: none;
 }
-.pagetitle a {
+.pagetitle a:not(.btn) {
   color: var(--bs-body-color);
 }
 .wikitext a:not(.btn, .nav-link) {
@@ -12487,8 +12486,15 @@ table.table {
   box-shadow: none !important;
 }
 .tiki_blogs .card.blogpost, .article {
-  background: #fff;
+  background: var(--tiki-card-bg);
+  color: var(--tiki-card-color);
   border: 4px solid #000;
+}
+.tiki_blogs .card.blogpost a:not(.btn), .article a:not(.btn) {
+  color: var(--tiki-card-link-color);
+}
+.tiki_blogs .card.blogpost:not(.btn):hover, .article:not(.btn):hover {
+  color: var(--tiki-card-link-hover-color);
 }
 .tiki_blogs .card.blogpost .card-header, .tiki_blogs .card.blogpost header.article-title, .article .card-header, .article header.article-title {
   border-bottom: 4px solid #000;
@@ -13192,7 +13198,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #024EC0 !important;
 }
 .tiki-webmail .dropdown-menu, .tiki-cypht .dropdown-menu, .mobile.tiki-cypht .dropdown-menu, .inline-cypht .dropdown-menu {
-  background-color: #fff !important;
+  background-color: var(--bs-body-bg) !important;
   border-color: #000 !important;
 }
 .tiki-webmail .dropdown-divider, .tiki-cypht .dropdown-divider, .mobile.tiki-cypht .dropdown-divider, .inline-cypht .dropdown-divider {
@@ -13259,10 +13265,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-radius: 0;
 }
 .tiki-webmail .dropdown-menu .dropdown-item, .tiki-webmail .dropdown-menu .dropdown-item .icon, .tiki-cypht .dropdown-menu .dropdown-item, .tiki-cypht .dropdown-menu .dropdown-item .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item, .mobile.tiki-cypht .dropdown-menu .dropdown-item .icon, .inline-cypht .dropdown-menu .dropdown-item, .inline-cypht .dropdown-menu .dropdown-item .icon {
-  color: #212529 !important;
+  color: var(--bs-link-color) !important;
 }
 .tiki-webmail .dropdown-menu .dropdown-item:hover, .tiki-webmail .dropdown-menu .dropdown-item:hover .icon, .tiki-webmail .dropdown-menu .dropdown-item:focus, .tiki-webmail .dropdown-menu .dropdown-item:focus .icon, .tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover, .mobile.tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus, .mobile.tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .inline-cypht .dropdown-menu .dropdown-item:hover, .inline-cypht .dropdown-menu .dropdown-item:hover .icon, .inline-cypht .dropdown-menu .dropdown-item:focus, .inline-cypht .dropdown-menu .dropdown-item:focus .icon {
-  color: #1e2125 !important;
+  color: var(--bs-link-hover-color) !important;
 }
 .inline-cypht {
   background: transparent;

@@ -88,6 +88,10 @@ $prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$pre
 
 // Spacing
 
+// Components
+$component-active-color:      $white !default;
+$component-active-bg:         $primary !default;
+
 // Body
 $body-bg:               #f0f0f0;
 $body-color:            #4F5963; // $gray-500;
@@ -143,8 +147,15 @@ $legend-padding:                 10/16rem 0;
 $form-text-color:                $text-muted;
 
 // Dropdowns
-$dropdown-border: transparent;
-$dropdown-link-hover-color:      $gray-800;
+$dropdown-color:                    var(--#{$prefix}body-color) !default;
+$dropdown-bg:                       var(--#{$prefix}body-bg) !default;
+
+$dropdown-link-color:               var(--#{$prefix}body-color) !default;
+$dropdown-link-hover-color:         $dropdown-link-color !default;
+$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
+
+$dropdown-link-active-color:        $component-active-color !default;
+$dropdown-link-active-bg:           $component-active-bg !default;
 // Navs
 // Navbar
 $navbar-height:                    35px;

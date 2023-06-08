@@ -67,8 +67,10 @@ $link-shade-percentage:                   20% !default; // Bootstrap 5.3
 $link-hover-decoration: none; // underline;
 
 // Components
-$component-active-color:    $warning; // #fff;
-$component-active-bg:       lighten($warning, 80%); // $primary in darktiki
+$component-active-color:      $white !default;
+$component-active-bg:         $primary !default;
+
+$border-color-translucent:    rgba($black, .175) !default;
 
 // Fonts
 $enable-responsive-font-sizes:                true; // from "Options"
@@ -119,7 +121,8 @@ $input-group-addon-border-color: $input-border;
 
 // Dropdowns
 $dropdown-bg:                    #fff;
-$dropdown-border:                rgba(0,0,0,.15);
+//$dropdown-border:                rgba(0,0,0,.15);
+$dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
 $dropdown-fallback-border:       #ccc;
 $dropdown-divider-bg:            #e5e5e5;
 $dropdown-font-size: 1.2rem;
@@ -131,6 +134,22 @@ $dropdown-hover-bg:         #f5f5f5;
 $dropdown-active-color:     $component-active-color;
 $dropdown-active-bg:        $component-active-bg;
 $dropdown-header-color:          $gray-300;
+
+$dropdown-link-active-color:        $component-active-color !default;
+$dropdown-link-active-bg:           $component-active-bg !default;
+
+$dropdown-dark-color:               $gray-300 !default;
+$dropdown-dark-bg:                  $gray-800 !default;
+$dropdown-dark-border-color:        $dropdown-border-color !default;
+$dropdown-dark-divider-bg:          $dropdown-divider-bg !default;
+$dropdown-dark-box-shadow:          null !default;
+$dropdown-dark-link-color:          $dropdown-dark-color !default;
+$dropdown-dark-link-hover-color:    $white !default;
+$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
+$dropdown-dark-link-active-color:   $dropdown-link-active-color !default;
+$dropdown-dark-link-active-bg:      $dropdown-link-active-bg !default;
+$dropdown-dark-link-disabled-color: $gray-500 !default;
+$dropdown-dark-header-color:        $gray-500 !default;
 
 // Navs
 // Navbar

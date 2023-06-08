@@ -5,7 +5,7 @@
     --tiki-top-bg: #{$navbar-dark-bg};
     --tiki-top-color: #{$navbar-dark-color};
     --tiki-top-hover-color: #{$navbar-dark-hover-color};
-    --tiki-top-hover-bg: #{darken($navbar-dark-bg, 6.5%)};
+//    --tiki-top-hover-bg: #{darken($navbar-dark-bg, 6.5%)};
     --tiki-top-active-bg: #{darken($navbar-dark-bg, 6.5%)};
 }
 
@@ -13,20 +13,20 @@
     --tiki-topbar-bg: #{$navbar-dark-bg};
     --tiki-topbar-color: #{$navbar-dark-color};
     --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
-    --tiki-topbar-hover-bg: #{darken($navbar-dark-bg, 6.5%)};
+//    --tiki-topbar-hover-bg: #{darken($navbar-dark-bg, 6.5%)};
     --tiki-topbar-active-bg: #{darken($navbar-dark-bg, 6.5%)};
 }
 
 @mixin top-nav-light {
     --tiki-top-bg: #{$navbar-light-bg};
-    --tiki-top-color: #{$gray-800};
-    --tiki-top-hover-color: #{$gray-800};
+    --tiki-top-color: #{$navbar-light-color};
+    --tiki-top-hover-color: #{$navbar-light-hover-color};
 }
 
 @mixin topbar-nav-light {
     --tiki-topbar-bg: #{$navbar-light-bg};
-    --tiki-topbar-color: #{$gray-800};
-    --tiki-topbar-hover-color: #{$gray-800};
+    --tiki-topbar-color: #{$navbar-light-color};
+    --tiki-topbar-hover-color: #{$navbar-light-hover-color};
 }
 
 .tiki-top-nav-light {

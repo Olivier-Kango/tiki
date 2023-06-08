@@ -61,10 +61,18 @@ $link-hover-color:                        shift-color($link-color, $link-shade-p
 
 $headings-color:         $cyan;
 
+// Components
+
+$component-active-color:      $white !default;
+$component-active-bg:         $primary !default;
+
 // Dropdowns
-$dropdown-link-color:           $body-color;
-$dropdown-link-hover-color:     $white;
-$dropdown-link-hover-bg:        $primary;
+$dropdown-link-color:               var(--#{$prefix}body-color) !default;
+$dropdown-link-hover-color:         $dropdown-link-color !default;
+$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
+
+$dropdown-link-active-color:        $component-active-color !default;
+$dropdown-link-active-bg:           $component-active-bg !default;
 
 // Navs
 $nav-link-color:                    var(--#{$prefix}link-color) !important; // !important seems to be necessary to override the Bootstrap default caused by importing vendor bootstrap.scss.

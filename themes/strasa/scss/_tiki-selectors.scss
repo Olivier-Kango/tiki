@@ -17,7 +17,7 @@ body.fullscreen.tiki.navbar-padding {
 .container,
 #autosave_preview,
 .odd {
-  background: #ffffff;
+  background: var(--#{$prefix}body-bg);
 }
 
 .layout_classic .topbar-wrapper {
@@ -64,19 +64,19 @@ body.fullscreen.tiki.navbar-padding {
   background: linear-gradient(to bottom, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%),url('#{$imagePath}topbar-left.png') no-repeat auto 100%;
 }
 
-.bg-light .bg-light,
-.bg-dark .bg-dark {
-  background: transparent !important;
-}
+//.bg-light .bg-light,
+//.bg-dark .bg-dark {
+//  background: transparent !important;
+///}
 
-.navbar-light .navbar-nav > .active,
-.navbar-light .navbar-nav > .open {
-  > a,
-  > a:hover,
-  > a:focus {
-    background: transparent;
-  }
-}
+//.navbar-light .navbar-nav > .active,
+//.navbar-light .navbar-nav > .open {
+//  > a,
+//  > a:hover,
+//  > a:focus {
+//    background: transparent;
+//  }
+//}
 
 .navbar-fixed-top .container,
 .navbar-fixed-top .container .navbar-light {
@@ -84,14 +84,14 @@ body.fullscreen.tiki.navbar-padding {
   border: none;
 }
 
-.topbar .nav-link,
-.navbar-dark .nav-link,
-.navbar-light .nav-link {
-  color: #fff !important;
-    &:hover {
-        color: darken(#fff, 10%) !important;
-    }
-}
+//.topbar .nav-link,
+//.navbar-dark .nav-link,
+//.navbar-light .nav-link {
+//  color: #fff !important;
+//    &:hover {
+//        color: darken(#fff, 10%) !important;
+//    }
+//}
 
 input,
 .jumbotron {
@@ -101,7 +101,7 @@ input,
 
 .wikitext {
   h1 {
-    color: #000000;
+    color: var(--#{$prefix}body-color); // #000000;
 //    line-height: .9em;
   }
 
@@ -124,16 +124,16 @@ input,
 
   h4 {
     border-bottom: dashed 1px #ccf0ff;
-    color: #3f3f3f;
+//    color: #3f3f3f;
   }
 
   h5 {
-    color: #6f6f6f;
+//    color: #6f6f6f;
     font-style: italic;
   }
 
   h6 {
-    color: #757575;
+//    color: #757575;
   }
 }
 
@@ -171,7 +171,7 @@ input,
 h1.pagetitle > a,
 h1.pagetitle > a:visited,
 h1.pagetitle > a:hover {
-  color: #000000;
+  color: var(--#{$prefix}body-color);
   text-decoration: none;
 }
 

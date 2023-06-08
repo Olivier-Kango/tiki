@@ -48,6 +48,11 @@ $min-contrast-ratio:   2 !default;
 //Prefix
 $prefix: bs-;
 
+// Components
+
+$component-active-color:      $white !default;
+$component-active-bg:         $primary !default;
+
 // Body
 
 $body-color:                $gray-800 !default;
@@ -71,6 +76,9 @@ $dropdown-link-active-color:        $dropdown-link-color !default;
 $dropdown-link-active-bg:           $dropdown-link-hover-bg !default;
 
 // Navs
+
+$nav-link-color:                    var(--#{$prefix}link-color) !default;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
 
 $nav-link-padding-x:                .9rem !default;
 $nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $gray-300 !default;

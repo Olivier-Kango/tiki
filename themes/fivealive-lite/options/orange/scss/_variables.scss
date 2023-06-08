@@ -116,7 +116,7 @@ $enable-gradients:          false;
 // Options
 
 // Prefix
-$prefix: -bs;
+$prefix: bs-;
 
 
 $body-bg:                   $white !default;
@@ -284,7 +284,7 @@ $btn-link-disabled-color:     $gray-600 !default;
 
 .tiki .tiki-topbar-nav-light {
     --tiki-topbar-bg: #ea8a0b;
-    --tiki-topbar-link-color: #000;
+    --tiki-topbar-color: #000;
     --tiki-topbar-hover-color: #3C3106FF;
 }
 
@@ -297,7 +297,7 @@ $btn-link-disabled-color:     $gray-600 !default;
 
 .tiki .tiki-topbar-nav-dark {
     --tiki-topbar-bg: #ea8a0b;
-    --tiki-topbar-link-color: #000;
+    --tiki-topbar-color: #000;
     --tiki-topbar-hover-color: #3C3106FF;
 }
 
