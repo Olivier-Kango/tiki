@@ -4618,6 +4618,7 @@ class TikiLib extends TikiDb_Bridge
 
         if ($my_user == $user) {
             $prefs = array_merge($prefs, $preferences);
+            $_SESSION['s_prefs'] = $_SESSION['s_prefs'] ?? [];
             $_SESSION['s_prefs'] = array_merge($_SESSION['s_prefs'], $preferences);
         }
         return true;
