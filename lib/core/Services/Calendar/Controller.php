@@ -290,7 +290,6 @@ class Services_Calendar_Controller
             $calitem['start'] = $start->format('U');
             $calitem['end']   = $end->format('U');
             $calitem['duration'] = 0;
-
         } else {
             // new event
             $title = tr('Calendar event : %0', tr('New'));
