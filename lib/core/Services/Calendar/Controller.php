@@ -162,6 +162,19 @@ class Services_Calendar_Controller
                 'calitemId'  => $event['calitemId'],
             ]);
 
+            $timezone = new DateTimeZone($prefs['display_timezone']);
+            $start = new DateTime('@' . $event['start']);
+            $end   = new DateTime('@' . $event['end']);
+
+            $allDay = $event['allday'] != 0;
+            if (! $allDay) {
+                $start->setTimezone($timezone);
+                $end->setTimezone($timezone);
+            } else {
+                $start->setTime(0, 0);
+                $end->setTime(0, 0);
+            }
+
             $events[] = [
                 'id'          => $event['calitemId'],
                 'title'       => $event['name'],
@@ -172,9 +185,9 @@ class Services_Calendar_Controller
                     ) : '',
                 ],
                 'url'         => $url,
-                'allDay'      => $event['allday'] != 0,
-                'start'       => TikiLib::date_format("c", $event['date_start'], false, 5, false),
-                'end'         => TikiLib::date_format("c", $event['date_end'], false, 5, false),
+                'allDay'      => $allDay,
+                'start'       => $start->format(DATE_ATOM),
+                'end'         => $end->format(DATE_ATOM),
                 'editable'    => $event['perms']->change_events,
                 'color'       => '#' . $calendars[$event['calendarId']]['custombgcolor'],
                 'textColor'   => '#' . $calendars[$event['calendarId']]['customfgcolor'],
@@ -261,6 +274,23 @@ class Services_Calendar_Controller
             $calendarId = $calitem['calendarId'];
             $calendar = $this->calendarLib->get_calendar($calendarId);
             $title = tr('Calendar event : %0', $calitem['name']);
+
+            $timezone = new DateTimeZone($prefs['display_timezone']);
+            $start = new DateTime('@' . $calitem['start']);
+            $end   = new DateTime('@' . $calitem['end']);
+
+            $allDay = $calitem['allday'] != 0;
+            if (! $allDay) {
+                $start->setTimezone($timezone);
+                $end->setTimezone($timezone);
+            } else {
+                $start->setTime(0, 0);
+                $end->setTime(0, 0);
+            }
+            $calitem['start'] = $start->format('U');
+            $calitem['end']   = $end->format('U');
+            $calitem['duration'] = 0;
+
         } else {
             // new event
             $title = tr('Calendar event : %0', tr('New'));
