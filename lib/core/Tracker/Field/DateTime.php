@@ -115,11 +115,12 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractField implements \Tr
 ');
         TikiLib::lib('smarty')->assign('use_24hr_clock', TikiLib::lib('userprefs')->get_user_clock_pref($user));
 
-        if ($this->getOption('datetime') === 'd') {
+        $value = $this->getValue();
+        if ($this->getOption('datetime') === 'd' && is_numeric($value)) {
             // offset the UTC-stored timestamp of the date by current display timezone, so we actually display the correct date entered by user
-            $context['timestamp'] = $this->getValue() - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $this->getValue());
+            $context['timestamp'] = $value - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $value);
         } else {
-            $context['timestamp'] = $this->getValue();
+            $context['timestamp'] = $value;
         }
         return $this->renderTemplate('trackerinput/datetime.tpl', $context);
     }
