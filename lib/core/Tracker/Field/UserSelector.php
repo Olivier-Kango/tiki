@@ -599,6 +599,9 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
         $schema->addNew($permName, 'username')
             ->setLabel($name)
             ->setRenderTransform(function ($value) {
+                if (is_array($value)) {
+                    return implode(',', $value);
+                }
                 return $value;
             })
             ->setParseIntoTransform(function (&$info, $value) use ($permName) {
