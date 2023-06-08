@@ -82,36 +82,24 @@
                         {/section}
                     </div>
                 {elseif $questions[ix].type eq 'r' or $questions[ix].type eq 's'}
-                    <div class="quizoptions">
-                        {if $questions[ix].options}
-                            1
-                            {foreach from=$questions[ix].explode key=k item=j}
-                                <input type="radio" value="{$k}" name="{$questionId}"{if $answer eq $k} checked="checked"{/if}>
-                            {/foreach}
-                            {count($questions[ix].explode)}
-                        {elseif $questions[ix].type eq 'r'}
-                            1
-                            <input type="radio" value="1" name="{$questionId}"{if $answer eq 1} checked="checked"{/if}>
-                            <input type="radio" value="2" name="{$questionId}"{if $answer eq 2} checked="checked"{/if}>
-                            <input type="radio" value="3" name="{$questionId}"{if $answer eq 3} checked="checked"{/if}>
-                            <input type="radio" value="4" name="{$questionId}"{if $answer eq 4} checked="checked"{/if}>
-                            <input type="radio" value="5" name="{$questionId}"{if $answer eq 5} checked="checked"{/if}>
-                            5
-                        {elseif $questions[ix].type eq 's'}
-                            1
-                            <input type="radio" value="1" name="{$questionId}"{if $answer eq 1} checked="checked"{/if}>
-                            <input type="radio" value="2" name="{$questionId}"{if $answer eq 2} checked="checked"{/if}>
-                            <input type="radio" value="3" name="{$questionId}"{if $answer eq 3} checked="checked"{/if}>
-                            <input type="radio" value="4" name="{$questionId}"{if $answer eq 4} checked="checked"{/if}>
-                            <input type="radio" value="5" name="{$questionId}"{if $answer eq 5} checked="checked"{/if}>
-                            <input type="radio" value="6" name="{$questionId}"{if $answer eq 6} checked="checked"{/if}>
-                            <input type="radio" value="7" name="{$questionId}"{if $answer eq 7} checked="checked"{/if}>
-                            <input type="radio" value="8" name="{$questionId}"{if $answer eq 8} checked="checked"{/if}>
-                            <input type="radio" value="9" name="{$questionId}"{if $answer eq 9} checked="checked"{/if}>
-                            <input type="radio" value="10" name="{$questionId}"{if $answer eq 10} checked="checked"{/if}>
-                            10
-                        {/if}
+                    <div class="range_container">
+                    {if $questions[ix].options}
+                        {assign var="max" value=count($questions[ix].explode)}
+                    {elseif $questions[ix].type eq 'r'}
+                        {assign var="max" value=5}
+                    {elseif $questions[ix].type eq 's'}
+                        {assign var="max" value=10}
+                    {/if}
+                    <input type="range" min="1" max="{$max}" name="{$questionId}" value="{$answer}" class="range_slider">
+                    <div class="range_selector">
+                        <div class="range_selectBtn"></div>
+                        <div class="range_selectValue"></div>
                     </div>
+                    <div class="range_progressBar"></div>
+                    <div class="range_label">1</div>
+                    <div class="range_label">{$max}</div>
+                </div>
+                
                 {elseif $questions[ix].type eq 'g'}
                     {fgal_browse _id=$questions[ix].explode.0 show_selectall='n' show_infos='n' checkbox_label="{tr}Choose{/tr}" file_checkbox_name=$questionId}
                 {/if}
