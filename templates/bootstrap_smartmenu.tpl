@@ -1,5 +1,5 @@
 {if not empty($item.children)}
-    <li class="nav-item dropdown{if $item.selected|default:null} active{/if} {$item.class|escape} {if $module_params.megamenu_static eq 'y' }static{/if}">
+    <li class="nav-item dropdown{if $item.selected|default:null} active{/if} {$item.class|escape} {if $module_params.megamenu eq 'y' and $module_params.megamenu_static eq 'y' }static{/if}">
         <a href="{$item.sefurl|escape}" class="{if $sub|default:false}dropdown-item{else}nav-link{/if} dropdown-toggle" data-bs-toggle="dropdown">
             {if $prefs.menus_items_icons eq "y"}
                 <span 
