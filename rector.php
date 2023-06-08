@@ -28,7 +28,6 @@ One shot, or partial application (in which case your changes in rector.php shoul
 
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictNativeCallRector;
 use Rector\CodeQuality\Rector\ClassMethod\ReturnTypeFromStrictScalarReturnExprRector;
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
@@ -76,6 +75,8 @@ return static function (RectorConfig $rectorConfig): void {
     */
     $rectorConfig->rules([
         Rector\CodeQuality\Rector\Class_\CompleteDynamicPropertiesRector::class,
+        //CompleteDynamicPropertiesRector,
+        //Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector::class,
         //ReturnTypeFromStrictNativeCallRector::class,
         //ReturnTypeFromStrictScalarReturnExprRector::class,
     ]);

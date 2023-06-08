@@ -614,7 +614,6 @@
                             {/if}
                         {/if}
                         {if $prefs.geo_locate_wiki eq 'y'}
-                            {$headerlib->add_map()}
                             <div class="mb-3 row">
                                 <label for="" class="col-md-4 col-form-label">{tr}Geolocation{/tr}</label>
                                 <div class="col-md-8">

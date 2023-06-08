@@ -12,6 +12,7 @@
   "dependencies": {
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
+    "single-spa-css": "^1.2.0",
     "single-spa-vue": "^2.5.1",
     "vue": "^3.2.39"
   },

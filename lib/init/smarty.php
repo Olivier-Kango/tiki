@@ -295,15 +295,13 @@ class Smarty_Tiki extends Smarty
         $this->assign_layout_sections($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
 
         $_smarty_tpl_file = $this->get_filename($_smarty_tpl_file);
+        $html = '';
         try {
             if ($_smarty_display) {
-                $html = parent::display($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
+                //Probably nothing uses this.  Code must have been copy-pasted in the past.  Display cannot return anything...
+                parent::display($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
             } else {
                 $html = parent::fetch($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
-            }
-
-            if (! $this->extends_recursion) {
-                $this->extends_recursion = true;
             }
         } catch (Error $e) {
             TikiLib::lib('errortracking')->captureException($e);
@@ -314,6 +312,9 @@ class Smarty_Tiki extends Smarty
             $html .= '</pre>';
         }
 
+        if (! $this->extends_recursion) {
+                $this->extends_recursion = true;
+        }
         return $html;
     }
 
@@ -477,11 +478,23 @@ class Smarty_Tiki extends Smarty
         TikiLib::events()->trigger('tiki.process.render', []);
 
         $this->assign_layout_sections($resource_name, $cache_id, $compile_id, $parent);
+        try {
+            $html = parent::display($resource_name, $cache_id, $compile_id);
+        } catch (Error $e) {
+            TikiLib::lib('errortracking')->captureException($e);
+            $html = '<div class="error">';
+            $html .= "Fatal error rendering template resource $resource_name\n<br/>";
+            $html .= '</div><pre>';
+            $html .= $e;
+            $html .= '</pre>';
+            echo $html;
+        }
+        //This cannot possibly work, display never returns anything.  Presumably this was meant for fetch() - benoitg - 2023-06-07
 
         if (! empty($prefs['feature_htmlpurifier_output']) and $prefs['feature_htmlpurifier_output'] == 'y') {
-            return $purifier->purify(parent::display($resource_name, $cache_id, $compile_id));
+            return $purifier->purify($html);
         } else {
-            return parent::display($resource_name, $cache_id, $compile_id);
+            return $html;
         }
     }
 

@@ -517,7 +517,6 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         import \'@vue-mf/root-config\';
         import \'@vue-mf/kanban\';
     ');
-    $headerlib->add_cssfile('storage/public/vue-mf/kanban/assets/vue-mf-kanban.min.css');
 
     $out = "";
     //$out = str_replace(['~np~', '~/np~'], '', $formatter->renderFilters());

@@ -263,9 +263,7 @@
             }
         }
     </script>
-    {if $prefs.vuejs_toolbar_dialogs eq 'y'}
-        <link rel="stylesheet" type="text/css" href="{$tikiroot}storage/public/vue-mf/toolbar-dialogs/assets/vue-mf-toolbar-dialogs.min.css">
-    {/if}
+
     {* Note: JS code in the page might try to use these functions before they are actually loaded by systemjs, so provide stubs here *}
     <script>
         window.registerApplication = function(opts) {

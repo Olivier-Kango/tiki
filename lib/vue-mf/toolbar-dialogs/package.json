@@ -12,6 +12,7 @@
     "dependencies": {
         "@popperjs/core": "^2.11.6",
         "single-spa-vue": "^2.5.1",
+        "single-spa-css": "^1.2.0",
         "vue": "^3.2.45"
     },
     "devDependencies": {

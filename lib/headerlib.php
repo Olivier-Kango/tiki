@@ -53,7 +53,7 @@
  */
 class HeaderLib
 {
-    public $title;
+    public $title = '';
 
     /**
      * Array of js files arrays or js urls arrays to load
@@ -61,7 +61,7 @@ class HeaderLib
      * Some ranks have special meanings: (note ranks are array keys in the same array)
      * @var array()
      */
-    public $jsfiles;
+    public $jsfiles = [];
 
 
     /**
@@ -70,7 +70,7 @@ class HeaderLib
      * key = filename with relative path
      * @var array
      */
-    public $skip_minify;
+    public $skip_minify = [];
 
 
     /**
@@ -79,7 +79,7 @@ class HeaderLib
      * js[$rank][] = $script;
      * @var array
      */
-    public $js;
+    public $js = [];
 
 
     /**
@@ -88,7 +88,7 @@ class HeaderLib
      * js_config[$rank][] = $script;
      * @var array
      */
-    public $js_config;
+    public $js_config = [];
 
 
     /**
@@ -97,7 +97,7 @@ class HeaderLib
      * jq_onready[$rank][] = $script;
      * @var array
      */
-    public $jq_onready;
+    public $jq_onready = [];
 
     /**
      * Array of JS Scripts arrays as string that should be embedded as modules
@@ -105,48 +105,62 @@ class HeaderLib
      * jq_modules[$rank][] = $script;
      * @var array
      */
-    public $js_modules;
+    public $js_modules = [];
 
-    public $cssfiles;
-    public $css;
-    public $rssfeeds;
-    public $metatags;
+    /**
+     * Do NOT manipulate this directly.  The only reason this is public is so PageCache.php has access to it.
+     *
+     * @var array
+     */
+    public $cssfiles = [];
+
+    /**
+     * Do NOT manipulate this directly.  The only reason this is public is so PageCache.php has access to it.
+     *
+     * @var array
+     */
+    public $css = [];
+
+    public $rssfeeds = [];
+    public $metatags = [];
     public $linktags;
-    public $rawhtml;
+    public $rawhtml = '';
 
     /* If set to true, any js added through add_jsfile() that has not rank 'external' will be put to rank 'late'
      * Only set once in tiki-setup.php to separate wiki page specific js from common js.
      * @var boolean
      */
-    public $forceJsRankLate;
+    public $forceJsRankLate = false;
 
 
     public $jquery_version = '3.5.1';
     public $jqueryui_version = '1.12.1';
     public $jquerymigrate_version = '3.0.0';
 
+    private $outputHeadersHasBegun = false;
+    private $outputStaticJSFooterHasBegun = false;
+
+    private $outputHasBeenCalledCount = 0;
 
     public function __construct()
     {
         $smarty = TikiLib::lib('smarty');
         $smarty->assign('headerlib', $this);
-
-        $this->title = '';
-        $this->jsfiles = [];
-        $this->skip_minify = [];
-        $this->js = [];
-        $this->js_config = [];
-        $this->jq_onready = [];
-        $this->js_modules = [];
-        $this->cssfiles = [];
-        $this->css = [];
-        $this->rssfeeds = [];
-        $this->metatags = [];
-        $this->rawhtml = '';
-
-        $this->forceJsRankLate = false;
     }
 
+    private function throwIfHeadersAlreadyOutput()
+    {
+        if ($this->outputHeadersHasBegun) {
+            throw new Error("Headers have already been output");
+        }
+    }
+
+    private function throwIfJSFooterAlreadyOutput()
+    {
+        if ($this->outputStaticJSFooterHasBegun) {
+            throw new Error("Static footer Javascript has already been output");
+        }
+    }
 
     /**
      * user cdn and feature multi_cdn see r46854
@@ -197,6 +211,7 @@ class HeaderLib
      */
     public function add_jsfile_dynamic($url)
     {
+        $this->throwIfHeadersAlreadyOutput();
         $this->add_jsfile_by_rank($url, '10dynamic', true);
         return $this;
     }
@@ -215,6 +230,7 @@ class HeaderLib
      */
     public function add_jsfile_cdn($url)
     {
+        $this->throwIfHeadersAlreadyOutput();
         $this->add_jsfile_by_rank($url, '20cdn', true);
         return $this;
     }
@@ -230,6 +246,7 @@ class HeaderLib
      */
     public function add_jsfile_dependency($file, $skip_minify = false)
     {
+        $this->throwIfHeadersAlreadyOutput();
         $this->add_jsfile_by_rank($file, '30dependency', $skip_minify);
         return $this;
     }
@@ -245,6 +262,7 @@ class HeaderLib
      */
     public function add_jsfile_external($file, $skip_minify = false)
     {
+        $this->throwIfHeadersAlreadyOutput();
         $this->add_jsfile_by_rank($file, '40external', $skip_minify);
         return $this;
     }
@@ -259,6 +277,7 @@ class HeaderLib
      */
     public function add_jsfile($file, $skip_minify = false)
     {
+        $this->throwIfJSFooterAlreadyOutput();
         $this->add_jsfile_by_rank($file, '50standard', $skip_minify);
         return $this;
     }
@@ -275,6 +294,7 @@ class HeaderLib
      */
     public function add_jsfile_late($file, $skip_minify = false)
     {
+        $this->throwIfJSFooterAlreadyOutput();
         $this->add_jsfile_by_rank($file, '60late', $skip_minify);
         return $this;
     }
@@ -290,6 +310,7 @@ class HeaderLib
      */
     public function add_jsfile_by_rank($file, $rank, $skip_minify = false)
     {
+        $this->throwIfJSFooterAlreadyOutput();
         // if js is added after tiki-setup.php is run, add those js files to 'late'
         // need to check whether this is really needed
         if ($this->forceJsRankLate == true && $rank !== '40external') {
@@ -307,6 +328,7 @@ class HeaderLib
 
     public function drop_jsfile($file)
     {
+        $this->throwIfJSFooterAlreadyOutput();
         $out = [];
         foreach ($this->jsfiles as $rank => $data) {
             foreach ($data as $f) {
@@ -328,6 +350,7 @@ class HeaderLib
      */
     public function add_js_config($script, $rank = 0)
     {
+        $this->throwIfJSFooterAlreadyOutput();
         if (empty($this->js_config[$rank]) or ! in_array($script, $this->js_config[$rank])) {
             $this->js_config[$rank][] = $script;
         }
@@ -343,6 +366,7 @@ class HeaderLib
      */
     public function add_js($script, $rank = 0)
     {
+        $this->throwIfJSFooterAlreadyOutput();
         if (empty($this->js[$rank]) or ! in_array($script, $this->js[$rank])) {
             $this->js[$rank][] = $script;
         }
@@ -357,6 +381,7 @@ class HeaderLib
      */
     public function add_jq_onready($script, $rank = 0)
     {
+        $this->throwIfJSFooterAlreadyOutput();
         if (empty($this->jq_onready[$rank]) or ! in_array($script, $this->jq_onready[$rank])) {
             $this->jq_onready[$rank][] = $script;
         }
@@ -373,6 +398,7 @@ class HeaderLib
      */
     public function add_js_module($script, $rank = 0)
     {
+        $this->throwIfJSFooterAlreadyOutput();
         if (empty($this->js_modules[$rank]) or ! in_array($script, $this->js_modules[$rank])) {
             $this->js_modules[$rank][] = $script;
         }
@@ -381,10 +407,24 @@ class HeaderLib
 
     public function add_cssfile($file, $rank = 0)
     {
+        $this->throwIfHeadersAlreadyOutput();
         if ((empty($this->cssfiles[$rank]) or ! in_array($file, $this->cssfiles[$rank])) && ! empty($file)) {
             $this->cssfiles[$rank][] = $file;
         }
         return $this;
+    }
+
+    /**
+     * NOT RECOMMENDED
+     *
+     * A hack to remove all css previously added.  This is used by some fullscreen external libraries.
+     *
+     * @return void
+     */
+    public function unsafeClearAllCss()
+    {
+        $this->css = [];
+        $this->cssfiles = [];
     }
 
     public function replace_cssfile($old, $new, $rank)
@@ -414,6 +454,7 @@ class HeaderLib
 
     public function add_css($rules, $rank = 0)
     {
+        $this->throwIfHeadersAlreadyOutput();
         if (empty($this->css[$rank]) or ! in_array($rules, $this->css[$rank])) {
             $this->css[$rank][] = $rules;
         }
@@ -422,6 +463,7 @@ class HeaderLib
 
     public function add_rssfeed($href, $title, $rank = 0)
     {
+        $this->throwIfHeadersAlreadyOutput();
         if (empty($this->rssfeeds[$rank]) or ! in_array($href, array_keys($this->rssfeeds[$rank]))) {
             $this->rssfeeds[$rank][$href] = $title;
         }
@@ -430,6 +472,7 @@ class HeaderLib
 
     public function add_meta($tag, $value)
     {
+        $this->throwIfHeadersAlreadyOutput();
         $tag = addslashes($tag);
         $this->metatags[$tag] = $value;
         return $this;
@@ -437,12 +480,14 @@ class HeaderLib
 
     public function add_rawhtml($tags)
     {
+        $this->throwIfHeadersAlreadyOutput();
         $this->rawhtml = $tags;
         return $this;
     }
 
     public function add_link($rel, $href, $sizes = '', $type = '', $color = '')
     {
+        $this->throwIfHeadersAlreadyOutput();
         $this->linktags[$href]['href'] = $href;
         $this->linktags[$href]['rel'] = $rel;
         if ($sizes) {
@@ -457,8 +502,17 @@ class HeaderLib
         return $this;
     }
 
-    public function output_headers()
+    /**
+     * Returns the raw headers to be output.
+     * Once called, the various add functions will throw errors.
+     *
+     * @return string The raw output headers
+     */
+    public function output_headers(): string
     {
+        $this->throwIfHeadersAlreadyOutput();
+        $this->outputHeadersHasBegun = true;
+
         $smarty = TikiLib::lib('smarty');
         $smarty->loadPlugin('smarty_modifier_escape');
 
@@ -793,7 +847,7 @@ class HeaderLib
      */
     public function output_js_files()
     {
-
+        $this->outputStaticJSFooterHasBegun = true;
         // we get one sorted array with script tags
         $js_files = $this->getJsFilesWithScriptTags();
         $output = '';
@@ -809,6 +863,7 @@ class HeaderLib
 
     public function output_js_config($wrap = true)
     {
+        $this->outputStaticJSFooterHasBegun = true;
         global $prefs;
 
         if ($prefs['javascript_enabled'] == 'n') {
@@ -849,7 +904,8 @@ class HeaderLib
 
     public function output_js($wrap = true)
     {
-    // called in tiki.tpl - JS output at end of file now (pre 5.0)
+        // called in tiki.tpl - JS output at end of file now (pre 5.0)
+        $this->outputStaticJSFooterHasBegun = true;
         global $prefs;
 
         if ($prefs['javascript_enabled'] == 'n') {
@@ -917,7 +973,7 @@ class HeaderLib
      */
     public function getJs()
     {
-
+        //TODO: see if this should set $this->outputStaticJSFooterHasBegun)
         ksort($this->js);
         ksort($this->jq_onready);
         $out = [];

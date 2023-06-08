@@ -220,8 +220,7 @@ function wikiplugin_xmpp($data, $params)
 
     if ($params['view_mode'] === 'fullscreen') {
         // supress to avoid conflict
-        $headerlib->cssfiles = [];
-        $headerlib->css = [];
+        $headerlib->unsafeClearAllCss();
     }
     $params['anonymous'] = $params['visibility'] === 'anonymous' ? 'y' : 'n';
 

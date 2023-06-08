@@ -177,5 +177,6 @@ function applyStyles($params, $smarty_tabset_name)
     $style .= ! empty($params['params']['panelborderwidth']) ? $panels . '{border-width:' . $params['params']['panelborderwidth'] . 'px;} ' : '';
     $style .= ! empty($params['params']['panelbordercolor']) ? $panels . '{border-color:' . $params['params']['panelbordercolor'] . ';} ' : '';
 
-    $headerlib->add_css($style);
+    //Headers are already sent by now, this must be moved eleswhere benoitg-2023-06-07
+    //$headerlib->add_css($style);
 }
