@@ -124,11 +124,10 @@ class TrackerWriter
         }
 
         $definition = $schema->getDefinition();
-        $defaultStatus = $definition->getConfiguration('newItemStatus');
 
         $iterate(function ($line, $info, $columns) use ($utilities, $definition, $defaultStatus, $schema) {
-            if (empty($info['status'])) {
-                $info['status'] = $defaultStatus;
+            if (! isset($info['status'])) {
+                $info['status'] = '';
             }
             if ($info['itemId']) {
                 if ($schema->isSkipUnmodified()) {
