@@ -2772,13 +2772,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "9d2d918c7c478c87c42b917c18a7cb61ddf11dbd"
+                "reference": "5fe3a3021dafb0ffd244da4079a6203037d32b0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-9d2d918c7c478c87c42b917c18a7cb61ddf11dbd-zip-f5dc20.zip",
-                "reference": "9d2d918c7c478c87c42b917c18a7cb61ddf11dbd",
-                "shasum": "ccf34be06e6ddec9b97df54f86a0589da4c4d13d"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-5fe3a3021dafb0ffd244da4079a6203037d32b0c-zip-a7e567.zip",
+                "reference": "5fe3a3021dafb0ffd244da4079a6203037d32b0c",
+                "shasum": "cba015917505220df4fcd170e8d67344a4d08580"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2832,7 +2832,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-06-01T12:37:38+00:00"
+            "time": "2023-06-09T07:35:40+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5689,17 +5689,17 @@
         },
         {
             "name": "matthiasmullie/minify",
-            "version": "1.3.70",
+            "version": "1.3.71",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthiasmullie/minify.git",
-                "reference": "2807d9f9bece6877577ad44acb5c801bb3ae536b"
+                "reference": "ae42a47d7fecc1fbb7277b2f2d84c37a33edc3b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-2807d9f9bece6877577ad44acb5c801bb3ae536b-zip-72a9cf.zip",
-                "reference": "2807d9f9bece6877577ad44acb5c801bb3ae536b",
-                "shasum": "20cf28a449ddba35884415267a6a5848763ae8cf"
+                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-ae42a47d7fecc1fbb7277b2f2d84c37a33edc3b1-zip-7602ca.zip",
+                "reference": "ae42a47d7fecc1fbb7277b2f2d84c37a33edc3b1",
+                "shasum": "b335eebfdd4eac063ad52bb7eff076f59cc2db2a"
             },
             "require": {
                 "ext-pcre": "*",
@@ -5752,7 +5752,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-09T12:56:44+00:00"
+            "time": "2023-04-25T20:33:03+00:00"
         },
         {
             "name": "matthiasmullie/path-converter",
@@ -6949,11 +6949,11 @@
         },
         {
             "name": "npm-asset/postcss",
-            "version": "8.4.19",
+            "version": "8.4.14",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.19.zip",
-                "shasum": "a710d603ec315537fc8f16b413eaca462adb24e0"
+                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.14.zip",
+                "shasum": "c6182c399bf49d6f458aa52d0fae550e5f4a9330"
             },
             "require": {
                 "npm-asset/nanoid": ">=3.3.4,<4.0.0",
@@ -10623,25 +10623,28 @@
         },
         {
             "name": "sabre/uri",
-            "version": "2.3.2",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/uri.git",
-                "reference": "eceb4a1b8b680b45e215574222d6ca00be541970"
+                "reference": "7e0e7dfd0b7e14346a27eabd66e843a6e7f1812b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/uri/sabre-uri-eceb4a1b8b680b45e215574222d6ca00be541970-zip-e5cc14.zip",
-                "reference": "eceb4a1b8b680b45e215574222d6ca00be541970",
-                "shasum": "b70bdbf81d38aa5f5ed1600f7c3b2eba761b3ef3"
+                "url": "https://composer.tiki.org/dist/sabre/uri/sabre-uri-7e0e7dfd0b7e14346a27eabd66e843a6e7f1812b-zip-520a68.zip",
+                "reference": "7e0e7dfd0b7e14346a27eabd66e843a6e7f1812b",
+                "shasum": "547441cf304368417bd667a5e744020090ad0ac4"
             },
             "require": {
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.9",
-                "phpstan/phpstan": "^1.8",
-                "phpunit/phpunit": "^9.0"
+                "friendsofphp/php-cs-fixer": "^3.17",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "phpunit/phpunit": "^9.6"
             },
             "type": "library",
             "autoload": {
@@ -10671,7 +10674,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2022-09-19T11:58:52+00:00"
+            "time": "2023-06-09T06:54:04+00:00"
         },
         {
             "name": "sabre/vobject",
@@ -16140,17 +16143,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.17",
+            "version": "1.10.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "8aca56455b40846865e4fac9d24b010a574dc362"
+                "reference": "52b6416c579663eebdd2f1d97df21971daf3b43f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-8aca56455b40846865e4fac9d24b010a574dc362-zip-d0340a.zip",
-                "reference": "8aca56455b40846865e4fac9d24b010a574dc362",
-                "shasum": "eba0d9f9ce10f7b4cc2316e4bb63484083cf8171"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-52b6416c579663eebdd2f1d97df21971daf3b43f-zip-ef1b79.zip",
+                "reference": "52b6416c579663eebdd2f1d97df21971daf3b43f",
+                "shasum": "18537c9ace24df175e33c3c5c69574bc543f1103"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -16191,7 +16194,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-07T15:55:47+00:00"
+            "time": "2023-06-07T22:00:43+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
