@@ -37,36 +37,37 @@
             <div class="mb-3 row">
                 <label for="calid" class="col-form-label col-sm-3">{tr}Calendar{/tr}</label>
                 <div class="col-sm-9">
-                    <select name="calitem[calendarId]" id="calid" onchange="needToConfirm=false;$('#editcalitem').data('submitter', 'calitem[calendarId]').submit();" class="form-control">
-                        {foreach $calendars as $calendarItem}
+                    <input name="calendarchanged" type="hidden">
+                    <select name="calitem[calendarId]" id="calid" onchange="$(this).parents('.edit-event-form').tikiModal(tr('Loading...')); needToConfirm=false; $('input[name=calendarchanged]').val(1); $('input[name=preview]').click();" class="form-control">
+                        {foreach $calendars as $aCalendar}
                             {$calstyle = ''}
-                            {if not empty($calendarItem.custombgcolor)}
-                                {$calstyle='background-color:#'|cat:$calendarItem.custombgcolor|cat:';'}
+                            {if not empty($aCalendar.custombgcolor)}
+                                {$calstyle='background-color:#'|cat:$aCalendar.custombgcolor|cat:';'}
                             {/if}
-                            {if not empty($calendarItem.customfgcolor)}
-                                {$calstyle=$calstyle|cat:'color:#'|cat:$calendarItem.customfgcolor}
+                            {if not empty($aCalendar.customfgcolor)}
+                                {$calstyle=$calstyle|cat:'color:#'|cat:$aCalendar.customfgcolor}
                             {/if}
                             {if $calstyle}
                                 {$calstyle = ' style="'|cat:$calstyle|cat:'"'}
                             {/if}
-                            <option value="{$calendarItem.calendarId}"{$calstyle}
+                            <option value="{$aCalendar.calendarId}"{$calstyle}
                                     {if isset($calitem.calendarId)}
-                                        {if $calitem.calendarId eq $calendarItem.calendarId}
+                                        {if $calitem.calendarId eq $aCalendar.calendarId}
                                             selected="selected"
                                         {/if}
                                     {elseif $calendarView}
-                                        {if $calendarView eq $calendarItem.calendarId}
+                                        {if $calendarView eq $aCalendar.calendarId}
                                             selected="selected"
                                         {/if}
                                     {else}
                                         {if $calendarId}
-                                            {if $calendarId eq $calendarItem.calendarId}
+                                            {if $calendarId eq $aCalendar.calendarId}
                                                 selected="selected"
                                             {/if}
                                         {/if}
                                     {/if}
                             >
-                                {$calendarItem.name|escape}
+                                {$aCalendar.name|escape}
                             </option>
                         {/foreach}
                     </select>
@@ -398,7 +399,7 @@
                         {/strip}
                 </div>
             </div>
-            {if $calendar.customstatus ne 'n'}
+            {if $calendar.customstatus eq 'y'}
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Status{/tr}</label>
                     <div class="col-sm-9">
@@ -432,9 +433,9 @@
                 <div class="mb-3 row clearfix">
                     <label class="col-form-label col-sm-3">{tr}Priority{/tr}</label>
                     <div class="col-sm-2">
-                        <select name="calitem[priority]" style="background-color:#{$listprioritycolors[$calitem.priority]};" onchange="this.style.bacgroundColor='#'+this.selectedIndex.value;" class="form-control">
-                            {foreach $listpriorities as $priority}
-                                <option value="{$priority}" style="background-color:#{$listprioritycolors[$priority]};" {if $calitem.priority eq $priority} selected="selected" {/if}>
+                        <select name="calitem[priority]" style="background-color:#{$customPriorityColors[$calitem.priority]};" onchange="this.style.bacgroundColor='#'+this.selectedIndex.value;" class="form-control">
+                            {foreach $customPriorities as $priority}
+                                <option value="{$priority}" style="background-color:#{$customPriorityColors[$priority]};" {if $calitem.priority eq $priority} selected="selected" {/if}>
                                     {$priority}
                                 </option>
                             {/foreach}
@@ -443,64 +444,70 @@
                 </div>
                 {* / .mb-3 *}
             {/if}
-            <div class="mb-3 row" style="display:{if $calendar.customcategories eq 'y'}block{else}none{/if};" id="calcat">
-                <label class="col-form-label col-sm-3">
-                    {tr}Classification{/tr}
-                </label>
-                <div class="col-sm-9">
-                    {if count($listcats)}
+            {if $calendar.customcategories eq 'y'}
+                <div class="mb-3 row" id="calcat">
+                    <label class="col-form-label col-sm-3">
+                        {tr}Classification{/tr}
+                    </label>
+                    <div class="col-sm-9">
                         <select name="calitem[categoryId]" class="form-control">
                             <option value=""></option>
-                            {foreach $listcats as $categ}
+                            {foreach $customCategories as $categ}
                                 <option value="{$categ.categoryId}" {if $calitem.categoryId eq $categ.categoryId} selected="selected" {/if}>
                                     {$categ.name|escape}
                                 </option>
                             {/foreach}
                         </select>
-                        {tr}or new{/tr}
-                    {/if}
-                    <input class="form-control" type="text" name="calitem[newcat]" value="">
-                </div>
-            </div> {* / .mb-3 *}
-            <div class="mb-3 row" style="display:{if $calendar.customlocations eq 'y'}block{else}none{/if};" id="calloc">
-                <label class="col-form-label col-sm-3">{tr}Location{/tr}</label>
-                <div class="col-sm-9">
-                    {if count($listlocs)}
+                        <div class="input-group my-2">
+                          <span class="input-group-text">{tr}New classification:{/tr}</span>
+                          <input type="text" class="form-control" name="calitem[newcat]">
+                        </div>
+                    </div>
+                </div> {* / .mb-3 *}
+            {/if}
+            {if $calendar.customlocations eq 'y'}
+                <div class="mb-3 row" id="calloc">
+                    <label class="col-form-label col-sm-3">{tr}Location{/tr}</label>
+                    <div class="col-sm-9">
                         <select name="calitem[locationId]" class="form-control">
                             <option value=""></option>
-                            {foreach $listlocs as $location}
+                            {foreach $customLocations as $location}
                                 <option value="{$location.locationId}" {if $calitem.locationId eq $location.locationId} selected="selected" {/if}>
                                     {$location.name|escape}
                                 </option>
                             {/foreach}
                         </select>
-                        {tr}or new{/tr}
-                    {/if}
-                    <input class="form-control" type="text" name="calitem[newloc]" value="">
-                </div>
-            </div> {* / .mb-3.row *}
+                        <div class="input-group my-2">
+                          <span class="input-group-text">{tr}New location:{/tr}</span>
+                          <input type="text" class="form-control" name="calitem[newloc]">
+                        </div>
+                    </div>
+                </div> {* / .mb-3.row *}
+            {/if}
             {if $calendar.customurl ne 'n'}
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}URL{/tr}</label>
                     <div class="col-sm-9">
-                        <input type="text" name="calitem[url]" value="{$calitem.url}" size="32" class="form-control">
+                        <input type="text" name="calitem[url]" value="{$calitem.url}" size="32" class="form-control url">
                     </div>
                 </div>
                 {* / .mb-3.row *}
             {/if}
-            <div class="mb-3 row" style="display:{if $calendar.customlanguages eq 'y'}block{else}none{/if};" id="callang">
-                <label class="col-form-label col-sm-3">{tr}Language{/tr}</label>
-                <div class="col-sm-9">
-                    <select name="calitem[lang]" class="form-control">
-                        <option value=""></option>
-                        {foreach $listlanguages as $language}
-                            <option value="{$language.value}" {if $calitem.lang eq $language.value} selected="selected" {/if}>
-                                {$language.name}
-                            </option>
-                        {/foreach}
-                    </select>
-                </div>
-            </div> {* / .mb-3.row *}
+            {if $calendar.customlanguages eq 'y'}
+                <div class="mb-3 row" id="callang">
+                    <label class="col-form-label col-sm-3">{tr}Language{/tr}</label>
+                    <div class="col-sm-9">
+                        <select name="calitem[lang]" class="form-control">
+                            <option value=""></option>
+                            {foreach $customLanguages as $language}
+                                <option value="{$language.value}" {if $calitem.lang eq $language.value} selected="selected" {/if}>
+                                    {$language.name}
+                                </option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div> {* / .mb-3.row *}
+            {/if}
             {if !empty($groupforalert) && $showeachuser eq 'y'}
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Choose users to alert{/tr}</label>
@@ -517,66 +524,90 @@
                 </div>
                 {* / .mb-3.row *}
             {/if}
-            <div class="mb-3 row" style="display:{if $calendar.customparticipants eq 'y'}block{else}none{/if};" id="calorg">
-                <label class="col-form-label col-sm-3">{tr}Organized by{/tr}</label>
-                <div class="col-sm-9">
-                    {if isset($calitem.organizers)}
-                        {user_selector name='calitem[organizers]' select=$calitem.organizers multiple='true' allowNone='y' editable='y'}
-                    {/if}
-                </div>
-            </div> {* / .mb-3.row *}
-            <div class="mb-3 row" style="display:{if $calendar.customparticipants eq 'y'}block{else}none{/if};" id="calpart">
-                <label class="col-form-label col-sm-3">{tr}Participants{/tr}</label>
-                <div class="col-sm-9">
-                    {if isset($calitem.participants)}
-                        {user_selector name='participants' select=$calitem.selected_participants multiple='true' allowNone='y' editable='y' realnames='n'}
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-9">
-                                <input type="text" name="add_participant_email" id="add_participant_email" value="" placeholder="or invite email address..." class="form-control">
+            {if $calendar.customparticipants eq 'y'}
+                <div class="mb-3 row" id="calorg">
+                    <label class="col-form-label col-sm-3">{tr}Organized by{/tr}</label>
+                    <div class="col-sm-9">
+                        {user_selector name='calitem[organizers]' select=$calitem.organizers multiple='true' allowNone='y' editable='y' realnames = 'n'}
+                    </div>
+                </div> {* / .mb-3.row *}
+            {/if}
+            {if $calendar.customparticipants eq 'y'}
+                <div class="mb-3 row" id="calpart">
+                    <label class="col-form-label col-sm-3">{tr}Participants{/tr}</label>
+                    <div class="col-sm-9">
+                        {if isset($calitem.participants)}
+                            {user_selector name='participants' select=$calitem.selected_participants multiple='true' allowNone='y' editable='y' realnames='n'}
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <input type="text" name="add_participant_email" id="add_participant_email" value="" placeholder="or invite email address..." class="form-control">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="button" class="btn btn-primary btn-sm" value="Add" id="invite_emails">
+                                </div>
                             </div>
-                            <div class="col-sm-3">
-                                <input type="button" class="btn btn-primary" value="Add" id="invite_emails">
-                            </div>
-                        </div>
-                        <br>
-                        <table cellpadding="0" cellspacing="0" border="0" class="table normal table-bordered" id="participant_roles">
-                            <tr>
-                                <th>{tr}Invitee{/tr}</th>
-                                <th>{tr}Status{/tr}</th>
-                                <th>{tr}Role{/tr}</th>
-                                <th></th>
-                            </tr>
-                            {foreach item=ppl from=$calitem.participants}
-                                <tr data-user="{$ppl.username|escape}">
-                                    <td>{$ppl.username|userlink}</td>
+                            <br>
+                            <table class="table normal table-bordered" id="participant_roles">
+                                <tr>
+                                    <th>{tr}Invitee{/tr}</th>
+                                    <th>{tr}Status{/tr}</th>
+                                    <th>{tr}Role{/tr}</th>
+                                    <th></th>
+                                </tr>
+                                <tr class="d-none" id="participant-template-row">
+                                    <td class="username"></td>
                                     <td>
-                                        <select name="calitem[participant_partstat][{$ppl.username}]" class="form-control">
-                                            <option value="NEEDS-ACTION">NEEDS-ACTION</option>
-                                            <option value="ACCEPTED" {if $ppl.partstat eq 'ACCEPTED'}selected{/if}>ACCEPTED</option>
-                                            <option value="TENTATIVE" {if $ppl.partstat eq 'TENTATIVE'}selected{/if}>TENTATIVE</option>
-                                            <option value="DECLINED" {if $ppl.partstat eq 'DECLINED'}selected{/if}>DECLINED</option>
+                                        <select class="form-control noselect2" name="calitem[participant_partstat]">
+                                            <option value="NEEDS-ACTION">{tr}NEEDS-ACTION{/tr}</option>
+                                            <option value="ACCEPTED">{tr}ACCEPTED{/tr}</option>
+                                            <option value="TENTATIVE">{tr}TENTATIVE{/tr}</option>
+                                            <option value="DECLINED">{tr}DECLINED{/tr}</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="calitem[participant_roles][{$ppl.username}]" class="form-control">
-                                            <option value="0">{tr}chair{/tr}</option>
-                                            <option value="1" {if $ppl.role eq '1'}selected{/if}>{tr}required participant{/tr}</option>
-                                            <option value="2" {if $ppl.role eq '2'}selected{/if}>{tr}optional participant{/tr}</option>
-                                            <option value="3" {if $ppl.role eq '3'}selected{/if}>{tr}non-participant{/tr}</option>
+                                        <select class="form-control noselect2" name="calitem[participant_roles]">
+                                            <option value="0">{tr}Chair{/tr}</option>
+                                            <option value="1">{tr}Required participant{/tr}</option>
+                                            <option value="2">{tr}Optional participant{/tr}</option>
+                                            <option value="3">{tr}Non-participant{/tr}</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <a href="#" class="delete-participant"><span class="icon icon-remove fas fa-times"></span></a>
+                                        {icon name='delete' iclass='text-danger delete-participant'}
                                     </td>
                                 </tr>
-                            {/foreach}
-                        </table>
-                        <input type="checkbox" name="calitem[process_itip]" value="1" checked>
-                        Send calendar invitations and event updates via email
-                    {/if}
-                </div>
-            </div> {* / .mb-3.row *}
+                                {foreach item=ppl from=$calitem.participants}
+                                    <tr data-user="{$ppl.username|escape}" class="{$ppl.username|escape}">
+                                        <td>{$ppl.username|userlink}</td>
+                                        <td>
+                                            <select name="calitem[participant_partstat][{$ppl.username}]" class="form-control">
+                                                <option value="NEEDS-ACTION">NEEDS-ACTION</option>
+                                                <option value="ACCEPTED" {if $ppl.partstat eq 'ACCEPTED'}selected{/if}>ACCEPTED</option>
+                                                <option value="TENTATIVE" {if $ppl.partstat eq 'TENTATIVE'}selected{/if}>TENTATIVE</option>
+                                                <option value="DECLINED" {if $ppl.partstat eq 'DECLINED'}selected{/if}>DECLINED</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="calitem[participant_roles][{$ppl.username}]" class="form-control">
+                                                <option value="0">{tr}chair{/tr}</option>
+                                                <option value="1" {if $ppl.role eq '1'}selected{/if}>{tr}required participant{/tr}</option>
+                                                <option value="2" {if $ppl.role eq '2'}selected{/if}>{tr}optional participant{/tr}</option>
+                                                <option value="3" {if $ppl.role eq '3'}selected{/if}>{tr}non-participant{/tr}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="delete-participant"><span class="icon icon-remove fas fa-times"></span></a>
+                                        </td>
+                                    </tr>
+                                {/foreach}
+                            </table>
+                            <input type="checkbox" name="calitem[process_itip]" value="1" checked>
+                            Send calendar invitations and event updates via email
+                        {/if}
+                    </div>
+                </div> {* / .mb-3.row *}
+            {/if}
             {if $recurrence.id gt 0}
                 <div class="row">
                     <div class="col-sm-9 offset-sm-3">

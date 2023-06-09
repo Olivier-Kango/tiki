@@ -238,6 +238,22 @@ class Services_Calendar_Controller
                 $calitem['recurrenceId'] = $input->recurrenceId->int();
                 $calendar = $this->calendarLib->get_calendar($calendarId);
 
+                // process participants
+                if (! empty($calitem['participant_roles'])) {
+                    $participants = [];
+                    foreach ($calitem['participant_roles'] as $username => $role) {
+                        $participants[] = [
+                            'username' => $username,
+                            'role' => $role,
+                            'partstat' => $calitem['participant_partstat'][$username] ?? '',
+                        ];
+                    }
+                    $calitem['participants'] = $participants;
+                    unset($calitem['participant_roles'], $calitem['participant_partstat']);
+                } else {
+                    $calitem['participants'] = [];
+                }
+
                 // save event
                 if ($input->act->word() === 'save' || $input->act->word() === 'saveas') {
                     $saved = $this->saveEvent($calitem, $calendar, $input);
@@ -255,13 +271,15 @@ class Services_Calendar_Controller
                 } else {
                     $title = $calitem['title'];
 
-                    $preview = $input->act->word() === 'preview';
+                    if (! $input->calendarchanged->int()) {
+                        $preview = $input->act->word() === 'preview';
 
-                    $calitem['parsed'] = $parserLib->parse_data(
-                        $calitem['description'],
-                        ['is_html' => $prefs['calendar_description_is_html'] === 'y']
-                    );
-                    $calitem['parsedName'] = $parserLib->parse_data($calitem['name']);
+                        $calitem['parsed'] = $parserLib->parse_data(
+                            $calitem['description'],
+                            ['is_html' => $prefs['calendar_description_is_html'] === 'y']
+                        );
+                        $calitem['parsedName'] = $parserLib->parse_data($calitem['name']);
+                    }
                 }
             } else {
                 Feedback::error(tr('No event data?'));
@@ -339,7 +357,6 @@ class Services_Calendar_Controller
                                                 'role'     => '',
                                                 'partstat' => '',
                                             ]],
-                'selected_participants' => [$user],
             ];
         }
 
@@ -377,6 +394,34 @@ class Services_Calendar_Controller
                 ->add_jsfile('lib/jquery_tiki/tiki-calendar_edit_item.js');
         }
 
+
+        if ($calendar['customcategories'] == 'y') {
+            $customCategories = $this->calendarLib->list_categories($calendarId);
+        } else {
+            $customCategories = [];
+        }
+
+        if ($calendar["customsubscription"] == 'y') {
+            $customSubscritions = TikiLib::lib('newsletter')->list_avail_newsletters();
+        } else {
+            $customSubscritions = [];
+        }
+
+        if ($calendar["customlanguages"] == 'y') {
+            $customLanguages = TikiLib::lib('language')->list_languages();
+        } else {
+            $customLanguages = [];
+        }
+        if ($calendar['customlocations'] == 'y') {
+            $customLocations = $this->calendarLib->list_locations($calendarId);
+        } else {
+            $customLocations = [];
+        }
+
+        $customPriorities = ['0','1','2','3','4','5','6','7','8','9'];
+        $customPriorityColors = ['fff','fdd','fcc','fbb','faa','f99','e88','d77','c66','b66','a66'];
+        $customRoles = ['0' => '','1' => tra('required'),'2' => tra('optional'),'3' => tra('non-participant')];
+
         return [
             // collections
             'daynames'                   => $this->daynames,
@@ -395,8 +440,14 @@ class Services_Calendar_Controller
             'recurrence'                 => $recurrence,
             'recurranceNumChangedEvents' => $recurranceNumChangedEvents,
             // "custom" calendar properties
-            'listcats'                   => $this->calendarLib->list_categories($calendarId),
-            'listlocs'                   => $this->calendarLib->list_locations($calendarId),
+            'selected_participants'      => [$user],
+            'customCategories'           => $customCategories,
+            'customSubscritions'         => $customSubscritions,
+            'customLanguages'            => $customLanguages,
+            'customPriorities'           => $customPriorities,
+            'customPrioritycolors'       => $customPriorityColors,
+            'customRoles'                => $customRoles,
+            'customLocations'            => $customLocations,
             // group alert info
             'listusertoalert'            => $listusertoalert,
             'groupforalert'              => $groupforalert,
