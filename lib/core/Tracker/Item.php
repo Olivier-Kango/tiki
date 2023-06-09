@@ -642,6 +642,11 @@ class Tracker_Item
         return $this->definition;
     }
 
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
     public function getDisplayedStatus()
     {
         if (

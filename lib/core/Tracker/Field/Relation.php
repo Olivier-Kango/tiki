@@ -646,7 +646,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                 if ($item = $rel->metadata->getItem()) {
                     $definition = $item->getDefinition();
                     foreach ($definition->getFields() as $field) {
-                        $handler = TikiLib::lib('trk')->get_field_handler($field, $item);
+                        $handler = TikiLib::lib('trk')->get_field_handler($field, $item->getInfo());
                         $handler->setBaseKeyPrefix($this->getConfiguration('permName') . '_meta');
                         $meta = array_merge($meta, $cb($handler));
                     }

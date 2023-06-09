@@ -9,7 +9,7 @@ namespace Tiki\Relation\Parts;
 
 class Source extends Link
 {
-    public int $fieldId;
+    public ?int $fieldId;
 
     public function __construct(string $type, string $itemId, int $fieldId = null)
     {
