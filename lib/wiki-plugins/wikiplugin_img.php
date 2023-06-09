@@ -675,9 +675,9 @@ function wikiplugin_img($data, $params)
     $set = ! empty($imgdata['fileId']) + ! empty($imgdata['src']) + ! empty($imgdata['attId'])
         + ! empty($imgdata['randomGalleryId']) + ! empty($imgdata['fgalId']);
     if ($set == 0) {
-        return tra("''No image specified. One of the following parameters must be set: fileId, randomGalleryId, fgalId, attId or src.''");
+        return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('No image specified. One of the following parameters must be set: fileId, randomGalleryId, fgalId, attId or src.'));
     } elseif ($set > 1) {
-        return tra("''Use one and only one of the following parameters: fileId, randomGalleryId, fgalId, attId or src.''");
+        return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('Use one and only one of the following parameters: fileId, randomGalleryId, fgalId, attId or src.'));
     }
     // Clean up src URLs to exclude javascript
     if (stristr(str_replace(' ', '', $imgdata['src']), 'javascript:')) {
@@ -831,14 +831,14 @@ function wikiplugin_img($data, $params)
                 $dbinfo = $wikilib->get_item_attachment($imgdata['attId']);
                 $basepath = $prefs['w_use_dir'];
             }
-            //Give error messages if file doesn't exist, isn't an image. Display nothing if user lacks permission
+            //Give error messages if a file doesn't exist, isn't an image. Display nothing if user lacks permission
             if (! empty($imgdata['fileId']) || ! empty($imgdata['attId'])) {
                 if (! $dbinfo) {
-                    return '^' . tra('File not found.') . '^';
+                    return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('File not found.'));
                 } elseif (substr($dbinfo['filetype'], 0, 5) != 'image' and ! preg_match('/thumbnail/i', $imgdata['fileId'])) {
-                    return '^' . tra('File is not an image.') . '^';
+                    return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('File is not an image.'));
                 } elseif (! Image::isAvailable()) {
-                    return '^' . tra('Server does not support image manipulation.') . '^';
+                    return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('Server does not support image manipulation.'));
                 } elseif (! empty($imgdata['fileId'])) {
                     $gal_info = TikiLib::lib('filegal')->get_file_gallery_info($dbinfo['galleryId']);
                     if ($gal_info && $gal_info['type'] == 'attachments') {
