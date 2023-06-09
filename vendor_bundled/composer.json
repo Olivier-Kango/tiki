@@ -218,7 +218,8 @@
             "oomphinc/composer-installers-extender": true,
             "cweagans/composer-patches": true,
             "robloach/component-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true
         }
     },
     "autoload": {

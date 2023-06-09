@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c1aa8af595661db659343ee01ee41e1",
+    "content-hash": "f188a1ef295d1e2f66c58d3391963223",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2587,13 +2587,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "556f90f"
+                "reference": "5fe3a30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-217a0dad4f2105621ceb029c2c0207d41008e944-zip-aac204.zip",
-                "reference": "556f90f",
-                "shasum": "6d7b2e5da878fa4abfe88e8ce8b4ac6423d9575a"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-5fe3a3021dafb0ffd244da4079a6203037d32b0c-zip-a7e567.zip",
+                "reference": "5fe3a30",
+                "shasum": "cba015917505220df4fcd170e8d67344a4d08580"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2647,7 +2647,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-05-28T14:47:25+00:00"
+            "time": "2023-06-09T07:35:40+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5320,17 +5320,17 @@
         },
         {
             "name": "matthiasmullie/minify",
-            "version": "1.3.70",
+            "version": "1.3.71",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthiasmullie/minify.git",
-                "reference": "2807d9f9bece6877577ad44acb5c801bb3ae536b"
+                "reference": "ae42a47d7fecc1fbb7277b2f2d84c37a33edc3b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-2807d9f9bece6877577ad44acb5c801bb3ae536b-zip-72a9cf.zip",
-                "reference": "2807d9f9bece6877577ad44acb5c801bb3ae536b",
-                "shasum": "20cf28a449ddba35884415267a6a5848763ae8cf"
+                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-ae42a47d7fecc1fbb7277b2f2d84c37a33edc3b1-zip-7602ca.zip",
+                "reference": "ae42a47d7fecc1fbb7277b2f2d84c37a33edc3b1",
+                "shasum": "b335eebfdd4eac063ad52bb7eff076f59cc2db2a"
             },
             "require": {
                 "ext-pcre": "*",
@@ -5383,7 +5383,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-09T12:56:44+00:00"
+            "time": "2023-04-25T20:33:03+00:00"
         },
         {
             "name": "matthiasmullie/path-converter",
@@ -6318,11 +6318,11 @@
         },
         {
             "name": "npm-asset/postcss",
-            "version": "8.4.19",
+            "version": "8.4.14",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.19.zip",
-                "shasum": "a710d603ec315537fc8f16b413eaca462adb24e0"
+                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.14.zip",
+                "shasum": "c6182c399bf49d6f458aa52d0fae550e5f4a9330"
             },
             "require": {
                 "npm-asset/nanoid": ">=3.3.4,<4.0.0",
@@ -9149,25 +9149,28 @@
         },
         {
             "name": "sabre/uri",
-            "version": "2.3.2",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/uri.git",
-                "reference": "eceb4a1b8b680b45e215574222d6ca00be541970"
+                "reference": "7e0e7dfd0b7e14346a27eabd66e843a6e7f1812b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/uri/sabre-uri-eceb4a1b8b680b45e215574222d6ca00be541970-zip-e5cc14.zip",
-                "reference": "eceb4a1b8b680b45e215574222d6ca00be541970",
-                "shasum": "b70bdbf81d38aa5f5ed1600f7c3b2eba761b3ef3"
+                "url": "https://composer.tiki.org/dist/sabre/uri/sabre-uri-7e0e7dfd0b7e14346a27eabd66e843a6e7f1812b-zip-520a68.zip",
+                "reference": "7e0e7dfd0b7e14346a27eabd66e843a6e7f1812b",
+                "shasum": "547441cf304368417bd667a5e744020090ad0ac4"
             },
             "require": {
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.9",
-                "phpstan/phpstan": "^1.8",
-                "phpunit/phpunit": "^9.0"
+                "friendsofphp/php-cs-fixer": "^3.17",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "phpunit/phpunit": "^9.6"
             },
             "type": "library",
             "autoload": {
@@ -9197,7 +9200,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2022-09-19T11:58:52+00:00"
+            "time": "2023-06-09T06:54:04+00:00"
         },
         {
             "name": "sabre/vobject",
@@ -13092,17 +13095,17 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.3.5",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "74780ccf8c19d6acb8d65c5f39cd72110e132bbd"
+                "reference": "90d087e988ff194065333d16bc5cf649872d9cdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/composer/ca-bundle/composer-ca-bundle-74780ccf8c19d6acb8d65c5f39cd72110e132bbd-zip-33f990.zip",
-                "reference": "74780ccf8c19d6acb8d65c5f39cd72110e132bbd",
-                "shasum": "b379d49b8b4156b5dc609ef5cd998bf9e7a8bfd8"
+                "url": "https://composer.tiki.org/dist/composer/ca-bundle/composer-ca-bundle-90d087e988ff194065333d16bc5cf649872d9cdb-zip-135e3f.zip",
+                "reference": "90d087e988ff194065333d16bc5cf649872d9cdb",
+                "shasum": "dd30d1d00dab70fb8858690ba4eade463fa2667b"
             },
             "require": {
                 "ext-openssl": "*",
@@ -13159,7 +13162,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-11T08:27:00+00:00"
+            "time": "2023-06-06T12:02:59+00:00"
         },
         {
             "name": "doctrine/instantiator",
