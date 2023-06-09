@@ -158,6 +158,8 @@ class TikiSheet
     public $rangeBeginCol = -1;
     public $rangeEndCol = -1;
 
+    public $className;
+
     public function getRangeBeginRow()
     {
         return $this->rangeBeginRow > -1 ? $this->rangeBeginRow : 0;
@@ -1280,6 +1282,9 @@ class TikiSheetDatabaseHandler extends TikiSheetDataHandler
     public $rowCount;
     public $columnCount;
     public $metadata;
+    public $type;
+    public $name;
+    public $className;
 
     /** Constructor
      * Assigns a sheet ID to the handler.
@@ -1384,11 +1389,11 @@ class TikiSheetDatabaseHandler extends TikiSheetDataHandler
         if (is_array($mods)) {
             foreach ($mods as $coord) {
                 extract($coord);
-                $value = $sheet->dataGrid[$row][$col]['value'];
-                $calc = $sheet->calcGrid[$row][$col]['calculation'];
-                $width = $sheet->cellInfo[$row][$col]['width'];
-                $height = $sheet->cellInfo[$row][$col]['height'];
-                $format = $sheet->cellInfo[$row][$col]['format'];
+                $value = $sheet->dataGrid[$row][$col]['value'] ?? null;
+                $calc = $sheet->calcGrid[$row][$col]['calculation'] ?? null;
+                $width = $sheet->cellInfo[$row][$col]['width'] ?? 1;
+                $height = $sheet->cellInfo[$row][$col]['height'] ?? 1;
+                $format = $sheet->cellInfo[$row][$col]['format'] ?? null;
                 $style = $sheet->cellInfo[$row][$col]['style'];
                 $class = $sheet->cellInfo[$row][$col]['class'];
 
@@ -1411,10 +1416,14 @@ class TikiSheetDatabaseHandler extends TikiSheetDataHandler
             $old = [];
             while ($row = $result->fetchRow()) {
                 $old[$row['rowIndex'] . '-' . $row['columnIndex']] = $row['value'];
-                $old[$row['rowIndex'] . '-' . $row['columnIndex']]['style'] = $row['style'];
-                $old[$row['rowIndex'] . '-' . $row['columnIndex']]['class'] = $row['class'];
-            }
+                if (isset($old[$row['rowIndex'] . '-' . $row['columnIndex']]['style'])) {
+                    $old[$row['rowIndex'] . '-' . $row['columnIndex']]['style'] = $row['style'];
+                }
 
+                if (isset($old[$row['rowIndex'] . '-' . $row['columnIndex']]['class'])) {
+                    $old[$row['rowIndex'] . '-' . $row['columnIndex']]['class'] = $row['class'];
+                }
+            }
 
             $tikilib->query("UPDATE `tiki_sheet_layout` SET `metadata` = ?  WHERE `sheetId` = ?", [$handler->metadata, $handler->id]);
         }
@@ -1687,7 +1696,6 @@ class TikiSheetOutputHandler extends TikiSheetDataHandler
     {
 //      if ( $sheet->headerRow + $sheet->footerRow > $sheet->getRowCount() )
 //          return false;
-
         $beginRow = $sheet->getRangeBeginRow();
         $endRow = $sheet->getRangeEndRow();
 
@@ -1701,12 +1709,15 @@ class TikiSheetOutputHandler extends TikiSheetDataHandler
         ) {
             if (isset($sheet->dataGrid[$beginRow][$beginCol])) {
                 $data = $sheet->dataGrid[$beginRow][$beginCol];
+                if (is_array($data)) {
+                    $data = implode('', $data);
+                }
+
                 if ($sheet->parseValues == 'y' && mb_ereg_match('[^A-Za-z0-9\s]', $data)) { // needs to be multibyte regex here
                     global $tikilib;
                     $data = TikiLib::lib('parser')->parse_data($data, ['suppress_icons' => true]);
                 }
-                $this->output = $data;
-                return true;
+                $sheet->dataGrid[$beginRow][$beginCol] = $data;
             }
         }
 

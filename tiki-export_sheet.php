@@ -56,8 +56,9 @@ if (isset($_REQUEST['encoding'])) {
     $grid->import($handler);
 
     $handler = $_REQUEST['handler'];
+    $handlers_ = new TikiSheet();
 
-    if (! in_array($handler, TikiSheet::getHandlerList())) {
+    if (! in_array($handler, $handlers_->getHandlerList())) {
         $smarty->assign('msg', "Handler is not allowed.");
         $smarty->display("error.tpl");
         die;
@@ -77,7 +78,8 @@ if (isset($_REQUEST['encoding'])) {
 } else {
     $list = [];
 
-    $handlers = TikiSheet::getHandlerList();
+    $handlers_ = new TikiSheet();
+    $handlers = $handlers_->getHandlerList();
 
     foreach ($handlers as $key => $handler) {
         $temp = new $handler();

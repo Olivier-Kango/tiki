@@ -51,12 +51,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $access->checkCsrf()) {
             $handler = new $handler($_POST['page']);
             break;
         default: // All file based handlers registered
-            if (! in_array($handler, TikiSheet::getHandlerList())) {
+            $handler_ = new TikiSheet();
+            if (! in_array($handler, $handler_->getHandlerList())) {
                 $smarty->assign('msg', "Handler is not allowed.");
                 $smarty->display("error.tpl");
                 die;
             }
-            $handler = new $handler($_FILES['file']['tmp_name'], $encoding, 'UTF-8');
+
+            if (file_exists($_FILES['file']['tmp_name'])) {
+                $handler = new $handler($_FILES['file']['tmp_name'], $encoding, 'UTF-8');
+            } else {
+                $smarty->assign('msg', "File path does not exist");
+                $smarty->display("error.tpl");
+                die;
+            }
     }
 
     if (! $grid->import($handler)) {
@@ -78,7 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $access->checkCsrf()) {
     $encoding = new Encoding();
     $charsetList = $encoding->get_input_supported_encodings();
 
-    $handlers = TikiSheet::getHandlerList();
+    $handlers_ = new TikiSheet();
+    $handlers = $handlers_->getHandlerList();
 
     foreach ($handlers as $key => $handler) {
         $temp = new $handler();
