@@ -110,7 +110,8 @@ $btn-box-shadow:              $box-shadow;
 
 // Forms
 
-$input-bg:                              transparent;
+$input-bg:                           var(--#{$prefix}body-bg) !default; // transparent;
+$input-color:                           var(--#{$prefix}body-color) !default;
 $input-disabled-bg:                     var(--#{$prefix}secondary-bg) !default; // rgba($white, .1);
 
 $input-border-color:                    rgba($white, .4);

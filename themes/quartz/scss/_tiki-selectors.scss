@@ -17,12 +17,16 @@ body {
 .pagetitle a {color: $body-color; }
 
 .form-control {
-    color: $body-color !important;
+//    color: $body-color !important;
     option {
         background-color: #6184ba; // for theme selector options
         background-image: linear-gradient(125deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2) 70%); // For in-page forms -- Increased opacity from 255,255,255, 0.3, 0.2, 70%.
         -webkit-backdrop-filter: blur(5px);
     }
+}
+
+.tiki .form-select:not([multiple]) option {
+    color: var(--bs-body-color);
 }
 
 // Using modal-content styles
@@ -40,15 +44,15 @@ span.plugin-mouseover {
 
 blockquote,
 .blockquote {
-    color: $body-color; // For better color contrast.
+    color: var(--#{$prefix}body-color); // For better color contrast.
     border-left-color: $table-border-color;
 }
 
 .dropdown-menu {
     background-image: linear-gradient(125deg, rgba(230, 230, 230, 0.7), rgb(226, 232, 234, 0.8) 90%); // Increased opacity from 255,255,255, 0.3, 0.2, 70%.
-    a,
-    .dropdown-item {
-        color: #1c2664; }
+//    a,
+//    .dropdown-item {
+//        color: #1c2664; }
 }
 
 .fc-col-header-cell,

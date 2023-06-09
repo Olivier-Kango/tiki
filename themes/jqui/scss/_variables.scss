@@ -74,6 +74,7 @@ $warning:       #F0AD4E;
 $danger:        #D9534F;
 $light:         $gray-100;
 $dark:          $gray-900;
+$white: #fff;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -129,12 +130,12 @@ $headings-font-weight: 700;
 // Buttons
 // Forms
 // Dropdowns
-$dropdown-color:                    $body-color;
-$dropdown-bg:                       $white !default;
+$dropdown-color:                    var(--#{$prefix}body-color) !default;
+$dropdown-bg:                       var(--#{$prefix}body-bg) !default;
 $dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
 
-$dropdown-link-color:               $gray-900 !default;
-$dropdown-link-hover-color:         shade-color($dropdown-link-color, 10%) !default;
+$dropdown-link-color:               var(--#{$prefix}body-color) !default; // $gray-900 !default;
+$dropdown-link-hover-color:         var(--#{$prefix}body-color); // shade-color($dropdown-link-color, 10%) !default;
 $dropdown-link-hover-bg:            $gray-200 !default;
 
 $dropdown-dark-color:               $gray-300 !default;

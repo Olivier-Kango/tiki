@@ -90,7 +90,7 @@ $btn-primary-border: #223845;
 
 // Forms
 $input-bg: var(--#{$prefix}body-bg) !default; // #f3fcfe;
-$input-color: #000000;
+$input-color:                           var(--#{$prefix}body-color) !default; // #000000;
 $input-border: #4d7b9b;
 
 // Dropdowns
