@@ -61,7 +61,7 @@ a:focus,
 .tiki .wiki.external + .icon-link-external, // wikitext
 .tiki .wiki.external .icon-link-external,
 .editable-inline .icon { // Tracker inline editing
-    color: $link-color;
+    color: var(--#{$prefix}link-color); // $link-color;
 }
 
 

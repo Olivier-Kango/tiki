@@ -49,6 +49,8 @@ $theme-colors: (
 );
 
 // Options
+$enable-dark-mode:            true !default;
+$color-mode-type:             data !default; // `data` or `media-query`
 // Prefix for :root CSS variables
 
 $variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
@@ -120,23 +122,23 @@ $input-group-addon-bg:           var(--#{$prefix}tertiary-bg) !default; // $gray
 $input-group-addon-border-color: $input-border;
 
 // Dropdowns
-$dropdown-bg:                    #fff;
-//$dropdown-border:                rgba(0,0,0,.15);
 $dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
-$dropdown-fallback-border:       #ccc;
-$dropdown-divider-bg:            #e5e5e5;
+$dropdown-divider-bg:               $dropdown-border-color !default;
 $dropdown-font-size: 1.2rem;
 
-$dropdown-color:            $gray-800;
-$dropdown-hover-color:      darken($gray-800, 5%);
-$dropdown-hover-bg:         #f5f5f5;
+$dropdown-color:                    var(--#{$prefix}body-color) !default;
+$dropdown-bg:                       var(--#{$prefix}body-bg) !default;
+
+$dropdown-link-color:               var(--#{$prefix}body-color) !default; // $gray-800;
+$dropdown-link-hover-color:         $dropdown-link-color !default; // darken($gray-800, 5%);
+$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default; // #f5f5f5;
+
+$dropdown-link-active-color:        $component-active-color !default;
+$dropdown-link-active-bg:           $component-active-bg !default;
 
 $dropdown-active-color:     $component-active-color;
 $dropdown-active-bg:        $component-active-bg;
 $dropdown-header-color:          $gray-300;
-
-$dropdown-link-active-color:        $component-active-color !default;
-$dropdown-link-active-bg:           $component-active-bg !default;
 
 $dropdown-dark-color:               $gray-300 !default;
 $dropdown-dark-bg:                  $gray-800 !default;

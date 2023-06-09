@@ -60,7 +60,7 @@ a.fc-event:hover {
     .fancyfilter {
         border: thin solid $primary; /*black*/;
         .token {
-            background: $body-bg;
+            background: var(--bs-body-bg);
             border: 1px solid $gray-200;
             font-size: 11px;
             padding: 3px;
@@ -70,8 +70,8 @@ a.fc-event:hover {
 
 // tiki-comments.less - tiki-jquery.js
 .note-list .postbody-title {
-    background: $body-bg; // /*#ccc*/
-    color: $body-color; // /*#000*/
+    background: var(--bs-body-bg); // /*#ccc*/
+    color: var(--bs-body-color); // /*#000*/
 }
 
 // Comments moderation - comment.tpl, tiki-list_comments.tpl
@@ -213,7 +213,7 @@ table.treetable.objectperms td.removed {
 .tiki .wiki.external + .icon-link-external, // wikitext
 .tiki .wiki.external .icon-link-external,
 .editable-inline .icon { // Tracker inline editing
-    color: $link-color;
+    color: var(--bs-link-color);
  }
 
 //.btn-primary:focus {
@@ -320,12 +320,12 @@ form.simple label .warning {
 }
 
 .tiki-modal .mask {
-    background-color: $body-bg;
+    background-color: var(--bs-body-bg);
 }
 
 .ui-dialog {
-    background: $body-bg;
-    color: $body-color;
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
 
@@ -401,8 +401,8 @@ form.simple label .warning {
 
 .prio5 {
 //    background: inherit;
-    color: $body-color;
-    a { color: $body-color; }
+    color: var(--bs-body-color);
+    a { color: var(--bs-body-color); }
 }
 
 .prio4 {
@@ -455,7 +455,7 @@ form.simple label .warning {
 }
 
 .readlink {
-    color: $body-color; // black;
+    color: var(--bs-body-color); // black;
 }
 
 // /* webmail & groupmail */
@@ -501,12 +501,12 @@ form.simple label .warning {
 // /* odd and even classes for tr, td, and li */
 .odd {
     background: $table-bg;
-    color: $body-color;
+    color: var(--bs-body-color);
 }
 
 .even {
     background: $table-accent-bg;
-    color: $body-color;
+    color: var(--bs-body-color);
 }
 
 // odd checkbox columns
@@ -526,20 +526,20 @@ form.simple label .warning {
 
 .toolbars-picker {
     //    /* colours, smilies etc */
-    background: $body-bg;
-    border: thin solid $body-color;
-    color: $body-color;
+    background: var(--bs-body-bg);
+    border: thin solid var(--bs-body-color);
+    color: var(--bs-body-color);
 }
 
 .toolbars-picker a {
-    border: 1px solid $body-bg;
-    color: $body-color;
+    border: 1px solid var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
 .toolbars-picker a:hover {
     border: 1px solid $danger;
     background: $gray-300;
-    color: $body-color;
+    color: var(--bs-body-color);
 }
 
 // /* New Toolbars */
@@ -581,7 +581,7 @@ li.toolbar:active {
 #intertrans-form {
     background-color: $card-bg;
     border: 1px solid $card-border-color;
-    color: $body-color;
+    color: var(--bs-body-color);
 }
 
 #edit_translations tr.last {
@@ -713,7 +713,7 @@ ul.all_languages > li {
 }
 
 .autotoc * {
-    color: $link-color;
+    color: var(--bs-link-color);
 }
 
 .autotoc .nav > li > a:hover,
@@ -723,15 +723,15 @@ ul.all_languages > li {
 }
 
 .plugin-form-float {
-    background: $body-bg;
-    color: $body-color;
-    border: solid 2px $body-color;
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border: solid 2px var(--bs-body-color);
 }
 
 // /* CKeditor contrast */
 body.wikitext {
-    background: $body-bg;
-    color: $body-color;
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
 .editable-inline {
@@ -774,20 +774,20 @@ body.wikitext {
 .TextArea-fullscreen,
 .CodeMirror-fullscreen {
     &, & .edit-zone-footer {
-        background-color: $body-bg;
+        background-color: var(--bs-body-bg);
     }
 }
 
 .TextArea-fullscreen .actions,
 .CodeMirror-fullscreen .actions {
-    background-color: $body-bg;
+    background-color: var(--bs-body-bg);
     border-top: $gray-300 1px solid;
 }
 
 // /* Autosave Preview handle */
 #autosave_preview {
-    background-color: $body-bg;
-    color: $body-color;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
 #autosave_preview_grippy {
@@ -966,19 +966,19 @@ div.drillshow {
 .tiki .ui-widget-content,
 span.plugin-mouseover {
     background: $modal-content-bg;
-    color: $body-color;
+    color: var(--bs-body-color);
     border: 1px solid $modal-content-border-color;
 }
 
 .tiki .ui-widget-header {
     background: $modal-content-bg;
-    color: $body-color;
+    color: var(--bs-body-color);
     border-color: $modal-content-border-color;
 }
 
 .tiki .ui-dialog-content {
     background: $modal-content-bg;
-    color: $body-color;
+    color: var(--bs-body-color);
     select,
     input,
     optgroup,
@@ -1003,7 +1003,7 @@ span.plugin-mouseover {
         }
         .ui-state-active {
             margin: 0;
-            background: $link-color;
+            background: var(--bs-link-color);
             color: white;
             border: none;
         }
@@ -1275,7 +1275,7 @@ blockquote {
 }
 
 // Smartmenus megamenu
-.dropdown-menu.mega-menu a { color: $dropdown-link-color; }
+.dropdown-menu.mega-menu a { color: var(--bs-dropdown-link-color); }
 //a.dropdown-item { color: $dropdown-link-color; }
 
 // Navbar background color consistency - Themes where this is a problem should import _tiki-pagetop_colors.scss
@@ -1352,7 +1352,7 @@ blockquote {
 
 .filter_subblock {
     button.add_filter, button.add_script {
-        background-color: $body-color;
-        color: $body-bg;
+        background-color: var(--bs-body-color);
+        color: var(--bs-body-bg);
     }
 }
