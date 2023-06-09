@@ -23,6 +23,10 @@ class FunctionToolbarsTest extends TikiTestCase
 
         $prefs['javascript_enabled'] = 'y';
         $prefs['wysiwyg_htmltowiki'] = 'y';
+        // needed to mimic that the pipeline on gitlab does
+        // i need to update my local testing environment to match that more closely
+        unset($_SESSION['tiki_cookie_jar']);
+        include_once 'lib/setup/cookies.php';
 
         $iconset = TikiLib::lib('iconset')->getIconsetForTheme('default', '');
         $toolbarDialogIndex = 0;
