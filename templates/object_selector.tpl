@@ -55,7 +55,7 @@
             <div class="results">
                 <p class="too-many">{tr}Search and select what you are looking for from the options that appear.{/tr}</p>
                 <div class="form-check">
-                    <input name="{$object_selector.id|escape}_sel" class="form-check-input protected" type="radio" value="{$object|escape}" {if ! $object_selector.current_selection} checked="checked" {/if} value="" id="{$object_selector.id|escape}_sel_empty">
+                    <input name="{$object_selector.id|escape}_sel" class="form-check-input protected" type="radio" value="" {if ! $object_selector.current_selection} checked="checked" {/if} value="" id="{$object_selector.id|escape}_sel_empty">
                     <label class="form-check-label" for="{$object_selector.id|escape}_sel_empty">&mdash;</label>
                 </div>
                 {if !empty($object_selector.current_selection)}
@@ -66,7 +66,7 @@
                             {if !empty($object_selector.current_selection.metadata)}
                                 <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
                             {elseif $object_selector.relationshipTrackerId}
-                                <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name refreshObject=$object|escape}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object|escape}">{icon name="clipboard-list"}</a>
+                                <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name refreshObject=$object_selector.current_selection|escape}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object_selector.current_selection|escape}">{icon name="clipboard-list"}</a>
                             {/if}
                         </label>
                     </div>

@@ -13,16 +13,33 @@ class ObjectRelation implements \ArrayAccess
 {
     public int $id;
     public string $relation;
-    public Parts\Source $source;
-    public Parts\Target $target;
+    public bool $straight;
+    public mixed $source;
+    public mixed $target;
     public ?Parts\Metadata $metadata;
 
-    public function __construct(array $row)
+    /**
+     * Builds a relation object based off data stored in tiki_object_relations
+     * @param array $row coming from database table
+     * @param bool $straight - true for the source->target direction of the relation
+     * and false for target->soruce direction of the relation
+     * Note that source/target properties might be swapped!
+     * This ensures that $rel->target always refer to the other side of the relation.
+     */
+    public function __construct(array $row, bool $straight = true)
     {
         $this->id = $row['relationId'];
         $this->relation = $row['relation'];
-        $this->source = new Parts\Source($row['source_type'], $row['source_itemId'], $row['source_fieldId']);
-        $this->target = new Parts\Target($row['target_type'], $row['target_itemId']);
+        $this->straight = $straight;
+        $source = new Parts\Source($row['source_type'], $row['source_itemId'], $row['source_fieldId']);
+        $target = new Parts\Target($row['target_type'], $row['target_itemId']);
+        if ($straight) {
+            $this->source = $source;
+            $this->target = $target;
+        } else {
+            $this->source = $target;
+            $this->target = $source;
+        }
         if (! empty($row['metadata_itemId'])) {
             $this->metadata = new Parts\Metadata($row['metadata_itemId']);
         } else {

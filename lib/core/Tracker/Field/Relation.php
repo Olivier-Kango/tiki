@@ -147,22 +147,17 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             $meta = json_decode($requestData[$insertId]['meta'], true);
         } else {
             $relation = $this->getOption(self::OPT_RELATION);
-            $relations = TikiLib::lib('relation')->getObjectRelationsFromField('trackeritem', $this->getItemId(), $this->getFieldId());
+            $relations = TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation);
+            if ($this->getOption(self::OPT_INVERT)) {
+                $relations = array_merge($relations, TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation, true));
+            }
             foreach ($relations as $rel) {
                 $data[] = strval($rel->target);
                 if ($rel->metadata) {
                     $meta[strval($rel->target)] = $rel->metadata->itemId;
                 }
             }
-            // TODO: handle inverts as part of the metadata tracker holding info on the relation
-            // if ($this->getOption(self::OPT_INVERT)) {
-            //     $relations = TikiLib::lib('relation')->get_relations_to('trackeritem', $this->getItemId(), $relation);
-            //     foreach ($relations as $rel) {
-            //         $data[] = $rel['type'] . ':' . $rel['itemId'];
-            //     }
-            // }
-            // $data = array_unique($data);
-            // TODO: metadata
+            $data = array_unique($data);
         }
 
         return [
@@ -218,10 +213,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             'parentkey' => $this->getOption('parentFilterKey'),
         ];
 
-        $relationshipTracker = null;
-        if ($trackerId = $this->getOption('relationshipTrackerId')) {
-            $relationshipTracker = Tracker_Definition::get($trackerId);
-        }
+        $relationshipTracker = $this->getRelationshipTracker();
         $params['relationshipTracker'] = $relationshipTracker;
         if ($relationshipTracker) {
             $params['relationshipTrackerId'] = $relationshipTracker->getConfiguration('trackerId');
@@ -331,21 +323,16 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         }
 
         $relationlib = TikiLib::lib('relation');
-        $current = $relationlib->getObjectRelationsFromField('trackeritem', $this->getItemId(), $this->getFieldId());
+        $relation = $this->getOption(self::OPT_RELATION);
+        $current = TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation);
+        if ($this->getOption(self::OPT_INVERT)) {
+            $current = array_merge($current, TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation, true));
+        }
         $map = [];
         foreach ($current as $rel) {
             $key = strval($rel->target);
             $map[$key] = $rel;
         }
-        // TODO: inverts
-        // if ($this->getOption(self::OPT_INVERT)) {
-        //     $current = $relationlib->get_relations_to('trackeritem', $this->getItemId(), $this->getOption(self::OPT_RELATION));
-        //     foreach ($current as $rel) {
-        //         $key = $rel['type'] . ':' . $rel['itemId'];
-        //         $id = $rel['relationId'];
-        //         $map[$key] = $id;
-        //     }
-        // }
 
         $toRemove = array_diff(array_keys($map), $target);
         $toAdd = array_diff($target, array_keys($map));
@@ -459,70 +446,58 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
 
     public static function syncRelationAdded($args)
     {
-        if ($args['sourcetype'] == 'trackeritem') {
-            // It should be a forward relation
-            $relation = $args['relation'];
-            $trackerId = TikiLib::lib('trk')->get_tracker_for_item($args['sourceobject']);
-            if (! $trackerId) {
-                return;
-            }
-            if (! empty($args['sourcefield'])) {
-                $itemId = $args['sourceobject'];
-                $fieldId = $args['sourcefield'];
-                $value = $old_value = explode("\n", TikiLib::lib('trk')->get_item_value($trackerId, $itemId, $fieldId));
-                $other = $args['type'] . ':' . $args['object'];
-                if (! in_array($other, $value)) {
-                    $value[] = $other;
-                }
-                if ($value != $old_value) {
-                    $value = implode("\n", $value);
-                    TikiLib::lib('trk')->modify_field($itemId, $fieldId, $value);
-                }
-            }
-        }
-        // TODO: handle inverts
-        // if ($args['type'] == 'trackeritem') {
-        //     // It should be an invert relation
-        //     $relation = $args['relation'] . '.invert';
-        //     $trackerId = TikiLib::lib('trk')->get_tracker_for_item($args['object']);
-        //     if (! $trackerId) {
-        //         return;
-        //     }
-        //     $definition = Tracker_Definition::get($trackerId);
-        //     if (! $definition) {
-        //         return;
-        //     }
-        //     if ($fieldId = $definition->getRelationField($relation)) {
-        //         $itemId = $args['object'];
-        //         $value = $old_value = explode("\n", TikiLib::lib('trk')->get_item_value($trackerId, $itemId, $fieldId));
-        //         $other = $args['sourcetype'] . ':' . $args['sourceobject'];
-        //         if (! in_array($other, $value)) {
-        //             $value[] = $other;
-        //         }
-        //         if ($value != $old_value) {
-        //             $value = implode("\n", $value);
-        //             TikiLib::lib('trk')->modify_field($itemId, $fieldId, $value);
-        //         }
-        //     }
-        // }
+        self::syncContentUpdate($args, 'add');
     }
 
     public static function syncRelationRemoved($args)
     {
+        self::syncContentUpdate($args, 'remove');
+    }
+
+    /**
+     * Update field content based on relation add/remove event
+     * @param array $args event arguments
+     * @param string $action add/remove
+     */
+    public static function syncContentUpdate(array $args, string $action): void
+    {
+        $trklib = TikiLib::lib('trk');
+        if (! empty($args['sourcefield'])) {
+            $field = $trklib->get_field_info($args['sourcefield']);
+            $handler = $trklib->get_field_handler($field);
+            $relation = $handler->getOption(self::OPT_RELATION);
+            if (substr($relation, -7) === '.invert') {
+                $straight = false;
+            } else {
+                $straight = true;
+            }
+        } else {
+            $straight = true;
+        }
         if ($args['sourcetype'] == 'trackeritem') {
-            // It should be a forward relation
-            $relation = $args['relation'];
+            if ($straight) {
+                $relation = $args['relation'];
+            } else {
+                $relation = $args['relation'] . '.invert';
+            }
             $trackerId = TikiLib::lib('trk')->get_tracker_for_item($args['sourceobject']);
             if (! $trackerId) {
                 return;
             }
-            if (! empty($args['sourcefield'])) {
+            $definition = Tracker_Definition::get($trackerId);
+            if (! $definition) {
+                return;
+            }
+            if ($fieldId = $definition->getRelationField($relation)) {
                 $itemId = $args['sourceobject'];
-                $fieldId = $args['sourcefield'];
                 $value = $old_value = explode("\n", TikiLib::lib('trk')->get_item_value($trackerId, $itemId, $fieldId));
                 $other = $args['type'] . ':' . $args['object'];
-                if (in_array($other, $value)) {
-                    $value = array_diff($value, [$other]);
+                if (! in_array($other, $value)) {
+                    if ($action == 'add') {
+                        $value[] = $other;
+                    } else {
+                        $value = array_diff($value, [$other]);
+                    }
                 }
                 if ($value != $old_value) {
                     $value = implode("\n", $value);
@@ -530,31 +505,37 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                 }
             }
         }
-        // TODO: handle inverts
-        // if ($args['type'] == 'trackeritem') {
-        //     // It should be an invert relation
-        //     $relation = $args['relation'] . '.invert';
-        //     $trackerId = TikiLib::lib('trk')->get_tracker_for_item($args['object']);
-        //     if (! $trackerId) {
-        //         return;
-        //     }
-        //     $definition = Tracker_Definition::get($trackerId);
-        //     if (! $definition) {
-        //         return;
-        //     }
-        //     if ($fieldId = $definition->getRelationField($relation)) {
-        //         $itemId = $args['object'];
-        //         $value = $old_value = explode("\n", TikiLib::lib('trk')->get_item_value($trackerId, $itemId, $fieldId));
-        //         $other = $args['sourcetype'] . ':' . $args['sourceobject'];
-        //         if (in_array($other, $value)) {
-        //             $value = array_diff($value, [$other]);
-        //         }
-        //         if ($value != $old_value) {
-        //             $value = implode("\n", $value);
-        //             TikiLib::lib('trk')->modify_field($itemId, $fieldId, $value);
-        //         }
-        //     }
-        // }
+        if ($args['type'] == 'trackeritem') {
+            if ($straight) {
+                $relation = $args['relation'] . '.invert';
+            } else {
+                $relation = $args['relation'];
+            }
+            $trackerId = TikiLib::lib('trk')->get_tracker_for_item($args['object']);
+            if (! $trackerId) {
+                return;
+            }
+            $definition = Tracker_Definition::get($trackerId);
+            if (! $definition) {
+                return;
+            }
+            if ($fieldId = $definition->getRelationField($relation)) {
+                $itemId = $args['object'];
+                $value = $old_value = explode("\n", TikiLib::lib('trk')->get_item_value($trackerId, $itemId, $fieldId));
+                $other = $args['sourcetype'] . ':' . $args['sourceobject'];
+                if (! in_array($other, $value)) {
+                    if ($action == 'add') {
+                        $value[] = $other;
+                    } else {
+                        $value = array_diff($value, [$other]);
+                    }
+                }
+                if ($value != $old_value) {
+                    $value = implode("\n", $value);
+                    TikiLib::lib('trk')->modify_field($itemId, $fieldId, $value);
+                }
+            }
+        }
     }
 
     private function buildFilter()
@@ -609,41 +590,70 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                 $text .= ', ';
             }
         }
-        // TODO: metadata?
-        return [
+
+        $meta = $this->aggregateAllRelatedHandlers($data['relations'], function ($handler) use ($typeFactory) {
+            return $handler->getDocumentPart($typeFactory);
+        });
+        
+        return array_merge([
             $baseKey => $typeFactory->sortable($value),
             "{$baseKey}_multi" => $typeFactory->multivalue(explode("\n", $value)),
             "{$baseKey}_plain" => $typeFactory->plainmediumtext($plain),
             "{$baseKey}_text" => $typeFactory->plainmediumtext($text),
-        ];
+        ], $meta);
     }
 
     public function getProvidedFields()
     {
         $baseKey = $this->getBaseKey();
-        return [
+        $data = $this->getFieldData();
+        $meta = $this->aggregateAllRelatedHandlers($data['relations'], function ($handler) {
+            return $handler->getProvidedFields();
+        });
+        return array_merge([
             $baseKey,               // comma separated object_type:object_id
             "{$baseKey}_multi",     // array [object_type:object_id]
             "{$baseKey}_plain",     // comma separated formatted object titles
             "{$baseKey}_text",      // comma separated formatted object titles with "and" before the last one
-        ];
+        ], $meta);
     }
 
     public function getProvidedFieldTypes()
     {
         $baseKey = $this->getBaseKey();
-        return [
+        $data = $this->getFieldData();
+        $meta = $this->aggregateAllRelatedHandlers($data['relations'], function ($handler) {
+            return $handler->getProvidedFieldTypes();
+        });
+        return array_merge([
             $baseKey => 'sortable',
             "{$baseKey}_multi" => 'multivalue',
             "{$baseKey}_plain" => 'plainmediumtext',
             "{$baseKey}_text" => 'plainmediumtext',
-        ];
+        ], $meta);
     }
 
     public function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();
         return ["{$baseKey}_plain" => true];    // index contents with the object titles
+    }
+
+    protected function aggregateAllRelatedHandlers(array $relations, callable $cb) {
+        $meta = [];
+        foreach ($relations as $rel) {
+            if ($rel->metadata) {
+                if ($item = $rel->metadata->getItem()) {
+                    $definition = $item->getDefinition();
+                    foreach ($definition->getFields() as $field) {
+                        $handler = TikiLib::lib('trk')->get_field_handler($field, $item);
+                        $handler->setBaseKeyPrefix($this->getConfiguration('permName') . '_meta');
+                        $meta = array_merge($meta, $cb($handler));
+                    }
+                }
+            }
+        }
+        return $meta;
     }
 
     /**
@@ -810,5 +820,14 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         ;
 
         return $collection;
+    }
+
+    protected function getRelationshipTracker(): Tracker_Definition|null
+    {
+        $relationshipTracker = null;
+        if ($trackerId = $this->getOption('relationshipTrackerId')) {
+            $relationshipTracker = Tracker_Definition::get($trackerId);
+        }
+        return $relationshipTracker;
     }
 }

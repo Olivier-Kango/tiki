@@ -50,22 +50,39 @@ class RelationLib extends TikiDb_Bridge
     }
 
     /**
-     * Similar to get_relations_from but uses the fieldId parameter to filter the related object rows.
-     * This makes use of the source index for quicker retrieval and doesn't depend on relation qualifier.
+     * Obtains a list of relations in from source or target side.
+     * @param string $type of source item
+     * @param string $object id of source item
+     * @param string $relation qualifier of the relation
+     * @param bool $invert - which side of the relation to search
      * @return array of ObjectRelation objects filled with all relation data
      */
-    public function getObjectRelationsFromField($type, $object, $fieldId)
+    public function getObjectRelations($type, $object, $relation, bool $invert = false)
     {
-        $cond = [
-            'source_type' => $type,
-            'source_itemId' => $object,
-            'source_fieldId' => $fieldId,
-        ];
+        $straight = true;
+        if (substr($relation, -7) === '.invert') {
+            $straight = false;
+            $relation = substr($relation, 0, -7);
+        }
+        if ($invert) {
+            $straight = ! $straight;
+        }
+
+        $cond = ['relation' => $relation];
+
+        if ($straight) {
+            $cond['source_type'] = $type;
+            $cond['source_itemId'] = $object;
+        } else {
+            $cond['target_type'] = $type;
+            $cond['target_itemId'] = $object;
+        }
+
         $rows = $this->table->fetchAll($this->table->all(), $cond);
 
         $result = [];
         foreach ($rows as $row) {
-            $result[] = new ObjectRelation($row);
+            $result[] = new ObjectRelation($row, $straight);
         }
 
         return $result;
@@ -164,7 +181,7 @@ class RelationLib extends TikiDb_Bridge
         $relation = TikiFilter::get('attribute_type')->filter($relation);
 
         if (substr($relation, -7) === '.invert') {
-            return $this->add_relation(substr($relation, 0, -7), $target_type, $target_object, $src_type, $src_object);
+            return $this->add_relation(substr($relation, 0, -7), $target_type, $target_object, $src_type, $src_object, $ignoreExisting, $src_field_id, $metadata_item_id);
         }
 
         if ($relation) {
