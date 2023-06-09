@@ -1152,6 +1152,10 @@ if (isset($_GET['slideshow'])) {
             );
             $smarty->assign_by_ref('file', $file);
         } else {
+            if ($view == 'finder') {
+                include_once 'lib/jquery_tiki/elfinder/tikiElFinder.php';
+                \tikiElFinder::loadJSCSS();
+            }
             $smarty->assign_by_ref('files', $files['data']);
 
             $subs = 0;
