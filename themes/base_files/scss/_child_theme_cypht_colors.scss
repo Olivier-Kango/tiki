@@ -3,13 +3,13 @@
 .tiki {
     &.tiki-webmail, &.tiki-cypht, &.mobile.tiki-cypht, .inline-cypht {
         a:not(.btn), a:not(.dropdown-item) .icon, .btn-link {
-            color: $link-color !important;
-            &:hover { color: $link-hover-color !important; }
+            color: var(--bs-link-color) !important;
+            &:hover { color: var(--bs-link-hover-color) !important; }
         }
 
         .card-body {
             .nav-link {
-                &, small { color: $link-color !important; }
+                &, small { color: var(--bs-link-color) !important; }
             }
         }
 

@@ -22,17 +22,17 @@ header.navbar.fixed-top {
   --tiki-tooltip-link-hover-color: $tooltip-color;
 }
 body {
-  background: #474747;
-  color: #d8d8d8;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
   font-family: "Trebuchet MS", "Bitstream Vera Sans", sans-serif;
   padding: 15px;
 }
 a, a:visited {
-  color: #ababab;
+  color: var(--bs-link-color);
   text-decoration: none;
 }
 a:hover {
-  color: #858585;
+  color: var(--bs-link-hover-color);
   text-decoration: none;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {

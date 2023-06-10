@@ -1,21 +1,21 @@
 .tiki .toastui-editor-contents {
     font-family: $font-family-base;
     font-size: $font-size-base;
-    background: $body-bg;
-    color : $body-color;
+    background: var(--bs-body-bg);
+    color : var(--bs-body-color);
     text-shadow: none;
 
     a, a:visited {
-        color: $link-color;
+        color: var(--bs-link-color);
         text-decoration: $link-decoration;
         &:hover {
-            color: $link-hover-color;
+            color: var(--bs-link-hover-color);
             text-decoration: $link-hover-decoration;
         }
     }
 
     p {
-        color: $body-color;
+        color: var(--bs-body-color);
     }
 
     h1 {
@@ -24,7 +24,7 @@
     h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         font-family: $font-family-base;   /* should be $headings-font-family */
         font-weight: $font-weight-base;   /* $headings-font-weight */
-        color: $body-color;               /* $headings-color */
+        color: var(--bs-body-color);               /* $headings-color */
         text-decoration: $link-hover-decoration;
         line-height: $line-height-base; /* $headings-line-height */
         /* no variable? */

@@ -366,7 +366,7 @@ div.tiki_plugin {
         .active, &.open > a {
             padding-left: 19px;
             background-color: $gray-100;
-            color: $link-hover-color;
+            color: var(--bs-link-hover-color);
             border-left: 1px solid $btn-primary-border;
         }
     }
@@ -991,7 +991,7 @@ div.drillshow {
     margin-right: 50px;
     padding: 20px 10px 15px;
     border: 1px solid $table-border-color;
-    background-color: $body-bg;
+    background-color: var(--bs-body-bg);
     overflow: visible;
 }
 

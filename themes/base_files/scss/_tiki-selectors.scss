@@ -147,7 +147,7 @@ table.treetable.objectperms td.removed {
 // tiki-maps.less
 .olControlMousePosition {
     background: rgba(0, 0, 0, 0.75);
-    color: $body-bg; // #fff
+    color: var(--bs-body-bg); // #fff
 }
 
 .olControlScaleLineTop,
@@ -302,7 +302,7 @@ input:-webkit-autofill {
 
 // ColorBox
 #cboxTitle {
-    background-color: $body-bg;
+    background-color: var(--bs-body-bg);
 }
 
 #captchaImg {
@@ -718,7 +718,7 @@ ul.all_languages > li {
 
 .autotoc .nav > li > a:hover,
 .autotoc .nav .nav > li > a:hover {
-    color: $link-hover-color;
+    color: var(--bs-link-hover-color);
 //    background: $navbar-dark-link-hover-bg;
 }
 

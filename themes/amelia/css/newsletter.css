@@ -23,17 +23,17 @@ header.navbar.fixed-top {
   --tiki-tooltip-link-hover-color: $tooltip-color;
 }
 body {
-  background: #0c6369;
-  color: #fff;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
   font-family: var(--bs-font-sans-serif);
   padding: 15px;
 }
 a, a:visited {
-  color: #f2e8c0;
+  color: var(--bs-link-color);
   text-decoration: underline;
 }
 a:hover {
-  color: #ede0ab;
+  color: var(--bs-link-hover-color);
   text-decoration: underline;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {

@@ -7,20 +7,20 @@
 
 
 body {
-    background: $body-bg;
-    color : $body-color;
+    background: var(--bs-body-bg);
+    color : var(--bs-body-color);
     font-family: $font-family-base;
     padding: 15px;
 }
 
 a,
 a:visited {
-    color: $link-color;
+    color: var(--bs-link-color);
     text-decoration: $link-hover-decoration;
 }
 
 a:hover {
-    color: $link-hover-color;
+    color: var(--bs-link-hover-color);
     text-decoration: $link-hover-decoration;
 }
 

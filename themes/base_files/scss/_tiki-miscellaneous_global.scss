@@ -467,11 +467,45 @@ div[style*="text-align: center"] .img-fluid {margin: auto}
     margin-bottom: $padding-y;
     display: block;
 }
+
+// @include replaced with output so tiki-selectors.scss can be moved down in import order to increase priority of theme CSS variables
+//.btn-social.btn-facebook {
+//    @include button-variant(#ffffff, #3b5998, darken(#3b5998,5%)); //facebook blue is: #3b5998
+//}
+//.btn-social.btn-linkedin {
+//    @include button-variant(#ffffff, #4875B4, darken(#4875B4,5%)); //linkeidn blue is: #4875B4
+//}
 .btn-social.btn-facebook {
-    @include button-variant(#ffffff, #3b5998, darken(#3b5998,5%)); //facebook blue is: #3b5998
+    --bs-btn-color: #344e86;
+    --bs-btn-bg: #ffffff;
+    --bs-btn-border-color: #3b5998;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: white;
+    --bs-btn-hover-border-color: #4f6aa2;
+    --bs-btn-focus-shadow-rgb: 58, 87, 149;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: white;
+    --bs-btn-active-border-color: #4f6aa2;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #ffffff;
+    --bs-btn-disabled-border-color: #3b5998;
 }
 .btn-social.btn-linkedin {
-    @include button-variant(#ffffff, #4875B4, darken(#4875B4,5%)); //linkeidn blue is: #4875B4
+    --bs-btn-color: #4169a2;
+    --bs-btn-bg: #ffffff;
+    --bs-btn-border-color: #4875B4;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: white;
+    --bs-btn-hover-border-color: #5a83bc;
+    --bs-btn-focus-shadow-rgb: 71, 115, 177;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: white;
+    --bs-btn-active-border-color: #5a83bc;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #ffffff;
+    --bs-btn-disabled-border-color: #4875B4;
 }
 
 #col1 {

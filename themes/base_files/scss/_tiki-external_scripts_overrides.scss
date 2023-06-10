@@ -67,6 +67,17 @@ div.mb-3 label.error {
 
 // elFinder tiki overrides
 
+.tiki .elfinder-workzone,
+.tiki .elfinder-cwd {
+    background: var(--bs-body-bg);
+}
+
+.tiki .elfinder input,
+.tiki .elfinder textarea {
+    color: var(--bs-body-color);
+    background: var(--bs-body-bg);
+}
+
 /* prevents elFinder dialog appearing under the embedded pane */
 .std42-dialog.elfinder-dialog {
     position:absolute;
@@ -78,11 +89,11 @@ div.mb-3 label.error {
 
 // for the error dialogs
 
-.ui-dialog.elfinder-dialog-error .ui-dialog-content,
-.ui-dialog.elfinder-dialog-confirm .ui-dialog-content { padding-left: 56px; min-height:35px; }
+.tiki .ui-dialog.elfinder-dialog-error .ui-dialog-content,
+.tiki .ui-dialog.elfinder-dialog-confirm .ui-dialog-content { padding-left: 56px; min-height:35px; }
 
-.elfinder-rtl .ui-dialog.elfinder-dialog-error .ui-dialog-content,
-.elfinder-rtl .ui-dialog.elfinder-dialog-confirm .ui-dialog-content { padding-left:0; padding-right: 56px; }
+.tiki .elfinder-rtl .ui-dialog.elfinder-dialog-error .ui-dialog-content,
+.tiki .elfinder-rtl .ui-dialog.elfinder-dialog-confirm .ui-dialog-content { padding-left:0; padding-right: 56px; }
 
 // quicklook titlebar was behind the image
 .elfinder-quicklook-titlebar {
@@ -112,8 +123,54 @@ div.mb-3 label.error {
     font-weight: normal;
 }
 
-.tiki .elfinder .elfinder-cwd-file.ui-state-hover {
+.tiki .elfinder-cwd-filename {
+    &:hover,
+    &.ui-state-active {
+        background: none !important;
+    }
+}
+
+.tiki .elfinder .elfinder-navbar {
+    font-size: .9rem;
+}
+
+//.tiki .elfinder .elfinder-button { Todo: find an ok way to increase elfinder button size
+//    min-width: 24px;
+//    height: 24px;
+//}
+
+//.tiki .elfinder-button-icon {
+//    padding: 4px;
+//}
+
+.tiki .elfinder .elfinder-navbar-dir.ui-hover-state,
+.tiki .elfinder .elfinder-cwd-file.ui-state-hover,
+.tiki .elfinder-cwd-file.ui-state-active,
+.tiki .elfinder-cwd-filename.ui-state-active,
+.tiki .elfinder-cwd-file-wrapper.ui-corner-all.ui-state-active {
     border: none;
+    background: var(--bs-primary-bg-subtle);
+    color: var(--bs-body-color);
+}
+
+.tiki .elfinder-cwd-view-icons .elfinder-cwd-filename,
+.tiki .elfinder-cwd-view-list td, .elfinder-statusbar div {
+    font-size: .85rem;
+    color: var(--bs-body-color);
+}
+.tiki .std42-dialog,
+.tiki .std42-dialog .ui-widget-content,
+.tiki .std42-dialog .elfinder-help,
+.tiki .std42-dialog .elfinder-help .ui-widget-content {
+    color: var(--bs-body-color);
+    background: var(--bs-body-bg);
+    font-size: .85rem;
+}
+
+.tiki .elfinder-cwd-view-icons .elfinder-cwd-filename,
+.tiki .elfinder-cwd-view-list td,
+.tiki .elfinder-statusbar div {
+    font-size: .85rem;
 }
 
 // h5p tweaks

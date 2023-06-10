@@ -1,7 +1,7 @@
 .tiki-webmail, .tiki-cypht, .mobile.tiki-cypht, .inline-cypht {
-    background: $body-bg !important;
+    background: var(--bs-body-bg) !important;
     font-family: $font-family-base;
-    color: $body-color !important;
+    color: var(--bs-body-color) !important;
 
 
     // override colors when not using cypht default theme
@@ -9,7 +9,7 @@
     ul, li:not(.select2-results__option) { background-color: transparent !important; }
     main, div { border-radius: 0; }
     .ui-widget-content { background-color: $tiki-ui-default-bg !important; }
-    .ui-menu-item-wrapper { color: $body-color !important; }
+    .ui-menu-item-wrapper { color: var(--bs-body-color) !important; }
     .ui-state-active { color: $tiki-ui-default-link-active-color !important; }
     .popover-header { color: $popover-header-color !important; }
     .popover-body { color: $popover-body-color !important; }
@@ -29,7 +29,7 @@
     .card-header { border-color: $card-border-color !important; }
     .card-body {
         .nav-link {
-            &, small { color: $link-color !important; }
+            &, small { color: var(--bs-link-color) !important; }
         }
     }
     .dropdown-menu {
@@ -38,11 +38,11 @@
     }
     .dropdown-divider { border-color: $dropdown-divider-bg !important; }
     .dropdown-header { color: $dropdown-header-color !important; }
-    .moduletitle { color: $body-color !important; }
+    .moduletitle { color: var(--bs-body-color) !important; }
     a:not(.dropdown-item) .icon, .btn-link {
         border-color: transparent !important;
-        color: $link-color !important;
-        &:hover { color: $link-hover-color !important; }
+        color: var(--bs-link-color) !important;
+        &:hover { color: var(--bs-link-hover-color) !important; }
     }
     .form-control {
         background-color: $input-bg !important;
@@ -52,17 +52,17 @@
     .nav-tabs {
         border: none !important;
         border-bottom: 1px solid $nav-tabs-border-color !important;
-        .nav-link { color: $link-color !important; }
-        .nav-link.active, .nav-item.show .nav-link { color: $link-hover-color !important; }
+        .nav-link { color: var(--bs-link-color) !important; }
+        .nav-link.active, .nav-item.show .nav-link { color: var(--bs-link-hover-color) !important; }
         .nav-link:not(.active) { border: none !important; }
     }
     // override colors when not using cypht default theme
 
 
     a:not(.btn), a.btn-link {
-        color: $link-color !important;
+        color: var(--bs-link-color) !important;
         &:hover {
-            color: $link-hover-color !important;
+            color: var(--bs-link-hover-color) !important;
             text-decoration: inherit;
         }
     }
@@ -99,9 +99,9 @@
     .folders a, .subject a, .selected_menu a,
     .unread_link, .selected_menu, .manage_folder_link {
         &:not(.btn) {
-            color: $link-color !important;
+            color: var(--bs-link-color) !important;
             &:hover {
-                color: $link-hover-color !important;
+                color: var(--bs-link-hover-color) !important;
                 text-decoration: $link-hover-decoration;
             }
         }
