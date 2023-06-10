@@ -92,7 +92,6 @@ function smarty_function_object_selector_multi($params, $smarty)
     }
 
     if (isset($arguments['extra_type'])) {
-        unset($arguments['current_selection']);
         $template = 'object_selector_multi_extra.tpl';
     }
 
