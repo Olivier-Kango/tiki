@@ -153,7 +153,6 @@ class Services_Calendar_Controller
                 ['object' => 'calitemId'],
                 ['view_events']
             );*/
-
         } else {
             $listevents = [];
         }
