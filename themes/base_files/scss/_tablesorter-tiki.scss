@@ -34,7 +34,8 @@ table.tablesorter {
             th.tablesorter-header {
                 background-repeat: no-repeat;
                 background-position: $arrowPosition;
-                background-color: $body-bg; // Added by Gary as a test.
+                background-color: var(--bs-body-bg); // $body-bg; // Added by Gary as a test.
+                color: var(--bs-body-color);
                 cursor: pointer;
                 i {
                     font-weight: 400;
@@ -57,6 +58,8 @@ table.tablesorter {
             }
         }
         tr.tablesorter-filter-row {
+            background-color: var(--bs-body-bg);  // Added by Gary as a test.
+            color: var(--bs-body-color);
             td {
                 text-align: center;
                 line-height: normal;
@@ -81,6 +84,8 @@ table.tablesorter {
                     padding: 0;
                     font-size: 70%;
                     float: right;
+                    background: var(--bs-body-bg);
+                    border: 1px solid var(--bs-border-color);
                 }
                 .ui-slider {
                     width: 90%;

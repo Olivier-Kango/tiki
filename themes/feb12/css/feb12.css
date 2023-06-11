@@ -13152,26 +13152,38 @@ blockquote, .blockquote {
 .progress-bar.bg-success, .progress-bar.bg-info, .progress-bar.bg-warning, .progress-bar.bg-danger {
   color: #000;
 }
-table.tablesorter thead tr.tablesorter-headerRow {
-  background-color: #e6f3f6;
+table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, table.tablesorter thead tr.tablesorter-filter-row td input.dateFrom, table.tablesorter thead tr.tablesorter-filter-row td input.dateTo {
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
 }
 table.tablesorter thead tr.tablesorter-headerRow th.tablesorter-headerUnSorted:not(.sorter-false) {
-  background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
-}
-table.tablesorter thead tr.tablesorter-headerRow th.tablesorter-headerAsc {
-  background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
-  background-color: #dbeef2;
+  background-image: var(--tiki-tablesorter-unsorted-bg-image);
 }
 table.tablesorter thead tr.tablesorter-headerRow th.tablesorter-headerDesc {
-  background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
-  background-color: #dbeef2;
+  background-image: var(--tiki-tablesorter-sorted-descending-bg-image);
+  background-color: #f7f7f7;
 }
-table.tablesorter thead tr.tablesorter-filter-row {
-  background-color: #e6f3f6;
+table.tablesorter thead tr.tablesorter-headerRow th.tablesorter-headerAsc {
+  background-image: var(--tiki-tablesorter-sorted-ascending-bg-image);
+  background-color: #f7f7f7;
 }
-table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, table.tablesorter thead tr.tablesorter-filter-row td input.dateFrom, table.tablesorter thead tr.tablesorter-filter-row td input.dateTo {
-  background-color: #dbeef2;
-  color: #495057;
+[data-bs-theme="light"] {
+  --tiki-tablesorter-unsorted-bg-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+  --tiki-tablesorter-sorted-descending-bg-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  --tiki-tablesorter-sorted-ascending-bg-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+}
+[data-bs-theme="dark"] {
+  --tiki-tablesorter-unsorted-bg-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAAP///////yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+  --tiki-tablesorter-sorted-descending-bg-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  --tiki-tablesorter-sorted-ascending-bg-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+}
+.tablesorter-filter.form-control-sm {
+  border-radius: var(--bs-border-radius);
+}
+.tablesorter-header-inner #clickall {
+  border: solid 1px var(--bs-border-color);
+  margin-left: 0;
 }
 div.tablesorter-resizable-container {
   clear: both;
@@ -13184,7 +13196,8 @@ table.tablesorter {
 table.tablesorter thead tr.tablesorter-headerRow th.tablesorter-header {
   background-repeat: no-repeat;
   background-position: center right;
-  background-color: #e6f3f6;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
   cursor: pointer;
 }
 table.tablesorter thead tr.tablesorter-headerRow th.tablesorter-header i {
@@ -13204,6 +13217,10 @@ table.tablesorter thead tr.tablesorter-headerRow th div.tablesorter-header-inner
 }
 table.tablesorter thead tr.tablesorter-headerRow th.sorter-false {
   cursor: default;
+}
+table.tablesorter thead tr.tablesorter-filter-row {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
 }
 table.tablesorter thead tr.tablesorter-filter-row td {
   text-align: center;
@@ -13235,6 +13252,8 @@ table.tablesorter thead tr.tablesorter-filter-row td input.dateFrom, table.table
   padding: 0;
   font-size: 70%;
   float: right;
+  background: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
 }
 table.tablesorter thead tr.tablesorter-filter-row td .ui-slider {
   width: 90%;

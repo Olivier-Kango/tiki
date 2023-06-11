@@ -372,9 +372,9 @@ body.tiki {
     }
 }
 
-table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, table.tablesorter thead tr.tablesorter-filter-row td input.dateFrom, table.tablesorter thead tr.tablesorter-filter-row td input.dateTo {
-        border: 1px solid map-get($theme-colors, primary);
-}
+//table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, table.tablesorter thead tr.tablesorter-filter-row td input.dateFrom, table.tablesorter thead tr.tablesorter-filter-row td input.dateTo {
+//        border: 1px solid map-get($theme-colors, primary);
+//}
 
 
 
@@ -479,12 +479,12 @@ table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, t
 
 body {
   
-  table.tablesorter thead tr.tablesorter-headerRow th.tablesorter-header,
-  .table th,
-  tr.subHeader td {
-    color: map-get($theme-colors, color_white);
-    background-color: map-get($theme-colors, secondary);
-  }
+//  table.tablesorter thead tr.tablesorter-headerRow th.tablesorter-header,
+//  .table th,
+//  tr.subHeader td {
+//    color: map-get($theme-colors, color_white);
+//    background-color: map-get($theme-colors, secondary);
+//  }
 
   .table th a {
     color: map-get($theme-colors, color_white);
