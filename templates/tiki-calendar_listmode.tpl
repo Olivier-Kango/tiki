@@ -43,7 +43,7 @@
                     {/if}
                 </td>
                 <td class="action">
-                    {if $event.modifiable eq "y"}
+                    {if $event.perms->change_events}
                         {actions}
                             {strip}
                                 <action>

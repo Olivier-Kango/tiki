@@ -145,9 +145,15 @@ class Services_Calendar_Controller
                 -1
             );
 
-            foreach ($listevents as & $event) {
-                $event['perms'] = Perms::get([ 'type' => 'calendaritem', 'object' => $event['calitemId']]);
-            }
+/* FIXME seems events don't inherit object perms from the calendar
+            $listevents = Perms::filter(
+                ['type' => 'calendaritem'],
+                'object',
+                $listevents,
+                ['object' => 'calitemId'],
+                ['view_events']
+            );*/
+
         } else {
             $listevents = [];
         }
@@ -156,6 +162,11 @@ class Services_Calendar_Controller
         $events = [];
 
         foreach ($listevents as $event) {
+            $event['perms'] = Perms::get([ 'type' => 'calendaritem', 'object' => $event['calitemId']]);
+
+//            if (! $event['perms']->view_events) {
+//                continue;
+//            }
             $url = TikiLib::lib('service')->getUrl([
                 'controller' => 'calendar',
                 'action'     => $event['perms']->change_events ? 'edit_item' : 'view_item',
