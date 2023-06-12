@@ -1,6 +1,6 @@
 {* Note that when there in only one item it needs to be unformatted as it is often used inline in pretty trackers *}
 <div class="itemslist-field display_f{$field.fieldId|escape}"
-        data-trackerid="{$field.trackerId}" data-itemid="{$data.parentItemId}" data-fieldId="{$field.fieldId}" data-listmode="{$context.list_mode}">
+        data-trackerid="{$field.trackerId}" data-itemid="{$item.itemId}" data-fieldId="{$field.fieldId}" data-listmode="{$context.list_mode}">
     {if $data.num > 1}
         <ul class="list-unstyled">
             {foreach from=$data.items key=id item=label}
