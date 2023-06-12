@@ -125,7 +125,7 @@ class TrackerWriter
 
         $definition = $schema->getDefinition();
 
-        $iterate(function ($line, $info, $columns) use ($utilities, $definition, $defaultStatus, $schema) {
+        $iterate(function ($line, $info, $columns) use ($utilities, $definition, $schema) {
             if (! isset($info['status'])) {
                 $info['status'] = '';
             }
