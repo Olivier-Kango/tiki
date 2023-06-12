@@ -8,7 +8,7 @@ class Services_Tracker_Utilities
 {
     public function insertItem($definition, $item)
     {
-        $newItem = $this->replaceItem($definition, 0, $item['status'], $item['fields'], [
+        $newItem = $this->replaceItem($definition, 0, $item['status'], $item['fields'], $item['processedFields'] ?? [], [
             'validate' => isset($item['validate']) ? $item['validate'] : true,
             'skip_categories' => false,
             'bulk_import' => isset($item['bulk_import']) ? $item['bulk_import'] : false,
@@ -21,7 +21,7 @@ class Services_Tracker_Utilities
 
     public function updateItem($definition, $item)
     {
-        return $this->replaceItem($definition, $item['itemId'], $item['status'], $item['fields'], [
+        return $this->replaceItem($definition, $item['itemId'], $item['status'], $item['fields'], $item['processedFields'] ?? [], [
             'validate' => isset($item['validate']) ? $item['validate'] : true,
             'skip_categories' => false,
             'bulk_import' => isset($item['bulk_import']) ? $item['bulk_import'] : false,
@@ -40,7 +40,7 @@ class Services_Tracker_Utilities
         if (! $definition) {
             return;
         }
-        $this->replaceItem($definition, $itemId, null, [], [
+        $this->replaceItem($definition, $itemId, null, [], [], [
             'validate' => false,
             'skip_categories' => true,
             'bulk_import' => true,
@@ -80,10 +80,20 @@ class Services_Tracker_Utilities
         return $errors;
     }
 
-    private function replaceItem($definition, $itemId, $status, $fieldMap, array $options)
+    private function replaceItem($definition, $itemId, $status, $fieldMap, $processedFields, array $options)
     {
         $trackerId = $definition->getConfiguration('trackerId');
         $fields = $this->initializeItemFields($definition, $itemId, $fieldMap);
+
+        foreach ($processedFields as $field) {
+            if (isset($fields[$field['fieldId']])) {
+                foreach ($field as $key => $val) {
+                    if (! isset($fields[$field['fieldId']][$key])) {
+                        $fields[$field['fieldId']][$key] = $val;
+                    }
+                }
+            }
+        }
 
         $trklib = TikiLib::lib('trk');
 

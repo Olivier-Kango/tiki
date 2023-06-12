@@ -1022,6 +1022,7 @@ class Services_Tracker_Controller
                 [
                     'status' => $input->status->word(),
                     'fields' => $fields,
+                    'processedFields' => $processedFields,
                     'deletedFiles' => $deletedFiles
                 ]
             );
@@ -1286,6 +1287,7 @@ class Services_Tracker_Controller
                     'itemId' => $itemId,
                     'status' => $input->status->word(),
                     'fields' => $fields,
+                    'processedFields' => $processedFields,
                     'deletedFiles' => $deletedFiles
                 ]
             );

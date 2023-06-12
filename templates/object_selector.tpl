@@ -35,9 +35,9 @@
             {/if}
         </select>
         {if !empty($object_selector.current_selection.metadata)}
-            <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
+            <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1 size='modal-lg'}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
         {elseif $object_selector.relationshipTrackerId}
-            <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name refreshObject=$object_selector.name}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object_selector.name|escape}">{icon name="clipboard-list"}</a>
+            <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name refreshObject=$object_selector.name size='modal-lg'}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object_selector.name|escape}">{icon name="clipboard-list"}</a>
         {/if}
     </div>
 
@@ -64,9 +64,9 @@
                         <label class="form-check-label" for="{$object_selector.id|escape}_sel_selected">
                             {$object_selector.current_selection.title|escape}
                             {if !empty($object_selector.current_selection.metadata)}
-                                <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
+                                <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object_selector.current_selection.metadata.trackerId itemId=$object_selector.current_selection.metadata.itemId skipRefresh=1 size='modal-lg'}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
                             {elseif $object_selector.relationshipTrackerId}
-                                <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name refreshObject=$object_selector.current_selection|escape}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object_selector.current_selection|escape}">{icon name="clipboard-list"}</a>
+                                <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name refreshObject=$object_selector.current_selection|escape size='modal-lg'}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object_selector.current_selection|escape}">{icon name="clipboard-list"}</a>
                             {/if}
                         </label>
                     </div>
@@ -80,7 +80,7 @@
 
     {if $object_selector.relationshipTrackerId}
     <div class="metadata-icon-template d-none">
-        <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name}" title="add metadata"|tra class="btn btn-link metadata-insert-item">{icon name="clipboard-list"}</a>
+        <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector.name size='modal-lg'}" title="add metadata"|tra class="btn btn-link metadata-insert-item">{icon name="clipboard-list"}</a>
     </div>
     {/if}
 </div>

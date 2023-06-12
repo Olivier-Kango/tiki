@@ -56,9 +56,9 @@
                             {/if}
                             {$object->getTitle($object_selector_multi.format)|escape}
                             {if isset($object.metadata) && $object.metadata}
-                                <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object.metadata.trackerId itemId=$object.metadata.itemId skipRefresh=1}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
+                                <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$object.metadata.trackerId itemId=$object.metadata.itemId skipRefresh=1 size='modal-lg'}" title="edit metadata"|tra class="btn btn-link">{icon name="clipboard-list"}</a>
                             {elseif $object_selector_multi.relationshipTrackerId}
-                                <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector_multi.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector_multi.name refreshObject=$object|escape}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object|escape}">{icon name="clipboard-list"}</a>
+                                <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector_multi.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector_multi.name refreshObject=$object|escape size='modal-lg'}" title="add metadata"|tra class="btn btn-link metadata-insert-item" data-object="{$object|escape}">{icon name="clipboard-list"}</a>
                             {/if}
                         </label>
                     </div>
@@ -72,7 +72,7 @@
 
     {if $object_selector_multi.relationshipTrackerId}
     <div class="metadata-icon-template d-none">
-        <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector_multi.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector_multi.name}" title="add metadata"|tra class="btn btn-link metadata-insert-item">{icon name="clipboard-list"}</a>
+        <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$object_selector_multi.relationshipTrackerId skipRefresh=1 refreshMeta=$object_selector_multi.name size='modal-lg'}" title="add metadata"|tra class="btn btn-link metadata-insert-item">{icon name="clipboard-list"}</a>
     </div>
     {/if}
 </div>
