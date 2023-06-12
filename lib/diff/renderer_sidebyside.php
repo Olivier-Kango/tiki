@@ -13,12 +13,12 @@
  */
 class Text_Diff_Renderer_sidebyside extends Tiki_Text_Diff_Renderer
 {
-    public $_words;
+    private $words;
     public function __construct($context_lines = 4, $words = 1)
     {
         $this->_leading_context_lines = $context_lines;
         $this->_trailing_context_lines = $context_lines;
-        $this->_words = $words;
+        $this->words = $words;
     }
 
     protected function _startDiff()
@@ -117,7 +117,7 @@ class Text_Diff_Renderer_sidebyside extends Tiki_Text_Diff_Renderer
 
     protected function _changed($orig, $final)
     {
-        $lines = diffChar($orig, $final, $this->_words);
+        $lines = diffChar($orig, $final, $this->words);
         $this->_deleted([$lines[0]], true);
         $this->_added([$lines[1]], true);
 /* switch with these lines for no character diff

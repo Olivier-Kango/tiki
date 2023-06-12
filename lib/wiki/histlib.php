@@ -459,8 +459,8 @@ class Document
     /**
      * @var bool
      */
-    public $_history;
-    public $_showpopups;
+    private $history;
+    private $showpopups;
     /**
      * @var array   a list of words and whitespaces represented by an array(word,author,deleted,diffid,[deleted_by])
      */
@@ -538,11 +538,11 @@ class Document
         $histlib = TikiLib::lib('hist');
 
         $this->_document = [];
-        $this->_history = false;
+        $this->history = false;
         $this->_filter = '/([[:blank:]]|[[:cntrl:]]|[[:punct:]]|[[:space:]])/';
         $this->_parsed = true;
         $this->_nohtml = false;
-        $this->_showpopups = $showpopups;
+        $this->showpopups = $showpopups;
         switch ($process) {
             case 0:
                 $this->_parsed = false;
@@ -1060,7 +1060,7 @@ class Document
      */
     public function mergeDiff($newpage, $newauthor)
     {
-        $this->_history = false;
+        $this->history = false;
         $author = $newauthor;
         $deleted = false;
         $deleted_by = '';
@@ -1161,7 +1161,7 @@ class Document
                 if (isset($params['stop'])) {
                     $stop = $params['stop'];
                 }
-                $subdoc = new Document($params['page'], 0, $this->_process, $this->_showpopups, $start, $stop);
+                $subdoc = new Document($params['page'], 0, $this->_process, $this->showpopups, $start, $stop);
                 $newdoc = array_merge($newdoc, $subdoc->get());
             } else { //normal word
                 if ($author != '') {

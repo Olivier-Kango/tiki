@@ -13,7 +13,7 @@ include_once("Renderer.php");
 
 class Text_Diff_Renderer_htmldiff extends Tiki_Text_Diff_Renderer
 {
-    public $_words;
+    public $words;
     public $original;
     public $final;
     public $n;
@@ -25,7 +25,7 @@ class Text_Diff_Renderer_htmldiff extends Tiki_Text_Diff_Renderer
     {
         $this->_leading_context_lines = $context_lines;
         $this->_trailing_context_lines = $context_lines;
-        $this->_words = $words;
+        $this->words = $words;
     }
 
     protected function _startDiff()

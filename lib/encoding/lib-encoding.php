@@ -6,9 +6,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Encoding
 {
-    public $_input_encoding;
-    public $_output_encoding;
-    public $_outputSupportedEncodings;
+    private $inputEncoding;
+    private $outputEncoding;
+    private $outputSupportedEncodings;
     public $_inputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8'];
     public $_ouputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8',];
     public $_supportedEncodings = 'UTF-8,ISO-8859-1,ISO-8859-15';
@@ -28,27 +28,27 @@ class Encoding
     // Set default input encoding, return false if fails loading encoding
     public function set_input_encoding($encoding)
     {
-        $this->_input_encoding = $encoding;
+        $this->inputEncoding = $encoding;
         return true;
     }
 
     // Set default output encoding, return false if fails loading encoding
     public function set_output_encoding($encoding)
     {
-        $this->_output_encoding = $encoding;
+        $this->outputEncoding = $encoding;
         return true;
     }
 
     // Get default input encoding
     public function get_input_encoding()
     {
-        return $this->_input_encoding;
+        return $this->inputEncoding;
     }
 
     // Get default output encoding
     public function get_output_encoding()
     {
-        return $this->_output_encoding;
+        return $this->outputEncoding;
     }
 
     // Return encoding of a string
@@ -109,7 +109,7 @@ class Encoding
     // Return array of supported output encodings
     public function get_output_supported_encodings()
     {
-        return $this->_outputSupportedEncodings;
+        return $this->outputSupportedEncodings;
     }
 
     // Return array of supported encodings

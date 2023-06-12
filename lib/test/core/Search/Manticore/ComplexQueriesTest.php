@@ -8,9 +8,9 @@ namespace Search\Manticore;
 
 class ComplexQueriesTest extends \PHPUnit\Framework\TestCase
 {
-    public $index;
     use IndexBuilder;
 
+    public $index;
     private $old_prefs;
 
     protected function setUp(): void
