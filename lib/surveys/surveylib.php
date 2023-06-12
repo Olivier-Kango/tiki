@@ -15,6 +15,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 class SurveyLib extends TikiLib
 {
+    public $votesTable;
     private $surveysTable;
     private $questionsTable;
     private $optionsTable;

@@ -47,6 +47,8 @@ use PhpXmlRpc\Client as XML_RPC_Client;
 
 class UsersLib extends TikiLib
 {
+    public $ldap;
+    public $phpbbauth;
     // change this to an email address to receive debug emails from the LDAP code
     public $debug = false;
 

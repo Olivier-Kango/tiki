@@ -39,6 +39,17 @@ define('USE_ASSERTS', false);
  */
 class _WikiDiffEngine
 {
+    /**
+     * @var int[]
+     */
+    public $yind;
+    /**
+     * @var int[]
+     */
+    public $xind;
+    public $lcs;
+    public $seq;
+    public $in_seq;
     public $edits;    // List of editing operation to convert XV to YV.
     public $xv = [];
     public $yv = [];

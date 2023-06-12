@@ -8,6 +8,7 @@ use Services_OAuthServer_JsonResponse as JsonResponse;
 
 class Services_OAuthServer_Controller
 {
+    public $utilities;
     public function setUp()
     {
         $this->utilities = new Services_OAuthServer_Utilities();

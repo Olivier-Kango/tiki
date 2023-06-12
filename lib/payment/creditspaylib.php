@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class UserPayCredits extends CreditsLib
 {
+    public $credits;
     public function __construct()
     {
         global $user, $prefs;

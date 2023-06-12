@@ -11,6 +11,7 @@
  */
 class Perms_Resolver_Default implements Perms_Resolver
 {
+    public $applicableGroups;
     private $value;
 
     public function __construct($value)

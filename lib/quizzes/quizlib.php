@@ -1350,6 +1350,28 @@ class HW_QuizQuestionYesNo extends HW_QuizQuestion
  */
 class Quiz
 {
+    public $sAuthor;
+    /**
+     * @var string
+     */
+    public $nShuffleQuestions;
+    /**
+     * @var string
+     */
+    public $forum;
+    /**
+     * @var string
+     */
+    public $forumName;
+    /**
+     * @var string
+     */
+    public $prologue;
+    /**
+     * @var string
+     */
+    public $epilogue;
+    public $author;
     public $id;
     public $bDeleted;
     public $timestamp;

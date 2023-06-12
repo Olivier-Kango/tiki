@@ -15,6 +15,7 @@ require_once('tikiimporter_wiki.php');
  */
 class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 {
+    public $revisionsNumber;
     public $softwareName = 'Mediawiki';
 
     /**

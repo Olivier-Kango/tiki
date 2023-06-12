@@ -14,6 +14,10 @@ require_once('tikiimporter_blog.php');
  */
 class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 {
+    /**
+     * @var \DOMElement
+     */
+    public $currentItem;
     public $softwareName = 'Wordpress';
 
     /**

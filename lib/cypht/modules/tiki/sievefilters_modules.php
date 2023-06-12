@@ -63,6 +63,8 @@ class Hm_Handler_tiki_sieve_placeholder extends Hm_Handler_Module
  */
 class Hm_Handler_tiki_sieve_get_mailboxes_script extends Hm_Handler_Module
 {
+    public $user_config;
+    public $request;
     public function process()
     {
         list($success, $form) = $this->process_form(['imap_account']);

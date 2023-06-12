@@ -75,6 +75,7 @@ return static function (RectorConfig $rectorConfig): void {
     Available rules for rector are found and documented here: https://getrector.com/documentation/rules-overview
     */
     $rectorConfig->rules([
+        Rector\CodeQuality\Rector\Class_\CompleteDynamicPropertiesRector::class,
         //ReturnTypeFromStrictNativeCallRector::class,
         //ReturnTypeFromStrictScalarReturnExprRector::class,
     ]);

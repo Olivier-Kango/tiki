@@ -11,6 +11,7 @@
 
 class Multilingual_Aligner_SentenceAlignmentsTest extends TikiTestCase
 {
+    public $alignments;
     public function disabledTestReminder()
     {
         $this->fail("remember to reactivate all tests in SentenceAlignments");

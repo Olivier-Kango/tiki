@@ -27,6 +27,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 class TikiLib extends TikiDb_Bridge
 {
+    public $online_users_cache;
     public $buffer;
     public $flag;
     public $usergroups_cache = [];

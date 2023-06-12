@@ -36,6 +36,10 @@ interface OIntegrate_Engine
  */
 class OIntegrate
 {
+    /**
+     * @var mixed[]
+     */
+    public $acceptTemplate;
     private $schemaVersion = [];
     private $acceptTemplates = [];
 

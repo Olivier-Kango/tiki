@@ -16,6 +16,7 @@ use Composer\EventDispatcher\EventSubscriberInterface;
 
 class ThemeInstaller extends LibraryInstaller implements EventSubscriberInterface
 {
+    public $composer;
     private $queue = [];
 
     public static function setup(Event $event)

@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Search_Formatter_ValueFormatter_Categorylist extends Search_Formatter_ValueFormatter_Abstract
 {
+    public $levelSeparator;
+    public $useFullPath;
     private $requiredParents = [];
     private $excludeParents = [];
     private $singleList = 'y';

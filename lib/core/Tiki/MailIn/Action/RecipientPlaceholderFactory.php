@@ -12,6 +12,7 @@ use Tiki\MailIn\Exception\MailInException;
 
 class RecipientPlaceholderFactory implements FactoryInterface
 {
+    public $pattern;
     private $actionMap;
 
     public function __construct(array $actionMap)

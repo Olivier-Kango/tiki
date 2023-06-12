@@ -7,6 +7,7 @@
 
 class TranslationReader
 {
+    public $filename;
     /**
      * Creates a TranslationReader with the file to be translated. this
      * class can recognize JSON and CSV files.

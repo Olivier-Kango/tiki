@@ -34,6 +34,8 @@ APIC::import("org.apicnet.io.OOo.absOOo");
  */
 class OOoTable extends absOOo {
 
+    public $_style;
+    public $_ligne;
     public $_column;
     public $_row;
     public $_lignCur;

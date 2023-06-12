@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class ShippingProvider_Fedex implements ShippingProvider
 {
+    public $account;
     private $key;
     private $password;
     private $meter;

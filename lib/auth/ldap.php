@@ -17,6 +17,7 @@ use Tiki\Lib\Logs\LogsLib;
 
 class TikiLdapLib
 {
+    public $groups;
     // var to hold a established connection
     /** @var Ldap */
     protected $ldaplink = null;

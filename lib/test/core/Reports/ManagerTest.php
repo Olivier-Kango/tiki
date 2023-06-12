@@ -6,6 +6,14 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Reports_ManagerTest extends TikiTestCase
 {
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Reports_Send
+     */
+    public $reportsSend;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject&\UsersLib
+     */
+    public $usersLib;
     protected $obj;
 
     protected $reportsUsers;

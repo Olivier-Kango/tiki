@@ -13,6 +13,8 @@
  */
 class Reports_Send_EmailBuilder
 {
+    public $tikilib;
+    public $factory;
     /**
      * @param TikiLib $tikilib
      * @return null

@@ -26,6 +26,8 @@
 */
 class OLE_PPS_File extends OLE_PPS
 {
+    public $_tmp_filename;
+    public $_PPS_FILE;
     /**
     * The temporary dir for storing the OLE file
     * @var string

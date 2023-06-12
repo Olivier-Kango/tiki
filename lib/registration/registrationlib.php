@@ -32,6 +32,10 @@ if (! isset($Debug)) {
 
 class RegistrationLib extends TikiLib
 {
+    /**
+     * @var array<string, mixed>
+     */
+    public $remote_prefs;
     public $local_prefs;
     public $master_prefs;
     public $merged_prefs;

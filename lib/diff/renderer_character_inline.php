@@ -13,6 +13,8 @@
  */
 class Text_Diff_Renderer_character_inline extends Tiki_Text_Diff_Renderer
 {
+    public $diff;
+    public $change;
     protected $orig;
     protected $final;
 

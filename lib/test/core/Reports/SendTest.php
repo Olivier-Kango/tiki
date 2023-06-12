@@ -8,6 +8,8 @@ require_once(__DIR__ . '/../../../webmail/tikimaillib.php');
 
 class Reports_SendTest extends TikiTestCase
 {
+    public $mail;
+    public $builder;
     protected $obj;
 
     protected $dt;

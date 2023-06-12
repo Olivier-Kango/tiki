@@ -7,6 +7,11 @@
 class Tiki_Hm_Custom_Session extends Hm_Session
 {
     /**
+     * @var bool
+     */
+    public $active;
+    public $site_config;
+    /**
      * check for an active session or an attempt to start one
      * @param object $request request object
      * @return bool

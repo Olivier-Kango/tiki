@@ -42,6 +42,9 @@
 
 class Spreadsheet_Excel_Writer_Format extends PEAR
 {
+    public $_BIFF_version;
+    public $_diag;
+    public $_diag_color;
     /**
     * The index given by the workbook when creating a new format.
     * @var integer

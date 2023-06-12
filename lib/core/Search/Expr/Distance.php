@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Search_Expr_Distance implements Search_Expr_Interface
 {
+    public $type;
+    public $string;
     private $distance;
     private $lat;
     private $lon;

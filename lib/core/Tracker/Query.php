@@ -77,6 +77,7 @@
 
 class Tracker_Query
 {
+    public $trackerField;
     private $tracker;
     private $start = 0;
     private $end = 0;

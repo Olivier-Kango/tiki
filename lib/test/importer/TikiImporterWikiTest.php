@@ -145,6 +145,7 @@ class TikiImporter_Wiki_Test extends TikiImporter_TestCase
 
 class TikiImporter_Wiki_InsertPage_Test extends TikiImporter_TestCase
 {
+    public $obj;
     protected function setUp(): void
     {
         require_once(__DIR__ . '/fixtures/mediawiki_page_as_array.php');

@@ -31,6 +31,12 @@ use Tiki\Lib\Logs\LogsLib;
 
 class TikiHybrid extends LogsLib
 {
+    public $namedprefix;
+    /**
+     * @var array<string, mixed>
+     */
+    public $config;
+    public $hybridauth;
     //TODO when for strings assign null or when ''? or don't need anything?
     protected static string $socPrefix = 'socnets_';
     protected string $namedpreffix = '';

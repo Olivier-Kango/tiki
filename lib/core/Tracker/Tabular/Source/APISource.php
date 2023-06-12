@@ -8,6 +8,7 @@ namespace Tracker\Tabular\Source;
 
 class APISource implements SourceInterface
 {
+    public $mapping;
     protected $schema;
     protected $config;
     protected $placeholders;

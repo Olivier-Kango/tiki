@@ -621,6 +621,8 @@ $xmllib = new XmlLib();
 
 class page_Parser extends XML_Parser
 {
+    public $i;
+    public $pages;
     public $page;
     public $currentTag = null;
     public $context = null;

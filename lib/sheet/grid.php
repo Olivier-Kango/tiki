@@ -843,6 +843,18 @@ class TikiSheetDataHandler
  */
 class TikiSheetCSVHandler extends TikiSheetDataHandler
 {
+    /**
+     * @var string
+     */
+    public $type;
+    public $data;
+    public $name;
+    public $id;
+    public $encoding;
+    /**
+     * @var bool
+     */
+    public $truncated;
     public $file = 'php://stdout';
     public $lineLen;
 
@@ -971,6 +983,13 @@ class TikiSheetCSVHandler extends TikiSheetDataHandler
  */
 class TikiSheetTrackerHandler extends TikiSheetDataHandler
 {
+    public $id;
+    public $def;
+    public $info;
+    /**
+     * @var string
+     */
+    public $type;
     public $file;
     public $lineLen;
 
@@ -1055,6 +1074,11 @@ class TikiSheetTrackerHandler extends TikiSheetDataHandler
  */
 class TikiSheetSimpleArrayHandler extends TikiSheetDataHandler
 {
+    public $name;
+    /**
+     * @var string
+     */
+    public $type;
     public $values = [];
 
     public function __construct($simpleArray = [])
@@ -1133,6 +1157,12 @@ class TikiSheetSimpleArrayHandler extends TikiSheetDataHandler
  */
 class TikiSheetCSVExcelHandler extends TikiSheetDataHandler
 {
+    public $data;
+    public $encoding;
+    /**
+     * @var bool
+     */
+    public $truncated;
     public $file;
     public $lineLen;
 

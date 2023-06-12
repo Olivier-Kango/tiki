@@ -11,6 +11,7 @@ use TikiLib;
 
 class Definition
 {
+    public $handler;
     private $info;
 
     public function __construct($info)

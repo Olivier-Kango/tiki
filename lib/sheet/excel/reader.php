@@ -74,6 +74,12 @@ if (!function_exists('file_get_contents')) {
 class Spreadsheet_Excel_Reader
 {
 
+    public $nineteenFour;
+    public $sn;
+    public $rectype;
+    public $multiplier;
+    public $numRows;
+    public $curformat;
     public $boundsheets = array();
     public $formatRecords = array();
     public $sst = array();

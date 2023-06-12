@@ -30,6 +30,10 @@ APIC::import("org.apicnet.io.OOo.*");
 
 class OOoDoc extends OOoUtil {
 
+    /**
+     * @var \OOoMime
+     */
+    public $mimeType;
     public $meta;
     public $content;
     public $setting;

@@ -7,6 +7,7 @@ use Tiki\Lib\core\Tracker\Rule\Type;
 
 abstract class Target extends Column
 {
+    public $argumentType;
     public function __construct($label, $type)
     {
         parent::__construct($label, $type);

@@ -8,6 +8,7 @@ TikiLib::lib('cart');
 
 class Payment_CartTest extends TikiTestCase
 {
+    public $obj;
     protected function setUp(): void
     {
         global $prefs;

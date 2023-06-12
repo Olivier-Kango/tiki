@@ -7,6 +7,7 @@
 
 class Services_Calendar_Controller
 {
+    public $calendarlib;
     private CalendarLib $calendarLib;
     private \Tiki\Lib\Logs\LogsLib $logsLib;
     private $daynamesPlural;

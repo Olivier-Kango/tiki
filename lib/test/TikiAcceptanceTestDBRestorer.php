@@ -35,6 +35,10 @@ abstract class TikiAcceptanceTestDBRestorer
  * less reliable.
  */
 {
+    /**
+     * @var string|bool
+     */
+    public $current_dir;
     const EMPTY_DB = 'emptyDb.sql';
 
     protected $host = "localhost";
@@ -129,6 +133,7 @@ abstract class TikiAcceptanceTestDBRestorer
 
 class TikiAcceptanceTestDBRestorerSQLDumps extends TikiAcceptanceTestDBRestorer
 {
+    public $current_dir;
     /*
      * This subclass uses SQL dumps of the DB to create DB snapshots and restore them.
      * It tries to only restore those tables that have changed since the last time

@@ -8,6 +8,7 @@ namespace Tracker\Tabular;
 
 class ODBCManager
 {
+    public $orig_handler;
     private $config;
     private $errors;
 

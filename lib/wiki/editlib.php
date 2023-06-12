@@ -14,6 +14,10 @@ use Tiki\WikiParser\Markdown\Converter\DefinitionListConverter;
 
 class EditLib
 {
+    /**
+     * @var int
+     */
+    public $oldsourceVersion;
     private $tracesOn = false;
 
     // Fields for translation related methods.

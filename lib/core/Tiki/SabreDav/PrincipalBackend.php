@@ -23,6 +23,7 @@ use Perms;
  */
 class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implements DAVACL\PrincipalBackend\CreatePrincipalSupport
 {
+    public $tableName;
     /**
      * A list of additional fields to support
      *

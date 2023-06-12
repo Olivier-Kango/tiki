@@ -10,6 +10,7 @@ use Manticoresearch\Exceptions\ExceptionInterface as ManticoreException;
 
 class Client
 {
+    public $index;
     protected $dsn;
     protected $client;
 

@@ -493,6 +493,10 @@ define('ZIP_ENDDIR_MAGIC', "PK\005\006");
 
 class ZipWriter
 {
+    public $comment;
+    public $nfiles;
+    public $dir;
+    public $offset;
     public function __construct($comment = '', $zipname = 'archive.zip')
     {
         $this->comment = $comment;
@@ -633,6 +637,7 @@ class ZipWriter
  */
 class ZipReader
 {
+    public $fp;
     public function __construct($zipfile)
     {
         if (! is_string($zipfile)) {

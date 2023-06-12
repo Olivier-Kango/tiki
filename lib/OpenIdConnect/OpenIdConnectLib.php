@@ -12,6 +12,7 @@ use OpenIDConnectClient\OpenIDConnectProvider;
 
 class OpenIdConnectLib
 {
+    public $jwksUrl;
     protected $clientSecret;
 
     protected $clientId;

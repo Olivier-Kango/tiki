@@ -48,6 +48,9 @@ class Hm_Handler_check_calendar_invitations_imap extends Hm_Handler_Module
  */
 class Hm_Handler_event_rsvp_action extends Hm_Handler_Module
 {
+    public $output;
+    public $protected;
+    public $config;
     public function process()
     {
         list($success, $form) = $this->process_form(['rsvp_action']);

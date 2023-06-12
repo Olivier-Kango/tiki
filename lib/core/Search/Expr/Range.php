@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Search_Expr_Range implements Search_Expr_Interface
 {
+    public $string;
     private $from;
     private $to;
     private $type;

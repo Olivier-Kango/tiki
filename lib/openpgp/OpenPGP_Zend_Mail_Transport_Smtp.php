@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class OpenPGP_Zend_Mail_Transport_Smtp extends Laminas\Mail\Transport\Smtp
 {
+    public $OpenGPGStoreMailBody;
     /**
      * Prepare header string from message
      *

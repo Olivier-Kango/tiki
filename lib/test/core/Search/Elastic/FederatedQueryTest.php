@@ -2,6 +2,7 @@
 
 class Search_Elastic_FederatedQueryTest extends PHPUnit\Framework\TestCase
 {
+    public $indexC;
     private $indexA;
 
     protected function setUp(): void

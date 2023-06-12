@@ -27,6 +27,10 @@
 */
 class OLE_PPS_Root extends OLE_PPS
 {
+    public $_BIG_BLOCK_SIZE;
+    public $_SMALL_BLOCK_SIZE;
+    public $_tmp_filename;
+    public $_FILEH_;
     /**
     * The temporary dir for storing the OLE file
     * @var string

@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class UserWatchesTest extends TikiTestCase
 {
+    public $userWatches;
     private $lib;
 
     protected function setUp(): void

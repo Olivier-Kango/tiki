@@ -8,6 +8,7 @@ namespace Search\Manticore;
 
 class ComplexQueriesTest extends \PHPUnit\Framework\TestCase
 {
+    public $index;
     use IndexBuilder;
 
     private $old_prefs;

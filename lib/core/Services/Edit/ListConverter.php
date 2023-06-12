@@ -13,6 +13,7 @@
  */
 class Services_Edit_ListConverter
 {
+    public $wikiFields;
     private $sourcePlugin = '';
     private $utilities;
 

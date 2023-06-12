@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Reports_Send_EmailBuilderTest extends TikiTestCase
 {
+    public $factory;
+    public $defaultReportPreferences;
     protected $obj;
 
     protected $tikilib;

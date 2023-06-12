@@ -43,6 +43,10 @@
 
 class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwriter
 {
+    public $_str_total;
+    public $_str_unique;
+    public $_str_table;
+    public $_block_sizes;
     /**
     * Filename for the Workbook
     * @var string

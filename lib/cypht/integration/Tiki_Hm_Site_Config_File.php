@@ -6,6 +6,11 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File
 {
+    /**
+     * @var array<string, mixed>
+     */
+    public $user_defaults;
+    public $config;
     public $settings_per_page;
     /**
      * Load data based on source

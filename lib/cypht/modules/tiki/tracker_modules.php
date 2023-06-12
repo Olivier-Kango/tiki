@@ -20,6 +20,7 @@ if (! defined('DEBUG_MODE')) {
  */
 class Hm_Handler_tracker_message_list_type extends Hm_Handler_Module
 {
+    public $request;
     public function process()
     {
         $path = $this->request->get['list_path'];
@@ -51,6 +52,7 @@ class Hm_Handler_tracker_message_list_type extends Hm_Handler_Module
  */
 class Hm_Handler_check_path_redirect extends Hm_Handler_Module
 {
+    public $request;
     public function process()
     {
         global $smarty;
@@ -69,6 +71,7 @@ class Hm_Handler_check_path_redirect extends Hm_Handler_Module
  */
 class Hm_Handler_check_path_redirect_after_sent extends Hm_Handler_Module
 {
+    public $request;
     public function process()
     {
         global $smarty;
@@ -90,6 +93,7 @@ class Hm_Handler_check_path_redirect_after_sent extends Hm_Handler_Module
  */
 class Hm_Handler_move_to_tracker extends Hm_Handler_Module
 {
+    public $session;
     public function process()
     {
         global $smarty;
@@ -260,6 +264,7 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
  */
 class Hm_Handler_tiki_mark_as_answered extends Hm_Handler_Module
 {
+    public $request;
     public function process()
     {
         if (! $this->get('msg_sent')) {
@@ -283,6 +288,7 @@ class Hm_Handler_tiki_mark_as_answered extends Hm_Handler_Module
  */
 class Hm_Handler_tiki_save_sent extends Hm_Handler_Module
 {
+    public $request;
     public function process()
     {
         if (! $this->get('save_sent_msg')) {
@@ -331,6 +337,7 @@ class Hm_Handler_tiki_save_sent extends Hm_Handler_Module
  */
 class Hm_Handler_tiki_archive_replied extends Hm_Handler_Module
 {
+    public $request;
     public function process()
     {
         if (empty($this->request->post['tiki_archive_replied'])) {
@@ -513,6 +520,10 @@ class Hm_Handler_tiki_message_action extends Hm_Handler_Module
  */
 class Hm_Handler_tiki_message_content extends Hm_Handler_Module
 {
+    public $request;
+    public $config;
+    public $user_config;
+    public $session;
     public function process()
     {
         list($success, $form) = $this->process_form(['imap_msg_uid']);
@@ -618,6 +629,7 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module
  */
 class Hm_Handler_tiki_download_message extends Hm_Handler_Module
 {
+    public $request;
     public function process()
     {
         $show = $download = false;
@@ -672,6 +684,7 @@ class Hm_Handler_tiki_download_message extends Hm_Handler_Module
  */
 class Hm_Handler_tiki_process_move extends Hm_Handler_Module
 {
+    public $cache;
     public function process()
     {
         list($success, $form) = $this->process_form(['imap_move_to', 'imap_move_action', 'imap_move_ids']);

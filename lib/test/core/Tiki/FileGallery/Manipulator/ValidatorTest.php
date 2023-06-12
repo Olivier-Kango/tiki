@@ -14,6 +14,7 @@ use Tiki\FileGallery\Manipulator\Validator;
 
 class Tiki_FileGallery_Manipulator_ValidatorTest extends TikiTestCase
 {
+    public $oldPrefs;
     protected function setUp(): void
     {
         global $prefs;

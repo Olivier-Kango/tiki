@@ -216,6 +216,7 @@ class Text_Diff
  */
 class Text_MappedDiff extends Text_Diff
 {
+    public $edits;
     /**
      * Computes a diff between sequences of strings.
      *
@@ -336,6 +337,21 @@ class Text_Diff_Engine_xdiff
  */
 class Text_Diff_Engine_native
 {
+    public $xchanged;
+    public $xv;
+    /**
+     * @var mixed[]|int[]
+     */
+    public $xind;
+    public $seq;
+    public $in_seq;
+    public $lcs;
+    public $ychanged;
+    public $yv;
+    /**
+     * @var int[]
+     */
+    public $yind;
     public function diff($from_lines, $to_lines)
     {
         $n_from = count($from_lines);

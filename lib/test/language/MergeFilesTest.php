@@ -11,6 +11,10 @@ use org\bovigo\vfs\vfsStreamFile;
 
 class Language_MergeFilesTest extends TikiTestCase
 {
+    public $sourceFile;
+    public $targetFile;
+    public $sourceFileObj;
+    public $targetFileObj;
     protected $obj;
 
     protected function setUp(): void

@@ -12,6 +12,8 @@ use org\bovigo\vfs\vfsStreamFile;
 
 class Language_WriteFile_FactoryTest extends TikiTestCase
 {
+    public $langFile;
+    public $filePath;
     protected $obj;
 
     protected function setUp(): void

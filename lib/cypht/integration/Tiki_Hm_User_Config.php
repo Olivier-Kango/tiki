@@ -11,6 +11,7 @@
  */
 class Tiki_Hm_User_Config extends Hm_Config
 {
+    public $config;
     /* username */
     private $username;
     private $site_config;

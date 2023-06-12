@@ -10,6 +10,9 @@
  */
 class Text_Diff_Renderer_bytes extends Text_Diff_Renderer
 {
+    public $_addBytes;
+    public $_delBytes;
+    public $_first;
     public function __construct($first = -1)
     {
         $this->_addBytes = 0;

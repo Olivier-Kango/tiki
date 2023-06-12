@@ -11,6 +11,7 @@
  */
 class Tiki_Hm_Custom_Cache extends Hm_Cache
 {
+    public $backend;
     /**
      * @param Hm_Config $config site config object
      * @param object $session session object

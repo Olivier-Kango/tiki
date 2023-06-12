@@ -2166,6 +2166,9 @@ class soapval extends nusoap_base {
 */
 class soap_transport_http extends nusoap_base {
 
+    public $fp;
+    public $errno;
+    public $tryagain;
     public $url = '';
     public $uri = '';
     public $digest_uri = '';
@@ -3466,6 +3469,7 @@ class soap_transport_http extends nusoap_base {
 * @access   public
 */
 class nusoap_server extends nusoap_base {
+    public $opData;
     /**
      * HTTP headers of request
      * @var array
@@ -4589,6 +4593,13 @@ class soap_server extends nusoap_server {
 * @access public
 */
 class wsdl extends nusoap_base {
+    public $currentPortOperation;
+    public $opStatus;
+    public $serviceName;
+    /**
+     * @var mixed[]
+     */
+    public $wsdl_info;
     // URL or filename of the root of this WSDL
     public $wsdl;
     // define internal arrays of bindings, ports, operations, messages, etc.
@@ -6525,6 +6536,8 @@ class wsdl extends nusoap_base {
 */
 class nusoap_parser extends nusoap_base {
 
+    public $parser;
+    public $methodNamespace;
     public $xml = '';
     public $xml_encoding = '';
     public $method = '';
@@ -7176,6 +7189,14 @@ class soap_parser extends nusoap_parser {
 */
 class nusoap_client extends nusoap_base  {
 
+    public $wsdl;
+    public $wsdlFile;
+    public $operation;
+    /**
+     * @var mixed[]
+     */
+    public $opData;
+    public $return;
     public $username = '';                // Username for HTTP authentication
     public $password = '';                // Password for HTTP authentication
     public $authtype = '';                // Type of HTTP authentication

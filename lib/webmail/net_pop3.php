@@ -56,6 +56,7 @@ define('NET_POP3_STATE_TRANSACTION', 4);
 class Net_POP3
 {
 
+    public $lastline;
     /*
      * Some basic information about the mail drop
      * garnered from the STAT command

@@ -103,6 +103,8 @@ define('SPREADSHEET_EXCEL_WRITER_NE',"<>");
 
 class Spreadsheet_Excel_Writer_Parser extends PEAR
 {
+    public $ptg;
+    public $_functions;
     /**
     * The index of the character we are currently looking at
     * @var integer

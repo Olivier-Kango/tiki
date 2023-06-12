@@ -11,6 +11,7 @@
 
 class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 {
+    public $aligner;
     public function disabledTestReminder()
     {
         $this->fail("remember to reactivate all tests in BilingualAlignerTest");

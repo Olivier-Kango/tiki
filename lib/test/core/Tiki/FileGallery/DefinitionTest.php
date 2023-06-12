@@ -15,6 +15,7 @@ use Tiki\FileGallery\File;
 
 class Tiki_FileGallery_DefinitionTest extends TikiTestCase
 {
+    public $oldPrefs;
     protected function setUp(): void
     {
         global $prefs;

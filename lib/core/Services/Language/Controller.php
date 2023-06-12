@@ -8,6 +8,10 @@ include(__DIR__ . '/TranslationReader.php');
 
 class Services_Language_Controller
 {
+    /**
+     * @var \Services_Language_TransifexController
+     */
+    public $transifex;
     private $utilities;
 
     public function __construct()

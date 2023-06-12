@@ -457,6 +457,11 @@ class HistLib extends TikiLib
 class Document
 {
     /**
+     * @var bool
+     */
+    public $_history;
+    public $_showpopups;
+    /**
      * @var array   a list of words and whitespaces represented by an array(word,author,deleted,diffid,[deleted_by])
      */
     private $_document;

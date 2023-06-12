@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 class Account
 {
+    public $deleteOnError;
     private $source;
     private $actionFactory;
 

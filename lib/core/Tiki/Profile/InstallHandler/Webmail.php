@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Tiki_Profile_InstallHandler_Webmail extends Tiki_Profile_InstallHandler
 {
+    public $content;
     public function getData()
     {
         if ($this->data) {

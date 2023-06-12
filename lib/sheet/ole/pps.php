@@ -26,6 +26,7 @@
 */
 class OLE_PPS extends PEAR
 {
+    public $_PPS_FILE;
     /**
     * The PPS index
     * @var integer

@@ -15,6 +15,7 @@ use Tiki\FileGallery\SaveHandler;
 
 class Tiki_FileGallery_Manipulator_SaveHandlerTest extends TikiTestCase
 {
+    public $oldPrefs;
     protected function setUp(): void
     {
         global $prefs;

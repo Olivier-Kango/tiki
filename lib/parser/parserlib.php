@@ -25,6 +25,7 @@
  */
 class ParserLib extends TikiDb_Bridge
 {
+    public $content_to_render;
     // private $makeTocCount = 0; Unused since Tiki 12 or earlier
 
     //This var is used in both protectSpecialChars and unprotectSpecialChars to simplify the html ouput process. Can be replaced with a const starting with PHP 7

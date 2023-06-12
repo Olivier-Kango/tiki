@@ -20,6 +20,7 @@ if (! defined('DEBUG_MODE')) {
  */
 class Hm_Handler_load_data_sources extends Hm_Handler_Module
 {
+    public $user_config;
     /**
      * Used by groupmail view
      */
@@ -39,6 +40,10 @@ class Hm_Handler_load_data_sources extends Hm_Handler_Module
  */
 class Hm_Handler_groupmail_fetch_messages extends Hm_Handler_Module
 {
+    public $user_config;
+    public $request;
+    public $session;
+    public $config;
     /**
      * Returns all messages for an IMAP server
      */
@@ -66,6 +71,7 @@ class Hm_Handler_groupmail_fetch_messages extends Hm_Handler_Module
  */
 class Hm_Handler_check_groupmail_setting extends Hm_Handler_Module
 {
+    public $session;
     /**
      * Sets flag based on session
      */
@@ -81,6 +87,7 @@ class Hm_Handler_check_groupmail_setting extends Hm_Handler_Module
  */
 class Hm_Handler_prepare_groupmail_settings extends Hm_Handler_Module
 {
+    public $session;
     /**
      * Sets settings based on session
      */
@@ -98,6 +105,7 @@ class Hm_Handler_prepare_groupmail_settings extends Hm_Handler_Module
  */
 class Hm_Handler_take_groupmail extends Hm_Handler_Module
 {
+    public $user_config;
     /**
      * Take a message
      */
@@ -278,6 +286,7 @@ class Hm_Handler_put_back_groupmail extends Hm_Handler_Module
  */
 class Hm_Output_groupmail_page_link extends Hm_Output_Module
 {
+    public $format;
     /**
      * Displays the menu link
      */

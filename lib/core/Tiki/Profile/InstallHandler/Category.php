@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Tiki_Profile_InstallHandler_Category extends Tiki_Profile_InstallHandler
 {
+    public $tplGroupContainer;
+    public $tplGroupPattern;
     private $name;
     private $description = '';
     private $parent = 0;

@@ -13,6 +13,7 @@
 
 class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 {
+    public $updater;
     private $orig_source_sentences =
         [
                 "Firefox supports international characters for languages such as Hindi.",

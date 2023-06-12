@@ -38,6 +38,17 @@ function GetInt4d($data, $pos) {
 
 class R_OLE
 {
+    public $numBigBlockDepotBlocks;
+    public $sbdStartBlock;
+    public $rootStartBlock;
+    public $extensionBlock;
+    public $numExtensionBlocks;
+    public $bigBlockChain;
+    public $smallBlockChain;
+    public $entry;
+    public $props;
+    public $wrkbook;
+    public $rootentry;
     public $data = '';
 
     public function __construct()

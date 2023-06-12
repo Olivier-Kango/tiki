@@ -8,6 +8,14 @@ require_once('lib/test/TikiDatabaseTestCase.php');
 
 class Reports_EndToEndTest extends TikiDatabaseTestCase
 {
+    public $dt;
+    public $mail;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject&\TikiLib
+     */
+    public $tikilib;
+    public $overrideLibs;
+    public $obj;
     protected function setUp(): void
     {
         $this->markTestSkipped('Strangely enough, this loads two different classes if TikiMail');

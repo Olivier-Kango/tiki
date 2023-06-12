@@ -16,6 +16,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class FileMetadata
 {
+    public $type;
     public $currname = null;        //working file path used to access file, may not be the same as embedded in file metadata
     public $content = null;         //file content string
     public $filesize = 0;           //file size in bytes

@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class RequestTest extends TikiTestCase
 {
+    public $obj;
     protected function setUp(): void
     {
         $this->obj = new Tiki_Request();

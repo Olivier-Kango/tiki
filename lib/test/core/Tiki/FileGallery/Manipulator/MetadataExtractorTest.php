@@ -14,6 +14,8 @@ use Tiki\FileGallery\Manipulator\MetadataExtractor;
 
 class Tiki_FileGallery_Manipulator_MetadataExtractorTest extends TikiTestCase
 {
+    public $oldPrefs;
+    public $file;
     protected function setUp(): void
     {
         global $prefs;

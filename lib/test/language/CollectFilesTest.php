@@ -11,6 +11,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 
 class Language_CollectFilesTest extends TikiTestCase
 {
+    public $obj;
     protected function setUp(): void
     {
         $this->obj = new Language_CollectFiles();

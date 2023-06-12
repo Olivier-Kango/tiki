@@ -8,6 +8,10 @@
 
 class Services_Language_TransifexController extends Services_Language_Controller
 {
+    /**
+     * @var \Services_Language_Utilities
+     */
+    public $utilities;
     public function __construct()
     {
         $this->utilities = new Services_Language_Utilities();

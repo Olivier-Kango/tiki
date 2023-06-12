@@ -13,6 +13,7 @@
  */
 class Reports_Send
 {
+    public $tikiPrefs;
     protected $dt;
 
     protected $mail;

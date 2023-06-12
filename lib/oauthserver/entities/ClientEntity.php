@@ -10,6 +10,11 @@ use League\OAuth2\Server\Entities\Traits\EntityTrait;
  */
 class ClientEntity implements ClientEntityInterface
 {
+    public $id;
+    public $client_id;
+    public $client_secret;
+    public $redirect_uri;
+    public $user;
     use EntityTrait;
     use ClientTrait;
 

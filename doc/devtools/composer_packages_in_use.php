@@ -11,6 +11,7 @@ if (PHP_SAPI !== 'cli') {
 
 class ComposerGetPackages
 {
+    public $jsonFile;
     private string $repoUri;
 
     private string $lockFile;

@@ -11,6 +11,7 @@ use League\Flysystem\UnableToWriteFile;
 
 class FlysystemFile implements WrapperInterface
 {
+    public $path;
     private $filesystem;
     private $basePath;
     private $temporaryFile = false;

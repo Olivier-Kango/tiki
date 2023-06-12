@@ -11,6 +11,7 @@
 
 class Multilingual_Aligner_ShortestPathFinderTest extends TikiTestCase
 {
+    public $pfinder;
     ////////////////////////////////////////////////////////////////
     // Documentation tests
     //    These tests illustrate how to use this class.

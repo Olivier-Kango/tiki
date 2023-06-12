@@ -42,6 +42,23 @@
 
 class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwriter
 {
+    public $activesheet;
+    public $firstsheet;
+    /**
+     * @var null|int
+     */
+    public $title_colmax;
+    public $_print_gridlines;
+    public $_print_headers;
+    public $_hbreaks;
+    public $_vbreaks;
+    public $_protect;
+    public $_password;
+    public $col_sizes;
+    public $row_sizes;
+    public $_zoom;
+    public $_print_scale;
+    public $_dv;
     /**
     * Name of the Worksheet
     * @var string

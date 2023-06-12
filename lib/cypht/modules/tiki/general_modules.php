@@ -44,6 +44,7 @@ class Hm_Handler_load_tiki_contacts extends Hm_Handler_Module
  */
 class Hm_Handler_check_for_tiki_redirect extends Hm_Handler_Module
 {
+    public $session;
     public function process()
     {
         if ($this->get('msg_sent') && $this->session->get('pageaftersend')) {
@@ -59,6 +60,9 @@ class Hm_Handler_check_for_tiki_redirect extends Hm_Handler_Module
  */
 class Hm_Handler_add_file_attachment extends Hm_Handler_Module
 {
+    public $request;
+    public $session;
+    public $config;
     public function process()
     {
         $draft_id = $this->request->get['draft_id'] ?? -1;
@@ -84,6 +88,7 @@ class Hm_Handler_add_file_attachment extends Hm_Handler_Module
  */
 class Hm_Output_tiki_contacts_page_link extends Hm_Output_Module
 {
+    public $format;
     protected function output()
     {
         $res = '<li class="menu_contacts"><a class="unread_link" href="tiki-contacts.php">';
@@ -136,6 +141,8 @@ class Hm_Handler_process_allow_external_images extends Hm_Handler_Module
  */
 class Hm_Handler_before_save_user_settings extends Hm_Handler_Module
 {
+    public $request;
+    public $user_config;
     public function process()
     {
         if (array_key_exists('save_settings', $this->request->post)) {
@@ -150,6 +157,8 @@ class Hm_Handler_before_save_user_settings extends Hm_Handler_Module
  */
 class Hm_Handler_after_save_user_settings extends Hm_Handler_Module
 {
+    public $request;
+    public $user_config;
     public function process()
     {
         if (array_key_exists('save_settings', $this->request->post)) {
@@ -319,6 +328,7 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
  */
 class Hm_Output_clear_cache_link extends Hm_Output_Module
 {
+    public $format;
     protected function output()
     {
         $res = '<a href="#" class="clear_cache">' . $this->trans('[clear cache]') . '</a>';

@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Tiki_Event_Function_EventSample extends Math_Formula_Function
 {
+    public $recorder;
     public function __construct($recorder)
     {
         $this->recorder = $recorder;

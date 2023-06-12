@@ -4,6 +4,10 @@ namespace Tiki\Lib\core\Toolbar;
 
 class ToolbarSwitchEditor extends ToolbarUtilityItem
 {
+    /**
+     * @var string
+     */
+    public $onClick;
     public function __construct()
     {
         global $prefs;

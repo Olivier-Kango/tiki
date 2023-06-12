@@ -24,6 +24,8 @@ require_once('tikiimporter.php');
  */
 class TikiImporter_Wiki extends TikiImporter
 {
+    public $revisionsNumber;
+    public $alreadyExistentPageName;
     /**
      * @see lib/importer/TikiImporter#importOptions()
      */

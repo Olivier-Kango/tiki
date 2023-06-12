@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class TikiFilter_IsoDate implements Laminas\Filter\FilterInterface
 {
+    public $format;
     public function __construct($format = 'Y-m-d')
     {
         $this->format = $format;

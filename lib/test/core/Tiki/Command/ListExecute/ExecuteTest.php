@@ -10,6 +10,7 @@ use Tiki\Command\ListExecuteCommand;
 
 class Tiki_Command_ListExecute_ExecuteTest extends TikiTestCase
 {
+    public $pluginSecurity;
     const PAGE_NAME = 'pagetest';
     const FINGERPRINT = 'listexecute-f8c66d0e749de7b51ca6d84d577db62b-0df3f8fa6a273b5283894cce2d1e8455-318000-200000';
     const CONTENT_FOR_FINGERPRINT = '{LISTEXECUTE()}
