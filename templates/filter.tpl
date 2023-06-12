@@ -203,7 +203,7 @@
         });
 {{/if}}
 
-{{if $prefs.feature_freetags eq 'y'}}
+{{if $prefs.feature_freetags eq 'y' and $prefs.search_show_tag_filter eq 'y'}}
         var tagInput = $('.tag-wizard', this).fancy_filter('init', {
             map: {{$filter_tagmap}}
         });
