@@ -38,8 +38,7 @@ $smarty->assign('percentage', $percentage);
 $smarty->assign('limitmb', $prefs['userfiles_quota']);
 // Process upload here
 for ($i = 0; $i < 5; $i++) {
-    if (isset($_FILES["userfile$i"]) && is_uploaded_file($_FILES["userfile$i"]['tmp_name'])) {
-        check_ticket('user-files');
+    if (isset($_FILES["userfile$i"]) && is_uploaded_file($_FILES["userfile$i"]['tmp_name']) && $access->checkCsrf()) {
         $filegallib = TikiLib::lib('filegal');
         try {
             $filegallib->assertUploadedFileIsSafe($_FILES["userfile$i"]['tmp_name'], $_FILES["userfile$i"]['name']);
@@ -87,8 +86,7 @@ for ($i = 0; $i < 5; $i++) {
     }
 }
 // Process removal here
-if (isset($_REQUEST["delete"]) && isset($_REQUEST["userfile"])) {
-    check_ticket('user-files');
+if (isset($_REQUEST["delete"]) && isset($_REQUEST["userfile"]) && $access->checkCsrf()) {
     foreach (array_keys($_REQUEST["userfile"]) as $file) {
         $userfileslib->remove_userfile($user, $file);
     }
@@ -133,6 +131,5 @@ $channels = $userfileslib->list_userfiles($user, $offset, $maxRecords, $sort_mod
 $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 include_once('tiki-mytiki_shared.php');
-ask_ticket('user-files');
 $smarty->assign('mid', 'tiki-userfiles.tpl');
 $smarty->display("tiki.tpl");

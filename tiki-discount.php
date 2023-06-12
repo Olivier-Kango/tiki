@@ -32,8 +32,7 @@ if (! empty($_REQUEST['save']) && ! empty($_REQUEST['code'])) {
         }
     }
 }
-if (! empty($_REQUEST['del'])) {
-    check_ticket('discount');
+if (! empty($_REQUEST['del']) && $access->checkCsrf()) {
     $discountlib->del_discount($_REQUEST['del']);
     $tab = 1;
 }
@@ -57,6 +56,5 @@ $smarty->assign_by_ref('discounts', $discounts);
 
 setcookie('tab', $tab);
 $smarty->assign_by_ref('cookietab', $tab);
-ask_ticket('discount');
 $smarty->assign('mid', 'tiki-discount.tpl');
 $smarty->display('tiki.tpl');

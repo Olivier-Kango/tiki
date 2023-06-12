@@ -69,9 +69,8 @@ $smarty->assign('description', '');
 $smarty->assign('edit_mode', 'n');
 $smarty->assign('chart_enabled', (function_exists('imagepng') || function_exists('pdf_new')) ? 'y' : 'n');
 // If we are editing an existing sheet prepare smarty variables
-if (isset($_REQUEST["edit_mode"]) && $_REQUEST["edit_mode"]) {
+if (isset($_REQUEST["edit_mode"]) && $_REQUEST["edit_mode"] && $access->checkCsrf()) {
     $access->check_permission('tiki_p_edit_sheet');
-    check_ticket('sheet');
     // Get information about this sheetId and fill smarty variables
     $smarty->assign('edit_mode', 'y');
     if ($_REQUEST["sheetId"] > 0) {
@@ -96,9 +95,8 @@ if (isset($_REQUEST["edit_mode"]) && $_REQUEST["edit_mode"]) {
 $cat_type = 'sheet';
 
 // Process the insertion or modification of a sheet here
-if (isset($_REQUEST["edit"])) {
+if (isset($_REQUEST["edit"]) && $access->checkCsrf()) {
     $access->check_permission('tiki_p_edit_sheet');
-    check_ticket('sheet');
     // Everything is ok so we proceed to edit the gallery
     $smarty->assign('edit_mode', 'y');
     $smarty->assign_by_ref('title', $_REQUEST["title"]);
@@ -157,7 +155,6 @@ $smarty->assign_by_ref('cant_pages', $sheets["cant"]);
 $smarty->assign_by_ref('sheets', $sheets["data"]);
 
 include_once('tiki-section_options.php');
-ask_ticket('sheet');
 // Display the template
 $smarty->assign('mid', 'tiki-sheets.tpl');
 $smarty->display("tiki.tpl");

@@ -61,7 +61,6 @@ $relativeDirectories = ['', 'mail/', 'map/', 'modules/', 'styles/' . str_replace
 if ($tiki_p_edit_templates == 'y') {
     if ((isset($_REQUEST["save"]) || isset($_REQUEST['saveTheme'])) && ! empty($_REQUEST['template']) && $access->checkCsrf(true)) {
         $access->check_feature('feature_edit_templates');
-        check_ticket('edit-templates');
         if (isset($_REQUEST['saveTheme'])) {
             $domainStyleTemplatesDirectory = $smarty->main_template_dir;
             if (! empty($tikidomain)) {
@@ -137,10 +136,6 @@ if ($mode == 'listing') {
     $smarty->assign('files', $files);
 }
 $smarty->assign('mode', $mode);
-
-if ($tiki_p_edit_templates == 'y') {
-    ask_ticket('edit-templates');
-}
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

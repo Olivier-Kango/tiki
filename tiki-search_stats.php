@@ -11,8 +11,7 @@ $searchstatslib = TikiLib::lib('searchstats');
 $access->check_feature('feature_search_stats');
 $access->check_permission('tiki_p_admin');
 
-if (isset($_REQUEST["clear"])) {
-    check_ticket('search-stats');
+if (isset($_REQUEST["clear"]) && $access->checkCsrf()) {
     $searchstatslib->clear_search_stats();
 }
 if (! isset($_REQUEST["sort_mode"])) {
@@ -36,7 +35,6 @@ $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $searchstatslib->list_search_stats($offset, $maxRecords, $sort_mode, $find);
 $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
-ask_ticket('search-stats');
 // Display the template
 $smarty->assign('mid', 'tiki-search_stats.tpl');
 $smarty->display("tiki.tpl");

@@ -57,9 +57,7 @@ if (isset($_REQUEST['remove'])) {
     $quizlib->remove_quiz_question($_REQUEST['remove']);
 }
 
-if (isset($_REQUEST['save'])) {
-    check_ticket('edit-quiz-question');
-
+if (isset($_REQUEST['save']) && $access->checkCsrf()) {
     $quizlib->replace_quiz_question(
         $_REQUEST['questionId'],
         $_REQUEST['question'],
@@ -72,9 +70,7 @@ if (isset($_REQUEST['save'])) {
     $smarty->assign('questionId', 0);
 }
 
-if (isset($_REQUEST['import'])) {
-    check_ticket('edit-quiz-question');
-
+if (isset($_REQUEST['import']) && $access->checkCsrf()) {
     $questions = TextToQuestions($_REQUEST['input_data']);
 
     foreach ($questions as $question) {
@@ -92,8 +88,7 @@ if (isset($_REQUEST['import'])) {
     $smarty->assign('questionId', 0);
 }
 
-if (isset($_REQUEST['useQuestion'])) {
-    check_ticket('edit-quiz-question');
+if (isset($_REQUEST['useQuestion']) && $access->checkCsrf()) {
     $info = $quizlib->get_quiz_question($_REQUEST['usequestionid']);
 
     $qid = $quizlib->replace_quiz_question(0, $info['question'], $info['type'], $_REQUEST['quizId'], $_REQUEST['position']);
@@ -150,8 +145,6 @@ $questionTypes['o'] = tr('Optional');
 $questionTypes['f'] = tr('Optional + File');
 
 $smarty->assign('questionTypes', $questionTypes);
-
-ask_ticket('edit-quiz-question');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

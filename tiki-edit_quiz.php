@@ -52,9 +52,7 @@ $info["timeLimited"] = 'n';
 $info["passingperct"] = '';
 $info["timeLimit"] = 60 * 60;
 
-if (isset($_REQUEST["save"])) {
-    check_ticket('edit-quiz');
-
+if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     //Convert 12-hour clock hours to 24-hour scale to compute time
     if (! empty($_REQUEST['publish_Meridian'])) {
         $_REQUEST['publish_Hour'] = date('H', strtotime($_REQUEST['publish_Hour'] . ':00 ' . $_REQUEST['publish_Meridian']));
@@ -258,7 +256,6 @@ $smarty->assign('mins', $mins);
 $cat_type = 'quiz';
 $cat_objid = $_REQUEST["quizId"];
 include_once("categorize_list.php");
-ask_ticket('edit-quiz');
 
 $smarty->assign('publishDate', $info['publishDate']);
 $smarty->assign('publishDateSite', $info['publishDate']);

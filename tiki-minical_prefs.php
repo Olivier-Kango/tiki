@@ -13,8 +13,7 @@ $access->check_user($user);
 //  $smarty->display("error.tpl");
 //  die;
 //}
-if (isset($_REQUEST['save'])) {
-    check_ticket('minical-prefs');
+if (isset($_REQUEST['save']) && $access->checkCsrf()) {
     $tikilib->set_user_preference($user, 'minical_interval', $_REQUEST['minical_interval']);
     $tikilib->set_user_preference($user, 'minical_reminders', $_REQUEST['minical_reminders']);
     $tikilib->set_user_preference($user, 'minical_upcoming', $_REQUEST['minical_upcoming']);
@@ -55,12 +54,10 @@ $hours = range(0, 23);
 $smarty->assign('hours', $hours);
 $upcoming = range(1, 20);
 $smarty->assign('upcoming', $upcoming);
-if (isset($_REQUEST['removetopic'])) {
-    check_ticket('minical-prefs');
+if (isset($_REQUEST['removetopic']) && $access->checkCsrf()) {
     $minicallib->minical_remove_topic($user, $_REQUEST['removetopic']);
 }
-if (isset($_REQUEST['import'])) {
-    check_ticket('minical-prefs');
+if (isset($_REQUEST['import']) && $access->checkCsrf()) {
     if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
         $fp = fopen($_FILES['userfile1']['tmp_name'], "rb");
         $heading = fgetcsv($fp, 1000, ",");
@@ -76,8 +73,7 @@ if (isset($_REQUEST['import'])) {
     }
 }
 // Process upload here
-if (isset($_REQUEST['addtopic'])) {
-    check_ticket('minical-prefs');
+if (isset($_REQUEST['addtopic']) && $access->checkCsrf()) {
     if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
         $filegallib = TikiLib::lib('filegal');
         try {
@@ -109,6 +105,5 @@ $topics = $minicallib->minical_list_topics($user, 0, -1, 'name_asc', '');
 $smarty->assign('topics', $topics['data']);
 $smarty->assign('cols', 4);
 include_once('tiki-mytiki_shared.php');
-ask_ticket('minical-prefs');
 $smarty->assign('mid', 'tiki-minical_prefs.tpl');
 $smarty->display("tiki.tpl");

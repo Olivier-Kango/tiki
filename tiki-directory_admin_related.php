@@ -33,14 +33,12 @@ if (isset($_REQUEST["remove"])) {
     $dirlib->dir_remove_related($_REQUEST["parent"], $_REQUEST["categId"]);
 }
 // Update a relationship
-if (isset($_REQUEST["update"])) {
-    check_ticket('dir-admin-related');
+if (isset($_REQUEST["update"]) && $access->checkCsrf()) {
     $dirlib->dir_remove_related($_REQUEST["parent"], $_REQUEST["oldcategId"]);
     $dirlib->dir_add_categ_rel($_REQUEST["parent"], $_REQUEST["categId"]);
 }
 // Add a relationship
-if (isset($_REQUEST["add"])) {
-    check_ticket('dir-admin-related');
+if (isset($_REQUEST["add"]) && $access->checkCsrf()) {
     $dirlib->dir_add_categ_rel($_REQUEST["parent"], $_REQUEST["categId"]);
     if (isset($_REQUEST["mutual"]) && $_REQUEST["mutual"] == 'on') {
         $dirlib->dir_add_categ_rel($_REQUEST["categId"], $_REQUEST["parent"]);
@@ -76,7 +74,6 @@ $smarty->assign('all_categs', $all_categs);
 // This page should be displayed with Directory section options
 $section = 'directory';
 include_once('tiki-section_options.php');
-ask_ticket('dir-admin-related');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template

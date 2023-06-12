@@ -39,8 +39,7 @@ function module_user_tasks_public($mod_reference, $module_params)
         $smarty->assign('ownurl', $_SERVER['REQUEST_URI']);
         $user_groups = $tasklib->get_groups_to_user_with_permissions($user, 'tiki_p_tasks_receive');
 
-        if (isset($_REQUEST['modTasksSearch'])) {
-            check_ticket('user-prefs');
+        if (isset($_REQUEST['modTasksSearch']) && $access->checkCsrf()) {
             $user_group = $_REQUEST['user_group'];
             $tikilib->set_user_preference($user, 'tasks_modLastSelectedGroup', $user_group);
         } else {

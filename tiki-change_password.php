@@ -39,8 +39,7 @@ if (isset($_REQUEST["newuser"]) && $_REQUEST["newuser"] == 'y') {
 $smarty->assign('userlogin', $_REQUEST["user"]);
 $smarty->assign('oldpass', $_REQUEST["oldpass"]);
 
-if (isset($_REQUEST["change"])) {
-    check_ticket('change-password');
+if (isset($_REQUEST["change"]) && $access->checkCsrf()) {
     // Check that pass and passAgain match, otherwise display error and exit
     if ($_REQUEST["pass"] != $_REQUEST["passAgain"]) {
         $smarty->assign('msg', tra("The passwords do not match"));
@@ -122,7 +121,6 @@ if (isset($_REQUEST["change"])) {
         $accesslib->redirect($homePageUrl);
     }
 }
-ask_ticket('change-password');
 
 // Display the template
 global $prefs;

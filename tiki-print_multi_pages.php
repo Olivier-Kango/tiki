@@ -30,8 +30,7 @@ if (! isset($_REQUEST['printpages']) && ! isset($_REQUEST['printstructures'])) {
         $printstructures = [];
     }
 }
-if (isset($_REQUEST["print"]) || isset($_REQUEST["display"])) {
-    check_ticket('multiprint');
+if ((isset($_REQUEST["print"]) || isset($_REQUEST["display"])) && $access->checkCsrf()) {
     // Create XMLRPC object
     $pages = [];
     foreach ($printpages as $page) {
@@ -96,7 +95,6 @@ if (isset($_REQUEST["print"]) || isset($_REQUEST["display"])) {
 }
 
 $smarty->assign_by_ref('pages', $pages);
-ask_ticket('multiprint');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 $smarty->assign('print_page', 'y');

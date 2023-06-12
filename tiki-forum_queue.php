@@ -66,14 +66,12 @@ if (isset($_REQUEST['qId'])) {
 
 $smarty->assign('form', 'y');
 
-if (isset($_REQUEST['remove_attachment'])) {
-    check_ticket('forum-queue');
+if (isset($_REQUEST['remove_attachment']) && $access->checkCsrf()) {
     $commentslib->remove_thread_attachment($_REQUEST['remove_attachment']);
 }
 
 if (isset($_REQUEST['qId'])) {
-    if (isset($_REQUEST['save']) || isset($_REQUEST['saveapp'])) {
-        check_ticket('forum-queue');
+    if ((isset($_REQUEST['save']) || isset($_REQUEST['saveapp'])) && $access->checkCsrf()) {
         $smarty->assign('form', 'n');
 
         if (! isset($_REQUEST['summary'])) {
@@ -132,8 +130,7 @@ if (isset($_REQUEST['qId'])) {
         $commentslib->remove_queued($_REQUEST['qId']);
     }
 
-    if (isset($_REQUEST['topicize'])) {
-        check_ticket('forum-queue');
+    if (isset($_REQUEST['topicize']) && $access->checkCsrf()) {
         $smarty->assign('form', 'n');
 
         // Convert to a topic
@@ -177,15 +174,13 @@ if (isset($_REQUEST['qId'])) {
     }
 }
 
-if (isset($_REQUEST['rej']) && isset($_REQUEST['msg'])) {
-    check_ticket('forum-queue');
+if (isset($_REQUEST['rej']) && isset($_REQUEST['msg']) && $access->checkCsrf()) {
     foreach (array_keys($_REQUEST['msg']) as $msg) {
         $commentslib->remove_queued($msg);
     }
 }
 
-if (isset($_REQUEST['app']) && isset($_REQUEST['msg'])) {
-    check_ticket('forum-queue');
+if (isset($_REQUEST['app']) && isset($_REQUEST['msg']) && $access->checkCsrf()) {
     foreach (array_keys($_REQUEST['msg']) as $msg) {
         $commentslib->approve_queued($msg);
     }
@@ -241,7 +236,6 @@ $smarty->assign_by_ref('items', $items["data"]);
 
 $topics = $commentslib->get_forum_topics($_REQUEST['forumId']);
 $smarty->assign_by_ref('topics', $topics);
-ask_ticket('forum-queue');
 
 // Display the template
 $smarty->assign('mid', 'tiki-forum_queue.tpl');

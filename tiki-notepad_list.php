@@ -12,8 +12,7 @@ $access->check_feature('feature_notepad');
 $access->check_user($user);
 $access->check_permission('tiki_p_notepad');
 // Process upload here
-if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
-    check_ticket('notepad-list');
+if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name']) && $access->checkCsrf()) {
     $filegallib = TikiLib::lib('filegal');
     try {
         $filegallib->assertUploadedFileIsSafe($_FILES['userfile1']['tmp_name'], $_FILES['userfile1']['name']);
@@ -39,8 +38,7 @@ if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_na
     $type = $_FILES['userfile1']['type'];
     $notepadlib->replace_note($user, 0, $name, $data);
 }
-if (isset($_REQUEST["merge"])) {
-    check_ticket('notepad-list');
+if (isset($_REQUEST["merge"]) && $access->checkCsrf()) {
     $merge = '';
     $first = true;
     if (! isset($_REQUEST["note"])) {
@@ -109,6 +107,5 @@ $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 include_once('tiki-section_options.php');
 include_once('tiki-mytiki_shared.php');
-ask_ticket('notepad-list');
 $smarty->assign('mid', 'tiki-notepad_list.tpl');
 $smarty->display("tiki.tpl");

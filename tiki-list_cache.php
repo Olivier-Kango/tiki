@@ -14,8 +14,7 @@ if (isset($_REQUEST["remove"])) {
     $access->check_authenticity();
     $tikilib->remove_cache($_REQUEST["remove"]);
 }
-if (isset($_REQUEST["refresh"])) {
-    check_ticket('list-cache');
+if (isset($_REQUEST["refresh"]) && $access->checkCsrf()) {
     $tikilib->refresh_cache($_REQUEST["refresh"]);
 }
 // This script can receive the threshold
@@ -46,7 +45,6 @@ $listpages = $tikilib->list_cache($offset, $maxRecords, $sort_mode, $find);
 $smarty->assign_by_ref('cant_pages', $listpages["cant"]);
 $smarty->assign_by_ref('listpages', $listpages["data"]);
 
-ask_ticket('list-cache');
 // Display the template
 $smarty->assign('mid', 'tiki-list_cache.tpl');
 $smarty->display("tiki.tpl");

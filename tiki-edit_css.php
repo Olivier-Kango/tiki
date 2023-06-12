@@ -34,16 +34,14 @@ $theme_option_name = $themeOptionName[1];
 $file = $themelib->get_theme_css($theme_name, $theme_option_name);
 $smarty->assign('file', $file);
 
-if (! empty($_REQUEST['edit'])) {
-    check_ticket('edit-css');
+if (! empty($_REQUEST['edit']) && $access->checkCsrf()) {
     if (($data = file_get_contents($file)) === false) {
         $smarty->assign('msg', tra('The specified file does not exist'));
         $smarty->display('error.tpl');
         die;
     }
     $action = 'edit';
-} elseif (! empty($_REQUEST['save']) || ! empty($_REQUEST['save_and_view'])) {
-    check_ticket('edit-css');
+} elseif ($access->checkCsrf() && (! empty($_REQUEST['save']) || ! empty($_REQUEST['save_and_view']))) {
     if (file_exists($file)) {
         $stat = stat($file);
         $mod = $stat['mode'] & 0666;
@@ -111,8 +109,6 @@ if (! empty($_REQUEST['cancel_try'])) {
 $smarty->assign('theme', $theme);
 $themes = $themelib->list_themes_and_options();
 $smarty->assign('themes', $themes);
-
-ask_ticket('edit-css');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

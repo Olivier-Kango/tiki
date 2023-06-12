@@ -127,8 +127,7 @@ function quiz_data_load()
     return $quiz_data;
 }
 
-if (isset($_REQUEST["save"])) {
-    check_ticket('edit-quiz-question');
+if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     $quiz_data = quiz_data_load();
     $quizNew = new Quiz();
     $quizNew->data_load($quiz_data);
@@ -192,7 +191,6 @@ function setup_options(&$tpl)
 $tpl = [];
 setup_options($tpl);
 $smarty->assign('tpl', $tpl);
-ask_ticket('edit-quiz-question');
 
 $smarty->assign('mid', 'tiki-quiz_edit.tpl');
 $smarty->display("tiki.tpl");

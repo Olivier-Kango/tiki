@@ -22,12 +22,10 @@ $smarty->assign('a_section', isset($_REQUEST['section']) ? $_REQUEST['section'] 
 $themes = $themelib->list_themes_and_options();
 $smarty->assign('themes', $themes);
 
-if (isset($_REQUEST['assign'])) {
-    check_ticket('tc-sections');
+if (isset($_REQUEST['assign']) && $access->checkCsrf()) {
     $themecontrollib->tc_assign_section($_REQUEST['section'], $_REQUEST['theme']);
 }
-if (isset($_REQUEST['delete'])) {
-    check_ticket('tc-sections');
+if (isset($_REQUEST['delete']) && $access->checkCsrf()) {
     foreach (array_keys($_REQUEST["sec"]) as $sec) {
         $themecontrollib->tc_remove_section($sec);
     }
@@ -35,6 +33,5 @@ if (isset($_REQUEST['delete'])) {
 $channels = $themecontrollib->tc_list_sections(0, -1, 'section_asc', '');
 $smarty->assign_by_ref('channels', $channels["data"]);
 $smarty->assign('sections', $sections_enabled);
-ask_ticket('tc-sections');
 $smarty->assign('mid', 'tiki-theme_control_sections.tpl');
 $smarty->display('tiki.tpl');

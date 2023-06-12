@@ -106,8 +106,7 @@ $structures = $structlib->list_structures(0, -1, 'pageName_asc', $find);
 $smarty->assign_by_ref('structures', $structures['data']);
 $msg = '';
 
-if (isset($_REQUEST['send'])) {
-    check_ticket('send-objects');
+if (isset($_REQUEST['send']) && $access->checkCsrf()) {
     // Create XMLRPC object
     $_REQUEST['path'] = preg_replace('/^\/?/', '/', $_REQUEST['path']);
     $_REQUEST['site'] = parse_url($_REQUEST['site'], PHP_URL_HOST);
@@ -257,7 +256,6 @@ if ($prefs['feature_articles'] == 'y') {
     $smarty->assign('articles', $articles['data']);
 }
 
-ask_ticket('send-objects');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 

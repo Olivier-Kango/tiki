@@ -107,13 +107,11 @@ switch ($_REQUEST['type']) {
         break;
 }
 $smarty->assign_by_ref('objects', $objects);
-if (isset($_REQUEST['assign'])) {
-    check_ticket('tc-objects');
+if (isset($_REQUEST['assign']) && $access->checkCsrf()) {
     list($id, $name) = explode('|', $_REQUEST['objdata']);
     $themecontrollib->tc_assign_object($id, $_REQUEST['theme'], $_REQUEST['type'], $name);
 }
-if (isset($_REQUEST["delete"])) {
-    check_ticket('tc-objects');
+if (isset($_REQUEST["delete"]) && $access->checkCsrf()) {
     foreach (array_keys($_REQUEST["obj"]) as $obj) {
         $themecontrollib->tc_remove_object($obj);
     }
@@ -139,7 +137,6 @@ $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $themecontrollib->tc_list_objects(null, $offset, $maxRecords, $sort_mode, $find);
 $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
-ask_ticket('tc-objects');
 // Display the template
 $smarty->assign('mid', 'tiki-theme_control_objects.tpl');
 $smarty->display("tiki.tpl");

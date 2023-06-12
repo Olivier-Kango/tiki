@@ -94,8 +94,7 @@ if (
     ($tiki_p_admin_wiki == 'y')
     || ($user and ($user == $info['user']) and ($tiki_p_lock == 'y') and ($prefs['feature_wiki_usrlock'] == 'y'))
 ) {
-    if (isset($_REQUEST["action"])) {
-        check_ticket('index-p');
+    if (isset($_REQUEST["action"]) && $access->checkCsrf()) {
         if ($_REQUEST["action"] == 'unlock') {
             $wikilib->unlock_page($page);
         }
@@ -103,8 +102,7 @@ if (
 }
 
 // Save to notepad if user wants to
-if ($user && $prefs['feature_wiki_notepad'] == 'y' && $tiki_p_notepad == 'y' && $prefs['feature_notepad'] == 'y' && isset($_REQUEST['savenotepad'])) {
-        check_ticket('index-p');
+if ($user && $prefs['feature_wiki_notepad'] == 'y' && $tiki_p_notepad == 'y' && $prefs['feature_notepad'] == 'y' && isset($_REQUEST['savenotepad']) && $access->checkCsrf()) {
     include_once('lib/notepad/notepadlib.php');
 
     $notepadlib->replace_note($user, 0, $_REQUEST['page'], $info['data']);
@@ -146,8 +144,6 @@ if (isset($_REQUEST['pagenum']) && $_REQUEST['pagenum'] > 0) {
 include_once('tiki-section_options.php');
 
 $pageRenderer->runSetups();
-
-ask_ticket('index-p');
 
 // disallow robots to index page
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

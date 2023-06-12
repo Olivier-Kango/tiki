@@ -546,7 +546,7 @@ if (
             && $prefs['feature_notepad'] == 'y'
             && isset($_REQUEST['savenotepad'])
 ) {
-    check_ticket('index');
+    $access->checkCsrf();
     $tikilib->replace_note($user, 0, $page, $info['data']);
 }
 
@@ -568,8 +568,7 @@ if (isset($_REQUEST['undo'])) {
     }
 }
 
-if (isset($_REQUEST['refresh'])) {
-    check_ticket('index');
+if (isset($_REQUEST['refresh']) && $access->checkCsrf()) {
     $tikilib->invalidate_cache($page);
 }
 
@@ -580,8 +579,7 @@ if (isset($_REQUEST['pagenum']) && $_REQUEST['pagenum'] > 0) {
 }
 
 if ($prefs['feature_wiki_attachments'] == 'y' && $prefs['feature_use_fgal_for_wiki_attachments'] != 'y') {
-    if (isset($_REQUEST['removeattach'])) {
-        check_ticket('index');
+    if (isset($_REQUEST['removeattach']) && $access->checkCsrf()) {
         $owner = $wikilib->get_attachment_owner($_REQUEST['removeattach']);
         if (($user && ($owner == $user) ) || $objectperms->wiki_admin_attachments) {
             $access->check_authenticity();
@@ -589,8 +587,7 @@ if ($prefs['feature_wiki_attachments'] == 'y' && $prefs['feature_use_fgal_for_wi
         }
         $pageRenderer->setShowAttachments('y');
     }
-    if (isset($_REQUEST['attach']) && ( $objectperms->wiki_admin_attachments || $objectperms->wiki_attach_files )) {
-        check_ticket('index');
+    if ($access->checkCsrf() && isset($_REQUEST['attach']) && ( $objectperms->wiki_admin_attachments || $objectperms->wiki_attach_files )) {
         // Process an attachment here
         if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
             $ret = $tikilib->attach_file(
@@ -639,8 +636,7 @@ if ($prefs['feature_wiki_attachments'] == 'y' && $prefs['feature_use_fgal_for_wi
 
 // Watches
 if ($prefs['feature_user_watches'] == 'y') {
-    if ($user && isset($_REQUEST['watch_event']) && ! isset($_REQUEST['watch_group'])) {
-        check_ticket('index');
+    if ($user && isset($_REQUEST['watch_event']) && ! isset($_REQUEST['watch_group']) && $access->checkCsrf()) {
         if (($_REQUEST['watch_action'] == 'add_desc' || $_REQUEST['watch_action'] == 'remove_desc') && ! $objectperms->watch_structure) {
             $access->display_error($page, tra('Permission denied'), '403');
         }
@@ -675,8 +671,6 @@ if ($prefs['feature_user_watches'] == 'y') {
 }
 
 $sameurl_elements = ['pageName','page'];
-
-ask_ticket('index');
 
 //add a hit
 $statslib->stats_hit($page, 'wiki');

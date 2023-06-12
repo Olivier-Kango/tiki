@@ -33,8 +33,7 @@ if (! ($tiki_p_admin_file_galleries == 'y' || $tiki_p_view_file_gallery == 'y'))
 
 $auto_query_args = ['fileId','offset','find','sort_mode','filegals_manager','maxRecords'];
 
-if (! empty($_REQUEST['remove'])) {
-    check_ticket('list-archives');
+if (! empty($_REQUEST['remove']) && $access->checkCsrf()) {
     if (! ($removeInfo = $filegallib->get_file_info($_REQUEST['remove']))) {
         $smarty->assign('msg', tra("Incorrect param"));
         $smarty->display('error.tpl');
@@ -49,8 +48,7 @@ if (! empty($_REQUEST['remove'])) {
     $access->check_authenticity(($removeInfo['archiveId'] ? tra('Remove archive: ') : tra('Remove file gallery: ')) . (! empty($removeInfo['name']) ? $removeInfo['name'] . ' - ' : '') . $removeInfo['filename']);
     $filegallib->remove_file($removeInfo, $gal_info);
 }
-if ($_REQUEST['fgal_actions'] === 'delsel_x' && ! empty($_REQUEST['file'])) {
-    check_ticket('list-archives');
+if ($_REQUEST['fgal_actions'] === 'delsel_x' && ! empty($_REQUEST['file']) && $access->checkCsrf()) {
     foreach (array_values($_REQUEST['file']) as $fileId) {
         if (! ($removeInfo = $filegallib->get_file_info($fileId))) {
             $smarty->assign('msg', tra("Incorrect param"));
@@ -127,7 +125,6 @@ if ($prefs['feature_theme_control'] == 'y') {
     $cat_objid = $_REQUEST["galleryId"];
     include('tiki-tc.php');
 }
-ask_ticket('list-archives');
 
 // Get listing display config
 include_once('fgal_listing_conf.php');

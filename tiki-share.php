@@ -177,7 +177,7 @@ if (isset($_REQUEST['send'])) {
         $smarty->assign('how_much_time_access', $_REQUEST['how_much_time_access']);
     }
 
-    check_ticket('share');
+    $access->checkCsrf();
     if (empty($user) && $prefs['feature_antibot'] == 'y' && ! $captchalib->validate()) {
         $errors[] = $captchalib->getErrors();
     } else {
@@ -342,7 +342,6 @@ if (isset($_REQUEST['send'])) {
     $smarty->assign('email', $userlib->get_user_email($user));
 }
 
-ask_ticket('share');
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 $smarty->assign('mid', 'tiki-share.tpl');
 $smarty->display('tiki.tpl');

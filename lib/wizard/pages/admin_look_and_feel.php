@@ -34,15 +34,11 @@ class AdminWizardLookAndFeel extends Wizard
 //handle case when changing the themes in the Look and Feel settings panel
         $a_theme = $prefs['theme'];
         if (isset($_REQUEST['looksetup'])) {
-            ask_ticket('admin-inc-look');
-            if (isset($_REQUEST['theme'])) {
-                check_ticket('admin-inc-general');
-
+            if (isset($_REQUEST['theme']) && $access->checkCsrf()) {
                 if (! isset($_REQUEST['theme_option']) || $_REQUEST['theme_option'] = '') {
                     // theme has no options
                     $_REQUEST['theme_option'] = '';
                 }
-                check_ticket('admin-inc-general');
             }
         } else {
             // just changed theme menu, so refill options

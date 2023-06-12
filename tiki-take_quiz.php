@@ -75,8 +75,7 @@ if (isset($_REQUEST["timeleft"])) {
         $options = $quizlib->list_quiz_question_options($questions["data"][$i]["questionId"], 0, -1, 'optionText_asc', '');
         $qid = $questions["data"][$i]["questionId"];
         $max += $questions["data"][$i]["maxPoints"];
-        if (isset($_REQUEST["question_$qid"])) {
-            check_ticket('take-quiz');
+        if (isset($_REQUEST["question_$qid"]) && $access->checkCsrf()) {
             $opt = $quizlib->get_quiz_question_option($_REQUEST["question_$qid"]);
             $points += $opt["points"];
             // Register the answer for quiz stats
@@ -92,8 +91,7 @@ if (isset($_REQUEST["timeleft"])) {
         for ($i = 0; $i < $temp_max; $i++) {
             $options = $quizlib->list_quiz_question_options($questions["data"][$i]["questionId"], 0, -1, 'optionText_asc', '');
             $qid = $questions["data"][$i]["questionId"];
-            if (isset($_REQUEST["question_$qid"])) {
-                check_ticket('take-quiz');
+            if (isset($_REQUEST["question_$qid"]) && $access->checkCsrf()) {
                 $quizlib->register_user_quiz_answer($userResultId, $_REQUEST["quizId"], $qid, $_REQUEST["question_$qid"]);
             }
             // TAKE CARE OF FILE UPLOADS FOR QUESTIONS
@@ -126,7 +124,6 @@ if ($prefs['feature_theme_control'] == 'y') {
     $cat_objid = $_REQUEST["quizId"];
     include('tiki-tc.php');
 }
-ask_ticket('take-quiz');
 // Display the template
 $smarty->assign('mid', 'tiki-take_quiz.tpl');
 $smarty->display("tiki.tpl");

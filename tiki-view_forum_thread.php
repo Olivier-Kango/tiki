@@ -134,8 +134,7 @@ if (isset($_REQUEST["comments_reply_threadId"])) {
     $smarty->assign('comments_reply_threadId', $_REQUEST["comments_reply_threadId"]);
 }
 $smarty->assign('forumId', $forumId);
-if (isset($_REQUEST['lock'])) {
-    check_ticket('view-forum');
+if (isset($_REQUEST['lock']) && $access->checkCsrf()) {
     if ($_REQUEST['lock'] == 'y') {
         $commentslib->lock_comment($_REQUEST["comments_parentId"]);
     } elseif ($_REQUEST['lock'] == 'n') {
@@ -191,8 +190,7 @@ if ($threads) {
     }
 }
 if ($tiki_p_admin_forum == 'y') {
-    if ($prefs['feature_forum_topics_archiving'] == 'y' && isset($_REQUEST['archive']) && isset($_REQUEST['comments_parentId'])) {
-        check_ticket('view-forum');
+    if ($prefs['feature_forum_topics_archiving'] == 'y' && isset($_REQUEST['archive']) && isset($_REQUEST['comments_parentId']) && $access->checkCsrf()) {
         if ($_REQUEST['archive'] == 'y') {
             $commentslib->archive_thread($_REQUEST['comments_parentId']);
         } elseif ($_REQUEST['archive'] == 'n') {
@@ -200,8 +198,7 @@ if ($tiki_p_admin_forum == 'y') {
         }
     }
 }
-if ($tiki_p_forums_report == 'y' && isset($_REQUEST['report'])) {
-    check_ticket('view-forum');
+if ($tiki_p_forums_report == 'y' && isset($_REQUEST['report']) && $access->checkCsrf()) {
     $commentslib->report_post($forumId, $_REQUEST['comments_parentId'], $_REQUEST['report'], $user, '');
 
     $pageCache->invalidate();
@@ -283,14 +280,12 @@ $cat_type = 'forum';
 $cat_objid = $forumId;
 include_once('tiki-section_options.php');
 
-if ($user && $prefs['feature_notepad'] == 'y' && isset($_REQUEST['savenotepad']) && $tiki_p_notepad == 'y') {
-    check_ticket('view-forum');
+if ($user && $prefs['feature_notepad'] == 'y' && isset($_REQUEST['savenotepad']) && $tiki_p_notepad == 'y' && $access->checkCsrf()) {
     $info = $commentslib->get_comment($_REQUEST['savenotepad'], null, $forum_info);
     $tikilib->replace_note($user, 0, $info['title'], $info['data']);
 }
 if ($prefs['feature_user_watches'] == 'y') {
-    if ($user && isset($_REQUEST['watch_event'])) {
-        check_ticket('view-forum');
+    if ($user && isset($_REQUEST['watch_event']) && $access->checkCsrf()) {
         if ($_REQUEST['watch_action'] == 'add') {
             $tikilib->add_user_watch($user, $_REQUEST['watch_event'], $_REQUEST['watch_object'], 'forum topic', $forum_info['name'] . ':' . $thread_info['title'], "tiki-view_forum_thread.php?comments_parentId=" . $_REQUEST['comments_parentId']);
         } else {
@@ -362,7 +357,6 @@ $smarty->assign('forum_mode', 'y');
 if ($prefs['feature_actionlog'] == 'y') {
     $logslib->add_action('Viewed', $forumId, 'forum', 'comments_parentId=' . $comments_parentId);
 }
-ask_ticket('view-forum');
 if ($prefs['feature_forum_parse'] == 'y') {
     $wikilib = TikiLib::lib('wiki');
     $plugins = $wikilib->list_plugins(true, 'editpost2');

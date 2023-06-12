@@ -201,8 +201,7 @@ $smarty->assign_by_ref('topics', $topics);
 $smarty->assign('preview', 0);
 
 // If we are in preview mode then preview it!
-if (isset($_REQUEST['preview']) || ! empty($errors)) {
-    check_ticket('edit-submission');
+if ((isset($_REQUEST['preview']) || ! empty($errors)) && $access->checkCsrf()) {
 # convert from the displayed 'site' time to 'server' time
 
     //Convert 12-hour clock hours to 24-hour scale to compute time
@@ -388,9 +387,7 @@ if (isset($_REQUEST['preview']) || ! empty($errors)) {
 }
 
 // Pro
-if ((isset($_REQUEST['save']) || isset($_REQUEST['submitarticle'])) && empty($errors)) {
-    check_ticket('edit-submission');
-
+if ((isset($_REQUEST['save']) || isset($_REQUEST['submitarticle'])) && empty($errors) && $access->checkCsrf()) {
     # convert from the displayed 'site' time to UTC time
     //Convert 12-hour clock hours to 24-hour scale to compute time
     if (! empty($_REQUEST['publish_Meridian'])) {
@@ -634,7 +631,6 @@ $smarty->assign_by_ref('plugins', $plugins);
 
 $smarty->assign('showtags', 'n');
 $smarty->assign('qtcycle', '');
-ask_ticket('edit-submission');
 
 $smarty->assign('section', $section);
 include_once('tiki-section_options.php');

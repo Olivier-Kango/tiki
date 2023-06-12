@@ -476,9 +476,7 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
     $smarty->assign('heading', $heading);
 }
 
-if (isset($_REQUEST['save']) && empty($errors)) {
-    check_ticket('edit-article');
-
+if (isset($_REQUEST['save']) && empty($errors) && $access->checkCsrf()) {
     # convert from the displayed 'site' time to 'server' time
     if (isset($_REQUEST['publish_Hour'])) {
         //Convert 12-hour clock hours to 24-hour scale to compute time
@@ -830,8 +828,6 @@ include_once('tiki-section_options.php');
 $wikilib = TikiLib::lib('wiki');
 $plugins = $wikilib->list_plugins(true, 'body');
 $smarty->assign_by_ref('plugins', $plugins);
-
-ask_ticket('edit-article');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

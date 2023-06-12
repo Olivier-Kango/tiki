@@ -15,8 +15,7 @@ $access->check_feature('feature_wiki');
 $access->check_permission('tiki_p_admin');
 @ini_set('max_execution_time', 0);
 
-if (isset($_REQUEST['import'])) {
-    check_ticket('import_xml_zip');
+if (isset($_REQUEST['import']) && $access->checkCsrf()) {
     if (! empty($_REQUEST['local'])) {
         $zipFile = $_REQUEST['local'];
         $path = pathinfo($_REQUEST['local']);
@@ -45,6 +44,5 @@ if (isset($_REQUEST['import'])) {
         Feedback::error(['mes' => $error]);
     }
 }
-ask_ticket('import_xml_zip');
 $smarty->assign('mid', 'tiki-import_xml_zip.tpl');
 $smarty->display("tiki.tpl");

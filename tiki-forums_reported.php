@@ -59,8 +59,7 @@ if (isset($_REQUEST['qId'])) {
 
 $smarty->assign('form', 'y');
 
-if (isset($_REQUEST['del']) && isset($_REQUEST['msg'])) {
-    check_ticket('forum-reported');
+if (isset($_REQUEST['del']) && isset($_REQUEST['msg']) && $access->checkCsrf()) {
     foreach (array_keys($_REQUEST['msg']) as $msg) {
         $commentslib->remove_reported($msg);
     }
@@ -113,8 +112,6 @@ $smarty->assign('cant', $items['cant']);
 $smarty->assign_by_ref('cant_pages', $items["cant"]);
 
 $smarty->assign_by_ref('items', $items["data"]);
-
-ask_ticket('forum-reported');
 
 // Display the template
 $smarty->assign('mid', 'tiki-forums_reported.tpl');
