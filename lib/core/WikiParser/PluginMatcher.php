@@ -272,6 +272,9 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 
     public function performReplace($match, $string)
     {
+        if (! isset($string)) {
+            $string = '';
+        }
         $start = $match->getStart();
         $end = $match->getEnd();
 
