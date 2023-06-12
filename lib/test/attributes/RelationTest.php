@@ -140,6 +140,47 @@ class RelationTest extends TikiTestCase
         $this->assertFalse($lib->get_relation($id));
     }
 
+    public function testObjectRetrieval(): void
+    {
+        $lib = new RelationLib();
+        $lib->add_relation('tiki.test.related', 'trackeritem', 123, 'trackeritem', 321);
+
+        $relations = $lib->getObjectRelations('trackeritem', 123, 'tiki.test.related');
+
+        $this->assertEquals(1, count($relations));
+
+        $rel = $relations[0];
+        $this->assertEquals('trackeritem', $rel->target->type);
+        $this->assertEquals(321, $rel->target->itemId);
+        $this->assertEquals(null, $rel->getMetadataItemId());
+    }
+
+    public function testInvertObjectRetrieval(): void
+    {
+        $lib = new RelationLib();
+        $lib->add_relation('tiki.test.related', 'trackeritem', 123, 'trackeritem', 321);
+
+        $relations = $lib->getObjectRelations('trackeritem', 321, 'tiki.test.related.invert');
+
+        $this->assertEquals(1, count($relations));
+        $this->assertEquals(123, $relations[0]->target->itemId);
+    }
+
+    public function testDoubleInvertObjectRetrieval(): void
+    {
+        $lib = new RelationLib();
+        $lib->add_relation('tiki.test.related.invert', 'trackeritem', 123, 'trackeritem', 321);
+        $lib->add_relation('tiki.test.related', 'trackeritem', 789, 'trackeritem', 987);
+
+        $relations = $lib->getObjectRelations('trackeritem', 123, 'tiki.test.related', true);
+        $this->assertEquals(1, count($relations));
+        $this->assertEquals(321, $relations[0]->target->itemId);
+
+        $relations = $lib->getObjectRelations('trackeritem', 789, 'tiki.test.related.invert', true);
+        $this->assertEquals(1, count($relations));
+        $this->assertEquals(987, $relations[0]->target->itemId);
+    }
+
     private function removeId($data)
     {
         foreach ($data as & $row) {
