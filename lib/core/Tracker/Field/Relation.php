@@ -594,7 +594,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $meta = $this->aggregateAllRelatedHandlers($data['relations'], function ($handler) use ($typeFactory) {
             return $handler->getDocumentPart($typeFactory);
         });
-        
+
         return array_merge([
             $baseKey => $typeFactory->sortable($value),
             "{$baseKey}_multi" => $typeFactory->multivalue(explode("\n", $value)),
@@ -639,7 +639,8 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         return ["{$baseKey}_plain" => true];    // index contents with the object titles
     }
 
-    protected function aggregateAllRelatedHandlers(array $relations, callable $cb) {
+    protected function aggregateAllRelatedHandlers(array $relations, callable $cb)
+    {
         $meta = [];
         foreach ($relations as $rel) {
             if ($rel->metadata) {

@@ -178,6 +178,8 @@ class RelationLib extends TikiDb_Bridge
      */
     public function add_relation($relation, $src_type, $src_object, $target_type, $target_object, $ignoreExisting = false, $src_field_id = null, $metadata_item_id = null)
     {
+        global $user;
+
         $relation = TikiFilter::get('attribute_type')->filter($relation);
 
         if (substr($relation, -7) === '.invert') {
@@ -209,7 +211,7 @@ class RelationLib extends TikiDb_Bridge
                 'sourcefield' => $src_field_id,
                 'type' => $target_type,
                 'object' => $target_object,
-                'user' => $GLOBALS['user'],
+                'user' => $user,
             ]);
 
             TikiLib::lib('tiki')->refresh_index($src_type, $src_object);
@@ -340,6 +342,8 @@ class RelationLib extends TikiDb_Bridge
      */
     public function remove_relation($id)
     {
+        global $user;
+
         $relation_info = $this->get_relation($id);
         $this->table->delete(
             [
@@ -364,7 +368,7 @@ class RelationLib extends TikiDb_Bridge
             'sourcefield' => $relation_info['source_fieldId'],
             'type' => $relation_info['target_type'],
             'object' => $relation_info['target_itemId'],
-            'user' => $GLOBALS['user'],
+            'user' => $user,
         ]);
 
         TikiLib::lib('tiki')->refresh_index($relation_info['source_type'], $relation_info['source_itemId']);

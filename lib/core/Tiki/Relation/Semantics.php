@@ -9,9 +9,9 @@ namespace Tiki\Relation;
 
 class Semantics
 {
-    const MANY_TO_MANY = 1;
-    const ONE_TO_MANY = 2;
-    const BEHAVIOUR_LIST = [
+    public const MANY_TO_MANY = 1;
+    public const ONE_TO_MANY = 2;
+    public const BEHAVIOUR_LIST = [
         'GENERIC_DIRECTIONAL' => ['cardinality' => self::MANY_TO_MANY, 'directional' => true],
         'GENERIC_NON_DIRECTIONAL' => ['cardinality' => self::MANY_TO_MANY, 'directional' => false],
         'GENERIC_ONE_TO_MANY' => ['cardinality' => self::ONE_TO_MANY, 'directional' => true],
@@ -19,7 +19,8 @@ class Semantics
 
     protected string $behaviour = '';
 
-    public function __construct($behaviour) {
+    public function __construct($behaviour)
+    {
         if (! isset(self::BEHAVIOUR_LIST[$behaviour])) {
             throw new \Exception(tr('Incorrect relationship behaviour requested:') . ' ' . $behaviour);
         }
@@ -29,7 +30,6 @@ class Semantics
 
     public function isMultiple()
     {
-
         return self::BEHAVIOUR_LIST[$this->behaviour]['cardinality'] == self::MANY_TO_MANY;
     }
 

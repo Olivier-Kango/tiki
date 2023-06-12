@@ -845,7 +845,6 @@ class TrackerLib extends TikiLib
             }
         }
         return $trackerIds;
-
     }
 
     /**
