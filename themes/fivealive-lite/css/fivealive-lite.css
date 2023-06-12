@@ -12336,7 +12336,7 @@ header.header .sitetitle, header.header .sitesubtitle {
   border: none;
 }
 .col2 .card-header, .col3 .card-header {
-  background: #ffffff;
+  background: var(--bs-body-bg);
   border-width: 0 0 1px 0;
   border-style: solid;
   border-color: #1174a5;
@@ -12357,10 +12357,6 @@ header.header .sitetitle, header.header .sitesubtitle {
 }
 .layout_basic .topbar > div {
   margin-bottom: -3px !important;
-}
-.form-control, select, input[type="text"], input[type="password"], input[type="file"], input[type="email"], input[type="search"], input[type="number"], input#login-pass, textarea, .adminoptionbox option {
-  background-color: #ffffff;
-  border-color: #9ae8fa #e3f7fb #e3f7fb #9ae8fa;
 }
 .navbar-collapse {
   border: none;

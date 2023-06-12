@@ -249,11 +249,11 @@ $code-color:                        $pink !default; // Bootstrap 5.3
 // - - - - - - - - - - Tiki selector variables ( for _tiki-selectors.scss ) - - - - - - - - - //
 
 // tiki-selector-variables.scss file, to provide values for "legacy" Tiki CSS selectors (not covered by Bootstrap).
-// These FiveAlive-lite theme option values are used by themes/fivealive-lite/less/_tiki-selectors.scss
+// These FiveAlive-lite theme option values are used by themes/fivealive-lite/scss/_tiki-selectors.scss
 
 $imagePath: "../images/";
 $side-column-border: none;
-$side-column-card-header-bg: #ffffff !default;
+$side-column-card-header-bg: var(--bs-body-bg); // #ffffff !default;
 // #f5399c
 $side-column-card-header-color: #1174a5 !default;
 // #3f1020;
@@ -265,8 +265,8 @@ $header_container_header-bg: url('#{$imagePath}siteheader.png') -248px 0 no-repe
 $header-color: #ffffff !default;
 $topbar_container-bg: #28aae1 !default;
 $topbar-bg: #28a7de !default;
-$form-control-bg: #ffffff !default;
-$form-control-border-colors: #9ae8fa #e3f7fb #e3f7fb #9ae8fa !default;
+//$form-control-bg: #ffffff !default; Doesn't work with color modes
+//$form-control-border-colors: #9ae8fa #e3f7fb #e3f7fb #9ae8fa !default;
 $footer-color: #696969 !default;
 $footer-border-color: #28aae1 !default;
 $footer-link-color: #a9a9a9 !default;
