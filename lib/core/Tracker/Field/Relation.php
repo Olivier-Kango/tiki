@@ -217,7 +217,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $params['relationshipTracker'] = $relationshipTracker;
         if ($relationshipTracker) {
             $params['relationshipTrackerId'] = $relationshipTracker->getConfiguration('trackerId');
-            $params['relationshipBehaviour'] = $relationshipTracker->getRelationshipBehaviour();
+            $params['relationshipBehaviour'] = $relationshipTracker->getRelationshipBehaviour($this->getOption(self::OPT_RELATION));
         }
 
         return $this->renderTemplate(

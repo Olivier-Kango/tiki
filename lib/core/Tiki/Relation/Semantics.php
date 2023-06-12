@@ -18,23 +18,40 @@ class Semantics
     ];
 
     protected string $behaviour = '';
+    protected string $relation = '';
 
-    public function __construct($behaviour)
+    public function __construct(string $behaviour, string $relation)
     {
         if (! isset(self::BEHAVIOUR_LIST[$behaviour])) {
             throw new \Exception(tr('Incorrect relationship behaviour requested:') . ' ' . $behaviour);
         }
         $this->behaviour = $behaviour;
+        $this->relation = $relation;
         return $this;
     }
 
     public function isMultiple()
     {
-        return self::BEHAVIOUR_LIST[$this->behaviour]['cardinality'] == self::MANY_TO_MANY;
+        switch (self::BEHAVIOUR_LIST[$this->behaviour]['cardinality']) {
+            case self::MANY_TO_MANY:
+                return true;
+            case self::ONE_TO_MANY:
+                if ($this->invert()) {
+                    return true;
+                } else {
+                    return false;
+                }
+        }
+        throw new \Exception(tr('Unknown relation cardinality specified for behaviour %0', $this->behaviour));
     }
 
     public function isDirectional()
     {
         return self::BEHAVIOUR_LIST[$this->behaviour]['directional'];
+    }
+
+    public function invert()
+    {
+        return substr($this->relation, -7) === '.invert';
     }
 }

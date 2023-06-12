@@ -85,10 +85,10 @@ class Tracker_Definition
         return $this->getConfiguration($key) === 'y';
     }
 
-    public function getRelationshipBehaviour()
+    public function getRelationshipBehaviour($relation)
     {
         if ($behaviour = $this->getConfiguration('relationshipBehaviour')) {
-            return new Tiki\Relation\Semantics($behaviour);
+            return new Tiki\Relation\Semantics($behaviour, $relation);
         }
         return null;
     }
@@ -352,6 +352,18 @@ class Tracker_Definition
         }
 
         return $out;
+    }
+
+    public function getRelationField($relation)
+    {
+        foreach ($this->getFields() as $field) {
+            if (
+                $field['type'] == 'REL'
+                && $field['options_map']['relation'] == $relation
+            ) {
+                return $field['fieldId'];
+            }
+        }
     }
 
     /**
