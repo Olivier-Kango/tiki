@@ -11361,6 +11361,9 @@ textarea.form-control-lg {
 a.fc-event:hover {
   color: var(--bs-body-bg);
 }
+.fc-media-screen {
+  --fc-page-bg-color: var(--bs-body-bg);
+}
 .filter .fancyfilter {
   border: thin solid #0d6efd;
   /*black*/

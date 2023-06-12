@@ -10902,6 +10902,9 @@ header.navbar.fixed-top {
 a.fc-event:hover {
   color: var(--bs-body-bg);
 }
+.fc-media-screen {
+  --fc-page-bg-color: var(--bs-body-bg);
+}
 .filter .fancyfilter {
   border: thin solid #eb6864;
   /*black*/
