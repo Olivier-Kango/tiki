@@ -158,6 +158,7 @@ class ComposerManager
                     $package['replacedBy'] = $packageListLookup[$packageName]['replacedBy'];
                 } else {
                     $package['key'] = '';
+                    $package['requiredBy'] = [];
                 }
 
                 if (ExtensionManager::isExtension($packageName)) {
