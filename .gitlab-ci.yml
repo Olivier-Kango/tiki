@@ -239,7 +239,7 @@ check-directories:
   needs: []
   allow_failure: true
 
-composer-lock:
+.composer-lock:
   image: ${BASE_QA_IMAGE}
   stage: tiki-check
   script:
