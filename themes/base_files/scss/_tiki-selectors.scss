@@ -998,6 +998,10 @@ span.plugin-mouseover {
     color: $dark; // $btn-primary-color;
 }
 
+.tiki .ui-menu-item-wrapper:hover {
+    text-decoration: underline;
+}
+
 .tiki.tiki-listpages {
     .ui-widget.ui-widget-content {
         border: 1px solid $border-color;

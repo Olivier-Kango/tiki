@@ -10928,14 +10928,8 @@ header.navbar.fixed-top {
   --tiki-topbar-border: solid rgb(85, 85, 85)
 }
 
-.tiki-top-nav-light {
-    --tiki-top-bg: linear-gradient(#f2f2f2, #eee 50%, #dbdbdb);
-  --tiki-top-color: rgba(0, 0, 0, 0.7);
-  --tiki-top-hover-color: #3399f3;
-  --tiki-top-border: solid #bebebe;
-}
 .tiki-top-nav-light, .tiki-top-nav-dark {
-  --tiki-top-border-width: 1px;
+    --tiki-top-border-width: 1px;
   --tiki-topbar-border-width: 1px;
 }
 [data-bs-theme=dark] .tiki-top-nav-light {
@@ -11554,6 +11548,9 @@ div.drillshow {
 .tiki .ui-widget button {
   background: #eee;
   color: #333;
+}
+.tiki .ui-menu-item-wrapper:hover {
+  text-decoration: underline;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;

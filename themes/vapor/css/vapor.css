@@ -11749,6 +11749,9 @@ div.drillshow {
   background: #44d9e8;
   color: #170229;
 }
+.tiki .ui-menu-item-wrapper:hover {
+  text-decoration: underline;
+}
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;
   background: var(--bs-body-bg);
