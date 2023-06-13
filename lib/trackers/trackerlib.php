@@ -834,8 +834,8 @@ class TrackerLib extends TikiLib
     public function getSystemTrackerIds()
     {
         global $prefs;
-        $trackerIds = [];
-        foreach (['tracker_system_currency_tracker', 'tracker_system_bounces_tracker', 'tracker_system_relations_trackers'] as $pref) {
+        $trackerIds = $this->getRelationshipTrackerIds();
+        foreach (['tracker_system_currency_tracker', 'tracker_system_bounces_tracker'] as $pref) {
             if (! empty($prefs[$pref])) {
                 if (is_array($prefs[$pref])) {
                     $trackerIds = array_merge($trackerIds, $prefs[$pref]);
@@ -845,6 +845,17 @@ class TrackerLib extends TikiLib
             }
         }
         return $trackerIds;
+    }
+
+    /**
+     * Return a list of tracker IDs used as relationship metadata system trackers.
+     */
+    public function getRelationshipTrackerIds()
+    {
+        return $this->options()->fetchColumn('trackerId', [
+            'name' => 'relationshipBehaviour',
+            'value' => $this->options()->not(''),
+        ]);
     }
 
     /**

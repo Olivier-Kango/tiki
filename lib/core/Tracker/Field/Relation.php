@@ -73,7 +73,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                     ],
                     'relationshipTrackerId' => [
                         'name' => tr('Relationship Tracker ID'),
-                        'description' => tr('Optionally describe the relationship with a metadata system tracker.'),
+                        'description' => tr('Optionally describe the relationship with a metadata system tracker. You can create predefined trackers from %0admin trackers%1 or define any existing tracker from its properties.', '<a href="tiki-admin.php?page=trackers#content-admin1-4" target="_blank">', '</a>'),
                         'filter' => 'int',
                         'profile_reference' => 'tracker',
                         'selector_filter' => 'relationship-trackers'
@@ -142,9 +142,13 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $meta = [];
         if (! $this->getOption(self::OPT_READONLY) && isset($requestData[$insertId])) {
             $selector = TikiLib::lib('objectselector');
-            $entries = $selector->readMultiple($requestData[$insertId]['objects']);
+            if (is_array($requestData[$insertId])) {
+                $entries = $selector->readMultiple($requestData[$insertId]['objects']);
+                $meta = json_decode($requestData[$insertId]['meta'], true);
+            } else {
+                $entries = $selector->readMultiple($requestData[$insertId]);
+            }
             $data = array_map('strval', $entries);
-            $meta = json_decode($requestData[$insertId]['meta'], true);
         } else {
             $relation = $this->getOption(self::OPT_RELATION);
             $relations = TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation);

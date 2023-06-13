@@ -496,7 +496,7 @@ class Services_Tracker_Controller
                     $param['searchfilter'] = ['object_id' => 'NOT ' . $fieldId];
                 }
                 if (! empty($param['selector_filter']) && $param['selector_filter'] == 'relationship-trackers') {
-                    $param['searchfilter'] = ['object_id' => implode(' OR ', $prefs['tracker_system_relations_trackers'])];
+                    $param['searchfilter'] = ['object_id' => implode(' OR ', TikiLib::lib('trk')->getRelationshipTrackerIds())];
                 }
             } else {
                 $param['selector_type'] = null;

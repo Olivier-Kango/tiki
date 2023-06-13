@@ -24,7 +24,6 @@ class SystemTrackerCreator
     public function __construct()
     {
         $this->trklib = TikiLib::lib('trk');
-        $this->tikilib = TikiLib::lib('tiki');
     }
 
     public function createRelationshipTracker($type)
@@ -80,8 +79,6 @@ class SystemTrackerCreator
             '',
             'genericRelationshipDescription'
         );
-        $prefs['tracker_system_relations_trackers'][] = $trackerId;
-        $this->tikilib->set_preference('tracker_system_relations_trackers', $prefs['tracker_system_relations_trackers']);
     }
 
     public function createParentChildRelationshipTracker()
@@ -97,7 +94,5 @@ class SystemTrackerCreator
         ]);
         $data = $this->trklib->trackerOptionsFromInput($input);
         $trackerId = $this->trklib->replace_tracker(0, $name, $description, $data, $descriptionIsParsed);
-        $prefs['tracker_system_relations_trackers'][] = $trackerId;
-        $this->tikilib->set_preference('tracker_system_relations_trackers', $prefs['tracker_system_relations_trackers']);
     }
 }

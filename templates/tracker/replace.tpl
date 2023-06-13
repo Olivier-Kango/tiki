@@ -582,22 +582,20 @@
                 </div>
             {/accordion_group}
         {/if}
-        {if $info.system_tracker and in_array($info.trackerId, $prefs.tracker_system_relations_trackers)}
-            {accordion_group title="{tr}System tracker{/tr}"}
-                <div class="mb-3 row mx-0">
-                    <label for="relationshipBehaviour">{tr}Relationship behaviour{/tr}</label>
-                    <select name="relationshipBehaviour" id="relationshipBehaviour" class="form-control">
-                        <option value="">{tr}None{/tr}</option>
-                        {foreach item=key from=$relationshipBehaviourList}
-                            <option value="{$key|escape}"
-                                {if $key eq $info.relationshipBehaviour} selected="selected"{/if}>
-                                {$key|escape}
-                            </option>
-                        {/foreach}
-                    </select>
-                </div>
-            {/accordion_group}
-        {/if}
+        {accordion_group title="{tr}Enable special behaviours{/tr}"}
+            <div class="mb-3 row mx-0">
+                <label for="relationshipBehaviour">{tr}This tracker can be used as relationship metadata with behaviour{/tr}</label>
+                <select name="relationshipBehaviour" id="relationshipBehaviour" class="form-control">
+                    <option value="">{tr}None{/tr}</option>
+                    {foreach item=key from=$relationshipBehaviourList}
+                        <option value="{$key|escape}"
+                            {if $key eq $info.relationshipBehaviour} selected="selected"{/if}>
+                            {$key|escape}
+                        </option>
+                    {/foreach}
+                </select>
+            </div>
+        {/accordion_group}
     {/accordion}
     <div class="mb-3 row mx-0 submit">
         <input type="hidden" name="confirm" value="1">

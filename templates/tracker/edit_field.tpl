@@ -86,7 +86,7 @@
                     {else}
                         <input type="text" name="option~{$param|escape}" value="{$options[$param]|escape}" class="form-control">
                     {/if}
-                    <div class="form-text">{$def.description|escape}</div>
+                    <div class="form-text">{$def.description}</div>
                     {if ! $def.selector_type}
                         {if $def.count eq '*'}
                             <div class="form-text">{tr}Separate multiple with commas.{/tr}</div>

@@ -375,14 +375,5 @@ function prefs_tracker_list()
             'parentkey' => 'tracker_id',
             'profile_reference' => 'tracker_field',
         ],
-        'tracker_system_relations_trackers' => [
-            'name' => tr('Relation metadata tracker(s)'),
-            'description' => tr('Choose which tracker(s) will store the relation metdata information.'),
-            'type' => 'text',
-            'separator' => ',',
-            'profile_reference' => 'tracker',
-            'default' => [],
-            'hint' => tr('Hint: Edit relation-specific data from individual tracker properties.'),
-        ],
     ];
 }

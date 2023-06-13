@@ -87,43 +87,6 @@
                 {preference name=tracker_force_tracker_fields}
                 {preference name=user_force_avatar_upload}
             </fieldset>
-            <fieldset class="admin">
-                <legend>{tr}System trackers{/tr}</legend>
-                {preference name=tracker_system_currency}
-                <div class="adminoptionboxchild" id="tracker_system_currency_childcontainer">
-                    {preference name=tracker_system_currency_tracker}
-                    {preference name=tracker_system_currency_rate}
-                    {preference name=tracker_system_currency_currency}
-                    {preference name=tracker_system_currency_date}
-                    {preference name=tracker_system_currency_direction}
-                </div>
-                {preference name=tracker_system_bounces}
-                <div class="adminoptionboxchild" id="tracker_system_bounces_childcontainer">
-                    {preference name=tracker_system_bounces_tracker}
-                    {preference name=tracker_system_bounces_mailbox}
-                    {preference name=tracker_system_bounces_emailfolder}
-                    {preference name=tracker_system_bounces_soft_total}
-                    {preference name=tracker_system_bounces_hard_total}
-                    {preference name=tracker_system_bounces_blacklisted}
-                </div>
-                {preference name=tracker_system_relations_trackers}
-                <div class="adminoptionboxchild">
-                    <div class="row">
-                        <div class="col-sm-6"> 
-                            <select name="relationshipTrackerType">
-                                <option value="">{tr}Choose example tracker type{/tr}</option>
-                                <option value="generic">Generic description</option>
-                                <option value="parent-child">Parent-child</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6">
-                            <button role="button" type="submit" class="btn btn-primary" name="createRelationsTracker" value="1">
-                                {tr}Create Relationship Tracker{/tr}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
         {/tab}
 
         {tab name="{tr}Plugins{/tr}"}
@@ -157,6 +120,51 @@
                 {foreach from=$fieldPreferences item=name}
                     {preference name=$name}
                 {/foreach}
+            </fieldset>
+        {/tab}
+
+        {tab name="{tr}System Trackers{/tr}"}
+            <br>
+            <fieldset class="admin">
+                <legend>{tr}System trackers{/tr}</legend>
+                {preference name=tracker_system_currency}
+                <div class="adminoptionboxchild" id="tracker_system_currency_childcontainer">
+                    {preference name=tracker_system_currency_tracker}
+                    {preference name=tracker_system_currency_rate}
+                    {preference name=tracker_system_currency_currency}
+                    {preference name=tracker_system_currency_date}
+                    {preference name=tracker_system_currency_direction}
+                </div>
+                {preference name=tracker_system_bounces}
+                <div class="adminoptionboxchild" id="tracker_system_bounces_childcontainer">
+                    {preference name=tracker_system_bounces_tracker}
+                    {preference name=tracker_system_bounces_mailbox}
+                    {preference name=tracker_system_bounces_emailfolder}
+                    {preference name=tracker_system_bounces_soft_total}
+                    {preference name=tracker_system_bounces_hard_total}
+                    {preference name=tracker_system_bounces_blacklisted}
+                </div>
+            </fieldset>
+            <fieldset class="admin">
+                <legend>{tr}Relationship System Trackers{/tr}</legend>
+                {remarksbox type="tip" title="{tr}Tip{/tr}"}
+                    {tr _0="<a href='tiki-list_trackers.php'>" _1="</a>"}You can quickly create common used trackers to store relationship metadata and behaviour here. Alternatively use any %0tracker%1 for a relationship tracker by editing its properties.{/tr}
+                {/remarksbox}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <select name="relationshipTrackerType">
+                            <option value="">{tr}Choose example tracker type{/tr}</option>
+                            <option value="generic">Generic description</option>
+                            <option value="parent-child">Parent-child</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <button role="button" type="submit" class="btn btn-primary" name="createRelationsTracker" value="1">
+                            {tr}Create Relationship Tracker{/tr}
+                        </button>
+                    </div>
+                </div>
+                <br>
             </fieldset>
         {/tab}
 
