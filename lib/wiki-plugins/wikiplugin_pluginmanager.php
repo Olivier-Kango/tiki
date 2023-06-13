@@ -86,7 +86,7 @@ class WikiPluginPluginManager extends PluginsLib
                     $file = $filepath . $useritem . '.php';
                     $confirm = in_array($file, $all);
                     if ($confirm === false) {
-                        return '^' . tr('Plugin Manager error: %0%1 not found', $useritem, $type) . '^';
+                        return '{BOX(bg="#fcd9d3" align="left")}' . tr('Plugin Manager error: %0%1 not found', $useritem, $type) . '{BOX}';
                     } else {
                         $aPlugins[] = $file;
                     }
@@ -111,7 +111,7 @@ class WikiPluginPluginManager extends PluginsLib
                             $type = '';
                         }
                     }
-                    return '^' . tr('Plugin Manager error: %0%1%2%3%4 not found', $beginerror, $type, $and, $enderror, $type2) . '^';
+                    return '{BOX(bg="#fcd9d3" align="left")}' . tr('Plugin Manager error: %0%1%2%3%4 not found', $beginerror, $type, $and, $enderror, $type2) . '{BOX}';
                 } elseif ($end > $begin) {
                     $aPlugins = array_slice($aPlugins, $begin, $end - $begin + 1);
                 } else {
@@ -120,7 +120,7 @@ class WikiPluginPluginManager extends PluginsLib
             } elseif (! empty($limit)) {
                 $begin = array_search($filepath . $plugin . '.php', $aPlugins);
                 if ($begin === false) {
-                    return '^' . tr('Plugin Manager error: %0%1 not found', $begin, $type) . '^';
+                    return '{BOX(bg="#fcd9d3" align="left")}' . tr('Plugin Manager error: %0%1 not found', $begin, $type) . '{BOX)}';
                 } else {
                     $aPlugins = array_slice($aPlugins, $begin, $limit);
                 }
@@ -128,7 +128,7 @@ class WikiPluginPluginManager extends PluginsLib
                 $file = $filepath . $plugin . '.php';
                 $confirm = in_array($file, $aPlugins);
                 if ($confirm === false) {
-                    return '^' . tr('Plugin Manager error:  %0%1 not found', $plugin, $type) . '^';
+                    return '{BOX(bg="#fcd9d3" align="left")}' . tr('Plugin Manager error:  %0%1 not found', $plugin, $type) . '{BOX}';
                 } else {
                     $aPlugins = [];
                     $aPlugins[] = $file;

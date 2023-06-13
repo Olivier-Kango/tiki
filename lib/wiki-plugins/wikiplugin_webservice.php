@@ -112,12 +112,12 @@ function wikiplugin_webservice($data, $params)
 
                 return $template->render($response, 'tikiwiki');
             } else {
-                return '^' . tra('Unknown Template') . '^';
+                return '{BOX(bg="#fcd9d3" align="left")}' . tra('Unknown Template') . '{BOX}';
             }
         } else {
-            return '^' . tra('Unknown Service') . '^';
+            return '{BOX(bg="#fcd9d3" align="left")}' . tra('Unknown Service') . '{BOX}';
         }
     } else {
-        return '^' . tra('Missing parameters') . '^';
+        return '{BOX(bg="#fcd9d3" align="left")}' . tra('Missing parameters') . '{BOX}';
     }
 }

@@ -139,7 +139,7 @@ function wikiplugin_youtube($data, $params)
     $params = array_merge($default, $params);
 
     if (empty($params['movie'])) {
-        return '^' . tra('Plugin YouTube error: the movie parameter is empty.');
+        return '{BOX(bg="#fcd9d3" align="left")}' . tra('Plugin YouTube error: the movie parameter is empty.') . '{BOX}';
     }
 
     $scheme = $tikilib->httpScheme();
