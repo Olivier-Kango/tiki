@@ -292,6 +292,8 @@ if ($prefs['feature_wysiwyg'] == 'y') {
         $_SESSION['wysiwyg'] = 'n';
     }
     $smarty->assign_by_ref('wysiwyg', $_SESSION['wysiwyg']);
+    // this may no longer be needed
+    $headerlib->add_css('.ui-front {z-index: 9999;}');  // so the plugin edit dialogs show up
 } else {
     $smarty->assign('wysiwyg', 'n');
 }
