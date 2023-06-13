@@ -291,7 +291,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
             'parent'
         );
 
-        $this->assertEquals($expect, $factory->getResolver(['type' => 'event', 'object' => 2]));
+        $this->assertEquals($expect, $factory->getResolver(['type' => 'calendaritem', 'object' => 2]));
     }
 
     public function testObtainPermissionsWhenNoneSpecific()

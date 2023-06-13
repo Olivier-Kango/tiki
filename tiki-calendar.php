@@ -227,7 +227,7 @@ if ($_SESSION['CalendarViewGroups']) {
             $sort_mode
         );
 
-       $listevents = Perms::filter(
+        $listevents = Perms::filter(
             ['type' => 'calendaritem'],
             'object',
             $listevents,
