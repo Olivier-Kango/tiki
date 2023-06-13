@@ -4,7 +4,7 @@
 <div class="table-responsive">
     <table class="table">
         <tr>
-            {if $gal_info.show_checked ne 'n' and ($tiki_p_admin_file_galleries eq 'y' or $tiki_p_upload_files eq 'y')}
+            {if !empty($files) and $gal_info.show_checked ne 'n' and ($tiki_p_admin_file_galleries eq 'y' or $tiki_p_upload_files eq 'y')}
                 {if isset($nbCols)}
                     {assign var=nbCols value=$nbCols+1}
                 {else}
@@ -532,7 +532,7 @@
         {sectionelse}
             {norecords _colspan=$nbCols}
         {/section}
-        {if $gal_info.show_checked ne 'n' and $tiki_p_admin_file_galleries eq 'y' and $prefs.javascript_enabled eq 'y'
+        {if !empty($files) and $gal_info.show_checked ne 'n' and $tiki_p_admin_file_galleries eq 'y' and $prefs.javascript_enabled eq 'y'
             and $view neq 'page'}
             <tr>
                 <td colspan="{$nbCols}">
