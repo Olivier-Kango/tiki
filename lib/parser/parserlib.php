@@ -2694,7 +2694,7 @@ class ParserLib extends TikiDb_Bridge
                         $divstate = substr($line, $hdrlevel, 1);
                         if (($divstate == '+' || $divstate == '-') && ! $this->option['wysiwyg']) {
                             // OK. Must insert flipper after HEADER, and then open new div...
-                            $thisid = 'id' . preg_replace('/[^a-zA-z0-9]/', '', urlencode($this->option['page'])) . $nb_hdrs;
+                            $thisid = 'id' . preg_replace('/[^a-zA-z0-9]/', '', urlencode($this->option['page'] ?? "")) . $nb_hdrs;
                             require_once __DIR__ . '/../setup/cookies.php';
                             $state_cookie = getCookie($thisid, "showhide_headings");
                             if ($state_cookie === 'o' && $divstate === '-') {
