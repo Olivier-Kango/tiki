@@ -227,14 +227,13 @@ if ($_SESSION['CalendarViewGroups']) {
             $sort_mode
         );
 
-/*  FIXME seems events don't inherit object perms from the calendar
        $listevents = Perms::filter(
             ['type' => 'calendaritem'],
             'object',
             $listevents,
             ['object' => 'calitemId'],
             ['view_events']
-        );*/
+        );
 
         foreach ($listevents as & $event) {
             $event['perms'] = Perms::get([ 'type' => 'calendaritem', 'object' => $event['calitemId']]);

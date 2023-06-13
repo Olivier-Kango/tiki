@@ -126,10 +126,10 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
                 $db->in('tc.threadId', array_values($objects), $bindvars),
                 $bindvars
             );
-        } elseif ($baseContext['type'] === 'event' && $this->parent) {
+        } elseif ($baseContext['type'] === 'calendaritem' && $this->parent) {
             $bindvars = [];
             $result = $db->fetchAll(
-                "SELECT md5(concat('event', LOWER(tci.`calitemId`))) as `objectId`, op.`groupName`, op.`permName`
+                "SELECT md5(concat('calendaritem', LOWER(tci.`calitemId`))) as `objectId`, op.`groupName`, op.`permName`
                 FROM `tiki_calendar_items` tci, `users_objectpermissions` op
                 WHERE op.`objectType` = 'calendar' AND op.`objectId` = md5(concat('calendar', LOWER(tci.`calendarId`))) AND " .
                 $db->in('tci.calitemId', array_values($objects), $bindvars),
