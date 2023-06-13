@@ -24,21 +24,33 @@
 {/capture}
 <div class="d-flex flex-wrap align-items-start">
     <div class="flex-shrink-0">
-        {include file='fgal_thumbnailframe.tpl'}
-        {if $show_infos eq 'y'}
-            <div class="thumbinfos">
-                {$smarty.capture.thumbactions}
-            </div>
+        {if !empty($file)}
+            {include file='fgal_thumbnailframe.tpl'}
+            {if $show_infos eq 'y'}
+                <div class="thumbinfos">
+                    {$smarty.capture.thumbactions}
+                </div>
+            {/if}
         {/if}
     </div>
     <div class="flex-grow-1 ms-3">
         {*<div class='box-data'>*}
-            {include file='file_properties_table.tpl'}
+            {if !empty($file)}
+                {include file='file_properties_table.tpl'}
+            {else}
+                {if $view == 'page'}
+                    <div>
+                        <b>{tr}No records found{/tr}</b>
+                    </div>
+                {/if}
+            {/if}
         {*</div>*}
     </div>
 </div> {* thumbnailcontener *}
+    {if !empty($file)}
+        {include file='tiki-upload_file_progress.tpl' fileId=$file.id name=$file.filename}
+    {/if}
 
-    {include file='tiki-upload_file_progress.tpl' fileId=$file.id name=$file.filename}
     {if isset($metarray) and $metarray|count gt 0}
         <br>
         <div class="text-start">

@@ -31,7 +31,9 @@
                                 {tr}Properties{/tr}
                             </div>
                             <div class='box-data'>
+                            {if !empty($file)}
                                 {include file='file_properties_table.tpl'}
+                            {/if}
                             </div>
                         </div>
                     {/capture}
