@@ -835,6 +835,26 @@ class WikiLib extends TikiLib
         return true;
     }
 
+    public function addToPageHttpHeaders($info)
+    {
+        $page_content = $this->get_parse($info['pageName']);
+        $etag = '"' . md5($page_content) . '"';
+        $last_modified = gmdate("D, d M Y H:i:s \G\M\T", $info['lastModif']);
+
+        header("ETag: $etag");
+        header("Last-Modified: $last_modified");
+        header("Cache-Control:  must-revalidate, max-age:3600");
+
+        if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && $etag !== trim($_SERVER['HTTP_IF_NONE_MATCH'])) {
+            return;
+        } elseif (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) <= $info['lastModif']) {
+            return;
+        } else {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
+            exit();
+        }
+    }
+
     public function get_attachment_owner($attId)
     {
         return $this->getOne("select `user` from `tiki_wiki_attachments` where `attId`=$attId");

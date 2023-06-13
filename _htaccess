@@ -171,6 +171,13 @@ FileETag none
     RewriteCond %{HTTP:Authorization} ^(.*)
     RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
 
+    # -- Set these headers for Last-Modified and Etag in wiki pages -- #
+    RewriteCond %{HTTP:If-Modified-Since} ^(.*)
+    RewriteRule ^(.*) - [E=HTTP_IF_MODIFIED_SINCE:%1]
+
+    RewriteCond %{HTTP:If-None-Match} ^(.*)
+    RewriteRule ^(.*) - [E=HTTP_IF_NONE_MATCH:%1]
+
     # -- Prevent HTTP TRACE method -- #
     RewriteCond %{REQUEST_METHOD} ^TRACE
     RewriteRule .* - [F]

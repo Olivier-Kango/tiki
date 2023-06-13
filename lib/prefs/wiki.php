@@ -194,6 +194,12 @@ function prefs_wiki_list($partial = false)
             ],
             'default' => 0,
         ],
+        'wiki_last_modified_header' => [
+            'name' => tra('Last modified header'),
+            'description' => tra('Allow to ensure that a wiki page has not changed since the previous caching. This option helps clients (browsers, crawlers) to use less bandwidth and improve crawling and indexing of wiki pages.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
         'wiki_comments_allow_per_page' => [
             'name' => tra('Allow comments per wiki page'),
             'description' => tra('Enable control of comments on wiki pages on a per-page basis.'),

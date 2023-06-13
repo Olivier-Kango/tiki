@@ -518,6 +518,11 @@ if (isset($_REQUEST['copyrightpage'])) {
     $smarty->assign_by_ref('copyrightpage', $_REQUEST['copyrightpage']);
 }
 
+// Last modified header
+if ($prefs['wiki_last_modified_header'] == 'y') {
+    $wikilib->addToPageHttpHeaders($info);
+}
+
 // BreadCrumbNavigation here
 // Remember to reverse the array when posting the array
 

@@ -134,6 +134,7 @@
             {preference name=wiki_cache}
             {preference name=feature_wiki_icache}
             {preference name=wiki_ranking_reload_probability}
+            {preference name=wiki_last_modified_header}
         {/tab}
 
         {tab name="{tr}Database{/tr}"}
