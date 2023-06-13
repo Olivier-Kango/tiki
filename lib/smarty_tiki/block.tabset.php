@@ -57,7 +57,10 @@ function smarty_block_tabset($params, $content, $smarty, &$repeat)
 
         $smarty_tabset_i_tab = 1;
 
-        return;
+        // add styles
+        applyStyles($params, $smarty_tabset_name);
+
+        return '';
     } else {
         $content = trim($content);
         if (empty($content)) {
@@ -109,8 +112,6 @@ function smarty_block_tabset($params, $content, $smarty, &$repeat)
                         $tabset_index--;
                         $ret .= '<div class="tab-content" id="v-pills-' . $smarty_tabset_name . '">' . $content . '</div>
                     </div>';
-            //add styles
-            applyStyles($params, $smarty_tabset_name);
         } else {
             $ret .= '<div class="clearfix tabs" data-name="' . $smarty_tabset_name . '">' . $notabs;
 
@@ -127,8 +128,6 @@ function smarty_block_tabset($params, $content, $smarty, &$repeat)
             $tabset_index--;
 
             $ret .= '<div class="tab-content" id="v-pills-' . $smarty_tabset_name . '">' . $content . '</div>';
-            // add styles
-            applyStyles($params, $smarty_tabset_name);
         }
         return $ret;
     }
@@ -177,6 +176,9 @@ function applyStyles($params, $smarty_tabset_name)
     $style .= ! empty($params['params']['panelborderwidth']) ? $panels . '{border-width:' . $params['params']['panelborderwidth'] . 'px;} ' : '';
     $style .= ! empty($params['params']['panelbordercolor']) ? $panels . '{border-color:' . $params['params']['panelbordercolor'] . ';} ' : '';
 
-    //Headers are already sent by now, this must be moved eleswhere benoitg-2023-06-07
-    //$headerlib->add_css($style);
+    // Headers are already sent by now sometimes (e.g. in tiki-editpage.tpl)
+    // Not sure how it could be moved eleswhere... jonnyb 230613
+    if ($style /* && ! $headerlib->->outputHeadersHasBegun no access to this here sadly */) {
+        $headerlib->add_css($style);
+    }
 }
