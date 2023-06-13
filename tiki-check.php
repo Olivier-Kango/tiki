@@ -2833,17 +2833,17 @@ if (! $standalone) {
         if (! empty($prefs['t_use_dir'])) {
             $dirs[] = $prefs['t_use_dir'];
         }
-        $dirs[] = 'img/trackers';
+        $dirs[] = IMG_TRACKERS_PATH;
     }
     if ($prefs['feature_wiki'] == 'y') {
         if (! empty($prefs['w_use_dir'])) {
             $dirs[] = $prefs['w_use_dir'];
         }
         if ($prefs['feature_create_webhelp'] == 'y') {
-            $dirs[] = 'whelp';
+            $dirs[] = WHELP_PATH;
         }
-        $dirs[] = 'img/wiki';
-        $dirs[] = 'img/wiki_up';
+        $dirs[] = IMG_WIKI_PATH;
+        $dirs[] = IMG_WIKI_UP_PATH;
     }
     $dirs = array_unique($dirs);
     $dirsExist = array();

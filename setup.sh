@@ -11,6 +11,8 @@
 # part 0 - choose production mode or verbose debugging mode
 # ---------------------------------------------------------
 
+source path_constants.sh
+
 DEBUG=0 # production mode
 #DEBUG=1 # debugging mode
 DEBUG_PATH=0 # production mode
@@ -303,8 +305,8 @@ fi
 # part 3 - default and writable subdirs
 # -------------------------------------
 
-DIR_LIST_DEFAULT="admin db doc files img installer lang lib modules permissioncheck storage temp templates tests themes tiki_tests vendor whelp"
-DIR_LIST_WRITABLE="db img/wiki img/wiki_up img/trackers storage storage/public storage/public/h5p storage/fgal temp temp/cache temp/public temp/templates_c templates themes whelp mods files tiki_tests/tests temp/unified-index vendor vendor_custom"
+DIR_LIST_DEFAULT="${ADMIN_PATH} ${DB_PATH} ${DOC_PATH} ${FILES_PATH} ${IMG_PATH} ${INSTALLER_PATH} ${LANG_PATH} ${LIB_PATH} ${MODULES_PATH} ${PERMISSIONCHECK_PATH} ${STORAGE_PATH} ${TEMP_PATH} ${TEMPLATES_PATH} ${TESTS_PATH} ${THEMES_PATH} ${TIKI_TESTS_TESTS_PATH} ${VENDOR_PATH} ${WHELP_PATH}"
+DIR_LIST_WRITABLE="${DB_PATH} ${IMG_WIKI_PATH} ${IMG_WIKI_UP_PATH} ${IMG_TRACKERS_PATH} ${STORAGE_PATH} ${STORAGE_PUBLIC_PATH} ${STORAGE_PUBLIC_H5P_PATH} ${STORAGE_FGAL_PATH} ${TEMP_PATH} ${TEMP_CACHE_PATH} ${TEMP_PUBLIC_PATH} ${TEMP_TEMPLATES_C_PATH} ${TEMPLATES_PATH} ${THEMES_PATH} ${WHELP_PATH} ${MODS_PATH} ${FILES_PATH} ${TIKI_TESTS_TESTS_PATH} ${TEMP_UNIFIED_INDEX_PATH} ${VENDOR_PATH} ${VENDOR_CUSTOM_PATH}"
 DIRS=${DIR_LIST_WRITABLE}
 
 # part 4 - several functions

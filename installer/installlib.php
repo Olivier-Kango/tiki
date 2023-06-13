@@ -87,14 +87,15 @@ function create_dirs($domain = '')
 {
     global $tikipath;
     $dirs = [
-        'db',
-        'img/wiki',
-        'img/wiki_up',
-        'img/trackers',
-        'temp',
-        'temp/cache',
-        'temp/templates_c',
-        'templates'];
+        DB_PATH,
+        IMG_WIKI_PATH,
+        IMG_WIKI_UP_PATH,
+        IMG_TRACKERS_PATH,
+        TEMP_PATH,
+        TEMP_CACHE_PATH,
+        TEMP_TEMPLATES_C_PATH,
+        TEMPLATES_PATH
+    ];
 
     $ret = "";
     foreach ($dirs as $dir) {

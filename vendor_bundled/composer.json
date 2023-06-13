@@ -411,7 +411,8 @@
             "vendor/pear/text_wiki_mediawiki/Text/Wiki/Parse/***",
             "vendor/pear/text_wiki_mediawiki/Text/Wiki/Render/***",
             "vendor/pear/pear/./PEAR/Exception.php"
-        ]
+        ],
+        "files": ["../path_constants.php"]
     },
     "autoload-dev": {
         "classmap": [
