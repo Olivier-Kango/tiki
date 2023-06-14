@@ -22,7 +22,7 @@ if (isset($_REQUEST['prefs'])) {
     $tikilib->set_user_preference($user, 'user_contacts_default_view', $_REQUEST['user_contacts_default_view']);
     $cookietab = '1';
 }
-$smarty->assign('user_contacts_default_view', $tikilib->get_user_preference($user, 'user_contacts_default_view'), 'group');
+$smarty->assign('user_contacts_default_view', $tikilib->get_user_preference($user, 'user_contacts_default_view'));
 if (isset($_REQUEST['ext_remove'])) {
     $contactlib->remove_ext($user, $_REQUEST['ext_remove']);
     $cookietab = 2;

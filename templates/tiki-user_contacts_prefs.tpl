@@ -12,12 +12,12 @@
             <div class="mb-3 row">
                 <label class="col-sm-4">{tr}Default View:{/tr}</label>
                 <div class="col-sm-8">
-                    <input type='radio' name='user_contacts_default_view' value='list' {if $user_contacts_default_view eq 'list'}checked="checked"{/if}>
-                    {tr}List View{/tr}
-                </div>
-                <div class="col-sm-8 offset-sm-4">
                     <input type='radio' name='user_contacts_default_view' value='group' {if $user_contacts_default_view neq 'list'}checked="checked"{/if}>
                     {tr}Group View{/tr}
+                </div>
+                <div class="col-sm-8 offset-sm-4">
+                    <input type='radio' name='user_contacts_default_view' value='list' {if $user_contacts_default_view eq 'list'}checked="checked"{/if}>
+                    {tr}List View{/tr}
                 </div>
             </div>
             <div class="mb-3 row">
