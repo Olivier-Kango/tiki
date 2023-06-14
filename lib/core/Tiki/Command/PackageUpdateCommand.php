@@ -76,7 +76,7 @@ class PackageUpdateCommand extends Command
             $output->writeln(
                 '<error>' . tr('Composer could not be executed.') . '</error>'
             );
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $installedPackages = $this->composerManager->getInstalled();

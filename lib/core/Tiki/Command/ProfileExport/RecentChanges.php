@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command\ProfileExport;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -83,6 +84,6 @@ class RecentChanges extends ObjectWriter
         $queue->filterInstalled(new \Tiki_Profile_Writer_ProfileFinder());
 
         $output->writeln((string) $queue);
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

@@ -41,7 +41,7 @@ class PreferencesDeleteCommand extends Command
 
         if (empty($preferenceInfo)) {
             $output->write('<error>Preference not found.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $tikilib->delete_preference($preference);

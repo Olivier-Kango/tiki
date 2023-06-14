@@ -40,7 +40,7 @@ class TrackerRecalcCommand extends Command
 
         if (empty($trackerIds)) {
             $io->error('No trackerId was specified. Please use --trackerId=<TRACKER_ID');
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::INVALID;
         }
 
         foreach ($trackerIds as $trackerId) {

@@ -55,6 +55,6 @@ INI;
         if (! file_exists("profiles/$profileName")) {
             mkdir("profiles/$profileName");
         }
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

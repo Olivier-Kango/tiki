@@ -54,13 +54,13 @@ class BackupFilesCommand extends Command
 
         if (! is_dir($path)) {
             $output->writeln('<error>Error: Provided path not found</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $local = \Tiki\TikiInit::getCredentialsFile();
         if (! is_readable($local)) {
             $output->writeln('<error>Error: "' . $local . '" not readable.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $dateFormat = $input->getArgument('dateFormat');
@@ -73,7 +73,7 @@ class BackupFilesCommand extends Command
         $root = getcwd();
         if (! $root) {
             $output->writeln('<error>Error: Unable to derive source path</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         if ($input->getOption('storageonly')) {
@@ -113,7 +113,7 @@ class BackupFilesCommand extends Command
 
         if (! $source) {
             $output->writeln('<error>Error: No backup sources found.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $tarLocation = $path . '/' . $dbs_tiki . '_' . date($dateFormat) . '.tar.bz2';

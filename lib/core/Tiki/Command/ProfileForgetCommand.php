@@ -48,7 +48,7 @@ class ProfileForgetCommand extends Command
 
         if (! $profile) {
             $output->writeln('<error>Profile not found.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $tikilib = TikiLib::lib('tiki');

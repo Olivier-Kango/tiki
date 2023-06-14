@@ -186,7 +186,7 @@ class ScssCompileCommand extends Command
 
         $output->writeln('Clearing all caches');
         $cachelib->empty_cache();
-        return Command::SUCCESS;
+        return $exitStatus;
     }
 
     /**

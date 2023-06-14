@@ -97,7 +97,7 @@ class VendorSecurityCommand extends Command
         } catch (Exception $e) {
             $output->writeln('<error>Could not fetch security advisories</error>');
             $output->writeln('<comment>Error message:</comment> ' . $e->getMessage());
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
         /*$alerts = json_decode((string)$alerts, true);
         $output->writeln('<info>Tiki Vendor Advisories</info>');
@@ -123,7 +123,7 @@ class VendorSecurityCommand extends Command
             } catch (Exception $e) {
                 $output->writeln('<error>Could not fetch security advisories</error>');
                 $output->writeln('<comment>Error message:</comment> ' . $e->getMessage());
-                return \Symfony\Component\Console\Command\Command::SUCCESS;
+                return Command::FAILURE;
             }
             /*
             $alerts = json_decode((string)$alerts, true);

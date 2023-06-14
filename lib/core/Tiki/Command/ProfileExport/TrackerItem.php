@@ -7,6 +7,7 @@
 
 namespace Tiki\Command\ProfileExport;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -50,7 +51,7 @@ class TrackerItem extends ObjectWriter
         $trackerDefinition = \Tracker_Definition::get($trackerId);
         if (! $trackerDefinition) {
             $output->writeln('<error>' . tr('Tracker not found') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $exportFields = $trackerDefinition->getFields();
@@ -62,7 +63,7 @@ class TrackerItem extends ObjectWriter
 
         if (! $items || empty($items['data']) || ! is_array($items['data'])) {
             $output->writeln('<error>' . tr('No Items found to export') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -79,7 +80,7 @@ class TrackerItem extends ObjectWriter
         $writer->save();
 
         $output->writeln('<info>' . tr("Tracker items for tracker %0 exported", $trackerId) . '</info>');
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 
     /**

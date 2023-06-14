@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command\ProfileExport;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -48,8 +49,8 @@ class Calendar extends ObjectWriter
             $writer->save();
         } else {
             $output->writeln("<error>Calendar not found: $calendarId</error>");
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

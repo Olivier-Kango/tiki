@@ -100,7 +100,7 @@ class ListExecuteCommand extends Command
                             'ListExecute plugin is pending for approval.';
 
                         $output->write("<error>$outputMessage</error>");
-                        return \Symfony\Component\Console\Command\Command::FAILURE;
+                        return Command::FAILURE;
                     }
                 }
             }
@@ -109,6 +109,6 @@ class ListExecuteCommand extends Command
         TikiLib::lib('parser')->parse_data($pageInfo['data']);
 
         $output->writeln("Action $action executed on page $page.");
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

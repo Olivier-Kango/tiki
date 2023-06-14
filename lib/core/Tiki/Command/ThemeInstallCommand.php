@@ -59,7 +59,7 @@ class ThemeInstallCommand extends Command
         $file = $input->getArgument('file');
         if (! file_exists($file)) {
             $output->writeln('<error>' . tr('File not found') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $themeZip = new ThemeZip();
@@ -67,7 +67,7 @@ class ThemeInstallCommand extends Command
         $path_parts = pathinfo($file);
         if (! $isZipFile) {
             $output->writeln('<error>' . tr('File is not a .zip file.') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
         $uniqueHash = 'ThemeZipTmp_' . uniqid('', true) . rand(0, PHP_INT_MAX);
         $sourceFolder = $tikiRootFolder . '/temp/' . $uniqueHash ;

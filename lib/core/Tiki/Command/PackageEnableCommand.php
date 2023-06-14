@@ -38,8 +38,8 @@ class PackageEnableCommand extends Command
         $path = ExtensionManager::locatePackage($packageName);
 
         if (empty($path)) {
-            $io->error('Package was not found. Did you forgot to install');
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            $io->error('Package was not found. Did you forget to install the package?');
+            return Command::FAILURE;
         }
 
         $extensionPackage = ExtensionManager::get($packageName);
@@ -52,15 +52,15 @@ class PackageEnableCommand extends Command
 
         if ($success && $update) {
             $io->success(tr('Extension %0 was updated', $packageName));
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         if ($success) {
             $io->success(tr('Extension %0 is now enabled', $packageName));
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $io->error(tr('Extension %0 was not enabled.', $packageName));
-        return \Symfony\Component\Console\Command\Command::FAILURE;
+        return Command::FAILURE;
     }
 }

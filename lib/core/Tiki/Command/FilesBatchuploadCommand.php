@@ -121,7 +121,7 @@ class FilesBatchuploadCommand extends Command
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln('<comment>No files to upload</comment>');
             }
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $subdirToSubgal = $input->getOption('subdirToSubgal');

@@ -62,7 +62,7 @@ class FilesCopyCommand extends Command
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln('<comment>' . tra('No files to copy') . '</comment>');
             }
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {

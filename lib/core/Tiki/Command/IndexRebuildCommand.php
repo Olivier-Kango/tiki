@@ -195,11 +195,11 @@ class IndexRebuildCommand extends Command
                 $output->writeln('Memory peak usage after indexing: ' . FormatterHelper::formatMemory(memory_get_peak_usage()));
                 $output->writeln('Number of queries: ' . ($queries_after - $num_queries_before));
             }
-            return $error ? 1 : 0;
+            return $error ? Command::FAILURE : Command::SUCCESS;
         } else {
             $output->writeln("\n<error>Search index rebuild failed. Last messages shown above.</error>");
             \TikiLib::lib('logs')->add_action('rebuild indexes', 'Search index rebuild failed.', 'system');
-            return (\Symfony\Component\Console\Command\Command::FAILURE);
+            return Command::FAILURE;
         }
     }
 }

@@ -77,7 +77,7 @@ class NotificationDigestCommand extends Command
 
         if (empty($url_host)) {
             $output->writeln('<error>Error: Please define domain name as argument or set "Fallback for tiki base URL" preference.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $list = \TikiDb::get()->fetchAll("

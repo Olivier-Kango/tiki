@@ -70,7 +70,7 @@ class FilesMoveCommand extends Command
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln('<comment>' . tra('No files to move') . '</comment>');
             }
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $confirm = $input->getOption('confirm');

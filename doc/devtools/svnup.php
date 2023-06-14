@@ -434,7 +434,7 @@ class SvnUpCommand extends Command
 
         $progress->finish();
         echo "\n";
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }
 

@@ -29,7 +29,7 @@ class GoalCheckCommand extends Command
 
         if ($prefs['goal_enabled'] != 'y') {
             $output->writeln('<error>Goals not enabled.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         // Set-up reporting for achieved goals

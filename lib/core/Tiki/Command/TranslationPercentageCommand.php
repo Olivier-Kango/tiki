@@ -47,7 +47,7 @@ class TranslationPercentageCommand extends Command
 
         if (! empty($wikiPage) && ! $tikilib->page_exists($wikiPage)) {
             $io->error(sprintf('%s doesn\'t exist', $wikiPage));
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         try {
@@ -56,7 +56,7 @@ class TranslationPercentageCommand extends Command
             $command->run($commandInput, $output);
         } catch (Exception $e) {
             $io->error($e->getMessage());
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         require_once('lang/langmapping.php');

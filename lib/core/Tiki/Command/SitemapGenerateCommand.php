@@ -33,7 +33,7 @@ class SitemapGenerateCommand extends Command
 
         if (! isset($prefs['sitemap_enable']) || $prefs['sitemap_enable'] != 'y') {
             $output->writeln('<error>' . tra('Preference "sitemap_enable" is not enabled.') . '</error>');
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $url = $input->getArgument('url');

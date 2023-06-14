@@ -59,12 +59,12 @@ class MarkdownConvertCommand extends Command
 
         if ($prefs['markdown_enabled'] !== 'y') {
             $io->error(tr('Markdown is not enabled in Editing settings.'));
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         if (! $input->getOption('markdown') && ! $input->getOption('tiki')) {
             $io->error(tr('You should specify either --markdown or --tiki option.'));
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $tikilib = TikiLib::lib('tiki');
@@ -73,7 +73,7 @@ class MarkdownConvertCommand extends Command
             $pageInfo = $tikilib->get_page_info($pageInfo) ?: null;
             if (empty($pageInfo)) {
                 $io->error(tr('Page not found!'));
-                return \Symfony\Component\Console\Command\Command::FAILURE;
+                return Command::FAILURE;
             }
             $pages = [$pageInfo];
         } else {
@@ -83,7 +83,7 @@ class MarkdownConvertCommand extends Command
 
         if (! $pages) {
             $io->writeln(tr('There are no wiki pages to convert.'));
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $syntax = $input->getOption('markdown') ? 'markdown' : 'tiki';

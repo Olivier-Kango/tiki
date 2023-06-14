@@ -104,7 +104,7 @@ class PackageInstallCommand extends Command
                         $output->writeln($result);
                     } else {
                         $output->writeln('<error>' . tr('Invalid Package: ') . $packageKey . '</error>');
-                        return \Symfony\Component\Console\Command\Command::SUCCESS;
+                        return Command::FAILURE;
                     }
                 } else {
                     $availablePackagesInfo = PackageCommandHelper::getAvailablePackagesInfo($availableComposerPackages);

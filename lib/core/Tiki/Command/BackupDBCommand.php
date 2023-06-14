@@ -39,15 +39,18 @@ class BackupDBCommand extends Command
             $path = substr($path, 0, strlen($path) - 1);
         }
 
-        if (! is_dir($path)) {
-            $output->writeln('<error>Error: Provided path not found</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+        if (is_file($path)) {
+            $output->writeln("<error>Error: Provided path \"$path\" is a file.  A directory must be provided</error>");
+            return Command::INVALID;
+        } elseif (! is_dir($path)) {
+            $output->writeln("<error>Error: Provided path \"$path\" not found</error>");
+            return Command::FAILURE;
         }
 
         $local = \Tiki\TikiInit::getCredentialsFile();
         if (! is_readable($local)) {
-            $output->writeln('<error>Error: "' . $local . '" not readable.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            $output->writeln("<error>Error: \"$local\" not readable.</error>");
+            return Command::FAILURE;
         }
 
         $dateFormat = $input->getArgument('dateFormat');
@@ -98,6 +101,6 @@ class BackupDBCommand extends Command
         $command = "mysqldump --quick --create-options --extended-insert $args | gzip -5 > " . escapeshellarg($outputFile);
         exec($command);
         $output->writeln('<comment>Database backup completed: ' . $outputFile . '</comment>');
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

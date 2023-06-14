@@ -51,7 +51,7 @@ class PatchCommand extends Command
             switch ($e->getCode()) {
                 case 1:
                     $output->writeln("<error>Unknown patch</error>");
-                    return \Symfony\Component\Console\Command\Command::SUCCESS;
+                    return Command::FAILURE;
                 case 2:
                     $output->writeln("<error>Application failed</error>");
                     foreach ($installer->queries['failed'] as $key => $error) {

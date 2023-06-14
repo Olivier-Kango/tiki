@@ -41,7 +41,7 @@ class TranslationExportCommand extends Command
 
         if (! $langCode) {
             $io->error('No language code specified. Please use --lang=<LANG_CODE>');
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         require_once('lang/langmapping.php');
@@ -50,7 +50,7 @@ class TranslationExportCommand extends Command
 
         if (! array_key_exists($langCode, $langmapping)) {
             $io->error('Invalid language code.');
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $language = new \LanguageTranslations($langCode);
@@ -59,7 +59,7 @@ class TranslationExportCommand extends Command
             $stats = $language->writeLanguageFile();
         } catch (\Exception $e) {
             $io->error($e->getMessage());
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $io->success(sprintf('Wrote %d new strings and updated %d to lang/%s/language.php', $stats['new'], $stats['modif'], $language->lang));

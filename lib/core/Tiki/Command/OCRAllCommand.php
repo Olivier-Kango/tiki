@@ -34,7 +34,7 @@ class OCRAllCommand extends Command
             $output->writeln(
                 '<error>' . $e->getMessage() . '</error>'
             );
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         //Retrieve the number of files marked as waiting to be processed.
@@ -60,10 +60,10 @@ class OCRAllCommand extends Command
         $processingNum = $ocrLib->releaseAllProcessing();
         if ($processingNum) {
             $progress->setMessage(
-                "<comment>Reset processing files, run again to perform OCR.</comment>\n"
+                "<error>There were stale processing files, which are now released.  Run command again to perform OCR.</error>\n"
             );
             $progress->finish();
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $ocrLib->setNextOCRFile();
@@ -71,7 +71,7 @@ class OCRAllCommand extends Command
         if (! $ocrLib->nextOCRFile) {
             $progress->setMessage("<comment>No files to OCR</comment>\n");
             $progress->finish();
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         while ($ocrLib->nextOCRFile) {

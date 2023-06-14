@@ -44,12 +44,12 @@ class PreferencesSetCommand extends Command
 
         if (empty($preferenceInfo)) {
             $output->write('<error>Preference not found.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         if ($preferenceInfo['type'] == 'flag' && ! in_array($value, ['y', 'n'])) {
             $output->writeln(sprintf('Preference %s is of type flag, allowed values are "y" or "n", you used %s.', $preference, $value));
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
 
         if (! empty($preferenceInfo['separator']) && ! is_array($value)) {

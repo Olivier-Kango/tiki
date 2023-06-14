@@ -316,7 +316,7 @@ class VCSUpdateCommand extends Command
 
         if (! $isSvn && ! $isGit) {
             $logger->critical('Only SVN and GIT are supported at the moment.');
-            die();
+            return Command::FAILURE;
         }
 
         if ($isSvn && ! in_array($conflict, ['abort', 'postpone', 'mine-conflict', 'theirs-conflict'])) {
@@ -324,7 +324,7 @@ class VCSUpdateCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
             $logger->notice('Invalid option for --conflict, see usage above.');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
 
         if ($isGit && ! in_array($conflict, ['abort', 'ours', 'theirs'])) {
@@ -332,7 +332,7 @@ class VCSUpdateCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
             $logger->notice('Invalid option for --strategy-option, see usage above.');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
 
         // check that the --lag option is valid, and complain if its not.
@@ -342,7 +342,7 @@ class VCSUpdateCommand extends Command
                 $help->setCommand($this);
                 $help->run($input, $output);
                 $logger->notice('Invalid option for --lag, must be a positive integer.');
-                return \Symfony\Component\Console\Command\Command::SUCCESS;
+                return Command::INVALID;
             }
 
             // current time minus number of days specified through lag
@@ -355,7 +355,7 @@ class VCSUpdateCommand extends Command
 
                 if (! $rev) {
                     $logger->error('Failed to determine the commit hash to checkout before ' . date('Y-m-d H:i', $timestamp));
-                    return \Symfony\Component\Console\Command\Command::FAILURE;
+                    return Command::FAILURE;
                 }
             }
         }
@@ -379,7 +379,7 @@ class VCSUpdateCommand extends Command
                 $logslib->add_action($action, 'Automatic update failed. Could not execute shell_exec()', 'system');
             }
             $logger->critical('Automatic update failed. Could not execute shell_exec()');
-            die();
+            return Command::FAILURE;
         }
 
         /** @var int The number of steps the progress bar will show */
@@ -400,7 +400,7 @@ class VCSUpdateCommand extends Command
         $httpModeFile = $tikipath . 'doc/devtools/composer_http_mode.php';
         if ($noHttps && ! file_exists($httpModeFile)) {
             $logger->error('composer_http_mode.php file not found.');
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $progress = new ProgressBar($output, $max);
@@ -529,7 +529,7 @@ class VCSUpdateCommand extends Command
             $gitUpdate = $this->gitUpdate($rev, $conflict);
             $this->OutputErrors($logger, $gitUpdate, 'Problem with git merge, check for conflicts.', $errors, ! $noDb);
             if ($logger->hasErrored()) {
-                return \Symfony\Component\Console\Command\Command::INVALID;
+                return Command::INVALID;
             }
             $endRev = $this->getGitRevision();
             $this->execCommand('git gc 2>&1');

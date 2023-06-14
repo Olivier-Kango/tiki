@@ -37,7 +37,7 @@ class PreferencesGetCommand extends Command
 
         if (empty($preferenceInfo)) {
             $output->write('<error>Preference not found.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $value = $tikilib->get_preference($preference);

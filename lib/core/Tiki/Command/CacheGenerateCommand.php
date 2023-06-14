@@ -54,7 +54,7 @@ class CacheGenerateCommand extends Command
                 break;
             default:
                 $output->writeln('<error>Invalid cache requested.</error>');
-                return \Symfony\Component\Console\Command\Command::SUCCESS;
+                return Command::FAILURE;
         }
 
         $output->writeln('Caches generated');

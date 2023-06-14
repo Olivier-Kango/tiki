@@ -28,15 +28,13 @@ class InstallerUnlockCommand extends Command
         if (file_exists($file)) {
             if (unlink($file)) {
                 $output->writeln("<info>Installer unlocked</info>");
-                return Command::SUCCESS;
             } else {
                 $output->writeln("<error>Could not unlock installer</error>");
                 return Command::FAILURE;
             }
         } else {
             $output->writeln("<info>Installer is already unlocked</info>");
-            return Command::SUCCESS;
         }
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

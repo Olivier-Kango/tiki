@@ -56,19 +56,19 @@ class ProfileInstallCommand extends Command
 
         if (! $profile) {
             $output->writeln('<error>Profile not found.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $profileData = $profile->getData();
         if (! empty($profileData['error'])) {
             $output->writeln('<error>' . tr('There were some errors while trying to load the profile definition') . '</error>');
             $output->writeln('<error>' . $profileData['error'] . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         if (! $profile->validateNamedObjectsReferences()) { // sanity check on the Named Objects references
             $output->writeln('<error>' . tr('Some of the named object references in the profile are invalid') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $tikilib = \TikiLib::lib('tiki');

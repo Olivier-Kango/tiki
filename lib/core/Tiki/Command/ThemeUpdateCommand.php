@@ -59,14 +59,14 @@ class ThemeUpdateCommand extends Command
         $file = $input->getArgument('file');
         if (! file_exists($file)) {
             $output->writeln('<error>' . tr('File not found') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $themeZip = new ThemeZip();
         $isZipFile = $themeZip->isZipFile($file);
         if (! $isZipFile) {
             $output->writeln('<error>' . tr('File is not a .zip file.') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
 
         try {
@@ -80,11 +80,11 @@ class ThemeUpdateCommand extends Command
 
                 if (! $themeHandler->themeExists($camelCaseThemeName)) {
                     $output->writeln('<error>' . tr('Theme not found') . '</error>');
-                    return \Symfony\Component\Console\Command\Command::SUCCESS;
+                    return Command::FAILURE;
                 }
                 if (! $themeZip->getExistCssFolder()) {
                     $output->writeln('<error>' . tr('CSS folder not found') . '</error>');
-                    return \Symfony\Component\Console\Command\Command::SUCCESS;
+                    return Command::FAILURE;
                 }
                 $zip->extractTo($themeZip->getTemporaryFolder());
                 $zip->close();

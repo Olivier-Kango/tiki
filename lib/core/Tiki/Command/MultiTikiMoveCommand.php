@@ -158,17 +158,16 @@ class MultiTikiMoveCommand extends Command
                         $output->writeln("<info>Use --confirm to perform moves</info>");
                     }
                 }
-
-                return \Symfony\Component\Console\Command\Command::SUCCESS;
             } else {
                 $output->writeln("<error>Site $site not found in $from</error>");
+                return Command::FAILURE;
             }
         } else {
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
                 $output->writeln("<info>No multitikis found in $from</info>");
             }
         }
-        return -1;
+        return Command::SUCCESS;
     }
 
     /**

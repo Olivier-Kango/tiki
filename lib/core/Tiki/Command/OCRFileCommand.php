@@ -40,7 +40,7 @@ class OCRFileCommand extends Command
             $output->writeln(
                 '<error>' . $e->getMessage() . '</error>'
             );
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         // Set $nextOCRFile with the fileid of the next file scheduled to be processed by the OCR engine.
@@ -57,20 +57,20 @@ class OCRFileCommand extends Command
                 $output->writeln(
                     "<error>File ID must be an int, $fgalId is an illegal value."
                 );
-                return \Symfony\Component\Console\Command\Command::SUCCESS;
+                return Command::FAILURE;
             }
         }
 
         if (! $ocrLib->nextOCRFile) {
             $output->writeln('<comment>No files to OCR</comment>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         try {
             $ocrLib->checkFileGalID();
         } catch (Exception $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         try {
@@ -78,6 +78,7 @@ class OCRFileCommand extends Command
             $output->writeln('<comment>Finished OCR of file</comment>');
         } catch (Exception $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
+            return Command::FAILURE;
         }
         return Command::SUCCESS;
     }

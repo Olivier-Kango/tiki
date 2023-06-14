@@ -28,7 +28,7 @@ class ObjectsNotifyMaintainersCommand extends Command
 
         if ($prefs['object_maintainers_enable'] !== 'y') {
             $output->writeln('<error>Error: preference "Object maintainers and freshness" not enabled (object_maintainers_enable).</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $objectlib = \TikiLib::lib('object');

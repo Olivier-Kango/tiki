@@ -26,6 +26,6 @@ class AdminIndexRebuildCommand extends Command
     {
         \TikiLib::lib('prefs')->rebuildIndex();
         $output->writeln('Preferences index was rebuilt successfully.');
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

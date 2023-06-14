@@ -111,7 +111,7 @@ class FakerCommentsCommand extends Command
 
         if (! class_exists('\Faker\Factory')) {
             $output->writeln('<error>' . tra('Please install Faker package') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $objectId = $input->getArgument('object');
@@ -120,13 +120,13 @@ class FakerCommentsCommand extends Command
         // check for object's existence
         if (! TikiLib::lib('object')->get_object_id($objectType, $objectId)) {
             $output->writeln('<error>' . tr('Object "%0" of type "%1" not found', $objectId, $objectType) . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $numberItems = $input->getOption('items');
         if (! is_numeric($numberItems)) {
             $output->writeln('<error>' . tra('The value of items is not a number') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
 
         $numberItems = (int)$numberItems;

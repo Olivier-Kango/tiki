@@ -59,7 +59,7 @@ class ThemeRemoveCommand extends Command
         $listThemes = $themelib->get_themes();
         if (! in_array($themeName, $listThemes)) {
             $output->writeln('<error>' . tr('Theme not found') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $currentFolder = $tikiRootFolder;

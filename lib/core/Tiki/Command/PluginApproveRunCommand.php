@@ -54,7 +54,7 @@ class PluginApproveRunCommand extends Command
                 . tr('You must either use the option --all or provide a list of fingerprints to approve.')
                 . '</error>'
             );
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
 
         if ($all) {

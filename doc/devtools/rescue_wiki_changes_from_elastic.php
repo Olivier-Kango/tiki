@@ -91,7 +91,7 @@ class ESRescueCommand extends Command
         }
 
         $this->makeThePageUpdates($results, $output, $confirm);
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 
     /**

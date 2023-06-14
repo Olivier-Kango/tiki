@@ -56,8 +56,8 @@ class PackageDisableCommand extends Command
         }
 
         if (empty($basePath)) {
-            $io->error('No folder was found. Did you forgot to install');
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            $io->error('No folder was found. Did you forget to install the package?');
+            return Command::FAILURE;
         }
 
         $rollback = $input->getOption('revert');
@@ -69,10 +69,10 @@ class PackageDisableCommand extends Command
 
         if ($success) {
             $io->success(tr('Extension %0 is now disabled', $packageName));
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $io->error(tr('Extension %0 was not disabled.', $packageName));
-        return \Symfony\Component\Console\Command\Command::FAILURE;
+        return Command::FAILURE;
     }
 }

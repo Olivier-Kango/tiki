@@ -70,14 +70,14 @@ class IndexCompareEnginesCommand extends Command
             $io->error(
                 'To execute this script you need to specify at least two engines to compare.'
             );
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         if (count($engines) == 3 && $input->getOption('html')) {
             $io->error(
                 'Comparing all three engines works in text-mode only, you cannot specify the --html option.'
             );
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $tikiLib = TikiLib::lib('tiki');
@@ -93,7 +93,7 @@ class IndexCompareEnginesCommand extends Command
 
         if (! $pages) {
             $io->writeln('There are no wiki pages to check.');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $reindex = $input->getOption('reindex');
@@ -256,7 +256,7 @@ class IndexCompareEnginesCommand extends Command
 
         if (empty($differentOutputs)) {
             $io->writeln('Plugin outputs using selected engines are identical.');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         if (count($engines) == 3) {
@@ -357,6 +357,6 @@ HTML;
 
         $prefs = $orig_prefs;
 
-        return \Symfony\Component\Console\Command\Command::FAILURE;
+        return Command::FAILURE;
     }
 }

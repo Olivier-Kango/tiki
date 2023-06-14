@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command\ProfileExport;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -46,7 +47,7 @@ class Tracker extends ObjectWriter
         $ref = $input->getOption('reference');
         if ($ref && ! \Tiki_Profile::isValidReference($ref, true)) {
             $output->writeln('<error>The value provided for the parameter reference do not have the right format: ' . $ref . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
 
         $writer = $this->getProfileWriter($input);
@@ -58,6 +59,6 @@ class Tracker extends ObjectWriter
         } else {
             $output->writeln("Tracker not found: $trackerId");
         }
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

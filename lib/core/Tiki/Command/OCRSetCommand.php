@@ -89,7 +89,7 @@ class OCRSetCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
             $output->writeln('<error>You may only specify 1 option</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
         if ($input->getOption('stalled')) {
             $conditions['ocr_state'] = $ocrLib::OCR_STATUS_STALLED;
@@ -120,7 +120,7 @@ class OCRSetCommand extends Command
             $help->setCommand($this);
             $help->run($input, $output);
             $output->writeln('<error>Must specify a valid option. Use Q to Queue files or S to Skip Files.</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
         $range = TikiFilter::get('intscolons')->filter($input->getArgument('File ID'));
         $range = explode(':', $range);
@@ -138,7 +138,7 @@ class OCRSetCommand extends Command
             $question = new ConfirmationQuestion("Set OCR status of $fileCount files to '$task'? (y or n) ", false);
 
             if (! $helper->ask($input, $output, $question)) {
-                return \Symfony\Component\Console\Command\Command::SUCCESS;
+                return Command::SUCCESS;
             }
         }
         $updated = $update->updateMultiple($state, $conditions);

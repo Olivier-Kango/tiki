@@ -74,7 +74,7 @@ class FakerTrackerCommand extends Command
 
         if (! class_exists('\Faker\Factory')) {
             $output->writeln('<error>' . tra('Please install Faker package') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $trackerId = $input->getArgument('tracker');
@@ -85,13 +85,13 @@ class FakerTrackerCommand extends Command
 
         if (! is_numeric($numberItems)) {
             $output->writeln('<error>' . tra('The value of items is not a number') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::INVALID;
         }
 
         $trackerDefinition = Tracker_Definition::get($trackerId);
         if (! $trackerDefinition) {
             $output->writeln('<error>' . tr('Tracker not found') . '</error>');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::FAILURE;
         }
 
         $fieldFakerOverride = [];
@@ -102,7 +102,7 @@ class FakerTrackerCommand extends Command
 
             if (is_null($fieldReference) || is_null($action)) {
                 $output->writeln('<error>' . tr('Invalid field definition: %0', $fieldDefinition) . '</error>');
-                return \Symfony\Component\Console\Command\Command::SUCCESS;
+                return Command::FAILURE;
             }
 
             if (empty($arguments)) {
