@@ -429,6 +429,7 @@ CREATE TABLE `tiki_calendar_recurrence` (
   `lastmodif` int(14) NOT NULL default '0',
   `uid` varchar(200),
   `uri` varchar(200),
+  `recurrenceDstTimezone` varchar(200) NULL default NULL COMMENT 'If a recurring event, event recurrences will move so the event is always at the same time of the day in that timezone',
   PRIMARY KEY (`recurrenceId`),
   KEY `calendarId` (`calendarId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;

@@ -354,10 +354,29 @@
                 </div>
             </div>
             {* / .row *}
+            <div id="timezonePicker" class="row mt-md-3 mb-3 date" style=" {if ( !($calitem.recurrenceId gt 0) and $recurrent neq 1 )} display:none; {/if}">
+                <label class="col-form-label col-sm-3">{tr}Time zone{/tr}</label>
+                {if $edit}
+                    <div class="col-sm-5">
+                        <select name="recurrenceDstTimezone" class="form-control" onChange="changeItemTimezone(this.options[this.selectedIndex].value);">
+                            {foreach from=$timezones key=k item=tz}
+                                <option value="{$tz}" {if $recurrence.recurrenceDstTimezone && $recurrence.recurrenceDstTimezone eq $tz} selected="selected" {else}{if $displayTimezone eq $tz} selected="selected" {/if}{/if}>
+                                    {$tz}
+                                </option>
+                            {/foreach}
+                        </select>
+                    </div>
+                {else}
+                    <div class="col-sm-9">
+                        {if ! empty($recurrence.recurrenceDstTimezone)}<span>{$recurrence.recurrenceDstTimezone}</span>{else}{$displayTimezone}{/if}
+                    </div>
+                {/if}
+            </div>
+            
             <div class="row mt-md-3 mb-3 date">
                 <label class="col-form-label col-sm-3">{tr}Start{/tr}</label>
                 <div class="col-sm-5 start">
-                    {jscalendar id="start" date=$calitem.start fieldname="calitem[start]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') notAfter='.date .end .datetime'}
+                    {jscalendar id="start" date=$calitem.start fieldname="calitem[start]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') timezone=$recurrence.recurrenceDstTimezone notAfter='.date .end .datetime'}
                 </div>
                 <div class="col-sm-2">
                     <div class="form-check">
@@ -372,7 +391,7 @@
                 <label class="col-form-label col-sm-3">{tr}End{/tr}</label>
                 <input type="hidden" name="calitem[end_or_duration]" value="end" id="end_or_duration">
                 <div class="col-sm-5 end ">
-                    {jscalendar id="end" date=$calitem.end fieldname="calitem[end]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') notBefore='.date .start .datetime'}
+                    {jscalendar id="end" date=$calitem.end fieldname="calitem[end]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') timezone=$recurrence.recurrenceDstTimezone notBefore='.date .start .datetime'}
                 </div>
                 <div class="col-sm-5 duration time" style="display:none;">
                     {html_select_time prefix="duration_" display_seconds=false time=$calitem.duration|default:'01:00' minute_interval=$prefs.calendar_minute_interval class='form-control date noselect2'}

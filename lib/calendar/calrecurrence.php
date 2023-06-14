@@ -40,6 +40,7 @@ class CalRecurrence extends TikiLib
     private $initialItem;
     private $uid;
     private $uri;
+    private $recurrenceDstTimezone;
 
     /**
      * @param $param
@@ -58,7 +59,7 @@ class CalRecurrence extends TikiLib
     {
         if ($this->getId() > 0) {
             $query = "SELECT calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, weekly, weekdays, monthly, dayOfMonth, monthlyType, monthlyWeekdayValue,"
-                     . "yearly, dateOfYear, nbRecurrences, startPeriod, endPeriod, user, created, lastModif, uri, uid FROM tiki_calendar_recurrence "
+                     . "yearly, dateOfYear, nbRecurrences, startPeriod, endPeriod, user, created, lastModif, uri, uid, recurrenceDstTimezone FROM tiki_calendar_recurrence "
                      . "WHERE recurrenceId = ?";
             $result = $this->query($query, [(int)$this->getId()]);
             if ($row = $result->fetchRow()) {
@@ -91,6 +92,7 @@ class CalRecurrence extends TikiLib
                 $this->setLastModif($row['lastModif']);
                 $this->setUri($row['uri']);
                 $this->setUid($row['uid']);
+                $this->setRecurenceDstTimezone($row['recurrenceDstTimezone']);
             } else {
                 $this->setCalendarId(0);
                 $this->setStart(0);
@@ -121,6 +123,7 @@ class CalRecurrence extends TikiLib
                 $this->setLastModif(0);
                 $this->setUri('');
                 $this->setUid('');
+                $this->setRecurenceDstTimezone('');
             }
         }
     }
@@ -294,8 +297,8 @@ class CalRecurrence extends TikiLib
     private function create()
     {
         $query = "INSERT INTO tiki_calendar_recurrence (calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, "
-                 . "weekly, weekdays, monthly, dayOfMonth, monthlyType, monthlyWeekdayValue, yearly, dateOfYear, nbRecurrences, startPeriod, endPeriod, user, created, lastModif, uri, uid) "
-                 . "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                 . "weekly, weekdays, monthly, dayOfMonth, monthlyType, monthlyWeekdayValue, yearly, dateOfYear, nbRecurrences, startPeriod, endPeriod, user, created, lastModif, uri, uid, recurrenceDstTimezone) "
+                 . "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $now = $this->now;
         $bindvars = [
                         $this->getCalendarId(),
@@ -327,6 +330,7 @@ class CalRecurrence extends TikiLib
                         $now,
                         $this->getUri(),
                         $this->getUid(),
+                        $this->getRecurenceDstTimezone(),
                      ];
         $result = $this->query($query, $bindvars);
         if ($result) {
@@ -348,7 +352,7 @@ class CalRecurrence extends TikiLib
     {
         $query = "UPDATE tiki_calendar_recurrence SET calendarId = ?, start = ?, end = ?, allday = ?, locationId = ?, categoryId = ?, nlId = ?, priority = ?, status = ?, "
                  . "url = ?, lang = ?, name = ?, description = ?, weekly = ?, weekdays = ?, monthly = ?, dayOfMonth = ?, monthlyType = ?, monthlyWeekdayValue = ?, yearly = ?, dateOfYear = ?, nbRecurrences = ?, "
-                 . "startPeriod = ?, endPeriod = ?, user = ?, lastModif = ?, uri = ?, uid = ? WHERE recurrenceId = ?";
+                 . "startPeriod = ?, endPeriod = ?, user = ?, lastModif = ?, uri = ?, uid = ?, recurrenceDstTimezone = ? WHERE recurrenceId = ?";
         $now = time();
         $bindvars = [
                         $this->getCalendarId(),
@@ -379,6 +383,7 @@ class CalRecurrence extends TikiLib
                         $now,
                         $this->getUri(),
                         $this->getUid(),
+                        $this->getRecurenceDstTimezone(),
                         $this->getId()
                      ];
         $oldRec = new CalRecurrence($this->getId()); // we'll need old version to compare fields.
@@ -405,7 +410,7 @@ class CalRecurrence extends TikiLib
         if (! $end) {
             $end = strtotime(Tiki\SabreDav\CalDAVBackend::MAX_DATE);
         }
-        $timezone = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
+        $timezone = $this->getRecurenceDstTimezone() ? new DateTimeZone($this->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
         $expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $timezone);
         $tx = TikiDb::get()->begin();
         foreach ($expanded->VEVENT as $vevent) {
@@ -841,7 +846,8 @@ class CalRecurrence extends TikiLib
             'endPeriod' => $this->getEndPeriod(),
             'user' => $this->getUser(),
             'created' => $this->getCreated(),
-            'lastModif' => $this->getLastModif()
+            'lastModif' => $this->getLastModif(),
+            'recurrenceDstTimezone' => $this->getRecurenceDstTimezone()
         ];
     }
 
@@ -1251,5 +1257,22 @@ class CalRecurrence extends TikiLib
     public function setUri($value)
     {
         $this->uri = $value;
+    }
+
+    /**
+     * If specified for a recurring event, the actual event times will be set so the event is always at the same time of the day in that timezone.
+     * This has nothing to do with the display or storage timezone of the event.
+     */
+    public function getRecurenceDstTimezone()
+    {
+        return $this->recurrenceDstTimezone;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setRecurenceDstTimezone($value)
+    {
+        $this->recurrenceDstTimezone = $value;
     }
 }

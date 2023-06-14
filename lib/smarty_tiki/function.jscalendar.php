@@ -14,6 +14,7 @@
  *               - notAfter:
  *               - notBefore:
  *               - isutc:
+ *               - timezone
  *
  * @param $smarty
  *
@@ -154,7 +155,7 @@ function smarty_function_jscalendar($params, $smarty)
         '$("input#' . $params['id'] . '_tzoffset").val((new Date(parseInt($(this).val())*1000)).getTimezoneOffset());' .
         '})');
 
-    $display_tz = $tikilib->get_display_timezone();
+    $display_tz = ! empty($params['timezone']) ? $params['timezone'] : $tikilib->get_display_timezone();
     if ($display_tz == '') {
         $display_tz = 'UTC';
     }

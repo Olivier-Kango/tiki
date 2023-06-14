@@ -218,6 +218,8 @@ class Services_Calendar_Controller
         $access = TikiLib::lib('access');
         $parserLib = TikiLib::lib('parser');
         $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
+        $timezones = TikiDate::getTimeZoneList();
+        $timezones = array_keys($timezones);
 
         $rawcals = $this->calendarLib->list_calendars();
 
@@ -460,6 +462,8 @@ class Services_Calendar_Controller
             'groupforalert'              => $groupforalert,
             'showeachuser'               => $showeachuser,
             'modal'                      => $input->modal->int(),
+            'displayTimezone'            => $displayTimezone,
+            'timezones'                  => $timezones,
         ];
     }
 
@@ -586,6 +590,7 @@ class Services_Calendar_Controller
                 $calRecurrence->setLang(strLen($calitem['lang']) > 0 ? $calitem['lang'] : 'en');
                 $calRecurrence->setName($calitem['name']);
                 $calRecurrence->setDescription($calitem['description']);
+                $calRecurrence->setRecurenceDstTimezone($input->recurrenceDstTimezone->text());
                 switch ($input->recurrenceType->word()) {
                     case "weekly":
                         $calRecurrence->setWeekly(true);

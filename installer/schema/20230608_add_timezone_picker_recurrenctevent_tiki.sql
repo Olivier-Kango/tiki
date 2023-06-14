@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_calendar_recurrence` ADD COLUMN `recurrenceDstTimezone` varchar(200) NULL default NULL COMMENT 'If a recurring event, event recurrences will move so the event is always at the same time of the day in that timezone';
