@@ -239,6 +239,42 @@ check-directories:
   needs: []
   allow_failure: true
 
+#This is a non-network check
+composer-validates:
+  image: ${BASE_QA_IMAGE}
+  stage: tiki-check
+  script:
+    - composer -V | grep "version 2" || composer self-update --2
+    - composer validate -d vendor_bundled --no-check-all
+  dependencies: []
+  needs: []
+
+#This tests if composer COULD update the current composer.lock (it is coherent and installable).
+#This is a network check, it could fail because composer.tiki.org is not up to date or some other non-code related reason.
+composer-could-update-lock:
+  image: ${BASE_QA_IMAGE}
+  variables:
+    COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composercache"
+  stage: tiki-check
+  script:
+    - composer -V | grep "version 2" || composer self-update --2
+    - composer update -d vendor_bundled --lock --dry-run
+  dependencies:
+    - composer
+  needs:
+    - composer
+  cache:
+    - key:
+        prefix: "composer"
+        files:
+          - vendor_bundled/composer.lock
+      paths:
+        - .composercache/
+      #We need push, because otherwise repo information isn't cached
+      policy: pull-push
+  #This test should only run when composer-validates fail (because changes in the upstream deps can make this fail without code changes).  But I could find no way to have a test only run in gitlab-ci if a specific one fails.  So allow it to fail like composer-lock for now - benoitg 2023-05-03
+  allow_failure: true
+
 .composer-lock:
   image: ${BASE_QA_IMAGE}
   stage: tiki-check
