@@ -1929,10 +1929,9 @@ class WikiLib extends TikiLib
 
     // Page display options
     //////////////////////////
-    public function processPageDisplayOptions()
+    public function processPageDisplayOptions(HeaderLib $headerlib)
     {
         global  $prefs;
-        $headerlib = TikiLib::lib('header');
 
         $currPage = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
         if (

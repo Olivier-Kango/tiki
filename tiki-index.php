@@ -210,7 +210,7 @@ if (
 }
 
 // Process page display options
-$wikilib->processPageDisplayOptions();
+$wikilib->processPageDisplayOptions(TikiLib::lib('header'));
 
 #Propagate the fullscreen parameter to templates
 if (isset($_REQUEST['fullscreen'])) {
