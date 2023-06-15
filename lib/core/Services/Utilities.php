@@ -274,4 +274,20 @@ class Services_Utilities
         ];
         return $ret;
     }
+
+    /**
+     * Normalize XML_RPC_Client Params
+     *
+     * @param $params
+     * @return array
+     */
+
+    public static function xmlrpcNormalizeParams($params)
+    {
+        $params['port'] = $params['port'] ?? 443;
+        $protocol = ($params['port'] == 80) ? 'http' : 'https';
+        $path = preg_replace('/^\/?/', '/', $params['path']);
+        $host = parse_url($params['host'], PHP_URL_HOST) ?? $params['host'];
+        return [$protocol, $path, $host];
+    }
 }

@@ -472,9 +472,7 @@ class RegistrationLib extends TikiLib
         global $prefs;
 
         $remote = $prefs['interlist'][$prefs['feature_intertiki_mymaster']];
-        $protocol = stripos($remote['host'], 'https') === 0 ? 'https' : 'http';
-        $remote['path'] = preg_replace('/^\/?/', '/', $remote['path']);
-        $remote['host'] = parse_url($remote['host'], PHP_URL_HOST);
+        list($protocol, $remote['path'], $remote['host']) = Services_Utilities::xmlrpcNormalizeParams($remote);
         $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
         $client->setDebug(0);
 
@@ -724,7 +722,8 @@ class RegistrationLib extends TikiLib
 
             if ($prefs['feature_intertiki'] == 'y' && ! empty($prefs['feature_intertiki_mymaster'])) {
                 $remote = $prefs['interlist'][$prefs['feature_intertiki_mymaster']];
-                $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port']);
+                list($protocol, $remote['path'], $remote['host']) = Services_Utilities::xmlrpcNormalizeParams($remote);
+                $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
                 $client->setDebug(0);
 
                 $msg = new XML_RPC_Message(

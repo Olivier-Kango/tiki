@@ -278,8 +278,8 @@ class UsersLib extends TikiLib
 
         if ($prefs['feature_intertiki'] == 'y' and $prefs['feature_intertiki_sharedcookie'] == 'y' and ! empty($prefs['feature_intertiki_mymaster'])) {
             $remote = $prefs['interlist'][$prefs['feature_intertiki_mymaster']];
-            $remote['path'] = preg_replace('/^\/?/', '/', $remote['path']);
-            $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port']);
+            list($protocol, $remote['path'], $remote['host']) = Services_Utilities::xmlrpcNormalizeParams($remote);
+            $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
             $client->setDebug(0);
             $msg = new XML_RPC_Message(
                 'intertiki.logout',
@@ -8164,9 +8164,7 @@ class UsersLib extends TikiLib
     {
         global $prefs;
         $hashkey = $this->get_cookie_check() . '.' . ($this->now + $prefs['remembertime']);
-        $protocol = stripos($remote['host'], 'https') === 0 ? 'https' : 'http';
-        $remote['path'] = preg_replace('/^\/?/', '/', $remote['path']);
-        $remote['host'] = parse_url($remote['host'], PHP_URL_HOST);
+        list($protocol, $remote['path'], $remote['host']) = Services_Utilities::xmlrpcNormalizeParams($remote);
         $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
         $client->setDebug(0);
 
@@ -8189,8 +8187,8 @@ class UsersLib extends TikiLib
     public function interGetUserInfo($remote, $user, $email)
     {
         global $prefs;
-        $remote['path'] = preg_replace('/^\/?/', '/', $remote['path']);
-        $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port']);
+        list($protocol, $remote['path'], $remote['host']) = Services_Utilities::xmlrpcNormalizeParams($remote);
+        $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
         $client->setDebug(0);
         $params = [];
         $params[] = new XML_RPC_Value($prefs['tiki_key'], 'string');
@@ -8224,8 +8222,8 @@ class UsersLib extends TikiLib
     {
         global $prefs;
         $userlib = TikiLib::lib('user');
-        $remote['path'] = preg_replace('/^\/?/', '/', $remote['path']);
-        $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port']);
+        list($protocol, $remote['path'], $remote['host']) = Services_Utilities::xmlrpcNormalizeParams($remote);
+        $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
         $client->setDebug(0);
         $params = [];
         $params[] = new XML_RPC_Value($prefs['tiki_key'], 'string');
@@ -8285,7 +8283,8 @@ class UsersLib extends TikiLib
         global $prefs;
 
         $remote = $prefs['interlist'][$prefs['feature_intertiki_mymaster']];
-        $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port']);
+        list($protocol, $remote['path'], $remote['host']) = Services_Utilities::xmlrpcNormalizeParams($remote);
+        $client = new XML_RPC_Client($remote['path'], $remote['host'], $remote['port'], $protocol);
         $client->setDebug(0);
 
         $msg = new XML_RPC_Message(
