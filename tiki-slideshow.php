@@ -127,7 +127,13 @@ $pdata = $wikilib->get_page($pdata, $_REQUEST['pagenum']);
 $parserlib->replace_preparse($info["data"], $preparsed, $noparsed);
 $parserlib->replace_preparse($pdata, $preparsed, $noparsed);
 
-$pdata = formatContent($pdata, $tagsArr);
+$slidePluginData = $parserlib->getPlugins($info["data"], ['slideshow']);
+
+if (! empty($slidePluginData)) {
+    $slidePluginHeadingLevelSlideSeparator = $slidePluginData[0]['arguments']['headingLevelSlideSeparator'];
+}
+
+$pdata = formatContent($pdata, $tagsArr, $slidePluginHeadingLevelSlideSeparator);
 
 if (isset($_REQUEST['pdf'])) {
     $access->check_feature("feature_slideshow_pdfexport");
@@ -445,7 +451,7 @@ $smarty->display("tiki_full.tpl");
 
 //new function for data cleaning and foramtting
 
-function formatContent($content, $tagArr)
+function formatContent($content, $tagArr, $slidePluginHeadingLevelSlideSeparator)
 {
 
     $doc = new DOMDocument();
@@ -496,8 +502,8 @@ function formatContent($content, $tagArr)
 
     // restore error level
     libxml_use_internal_errors($internalErrors);
-
-    $headingsTags = preg_split('/<h[123]/', $content);
+    $headingsTagsExpression = headings_tags_separator_expression($slidePluginHeadingLevelSlideSeparator);
+    $headingsTags = preg_split($headingsTagsExpression, $content);
     $firstSlide = 0;
     if (isset($_REQUEST['pdf'])) {
         $headingStart = '<div style="border-bottom:0px;" class="ss-heading">';
@@ -518,11 +524,11 @@ function formatContent($content, $tagArr)
             if ($sectionCheck == true) {
                 $slideContent .= str_replace("sslide", "section", $slide);
             } else {
-                $slideContent .= slideshow_section($slide, $headingStart, $slideStart, $slideEnd);
+                $slideContent .= slideshow_section($slide, $headingStart, $slideStart, $slideEnd, $slidePluginHeadingLevelSlideSeparator);
             }
             $firstSlide = 1;
         } else {
-            $slideContent .= slideshow_section($slide, $headingStart, $slideStart, $slideEnd);
+            $slideContent .= slideshow_section($slide, $headingStart, $slideStart, $slideEnd, $slidePluginHeadingLevelSlideSeparator);
         }
     }
 
@@ -536,10 +542,14 @@ function formatContent($content, $tagArr)
     ));
 }
 
-function slideshow_section($slide, $headingStart, $slideStart, $slideEnd)
+function slideshow_section($slide, $headingStart, $slideStart, $slideEnd, $headingLevelSlideSeparator)
 {
+    $endHeadingTags = [];
+    for ($i = 1; $i <= $headingLevelSlideSeparator; $i++) {
+        $endHeadingTags [] = '</h' . $i . '>';
+    }
     return '<section>' . $headingStart . '<h1' . str_replace(
-        ['</h1>','</h2>', '</h3>'],
+        $endHeadingTags,
         '</h1>' . $slideStart,
         $slide
     ) . $slideEnd . '</section>';
@@ -558,4 +568,17 @@ function dom_rename_element(DOMElement $node, $name)
     }
 
     return $node->parentNode->replaceChild($renamed, $node);
+}
+
+function headings_tags_separator_expression($headingLevelSlideSeparator)
+{
+    $levels = '';
+
+    for ($i = 1; $i <= $headingLevelSlideSeparator; $i++) {
+        $levels .= $i;
+    }
+
+    $expression = '/<h[' . trim($levels) . ']/';
+
+    return $expression;
 }

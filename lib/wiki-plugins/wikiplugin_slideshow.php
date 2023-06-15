@@ -85,8 +85,6 @@ function wikiplugin_slideshow_info()
                     ['text' => 'Convex', 'value' => 'convex'],
                     ['text' => 'Concave', 'value' => 'concave'],
                     ['text' => 'off', 'value' => ''],
-
-
                 ],
             ],
             'transitionSpeed' => [
@@ -252,7 +250,22 @@ function wikiplugin_slideshow_info()
                     ['text' => 'On', 'value' => 'y']
                 ],
             ],
-
+            'headingLevelSlideSeparator' => [
+                'required' => false,
+                'name' => tra('Title level slide separator'),
+                'description' => tra('Allows you to specify the heading levels to use to trigger a new slide (Included between h1 and h6)'),
+                'filter' => 'int',
+                'default' => '3',
+                'since' => '26.0',
+                'options' => [
+                    ['text' => 'h1', 'value' => '1'],
+                    ['text' => 'h2', 'value' => '2'],
+                    ['text' => 'h3', 'value' => '3'],
+                    ['text' => 'h4', 'value' => '4'],
+                    ['text' => 'h5', 'value' => '5'],
+                    ['text' => 'h6', 'value' => '6'],
+                ],
+            ],
         ],
     ];
 }
