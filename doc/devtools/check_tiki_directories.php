@@ -13,8 +13,10 @@ if (PHP_SAPI !== 'cli') {
 require dirname(__FILE__) . '/svntools.php';
 
 $dir = realpath(__DIR__ . '/../../') . '/';
+$firstLevelDir = scandir($dir);
 
 $excludeDir = [
+    $dir . '_custom',
     $dir . 'vendor',
     $dir . 'vendor_bundled',
     $dir . 'temp',
@@ -64,10 +66,11 @@ foreach (new RecursiveIteratorIterator($it) as $file) {
             if ($excludeFile === true) {
                 continue;
             }
-            if (! file_exists($filePath . '/index.php')) {
+            if (! file_exists($filePath . '/index.php') && ! file_exists($filePath . '/Index.php')) {
                 $missingIndexMessage .= color($filePath, 'blue') . PHP_EOL;
             }
-            if (! file_exists($filePath . '/.htaccess')) {
+            // We want to ensure that first level folders have .htaccess
+            if (! file_exists($filePath . '/.htaccess') && in_array(str_replace($dir, "", $filePath), $firstLevelDir)) {
                 $missingHtaccessMessage .= color($filePath, 'blue') . PHP_EOL;
             }
         }
