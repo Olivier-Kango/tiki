@@ -23,7 +23,7 @@
     <div id="report">
         <div class="reportOptionLabel">{tr}Report Type{/tr}</div>
         <select id="reportType">
-            <option value="">{tr}Select Report Type{/tr}</option>
+            <option value="" selected disabled>{tr}Select Report Type{/tr}</option>
 
             {foreach from=$definitions item=definition}
                 <option value="{$definition}">{$definition}</option>

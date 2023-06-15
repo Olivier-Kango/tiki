@@ -342,7 +342,7 @@
                     {if $users}
                         <div class="input-group col-sm-8">
                             <select class="form-select" name="action">
-                                <option value="no_action" selected="selected">
+                                <option value="no_action" selected disabled>
                                     {tr}Select action to perform with checked{/tr}...
                                 </option>
                                 <option value="remove_users">

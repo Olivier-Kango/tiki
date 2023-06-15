@@ -932,7 +932,7 @@
                                         <div class="input-group col-auto">
                                             <label class="col-form-label" for="previous_encoding">{tr}Previous table encoding:{/tr}</label>
                                             <select class="form-select ms-2" name="previous_encoding" id="previous_encoding">
-                                                <option value="">{tr}Please select{/tr}</option>
+                                                <option value="" selected disabled>{tr}Please select{/tr}</option>
                                                 <option value="armscii8" title="Armenian, Binary">armscii8</option>
                                                 <option value="ascii" title="West European (multilingual), Binary">ascii</option>
                                                 <option value="big5" title="Traditional Chinese, Binary">big5</option>

@@ -156,7 +156,7 @@
                                 {/if}
                                 <label>{tr}Perform action with checked:{/tr}
                                     <select name="submit_mult">
-                                        <option value=""></option>
+                                        <option value="">{tr}Select action to perform with checked{/tr}...</option>
                                         {if $tiki_p_remove_submission eq 'y'}<option value="remove_subs" >{tr}Remove{/tr}</option>{/if}
                                         {if $tiki_p_approve_submission eq 'y'}<option value="approve_subs" >{tr}Approve{/tr}</option>{/if}
                                     </select>

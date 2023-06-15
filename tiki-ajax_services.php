@@ -37,7 +37,7 @@ ob_start();
 require_once('tiki-setup.php');
 $errMsg = ob_get_clean();
 
-if (isset($_REQUEST['controller'], $_REQUEST['action'])) {
+if (isset($_REQUEST['controller'])) {
     $controller = $_REQUEST['controller'];
     $extensionPackage = '';
 
@@ -48,12 +48,17 @@ if (isset($_REQUEST['controller'], $_REQUEST['action'])) {
             $controller = $parts[2];
         }
     }
-
-    $action = $_REQUEST['action'];
-
-    $broker = TikiLib::lib('service')->getBroker($extensionPackage);
-    $broker->process($controller, $action, $jitRequest);
-    exit;
+    $action = 'no_action';
+    if (isset($_REQUEST['action'])) {
+        $action = $_REQUEST['action'];
+        $broker = TikiLib::lib('service')->getBroker($extensionPackage);
+        $broker->process($controller, $action, $jitRequest);
+        exit;
+    } else {
+        $broker = TikiLib::lib('service')->getBroker($extensionPackage);
+        $broker->process($controller, $action, $jitRequest);
+        exit;
+    }
 }
 
 if ($access->is_serializable_request() && isset($_REQUEST['listonly'])) {

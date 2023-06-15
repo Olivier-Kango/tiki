@@ -130,7 +130,7 @@
                 <div class="input-group col-sm-8">
                     <label for="submit_mult" class="col-form-label sr-only">{tr}Select action to perform with checked{/tr}</label>
                         <select name="action" class="form-select">
-                            <option value="no_action" selected="selected">{tr}Select action to perform with checked{/tr}...</option>
+                            <option value="no_action" selected disabled>{tr}Select action to perform with checked{/tr}...</option>
                             <option value="remove_groups">{tr}Remove{/tr}</option>
                         </select>
                         <input
@@ -616,7 +616,7 @@
                             {if $groupname neq 'Registered'}
                                 <div class="input-group">
                                     <select class="form-select" name="action">
-                                        <option value="no_action" selected="selected">
+                                        <option value="no_action" selected disabled>
                                             {tr}Select action to perform with checked{/tr}...
                                         </option>
                                         <option value="manage_groups">{tr}Unassign{/tr}</option>
@@ -717,7 +717,7 @@
             {if !$ts.ajax}
                 <div class="input-group col-sm-8">
                     <select class="form-select" name="action">
-                        <option value="no_action" selected="selected">
+                        <option value="no_action" selected disabled>
                             {tr}Select action to perform with checked{/tr}...
                         </option>
                         <option value="unban_user">{tr}Unban{/tr}</option>

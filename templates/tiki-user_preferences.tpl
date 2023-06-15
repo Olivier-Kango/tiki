@@ -304,7 +304,7 @@
                     <label class="col-form-label col-md-4" for="read-language">{tr}Other languages you can read{/tr}</label>
                     <div class="col-md-8">
                         <select class="form-select" id="read-language" name="_blank" onchange="document.getElementById('read-language-input').value+=' '+this.options[this.selectedIndex].value+' '">
-                            <option value="">{tr}Select language...{/tr}</option>
+                            <option value="" selected disabled>{tr}Select language...{/tr}</option>
                             {section name=ix loop=$languages}
                                 <option value="{$languages[ix].value|escape}">
                                     {$languages[ix].name}

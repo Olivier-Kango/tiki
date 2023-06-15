@@ -23,7 +23,7 @@
         </label>
         <div class="col-sm-9" id="profile-field">
             <select class="form-control" name="profile">
-                <option value="">{tr}Pick one please{/tr}</option>
+                <option value="" selected disabled>{tr}Pick one please{/tr}</option>
                 {foreach item=profile from=$profiles}
                     <option value="{$profile|escape}">{$profile}</option>
                 {/foreach}

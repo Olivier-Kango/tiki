@@ -443,7 +443,7 @@
     {if $checkboxes_on eq 'y' && count($listpages) > 0} {* what happens to the checked items? *}
         <div class="input-group col-sm-8 mb-3">
             <select name="action" class="form-select" id="submit_mult">
-                <option value="no_action" selected="selected">
+                <option value="no_action" selected disabled>
                     {tr}Select action to perform with checked{/tr}...
                 </option>
                 {if $tiki_p_remove eq 'y'}

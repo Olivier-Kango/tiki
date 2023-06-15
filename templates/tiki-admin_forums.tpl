@@ -158,7 +158,7 @@
                         <label for="action" class="col-lg"></label>
                         <div class="col-sm-6 input-group">
                             <select name="action" class="form-control" onchange="show('groups');">
-                                <option value="no_action">
+                                <option value="no_action" selected disabled>
                                     {tr}Select action to perform with checked{/tr}...
                                 </option>
                                 {if $tiki_p_admin_forum eq 'y'}
