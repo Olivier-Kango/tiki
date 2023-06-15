@@ -282,6 +282,9 @@ table.objectperms > tbody .checkBoxLabel {
     line-height: 2;
     text-indent: 1.7em;
 }
+.perms-titles {
+    z-index: 1;
+}
 // Added 9/6/2017 to position top labels
 .objectperms .checkBoxHeader > div > label {
     width: 140px;
