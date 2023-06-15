@@ -89,7 +89,7 @@ $lead-font-weight:            400;
 $small-font-size:             .875em !default;
 
 $blockquote-font-size:        $font-size-base * 1.25 !default;
-$blockquote-footer-color:     $gray-700;
+$blockquote-footer-color:     var(--#{$prefix}secondary-color);
 $blockquote-footer-font-size: $small-font-size !default;
 
 // Tables

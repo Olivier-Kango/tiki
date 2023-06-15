@@ -40,45 +40,45 @@ $tiki-top-margin-compensation-for-side-col-toggle: -$line-height-base !default;
 // $admbox-off-hover-border: darken($btn-primary-border, 40%) !default; //#a9a9a9
 // $admbox-off-hover-color: darken($btn-primary-color, 40%) !default; //#666666
 
-$tiki-table-column-bg-odd: darken($table-accent-bg, 5%) !default;
+$tiki-table-column-bg-odd: var(--bs-table-striped-bg); // darken($table-accent-bg, 5%) !default;
 // Correction for path for sorich87/bootstrap-tour's bootstrap-tour-standalone.less (maybe obsolete? This is only instance of this variable - Aug. 2022)
 $tiki-bootstrap-path: "../../../twbs/bootstrap/scss/" !default;
 
 // inline code
-$code-color: $gray-900;
-$code-bg:    $gray-100;
+$code-color: var(--bs-secondary-color); // $gray-900;
+$code-bg: var(--bs-secondary-bg); //  $gray-100;
 
 // Tracker
-$tiki-modal-link-color: $link-color !default;
-$tiki-modal-link-hover-color: $link-hover-color !default;
+$tiki-modal-link-color: var(--bs-link-color); // $link-color !default;
+$tiki-modal-link-hover-color: var(--bs-link-hover-color); // $link-hover-color !default;
 
 // Make hierarchical arrangement of admin options more clear
 $tiki-secondary-legend-font-size: 1.35rem !default;
 
 // Plugin Pivot Table variables
-$tiki-pvtUi-color: $body-color !default;
-$tiki-pvtUI-bg: $body-bg !default;
+$tiki-pvtUi-color: var(--bs-body-color); // $body-color !default;
+$tiki-pvtUI-bg: var(--bs-body-bg); // $body-bg !default;
 $tiki-pvtUI-mb: 30px !default;
 $tiki-pvt-font-size: $font-size-base !default;
-$tiki-pvt-table-color: $table-color;
-$tiki-pvt-table-bg: $table-bg !default;
+$tiki-pvt-table-color: var(--bs-table-color); // $table-color;
+$tiki-pvt-table-bg: var(--bs-table-bg); // $table-bg !default;
 $tiki-pvt-table-th-bg: $table-striped-bg !default;
-$tiki-pvt-table-th-color: $table-color !default;
-$tiki-pvt-table-border-color: $table-border-color !default;
-$tiki-pvt-modal-content-bg: $modal-content-bg !default;
-$tiki-pvtAttr-color: $input-color; // $btn-primary-color !default; // Temporary comment-out May 2022 - Gary
-$tiki-pvtAttr-bg: $input-bg;
-$tiki-pvtAttr-border-color: $input-border-color; // $btn-primary-border;
+$tiki-pvt-table-th-color: var(--bs-table-color); //$table-color !default;
+$tiki-pvt-table-border-color: var(--bs-border-color); // $table-border-color !default;
+$tiki-pvt-modal-content-bg: var(--bs-secondary-bg); // $modal-content-bg !default;
+$tiki-pvtAttr-color: var(--bs-body-color); // $input-color; // $btn-primary-color !default; // Temporary comment-out May 2022 - Gary
+$tiki-pvtAttr-bg: var(--bs-body-bg); // $input-bg;
+$tiki-pvtAttr-border-color: var(--bs-input-border-color); // $input-border-color; // $btn-primary-border;
 $tiki-pvtAttr-border-radius: $input-border-radius;
-$tiki-pvtFilterBox-button-color: $dark; // $btn-primary-color !default;
-$tiki-pvtFilterBox-button-bg: $light; // $btn-primary-bg !default;
+$tiki-pvtFilterBox-button-color: var(--bs-primary-color); // $dark; // $btn-primary-color !default;
+$tiki-pvtFilterBox-button-bg: var(--bs-primary-bg); //$light; // $btn-primary-bg !default;
 $tiki-pvtFilterBox-button-hover-bg: darken($light,10%); // adjust-hue($btn-primary-bg, 10%) !default;
-$tiki-pvtAggregator-color: $input-color !default;
-$tiki-pvtAggregator-bg: $input-bg !default;
-$tiki-pvtAggregator-border: $input-border-color !default;
+$tiki-pvtAggregator-color: var(--bs-body-color); // $input-color !default;
+$tiki-pvtAggregator-bg: var(--bs-body-bg); // $input-bg !default;
+$tiki-pvtAggregator-border: var(--bs-body-color); //$input-border-color !default;
 $tiki-pvtAggregator-border-radius: $input-border-radius !default;
 $tiki-pvtSelect-font-size: $font-size-base !default;
-$tiki-c3-color: $body-color !default;
+$tiki-c3-color: var(--bs-body-color); // $body-color !default;
 
 // Theme overrides of jQuery-UI styles
 $tiki-jq-ui-btn-font-weight: normal !default;
@@ -90,17 +90,17 @@ $tiki-editor-bg: $body-bg !default;
 $tiki-editor-text-color: $body-color !default;
 
 //jQuery-UI
-$tiki-ui-default-border: $nav-tabs-border-color !default;
-$tiki-ui-default-bg: $body-bg !default;
+$tiki-ui-default-border: var(-bs-border-color); // $nav-tabs-border-color !default;
+$tiki-ui-default-bg: var(--bs-body-bg); // $body-bg !default;
 $tiki-ui-font-weight: $font-weight-normal !default;
-$tiki-ui-default-color: $link-color !default;
-$tiki-ui-default-link-color: $link-color !default;
-$tiki-ui-default-link-active-color: $nav-tabs-link-active-color !default;
-$tiki-ui-default-link-active-bg: $nav-tabs-link-active-bg !default;
-$tiki-ui-active-border-color: $nav-tabs-link-hover-border-color !default;
-$tiki-ui-active-bg: $nav-tabs-link-active-bg !default;
+$tiki-ui-default-color: var(--bs-body-color); // $link-color !default;
+$tiki-ui-default-link-color: var(--bs-link-color); //$link-color !default;
+$tiki-ui-default-link-active-color: var(--bs-emphasis-color) !default; // $nav-tabs-link-active-color !default;
+$tiki-ui-default-link-active-bg: var(--bs-body-bg) !default; // $nav-tabs-link-active-bg !default;
+$tiki-ui-active-border-color: var(--bs-emphasis-color); // $nav-tabs-link-hover-border-color !default;
+$tiki-ui-active-bg: var(--bs-body-bg) !default; // $nav-tabs-link-active-bg !default;
 $tiki-ui-font-weight: $font-weight-normal !default;
-$tiki-ui-active-color: $nav-tabs-link-active-color !default;
+$tiki-ui-active-color: var(--bs-emphasis-color) !default; // $nav-tabs-link-active-color !default;
 
 // color of the interactive translation checkbox
 $tiki-color_pigeon_post_approx: #b1c5d8 !default;
@@ -112,9 +112,9 @@ $tiki-color_zircon_approx: #f4f5ff !default;
 $tiki-intertrans_background:#03657d !default;
 
 // Blockquote
-$blockquote-color: #595959 !default; // was #7a7a7a, updated for WAI compliance
-$blockquote-footer-color: $blockquote-color !default; // Bootstrap 5
-$blockquote-left-border-color: #e5e5e5 !default;
+// $tiki-blockquote-color: #595959 !default; // was #7a7a7a, updated for WAI compliance - Tiki 26 renamed, and, as not really necessary, commented out due to color modes
+$tiki-blockquote-footer-color: var(--#{$prefix}secondary-color); // Bootstrap 5 -
+$tiki-blockquote-left-border-color: var(--#{$prefix}secondary-color); // #e5e5e5 !default;
 
 // Smartmenus
 //$megamenu-dropdown-link-color: $dropdown-link-color;

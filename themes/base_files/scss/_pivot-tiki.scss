@@ -81,7 +81,7 @@
 
     .pvtTriangle {
         cursor: pointer;
-        color: grey;
+        color: var(--bs-secondary-color); // grey;
     }
 
     .pvtHorizList li {
@@ -97,7 +97,7 @@
 
     .pvtFilterBox {
         z-index: 100;
-        width: 280px;
+        width: auto; // 280px; -- Width was too small to contain contents - g_c-l
         border: 1px solid $tiki-pvt-table-border-color;
         background-color: $tiki-pvt-modal-content-bg;
         position: absolute;

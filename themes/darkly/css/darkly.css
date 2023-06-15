@@ -11148,7 +11148,7 @@ form.simple label .warning {
   color: var(--bs-body-color);
 }
 .objectperms .checkBoxHeader:nth-of-type(odd) > div > label, .objectperms td.checkBoxCell:nth-of-type(odd), .objectperms .checkBoxHeader:nth-of-type(odd) > .checkBoxLabel {
-  background: rgba(0, 0, 0, 0);
+  background: var(--bs-table-striped-bg);
 }
 .helptool-admin {
   border-left: medium double #ebebeb;
@@ -11474,31 +11474,31 @@ div.drillshow {
   border: none;
 }
 .tiki .modal-content .ui-state-default {
-  color: #00bc8c;
+  color: var(--bs-link-color);
 }
 .tiki .modal-content .ui-state-hover:hover {
-  color: #009670;
+  color: var(--bs-link-hover-color);
 }
 .tiki .col1 .table-responsive .table {
   border: 1px solid #444;
 }
 .codecaption {
   display: inline-block;
-  color: #222;
-  background: #f8f9fa;
-  border: 1px solid #bbb;
+  color: var(--bs-secondary-color);
+  background: var(--bs-secondary-bg);
+  border: 1px solid var(--bs-secondary-color);
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
   font-weight: bold;
 }
 code, pre.codelisting {
-  background: #f8f9fa;
+  background: var(--bs-secondary-bg);
   border: 1px solid transparent;
   padding: 0.1875rem 0.375rem;
 }
 code {
-  color: #222;
+  color: var(--bs-secondary-color);
 }
 pre.codelisting {
   color: var(--bs-body-color);
@@ -11677,8 +11677,7 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   }
 }
 blockquote {
-  color: #595959;
-  border-left: 0.25rem solid #e5e5e5;
+  border-left: 0.25rem solid var(--bs-secondary-color);
 }
 .to-translate {
   color: #e74c3c;
@@ -12025,8 +12024,8 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-right: 4px;
 }
 .tiki .pvtUi {
-  color: #fff;
-  background: #222;
+  color: var(--bs-body-color);
+  background: var(--bs-body-bg);
   margin-bottom: 30px;
 }
 .tiki table.pvtTable {
@@ -12034,16 +12033,16 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki table.pvtTable tr th {
   background-color: rgba(0, 0, 0, 0.05);
-  color: var(--bs-body-color);
-  border: 1px solid #444;
+  color: var(--bs-table-color);
+  border: 1px solid var(--bs-border-color);
   font-size: 1rem;
   padding: 5px;
 }
 .tiki table.pvtTable tr td {
-  color: var(--bs-body-color);
+  color: var(--bs-table-color);
   cursor: pointer;
-  background-color: var(--bs-body-bg);
-  border-color: #444;
+  background-color: var(--bs-table-bg);
+  border-color: var(--bs-border-color);
 }
 .tiki .pvtTotal, .tiki .pvtGrandTotal {
   font-weight: bold;
@@ -12055,18 +12054,18 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-bottom: 5px;
   background: var(--bs-body-bg);
   color: var(--bs-body-color);
-  border: 1px solid var(--bs-body-bg);
+  border: 1px solid var(--bs-body-color);
   border-radius: var(--bs-border-radius);
 }
 .tiki .pvtAxisContainer, .tiki .pvtVals {
-  border-color: #444;
-  background: var(--bs-body-bg);
+  border-color: var(--bs-border-color);
+  background: var(--bs-table-bg);
   padding: 5px;
 }
 .tiki .pvtAxisContainer li.pvtPlaceholder {
   padding: 3px 15px;
   border-radius: 5px;
-  border: 1px dashed #444;
+  border: 1px dashed var(--bs-border-color);
 }
 .tiki .pvtAxisContainer li span.pvtAttr {
   -webkit-text-size-adjust: 100%;
@@ -12074,12 +12073,12 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background: var(--bs-body-bg);
   padding: 2px 5px;
   white-space: nowrap;
-  border: 1px solid var(--bs-body-bg);
+  border: 1px solid var(--bs-input-border-color);
   border-radius: var(--bs-border-radius);
 }
 .tiki .pvtTriangle {
   cursor: pointer;
-  color: grey;
+  color: var(--bs-secondary-color);
 }
 .tiki .pvtHorizList li {
   display: inline;
@@ -12092,9 +12091,9 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .pvtFilterBox {
   z-index: 100;
-  width: 280px;
-  border: 1px solid #444;
-  background-color: #303030;
+  width: auto;
+  border: 1px solid var(--bs-border-color);
+  background-color: var(--bs-secondary-bg);
   position: absolute;
   padding: 20px;
   text-align: center;
@@ -12124,10 +12123,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #adb5bd;
+  background: var(--bs-primary-bg);
   border: 1px solid #dee2e6;
   border-radius: var(--bs-border-radius);
-  color: #303030;
+  color: var(--bs-primary-color);
 }
 .tiki .pvtFilterBox button:hover {
   background: #919ca6;
@@ -12138,7 +12137,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .c3 line, .tiki .c3 path, .tiki .c3 svg {
   fill: none;
-  stroke: #fff;
+  stroke: var(--bs-body-color);
 }
 .tiki select {
   font-size: 1rem;
@@ -12162,10 +12161,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-state-active, .tiki .ui-widget-content .ui-state-active, .tiki .ui-widget-header .ui-state-active, .tiki a.ui-button:active, .tiki .ui-button:active, .tiki .ui-button.ui-state-active:hover {
   border: 1px solid;
-  border-color: #444 #444 transparent;
+  border-color: var(--bs-emphasis-color);
   background: var(--bs-body-bg);
   font-weight: 400;
-  color: #fff;
+  color: var(--bs-emphasis-color);
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
@@ -12369,13 +12368,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-radius: 0;
 }
 .tiki-webmail .ui-widget-content, .tiki-cypht .ui-widget-content, .mobile.tiki-cypht .ui-widget-content, .inline-cypht .ui-widget-content {
-  background-color: #222 !important;
+  background-color: var(--bs-body-bg) !important;
 }
 .tiki-webmail .ui-menu-item-wrapper, .tiki-cypht .ui-menu-item-wrapper, .mobile.tiki-cypht .ui-menu-item-wrapper, .inline-cypht .ui-menu-item-wrapper {
   color: var(--bs-body-color) !important;
 }
 .tiki-webmail .ui-state-active, .tiki-cypht .ui-state-active, .mobile.tiki-cypht .ui-state-active, .inline-cypht .ui-state-active {
-  color: #fff !important;
+  color: var(--bs-emphasis-color) !important;
 }
 .tiki-webmail .popover-header, .tiki-cypht .popover-header, .mobile.tiki-cypht .popover-header, .inline-cypht .popover-header {
   color: inherit !important;
@@ -12707,8 +12706,8 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .toastui-editor-contents code {
   font-size: 0.875em;
-  color: #222;
-  background-color: #f8f9fa;
+  color: var(--bs-secondary-color);
+  background-color: var(--bs-secondary-bg);
 }
 .tiki .toastui-editor-contents pre {
   color: inherit;
