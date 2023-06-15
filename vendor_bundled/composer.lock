@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f188a1ef295d1e2f66c58d3391963223",
+    "content-hash": "bf87cddfc07a7d8f97a140bbdc330b67",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -18,17 +18,17 @@
         },
         {
             "name": "adodb/adodb-php",
-            "version": "v5.22.5",
+            "version": "v5.22.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "bacd08a8232b6d941b9902f02d323f53de81fafe"
+                "reference": "2e916ebc543b95f955af3c91366d799b8c6134aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-bacd08a8232b6d941b9902f02d323f53de81fafe-zip-11499e.zip",
-                "reference": "bacd08a8232b6d941b9902f02d323f53de81fafe",
-                "shasum": "246170758d7507d7846af54898c70e8b9785dfa7"
+                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-2e916ebc543b95f955af3c91366d799b8c6134aa-zip-b4ec6e.zip",
+                "reference": "2e916ebc543b95f955af3c91366d799b8c6134aa",
+                "shasum": "6be0935bf56166f898ca4684a94be5af324eb6f6"
             },
             "require": {
                 "php": "^7.0 || ^8.0"
@@ -71,7 +71,7 @@
                 "library",
                 "php"
             ],
-            "time": "2023-04-03T21:41:29+00:00"
+            "time": "2023-06-11T11:05:41+00:00"
         },
         {
             "name": "afarkas/html5shiv",
@@ -2587,13 +2587,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "5fe3a30"
+                "reference": "613175f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-5fe3a3021dafb0ffd244da4079a6203037d32b0c-zip-a7e567.zip",
-                "reference": "5fe3a30",
-                "shasum": "cba015917505220df4fcd170e8d67344a4d08580"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-dd67951b42de854fcd0c12b86b62868e84712f90-zip-99b1cd.zip",
+                "reference": "613175f",
+                "shasum": "6f84b336d6c3282ec59e876656f6701de25b2a1c"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2647,7 +2647,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-06-09T07:35:40+00:00"
+            "time": "2023-06-13T21:56:04+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -7976,17 +7976,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.42",
+            "version": "2.0.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "665d289f59e646a259ebf13f29be7f6f54cab24b"
+                "reference": "149f608243f8133c61926aae26ce67d2b22b37e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-665d289f59e646a259ebf13f29be7f6f54cab24b-zip-34b53e.zip",
-                "reference": "665d289f59e646a259ebf13f29be7f6f54cab24b",
-                "shasum": "86c2e3391243fa951f7fda9bdf08f2f73e601d89"
+                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-149f608243f8133c61926aae26ce67d2b22b37e5-zip-228a74.zip",
+                "reference": "149f608243f8133c61926aae26ce67d2b22b37e5",
+                "shasum": "8e3ef327182bc27a0e4ee5de12f1af2dc7e8c624"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -8078,7 +8078,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-06T12:45:53+00:00"
+            "time": "2023-06-13T08:41:47+00:00"
         },
         {
             "name": "player/flv",
@@ -9505,21 +9505,21 @@
         },
         {
             "name": "sentry/sdk",
-            "version": "3.4.0",
+            "version": "3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php-sdk.git",
-                "reference": "7f1e04a5380a91e41a1a68c363ec19f88619a870"
+                "reference": "cd91b752f07c4bab9fb3b173f81af68a78a78d6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/7f1e04a5380a91e41a1a68c363ec19f88619a870",
-                "reference": "7f1e04a5380a91e41a1a68c363ec19f88619a870",
+                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/cd91b752f07c4bab9fb3b173f81af68a78a78d6d",
+                "reference": "cd91b752f07c4bab9fb3b173f81af68a78a78d6d",
                 "shasum": ""
             },
             "require": {
                 "http-interop/http-factory-guzzle": "^1.0",
-                "sentry/sentry": "^3.18",
+                "sentry/sentry": "^3.19",
                 "symfony/http-client": "^4.3|^5.0|^6.0"
             },
             "type": "metapackage",
@@ -9554,7 +9554,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-22T16:02:39+00:00"
+            "time": "2023-06-12T17:50:36+00:00"
         },
         {
             "name": "sentry/sentry",
@@ -9886,17 +9886,17 @@
         },
         {
             "name": "studio-42/elfinder",
-            "version": "2.1.61",
+            "version": "2.1.62",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Studio-42/elFinder.git",
-                "reference": "33bee2654615db62e9b722efb4fdd2a21844fbb2"
+                "reference": "91133c14a341158beca82aede0b2138236a96bc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/studio-42/elfinder/studio-42-elfinder-33bee2654615db62e9b722efb4fdd2a21844fbb2-zip-84090f.zip",
-                "reference": "33bee2654615db62e9b722efb4fdd2a21844fbb2",
-                "shasum": "d1dab07ff7be73482c4c6f427bc8ff6c5148df4d"
+                "url": "https://composer.tiki.org/dist/studio-42/elfinder/studio-42-elfinder-91133c14a341158beca82aede0b2138236a96bc8-zip-929e42.zip",
+                "reference": "91133c14a341158beca82aede0b2138236a96bc8",
+                "shasum": "13e9c8c7434ac388699e4d0bc43c9015169addb8"
             },
             "require": {
                 "php": ">=5.2"
@@ -9946,7 +9946,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-14T15:07:52+00:00"
+            "time": "2023-06-13T16:39:07+00:00"
         },
         {
             "name": "svg-edit/svg-edit",
@@ -9960,17 +9960,17 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v4.19.0",
+            "version": "v4.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "f01969138dbce7d2a03ae5a02565088df552794f"
+                "reference": "92ffd76d15671954c239fdefb43d1951e06f8bb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-f01969138dbce7d2a03ae5a02565088df552794f-zip-27555b.zip",
-                "reference": "f01969138dbce7d2a03ae5a02565088df552794f",
-                "shasum": "9cd59c1ba4631a03ca017deaa323610a08e61565"
+                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-92ffd76d15671954c239fdefb43d1951e06f8bb5-zip-c64276.zip",
+                "reference": "92ffd76d15671954c239fdefb43d1951e06f8bb5",
+                "shasum": "756ab3b6e57f34e6bb15ae8ea6c9a20d3f570daf"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -10013,7 +10013,7 @@
                 "swagger",
                 "ui"
             ],
-            "time": "2023-05-24T13:22:49+00:00"
+            "time": "2023-06-12T16:31:43+00:00"
         },
         {
             "name": "symfony/config",
