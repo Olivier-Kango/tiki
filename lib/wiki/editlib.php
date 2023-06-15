@@ -481,16 +481,16 @@ class EditLib
                 switch ($format) {
                     case 'text-align':
                         if ($style[$format] == 'left') {
-                            $src .= "{DIV(${type}align=\"left\")}";
+                            $src .= "{DIV({$type}align=\"left\")}";
                             $p['stack'][] = ['tag' => $tag_name, 'string' => '{DIV}'];
                         } elseif ($style[$format] == 'center') {
                             $markup = ($prefs['feature_use_three_colon_centertag'] == 'y') ? ':::' : '::';
                             $this->processWikiTag($tag_name, $src, $p, $markup, $markup, false);
                         } elseif ($style[$format] == 'right') {
-                            $src .= "{DIV(${type}align=\"right\")}";
+                            $src .= "{DIV({$type}align=\"right\")}";
                             $p['stack'][] = ['tag' => $tag_name, 'string' => '{DIV}'];
                         } elseif ($style[$format] == 'justify') {
-                            $src .= "{DIV(${type}align=\"justify\")}";
+                            $src .= "{DIV({$type}align=\"justify\")}";
                             $p['stack'][] = ['tag' => $tag_name, 'string' => '{DIV}'];
                         }
                         break;

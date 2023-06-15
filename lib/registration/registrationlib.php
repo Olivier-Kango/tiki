@@ -62,7 +62,7 @@ class RegistrationLib extends TikiLib
 
         if (! preg_match('/^[-_a-z0-9+]+(\\.[-_a-z0-9+]+)*\\@([-a-z0-9]+\\.)*([a-z]{2,4})$/i', $Email)) {
             $Return[0] = false;
-            $Return[1] = "${Email} is E-Mail form that is not right.";
+            $Return[1] = "{$Email} is E-Mail form that is not right.";
 
             if ($Debug) {
                 echo "Error : {$Email} is E-Mail form that is not right.<br>";
