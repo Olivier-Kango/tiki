@@ -50,7 +50,7 @@ if ($prefs['feature_wiki'] == 'y') {
         $pages_offset = $offset;
         //always reset the offset to the last page when the offset in parameter is greater than the number of pages to have in the pagination
         if ($offset > $user_pages_count) {
-            $pages_offset = (ceil($user_pages_count / $step) - 1) * $step;
+            $pages_offset = $user_pages_count === 0 ? -1 : ((ceil($user_pages_count / $step) - 1) * $step);
         }
         $user_pages = $wikilib->get_user_all_pages($userwatch, $sort_mode, $pages_offset, $step);
         $smarty->assign_by_ref('user_pages', $user_pages);
@@ -71,7 +71,7 @@ if ($prefs['feature_blogs'] == 'y') {
         $posts_offset = $offset;
         //always reset the offset to the last page when the offset in parameter is greater than the number of pages to have in the pagination
         if ($offset > $user_posts_count) {
-            $posts_offset = (ceil($user_posts_count / $step) - 1) * $step;
+            $posts_offset = $user_posts_count === 0 ? -1 : ((ceil($user_posts_count / $step) - 1) * $step);
         }
         $user_blog_posts = $bloglib->list_posts($posts_offset, $step, 'created_desc', '', -1, $userwatch);
         $smarty->assign_by_ref('user_posts_count', $user_posts_count);
@@ -88,7 +88,7 @@ if ($prefs['feature_trackers'] == 'y') {
         $user_items_count = count($trklib->get_user_items($userwatch));
         //always reset the offset to the last page when the offset in parameter is greater than the number of pages to have in the pagination
         if ($offset > $user_items_count) {
-            $user_items_offset = (ceil($user_items_count / $step) - 1) * $step;
+            $user_items_offset = $user_items_count === 0 ? -1 : ((ceil($user_items_count / $step) - 1) * $step);
         }
         $user_items = $trklib->get_user_items($userwatch, true, $step, $user_items_offset);
         $smarty->assign_by_ref('user_items', $user_items);
@@ -107,7 +107,7 @@ if ($prefs['feature_forums'] == 'y') {
         $forum_replies_count = count($commentslib->get_user_forum_comments($userwatch, -1, 'replies'));
         //always reset the offset to the last page when the offset in parameter is greater than the number of pages to have in the pagination
         if ($offset > $forum_replies_count) {
-            $forum_replies_offset = (ceil($forum_replies_count / $step) - 1) * $step;
+            $forum_replies_offset = $forum_replies_offset === 0 ? -1 : ((ceil($forum_replies_count / $step) - 1) * $step);
         }
         $user_forum_replies = $commentslib->get_user_forum_comments($userwatch, $step, 'replies', $forum_replies_offset);
         $smarty->assign_by_ref('user_forum_replies', $user_forum_replies);
@@ -122,7 +122,7 @@ if ($prefs['feature_forums'] == 'y') {
         $forum_topics_count = count($commentslib->get_user_forum_comments($userwatch, -1, 'topics'));
         //always reset the offset to the last page when the offset in parameter is greater than the number of pages to have in the pagination
         if ($offset > $forum_topics_count) {
-            $forum_topics_offset = (ceil($forum_topics_count / $step) - 1) * $step;
+            $forum_topics_offset = $forum_topics_count === 0 ? -1 : ((ceil($forum_topics_count / $step) - 1) * $step);
         }
         $user_forum_topics = $commentslib->get_user_forum_comments($userwatch, $step, 'topics', $forum_topics_offset);
         $smarty->assign_by_ref('user_forum_topics', $user_forum_topics);
@@ -138,7 +138,7 @@ if ($prefs['feature_tasks'] == 'y') {
         $tasks_count = $tasklib->list_tasks($user, 0, -1, null, 'priority_asc', true, false, true)['cant'];
         //always reset the offset to the last page when the offset in parameter is greater than the number of pages to have in the pagination
         if ($offset > $tasks_count) {
-            $tasks_offset = (ceil($tasks_count / $step) - 1) * $step;
+            $tasks_offset = $tasks_count === 0 ? -1 : ((ceil($tasks_count / $step) - 1) * $step);
         }
         $tasks = $tasklib->list_tasks($user, $tasks_offset, $step, null, 'priority_asc', true, false, true);
         $smarty->assign_by_ref('tasks', $tasks['data']);
@@ -156,8 +156,8 @@ if ($prefs['feature_messages'] == 'y' && $tiki_p_messages == 'y') {
         $msgs_offset = $offset;
         $msgs_count = TikiLib::lib('message')->list_user_messages($user, 0, -1, 'date_desc', '', 'isRead', 'n', '', 'messages')['cant'];
         //always reset the offset to the last page when the offset in parameter is greater than the number of pages to have in the pagination
-        if ($offset > $msgs_offset) {
-            $msgs_offset = (ceil($msgs_count / $step) - 1) * $step;
+        if ($offset > $msgs_count) {
+            $msgs_offset = $msgs_count === 0 ? -1 : ((ceil($msgs_count / $step) - 1) * $step);
         }
 
         $msgs = TikiLib::lib('message')->list_user_messages($user, $msgs_offset, $step, 'date_desc', '', 'isRead', 'n', '', 'messages');
@@ -175,7 +175,7 @@ if ($prefs['feature_articles'] == 'y') {
         $articles_offset = $offset;
         //always reset the offset to the last page when the offset in parameter is greater than the number of pages to have in the pagination
         if ($offset > $user_articles_count) {
-            $articles_offset = (ceil($user_articles_count / $step) - 1) * $step;
+            $articles_offset = $user_articles_count === 0 ? -1 : ((ceil($user_articles_count / $step) - 1) * $step);
         }
         $user_articles = $artlib->get_user_articles($userwatch, $step, $articles_offset);
         $smarty->assign_by_ref('user_articles', $user_articles);
