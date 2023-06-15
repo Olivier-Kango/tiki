@@ -183,10 +183,6 @@ function sendForumEmailNotification(
             $contributionlib = TikiLib::lib('contribution');
             $smarty->assign('mail_contributions', $contributionlib->print_contributions($contributions));
         }
-        $foo = parse_url($_SERVER["REQUEST_URI"]);
-        $machine = $tikilib->httpPrefix(true) . dirname($foo["path"]);
-        $machine = preg_replace("!/$!", "", $machine); // just incase
-        $smarty->assign('mail_machine', $machine);
         $smarty->assign('forumId', $forum_info["forumId"]);
         if ($event == "forum_post_topic") {
             $smarty->assign('new_topic', 'y');
@@ -376,22 +372,12 @@ function sendWikiEmailNotification(
         $smarty->assign('mail_newver', $newver);
         $smarty->assign('mail_data', $edit_data);
         $smarty->assign('mail_attId', $attId);
-        $foo = parse_url($_SERVER["REQUEST_URI"]);
-        $machine = $tikilib->httpPrefix(true) . dirname($foo["path"]);
-        $smarty->assign('mail_machine', $machine);
 
         if ($prefs['feature_contribution'] == 'y' && ! empty($contributions)) {
             $contributionlib = TikiLib::lib('contribution');
             $smarty->assign('mail_contributions', $contributionlib->print_contributions($contributions));
         }
 
-        $parts = explode('/', $foo['path']);
-
-        if (count($parts) > 1) {
-            unset($parts[count($parts) - 1]);
-        }
-
-        $smarty->assign('mail_machine_raw', $tikilib->httpPrefix(true) . implode('/', $parts));
         $smarty->assign_by_ref('mail_pagedata', $edit_data);
         $smarty->assign_by_ref('mail_diffdata', $diff);
 
@@ -452,17 +438,6 @@ function sendEmailNotification($watches, $dummy, $subjectTpl, $subjectParam, $tx
     $sent = 0;
     $smarty->assign('mail_date', $tikilib->now);
 
-    $foo = parse_url($_SERVER["REQUEST_URI"]);
-    $smarty->assign('mail_machine', $tikilib->httpPrefix(true) . $foo["path"]);
-    $parts = explode('/', $foo['path']);
-
-    if (count($parts) > 1) {
-        unset($parts[count($parts) - 1]);
-    }
-
-    $smarty->assign('mail_machine_raw', $tikilib->httpPrefix(true) . implode('/', $parts));
-    // TODO: mail_machine_site may be required for some sef url with rewrite to sub-directory. To refine. (nkoth)
-    $smarty->assign('mail_machine_site', $tikilib->httpPrefix(true));
     foreach ($watches as $watch) {
         $mail = new TikiMail(null, $from, $fromName);
 
@@ -575,14 +550,6 @@ function sendFileGalleryEmailNotification($event, $galleryId, $galleryName, $nam
         $smarty->assign('fdescription', $description);
         $smarty->assign('mail_date', $tikilib->now);
         $smarty->assign('author', $user);
-        if (php_sapi_name() !== 'cli') {
-            $foo = parse_url($_SERVER['REQUEST_URI']);
-            $machine = $tikilib->httpPrefix(true) . dirname($foo['path']);
-        } else {
-            $machine = '';      // console command
-        }
-        $smarty->assign('mail_machine', $machine);
-
         foreach ($nots as $not) {
             $mail = new TikiMail();
             $mail->setUser($not['user']);
@@ -682,11 +649,6 @@ function sendCategoryEmailNotification($values)
         $smarty->assign('mail_date', date("U"));
         $smarty->assign('author', $user);
 
-        $foo = parse_url($_SERVER["REQUEST_URI"]);
-        $machine = $tikilib->httpPrefix(true) . dirname($foo["path"]);
-        $machine = preg_replace("!/$!", '', $machine); // just incase
-        $smarty->assign('mail_machine', $machine);
-
         $nots_send = [];
 
         foreach ($nots as $not) {
@@ -761,9 +723,6 @@ function sendStructureEmailNotification($params)
 
     if (! empty($nots)) {
         $defaultLanguage = $prefs['site_language'];
-        $foo = parse_url($_SERVER["REQUEST_URI"]);
-        $machine = $tikilib->httpPrefix(true) . dirname($foo["path"]);
-        $smarty->assign_by_ref('mail_machine', $machine);
         include_once(__DIR__ . '/../webmail/tikimaillib.php');
         $smarty->assign_by_ref('action', $params['action']);
         $smarty->assign_by_ref('page_ref_id', $params['page_ref_id']);

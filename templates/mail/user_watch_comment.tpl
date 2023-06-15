@@ -11,14 +11,14 @@
 
 {tr}You can view the comment by following this link:{/tr}
 {if $objecttype eq 'wiki'}
-{$mail_machine_raw}/{$mail_objectname|sefurl}#threadId={$comment_id}
+{mailurl}{$mail_objectname|sefurl}#threadId={$comment_id}{/mailurl}
 {* Blog comment mail *}
 {elseif $objecttype eq 'blog'}
-{$mail_machine_raw}/{$mail_objectid|sefurl:'blogpost'}#threadId={$comment_id}
+{mailurl}{$mail_objectid|sefurl:'blogpost'}#threadId={$comment_id}{/mailurl}
 {elseif $objecttype eq 'article'}
-{$mail_machine_raw}/{$mail_objectid|sefurl:'article'}#threadId={$comment_id}
+{mailurl}{$mail_objectid|sefurl:'article'}#threadId={$comment_id}{/mailurl}
 {elseif $objecttype eq 'trackeritem'}
-{$mail_machine_raw}/{$mail_objectid|sefurl:'trackeritem'}#threadId={$comment_id}
+{mailurl}{$mail_objectid|sefurl:'trackeritem'}#threadId={$comment_id}{/mailurl}
 {/if}
 
 {tr}Title:{/tr} {$mail_title}
@@ -27,6 +27,6 @@
 
 {if $watchId}
 {tr}If you don't want to receive these notifications follow this link:{/tr}
-{$mail_machine_raw}/tiki-user_watches.php?id={$watchId}
+{mailurl}tiki-user_watches.php?id={$watchId}{/mailurl}
 {/if}
 

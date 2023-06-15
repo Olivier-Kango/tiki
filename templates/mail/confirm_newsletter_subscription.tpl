@@ -6,4 +6,4 @@
 
 {tr}Please access the following URL to confirm your subscription:{/tr}
 
-{$mail_machine}tiki-newsletters.php?confirm_subscription={$code}
+{mailurl}tiki-newsletters.php?confirm_subscription={$code}{/mailurl}

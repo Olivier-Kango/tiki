@@ -12,16 +12,16 @@
 {if $mail_action eq 'delete'}{tr _0=$prefs.mail_template_custom_text _1=$mail_page}The page %0"%1" was deleted but used to be here:{/tr}
 {else}{tr}You can view the page by following this link:{/tr}
 {/if}
-{$mail_machine_raw}/{$mail_page|sefurl}
+{mailurl}{$mail_page|sefurl}{/mailurl}
 
 {if $mail_action eq 'edit'}{tr}You can view a diff back to the previous version by following this link:{/tr} {* Using the full diff syntax so the links are still valid, even after a new version has been made. -rlpowell *}
-{$mail_machine_raw}/tiki-pagehistory.php?page={$mail_page|escape:"url"}&compare=1&oldver={$mail_oldver}&newver={$mail_newver}
-{elseif $mail_action eq 'attach'}{$mail_data} : {$mail_machine_raw}/tiki-download_wiki_attachment.php?attId={$mail_attId}
+{mailurl}tiki-pagehistory.php?page={$mail_page|escape:"url"}&compare=1&oldver={$mail_oldver}&newver={$mail_newver}{/mailurl}
+{elseif $mail_action eq 'attach'}{$mail_data} : {mailurl}tiki-download_wiki_attachment.php?attId={$mail_attId}{/mailurl}
 {/if}
 
 {if $watchId}
     {tr}If you don't want to receive these notifications follow this link:{/tr}
-    {$mail_machine_raw}/tiki-user_watches.php?id={$watchId}
+    {mailurl}tiki-user_watches.php?id={$watchId}{/mailurl}
 {/if}
 
 ***********************************************************

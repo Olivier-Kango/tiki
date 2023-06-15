@@ -4,7 +4,7 @@
     {if !empty($prefs.sitetitle)}{$prefs.sitetitle} - {/if}{$mail_site}
 
 {tr}If you want to confirm your membership in this site, click on the following link to login for the first time:{/tr}
-    {$mail_machine}?user={$mail_user|escape:'url'}&pass={$mail_apass}
+    {mailurl}{$mail_link}?user={$mail_user|escape:'url'}&pass={$mail_apass}{/mailurl}
 
 {tr}Welcome to the site!{/tr}
 

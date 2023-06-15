@@ -6,4 +6,4 @@
 {tr}Path:{/tr} {$categoryPath}
 {tr}Description:{/tr} {$description}
 
-{$mail_machine}/{$categoryId|sefurl:category}
+{mailurl}{$categoryId|sefurl:category}{/mailurl}

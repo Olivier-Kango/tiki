@@ -9,7 +9,7 @@
 {else}{tr}An anonymous {$prefs.mail_template_custom_text}user{/tr}{/if}
 {tr}Title:{/tr} {$mail_title}
 {tr}Date:{/tr} {$mail_date|tiki_short_datetime:"":"n"}
-{$mail_machine}/{$topicId|sefurl:"forum post"}{if $threadId}#threadId={$threadId}{/if}
+{mailurl}{$topicId|sefurl:"forum post"}{if $threadId}#threadId={$threadId}{/if}{/mailurl}
 
 {if $mail_contributions}{tr}Contribution:{/tr} {$mail_contributions}{/if}
 {else}
@@ -18,11 +18,11 @@
 {if $mail_author}"{$mail_author|username}"{else}{tr}An anonymous user{/tr}{/if} {tr}has posted a reply to a thread that requires moderation.
 You can approve or reject the post at the following URL:{/tr}
 
-{$mail_machine}/tiki-forum_queue.php?forumId={$forumId}
+{mailurl}tiki-forum_queue.php?forumId={$forumId}{/mailurl}
 
 {if !empty($approvalhash)}{tr}To instantly approve this post without logging in, use the following URL:{/tr}
 
-{$mail_machine}/tiki-forum_queue.php?forumId={$forumId}&qId={$queueId}&ahash={$approvalhash}{/if}
+{mailurl}tiki-forum_queue.php?forumId={$forumId}&qId={$queueId}&ahash={$approvalhash}{/if}{/mailurl}
 {/if}
 
 

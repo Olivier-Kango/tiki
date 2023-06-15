@@ -389,11 +389,6 @@ function send_email_result_vote($vote_infos)
 
         $mail = new TikiMail();
 
-        $machine = parse_url($_SERVER['REQUEST_URI']);
-        $machine = $tikilib->httpPrefix(true) . dirname($machine['path']);
-        $smarty->assign_by_ref('machine', $machine);
-        $machine = preg_replace("!/$!", "", $machine);
-        $smarty->assign('mail_machine', $machine);
         $smarty->assign('mail_site', $_SERVER["SERVER_NAME"]);
 
         $object_event = $vote_infos['object'];

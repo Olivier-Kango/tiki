@@ -6094,7 +6094,7 @@ class TikiLib extends TikiDb_Bridge
             $scheme = $url_scheme;
         }
 
-        return $scheme . '://' . $url_host . (($url_port != '') ? ":$url_port" : '');
+        return $scheme . '://' . $url_host . (($url_port != '' && $url_port != 0 && $url_port != 80 && $url_port != 443) ? ":$url_port" : '');
     }
 
     /**

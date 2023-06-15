@@ -2000,7 +2000,6 @@ class UsersLib extends TikiLib
                 include_once('lib/webmail/tikimaillib.php');
                 $mail = new TikiMail();
                 $smarty->assign('mail_user', $user);
-                $smarty->assign('mail_machine', $base_url);
                 $mail->setText($smarty->fetch('mail/unsuccessful_logins_suspend.tpl'));
                 $mail->setSubject($smarty->fetch('mail/unsuccessful_logins_suspend_subject.tpl'));
                 $emails = ! empty($prefs['validator_emails']) ? preg_split('/,/', $prefs['validator_emails']) : (! empty($prefs['sender_email']) ? [$prefs['sender_email']] : '');
@@ -7905,13 +7904,6 @@ class UsersLib extends TikiLib
         $tikilib = TikiLib::lib('tiki');
         $smarty = TikiLib::lib('smarty');
 
-        // mail_machine kept for BC, use $validation_url
-        $machine = TikiLib::tikiUrl('tiki-login_validate.php');
-        $machine_assignuser = TikiLib::tikiUrl('tiki-assignuser.php');
-        $machine_userprefs = TikiLib::tikiUrl('tiki-user_preferences.php');
-        $smarty->assign('mail_machine', $machine);
-        $smarty->assign('mail_machine_assignuser', $machine_assignuser);
-        $smarty->assign('mail_machine_userprefs', $machine_userprefs);
         $smarty->assign('mail_site', $_SERVER['SERVER_NAME']);
         $smarty->assign('mail_user', $name);
         $smarty->assign('mail_apass', $apass);
@@ -8156,9 +8148,6 @@ class UsersLib extends TikiLib
         $mail_data = $smarty->fetchLang($languageEmail, "mail/$tpl" . '_subject.tpl');
         $mail_data = sprintf($mail_data, $_SERVER['SERVER_NAME']);
         $mail->setSubject($mail_data);
-        $foo = parse_url($_SERVER['REQUEST_URI']);
-        $mail_machine = TikiLib::tikiUrl('tiki-confirm_user_email.php'); // for BC
-        $smarty->assign('mail_machine', $mail_machine);
         $mail_data = $smarty->fetchLang($languageEmail, "mail/$tpl.tpl");
         $mail->setText($mail_data);
 
@@ -8784,10 +8773,6 @@ class UsersLib extends TikiLib
                 Services_Utilities::sendFeedback($referer);
             }
         }
-        $foo = parse_url($_SERVER['REQUEST_URI']);
-        $machine = $this->httpPrefix(true) . dirname($foo['path']);
-        $machine = preg_replace('!/$!', '', $machine); // just in case
-        $smarty->assign_by_ref('mail_machine', $machine);
         $smarty->assign('mail_sender', $user);
         $smarty->assign('expiry', $user);
         $mail->setBcc($this->get_user_email($user));
@@ -8796,7 +8781,7 @@ class UsersLib extends TikiLib
 
         foreach ($emails as $email) {
             $tokenlib = AuthTokens::build($prefs);
-            $token_url = $tokenlib->includeToken($machine . "/$path", $groups, $email, $timeout, -1, true, $prefix);
+            $token_url = $tokenlib->includeToken(TikiLib::lib('tiki')->tikiUrl($path), $groups, $email, $timeout, -1, true, $prefix);
             include_once('tiki-sefurl.php');
             $token_url = filter_out_sefurl($token_url);
             $smarty->assign('token_url', $token_url);

@@ -125,17 +125,6 @@ class Messu extends TikiLib
 
         // Now check if the user should be notified by email
         $magId = $this->getOne('select LAST_INSERT_ID() from `messu_messages`', []);
-        $foo = parse_url($_SERVER['REQUEST_URI']);
-        $machine = $this->httpPrefix(true) . $foo['path'];
-        $machine = str_replace('messu-compose', 'messu-mailbox', $machine);
-        $machine = str_replace('messu-broadcast', 'messu-mailbox', $machine);
-        // For non-sefurl calls, replace tiki-ajax_services with messu-mailbox if
-        // service called is user > send_message
-        if ($foo['query'] == "controller=user&action=send_message") {
-            $machine = str_replace('tiki-ajax_services', 'messu-mailbox', $machine);
-        }
-        //For sefurl service call user > send_message, redirect to messu-mailbox.php
-        $machine = str_replace('tiki-user-send_message', 'messu-mailbox.php', $machine);
 
         if ($this->get_user_preference($user, 'minPrio', 6) <= $priority) {
             if (! isset($_SERVER['SERVER_NAME'])) {
@@ -152,7 +141,6 @@ class Messu extends TikiLib
             if ($email) {
                 include_once('lib/webmail/tikimaillib.php');
                 $smarty->assign('mail_site', $_SERVER['SERVER_NAME']);
-                $smarty->assign('mail_machine', $machine);
                 $smarty->assign('mail_date', $this->now);
                 $smarty->assign('mail_user', stripslashes($user));
                 $smarty->assign('mail_from', stripslashes($from));

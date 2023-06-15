@@ -7,5 +7,5 @@
 {$cat|escape}
 {/foreach}
 
-{tr}Configure settings for the new category at:{/tr} {$mail_machine_raw}/tiki-admin_rssmodules.php?article={$rssId|escape}
+{tr}Configure settings for the new category at:{/tr} {mailurl}tiki-admin_rssmodules.php?article={$rssId|escape}{/mailurl}
 

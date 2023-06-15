@@ -1535,15 +1535,6 @@ function wikiplugin_tracker($data, $params)
                     $smarty->assign('mail_item_desc', $trklib->get_isMain_value($trackerId, $rid));
                     $smarty->assign('mail_trackerId', $trackerId);
                     $smarty->assign('mail_trackerName', $tracker['name']);
-                    $foo = parse_url($_SERVER["REQUEST_URI"]);
-                    $mail_machine = $trklib->httpPrefix(true) . $foo["path"];
-                    $smarty->assign('mail_machine', $mail_machine);
-                    $parts = explode('/', $foo['path']);
-                    if (count($parts) > 1) {
-                        unset($parts[count($parts) - 1]);
-                    }
-                    $mail_machine_raw = $trklib->httpPrefix(true) . implode('/', $parts);
-                    $smarty->assign('mail_machine_raw', $mail_machine_raw);
                     if (! isset($_SERVER["SERVER_NAME"])) {
                         $server_name = $_SERVER["SERVER_NAME"];
                     } else {

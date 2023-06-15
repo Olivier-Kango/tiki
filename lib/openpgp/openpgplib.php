@@ -739,9 +739,6 @@ class OpenPGPLib
         $tikilib->query($query, [$user,$from,$to,$cc,$subject,$body,(int) $tikilib->now,'n','n','n',(int) $priority,$hash,$replyto_hash]);
 
         // Now check if the user should be notified by email
-        $foo = parse_url($_SERVER["REQUEST_URI"]);
-        $machine = $tikilib->httpPrefix(true) . $foo["path"];
-        $machine = str_replace('messu-compose', 'messu-mailbox', $machine);
         if ($tikilib->get_user_preference($user, 'minPrio', 6) <= $priority) {
             if (! isset($_SERVER["SERVER_NAME"])) {
                 $_SERVER["SERVER_NAME"] = $_SERVER["HTTP_HOST"];
@@ -750,7 +747,6 @@ class OpenPGPLib
             if ($email) {
                 include_once('lib/webmail/tikimaillib.php');
                 $smarty->assign('mail_site', $_SERVER["SERVER_NAME"]);
-                $smarty->assign('mail_machine', $machine);
                 $smarty->assign('mail_date', $tikilib->now);
                 $smarty->assign('mail_user', stripslashes($user));
                 $smarty->assign('mail_from', stripslashes($from));

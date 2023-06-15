@@ -165,7 +165,7 @@ class Smarty_Tiki extends Smarty
     public function __construct()
     {
         parent::__construct();
-        global $prefs;
+        global $prefs, $base_uri;
 
         $this->initializePaths();
 
@@ -176,6 +176,10 @@ class Smarty_Tiki extends Smarty
         $this->compile_check = ( $prefs['smarty_compilation'] != 'never' );
         $this->force_compile = ( $prefs['smarty_compilation'] == 'always' );
         $this->assign('app_name', 'Tiki');
+
+        // DO NOT USE THIS, this has been added 2023-06-14 for backward compatibility with existing custom mail templates and will be removed in future versions
+        $this->assign('mail_machine', TikiLib::lib('tiki')->tikiUrl());
+        $this->assign('mail_machine_raw', TikiLib::lib('tiki')->tikiUrl());
 
         // sets the default security class, even if is Security not enabled
         // this is the class to be used when you call enableSecurity() without arguments
@@ -759,6 +763,11 @@ class Smarty_Tiki extends Smarty
         global $prefs;
         $tpl = new Smarty_Internal_Template('empty', $this);
         $tpl->assign('app_name', $this->getTemplateVars('app_name'));
+
+        // DO NOT USE THIS, this has been added 2023-06-14 for backward compatibility with existing custom mail templates and will be removed in future versions
+        $tpl->assign('mail_machine', TikiLib::lib('tiki')->tikiUrl());
+        $tpl->assign('mail_machine_raw', TikiLib::lib('tiki')->tikiUrl());
+
         $tpl->assignByRef('prefs', $prefs);
         return $tpl;
     }

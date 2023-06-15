@@ -1669,10 +1669,6 @@ class FileGalLib extends TikiLib
             if (! empty($nots)) {
                 include_once('lib/webmail/tikimaillib.php');
                 $mail = new TikiMail();
-                $foo = parse_url($_SERVER["REQUEST_URI"]);
-                $machine = $tikilib->httpPrefix(true) . dirname($foo["path"]);
-                $machine = preg_replace("!/$!", "", $machine); // just incase
-                $smarty->assign('mail_machine', $machine);
                 $smarty->assign('mail_diff', $diff);
                 foreach ($nots as $not) {
                     $lg = $tikilib->get_user_preference($not['user'], 'language', $prefs['site_language']);

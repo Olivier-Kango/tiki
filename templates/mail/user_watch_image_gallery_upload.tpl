@@ -7,4 +7,4 @@
 {tr}File Description:{/tr} {$description}
 
 You can see the new image at:
-{$mail_machine_raw}/tiki-browse_image.php?galleryId={$galleryId}&imageId={$imageId}
+{mailurl}tiki-browse_image.php?galleryId={$galleryId}&imageId={$imageId}{/mailurl}

@@ -857,12 +857,8 @@ class Services_User_Controller
                 $mail->setBcc($bcc);
                 $bccmsg = tr('and blind copied (bcc) to %0', $bcc);
             }
-            $foo = parse_url($_SERVER['REQUEST_URI']);
-            $machine = $tikilib->httpPrefix(true) . dirname($foo['path']);
-            $machine = preg_replace('!/$!', '', $machine); // just in case
             global $user;
             $smarty = TikiLib::lib('smarty');
-            $smarty->assign_by_ref('mail_machine', $machine);
 
             $logslib = TikiLib::lib('logs');
             foreach ($util->items as $mail_user) {
