@@ -24,10 +24,12 @@ if (isset($_REQUEST['show_html'])) {
     $smarty->assign('html', $html);
 }
 if ($tiki_p_live_support_admin == 'y') {
-    if (isset($_REQUEST['adduser']) && $access->checkCsrf()) {
+    if (isset($_REQUEST['adduser'])) {
+        check_ticket('ls-admin');
         $lsadminlib->add_operator($_REQUEST['user']);
     }
-    if (isset($_REQUEST['offline']) && $access->checkCsrf()) {
+    if (isset($_REQUEST['offline'])) {
+        check_ticket('ls-offline');
         $lslib->set_operator_status($_REQUEST['offline'], 'offline');
     }
     if (isset($_REQUEST['removeuser'])) {
@@ -63,6 +65,7 @@ for ($i = 0; $i < $temp_max; $i++) {
     }
 }
 $smarty->assign_by_ref('users', $ok_users);
+ask_ticket('ls-admin');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template

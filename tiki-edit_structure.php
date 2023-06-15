@@ -23,7 +23,8 @@ $page_info = $structlib->s_get_page_info($_REQUEST["page_ref_id"]);
 
 $access->check_permission('tiki_p_view', tra('View this wiki page'), 'wiki page', $page_info['pageName']);
 
-if (isset($_REQUEST['move_to']) && $access->checkCsrf()) {
+if (isset($_REQUEST['move_to'])) {
+    check_ticket('edit-structure');
     $structlib->move_to_structure($_REQUEST['page_ref_id'], $_REQUEST['structure_id'], $_REQUEST['begin']);
 }
 
@@ -72,7 +73,8 @@ $subtree = $structlib->get_subtree($structure_info["page_ref_id"]);
 if ($editable === 'y') {
     $smarty->assign('remove', 'n');
 
-    if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
+    if (isset($_REQUEST["remove"])) {
+        check_ticket('edit-structure');
         $smarty->assign('remove', 'y');
         $remove_info = $structlib->s_get_page_info($_REQUEST["remove"]);
           $structs = $structlib->get_page_structures($remove_info['pageName'], $structure);
@@ -101,7 +103,8 @@ if ($editable === 'y') {
         $_REQUEST["page_ref_id"] = $page_info["parent_id"];
     }
 
-    if ($prefs['feature_user_watches'] == 'y' && $tiki_p_watch_structure == 'y' && $user && ! empty($_REQUEST['watch_object']) && ! empty($_REQUEST['watch_action']) && $access->checkCsrf()) {
+    if ($prefs['feature_user_watches'] == 'y' && $tiki_p_watch_structure == 'y' && $user && ! empty($_REQUEST['watch_object']) && ! empty($_REQUEST['watch_action'])) {
+        check_ticket('edit-structure');
         if ($_REQUEST['watch_action'] == 'add' && ! empty($_REQUEST['page'])) {
             $tikilib->add_user_watch($user, 'structure_changed', $_REQUEST['watch_object'], 'structure', $page, "tiki-index.php?page_ref_id=" . $_REQUEST['watch_object']);
         } elseif ($_REQUEST['watch_action'] == 'remove') {
@@ -117,7 +120,8 @@ if ($editable === 'y') {
     }
 
     $smarty->assign('alert_exists', 'n');
-    if (isset($_REQUEST["create"]) && $access->checkCsrf()) {
+    if (isset($_REQUEST["create"])) {
+        check_ticket('edit-structure');
         if (isset($_REQUEST["pageAlias"])) {
             $structlib->set_page_alias($_REQUEST["page_ref_id"], $_REQUEST["pageAlias"]);
         }
@@ -349,6 +353,8 @@ if ($prefs['feature_wiki_categorize_structure'] == 'y' && $all_editable == 'y') 
     $categories = $categlib->getCategories();
     $smarty->assign_by_ref('categories', $categories);
 }
+
+ask_ticket('edit-structure');
 
 include_once('tiki-section_options.php');
 

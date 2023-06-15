@@ -41,7 +41,9 @@ $smarty->assign('use_24hr_clock', $userprefslib->get_user_clock_pref($user));
 
 $smarty->assign('actual', '');
 
-if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["save"])) {
+    check_ticket('edit-programmed-content');
+
     if ($_REQUEST['content_type'] == 'page') {
         $content = 'page:' . $_REQUEST['page_name'];
     } else {
@@ -114,6 +116,8 @@ $smarty->assign('find', $find);
 $listpages = $dcslib->list_programmed_content($_REQUEST["contentId"], $offset, $maxRecords, $sort_mode, $find);
 $smarty->assign_by_ref('cant', $listpages["cant"]);
 $smarty->assign_by_ref('listpages', $listpages["data"]);
+
+ask_ticket('edit-programmed-content');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

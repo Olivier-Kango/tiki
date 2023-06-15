@@ -39,7 +39,8 @@ if ($tiki_p_edit_structures == 'y') {
         $access->check_authenticity();
         $structlib->s_remove_page($_REQUEST["rremovex"], true, empty($_REQUEST['page']) ? '' : $_REQUEST['page']);
     }
-    if (isset($_REQUEST['export']) && $access->checkCsrf()) {
+    if (isset($_REQUEST['export'])) {
+        check_ticket('admin-structures');
         $structure_info = $structlib->s_get_structure_info($_REQUEST['export']);
         if ($prefs['feature_wiki_export'] != 'y' || $tiki_p_admin_wiki != 'y' || ! $tikilib->user_has_perm_on_object($user, $structure_info["pageName"], 'wiki page', 'tiki_p_view')) {
             $smarty->assign('errortype', 401);
@@ -49,7 +50,8 @@ if ($tiki_p_edit_structures == 'y') {
         }
         $structlib->s_export_structure($_REQUEST['export']);
     }
-    if (isset($_REQUEST['zip']) && $tiki_p_admin == 'y' && $access->checkCsrf()) {
+    if (isset($_REQUEST['zip']) && $tiki_p_admin == 'y') {
+        check_ticket('admin-structures');
         include_once('lib/wiki/xmllib.php');
         $xmllib = new XmlLib();
         $zipFile = 'dump/xml.zip';
@@ -63,7 +65,8 @@ if ($tiki_p_edit_structures == 'y') {
             $smarty->assign('error', $xmllib->get_error());
         }
     }
-    if (isset($_REQUEST['export_tree']) && $access->checkCsrf()) {
+    if (isset($_REQUEST['export_tree'])) {
+        check_ticket('admin-structures');
         $structure_info = $structlib->s_get_structure_info($_REQUEST['export_tree']);
         if (! $tikilib->user_has_perm_on_object($user, $structure_info["pageName"], 'wiki page', 'tiki_p_view')) {
             $smarty->assign('errortype', 401);
@@ -75,7 +78,8 @@ if ($tiki_p_edit_structures == 'y') {
         $structlib->s_export_structure_tree($_REQUEST['export_tree']);
         die;
     }
-    if (isset($_REQUEST['batchaction']) && $access->checkCsrf()) {
+    if (isset($_REQUEST['batchaction'])) {
+        check_ticket('admin-structures');
         foreach ($_REQUEST['action'] as $batchid) {
             $structure_info = $structlib->s_get_structure_info($batchid);
             if (! $tikilib->user_has_perm_on_object($user, $structure_info['pageName'], 'wiki page', 'tiki_p_edit')) {
@@ -89,7 +93,8 @@ if ($tiki_p_edit_structures == 'y') {
         }
     }
     $smarty->assign('askremove', 'n');
-    if (isset($_REQUEST['remove']) && $access->checkCsrf()) {
+    if (isset($_REQUEST['remove'])) {
+        check_ticket('admin-structures');
         $structure_info = $structlib->s_get_structure_info($_REQUEST['remove']);
         if (! $tikilib->user_has_perm_on_object($user, $structure_info["pageName"], 'wiki page', 'tiki_p_edit')) {
             $smarty->assign('errortype', 401);
@@ -108,7 +113,8 @@ if ($tiki_p_edit_structures == 'y') {
     $cat_type = 'wiki page';
     $cat_objid = '';
     $smarty->assign('just_created', 'n');
-    if (isset($_REQUEST["create"]) && $access->checkCsrf()) {
+    if (isset($_REQUEST["create"])) {
+        check_ticket('admin-structures');
         if ((empty($_REQUEST['name']))) {
             $smarty->assign('msg', tra("You must specify a page name, it will be created if it doesn't exist."));
             $smarty->display("error.tpl");
@@ -264,6 +270,7 @@ if ($prefs['feature_multilingual'] == 'y') {
 $channels = $structlib->list_structures($offset, $maxRecords, $sort_mode, $find, $exact_match, $filter);
 $smarty->assign('cant', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
+ask_ticket('admin-structures');
 include_once('tiki-section_options.php');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

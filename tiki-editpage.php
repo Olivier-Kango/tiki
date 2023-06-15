@@ -434,7 +434,8 @@ if (! empty($_REQUEST['contributions'])) {
 if (! empty($_REQUEST['contributors'])) {
     $hash['contributors'] = $_REQUEST['contributors'];
 }
-if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name']) && $access->checkCsrf()) {
+if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
+    check_ticket('edit-page');
     require("lib/mail/mimelib.php");
     $fp = fopen($_FILES['userfile1']['tmp_name'], "rb");
     $data = '';
@@ -728,7 +729,8 @@ if ($prefs['feature_wiki_footnotes'] === 'y') {
             $smarty->assign('has_footnote', 'y');
         }
         $smarty->assign('parsed_footnote', $parserlib->parse_data($footnote));
-        if (isset($_REQUEST['footnote']) && $access->checkCsrf()) {
+        if (isset($_REQUEST['footnote'])) {
+            check_ticket('edit-page');
             $smarty->assign('parsed_footnote', $parserlib->parse_data($_REQUEST['footnote']));
             $smarty->assign('footnote', $_REQUEST['footnote']);
             $smarty->assign('has_footnote', 'y');
@@ -1146,7 +1148,7 @@ if (
         $smarty->display("error.tpl");
         die;
     } else {
-        $access->checkCsrf();
+        check_ticket('edit-page');
         // Check if all Request values are delivered, and if not, set them
         // to avoid error messages. This can happen if some features are
         // disabled
@@ -1729,6 +1731,7 @@ if (
     $smarty->assign('showPropertiesTab', 'y');
 }
 
+ask_ticket('edit-page');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the Edit Template or language check

@@ -71,7 +71,8 @@ if (isset($_REQUEST['remove_task_from_trash'])) {
     $_REQUEST['action'] = 'remove_marked_from_trash';
     $_REQUEST['task'] = [$_REQUEST['taskId']];
 }
-if (isset($_REQUEST['update_percentage']) && isset($_REQUEST['task_perc']) && $access->checkCsrf()) {
+if (isset($_REQUEST['update_percentage']) && isset($_REQUEST['task_perc'])) {
+    check_ticket('user-tasks');
     foreach ($_REQUEST['task_perc'] as $task => $perc) {
         if ($perc == 'w') {
             $perc = null;
@@ -79,8 +80,9 @@ if (isset($_REQUEST['update_percentage']) && isset($_REQUEST['task_perc']) && $a
         $tasklib->update_task_percentage($task, $user, $perc);
     }
 }
-if (isset($_REQUEST['update_tasks']) && $access->checkCsrf()) {
+if (isset($_REQUEST['update_tasks'])) {
     if (($_REQUEST['action'] == 'move_marked_to_trash') && isset($_REQUEST['task'])) {
+        check_ticket('user-tasks');
         foreach (array_keys($_REQUEST['task']) as $task) {
             $tasklib->mark_task_as_trash($task, $user);
             $trashed_task = $tasklib->get_task($user, $task);
@@ -100,7 +102,8 @@ if (isset($_REQUEST['update_tasks']) && $access->checkCsrf()) {
             }
         }
     }
-    if (($_REQUEST['action'] == 'open_marked') && isset($_REQUEST['task']) && $access->checkCsrf()) {
+    if (($_REQUEST['action'] == 'open_marked') && isset($_REQUEST['task'])) {
+        check_ticket('user-tasks');
         foreach (array_keys($_REQUEST['task']) as $task) {
             $tasklib->open_task($task, $user);
             $trashed_task = $tasklib->get_task($user, $task);
@@ -120,7 +123,8 @@ if (isset($_REQUEST['update_tasks']) && $access->checkCsrf()) {
             }
         }
     }
-    if (($_REQUEST['action'] == 'complete_marked') && isset($_REQUEST['task']) && $access->checkCsrf()) {
+    if (($_REQUEST['action'] == 'complete_marked') && isset($_REQUEST['task'])) {
+        check_ticket('user-tasks');
         foreach (array_keys($_REQUEST['task']) as $task) {
             $tasklib->mark_complete_task($task, $user);
             $trashed_task = $tasklib->get_task($user, $task);
@@ -140,12 +144,14 @@ if (isset($_REQUEST['update_tasks']) && $access->checkCsrf()) {
             }
         }
     }
-    if (($_REQUEST['action'] == 'remove_marked_from_trash') && isset($_REQUEST['task']) && $access->checkCsrf()) {
+    if (($_REQUEST['action'] == 'remove_marked_from_trash') && isset($_REQUEST['task'])) {
+        check_ticket('user-tasks');
         foreach (array_keys($_REQUEST['task']) as $task) {
             $tasklib->unmark_task_as_trash($task, $user);
         }
     }
-    if (($_REQUEST['action'] == 'waiting_marked') && isset($_REQUEST['task']) && $access->checkCsrf()) {
+    if (($_REQUEST['action'] == 'waiting_marked') && isset($_REQUEST['task'])) {
+        check_ticket('user-tasks');
         foreach (array_keys($_REQUEST['task']) as $task) {
             $tasklib->waiting_task($task, $user);
         }
@@ -187,7 +193,8 @@ if (isset($_REQUEST['reload'])) {
     } else {
         $_SESSION['show_admin'] = false;
     }
-    if (isset($_REQUEST['tasks_maxRecords']) && $access->checkCsrf()) {
+    if (isset($_REQUEST['tasks_maxRecords'])) {
+        check_ticket('user-prefs');
         $tikilib->set_user_preference($user, 'tasks_maxRecords', $_REQUEST['tasks_maxRecords']);
     }
 }

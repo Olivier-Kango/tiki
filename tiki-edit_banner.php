@@ -123,7 +123,8 @@ if (isset($_REQUEST["removeZone"])) {
 }
 
 // Now assign if the set button was pressed
-if ($access->checkCsrf() && (isset($_REQUEST["save"]) || isset($_REQUEST["create_zone"]))) {
+if (isset($_REQUEST["save"]) || isset($_REQUEST["create_zone"])) {
+    check_ticket('edit-banner');
     //Convert 12-hour clock hours to 24-hour scale to compute time
     if (! empty($_REQUEST['fromTimeMeridian'])) {
         $_REQUEST['fromTimeHour'] = date('H', strtotime($_REQUEST['fromTimeHour'] . ':00 ' . $_REQUEST['fromTimeMeridian']));
@@ -336,6 +337,7 @@ if ($access->checkCsrf() && (isset($_REQUEST["save"]) || isset($_REQUEST["create
 $zones = $bannerlib->banner_get_zones();
 $smarty->assign_by_ref('zones', $zones);
 
+ask_ticket('edit-banner');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

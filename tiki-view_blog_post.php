@@ -104,7 +104,8 @@ include_once('tiki-section_options.php');
 
 // Blog comment mail
 if ($prefs['feature_user_watches'] == 'y') {
-    if ($user && isset($_REQUEST['watch_event']) && $access->checkCsrf()) {
+    if ($user && isset($_REQUEST['watch_event'])) {
+        check_ticket('blog');
         if ($_REQUEST['watch_action'] == 'add') {
             $tikilib->add_user_watch(
                 $user,
@@ -197,10 +198,12 @@ $post_info['last_page'] = $pages;
 $post_info['pagenum'] = $_REQUEST['page'];
 $smarty->assign('post_info', $post_info);
 
-if ($user && $prefs['feature_notepad'] == 'y' && $tiki_p_notepad == 'y' && isset($_REQUEST['savenotepad']) && $access->checkCsrf()) {
+if ($user && $prefs['feature_notepad'] == 'y' && $tiki_p_notepad == 'y' && isset($_REQUEST['savenotepad'])) {
+    check_ticket('view-blog-post');
     $tikilib->replace_note($user, 0, $post_info['title'] ? $post_info['title'] : $tikilib->date_format("%d/%m/%Y [%H:%M]", $post_info['created']), $post_info['data']);
 }
 
+ask_ticket('view-blog-post');
 // Display the template
 $smarty->assign('mid', 'tiki-view_blog_post.tpl');
 $smarty->display("tiki.tpl");

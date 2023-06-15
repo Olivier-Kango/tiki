@@ -32,7 +32,8 @@ if (! $info) {
     die;
 }
 
-if ((isset($_REQUEST['wikify']) || isset($_REQUEST['over'])) && $access->checkCsrf()) {
+if (isset($_REQUEST['wikify']) || isset($_REQUEST['over'])) {
+    check_ticket('notepad-read');
     if (empty($_REQUEST['wiki_name'])) {
         $smarty->assign('msg', tra("No name indicated for wiki page"));
         $smarty->display("error.tpl");
@@ -86,5 +87,6 @@ $smarty->assign('noteId', $_REQUEST["noteId"]);
 $smarty->assign('info', $info);
 include_once('tiki-section_options.php');
 include_once('tiki-mytiki_shared.php');
+ask_ticket('notepad-read');
 $smarty->assign('mid', 'tiki-notepad_read.tpl');
 $smarty->display("tiki.tpl");

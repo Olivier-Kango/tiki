@@ -23,7 +23,8 @@ if (isset($_REQUEST["remove"])) {
 $smarty->assign('description', '');
 $smarty->assign('contentLabel', '');
 $smarty->assign('contentId', 0);
-if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["save"])) {
+    check_ticket('list-contents');
     $smarty->assign('description', $_REQUEST["description"]);
     $smarty->assign('contentLabel', $_REQUEST["contentLabel"]);
     $id = $dcslib->replace_content($_REQUEST["contentId"], $_REQUEST["description"], $_REQUEST["contentLabel"]);
@@ -59,6 +60,7 @@ $smarty->assign('find', $find);
 $listpages = $dcslib->list_content($offset, $maxRecords, $sort_mode, $find);
 $smarty->assign_by_ref('cant', $listpages['cant']);
 $smarty->assign_by_ref('listpages', $listpages["data"]);
+ask_ticket('list-contents');
 // Display the template
 $smarty->assign('mid', 'tiki-list_contents.tpl');
 $smarty->display("tiki.tpl");

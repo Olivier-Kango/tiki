@@ -35,7 +35,8 @@ if (isset($_REQUEST["view_user"])) {
 }
 $smarty->assign('userwatch', $userwatch);
 // Upload avatar is processed here
-if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name']) && $access->checkCsrf()) {
+if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
+    check_ticket('pick-avatar');
     $name = $_FILES['userfile1']['name'];
 
     $filegallib = TikiLib::lib('filegal');
@@ -60,10 +61,12 @@ if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_na
     exit;
 }
 
-if (isset($_REQUEST["uselib"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["uselib"])) {
+    check_ticket('pick-avatar');
     $userprefslib->set_user_avatar($userwatch, 'l', $_REQUEST["avatar"], '', '', '', '');
 }
-if (isset($_REQUEST["reset"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["reset"])) {
+    check_ticket('pick-avatar');
     $userprefslib->set_user_avatar($userwatch, '0', '', '', '', '', '');
     $userprefslib->remove_file_gallery_image($userwatch);
 }
@@ -87,6 +90,7 @@ if ($prefs["user_store_file_gallery_picture"] == 'y' && $user_picture_id = $user
     $smarty->assign('user_picture_id', $user_picture_id);
 }
 
+ask_ticket('pick-avatar');
 include_once('tiki-mytiki_shared.php');
 $smarty->assign('mid', 'tiki-pick_avatar.tpl');
 $smarty->display("tiki.tpl");

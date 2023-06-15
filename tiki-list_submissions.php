@@ -30,7 +30,8 @@ if (isset($_REQUEST["remove"])) {
     $access->checkCsrf(tr('Are you sure you want to permanently remove the submitted article with identifier %0?', $_REQUEST["remove"]));
     $artlib->remove_submission($_REQUEST["remove"]);
 }
-if (isset($_REQUEST["approve"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["approve"])) {
+    check_ticket('list-submissions');
     $access->check_permission('tiki_p_approve_submission');
     $artlib->approve_submission($_REQUEST["approve"]);
 }
@@ -122,6 +123,7 @@ $listpages = $artlib->list_submissions($offset, $maxRecords, $sort_mode, $find, 
 $smarty->assign_by_ref('cant_pages', $listpages["cant"]);
 include_once('tiki-section_options.php');
 $smarty->assign_by_ref('listpages', $listpages["data"]);
+ask_ticket('list-submissions');
 // Display the template
 $smarty->assign('mid', 'tiki-list_submissions.tpl');
 $smarty->display("tiki.tpl");

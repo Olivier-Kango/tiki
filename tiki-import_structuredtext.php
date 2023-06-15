@@ -34,7 +34,9 @@ function parse_st($dump)
 
 $smarty->assign('result', 'n');
 
-if (isset($_REQUEST["import"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["import"])) {
+    check_ticket('import-st');
+
     $path = 'dump/' . $tikidomain . '/' . $_REQUEST["path"];
 
     if (is_file($path)) {
@@ -117,6 +119,7 @@ if (isset($_REQUEST["import"]) && $access->checkCsrf()) {
     $smarty->assign('lines', $lines);
     $smarty->assign('result', 'y');
 }
+ask_ticket('import-st');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

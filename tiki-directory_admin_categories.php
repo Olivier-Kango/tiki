@@ -53,7 +53,8 @@ if (isset($_REQUEST["remove"])) {
     $dirlib->dir_remove_category($_REQUEST["remove"]);
 }
 // Replace (add or edit) a category
-if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["save"])) {
+    check_ticket('dir-add-categ');
     if (isset($_REQUEST["allowSites"]) && $_REQUEST["allowSites"] == 'on') {
         $_REQUEST["allowSites"] = 'y';
     } else {
@@ -108,6 +109,7 @@ include_once("categorize_list.php");
 // This page should be displayed with Directory section options
 $section = 'directory';
 include_once('tiki-section_options.php');
+ask_ticket('dir-add-categ');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template

@@ -49,7 +49,8 @@ $smarty->assign('urlname', $url_info["name"]);
 $smarty->assign('urlurl', $url_info["url"]);
 $smarty->assign('editurl', $_REQUEST["editurl"]);
 // Create a folder inside the parentFolder here
-if (isset($_REQUEST["addfolder"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["addfolder"])) {
+    check_ticket('user-bookmarks');
     if ($_REQUEST["editfolder"]) {
         $bookmarklib->update_folder($_REQUEST["editfolder"], $_REQUEST["foldername"], $user);
         $smarty->assign('editfolder', 0);
@@ -58,13 +59,16 @@ if (isset($_REQUEST["addfolder"]) && $access->checkCsrf()) {
         $bookmarklib->add_folder($_REQUEST["parentId"], $_REQUEST["foldername"], $user);
     }
 }
-if (isset($_REQUEST["removefolder"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["removefolder"])) {
+    check_ticket('user-bookmarks');
     $bookmarklib->remove_folder($_REQUEST["removefolder"], $user);
 }
-if (isset($_REQUEST["refreshurl"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["refreshurl"])) {
+    check_ticket('user-bookmarks');
     $bookmarklib->refresh_url($_REQUEST["refreshurl"]);
 }
-if (isset($_REQUEST["addurl"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["addurl"])) {
+    check_ticket('user-bookmarks');
     $urlid = $bookmarklib->replace_url($_REQUEST["editurl"], $_REQUEST["parentId"], $_REQUEST["urlname"], $_REQUEST["urlurl"], $user);
     if ($_REQUEST["editurl"] == 0 && $tiki_p_cache_bookmarks == 'y') {
         $bookmarklib->refresh_url($urlid);
@@ -73,7 +77,8 @@ if (isset($_REQUEST["addurl"]) && $access->checkCsrf()) {
     $smarty->assign('urlname', '');
     $smarty->assign('urlurl', '');
 }
-if (isset($_REQUEST["removeurl"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["removeurl"])) {
+    check_ticket('user-bookmarks');
     $bookmarklib->remove_url($_REQUEST["removeurl"], $user);
 }
 $urls = $bookmarklib->list_folder($_REQUEST["parentId"], 0, -1, 'name_asc', '', $user);
@@ -86,6 +91,7 @@ if ($_REQUEST["parentId"]) {
 }
 $smarty->assign('folders', $folders);
 include_once('tiki-mytiki_shared.php');
+ask_ticket('user-bookmarks');
 include_once('tiki-section_options.php');
 // Display the template
 $smarty->assign('mid', 'tiki-user_bookmarks.tpl');

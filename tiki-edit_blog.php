@@ -124,7 +124,8 @@ $category_needed = false;
 if (isset($_REQUEST["save"]) && $prefs['feature_categories'] == 'y' && $prefs['feature_blog_mandatory_category'] >= 0 && (empty($_REQUEST['cat_categories']) || count($_REQUEST['cat_categories']) <= 0)) {
         $category_needed = true;
         $smarty->assign('category_needed', 'y');
-} elseif ($access->checkCsrf() && (isset($_REQUEST["save"]) || isset($_REQUEST['preview']))) {
+} elseif (isset($_REQUEST["save"]) || isset($_REQUEST['preview'])) {
+    check_ticket('edit-blog');
     if (isset($_REQUEST["public"]) && $_REQUEST["public"] == 'on') {
         $public = 'y';
     } else {
@@ -247,6 +248,8 @@ $cat_objid = $blogId;
 include_once("categorize_list.php");
 
 $defaultRows = 5;
+
+ask_ticket('edit-blog');
 
 include_once('tiki-section_options.php');
 

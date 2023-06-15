@@ -26,7 +26,7 @@ if (! isset($_REQUEST["surveyId"])) {
 $smarty->assign('surveyId', $_REQUEST["surveyId"]);
 $tikilib->get_perm_object($_REQUEST['surveyId'], 'survey');
 $access->check_permission('tiki_p_admin_surveys');
-if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["save"])) {
     check_ticket('admin-surveys');
     $sid = $srvlib->replace_survey($_REQUEST["surveyId"], $_REQUEST["name"], $_REQUEST["description"], $_REQUEST["status"]);
     $cat_type = 'survey';

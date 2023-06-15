@@ -15,7 +15,8 @@ $access->check_permission('tiki_p_usermenu');
 if (! isset($_REQUEST["menuId"])) {
     $_REQUEST["menuId"] = 0;
 }
-if (isset($_REQUEST["delete"]) && isset($_REQUEST["menu"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["delete"]) && isset($_REQUEST["menu"])) {
+    check_ticket('user-menu');
     foreach (array_keys($_REQUEST["menu"]) as $men) {
         $usermenulib->remove_usermenu($user, $men);
     }
@@ -23,7 +24,8 @@ if (isset($_REQUEST["delete"]) && isset($_REQUEST["menu"]) && $access->checkCsrf
         unset($_SESSION['usermenu']);
     }
 }
-if (isset($_REQUEST['addbk']) && $access->checkCsrf()) {
+if (isset($_REQUEST['addbk'])) {
+    check_ticket('user-menu');
     $usermenulib->add_bk($user);
     if (isset($_SESSION['usermenu'])) {
         unset($_SESSION['usermenu']);
@@ -38,7 +40,8 @@ if ($_REQUEST["menuId"]) {
     $info['mode'] = 'w';
     $info['position'] = $usermenulib->get_max_position($user) + 1;
 }
-if (isset($_REQUEST['save']) && $access->checkCsrf()) {
+if (isset($_REQUEST['save'])) {
+    check_ticket('user-menu');
     $usermenulib->replace_usermenu($user, $_REQUEST["menuId"], $_REQUEST["name"], $_REQUEST["url"], $_REQUEST['position'], $_REQUEST['mode']);
     $info = [];
     $info['name'] = '';
@@ -76,5 +79,6 @@ $channels = $usermenulib->list_usermenus($user, $offset, $maxRecords, $sort_mode
 $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 include_once('tiki-mytiki_shared.php');
+ask_ticket('user-menu');
 $smarty->assign('mid', 'tiki-usermenu.tpl');
 $smarty->display("tiki.tpl");

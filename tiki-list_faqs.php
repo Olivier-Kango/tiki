@@ -39,7 +39,8 @@ if (isset($_REQUEST["remove"])) {
     $access->check_authenticity();
     $faqlib->remove_faq($_REQUEST["remove"]);
 }
-if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["save"])) {
+    check_ticket('list-faqs');
     $access->check_permission('tiki_p_admin_faqs');
     if (mb_strlen($_REQUEST["title"]) > 200) {
         $smarty->assign('msg', tra("You have exceeded the number of characters allowed (200 max) for the FAQ title field"));
@@ -88,6 +89,7 @@ $cat_type = 'faq';
 $cat_objid = $_REQUEST["faqId"];
 include_once("categorize_list.php");
 include_once('tiki-section_options.php');
+ask_ticket('list-faqs');
 // Display the template
 $smarty->assign('mid', 'tiki-list_faqs.tpl');
 $smarty->display("tiki.tpl");

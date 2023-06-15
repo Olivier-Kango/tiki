@@ -15,7 +15,8 @@ if (! isset($_REQUEST["receivedPageId"])) {
 }
 $smarty->assign('receivedPageId', $_REQUEST["receivedPageId"]);
 $errors = [];
-if (isset($_REQUEST["accept"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["accept"])) {
+    check_ticket('received-pages');
     // CODE TO ACCEPT A PAGE HERE
     if (! $commlib->accept_page($_REQUEST["accept"])) {
         $info = $commlib->get_received_page($_REQUEST['accept']);
@@ -49,7 +50,8 @@ if (isset($_REQUEST["remove"])) {
     $access->check_authenticity();
     $commlib->remove_received_page($_REQUEST["remove"]);
 }
-if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["save"])) {
+    check_ticket('received-pages');
     $commlib->update_received_page($_REQUEST["receivedPageId"], $_REQUEST["pageName"], $_REQUEST["data"], $_REQUEST["comment"]);
     $smarty->assign('pageName', $_REQUEST["pageName"]);
     $smarty->assign('data', $_REQUEST["data"]);
@@ -57,7 +59,8 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     $smarty->assign('receivedPageId', 0);
     $smarty->assign('parsed', TikiLib::lib('parser')->parse_data($_REQUEST["data"]));
 }
-if (! empty($_REQUEST['checked']) && $access->checkCsrf() && (! empty($_REQUEST['prefix']) || ! empty($_REQUEST['postfix']))) {
+if (! empty($_REQUEST['checked']) && (! empty($_REQUEST['prefix']) || ! empty($_REQUEST['postfix']))) {
+    check_ticket('received-pages');
     foreach ($_REQUEST['checked'] as $page) {
         $newpage = empty($_REQUEST['postfix']) ? $_REQUEST['prefix'] . $page : $page . $_REQUEST['postfix'];
         if ($tikilib->page_exists($newpage)) {
@@ -99,6 +102,7 @@ $smarty->assign_by_ref('structures', $structures['data']);
 if (! empty($errors)) {
     Feedback::error(['mes' => $errors]);
 }
+ask_ticket('received-pages');
 // Display the template
 $smarty->assign('mid', 'tiki-received_pages.tpl');
 $smarty->display("tiki.tpl");

@@ -55,7 +55,8 @@ if (isset($_REQUEST["remove"])) {
     $quizlib->remove_quiz_result($_REQUEST["remove"]);
 }
 
-if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["save"])) {
+    check_ticket('edit-quiz-result');
     $quizlib->replace_quiz_result(
         $_REQUEST["resultId"],
         $_REQUEST["quizId"],
@@ -105,6 +106,8 @@ for ($i = 1; $i < 100; $i++) {
 }
 
 $smarty->assign('positions', $positions);
+
+ask_ticket('edit-quiz-result');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
