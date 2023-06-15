@@ -1416,8 +1416,14 @@ class EditLib
         // Notify users/usergroups
         if ($prefs['feature_notify_users_mention'] === 'y' && $prefs['feature_tag_users'] === 'y') {
             if ($arguments['type'] === 'wiki page') {
-                $oldData = $arguments['old_data'] ?? '';
-                $newData = $arguments['data'] ?? '';
+                // Wiki page comment
+                if (isset($arguments['content'])) {
+                    $oldData = '';
+                    $newData = $arguments['content'] ?? '';
+                } else {
+                    $oldData = $arguments['old_data'] ?? '';
+                    $newData = $arguments['data'] ?? '';
+                }
             } elseif ($arguments['type'] === 'trackeritem' && isset($arguments['values_by_permname'])) {
                 $oldData = implode("\n", array_values(array_diff($arguments['old_values_by_permname'], $arguments['values_by_permname'])));
                 $newData = implode("\n", array_values(array_diff($arguments['values_by_permname'], $arguments['old_values_by_permname'])));
