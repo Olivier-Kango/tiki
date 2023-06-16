@@ -178,8 +178,10 @@ class Smarty_Tiki extends Smarty
         $this->assign('app_name', 'Tiki');
 
         // DO NOT USE THIS, this has been added 2023-06-14 for backward compatibility with existing custom mail templates and will be removed in future versions
-        $this->assign('mail_machine', TikiLib::lib('tiki')->tikiUrl());
-        $this->assign('mail_machine_raw', TikiLib::lib('tiki')->tikiUrl());
+        if ($tikilib = TikiLib::lib('tiki')) {
+            $this->assign('mail_machine', $tikilib->tikiUrl());
+            $this->assign('mail_machine_raw', $tikilib->tikiUrl());
+        }
 
         // sets the default security class, even if is Security not enabled
         // this is the class to be used when you call enableSecurity() without arguments
@@ -765,8 +767,10 @@ class Smarty_Tiki extends Smarty
         $tpl->assign('app_name', $this->getTemplateVars('app_name'));
 
         // DO NOT USE THIS, this has been added 2023-06-14 for backward compatibility with existing custom mail templates and will be removed in future versions
-        $tpl->assign('mail_machine', TikiLib::lib('tiki')->tikiUrl());
-        $tpl->assign('mail_machine_raw', TikiLib::lib('tiki')->tikiUrl());
+        if ($tikilib = TikiLib::lib('tiki')) {
+            $tpl->assign('mail_machine', $tikilib->tikiUrl());
+            $tpl->assign('mail_machine_raw', $tikilib->tikiUrl());
+        }
 
         $tpl->assignByRef('prefs', $prefs);
         return $tpl;
