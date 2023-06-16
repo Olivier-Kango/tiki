@@ -367,7 +367,7 @@ function sendWikiEmailNotification(
         $smarty->assign('mail_date', $tikilib->now);
         $smarty->assign('mail_user', $edit_user);
         $smarty->assign('mail_comment', $edit_comment);
-        $newver = $oldver + 1;
+        $newver = (int) $oldver + 1;
         $smarty->assign('mail_oldver', $oldver);
         $smarty->assign('mail_newver', $newver);
         $smarty->assign('mail_data', $edit_data);
