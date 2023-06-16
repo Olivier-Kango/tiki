@@ -25,15 +25,17 @@ $tiki-topbar-row-sidemargins: -15px;
   border-right: 1px solid #ddd;
 }
 
-//
-//
-//.bg-dark {
-//  background: #efefef !important;
-//}
+.navbar:not(.bg-dark,.bg-light) {
+    .nav-link {
+        color: var(--bs-body-color);
+        &:hover,
+        &:active,
+        & .highlighted {
+            color: var(--bs-secondary-color);
+        }
+    }
+}
 
-//.navbar-nav {
-//  display: flex;
-//}
 
 .navbar .nav-item {
 //  flex: 1 1 auto !important;

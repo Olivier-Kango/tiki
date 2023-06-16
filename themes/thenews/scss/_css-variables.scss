@@ -10,8 +10,8 @@
 
 @mixin topbar-nav-dark {
     --tiki-topbar-bg: #252729;
-    --tiki-top-color: rgba(255, 255, 255, 0.7);
-    --tiki-top-hover-color: #fff;
+    --tiki-topbar-color: rgba(255, 255, 255, 0.7);
+    --tiki-topbar-hover-color: #fff;
 }
 
 @mixin top-nav-light {
