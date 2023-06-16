@@ -34,7 +34,7 @@
             </label>
             {if $toc_type eq 'admin'}
                 <div class="actions input-group input-group-sm mb-2">
-                    {if count($structure_tree.sub)}
+                    {if ! empty($structure_tree.sub) && count($structure_tree.sub)}
                         <span class="input-group-text flip-children">{icon name='caret-down'}</span>
                     {/if}
                     <span class="input-group-text">{icon name='sort'}</span>
