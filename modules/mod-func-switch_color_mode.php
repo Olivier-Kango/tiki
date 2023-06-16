@@ -28,5 +28,5 @@ function module_switch_color_mode_info()
 function module_switch_color_mode($mod_reference, $module_params)
 {
     $headerlib = TikiLib::lib('header');
-    $headerlib->add_jsfile('/lib/jquery_tiki/mod-func-switch_color_mode.js');
+    $headerlib->add_jsfile('lib/jquery_tiki/mod-func-switch_color_mode.js');
 }
