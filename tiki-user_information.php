@@ -142,35 +142,44 @@ $smarty->assign_by_ref('email_isPublic', $email_isPublic);
 $userPage = $prefs['feature_wiki_userpage_prefix'] . $user_wiki_page_name;
 $exist = $tikilib->page_exists($userPage);
 $smarty->assign("userPage_exists", $exist);
+
+$user_pages = [];
+$user_blogs = [];
+$user_blog_posts_data = [];
+$user_articles = [];
+$user_forum_comments = [];
+$user_items = [];
+$user_forum_topics = [];
+$smarty->assign_by_ref('user_pages', $user_pages);
+$smarty->assign_by_ref('user_blogs', $user_blogs);
+$smarty->assign_by_ref('user_blog_posts', $user_blog_posts_data);
+$smarty->assign_by_ref('user_articles', $user_articles);
+$smarty->assign_by_ref('user_forum_comments', $user_forum_comments);
+$smarty->assign_by_ref('user_items', $user_items);
+$smarty->assign_by_ref('user_forum_topics', $user_forum_topics);
 if ($prefs['feature_display_my_to_others'] == 'y') {
     if ($prefs['feature_wiki'] == 'y') {
         $wikilib = TikiLib::lib('wiki');
         $user_pages = $wikilib->get_user_all_pages($userwatch, 'pageName_asc');
-        $smarty->assign_by_ref('user_pages', $user_pages);
     }
     if ($prefs['feature_blogs'] == 'y') {
         $bloglib = TikiLib::lib('blog');
         $user_blogs = $bloglib->list_user_blogs($userwatch, false);
-        $smarty->assign_by_ref('user_blogs', $user_blogs);
         $user_blog_posts = $bloglib->list_posts(0, -1, 'created_desc', '', -1, $userwatch);
-        $smarty->assign_by_ref('user_blog_posts', $user_blog_posts['data']);
+        $user_blog_posts_data = $user_blog_posts["data"];
     }
     if ($prefs['feature_trackers'] == 'y') {
         $trklib = TikiLib::lib('trk');
         $user_items = $trklib->get_user_items($userwatch);
-        $smarty->assign_by_ref('user_items', $user_items);
     }
     if ($prefs['feature_articles'] == 'y') {
         $artlib = TikiLib::lib('art');
         $user_articles = $artlib->get_user_articles($userwatch, -1);
-        $smarty->assign_by_ref('user_articles', $user_articles);
     }
     if ($prefs['feature_forums'] == 'y') {
         $commentslib = TikiLib::lib('comments');
         $user_forum_comments = $commentslib->get_user_forum_comments($userwatch, -1);
-        $smarty->assign_by_ref('user_forum_comments', $user_forum_comments);
         $user_forum_topics = $commentslib->get_user_forum_comments($userwatch, -1, 'topics');
-        $smarty->assign_by_ref('user_forum_topics', $user_forum_topics);
     }
     if ($prefs['user_who_viewed_my_stuff'] == 'y') {
         $mystuff = [];
