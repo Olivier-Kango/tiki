@@ -10840,13 +10840,13 @@ legend {
 }
 .tiki-top-nav-light {
   --tiki-top-bg: #f3969a;
-  --tiki-top-color: rgba(0, 0, 0, 0.3);
-  --tiki-top-hover-color: #5a5a5a;
+  --tiki-top-color: #fff;
+  --tiki-top-hover-color: rgba(255, 255, 255, 0.9);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #f3969a;
-  --tiki-topbar-color: rgba(0, 0, 0, 0.3);
-  --tiki-topbar-hover-color: #5a5a5a;
+  --tiki-topbar-color: #fff;
+  --tiki-topbar-hover-color: rgba(255, 255, 255, 0.9);
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: rgba(120, 194, 173, 1);

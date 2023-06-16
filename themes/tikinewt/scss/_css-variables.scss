@@ -4,8 +4,8 @@
 // Used for L&F nav color choice and color mode override
 @mixin top-nav-dark {
     --tiki-top-bg: #{$dark};
-    --tiki-top-color: #{$navbar-dark-color};
-    --tiki-top-hover-color: #{$navbar-dark-hover-color};
+    --tiki-top-color: rgba(255, 255, 255, 0.7);
+    --tiki-top-hover-color: #fff;
 }
 
 @mixin top-nav-verydark {
@@ -16,39 +16,44 @@
 
 @mixin topbar-nav-dark {
     --tiki-topbar-bg: #{$dark};
-    --tiki-topbar-color: #{$navbar-dark-color};
-    --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
+    --tiki-topbar-color: rgba(255, 255, 255, 0.7);
+    --tiki-topbar-hover-color: #fff;
 }
 
-.tiki-top-nav-light {
+@mixin top-nav-light {
     --tiki-top-bg: #F3F6F9;
     --tiki-top-color: #{$navbar-light-color};
     --tiki-top-hover-color: #{$navbar-light-hover-color};
 }
 
-.tiki-topbar-nav-light {
+@mixin topbar-nav-light {
     --tiki-topbar-bg: #F3F6F9;
     --tiki-topbar-color: #{$navbar-light-color};
     --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
 }
 
+.tiki-top-nav-light {
+    @include top-nav-light;
+}
+.tiki-topbar-nav-light {
+    @include topbar-nav-light;
+}
 .tiki-top-nav-dark {
     @include top-nav-dark;
 }
-
 .tiki-topbar-nav-dark {
     @include topbar-nav-dark;
 }
 
 // Color mode preference trumps L&F admin light navbar option
-//[data-bs-theme=dark] {                              // color mode
-//    .tiki-top-nav-light {                           // light top selector
-//        @include top-nav-dark;                      // dark values
-//    }
-//    .tiki-topbar-nav-light {
-//        @include topbar-nav-dark;
-//    }
-//}
+[data-bs-theme=dark] {                              // color mode
+    .tiki-top-nav-light {                           // light top selector
+        @include top-nav-dark;                      // dark values
+    }
+    .tiki-topbar-nav-light {
+        @include topbar-nav-dark;
+    }
+}
 
 [data-bs-theme=dark] {
     .tiki-top-nav-dark,

@@ -13,7 +13,7 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000;
 $light:                #c7d0d9;
-$dark: #c7d0d9;
+$dark: $gray-900;
 
 $blue:    #446e9b !default;
 $indigo:  #6610f2 !default;
@@ -67,7 +67,7 @@ $link-shade-percentage:                   20% !default; // Bootstrap 5.3
 $component-active-color:      $white !default;
 $component-active-bg:         $primary !default;
 
-
+$border-color: #8cacbb;
 $border-radius:               .1rem; // Not being implemented - why?
 $border-radius-lg:            .2rem;
 $border-radius-sm:            0rem;
@@ -91,9 +91,9 @@ $btn-primary-border: #999999;
 // Dropdowns
 // Navs
 // Navbar
-$navbar-dark-color: #000;
+$navbar-dark-color: $gray-200;
 $navbar-dark-bg: $dark;
-$navbar-dark-border: darken($navbar-dark-bg, 6.5%);
+$navbar-dark-border: $border-color;
 
 //// Navbarlinks ??
 $navbar-dark-color:                 #2d3741;

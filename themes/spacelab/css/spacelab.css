@@ -12888,4 +12888,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .navbar {
   --bs-navbar-color: #0C77D4;
 }
+.navbar:not(.bg-dark, .bg-light) .nav-link {
+  color: var(--bs-link-color);
+}
+.navbar:not(.bg-dark, .bg-light) .nav-link:hover, .navbar:not(.bg-dark, .bg-light) .nav-link:active, .navbar:not(.bg-dark, .bg-light) .nav-link .highlighted {
+  color: var(--bs-link-hover-color);
+}
 

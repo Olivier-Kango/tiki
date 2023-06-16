@@ -1,34 +1,69 @@
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
+
+// Used for L&F nav color choice and color mode override
+@mixin top-nav-dark {
+    --tiki-top-bg: #212529;
+    --tiki-top-color: #{$navbar-light-color};
+    --tiki-top-hover-color: #{$navbar-light-hover-color};
+    //    --tiki-top-bg: #{$dark};
+    //    --tiki-top-color: #{$navbar-dark-color};
+    //    --tiki-top-hover-color: #{$navbar-dark-hover-color};
+}
+
+@mixin topbar-nav-dark {
+    --tiki-topbar-bg: #212529;
+    --tiki-topbar-color: #{$navbar-light-color};
+    --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
+    //    --tiki-topbar-bg: #{$dark};
+    //    --tiki-topbar-color: #{$navbar-dark-color};
+    //    --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
+}
+
+@mixin top-nav-light {
+    --tiki-top-bg: #F3F6F9;
+    --tiki-top-color: #{$navbar-light-color};
+    --tiki-top-hover-color: #{$navbar-light-hover-color};
+}
+
+@mixin topbar-nav-light {
+    --tiki-topbar-bg: #F3F6F9;
+    --tiki-topbar-color: #{$navbar-light-color};
+    --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
+}
+
 .tiki-top-nav-light {
-    --tiki-top-bg: #F3F6F9;
-    --tiki-top-color: #{$navbar-light-color};
-    --tiki-top-hover-color: #{$navbar-light-hover-color};
+    @include top-nav-light;
 }
-
 .tiki-topbar-nav-light {
-    --tiki-topbar-bg: #F3F6F9;
-    --tiki-topbar-color: #{$navbar-light-color};
-    --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
+    @include topbar-nav-light;
 }
-
 .tiki-top-nav-dark { // Top and topbar backgrounds always light
-    --tiki-top-bg: #F3F6F9;
-    --tiki-top-color: #{$navbar-light-color};
-    --tiki-top-hover-color: #{$navbar-light-hover-color};
-//    --tiki-top-bg: #{$dark};
-//    --tiki-top-color: #{$navbar-dark-color};
-//    --tiki-top-hover-color: #{$navbar-dark-hover-color};
+    @include top-nav-dark;
+}
+.tiki-topbar-nav-dark {
+    @include topbar-nav-dark;
 }
 
-.tiki-topbar-nav-dark {
-    --tiki-topbar-bg: #F3F6F9;
-    --tiki-topbar-color: #{$navbar-light-color};
-    --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
-//    --tiki-topbar-bg: #{$dark};
-//    --tiki-topbar-color: #{$navbar-dark-color};
-//    --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
+// Color mode preference trumps L&F admin light navbar option
+[data-bs-theme=dark] {                              // color mode
+    .tiki-top-nav-light {                           // light top selector
+        @include top-nav-dark;                      // dark values
+    }
+    .tiki-topbar-nav-light {
+        @include topbar-nav-dark;
+    }
 }
+// Color mode preference trumps L&F admin dark navbar option
+[data-bs-theme=light] {                              // color mode
+    .tiki-top-nav-dark {                           // dark top selector
+        @include top-nav-light;                      // light values
+    }
+    .tiki-topbar-nav-dark {
+        @include topbar-nav-light;
+    }
+}
+
 
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
 

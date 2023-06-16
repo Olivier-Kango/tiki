@@ -11302,11 +11302,31 @@ textarea.form-control-lg {
   --tiki-topbar-hover-color: rgba(255, 255, 255, 0.75);
 }
 .tiki-top-nav-dark {
-  --tiki-top-bg: #F3F6F9;
+  --tiki-top-bg: #212529;
   --tiki-top-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
   --tiki-top-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
 }
 .tiki-topbar-nav-dark {
+  --tiki-topbar-bg: #212529;
+  --tiki-topbar-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
+  --tiki-topbar-hover-color: rgba(255, 255, 255, 0.75);
+}
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: #212529;
+  --tiki-top-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
+  --tiki-top-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: #212529;
+  --tiki-topbar-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
+  --tiki-topbar-hover-color: rgba(255, 255, 255, 0.75);
+}
+[data-bs-theme=light] .tiki-top-nav-dark {
+  --tiki-top-bg: #F3F6F9;
+  --tiki-top-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
+  --tiki-top-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
+}
+[data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #F3F6F9;
   --tiki-topbar-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
   --tiki-topbar-hover-color: rgba(255, 255, 255, 0.75);
