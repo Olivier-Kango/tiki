@@ -41,7 +41,7 @@
 
                             <div class="col-sm-6">
                                 <select multiple="multiple"
-                                        size="{if $users|@count > 5}5{else}{math equation=x+y x=$users|@count y=2}{/if}"
+                                        size="{if $users|@count > 5}5{else}{math equation="x + y" x=$users|@count y=2}{/if}"
                                         name="selectedUsers[]" id="selectedUsers" class="form-control">
                                     <option value="">{tr}All{/tr}</option>
                                     <option value="Anonymous">{tr}Anonymous{/tr}</option>
@@ -62,7 +62,7 @@
 
                             <div class="col-sm-6">
                                 <select multiple="multiple"
-                                        size="{if $groups|@count > 5}5{else}{math equation=x+y x=$groups|@count y=1}{/if}"
+                                        size="{if $groups|@count > 5}5{else}{math equation="x + y" x=$groups|@count y=1}{/if}"
                                         name="selectedGroups[]" id="selectedGroups" class="form-control">
                                     <option value="">{tr}All{/tr}</option>
                                     {foreach from=$groups key=ix item=group}
@@ -729,7 +729,7 @@
                                         <br>
                                         {if !empty($stat.del)}<span class="diffdeleted">{$stat.del}</span>{/if}
                                         <br>
-                                        {if !empty($stat.del) || !empty($stat.add)}{math equation=x-y x=$stat.add y=$stat.del}{/if}
+                                        {if !empty($stat.del) || !empty($stat.add)}{math equation="x - y" x=$stat.add y=$stat.del}{/if}
                                         <br>
                                     </td>
                                 {/foreach}
