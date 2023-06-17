@@ -12243,7 +12243,7 @@ blockquote {
   color: var(--bs-body-bg);
 }
 .tiki .tiki-top-nav-light {
-  background: var(--tiki-top-bg);
+  background: var(--tiki-top-bg) !important;
   border: var(--tiki-top-border);
   border-width: var(--tiki-top-border-width);
   box-shadow: var(--tiki-top-box-shadow);
@@ -12255,16 +12255,16 @@ blockquote {
   color: var(--tiki-top-hover-color);
   background: var(--tiki-top-hover-bg);
 }
-.tiki .tiki-topbar-nav-light {
+.tiki .tiki-topbar-nav-light, .admin-content .tiki-nav-light {
   background: var(--tiki-topbar-bg) !important;
   border: var(--tiki-topbar-border);
   border-width: var(--tiki-topbar-border-width);
   box-shadow: var(--tiki-topbar-box-shadow);
 }
-.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-light .btn.btn-link, .tiki .tiki-topbar-nav-light a.nav-link {
+.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-light .btn.btn-link, .tiki .tiki-topbar-nav-light a.nav-link, .admin-content .tiki-nav-light a:not(.navbar-brand, .dropdown-item), .admin-content .tiki-nav-light .btn.btn-link, .admin-content .tiki-nav-light a.nav-link {
   color: var(--tiki-topbar-color);
 }
-.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover {
+.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover, .admin-content .tiki-nav-light a:not(.navbar-brand, .dropdown-item):hover, .admin-content .tiki-nav-light .btn.btn-link:hover, .admin-content .tiki-nav-light a.nav-link:hover {
   color: var(--tiki-topbar-hover-color);
   background: var(--tiki-topbar-hover-bg);
 }
@@ -12281,20 +12281,20 @@ blockquote {
   color: var(--tiki-top-hover-color);
   background: var(--tiki-top-hover-bg);
 }
-.tiki .tiki-topbar-nav-dark {
+.tiki .tiki-topbar-nav-dark, .admin-content .tiki-nav-dark {
   background: var(--tiki-topbar-bg) !important;
   border: var(--tiki-topbar-border);
   border-width: var(--tiki-topbar-border-width);
   box-shadow: var(--tiki-topbar-box-shadow);
 }
-.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-dark .btn.btn-link, .tiki .tiki-topbar-nav-dark a.nav-link {
+.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-dark .btn.btn-link, .tiki .tiki-topbar-nav-dark a.nav-link, .admin-content .tiki-nav-dark a:not(.navbar-brand, .dropdown-item), .admin-content .tiki-nav-dark .btn.btn-link, .admin-content .tiki-nav-dark a.nav-link {
   color: var(--tiki-topbar-color);
 }
-.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover {
+.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover, .admin-content .tiki-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .admin-content .tiki-nav-dark .btn.btn-link:hover, .admin-content .tiki-nav-dark a.nav-link:hover {
   color: var(--tiki-topbar-hover-color);
   background: var(--tiki-topbar-hover-bg);
 }
-.tiki.layout_basic:not(.tiki-admin) .page-header .top_modules, .tiki.layout_basic:not(.tiki-admin) .page-header .top_modules .navbar, .tiki.layout_basic:not(.tiki-admin) .topbar_modules .navbar {
+.tiki.layout_basic .page-header .top_modules, .tiki.layout_basic .page-header .top_modules .navbar, .tiki.layout_basic .topbar_modules .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
@@ -12306,7 +12306,7 @@ blockquote {
   box-shadow: none;
   border: none;
 }
-.layout_social:not(.tiki-admin) header .top_modules, .layout_social:not(.tiki-admin) header .top_modules .navbar, .layout_social:not(.tiki-admin) .topbar, .layout_social:not(.tiki-admin) .topbar .navbar {
+.layout_social header .top_modules, .layout_social header .top_modules .navbar, .layout_social .topbar, .layout_social .topbar .navbar {
   background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;

@@ -17,7 +17,7 @@
 //.layout_social header.navbar.navbar-light.bg-light                     // Classic Bootstrap layout -- Menu itself
 .tiki .tiki-top-nav-light
 {
-    background: var(--tiki-top-bg)/* !important*/;
+    background: var(--tiki-top-bg) !important;
     // color: var(--tiki-top-color); // The idea for this was text, etc. that isn't a link, but probably anything in these nav zones that isn't a link will have its own CSS rules already.
     a:not(.navbar-brand,.dropdown-item),
     .btn.btn-link {
@@ -37,7 +37,8 @@
 //.layout_classic .topbar-wrapper.bg-light-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
 //.layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent,   // Classic Bootstrap topbar wrapper
 //.admin-content .bg-light                                              // Admin navbar and icons when UAB is off
-.tiki .tiki-topbar-nav-light
+.tiki .tiki-topbar-nav-light,
+.admin-content .tiki-nav-light // Legacy admin icons
 {
     background: var(--tiki-topbar-bg) !important;
     //color: var(--tiki-topbar-color);
@@ -85,7 +86,8 @@
 //.layout_classic .topbar-wrapper.bg-dark-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
 //.layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent,     // Classic Bootstrap topbar wrapper
 //.admin-content .bg-dark
-.tiki .tiki-topbar-nav-dark
+.tiki .tiki-topbar-nav-dark,
+.admin-content .tiki-nav-dark // Legacy admin icons
 {
     background: var(--tiki-topbar-bg) !important;
     // color: var(--tiki-topbar-dark-color);
@@ -105,7 +107,7 @@
 
 // Apply background: transparent to children of uppermost parent to prevent nested gradients
 
-.tiki.layout_basic:not(.tiki-admin) {
+.tiki.layout_basic/*:not(.tiki-admin)*/ {
     .page-header .top_modules,
     .page-header .top_modules .navbar,
     .topbar_modules .navbar {
@@ -128,7 +130,7 @@
     }
 }
 
-.layout_social:not(.tiki-admin) {
+.layout_social/*:not(.tiki-admin)*/ {
     header .top_modules,
     header .top_modules .navbar,
     .topbar,
