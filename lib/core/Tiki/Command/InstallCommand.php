@@ -63,7 +63,7 @@ class InstallCommand extends Command
                 }
                 return Command::FAILURE;
             } else {
-                $output->writeln('<success>' . tr('Installation completed successfully.') . '</success>');
+                $output->writeln('<fg=cyan>' . tr('Installation completed successfully.') . '</>');
             }
 
             if (! DB_STATUS) { // see console.php  DB_STATUS: Database connected, but tiki not installed.
