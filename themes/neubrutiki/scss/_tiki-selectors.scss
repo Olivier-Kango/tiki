@@ -138,7 +138,8 @@ table.table {
 // -------------------- Jumbotron -------------------- //
 // -------------------- Cards -------------------- //
 .tiki_blogs .card.blogpost,
-.article {
+.article,
+.table {
     background: var(--tiki-card-bg);
     color: var(--tiki-card-color);
     border: $card-border-width solid $card-border-color;
@@ -168,6 +169,10 @@ table.table {
     &:hover {
         color: var(--tiki-card-link-hover-color);
     }
+}
+
+.table-responsive.ts-wrapperdiv {
+    background: var(--tiki-card-bg) !important; // div at top of listpages table
 }
 
 .article {
@@ -219,11 +224,15 @@ table.table {
     font-size: 1.8rem !important;
 }
 
-.accordion {
-    border: $card-border-width solid $card-border-color;
+.accordion,
+#admin-menu-accordion {
+    border: $card-border-width solid $card-border-color !important;
     box-shadow: $card-box-shadow;
     border-radius: $card-border-radius;
 }
+
+
+
 
 // -------------------- Tooltips -------------------- //
 // -------------------- Popovers -------------------- //
@@ -279,6 +288,23 @@ input:checked + .slide-container .slide {
 
 
 // -------------------- Tiki-specific -------------------- //
+// UAB
+.admin-nav nav {
+    padding-right: 6px; // Make room for accordion shadow.
+}
+
+#admin-menu-accordion {
+    border-top: none !important;
+    border-left: none !important;
+}
 
 // -------------------- External libraries -------------------- //
 
+// -------------------- Dark mode -------------------- //
+
+[data-bs-theme=dark] {
+    .popover-body { background: #{$body-secondary-bg-dark}; }
+    .btn-link { color: #83b5fd !important; }
+    .btn-link:hover {color: #83B5FDFF !important; }
+    .dropdown-item:hover, .dropdown-item.active {background: #52525e};
+}

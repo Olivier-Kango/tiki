@@ -12490,22 +12490,22 @@ table.table {
   border: none !important;
   box-shadow: none !important;
 }
-.tiki_blogs .card.blogpost, .article {
+.tiki_blogs .card.blogpost, .article, .table {
   background: var(--tiki-card-bg);
   color: var(--tiki-card-color);
   border: 4px solid #000;
 }
-.tiki_blogs .card.blogpost a:not(.btn), .article a:not(.btn) {
+.tiki_blogs .card.blogpost a:not(.btn), .article a:not(.btn), .table a:not(.btn) {
   color: var(--tiki-card-link-color);
 }
-.tiki_blogs .card.blogpost:not(.btn):hover, .article:not(.btn):hover {
+.tiki_blogs .card.blogpost:not(.btn):hover, .article:not(.btn):hover, .table:not(.btn):hover {
   color: var(--tiki-card-link-hover-color);
 }
-.tiki_blogs .card.blogpost .card-header, .tiki_blogs .card.blogpost header.article-title, .article .card-header, .article header.article-title {
+.tiki_blogs .card.blogpost .card-header, .tiki_blogs .card.blogpost header.article-title, .article .card-header, .article header.article-title, .table .card-header, .table header.article-title {
   border-bottom: 4px solid #000;
   padding: 1rem !important;
 }
-.tiki_blogs .card.blogpost .card-footer, .article .card-footer {
+.tiki_blogs .card.blogpost .card-footer, .article .card-footer, .table .card-footer {
   border-top: 4px solid #000;
 }
 .card.module {
@@ -12517,6 +12517,9 @@ table.table {
 }
 .card.module:hover {
   color: var(--tiki-card-link-hover-color);
+}
+.table-responsive.ts-wrapperdiv {
+  background: var(--tiki-card-bg) !important;
 }
 .article {
   padding: 1rem;
@@ -12599,8 +12602,8 @@ table.table {
 .accordion-header .accordion-button {
   font-size: 1.8rem !important;
 }
-.accordion {
-  border: 4px solid #000;
+.accordion, #admin-menu-accordion {
+  border: 4px solid #000 !important;
   box-shadow: 0.4rem 0.4rem 0 black;
   border-radius: 0.25rem;
 }
@@ -12625,6 +12628,25 @@ input:checked + .slide-container .slide {
 }
 .carousel-item {
   padding-right: 8px;
+}
+.admin-nav nav {
+  padding-right: 6px;
+}
+#admin-menu-accordion {
+  border-top: none !important;
+  border-left: none !important;
+}
+[data-bs-theme=dark] .popover-body {
+  background: #343a40;
+}
+[data-bs-theme=dark] .btn-link {
+  color: #83b5fd !important;
+}
+[data-bs-theme=dark] .btn-link:hover {
+  color: #83B5FDFF !important;
+}
+[data-bs-theme=dark] .dropdown-item:hover, [data-bs-theme=dark] .dropdown-item.active {
+  background: #52525e;
 }
 table.tablesorter thead tr.tablesorter-filter-row td input.tablesorter-filter, table.tablesorter thead tr.tablesorter-filter-row td input.dateFrom, table.tablesorter thead tr.tablesorter-filter-row td input.dateTo {
   background: var(--bs-body-bg);
