@@ -635,7 +635,7 @@ progress {
   --bs-btn-color: #000;
   --bs-btn-bg: #f06423;
   --bs-btn-border-color: #f06423;
-  --bs-btn-hover-color: #000;
+  --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #f27b44;
   --bs-btn-hover-border-color: #f27439;
   --bs-btn-focus-shadow-rgb: 204, 85, 30;
@@ -1410,7 +1410,7 @@ footer#footer .footer_liner .card-header {
   color: #6D5509 !important;
 }
 .btn-primary {
-  color: #000000;
+  color: #ffffff;
 }
 .bg-dark {
   background-color: #e77d4f !important;

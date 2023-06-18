@@ -11880,15 +11880,15 @@ body.wikitext {
   border-top: 1px solid #dee2e6;
 }
 .diffadded {
-  background: #48ca3b;
-  --bs-table-bg: #48ca3b;
-  color: white;
+  background: var(--bs-success-bg-subtle);
+  --bs-table-bg: var(--bs-success-bg-subtle);
+  color: var(--bs-body-color);
   word-break: break-all;
 }
 .diffdeleted {
-  background: #df6e1e;
-  --bs-table-bg: #df6e1e;
-  color: #fffefd;
+  background: var(--bs-danger-bg-subtle);
+  --bs-table-bg: var(--bs-danger-bg-subtle);
+  color: var(--bs-body-color);
   word-break: break-all;
 }
 .diffadded a, .diffadded a:hover {
@@ -11906,10 +11906,10 @@ body.wikitext {
   color: #495057;
 }
 .diffchar {
-  color: #fffefd;
+  color: var(--bs-body-color);
 }
 .diffadded .diffchar {
-  color: white;
+  color: var(--bs-body-color);
 }
 /* Structures drill-down menu */
 div.drillshow {
