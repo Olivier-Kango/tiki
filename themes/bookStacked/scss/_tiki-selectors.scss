@@ -1,0 +1,179 @@
+// This file is for additional SCSS rules beyond what are in _variables.scss.
+
+// Image path example:
+$imagePath: "../images/";
+// body {
+//	background-image: url('#{$imagePath}bg.jpg');
+// }
+
+// The headings below that are commented are from Bootstrap variables.scss to help organize relevant Tiki CSS selectors.
+// In the case of CSS selectors that are grouped to share common CSS properties, the category appropriate for most of the selectors is used.
+
+// -------------------- Color system -------------------- //
+// -------------------- Body (large elements -------------------- //
+body:not(.tiki-admin) .col1 {
+    padding: 16px 48px;
+    margin-bottom: 24px;
+    min-height: 60vh;
+
+    background-color: var(--tiki-main-content-bg); // #fff;
+//    box-shadow: 0 1px 6px -1px rgba(0,0,0,.1);
+//    border-radius: 3px;
+//    border: 1px solid transparent;
+    .col1top-outer-wrapper {
+        background-color: var(--bs-body-bg); // #f2f2f2;
+        margin: -16px -48px 0 -48px;
+
+    }
+}
+
+.col1top-outer-wrapper + * {
+    padding-top: 24px;
+}
+
+@media screen and (min-width: 1400px) {
+    body:not(.tiki-admin) {
+        #left_modules,
+        #right_modules {
+            padding: 32px 16px;
+            position: var(--tiki-bookstacked-col2-col3-position); // sticky;
+            top: 0;
+            max-height: 100vh;
+            min-height: 70vh;
+            height: 100%;
+            overflow-y: var(--tiki-bookstacked-col2-col3-overflow-y); // auto;
+            //          overflow-x: visible;
+            scrollbar-width: none;
+            //          -ms-overflow-style: none;
+        }
+    }
+}
+
+@media screen and (min-width: 1000px) {
+//    .tri-layout-mobile-tabs {
+//        display: none
+//    }
+//
+    .col2 > *, .col3 > * {
+        opacity: .6;
+        transition: opacity ease-in-out 120ms
+    }
+
+    html.dark-mode .col2 > *, html.dark-mode .col3 > * {
+        opacity: .75
+    }
+
+    .col2 > *:hover, .col2 > *:focus-within, .col3 > *:hover, .col3 > *:focus-within {
+        opacity: 1 !important
+    }
+}
+
+@media screen and (min-width: 1000px)and (prefers-contrast: more) {
+    .col2 > *, .col3 > * {
+        opacity: 1 !important
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .cat_Bookpage {
+        h1.pagetitle,
+        article.wikitext,
+        footer.form-text,
+        #page-bar {
+            max-width: 940px;
+            margin: 0 auto !important;
+            background-color: var(--tiki-main-content-bg);
+            padding-left: 48px;
+            padding-right: 48px;
+        }
+        #page-data p:last-of-type {
+            margin-bottom: 0;
+            padding-bottom: 15px;
+        }
+
+        #col1 {
+            background-color: var(--bs-body-bg);
+        }
+    }
+}
+
+
+
+// -------------------- Links -------------------- //
+// -------------------- Paragraphs -------------------- //
+// -------------------- Components -------------------- //
+// -------------------- Typography -------------------- //
+// -------------------- Tables -------------------- //
+thead, tbody, tfoot, tr, td, th {
+    border-width: var(--bs-border-width);
+}
+
+.table th {
+    background: var(--bs-secondary-bg);
+    color: var(--bs-body-color);
+}
+
+// -------------------- Buttons -------------------- //
+// -------------------- Forms -------------------- //
+.searchresults li {
+    padding: 8px;
+}
+.searchresults li:hover {
+    background: var(--bs-secondary-bg-subtle);
+}
+
+// -------------------- Form validation -------------------- //
+// -------------------- Navs -------------------- //
+// -------------------- Navbar -------------------- //
+nav:not(.bg-light,.bg-dark) {
+    .nav-link {
+        color: var(--bs-link-color);
+        &:hover {
+            color: var(--bs-link-hover-color);
+        }
+    }
+}
+// -------------------- Dropdowns -------------------- //
+// -------------------- Pagination -------------------- //
+// -------------------- Jumbotron -------------------- //
+// -------------------- Cards -------------------- //
+.col2,
+.col3 {
+    .module.card {
+        border: none;
+        background: transparent;
+        .card-header {
+            border: none;
+            background: transparent;
+        }
+    }
+}
+
+// -------------------- Tooltips -------------------- //
+// -------------------- Popovers -------------------- //
+// -------------------- Toasts -------------------- //
+// -------------------- Badges -------------------- //
+// -------------------- Modals -------------------- //
+// -------------------- Alerts -------------------- //
+.alert {
+    border-width: 0 0 0 5px;
+}
+
+// -------------------- Progress bars -------------------- //
+// -------------------- List group -------------------- //
+// -------------------- Image thumbnails -------------------- //
+// -------------------- Figures -------------------- //
+// -------------------- Breadcrumbs -------------------- //
+// -------------------- Carousel -------------------- //
+// -------------------- Spinners -------------------- //
+// -------------------- Close -------------------- //
+// -------------------- Code -------------------- //
+// -------------------- Utilities -------------------- //
+// -------------------- Printing -------------------- //
+
+// -------------------- Etc -------------------- //
+
+// -------------------- Tiki-specific -------------------- //
+
+// -------------------- External libraries -------------------- //
+
