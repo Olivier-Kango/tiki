@@ -268,6 +268,11 @@ class Services_Language_Utilities
         $custom_file .= 'custom.php';
 
         if (file_exists($custom_file)) {
+            global $lang;
+            if (empty($lang)) {
+                $lang = [];
+            }
+
             include($custom_file);
             if ($lang_custom) {
                 return $lang_custom;
