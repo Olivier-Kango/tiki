@@ -148,7 +148,9 @@ try {
                     if ($kmedialist->objects[$i] !== null) {
                         $kmedialist->objects[$i]->mediaType = $mediaTypeAsString[$kmedialist->objects[$i]->mediaType];
                     }
-                    $kmedialist->objects[$i]->statusString = $statusAsString[$kmedialist->objects[$i]->status];
+                    if ($kmedialist->objects[$i] !== null) {
+                        $kmedialist->objects[$i]->statusString = $statusAsString[$kmedialist->objects[$i]->status];
+                    }
                 }
             }
             $smarty->assign('klist', $kmedialist->objects);
