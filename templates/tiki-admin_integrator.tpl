@@ -68,7 +68,7 @@
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label" title="{tr}Seconds count 'till cached page will be expired{/tr}">{tr}Cache expiration{/tr}</label>
         <div class="col-sm-7">
-            <input type="text" maxlength="14" size="14" name="expiration" value="{$expiration|escape}" title="{tr}Seconds count 'till cached page will be expired{/tr}"
+            <input type="number" min="0" name="expiration" value="{$expiration|escape}" title="{tr}Seconds count 'till cached page will be expired{/tr}"
             class="form-control">
         </div>
     </div>

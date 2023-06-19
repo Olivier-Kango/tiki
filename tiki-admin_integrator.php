@@ -20,7 +20,7 @@ $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
 $path = isset($_REQUEST['path']) ? $_REQUEST['path'] : '';
 $start = isset($_REQUEST['start']) ? $_REQUEST['start'] : '';
 $cssfile = isset($_REQUEST['cssfile']) ? $_REQUEST['cssfile'] : '';
-$expiration = isset($_REQUEST['expiration']) ? $_REQUEST['expiration'] : 0;
+$expiration = ! empty($_REQUEST['expiration']) ? $_REQUEST['expiration'] : 0;
 $description = isset($_REQUEST['description']) ? $_REQUEST['description'] : '';
 $vis = isset($_REQUEST['vis']) ? ($_REQUEST['vis'] == 'on' ? 'y' : 'n') : 'n';
 $cacheable = isset($_REQUEST['cacheable']) ? ($_REQUEST['cacheable'] == 'on' ? 'y' : 'n') : 'n';
@@ -32,6 +32,11 @@ $integrator = new TikiIntegrator($dbTiki);
 if (isset($_REQUEST['save'])) {
     // ... and all mandatory paramaters r OK
     if (strlen($name) > 0) {
+        if (! is_int($expiration) || $expiration < 0) {
+            $smarty->assign("msg", tra("Cache expiration must be an integer and greater than 0."));
+            $smarty->display('error.tpl');
+            die;
+        }
         $integrator->add_replace_repository($repID, $name, $path, $start, $cssfile, $vis, $cacheable, $expiration, $description);
     } else {
         $smarty->assign('msg', tra("Repository name can't be an empty"));
