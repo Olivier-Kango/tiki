@@ -665,6 +665,57 @@ pre.codelisting code {
   top: 6px;
   right: 2px;
 }
+.codelisting_container {
+  max-width: 990px;
+}
+.code {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+.icon_copy_code {
+  position: relative;
+  display: inline-block;
+  color: #87898a;
+  float: right;
+  right: 20px;
+  top: 10px;
+  font-size: 80%;
+}
+.icon_copy_code:hover {
+  color: black;
+  cursor: pointer;
+}
+.icon_copy_code .copy_code_tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+  font-family: none;
+}
+.copy_code_tooltiptext {
+  font-size: 14px;
+}
+.icon_copy_code .copy_code_tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+.icon_copy_code:hover .copy_code_tooltiptext {
+  visibility: visible;
+}
 @media (min-width: 768px) {
   .edit-menu {
     display: none;

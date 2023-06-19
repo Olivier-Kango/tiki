@@ -51,6 +51,8 @@ if (! empty($_SESSION['try_theme'])) {
 //This bundle Loads bootstrap JS and popper JS
 $headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js');
 
+$headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/site/assets/js/vendor/clipboard.min.js');
+
 if ($prefs['feature_fixed_width'] === 'y') {
     $headerlib->add_css(
         '@media (min-width: 1200px) { .container { max-width:' .

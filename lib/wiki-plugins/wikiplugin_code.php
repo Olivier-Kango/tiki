@@ -140,6 +140,7 @@ function wikiplugin_code($data, $params)
 
     $id = 'codebox' . ++$code_count;
     $boxid = " id=\"$id\" ";
+    $data_clipboard_target = " data-clipboard-target=\"#$id\" ";
 
     $out = $code;
 
@@ -169,6 +170,8 @@ function wikiplugin_code($data, $params)
 
 
     $out = (isset($caption) ? '<div class="codecaption">' . $caption . '</div>' : "" )
+        . '<div class="codelisting_container">'
+        . '<div class="icon_copy_code far fa-clipboard" tabindex="0" ' . $data_clipboard_target . '><span class="copy_code_tooltiptext">Copy to clipboard</span></div>'
         . '<pre class="codelisting" '
         . (isset($theme) ? ' data-theme="' . $theme . '" ' : '')
         . (isset($colors) ? ' data-syntax="' . $colors . '" ' : '')
@@ -177,8 +180,11 @@ function wikiplugin_code($data, $params)
         . ' dir="' . ( (isset($rtl) && $rtl == 1) ? 'rtl' : 'ltr') . '" '
         . (isset($pre_style) ? ' style="' . $pre_style . '"' : '')
         . $boxid . '>'
+        . '<div class="code">'
         . (TikiLib::lib('parser')->option['wysiwyg'] || $ishtml ? $out : htmlentities($out, ENT_QUOTES, 'UTF-8'))
-        . '</pre>';
+        . '</div>'
+        . '</pre>'
+        . '</div>';
 
     return $out;
 }
