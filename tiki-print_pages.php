@@ -46,6 +46,7 @@ if (isset($_REQUEST["addpage"])) {
             $printpages[] = $value;
         }
     }
+    $printstructures = [];
     $cookietab = 2;
 }
 if (isset($_REQUEST["removepage"])) {
