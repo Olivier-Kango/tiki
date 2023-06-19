@@ -320,6 +320,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 
     private function cleanObject($name)
     {
+        $name = is_array($name) ? $name[0] : $name;
         return trim($name);
     }
 }

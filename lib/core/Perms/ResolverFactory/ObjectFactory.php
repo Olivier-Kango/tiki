@@ -198,6 +198,7 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
 
     private function cleanObject($name)
     {
+        $name = is_array($name) ? $name[0] : $name;
         return TikiLib::strtolower(trim($name));
     }
 }
