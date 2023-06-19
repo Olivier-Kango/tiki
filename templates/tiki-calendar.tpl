@@ -53,7 +53,7 @@
 
         {* avoid Add Event being shown if no calendar is displayed *}
         {if $tiki_p_add_events eq 'y'}
-            {button href='tiki-ajax_services.php?controller=calendar&action=edit_item' _type='primary' _text='{tr}Add Event{/tr}' _icon_name="create" _class='click-modal'}
+            {button href="{bootstrap_modal controller='calendar' action='edit_item' size='modal-lg'}" _type='primary' _text='{tr}Add Event{/tr}' _icon_name="create" _class='click-modal'}
         {/if}
 
         {if $viewlist eq 'list'}
