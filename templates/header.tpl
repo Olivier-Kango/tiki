@@ -258,7 +258,8 @@
                 "@vue-mf/root-config": "{$tikiroot}storage/public/vue-mf/root-config/vue-mf-root-config.min.js",
                 "@vue-mf/kanban": "{$tikiroot}storage/public/vue-mf/kanban/vue-mf-kanban.min.js",
                 "@vue-mf/duration-picker": "{$tikiroot}storage/public/vue-mf/duration-picker/vue-mf-duration-picker.min.js",
-                "@vue-mf/toolbar-dialogs": "{$tikiroot}storage/public/vue-mf/toolbar-dialogs/vue-mf-toolbar-dialogs.min.js"
+                "@vue-mf/toolbar-dialogs": "{$tikiroot}storage/public/vue-mf/toolbar-dialogs/vue-mf-toolbar-dialogs.min.js",
+                "@vue-mf/emoji-picker": "{$tikiroot}storage/public/vue-mf/emoji-picker/vue-mf-emoji-picker.min.js"
             }
         }
     </script>

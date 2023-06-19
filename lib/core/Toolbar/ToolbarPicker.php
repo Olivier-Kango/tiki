@@ -4,14 +4,11 @@ namespace Tiki\Lib\core\Toolbar;
 
 use TikiLib;
 
-class ToolbarPicker extends ToolbarItem
+class ToolbarPicker extends ToolbarDialog
 {
-    private array $list;
-    private string $name;
-    private int $index;
     private string $styleType;
 
-    public static function fromName($tagName): ?ToolbarItem
+    public static function fromName($tagName, bool $is_wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = ''): ?ToolbarItem
     {
         global $section;
         $headerlib = TikiLib::lib('header');
@@ -70,6 +67,16 @@ class ToolbarPicker extends ToolbarItem
                         'img/smiles/icon_' . $smiley . '.gif'
                     ) . '" alt="' . $tra . '" title="' . $tra . '" width="15" height="15" />';
                 }
+
+                break;
+            case 'emoji':
+                // TODO once working this will replace feature_smileys
+                $wysiwyg = 'Emoji';
+                $label = tra('Emojis');
+                $iconname = 'laugh-wink';
+                $rawList = [];
+                $tool_prefs[] = 'feature_emojis';
+                $list = [];
 
                 break;
             case 'color':
@@ -139,17 +146,20 @@ class ToolbarPicker extends ToolbarItem
                 return null;
         }
 
+
         $tag = new self();
+        $tag->name = $tagName;
+
         $tag->setWysiwygToken($wysiwyg)
             ->setLabel($label)
             ->setIconName(! empty($iconname) ? $iconname : 'help')
             ->setList($list)
             ->setType('Picker')
             ->setClass('qt-picker')
-            ->setName($tagName)
             ->setMarkdownSyntax($tagName)
             ->setMarkdownWysiwyg($tagName)
-            ->setStyleType($styleType);
+            ->setStyleType($styleType)
+            ->setDomElementId($domElementId);
 
         foreach ($tool_prefs as $pref) {
             $tag->addRequiredPreference($pref);
@@ -158,18 +168,10 @@ class ToolbarPicker extends ToolbarItem
         global $toolbarPickerIndex;
         ++$toolbarPickerIndex;
         $tag->index = $toolbarPickerIndex;
-        ToolbarPicker::setupJs();
+        $tag->setupJs();
 
         return $tag;
     }
-
-    public function setName(string $name): ToolbarItem
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
 
     public function getWysiwygWikiToken(): string // wysiwyg_htmltowiki
     {
@@ -183,31 +185,60 @@ class ToolbarPicker extends ToolbarItem
                 return '';
         }
     }
-
-
-    public function setList(array $list): ToolbarItem
-    {
-        $this->list = $list;
-
-        return $this;
-    }
-
-
     public function getOnClick(): string
     {
         global $section;
+        // N.B. output is enclosed in double quotes later
         if ($section == 'sheet') {
-            return 'displayPicker( this, \'' . $this->name . '\', \'' . $this->domElementId . '\', true, \'' . $this->styleType . '\' )';   // is enclosed in double quotes later
+            return 'displayPicker( this, \'' . $this->name . '\', \'' .
+                $this->domElementId . '\', true, \'' . $this->styleType . '\' )';
+        } elseif ($this->name == 'emoji' && $this->isVueTool()) {
+            return 'displayEmojiPicker(\'emoji-picker-' . $this->index . '\', \'' .
+                $this->domElementId . '\')';
         } else {
-            return 'displayPicker( this, \'' . $this->name . '\', \'' . $this->domElementId . '\' )';   // is enclosed in double quotes later
+            return 'displayPicker( this, \'' . $this->name . '\', \'' .
+                $this->domElementId . '\' )';
         }
     }
 
-    private static function setupJs(): void
+    public function setupJs(): void
     {
         static $pickerAdded = false;
 
-        if (! $pickerAdded) {
+        if ($this->name == 'emoji' && $this->isVueTool()) {
+            TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
+
+            // TODO refactor with \Tiki\Lib\core\Toolbar\ToolbarDialog::setupJs
+            TikiLib::lib('header')->add_js_module('
+                import "@vue-mf/root-config";
+                import "@vue-mf/emoji-picker";
+            ');
+            $data = get_object_vars($this);
+            unset($data['list']);
+            $data['pickerId'] = "emoji-picker-{$this->index}";
+
+                        // language=JavaScript
+            TikiLib::lib('header')->add_jq_onready('
+    window.registerApplication({
+        name: "@vue-mf/emoji-picker",
+        app: () => importShim("@vue-mf/emoji-picker"),
+        activeWhen: (location) => {
+            let condition = true;
+            return condition;
+        },
+        customProps: {
+            toolbarObject: ' . json_encode($data) . ',
+            settings: {
+                defaultColor: "#3B71CA",
+                title: "my title",
+                emoji: "sunglasses"
+            }
+        },
+    })
+    onDOMElementRemoved("single-spa-application:@vue-mf/emoji-picker", function () {
+        window.unregisterApplication("@vue-mf/emoji-picker");
+    });');
+        } elseif (! $pickerAdded) {
             TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
             $pickerAdded = true;
         }
@@ -217,11 +248,16 @@ class ToolbarPicker extends ToolbarItem
     {
         $this->setupPickerJS();
 
-        return $this->getSelfLink(
+        $html = $this->getSelfLink(
             $this->getOnClick(),
             htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
             $this->getClass()
         );
+
+        if ($this->name === 'emoji' && $this->isVueTool()) {
+            $html .= $this->getEmojiPicker();
+        }
+        return $html;
     }
 
     public function getMarkdownHtml(): string
@@ -275,5 +311,10 @@ class ToolbarPicker extends ToolbarItem
                 json_encode($this->list)
             ) . ";"
         );
+    }
+
+    public function getEmojiPicker(): string
+    {
+        return "<div id='emoji-picker-{$this->index}' class='emoji-picker' style='display:none'></div>";
     }
 }

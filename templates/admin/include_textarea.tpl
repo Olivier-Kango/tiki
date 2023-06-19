@@ -33,6 +33,7 @@
             <fieldset>
                 <legend>{tr}Wiki syntax{/tr}{help url="Wiki-syntax"}</legend>
                 {preference name=feature_smileys}
+                {preference name=feature_emojis}
                 {preference name=feature_wiki_paragraph_formatting}
                 <div class="adminoptionboxchild" id="feature_wiki_paragraph_formatting_childcontainer">
                     {preference name=feature_wiki_paragraph_formatting_add_br}

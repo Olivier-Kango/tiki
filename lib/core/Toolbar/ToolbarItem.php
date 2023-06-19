@@ -76,7 +76,7 @@ abstract class ToolbarItem
             return $tag;
         } elseif ($tag = ToolbarWikiplugin::fromName($tagName)) {
             return $tag;
-        } elseif ($tag = ToolbarPicker::fromName($tagName)) {
+        } elseif ($tag = ToolbarPicker::fromName($tagName, $wysiwyg, $is_html, $is_markdown, $domElementId)) {
             return $tag;
         } elseif ($tag = ToolbarDialog::fromName($tagName, $wysiwyg, $is_html, $is_markdown, $domElementId)) {
             return $tag;
@@ -146,6 +146,7 @@ abstract class ToolbarItem
                     'numlist',
                     'specialchar',
                     'smiley',
+                    'emoji',
                     'templates',
                     'cut',
                     'copy',

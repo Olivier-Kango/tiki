@@ -337,6 +337,9 @@ a.toolbar:active, li.toolbar:active {
   color: #dc3545;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+.textarea-toolbar .emoji-picker {
+  position: absolute;
+}
 #intertrans-indicator {
   background-color: #03657d;
   color: #198754;
@@ -5548,6 +5551,9 @@ a.toolbar:active, li.toolbar:active {
   color: #dc3545;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+.textarea-toolbar .emoji-picker {
+  position: absolute;
+}
 #intertrans-indicator {
   background-color: #03657d;
   color: #198754;
@@ -6118,4 +6124,4 @@ blockquote {
   z-index: 1;
 }
 /* End of file */
-
+/*# sourceMappingURL=tiki_base.css.map */

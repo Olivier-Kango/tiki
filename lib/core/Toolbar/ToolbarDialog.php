@@ -8,9 +8,9 @@ class ToolbarDialog extends ToolbarItem
 {
     private $isMarkdown;
     private $isWysiwyg;
-    private array $list;
-    private int $index;
-    private string $name;
+    protected array $list;
+    protected int $index;
+    protected string $name;
 
     public static function fromName(string $tagName, bool $is_wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = ''): ?ToolbarItem
     {
@@ -379,7 +379,7 @@ class ToolbarDialog extends ToolbarItem
      *
      * @return bool
      */
-    private function isVueTool(): bool
+    protected function isVueTool(): bool
     {
         global $prefs;
 
@@ -392,8 +392,11 @@ class ToolbarDialog extends ToolbarItem
 
         if (! $this->isWysiwyg) {   // not working in toast yet TODO
             $supported[] = 'table';
+            $supported[] = 'emoji';
         }
 
-        return $prefs['vuejs_enable'] === 'y' && $prefs['vuejs_toolbar_dialogs'] === 'y' && in_array($this->name, $supported);
+        return $prefs['vuejs_enable'] === 'y' &&
+            $prefs['vuejs_toolbar_dialogs'] === 'y' &&
+            in_array($this->name, $supported);
     }
 }
