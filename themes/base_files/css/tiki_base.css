@@ -22,7 +22,7 @@ header.navbar.fixed-top {
 }
 :root {
   --tiki-tooltip-link-color: #88b6fc;
-  --tiki-tooltip-link-hover-color: $tooltip-color;
+  --tiki-tooltip-link-hover-color: var(--bs-body-bg);
 }
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);

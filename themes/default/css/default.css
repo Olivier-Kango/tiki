@@ -25,35 +25,47 @@ header.navbar.fixed-top {
 }
 :root {
   --tiki-tooltip-link-color: #88b6fc;
-  --tiki-tooltip-link-hover-color: $tooltip-color;
+  --tiki-tooltip-link-hover-color: var(--bs-body-bg);
 }
 .tiki-top-nav-light {
   --tiki-top-bg: rgb(255, 255, 255);
   --tiki-top-color: rgba(0, 0, 0, 0.55);
   --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-top-border: solid #333;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgb(255, 255, 255);
   --tiki-topbar-color: rgba(0, 0, 0, 0.55);
   --tiki-topbar-hover-color: rgba(0, 0, 0, 0.7);
-  --tiki-topbar-border: solid #333;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: rgb(85, 85, 85);
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #fff;
-  --tiki-top-border: solid rgb(85, 85, 85);
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgb(85, 85, 85);
   --tiki-topbar-color: #fff;
   --tiki-topbar-hover-color: #fff;
-  --tiki-topbar-border: solid rgb(85, 85, 85);
 }
-.tiki-top-nav-light, .tiki-top-nav-dark {
-  --tiki-top-border-width: 2px;
-  --tiki-topbar-border-width: 2px;
+[data-bs-theme=dark] .tiki-top-nav-light {
+  --tiki-top-bg: rgb(85, 85, 85);
+  --tiki-top-color: #fff;
+  --tiki-top-hover-color: #fff;
+}
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+  --tiki-topbar-bg: rgb(85, 85, 85);
+  --tiki-topbar-color: #fff;
+  --tiki-topbar-hover-color: #fff;
+}
+[data-bs-theme=light] .tiki-top-nav-dark {
+  --tiki-top-bg: rgb(85, 85, 85);
+  --tiki-top-color: #fff;
+  --tiki-top-hover-color: #fff;
+}
+[data-bs-theme=light] .tiki-topbar-nav-dark {
+  --tiki-topbar-bg: rgb(255, 255, 255);
+  --tiki-topbar-color: rgba(0, 0, 0, 0.55);
+  --tiki-topbar-hover-color: rgba(0, 0, 0, 0.7);
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.55);
@@ -11330,6 +11342,76 @@ textarea.form-control-lg {
 }
 [data-bs-theme="dark"] .navbar-toggler-icon {
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+.tiki .tiki-top-nav-light {
+  background: var(--tiki-top-bg) !important;
+  border: var(--tiki-top-border);
+  border-width: var(--tiki-top-border-width);
+  box-shadow: var(--tiki-top-box-shadow);
+}
+.tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-light .btn.btn-link {
+  color: var(--tiki-top-color);
+}
+.tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
+}
+.tiki .tiki-topbar-nav-light, .admin-content .tiki-nav-light {
+  background: var(--tiki-topbar-bg) !important;
+  border: var(--tiki-topbar-border);
+  border-width: var(--tiki-topbar-border-width);
+  box-shadow: var(--tiki-topbar-box-shadow);
+}
+.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-light .btn.btn-link, .tiki .tiki-topbar-nav-light a.nav-link, .admin-content .tiki-nav-light a:not(.navbar-brand, .dropdown-item), .admin-content .tiki-nav-light .btn.btn-link, .admin-content .tiki-nav-light a.nav-link {
+  color: var(--tiki-topbar-color);
+}
+.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover, .admin-content .tiki-nav-light a:not(.navbar-brand, .dropdown-item):hover, .admin-content .tiki-nav-light .btn.btn-link:hover, .admin-content .tiki-nav-light a.nav-link:hover {
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
+}
+.tiki .tiki-top-nav-dark {
+  background: var(--tiki-top-bg) !important;
+  border: var(--tiki-top-border);
+  border-width: var(--tiki-top-border-width);
+  box-shadow: var(--tiki-top-box-shadow);
+}
+.tiki .tiki-top-nav-dark a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-dark .btn.btn-link, .tiki .tiki-top-nav-dark a.nav-link {
+  color: var(--tiki-top-color);
+}
+.tiki .tiki-top-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
+  color: var(--tiki-top-hover-color);
+  background: var(--tiki-top-hover-bg);
+}
+.tiki .tiki-topbar-nav-dark, .admin-content .tiki-nav-dark {
+  background: var(--tiki-topbar-bg) !important;
+  border: var(--tiki-topbar-border);
+  border-width: var(--tiki-topbar-border-width);
+  box-shadow: var(--tiki-topbar-box-shadow);
+}
+.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-dark .btn.btn-link, .tiki .tiki-topbar-nav-dark a.nav-link, .admin-content .tiki-nav-dark a:not(.navbar-brand, .dropdown-item), .admin-content .tiki-nav-dark .btn.btn-link, .admin-content .tiki-nav-dark a.nav-link {
+  color: var(--tiki-topbar-color);
+}
+.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover, .admin-content .tiki-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .admin-content .tiki-nav-dark .btn.btn-link:hover, .admin-content .tiki-nav-dark a.nav-link:hover {
+  color: var(--tiki-topbar-hover-color);
+  background: var(--tiki-topbar-hover-bg);
+}
+.tiki.layout_basic .page-header .top_modules, .tiki.layout_basic .page-header .top_modules .navbar, .tiki.layout_basic .topbar_modules .navbar {
+  background: transparent !important;
+  --bs-bg-opacity: 0 !important;
+  box-shadow: none;
+  border: none;
+}
+.tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
+  background: transparent !important;
+  --bs-bg-opacity: 0 !important;
+  box-shadow: none;
+  border: none;
+}
+.layout_social header .top_modules, .layout_social header .top_modules .navbar, .layout_social .topbar, .layout_social .topbar .navbar {
+  background: transparent !important;
+  --bs-bg-opacity: 0 !important;
+  box-shadow: none;
+  border: none;
 }
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);

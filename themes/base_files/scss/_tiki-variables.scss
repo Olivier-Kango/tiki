@@ -144,5 +144,5 @@ header.navbar.fixed-top {
 
 :root {
     --tiki-tooltip-link-color: #88b6fc; // Default link color lightened for readability on #000 background; more elaborate method coming for Bootstrap 5.3. - g_c-l
-    --tiki-tooltip-link-hover-color: $tooltip-color;
+    --tiki-tooltip-link-hover-color: #{$tooltip-color};
 }
