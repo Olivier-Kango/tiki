@@ -73,6 +73,9 @@ class XmlLib extends TikiLib
         }
 
         $this->zip = new ZipArchive();
+        if (! file_exists($zipFile)) {
+            mkdir('dump', 0777, true);
+        }
 
         if (! $this->zip->open($zipFile, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE)) {
             $this->errors[] = 'The file cannot be opened';
@@ -88,7 +91,7 @@ class XmlLib extends TikiLib
         $this->xml .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 
         // Export pages, if any
-        if (count($pages) >= 1) {
+        if (isset($pages) && count($pages) >= 1) {
             $this->xml .= "<pages>\n";
             foreach ($pages as $page) {
                 if (! $this->export_page($page)) {
@@ -379,7 +382,7 @@ class XmlLib extends TikiLib
 
     // Create or update a page from within the Zip file and an xml parsing result
 
-    public function create_page($info)
+    public function create_page($info, $hits = 0, $data = null, $lastModif = null, $comment = null, $user = 'admin', $ip = '0.0.0.0', $description = '', $lang = '', $is_html = false, $hash = null, $wysiwyg = null, $wiki_authors_style = '', $minor = 0, $created = '')
     {
         global $prefs, $tiki_p_wiki_attach_files, $tiki_p_edit_comments, $tikidomain;
         $tikilib = TikiLib::lib('tiki');
@@ -631,7 +634,7 @@ class page_Parser extends XML_Parser
     public $commentId = 0;
     public $iStructure = 0;
 
-    public function startHandler($parser, $name, $attribs)
+    public function startHandler($parser, $name, &$attribs)
     {
         switch ($name) {
             case 'page':
