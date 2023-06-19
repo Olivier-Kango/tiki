@@ -683,6 +683,9 @@ class SheetLib extends TikiLib
         global $prefs;
 
         $count_longest = function ($array1, $array2) {
+            $array1 = ! empty($array1) ? $array1 : [];
+            $array2 = ! empty($array2) ? $array2 : [];
+
             return max(count($array1), count($array2));
         };
 
@@ -765,7 +768,9 @@ class SheetLib extends TikiLib
                 $result1 .= "<tr>";
                 $result2 .= "<tr>";
                 for ($col = 0; $col < $count_longest($grids1[$i]->dataGrid[$row], $grids2[$i]->dataGrid[$row]); $col++) { //cycle through columns
-                    $diff = new Text_Diff($sanitize_for_diff(html_entity_decode($grids1[$i]->dataGrid[$row][$col])), $sanitize_for_diff(html_entity_decode($grids2[$i]->dataGrid[$row][$col])));
+                    $cellValue1 = is_array($grids1[$i]->dataGrid[$row][$col]) ? $grids1[$i]->dataGrid[$row][$col]["value"] : $grids1[$i]->dataGrid[$row][$col];
+                    $cellValue2 = is_array($grids2[$i]->dataGrid[$row][$col]) ? $grids2[$i]->dataGrid[$row][$col]["value"] : $grids2[$i]->dataGrid[$row][$col];
+                    $diff = new Text_Diff($sanitize_for_diff(html_entity_decode($cellValue1)), $sanitize_for_diff(html_entity_decode($cellValue2)));
                     $changes = $diff->getDiff();
 
                     //I left this diff switch, but it really isn't being used as of now, in the future we may though.
