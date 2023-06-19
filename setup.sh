@@ -1093,6 +1093,8 @@ tiki_setup_default_menu() {
 
 Composer: If you are installing via a released Tiki package (zip, tar.gz, tar.bz2, 7z), you can and should skip using Composer. If you are installing
 and upgrading via GIT, you need to run Composer after 'git clone' and 'git pull'. More info at https://doc.tiki.org/Composer
+
+Database: Please note that the Tiki schema does not support downgrading the database. It can only perform upgrades. For more info, you may check the database status by opening the tiki-check page (/tiki-check.php).
   
  c run composer (log output on screen, not all warnings) and exit (recommended to be done first)
  L run composer (log output to logfile) and exit (recommended to be done first)

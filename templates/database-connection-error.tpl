@@ -40,6 +40,8 @@
                                     {tr}Database is not currently up to date! Visit <a href="tiki-install.php">Tiki Installer</a> to resolve this issue.{/tr}
                                     {tr}If you have shell (SSH) access, you can also use the following, on the command line, from the root of your Tiki installation:{/tr}
                                     <kbd>php console.php{if not empty($tikidomain)} --site={$tikidomain|replace:'/':''}{/if} database:update</kbd>
+                                    <br/>
+                                    {tr}Please note that the Tiki schema does not support downgrading the database. It can only perform upgrades. For more info, you may check the database status by opening the <a href="tiki-check.php">tiki-check</a> page.{/tr}
                                 </p>
                             {/if}
 
