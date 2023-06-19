@@ -2095,9 +2095,9 @@ class TikiLib extends TikiDb_Bridge
         }
 
         $query = "select * from `tiki_comments`,`tiki_forums` where ";
-        $query .= " `forumId`=? and `object`=? and `objectType`=? and `parentId`=? $mid order by " . $this->convertSortMode($sort_mode);
+        $query .= " `forumId`=? and `object`=? and `objectType`=? and `tiki_comments`.`parentId`=? $mid order by " . $this->convertSortMode($sort_mode);
         $query_cant = "select count(*) from `tiki_comments`,`tiki_forums` where ";
-        $query_cant .= " `forumId`=? and `object`=? and `objectType`=? and `parentId`=? $mid";
+        $query_cant .= " `forumId`=? and `object`=? and `objectType`=? and `tiki_comments`.`parentId`=? $mid";
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
         $cant = $this->getOne($query_cant, $bindvars);
 
