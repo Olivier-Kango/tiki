@@ -6,6 +6,7 @@
     {/if}
 </div>
 <form enctype="multipart/form-data" action="tiki-admin_topics.php" method="post" role="form">
+    {ticket}
     <h2>{tr}Add topic{/tr}</h2>
     <div class="mb-3 row">
         <label class="col-sm-2 col-form-label" for="name">{tr}Name{/tr}</label>

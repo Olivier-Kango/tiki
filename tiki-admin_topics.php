@@ -15,7 +15,8 @@ $access->check_feature('feature_articles');
 // PERMISSIONS: NEEDS p_admin or tiki_p_articles_admin_topics
 $access->check_permission(['tiki_p_articles_admin_topics']);
 
-if (isset($_REQUEST["addtopic"]) && $access->checkCsrf()) {
+if (isset($_REQUEST["addtopic"])) {
+    $access->checkCsrf();
     if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
         $filegallib = TikiLib::lib('filegal');
         try {
