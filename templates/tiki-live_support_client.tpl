@@ -15,7 +15,7 @@
     <body onUnload="client_close();">
 
 
-        <div class="w-100 vh-100 d-flex justify-content-center align-items-center">
+        <div class="w-100 vh-100 d-flex justify-content-center mt-5">
 
             <div class="container w-100">
                 <div class="row justify-content-md-center">
@@ -29,44 +29,45 @@
                                 <h2 class="card-title p-3">{tr}Request live support{/tr}</h2>
 
                                 {if $user}
-                                    <div class="mb-3 mt-3 row">
-                                        <label for="username" class="col-sm-3 col-form-label"><strong>{tr}User{/tr}</strong></label>
-                                        <div class="col-sm-9">
+                                    <div class="form-group row mb-3">
+                                        <label for="username" class="col-sm-4 col-form-label"><strong>{tr}User{/tr}</strong></label>
+                                        <div class="col-sm-8">
                                             <input type="text" readonly class="form-control-plaintext" id="username" value="{$user|escape}">
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
-                                        <label for="emailaddress" class="col-sm-3 col-form-label"><strong>{tr}Email{/tr}</strong></label>
-                                        <div class="col-sm-9">
+                                    <div class="form-group row mb-3">
+                                        <label for="emailaddress" class="col-sm-4 col-form-label"><strong>{tr}Email{/tr}</strong></label>
+                                        <div class="col-sm-8">
                                             <input type="text" readonly class="form-control-plaintext" id="emailaddress" value="{$user_email|escape}">
                                         </div>
                                     </div>
                                 {else}
-                                    <div class="mb-3 row">
-                                        <label for="username" class="col-sm-3 col-form-label"><strong>{tr}User{/tr}</strong></label>
-                                        <div class="col-sm-9">
+                                    <div class="form-group row mb-3">
+                                        <label for="username" class="col-sm-4 col-form-label"><strong>{tr}User{/tr}</strong></label>
+                                        <div class="col-sm-8">
                                             <input type="text" class="form-control" id="username" placeholder="">
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
-                                        <label for="emailaddress" class="col-sm-3 col-form-label"><strong>{tr}Email{/tr}</strong></label>
-                                        <div class="col-sm-9">
+                                    <div class="form-group row mb-3">
+                                        <label for="emailaddress" class="col-sm-4 col-form-label"><strong>{tr}Email{/tr}</strong></label>
+                                        <div class="col-sm-8">
                                             <input type="text" class="form-control" id="emailaddress" placeholder="">
                                         </div>
                                     </div>
                                 {/if}
 
-                                <div class="mb-3 row">
-                                    <label for="reason" class="col-sm-3 col-form-label"><strong>{tr}Reason{/tr}</strong></label>
-                                    <div class="col-sm-9">
+                                <div class="form-group row mb-3">
+                                    <label for="reason" class="col-sm-4 col-form-label"><strong>{tr}Reason{/tr}</strong></label>
+                                    <div class="col-sm-8">
                                         <textarea class="form-control" id="reason"></textarea>
                                     </div>
                                 </div>
 
-                                <div class="mb-3 row">
-                                    <span class="col-sm-3 col-form-label"></span>
-                                    <div class="col-sm-9">
+                                <div class="form-group row mb-3">
+                                    <span class="col-sm-4 col-form-label"></span>
+                                    <div class="col-sm-8">
                                         <input class="btn btn-primary" onClick="request_chat(document.getElementById('username').value,document.getElementById('tiki_user').value,document.getElementById('emailaddress').value,document.getElementById('reason').value);" type="button" value="{tr}Request support{/tr}">
+                                        <a class="btn btn-outline-danger" href="tiki-index.php">{tr}Close{/tr}</a>
                                     </div>
                                 </div>
                             </div>

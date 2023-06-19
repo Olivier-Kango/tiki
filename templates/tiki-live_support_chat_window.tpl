@@ -70,7 +70,27 @@
                             {$req_info.tiki_user|avatarize}<br>
                             <b>{$req_info.tiki_user}</b>
                         {else}
-                            <b>{$req_info.user}</b>
+                            <table >
+                                <tr>
+                                    <td style="text-align:center;" valign="top">
+                                        <b>{tr}User:{/tr}</b><br>
+                                        {if $req_info.tiki_user}
+                                            {$req_info.tiki_user|avatarize}<br>
+                                            <b>{$req_info.tiki_user}</b>
+                                        {else}
+                                            <b>{$req_info.user}</b>
+                                        {/if}
+                                    </td>
+                                    <td valign="top">
+                                        <i>{$req_info.reason}</i>
+                                    </td>
+                                    <td style="text-align:center;" valign="top">
+                                        <b>{tr}Operator:{/tr}</b><br>
+                                        {$req_info.operator|avatarize}<br>
+                                        <b>{$req_info.operator}</b>
+                                    </td>
+                                </tr>
+                            </table>
                         {/if}
                     </td>
                     <td valign="top">
@@ -96,7 +116,8 @@
                 <input placeholder="{tr}write a new message...{/tr}" type="text" id="data" size="30" class="form-control col-sm-9" onKeyPress="javascript:if(event.keyCode == 13) {write_msg(document.getElementById('data').value,document.getElementById('role').value,document.getElementById('username').value);}">
                 <button type="button" class="btn btn-primary col-sm-3" onClick="javascript:write_msg(document.getElementById('data').value,document.getElementById('role').value,document.getElementById('username').value);"><span class="fa fa-paper-plane"></span> {tr}send{/tr}</button>
             </div>
-        {/literal}
+        </div>
+        
         <script type='text/javascript'>
             /* Activate polling of requests */
             $('document').ready(function () {
