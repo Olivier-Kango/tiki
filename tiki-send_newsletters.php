@@ -231,6 +231,7 @@ if (! empty($_FILES) && ! empty($_FILES['newsletterfile'])) {
                 'savestate' => 'phptmp',
             ];
         } else {
+            $error = [];
             $error['title'] = tra('A problem occurred during file uploading');
             $error['mes'] = tra('File causing trouble was at rank') . ' ' . ($i + 1);
             $error['mes'] = tr(
