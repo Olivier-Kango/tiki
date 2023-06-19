@@ -41,7 +41,7 @@ class TrackerField extends Type
      *
      * @return array
      */
-    public function getTrackers()
+    public static function getTrackers()
     {
         $trklib = TikiLib::lib('trk');
         $trackers = $trklib->list_trackers(0, -1, 'name_asc', '');
@@ -55,7 +55,7 @@ class TrackerField extends Type
      * @param $trackerId
      * @return array
      */
-    public function getTrackerFields($trackerId)
+    public static function getTrackerFields($trackerId)
     {
         $trklib = TikiLib::lib('trk');
         $fields = $trklib->list_tracker_fields($trackerId, 0, -1, 'position_asc', '');

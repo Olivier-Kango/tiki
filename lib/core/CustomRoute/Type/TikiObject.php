@@ -49,7 +49,7 @@ class TikiObject extends Type
      * @param $type
      * @return array
      */
-    public function getObjectsByType($type)
+    public static function getObjectsByType($type)
     {
 
         $tikilib = new TikiLib();
