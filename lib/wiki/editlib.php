@@ -11,6 +11,7 @@
  */
 
 use Tiki\WikiParser\Markdown\Converter\DefinitionListConverter;
+use Tiki\WikiParser\Markdown\Converter\StrikeConverter;
 
 class EditLib
 {
@@ -1571,6 +1572,7 @@ class EditLib
                 ]);
                 $converter->getEnvironment()->addConverter(new League\HTMLToMarkdown\Converter\TableConverter());
                 $converter->getEnvironment()->addConverter(new DefinitionListConverter());
+                $converter->getEnvironment()->addConverter(new StrikeConverter());
             }
             $converted = $converter->convert($html);
             $converted = preg_replace('/\\\\([\[\]])/', '$1', $converted);
