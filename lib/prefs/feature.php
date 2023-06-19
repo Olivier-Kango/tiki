@@ -3025,13 +3025,5 @@ function prefs_feature_list($partial = false)
             'type' => 'flag',
             'default' => 'n',
         ],
-        'feature_emojis' => [
-            'name' => tra('Emojis'),
-            'description' => tra('Insert a small digital icon to express an idea or emotion.'),
-            'help' => 'Emojis',
-            'type' => 'flag',
-            'default' => 'y',
-            'tags' => ['basic', 'experimental'],
-        ],
     ];
 }
