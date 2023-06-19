@@ -33,5 +33,14 @@ function prefs_php_list()
             'type' => 'flag',
             'default' => class_exists('DateTime') ? 'y' : 'n',
         ],
+        'php_cli_path' => [
+            'name' => tra('Path to the php binary'),
+            'description' => tra(
+                'Path to the php command line binary to be used by tiki when calling command line programs'
+            ),
+            'keywords' => 'command line php path',
+            'type' => 'text',
+            'default' => '',
+        ],
     ];
 }

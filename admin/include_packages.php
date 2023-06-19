@@ -7,6 +7,7 @@
 use Tiki\Package\ComposerManager;
 use Tiki\Package\ComposerCli;
 use Tiki\Package\ExtensionManager;
+use Tiki\Process\PhpExecutableFinder;
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
@@ -151,3 +152,60 @@ $smarty->assign('composer_packages_available', $composerManager->getAvailable(tr
 $smarty->assign('composer_bundled_packages_installed', $composerManagerBundled->getInstalled());
 $smarty->assign('composer_custom_packages_installed', $composerManagerCustom->getCustomPackages());
 $smarty->assign('composer_phar_exists', $composerManager->getComposer()->composerPharExists());
+
+$finder = new PhpExecutableFinder();
+$phpCli = $finder->find($phpCliVersion);
+$majorMinorOffset = strpos(PHP_VERSION, '.', 2);
+if (empty($phpCli)) { // No cli detected
+    $phpCliList = $finder->findAll(false, true);
+    if (count($phpCliList) == 0) {
+        $phpCliListAsString = tr('None detected');
+    } else {
+        $phpCliListAsString = implode(', ', array_map(
+            function ($item): string {
+                return $item['command'] . '(' . $item['version'] . ')';
+            },
+            $phpCliList
+        ));
+    }
+    $smarty->assign(
+        'composer_php_version_mismatch',
+        tr(
+            'No suitable php command line binary detected, it’s recommended that you define the PATH <br>to the right PHP command line version using the preference %0 <br>',
+            '<a class="lm_result label label-default" href="tiki-admin.php?page=general&cookietab=2&highlight=php_cli_path">php_cli_path</a>'
+        )
+        . '&nbsp; <br>'
+        . tr(
+            'Current version reported by the webserver (%0), current minimal version required (%1) <br>PHP command line binaries detected: %2',
+            PHP_VERSION,
+            $finder->getMinimalVersionSupported(),
+            $phpCliListAsString
+        )
+    );
+} elseif (strncmp(PHP_VERSION, $phpCliVersion, $majorMinorOffset) !== 0) {
+    $smarty->assign(
+        'composer_php_version_mismatch',
+        tr(
+            'There is a mismatch between the PHP version (%0) reported by the webserver and the version <br>'
+            . 'reported by the command line binary (%1: %2), it’s recommended that you define the PATH to the right <br>'
+            . 'PHP command line version using the preference %3',
+            PHP_VERSION,
+            $phpCli,
+            $phpCliVersion,
+            '<a class="lm_result label label-default" href="tiki-admin.php?page=general&cookietab=2&highlight=php_cli_path">php_cli_path</a>'
+        )
+    );
+} elseif (! $finder->isVersionSupported($phpCliVersion)) {
+    $smarty->assign(
+        'composer_php_version_mismatch',
+        tr(
+            'The version reported by the PHP command line binary (%0: %1) is older than the <br>'
+            . 'minimal version recommended (%2), it’s recommended that you define the PATH to the right <br>'
+            . 'PHP command line version using the preference %3',
+            $phpCli,
+            $phpCliVersion,
+            $finder->getMinimalVersionSupported(),
+            '<a class="lm_result label label-default" href="tiki-admin.php?page=general&cookietab=2&highlight=php_cli_path">php_cli_path</a>'
+        )
+    );
+}

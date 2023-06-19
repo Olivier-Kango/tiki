@@ -19,7 +19,7 @@ class Process extends SymfonyProcess
         parent::__construct($commandline, $cwd, $env, $input, $timeout);
     }
 
-    protected function setEnvDefaults($env)
+    protected function setEnvDefaults($env): array
     {
         $env = empty($env) ? [] : $env;
 

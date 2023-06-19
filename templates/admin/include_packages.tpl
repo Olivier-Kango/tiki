@@ -212,6 +212,12 @@
         {if count($composer_packages_available)}
         <br />
         <h4>{tr}Available Packages{/tr} <small>{tr}These packages have been identified as required by one or more features.{/tr}</small></h4>
+        {if !empty($composer_php_version_mismatch)}
+            {remarksbox type="warning" title="{tr}Warning{/tr}"}
+            <pre>{$composer_php_version_mismatch}</pre>
+            {/remarksbox}
+        {/if}
+        
         <table class="table" id="packagesInfo">
             <tr>
                 <th>{tr}Package Name{/tr}</th>

@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\Package\ComposerCli;
 use org\bovigo\vfs\vfsStream;
+use Tiki\Process\PhpExecutableFinder;
 
 /*
  * @group unit
@@ -101,10 +102,11 @@ class Tiki_Package_ComposerCliTest extends TikiTestCase
 
     public function getComposerConfigOrDefaultProvider()
     {
+        $phpFinder = new PhpExecutableFinder();
         return [
             [self::SAMPLE_COMPOSER, self::COMPOSER_JSON_DIST, self::SAMPLE_COMPOSER],
             [null, self::COMPOSER_JSON_DIST, self::COMPOSER_JSON_DIST],
-            [null, null, ComposerCli::FALLBACK_COMPOSER_JSON],
+            [null, null, str_replace('%MIN_PHP_VERSION%', $phpFinder->getMinimalVersionSupported(), ComposerCli::FALLBACK_COMPOSER_JSON_TEMPLATE)],
         ];
     }
 

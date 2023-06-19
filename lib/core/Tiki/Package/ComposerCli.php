@@ -7,6 +7,7 @@
 namespace Tiki\Package;
 
 use Symfony\Component\Process\Exception\ExceptionInterface as ProcessExceptionInterface;
+use Tiki\Process\PhpExecutableFinder;
 use Tiki\Process\Process;
 
 /**
@@ -20,16 +21,8 @@ class ComposerCli
     public const COMPOSER_CONFIG = 'composer.json';
     public const COMPOSER_LOCK = 'composer.lock';
     public const COMPOSER_HOME = 'temp/composer';
-    public const PHP_COMMAND_NAMES = [
-        'php',
-        // TODO: Dynamically build version part from running PHP version
-        'php74',
-        'php7.4',
-        'php7.4-cli',
-    ];
-    public const MIN_PHP_VERSION = '8.1.0';
 
-    public const FALLBACK_COMPOSER_JSON = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components", "prepend-autoloader": false, "platform": {"php":"' . self::MIN_PHP_VERSION . '"}}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
+    public const FALLBACK_COMPOSER_JSON_TEMPLATE = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components", "prepend-autoloader": false, "platform": {"php":">=%MIN_PHP_VERSION%"}}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
 
     /**
      * @var string path to the base folder from tiki
@@ -42,9 +35,9 @@ class ComposerCli
     protected $workingPath = '';
 
     /**
-     * @var string|null Will hold the php bin detected
+     * @var PhpExecutableFinder Will hold the php executable finder
      */
-    protected $phpCli = null;
+    protected PhpExecutableFinder $phpExecutableFinder;
 
     /**
      * @var int timeout in seconds waiting for composer commands to execute, default 5 min (300s)
@@ -58,10 +51,12 @@ class ComposerCli
 
     /**
      * ComposerCli constructor.
-     * @param string $basePath
-     * @param string $workingPath
+     *
+     * @param string                   $basePath
+     * @param string|null              $workingPath
+     * @param PhpExecutableFinder|null $phpExecutableFinder
      */
-    public function __construct($basePath, $workingPath = null)
+    public function __construct(string $basePath, ?string $workingPath = null, PhpExecutableFinder $phpExecutableFinder = null)
     {
         $basePath = rtrim($basePath, '/');
         if ($basePath) {
@@ -76,10 +71,15 @@ class ComposerCli
                 $this->workingPath = $workingPath . '/';
             }
         }
+
+        if (! $phpExecutableFinder) {
+            $phpExecutableFinder = new PhpExecutableFinder();
+        }
+        $this->phpExecutableFinder = $phpExecutableFinder;
     }
 
     /**
-     * Returns the the current working path location
+     * Returns the current working path location
      * @return string
      */
     public function getWorkingPath()
@@ -89,7 +89,6 @@ class ComposerCli
 
     /**
      * Sets the current working path location
-     * @return string
      */
     public function setWorkingPath($path)
     {
@@ -123,9 +122,7 @@ class ComposerCli
         if (! $this->checkConfigExists()) {
             return false;
         }
-        $content = json_decode(file_get_contents($this->getComposerConfigFilePath()), true);
-
-        return $content;
+        return json_decode(file_get_contents($this->getComposerConfigFilePath()), true);
     }
 
     /**
@@ -144,7 +141,10 @@ class ComposerCli
         }
 
         if (empty($distContent)) {
-            $distContent = json_decode(self::FALLBACK_COMPOSER_JSON, true);
+            $distContent = json_decode(
+                str_replace('%MIN_PHP_VERSION%', $this->phpExecutableFinder->getMinimalVersionSupported(), ComposerCli::FALLBACK_COMPOSER_JSON_TEMPLATE),
+                true
+            );
         }
 
         return $distContent;
@@ -179,86 +179,12 @@ class ComposerCli
     /**
      * Check the version of the command line version of PHP
      *
-     * @param $php
+     * @param string|null $php
      * @return string
      */
-    protected function getPhpVersion($php)
+    public function getPhpVersion($php = null)
     {
-        $process = new Process([$php, '--version']);
-        $process->run();
-        foreach (explode("\n", $process->getOutput()) as $line) {
-            $parts = explode(' ', $line);
-            if ($parts[0] === 'PHP') {
-                return $parts[1];
-            }
-        }
-
-        return '';
-    }
-
-    /**
-     * Attempts to resolve the location of the PHP binary
-     *
-     * @return null|bool|string
-     */
-    protected function getPhpPath()
-    {
-        if (! is_null($this->phpCli)) {
-            return $this->phpCli;
-        }
-
-        $this->phpCli = false;
-
-        // add virtualmin per-domain locations first
-        $command_locations = self::PHP_COMMAND_NAMES;
-        array_unshift($command_locations, $this->basePath . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'php');
-        array_unshift($command_locations, $this->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'php');
-
-        // try to check the PHP binary path using operating system resolution mechanisms
-        foreach ($command_locations as $cli) {
-            if (\Tiki\TikiInit::isWindows()) {
-                $process = new Process(['where', $cli . '.exe']);
-            } else {
-                $process = new Process([$cli, '--version']);
-            }
-            $process->setTimeout($this->timeout);
-            $process->run();
-            $output = $process->getOutput();
-            if ($output) {
-                $this->phpCli = $cli;
-                return $this->phpCli;
-            }
-        }
-
-        // Fall back to path search
-        if (! empty($_SERVER['PATH'])) {
-            foreach (explode(PATH_SEPARATOR, $_SERVER['PATH']) as $path) {
-                foreach (self::PHP_COMMAND_NAMES as $cli) {
-                    $possibleCli = $path . DIRECTORY_SEPARATOR . $cli;
-                    if (\Tiki\TikiInit::isWindows()) {
-                        $possibleCli .= '.exe';
-                    }
-                    if (file_exists($possibleCli) && is_executable($possibleCli)) {
-                        $version = $this->getPhpVersion($possibleCli);
-                        if (version_compare($version, self::MIN_PHP_VERSION, '<')) {
-                            continue;
-                        }
-                        $this->phpCli = $possibleCli;
-
-                        return $this->phpCli;
-                    }
-                }
-            }
-        }
-
-        // on some systems the shell path isn't the same as the webserver one, so try Symfony's fn
-        if (! $this->phpCli) {
-            $phpFinder = new \Symfony\Component\Process\PhpExecutableFinder();
-            $this->phpCli = $phpFinder->find();
-            return $this->phpCli;
-        }
-
-        return $this->phpCli;
+        return $this->phpExecutableFinder->getPhpVersion($php);
     }
 
     /**
@@ -315,7 +241,7 @@ class ComposerCli
             $composerPath = $this->getComposerPharPath();
             array_unshift($args, $composerPath);
 
-            $cmd = $this->getPhpPath();
+            $cmd = $this->phpExecutableFinder->find();
             if ($cmd) {
                 array_unshift($args, $cmd);
             }
@@ -753,7 +679,7 @@ class ComposerCli
             $env['COMPOSER_HOME'] = $this->basePath . self::COMPOSER_HOME;
         }
 
-        $command = [$this->getPhpPath(), self::COMPOSER_SETUP, '--quiet', '--install-dir=temp'];
+        $command = [$this->phpExecutableFinder->find(), self::COMPOSER_SETUP, '--quiet', '--install-dir=temp'];
         $process = new Process($command, null, $env);
         $process->run();
 

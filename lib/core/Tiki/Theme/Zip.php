@@ -7,7 +7,7 @@
 namespace Tiki\Theme;
 
 use Symfony\Component\Filesystem\Filesystem as Filesystem;
-use Symfony\Component\Process\PhpExecutableFinder;
+use Tiki\Process\PhpExecutableFinder;
 use Tiki\Process\Process;
 use Tiki\Theme\Handler as ThemeHandler;
 use ZipArchive;
@@ -120,6 +120,7 @@ class Zip
                     copy($sourceSchema, $destSchema);
                 }
             }
+
             $phpFinder = new PhpExecutableFinder();
             $phpPath = $phpFinder->find();
 

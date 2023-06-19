@@ -181,6 +181,7 @@
                 <div class="adminoptionboxchild" id="feature_realtime_childcontainer">
                     {preference name=realtime_port}
                 </div>
+                {preference name=php_cli_path}
             </fieldset>
             <fieldset>
                 <legend>{tr}Multi-domain{/tr}</legend>

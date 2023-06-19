@@ -9,8 +9,8 @@ namespace Tiki\Theme;
 use Exception;
 use Tiki\Installer\Installer;
 use Symfony\Component\Filesystem\Filesystem as Filesystem;
-use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Yaml\Yaml;
+use Tiki\Process\PhpExecutableFinder;
 use Tiki\Process\Process;
 use ZipArchive;
 
@@ -105,6 +105,7 @@ class ThemeInstaller
                     copy($sourceSchema, $destSchema);
                 }
             }
+
             $phpFinder = new PhpExecutableFinder();
             $phpPath = $phpFinder->find();
 
