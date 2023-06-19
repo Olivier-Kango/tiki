@@ -247,6 +247,14 @@ class BanLib extends TikiLib
             $title = empty($user) ? "$ip1.$ip2.$ip3.$ip4" : $user;
         }
 
+        if (is_bool($date_from) || empty($date_from)) {
+            $date_from = null;
+        }
+
+        if (is_bool($date_to) || empty($date_to)) {
+            $date_to = null;
+        }
+
         $count = TikiDb::get()->table('tiki_banning')->fetchCount(['banId' => $banId]);
         if ($banId && $count > 0) {
             $query = "update `tiki_banning` set `title`=?, `ip1`=?, `ip2`=?, `ip3`=?, `ip4`=?, `user`=?, " .
