@@ -19,8 +19,8 @@
 
 {* The category path *}
 {if $prefs.feature_breadcrumbs ne 'y'} <a class="dirlink" href="tiki-directory_browse.php?parent=0">{tr}Top{/tr}</a>{if $parent > 0} >> {/if}{$path}{/if}
-<div class="description form-text">{$parent_info.description|escape}</div>
-{if count($items) > 0}
+{if $parent_info}<div class="description form-text">{$parent_info.description|escape}</div>{/if}
+{if !empty($items) && count($items) > 0}
     <div class="text-center">
         <form action="tiki-directory_search.php" method="post" class="d-flex flex-row flex-wrap align-items-center">
             <input type="hidden" name="parent" value="{$parent|escape}">
@@ -87,7 +87,7 @@
 {* The links *}
 {if $categ_info.allowSites eq 'y'}
     <h2>{tr}Links{/tr}</h2>
-    {if count($items) > 0}
+    {if ! empty($items) && count($items) > 0}
         <div class="dirlistsites">
             <div class="text-center">
                 <form method="post" action="tiki-directory_browse.php">
