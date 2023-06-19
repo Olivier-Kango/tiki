@@ -20,7 +20,7 @@ function wikiplugin_livesupport_info()
                 'required' => true,
                 'name' => tra('Check Operators Online'),
                 'description' => tr('Show live chat only if operator is available'),
-                'since' => '25.0',
+                'since' => '26.0',
                 'filter' => 'alpha',
                 'default' => 'y',
                 'options' => [
@@ -32,7 +32,7 @@ function wikiplugin_livesupport_info()
                 'required' => false,
                 'name' => tra('Group'),
                 'description' => tra('Group that acts as live support operators'),
-                'since' => '25.0',
+                'since' => '26.0',
                 'filter' => 'groupname',
                 'default' => 'admin'
             ],
@@ -40,7 +40,7 @@ function wikiplugin_livesupport_info()
                 'required' => true,
                 'name' => tra('Leave message'),
                 'description' => tr('leave message if no operator is available'),
-                'since' => '25.0',
+                'since' => '26.0',
                 'filter' => 'alpha',
                 'default' => 'n',
                 'options' => [
