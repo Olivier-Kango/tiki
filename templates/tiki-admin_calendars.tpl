@@ -24,7 +24,7 @@
     {tab name="{tr}Calendars{/tr}"}
         <h2>{tr}Calendars{/tr}</h2>
 
-        {include file='find.tpl' find_in="<ul><li>{tr}Calendar name{/tr}</li></ul>"}
+        {include file='find.tpl' find_in="<ul><li>{tr}Calendar name{/tr}</li></ul>"|strip_tags}
         <div {if $js}class="table-responsive"{/if}>
         <table class="table table-striped table-hover">
             <tr>
