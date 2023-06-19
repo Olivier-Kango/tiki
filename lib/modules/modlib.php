@@ -1095,6 +1095,12 @@ class ModLib extends TikiLib
             $defaults = [
                 'style' => '',
                 'nonums' => 'n',
+                'decorations' => 'y',
+                'overflow' => 'n',
+                'nobox' => 'n',
+                'notitle' => 'n',
+                'error' => '',
+                'flip' => ( $prefs['user_flip_modules'] == 'module' ) ? 'n' : $prefs['user_flip_modules'],
             ];
             $module_params = isset($mod_reference['params']) ? (array) $mod_reference['params'] : [];
             $module_params = array_merge($defaults, $module_params); // not sure why style doesn't get set sometime but is used in the tpl
