@@ -12,7 +12,7 @@ function prefs_federated_list()
             'description' => tr('Search through alternate site indices.'),
             'type' => 'flag',
             'default' => 'n',
-            'hint' => tr('Elasticsearch is required'),
+            'hint' => tr('Elasticsearch or Manticore Search is required'),
             'dependencies' => ['feature_search'],
         ],
         'federated_elastic_url' => [

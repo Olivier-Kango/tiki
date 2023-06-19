@@ -739,6 +739,9 @@
         "lib\/core\/Search\/GlobalSource\/UrlSource.php": {
             "class:Search_GlobalSource_UrlSource": true
         },
+        "lib\/core\/Search\/GlobalSource\/IndexNameSource.php": {
+            "class:Search_GlobalSource_IndexNameSource": true
+        },
         "lib\/core\/Search\/GlobalSource\/CategorySource.php": {
             "class:Search_GlobalSource_CategorySource": true
         },
@@ -4540,6 +4543,9 @@
         },
         "lib\/core\/Search\/GlobalSource\/UrlSource.php": {
             "Search_GlobalSource_UrlSource": true
+        },
+        "lib\/core\/Search\/GlobalSource\/IndexNameSource.php": {
+            "Search_GlobalSource_IndexNameSource": true
         },
         "lib\/core\/Search\/GlobalSource\/CategorySource.php": {
             "Search_GlobalSource_CategorySource": true

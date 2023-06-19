@@ -50,6 +50,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     public function destroy()
     {
         if ($this->pdo_client->deleteIndex($this->index)) {
+            $this->pdo_client->deleteIndex($this->index . 'pq');
             $this->providedMappings = [];
             $stopwords_file = $this->getStopwordsFilePath();
             if (file_exists($stopwords_file)) {
@@ -369,16 +370,18 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             return new ResultSet([], 0, $resultStart, $resultCount);
         }
 
+        if ($query->getForeignQueries()) {
+            $table = PdoClient::DISTRIBUTED_INDEX_NAME;
+        } else {
+            $table = $this->index;
+        }
+
         $builder = new OrderBuilder($this);
         $order = $builder->build($query->getSortOrder());
 
         $builder = new FacetBuilder($this);
+        $builder->setPossibleFields($this->pdo_client->possibleFacetFields($table));
         $facets = $builder->build($query->getFacets());
-
-        // TODO: multi-query/foreign indexes (federation)
-        // $foreign = array_map(function ($query) use ($builder) {
-        //     return $builder->build($query->getExpr());
-        // }, $query->getForeignQueries());
 
         $sql = "SELECT *";
 
@@ -386,7 +389,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             $sql .= ", $expr as $key";
         }
 
-        $sql .= " FROM {$this->index} WHERE $condition";
+        $sql .= " FROM $table WHERE $condition";
 
         if ($order) {
             $sql .= " ORDER BY $order";
@@ -439,6 +442,10 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
 
             if (isset($data['_score'])) {
                 $data['score'] = round($data['_score'], 2);
+            }
+
+            if (isset($data['index_name'])) {
+                $data['_index'] = preg_replace('/_[^_]+$/', '', $data['index_name']);
             }
 
             // Manticore stores datetimes as timestamp values while MySQL/ES store as datetime strings

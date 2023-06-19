@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Search\Manticore\PdoClient as ManticoreClient;
+
 class FederatedSearchLib
 {
     private $unified;
@@ -89,5 +92,54 @@ class FederatedSearchLib
                 return $mapping;
             }
         );
+    }
+
+    /**
+     * Manticore distributed table/index creation out of the defined extwiki indexes and the local one
+     */
+    public function recreateDistributedIndex(ManticoreClient $client)
+    {
+        global $prefs;
+
+        $list = [$prefs['unified_manticore_index_current']];
+        $indices = $this->getIndices();
+        foreach ($indices as $indexName => $index) {
+            // extwiki specifies an alias while actual index/table name is a unique string using the alias as a prefix
+            // get the latest index defined using that prefix
+            $def = $client->parseDistributedIndexDefinition($indexName);
+            if ($def['type'] == 'agent') {
+                // remote agent definition
+                // TODO: decide how to specify remote mysql port as the agent definition port is 9312 by default
+                $indexClient = new ManticoreClient($def['host']);
+                // TODO: remote agent rebuild will invalidate this distributed index, need to ping back this server to recreate the distributed index
+            } else {
+                // local index
+                $indexClient = $client;
+            }
+            $available = $indexClient->getIndicesByPrefix($def['index']);
+            $latest = '';
+            foreach ($available as $row) {
+                if ($row['Type'] != 'rt') {
+                    continue;
+                }
+                if (empty($latest)) {
+                    $latest = $row['Index'];
+                    continue;
+                }
+                if (strcmp($latest, $row['Index']) < 0) {
+                    $latest = $row['Index'];
+                }
+            }
+            if ($def['type'] == 'agent') {
+                $parts = explode(':', $indexName);
+                array_pop($parts);
+                $parts[] = $latest;
+                $list[] = implode(':', $parts);
+            } else {
+                $list[] = $latest;
+            }
+        }
+
+        $client->recreateDistributedIndex($list);
     }
 }

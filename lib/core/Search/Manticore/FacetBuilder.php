@@ -10,11 +10,17 @@ class FacetBuilder
 {
     private $index;
     private $count;
+    private array $possibleFields;
 
     public function __construct(Index $index, $count = 10)
     {
         $this->index = $index;
         $this->count = $count;
+    }
+
+    public function setPossibleFields(array $fields)
+    {
+        $this->possibleFields = $fields;
     }
 
     public function build(array $facets)
@@ -34,10 +40,11 @@ class FacetBuilder
     {
         $out = '';
 
-        // federated search not yet implemented
-        if ($facet->getField() == '_index') {
+        $field = strtolower($facet->getField());
+        if ($this->possibleFields && ! in_array($field, $this->possibleFields)) {
             return $out;
         }
+
         $type = $facet->getType();
         if ($type === 'date_histogram') {
             // TODO: work out ES histogram through Manticore expression
@@ -46,7 +53,6 @@ class FacetBuilder
         } else {
             $count = $facet->getCount() ?: $this->count;
             $order = $facet->getOrder();
-            $field = strtolower($facet->getField());
             try {
                 $this->index->ensureHasField($field);
             } catch (Exception $e) {

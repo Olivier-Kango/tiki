@@ -315,7 +315,9 @@ class UnifiedSearchLib
                     // Obtain the old index and destroy it after permanently replacing it.
                     $oldIndex = $this->getIndex('data', false);
                     $tikilib->set_preference('unified_manticore_index_current', $indexName);
-
+                    if ($prefs['federated_enabled'] === 'y') {
+                        TikiLib::lib('federatedsearch')->recreateDistributedIndex($this->getManticoreClient('mysql'));
+                    }
                     break;
             }
 
@@ -806,6 +808,10 @@ class UnifiedSearchLib
 
         if ($prefs['feature_friends'] === 'y') {
             $aggregator->addGlobalSource(new Search_GlobalSource_SocialSource());
+        }
+
+        if ($prefs['federated_enabled'] === 'y' && $prefs['unified_engine'] == 'manticore') {
+            $aggregator->addGlobalSource(new Search_GlobalSource_IndexNameSource());
         }
 
         if ($mode == 'indexing') {
@@ -1388,7 +1394,7 @@ class UnifiedSearchLib
                 ]);
             }
 
-            $facets[] = Search_Query_Facet_Term::fromField('_index')
+            $facets[] = Search_Query_Facet_Term::fromField($prefs['unified_engine'] == 'manticore' ? 'index_name' : '_index')
                 ->setLabel(tr('Federated Search'))
                 ->setRenderCallback(function ($index) use (&$indexMap) {
                     $out = tr('Index not found');

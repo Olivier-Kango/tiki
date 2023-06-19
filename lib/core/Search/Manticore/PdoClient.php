@@ -13,12 +13,13 @@ use PDOException;
 class PdoClient
 {
     protected const QUERY_RETRIES = 1;
+    public const DISTRIBUTED_INDEX_NAME = 'tiki_distributed';
 
     protected $dsn;
     protected $port;
     protected $pdo;
 
-    public function __construct($dsn, $port)
+    public function __construct($dsn, $port = 9306)
     {
         $this->dsn = $dsn;
         $this->port = $port;
@@ -51,6 +52,13 @@ class PdoClient
         }
     }
 
+    public function getIndicesByPrefix($prefix)
+    {
+        $stmt = $this->pdo->prepare("SHOW TABLES LIKE ?");
+        $stmt->execute([$prefix . '%']);
+        return $stmt->fetchAll();
+    }
+
     public function createIndex($index, $definition, $settings = [], $silent = false)
     {
         $cols = [];
@@ -67,6 +75,73 @@ class PdoClient
         }
         $stmt = $this->pdo->prepare($sql);
         $this->executeWithRetry($stmt);
+    }
+
+    public function recreateDistributedIndex(array $names)
+    {
+        $this->deleteIndex(self::DISTRIBUTED_INDEX_NAME);
+
+        $list = [];
+        foreach ($names as $name) {
+            $def = $this->parseDistributedIndexDefinition($name);
+            $list[] = $def['type'] . '=?';
+        }
+
+        $stmt = $this->pdo->prepare("CREATE TABLE " . self::DISTRIBUTED_INDEX_NAME . " type='distributed' " . join(' ', $list));
+        $this->executeWithRetry($stmt, array_values($names));
+    }
+
+    public function parseDistributedIndexDefinition($name)
+    {
+        if (strstr($name, ':')) {
+            $parts = explode(':', $name);
+            return [
+                'type' => 'agent',
+                'host' => trim($parts[0]),
+                'port' => count($parts) > 2 ? trim($parts[1]) : null,
+                'index' => array_pop($parts),
+            ];
+        } else {
+            return [
+                'type' => 'local',
+                'index' => $name,
+            ];
+        }
+    }
+
+    public function possibleFacetFields($table)
+    {
+        if ($table == self::DISTRIBUTED_INDEX_NAME) {
+            $stmt = $this->pdo->query("DESC $table");
+            $result = $stmt->fetchAll();
+            $tables = [];
+            foreach ($result as $row) {
+                $tables[] = $row['Agent'];
+            }
+        } else {
+            $tables[] = $table;
+        }
+        $fields = [];
+        foreach ($tables as $table) {
+            $def = $this->parseDistributedIndexDefinition($table);
+            if ($def['type'] == 'agent') {
+                // remote agent definition
+                // TODO: decide how to specify remote mysql port as the agent definition port is 9312 by default
+                $client = new PdoClient($def['host']);
+            } else {
+                // local index
+                $client = $this;
+            }
+            $fields[$table] = array_keys($client->describe($def['index']));
+        }
+        $result = array_shift($fields);
+        foreach ($fields as $arr) {
+            $result = array_intersect($result, $arr);
+        }
+        if (! $result) {
+            $result = [];
+        }
+        return array_values($result);
     }
 
     public function deleteIndex($index)
