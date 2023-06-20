@@ -229,6 +229,9 @@ ol.bbb-recordings {
     padding-left: 21px;
 }
 
+// Structure drilldown menu
+.nav-breadcrumb .dropdown-menu ul.navbar-nav .nav-item { padding-left: 1rem !important; padding-right: 1rem !important; }
+
 // /* Inline CkEditor */
 //.cke_editable:hover {
 //    outline: @gray dotted 1px;

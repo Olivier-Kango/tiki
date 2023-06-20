@@ -8,7 +8,7 @@
                             {icon name="home"}
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownStructure">
-                            {menu structureId=$page_info.structure_id page_id=$page_info.page_id page_name=$page_info.pageName drilldown="y" bootstrap="n" css="y"}
+                            {menu structureId=$page_info.structure_id page_id=$page_info.page_id page_name=$page_info.pageName drilldown="y" bootstrap="Y" css="n"}
                         </ul>
                     </span>
                 {else}

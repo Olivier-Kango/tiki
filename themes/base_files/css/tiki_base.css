@@ -4406,6 +4406,10 @@ ol.bbb-recordings {
   background: transparent url("../../../img/h_trenner.gif") center left no-repeat;
   padding-left: 21px;
 }
+.nav-breadcrumb .dropdown-menu ul.navbar-nav .nav-item {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
 .tiki_plugin {
   display: inline-block;
 }
