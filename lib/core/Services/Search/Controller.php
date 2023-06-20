@@ -190,7 +190,21 @@ class Services_Search_Controller
                 $titleFilter = $filter['title'];
                 unset($filter['title']);
                 $query = $lib->buildQuery($filter);
-                $query->filterContent($titleFilter, $matches[1]);
+                $searchable = [];
+                $index = $lib->getIndex();
+                foreach ($matches[1] as $field) {
+                    if (! method_exists($index, 'isTextField')) {
+                        $searchable[] = $field;
+                        continue;
+                    }
+                    if ($index->isTextField($field)) {
+                        $searchable[] = $field;
+                        continue;
+                    }
+                }
+                if ($searchable) {
+                    $query->filterContent($titleFilter, $searchable);
+                }
                 $highlightHelper = new Search_MySql_HighlightHelper(explode(' ', $titleFilter));
             } else {
                 $query = $lib->buildQuery($filter);
