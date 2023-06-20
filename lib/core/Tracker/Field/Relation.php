@@ -234,15 +234,28 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
     public function renderInnerOutput($context = [])
     {
         if ($context['list_mode'] === 'csv') {
-            return implode(
-                ", ",
-                array_map(
-                    function ($rel) {
-                        return $rel->target->title;
-                    },
-                    $this->getConfiguration('relations')
-                )
-            );
+            // use field value instead of relation storage because of history logs
+            $fieldId = $this->getConfiguration('fieldId');
+            if (! empty($fieldId)) {
+                $itemData = $this->getData($fieldId);
+                $items = preg_split('/[\s]+/', $itemData);
+
+                $returnValue = '';
+                foreach ($items as $itemValue) {
+                    $itemFieldValue = explode(':', $itemValue);
+                    if (! empty($itemFieldValue[0]) && ! empty($itemFieldValue[1])) {
+                        $objectLib = TikiLib::lib('object');
+                        $value = $objectLib->get_title($itemFieldValue[0], $itemFieldValue[1]);
+                    } else {
+                        $value = $itemValue;
+                    }
+
+                    $returnValue .= ! empty($returnValue) ? ', ' . $value : $value;
+                }
+
+                return ! empty($returnValue) ? $returnValue : $itemData;
+            }
+            return $this->getConfiguration('value');
         } elseif ($context['list_mode'] === 'text') {
             return implode(
                 "\n",
