@@ -352,14 +352,14 @@
                             </td>
                             <td class="scheduler_run_status">
                                 {if $job.run_status eq 'running'}
-                                    <span class="badge badge-warning">{tr}Running{/tr}</span>
+                                    <span class="badge bg-warning">{tr}Running{/tr}</span>
                                 {/if}
                                 {if $job.run_status eq 'failed'}
-                                    <span class="badge badge-danger">{tr}Failed{/tr}</span>
+                                    <span class="badge bg-danger">{tr}Failed{/tr}</span>
 
                                 {/if}
                                 {if $job.run_status eq 'done'}
-                                    <span class="badge badge-success">{tr}Done{/tr}</span>
+                                    <span class="badge bg-success">{tr}Done{/tr}</span>
                                 {/if}
                             </td>
                             <td>{if $job.start_time ne null}{$job.start_time|tiki_short_datetime}{/if}</td>
