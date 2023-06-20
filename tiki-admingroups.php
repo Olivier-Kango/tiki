@@ -328,7 +328,7 @@ if (! empty($_REQUEST["group"])) {
     foreach ($allgroups as $rr) {
         $inc["$rr"] = "n";
     }
-    $_REQUEST["group"] = 0;
+    $_REQUEST["group"] = '';
 }
 if (isset($_REQUEST['add'])) {
     $cookietab = "2";
