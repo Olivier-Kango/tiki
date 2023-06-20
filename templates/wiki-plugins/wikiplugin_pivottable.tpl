@@ -118,7 +118,7 @@
         });
 
         $("#restore_{{$pivottable.id}}").on("click", function(){
-            $("#output_{{$pivottable.id}}").pivotUI(pivotData{{$pivottable.index}},JSON.parse(defaultSettings),true,{{$lang|json_encode}});
+            $("#output_{{$pivottable.id}}").pivotUI(pivotData{{$pivottable.index}},opts,true,{{$lang|json_encode}});
             $("#output_{{$pivottable.id}}_opControls").fadeOut();
         });
 
