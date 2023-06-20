@@ -47,7 +47,7 @@ class TWVersion
 
     public function __construct()
     {
-        $this->branch   = 'trunk';
+        $this->branch   = 'stable';
 
         // Set everything else, including defaults.
         $this->version  = '26.0vcs';
