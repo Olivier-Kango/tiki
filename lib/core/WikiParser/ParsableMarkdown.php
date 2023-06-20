@@ -109,6 +109,10 @@ class WikiParser_ParsableMarkdown extends ParserLib
         // markdown permalinks conflict with header links in Tiki kept for backwards compatibility, thus remove the markdown ones
         // unfortunately, heading permalinks extension classes are final and cannot be extended and reused...
         $data = preg_replace('/<a[^>]*>' . $config['heading_permalink']['symbol'] . '<\/a>/', '', $data);
+        $data = preg_replace_callback('/<table([^>]*)>(.*?)<\/table>/s', function ($m) {
+            $ret = preg_replace("(<table(?:\s+\w+(?:=\w+|\"[^\"]+\"|'[^']+')?)*>.*?</table>(*SKIP)(*FAIL)|<br/>)is", "", $m[0]);
+            return $ret;
+        }, $data);
 
         // TODO: use Mention extension for autolinking @username mentions and other jit expansions
 
