@@ -593,6 +593,15 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         return $this->providedMappings;
     }
 
+    public function isTextField($field)
+    {
+        $mapping = $this->getFieldMapping($field);
+        if (! empty($mapping['types']) && in_array('text', $mapping['types'])) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Manticore/sphinx stores attribute names in lower case, so we need a mapping when building the result set from searches
      * @return array of key/value pairs with mapping between Manticore and Tiki fields
