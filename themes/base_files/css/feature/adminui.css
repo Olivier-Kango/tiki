@@ -57,7 +57,7 @@ body.tiki-admin {
   color: var(--tiki-admin-dropdown-link-color);
 }
 .tiki .tiki-admin-aside-nav-dark, .tiki-admin aside.admin-nav .navbar-dark {
-  background: var(--tiki-admin-aside-nav-bg) !important;
+  background: var(--tiki-admin-aside-nav-bg);
 }
 .tiki .tiki-admin-aside-nav-dark .nav-link {
   color: var(--tiki-admin-aside-nav-color);

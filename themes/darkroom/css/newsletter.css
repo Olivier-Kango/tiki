@@ -19,7 +19,7 @@ header.navbar.fixed-top {
 }
 :root {
   --tiki-tooltip-link-color: #88b6fc;
-  --tiki-tooltip-link-hover-color: $tooltip-color;
+  --tiki-tooltip-link-hover-color: #ffffff;
 }
 body {
   background: var(--bs-body-bg);
