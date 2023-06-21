@@ -3,14 +3,14 @@
 
 // Used for L&F nav color choice and color mode override
 @mixin top-nav-dark {
-    --tiki-top-bg: rgb(85, 85, 85);
+    --tiki-top-bg: #212529; // rgb(85, 85, 85);
     --tiki-top-color: #fff;
     --tiki-top-hover-color: #fff;
 //    --tiki-top-border: solid rgb(85, 85, 85);
 }
 
 @mixin topbar-nav-dark {
-    --tiki-topbar-bg: rgb(85, 85, 85);
+    --tiki-topbar-bg: #212529; // rgb(85, 85, 85);
     --tiki-topbar-color: #fff;
     --tiki-topbar-hover-color: #fff;
 //    --tiki-topbar-border: solid rgb(85, 85, 85);
@@ -108,7 +108,7 @@
 }
 // Dark top nav
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
-    --tiki-admin-top-nav-bg: #2C2C2C;
+    --tiki-admin-top-nav-bg: #212529; // #2C2C2C;
 }
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
 

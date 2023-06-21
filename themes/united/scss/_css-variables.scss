@@ -30,10 +30,9 @@
 .tiki .tiki-admin-aside-nav-light {
 //    --tiki-admin-navbar-bg: ; //
     --tiki-admin-top-nav-color: #fff;
-    --tiki-admin-top-nav-color: #fff;
     --tiki-admin-top-nav-hover-color: rgba(255, 255, 255, 0.75);
-    --tiki-admin-top-nav-hover-bg: none ;
-    --tiki-admin-aside-nav-bg: rgb(233, 84, 32);
+    --tiki-admin-top-nav-hover-bg: none;
+    --tiki-admin-aside-nav-bg: rgb(233, 84, 32) !important; // Why is this !important sometimes necessary?
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
     --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-bg: #{$dropdown-bg};

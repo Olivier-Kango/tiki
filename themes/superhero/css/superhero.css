@@ -10757,7 +10757,7 @@ header.navbar.fixed-top {
 }
 :root {
   --tiki-tooltip-link-color: #88b6fc;
-  --tiki-tooltip-link-hover-color: $tooltip-color;
+  --tiki-tooltip-link-hover-color: var(--bs-body-bg);
 }
 :root {
   color-scheme: dark;
@@ -10899,7 +10899,7 @@ label, .radio label, .checkbox label, .help-block {
   --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.55);
   --tiki-admin-top-nav-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-admin-top-nav-hover-bg: none ;
-  --tiki-admin-aside-nav-bg: rgba(171, 182, 184, 1);
+  --tiki-admin-aside-nav-bg: #4e5d6c;
   --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
   --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
   --tiki-admin-dropdown-bg: #4e5d6c;
@@ -10908,7 +10908,7 @@ label, .radio label, .checkbox label, .help-block {
   --tiki-admin-dropdown-link-hover-bg: rgba(255, 255, 255, 0.075);
 }
 .tiki.tiki-admin .top_modules.navbar-light-parent {
-  --tiki-admin-top-nav-bg: rgba(171, 182, 184, 1);
+  --tiki-admin-top-nav-bg: #4e5d6c !important;
 }
 .tiki .tiki-admin-top-nav-dark, .tiki .tiki-admin-aside-nav-dark {
   --tiki-admin-top-nav-color: rgba(255, 255, 255, 0.75);
@@ -11250,6 +11250,9 @@ a.toolbar:active, li.toolbar:active {
   color: #d9534f;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+.textarea-toolbar .emoji-picker {
+  position: absolute;
+}
 #intertrans-indicator {
   background-color: #03657d;
   color: #5cb85c;
@@ -11575,6 +11578,57 @@ pre.codelisting code {
   top: 6px;
   right: 2px;
 }
+.codelisting_container {
+  max-width: 990px;
+}
+.code {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+.icon_copy_code {
+  position: relative;
+  display: inline-block;
+  color: #87898a;
+  float: right;
+  right: 20px;
+  top: 10px;
+  font-size: 80%;
+}
+.icon_copy_code:hover {
+  color: black;
+  cursor: pointer;
+}
+.icon_copy_code .copy_code_tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+  font-family: none;
+}
+.copy_code_tooltiptext {
+  font-size: 14px;
+}
+.icon_copy_code .copy_code_tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+.icon_copy_code:hover .copy_code_tooltiptext {
+  visibility: visible;
+}
 @media (min-width: 768px) {
   .edit-menu {
     display: none;
@@ -11853,19 +11907,19 @@ blockquote {
   background: var(--tiki-topbar-hover-bg);
 }
 .tiki.layout_basic .page-header .top_modules, .tiki.layout_basic .page-header .top_modules .navbar, .tiki.layout_basic .topbar_modules .navbar {
-  background: transparent !important;
+  background: transparent;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
   border: none;
 }
 .tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
-  background: transparent !important;
+  background: transparent;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
   border: none;
 }
 .layout_social header .top_modules, .layout_social header .top_modules .navbar, .layout_social .topbar, .layout_social .topbar .navbar {
-  background: transparent !important;
+  background: transparent;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
   border: none;
