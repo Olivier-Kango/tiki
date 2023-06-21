@@ -90,7 +90,8 @@ class ocrLib extends TikiLib
             'which ' . $executable . ' 2>&1'
         ];
         foreach ($possibleCommands as $cmd) {
-            $output = $return = null;
+            $output = [];
+            $return = 0;
             exec($cmd, $output, $return);
             if ($return === 0) {
                 return array_shift($output);
@@ -204,9 +205,14 @@ class ocrLib extends TikiLib
             if (! function_exists('\exec')) {
                 return []; // if we can't exec then return an empty array
             }
-            exec('tesseract --list-langs', $output);
-            array_shift($output);
-            return $output;
+            $cmd = TikiLib::lib('ocr')->whereIsExecutable('tesseract');
+            if ($cmd) {
+                exec("$cmd --list-langs", $output);
+                array_shift($output);
+                return $output;
+            } else {
+                return [];
+            }
         }
 
         if (! function_exists('\exec')) { // getAvailableLanguages will need exec
