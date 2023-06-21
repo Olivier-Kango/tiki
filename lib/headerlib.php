@@ -137,8 +137,8 @@ class HeaderLib
     public $jqueryui_version = '1.12.1';
     public $jquerymigrate_version = '3.0.0';
 
-    private $outputHeadersHasBegun = false;
-    private $outputStaticJSFooterHasBegun = false;
+    private ?string $outputHeadersWasStartedBy = null;
+    private ?string $outputStaticJSFooterWasStartedBy = null;
 
     private $outputHasBeenCalledCount = 0;
 
@@ -148,17 +148,23 @@ class HeaderLib
         $smarty->assign('headerlib', $this);
     }
 
+    private function getOutputCallerInfo()
+    {
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
+        $realCallerInfo = $backtrace[1];
+        return "{$realCallerInfo['function']}() called at [{$realCallerInfo['file']}:{$realCallerInfo['line']}]";
+    }
     private function throwIfHeadersAlreadyOutput()
     {
-        if ($this->outputHeadersHasBegun) {
-            throw new Error("Headers have already been output");
+        if ($this->outputHeadersWasStartedBy) {
+            throw new Error("Too late to modify headers.  Headers already sent by {$this->outputHeadersWasStartedBy})");
         }
     }
 
     private function throwIfJSFooterAlreadyOutput()
     {
-        if ($this->outputStaticJSFooterHasBegun) {
-            throw new Error("Static footer Javascript has already been output");
+        if ($this->outputStaticJSFooterWasStartedBy) {
+            throw new Error("Too late to modify javascript footer.  Footer already sent by {$this->outputStaticJSFooterWasStartedBy}");
         }
     }
 
@@ -511,7 +517,7 @@ class HeaderLib
     public function output_headers(): string
     {
         $this->throwIfHeadersAlreadyOutput();
-        $this->outputHeadersHasBegun = true;
+        $this->outputHeadersWasStartedBy = $this->getOutputCallerInfo();
 
         $smarty = TikiLib::lib('smarty');
         $smarty->loadPlugin('smarty_modifier_escape');
@@ -847,7 +853,7 @@ class HeaderLib
      */
     public function output_js_files()
     {
-        $this->outputStaticJSFooterHasBegun = true;
+        $this->outputStaticJSFooterWasStartedBy = $this->getOutputCallerInfo();
         // we get one sorted array with script tags
         $js_files = $this->getJsFilesWithScriptTags();
         $output = '';
@@ -863,7 +869,7 @@ class HeaderLib
 
     public function output_js_config($wrap = true)
     {
-        $this->outputStaticJSFooterHasBegun = true;
+        $this->outputStaticJSFooterWasStartedBy = $this->getOutputCallerInfo();
         global $prefs;
 
         if ($prefs['javascript_enabled'] == 'n') {
@@ -905,7 +911,7 @@ class HeaderLib
     public function output_js($wrap = true)
     {
         // called in tiki.tpl - JS output at end of file now (pre 5.0)
-        $this->outputStaticJSFooterHasBegun = true;
+        $this->outputStaticJSFooterWasStartedBy = $this->getOutputCallerInfo();
         global $prefs;
 
         if ($prefs['javascript_enabled'] == 'n') {
@@ -973,7 +979,7 @@ class HeaderLib
      */
     public function getJs()
     {
-        //TODO: see if this should set $this->outputStaticJSFooterHasBegun)
+        //TODO: see if this should set $this->outputStaticJSFooterWasStartedBy)
         ksort($this->js);
         ksort($this->jq_onready);
         $out = [];
