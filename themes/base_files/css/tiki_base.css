@@ -4951,22 +4951,32 @@ div.drillshow {
   border: 1px solid var(--bs-border-color-translucent);
   border-radius: var(--bs-border-radius);
 }
+.plugin-list-editor .card-header .navbar, .plugin-list-editor .card-header .nav-link {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+/*
 .plugin-list-editor li.plugin .params {
-  padding: 0.5rem 0.5rem 0;
+    padding: 0.5rem 0.5rem 0;
 }
+
 .plugin-list-editor li.plugin .card-header {
-  padding: 0.25rem 1.5rem;
+    padding: 0.25rem 1.5rem;
 }
+
 .plugin-list-editor > .btn-toolbar {
-  margin-bottom: 0.5rem;
-  color: #fff;
+    margin-bottom: 0.5rem;
+    color: #fff;
 }
+
 .plugin-list-editor li.plugin .name {
-  font-weight: bold;
+    font-weight: bold;
 }
+
 .plugin-list-editor li.plugin .params .dropdown-toggle {
-  font-size: 9px;
+    font-size: 9px;
 }
+*/
 /* heading anchor links */
 .heading-link {
   padding-left: 0.25em;
@@ -6230,4 +6240,4 @@ blockquote {
   z-index: 1;
 }
 /* End of file */
-
+/*# sourceMappingURL=tiki_base.css.map */
