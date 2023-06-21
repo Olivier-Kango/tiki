@@ -510,7 +510,7 @@ if ($admin_acc == 'n') {
 
 $smarty->assign('dbdone', 'n');
 $smarty->assign('logged', $logged);
-
+$smarty->assign('installer', $installer);
 // Installation steps
 if (
     $dbcon
@@ -529,7 +529,6 @@ if (
             $logmsg = 'clean install of new database "' . $dbs_tiki . '"';
         }
         $logslib->add_log('install', $logmsg);
-        $smarty->assign('installer', $installer);
         $smarty->assign('dbdone', 'y');
         $install_type = 'scratch';
         require_once 'lib/tikilib.php';
@@ -541,7 +540,6 @@ if (
     if (isset($_POST['update'])) {
         $installer->update();
         $logslib->add_log('install', 'database "' . $dbs_tiki . '" upgraded to latest version');
-        $smarty->assign('installer', $installer);
         $smarty->assign('dbdone', 'y');
         $install_type = 'update';
     }
