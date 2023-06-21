@@ -119,7 +119,6 @@ phpcs:
   stage: lint
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
-    - env
     - php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs --cache=phpcs.cache -s --runtime-set ignore_warnings_on_exit true --parallel=8
   dependencies:
     - composer
