@@ -50,8 +50,8 @@ class TWVersion
         $this->branch   = 'stable';
 
         // Set everything else, including defaults.
-        $this->version  = '26.0alpha';
-        $this->star     = 'TBA';
+        $this->version  = '26.0vcs';
+        $this->star     = 'Alnilam';
         $this->releases = [];
 
         // Check for Subversion or not
