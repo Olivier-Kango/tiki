@@ -226,14 +226,23 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             $others_bit = decoct($stat['mode'] & 000007);
             $executable = $others_bit & 001;
             if (! $executable) {
-                $dir = sys_get_temp_dir();
-                break;
+                if ($dir != sys_get_temp_dir()) {
+                    $dir = sys_get_temp_dir();
+                    $parent = $dir;
+                    continue;
+                } else {
+                    $dir = '/tmp';
+                    break;
+                }
             }
             if (dirname($parent) != $parent) {
                 $parent = dirname($parent);
             } else {
                 $parent = false;
             }
+        }
+        if (! is_writable($dir)) {
+            throw new FatalException(tr('Cannot write Manticore stopwords file in Tiki temp dir or system tmp dir. Check that temp dir permissions allow Tiki user to write to and Manticore user to read from that directory.'));
         }
         return $dir . DIRECTORY_SEPARATOR . 'manticore-stopwords-' . $this->index;
     }
