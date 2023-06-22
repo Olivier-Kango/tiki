@@ -12087,6 +12087,7 @@ textarea.form-control-lg {
 :root {
   --tiki-main-content-bg: #fff;
   --tiki-bookstacked-col2-col3-position: sticky;
+  --tiki-bookstacked-col2-col3-overflow-y: auto;
 }
 [data-bs-theme=dark] {
   --tiki-main-content-bg: #222;
@@ -13096,11 +13097,10 @@ body:not(.tiki-admin) .col1 .col1top-outer-wrapper {
     padding: 32px 16px;
     position: var(--tiki-bookstacked-col2-col3-position);
     top: 0;
-    max-height: 100vh;
-    min-height: 70vh;
+    max-height: 70vh;
     height: 100%;
     overflow-y: var(--tiki-bookstacked-col2-col3-overflow-y);
-    scrollbar-width: none;
+    overflow-x: hidden;
   }
 }
 @media screen and (min-width: 1000px) {

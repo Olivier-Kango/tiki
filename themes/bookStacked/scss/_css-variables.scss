@@ -139,6 +139,7 @@
 :root {
     --tiki-main-content-bg: #fff;
     --tiki-bookstacked-col2-col3-position: sticky;
+    --tiki-bookstacked-col2-col3-overflow-y: auto;
 }
 
 [data-bs-theme=dark] {
