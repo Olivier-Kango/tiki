@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf87cddfc07a7d8f97a140bbdc330b67",
+    "content-hash": "3c53ec812bb412179fb18ff19e8ffbc5",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2588,12 +2588,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "613175f"
+                "reference": "4b351a7"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-4b351a7e929b4f7ca8e3c856d29fea553b68562f-zip-1bd4a7.zip",
-                "reference": "613175f",
+                "reference": "4b351a7",
                 "shasum": "547eb2d2559b2abebedf58de12245254d7489f48"
             },
             "require": {
