@@ -150,7 +150,7 @@ class Search_Indexer
                 $this->stats['counts'][$objectType] += $this->addDocument($objectType, $objectId);
 
                 if ($progress) {
-                    $progress->advance($docTime);
+                    $progress->advance(round($docTime));
                 }
             }
 
