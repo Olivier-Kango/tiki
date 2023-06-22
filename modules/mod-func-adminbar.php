@@ -33,7 +33,8 @@ function module_adminbar($mod_reference, $module_params)
         return;
     }
     $headerlib = TikiLib::lib("header");
-    $headerlib->add_css('div.contributors div br {clear: both;}');
+    // FIXME Too late to add css now
+    //$headerlib->add_css('div.contributors div br {clear: both;}');
 
 
     $headerlib->add_js('$(document).ready(function() {
