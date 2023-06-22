@@ -12067,19 +12067,19 @@ blockquote {
   background: var(--tiki-topbar-hover-bg);
 }
 .tiki.layout_basic .page-header .top_modules, .tiki.layout_basic .page-header .top_modules .navbar, .tiki.layout_basic .topbar_modules .navbar {
-  background: transparent;
+  background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
   border: none;
 }
 .tiki.layout_classic .top_modules .navbar, .tiki.layout_classic .topbar, .tiki.layout_classic .topbar_modules, .tiki.layout_classic .topbar_modules .navbar {
-  background: transparent;
+  background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
   border: none;
 }
 .layout_social header .top_modules, .layout_social header .top_modules .navbar, .layout_social .topbar, .layout_social .topbar .navbar {
-  background: transparent;
+  background: transparent !important;
   --bs-bg-opacity: 0 !important;
   box-shadow: none;
   border: none;

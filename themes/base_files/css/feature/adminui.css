@@ -2,8 +2,8 @@
 body.tiki-admin {
   padding-top: 0 !important;
 }
-.tiki-admin .tiki-top-nav-light, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .navbar-light-parent .top_modules {
-  background: var(--tiki-admin-top-nav-bg);
+.tiki.tiki-admin .tiki-top-nav-light, .tiki.tiki-admin .top_modules.navbar-light-parent, .tiki.tiki-admin .navbar-light-parent .top_modules {
+  background: var(--tiki-admin-top-nav-bg) !important;
 }
 .tiki-admin .tiki-admin-top-nav-light .nav-item .nav-link {
   color: var(--tiki-admin-top-nav-color);
@@ -23,7 +23,7 @@ body.tiki-admin {
   background: var(--tiki-admin-dropdown-link-hover-bg);
 }
 .tiki.tiki-admin .tiki-top-nav-dark, .tiki.tiki-admin .top_modules.navbar-dark-parent, .tiki.tiki-admin .navbar-dark-parent .top_modules {
-  background: var(--tiki-admin-top-nav-bg);
+  background: var(--tiki-admin-top-nav-bg) !important;
 }
 .tiki-admin .tiki-admin-top-nav-dark .nav-item .nav-link {
   color: var(--tiki-admin-top-nav-color);
@@ -632,4 +632,4 @@ body.tiki-admin {
   width: min-content;
   margin: 0.5rem;
 }
-/*# sourceMappingURL=adminui.css.map */
+
