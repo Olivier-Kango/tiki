@@ -2595,7 +2595,7 @@ class FileGalLib extends TikiLib
         if (isset($find)) {
             $findesc = '%' . $find . '%';
             $tab = $with_subgals ? 'tab' : 'tf';
-            $mid = " (upper($tab.`name`) LIKE upper(?) OR upper($tab.`description`) LIKE upper(?) OR upper($tab.`filename`) LIKE upper(?))";
+            $mid = " ($tab.`name` LIKE ? OR $tab.`description` LIKE ? OR $tab.`filename` LIKE ?)";
             $midvars = [$findesc, $findesc, $findesc];
         }
         if (! empty($filter['creator'])) {
