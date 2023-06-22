@@ -124,7 +124,7 @@ class TWVersion
                 34 => 'Wasat',           // 23.x
                 35 => 'Wolf 359',        // 24.x
                 36 => 'Sagittarius A*',  // 25.x
-                37 => 'Alnilam',  		 // 26.x
+                37 => 'Alnilam',         // 26.x
         ];
     }
 
