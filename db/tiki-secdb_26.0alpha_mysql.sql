@@ -4358,7 +4358,7 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./modules/index.php', '93e6713e3a507e8bf7ba655c6bf82d0b', '26.0alpha'),
 ('./modules/mod-func-action_calendar.php', '76f582e9fbf21b1676803dd4d726f1be', '26.0alpha'),
 ('./modules/mod-func-action_similarcontent.php', 'dbe69ed1bb8ca82bfe338f5f5ab67ba8', '26.0alpha'),
-('./modules/mod-func-adminbar.php', '4efb19b51f322710bff4e73cfcff8043', '26.0alpha'),
+('./modules/mod-func-adminbar.php', '224dc363ea793f23a7a8e9bfc69841f3', '26.0alpha'),
 ('./modules/mod-func-adsense.php', '781c366eae0aa8378e52a2c1b9a2ea08', '26.0alpha'),
 ('./modules/mod-func-article_archives.php', '94e660a95b60904dedb5add9ed3f3621', '26.0alpha'),
 ('./modules/mod-func-article_topics.php', 'aaa0eb914c5959906bb10b027f590cf5', '26.0alpha'),
