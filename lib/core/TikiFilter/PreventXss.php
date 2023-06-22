@@ -10,7 +10,7 @@ class TikiFilter_PreventXss implements Laminas\Filter\FilterInterface
     public function filter($value)
     {
         // No need to filter really simple values
-        if (ctype_alnum($value ?? '') || empty($value)) {
+        if (empty($value) || ctype_alnum("$value")) {
             return $value;
         } else {
             return $this->RemoveXSS($value);

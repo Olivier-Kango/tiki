@@ -112,7 +112,7 @@ class IndexRebuildCommand extends Command
                 $steps = 0;
             }
 
-            $progress = new ProgressBar($output, $steps);   // TODO consider the prefs indexing time that happens after the main one
+            $progress = new ProgressBar($output, round($steps));   // TODO consider the prefs indexing time that happens after the main one
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
                 $progress->setOverwrite(false);
             }

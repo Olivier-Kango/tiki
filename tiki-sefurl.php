@@ -149,7 +149,9 @@ function filter_out_sefurl($tpl_output, $type = null, $title = '', $with_next = 
     foreach ($sefurl_regex_out as $regex) {
         if (
             (empty($type) || $type == $regex['type']) &&
-            preg_match('/tiki-index\.php\?page=[^&]*%2F/', $tpl_output) === 0
+            preg_match('/tiki-index\.php\?page=[^&]*%2F/', $tpl_output) === 0 &&
+            $regex['left'] !== null &&
+            $regex['right'] !== null
         ) { // slash (%2F here) in sefurl page name causes error 404
             // if a question mark in pattern, deal with possible additional terms
             // The '?&' isn't pretty but seems to work.

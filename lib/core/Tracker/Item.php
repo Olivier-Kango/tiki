@@ -114,7 +114,7 @@ class Tracker_Item
             return true;
         }
 
-        $status = $this->info['status'];
+        $status = $this->info['status'] ?? '';
 
         if ($status == 'c') {
             return $this->perms->modify_tracker_items_closed;

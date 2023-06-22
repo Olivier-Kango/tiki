@@ -21,7 +21,7 @@
         {foreach from=$results item=row}
             <div class="carousel-item{if $row@index eq 0} active{/if}">
                 {if $body and $body.field}
-                    {if $body.mode eq 'raw'}
+                    {if not empty($body.mode) and $body.mode eq 'raw'}
                         {$row[$body.field]}
                     {else}
                         {$row[$body.field]|escape}
@@ -30,7 +30,7 @@
 
                 <div class="carousel-caption d-none d-md-block">
                     {if $caption and $caption.field}
-                        {if $caption.mode eq 'raw'}
+                        {if not empty($caption.mode) and $caption.mode eq 'raw'}
                             {$row[$caption.field]}
                         {else}
                             {$row[$caption.field]|escape}
@@ -42,7 +42,7 @@
     </div>
 
     {* Controls *}
-    {if $carousel and $carousel.controls neq 'n'}
+    {if $carousel and not empty($carousel.controls) and $carousel.controls neq 'n'}
         <a class="carousel-control-prev" href="#{$containerId}" role="button" data-bs-slide="prev">
             {icon name='chevron-left'}
             <span class="sr-only">Previous</span>
@@ -54,6 +54,6 @@
     {/if}
 
 </div>
-{if $carousel.pagination neq 'n'}
+{if not empty($carousel.pagination) and $carousel.pagination neq 'n'}
     {pagination_links resultset=$results}{/pagination_links}
 {/if}
