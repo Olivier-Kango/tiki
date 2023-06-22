@@ -273,18 +273,21 @@ class elFinderVolumeTikiFiles extends elFinderVolumeDriver
     {
         $this->dirsCache[$path] = [];
 
-        $res = $this->filegallib->get_files(0, -1, 'name_desc', '', $this->pathToId($path), false, true);
+        $start = 0;
+        $hasMore = true;
 
-        if ($res['cant']) {
+        while ($hasMore) {
+            $res = $this->filegallib->get_files($start, 1000, 'name_desc', '', $this->pathToId($path), false, true);
             foreach ($res['data'] as $row) {
                 // debug($row);
                 list($r, $id) = $this->processTikiFile($row);
-
 
                 if (($stat = $this->updateCache($id, $r)) && empty($stat['hidden'])) {
                     $this->dirsCache[$path][] = $id;
                 }
             }
+            $start += 1000;
+            $hasMore = $start < $res['cant'];
         }
 
         return $this->dirsCache[$path];
