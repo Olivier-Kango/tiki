@@ -2876,7 +2876,13 @@ class ParserLib extends TikiDb_Bridge
                 $data = preg_replace("#<p>([^(</p>)]*)<p>([^(</p>)]*)</p>#uims", "<p>$1$2", $data, 1, $count);
             }
             if (is_null($data)) {
-                trigger_error('Parsing failed (' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()] . ')', E_USER_WARNING);
+                // thanks to Daniel Klein on https://www.php.net/manual/en/function.preg-last-error.php#124124
+                $lastError = array_flip(
+                    array_filter(get_defined_constants(true)['pcre'], function ($value) {
+                        return str_ends_with($value, '_ERROR');
+                    }, ARRAY_FILTER_USE_KEY)
+                )[preg_last_error()];
+                trigger_error('Parsing failed (' . $lastError . ')', E_USER_WARNING);
             }
         }
 

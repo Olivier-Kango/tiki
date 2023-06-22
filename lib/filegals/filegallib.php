@@ -263,6 +263,10 @@ class FileGalLib extends TikiLib
     {
         global $user, $prefs;
 
+        if (empty($gal_info)) {
+            return '';
+        }
+
         if ($auser === null) {
             $auser = $user;
         }

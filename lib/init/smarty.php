@@ -813,7 +813,7 @@ class Smarty_Tiki extends Smarty
         if ($perms->admin_wiki) {
             $loaded = $perms->getResolver()->dump();
             $nonAdminEditorGroups = [];
-            if (is_array($loaded['perms']['edit'])) {
+            if (isset($loaded['perms']['edit']) && is_array($loaded['perms']['edit'])) {
                 foreach ($loaded['perms']['edit'] as $editorGroup) {
                     if ($editorGroup !== 'Admins' && is_array($loaded['perms']['admin_wiki']) && ! in_array($editorGroup, $loaded['perms']['admin_wiki'])) {
                         $nonAdminEditorGroups[] = $editorGroup;
