@@ -107,7 +107,7 @@ if ($prefs['feature_forums'] == 'y') {
         $forum_replies_count = count($commentslib->get_user_forum_comments($userwatch, -1, 'replies'));
         //always reset the offset to the last page when the offset in parameter is greater than the number of pages to have in the pagination
         if ($offset > $forum_replies_count) {
-            $forum_replies_offset = $forum_replies_offset === 0 ? -1 : ((ceil($forum_replies_count / $step) - 1) * $step);
+            $forum_replies_offset = $forum_replies_count === 0 ? -1 : ((ceil($forum_replies_count / $step) - 1) * $step);
         }
         $user_forum_replies = $commentslib->get_user_forum_comments($userwatch, $step, 'replies', $forum_replies_offset);
         $smarty->assign_by_ref('user_forum_replies', $user_forum_replies);
