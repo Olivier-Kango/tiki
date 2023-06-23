@@ -71,7 +71,7 @@
                     {/if}
                     {if !empty($smarty.section.numloop.last)}
                         {* pad the cells not yet created *}
-                        {math equation = "n - a % n" n=$cols a=$data|@count assign="cells"}
+                        {math equation = "n - a % n" n=$cols a=$categs|@count assign="cells"}
                         {if $cells ne $cols}
                             {section name=pad loop=$cells}
                                 <td>&nbsp;</td>
