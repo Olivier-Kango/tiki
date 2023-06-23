@@ -34,7 +34,7 @@ global $mimetypes;
 
 ask_ticket('draw');
 
-if (! isset($_REQUEST['fileId']) || $_REQUEST['fileId'] < 1) {
+if ((! isset($_REQUEST['fileId']) || $_REQUEST['fileId'] < 1) && ! isset($_REQUEST['galleryId'])) {
     $access->display_error('', tra('Incorrect param'), 400);
 }
 
@@ -47,6 +47,7 @@ if ($_REQUEST['fileId'] > 0) {
     }
 } else {
     $fileInfo = [];
+    $fileInfo['fileId'] = $_REQUEST['fileId'];
 }
 $cat_type = 'file gallery';
 $cat_objid = $_REQUEST['galleryId'];
@@ -206,8 +207,8 @@ if ($fileInfo['filetype'] == $mimetypes["svg"]) {
     $file = new \Tiki\FileGallery\File($fileInfo);
 
     $image = imagecreatefromstring($file->getContents());
-    $w = imagesx($image);
-    $h = imagesy($image);
+    $w = ! is_bool($image) ? imagesx($image) : 0;
+    $h = ! is_bool($image) ? imagesy($image) : 0;
 
     if ($w == 0 && $h == 0) {
         $w = 640;
