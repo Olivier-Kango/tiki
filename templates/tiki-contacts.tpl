@@ -56,7 +56,7 @@
             <select {if $user eq null}disabled{/if} multiple="multiple" name="groups[]" size="6" class="form-control">
                 <option value=""></option>
                 {foreach item=group from=$groups}
-                    <option value="{$group|escape}"{if in_array($group,$info.groups)} selected="selected"{/if}>{$group}</option>
+                    <option value="{$group|escape}"{if !empty($info.groups) &&  in_array($group,$info.groups)} selected="selected"{/if}>{$group}</option>
                 {/foreach}
             </select>
         </div>
