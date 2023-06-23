@@ -228,6 +228,7 @@ class ThemeControlLib extends ThemeLib
     {
         global $prefs, $section;
         $categlib = TikiLib::lib('categ');
+        $tc_themeoption = "";
 
         //SECTION
         if (! empty($section)) {

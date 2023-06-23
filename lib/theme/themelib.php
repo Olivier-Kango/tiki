@@ -115,13 +115,16 @@ class ThemeLib extends TikiLib
     */
     public function extract_theme_and_option($themeoption)
     {
-        $items = explode("/", $themeoption);
-        $theme = $items[0]; //theme is always there
-        if (isset($items[1])) { //check if we have option
-            $option = $items[1];
-        } else {
-            $option = '';
+        $theme = '';
+        $option = '';
+        if (! empty($themeoption)) {
+            $items = explode("/", $themeoption);
+            $theme = $items[0]; //theme is always there
+            if (isset($items[1])) { //check if we have option
+                $option = $items[1];
+            }
         }
+
         return [$theme, $option];
     }
 
