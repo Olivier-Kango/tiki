@@ -2520,13 +2520,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/henrique-borba/php-sieve-manager.git",
-                "reference": "e5c87076476e4d23c59f035946ae10e1e907a7e5"
+                "reference": "f633f42ad126941fd021d1dd3c5edd9d28d01e4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-e5c87076476e4d23c59f035946ae10e1e907a7e5-zip-1ab3c2.zip",
-                "reference": "e5c87076476e4d23c59f035946ae10e1e907a7e5",
-                "shasum": "b4f801f937275fa178ca984880a598f401931c3c"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-f633f42ad126941fd021d1dd3c5edd9d28d01e4e-zip-e53ea2.zip",
+                "reference": "f633f42ad126941fd021d1dd3c5edd9d28d01e4e",
+                "shasum": "09ad7a7b1c34943024482ef6547a214a51d20e0e"
             },
             "require": {
                 "php": ">=5.4"
@@ -2555,7 +2555,7 @@
                 "php",
                 "sieve"
             ],
-            "time": "2022-09-13T14:28:15+00:00"
+            "time": "2023-06-19T15:12:02+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -2773,13 +2773,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "613175ffc0e47018a42688483f2b0d340cc4a9c5"
+                "reference": "24e919434bf79d8b51bb00beb6afbfd215446f47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-613175ffc0e47018a42688483f2b0d340cc4a9c5-zip-04f4c1.zip",
-                "reference": "613175ffc0e47018a42688483f2b0d340cc4a9c5",
-                "shasum": "27a2c25e4d7a3adb2f86f43b4168d219ba64a888"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-24e919434bf79d8b51bb00beb6afbfd215446f47-zip-c00c93.zip",
+                "reference": "24e919434bf79d8b51bb00beb6afbfd215446f47",
+                "shasum": "ff0a41cfc5d5ba98eacaa866ae5e9c24fb5f9751"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2833,7 +2833,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-06-15T11:40:30+00:00"
+            "time": "2023-06-23T13:41:05+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -10967,17 +10967,17 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.19.1",
+            "version": "3.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "dd1057fb37d4484ebb2d1bc9b05fa5969c078436"
+                "reference": "9b6ca1400001d01460daf1f4945b36dc4bc5baba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-dd1057fb37d4484ebb2d1bc9b05fa5969c078436-zip-f6230c.zip",
-                "reference": "dd1057fb37d4484ebb2d1bc9b05fa5969c078436",
-                "shasum": "adedbdc804146bb603915d3908530dab73bf33ef"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-9b6ca1400001d01460daf1f4945b36dc4bc5baba-zip-2f7747.zip",
+                "reference": "9b6ca1400001d01460daf1f4945b36dc4bc5baba",
+                "shasum": "cb5add943becb9e03081da4f987b69bfa041a489"
             },
             "require": {
                 "ext-json": "*",
@@ -11064,7 +11064,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-25T06:19:09+00:00"
+            "time": "2023-06-22T12:13:56+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -16140,17 +16140,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.19",
+            "version": "1.10.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "af5a296ff02610c1bfb4ddfac9fd4a08657b9046"
+                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-af5a296ff02610c1bfb4ddfac9fd4a08657b9046-zip-7acece.zip",
-                "reference": "af5a296ff02610c1bfb4ddfac9fd4a08657b9046",
-                "shasum": "48b2214f0f1ac092729493c23e438c576dbf1476"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5-zip-cf8d77.zip",
+                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5",
+                "shasum": "e431d073a1dc1b3c06ab3e8314a22f0f625251f0"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -16191,7 +16191,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-14T15:26:58+00:00"
+            "time": "2023-06-21T20:07:58+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
