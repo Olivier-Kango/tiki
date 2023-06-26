@@ -31,8 +31,16 @@ if (! isset($_REQUEST['printpages']) && ! isset($_REQUEST['printstructures'])) {
         $printpages[] = $_REQUEST["page"];
     }
 } else {
-    $printpages = json_decode(urldecode($_REQUEST["printpages"]));
-    $printstructures = json_decode(urldecode($_REQUEST['printstructures']));
+    if (isset($_REQUEST['printpages'])) {
+        $printpages = json_decode(urldecode($_REQUEST['printpages']));
+    } else {
+        $printpages = [];
+    }
+    if (isset($_REQUEST['printstructures'])) {
+        $printstructures = json_decode(urldecode($_REQUEST['printstructures']));
+    } else {
+        $printstructures = [];
+    }
 }
 if (isset($_REQUEST["find"])) {
     $find = $_REQUEST["find"];
