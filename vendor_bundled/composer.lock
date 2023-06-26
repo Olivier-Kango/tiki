@@ -2592,9 +2592,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-4b351a7e929b4f7ca8e3c856d29fea553b68562f-zip-1bd4a7.zip",
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-ac9b3606d5f7f461111afc6ecad727a32e48aef5-zip-761ab7.zip",
                 "reference": "4b351a7",
-                "shasum": "547eb2d2559b2abebedf58de12245254d7489f48"
+                "shasum": "3392a0a363930f025cba22548ac2f2df8eedd5ec"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2648,7 +2648,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-06-20T16:27:03+00:00"
+            "time": "2023-06-24T11:14:24+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -9559,17 +9559,17 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.19.1",
+            "version": "3.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "dd1057fb37d4484ebb2d1bc9b05fa5969c078436"
+                "reference": "9b6ca1400001d01460daf1f4945b36dc4bc5baba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-dd1057fb37d4484ebb2d1bc9b05fa5969c078436-zip-f6230c.zip",
-                "reference": "dd1057fb37d4484ebb2d1bc9b05fa5969c078436",
-                "shasum": "adedbdc804146bb603915d3908530dab73bf33ef"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-9b6ca1400001d01460daf1f4945b36dc4bc5baba-zip-2f7747.zip",
+                "reference": "9b6ca1400001d01460daf1f4945b36dc4bc5baba",
+                "shasum": "cb5add943becb9e03081da4f987b69bfa041a489"
             },
             "require": {
                 "ext-json": "*",
@@ -9656,7 +9656,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-25T06:19:09+00:00"
+            "time": "2023-06-22T12:13:56+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -10564,17 +10564,17 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.4.24",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "9e89ac4c9dfe29f4ed2b10a36e62720286632ad6"
+                "reference": "ccbb572627466f03a3d7aa1b23483787f5969afc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-9e89ac4c9dfe29f4ed2b10a36e62720286632ad6-zip-397b61.zip",
-                "reference": "9e89ac4c9dfe29f4ed2b10a36e62720286632ad6",
-                "shasum": "efecfacf67500dad0836912012ca4dfaffe46036"
+                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-ccbb572627466f03a3d7aa1b23483787f5969afc-zip-4fe841.zip",
+                "reference": "ccbb572627466f03a3d7aa1b23483787f5969afc",
+                "shasum": "b0ce1254bea0165b742d59091538938d2235d8b2"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -10648,7 +10648,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-07T13:11:28+00:00"
+            "time": "2023-06-21T14:44:30+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -14939,17 +14939,17 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v5.4.23",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "4a286c916b74ecfb6e2caf1aa31d3fe2a34b7e08"
+                "reference": "d2aefa5a7acc5511422792931d14d1be96fe9fea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/dom-crawler/symfony-dom-crawler-4a286c916b74ecfb6e2caf1aa31d3fe2a34b7e08-zip-048fc3.zip",
-                "reference": "4a286c916b74ecfb6e2caf1aa31d3fe2a34b7e08",
-                "shasum": "4aa48c651f486f2a9a25dffcbbb724ad7e9daa5b"
+                "url": "https://composer.tiki.org/dist/symfony/dom-crawler/symfony-dom-crawler-d2aefa5a7acc5511422792931d14d1be96fe9fea-zip-95fb5a.zip",
+                "reference": "d2aefa5a7acc5511422792931d14d1be96fe9fea",
+                "shasum": "96ae5c3c568bbe9b2c39777c36030f04ad905c49"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -15007,7 +15007,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-08T21:20:19+00:00"
+            "time": "2023-06-05T08:05:41+00:00"
         },
         {
             "name": "theseer/tokenizer",
