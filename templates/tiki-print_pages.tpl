@@ -108,13 +108,13 @@
             <div style="float:right;margin-right:20%;">
                 <form method="get" action="tiki-print_multi_pages.php">
                     <input type="hidden" name="printpages" value="{$form_printpages|escape}">
-                    <input type="submit" class="btn btn-primary btn-sm" name="print" title="{tr}Print{/tr}" value="{tr}Print{/tr}">
+                    <input type="submit" class="btn btn-primary btn-sm mt-2" name="print" title="{tr}Print{/tr}" value="{tr}Print{/tr}">
                 </form>
                 {if $pdf_export eq 'y'}
                     <form method="get" action="tiki-print_multi_pages.php">
                         <input type="hidden" name="display" value="pdf">
                         <input type="hidden" name="printpages" value="{$form_printpages|escape}">
-                        <input type="submit" class="btn btn-primary btn-sm" name="print" title="{tr}PDF{/tr}" value="{tr}PDF{/tr}">
+                        <input type="submit" class="btn btn-primary btn-sm mt-2" name="print" title="{tr}PDF{/tr}" value="{tr}PDF{/tr}">
                     </form>
                 {/if}
             </div>
