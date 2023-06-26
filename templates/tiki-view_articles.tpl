@@ -22,7 +22,7 @@
             || $tiki_p_remove_submission == "y" || $tiki_p_edit_submission == "y")}
                 {button href="tiki-list_submissions.php" _type="link" class="btn btn-link" _icon_name="view" _text="{tr}View Submissions{/tr}"}
             {/if}
-
+            {if $prefs.feature_user_watches eq 'y' or $prefs.feature_group_watches eq 'y'}
                 <a class="btn btn-sm btn-info dropdown-toggle float-end" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                     {icon name='menu-extra'}
                 </a>
@@ -31,12 +31,14 @@
                         {tr}Monitoring{/tr}
                     </h6>
                     <div class="dropdown-divider"></div>
-                    {if $user_watching_articles eq 'n'}
-                        {self_link watch_event='article_*' watch_object='*' watch_action='add' _icon_name='watch' _class='dropdown-item' _text="{tr}Monitor articles{/tr}"}
-                        {/self_link}
-                    {else}
-                        {self_link watch_event='article_*' watch_object='*' watch_action='remove' _icon_name='stop-watching' _class='dropdown-item' _text="{tr}Stop monitoring articles{/tr}"}
-                        {/self_link}
+                    {if $prefs.feature_user_watches eq 'y'}
+                        {if $user_watching_articles eq 'n'}
+                            {self_link watch_event='article_*' watch_object='*' watch_action='add' _icon_name='watch' _class='dropdown-item' _text="{tr}Monitor articles{/tr}"}
+                            {/self_link}
+                        {else}
+                            {self_link watch_event='article_*' watch_object='*' watch_action='remove' _icon_name='stop-watching' _class='dropdown-item' _text="{tr}Stop monitoring articles{/tr}"}
+                            {/self_link}
+                        {/if}
                     {/if}
                     {if $prefs.feature_group_watches eq 'y' and $tiki_p_admin_users eq 'y'}
                         <a class="dropdown-item" href="tiki-object_watches.php?watch_event=article_*&amp;objectId=*">
@@ -44,6 +46,7 @@
                         </a>
                     {/if}
                 </div>
+            {/if}
 
         </div>
     {/if}
@@ -128,7 +131,7 @@
                         {/if}
                     </span><br>
                 {/if}
-                {if $author ne $user and $listpages[ix].comment_can_rate_article eq 'y' and empty({$listpages[ix].body})
+                {if $listpages[ix].author ne $user and $listpages[ix].comment_can_rate_article eq 'y' and empty({$listpages[ix].body})
                     and !isset($preview) and $prefs.article_user_rating eq 'y' and ($listpages[ix].perms.tiki_p_rate_article eq 'y'
                     or $listpages[ix].perms.tiki_p_admin_cms eq 'y')}
                     <div class="articleheading">
@@ -158,7 +161,7 @@
                 </div>
             {/if}
 
-            <div class="articleheading {if $isfloat eq 'n'}d-md-flex{/if} clearfix"> {* No flex in sm screen, to prevent skinny text column *}
+            <div class="articleheading {if $listpages[ix].isfloat eq 'n'}d-md-flex{/if} clearfix"> {* No flex in sm screen, to prevent skinny text column *}
                 <div class="{if $listpages[ix].isfloat eq 'y'}float-start{else}flex-shrink-0{/if} me-3">
                     {if $listpages[ix].show_image eq 'y'}
                         {if $listpages[ix].useImage eq 'y'}
