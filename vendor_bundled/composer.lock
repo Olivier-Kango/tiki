@@ -10562,17 +10562,17 @@
         },
         {
             "name": "sabre/http",
-            "version": "5.1.6",
+            "version": "5.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/http.git",
-                "reference": "9976ac34ced206bd6579b7b37b401de9fac98dae"
+                "reference": "b6fa04f42f49156eaab3fb890c79f4c43a9559b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/http/sabre-http-9976ac34ced206bd6579b7b37b401de9fac98dae-zip-82bc25.zip",
-                "reference": "9976ac34ced206bd6579b7b37b401de9fac98dae",
-                "shasum": "761eb7313ca2e00aece21884c4dd5e7adfb527ea"
+                "url": "https://composer.tiki.org/dist/sabre/http/sabre-http-b6fa04f42f49156eaab3fb890c79f4c43a9559b7-zip-4ddd78.zip",
+                "reference": "b6fa04f42f49156eaab3fb890c79f4c43a9559b7",
+                "shasum": "93efbe7191c51307b561b300c059abde022d3c04"
             },
             "require": {
                 "ext-ctype": "*",
@@ -10616,7 +10616,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2022-07-15T14:51:14+00:00"
+            "time": "2023-06-26T10:13:00+00:00"
         },
         {
             "name": "sabre/uri",
@@ -10967,17 +10967,17 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.20.0",
+            "version": "3.20.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "9b6ca1400001d01460daf1f4945b36dc4bc5baba"
+                "reference": "644ad9768c18139a80ac510090fad000d9ffd8a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-9b6ca1400001d01460daf1f4945b36dc4bc5baba-zip-2f7747.zip",
-                "reference": "9b6ca1400001d01460daf1f4945b36dc4bc5baba",
-                "shasum": "cb5add943becb9e03081da4f987b69bfa041a489"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-644ad9768c18139a80ac510090fad000d9ffd8a4-zip-ab7d4e.zip",
+                "reference": "644ad9768c18139a80ac510090fad000d9ffd8a4",
+                "shasum": "cf03acf3aa0ae2ff0a066cfe7545384df7c4ff2d"
             },
             "require": {
                 "ext-json": "*",
@@ -11064,7 +11064,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-06-22T12:13:56+00:00"
+            "time": "2023-06-26T11:01:40+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -16006,13 +16006,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "469df332ba86fa43e9d5e016d4bcf3f115701fc1"
+                "reference": "3a363ebda5075161128619d4c84a1f8ab3e37680"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-469df332ba86fa43e9d5e016d4bcf3f115701fc1-zip-cc7c35.zip",
-                "reference": "469df332ba86fa43e9d5e016d4bcf3f115701fc1",
-                "shasum": "38f8343f3f8345e35f930633c71c2755e5198f92"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-3a363ebda5075161128619d4c84a1f8ab3e37680-zip-f2ddf4.zip",
+                "reference": "3a363ebda5075161128619d4c84a1f8ab3e37680",
+                "shasum": "70b83d6574d6a8426058180c38f942d624bae320"
             },
             "require": {
                 "php": ">=5.4",
@@ -16068,7 +16068,7 @@
                 "standards",
                 "static analysis"
             ],
-            "time": "2023-06-15T22:38:29+00:00"
+            "time": "2023-06-26T10:52:01+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
