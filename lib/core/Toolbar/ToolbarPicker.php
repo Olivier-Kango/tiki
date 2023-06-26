@@ -150,6 +150,9 @@ class ToolbarPicker extends ToolbarDialog
         $tag = new self();
         $tag->name = $tagName;
 
+        $tag->isMarkdown = $is_markdown;
+        $tag->isWysiwyg = $is_wysiwyg;
+
         $tag->setWysiwygToken($wysiwyg)
             ->setLabel($label)
             ->setIconName(! empty($iconname) ? $iconname : 'help')
