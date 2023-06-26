@@ -6,8 +6,8 @@ use TikiLib;
 
 class ToolbarDialog extends ToolbarItem
 {
-    private $isMarkdown;
-    private $isWysiwyg;
+    protected $isMarkdown;
+    protected $isWysiwyg;
     protected array $list;
     protected int $index;
     protected string $name;
