@@ -3557,7 +3557,7 @@ CREATE TABLE `tiki_auth_tokens` (
     `token` CHAR(32),
     `entry` VARCHAR(50),
     `email` varchar(255) NOT NULL,
-    `parameters` VARCHAR(255),
+    `parameters` TEXT,
     `groups` TEXT,
     `createUser` CHAR(1) DEFAULT 'n',
     `userPrefix` VARCHAR(200) DEFAULT '_token',
