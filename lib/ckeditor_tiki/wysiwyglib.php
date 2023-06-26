@@ -285,7 +285,7 @@ ajaxLoadingShow("' . $dom_id . '");
             ];
             $tuitools = smarty_function_toolbars($toolbarParams, $smarty->getEmptyInternalTemplate());
         } else {
-            $tuitools = '[]';
+            $tuitools = [];
         }
         $options['toolbarItems'] = $tuitools;
 
