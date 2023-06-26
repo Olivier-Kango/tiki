@@ -1673,4 +1673,9 @@ class EditLib
 
         return $data;
     }
+
+    public function removeSyntaxPlugin($inData)
+    {
+        return preg_replace('/^\{syntax.+\}(?:\r\n|\s)(.+)/', "$1", $inData);
+    }
 }

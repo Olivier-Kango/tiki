@@ -521,6 +521,10 @@ class Services_Tracker_Controller
         $field['all_groups'] = $groups;
 
         $fields = $definition->getFields();
+        if ($field['descriptionIsParsed'] == 'y') {
+            $field['description'] = TikiLib::lib('edit')->removeSyntaxPlugin($field['description']);
+        }
+
         if ($definition->getConfiguration('showStatus') === 'y') {
             $fields[] = [
                 'type' => 'status',
@@ -2137,6 +2141,10 @@ class Services_Tracker_Controller
             $trackerId = $this->utilities->updateTracker($trackerId, $data);
 
             $cat_desc = $data['description'];
+            if ($data['descriptionIsParsed'] == 'y') {
+                $field['description'] = TikiLib::lib('edit')->removeSyntaxPlugin($cat_desc);
+            }
+
             $cat_name = $data['name'];
             $cat_href = "tiki-view_tracker.php?trackerId=" . $trackerId;
             $cat_objid = $trackerId;

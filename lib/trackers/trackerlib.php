@@ -3367,6 +3367,8 @@ class TrackerLib extends TikiLib
     // Inserts or updates a tracker
     public function replace_tracker($trackerId, $name, $description, $options, $descriptionIsParsed)
     {
+        global $prefs;
+
         $trackers = $this->trackers();
 
         if ($descriptionIsParsed == 'y') {
@@ -3378,6 +3380,7 @@ class TrackerLib extends TikiLib
                     'itemId' => $trackerId,
                 ]
             );
+            $description = "{syntax type={$prefs['markdown_default']}}\r\n$description";
         }
 
         $data = [
@@ -3477,6 +3480,8 @@ class TrackerLib extends TikiLib
 
     public function replace_tracker_field($trackerId, $fieldId, $name, $type, $isMain, $isSearchable, $isTblVisible, $isPublic, $isHidden, $isMandatory, $position, $options, $description = '', $isMultilingual = '', $itemChoices = null, $errorMsg = '', $visibleBy = null, $editableBy = null, $descriptionIsParsed = 'n', $validation = '', $validationParam = '', $validationMessage = '', $permName = null, $rules = null, $encryptionKeyId = null, $excludeFromNotification = false, $visibleInViewMode = 'y', $visibleInEditMode = 'y', $visibleInHistoryMode = 'y')
     {
+        global $prefs;
+
         // Serialize choosed items array (items of the tracker field to be displayed in the list proposed to the user)
         if (is_array($itemChoices) && count($itemChoices) > 0 && ! empty($itemChoices[0])) {
             $itemChoices = serialize($itemChoices);
@@ -3502,6 +3507,7 @@ class TrackerLib extends TikiLib
                     'itemId' => $fieldId,
                 ]
             );
+            $description = "{syntax type={$prefs['markdown_default']}}\r\n$description";
         }
 
         $fields = $this->fields();
