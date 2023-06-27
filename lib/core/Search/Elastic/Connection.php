@@ -576,8 +576,16 @@ class Search_Elastic_Connection
             throw new Search_Elastic_NotFoundException($content->_type, $content->_id);
         } elseif (isset($content->error)) {
             $message = $content->error;
-            if (is_object($message) && ! empty($message->reason)) {
+            if (is_object($message) && ! empty($message->reason) && $message->reason != 'all shards failed') {
                 $message = $message->reason;
+            } elseif (is_object($message) && ! empty($message->root_cause) && ! empty($message->root_cause[0]->reason)) {
+                $message = $message->root_cause[0]->reason;
+            } elseif (is_object($message) && ! empty($message->failed_shards) && ! empty($message->failed_shards[0]->reason)) {
+                if (is_object($message->failed_shards[0]->reason)) {
+                    $message = $message->failed_shards[0]->reason->reason;
+                } else {
+                    $message = $message->failed_shards[0]->reason;
+                }
             }
             if (preg_match('/^MapperParsingException\[No handler for type \[(?P<type>.*)\].*\[(?P<field>.*)\]\]$/', $message, $parts)) {
                 throw new Search_Elastic_MappingException($parts['type'], $parts['field']);
