@@ -285,7 +285,6 @@ class CheckSqlEngineConversion
         $TWV = new TWVersion();
 
         $local = '<?php' . "\n"
-            . '$db_tiki = "mysqli";' . "\n"
             . '$dbversion_tiki = "' . $TWV->getBaseVersion() . '";' . "\n"
             . '$host_tiki = "' . $dbConfig['host'] . '";' . "\n"
             . '$user_tiki = "' . $dbConfig['user'] . '";' . "\n"

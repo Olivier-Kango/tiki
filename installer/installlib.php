@@ -25,7 +25,6 @@ function has_tiki_db_20()
 }
 
 /**
- * @param $dbb_tiki
  * @param $host_tiki
  * @param $user_tiki
  * @param $pass_tiki
@@ -34,19 +33,16 @@ function has_tiki_db_20()
  * @param string $api_tiki
  * @param string $dbversion_tiki
  */
-function write_local_php($dbb_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $client_charset = '', $api_tiki = '', $dbversion_tiki = 'current')
+function write_local_php($host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $client_charset = '', $api_tiki = '', $dbversion_tiki = 'current')
 {
     global $local;
-    global $db_tiki;
     if ($dbs_tiki && $user_tiki) {
-        $db_tiki = addslashes($dbb_tiki);
         $host_tiki = addslashes($host_tiki);
         $user_tiki = addslashes($user_tiki);
         $pass_tiki = addslashes($pass_tiki);
         $dbs_tiki = addslashes($dbs_tiki);
         $fw = fopen($local, 'w');
         $filetowrite = "<?php\n";
-        $filetowrite .= "\$db_tiki='" . $db_tiki . "';\n";
         if ($dbversion_tiki == 'current') {
             require_once 'lib/setup/twversion.class.php';
             $twversion = new TWVersion();
@@ -359,7 +355,6 @@ function list_disable_accounts()
 
 /**
  * @param $api
- * @param $driver
  * @param $host
  * @param $user
  * @param $pass
@@ -368,10 +363,9 @@ function list_disable_accounts()
  * @param $dbTiki
  * @return bool|int
  */
-function initTikiDB(&$api, &$driver, $host, $user, $pass, $dbname, $client_charset, &$dbTiki)
+function initTikiDB(&$api, $host, $user, $pass, $dbname, $client_charset, &$dbTiki)
 {
     $initializer = new TikiDb_Initializer();
-    $initializer->setPreferredConnector($driver);
     $initializer->setInitializeCallback(
         function ($db) {
             $db->setServerType('pdo');

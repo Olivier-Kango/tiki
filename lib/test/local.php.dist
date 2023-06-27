@@ -22,7 +22,6 @@ See https://dev.tiki.org/Tiki-Unit-Testing for more info
 */
 $api_tiki = 'pdo';
 
-$db_tiki = 'mysqli';
 $dbversion_tiki = '22.0';
 $host_tiki = 'localhost';
 $user_tiki = 'tiki_tester';

@@ -322,25 +322,6 @@
                                     <legend>{tr}Database information{/tr}</legend>
                                     <p>{tr}Enter your database connection information.{/tr}</p>
                                     <div class="mb-3 row">
-                                        <label for="db" class="col-form-label">{tr}DBMS driver:{/tr}</label>
-                                        <div class="mx-3">
-                                            <select class="form-select" name="db" id="db">
-                                                {foreach key=dsn item=dbname from=$dbservers}
-                                                    {if $dsn|stristr:"mysql" || $dsn|stristr:"pdo"}
-                                                        <option value="{$dsn}"{if isset($smarty.request.db) and $smarty.request.db eq $dsn} selected="selected"{/if}>{$dbname}</option>
-                                                    {/if}
-                                                {/foreach}
-                                            </select>
-                                            <a href="javascript:void(0)" onclick="flip('db_help');" title="{tr}Help{/tr}">
-                                                {icon name="help"}
-                                            </a>
-                                            <div style="display:none" id="db_help">
-                                                <p>{tr}Select the database driver to use with Tiki.{/tr}</p>
-                                                <p>{tr}Only drivers supported by your PHP installation are listed here. If your driver is not in the list, try to install the appropriate PHP extension.{/tr}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
                                         <label class="col-form-label" for="host">{tr}Host name:{/tr}</label>
                                         <div class="mx-3">
                                             <input type="text" class="form-control" name="host" id="host" value="{if isset($smarty.request.host)}{$smarty.request.host|escape:"html"}{elseif isset($preconfighost)}{$preconfighost|escape:"html"}{else}localhost{/if}" size="40" />

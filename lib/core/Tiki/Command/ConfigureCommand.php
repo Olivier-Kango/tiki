@@ -63,7 +63,6 @@ class ConfigureCommand extends Command
         $export_version = var_export($version, true);
         $out = <<<LOCALPHP
 <?php
-\$db_tiki='mysql';
 \$dbversion_tiki=$export_version;
 \$host_tiki=$export_hostname;
 \$user_tiki=$export_username;

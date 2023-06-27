@@ -231,24 +231,6 @@ $tikiVersionShort = preg_replace('/^(\d+)\..*$/', '\1', $TWV->version);
 $smarty->assign('tiki_version_name', preg_replace('/^(\d+\.\d+)([^\d])/', '\1 \2', $TWV->version));
 $smarty->assign('tiki_version_short', $tikiVersionShort);
 
-// Available DB Servers
-$dbservers = [];
-if (function_exists('mysqli_connect')) {
-    $dbservers['mysqli'] = tra('MySQL/MariabDB Improved (mysqli)');
-}
-if (function_exists('mysql_connect')) {
-    $dbservers['mysql'] = tra('MySQL classic (mysql)');
-}
-
-if (function_exists('pdo_drivers')) {
-    $_pdos = pdo_drivers();
-    if (in_array('mysql', $_pdos)) {
-        $dbservers['pdo'] = tra('MySQL/MariabDB PDO');
-    }
-}
-
-$smarty->assignByRef('dbservers', $dbservers);
-
 check_session_save_path();
 
 get_webserver_uid();
@@ -320,26 +302,15 @@ if (file_exists($local)) {
         $dbversion_tiki = '2.0';
     }
 
-    if (! isset($db_tiki)) {
-        // if no db is specified, use the first db that this php installation can handle
-        $db_tiki = reset($dbservers);
-        write_local_php($db_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $client_charset, ($api_tiki_forced ? $api_tiki : ''), $dbversion_tiki);
-    }
-
     $dbcon = false;
     $smarty->assign('resetdb', 'n');
-    if (isset($dbservers[$db_tiki])) { // avoid errors in ADONewConnection() (wrong darabase driver etc...)
-        if ($dbcon = initTikiDB($api_tiki, $db_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $client_charset, $dbTiki)) {
-            $smarty->assign('resetdb', isset($_POST['reset']) ? 'y' : 'n');
-
-            $installer = Installer::getInstance();
-            $installer->setServerType($db_tiki);
-
-            if (! $client_charset_forced) {
-                write_local_php($db_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $client_charset, ($api_tiki_forced ? $api_tiki : ''), $dbversion_tiki);
-                $logslib->add_log('install', 'database credentials written to file with hostname=' . $host_tiki
-                    . '; dbname=' . $dbs_tiki . '; dbuser=' . $user_tiki);
-            }
+    if ($dbcon = initTikiDB($api_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $client_charset, $dbTiki)) {
+        $smarty->assign('resetdb', isset($_POST['reset']) ? 'y' : 'n');
+        $installer = Installer::getInstance();
+        if (! $client_charset_forced) {
+            write_local_php($host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $client_charset, ($api_tiki_forced ? $api_tiki : ''), $dbversion_tiki);
+            $logslib->add_log('install', 'database credentials written to file with hostname=' . $host_tiki
+                . '; dbname=' . $dbs_tiki . '; dbuser=' . $user_tiki);
         }
     }
 } elseif ($dbcon) {
@@ -412,7 +383,6 @@ if (
         ) {
             $dbcon = initTikiDB(
                 $api_tiki,
-                $_POST['db'],
                 $_POST['host'],
                 $_POST['root_user'],
                 $_POST['root_pass'],
@@ -423,7 +393,6 @@ if (
         } else {
             $dbcon = initTikiDB(
                 $api_tiki,
-                $_POST['db'],
                 $_POST['host'],
                 $_POST['user'],
                 $_POST['pass'],
@@ -441,7 +410,7 @@ if (
             ) {
                 createTikiDBUser($dbTiki, $_POST['host'], $_POST['user'], $_POST['pass'], $_POST['name']);
             }
-            write_local_php($_POST['db'], $_POST['host'], $_POST['user'], $_POST['pass'], $_POST['name'], $client_charset);
+            write_local_php($_POST['host'], $_POST['user'], $_POST['pass'], $_POST['name'], $client_charset);
 
             // TODO: it is not possible to add_log if we don't have tables created
             //$logslib->add_log('install', 'database credentials updated with hostname=' . $_POST['host'] . '; dbname='
@@ -451,7 +420,6 @@ if (
             // In case of replication, ignore it during installer.
             unset($shadow_dbs, $shadow_user, $shadow_pass, $shadow_host);
             $installer = Installer::getInstance();
-            $installer->setServerType($db_tiki);
         }
     }
 }

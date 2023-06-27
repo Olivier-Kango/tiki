@@ -179,7 +179,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
         $local_php = TikiInit::getCredentialsFile();
         if (is_readable($local_php)) {
             require($local_php);
-            unset($db_tiki, $host_tiki, $user_tiki, $pass_tiki);
+            unset($host_tiki, $user_tiki, $pass_tiki);
         }
 
         if (function_exists($standalone)) {
