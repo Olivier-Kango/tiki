@@ -265,29 +265,19 @@ class Services_Calendar_Controller
 
                 // save event
                 if ($input->act->word() === 'save' || $input->act->word() === 'saveas') {
-                    $saved = $this->saveEvent($calitem, $calendar, $input);
-
-                    if ($saved) { // then redirect?
-                        if ($input->offsetExists('redirect')) {
-                            return ['url' => $input->redirect->url()];
-                        } else {
-                            // reload the page?
-                            return [];
-                        }
-                    } else {
-                        Feedback::error(tr('Calendar edit error')); // TODO more
-                    }
-                } else {
-                    $title = $calitem['title'];
-
                     if (! $input->calendarchanged->int()) {
-                        $preview = $input->act->word() === 'preview';
+                        $saved = $this->saveEvent($calitem, $calendar, $input);
 
-                        $calitem['parsed'] = $parserLib->parse_data(
-                            $calitem['description'],
-                            ['is_html' => $prefs['calendar_description_is_html'] === 'y']
-                        );
-                        $calitem['parsedName'] = $parserLib->parse_data($calitem['name']);
+                        if ($saved) { // then redirect?
+                            if ($input->offsetExists('redirect')) {
+                                return ['url' => $input->redirect->url()];
+                            } else {
+                                // reload the page?
+                                return [];
+                            }
+                        } else {
+                            Feedback::error(tr('Calendar edit error')); // TODO more
+                        }
                     }
                 }
             } else {
@@ -484,21 +474,69 @@ class Services_Calendar_Controller
 
     public function action_view_item(JitFilter $input): array
     {
-
+        global $prefs;
 
         $calitemId = $input->calitemId->int();
+        $recurrence = [];
 
-        if ($calitemId) {
+        if ($input->act->word() === 'preview') {
+            $calitem = $input->asArray('calitem');
+            $calitem['allday'] = empty($calitem['allday']) ? 0 : 1;
+
+            $parserLib = TikiLib::lib('parser');
+            $calitem['parsed'] = $parserLib->parse_data(
+                $calitem['description'],
+                ['is_html' => $prefs['calendar_description_is_html'] === 'y']
+            );
+            $calitem['parsedName'] = $parserLib->parse_data($calitem['name']);
+
+            $calendar = $this->calendarLib->get_calendar($calitem['calendarId']);
+
+            if ($input->recurrenceId->int() > 0) {
+                $recurrence = new CalRecurrence($input->recurrenceId->int());
+                $recurrence = $recurrence->toArray();
+            } else {
+                // TODO fix preview changes
+                $recurrence = $input->asArray('recurrence');
+            }
+        } elseif ($calitemId) {
             $calitemId = $this->getItemId($input, 'view_events');  // also checks edit perms
             $calitem = $this->calendarLib->get_item($calitemId);
-        } elseif ($input->preview->word() === tr('Preview')) {
-            $calitem = $input->asArray('calitem');
+            if (isset($calitem['recurrenceId']) && $calitem['recurrenceId'] > 0) {
+                $recurrence = new CalRecurrence($calitem['recurrenceId']);
+                $recurrence = $recurrence->toArray();
+            }
         } else {
             Feedback::error(tr('Not found'));
             $calitem = [];
         }
+
+        if ($calitem) {
+            // calculate event display date/time
+            $tikilib = TikiLib::lib('tiki');
+            $startday = $tikilib->get_short_date($calitem['start']);
+            $endday = $tikilib->get_short_date($calitem['end']);
+            if ($startday === $endday) {
+                if ($calitem['allday']) {
+                    $calitem['display_datetimes'] = $startday;
+                } else {
+                    $starttime = $tikilib->get_short_time($calitem['start']);
+                    $endtime = $tikilib->get_short_time($calitem['end']);
+                    $calitem['display_datetimes'] = tr('%0 %1 to %2', $startday, $starttime, $endtime);
+                }
+            } elseif ($calitem['allday']) {
+                $calitem['display_datetimes'] = tr('%0 to %1', $startday, $endday);
+            } else {
+                $starttime = $tikilib->get_short_time($calitem['start']);
+                $endtime = $tikilib->get_short_time($calitem['end']);
+                $calitem['display_datetimes'] = tr('%0 %1 to %2 %3', $startday, $starttime, $endday, $endtime);
+            }
+        }
+
         return [
             'calitem'    => $calitem,
+            'recurrence' => $recurrence,
+            'calendar'   => $calendar,
             'daynames'   => $this->daynamesPlural,
             'monthnames' => $this->monthnames,
         ];
