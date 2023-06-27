@@ -11,7 +11,7 @@
 # part 0 - choose production mode or verbose debugging mode
 # ---------------------------------------------------------
 
-source path_constants.sh
+. ./path_constants.sh
 
 DEBUG=0 # production mode
 #DEBUG=1 # debugging mode
