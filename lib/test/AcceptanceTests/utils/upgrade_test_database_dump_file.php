@@ -30,7 +30,7 @@ if (! class_exists('ADOConnection')) {
 }
 
 include $local_php;
-$dbTiki = ADONewConnection($db_tiki);
+$dbTiki = ADONewConnection('mysqli');
 $dbTiki->Connect($host_tiki, $user_tiki, $pass_tiki, $dbs_tiki);
 $installer = Installer::getInstance();
 $installer->update();

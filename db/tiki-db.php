@@ -26,7 +26,7 @@ if (! empty($_REQUEST['lang'])) {
 include_once('lib/init/tra.php');
 
 $local_php = TikiInit::getCredentialsFile();
-global $default_api_tiki, $api_tiki, $db_tiki, $dbversion_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $tikidomain, $tikidomainslash, $dbfail_url;
+global $default_api_tiki, $api_tiki, $dbversion_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $tikidomain, $tikidomainslash, $dbfail_url;
 $re = false;
 if (file_exists($local_php)) {
     $re = include($local_php);
@@ -71,7 +71,7 @@ if ($parts = TikiInit::getEnvironmentCredentials()) {
     }
 }
 
-unset($host_map, $db_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $shadow_user, $shadow_pass, $shadow_host, $shadow_dbs);
+unset($host_map, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $shadow_user, $shadow_pass, $shadow_host, $shadow_dbs);
 
 global $systemConfiguration;
 $systemConfiguration = new Config(
@@ -232,9 +232,7 @@ $initializer = new TikiDb_Initializer();
 $initializer->setPreferredConnector($credentials['api_tiki']);
 $initializer->setInitializeCallback(
     function ($db) {
-        global $db_table_prefix, $common_users_table_prefix, $db_tiki;
-
-        $db->setServerType($db_tiki);
+        global $db_table_prefix, $common_users_table_prefix;
 
         if (! defined('TIKI_CONSOLE')) {
             $db->setErrorHandler(new TikiDbLegacyErrorHandler());

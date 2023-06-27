@@ -31,7 +31,6 @@ if ($api_tiki === 'pdo' && extension_loaded("pdo")) {
 }
 
 $db = TikiDb::get();
-$db->setServerType($db_tiki);
 
 $pwd = getcwd();
 chdir(__DIR__ . '/../../../');
