@@ -112,7 +112,7 @@
                                     </a>
                                 {/section}
                             {*</li>*}
-                            {if isset($structure_path) && $showstructs[struct].pageName neq $structure_path[0].pageName and $prefs.feature_wiki_open_as_structure neq 'y'}
+                            {if isset($structure_path[0].pageName) && isset($showstructs[struct].pageName) && $showstructs[struct].pageName neq $structure_path[0].pageName and $prefs.feature_wiki_open_as_structure neq 'y'}
                                 <div role="presentation" class="dropdown-divider"></div>
                                 {*<li role="presentation">*}
                                     <a href="tiki-index.php?page={$page|escape:url}" class="dropdown-item tips" title=":{tr}Hide structure bar and any toc{/tr}">
