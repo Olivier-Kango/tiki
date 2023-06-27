@@ -58,7 +58,7 @@ class Search_Action_Delete implements Search_Action_Action
         global $access;
         if (substr(php_sapi_name(), 0, 3) !== 'cli') {
             // TODO: this probably needs to be handled in accesslib itself
-            $access->checkCsrfForm(tr('Are you sure you want to permanently delete these objects?'));
+            $access->checkCsrf(tr('Are you sure you want to permanently delete these objects?'));
         }
 
         $object_type = $data->object_type->text();
