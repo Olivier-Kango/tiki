@@ -7,14 +7,10 @@
 {block name="content"}
     <form action="{service controller='calendar' action='edit_item'}" method="post" class="edit-event-form">
         <div class="form-contents">
-            {if $preview}
-                <div class="preview">
-                    {remarksbox title="{tr}Preview{/tr}" type='secondary' icon='edit'}
-                        {service_inline controller='calendar' action='view_item' preview="{tr}Preview{/tr}" calitemId=$calitemId calitem=$calitem recurrence=$recurrence calendars=$calendars}
-                    {/remarksbox}
-                </div>
-            {/if}
-            <div class="h3 my-3">
+            <div class="preview d-none">
+                {remarksbox title="{tr}Preview{/tr}" type='secondary' icon='edit'}{/remarksbox}
+            </div>
+            <div class="h5 my-3">
                 {if $calitemId}
                     {tr}Edit Calendar Item{/tr}
                 {else}
@@ -38,7 +34,8 @@
                 <label for="calid" class="col-form-label col-sm-3">{tr}Calendar{/tr}</label>
                 <div class="col-sm-9">
                     <input name="calendarchanged" type="hidden">
-                    <select name="calitem[calendarId]" id="calid" onchange="$(this).parents('.edit-event-form').tikiModal(tr('Loading...')); needToConfirm=false; $('input[name=calendarchanged]').val(1); $('input[name=preview]').click();" class="form-control">
+                    <select name="calitem[calendarId]" id="calid" class="form-control" required
+                            onchange="$(this).parents('.edit-event-form').tikiModal(tr('Loading...')); needToConfirm=false; $('input[name=calendarchanged]').val(1); $('input[name=save]').click();">
                         {foreach $calendars as $aCalendar}
                             {$calstyle = ''}
                             {if not empty($aCalendar.custombgcolor)}

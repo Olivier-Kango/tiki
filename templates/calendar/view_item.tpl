@@ -9,14 +9,7 @@
     <div class="summary">
         {$calendars[$calitem.calendarId].name|escape}
     </div>
-    <div class="summary">
-       {if $recurrence.id gt 0}
-           {tr}This event depends on a recurrence rule{/tr}
-       {else}
-           {tr}This event is not recurrent{/tr}
-       {/if}
-    </div>
-    {if $recurrence.id > 0}
+    {if $recurrence.nbRecurrences > 0}
         {if $recurrence.nbRecurrences eq 1}
             {tr}Event occurs once on{/tr}&nbsp;{$recurrence.startPeriod|tiki_long_date}
         {elseif $recurrence.nbRecurrences gt 1 or $recurrence.endPeriod gt 0}
@@ -46,37 +39,8 @@
             {/if}.
         {/if}
     {/if}
-    <div class="">
-        <div class="summary">
-            {if $calitem.allday}
-                <abbr class="dtstart" title="{$calitem.start|tiki_short_date:'n'}">
-                    {$calitem.start|tiki_long_date}
-                </abbr>
-            {else}
-                <abbr class="dtstart" title="{$calitem.start|isodate}">
-                    {$calitem.start|tiki_long_datetime}
-                </abbr>
-            {/if}
-        </div>
-    </div>
     <div class="summary">
-        {if $calitem.allday and $calitem.start neq $calitem.end}
-            {if $calitem.end}
-                <abbr class="dtend" title="{$calitem.end|tiki_short_date:'n'}">
-            {/if}
-            {$calitem.end|tiki_long_date}
-            {if $calitem.end}
-                </abbr>
-            {/if}
-        {else}
-            {if $calitem.end}
-                <abbr class="dtend" title="{$calitem.end|isodate}">
-            {/if}
-            {$calitem.end|tiki_long_datetime}
-            {if $calitem.end}
-                </abbr>
-            {/if}
-        {/if}
+        {$calitem.display_datetimes}
     </div>
     <div class="description">
         {$calitem.parsed|default:"<em>{tr}No description{/tr}</em>"}
