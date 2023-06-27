@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c53ec812bb412179fb18ff19e8ffbc5",
+    "content-hash": "cd60c6ccdbc231c0f3fac75f65f93c08",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2189,13 +2189,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-php-library.git",
-                "reference": "b4b1df34b8d21678f8ed785bb72b1ee39697c665"
+                "reference": "0a82667e00175dea55e37ad8bbebedbfed25b5b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-b4b1df34b8d21678f8ed785bb72b1ee39697c665-zip-54e9f2.zip",
-                "reference": "b4b1df34b8d21678f8ed785bb72b1ee39697c665",
-                "shasum": "6a5b2bb8a8c175b0bdcf7a93e77083375f04f6d5"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-0a82667e00175dea55e37ad8bbebedbfed25b5b6-zip-eeb15e.zip",
+                "reference": "0a82667e00175dea55e37ad8bbebedbfed25b5b6",
+                "shasum": "1bb5579d636537071498578039dc1411bdd4deb4"
             },
             "require": {
                 "php": ">=7.0.0"
@@ -2238,7 +2238,7 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2023-05-30T12:57:09+00:00"
+            "time": "2023-06-27T13:26:01+00:00"
         },
         {
             "name": "h5p/h5p-editor",
@@ -2588,12 +2588,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "4b351a7"
+                "reference": "ac9b360"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-ac9b3606d5f7f461111afc6ecad727a32e48aef5-zip-761ab7.zip",
-                "reference": "4b351a7",
+                "reference": "ac9b360",
                 "shasum": "3392a0a363930f025cba22548ac2f2df8eedd5ec"
             },
             "require": {
