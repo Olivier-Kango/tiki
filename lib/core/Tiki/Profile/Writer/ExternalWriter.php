@@ -7,20 +7,25 @@
 class Tiki_Profile_Writer_ExternalWriter
 {
     private $dataPath;
-    private $files;
+    private $files = [];
     private $hashes = [];
 
     public function __construct($dataPath)
     {
         $this->dataPath = $dataPath;
-        $files = array_filter(
-            scandir($dataPath),
-            function ($file) {
-                return $file[0] != '.';
-            }
-        );
+        if (is_readable($this->dataPath)) {
+            $tmpFiles = scandir($dataPath);
+            if (is_array($tmpFiles)) {
+                $files = array_filter(
+                    $tmpFiles,
+                    function ($file) {
+                        return $file[0] != '.';
+                    }
+                );
 
-        $this->files = array_fill_keys($files, null);
+                $this->files = array_fill_keys($files, null);
+            }
+        }
     }
 
     public function write($file, $content)
