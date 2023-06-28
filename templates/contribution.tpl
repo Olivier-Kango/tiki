@@ -1,5 +1,5 @@
 {if $prefs.feature_contribution eq 'y'}
-    {if count($contributions) gt 0}
+    {if !empty($contributions) && count($contributions) gt 0}
         <div class="mb-3 row">
         {if $contribution_needed eq 'y'}
             <span class="mandatory_note highlight">
