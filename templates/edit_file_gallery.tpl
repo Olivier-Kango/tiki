@@ -20,7 +20,9 @@
                             <input type="hidden" name="name" value="{$gal_info.name|escape}" class="form-control">
                         {else}
                             <input type="text" id="name" name="name" maxlength="80" value="{$gal_info.name|escape}" class="form-control">
-                            <span class="form-text text-danger">{tr}{$incorrectInputValues.incorrect_name}.{/tr}</span>
+                            {if !empty($incorrectInputValues)}
+                                <span class="form-text text-danger">{tr}{$incorrectInputValues.incorrect_name}.{/tr}</span>
+                            {/if}
                             {jq}
                                 $("#name").attr("required", true);
                             {/jq}

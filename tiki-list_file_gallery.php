@@ -1366,6 +1366,30 @@ if ($view == 'admin') {
 if (is_string($gal_info['direct'])) {
     $gal_info['direct'] = json_decode($gal_info['direct'], true);
 }
+
+$direct_default = [
+  'adapter' => '',
+  'path' => '',
+  'host' => '',
+  'base_uri' => '',
+  'root' => '',
+  'username' => '',
+  'password' => '',
+  'timeout' => '',
+  'utf8' => '',
+  'private_key' => '',
+  'private_key_password' => '',
+  'region' => '',
+  'key' => '',
+  'secret' => '',
+  'bucket' => '',
+  'path_prefix' => '',
+  'port' => '',
+];
+if (empty($gal_info['direct'])) {
+    $gal_info['direct'] = $direct_default;
+}
+
 $smarty->assign_by_ref('find_durations', $find_durations);
 $smarty->assign_by_ref('gal_info', $gal_info);
 
