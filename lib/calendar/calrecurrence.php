@@ -905,7 +905,7 @@ class CalRecurrence extends TikiLib
 
     public function isAllday()
     {
-        return $this->allday;
+        return $this->allday ?? 0;
     }
 
     /**
@@ -957,7 +957,7 @@ class CalRecurrence extends TikiLib
 
     public function getPriority()
     {
-        return $this->priority;
+        return $this->priority ?? '1';
     }
 
     /**

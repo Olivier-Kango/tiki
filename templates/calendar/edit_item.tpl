@@ -137,9 +137,7 @@
                         {if $recurrence.id eq 0 or $recurrence.weekly}
                             <div class="mb-3 px-5">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">{tr}Each{/tr}</span>
-                                    </div>
+                                    <span class="input-group-text">{tr}Each{/tr}</span>
                                     <select name="weekdays[]" class="form-control" multiple>
                                         {foreach $daynames as $abbr => $dayname}
                                             <option value="{$abbr}"{if in_array($abbr, $recurrence.weekdays)} selected="selected" {/if}>
@@ -147,9 +145,7 @@
                                             </option>
                                         {/foreach}
                                     </select>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">{tr}of the week{/tr}</span>
-                                    </div>
+                                    <span class="input-group-text">{tr}of the week{/tr}</span>
                                 </div>
                                 <hr/>
                             </div>
@@ -255,7 +251,7 @@
                         {if $recurrence.id eq 0 or $recurrence.yearly}
                             <div class="mb-3 px-5">
                                 <div class="input-group">
-                                    <div class="input-group-prepend"><span class="input-group-text">{tr}Each{/tr}</span></div>
+                                    <span class="input-group-text">{tr}Each{/tr}</span>
                                     <select name="dateOfYear_day" class="form-control" onChange="checkDateOfYear(this.options[this.selectedIndex].value,document.forms['f'].elements['dateOfYear_month'].options[document.forms['f'].elements['dateOfYear_month'].selectedIndex].value);">
                                         {section name=k start=1 loop=32}
                                             <option value="{$smarty.section.k.index}" {if $recurrence.dateOfYear_day eq $smarty.section.k.index} selected="selected" {/if} >
@@ -266,7 +262,7 @@
                                             </option>
                                         {/section}
                                     </select>
-                                    <div class="input-group-append"><span class="input-group-text">{tr}of{/tr}</span></div>
+                                    <span class="input-group-text">{tr}of{/tr}</span>
                                     <select name="dateOfYear_month" class="form-control" onChange="checkDateOfYear(document.forms['f'].elements['dateOfYear_day'].options[document.forms['f'].elements['dateOfYear_day'].selectedIndex].value,this.options[this.selectedIndex].value);">
                                         <option value="1" {if $recurrence.dateOfYear_month eq '1'} selected="selected" {/if}>
                                             {tr}January{/tr}
@@ -332,11 +328,9 @@
                             <div class="offset-sm-1 col-sm-6">
                                 <div class="input-group">
                                     <input type="number" min="1" name="nbRecurrences" class="form-control" value="{if $recurrence.nbRecurrences gt 0}{$recurrence.nbRecurrences}{else}1{/if}">
-                                    <div class="input-group-append me-4">
-                                        <span class="input-group-text">
-                                            {if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}
-                                        </span>
-                                    </div>
+                                    <span class="input-group-text">
+                                        {if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}
+                                    </span>
                                 </div>
                             </div>
                             <br>

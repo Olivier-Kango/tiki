@@ -9,7 +9,7 @@
     <div class="summary">
         {$calendars[$calitem.calendarId].name|escape}
     </div>
-    {if $recurrence.nbRecurrences > 0}
+    {if $recurrent}
         {if $recurrence.nbRecurrences eq 1}
             {tr}Event occurs once on{/tr}&nbsp;{$recurrence.startPeriod|tiki_long_date}
         {elseif $recurrence.nbRecurrences gt 1 or $recurrence.endPeriod gt 0}
