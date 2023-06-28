@@ -10774,17 +10774,17 @@
         },
         {
             "name": "sabre/xml",
-            "version": "2.2.5",
+            "version": "2.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/xml.git",
-                "reference": "a6af111850e7536d200d9637c34885cd3c77a86c"
+                "reference": "9cde7cdab1e50893cc83b037b40cd47bfde42a2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/xml/sabre-xml-a6af111850e7536d200d9637c34885cd3c77a86c-zip-5a98c1.zip",
-                "reference": "a6af111850e7536d200d9637c34885cd3c77a86c",
-                "shasum": "1717ffbcf3815a5f17d87df67277eab11bbb2abf"
+                "url": "https://composer.tiki.org/dist/sabre/xml/sabre-xml-9cde7cdab1e50893cc83b037b40cd47bfde42a2b-zip-430bb1.zip",
+                "reference": "9cde7cdab1e50893cc83b037b40cd47bfde42a2b",
+                "shasum": "1615f59ff0aa6bf0b3f3afe9345e840aa445441f"
             },
             "require": {
                 "ext-dom": "*",
@@ -10834,7 +10834,7 @@
                 "dom",
                 "xml"
             ],
-            "time": "2021-11-04T06:37:27+00:00"
+            "time": "2023-06-28T12:56:05+00:00"
         },
         {
             "name": "scssphp/scssphp",
