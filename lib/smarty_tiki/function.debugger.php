@@ -74,12 +74,12 @@ function smarty_function_debugger($params, $smarty): string
 
         $js = '';
         $prepend_jq = "";
-        if ($_REQUEST['command'] != "help") {
-            $prepend_jq .= "$('.selectable').css('cursor','text');";
-        }
         $headerlib = TikiLib::lib('header');
         $headerlib->add_jsfile('./vendor_bundled/vendor/npm-asset/interactjs/dist/interact.js');
-        $headerlib->add_jq_onready($prepend_jq);
+        if (isset($_REQUEST['command']) && $_REQUEST['command'] != "help") {
+            $prepend_jq .= "$('.selectable').css('cursor','text');";
+            $headerlib->add_jq_onready($prepend_jq);
+        }
         $headerlib->add_jsfile('./lib/jquery_tiki/function.debugger.js');
         $ret = $smarty->fetch('debug/function.debugger.tpl');
         return $ret;
