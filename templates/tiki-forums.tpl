@@ -58,7 +58,7 @@
                             <input name="filter~content" type="text" class="form-control" aria-label="{tr}Find{/tr}" placeholder="{tr}Find{/tr}">
                             <input type="hidden" name="where" value="forums">
                             <input type="hidden" name="filter~type" value="forum post">
-                            <input type="button" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
+                            <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
                         </div>
 
                 </form>
