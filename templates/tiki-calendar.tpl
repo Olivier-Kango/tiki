@@ -53,7 +53,7 @@
 
         {* avoid Add Event being shown if no calendar is displayed *}
         {if $tiki_p_add_events eq 'y'}
-            <a href="{bootstrap_modal controller='calendar' action='edit_item' size='modal-lg'}" class="btn btn-primary">{icon name='create'} {tr}Add Event{/tr}</a>
+            <a href="{bootstrap_modal controller='calendar' action='edit_item' size='modal-lg' defaultCalendarId=$defaultCalendarId}" class="btn btn-primary">{icon name='create'} {tr}Add Event{/tr}</a>
         {/if}
 
         {if $viewlist eq 'list'}

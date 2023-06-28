@@ -95,7 +95,9 @@ $smarty->assign('now', $tikilib->now);
 
 // set up list of groups
 $use_default_calendars = false;
+$defaultCalendarId = 0;
 if (isset($_REQUEST["calIds"]) and is_array($_REQUEST["calIds"]) and count($_REQUEST["calIds"])) {
+    $defaultCalendarId = $_REQUEST["calIds"][0];
     $_SESSION['CalendarViewGroups'] = array_intersect($_REQUEST["calIds"], array_keys($calendars));
     if (! empty($user)) {
         $tikilib->set_user_preference($user, 'default_calendars', serialize($_SESSION['CalendarViewGroups']));
@@ -167,11 +169,14 @@ include_once("tiki-calendar_setup.php");
 // Calculate all the displayed days for the selected calendars
 $viewdays = [];
 foreach ($_SESSION['CalendarViewGroups'] as $calendar) {
+    $defaultCalendarId = $_SESSION['CalendarViewGroups'][0];
     $info = $calendarlib->get_calendar($calendar);
     if (is_array($info['viewdays'])) {
         $viewdays = array_merge($info['viewdays'], $viewdays);
     }
 }
+$smarty->assign('defaultCalendarId', $defaultCalendarId);
+
 if (empty($viewdays)) {
         $viewdays = [0,1,2,3,4,5,6];
 }

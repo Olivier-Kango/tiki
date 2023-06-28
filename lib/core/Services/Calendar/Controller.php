@@ -305,7 +305,7 @@ class Services_Calendar_Controller
             $title = tr('Calendar event : %0', tr('New'));
             $calitemId = 0;
             $calendar = $calendars[0];
-            $calendarId = $calendar['calendarId'];
+            $calendarId = $input->defaultCalendarId->int() > 0 ? $input->defaultCalendarId->int() : $calendar['calendarId'];
 
             // set up default start and end
             $dateNow->setTZbyID($displayTimezone);
