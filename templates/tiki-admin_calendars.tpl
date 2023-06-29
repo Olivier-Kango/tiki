@@ -328,20 +328,30 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label" for="customcategories">
-                    {tr}Days to display{/tr}
-                </label>
-                <div class="col-sm-8">
-                    {section name="viewdays" start=0 loop=7}
-                    <div>
-                        <label class="col-form-label"><input type="checkbox" name="viewdays[]" value="{$smarty.section.viewdays.index}" {if !empty($info.viewdays) && in_array($smarty.section.viewdays.index,$info.viewdays)} checked="checked" {/if}>
-                            {$days_names[$smarty.section.viewdays.index]}
-                        </label>
-                    </div>
-                    {/section}
+            <label class="col-sm-4 col-form-label" for="customcategories">
+                {tr}Days to display{/tr}
+            </label>
+            <div class="col-sm-8">
+                <div>
+                    <label class="col-form-label">
+                        <input type="checkbox" id="select-all-days">
+                        Select all
+                    </label>
+                    <label class="col-form-label">
+                        <input type="checkbox" id="select-working-days">
+                        Select working days
+                    </label>
                 </div>
+                {section name="viewdays" start=0 loop=7}
+                <div>
+                    <label class="col-form-label"><input type="checkbox" name="viewdays[]" value="{$smarty.section.viewdays.index}" {if !empty($info.viewdays) && in_array($smarty.section.viewdays.index,$info.viewdays)} checked="checked" {/if}>
+                        {$days_names[$smarty.section.viewdays.index]}
+                    </label>
+                </div>
+                {/section}
             </div>
-            <div class="mb-3 row">
+        </div>
+        <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customcategories">
                     {tr}Standard color{/tr}
                 </label>
@@ -479,3 +489,5 @@
         </form>
     {/tab}
 {/tabset}
+
+ 
