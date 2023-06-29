@@ -161,9 +161,15 @@ class Services_Calendar_Controller
         foreach ($listevents as $event) {
             $event['perms'] = Perms::get([ 'type' => 'calendaritem', 'object' => $event['calitemId']]);
 
+            if ($prefs['calendar_event_click_action'] === 'edit_item') {
+                $action = $event['perms']->change_events ? 'edit_item' : 'view_item';
+            } else {
+                $action = 'view_item';
+            }
+
             $url = TikiLib::lib('service')->getUrl([
                 'controller' => 'calendar',
-                'action'     => $event['perms']->change_events ? 'edit_item' : 'view_item',
+                'action'     => $action,
                 'calitemId'  => $event['calitemId'],
             ]);
 
@@ -808,7 +814,9 @@ class Services_Calendar_Controller
      */
     private function processParticipants(array $calitem): array
     {
-        $calitem['organizers'] = array_filter($calitem['organizers']);
+        if ($calitem['organizers']) {
+            $calitem['organizers'] = array_filter($calitem['organizers']);
+        }
 
         // process participants
         if (! empty($calitem['participant_roles'])) {

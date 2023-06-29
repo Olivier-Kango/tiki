@@ -156,5 +156,15 @@ function prefs_calendar_list()
             'filter' => 'text',
             'default' => '',
         ],
+        'calendar_event_click_action' => [
+            'name' => tra('Event click action'),
+            'description' => tra('View or edit item on click'),
+            'type' => 'list',
+            'options' => [
+                'edit_item' => tr('Edit'),
+                'view_item' => tr('View'),
+            ],
+            'default' => 'edit_item',
+        ],
     ];
 }

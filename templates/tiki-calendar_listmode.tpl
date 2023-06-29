@@ -47,7 +47,7 @@
                         {actions}
                             {strip}
                                 <action>
-                                    <a href="{bootstrap_modal controller='calendar' action='edit_item' size='modal-lg' calitemId=$event.calitemId}">
+                                    <a href="{bootstrap_modal controller='calendar' action=$prefs.calendar_event_click_action size='modal-lg' calitemId=$event.calitemId}">
                                         {icon name='edit' _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
                                     </a>
                                 </action>
