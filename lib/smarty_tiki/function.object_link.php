@@ -14,7 +14,11 @@ function smarty_function_object_link($params, $smarty)
         $type = $params['type'];
         $object = $params['id'];
     } else {
-        list($type, $object) = explode(':', $params['identifier'], 2);
+        $identifier = explode(':', $params['identifier'], 2);
+        if (count($identifier) != 2) {
+            return tra('No object information provided.');
+        }
+        list($type, $object) = $identifier;
     }
 
     if (isset($params['objectId']) && ! isset($params['id'])) {

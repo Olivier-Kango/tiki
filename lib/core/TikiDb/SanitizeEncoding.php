@@ -55,15 +55,17 @@ class SanitizeEncoding
         // TODO: Something more fancy like replace emoji with asccii smiles when possible
 
         // Regular expression from https://www.w3.org/International/questions/qa-forms-utf-8.en
-        $value = preg_replace(
-            '%(?:
-            \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
-            | [\xF1-\xF3][\x80-\xBF]{3}        # planes 4-15
-            | \xF4[\x80-\x8F][\x80-\xBF]{2}    # plane 16
-            )%xs',
-            self::INVALID_CHAR_REPLACEMENT,
-            $value
-        );
+        if ($value) {
+            $value = preg_replace(
+                '%(?:
+                \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
+                | [\xF1-\xF3][\x80-\xBF]{3}        # planes 4-15
+                | \xF4[\x80-\x8F][\x80-\xBF]{2}    # plane 16
+                )%xs',
+                self::INVALID_CHAR_REPLACEMENT,
+                $value
+            );
+        }
 
         return $value;
     }
