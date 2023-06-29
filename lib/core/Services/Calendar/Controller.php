@@ -246,22 +246,7 @@ class Services_Calendar_Controller
                 $calitem['allday'] = empty($calitem['allday']) ? 0 : 1;
                 $calitem['recurrenceId'] = $input->recurrenceId->int();
                 $calendar = $this->calendarLib->get_calendar($calendarId);
-
-                // process participants
-                if (! empty($calitem['participant_roles'])) {
-                    $participants = [];
-                    foreach ($calitem['participant_roles'] as $username => $role) {
-                        $participants[] = [
-                            'username' => $username,
-                            'role' => $role,
-                            'partstat' => $calitem['participant_partstat'][$username] ?? '',
-                        ];
-                    }
-                    $calitem['participants'] = $participants;
-                    unset($calitem['participant_roles'], $calitem['participant_partstat']);
-                } else {
-                    $calitem['participants'] = [];
-                }
+                $calitem = $this->processParticipants($calitem);
 
                 // save event
                 if ($input->act->word() === 'save' || $input->act->word() === 'saveas') {
@@ -501,9 +486,13 @@ class Services_Calendar_Controller
 
         $calitemId = $input->calitemId->int();
         $recurrence = [];
+        $preview = false;
 
         if ($input->act->word() === 'preview') {
+            $preview = true;
+
             $calitem = $input->asArray('calitem');
+            $calendar = $this->calendarLib->get_calendar($calitem['calendarId']);
             $calitem['allday'] = empty($calitem['allday']) ? 0 : 1;
 
             $parserLib = TikiLib::lib('parser');
@@ -513,13 +502,35 @@ class Services_Calendar_Controller
             );
             $calitem['parsedName'] = $parserLib->parse_data($calitem['name']);
 
-            $calendar = $this->calendarLib->get_calendar($calitem['calendarId']);
+            $calitem = $this->processParticipants($calitem);
+
+            if ($calendar['customcategories'] == 'y' && $calitem['categoryId']) {
+                $customCategories = $this->calendarLib->list_categories($calitem['calendarId']);
+                foreach ($customCategories as $customCategory) {
+                    if ($calitem['categoryId'] == $customCategory['categoryId']) {
+                        $calitem['categoryName'] = $customCategory['name'];
+                        break;
+                    }
+                }
+            }
+
+            if ($calendar['customlocations'] == 'y') {
+                $customLocations = $this->calendarLib->list_locations($calitem['calendarId']);
+                foreach ($customLocations as $customLocation) {
+                    if ($calitem['locationId'] == $customLocation['locationId']) {
+                        $calitem['locationName'] = $customLocation['name'];
+                        break;
+                    }
+                }
+            }
+
 
             $recurrence = $this->createRecurrenceFromInput($input);
             $recurrence = $recurrence->toArray();
         } elseif ($calitemId) {
             $calitemId = $this->getItemId($input, 'view_events');  // also checks edit perms
             $calitem = $this->calendarLib->get_item($calitemId);
+            $calendar = $this->calendarLib->get_calendar($calitem['calendarId']);
             if (isset($calitem['recurrenceId']) && $calitem['recurrenceId'] > 0) {
                 $recurrence = new CalRecurrence($calitem['recurrenceId']);
                 $recurrence = $recurrence->toArray();
@@ -552,12 +563,13 @@ class Services_Calendar_Controller
         }
 
         return [
-            'calitem'    => $calitem,
-            'recurrent'  => $calitem['recurrenceId'] ?: $input->recurrent->int(),
-            'recurrence' => $recurrence,
-            'calendar'   => $calendar,
-            'daynames'   => $this->daynamesPlural,
-            'monthnames' => $this->monthnames,
+            'calitem'              => $calitem,
+            'recurrent'            => $calitem['recurrenceId'] ?: $input->recurrent->int(),
+            'recurrence'           => $recurrence,
+            'calendar'             => $calendar,
+            'daynames'             => $this->daynamesPlural,
+            'monthnames'           => $this->monthnames,
+            'preview'              => $preview,
         ];
     }
 
@@ -695,7 +707,7 @@ class Services_Calendar_Controller
      *
      * @return CalRecurrence
      */
-    public function createRecurrenceFromInput(JitFilter $input): CalRecurrence
+    private function createRecurrenceFromInput(JitFilter $input): CalRecurrence
     {
         $calitem = $input->asArray('calitem');
         $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
@@ -787,5 +799,33 @@ class Services_Calendar_Controller
             $recurrence->setInitialItem($calitem);
         }
         return $recurrence;
+    }
+
+    /**
+     * @param array $calitem
+     *
+     * @return array
+     */
+    private function processParticipants(array $calitem): array
+    {
+        $calitem['organizers'] = array_filter($calitem['organizers']);
+
+        // process participants
+        if (! empty($calitem['participant_roles'])) {
+            $participants = [];
+            foreach ($calitem['participant_roles'] as $username => $role) {
+                $participants[] = [
+                    'username' => $username,
+                    'role'     => $role,
+                    'partstat' => $calitem['participant_partstat'][$username] ?? '',
+                ];
+            }
+            $calitem['participants'] = $participants;
+            unset($calitem['participant_roles'], $calitem['participant_partstat']);
+        } else {
+            $calitem['participants'] = [];
+        }
+
+        return $calitem;
     }
 }
