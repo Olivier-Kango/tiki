@@ -7,7 +7,6 @@
 
 class Services_Calendar_Controller
 {
-    public $calendarlib;
     private CalendarLib $calendarLib;
     private \Tiki\Lib\Logs\LogsLib $logsLib;
     private $daynamesPlural;
@@ -74,8 +73,7 @@ class Services_Calendar_Controller
     {
         $itemId = $this->getItemId($input);
         $delta = $input->delta->int();
-
-        $this->calendarlib->move_item($itemId, $delta);
+        $this->calendarLib->move_item($itemId, $delta);
 
         return [
             'calitemId' => $itemId,
@@ -87,7 +85,7 @@ class Services_Calendar_Controller
         $itemId = $this->getItemId($input);
         $delta = $input->delta->int();
 
-        $this->calendarlib->resize_item($itemId, $delta);
+        $this->calendarLib->resize_item($itemId, $delta);
 
         return [
             'calitemId' => $itemId,
