@@ -1,4 +1,4 @@
-{tikimodule  error=$module_error title=$tpl_module_title name=$tpl_module_name flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle type=$module_type}
+{tikimodule  error=$module_error|default:null title=$tpl_module_title name=$tpl_module_name flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle type=$module_type|default:null}
 <style>
     .bd-navbar svg.bi {
         width: 1em;
