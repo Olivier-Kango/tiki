@@ -45,48 +45,99 @@
     <div class="description">
         {$calitem.parsed|default:"<em>{tr}No description{/tr}</em>"}
     </div>
-    {if $calitem.status eq 0}
-        <label class="badge bg-secondary">{tr}Tentative{/tr}</label>
-    {elseif $calitem.status eq 1}
-        <label class="badge bg-success">{tr}Confirmed{/tr}</label>
-    {elseif $calitem.status eq 2}
-        <label class="badge bg-danger">{tr}Cancelled{/tr}</label>
-    {/if}
-    <div style="background-color:#{$listprioritycolors[$calitem.priority]}">
-        {$calitem.priority}
+    <div class="small">
+        <table class="table table-borderless table-sm{if $preview} table-secondary{/if}">
+            {* custom properties *}
+            {if $calendar.customstatus eq 'y'}
+                <tr>
+                    <td colspan="2">
+                        {if $calitem.status eq 0}
+                            <label class="badge bg-secondary mb-1">{tr}Tentative{/tr}</label>
+                        {elseif $calitem.status eq 1}
+                            <label class="badge bg-success mb-1">{tr}Confirmed{/tr}</label>
+                        {elseif $calitem.status eq 2}
+                            <label class="badge bg-danger mb-1">{tr}Cancelled{/tr}</label>
+                        {/if}
+                    </td>
+                </tr>
+            {/if}
+            {if $calendar.custompriorities eq 'y'}
+                <tr class="priority">
+                    <th style="background-color:#{$listprioritycolors[$calitem.priority]}">
+                        {tr}Priority:{/tr}
+                    </th>
+                    <td>{$calitem.priority|escape}</td>
+                </tr>
+            {/if}
+            {if $calendar.customcategories eq 'y'}
+                <tr class="category">
+                    <th>{tr}Classification:{/tr}</th>
+                    <td>{$calitem.categoryName|escape}</td>
+                </tr>
+            {/if}
+            {if $calendar.customlocations eq 'y'}
+                <tr class="location">
+                    <th>{tr}Location:{/tr}</th>
+                    <td>{$calitem.locationName|escape}</td>
+                </tr>
+            {/if}
+            {if $calendar.customurl ne 'n'}
+                <tr class="url">
+                    <th></th>
+                    <td>
+                        <a class="url" href="{$calitem.url}">
+                            {$calitem.url|escape}
+                        </a>
+                    </td>
+                </tr>
+            {/if}
+            {if $calendar.customlanguages eq 'y'}
+                <tr class="language">
+                    <th>{tr}Language:{/tr}</th>
+                    <td>{$calitem.lang|langname}</td>
+                </tr>
+            {/if}
+            {if $calendar.customparticipants eq 'y'}
+                <tr class="organizers">
+                    <th>{tr}Organizers:{/tr}</th>
+                    <td>
+                        <ul>
+                        {foreach $calitem.organizers as $organizer}
+                            <li>{$organizer|userlink}</li>
+                        {/foreach}
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="participants">
+                    {$particiapting = false}
+                    <th>{tr}Participants:{/tr}</th>
+                    <td>
+                        <ul>
+                            {foreach $calitem.participants as $person}
+                                <li>
+                                    {$person.username|userlink}
+                                    {if $listroles[$person.role]} ({$listroles[$person.role]}){/if}
+                                </li>
+                                {if $person.username eq $user}{$particiapting = true}{/if}
+                            {/foreach}
+                        </ul>
+                        {if not $preview and $tiki_p_calendar_add_my_particip eq 'y'}
+                            {if $particiapting}
+                                {button _text="{tr}Withdraw me from the list of participants{/tr}" href="?del_me=y&viewcalitemId=$calitemId" _class='btn-sm'}
+                            {else}
+                                {button _text="{tr}Add me to the list of participants{/tr}" href="?add_me=y&viewcalitemId=$calitemId" _class='btn-sm'}
+                            {/if}
+                        {/if}
+                    </td>
+                </tr>
+            {/if}
+        </table>
     </div>
-    <div class="category">
-        {$calitem.categoryName|escape}
-    </div>
-    <div class="location">
-        {$calitem.locationName|escape}
-    </div>
-    {if $calendar.customurl ne 'n'}
-        <a class="url" href="{$calitem.url}">
-            {$calitem.url|escape}
-        </a>
-    {/if}
-    {$calitem.lang|langname}
-    {foreach $calitem.organizers as $organizer}
-        {$organizer|userlink}
-        <br>
-    {/foreach}
-    {assign var='in_particip' value='n'}
-    {foreach item=ppl from=$calitem.participants}
-        {$ppl.username|userlink}
-        {if $listroles[$ppl.role]}
-            ({$listroles[$ppl.role]})
-        {/if}
-        <br>
-        {if $ppl.username eq $user}
-            {assign var='in_particip' value='y'}
-        {/if}
-    {/foreach}
-    {if not $preview and $tiki_p_calendar_add_my_particip eq 'y'}
-        {if $in_particip eq 'y'}
-            {button _text="{tr}Withdraw me from the list of participants{/tr}" href="?del_me=y&viewcalitemId=$calitemId"}
-        {else}
-            {button _text="{tr}Add me to the list of participants{/tr}" href="?add_me=y&viewcalitemId=$calitemId"}
-        {/if}
+    {if not $preview}
+        {permission name='change_events' type='calendaritem' object=$calitem.calitemId}
+            <a href="{service controller='calendar' action='edit_item' calitemId=$calitem.calitemId|escape}" class="btn btn-primary">
+                {tr}Edit{/tr}
+            </a>
+        {/permission}
     {/if}
 {/block}
