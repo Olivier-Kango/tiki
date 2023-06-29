@@ -404,6 +404,7 @@ function wikiplugin_pivottable($data, $params)
     } else {
         $height = "1000px";
     }
+    $derivedAttributes = [];
 
     if ($dataType === "tracker") {
         $trackerIds = preg_split('/\s*,\s*/', $params['data'][1]);
@@ -532,7 +533,6 @@ function wikiplugin_pivottable($data, $params)
         $resultBuilder->apply($matches);
 
         $columnsListed = false;
-        $derivedAttributes = [];
         $splittedAttributes = [];
         $attributesOrder = [];
 
