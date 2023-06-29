@@ -18,7 +18,7 @@
                     {$smarty.capture.start}{if $smarty.capture.start ne $smarty.capture.end}<br>{$smarty.capture.end}{/if}
                 {/if}
             </td>
-            <td style=white-space:normal;">
+            <td style="white-space:normal;">
                 <a class="linkmodule" href="tiki-ajax_services.php?controller=calendar&action=view_item&calitemId={$event.calitemId}">{$event.name|escape}</a>
                 {if $desc}<br>{$event.parsed}{/if}
             </td>
