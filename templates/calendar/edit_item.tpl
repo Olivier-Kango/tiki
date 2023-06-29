@@ -363,11 +363,11 @@
                     </div>
                 {/if}
             </div>
-            
+
             <div class="row mt-md-3 mb-3 date">
                 <label class="col-form-label col-sm-3">{tr}Start{/tr}</label>
                 <div class="col-sm-5 start">
-                    {jscalendar id="start" date=$calitem.start fieldname="calitem[start]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') timezone=$recurrence.recurrenceDstTimezone notAfter='.date .end .datetime'}
+                    {jscalendar id="start" date=$calitem.start fieldname="calitem[start]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') timezone=$recurrence.recurrenceDstTimezone}
                 </div>
                 <div class="col-sm-2">
                     <div class="form-check">
@@ -382,7 +382,7 @@
                 <label class="col-form-label col-sm-3">{tr}End{/tr}</label>
                 <input type="hidden" name="calitem[end_or_duration]" value="end" id="end_or_duration">
                 <div class="col-sm-5 end ">
-                    {jscalendar id="end" date=$calitem.end fieldname="calitem[end]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') timezone=$recurrence.recurrenceDstTimezone notBefore='.date .start .datetime'}
+                    {jscalendar id="end" date=$calitem.end fieldname="calitem[end]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') timezone=$recurrence.recurrenceDstTimezone}
                 </div>
                 <div class="col-sm-5 duration time" style="display:none;">
                     {html_select_time prefix="duration_" display_seconds=false time=$calitem.duration|default:'01:00' minute_interval=$prefs.calendar_minute_interval class='form-control date noselect2'}
