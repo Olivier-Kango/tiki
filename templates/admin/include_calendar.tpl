@@ -24,6 +24,7 @@
             {preference name=default_calendars}
         </div>
         {preference name=calendar_view_mode}
+        {preference name=calendar_event_click_action}
         {preference name=calendar_list_begins_focus}
         {preference name=calendar_firstDayofWeek}
         {preference name=calendar_timespan}
