@@ -970,7 +970,7 @@ class CalRecurrence extends TikiLib
 
     public function getStatus()
     {
-        return $this->status;
+        return $this->status ?? '1';
     }
 
     /**

@@ -135,7 +135,7 @@
     </div>
     {if not $preview}
         {permission name='change_events' type='calendaritem' object=$calitem.calitemId}
-            <a href="{service controller='calendar' action='edit_item' calitemId=$calitem.calitemId|escape redirect='calendar'}" class="btn btn-primary click-modal">
+            <a href="{service controller='calendar' action='edit_item' calitemId=$calitem.calitemId|escape}" class="btn btn-primary edit-calendar-item-btn">
                 {tr}Edit{/tr}
             </a>
         {/permission}
