@@ -378,16 +378,16 @@ class PreferencesLib
         $tikilib = TikiLib::lib('tiki');
         $data = $tikilib->table('tiki_preferences');
         $preferences = $data->fetchAll();
-        $orphelines = [];
+        $orphans = [];
 
         foreach ($preferences as $pref) {
             $definition = $this->getPreference($pref['name'], true, $prefs);
 
             if (! $definition && ! $this->isSpecialPref($pref['name'])) {
-                $orphelines[] = $pref;
+                $orphans[] = $pref;
             }
         }
-        return $orphelines;
+        return $orphans;
     }
 
     /**
