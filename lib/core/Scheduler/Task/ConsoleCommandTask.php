@@ -23,9 +23,7 @@ class Scheduler_Task_ConsoleCommandTask extends Scheduler_Task_CommandTask
         $commandName = $args[1];
 
         try {
-            $consoleBuilder = new Tiki\Command\ConsoleApplicationBuilder(
-                isset($_SERVER['TIKI_VIRTUAL']) ? $_SERVER['TIKI_VIRTUAL'] : ''
-            );
+            $consoleBuilder = new Tiki\Command\ConsoleApplicationBuilder();
             $console = $consoleBuilder->create(true);
 
             $command = $console->find($commandName);

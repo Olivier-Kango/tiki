@@ -71,24 +71,15 @@ try {
     $exceptionToRender = $e;
 }
 
-/**
- * Define our constants, based on what error (if any) was thrown
- * @see $statusCode For explanations on what these constants these do.
- */
-define('DB_RUNNING', $statusCode > 1001);
-define('DB_STATUS', $statusCode > 1002);
-define('DB_TIKI_SETUP', $statusCode > 1003);
-define('DB_SYNCHRONAL', $statusCode > 1004);
-
+$exitCode = Command::SUCCESS;
+$output = new ConsoleOutput();
+$console = new ConsoleApplicationBuilder($statusCode);
 if (DB_TIKI_SETUP) {
     $asUser = $input->getParameterOption(['--as-user']) ?: 'admin';
     if (TikiLib::lib('user')->user_exists($asUser)) {
         $permissionContext = new Perms_Context($asUser);
     }
 }
-$exitCode = Command::SUCCESS;
-$output = new ConsoleOutput();
-$console = new ConsoleApplicationBuilder();
 $console = $console->create();
 $console->setAutoExit(false);
 try {

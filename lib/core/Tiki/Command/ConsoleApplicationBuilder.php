@@ -45,6 +45,18 @@ class ConsoleApplicationBuilder
 
     protected static $lastInstance;
 
+    public function __construct($statusCode = 1100)
+    {
+        /**
+         * Define our constants, based on what error (if any) was thrown
+         * @see $statusCode For explanations on what these constants these do.
+         */
+        define('DB_RUNNING', $statusCode > 1001);
+        define('DB_STATUS', $statusCode > 1002);
+        define('DB_TIKI_SETUP', $statusCode > 1003);
+        define('DB_SYNCHRONAL', $statusCode > 1004);
+    }
+
     /**
      * List of commands registered on the console
      *
@@ -354,7 +366,7 @@ class ConsoleApplicationBuilder
      */
     protected function checkIsDbRunning(): void
     {
-        if (defined('DB_RUNNING') && DB_RUNNING !== true) {
+        if (! DB_RUNNING) {
             throw new UnavailableException(
                 'Your database must be running and have valid credentials in the local.php file. See http://doc.tiki.org/Installation for more information.',
                 UnavailableException::CHECK_RUNNING

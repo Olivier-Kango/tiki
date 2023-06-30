@@ -244,9 +244,7 @@ class Extension
         $successful = false;
         foreach ($finder->in($path)->depth('== 0')->directories() as $themeDir) {
             try {
-                $consoleBuilder = new ConsoleApplicationBuilder(
-                    isset($_SERVER['TIKI_VIRTUAL']) ? $_SERVER['TIKI_VIRTUAL'] : ''
-                );
+                $consoleBuilder = new ConsoleApplicationBuilder();
                 $console = $consoleBuilder->create(true);
                 $command = $console->find($commandName);
 
