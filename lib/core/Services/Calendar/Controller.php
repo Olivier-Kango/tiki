@@ -8,7 +8,7 @@
 class Services_Calendar_Controller
 {
     private CalendarLib $calendarLib;
-    private \Tiki\Lib\Logs\LogsLib $logsLib;
+    private ?\Tiki\Lib\Logs\LogsLib $logsLib;
     private $daynamesPlural;
     private $monthnames;
     private $daynames;
@@ -22,6 +22,8 @@ class Services_Calendar_Controller
         $this->calendarLib = TikiLib::lib('calendar');
         if ($prefs['feature_actionlog'] == 'y') {
             $this->logsLib = TikiLib::lib('logs');
+        } else {
+            $this->logsLib = null;
         }
 
         $this->daynamesPlural = [
