@@ -27,6 +27,8 @@ header.navbar.fixed-top {
 :root {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: var(--bs-body-bg);
+  --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 .badge {
   --bs-badge-padding-x: 0.65em;
@@ -997,7 +999,7 @@ header.navbar.fixed-top {
   --bs-link-hover-color: #a0e64c;
   --bs-link-hover-color-rgb: 160, 230, 76;
   --bs-link-hover-decoration: underline;
-  --bs-code-color: var(--bs-secondary-color);
+  --bs-code-color: var(--bs-body-color);
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -2795,6 +2797,9 @@ progress {
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: linear-gradient(to bottom, #4c4c4c 0%, #4c4c4c 18%, #404040 52%, #232323 53%, #090909 93%, #070707 99%, #000000 100%);
 }
+:root, [data-bs-theme="dark"] {
+  --tiki-code-bg: #303030;
+}
 .fc {
   --fc-page-bg-color: #000;
 }
@@ -3810,7 +3815,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .toastui-editor-contents code {
   font-size: 1rem;
-  color: var(--bs-secondary-color);
+  color: var(--bs-body-color);
   background-color: var(--bs-secondary-bg);
 }
 .tiki .toastui-editor-contents table {
@@ -4113,10 +4118,6 @@ td.calheadhighlight, td.calheadhighlight a:link, td.calheadhighlight a:visited {
   background: #9fda58 url("../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_85_9fda58_500x100.png") 50% 50% repeat-x;
   color: #222222;
   font-weight: bold;
-}
-code, pre.codelisting {
-  background: #f8f8f8;
-  color: #111111;
 }
 .card-accordian > .card-header h4.card-title a, .card-accordian > .card-header .card-title.h4 a {
   color: #000;

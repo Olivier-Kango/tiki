@@ -97,7 +97,10 @@ $theme-colors: (
 // Prefix
 $prefix: bs-;
 
+// Body
+$body-color: $gray-800 !default;
 
+// Links
 $link-color:                   #b51360;
 $link-hover-color:               darken($link-color, 15%);
 $link-hover-decoration:       none;
@@ -168,7 +171,7 @@ $pagination-disabled-border-color: #dddddd;
 
 // Code
 
-$code-color:                        $pink !default;
+$code-color:                        $body-color; // $pink !default;
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 $bg-light: #D10A74; // #e10c7c
 $bg-light-alt: #117485 !important;

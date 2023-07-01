@@ -93,6 +93,8 @@ $theme-colors: (
 // Prefix
 $prefix: bs-;
 
+// Body
+$body-color: $gray-800 !default;
 
 // Links
 $link-color: #7a04b5;
@@ -166,7 +168,7 @@ $pagination-disabled-border-color: #dddddd;
 
 // Code
 
-$code-color:                        $pink !default;
+$code-color:                        $body-color; // $pink !default;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 $bg-light: #7a04b5 !important;

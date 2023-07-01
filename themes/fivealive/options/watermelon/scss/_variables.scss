@@ -105,6 +105,8 @@ $bg-dark: #a51e37;
 // Prefix
 $prefix: bs-;
 
+// Body
+$body-color: $gray-800 !default;
 
 // Links
 $link-color: #E11436;
@@ -177,7 +179,7 @@ $pagination-disabled-border-color: #dddddd;
 
 // Code
 
-$code-color:                        $pink !default;
+$code-color:                       $body-color; //  $pink !default;
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 //$bg-light-alt: #851e0e !important;
 $bg-dark-link-hover-color: #f2f2f2;

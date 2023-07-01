@@ -161,7 +161,7 @@
   --bs-link-hover-color: #0d4650;
   --bs-link-hover-color-rgb: 12, 69, 79;
   --bs-link-hover-decoration: none;
-  --bs-code-color: #d63384;
+  --bs-code-color: #000;
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -231,7 +231,7 @@
   --bs-link-hover-color: #90c1cb;
   --bs-link-color-rgb: 116, 178, 190;
   --bs-link-hover-color-rgb: 144, 193, 203;
-  --bs-code-color: #e685b5;
+  --bs-code-color: #adb5bd;
   --bs-border-color: #495057;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
   --bs-form-valid-color: #75b798;
