@@ -27,6 +27,8 @@ header.navbar.fixed-top {
 :root {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: var(--bs-body-bg);
+  --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 :root, [data-bs-theme="light"] {
   --bs-blue: #446e9b;
@@ -121,7 +123,7 @@ header.navbar.fixed-top {
   --bs-link-decoration: none;
   --bs-link-hover-color: #242c34;
   --bs-link-hover-color-rgb: 36, 44, 52;
-  --bs-code-color: var(--bs-secondary-color);
+  --bs-code-color: #222;
   --bs-highlight-bg: #f6e3cc;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -191,7 +193,7 @@ header.navbar.fixed-top {
   --bs-link-hover-color: #b9c4cf;
   --bs-link-color-rgb: 167, 181, 195;
   --bs-link-hover-color-rgb: 185, 196, 207;
-  --bs-code-color: #f18bba;
+  --bs-code-color: #cbcaca;
   --bs-border-color: #495057;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
   --bs-form-valid-color: #8ad37a;
@@ -11961,26 +11963,23 @@ div.drillshow {
 }
 .codecaption {
   display: inline-block;
-  color: var(--bs-secondary-color);
+  color: #222;
   background: var(--bs-secondary-bg);
-  border: 1px solid var(--bs-secondary-color);
+  border: 1px solid #222;
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
   font-weight: bold;
 }
 code, pre.codelisting {
-  background: var(--bs-secondary-bg);
-  border: 1px solid transparent;
+  color: var(--tiki-code-color);
+  background: var(--tiki-code-bg);
+  border: 1px solid #8cacbb;
   padding: 0.1875rem 0.375rem;
+  border-radius: 0.1rem;
 }
 code {
-  color: var(--bs-secondary-color);
-}
-pre.codelisting {
-  color: var(--bs-body-color);
-  border-color: #8cacbb;
-  border-radius: 0.1rem;
+  border-radius: 0rem;
 }
 pre.codelisting code {
   color: inherit;
@@ -13323,7 +13322,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .toastui-editor-contents code {
   font-size: 0.875em;
-  color: var(--bs-secondary-color);
+  color: #222;
   background-color: var(--bs-secondary-bg);
 }
 .tiki .toastui-editor-contents table {

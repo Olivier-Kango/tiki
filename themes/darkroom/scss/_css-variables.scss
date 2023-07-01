@@ -69,3 +69,9 @@
 [data-bs-theme="dark"] {
     #col1, .card {background: #0c0c0c};
 }
+
+// - - - - - Other CSS variables - - - - - - - //
+:root,
+[data-bs-theme="dark"]{
+    --tiki-code-bg: #2b2c35;
+}

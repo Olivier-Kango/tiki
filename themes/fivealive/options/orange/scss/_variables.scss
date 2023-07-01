@@ -95,6 +95,9 @@ $theme-colors: (
 // Options
 $prefix: bs-;
 
+// Body
+$body-color: $gray-800 !default;
+
 $link-color: #c74b23;
 $link-hover-color:               darken($link-color, 15%);
 $link-shade-percentage:                   20% !default;
@@ -162,7 +165,7 @@ $pagination-disabled-border-color: #dddddd;
 
 // Code
 
-$code-color:                        $pink !default;
+$code-color:                       $body-color; //  $pink !default;
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 //$bg-light-alt: #117485 !important;
 $bg-dark: #000;

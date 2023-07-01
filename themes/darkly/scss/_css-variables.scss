@@ -69,3 +69,8 @@
     --bs-accordion-active-bg: #444;
     --bs-accordion-active-color: #fff;
 }
+
+:root,
+[data-bs-theme="dark"]{
+    --tiki-code-bg: #303030;
+}

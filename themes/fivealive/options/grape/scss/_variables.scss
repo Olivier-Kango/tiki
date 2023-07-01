@@ -108,6 +108,9 @@ $bg-light: #a02871 !important;
 // Prefix
 $prefix: bs-;
 
+// Body
+$body-color: $black;
+
 // Links
 $link-color: #a02871;
 $link-hover-color: #a02871;
@@ -183,7 +186,7 @@ $enable-shadows: true;
 
 // Code
 
-$code-color:                        $pink !default;
+$code-color:                       $body-color; //  $pink !default;
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 //$bg-light-alt: #117485 !important;
 

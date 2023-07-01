@@ -104,9 +104,7 @@ $color-contrast-light:            $white;
 // Prefix
 $prefix: bs-;
 
-
-// $bg-light: #18a3bb !important; (Changing tactics for Bootstrap 5)
-$body-bg: #fff;
+// Body
 $body-color: $black;
 
 $link-color: #11606E;
@@ -204,7 +202,7 @@ $enable-shadows: true;
 
 // Code
 
-$code-color:                        $pink !default;
+$code-color:                        $body-color; // $pink !default;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 

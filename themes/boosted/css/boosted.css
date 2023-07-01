@@ -30,6 +30,8 @@ header.navbar.fixed-top {
 :root {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: #000;
+  --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 :root, [data-bs-theme="light"] {
   --bs-blue: #527edb;
@@ -124,7 +126,7 @@ header.navbar.fixed-top {
   --bs-link-decoration: underline;
   --bs-link-hover-color: #f16e00;
   --bs-link-hover-color-rgb: 241, 110, 0;
-  --bs-code-color: var(--bs-secondary-color);
+  --bs-code-color: #000;
   --bs-highlight-bg: #ff7900;
   --bs-border-width: 0.125rem;
   --bs-border-style: solid;
@@ -11596,26 +11598,23 @@ div.drillshow {
 }
 .codecaption {
   display: inline-block;
-  color: var(--bs-secondary-color);
+  color: #000;
   background: var(--bs-secondary-bg);
-  border: 1px solid var(--bs-secondary-color);
+  border: 1px solid #000;
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
   font-weight: bold;
 }
 code, pre.codelisting {
-  background: var(--bs-secondary-bg);
-  border: 0.125rem solid transparent;
+  color: var(--tiki-code-color);
+  background: var(--tiki-code-bg);
+  border: 0.125rem solid #000;
   padding: 0.1875rem 0.375rem;
+  border-radius: 0.375rem;
 }
 code {
-  color: var(--bs-secondary-color);
-}
-pre.codelisting {
-  color: var(--bs-body-color);
-  border-color: #000;
-  border-radius: 0.375rem;
+  border-radius: 0.25rem;
 }
 pre.codelisting code {
   color: inherit;
@@ -13962,7 +13961,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .toastui-editor-contents code {
   font-size: 0.875rem;
-  color: var(--bs-secondary-color);
+  color: #000;
   background-color: var(--bs-secondary-bg);
 }
 .tiki .toastui-editor-contents table {

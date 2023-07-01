@@ -1053,18 +1053,16 @@ span.plugin-mouseover {
 
 code,
 pre.codelisting {
-    background: $code-bg;
-    border: $border-width solid transparent;
+    color: var(--tiki-code-color); //$code-color;
+    background: var(--tiki-code-bg); // $code-bg;
+    border: $border-width solid $border-color;
     padding: $kbd-padding-y $kbd-padding-x;
-}
-code {
-    color: $code-color;
-}
-pre.codelisting {
-    color: $kbd-bg;
-    border-color: $border-color;
     border-radius: $border-radius;
 }
+code {
+    border-radius: $border-radius-sm;
+}
+
 pre.codelisting code {
     color: inherit;
     white-space: pre-wrap;

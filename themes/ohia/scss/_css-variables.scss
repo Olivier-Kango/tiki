@@ -66,6 +66,11 @@
 }
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
 
+:root,
+[data-bs-theme="dark"]{
+    --tiki-code-bg: #303030;
+}
+
 .accordion {
     --bs-accordion-active-bg: #E6EDCF;
     --bs-accordion-active-color: #2c3a05;
