@@ -21,15 +21,4 @@ class ToolbarFullscreen extends ToolbarUtilityItem
     {
         return 'toggleFullScreen(\'' . $this->domElementId . '\');return false;';
     }
-    public function isAccessible(): bool
-    {
-        global $jitRequest;
-
-        // doesn't work in modal popups
-        if ($jitRequest->modal->int()) {
-            return false;
-        }
-
-        return parent::isAccessible();
-    }
 }
