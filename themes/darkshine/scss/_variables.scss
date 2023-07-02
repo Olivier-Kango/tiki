@@ -88,7 +88,7 @@ $table-border-color:          var(--#{$prefix}border-color);
 $input-bg: var(--#{$prefix}body-bg);
 $input-border-color:                    var(--#{$prefix}border-color);
 $input-group-addon-bg: #E9ECEF;
-$form-text-color: #485060;
+$form-text-color: var(--#{$prefix}secondary-color) !default;; // #485060;
 
 // Form validation
 $form-feedback-valid-color: #1B7E2B;

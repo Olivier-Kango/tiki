@@ -73,6 +73,13 @@
     --tiki-admin-top-nav-bg: #{$top-navbar-bg};
 }
 
+
+
+
+.middle-wrapper {
+    --tiki-page-content-top-margin: 0;
+}
+
 [data-bs-theme="dark"] {
     .layout_classic #middle, .layout_basic .row-middle, .layout_social .middle.container, .tiki-admin .row-middle {
         background: #212529;
