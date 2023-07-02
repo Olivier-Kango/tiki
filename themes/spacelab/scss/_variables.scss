@@ -56,7 +56,10 @@ $link-color:                $info !default;
 
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:      "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$headings-color:              $gray-900 !default;
+$headings-color:              null !default;
+
+// Popovers
+$popover-header-color:              $headings-color !default;
 
 // Navbar
 

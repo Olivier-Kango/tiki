@@ -158,7 +158,7 @@
   --bs-link-hover-color: #700c3b;
   --bs-link-hover-color-rgb: 111, 11, 59;
   --bs-link-hover-decoration: none;
-  --bs-code-color: #d63384;
+  --bs-code-color: #212529;
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -228,7 +228,7 @@
   --bs-link-hover-color: #ec89bd;
   --bs-link-color-rgb: 231, 107, 173;
   --bs-link-hover-color-rgb: 236, 137, 189;
-  --bs-code-color: #e685b5;
+  --bs-code-color: #7a7c7f;
   --bs-border-color: #495057;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
   --bs-form-valid-color: #75b798;
@@ -957,8 +957,8 @@ progress {
   --bs-nav-tabs-border-radius: var(--bs-border-radius);
   --bs-nav-tabs-link-hover-border-color: var(--bs-secondary-bg) var(--bs-secondary-bg) var(--bs-border-color);
   --bs-nav-tabs-link-active-color: #fff;
-  --bs-nav-tabs-link-active-bg: #61102d;
-  --bs-nav-tabs-link-active-border-color: var(--bs-border-color) var(--bs-border-color) #61102d;
+  --bs-nav-tabs-link-active-bg: #a61a32;
+  --bs-nav-tabs-link-active-border-color: var(--bs-border-color) var(--bs-border-color) #a61a32;
   border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
 }
 .nav-tabs .nav-link {
@@ -1191,12 +1191,12 @@ header.page-header {
 }
 .nav-tabs .nav-link {
   color: #000;
-  background-color: rgba(97, 16, 45, 0.15);
+  background-color: #ffdace;
   border-color: #dee2e6 #dee2e6 #ffffff;
 }
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
   color: #fff;
-  background-color: #61102d;
+  background-color: #a61a32;
 }
 .blog-postbody-title h2.card-title {
   font-size: 20px;
@@ -1416,4 +1416,4 @@ footer#footer .footer_liner .card-header {
 .page-item.disabled, .list-group-item.disabled {
   color: #6B737B !important;
 }
-/*# sourceMappingURL=raspberry.css.map */
+

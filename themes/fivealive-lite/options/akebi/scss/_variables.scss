@@ -84,6 +84,7 @@ $prefix: bs-;
 
 // $bg-light: #18a3bb !important; (Changing tactics for Bootstrap 5)
 $body-bg: #fff;
+$body-color: $gray-800 !default;
 
 $link-color: #11606E;
 $link-hover-color:            darken($link-color, 15%);
@@ -114,6 +115,8 @@ $hr-color: #18a3bb;
 $text-success: #288040 !important;
 $text-danger: #d63d00 !important;
 $text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B;
+
+$headings-color:              #169FB6; // var(--#{$prefix}body-color);
 
 // Tables
 $table-border-color: #1296a9;

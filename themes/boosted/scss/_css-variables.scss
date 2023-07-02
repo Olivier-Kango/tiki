@@ -131,3 +131,10 @@
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
     --tiki-admin-top-nav-bg: rgba(0, 0, 0, 1);
 }
+
+:root .popover,
+[data-bs-theme="dark"] .popover {
+    --bs-popover-header-bg: var(--bs-card-cap-bg);
+    --bs-popover-bg: var(--bs-body-bg);
+    --bs-popover-border-color: var(--bs-border-color-translucent);
+}

@@ -161,7 +161,7 @@
   --bs-link-hover-color: #48026a;
   --bs-link-hover-color-rgb: 71, 2, 106;
   --bs-link-hover-decoration: none;
-  --bs-code-color: #d63384;
+  --bs-code-color: #212529;
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -231,7 +231,7 @@
   --bs-link-hover-color: #bf86dc;
   --bs-link-color-rgb: 175, 104, 211;
   --bs-link-hover-color-rgb: 191, 134, 220;
-  --bs-code-color: #e685b5;
+  --bs-code-color: #7a7c7f;
   --bs-border-color: #495057;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
   --bs-form-valid-color: #75b798;
@@ -1450,4 +1450,4 @@ footer#footer .footer_liner .card-header {
 .page-item.disabled, .list-group-item.disabled {
   color: var(--bs-secondary-color) !important;
 }
-/*# sourceMappingURL=plum.css.map */
+
