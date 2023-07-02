@@ -22325,6 +22325,9 @@ legend {
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
   --tiki-admin-top-nav-bg: linear-gradient(#25282c, #292c30 40%, #2b2f32);
 }
+:root {
+  --tiki-code-bg: #32383e;
+}
 .navbar-dark > a {
   color: rgba(255, 255, 255, 0.55);
 }
@@ -24289,4 +24292,4 @@ body.fullscreen {
 .card-body .navbar {
   border: none;
 }
-/*# sourceMappingURL=slate.css.map */
+
