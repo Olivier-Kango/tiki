@@ -93,18 +93,18 @@
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #adafae;
-  --bs-body-color-rgb: 173, 175, 174;
+  --bs-body-color: #999999;
+  --bs-body-color-rgb: 153, 153, 153;
   --bs-body-bg: #060606;
   --bs-body-bg-rgb: 6, 6, 6;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
-  --bs-secondary-color: rgba(173, 175, 174, 0.75);
-  --bs-secondary-color-rgb: 173, 175, 174;
+  --bs-secondary-color: rgba(153, 153, 153, 0.75);
+  --bs-secondary-color-rgb: 153, 153, 153;
   --bs-secondary-bg: #e9ecef;
   --bs-secondary-bg-rgb: 233, 236, 239;
-  --bs-tertiary-color: rgba(173, 175, 174, 0.5);
-  --bs-tertiary-color-rgb: 173, 175, 174;
+  --bs-tertiary-color: rgba(153, 153, 153, 0.5);
+  --bs-tertiary-color-rgb: 153, 153, 153;
   --bs-tertiary-bg: #f8f9fa;
   --bs-tertiary-bg-rgb: 248, 249, 250;
   --bs-heading-color: #fff;
@@ -4030,7 +4030,7 @@ textarea.form-control-lg {
   --bs-accordion-btn-padding-y: 1rem;
   --bs-accordion-btn-color: var(--bs-body-color);
   --bs-accordion-btn-bg: var(--bs-accordion-bg);
-  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23adafae'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23999999'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
   --bs-accordion-btn-icon-width: 1.25rem;
   --bs-accordion-btn-icon-transform: rotate(-180deg);
   --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
@@ -11338,7 +11338,7 @@ ul.all_languages > li {
 }
 .tiki .cke_wysiwyg_frame, .tiki .cke_wysiwyg_div {
   background: #060606;
-  color: #adafae;
+  color: #999999;
 }
 .tiki_plugin {
   background-color: transparent;
@@ -11555,9 +11555,9 @@ div.drillshow {
 }
 .codecaption {
   display: inline-block;
-  color: #adafae;
+  color: #999999;
   background: var(--bs-secondary-bg);
-  border: 1px solid #adafae;
+  border: 1px solid #999999;
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
@@ -12825,7 +12825,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .toastui-editor-contents code {
   font-size: 0.875em;
-  color: #adafae;
+  color: #999999;
   background-color: var(--bs-secondary-bg);
 }
 .tiki .toastui-editor-contents pre {
@@ -12896,4 +12896,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .accordion-button:not(.collapsed) {
   background: #222;
 }
-/*# sourceMappingURL=cyborg.css.map */
+
