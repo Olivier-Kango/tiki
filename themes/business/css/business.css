@@ -28,6 +28,7 @@ header.navbar.fixed-top {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: var(--bs-body-bg);
   --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
@@ -5249,7 +5250,7 @@ textarea.form-control-lg {
   --bs-popover-header-bg: var(--bs-secondary-bg);
   --bs-popover-body-padding-x: 1rem;
   --bs-popover-body-padding-y: 1rem;
-  --bs-popover-body-color: #343a40;
+  --bs-popover-body-color: var(--bs-body-color);
   --bs-popover-arrow-width: 1rem;
   --bs-popover-arrow-height: 0.5rem;
   --bs-popover-arrow-border: var(--bs-popover-border-color);
@@ -11961,7 +11962,7 @@ div.drillshow {
 }
 code, pre.codelisting {
   color: var(--tiki-code-color);
-  background: var(--bs-secondary-bg);
+  background: var(--tiki-code-bg);
   border: 1px solid #dee2e6;
   padding: 0.1875rem 0.375rem;
   border-radius: 0.375rem;
@@ -13006,7 +13007,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: inherit !important;
 }
 .tiki-webmail .popover-body, .tiki-cypht .popover-body, .mobile.tiki-cypht .popover-body, .inline-cypht .popover-body {
-  color: #343a40 !important;
+  color: var(--bs-body-color) !important;
 }
 .tiki-webmail .btn-primary, .tiki-cypht .btn-primary, .mobile.tiki-cypht .btn-primary, .inline-cypht .btn-primary {
   color: color-yiq(#0074C7) !important;
@@ -13120,7 +13121,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell, .inline-cypht .compose_page, .inline-cypht .message_list, .inline-cypht .msg_text, .inline-cypht .selected_part, .inline-cypht .server_content, .inline-cypht .profile_content, .inline-cypht .user_settings, .inline-cypht .nux_add_account, .inline-cypht .imap_server_setup, .inline-cypht .pop3_server_setup, .inline-cypht .configured_server, .inline-cypht .add_server {
   background-color: var(--bs-body-bg);
-  color: #343a40;
+  color: var(--bs-body-color);
 }
 .inline-cypht .folder_list, .inline-cypht .content_cell {
   border: 1px solid var(--bs-border-color);
@@ -13171,7 +13172,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-left-color: transparent;
 }
 .inline-cypht .message_table > tbody > tr > td, .inline-cypht .msg_headers, .inline-cypht .reply_quote, .inline-cypht .user_settings table td, .inline-cypht .nux_empty_combined_view, .inline-cypht .empty_list, .inline-cypht .profiles_empty, .inline-cypht .subtitle {
-  color: #343a40;
+  color: var(--bs-body-color);
 }
 .inline-cypht .msg_text_inner > table {
   background-color: #fff;
@@ -13186,7 +13187,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff !important;
 }
 .inline-cypht .profile_details th, .inline-cypht .msg_date, .inline-cypht .news_cell .source, .inline-cypht .news_cell .from {
-  color: #343a40;
+  color: var(--bs-body-color);
 }
 .inline-cypht input[type=button], .inline-cypht input[type=submit] {
   display: inline-block;
@@ -13264,7 +13265,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .mobile.tiki-cypht .folder_list, .mobile.tiki-webmail .folder_list {
   background-color: var(--bs-body-bg);
-  color: #343a40;
+  color: var(--bs-body-color);
   border: 1px solid var(--bs-border-color);
 }
 .mobile.tiki-cypht .folder_list .src_name, .mobile.tiki-webmail .folder_list .src_name {
@@ -13393,4 +13394,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #0074C7;
 }
-/*# sourceMappingURL=business.css.map */
+

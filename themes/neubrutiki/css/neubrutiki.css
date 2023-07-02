@@ -31,6 +31,7 @@ header.navbar.fixed-top {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: #fff;
   --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
@@ -5325,7 +5326,7 @@ textarea.form-control-lg {
   --bs-popover-header-padding-y: 0.5rem;
   --bs-popover-header-font-size: 1.1rem;
   --bs-popover-header-color: inherit;
-  --bs-popover-header-bg: #f0f0f0;
+  --bs-popover-header-bg: var(--bs-secondary-bg);
   --bs-popover-body-padding-x: 1rem;
   --bs-popover-body-padding-y: 1rem;
   --bs-popover-body-color: var(--bs-body-color);
@@ -12108,7 +12109,7 @@ div.drillshow {
 }
 code, pre.codelisting {
   color: var(--tiki-code-color);
-  background: var(--bs-secondary-bg);
+  background: var(--tiki-code-bg);
   border: 4px solid #000;
   padding: 0.2rem 0.4rem;
   border-radius: 0.25rem;
@@ -13429,7 +13430,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-right: 10px;
 }
 .inline-cypht .src_name, .inline-cypht .content_title, .inline-cypht .list_controls {
-  background: #f0f0f0;
+  background: var(--bs-secondary-bg);
   color: inherit;
 }
 .inline-cypht .src_name {
@@ -13522,11 +13523,11 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding-right: 2.2rem !important;
 }
 .mobile.tiki-cypht .content_cell .content_title, .mobile.tiki-cypht .content_cell .content_title .list_controls, .mobile.tiki-webmail .content_cell .content_title, .mobile.tiki-webmail .content_cell .content_title .list_controls {
-  background: #f0f0f0;
+  background: var(--bs-secondary-bg);
   color: inherit;
 }
 .mobile.tiki-cypht .msg_controls, .mobile.tiki-webmail .msg_controls {
-  background: #f0f0f0 !important;
+  background: var(--bs-secondary-bg) !important;
 }
 .mobile.tiki-cypht .folder_list, .mobile.tiki-webmail .folder_list {
   background-color: #fff;
@@ -13534,7 +13535,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border: 1px solid var(--bs-border-color);
 }
 .mobile.tiki-cypht .folder_list .src_name, .mobile.tiki-webmail .folder_list .src_name {
-  background: #f0f0f0;
+  background: var(--bs-secondary-bg);
   color: inherit;
   border-left-color: transparent;
 }
@@ -13660,4 +13661,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #0d6efd;
 }
-/*# sourceMappingURL=neubrutiki.css.map */
+

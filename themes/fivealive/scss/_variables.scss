@@ -164,10 +164,10 @@ $link-shade-percentage:                   20% !default; // Bootstrap 5.
 $font-family-sans-serif: "Open Sans", sans-serif; // Was Lato
 $headings-font-family: $font-family-sans-serif !default;
 $headings-font-weight: 700;
+$headings-color:              inherit !default;
 
 $text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6F7780;
 $blockquote-footer-color: $text-muted !default;
-
 
 // Tables
 //$table-border-color: #dddddd;
@@ -222,7 +222,12 @@ $card-spacer-x: 1rem !default;
 
 // Tooltips
 // Popovers
-$popover-body-color: $body-color !default;
+$popover-bg:                        var(--#{$prefix}body-bg) !default;
+$popover-border-color:              var(--#{$prefix}border-color-translucent) !default;
+$popover-header-bg:                 var(--#{$prefix}secondary-bg) !default;
+$popover-header-color:              $headings-color !default;
+$popover-body-color:                var(--#{$prefix}body-color) !default;
+
 
 // Badges
 // Modals

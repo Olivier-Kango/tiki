@@ -5271,7 +5271,7 @@ textarea.form-control-lg {
   --bs-popover-header-padding-x: 1rem;
   --bs-popover-header-padding-y: 0.5rem;
   --bs-popover-header-font-size: 1rem;
-  --bs-popover-header-color: #212529;
+  --bs-popover-header-color: var(--bs-body-color);
   --bs-popover-header-bg: var(--bs-secondary-bg);
   --bs-popover-body-padding-x: 1rem;
   --bs-popover-body-padding-y: 1rem;
@@ -13219,7 +13219,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: var(--bs-emphasis-color) !important;
 }
 .tiki-webmail .popover-header, .tiki-cypht .popover-header, .mobile.tiki-cypht .popover-header, .inline-cypht .popover-header {
-  color: #212529 !important;
+  color: var(--bs-body-color) !important;
 }
 .tiki-webmail .popover-body, .tiki-cypht .popover-body, .mobile.tiki-cypht .popover-body, .inline-cypht .popover-body {
   color: var(--bs-body-color) !important;
@@ -13356,7 +13356,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   align-items: center;
 }
 .inline-cypht .content_title .list_meta {
-  color: #212529 !important;
+  color: var(--bs-body-color) !important;
 }
 .inline-cypht .content_title .list_controls {
   border-top: none;
@@ -13381,7 +13381,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .inline-cypht .src_name, .inline-cypht .content_title, .inline-cypht .list_controls {
   background: var(--bs-secondary-bg);
-  color: #212529;
+  color: var(--bs-body-color);
 }
 .inline-cypht .src_name {
   border-left-color: transparent;
@@ -13474,7 +13474,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .mobile.tiki-cypht .content_cell .content_title, .mobile.tiki-cypht .content_cell .content_title .list_controls, .mobile.tiki-webmail .content_cell .content_title, .mobile.tiki-webmail .content_cell .content_title .list_controls {
   background: var(--bs-secondary-bg);
-  color: #212529;
+  color: var(--bs-body-color);
 }
 .mobile.tiki-cypht .msg_controls, .mobile.tiki-webmail .msg_controls {
   background: var(--bs-secondary-bg) !important;
@@ -13486,7 +13486,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .mobile.tiki-cypht .folder_list .src_name, .mobile.tiki-webmail .folder_list .src_name {
   background: var(--bs-secondary-bg);
-  color: #212529;
+  color: var(--bs-body-color);
   border-left-color: transparent;
 }
 .mobile.tiki-cypht .nux_dev_news table td:last-child, .mobile.tiki-webmail .nux_dev_news table td:last-child {
@@ -13610,4 +13610,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #3459e6;
 }
-/*# sourceMappingURL=zephyr.css.map */
+

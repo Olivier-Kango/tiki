@@ -64,6 +64,7 @@ $colors: (
     "gray-dark":  $gray-800
 ) !default;
 // scss-docs-end colors-map
+
 $white:    #fff;
 $black:    #000;
 $light: $white;
@@ -119,6 +120,7 @@ $prefix: bs-;
 
 
 $body-bg:                   $white !default;
+$body-color: #212529;
 
 // $bg-light: #a59705; //#a59705 !important;  (Changing tactics for Bootstrap 5)
 

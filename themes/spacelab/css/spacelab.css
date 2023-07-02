@@ -107,7 +107,7 @@
   --bs-tertiary-color-rgb: 89, 89, 89;
   --bs-tertiary-bg: #f8f9fa;
   --bs-tertiary-bg-rgb: 248, 249, 250;
-  --bs-heading-color: #2d2d2d;
+  --bs-heading-color: inherit;
   --bs-link-color: #0C77D4;
   --bs-link-color-rgb: 12, 119, 212;
   --bs-link-decoration: underline;
@@ -5242,7 +5242,7 @@ textarea.form-control-lg {
   --bs-popover-header-padding-x: 1rem;
   --bs-popover-header-padding-y: 0.5rem;
   --bs-popover-header-font-size: 1rem;
-  --bs-popover-header-color: #2d2d2d;
+  --bs-popover-header-color: inherit;
   --bs-popover-header-bg: var(--bs-secondary-bg);
   --bs-popover-body-padding-x: 1rem;
   --bs-popover-body-padding-y: 1rem;
@@ -12529,7 +12529,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: var(--bs-emphasis-color) !important;
 }
 .tiki-webmail .popover-header, .tiki-cypht .popover-header, .mobile.tiki-cypht .popover-header, .inline-cypht .popover-header {
-  color: #2d2d2d !important;
+  color: inherit !important;
 }
 .tiki-webmail .popover-body, .tiki-cypht .popover-body, .mobile.tiki-cypht .popover-body, .inline-cypht .popover-body {
   color: var(--bs-body-color) !important;
@@ -12666,7 +12666,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   align-items: center;
 }
 .inline-cypht .content_title .list_meta {
-  color: #2d2d2d !important;
+  color: inherit !important;
 }
 .inline-cypht .content_title .list_controls {
   border-top: none;
@@ -12691,7 +12691,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .inline-cypht .src_name, .inline-cypht .content_title, .inline-cypht .list_controls {
   background: var(--bs-secondary-bg);
-  color: #2d2d2d;
+  color: inherit;
 }
 .inline-cypht .src_name {
   border-left-color: transparent;
@@ -12783,7 +12783,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .mobile.tiki-cypht .content_cell .content_title, .mobile.tiki-cypht .content_cell .content_title .list_controls, .mobile.tiki-webmail .content_cell .content_title, .mobile.tiki-webmail .content_cell .content_title .list_controls {
   background: var(--bs-secondary-bg);
-  color: #2d2d2d;
+  color: inherit;
 }
 .mobile.tiki-cypht .msg_controls, .mobile.tiki-webmail .msg_controls {
   background: var(--bs-secondary-bg) !important;
@@ -12795,7 +12795,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .mobile.tiki-cypht .folder_list .src_name, .mobile.tiki-webmail .folder_list .src_name {
   background: var(--bs-secondary-bg);
-  color: #2d2d2d;
+  color: inherit;
   border-left-color: transparent;
 }
 .mobile.tiki-cypht .nux_dev_news table td:last-child, .mobile.tiki-webmail .nux_dev_news table td:last-child {
@@ -12947,4 +12947,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .navbar:not(.bg-dark, .bg-light) .nav-link:hover, .navbar:not(.bg-dark, .bg-light) .nav-link:active, .navbar:not(.bg-dark, .bg-light) .nav-link .highlighted {
   color: var(--bs-link-hover-color);
 }
-/*# sourceMappingURL=spacelab.css.map */
+

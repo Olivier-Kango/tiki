@@ -137,28 +137,28 @@
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #212529;
-  --bs-body-color-rgb: 33, 37, 41;
+  --bs-body-color: #343a40;
+  --bs-body-color-rgb: 52, 58, 64;
   --bs-body-bg: #fff;
   --bs-body-bg-rgb: 255, 255, 255;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
-  --bs-secondary-color: rgba(33, 37, 41, 0.75);
-  --bs-secondary-color-rgb: 33, 37, 41;
+  --bs-secondary-color: rgba(52, 58, 64, 0.75);
+  --bs-secondary-color-rgb: 52, 58, 64;
   --bs-secondary-bg: #e9ecef;
   --bs-secondary-bg-rgb: 233, 236, 239;
-  --bs-tertiary-color: rgba(33, 37, 41, 0.5);
-  --bs-tertiary-color-rgb: 33, 37, 41;
+  --bs-tertiary-color: rgba(52, 58, 64, 0.5);
+  --bs-tertiary-color-rgb: 52, 58, 64;
   --bs-tertiary-bg: #f8f9fa;
   --bs-tertiary-bg-rgb: 248, 249, 250;
-  --bs-heading-color: inherit;
+  --bs-heading-color: #169FB6;
   --bs-link-color: #11606E;
   --bs-link-color-rgb: 17, 96, 110;
   --bs-link-decoration: none;
   --bs-link-hover-color: #07262c;
   --bs-link-hover-color-rgb: 6, 38, 43;
   --bs-link-hover-decoration: none;
-  --bs-code-color: #d63384;
+  --bs-code-color: #343a40;
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -228,7 +228,7 @@
   --bs-link-hover-color: #90c1cb;
   --bs-link-color-rgb: 116, 178, 190;
   --bs-link-hover-color-rgb: 144, 193, 203;
-  --bs-code-color: #e685b5;
+  --bs-code-color: #85898c;
   --bs-border-color: #495057;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
   --bs-form-valid-color: #75b798;
@@ -1380,4 +1380,4 @@ footer#footer .footer_liner .card-header {
 .badge.bg-danger {
   color: #fff;
 }
-/*# sourceMappingURL=akebi.css.map */
+

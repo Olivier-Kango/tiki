@@ -120,6 +120,7 @@ $prefix: bs-;
 
 
 $body-bg:                   $white !default;
+$body-color: #212529;
 
 $bg-light: #D10A74; // #e10c7c
 
@@ -132,9 +133,9 @@ $btn-link-disabled-color:     $gray-600 !default;
 
 // Navs
 $nav-tabs-link-color: #000;
-$nav-tabs-link-bg: rgba(97, 16, 45, .15);
+$nav-tabs-link-bg: #ffdace;
 $nav-tabs-link-active-color: #fff;
-$nav-tabs-link-active-bg: #61102d; // Same as $dropdown-link-hover-bg;
+$nav-tabs-link-active-bg: #a61a32; // Same as $dropdown-link-hover-bg;
 
 // Navbars
 

@@ -12517,6 +12517,9 @@ h3, .h3 {
   font-size: 1.7rem;
   margin-top: 2rem;
 }
+h3.popover-header, .popover-header.h3 {
+  margin-top: 0;
+}
 .sans {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
 }
@@ -13792,4 +13795,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #a25D25;
 }
-/*# sourceMappingURL=tuften.css.map */
+

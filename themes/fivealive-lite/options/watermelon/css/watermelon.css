@@ -153,7 +153,7 @@
   --bs-link-hover-color: #9b0e25;
   --bs-link-hover-color-rgb: 154, 13, 37;
   --bs-link-hover-decoration: none;
-  --bs-code-color: #d63384;
+  --bs-code-color: #212529;
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -223,7 +223,7 @@
   --bs-link-hover-color: #f38e9f;
   --bs-link-color-rgb: 240, 114, 135;
   --bs-link-hover-color-rgb: 243, 142, 159;
-  --bs-code-color: #e685b5;
+  --bs-code-color: #7a7c7f;
   --bs-border-color: #495057;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
   --bs-form-valid-color: #75b798;
@@ -1411,4 +1411,4 @@ footer#footer .footer_liner .card-header {
 .page-item.disabled, .list-group-item.disabled {
   color: var(--bs-secondary-color) !important;
 }
-/*# sourceMappingURL=watermelon.css.map */
+

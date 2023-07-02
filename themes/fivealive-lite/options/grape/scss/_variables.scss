@@ -64,7 +64,6 @@ $colors: (
     "gray-dark":  $gray-800
 ) !default;
 // scss-docs-end colors-map
-
 $white:    #fff;
 $black:    #000;
 $light: #a02871;
@@ -121,8 +120,9 @@ $bg-light: #a02871 !important;
 // Prefix
 $prefix: bs-;
 
-
+// Body
 $body-bg:                   $white !default;
+$body-color: #212529;
 
 // Links
 $link-color: #a02871;
@@ -299,11 +299,11 @@ $bg-dark-info: #00DAE6;
 .tiki .tiki-admin-top-nav-light,
 .tiki .tiki-admin-aside-nav-light {
      --tiki-admin-top-nav-color:#{$top-link-color};
-    --tiki-admin-top-nav-color: #{$top-link-hover-color};
+//    --tiki-admin-top-nav-color: #{$top-link-hover-color};
     --tiki-admin-top-nav-link-bg: none ;
     --tiki-admin-aside-nav-bg: #{$top-light-bg};
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
-    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-hover-color);
+//    --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-bg: #{$dropdown-bg};
     --tiki-admin-dropdown-link-color: #{$top-link-color};
     --tiki-admin-dropdown-link-hover-color: #{$dropdown-link-hover-color};
