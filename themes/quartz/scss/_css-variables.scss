@@ -69,6 +69,7 @@
 
 [data-bs-theme="light"] {
     --tiki-quartz-body-bg-image: #{$body-bg-image};
+    --bs-secondary-bg: linear-gradient(125deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2) 70%);
 }
 
 [data-bs-theme="dark"] {
