@@ -11305,6 +11305,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
   --tiki-top-color: #0001a6;
   --tiki-top-hover-color: #0001cf;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
@@ -11315,6 +11317,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(180deg, rgba(69,69,69,1) 0%, rgba(0,0,0,1) 100%);
   --tiki-top-color: #e0e0e0;
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: linear-gradient(180deg, rgba(69,69,69,1) 0%, rgba(0,0,0,1) 100%);
@@ -11325,6 +11329,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(180deg, rgba(69,69,69,1) 0%, rgba(0,0,0,1) 100%);
   --tiki-top-color: #e0e0e0;
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(180deg, rgba(69,69,69,1) 0%, rgba(0,0,0,1) 100%);
@@ -11335,6 +11341,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
   --tiki-top-color: #0001a6;
   --tiki-top-hover-color: #0001cf;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 [data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: linear-gradient(to bottom, #e3e3e3 0%, #cccccc 100%);
@@ -13403,4 +13411,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #aaaaaa;
 }
-/*# sourceMappingURL=jqui.css.map */
+

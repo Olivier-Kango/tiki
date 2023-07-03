@@ -10844,9 +10844,12 @@ legend {
   --tiki-top-bg: #f3969a;
   --tiki-top-color: #fff;
   --tiki-top-hover-color: rgba(255, 255, 255, 0.9);
+  --bs-navbar-brand-color: #5a5a5a;
+  --bs-navbar-brand-hover-color: #5a5a5a
 }
+
 .tiki-topbar-nav-light {
-  --tiki-topbar-bg: #f3969a;
+    --tiki-topbar-bg: #f3969a;
   --tiki-topbar-color: #fff;
   --tiki-topbar-hover-color: rgba(255, 255, 255, 0.9);
 }
@@ -10854,6 +10857,8 @@ legend {
   --tiki-top-bg: rgba(120, 194, 173, 1);
   --tiki-top-color: rgba(255, 255, 255, 0.8);
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgba(120, 194, 173, 1);

@@ -34,6 +34,7 @@ header.navbar.fixed-top {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: var(--bs-body-bg);
   --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
@@ -11301,6 +11302,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #5AE3ED;
   --tiki-top-color: #322B0B;
   --tiki-top-hover-color: #5B5015;
+  --bs-navbar-brand-color: rgba(0, 0, 0, 0.9);
+  --bs-navbar-brand-hover-color: rgba(0, 0, 0, 0.9);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #68D6DE;
@@ -11311,6 +11314,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #ad1d28 !important;
   --tiki-top-color: #f2e8c0;
   --tiki-top-hover-color: white;
+  --bs-navbar-brand-color: #f2e8c0;
+  --bs-navbar-brand-hover-color: #f2e8c0;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #6e0d0d;
@@ -11321,6 +11326,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #ad1d28 !important;
   --tiki-top-color: #f2e8c0;
   --tiki-top-hover-color: white;
+  --bs-navbar-brand-color: #f2e8c0;
+  --bs-navbar-brand-hover-color: #f2e8c0;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: #6e0d0d;
@@ -11992,7 +11999,7 @@ div.drillshow {
 }
 code, pre.codelisting {
   color: var(--tiki-code-color);
-  background: var(--bs-secondary-bg);
+  background: var(--tiki-code-bg);
   border: 1px solid #dee2e6;
   padding: 0.1875rem 0.375rem;
   border-radius: 0.375rem;
@@ -13377,4 +13384,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #F5CDC2;
 }
-/*# sourceMappingURL=amelia.css.map */
+

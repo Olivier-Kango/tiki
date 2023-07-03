@@ -10793,6 +10793,7 @@ header.navbar.fixed-top {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: var(--bs-body-color);
   --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 :root {
   color-scheme: light;
@@ -11322,6 +11323,8 @@ header.navbar.fixed-top {
   --tiki-top-color: rgba(0, 0, 0, 0.6);
   --tiki-top-hover-color: #485785;
   --tiki-top-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+  --bs-navbar-brand-color: #2c3653;
+  --bs-navbar-brand-hover-color: #2c3653;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgba(240, 245, 250, 1);
@@ -11334,6 +11337,8 @@ header.navbar.fixed-top {
   --tiki-top-color: var(--bs-link-color);
   --tiki-top-hover-color: var(--bs-link-hover-color);
   --tiki-top-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #202428;
@@ -11346,6 +11351,8 @@ header.navbar.fixed-top {
   --tiki-top-color: var(--bs-link-color);
   --tiki-top-hover-color: var(--bs-link-hover-color);
   --tiki-top-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: #202428;
@@ -11358,6 +11365,8 @@ header.navbar.fixed-top {
   --tiki-top-color: rgba(0, 0, 0, 0.6);
   --tiki-top-hover-color: #485785;
   --tiki-top-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+  --bs-navbar-brand-color: #2c3653;
+  --bs-navbar-brand-hover-color: #2c3653;
 }
 [data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgba(240, 245, 250, 1);
@@ -12027,7 +12036,7 @@ div.drillshow {
 }
 code, pre.codelisting {
   color: var(--tiki-code-color);
-  background: var(--bs-secondary-bg);
+  background: var(--tiki-code-bg);
   border: 0 solid rgba(55, 94, 148, 0.1);
   padding: 0.1875rem 0.375rem;
   border-radius: 0.375rem;
@@ -13372,4 +13381,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .input-group > .form-control {
   padding-left: 2rem;
 }
-/*# sourceMappingURL=morph.css.map */
+

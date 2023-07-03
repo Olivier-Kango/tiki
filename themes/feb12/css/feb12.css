@@ -27,6 +27,7 @@ header.navbar.fixed-top {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: var(--bs-body-bg);
   --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 :root, [data-bs-theme="light"] {
   --bs-blue: #124987;
@@ -11994,6 +11995,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(to bottom, #dbdbdb 0%, #b6b6b6 2%, #acacac 3%, #ababab 5%, #c8c8c8 10%, #d4d4d4 17%, #e6e6e6 48%, #eaeaea 60%, #f3f3f3 77%, #fdfdfd 90%, #ffffff 100%);
   --tiki-top-color: rgba(0, 0, 0, 0.5);
   --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
+  --bs-navbar-brand-color: rgba(0, 0, 0, 0.9);
+  --bs-navbar-brand-hover-color: rgba(0, 0, 0, 0.9);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(to bottom, #dbdbdb 0%, #b6b6b6 2%, #acacac 3%, #ababab 5%, #c8c8c8 10%, #d4d4d4 17%, #e6e6e6 48%, #eaeaea 60%, #f3f3f3 77%, #fdfdfd 90%, #ffffff 100%);
@@ -12004,6 +12007,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
   --tiki-top-color: #f8f9fa;
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: rgba(255, 255, 255, 0.85);
+  --bs-navbar-brand-hover-color: rgba(255, 255, 255, 0.85);
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
@@ -12014,6 +12019,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
   --tiki-top-color: #f8f9fa;
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: rgba(255, 255, 255, 0.85);
+  --bs-navbar-brand-hover-color: rgba(255, 255, 255, 0.85);
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
@@ -12686,7 +12693,7 @@ div.drillshow {
 }
 code, pre.codelisting {
   color: var(--tiki-code-color);
-  background: var(--bs-secondary-bg);
+  background: var(--tiki-code-bg);
   border: 1px solid #dee2e6;
   padding: 0.1875rem 0.375rem;
   border-radius: 0.375rem;
@@ -14170,4 +14177,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #5bacd7;
 }
-/*# sourceMappingURL=feb12.css.map */
+

@@ -10758,6 +10758,7 @@ header.navbar.fixed-top {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: var(--bs-body-bg);
   --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 :root {
   color-scheme: light;
@@ -10854,6 +10855,8 @@ legend, label {
   --tiki-top-color: rgba(0, 0, 0, 0.55);
   --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-top-border: solid #dedede;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgb(255, 255, 255);
@@ -10866,6 +10869,8 @@ legend, label {
   --tiki-top-color: rgba(255, 255, 255, 0.75);
   --tiki-top-hover-color: #fff;
   --tiki-top-border: solid #720E03FF;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #630f05;
@@ -10878,6 +10883,8 @@ legend, label {
   --tiki-top-color: rgba(255, 255, 255, 0.75);
   --tiki-top-hover-color: #fff;
   --tiki-top-border: solid #720E03FF;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: #630f05;
@@ -11539,7 +11546,7 @@ div.drillshow {
 }
 code, pre.codelisting {
   color: var(--tiki-code-color);
-  background: var(--bs-secondary-bg);
+  background: var(--tiki-code-bg);
   border: 1px solid #ccc;
   padding: 0.1875rem 0.375rem;
   border-radius: 0.375rem;
@@ -12867,4 +12874,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .card-body .navbar {
   border: none;
 }
-/*# sourceMappingURL=simplex.css.map */
+

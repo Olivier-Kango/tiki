@@ -10834,6 +10834,8 @@ header.navbar.fixed-top {
   --tiki-top-color: rgba(0, 0, 0, 0.55);
   --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
   --tiki-top-border: solid #333;
+  --bs-navbar-brand-color: rgba(0, 0, 0, 0.7);
+  --bs-navbar-brand-hover-color: rgba(0, 0, 0, 0.7);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgb(255, 255, 255);
@@ -10846,6 +10848,8 @@ header.navbar.fixed-top {
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #fff;
   --tiki-top-border: solid rgb(85, 85, 85);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgba(7, 54, 66, 1);
@@ -12854,4 +12858,4 @@ body {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-/*# sourceMappingURL=solar.css.map */
+

@@ -11974,6 +11974,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #fff;
   --tiki-top-color: #888888;
   --tiki-top-hover-color: #000;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #fff;
@@ -11984,6 +11986,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #252729;
   --tiki-top-color: rgba(255, 255, 255, 0.7);
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #252729;
@@ -11994,6 +11998,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #252729;
   --tiki-top-color: rgba(255, 255, 255, 0.7);
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: #252729;
@@ -12004,6 +12010,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #fff;
   --tiki-top-color: #888888;
   --tiki-top-hover-color: #000;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 [data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #fff;
@@ -14069,4 +14077,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #757575;
 }
-/*# sourceMappingURL=utopias.css.map */
+

@@ -11280,6 +11280,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #F3F6F9;
   --tiki-top-color: rgba(0, 0, 0, 0.5);
   --tiki-top-hover-color: rgba(0, 0, 0, 0.7);
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #F3F6F9;
@@ -11290,6 +11292,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #212529;
   --tiki-top-color: rgba(255, 255, 255, 0.7);
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #212529;
@@ -11300,6 +11304,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #212529;
   --tiki-top-color: rgba(255, 255, 255, 0.7);
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: #212529;
@@ -13383,4 +13389,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #6c839b;
 }
-/*# sourceMappingURL=tikinewt.css.map */
+

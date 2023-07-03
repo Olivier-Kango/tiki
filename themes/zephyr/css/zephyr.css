@@ -11606,6 +11606,8 @@ thead th {
   --tiki-top-color: #000;
   --tiki-top-hover-color: rgba(0, 0, 0, 0.05);
   --tiki-top-hover-bg: rgba(0, 0, 0, 0.03);
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgb(248, 249, 250);
@@ -11618,6 +11620,8 @@ thead th {
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #fff;
   --tiki-top-hover-bg: rgba(255, 255, 255, 0.1);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgb(35, 60, 154);
@@ -11630,6 +11634,8 @@ thead th {
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #fff;
   --tiki-top-hover-bg: rgba(255, 255, 255, 0.1);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgb(35, 60, 154);

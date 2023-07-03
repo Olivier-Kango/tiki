@@ -10881,6 +10881,8 @@ label, .radio label, .checkbox label, .help-block {
   --tiki-top-bg: rgb(32, 55, 76);
   --tiki-top-color: rgba(255, 255, 255, 0.75);
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #2C465E;
@@ -10891,6 +10893,8 @@ label, .radio label, .checkbox label, .help-block {
   --tiki-top-bg: rgb(32, 55, 76);
   --tiki-top-color: rgba(255, 255, 255, 0.75);
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #2C465E;
@@ -12907,4 +12911,4 @@ body {
 a.linkmodule {
   color: #BBD9F7;
 }
-/*# sourceMappingURL=superhero.css.map */
+

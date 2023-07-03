@@ -11128,6 +11128,8 @@ legend {
   --tiki-top-color: rgba(255, 255, 255, 0.55);
   --tiki-top-hover-color: rgba(255, 255, 255, 0.75);
   --tiki-top-box-shadow: 0 0 2px rgba(111, 66, 193, 0.9), 0 0 4px rgba(111, 66, 193, 0.4), 0 0 1rem rgba(111, 66, 193, 0.3), 0 0 4rem rgba(111, 66, 193, 0.1);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgb(111, 66, 193);
@@ -13113,4 +13115,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #fff;
   background-color: #ea39b8;
 }
-/*# sourceMappingURL=vapor.css.map */
+

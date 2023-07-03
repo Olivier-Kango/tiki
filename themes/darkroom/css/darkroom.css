@@ -11285,6 +11285,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #f4f4f4;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #e6e6e6;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
@@ -11295,6 +11297,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #f4f4f4;
+  --bs-navbar-brand-color: #f4f4f4;
+  --bs-navbar-brand-hover-color: #f4f4f4;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: linear-gradient(to bottom, #818181 0%, #393939 100%);
@@ -13468,4 +13472,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   color: #ffffff;
   background-color: #030511;
 }
-/*# sourceMappingURL=darkroom.css.map */
+

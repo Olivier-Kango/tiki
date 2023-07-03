@@ -10894,6 +10894,8 @@ textarea.form-control-lg {
   --tiki-top-active-color: #000;
   --tiki-top-active-bg: #ff7900;
   --tiki-top-order: solid #000;
+  --bs-navbar-brand-color: #f16e00;
+  --bs-navbar-brand-hover-color: #f16e00;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #fff;
@@ -10907,6 +10909,8 @@ textarea.form-control-lg {
   --tiki-top-bg: rgba(0, 0, 0, 1);
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #ff7900;
+  --bs-navbar-brand-color: inherit;
+  --bs-navbar-brand-hover-color: #ff7900;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: rgba(0, 0, 0, 1);
@@ -10917,6 +10921,8 @@ textarea.form-control-lg {
   --tiki-top-bg: rgba(0, 0, 0, 1);
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #ff7900;
+  --bs-navbar-brand-color: inherit;
+  --bs-navbar-brand-hover-color: #ff7900;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: rgba(0, 0, 0, 1);
@@ -10930,6 +10936,8 @@ textarea.form-control-lg {
   --tiki-top-active-color: #000;
   --tiki-top-active-bg: #ff7900;
   --tiki-top-order: solid #000;
+  --bs-navbar-brand-color: #f16e00;
+  --bs-navbar-brand-hover-color: #f16e00;
 }
 [data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #fff;

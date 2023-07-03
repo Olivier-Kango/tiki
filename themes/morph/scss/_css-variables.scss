@@ -6,6 +6,8 @@
     --tiki-top-color: var(--bs-link-color);
     --tiki-top-hover-color: var(--bs-link-hover-color);
     --tiki-top-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+    --bs-navbar-brand-color: #{$navbar-dark-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-dark-brand-hover-color};
 }
 
 @mixin topbar-nav-dark {
@@ -20,6 +22,8 @@
     --tiki-top-color: rgba(0, 0, 0, 0.6);
     --tiki-top-hover-color: #485785;
     --tiki-top-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+    --bs-navbar-brand-color: #{$navbar-light-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
 }
 
 @mixin topbar-nav-light {

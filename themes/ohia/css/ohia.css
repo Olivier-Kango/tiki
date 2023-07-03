@@ -11094,6 +11094,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #3585D0;
   --tiki-top-color: #030303;
   --tiki-top-hover-color: #171717;
+  --bs-navbar-brand-color: #030303;
+  --bs-navbar-brand-hover-color: black;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #3585D0;
@@ -11104,6 +11106,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #343a40;
   --tiki-top-color: rgba(255, 255, 255, 0.55);
   --tiki-top-hover-color: rgba(255, 255, 255, 0.75);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #343a40;
@@ -13185,4 +13189,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   --bs-navbar-color: #80A60FFF;
   --bs-navbar-hover-color: #f4f4f4;
 }
-/*# sourceMappingURL=ohia.css.map */
+

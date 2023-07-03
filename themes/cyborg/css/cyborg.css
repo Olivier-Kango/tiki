@@ -10886,6 +10886,8 @@ legend {
   --tiki-top-bg: #222;
   --tiki-top-color: #2a9fd6;
   --tiki-top-hover-color: #55b2de;
+  --bs-navbar-brand-color: rgba(0, 0, 0, 0.9);
+  --bs-navbar-brand-hover-color: rgba(0, 0, 0, 0.9);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #222;
@@ -10897,6 +10899,8 @@ legend {
   --tiki-top-color: rgba(255, 255, 255, 0.55);
   --tiki-top-hover-color: #fff;
   --tiki-top-border: 1px solid #282828;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #060606;

@@ -6,6 +6,8 @@
     --tiki-top-bg: url('#{$imagePath}header_background_ltr.jpg') 0/100% auto no-repeat;
     --tiki-top-color: #{$navbar-light-color};
     --tiki-top-hover-color: #{$navbar-light-hover-color};
+    --bs-navbar-brand-color: #{$navbar-light-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
 }
 
 .tiki-topbar-nav-light {
@@ -18,6 +20,8 @@
     --tiki-top-bg:  url('#{$imagePath}header_background_ltr.jpg') 0/100% auto no-repeat;
     --tiki-top-color: #{$navbar-dark-color};
     --tiki-top-hover-color: #{$navbar-dark-hover-color};
+    --bs-navbar-brand-color: #{$navbar-dark-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-dark-brand-hover-color};
 }
 
 .tiki-topbar-nav-dark {
