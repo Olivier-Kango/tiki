@@ -22284,6 +22284,8 @@ legend {
   --tiki-top-hover-color: #fff;
   --tiki-top-hover-bg: linear-gradient(#25282c, #292c30 40%, #2b2f32);
   --tiki-top-border: solid rgba(0, 0, 0, 0.6);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(#25282c, #292c30 40%, #2b2f32);
@@ -22298,6 +22300,8 @@ legend {
   --tiki-top-hover-color: #fff;
   --tiki-top-hover-bg: linear-gradient(#25282c, #292c30 40%, #2b2f32);
   --tiki-top-border: solid rgba(0, 0, 0, 0.6);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: linear-gradient(#25282c, #292c30 40%, #2b2f32);

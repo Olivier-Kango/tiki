@@ -9,6 +9,8 @@
     --tiki-top-hover-bg: rgba(255,255,255,.15);
     --tiki-top-border: none;
     --tiki-top-box-shadow: none;
+    --bs-navbar-brand-color: #{$navbar-dark-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-dark-brand-hover-color};
 }
 
 @mixin topbar-nav-dark {
@@ -18,7 +20,6 @@
     --tiki-topbar-hover-bg: rgba(255,255,255,.15);
     --tiki-topbar-border: none;
     --tiki-topbar-box-shadow: none;
-
     --tiki-top-border-width: 0;
     --tiki-topbar-border-width: 0;
 }
@@ -32,6 +33,8 @@
     --tiki-top-active-bg: rgba(255,255,255,.15);
     --tiki-top-border: none;
     --tiki-top-box-shadow: none;
+    --bs-navbar-brand-color: #{$navbar-light-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
 }
 
 @mixin topbar-nav-light {

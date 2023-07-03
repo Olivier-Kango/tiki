@@ -31,8 +31,10 @@ header.navbar.fixed-top {
 }
 .tiki-top-nav-light {
   --tiki-top-bg: #ffffff;
-  --tiki-top-color: #6C727F;
+  --tiki-top-color: #6C727F !important;
   --tiki-top-hover-color: #343a40;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #ffffff;
@@ -44,6 +46,8 @@ header.navbar.fixed-top {
   --tiki-top-color: #ffffff;
   --tiki-top-hover-color: #dee2e6;
   --tiki-top-active-bg: #111;
+  --bs-navbar-brand-color: #ffffff;
+  --bs-navbar-brand-hover-color: #ffffff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #222;
@@ -56,6 +60,8 @@ header.navbar.fixed-top {
   --tiki-top-color: #ffffff;
   --tiki-top-hover-color: #dee2e6;
   --tiki-top-active-bg: #111;
+  --bs-navbar-brand-color: #ffffff;
+  --bs-navbar-brand-hover-color: #ffffff;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: #222;
@@ -65,8 +71,10 @@ header.navbar.fixed-top {
 }
 [data-bs-theme=light] .tiki-top-nav-dark {
   --tiki-top-bg: #ffffff;
-  --tiki-top-color: #6C727F;
+  --tiki-top-color: #6C727F !important;
   --tiki-top-hover-color: #343a40;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 [data-bs-theme=light] .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #ffffff;

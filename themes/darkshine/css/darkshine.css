@@ -11316,6 +11316,8 @@ textarea.form-control-lg {
   --tiki-top-bg: null;
   --tiki-top-color: #FEA239;
   --tiki-top-hover-color: lighten(#FEA239, 10%);
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(to bottom, #040404 0%, #060606 2%, #121212 55%, #0f0f0f 57%, #030303 59%, #000000 61%, #000000 100%);
@@ -11326,6 +11328,8 @@ textarea.form-control-lg {
   --tiki-top-bg: linear-gradient(to bottom, #040404 0%, #060606 2%, #121212 55%, #0f0f0f 57%, #030303 59%, #000000 61%, #000000 100%);
   --tiki-top-color: #FEA239;
   --tiki-top-hover-color: lighten(#FEA239, 10%);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: null;

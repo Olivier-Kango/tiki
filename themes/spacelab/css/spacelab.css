@@ -10922,6 +10922,8 @@ header.navbar.fixed-top {
   --tiki-top-color: rgba(255, 255, 255, 0.75);
   --tiki-top-hover-color: #fff;
   --tiki-top-border: solid rgb(85, 85, 85);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: linear-gradient(#6d94bf, #446e9b 50%, #3e648d) !important;
@@ -10935,6 +10937,8 @@ header.navbar.fixed-top {
   --tiki-top-color: rgba(0, 0, 0, 0.7);
   --tiki-top-hover-color: #3399f3;
   --tiki-top-border: solid #bebebe;
+  --bs-navbar-brand-color: #0C77D4;
+  --bs-navbar-brand-hover-color: #0C77D4;
 }
 .tiki-top-nav-light, .tiki-top-nav-dark {
   --tiki-top-border-width: 1px;
@@ -10945,6 +10949,8 @@ header.navbar.fixed-top {
   --tiki-top-color: rgba(255, 255, 255, 0.75);
   --tiki-top-hover-color: #fff;
   --tiki-top-border: solid rgb(85, 85, 85);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki .tiki-admin-top-nav-light, .tiki .tiki-admin-aside-nav-light {
   --tiki-admin-top-nav-color: rgba(0, 0, 0, 0.4);

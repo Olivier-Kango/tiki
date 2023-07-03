@@ -11332,6 +11332,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #fffff8;
   --tiki-top-color: #222;
   --tiki-top-hover-color: black;
+  --bs-navbar-brand-color: #222;
+  --bs-navbar-brand-hover-color: #090909;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #fffff8;
@@ -11342,6 +11344,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #343a40;
   --tiki-top-color: white;
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: white;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #343a40;
@@ -11352,6 +11356,8 @@ textarea.form-control-lg {
   --tiki-top-bg: #343a40;
   --tiki-top-color: white;
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: white;
+  --bs-navbar-brand-hover-color: #fff;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: #343a40;

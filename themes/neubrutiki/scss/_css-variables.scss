@@ -8,6 +8,8 @@
     --tiki-top-hover-bg: transparent;
     --tiki-top-border: none;
     --tiki-top-box-shadow: none;
+    --bs-navbar-brand-color: #{$navbar-dark-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-dark-brand-hover-color};
 }
 
 @mixin topbar-nav-dark {
@@ -17,6 +19,8 @@
     --tiki-topbar-hover-bg: transparent;
     --tiki-topbar-border: none;
     --tiki-topbar-box-shadow: none;
+    --bs-navbar-brand-color: #{$navbar-light-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
 }
 
 @mixin top-nav-light {

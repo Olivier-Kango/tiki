@@ -3,6 +3,8 @@
     --tiki-top-bg: #EBD6F9B3;
     --tiki-top-color: rgba(52, 58, 64, 0.8);
     --tiki-top-hover-color: #343a40;
+    --bs-navbar-brand-color: #{$navbar-light-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
 }
 
 .tiki-topbar-nav-light {
@@ -15,6 +17,8 @@
     --tiki-top-bg: rgba(232, 50, 131, 1);
     --tiki-top-color: rgba(255, 255, 255, 0.8);
     --tiki-top-hover-color: #fff;
+    --bs-navbar-brand-color: #{$navbar-dark-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-dark-brand-hover-color};
 }
 
 .tiki-topbar-nav-dark {

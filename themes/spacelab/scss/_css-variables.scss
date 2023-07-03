@@ -6,6 +6,8 @@
     --tiki-top-color: rgba(255, 255, 255, 0.75);
     --tiki-top-hover-color: #fff;
     --tiki-top-border: solid rgb(85, 85, 85);
+    --bs-navbar-brand-color: #{$navbar-dark-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-dark-brand-hover-color};
 }
 
 @mixin topbar-nav-dark {
@@ -20,6 +22,8 @@
     --tiki-top-color: rgba(0, 0, 0, 0.7);
     --tiki-top-hover-color: #3399f3;
     --tiki-top-border: solid #bebebe;
+    --bs-navbar-brand-color: #{$navbar-light-brand-color};
+    --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
 }
 
 .tiki-topbar-nav-light {

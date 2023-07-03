@@ -272,6 +272,8 @@ $bg-dark-info: #00DAE6;
     --tiki-top-color: #{$navbar-light-color};
     --tiki-top-hover-color: #{$navbar-light-link-hover-color};
     --tiki-top-border: solid #000;
+//    --bs-navbar-brand-color: #{$navbar-light-brand-color};
+//    --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
 }
 
 .tiki-topbar-nav-light {
@@ -285,6 +287,8 @@ $bg-dark-info: #00DAE6;
     --tiki-top-color: #{$navbar-dark-link-color};
     --tiki-top-hover-color: #{$navbar-dark-link-hover-color};
     --tiki-top-border: solid #000;
+//    --bs-navbar-brand-color: #{$navbar-dark-brand-color};
+//    --bs-navbar-brand-hover-color: #{$navbar-dark-brand-hover-color};
 }
 
 .tiki-topbar-nav-dark {

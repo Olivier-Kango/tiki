@@ -10821,6 +10821,8 @@ header.navbar.fixed-top {
   --tiki-top-bg: #303030;
   --tiki-top-color: rgba(255, 255, 255, 0.6);
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #222;
+  --bs-navbar-brand-hover-color: #222;
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: #444;
@@ -10831,6 +10833,8 @@ header.navbar.fixed-top {
   --tiki-top-bg: #303030;
   --tiki-top-color: rgba(255, 255, 255, 0.6);
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: #444;
@@ -12836,4 +12840,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-/*# sourceMappingURL=darkly.css.map */
+
