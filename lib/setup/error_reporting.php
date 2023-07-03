@@ -13,7 +13,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) != false) {
 
 /* This file handles reporting PHP errors in the HTML user interface */
 
-$smarty = TikiLib::lib('smarty');
 if ($prefs['error_reporting_adminonly'] == 'y' and $tiki_p_admin != 'y') {
     $errorReportingLevel = 0;
 } elseif ($prefs['error_reporting_level'] == 2047) {
@@ -28,7 +27,8 @@ if ($prefs['error_reporting_adminonly'] == 'y' and $tiki_p_admin != 'y') {
     $errorReportingLevel = $prefs['error_reporting_level'];
 }
 
-// Handle Smarty notices
+// Handle Smarty error reporting level, and special reporting for notices
+$smarty = TikiLib::lib('smarty');
 if (! empty($prefs['smarty_notice_reporting']) and $prefs['smarty_notice_reporting'] === 'y' && ($prefs['error_reporting_adminonly'] != 'y' || $tiki_p_admin == 'y')) {
     $smartyErrorReportingLevel = $errorReportingLevel | E_NOTICE | E_USER_NOTICE ;
 } else {
@@ -37,14 +37,17 @@ if (! empty($prefs['smarty_notice_reporting']) and $prefs['smarty_notice_reporti
 $smarty->error_reporting = $smartyErrorReportingLevel; // Ensure that Smarty respects the same level of report as Tiki (pref smarty_notice_reporting is already handled above)
 
 if (php_sapi_name() != 'cli') { // This handler collects errors to display at the bottom of the general template, so don't use it in CLI, otherwise errors would be lost.
-    if ($previousErrorHandler = set_error_handler('tiki_error_handling', $errorReportingLevel)) {
+    $previousErrorHandler = set_error_handler('tiki_error_handling', $errorReportingLevel);
+//It's actually very unlikely we have a previousErrorHandler here, this code is called really early
+    if ($previousErrorHandler) {
         if (is_string($previousErrorHandler)) {
             $previousErrorHandler = Closure::fromCallable($previousErrorHandler);
         }
-        TikiLib::lib('errortracking')->setErrorHandler($previousErrorHandler);
+        TikiLib::lib('errortracking')->setPreviousErrorHandler($previousErrorHandler);
     };
 }
 error_reporting($errorReportingLevel);
+
 
 if ($prefs['log_sql'] == 'y' && $api_tiki == 'adodb') {
     $dbTiki->LogSQL();
