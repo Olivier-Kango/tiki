@@ -11,7 +11,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) != false) {
     exit;
 }
 
-/* This file handles reporting PHP errors in the HTML user interface */
+/* This file handles reporting PHP errors in the HTML user interface and glitchtip.  Note that errors thrown from smarty templates are handled differently. */
 
 if ($prefs['error_reporting_adminonly'] == 'y' and $tiki_p_admin != 'y') {
     $errorReportingLevel = 0;
@@ -27,22 +27,19 @@ if ($prefs['error_reporting_adminonly'] == 'y' and $tiki_p_admin != 'y') {
     $errorReportingLevel = $prefs['error_reporting_level'];
 }
 
-// Handle Smarty error reporting level, and special reporting for notices
+// Handle Smarty specific error reporting level
 $smarty = TikiLib::lib('smarty');
 if (! empty($prefs['smarty_notice_reporting']) and $prefs['smarty_notice_reporting'] === 'y' && ($prefs['error_reporting_adminonly'] != 'y' || $tiki_p_admin == 'y')) {
     $smartyErrorReportingLevel = $errorReportingLevel | E_NOTICE | E_USER_NOTICE ;
 } else {
-    $smartyErrorReportingLevel = $errorReportingLevel;
+    $smartyErrorReportingLevel = $errorReportingLevel & ~E_NOTICE & ~E_USER_NOTICE;
 }
-$smarty->error_reporting = $smartyErrorReportingLevel; // Ensure that Smarty respects the same level of report as Tiki (pref smarty_notice_reporting is already handled above)
+$smarty->error_reporting = $smartyErrorReportingLevel;
 
 if (php_sapi_name() != 'cli') { // This handler collects errors to display at the bottom of the general template, so don't use it in CLI, otherwise errors would be lost.
     $previousErrorHandler = set_error_handler('tiki_error_handling', $errorReportingLevel);
-//It's actually very unlikely we have a previousErrorHandler here, this code is called really early
     if ($previousErrorHandler) {
-        if (is_string($previousErrorHandler)) {
-            $previousErrorHandler = Closure::fromCallable($previousErrorHandler);
-        }
+        $previousErrorHandler = Closure::fromCallable($previousErrorHandler);
         TikiLib::lib('errortracking')->setPreviousErrorHandler($previousErrorHandler);
     };
 }

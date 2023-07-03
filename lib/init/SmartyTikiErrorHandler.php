@@ -11,7 +11,6 @@ class SmartyTikiErrorHandler
     {
         $activation = [];
         $previousErrorHandler = set_error_handler([$this, 'handleError']);
-        //trigger_error('activate()' . count($this->activationStack) . $previousErrorHandler[1], E_USER_WARNING);
         if (! $previousErrorHandler) {
             throw new Error("This should not be possible, there should be a custom error handler, if only tiki's");
         }

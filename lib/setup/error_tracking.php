@@ -260,10 +260,10 @@ class ErrorTracking
     public function handleError($errno, $errstr, $errfile, $errline): bool
     {
         if ($this->previousErrorHandler ?? false) {
-            return false !== ($this->previousErrorHandler)($errno, $errstr, $errfile, $errline);
+            return ($this->previousErrorHandler)($errno, $errstr, $errfile, $errline);
         }
-
-        return false;
+        //If there was no previousErrorHandler, we do not want PHPs default handler to run.
+        return true;
     }
 
     public function setPreviousErrorHandler(Closure $handler)

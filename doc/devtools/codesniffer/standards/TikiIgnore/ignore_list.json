@@ -33,6 +33,9 @@
             "class:Tiki_Security_Policy": true,
             "class:Smarty_Tiki": true
         },
+        "lib\/init\/SmartyTikiErrorHandler.php": {
+            "class:SmartyTikiErrorHandler": true
+        },
         "lib\/copyrights\/copyrightslib.php": {
             "class:CopyrightsLib": true
         },

@@ -101,8 +101,6 @@ spl_autoload_register('Tiki_Autoload::autoload');
 function tiki_error_handling($errno, $errstr, $errfile, $errline): bool
 {
     global $prefs, $phpErrors;
-    //TODO:  We should either obey the return of this if it returns true, or call it later.  benoitg - 2023-07-03
-    TikiLib::lib('errortracking')->handleError($errno, $errstr, $errfile, $errline);
 
     if (0 === (error_reporting() & $errno)) {
         // This error was triggered when evaluating an expression prepended by the at sign (@) error control operator, but since we are in a custom error handler, we have to ignore it manually.
@@ -146,18 +144,20 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline): bool
         case E_USER_NOTICE:
         case E_DEPRECATED:
         case E_USER_DEPRECATED:
-            //This is bizzare, it will suppress the notice errors for smarty from error handlers that call our error handler, but not from logging to glitchtip.  Either it should be in error_reporting.php, or TikiLib::lib('errortracking')->handleError should be moved after this. benoitg - 2023-07-03
-            if (! defined('THIRD_PARTY_LIBS_PATTERN') ||  ! preg_match(THIRD_PARTY_LIBS_PATTERN, $errfile)) {
+            //Ok, the following should no longer be needed.  There was a bug were we set smarty error level bitmask incorrectly.  Then another where we clobbered what we set in the constructor.  Leaving it only if there are cases we missed . benoitg - 2023-07-03
+            /*if (! defined('THIRD_PARTY_LIBS_PATTERN') ||  ! preg_match(THIRD_PARTY_LIBS_PATTERN, $errfile)) {
                 if (! empty($prefs['smarty_notice_reporting']) && $prefs['smarty_notice_reporting'] != 'y' && strstr($errfile, '.tpl.php')) {
                     return true;
                 }
-            }
+            }*/
             $type = 'NOTICE';
             break;
         default:
             //Unknow error type, let PHP handle it.
-            return true;
+            return false;
     }
+    //This will log to glitchtip, and also call any handlers that were registered before tiki.
+    $retval = TikiLib::lib('errortracking')->handleError($errno, $errstr, $errfile, $errline);
 
     $back = "<div class='rbox-data p-3 mb-3' style='font-size: 12px; border: 1px solid'>";
     $back .= $type . " ($err[$errno]): <b>" . $errstr . "</b><br />";
@@ -166,7 +166,7 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline): bool
 
     $phpErrors[] = $back;
     //Skip any other error processing, custom error handlers should have been called by error_reporting.
-    return true;
+    return $retval;
 }
 
 // Patch missing $_SERVER['REQUEST_URI'] on IIS6
