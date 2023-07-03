@@ -91,11 +91,11 @@
                         {if $listpages[ix].show_author eq 'y'}
                             {if $listpages[ix].authorName}
                                 <span class="author">
-                                    {tr}Author:{/tr} {$listpages[ix].authorName|escape}
+                                     {icon name="user" iclass="tips" ititle=":{tr}Published By{/tr}"} {$listpages[ix].authorName|escape}
                                 </span>
                             {else}
                                 <span class="author">
-                                    {tr}Author:{/tr} {$listpages[ix].author|username}
+                                     {icon name="user" iclass="tips" ititle=":{tr}Published By{/tr}"} {$listpages[ix].author|username}
                                 </span>
                             {/if}
                             {if $listpages[ix].show_pubdate eq 'y' or $listpages[ix].show_expdate eq 'y' or $listpages[ix].show_reads eq 'y'}
@@ -104,7 +104,7 @@
                         {/if}
                         {if $listpages[ix].show_pubdate eq 'y'}
                             <span class="pubdate">
-                                {tr}Published{/tr} {$listpages[ix].publishDate|tiki_short_datetime}
+                                 {$listpages[ix].publishDate|tiki_short_datetime}
                             </span>
                             {if $listpages[ix].show_expdate eq 'y' or $listpages[ix].show_reads eq 'y'}
                                 -
