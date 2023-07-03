@@ -31,7 +31,7 @@ class ErrorTracking
 
     protected array $stack = [];
 
-    private ?closure $previousErrorHandler;
+    private ?closure $previousErrorHandler = null;
 
     /**
      * Check if external error reporting for JavaScript is enabled.
@@ -259,7 +259,7 @@ class ErrorTracking
  */
     public function handleError($errno, $errstr, $errfile, $errline): bool
     {
-        if ($this->previousErrorHandler ?? false) {
+        if ($this->previousErrorHandler) {
             return ($this->previousErrorHandler)($errno, $errstr, $errfile, $errline);
         }
         //If there was no previousErrorHandler, we do not want PHPs default handler to run.

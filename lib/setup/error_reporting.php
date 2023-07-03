@@ -5,6 +5,9 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 //this script may only be included - so its better to die if called directly.
+
+require_once 'lib/tikilib.php';
+
 global $prefs, $tiki_p_admin;
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) != false) {
     header('location: index.php');
@@ -38,7 +41,11 @@ $smarty->error_reporting = $smartyErrorReportingLevel;
 
 if (php_sapi_name() != 'cli') { // This handler collects errors to display at the bottom of the general template, so don't use it in CLI, otherwise errors would be lost.
     $previousErrorHandler = set_error_handler('tiki_error_handling', $errorReportingLevel);
-    if ($previousErrorHandler) {
+    if ($previousErrorHandler === 'tiki_error_handling') {
+        //This is not normal, but actually happens in tiki-installer, so we restore the handler and go on.
+        restore_error_handler();
+        //throw new Exception("Tried to  set_error_handler('tiki_error_handling') while it was already set to tiki_error_handling");
+    } elseif ($previousErrorHandler) {
         $previousErrorHandler = Closure::fromCallable($previousErrorHandler);
         TikiLib::lib('errortracking')->setPreviousErrorHandler($previousErrorHandler);
     };
