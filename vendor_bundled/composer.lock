@@ -891,17 +891,17 @@
         },
         {
             "name": "ckeditor/ckeditor",
-            "version": "4.21.0",
+            "version": "4.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "af71d07caa2172c53e0e426250e3b0189137915b"
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-af71d07caa2172c53e0e426250e3b0189137915b-zip-81241c.zip",
-                "reference": "af71d07caa2172c53e0e426250e3b0189137915b",
-                "shasum": "7ae9e525df2875defe8c96006ab859f018e45bef"
+                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-0d51138b0a258165ac09724e8f5cda67cf9126a3-zip-a74417.zip",
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3",
+                "shasum": "ef0f60c617f38407c987a0b5f818823cade101d9"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -929,7 +929,7 @@
                 "text",
                 "wysiwyg"
             ],
-            "time": "2023-03-22T10:37:38+00:00"
+            "time": "2023-06-30T13:35:30+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -2765,6 +2765,7 @@
                 "cas",
                 "jasig"
             ],
+            "abandoned": "apereo/phpcas",
             "time": "2023-02-19T19:52:35+00:00"
         },
         {
@@ -2772,14 +2773,14 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "ac9b3606d5f7f461111afc6ecad727a32e48aef5"
+                "url": "https://github.com/cypht-org/cypht.git",
+                "reference": "0212c2f35c8cff0c4920bfbecd4754139c3ef6b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-ac9b3606d5f7f461111afc6ecad727a32e48aef5-zip-761ab7.zip",
-                "reference": "ac9b3606d5f7f461111afc6ecad727a32e48aef5",
-                "shasum": "3392a0a363930f025cba22548ac2f2df8eedd5ec"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-0212c2f35c8cff0c4920bfbecd4754139c3ef6b7-zip-daa437.zip",
+                "reference": "0212c2f35c8cff0c4920bfbecd4754139c3ef6b7",
+                "shasum": "2192c91be0a811c5e259ad25aaa0d6ea3d63b469"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2833,7 +2834,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-06-24T11:14:24+00:00"
+            "time": "2023-07-01T08:41:02+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4851,17 +4852,17 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.33.0",
+            "version": "2.34.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "1d82b5c0ede9316263e14d11e9284dfb3130f158"
+                "reference": "74a9701d12ed71e2110ddc291a0caaba5832a4ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-1d82b5c0ede9316263e14d11e9284dfb3130f158-zip-f442e5.zip",
-                "reference": "1d82b5c0ede9316263e14d11e9284dfb3130f158",
-                "shasum": "45831c4fd5f2aa68f63fa19ebce73a21c3d8d2cc"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-74a9701d12ed71e2110ddc291a0caaba5832a4ca-zip-2b33fc.zip",
+                "reference": "74a9701d12ed71e2110ddc291a0caaba5832a4ca",
+                "shasum": "3081a38cd3c396e8bf74afe96fd6ff1170514e0f"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.21.0",
@@ -4923,7 +4924,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-06-12T09:43:54+00:00"
+            "time": "2023-07-03T07:58:17+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -16140,17 +16141,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.21",
+            "version": "1.10.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5"
+                "reference": "65ab678d1248a8bc6fde456f0d7ff3562a61a4cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5-zip-cf8d77.zip",
-                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5",
-                "shasum": "e431d073a1dc1b3c06ab3e8314a22f0f625251f0"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-65ab678d1248a8bc6fde456f0d7ff3562a61a4cd-zip-705cf2.zip",
+                "reference": "65ab678d1248a8bc6fde456f0d7ff3562a61a4cd",
+                "shasum": "f11987d09cb36579783ce56897a8050f4cad82f3"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -16191,7 +16192,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-21T20:07:58+00:00"
+            "time": "2023-07-04T13:32:44+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -16755,21 +16756,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.17.1",
+            "version": "0.17.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "11401dc1abba0a359fabbf98f1057f4e65129f86"
+                "reference": "b8f72ff7e4914bb1d1557cc5c6d33898f7fd2bfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-11401dc1abba0a359fabbf98f1057f4e65129f86-zip-14a2ca.zip",
-                "reference": "11401dc1abba0a359fabbf98f1057f4e65129f86",
-                "shasum": "52ad427e1db6d62b71189a425e7c1d65f9a6cd9b"
+                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-b8f72ff7e4914bb1d1557cc5c6d33898f7fd2bfb-zip-c7ff8b.zip",
+                "reference": "b8f72ff7e4914bb1d1557cc5c6d33898f7fd2bfb",
+                "shasum": "65795b3882b5584f51eff7fdec97a1453a4fbd48"
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.10.15"
+                "phpstan/phpstan": "^1.10.20"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -16808,7 +16809,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-14T09:05:33+00:00"
+            "time": "2023-06-29T10:03:28+00:00"
         },
         {
             "name": "sebastian/cli-parser",
