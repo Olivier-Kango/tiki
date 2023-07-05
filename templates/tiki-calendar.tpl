@@ -210,6 +210,7 @@ $("#filtercal").submit(function () {
                 firstDay: {{$firstDayofWeek}},
                 slotDuration: '00:{{if $prefs.calendar_timespan|count_characters == 1}}0{{/if}}{{$prefs.calendar_timespan}}',
                 initialView: {{if $prefs.calendar_view_mode === 'week'}}'timeGridWeek'{{elseif $prefs.calendar_view_mode === 'day'}}'timeGridDay'{{elseif $prefs.calendar_view_mode === 'month'}}'dayGridMonth'{{else}}'{{$prefs.calendar_view_mode}}'{{/if}},
+                initialDate: {{$initialDate|json_encode}},
                 views: {
                     quarter: {
                         type: 'dayGrid',
