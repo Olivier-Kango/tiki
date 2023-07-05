@@ -10757,6 +10757,7 @@ header.navbar.fixed-top {
   --tiki-tooltip-link-color: #88b6fc;
   --tiki-tooltip-link-hover-color: var(--bs-body-bg);
   --tiki-code-color: var(--bs-body-color);
+  --tiki-code-bg: var(--bs-secondary-bg);
 }
 :root {
   color-scheme: light;
@@ -10834,6 +10835,8 @@ header.navbar.fixed-top {
   --tiki-top-bg: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb);
   --tiki-top-color: #000;
   --tiki-top-hover-color: #000;
+  --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
 }
 .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb);
@@ -10844,6 +10847,8 @@ header.navbar.fixed-top {
   --tiki-top-bg: linear-gradient(#545a5f, #343a40 60%, #31373c);
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 .tiki-topbar-nav-dark {
   --tiki-topbar-bg: linear-gradient(#545a5f, #343a40 60%, #31373c);
@@ -10854,6 +10859,8 @@ header.navbar.fixed-top {
   --tiki-top-bg: linear-gradient(#545a5f, #343a40 60%, #31373c);
   --tiki-top-color: #fff;
   --tiki-top-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
 }
 [data-bs-theme=dark] .tiki-topbar-nav-light {
   --tiki-topbar-bg: linear-gradient(#545a5f, #343a40 60%, #31373c);
@@ -11513,7 +11520,7 @@ div.drillshow {
 }
 code, pre.codelisting {
   color: var(--tiki-code-color);
-  background: var(--bs-secondary-bg);
+  background: var(--tiki-code-bg);
   border: 1px solid #dee2e6;
   padding: 0.1875rem 0.375rem;
   border-radius: 0.375rem;
@@ -12850,4 +12857,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .accordion-button:not(.collapsed) {
   background: linear-gradient(#50b3eb, #2fa4e7 60%, #2c9ad9);
 }
-/*# sourceMappingURL=cerulean.css.map */
+
