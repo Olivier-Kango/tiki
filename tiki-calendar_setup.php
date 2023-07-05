@@ -61,6 +61,11 @@ if (! empty($_REQUEST['day']) && ! empty($_REQUEST['mon']) && ! empty($_REQUEST[
 }
 
 $focusdate = $_REQUEST['todate'];
+if ($focusdate && isset($_REQUEST['tzoffset'])) {
+    $focusdate = TikiDate::convertWithTimezone($_REQUEST, $focusdate);
+    $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $focusdate);
+    $focusdate -= $server_offset;
+}
 $focusDay = TikiLib::date_format("%d", $focusdate);
 $focusMonth = TikiLib::date_format("%m", $focusdate);
 $focusYear = TikiLib::date_format("%Y", $focusdate);
@@ -172,6 +177,7 @@ $smarty->assign('focusday', $focus_day);
 $smarty->assign('focusmonth', $focus_month);
 $smarty->assign('focusdate', $focusdate);
 $smarty->assign('focuscell', $focuscell);
+$smarty->assign('initialDate', "$focus_year-$focus_month-$focus_day");
 
 $smarty->assign('now', $tikilib->now);
 $smarty->assign('nowUser', $tikilib->now);
