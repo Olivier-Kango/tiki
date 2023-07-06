@@ -52,11 +52,18 @@ class PdoClient
         }
     }
 
-    public function getIndicesByPrefix($prefix)
+    public function getIndicesByPrefix($prefix, $type = 'rt')
     {
+        $results = [];
         $stmt = $this->pdo->prepare("SHOW TABLES LIKE ?");
         $stmt->execute([$prefix . '%']);
-        return $stmt->fetchAll();
+        foreach ($stmt->fetchAll() as $row) {
+            if (! empty($type) && $row['Type'] != $type) {
+                continue;
+            }
+            $results[] = $row['Index'];
+        }
+        return $results;
     }
 
     public function createIndex($index, $definition, $settings = [], $silent = false)

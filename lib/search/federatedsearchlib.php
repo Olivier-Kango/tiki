@@ -118,16 +118,13 @@ class FederatedSearchLib
             }
             $available = $indexClient->getIndicesByPrefix($def['index']);
             $latest = '';
-            foreach ($available as $row) {
-                if ($row['Type'] != 'rt') {
-                    continue;
-                }
+            foreach ($available as $indexName) {
                 if (empty($latest)) {
-                    $latest = $row['Index'];
+                    $latest = $indexName;
                     continue;
                 }
-                if (strcmp($latest, $row['Index']) < 0) {
-                    $latest = $row['Index'];
+                if (strcmp($latest, $indexName) < 0) {
+                    $latest = $indexName;
                 }
             }
             if ($def['type'] == 'agent') {

@@ -294,10 +294,10 @@ class UnifiedSearchLib
 
             unset($indexDecorator, $index);
 
-            $oldIndex = null;
+            $oldIndices = null;
             switch ($prefs['unified_engine']) {
                 case 'elastic':
-                    $oldIndex = null; // assignAlias will handle the clean-up
+                    $oldIndices = null; // assignAlias will handle the clean-up
                     $tikilib->set_preference('unified_elastic_index_current', $indexName);
 
                     $connection->assignAlias($aliasName, $indexName);
@@ -305,15 +305,26 @@ class UnifiedSearchLib
                     break;
                 case 'mysql':
                     // Obtain the old index and destroy it after permanently replacing it.
-                    $oldIndex = $this->getIndex('data', false);
+                    $oldIndices = [$this->getIndex('data', false)];
 
                     $tikilib->set_preference('unified_mysql_index_current', $indexName);
                     TikiDb::get()->releaseLock($indexName);
 
                     break;
                 case 'manticore':
-                    // Obtain the old index and destroy it after permanently replacing it.
-                    $oldIndex = $this->getIndex('data', false);
+                    // Obtain the old index and destroy it after permanently replacing it
+                    $oldIndices = [$this->getIndex('data', false)];
+                    // Obtain the list of older indices with the same prefix as we might not be pointing to the old index or there might be multiple stacked old indices
+                    if (! empty($prefs['unified_manticore_index_prefix'])) {
+                        $client = $this->getManticoreClient('mysql');
+                        $existing = $client->getIndicesByPrefix($prefs['unified_manticore_index_prefix'] . 'main');
+                        $oldIndices = [];
+                        foreach ($existing as $existingName) {
+                            if ($existingName != $indexName) {
+                                $oldIndices[] = new \Search\Manticore\Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $existingName);
+                            }
+                        }
+                    }
                     $tikilib->set_preference('unified_manticore_index_current', $indexName);
                     if ($prefs['federated_enabled'] === 'y') {
                         TikiLib::lib('federatedsearch')->recreateDistributedIndex($this->getManticoreClient('mysql'));
@@ -321,9 +332,11 @@ class UnifiedSearchLib
                     break;
             }
 
-            if ($oldIndex) {
-                if (! $oldIndex->destroy()) {
-                    Feedback::error(tr('Failed to delete the old index.'));
+            if ($oldIndices) {
+                foreach ($oldIndices as $oldIndex) {
+                    if (! $oldIndex->destroy()) {
+                        Feedback::error(tr('Failed to delete the old index.'));
+                    }
                 }
             }
         } catch (Exception $e) {
@@ -450,6 +463,15 @@ class UnifiedSearchLib
                 'ondemand' => $prefs['unified_manticore_index_prefix'] . 'ondemand',
             ],
         ];
+
+        // make sure current index is prefixed by the configured prefix, otherwise refuse to use it
+        // this fixes problems when cloning data, copying databases to other Tikies and reusing the same production index
+        if (! empty($prefs['unified_elastic_index_prefix']) && ! strstr($mapping['elastic']['data'], $prefs['unified_elastic_index_prefix'] . 'main')) {
+            $mapping['elastic']['data'] = '';
+        }
+        if (! empty($prefs['unified_manticore_index_prefix']) && ! strstr($mapping['manticore']['data'], $prefs['unified_manticore_index_prefix'] . 'main')) {
+            $mapping['manticore']['data'] = '';
+        }
 
         $engine = $engine ?: $prefs['unified_engine'];
 
