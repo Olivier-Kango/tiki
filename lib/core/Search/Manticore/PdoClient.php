@@ -139,16 +139,25 @@ class PdoClient
                 // local index
                 $client = $this;
             }
-            $fields[$table] = array_keys($client->describe($def['index']));
+            $fields[$table] = $client->describe($def['index']);
         }
+        $common = [];
         $result = array_shift($fields);
-        foreach ($fields as $arr) {
-            $result = array_intersect($result, $arr);
-        }
         if (! $result) {
             $result = [];
         }
-        return array_values($result);
+        foreach ($result as $field => $opts) {
+            foreach ($fields as $tableFields) {
+                if (! isset($tableFields[$field])) {
+                    continue 2;
+                }
+                if ($opts['types'] != $tableFields[$field]['types']) {
+                    continue 2;
+                }
+            }
+            $common[] = $field;
+        }
+        return $common;
     }
 
     public function deleteIndex($index)
