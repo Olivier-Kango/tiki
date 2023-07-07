@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5218fa63f1d8e564ee5ed1d9190faf83",
+    "content-hash": "9eecb203246b79fd473c7f28a1227291",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1881,17 +1881,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "3.4.7",
+            "version": "3.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "188afe3976f4e39459fa6fd08357aab2f3125b53"
+                "reference": "9f03f2b91bb37c9cbfeed7aadce774865d14c571"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-188afe3976f4e39459fa6fd08357aab2f3125b53-zip-21159b.zip",
-                "reference": "188afe3976f4e39459fa6fd08357aab2f3125b53",
-                "shasum": "b4310610abd55b35390959fdfcab65f19446763f"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-9f03f2b91bb37c9cbfeed7aadce774865d14c571-zip-ee8141.zip",
+                "reference": "9f03f2b91bb37c9cbfeed7aadce774865d14c571",
+                "shasum": "a6d168d2e6fc1ccd6ae77068510e0436fd4b7dff"
             },
             "require": {
                 "php": "^7.4|^8.0"
@@ -1921,7 +1921,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2023-05-26T07:33:16+00:00"
+            "time": "2023-07-06T07:33:21+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -2519,14 +2519,14 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/henrique-borba/php-sieve-manager.git",
-                "reference": "f633f42ad126941fd021d1dd3c5edd9d28d01e4e"
+                "url": "https://github.com/cypht-org/php-sieve-manager.git",
+                "reference": "c3c723dca80be22d0e7ff2575df36313387b58aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-f633f42ad126941fd021d1dd3c5edd9d28d01e4e-zip-e53ea2.zip",
-                "reference": "f633f42ad126941fd021d1dd3c5edd9d28d01e4e",
-                "shasum": "09ad7a7b1c34943024482ef6547a214a51d20e0e"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-c3c723dca80be22d0e7ff2575df36313387b58aa-zip-507f2e.zip",
+                "reference": "c3c723dca80be22d0e7ff2575df36313387b58aa",
+                "shasum": "99511de4587a8e522e72da5afd79f4cff0cd44ef"
             },
             "require": {
                 "php": ">=5.4"
@@ -2549,13 +2549,14 @@
             ],
             "description": "PHP library to create and manage Sieve filters through the ManageSieve protocol",
             "keywords": [
+                "cypht",
                 "email",
                 "imap",
                 "managesieve",
                 "php",
                 "sieve"
             ],
-            "time": "2023-06-19T15:12:02+00:00"
+            "time": "2023-07-06T03:12:57+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -2765,6 +2766,7 @@
                 "cas",
                 "jasig"
             ],
+            "abandoned": "apereo/phpcas",
             "time": "2023-02-19T19:52:35+00:00"
         },
         {
@@ -2773,13 +2775,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "11fd2b1d2cf02907f57fa14ac8f196ac365b23a0"
+                "reference": "343ea680b59ae5418b5b37cf0816068c28c9eed1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-11fd2b1d2cf02907f57fa14ac8f196ac365b23a0-zip-66c419.zip",
-                "reference": "11fd2b1d2cf02907f57fa14ac8f196ac365b23a0",
-                "shasum": "638ca7944a2dc435b86878e5fc7919a54567c94c"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-343ea680b59ae5418b5b37cf0816068c28c9eed1-zip-054f8a.zip",
+                "reference": "343ea680b59ae5418b5b37cf0816068c28c9eed1",
+                "shasum": "ce4b240b5267e85fb3afd7f490194881869aedf8"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2796,7 +2798,8 @@
                 "henrique-borba/php-sieve-manager": "dev-master",
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=5.4",
-                "webklex/composer-info": "^0.0.1"
+                "webklex/composer-info": "^0.0.1",
+                "zbateson/mail-mime-parser": "^2.4"
             },
             "suggest": {
                 "ext-PDO": "To use database features, this needs to be installed",
@@ -2823,6 +2826,7 @@
             "homepage": "https://cypht.org",
             "keywords": [
                 "atom",
+                "cypht",
                 "e-mail",
                 "imap",
                 "jmap",
@@ -2833,7 +2837,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-06-29T00:19:36+00:00"
+            "time": "2023-07-07T13:25:43+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4851,17 +4855,17 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.33.0",
+            "version": "2.34.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "1d82b5c0ede9316263e14d11e9284dfb3130f158"
+                "reference": "74a9701d12ed71e2110ddc291a0caaba5832a4ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-1d82b5c0ede9316263e14d11e9284dfb3130f158-zip-f442e5.zip",
-                "reference": "1d82b5c0ede9316263e14d11e9284dfb3130f158",
-                "shasum": "45831c4fd5f2aa68f63fa19ebce73a21c3d8d2cc"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-74a9701d12ed71e2110ddc291a0caaba5832a4ca-zip-2b33fc.zip",
+                "reference": "74a9701d12ed71e2110ddc291a0caaba5832a4ca",
+                "shasum": "3081a38cd3c396e8bf74afe96fd6ff1170514e0f"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.21.0",
@@ -4923,7 +4927,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-06-12T09:43:54+00:00"
+            "time": "2023-07-03T07:58:17+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -8946,6 +8950,56 @@
                 "xmlrpc"
             ],
             "time": "2023-02-22T12:25:19+00:00"
+        },
+        {
+            "name": "pimple/pimple",
+            "version": "v3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silexphp/Pimple.git",
+                "reference": "a94b3a4db7fb774b3d78dad2315ddc07629e1bed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/pimple/pimple/pimple-pimple-a94b3a4db7fb774b3d78dad2315ddc07629e1bed-zip-b18956.zip",
+                "reference": "a94b3a4db7fb774b3d78dad2315ddc07629e1bed",
+                "shasum": "64a6f08d9a7813cd38ed74e3fe9a3c7f2c3b735b"
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "psr/container": "^1.1 || ^2.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^5.4@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple, a simple Dependency Injection Container",
+            "homepage": "https://pimple.symfony.com",
+            "keywords": [
+                "container",
+                "dependency injection"
+            ],
+            "time": "2021-10-28T11:13:42+00:00"
         },
         {
             "name": "plotly/plotly.js",
@@ -14539,27 +14593,30 @@
         },
         {
             "name": "zbateson/mail-mime-parser",
-            "version": "1.3.3",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zbateson/mail-mime-parser.git",
-                "reference": "244b70963945293b5225da2553239a06987d1a11"
+                "reference": "20b3e48eb799537683780bc8782fbbe9bc25934a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/zbateson/mail-mime-parser/zbateson-mail-mime-parser-244b70963945293b5225da2553239a06987d1a11-zip-b13c4f.zip",
-                "reference": "244b70963945293b5225da2553239a06987d1a11",
-                "shasum": "9646e215b5b64f3dd1be1bebed0dd23e3d836dfc"
+                "url": "https://composer.tiki.org/dist/zbateson/mail-mime-parser/zbateson-mail-mime-parser-20b3e48eb799537683780bc8782fbbe9bc25934a-zip-5f1b06.zip",
+                "reference": "20b3e48eb799537683780bc8782fbbe9bc25934a",
+                "shasum": "7b4429cfecf8414dff71bbb0030a7017d4de1720"
             },
             "require": {
                 "guzzlehttp/psr7": "^1.7.0|^2.0",
-                "php": ">=5.4",
+                "php": ">=7.1",
+                "pimple/pimple": "^3.0",
                 "zbateson/mb-wrapper": "^1.0.1",
                 "zbateson/stream-decorators": "^1.0.6"
             },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "*",
                 "mikey179/vfsstream": "^1.6.0",
-                "sanmai/phpunit-legacy-adapter": "^6.3 || ^8"
+                "phpstan/phpstan": "*",
+                "phpunit/phpunit": "<10"
             },
             "suggest": {
                 "ext-iconv": "For best support/performance",
@@ -14602,7 +14659,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-06T00:47:49+00:00"
+            "time": "2023-02-14T22:58:03+00:00"
         },
         {
             "name": "zbateson/mb-wrapper",
@@ -16140,17 +16197,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.22",
+            "version": "1.10.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "97d694dfd4ceb57bcce4e3b38548f13ea62e4287"
+                "reference": "578f4e70d117f9a90699324c555922800ac38d8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-97d694dfd4ceb57bcce4e3b38548f13ea62e4287-zip-7966fb.zip",
-                "reference": "97d694dfd4ceb57bcce4e3b38548f13ea62e4287",
-                "shasum": "2265546a3f2f4019221eea8bc5f3fc145b558302"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-578f4e70d117f9a90699324c555922800ac38d8c-zip-fc67f9.zip",
+                "reference": "578f4e70d117f9a90699324c555922800ac38d8c",
+                "shasum": "579a0bd1a59b6b959ca5ff2812cee5e105b3c55d"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -16191,7 +16248,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-30T20:04:11+00:00"
+            "time": "2023-07-06T12:11:37+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
