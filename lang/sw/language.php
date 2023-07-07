@@ -17704,7 +17704,7 @@ $lang_current = array(
 "Please select a language before translating" => "Tafadhali chagua lugha kabla ya kutafsiri",
 // "Set Page Language" => "Set Page Language",
 "Edit %0" => " Badilisha <a class=\"edit_pagetitle\" href=\"tiki-index.php?page=HomePage\"> HomePage </a>",
-"Update '{\$page}'" => "Sasisha '{\$ukurasa'}",
+"Update '{\$page}'" => "Sasisha '{\$page}'",
 // "{\$customTip|escape}" => "{\$customTip|escape}",
 // "Preview your changes" => "Preview your changes",
 "Draft written on" => "Rasimu iliyoandikwa juu",
