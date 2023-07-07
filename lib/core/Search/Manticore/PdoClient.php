@@ -13,7 +13,6 @@ use PDOException;
 class PdoClient
 {
     protected const QUERY_RETRIES = 1;
-    public const DISTRIBUTED_INDEX_NAME = 'tiki_distributed';
 
     protected $dsn;
     protected $port;
@@ -24,6 +23,19 @@ class PdoClient
         $this->dsn = $dsn;
         $this->port = $port;
         $this->connect();
+    }
+
+    public static function distributedIndexName()
+    {
+        global $prefs;
+
+        if (empty($prefs['federated_manticore_index_prefix'])) {
+            $prefix = 'tiki_';
+        } else {
+            $prefix = $prefs['federated_manticore_index_prefix'];
+        }
+
+        return $prefix . 'distributed';
     }
 
     public function getStatus()
@@ -86,7 +98,7 @@ class PdoClient
 
     public function recreateDistributedIndex(array $names)
     {
-        $this->deleteIndex(self::DISTRIBUTED_INDEX_NAME);
+        $this->deleteIndex(self::distributedIndexName());
 
         $list = [];
         foreach ($names as $name) {
@@ -94,7 +106,7 @@ class PdoClient
             $list[] = $def['type'] . '=?';
         }
 
-        $stmt = $this->pdo->prepare("CREATE TABLE " . self::DISTRIBUTED_INDEX_NAME . " type='distributed' " . join(' ', $list));
+        $stmt = $this->pdo->prepare("CREATE TABLE " . self::distributedIndexName() . " type='distributed' " . join(' ', $list));
         $this->executeWithRetry($stmt, array_values($names));
     }
 
@@ -118,7 +130,7 @@ class PdoClient
 
     public function possibleFacetFields($table)
     {
-        if ($table == self::DISTRIBUTED_INDEX_NAME) {
+        if ($table == self::distributedIndexName()) {
             $stmt = $this->pdo->query("DESC $table");
             $result = $stmt->fetchAll();
             $tables = [];
@@ -163,11 +175,24 @@ class PdoClient
     public function deleteIndex($index)
     {
         try {
+            $stmt = $this->pdo->query("DESC " . self::distributedIndexName());
+            $result = $stmt->fetchAll();
+            foreach ($result as $row) {
+                $def = $this->parseDistributedIndexDefinition($row['Agent']);
+                if ($def['type'] == 'local' && $def['index'] == $index) {
+                    Feedback::error(tr("Failed deleting Manticore index %0 as it is currently used in a distributed index.", $index));
+                    return false;
+                }
+            }
+        } catch (PDOException $e) {
+            // no distributed index, continue normally
+        }
+        try {
             $stmt = $this->pdo->prepare("DROP TABLE IF EXISTS $index");
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            Feedback::error("Failed deleting Manticore index $index: " . $e->getMessage());
+            Feedback::error(tr("Failed deleting Manticore index %0: ", $index) . $e->getMessage());
             return false;
         }
     }

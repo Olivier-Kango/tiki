@@ -380,7 +380,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         }
 
         if ($query->getForeignQueries()) {
-            $table = PdoClient::DISTRIBUTED_INDEX_NAME;
+            $table = PdoClient::distributedIndexName();
         } else {
             $table = $this->index;
         }
