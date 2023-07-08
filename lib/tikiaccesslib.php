@@ -864,6 +864,7 @@ class TikiAccessLib extends TikiLib
                     $smarty = TikiLib::lib('smarty');
                     $smarty->assign('post', $_REQUEST);
                     $smarty->assign('print_page', 'n');
+                    $smarty->assign('confirmation_action', 'y');
                     $smarty->assign('confirmation_text', $confirmation_text);
                     $smarty->assign('confirmaction', $confirmaction);
                     $smarty->assign('mid', 'confirm.tpl');
