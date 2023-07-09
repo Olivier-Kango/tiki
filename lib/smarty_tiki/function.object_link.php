@@ -14,9 +14,9 @@ function smarty_function_object_link($params, $smarty)
         $type = $params['type'];
         $object = $params['id'];
     } else {
-        $identifier = explode(':', $params['identifier'], 2);
-        if (count($identifier) != 2) {
-            return tra('No object information provided.');
+        $identifier = isset($params['identifier']) ? explode(':', $params['identifier'], 2) : null;
+        if (is_countable($identifier) && count($identifier) != 2) {
+            return tra('Unable to parse object information provided.');
         }
         list($type, $object) = $identifier;
     }

@@ -7333,6 +7333,7 @@ $lang_current = array(
 // "Multivalue configuration not found" => "Multivalue configuration not found",
 "No records found." => "Aucun résultat.",
 "No object information provided" => "Aucune information fournie pour l'objet",
+"Unable to parse object information provided." => "Impossible d'analyser les informations  d'objet fournie.",
 "No title specified" => "Aucun titre spécifié",
 "Relation not found" => "Relation non trouvée",
 "tags disabled" => "Mots-clés désactivés",
