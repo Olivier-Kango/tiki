@@ -588,6 +588,15 @@
 									{tr}General{/tr} <a href="https://doc.tiki.org/general+admin" target="_blank" title="{tr}Help{/tr}">{icon name="help"}</a>
 								</legend>
 								<div class="form-group" style="padding:5px; clear:both">
+									<label for="server_domain">
+										{tr}Server domain name:{/tr}
+									</label>
+									<input class="form-control" type="text" name="server_domain" id="server_domain" value="{if !empty($prefs.server_domain)}{$prefs.server_domain|escape}{else}{tr}{$default_server_domain_name}{/tr}{/if}">
+									<span class="help-block">
+										{tr}The value that will be used by default as the server domain name of your Tiki site.{/tr}
+									</span>
+								</div>
+								<div class="form-group" style="padding:5px; clear:both">
 									<label for="browsertitle">
 										{tr}Browser title:{/tr}
 									</label>
