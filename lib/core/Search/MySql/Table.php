@@ -89,9 +89,9 @@ class Search_MySql_Table extends TikiDb_Table
 
 		if (! isset($this->definition[$fieldName])) {
 			if (preg_match('/^tracker_field_/', $fieldName)) {
-				$msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', $fieldName);
+				$msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', TikiFilter::get('xss')->filter($fieldName));
 			} else {
-				$msg = tr('Field %0 does not exist in the current index. If this is a tracker field, the proper syntax is tracker_field_%0.', $fieldName, $fieldName);
+				$msg = tr('Field %0 does not exist in the current index. If this is a tracker field, the proper syntax is tracker_field_%0.', TikiFilter::get('xss')->filter($fieldName), TikiFilter::get('xss')->filter($fieldName));
 			}
 			$e = new Search_MySql_QueryException($msg);
 			if ($fieldName == 'tracker_id' || $prefs['search_error_missing_field'] !== 'y') {

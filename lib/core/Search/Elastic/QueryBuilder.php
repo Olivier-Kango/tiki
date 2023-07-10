@@ -284,9 +284,9 @@ class Search_Elastic_QueryBuilder
 		$mapping = $this->index ? $this->index->getFieldMapping($field) : new stdClass;
 		if ((empty($mapping) || empty((array)$mapping)) && $prefs['search_error_missing_field'] === 'y') {
 			if (preg_match('/^tracker_field_/', $field)) {
-				$msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', $field);
+				$msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', TikiFilter::get('xss')->filter($field));
 			} else {
-				$msg = tr('Field %0 does not exist in the current index. If this is a tracker field, the proper syntax is tracker_field_%0.', $field, $field);
+				$msg = tr('Field %0 does not exist in the current index. If this is a tracker field, the proper syntax is tracker_field_%0.', TikiFilter::get('xss')->filter($field), TikiFilter::get('xss')->filter($field));
 			}
 			throw new Search_Elastic_QueryParsingException($msg);
 		}
