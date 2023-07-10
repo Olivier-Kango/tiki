@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9eecb203246b79fd473c7f28a1227291",
+    "content-hash": "49d60e874751ae6a7a11767d3e6e4950",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -16594,17 +16594,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.9",
+            "version": "9.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a9aceaf20a682aeacf28d582654a1670d8826778"
+                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-a9aceaf20a682aeacf28d582654a1670d8826778-zip-c16dc8.zip",
-                "reference": "a9aceaf20a682aeacf28d582654a1670d8826778",
-                "shasum": "71f5b3f2480fbf5ff56f4d69303064a24423461f"
+                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-a6d351645c3fe5a30f5e86be6577d946af65a328-zip-c48515.zip",
+                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328",
+                "shasum": "c1db395cea38f12e3f8203286704afb44e27f7de"
             },
             "require": {
                 "doctrine/instantiator": "^1.3.1 || ^2",
@@ -16688,7 +16688,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-11T06:13:56+00:00"
+            "time": "2023-07-10T04:04:23+00:00"
         },
         {
             "name": "phpunit/phpunit-selenium",
