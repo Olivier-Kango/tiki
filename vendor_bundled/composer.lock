@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91cac81c871cf88abdbc4200e0323ffe",
+    "content-hash": "621578323159979c13e60fd34c66f408",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2594,9 +2594,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-ba12318971a47b149e07debc10ba8aca2dc36e64-zip-a71d17.zip",
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-343ea680b59ae5418b5b37cf0816068c28c9eed1-zip-054f8a.zip",
                 "reference": "ba12318",
-                "shasum": "4762b97a76a9407df00b4ef19dd85eeb33540c4c"
+                "shasum": "ce4b240b5267e85fb3afd7f490194881869aedf8"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2652,7 +2652,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-07-07T06:50:38+00:00"
+            "time": "2023-07-07T13:25:43+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -6146,6 +6146,19 @@
             "type": "npm-asset",
             "license": [
                 "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/dompurify",
+            "version": "2.4.5",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/npm-asset/dompurify/npm-asset-dompurify-2.4.5.zip",
+                "shasum": "cb1ce7b1f4a521cdfdf65043028b1a1bc59b57bb"
+            },
+            "type": "npm-asset",
+            "license": [
+                "(MPL-2.0 OR Apache-2.0)"
             ]
         },
         {
