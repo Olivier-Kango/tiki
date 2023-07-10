@@ -254,16 +254,16 @@ if (is_numeric($_REQUEST['galleryId']) == false) {
 	$_REQUEST['galleryId'] = 0;
 }
 
-$fileId = htmlspecialchars($_REQUEST['fileId']);
+$fileId = htmlspecialchars($_REQUEST['fileId'], ENT_QUOTES);
 $galleryId = htmlspecialchars($_REQUEST['galleryId']);
 $name = htmlspecialchars($_REQUEST['name']);
 $archive = htmlspecialchars($_REQUEST['archive']);
 
-$index = htmlspecialchars($_REQUEST['index']);
-$page = htmlspecialchars($_REQUEST['page']);
-$label = htmlspecialchars($_REQUEST['label']);
-$width = htmlspecialchars($_REQUEST['width']);
-$height = htmlspecialchars($_REQUEST['height']);
+$index = htmlspecialchars($_REQUEST['index'], ENT_QUOTES);
+$page = htmlspecialchars($_REQUEST['page'], ENT_QUOTES);
+$label = htmlspecialchars($_REQUEST['label'], ENT_QUOTES);
+$width = htmlspecialchars($_REQUEST['width'], ENT_QUOTES);
+$height = htmlspecialchars($_REQUEST['height'], ENT_QUOTES);
 
 $smarty->assign("page", $page);
 $smarty->assign("isFromPage", isset($page));
