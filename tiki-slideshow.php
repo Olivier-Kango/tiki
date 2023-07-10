@@ -408,11 +408,17 @@ $headerlib->add_jq_onready(
         '
 );
 
+$params = [];
+
+foreach ($_GET as $key => $value) {
+    $key = htmlentities($key, ENT_QUOTES);
+    $params[$key] = htmlentities($value, ENT_QUOTES);
+}
+
 if (empty($parserlib->getPlugins($info["data"], ['slideshow']))) {
     // If {slideshow} is not in the page, inject necessary Reveal related configurations
-    $params = array_merge(SlideshowHelper::getDefaultPluginValues(), $_GET);
+    $params = array_merge(SlideshowHelper::getDefaultPluginValues(), $params);
     $revealSettings = SlideshowHelper::getRevealSettingsAsString($params);
-
     $headerlib->add_js(
         "Reveal.configure({" . $revealSettings . "});"
     );
