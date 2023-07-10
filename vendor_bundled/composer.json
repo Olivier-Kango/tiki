@@ -281,7 +281,7 @@
 	"repositories": [
 		{
 			"type": "composer",
-			"url": "https://composer.tiki.org",
+			"url": "https://composer.tiki.org"
 		},
 		{
 			"type": "composer",
