@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9eecb203246b79fd473c7f28a1227291",
+    "content-hash": "49d60e874751ae6a7a11767d3e6e4950",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2775,13 +2775,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "ba12318971a47b149e07debc10ba8aca2dc36e64"
+                "reference": "343ea680b59ae5418b5b37cf0816068c28c9eed1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-ba12318971a47b149e07debc10ba8aca2dc36e64-zip-a71d17.zip",
-                "reference": "ba12318971a47b149e07debc10ba8aca2dc36e64",
-                "shasum": "4762b97a76a9407df00b4ef19dd85eeb33540c4c"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-343ea680b59ae5418b5b37cf0816068c28c9eed1-zip-054f8a.zip",
+                "reference": "343ea680b59ae5418b5b37cf0816068c28c9eed1",
+                "shasum": "ce4b240b5267e85fb3afd7f490194881869aedf8"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2837,7 +2837,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-07-07T06:50:38+00:00"
+            "time": "2023-07-07T13:25:43+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -16594,17 +16594,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.9",
+            "version": "9.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a9aceaf20a682aeacf28d582654a1670d8826778"
+                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-a9aceaf20a682aeacf28d582654a1670d8826778-zip-c16dc8.zip",
-                "reference": "a9aceaf20a682aeacf28d582654a1670d8826778",
-                "shasum": "71f5b3f2480fbf5ff56f4d69303064a24423461f"
+                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-a6d351645c3fe5a30f5e86be6577d946af65a328-zip-c48515.zip",
+                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328",
+                "shasum": "c1db395cea38f12e3f8203286704afb44e27f7de"
             },
             "require": {
                 "doctrine/instantiator": "^1.3.1 || ^2",
@@ -16688,7 +16688,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-11T06:13:56+00:00"
+            "time": "2023-07-10T04:04:23+00:00"
         },
         {
             "name": "phpunit/phpunit-selenium",
