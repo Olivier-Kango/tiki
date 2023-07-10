@@ -94,6 +94,10 @@ function wikiplugin_chartjs($data, $params)
     static $instance = 0;
     $instance++;
 
+    if (! empty($params['id'])) {
+        $params['id'] = preg_replace('/[^A-Za-z0-9_]/', '', $params['id']);
+    }
+
     if (empty($params['id'])) {
         $params['id'] = "tikiChart$instance";
     }
