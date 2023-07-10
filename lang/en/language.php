@@ -18374,7 +18374,7 @@ $lang = array(
 // "Permissions Clipboard" => "Permissions Clipboard",
 // "Copy the permissions set here" => "Copy the permissions set here",
 // "Paste" => "Paste",
-// "Paste copied permissions from " => "Paste copied permissions from ",
+// "Paste copied permissions from: " => "Paste copied permissions from: ",
 // "Assign or remove permissions on <em>all</em> child categories" => "Assign or remove permissions on <em>all</em> child categories",
 // "Are you sure you want to affect all child categories?\\nThere is no undo" => "Are you sure you want to affect all child categories?\\nThere is no undo",
 // "Assign or remove permissions on all pages of the sub-structure" => "Assign or remove permissions on all pages of the sub-structure",
@@ -21950,4 +21950,5 @@ $lang = array(
 // "Double click to edit" => "Double click to edit",
 // "Missing some forums order, please specify the order of the forums." => "Missing some forums order, please specify the order of the forums.",
 // "No forums were selected. Please select the forums to reorder." => "No forums were selected. Please select the forums to reorder.",
+// Permissions Clipboard
 );
