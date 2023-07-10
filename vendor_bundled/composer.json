@@ -169,7 +169,7 @@
         "twbs/bootstrap": "^5.1",
         "thomaspark/bootswatch": "~5.1",
         "undojs/undojs": "1",
-        "zbateson/mail-mime-parser": "^1.3.1",
+        "zbateson/mail-mime-parser": "^2.4",
         "zendframework/zendservice-akismet": "dev-tiki",
         "gidkom/php-openfire-restapi": "^1.0",
         "montefuscolo/xmpp": "dev-master",

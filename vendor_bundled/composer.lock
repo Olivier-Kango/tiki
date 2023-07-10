@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96f2e11629acac22f691ef297aede98f",
+    "content-hash": "82913e6e71a46b9b8088ce494ee20f35",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -18,17 +18,17 @@
         },
         {
             "name": "adodb/adodb-php",
-            "version": "v5.22.5",
+            "version": "v5.22.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "bacd08a8232b6d941b9902f02d323f53de81fafe"
+                "reference": "2e916ebc543b95f955af3c91366d799b8c6134aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-bacd08a8232b6d941b9902f02d323f53de81fafe-zip-11499e.zip",
-                "reference": "bacd08a8232b6d941b9902f02d323f53de81fafe",
-                "shasum": "246170758d7507d7846af54898c70e8b9785dfa7"
+                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-2e916ebc543b95f955af3c91366d799b8c6134aa-zip-b4ec6e.zip",
+                "reference": "2e916ebc543b95f955af3c91366d799b8c6134aa",
+                "shasum": "6be0935bf56166f898ca4684a94be5af324eb6f6"
             },
             "require": {
                 "php": "^7.0 || ^8.0"
@@ -71,7 +71,7 @@
                 "library",
                 "php"
             ],
-            "time": "2023-04-03T21:41:29+00:00"
+            "time": "2023-06-11T11:05:41+00:00"
         },
         {
             "name": "afarkas/html5shiv",
@@ -945,17 +945,17 @@
         },
         {
             "name": "ckeditor/ckeditor",
-            "version": "4.21.0",
+            "version": "4.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "af71d07caa2172c53e0e426250e3b0189137915b"
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-af71d07caa2172c53e0e426250e3b0189137915b-zip-81241c.zip",
-                "reference": "af71d07caa2172c53e0e426250e3b0189137915b",
-                "shasum": "7ae9e525df2875defe8c96006ab859f018e45bef"
+                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-0d51138b0a258165ac09724e8f5cda67cf9126a3-zip-a74417.zip",
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3",
+                "shasum": "ef0f60c617f38407c987a0b5f818823cade101d9"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -983,7 +983,7 @@
                 "text",
                 "wysiwyg"
             ],
-            "time": "2023-03-22T10:37:38+00:00"
+            "time": "2023-06-30T13:35:30+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1698,17 +1698,17 @@
         },
         {
             "name": "defuse/php-encryption",
-            "version": "v2.3.1",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/defuse/php-encryption.git",
-                "reference": "77880488b9954b7884c25555c2a0ea9e7053f9d2"
+                "reference": "f53396c2d34225064647a05ca76c1da9d99e5828"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/defuse/php-encryption/defuse-php-encryption-77880488b9954b7884c25555c2a0ea9e7053f9d2-zip-3aad73.zip",
-                "reference": "77880488b9954b7884c25555c2a0ea9e7053f9d2",
-                "shasum": "9a8eddbfe858856a6335b44a224ecd0b84b8544b"
+                "url": "https://composer.tiki.org/dist/defuse/php-encryption/defuse-php-encryption-f53396c2d34225064647a05ca76c1da9d99e5828-zip-3fa902.zip",
+                "reference": "f53396c2d34225064647a05ca76c1da9d99e5828",
+                "shasum": "a5962c972b3d5687e800218ba678a74b22cf0804"
             },
             "require": {
                 "ext-openssl": "*",
@@ -1716,7 +1716,8 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4|^5|^6|^7|^8|^9"
+                "phpunit/phpunit": "^5|^6|^7|^8|^9|^10",
+                "yoast/phpunit-polyfills": "^2.0.0"
             },
             "bin": [
                 "bin/generate-defuse-key"
@@ -1756,7 +1757,7 @@
                 "security",
                 "symmetric key cryptography"
             ],
-            "time": "2021-04-09T23:57:26+00:00"
+            "time": "2023-06-19T06:10:36+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -1934,17 +1935,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "3.4.7",
+            "version": "3.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "188afe3976f4e39459fa6fd08357aab2f3125b53"
+                "reference": "9f03f2b91bb37c9cbfeed7aadce774865d14c571"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-188afe3976f4e39459fa6fd08357aab2f3125b53-zip-21159b.zip",
-                "reference": "188afe3976f4e39459fa6fd08357aab2f3125b53",
-                "shasum": "b4310610abd55b35390959fdfcab65f19446763f"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-9f03f2b91bb37c9cbfeed7aadce774865d14c571-zip-ee8141.zip",
+                "reference": "9f03f2b91bb37c9cbfeed7aadce774865d14c571",
+                "shasum": "a6d168d2e6fc1ccd6ae77068510e0436fd4b7dff"
             },
             "require": {
                 "php": "^7.4|^8.0"
@@ -1974,7 +1975,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2023-05-26T07:33:16+00:00"
+            "time": "2023-07-06T07:33:21+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -2572,14 +2573,14 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/henrique-borba/php-sieve-manager.git",
-                "reference": "e5c87076476e4d23c59f035946ae10e1e907a7e5"
+                "url": "https://github.com/cypht-org/php-sieve-manager.git",
+                "reference": "c3c723dca80be22d0e7ff2575df36313387b58aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-e5c87076476e4d23c59f035946ae10e1e907a7e5-zip-1ab3c2.zip",
-                "reference": "e5c87076476e4d23c59f035946ae10e1e907a7e5",
-                "shasum": "b4f801f937275fa178ca984880a598f401931c3c"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-c3c723dca80be22d0e7ff2575df36313387b58aa-zip-507f2e.zip",
+                "reference": "c3c723dca80be22d0e7ff2575df36313387b58aa",
+                "shasum": "99511de4587a8e522e72da5afd79f4cff0cd44ef"
             },
             "require": {
                 "php": ">=5.4"
@@ -2602,13 +2603,14 @@
             ],
             "description": "PHP library to create and manage Sieve filters through the ManageSieve protocol",
             "keywords": [
+                "cypht",
                 "email",
                 "imap",
                 "managesieve",
                 "php",
                 "sieve"
             ],
-            "time": "2022-09-13T14:28:15+00:00"
+            "time": "2023-07-06T03:12:57+00:00"
         },
         {
             "name": "hesammousavi/bootstrap-v4-rtl",
@@ -2850,6 +2852,7 @@
                 "cas",
                 "jasig"
             ],
+            "abandoned": "apereo/phpcas",
             "time": "2023-02-19T19:52:35+00:00"
         },
         {
@@ -2857,14 +2860,14 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "5fe3a3021dafb0ffd244da4079a6203037d32b0c"
+                "url": "https://github.com/cypht-org/cypht.git",
+                "reference": "343ea680b59ae5418b5b37cf0816068c28c9eed1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-5fe3a3021dafb0ffd244da4079a6203037d32b0c-zip-a7e567.zip",
-                "reference": "5fe3a3021dafb0ffd244da4079a6203037d32b0c",
-                "shasum": "cba015917505220df4fcd170e8d67344a4d08580"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-343ea680b59ae5418b5b37cf0816068c28c9eed1-zip-054f8a.zip",
+                "reference": "343ea680b59ae5418b5b37cf0816068c28c9eed1",
+                "shasum": "ce4b240b5267e85fb3afd7f490194881869aedf8"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2881,7 +2884,8 @@
                 "henrique-borba/php-sieve-manager": "dev-master",
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=5.4",
-                "webklex/composer-info": "^0.0.1"
+                "webklex/composer-info": "^0.0.1",
+                "zbateson/mail-mime-parser": "^2.4"
             },
             "suggest": {
                 "ext-PDO": "To use database features, this needs to be installed",
@@ -2908,6 +2912,7 @@
             "homepage": "https://cypht.org",
             "keywords": [
                 "atom",
+                "cypht",
                 "e-mail",
                 "imap",
                 "jmap",
@@ -2918,7 +2923,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-06-09T07:35:40+00:00"
+            "time": "2023-07-07T13:25:43+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -8647,17 +8652,17 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "1.18.1",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "f258b3a1d16acb7b21f3b42d7a2494a733365237"
+                "reference": "1856a119a0b0ba8da8b5c33c080aa7af8fac25b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-f258b3a1d16acb7b21f3b42d7a2494a733365237-zip-35353c.zip",
-                "reference": "f258b3a1d16acb7b21f3b42d7a2494a733365237",
-                "shasum": "4cb2da336265994ddf2a7ee4eb2e70ea07fe62e4"
+                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-1856a119a0b0ba8da8b5c33c080aa7af8fac25b4-zip-108e6b.zip",
+                "reference": "1856a119a0b0ba8da8b5c33c080aa7af8fac25b4",
+                "shasum": "47749ee09155d01a24964f9af84e7c1a8d88e02c"
             },
             "require": {
                 "composer-plugin-api": "^1.0|^2.0",
@@ -8717,7 +8722,7 @@
                 "psr17",
                 "psr7"
             ],
-            "time": "2023-05-17T08:53:10+00:00"
+            "time": "2023-06-19T08:45:36+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -8943,17 +8948,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.42",
+            "version": "2.0.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "665d289f59e646a259ebf13f29be7f6f54cab24b"
+                "reference": "149f608243f8133c61926aae26ce67d2b22b37e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-665d289f59e646a259ebf13f29be7f6f54cab24b-zip-34b53e.zip",
-                "reference": "665d289f59e646a259ebf13f29be7f6f54cab24b",
-                "shasum": "86c2e3391243fa951f7fda9bdf08f2f73e601d89"
+                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-149f608243f8133c61926aae26ce67d2b22b37e5-zip-228a74.zip",
+                "reference": "149f608243f8133c61926aae26ce67d2b22b37e5",
+                "shasum": "8e3ef327182bc27a0e4ee5de12f1af2dc7e8c624"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -9045,7 +9050,57 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-06T12:45:53+00:00"
+            "time": "2023-06-13T08:41:47+00:00"
+        },
+        {
+            "name": "pimple/pimple",
+            "version": "v3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silexphp/Pimple.git",
+                "reference": "a94b3a4db7fb774b3d78dad2315ddc07629e1bed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/pimple/pimple/pimple-pimple-a94b3a4db7fb774b3d78dad2315ddc07629e1bed-zip-b18956.zip",
+                "reference": "a94b3a4db7fb774b3d78dad2315ddc07629e1bed",
+                "shasum": "64a6f08d9a7813cd38ed74e3fe9a3c7f2c3b735b"
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "psr/container": "^1.1 || ^2.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^5.4@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple, a simple Dependency Injection Container",
+            "homepage": "https://pimple.symfony.com",
+            "keywords": [
+                "container",
+                "dependency injection"
+            ],
+            "time": "2021-10-28T11:13:42+00:00"
         },
         {
             "name": "player/flv",
@@ -10028,17 +10083,17 @@
         },
         {
             "name": "react/stream",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/stream.git",
-                "reference": "7a423506ee1903e89f1e08ec5f0ed430ff784ae9"
+                "reference": "6fbc9672905c7d5a885f2da2fc696f65840f4a66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/react/stream/react-stream-7a423506ee1903e89f1e08ec5f0ed430ff784ae9-zip-386d0d.zip",
-                "reference": "7a423506ee1903e89f1e08ec5f0ed430ff784ae9",
-                "shasum": "ead82a2ccc64e8a38456963120b3556711b04322"
+                "url": "https://composer.tiki.org/dist/react/stream/react-stream-6fbc9672905c7d5a885f2da2fc696f65840f4a66-zip-37560b.zip",
+                "reference": "6fbc9672905c7d5a885f2da2fc696f65840f4a66",
+                "shasum": "786019e0e7f77534e65e79280be607f9bbaac00c"
             },
             "require": {
                 "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
@@ -10047,12 +10102,12 @@
             },
             "require-dev": {
                 "clue/stream-filter": "~1.2",
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35"
+                "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.35"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "React\\Stream\\": "src"
+                    "React\\Stream\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -10094,15 +10149,11 @@
             ],
             "funding": [
                 {
-                    "url": "https://github.com/WyriHaximus",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/clue",
-                    "type": "github"
+                    "url": "https://opencollective.com/reactphp",
+                    "type": "open_collective"
                 }
             ],
-            "time": "2021-07-11T12:37:55+00:00"
+            "time": "2023-06-16T10:52:11+00:00"
         },
         {
             "name": "rmm5t/jquery-timeago",
@@ -10686,17 +10737,17 @@
         },
         {
             "name": "sabre/http",
-            "version": "5.1.6",
+            "version": "5.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/http.git",
-                "reference": "9976ac34ced206bd6579b7b37b401de9fac98dae"
+                "reference": "b6fa04f42f49156eaab3fb890c79f4c43a9559b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/http/sabre-http-9976ac34ced206bd6579b7b37b401de9fac98dae-zip-82bc25.zip",
-                "reference": "9976ac34ced206bd6579b7b37b401de9fac98dae",
-                "shasum": "761eb7313ca2e00aece21884c4dd5e7adfb527ea"
+                "url": "https://composer.tiki.org/dist/sabre/http/sabre-http-b6fa04f42f49156eaab3fb890c79f4c43a9559b7-zip-4ddd78.zip",
+                "reference": "b6fa04f42f49156eaab3fb890c79f4c43a9559b7",
+                "shasum": "93efbe7191c51307b561b300c059abde022d3c04"
             },
             "require": {
                 "ext-ctype": "*",
@@ -10740,7 +10791,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2022-07-15T14:51:14+00:00"
+            "time": "2023-06-26T10:13:00+00:00"
         },
         {
             "name": "sabre/uri",
@@ -10898,17 +10949,17 @@
         },
         {
             "name": "sabre/xml",
-            "version": "2.2.5",
+            "version": "2.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/xml.git",
-                "reference": "a6af111850e7536d200d9637c34885cd3c77a86c"
+                "reference": "9cde7cdab1e50893cc83b037b40cd47bfde42a2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/xml/sabre-xml-a6af111850e7536d200d9637c34885cd3c77a86c-zip-5a98c1.zip",
-                "reference": "a6af111850e7536d200d9637c34885cd3c77a86c",
-                "shasum": "1717ffbcf3815a5f17d87df67277eab11bbb2abf"
+                "url": "https://composer.tiki.org/dist/sabre/xml/sabre-xml-9cde7cdab1e50893cc83b037b40cd47bfde42a2b-zip-430bb1.zip",
+                "reference": "9cde7cdab1e50893cc83b037b40cd47bfde42a2b",
+                "shasum": "1615f59ff0aa6bf0b3f3afe9345e840aa445441f"
             },
             "require": {
                 "ext-dom": "*",
@@ -10958,7 +11009,7 @@
                 "dom",
                 "xml"
             ],
-            "time": "2021-11-04T06:37:27+00:00"
+            "time": "2023-06-28T12:56:05+00:00"
         },
         {
             "name": "scssphp/scssphp",
@@ -11100,21 +11151,21 @@
         },
         {
             "name": "sentry/sdk",
-            "version": "3.4.0",
+            "version": "3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php-sdk.git",
-                "reference": "7f1e04a5380a91e41a1a68c363ec19f88619a870"
+                "reference": "cd91b752f07c4bab9fb3b173f81af68a78a78d6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/7f1e04a5380a91e41a1a68c363ec19f88619a870",
-                "reference": "7f1e04a5380a91e41a1a68c363ec19f88619a870",
+                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/cd91b752f07c4bab9fb3b173f81af68a78a78d6d",
+                "reference": "cd91b752f07c4bab9fb3b173f81af68a78a78d6d",
                 "shasum": ""
             },
             "require": {
                 "http-interop/http-factory-guzzle": "^1.0",
-                "sentry/sentry": "^3.18",
+                "sentry/sentry": "^3.19",
                 "symfony/http-client": "^4.3|^5.0|^6.0"
             },
             "type": "metapackage",
@@ -11149,21 +11200,21 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-22T16:02:39+00:00"
+            "time": "2023-06-12T17:50:36+00:00"
         },
         {
             "name": "sentry/sentry",
-            "version": "3.19.1",
+            "version": "3.20.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "dd1057fb37d4484ebb2d1bc9b05fa5969c078436"
+                "reference": "644ad9768c18139a80ac510090fad000d9ffd8a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-dd1057fb37d4484ebb2d1bc9b05fa5969c078436-zip-f6230c.zip",
-                "reference": "dd1057fb37d4484ebb2d1bc9b05fa5969c078436",
-                "shasum": "adedbdc804146bb603915d3908530dab73bf33ef"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-644ad9768c18139a80ac510090fad000d9ffd8a4-zip-ab7d4e.zip",
+                "reference": "644ad9768c18139a80ac510090fad000d9ffd8a4",
+                "shasum": "cf03acf3aa0ae2ff0a066cfe7545384df7c4ff2d"
             },
             "require": {
                 "ext-json": "*",
@@ -11250,7 +11301,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-25T06:19:09+00:00"
+            "time": "2023-06-26T11:01:40+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -11485,17 +11536,17 @@
         },
         {
             "name": "studio-42/elfinder",
-            "version": "2.1.61",
+            "version": "2.1.62",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Studio-42/elFinder.git",
-                "reference": "33bee2654615db62e9b722efb4fdd2a21844fbb2"
+                "reference": "91133c14a341158beca82aede0b2138236a96bc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/studio-42/elfinder/studio-42-elfinder-33bee2654615db62e9b722efb4fdd2a21844fbb2-zip-84090f.zip",
-                "reference": "33bee2654615db62e9b722efb4fdd2a21844fbb2",
-                "shasum": "d1dab07ff7be73482c4c6f427bc8ff6c5148df4d"
+                "url": "https://composer.tiki.org/dist/studio-42/elfinder/studio-42-elfinder-91133c14a341158beca82aede0b2138236a96bc8-zip-929e42.zip",
+                "reference": "91133c14a341158beca82aede0b2138236a96bc8",
+                "shasum": "13e9c8c7434ac388699e4d0bc43c9015169addb8"
             },
             "require": {
                 "php": ">=5.2"
@@ -11545,7 +11596,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-14T15:07:52+00:00"
+            "time": "2023-06-13T16:39:07+00:00"
         },
         {
             "name": "svg-edit/svg-edit",
@@ -11559,17 +11610,17 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v4.19.0",
+            "version": "v4.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "f01969138dbce7d2a03ae5a02565088df552794f"
+                "reference": "92ffd76d15671954c239fdefb43d1951e06f8bb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-f01969138dbce7d2a03ae5a02565088df552794f-zip-27555b.zip",
-                "reference": "f01969138dbce7d2a03ae5a02565088df552794f",
-                "shasum": "9cd59c1ba4631a03ca017deaa323610a08e61565"
+                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-92ffd76d15671954c239fdefb43d1951e06f8bb5-zip-c64276.zip",
+                "reference": "92ffd76d15671954c239fdefb43d1951e06f8bb5",
+                "shasum": "756ab3b6e57f34e6bb15ae8ea6c9a20d3f570daf"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -11612,7 +11663,7 @@
                 "swagger",
                 "ui"
             ],
-            "time": "2023-05-24T13:22:49+00:00"
+            "time": "2023-06-12T16:31:43+00:00"
         },
         {
             "name": "symfony/config",
@@ -11988,17 +12039,17 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v5.4.23",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "b2f79d86cd9e7de0fff6d03baa80eaed7a5f38b5"
+                "reference": "0ce3a62c9579a53358d3a7eb6b3dfb79789a6364"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/filesystem/symfony-filesystem-b2f79d86cd9e7de0fff6d03baa80eaed7a5f38b5-zip-9f10e1.zip",
-                "reference": "b2f79d86cd9e7de0fff6d03baa80eaed7a5f38b5",
-                "shasum": "f3614f158be2d16e397f921a331ced923f31ffe6"
+                "url": "https://composer.tiki.org/dist/symfony/filesystem/symfony-filesystem-0ce3a62c9579a53358d3a7eb6b3dfb79789a6364-zip-a1415f.zip",
+                "reference": "0ce3a62c9579a53358d3a7eb6b3dfb79789a6364",
+                "shasum": "f44a084ecaea5c271c6108d2fb5e437ef367b205"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -12045,7 +12096,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-02T11:38:35+00:00"
+            "time": "2023-05-31T13:04:02+00:00"
         },
         {
             "name": "symfony/finder",
@@ -12108,17 +12159,17 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.4.24",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "9e89ac4c9dfe29f4ed2b10a36e62720286632ad6"
+                "reference": "ccbb572627466f03a3d7aa1b23483787f5969afc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-9e89ac4c9dfe29f4ed2b10a36e62720286632ad6-zip-397b61.zip",
-                "reference": "9e89ac4c9dfe29f4ed2b10a36e62720286632ad6",
-                "shasum": "efecfacf67500dad0836912012ca4dfaffe46036"
+                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-ccbb572627466f03a3d7aa1b23483787f5969afc-zip-4fe841.zip",
+                "reference": "ccbb572627466f03a3d7aa1b23483787f5969afc",
+                "shasum": "b0ce1254bea0165b742d59091538938d2235d8b2"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -12192,7 +12243,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-07T13:11:28+00:00"
+            "time": "2023-06-21T14:44:30+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -12271,17 +12322,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.4.24",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "3c59f97f6249ce552a44f01b93bfcbd786a954f5"
+                "reference": "f66be2706075c5f6325d2fe2b743a57fb5d23f6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-foundation/symfony-http-foundation-3c59f97f6249ce552a44f01b93bfcbd786a954f5-zip-5c1d31.zip",
-                "reference": "3c59f97f6249ce552a44f01b93bfcbd786a954f5",
-                "shasum": "33c9a0d8dc59f9eb53ad097240f6a2992d211eeb"
+                "url": "https://composer.tiki.org/dist/symfony/http-foundation/symfony-http-foundation-f66be2706075c5f6325d2fe2b743a57fb5d23f6b-zip-9276eb.zip",
+                "reference": "f66be2706075c5f6325d2fe2b743a57fb5d23f6b",
+                "shasum": "7099b6b3bebe27902a96c5956332f2ca500c08ce"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -12340,7 +12391,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-19T07:21:23+00:00"
+            "time": "2023-06-22T08:06:06+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -14632,27 +14683,30 @@
         },
         {
             "name": "zbateson/mail-mime-parser",
-            "version": "1.3.3",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zbateson/mail-mime-parser.git",
-                "reference": "244b70963945293b5225da2553239a06987d1a11"
+                "reference": "20b3e48eb799537683780bc8782fbbe9bc25934a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/zbateson/mail-mime-parser/zbateson-mail-mime-parser-244b70963945293b5225da2553239a06987d1a11-zip-b13c4f.zip",
-                "reference": "244b70963945293b5225da2553239a06987d1a11",
-                "shasum": "9646e215b5b64f3dd1be1bebed0dd23e3d836dfc"
+                "url": "https://composer.tiki.org/dist/zbateson/mail-mime-parser/zbateson-mail-mime-parser-20b3e48eb799537683780bc8782fbbe9bc25934a-zip-5f1b06.zip",
+                "reference": "20b3e48eb799537683780bc8782fbbe9bc25934a",
+                "shasum": "7b4429cfecf8414dff71bbb0030a7017d4de1720"
             },
             "require": {
                 "guzzlehttp/psr7": "^1.7.0|^2.0",
-                "php": ">=5.4",
+                "php": ">=7.1",
+                "pimple/pimple": "^3.0",
                 "zbateson/mb-wrapper": "^1.0.1",
                 "zbateson/stream-decorators": "^1.0.6"
             },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "*",
                 "mikey179/vfsstream": "^1.6.0",
-                "sanmai/phpunit-legacy-adapter": "^6.3 || ^8"
+                "phpstan/phpstan": "*",
+                "phpunit/phpunit": "<10"
             },
             "suggest": {
                 "ext-iconv": "For best support/performance",
@@ -14695,7 +14749,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-06T00:47:49+00:00"
+            "time": "2023-02-14T22:58:03+00:00"
         },
         {
             "name": "zbateson/mb-wrapper",
@@ -15647,13 +15701,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "1f824051a524c950ff60e9f5fb82d2c05a244fbd"
+                "reference": "3a363ebda5075161128619d4c84a1f8ab3e37680"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-1f824051a524c950ff60e9f5fb82d2c05a244fbd-zip-deb804.zip",
-                "reference": "1f824051a524c950ff60e9f5fb82d2c05a244fbd",
-                "shasum": "7f4ff7c9191dfaf24aef1ecc5358c5c7ab43c2d0"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-3a363ebda5075161128619d4c84a1f8ab3e37680-zip-f2ddf4.zip",
+                "reference": "3a363ebda5075161128619d4c84a1f8ab3e37680",
+                "shasum": "70b83d6574d6a8426058180c38f942d624bae320"
             },
             "require": {
                 "php": ">=5.4",
@@ -15668,8 +15722,8 @@
                 "php-parallel-lint/php-parallel-lint": "^1.3.2",
                 "phpcsstandards/phpcsdevcs": "^1.1.3",
                 "phpcsstandards/phpcsdevtools": "^1.2.0",
-                "phpunit/phpunit": "^4.8 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4",
-                "yoast/phpunit-polyfills": "^1.0"
+                "phpunit/phpunit": "^4.8.36 || ^5.7.21 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4 || ^10.1.0",
+                "yoast/phpunit-polyfills": "^1.0.5 || ^2.0.0"
             },
             "suggest": {
                 "roave/security-advisories": "dev-master || Helps prevent installing dependencies with known security issues."
@@ -15709,7 +15763,7 @@
                 "standards",
                 "static analysis"
             ],
-            "time": "2023-06-04T17:47:26+00:00"
+            "time": "2023-06-26T10:52:01+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -17012,17 +17066,17 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v5.4.23",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "4a286c916b74ecfb6e2caf1aa31d3fe2a34b7e08"
+                "reference": "d2aefa5a7acc5511422792931d14d1be96fe9fea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/dom-crawler/symfony-dom-crawler-4a286c916b74ecfb6e2caf1aa31d3fe2a34b7e08-zip-048fc3.zip",
-                "reference": "4a286c916b74ecfb6e2caf1aa31d3fe2a34b7e08",
-                "shasum": "4aa48c651f486f2a9a25dffcbbb724ad7e9daa5b"
+                "url": "https://composer.tiki.org/dist/symfony/dom-crawler/symfony-dom-crawler-d2aefa5a7acc5511422792931d14d1be96fe9fea-zip-95fb5a.zip",
+                "reference": "d2aefa5a7acc5511422792931d14d1be96fe9fea",
+                "shasum": "96ae5c3c568bbe9b2c39777c36030f04ad905c49"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -17080,7 +17134,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-08T21:20:19+00:00"
+            "time": "2023-06-05T08:05:41+00:00"
         },
         {
             "name": "theseer/tokenizer",
