@@ -1521,7 +1521,7 @@ class TikiAccessLib extends TikiLib
         }
 
         if ($prefs['twoFactorAuth'] === 'y' && $error_login === tra('Invalid two-factor code ')) {
-            $twoFactorAuthCode = '<div class="pass mb-3 row mx-0 clearfix">
+            $twoFactorAuthCode = '<div class="pass tiki-form-group row mx-0 clearfix">
     <label for="login-2fa">Two-factor Authenticator Code</label>
     <input type="text" name="twoFactorAuthCode" autocomplete="off" class="form-control" id="login-2fa">
 </div>
