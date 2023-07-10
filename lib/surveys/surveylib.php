@@ -320,7 +320,7 @@ class SurveyLib extends TikiLib
             ['questionId' => $questionId]
         );
 
-        $options = $this->optionsTable->fetchRow(
+        $options = $this->optionsTable->fetchAll(
             $this->optionsTable->all(),
             ['questionId' => $questionId]
         );
