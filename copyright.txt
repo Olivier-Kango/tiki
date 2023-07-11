@@ -1388,7 +1388,7 @@ Nickname: jonnybradley
 Name: jonny Bradley
 First Commit: 2007-08-15
 Last Commit: Mon Jun 25 15:54:32 2018 +0000
-Number of Commits: 5188
+Number of Commits: 5187
 SF Role: Admin
 
 Nickname: josefgc
@@ -2482,8 +2482,8 @@ SF Role: Developer
 Nickname: robertokir
 Name: Roberto Kirschbaum
 First Commit: 2017-06-27
-Last Commit: Tue Jul 11 16:07:19 2023 +0100
-Number of Commits: 169
+Last Commit: Tue Jul 11 16:07:33 2023 +0100
+Number of Commits: 170
 SF Role: Admin, Developer
 
 Nickname: robertplummer
