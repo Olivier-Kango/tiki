@@ -5325,5 +5325,8 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
   left: 0px;
   z-index: 1;
 }
+.toggle-table-wrap .btn {
+  font-family: "Font Awesome 6 Free" !important;
+}
 /* End of file */
 
