@@ -12,5 +12,6 @@
     <ignore>
         <rule name="Commenting.FileNoComment.Missing"/>
         <rule name="Indent.DisallowTabIndent.TabsUsed"/>
+        <rule name="Commenting.FileComment.WrongStyle"/>
     </ignore>
 </rules>
