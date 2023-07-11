@@ -1599,21 +1599,6 @@ if ($s) {
     );
 }
 
-$s = extension_loaded('carray');
-if ($s) {
-    $php_properties['carray'] = array(
-        'fitness' => tra('good'),
-        'setting' => 'Loaded',
-        'message' => tra('High-performance scientific computing library for PHP')
-    );
-} else {
-    $php_properties['carray'] = array(
-        'fitness' => tra('info'),
-        'setting' => 'Not available',
-        'message' => tra('High-performance scientific computing library for PHP')
-    );
-}
-
 $s = extension_loaded('curl');
 if ($s) {
     $php_properties['curl'] = array(
