@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49d60e874751ae6a7a11767d3e6e4950",
+    "content-hash": "d2988dba6857ea730f6062a8ee31c8e6",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2516,17 +2516,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "c3c723dca80be22d0e7ff2575df36313387b58aa"
+                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-c3c723dca80be22d0e7ff2575df36313387b58aa-zip-507f2e.zip",
-                "reference": "c3c723dca80be22d0e7ff2575df36313387b58aa",
-                "shasum": "99511de4587a8e522e72da5afd79f4cff0cd44ef"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-a4176476c8920b3e75fe85b99c9cb942021488e8-zip-eda341.zip",
+                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8",
+                "shasum": "b60e390284fa35f732c610b14c015ac5a68cde7b"
             },
             "require": {
                 "php": ">=5.4"
@@ -2556,7 +2556,7 @@
                 "php",
                 "sieve"
             ],
-            "time": "2023-07-06T03:12:57+00:00"
+            "time": "2023-07-11T09:01:24+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -2775,13 +2775,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "f97705725172c83fc7a5b05abdfa4063de138b5d"
+                "reference": "aeb9b75a883e67961e35ebe3a90ef9c6c571c1da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-f97705725172c83fc7a5b05abdfa4063de138b5d-zip-379798.zip",
-                "reference": "f97705725172c83fc7a5b05abdfa4063de138b5d",
-                "shasum": "0faf13a8d68083a76a1ca5aac6a80609cf773c48"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-aeb9b75a883e67961e35ebe3a90ef9c6c571c1da-zip-9be1ed.zip",
+                "reference": "aeb9b75a883e67961e35ebe3a90ef9c6c571c1da",
+                "shasum": "d7bdd12b665c611496219b34132a12f527d978e1"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2794,12 +2794,15 @@
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
                 "ext-session": "*",
-                "ezyang/htmlpurifier": "^4.13.0",
-                "henrique-borba/php-sieve-manager": "dev-master",
+                "ezyang/htmlpurifier": "^4.13",
+                "henrique-borba/php-sieve-manager": "^1.0.0",
                 "paragonie/random_compat": "^2.0.18",
-                "php": ">=5.4",
+                "php": ">=5.6",
                 "webklex/composer-info": "^0.0.1",
                 "zbateson/mail-mime-parser": "^2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3.0"
             },
             "suggest": {
                 "ext-PDO": "To use database features, this needs to be installed",
@@ -2837,7 +2840,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-07-11T07:15:48+00:00"
+            "time": "2023-07-11T09:06:44+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -18461,7 +18464,6 @@
     "stability-flags": {
         "candy-chat/xmpp-prebind-php": 20,
         "erusev/parsedown": 10,
-        "henrique-borba/php-sieve-manager": 20,
         "jason-munro/cypht": 20,
         "league/flysystem": 10,
         "npm-asset/html2canvas": 5,
