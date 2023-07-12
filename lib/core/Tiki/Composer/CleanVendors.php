@@ -339,7 +339,13 @@ class CleanVendors
         self::remove($vendors . 'adodb/adodb-php', 'session/adodb-sess.txt');
         self::remove($vendors . 'jason-munro/cypht', 'hm3.sample.ini');
         self::remove($vendors . 'league/commonmark', 'CHANGELOG-0.x.md');
-        self::remove($vendors . 'pear/pear', 'README.CONTRIBUTING');
+        self::remove(
+            $vendors . 'pear/pear/',
+            [
+                'tests',
+                'docs'
+            ]
+        );
         self::remove($vendors . 'twbs/bootstrap/site', '_data/examples.yml');
         self::remove($vendors . 'Sam152/Javascript-Equal-Height-Responsive-Rows', 'grids.js');
         self::remove(
@@ -393,13 +399,76 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'plotly/plotly.js/',
+            $vendors . 'npm-asset/converse.js/',
             [
+                'docs',
                 'src',
-                'dist/extras',
-                'dist/topojson',
+                'CHANGES.md',
+                'README.md'
             ]
         );
+        self::remove(
+            $vendors . 'npm-asset/moment/',
+            [
+                'src',
+                'CHANGELOG.md',
+                'README.md'
+            ]
+        );
+        self::remove(
+            $vendors . 'plotly/plotly.js/',
+            [
+                'test',
+                'devtools',
+                'src',
+                'dist/README.md',
+                'dist/extras',
+                'dist/topojson',
+                'CHANGELOG.md',
+                'CONTRIBUTING.md',
+                'README.md'
+            ]
+        );
+        self::remove(
+            $vendors . 'thomaspark/bootswatch/',
+            [
+                'docs',
+                'README.md'
+            ]
+        );
+        self::remove(
+            $vendors . 'laminas/',
+            [
+                'laminas-feed/test',
+                'laminas-feed/docs',
+                'laminas-validator/test',
+                'laminas-validator/docs',
+                'laminas-i18n/test',
+                'laminas-i18n/docs',
+                'laminas-filter/test',
+                'laminas-filter/docs',
+                'laminas-ldap/test',
+                'laminas-ldap/docs',
+                'laminas-servicemanager/test',
+                'laminas-servicemanager/docs',
+
+            ]
+        );
+        self::remove(
+            $vendors . 'symfony/',
+            [
+                'dependency-injection/Tests',
+                'console/Tests',
+                'routing/Tests',
+                'http-foundation/Tests',
+                'http-foundation/Test',
+                'mime/Tests',
+                'mime/Test',
+                'config/Tests',
+                'http-client/Test',
+            ]
+        );
+        self::remove($vendors . 'wamania/php-stemmer', 'test');
         self::remove(
             $vendors . 'ezyang/htmlpurifier',
             [
