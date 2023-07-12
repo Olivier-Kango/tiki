@@ -153,10 +153,10 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline): bool
             $type = 'NOTICE';
             break;
         default:
-            //Unknow error type, let PHP handle it.
-            return false;
+            //Unknow error type, we still want to display/report it
+            $type = 'UNKNOWN';
     }
-    //This will log to glitchtip, and also call any handlers that were registered before tiki.
+    //This will log to glitchtip, and also call any handlers that were registered BEFORE tiki.  So we don't care about what they tell us to do in their return value.
     $retval = TikiLib::lib('errortracking')->handleError($errno, $errstr, $errfile, $errline);
 
     $back = "<div class='rbox-data p-3 mb-3' style='font-size: 12px; border: 1px solid'>";
@@ -165,8 +165,8 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline): bool
     $back .= "</div>";
 
     $phpErrors[] = $back;
-    //Skip any other error processing, custom error handlers should have been called by error_reporting.
-    return $retval;
+    //Skip any other error processing, custom error handlers registered AFTER us have called us, so have processed.  Handlers registered BEFORE US (if any) have been called by handleError(), but we now ignore the return value and stop any further error processing.
+    return true;
 }
 
 // Patch missing $_SERVER['REQUEST_URI'] on IIS6
