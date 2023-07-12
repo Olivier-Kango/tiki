@@ -148,7 +148,7 @@
         "erusev/parsedown": ">=1.8.0-beta-5",
         "ezyang/htmlpurifier": "^4.8.0",
         "bower-asset/fontawesome": "^6.1.2",
-        "henrique-borba/php-sieve-manager": "dev-master",
+        "henrique-borba/php-sieve-manager": "^1.0.0",
         "h5p/h5p-core": "^1.24",
         "h5p/h5p-editor": "^1.24",
         "hybridauth/hybridauth": "^3.7",
