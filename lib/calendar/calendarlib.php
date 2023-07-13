@@ -837,7 +837,12 @@ class CalendarLib extends TikiLib
             $mail = new TikiMail();
             $smarty->assign('mail_new', $new);
             $smarty->assign('mail_data', $data);
-            $smarty->assign('mail_calitemId', $calitemId);
+            $smarty->assign('view_item_url', TikiLib::lib('service')->getUrl([
+                'controller' => 'calendar',
+                'action' => 'view_item',
+                'calitemId' => $calitemId,
+                'calIds' => [$data['calendarId']],
+            ]));
             $defaultLanguage = $prefs['site_language'];
             foreach ($nots as $not) {
                 $mail->setUser($not['user']);

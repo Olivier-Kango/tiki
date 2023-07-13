@@ -816,6 +816,9 @@ class Services_Calendar_Controller
      */
     private function processParticipants(array $calitem): array
     {
+        if (is_string($calitem['organizers'])) {
+            $calitem['organizers'] = preg_split('/\s*,\s*/', $calitem['organizers']);
+        }
         if ($calitem['organizers']) {
             $calitem['organizers'] = array_filter($calitem['organizers']);
         }
