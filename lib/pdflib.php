@@ -650,81 +650,83 @@ class PdfGenerator
     public function getPDFSettings($html, $prefs, $params)
     {
         $pdfSettings = [];
-        //checking if pdf plugin is set and passed
-        $doc = new DOMDocument();
-        @$doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        if (! empty($html)) {
+            //checking if pdf plugin is set and passed
+            $doc = new DOMDocument();
+            @$doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
-        $pdf = $doc->getElementsByTagName('pdfsettings')->item(0);
-        $prefs['print_pdf_mpdf_pagesize'] = $prefs['print_pdf_mpdf_size'];
-        if ($pdf) {
-            if ($pdf->hasAttributes()) {
-                foreach ($pdf->attributes as $attr) {
-                    //overridding global settings
-                    $prefs['print_pdf_mpdf_' . $attr->nodeName] = $attr->nodeValue;
+            $pdf = $doc->getElementsByTagName('pdfsettings')->item(0);
+            $prefs['print_pdf_mpdf_pagesize'] = $prefs['print_pdf_mpdf_size'];
+            if ($pdf) {
+                if ($pdf->hasAttributes()) {
+                    foreach ($pdf->attributes as $attr) {
+                        //overridding global settings
+                        $prefs['print_pdf_mpdf_' . $attr->nodeName] = $attr->nodeValue;
+                    }
                 }
             }
-        }
-        //checking preferences
-        $pdfSettings['print_pdf_mpdf_printfriendly'] = $prefs['print_pdf_mpdf_printfriendly'] != '' ? $prefs['print_pdf_mpdf_printfriendly'] : '';
-        $orientation = ! empty($params['orientation']) ? $params['orientation'] : $prefs['print_pdf_mpdf_orientation'];
-        $pdfSettings['orientation'] = $orientation != '' ? $orientation : 'P';
-        $pdfSettings['pagesize'] = $prefs['print_pdf_mpdf_pagesize'] != '' ? $prefs['print_pdf_mpdf_pagesize'] : 'Letter';
+            //checking preferences
+            $pdfSettings['print_pdf_mpdf_printfriendly'] = $prefs['print_pdf_mpdf_printfriendly'] != '' ? $prefs['print_pdf_mpdf_printfriendly'] : '';
+            $orientation = ! empty($params['orientation']) ? $params['orientation'] : $prefs['print_pdf_mpdf_orientation'];
+            $pdfSettings['orientation'] = $orientation != '' ? $orientation : 'P';
+            $pdfSettings['pagesize'] = $prefs['print_pdf_mpdf_pagesize'] != '' ? $prefs['print_pdf_mpdf_pagesize'] : 'Letter';
 
-        if (in_array($pdfSettings['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])) {
-            $pdfSettings['pagesize'] = 'Tabloid';
-        }
-
-        //custom size needs to be passed for Tabloid
-        if ($prefs['print_pdf_mpdf_size'] == "Tabloid") {
-            $pdfSettings['pagesize'] = [279,432];
-        } elseif ($pdfSettings['orientation'] == 'L') {
-            $pdfSettings['pagesize'] = $pdfSettings['pagesize'] . '-' . $pdfSettings['orientation'];
-        }
-
-        $pdfSettings['margin_left'] = $prefs['print_pdf_mpdf_margin_left'] != '' ? $prefs['print_pdf_mpdf_margin_left'] : '10';
-        $pdfSettings['margin_right'] = $prefs['print_pdf_mpdf_margin_right'] != '' ? $prefs['print_pdf_mpdf_margin_right'] : '10';
-        $pdfSettings['margin_top'] = $prefs['print_pdf_mpdf_margin_top'] != '' ? $prefs['print_pdf_mpdf_margin_top'] : '10';
-        $pdfSettings['margin_bottom'] = $prefs['print_pdf_mpdf_margin_bottom'] != '' ? $prefs['print_pdf_mpdf_margin_bottom'] : '10';
-        $pdfSettings['margin_header'] = $prefs['print_pdf_mpdf_margin_header'] != '' ? $prefs['print_pdf_mpdf_margin_header'] : '5';
-        $pdfSettings['margin_footer'] = $prefs['print_pdf_mpdf_margin_footer'] != '' ? $prefs['print_pdf_mpdf_margin_footer'] : '5';
-        $pdfSettings['header'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_header']);
-        $pdfSettings['footer'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_footer']);
-        $pdfSettings['print_pdf_mpdf_password'] = $prefs['print_pdf_mpdf_password'];
-        $pdfSettings['toc'] = $prefs['print_pdf_mpdf_toc'] != '' ? $prefs['print_pdf_mpdf_toc'] : 'n';
-        $pdfSettings['toclinks'] = $prefs['print_pdf_mpdf_toclinks'] != '' ? $prefs['print_pdf_mpdf_toclinks'] : 'n';
-        $pdfSettings['tocheading'] = $prefs['print_pdf_mpdf_tocheading'];
-        $pdfSettings['pagetitle'] = $prefs['print_pdf_mpdf_pagetitle'];
-        $pdfSettings['watermark'] = $prefs['print_pdf_mpdf_watermark'];
-        $pdfSettings['watermark_image'] = $prefs['print_pdf_mpdf_watermark_image'];
-        $pdfSettings['coverpage_text_settings'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_coverpage_text_settings']);
-        $pdfSettings['coverpage_image_settings'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_coverpage_image_settings']);
-        $pdfSettings['hyperlinks'] = $prefs['print_pdf_mpdf_hyperlinks'];
-        $pdfSettings['columns'] = $prefs['print_pdf_mpdf_columns'];
-        $pdfSettings['background'] = $prefs['print_pdf_mpdf_background'];
-        $pdfSettings['background_image'] = $prefs['print_pdf_mpdf_background_image'];
-        $pdfSettings['autobookmarks'] = $prefs['print_pdf_mpdf_autobookmarks'];
-
-        if ($pdfSettings['toc'] == 'y') {
-            //toc levels
-            ['H1' => 0, 'H2' => 1, 'H3' => 2];
-            $toclevels = $prefs['print_pdf_mpdf_toclevels'] != '' ? $prefs['print_pdf_mpdf_toclevels'] : 'H1|H2|H3';
-            $toclevels = explode("|", $toclevels);
-            $pdfSettings['toclevels'] = [];
-            for ($toclevel = 0; $toclevel < count($toclevels); $toclevel++) {
-                $pdfSettings['toclevels'][$toclevels[$toclevel]] = $toclevel;
+            if (in_array($pdfSettings['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])) {
+                $pdfSettings['pagesize'] = 'Tabloid';
             }
-        }
 
-        //Setting PDF bookmarks
-        if ($pdfSettings['autobookmarks']) {
-            $bookmark = explode("|", $pdfSettings['autobookmarks']);
-            $pdfSettings['autobookmarks'] = [];
-            for ($level = 0; $level < count($bookmark); $level++) {
-                $pdfSettings['autobookmarks'][strtoupper($bookmark[$level])] = $level;
+            //custom size needs to be passed for Tabloid
+            if ($prefs['print_pdf_mpdf_size'] == "Tabloid") {
+                $pdfSettings['pagesize'] = [279,432];
+            } elseif ($pdfSettings['orientation'] == 'L') {
+                $pdfSettings['pagesize'] = $pdfSettings['pagesize'] . '-' . $pdfSettings['orientation'];
             }
+
+            $pdfSettings['margin_left'] = $prefs['print_pdf_mpdf_margin_left'] != '' ? $prefs['print_pdf_mpdf_margin_left'] : '10';
+            $pdfSettings['margin_right'] = $prefs['print_pdf_mpdf_margin_right'] != '' ? $prefs['print_pdf_mpdf_margin_right'] : '10';
+            $pdfSettings['margin_top'] = $prefs['print_pdf_mpdf_margin_top'] != '' ? $prefs['print_pdf_mpdf_margin_top'] : '10';
+            $pdfSettings['margin_bottom'] = $prefs['print_pdf_mpdf_margin_bottom'] != '' ? $prefs['print_pdf_mpdf_margin_bottom'] : '10';
+            $pdfSettings['margin_header'] = $prefs['print_pdf_mpdf_margin_header'] != '' ? $prefs['print_pdf_mpdf_margin_header'] : '5';
+            $pdfSettings['margin_footer'] = $prefs['print_pdf_mpdf_margin_footer'] != '' ? $prefs['print_pdf_mpdf_margin_footer'] : '5';
+            $pdfSettings['header'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_header']);
+            $pdfSettings['footer'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_footer']);
+            $pdfSettings['print_pdf_mpdf_password'] = $prefs['print_pdf_mpdf_password'];
+            $pdfSettings['toc'] = $prefs['print_pdf_mpdf_toc'] != '' ? $prefs['print_pdf_mpdf_toc'] : 'n';
+            $pdfSettings['toclinks'] = $prefs['print_pdf_mpdf_toclinks'] != '' ? $prefs['print_pdf_mpdf_toclinks'] : 'n';
+            $pdfSettings['tocheading'] = $prefs['print_pdf_mpdf_tocheading'];
+            $pdfSettings['pagetitle'] = $prefs['print_pdf_mpdf_pagetitle'];
+            $pdfSettings['watermark'] = $prefs['print_pdf_mpdf_watermark'];
+            $pdfSettings['watermark_image'] = $prefs['print_pdf_mpdf_watermark_image'];
+            $pdfSettings['coverpage_text_settings'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_coverpage_text_settings']);
+            $pdfSettings['coverpage_image_settings'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_coverpage_image_settings']);
+            $pdfSettings['hyperlinks'] = $prefs['print_pdf_mpdf_hyperlinks'];
+            $pdfSettings['columns'] = $prefs['print_pdf_mpdf_columns'];
+            $pdfSettings['background'] = $prefs['print_pdf_mpdf_background'];
+            $pdfSettings['background_image'] = $prefs['print_pdf_mpdf_background_image'];
+            $pdfSettings['autobookmarks'] = $prefs['print_pdf_mpdf_autobookmarks'];
+
+            if ($pdfSettings['toc'] == 'y') {
+                //toc levels
+                ['H1' => 0, 'H2' => 1, 'H3' => 2];
+                $toclevels = $prefs['print_pdf_mpdf_toclevels'] != '' ? $prefs['print_pdf_mpdf_toclevels'] : 'H1|H2|H3';
+                $toclevels = explode("|", $toclevels);
+                $pdfSettings['toclevels'] = [];
+                for ($toclevel = 0; $toclevel < count($toclevels); $toclevel++) {
+                    $pdfSettings['toclevels'][$toclevels[$toclevel]] = $toclevel;
+                }
+            }
+
+            //Setting PDF bookmarks
+            if ($pdfSettings['autobookmarks']) {
+                $bookmark = explode("|", $pdfSettings['autobookmarks']);
+                $pdfSettings['autobookmarks'] = [];
+                for ($level = 0; $level < count($bookmark); $level++) {
+                    $pdfSettings['autobookmarks'][strtoupper($bookmark[$level])] = $level;
+                }
+            }
+            //PDF settings
+            return $pdfSettings;
         }
-        //PDF settings
-        return $pdfSettings;
     }
 
     //mpdf read page for plugin PDFPage, introduced for advanced pdf creation
