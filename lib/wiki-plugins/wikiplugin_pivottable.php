@@ -846,7 +846,7 @@ function wikiplugin_pivottable($data, $params)
     foreach ($fields as $field) {
         $field = wikiplugin_pivottable_field_from_definitions($field['permName'], $definitions, $field);
         $fieldsArr[$field['name']] = $field['permName'];
-        if ($field['type'] == 'f') {
+        if ($field['type'] == 'f' || $field['type'] == 'j') {
             $dateFields[] = $field['name'];
         }
     }
