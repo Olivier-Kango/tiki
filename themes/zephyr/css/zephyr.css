@@ -12195,13 +12195,13 @@ body.wikitext {
   background: #2fb380;
   --bs-table-bg: #2fb380;
   color: #e8f9f2;
-  word-break: break-all;
+  word-break: break-word;
 }
 .diffdeleted {
   background: #da292e;
   --bs-table-bg: #da292e;
   color: white;
-  word-break: break-all;
+  word-break: break-word;
 }
 .diffadded a, .diffadded a:hover {
   color: white;

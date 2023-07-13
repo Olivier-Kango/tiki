@@ -22316,13 +22316,13 @@ body.wikitext {
   background: #62c462;
   --bs-table-bg: #62c462;
   color: white;
-  word-break: break-all;
+  word-break: break-word;
 }
 .diffdeleted {
   background: #ee5f5b;
   --bs-table-bg: #ee5f5b;
   color: white;
-  word-break: break-all;
+  word-break: break-word;
 }
 .diffadded a, .diffadded a:hover {
   color: white;

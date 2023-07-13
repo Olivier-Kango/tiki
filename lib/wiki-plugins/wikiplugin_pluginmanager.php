@@ -263,7 +263,7 @@ class WikiPluginPluginManager extends PluginsLib
                         || (! empty($paraminfo['doctype']) && $params['paramtype'] == $paraminfo['doctype']))
                     ) {
                         $filteredparams[] = $paraminfo;
-                        $rows .= "\n\t" . '<tr style="word-break: break-all;">' . $cellbegin;
+                        $rows .= "\n\t" . '<tr style="word-break: break-word;">' . $cellbegin;
                         //Parameters column
                         if (isset($paraminfo['required']) && $paraminfo['required'] == true) {
                             $rows .= '<strong><code>' . $paramname . '</code></strong>';

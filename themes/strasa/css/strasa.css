@@ -11334,13 +11334,13 @@ body.wikitext {
   background: #318A28FF;
   --bs-table-bg: #318A28FF;
   color: #c7eec3;
-  word-break: break-all;
+  word-break: break-word;
 }
 .diffdeleted {
   background: #df6e1e;
   --bs-table-bg: #df6e1e;
   color: #fffefd;
-  word-break: break-all;
+  word-break: break-word;
 }
 .diffadded a, .diffadded a:hover {
   color: white;
