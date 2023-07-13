@@ -197,7 +197,7 @@ class FreetagLib extends ObjectLib
     public function get_objects_with_tag_combo($tagArray, $type = '', $thisUser = '', $offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $broaden = 'n', $objectId = null)
     {
         global $tiki_p_admin, $user, $prefs;
-        $objectIds = explode(':', $objectId);
+        $objectIds = $objectId !== null ? explode(':', $objectId) : [];
         if (! isset($tagArray) || ! is_array($tagArray)) {
             return false;
         }
