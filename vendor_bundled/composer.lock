@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "82913e6e71a46b9b8088ce494ee20f35",
+    "content-hash": "9c087a7eb70f4b6b3ea078c226a59112",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2570,17 +2570,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "c3c723dca80be22d0e7ff2575df36313387b58aa"
+                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-c3c723dca80be22d0e7ff2575df36313387b58aa-zip-507f2e.zip",
-                "reference": "c3c723dca80be22d0e7ff2575df36313387b58aa",
-                "shasum": "99511de4587a8e522e72da5afd79f4cff0cd44ef"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-a4176476c8920b3e75fe85b99c9cb942021488e8-zip-eda341.zip",
+                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8",
+                "shasum": "b60e390284fa35f732c610b14c015ac5a68cde7b"
             },
             "require": {
                 "php": ">=5.4"
@@ -2610,7 +2610,7 @@
                 "php",
                 "sieve"
             ],
-            "time": "2023-07-06T03:12:57+00:00"
+            "time": "2023-07-11T09:01:24+00:00"
         },
         {
             "name": "hesammousavi/bootstrap-v4-rtl",
@@ -2857,17 +2857,17 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "dev-master",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "343ea680b59ae5418b5b37cf0816068c28c9eed1"
+                "reference": "d40665447e0804400747c9be9baa06b841ddb75c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-343ea680b59ae5418b5b37cf0816068c28c9eed1-zip-054f8a.zip",
-                "reference": "343ea680b59ae5418b5b37cf0816068c28c9eed1",
-                "shasum": "ce4b240b5267e85fb3afd7f490194881869aedf8"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-d40665447e0804400747c9be9baa06b841ddb75c-zip-ff9e9b.zip",
+                "reference": "d40665447e0804400747c9be9baa06b841ddb75c",
+                "shasum": "97b5329c7fb0f5f4a308d3d6ebaeadf68726b42a"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2880,12 +2880,15 @@
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
                 "ext-session": "*",
-                "ezyang/htmlpurifier": "^4.13.0",
-                "henrique-borba/php-sieve-manager": "dev-master",
+                "ezyang/htmlpurifier": "^4.13",
+                "henrique-borba/php-sieve-manager": "^1.0.0",
                 "paragonie/random_compat": "^2.0.18",
-                "php": ">=5.4",
+                "php": ">=5.6",
                 "webklex/composer-info": "^0.0.1",
                 "zbateson/mail-mime-parser": "^2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3.0"
             },
             "suggest": {
                 "ext-PDO": "To use database features, this needs to be installed",
@@ -2923,7 +2926,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-07-07T13:25:43+00:00"
+            "time": "2023-07-11T09:22:20+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5477,17 +5480,17 @@
         },
         {
             "name": "league/html-to-markdown",
-            "version": "5.1.0",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/html-to-markdown.git",
-                "reference": "e0fc8cf07bdabbcd3765341ecb50c34c271d64e1"
+                "reference": "0b4066eede55c48f38bcee4fb8f0aa85654390fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/html-to-markdown/league-html-to-markdown-e0fc8cf07bdabbcd3765341ecb50c34c271d64e1-zip-be95ba.zip",
-                "reference": "e0fc8cf07bdabbcd3765341ecb50c34c271d64e1",
-                "shasum": "2fba628027260c19a920b15ba03f8e1f4b0e5bd7"
+                "url": "https://composer.tiki.org/dist/league/html-to-markdown/league-html-to-markdown-0b4066eede55c48f38bcee4fb8f0aa85654390fd-zip-ca14ae.zip",
+                "reference": "0b4066eede55c48f38bcee4fb8f0aa85654390fd",
+                "shasum": "e9407c2d403bdff543a2a456e4444900b660aaae"
             },
             "require": {
                 "ext-dom": "*",
@@ -5496,11 +5499,11 @@
             },
             "require-dev": {
                 "mikehaertl/php-shellcommand": "^1.1.0",
-                "phpstan/phpstan": "^0.12.99",
+                "phpstan/phpstan": "^1.8.8",
                 "phpunit/phpunit": "^8.5 || ^9.2",
                 "scrutinizer/ocular": "^1.6",
-                "unleashedtech/php-coding-standard": "^2.7",
-                "vimeo/psalm": "^4.22"
+                "unleashedtech/php-coding-standard": "^2.7 || ^3.0",
+                "vimeo/psalm": "^4.22 || ^5.0"
             },
             "bin": [
                 "bin/html-to-markdown"
@@ -5558,7 +5561,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-02T17:24:08+00:00"
+            "time": "2023-07-12T21:21:09+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -8652,17 +8655,17 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "1.19.0",
+            "version": "1.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "1856a119a0b0ba8da8b5c33c080aa7af8fac25b4"
+                "reference": "57f3de01d32085fea20865f9b16fb0e69347c39e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-1856a119a0b0ba8da8b5c33c080aa7af8fac25b4-zip-108e6b.zip",
-                "reference": "1856a119a0b0ba8da8b5c33c080aa7af8fac25b4",
-                "shasum": "47749ee09155d01a24964f9af84e7c1a8d88e02c"
+                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-57f3de01d32085fea20865f9b16fb0e69347c39e-zip-f0a38c.zip",
+                "reference": "57f3de01d32085fea20865f9b16fb0e69347c39e",
+                "shasum": "67242e9586b7249056965ec9ad78665effdc8f89"
             },
             "require": {
                 "composer-plugin-api": "^1.0|^2.0",
@@ -8722,7 +8725,7 @@
                 "psr17",
                 "psr7"
             ],
-            "time": "2023-06-19T08:45:36+00:00"
+            "time": "2023-07-11T07:02:26+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -9939,23 +9942,24 @@
         },
         {
             "name": "react/promise",
-            "version": "v2.10.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38"
+                "reference": "c86753c76fd3be465d93b308f18d189f01a22be4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/react/promise/react-promise-f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38-zip-a26c17.zip",
-                "reference": "f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38",
-                "shasum": "490b9b48c9ef006ad35d66eac2b0bd0cff8ec6bc"
+                "url": "https://composer.tiki.org/dist/react/promise/react-promise-c86753c76fd3be465d93b308f18d189f01a22be4-zip-51c716.zip",
+                "reference": "c86753c76fd3be465d93b308f18d189f01a22be4",
+                "shasum": "5690b1c107b872c98257b54bc4380eb81c199c6a"
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=7.1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.36"
+                "phpstan/phpstan": "1.10.20 || 1.4.10",
+                "phpunit/phpunit": "^9.5 || ^7.5"
             },
             "type": "library",
             "autoload": {
@@ -10003,7 +10007,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-05-02T15:15:43+00:00"
+            "time": "2023-07-11T16:12:49+00:00"
         },
         {
             "name": "react/socket",
@@ -15767,17 +15771,17 @@
         },
         {
             "name": "phpcsstandards/phpcsutils",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "ba259eaaefac118648e1263919b9530667ffcf01"
+                "reference": "886a728571ab2faca3642c96954886b078b32195"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcsstandards/phpcsutils/phpcsstandards-phpcsutils-ba259eaaefac118648e1263919b9530667ffcf01-zip-9aa4d7.zip",
-                "reference": "ba259eaaefac118648e1263919b9530667ffcf01",
-                "shasum": "95d43c2e0b6adff87cf5198ff54c482488879f40"
+                "url": "https://composer.tiki.org/dist/phpcsstandards/phpcsutils/phpcsstandards-phpcsutils-886a728571ab2faca3642c96954886b078b32195-zip-db0c03.zip",
+                "reference": "886a728571ab2faca3642c96954886b078b32195",
+                "shasum": "74445dacf7e4b06b656ca212a9c38e7220b006f9"
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0",
@@ -15789,7 +15793,7 @@
                 "php-parallel-lint/php-console-highlighter": "^1.0",
                 "php-parallel-lint/php-parallel-lint": "^1.3.2",
                 "phpcsstandards/phpcsdevcs": "^1.1.6",
-                "yoast/phpunit-polyfills": "^1.0.5"
+                "yoast/phpunit-polyfills": "^1.0.5 || ^2.0.0"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -15831,7 +15835,7 @@
                 "tokens",
                 "utility"
             ],
-            "time": "2023-05-27T13:39:12+00:00"
+            "time": "2023-07-10T13:56:07+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -17199,9 +17203,7 @@
         "ahand/mobileesp": 20,
         "candy-chat/xmpp-prebind-php": 20,
         "erusev/parsedown": 10,
-        "henrique-borba/php-sieve-manager": 20,
         "hesammousavi/bootstrap-v4-rtl": 20,
-        "jason-munro/cypht": 20,
         "league/flysystem": 10,
         "npm-asset/html2canvas": 5,
         "sorich87/bootstrap-tour": 20,
