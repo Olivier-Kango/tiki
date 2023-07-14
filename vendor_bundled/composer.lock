@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2988dba6857ea730f6062a8ee31c8e6",
+    "content-hash": "f22235789345a8e940b54eca42d4f0c5",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2771,17 +2771,17 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "dev-master",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "aeb9b75a883e67961e35ebe3a90ef9c6c571c1da"
+                "reference": "d40665447e0804400747c9be9baa06b841ddb75c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-aeb9b75a883e67961e35ebe3a90ef9c6c571c1da-zip-9be1ed.zip",
-                "reference": "aeb9b75a883e67961e35ebe3a90ef9c6c571c1da",
-                "shasum": "d7bdd12b665c611496219b34132a12f527d978e1"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-d40665447e0804400747c9be9baa06b841ddb75c-zip-ff9e9b.zip",
+                "reference": "d40665447e0804400747c9be9baa06b841ddb75c",
+                "shasum": "97b5329c7fb0f5f4a308d3d6ebaeadf68726b42a"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2840,7 +2840,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-07-11T09:06:44+00:00"
+            "time": "2023-07-11T09:22:20+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5355,17 +5355,17 @@
         },
         {
             "name": "league/html-to-markdown",
-            "version": "5.1.0",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/html-to-markdown.git",
-                "reference": "e0fc8cf07bdabbcd3765341ecb50c34c271d64e1"
+                "reference": "0b4066eede55c48f38bcee4fb8f0aa85654390fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/html-to-markdown/league-html-to-markdown-e0fc8cf07bdabbcd3765341ecb50c34c271d64e1-zip-be95ba.zip",
-                "reference": "e0fc8cf07bdabbcd3765341ecb50c34c271d64e1",
-                "shasum": "2fba628027260c19a920b15ba03f8e1f4b0e5bd7"
+                "url": "https://composer.tiki.org/dist/league/html-to-markdown/league-html-to-markdown-0b4066eede55c48f38bcee4fb8f0aa85654390fd-zip-ca14ae.zip",
+                "reference": "0b4066eede55c48f38bcee4fb8f0aa85654390fd",
+                "shasum": "e9407c2d403bdff543a2a456e4444900b660aaae"
             },
             "require": {
                 "ext-dom": "*",
@@ -5374,11 +5374,11 @@
             },
             "require-dev": {
                 "mikehaertl/php-shellcommand": "^1.1.0",
-                "phpstan/phpstan": "^0.12.99",
+                "phpstan/phpstan": "^1.8.8",
                 "phpunit/phpunit": "^8.5 || ^9.2",
                 "scrutinizer/ocular": "^1.6",
-                "unleashedtech/php-coding-standard": "^2.7",
-                "vimeo/psalm": "^4.22"
+                "unleashedtech/php-coding-standard": "^2.7 || ^3.0",
+                "vimeo/psalm": "^4.22 || ^5.0"
             },
             "bin": [
                 "bin/html-to-markdown"
@@ -5436,7 +5436,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-02T17:24:08+00:00"
+            "time": "2023-07-12T21:21:09+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -16816,17 +16816,17 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.17.5",
+            "version": "0.17.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "f4a5f45c420b797d8e8e9c540e14c8bbdddff62d"
+                "reference": "ec40080b9bdaf39eb0c0a9276cd7b4a778c03f21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-f4a5f45c420b797d8e8e9c540e14c8bbdddff62d-zip-a4cc88.zip",
-                "reference": "f4a5f45c420b797d8e8e9c540e14c8bbdddff62d",
-                "shasum": "e94632757be3e6d872b6d8739aca77f3f0e63002"
+                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-ec40080b9bdaf39eb0c0a9276cd7b4a778c03f21-zip-706643.zip",
+                "reference": "ec40080b9bdaf39eb0c0a9276cd7b4a778c03f21",
+                "shasum": "4b7265f5585b07466a5961a352a392beb597371e"
             },
             "require": {
                 "php": "^7.2|^8.0",
@@ -16869,7 +16869,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-12T08:42:12+00:00"
+            "time": "2023-07-14T09:54:15+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -18465,7 +18465,6 @@
     "stability-flags": {
         "candy-chat/xmpp-prebind-php": 20,
         "erusev/parsedown": 10,
-        "jason-munro/cypht": 20,
         "league/flysystem": 10,
         "npm-asset/html2canvas": 5,
         "sorich87/bootstrap-tour": 20,
