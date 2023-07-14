@@ -527,6 +527,7 @@ class PdfGenerator
     public function getHtmlLayout($pageContent)
     {
         require_once('tiki-setup.php');
+        $prefslib = TikiLib::lib('prefs');
 
         $modlib = TikiLib::lib('mod');
 
@@ -536,14 +537,15 @@ class PdfGenerator
         clearstatcache();
 
         $modules_to_print = $prefs['print_pdf_modules'];
+        $print_pdf_modules_options = $prefslib->getPreference('print_pdf_modules', true, null, false)['options'];
         $modules_to_print_contents = [];
 
         $modules = $modlib->get_modules_for_user($user);
 
         $modnames = [];
 
-        if (is_array($modules_to_print)) {
-            foreach ($modules_to_print as $module_key) {
+        foreach ($print_pdf_modules_options as $module_key => $module_value) {
+            if (is_array($modules_to_print) && in_array($module_key, $modules_to_print)) {
                 $content = '';
 
                 if (isset($modules[$module_key]) && is_array($modules[$module_key])) {
@@ -579,6 +581,8 @@ class PdfGenerator
                     $content
                 </div>
                 OUT;
+            } else {
+                $modules_to_print_contents[$module_key] = "";
             }
         }
 
