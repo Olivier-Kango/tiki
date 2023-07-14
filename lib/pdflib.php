@@ -468,7 +468,7 @@ class PdfGenerator
                     } else {
                         $pdfPage['header'] == '' ? $header = $pdfSettings['header'] : $header = $pdfPage['header'];
                     }
-                    if (trim(strtolower($pdfPage['footer'])) == "off") {
+                    if (trim(strtolower($pdfPage['footer'])) == "off" || $pdfPage['footer'] == "") {
                         $footer = "";
                     } elseif ($pdfPage['footer']) {
                         $footer = $pdfPage['footer'];
