@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4665a7437b5cf2c49f9bcf6b9652bdc1",
+    "content-hash": "97e9edcc48130c0bf5b074ead8ae6b28",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2586,17 +2586,17 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "dev-master",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "ba12318"
+                "reference": "d40665447e0804400747c9be9baa06b841ddb75c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-aeb9b75a883e67961e35ebe3a90ef9c6c571c1da-zip-9be1ed.zip",
-                "reference": "ba12318",
-                "shasum": "d7bdd12b665c611496219b34132a12f527d978e1"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-d40665447e0804400747c9be9baa06b841ddb75c-zip-ff9e9b.zip",
+                "reference": "d40665447e0804400747c9be9baa06b841ddb75c",
+                "shasum": "97b5329c7fb0f5f4a308d3d6ebaeadf68726b42a"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2655,7 +2655,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-07-11T09:06:44+00:00"
+            "time": "2023-07-11T09:22:20+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -15148,7 +15148,6 @@
         "hesammousavi/bootstrap-v4-rtl": 20,
         "h5p/h5p-core": 20,
         "h5p/h5p-editor": 20,
-        "jason-munro/cypht": 20,
         "league/flysystem": 10,
         "npm-asset/html2canvas": 5,
         "philippemarcmeyer/fieldslinker": 20,
