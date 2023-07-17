@@ -2931,6 +2931,10 @@ class TrackerLib extends TikiLib
                         $erroneous_values[] = $f;
                     }
                 }
+                if ($f['options_map']['confirmed'] == 'y' && $f['value'] != $f['value_confirmed']) {
+                    $f['errorMsg'] = tra('Confirmation %0 do not match', $f['name']);
+                    $erroneous_values[] = $f;
+                }
                 if ($f['type'] != 'q' and isset($f['isMandatory']) && $f['isMandatory'] == 'y') {
                     if (($f['type'] == 'e' || in_array($f['fieldId'], $categorized_fields)) && empty($f['value'])) {    // category: value is now categ id's
                         $mandatory_fields[] = $f;
