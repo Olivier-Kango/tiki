@@ -71,6 +71,10 @@ class WikiLib extends TikiLib
 
     public function get_page_by_slug($slug)
     {
+        if ($slug === null) {
+            return null;
+        }
+
         $pages = TikiDb::get()->table('tiki_pages');
         $found = $pages->fetchOne('pageName', ['pageSlug' => $slug]);
 
