@@ -1255,7 +1255,7 @@ function cleanContent($content, $tagArr)
         $list = $xpath->query('//' . $tag[0] . '[contains(concat(\' \', normalize-space(@' . $tag[2] . '), \' \'), "' . $tag[1] . '")]');
         for ($i = 0; $i < $list->length; $i++) {
             $p = $list->item($i);
-            if ($tag[3] == 1) { //the parameter checks if content of tag has to be preserved
+            if (isset($tag[3]) && $tag[3] == 1) { //the parameter checks if content of tag has to be preserved
                 $attributes = $p->attributes;
                 while ($attributes->length) {
                 //preserving href
