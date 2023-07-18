@@ -297,7 +297,7 @@ class RSSLib extends TikiDb_Bridge
             $item->setDateCreated((int) $data[$dateId]);
             $item->setDateModified((int) $data[$dateId]);
 
-            if ($authorId != '' && $prefs['feed_' . $section . '_showAuthor'] == 'y') {
+            if ($authorId != '' && array_key_exists('feed_' . $section . '_showAuthor', $prefs) && $prefs['feed_' . $section . '_showAuthor'] == 'y') {
                 $author = $this->process_item_author($data[$authorId]);
 
                 if (array_key_exists('name', $author) && ! empty($author['name']) && is_string($author['name'])) {
