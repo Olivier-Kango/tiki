@@ -991,7 +991,7 @@ class FreetagLib extends ObjectLib
     public function get_most_popular_tags($user = '', $offset = 0, $maxRecords = 25, $type = null, $objectId = null, $tsort_mode = 'tag_asc')
     {
 
-        $objectIds = explode(':', $objectId);
+        $objectIds = $objectId !== null ? explode(':', $objectId) : [];
         $join = '';
         $mid = '';
         $mid2 = '';
