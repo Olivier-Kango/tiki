@@ -11540,6 +11540,7 @@ pre.codelisting code {
   right: 20px;
   top: 10px;
   font-size: 80%;
+  z-index: 999;
 }
 .icon_copy_code:hover {
   color: black;
