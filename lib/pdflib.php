@@ -305,7 +305,7 @@ class PdfGenerator
         $mpdf->SetTitle($params['page']);
 
         //toc levels
-        $mpdf->h2toc = $pdfSettings['toclevels'];
+        $mpdf->h2toc = isset($pdfSettings['toclevels']) ? $pdfSettings['toclevels'] : [];
         //password protection
         if ($pdfSettings['print_pdf_mpdf_password']) {
             $mpdf->SetProtection([], 'UserPassword', $pdfSettings['print_pdf_mpdf_password']);
