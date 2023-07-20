@@ -131,6 +131,8 @@ $slidePluginData = $parserlib->getPlugins($info["data"], ['slideshow']);
 
 if (! empty($slidePluginData)) {
     $slidePluginHeadingLevelSlideSeparator = $slidePluginData[0]['arguments']['headingLevelSlideSeparator'];
+} else {
+    $slidePluginHeadingLevelSlideSeparator = null;
 }
 
 $pdata = formatContent($pdata, $tagsArr, $slidePluginHeadingLevelSlideSeparator);
@@ -509,7 +511,7 @@ function formatContent($content, $tagArr, $slidePluginHeadingLevelSlideSeparator
     // restore error level
     libxml_use_internal_errors($internalErrors);
     $headingsTagsExpression = headings_tags_separator_expression($slidePluginHeadingLevelSlideSeparator);
-    $headingsTags = preg_split($headingsTagsExpression, $content);
+    $headingsTags = preg_split(preg_quote($headingsTagsExpression), $content);
     $firstSlide = 0;
     if (isset($_REQUEST['pdf'])) {
         $headingStart = '<div style="border-bottom:0px;" class="ss-heading">';
