@@ -21,11 +21,6 @@ $alert_categorized = [];
 $alert_to_remove_cats = [];
 $alert_to_remove_extra_cats = [];
 
-$smarty->assign_by_ref('alert_in_st', $alert_in_st);
-$smarty->assign_by_ref('alert_categorized', $alert_categorized);
-$smarty->assign_by_ref('alert_to_remove_cats', $alert_to_remove_cats);
-$smarty->assign_by_ref('alert_to_remove_extra_cats', $alert_to_remove_extra_cats);
-
 // start security hardened section
 if ($tiki_p_edit_structures == 'y') {
     if (isset($_REQUEST['rremove'])) {
@@ -224,6 +219,12 @@ if ($tiki_p_edit_structures == 'y') {
         }
     }
 } // end of security hardening
+
+$smarty->assign('alert_in_st', $alert_in_st);
+$smarty->assign('alert_categorized', $alert_categorized);
+$smarty->assign('alert_to_remove_cats', $alert_to_remove_cats);
+$smarty->assign('alert_to_remove_extra_cats', $alert_to_remove_extra_cats);
+
 if ($prefs['feature_categories'] == 'y') {
     include_once("categorize_list.php");
 }
