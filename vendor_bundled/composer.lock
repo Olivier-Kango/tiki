@@ -1881,17 +1881,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "3.4.8",
+            "version": "3.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "9f03f2b91bb37c9cbfeed7aadce774865d14c571"
+                "reference": "bb0f121f604e0656ff6656ff498cc9caf8f11dd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-9f03f2b91bb37c9cbfeed7aadce774865d14c571-zip-ee8141.zip",
-                "reference": "9f03f2b91bb37c9cbfeed7aadce774865d14c571",
-                "shasum": "a6d168d2e6fc1ccd6ae77068510e0436fd4b7dff"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-bb0f121f604e0656ff6656ff498cc9caf8f11dd8-zip-b12f50.zip",
+                "reference": "bb0f121f604e0656ff6656ff498cc9caf8f11dd8",
+                "shasum": "f2a68c323a13e6ea02f2e4017fcadb92cce14535"
             },
             "require": {
                 "php": "^7.4|^8.0"
@@ -1921,7 +1921,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2023-07-06T07:33:21+00:00"
+            "time": "2023-07-19T07:33:10+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -5355,17 +5355,17 @@
         },
         {
             "name": "league/html-to-markdown",
-            "version": "5.1.0",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/html-to-markdown.git",
-                "reference": "e0fc8cf07bdabbcd3765341ecb50c34c271d64e1"
+                "reference": "0b4066eede55c48f38bcee4fb8f0aa85654390fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/html-to-markdown/league-html-to-markdown-e0fc8cf07bdabbcd3765341ecb50c34c271d64e1-zip-be95ba.zip",
-                "reference": "e0fc8cf07bdabbcd3765341ecb50c34c271d64e1",
-                "shasum": "2fba628027260c19a920b15ba03f8e1f4b0e5bd7"
+                "url": "https://composer.tiki.org/dist/league/html-to-markdown/league-html-to-markdown-0b4066eede55c48f38bcee4fb8f0aa85654390fd-zip-ca14ae.zip",
+                "reference": "0b4066eede55c48f38bcee4fb8f0aa85654390fd",
+                "shasum": "e9407c2d403bdff543a2a456e4444900b660aaae"
             },
             "require": {
                 "ext-dom": "*",
@@ -5374,11 +5374,11 @@
             },
             "require-dev": {
                 "mikehaertl/php-shellcommand": "^1.1.0",
-                "phpstan/phpstan": "^0.12.99",
+                "phpstan/phpstan": "^1.8.8",
                 "phpunit/phpunit": "^8.5 || ^9.2",
                 "scrutinizer/ocular": "^1.6",
-                "unleashedtech/php-coding-standard": "^2.7",
-                "vimeo/psalm": "^4.22"
+                "unleashedtech/php-coding-standard": "^2.7 || ^3.0",
+                "vimeo/psalm": "^4.22 || ^5.0"
             },
             "bin": [
                 "bin/html-to-markdown"
@@ -5436,7 +5436,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-02T17:24:08+00:00"
+            "time": "2023-07-12T21:21:09+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -6729,11 +6729,11 @@
         },
         {
             "name": "npm-asset/dompurify",
-            "version": "2.4.5",
+            "version": "2.4.7",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/dompurify/npm-asset-dompurify-2.4.5.zip",
-                "shasum": "cb1ce7b1f4a521cdfdf65043028b1a1bc59b57bb"
+                "url": "https://composer.tiki.org/dist/npm-asset/dompurify/npm-asset-dompurify-2.4.7.zip",
+                "shasum": "1fa94a30c092ea7b7961fc68eb794b0a845fc7fb"
             },
             "type": "npm-asset",
             "license": [
@@ -9821,23 +9821,24 @@
         },
         {
             "name": "react/promise",
-            "version": "v2.10.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38"
+                "reference": "c86753c76fd3be465d93b308f18d189f01a22be4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/react/promise/react-promise-f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38-zip-a26c17.zip",
-                "reference": "f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38",
-                "shasum": "490b9b48c9ef006ad35d66eac2b0bd0cff8ec6bc"
+                "url": "https://composer.tiki.org/dist/react/promise/react-promise-c86753c76fd3be465d93b308f18d189f01a22be4-zip-51c716.zip",
+                "reference": "c86753c76fd3be465d93b308f18d189f01a22be4",
+                "shasum": "5690b1c107b872c98257b54bc4380eb81c199c6a"
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=7.1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.36"
+                "phpstan/phpstan": "1.10.20 || 1.4.10",
+                "phpunit/phpunit": "^9.5 || ^7.5"
             },
             "type": "library",
             "autoload": {
@@ -9885,7 +9886,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-05-02T15:15:43+00:00"
+            "time": "2023-07-11T16:12:49+00:00"
         },
         {
             "name": "react/socket",
@@ -11225,17 +11226,17 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v4.3.1",
+            "version": "v4.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "e28cb0915b4e3749bf57d4ebae2984e25395cfe5"
+                "reference": "1d9cda2be34fd6edb74924684260636fd0b89288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-e28cb0915b4e3749bf57d4ebae2984e25395cfe5-zip-781d67.zip",
-                "reference": "e28cb0915b4e3749bf57d4ebae2984e25395cfe5",
-                "shasum": "56e9287e4966c253d68dcd1bb04a362b80193ab4"
+                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-1d9cda2be34fd6edb74924684260636fd0b89288-zip-d77820.zip",
+                "reference": "1d9cda2be34fd6edb74924684260636fd0b89288",
+                "shasum": "f23578faedb9f6b38df644bad1d3b93ec32c5e5b"
             },
             "require": {
                 "php": "^7.1 || ^8.0"
@@ -11282,7 +11283,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2023-03-28T19:47:03+00:00"
+            "time": "2023-07-19T10:27:36+00:00"
         },
         {
             "name": "sorich87/bootstrap-tour",
@@ -16132,17 +16133,17 @@
         },
         {
             "name": "phpcsstandards/phpcsutils",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "886a728571ab2faca3642c96954886b078b32195"
+                "reference": "69465cab9d12454e5e7767b9041af0cd8cd13be7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcsstandards/phpcsutils/phpcsstandards-phpcsutils-886a728571ab2faca3642c96954886b078b32195-zip-db0c03.zip",
-                "reference": "886a728571ab2faca3642c96954886b078b32195",
-                "shasum": "74445dacf7e4b06b656ca212a9c38e7220b006f9"
+                "url": "https://composer.tiki.org/dist/phpcsstandards/phpcsutils/phpcsstandards-phpcsutils-69465cab9d12454e5e7767b9041af0cd8cd13be7-zip-72ca8e.zip",
+                "reference": "69465cab9d12454e5e7767b9041af0cd8cd13be7",
+                "shasum": "f4fd2b2d5e3ca6028df8020b8b71839379ef4cad"
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0",
@@ -16196,21 +16197,21 @@
                 "tokens",
                 "utility"
             ],
-            "time": "2023-07-10T13:56:07+00:00"
+            "time": "2023-07-16T21:39:41+00:00"
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.25",
+            "version": "1.10.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "578f4e70d117f9a90699324c555922800ac38d8c"
+                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-578f4e70d117f9a90699324c555922800ac38d8c-zip-fc67f9.zip",
-                "reference": "578f4e70d117f9a90699324c555922800ac38d8c",
-                "shasum": "579a0bd1a59b6b959ca5ff2812cee5e105b3c55d"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-5d660cbb7e1b89253a47147ae44044f49832351f-zip-37267a.zip",
+                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f",
+                "shasum": "c8d8e94e5fea6d7b6a201878fe50e105434c5bf3"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -16251,7 +16252,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-06T12:11:37+00:00"
+            "time": "2023-07-19T12:44:37+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -16815,17 +16816,17 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.17.3",
+            "version": "0.17.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "dbd0b13b4fe1787c04ae4732e3d54310bdc0c22b"
+                "reference": "ec40080b9bdaf39eb0c0a9276cd7b4a778c03f21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-dbd0b13b4fe1787c04ae4732e3d54310bdc0c22b-zip-82ea89.zip",
-                "reference": "dbd0b13b4fe1787c04ae4732e3d54310bdc0c22b",
-                "shasum": "7aabc0373c5e48b229b05dfd5081bbe837c4d861"
+                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-ec40080b9bdaf39eb0c0a9276cd7b4a778c03f21-zip-706643.zip",
+                "reference": "ec40080b9bdaf39eb0c0a9276cd7b4a778c03f21",
+                "shasum": "4b7265f5585b07466a5961a352a392beb597371e"
             },
             "require": {
                 "php": "^7.2|^8.0",
@@ -16868,7 +16869,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-10T13:32:43+00:00"
+            "time": "2023-07-14T09:54:15+00:00"
         },
         {
             "name": "sebastian/cli-parser",
