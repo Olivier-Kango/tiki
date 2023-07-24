@@ -322,9 +322,6 @@ class PdfGenerator
         $themecss = file_get_contents($themecss) . 'b,strong{font-weight:bold !important;}';
         $extcss = file_get_contents('vendor_bundled/vendor/jquery/jquery-sheet/jquery.sheet.css');
 
-        //this CSS Overrides bootstrap 4 grid definitions (mPDF doesn't support Bootstrap 4)
-        $customGrid = file_get_contents('themes/base_files/css/custom_grid_pdf.css');
-
         //checking if print friendly option is enabled, then attach print css otherwise theme styles will be retained by theme css
         if ($pdfSettings['print_pdf_mpdf_printfriendly'] == 'y') {
             $printcss = file_get_contents('themes/base_files/css/printpdf.css'); // external css
