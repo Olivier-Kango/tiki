@@ -92,9 +92,9 @@ class Search_Formatter_Builder
         if ($this->alternateOutput > '') {
             $formatter->setAlternateOutput($this->alternateOutput);
         } else {
-            $formatter->setAlternateOutput('{BOX(bg="#fcd9d3" align="left")}' . tra('No results for query.') . '{BOX}');
+            $formatter->setAlternateOutput('{BOX(class="text-bg-light")}' . tra('No results for query.') . '{BOX}');
             if ($errorInQuery) {
-                $formatter->setAlternateOutput('{BOX(bg="#fcd9d3" align="left")}' . tra('There is a query error in the sort control block, please correct it to find results.') . '{BOX}');
+                $formatter->setAlternateOutput('{BOX(class="text-bg-light")}' . tra('There is a query error in the sort control block, please correct it to find results.') . '{BOX}');
             }
         }
 
