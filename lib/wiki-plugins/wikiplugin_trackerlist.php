@@ -1865,6 +1865,7 @@ function wikiplugin_trackerlist($data, $params)
                 $perms = array_merge($perms, $trklib->get_special_group_tracker_perm($tracker_info));
             }
         }
+        $passfields = [];
         for ($i = 0, $count_allf = count($allfields['data']); $i < $count_allf; $i++) {
             if ($allfields['data'][$i]['type'] == 'C') {
                 $infoComputed = $trklib->get_computed_info($allfields['data'][$i]['options_array'][0], $trackerId, $allfields['data']);
