@@ -16,7 +16,7 @@ function wikiplugin_box_info()
         'introduced' => 1,
         'iconname' => 'box',
         'tags' => [ 'basic' ],
-        'validate' => 'all',
+        'validate' => 'arguments',
         'params' => [
             'title' => [
                 'required' => false,
@@ -121,19 +121,7 @@ function wikiplugin_box_info()
                 'filter' => 'text',
                 'default' => '',
             ],
-            'html' => [
-                'required' => false,
-                'name' => tra('Allow HTML'),
-                'description' => tra('Allow contents to contain HTML code.'),
-                'since' => '26.0',
-                'filter' => 'digits',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ],
-            ],
+
         ],
     ];
 }
@@ -170,8 +158,6 @@ function wikiplugin_box($data, $params)
     // Insert "\n" at data begin if absent (so start-of-line-sensitive syntaxes will be parsed OK)
     //if (substr($data, 0, 1) != "\n") $data = "\n".$data;
     //$data = TikiLib::lib('parser')->parse_data($data);
-    if (empty($params['html'])) {
-        $data = TikiLib::lib('parser')->protectSpecialChars($data); //they are unprotected before calling the plugins
-    }
+    $data = TikiLib::lib('parser')->protectSpecialChars($data); //they are unprotected before calling the plugins
     return $begin . $data . $end;
 }
