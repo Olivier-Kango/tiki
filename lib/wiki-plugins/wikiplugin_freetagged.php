@@ -300,6 +300,7 @@ function wikiplugin_freetagged($data, $params)
                     }
 
                     $obj['img'] = wikiplugin_img('', $imgparams, 0);
+                    $obj['img'] = WikiPlugin_Helper::resultString($obj['img']);
                     $obj['img'] = str_replace('~np~', '', $obj['img']); // don't nest ~np~
                     $obj['img'] = str_replace('~/np~', '', $obj['img']);
                     break;

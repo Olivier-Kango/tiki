@@ -727,7 +727,8 @@ function wikiplugin_img($data, $params)
             $params[$id] = trim($value);
             $params['fgalId'] = '';
             $params['type'] = $id;
-            $repl .= wikiplugin_img($data, $params);
+            $pluginResult = wikiplugin_img($data, $params);
+            $repl .= WikiPlugin_Helper::resultString($pluginResult);
         }
         if (strpos($repl, $notice) !== false) {
             return $repl;
