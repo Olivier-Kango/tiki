@@ -237,7 +237,7 @@ class Search_Formatter_Builder
             }
         } elseif (isset($arguments['wiki'])) {
             if ($tikilib->page_exists($arguments['wiki'])) {
-                $wikitpl = "tplwiki:" . $arguments['wiki'];
+                $wikitpl = "wiki:" . $arguments['wiki'];
                 $wikicontent = $smarty->fetch($wikitpl);
                 $plugin = new Search_Formatter_Plugin_WikiTemplate($wikicontent);
             } else {
