@@ -341,7 +341,7 @@ class WikiRenderer
                     $this->smartyassign('revision_approved', null);
                     if ($this->content_to_render === null) {
                         $this->smartyassign('revision_displayed', null);
-                        $this->content_to_render = '{BOX(bg="#fcd9d3" align="left")}' . tra('There are no approved versions of this page.', $this->info['lang']) . '{BOX}';
+                        $this->content_to_render = '{BOX(class="text-bg-light")}' . tra('There are no approved versions of this page.', $this->info['lang']) . '{BOX}';
                     } else {
                         $this->smartyassign('revision_displayed', $this->info['version']);
                     }
