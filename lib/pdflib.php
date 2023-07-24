@@ -320,7 +320,7 @@ class PdfGenerator
         $themeLib = TikiLib::lib('theme');
         $themecss = $themeLib->get_theme_path($prefs['theme'], '', $prefs['theme'] . '.css');
         $themecss = file_get_contents($themecss) . 'b,strong{font-weight:bold !important;}';
-        $extcss = file_get_contents('vendor/jquery/jquery-sheet/jquery.sheet.css');
+        $extcss = file_get_contents('vendor_bundled/vendor/jquery/jquery-sheet/jquery.sheet.css');
 
         //this CSS Overrides bootstrap 4 grid definitions (mPDF doesn't support Bootstrap 4)
         $customGrid = file_get_contents('themes/base_files/css/custom_grid_pdf.css');
