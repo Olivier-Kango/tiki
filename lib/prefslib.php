@@ -1068,6 +1068,10 @@ class PreferencesLib
             $value = $filter->filter($data[$name]);
         }
 
+        if (is_array($value)) {
+            return $value;
+        }
+
         $value = str_replace("\r", "", $value);
         if (isset($info['unserialize'])) {
             $fnc = $info['unserialize'];
