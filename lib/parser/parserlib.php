@@ -1846,7 +1846,7 @@ class ParserLib extends TikiDb_Bridge
         }
 
         if ($prefs['feature_wiki_argvariable'] == 'y' && ! $this->option['wysiwyg']) {
-            if (preg_match_all("/\\{\\{((\w+)(\\|([^\\}]*))?)\\}\\}/", $data, $args, PREG_SET_ORDER)) {
+            if (preg_match_all("/\\{\\{((\w+)(\\|([^\\}]*))?)\\}\\}/", $data ?? '', $args, PREG_SET_ORDER)) {
                 $needles = [];
                 $replacements = [];
 
