@@ -141,6 +141,7 @@ if (isset($_REQUEST['pdf'])) {
     $access->check_feature("feature_slideshow_pdfexport");
     set_time_limit(777);
 
+    $_POST["html"] = $_POST["html"] ?? '';
     $_POST["html"] = urldecode($_POST["html"]);
 
     if (isset($_POST["html"])) {
