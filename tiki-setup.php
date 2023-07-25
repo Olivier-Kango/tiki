@@ -67,7 +67,11 @@ require_once('tiki-setup_base.php');
 
 // Attempt setting locales. This code is just a start, locales should be set per-user.
 // Also, different operating systems use different locale strings. en_US.utf8 is valid on POSIX systems, maybe not on Windows, feel free to add alternative locale strings.
-setlocale(LC_ALL, ''); // Attempt changing the locale to the system default.
+// Getting the system default locale
+$default_locale = Locale::getDefault();
+if ($default_locale) {
+    setlocale(LC_ALL, $default_locale); // Attempt changing the locale to the system default.
+}
 // Since the system default may not be UTF-8 but we may be dealing with multilingual content, attempt ensuring the collations are intelligent by forcing a general UTF-8 collation.
 // This will have no effect if the locale string is not valid or if the designated locale is not generated.
 
