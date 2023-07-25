@@ -687,7 +687,7 @@ class HeaderLib
             $rank = '60late';
             if ($minifyLateActive) {
                 foreach ($jsfiles[$rank] as $index => $file) {
-                    if ($this->skip_minify[$file] === true) {
+                    if (isset($this->skip_minify[$file]) && $this->skip_minify[$file] === true) {
                         $output[] .= '<script type="text/javascript" src="' . smarty_modifier_escape($file) . '"></script>';
                         unset($jsfiles[$rank][$index]);
                     }
