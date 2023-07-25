@@ -139,7 +139,7 @@ class WikiRenderer
         $structs = $structlib->get_page_structures($this->page);
         $structs_with_perm = [];
         foreach ($structs as $t_structs) {
-            if ($tikilib->user_has_perm_on_object($this->user, $t_structs['pageName'], 'wiki page', 'tiki_p_view')) {
+            if ($tikilib->user_has_perm_on_object($this->user, $t_structs['pageName'] ?? null, 'wiki page', 'tiki_p_view')) {
                 $structs_with_perm[] = $t_structs;
             }
         }
