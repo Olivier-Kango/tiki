@@ -115,6 +115,20 @@ body.tiki-admin {
 }
 // Unsorted
 
+// make content not be overlapped by the side column nav
+// needs fixing properly in the tpl so we can use the width of .admin-nav
+.tiki-admin .admin-content {
+    padding-left: 150px;
+}
+
+.tiki-admin.sidebar_collapsed .admin-content {
+    padding-left: 0;
+}
+
+.tiki-admin.sidebar_collapsed .admin-nav form {
+    display: none !important;
+}
+
 
 // Login module dropdown .tiki-admin .top_modules.navbar-light-parent
 //.tiki-admin .top_modules.navbar-light-parent .dropdown-menu .dropdown-item {

@@ -66,6 +66,15 @@ body.tiki-admin {
   color: var(--tiki-admin-aside-nav-hover-color);
   background: var(--tiki-admin-aside-nav-hover-bg);
 }
+.tiki-admin .admin-content {
+  padding-left: 150px;
+}
+.tiki-admin.sidebar_collapsed .admin-content {
+  padding-left: 0;
+}
+.tiki-admin.sidebar_collapsed .admin-nav form {
+  display: none !important;
+}
 .tiki-admin aside.admin-nav > nav, .tiki-admin .top_modules {
   position: fixed;
   left: 0;
@@ -628,4 +637,4 @@ body.tiki-admin {
   width: min-content;
   margin: 0.5rem;
 }
-
+/*# sourceMappingURL=adminui.css.map */
