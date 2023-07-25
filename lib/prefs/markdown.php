@@ -14,7 +14,7 @@ function prefs_markdown_list()
             'default' => 'n',
             'help' => 'Markdown',
             'keywords' => 'Markdown',
-            'tags' => ['advanced'],
+            'tags' => ['advanced', 'experimental'],
         ],
         'markdown_gfm' => [
             'name' => tr('Github-flavored markdown'),
