@@ -221,7 +221,7 @@ class PrefsDoc extends TWVersion
         $this->prefDefaultFull = '';
 
         // set default
-        if (! empty($param->options) && isset($param->default) && $param->default !== '') {
+        if (! empty($param->options) && ! empty($param->default) && isset($param->options->{$param->default})) {
             $this->prefDefault = $param->options->{$param->default};
         } elseif ($param->default === 'n') {
             $this->prefDefault = 'Disabled';
@@ -291,7 +291,7 @@ class PrefsDoc extends TWVersion
             }
         }
 
-        if ($param->warning) {
+        if (isset($param->warning) && $param->warning) {
             if ($this->prefDescription) {                   // new line if existing content
                 $this->prefDescription .= '<br>';
             }
