@@ -246,7 +246,7 @@ class PdfGenerator
         //checking and getting plugin_pdf parameters if set
         $pdfSettings = $this->getPDFSettings($html, $prefs, $params);
         //Add page title with content enabled in prefs and page indiviual settings
-        if (($prefs['feature_page_title'] == 'y' && $wikilib->get_page_hide_title($params['page']) == 0 && $pdfSettings['pagetitle'] != 'n') || $pdfSettings['pagetitle'] == 'y') {
+        if (($prefs['feature_page_title'] == 'y' && isset($params['page']) && $wikilib->get_page_hide_title($params['page']) == 0 && $pdfSettings['pagetitle'] != 'n') || $pdfSettings['pagetitle'] == 'y') {
             $html = '<h1>' . $params['page'] . '</h1>' . $html;
         }
 
@@ -302,7 +302,7 @@ class PdfGenerator
         $mpdf->autoScriptToLang = true;
         $mpdf->autoLangToFont = true;
 
-        $mpdf->SetTitle($params['page']);
+        $mpdf->SetTitle($params['page'] ?? '');
 
         //toc levels
         $mpdf->h2toc = isset($pdfSettings['toclevels']) ? $pdfSettings['toclevels'] : [];
@@ -378,7 +378,7 @@ class PdfGenerator
             if (trim(strtolower($pdfPage['footer'])) != "off") {
                 $mpdf->DefHTMLFooterByName(
                     'footer-without-pagination',
-                    $this->processHeaderFooter($pdfPage['footer'], $params['page'], 'bottom', false)
+                    $this->processHeaderFooter($pdfPage['footer'], $params['page'] ?? '', 'bottom', false)
                 );
             }
 
@@ -463,9 +463,9 @@ class PdfGenerator
                     } elseif ($pdfPage['footer']) {
                         $footer = $pdfPage['footer'];
                     }
-                    $mpdf->SetHTMLHeader($this->processHeaderFooter($header, $params['page']));
+                    $mpdf->SetHTMLHeader($this->processHeaderFooter($header, $params['page'] ?? ''));
                     $mpdf->AddPage($pdfPage['orientation'], '', $resetPage, '', '', $pdfPage['margin_left'], $pdfPage['margin_right'], $pdfPage['margin_top'], $pdfPage['margin_bottom'], $pdfPage['margin_header'], $pdfPage['margin_footer'], '', '', '', '', '', '', '', '', '', $pdfPage['pagesize']);
-                    $mpdf->SetHTMLFooter($this->processHeaderFooter($footer, $params['page'], 'top')); //footer needs to be reset after page content is added
+                    $mpdf->SetHTMLFooter($this->processHeaderFooter($footer, $params['page'] ?? '', 'top')); //footer needs to be reset after page content is added
                     //checking watermark on page
                     $mpdf->SetWatermarkText($pdfPage['watermark']);
                     $mpdf->showWatermarkText = true;
@@ -510,9 +510,9 @@ class PdfGenerator
             $mpdf->SetWatermarkImage($pdfPage['background_image'], 1);
             $mpdf->watermarkImgBehind = true;
         }
-        trim(strtolower($pdfSettings['header'])) == "off" ? $mpdf->SetHTMLHeader() : $mpdf->SetHTMLHeader($this->processHeaderFooter($pdfSettings['header'], $params['page']));
+        trim(strtolower($pdfSettings['header'])) == "off" ? $mpdf->SetHTMLHeader() : $mpdf->SetHTMLHeader($this->processHeaderFooter($pdfSettings['header'], $params['page'] ?? ''));
         if ($pdfPages[count($pdfPages) - 1]['footer'] == $pdfSettings['footer']) {
-            trim(strtolower($pdfSettings['footer'])) == "off" ? $mpdf->SetHTMLFooter() : $mpdf->SetHTMLFooter($this->processHeaderFooter($pdfSettings['footer'], $params['page'], 'top'));
+            trim(strtolower($pdfSettings['footer'])) == "off" ? $mpdf->SetHTMLFooter() : $mpdf->SetHTMLFooter($this->processHeaderFooter($pdfSettings['footer'], $params['page'] ?? '', 'top'));
         }
 
         $this->clearTempImg($tempImgArr);
@@ -689,8 +689,8 @@ class PdfGenerator
             $pdfSettings['margin_bottom'] = $prefs['print_pdf_mpdf_margin_bottom'] != '' ? $prefs['print_pdf_mpdf_margin_bottom'] : '10';
             $pdfSettings['margin_header'] = $prefs['print_pdf_mpdf_margin_header'] != '' ? $prefs['print_pdf_mpdf_margin_header'] : '5';
             $pdfSettings['margin_footer'] = $prefs['print_pdf_mpdf_margin_footer'] != '' ? $prefs['print_pdf_mpdf_margin_footer'] : '5';
-            $pdfSettings['header'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_header']);
-            $pdfSettings['footer'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_footer']);
+            $pdfSettings['header'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs['print_pdf_mpdf_header']);
+            $pdfSettings['footer'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs['print_pdf_mpdf_footer']);
             $pdfSettings['print_pdf_mpdf_password'] = $prefs['print_pdf_mpdf_password'];
             $pdfSettings['toc'] = $prefs['print_pdf_mpdf_toc'] != '' ? $prefs['print_pdf_mpdf_toc'] : 'n';
             $pdfSettings['toclinks'] = $prefs['print_pdf_mpdf_toclinks'] != '' ? $prefs['print_pdf_mpdf_toclinks'] : 'n';
@@ -698,8 +698,8 @@ class PdfGenerator
             $pdfSettings['pagetitle'] = $prefs['print_pdf_mpdf_pagetitle'];
             $pdfSettings['watermark'] = $prefs['print_pdf_mpdf_watermark'];
             $pdfSettings['watermark_image'] = $prefs['print_pdf_mpdf_watermark_image'];
-            $pdfSettings['coverpage_text_settings'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_coverpage_text_settings']);
-            $pdfSettings['coverpage_image_settings'] = str_ireplace("{PAGETITLE}", $params['page'], $prefs['print_pdf_mpdf_coverpage_image_settings']);
+            $pdfSettings['coverpage_text_settings'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs['print_pdf_mpdf_coverpage_text_settings']);
+            $pdfSettings['coverpage_image_settings'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs['print_pdf_mpdf_coverpage_image_settings']);
             $pdfSettings['hyperlinks'] = $prefs['print_pdf_mpdf_hyperlinks'];
             $pdfSettings['columns'] = $prefs['print_pdf_mpdf_columns'];
             $pdfSettings['background'] = $prefs['print_pdf_mpdf_background'];
@@ -856,7 +856,9 @@ class PdfGenerator
     public function clearTempImg($tempImgArr)
     {
         foreach ($tempImgArr as $tempImg) {
-            unlink($tempImg);
+            if (file_exists($tempImg)) {
+                unlink($tempImg);
+            }
         }
     }
 
@@ -864,6 +866,7 @@ class PdfGenerator
     {
         //Replace all word separators as this is already fixed with CSS
         $html = str_replace(["<wbr>", "<wbr/>"], "", $html);
+        $html = str_replace('&', '&amp;', $html);
 
         $doc = new DOMDocument();
         $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
