@@ -680,8 +680,10 @@ function wikiplugin_img($data, $params)
         return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('Use one and only one of the following parameters: fileId, randomGalleryId, fgalId, attId or src.'));
     }
     // Clean up src URLs to exclude javascript
-    if (stristr(str_replace(' ', '', $imgdata['src']), 'javascript:')) {
-        $imgdata['src']  = '';
+    $imgdata['src'] = $imgdata['src'] ?? '';
+    $imgdata['src'] = str_replace(' ', '', $imgdata['src']);
+    if (stristr($imgdata['src'], 'javascript:')) {
+        $imgdata['src'] = '';
     }
     if (strstr($imgdata['src'], 'javascript:')) {
         $imgdata['src']  = '';
