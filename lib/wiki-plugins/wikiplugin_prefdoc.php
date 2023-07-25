@@ -233,7 +233,9 @@ class PrefsDoc extends TWVersion
             $this->prefDefault = $param->default;
         }
         // end first processing the below should be applied to the above.... not a continuation (eg. empty array)
+        $this->prefDefault = $param->default ?? '';
         $this->prefDefault = trim($this->prefDefault);
+
         if ($this->prefDefault == '') {
             $this->prefDefault = '~~gray:None~~';
         } elseif (! empty($param->units)) {
