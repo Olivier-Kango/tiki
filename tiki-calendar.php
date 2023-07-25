@@ -81,14 +81,11 @@ foreach ($rawcals['data'] as $calendar) {
     $calendars[$calendar['calendarId']] = $calendar;
 
     // for week and day views
-    $minHourOfDay = min($minHourOfDay, (int)($calendar['startday'] / 3600));
-    $maxHourOfDay = max($maxHourOfDay, (int)(($calendar['endday'] + 1) / 3600));
+    $minHourOfDay = min($minHourOfDay, (int)(($calendar['startday'] ?? 0) / 3600));
+    $maxHourOfDay = max($maxHourOfDay, (int)((($calendar['endday'] ?? 0) + 1) / 3600));
 
     $canEditAnything = $calendar['perms']->add_events || $calendar['perms']->add_events;
 }
-
-$minHourOfDay = "$minHourOfDay:00:00";
-$maxHourOfDay = "$maxHourOfDay:00:00";
 
 $smarty->assign('calendars', $calendars);
 $smarty->assign('now', $tikilib->now);
