@@ -2028,7 +2028,7 @@
         "laminas/laminas-recaptcha": "~3.2",
         "laminas/laminas-text": "^2.8",
         "laminas/laminas-twitter": "~2.1",
-        "lcobucci/jwt": "^3.2.2",
+        "lcobucci/jwt": "^3.2.2||5.0.0",
         "leafo/scssphp": ">=0.6.7",
         "league/commonmark": ">=1.5",
         "league/commonmark-extras": "^1.2.0",
