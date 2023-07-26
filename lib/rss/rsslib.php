@@ -53,6 +53,7 @@ class RSSLib extends TikiDb_Bridge
     /**
      * Return the feed format code (2 for rss and 5 for atom)
      * we currently use (user param or default value)
+     * if the user parameter is other than 2 or 5, we return the default value.
      *
      * @return int $ver
      */
@@ -60,7 +61,7 @@ class RSSLib extends TikiDb_Bridge
     {
         global $prefs;
 
-        if (isset($_REQUEST['ver'])) {
+        if (isset($_REQUEST['ver']) && ($_REQUEST['ver'] == 2 || $_REQUEST['ver'] == 5)) {
             $ver = $_REQUEST['ver'];
         } else {
             $ver = $prefs['feed_default_version'];
