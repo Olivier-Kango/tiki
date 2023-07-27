@@ -241,17 +241,27 @@ class Services_Manager_Controller
     public function action_delete($input)
     {
         $cmd = new TikiManager\Command\DeleteInstanceCommand();
-        $input = new ArrayInput([
-            'command' => $cmd->getName(),
-            '-i' => $input->instanceId->int(),
-        ]);
-        $this->runCommand($cmd, $input);
-        return [
-            'override_action' => 'info',
-            'title' => tr('Tiki Manager Delete Instance'),
-            'info' => $this->manager_output->fetch(),
-            'refresh' => true,
-        ];
+        $instanceId = $input->instanceId->int();
+        if (TikiManager\Application\Instance::getInstance($instanceId)) {
+            $input = new ArrayInput([
+                'command' => $cmd->getName(),
+                '-i' => $instanceId
+            ]);
+            $this->runCommand($cmd, $input);
+            return [
+                'override_action' => 'info',
+                'title' => tr('Tiki Manager Delete Instance'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+            Feedback::error(tr('Instance to delete not found'));
+            return [
+                'FORWARD' => [
+                    'action' => 'index',
+                ],
+            ];
+        }
     }
 
     public function action_watch($input)
