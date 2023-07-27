@@ -11540,7 +11540,6 @@ pre.codelisting code {
   right: 20px;
   top: 10px;
   font-size: 80%;
-  z-index: 999;
 }
 .icon_copy_code:hover {
   color: black;
@@ -12645,7 +12644,9 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear, .tiki .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
   position: absolute;
   top: 50%;
-  right: 3em;
+  right: 2.75rem;
+  height: 0.5rem;
+  width: 0.5rem;
 }
 .tiki .toastui-editor-contents {
   font-family: var(--bs-font-sans-serif);

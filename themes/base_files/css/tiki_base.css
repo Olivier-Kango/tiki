@@ -4644,9 +4644,6 @@ li .url-group {
 .options-container .child-options > li, .dragging-options li {
   margin-bottom: 5px;
 }
-.new-option * {
-  cursor: move;
-}
 .new-option .label-group {
   max-width: 100%;
 }
@@ -4660,6 +4657,9 @@ li .url-group {
   .child-options {
     padding-left: 7px;
   }
+}
+.new-option * {
+  cursor: move;
 }
 .TextArea-fullscreen {
   display: block;
@@ -5332,4 +5332,4 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
   font-family: "Font Awesome 6 Free" !important;
 }
 /* End of file */
-
+/*# sourceMappingURL=tiki_base.css.map */
