@@ -117,7 +117,7 @@ class PrefsDoc extends TWVersion
 
         $this->docTable = '{TABS(name="' . $tabName . '" tabs="Tiki Version ' . implode('|', $this->state->files->{$tabName}) . "\" toggle=\"n\")}";
         $imageArray = [];
-        $images = explode('|', $images);
+        $images = explode('|', $images ?? "");
         foreach ($images as $key => $image) {
             $image = explode(':', $image);
             $imageArray[$image[0]][0] = @$image[1];
@@ -233,7 +233,7 @@ class PrefsDoc extends TWVersion
             $this->prefDefault = $param->default;
         }
         // end first processing the below should be applied to the above.... not a continuation (eg. empty array)
-        $this->prefDefault = $param->default ?? '';
+        $this->prefDefault = $this->prefDefault ?? '';
         $this->prefDefault = trim($this->prefDefault);
 
         if ($this->prefDefault == '') {
