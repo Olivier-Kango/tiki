@@ -90,7 +90,10 @@ if (! isset($_SESSION['thedate'])) {
 $perspectivelib = TikiLib::lib('perspective');
 $activeWS = $perspectivelib->get_current_perspective(null);
 
-$originalPageRequested = $page = $_REQUEST['page'];
+if (isset($_REQUEST['page'])) {
+    $originalPageRequested = $page = $_REQUEST['page'];
+}
+
 if ($prefs['wiki_url_scheme'] !== 'urlencode') {
     $page = $_REQUEST['page'] = TikiLib::lib('wiki')->get_page_by_slug($page);
 }
@@ -133,6 +136,10 @@ if ($prefs['feature_wiki_structure'] == 'y') {
     if (isset($_REQUEST['page_ref_id'])) {
         // If a structure page has been requested
         $page_ref_id = $_REQUEST['page_ref_id'];
+        $structure_info = $structlib->s_get_structure_info($page_ref_id);
+        if (empty($structure_info)) {
+            $access->display_error('', 'The page_ref_id does not exist');
+        }
     } else {
         // else check if page is the head of a structure
         $page_ref_id = $structlib->get_struct_ref_if_head($_REQUEST['page']);
