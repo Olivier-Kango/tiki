@@ -4644,6 +4644,9 @@ li .url-group {
 .options-container .child-options > li, .dragging-options li {
   margin-bottom: 5px;
 }
+.new-option * {
+  cursor: move;
+}
 .new-option .label-group {
   max-width: 100%;
 }
