@@ -352,7 +352,7 @@ function smarty_function_object_link_forumpost($smarty, $object, $title = null, 
 
     while (empty($comment['title'])) {
         $parent = $commentslib->get_comment($comment['parentId']);
-        $comment['title'] = $parent['title'];
+        $comment['title'] = is_array($parent) ? ($parent['title'] ?? '') : '';
         if ($parent['parentId'] == 0) {
             break;
         }
