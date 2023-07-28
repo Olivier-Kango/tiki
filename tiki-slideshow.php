@@ -169,7 +169,9 @@ if (isset($_REQUEST['pdf'])) {
         ];
         $filename = TikiLib::lib('tiki')
             ->remove_non_word_characters_and_accents($_REQUEST['page']);
-        if ($_REQUEST['pdfSettings']) {
+
+        $pdfSettings = $_REQUEST['pdfSettings'] ?? null;
+        if ($pdfSettings !== null) {
             $_POST['html'] = '<' . $_REQUEST['pdfSettings'] . ' />'
                 . $_POST['html'];
         }
