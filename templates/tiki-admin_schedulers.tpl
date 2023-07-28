@@ -266,7 +266,7 @@
                             {/if}
                         </td>
                         <td>
-                            {if $schedulerruns[run].can_stop}
+                            {if isset($schedulerruns[run].can_stop) && $schedulerruns[run].can_stop}
                                 <a class="btn btn-secondary btn-sm" href="{bootstrap_modal controller=scheduler action=reset schedulerId=$schedulerruns[run].scheduler_id startTime=$schedulerruns[run].start_time}">
                                 {icon name="undo" _menu_text='y' _menu_icon='y' alt="{tr}Reset{/tr}"}
                                 </a>
