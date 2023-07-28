@@ -121,7 +121,6 @@ function wikiplugin_box_info()
                 'filter' => 'text',
                 'default' => '',
             ],
-
         ],
     ];
 }

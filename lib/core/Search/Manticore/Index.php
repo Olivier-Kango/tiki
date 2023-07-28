@@ -7,6 +7,7 @@
 namespace Search\Manticore;
 
 use TikiLib;
+use TikiFilter;
 
 class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
 {
