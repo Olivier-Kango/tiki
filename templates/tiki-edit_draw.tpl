@@ -29,6 +29,4 @@
             {/if}
         </div>
     </div>
-
-    <div id="map">{$map}</div>
 </form>
