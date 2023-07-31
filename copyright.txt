@@ -12,7 +12,7 @@ This is how we implement the Tiki Social Contract.
 http://tiki.org/Social+Contract
 
 List of members of the Community
-As of 2023-07-28, the community has:
+As of 2023-07-31, the community has:
   * 773 members,
   * 590 members on SourceForge.net,
   * 459 of those people who made at least one code commit
@@ -2420,7 +2420,7 @@ Nickname: lindonb
 Name: lindon
 First Commit: 2009-05-10
 Last Commit: Sun Sep 6 21:58:09 2020 -0400
-Number of Commits: 2260
+Number of Commits: 2261
 SF Role: Admin, Developer
 
 Nickname: llunax
@@ -2454,7 +2454,7 @@ Nickname: lphuberdeau
 Name: Louis-Philippe Huberdeau
 First Commit: 2004-04-10
 Last Commit: Wed Feb 18 17:41:34 2015 +0000
-Number of Commits: 3500
+Number of Commits: 3501
 SF Role: Developer
 
 Nickname: lrargerich
@@ -3415,8 +3415,8 @@ SF Role: Developer
 Nickname: robertokir
 Name: Roberto Kirschbaum
 First Commit: 2017-06-27
-Last Commit: Fri Jul 28 17:15:30 2023 +0100
-Number of Commits: 326
+Last Commit: Mon Jul 31 12:21:35 2023 +0100
+Number of Commits: 331
 SF Role: Admin, Developer
 
 Nickname: robertplummer
@@ -3728,7 +3728,7 @@ SF Role: Developer
 Nickname: sylvieg
 First Commit: Wed May 28 01:41:30 2003 +0000
 Last Commit: Sun Nov 3 21:12:48 2013 +0000
-Number of Commits: 5358
+Number of Commits: 5357
 
 Nickname: syracine
 Name: S Racine
@@ -3996,7 +3996,7 @@ Nickname: xavidp
 Name: Xavier de Pedro
 First Commit: 2005-07-08
 Last Commit: Wed Dec 8 01:05:35 2021 +0100
-Number of Commits: 1212
+Number of Commits: 1211
 SF Role: Admin
 
 Nickname: xbtheria
