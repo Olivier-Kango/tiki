@@ -331,7 +331,7 @@ if ($prefs['metatag_robotscustom'] == 'y') {
     if (empty($object)) {
         $object = current_object();
     }
-    if ($object['type'] == 'wiki page') {
+    if ($object && $object['type'] == 'wiki page') {
         $wikilib = TikiLib::lib('wiki');
         $smarty->assign('metatag_robotscustom', $wikilib->getPageMetatagRobotscustom($object['object']));
     }
