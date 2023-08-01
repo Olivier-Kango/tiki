@@ -772,11 +772,13 @@ if ($prefs['feature_inline_comments'] === 'y' && $prefs['comments_inline_annotat
     $commentController = new Services_Comment_Controller();
 
     if (
+        $object &&
         $commentController->isEnabled($object['type'], $object['object']) &&
         $commentController->canView($object['type'], $object['object'])
     ) {
         $canPost = $commentController->canPost($object['type'], $object['object']);
-        $objectIdentifier = urlencode($object['type']) . ':' . urlencode($object['object']);    // spoof a URI from type and id
+        // spoof a URI from type and id
+        $objectIdentifier = urlencode($object['type']) . ':' . urlencode($object['object']);
 
         $headerlib
             ->add_jsfile('vendor_bundled/vendor/openannotation/annotator/annotator-full.min.js')
