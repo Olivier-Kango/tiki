@@ -264,6 +264,9 @@ if (! timezone) {
     if (empty($object)) {
         $object = current_object();
     }
+    if (empty($object)) {
+        $object = ['type' => '', 'object' => ''];
+    }
     $jqueryTiki['current_object'] = $object;
     $jqueryTiki['usernamePattern'] = $prefs['username_pattern'];
     $jqueryTiki['print_pdf_from_url'] = "{$prefs['print_pdf_from_url']}";
