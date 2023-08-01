@@ -252,10 +252,5 @@ class Sections
                 ];
             }
         }
-        // this will most likely return ['type' => null, 'object' => null] but better than just null
-        return [
-            'type' => $cat_type,
-            'object' => $cat_objid,
-        ];
     }
 }
