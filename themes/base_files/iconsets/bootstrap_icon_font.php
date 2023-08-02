@@ -333,9 +333,6 @@ function iconset_bootstrap_icon_font()
             'zip' => [
                 'id' => 'file-zip',
             ],
-            'circle-half' => [
-                'id' => 'circle-half'
-            ]
         ],
         'defaults'    => [
 

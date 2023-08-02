@@ -2786,10 +2786,6 @@ function iconset_default()
                 'id' => 'z',
                 'prepend' => 'fas fa-',
             ],
-            'circle-half' => [
-                'id' => 'circle-half-stroke',
-                'prepend' => 'fas fa-'
-            ]
 
         ],
         /*
