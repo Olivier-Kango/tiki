@@ -212,6 +212,10 @@ function tiki_route($path)
         }
     }
 
+    if (preg_match('/\.js\.map$/', $path)) {
+            return;
+    }
+
     tiki_route_attempt_custom_route_redirect();
 
     tiki_route_attempt(
