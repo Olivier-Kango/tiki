@@ -22090,5 +22090,7 @@ $lang_current = array(
 "Double click to edit" => "Double-cliquez pour éditer",
 "Missing some forums order, please specify the order of the forums." => "Certains forums manquent d'ordre, veuillez spécifier l'ordre des forums.",
 "No forums were selected. Please select the forums to reorder." => "Aucun forum n'a été sélectionné. Veuillez sélectionner les forums à réorganiser.",
+"You need to update your database to start using color modes on your website" => "Vous devez mettre à jour votre base de données pour commencer à utiliser les modes de couleur sur votre site web.",
+"Your database needs to be updated" => "Votre base de données doit être mise à jour",
 );
 $lang = array_replace($lang, $lang_current);
