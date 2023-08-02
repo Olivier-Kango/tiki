@@ -148,26 +148,6 @@ require_once('lib/setup/user_prefs.php');
 require_once('lib/setup/language.php');
 require_once('lib/setup/wiki.php');
 
-$user_groups = $userlib->get_user_groups($user);
-$assigned_modules = TikiLib::lib('mod')->get_assigned_modules();
-$prefs['switch_color_module_assigned'] = 'n';
-foreach ($assigned_modules as $position => $modules) {
-    foreach ($modules as $module) {
-        if ($module['name'] == 'switch_color_mode') {
-            $prefs['switch_color_module_assigned'] = 'y';
-            break;
-        }
-    }
-}
-
-try {
-    $custom_color_mode = TikiDb::get()->fetchAll("SELECT css_variables FROM tiki_custom_color_modes WHERE custom='y'", null, -1, -1, 'exception');
-    $prefs['custom_color_mode'] = $custom_color_mode;
-} catch (Exception $e) {
-    //failed to pull css variables from DB
-    $prefs['custom_color_mode'] = [];
-}
-
 if (! TIKI_API) {
     require_once('lib/setup/javascript.php');
 }
