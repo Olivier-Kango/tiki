@@ -629,12 +629,14 @@ class RSSLib extends TikiDb_Bridge
             }
 
             $htmlContent = $entry->getContent();
-            @$DOM->loadHTML($htmlContent);
-            $rows = $DOM->getElementsByTagName('tr');
-            foreach ($rows as $row) {
-                $cols = $row->getElementsByTagName('td');
-                if (isset($cols[0]) && $cols[1]) {
-                    $data[str_replace(' ', '', $cols[0]->textContent)] = $cols[1]->textContent;
+            if (! empty($htmlContent)) {
+                @$DOM->loadHTML($htmlContent);
+                $rows = $DOM->getElementsByTagName('tr');
+                foreach ($rows as $row) {
+                    $cols = $row->getElementsByTagName('td');
+                    if (isset($cols[0]) && $cols[1]) {
+                        $data[str_replace(' ', '', $cols[0]->textContent)] = $cols[1]->textContent;
+                    }
                 }
             }
 
