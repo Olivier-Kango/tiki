@@ -445,6 +445,8 @@
                             <div class="d-flex flex-wrap gap-2">
                                 <span style="cursor:pointer;" class="badge rounded-pill text-bg-primary" data-badge-for="--bs-heading-color" onclick="toggle_css_variable(this,'--bs-heading-color')">--bs-heading-color</span>
                                 <span style="cursor:pointer;" class="badge rounded-pill text-bg-primary" data-badge-for="--bs-link-color" onclick="toggle_css_variable(this,'--bs-link-color')">--bs-link-color</span>
+                                <span style="cursor:pointer;" class="badge rounded-pill text-bg-primary" data-badge-for="--bs-navbar-color" onclick="toggle_css_variable(this,'--bs-navbar-color')">--bs-navbar-color</span>
+                                <span style="cursor:pointer;" class="badge rounded-pill text-bg-primary" data-badge-for="--bs-navbar-hover-color" onclick="toggle_css_variable(this,'--bs-navbar-hover-color')">--bs-navbar-hover-color</span>
                                 <span style="cursor:pointer;" class="badge rounded-pill text-bg-primary" data-badge-for="--bs-link-hover-color" onclick="toggle_css_variable(this,'--bs-link-hover-color')">--bs-link-hover-color</span>
                                 <span style="cursor:pointer;" class="badge rounded-pill text-bg-primary" data-badge-for="--bs-code-color" onclick="toggle_css_variable(this,'--bs-code-color')">--bs-code-color</span>
                                 <span style="cursor:pointer;" class="badge rounded-pill text-bg-primary" data-badge-for="--bs-border-color" onclick="toggle_css_variable(this,'--bs-border-color')">--bs-border-color</span>

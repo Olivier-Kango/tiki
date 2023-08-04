@@ -32,15 +32,17 @@ class Services_ColorModes_Controller
         $mode_infos = json_decode($mode_infos_json);
         $mode_name = $mode_infos->mode_name;
         $mode_icon = $mode_infos->mode_icon;
-        $css = '
-                .tiki.tiki-admin .top_modules.navbar-dark-parent,
-                .tiki.tiki-admin .top_modules.navbar-light-parent,
-                .tiki .tiki-admin-top-nav-dark, 
-                .tiki .tiki-admin-aside-nav-dark, 
-                .tiki .tiki-admin-top-nav-light, 
-                .tiki .tiki-admin-aside-nav-light, 
-                .tiki-top-nav-dark, 
-                .tiki-top-nav-light, 
+        $css = '[data-bs-theme="' . $mode_name . '"] .navbar,
+                [data-bs-theme="' . $mode_name . '"] .tiki-topbar-nav-light,
+                [data-bs-theme="' . $mode_name . '"] .tiki-topbar-nav-dark,
+                [data-bs-theme="' . $mode_name . '"] .tiki.tiki-admin .top_modules.navbar-dark-parent,
+                [data-bs-theme="' . $mode_name . '"] .tiki.tiki-admin .top_modules.navbar-light-parent,
+                [data-bs-theme="' . $mode_name . '"] .tiki .tiki-admin-top-nav-dark, 
+                [data-bs-theme="' . $mode_name . '"] .tiki .tiki-admin-aside-nav-dark, 
+                [data-bs-theme="' . $mode_name . '"] .tiki .tiki-admin-top-nav-light, 
+                [data-bs-theme="' . $mode_name . '"] .tiki .tiki-admin-aside-nav-light, 
+                [data-bs-theme="' . $mode_name . '"] .tiki-top-nav-dark, 
+                [data-bs-theme="' . $mode_name . '"] .tiki-top-nav-light, 
                 [data-bs-theme="' . $mode_name . '"]{
             ';
         foreach ($mode_infos->colors_vars as $var => $value) {
@@ -78,15 +80,17 @@ class Services_ColorModes_Controller
            $mode_infos = json_decode($mode_infos_json);
            $mode_name = $mode_infos->mode_name;
            $mode_icon = $mode_infos->mode_icon;
-           $css = '
-                    .tiki.tiki-admin .top_modules.navbar-dark-parent,
-                    .tiki.tiki-admin .top_modules.navbar-light-parent,
-                    .tiki .tiki-admin-top-nav-dark, 
-                    .tiki .tiki-admin-aside-nav-dark, 
-                    .tiki .tiki-admin-top-nav-light, 
-                    .tiki .tiki-admin-aside-nav-light, 
-                    .tiki-top-nav-dark, 
-                    .tiki-top-nav-light, 
+           $css = ' [data-bs-theme="' . $mode_name . '"] .navbar,
+                    [data-bs-theme="' . $mode_name . '"] .tiki-topbar-nav-light,
+                    [data-bs-theme="' . $mode_name . '"] .tiki-topbar-nav-dark,
+                    [data-bs-theme="' . $mode_name . '"] .tiki.tiki-admin .top_modules.navbar-dark-parent,
+                    [data-bs-theme="' . $mode_name . '"] .tiki.tiki-admin .top_modules.navbar-light-parent,
+                    [data-bs-theme="' . $mode_name . '"] .tiki .tiki-admin-top-nav-dark, 
+                    [data-bs-theme="' . $mode_name . '"] .tiki .tiki-admin-aside-nav-dark, 
+                    [data-bs-theme="' . $mode_name . '"] .tiki .tiki-admin-top-nav-light, 
+                    [data-bs-theme="' . $mode_name . '"] .tiki .tiki-admin-aside-nav-light, 
+                    [data-bs-theme="' . $mode_name . '"] .tiki-top-nav-dark, 
+                    [data-bs-theme="' . $mode_name . '"] .tiki-top-nav-light, 
                     [data-bs-theme="' . $mode_name . '"]{
                 ';
         foreach ($mode_infos->colors_vars as $var => $value) {
