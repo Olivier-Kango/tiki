@@ -169,6 +169,9 @@ class UnifiedSearchLib
 
         if (! $fallback && $this->rebuildInProgress()) {
             Feedback::error(tr("Index is being rebuilt at the moment and cannot start another rebuild process."));
+            if ($prefs['unified_engine'] == 'manticore') {
+                Feedback::error(tr('If you are sure the previous rebuild task has finished, you can clean the current lock by executing the following console command: php console.php preferences:delete unified_manticore_index_rebuilding'));
+            }
             return [];
         }
 
