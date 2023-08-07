@@ -69,7 +69,10 @@ if (! empty($db) && ! $db->getOne("SELECT COUNT(*) FROM `information_schema`.`ch
 
 $tikiroot = str_replace('\\', '/', dirname($_SERVER['PHP_SELF']));
 $session_params = session_get_cookie_params();
-session_set_cookie_params($session_params['lifetime'], $tikiroot);
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+    $session_params['secure'] = true;
+}
+session_set_cookie_params($session_params['lifetime'], $tikiroot, $session_params['domain'], $session_params['secure'], $session_params['httponly']);
 unset($session_params);
 session_start();
 
