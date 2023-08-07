@@ -408,7 +408,8 @@ class TikiAccessLib extends TikiLib
         $cipherTicket = $this->encryptCsrfTicket($this->ticket);
 
         // you can set even if is the same value
-        setcookie(session_name() . '_CSRF', $cipherTicket, 0, '', '', false, true);
+        $session_params = session_get_cookie_params();
+        setcookie(session_name() . '_CSRF', $cipherTicket, 0, $session_params['path'], $session_params['domain'], $session_params['secure'], true);
     }
 
 
