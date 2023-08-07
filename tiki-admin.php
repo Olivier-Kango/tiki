@@ -394,6 +394,8 @@ if ($prefs['feature_version_checks'] == 'y' || $forcecheck) {
     $upgrades = $versionUtils->checkUpdatesForVersion($TWV->version);
 
     $smarty->assign('upgrade_messages', $upgrades);
+} else {
+    $smarty->assign('upgrade_messages', []);
 }
 
 // SSL setup
