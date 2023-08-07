@@ -686,17 +686,17 @@
         },
         {
             "name": "bower-asset/fontawesome",
-            "version": "6.4.0",
+            "version": "6.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "0698449d50f2b95517562295a59d414afc68b369"
+                "reference": "f0c25837a3fe0e03783b939559e088abcbfb3c4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-0698449d50f2b95517562295a59d414afc68b369-zip-74027f.zip",
-                "reference": "0698449d50f2b95517562295a59d414afc68b369",
-                "shasum": "f34fced6a60f4f648003595b0add10e02a4bfe27"
+                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-f0c25837a3fe0e03783b939559e088abcbfb3c4b-zip-dcfdd4.zip",
+                "reference": "f0c25837a3fe0e03783b939559e088abcbfb3c4b",
+                "shasum": "f85683ab108982c009d3a55b043152c65a8232bb"
             },
             "type": "bower-asset"
         },
@@ -1881,17 +1881,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "3.4.10",
+            "version": "3.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "bb0f121f604e0656ff6656ff498cc9caf8f11dd8"
+                "reference": "04230fbf693492e505d523449232ecd6a73d58b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-bb0f121f604e0656ff6656ff498cc9caf8f11dd8-zip-b12f50.zip",
-                "reference": "bb0f121f604e0656ff6656ff498cc9caf8f11dd8",
-                "shasum": "f2a68c323a13e6ea02f2e4017fcadb92cce14535"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-04230fbf693492e505d523449232ecd6a73d58b7-zip-e89c74.zip",
+                "reference": "04230fbf693492e505d523449232ecd6a73d58b7",
+                "shasum": "fd0832420ea66d6c169846a4613c7c8f97f25fee"
             },
             "require": {
                 "php": "^7.4|^8.0"
@@ -1921,7 +1921,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2023-07-19T07:33:10+00:00"
+            "time": "2023-08-07T07:32:59+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -2775,13 +2775,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "92642e670c04cf93d76ae377f08026813dee2da4"
+                "reference": "ec32f63e309d8f5b66c2f9202bebb5924c6899d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-92642e670c04cf93d76ae377f08026813dee2da4-zip-d1c1e8.zip",
-                "reference": "92642e670c04cf93d76ae377f08026813dee2da4",
-                "shasum": "90bdfc06977821d127b584694eab762ae8403cfe"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-ec32f63e309d8f5b66c2f9202bebb5924c6899d4-zip-265b08.zip",
+                "reference": "ec32f63e309d8f5b66c2f9202bebb5924c6899d4",
+                "shasum": "b35f5e4873aaf58d9e27e609436a2e93eb619594"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2790,6 +2790,7 @@
                 "erusev/parsedown": "^1.8.0-beta-5",
                 "ext-curl": "*",
                 "ext-fileinfo": "*",
+                "ext-iconv": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
@@ -2840,7 +2841,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-08-01T09:10:00+00:00"
+            "time": "2023-08-04T08:11:34+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5440,26 +5441,26 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.12.0",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "c7f2872fb273bf493811473dafc88d60ae829f48"
+                "reference": "a6dfb1194a2946fcdc1f38219445234f65b35c96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-c7f2872fb273bf493811473dafc88d60ae829f48-zip-8a1cb0.zip",
-                "reference": "c7f2872fb273bf493811473dafc88d60ae829f48",
-                "shasum": "85c9b5664ac3c1e15127cb32afc91526823bcd68"
+                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-a6dfb1194a2946fcdc1f38219445234f65b35c96-zip-f76d25.zip",
+                "reference": "a6dfb1194a2946fcdc1f38219445234f65b35c96",
+                "shasum": "67d4675512bd47837076db92cc81fbaa451956a9"
             },
             "require": {
                 "ext-fileinfo": "*",
-                "php": "^7.2 || ^8.0"
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.2",
                 "phpstan/phpstan": "^0.12.68",
-                "phpunit/phpunit": "^8.5.8 || ^9.3"
+                "phpunit/phpunit": "^8.5.8 || ^9.3 || ^10.0"
             },
             "type": "library",
             "autoload": {
@@ -5488,7 +5489,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-03T07:14:11+00:00"
+            "time": "2023-08-05T12:09:49+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -16062,13 +16063,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "3a363ebda5075161128619d4c84a1f8ab3e37680"
+                "reference": "62db200c9372a0f610980f2b33be5c5d77f31636"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-3a363ebda5075161128619d4c84a1f8ab3e37680-zip-f2ddf4.zip",
-                "reference": "3a363ebda5075161128619d4c84a1f8ab3e37680",
-                "shasum": "70b83d6574d6a8426058180c38f942d624bae320"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-62db200c9372a0f610980f2b33be5c5d77f31636-zip-391918.zip",
+                "reference": "62db200c9372a0f610980f2b33be5c5d77f31636",
+                "shasum": "1657b9825478f121fa1dbf9bfea6fe68da6794c2"
             },
             "require": {
                 "php": ">=5.4",
@@ -16124,7 +16125,7 @@
                 "standards",
                 "static analysis"
             ],
-            "time": "2023-06-26T10:52:01+00:00"
+            "time": "2023-08-04T21:50:50+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -16196,17 +16197,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.26",
+            "version": "1.10.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f"
+                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-5d660cbb7e1b89253a47147ae44044f49832351f-zip-37267a.zip",
-                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f",
-                "shasum": "c8d8e94e5fea6d7b6a201878fe50e105434c5bf3"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-a9f44dcea06f59d1363b100bb29f297b311fa640-zip-44dd4e.zip",
+                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640",
+                "shasum": "23dda6397942b023e97eb5d6e8afbfbfe1026299"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -16247,25 +16248,25 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-19T12:44:37+00:00"
+            "time": "2023-08-05T09:57:55+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
-                "reference": "a22b36b955a2e9a3d39fe533b6c1bb5359f9c319"
+                "reference": "089d8a8258ed0aeefdc7b68b6c3d25572ebfdbaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan-deprecation-rules/phpstan-phpstan-deprecation-rules-a22b36b955a2e9a3d39fe533b6c1bb5359f9c319-zip-563d03.zip",
-                "reference": "a22b36b955a2e9a3d39fe533b6c1bb5359f9c319",
-                "shasum": "a38d406359224b2322815c4b24056c6075f204f3"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan-deprecation-rules/phpstan-phpstan-deprecation-rules-089d8a8258ed0aeefdc7b68b6c3d25572ebfdbaa-zip-1cec36.zip",
+                "reference": "089d8a8258ed0aeefdc7b68b6c3d25572ebfdbaa",
+                "shasum": "d3fd114c0b6b0af27486e192bfed44b1b63df7cc"
             },
             "require": {
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.10"
+                "phpstan/phpstan": "^1.10.3"
             },
             "require-dev": {
                 "php-parallel-lint/php-parallel-lint": "^1.2",
@@ -16291,7 +16292,7 @@
                 "MIT"
             ],
             "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
-            "time": "2023-03-17T07:50:08+00:00"
+            "time": "2023-08-05T09:02:04+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -16811,17 +16812,17 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.17.7",
+            "version": "0.17.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "0e76101aa329911b7fec43106aac5843a978b209"
+                "reference": "f4c0627d5e157272cf4783099730ef7241fddb14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-0e76101aa329911b7fec43106aac5843a978b209-zip-c6dd89.zip",
-                "reference": "0e76101aa329911b7fec43106aac5843a978b209",
-                "shasum": "4e261bfa7fff8ed9245b73a4c4c44b4818b1cbd0"
+                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-f4c0627d5e157272cf4783099730ef7241fddb14-zip-e300e1.zip",
+                "reference": "f4c0627d5e157272cf4783099730ef7241fddb14",
+                "shasum": "87c52736191c355a9a8c5d74d011679c85813c0f"
             },
             "require": {
                 "php": "^7.2|^8.0",
@@ -16864,7 +16865,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-23T20:44:23+00:00"
+            "time": "2023-08-03T14:19:51+00:00"
         },
         {
             "name": "sebastian/cli-parser",
