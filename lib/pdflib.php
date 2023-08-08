@@ -485,7 +485,7 @@ class PdfGenerator
                         $mpdf->SetColumns(1, 'justify');
                     }
                     $backgroundImage = '';
-                    if (strstr($_GET['display'], 'pdf') != '') {
+                    if (isset($_GET['display']) && strstr($_GET['display'], 'pdf') !== false) {
                         $bgColor = "background: linear-gradient(top, '','');";
                     }
                     if ($pdfPage['background'] != '') {
@@ -497,7 +497,10 @@ class PdfGenerator
                     $pagesTotal += floor(strlen($pdfPage['pageContent']) / 3000);
                     //checking if page content is less than mPDF character limit, otherwise split it and loop to writeHTML
                     for ($charLimit = 0; $charLimit <= strlen($pdfPage['pageContent']); $charLimit += $pdfLimit) {
-                        $mpdf->WriteHTML(substr($pdfPage['pageContent'], $charLimit, $pdfLimit));
+                        $content_slice = substr($pdfPage['pageContent'], $charLimit, $pdfLimit);
+                        if ($content_slice) {
+                             $mpdf->WriteHTML($content_slice);
+                        }
                     }
                     $mpdf->WriteHTML('</body></html>');
                     $pageNo++;
@@ -846,7 +849,10 @@ class PdfGenerator
         $opts = ['http' => ['header' => 'Cookie: ' . $_SERVER['HTTP_COOKIE'] . "\r\n"]];
         $context = stream_context_create($opts);
         session_write_close();
-        $data = file_get_contents($url, false, $context);
+        $data = @file_get_contents($url, false, $context);
+        if (gettype($data) == 'boolean' && ! $data) {
+            return '';
+        }
         $newFile = 'temp/pdfimg/pdfimg' . mt_rand(9999, 999999) . '.png';
         file_put_contents($newFile, $data);
         chmod($newFile, 0755);
@@ -1240,7 +1246,7 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
             }
         }
         //process and return value
-        return str_ireplace(["{PAGETITLE}","{NB}"], [$page,"{nb}"], TikiLib::lib('parser')->parse_data(html_entity_decode($value), ['is_html' => true, 'parse_wiki' => true]));
+        return str_ireplace(["{PAGETITLE}","{NB}"], [$page,"{nb}"], TikiLib::lib('parser')->parse_data(html_entity_decode($value ?? ''), ['is_html' => true, 'parse_wiki' => true]));
     }
 }
 
