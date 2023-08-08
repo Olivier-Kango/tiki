@@ -105,7 +105,7 @@
             {if $tiki_p_view_events eq 'y' and $prefs.calendar_export eq 'y'}
                 {button href="#" _onclick="toggle('exportcal');return false;" _text='{tr}Export{/tr}' _icon_name='export' _type='info'}
                 <div class="d-inline-block">
-                    <form id="exportcal" class="card" method="post" action="{$exportUrl}" name="f" style="display:none;">
+                    <form id="exportcal" class="card" method="post" action="tiki-calendar_export_ical.php" name="f" style="display:none;">
                         <input type="hidden" name="export" value="y">
                         <div class="card-header caltitle py-1 px-2">{tr}Export calendars{/tr}</div>
                         <div class="caltoggle">
