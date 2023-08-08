@@ -1669,7 +1669,7 @@ class CalendarLib extends TikiLib
                                     $leday_item['name'] = $lte['name'] ?? '' . ' (x ' . $leday_item['action'] . ')';
                                     $leday_item['desc_name'] = $leday_item['action'] . ' ' . tra($item_name);
                                     if ($lte['show_description'] == 'y' && ! empty($lte['description'])) {
-                                        $leday_item['description'] .= ",\n<br /> - <b>" . $lte['when'] . '</b> : ' . tra($lte['action']) . ' ' . $lte['description'];
+                                        $leday_item['description'] .= ",\n<br /> - <b>" . $lte['when'] . '</b> : ' . tra($lte['action'] ?? '') . ' ' . $lte['description'];
                                         $leday_item['show_description'] = 'y';
                                     }
                                 }
