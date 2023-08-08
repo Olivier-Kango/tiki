@@ -1533,8 +1533,12 @@ class WikiLib extends TikiLib
                 // Get the item id from object link
                 $objectLinkInfo = explode(':', $frompage);
                 $itemId = (int) $objectLinkInfo[2];
-                $trackerItemLastModif = (int) $trackerlib->get_tracker_item($itemId)[$lastModif];
-                $tikilib->query($updateQuery, [$trackerItemLastModif, $frompage, $page]);
+                $trackerItem = $trackerlib->get_tracker_item($itemId);
+
+                if ($trackerItem && is_array($trackerItem)) {
+                    $trackerItemLastModif = (int) $trackerItem[$lastModif];
+                    $tikilib->query($updateQuery, [$trackerItemLastModif, $frompage, $page]);
+                }
             }
         }
     }
