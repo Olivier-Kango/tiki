@@ -5,6 +5,8 @@
     font: 1em Arial,Helvetica,sans-serif ! important;
     height: auto;
     margin-bottom: .5em;
+    z-index: -1 ! important;
+    padding: 5px ! important;
 }
 
 /*from the codemirror website*/
