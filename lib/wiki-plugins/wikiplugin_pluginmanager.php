@@ -536,6 +536,9 @@ function get_module_params($sPluginFile)
     include_once('modules/' . $sPluginFile);
     $info_func = "module_{$sPlugin}_info";
     $infoPlugin = $info_func();
+    foreach ($infoPlugin['params'] as &$param) {
+        $param['required'] = ! empty($param['required']);
+    }
     $numparams = isset($infoPlugin['params']) ? count($infoPlugin['params']) : 0;
     return $infoPlugin;
 }
