@@ -1881,17 +1881,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "3.4.11",
+            "version": "3.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "04230fbf693492e505d523449232ecd6a73d58b7"
+                "reference": "6bbc024d813b2274fac97e8a4234052ab66264f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-04230fbf693492e505d523449232ecd6a73d58b7-zip-e89c74.zip",
-                "reference": "04230fbf693492e505d523449232ecd6a73d58b7",
-                "shasum": "fd0832420ea66d6c169846a4613c7c8f97f25fee"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-6bbc024d813b2274fac97e8a4234052ab66264f3-zip-94ce10.zip",
+                "reference": "6bbc024d813b2274fac97e8a4234052ab66264f3",
+                "shasum": "d1e4263effd8b68e67113e390b83e33663b7d337"
             },
             "require": {
                 "php": "^7.4|^8.0"
@@ -1921,7 +1921,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2023-08-07T07:32:59+00:00"
+            "time": "2023-08-09T07:33:16+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -1971,28 +1971,28 @@
         },
         {
             "name": "evenement/evenement",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/igorw/evenement.git",
-                "reference": "531bfb9d15f8aa57454f5f0285b18bec903b8fb7"
+                "reference": "0a16b0d71ab13284339abb99d9d2bd813640efbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/evenement/evenement/evenement-evenement-531bfb9d15f8aa57454f5f0285b18bec903b8fb7-zip-e4a662.zip",
-                "reference": "531bfb9d15f8aa57454f5f0285b18bec903b8fb7",
-                "shasum": "7b6a55e4f50bb7dcca7c3548728111a43bc94547"
+                "url": "https://composer.tiki.org/dist/evenement/evenement/evenement-evenement-0a16b0d71ab13284339abb99d9d2bd813640efbc-zip-cfa5a0.zip",
+                "reference": "0a16b0d71ab13284339abb99d9d2bd813640efbc",
+                "shasum": "fb688db5fb53b1106566c0a55d830d4588124874"
             },
             "require": {
                 "php": ">=7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0"
+                "phpunit/phpunit": "^9 || ^6"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Evenement": "src"
+                "psr-4": {
+                    "Evenement\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2010,7 +2010,7 @@
                 "event-dispatcher",
                 "event-emitter"
             ],
-            "time": "2017-07-23T21:35:13+00:00"
+            "time": "2023-08-08T05:53:35+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -2775,13 +2775,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "ec32f63e309d8f5b66c2f9202bebb5924c6899d4"
+                "reference": "eebf33ff55451682dee5a1bfe10f39a507bac56a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-ec32f63e309d8f5b66c2f9202bebb5924c6899d4-zip-265b08.zip",
-                "reference": "ec32f63e309d8f5b66c2f9202bebb5924c6899d4",
-                "shasum": "b35f5e4873aaf58d9e27e609436a2e93eb619594"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-eebf33ff55451682dee5a1bfe10f39a507bac56a-zip-126c66.zip",
+                "reference": "eebf33ff55451682dee5a1bfe10f39a507bac56a",
+                "shasum": "2cd4fd6a63d233e420331f68f78c13ad99d5fde7"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2841,7 +2841,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-08-04T08:11:34+00:00"
+            "time": "2023-08-07T12:45:45+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4859,17 +4859,17 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.36.0",
+            "version": "2.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "e3051fbef200332d3df8df034d95f3abb127af6e"
+                "reference": "e57810c007891066fdc4e9fb2523bf32e218fd92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-e3051fbef200332d3df8df034d95f3abb127af6e-zip-be346b.zip",
-                "reference": "e3051fbef200332d3df8df034d95f3abb127af6e",
-                "shasum": "ff0bf2d6ac7c9b994eaae17ee7ff3cd41975a316"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-e57810c007891066fdc4e9fb2523bf32e218fd92-zip-a132d5.zip",
+                "reference": "e57810c007891066fdc4e9fb2523bf32e218fd92",
+                "shasum": "5fc1cd35a76776281f55171d1834e1f83d7d710f"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.21.0",
@@ -4931,7 +4931,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-07-31T06:17:06+00:00"
+            "time": "2023-08-07T12:36:50+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -16197,17 +16197,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.27",
+            "version": "1.10.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640"
+                "reference": "e4545b55904ebef470423d3ddddb74fa7325497a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-a9f44dcea06f59d1363b100bb29f297b311fa640-zip-44dd4e.zip",
-                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640",
-                "shasum": "23dda6397942b023e97eb5d6e8afbfbfe1026299"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-e4545b55904ebef470423d3ddddb74fa7325497a-zip-35b30b.zip",
+                "reference": "e4545b55904ebef470423d3ddddb74fa7325497a",
+                "shasum": "e0e4933a4fe8d109d00c15ac5217eed08b02c915"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -16248,7 +16248,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-05T09:57:55+00:00"
+            "time": "2023-08-08T12:33:42+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
