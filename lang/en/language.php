@@ -22925,4 +22925,5 @@ $lang = array(
 // "Top pages" => "Top pages",
 // "Last pages" => "Last pages",
 // "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace" => "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace",
+// "You don't have a pdf export module installed. Go to %0 to install one, then select an export method in %1." => "You don't have a pdf export module installed. Go to %0 to install one, then select an export method in %1.",
 );

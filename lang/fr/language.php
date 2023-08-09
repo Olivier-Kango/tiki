@@ -14665,7 +14665,7 @@ $lang_current = array(
 "These are reported to slow down Tiki. If you have a high-volume site, you may want to deactivate them" => "Ces fonctionnalités peuvent ralentir significativement Tiki. Si vous avez un site à fort traffic, vous pouvez vouloir les désactiver.",
 // "Many search options impact performance. Please see %0Search admin panel%1" => "Many search options impact performance. Please see %0Search admin panel%1",
 // "Time and Memory Limits" => "Time and Memory Limits",
-// "PDF settings" => "PDF settings",
+"PDF settings" => "Paramètres PDF",
 // "Wiki print version" => "Wiki print version",
 // "Other features" => "Other features",
 "Tiki Configuration Profiles" => "Profils de configuration Tiki",
@@ -22956,5 +22956,6 @@ $lang_current = array(
 "Top pages" => "Pages les plus populaires",
 "Last pages" => "Dernières pages",
 // "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace" => "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace",
+"You don't have a pdf export module installed. Go to %0 to install one, then select an export method in %1." => "Vous n'avez pas de module d'exportation PDF installé. Rendez-vous sur %0 pour en installer un, puis sélectionnez une méthode d'exportation dans %1.",
 );
 $lang = array_replace($lang, $lang_current);
