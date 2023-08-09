@@ -14031,7 +14031,7 @@ $lang_current = array(
 "These are reported to slow down Tiki. If you have a high-volume site, you may want to deactivate them" => "Ces fonctionnalités peuvent ralentir significativement Tiki. Si vous avez un site à fort traffic, vous pouvez vouloir les désactiver.",
 // "Many search options impact performance. Please see <a href=\"tiki-admin.php?page=search\" class=\"alert-link\">Search admin panel</a>" => "Many search options impact performance. Please see <a href=\"tiki-admin.php?page=search\" class=\"alert-link\">Search admin panel</a>",
 // "Time and Memory Limits" => "Time and Memory Limits",
-// "PDF settings" => "PDF settings",
+"PDF settings" => "Paramètres PDF",
 // "Wiki print version" => "Wiki print version",
 // "Other features" => "Other features",
 "Tiki Configuration Profiles" => "Profils de configuration Tiki",
@@ -22084,6 +22084,7 @@ $lang_current = array(
 "You are using a correct database encoding and allowed legacy collation as required to complete the installation." => "Vous utilisez un encodage correct de la base de données et votre 'legacy collation' convient pour terminer l'installation.",
 "Tiki Manager not found. Please check if it is installed from" => "Tiki Manager est introuvable. Veuillez vérifier s'il est installé à partir de",
 " Admin->Packages." => " Admin->Packages.",
+"Admin->Packages" => "Admin->Packages",
 "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Moteur de recherche moderne, rapide, léger et complet, doté d'excellentes capacités de recherche en texte intégral. Il est basé sur le moteur de recherche Sphinx",
 " Control Panels" => "Panneaux de contrôle",
 "Tiki detected system configuration files with %0 extension, under the root folder of Tiki. It is recommended to change it to %1. Check %2 for examples." => "Tiki a détecté des fichiers de configuration système avec l'extension %0, sous le dossier racine de Tiki. Il est recommandé de le remplacer par %1. Vérifiez %2 pour des exemples.",
@@ -22092,5 +22093,6 @@ $lang_current = array(
 "No forums were selected. Please select the forums to reorder." => "Aucun forum n'a été sélectionné. Veuillez sélectionner les forums à réorganiser.",
 "You need to update your database to start using color modes on your website" => "Vous devez mettre à jour votre base de données pour commencer à utiliser les modes de couleur sur votre site web.",
 "Your database needs to be updated" => "Votre base de données doit être mise à jour",
+"You don't have a pdf export module installed. Go to %0 to install one, then select an export method in %1." => "Vous n'avez pas de module d'exportation PDF installé. Rendez-vous sur %0 pour en installer un, puis sélectionnez une méthode d'exportation dans %1.",
 );
 $lang = array_replace($lang, $lang_current);

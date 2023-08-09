@@ -21940,9 +21940,11 @@ $lang = array(
 // "You are using a correct database encoding and allowed legacy collation as required to complete the installation." => "You are using a correct database encoding and allowed legacy collation as required to complete the installation.",
 // "Tiki Manager not found. Please check if it is installed from" => "Tiki Manager not found. Please check if it is installed from",
 // " Admin->Packages." => " Admin->Packages.",
+// "Admin->Packages" => "Admin->Packages",
 // "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine",
 // "Double click to edit" => "Double click to edit",
 // "Missing some forums order, please specify the order of the forums." => "Missing some forums order, please specify the order of the forums.",
 // "No forums were selected. Please select the forums to reorder." => "No forums were selected. Please select the forums to reorder.",
-// Permissions Clipboard
+// Permissions Clipboard,
+// "You don't have a pdf export module installed. Go to %0 to install one, then select an export method in %1." => "You don't have a pdf export module installed. Go to %0 to install one, then select an export method in %1.",
 );
