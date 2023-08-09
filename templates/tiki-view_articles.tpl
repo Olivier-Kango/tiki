@@ -277,6 +277,11 @@
                                         {icon name='remove'} {tr}Remove{/tr}
                                     </a>
                                 {/if}
+                                {if $listpages[ix].perms.tiki_p_admin_cms eq 'y' or $listpages[ix].perms.tiki_p_assign_perm_cms eq 'y'}
+                                    <span class="dropdown-item">
+                                        {permission_link mode=text type=article permType=articles id=$listpages[ix].articleId parentId=$listpages[ix].topicId}
+                                    </span>
+                                {/if}
                             </div>
                         </div>
                     </div>
