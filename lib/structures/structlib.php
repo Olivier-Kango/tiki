@@ -503,7 +503,7 @@ class StructLib extends TikiLib
         global $prefs;
         $structure_path = [];
         $page_info = $this->s_get_page_info($page_ref_id);
-        if ($page_info['parent_id']) {
+        if (isset($parent_info) && $parent_info["parent_id"]) {
             $structure_path = $this->get_structure_path($page_info['parent_id']);
         }
         $structure_path[] = $page_info;
@@ -1097,7 +1097,7 @@ class StructLib extends TikiLib
         while ($res = $result->fetchRow()) {
             $next_page = $this->s_get_structure_info($res['page_ref_id']);
             //Add each structure head only once
-            if (! in_array($next_page['page_ref_id'], $structures_added)) {
+            if (isset($next_page['page_ref_id']) && (! in_array($next_page['page_ref_id'], $structures_added))) {
                 if (empty($structure) || $structure == $next_page['pageName']) {
                     $structures_added[] = $next_page['page_ref_id'];
                     $next_page['req_page_ref_id'] = $res['page_ref_id'];
