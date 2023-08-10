@@ -825,7 +825,13 @@ class PdfGenerator
         $html = @$doc->saveHTML();
     }
 
-    public function file_get_contents_by_fget($url)
+    /**
+     * Fetch the contents of a URL using file_get_contents and save it as a temporary image file.
+     *
+     * @param string $url The URL of the image to fetch.
+     * @return string Return the path of the newly created temporary image file.
+     */
+    public function file_get_contents_by_fget($url): string
     {
         global $base_url;
         //check if image is internal with full path
@@ -836,7 +842,7 @@ class PdfGenerator
         //checking for external images
         $checkURL = parse_url($url);
         //not replacing in case of external image
-        if (($checkURL['scheme'] == 'https' || $checkURL['scheme'] == 'http') && ! $internalImg) {
+        if ((isset($checkURL['scheme']) && ($checkURL['scheme'] == 'https' || $checkURL['scheme'] == 'http')) && ! $internalImg) {
             return '';
         }
         if (! $internalImg) {
@@ -846,7 +852,11 @@ class PdfGenerator
             mkdir('temp/pdfimg');
             chmod('temp/pdfimg', 0755);
         }
-        $opts = ['http' => ['header' => 'Cookie: ' . $_SERVER['HTTP_COOKIE'] . "\r\n"]];
+        $cookie = isset($_SERVER['HTTP_COOKIE']) ? $_SERVER['HTTP_COOKIE'] : '';
+        $opts = [];
+        if (! empty($cookie)) {
+            $opts['http'] = ['header' => 'Cookie: ' . $cookie . "\r\n"];
+        }
         $context = stream_context_create($opts);
         session_write_close();
         $data = @file_get_contents($url, false, $context);
