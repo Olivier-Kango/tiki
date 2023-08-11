@@ -5331,5 +5331,9 @@ h1:hover .heading-link, h2:hover .heading-link, h3:hover .heading-link, h4:hover
 .toggle-table-wrap .btn {
   font-family: "Font Awesome 6 Free" !important;
 }
+.tiki .select2-container--bootstrap-5 .select2-selection--single {
+  display: flex;
+  gap: 3rem;
+}
 /* End of file */
 
