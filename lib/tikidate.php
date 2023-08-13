@@ -295,8 +295,8 @@ class TikiDate
      */
     public function setLocalTime($day, $month, $year, $hour, $minute, $second, $partsecond)
     {
-        $this->date->setDate($year, $month, $day);
-        $this->date->setTime($hour, $minute, $second);
+        $this->date->setDate((int)$year, (int)$month, (int)$day);
+        $this->date->setTime((int)$hour, (int)$minute, (int)$second);
     }
 
     public function getTZByID($tz_id)
