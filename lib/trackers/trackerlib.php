@@ -2931,7 +2931,7 @@ class TrackerLib extends TikiLib
                         $erroneous_values[] = $f;
                     }
                 }
-                if ($f['options_map']['confirmed'] == 'y' && $f['value'] != $f['value_confirmed']) {
+                if (isset($f['options_map']['confirmed']) && $f['options_map']['confirmed'] == 'y' && $f['value'] != $f['value_confirmed']) {
                     $f['errorMsg'] = tra('Confirmation %0 do not match', $f['name']);
                     $erroneous_values[] = $f;
                 }
