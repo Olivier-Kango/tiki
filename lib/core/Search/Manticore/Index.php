@@ -609,6 +609,9 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         if (! empty($mapping['types']) && in_array('text', $mapping['types'])) {
             return true;
         }
+        if (! empty($mapping['options']) && in_array('indexed', $mapping['options'])) {
+            return true;
+        }
         return false;
     }
 
