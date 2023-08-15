@@ -35,7 +35,7 @@
                 <div class="col-sm-9">
                     <input name="calendarchanged" type="hidden">
                     <select name="calitem[calendarId]" id="calid" class="form-control" required
-                            onchange="$(this).parents('.edit-event-form').tikiModal(tr('Loading...')); needToConfirm=false; $('input[name=calendarchanged]').val(1); $('input[name=save]').click();">
+                            onchange="$(this).parents('.edit-event-form').tikiModal(tr('Loading...')); needToConfirm=false; $('input[name=calendarchanged]').val(1); $('input[name=saveitem]').click();">
                         {foreach $calendars as $aCalendar}
                             {$calstyle = ''}
                             {if not empty($aCalendar.custombgcolor)}
@@ -645,7 +645,7 @@
         <div class="submit">
             <input type="hidden" id="act" name="act" value="">
             <input type="submit" class="btn btn-secondary" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false">
-            <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}" onclick="needToConfirm=false">
+            <input type="submit" class="btn btn-primary" name="saveitem" value="{tr}Save{/tr}" onclick="needToConfirm=false">
             {if $tiki_p_add_events eq 'y' and empty($saveas) and not empty($calitemId)}
                 <input type="submit" class="btn btn-secondary" name="saveas" data-alt_controller="calendar" data-alt_action="copy_item"
                        onclick="needToConfirm=false" value="{tr}Copy to a new event{/tr}">
