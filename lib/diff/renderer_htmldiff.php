@@ -162,6 +162,9 @@ class Text_Diff_Renderer_htmldiff extends Tiki_Text_Diff_Renderer
             case 'added':
                 foreach ($lines as $line) {
                     if ($line != '') {
+                        if (! isset($this->final[$this->n])) {
+                            $this->final[$this->n] = '';
+                        }
                         $this->_count_tags($line, 'final');
                         $this->final[$this->n] .= $this->_insert_tag($line, 'diffadded', $this->rspan);
                         $context = 0;
