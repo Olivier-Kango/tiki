@@ -136,7 +136,7 @@ class Services_Calendar_Controller
         $viewend = new DateTime($viewend);
         $viewend = $viewend->getTimestamp();
 
-        if ($_SESSION['CalendarViewGroups']) {
+        if (isset($_SESSION['CalendarViewGroups']) && $_SESSION['CalendarViewGroups']) {
             $listevents = $this->calendarLib->list_raw_items(
                 $_SESSION['CalendarViewGroups'],
                 $user,
