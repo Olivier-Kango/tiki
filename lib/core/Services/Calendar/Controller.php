@@ -257,7 +257,7 @@ class Services_Calendar_Controller
                 $calitem = $this->processParticipants($calitem);
 
                 // save event
-                if ($input->act->word() === 'save' || $input->act->word() === 'saveas') {
+                if ($input->act->word() === 'saveitem' || $input->act->word() === 'saveas') {
                     if (! $input->calendarchanged->int()) {
                         $saved = $this->saveEvent($calitem, $calendar, $input);
 
