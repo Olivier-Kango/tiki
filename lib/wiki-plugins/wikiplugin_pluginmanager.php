@@ -235,7 +235,7 @@ class WikiPluginPluginManager extends PluginsLib
             }
             $headbegin = "\n\t\t" . '<th class="heading">';
             $cellbegin = "\n\t\t" . '<td>';
-            $header = "\n\t" . '<tr class="heading sticky-top bg-light">' . $headbegin . 'Parameters</td>';
+            $header = "\n\t" . '<tr class="heading sticky-top bg-light">' . $headbegin . 'Parameters</th>';
             $rows = '';
             if (isset($numparams) && $numparams > 0) {
                 $header .= $headbegin . tra('Accepted Values') . '</th>';
