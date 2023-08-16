@@ -1414,7 +1414,13 @@ class UnifiedSearchLib
             ];
 
             foreach (TikiLib::lib('federatedsearch')->getIndices() as $indexname => $index) {
-                $indexMap[$indexname] = $tiki_extwiki->fetchOne('name', [
+                if (strstr($indexname, ':')) {
+                    $parts = explode(':', $indexname);
+                    $prefix = array_pop($parts);
+                } else {
+                    $prefix = $indexname;
+                }
+                $indexMap[$prefix] = $tiki_extwiki->fetchOne('name', [
                     'indexname' => $indexname,
                 ]);
             }
@@ -1428,7 +1434,7 @@ class UnifiedSearchLib
                     } else {
                         foreach ($indexMap as $candidate => $name) {
                             if (0 === strpos($index, $candidate . '_')) {
-                                $indicesMap[$index] = $name;
+                                $indexMap[$index] = $name;
                                 $out = $name;
                                 break;
                             }
