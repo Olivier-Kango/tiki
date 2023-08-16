@@ -238,6 +238,16 @@ class PdfGenerator
 
         if ($parsedData != '') {
             $html = $parsedData;
+        } else {
+            $title = tr('Page not printed ! ');
+            $mes = tr('It looks like you are trying to print a blank page.');
+            if (preg_match('/\bpage=([^&]+)/', $url, $matches)) {
+                $page = substr($matches[0], 5, null);
+                Feedback::warning(['mes' => $mes, 'title' => $title]);
+                TikiLib::lib('access')->redirect($page);
+                die();
+            }
+            throw new Services_Exception($title . $mes);
         }
 
        //getting n replacing images
