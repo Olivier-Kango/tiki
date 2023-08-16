@@ -6485,8 +6485,10 @@ class TrackerLib extends TikiLib
                 $fieldPermName = $field['permName'];
                 TikiLib::lib('smarty')->assign("f_$fieldPermName", $r);
             }
-            return $r;
+            return is_null($r) ? '' : $r;
         }
+
+        return '';
     }
 
     public function get_child_items($itemId)
