@@ -479,6 +479,7 @@ class Services_Manager_Controller
                 "--backup-user" => $input->backup_user->text(),
                 "--backup-group" => $input->backup_group->text(),
                 "--backup-permission" => $input->backup_permission->text(),
+                "--phpexec" => $input->phpexec->text(),
             ]);
 
             $this->runCommand($cmd, $inputCommand);
@@ -504,6 +505,7 @@ class Services_Manager_Controller
                     'backup_user' => $instance->getProp('backup_user'),
                     'backup_group' => $instance->getProp('backup_group'),
                     'backup_permission' => decoct($instance->getProp('backup_perm')),
+                    'phpexec' => $instance->phpexec,
                 ];
 
                 return [

@@ -103,6 +103,17 @@
                 </div>
             </div>
             <div class="tiki-form-group row">
+                <label class="col-form-label col-sm-3">
+                    {tr}PHP binary to be used{/tr}
+                    <a class="tikihelp text-info" title="{tr}Description:{/tr} {tr}{$help['phpexec']}{/tr}">
+                        {icon name=information}
+                    </a>
+                </label>
+                <div class="col-sm-9">
+                    <input required value="{$inputValues['phpexec']}" placeholder="e.g: /usr/bin/php8.1" class="form-control" id="phpexec" type="text" name="phpexec">
+                </div>
+            </div>
+            <div class="tiki-form-group row">
                 <label class="col-form-label col-sm-3"></label>
                 <div class="col-sm-9">
                     <input class="btn btn-primary" type="submit" name="edit" value="{tr}Edit instance{/tr}">
