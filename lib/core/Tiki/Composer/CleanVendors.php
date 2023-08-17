@@ -576,7 +576,13 @@ class CleanVendors
                 if (file_exists($path) || is_dir($path)) {
                     // if windows indexing or antivirus is locking a file, then complain
                     try {
-                        $fs->remove($path);
+                        $removeResult = $fs->remove($path);
+                        //It's the return value of remove($path) that determines if the file was deleted or not, the exception is not necessarily thrown in case of deletion failure.
+                        // Or check if the file does not still exist after the remove operation
+                        clearstatcache();
+                        if (! $removeResult || file_exists($path) || is_dir($path)) {
+                            echo "\e[031mError \e[0m ", "Failed to delete '$path'. Possible causes: file/directory permissions, etc.\n";
+                        }
                     } catch (Exception $e) {
                         echo "\e[031mError \e[0m ",  $e->getMessage(), "\n";
                     }
