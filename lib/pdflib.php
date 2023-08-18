@@ -547,52 +547,63 @@ class PdfGenerator
         clearstatcache();
 
         $modules_to_print = $prefs['print_pdf_modules'];
-        $print_pdf_modules_options = $prefslib->getPreference('print_pdf_modules', true, null, false)['options'];
+
+        $print_pdf_modules = $prefslib->getPreference('print_pdf_modules');
+        if (isset($print_pdf_modules['options'])) {
+            $print_pdf_modules_options = $print_pdf_modules['options'];
+        } else {
+            $print_pdf_modules_options = [];
+        }
+
         $modules_to_print_contents = [];
 
         $modules = $modlib->get_modules_for_user($user);
 
         $modnames = [];
 
-        foreach ($print_pdf_modules_options as $module_key => $module_value) {
-            if (is_array($modules_to_print) && in_array($module_key, $modules_to_print)) {
-                $content = '';
+        if ($print_pdf_modules_options && is_array($print_pdf_modules_options)) {
+            foreach ($print_pdf_modules_options as $module_key => $module_value) {
+                if (is_string($module_key)) {
+                    if (is_array($modules_to_print) && in_array($module_key, $modules_to_print)) {
+                        $content = '';
 
-                if (isset($modules[$module_key]) && is_array($modules[$module_key])) {
-                    foreach ($modules[$module_key] as & $mod_reference) {
-                        $ref = (array) $mod_reference;
-                        $mod_reference['data'] = new Tiki_Render_Lazy(
-                            function () use ($ref) {
-                                $modlib = TikiLib::lib('mod');
-                                return $modlib->execute_module($ref);
+                        if (isset($modules[$module_key]) && is_array($modules[$module_key])) {
+                            foreach ($modules[$module_key] as & $mod_reference) {
+                                $ref = (array) $mod_reference;
+                                $mod_reference['data'] = new Tiki_Render_Lazy(
+                                    function () use ($ref) {
+                                        $modlib = TikiLib::lib('mod');
+                                        return $modlib->execute_module($ref);
+                                    }
+                                );
+                                $modnames[$ref['name']] = '';
                             }
-                        );
-                        $modnames[$ref['name']] = '';
+
+                            $content = implode(
+                                '',
+                                array_map(
+                                    function ($module) {
+                                        return (isset($module['data']) ? $module['data'] : '');
+                                    },
+                                    $modules[$module_key]
+                                )
+                            );
+                        }
+
+                        $dir = '';
+                        if (Language::isRTL()) {
+                            $dir = ' dir="rtl"';
+                        }
+
+                        $modules_to_print_contents[$module_key] = <<<OUT
+                        <div class="modules" id="$module_key" $dir>
+                            $content
+                        </div>
+                        OUT;
+                    } else {
+                        $modules_to_print_contents[$module_key] = "";
                     }
-
-                    $content = implode(
-                        '',
-                        array_map(
-                            function ($module) {
-                                return (isset($module['data']) ? $module['data'] : '');
-                            },
-                            $modules[$module_key]
-                        )
-                    );
                 }
-
-                $dir = '';
-                if (Language::isRTL()) {
-                    $dir = ' dir="rtl"';
-                }
-
-                $modules_to_print_contents[$module_key] = <<<OUT
-                <div class="modules" id="$module_key" $dir>
-                    $content
-                </div>
-                OUT;
-            } else {
-                $modules_to_print_contents[$module_key] = "";
             }
         }
 
