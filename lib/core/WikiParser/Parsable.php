@@ -514,6 +514,13 @@ if ( \$('#$id') ) {
 
             $saved_options = $this->option; // save current options (but do not reset)
 
+            // use default value for each plugin parameter if not given
+            $defaults = [];
+            foreach ($info['params'] as $key => $value) {
+                $defaults[$key] = $value['default'] ?? null;
+            }
+            $args = array_merge($defaults, $args);
+
             $output = $func_name($data, $args, $offset, $this);
 
             $this->option = $saved_options; // restore parsing options after plugin has executed
