@@ -218,7 +218,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
         ) {
             $value[] = $user;
         }
-        if ($autoassign == 0 || $this->canChangeValue()) {
+        if ($autoassign == 0 || $this->canChangeValue() || ! empty($context['filter_render'])) {
             $groupIds = $this->getOption('groupIds', '');
             $groupIds = $this->checkGroupsExist($groupIds);
 
