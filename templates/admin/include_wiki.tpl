@@ -37,6 +37,7 @@
                     {preference name=feature_page_title}
                     {preference name=wiki_page_name_above}
                     {preference name=wiki_page_name_inside}
+                    {preference name=wiki_customize_title_tag}
                     {preference name=wiki_page_hide_title}
                     {preference name=wiki_heading_links}
                     {preference name=feature_wiki_description}
