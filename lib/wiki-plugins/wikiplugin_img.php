@@ -1288,7 +1288,7 @@ function wikiplugin_img($data, $params)
     }
 
     //src
-    if (! empty($imgdata['src']) || ! empty($src)) {
+    if ((! empty($imgdata['src']) || ! empty($src)) && strpos($replimg, 'src="' . $src . '"') == false) {
         $replimg .= ' src="' . $src . '"';
     }
 
