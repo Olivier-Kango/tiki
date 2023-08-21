@@ -157,6 +157,9 @@ function wikiplugin_box($data, $params)
     // Insert "\n" at data begin if absent (so start-of-line-sensitive syntaxes will be parsed OK)
     //if (substr($data, 0, 1) != "\n") $data = "\n".$data;
     //$data = TikiLib::lib('parser')->parse_data($data);
-    $data = TikiLib::lib('parser')->protectSpecialChars($data); //they are unprotected before calling the plugins
+    $paserlib = TikiLib::lib('parser');
+    if (! $paserlib->option['is_markdown']) {
+        $data = $paserlib->protectSpecialChars($data); //they are unprotected before calling the plugins
+    }
     return $begin . $data . $end;
 }
