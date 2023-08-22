@@ -369,6 +369,14 @@ function wikiplugin_pivottable($data, $params)
     $headerlib->add_jsfile('vendor_bundled/vendor/nagarajanchinnasamy/subtotal/dist/subtotal.min.js', true);
     $headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-pivottable.js', true);
 
+    // use default param value if not given
+    $defaults = [];
+    $info = wikiplugin_pivottable_info();
+    foreach ($info['params'] as $key => $value) {
+        $defaults[$key] = $value['default'] ?? null;
+    }
+    $params = array_merge($defaults, $params);
+
     if ($params['lang'] == "site") {
         $lang = substr($prefs['site_language'], 0, 2);
     } else {
