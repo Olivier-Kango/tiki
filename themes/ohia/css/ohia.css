@@ -2,7 +2,7 @@
 /*  The Ohia theme stylesheet for Tiki Wiki CMS Groupware. */
 @import url(https://fonts.bunny.net/css?family=alegreya-sans:400,400i|alegreya-sans-sc:400,400i,700);
 /*!
-   * Bootstrap  v5.3.0 (https://getbootstrap.com/)
+   * Bootstrap  v5.3.1 (https://getbootstrap.com/)
    * Copyright 2011-2023 The Bootstrap Authors
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
@@ -424,8 +424,8 @@ legend + * {
   height: auto;
 }
 [type="search"] {
-  outline-offset: -2px;
   -webkit-appearance: textfield;
+  outline-offset: -2px;
 }
 /* rtl:raw:
 [type="tel"],
@@ -1840,10 +1840,10 @@ progress {
   font-weight: 400;
   line-height: 1.5;
   color: #ededed;
+  appearance: none;
   background-color: #242424;
   background-clip: padding-box;
   border: var(--bs-border-width) solid #4c4c4c;
-  appearance: none;
   border-radius: var(--bs-border-radius);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -1989,6 +1989,7 @@ textarea.form-control-lg {
   font-weight: 400;
   line-height: 1.5;
   color: #ededed;
+  appearance: none;
   background-color: #242424;
   background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
   background-repeat: no-repeat;
@@ -1997,7 +1998,6 @@ textarea.form-control-lg {
   border: var(--bs-border-width) solid #4c4c4c;
   border-radius: var(--bs-border-radius);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  appearance: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .form-select {
@@ -2065,13 +2065,13 @@ textarea.form-control-lg {
   height: 1em;
   margin-top: 0.25em;
   vertical-align: top;
+  appearance: none;
   background-color: var(--bs-form-check-bg);
   background-image: var(--bs-form-check-bg-image);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   border: var(--bs-border-width) solid var(--bs-border-color);
-  appearance: none;
   print-color-adjust: exact;
   transition: all 0.2s ease-in-out;
 }
@@ -2168,8 +2168,8 @@ textarea.form-control-lg {
   width: 100%;
   height: 1.4rem;
   padding: 0;
-  background-color: transparent;
   appearance: none;
+  background-color: transparent;
 }
 .form-range:focus {
   outline: 0;
@@ -2187,11 +2187,11 @@ textarea.form-control-lg {
   width: 1rem;
   height: 1rem;
   margin-top: -0.25rem;
+  appearance: none;
   background-color: #030511;
   border: 0;
   border-radius: 1rem;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  appearance: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .form-range::-webkit-slider-thumb {
@@ -2213,11 +2213,11 @@ textarea.form-control-lg {
 .form-range::-moz-range-thumb {
   width: 1rem;
   height: 1rem;
+  appearance: none;
   background-color: #030511;
   border: 0;
   border-radius: 1rem;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  appearance: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .form-range::-moz-range-thumb {
@@ -2312,10 +2312,10 @@ textarea.form-control-lg {
 .form-floating > .form-control-plaintext ~ label {
   border-width: var(--bs-border-width) 0;
 }
-.form-floating > :disabled ~ label {
+.form-floating > :disabled ~ label, .form-floating > .form-control:disabled ~ label {
   color: #6c757d;
 }
-.form-floating > :disabled ~ label::after {
+.form-floating > :disabled ~ label::after, .form-floating > .form-control:disabled ~ label::after {
   background-color: var(--bs-secondary-bg);
 }
 .input-group {
@@ -3280,7 +3280,7 @@ textarea.form-control-lg {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(128, 166, 15, 0.25);
 }
-.nav-link.disabled {
+.nav-link.disabled, .nav-link:disabled {
   color: var(--bs-nav-link-disabled-color);
   pointer-events: none;
   cursor: default;
@@ -3305,11 +3305,6 @@ textarea.form-control-lg {
   isolation: isolate;
   border-color: var(--bs-nav-tabs-link-hover-border-color);
 }
-.nav-tabs .nav-link.disabled, .nav-tabs .nav-link:disabled {
-  color: var(--bs-nav-link-disabled-color);
-  background-color: transparent;
-  border-color: transparent;
-}
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
   color: var(--bs-nav-tabs-link-active-color);
   background-color: var(--bs-nav-tabs-link-active-bg);
@@ -3327,11 +3322,6 @@ textarea.form-control-lg {
 }
 .nav-pills .nav-link {
   border-radius: var(--bs-nav-pills-border-radius);
-}
-.nav-pills .nav-link:disabled {
-  color: var(--bs-nav-link-disabled-color);
-  background-color: transparent;
-  border-color: transparent;
 }
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: var(--bs-nav-pills-link-active-color);
@@ -6021,27 +6011,27 @@ textarea.form-control-lg {
 }
 .text-bg-primary {
   color: #030303 !important;
-  background-color: rgba(128, 166, 15, var(--bs-bg-opacity, 1)) !important;
+  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 .text-bg-secondary {
   color: #fff !important;
-  background-color: rgba(73, 95, 8, var(--bs-bg-opacity, 1)) !important;
+  background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 .text-bg-success {
   color: #fff !important;
-  background-color: rgba(0, 94, 166, var(--bs-bg-opacity, 1)) !important;
+  background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 .text-bg-info {
   color: #030303 !important;
-  background-color: rgba(53, 133, 208, var(--bs-bg-opacity, 1)) !important;
+  background-color: rgba(var(--bs-info-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 .text-bg-warning {
   color: #030303 !important;
-  background-color: rgba(205, 163, 83, var(--bs-bg-opacity, 1)) !important;
+  background-color: rgba(var(--bs-warning-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 .text-bg-danger {
   color: #030303 !important;
-  background-color: rgba(249, 1, 0, var(--bs-bg-opacity, 1)) !important;
+  background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 .link-primary {
   color: rgba(var(--bs-primary-rgb), var(--bs-link-opacity, 1)) !important;
@@ -6280,7 +6270,7 @@ textarea.form-control-lg {
 .vr {
   display: inline-block;
   align-self: stretch;
-  width: 1px;
+  width: var(--bs-border-width);
   min-height: 1em;
   background-color: currentcolor;
   opacity: 0.25;

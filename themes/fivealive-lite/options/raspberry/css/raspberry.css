@@ -1,6 +1,6 @@
 /*  The Raspberry theme option file for the FiveAlive-lite theme of Tiki Wiki CMS Groupware. */
 /*!
-   * Bootstrap  v5.3.0 (https://getbootstrap.com/)
+   * Bootstrap  v5.3.1 (https://getbootstrap.com/)
    * Copyright 2011-2023 The Bootstrap Authors
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
@@ -508,8 +508,8 @@ legend + * {
   height: auto;
 }
 [type="search"] {
-  outline-offset: -2px;
   -webkit-appearance: textfield;
+  outline-offset: -2px;
 }
 /* rtl:raw:
 [type="tel"],
@@ -946,7 +946,7 @@ progress {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(215, 9, 119, 0.25);
 }
-.nav-link.disabled {
+.nav-link.disabled, .nav-link:disabled {
   color: var(--bs-nav-link-disabled-color);
   pointer-events: none;
   cursor: default;
@@ -971,11 +971,6 @@ progress {
   isolation: isolate;
   border-color: var(--bs-nav-tabs-link-hover-border-color);
 }
-.nav-tabs .nav-link.disabled, .nav-tabs .nav-link:disabled {
-  color: var(--bs-nav-link-disabled-color);
-  background-color: transparent;
-  border-color: transparent;
-}
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
   color: var(--bs-nav-tabs-link-active-color);
   background-color: var(--bs-nav-tabs-link-active-bg);
@@ -993,11 +988,6 @@ progress {
 }
 .nav-pills .nav-link {
   border-radius: var(--bs-nav-pills-border-radius);
-}
-.nav-pills .nav-link:disabled {
-  color: var(--bs-nav-link-disabled-color);
-  background-color: transparent;
-  border-color: transparent;
 }
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: var(--bs-nav-pills-link-active-color);
