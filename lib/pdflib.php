@@ -509,7 +509,7 @@ class PdfGenerator
                     for ($charLimit = 0; $charLimit <= strlen($pdfPage['pageContent']); $charLimit += $pdfLimit) {
                         $content_slice = substr($pdfPage['pageContent'], $charLimit, $pdfLimit);
                         if ($content_slice) {
-                             $mpdf->WriteHTML($content_slice);
+                            $mpdf->WriteHTML($content_slice);
                         }
                     }
                     $mpdf->WriteHTML('</body></html>');
@@ -524,8 +524,8 @@ class PdfGenerator
             $mpdf->watermarkImgBehind = true;
         }
         trim(strtolower($pdfSettings['header'])) == "off" ? $mpdf->SetHTMLHeader() : $mpdf->SetHTMLHeader($this->processHeaderFooter($pdfSettings['header'], $params['page'] ?? ''));
-        if ($pdfPages[count($pdfPages) - 1]['footer'] == $pdfSettings['footer']) {
-            trim(strtolower($pdfSettings['footer'])) == "off" ? $mpdf->SetHTMLFooter() : $mpdf->SetHTMLFooter($this->processHeaderFooter($pdfSettings['footer'], $params['page'] ?? '', 'top'));
+        if (is_array($pdfPages) && ! empty($pdfPages) && $pdfPages[count($pdfPages) - 1]['footer'] == $pdfSettings['footer']) {
+            isset($pdfSettings['footer']) && trim(strtolower($pdfSettings['footer'])) == "off" ? $mpdf->SetHTMLFooter() : $mpdf->SetHTMLFooter($this->processHeaderFooter($pdfSettings['footer'] ?? '', $params['page'] ?? '', 'top'));
         }
 
         $this->clearTempImg($tempImgArr);
@@ -937,7 +937,7 @@ class PdfGenerator
         for ($i = 0; $i < count($sortedContent); $i++) {
             $html = str_replace($tempValue[$i], $sortedContent[$i], $html);
         }
-            $html = cleanContent($html, $tagsArr);
+        $html = cleanContent($html, $tagsArr);
 
             //making tablesorter and pivottable charts wrapper divs visible
         $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
@@ -1157,7 +1157,7 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
             $tempValue[] = $tableTag;
             $table->nodeValue = "";
             chmod("temp/#" . $tid . "_" . session_id() . ".txt", 0755);
-        //unlink tmp table file
+            //unlink tmp table file
             unlink("temp/#" . $tid . "_" . session_id() . ".txt");
         }
     }
