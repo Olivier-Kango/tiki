@@ -2867,6 +2867,9 @@
         "lib\/test\/bigbluebutton\/DynamicConfigurationTest.php": {
             "class:BigBlueButton_DynamicConfigurationTest": true
         },
+        "lib\/test\/Calendar\/CalRecurrenceTest.php": {
+            "class:Calendar_CalRecurrenceTest": true
+        },
         "lib\/test\/Calendar\/DateTest.php": {
             "class:Calendar_DateTest": true
         },
@@ -10165,6 +10168,9 @@
         },
         "lib\/test\/bigbluebutton\/DynamicConfigurationTest.php": {
             "BigBlueButton_DynamicConfigurationTest": true
+        },
+        "lib\/test\/Calendar\/CalRecurrenceTest.php": {
+            "Calendar_CalRecurrenceTest": true
         },
         "lib\/test\/Calendar\/DateTest.php": {
             "Calendar_DateTest": true
