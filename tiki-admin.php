@@ -465,6 +465,11 @@ $smarty->assign('missing_patches', $installer->missingPatches());
 $smarty->assign('installer_not_locked', $installer->checkInstallerLocked());
 $smarty->assign('db_engine_type', getCurrentEngine());
 
+$smarty->assign('wiki_attachments_migrated', true);
+if ($prefs['feature_wiki_attachments'] === 'y' && $prefs['feature_use_fgal_for_wiki_attachments'] === 'y') {
+    $smarty->assign('wiki_attachments_migrated', TikiLib::lib('wiki')->attachmentsCount() == 0);
+}
+
 $unifiedsearch = \TikiLib::lib('unifiedsearch');
 $smarty->assign('search_index_outdated', $unifiedsearch->isOutdated());
 
