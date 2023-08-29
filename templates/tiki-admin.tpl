@@ -106,6 +106,12 @@
                 {/remarksbox}
             {/if}
 
+            {if ! $wiki_attachments_migrated}
+                {remarksbox type="warning" title="{tr}Wiki attachments not migrated{/tr}"}
+                {tr}Wiki attachments storage is set to use File Galleries but attachments:migrate console command hasn't been run to convert existing wiki attachments to Tiki Files.{/tr}
+                {/remarksbox}
+            {/if}
+
             {if $searchIndex['error']}
                 {remarksbox type="error" title="{tr}Search index failure{/tr}"}
                     {if !$searchIndex['connectionError']}
