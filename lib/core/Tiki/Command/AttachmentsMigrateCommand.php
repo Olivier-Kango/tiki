@@ -110,12 +110,14 @@ class AttachmentsMigrateCommand extends Command
                                 } elseif ($key == 'src' && preg_match('/tiki-download_wiki_attachment\.php\?attId=(\d+)/', $val, $m) && $m[1] == $att['attId']) {
                                     $newArgs[] = "fileId=$fileId";
                                     $modified = true;
+                                } elseif ($key == 'type' && $val == 'attId') {
+                                    $newArgs[] = "type=fileId";
                                 } else {
                                     $newArgs[] = "$key=\"$val\"";
                                 }
                             }
                             if ($modified) {
-                                $match->replaceWith('{file ' . implode(' ', $newArgs) . '}');
+                                $match->replaceWith('{img ' . implode(' ', $newArgs) . '}');
                                 $updated = true;
                             }
                         } elseif ($pluginName == 'file') {
