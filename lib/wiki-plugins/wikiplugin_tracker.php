@@ -1147,7 +1147,6 @@ function wikiplugin_tracker($data, $params)
         $embeddedId = false;
         $onemandatory = false;
         $full_fields = [];
-        $mainfield = '';
 
         if ($thisIsThePlugin) {
             /* ------------------------------------- Recup all values from REQUEST -------------- */
@@ -2556,7 +2555,7 @@ function wikiplugin_tracker_save_item($trackerSavedState)
                 } else {
                     $override_perms = false;
                 }
-                $trklib->categorized_item($trackerId, $rid, $mainfield, $ins_categs, $parent_categs_only, $override_perms);
+                $trklib->categorized_item($trackerId, $rid, '', $ins_categs, $parent_categs_only, $override_perms);
             }
             if (isset($newItemRate)) {
                 $trklib->replace_rating($trackerId, $rid, $newItemRateField, $user, $newItemRate);
@@ -2573,7 +2572,7 @@ function wikiplugin_tracker_save_item($trackerSavedState)
             } else {
                 $override_perms = false;
             }
-            $trklib->categorized_item($trackerId, $rid, $mainfield, $ins_categs, $parent_categs_only, $override_perms);
+            $trklib->categorized_item($trackerId, $rid, '', $ins_categs, $parent_categs_only, $override_perms);
         }
         if (isset($newItemRate)) {
             $trklib->replace_rating($trackerId, $rid, $newItemRateField, $user, $newItemRate);
