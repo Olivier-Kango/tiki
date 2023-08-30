@@ -374,7 +374,7 @@ function wikiplugin_pivottable($data, $params)
     foreach ($info['params'] as $key => $value) {
         $defaults[$key] = $value['default'] ?? null;
     }
-    $args = array_merge($defaults, $args);
+    $params = array_merge($defaults, $params);
 
     if ($params['lang'] == "site") {
         $lang = substr($prefs['site_language'], 0, 2);
