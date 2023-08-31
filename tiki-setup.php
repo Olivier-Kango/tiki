@@ -982,3 +982,6 @@ if ($prefs['feature_tiki_manager'] == 'y') {
 if ($prefs['feature_realtime'] == 'y') {
     $headerlib->add_jsfile('lib/jquery_tiki/tiki-websockets.js');
 }
+
+// use this to distinguish if tiki-setup has completed, e.g. in smarty lib when including tiki-modules and determining if a redirect must be served or not
+define('TIKI_SETUP_FINISHED', true);
