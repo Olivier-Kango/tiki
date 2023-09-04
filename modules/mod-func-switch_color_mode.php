@@ -28,6 +28,7 @@ function module_switch_color_mode_info()
 function module_switch_color_mode($mod_reference, $module_params)
 {
     global $tiki_p_admin;
+    global $prefs;
     $smarty = TikiLib::lib('smarty');
     $default_themes_mode = [];
     $custom_themes_mode = [];
@@ -67,8 +68,12 @@ function module_switch_color_mode($mod_reference, $module_params)
            if (storedTheme) {
                return storedTheme;
            }
-   
-           return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+           if("' . $prefs['theme_default_color_mode'] . '"=="auto"){
+                return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+           }
+           else{
+                return "' . $prefs['theme_default_color_mode'] . '";
+           }
        };
    
        const setTheme = (theme) => {
