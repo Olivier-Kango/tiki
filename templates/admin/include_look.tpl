@@ -457,12 +457,12 @@
                             </div>
                         </div>
                         <div class="css_colors"></div>
-                        <button class="btn btn-primary mt-5g px-5 mt-4" onclick="return handle_mode_create_edit(this)">save</button>
+                        <button class="btn btn-primary mt-5g px-5 mt-4" onclick="return handle_mode_create_edit(this)">{tr}SAVE{/tr}</button>
                     </div>
                 </div>
                 {* end off-canvas *}
                 <fieldset>
-                    <legend>{tr}Switch Color modes module settings{/tr}</legend>
+                    <legend>{tr}Color mode settings{/tr}</legend>
                     {*
                     <p>
                         {tr}Default modes{/tr}
@@ -481,7 +481,7 @@
                     <button class="btn btn-primary" id='cm-save-default' onclick="return save_default_color_mode_icons(this)">Save</button>
                     *}
                     <p>
-                        {tr}Custom color modes settings{/tr}
+                        {tr}Custom color modes{/tr}
                     </p>
                     <div>
                         {foreach $custom_modes item=mode}
@@ -491,7 +491,7 @@
                             </div>
                         {/foreach}
                     </div>
-                    <button onclick="return  add_custom_mode(this)" class="btn btn-primary mb-5">Setup a new mode</button>
+                    <button onclick="return  add_custom_mode(this)" class="btn btn-info mb-5">{tr}Set up a new color mode{/tr}</button>
                 </fieldset>
             {/if}
             <fieldset>

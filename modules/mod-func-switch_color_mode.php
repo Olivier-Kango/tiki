@@ -95,17 +95,17 @@ function module_switch_color_mode($mod_reference, $module_params)
            $(this).addClass("active");
            $(this).attr("aria-clicked", true);
            let current_icon = $(this).find(".theme_icon").html();
-           $("#bd-theme").addClass("loading");
+           $("#color-mode-theme").addClass("loading");
            setTimeout(function(){
-                $("#bd-theme").html(current_icon);
-                $("#bd-theme").removeClass("loading");
+                $("#color-mode-theme").html(current_icon);
+                $("#color-mode-theme").removeClass("loading");
            },100); //small transition when updating the icon
            $("button[data-bs-theme-value]").not(this).removeClass("active").attr("aria-clicked", false);
        });
        if($("button[data-bs-theme-value=\'" + getPreferredTheme() + "\']").length > 0){
             $("button[data-bs-theme-value=\'" + getPreferredTheme() + "\']").trigger("click");
        } else{ //display default icon in case color mode has been deleted
-            $("#bd-theme").removeClass("loading");
+            $("#color-mode-theme").removeClass("loading");
        }
     };
     setup_color_mode();';
