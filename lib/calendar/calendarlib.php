@@ -1661,8 +1661,12 @@ class CalendarLib extends TikiLib
                                 }
                                 $leday_item['action']++;
 
+                                if (! isset($leday_item['name']) || ! is_string($leday_item['name'])) {
+                                    $leday_item['name'] = '';
+                                }
+
                                 if ($group_by == 'day') {
-                                    $leday_item['name'] .= '<br />' . $lte['name'];
+                                    $leday_item['name'] .= '<br />' . ($lte['name'] ?? '');
                                     $leday_item['desc_name'] = $leday_item['action'] . ' ' . tra($item_name) . ': ';
                                     $leday_item['description'][$lte['where']][] = $lte['group_description'];
                                 } else {
