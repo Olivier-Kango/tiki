@@ -2217,6 +2217,9 @@ function wikiplugin_trackerlist($data, $params)
             if (! empty($compute) && ! empty($items['data'])) {
                 $fs = preg_split('/ *: */', $compute);
                 foreach ($fs as $fieldId) {
+                    if (empty($passfields[$fieldId])) {
+                        continue;
+                    }
                     if (strstr($fieldId, "/")) {
                         list($fieldId, $oper) = preg_split('/ *\/ */', $fieldId);
                         $oper = strtolower($oper);
@@ -2228,6 +2231,7 @@ function wikiplugin_trackerlist($data, $params)
                     } else {
                         $oper = 'sum';
                     }
+                    $amount = [];
                     foreach ($items['data'] as $i => $item) {
                         foreach ($item['field_values'] as $field) {
                             if ($field['fieldId'] == $fieldId) {
@@ -2243,7 +2247,7 @@ function wikiplugin_trackerlist($data, $params)
                         }
                     }
                     $value = array_sum($amount);
-                    if ($oper == 'avg') {
+                    if ($oper == 'avg' && count($amount) > 0) {
                         $value = round($value / count($amount));
                     }
                     $computedFields[$fieldId][] = array_merge(['computedtype' => 'n', 'operator' => $oper, 'value' => $value], $passfields[$fieldId]);
