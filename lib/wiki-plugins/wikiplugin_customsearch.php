@@ -446,6 +446,8 @@ window.customsearch_$id = customsearch$id;
         $name = $match->getName();
         $arguments = $parser->parse($match->getArguments());
         $key = $match->getInitialStart();
+        // Provide a default value for the `_filter` key.
+        $filter = $arguments['_filter'] ?? '';
         $fieldid = "customsearch_{$id}_$key";
         if (isset($arguments['id'])) {
             $fieldid = $arguments['id'];
@@ -466,7 +468,7 @@ window.customsearch_$id = customsearch$id;
                     $default = $value;
                     unset($defaultRequest[$key]);
                     break;
-                } elseif (empty($arguments['id']) && empty($arguments['_field']) && $key === $arguments['_filter']) {
+                } elseif (empty($arguments['id']) && empty($arguments['_field']) && $key === $filter) {
                     $default = $value;
                     unset($defaultRequest[$key]);
                     break;
