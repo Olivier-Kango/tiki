@@ -49,7 +49,8 @@ function wikiplugin_survey_info()
 
 function wikiplugin_survey($data, $params)
 {
-    global $tiki_p_take_survey;
+    global $tiki_p_take_survey, $srvlib;
+    include_once('lib/surveys/surveylib.php');
     if ($tiki_p_take_survey != 'y') {
         return '';
     }
@@ -59,9 +60,10 @@ function wikiplugin_survey($data, $params)
         return '';
     }
 
+    $survey_info = $srvlib->get_survey($params['id']);
     // Check if user has taken this survey
     global $tiki_p_admin, $tikilib, $user;
-    if ($tiki_p_admin != 'y') {
+    if ($tiki_p_admin !== 'y' || $survey_info['restriction'] === 'y') {
         if ($tikilib->user_has_voted($user, 'survey' . $params['id'])) {
             include_once('lib/wiki-plugins/wikiplugin_remarksbox.php');
             return wikiplugin_remarksbox(
@@ -71,8 +73,6 @@ function wikiplugin_survey($data, $params)
         }
     }
 
-    global $srvlib;
-    include_once('lib/surveys/surveylib.php');
     $questions = $srvlib->list_survey_questions($params['id'], 0, -1, 'position_asc', '');
 
     $error_msg = '';
@@ -90,8 +90,6 @@ function wikiplugin_survey($data, $params)
             }
         }
     }
-
-    $survey_info = $srvlib->get_survey($params['id']);
 
     $smarty = TikiLib::lib('smarty');
     $smarty->assign('surveyId', $params['id']);
