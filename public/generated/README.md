@@ -1,0 +1,1 @@
+* Any compiled or downloaded files to be served directly by the webserver.  Similar to the dist folder in pure JavaScript projects.  Empty in Git but filled in the tarballs.  Should not be backed up

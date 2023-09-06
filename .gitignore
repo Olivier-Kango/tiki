@@ -73,6 +73,7 @@ report.xml
 /profiles/info.ini
 /profiles/*.yml
 /profiles/*/*
+/public/generated/js
 
 /storage/tiki-manager
 /storage/public/*

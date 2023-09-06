@@ -1,0 +1,12 @@
+{
+  "name": "emoji-picker",
+  "version": "0.1.0",
+  "scripts": {
+
+  },
+  "dependencies": {
+    "emoji-mart-vue-fast": "^12.0.2"
+  },
+  "devDependencies": {
+  }
+}

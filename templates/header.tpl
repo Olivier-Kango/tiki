@@ -249,14 +249,14 @@
     <script type="importmap">
         {
             "imports": {
-                {* For development you can use "vue": "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.39/vue.esm-browser.min.js", *}
-                "vue": "{$tikiroot}storage/public/vue-mf/root-config/vue.esm-browser.prod.js",
-                "@vue-mf/styleguide": "{$tikiroot}storage/public/vue-mf/styleguide/vue-mf-styleguide.min.js",
-                "@vue-mf/root-config": "{$tikiroot}storage/public/vue-mf/root-config/vue-mf-root-config.min.js",
-                "@vue-mf/kanban": "{$tikiroot}storage/public/vue-mf/kanban/vue-mf-kanban.min.js",
-                "@vue-mf/duration-picker": "{$tikiroot}storage/public/vue-mf/duration-picker/vue-mf-duration-picker.min.js",
-                "@vue-mf/toolbar-dialogs": "{$tikiroot}storage/public/vue-mf/toolbar-dialogs/vue-mf-toolbar-dialogs.min.js",
-                "@vue-mf/emoji-picker": "{$tikiroot}storage/public/vue-mf/emoji-picker/vue-mf-emoji-picker.min.js"
+                "vue": "{$tikiroot}public/generated/js/vendor_bundled_js/vue.esm-browser.prod.js", 
+                "@vue-mf/root-config": "{$tikiroot}public/generated/js/root-config/root-config.js",
+                "@vue-mf/styleguide": "{$tikiroot}public/generated/js/styleguide.js", 
+                {*"@vue-mf/kanban": "{$tikiroot}public/generated/js/main.js",*}
+                "@vue-mf/kanban": "{$tikiroot}public/generated/js/kanban.js",
+                "@vue-mf/duration-picker": "{$tikiroot}public/generated/js/duration-picker.js",
+                "@vue-mf/toolbar-dialogs": "{$tikiroot}public/generated/js/toolbar-dialogs.js",
+                "@vue-mf/emoji-picker": "{$tikiroot}public/generated/js/emoji-picker.js"
             }
         }
     </script>
