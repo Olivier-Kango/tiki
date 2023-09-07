@@ -313,7 +313,7 @@ if ( \$('#$id') ) {
 "
                 );
 
-                $displayIcon = $prefs['wiki_edit_icons_toggle'] != 'y' || isset($_COOKIE['wiki_plugin_edit_view']) ? $_COOKIE['wiki_plugin_edit_view'] : true;
+                $displayIcon = $prefs['wiki_edit_icons_toggle'] != 'y' || (isset($_COOKIE['wiki_plugin_edit_view']) && $_COOKIE['wiki_plugin_edit_view']);
 
                 $ret .= '~np~' .
                         '<a id="' . $id . '" href="javascript:void(1)" class="editplugin"' . ($displayIcon ? '' : ' style="display:none;"') . '>' .
