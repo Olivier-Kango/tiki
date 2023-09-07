@@ -70,8 +70,15 @@ class QueryBuilder
         if ($node instanceof Token && count($fields) == 1 && $this->getQuoted($node) === $this->pdo_client->quote('')) {
             $field = $this->getField($node);
             Index::addSearchedField($node->getField(), 'others');
-            $value = $this->getQuoted($node);
-            return "$field = $value";
+            $mapping = $this->index ? $this->index->getFieldMapping($field) : new stdClass();
+            if (isset($mapping['types']) && (in_array('multi', $mapping['types']) || in_array('mva', $mapping['types']))) {
+                $key = 'tf_' . uniqid();
+                $this->select[$key] = 'LENGTH(' . $field . ')';
+                return "$key = 0";
+            } else {
+                $value = $this->getQuoted($node);
+                return "$field = $value";
+            }
         }
 
         try {
