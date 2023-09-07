@@ -101,14 +101,27 @@ class PdoClient
         $this->deleteIndex(self::distributedIndexName());
 
         $list = [];
+        $bindvars = [];
+        $agents = [];
         foreach ($names as $key => $name) {
             $def = $this->parseDistributedIndexDefinition($name);
-            $list[] = $def['type'] . '=?';
-            $names[$key] = preg_replace('/\|\d+:/', ':', $name);
+            if ($def['type'] == 'agent') {
+                $key = $def['host'] . ':' . $def['port_agent'];
+                if (! isset($agents[$key])) {
+                    $agents[$key] = [];
+                }
+                $agents[$key][] = $def['index'];
+            } else {
+                $list[] = $def['type'] . '=?';
+                $bindvars[] = $def['index'];
+            }
         }
-
+        foreach ($agents as $key => $indices) {
+            $list[] = 'agent=?';
+            $bindvars[] = $key . ':' . implode(',', $indices);
+        }
         $stmt = $this->pdo->prepare("CREATE TABLE " . self::distributedIndexName() . " type='distributed' " . join(' ', $list));
-        $this->executeWithRetry($stmt, array_values($names));
+        $this->executeWithRetry($stmt, $bindvars);
     }
 
     public function parseDistributedIndexDefinition($name)
@@ -127,7 +140,7 @@ class PdoClient
                 // table definition might come from DESC distributed table syntax which includes only one port, get the other one from extwiki table
                 $extwikis = \TikiLib::lib('admin')->list_extwiki(0, -1, 'extwikiId', '');
                 foreach ($extwikis['data'] as $extwiki) {
-                    if (preg_match('/' . $host . ':' . $ports[0] . '\|(\d+):/', $extwiki['indexname'], $m)) {
+                    if (! empty($extwiki['indexname']) && preg_match('/' . $host . ':' . $ports[0] . '\|(\d+):/', $extwiki['indexname'], $m)) {
                         $ports[1] = $m[1];
                     }
                 }
