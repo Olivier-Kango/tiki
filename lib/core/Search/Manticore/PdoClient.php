@@ -178,11 +178,13 @@ class PdoClient
             if ($def['type'] == 'agent') {
                 // remote agent definition
                 $client = new PdoClient($def['host'], $def['port_sql']);
+                foreach (explode(',', $def['index']) as $index) {
+                    $fields[$def['host'] . ':' . $def['port_agent'] . ':' . $index] = $client->describe($index);
+                }
             } else {
                 // local index
-                $client = $this;
+                $fields[$table] = $this->describe($table);
             }
-            $fields[$table] = $client->describe($def['index']);
         }
         $common = [];
         $result = array_shift($fields);
