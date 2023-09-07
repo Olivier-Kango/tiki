@@ -23,15 +23,15 @@
                 <tr>
                     <td class="odd">{tr}Votes:{/tr}</td>
                     <td class="odd">
-                        <div class="accordion accordion-flush" id="accordionFlushR{$key}">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseR{$key}" aria-expanded="false" aria-controls="flush-collapseR{$key}">
+                        <div class="accordion" id="accordionFlushR{$key}">
+                            <div class="card">
+                                <h2 class="card-header">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#flush-collapseR{$key}" aria-expanded="false" aria-controls="flush-collapseR{$key}">
                                         {$question.votes}
                                     </button>
                                 </h2>
-                                <div id="flush-collapseR{$key}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushR{$key}">
-                                    <div class="accordion-body">
+                                <div id="flush-collapseR{$key}" class="collapse" data-parent="#accordionFlushR{$key}">
+                                    <div class="card-body">
                                         <ul class="list-group list-group-flush">
                                             {foreach $question.qoptions as $qoption}
                                                 {$questionVoters = []}
@@ -63,15 +63,15 @@
                 <tr>
                     <td class="odd">{tr}Votes:{/tr}</td>
                     <td class="odd">
-                        <div class="accordion accordion-flush" id="accordionFlushS{$key}">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseS{$key}" aria-expanded="false" aria-controls="flush-collapseS{$key}">
+                        <div class="accordion" id="accordionFlushS{$key}">
+                            <div class="card">
+                                <h2 class="card-header">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#flush-collapseS{$key}" aria-expanded="false" aria-controls="flush-collapseS{$key}">
                                         {$question.votes}
                                     </button>
                                 </h2>
-                                <div id="flush-collapseS{$key}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushS{$key}">
-                                    <div class="accordion-body">
+                                <div id="flush-collapseS{$key}" class="collapse" data-parent="#accordionFlushS{$key}">
+                                    <div class="card-body">
                                         <ul class="list-group list-group-flush">
                                             {foreach $question.qoptions as $qoption}
                                                 {$questionVoters = []}
@@ -103,10 +103,10 @@
                 {foreach $question.qoptions as $j => $qoption}
                     <tr>
                         <td class="odd">
-                            <div class="accordion accordion-flush" id="accordionFlushH{$key}{$j}">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseH{$key}{$j}" aria-expanded="false" aria-controls="flush-collapseH{$key}{$j}">
+                            <div class="accordion" id="accordionFlushH{$key}{$j}">
+                                <div class="card">
+                                    <h2 class="card-header">
+                                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#flush-collapseH{$key}{$j}" aria-expanded="false" aria-controls="flush-collapseH{$key}{$j}">
                                             {if $question.type eq 'g'}
                                                 <div style="float:left">
                                                     {thumb _id=$qoption.qoption _max=40 name='thumb' style='margin:3px;'}
@@ -122,8 +122,8 @@
                                             {/if}
                                         </button>
                                     </h2>
-                                    <div id="flush-collapseH{$key}{$j}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushH{$key}{$j}">
-                                        <div class="accordion-body">
+                                    <div id="flush-collapseH{$key}{$j}" class="collapse" data-parent="#accordionFlushH{$key}{$j}">
+                                        <div class="card-body">
                                             <ul class="list-group list-group-flush">
                                                 {$questionVoters = []}
                                                 {foreach $usersthatvoted as $userthatvoted}
