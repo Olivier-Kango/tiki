@@ -371,6 +371,7 @@ function wikiplugin_pivottable($data, $params)
 
     // use default param value if not given
     $defaults = [];
+    $info = wikiplugin_pivottable_info();
     foreach ($info['params'] as $key => $value) {
         $defaults[$key] = $value['default'] ?? null;
     }
