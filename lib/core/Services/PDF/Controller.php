@@ -16,12 +16,14 @@ class Services_PDF_Controller
     {
         //write content to file
         $tableName = $input->tableName->text();
-        $tableFile = fopen("temp/" . $tableName . '_' . session_id() . ".txt", "w");
+        $fname = "temp/" . $tableName . '_' . session_id() . ".txt";
+        $tableFile = fopen($fname, "w");
         $table = $input->tableHTML->none();
         $table = $this->cleanPivotTableSvgs($table);
         fwrite($tableFile, $table);
+        fclose($tableFile);
         //create session array to hold temp tables for printing, table original name and file name
-        chmod($tableFile, 0755);
+        chmod($fname, 0755);
     }
 
     public function action_checkPDFFile()
