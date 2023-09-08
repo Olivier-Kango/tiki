@@ -145,13 +145,13 @@ function smarty_function_button($params, $smarty)
             }
         }
 
-        $auto_query_args_orig = $auto_query_args;
+        $auto_query_args_copy = $auto_query_args;
         if (! empty($params['_auto_args'])) {
             if ($params['_auto_args'] != '*') {
-                if (! isset($auto_query_args)) {
-                    $auto_query_args = null;
+                if (! isset($auto_query_args_copy)) {
+                    $auto_query_args_copy = null;
                 }
-                $auto_query_args = explode(',', $params['_auto_args']);
+                $auto_query_args_copy = explode(',', $params['_auto_args']);
             }
         } else {
             $params['_noauto'] = 'y';
@@ -164,7 +164,7 @@ function smarty_function_button($params, $smarty)
                     $k[0] != '_'
                     && $k != 'href'
                     && $k != 'data'
-                    && (empty($auto_query_args) || ! in_array($k, $auto_query_args))
+                    && (empty($auto_query_args_copy) || ! in_array($k, $auto_query_args_copy))
                 ) {
                     unset($params[$k]);
                 }
@@ -221,8 +221,6 @@ function smarty_function_button($params, $smarty)
     }
 
     $type = isset($params['_type']) ? $params['_type'] : 'primary';
-
-    $auto_query_args = $auto_query_args_orig;
     $html = preg_replace('/<a /', '<a class="btn btn-' . $type . ' ' . $class . '" target="' . $target . '" data-role="button" data-inline="true" ' . $id . ' ', $html);
 
     return $html;
