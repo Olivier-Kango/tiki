@@ -4,6 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
 function wikiplugin_iframe_info()
 {
     return [
@@ -35,6 +36,22 @@ function wikiplugin_iframe_info()
                 'since' => '3.2',
                 'filter' => 'text',
                 'default' => '',
+            ],
+            'id' => [
+                'required' => false,
+                'name' => tra('Id'),
+                'description' => tra('HTML id for the iframe.'),
+                'filter' => 'text',
+                'default' => '',
+                'since' => '26.1',
+            ],
+            'class' => [
+                'required' => false,
+                'name' => tra('Class'),
+                'description' => tra('Class for the iframe.'),
+                'filter' => 'text',
+                'default' => '',
+                'since' => '26.1',
             ],
             'width' => [
                 'safe' => true,
@@ -137,7 +154,7 @@ function wikiplugin_iframe_info()
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('16 by 9'), 'value' => '16by9'],
-                    ['text' => tra('4 by 3'), 'value' => '4by4'],
+                    ['text' => tra('4 by 3'), 'value' => '4by3'],
                     ['text' => tra('no'), 'value' => 'no'],
                 ]
             ],
@@ -147,18 +164,39 @@ function wikiplugin_iframe_info()
 
 function wikiplugin_iframe($data, $params)
 {
+    if (! isset($params['src']) && ! empty($data)) {
+        $params['src'] = $data;
+    }
 
+    return renderIframe($params);
+}
+
+// This function is used by the pluginAjaxLoad and pluginIFrame to render the iframe
+function renderIframe($params)
+{
     extract($params, EXTR_SKIP);
     if (isset($responsive) and $responsive != 'no' and $responsive != 'n') {
         if ($responsive == '4by3') {
-            $ret = '<div class="embed-responsive embed-responsive-4by3"><iframe class="embed-responsive-item" ';
+            $ret = '<div class="embed-responsive embed-responsive-4by3"><iframe class="embed-responsive-item ';
         } else {
-            $ret = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" ';
+            $ret = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item ';
+        }
+
+        if (isset($class)) {
+            $ret .= $class . '"';
+        } else {
+            $ret .= '"';
         }
     } else {
         $ret = '<iframe ';
+        if (isset($class)) {
+            $ret .= " class=\"$class\"";
+        }
     }
 
+    if (isset($id)) {
+        $ret .= " id=\"$id\"";
+    }
     if (isset($name)) {
         $ret .= " name=\"$name\"";
     }
@@ -188,13 +226,11 @@ function wikiplugin_iframe($data, $params)
     }
     if (isset($src)) {
         $ret .= " src=\"$src\"";
-    } elseif (! empty($data)) {
-        $ret .= " src=\"$data\"";
     }
     if (isset($responsive) and $responsive != 'no' and $responsive != 'n') {
-        $ret .= ">$data</iframe></div>";
+        $ret .= "></iframe></div>";
     } else {
-        $ret .= ">$data</iframe>";
+        $ret .= "></iframe>";
     }
     return $ret;
 }

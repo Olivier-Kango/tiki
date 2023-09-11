@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+require_once(__DIR__ . '/wikiplugin_iframe.php');
+
 function wikiplugin_ajaxload_info()
 {
 
@@ -18,6 +21,19 @@ function wikiplugin_ajaxload_info()
         'validate' => 'all',
         'body' => tra('JavaScript to run when the data is loaded, the incoming HTML is in a variable called data. You can modify that variable\'s contents to customise the HTML.'),
         'params' => [
+            'mode' => [
+                'required' => false,
+                'name' => tra('Mode'),
+                'description' => tra('Choose whether to load data into an HTML div using Ajax or in an iframe.'),
+                'since' => '26.1',
+                'filter' => 'word',
+                'default' => 'div',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => 'Div', 'value' => 'div'],
+                    ['text' => 'IFrame', 'value' => 'iframe'],
+                ]
+            ],
             'url' => [
                 'required' => true,
                 'name' => tra('URL'),
@@ -77,6 +93,34 @@ function wikiplugin_ajaxload_info()
                 'default' => 'auto',
                 'since' => '14.1',
             ],
+            'scrolling' => [
+                'required' => false,
+                'name' => tra('Scrolling'),
+                'description' => tra('Choose whether to add a scroll bar'),
+                'since' => '26.1',
+                'filter' => 'word',
+                'default' => '',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 'yes'],
+                    ['text' => tra('No'), 'value' => 'no'],
+                    ['text' => tra('Auto'), 'value' => 'auto'],
+                ]
+            ],
+            'responsive' => [
+                'required' => false,
+                'name' => tra('Responsive'),
+                'description' => tra('Make the display responsive so that browsers determine dimensions based on the width of their containing block by creating an intrinsic ratio that will properly scale on any device.'),
+                'since' => '26.1',
+                'filter' => 'word',
+                'default' => '16by9',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('16 by 9'), 'value' => '16by9'],
+                    ['text' => tra('4 by 3'), 'value' => '4by3'],
+                    ['text' => tra('no'), 'value' => 'no'],
+                ]
+            ],
             'absolutelinks' => [
                 'required' => false,
                 'name' => tra('Make Links Absolute'),
@@ -103,7 +147,7 @@ function wikiplugin_ajaxload($data, $params)
     $instance++;
 
     if (empty($params['url'])) {
-        return '<span class="alert-danger">' . tra('Parameter URL missing') . '</span>';
+        return WikiParser_PluginOutput::userError(tr('Parameter "URL" is missing'));
     }
 
     $plugininfo = wikiplugin_ajaxload_info();
@@ -123,7 +167,7 @@ function wikiplugin_ajaxload($data, $params)
     $attributes = empty($params['class']) ? '' : ' class="' . $params['class'] . '"';
     $attributes .= ' width="' . $params['width'] . '" height="' . $params['height'] . '"';
 
-    if ($prefs['javascript_enabled'] === 'y') {
+    if ($params['mode'] === 'div') {
         if ($params['target']) {
             $html = '';
             $id = $params['target'];
@@ -179,8 +223,11 @@ function wikiplugin_ajaxload($data, $params)
         $el.tikiModal();
     });
 })(jQuery);');
-    } else {        // no js
-        $html = "<iframe src=\"{$params['url']}\" id=\"$id\"$attributes></iframe>";
+    } else {
+        $params['src'] = $params['url'];
+        unset($params['url'], $params['mode'], $params['selector'], $params['target'], $params['absolutelinks']);
+
+        $html = renderIframe($params);
     }
 
     return $html;
