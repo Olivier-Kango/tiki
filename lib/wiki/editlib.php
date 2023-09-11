@@ -1614,6 +1614,10 @@ class EditLib
                 $converted = preg_replace($pattern, "$1<$2", $converted);
             }
 
+            // bring back wiki syntax new lines
+            $pattern = "/\n?(?<![^%]\d)%%%/";
+            $converted = preg_replace($pattern, "<br />", $converted);
+
             $converted = preg_replace('/^(#+)\s+(.+?)/m', "$1 $2", $converted);
         } else {
             // convert to tiki syntax

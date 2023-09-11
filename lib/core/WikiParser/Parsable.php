@@ -481,13 +481,17 @@ if ( \$('#$id') ) {
 
         $func_name = 'wikiplugin_' . $name;
 
-        $plugins_parsing_data = ['accordion', 'benchmark', 'button', 'fade', 'footnote', 'gdgraph', 'html', 'htmlfeed', 'markdown', 'pdfpage', 'quote',
+        $plugins_parsing_data = ['accordion', 'benchmark', 'button', 'code', 'fade', 'footnote', 'gdgraph', 'html', 'htmlfeed', 'markdown', 'pdfpage', 'quote',
                                 'registermemberpayment', 'rr_info', 'shorten', 'slideshowslide', 'swiper', 'tabs', 'tour', 'tracker', 'trackerquerytemplate'];
-        if (($this->option['is_markdown'] ?? false) && ! preg_match('/\{.*\}/', $data) && ! in_array($name, $plugins_parsing_data)) {
+        if (($this->option['is_markdown'] ?? false) && ! in_array($name, $plugins_parsing_data)) {
+            $temp_nonparsed = [];
+            $this->plugins_remove($data, $temp_nonparsed);
             $parsable = new WikiParser_ParsableMarkdown($data);
             $parsable->setOptions($this->option);
             $data = $parsable->wikiParse($data);
             $data = preg_replace('/^\s*<p>(.*)<\/p>\s*$/s', '$1', $data);
+            $this->plugins_replace($data, $temp_nonparsed);
+            unset($temp_nonparsed);
         }
 
         if (! $validationPerformed && ! ($this->option['wysiwyg'] ?? false)) {
