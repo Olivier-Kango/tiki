@@ -3789,8 +3789,16 @@ class TikiLib extends TikiDb_Bridge
             $bindvars = empty($bindvars) ? $join_bindvars : array_merge($join_bindvars, $bindvars);
         }
 
+        if ($onlyCant) {
+            $select = 'tp.`pageName`';
+        } elseif ($onlyName) {
+            $select = 'tp.`pageName`, tp.`creator`';
+        } else {
+            $select = 'tp.* ' . $select;
+        }
+
         $query = "select $distinct"
-            . ( $onlyCant ? "tp.`pageName`" : "tp.* " . $select )
+            . $select
             . " from `tiki_pages` as tp $join_tables $mid order by " . $this->convertSortMode($sort_mode);
         $countquery = "select count($distinct tp.`pageName`) from `tiki_pages` as tp $join_tables $mid";
         $pageCount = $this->getOne($countquery, $bindvars);
