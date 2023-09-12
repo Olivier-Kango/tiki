@@ -383,6 +383,9 @@ class ReconcileExifIptcXmp
      */
     private function addFakeFields($omni)
     {
+        if (empty($omni['iptc']) || empty($omni['xmp'])) {
+            return $omni;
+        }
         if (array_key_exists('2#060', $omni['iptc']['flat'])) {
             if (array_key_exists('DateTimeOriginal', $omni['exif']['flat'])) {
                 $omni['exif']['flat']['DateTimeOriginalTime'] = $omni['exif']['flat']['DateTimeOriginal'];
