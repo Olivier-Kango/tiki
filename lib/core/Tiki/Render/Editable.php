@@ -63,6 +63,9 @@ class Tiki_Render_Editable
         $label = smarty_modifier_escape($this->label);
 
         $value = $this->inner;
+        if (is_null($value)) {
+            $value = '';
+        }
         if (trim(strip_tags($value)) == '') {
             // When the value is empty, make sure it becomes visible/clickable
             $value .= '&nbsp;';
