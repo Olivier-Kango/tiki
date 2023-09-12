@@ -764,7 +764,7 @@ class TrackerLib extends TikiLib
                     && empty($trac['links']) && $trac['type'] != 's'
                     && $trac['type'] != 'STARS' && $trac['type'] != 'h'
                     && $trac['type'] != 'l' && $trac['type'] != 'W')
-                    && ! ($trac['options_array'][0] == 'password' && $trac['type'] == 'p')
+                    && ! ($trac['type'] == 'p' && $trac['options_array'][0] == 'password')
             ) {
                 if ($trac['type'] == 'h') {
                     if ($lastHeader > 0 && $elemSinceLastHeader == 0) {
