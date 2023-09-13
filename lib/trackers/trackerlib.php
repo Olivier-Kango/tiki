@@ -478,7 +478,7 @@ class TrackerLib extends TikiLib
 
         static $cache = [];
         $cacheKey = "$fieldId.$itemId";
-        if (isset($cache[$cacheKey])) {
+        if (isset($cache[$cacheKey]) && ! defined('TIKI_IN_TEST')) {
             return $cache[$cacheKey];
         }
 
@@ -689,7 +689,7 @@ class TrackerLib extends TikiLib
             $trackerId, $fieldId, $value, $status, $multiple,
             is_array($sortFieldIds) ? implode($sortFieldIds) : $sortFieldIds
         ]);
-        if (isset($cache[$cacheKey])) {
+        if (isset($cache[$cacheKey]) && ! defined('TIKI_IN_TEST')) {
             return $cache[$cacheKey];
         }
         $query = "select distinct tti.`itemId`, tti.`itemId` i from `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif ";
