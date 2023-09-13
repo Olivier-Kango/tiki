@@ -6424,7 +6424,12 @@ class TikiLib extends TikiDb_Bridge
      */
     public function get_memory_avail()
     {
-        return $this->get_memory_limit() - memory_get_usage(true);
+        $limit = $this->get_memory_limit();
+        if ($limit < 0) {
+            return $limit;
+        } else {
+            return $limit - memory_get_usage(true);
+        }
     }
 
     /**
@@ -6433,6 +6438,12 @@ class TikiLib extends TikiDb_Bridge
     public function get_memory_limit()
     {
         return $this->return_bytes(ini_get('memory_limit'));
+    }
+
+    public function isMemoryLow($threshold = 1048576 * 10)
+    {
+        $available_memory = TikiLib::lib('tiki')->get_memory_avail();
+        return $available_memory > 0 && $available_memory < $threshold;
     }
 
     /**
