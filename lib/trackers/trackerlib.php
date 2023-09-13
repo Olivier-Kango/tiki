@@ -491,7 +491,7 @@ class TrackerLib extends TikiLib
             }
         }
 
-        if (TikiLib::lib('tiki')->get_memory_avail() < 1048576 * 10) {
+        if (TikiLib::lib('tiki')->isMemoryLow()) {
             $cache = [];
         }
         $cache[$cacheKey] = $value;
@@ -732,7 +732,7 @@ class TrackerLib extends TikiLib
             },
             $items
         );
-        if (TikiLib::lib('tiki')->get_memory_avail() < 1048576 * 10) {
+        if (TikiLib::lib('tiki')->isMemoryLow()) {
             $cache = [];
         }
         $cache[$cacheKey] = $items;
@@ -1766,8 +1766,7 @@ class TrackerLib extends TikiLib
             }
 
             foreach ($ret1 as $res) {
-                $mem = TikiLib::lib('tiki')->get_memory_avail();
-                if ($mem > 0 && $mem < 1048576 * 10) {  // Less than 10MB left?
+                if (TikiLib::lib('tiki')->isMemoryLow()) {
                     // post an error even though it doesn't get displayed when using export as the output goes into the output file
                     Feedback::error(tr('Tracker list_items ran out of memory after %0 items.', count($ret)));
                     break;
@@ -3891,7 +3890,7 @@ class TrackerLib extends TikiLib
             $res['itemChoices'] = ! empty($res['itemChoices']) ? unserialize($res['itemChoices']) : [];
             $res['visibleBy'] = ! empty($res['visibleBy']) ? unserialize($res['visibleBy']) : [];
             $res['editableBy'] = ! empty($res['editableBy']) ? unserialize($res['editableBy']) : [];
-            if (TikiLib::lib('tiki')->get_memory_avail() < 1048576 * 10) {
+            if (TikiLib::lib('tiki')->isMemoryLow()) {
                 $cache = [];
             }
             $cache[$fieldIdOrPermName] = $res;

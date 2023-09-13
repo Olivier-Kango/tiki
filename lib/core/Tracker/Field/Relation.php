@@ -590,8 +590,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             }
         }
 
-        $available_memory = TikiLib::lib('tiki')->get_memory_avail();
-        if ($available_memory > 0 && $available_memory < 1048576 * 10) {
+        if (TikiLib::lib('tiki')->isMemoryLow()) {
             $cache = [];
         }
 
