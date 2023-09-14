@@ -102,8 +102,8 @@ if (isset($_REQUEST['su']) && $access->checkCsrf(true)) {
         $access->redirect($_SESSION['loginfrom']);
     }
 }
-$requestedUser = isset($_REQUEST['user']) ? $_REQUEST['user'] : false;
-$pass = isset($_REQUEST['pass']) ? $_REQUEST['pass'] : false;
+$requestedUser = isset($_REQUEST['user']) ? trim($_REQUEST['user']) : false;
+$pass = isset($_REQUEST['pass']) ? trim($_REQUEST['pass']) : false;
 $isvalid = false;
 $isdue = false;
 // admin is always local
