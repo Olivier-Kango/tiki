@@ -50,7 +50,9 @@ class Tracker_Item
             $info['trackerId'] = TikiLib::lib('trk')->get_tracker_for_item($info['itemId']);
         }
         $obj->info = $info;
-        $obj->definition = Tracker_Definition::get($info['trackerId']);
+        if (isset($info['trackerId'])) {
+            $obj->definition = Tracker_Definition::get($info['trackerId']);
+        }
         $obj->initialize();
 
         return $obj;
