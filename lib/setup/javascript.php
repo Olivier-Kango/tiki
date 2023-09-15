@@ -212,7 +212,7 @@ if (! timezone) {
     $jqueryTiki['carousel'] = $prefs['feature_jquery_carousel'] === 'y' ? true : false;
     $jqueryTiki['validate'] = $prefs['feature_jquery_validation'] === 'y' ? true : false;
     $jqueryTiki['zoom'] = $prefs['feature_jquery_zoom'] === 'y' ? true : false;
-    $jqueryTiki['url_fragment_guesser'] = ($prefs['feature_url_fragment_guesser'] ?? 'n') === 'y' ? true : false;
+    $jqueryTiki['url_fragment_guesser'] = ($prefs['url_fragment_guesser'] ?? 'n') === 'y' ? true : false;
 
     // Default effect
     $jqueryTiki['effect'] = $prefs['jquery_effect'];

@@ -29,5 +29,23 @@ function prefs_url_list()
             'perspective' => false,
             'default' => 'n',
         ],
+        'url_fragment_format' => [
+            'name' => tra('URL Frgament format'),
+            'description' => tra('Provides ability to change anchor format'),
+            'detail' => tra('Set to "Complete" to change the encoding and allow anchors to contain other characters in addition to ASCII letters and digits.'),
+            'type' => 'list',
+                'options' => [
+                'strict' => tra('Strict'),
+                'complete' => tra('Complete'),
+            ],
+            'default' => 'strict',
+        ],
+        'url_fragment_guesser' => [
+            'name' => tra('URL Fragment Guesser'),
+            'description' => tra('Scroll to the closest anchor when the one indicated in the URL is missing in a page.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
+
     ];
 }

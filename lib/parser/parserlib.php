@@ -2713,7 +2713,9 @@ class ParserLib extends TikiDb_Bridge
                         $title_text_base = substr($line, $hdrlevel + $addremove);
                         $title_text = $current_title_num . $title_text_base;
 
-                        $thisid = $this->getCleanAnchor($title_text, $all_anchors);
+                        // Remove HTML tags from Tiki syntax
+                        $title = preg_replace('#\<(.*?)\>#', '', $title_text);
+                        $thisid = $this->getCleanAnchor($title, $all_anchors);
 
                         // Collect TOC entry if any {maketoc} is present on the page
                         //if ( $need_maketoc !== false ) {
@@ -2753,8 +2755,10 @@ class ParserLib extends TikiDb_Bridge
                         $do_center = 0;
                         $title_text = preg_replace('/<div style="text-align: center;">(.*)<\/div>/', '\1', $title_text, 1, $do_center);
 
-                        // prevent widow words on headings - originally from http://davidwalsh.name/prevent-widows-php-javascript
-                        $title_text = preg_replace('/^\s*(.+\s+\S+)\s+(\S+)\s*$/sumU', '$1&nbsp;$2', $title_text);
+                        if ($prefs['url_fragment_format'] == 'strict') {
+                            // prevent widow words on headings - originally from http://davidwalsh.name/prevent-widows-php-javascript
+                            $title_text = preg_replace('/^\s*(.+\s+\S+)\s+(\S+)\s*$/sumU', '$1&nbsp;$2', $title_text);
+                        }
 
                         $style = $do_center ? ' style="text-align: center;"' : '';
 
@@ -3001,7 +3005,13 @@ class ParserLib extends TikiDb_Bridge
                         }
 
                         // Generate the toc entry link
-                        $tocentry_link = '#' . $tocentry['id'];
+                        if ($prefs['url_fragment_format'] == 'strict') {
+                            $tocentry_link = '#' . $tocentry['id'];
+                        } else {
+                            $tocentry_link = '#' . htmlspecialchars_decode($tocentry['id']);
+                            $tocentry_title = htmlspecialchars_decode($tocentry_title);
+                        }
+
                         if ($tocentry['pagenum'] > 1) {
                             $tocentry_link = $_SERVER['PHP_SELF'] . '?page=' . $this->option['page'] . '&pagenum=' . $tocentry['pagenum'] . $tocentry_link;
                         }
@@ -3631,10 +3641,22 @@ class ParserLib extends TikiDb_Bridge
         // Workaround pb with plugin replacement and header id
         //  first we remove hash from title_text for headings beginning
         //  with images and HTML tags
+        global $prefs;
+        $tikilib = TikiLib::lib('tiki');
         $thisid = preg_replace('/§[a-z0-9]{32}§/', '', $title_text);
-        $thisid = preg_replace('#</?[^>]+>#', '', $thisid);
-        $thisid = preg_replace('/[^a-zA-Z0-9\:\.\-\_]+/', '_', $thisid);
-        $thisid = preg_replace('/^[^a-zA-Z]*/', '', $thisid);
+        $separator = '';
+
+        // When the Anchor Format URL preference is set to "complete", anchors can contain other characters apart from ASCII letters and numbers
+        if ($prefs['url_fragment_format'] == 'complete') {
+            $thisid = $tikilib->urlFragmentString($thisid);
+            $separator = '-';
+        } else {
+            $thisid = preg_replace('#</?[^>]+>#', '', $thisid);
+            $thisid = preg_replace('/[^a-zA-Z0-9\:\.\-\_]+/', '_', $thisid);
+            $thisid = preg_replace('/^[^a-zA-Z]*/', '', $thisid);
+            $separator = '_';
+        }
+
         if (empty($thisid)) {
             $thisid = 'a' . md5($title_text);
         }
@@ -3642,7 +3664,7 @@ class ParserLib extends TikiDb_Bridge
         // Add a number to the anchor if it already exists, to avoid duplicated anchors
         if (isset($all_anchors[$thisid])) {
             $all_anchors[$thisid]++;
-            $thisid .= '_' . $all_anchors[$thisid];
+            $thisid .= $separator . $all_anchors[$thisid];
         } else {
             $all_anchors[$thisid] = 1;
         }

@@ -3037,11 +3037,5 @@ function prefs_feature_list($partial = false)
             'default' => 'n',
             'tags' => ['advanced'],
         ],
-        'feature_url_fragment_guesser' => [
-            'name' => tra('URL Fragment Guesser'),
-            'description' => tra('Scroll to the closest anchor when the one indicated in the URL is missing in a page.'),
-            'type' => 'flag',
-            'default' => 'n',
-        ],
     ];
 }

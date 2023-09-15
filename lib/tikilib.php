@@ -7196,6 +7196,11 @@ class TikiLib extends TikiDb_Bridge
 
     public function urlFragmentString($txt)
     {
+        global $prefs;
+        if ($prefs['url_only_ascii'] == 'y') {
+            $txt = $this->take_away_accent($txt);
+        }
+
         $txt = preg_replace('/[\s]+/mu', '-', trim($txt));
         $arr = mb_str_split($txt);
         $frag = "";

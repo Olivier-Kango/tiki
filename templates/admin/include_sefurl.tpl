@@ -92,6 +92,8 @@
         {preference name=feature_sefurl_title_trackeritem}
         {preference name=feature_sefurl_tracker_prefixalias}
         {preference name=url_only_ascii}
+        {preference name=url_fragment_format}
+        {preference name=url_fragment_guesser}
     </fieldset>
     {include file='admin/include_apply_bottom.tpl'}
 </form>
