@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+// $Id$
+
 /**
  * @return array
  */
@@ -13,9 +15,9 @@ function module_pagetop_hero_info()
         'name' => tr('Page Topbar Hero'),
         'description' => tr('An easy page-top hero section located in Tiki\'s topbar module zone'),
         'params' => [
-            'title' => [
-                'required' => true,
-                'name' => tr('title'),
+            'pagetitle' => [
+                'required' => false,
+                'name' => tr('Page title'),
                 'description' => tr('Page title'),
             ],
             'description' => [
@@ -24,7 +26,7 @@ function module_pagetop_hero_info()
             ],
             'breadcrumbs' => [
                 'required' => false,
-                'name' => tr('breadcrumbs'),
+                'name' => tr('Breadcrumbs'),
                 'description' => tr('Allows you to specify the navigation paths to arrive at the current page, Separate items to display with commas'),
             ],
             'content_position' => [
@@ -35,6 +37,7 @@ function module_pagetop_hero_info()
                 'filter' => 'alpha',
                 'options' => [
                     ['text' => tra('Center'), 'value' => 'center'],
+                    ['text' => tra('Left-Center'), 'value' => 'leftcenter'],
                     ['text' => tra('Top-Left'), 'value' => 'topleft'],
                     ['text' => tra('Top-Center'), 'value' => 'topcenter'],
                     ['text' => tra('Top-Right'), 'value' => 'topright'],
@@ -54,7 +57,7 @@ function module_pagetop_hero_info()
                 'description' => tra('Allows the page title to be used as title of the pagetop module (y|n)'),
                 'default' => 'n'
             ]
-        ],
+        ]
     ];
 }
 
@@ -66,19 +69,21 @@ function module_pagetop_hero($mod_reference, $module_params)
 {
     $smarty = TikiLib::lib('smarty');
 
-    $title = '';
+    $pagetitle = '';
     $breadcrumbs = [];
     if ($module_params["usepagename"] == 'y') {
-        $title = $_REQUEST['page'];
-        $breadcrumbs [] = tra("Home");
-        $breadcrumbs [] = $title;
+        $pagetitle = $_REQUEST['page'];
+        $breadcrumbs[] = tra("Home");
+        $breadcrumbs[] = $pagetitle;
     } else {
-        $title = $module_params["title"];
-        $breadcrumbs = isset($module_params["breadcrumbs"]) ? explode(",", $module_params["breadcrumbs"]) : [];
-        $breadcrumbs [] = $title;
+        $pagetitle = $module_params["pagetitle"];
+        if (! empty($module_params["breadcrumbs"])) {
+            $breadcrumbs = isset($module_params["breadcrumbs"]) ? explode(",", $module_params["breadcrumbs"]) : [];
+            $breadcrumbs[] = $pagetitle;
+        }
     }
 
-    $smarty->assign('title', $title);
+    $smarty->assign('pagetitle', $pagetitle);
     $smarty->assign('description', isset($module_params["description"]) ? $module_params["description"] : '');
     $smarty->assign('content_position', isset($module_params["content_position"]) ? $module_params["content_position"] : 'center');
     $smarty->assign('breadcrumbs', $breadcrumbs);
