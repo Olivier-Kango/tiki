@@ -31,6 +31,13 @@ function wikiplugin_prefdoc_info()
                 'since' => '17',
                 'filter' => 'text',
             ],
+            'section' => [
+                'required' => false,
+                'name' => tra('Tab-Section'),
+                'description' => tra('Show just a section of preferences of the tab. Specify the name of the section to show.'),
+                'since' => '26',
+                'filter' => 'text',
+            ],
         ],
     ];
 }
@@ -59,6 +66,10 @@ function wikiplugin_prefdoc($data, $params)
 
     if (! isset($params['tab'])) {         // if no tab specified, return a list of available tabs
         return $Doc->genPrefCodes();
+    }
+
+    if (isset($params['section'])) {
+        $params['tab'] .= '-' . $params['section'];
     }
 
     if (! $Doc->genPrefHistory($params['tab'], @$params['img'])) {
@@ -461,6 +472,7 @@ class PrefsDoc extends TWVersion
         $file = file_get_contents('templates/admin/' . $fileName);
         $fileName = substr(substr($fileName, 8), 0, -4);                        // prepare the file name for further use
         $count = preg_match_all('/{tab name="?\'?(?:{tr})?([\w\s]*)(?:{\/tr})?"?\'?.*?}([\w\W]*?){\/tab}/i', $file, $tabs);
+        $tabPrefs = [];
         if ($count) {
             while ($count >= 1) {
                 $count--;
@@ -472,13 +484,77 @@ class PrefsDoc extends TWVersion
                         $tabPrefs[$fileName . '-' . $tabs[1][$count]][$pref] = $this->PrefVars[$pref];                        // Add full pref info in right order
                     }
                 }
+                // Also generate prefs for each section of the tab and add them to $tabPrefs
+                $tabPrefs = array_merge($tabPrefs, $this->retrievePrefs($tabs[2][$count], $fileName, $tabs[1][$count]));
             }
         } elseif (preg_match_all('/{preference.*name="?\'?(\w*)"?\'?.*}/i', $file, $prefs)) {
             foreach ($prefs[1] as $pref) {
                 $tabPrefs[$fileName][$pref] = $this->PrefVars[$pref];            // Add full pref info in right order
             }
+            // Also generate prefs for each section of the tab and add them to $tabPrefs
+            $tabPrefs = array_merge($tabPrefs, $this->retrievePrefs($file, $fileName));
         }
 
+        return $tabPrefs;
+    }
+
+    /**
+     *
+     * Retrieve all parent and child tags
+     *
+     * @param $text string text whose tags must be retrieved
+     * @param $tag string the tag to retrieve
+     *
+     * @return array empty|content of retrieved tags
+     */
+    private function retrieveParentAndChildTags($text, $tag = '')
+    {
+        $doc = new DOMDocument();
+        $doc->loadHTML($text);
+
+        $tags = $doc->getElementsByTagName("$tag");
+
+        $tagsContents = [];
+        foreach ($tags as $tag) {
+            $tagsContents[] = $tag->textContent;
+        }
+        return $tagsContents;
+    }
+
+    /**
+     *
+     * retrieve prefs
+     *
+     * @param $tab string The tab that contain prefs or empty if there is none
+     * @param $data string Text whose prefs must be retrieved
+     * @param $fileName string Name of the file containing prefs
+     *
+     * @return array empty|retrieved prefs
+     */
+    private function retrievePrefs($data, $fileName, $tab = '')
+    {
+        $fieldsets = $this->retrieveParentAndChildTags($data, 'fieldset');
+        $tabPrefs = [];
+
+        if (! empty($tab)) {
+            $tab = '-' . $tab;
+        }
+        foreach ($fieldsets as $index => $fieldset) {
+            // get legend and use it as section name
+            $legend_array = [];
+            preg_match_all('/{tr}(.*?){\/tr}/s', $fieldset, $legend_array);
+            $legend = isset($legend_array[1][0]) ? $legend_array[1][0] : $index;
+            $legend = mb_ereg_replace('\W', '', strtolower($legend));
+
+            $fieldset_prefs = [];
+            preg_match_all('/{preference.*name="?\'?(\w*)"?\'?.*}/i', $fieldset, $fieldset_prefs);
+
+            foreach ($fieldset_prefs[1] as $fieldset_pref) {
+                if ($this->PrefVars[$fieldset_pref]['name']) {
+                    $tabPrefs[$fileName . $tab . '-' . $legend][$fieldset_pref] = $this->PrefVars[$fieldset_pref];
+                }
+            }
+        }
         return $tabPrefs;
     }
 
