@@ -916,6 +916,8 @@ try {
         $smarty->display('tiki-print.tpl');
     } elseif (isset($_REQUEST['pdf'])) {
         $smarty->assign('print_page', 'y');
+        //skip_footer controls the inclusion of the footer in templates\tiki-print.tpl, so that it is not included more than once when an item is converted to PDF.
+        $smarty->assign('skip_footer', 'y');
         $trackerData = $smarty->fetch('tiki-print.tpl');
         //getting comments associated with tracker item
         $broker = TikiLib::lib('service')->getBroker();

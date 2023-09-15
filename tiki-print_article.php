@@ -245,6 +245,8 @@ if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'pdf') {
     require_once 'lib/pdflib.php';
     $page = $article_data["title"];
     $smarty->assign('print_page', 'n');
+    //skip_footer controls the inclusion of the footer in templates\tiki-print_article.tpl, so that it is not included more than once when an article is converted to PDF.
+    $smarty->assign('skip_footer', 'y');
     $smarty->assign('preview', 'y');
     ob_start();
     $smarty->display("tiki-print_article.tpl");
