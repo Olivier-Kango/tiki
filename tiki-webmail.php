@@ -142,8 +142,19 @@ $smarty->display('tiki.tpl');
  */
 function createPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin, $header_cc)
 {
+    if (empty($header_cc)) {
+        $headerCcRow = '';
+    } else {
+        $headerCcRow = <<<END
+        <tr class="header_to">
+          <th>Cc</th>
+          <td>$header_cc</td>
+        </tr>
+        END;
+    }
+
     return <<<END
-    <<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
   <meta name="robots" content="noindex, nofollow">
@@ -165,22 +176,6 @@ function createPage($header_subject, $header_date, $header_from, $header_to, $ms
 <body class="tiki tiki-webmail tiki-cypht" >
   <main class="content_cell" style="display: table-cell; padding: 35px 35px 0px 35px; margin-bottom: 35px;">
     <div class="msg_text">
-      <table>
-        <colgroup>
-          <col class="header_name_col">
-          <col class="header_val_col">
-        </colgroup>
-        <tbody>
-          <tr height="14px">
-            <td width="143" style="padding-left: 35px;">
-              <h1 color="#777">WEBMAIL</h1>
-            </td>
-            <td align="right" style="padding-top: 35px; padding-right: 35px;">
-              <font size="-1" color="#777"><b>$header_to</b></font>
-            </td>
-          </tr>
-        </tbody>
-      </table>
       <hr>
       <table>
         <colgroup>
@@ -215,10 +210,7 @@ function createPage($header_subject, $header_date, $header_from, $header_to, $ms
             <th>To</th>
             <td>$header_to</td>
           </tr>
-          <tr class="header_to">
-            <th>Cc</th>
-            <td>$header_cc</td>
-          </tr>
+          $headerCcRow
           <tr>
             <td class="header_space" colspan="2"></td>
           </tr>
