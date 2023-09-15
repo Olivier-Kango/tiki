@@ -851,3 +851,41 @@ class Hm_Output_pass_redirect_url extends Hm_Output_Module
         $this->out('tiki_redirect_url', $url);
     }
 }
+
+/**
+ * @subpackage smtp/handler
+ */
+class Hm_Handler_tiki_load_smtp_is_imap_forward extends Hm_Handler_Module
+{
+    public function process()
+    {
+        if (! $this->module_is_supported('imap')) {
+            return;
+        }
+        $list_path = $this->request->get['list_path'];
+        if (array_key_exists('forward', $this->request->get)) {
+            if (! preg_match("/tracker_folder_(\d+)_(\d+)/", $list_path, $m)) {
+                return;
+            }
+            $email = tiki_parse_message($list_path, $this->request->get['uid']);
+            if (! $email) {
+                return;
+            }
+            $message = $email['message_raw'];
+            $attached_files = [];
+            foreach ($message->getAllAttachmentParts() as $att) {
+                $new_attachment['basename'] = $att->getFilename();
+                $new_attachment['name'] = $att->getFilename();
+                $new_attachment['type'] = $att->getContentType();
+                $new_attachment['size'] = strlen($att->getContent());
+                $file_path = $this->config->get('attachment_dir') . DIRECTORY_SEPARATOR . $new_attachment['name'];
+                $content = Hm_Crypt::ciphertext($att->getContent(), Hm_Request_Key::generate());
+                file_put_contents($file_path, $content);
+                $new_attachment['tmp_name'] = $file_path;
+                $new_attachment['filename'] = $file_path;
+                $attached_files[$this->request->get['uid']][] = $new_attachment;
+            }
+            $this->session->set('uploaded_files', $attached_files);
+        }
+    }
+}

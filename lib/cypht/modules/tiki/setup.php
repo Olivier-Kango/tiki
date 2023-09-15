@@ -59,6 +59,7 @@ add_output('ajax_hm_folders', 'tiki_contacts_page_link', true, 'tiki', 'logout_m
 /* compose page handlers */
 add_handler('compose', 'check_for_tiki_redirect', true, 'smtp', 'process_compose_form_submit', 'after');
 add_handler('compose', 'add_file_attachment', true, 'smtp', 'load_smtp_servers_from_config', 'before');
+add_handler('compose', 'tiki_load_smtp_is_imap_forward', true, 'smtp', 'load_smtp_is_imap_forward', 'after');
 
 /* message page calendar invitation hooks */
 add_handler('ajax_imap_message_content', 'check_calendar_invitations_imap', true, 'imap', 'imap_message_content', 'after');
