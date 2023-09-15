@@ -1537,6 +1537,11 @@ class EditLib
                 return "{tikiheading level=$level options=$matches[2]}" . trim($matches[3]) . "{/tikiheading}";
             }, $data);
             $data = preg_replace('/~~(.+?):(.+?)~~/', '{HTML()}<span style="color:$1">$2</span>{HTML}', $data);
+            $data = preg_replace_callback('/\{VERSIONS\(.*\)\}(.+)\{VERSIONS\}/s', function ($matches) {
+                return preg_replace_callback('/^-+\(.*?\)-+/m', function ($innerMatches) {
+                    return str_replace('-', '@-', $innerMatches[0]);
+                }, $matches[0]);
+            }, $data);
         }
         $data = $this->convertSmileysToUnicode($data);
 
@@ -1619,6 +1624,11 @@ class EditLib
             $converted = preg_replace($pattern, "<br />", $converted);
 
             $converted = preg_replace('/^(#+)\s+(.+?)/m', "$1 $2", $converted);
+            $converted = preg_replace_callback('/\{VERSIONS\(.*\)\}(.+)\{VERSIONS\}/s', function ($matches) {
+                return preg_replace_callback('/^(@-)+\(.*?\)(@-)+/m', function ($innerMatches) {
+                    return str_replace('@-', '-', $innerMatches[0]);
+                }, $matches[0]);
+            }, $converted);
         } else {
             // convert to tiki syntax
             if ($source_syntax == 'tiki') {
