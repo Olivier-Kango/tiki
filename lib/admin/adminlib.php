@@ -437,7 +437,7 @@ class AdminLib extends TikiLib
      * Validates if the php version is fully compatible with OPCache.
      * @return bool
      */
-    public function checkOPCacheCompatibility()
+    public function checkOPcacheCompatibility()
     {
         return ! ((version_compare(PHP_VERSION, '7.1.0', '>=') && version_compare(PHP_VERSION, '7.2.0', '<')) //7.1.x
             || (version_compare(PHP_VERSION, '7.2.0', '>=') && version_compare(PHP_VERSION, '7.2.19', '<')) // >= 7.2.0 < 7.2.19
@@ -584,7 +584,7 @@ class AdminLib extends TikiLib
                 $opcode_stats['hit_miss'] /= $opcode_stats['hit_total'];
             }
         } elseif (function_exists('opcache_get_status') && ini_get('opcache.enable') == '1') {
-            $opcode_stats['opcode_cache'] = 'OpCache';
+            $opcode_stats['opcode_cache'] = 'OPcache';
             $status = opcache_get_status();
 
             $opcode_stats['hit_hit'] = $status['opcache_statistics']['hits'];

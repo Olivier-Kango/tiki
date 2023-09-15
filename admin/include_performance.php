@@ -20,7 +20,7 @@ if ($stat_flag) {
 $opcode_cache = $opcode_stats['opcode_cache'];
 $smarty->assign('opcode_cache', $opcode_cache);
 $smarty->assign('opcode_stats', $opcode_stats);
-$smarty->assign('opcode_compatible', $adminlib->checkOPCacheCompatibility());
+$smarty->assign('opcode_compatible', $adminlib->checkOPcacheCompatibility());
 
 $txtUsed = tr('Used');
 $txtAvailable = tr('Available');

@@ -46,7 +46,7 @@ if (isset($_REQUEST['tiki-check-ping'])) {
 }
 
 
-function checkOPCacheCompatibility()
+function checkOPcacheCompatibility()
 {
     return ! ((version_compare(PHP_VERSION, '7.1.0', '>=') && version_compare(PHP_VERSION, '7.2.0', '<')) //7.1.x
         || (version_compare(PHP_VERSION, '7.2.0', '>=') && version_compare(PHP_VERSION, '7.2.19', '<')) // >= 7.2.0 < 7.2.19
@@ -944,9 +944,9 @@ if (function_exists('apc_sma_info') && ini_get('apc.enabled')) {
 } elseif (function_exists('opcache_get_configuration') && (ini_get('opcache.enable') == 1 || ini_get('opcache.enable') == '1')) {
     $message = tra('OPcache is being used as the ByteCode Cache, which increases performance if correctly configured. See Admin->Performance in the Tiki for more details.');
     $fitness = tra('good');
-    if (! checkOPCacheCompatibility()) {
-        $message = tra('Some PHP versions may exhibit randomly issues with the OpCache leading to the server starting to fail to serve all PHP requests, your PHP version seems to
-         be affected, despite the performance penalty, we would recommend disabling the OpCache if you experience random crashes.');
+    if (! checkOPcacheCompatibility()) {
+        $message = tra('Some PHP versions may exhibit randomly issues with the OPcache leading to the server starting to fail to serve all PHP requests, your PHP version seems to
+         be affected, despite the performance penalty, we would recommend disabling the OPcache if you experience random crashes.');
         $fitness = tra('unsure');
     }
     $php_properties['ByteCode Cache'] = array(
