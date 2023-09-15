@@ -42,7 +42,7 @@ function wikiplugin_wantedpages_info()
                 'name' => tra('Skip Alias'),
                 'description' => tra('Whether to skip wanted pages that have a defined alias (not skipped by default)'),
                 'since' => '12.1',
-                'default' => 0,
+                'default' => 1,
                 'filter' => 'digits',
                 'options' => [
                     ['text' => '', 'value' => ''],
@@ -134,7 +134,7 @@ class WikiPluginWantedPages extends PluginsLib
     {
         return [    'ignore' => '', // originating pages to be ignored
                         'splitby' => '+', // split ignored pages by this character
-                        'skipalias' => 0, // false, count a page alias as a wanted page
+                        'skipalias' => 1, // true, skip a page alias as a wanted page
                         'skipext' => 0, // false, display external wiki links
                         'collect' => 'from', // display (and sort) wanted pages in the first column,
                         // collect originating pages in the second column (and separate them by table parameter)
@@ -172,7 +172,7 @@ class WikiPluginWantedPages extends PluginsLib
             $splitby = '+';
         }
         if (! isset($skipalias)) {
-            $skipalias = false;
+            $skipalias = 1;
         }
         if (! isset($skipext)) {
             $skipext = false;
@@ -269,17 +269,26 @@ class WikiPluginWantedPages extends PluginsLib
             // test whether toPage is a valid wiki page under current syntax
             if ($dashWikiWord && ! $WikiWord) { // a Dashed-WikiWord, can we allow this?
                 if (($prefs['feature_wikiwords'] != 'y') || ($prefs['feature_wikiwords_usedash'] != 'y')) {
-                    $tmp = debug_print($row, $debug, tra('dash-WikiWord'));
+                    $debugResult = debug_print($row, $debug, tra('dash-WikiWord'));
+                    if (isset($debugResult)) {
+                        $tmp = $debugResult;
+                    }
                     continue;
                 }
             } elseif ($WikiWord) { // a WikiWord, can we allow this?
                 if ($prefs['feature_wikiwords'] != 'y') {
-                    $tmp = debug_print($row, $debug, tra('WikiWord'));
+                    $debugResult = debug_print($row, $debug, tra('WikiWord'));
+                    if (isset($debugResult)) {
+                        $tmp = $debugResult;
+                    }
                     continue;
                 }
             } else { // no WikiWord, we can now filter with the level parameter
                 if (! preg_match("/^($level_reg)$/", $row['toPage'])) {
-                    $tmp = debug_print($row, $debug, tra('not in level'));
+                    $debugResult = debug_print($row, $debug, tra('not in level'));
+                    if (isset($debugResult)) {
+                        $tmp = $debugResult;
+                    }
                     continue;
                 }
             } // dashWikiWord, WikiWord, normal link
@@ -304,8 +313,8 @@ class WikiPluginWantedPages extends PluginsLib
                 if ($debug) { // modified rejected toPages with reason
                     $row[0] = '<em>' . tra($row[2]) . '</em>: ' . $row[0];
                 }
-                $row[0] = $linkin . $row[0] . $linkout; // toPages
-                $row[1] = '((' . $row[1] . '))'; // fromPages
+                $row[0] = is_object_link($row[0]) ? parse_object_link($row[0]) : ($linkin . $row[0] . $linkout); // toPages
+                $row[1] = is_object_link($row[1]) ? parse_object_link($row[1]) : '((' . $row[1] . '))'; // fromPages
 
                 // two identical keys may exist, they can either be displayed
                 // each in its own table row, or be collected in one cell, separated by
@@ -471,5 +480,35 @@ if (! function_exists('debug_print')) {
             $tmp[] = [$row['toPage'], $row['fromPage'], $message];
             return $tmp;
         }
+    }
+}
+
+//test whether fromPage or toPage is unparsed object link.
+//The Pattern of unparsed object link is objectlink:objecttype:itemId:fieldId
+if (! function_exists('is_object_link')) {
+    function is_object_link($link)
+    {
+        $parts = explode(':', $link);
+        if (strstr($link, 'objectlink:') && count($parts) >= 3) {
+            return true;
+        }
+        return false;
+    }
+}
+
+if (! function_exists('parse_object_link')) {
+    function parse_object_link($link)
+    {
+        $smarty = TikiLib::lib('smarty');
+        $smarty->loadPlugin('smarty_function_object_link');
+        $parts = explode(':', $link);
+        $data = smarty_function_object_link(
+            [
+                'type' => $parts[1],
+                'id' => $parts[2],
+            ],
+            $smarty->getEmptyInternalTemplate()
+        );
+        return $data;
     }
 }
