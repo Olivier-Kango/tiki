@@ -11,6 +11,8 @@
             </div>
         </div>
 
-{include file='footer.tpl'}
+{if empty($skip_footer) or $skip_footer ne 'y'}
+    {include file='footer.tpl'}
+{/if}
     </body>
 </html>
