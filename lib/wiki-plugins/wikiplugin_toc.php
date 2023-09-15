@@ -182,6 +182,9 @@ function wikiplugin_toc($data, $params)
         return '';
     } else {
         $structure_info = $structlib->s_get_structure_info($structId);
+        if (empty($structure_info)) {
+            return WikiParser_PluginOutput::error(tr('Error'), tr('Unable to retrieve information for structure id "%0"', $structId));
+        }
         $html = $structlib->get_toc($structId, $order, $showdesc, $shownum, $numberPrefix, $type, '', $maxdepth, $mindepth, $sortalpha, $structure_info['pageName']);
 
         return "~np~$button $html $button~/np~";
