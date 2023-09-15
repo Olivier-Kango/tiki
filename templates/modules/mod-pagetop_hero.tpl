@@ -1,22 +1,22 @@
-{tikimodule error=$module_error title=$tpl_module_title name=$tpl_module_name flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle type=$module_type}
+{tikimodule error=$module_error title=$tpl_module_title name=$tpl_module_name flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
 <div id="pagetop-hero" class="pagetop-hero w-100 p-4">
     <div class="bg-image-wrapper" id="bg-image-wrapper" {if $bgimage neq ''}style="background-image: url('{$bgimage}')"{/if}></div>
     <div class="row">
-        <div class="col-sm-12 content">
-            <h1 class="pagetop-hero-title">{$title|escape}</h1>
+        <div class="content">
+            <h1 class="pagetop-hero-title">{tr}{$pagetitle|escape}{/tr}</h1>
             {if count($breadcrumbs) gt 0}
                 <div class="breadcrumbs">
                     {foreach from=$breadcrumbs item=item name=object }
-                        {if !empty($smarty.foreach.object.last)}
-                            <span>{$item}</span>
+                        {if $smarty.foreach.object.last}
+                            <span>{tr}{$item}{/tr}</span>
                         {else}
-                            <b>{$item}</b> /
+                            <b>{tr}{$item}{/tr}</b> /
                         {/if}
                     {/foreach}
                 </div>
             {else}
                 {if $description neq ''}
-                    <p class="pagetop-hero-description">{$description|escape}</p>
+                    <p class="pagetop-hero-description">{tr}{$description|escape}{/tr}</p>
                 {/if}
             {/if}
         </div>
@@ -56,8 +56,8 @@
 
     .pagetop-hero .row .pagetop-hero-title {
         flex-wrap: wrap !important;
-        color: #fff !important;
-        width: 100% !important;
+        color: #fff;
+        width: 100%;
     }
 
     .bg-image-wrapper {
@@ -92,6 +92,20 @@
 
         .pagetop-hero {
             align-items: flex-start;
+        }
+    </style>
+{/if}
+
+{if $content_position eq 'leftcenter'}
+    <style>
+        .pagetop-hero-title,
+        .breadcrumbs,
+        .pagetop-hero-description {
+            text-align: left
+        }
+
+        .pagetop-hero {
+            align-items: center;
         }
     </style>
 {/if}
