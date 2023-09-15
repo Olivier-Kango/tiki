@@ -675,13 +675,21 @@ $(document).trigger('formSearchReady');
     }
 
     if (! empty($params['wiki'])) {
+        if (TikiLib::lib('parser')->option['is_markdown']) {
+            $out = removeNp($out);
+        }
         return $out;
     } else {
         // If using smarty tpl should assume it's all HTML
-        $out = str_replace('~np~', '', $out);
-        $out = str_replace('~/np~', '', $out);
-        return '~np~' . $out . '~/np~';
+        return '~np~' . removeNp($out) . '~/np~';
     }
+}
+
+function removeNp(string $out): string
+{
+    $out = str_replace('~np~', '', $out);
+    $out = str_replace('~/np~', '', $out);
+    return $out;
 }
 
 /**
