@@ -173,7 +173,7 @@ function wikiplugin_htmlfeedlink($data, $params)
     );
 
     $item = $htmlFeed->getItem($name);
-    $same = $date == $item->date;
+    $same = ! empty($item) ? ($date == $item->date) : false;
 
     if (! empty($item->name)) {
         $name = $item->name;
@@ -243,10 +243,12 @@ function wikiplugin_htmlfeedlink($data, $params)
     }
 
     $archives = "";
-    foreach ($htmlFeed->getItemFromDates($item->name) as $archive) {
-        $archives .= "<a href='tiki-html_feed.php?feed=" . $feed .
-            "&name=" . urlencode($archive->name) .
-            "&date=" . urlencode($archive->date) . "'>" . htmlspecialchars($archive->name) . " " . htmlspecialchars($archive->date) . "</a><br />";
+    if (! empty($item)) {
+        foreach ($htmlFeed->getItemFromDates($item->name) as $archive) {
+            $archives .= "<a href='tiki-html_feed.php?feed=" . $feed .
+                "&name=" . urlencode($archive->name) .
+                "&date=" . urlencode($archive->date) . "'>" . htmlspecialchars($archive->name) . " " . htmlspecialchars($archive->date) . "</a><br />";
+        }
     }
 
     if (strlen($archives) > 0) {
