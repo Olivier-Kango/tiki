@@ -49,6 +49,7 @@ function module_switch_color_mode($mod_reference, $module_params)
     $smarty->assign('default_icon', 'sun'); //will come from same value as on light icon name
     $headerlib = TikiLib::lib('header');
     $color_modes = json_encode(array_merge($default_themes_mode, $custom_themes_mode));
+    $prefered_mode_array = json_encode(["choice" => $prefs['theme_default_color_mode']]);
     $jqCode = ' 
     /*!
     * Color mode toggler for Bootstraps docs (https://getbootstrap.com/)
@@ -62,17 +63,17 @@ function module_switch_color_mode($mod_reference, $module_params)
    
        const getStoredTheme = () => localStorage.getItem("theme");
        const setStoredTheme = (theme) => localStorage.setItem("theme", theme);
-   
+       const prefered_mode = JSON.parse(\'' . $prefered_mode_array . '\');
        const getPreferredTheme = () => {
            const storedTheme = getStoredTheme();
            if (storedTheme) {
                return storedTheme;
            }
-           if("' . $prefs['theme_default_color_mode'] . '"=="auto"){
+           if(prefered_mode.choice=="auto"){
                 return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
            }
            else{
-                return "' . $prefs['theme_default_color_mode'] . '";
+                return prefered_mode.choice;
            }
        };
    

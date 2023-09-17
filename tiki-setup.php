@@ -171,6 +171,7 @@ try {
 } catch (Exception $e) {
     //failed to pull css variables from DB
     $prefs['custom_color_mode'] = [];
+    $prefs['color_modes_names'] = [];
 }
 
 if (! TIKI_API) {
