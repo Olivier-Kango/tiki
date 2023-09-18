@@ -5,6 +5,7 @@
 </div>
 <h2>{tr}Assign themes to categories{/tr}</h2>
 <form action="tiki-theme_control.php" method="post" class="mb-2" role="form">
+    {ticket}
     <div class="mb-3 row">
         <div class="col-sm-5">
             <label for="categoryId" class="me-2">{tr}Category{/tr}</label>
@@ -32,6 +33,7 @@
 <h2>{tr}Assigned categories{/tr}</h2>
 {include file='find.tpl'}
 <form action="tiki-theme_control.php" method="post" role="form" class="form">
+    {ticket}
     <div class="table-responsive themecat-table">
         <table class="table">
             <tr>

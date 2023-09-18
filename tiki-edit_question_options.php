@@ -57,7 +57,7 @@ if (isset($_REQUEST["remove"])) {
 }
 
 if (isset($_REQUEST["save"])) {
-    check_ticket('edit-question-options');
+    $access->checkCsrf();
     $quizlib->replace_question_option($_REQUEST["optionId"], $_REQUEST["optionText"], $_REQUEST["points"], $_REQUEST["questionId"]);
 
     $smarty->assign('optionText', '');
@@ -92,8 +92,6 @@ $channels = $quizlib->list_quiz_question_options($_REQUEST["questionId"], $offse
 $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 
 $smarty->assign_by_ref('channels', $channels["data"]);
-
-ask_ticket('edit-question-options');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

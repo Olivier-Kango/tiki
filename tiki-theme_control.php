@@ -39,7 +39,7 @@ $smarty->assign('themes', $themes);
 
 if (isset($_REQUEST['assign'])) {
     if (isset($_REQUEST['categoryId'])) {
-        check_ticket('theme-control');
+        $access->checkCsrf();
         $themecontrollib->tc_assign_category($_REQUEST['categoryId'], $_REQUEST['theme']);
     } else {
         $smarty->assign('msg', tra("Please create a category first"));
@@ -48,7 +48,7 @@ if (isset($_REQUEST['assign'])) {
     }
 }
 if (isset($_REQUEST['delete'])) {
-    check_ticket('theme-control');
+    $access->checkCsrf();
     foreach (array_keys($_REQUEST['categoryIds']) as $cat) {
         $themecontrollib->tc_remove_cat($cat);
     }
@@ -75,7 +75,6 @@ $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $themecontrollib->tc_list_categories($offset, $maxRecords, $sort_mode, $find);
 $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
-ask_ticket('theme-control');
 // Display the template
 $smarty->assign('mid', 'tiki-theme_control.tpl');
 $smarty->display("tiki.tpl");

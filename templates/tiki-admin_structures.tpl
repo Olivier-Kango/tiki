@@ -75,6 +75,7 @@
             </div>
         {/if}
         <form class="form" role="form">
+            {ticket}
             <div class="{if $js}table-responsive{/if}"> {* table-responsive class cuts off css drop-down menus *}
                 <table class="table table-striped table-hover">
                     <tr>
@@ -210,6 +211,7 @@
         {tab name="{tr}Create Structure{/tr}"}
             <h2>{tr}Create Structure{/tr}</h2>
             <form action="tiki-admin_structures.php" method="post">
+                {ticket}
                 <div class="mb-3 row">
                     <label class="col-form-label col-md-3" for="name">{tr}Structure{/tr}</label>
                     <div class="col-md-9">

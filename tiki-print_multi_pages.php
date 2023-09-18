@@ -31,7 +31,7 @@ if (! isset($_REQUEST['printpages']) && ! isset($_REQUEST['printstructures'])) {
     }
 }
 if (isset($_REQUEST["print"]) || isset($_REQUEST["display"])) {
-    check_ticket('multiprint');
+    $access->checkCsrf();
     // Create XMLRPC object
     $pages = [];
     foreach ($printpages as $page) {

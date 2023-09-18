@@ -1,4 +1,5 @@
 <form name="aform" formId='editpageform' action="{$form_action|default:'tiki-take_survey.php'}" method="post">
+{ticket}
     <input type="hidden" name="surveyId" value="{$surveyId|escape}">
     <input type="hidden" name="vote" value="yes">
     {if !isset($show_name) or $show_name eq 'y'}

@@ -15,6 +15,7 @@
         {include file='find.tpl' types='0'}
         {button _text="{tr}Save{/tr}" _style="display:none;" _class="save_list" _ajax="n" _auto_args="save_list"}
         <form action="tiki-admin_survey_questions.php" method="post" id="reorderForm">
+            {ticket}
             <input type="hidden" name="surveyId" value="{$surveyId|escape}">
             <input type="hidden" name="questionIds" value="">
         </form>
@@ -73,6 +74,7 @@
     {/tab}
     {tab name=$tablabel}
         <form action="tiki-admin_survey_questions.php" method="post">
+            {ticket}
             <input type="hidden" name="surveyId" value="{$surveyId|escape}">
             <input type="hidden" name="questionId" value="{$questionId|escape}">
             </br>

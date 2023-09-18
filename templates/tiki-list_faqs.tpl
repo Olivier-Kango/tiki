@@ -84,6 +84,7 @@
             {/if}
 
             <form action="tiki-list_faqs.php" method="post">
+                {ticket}
                 <input type="hidden" name="faqId" value="{$faqId|escape}">
                 <div class="tiki-form-group row">
                     <label class="col-form-label col-md-4">

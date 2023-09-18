@@ -1,5 +1,6 @@
 <!- templates/tiki-take_quiz.tpl start ->
 <form enctype="multipart/form-data" name="aform" action="tiki-take_quiz.php" method="post">
+    {ticket}
     <input type="hidden" name="quizId" value="{$quizId|escape}">
     <input id='timeleft' name="timeleft" type="hidden" value={$quiz_info.timeLimitsec}><br>
     {if $quiz_info.timeLimited eq 'y'}

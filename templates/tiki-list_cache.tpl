@@ -34,9 +34,14 @@
                                 </a>
                             </action>
                             <action>
-                                <a href="tiki-list_cache.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;refresh={$listpages[changes].cacheId}"">
-                                    {icon name="refresh" _menu_text='y' _menu_icon='y' alt="{tr}Refresh{/tr}"}
-                                </a>
+                                <form action="tiki-list_cache.php" method="post" >
+                                    {ticket}
+                                    <input type="hidden" name="sort_mode" value={$sort_mode}>
+                                    <input type="hidden" name="refresh" value={$listpages[changes].cacheId}>
+                                    <button type="submit" name="offset" value={$offset} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                        {icon name="refresh" _menu_text='y' _menu_icon='y' alt="{tr}Refresh{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                             <action>
                                 <a href="tiki-list_cache.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$listpages[changes].cacheId}">

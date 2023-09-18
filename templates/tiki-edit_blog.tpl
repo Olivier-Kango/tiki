@@ -23,6 +23,7 @@
 {/if}
 
 <form method="post" action="tiki-edit_blog.php" id="blog-edit-form" role="form">
+    {ticket}
     <input type="hidden" name="blogId" value="{$blogId|escape}">
     {tabset name='tabs_editblog'}
         {tab name="{tr}General Settings{/tr}"}

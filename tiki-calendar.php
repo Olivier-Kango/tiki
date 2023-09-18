@@ -264,7 +264,7 @@ $smarty->assign('display_tz', $display_tz);
 if ($prefs['feature_user_watches'] == 'y' && $user && count($_SESSION['CalendarViewGroups']) == 1) {
     $calId = $_SESSION['CalendarViewGroups'][0];
     if (isset($_REQUEST['watch_event']) && isset($_REQUEST['watch_action'])) {
-        check_ticket('calendar');
+        $access->checkCsrf();
         if ($_REQUEST['watch_action'] == 'add') {
             $tikilib->add_user_watch($user, $_REQUEST['watch_event'], $calId, 'calendar', $infocals['data'][$calId]['name'], "tiki-calendar.php?calIds[]=$calId");
         } else {

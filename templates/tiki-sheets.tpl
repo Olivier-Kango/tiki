@@ -44,6 +44,7 @@
                 {permission_link mode=link type=sheet id=$sheetId title=$name label="{tr}There are individual permissions set for this sheet{/tr}"}
             {/if}
             <form action="tiki-sheets.php" method="post" role="form">
+            {ticket}
                 <input type="hidden" name="sheetId" value="{$sheetId|escape}">
                 <div class="mb-3 row">
                     <label for="title" class="col-form-label col-sm-3">

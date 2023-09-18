@@ -38,7 +38,13 @@
                                             {/if}
 
                                             {if $user and $prefs.feature_wiki_notepad eq 'y' and $prefs.feature_notepad eq 'y' and $tiki_p_notepad eq 'y'}
-                                                <a title="{tr}Save to notepad{/tr}" href="tiki-index_p.php?page={$page|escape:"url"}&amp;savenotepad=1">{icon name='floppy' alt="{tr}Save{/tr}"}</a>
+                                                <form action="tiki-index_p.php" method="post" >
+                                                    {ticket}
+                                                    <input type="hidden" name="savenotepad" value=1>
+                                                    <button type="submit" title="{tr}Save to notepad{/tr}" name="page" value={$page|escape:"url"} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                                        {icon name='floppy' alt="{tr}Save{/tr}"}
+                                                    </button>
+                                                </form>
                                             {/if}
 
                                         </td>

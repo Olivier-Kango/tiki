@@ -55,7 +55,7 @@ if (isset($_REQUEST["remove"])) {
     $cookietab = 1;
 }
 if (isset($_REQUEST["save"])) {
-    check_ticket('admin-survey-questions');
+    $access->checkCsrf();
     $srvlib->replace_survey_question($_REQUEST["questionId"], $_REQUEST["question"], $_REQUEST["type"], $_REQUEST["surveyId"], $_REQUEST["position"], $_REQUEST["options"], isset($_REQUEST["mandatory"]) ? 'y' : 'n', $_REQUEST["min_answers"], $_REQUEST["max_answers"]);
     $info["question"] = '';
     $info["type"] = '';
@@ -109,7 +109,6 @@ for (
     $positions[] = $i;
 }
 $smarty->assign('positions', $positions);
-ask_ticket('admin-survey-questions');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template

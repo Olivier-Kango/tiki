@@ -58,7 +58,7 @@ $smarty->assign('tiki_p_add_object', $userlib->user_has_permission($user, 'tiki_
 $smarty->assign('tiki_p_freetags_tag', $userlib->user_has_permission($user, 'tiki_p_freetags_tag'));
 
 if (isset($_REQUEST["copy"]) || isset($_REQUEST["confirm"])) {
-    check_ticket('copy-page');
+    $access->checkCsrf();
     // If the new pagename does match userpage prefix then display an error
     $newName = isset($_REQUEST["confirm"]) ? $_REQUEST['badname'] : $_REQUEST['newpage'];
     if (stristr($newName, $prefs['feature_wiki_userpage_prefix']) == $newName) {
@@ -91,7 +91,6 @@ if (isset($_REQUEST["copy"]) || isset($_REQUEST["confirm"])) {
         die;
     }
 }
-ask_ticket('copy-page');
 include_once('tiki-section_options.php');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

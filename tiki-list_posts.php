@@ -18,7 +18,7 @@ if (isset($_REQUEST["remove"])) {
     $bloglib->remove_post($_REQUEST["remove"]);
 }
 if (isset($_REQUEST['checked'])) {
-    check_ticket('list_posts');
+    $access->checkCsrf();
     $checked = is_array($_REQUEST['checked']) ? $_REQUEST['checked'] : [$_REQUEST['checked']];
     // Delete post(s)
     if (isset($_REQUEST['remove']) || isset($_REQUEST['remove_x'])) {
@@ -62,7 +62,6 @@ $posts = $bloglib->list_posts($offset, $maxRecords, $sort_mode, $find, $blogId);
 $smarty->assign_by_ref('cant', $posts["cant"]);
 $smarty->assign_by_ref('posts', $posts["data"]);
 
-ask_ticket('list-posts');
 // Display the template
 $smarty->assign('mid', 'tiki-list_posts.tpl');
 $smarty->display("tiki.tpl");

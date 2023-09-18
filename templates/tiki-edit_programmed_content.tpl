@@ -21,6 +21,7 @@
 {/if}
 <br>
 <form action="tiki-edit_programmed_content.php" method="post">
+    {ticket}
     <input type="hidden" name="contentId" value="{$contentId|escape}">
     <input type="hidden" name="pId" value="{$pId|escape}">
 

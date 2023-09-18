@@ -29,6 +29,7 @@
     {/if}
     {js_maxlength textarea=message maxlength=255}
     <form action="tiki-shoutbox.php" method="post" onsubmit="return verifyForm(this);">
+        {ticket}
         <input type="hidden" name="msgId" value="{$msgId|escape}">
         <div class="mb-3 row">
             <label class="col-form-label col-md-3" for="message">{tr}Message:{/tr}</label>

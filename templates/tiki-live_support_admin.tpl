@@ -60,7 +60,12 @@
         <td style="text-align:right;">
         {if $tiki_p_live_support_admin eq 'y'}
             <a href='tiki-live_support_admin.php?removeuser={$online_operators[ix].user|escape}'><img src='img/icons/trash.gif' alt="{tr}Del{/tr}" title="{tr}Del{/tr}"></a>
-<a href='tiki-live_support_admin.php?offline={$online_operators[ix].user|escape}'><img src='img/icons/icon_unwatch.png' alt="{tr}offline{/tr}" title="{tr}offline{/tr}"></a>
+            <form action="tiki-live_support_admin.php" method="post" >
+                {ticket}
+                <button type="submit" name="offline" value={$online_operators[ix].user|escape} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                    {icon name="stop-watching" _menu_text='y' _menu_icon='y' alt="{tr}Refresh{/tr}"} {tr}offline{/tr}
+                </button>
+            </form>
         {else}
             &nbsp;
         {/if}
@@ -119,6 +124,7 @@
     <h2>{tr}Add an operator to the system{/tr}</h2>
     <br>
     <form method="post" action="tiki-live_support_admin.php">
+    {ticket}
         <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">{tr}User{/tr}</label>
             <div class="col-sm-7">

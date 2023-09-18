@@ -59,9 +59,14 @@
                 {if $prefs.feature_user_watches eq 'y' and $tiki_p_watch_trackers eq 'y'}
                     <li class="dropdown-item">
                         {if $user_watching_tracker ne 'y'}
-                            <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&amp;itemId={$itemId}&amp;watch=add">
-                                {icon name="watch"} {tr}Monitor{/tr}
-                            </a>
+                            <form action="tiki-view_tracker_item.php" method="post" >
+                                {ticket}
+                                <input type="hidden" name="itemId" value={$itemId}>
+                                <input type="hidden" name="watch" value="add">
+                                <button type="submit"  name="trackerId" value={$trackerId} class="tips btn btn-link  px-0 pt-0 pb-0">
+                                    {icon name="watch"} {tr}Monitor{/tr}
+                                </button>
+                            </form>
                         {else}
                             <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&amp;itemId={$itemId}&amp;watch=stop">
                                 {icon name="stop-watching"} {tr}Stop monitoring{/tr}
@@ -218,6 +223,7 @@
 
                 {if $tiki_p_admin_trackers eq 'y' and !empty($trackers)}
                     <form role="form">
+                        {ticket}
                         <input type="hidden" name="itemId" value="{$itemId}">
                         <select name="moveto">
                             {foreach from=$trackers item=tracker}
@@ -231,6 +237,7 @@
                 {/if}
 
                 <form enctype="multipart/form-data" action="{$formAction}" method="post" id="editItemForm">
+                    {ticket}
                     {if $special}
                         <input type="hidden" name="view" value=" {$special}">
                     {else}
@@ -367,6 +374,7 @@
                     {if $cur_field.type eq 'x'}
                         {capture name=trkaction}
                             <form action="{$cur_field.options_array[2]}" {if $cur_field.options_array[1] eq 'post'}method="post"{else}method="get"{/if}>
+                                {ticket}
                                 {section name=tl loop=$cur_field.options_array start=3}
                                     {assign var=valvar value=$cur_field.options_array[tl]|regex_replace:"/^[^:]*:/":""|escape}
                                     {if $info.$valvar eq ''}

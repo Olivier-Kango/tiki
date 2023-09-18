@@ -6,6 +6,7 @@
 </div>
 
 <form action="tiki-copypage.php" method="post">
+    {ticket}
     <input type="hidden" name="page" value="{$page|escape}">
     {if isset($page_badchars_display)}
         {if $prefs.wiki_badchar_prevent eq 'y'}

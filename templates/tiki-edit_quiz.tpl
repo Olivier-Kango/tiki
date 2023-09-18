@@ -90,6 +90,7 @@
         <br>
     {/if}
         <form action="tiki-edit_quiz.php" method="post">
+        {ticket}
             <input type="hidden" name="quizId" value="{$quizId|escape}">
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="quiz-name">

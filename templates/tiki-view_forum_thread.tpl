@@ -84,13 +84,21 @@
                 {/if}
                 {if $prefs.feature_forum_topics_archiving eq 'y' && $tiki_p_admin_forum eq 'y'}
                     {if $thread_info.archived eq 'y'}
-                        <a class="dropdown-item" href="{$smarty.server.SCRIPT_NAME}?{query archive="n"}">
+                        <form action="{$smarty.server.SCRIPT_NAME}" method="post" class="float">
+                            {ticket}
+                            <input type="hidden" name="comments_parentId" value={$comments_parentId}>
+                            <button type="submit" name="archive" value='n' class="tips btn btn-sm px-0 pt-0 pb-0">
                             {icon name="file-archive-open"} {tr}Unarchive{/tr}
-                        </a>
+                            </button>
+                        </form>
                     {else}
-                        <a class="dropdown-item" href="{$smarty.server.SCRIPT_NAME}?{query archive='y'}">
-                            {icon name="file-archive"} {tr}Archive{/tr}
-                        </a>
+                        <form action="{$smarty.server.SCRIPT_NAME}" method="post" class="float">
+                        {ticket}
+                        <input type="hidden" name="comments_parentId" value={$comments_parentId}>
+                        <button type="submit" name="archive" value='y' class="tips btn btn-sm px-0 pt-0 pb-0">
+                        {icon name="file-archive"} {tr}Archive{/tr}
+                        </button>
+                    </form>
                     {/if}
                 {/if}
                 {* TODO the tiki_p_forum_lock permission has not been implemented so these actions never show*}

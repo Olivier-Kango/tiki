@@ -46,9 +46,15 @@
                 {/if}
                 {if $sheet.tiki_p_edit_sheet eq 'y'}
                     <action>
-                        <a class="gallink" href="tiki-sheets.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;edit_mode=1&amp;sheetId={$sheet.sheetId}">
-                            {icon name='cog' _menu_text='y' _menu_icon='y' alt="{tr}Configure{/tr}"}
-                        </a>
+                        <form action="tiki-sheets.php" method="post" >
+                            {ticket}
+                            <input type="hidden" name="sort_mode" value={$sort_mode}>
+                            <input type="hidden" name="edit_mode" value=1>
+                            <input type="hidden" name="sheetId" value={$sheet.sheetId}>
+                            <button type="submit" name="offset" value={$offset} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                {icon name='cog' _menu_text='y' _menu_icon='y' alt="{tr}Configure{/tr}"}
+                            </button>
+                        </form>
                     </action>
                     <action>
                         <a class="gallink" href="tiki-sheets.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;removesheet=y&amp;sheetId={$sheet.sheetId}">

@@ -55,7 +55,7 @@ if (isset($_REQUEST["view"])) {
     $info["topic"] = 1;
 }
 if (isset($_REQUEST["accept"])) {
-    check_ticket('received-articles');
+    $access->checkCsrf();
     // CODE TO ACCEPT A PAGE HERE
     //Convert 12-hour clock hours to 24-hour scale to compute time
     if (! empty($_REQUEST['Time_Meridian'])) {
@@ -130,7 +130,7 @@ if (isset($_REQUEST["remove"])) {
     $commlib->remove_received_article($_REQUEST["remove"]);
 }
 if (isset($_REQUEST["save"])) {
-    check_ticket('received-articles');
+    $access->checkCsrf();
     //Convert 12-hour clock hours to 24-hour scale to compute time
     if (! empty($_REQUEST['Time_Meridian'])) {
         $_REQUEST['Time_Hour'] = date('H', strtotime($_REQUEST['Time_Hour'] . ':00 ' . $_REQUEST['Time_Meridian']));
@@ -178,7 +178,6 @@ $topics = $artlib->list_topics();
 $smarty->assign_by_ref('topics', $topics);
 $types = $artlib->list_types();
 $smarty->assign_by_ref('types', $types);
-ask_ticket('received-articles');
 // Display the template
 $smarty->assign('mid', 'tiki-received_articles.tpl');
 $smarty->display("tiki.tpl");

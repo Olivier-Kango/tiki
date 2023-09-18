@@ -53,7 +53,7 @@ function smarty_function_user_registration($params, $smarty)
         }
     }
     if (isset($_REQUEST['register']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
-        check_ticket('register');
+        $access->checkCsrf();
         $cookie_name = $prefs['session_cookie_name'];
 
         if (ini_get('session.use_cookie') && ! isset($_COOKIE[$cookie_name])) {

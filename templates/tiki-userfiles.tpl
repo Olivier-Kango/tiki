@@ -15,6 +15,7 @@
     {/if}
 </div>
 <form action="tiki-userfiles.php" method="post">
+{ticket}
     <div class="table-responsive">
         <table class="table">
             <tr>
@@ -57,6 +58,7 @@
 
 <h2>{tr}Upload file{/tr}</h2>
 <form enctype="multipart/form-data" action="tiki-userfiles.php" method="post">
+    {ticket}
     <div class="mb-3 row">
         <div class="col-sm-4">
             {tr}Upload file:{/tr}

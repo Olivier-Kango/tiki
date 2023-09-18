@@ -23,6 +23,7 @@
 
 {*LISTING*}
 <form action="tiki-forums_reported.php" method="post">
+    {ticket}
     <input type="hidden" name="forumId" value="{$forumId|escape}">
     <input type="hidden" name="offset" value="{$offset|escape}">
     <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">

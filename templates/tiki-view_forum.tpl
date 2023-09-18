@@ -38,24 +38,54 @@
                 <div class="dropdown-divider"></div>
                 {if $user and $prefs.feature_user_watches eq 'y'}
                     {if $user_watching_forum eq 'n'}
-                            <a class="dropdown-item" href="tiki-view_forum.php?forumId={$forumId}&amp;watch_event=forum_post_topic&amp;watch_object={$forumId}&amp;watch_action=add">
-                                {icon name="watch"} {tr}Monitor topics{/tr}
-                            </a>
+                            <form action="tiki-view_forum.php" method="post" >
+                                {ticket}
+                                <input type="hidden" name="watch_action" value="add">
+                                <input type="hidden" name="watch_object" value={$forumId}>
+                                <input type="hidden" name="watch_event" value="forum_post_topic">
+                                <button type="submit" name="forumId" value={$forumId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                    {icon name="watch"} {tr}Monitor topics{/tr}
+                                </button>
+                            </form>
                         {else}
                             <a class="dropdown-item" href="tiki-view_forum.php?forumId={$forumId}&amp;watch_event=forum_post_topic&amp;watch_object={$forumId}&amp;watch_action=remove">
                                 {icon name="stop-watching"} {tr}Stop monitoring topics{/tr}
                             </a>
+                            <form action="tiki-view_forum.php" method="post" >
+                                {ticket}
+                                <input type="hidden" name="watch_action" value="remove">
+                                <input type="hidden" name="watch_object" value={$forumId}>
+                                <input type="hidden" name="watch_event" value="forum_post_topic">
+                                <button type="submit" name="forumId" value={$forumId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                    {icon name="stop-watching"} {tr}Stop monitoring topics{/tr}
+                                </button>
+                            </form>
                         {/if}
                 {/if}
                 {if $user and $prefs.feature_user_watches eq 'y'}
                         {if $user_watching_forum_topic_and_thread eq 'n'}
-                            <a class="dropdown-item" href="tiki-view_forum.php?forumId={$forumId}&amp;watch_event=forum_post_topic_and_thread&amp;watch_object={$forumId}&amp;watch_action=add">
-                                {icon name="watch"} {tr}Monitor topics and threads{/tr}
-                            </a>
+                            <form action="tiki-view_forum.php" method="post" >
+                                {ticket}
+                                <input type="hidden" name="watch_action" value="add">
+                                <input type="hidden" name="watch_object" value={$forumId}>
+                                <input type="hidden" name="watch_event" value="forum_post_topic_and_thread">
+                                <button type="submit" name="forumId" value={$forumId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                    {icon name="watch"} {tr}Monitor topics and threads{/tr}
+                                </button>
+                            </form>
                         {else}
                             <a class="float-sm-end tips" href="tiki-view_forum.php?forumId={$forumId}&amp;watch_event=forum_post_topic_and_thread&amp;watch_object={$forumId}&amp;watch_action=remove">
                                 {icon name="stop-watching"} {tr}Stop monitoring topics and threads{/tr}
                             </a>
+                            <form action="tiki-view_forum.php" method="post" >
+                                {ticket}
+                                <input type="hidden" name="watch_action" value="remove">
+                                <input type="hidden" name="watch_object" value={$forumId}>
+                                <input type="hidden" name="watch_event" value="forum_post_topic_and_thread">
+                                <button type="submit" name="forumId" value={$forumId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                    {icon name="stop-watching"} {tr}Stop monitoring topics and threads{/tr}
+                                </button>
+                            </form>
                         {/if}
                 {/if}
                 {if $prefs.feature_group_watches eq 'y' and ( $tiki_p_admin_users eq 'y' or $tiki_p_admin eq 'y' )}
@@ -68,11 +98,11 @@
                 {/if}
                 {if !empty($tiki_p_forum_lock) and $tiki_p_forum_lock eq 'y'}
                     {if $forum_info.is_locked eq 'y'}
-                            {self_link lock='n' _icon_name='unlock' _class='dropdown-item' _menu_text='y' _menu_icon='y'}
+                            {self_link lock='n'  _icon_name='unlock' _class='dropdown-item' _menu_text='y' _menu_icon='y' _onclick="confirmPopup('{tr}unlock this forum ?{/tr}', '{ticket mode=get}')"}
                                 {tr}Unlock{/tr}
                             {/self_link}
                         {else}
-                            {self_link lock='y' _icon_name='lock' _class='dropdown-item' _menu_text='y' _menu_icon='y'}
+                            {self_link lock='y' _icon_name='lock' _class='dropdown-item' _menu_text='y' _menu_icon='y' _onclick="confirmPopup('{tr}Lock this forum ?{/tr}', '{ticket mode=get}')"}
                                 {tr}Lock{/tr}
                             {/self_link}
                         {/if}
@@ -148,6 +178,7 @@
                 {tr}Editing:{/tr} {$comment_title|escape} (<a class="forumbutlink" href="tiki-view_forum.php?openpost=1&amp;forumId={$forum_info.forumId}&amp;comments_threadId=0&amp;comments_threshold={$comments_threshold}&amp;comments_offset={$comments_offset}&amp;thread_sort_mode={$thread_sort_mode}&amp;comments_per_page={$comments_per_page}">{tr}Post New{/tr}</a>)
             {/if}
             <form method="post" enctype="multipart/form-data" action="tiki-view_forum.php" id="editpageform">
+                {ticket}
                 <input type="hidden" name="comments_offset" value="{$comments_offset|escape}">
                 <input type="hidden" name="comments_threadId" value="{$comments_threadId|escape}">
                 <input type="hidden" name="comments_threshold" value="{$comments_threshold|escape}">
@@ -540,6 +571,7 @@
 </div>
 {/if}
 <form id="view_forum" method="post">
+    {ticket}
     {if $tiki_p_admin_forum eq 'y' && ($comments_coms|@count > 0 || $queued > 0 || $reported > 0)}
         <div class="card card-primary">
             <div class="card-header">
@@ -581,7 +613,7 @@
                         </button>
                         <button
                             type="submit"
-                            formaction="{bootstrap_modal controller=forum action=unlock_topic}"
+                            formaction="{bootstrap_modal controller=forum action=unlock_topic}" 
                             title=":{tr}Unlock{/tr}"
                             class="btn btn-primary btn-sm tips"
                             onclick="confirmPopup()"

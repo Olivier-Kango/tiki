@@ -100,7 +100,7 @@ switch ($jitRequest->action->alpha()) {
         break;
     case 'remove':
         $transitionlib = new TransitionLib($transition_mode);
-        check_ticket('remove_transition');
+        $access->checkCsrf("Do you want to remove this transition ?");
 
         $transitionlib->removeTransition($_REQUEST['transitionId']);
         break;

@@ -169,6 +169,7 @@
             {if $items|@count ge '1'}
                 {* ------- list headings --- *}
                 <form name="checkform" method="post">
+                    {ticket}
                     <div class="{if $js}table-responsive{/if}"> {*the table-responsive class cuts off dropdown menus *}
                         <table class="table table-striped table-hover">
                             <tr>
@@ -368,6 +369,7 @@
                 {/jq}
             {/if}
             <form enctype="multipart/form-data" action="tiki-view_tracker.php" id="newItemForm" method="post">
+                {ticket}
                 <input type="hidden" name="trackerId" value="{$trackerId|escape}">
 
                 {remarksbox type="note"}<strong class='mandatory_note'>{tr}Fields marked with an * are mandatory.{/tr}</strong>{/remarksbox}

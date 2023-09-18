@@ -10,6 +10,7 @@
 
 <h2>{tr}Create/edit options for question:{/tr} <a href="tiki-edit_quiz_questions.php?quizId={$question_info.quizId}&amp;questionId={$question_info.questionId}">{$question_info.question|escape}</a></h2>
 <form action="tiki-edit_question_options.php" method="post">
+    {ticket}
     <input type="hidden" name="optionId" value="{$optionId|escape}">
     <input type="hidden" name="questionId" value="{$questionId|escape}">
 

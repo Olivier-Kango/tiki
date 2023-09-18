@@ -12,6 +12,7 @@
 </div>
 
 <form enctype="multipart/form-data" method="post" action="tiki-quiz_edit.php">
+{ticket}
     <input type="hidden" name="quiz.id" value="{$quiz->id}">
 
     <div class="mb-3 row">

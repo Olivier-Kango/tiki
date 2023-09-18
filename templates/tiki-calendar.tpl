@@ -20,9 +20,13 @@
                 {if $displayedcals|@count eq 1 and $user and $prefs.feature_user_watches eq 'y'}
                     <li class="dropdown-item">
                         {if $user_watching eq 'y'}
-                            <a href="tiki-calendar.php?watch_event=calendar_changed&amp;watch_action=remove">
+                            <form action="tiki-calendar.php" method="post">
+                                {ticket}
+                                <input type="hidden" name="watch_event" value="calendar_changed">
+                                <button type="submit" name="watch_action" value="remove" class="btn btn-link">
                                 {icon name="stop-watching"} {tr}Stop monitoring{/tr}
-                            </a>
+                                </button>
+                            </form>
                         {else}
                             <a href="tiki-calendar.php?watch_event=calendar_changed&amp;watch_action=add">
                                 {icon name="watch"} {tr}Monitor{/tr}

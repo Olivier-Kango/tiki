@@ -6,6 +6,7 @@
                 <tr>
                     <td class="w-100">
                         <form class="forms" method="post" action="{$ownurl}">
+                            {ticket}
                             <select class="form-select" name="user_group">
                                 <option value="">{tr}select{/tr}</option>
                                 {section name=ix loop=$user_groups}

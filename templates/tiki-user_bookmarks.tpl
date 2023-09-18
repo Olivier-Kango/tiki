@@ -20,9 +20,13 @@
                 <a class="tips" title=":{tr}Edit{/tr}" href="tiki-user_bookmarks.php?parentId={$parentId}&amp;editfolder={$folders[ix].folderId}">
                     {icon name='edit'}
                 </a> &nbsp;
-                <a class="tips" title=":{tr}Remove{/tr}" href="tiki-user_bookmarks.php?parentId={$parentId}&amp;removefolder={$folders[ix].folderId}">
-                    {icon name='remove'}
-                </a>
+                <form action="tiki-user_bookmarks.php" method="post" >
+                    {ticket}
+                    <input type="hidden" name="removefolder" value={$folders[ix].folderId}>
+                    <button type="submit" title=":{tr}Remove folder{/tr}" name="parentId" value={$parentId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                        {icon name='remove'}
+                    </button>
+                </form>
             </td>
         </tr>
     {sectionelse}
@@ -56,6 +60,13 @@
                     <a class="tips" title=":{tr}Refresh cache{/tr}" href="tiki-user_bookmarks.php?parentId={$parentId}&amp;refreshurl={$urls[ix].urlId}">
                         {icon name='refresh'}
                     </a>
+                    <form action="tiki-user_bookmarks.php" method="post" >
+                        {ticket}
+                        <input type="hidden" name="refreshurl" value={$urls[ix].urlId}>
+                        <button type="submit" title=":{tr}Refresh cache{/tr}" name="parentId" value={$parentId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                        {icon name='refresh'}
+                        </button>
+                    </form>
                 {/if}
                 &nbsp; <a class="tips" title=":{tr}Remove{/tr}" href="tiki-user_bookmarks.php?parentId={$parentId}&amp;removeurl={$urls[ix].urlId}">
                     {icon name='remove'}
@@ -75,6 +86,7 @@
     <a class="btn btn-link" href="tiki-user_bookmarks.php?parentId={$parentId}&amp;editfolder=0">{tr}New{/tr}</a>
 {/if}
 <form action="tiki-user_bookmarks.php" method="post" class="mb-4">
+{ticket}
     <input type="hidden" name="editfolder" value="{$editfolder|escape}">
     <input type="hidden" name="parentId" value="{$parentId|escape}">
     <div class="mb-3 row">
@@ -96,6 +108,7 @@
     <a class="btn btn-link" href="tiki-user_bookmarks.php?parentId={$parentId}&amp;editurl=0">{tr}New{/tr}</a>
 {/if}
 <form action="tiki-user_bookmarks.php" method="post" class="mb-4">
+{ticket}
     <input type="hidden" name="editurl" value="{$editurl|escape}">
     <input type="hidden" name="parentId" value="{$parentId|escape}">
     <div class="mb-3 row">

@@ -55,7 +55,6 @@ if (in_array('phar', stream_get_wrappers())) {
 // ---------------------------------------------------------------------
 // inclusions of mandatory stuff and setup
 require_once('lib/setup/tikisetup.class.php');
-require_once('lib/tikiticketlib.php');
 require_once('db/tiki-db.php');
 require_once('lib/tikilib.php');
 $tikilib = new TikiLib();

@@ -15,7 +15,7 @@ if (isset($_REQUEST["remove"])) {
     $tikilib->remove_cache($_REQUEST["remove"]);
 }
 if (isset($_REQUEST["refresh"])) {
-    check_ticket('list-cache');
+    $access->checkCsrf();
     $tikilib->refresh_cache($_REQUEST["refresh"]);
 }
 // This script can receive the threshold

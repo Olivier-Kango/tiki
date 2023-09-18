@@ -472,7 +472,7 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUE
             if ($prefs['feature_groupalert'] == 'y') {
                 $groupalertlib->Notify(isset($_REQUEST['listtoalert']) ? $_REQUEST['listtoalert'] : '', "tiki-view_tracker_item.php?itemId=" . $itemId);
             }
-            check_ticket('view-trackers-items');
+            $access->checkCsrf();
             if (! isset($_REQUEST["edstatus"]) or ($tracker_info["showStatus"] != 'y' and $tiki_p_admin_trackers != 'y')) {
                 $_REQUEST["edstatus"] = $tracker_info["modItemStatus"];
             }
@@ -647,7 +647,7 @@ $smarty->assign_by_ref('fields', $fields["data"]);
 $smarty->assign_by_ref('ins_fields', $ins_fields["data"]);
 if ($prefs['feature_user_watches'] == 'y' and $tiki_p_watch_trackers == 'y') {
     if ($user and isset($_REQUEST['watch'])) {
-        check_ticket('view-trackers-items');
+        $access->checkCsrf();
         if ($_REQUEST['watch'] == 'add') {
             $tikilib->add_user_watch($user, 'tracker_item_modified', $itemId, 'tracker ' . $trackerId, $tracker_info['name'], "tiki-view_tracker_item.php?trackerId=" . $trackerId . "&amp;itemId=" . $itemId);
         } else {
@@ -806,7 +806,6 @@ if (isset($_REQUEST['status'])) {
 }
 include_once('tiki-section_options.php');
 
-ask_ticket('view-trackers-items');
 if ($prefs['feature_actionlog'] == 'y') {
     $logslib = TikiLib::lib('logs');
     $logslib->add_action('Viewed', $itemId, 'trackeritem');

@@ -22,6 +22,7 @@
 {/remarksbox}
 
 <form enctype="multipart/form-data" method="post" action=" " id="editpageform">
+    {ticket}
     <input type="hidden" name="subId" value="{$subId|escape}">
     <input type="hidden" name="previewId" value="{$previewId|escape}">
     <input type="hidden" name="imageIsChanged" value="{$imageIsChanged|escape}">

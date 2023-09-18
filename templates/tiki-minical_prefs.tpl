@@ -12,6 +12,7 @@
 
 <h2>{tr}Preferences{/tr}</h2>
 <form action="tiki-minical_prefs.php" method="post">
+{ticket}
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Calendar Interval in daily view{/tr}</label>
         <div class="col-sm-7">
@@ -71,6 +72,7 @@
 <a id="import"></a>
 <h2>{tr}Import CSV file{/tr}</h2>
 <form enctype="multipart/form-data" action="tiki-minical_prefs.php" method="post">
+    {ticket}
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Upload file{/tr}</label>
         <div class="col-sm-7">

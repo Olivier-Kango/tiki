@@ -16,6 +16,7 @@
     {include file='article.tpl'}
 {/if}
 <form enctype="multipart/form-data" method="post" action="tiki-edit_article.php" id='editpageform' role="form">
+    {ticket}
     <input type="hidden" name="articleId" value="{$articleId|escape}">
     <input type="hidden" name="previewId" value="{$previewId|escape}">
     <input type="hidden" name="imageIsChanged" value="{$imageIsChanged|escape}">

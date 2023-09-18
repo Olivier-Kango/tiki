@@ -53,7 +53,7 @@ $smarty->assign_by_ref('info', $info);
 // Remove a category
 if (isset($_REQUEST["remove"])) {
     if (is_array($_REQUEST["remove"])) {
-        check_ticket('dir-admin-sites');
+        $access->checkCsrf();
         foreach ($_REQUEST["remove"] as $remid) {
             $dirlib->dir_remove_site($remid);
         }
@@ -64,7 +64,7 @@ if (isset($_REQUEST["remove"])) {
 }
 // Replace (add or edit) a category
 if (isset($_REQUEST["save"])) {
-    check_ticket('dir-admin-sites');
+    $access->checkCsrf();
     if (empty($_REQUEST["name"])) {
         $smarty->assign('msg', tra("Must enter a name to add a site"));
         $smarty->display("error.tpl");
@@ -137,7 +137,6 @@ $smarty->assign_by_ref('countries', $countries);
 // This page should be displayed with Directory section options
 $section = 'directory';
 include_once('tiki-section_options.php');
-ask_ticket('dir-admin-sites');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template

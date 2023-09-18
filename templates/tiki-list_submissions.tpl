@@ -1,5 +1,5 @@
 {title admpage="articles" help="Articles"}{tr}Submissions{/tr}{/title}
-
+{ticket mode=get}
 <div class="t_navbar mb-4">
     {button href="tiki-edit_submission.php" class="btn btn-primary" _icon_name="create" _text="{tr}New Submission{/tr}"}
     {button href="tiki-list_submissions.php?deleteexpired=y" _class="btn btn-danger" _icon_name="delete" _text="{tr}Delete Expired Submissions{/tr}" _title="{tr}Deletes expired submissions 1000 at a time to avoid timeouts{/tr}"}
@@ -17,6 +17,7 @@
 {/if}
 
 <form name="checkform" method="post">
+{ticket}
     <input type="hidden" name="maxRecords" value="{$maxRecords|escape}">
     <div class="table"> {*the table-responsive class cuts off dropdown menus when chosen is selected*}
         <table class="table table-striped table-hover">
@@ -126,9 +127,12 @@
                                 {/if}
                                 {if $tiki_p_approve_submission eq 'y'}
                                     <action>
-                                        {self_link approve=$listpages[changes].subId _icon_name="ok" _menu_text='y' _menu_icon='y'}
-                                            {tr}Approve{/tr}
-                                        {/self_link}
+                                        <form action="tiki-list_submissions.php" method="post" >
+                                            {ticket}
+                                            <button type="submit" name="approve" value={$listpages[changes].subId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                                {icon name="ok"}{tr} Approve{/tr}
+                                            </button>
+                                        </form>
                                     </action>
                                 {/if}
                                 {if $tiki_p_remove_submission eq 'y'}
@@ -146,7 +150,7 @@
                 {assign var=numbercol value=$numbercol+1}
                 {norecords _colspan=$numbercol}
             {/section}
-            {if $tiki_p_remove_submission eq 'y' or $tiki_p_approve_submission eq 'y'}
+            {if $tiki_p_remove_submission eq 'y' or $tiki_p_approve_submission eq 'y'} 
                 <tr>
                     <td colspan="{$numbercol+1}">
                         {if $listpages}

@@ -95,9 +95,9 @@ $ts = Table_Check::setVars('viewforum' . $_REQUEST['forumId'] . '-', true);
 if (! $ts['enabled'] || ($ts['enabled'] && $ts['ajax'])) {
     $commentslib->forum_add_hit($_REQUEST["forumId"]);
 }
-
+// I can't find any way to get into this condition eutyche ODIMBA 18/09/2023
 if (isset($_REQUEST['report']) && $tiki_p_forums_report == 'y') {
-    check_ticket('view-forum');
+    $access->checkCsrf();
     $commentslib->report_post($_REQUEST['forumId'], 0, $_REQUEST['report'], $user, '');
 }
 
@@ -109,7 +109,7 @@ if ($tiki_p_admin_forum == 'y') {
     }
     //locking the entire forum is not fully implemented - only threads can be locked currently
     if (isset($_REQUEST['lock']) && isset($_REQUEST['forumId'])) {
-        check_ticket('view-forum');
+        $access->checkCsrf();
         if ($_REQUEST['lock'] == 'y') {
             $commentslib->lock_object_thread('forum:' . ((int)$_REQUEST['forumId']));
             $forum_info['is_locked'] = 'y';
@@ -167,7 +167,7 @@ if (
 
 //Here we either post to a forum or create a new thread
 if (isset($_REQUEST['comments_postComment'])) {
-    check_ticket('view-forum');
+    $access->checkCsrf();
     $errors = [];
     $feedbacks = [];
     $threadId = $commentslib->post_in_forum($forum_info, $_REQUEST, $feedbacks, $errors);
@@ -204,7 +204,7 @@ if (isset($_REQUEST['comments_postComment'])) {
 if ($tiki_p_admin_forum == 'y' || $tiki_p_forum_vote == 'y') {
     // Process a vote here
     if (isset($_REQUEST['comments_vote']) && isset($_REQUEST['comments_threadId'])) {
-        check_ticket('view-forum');
+        $access->checkCsrf();
         $comments_show = 'y';
         if ($tikilib->register_user_vote($user, 'comment' . $_REQUEST['comments_threadId'], $_REQUEST['comments_vote'], range(1, 5))) {
             $commentslib->vote_comment($_REQUEST['comments_threadId'], $user, $_REQUEST['comments_vote']);
@@ -262,7 +262,7 @@ if ($_REQUEST['comments_threadId'] > 0) {
 
 $smarty->assign('comment_preview', 'n');
 if (isset($_REQUEST['comments_previewComment'])) {
-    check_ticket('view-forum');
+    $access->checkCsrf();
     $smarty->assign('comments_preview_title', $_REQUEST['comments_title']);
     $smarty->assign('comments_preview_data', ($commentslib->parse_comment_data($_REQUEST['comments_data'])));
     $smarty->assign('comment_title', $_REQUEST['comments_title']);
@@ -379,7 +379,7 @@ include_once('tiki-section_options.php');
 
 if ($prefs['feature_user_watches'] == 'y') {
     if ($user && isset($_REQUEST['watch_event'])) {
-        check_ticket('view-forum');
+        $access->checkCsrf();
         if ($_REQUEST['watch_action'] == 'add') {
             $tikilib->add_user_watch(
                 $user,

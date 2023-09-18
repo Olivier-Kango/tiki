@@ -36,7 +36,6 @@ if (isset($_REQUEST["remove"])) {
 }
 
 if (isset($_REQUEST["save"])) {
-    check_ticket('webmail-contact');
     $contactlib->replace_contact($_REQUEST["contactId"], $_REQUEST["firstName"], $_REQUEST["lastName"], $_REQUEST["email"], $_REQUEST["nickname"], $user);
 
     $info["firstName"] = '';
@@ -97,7 +96,6 @@ if ($offset > 0) {
 
 $smarty->assign_by_ref('channels', $contacts);
 
-ask_ticket('webmail-contact');
 
 $smarty->assign('title', tr("Address book"));
 $smarty->display("tiki-webmail_contacts.tpl");

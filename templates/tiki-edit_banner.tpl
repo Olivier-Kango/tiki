@@ -5,6 +5,7 @@
 </div>
 
 <form action="tiki-edit_banner.php" method="post" enctype="multipart/form-data" mb-4">
+    {ticket}
     <input type="hidden" name="bannerId" value="{$bannerId|escape}">
     <div class="card mb-2">
         <div class="card-body">

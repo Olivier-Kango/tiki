@@ -13,6 +13,7 @@
     </a>
 </div>
 <form action="tiki-edit_languages.php" id="select_action" method="post">
+    {ticket}
     {if isset($find)}
         <input type="hidden" name="find" value="{$find}">
     {/if}
@@ -76,6 +77,7 @@
     </div>
 </form>
 <form action="tiki-edit_languages.php" method="post">
+    {ticket}
     <input type="hidden" name="edit_language" value="{$edit_language}">
     <input type="hidden" name="action" value="{$action}">
     {if $only_db_translations eq 'y'}

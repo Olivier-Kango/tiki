@@ -3,11 +3,18 @@
 {include file='tiki-mytiki_bar.tpl'}
 <br>
 {if $prefs.feature_user_bookmarks eq 'y' and $tiki_p_create_bookmarks eq 'y'}
-    <a title="({tr}May need to refresh twice to see changes{/tr})" class="link" href="tiki-usermenu.php?addbk=1">{tr}Add top level bookmarks to menu{/tr}</a>
+    <form action="tiki-usermenu.php" method="post">
+        {ticket}
+        <input type="hidden" name="watch_event" value="calendar_changed">
+        <button type="submit" title="({tr}May need to refresh twice to see changes{/tr})" name="addbk" value=1 class="btn btn-link px-0 pt-0 pb-0">
+        {tr}Add top level bookmarks to menu{/tr}
+        </button>
+    </form>
 {/if}
 
 <h2>{tr}Add or edit an item{/tr}</h2>
 <form action="tiki-usermenu.php" method="post">
+    {ticket}
     <input type="hidden" name="menuId" value="{$menuId|escape}">
     <table class="formcolor">
         <tr>
@@ -42,6 +49,7 @@
 {include file='find.tpl'}
 
 <form action="tiki-usermenu.php" method="post">
+{ticket}
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <tr>

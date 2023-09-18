@@ -79,7 +79,7 @@
                                     </action>
                                     {if ($tiki_p_wiki_admin_attachments eq 'y' or ($user and ($atts[ix].user eq $user))) and $editable}
                                         <action>
-                                            <a href="tiki-index.php?page={$page|escape:"url"}&amp;removeattach={$atts[ix].attId}&amp;{$offsetparam}{if !empty($sort_mode)}sort_mode={$sort_mode}{/if}"{if !empty($target)} target="{$target}"{/if}>
+                                            <a onclick="confirmPopup('{tr}Delete this file?{/tr}', '{ticket mode=get}')" href="tiki-index.php?page={$page|escape:"url"}&amp;removeattach={$atts[ix].attId}&amp;{$offsetparam}{if !empty($sort_mode)}sort_mode={$sort_mode}{/if}"{if !empty($target)} target="{$target}"{/if}>
                                                 {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                             </a>
                                         </action>
@@ -100,6 +100,7 @@
         <div class="file-upload card bg-light">
             <div class="card-body">
                 <form enctype="multipart/form-data" action="tiki-index.php?page={$page|escape:"url"}" method="post">
+                    {ticket}
                     {if $page_ref_id}
                         <input type="hidden" name="page_ref_id" value="{$page_ref_id|escape}">
                     {/if}

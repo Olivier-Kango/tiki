@@ -1,6 +1,7 @@
 {title help="ImportingPagesAdmin"}{tr}Import pages from a Structured Text Dump{/tr}{/title}
 
 <form method="post" action="tiki-import_structuredtext.php">
+    {ticket}
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Name of the dump file (it has to be in dump/){/tr}</label>
         <div class="col-sm-7">

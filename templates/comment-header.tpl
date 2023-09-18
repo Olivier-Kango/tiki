@@ -32,9 +32,13 @@
                     {/if}
                     {if $tiki_p_forums_report eq 'y'}
                         <action>
-                            {self_link report=$comment.threadId _icon_name='error' _menu_text='y' _menu_icon='y'}
-                                {tr}Report this post{/tr}
-                            {/self_link}
+                            <form action="tiki-view_forum_thread.php" method="post" class="float">
+                                {ticket}
+                                <input type="hidden" name="comments_parentId" value={$comments_parentId}>
+                                <button type="submit" name="report" value={$comment.threadId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                {icon name="error"} {tr}Report this post{/tr}
+                                </button>
+                            </form>
                         </action>
                     {/if}
                     {if $tiki_p_admin_forum eq 'y'}
@@ -49,24 +53,40 @@
                     {/if}
                     {if $user and $prefs.feature_notepad eq 'y' and $tiki_p_notepad eq 'y' and $forumId}
                         <action>
-                            {self_link savenotepad=$comment.threadId _icon_name='floppy' _menu_text='y' _menu_icon='y'}
-                                {tr}Save to notepad{/tr}
-                            {/self_link}
+                            <form action="tiki-view_forum_thread.php" method="post" class="float">
+                                {ticket}
+                                <input type="hidden" name="comments_parentId" value={$comments_parentId}>
+                                <button type="submit" name="savenotepad" value={$comment.threadId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                {icon name="floppy"} {tr}Save to notepad{/tr}
+                                </button>
+                            </form>
                         </action>
                     {/if}
                     {if $user and $prefs.feature_user_watches eq 'y' and $display eq ''}
                         {if $first eq 'y'}
                             {if $user_watching_topic eq 'n'}
                                 <action>
-                                    {self_link watch_event='forum_post_thread' watch_object=$comments_parentId watch_action='add' _menu_text='y' _menu_icon='y' _icon_name='watch'}
-                                        {tr}Monitor{/tr}
-                                    {/self_link}
+                                    <form action="tiki-view_forum_thread.php" method="post" class="float">
+                                        {ticket}
+                                        <input type="hidden" name="comments_parentId" value={$comments_parentId}>
+                                        <input type="hidden" name="watch_object" value={$comments_parentId}>
+                                        <input type="hidden" name="watch_action" value='add'>
+                                        <button type="submit" name="watch_event" value='forum_post_thread' class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                        {icon name="watch"} {tr}Monitor{/tr}
+                                        </button>
+                                    </form>
                                 </action>
                             {else}
                                 <action>
-                                    {self_link watch_event='forum_post_thread' watch_object=$comments_parentId watch_action='remove' _menu_text='y' _menu_icon='y' _icon_name='stop-watching'}
-                                        {tr}Stop monitoring{/tr}
-                                    {/self_link}
+                                    <form action="tiki-view_forum_thread.php" method="post" class="float">
+                                        {ticket}
+                                        <input type="hidden" name="comments_parentId" value={$comments_parentId}>
+                                        <input type="hidden" name="watch_object" value={$comments_parentId}>
+                                        <input type="hidden" name="watch_action" value='remove'>
+                                        <button type="submit" name="watch_event" value='forum_post_thread' class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                        {icon name="stop-watching"} {tr}Stop monitoring{/tr}
+                                        </button>
+                                    </form>
                                 </action>
                             {/if}
                             {if $prefs.feature_group_watches eq 'y' and ( $tiki_p_admin_users eq 'y' or $tiki_p_admin eq 'y' )}

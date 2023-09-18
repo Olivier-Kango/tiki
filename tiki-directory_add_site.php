@@ -61,7 +61,7 @@ $smarty->assign_by_ref('info', $info);
 $smarty->assign('save', 'n');
 // Replace (add or edit) a site
 if (isset($_REQUEST["save"])) {
-    check_ticket('dir-add-site');
+    $access->checkCsrf();
     $msg = "";
     if (empty($user) && $prefs['feature_antibot'] == 'y' && ! $captchalib->validate()) {
         $msg .= $captchalib->getErrors();
@@ -172,7 +172,6 @@ usort($countries, 'country_sort');
 $smarty->assign_by_ref('countries', $countries);
 // This page should be displayed with Directory section options
 include_once('tiki-section_options.php');
-ask_ticket('dir-add-site');
 // Display the template
 $smarty->assign('mid', 'tiki-directory_add_site.tpl');
 $smarty->display("tiki.tpl");

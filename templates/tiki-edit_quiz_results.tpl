@@ -13,6 +13,7 @@
 </h2>
 
 <form action="tiki-edit_quiz_results.php" method="post">
+    {ticket}
     <input type="hidden" name="quizId" value="{$quizId|escape}">
     <input type="hidden" name="resultId" value="{$resultId|escape}">
     <div class="mb-3 row">

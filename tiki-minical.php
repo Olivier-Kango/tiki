@@ -68,7 +68,7 @@ $smarty->assign('ev_pdate', $ev_pdate);
 $smarty->assign('ev_pdate_h', $ev_pdate_h);
 
 if (isset($_REQUEST['save'])) {
-    check_ticket('minical');
+    $access->checkCsrf();
     //Convert 12-hour clock hours to 24-hour scale to compute time
     if (! empty($_REQUEST['Time_Meridian'])) {
         $_REQUEST['Time_Hour'] = date('H', strtotime($_REQUEST['Time_Hour'] . ':00 ' . $_REQUEST['Time_Meridian']));
@@ -176,6 +176,5 @@ $topics = $minicallib->minical_list_topics($user, 0, -1, 'name_asc', '');
 $smarty->assign('topics', $topics['data']);
 include_once('tiki-section_options.php');
 include_once('tiki-mytiki_shared.php');
-ask_ticket('minical');
 $smarty->assign('mid', 'tiki-minical.tpl');
 $smarty->display("tiki.tpl");

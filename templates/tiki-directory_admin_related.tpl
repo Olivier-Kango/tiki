@@ -7,6 +7,7 @@
 <h2>{tr}Parent directory category:{/tr}</h2>
 {* Display the path adding manually the top category id=0 *}
 <form name="path" method="post" action="tiki-directory_admin_related.php">
+    {ticket}
     <br>
     <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">
@@ -26,6 +27,7 @@
 </form>
 <h2>{tr}Add a related directory category{/tr}</h2>
 <form action="tiki-directory_admin_related.php" method="post">
+    {ticket}
     <br>
     <input type="hidden" name="parent" value="{$parent|escape}">
     <div class="mb-3 row">
@@ -56,6 +58,7 @@
 {* Display the list of categories (items) using pagination *}
 {* Links to edit, remove, browse the categories *}
 <form action="tiki-directory_admin_related.php">
+    {ticket}
     <input type="hidden" name="parent" value="{$parent|escape}">
     <input type="hidden" name="oldcategId" value="{$items[user].relatedTo|escape}">
 

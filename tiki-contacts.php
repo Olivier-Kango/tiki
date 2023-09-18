@@ -72,7 +72,7 @@ if (isset($_REQUEST["remove"])) {
 
 if (isset($_REQUEST["save"])) {
     $access->check_user($user);
-    check_ticket('webmail-contact');
+    $access->checkCsrf();
     $ext_result = [];
     foreach ($exts as $ext) {
         $ext_result[$ext['fieldId']] = isset($_REQUEST['ext_' . $ext['fieldId']]) ? $_REQUEST['ext_' . $ext['fieldId']] : '';
@@ -150,7 +150,6 @@ $smarty->assign('total_contact', $cant);
 
 include_once('tiki-section_options.php');
 
-ask_ticket('contacts');
 $smarty->assign('myurl', 'tiki-contacts.php');
 $smarty->assign('mid', 'tiki-contacts.tpl');
 $smarty->display('tiki.tpl');

@@ -58,7 +58,7 @@ if (isset($_REQUEST['remove'])) {
 }
 
 if (isset($_REQUEST['save'])) {
-    check_ticket('edit-quiz-question');
+    $access->checkCsrf();
 
     $quizlib->replace_quiz_question(
         $_REQUEST['questionId'],
@@ -73,7 +73,7 @@ if (isset($_REQUEST['save'])) {
 }
 
 if (isset($_REQUEST['import'])) {
-    check_ticket('edit-quiz-question');
+    $access->checkCsrf();
 
     $questions = TextToQuestions($_REQUEST['input_data']);
 
@@ -93,7 +93,7 @@ if (isset($_REQUEST['import'])) {
 }
 
 if (isset($_REQUEST['useQuestion'])) {
-    check_ticket('edit-quiz-question');
+    $access->checkCsrf();
     $info = $quizlib->get_quiz_question($_REQUEST['usequestionid']);
 
     $qid = $quizlib->replace_quiz_question(0, $info['question'], $info['type'], $_REQUEST['quizId'], $_REQUEST['position']);
@@ -151,7 +151,6 @@ $questionTypes['f'] = tr('Optional + File');
 
 $smarty->assign('questionTypes', $questionTypes);
 
-ask_ticket('edit-quiz-question');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

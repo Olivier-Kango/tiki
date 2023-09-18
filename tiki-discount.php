@@ -13,6 +13,7 @@ $auto_query_args = [];
 $tab = 1;
 
 if (! empty($_REQUEST['save']) && ! empty($_REQUEST['code'])) {
+    $access->checkCsrf();
     if (empty($_REQUEST['value']) && ! empty($_REQUEST['percent'])) {
         $_REQUEST['percent'] = min(100, (int)$_REQUEST['percent']);
         $_REQUEST['value'] = $_REQUEST['percent'] . '%';
@@ -33,7 +34,7 @@ if (! empty($_REQUEST['save']) && ! empty($_REQUEST['code'])) {
     }
 }
 if (! empty($_REQUEST['del'])) {
-    check_ticket('discount');
+    $access->checkCsrf(false);
     $discountlib->del_discount($_REQUEST['del']);
     $tab = 1;
 }
@@ -57,6 +58,5 @@ $smarty->assign_by_ref('discounts', $discounts);
 
 setcookie('tab', $tab);
 $smarty->assign_by_ref('cookietab', $tab);
-ask_ticket('discount');
 $smarty->assign('mid', 'tiki-discount.tpl');
 $smarty->display('tiki.tpl');

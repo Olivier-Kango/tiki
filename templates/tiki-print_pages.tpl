@@ -9,6 +9,7 @@
             {if $printstructures}
                 <h2>{tr}Selected Structures{/tr}</h2>
                 <form method="get" action="tiki-print_multi_pages.php">
+                    {ticket}
                     <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
                     <input type="hidden" name="find" value="{$find|escape}">
                     <ul>
@@ -21,6 +22,7 @@
 
                 {if $pdf_export eq 'y'}
                     <form method="get" action="tiki-print_multi_pages.php">
+                        {ticket}
                         <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
                         <input type="hidden" name="find" value="{$find|escape}">
                         <input type="hidden" name="display" value="pdf">
@@ -29,12 +31,14 @@
                 {/if}
 
                 <form action="tiki-print_pages.php" method="post">
+                    {ticket}
                     <input type="submit" class="btn btn-primary btn-sm" name="clearstructures" value="{tr}Clear{/tr}">
                 </form>
             {/if}
 
             <h2>{tr}Add Structure{/tr}</h2>
             <form action="tiki-print_pages.php" method="post">
+                {ticket}
                 <input type="hidden" name="find" value="{$find|escape}">
                 <input type="hidden" name="addstructure" value="y">
                 <div class="mb-3 row">
@@ -59,6 +63,7 @@
         {/if}
 
         <form action="tiki-print_pages.php" method="post">
+            {ticket}
             <input type="hidden" name="printpages" value="{$form_printpages|escape}">
             <input type="hidden" name="find" value="{$find|escape}">
                 <table style="width:100%">
@@ -107,11 +112,13 @@
         {if $printpages}
             <div style="float:right;margin-right:20%;">
                 <form method="get" action="tiki-print_multi_pages.php">
+                    {ticket}
                     <input type="hidden" name="printpages" value="{$form_printpages|escape}">
                     <input type="submit" class="btn btn-primary btn-sm mt-2" name="print" title="{tr}Print{/tr}" value="{tr}Print{/tr}">
                 </form>
                 {if $pdf_export eq 'y'}
                     <form method="get" action="tiki-print_multi_pages.php">
+                        {ticket}
                         <input type="hidden" name="display" value="pdf">
                         <input type="hidden" name="printpages" value="{$form_printpages|escape}">
                         <input type="submit" class="btn btn-primary btn-sm mt-2" name="print" title="{tr}PDF{/tr}" value="{tr}PDF{/tr}">
@@ -121,6 +128,7 @@
         {/if}
         {if $prefs.feature_wiki_structure eq 'y'}
             <form action="tiki-print_pages.php" method="post">
+                {ticket}
                 <input type="hidden" name="printpages" value="{$form_printpages|escape}">
                 <input type="hidden" name="find" value="{$find|escape}">
                 <h2>{tr}Add Pages from Structures:{/tr}</h2>

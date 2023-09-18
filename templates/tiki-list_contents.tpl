@@ -79,6 +79,7 @@
         {/if}
         <br>
         <form action="tiki-list_contents.php" method="post">
+        {ticket}
             {query _type='form_input'}
             <input type="hidden" name="contentId" value="{$contentId|escape}">
 

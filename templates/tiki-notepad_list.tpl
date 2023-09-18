@@ -16,6 +16,7 @@
 {if count($channels) > 0 or $find ne ''}
     {include file='find.tpl'}
     <form action="tiki-notepad_list.php" method="post">
+    {ticket}
         <div class="{if $js}table-responsive{/if}"> {*the table-responsive class cuts off dropdown menus *}
             <table class="table table-striped table-hover">
                 <tr>
@@ -101,6 +102,7 @@
 
 <h2>{tr}Upload file{/tr}</h2>
 <form enctype="multipart/form-data" action="tiki-notepad_list.php" method="post">
+    {ticket}
     <div class="tiki-form-group row">
         <label class="col-sm-3 col-form-label">{tr}Upload file:{/tr}</label>
         <div class="col-sm-7">

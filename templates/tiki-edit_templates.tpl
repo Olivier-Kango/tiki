@@ -64,6 +64,7 @@
     {/if}
 
     <form action="tiki-edit_templates.php" method="post">
+        {ticket}
         <textarea data-syntax="smarty" data-codemirror="true" data-line-numbers="true" name="data" rows="20" cols="80"
             {if $prefs.feature_edit_templates ne 'y' or $tiki_p_edit_templates ne 'y'}
                 class="readonly" readonly="readonly"

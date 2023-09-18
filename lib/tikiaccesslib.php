@@ -439,6 +439,7 @@ class TikiAccessLib extends TikiLib
      * @return bool                 True if CSRF check passed, false otherwise
      * @throws Services_Exception
      * @see csrfError() for further details on error types and uses.
+     * https://dev.tiki.org/CSRF-Protection
      */
     public function checkCsrf(
         $postConfirm = false,

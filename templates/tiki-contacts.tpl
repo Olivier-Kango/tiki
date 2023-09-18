@@ -19,6 +19,7 @@
 </div>
 
 <form action="tiki-contacts.php" method="post" id="editform" name="editform_contact" style="clear:both;margin:5px;display:{if $contactId}block{else}none{/if};">
+    {ticket}
     <input type="hidden" name="locSection" value="contacts">
     <input type="hidden" name="contactId" value="{$contactId|escape}">
 

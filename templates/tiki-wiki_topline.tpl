@@ -254,18 +254,34 @@
                             </a>
                         {/if}
                         {if !empty($user) and $prefs.feature_notepad eq 'y' and $tiki_p_notepad eq 'y'}
-                            <a class="dropdown-item" href="tiki-index.php?page={$page|escape:"url"}&amp;savenotepad=1{if !empty($page_ref_id)}&amp;page_ref_id={$page_ref_id}{/if}">
+                            <form action="tiki-index.php" method="post" >
+                                {ticket}
+                                {if !empty($page_ref_id)}
+                                <input type="hidden" name="page_ref_id" value={$page_ref_id}>
+                                {/if}
+                                <input type="hidden" name="savenotepad" value=1>
+                                <button type="submit" name="page" value={$page|escape:"url"} class="tips dropdown-item">
                                     {icon name="notepad"} {tr}Save to notepad{/tr}
                                     {assign var="hasPageAction" value="1"}
-                            </a>
+                                </button>
+                            </form>
                         {/if}
                             {monitor_link type="wiki page" object=$page class="dropdown-item" linktext="{tr}Notification{/tr}"}
                         {if !empty($user) and $prefs.feature_user_watches eq 'y'}
                             {if $user_watching_page eq 'n'}
-                                <a class="dropdown-item" href="tiki-index.php?page={$page|escape:"url"}&amp;watch_event=wiki_page_changed&amp;watch_object={$page|escape:"url"}&amp;watch_action=add{if $structure eq 'y'}&amp;structure={$home_info.pageName|escape:'url'}{/if}" class="icon">
+                                <form action="tiki-index.php" method="post" >
+                                    {ticket}
+                                    {if $structure eq 'y'}
+                                        <input type="hidden" name="structure" value={$home_info.pageName|escape:'url'}>
+                                    {/if}
+                                    <input type="hidden" name="watch_action" value="add">
+                                    <input type="hidden" name="watch_object" value={$page|escape:"url"}>
+                                    <input type="hidden" name="watch_event" value="wiki_page_changed">
+                                    <button type="submit" name="page" value={$page|escape:"url"} class="tips dropdown-item">
                                         {icon name="watch"} {tr}Monitor page{/tr}
                                         {assign var="hasPageAction" value="1"}
-                                </a>
+                                    </button>
+                                </form>
                             {else}
                                 <a class="dropdown-item" href="tiki-index.php?page={$page|escape:"url"}&amp;watch_event=wiki_page_changed&amp;watch_object={$page|escape:"url"}&amp;watch_action=remove{if $structure eq 'y'}&amp;structure={$home_info.pageName|escape:'url'}{/if}" class="icon">
                                         {icon name="stop-watching"} {tr}Stop monitoring page{/tr}

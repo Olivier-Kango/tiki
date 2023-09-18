@@ -3,6 +3,7 @@
 {include file='tiki-directory_admin_bar.tpl'}
 <h2>{tr}Parent directory category:{/tr}</h2>
 <form name="path" method="post" action="tiki-directory_admin_categories.php">
+    {ticket}
     <div class="tiki-form-group row">
         <label class="col-sm-4 col-form-label">
             {tr}Parent directory category{/tr}
@@ -24,6 +25,7 @@
 {* Dislay a form to add or edit a site *}
 <h2>{if $siteId}{tr}Edit a site{/tr}{else}{tr}Add a site{/tr}{/if}</h2>
 <form action="tiki-directory_admin_sites.php" method="post">
+    {ticket}
     <input type="hidden" name="parent" value="{$parent|escape}">
     <input type="hidden" name="siteId" value="{$siteId|escape}">
 
@@ -90,6 +92,7 @@
 {* Display the list of categories (items) using pagination *}
 {* Links to edit, remove, browse the categories *}
 <form action="tiki-directory_admin_sites.php" method="post">
+    {ticket}
     <div class="{if $js}table-responsive{/if}"> {* table-responsive class cuts off css drop-down menus *}
         <table class="table table-striped table-hover">
             <tr>

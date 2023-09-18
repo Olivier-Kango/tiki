@@ -2,6 +2,7 @@
 
 {* start ************ Task list ***************}
 <form action="tiki-user_tasks.php" method="post">
+    {ticket}
     <table class="formcolor">
         <tr>
             <td colspan="6">

@@ -31,7 +31,7 @@ if (isset($_REQUEST["remove"])) {
     $artlib->remove_submission($_REQUEST["remove"]);
 }
 if (isset($_REQUEST["approve"])) {
-    check_ticket('list-submissions');
+    $access->checkCsrf();
     $access->check_permission('tiki_p_approve_submission');
     $artlib->approve_submission($_REQUEST["approve"]);
 }

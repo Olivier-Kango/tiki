@@ -6,6 +6,7 @@
     </a>
 </div>
 <form enctype='multipart/form-data' method="post">
+    {ticket}
     <div class="mb-3 row">
         <div class="col-sm-12">
             <input class="form-control" type="file" name="zip">

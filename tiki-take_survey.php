@@ -122,7 +122,7 @@ foreach ($questions['data'] as $question) {
 $smarty->assign_by_ref('questions', $questions["data"]);
 $error_msg = '';
 if (isset($_REQUEST["ans"])) {
-    check_ticket('take-survey');
+    $access->checkCsrf();
     $srvlib->register_answers($_REQUEST['surveyId'], $questions['data'], $_REQUEST, $error_msg);
     if (empty($error_msg)) {
         if (! empty($_REQUEST["vote"])) {
@@ -140,7 +140,6 @@ if ($prefs['poll_surveys_textarea_hidetoolbar'] != 'y') {
 $smarty->assign('showToolBars', $showToolBars);
 
 include_once('tiki-section_options.php');
-ask_ticket('take-survey');
 // Display the template
 ! empty($error_msg) ? Feedback::error(['mes' => $error_msg]) : null;
 $smarty->assign('mid', 'tiki-take_survey.tpl');

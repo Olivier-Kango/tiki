@@ -110,6 +110,7 @@
     </p>
 {/if}
 <form action="tiki-received_pages.php" method="post">
+    {ticket}
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <tr>

@@ -78,6 +78,7 @@
 
         <h2>{tr}Pick user profile picture from the library{/tr} <a href="tiki-pick_avatar.php?showall=y">{tr}Show all{/tr}</a> {$numav} {tr}Items{/tr}</h2>
         <form action="tiki-pick_avatar.php" method="post">
+        {ticket}
             <input id="avatar" type="hidden" name="avatar" value="{$yours|escape}">
             {if $user ne $userwatch}<input type="hidden" name="view_user" value="{$userwatch|escape}">{/if}
             <table class="formcolor">
@@ -106,6 +107,7 @@
 
 <div class="table normal">
     <form enctype="multipart/form-data" action="tiki-pick_avatar.php" method="post">
+        {ticket}
         <legend><strong>{tr}Upload your own profile picture{/tr}</strong></legend>
         {if $user ne $userwatch}<input type="hidden" name="view_user" value="{$userwatch|escape}">{/if}
         <div class="tiki-form-group row">

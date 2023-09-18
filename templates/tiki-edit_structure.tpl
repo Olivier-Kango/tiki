@@ -84,9 +84,16 @@
         {/if}
         {if $tiki_p_watch_structure eq 'y'}
             {if !$page_info.watching}
-                {self_link page_ref_id=$page_ref_id watch_object=$page_ref_id watch_action=add page=$structure_name _class="tips btn btn-link btn-sm" _title=":{tr}Monitor the structure{/tr}"}
-                    {icon name="watch"}
-                {/self_link}
+
+                <form action="tiki-edit_structre.php" method="post" class="float">
+                {ticket}
+                <input type="hidden" name="page_ref_id" value=$page_ref_id>
+                <input type="hidden" name="watch_object" value=$page_ref_id>
+                <input type="hidden" name="watch_action" value="add">
+                <button type="submit" name="page" value=$structure_name class="tips btn btn-link btn-sm">
+                {icon name="watch"}
+                </button>
+            </form>
             {else}
                 {self_link page_ref_id=$page_ref_id watch_object=$page_ref_id watch_action=remove _class="tips btn btn-link btn-sm" _title=":{tr}Stop Monitoring the structure{/tr}"}
                     {icon name="stop-watching"}

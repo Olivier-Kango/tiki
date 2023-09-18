@@ -10,6 +10,7 @@
 {jq notonready=true}
 var CHECKBOX_LIST = [{{section name=user loop=$items}'sites[{$items[user].siteId}]'{if not $smarty.section.user.last},{/if}{/section}}];
 {/jq}
+    {ticket}
     <br>
     <div class="{if $js}table-responsive{/if}"> {*the table-responsive class cuts off dropdown menus *}
         <table class="table table-striped table-hover">

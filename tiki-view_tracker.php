@@ -297,7 +297,7 @@ if (! empty($_REQUEST['remove'])) {
         }
     }
 } elseif (isset($_REQUEST["batchaction"]) and $_REQUEST["batchaction"] == 'delete') {
-    check_ticket('view-trackers');
+    $access->checkCsrf();
     $access->checkCsrf(tr('Are you sure you want to delete the selected items?'));
     $transaction = $tikilib->begin();
 
@@ -319,7 +319,7 @@ if (! empty($_REQUEST['remove'])) {
         $access->redirect(smarty_modifier_sefurl($item_info['trackerId'], 'tracker'));
     }
 } elseif (isset($_REQUEST['batchaction']) and ($_REQUEST['batchaction'] == 'o' || $_REQUEST['batchaction'] == 'p' || $_REQUEST['batchaction'] == 'c')) {
-    check_ticket('view-trackers');
+    $access->checkCsrf();
     $transaction = $tikilib->begin();
 
     foreach ($_REQUEST['action'] as $batchid) {
@@ -406,7 +406,7 @@ if (isset($_REQUEST["save"])) {
         // values are OK, then lets add a new item
         if (count($field_errors['err_mandatory']) == 0 && count($field_errors['err_value']) == 0) {
             $smarty->assign('input_err', '0'); // no warning to display
-            check_ticket('view-trackers');
+            $access->checkCsrf();
             if (! isset($_REQUEST["status"]) or ($tracker_info["showStatus"] != 'y' and $tiki_p_admin_trackers != 'y')) {
                 $_REQUEST["status"] = '';
             }
@@ -580,8 +580,6 @@ if (isset($tracker_info['useRatings']) && $tracker_info['useRatings'] == 'y' && 
         $items['data'][$f]['my_rate'] = $tikilib->get_user_vote("tracker." . $_REQUEST["trackerId"] . '.' . $items['data'][$f]['itemId'], $user);
     }
 }
-
-ask_ticket('view-trackers');
 
 // Generate validation js
 if ($prefs['feature_jquery'] == 'y' && $prefs['feature_jquery_validation'] == 'y') {

@@ -5,6 +5,7 @@
     {/if}
 </div>
 <form method="post" action="tiki-edit_css.php" class="form">
+    {ticket}
     {if $action eq "edit"}
         <div class="tiki-form-group row">
             <label for="theme" class="col-form-label">

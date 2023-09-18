@@ -125,7 +125,7 @@ if (isset($_REQUEST["save"]) && $prefs['feature_categories'] == 'y' && $prefs['f
         $category_needed = true;
         $smarty->assign('category_needed', 'y');
 } elseif (isset($_REQUEST["save"]) || isset($_REQUEST['preview'])) {
-    check_ticket('edit-blog');
+    $access->checkCsrf();
     if (isset($_REQUEST["public"]) && $_REQUEST["public"] == 'on') {
         $public = 'y';
     } else {
@@ -249,7 +249,6 @@ include_once("categorize_list.php");
 
 $defaultRows = 5;
 
-ask_ticket('edit-blog');
 
 include_once('tiki-section_options.php');
 

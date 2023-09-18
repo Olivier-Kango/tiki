@@ -30,15 +30,6 @@ function s_f_attachments_actionshandler($params)
     foreach ($params as $k => $v) {
         switch ($k) {
             case 'remove':
-                /* FIXME
-                    check_ticket('index');
-                    $owner = $wikilib->get_attachment_owner($_REQUEST['removeattach']);
-                    if ( ($user && ($owner == $user) ) || $objectperms->wiki_admin_attachments ) {
-                        $access->check_authenticity();
-                        $wikilib->remove_wiki_attachment($_REQUEST['removeattach']);
-                    }
-                    $pageRenderer->setShowAttachments( 'y' );
-                */
                 if ($access->checkCsrf(true)) {
                     $result = $filegallib->actionHandler('removeFile', [ 'fileId' => $v ]);
                     if ($result && $result->numrows()) {
@@ -51,8 +42,6 @@ function s_f_attachments_actionshandler($params)
 
             case 'upload':
                 if (isset($objectperms) && ( $objectperms->wiki_admin_attachments || $objectperms->wiki_attach_files )) {
-                    /* check_ticket('index'); */
-
                     $smarty = TikiLib::lib('smarty');
                     $smarty->loadPlugin('smarty_function_query');
 

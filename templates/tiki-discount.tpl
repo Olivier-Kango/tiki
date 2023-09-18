@@ -32,7 +32,7 @@
                                     {/self_link}
                                 </action>
                                 <action>
-                                    {self_link del=$discount.id _icon_name='edit' _menu_text='y' _menu_icon='y'}
+                                    {self_link del=$discount.id _icon_name='edit' onclick="confirmPopup('{tr}Delete this item?{/tr}', '{ticket mode=get}')" _menu_text='y' _menu_icon='y'}
                                         {tr}Delete{/tr}
                                     {/self_link}
                                 </action>
@@ -51,6 +51,7 @@
 {capture name=tabtitle}{if empty($info.id)}{tr}Create{/tr}{else}{tr}Edit{/tr}{/if}{/capture}
 {tab name=$smarty.capture.tabtitle}
     <form method="post" action="tiki-discount.php">
+    {ticket}
         <br>
         {if !empty($info.id)}<input type="hidden" name="id" value="{$info.id}">{/if}
         <div class="mb-3 row">

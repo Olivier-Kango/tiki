@@ -15,6 +15,7 @@
 <br>
 
 <form method="post" action="tiki-send_objects.php">
+    {ticket}
     <div class="card mb-4">
         <div class="card-header">
             {tr}Filter{/tr}

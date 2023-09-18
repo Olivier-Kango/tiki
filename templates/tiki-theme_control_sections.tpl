@@ -5,6 +5,7 @@
 </div>
 <h2>{tr}Assign themes to sections{/tr}</h2>
 <form action="tiki-theme_control_sections.php" method="post" class="d-flex flex-row flex-wrap align-items-center" role="form">
+    {ticket}
     <div class="mb-3 row">
         <label for="section">{tr}Section{/tr}</label>
         <select name="section" class="form-control form-control-sm">
@@ -26,6 +27,7 @@
 
 <h2>{tr}Assigned sections{/tr}</h2>
 <form action="tiki-theme_control_sections.php" method="post" role="form" class="form">
+    {ticket}
     <div class="table-responsive">
         <table class="table">
             <tr>

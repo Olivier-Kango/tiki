@@ -33,9 +33,10 @@
         {if $tiki_p_edit eq 'y'}
             <td>
                 <form action="tiki-notepad_read.php" method="post">
-                        <input type="hidden" name="noteId" value="{$noteId|escape}">
-                        <input type="submit" class="btn btn-warning btn-sm" name="{if $wiki_exists eq 'n'}wikify{else}over{/if}" value="{if $wiki_exists eq 'n'}{tr}Wiki Create{/tr}{else}{tr}Wiki Overwrite{/tr}{/if}">
-                        <input size="40" type="text" name="wiki_name" value="{$info.name|escape}">
+                    {ticket}
+                    <input type="hidden" name="noteId" value="{$noteId|escape}">
+                    <input type="submit" class="btn btn-warning btn-sm" name="{if $wiki_exists eq 'n'}wikify{else}over{/if}" value="{if $wiki_exists eq 'n'}{tr}Wiki Create{/tr}{else}{tr}Wiki Overwrite{/tr}{/if}">
+                    <input size="40" type="text" name="wiki_name" value="{$info.name|escape}">
                 </form>
             </td>
         {/if}

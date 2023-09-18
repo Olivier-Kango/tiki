@@ -10,6 +10,7 @@
 <h2>{if $questionId}{tr}Edit FAQ question{/tr}{else}{tr}Add FAQ question{/tr}{/if}</h2>
 <br>
 <form action="tiki-faq_questions.php" method="post" id="editpageform">
+    {ticket}
     <input type="hidden" name="questionId" value="{$questionId|escape}">
     <input type="hidden" name="faqId" value="{$faqId|escape}">
 
@@ -39,6 +40,7 @@
     <h2> {tr}Use a question from another FAQ{/tr}</h2>
     <br>
     <form action="tiki-faq_questions.php" method="post">
+        {ticket}
         <input type="hidden" name="questionId" value="{$questionId|escape}">
         <input type="hidden" name="faqId" value="{$faqId|escape}">
         <div class="mb-3 row mx-0">

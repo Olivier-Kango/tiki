@@ -7,6 +7,7 @@
 <h2>{tr}Parent directory category:{/tr}</h2>
 {* Display the path adding manually the top category id=0 *}
 <form name="path" method="post" action="tiki-directory_admin_categories.php">
+    {ticket}
     <br>
     <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">
@@ -34,6 +35,7 @@
     <a href="tiki-directory_admin_categories.php">{tr}Add a Directory Category{/tr}</a>
 {/if}
 <form action="tiki-directory_admin_categories.php" method="post">
+    {ticket}
     <input type="hidden" name="parent" value="{$parent|escape}">
     <input type="hidden" name="categId" value="{$categId|escape}">
 

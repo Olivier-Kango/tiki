@@ -6,6 +6,7 @@
 
 <h2>{tr}Assign themes to objects{/tr}</h2>
 <form id='objform' action="tiki-theme_control_objects.php" method="post" class="d-flex flex-row flex-wrap align-items-center" role="form">
+    {ticket}
         <label for="type" class="me-2">{tr}Type{/tr}</label>
         <select name="type" onchange="javascript:document.getElementById('objform').submit();" class="form-control me-2 mb-2">
             {section name=ix loop=$objectypes}
@@ -33,6 +34,7 @@
 {include file='find.tpl'}
 
 <form action="tiki-theme_control_objects.php" method="post" class="form" role="form">
+    {ticket}
     <input type="hidden" name="type" value="{$type|escape}">
     <div class="table-responsive themeobj-table">
         <table class="table">

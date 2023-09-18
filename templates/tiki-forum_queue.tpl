@@ -7,6 +7,7 @@
 
 {if $smarty.request.qId and $form eq 'y'}
     <form method="post" action="tiki-forum_queue.php" role="form">
+        {ticket}
         <div class="card">
             <div class="card-header">
                 {tr}Edit queued message{/tr}
@@ -113,6 +114,7 @@
 {* FILTERING FORM *}
 {if $items or ($find ne '')}
     <form action="tiki-forum_queue.php" method="post" class="form">
+        {ticket}
         <div class="mb-3">
             <input type="hidden" name="forumId" value="{$forumId|escape}">
             <input type="hidden" name="offset" value="{$offset|escape}">
@@ -128,6 +130,7 @@
 
 {*LISTING*}
 <form action="tiki-forum_queue.php" method="post">
+    {ticket}
     <input type="hidden" name="forumId" value="{$forumId|escape}">
     <input type="hidden" name="offset" value="{$offset|escape}">
     <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">
@@ -172,7 +175,16 @@
                                 <a class="link" href="tiki-download_forum_attachment.php?attId={$items[ix].attachments[iz].attId}">
                                     {icon name='attach' alt="{tr}Attachment{/tr}"}
                                     {$items[ix].attachments[iz].filename} ({$items[ix].attachments[iz].filesize|kbsize})</a>
-                                <a class="link" href="tiki-forum_queue.php?forumId={$forumId}&amp;find={$find}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove_attachment={$items[ix].attachments[iz].attId}">{icon name='remove' alt="{tr}Remove{/tr}"}</a>
+                                <form action="tiki-forum_queue.php" method="post" >
+                                    {ticket}
+                                    <input type="hidden" name="find" value={$find}>
+                                    <input type="hidden" name="offset" value={$offset}>
+                                    <input type="hidden" name="sort_mode" value={$sort_mode}>
+                                    <input type="hidden" name="remove_attachment" value={$items[ix].attachments[iz].attId}>
+                                    <button type="submit" name="forumId" value={$forumId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                        {icon name='remove' alt="{tr}Remove{/tr}"}
+                                    </button>
+                                </form>
                                 <br>
                             {/section}
                         {/if}

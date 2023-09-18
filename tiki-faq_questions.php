@@ -75,7 +75,7 @@ if (! isset($_REQUEST["filter"])) {
 $smarty->assign('filter', $_REQUEST["filter"]);
 
 if (isset($_REQUEST["useq"])) {
-    check_ticket('faq-questions');
+    $access->checkCsrf();
     $quse = $faqlib->get_faq_question($_REQUEST["usequestionId"]);
 
     $faqlib->replace_faq_question($_REQUEST["faqId"], 0, $quse["question"], $quse["answer"]);
@@ -83,7 +83,7 @@ if (isset($_REQUEST["useq"])) {
 }
 
 if (isset($_REQUEST["save"])) {
-    check_ticket('faq-questions');
+    $access->checkCsrf();
     $faqlib->replace_faq_question($_REQUEST["faqId"], $_REQUEST["questionId"], $_REQUEST["question"], $_REQUEST["answer"]);
 
     $info["question"] = '';
@@ -139,7 +139,6 @@ $suggested = $faqlib->list_suggested_questions(0, -1, 'created_desc', '', $_REQU
 $smarty->assign_by_ref('suggested', $suggested["data"]);
 
 include_once('tiki-section_options.php');
-ask_ticket('faq-questions');
 
 
 $wikilib = TikiLib::lib('wiki');

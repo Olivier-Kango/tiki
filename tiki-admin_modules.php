@@ -157,17 +157,6 @@ if (! empty($_REQUEST['moddown']) && $access->checkCsrf()) {
     }
 }
 
-// TODO these requests don't seem to be used so remove code once confirmed
-/*if (! empty($_REQUEST['modleft'])) {
-    check_ticket('admin-modules');
-    $modlib->module_left($_REQUEST['modleft']);
-}
-
-if (! empty($_REQUEST['modright'])) {
-    check_ticket('admin-modules');
-    $modlib->module_right($_REQUEST['modright']);
-}*/
-
 if (! empty($_REQUEST['module-order']) && $access->checkCsrf()) {
     $module_order = json_decode($_REQUEST['module-order']);
     $result = $modlib->reorder_modules($module_order);

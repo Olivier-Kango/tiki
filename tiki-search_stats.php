@@ -12,7 +12,7 @@ $access->check_feature('feature_search_stats');
 $access->check_permission('tiki_p_admin');
 
 if (isset($_REQUEST["clear"])) {
-    check_ticket('search-stats');
+    $access->checkCsrf();
     $searchstatslib->clear_search_stats();
 }
 if (! isset($_REQUEST["sort_mode"])) {

@@ -1,7 +1,12 @@
 {title help="SearchStats"}{tr}Search statistics{/tr}{/title}
 
 <div class="t_navbar">
-    {button href="?clear=1" class="btn btn-primary" _text="{tr}Clear Stats{/tr}"}
+    <form action="tiki-search_stats.php" method="post" >
+        {ticket}
+        <button type="submit" name="clear" value=1 class=" btn btn-primary">
+            {tr}Clear Stats{/tr}
+        </button>
+    </form>
 </div>
 
 {include file='find.tpl'}

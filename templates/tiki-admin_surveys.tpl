@@ -100,6 +100,7 @@
         {/if}
 
         <form action="tiki-admin_surveys.php" method="post" role="form">
+            {ticket}
             <div class="tiki-form-group row">
                 <input type="hidden" name="surveyId" value="{$info.surveyId|escape}">
                 <label for="name" class="col-sm-2 col-form-label">{tr}Name{/tr}</label>

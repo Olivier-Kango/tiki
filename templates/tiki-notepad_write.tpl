@@ -7,6 +7,7 @@
 </div>
 
 <form action="tiki-notepad_write.php" method="post">
+    {ticket}
     <input type="hidden" name="parse_mode" value="{$info.parse_mode|escape}">
     <input type="hidden" name="noteId" value="{$noteId|escape}">
     <div class="tiki-form-group row">

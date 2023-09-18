@@ -50,7 +50,7 @@ if (isset($_REQUEST['only_db_untranslated']) && $_REQUEST['only_db_untranslated'
 
 // Adding strings
 if (isset($_REQUEST["add_tran"])) {
-    check_ticket('edit-languages');
+    $access->checkCsrf();
     $add_tran_source = $_REQUEST["add_tran_source"];
     $add_tran_tran = $_REQUEST["add_tran_tran"];
 
@@ -75,7 +75,7 @@ if (isset($_REQUEST["action"])) {
 }
 
 if ($action == "edit_rec_sw" || $action == "edit_tran_sw") {
-    check_ticket('edit-languages');
+    $access->checkCsrf();
 
     $offset = isset($_REQUEST["offset"]) ? $_REQUEST['offset'] : 0;
     $smarty->assign('offset', $offset);
@@ -162,7 +162,6 @@ $db_languages = Language::getDbTranslatedLanguages();
 $db_languages = $langLib->format_language_list($db_languages);
 $smarty->assign_by_ref('db_languages', $db_languages);
 
-ask_ticket('edit-languages');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

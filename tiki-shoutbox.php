@@ -44,7 +44,7 @@ if ($tiki_p_admin_shoutbox == 'y' || $user == $owner) {
 }
 if ($tiki_p_post_shoutbox == 'y') {
     if (isset($_REQUEST["save"]) && ! empty($_REQUEST['message'])) {
-        check_ticket('shoutbox');
+        $access->checkCsrf();
         if (($prefs['feature_antibot'] == 'y' && empty($user)) && ! $captchalib->validate()) {
             Feedback::error(['mes' => $captchalib->getErrors()]);
             if (! empty($_REQUEST['message'])) {
@@ -127,7 +127,6 @@ if ($get) {
 }
 $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
-ask_ticket('shoutbox');
 // Display the template
 $smarty->assign('mid', 'tiki-shoutbox.tpl');
 $smarty->display("tiki.tpl");

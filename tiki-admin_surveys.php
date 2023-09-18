@@ -27,7 +27,7 @@ $smarty->assign('surveyId', $_REQUEST["surveyId"]);
 $tikilib->get_perm_object($_REQUEST['surveyId'], 'survey');
 $access->check_permission('tiki_p_admin_surveys');
 if (isset($_REQUEST["save"])) {
-    check_ticket('admin-surveys');
+    $access->checkCsrf();
     if (isset($_REQUEST["restriction"]) && $_REQUEST["restriction"] == 'on') {
         $restriction = 'y';
     } else {
@@ -137,7 +137,6 @@ $cat_objid = $_REQUEST["surveyId"];
 include_once("categorize_list.php");
 $section = 'surveys';
 include_once('tiki-section_options.php');
-ask_ticket('admin-surveys');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template

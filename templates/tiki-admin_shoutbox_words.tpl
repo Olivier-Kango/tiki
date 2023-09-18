@@ -9,6 +9,7 @@
 </div>
 
 <form method="post" action="tiki-admin_shoutbox_words.php">
+    {ticket}
     <div class="mb-3 row">
         <label class="col-form-label col-md-2" for="word">{tr}Word{/tr}</label>
         <div class="col-md-9">
