@@ -35,7 +35,7 @@ if (! isset($_REQUEST["repID"]) || $repID <= 0) {
     die;
 }
 // Create instance of integrator
-$integrator = new TikiIntegrator($dbTiki);
+$integrator = new TikiIntegrator();
 // Check if copy button pressed
 if (isset($_REQUEST["copy"]) && ($srcrep > 0)) {
     $integrator->copy_rules($srcrep, $repID);

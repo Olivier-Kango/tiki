@@ -9,7 +9,7 @@ require_once('lib/integrator/integrator.php');
 $access->check_feature('feature_integrator');
 $access->check_permission(['tiki_p_view_integrator']);
 // Create instance of integrator
-$integrator = new TikiIntegrator($dbTiki);
+$integrator = new TikiIntegrator();
 // Fill list of repositories
 $repositories = $integrator->list_repositories(true);
 $smarty->assign_by_ref('repositories', $repositories);
