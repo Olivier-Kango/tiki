@@ -22,7 +22,7 @@ if (! isset($_REQUEST["repID"]) && ($repID <= 0)) {
     die;
 }
 // Create instance of integrator
-$integrator = new TikiIntegrator($dbTiki);
+$integrator = new TikiIntegrator();
 // Get repository configuration data
 $rep = $integrator->get_repository($repID);
 

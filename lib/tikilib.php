@@ -2950,7 +2950,7 @@ class TikiLib extends TikiDb_Bridge
                     break;
                 case substr($slug, 0, 3) === 'int':
                     $repID = substr($slug, 3);
-                    $integrator = new TikiIntegrator($dbTiki);
+                    $integrator = new TikiIntegrator();
                     $rep = $integrator->get_repository($repID);
                     $objectLink = ! empty($rep['name']) ? '[' . $uri . '|' . $rep['name'] . ']' : '';
                     break;
@@ -3109,7 +3109,7 @@ class TikiLib extends TikiDb_Bridge
                     break;
                 case substr($param, 0, 5) === 'repID':
                     $repID = substr($param, 6);
-                    $integrator = new TikiIntegrator($dbTiki);
+                    $integrator = new TikiIntegrator();
                     $rep = $integrator->get_repository($repID);
                     $objectLink = ! empty($rep['name']) ? '[' . $uri . '|' . $rep['name'] . ']' : '';
                     break;

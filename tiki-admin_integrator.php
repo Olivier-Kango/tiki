@@ -26,7 +26,7 @@ $vis = isset($_REQUEST['vis']) ? ($_REQUEST['vis'] == 'on' ? 'y' : 'n') : 'n';
 $cacheable = isset($_REQUEST['cacheable']) ? ($_REQUEST['cacheable'] == 'on' ? 'y' : 'n') : 'n';
 
 // Create instance of integrator
-$integrator = new TikiIntegrator($dbTiki);
+$integrator = new TikiIntegrator();
 
 // Check if 'submit' pressed ...
 if (isset($_REQUEST['save'])) {
