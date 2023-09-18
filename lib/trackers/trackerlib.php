@@ -6450,10 +6450,26 @@ class TrackerLib extends TikiLib
                         'controller' => 'tracker',
                         'action' => 'fetch_item_field',
                         'trackerId' => $field['trackerId'],
-                        'itemId' => $item['itemId'],
                         'fieldId' => $field['fieldId'],
                         'listMode' => $context['list_mode']
                     ];
+                    if ($item['itemId']) {
+                        $fetchUrl['itemId'] = $item['itemId'];
+                    }
+                }
+
+                $id = "{$field['fieldId']}{$field['trackerId']}";
+
+                $objectStoreUrl = [
+                    'controller' => 'tracker',
+                    'action' => 'update_item',
+                    'trackerId' => $field['trackerId'],
+                    'itemId' => $item['itemId'],
+                ];
+
+                if (isset($item['itemId'])) {
+                    $objectStoreUrl['itemId'] = $item['itemId'];
+                    $id = "{$id}{$item['itemId']}";
                 }
 
                 $r = new Tiki_Render_Editable(
@@ -6463,15 +6479,10 @@ class TrackerLib extends TikiLib
                         'label' => $field['name'],
                         'group' => ! empty($params['editgroup']) ? $params['editgroup'] : false,
                         'field' => [
-                            'id' => "{$field['fieldId']}{$field['trackerId']}{$item['itemId']}",
+                            'id' => $id,
                             'type' => $field['type']
                         ],
-                        'object_store_url' => [
-                            'controller' => 'tracker',
-                            'action' => 'update_item',
-                            'trackerId' => $field['trackerId'],
-                            'itemId' => $item['itemId'],
-                        ],
+                        'object_store_url' => $objectStoreUrl,
                         'field_fetch_url' => $fetchUrl,
                     ]
                 );
