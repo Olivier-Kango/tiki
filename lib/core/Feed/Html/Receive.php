@@ -25,7 +25,7 @@ class Feed_Html_Receive extends Feed_Abstract
             return $this->contents;
         } else {
             $feed = json_decode(file_get_contents($this->href));
-            $this->contents = $feed->feed;
+            $this->contents = $feed !== null ? $feed->feed : [];
         }
         return $this->contents;
     }
