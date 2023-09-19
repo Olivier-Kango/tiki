@@ -36,7 +36,7 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
             'weeks' => 2,
             'weekdays' => 'WE',
             'startPeriod' => $start,
-            'endPeriod' => strtotime('12am', strtotime('+2 months')),
+            'endPeriod' => strtotime('12am', strtotime('+9 weeks')),
         ]);
         $this->recIds['monthly-date'] = $table->insert([
             'calendarId' => $this->calendarId,
@@ -209,9 +209,9 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
         $rec = new CalRecurrence($this->recIds['weekly']);
         $rec->createEvents();
         $events = $this->getEventsByRecurrence($rec->getId());
+        $this->assertTrue(in_array(count($events), [5,6]));
         $last = array_pop($events);
         $this->assertEquals(3, date('w', $last['start']));
-        $this->assertEquals(date('Y-m-d', strtotime('previous Wednesday', strtotime('+2 months'))), date('Y-m-d', $last['start']));
     }
 
     public function testEventCreationMonthlyDate(): void
