@@ -494,7 +494,8 @@ foreach ($categories as $category) {
             ';
         }
 
-        $desc = '<small>' . smarty_modifier_escape($category['description']) . '</small>';
+        $desc = '<small class="d-block">' . smarty_modifier_escape($category['description']) . '</small>';
+        $catid = "<span class='badge bg-secondary'>ID: {$category["categId"]}</span>";
 
         if ($prefs['category_browse_count_objects'] === 'y') {
             $objectcount = $categlib->list_category_objects(
@@ -538,7 +539,7 @@ foreach ($categories as $category) {
         $treeNodes[] = [
             'id' => $category['categId'],
             'parent' => $category['parentId'],
-            'data' => $newdata . $catlink . $desc,
+            'data' => $newdata . $catlink . $catid . $desc,
         ];
     }
 }
