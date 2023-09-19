@@ -84,7 +84,6 @@ if ($tiki_sheet_div_style) {
 }
 
 include_once('tiki-section_options.php');
-ask_ticket('sheet');
 
 $smarty->assign('lock', true);
 

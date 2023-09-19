@@ -28,7 +28,6 @@ $options = $polllib->list_poll_options($_REQUEST["pollId"]);
 $smarty->assign_by_ref('menu_info', $poll_info);
 $smarty->assign_by_ref('channels', $options);
 $smarty->assign('ownurl', $tikilib->httpPrefix() . $_SERVER["REQUEST_URI"]);
-ask_ticket('poll-form');
 // Display the template
 $smarty->assign('title', $poll_info['title']);
 $smarty->assign('mid', 'tiki-poll_form.tpl');

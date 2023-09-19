@@ -59,7 +59,6 @@ $smarty->assign_by_ref('channels', $channels["data"]);
 $questions = $quizlib->list_quiz_question_stats($_REQUEST["quizId"], 0, -1, 'position_asc', '');
 $smarty->assign_by_ref('questions', $questions);
 include_once('tiki-section_options.php');
-ask_ticket('quiz_stats_quiz');
 // Display the template
 $smarty->assign('mid', 'tiki-quiz_stats_quiz.tpl');
 $smarty->display("tiki.tpl");

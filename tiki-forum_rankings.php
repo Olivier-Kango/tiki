@@ -80,7 +80,6 @@ $smarty->assign_by_ref('rankings', $rankings);
 $smarty->assign('rpage', 'tiki-forum_rankings.php');
 
 include_once('tiki-section_options.php');
-ask_ticket('forum-rankings');
 
 // Display the template
 $smarty->assign('mid', 'tiki-ranking.tpl');

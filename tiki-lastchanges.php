@@ -60,7 +60,7 @@ if ($offset > 0) {
     $smarty->assign('prev_offset', -1);
 }
 $smarty->assign_by_ref('lastchanges', $lastchanges["data"]);
-ask_ticket('lastchanges');
+
 include_once('tiki-section_options.php');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

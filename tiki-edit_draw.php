@@ -32,8 +32,6 @@ include_once('tiki-section_options.php');
 include_once('lib/mime/mimetypes.php');
 global $mimetypes;
 
-ask_ticket('draw');
-
 if ((! isset($_REQUEST['fileId']) || $_REQUEST['fileId'] < 1) && ! isset($_REQUEST['galleryId'])) {
     $access->display_error('', tra('Incorrect param'), 400);
 }

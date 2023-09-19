@@ -433,8 +433,6 @@ if (empty($parserlib->getPlugins($info["data"], ['slideshow']))) {
     );
 }
 
-ask_ticket('index-raw');
-
 
 $themesArr = [['black','Black'],
             ['blood','Blood'],

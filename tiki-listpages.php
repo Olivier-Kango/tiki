@@ -323,7 +323,6 @@ if (! empty($multiprint_pages)) {
 
     $smarty->assign_by_ref('listpages', $listpages['data']);
     $smarty->assign_by_ref('cant', $listpages['cant']);
-    ask_ticket('list-pages');
     include_once('tiki-section_options.php');
 
     // Exact match and single result, go to page directly

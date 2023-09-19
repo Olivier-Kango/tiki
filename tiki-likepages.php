@@ -55,7 +55,7 @@ if (! $tikilib->page_exists($page)) {
     }
 }
 $smarty->assign_by_ref('likepages', $likepages);
-ask_ticket('likepages');
+
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 include_once('tiki-section_options.php');

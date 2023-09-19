@@ -50,7 +50,6 @@ for ($i = 0; $i < $temp_max; $i++) {
 $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 include_once('tiki-section_options.php');
-ask_ticket('list-surveys');
 // Display the template
 $smarty->assign('mid', 'tiki-list_surveys.tpl');
 $smarty->display("tiki.tpl");

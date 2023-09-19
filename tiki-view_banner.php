@@ -94,6 +94,5 @@ if ($fp = @fopen($tikilib->httpPrefix() . $foo1 . "?id=$bannerId", "r")) {
     fclose($fp);
 }
 $smarty->assign_by_ref('raw', $raw);
-ask_ticket('view-banner');
 $smarty->assign('mid', 'tiki-view_banner.tpl');
 $smarty->display("tiki.tpl");

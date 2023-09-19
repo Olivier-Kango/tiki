@@ -95,6 +95,5 @@ $smarty->assign_by_ref('best_objects_stats_lastweek', $best_objects_stats_lastwe
 $best_objects_stats_between = $statslib->best_overall_object_stats(20, 0, $start_date, $end_date);
 $smarty->assign_by_ref('best_objects_stats_between', $best_objects_stats_between);
 
-ask_ticket('stats');
 $smarty->assign('mid', 'tiki-stats.tpl');
 $smarty->display("tiki.tpl");

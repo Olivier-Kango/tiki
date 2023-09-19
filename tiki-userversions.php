@@ -37,6 +37,5 @@ if (isset($_REQUEST["preview"])) {
 }
 $history = $histlib->get_user_versions($_REQUEST["ruser"]);
 $smarty->assign_by_ref('history', $history);
-ask_ticket('userversion');
 $smarty->assign('mid', 'tiki-userversions.tpl');
 $smarty->display("tiki.tpl");

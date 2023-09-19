@@ -32,7 +32,6 @@ if ($prefs['feature_theme_control'] == 'y') {
     $cat_objid = $_REQUEST['pageName'];
     include('tiki-tc.php');
 }
-ask_ticket('html-page');
 //add a hit
 $statslib->stats_hit($_REQUEST['pageName'], "html_pages");
 // Display the template

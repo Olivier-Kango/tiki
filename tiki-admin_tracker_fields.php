@@ -50,7 +50,6 @@ $tracker_info['pagetitle'] = tr('Tracker Fields %0', $tracker_info['name']);
 $smarty->assign('trackerId', $_REQUEST["trackerId"]);
 $smarty->assign('tracker_info', $tracker_info);
 
-ask_ticket('admin-tracker-fields');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template

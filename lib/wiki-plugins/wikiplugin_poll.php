@@ -105,8 +105,6 @@ function wikiplugin_poll($data, $params)
         $smarty->assign_by_ref('poll_title', $data);
         $smarty->assign('ownurl', $tikilib->httpPrefix() . $_SERVER['REQUEST_URI']);
 
-        ask_ticket('poll-form');
-
         $ret = $smarty->fetch('tiki-plugin_poll.tpl');
     }
     if (($showresult == 'voted' && $hasVoted) || $showresult == 'always') {

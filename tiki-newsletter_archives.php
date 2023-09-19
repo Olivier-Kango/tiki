@@ -88,7 +88,6 @@ if (isset($_REQUEST['editionId'])) {
         }
     }
 }
-ask_ticket('newsletters');
 $section = 'newsletters';
 include_once('tiki-section_options.php');
 // Display the template

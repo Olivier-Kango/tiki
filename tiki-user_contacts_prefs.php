@@ -83,7 +83,6 @@ $exts = $contactlib->get_ext_list($user);
 $smarty->assign('exts', $exts);
 
 include_once('tiki-mytiki_shared.php');
-//ask_ticket('user-contacts_prefs');
 include_once('tiki-section_options.php');
 $smarty->assign('mid', 'tiki-user_contacts_prefs.tpl');
 $smarty->display("tiki.tpl");

@@ -68,7 +68,6 @@ for ($i = 0; $i < $temp_max; $i++) {
 $smarty->assign_by_ref('listpages', $listpages["data"]);
 $smarty->assign_by_ref('cant', $listpages["cant"]);
 include_once('tiki-section_options.php');
-ask_ticket('list-blogs');
 // Display the template
 $smarty->assign('mid', 'tiki-list_blogs.tpl');
 $smarty->display("tiki.tpl");

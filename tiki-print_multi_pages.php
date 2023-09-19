@@ -96,7 +96,6 @@ if (isset($_REQUEST["print"]) || isset($_REQUEST["display"])) {
 }
 
 $smarty->assign_by_ref('pages', $pages);
-ask_ticket('multiprint');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 $smarty->assign('print_page', 'y');

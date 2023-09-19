@@ -104,7 +104,6 @@ $related = $dirlib->dir_list_related_categories($_REQUEST['parent'], 0, -1, 'nam
 $smarty->assign_by_ref('related', $related['data']);
 $stats = $dirlib->dir_stats();
 $smarty->assign_by_ref('stats', $stats);
-ask_ticket('dir-browse');
 $smarty->assign('mid', 'tiki-directory_browse.tpl');
 if (isset($_REQUEST['print'])) {
     $smarty->display('tiki-print.tpl');

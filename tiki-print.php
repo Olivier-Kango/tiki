@@ -116,7 +116,7 @@ if (empty($info["user"])) {
 $smarty->assign_by_ref('lastVersion', $info["version"]);
 $smarty->assign_by_ref('lastUser', $info["user"]);
 $crumbs[] = new Breadcrumb(isset($crumbpage) ? $crumbpage : $page, $info["description"], 'tiki-index.php?page=' . urlencode($page), '', '');
-ask_ticket('print');
+
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the Index Template

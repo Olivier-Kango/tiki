@@ -227,7 +227,6 @@ $smarty->assign_by_ref('where_list', $where_list);
 $smarty->assign_by_ref('results', $results["data"]);
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
-ask_ticket('searchresults');
 $smarty->assign('searchNoResults', ! isset($_REQUEST['words'])); // false is default
 $smarty->assign('mid', 'tiki-searchresults.tpl');
 $smarty->display("tiki.tpl");

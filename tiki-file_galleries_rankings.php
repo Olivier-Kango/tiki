@@ -68,7 +68,6 @@ $rankings[] = $rank;
 
 $smarty->assign_by_ref('rankings', $rankings);
 $smarty->assign('rpage', 'tiki-file_galleries_rankings.php');
-ask_ticket('fgal-rankings');
 
 // Display the template
 $smarty->assign('mid', 'tiki-ranking.tpl');

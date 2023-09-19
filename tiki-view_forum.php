@@ -499,7 +499,6 @@ if ($ts['enabled'] && ! $ts['ajax']) {
     );
 }
 
-ask_ticket('view-forum');
 if ($ts['ajax']) {
     $smarty->display('tiki-view_forum.tpl');
 } else {

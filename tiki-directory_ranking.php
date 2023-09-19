@@ -40,6 +40,5 @@ $items = $dirlib->dir_list_all_valid_sites($offset, $maxRecords, $sort_mode, $fi
 $smarty->assign_by_ref('items', $items["data"]);
 $smarty->assign_by_ref('cant', $items["cant"]);
 include_once('tiki-section_options.php');
-ask_ticket('dir-ranking');
 $smarty->assign('mid', 'tiki-directory_ranking.tpl');
 $smarty->display("tiki.tpl");

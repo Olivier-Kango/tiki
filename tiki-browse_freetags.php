@@ -141,7 +141,6 @@ $cant = $objects['cant'];
 $smarty->assign('cant', $objects['cant']);
 
 include_once('tiki-section_options.php');
-ask_ticket('browse-freetags');
 
 $smarty->assign(
     'objects_with_freetags',

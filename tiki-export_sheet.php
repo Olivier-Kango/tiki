@@ -102,7 +102,6 @@ $cat_objid = $_REQUEST["sheetId"];
 include_once("categorize_list.php");
 
 include_once('tiki-section_options.php');
-ask_ticket('sheet');
 // Display the template
 $smarty->assign('mid', 'tiki-export-sheets.tpl');
 $smarty->display("tiki.tpl");

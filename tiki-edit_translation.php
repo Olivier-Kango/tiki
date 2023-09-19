@@ -123,8 +123,6 @@ if (isset($_REQUEST['target_lang'])) {
 
 smarty_assign_translation_name();
 
-ask_ticket('edit-translation');
-
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 

@@ -1745,7 +1745,6 @@ if (
     $smarty->assign('showPropertiesTab', 'y');
 }
 
-ask_ticket('edit-page');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the Edit Template or language check

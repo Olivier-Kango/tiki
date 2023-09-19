@@ -62,7 +62,6 @@ $smarty->assign_by_ref('cant_pages', $channels["cant"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 $smarty->assign('section', $section);
 include_once('tiki-section_options.php');
-ask_ticket('survey-stats');
 // Display the template
 $smarty->assign('mid', 'tiki-survey_stats.tpl');
 $smarty->display("tiki.tpl");

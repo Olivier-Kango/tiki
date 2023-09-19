@@ -1674,8 +1674,6 @@ class Services_Tracker_Controller
             $smarty->assign('attextra', $attextra);
         }
 
-        ask_ticket('view-trackers-items');
-
         $smarty->assign('canView', $itemObject->canView());
 
         // View

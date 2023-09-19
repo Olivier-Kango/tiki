@@ -109,7 +109,6 @@ foreach ($printstructures as $page_ref_id) {
 $smarty->assign_by_ref('printnamestructures', $printnamestructures);
 
 include_once('tiki-section_options.php');
-ask_ticket('print-pages');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 $smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : 'n');

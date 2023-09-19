@@ -25,7 +25,6 @@ $auto_query_args = [
 $access->check_feature('feature_docs');
 $access->check_feature('feature_file_galleries');
 
-ask_ticket('docs');
 
 $fileId = (int)$_REQUEST['fileId'];
 $smarty->assign('fileId', $fileId);

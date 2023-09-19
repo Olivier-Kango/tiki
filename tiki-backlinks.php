@@ -39,7 +39,6 @@ if (! $tikilib->page_exists($page)) {
 // Get the backlinks for the page "page"
 $backlinks = $wikilib->get_backlinks($page);
 $smarty->assign_by_ref('backlinks', $backlinks);
-ask_ticket('backlinks');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template

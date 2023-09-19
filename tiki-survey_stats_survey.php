@@ -64,7 +64,6 @@ if ($offset > 0) {
 }
 $smarty->assign_by_ref('questions', $questions["data"]);
 include_once('tiki-section_options.php');
-ask_ticket('survey-stats-survey');
 // Display the template
 $smarty->assign('mid', 'tiki-survey_stats_survey.tpl');
 if (isset($_REQUEST['print'])) {

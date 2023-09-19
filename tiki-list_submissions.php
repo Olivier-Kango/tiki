@@ -123,7 +123,7 @@ $listpages = $artlib->list_submissions($offset, $maxRecords, $sort_mode, $find, 
 $smarty->assign_by_ref('cant_pages', $listpages["cant"]);
 include_once('tiki-section_options.php');
 $smarty->assign_by_ref('listpages', $listpages["data"]);
-ask_ticket('list-submissions');
+
 // Display the template
 $smarty->assign('mid', 'tiki-list_submissions.tpl');
 $smarty->display("tiki.tpl");

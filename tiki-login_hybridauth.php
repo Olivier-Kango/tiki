@@ -84,9 +84,6 @@ if ($user) {
 */
 //LLOG('writing adapter =null');
 
-
-//ask_ticket('socialnetworks');  //What does this do here?
-
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 $smarty->display("tiki.tpl");

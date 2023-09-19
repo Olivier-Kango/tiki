@@ -112,8 +112,6 @@ include_once("categorize_list.php");
 
 include_once('tiki-section_options.php');
 
-ask_ticket('sheet');
-
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 

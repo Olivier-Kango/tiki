@@ -79,7 +79,6 @@ if ($ts['enabled'] && ! $ts['ajax']) {
     );
 }
 
-ask_ticket('forums');
 // Display the template
 if ($ts['ajax']) {
     $smarty->display('tiki-forums.tpl');

@@ -43,6 +43,6 @@ $smarty->assign_by_ref('result', $result);
 $questions = $quizlib->get_user_quiz_questions($_REQUEST["userResultId"]);
 $smarty->assign('questions', $questions);
 include_once('tiki-section_options.php');
-ask_ticket('quiz-res-stats');
+
 $smarty->assign('mid', 'tiki-quiz_result_stats.tpl');
 $smarty->display("tiki.tpl");

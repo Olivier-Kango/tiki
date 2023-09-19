@@ -224,7 +224,6 @@ $smarty->assign_by_ref('objects', $objects['data']);
 $smarty->assign_by_ref('cant_pages', $objects['cant']);
 $smarty->assign_by_ref('maxRecords', $maxRecords);
 include_once('tiki-section_options.php');
-ask_ticket('browse-categories');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

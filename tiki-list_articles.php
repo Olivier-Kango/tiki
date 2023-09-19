@@ -200,7 +200,7 @@ if ($tiki_p_edit_article != 'y' && $tiki_p_remove_article != 'y') { //check one 
     }
 }
 include_once('tiki-section_options.php');
-ask_ticket('list-articles');
+
 // Display the template
 $smarty->assign('mid', 'tiki-list_articles.tpl');
 $smarty->display("tiki.tpl");

@@ -54,6 +54,5 @@ if ($tiki_p_admin_banners == 'y') {
 $listpages = $bannerlib->list_banners($offset, $maxRecords, $sort_mode, $find, $who);
 $smarty->assign_by_ref('cant_pages', $listpages["cant"]);
 $smarty->assign_by_ref('listpages', $listpages["data"]);
-ask_ticket('list-banners');
 $smarty->assign('mid', 'tiki-list_banners.tpl');
 $smarty->display("tiki.tpl");

@@ -56,7 +56,7 @@ $rankings[] = $rank;
 include_once('tiki-section_options.php');
 $smarty->assign_by_ref('rankings', $rankings);
 $smarty->assign('rpage', 'tiki-blog_rankings.php');
-ask_ticket('blog-rankings');
+
 // Display the template
 $smarty->assign('mid', 'tiki-ranking.tpl');
 $smarty->display("tiki.tpl");

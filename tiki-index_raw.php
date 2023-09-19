@@ -112,7 +112,6 @@ $pageRenderer->useRaw();
 
 include_once('tiki-section_options.php');
 $pageRenderer->runSetups();
-ask_ticket('index-raw');
 
 // Process page display options
 $wikilib->processPageDisplayOptions(TikiLib::lib('header'));

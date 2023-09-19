@@ -174,7 +174,6 @@ if ($prefs['feature_user_watches'] == 'y') {
 $headerLinks = 'y';
 $smarty->assign('headerLinks', $headerLinks);
 include_once('tiki-section_options.php');
-ask_ticket('view_article');
 // Display the template
 $smarty->assign('mid', 'tiki-view_articles.tpl');
 $smarty->display("tiki.tpl");

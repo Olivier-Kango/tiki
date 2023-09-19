@@ -80,6 +80,5 @@ $smarty->assign('api_tiki', $api_tiki);
 $urlquery['sort_mode'] = $sort_mode;
 $urlquery['find'] = $find;
 $smarty->assign_by_ref('urlquery', $urlquery);
-ask_ticket('admin-logs');
 $smarty->assign('mid', 'tiki-syslog.tpl');
 $smarty->display('tiki.tpl');

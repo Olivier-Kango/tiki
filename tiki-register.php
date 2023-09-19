@@ -21,8 +21,6 @@ $auto_query_args = [];
 
 require_once('tiki-setup.php');
 
-ask_ticket('register');
-
 if (isset($redirect) && ! empty($redirect)) {
     header('Location: ' . $redirect);
     exit;
