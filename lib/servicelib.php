@@ -47,7 +47,11 @@ class ServiceLib
     public function getUrl($params)
     {
         global $prefs;
+        if (is_string($params) && ! empty($params)) {
+            return TikiLib::tikiUrlOpt($params);
+        }
 
+        $url = '';
         if (isset($prefs['feature_sefurl']) && $prefs['feature_sefurl'] == 'y') {
             $url = "tiki-{$params['controller']}";
 
