@@ -162,6 +162,10 @@ class ParserLib extends TikiDb_Bridge
                 $data = str_replace($specialChar['html'], $key, $data);
             }
         }
+        if ($this->option['is_markdown']) {
+            // allow inline line breaks in markdown content as former wiki syntax like %%% gets replaced with inline breaks
+            $data = preg_replace('/≤REAL_LT≥(br\s*\/?)>/', '<$1>', $data);
+        }
         return $data;
     }
 
