@@ -257,7 +257,11 @@ function wikiplugin_mouseover($data, $params)
         if (containsStringHTML($text)) {
             $options = ['is_html' => 1];
         }
+        $isMarkdown = TikiLib::lib('parser')->option['is_markdown'];
         $text = TikiLib::lib('parser')->parse_data($text, $options);
+        if ($isMarkdown) {
+            $text = str_replace(['<p>', '</p>'], '', $text);
+        }
     }
     if ($params['parselabel'] == 'y') {
         $label = "~/np~$label~np~";
