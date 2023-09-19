@@ -1,7 +1,7 @@
 {title url=$trackerId|sefurl:'tracker' adm="trackers"}{tr}{$tracker_info.name}{/tr}{/title}
 {if !empty($tracker_info.description)}
     {if $tracker_info.descriptionIsParsed eq 'y'}
-        <div class="description form-text mb-2">{wiki}{$tracker_info.description}{/wiki}</div>
+        <div class="description form-text mb-2">{wiki objectId=$trackerId objectType="tracker" fieldName="description"}{$tracker_info.description}{/wiki}</div>
     {else}
         <div class="description form-text mb-2">{$tracker_info.description|escape|nl2br}</div>
     {/if}

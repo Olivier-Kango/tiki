@@ -429,6 +429,9 @@ function wikiplugin_articles($data, $params)
             [
                 'min_one_paragraph' => true,
                 'is_html' => $artlib->is_html($listpages["data"][$i], true),
+                'objectType' => 'articles',
+                'objectId' => $listpages["data"][$i]['articleId'],
+                'fieldName' => 'heading'
             ]
         );
         if ($fullbody == 'y') {
@@ -437,6 +440,9 @@ function wikiplugin_articles($data, $params)
                 [
                     'min_one_paragraph' => true,
                     'is_html' => $artlib->is_html($listpages["data"][$i]),
+                    'objectType' => 'articles',
+                    'objectId' => $listpages["data"][$i]['articleId'],
+                    'fieldName' => 'body'
                 ]
             );
         }

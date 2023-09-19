@@ -1693,4 +1693,22 @@ class EditLib
     {
         return preg_replace('/^\{syntax.+\}(?:\r\n|\s)(.+)/', "$1", $inData);
     }
+
+    public function toggleCheckbox($data, $checkboxNum)
+    {
+        $i = 0;
+        $state = false;
+
+        // Tasklist syntax: Use a dash or a star followed by a space, followed by an opening square bracket, followed a either a space for unchecked checkbox or x for checked checked, followed by a closing square bracket, followed by a text
+        $data = preg_replace_callback('/^([-|*]\s)(\[[x|\s]\])(.+)/m', function ($m) use (&$i, $checkboxNum, &$state) {
+            $i += 1;
+            if ($checkboxNum == $i) {
+                $state = $m[2] == '[ ]';
+                return $m[1] . ($state ? '[x]' : '[ ]') . $m[3];
+            }
+            return $m[0];
+        }, $data);
+
+        return [$data, $state];
+    }
 }

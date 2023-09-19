@@ -676,8 +676,8 @@ class BlogLib extends TikiDb_Bridge
 
             $is_html = $res['wysiwyg'] === 'y' && $prefs['wysiwyg_htmltowiki'] !== 'y';
 
-            $res['parsed_excerpt'] = $parserlib->parse_data($res['excerpt'], ['is_html' => $is_html]);
-            $res['parsed_data'] = $parserlib->parse_data($res['data'], ['is_html' => $is_html]);
+            $res['parsed_excerpt'] = $parserlib->parse_data($res['excerpt'], ['is_html' => $is_html, 'objectType' => 'post', 'objectId' => $res['postId'], 'fieldName' => 'excerpt']);
+            $res['parsed_data'] = $parserlib->parse_data($res['data'], ['is_html' => $is_html, 'objectType' => 'post', 'objectId' => $res['postId'], 'fieldName' => 'data']);
 
             if ($prefs['feature_freetags'] == 'y') { // And get the Tags for the posts
                 $res['freetags'] = TikiLib::lib('freetag')->get_tags_on_object($res['postId'], 'blog post');

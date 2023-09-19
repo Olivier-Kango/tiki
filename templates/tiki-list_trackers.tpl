@@ -88,7 +88,7 @@
                         </a>
                         <div class="description form-text">
                             {if $tracker.descriptionIsParsed eq 'y'}
-                                {wiki}{$tracker.description}{/wiki}
+                                {wiki objectId=$tracker.trackerId objectType="tracker" fieldName="description"}{$tracker.description}{/wiki}
                             {else}
                                 {$tracker.description|escape|nl2br}
                             {/if}

@@ -22,7 +22,7 @@
                 {trackerinput field=$field item=$item}
                 {if !empty($field.description) && $field.type ne 'S'}
                     {if $field.descriptionIsParsed eq 'y'}
-                        <div class="description form-text">{wiki}{$field.description}{/wiki}</div>
+                        <div class="description form-text">{wiki objectId=$field.fieldId objectType="trackerfield" fieldName="description"}{$field.description}{/wiki}</div>
                     {else}
                         <div class="description form-text">{$field.description|tra|escape}</div>
                     {/if}

@@ -771,6 +771,9 @@ class WikiLib extends TikiLib
             'is_html' => $info['is_html'],
             'language' => $info['lang'],
             'namespace' => $info['namespace'],
+            'objectType' => 'wiki page',
+            'objectId' => $page,
+            'fieldName' => 'data'
         ];
 
         $pageAutoToc = $this->get_page_auto_toc($page);

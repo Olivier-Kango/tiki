@@ -385,7 +385,11 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
     {
         global $prefs;
 
-        $parseOptions = [];
+        $parseOptions = [
+            'objectType' => 'trackeritem',
+            'objectId' => json_encode([$this->getItemId(), $this->getFieldId()]),
+            'fieldName' => 'value'
+        ];
         if ($this->getOption('wysiwyg') === 'y') {
             $parseOptions['is_html'] = ($prefs['wysiwyg_htmltowiki'] !== 'y');
         }

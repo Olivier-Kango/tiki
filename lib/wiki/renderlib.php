@@ -368,6 +368,9 @@ class WikiRenderer
             $parse_options = [
                 'is_html' => $this->info['is_html'],
                 'language' => $this->info['lang'],
+                'objectType' => 'wiki page',
+                'objectId' => $this->page,
+                'fieldName' => 'data'
             ];
 
             $content = $this->content_to_render;

@@ -194,7 +194,12 @@ class Services_Calendar_Controller
                 'extendedProps' => [
                     'description' => ! empty($event['description']) ? $parserLib->parse_data(
                         $event['description'],
-                        ['is_html' => $prefs['calendar_description_is_html'] === 'y']
+                        [
+                            'is_html' => $prefs['calendar_description_is_html'] === 'y',
+                            'objectType' => 'calendar event',
+                            'objectId' => $event['calitemId'],
+                            'fieldName' => 'description'
+                        ]
                     ) : '',
                 ],
                 'url'         => $url,
@@ -271,6 +276,25 @@ class Services_Calendar_Controller
                         } else {
                             Feedback::error(tr('Calendar edit error')); // TODO more
                         }
+                    } else {
+                        Feedback::error(tr('Calendar edit error')); // TODO more
+                    }
+                } else {
+                    $title = $calitem['title'];
+
+                    if (! $input->calendarchanged->int()) {
+                        $preview = $input->act->word() === 'preview';
+
+                        $calitem['parsed'] = $parserLib->parse_data(
+                            $calitem['description'],
+                            [
+                                'is_html' => $prefs['calendar_description_is_html'] === 'y',
+                                'objectType' => 'calendar event',
+                                'objectId' => $calitem['calitemId'],
+                                'fieldName' => 'description'
+                            ]
+                        );
+                        $calitem['parsedName'] = $parserLib->parse_data($calitem['name']);
                     }
                 }
             } else {

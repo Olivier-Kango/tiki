@@ -128,6 +128,9 @@ for ($i = 0; $i < $temp_max; $i++) {
         [
             'min_one_paragraph' => true,
             'is_html' => $artlib->is_html($listpages["data"][$i], true),
+            'objectType' => 'articles',
+            'objectId' => $listpages["data"][$i]['articleId'],
+            'fieldName' => 'heading'
         ]
     );
     $comments_prefix_var = 'article:';

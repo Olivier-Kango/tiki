@@ -47,7 +47,12 @@ function smarty_function_trackerinput($params, $smarty)
         if (isset($params['showDescription']) && $params['showDescription'] == 'y' && $params['field']['type'] != 'S') {
             $desc = $params['field']['description'];
             if ($params['field']['descriptionIsParsed'] == 'y') {
-                $desc = TikiLib::lib('parser')->parse_data($desc);
+                $options = [
+                    'objectType' => 'trackerfield',
+                    'objectId' => $item['itemId'],
+                    'fieldName' => 'description'
+                ];
+                $desc = TikiLib::lib('parser')->parse_data($desc, $options);
             } else {
                 $desc = htmlspecialchars($desc);
             }

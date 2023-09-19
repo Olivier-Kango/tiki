@@ -420,7 +420,7 @@ class CalendarLib extends TikiLib
                     'category' => $res['categoryName'],
                     'name' => $res['name'],
                     'head' => $head,
-                    'parsedDescription' => TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y']),
+                    'parsedDescription' => TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y', 'objectType' => 'calendar event', 'objectId' => $res['calitemId'], 'fieldName' => 'description']),
                     'description' => str_replace("\n|\r", '', $res['description']),
                     'calendarId' => $res['calendarId'],
                     'status' => $res['status'],
@@ -475,7 +475,7 @@ class CalendarLib extends TikiLib
 
                 $ret[$i][$j] = $res;
                 $ret[$i][$j]['head'] = $head;
-                $ret[$i][$j]['parsedDescription'] = TikiLib::lib('parser')->parse_data($res["description"], ['is_html' => $prefs['calendar_description_is_html'] === 'y']);
+                $ret[$i][$j]['parsedDescription'] = TikiLib::lib('parser')->parse_data($res["description"], ['is_html' => $prefs['calendar_description_is_html'] === 'y', 'objectType' => 'calendar event', 'objectId' => $res['calitemId'], 'fieldName' => 'description']);
                 $ret[$i][$j]['description'] = str_replace("\n|\r", "", $res["description"]);
                 $ret[$i][$j]['visible'] = 'y';
                 $ret[$i][$j]['where'] = $res['locationName'];
@@ -546,7 +546,12 @@ class CalendarLib extends TikiLib
             $parserlib = TikiLib::lib('parser');
             $res['parsed'] = $parserlib->parse_data(
                 $res['description'],
-                ['is_html' => $prefs['calendar_description_is_html'] === 'y']
+                [
+                    'is_html' => $prefs['calendar_description_is_html'] === 'y',
+                    'objectType' => 'calendar event',
+                    'objectId' => $res['calitemId'],
+                    'fieldName' => 'description'
+                ]
             );
             $res['parsedName'] = $parserlib->parse_data($res['name']);
         }
@@ -1113,7 +1118,7 @@ class CalendarLib extends TikiLib
         $cant = $this->getOne($query_cant, $bindvars);
 
         foreach ($ret as &$res) {
-            $res['parsed'] = TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y']);
+            $res['parsed'] = TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y', 'objectType' => 'calendar event', 'objectId' => $res['calitemId'], 'fieldName' => 'description']);
         }
 
         $retval = [];
@@ -1182,7 +1187,7 @@ class CalendarLib extends TikiLib
         $cant = $this->getOne($query_cant, $bindvars);
 
         foreach ($ret as &$res) {
-            $res['parsed'] = TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y']);
+            $res['parsed'] = TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y', 'objectType' => 'calendar event', 'objectId' => $res['calitemId'], 'fieldName' => 'description']);
         }
 
         $retval = [];
@@ -1333,7 +1338,7 @@ class CalendarLib extends TikiLib
         $cant = $this->getOne($query_cant, $bindvars);
 
         foreach ($ret as &$res) {
-            $res['parsed'] = TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y']);
+            $res['parsed'] = TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y', 'objectType' => 'calendar event', 'objectId' => $res['calitemId'], 'fieldName' => 'description']);
         }
 
         $retval = [];

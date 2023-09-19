@@ -173,7 +173,7 @@ $offset = $_REQUEST["offset"];
 $sort_mode = $_REQUEST["sort_mode"];
 $find = $_REQUEST["find"];
 if ($post_info['wysiwyg'] == "y") {
-    $parsed_data = TikiLib::lib('parser')->parse_data($post_info["data"], ['is_html' => true]);
+    $parsed_data = TikiLib::lib('parser')->parse_data($post_info["data"], ['is_html' => true, 'objectType' => 'post', 'objectId' => $postId, 'fieldName' => 'data']);
 } else {
     $parsed_data = TikiLib::lib('parser')->parse_data($post_info["data"]);
 }

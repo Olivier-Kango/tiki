@@ -377,6 +377,16 @@ class ObjectLib extends TikiLib
                         return 'tiki_p_modify_tracker_items';
                 }
                 // no return
+            case 'trackeritemattachments':
+                switch ($action) {
+                    case 'view':
+                    case 'read':
+                        return 'tiki_p_tracker_view_attachments';
+
+                    case 'edit':
+                        return 'tiki_p_modify_tracker_items';
+                }
+                // no return
             case 'trackeritem_closed':
                 switch ($action) {
                     case 'view':
@@ -398,6 +408,7 @@ class ObjectLib extends TikiLib
                 }
                 // no return
             case 'tracker':
+            case 'trackerfield':
                 switch ($action) {
                     case 'view':
                     case 'read':
@@ -415,6 +426,26 @@ class ObjectLib extends TikiLib
 
                     case 'edit':
                         return 'tiki_p_edit_content_templates';
+                }
+                // no return
+            case 'surveys':
+                switch ($action) {
+                    case 'view':
+                    case 'read':
+                        return 'tiki_p_take_survey';
+
+                    case 'edit':
+                        return 'tiki_p_admin_surveys';
+                }
+                // no return
+            case 'calendar event':
+                switch ($action) {
+                    case 'view':
+                    case 'read':
+                        return 'tiki_p_view_events';
+
+                    case 'edit':
+                        return 'tiki_p_change_events';
                 }
                 // no return
             default:
@@ -488,8 +519,143 @@ class ObjectLib extends TikiLib
             case 'wiki page':
                 global $user;
                 $tikilib = TikiLib::lib('tiki');
-                $tikilib->update_page($object, $data, tra('section edit'), $user, $tikilib->get_ip_address());
+                $tikilib->update_page($object, $data['data'], tra('section edit'), $user, $tikilib->get_ip_address());
                 break;
+            case 'trackerfield':
+                $trklib = TikiLib::lib('trk');
+                $info = $trklib->get_tracker_field($object);
+                $info = array_merge($info, $data);
+                $utilities = new Services_Tracker_Utilities();
+                $utilities->updateField($info['trackerId'], $object, $data);
+                break;
+            case 'tracker':
+                $trklib = TikiLib::lib('trk');
+                $info = $trklib->get_tracker($object);
+                $info = array_merge($info, $data);
+                $trklib->replace_tracker(
+                    $info['trackerId'],
+                    $info['name'],
+                    $info['description'],
+                    $info['data'],
+                    $info['descriptionIsParsed']
+                );
+                break;
+            case 'trackeritem':
+                $trklib = TikiLib::lib('trk');
+                $itemInfo = $trklib->get_tracker_item($object['itemId']);
+
+                $field = $trklib->get_tracker_field($object['fieldId']);
+                $field['value'] = reset($data);
+
+                $trklib->replace_item(
+                    $itemInfo['trackerId'],
+                    $itemInfo['itemId'],
+                    ['data' => [$field]],
+                    $itemInfo['status']
+                );
+                break;
+            case 'trackeritemattachments':
+                $trklib = TikiLib::lib('trk');
+                $info = $trklib->get_item_attachment($object);
+                $info = array_merge($info, $data);
+
+                $trklib->replace_item_attachment(
+                    $object,
+                    $info['filename'],
+                    $info['filetype'],
+                    $info['filesize'],
+                    $info['data'],
+                    $info['comment'],
+                    $info['user'],
+                    null,
+                    $info['version'],
+                    $info['longdesc'],
+                );
+                break;
+            case 'article':
+            case 'articles':
+                $artlib = TikiLib::lib('art');
+                $info = $artlib->get_article($object);
+                $info = array_merge($info, $data);
+                $artlib->replace_article(
+                    $info['title'],
+                    $info['authorName'],
+                    $info['topicId'],
+                    $info['useImage'],
+                    $info['image_name'],
+                    $info['image_size'],
+                    $info['image_type'],
+                    $info['image_data'],
+                    $info['heading'],
+                    $info['body'],
+                    $info['publishDate'],
+                    $info['expireDate'],
+                    $info['author'],
+                    $info['articleId'],
+                    $info['image_x'],
+                    $info['image_y'],
+                    $info['type'],
+                    $info['rating'],
+                    $info['topline'],
+                    $info['subtitle'],
+                    $info['linkto'],
+                    $info['image_caption'],
+                    $info['lang'],
+                    $info['ispublished']
+                );
+                break;
+            case 'post':
+                $postlib = TikiLib::lib('blog');
+                $info = $postlib->get_post($object);
+                $info = array_merge($info, $data);
+                $postlib->update_post(
+                    $info['postId'],
+                    $info['blogId'],
+                    $info['data'],
+                    $info['excerpt'],
+                    $info['user'],
+                    $info['title'],
+                    $info['contributions'],
+                    $info['priv'],
+                    $info['created'],
+                    $info['wysiwyg']
+                );
+                break;
+            case 'surveys':
+                include_once('lib/surveys/surveylib.php');
+                $info = $srvlib->get_survey($object);
+                $info = array_merge($info, $data);
+                $srvlib->replace_survey(
+                    $info['surveyId'],
+                    $info['name'],
+                    $info['description'],
+                    $info['status']
+                );
+                break;
+            case 'calendaritem':
+            case 'calendar event':
+                $calendarlib = TikiLib::lib('calendar');
+                $info = $calendarlib->get_item($object);
+                $info = array_merge($info, $data);
+                $calendarlib->set_item($info['user'], $info['calitemId'], $info);
+                break;
+            case 'comments':
+                $commentslib = TikiLib::lib('comments');
+                $info = $commentslib->get_comment($object);
+                $info = array_merge($info, $data);
+                $commentslib->update_comment(
+                    $info['threadId'],
+                    $info['title'],
+                    $info['comment_rating'],
+                    $info['data'],
+                    $info['type'],
+                    $info['summary'],
+                    $info['smiley'],
+                    $info['object'],
+                );
+                break;
+            default:
+                // No default
         }
     }
 
@@ -848,5 +1014,34 @@ class ObjectLib extends TikiLib
         }
 
         return false;
+    }
+
+    public function getDBFor($objectType)
+    {
+        switch ($objectType) {
+            case 'comments':
+                return ['tiki_comments', 'threadId'];
+            case 'wiki page':
+                return ['tiki_pages', 'pageName'];
+            case 'articles':
+            case 'article':
+                return ['tiki_articles', 'articleId'];
+            case 'post':
+                return ['tiki_blog_posts', 'postId'];
+            case 'trackeritemattachments':
+                return ['tiki_tracker_item_attachments', 'attId'];
+            case 'surveys':
+                return ['tiki_surveys', 'surveyId'];
+            case 'calendar event':
+                return ['tiki_calendar_items', 'calitemId'];
+            case 'trackeritem':
+                return ['tiki_tracker_item_fields', ['itemId', 'fieldId']];
+            case 'trackerfield':
+                return ['tiki_tracker_fields', 'fieldId'];
+            case 'tracker':
+                return ['tiki_trackers', 'trackerId'];
+            default:
+                return null;
+        }
     }
 }

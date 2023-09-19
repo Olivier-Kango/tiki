@@ -118,7 +118,7 @@ if ($postId > 0) {
 
     $smarty->assign('post_info', $data);
     $smarty->assign('data', $data['data']);
-    $smarty->assign('parsed_data', TikiLib::lib('parser')->parse_data($data['data'], ['is_html' => $is_wysiwyg]));
+    $smarty->assign('parsed_data', TikiLib::lib('parser')->parse_data($data['data'], ['is_html' => $is_wysiwyg, 'objectType' => 'post', 'objectId' => $postId, 'fieldName' => 'data']));
     $smarty->assign('blogpriv', $data['priv']);
 
     $post_images = $bloglib->get_post_images($postId);
@@ -246,7 +246,7 @@ if (isset($_POST['save']) && ! $contribution_needed && $access->checkCsrf()) {
 
 if ($contribution_needed) {
     $smarty->assign('title', $_POST["title"]);
-    $smarty->assign('parsed_data', TikiLib::lib('parser')->parse_data($_POST['data'], ['is_html' => $is_wysiwyg]));
+    $smarty->assign('parsed_data', TikiLib::lib('parser')->parse_data($_POST['data'], ['is_html' => $is_wysiwyg, 'objectType' => 'post', 'objectId' => $postId, 'fieldName' => 'data']));
     $smarty->assign('data', $_POST['data']);
     if ($prefs['feature_freetags'] == 'y') {
         $smarty->assign('taglist', $_POST["freetag_string"]);
