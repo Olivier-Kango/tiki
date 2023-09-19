@@ -1629,6 +1629,9 @@ class EditLib
                     return str_replace('@-', '-', $innerMatches[0]);
                 }, $matches[0]);
             }, $converted);
+            $converted = preg_replace_callback('/\[(.+)\]/', function ($m) {
+                return str_replace('\\_', '_', $m[0]);
+            }, $converted);
         } else {
             // convert to tiki syntax
             if ($source_syntax == 'tiki') {
