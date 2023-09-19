@@ -63,7 +63,7 @@ function module_switch_color_mode($mod_reference, $module_params)
    
        const getStoredTheme = () => localStorage.getItem("theme");
        const setStoredTheme = (theme) => localStorage.setItem("theme", theme);
-       const prefered_mode = JSON.parse(\'' . $prefered_mode_array . '\');
+       const prefered_mode = ' . $prefered_mode_array . ';
        const getPreferredTheme = () => {
            const storedTheme = getStoredTheme();
            if (storedTheme) {

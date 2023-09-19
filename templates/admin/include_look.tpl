@@ -457,7 +457,7 @@
                             </div>
                         </div>
                         <div class="css_colors"></div>
-                        <button class="btn btn-primary mt-5g px-5 mt-4" onclick="return handle_mode_create_edit(this)">{tr}SAVE{/tr}</button>
+                        <button class="btn btn-primary mt-5g px-5 mt-4" onclick="return handle_mode_create_edit(this)">{tr}Save{/tr}</button>
                     </div>
                 </div>
                 {* end off-canvas *}
