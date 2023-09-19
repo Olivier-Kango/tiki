@@ -184,6 +184,7 @@ foreach ($ctall as $c) {
         $countString = '';
     }
 
+    $catid = "<span class='badge bg-secondary'>ID: {$c["categId"]}</span>";
     $tree_nodes[] = [
         'id' => $c['categId'],
         'categId' => $c['categId'],
@@ -191,7 +192,7 @@ foreach ($ctall as $c) {
         'parentId' => $c['parentId'],
         'data' => $countString .
             $c['eyes'] . ' <a class="catname" href="tiki-browse_categories.php?parentId=' . $c['categId'] .
-            '&amp;deep=' . $deep . '&amp;type=' . urlencode($type) . '">' . htmlspecialchars($c['name']) . '</a> ',
+            '&amp;deep=' . $deep . '&amp;type=' . urlencode($type) . '">' . htmlspecialchars($c['name']) . '</a> ' . $catid,
     ];
 }
 $res = '';
