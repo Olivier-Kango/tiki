@@ -124,10 +124,9 @@ class Language_GetStringsTest extends TikiTestCase
         $strings = $this->obj->collectStrings(__DIR__ . '/fixtures/test_collecting_strings.tpl');
 
         $expectedResult = ['Bytecode Cache', 'Using <strong>%0</strong>.These stats affect all PHP applications running on the server.',
-            'Configuration setting <em>xcache.admin.enable_auth</em> prevents from accessing statistics. This will also prevent the cache from being cleared when clearing template cache.',
             'Used', 'Available', 'Memory', 'Hit', 'Miss', 'Cache Hits', 'Few hits recorded. Statistics may not be representative.',
             'Low hit ratio. %0 may be misconfigured and not used.',
-            'Bytecode cache is not used. Using a bytecode cache (APC, XCache) is highly recommended for production environments.', 'Errors', 'Errors:', 'Created',
+            'Errors', 'Errors:', 'Created',
         ];
 
         $this->assertEquals($expectedResult, $strings);

@@ -24,7 +24,6 @@
 $lang_current = array(
 // "Bytecode Cache" => "Bytecode Cache",
 // "Using <strong>%0</strong>.These stats affect all PHP applications running on the server" => "Using <strong>%0</strong>.These stats affect all PHP applications running on the server",
-// "Configuration setting <em>xcache.admin.enable_auth</em> prevents from accessing statistics. This will also prevent the cache from being cleared when clearing template cache" => "Configuration setting <em>xcache.admin.enable_auth</em> prevents from accessing statistics. This will also prevent the cache from being cleared when clearing template cache",
 // "Used" => "Used",
 // "Available" => "Available",
 // "Memory" => "Memory",
@@ -33,7 +32,6 @@ $lang_current = array(
 // "Cache Hits" => "Cache Hits",
 // "Few hits recorded. Statistics may not be representative" => "Few hits recorded. Statistics may not be representative",
 // "Low hit ratio. %0 may be misconfigured and not used" => "Low hit ratio. %0 may be misconfigured and not used",
-// "Bytecode cache is not used. Using a bytecode cache (APC, XCache) is highly recommended for production environments" => "Bytecode cache is not used. Using a bytecode cache (APC, XCache) is highly recommended for production environments",
 "Errors" => "Ошибки",
 "Created" => "Создано",
 // "%0 enabled" => "%0 enabled",

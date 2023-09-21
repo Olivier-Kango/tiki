@@ -929,19 +929,7 @@ if (substr(PHP_SAPI, 0, 3) === 'cgi') {
 }
 
 // ByteCode Cache
-if (function_exists('apc_sma_info') && ini_get('apc.enabled')) {
-    $php_properties['ByteCode Cache'] = array(
-        'fitness' => tra('good'),
-        'setting' => 'APC',
-        'message' => tra('APC is being used as the ByteCode Cache, which increases performance if correctly configured. See Admin->Performance in the Tiki for more details.')
-    );
-} elseif (function_exists('xcache_info') && ( ini_get('xcache.cacher') == '1' || ini_get('xcache.cacher') == 'On' )) {
-    $php_properties['ByteCode Cache'] = array(
-        'fitness' => tra('good'),
-        'setting' => 'xCache',
-        'message' => tra('xCache is being used as the ByteCode Cache, which increases performance if correctly configured. See Admin->Performance in the Tiki for more details.')
-    );
-} elseif (function_exists('opcache_get_configuration') && (ini_get('opcache.enable') == 1 || ini_get('opcache.enable') == '1')) {
+if (function_exists('opcache_get_configuration') && (ini_get('opcache.enable') == 1 || ini_get('opcache.enable') == '1')) {
     $message = tra('OPcache is being used as the ByteCode Cache, which increases performance if correctly configured. See Admin->Performance in the Tiki for more details.');
     $fitness = tra('good');
     if (! checkOPcacheCompatibility()) {
@@ -4148,13 +4136,13 @@ function no_cache_found()
         $php_properties['ByteCode Cache'] = array(
             'fitness' => tra('info'),
             'setting' => 'N/A',
-            'message' => tra('Neither APC, WinCache nor xCache is being used as the ByteCode Cache; if one of these were used and correctly configured, performance would be increased. See Admin->Performance in the Tiki for more details.')
+            'message' => tra('WinCache is being used as the ByteCode Cache; if one of these were used and correctly configured, performance would be increased. See Admin->Performance in the Tiki for more details.')
         );
     } else {
         $php_properties['ByteCode Cache'] = array(
             'fitness' => tra('info'),
             'setting' => 'N/A',
-            'message' => tra('Neither APC, xCache, nor OPcache is being used as the ByteCode Cache; if one of these were used and correctly configured, performance would be increased. See Admin->Performance in the Tiki for more details.')
+            'message' => tra('OPcache is being used as the ByteCode Cache; if one of these were used and correctly configured, performance would be increased. See Admin->Performance in the Tiki for more details.')
         );
     }
 }

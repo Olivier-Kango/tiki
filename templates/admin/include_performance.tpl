@@ -106,11 +106,11 @@
                 {/if}
 
                 {if !empty($opcode_stats.warning_starve)}
-                    <p>{tr}Little memory available. Thrashing likely to occur.{/tr} {tr}The values to increase are apc.shm_size (for APC), xcache.size (for XCache) or opcache.memory_consumption (for OPcache).{/tr}</p>
+                    <p>{tr}Little memory available. Thrashing likely to occur.{/tr} {tr}The value to increase is opcache.memory_consumption (for OPcache).{/tr}</p>
                 {/if}
 
                 {if !empty($opcode_stats.warning_low)}
-                    <p>{tr _0=$opcode_cache}Small amount of memory allocated to %0. Verify the configuration.{/tr} {tr}The values to increase are apc.shm_size (for APC), xcache.size (for XCache) or opcache.memory_consumption (for OPcache).{/tr}</p>
+                    <p>{tr _0=$opcode_cache}Small amount of memory allocated to %0. Verify the configuration.{/tr} {tr}The value to increase is opcache.memory_consumption (for OPcache).{/tr}</p>
                 {/if}
 
                 {if !empty($opcode_stats.warning_check)}
@@ -125,7 +125,7 @@
                     <p>{tr}Clear all APC caches:{/tr} {self_link apc_clear=true _onclick="confirmPopup('{tr}Clear APC caches?{/tr}', '{ticket mode=get}')"}{tr}Clear Caches{/tr}{/self_link}</p>
                 {/if}
             {else}
-                {tr}Bytecode cache is not used. Using a bytecode cache (OPcache, APC, XCache, WinCache) is highly recommended for production environments.{/tr}
+                {tr}Bytecode cache is not used. Using a bytecode cache (OPcache, WinCache) is highly recommended for production environments.{/tr}
             {/if}
         {/tab}
 
