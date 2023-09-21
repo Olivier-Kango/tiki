@@ -134,6 +134,8 @@ function wikiplugin_fancytable($data, $params)
         $sortable = 'n';
     }
     $msg = '';
+    $parserlib = TikiLib::lib('parser');
+    $isMarkdown = $parserlib->option['is_markdown'];
 
     if ((isset($sortable) && $sortable != 'n')) {
         if (Table_Check::isEnabled()) {
@@ -200,6 +202,9 @@ function wikiplugin_fancytable($data, $params)
         }
         //replace tiki tags, plugins and other enclosing characters with hash strings before creating table so that any
         //pipes (| or ~|~) inside aren't mistaken for cell dividers
+        if ($isMarkdown) {
+            $head = $parserlib->parse_data($head);
+        }
         preprocess_section($head, $tagremove, $pluginremove);
 
         if ($sort) {
@@ -223,9 +228,12 @@ function wikiplugin_fancytable($data, $params)
         $headhtml = $headrows['html'];
         postprocess_section($headhtml, $tagremove, $pluginremove);
 
-        $wret .= '<thead class=' . ($sticky ? 'bg-light' : '') . '>' . $headhtml . "\r\t" . '</thead>' . "\r\t";
+        $wret .= '<thead class="' . ($sticky ? 'bg-light' : '') . '">' . $headhtml . "\r\t" . '</thead>' . "\r\t";
     }
 
+    if ($isMarkdown) {
+        $data = $parserlib->parse_data($data);
+    }
     //Body
     //replace tiki tags, plugins and other enclosing characters with hash strings before creating table so that any
     //pipes (| or ~|~) inside aren't mistaken for cell dividers
