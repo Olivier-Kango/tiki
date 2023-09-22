@@ -6054,10 +6054,13 @@ class TikiLib extends TikiDb_Bridge
 
     /**
      * @param $text
-     * @return string
+     * @return array
      */
-    public function read_raw($text, $preserve = false)
+    public function read_raw($text, $preserve = false): array
     {
+        if ($text === null) {
+            return [];
+        }
         $file = explode("\n", $text);
         $back = [];
         // When the fieldID is not preserved, ensure uniqueness of the $var key even if the fieldID is duplicated in the input
