@@ -6949,8 +6949,12 @@ class TikiLib extends TikiDb_Bridge
      * @param $string
      * @return string
      */
-    public static function strtolower($string)
+    public static function strtolower($string): string
     {
+        if ($string === null) {
+            return '';
+        }
+
         if (function_exists('mb_strtolower')) {
             return mb_strtolower($string, 'UTF-8');
         } else {
@@ -6966,8 +6970,12 @@ class TikiLib extends TikiDb_Bridge
      * @param $string
      * @return string
      */
-    public static function strtoupper($string)
+    public static function strtoupper($string): string
     {
+        if ($string === null) {
+            return '';
+        }
+
         if (function_exists('mb_strtoupper')) {
             return mb_strtoupper($string, 'UTF-8');
         } else {
