@@ -244,13 +244,16 @@
 {/if}
 {if $prefs.vuejs_enable eq 'y'}
 
-    <script async src="{$tikiroot}storage/public/vue-mf/root-config/es-module-shims.js"></script>
+    <script async src="{$tikiroot}public/generated/js/es-module-shims.js"></script>
 
     <script type="importmap">
         {
             "imports": {
-                "vue": "{$tikiroot}public/generated/js/vendor_bundled_js/vue.esm-browser.prod.js", 
-                "@vue-mf/root-config": "{$tikiroot}public/generated/js/root-config/root-config.js",
+                {* common_externals *}
+                "moment": "{$tikiroot}public/generated/js/common_externals/moment/moment.js", 
+                "vue": "{$tikiroot}public/generated/js/common_externals/vue/vue.esm-browser.prod.js", 
+                {* single-spa microfrontends and common files (root and styleguide) *}
+                "@vue-mf/root-config": "{$tikiroot}public/generated/js/root-config.js",
                 "@vue-mf/styleguide": "{$tikiroot}public/generated/js/styleguide.js", 
                 {*"@vue-mf/kanban": "{$tikiroot}public/generated/js/main.js",*}
                 "@vue-mf/kanban": "{$tikiroot}public/generated/js/kanban.js",
@@ -260,19 +263,9 @@
             }
         }
     </script>
-
-    {* Note: JS code in the page might try to use these functions before they are actually loaded by systemjs, so provide stubs here *}
-    <script>
-        window.registerApplication = function(opts) {
-            setTimeout(function() {
-                window.registerApplication(opts);
-            }, 100);
-        }
-        window.unregisterApplication = function(opts) {
-            setTimeout(function() {
-                window.unregisterApplication(opts);
-            }, 100);
-        }
+    <script type="module">
+        import "@vue-mf/root-config";
+        console.log("Root config imported");
     </script>
 
 {/if}

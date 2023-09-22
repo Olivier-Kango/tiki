@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "vite --config=src/js/vite.config.mjs build --mode=production",
     "watch:vue-mf": "vite --config=src/js/vite.config.mjs build --watch --mode=development",
-    "watch:root-config": "npm --workspace=root-config run watch",
+    "DISABLEDwatch:root-config": "npm --workspace=root-config run watch",
     "watch": "concurrently \"npm:watch:*\"",
     "serve": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
@@ -22,6 +22,7 @@
   "depencenciesCommentSingleLibs": {
   },
   "devDependencies": {
+    "es-module-shims": "^1.8.0",
     "@vitejs/plugin-vue": "^4.3.4",
     "concurrently": "^8.2.1",
     "eslint": "^8.49.0",
@@ -30,11 +31,12 @@
     "eslint-plugin-vue": "^9.17.0",
     "prettier": "^3.0.3",
     "rollup-plugin-visualizer": "^5.9.2",
-    "sass": "^1.67.0",
+    "sass": "^1.68.0",
     "vite": "^4.4.9",
     "vite-plugin-static-copy": "^0.17.0"
   },
   "devDepencenciesCommentWillBeAvailableAsShasowDependenciesInWorkspace": {
+    "es-module-shims": "Copied to be available as an external, but not in common-externals, because it will not be included from import-maps",
     "@vitejs/plugin-vue": "",
     "eslint": "",
     "eslint-config-prettier": "",
@@ -45,6 +47,7 @@
     "vite": ""
   },
   "workspaces": [
+    "src/js/common-externals",
     "src/js/vue-mf/*"
   ]
 }

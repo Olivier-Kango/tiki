@@ -72,7 +72,6 @@ function module_recordrtc($mod_reference, $smod_params)     // modifies $smod_pa
     $headerlib = TikiLib::lib('header');
     $headerlib->add_jsfile('vendor/npm-asset/recordrtc/RecordRTC.js', true);
     $headerlib->add_jsfile('lib/jquery_tiki/recordrtc.js', true);
-    $headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
 
     $recordingTypes = module_recordrtc_recording_types();
     $smarty->assign('mod_recordrtc_recording_types', $recordingTypes);

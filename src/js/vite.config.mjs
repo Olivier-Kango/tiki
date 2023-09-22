@@ -102,21 +102,26 @@ export default defineConfig(({ command, mode }) => ({
             //exclude: ["svelte"],
         },
         rollupOptions: {
-            external: ["vue", /^@vue-mf\/.+/],
+            external: ["vue", "moment", /^@vue-mf\/.+/],
             //external: [/^@vue-mf\/.+/],
             //external: ["vue"],
             input: {
                 //Watch out, __dirname is the path of the config file, no matter how vite is called...
-                styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
-                //STILL BREAKS IF WE UNCOMMENT, but different error.  Kanban becomes smaller, so some code is factored out.
+
                 "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
                 "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
                 kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
+                "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
+                styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
                 "toolbar-dialogs": resolve(__dirname, "vue-mf/toolbar-dialogs/src/toolbar-dialogs.js"),
+
+                //STILL BREAKS IF WE UNCOMMENT, but different error.  Kanban becomes smaller, so some code is factored out.
             },
             output: {
                 //dir: "./public/generated/js",
                 //file: "../../../storage/public/vue-mf/kanban/vue-mf-kanban.min.js",
+                //preserveModules: true,
+                //preserveModulesRoot: 'src/js/',
                 manualChunks: undefined,
                 format: "es",
                 //And this is super hard to integrate since this bug introduced in vite 4 https://github.com/vitejs/vite/issues/12072
@@ -130,9 +135,7 @@ export default defineConfig(({ command, mode }) => ({
                 },
                 entryFileNames: "[name].js",
             },
-            //preserveModules: true,
-            //preserveModulesRoot: 'src/js/',
-            preserveEntrySignatures: true,
+            preserveEntrySignatures: "allow-extension",
         },
     },
     plugins: [
@@ -145,16 +148,24 @@ export default defineConfig(({ command, mode }) => ({
         }),
 
         //These are re-bundled files that need to be read at runtime
-        //Needs to be moved in it's own module
+
         viteStaticCopy({
             targets: [
                 {
+                    src: "node_modules/es-module-shims/dist/es-module-shims.js",
+                    dest: "",
+                },
+                {
+                    src: "node_modules/moment/dist/*",
+                    dest: "common_externals/moment",
+                },
+                {
                     src: "node_modules/vue/dist/vue.esm-browser.prod.js",
-                    dest: "vendor_bundled_js",
+                    dest: "common_externals/vue",
                 },
             ],
         }),
         /* Uncomment this in development to see which dependencies contribute to bundle size */
-        //visualizer({ open: true, gzipSize: true, brotliSize: false }),
+        //visualizer({ filename: "temp/dev/stats.html", open: true, gzipSize: false }),
     ],
 }));

@@ -172,6 +172,7 @@ class Tracker_Field_Duration extends \Tracker\Field\AbstractField implements \Tr
 
         // language=JavaScript
         $headerlib->add_jq_onready('
+        console.log("registerApplication");
 window.registerApplication({
     name: "@vue-mf/duration-picker-" + ' . json_encode($applicationId) . ',
     app: () => importShim("@vue-mf/duration-picker"),

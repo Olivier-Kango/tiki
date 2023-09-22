@@ -419,7 +419,6 @@ function wikiplugin_trackercalendar($data, $params)
     $headerlib->add_cssfile($vendorPath . '/npm-asset/fullcalendar-scheduler/main.css');
     // Disable fullcalendar's force events to be one-line tall
     $headerlib->add_css('.fc-day-grid-event > .fc-content { white-space: normal; }');
-    $headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
     $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/fullcalendar/main.js', true);
     $headerlib->add_jsfile($vendorPath . '/npm-asset/fullcalendar-scheduler/main.min.js', true);
     $headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-trackercalendar.js');
