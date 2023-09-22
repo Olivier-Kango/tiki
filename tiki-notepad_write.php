@@ -9,6 +9,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$note_id = 0;
 require_once('tiki-setup.php');
 include_once('lib/notepad/notepadlib.php');
 $access->check_feature('feature_notepad');
@@ -20,7 +21,8 @@ if (isset($_REQUEST["remove"])) {
 }
 include 'lib/setup/editmode.php';
 if (isset($_REQUEST["noteId"])) {
-    $info = $notepadlib->get_note($user, $_REQUEST["noteId"]);
+    $note_id = $_REQUEST["noteId"];
+    $info = $notepadlib->get_note($user, $note_id);
     if ($info['parse_mode'] == 'raw') {
         $info['parsed'] = nl2br(htmlspecialchars($info['data']));
         $smarty->assign('wysiwyg', 'n');
@@ -35,11 +37,12 @@ if (isset($_REQUEST["noteId"])) {
 }
 if (isset($_REQUEST['save'])) {
     $access->checkCsrf();
-    $noteId = $notepadlib->replace_note($user, isset($_REQUEST["noteId"]) ? $_REQUEST["noteId"] : 0, $_REQUEST["name"], $_REQUEST["data"], $_REQUEST["parse_mode"]);
+    $noteId = $notepadlib->replace_note($user, $note_id, $_REQUEST["name"], $_REQUEST["data"], $_REQUEST["parse_mode"]);
     header('location: tiki-notepad_read.php?noteId=' . $noteId);
     die;
 }
-$smarty->assign('noteId', $_REQUEST["noteId"]);
+
+$smarty->assign('noteId', $note_id);
 $smarty->assign('info', $info);
 include_once('tiki-section_options.php');
 include_once('tiki-mytiki_shared.php');
