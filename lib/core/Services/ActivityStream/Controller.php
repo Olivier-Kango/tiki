@@ -57,6 +57,7 @@ class Services_ActivityStream_Controller
                 'like_list' => true,
                 'user_groups' => true,
                 'contributors' => true,
+                'user_followers' => true
             ]);
             $formatter = Search_Formatter_Factory::newFormatter($plugin);
             $out = $formatter->format($result);

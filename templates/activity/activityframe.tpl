@@ -36,7 +36,7 @@
         </span>
         <strong style="vertical-align: middle;">{$activityframe.activity.user|avatarize:'':'img/noavatar.png'} {$activityframe.heading}</strong>
         <div class="description">
-            {if in_array($user, $activityframe.activity.user_followers)}
+            {if is_array($activityframe.activity.user_followers) && in_array($user, $activityframe.activity.user_followers)}
                 {tr}This user is your friend!{/tr}
             {/if}
             {if $activityframe.sharedgroups and $user != $activityframe.activity.user}
