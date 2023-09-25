@@ -218,7 +218,7 @@ function findMentions($lines, $state)
 
     if (isset($lines) && is_array($lines)) {
         foreach (array_filter($lines) as $line) {
-            preg_match_all("/(?:^|\s)@(\w+)/i", $line, $matches);
+            preg_match_all("/@(\w+)/i", $line, $matches);
             foreach ($matches[0] as $match) {
                 $allMatches[] = [
                     'state' => $state,

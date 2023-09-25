@@ -3265,13 +3265,13 @@ class ParserLib extends TikiDb_Bridge
 
         $count = 1;
         return preg_replace_callback(
-            '/(?:^|\s)@(\w+)/i',
+            '/@(\w+)/i',
             function ($matches) use (&$count) {
                 $myUser = substr($matches[0], strpos($matches[0], "@") + 1);
                 if ($myUser) {
                     $u = TikiLib::lib('user')->get_user_info($myUser);
                     if (is_array($u) && $u['userId'] > 0) {
-                        $v = TikiLib::lib('user')->build_userinfo_tag($myUser, '', 'userlink', 'y', 'mentioned-' . $myUser . '-section-' . $count);
+                        $v = TikiLib::lib('user')->build_userinfo_tag($myUser, '', 'userlink', 'y', 'mentioned-' . $myUser . '-section-' . $count, 'y');
                         $count++;
                         if ($v) {
                             $prefix = ($matches[0][1] == '@') ? $matches[0][0] : '';

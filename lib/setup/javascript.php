@@ -268,7 +268,16 @@ if (! timezone) {
         $object = ['type' => '', 'object' => ''];
     }
     $jqueryTiki['current_object'] = $object;
-    $jqueryTiki['usernamePattern'] = $prefs['username_pattern'];
+    $username_pattern = "/^['\-_a-zA-Z0-9\.]*$/";
+    if (is_string($prefs['username_pattern'])) {
+        if (trim($prefs['username_pattern']) && trim($prefs['username_pattern']) !== '') {
+            $jqueryTiki['usernamePattern'] = trim($prefs['username_pattern']);
+        } else {
+            $jqueryTiki['usernamePattern'] = $username_pattern;
+        }
+    } else {
+        $jqueryTiki['usernamePattern'] = $username_pattern;
+    }
     $jqueryTiki['print_pdf_from_url'] = "{$prefs['print_pdf_from_url']}";
 
 

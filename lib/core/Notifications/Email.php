@@ -124,7 +124,8 @@ class Email
 
         $smarty->assign('siteName', $info['siteName']);
         $smarty->assign('mentionedBy', $info['mentionedBy']);
-        $smarty->assign('url', $machine . $info['url']);
+        $smarty->assign('machine', $machine);
+        $smarty->assign('listUrls', $info['listUrls']);
         $smarty->assign('type', $info['type']);
         $smarty->assign('objectTitle', $info['title']);
 
