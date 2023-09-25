@@ -500,7 +500,7 @@ class CalendarLib extends TikiLib
         global $user, $prefs;
 
         $query = "select i.`calitemId` as `calitemId`, i.`calendarId` as `calendarId`, i.`user` as `user`, i.`start` as `start`, i.`end` as `end`, t.`name` as `calname`, ";
-        $query .= "i.`locationId` as `locationId`, l.`name` as `locationName`, i.`categoryId` as `categoryId`, c.`name` as `categoryName`, i.`priority` as `priority`, i.`nlId` as `nlId`, i.`uid` as `uid`, i.`uri` as `uri`, ";
+        $query .= "i.`locationId` as `locationId`, l.`name` as `locationName`, i.`categoryId` as `categoryId`, c.`name` as `categoryName`, c.`backgroundColor` as `categoryBackgroundColor`, i.`priority` as `priority`, i.`nlId` as `nlId`, i.`uid` as `uid`, i.`uri` as `uri`, ";
         $query .= "i.`status` as `status`, i.`url` as `url`, i.`lang` as `lang`, i.`name` as `name`, i.`description` as `description`, i.`created` as `created`, i.`lastmodif` as `lastModif`, i.`allday` as `allday`, ";
         $query .= "t.`customlocations`, t.`customcategories`, t.`customlanguages`, t.`custompriorities`, t.`customsubscription`, t.`customparticipants`, i.`recurrenceId`, i.`recurrenceStart`, r.`uid` as `recurrenceUid`";
 
@@ -615,7 +615,8 @@ class CalendarLib extends TikiLib
                 $query = "delete from `tiki_calendar_categories` where `calendarId`=? and `name`=?";
                 $bindvars = [(int)$data["calendarId"],trim($data["newcat"])];
                 $this->query($query, $bindvars, -1, -1, false);
-                $query = "insert into `tiki_calendar_categories` (`calendarId`,`name`) values (?,?)";
+                $query = "insert into `tiki_calendar_categories` (`calendarId`,`name`,`backgroundColor`) values (?,?,?)";
+                $bindvars [] = trim($data["newcatbgcolor"]);
                 $this->query($query, $bindvars);
                 $data["categoryId"] = $this->getOne("select `calcatId` from `tiki_calendar_categories` where `calendarId`=? and `name`=?", $bindvars);
             }

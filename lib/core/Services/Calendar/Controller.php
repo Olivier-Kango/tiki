@@ -201,6 +201,7 @@ class Services_Calendar_Controller
                             'fieldName' => 'description'
                         ]
                     ) : '',
+                    'categoryBackgroundColor' => $event['categoryBackgroundColor'] ? $event['categoryBackgroundColor'] : ''
                 ],
                 'url'         => $url,
                 'allDay'      => $allDay,

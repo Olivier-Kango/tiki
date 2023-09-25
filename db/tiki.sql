@@ -394,6 +394,7 @@ CREATE TABLE `tiki_calendar_categories` (
   `calcatId` int(11) NOT NULL auto_increment,
   `calendarId` int(14) NOT NULL default '0',
   `name` varchar(255) NOT NULL default '',
+  `backgroundColor` VARCHAR(1000) NULL COMMENT 'Background color to use for classification',
   PRIMARY KEY (`calcatId`),
   UNIQUE KEY `catname` (`calendarId`, `name`(16))
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
