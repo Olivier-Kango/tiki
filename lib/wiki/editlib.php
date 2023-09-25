@@ -1469,39 +1469,54 @@ class EditLib
                     $title = html_entity_decode($matches[2], ENT_QUOTES);
                 }
 
-                foreach (array_filter($sections) as $sec) {
-                    $notifiedUsers = [];
-                    foreach ($sec as $possibleUser) {
-                        if (isset($possibleUser) && $possibleUser['state'] == 'new') {
-                            $mentionedBy = $tikiLibUser->clean_user($arguments['user']);    // gets realName
-                            $mentionedUser = substr($possibleUser['mention'], strpos($possibleUser['mention'], "@") + 1);
-                            if ($mentionedUser) {
-                                $userInfo = $tikiLibUser->get_user_info($mentionedUser);
-                                if (is_array($userInfo) && $userInfo['userId'] > 0) {
-                                    if (! in_array($mentionedUser, $notifiedUsers)) {
-                                        $url = $objectUrl .= '#mentioned-' . $mentionedUser . '-section-' . $count;
-
-                                        $emailData = [
-                                            'siteName' => TikiLib::lib('tiki')->get_preference('browsertitle'),
-                                            'mentionedBy' => $mentionedBy,
-                                            'url' => $url,
-                                            'type' => $arguments['type'],
-                                            'title' => $title ?? $arguments['object'],
-                                        ];
-
-                                        Tiki\Notifications\Email::sendMentionNotification(
-                                            'mention_notification_subject.tpl',
-                                            'mention_notification.tpl',
-                                            $emailData,
-                                            [$userInfo]
-                                        );
-                                        $notifiedUsers[] = $mentionedUser;
-                                    }
-                                    $count++;
-                                }
+                $mentions = [];
+                // group all mentions by user
+                foreach ($sections as $sec) {
+                    foreach ($sec as $key => $possibleUser) {
+                        $is_user = false;
+                        $mentionedUser = substr($possibleUser['mention'], strpos($possibleUser['mention'], "@") + 1);
+                        if ($mentionedUser) {
+                            // check if the user exists
+                            $userInfo = $tikiLibUser->get_user_info($mentionedUser);
+                            if (is_array($userInfo) && $userInfo['userId'] > 0) {
+                                $is_user = true;
                             }
                         }
+
+                        if ($is_user) {
+                            // check if it's a new mention and not a self-mentioned user, add to new array
+                            if ($possibleUser['state'] === 'new' && $arguments['user'] !== $mentionedUser) {
+                                // for each mention of user, indicate its exact position
+                                $mentions[$mentionedUser][] = $count;
+                            }
+                            // increment the number of mentions, if it is a new mention and if the user exists, or if it is an old mention
+                            $count++;
+                        }
                     }
+                }
+
+                // send notifications grouping all mentions by user, instead of sending one notification for each mention
+                foreach ($mentions as $mentionedUser => $mention) {
+                    $mentionedBy = $tikiLibUser->clean_user($arguments['user']);    // gets realName
+                    $userInfo = $tikiLibUser->get_user_info($mentionedUser);
+                    $listUrls = [];
+                    foreach ($mention as $position) {
+                        $listUrls[] = $objectUrl . '#mentioned-' . $mentionedUser . '-section-' . $position;
+                    }
+                    $emailData = [
+                        'siteName' => TikiLib::lib('tiki')->get_preference('browsertitle'),
+                        'mentionedBy' => $mentionedBy,
+                        'listUrls' => $listUrls,
+                        'type' => $arguments['type'],
+                        'title' => $title ?? $arguments['object'],
+                    ];
+
+                    Tiki\Notifications\Email::sendMentionNotification(
+                        'mention_notification_subject.tpl',
+                        'mention_notification.tpl',
+                        $emailData,
+                        [$userInfo]
+                    );
                 }
             }
         }

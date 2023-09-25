@@ -3296,7 +3296,7 @@ class UsersLib extends TikiLib
      * @param string $class     add a class to the a tag (default userlink)
      * @return string           HTML anchor tag
      */
-    public function build_userinfo_tag($auser = '', $body = '', $class = 'userlink', $show_popup = 'y', $elementId = '')
+    public function build_userinfo_tag($auser = '', $body = '', $class = 'userlink', $show_popup = 'y', $elementId = '', $tagged_user = 'n')
     {
         global $user, $prefs;
 
@@ -3307,6 +3307,10 @@ class UsersLib extends TikiLib
 
         if (! $body) {
             $body = $realn;
+        }
+
+        if ($tagged_user === 'y') {
+            $body = "<b>@$body</b>";
         }
 
         if ($elementId) {
