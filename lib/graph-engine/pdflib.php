@@ -35,7 +35,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 
             $this->pdf = pdf_new();
             pdf_open_file($this->pdf, '');
-            pdf_begin_page($this->pdf, $this->width, $this->height);
+            PDF_begin_page_ext($this->pdf, $this->width, $this->height, '');
 
             $this->font = pdf_findfont($this->pdf, 'Helvetica', 'builtin', 0);
         }
@@ -187,7 +187,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
     public function httpOutput($filename) // {{{2
     {
         pdf_end_page($this->pdf);
-        pdf_close($this->pdf);
+        PDF_end_document($this->pdf, '');
 
         $buf = pdf_get_buffer($this->pdf);
         $len = strlen($buf);
@@ -203,7 +203,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
     public function writeToStream($stream) // {{{2
     {
         pdf_end_page($this->pdf);
-        pdf_close($this->pdf);
+        PDF_end_document($this->pdf, '');
 
         $buf = pdf_get_buffer($this->pdf);
         fwrite($stream, $buf);
