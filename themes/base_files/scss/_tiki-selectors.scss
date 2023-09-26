@@ -1054,7 +1054,7 @@ span.plugin-mouseover {
 }
 
 code,
-pre.codelisting {
+pre.codelisting, .CodeMirror.codelisting {
     color: var(--tiki-code-color); //$code-color;
     background: var(--tiki-code-bg); // $code-bg;
     border: $border-width solid $border-color;
@@ -1079,6 +1079,8 @@ pre.codelisting code {
 
 .codelisting_container {
   max-width: 990px;
+  z-index: 1;
+  position: relative;
 }
 .code {
   margin-top: 20px;

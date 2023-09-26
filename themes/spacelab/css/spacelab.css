@@ -10915,14 +10915,12 @@ header.navbar.fixed-top {
   --tiki-topbar-bg: linear-gradient(#f2f2f2, #eee 50%, #dbdbdb);
   --tiki-topbar-color: rgba(0, 0, 0, 0.7);
   --tiki-topbar-hover-color: #3399f3;
-  --tiki-topbar-text-color: #3399f3;
   --tiki-topbar-border: solid #bebebe;
 }
 .tiki-top-nav-dark {
   --tiki-top-bg: linear-gradient(#646464, #333 50%, #2f2f2f);
   --tiki-top-color: rgba(255, 255, 255, 0.75);
   --tiki-top-hover-color: #fff;
-  --tiki-top-text-color: #fff;
   --tiki-top-border: solid rgb(85, 85, 85);
   --bs-navbar-brand-color: #fff;
   --bs-navbar-brand-hover-color: #fff;
@@ -10939,7 +10937,6 @@ header.navbar.fixed-top {
     --tiki-top-bg: linear-gradient(#f2f2f2, #eee 50%, #dbdbdb);
   --tiki-top-color: rgba(0, 0, 0, 0.7);
   --tiki-top-hover-color: #3399f3;
-  --tiki-top-text-color: #3399f3;
   --tiki-top-border: solid #bebebe;
   --bs-navbar-brand-color: #0C77D4;
   --bs-navbar-brand-hover-color: #0C77D4;
@@ -10952,7 +10949,6 @@ header.navbar.fixed-top {
   --tiki-top-bg: linear-gradient(#646464, #333 50%, #2f2f2f);
   --tiki-top-color: rgba(255, 255, 255, 0.75);
   --tiki-top-hover-color: #fff;
-  --tiki-top-text-color: #fff;
   --tiki-top-border: solid rgb(85, 85, 85);
   --bs-navbar-brand-color: #fff;
   --bs-navbar-brand-hover-color: #fff;
@@ -11186,10 +11182,10 @@ form.simple label .warning {
 .box-switch_lang .flags .highlight {
   border: solid 1px #0C77D4;
 }
-.navbar-light .dropdown-toggle, .navbar-light a.nav-link.dropdown-toggle {
+.navbar-light .dropdown-toggle, .navbar-light a.nav-link.dropdown-toggle, .navbar-light h1.sitetitle a, .navbar-light .sitetitle.h1 a, .navbar-light h2.sitesubtitle, .navbar-light .sitesubtitle.h2 {
   color: rgba(0, 0, 0, 0.4);
 }
-.navbar-dark .dropdown-toggle, .navbar-dark a.nav-link.dropdown-toggle {
+.navbar-dark .dropdown-toggle, .navbar-dark a.nav-link.dropdown-toggle, .navbar-dark h1.sitetitle a, .navbar-dark .sitetitle.h1 a, .navbar-dark h2.sitesubtitle, .navbar-dark .sitesubtitle.h2 {
   color: rgba(255, 255, 255, 0.75);
 }
 .navbar-nav {
@@ -11607,7 +11603,7 @@ div.drillshow {
   font-size: 0.8em;
   font-weight: bold;
 }
-code, pre.codelisting {
+code, pre.codelisting, .CodeMirror.codelisting {
   color: var(--tiki-code-color);
   background: var(--tiki-code-bg);
   border: 1px solid #dee2e6;
@@ -11628,6 +11624,8 @@ pre.codelisting code {
 }
 .codelisting_container {
   max-width: 990px;
+  z-index: 1;
+  position: relative;
 }
 .code {
   margin-top: 20px;
@@ -11904,57 +11902,53 @@ blockquote {
 }
 .tiki .tiki-top-nav-light {
   background: var(--tiki-top-bg) !important;
-  color: var(--tiki-top-text-color);
   border: var(--tiki-top-border);
   border-width: var(--tiki-top-border-width);
   box-shadow: var(--tiki-top-box-shadow);
 }
-.tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-light .dropdown-toggle, .tiki .tiki-top-nav-light .nav-link.dropdown-toggle, .tiki .tiki-top-nav-light .btn.btn-link {
+.tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-light .btn.btn-link {
   color: var(--tiki-top-color);
 }
-.tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-light .dropdown-toggle:hover, .tiki .tiki-top-nav-light .nav-link.dropdown-toggle:hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
+.tiki .tiki-top-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-light .btn.btn-link:hover {
   color: var(--tiki-top-hover-color);
   background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-light, .admin-content .tiki-nav-light {
   background: var(--tiki-topbar-bg) !important;
-  color: var(--tiki-topbar-text-color);
   border: var(--tiki-topbar-border);
   border-width: var(--tiki-topbar-border-width);
   box-shadow: var(--tiki-topbar-box-shadow);
 }
-.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-light .dropdown-toggle, .tiki .tiki-topbar-nav-light .nav-link.dropdown-toggle, .tiki .tiki-topbar-nav-light .btn.btn-link, .tiki .tiki-topbar-nav-light .nav-link, .admin-content .tiki-nav-light a:not(.navbar-brand, .dropdown-item), .admin-content .tiki-nav-light .dropdown-toggle, .admin-content .tiki-nav-light .nav-link.dropdown-toggle, .admin-content .tiki-nav-light .btn.btn-link, .admin-content .tiki-nav-light .nav-link {
+.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-light .btn.btn-link, .tiki .tiki-topbar-nav-light a.nav-link, .admin-content .tiki-nav-light a:not(.navbar-brand, .dropdown-item), .admin-content .tiki-nav-light .btn.btn-link, .admin-content .tiki-nav-light a.nav-link {
   color: var(--tiki-topbar-color);
 }
-.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-light .dropdown-toggle:hover, .tiki .tiki-topbar-nav-light .nav-link.dropdown-toggle:hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light .nav-link:hover, .admin-content .tiki-nav-light a:not(.navbar-brand, .dropdown-item):hover, .admin-content .tiki-nav-light .dropdown-toggle:hover, .admin-content .tiki-nav-light .nav-link.dropdown-toggle:hover, .admin-content .tiki-nav-light .btn.btn-link:hover, .admin-content .tiki-nav-light .nav-link:hover {
+.tiki .tiki-topbar-nav-light a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-light .btn.btn-link:hover, .tiki .tiki-topbar-nav-light a.nav-link:hover, .admin-content .tiki-nav-light a:not(.navbar-brand, .dropdown-item):hover, .admin-content .tiki-nav-light .btn.btn-link:hover, .admin-content .tiki-nav-light a.nav-link:hover {
   color: var(--tiki-topbar-hover-color);
   background: var(--tiki-topbar-hover-bg);
 }
 .tiki .tiki-top-nav-dark {
   background: var(--tiki-top-bg) !important;
-  color: var(--tiki-top-text-color);
   border: var(--tiki-top-border);
   border-width: var(--tiki-top-border-width);
   box-shadow: var(--tiki-top-box-shadow);
 }
-.tiki .tiki-top-nav-dark a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-dark .dropdown-toggle, .tiki .tiki-top-nav-dark .nav-link.dropdown-toggle, .tiki .tiki-top-nav-dark .btn.btn-link, .tiki .tiki-top-nav-dark .nav-link {
+.tiki .tiki-top-nav-dark a:not(.navbar-brand, .dropdown-item), .tiki .tiki-top-nav-dark .btn.btn-link, .tiki .tiki-top-nav-dark a.nav-link {
   color: var(--tiki-top-color);
 }
-.tiki .tiki-top-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-dark .dropdown-toggle:hover, .tiki .tiki-top-nav-dark .nav-link.dropdown-toggle:hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark .nav-link:hover {
+.tiki .tiki-top-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-top-nav-dark .btn.btn-link:hover, .tiki .tiki-top-nav-dark a.nav-link:hover {
   color: var(--tiki-top-hover-color);
   background: var(--tiki-top-hover-bg);
 }
 .tiki .tiki-topbar-nav-dark, .admin-content .tiki-nav-dark {
   background: var(--tiki-topbar-bg) !important;
-  color: var(--tiki-topbar-text-color);
   border: var(--tiki-topbar-border);
   border-width: var(--tiki-topbar-border-width);
   box-shadow: var(--tiki-topbar-box-shadow);
 }
-.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-dark .dropdown-toggle, .tiki .tiki-topbar-nav-dark .nav-link.dropdown-toggle, .tiki .tiki-topbar-nav-dark .btn.btn-link, .tiki .tiki-topbar-nav-dark .nav-link, .admin-content .tiki-nav-dark a:not(.navbar-brand, .dropdown-item), .admin-content .tiki-nav-dark .dropdown-toggle, .admin-content .tiki-nav-dark .nav-link.dropdown-toggle, .admin-content .tiki-nav-dark .btn.btn-link, .admin-content .tiki-nav-dark .nav-link {
+.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item), .tiki .tiki-topbar-nav-dark .btn.btn-link, .tiki .tiki-topbar-nav-dark a.nav-link, .admin-content .tiki-nav-dark a:not(.navbar-brand, .dropdown-item), .admin-content .tiki-nav-dark .btn.btn-link, .admin-content .tiki-nav-dark a.nav-link {
   color: var(--tiki-topbar-color);
 }
-.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-dark .dropdown-toggle:hover, .tiki .tiki-topbar-nav-dark .nav-link.dropdown-toggle:hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark .nav-link:hover, .admin-content .tiki-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .admin-content .tiki-nav-dark .dropdown-toggle:hover, .admin-content .tiki-nav-dark .nav-link.dropdown-toggle:hover, .admin-content .tiki-nav-dark .btn.btn-link:hover, .admin-content .tiki-nav-dark .nav-link:hover {
+.tiki .tiki-topbar-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .tiki .tiki-topbar-nav-dark .btn.btn-link:hover, .tiki .tiki-topbar-nav-dark a.nav-link:hover, .admin-content .tiki-nav-dark a:not(.navbar-brand, .dropdown-item):hover, .admin-content .tiki-nav-dark .btn.btn-link:hover, .admin-content .tiki-nav-dark a.nav-link:hover {
   color: var(--tiki-topbar-hover-color);
   background: var(--tiki-topbar-hover-bg);
 }
@@ -12964,4 +12958,4 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .navbar:not(.bg-dark, .bg-light) .nav-link:hover, .navbar:not(.bg-dark, .bg-light) .nav-link:active, .navbar:not(.bg-dark, .bg-light) .nav-link .highlighted {
   color: var(--bs-link-hover-color);
 }
-
+/*# sourceMappingURL=spacelab.css.map */
