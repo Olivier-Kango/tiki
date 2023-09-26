@@ -213,7 +213,7 @@
         "npm-asset/animejs": "~3.2.1",
         "npm-asset/blueimp-file-upload": "^9.28",
         "npm-asset/boomerangjs": "^1.687",
-        "npm-asset/chart.js": "^2.7.0",
+        "npm-asset/chart.js": "^4.4.0",
         "npm-asset/dompurify": "^2.3.3",
         "npm-asset/fullcalendar": "^5.3.2",
         "npm-asset/fullcalendar--moment": "^5.5",
