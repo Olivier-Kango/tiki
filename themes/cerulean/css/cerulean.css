@@ -11442,6 +11442,29 @@ body.wikitext {
 .diffadded .diffchar {
   color: #f0f7e9;
 }
+.highlight_word {
+  font-size: bold;
+}
+.highlight_word_0 {
+  color: #fff;
+  background: #73a839;
+}
+.highlight_word_1 {
+  color: #fff;
+  background: #033c73;
+}
+.highlight_word_2 {
+  color: #fff;
+  background: #dd5600;
+}
+.highlight_word_3 {
+  color: #fff;
+  background: #c71c22;
+}
+.highlight_word_4 {
+  color: #fff;
+  background: #c74f1c;
+}
 /* Structures drill-down menu */
 div.drillshow {
   border: 1px solid #dee2e6;

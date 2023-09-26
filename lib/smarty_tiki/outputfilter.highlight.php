@@ -23,7 +23,8 @@ function smarty_outputfilter_highlight($source, $smarty)
     if (empty($_REQUEST['highlight'])) {
         return $source;
     }
-    if (strpos($source, '<article ') === false) {   // the main page contents appears without the col1 but with 2 and 3 appended
+
+    if (! preg_match('/<.+\s.*?class="[^"]*\bhighlightable\b[^"]*"/', $source, $m, PREG_OFFSET_CAPTURE)) {   // the main page contents appears without the col1 but with 2 and 3 appended
         return $source;
     }
     $highlight = $_REQUEST['highlight'];
@@ -60,22 +61,17 @@ function smarty_outputfilter_highlight($source, $smarty)
 
     $result = false;
 
-    if (function_exists('mb_eregi')) {
-        // UTF8 support enabled
-        $result = mb_eregi('^(.*<article [^>]*>)(.*)' . $stop_pattern . '$', $source, $matches);
-    } else {
-        // We do not fallback on the preg_match function, since it is limited by 'pcre.backtrack_limit' which is too low by default (100K)
-        //  and this script will not be allowed to change its value on most systems
-        //
-        if (( $start = strpos($source, '<article ') ) > 0) {
-            $matches = [
-                $source,
-                substr($source, 0, $start),
-                ( $end > $start ? substr($source, $start, $end - $start) : substr($source, $start) ),
-                ( $end > $start ? substr($source, $end) : '' )
-            ];
-            $result = true;
-        }
+    // We do not fallback on the preg_match function, since it is limited by 'pcre.backtrack_limit' which is too low by default (100K)
+    //  and this script will not be allowed to change its value on most systems
+    //
+    if ($start = $m[0][1] > 0) {
+        $matches = [
+            $source,
+            substr($source, 0, $start),
+            ( $end > $start ? substr($source, $start, $end - $start) : substr($source, $start) ),
+            ( $end > $start ? substr($source, $end) : '' )
+        ];
+        $result = true;
     }
 
     if (! $result) {
