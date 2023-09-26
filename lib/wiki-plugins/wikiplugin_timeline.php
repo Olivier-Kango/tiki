@@ -117,7 +117,7 @@ function wikiplugin_timeline($data, $params)
         '// TODO set up datasource - get data from {list} output or calendar events
                     var ttl_eventData = { events: [], dateTimeFormat: ""};
                     setTimeout( function(){
-                        ttlInit("ttl_timeline", ttl_eventData,"' . $params['scale1'] . '","' . $params['scale2'] . '");
+                        ttlInit("ttl_timeline", ttl_eventData,"' . $params['scale1'] . '","' . ($params['scale2'] ?? '') . '");
                     }, 1000);
                     '
     );
