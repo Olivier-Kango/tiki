@@ -41,7 +41,7 @@ class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
         //set POST variables
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $fields = [
-            'secret' => urlencode($this->getPrivkey()),
+            'secret' => urlencode($this->getSecretKey()),
             'response' => urlencode($value[$this->_RESPONSE]),
             'remoteip' => urlencode($_SERVER['REMOTE_ADDR']),
         ];
@@ -82,7 +82,7 @@ class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
     public function render()
     {
         TikiLib::lib('header')->add_css('.g-recaptcha-response {display:none !important;}');
-        return '<div class="g-recaptcha" data-sitekey="' . $this->getPubkey() . '" id="antibotcode"></div>';
+        return '<div class="g-recaptcha" data-sitekey="' . $this->getSiteKey() . '" id="antibotcode"></div>';
     }
 
     /**
@@ -95,7 +95,7 @@ class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
         static $id = 1;
         TikiLib::lib('header')->add_js("
                 grecaptcha.render('g-recaptcha{$id}', {
-                'sitekey': '{$this->getPubkey()}'
+                'sitekey': '{$this->getSiteKey()}'
                 });
                 ", 100);
         return '<div id="g-recaptcha' . $id . '"></div>';
