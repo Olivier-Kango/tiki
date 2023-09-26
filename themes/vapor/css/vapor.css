@@ -11788,7 +11788,7 @@ div.drillshow {
   font-size: 0.8em;
   font-weight: bold;
 }
-code, pre.codelisting {
+code, pre.codelisting, .CodeMirror.codelisting {
   color: var(--tiki-code-color);
   background: var(--tiki-code-bg);
   border: 0 solid #dee2e6;
@@ -11809,6 +11809,8 @@ pre.codelisting code {
 }
 .codelisting_container {
   max-width: 990px;
+  z-index: 1;
+  position: relative;
 }
 .code {
   margin-top: 20px;
