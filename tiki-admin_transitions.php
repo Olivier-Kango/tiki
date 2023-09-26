@@ -32,7 +32,9 @@ $to_add = [];
 
 switch ($jitRequest->action->alpha()) {
     case 'subset':
-        $transition_mode = $_REQUEST['transition_mode'];
+        if (isset($_REQUEST['transition_mode'])) {
+            $transition_mode = $_REQUEST['transition_mode'];
+        }
 
         if ($transition_mode == 'category') {
             $jitPost->replaceFilter('cat_categories', 'int');
