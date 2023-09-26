@@ -326,7 +326,7 @@ class Scheduler_Item
             throw new Scheduler\Exception\CrontimeFormatException(tra('Invalid cron time format'));
         }
 
-        $cron = Cron\CronExpression::factory($cron);
+        $cron = new Cron\CronExpression($cron);
 
         if ($currentTime instanceof DateTime) {
             $anchorTime = clone $currentTime;
