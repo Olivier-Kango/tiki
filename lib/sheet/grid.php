@@ -345,7 +345,7 @@ class TikiSheet
 
         $filegallib = TikiLib::lib("filegal");
 
-        $handler = new TikiSheetOutputHandler(null, ($this->parseValues == 'y' && $_REQUEST['parse'] != 'n'));
+        $handler = new TikiSheetOutputHandler(null, ($this->parseValues == 'y' && ($_REQUEST['parse'] ?? '') != 'n'));
 
         $this->export($handler);
 

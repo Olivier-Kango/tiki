@@ -326,6 +326,7 @@ $cat_type = 'trackeritem';
 
 $tracker_info = $definition->getInformation();
 $itemObject = Tracker_Item::fromInfo($item_info);
+$tracker_info_value = fn($key) => array_key_exists($key, $tracker_info) ? $tracker_info[$key] : null;
 
 if (! isset($tracker_info["writerCanModify"]) or (isset($utid) and ($trackerId != $utid['usersTrackerId']))) {
     $tracker_info["writerCanModify"] = 'n';
@@ -495,10 +496,10 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUE
         } else {
             $error = $ins_fields;
             $cookietab = "2";
-            if ($tracker_info['useAttachments'] == 'y') {
+            if ($tracker_info_value('useAttachments') == 'y') {
                 ++$cookietab;
             }
-            if ($tracker_info['useComments'] == 'y') {
+            if ($tracker_info_value('useComments') == 'y') {
                 ++$cookietab;
             }
             $smarty->assign('input_err', '1'); // warning to display
@@ -635,7 +636,7 @@ if ($authorfield) {
 $info["createdByReal"] = $tikilib->get_user_preference($info["createdBy"], 'realName', '');
 $info["lastModifByReal"] = $tikilib->get_user_preference($info["lastModifBy"], 'realName', '');
 
-if ($tracker_info['doNotShowEmptyField'] == 'y') {
+if ($tracker_info_value('doNotShowEmptyField') == 'y') {
     $trackerlib = TikiLib::lib('trk');
     $fields['data'] = $trackerlib->mark_fields_as_empty($fields['data']);
 }
@@ -678,7 +679,7 @@ if ($prefs['feature_user_watches'] == 'y' and $tiki_p_watch_trackers == 'y') {
     }
 }
 
-if ($tracker_info['useComments'] == 'y') {
+if ($tracker_info_value('useComments') == 'y') {
     $comCount = $trklib->get_item_nb_comments($itemId);
     $smarty->assign("comCount", $comCount);
     $smarty->assign("canViewCommentsAsItemOwner", $itemObject->canViewComments());
@@ -692,7 +693,7 @@ if ($tracker_info['useComments'] == 'y') {
     $smarty->assign("saveAndComment", $saveAndComment);
 }
 
-if ($tracker_info["useAttachments"] == 'y') {
+if ($tracker_info_value('useAttachments') == 'y') {
     if (isset($_REQUEST["removeattach"])) {
         $_REQUEST["show"] = "att";
     }
@@ -782,7 +783,7 @@ if (isset($_REQUEST['show'])) {
         $cookietab = 2;
     } elseif ($_REQUEST['show'] == "mod") {
         $cookietab = 2;
-        if ($tracker_info["useAttachments"] == 'y') {
+        if ($tracker_info_value('useAttachments') == 'y') {
             $cookietab++;
         }
         if ($tracker_info["useComments"] == 'y' && $tiki_p_tracker_view_comments == 'y') {
