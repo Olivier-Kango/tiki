@@ -33,6 +33,9 @@ const TEMPLATES_PATH = 'templates';
 const THEMES_PATH = 'themes';
 const TIKI_TESTS_TESTS_PATH = 'tiki_tests/tests';
 const WHELP_PATH = 'whelp';
-const TIKI_VENDOR_PATH = 'vendor';
+const TIKI_VENDOR_PATH = 'vendor'; //VENDOR_PATH caused a problem with CYPHT
 const TIKI_VENDOR_BUNDLED_PATH = 'vendor_bundled';
 const TIKI_VENDOR_CUSTOM_PATH = 'vendor_custom';
+
+/* Javascript  */
+const CSS_ASSETS_PATH = 'public/generated/js/';

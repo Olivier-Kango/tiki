@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e354a2497d985062e3e8ab0a0d70046b",
+    "content-hash": "ef3d7773cf075c2b2432a82b9a421ad2",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -6496,19 +6496,6 @@
             "type": "npm-asset",
             "license": [
                 "Unlicense"
-            ]
-        },
-        {
-            "name": "npm-asset/fullcalendar",
-            "version": "5.11.5",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/fullcalendar/npm-asset-fullcalendar-5.11.5.zip",
-                "shasum": "cb20126faf5381297860c4e860545f5650786c1d"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
             ]
         },
         {

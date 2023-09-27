@@ -1,32 +1,35 @@
 /**
- * Support JavaScript for FullCalendar Resource Views used by tiki's calendar feature and wikiplugin_trackercalendar
+ * Support JavaScript for FullCalendar Resource Views used by tiki's calendar feature
  */
+import { Calendar } from "@fullcalendar/core";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import moment from "moment";
 
 $.fn.setupFullCalendar = function (fullCalendarParams) {
     this.each(function () {
 
         const calendarEl = document.getElementById('calendar');
-
         $(calendarEl).tikiModal(tr("Loading..."));
 
-        window.calendar = new FullCalendar.Calendar(calendarEl, {
-            themeSystem: 'bootstrap5',
+        window.calendar = new Calendar(calendarEl, {
+            plugins: [dayGridPlugin],
+            themeSystem: "bootstrap5",
             eventTimeFormat: {
-                hour: 'numeric',
-                minute: '2-digit',
+                hour: "numeric",
+                minute: "2-digit",
                 meridiem: fullCalendarParams.timeFormat,
-                hour12: fullCalendarParams.timeFormat
+                hour12: fullCalendarParams.timeFormat,
             },
             timeZone: fullCalendarParams.display_timezone,
             locale: fullCalendarParams.language,
             headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'year,semester,quarter,dayGridMonth,timeGridWeek,timeGridDay'
+                left: "prev,next today",
+                center: "title",
+                right: "year,semester,quarter,dayGridMonth,timeGridWeek,timeGridDay",
             },
             editable: true,
             selectable: true,
-            events: 'tiki-ajax_services.php?controller=calendar&action=list_items',
+            events: "tiki-ajax_services.php?controller=calendar&action=list_items",
             slotMinTime: fullCalendarParams.minHourOfDay,
             slotMaxTime: fullCalendarParams.maxHourOfDay,
             buttonText: {
@@ -36,7 +39,7 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                 quarter: tr("quarter"),
                 month: tr("month"),
                 week: tr("week"),
-                day: tr("day")
+                day: tr("day"),
             },
             allDayText: tr("all-day"),
             firstDay: fullCalendarParams.firstDayofWeek,
@@ -45,46 +48,46 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
             initialDate: fullCalendarParams.initialDate,
             views: {
                 quarter: {
-                    type: 'dayGrid',
-                    duration: {months: 3},
-                    buttonText: 'quarter',
+                    type: "dayGrid",
+                    duration: { months: 3 },
+                    buttonText: "quarter",
                     dayCellContent: function (dayCell) {
-                        return moment(dayCell.date).format('M/D');
+                        return moment(dayCell.date).format("M/D");
                     },
                     visibleRange: function (currentDate) {
                         return {
-                            start: moment(currentDate).startOf('month').toDate(),
-                            end: moment(currentDate).add('2', 'months').endOf('month').toDate()
+                            start: moment(currentDate).startOf("month").toDate(),
+                            end: moment(currentDate).add("2", "months").endOf("month").toDate(),
                         };
-                    }
+                    },
                 },
                 semester: {
-                    type: 'dayGrid',
-                    duration: {months: 6},
-                    buttonText: 'semester',
+                    type: "dayGrid",
+                    duration: { months: 6 },
+                    buttonText: "semester",
                     dayCellContent: function (dayCell) {
-                        return moment(dayCell.date).format('M/D');
+                        return moment(dayCell.date).format("M/D");
                     },
                     visibleRange: function (currentDate) {
                         return {
-                            start: moment(currentDate).startOf('month').toDate(),
-                            end: moment(currentDate).add('5', 'months').endOf('month').toDate()
+                            start: moment(currentDate).startOf("month").toDate(),
+                            end: moment(currentDate).add("5", "months").endOf("month").toDate(),
                         };
-                    }
+                    },
                 },
                 year: {
-                    type: 'dayGrid',
+                    type: "dayGrid",
                     buttonText: tr("year"),
                     dayCellContent: function ($x) {
-                        return moment($x.date).format('M/D');
+                        return moment($x.date).format("M/D");
                     },
                     visibleRange: function (currentDate) {
                         return {
-                            start: moment(currentDate).startOf('year').toDate(),
-                            end: moment(currentDate).startOf('year').add('11', 'months').endOf('month').toDate()
+                            start: moment(currentDate).startOf("year").toDate(),
+                            end: moment(currentDate).startOf("year").add("11", "months").endOf("month").toDate(),
                         };
-                    }
-                }
+                    },
+                },
             },
             viewDidMount: function (data) {
                 $(calendarEl).tikiModal();
@@ -92,14 +95,14 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
             eventDataTransform: function (event) {
                 if (event.allDay) {
                     // show all day events as including the end date day
-                    event.end = moment(event.end).add(1, 'days').format('YYYY-MM-DD HH:mm:SSZ');
+                    event.end = moment(event.end).add(1, "days").format("YYYY-MM-DD HH:mm:SSZ");
                 }
                 return event;
             },
             eventDidMount: function (arg) {
                 const event = arg.event;
                 const element = $(arg.el);
-                const dayGrid = $('.fc-daygrid-event').length;
+                const dayGrid = $(".fc-daygrid-event").length;
                 if (dayGrid > 0) {
                     let backgroundColor = event._def.ui.backgroundColor;
                     let textColor = event._def.ui.textColor;
@@ -115,14 +118,14 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                     if (eventDotElement !== element) {
                         $(eventDotElement[0]).remove();
                     }
-                    const titleElement = element.find('.fc-event-title');
+                    const titleElement = element.find(".fc-event-title");
 
                     const styleElement = getComputedStyle(titleElement[0]);
                     const defaultTextColor = styleElement.color;
-                    if (backgroundColor === '#') {
+                    if (backgroundColor === "#") {
                         backgroundColor = defaultBackgroundColor;
                     }
-                    if (textColor === '#') {
+                    if (textColor === "#") {
                         textColor = defaultTextColor;
                     }
                     $(element).attr('style', 'background-color: ' + backgroundColor + '; border: 1px solid ' + textColor);
@@ -132,7 +135,7 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                     $(element).children('.fc-event-time').attr('style', 'color: ' + textColor);
                     $(element).children('.fc-event-title').attr('style', 'color: ' + textColor);
                 }
-                element.attr('title', event.title + "|" + event.extendedProps.description);
+                element.attr("title", event.title + "|" + event.extendedProps.description);
                 element.addClass("tips");
                 // surely there's a better way?
                 $(element).parent().tiki_popover();
@@ -145,16 +148,18 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                     $.openModal({
                         title: tr("New event"),
                         size: "modal-lg",
-                        remote: event.url + '&modal=1',
+                        remote: event.url + "&modal=1",
                         open: function () {
                             $this.tikiModal();
 
                             $("form:not(.no-ajax)", this)
-                                .addClass('no-ajax') // Remove default ajax handling, we replace it
-                                .submit(ajaxSubmitEventHandler(function (data) {
-                                    calendarEditSubmit(data, this);
-                                }));
-                        }
+                                .addClass("no-ajax") // Remove default ajax handling, we replace it
+                                .submit(
+                                    ajaxSubmitEventHandler(function (data) {
+                                        calendarEditSubmit(data, this);
+                                    }),
+                                );
+                        },
                     });
                 }
             },
@@ -165,34 +170,36 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                     $.openModal({
                         title: tr("New event"),
                         size: "modal-lg",
-                        remote: $.service("calendar", "edit_item", {todate: info.date.toUnix(), modal: 1}),
+                        remote: $.service("calendar", "edit_item", { todate: info.date.toUnix(), modal: 1 }),
                         open: function () {
                             $this.tikiModal();
 
                             $("form:not(.no-ajax)", this)
-                                .addClass('no-ajax') // Remove default ajax handling, we replace it
-                                .submit(ajaxSubmitEventHandler(function (data) {
-                                    calendarEditSubmit(data, this);
-                                }));
-                        }
+                                .addClass("no-ajax") // Remove default ajax handling, we replace it
+                                .submit(
+                                    ajaxSubmitEventHandler(function (data) {
+                                        calendarEditSubmit(data, this);
+                                    }),
+                                );
+                        },
                     });
                 } else {
                     location.href = "tiki-calendar.php";
                 }
             },
             eventResize: function (info) {
-                $.post($.service('calendar', 'resize'), {
+                $.post($.service("calendar", "resize"), {
                     calitemId: info.event.id,
-                    delta: info.endDelta
+                    delta: info.endDelta,
                 });
             },
             eventDrop: function (info) {
-                $.post($.service('calendar', 'move'), {
+                $.post($.service("calendar", "move"), {
                     calitemId: info.event.id,
-                    delta: info.delta
+                    delta: info.delta,
                 });
             },
-            height: 'auto'
+            height: "auto",
         });
         
         calendar.render();

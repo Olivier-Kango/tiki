@@ -304,13 +304,10 @@ if ($prefs['feature_theme_control'] == 'y'  and isset($_REQUEST['calIds'])) {
 }
 include_once('tiki-section_options.php');
 
-//TODO If we upgrade to version 6 (https://fullcalendar.io/docs/upgrading-from-v5) we should be able to drop CSS, and load as ESM:  https://fullcalendar.io/docs/initialize-browser-esm
-$headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/fullcalendar/main.css');
 $headerlib->add_cssfile('vendor_bundled/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css');
 // Disable fullcalendar's force events to be one-line tall
 $headerlib->add_css('.fc-day-grid-event > .fc-content { white-space: normal; }');
-$headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/fullcalendar/main.js', true);
-
+$headerlib->add_js_module('import "@tiki/tiki-calendar";');
 if ($canEditAnything) {
     $smarty->assign('minHourOfDay', $minHourOfDay . ':00:00');
     $smarty->assign('maxHourOfDay', $maxHourOfDay . ':00:00');

@@ -8,7 +8,8 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "moment": "^2.29.4",
     "vue": "^3.3.4"
   }

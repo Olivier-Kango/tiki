@@ -2,6 +2,11 @@
  * Support JavaScript for FullCalendar Resource Views used by wikiplugin_trackercalendar
  */
 
+import { Calendar } from "@fullcalendar/core";
+import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
+import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
+import moment from "moment";
+
 $.fn.setupFullCalendar = function(tcPluginParams)
 {
     this.each(function () {
@@ -40,13 +45,14 @@ $.fn.setupFullCalendar = function(tcPluginParams)
             meridiem: tcPluginParams.timeFormat,
             hour12: tcPluginParams.timeFormat
         };
-        var calendar = new FullCalendar.Calendar(cal, {
-            themeSystem: 'bootstrap',
+        var calendar = new Calendar(cal, {
+            plugins: [resourceTimelinePlugin, resourceTimeGridPlugin],
+            themeSystem: "bootstrap",
             schedulerLicenseKey: tcPluginParams.premiumLicense,
             initialDate: tcPluginParams.initialDate,
             eventTimeFormat: {
-                hour: 'numeric',
-                minute: '2-digit',
+                hour: "numeric",
+                minute: "2-digit",
                 meridiem: tcPluginParams.timeFormat,
                 hour12: tcPluginParams.timeFormat,
             },
@@ -65,38 +71,42 @@ $.fn.setupFullCalendar = function(tcPluginParams)
                     slotLabelFormat: [
                         // top level of text
                         {
-                            month: 'long',
-                            year: 'numeric'
+                            month: "long",
+                            year: "numeric",
                         },
                         // lower level of text
                         {
                             day: "numeric",
-                            weekday: 'short',
+                            weekday: "short",
                         },
                     ],
-                }
+                },
             },
             viewClassNames: function (currentView) {
                 $(cal).tikiModal();
-                console.debug(currentView.view.type);    // useful for debugging
+                console.debug(currentView.view.type); // useful for debugging
             },
             timeZone: tcPluginParams.display_timezone,
             headerToolbar: {
-                left: 'prevYear,prev,next,nextYear today',
-                center: 'title',
-                right: tcPluginParams.views
+                left: "prevYear,prev,next,nextYear today",
+                center: "title",
+                right: tcPluginParams.views,
             },
             editable: true,
-            events: $.service('tracker_calendar', 'list', $.extend(tcPluginParams.filterValues, {
-                trackerId: tcPluginParams.trackerId,
-                colormap: tcPluginParams.colormap,
-                beginField: tcPluginParams.begin,
-                endField: tcPluginParams.end,
-                resourceField: tcPluginParams.resource,
-                coloringField: tcPluginParams.coloring,
-                filters: tcPluginParams.body,
-                maxRecords: tcPluginParams.maxEvents
-            })),
+            events: $.service(
+                "tracker_calendar",
+                "list",
+                $.extend(tcPluginParams.filterValues, {
+                    trackerId: tcPluginParams.trackerId,
+                    colormap: tcPluginParams.colormap,
+                    beginField: tcPluginParams.begin,
+                    endField: tcPluginParams.end,
+                    resourceField: tcPluginParams.resource,
+                    coloringField: tcPluginParams.coloring,
+                    filters: tcPluginParams.body,
+                    maxRecords: tcPluginParams.maxEvents,
+                }),
+            ),
             buttonText: {
                 resourceTimelineDay: tcPluginParams.labelResDay,
                 resourceTimelineWeek: tcPluginParams.labelResWeek,
@@ -124,16 +134,17 @@ $.fn.setupFullCalendar = function(tcPluginParams)
                     let actualURL = tcPluginParams.url;
                     actualURL += actualURL.indexOf("?") === -1 ? "?" : "&";
 
-                    if (tcPluginParams.trkitemid === "y" && tcPluginParams.addAllFields === "n") {    // "simple" mode
+                    if (tcPluginParams.trkitemid === "y" && tcPluginParams.addAllFields === "n") {
+                        // "simple" mode
                         actualURL += "itemId=" + event.id;
                     } else {
-                        let lOp = '';
+                        let lOp = "";
                         let html = $.parseHTML(event.description) || [];
 
                         // Store useful data values to the URL for Wiki Argument Variable
                         // use and to javascript session storage for JQuery use
                         actualURL += "trackerid=" + event.trackerId;
-                        if (event.trkitemid === 'y') {
+                        if (event.trkitemid === "y") {
                             actualURL = actualURL + "&itemId=" + event.id;
                         } else {
                             actualURL = actualURL + "&itemid=" + event.id;
@@ -154,7 +165,7 @@ $.fn.setupFullCalendar = function(tcPluginParams)
                         // with the label being the variable name
                         $.each(html, function (i, el) {
                             if (isEven(i) == true) {
-                                lOp = el.textContent.replace(' ', '_');
+                                lOp = el.textContent.replace(" ", "_");
                             } else {
                                 actualURL = actualURL + "&" + lOp + "=" + el.textContent;
                                 if (tcPluginParams.useSessionStorage) {
@@ -166,7 +177,6 @@ $.fn.setupFullCalendar = function(tcPluginParams)
 
                     location.href = actualURL;
                     return false;
-
                 } else {
                     // standard tracker item view/edit
                     let e = eventData.event;
@@ -174,20 +184,22 @@ $.fn.setupFullCalendar = function(tcPluginParams)
                     if (e.startEditable && e.extendedProps.trackerId) {
                         var info = {
                             trackerId: e.extendedProps.trackerId,
-                            itemId: e.id
+                            itemId: e.id,
                         };
                         $.openModal({
-                            remote: $.service('tracker', 'update_item', info),
+                            remote: $.service("tracker", "update_item", info),
                             size: "modal-lg",
                             title: e.title,
                             open: function () {
-                                $('form:not(.no-ajax)', this)
-                                    .addClass('no-ajax') // Remove default ajax handling, we replace it
-                                    .submit(ajaxSubmitEventHandler(function (data) {
-                                        $(this).parents(".modal").modal("hide");
-                                        calendar.refetchEvents();
-                                    }));
-                            }
+                                $("form:not(.no-ajax)", this)
+                                    .addClass("no-ajax") // Remove default ajax handling, we replace it
+                                    .submit(
+                                        ajaxSubmitEventHandler(function (data) {
+                                            $(this).parents(".modal").modal("hide");
+                                            calendar.refetchEvents();
+                                        }),
+                                    );
+                            },
                         });
                         return false;
                     } else {
@@ -195,42 +207,44 @@ $.fn.setupFullCalendar = function(tcPluginParams)
                     }
                 }
             },
-            eventDidMount: function(arg) {
+            eventDidMount: function (arg) {
                 let event = arg.event;
                 let element = $(arg.el);
-                element.attr('title', event.title);
+                element.attr("title", event.title);
                 element.popover({
-                    trigger: 'hover',
+                    trigger: "hover",
                     html: true,
                     content: event.extendedProps.description,
-                    container: 'body',
-                    delay: { "show": 250, "hide": 500 },
+                    container: "body",
+                    delay: { show: 250, hide: 500 },
                     customClass: "popover-sm",
                 });
             },
             dateClick: function (date, jsEvent, view) {
                 if (tcPluginParams.canInsert) {
                     var info = {
-                        trackerId: tcPluginParams.trackerId
+                        trackerId: tcPluginParams.trackerId,
                     };
                     let momentDate = moment(date.date);
                     info[tcPluginParams.beginFieldName] = momentDate.unix();
-                    info[tcPluginParams.endFieldName] = momentDate.add(1, 'h').unix();
+                    info[tcPluginParams.endFieldName] = momentDate.add(1, "h").unix();
                     if (tcPluginParams.url) {
-                        $('<a href="#"/>').attr('href', tcPluginParams.url);
+                        $('<a href="#"/>').attr("href", tcPluginParams.url);
                     } else {
                         $.openModal({
-                            remote: $.service('tracker', 'insert_item', info),
+                            remote: $.service("tracker", "insert_item", info),
                             size: "modal-lg",
                             title: tcPluginParams.addTitle,
                             open: function () {
-                                $('form:not(.no-ajax)', this)
-                                    .addClass('no-ajax') // Remove default ajax handling, we replace it
-                                    .submit(ajaxSubmitEventHandler(function (data) {
-                                        $(this).parents(".modal").modal("hide");
-                                        calendar.refetchEvents();
-                                    }));
-                            }
+                                $("form:not(.no-ajax)", this)
+                                    .addClass("no-ajax") // Remove default ajax handling, we replace it
+                                    .submit(
+                                        ajaxSubmitEventHandler(function (data) {
+                                            $(this).parents(".modal").modal("hide");
+                                            calendar.refetchEvents();
+                                        }),
+                                    );
+                            },
                         });
                     }
                 }
@@ -239,7 +253,7 @@ $.fn.setupFullCalendar = function(tcPluginParams)
             },
             eventResize: storeEvent,
             eventDrop: storeEvent,
-            height: 'auto',
+            height: "auto",
             dayMinWidth: 150, // will cause horizontal scrollbars
         });
         calendar.render();

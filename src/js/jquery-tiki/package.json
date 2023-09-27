@@ -1,0 +1,19 @@
+{
+  "name": "jquery-tiki",
+  "version": "1.0.0",
+  "description": "Modernized legacy jquery-tiki jquery scripts",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@fullcalendar/core": "^6.1.9",
+    "@fullcalendar/daygrid": "^6.1.9",
+    "@fullcalendar/resource-timeline": "^6.1.9",
+    "@fullcalendar/resource-timegrid": "^6.1.9"
+  }
+}

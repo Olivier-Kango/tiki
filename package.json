@@ -1,6 +1,7 @@
 {
   "name": "tiki",
   "version": "0.0.1",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite --config=src/js/vite.config.mjs build --mode=production",
@@ -19,8 +20,7 @@
     "single-spa-css": "^2.0.0",
     "single-spa-vue": "^3.0.0"
   },
-  "depencenciesCommentSingleLibs": {
-  },
+  "depencenciesCommentSingleLibs": {},
   "devDependencies": {
     "es-module-shims": "^1.8.0",
     "@vitejs/plugin-vue": "^4.3.4",
@@ -48,6 +48,7 @@
   },
   "workspaces": [
     "src/js/common-externals",
+    "src/js/jquery-tiki",
     "src/js/vue-mf/*"
   ]
 }

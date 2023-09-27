@@ -79,6 +79,16 @@ vite-plugin-single-spa is not compiling it's ex extension properly if more than 
  https://webjose.hashnode.dev/injecting-micro-frontend-css-in-single-spa is not working or use https://github.com/single-spa/single-spa-css and eventually wrap it?
 */
 
+
+/* GOTCHAS!
+
+There are still issues with multiple entry point modules.
+
+While it's quickly improving, vite and rollup still ocasionnally make unfortunate assumptions that all modules are included.
+
+Currently (2023-09-27), this is problematic for common CSS.  If input module1 and input module2 import (js import) css for library 1, only module 2 has the css in it's final build file.  This is especially confusing since if module 1 was developped before module 2, it works fine until module 2 is build.
+
+*/
 export default defineConfig(({ command, mode }) => ({
     base: "/public/generated/js", //This must NOT have a trailing slash
     publicDir: false, //tiki already uses public for other purposes.  If we want to use this feature we can create a src/public folder for it.
@@ -107,7 +117,9 @@ export default defineConfig(({ command, mode }) => ({
             //external: ["vue"],
             input: {
                 //Watch out, __dirname is the path of the config file, no matter how vite is called...
+                "tiki-calendar": resolve(__dirname, "jquery-tiki/tiki-calendar.js"),
 
+                "wikiplugin-trackercalendar": resolve(__dirname, "jquery-tiki/wikiplugin-trackercalendar.js"),
                 "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
                 "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
                 kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
@@ -125,7 +137,7 @@ export default defineConfig(({ command, mode }) => ({
                 manualChunks: undefined,
                 format: "es",
                 //And this is super hard to integrate since this bug introduced in vite 4 https://github.com/vitejs/vite/issues/12072
-
+                //Maybe we can try the solution at the end of https://github.com/vitejs/vite/issues/4863
                 //It means we can't use hashing, and we need to name the entry point nameofmodule.js so we can have a nameofmodule.css file
                 //Can't use the hash untill we have deeper integration of manifest in php anyway
                 //assetFileNames: "[name]-assets/[name][extname]",
@@ -150,7 +162,12 @@ export default defineConfig(({ command, mode }) => ({
         //These are re-bundled files that need to be read at runtime
 
         viteStaticCopy({
+            //This object should really be imported from a file in common-externals
             targets: [
+                {
+                    src: "node_modules/@fullcalendar/core/index.global.min.js",
+                    dest: "",
+                },
                 {
                     src: "node_modules/es-module-shims/dist/es-module-shims.js",
                     dest: "",

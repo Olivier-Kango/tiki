@@ -251,7 +251,10 @@
             "imports": {
                 {* common_externals *}
                 "moment": "{$tikiroot}public/generated/js/common_externals/moment/moment.js", 
-                "vue": "{$tikiroot}public/generated/js/common_externals/vue/vue.esm-browser.prod.js", 
+                "vue": "{$tikiroot}public/generated/js/common_externals/vue/vue.esm-browser.prod.js",
+                {* jquery_tiki *}
+                "@tiki/tiki-calendar": "{$tikiroot}public/generated/js/tiki-calendar.js",
+                "@tiki/wikiplugin-trackercalendar": "{$tikiroot}public/generated/js/wikiplugin-trackercalendar.js",
                 {* single-spa microfrontends and common files (root and styleguide) *}
                 "@vue-mf/root-config": "{$tikiroot}public/generated/js/root-config.js",
                 "@vue-mf/styleguide": "{$tikiroot}public/generated/js/styleguide.js", 
@@ -265,7 +268,6 @@
     </script>
     <script type="module">
         import "@vue-mf/root-config";
-        console.log("Root config imported");
     </script>
 
 {/if}
