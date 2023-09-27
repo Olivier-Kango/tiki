@@ -206,6 +206,7 @@ function wikiplugin_trackerstat($data, $params)
     $status_types = $trklib->status_types();
 
     foreach ($listFields as $fieldId) {
+        $v = [];
         for ($i = count($allFields['data']) - 1; $i >= 0; $i--) {
             if ($allFields['data'][$i]['fieldId'] == $fieldId) {
                 break;
@@ -288,13 +289,15 @@ function wikiplugin_trackerstat($data, $params)
                 }
             }
         }
-        if (isset($average)) {
+        if (isset($average) && ! empty($v)) {
             for (; $j >= 0; --$j) {
-                $v[$j]['average'] = 100 * $v[$j]['count'] / array_sum(array_map(function ($v) {
-                    return $v['count'];
-                }, $v));
-                if ($tracker_info['showStatus'] == 'y') {
-                    $v[$j]['href'] .= "&amp;status=$status";
+                if (isset($v[$j])) {
+                    $v[$j]['average'] = 100 * $v[$j]['count'] / array_sum(array_map(function ($v) {
+                        return $v['count'];
+                    }, $v));
+                    if ($tracker_info['showStatus'] == 'y') {
+                        $v[$j]['href'] .= "&amp;status=$status";
+                    }
                 }
             }
         }
