@@ -22,6 +22,7 @@
  */
 function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'UTF-8', $double_encode = true)
 {
+    $string = $string ?? '';
     switch ($esc_type) {
         case 'html':
             if (is_array($string)) {
@@ -37,7 +38,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'UTF-8'
             return $return;
 
         case 'htmlall':
-            $return = htmlentities($string ?? '', ENT_QUOTES, $char_set);
+            $return = htmlentities($string, ENT_QUOTES, $char_set);
             if (! strlen($return) && strlen($string)) { // Bug php when there is non utf8 characters in the string(http://bugs.php.net/bug.php?id=43549, http://bugs.php.net/bug.php?id=43294)
                 $return = htmlentities($string, ENT_QUOTES);
             }
@@ -48,7 +49,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'UTF-8'
             return $return;
 
         case 'url':
-            return rawurlencode($string ?? '');
+            return rawurlencode($string);
 
         case 'urlpathinfo':
             return str_replace('%2F', '/', rawurlencode($string));
