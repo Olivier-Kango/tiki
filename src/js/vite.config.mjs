@@ -24,7 +24,8 @@ CHOSEN:
 - single-spa-css  DONE, temporary.  We may have to write our own abstraction, it was designed for webpack.  It's a stopgap after 
 
 NOT CHOSEN
-- vite-plugin-single-spa (https://github.com/WJSoftware/vite-plugin-single-spa) Pretty new (4 months), excellent overall,and we are kind of already commited to single-spa.  It allows transparently managing CSS for js, in effect replacing single-spa-css.  Unfortunately it doesn't handle multiple entry points properly, and after EXTENSIVE testing, it seems unlikely we can ever use it as is.  benoitg - 2023-09-19
+- vite-plugin-single-spa (https://github.com/WJSoftware/vite-plugin-single-spa) Pretty new (4 months), excellent overall,and we are kind of already commited to single-spa.  It allows transparently managing CSS for js, in effect replacing single-spa-css.  Unfortunately it doesn't handle multiple entry points properly, it's not compiling it's ex extension properly if more than one module use it. After EXTENSIVE testing, it seems unlikely we can ever use it as is.  It may get better in the future, but it also causes a lot of problems because of all it sets in vite config.  benoitg - 2023-09-19
+
 - https://github.com/single-spa/self-hosted-shared-dependencies , we have that exact need, but it's better to do it manually, since we also use raw file from php.
 
 CONSIDERED 
@@ -41,7 +42,9 @@ Maybe obsolete: https://dev.to/hontas/using-vite-with-linked-dependencies-37n7  
 
 DONE:
 
--  Decide turborepo https://github.com/gajus/turbowatch#readme vs concurrently https://github.com/open-cli-tools/concurrently:  DONE:  Concurrently for now
+- Decide turborepo https://github.com/gajus/turbowatch#readme vs concurrently https://github.com/open-cli-tools/concurrently:  DONE:  Concurrently for now
+- Integrate with setup.sh
+- Migrate moment.js
 
 IN PROGRESS:
 
@@ -49,15 +52,13 @@ IN PROGRESS:
 
 TODO: 
 
-- Migrate moment from composer first, as it's actually used by the microfrontend, AND was already used in tiki.
-
-- Migrate twbs from composer second, it's references by CSS (themes) and JS (BootstrapModal.vue) AND PHP (multiple places), so it's a good complete test.
+- Migrate twbs from composer second, it's referenced by CSS (themes) and JS (BootstrapModal.vue) AND PHP (multiple places), so it's a good complete test.
 
 -  Manage versions https://www.npmjs.com/package/check-dependency-version-consistency, this is not optional, having varying versions increase bundle sizes AND can cause serious problems.
 
 - Get index.php and htaccess generated
 
-- Integrate with setup.sh
+- Get scss files compiling, and remove them from git
 
 - GET HMR and vite dev working, especially for scss files.  
  * There are Here is a drupal example https://www.drupal.org/project/vite.  Might be simpler to just rewrite base for vite dev server:  https://single-spa.js.org/docs/ecosystem-vite/, but that doesn't touch html and the like. 
@@ -71,9 +72,8 @@ TODO:
 
 - Use import maps to be able to use vite dev
 
-- Figure out hoe to manage CSS with multiple entry points in a single vite project.
+- Figure out how to manage CSS with multiple entry points in a single vite project.
 
-vite-plugin-single-spa is not compiling it's ex extension properly if more than one module use it.  It may get better in the future, but it also causes a lot of problems because of all it sets in vite config.
 
 - Manual: 
  https://webjose.hashnode.dev/injecting-micro-frontend-css-in-single-spa is not working or use https://github.com/single-spa/single-spa-css and eventually wrap it?

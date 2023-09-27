@@ -47,7 +47,7 @@ WHAT_NEXT_AFTER_f='x'
 # More info at https://doc.tiki.org/Composer
 
 if [ -d ".svn" ] || [ -d ".git" ]; then
-    DEFAULT_WHAT='c'
+    DEFAULT_WHAT='b'
 else
     DEFAULT_WHAT='f'
 fi
@@ -700,6 +700,19 @@ http_composer() {
     "${PHPCLI}" doc/devtools/composer_http_mode.php execute "$OPT_QUIET"
 }
 
+npm_setup() {
+
+    echo "Running node install and build"
+    set -x
+    npm install
+    npm run build
+    set +x
+}
+
+build() {
+    composer
+    npm_setup
+}
 
 # part 4.3 - several command options as fix, open, ...
 
@@ -1095,8 +1108,9 @@ Composer: If you are installing via a released Tiki package (zip, tar.gz, tar.bz
 and upgrading via GIT, you need to run Composer after 'git clone' and 'git pull'. More info at https://doc.tiki.org/Composer
 
 Database: Please note that the Tiki schema does not support downgrading the database. It can only perform upgrades. For more info, you may check the database status by opening the tiki-check page (/tiki-check.php).
-  
- c run composer (log output on screen, not all warnings) and exit (recommended to be done first)
+
+ b run all necessary setup and exit (composer, npm, etc.) (recommended to be done first except when installing from a .tar)
+ c run composer (log output on screen, not all warnings) and exit
  L run composer (log output to logfile) and exit (recommended to be done first)
  V run composer (verbose log output on screen) and exit (recommended to be done first)
  H make composer download packages over HTTP and return here
@@ -1151,6 +1165,7 @@ tiki_setup_default() {
             S)    WHAT=${OLDWHAT} ; clear ;;
             f)    WHAT=$WHAT_NEXT_AFTER_f ; command_fix ;;
             o)    WHAT=${DEFAULT_WHAT} ; command_open ;;
+            b)    WHAT='x' ; build ;;
             c)    WHAT=$WHAT_NEXT_AFTER_c ; LOGCOMPOSERFLAG="0" ; composer ;;
             C)    WHAT=$WHAT_NEXT_AFTER_c ; LOGCOMPOSERFLAG="0" ; composer ;;
             L)    WHAT=$WHAT_NEXT_AFTER_c ; LOGCOMPOSERFLAG="1" ; composer ;;
@@ -1192,6 +1207,7 @@ case ${COMMAND} in
     suphpworkaround)    set_permission_data_workaround_suphp ;;
     worry)            permission_via_php_check ;;
     # composer
+    build)        build ;;
     composer)        composer ;;
     # plain chmod
     gmr)            set_group_minus_read ;;

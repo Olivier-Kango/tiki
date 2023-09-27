@@ -13,8 +13,8 @@
     "format": "prettier .  --write"
   },
   "engines": {
-    "npm": ">=6.0.0 <9.0.0",
-    "node": ">=14.17.0 <19.0.0"
+    "npm": ">=7.0.0 <9.0.0",
+    "node": ">=16.0.0 <19.0.0"
   },
   "dependencies": {
     "single-spa-css": "^2.0.0",
