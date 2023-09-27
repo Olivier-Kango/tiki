@@ -56,13 +56,15 @@ switch ($jitRequest->action->alpha()) {
         }
         break;
     case 'new':
-        $transitionlib = new TransitionLib($transition_mode);
-        $transitionlib->addTransition(
-            $_REQUEST['from'],
-            $_REQUEST['to'],
-            $_REQUEST['label'],
-            isset($_REQUEST['preserve'])
-        );
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $transitionlib = new TransitionLib($transition_mode);
+            $transitionlib->addTransition(
+                $_REQUEST['from'],
+                $_REQUEST['to'],
+                $_REQUEST['label'],
+                isset($_REQUEST['preserve'])
+            );
+        }
         break;
     case 'edit':
         $transitionlib = new TransitionLib($transition_mode);
