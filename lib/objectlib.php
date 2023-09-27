@@ -470,7 +470,7 @@ class ObjectLib extends TikiLib
             case 'article':
                 $artlib = TikiLib::lib('art');
                 $info = $artlib->get_article($object);
-                return ['title' => $info['title'] ?? "", 'data' => $info['body']];
+                return ['title' => $info['title'] ?? "", 'data' => $info['body'] ?? ""];
 
             case 'file gallery':
                 $info = TikiLib::lib('filegal')->get_file_gallery_info($object);

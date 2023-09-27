@@ -349,16 +349,20 @@ function smarty_function_object_link_forumpost($smarty, $object, $title = null, 
 {
     $commentslib = TikiLib::lib('comments');
     $comment = $commentslib->get_comment($object);
-
+    if (! is_array($comment)) {
+        $comment = [];
+    }
     while (empty($comment['title'])) {
-        $parent = $commentslib->get_comment($comment['parentId']);
-        if ($parent !== false) {
-            $comment['title'] = is_array($parent) ? ($parent['title'] ?? '') : '';
+        $parent = isset($comment['parentId']) ? $commentslib->get_comment($comment['parentId']) : null;
+        if (is_array($parent)) {
+            $comment['parentId'] = $parent['parentId'];
+            $comment['title'] = $parent['title'] ?? '';
             if ($parent['parentId'] == 0) {
                 break;
             }
+        } else {
+            break;
         }
     }
-
     return "<a href='tiki-view_forum_thread.php?threadId=" . $comment['threadId'] . "'>" . $comment['title'] . "</a>";
 }
