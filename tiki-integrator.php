@@ -26,6 +26,13 @@ $integrator = new TikiIntegrator();
 // Get repository configuration data
 $rep = $integrator->get_repository($repID);
 
+if (! $rep) {
+    $smarty->assign('msg', tra("Repository not found"));
+    $smarty->display("error.tpl");
+    die;
+}
+
+
 // Check if given file present at configured location
 $file = $integrator->get_rep_file($rep, isset($_REQUEST["file"]) ? $_REQUEST["file"] : '');
 if (
@@ -51,6 +58,7 @@ $data = $integrator->get_file($repID, $file, $rep["cacheable"], $url2cache);
 $smarty->assign_by_ref('data', $data);
 $smarty->assign('repID', $repID);
 $smarty->assign('cached', $rep["cacheable"]);
+
 if (isset($_REQUEST["file"])) {
     $smarty->assign('file', $_REQUEST["file"]);
 }
