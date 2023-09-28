@@ -669,6 +669,23 @@ function wikiplugin_tracker_info()
                 'default' => '',
                 'advanced' => true,
             ],
+            'fieldsfilllabel' => [
+                'required' => false,
+                'name' => tra('Multiple Fill Fields left Label'),
+                'description' => tr('Explanatory text on the left of the Multiple Fill Fields text area. Default is "Insert one item per line:".'),
+                'since' => '24.4',
+                'filter' => 'text',
+                'advanced' => true,
+            ],
+            'fieldsfilldescription' => [
+                'required' => false,
+                'name' => tra('Multiple Fill Fields bottom description'),
+                'description' => tr('Explanatory text below the Multiple Fill Fields text area. Default is the list of the fields which should be in each line.')
+                    . ' ' . tr('Put a space for no visible text below the Multiple Fill Fields text area.'),
+                'since' => '24.4',
+                'filter' => 'text',
+                'advanced' => true,
+            ],
             'formtag' => [
                 'required' => false,
                 'name' => tra('Embed the tracker in a form tag'),
@@ -744,6 +761,8 @@ function wikiplugin_tracker($data, $params)
     $newItemRate = null;
     $fieldsfill = $params['fieldsfill'] ?? null;
     $fieldsfillseparator = $params['fieldsfillseparator'] ?? '';
+    $fieldsfilllabel = $params['fieldsfilllabel'] ?? '';
+    $fieldsfilldescription = $params['fieldsfilldescription'] ?? '';
     $fill_line_cant = null;
     $fill_flds = [];
     $fill_flds_defaults = [];
@@ -2264,7 +2283,13 @@ function wikiplugin_tracker($data, $params)
             }
         }
         if (isset($params['fieldsfill']) && ! empty($params['fieldsfill']) && empty($itemId)) {
-            $back .= '<div class="tiki-form-group row ins_fill"><label class="col-md-3 col-form-label" for="ins_fill">' . tra("Insert one item per line:")
+            if (isset($params['fieldsfilllabel']) && ! empty($params['fieldsfilllabel'])) {
+                $fieldsfilllabel = tra($params['fieldsfilllabel']);
+            } else {
+                $fieldsfilllabel = tra("Insert one item per line:");
+            }
+            $back .= '<div class="tiki-form-group row ins_fill"><label class="col-md-3 col-form-label" for="ins_fill">'
+                . $fieldsfilllabel
                 . '<br />'
                 . '<br />'
                 . '<br />'
@@ -2279,9 +2304,13 @@ function wikiplugin_tracker($data, $params)
     <input type="hidden" value="n" name="wysiwyg"/>
     <div name="ins_fill_desc" class="trackerplugindesc" >
 FILL;
-            $back .= sprintf(tra('Each line is a list of %d field values separated with: %s'), $fill_line_cant, htmlspecialchars($fieldsfillseparator));
-            $back .= '    </div>';
-            $back .= '    <div name="ins_fill_desc2" class="trackerplugindesc" >' . htmlspecialchars(implode($fieldsfillseparator, $fieldsfillnames));
+            if (isset($params['fieldsfilldescription']) && ! empty($params['fieldsfilldescription'])) {
+                $back .= tra($params['fieldsfilldescription']);
+            } else {
+                $back .= sprintf(tra('Each line is a list of %d field values separated with: %s'), $fill_line_cant, htmlspecialchars($fieldsfillseparator));
+                $back .= '      </div>';
+                $back .= '      <div name="ins_fill_desc2" class="trackerplugindesc" >' . htmlspecialchars(implode($fieldsfillseparator, $fieldsfillnames));
+            }
             $back .= '    </div>';
             $back .= '</div>';
         }
