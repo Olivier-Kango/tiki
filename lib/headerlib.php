@@ -762,9 +762,9 @@ class HeaderLib
         foreach ($ranks as $rank) {
         // add list of minified js files to output
             $topMsg .= "\n/* list of files for rank:$rank */\n";
-            $topMsg .= '/* ' . print_r($jsfiles[$rank], true) . ' */' . "\n";
 
             if (isset($jsfiles[$rank])) {
+                $topMsg .= '/* ' . print_r($jsfiles[$rank], true) . ' */' . "\n";
                 foreach ($jsfiles[$rank] as $f) {
                     // important - some scripts like vendor_bundled/vendor/jquery/plugins/async/jquery.async.js do not terminate their last bits with a ';'
                     // this is bad practise and that causes issues when putting them all in one file!
