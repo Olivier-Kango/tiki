@@ -7620,7 +7620,7 @@ class nusoap_client extends nusoap_base  {
                            //$this->request = $http->outgoing_payload;
                         //$this->response = $http->incoming_payload;
                     //} else
-                    $this->responseData = $http->sendHTTPS($msg,$timeout,$response_timeout,$this->cookies);
+                    $this->responseData = $http->send($msg,$timeout,$response_timeout,$this->cookies);
                 } else {
                     $this->setError('no http/s in endpoint url');
                 }
