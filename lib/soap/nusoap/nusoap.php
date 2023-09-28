@@ -1886,7 +1886,7 @@ class nusoap_xmlschema extends nusoap_base  {
         if(count($typeDef['elements']) > 0){
         $str .= ">";
         foreach($typeDef['elements'] as $element => $eData){
-            $str .= $this->serializeTypeDef($element);
+            $str .= serialize($element);
         }
         $str .= "</$type>";
         } elseif($typeDef['typeClass'] == 'element') {
