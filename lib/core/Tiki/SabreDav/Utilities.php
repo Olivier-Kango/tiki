@@ -305,6 +305,9 @@ class Utilities
             $result['categoryId'] = $component->{'X-Tiki-CategoryId'};
             unset($result['newcat']);
         }
+        if (isset($component->{'X-Tiki-CategoryColor'})) {
+            $result['newcatbgcolor'] = $component->{'X-Tiki-CategoryColor'};
+        }
         if (isset($component->PRIORITY)) {
             $result['priority'] = $component->PRIORITY;
         }
@@ -603,6 +606,9 @@ class Utilities
         }
         if (! empty($row['newcat'])) {
             $data['CATEGORIES'] = $row['newcat'];
+        }
+        if (! empty($row['newcatbgcolor'])) {
+            $data['X-Tiki-CategoryColor'] = $row['newcatbgcolor'];
         }
         if (! empty($row['url'])) {
             $data['URL'] = $row['url'];
