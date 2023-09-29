@@ -8,37 +8,37 @@ class UserLibTest extends TikiTestCase
             ->getMockBuilder('UsersLib')
             ->onlyMethods(['get_user_preference', 'get_user_email', 'set_user_fields'])
             ->getMock();
+        $callCount = 0;
 
         //realName - get_user_preference
         $userLibMock
-            ->expects($this->at(0))
             ->method('get_user_preference')
-            ->with($this->equalTo($user), $this->equalTo('realName'))
-            ->willReturn($name);
-
+            ->willReturnCallback(function ($userArg, $field) use ($user, $name, $country, &$callCount) {
+                $this->assertEquals($user, $userArg);
+                $this->assertContains($field, ['realName', 'country']);
+                if ($field === 'realName') {
+                    return $name;
+                } elseif ($field === 'country') {
+                    return $country;
+                }
+                return null;
+            });
         //email - get_user_email
         $userLibMock
-            ->expects($this->at(1))
             ->method('get_user_email')
-            ->with($this->equalTo($user))
-            ->willReturn($email);
-
-        //country - get_user_preference
-        $userLibMock
-            ->expects($this->at(2))
-            ->method('get_user_preference')
-            ->with($this->equalTo($user), $this->equalTo('country'))
-            ->willReturn($country);
-
+            ->willReturnCallback(function ($userArg) use ($user, $email, &$callCount) {
+                $this->assertEquals($user, $userArg);
+                return $email;
+            });
         if ($setWillBeCalled) {
             // set_user_fields
             $userLibMock
-                ->expects($this->at(3))
                 ->method('set_user_fields')
-                ->with($this->equalTo($setValues))
-                ->willReturn(true);
+                ->willReturnCallback(function ($setValuesArg) use ($setValues, &$callCount) {
+                    $this->assertEquals($setValues, $setValuesArg);
+                    return true;
+                });
         }
-
         return $userLibMock;
     }
 

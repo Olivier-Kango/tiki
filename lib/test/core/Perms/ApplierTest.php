@@ -90,19 +90,17 @@ class Perms_ApplierTest extends TikiTestCase
         $newSet->add('Anonymous', 'view');
 
         $target = $this->createMock('Perms_Reflection_Container');
-        $target->expects($this->at(0))
-            ->method('getDirectPermissions')
-            ->willReturn($object);
-        $target->expects($this->at(1))
-            ->method('getParentPermissions')
-            ->willReturn($global);
-        $target->expects($this->at(2))
-            ->method('remove')
-            ->with($this->equalTo('Registered'), $this->equalTo('view'));
-        $target->expects($this->at(3))
-            ->method('remove')
-            ->with($this->equalTo('Registered'), $this->equalTo('edit'));
 
+        $target->method('getDirectPermissions')
+            ->willReturn($object);
+        $target->method('getParentPermissions')
+            ->willReturn($global);
+        $target->expects($this->exactly(2))
+            ->method('remove')
+            ->withConsecutive(
+                [$this->equalTo('Registered'), $this->equalTo('view')],
+                [$this->equalTo('Registered'), $this->equalTo('edit')]
+            );
         $applier = new Perms_Applier();
         $applier->addObject($target);
         $applier->apply($newSet);
@@ -116,18 +114,14 @@ class Perms_ApplierTest extends TikiTestCase
         $newSet = new Perms_Reflection_PermissionSet();
         $newSet->add('Anonymous', 'view');
         $newSet->add('Registered', 'edit');
-
         $target = $this->createMock('Perms_Reflection_Container');
-        $target->expects($this->at(0))
-            ->method('getDirectPermissions')
+        $target->method('getDirectPermissions')
             ->willReturn($global);
-        $target->expects($this->at(1))
-            ->method('getParentPermissions')
+        $target->method('getParentPermissions')
             ->willReturn(null);
-        $target->expects($this->at(2))
+        $target->expects($this->once())
             ->method('add')
             ->with($this->equalTo('Registered'), $this->equalTo('edit'));
-
         $applier = new Perms_Applier();
         $applier->addObject($target);
         $applier->apply($newSet);
@@ -142,34 +136,35 @@ class Perms_ApplierTest extends TikiTestCase
         $newSet->add('Anonymous', 'view');
         $newSet->add('Registered', 'edit');
 
+        $targets = [];
+
         $target1 = $this->createMock('Perms_Reflection_Container');
-        $target1->expects($this->at(0))
-            ->method('getDirectPermissions')
+        $target1->method('getDirectPermissions')
             ->willReturn($global);
-        $target1->expects($this->at(1))
-            ->method('getParentPermissions')
+        $target1->method('getParentPermissions')
             ->willReturn(null);
-        $target1->expects($this->at(2))
+        $target1->expects($this->once())
             ->method('add')
             ->with($this->equalTo('Registered'), $this->equalTo('edit'));
+        $targets[] = $target1;
 
         $target2 = $this->createMock('Perms_Reflection_Container');
-        $target2->expects($this->at(0))
-            ->method('getDirectPermissions')
+        $target2->method('getDirectPermissions')
             ->willReturn(new Perms_Reflection_PermissionSet());
-        $target2->expects($this->at(1))
-            ->method('getParentPermissions')
+        $target2->method('getParentPermissions')
             ->willReturn(null);
-        $target2->expects($this->at(2))
+        $target2->expects($this->exactly(2))
             ->method('add')
-            ->with($this->equalTo('Anonymous'), $this->equalTo('view'));
-        $target2->expects($this->at(3))
-            ->method('add')
-            ->with($this->equalTo('Registered'), $this->equalTo('edit'));
+            ->withConsecutive(
+                [$this->equalTo('Anonymous'), $this->equalTo('view')],
+                [$this->equalTo('Registered'), $this->equalTo('edit')]
+            );
+        $targets[] = $target2;
 
         $applier = new Perms_Applier();
-        $applier->addObject($target1);
-        $applier->addObject($target2);
+        foreach ($targets as $target) {
+            $applier->addObject($target);
+        }
         $applier->apply($newSet);
     }
 

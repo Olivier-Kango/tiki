@@ -244,14 +244,21 @@ class Language_WriteFileTest extends TikiTestCase
 
     public function testWriteStringsToFileShouldNotKeepTranslationsWithPunctuationOnSuccessiveCalls(): void
     {
-        $this->parseFile->expects($this->at(0))
-                        ->method('getTranslations')->willReturn(['Errors' => 'Ошибки',]);
+        $getTranslationsCalls = [
+            ['Errors' => 'Ошибки'],
+            ['Errors:' => 'خطاها:'],
+        ];
+
+        $getTranslationsIndex = 0;
+
+        $this->parseFile->method('getTranslations')->willReturnCallback(function () use (&$getTranslationsCalls, &$getTranslationsIndex) {
+            return $getTranslationsCalls[$getTranslationsIndex++];
+        });
 
         $obj = $this->getMockBuilder('Language_WriteFile')
                     ->onlyMethods(['fileHeader'])
                     ->setConstructorArgs([$this->parseFile])
                     ->getMock();
-
         $obj->method('fileHeader')->willReturn("// File header\n\n");
 
         $strings = [
@@ -260,9 +267,6 @@ class Language_WriteFileTest extends TikiTestCase
         ];
 
         $obj->writeStringsToFile($strings);
-
-        $this->parseFile->expects($this->at(0))
-                        ->method('getTranslations')->willReturn(['Errors:' => 'خطاها:',]);
 
         $this->assertFileEquals(
             __DIR__ . '/fixtures/language_writestringstofile_first_call.php',

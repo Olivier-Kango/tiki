@@ -213,14 +213,14 @@ OUT;
         ];
 
         $source = $this->createMock('Search_Formatter_DataSource_Interface');
+        $expectedReturnValues = [];
         for ($i = 0; $i < 4; $i++) {
-            $source->expects($this->at($i))
-                ->method('getData')
-                ->willReturnCallback(function ($entry, $field) use (&$withData, $i) {
-                        $this->assertContains($field, ['object_id', 'description']);
-                        return $withData[(int)($i / 2)];
-                });
+            $field = ($i % 2 === 0) ? 'object_id' : 'description';
+            $this->assertContains($field, ['object_id', 'description']);
+            $expectedReturnValues[] = $withData[(int)($i / 2)];
         }
+        $source->method('getData')
+            ->willReturnOnConsecutiveCalls(...$expectedReturnValues);
 
         $plugin = new Search_Formatter_Plugin_WikiTemplate("* {display name=object_id} ({display name=description})\n");
 

@@ -188,11 +188,21 @@ class Language_GetStringsTest extends TikiTestCase
                         $this->writeFileFactory,
                         ['baseDir' => $this->baseDir]])
             ->getMock();
-
         $obj->expects($this->once())->method('writeToFiles')->with($strings);
-        $obj->expects($this->at(0))->method('collectStrings')->with('file1')->willReturn(['string1', 'string2']);
-        $obj->expects($this->at(1))->method('collectStrings')->with('file2')->willReturn(['string2', 'string3']);
-        $obj->expects($this->at(2))->method('collectStrings')->with('file3')->willReturn(['string3', 'string4']);
+
+        $collectStringsCalls = [
+            ['file1', ['string1', 'string2']],
+            ['file2', ['string2', 'string3']],
+            ['file3', ['string3', 'string4']],
+        ];
+
+        $collectStringsIndex = 0;
+
+        $obj->method('collectStrings')->willReturnCallback(function () use (&$collectStringsCalls, &$collectStringsIndex) {
+            $args = func_get_args();
+            $this->assertSame($collectStringsCalls[$collectStringsIndex][0], $args[0]);
+            return $collectStringsCalls[$collectStringsIndex++][1];
+        });
 
         $this->fileType->expects($this->once())->method('getExtensions')->willReturn(['.php']);
         $obj->addFileType($this->fileType);
@@ -237,20 +247,21 @@ class Language_GetStringsTest extends TikiTestCase
         $strings = ['string1', 'string2', 'string3', 'string4'];
 
         $this->writeFile->expects($this->exactly(3))->method('writeStringsToFile')->with($strings, false);
-
         $this->obj->setLanguages(['en', 'es', 'pt-br']);
 
-        $this->writeFileFactory->expects($this->at(0))->method('factory')
-            ->willReturn($this->writeFile)
-            ->with($this->stringContains('en/language.php'));
+        $writeFileFactoryCalls = [
+            ['en/language.php'],
+            ['es/language.php'],
+            ['pt-br/language.php'],
+        ];
 
-        $this->writeFileFactory->expects($this->at(1))->method('factory')
-            ->willReturn($this->writeFile)
-            ->with($this->stringContains('es/language.php'));
+        $writeFileFactoryIndex = 0;
 
-        $this->writeFileFactory->expects($this->at(2))->method('factory')
-            ->willReturn($this->writeFile)
-            ->with($this->stringContains('pt-br/language.php'));
+        $this->writeFileFactory->method('factory')->willReturnCallback(function () use (&$writeFileFactoryCalls, &$writeFileFactoryIndex) {
+            $args = func_get_args();
+            $this->stringContains($writeFileFactoryCalls[$writeFileFactoryIndex++][0]);
+            return $this->writeFile;
+        });
 
         $this->obj->writeToFiles($strings);
     }
@@ -293,10 +304,19 @@ class Language_GetStringsTest extends TikiTestCase
                     ->onlyMethods(['collectStrings', 'setLanguages'])
                     ->setConstructorArgs([$this->collectFiles, $this->writeFileFactory])
                     ->getMock();
+        $collectStringsCalls = [
+            ['file1', ['string1', 'string2']],
+            ['file2', ['string2', 'string3']],
+            ['file3', ['string3', 'string4']],
+        ];
 
-        $obj->expects($this->at(0))->method('collectStrings')->with('file1')->willReturn(['string1', 'string2']);
-        $obj->expects($this->at(1))->method('collectStrings')->with('file2')->willReturn(['string2', 'string3']);
-        $obj->expects($this->at(2))->method('collectStrings')->with('file3')->willReturn(['string3', 'string4']);
+        $collectStringsIndex = 0;
+
+        $obj->method('collectStrings')->willReturnCallback(function () use (&$collectStringsCalls, &$collectStringsIndex) {
+            $args = func_get_args();
+            $this->assertSame($collectStringsCalls[$collectStringsIndex][0], $args[0]);
+            return $collectStringsCalls[$collectStringsIndex++][1];
+        });
 
         $this->assertEquals($strings, $obj->scanFiles($files));
     }
@@ -304,23 +324,27 @@ class Language_GetStringsTest extends TikiTestCase
     public function testScanFilesShouldReturnInformationAboutTheFilesWhereTheStringsWereFound(): void
     {
         $files = ['file1', 'file2', 'file3'];
-
         $strings = [
             'string1' => ['name' => 'string1', 'files' => ['file1']],
             'string2' => ['name' => 'string2', 'files' => ['file1', 'file2']],
             'string3' => ['name' => 'string3', 'files' => ['file2', 'file3']],
             'string4' => ['name' => 'string4', 'files' => ['file3']],
         ];
-
         $obj = $this->getMockBuilder('Language_GetStrings')
                     ->onlyMethods(['collectStrings', 'setLanguages'])
                     ->setConstructorArgs([$this->collectFiles, $this->writeFileFactory, ['outputFiles' => true]])
                     ->getMock();
-
-        $obj->expects($this->at(0))->method('collectStrings')->with('file1')->willReturn(['string1', 'string2']);
-        $obj->expects($this->at(1))->method('collectStrings')->with('file2')->willReturn(['string2', 'string3']);
-        $obj->expects($this->at(2))->method('collectStrings')->with('file3')->willReturn(['string3', 'string4']);
-
+        $collectStringsCalls = [
+            ['file1', ['string1', 'string2']],
+            ['file2', ['string2', 'string3']],
+            ['file3', ['string3', 'string4']],
+        ];
+        $collectStringsIndex = 0;
+        $obj->method('collectStrings')->willReturnCallback(function () use (&$collectStringsCalls, &$collectStringsIndex) {
+            $args = func_get_args();
+            $this->assertSame($collectStringsCalls[$collectStringsIndex][0], $args[0]);
+            return $collectStringsCalls[$collectStringsIndex++][1];
+        });
         $this->assertEquals($strings, $obj->scanFiles($files));
     }
 }
