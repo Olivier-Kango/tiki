@@ -629,7 +629,7 @@ if (TIKI_API) {
             }
         }
         unset($user_details);
-    } else if(defined('TIKI_CALDAV') && TIKI_CALDAV) {
+    } elseif (defined('TIKI_CALDAV') && TIKI_CALDAV) {
         $user = null;
     } else {
         $user = null;
