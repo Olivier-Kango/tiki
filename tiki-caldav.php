@@ -12,6 +12,8 @@
 use Tiki\SabreDav\BasicAuth;
 use Tiki\SabreDav\Utilities;
 
+define('TIKI_CALDAV', true);
+
 require_once 'tiki-setup.php';
 $access->check_feature('feature_calendar');
 
