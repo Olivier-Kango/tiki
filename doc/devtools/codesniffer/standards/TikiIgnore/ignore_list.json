@@ -1229,6 +1229,15 @@
         "lib\/core\/Services\/Broker.php": {
             "class:Services_Broker": true
         },
+        "lib\/core\/Services\/Calendar\/AppointmentController.php": {
+            "class:Services_Calendar_AppointmentController": true
+        },
+        "lib\/core\/Services\/Calendar\/AvailabilityController.php": {
+            "class:Services_Calendar_AvailabilityController": true
+        },
+        "lib\/core\/Services\/Calendar\/BaseController.php": {
+            "class:Services_Calendar_BaseController": true
+        },
         "lib\/core\/Services\/Calendar\/Controller.php": {
             "class:Services_Calendar_Controller": true
         },
@@ -4384,6 +4393,7 @@
             "CalendarLib::update_calendar_instance": true,
             "CalendarLib::remove_calendar_instance": true,
             "CalendarLib::get_subscriptions": true,
+            "CalendarLib::get_subscription": true,
             "CalendarLib::create_subscription": true,
             "CalendarLib::update_subscription": true,
             "CalendarLib::delete_subscription": true,
@@ -4750,6 +4760,19 @@
         "lib\/core\/Services\/BigBlueButton\/Controller.php": {
             "Services_BigBlueButton_Controller::action_join": true,
             "Services_BigBlueButton_Controller::action_delete_recording": true
+        },
+        "lib\/core\/Services\/Calendar\/AppointmentController.php": {
+            "Services_Calendar_AppointmentController::action_slots": true
+        },
+        "lib\/core\/Services\/Calendar\/AvailabilityController.php": {
+            "Services_Calendar_AvailabilityController::action_index": true,
+            "Services_Calendar_AvailabilityController::action_create": true,
+            "Services_Calendar_AvailabilityController::action_edit": true,
+            "Services_Calendar_AvailabilityController::action_delete": true,
+            "Services_Calendar_AvailabilityController::action_rrule": true,
+            "Services_Calendar_AvailabilityController::action_rrule_save": true,
+            "Services_Calendar_AvailabilityController::action_new_availability": true,
+            "Services_Calendar_AvailabilityController::action_check": true
         },
         "lib\/core\/Services\/Calendar\/Controller.php": {
             "Services_Calendar_Controller::action_move": true,
@@ -8996,6 +9019,15 @@
         },
         "lib\/core\/Services\/Broker.php": {
             "Services_Broker": true
+        },
+        "lib\/core\/Services\/Calendar\/AppointmentController.php": {
+            "Services_Calendar_AppointmentController": true
+        },
+        "lib\/core\/Services\/Calendar\/AvailabilityController.php": {
+            "Services_Calendar_AvailabilityController": true
+        },
+        "lib\/core\/Services\/Calendar\/BaseController.php": {
+            "Services_Calendar_BaseController": true
         },
         "lib\/core\/Services\/Calendar\/Controller.php": {
             "Services_Calendar_Controller": true

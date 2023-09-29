@@ -168,6 +168,7 @@ Invitees: " . implode(",\n", $event['attendees']);
                         }
                     }
                 }
+                $client = new \Tiki\SabreDav\CaldavClient();
                 if ($existing['recurrenceId']) {
                     $rec = new CalRecurrence($existing['recurrenceId']);
                     if ($event['rec']) {
@@ -175,12 +176,10 @@ Invitees: " . implode(",\n", $event['attendees']);
                         $event['rec']->setUri($rec->getUri());
                         $rec = $event['rec'];
                     }
-                    $rec->updateDetails($event);
                     $rec->setUser($user);
-                    $rec->save(true);
-                    $rec->updateOverrides($event['overrides']);
+                    $client->saveRecurringCalendarObject($rec);
                 } else {
-                    TikiLib::lib('calendar')->set_item($user, $event['calitemId'], $event);
+                    $client->saveCalendarObject($event);
                 }
             }
         }
@@ -221,7 +220,9 @@ class Hm_Handler_add_to_calendar extends Hm_Handler_Module
 
         $data = $this->get('calendar_event');
         $data['calendarId'] = $form['calendar_id'];
+        $data['user'] = $user;
 
+        $client = new \Tiki\SabreDav\CaldavClient();
         if ($data['rec']) {
             if (empty($data['priority'])) {
                 $data['priority'] = 0;
@@ -235,13 +236,10 @@ class Hm_Handler_add_to_calendar extends Hm_Handler_Module
             if (empty($data['nlId'])) {
                 $data['nlId'] = 0;
             }
-            $data['user'] = $user;
             $rec = $data['rec'];
-            $rec->updateDetails($data);
-            $rec->save(true);
-            $rec->updateOverrides($data['overrides']);
+            $client->saveRecurringCalendarObject($rec);
         } else {
-            TikiLib::lib('calendar')->set_item($user, 0, $data);
+            $client->saveCalendarObject($data);
         }
 
         Hm_Msgs::add("Event created");
@@ -302,7 +300,8 @@ class Hm_Handler_remove_from_calendar extends Hm_Handler_Module
         $event = $this->get('calendar_event');
         $existing = TikiLib::lib('calendar')->find_by_uid(null, $event['uid']);
         if ($existing) {
-            TikiLib::lib('calendar')->drop_item($user, $existing['calitemId'], false, false);
+            $client = new \Tiki\SabreDav\CaldavClient();
+            $client->deleteCalendarObject($existing);
         }
 
         Hm_Msgs::add("Event removed");

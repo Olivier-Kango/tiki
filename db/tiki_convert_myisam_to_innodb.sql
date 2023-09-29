@@ -312,6 +312,7 @@ ALTER TABLE `tiki_h5p_libraries_hub_cache` ENGINE=InnoDB;
 ALTER TABLE `tiki_oauthserver_clients` ENGINE=InnoDB;
 ALTER TABLE `tiki_calendar_instances` ENGINE=InnoDB;
 ALTER TABLE `tiki_calendar_changes` ENGINE=InnoDB;
+ALTER TABLE `tiki_calendar_propertystorage` ENGINE=InnoDB;
 ALTER TABLE `tiki_calendar_subscriptions` ENGINE=InnoDB;
 ALTER TABLE `tiki_calendar_scheduling_objects` ENGINE=InnoDB;
 ALTER TABLE `tiki_address_books` ENGINE = InnoDB;

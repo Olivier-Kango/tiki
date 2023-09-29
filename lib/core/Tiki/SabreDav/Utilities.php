@@ -6,7 +6,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\SabreDav;
 
+use Sabre\CalDAV;
 use Sabre\DAV;
+use Sabre\DAVACL;
 use Sabre\VObject;
 use TikiLib;
 use TikiMail;
@@ -65,6 +67,115 @@ class Utilities
         return compact('content', 'filesize', 'mime');
     }
 
+    public static function getCalendarUri($calendarId)
+    {
+        return 'calendar-' . $calendarId;
+    }
+
+    public static function getCalendarObjectUri($row_or_rec)
+    {
+        if (is_array($row_or_rec)) {
+            if (! empty($row_or_rec['uri'])) {
+                return $row_or_rec['uri'];
+            } else {
+                return 'calendar-object-' . $row_or_rec['calitemId'];
+            }
+        } else {
+            if ($row_or_rec->getUri()) {
+                return $row_or_rec->getUri();
+            } else {
+                return 'calendar-object-r' . $row_or_rec->getId();
+            }
+        }
+    }
+
+    /**
+     * Retrieves VAvailability components on user's Inbox stored as WebDav properties
+     */
+    public static function getAvailabilityForUser($user)
+    {
+        $parsed = null;
+        $availability = TikiLib::lib('calendar')->table('tiki_calendar_propertystorage')->fetchOne('value', [
+            'path' => 'calendars/' . $user . '/inbox',
+            'name' => '{urn:ietf:params:xml:ns:caldav}calendar-availability',
+        ]);
+        if ($availability) {
+            try {
+                $parsed = VObject\Reader::read($availability);
+            } catch (Exception $e) {
+                TikiLib::lib('log')->add_log('error', tr('Failed parsing availability component: %0', $e->getMessage()));
+            }
+        }
+        return $parsed;
+    }
+
+    public static function invokeBackendServer()
+    {
+        $authBackend = new InternalAuth();
+        $server = self::buildCaldavServer($authBackend);
+        $server->httpResponse->setHTTPVersion($server->httpRequest->getHTTPVersion());
+        $server->httpRequest->setBaseUrl($server->getBaseUri());
+        $server->invokeMethod($server->httpRequest, $server->httpResponse, false);
+    }
+
+    /**
+     * Prepares the Sabre\DAV\Server with all necessary plugins and backends
+     * but doesn't execute the request.
+     *
+     * @param object $authBackend - can be called with different auth backends
+     * @return Sabre\DAV\Server server
+     */
+    public static function buildCaldavServer($authBackend)
+    {
+        global $tikiroot;
+
+        // Backends
+        $principalBackend = new PrincipalBackend();
+        $calendarBackend = new CalDAVBackend();
+
+        // Directory tree
+        $tree = [
+            new DAVACL\PrincipalCollection($principalBackend),
+            new CalDAV\CalendarRoot($principalBackend, $calendarBackend)
+        ];
+
+        // The object tree needs in turn to be passed to the server class
+        $server = new DAV\Server($tree);
+        $server->setBaseUri($tikiroot . 'tiki-caldav.php');
+
+        // Authentication plugin
+        $authPlugin = new DAV\Auth\Plugin($authBackend);
+        $server->addPlugin($authPlugin);
+
+        // CalDAV plugin
+        $caldavPlugin = new CaldavPlugin();
+        $server->addPlugin($caldavPlugin);
+
+        // CalDAV addons
+        $server->addPlugin(new CalDAV\Schedule\Plugin());
+        $server->addPlugin(new DAV\Sharing\Plugin());
+        $server->addPlugin(new CalDAV\SharingPlugin());
+        $server->addPlugin(new CalDAV\ICSExportPlugin());
+        $server->addPlugin(new CalDAV\Subscriptions\Plugin());
+
+        // Property storage
+        $storageBackend = new DAV\PropertyStorage\Backend\PDO(\TikiDb::get()->getHandler());
+        $storageBackend->tableName = 'tiki_calendar_propertystorage';
+        $propertyStorage = new DAV\PropertyStorage\Plugin($storageBackend);
+        $server->addPlugin($propertyStorage);
+
+        // ACL plugin
+        $aclPlugin = new AclPlugin();
+        $aclPlugin->allowUnauthenticatedAccess = false;
+        $server->addPlugin($aclPlugin);
+
+        // Support for html frontend
+        $browser = new DAV\Browser\Plugin();
+        $server->addPlugin($browser);
+
+        return $server;
+    }
+
   /**
    * Parses some information from calendar objects, used for optimized
    * calendar-queries and field mapping to Tiki. RRULE parsing partially
@@ -91,17 +202,17 @@ class Utilities
         }
 
         $result = [
-        'etag'           => md5($calendarData),
-        'size'           => strlen($calendarData),
-        'componenttype'  => $componentType,
-        'uid'            => $uid,
+            'etag'           => md5($calendarData),
+            'size'           => strlen($calendarData),
+            'componenttype'  => $componentType,
+            'uid'            => $uid,
         ];
         $result = array_merge(
             $result,
             self::getDenormalizedDataFromComponent($component, $timezone)
         );
 
-      // check for individual instances changed in recurring events
+        // check for individual instances changed in recurring events
         $result['overrides'] = [];
         foreach ($vObject->getComponents() as $component) {
             if ($component->name !== 'VEVENT') {
@@ -112,7 +223,7 @@ class Utilities
             }
         }
 
-      // Destroy circular references to PHP will GC the object.
+        // Destroy circular references to PHP will GC the object.
         $vObject->destroy();
 
         return $result;
@@ -140,62 +251,11 @@ class Utilities
                 $lastOccurence = $firstOccurence;
             }
             if (isset($component->RRULE)) {
-                $rec = new \CalRecurrence();
-                $parts = $component->RRULE->getParts();
-                switch ($parts['FREQ']) {
-                    case "WEEKLY":
-                        if (isset($parts['BYDAY'])) {
-                            $weekdays = $parts['BYDAY'];
-                        } else {
-                            $weekdays = substr($component->DTSTART->getDateTime()->format('D'), 0, 2);
-                        }
-                        $rec->setWeekly(true);
-                        $rec->setWeekdays(strtoupper($weekdays));
-                        $rec->setMonthly(false);
-                        $rec->setYearly(false);
-                        break;
-                    case "MONTHLY":
-                        if (isset($parts['BYMONTHDAY'])) {
-                            $monthday = $parts['BYMONTHDAY'];
-                        } else {
-                            $monthday = $component->DTSTART->getDateTime()->format('j');
-                        }
-                        $rec->setWeekly(false);
-                        $rec->setMonthly(true);
-                        $rec->setDayOfMonth($parts['BYMONTHDAY']);
-                        $rec->setYearly(false);
-                        break;
-                    case "YEARLY":
-                        if (isset($parts['BYMONTH'])) {
-                            $month = $parts['BYMONTH'];
-                        } else {
-                            $month = $component->DTSTART->getDateTime()->format('n');
-                        }
-                        if (isset($parts['BYMONTH'])) {
-                            $monthday = $parts['BYMONTHDAY'];
-                        } else {
-                            $monthday = $component->DTSTART->getDateTime()->format('j');
-                        }
-                        $rec->setWeekly(false);
-                        $rec->setMonthly(false);
-                        $rec->setYearly(true);
-                        $rec->setDateOfYear(str_pad($month, 2, '0', STR_PAD_LEFT) . str_pad($monthday, 2, '0', STR_PAD_LEFT));
-                        break;
-                }
+                $rec = self::mapRRuleToRecurrence($component->RRULE, $timezone);
                 $rec->setStartPeriod(\TikiDate::getStartDay($firstOccurence, $timezone));
-                if (isset($parts['COUNT'])) {
-                    $rec->setNbRecurrences($parts['COUNT']);
-                } elseif (isset($parts['UNTIL'])) {
-                    $rec->setEndPeriod(\TikiDate::getStartDay(strtotime($parts['UNTIL']), $timezone));
-                } else {
-                    $rec->setEndPeriod(\TikiDate::getStartDay(strtotime(CalDAVBackend::MAX_DATE), $timezone));
-                }
-                $rec->setLang('en');
-                $rec->setNlId(0);
-                $rec->setAllday(0);
             }
 
-          // Ensure Occurence values are positive
+            // Ensure Occurence values are positive
             if ($firstOccurence < 0) {
                 $firstOccurence = 0;
             }
@@ -205,9 +265,10 @@ class Utilities
         }
 
         $result = [
-        'start'          => $firstOccurence,
-        'end'            => $lastOccurence,
-        'rec'            => $rec,
+            'start'          => $firstOccurence,
+            'end'            => $lastOccurence,
+            'rec'            => $rec,
+            'uid'            => strval($component->UID),
         ];
 
         if (isset($component->{'RECURRENCE-ID'})) {
@@ -232,9 +293,17 @@ class Utilities
         if (isset($component->LOCATION)) {
             $result['newloc'] = $component->LOCATION;
         }
+        if (isset($component->{'X-Tiki-LocationId'})) {
+            $result['locationId'] = $component->{'X-Tiki-LocationId'};
+            unset($result['newloc']);
+        }
         if (isset($component->CATEGORIES)) {
             $cats = explode(',', $component->CATEGORIES);
             $result['newcat'] = $cats[0];
+        }
+        if (isset($component->{'X-Tiki-CategoryId'})) {
+            $result['categoryId'] = $component->{'X-Tiki-CategoryId'};
+            unset($result['newcat']);
         }
         if (isset($component->PRIORITY)) {
             $result['priority'] = $component->PRIORITY;
@@ -244,6 +313,30 @@ class Utilities
         }
         if (isset($component->URL)) {
             $result['url'] = $component->URL;
+        }
+        if (isset($component->{'X-Tiki-Allday'})) {
+            $result['allday'] = empty((string)$component->{'X-Tiki-Allday'}) ? 0 : 1;
+            if ($rec) {
+                $rec->setAllday(empty((string)$component->{'X-Tiki-Allday'}) ? 0 : 1);
+            }
+        }
+        if (isset($component->{'X-Tiki-Language'})) {
+            $result['lang'] = $component->{'X-Tiki-Language'};
+            if ($rec) {
+                $rec->setLang($component->{'X-Tiki-Language'});
+            }
+        }
+        if (isset($component->{'X-Tiki-ProcessITip'})) {
+            $result['process_itip'] = $component->{'X-Tiki-ProcessITip'};
+        }
+        if (isset($component->{'X-Tiki-RecurrenceId'})) {
+            $result['recurrenceId'] = $component->{'X-Tiki-RecurrenceId'};
+        }
+        if (isset($component->{'X-Tiki-Changed'})) {
+            $result['changed'] = $component->{'X-Tiki-Changed'};
+        }
+        if (isset($component->{'X-Tiki-UpdateManuallyChangedEvents'})) {
+            $result['updateManuallyChangedEvents'] = intval((string)$component->{'X-Tiki-UpdateManuallyChangedEvents'});
         }
         if (isset($component->ORGANIZER)) {
             $result['organizers'] = [];
@@ -263,14 +356,14 @@ class Utilities
             }
         }
         if (isset($component->ATTENDEE)) {
-          // participants is used by calendarlib to store in Tiki - these are mapped attendees to Tiki users or plain email addresses
+            // participants is used by calendarlib to store in Tiki - these are mapped attendees to Tiki users or plain email addresses
             $result['participants'] = [];
             foreach ($component->ATTENDEE as $attendee) {
                 $email = preg_replace("/MAILTO:\s*/i", "", (string)$attendee);
                 $user = TikiLib::lib('user')->get_user_by_email($email);
                 $participant = [
-                'username' => ! empty($user) ? $user : $email,
-                'email' => $email,
+                    'username' => ! empty($user) ? $user : $email,
+                    'email' => $email,
                 ];
                 $role = self::reverseMapAttendeeRole((string)$attendee['ROLE']);
                 if ($role) {
@@ -281,7 +374,7 @@ class Utilities
                 }
                 $result['participants'][] = $participant;
             }
-          // fetch attendees as they are for later reference like RSVP actions via Cypht
+            // fetch attendees as they are for later reference like RSVP actions via Cypht
             $result['attendees'] = [];
             foreach ($component->ATTENDEE as $attendee) {
                 $email = preg_replace("/MAILTO:\s*/i", "", (string)$attendee);
@@ -294,6 +387,93 @@ class Utilities
         }
 
         return $result;
+    }
+
+    public static function mapRRuleToRecurrence($component, $timezone)
+    {
+        $rec = new \CalRecurrence();
+        $rec->setNlId(0);
+        $parts = $component->RRULE->getParts();
+        switch ($parts['FREQ']) {
+            case "DAILY":
+                $rec->setDaily(true);
+                if (isset($parts['INTERVAL'])) {
+                    $rec->setDays($parts['INTERVAL']);
+                }
+                $rec->setWeekly(false);
+                $rec->setMonthly(false);
+                $rec->setYearly(false);
+                break;
+            case "WEEKLY":
+                if (isset($parts['BYDAY'])) {
+                    if (is_array($parts['BYDAY'])) {
+                        $weekdays = implode(',', $parts['BYDAY']);
+                    } else {
+                        $weekdays = $parts['BYDAY'];
+                    }
+                } else {
+                    $weekdays = substr($component->DTSTART->getDateTime()->format('D'), 0, 2);
+                }
+                $rec->setWeekly(true);
+                if (isset($parts['INTERVAL'])) {
+                    $rec->setWeeks($parts['INTERVAL']);
+                }
+                $rec->setWeekdays(strtoupper($weekdays));
+                $rec->setMonthly(false);
+                $rec->setYearly(false);
+                break;
+            case "MONTHLY":
+                if (! empty($parts['BYMONTHDAY'])) {
+                    $days = is_array($parts['BYMONTHDAY']) ? implode(',', $parts['BYMONTHDAY']) : $parts['BYMONTHDAY'];
+                    $rec->setDayOfMonth($days);
+                    $rec->setMonthlyType('date');
+                } elseif (! empty($parts['BYDAY'])) {
+                    $rec->setMonthlyWeekdayValue($parts['BYDAY']);
+                    $rec->setMonthlyType('weekday');
+                } else {
+                    $rec->setDayOfMonth($component->DTSTART->getDateTime()->format('j'));
+                    $rec->setMonthlyType('date');
+                }
+                $rec->setWeekly(false);
+                $rec->setMonthly(true);
+                if (isset($parts['INTERVAL'])) {
+                    $rec->setMonths($parts['INTERVAL']);
+                }
+                $rec->setYearly(false);
+                break;
+            case "YEARLY":
+                if (isset($parts['BYMONTH'])) {
+                    $month = $parts['BYMONTH'];
+                } else {
+                    $month = $component->DTSTART->getDateTime()->format('n');
+                }
+                if (! empty($parts['BYMONTHDAY'])) {
+                    $rec->setDateOfYear(str_pad($month, 2, '0', STR_PAD_LEFT) . str_pad($parts['BYMONTHDAY'], 2, '0', STR_PAD_LEFT));
+                    $rec->setYearlyType('date');
+                } elseif (! empty($parts['BYDAY'])) {
+                    $rec->setYearlyWeekdayValue($parts['BYDAY']);
+                    $rec->setYearlyWeekMonth($month);
+                    $rec->setYearlyType('weekday');
+                } else {
+                    $rec->setDateOfYear(str_pad($month, 2, '0', STR_PAD_LEFT) . str_pad($component->DTSTART->getDateTime()->format('j'), 2, '0', STR_PAD_LEFT));
+                    $rec->setYearlyType('date');
+                }
+                $rec->setWeekly(false);
+                $rec->setMonthly(false);
+                $rec->setYearly(true);
+                if (isset($parts['INTERVAL'])) {
+                    $rec->setYears($parts['INTERVAL']);
+                }
+                break;
+        }
+        if (isset($parts['COUNT'])) {
+            $rec->setNbRecurrences($parts['COUNT']);
+        } elseif (isset($parts['UNTIL'])) {
+            $rec->setEndPeriod(\TikiDate::getStartDay(strtotime($parts['UNTIL']), $timezone));
+        } else {
+            $rec->setEndPeriod(\TikiDate::getStartDay(strtotime(CalDAVBackend::MAX_DATE), $timezone));
+        }
+        return $rec;
     }
 
     public static function mapEventStatus($event_status)
@@ -379,20 +559,23 @@ class Utilities
         $dtend = \DateTime::createFromFormat('U', $row['end']);
         $dtend->setTimezone($dtzone);
         $data = [
-        'CREATED' => \DateTime::createFromFormat('U', $row['created'])->format('Ymd\THis\Z'),
-        'DTSTAMP' => \DateTime::createFromFormat('U', $row['lastModif'])->format('Ymd\THis\Z'),
-        'LAST-MODIFIED' => \DateTime::createFromFormat('U', $row['lastModif'])->format('Ymd\THis\Z'),
-        'SUMMARY' => $row['name'],
-        'PRIORITY' => $row['priority'],
-        'STATUS' => self::mapEventStatus($row['status']),
-        'TRANSP' => 'OPAQUE',
-        'DTSTART' => $dtstart,
-        'DTEND'   => $dtend,
+            'CREATED' => \DateTime::createFromFormat('U', $row['created'])->format('Ymd\THis\Z'),
+            'DTSTAMP' => \DateTime::createFromFormat('U', $row['lastModif'])->format('Ymd\THis\Z'),
+            'LAST-MODIFIED' => \DateTime::createFromFormat('U', $row['lastModif'])->format('Ymd\THis\Z'),
+            'SUMMARY' => $row['name'],
+            'PRIORITY' => $row['priority'],
+            'STATUS' => self::mapEventStatus($row['status']),
+            'TRANSP' => 'OPAQUE',
+            'DTSTART' => $dtstart,
+            'DTEND'   => $dtend,
         ];
         if (! empty($row['recurrenceUid'])) {
             $data['UID'] = $row['recurrenceUid'];
         } elseif (! empty($row['uid'])) {
             $data['UID'] = $row['uid'];
+        }
+        if (! empty($row['allday'])) {
+            $data['X-Tiki-Allday'] = $row['allday'];
         }
         if (! empty($row['description'])) {
             $data['DESCRIPTION'] = $row['description'];
@@ -403,11 +586,23 @@ class Utilities
         if (! empty($row['locationName'])) {
             $data['LOCATION'] = $row['locationName'];
         }
+        if (! empty($row['locationId'])) {
+            $data['X-Tiki-LocationId'] = $row['locationId'];
+        }
+        if (! empty($row['newloc'])) {
+            $data['LOCATION'] = $row['newloc'];
+        }
         if (! empty($row['category'])) {
             $data['CATEGORIES'] = $row['category'];
         }
         if (! empty($row['categoryName'])) {
             $data['CATEGORIES'] = $row['categoryName'];
+        }
+        if (! empty($row['categoryId'])) {
+            $data['X-Tiki-CategoryId'] = $row['categoryId'];
+        }
+        if (! empty($row['newcat'])) {
+            $data['CATEGORIES'] = $row['newcat'];
         }
         if (! empty($row['url'])) {
             $data['URL'] = $row['url'];
@@ -415,11 +610,23 @@ class Utilities
         if (! empty($row['recurrenceStart'])) {
             $data['RECURRENCE-ID'] = \DateTime::createFromFormat('U', $row['recurrenceStart'])->setTimezone($dtzone);
         }
+        if (! empty($row['recurrenceId'])) {
+            $data['X-Tiki-RecurrenceId'] = $row['recurrenceId'];
+        }
+        if (! empty($row['lang'])) {
+            $data['X-Tiki-Language'] = $row['lang'];
+        }
+        if (! empty($row['process_itip'])) {
+            $data['X-Tiki-ProcessITip'] = $row['process_itip'];
+        }
+        if (! empty($row['changed'])) {
+            $data['X-Tiki-Changed'] = $row['changed'];
+        }
 
         $vcalendar = new VObject\Component\VCalendar();
         $vevent = $vcalendar->add('VEVENT', $data);
 
-      // TODO: optimize this for N+1 query problem
+        // TODO: optimize this for N+1 query problem
         if (! isset($row['organizers'], $row['participants'])) {
             $item = TikiLib::lib('calendar')->get_item($row['calitemId']);
             $organizers = $item['organizers'];
@@ -431,27 +638,27 @@ class Utilities
         foreach ($organizers as $user) {
             $vevent->add(
                 'ORGANIZER',
-                TikiLib::lib('user')->get_user_email($user),
+                'mailto:' . TikiLib::lib('user')->get_user_email($user),
                 [
-                'CN' => TikiLib::lib('tiki')->get_user_preference($user, 'realName'),
+                    'CN' => TikiLib::lib('tiki')->get_user_preference($user, 'realName'),
                 ]
             );
         }
         foreach ($participants as $par) {
             $vevent->add(
                 'ATTENDEE',
-                $par['email'],
+                'mailto:' . $par['email'],
                 [
-                'CN' => TikiLib::lib('tiki')->get_user_preference($par['username'], 'realName'),
-                'ROLE' => Utilities::mapAttendeeRole($par['role']),
-                'PARTSTAT' => $par['partstat'],
+                    'CN' => TikiLib::lib('tiki')->get_user_preference($par['username'], 'realName'),
+                    'ROLE' => Utilities::mapAttendeeRole($par['role']),
+                    'PARTSTAT' => $par['partstat'],
                 ]
             );
         }
 
         if ((string)$vevent->UID != @$row['uid']) {
-          // save UID for Tiki-generated calendar events as this must not change in the future
-          // SabreDav automatically generates UID value if none is present
+            // save UID for Tiki-generated calendar events as this must not change in the future
+            // SabreDav automatically generates UID value if none is present
             TikiLib::lib('calendar')->fill_uid($row['calitemId'], (string)$vevent->UID);
         }
 
@@ -464,34 +671,34 @@ class Utilities
             return;
         }
         if (! empty($args['old_data'])) {
-          // update or delete operation
+            // update or delete operation
             $old_vcalendar = self::constructCalendarData($args['old_data']);
         } else {
-          // create operation
+            // create operation
             $old_vcalendar = null;
         }
         $calitem = TikiLib::lib('calendar')->get_item($args['object']);
         if ($calitem) {
-          // create or update operation
+            // create or update operation
             $vcalendar = self::constructCalendarData($calitem);
         } else {
-          // delete operation
+            // delete operation
             $vcalendar = null;
         }
         $broker = new VObject\ITip\Broker();
         $messages = $broker->parseEvent(
             $vcalendar,
-            TikiLib::lib('user')->get_user_email($args['user']),
+            'mailto:' . TikiLib::lib('user')->get_user_email($args['user']),
             $old_vcalendar
         );
         foreach ($messages as $message) {
             if (! $message->significantChange) {
                 continue;
             }
-            $sender_email = (string)$message->sender;
+            $sender_email = str_replace('mailto:', '', (string)$message->sender);
             $sender_name = (string)$message->senderName;
             $sender = $sender_name ? "$sender_name <$sender_email>" : $sender_email;
-            $recipient_email = (string)$message->recipient;
+            $recipient_email = str_replace('mailto:', '', (string)$message->recipient);
             $recipient_name = (string)$message->recipientName;
             $recipient = $recipient_name ? "$recipient_name <$recipient_email>" : $recipient_email;
             switch ($message->method) {
@@ -526,8 +733,8 @@ class Utilities
 When: " . TikiLib::lib('tiki')->get_long_datetime($message->message->VEVENT->DTSTART->getDateTime()->getTimeStamp()) . " - " . TikiLib::lib('tiki')->get_long_datetime($message->message->VEVENT->DTEND->getDateTime()->getTimeStamp()) . "
 
 Invitees: " . implode(",\n", $attendees);
-          // TODO: IMip messages are using configured Tiki SMTP server for now, but we might want to use cypht SMTP server for the sender user in order to get the replies back in cypht and be able to update participant statuses.
-          // The other way would be via Mail-in to calendars and a reply-to address configured as a mail-in source.
+            // TODO: IMip messages are using configured Tiki SMTP server for now, but we might want to use cypht SMTP server for the sender user in order to get the replies back in cypht and be able to update participant statuses.
+            // The other way would be via Mail-in to calendars and a reply-to address configured as a mail-in source.
             $mail = new TikiMail($args['user'], $sender_email, $sender_name);
             $mail->setSubject($subject);
             $mail->setText($body);

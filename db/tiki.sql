@@ -564,7 +564,7 @@ CREATE TABLE `tiki_calendar_scheduling_objects` (
 DROP TABLE IF EXISTS `tiki_calendar_subscriptions`;
 CREATE TABLE `tiki_calendar_subscriptions` (
     subscriptionId INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    calendarId INT(11) UNSIGNED NOT NULL,
+    uri VARCHAR(100) NOT NULL,
     user VARCHAR(200) NOT NULL,
     source TEXT,
     name VARCHAR(100),
@@ -575,7 +575,19 @@ CREATE TABLE `tiki_calendar_subscriptions` (
     strip_alarms TINYINT(1) NULL,
     strip_attachments TINYINT(1) NULL,
     lastmodif INT(11) UNSIGNED,
-    UNIQUE(user(189), calendarId)
+    last_sync INT UNSIGNED NULL,
+    vcalendar MEDIUMTEXT NULL,
+    KEY(`uri`)
+) ENGINE=MyISAM;
+
+DROP TABLE IF EXISTS `tiki_calendar_propertystorage`;
+CREATE TABLE `tiki_calendar_propertystorage` (
+    `id` INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `path` VARBINARY(1024) NOT NULL,
+    `name` VARBINARY(100) NOT NULL,
+    `valuetype` INT UNSIGNED,
+    `value` MEDIUMBLOB,
+    UNIQUE KEY `path_property` (path(600), name(100))
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_categories`;

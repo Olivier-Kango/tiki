@@ -23,6 +23,8 @@
         <service id="tiki.controller.autosave" class="Services_AutoSave_Controller"/>
         <service id="tiki.controller.bigbluebutton" class="Services_BigBlueButton_Controller"/>
         <service id="tiki.controller.calendar" class="Services_Calendar_Controller"/>
+        <service id="tiki.controller.calendar_appointment" class="Services_Calendar_AppointmentController"/>
+        <service id="tiki.controller.calendar_availability" class="Services_Calendar_AvailabilityController"/>
         <service id="tiki.controller.category" class="Services_Category_Controller"/>
         <service id="tiki.controller.comment" class="Services_Comment_Controller"/>
         <service id="tiki.controller.connect_server" class="Services_Connect_Server"/>

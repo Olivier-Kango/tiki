@@ -262,7 +262,18 @@ if (isset($_SERVER["REQUEST_URI"]) && strstr($_SERVER['REQUEST_URI'], 'tiki-real
         if (isset($prefs['session_protected']) && $prefs['session_protected'] == 'y') {
             $session_params['secure'] = true;
         }
-        session_set_cookie_params($session_params['lifetime'], $tikiroot, $session_params['domain'], $session_params['secure'], $session_params['httponly']);
+        if (! empty($_REQUEST['embed'])) {
+            $session_params['secure'] = true;
+            $session_params['samesite'] = 'None';
+        }
+        session_set_cookie_params([
+            'lifetime' => $session_params['lifetime'],
+            'path' => $tikiroot,
+            'domain' => $session_params['domain'],
+            'secure' => $session_params['secure'],
+            'httponly' => $session_params['httponly'],
+            'samesite' => $session_params['samesite'],
+        ]);
 
         $error = \TikiSetup::checkSession();
 
@@ -295,7 +306,14 @@ if (isset($_SERVER["REQUEST_URI"]) && strstr($_SERVER['REQUEST_URI'], 'tiki-real
                 } else {
                     $sequence = $tikilib->generate_unique_sequence(16);
                     $_SESSION['extra_validation'] = $sequence;
-                    setcookie($extra_cookie_name, $sequence, time() + 365 * 24 * 3600, $session_params['path'], $session_params['domain'], $session_params['secure'], $session_params['httponly']);
+                    setcookie($extra_cookie_name, $sequence, [
+                        'expires' => time() + 365 * 24 * 3600,
+                        'path' => $session_params['path'],
+                        'domain' => $session_params['domain'],
+                        'secure' => $session_params['secure'],
+                        'httponly' => $session_params['httponly'],
+                        'samesite' => $session_params['samesite'],
+                    ]);
                     unset($sequence);
                 }
             }

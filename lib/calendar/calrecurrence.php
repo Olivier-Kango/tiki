@@ -631,11 +631,7 @@ class CalRecurrence extends TikiLib
     {
         global $user;
 
-        $query = "SELECT calitemId,calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, "
-                 . "user, created, lastModif, changed, recurrenceStart "
-                 . "FROM tiki_calendar_items WHERE recurrenceId = ? ORDER BY start";
-        $bindvars = [(int)$this->getId()];
-        $existing = $this->fetchAll($query, $bindvars);
+        $existing = $this->getOverrides();
 
         foreach ($events as $event) {
             foreach ($existing as $row) {
@@ -646,6 +642,23 @@ class CalRecurrence extends TikiLib
                 }
             }
         }
+    }
+
+    /**
+     * Get individual events in the recurring set that were overridden by users.
+     */
+    public function getOverrides($changed = null)
+    {
+        $query = "SELECT calitemId,calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, "
+                 . "user, created, lastModif, changed, recurrenceStart "
+                 . "FROM tiki_calendar_items WHERE recurrenceId = ?";
+        $bindvars = [(int)$this->getId()];
+        if (! is_null($changed)) {
+            $query .= " AND changed = ?";
+            $bindvars[] = $changed;
+        }
+        $query .= " ORDER BY start";
+        return $this->fetchAll($query, $bindvars);
     }
 
     /**
@@ -890,12 +903,17 @@ class CalRecurrence extends TikiLib
             'LAST-MODIFIED' => DateTime::createFromFormat('U', $this->getLastModif() ?? 0)->format('Ymd\THis\Z'),
             'SUMMARY' => $this->getName(),
             'PRIORITY' => $this->getPriority(),
+            'STATUS' => \Tiki\SabreDav\Utilities::mapEventStatus($this->getStatus()),
             'TRANSP' => 'OPAQUE',
             'DTSTART' => $dtstart,
             'DTEND'   => $dtend,
+            'X-Tiki-Allday' => $this->isAllday() ? 1 : 0,
         ];
         if (! empty($this->getUid())) {
             $data['UID'] = $this->getUid();
+        }
+        if (! empty($this->getRecurenceDstTimezone())) {
+            $data['X-Tiki-RecurenceDstTimezone'] = $this->getRecurenceDstTimezone();
         }
         if (! empty($this->getDescription())) {
             $data['DESCRIPTION'] = $this->getDescription();
@@ -904,12 +922,21 @@ class CalRecurrence extends TikiLib
         if (! empty($locations[$this->getLocationId()])) {
             $data['LOCATION'] = $locations[$this->getLocationId()];
         }
+        if (! empty($this->getLocationId())) {
+            $data['X-Tiki-LocationId'] = $this->getLocationId();
+        }
         $categories = TikiLib::lib('calendar')->list_categories($this->getCategoryId());
         if (! empty($categories[$this->getCategoryId()])) {
             $data['CATEGORIES'] = $categories[$this->getCategoryId()];
         }
+        if (! empty($this->getCategoryId())) {
+            $data['X-Tiki-CategoryId'] = $this->getCategoryId();
+        }
         if (! empty($this->getUrl())) {
             $data['URL'] = $this->getUrl();
+        }
+        if (! empty($this->getLang())) {
+            $data['X-Tiki-Language'] = $this->getLang();
         }
 
         $weekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
@@ -949,7 +976,7 @@ class CalRecurrence extends TikiLib
         }
         if ($this->getNbRecurrences() > 0) {
             $rrule .= ';COUNT=' . $this->getNbRecurrences();
-        } else {
+        } elseif ($this->getEndPeriod() < strtotime(\Tiki\SabreDav\CalDAVBackend::MAX_DATE) - 86400) {
             $rrule .= ';UNTIL=' . DateTime::createFromFormat('U', $this->getEndPeriod())->format('Ymd\THis\Z');
         }
         $data['RRULE'] = $rrule;

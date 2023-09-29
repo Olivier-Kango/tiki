@@ -73,6 +73,11 @@ class TikiDb_Adodb extends TikiDb
         }
     }
 
+    public function getHandler()
+    {
+        return $this->db;
+    }
+
     public function qstr($str)
     {
         return $this->db->quote($str);

@@ -86,6 +86,11 @@ foreach ($rawcals['data'] as $calendar) {
     $canEditAnything = $calendar['perms']->add_events || $calendar['perms']->add_events;
 }
 
+$rawsubs = $calendarlib->get_subscriptions($user);
+foreach ($rawsubs['data'] as $sub) {
+    $calendars['s' . $sub['subscriptionId']] = $sub;
+}
+
 $smarty->assign('calendars', $calendars);
 $smarty->assign('now', $tikilib->now);
 
@@ -304,8 +309,6 @@ $headerlib->add_cssfile('vendor_bundled/vendor/twbs/bootstrap-icons/font/bootstr
 $headerlib->add_css('.fc-day-grid-event > .fc-content { white-space: normal; }');
 $headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
 $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/fullcalendar/main.js', true);
-
-$headerlib->add_jsfile('lib/jquery_tiki/tiki-calendar.js');
 
 if ($canEditAnything) {
     $smarty->assign('minHourOfDay', $minHourOfDay . ':00:00');

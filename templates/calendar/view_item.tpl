@@ -7,7 +7,7 @@
 {block name="content"}
     <h2>{$calitem.parsedName}</h2>
     <div class="summary">
-        {$calendars[$calitem.calendarId].name|escape}
+        {$calendar.name|escape}
     </div>
     {if $recurrent}
         {if $recurrence.nbRecurrences eq 1}

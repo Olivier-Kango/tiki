@@ -61,6 +61,11 @@ class TikiDb_Pdo extends TikiDb
         $this->setServerType($db->getAttribute(PDO::ATTR_DRIVER_NAME));
     }
 
+    public function getHandler()
+    {
+        return $this->db;
+    }
+
     public function qstr($str)
     {
         if (is_null($str)) {

@@ -5,19 +5,16 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-class Services_Calendar_Controller
+class Services_Calendar_Controller extends Services_Calendar_BaseController
 {
     private CalendarLib $calendarLib;
     private ?\Tiki\Lib\Logs\LogsLib $logsLib;
-    private $daynamesPlural;
-    private $monthnames;
-    private $daynames;
 
     public function setUp(): void
     {
         global $prefs;
 
-        Services_Exception_Disabled::check('feature_calendar');
+        parent::setUp();
 
         $this->calendarLib = TikiLib::lib('calendar');
         if ($prefs['feature_actionlog'] == 'y') {
@@ -25,40 +22,6 @@ class Services_Calendar_Controller
         } else {
             $this->logsLib = null;
         }
-
-        $this->daynamesPlural = [
-            'SU' => tra('Sundays'),
-            'MO' => tra('Mondays'),
-            'TU' => tra('Tuesdays'),
-            'WE' => tra('Wednesdays'),
-            'TH' => tra('Thursdays'),
-            'FR' => tra('Fridays'),
-            'SA' => tra('Saturdays'),
-        ];
-        $this->monthnames = [
-            '',
-            tra('January'),
-            tra('February'),
-            tra('March'),
-            tra('April'),
-            tra('May'),
-            tra('June'),
-            tra('July'),
-            tra('August'),
-            tra('September'),
-            tra('October'),
-            tra('November'),
-            tra('December'),
-        ];
-        $this->daynames = [
-            'SU' => tra('Sunday'),
-            'MO' => tra('Monday'),
-            'TU' => tra('Tuesday'),
-            'WE' => tra('Wednesday'),
-            'TH' => tra('Thursday'),
-            'FR' => tra('Friday'),
-            'SA' => tra('Saturday'),
-        ];
     }
 
     /**
@@ -169,11 +132,20 @@ class Services_Calendar_Controller
                 $action = 'view_item';
             }
 
-            $url = TikiLib::lib('service')->getUrl([
-                'controller' => 'calendar',
-                'action'     => $action,
-                'calitemId'  => $event['calitemId'],
-            ]);
+            if ($event['calitemId'] === 0) {
+                $url = TikiLib::lib('service')->getUrl([
+                    'controller' => 'calendar',
+                    'action'     => 'view_item',
+                    'act'        => 'preview',
+                    'calitem'    => $event,
+                ]);
+            } else {
+                $url = TikiLib::lib('service')->getUrl([
+                    'controller' => 'calendar',
+                    'action'     => $action,
+                    'calitemId'  => $event['calitemId'],
+                ]);
+            }
 
             $timezone = new DateTimeZone($prefs['display_timezone']);
             $start = new DateTime('@' . $event['start']);
@@ -268,6 +240,9 @@ class Services_Calendar_Controller
                         $saved = $this->saveEvent($calitem, $calendar, $input);
 
                         if ($saved) { // then redirect?
+                            if ($input->offsetExists('exact_start_end')) {
+                                Feedback::success(tr('Event saved successfully.'));
+                            }
                             if ($input->offsetExists('redirect')) {
                                 return ['url' => $input->redirect->url()];
                             } else {
@@ -336,29 +311,60 @@ class Services_Calendar_Controller
             $calendar = $calendars[0];
             $calendarId = $input->defaultCalendarId->int() > 0 ? $input->defaultCalendarId->int() : $calendar['calendarId'];
 
+            $participants = [];
+            if ($user) {
+                $participants[] = [
+                    'username' => $user,
+                    'role'     => '',
+                    'partstat' => '',
+                ];
+            }
+
             // set up default start and end
             $dateNow->setTZbyID($displayTimezone);
-            $hour = $dateNow->date->format('H');
-            if ($input->offsetExists('todate')) {
-                // set the correct day clicked on
-                $dateNow->setDate($input->todate->int());
+            if ($input->prefill_start->int()) {
+                $start = $input->prefill_start->int();
+                if ($input->prefill_end->int()) {
+                    $end = $input->prefill_end->int();
+                    $duration = $end - $start;
+                } else {
+                    $duration = 60 * 60;
+                    $end = $start + $duration;
+                }
+                if ($input->target_user->text()) {
+                    if ($user) {
+                        $participants[0]['role'] = '1';
+                        $participants[0]['partstat'] = 'ACCEPTED';
+                    }
+                    $participants[] = [
+                        'username' => $input->target_user->text(),
+                        'role'     => '1',
+                        'partstat' => '',
+                    ];
+                }
+            } else {
+                $hour = $dateNow->date->format('H');
+                if ($input->offsetExists('todate')) {
+                    // set the correct day clicked on
+                    $dateNow->setDate($input->todate->int());
+                }
+                $start = mktime(
+                    $hour,
+                    0,
+                    0,
+                    $dateNow->date->format('m'),
+                    $dateNow->date->format('d'),
+                    $dateNow->date->format('Y')
+                );
+                $duration = 60 * 60;
+                $end = $start + $duration;
             }
-            $start = mktime(
-                $hour,
-                0,
-                0,
-                $dateNow->date->format('m'),
-                $dateNow->date->format('d'),
-                $dateNow->date->format('Y')
-            );
-            $duration = 60 * 60;
-            $end = $start + $duration;
 
             $calitem = [
                 'calitemId'             => $calitemId,
                 'calendarId'            => $calendarId,
                 'user'                  => $user,
-                'name'                  => '',
+                'name'                  => $input->prefill_title->text() ?? '',
                 'url'                   => '',
                 'description'           => '',
                 'status'                => $calendar['defaulteventstatus'],
@@ -372,11 +378,7 @@ class Services_Calendar_Controller
                 'recurrenceId'          => 0,
                 'allday'                => $calendar['allday'] == 'y' ? 1 : 0,
                 'organizers'            => [$user],
-                'participants'          => [[
-                                                'username' => $user,
-                                                'role'     => '',
-                                                'partstat' => '',
-                                            ]],
+                'participants'          => $participants,
             ];
         }
 
@@ -395,6 +397,7 @@ class Services_Calendar_Controller
             $recurrence = new CalRecurrence();
 
             $dayValue = strtoupper(substr($dateNow->date->format('D'), 0, 2));
+            $recurrence->setDaily(true);
             $recurrence->setWeekdays($dayValue);
             $recurrence->setDayOfMonth($dateNow->date->format('j'));
             $monthlyValue = "1{$dayValue}";
@@ -499,6 +502,7 @@ class Services_Calendar_Controller
             'modal'                      => $input->modal->int(),
             'displayTimezone'            => $displayTimezone,
             'timezones'                  => $timezones,
+            'prefilled'                  => $input->prefill_start->int() ? true : false,
         ];
     }
 
@@ -617,7 +621,9 @@ class Services_Calendar_Controller
         $calitemId = $this->getItemId($input); // also checks edit perms
 
         if ($calitemId) {
-            $this->calendarLib->drop_item($user, $calitemId);
+            $calitem = $this->calendarLib->get_item($calitemId);
+            $client = new \Tiki\SabreDav\CaldavClient();
+            $client->deleteCalendarObject($calitem);
             if ($this->logsLib) {
                 $this->logsLib->add_action('Removed', 'event ' . $_REQUEST['calitemId'], 'calendar event');
             }
@@ -632,7 +638,8 @@ class Services_Calendar_Controller
 
         if ($calitemId && $input->recurrenceId->int()) {
             $calRec = new CalRecurrence($input->recurrenceId->int());
-            $calRec->delete();
+            $client = new \Tiki\SabreDav\CaldavClient();
+            $client->deleteCalendarObject($calRec);
             if ($this->logsLib) {
                 $this->logsLib->add_action(
                     'Removed',
@@ -675,7 +682,9 @@ class Services_Calendar_Controller
         if (! $impossibleDates) {
             if ($input->recurrent->int() && $input->affect->word() !== 'event') {
                 $calRecurrence = $this->createRecurrenceFromInput($input);
-                $saved = $calRecurrence->save($input->affect->word() === 'all');
+
+                $client = new \Tiki\SabreDav\CaldavClient();
+                $client->saveRecurringCalendarObject($calRecurrence, $input->affect->word() === 'all');
 
                 if ($this->logsLib) {
                     $this->logsLib->add_action(
@@ -684,24 +693,31 @@ class Services_Calendar_Controller
                         'calendar event'
                     );
                 }
-                return $saved;
+                return true;
             } else {
                 if ($input->offsetExists('recurrenceId')) {
                     $calitem['recurrenceId'] = $input->recurrenceId->int();
                     $calitem['changed'] = 1;
                 }
 
-                global $user;
-
                 // if local browser offset or timezone identifier is submitted, convert timestamp to server-based timezone
-                $calitem['start'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['start']);
-                $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
-                $calitem['start'] -= $server_offset;
-                $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
-                $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
-                $calitem['end'] -= $server_offset;
+                if (! $input->exact_start_end->int()) {
+                    $calitem['start'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['start']);
+                    $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
+                    $calitem['start'] -= $server_offset;
+                    $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
+                    $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
+                    $calitem['end'] -= $server_offset;
+                }
 
-                $calitemId = $this->calendarLib->set_item($user, $calitem['calitemId'] ?? 0, $calitem);
+                $client = new \Tiki\SabreDav\CaldavClient();
+                $client->saveCalendarObject($calitem);
+                if (! empty($calitem['calitemId'])) {
+                    $calitemId = $calitem['calitemId'];
+                } else {
+                    $calitemId = $this->calendarLib->getMaxItemId();
+                }
+
                 // Save the ip at the log for the addition of new calendar items
                 if ($this->logsLib) {
                     $this->logsLib->add_action(
@@ -753,14 +769,10 @@ class Services_Calendar_Controller
      *
      * @return CalRecurrence
      */
-    private function createRecurrenceFromInput(JitFilter $input): CalRecurrence
+    protected function createRecurrenceFromInput(JitFilter $input): CalRecurrence
     {
         $calitem = $input->asArray('calitem');
-        $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
-
-        $recurrence = new CalRecurrence(
-            ! empty($input->recurrenceId->int()) ? $input->recurrenceId->int() : -1
-        );
+        $recurrence = parent::createRecurrenceFromInput($input);
         $recurrence->setCalendarId($calitem['calendarId']);
         $calitem['start'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['start']);
         $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
@@ -784,120 +796,11 @@ class Services_Calendar_Controller
         $recurrence->setName($calitem['name']);
         $recurrence->setDescription($calitem['description']);
         $recurrence->setRecurenceDstTimezone($input->recurrenceDstTimezone->text());
-        switch ($input->recurrenceType->word()) {
-            case "daily":
-                $recurrence->setDaily(true);
-                $recurrence->setWeekly(false);
-                $recurrence->setMonthly(false);
-                $recurrence->setYearly(false);
-                $recurrence->setDays($input->days->int());
-                break;
-            case "weekly":
-                $recurrence->setDaily(false);
-                $recurrence->setWeekly(true);
-                $recurrence->setMonthly(false);
-                $recurrence->setYearly(false);
-                $recurrence->setWeeks($input->weeks->int());
-                $recurrence->setWeekdays(implode(',', $input->asArray('weekdays')));
-                break;
-            case "monthly":
-                $recurrence->setDaily(false);
-                $recurrence->setWeekly(false);
-                $recurrence->setMonthly(true);
-                $recurrence->setYearly(false);
-                $recurrence->setMonths($input->months->int());
-                $recurrence->setMonthlyType($input->recurrenceTypeMonthy->word());
-                if ($input->recurrenceTypeMonthy->word() === 'weekday') {
-                    $monthlyWeekdayValue = $input->monthlyWeekNumber->word() . $input->monthlyWeekday->word();
-                    $recurrence->setMonthlyWeekdayValue($monthlyWeekdayValue);
-                } else {
-                    $recurrence->setDayOfMonth(implode(',', $input->asArray('dayOfMonth')));
-                }
-                break;
-            case "yearly":
-                $recurrence->setDaily(false);
-                $recurrence->setWeekly(false);
-                $recurrence->setMonthly(false);
-                $recurrence->setYearly(true);
-                $recurrence->setYears($input->years->int());
-                $recurrence->setYearlyType($input->recurrenceTypeYearly->word());
-                if ($input->recurrenceTypeYearly->word() === 'weekday') {
-                    $yearlyWeekdayValue = $input->yearlyWeekNumber->word() . $input->yearlyWeekday->word();
-                    $recurrence->setYearlyWeekdayValue($yearlyWeekdayValue);
-                    $recurrence->setYearlyWeekMonth($input->yearlyWeekMonth->int());
-                } else {
-                    $recurrence->setDateOfYear(
-                        str_pad($input->yearlyMonth->word(), 2, '0', STR_PAD_LEFT) .
-                        str_pad($input->yearlyDay->word(), 2, '0', STR_PAD_LEFT)
-                    );
-                }
-                break;
-        }
-        // startPeriod does not exist when using the old non-jscalendar time selector with 3 dropdowns
-        $startPeriod = $input->startPeriod->int();
-        if (empty($startPeriod)) {
-            $startPeriod = mktime(
-                0,
-                0,
-                0,
-                $input->startPeriod_Month->int(),
-                $input->startPeriod_Day->int(),
-                $input->startPeriod_Year->int()
-            );
-        }
-        if ($recurrence->getId() > 0 && $calitem['calitemId'] == $recurrence->getFirstItemId()) {
-            // modify start period when the first event is updated
-            $recurrence->setStartPeriod(TikiDate::getStartDay($calitem['start'], $displayTimezone));
-        } else {
-            $recurrence->setStartPeriod($startPeriod);
-        }
-        if ($input->endType->word() === "dt") {
-            $recurrence->setEndPeriod($input->endPeriod->word());
-        } else {
-            $nbRecurrences = $input->nbRecurrences->int() ?? 1;
-            if ($input->recurrenceType->word() === 'weekly') {
-                $nbRecurrences = $nbRecurrences * count($input->asArray('weekdays'));
-            }
-            $recurrence->setNbRecurrences($nbRecurrences);
-        }
         $recurrence->setUser($calitem['user']);
         if (! empty($calitem['calitemId'])) {
             // store the initial event if it was already created
             $recurrence->setInitialItem($calitem);
         }
         return $recurrence;
-    }
-
-    /**
-     * @param array $calitem
-     *
-     * @return array
-     */
-    private function processParticipants(array $calitem): array
-    {
-        if (is_string($calitem['organizers'])) {
-            $calitem['organizers'] = preg_split('/\s*,\s*/', $calitem['organizers']);
-        }
-        if ($calitem['organizers']) {
-            $calitem['organizers'] = array_filter($calitem['organizers']);
-        }
-
-        // process participants
-        if (! empty($calitem['participant_roles'])) {
-            $participants = [];
-            foreach ($calitem['participant_roles'] as $username => $role) {
-                $participants[] = [
-                    'username' => $username,
-                    'role'     => $role,
-                    'partstat' => $calitem['participant_partstat'][$username] ?? '',
-                ];
-            }
-            $calitem['participants'] = $participants;
-            unset($calitem['participant_roles'], $calitem['participant_partstat']);
-        } else {
-            $calitem['participants'] = [];
-        }
-
-        return $calitem;
     }
 }

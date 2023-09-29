@@ -131,7 +131,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
                         // use the item title for new events
                         'name'       => $trklib->get_isMain_value($trackerId, $itemId),
                         //      'description',
-                        //      'user',
+                        'user'       => $user,
                         //      'created',
                         //      'lastmodif',
                         //      'allday',
@@ -139,7 +139,10 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
                         //      'changed'
                     ];
 
-                    $calitemId = $this->calendarLib->set_item($user, 0, $data);
+                    $client = new \Tiki\SabreDav\CaldavClient();
+                    $client->saveCalendarObject($data);
+                    $calitemId = $this->calendarLib->getMaxItemId();
+
                     $this->setCalendarItemId($calitemId);
                 } elseif ($event['start'] != $value) {
                     $value = (int) $event['start'];
