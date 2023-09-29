@@ -43,7 +43,7 @@
     <div class="tiki-form-group row">
         <label class="col-sm-3 col-form-label">{tr}Content{/tr}</label>
         <div class="col-sm-7">
-            <textarea rows="5" cols="40" name="data" class="form-control">{$info.data|escape}</textarea>
+            {textarea rows="5" cols="40" name="data" class="form-control"}{$info.data|escape}{/textarea}
         </div>
     </div>
     <div class="tiki-form-group row">
@@ -56,7 +56,7 @@
     <div class="tiki-form-group row">
         <label class="col-sm-3 col-form-label"></label>
         <div class="col-sm-7">
-            <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
+            <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}" onclick="needToConfirm=false;">
         </div>
     </div>
     {jq}

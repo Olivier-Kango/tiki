@@ -1670,6 +1670,31 @@ class EditLib
         return $converted;
     }
 
+    public function convertContentPlugins($content, $targetSyntax)
+    {
+        $dcslib = TikiLib::lib('dcs');
+
+        $contentData = $dataCopy = $content['data'];
+        $wikiParserParsable = new WikiParser_Parsable($dataCopy);
+        $syntaxPluginResult = $wikiParserParsable->guess_syntax($dataCopy);
+        if ($syntaxPluginResult['syntax'] == $targetSyntax) {
+            return;
+        }
+        try {
+            $contentData = $this->convertWikiSyntax($contentData, $targetSyntax);
+            $contentData = "{syntax type=\"{$targetSyntax}\"}\n" . $contentData;
+            $dcslib->replace_programmed_content(
+                $content['pId'],
+                $content['contentId'],
+                $content['publishDate'],
+                $contentData,
+                $content['content_type']
+            );
+        } catch (Exception $e) {
+            // Nothing to do
+        }
+    }
+
     private function convertSmileysToUnicode($data)
     {
         $conversion = [

@@ -256,6 +256,22 @@ class DCSLib extends TikiLib
     }
 
     /**
+     * @return array
+     */
+    public function listAllProgrammedContent()
+    {
+        $query = "select * from `tiki_programmed_content`";
+        $query_cant = "select count(*) from `tiki_programmed_content`";
+        $result = $this->fetchAll($query);
+        $cant = $this->getOne($query_cant);
+
+        $retval = [];
+        $retval["data"] = $this->convert_results($result);
+        $retval["cant"] = $cant;
+        return $retval;
+    }
+
+    /**
      * @param $pId
      * @param $contentId
      * @param $publishDate
