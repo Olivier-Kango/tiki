@@ -196,6 +196,7 @@ class Services_Calendar_Controller
                         $event['description'],
                         ['is_html' => $prefs['calendar_description_is_html'] === 'y']
                     ) : '',
+                    'categoryBackgroundColor' => $event['categoryBackgroundColor'] ? $event['categoryBackgroundColor'] : ''
                 ],
                 'url'         => $url,
                 'allDay'      => $allDay,

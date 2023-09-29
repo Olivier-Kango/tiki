@@ -633,9 +633,16 @@
                                 </option>
                             {/foreach}
                         </select>
-                        <div class="input-group my-2">
-                          <span class="input-group-text">{tr}New classification:{/tr}</span>
-                          <input type="text" class="form-control" name="calitem[newcat]">
+                        <p class="text-center"><label>{tr}OR CREATE A NEW CLASSIFICATION{/tr}</label></p>
+                        <div class="w-100">
+                            <div class="input-group my-2">
+                                <span class="input-group-text">{tr}New classification:{/tr}</span>
+                                <input type="text" class="form-control" name="calitem[newcat]">
+                            </div>
+                            <div class="input-group my-2 d-flex">
+                                <span class="input-group-text">{tr}Background Color{/tr}</span>
+                                <input value="{$calendar.custombgcolor}" type="color" class="form-control form-control-color" name="calitem[newcatbgcolor]" id="newcatbgcolor">
+                            </div>
                         </div>
                     </div>
                 </div> {* / .mb-3 *}
