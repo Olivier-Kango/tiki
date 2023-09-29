@@ -48,6 +48,12 @@ class MarkdownConvertCommand extends Command
                 null,
                 InputOption::VALUE_NONE,
                 'Save converted content back to the database. Important: this will overwrite your existing content, proceed with caution!'
+            )
+            ->addOption(
+                'contents',
+                null,
+                InputOption::VALUE_NONE,
+                'Convert contents of specified pages to the target syntax'
             );
     }
 
@@ -107,6 +113,36 @@ class MarkdownConvertCommand extends Command
                 $io->writeln($converted);
             }
         }
+
+        if ($input->getOption('save') && $input->getOption('contents')) {
+            $dcslib = TikiLib::lib('dcs');
+            if ($input->getOption('page')) {
+                $contents = [];
+                $idsArray = [];
+                $contentPlugins = TikiLib::lib('parser')->find_plugins($pages[0]['data'], 'content');
+                foreach ($contentPlugins as $plugin) {
+                    $arguments = $plugin['arguments'];
+                    if (isset($arguments['id'])) {
+                        $id = $arguments['id'];
+                    } elseif (isset($arguments['label'])) {
+                        $contentInfo = $dcslib->get_content($arguments['label'], 'contentLabel');
+                        $id = $contentInfo['contentId'];
+                    }
+                    if (isset($id) && ! in_array($id, $idsArray)) {
+                        $list = $dcslib->list_programmed_content($id);
+                        $contents = array_merge($contents, array_values($list['data']));
+                        $idsArray[] = $id;
+                    }
+                }
+            } else {
+                $list = $dcslib->listAllProgrammedContent();
+                $contents = $list['data'];
+            }
+            foreach ($contents as $content) {
+                TikiLib::lib('edit')->convertContentPlugins($content, $syntax);
+            }
+        }
+
         return Command::SUCCESS;
     }
 }

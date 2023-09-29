@@ -38,7 +38,6 @@ function wikiplugin_content_info()
 
 function wikiplugin_content($data, $params)
 {
-
     $dcslib = TikiLib::lib('dcs');
 
     $lang = null;
