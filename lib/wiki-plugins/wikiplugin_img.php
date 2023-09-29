@@ -1009,7 +1009,7 @@ function wikiplugin_img($data, $params)
                 //use image gal thumbs when possible
                 if (
                     (! empty($imgdata['id']) && $imgalthumb == false)
-                    && ($imgdata['width'] < $fwidtht)
+                    && ($imgdata['width'] < $fwidth)
                 ) {
                     $src .= '&thumb=1';
                     $imgalthumb == true;
