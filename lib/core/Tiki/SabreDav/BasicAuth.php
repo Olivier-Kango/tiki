@@ -17,7 +17,7 @@ class BasicAuth extends AbstractBasic
     {
         global $user;
 
-        if ($username == 'Anonymous') {
+        if (! empty($username) && strtolower($username) === 'anonymous') {
             $user = $username;
             $isvalid = true;
         } else {

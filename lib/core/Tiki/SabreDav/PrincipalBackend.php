@@ -110,6 +110,9 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
             if (TikiLib::lib('user')->user_exists($m[1])) {
                 $user = $m[1];
             }
+            if (strtolower($m[1]) === 'anonymous') {
+                $user = $m[1];
+            }
         }
 
         if (! $user) {
