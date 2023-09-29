@@ -381,13 +381,27 @@ class PreferencesLib
     {
         global $prefs;
         $tikilib = TikiLib::lib('tiki');
+        $langLib = TikiLib::lib('language');
         $data = $tikilib->table('tiki_preferences');
+        $langMap = $langLib->get_language_map();
         $preferences = $data->fetchAll();
         $orphanPrefs = [];
 
         $specialPrefs = $this->getSpecialPrefs();
         foreach ($preferences as $pref) {
             $definition = $this->getPreference($pref['name'], true, $prefs);
+
+            // Check if it is a translated preference
+            if (! $definition) {
+                $parts = explode("_", $pref['name']);
+                if (! empty($parts)) {
+                    $last = array_pop($parts);
+                    if (isset($langMap[$last])) {
+                        $prefName = implode("_", $parts);
+                        $definition = $this->getPreference($prefName, true, $prefs);
+                    }
+                }
+            }
 
             if (! $definition && ! $this->isSpecialPref($pref['name'], $specialPrefs)) {
                 $orphanPrefs[] = $pref;
