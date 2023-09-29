@@ -1331,21 +1331,21 @@ CREATE TABLE tiki_h5p_libraries_cachedassets (
 
 DROP TABLE IF EXISTS `tiki_history`;
 CREATE TABLE `tiki_history` (
-  `historyId` int(12) NOT NULL auto_increment,
-  `pageName` varchar(160) NOT NULL default '',
-  `version` int(8) NOT NULL default '0',
-  `version_minor` int(8) NOT NULL default '0',
-  `lastModif` int(14) default NULL,
-  `description` varchar(200) default NULL,
-  `user` varchar(200) not null default '',
-  `ip` varchar(39) default NULL,
-  `comment` varchar(255) default NULL,
-  `data` longblob,
-  `type` varchar(50) default NULL,
+  `historyId` INT(12) NOT NULL AUTO_INCREMENT,
+  `pageName` VARCHAR(160) NOT NULL DEFAULT '',
+  `version` INT(8) NOT NULL DEFAULT '0',
+  `version_minor` INT(8) NOT NULL DEFAULT '0',
+  `lastModif` INT(14) DEFAULT NULL,
+  `description` VARCHAR(200) DEFAULT NULL,
+  `user` VARCHAR(200) NOT NULL DEFAULT '',
+  `ip` VARCHAR(39) NULL DEFAULT NULL,
+  `comment` VARCHAR(255) NULL DEFAULT NULL,
+  `data` LONGBLOB DEFAULT NULL,
+  `type` VARCHAR(50) DEFAULT NULL,
   `is_html` TINYINT(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`pageName`,`version`),
-  KEY `user` (`user`(191)),
-  KEY (`historyId`)
+  PRIMARY KEY (`historyId`),
+  UNIQUE KEY `uk_version_pageName` (`pageName`,`version`),
+  KEY `k_user` (`user`(191))
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_hotwords`;
@@ -2595,12 +2595,11 @@ CREATE TABLE `tiki_trackers` (
 
 DROP TABLE IF EXISTS `tiki_untranslated`;
 CREATE TABLE `tiki_untranslated` (
-  `id` int(14) NOT NULL auto_increment,
-  `source` tinyblob NOT NULL,
-  `lang` char(16) NOT NULL default '',
-  PRIMARY KEY (`source`(255),`lang`),
-  UNIQUE KEY `id` (id),
-  KEY `id_2` (id)
+  `id` INT(14) NOT NULL AUTO_INCREMENT,
+  `source` TINYBLOB NOT NULL,
+  `lang` CHAR(16) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_source_lang` (`source`(255),`lang`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `tiki_user_answers`;
@@ -3038,12 +3037,13 @@ INSERT INTO tiki_integrator_rules VALUES ('3','1','3','href=(\"|\')(?!(#|(http|f
 -- Translated objects table
 DROP TABLE IF EXISTS `tiki_translated_objects`;
 CREATE TABLE `tiki_translated_objects` (
-  `traId` int(14) NOT NULL auto_increment,
-  `type` varchar(50) NOT NULL,
-  `objId` varchar(255) NOT NULL,
-  `lang` varchar(16) default NULL,
-  PRIMARY KEY (`type`, `objId`(141)),
-  KEY `traId` ( `traId` )
+  `id` INT(14) NOT NULL AUTO_INCREMENT,
+  `traId` INT(14) NOT NULL DEFAULT 0,
+  `type` VARCHAR(50) NOT NULL,
+  `objId` VARCHAR(255) NOT NULL,
+  `lang` VARCHAR(16) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_type_objId` (`type`, `objId`(141))
 ) ENGINE=MyISAM AUTO_INCREMENT=1;
 
 DROP TABLE IF EXISTS `tiki_score`;
@@ -3150,12 +3150,12 @@ CREATE TABLE `tiki_registration_fields` (
 
 DROP TABLE IF EXISTS `tiki_actionlog_conf`;
 CREATE TABLE `tiki_actionlog_conf` (
-  `id` int(11) NOT NULL auto_increment,
-  `action` varchar(32) NOT NULL default '',
-  `objectType` varchar(32) NOT NULL default '',
-  `status` char(1) default '',
-  PRIMARY KEY (`action`, `objectType`),
-  KEY (id)
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `action` VARCHAR(32) NOT NULL DEFAULT '',
+  `objectType` VARCHAR(32) NOT NULL DEFAULT '',
+  `status` CHAR(1) DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_action_obj` (`action`,`objectType`)
 ) ENGINE=MyISAM;
 
 INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('Created', 'wiki page', 'y');
