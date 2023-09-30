@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2988dba6857ea730f6062a8ee31c8e6",
+    "content-hash": "a18d09c8a2a6e3a2b3ff8958b20f39e1",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -10970,6 +10970,44 @@
                 "stylesheet"
             ],
             "time": "2022-09-02T21:24:55+00:00"
+        },
+        {
+            "name": "scssphp/server",
+            "version": "1.10.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scssphp/server.git",
+                "reference": "905066da4d5a51138e60250cef60d375f6e94d99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scssphp/server/zipball/905066da4d5a51138e60250cef60d375f6e94d99",
+                "reference": "905066da4d5a51138e60250cef60d375f6e94d99",
+                "shasum": ""
+            },
+            "require": {
+                "scssphp/scssphp": "^1.10"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3",
+                "squizlabs/php_codesniffer": "~2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ScssPhp\\Server\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Server for on-the-fly .scss compilation",
+            "support": {
+                "issues": "https://github.com/scssphp/server/issues",
+                "source": "https://github.com/scssphp/server/tree/1.10.1"
+            },
+            "time": "2022-12-23T20:50:52+00:00"
         },
         {
             "name": "sentry/sdk",

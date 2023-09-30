@@ -304,7 +304,8 @@
         "rubix/ml": "^2.1",
         "rubix/extras": "2.0.0-beta",
         "npm-asset/interactjs": "^1.10",
-        "phpxmlrpc/phpxmlrpc": "^4.9"
+        "phpxmlrpc/phpxmlrpc": "^4.9",
+        "scssphp/server": "^1.10"
     },
     "require-dev": {
         "bafs/testify": "dev-master",

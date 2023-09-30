@@ -16,7 +16,7 @@ use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\Exception\ParserException;
 use ScssPhp\ScssPhp\Exception\CompilerException;
 use ScssPhp\ScssPhp\Exception\RangeException;
-use ScssPhp\ScssPhp\Exception\ServerException;
+use ScssPhp\Server\ServerException;
 use Psr\Log\LogLevel;
 
 class ScssCompileCommand extends Command
