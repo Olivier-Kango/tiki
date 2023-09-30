@@ -1399,8 +1399,9 @@ class FreetagLib extends ObjectLib
                         ;
 
         $result = $this->fetchAll($query, array_merge($bindvars, $accept_languages), $maxRecords, $offset);
-        // we call the *end* function via call_user_func to avoid pass-by-reference errors
-        $translationSets = array_map(fn ($arr) => call_user_func('end', $arr), $result);
+
+        $translationSets = array_map(fn ($arr) => count($arr) > 0 ? array_slice($arr, -1)['traId'] : $arr, $result);
+
         $translationSets = array_filter($translationSets);
 
         $tags = $this->get_tag_translations($translationSets, $accept_languages);
