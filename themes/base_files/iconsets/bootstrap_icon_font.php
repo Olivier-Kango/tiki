@@ -210,6 +210,9 @@ function iconset_bootstrap_icon_font()
             'comments' => [
                 'id' => 'chat-quote',
             ],
+            'content' => [
+                'id' => 'box-seam',
+            ],
             'copy' => [
                 'id' => 'files',
             ],
@@ -222,11 +225,17 @@ function iconset_bootstrap_icon_font()
             'database' => [
                 'id' => 'device-hdd',
             ],
+            'directory' => [
+                'id' => 'list-ul',
+            ],
             'edit' => [
                 'id' => 'pencil-square',
             ],
             'export' => [
                 'id' => 'box-arrow-up',
+            ],
+            'faq' => [
+                'id' => 'patch-question',
             ],
             'file-archive' => [
                 'id' => 'file-arrow-up-fill',
@@ -255,6 +264,9 @@ function iconset_bootstrap_icon_font()
             'horizontal-rule' => [
                 'id' => 'type-h1',
             ],
+            'html-pages' => [
+                'id' => 'filetype-html',
+            ],
             'import' => [
                 'id' => 'box-arrow-in-down',
             ],
@@ -263,6 +275,9 @@ function iconset_bootstrap_icon_font()
             ],
             'list-numbered' => [
                 'id' => 'list-ol',
+            ],
+            'manage' => [
+                'id' => 'controller',
             ],
             'notepad' => [
                 'id' => 'journal-medical',
@@ -291,6 +306,15 @@ function iconset_bootstrap_icon_font()
             'ok' => [
                 'id' => 'check-circle',
             ],
+            'php' => [
+                'id' => 'filetype-php',
+            ],
+            'poll' => [
+                'id' => 'bar-chart-line',
+            ],
+            'quiz' => [
+                'id' => 'question-square',
+            ],
             'settings' => [
                 'id' => 'wrench-adjustable',
             ],
@@ -300,8 +324,17 @@ function iconset_bootstrap_icon_font()
             'sort' => [
                 'id' => 'emoji-smile',
             ],
+            'spreadsheet' => [
+                'id' => 'table',
+            ],
             'strikethrough' => [
                 'id' => 'type-strikethrough',
+            ],
+            'survey' => [
+                'id' => 'person-raised-hand',
+            ],
+            'system' => [
+                'id' => 'bezier2',
             ],
             'tasks' => [
                 'id' => 'list-check',
@@ -329,6 +362,9 @@ function iconset_bootstrap_icon_font()
             ],
             'warning' => [
                 'id' => 'exclamation-triangle',
+            ],
+            'wizards' => [
+                'id' => 'magic'
             ],
             'zip' => [
                 'id' => 'file-zip',

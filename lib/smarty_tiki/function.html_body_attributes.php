@@ -25,6 +25,11 @@ function smarty_function_html_body_attributes($params, $smarty)
         $class .= $section_class;
     }
 
+    // To distinguish legacy admin and UAB for style purposes; can remove when legacy admin is removed. - g_c-l
+    if ($prefs['theme_unified_admin_backend'] === 'y') {
+        $class .= ' uab';
+    }
+
     if ($prefs['feature_fixed_width'] == 'y') {
         $class .= ' fixed_width';
     }

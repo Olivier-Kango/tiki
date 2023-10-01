@@ -448,6 +448,9 @@ function iconset_default()
             'contacts' => [
                 'id' => 'users',
             ],
+            'content' => [
+                'id' => 'box',
+            ],
             'content-template' => [
                 'id' => 'file',
                 'prepend' => 'far fa-'
@@ -485,6 +488,9 @@ function iconset_default()
             ],
             'difference' => [
                 'id' => 'strikethrough',
+            ],
+            'directory' => [
+                'id' => 'list',
             ],
             'disable' => [
                 'id' => 'minus-square',
@@ -720,7 +726,7 @@ function iconset_default()
             ],
             'html' => [
                 'id' => 'html5',
-                'prepend' => 'fab fa-'
+                'prepend' => 'fa-brands fa-'
             ],
             'image' => [
                 'id' => 'file-image',
@@ -997,6 +1003,10 @@ function iconset_default()
             'permission' => [
                 'id' => 'key',
             ],
+            'php' => [
+                'id' => 'php',
+                'prepend' => 'fa-brands fa-'
+            ],
             'pie-chart' => [
                 'id' => 'chart-pie',
             ],
@@ -1028,6 +1038,9 @@ function iconset_default()
             'plugin' => [
                 'id' => 'puzzle-piece',
             ],
+            'poll' => [
+                'id' => 'chart-bar',
+            ],
             'popup' => [
                 'id' => 'list-alt',
                 'prepend' => 'far fa-'
@@ -1046,6 +1059,9 @@ function iconset_default()
             'qq' => [
                 'id' => 'qq',
                 'prepend' => 'fab fa-'
+            ],
+            'quiz' => [
+                'id' => 'circle-question',
             ],
             'quotes' => [
                 'id' => 'quote-left',
@@ -1185,6 +1201,9 @@ function iconset_default()
                 'id' => 'spotify',
                 'prepend' => 'fab fa-'
             ],
+            'spreadsheet' => [
+                'id' => 'table',
+            ],
             'stack-exchange' => [
                 'id' => 'stack-exchange',
                 'prepend' => 'fab fa-'
@@ -1251,6 +1270,9 @@ function iconset_default()
             ],
             'success' => [
                 'id' => 'check',
+            ],
+            'survey' => [
+                'id' => 'clipboard-question',
             ],
             //table in defaults
             //tag in defaults
@@ -1805,9 +1827,9 @@ function iconset_default()
                 'id' => 'colon-sign',
                 'prepend' => 'fas fa-',
             ],
-            'computer' => [
-                'id' => 'computer',
-                'prepend' => 'fas fa-',
+            'cookie' => [
+                'id' => 'cookie-bite',
+            //    'prepend' => 'fas fa-',
             ],
             'cruzeiro-sign' => [
                 'id' => 'cruzeiro-sign',
@@ -1864,6 +1886,9 @@ function iconset_default()
             'f' => [
                 'id' => 'f',
                 'prepend' => 'fas fa-',
+            ],
+            'faq' => [
+                'id' => 'circle-question',
             ],
             'ferry' => [
                 'id' => 'ferry',
@@ -2085,6 +2110,10 @@ function iconset_default()
                 'id' => 'house-user',
                 'prepend' => 'fas fa-',
             ],
+            'html-pages' => [
+                'id' => 'html5',
+                'prepend' => 'fa-brands fa-',
+            ],
             'i' => [
                 'id' => 'i',
                 'prepend' => 'fas fa-',
@@ -2173,6 +2202,9 @@ function iconset_default()
             'magnifying-glass-chart' => [
                 'id' => 'magnifying-glass-chart',
                 'prepend' => 'fas fa-',
+            ],
+            'manage' => [
+                'id' => 'gamepad',
             ],
             'manat-sign' => [
                 'id' => 'manat-sign',
@@ -2602,6 +2634,9 @@ function iconset_default()
                 'id' => 'sun-plant-wilt',
                 'prepend' => 'fas fa-',
             ],
+            'system' => [
+                'id' => 'vector-square',
+            ],
             't' => [
                 'id' => 't',
                 'prepend' => 'fas fa-',
@@ -2765,6 +2800,9 @@ function iconset_default()
             'wheelchair-move' => [
                 'id' => 'wheelchair-move',
                 'prepend' => 'fas fa-',
+            ],
+            'wizards' => [
+                'id' => 'wand-magic-sparkles'
             ],
             'worm' => [
                 'id' => 'worm',

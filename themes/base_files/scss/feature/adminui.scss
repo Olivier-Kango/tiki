@@ -13,6 +13,67 @@ $color-light: rgba(0, 0, 0, 0.5); // Not replaced as it's only used for minor de
 body.tiki-admin {
     padding-top: 0 !important; // Needed to override CSS-variable-set fixed-navbar height/body padding-top.
 }
+// Provide space for aside toggle button - small screens (default)
+.tiki-admin.uab #tikifeedback,
+.tiki-admin.uab .admin-content,
+.tiki-admin.uab .bottom_modules {
+    padding-left: 2.5rem !important;
+}
+
+
+// In larger screens, when UAB is active, prevent content from being covered by aside (offcanvas content); may need adjusting -- g_c-l
+@media (min-width: 993px) and (max-width: 1370px) {
+    .tiki-admin.uab #tikifeedback,
+    .tiki-admin.uab .admin-content,
+    .tiki-admin.uab .bottom_modules {
+        padding-left: 300px !important;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1675px) {
+    .tiki-admin.uab #tikifeedback,
+    .tiki-admin.uab .admin-content,
+    .tiki-admin.uab .bottom_modules {
+        padding-left: 300px !important;
+    }
+}
+
+// Provide space for aside toggle button in screens with full-width content
+.tiki-admin.uab:not(.fixed_width) #tikifeedback,
+.tiki-admin.uab:not(.fixed_width) .admin-content {
+    padding-left: 2.5rem !important;
+}
+
+@media (min-width: 993px) {
+    .tiki-admin.uab:not(.fixed_width) #tikifeedback,
+    .tiki-admin.uab:not(.fixed_width) .admin-content {
+        padding-left: 300px !important;
+    }
+}
+
+
+.tiki-admin .admin-wrapper .navbar-toggler {
+    position: absolute;
+    border: inherit;
+//    left: 1rem;
+}
+
+.tiki-admin .container.container-std .col1 {
+    padding-left: 0;
+}
+.tiki-admin .offcanvas.offcanvas-start {
+    --bs-offcanvas-width: 268px; }
+.tiki-admin .top_modules .box-login_box { margin-left: auto; }
+
+.tiki-admin aside.admin-nav > nav {
+    /*height: unset;
+      width: unset !important;
+     overflow-y: auto;
+     overflow-x: hidden; */
+    top: 50px !important;
+}
+
+
 // Color rules - To implement color-neutral CSS variable names, the selectors for the rules have to be repeated for 'light' and 'dark' options. The file size increase caused by this
 // has been offset by removing rules not involving color where color classes were unnecessarily used repeatedly, one for light and one for dark.
 
@@ -117,17 +178,17 @@ body.tiki-admin {
 
 // make content not be overlapped by the side column nav
 // needs fixing properly in the tpl so we can use the width of .admin-nav
-.tiki-admin .admin-content {
-    padding-left: 150px;
-}
+//.tiki-admin .admin-content {
+//    padding-left: 150px;
+//}
 
-.tiki-admin.sidebar_collapsed .admin-content {
-    padding-left: 0;
-}
-
-.tiki-admin.sidebar_collapsed .admin-nav form {
-    display: none !important;
-}
+//.tiki-admin.sidebar_collapsed .admin-content {
+//    padding-left: 0;
+//}
+//
+//.tiki-admin.sidebar_collapsed .admin-nav form {
+//    display: none !important;
+//}
 
 
 // Login module dropdown .tiki-admin .top_modules.navbar-light-parent
@@ -823,21 +884,21 @@ body.tiki-admin {
 //    color: var(--tiki-admin-dropdown-light-color);
 //}
 
-.tiki-admin aside.admin-nav .narrow ul > li {
-    position: relative;
-}
-
-.tiki-admin aside.admin-nav .narrow ul > li .collapse {
-    padding-left: 0;
-}
-
-.tiki-admin aside.admin-nav .narrow > ul > li > a span:not(.icon) {
-    display: none !important;
-}
-
-.tiki-admin .ui-droppable.modules, .tiki-admin .ui-sortable.modules {
-    min-height: unset !important;
-}
+//.tiki-admin aside.admin-nav .narrow ul > li {
+//    position: relative;
+//}
+//
+//.tiki-admin aside.admin-nav .narrow ul > li .collapse {
+//    padding-left: 0;
+//}
+//
+//.tiki-admin aside.admin-nav .narrow > ul > li > a span:not(.icon) {
+//    display: none !important;
+//}
+//
+//.tiki-admin .ui-droppable.modules, .tiki-admin .ui-sortable.modules {
+//    min-height: unset !important;
+//}
 
 .tiki-admin .form-inline .form-check {
     padding-right: .5rem;
@@ -849,9 +910,9 @@ body.tiki-admin {
     overflow: hidden;
 }
 
-.tiki-admin .container.container-std .col1 {
-    padding-left: 90px;
-}
+//.tiki-admin .container.container-std .col1 {
+//    padding-left: 90px;
+//}
 
 // main content
 //.tiki-admin:not(.fixed_width) .col1 .admin-wrapper { Replaced with above rule
@@ -866,28 +927,28 @@ body.tiki-admin {
 //    margin-left: 75px;
 //}
 
-@media (max-width: 767.5px) {
-    .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
-        margin-left: 75px;
-    }
-}
-@media (min-width: 767px) and (max-width: 991px) {
-    .tiki-admin:not(.fixed_width) .col1 .admin-wrapper {
-    margin-left: 70px;
-    }
-}
-
-@media (min-width: 992px) {
-    .tiki-admin:not(.fixed_width) .container.container-std .col1 {
-        padding-left: 290px;
-    }
-
-    .layout_social.tiki-admin:not(.fixed_width) .middle_outer .main-footer,
-    .layout_classic.tiki-admin:not(.fixed_width) .main-footer,
-    .layout_basic.tiki-admin:not(.fixed_width) .container-std .main-footer {
-       margin-left: 290px;
-    }
-}
+//@media (max-width: 767.5px) {
+//    .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
+//        margin-left: 75px;
+//    }
+//}
+//@media (min-width: 767px) and (max-width: 991px) {
+//    .tiki-admin:not(.fixed_width) .col1 .admin-wrapper {
+//    margin-left: 70px;
+//    }
+//}
+//
+//@media (min-width: 992px) {
+//    .tiki-admin:not(.fixed_width) .container.container-std .col1 {
+//        padding-left: 290px;
+//    }
+//
+//    .layout_social.tiki-admin:not(.fixed_width) .middle_outer .main-footer,
+//    .layout_classic.tiki-admin:not(.fixed_width) .main-footer,
+//    .layout_basic.tiki-admin:not(.fixed_width) .container-std .main-footer {
+//       margin-left: 290px;
+//    }
+//}
 
 
 // Filter
@@ -938,46 +999,46 @@ body.tiki-admin {
     padding-left: 7rem;
     z-index: 9999 !important;
 }
-
+//
 .tiki-admin #col1 {
-    z-index: unset !important;
-    padding-top: 5rem; // avoid top_modules overlapping page content
+//    z-index: unset !important;
+   padding-top: 5rem; // avoid top_modules overlapping page content
 }
-
-.tiki-admin .navbar-expand-md .form-inline {
-    width: auto !important;
-    margin-top: -.8rem;
-    position: relative;
-    top: -.2rem;
-}
-
-.tiki-admin .navbar-expand-md .navbar-nav .nav-link {
-    padding: 0 .4rem;
-    font-weight: normal;
-}
-
-.tiki-admin .admin-wrapper .navbar-toggler {
-    position: absolute;
-    border: none;
-    left: 3.5rem;
-}
-
-.tiki-admin .admin-navbar .navbar-toggler-icon {
-    height: 16px;
-    background-size: contain;
-}
-
-.tiki-admin .navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22Ebene_1%22%20data-name%3D%22Ebene%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2026%2016%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill%3A%23fff%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1%2C0H25a1%2C1%2C0%2C0%2C1%2C1%2C1h0a1%2C1%2C0%2C0%2C1-1%2C1H1A1%2C1%2C0%2C0%2C1%2C0%2C1H0A1%2C1%2C0%2C0%2C1%2C1%2C0Z%22%2F%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1%2C14H25a1%2C1%2C0%2C0%2C1%2C1%2C1h0a1%2C1%2C0%2C0%2C1-1%2C1H1a1%2C1%2C0%2C0%2C1-1-1H0A1%2C1%2C0%2C0%2C1%2C1%2C14Z%22%2F%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1%2C7H25a1%2C1%2C0%2C0%2C1%2C1%2C1h0a1%2C1%2C0%2C0%2C1-1%2C1H1A1%2C1%2C0%2C0%2C1%2C0%2C8H0A1%2C1%2C0%2C0%2C1%2C1%2C7Z%22%2F%3E%3C%2Fsvg%3E");
-}
-
-.tiki-admin .navbar-light .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3Csvg id='Ebene_1' data-name='Ebene 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 16'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%237c7c7d;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M1,0H25a1,1,0,0,1,1,1h0a1,1,0,0,1-1,1H1A1,1,0,0,1,0,1H0A1,1,0,0,1,1,0Z'/%3E%3Cpath class='cls-1' d='M1,14H25a1,1,0,0,1,1,1h0a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1H0A1,1,0,0,1,1,14Z'/%3E%3Cpath class='cls-1' d='M1,7H25a1,1,0,0,1,1,1h0a1,1,0,0,1-1,1H1A1,1,0,0,1,0,8H0A1,1,0,0,1,1,7Z'/%3E%3C/svg%3E");
-}
-
-.tiki-admin .admin-wrapper .navbar-toggler:focus {
-    box-shadow: none;
-}
+//
+//.tiki-admin .navbar-expand-md .form-inline {
+//    width: auto !important;
+//    margin-top: -.8rem;
+//    position: relative;
+//    top: -.2rem;
+//}
+//
+//.tiki-admin .navbar-expand-md .navbar-nav .nav-link {
+//    padding: 0 .4rem;
+//    font-weight: normal;
+//}
+//
+//.tiki-admin .admin-wrapper .navbar-toggler {
+//    position: absolute;
+//    border: none;
+//    left: 3.5rem;
+//}
+//
+//.tiki-admin .admin-navbar .navbar-toggler-icon {
+//    height: 16px;
+//    background-size: contain;
+//}
+//
+//.tiki-admin .navbar-dark .navbar-toggler-icon {
+//    background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22Ebene_1%22%20data-name%3D%22Ebene%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2026%2016%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill%3A%23fff%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1%2C0H25a1%2C1%2C0%2C0%2C1%2C1%2C1h0a1%2C1%2C0%2C0%2C1-1%2C1H1A1%2C1%2C0%2C0%2C1%2C0%2C1H0A1%2C1%2C0%2C0%2C1%2C1%2C0Z%22%2F%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1%2C14H25a1%2C1%2C0%2C0%2C1%2C1%2C1h0a1%2C1%2C0%2C0%2C1-1%2C1H1a1%2C1%2C0%2C0%2C1-1-1H0A1%2C1%2C0%2C0%2C1%2C1%2C14Z%22%2F%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1%2C7H25a1%2C1%2C0%2C0%2C1%2C1%2C1h0a1%2C1%2C0%2C0%2C1-1%2C1H1A1%2C1%2C0%2C0%2C1%2C0%2C8H0A1%2C1%2C0%2C0%2C1%2C1%2C7Z%22%2F%3E%3C%2Fsvg%3E");
+//}
+//
+//.tiki-admin .navbar-light .navbar-toggler-icon {
+//    background-image: url("data:image/svg+xml,%3Csvg id='Ebene_1' data-name='Ebene 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 16'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%237c7c7d;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M1,0H25a1,1,0,0,1,1,1h0a1,1,0,0,1-1,1H1A1,1,0,0,1,0,1H0A1,1,0,0,1,1,0Z'/%3E%3Cpath class='cls-1' d='M1,14H25a1,1,0,0,1,1,1h0a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1H0A1,1,0,0,1,1,14Z'/%3E%3Cpath class='cls-1' d='M1,7H25a1,1,0,0,1,1,1h0a1,1,0,0,1-1,1H1A1,1,0,0,1,0,8H0A1,1,0,0,1,1,7Z'/%3E%3C/svg%3E");
+//}
+//
+//.tiki-admin .admin-wrapper .navbar-toggler:focus {
+//   box-shadow: none;
+//}
 
 // Popovers
 

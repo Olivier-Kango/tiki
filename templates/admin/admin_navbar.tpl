@@ -8,11 +8,13 @@
             {/if}
         </a>
     {/if}
+    {if $prefs.theme_unified_admin_backend neq 'y'}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#admin-navbar-collapse-1" aria-controls="admin-navbar-collapse-1" aria-expanded="false" aria-label="{tr}Toggle navigation{/tr}">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="admin-navbar-collapse-1">
-        <form method="post" class="form g-3 align-items-center" role="form"{* style="width: 15rem;*}"> {* Specified width in rem so larger fonts wouldn't cause wrapping -- This width was overridden in the stylesheet so removed (6/8/2023) *}
+        {* form copied to include anchors.tpl *}
+       <form method="post" class="form g-3 align-items-center" role="form"{* style="width: 15rem;"*}> {* Specified width in rem so larger fonts wouldn't cause wrapping -- This width was overridden in the stylesheet so removed (6/8/2023) *}
             {* <div class="col-auto form-check">
                 {ticket}
                 <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if !empty($pref_filters.advanced.selected)} checked="checked"{/if}>
@@ -52,7 +54,7 @@
                                         <br/><br/>
                                         <ul>
                                             <li>{tr}Icon for 'Like'{/tr} {$smarty.capture.likeicon|escape}</li>
-                                            {* <li>{tr}Icon for 'Fix me'{/tr} <img src=img/icons/connect_fix.png></li> 
+                                            {* <li>{tr}Icon for 'Fix me'{/tr} <img src=img/icons/connect_fix.png></li>
                                             <li>{tr}Icon for 'What is this for?'{/tr} <img src=img/icons/connect_wtf.png></li>  *}
                                         </ul>
                                         <br>
@@ -131,7 +133,8 @@
                 </li>
             </ul>
         </form>
-        {include file="admin/admin_navbar_menu.tpl"}
+
+      {*  {include file="admin/admin_navbar_menu.tpl"} *}
         {if $prefs.theme_unified_admin_backend neq 'y'}
             <ul class="navbar-nav flex-row d-md-flex me-4">
                 <li class="nav-item">
@@ -148,6 +151,7 @@
             </ul>
         {/if}
     </div>
+    {/if}
     {if $include != "list_sections" and $prefs.theme_unified_admin_backend neq 'y'}
         <div class="adminanchors card"><div class="{*card-body*}p-3 navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-nav-{$navbar_color_variant}"><ul class="nav navbar-nav d-flex flex-wrap justify-content-between" style="gap: 0 1rem;">{include file='admin/include_anchors.tpl'}</ul></div></div>
     {/if}
