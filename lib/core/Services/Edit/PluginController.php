@@ -577,7 +577,7 @@ class Services_Edit_PluginController
                 foreach ($plugin['params'] as $param) {
                     if (is_array($param['options'])) {
                         foreach ($param['options'] as $option) {
-                            if (is_array($option['plugins'])) {
+                            if (isset($option['plugins']) && is_array($option['plugins'])) {
                                 $pluginNames = array_merge($pluginNames, $this->getAllowedPlugins($option['plugins']));
                             }
                         }
