@@ -349,18 +349,18 @@ class ContactLib extends TikiLib
 
     public function get_ext_list($user)
     {
-        global $user;
         $query = 'select * from `tiki_webmail_contacts_fields` where `user`=? order by `order`, `fieldname`';
         $bindvars = [$user];
 
         $res = $this->query($query, $bindvars);
-        // default values if no user is specified or if user has no ext list
+        // If the user is not specified or has an empty value, we return an empty array because we cannot store the default contact values ($exts) in the database without a valid user.
+        // However, if a valid user is provided, we populate the database with default contact values and then retrieve the contact list to ensure that contact information is available for the user.
         if (! $res->numRows()) {
             $exts = ['Personal Phone', 'Personal Mobile', 'Personal Fax', 'Work Phone', 'Work Mobile',
                     'Work Fax', 'Company', 'Organization', 'Department', 'Division', 'Job Title',
                     'Street Address', 'City', 'State', 'Postal Code', 'Country'];
             if (($user == null) || (empty($user))) {
-                return $exts;
+                return [];
             }
             foreach ($exts as $ext) {
                 $this->add_ext($user, $ext);
