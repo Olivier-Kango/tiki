@@ -21,7 +21,7 @@ if (isset($_REQUEST['theme'])) {
     }
 
     $tikilib->set_user_preference($user, 'theme', $_REQUEST['theme']); //save user's theme preference
-    $tikilib->set_user_preference($user, 'theme_option', $_REQUEST['theme_option']);
+    $tikilib->set_user_preference($user, 'theme_option', $_REQUEST['theme_option'] ?? '');
 }
 
 if (isset($_SERVER['HTTP_REFERER'])) {
