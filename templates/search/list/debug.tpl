@@ -1,7 +1,7 @@
 <b>List of returned objects</b>
 <ol>
     {foreach from=$results item=result}
-        <li> <a href="{$result.url}" >{$result.title}</a>
+        <li><a href="{if not empty($result.url)}{$result.url}{else}#{/if}" >{$result.title}</a>
     {/foreach}
 </ol>
 

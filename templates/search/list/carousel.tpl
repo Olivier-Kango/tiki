@@ -1,7 +1,7 @@
 {* changes 24.01.2021 by bob_romoxi *}
 {* if for controls and pagination *}
-{if $carousel and $carousel.id}{$containerId = $carousel.id}{else}{$containerId = 'wp_list_carousel'}{/if}
-{if $carousel and $carousel.mode}{$mode = $carousel.mode}{else}{$mode = ''}{/if}
+{if $carousel and not empty($carousel.id)}{$containerId = $carousel.id}{else}{$containerId = 'wp_list_carousel'}{/if}
+{if $carousel and not empty($carousel.mode)}{$mode = $carousel.mode}{else}{$mode = ''}{/if}
 <div id="{$containerId}" class="carousel slide {$mode}" data-bs-ride="carousel"
         {if $carousel and $carousel.interval} data-bs-interval="{$carousel.interval}"{/if}
         {if $carousel and isset($carousel.pause)} data-pause="{$carousel.pause}"{/if}
