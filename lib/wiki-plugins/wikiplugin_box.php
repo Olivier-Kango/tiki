@@ -128,6 +128,7 @@ function wikiplugin_box_info()
 function wikiplugin_box($data, $params)
 {
 //  global $tikilib;
+    $parserlib = TikiLib::lib('parser');
 
     // Remove first <ENTER> if exists...
     // if (substr($data, 0, 2) == "\r\n") $data = substr($data, 2);
@@ -147,7 +148,13 @@ function wikiplugin_box($data, $params)
         $begin = "<div class='card$class' $id style='$bg $f; margin:1em; margin-$float:0; $w $c $style $align'>";
     }
 
+    $isMarkdown = $parserlib->option['is_markdown'];
+
     if (isset($title) && ! empty($title)) {
+        if ($isMarkdown) {
+            $title = $parserlib->parse_data($title);
+            $title = str_replace(['<p>', '</p>'], '', $title);
+        }
         $begin .= "<div class='card-header'>$title</div>";
     }
     $begin .= "<div class='card-body'" . (strlen($bg) > 0 ? " style=\"$bg\"" : "") . ">";
@@ -157,9 +164,8 @@ function wikiplugin_box($data, $params)
     // Insert "\n" at data begin if absent (so start-of-line-sensitive syntaxes will be parsed OK)
     //if (substr($data, 0, 1) != "\n") $data = "\n".$data;
     //$data = TikiLib::lib('parser')->parse_data($data);
-    $paserlib = TikiLib::lib('parser');
-    if (! $paserlib->option['is_markdown']) {
-        $data = $paserlib->protectSpecialChars($data); //they are unprotected before calling the plugins
+    if (! $isMarkdown) {
+        $data = $parserlib->protectSpecialChars($data); //they are unprotected before calling the plugins
     }
     return $begin . $data . $end;
 }
