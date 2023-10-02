@@ -18,7 +18,7 @@ class BasicAuth extends AbstractBasic
         global $user;
 
         if (! empty($username) && strtolower($username) === 'anonymous') {
-            $user = $username;
+            $user = 'Anonymous';
             $isvalid = true;
         } else {
             list($isvalid, $user) = TikiLib::lib('user')->validate_user($username, $password);
