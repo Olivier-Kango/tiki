@@ -82,6 +82,7 @@ class Services_Tracker_Controller
         }
 
         $name = $input->name->text();
+        $permName = ''; // Initialize $permName here
         if ($input->permName->word() !== null) {
             $permName = $trklib::generatePermName($definition, $input->permName->word());
         }
