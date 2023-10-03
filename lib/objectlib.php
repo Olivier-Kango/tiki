@@ -731,7 +731,7 @@ class ObjectLib extends TikiLib
             case 'calendar event':
             case 'calendaritem':
                 $info = TikiLib::lib('calendar')->get_item($id);
-                return $this->getFormattedTitle($type, $id, $info['name'], $format);
+                return $this->getFormattedTitle($type, $id, $info['name'] ?? '', $format);
         }
 
         $title = $this->table('tiki_objects')->fetchOne(
