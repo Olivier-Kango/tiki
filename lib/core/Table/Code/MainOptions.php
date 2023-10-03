@@ -166,6 +166,10 @@ class Table_Code_MainOptions extends Table_Code_Manager
         if (parent::$pager) {
             $w[] = 'pager';
         }
+        //output
+        if (parent::$output) {
+            $w[] = 'output';
+        }
         //column selector
         if (parent::$s['colselect']) {
             $w[] = 'columnSelector';
