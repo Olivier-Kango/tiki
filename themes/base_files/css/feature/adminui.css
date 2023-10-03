@@ -7,12 +7,12 @@ body.tiki-admin {
 }
 @media (min-width: 993px) and (max-width: 1370px) {
   .tiki-admin.uab #tikifeedback, .tiki-admin.uab .admin-content, .tiki-admin.uab .bottom_modules {
-    padding-left: 300px !important;
+    padding-left: 278px !important;
   }
 }
 @media (min-width: 1440px) and (max-width: 1675px) {
   .tiki-admin.uab #tikifeedback, .tiki-admin.uab .admin-content, .tiki-admin.uab .bottom_modules {
-    padding-left: 300px !important;
+    padding-left: 278px !important;
   }
 }
 .tiki-admin.uab:not(.fixed_width) #tikifeedback, .tiki-admin.uab:not(.fixed_width) .admin-content {
@@ -20,7 +20,7 @@ body.tiki-admin {
 }
 @media (min-width: 993px) {
   .tiki-admin.uab:not(.fixed_width) #tikifeedback, .tiki-admin.uab:not(.fixed_width) .admin-content {
-    padding-left: 300px !important;
+    padding-left: 278px !important;
   }
 }
 .tiki-admin .admin-wrapper .navbar-toggler {
