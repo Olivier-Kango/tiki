@@ -60,11 +60,18 @@ class ComposerCli
     protected $lastResult = null;
 
     /**
-     * ComposerCli constructor.
-     * @param string $basePath
-     * @param string $workingPath
+     * @var PackageInformationCache Cache for composer and package information
      */
-    public function __construct($basePath, $workingPath = null)
+    protected PackageInformationCache $cache;
+
+    /**
+     * ComposerCli constructor.
+     *
+     * @param string                   $basePath
+     * @param string|null              $workingPath
+     * @param PackageInformationCache|null $cache
+     */
+    public function __construct(string $basePath, ?string $workingPath = null, ?PackageInformationCache $cache = null)
     {
         $basePath = rtrim($basePath, '/');
         if ($basePath) {
@@ -79,6 +86,11 @@ class ComposerCli
                 $this->workingPath = $workingPath . '/';
             }
         }
+
+        if (is_null($cache)) {
+            $cache = new PackageInformationCache();
+        }
+        $this->cache = $cache;
     }
 
     /**
@@ -387,7 +399,14 @@ class ComposerCli
      */
     public function getListOfPackagesFromConfig()
     {
+        $cacheKey = [__CLASS__, $this->getWorkingPath(), 'getListOfPackagesFromConfig'];
+        $cachedResult = $this->cache->get($cacheKey, null);
+        if ($cachedResult !== null) {
+            return $cachedResult;
+        }
+
         if (! $this->checkConfigExists()) {
+            $this->cache->set($cacheKey, false);
             return false;
         }
 
@@ -422,6 +441,8 @@ class ComposerCli
             }
         }
 
+        $this->cache->set($cacheKey, $result);
+
         return $result;
     }
 
@@ -431,7 +452,14 @@ class ComposerCli
      */
     public function getListOfPackagesFromLock()
     {
+        $cacheKey = [__CLASS__, $this->getWorkingPath(), 'getListOfPackagesFromLock'];
+        $cachedResult = $this->cache->get($cacheKey, null);
+        if ($cachedResult !== null) {
+            return $cachedResult;
+        }
+
         if (! $this->checkConfigExists()) {
+            $this->cache->set($cacheKey, false);
             return false;
         }
 
@@ -439,6 +467,7 @@ class ComposerCli
         $packagesFromConfig = json_decode(file_get_contents($this->getComposerConfigFilePath()), true);
 
         if (empty($content['packages']) || empty($packagesFromConfig)) {
+            $this->cache->set($cacheKey, []);
             return [];
         }
 
@@ -462,6 +491,8 @@ class ComposerCli
             ];
         }
 
+        $this->cache->set($cacheKey, $result);
+
         return $result;
     }
 
@@ -483,6 +514,8 @@ class ComposerCli
         }
 
         list($output, $errors) = $this->execComposer($exe);
+
+        $this->cache->clear();
 
         return $this->glueOutputAndErrors($output, $errors);
     }
@@ -550,6 +583,8 @@ class ComposerCli
             ['require', $package->getName() . ':' . $package->getRequiredVersion(), '--update-no-dev', '-d', $this->workingPath, '--no-ansi', '--no-interaction']
         );
 
+        $this->cache->clear();
+
         $fileContent = file_get_contents($this->getComposerConfigFilePath());
 
         return tr('= New composer.json file content') . ":\n\n"
@@ -573,6 +608,8 @@ class ComposerCli
         list($commandOutput, $errors) = $this->execComposer(
             ['remove', $package->getName(), '--update-no-dev', '-d', $this->workingPath, '--no-ansi', '--no-interaction']
         );
+
+        $this->cache->clear();
 
         $fileContent = file_get_contents($this->getComposerConfigFilePath());
 
