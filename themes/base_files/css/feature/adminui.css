@@ -553,6 +553,7 @@ body.tiki-admin {
   z-index: 9999 !important;
 }
 .tiki-admin #col1 {
+  z-index: unset !important;
   padding-top: 5rem;
 }
 .tiki-admin .popover {
