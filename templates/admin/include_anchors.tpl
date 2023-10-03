@@ -8,7 +8,7 @@
                {/if}
            </div>
            <div class="was-accordion accordion-flush w-100 border-end" id="admin-menu-accordion"> *}
-    <nav class="navbar fixed-top navbar-expand-lg" style="height: min-content; max-width: 268px;" {* align-items-startbg-body-tertiary  fixed-top navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}*} role="navigation">
+    <nav class="navbar fixed-top navbar-expand-lg py-0" style="height: min-content; max-width: 268px;" {* align-items-startbg-body-tertiary  fixed-top navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}*} role="navigation">
 
         <div class="tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}" style="height: 50px">
             {*<a class="navbar-brand" href="#">{tr}Admin menu{/tr}</a>*}
