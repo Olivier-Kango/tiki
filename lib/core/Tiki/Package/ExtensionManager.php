@@ -30,6 +30,8 @@ class ExtensionManager
         'vendor_custom'
     ];
 
+    protected static ?PackageInformationCache $cache = null;
+
     /**
      * Get the list of extensions enabled
      *
@@ -75,12 +77,22 @@ class ExtensionManager
      */
     public static function isExtension($packageName, $packagePath = null)
     {
+        $cacheKey = [__CLASS__, 'isExtension', $packageName, $packagePath ?? 'null'];
+        $cachedResult = static::getCache()->get($cacheKey, null);
+        if ($cachedResult !== null) {
+            return $cachedResult;
+        }
+
         if (is_null($packagePath)) {
             $path = implode('/', ['vendor', $packageName, 'tiki-package.json']);
         } else {
             $path = implode('/', [$packagePath, 'tiki-package.json']);
         }
-        return file_exists($path);
+        $result = file_exists($path);
+
+        static::getCache()->set($cacheKey, $result);
+
+        return $result;
     }
 
     /**
@@ -258,10 +270,15 @@ class ExtensionManager
 
         $enabledExtensions = self::getEnabledPackageExtensions();
         if (! array_key_exists($name, $enabledExtensions)) {
+            self::$extensions[$name] = null;
             return null;
         }
 
-        return Extension::createFromConfiguration($enabledExtensions[$name]['config']);
+        $extension = Extension::createFromConfiguration($enabledExtensions[$name]['config']);
+
+        self::$extensions[$name] = $extension;
+
+        return $extension;
     }
 
     public static function getFolder($folder)
@@ -345,5 +362,18 @@ class ExtensionManager
         }
 
         return false;
+    }
+
+    public static function getCache()
+    {
+        if (is_null(static::$cache)) {
+            static::setCache(new PackageInformationCache());
+        }
+        return static::$cache;
+    }
+
+    public static function setCache(PackageInformationCache $cache)
+    {
+        static::$cache = $cache;
     }
 }

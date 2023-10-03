@@ -71,6 +71,9 @@ class Tiki_Package_ComposerCliTest extends TikiTestCase
 
         $this->root = vfsStream::setup(__CLASS__);
         $this->composerCli = new ComposerCli(vfsStream::url(__CLASS__));
+
+        $cache = new \Tiki\Package\PackageInformationCache();
+        $cache->disableCache();
     }
 
     /**
