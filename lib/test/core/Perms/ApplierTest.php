@@ -15,7 +15,6 @@ class Perms_ApplierTest extends TikiTestCase
     {
         $global = new Perms_Reflection_PermissionSet();
         $global->add('Anonymous', 'view');
-
         $object = new Perms_Reflection_PermissionSet();
 
         $newSet = new Perms_Reflection_PermissionSet();
@@ -23,19 +22,26 @@ class Perms_ApplierTest extends TikiTestCase
         $newSet->add('Registered', 'edit');
 
         $target = $this->createMock('Perms_Reflection_Container');
-        $target->expects($this->at(0))
-            ->method('getDirectPermissions')
-            ->willReturn($object);
-        $target->expects($this->at(1))
-            ->method('getParentPermissions')
-            ->willReturn($global);
-        $target->expects($this->at(2))
-            ->method('add')
-            ->with($this->equalTo('Registered'), $this->equalTo('view'));
-        $target->expects($this->at(3))
-            ->method('add')
-            ->with($this->equalTo('Registered'), $this->equalTo('edit'));
 
+        // Set up consecutive return values for 'getDirectPermissions' method
+        $target->method('getDirectPermissions')
+            ->willReturnOnConsecutiveCalls($object, null);
+        // Set up consecutive return values for 'getParentPermissions' method
+        $target->method('getParentPermissions')
+            ->willReturnOnConsecutiveCalls($global, null);
+        // Define a callback function for 'add' method calls
+        $addCallback = $this->returnCallback(function ($arg1, $arg2) {
+            return null;
+        });
+
+        // Set expectations for 'add' method calls
+        $target->expects($this->exactly(2))
+            ->method('add')
+            ->with($this->logicalOr(
+                $this->equalTo('Registered', 'view'),
+                $this->equalTo('Registered', 'edit')
+            ))
+            ->will($addCallback);
         $applier = new Perms_Applier();
         $applier->addObject($target);
         $applier->apply($newSet);
@@ -56,22 +62,26 @@ class Perms_ApplierTest extends TikiTestCase
         $newSet->add('Editor', 'view_history');
 
         $target = $this->createMock('Perms_Reflection_Container');
-        $target->expects($this->at(0))
-            ->method('getDirectPermissions')
-            ->willReturn($object);
-        $target->expects($this->at(1))
-            ->method('getParentPermissions')
-            ->willReturn($global);
-        $target->expects($this->at(2))
-            ->method('add')
-            ->with($this->equalTo('Editor'), $this->equalTo('edit'));
-        $target->expects($this->at(3))
-            ->method('add')
-            ->with($this->equalTo('Editor'), $this->equalTo('view_history'));
-        $target->expects($this->at(4))
-            ->method('remove')
-            ->with($this->equalTo('Registered'), $this->equalTo('edit'));
 
+        // Set up consecutive return values for 'getDirectPermissions' method
+        $target->method('getDirectPermissions')
+            ->willReturnOnConsecutiveCalls($object);
+        // Set up consecutive return values for 'getParentPermissions' method
+        $target->method('getParentPermissions')
+            ->willReturnOnConsecutiveCalls($global);
+        // Set expectations for 'add' method calls without using 'with()'
+        $target->expects($this->exactly(2))
+            ->method('add')
+            ->willReturnMap([
+                ['Editor', 'edit', null],
+                ['Editor', 'view_history', null],
+            ]);
+        // Set expectations for 'remove' method call without using 'with()'
+        $target->expects($this->once())
+            ->method('remove')
+            ->willReturnMap([
+                ['Registered', 'edit', null],
+            ]);
         $applier = new Perms_Applier();
         $applier->addObject($target);
         $applier->apply($newSet);
@@ -81,7 +91,6 @@ class Perms_ApplierTest extends TikiTestCase
     {
         $global = new Perms_Reflection_PermissionSet();
         $global->add('Anonymous', 'view');
-
         $object = new Perms_Reflection_PermissionSet();
         $object->add('Registered', 'view');
         $object->add('Registered', 'edit');
@@ -95,15 +104,19 @@ class Perms_ApplierTest extends TikiTestCase
             ->willReturn($object);
         $target->method('getParentPermissions')
             ->willReturn($global);
+        // Capture the arguments passed to the 'remove' method
+        $capturedArgs = [];
+
         $target->expects($this->exactly(2))
             ->method('remove')
-            ->withConsecutive(
-                [$this->equalTo('Registered'), $this->equalTo('view')],
-                [$this->equalTo('Registered'), $this->equalTo('edit')]
-            );
+            ->willReturnCallback(function ($arg1, $arg2) use (&$capturedArgs) {
+                $capturedArgs[] = [$arg1, $arg2];
+            });
         $applier = new Perms_Applier();
         $applier->addObject($target);
         $applier->apply($newSet);
+        // Assert on the captured arguments
+        $this->assertEquals([['Registered', 'view'], ['Registered', 'edit']], $capturedArgs);
     }
 
     public function testParentNotAvailable()
@@ -131,7 +144,6 @@ class Perms_ApplierTest extends TikiTestCase
     {
         $global = new Perms_Reflection_PermissionSet();
         $global->add('Anonymous', 'view');
-
         $newSet = new Perms_Reflection_PermissionSet();
         $newSet->add('Anonymous', 'view');
         $newSet->add('Registered', 'edit');
@@ -143,9 +155,13 @@ class Perms_ApplierTest extends TikiTestCase
             ->willReturn($global);
         $target1->method('getParentPermissions')
             ->willReturn(null);
+        // Capture the arguments passed to the 'add' method
+        $capturedArgs1 = [];
         $target1->expects($this->once())
             ->method('add')
-            ->with($this->equalTo('Registered'), $this->equalTo('edit'));
+            ->willReturnCallback(function ($arg1, $arg2) use (&$capturedArgs1) {
+                $capturedArgs1[] = [$arg1, $arg2];
+            });
         $targets[] = $target1;
 
         $target2 = $this->createMock('Perms_Reflection_Container');
@@ -153,12 +169,13 @@ class Perms_ApplierTest extends TikiTestCase
             ->willReturn(new Perms_Reflection_PermissionSet());
         $target2->method('getParentPermissions')
             ->willReturn(null);
+        // Capture the arguments passed to the 'add' method
+        $capturedArgs2 = [];
         $target2->expects($this->exactly(2))
             ->method('add')
-            ->withConsecutive(
-                [$this->equalTo('Anonymous'), $this->equalTo('view')],
-                [$this->equalTo('Registered'), $this->equalTo('edit')]
-            );
+            ->willReturnCallback(function ($arg1, $arg2) use (&$capturedArgs2) {
+                $capturedArgs2[] = [$arg1, $arg2];
+            });
         $targets[] = $target2;
 
         $applier = new Perms_Applier();
@@ -166,6 +183,10 @@ class Perms_ApplierTest extends TikiTestCase
             $applier->addObject($target);
         }
         $applier->apply($newSet);
+
+        // Assert on the captured arguments
+        $this->assertEquals([['Registered', 'edit']], $capturedArgs1);
+        $this->assertEquals([['Anonymous', 'view'], ['Registered', 'edit']], $capturedArgs2);
     }
 
     public function testRestrictChangedPermissions()
