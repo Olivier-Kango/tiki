@@ -175,6 +175,9 @@ function wikiplugin_toc($data, $params)
             $page_info = $structlib->s_get_page_info($pageName_ref_id);
             $structure_info = $structlib->s_get_structure_info($pageName_ref_id);
             if (isset($page_info)) {
+                if (empty($structure_info)) {
+                    return WikiParser_PluginOutput::error(tr('Error'), tr('Unable to retrieve information for page id "%0"', $pageName_ref_id));
+                }
                 $html = $structlib->get_toc($pageName_ref_id, $order, $showdesc, $shownum, $numberPrefix, $type, '', $maxdepth, $mindepth, $sortalpha, $structure_info['pageName']);
                 return "~np~$button $html $button~/np~";
             }
