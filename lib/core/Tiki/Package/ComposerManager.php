@@ -37,14 +37,20 @@ class ComposerManager
     protected $packagesConfigFile;
 
     /**
+     * @var PackageInformationCache Cache for composer and package information
+     */
+    protected PackageInformationCache $cache;
+
+    /**
      * Setups the composer.json location
      *
      * @param string $basePath
-     * @param string $workingPath
-     * @param ComposerCli $composerWrapper composer.phar wrapper, optional in the constructor to allow injection for test
-     * @param string $packagesConfigFile package config file path, optional in the constructor to allow injection for test
+     * @param string|null $workingPath
+     * @param ComposerCli|null $composerWrapper composer.phar wrapper, optional in the constructor to allow injection for test
+     * @param string|null $packagesConfigFile package config file path, optional in the constructor to allow injection for test
+     * @param PackageInformationCache|null $cache Package information cache, optional in the constructor to allow injection for test
      */
-    public function __construct($basePath, $workingPath = null, $composerWrapper = null, $packagesConfigFile = null)
+    public function __construct(string $basePath, ?string $workingPath = null, ?ComposerCli $composerWrapper = null, ?string $packagesConfigFile = null, ?PackageInformationCache $cache = null)
     {
         $this->basePath = $basePath;
 
@@ -57,6 +63,11 @@ class ComposerManager
             $packagesConfigFile = __DIR__ . DIRECTORY_SEPARATOR . self::CONFIG_PACKAGE_FILE;
         }
         $this->packagesConfigFile = $packagesConfigFile;
+
+        if (is_null($cache)) {
+            $cache = new PackageInformationCache();
+        }
+        $this->cache = $cache;
     }
 
     /**
@@ -249,6 +260,12 @@ class ComposerManager
      */
     public function getAvailable($filterInstalled = true, $filterNonInstalable = false)
     {
+        $cacheKey = [__CLASS__, 'getAvailable', $filterInstalled ? 'Y' : 'N', $filterNonInstalable ? 'Y' : 'N'];
+        $cachedResult = $this->cache->get($cacheKey, null);
+        if ($cachedResult !== null) {
+            return $cachedResult;
+        }
+
         $installedPackages = [];
         if ($filterInstalled) {
             $installedPackages = $this->getListOfInstalledPackages($filterInstalled);
@@ -259,6 +276,8 @@ class ComposerManager
         if ($filterNonInstalable) {
             $availablePackages = $this->getListOfInstalablePackages($availablePackages);
         }
+
+        $this->cache->set($cacheKey, $availablePackages);
 
         return $availablePackages;
     }
@@ -492,12 +511,19 @@ class ComposerManager
      */
     public function isInstalled(string $packageName): bool
     {
-        $installedPackages = $this->getInstalled(true);
-        foreach ($installedPackages as $name => $info) {
-            if ($packageName === $name) {
-                return true;
-            }
+        $cacheKey = [__CLASS__, 'package', $packageName];
+
+        $installed = $this->cache->get($cacheKey, null);
+        if ($installed !== null) {
+            return $installed;
         }
-        return false;
+
+        $installedPackages = $this->composerWrapper->getListOfPackagesFromLock();
+
+        $installed = isset($installedPackages[$packageName]);
+
+        $this->cache->set($cacheKey, $installed);
+
+        return $installed;
     }
 }
