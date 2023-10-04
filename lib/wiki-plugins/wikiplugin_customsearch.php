@@ -457,7 +457,7 @@ window.customsearch_$id = customsearch$id;
             $match->replaceWith('');
             continue;
         }
-
+        $default = '';
         if ($defaultRequest) {
             foreach ($defaultRequest as $key => $value) {
                 if (! empty($arguments['id']) && $key === $arguments['id']) {
