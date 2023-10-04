@@ -270,7 +270,7 @@ class Table_Plugin
                         '</code>'
                     ) .
                     '<code>delivery:d;saveFileName:exported_teblesorter.csv</code>',
-                'since' => '12.0',
+                'since' => '24.5',
                 'doctype' => 'tablesorter',
                 'default' => '',
                 'filter' => 'striptags',
