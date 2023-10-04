@@ -199,6 +199,7 @@
     </div>
 
 </form>
+{$checkboxVisible = (isset($tableparams.checkboxVisible) and $tableparams.checkboxVisible eq 'y')}
 {jq}
 (function(){
     var countChecked = function() {
@@ -214,10 +215,15 @@
     };
     $('#listexecute-{{$iListExecute}} .listexecute-select-all').removeClass('listexecute-select-all')
         .on('click', function (e) {
-            $(this).closest('form').find('tbody :checkbox:not(:disabled)').each(function () {
+            $(this).closest('form').find('tbody :checkbox{{if $checkboxVisible}}:visible{{/if}}:not(:disabled)').each(function () {
                 $(this).prop("checked", ! $(this).prop("checked"));
             }).promise().done(function(){ countChecked(); });
         });
+    {{if $checkboxVisible}}
+        $( "#{{$id}}" ).on( 'tablesorter-ready', function() {
+            $(this).data("tablesorter").checkboxVisible = true;
+        });
+    {{/if}}
     $('#listexecute-{{$iListExecute}}').find('select[name=list_action]')
         .on('change', function() {
             var valueSel = $('select#check_submit_select_{{$id}}').val();
