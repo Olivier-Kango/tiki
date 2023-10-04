@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 use TikiLib;
 
 class UsersPasswordCommand extends Command
@@ -33,7 +34,7 @@ class UsersPasswordCommand extends Command
             )
             ->addArgument(
                 'password',
-                InputArgument::REQUIRED,
+                InputArgument::OPTIONAL,
                 'User new password'
             );
     }
@@ -53,7 +54,22 @@ class UsersPasswordCommand extends Command
             exit(1);
         }
 
-        $password = $input->getArgument('password');
+        if (empty($password)) {
+            $password = getenv('PASSWORD');
+            if (empty($password)) {
+                // Prompt the user for the password interactively
+                $helper = $this->getHelper('question');
+                $question = new Question('Please enter the new password: ');
+                $question->setHidden(true);
+                $question->setHiddenFallback(false);
+                $password = $helper->ask($input, $output, $question);
+            }
+        }
+
+        if (empty($password)) {
+            $output->writeln("<error>Password cannot be empty.</error>");
+            exit(1);
+        }
 
         // Check password constraints
         $polerr = $userlib->check_password_policy($password);
