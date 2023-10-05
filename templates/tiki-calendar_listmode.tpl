@@ -52,7 +52,7 @@
                                     </a>
                                 </action>
                                 <action>
-                                    <a class="text-danger click-modal" href="tiki-calendar-delete_item?calitemId={$event.calitemId}">
+                                    <a class="text-danger" href="#"  onclick="deletecalItem({$event.calitemId})">
                                         {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                     </a>
                                 </action>
