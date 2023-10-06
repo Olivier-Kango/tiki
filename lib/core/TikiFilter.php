@@ -173,8 +173,7 @@ class TikiFilter
             case 'string':
             case 'password':
                 // Test Return " :/g.,:|4h&#Δ δ_🍘コン onclick "
-                // Strips XML and HTML tags
-                return new StripTags();
+                return new TikiFilter_StripTags();
 
             /** HTML Permitted, String Return Type **/
             case 'purifier':

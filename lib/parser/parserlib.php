@@ -170,7 +170,7 @@ class ParserLib extends TikiDb_Bridge
     }
 
     // This function removed the protection of html entities so that they are rendered as expected by the viewer
-    public function unprotectSpecialChars($data, $is_html = false)
+    public function unprotectSpecialChars($data = '', $is_html = false)
     {
         if (
             ( $is_html != false || ( isset($this->option['is_html']) && $this->option['is_html']))
