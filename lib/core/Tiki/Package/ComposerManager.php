@@ -255,12 +255,12 @@ class ComposerManager
      * Get List of available (defined) packages
      *
      * @param bool $filterInstalled don't return if the package is already installed
-     * @param bool $filterNonInstalable don't return if the package cannot be installed (actions)
+     * @param bool $filterNonInstallable don't return if the package cannot be installed (actions)
      * @return array
      */
-    public function getAvailable($filterInstalled = true, $filterNonInstalable = false)
+    public function getAvailable($filterInstalled = true, $filterNonInstallable = false)
     {
-        $cacheKey = [__CLASS__, 'getAvailable', $filterInstalled ? 'Y' : 'N', $filterNonInstalable ? 'Y' : 'N'];
+        $cacheKey = [__CLASS__, 'getAvailable', $filterInstalled ? 'Y' : 'N', $filterNonInstallable ? 'Y' : 'N'];
         $cachedResult = $this->cache->get($cacheKey, null);
         if ($cachedResult !== null) {
             return $cachedResult;
@@ -273,8 +273,8 @@ class ComposerManager
 
         $availablePackages = $this->manageYaml('list', $installedPackages);
 
-        if ($filterNonInstalable) {
-            $availablePackages = $this->getListOfInstalablePackages($availablePackages);
+        if ($filterNonInstallable) {
+            $availablePackages = $this->getListOfInstallablePackages($availablePackages);
         }
 
         $this->cache->set($cacheKey, $availablePackages);
@@ -312,7 +312,7 @@ class ComposerManager
      * @param $availablePackages
      * @return array
      */
-    protected function getListOfInstalablePackages($availablePackages)
+    protected function getListOfInstallablePackages($availablePackages)
     {
         $canBeInstalled = [];
         if ($availablePackages) {
