@@ -45,6 +45,30 @@ class AttributeLib extends TikiDb_Bridge
         return $this->cache[$type . $objectId];
     }
 
+        /**
+     * Get all value of one attribute for all objects
+     *
+     * @param $type string      One of \ObjectLib::get_supported_types()
+     * @param $objectId mixed   Object id (or name for wiki pages)
+     * @return array            Array [attribute => value]
+     */
+    public function getAllAttributes($attribute)
+    {
+        $tab = [];
+        $allattributes = [];
+        $tab = $this->attributes->fetchAll(
+            [
+                'value' => 'value',
+                'itemId' => 'itemId',
+            ],
+            ['attribute' => $attribute,]
+        );
+        foreach ($tab as $att) {
+            $allattributes[$att['itemId']] = $att['value'];
+        }
+        return $allattributes;
+    }
+
     /**
      * Get a single attribute
      *

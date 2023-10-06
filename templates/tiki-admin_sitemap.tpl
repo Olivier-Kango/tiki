@@ -1,3 +1,8 @@
+{* $Id$ *}
+
+{remarksbox type="warning" title="{tr}Warning{/tr}" close="n"}
+    {tr}We centralize all the options that participate in the improvement of the SEO of the Tiki application. Next Tiki version will contain more options here. Go to Advanced -> SEO preferences to generate your sitemap or on <a href="tiki-admin.php?page=seoprefs" class="alert-link"> tiki-admin.php?page=seoprefs</a>{/tr}
+{/remarksbox}
 {title help="Sitemap" admpage="general&cookietab=3&highlight=sitemap_enable"}{tr}Sitemap{/tr}{/title}
 
 {button href="tiki-admin_sitemap.php?rebuild=1" _icon_name="sitemap" class="btn btn-primary" _text="{tr}Rebuild sitemap{/tr}"}

@@ -345,6 +345,11 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'description' => tr('Orphan (leftover) preferences'),
                     'help'        => 'Orphan preferences',
                 ],
+                'seoprefs' => [
+                    'title'       => tr('SEO Preferences'),
+                    'description' => tr("Boost your application's web referencing"),
+                    'help'        => 'SEO preferences',
+                ],
             ],
         ],
     ];
