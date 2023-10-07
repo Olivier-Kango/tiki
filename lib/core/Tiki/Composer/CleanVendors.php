@@ -346,7 +346,6 @@ class CleanVendors
                 'docs'
             ]
         );
-        self::remove($vendors . 'twbs/bootstrap/site', '_data/examples.yml');
         self::remove($vendors . 'Sam152/Javascript-Equal-Height-Responsive-Rows', 'grids.js');
         self::remove(
             $vendors . 'npm-asset/prefixfree',

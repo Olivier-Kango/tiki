@@ -304,10 +304,9 @@ if ($prefs['feature_theme_control'] == 'y'  and isset($_REQUEST['calIds'])) {
 }
 include_once('tiki-section_options.php');
 
-$headerlib->add_cssfile('vendor_bundled/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css');
+    $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/bootstrap-icons/font/bootstrap-icons.css');
 // Disable fullcalendar's force events to be one-line tall
 $headerlib->add_css('.fc-day-grid-event > .fc-content { white-space: normal; }');
-$headerlib->add_js_module('import "@tiki/tiki-calendar";');
 if ($canEditAnything) {
     $smarty->assign('minHourOfDay', $minHourOfDay . ':00:00');
     $smarty->assign('maxHourOfDay', $maxHourOfDay . ':00:00');

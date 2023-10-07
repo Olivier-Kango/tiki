@@ -1,13 +1,13 @@
 // Values are specified here to be used in the files imported by tiki_base.scss and theme style sheets.
 
 @import "../../default/scss/variables";
-// @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins/buttons";
+// @import "../../../node_modules/bootstrap/scss/mixins/buttons";
 
 // Override Bootstrap variables
 $enable-negative-margins: true !default;
 $text-muted: var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #53595F !default;
 $form-text: $text-muted !default;
-$padding-y: .5rem !default; // vendor/twbs/bootstrap/scss/bootstrap-grid
+$padding-y: .5rem !default; // node_modules/bootstrap/scss/bootstrap-grid
 $padding-x: .75rem !default;
 
 $tiki-module-h3-card-title-font-size: $h4-font-size !default;
@@ -41,8 +41,6 @@ $tiki-top-margin-compensation-for-side-col-toggle: -$line-height-base !default;
 // $admbox-off-hover-color: darken($btn-primary-color, 40%) !default; //#666666
 
 $tiki-table-column-bg-odd: var(--bs-table-striped-bg); // darken($table-accent-bg, 5%) !default;
-// Correction for path for sorich87/bootstrap-tour's bootstrap-tour-standalone.less (maybe obsolete? This is only instance of this variable - Aug. 2022)
-$tiki-bootstrap-path: "../../../twbs/bootstrap/scss/" !default;
 
 // inline code
 $code-color: var(--bs-body-color); // $body-color; // var(--bs-body-color); // $gray-900;

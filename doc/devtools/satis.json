@@ -2149,7 +2149,6 @@
         "haubek/bootstrap4c-chosen": "^1.0",
         "harvesthq/chosen": "^1.8",
         "npm-asset/select2": "^4.0",
-        "npm-asset/ttskch--select2-bootstrap4-theme": "^1.5",
         "npm-asset/select2-bootstrap-5-theme": "^1.2",
         "npm-asset/interactjs": "^1.10",
         "onelogin/php-saml": ">=2.10.0",

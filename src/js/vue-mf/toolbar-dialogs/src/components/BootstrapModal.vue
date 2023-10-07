@@ -4,7 +4,7 @@
  * Largely from https://stackoverflow.com/a/71461086/2459703
  */
 
-import Modal from "../../../../../../vendor_bundled/vendor/twbs/bootstrap/js/src/modal.js";
+import {Modal} from "bootstrap";
 import {reactive, onMounted, ref} from "vue";
 
 const state = reactive({
@@ -24,7 +24,7 @@ defineProps({
 let modalElement = ref(null);
 
 onMounted(() => {
-    state.modal_demo = new bootstrap.Modal(modalElement.value, {})
+    state.modal_demo = new Modal(modalElement.value, {})
 });
 
 function _shown(e) {

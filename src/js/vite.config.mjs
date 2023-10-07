@@ -112,7 +112,7 @@ export default defineConfig(({ command, mode }) => ({
             //exclude: ["svelte"],
         },
         rollupOptions: {
-            external: ["vue", "moment", /^@vue-mf\/.+/],
+            external: ["vue", "moment", /^@vue-mf\/.+/, "bootstrap"],
             //external: [/^@vue-mf\/.+/],
             //external: ["vue"],
             input: {
@@ -163,22 +163,42 @@ export default defineConfig(({ command, mode }) => ({
 
         viteStaticCopy({
             //This object should really be imported from a file in common-externals
+            //In development, this should be served directly from node_modules once we have vite dev server working
             targets: [
+                /* jquery_tiki */
                 {
-                    src: "node_modules/@fullcalendar/core/index.global.min.js",
-                    dest: "",
+                    src: "node_modules/bootstrap/dist/css/bootstrap.min.*",
+                    dest: "vendor_dist/bootstrap/dist/css",
                 },
                 {
+                    src: "node_modules/bootstrap/dist/js/bootstrap.esm.min.js",
+                    dest: "vendor_dist/bootstrap/dist/js",
+                },
+                {
+                    src: "node_modules/@popperjs/core/dist/esm/*",
+                    dest: "vendor_dist/@popperjs/core/dist/esm",
+                },
+                {
+                    src: "node_modules/bootstrap-icons/font/*",
+                    dest: "vendor_dist/bootstrap-icons/font",
+                },
+                /* module system */
+                {
                     src: "node_modules/es-module-shims/dist/es-module-shims.js",
-                    dest: "",
+                    dest: "vendor_dist/es-module-shims/dist",
+                },
+                /* common_externals */
+                {
+                    src: "node_modules/clipboard/dist/*",
+                    dest: "vendor_dist/clipboard/dist",
                 },
                 {
                     src: "node_modules/moment/dist/*",
-                    dest: "common_externals/moment",
+                    dest: "vendor_dist/moment/dist",
                 },
                 {
                     src: "node_modules/vue/dist/vue.esm-browser.prod.js",
-                    dest: "common_externals/vue",
+                    dest: "vendor_dist/moment/vue",
                 },
             ],
         }),

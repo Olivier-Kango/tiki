@@ -1,6 +1,6 @@
 // Custom variables for the Plum theme option of the FiveAlive and FiveAlive-lite themes
 
-// - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+// - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 // Color system
 
 // scss-docs-start gray-color-variables
@@ -253,7 +253,7 @@ $footer_liner-border-color: $footer-accent-color;
 // at the bottom of the file but by default they use the child theme's theme-colors. There appears to be redundancy in defining colors but each line is necessary.
 // There are unique names for the child theme button colors to avoid any conflict with the general theme colors.
 
-// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
+// The following are default values from node_modules/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
 // Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
 $yiq-contrasted-threshold:  150;
 $gray-600: #6c757d !default;

@@ -37,5 +37,9 @@ const TIKI_VENDOR_PATH = 'vendor'; //VENDOR_PATH caused a problem with CYPHT
 const TIKI_VENDOR_BUNDLED_PATH = 'vendor_bundled';
 const TIKI_VENDOR_CUSTOM_PATH = 'vendor_custom';
 
+
 /* Javascript  */
+const JS_ASSETS_PATH = 'public/generated/js';
 const CSS_ASSETS_PATH = 'public/generated/js/';
+/** This is the path for JS vendor files that would normall be served by a content delivery network.  We both bundle these files in the tarball, and (usually) serve them locally. */
+const NODE_PUBLIC_DIST_PATH = 'public/generated/js/vendor_dist';

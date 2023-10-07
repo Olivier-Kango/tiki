@@ -242,39 +242,15 @@
         <script type="text/javascript" src="https://ws.sharethis.com/button/sharethis.js#type=website&amp;buttonText=&amp;onmouseover=false&amp;send_services=aim"></script>
     {/if}
 {/if}
-{if $prefs.vuejs_enable eq 'y'}
 
-    <script async src="{$tikiroot}public/generated/js/es-module-shims.js"></script>
-
-    <script type="importmap">
-        {
-            "imports": {
-                {* common_externals *}
-                "moment": "{$tikiroot}public/generated/js/common_externals/moment/moment.js", 
-                "vue": "{$tikiroot}public/generated/js/common_externals/vue/vue.esm-browser.prod.js",
-                {* jquery_tiki *}
-                "@tiki/tiki-calendar": "{$tikiroot}public/generated/js/tiki-calendar.js",
-                "@tiki/wikiplugin-trackercalendar": "{$tikiroot}public/generated/js/wikiplugin-trackercalendar.js",
-                {* single-spa microfrontends and common files (root and styleguide) *}
-                "@vue-mf/root-config": "{$tikiroot}public/generated/js/root-config.js",
-                "@vue-mf/styleguide": "{$tikiroot}public/generated/js/styleguide.js", 
-                {*"@vue-mf/kanban": "{$tikiroot}public/generated/js/main.js",*}
-                "@vue-mf/kanban": "{$tikiroot}public/generated/js/kanban.js",
-                "@vue-mf/duration-picker": "{$tikiroot}public/generated/js/duration-picker.js",
-                "@vue-mf/toolbar-dialogs": "{$tikiroot}public/generated/js/toolbar-dialogs.js",
-                "@vue-mf/emoji-picker": "{$tikiroot}public/generated/js/emoji-picker.js"
-            }
-        }
-    </script>
-    <script type="module">
-        import "@vue-mf/root-config";
-    </script>
-
-{/if}
 <!--[if lt IE 9]>{* according to http://remysharp.com/2009/01/07/html5-enabling-script/ *}
     <script src="vendor_bundled/vendor/afarkas/html5shiv/dist/html5shiv.min.js" type="text/javascript"></script>
 <![endif]-->
-{if $headerlib}        {$headerlib->output_headers()}{/if}
+
+{if $headerlib} 
+    {$headerlib->output_headers()}
+{/if}
+
 {if !empty($prefs.feature_custom_html_head_content)}
     {eval var=$prefs.feature_custom_html_head_content}
 {/if}

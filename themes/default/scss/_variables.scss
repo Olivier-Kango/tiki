@@ -1,10 +1,10 @@
-// - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+// - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 
 $link-decoration: none !default;
 $lead-font-weight: inherit;
 
 
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables";
 
 $code-color: $body-color;
 

@@ -990,7 +990,7 @@ if ($prefs['feature_realtime'] == 'y') {
 }
 
 if ($prefs['feature_calendar'] === 'y') {
-    $headerlib->add_jsfile('lib/jquery_tiki/tiki-calendar.js');
+    $headerlib->add_js_module('import "@tiki/tiki-calendar";');
 }
 
 // Using boomerang for performance monitoring

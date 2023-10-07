@@ -2,8 +2,8 @@
 //@import "_bs3-bs4-transition.scss";
 //@import "_tiki-variables.scss";
 $imagePathToImgDir: "../../../img/";
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_mixins.scss"; //
-//@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss";
+@import "../../../node_modules/bootstrap/scss/_mixins.scss"; //
+//@import "../../../node_modules/bootstrap/scss/_variables.scss";
 @import "../../default/scss/variables";
 
 // .topbar { margin-bottom: $tiki-topbar-row-margin-bottom; } - topbar is inside a wrapper so shouldn't have its own bottom margin - gary
@@ -389,7 +389,7 @@ form.simple label .warning {
     }
 }
 
-// Cancelling the hardcoded direction of the padding in the navbar set at vendor_bundled/vendor/twbs/bootstrap/scss/_navbar.scss line:71
+// Cancelling the hardcoded direction of the padding in the navbar set at node_modules/bootstrap/scss/_navbar.scss line:71
 // Padding (any) is not needed in LTR and padding-left is not wanted in RTL languages
 
 .navbar-nav {

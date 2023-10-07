@@ -1,6 +1,6 @@
 //Custom styles for the FiveAlive Grape option theme.
 
-// - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+// - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 // Color system
 
 // scss-docs-start gray-color-variables
@@ -93,7 +93,7 @@ $theme-colors: (
     "dark":                #8e286a
 );
 
-// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
+// The following are default values from node_modules/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
 // Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
 $min-contrast-ratio:  3;
 

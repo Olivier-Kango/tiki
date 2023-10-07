@@ -1,6 +1,6 @@
 // Custom variables for the Raspberry theme option of the FiveAlive-lite theme
 
-// - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+// - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 // Color system
 
 // scss-docs-start gray-color-variables
@@ -102,7 +102,7 @@ $theme-colors: map-merge(
         $theme-colors
 );
 
-// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
+// The following are default values from node_modules/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
 // Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
 
 $gray-600: #6c757d !default;

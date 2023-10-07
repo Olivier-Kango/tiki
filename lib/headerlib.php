@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+require_once("path_js_importmap_generator.php");
 /**
  * Add Javascript and CSS to output
  * Javascript and CSS can be added:
@@ -525,8 +527,8 @@ class HeaderLib
         ksort($this->cssfiles);
         ksort($this->css);
         ksort($this->rssfeeds);
-
-        $back = "\n";
+        $back = generateJsImportmapScripts();
+        $back .= "\n";
         if ($this->title) {
             $back = '<title>' . smarty_modifier_escape($this->title) . "</title>\n\n";
         }

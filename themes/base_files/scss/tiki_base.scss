@@ -1,11 +1,11 @@
 /*
     This Tiki Wiki CMS Groupware file contains global design
     and layout properties. */
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/functions";
 
 @import "../../default/scss/_variables.scss";
 
-// @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss"; Already imported by vendor bootstrap.scss
+// @import "../../../node_modules/bootstrap/scss/_variables.scss"; Already imported by vendor bootstrap.scss
 
 // Load bootstrap4c-chosen variables and svn to uri converter
 @import "../../../vendor_bundled/vendor/npm-asset/sass-svg-uri/_svg-uri.scss";

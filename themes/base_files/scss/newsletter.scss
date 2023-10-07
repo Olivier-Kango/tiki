@@ -1,7 +1,7 @@
 // For newsletter styling. Variables defined in tiki-variables.scss. A theme-specific newsletter.css file can be loaded with priority.
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_functions.scss";
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/variables.scss";
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins.scss";
+@import "../../../node_modules/bootstrap/scss/_functions.scss";
+@import "../../../node_modules/bootstrap/scss/variables.scss";
+@import "../../../node_modules/bootstrap/scss/mixins.scss";
 // $import "../../../vendor_bundled/vendor/twbs/bootstrap/less/panels.less";
 @import "_tiki-variables.scss";
 

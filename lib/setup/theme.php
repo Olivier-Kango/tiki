@@ -49,9 +49,13 @@ if (! empty($_SESSION['try_theme'])) {
 
 //START loading theme related items
 //This bundle Loads bootstrap JS and popper JS
-$headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js');
 
-$headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/site/assets/js/vendor/clipboard.min.js');
+//We now use popper elsewhere, so use the bootstrap that doesn't include it.  + Use esm bundle https://getbootstrap.com/docs/5.0/getting-started/contents/#precompiled-bootstrap
+
+$headerlib->add_js_module('
+    import * as bootstrap from "bootstrap";
+');
+$headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/clipboard/dist/clipboard.min.js');
 
 if ($prefs['feature_fixed_width'] === 'y') {
     $headerlib->add_css(
@@ -69,7 +73,7 @@ $headerlib->add_cssfile('vendor_bundled/vendor/bower-asset/fontawesome/css/all.c
 
 // 3a) Optionally add bundled Bootstrap-icons CSS for the optional Bootstrap icons
 if ($prefs['theme_iconset'] === 'bootstrap_icon_font') {
-    $headerlib->add_cssfile('vendor_bundled/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css');
+    $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/bootstrap-icons/font/bootstrap-icons.css');
 }
 
 //4) Add Addon custom css first, so it can be overridden by themes

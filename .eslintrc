@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true,
+        "commonjs": false,
         "es6": true,
         "jquery": true
     },
@@ -14,6 +14,7 @@
         ]
     },
     "parserOptions": {
-        "ecmaVersion": 11
+        "ecmaVersion": 11,
+        "sourceType": "module"
     }
 }

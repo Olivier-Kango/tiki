@@ -4018,7 +4018,7 @@ function createPage($title, $content)
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link type="text/css" rel="stylesheet" href="//dev.tiki.org/vendor_bundled/vendor/twbs/bootstrap/dist/css/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="//dev.tiki.org/public/generated/js/vendor_dist/bootstrap/dist/css/bootstrap.min.css" />
         <title>$title</title>
         <style type="text/css">
             table { border-collapse: collapse;}
