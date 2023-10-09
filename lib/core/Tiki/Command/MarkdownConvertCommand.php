@@ -8,6 +8,7 @@ namespace Tiki\Command;
 
 use Exception;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -54,6 +55,11 @@ class MarkdownConvertCommand extends Command
                 null,
                 InputOption::VALUE_NONE,
                 'Convert contents of specified pages to the target syntax'
+            )
+            ->addArgument(
+                'exclude',
+                InputArgument::IS_ARRAY,
+                'Pages to exclude when converting all pages'
             );
     }
 
@@ -83,7 +89,8 @@ class MarkdownConvertCommand extends Command
             }
             $pages = [$pageInfo];
         } else {
-            $allPages = $tikilib->list_pages();
+            $excluded = $input->getArgument('exclude');
+            $allPages = $tikilib->list_pages(exclude_pages: $excluded);
             $pages = $allPages['data'] ?: [];
         }
 
