@@ -134,7 +134,7 @@
             </ul>
         </form>
 
-      {*  {include file="admin/admin_navbar_menu.tpl"} *}
+        {include file="admin/admin_navbar_menu.tpl"}
         {if $prefs.theme_unified_admin_backend neq 'y'}
             <ul class="navbar-nav flex-row d-md-flex me-4">
                 <li class="nav-item">
