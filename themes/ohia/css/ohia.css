@@ -2,7 +2,7 @@
 /*  The Ohia theme stylesheet for Tiki Wiki CMS Groupware. */
 @import url(https://fonts.bunny.net/css?family=alegreya-sans:400,400i|alegreya-sans-sc:400,400i,700);
 /*!
-   * Bootstrap  v5.3.1 (https://getbootstrap.com/)
+   * Bootstrap  v5.3.2 (https://getbootstrap.com/)
    * Copyright 2011-2023 The Bootstrap Authors
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
@@ -121,6 +121,7 @@ header.navbar.fixed-top {
   --bs-link-hover-color-rgb: 244, 244, 244;
   --bs-link-hover-decoration: none;
   --bs-code-color: #DEE1E6;
+  --bs-highlight-color: #DEE1E6;
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -265,6 +266,7 @@ small, .small {
 }
 mark, .mark {
   padding: 0.1875em;
+  color: var(--bs-highlight-color);
   background-color: var(--bs-highlight-bg);
 }
 sub, sup {
@@ -674,7 +676,7 @@ progress {
 }
 .row-cols-3 > * {
   flex: 0 0 auto;
-  width: 33.3333333333%;
+  width: 33.33333333%;
 }
 .row-cols-4 > * {
   flex: 0 0 auto;
@@ -686,7 +688,7 @@ progress {
 }
 .row-cols-6 > * {
   flex: 0 0 auto;
-  width: 16.6666666667%;
+  width: 16.66666667%;
 }
 .col-auto {
   flex: 0 0 auto;
@@ -827,7 +829,7 @@ progress {
   }
   .row-cols-sm-3 > * {
     flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-sm-4 > * {
     flex: 0 0 auto;
@@ -839,7 +841,7 @@ progress {
   }
   .row-cols-sm-6 > * {
     flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-sm-auto {
     flex: 0 0 auto;
@@ -984,7 +986,7 @@ progress {
   }
   .row-cols-md-3 > * {
     flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-md-4 > * {
     flex: 0 0 auto;
@@ -996,7 +998,7 @@ progress {
   }
   .row-cols-md-6 > * {
     flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-md-auto {
     flex: 0 0 auto;
@@ -1141,7 +1143,7 @@ progress {
   }
   .row-cols-lg-3 > * {
     flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-lg-4 > * {
     flex: 0 0 auto;
@@ -1153,7 +1155,7 @@ progress {
   }
   .row-cols-lg-6 > * {
     flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-lg-auto {
     flex: 0 0 auto;
@@ -1298,7 +1300,7 @@ progress {
   }
   .row-cols-xl-3 > * {
     flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-xl-4 > * {
     flex: 0 0 auto;
@@ -1310,7 +1312,7 @@ progress {
   }
   .row-cols-xl-6 > * {
     flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-xl-auto {
     flex: 0 0 auto;
@@ -1455,7 +1457,7 @@ progress {
   }
   .row-cols-xxl-3 > * {
     flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-xxl-4 > * {
     flex: 0 0 auto;
@@ -1467,7 +1469,7 @@ progress {
   }
   .row-cols-xxl-6 > * {
     flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-xxl-auto {
     flex: 0 0 auto;
@@ -1599,16 +1601,16 @@ progress {
   --bs-table-bg-type: initial;
   --bs-table-color-state: initial;
   --bs-table-bg-state: initial;
-  --bs-table-color: var(--bs-body-color);
+  --bs-table-color: var(--bs-emphasis-color);
   --bs-table-bg: transparent;
   --bs-table-border-color: #696969;
   --bs-table-accent-bg: transparent;
-  --bs-table-striped-color: var(--bs-body-color);
-  --bs-table-striped-bg: rgba(3, 3, 3, 0.05);
-  --bs-table-active-color: var(--bs-body-color);
-  --bs-table-active-bg: rgba(3, 3, 3, 0.1);
-  --bs-table-hover-color: var(--bs-body-color);
-  --bs-table-hover-bg: rgba(3, 3, 3, 0.075);
+  --bs-table-striped-color: var(--bs-emphasis-color);
+  --bs-table-striped-bg: rgba(var(--bs-emphasis-color-rgb), 0.05);
+  --bs-table-active-color: var(--bs-emphasis-color);
+  --bs-table-active-bg: rgba(var(--bs-emphasis-color-rgb), 0.1);
+  --bs-table-hover-color: var(--bs-emphasis-color);
+  --bs-table-hover-bg: rgba(var(--bs-emphasis-color-rgb), 0.075);
   width: 100%;
   margin-bottom: 1rem;
   vertical-align: top;
@@ -1667,7 +1669,7 @@ progress {
 .table-primary {
   --bs-table-color: #030303;
   --bs-table-bg: #e6edcf;
-  --bs-table-border-color: #cfd6bb;
+  --bs-table-border-color: #b9bea6;
   --bs-table-striped-bg: #dbe1c5;
   --bs-table-striped-color: #030303;
   --bs-table-active-bg: #cfd6bb;
@@ -1680,7 +1682,7 @@ progress {
 .table-secondary {
   --bs-table-color: #030303;
   --bs-table-bg: #dbdfce;
-  --bs-table-border-color: #c5c9ba;
+  --bs-table-border-color: #b0b3a5;
   --bs-table-striped-bg: #d0d4c4;
   --bs-table-striped-color: #030303;
   --bs-table-active-bg: #c5c9ba;
@@ -1693,7 +1695,7 @@ progress {
 .table-success {
   --bs-table-color: #030303;
   --bs-table-bg: #ccdfed;
-  --bs-table-border-color: #b8c9d6;
+  --bs-table-border-color: #a4b3be;
   --bs-table-striped-bg: #c2d4e1;
   --bs-table-striped-color: #030303;
   --bs-table-active-bg: #b8c9d6;
@@ -1706,7 +1708,7 @@ progress {
 .table-info {
   --bs-table-color: #030303;
   --bs-table-bg: #d7e7f6;
-  --bs-table-border-color: #c2d0de;
+  --bs-table-border-color: #adb9c5;
   --bs-table-striped-bg: #ccdcea;
   --bs-table-striped-color: #030303;
   --bs-table-active-bg: #c2d0de;
@@ -1719,7 +1721,7 @@ progress {
 .table-warning {
   --bs-table-color: #030303;
   --bs-table-bg: #f5eddd;
-  --bs-table-border-color: #ddd6c7;
+  --bs-table-border-color: #c5beb1;
   --bs-table-striped-bg: #e9e1d2;
   --bs-table-striped-color: #030303;
   --bs-table-active-bg: #ddd6c7;
@@ -1732,7 +1734,7 @@ progress {
 .table-danger {
   --bs-table-color: #030303;
   --bs-table-bg: #fecccc;
-  --bs-table-border-color: #e5b8b8;
+  --bs-table-border-color: #cca4a4;
   --bs-table-striped-bg: #f1c2c2;
   --bs-table-striped-color: #030303;
   --bs-table-active-bg: #e5b8b8;
@@ -1745,7 +1747,7 @@ progress {
 .table-light {
   --bs-table-color: #030303;
   --bs-table-bg: #3585D0;
-  --bs-table-border-color: #3078bc;
+  --bs-table-border-color: #2b6ba7;
   --bs-table-striped-bg: #337fc6;
   --bs-table-striped-color: #030303;
   --bs-table-active-bg: #3078bc;
@@ -1758,7 +1760,7 @@ progress {
 .table-dark {
   --bs-table-color: #fff;
   --bs-table-bg: #030303;
-  --bs-table-border-color: #1c1c1c;
+  --bs-table-border-color: #353535;
   --bs-table-striped-bg: #101010;
   --bs-table-striped-color: #fff;
   --bs-table-active-bg: #1c1c1c;
@@ -2061,6 +2063,7 @@ textarea.form-control-lg {
 }
 .form-check-input {
   --bs-form-check-bg: #242424;
+  flex-shrink: 0;
   width: 1em;
   height: 1em;
   margin-top: 0.25em;
@@ -2206,7 +2209,7 @@ textarea.form-control-lg {
   height: 0.5rem;
   color: transparent;
   cursor: pointer;
-  background-color: var(--bs-tertiary-bg);
+  background-color: var(--bs-secondary-bg);
   border-color: transparent;
   border-radius: 1rem;
 }
@@ -2232,7 +2235,7 @@ textarea.form-control-lg {
   height: 0.5rem;
   color: transparent;
   cursor: pointer;
-  background-color: var(--bs-tertiary-bg);
+  background-color: var(--bs-secondary-bg);
   border-color: transparent;
   border-radius: 1rem;
 }
@@ -2911,7 +2914,7 @@ textarea.form-control-lg {
   --bs-dropdown-inner-border-radius: calc(var(--bs-border-radius) - var(--bs-border-width));
   --bs-dropdown-divider-bg: black;
   --bs-dropdown-divider-margin-y: 0.5rem;
-  --bs-dropdown-box-shadow: 0 0.5rem 1rem rgba(3, 3, 3, 0.15);
+  --bs-dropdown-box-shadow: var(--bs-box-shadow);
   --bs-dropdown-link-color: #80A60F;
   --bs-dropdown-link-hover-color: #80A60F;
   --bs-dropdown-link-hover-bg: var(--bs-tertiary-bg);
@@ -4748,7 +4751,7 @@ textarea.form-control-lg {
   --bs-modal-border-color: rgba(0, 0, 0, 0.2);
   --bs-modal-border-width: var(--bs-border-width);
   --bs-modal-border-radius: var(--bs-border-radius-lg);
-  --bs-modal-box-shadow: 0 0.125rem 0.25rem rgba(3, 3, 3, 0.075);
+  --bs-modal-box-shadow: var(--bs-box-shadow-sm);
   --bs-modal-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
   --bs-modal-header-padding-x: 1rem;
   --bs-modal-header-padding-y: 1rem;
@@ -4879,7 +4882,7 @@ textarea.form-control-lg {
 @media (min-width: 576px) {
   .modal {
     --bs-modal-margin: 1.75rem;
-    --bs-modal-box-shadow: 0 0.5rem 1rem rgba(3, 3, 3, 0.15);
+    --bs-modal-box-shadow: var(--bs-box-shadow);
   }
   .modal-dialog {
     max-width: var(--bs-modal-width);
@@ -5117,7 +5120,7 @@ textarea.form-control-lg {
   --bs-popover-border-color: rgba(0, 0, 0, 0.2);
   --bs-popover-border-radius: var(--bs-border-radius-lg);
   --bs-popover-inner-border-radius: calc(var(--bs-border-radius-lg) - var(--bs-border-width));
-  --bs-popover-box-shadow: 0 0.5rem 1rem rgba(3, 3, 3, 0.15);
+  --bs-popover-box-shadow: var(--bs-box-shadow);
   --bs-popover-header-padding-x: 1rem;
   --bs-popover-header-padding-y: 0.5rem;
   --bs-popover-header-font-size: 1.2rem;
@@ -5494,7 +5497,7 @@ textarea.form-control-lg {
   --bs-offcanvas-bg: var(--bs-body-bg);
   --bs-offcanvas-border-width: var(--bs-border-width);
   --bs-offcanvas-border-color: rgba(0, 0, 0, 0.2);
-  --bs-offcanvas-box-shadow: 0 0.125rem 0.25rem rgba(3, 3, 3, 0.075);
+  --bs-offcanvas-box-shadow: var(--bs-box-shadow-sm);
   --bs-offcanvas-transition: transform 0.3s ease-in-out;
   --bs-offcanvas-title-line-height: 1.5;
 }
@@ -6402,13 +6405,13 @@ textarea.form-control-lg {
   display: none !important;
 }
 .shadow {
-  box-shadow: 0 0.5rem 1rem rgba(3, 3, 3, 0.15) !important;
+  box-shadow: var(--bs-box-shadow) !important;
 }
 .shadow-sm {
-  box-shadow: 0 0.125rem 0.25rem rgba(3, 3, 3, 0.075) !important;
+  box-shadow: var(--bs-box-shadow-sm) !important;
 }
 .shadow-lg {
-  box-shadow: 0 1rem 3rem rgba(3, 3, 3, 0.175) !important;
+  box-shadow: var(--bs-box-shadow-lg) !important;
 }
 .shadow-none {
   box-shadow: none !important;
@@ -11931,7 +11934,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   font-size: 1.2rem;
 }
 .tiki table.pvtTable tr th {
-  background-color: rgba(3, 3, 3, 0.05);
+  background-color: rgba(var(--bs-emphasis-color-rgb), 0.05);
   color: var(--bs-table-color);
   border: 1px solid var(--bs-border-color);
   font-size: 1.2rem;
@@ -12621,13 +12624,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .toastui-editor-contents table th {
   background-color: transparent;
-  color: var(--bs-body-color);
+  color: var(--bs-emphasis-color);
   /* should be a var */
   font-weight: bold;
 }
 .tiki .toastui-editor-contents table th p {
   background-color: transparent;
-  color: var(--bs-body-color);
+  color: var(--bs-emphasis-color);
 }
 .tiki .toastui-editor-contents table .odd {
   background: transparent;
@@ -12668,7 +12671,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background-color: #242424;
   border: 1px solid #4c4c4c;
   border-radius: 0.25rem;
-  transition: #4c4c4c 0.15s ease-in-out, inset 0 1px 2px rgba(3, 3, 3, 0.075) 0.15s ease-in-out;
+  transition: #4c4c4c 0.15s ease-in-out, var(--bs-box-shadow-inset) 0.15s ease-in-out;
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected="true"] {
   color: #ffffff;

@@ -9,7 +9,8 @@ $classic-header-bg-dark: #014f63;
 
 @import "../../akebi/scss/variables";
 @import "../../akebi/scss/variables-dark";
-@import "../../../../default/scss/variables";
+@import "../../../../default/scss/variables"; // Bootstrap default variables, with a few Tiki overrides
+@import "../../../../default/scss/variables-dark"; // Bootstrap dark mode default variables
 @import "../../akebi/scss/tiki-selectors";
 
 @import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/maps";

@@ -15,6 +15,9 @@
 @import "variables-dark";
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
+@import "../../default/scss/variables"; // Bootstrap default variables, with a few Tiki overrides
+@import "../../default/scss/variables-dark"; // Bootstrap dark mode default variables
+
 @import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/solar/bootswatch";
 //@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
 @import "css-variables"; // Needs to be loaded after default variables to override them

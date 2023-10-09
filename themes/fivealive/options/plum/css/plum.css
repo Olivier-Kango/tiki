@@ -165,6 +165,7 @@ header.navbar.fixed-top {
   --bs-link-hover-color: #7a04b5;
   --bs-link-hover-color-rgb: 122, 4, 181;
   --bs-code-color: #343a40;
+  --bs-highlight-color: #343a40;
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -229,12 +230,14 @@ header.navbar.fixed-top {
   --bs-danger-border-subtle: #993710;
   --bs-light-border-subtle: #495057;
   --bs-dark-border-subtle: #343a40;
-  --bs-heading-color: ;
+  --bs-heading-color: inherit;
   --bs-link-color: #af68d3;
   --bs-link-hover-color: #bf86dc;
   --bs-link-color-rgb: 175, 104, 211;
   --bs-link-hover-color-rgb: 191, 134, 220;
   --bs-code-color: #adb5bd;
+  --bs-highlight-color: #adb5bd;
+  --bs-highlight-bg: #664d03;
   --bs-border-color: #495057;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
   --bs-form-valid-color: #75b798;
@@ -356,6 +359,7 @@ small {
 }
 mark {
   padding: 0.1875em;
+  color: var(--bs-highlight-color);
   background-color: var(--bs-highlight-bg);
 }
 sub, sup {
@@ -1377,7 +1381,7 @@ footer#footer .footer_liner .card-header {
   background-color: var(--bs-body-bg);
   border: 1px solid var(--bs-border-color);
   border-radius: 0.25rem;
-  transition: var(--bs-border-color) 0.15s ease-in-out, inset 0 1px 2px rgba(0, 0, 0, 0.075) 0.15s ease-in-out;
+  transition: var(--bs-border-color) 0.15s ease-in-out, var(--bs-box-shadow-inset) 0.15s ease-in-out;
 }
 .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected="true"] {
   color: #fff;
