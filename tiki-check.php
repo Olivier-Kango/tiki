@@ -317,7 +317,7 @@ function getCompatibleVersions($dbEngine = '', $dbVersion = '')
         }
 
         $requirement['fitness'] = tra('unsure');
-        $requirement['message'] = tra('Unable to database requirements');
+        $requirement['message'] = tra('Unable to check database requirements');
 
         if ($dbEngine && $dbVersion) {
             $requirement['fitness'] = tra('info');
