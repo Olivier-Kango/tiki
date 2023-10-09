@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff9d247318f478b6b0820466460f2e50",
+    "content-hash": "21180eb1e975fdba03797e4b61d015d5",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -6582,11 +6582,11 @@
         },
         {
             "name": "npm-asset/systemjs",
-            "version": "6.12.1",
+            "version": "6.14.2",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/systemjs/npm-asset-systemjs-6.12.1.zip",
-                "shasum": "a5a20387f8a0c1aa6335790e3e8e770aa9ca237b"
+                "url": "https://composer.tiki.org/dist/npm-asset/systemjs/npm-asset-systemjs-6.14.2.zip",
+                "shasum": "5867547329b6ab16c624cb11e8e0816cea0a056a"
             },
             "type": "npm-asset",
             "license": [
@@ -9882,17 +9882,17 @@
         },
         {
             "name": "sorich87/bootstrap-tour",
-            "version": "dev-master",
+            "version": "v0.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sorich87/bootstrap-tour.git",
-                "reference": "c501ce7ad1728050b0882bb9316f5c33df87f6a2"
+                "reference": "1a06475e27f852bb642b9353574638d51673b0d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sorich87/bootstrap-tour/sorich87-bootstrap-tour-c501ce7ad1728050b0882bb9316f5c33df87f6a2-zip-c67f6d.zip",
-                "reference": "c501ce7ad1728050b0882bb9316f5c33df87f6a2",
-                "shasum": "0c3815b7a79c2afaa21f953288131a872245599f"
+                "url": "https://composer.tiki.org/dist/sorich87/bootstrap-tour/sorich87-bootstrap-tour-1a06475e27f852bb642b9353574638d51673b0d5-zip-c047fa.zip",
+                "reference": "1a06475e27f852bb642b9353574638d51673b0d5",
+                "shasum": "d3d538b9d49daced2a2b1f3e55aa9dc67856a833"
             },
             "type": "component",
             "notification-url": "https://packagist.org/downloads/",
@@ -9905,7 +9905,7 @@
                 "bootstrap",
                 "tour"
             ],
-            "time": "2021-08-11T06:10:54+00:00"
+            "time": "2017-09-30T10:35:18+00:00"
         },
         {
             "name": "steverhoades/oauth2-openid-connect-client",
@@ -15145,7 +15145,6 @@
         "npm-asset/html2canvas": 5,
         "philippemarcmeyer/fieldslinker": 20,
         "rubix/extras": 10,
-        "sorich87/bootstrap-tour": 20,
         "teqneers/shamir": 20,
         "montefuscolo/xmpp": 20,
         "bafs/testify": 20

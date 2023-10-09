@@ -139,7 +139,7 @@
         "simile_timeline/simile_timeline": "2.3.0",
         "slm/mail": "^4.2",
         "smarty/smarty": "^3.1.33",
-        "sorich87/bootstrap-tour": "dev-master",
+        "sorich87/bootstrap-tour": "^0.12.0",
         "studio-42/elfinder": "~2.1",
         "steverhoades/oauth2-openid-connect-client": "^0.3.0",
         "svg-edit/svg-edit": "2.8.1",
