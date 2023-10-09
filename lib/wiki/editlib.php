@@ -1596,7 +1596,9 @@ class EditLib
                 $converter->getEnvironment()->addConverter(new DefinitionListConverter());
                 $converter->getEnvironment()->addConverter(new StrikeConverter());
             }
+            $invalidTagsMap = $this->preserveInvalidTags($html);
             $converted = $converter->convert($html);
+            $converted = $this->restoreInvalidTags($invalidTagsMap, $converted);
             $converted = preg_replace('/\\\\([\[\]])/', '$1', $converted);
 
             // bring back escaped wiki plugin code
@@ -1668,6 +1670,45 @@ class EditLib
         }
 
         return $converted;
+    }
+
+    private function preserveInvalidTags(&$data)
+    {
+        $validTags = [
+            '!DOCTYPE', 'a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'base', 'bdo',
+            'bgsound', 'blink', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'col',
+            'colgroup', 'command', 'comme;nt', 'datalist', 'dd', 'del', 'details', 'div', 'dl', 'dt',
+            'embed', 'fieldset', 'figure', 'b', 'i', 'small', 'tt', 'footer', 'form', 'head',
+            'header', 'hgroup', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'html', 'isindex', 'iframe', 'ilayer', 'img',
+            'input', 'ins', 'keygen', 'label', 'layer', 'legend', 'li', 'link', 'map', 'mark',
+            'marquee', 'menu', 'meta', 'meter', 'multicol', 'nav', 'nobr', 'noembed', 'noscript',
+            'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'cite', 'code', 'dfn', 'em',
+            'kbd', 'samp', 'strong', 'var', 'plaintext', 'pre', 'progress', 'q', 'ruby', 'script',
+            'section', 'select', 'spacer', 'span', 's', 'style', 'sub', 'sup', 'table', 'tbody', 'td',
+            'textarea', 'tfoot', 'thead', 'time', 'title', 'tr', 'u', 'ul', 'video', 'wbr', 'xmp'
+        ];
+
+        $invalidTags = [];
+        $data = preg_replace_callback("/<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>/s", function ($m) use (&$invalidTags, $validTags) {
+            list($tagName) = explode(' ', substr($m[0], 1, strlen($m[0]) - 2));
+            if (! in_array($tagName, $validTags) && $tagName[0] != '/') {
+                $hash = '§' . md5(uniqid()) . '§';
+                $invalidTags['keys'][] = $hash;
+                $invalidTags['values'][] = $m[0];
+                return $hash;
+            }
+            return $m[0];
+        }, $data);
+
+        return $invalidTags;
+    }
+
+    private function restoreInvalidTags(array $map, $data)
+    {
+        if ($data && isset($map['keys'], $map['values'])) {
+            return str_replace($map['keys'], $map['values'], $data);
+        }
+        return $data;
     }
 
     public function convertContentPlugins($content, $targetSyntax)
