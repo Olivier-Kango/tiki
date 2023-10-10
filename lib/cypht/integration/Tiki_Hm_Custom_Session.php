@@ -150,6 +150,12 @@ class Tiki_Hm_Custom_Session extends Hm_Session
         // noop;
     }
 
+    public function record_unsaved($value) {
+        $list = $this->get('changed_settings', []);
+        $list[] = $value;
+        $this->set('changed_settings', $list);
+    }
+
     /**
      * When Cypht runs in a wiki page as a wiki plugin and SEFURL is off
      * replace all Cypht links to include the page_id of the wiki page

@@ -47,24 +47,26 @@ class Tiki_Hm_User_Config extends Hm_Config
             $this->set_tz();
         }
         // merge imap/smtp servers config with session as plugin cypht might be overriding these
-        foreach (['imap_servers', 'smtp_servers'] as $key) {
-            if (! empty($_SESSION[$session_prefix]['user_data'][$key])) {
-                if (empty($this->config[$key])) {
-                    $this->config[$key] = [];
-                }
-                foreach ($_SESSION[$session_prefix]['user_data'][$key] as $server) {
-                    $found = false;
-                    foreach ($this->config[$key] as $cserver) {
-                        if ($server['server'] == $cserver['server'] && $server['tls'] == $cserver['tls'] && $server['port'] == $cserver['port'] && $server['user'] == $cserver['user']) {
-                            $found = true;
-                            break;
-                        }
+        if ($this->site_config->settings_per_page) {
+            foreach (['imap_servers', 'smtp_servers'] as $key) {
+                if (! empty($_SESSION[$session_prefix]['user_data'][$key])) {
+                    if (empty($this->config[$key])) {
+                        $this->config[$key] = [];
                     }
-                    if (! $found) {
-                        do {
-                            $id = uniqid();
-                        } while (isset($this->config[$key][$id]));
-                        $this->config[$key][$id] = $server;
+                    foreach ($_SESSION[$session_prefix]['user_data'][$key] as $server) {
+                        $found = false;
+                        foreach ($this->config[$key] as $cserver) {
+                            if ($server['server'] == $cserver['server'] && $server['tls'] == $cserver['tls'] && $server['port'] == $cserver['port'] && $server['user'] == $cserver['user']) {
+                                $found = true;
+                                break;
+                            }
+                        }
+                        if (! $found) {
+                            do {
+                                $id = uniqid();
+                            } while (isset($this->config[$key][$id]));
+                            $this->config[$key][$id] = $server;
+                        }
                     }
                 }
             }
@@ -88,10 +90,20 @@ class Tiki_Hm_User_Config extends Hm_Config
             $temp_config = new Tiki_Hm_User_Config($this->site_config);
             $temp_config->load($username);
             $existing = $temp_config->dump();
+            $older = 'current';
+            if (! empty($existing['updated_at']) && ! empty($data['updated_at']) && $existing['updated_at'] > $data['updated_at']) {
+                $older = 'existing';
+            }
+            unset($existing['updated_at']);
+            unset($data['updated_at']);
             ksort($existing);
             ksort($data);
             if (json_encode($existing) != json_encode($data)) {
-                $this->save($username);
+                if ($older == 'current') {
+                    $this->save($username);
+                } else {
+                    $this->load($username);
+                }
             }
         }
     }
@@ -112,11 +124,20 @@ class Tiki_Hm_User_Config extends Hm_Config
         }
         $this->shuffle();
         $removed = $this->filter_servers();
+        $this->config['updated_at'] = microtime(true);
         ksort($this->config);
         $data = json_encode($this->config);
         if ($this->site_config->settings_per_page) {
             $original_plugin_data = $_SESSION[$this->site_config->get('session_prefix')]['plugin_data'] ?? '';
-            if ($original_plugin_data != $data) {
+            if ($original_plugin_data) {
+                $original_plugin_data = json_decode($original_plugin_data, true);
+                unset($original_plugin_data['updated_at']);
+                $original_plugin_data = json_encode($original_plugin_data);
+            }
+            $data_to_compare = json_decode($data, true);
+            unset($data_to_compare['updated_at']);
+            $data_to_compare = json_encode($data_to_compare);
+            if ($original_plugin_data != $data_to_compare) {
                 $util = new Services_Edit_Utilities();
                 $util->replacePlugin(new JitFilter([
                     'page' => $this->site_config->settings_per_page,
