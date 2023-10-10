@@ -49,42 +49,44 @@ if (! empty($_REQUEST['remove'])) {
     $access->check_authenticity(($removeInfo['archiveId'] ? tra('Remove archive: ') : tra('Remove file gallery: ')) . (! empty($removeInfo['name']) ? $removeInfo['name'] . ' - ' : '') . $removeInfo['filename']);
     $filegallib->remove_file($removeInfo, $gal_info);
 }
-if ($_REQUEST['fgal_actions'] === 'delsel_x' && ! empty($_REQUEST['file'])) {
-    $access->checkCsrf();
-    foreach (array_values($_REQUEST['file']) as $fileId) {
-        if (! ($removeInfo = $filegallib->get_file_info($fileId))) {
-            $smarty->assign('msg', tra("Incorrect param"));
-            $smarty->display('error.tpl');
-            die;
+if (isset($_REQUEST['fgal_actions'])) {
+    if ($_REQUEST['fgal_actions'] === 'delsel_x' && ! empty($_REQUEST['file'])) {
+        $access->checkCsrf();
+        foreach (array_values($_REQUEST['file']) as $fileId) {
+            if (! ($removeInfo = $filegallib->get_file_info($fileId))) {
+                $smarty->assign('msg', tra("Incorrect param"));
+                $smarty->display('error.tpl');
+                die;
+            }
+            $filegallib->remove_file($removeInfo, $gal_info);
         }
-        $filegallib->remove_file($removeInfo, $gal_info);
     }
-}
 
-if ($_REQUEST['fgal_actions'] === 'zipsel_x') {
-    $access->check_permission('upload_files');
-    $href = [];
-    if (isset($_REQUEST['file'])) {
-        foreach (array_values($_REQUEST['file']) as $file) {
-            $href[] = "fileId[]=$file";
+    if ($_REQUEST['fgal_actions'] === 'zipsel_x') {
+        $access->check_permission('upload_files');
+        $href = [];
+        if (isset($_REQUEST['file'])) {
+            foreach (array_values($_REQUEST['file']) as $file) {
+                $href[] = "fileId[]=$file";
+            }
         }
-    }
-    if (isset($_REQUEST['subgal'])) {
-        foreach (array_values($_REQUEST['subgal']) as $subgal) {
-            $href[] = "galId[]=$subgal";
+        if (isset($_REQUEST['subgal'])) {
+            foreach (array_values($_REQUEST['subgal']) as $subgal) {
+                $href[] = "galId[]=$subgal";
+            }
         }
+        $zipName = 'file_archives_' . $_REQUEST['fileId'];
+        header("Location: tiki-download_file.php?zipName=$zipName&" . implode('&', $href));
+        die;
     }
-    $zipName = 'file_archives_' . $_REQUEST['fileId'];
-    header("Location: tiki-download_file.php?zipName=$zipName&" . implode('&', $href));
-    die;
-}
 
-if ($_REQUEST['fgal_actions'] === 'permsel_x') {
-    $access->check_permission('assign_perm_file_gallery');
-    $perms = $userlib->get_permissions(0, -1, 'permName_asc', '', 'file galleries');
-    $smarty->assign_by_ref('perms', $perms['data']);
-    $groups = $userlib->get_groups(0, -1, 'groupName_asc', '', '', 'n');
-    $smarty->assign_by_ref('groups', $groups['data']);
+    if ($_REQUEST['fgal_actions'] === 'permsel_x') {
+        $access->check_permission('assign_perm_file_gallery');
+        $perms = $userlib->get_permissions(0, -1, 'permName_asc', '', 'file galleries');
+        $smarty->assign_by_ref('perms', $perms['data']);
+        $groups = $userlib->get_groups(0, -1, 'groupName_asc', '', '', 'n');
+        $smarty->assign_by_ref('groups', $groups['data']);
+    }
 }
 
 // Set display config
