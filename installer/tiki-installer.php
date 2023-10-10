@@ -908,7 +908,7 @@ function isMissingPHPRequirements(int $tikiVersionShort): array
 
     foreach ($modules as $module) {
         if (! extension_loaded($module)) {
-            $missing[] = tr('Module %s is not loaded', $module);
+            $missing[] = tr('Module %0 is not loaded', $module);
         }
     }
 
