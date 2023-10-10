@@ -48,6 +48,7 @@ function wikiplugin_cypht_info()
                 'default' => 'y',
                 'since' => '20.0',
                 'options' => [
+                    ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 'y'],
                     ['text' => tra('No'), 'value' => 'n'],
                 ],
@@ -116,6 +117,7 @@ function wikiplugin_cypht_info()
                 'default' => 'y',
                 'since' => '20.0',
                 'options' => [
+                    ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 'y'],
                     ['text' => tra('No'), 'value' => 'n'],
                 ],
@@ -128,6 +130,7 @@ function wikiplugin_cypht_info()
                 'default' => 'n',
                 'since' => '20.0',
                 'options' => [
+                    ['text' => '', 'value' => ''],
                     ['text' => tra('No'), 'value' => 'n'],
                     ['text' => tra('Yes'), 'value' => 'y'],
                 ],
@@ -140,6 +143,7 @@ function wikiplugin_cypht_info()
                 'default' => 'n',
                 'since' => '20.0',
                 'options' => [
+                    ['text' => '', 'value' => ''],
                     ['text' => tra('No - keep settings per-user'), 'value' => 'n'],
                     ['text' => tra('No - keep settings per-wiki-page'), 'value' => 'nw'],
                     ['text' => tra('Yes - keep settings global per-user'), 'value' => 'y'],
@@ -153,6 +157,7 @@ function wikiplugin_cypht_info()
                 'default' => 'n',
                 'since' => '20.0',
                 'options' => [
+                    ['text' => '', 'value' => ''],
                     ['text' => tra('No'), 'value' => 'n'],
                     ['text' => tra('Yes'), 'value' => 'y'],
                 ],
