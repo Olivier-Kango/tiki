@@ -364,7 +364,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 'calitemId'             => $calitemId,
                 'calendarId'            => $calendarId,
                 'user'                  => $user,
-                'name'                  => $input->prefill_title->text() ?? '',
+                'name'                  => $input->prefill_title->text(),
                 'url'                   => '',
                 'description'           => '',
                 'status'                => $calendar['defaulteventstatus'],
