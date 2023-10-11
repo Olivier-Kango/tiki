@@ -1650,7 +1650,7 @@ class EditLib
             $converted = preg_replace_callback('/\[(.+)\]/', function ($m) {
                 return str_replace('\\_', '_', $m[0]);
             }, $converted);
-            $converted = preg_replace('/({DIV(.*?)}.+{DIV})(?![\r\n])/', "$1\n\n", $converted);
+            $converted = preg_replace('/({DIV(.*?)}.+{DIV}\s*)(?![\r\n])/s', "$1\n\n", $converted);
 
             // Bring back > character
             $converted = str_replace('&gt;', '>', $converted);
