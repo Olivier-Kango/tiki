@@ -7,6 +7,7 @@
 namespace Tiki\Command;
 
 use Exception;
+use Perms;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -100,7 +101,7 @@ class MarkdownConvertCommand extends Command
         }
 
         $syntax = $input->getOption('markdown') ? 'markdown' : 'tiki';
-
+        $is_wysiwyg = false;
         foreach ($pages as $pageInfo) {
             $io->note(tr("Processing page %0", $pageInfo['pageName']));
 
@@ -113,11 +114,29 @@ class MarkdownConvertCommand extends Command
             }
 
             if ($input->getOption('save')) {
-                $converted = '{syntax type="' . $syntax . '"} ' . $converted;
+                $editor = '';
+                if ($syntax == 'markdown') {
+                    $editor = ', editor="wysiwyg"';
+                    $is_wysiwyg = true;
+                }
+                $converted = '{syntax type="' . $syntax . '" ' . $editor . '} ' . $converted;
                 $tikilib->update_page($pageInfo['pageName'], $converted, tra('automatic conversion'), 'admin', '127.0.0.1', null, 0, '', null, null, null, '', '', true);
             } else {
                 $io->note("Converted:");
                 $io->writeln($converted);
+            }
+        }
+        if ($syntax == 'markdown' && $is_wysiwyg) {
+            $features = [];
+            if ($prefs['feature_wysiwyg'] !== 'y') {
+                $features[] = 'feature_wysiwyg';
+            }
+            if ($prefs['wysiwyg_default'] !== 'y') {
+                $features[] = 'wysiwyg_default';
+            }
+            if (count($features) > 0) {
+                $msg = tr('Required features: %0 should be activate to edit pages with WYSIWYG Editor for markdown.', implode(', ', $features));
+                $io->warning($msg);
             }
         }
 
