@@ -9,6 +9,9 @@ namespace Tiki\WikiParser\Markdown;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\ExtensionInterface;
+use League\CommonMark\Extension\TaskList\TaskListItemMarker;
+use League\CommonMark\Extension\TaskList\TaskListItemMarkerParser;
+use Tiki\WikiParser\Markdown\Renderer\TaskListItemMarkerRenderer;
 
 class Extension implements ExtensionInterface
 {
@@ -21,5 +24,8 @@ class Extension implements ExtensionInterface
             ->addRenderer(Node\CollapsibleContainer::class, new Renderer\CollapsibleContainerRenderer(), 0)
         ;
         $environment->addEventListener(DocumentParsedEvent::class, new CollapsibleHeadingProcessor(), -100);
+
+        $environment->addInlineParser(new TaskListItemMarkerParser(), 35);
+        $environment->addRenderer(TaskListItemMarker::class, new TaskListItemMarkerRenderer());
     }
 }

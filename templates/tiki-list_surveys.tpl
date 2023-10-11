@@ -33,7 +33,7 @@
                             </a>
                         {/if}
                         <div class="subcomment">
-                            {wiki}{$channels[user].description}{/wiki}
+                            {wiki objectId=$channels[user].surveyId objectType="surveys" fieldName="description"}{$channels[user].description}{/wiki}
                         </div>
                     </td>
                     <td class="text">

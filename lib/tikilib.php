@@ -2605,7 +2605,9 @@ class TikiLib extends TikiDb_Bridge
         if ($is_markdown) {
             // markdown syntax needs to ignore ^[] inline footnotes, [^footnotes] and [foo](link)
             if (preg_match_all("/(?<![\[\^])\[([^\[\|\]\^]+)(?:\|?[^\[\|\]]*){0,2}\](?!\()/", $data, $r1)) {
-                $res = $r1[1];
+                $res = array_filter($r1[1], function ($v) {
+                    return $v != ' ' && $v != 'x';
+                });
                 $links = array_unique($res);
             }
         } else {

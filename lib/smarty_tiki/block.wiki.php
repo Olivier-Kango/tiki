@@ -25,7 +25,15 @@ function smarty_block_wiki($params, $content, $smarty, &$repeat)
     } else {
         $isHtml = false;
     }
-    $ret = TikiLib::lib('parser')->parse_data($content, ['is_html' => $isHtml]);
+
+    $options = ['is_html' => $isHtml];
+    if (isset($params['objectId'], $params['objectType'], $params['fieldName'])) {
+        $options['objectType'] = $params['objectType'];
+        $options['objectId'] = $params['objectId'];
+        $options['fieldName'] = $params['fieldName'];
+    }
+
+    $ret = TikiLib::lib('parser')->parse_data($content, $options);
     if (isset($params['line']) && $params['line'] == 1) {
         $ret = preg_replace(['/<br \/>$/', '/[\n\r]*$/'], '', $ret);
     }

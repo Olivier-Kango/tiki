@@ -182,7 +182,18 @@ if ($prefs['feature_theme_control'] == 'y') {
     include('tiki-tc.php');
 }
 
-$smarty->assign('parsed_body', $parserlib->parse_data($body, ['is_html' => $artlib->is_html($article_data)]));
+$smarty->assign(
+    'parsed_body',
+    $parserlib->parse_data(
+        $body,
+        [
+            'is_html' => $artlib->is_html($article_data),
+            'objectType' => 'articles',
+            'objectId' => $article_data['articleId'],
+            'fieldName' => 'body'
+        ]
+    )
+);
 $smarty->assign(
     'parsed_heading',
     $parserlib->parse_data(
@@ -190,6 +201,9 @@ $smarty->assign(
         [
             'min_one_paragraph' => true,
             'is_html' => $artlib->is_html($article_data, true),
+            'objectType' => 'articles',
+            'objectId' => $article_data['articleId'],
+            'fieldName' => 'heading'
         ]
     )
 );

@@ -1959,7 +1959,7 @@ class Comments extends TikiLib
         // used in $this->get_comment and $this->get_comments
         global $prefs;
 
-        $res["parsed"] = $this->parse_comment_data($res["data"]);
+        $res["parsed"] = $this->parse_comment_data($res["data"], $res['threadId']);
 
         // these could be cached or probably queried along with the original query of the tiki_comments table
         if ($forum_info == null || $forum_info['ui_posts'] == 'y' || $forum_info['ui_level'] == 'y') {
@@ -2315,13 +2315,18 @@ class Comments extends TikiLib
      * @param $data
      * @return mixed|string
      */
-    public function parse_comment_data($data)
+    public function parse_comment_data($data, $threadId = null)
     {
         global $prefs, $section;
         $parserlib = TikiLib::lib('parser');
 
         if (($prefs['feature_forum_parse'] == 'y' && $section == 'forums') || $prefs['section_comments_parse'] == 'y') {
-            return $parserlib->parse_data($data);
+            $options = [
+                'objectType' => 'comments',
+                'objectId' => $threadId,
+                'fieldName' => 'data',
+            ];
+            return $parserlib->parse_data($data, $options);
         }
 
         // Cookies
@@ -2359,10 +2364,16 @@ class Comments extends TikiLib
     {
         global $prefs;
         if ($prefs['comments_notitle'] === 'y') {
+            $options = [
+                'objectType' => 'comments',
+                'objectId' => $comment['threadId'],
+                'fieldName' => 'title',
+            ];
+
             TikiLib::lib('smarty')->loadPlugin('smarty_modifier_truncate');
             return '"' .
                     smarty_modifier_truncate(
-                        strip_tags(TikiLib::lib('parser')->parse_data($comment['data'])),
+                        strip_tags(TikiLib::lib('parser')->parse_data($comment['data'], $options)),
                         $commentlength
                     ) . '"';
         } else {
@@ -2782,7 +2793,7 @@ class Comments extends TikiLib
         $cant = $this->getOne($query, array_merge($bindvars, $jail_bind));
         foreach ($ret as &$res) {
             $res['href'] = $this->getHref($res['objectType'], $res['object'], $res['threadId']);
-            $res['parsed'] = $this->parse_comment_data($res['data']);
+            $res['parsed'] = $this->parse_comment_data($res['data'], $res['threadId']);
         }
         return ['cant' => $cant, 'data' => $ret];
     }

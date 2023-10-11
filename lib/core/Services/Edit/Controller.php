@@ -350,4 +350,81 @@ $(window).on("load", function(){
 
         return $converted;
     }
+
+    /**
+     * Update state of checkbox in markdown wiki page
+     *
+     * @param JitFilter $input
+     *
+     * @return int new state of checkbox
+     */
+    public function actionUpdateChecklistItem(JitFilter $input): array
+    {
+        global $user;
+
+        $allowedWikiParsed = [
+            'articles' => ['heading', 'body'],
+            'calendar event' => ['description'],
+            'comments' => ['data', 'title'],
+            'post' => ['excerpt', 'data'],
+            'surveys' => ['description'],
+            'tracker' => ['description'],
+            'trackerfield' => ['description'],
+            'trackeritem' => ['value'],
+            'trackeritemattachments' => ['longdesc'],
+            'wiki page' => ['data'],
+        ];
+
+        $tikilib = TikiLib::lib('tiki');
+        $objectlib = TikiLib::lib('object');
+        $editlib = TikiLib::lib('edit');
+
+        $objectId = $input->objectId->text();
+        $objectType = $input->objectType->text();
+        $fieldName = $input->fieldName->text();
+        $checkboxNum = $input->checkboxNum->int();
+
+        if (! $objectType || ! $objectId || ! $checkboxNum || ! $fieldName || ! in_array($objectType, array_keys($allowedWikiParsed)) || ! in_array($fieldName, $allowedWikiParsed[$objectType])) {
+            throw new Services_Exception(tr('Missing parameters'));
+        }
+
+        if (! $tikilib->user_has_perm_on_object($user, $objectId, $objectType, $objectlib->get_needed_perm($objectType, 'edit'))) {
+            throw new Services_Exception_Denied(tr('You do not have permission to edit "%0"', tr($objectType)));
+        }
+
+        list($dbName, $dbKey) = $objectlib->getDBFor($objectType);
+
+        if (is_array($dbKey)) {
+            $params = array_combine($dbKey, $objectId);
+        } else {
+            $params = [$dbKey => $objectId];
+        }
+
+        $data = TikiDb::get()
+            ->table($dbName)
+            ->fetchColumn($fieldName, $params);
+
+        if (empty($data)) {
+            throw new Services_Exception(tr('Item not found'));
+        }
+        list($data, $state) = $editlib->toggleCheckbox($data[0], $checkboxNum);
+
+        if ($objectType == 'trackeritem') {
+            $objectId = $params;
+        }
+
+        try {
+            $objectlib->set_data(
+                $objectType,
+                $objectId,
+                [$fieldName => $data]
+            );
+        } catch (Exception $e) {
+            throw new Services_Exception(tr('Failed to update checkbox'));
+        }
+
+        return [
+            'state' => $state
+        ];
+    }
 }

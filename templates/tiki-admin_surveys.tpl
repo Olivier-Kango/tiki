@@ -36,7 +36,7 @@
                         <td class="text">
                             <b>{$channels[user].name|escape}</b>
                             <div class="subcomment">
-                                {wiki}{$channels[user].description}{/wiki}
+                                {wiki objectId=$channels[user].surveyId objectType="surveys" fieldName="description"}{$channels[user].description}{/wiki}
                             </div>
                         </td>
                         <td class="icon">

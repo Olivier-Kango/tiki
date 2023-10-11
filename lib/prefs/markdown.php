@@ -87,6 +87,6 @@ function prefs_markdown_list()
                 'markdown_enabled',
                 'feature_wysiwyg',
             ],
-        ],
+        ]
     ];
 }

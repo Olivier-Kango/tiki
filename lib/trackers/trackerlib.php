@@ -3994,7 +3994,8 @@ class TrackerLib extends TikiLib
             $fields = preg_split('/,/', substr($resu['orderAttachments'], strpos($resu['orderAttachments'], '|') + 1));
             $res = $this->attachments()->fetchRow($fields, ['attId' => (int) $attId]);
             $res["trackerId"] = $resu['trackerId'];
-            $res["longdesc"] = isset($res['longdesc']) ? TikiLib::lib('parser')->parse_data($res['longdesc']) : '';
+            $res["longdesc"] = isset($res['longdesc']) ? TikiLib::lib('parser')->parse_data($res['longdesc'], ['objectType' => 'trackeritemattachments',
+            'objectId' => $res["trackerId"], 'fieldName' => 'longdesc']) : '';
         } else {
             $res = [tra("Message") => tra("No extra information for that attached file. ")];
             $res['trackerId'] = 0;

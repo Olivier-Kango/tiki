@@ -67,6 +67,6 @@ function wikiplugin_article($data, $params)
 
     $article_data = $artlib->get_article($Id);
     if (isset($article_data[$Field])) {
-        return TikiLib::lib('parser')->parse_data($article_data[$Field]) . $add;
+        return TikiLib::lib('parser')->parse_data($article_data[$Field], ['objectType' => 'articles', 'objectId' => $Id, 'fieldName' => $Field]) . $add;
     }
 }
