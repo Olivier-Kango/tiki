@@ -54,8 +54,6 @@ if (isset($_REQUEST['removeold'])) {
 }
 if ($_REQUEST["eventId"]) {
     $info = $minicallib->minical_get_event($user, $_REQUEST["eventId"]);
-    $ev_pdate = $info['start'];
-    $ev_pdate_h = $info['start'];
 } else {
     $info = [];
     $info['title'] = '';
@@ -64,6 +62,9 @@ if ($_REQUEST["eventId"]) {
     $info['start'] = mktime(date("H"), date("i"), date("s"), date("m", $pdate), date("d", $pdate), date("Y", $pdate));
     $info['duration'] = 60 * 60;
 }
+
+$ev_pdate = $info['start'];
+$ev_pdate_h = $info['start'];
 $smarty->assign('ev_pdate', $ev_pdate);
 $smarty->assign('ev_pdate_h', $ev_pdate_h);
 
