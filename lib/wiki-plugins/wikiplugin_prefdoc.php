@@ -191,6 +191,7 @@ class PrefsDoc extends TWVersion
         }
         $this->docTable .= '{FANCYTABLE(head="Option | Description | Default" sortable="n")}';
         $FilePrefs = json_decode(file_get_contents($fileName));
+        $separator = TikiLib::lib('parser')->option['is_markdown'] ? '|' : '~|~';
         foreach ($FilePrefs->prefs as $prefName => &$pref) {
             $this->prevFilePrefs;
 
@@ -214,7 +215,7 @@ class PrefsDoc extends TWVersion
                 $pref->warning = @$this->prevFilePrefs->$prefName->warning;
             }
             $this->setParams($pref);
-            $this->docTable .= $this->prefName . '~|~' . $this->prefDescription . '~|~<span title="' . $this->prefDefaultFull . '">' . $this->prefDefault . "</span>\n";
+            $this->docTable .= $this->prefName . $separator . $this->prefDescription . $separator . '<span title="' . $this->prefDefaultFull . '">' . $this->prefDefault . "</span>\n";
         }
         $this->prevFilePrefs = $FilePrefs->prefs;
         $this->docTable .= "{FANCYTABLE}";
