@@ -408,11 +408,9 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'npm-asset/moment/',
+            $vendors . 'moment/moment/',
             [
-                'src',
-                'CHANGELOG.md',
-                'README.md'
+                'min/tests.js', // 5.2 MB
             ]
         );
         self::remove(

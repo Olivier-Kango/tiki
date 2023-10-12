@@ -2775,13 +2775,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "49606ca46d2d11bde358bd2abb98fa05300aa92a"
+                "reference": "497d79883e60453f52eb3a1eba46af3de85cfc2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-49606ca46d2d11bde358bd2abb98fa05300aa92a-zip-2fd7b7.zip",
-                "reference": "49606ca46d2d11bde358bd2abb98fa05300aa92a",
-                "shasum": "b09ad3f37ba437b5444ebc1d6b8528a9a98c6f83"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-497d79883e60453f52eb3a1eba46af3de85cfc2d-zip-03463e.zip",
+                "reference": "497d79883e60453f52eb3a1eba46af3de85cfc2d",
+                "shasum": "3c501ef05039837a2cb5d850b49d9babb7169aa6"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2841,7 +2841,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-10-09T09:54:27+00:00"
+            "time": "2023-10-11T08:29:19+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3518,41 +3518,41 @@
         },
         {
             "name": "laminas/laminas-feed",
-            "version": "2.21.0",
+            "version": "2.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-feed.git",
-                "reference": "52918789a417bc292ccd6fbb4b91bd78a65d50ab"
+                "reference": "669792b819fca7274698147ad7a2ecc1b0a9b141"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-feed/laminas-laminas-feed-52918789a417bc292ccd6fbb4b91bd78a65d50ab-zip-a1d670.zip",
-                "reference": "52918789a417bc292ccd6fbb4b91bd78a65d50ab",
-                "shasum": "122cc3050bf563ee8d46d23aa8fe33dfd4dca3fc"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-feed/laminas-laminas-feed-669792b819fca7274698147ad7a2ecc1b0a9b141-zip-d40469.zip",
+                "reference": "669792b819fca7274698147ad7a2ecc1b0a9b141",
+                "shasum": "029422e6ef2f4f21f607de4e19e9f6d2760d9274"
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "laminas/laminas-escaper": "^2.9",
                 "laminas/laminas-stdlib": "^3.6",
-                "php": "~8.1.0 || ~8.2.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "laminas/laminas-servicemanager": "<3.3",
                 "zendframework/zend-feed": "*"
             },
             "require-dev": {
-                "laminas/laminas-cache": "^2.13.2 || ^3.10.1",
+                "laminas/laminas-cache": "^2.13.2 || ^3.11",
                 "laminas/laminas-cache-storage-adapter-memory": "^1.1.0 || ^2.2",
                 "laminas/laminas-coding-standard": "~2.5.0",
                 "laminas/laminas-db": "^2.18",
                 "laminas/laminas-http": "^2.18",
                 "laminas/laminas-servicemanager": "^3.21.0",
-                "laminas/laminas-validator": "^2.30.1",
-                "phpunit/phpunit": "^10.2.6",
+                "laminas/laminas-validator": "^2.38",
+                "phpunit/phpunit": "^10.3.1",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "psr/http-message": "^2.0",
-                "vimeo/psalm": "^5.13.1"
+                "vimeo/psalm": "^5.14.1"
             },
             "suggest": {
                 "laminas/laminas-cache": "Laminas\\Cache component, for optionally caching feeds between requests",
@@ -3586,7 +3586,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-07-24T09:21:16+00:00"
+            "time": "2023-10-11T20:16:37+00:00"
         },
         {
             "name": "laminas/laminas-filter",
@@ -4380,21 +4380,21 @@
         },
         {
             "name": "laminas/laminas-servicemanager",
-            "version": "3.21.0",
+            "version": "3.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-servicemanager.git",
-                "reference": "625f2aa3bc6dd02688b2da5155b3a69870812bda"
+                "reference": "b4f547078af2ac3173cbe4a64e8fdfbd626c77ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-servicemanager/laminas-laminas-servicemanager-625f2aa3bc6dd02688b2da5155b3a69870812bda-zip-f2f671.zip",
-                "reference": "625f2aa3bc6dd02688b2da5155b3a69870812bda",
-                "shasum": "b7be737880af4a5dd62e267da9cec8fb9157100f"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-servicemanager/laminas-laminas-servicemanager-b4f547078af2ac3173cbe4a64e8fdfbd626c77ae-zip-66394e.zip",
+                "reference": "b4f547078af2ac3173cbe4a64e8fdfbd626c77ae",
+                "shasum": "896cee6b3c773cf80363d8f51196bc75bbde9931"
             },
             "require": {
                 "laminas/laminas-stdlib": "^3.17",
-                "php": "~8.1.0 || ~8.2.0",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
                 "psr/container": "^1.0"
             },
             "conflict": {
@@ -4415,10 +4415,9 @@
                 "laminas/laminas-code": "^4.10.0",
                 "laminas/laminas-coding-standard": "~2.5.0",
                 "laminas/laminas-container-config-test": "^0.8",
-                "laminas/laminas-dependency-plugin": "^2.2",
                 "mikey179/vfsstream": "^1.6.11",
                 "phpbench/phpbench": "^1.2.9",
-                "phpunit/phpunit": "^10.0.17",
+                "phpunit/phpunit": "^10.4",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "vimeo/psalm": "^5.8.0"
             },
@@ -4459,7 +4458,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-05-14T12:24:54+00:00"
+            "time": "2023-10-10T21:23:36+00:00"
         },
         {
             "name": "laminas/laminas-session",
