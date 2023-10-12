@@ -519,6 +519,17 @@
                                 </div>
                             </div>
                         {/if}
+                        {if $prefs.sitemap_enable eq 'y'}
+                            <div class="mb-3 row clearfix">
+                                <label for="for_sitemap" class="col-md-4 col-form-label">{tr}Will be added to the sitemap{/tr}</label>
+                                <div class="col-md-8">
+                                    <select name="for_sitemap" class="form-control">
+                                        <option value = 'y' {if $for_sitemap == 'y'}selected {/if}>{tr}Yes, the page will appear on the sitemap{/tr}</option>
+                                        <option value = 'n' {if $for_sitemap == 'n'}selected {/if}>{tr}No, the page will not appear on the sitemap{/tr}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        {/if}
                         {if $prefs.feature_wiki_footnotes eq 'y'}
                             {if $user}
                                 <div class="mb-3 row">

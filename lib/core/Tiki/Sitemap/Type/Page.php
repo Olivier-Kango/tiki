@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Sitemap\Type;
 
+use TikiLib;
 use Tiki\Sitemap\AbstractType;
 
 /**
@@ -26,6 +27,12 @@ class Page extends AbstractType
 
         /** @var \TikiLib $tikilib */
         $listPages = $tikilib->list_pages();
+        $attributes = TikiLib::lib('attribute')->getAllAttributes("tiki.object.sitemap");
+        $listPages['data'] = array_filter($listPages['data'], function ($page) use ($attributes) {
+            if ($attributes[$page['pageName']] !== 'n') {
+                return ($page);
+            }
+        });
         $this->addEntriesToSitemap($listPages, '/tiki-index.php?page=%s', 'pageSlug', null, 'sitemap.xml', '', 'lastModif');
     }
 }

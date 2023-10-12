@@ -919,6 +919,15 @@ if ($prefs['wiki_customize_title_tag'] === 'y') {
         $smarty->assign('tagTitle', '');
     }
 }
+if ($prefs['sitemap_enable'] === 'y') {
+    $attributelib = TikiLib::lib('attribute');
+    $attributes = $attributelib->get_attribute('wiki page', $page, "tiki.object.sitemap");
+    if ($attributes !== false) {
+        $smarty->assign('for_sitemap', $attributes);
+    } else {
+        $smarty->assign('for_sitemap', 'y');
+    }
+}
 $wiki_authors_style = '';
 if ($prefs['wiki_authors_style_by_page'] === 'y') {
     if (isset($_REQUEST['wiki_authors_style']) && $tiki_p_admin_wiki === 'y') {
@@ -1326,6 +1335,10 @@ if (
             if (isset($_REQUEST['content_title'])) {
                 $attributelib = TikiLib::lib('attribute');
                 $attributelib->set_attribute('wiki page', $page, 'tiki.wiki.page_title', $_REQUEST['content_title']);
+            }
+            if (isset($_REQUEST['for_sitemap'])) {
+                $attributelib = TikiLib::lib('attribute');
+                $attributelib->set_attribute('wiki page', $page, 'tiki.object.sitemap', $_REQUEST['for_sitemap']);
             }
 
             // Handle translation bits
