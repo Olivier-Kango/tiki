@@ -93,6 +93,7 @@ function module_calendar_new($mod_reference, $module_params)
     global $calendarViewMode, $focusdate;
     $default = ['viewnavbar' => 'y', 'viewmodelink' => 'week', 'showaction' => 'y', 'linkall' => 'n'];
     $module_params = array_merge($default, $module_params);
+    TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-calendar_edit_item.js');
 
     if (isset($_REQUEST['viewmode'])) {
         $save_viewmode = $_REQUEST['viewmode'];

@@ -142,4 +142,5 @@ function module_upcoming_events($mod_reference, $module_params)
     $smarty->assign('showEnd', isset($module_params['showEnd']) ? $module_params['showEnd'] : 'n');
     $smarty->assign('showColor', isset($module_params['showColor']) ? $module_params['showColor'] : 'n');
     $smarty->assign('tooltip_infos', isset($module_params['tooltip_infos']) ? $module_params['tooltip_infos'] : 'y');
+    TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-calendar_edit_item.js');
 }
