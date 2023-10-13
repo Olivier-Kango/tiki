@@ -1600,6 +1600,7 @@ class EditLib
             $converted = $converter->convert($html);
             $converted = $this->restoreInvalidTags($invalidTagsMap, $converted);
             $converted = preg_replace('/\\\\([\[\]])/', '$1', $converted);
+            $converted = preg_replace("/\\\_/", "_", $converted);
 
             // bring back escaped wiki plugin code
             $pattern = "/^(\s*{[^}]*)\\\\([*_\\[\\]\\\\][^}]*}\s*)$/m";
