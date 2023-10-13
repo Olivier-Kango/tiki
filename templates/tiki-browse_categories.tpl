@@ -90,7 +90,7 @@
 </div>
 
 <form method="post" action="tiki-browse_categories.php" class="d-flex flex-row flex-wrap align-items-center" role="form">
-    <div class="mb-3 row mx-0">
+    <div class="mb-3 d-flex mx-0">
         <label class="col-form-label sr-only" for="find">{tr}Find{/tr}</label>
         <div class="input-group">
             <span class="input-group-text">
@@ -101,7 +101,7 @@
         </div>
         <span class="form-text" style="display:inline-block; margin: 0;">{help url="#" desc="{tr}Find in:{/tr} <ul><li>{tr}Name{/tr}</li><li>{tr}Description{/tr}</li></ul>"}</span>
     </div>
-    <div class="mb-3 row mx-0">
+    <div class="mb-3 d-flex mx-0">
         <div class="form-check">
             <label class="form-check-label"><input type="checkbox" class="form-check-input" name="deep" {if $deep eq 'on'}checked="checked"{/if}>{tr} in the current category and its subcategories{/tr}</label>
         </div>

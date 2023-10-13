@@ -100,8 +100,8 @@ function wikiplugin_diagram($data, $params)
 {
     global $tikilib, $user, $page, $wikiplugin_included_page, $prefs, $tiki_p_upload_files;
 
-    $template = $params['template'];
-    $galleryId = $params['galleryId'] ?? ($params['fileName'] ? 1 : '');
+    $template = $params['template'] ?? 0;
+    $galleryId = $params['galleryId'] ?? (isset($params['fileName']) ? 1 : '');
     $fileName = $params['fileName'] ?? 'Diagram %page% %date%.drawio' ;
     $fileName = preg_replace('/\%page\%/', $page, $fileName);
     $fileName = preg_replace('/\%date\%/', date('Y-m-d'), $fileName);

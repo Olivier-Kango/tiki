@@ -227,7 +227,7 @@ if (isset($_REQUEST["removeObject"]) && $access->checkCsrf(true)) {
     }
 }
 if (
-    isset($_REQUEST["removeCat"]) && $info = $categlib->get_category($_REQUEST['removeCat'])
+    isset($_REQUEST["removeCat"]) && $categlib->get_category($_REQUEST['removeCat'])
         && $access->checkCsrf(true)
 ) {
     $access->check_permission('tiki_p_admin_categories', '', 'category', $_REQUEST['removeCat']);
