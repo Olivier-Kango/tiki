@@ -1642,11 +1642,6 @@ class EditLib
             $converted = preg_replace($pattern, "<br />", $converted);
 
             $converted = preg_replace('/^(#+)\s+(.+?)/m', "$1 $2", $converted);
-            $converted = preg_replace_callback('/\{VERSIONS\(.*\)\}(.+)\{VERSIONS\}/s', function ($matches) {
-                return preg_replace_callback('/^(@-)+\(.*?\)(@-)+/m', function ($innerMatches) {
-                    return str_replace('@-', '-', $innerMatches[0]);
-                }, $matches[0]);
-            }, $converted);
             $converted = preg_replace_callback('/\[(.+)\]/', function ($m) {
                 return str_replace('\\_', '_', $m[0]);
             }, $converted);
@@ -1669,6 +1664,11 @@ class EditLib
         if ($target_syntax == 'markdown') {
             $converted = preg_replace_callback('/\{tikiheading level=(.*) options=(.*)\}(.*?)\{\/tikiheading\}/', function ($matches) {
                 return str_repeat('#', $matches[1]) . str_replace(['+#', '-#', '#'], ['$+', '$-', '$'], $matches[2]) . ' ' . $matches[3];
+            }, $converted);
+            $converted = preg_replace_callback('/\{VERSIONS\(.*\)\}(.+)\{VERSIONS\}/s', function ($matches) {
+                return preg_replace_callback('/^(@-)+\(.*?\)(@-)+/m', function ($innerMatches) {
+                    return str_replace('@-', '-', $innerMatches[0]);
+                }, $matches[0]);
             }, $converted);
         }
 
