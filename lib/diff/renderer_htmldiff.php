@@ -43,6 +43,12 @@ class Text_Diff_Renderer_htmldiff extends Tiki_Text_Diff_Renderer
     protected function _endDiff()
     {
         for ($i = 0; $i <= $this->n; $i++) {
+            if (! isset($this->original[$i])) {
+                $this->original[$i] = '';
+            }
+            if (! isset($this->final[$i])) {
+                $this->final[$i] = '';
+            }
             if ($this->original[$i] != "" and $this->final[$i] != "") {
                 echo "<tr><td width='50%' colspan='2' style='vertical-align:top'>" . $this->original[$i] . "</td><td width='50%' colspan='2' style='vertical-align:top'>" . $this->final[$i] . "</td></tr>\n";
             }
@@ -175,6 +181,9 @@ class Text_Diff_Renderer_htmldiff extends Tiki_Text_Diff_Renderer
             case 'change-deleted':
                 foreach ($lines as $line) {
                     if ($line != '') {
+                        if (! isset($this->original[$this->n])) {
+                            $this->original[$this->n] = '';
+                        }
                         $this->_count_tags($line, 'original');
                         $this->original[$this->n] .= $this->_insert_tag($line, 'diffdeleted', $this->lspan);
                         $context = 0;
