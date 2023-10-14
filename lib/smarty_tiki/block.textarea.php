@@ -412,7 +412,7 @@ function addSyntaxPlugin(domId, $form) {
         // wiki link widgets markers
         val = val.replace(/\$\$widget0 (.*?)\$\$/mg, "$1");
     }
-    $textarea.val("{syntax type=\"" + syntax + "\", editor=\"" + editor + "\"}\r\n" + val);
+    $textarea.val("{syntax type=\"" + syntax + "\" editor=\"" + editor + "\"}\r\n" + val);
 }
         ');
 

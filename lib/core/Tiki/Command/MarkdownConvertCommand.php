@@ -116,7 +116,7 @@ class MarkdownConvertCommand extends Command
             if ($input->getOption('save')) {
                 $editor = '';
                 if ($syntax == 'markdown') {
-                    $editor = ', editor="wysiwyg"';
+                    $editor = ' editor="wysiwyg"';
                     $is_wysiwyg = true;
                 }
                 $converted = '{syntax type="' . $syntax . '" ' . $editor . '} ' . $converted;
