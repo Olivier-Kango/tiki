@@ -36,8 +36,12 @@ class UpdateCommand extends Command
             // tiki-setup.php may not have been run yet, so load the minimum required libs to be able process the schema updates
             require_once('lib/tikilib.php');
 
-            $installer->update();
-            $output->writeln('Update completed.');
+            $result = $installer->update();
+            if ($result) {
+                $output->writeln('Update completed.');
+            } else {
+                $output->writeln('<error>Update interrupted as a patch failed to complete. Please fix the errors below and try again.</error>');
+            }
             foreach (array_keys(\Tiki\Installer\Patch::getPatches([\Tiki\Installer\Patch::NEWLY_APPLIED])) as $patch) {
                 $output->writeln("<info>Installed: $patch</info>");
             }

@@ -142,6 +142,8 @@ class Installer extends TikiDb_Bridge implements SplSubject
             } catch (Exception $e) {
                 if ($e->getCode() != 2) {
                     throw $e;
+                } else {
+                    return false;
                 }
             }
         }
@@ -149,6 +151,8 @@ class Installer extends TikiDb_Bridge implements SplSubject
         foreach ($this->scripts as $script) {
             $this->runScript($script);
         }
+
+        return true;
     }
 
     /**
