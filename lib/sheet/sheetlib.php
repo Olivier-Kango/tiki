@@ -768,11 +768,10 @@ class SheetLib extends TikiLib
                 $result1 .= "<tr>";
                 $result2 .= "<tr>";
                 for ($col = 0; $col < $count_longest($grids1[$i]->dataGrid[$row] ?? [], $grids2[$i]->dataGrid[$row] ?? []); $col++) { //cycle through columns
-                    if (array_key_exists($col, $grids1[$i]->dataGrid[$row])) {
-                        $cellValue1 = isset($grids1[$i]->dataGrid[$row][$col]) && is_array($grids1[$i]->dataGrid[$row][$col])
-                            ? $grids1[$i]->dataGrid[$row][$col]["value"] ?? ''
-                            : $grids1[$i]->dataGrid[$row][$col] ?? '';
-                    }
+                    $cellValue1 = isset($grids1[$i]->dataGrid[$row][$col]) && is_array($grids1[$i]->dataGrid[$row][$col])
+                        ? $grids1[$i]->dataGrid[$row][$col]["value"] ?? ''
+                        : $grids1[$i]->dataGrid[$row][$col] ?? '';
+
                     $cellValue2 = isset($grids2[$i]->dataGrid[$row][$col]) && is_array($grids2[$i]->dataGrid[$row][$col])
                         ? $grids2[$i]->dataGrid[$row][$col]["value"] ?? ''
                         : $grids2[$i]->dataGrid[$row][$col] ?? '';
