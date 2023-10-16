@@ -10,7 +10,10 @@ class Services_Cypht_Controller
     {
         global $tikipath, $tikiroot, $logslib;
 
-        $session_prefix = $input->hm_session_prefix->text() ?? 'cypht';
+        $session_prefix = $input->hm_session_prefix->text();
+        if (empty($session_prefix)) {
+            $session_prefix = 'cypht';
+        }
 
         require_once $tikipath . '/lib/cypht/integration/classes.php';
 

@@ -358,7 +358,7 @@ class Services_Calendar_Controller
                 'calitemId'             => $calitemId,
                 'calendarId'            => $calendarId,
                 'user'                  => $user,
-                'name'                  => '',
+                'name'                  => $input->prefill_title->text(),
                 'url'                   => '',
                 'description'           => '',
                 'status'                => $calendar['defaulteventstatus'],

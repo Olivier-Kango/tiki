@@ -12,7 +12,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 
     private $ranges = [];
 
-    private $text;
+    private $text = '';
 
     private $scanPosition = -1;
 
