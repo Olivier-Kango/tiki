@@ -1558,6 +1558,14 @@ class EditLib
                     return str_replace('-', '@-', $innerMatches[0]);
                 }, $matches[0]);
             }, $data);
+
+            $ppArray = [];
+            $data = preg_replace_callback('/~pp~(.+?)~\/pp~/s', function ($m) use (&$ppArray) {
+                $hash = uniqid();
+                $ppArray['keys'][] = $hash;
+                $ppArray['values'][] = $m[0];
+                return $hash;
+            }, $data);
         }
         $data = $this->convertSmileysToUnicode($data);
 
@@ -1650,6 +1658,10 @@ class EditLib
 
             // Bring back > character
             $converted = str_replace('&gt;', '>', $converted);
+
+            if ($ppArray) {
+                $converted = str_replace($ppArray['keys'], $ppArray['values'], $converted);
+            }
         } else {
             // convert to tiki syntax
             if ($source_syntax == 'tiki') {
