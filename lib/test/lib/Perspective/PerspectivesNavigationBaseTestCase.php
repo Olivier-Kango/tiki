@@ -67,13 +67,13 @@ class PerspectivesNavigationBaseTestCase extends TestCase
 
             if (! empty($perspective)) {
                 if ($perspective[0] === '!') {
-                    $this->assertNotContains(
+                    $this->assertStringNotContainsString(
                         substr($perspective, 1),
                         $crawler->filter('body')->attr('class'),
                         'Page shows right perspective #' . $stepIndex
                     );
                 } else {
-                    $this->assertContains(
+                    $this->assertStringContainsString(
                         $perspective,
                         $crawler->filter('body')->attr('class'),
                         'Page shows right perspective #' . $stepIndex

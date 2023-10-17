@@ -337,14 +337,9 @@ class XMPPLib extends TikiLib
         $port = $url['port'] ?: ($ssl ? 9091 : 9090);
         $path = rtrim($url['path'], '/');
 
-        $api = new Gidkom\OpenFireRestApi\OpenFireRestApi();
-        $api->useBasicAuth = true;
-        $api->basicUser = $username;
-        $api->basicPwd = $password;
-        $api->host = $host;
-        $api->port = $port;
-        $api->useSSL = $ssl;
-        $api->plugin = $path;
+        // TODO: gidkom/php-openfire-restapi doesn't work with latest guzzle which prevents PHP8 packages from working fine
+        // need to find another rest api or implement it if somebody needs to use this.
+        $api = null;
 
         $this->restapi = $api;
         return $api;
@@ -387,8 +382,10 @@ class XMPPLib extends TikiLib
         $roomJid = new JID($room);
         $roomName = $roomJid->getNode();
 
-        $result = $this->getRestApi()->addUserRoleToChatRoom($roomName, $onwerName, 'owners');
-        $result = $this->getRestApi()->addUserRoleToChatRoom($roomName, $userJid, $role);
+
+        //$result = $this->getRestApi()->addUserRoleToChatRoom($roomName, $onwerName, 'owners');
+        //$result = $this->getRestApi()->addUserRoleToChatRoom($roomName, $userJid, $role);
+        $result = [];
 
         $this->getXmppApi()
             ->sendPresence(1, (string) $roomJid, $onwerName)
@@ -428,8 +425,9 @@ class XMPPLib extends TikiLib
 
     public function add_group_to_room($room, $name, $role = 'members')
     {
-        $restapi = $this->getRestApi();
-        return $restapi->addGroupRoleToChatRoom($room, $name, $role);
+        return [];
+        //$restapi = $this->getRestApi();
+        //return $restapi->addGroupRoleToChatRoom($room, $name, $role);
     }
 
     public function add_groups_to_room($params = [], $defaultRoom = '', $defaultRole = 'members')
@@ -462,8 +460,9 @@ class XMPPLib extends TikiLib
 
     public function get_groups()
     {
-        $restapi = $this->getRestApi();
-        $response = $restapi->getGroups();
+        //$restapi = $this->getRestApi();
+        //$response = $restapi->getGroups();
+        $response = [];
 
         $items = [];
         if (! empty($response['data']) && ! empty($response['data']->groups)) {
