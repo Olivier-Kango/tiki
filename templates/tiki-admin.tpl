@@ -86,6 +86,17 @@
                 {/remarksbox}
             {/if}
 
+            {if $composer_options_diff}
+                {remarksbox type="error" title="{tr}Composer.json file issues{/tr}"}
+                    {tr}Your composer.json file is outdated and differs from the stock composer.json.dist file that is coming with your Tiki version. Please update composer.json and re-run composer install or install/update a package to get the latest configuration. Not doing so might result in fatal errors loading some Tiki pages. Here's the list of differences:{/tr}<br />
+                    <ul>
+                    {foreach from=$composer_options_diff item=$diff key=$key}
+                        <li>{$key|cat:':'} <strong>{$diff['existing']}</strong> / <strong>{$diff['dist']}</strong></li>
+                    {/foreach}
+                    </ul>
+                {/remarksbox}
+            {/if}
+
             {if $installer_not_locked}
                 {remarksbox type="error" title="{tr}Installer not locked{/tr}"}
                     {tr} The installer allows a user to change or destroy the site's database through the browser so it is very important to keep it locked. {/tr}

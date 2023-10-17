@@ -762,6 +762,36 @@ class ComposerCli
     }
 
     /**
+     * Compare existing config with dist config for necessary updates that haven't been completed.
+     */
+    public function compareDistRequiredOptions()
+    {
+        $config = $this->getComposerConfig();
+        if (! $config) {
+            return;
+        }
+
+        $distConfig = $this->getComposerDistConfig();
+
+        $diff = [];
+
+        if (@$config['config']['platform']['php'] !== @$distConfig['config']['platform']['php']) {
+            $diff['platform.php'] = [
+                'existing' => isset($config['config']['platform']['php']) ? json_encode($config['config']['platform']['php']) : 'missing',
+                'dist' => isset($distConfig['config']['platform']['php']) ? json_encode($distConfig['config']['platform']['php']) : 'missing',
+            ];
+        }
+        if (@$config['config']['prepend-autoloader'] !== @$distConfig['config']['prepend-autoloader']) {
+            $diff['prepend-autoloader'] = [
+                'existing' => isset($config['config']['prepend-autoloader']) ? json_encode($config['config']['prepend-autoloader']) : 'missing',
+                'dist' => isset($distConfig['config']['prepend-autoloader']) ? json_encode($distConfig['config']['prepend-autoloader']) : 'missing',
+            ];
+        }
+
+        return $diff;
+    }
+
+    /**
      * Build and get proxy URL based on Tiki preferences.
      * @return string
      */
