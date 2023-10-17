@@ -10,6 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Tiki\Installer\Installer;
+use Tiki\Package\ComposerCli;
 use Tiki\Package\ExtensionManager;
 use Tiki\Suggestion\Rules;
 
@@ -464,6 +465,9 @@ $smarty->assign('db_requires_update', $installer->requiresUpdate());
 $smarty->assign('missing_patches', $installer->missingPatches());
 $smarty->assign('installer_not_locked', $installer->checkInstallerLocked());
 $smarty->assign('db_engine_type', getCurrentEngine());
+
+$composerWrapper = new ComposerCli($tikipath);
+$smarty->assign('composer_options_diff', $composerWrapper->compareDistRequiredOptions());
 
 $smarty->assign('wiki_attachments_migrated', true);
 if ($prefs['feature_wiki_attachments'] === 'y' && $prefs['feature_use_fgal_for_wiki_attachments'] === 'y') {
