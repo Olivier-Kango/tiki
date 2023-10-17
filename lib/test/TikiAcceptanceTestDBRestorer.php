@@ -167,8 +167,10 @@ class TikiAcceptanceTestDBRestorerSQLDumps extends TikiAcceptanceTestDBRestorer
     {
         chdir($this->mysql_data_dir);
         if (file_exists($dump_file)) {
+            chdir($this->current_dir);
             return true;
         }
+        chdir($this->current_dir);
     }
 
     //This method can be called to create any dump file from a db.
@@ -213,6 +215,7 @@ class TikiAcceptanceTestDBRestorerSQLDumps extends TikiAcceptanceTestDBRestorer
         $error_msg = null;
         chdir($this->mysql_data_dir);
         if (! file_exists($tiki_test_db_dump)) {
+            chdir($this->current_dir);
             $error_msg =
                 "\nTried to run an acceptance test without an initial database dump. " .
                 "Run script lib/core/test/create_dump_db_file.php to create it.\n";

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c111b76c400a49caea6b561752f77e19",
+    "content-hash": "b30b80abcb10f7e118c8e3e38598b45b",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2070,82 +2070,48 @@
             "time": "2022-09-18T07:06:19+00:00"
         },
         {
-            "name": "gidkom/php-openfire-restapi",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gidkom/php-openfire-restapi.git",
-                "reference": "1f9abb9525f4a87cec46efc43873320d58b56e2b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/gidkom/php-openfire-restapi/gidkom-php-openfire-restapi-1f9abb9525f4a87cec46efc43873320d58b56e2b-zip-ca70fd.zip",
-                "reference": "1f9abb9525f4a87cec46efc43873320d58b56e2b",
-                "shasum": "0fdf4b91528ba7345bcb4f79ae7f43c14841efd8"
-            },
-            "require": {
-                "ext-curl": "*",
-                "guzzlehttp/guzzle": "^5.3.1|^6.2.1",
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Gidkom\\OpenFireRestApi": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gideon Kombian",
-                    "email": "yoroumah@gmail.com"
-                }
-            ],
-            "description": "Manage Open fire server using Rest Api",
-            "homepage": "https://github.com/gidkom/php-openfire-restapi",
-            "keywords": [
-                "chat",
-                "openfire",
-                "xmpp"
-            ],
-            "time": "2018-01-31T14:17:26+00:00"
-        },
-        {
             "name": "guzzlehttp/guzzle",
-            "version": "6.5.8",
+            "version": "7.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "a52f0440530b54fa079ce76e8c5d196a42cad981"
+                "reference": "1110f66a6530a40fe7aea0378fe608ee2b2248f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/guzzlehttp/guzzle/guzzlehttp-guzzle-a52f0440530b54fa079ce76e8c5d196a42cad981-zip-ec7eb5.zip",
-                "reference": "a52f0440530b54fa079ce76e8c5d196a42cad981",
-                "shasum": "894f67d70641f9b53ce331235821eaf86dc3322d"
+                "url": "https://composer.tiki.org/dist/guzzlehttp/guzzle/guzzlehttp-guzzle-1110f66a6530a40fe7aea0378fe608ee2b2248f9-zip-7dacd5.zip",
+                "reference": "1110f66a6530a40fe7aea0378fe608ee2b2248f9",
+                "shasum": "323561f9d7e6b93e4745640bee5e3f2f621abbf6"
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/promises": "^1.0",
-                "guzzlehttp/psr7": "^1.9",
-                "php": ">=5.5",
-                "symfony/polyfill-intl-idn": "^1.17"
+                "guzzlehttp/promises": "^1.5.3 || ^2.0.1",
+                "guzzlehttp/psr7": "^1.9.1 || ^2.5.1",
+                "php": "^7.2.5 || ^8.0",
+                "psr/http-client": "^1.0",
+                "symfony/deprecation-contracts": "^2.2 || ^3.0"
+            },
+            "provide": {
+                "psr/http-client-implementation": "1.0"
             },
             "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.8.1",
                 "ext-curl": "*",
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4 || ^7.0",
-                "psr/log": "^1.1"
+                "php-http/client-integration-tests": "dev-master#2c025848417c1135031fdf9c728ee53d0a7ceaee as 3.0.999",
+                "php-http/message-factory": "^1.1",
+                "phpunit/phpunit": "^8.5.29 || ^9.5.23",
+                "psr/log": "^1.1 || ^2.0 || ^3.0"
             },
             "suggest": {
+                "ext-curl": "Required for CURL handler support",
+                "ext-intl": "Required for Internationalized Domain Name (IDN) support",
                 "psr/log": "Required for using the Log middleware"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "6.5-dev"
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
                 }
             },
             "autoload": {
@@ -2198,13 +2164,14 @@
                 }
             ],
             "description": "Guzzle is a PHP HTTP client library",
-            "homepage": "http://guzzlephp.org/",
             "keywords": [
                 "client",
                 "curl",
                 "framework",
                 "http",
                 "http client",
+                "psr-18",
+                "psr-7",
                 "rest",
                 "web service"
             ],
@@ -2222,33 +2189,37 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-20T22:16:07+00:00"
+            "time": "2023-08-27T10:20:53+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.5.3",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "67ab6e18aaa14d753cc148911d273f6e6cb6721e"
+                "reference": "111166291a0f8130081195ac4556a5587d7f1b5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/guzzlehttp/promises/guzzlehttp-promises-67ab6e18aaa14d753cc148911d273f6e6cb6721e-zip-551abe.zip",
-                "reference": "67ab6e18aaa14d753cc148911d273f6e6cb6721e",
-                "shasum": "26f1ca9638677f36231ff2b11f262c53b4142b05"
+                "url": "https://composer.tiki.org/dist/guzzlehttp/promises/guzzlehttp-promises-111166291a0f8130081195ac4556a5587d7f1b5d-zip-9a576a.zip",
+                "reference": "111166291a0f8130081195ac4556a5587d7f1b5d",
+                "shasum": "a5e670947c4691fd6ecf2e9559d05bd92e9da69b"
             },
             "require": {
-                "php": ">=5.5"
+                "php": "^7.2.5 || ^8.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^4.4 || ^5.1"
+                "bamarni/composer-bin-plugin": "^1.8.1",
+                "phpunit/phpunit": "^8.5.29 || ^9.5.23"
             },
             "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                }
+            },
             "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
                 "psr-4": {
                     "GuzzleHttp\\Promise\\": "src/"
                 }
@@ -2297,42 +2268,48 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-21T12:31:43+00:00"
+            "time": "2023-08-03T15:11:55+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.9.1",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "e4490cabc77465aaee90b20cfc9a770f8c04be6b"
+                "reference": "be45764272e8873c72dbe3d2edcfdfcc3bc9f727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/guzzlehttp/psr7/guzzlehttp-psr7-e4490cabc77465aaee90b20cfc9a770f8c04be6b-zip-df1cd6.zip",
-                "reference": "e4490cabc77465aaee90b20cfc9a770f8c04be6b",
-                "shasum": "e170fb6d1e8f640fc20ee5296e34bf13e5b78d92"
+                "url": "https://composer.tiki.org/dist/guzzlehttp/psr7/guzzlehttp-psr7-be45764272e8873c72dbe3d2edcfdfcc3bc9f727-zip-c962ec.zip",
+                "reference": "be45764272e8873c72dbe3d2edcfdfcc3bc9f727",
+                "shasum": "78c27a9f7de982f0fb9e952987452ffb8c0a3f94"
             },
             "require": {
-                "php": ">=5.4.0",
-                "psr/http-message": "~1.0",
-                "ralouphie/getallheaders": "^2.0.5 || ^3.0.0"
+                "php": "^7.2.5 || ^8.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.1 || ^2.0",
+                "ralouphie/getallheaders": "^3.0"
             },
             "provide": {
+                "psr/http-factory-implementation": "1.0",
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "ext-zlib": "*",
-                "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.10"
+                "bamarni/composer-bin-plugin": "^1.8.1",
+                "http-interop/http-factory-tests": "^0.9",
+                "phpunit/phpunit": "^8.5.29 || ^9.5.23"
             },
             "suggest": {
                 "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                }
+            },
             "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
                 "psr-4": {
                     "GuzzleHttp\\Psr7\\": "src/"
                 }
@@ -2371,6 +2348,11 @@
                     "name": "Tobias Schultze",
                     "email": "webmaster@tubo-world.de",
                     "homepage": "https://github.com/Tobion"
+                },
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com",
+                    "homepage": "https://sagikazarmark.hu"
                 }
             ],
             "description": "PSR-7 message implementation that also provides common utility methods",
@@ -2398,7 +2380,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-17T16:00:37+00:00"
+            "time": "2023-08-27T10:13:57+00:00"
         },
         {
             "name": "h5p/h5p-core",
@@ -2775,13 +2757,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "497d79883e60453f52eb3a1eba46af3de85cfc2d"
+                "reference": "eff30c832c76def6022649268f05e82e118f292b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-497d79883e60453f52eb3a1eba46af3de85cfc2d-zip-03463e.zip",
-                "reference": "497d79883e60453f52eb3a1eba46af3de85cfc2d",
-                "shasum": "3c501ef05039837a2cb5d850b49d9babb7169aa6"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-eff30c832c76def6022649268f05e82e118f292b-zip-f50be8.zip",
+                "reference": "eff30c832c76def6022649268f05e82e118f292b",
+                "shasum": "b8e5d20316e1e7b688b528ae791fb34b66f6d54e"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2841,7 +2823,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-10-11T08:29:19+00:00"
+            "time": "2023-10-16T07:42:45+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5273,39 +5255,47 @@
         },
         {
             "name": "league/flysystem",
-            "version": "2.5.0",
+            "version": "3.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "8aaffb653c5777781b0f7f69a5d937baf7ab6cdb"
+                "reference": "bd4c9b26849d82364119c68429541f1631fba94b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/flysystem/league-flysystem-8aaffb653c5777781b0f7f69a5d937baf7ab6cdb-zip-b19230.zip",
-                "reference": "8aaffb653c5777781b0f7f69a5d937baf7ab6cdb",
-                "shasum": "9e27546b9f2b5b47e519880c5e5d02bebffbc598"
+                "url": "https://composer.tiki.org/dist/league/flysystem/league-flysystem-bd4c9b26849d82364119c68429541f1631fba94b-zip-8dc171.zip",
+                "reference": "bd4c9b26849d82364119c68429541f1631fba94b",
+                "shasum": "a7347c85068a4e96afed85d1338472e425c1d9de"
             },
             "require": {
-                "ext-json": "*",
+                "league/flysystem-local": "^3.0.0",
                 "league/mime-type-detection": "^1.0.0",
-                "php": "^7.2 || ^8.0"
+                "php": "^8.0.2"
             },
             "conflict": {
-                "guzzlehttp/ringphp": "<1.1.1"
+                "async-aws/core": "<1.19.0",
+                "async-aws/s3": "<1.14.0",
+                "aws/aws-sdk-php": "3.209.31 || 3.210.0",
+                "guzzlehttp/guzzle": "<7.0",
+                "guzzlehttp/ringphp": "<1.1.1",
+                "phpseclib/phpseclib": "3.0.15",
+                "symfony/http-client": "<5.2"
             },
             "require-dev": {
-                "async-aws/s3": "^1.5",
-                "async-aws/simple-s3": "^1.0",
-                "aws/aws-sdk-php": "^3.132.4",
+                "async-aws/s3": "^1.5 || ^2.0",
+                "async-aws/simple-s3": "^1.1 || ^2.0",
+                "aws/aws-sdk-php": "^3.220.0",
                 "composer/semver": "^3.0",
                 "ext-fileinfo": "*",
                 "ext-ftp": "*",
-                "friendsofphp/php-cs-fixer": "^3.2",
+                "ext-zip": "*",
+                "friendsofphp/php-cs-fixer": "^3.5",
                 "google/cloud-storage": "^1.23",
-                "phpseclib/phpseclib": "^2.0",
+                "microsoft/azure-storage-blob": "^1.1",
+                "phpseclib/phpseclib": "^3.0.14",
                 "phpstan/phpstan": "^0.12.26",
-                "phpunit/phpunit": "^8.5 || ^9.4",
-                "sabre/dav": "^4.1"
+                "phpunit/phpunit": "^9.5.11|^10.0",
+                "sabre/dav": "^4.3.1"
             },
             "type": "library",
             "autoload": {
@@ -5345,13 +5335,65 @@
                 {
                     "url": "https://github.com/frankdejonge",
                     "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/league/flysystem",
-                    "type": "tidelift"
                 }
             ],
-            "time": "2022-09-17T21:02:32+00:00"
+            "time": "2023-10-05T20:15:05+00:00"
+        },
+        {
+            "name": "league/flysystem-local",
+            "version": "3.16.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem-local.git",
+                "reference": "ec7383f25642e6fd4bb0c9554fc2311245391781"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/league/flysystem-local/league-flysystem-local-ec7383f25642e6fd4bb0c9554fc2311245391781-zip-1e4c8d.zip",
+                "reference": "ec7383f25642e6fd4bb0c9554fc2311245391781",
+                "shasum": "a7c47ac4f6c2804dd079664a4e2cc5e9a5ae51e1"
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "league/flysystem": "^3.0.0",
+                "league/mime-type-detection": "^1.0.0",
+                "php": "^8.0.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\Local\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frankdejonge.nl"
+                }
+            ],
+            "description": "Local filesystem adapter for Flysystem.",
+            "keywords": [
+                "Flysystem",
+                "file",
+                "files",
+                "filesystem",
+                "local"
+            ],
+            "funding": [
+                {
+                    "url": "https://ecologi.com/frankdejonge",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/frankdejonge",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-08-30T10:23:59+00:00"
         },
         {
             "name": "league/html-to-markdown",
@@ -11628,21 +11670,20 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v5.4.26",
+            "version": "v6.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "0ad3f7e9a1ab492c5b4214cf22a9dc55dcf8600a"
+                "reference": "883d961421ab1709877c10ac99451632a3d6fa57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/css-selector/symfony-css-selector-0ad3f7e9a1ab492c5b4214cf22a9dc55dcf8600a-zip-3f9e4a.zip",
-                "reference": "0ad3f7e9a1ab492c5b4214cf22a9dc55dcf8600a",
-                "shasum": "1025560fa6271940e7430a08330b2eb529f5d842"
+                "url": "https://composer.tiki.org/dist/symfony/css-selector/symfony-css-selector-883d961421ab1709877c10ac99451632a3d6fa57-zip-a0376d.zip",
+                "reference": "883d961421ab1709877c10ac99451632a3d6fa57",
+                "shasum": "989197c48e6ef7cfd243c21248149fdfe864367b"
             },
             "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-php80": "^1.16"
+                "php": ">=8.1"
             },
             "type": "library",
             "autoload": {
@@ -11687,7 +11728,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-07T06:10:25+00:00"
+            "time": "2023-07-12T16:00:22+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -15527,62 +15568,6 @@
             "time": "2022-12-30T00:23:10+00:00"
         },
         {
-            "name": "fabpot/goutte",
-            "version": "v3.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FriendsOfPHP/Goutte.git",
-                "reference": "80a23b64f44d54dd571d114c473d9d7e9ed84ca5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/fabpot/goutte/fabpot-goutte-80a23b64f44d54dd571d114c473d9d7e9ed84ca5-zip-064580.zip",
-                "reference": "80a23b64f44d54dd571d114c473d9d7e9ed84ca5",
-                "shasum": "b4b2a68f34157c6753b6ab23dc1732b284e5bc69"
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.0",
-                "php": ">=7.1.3",
-                "symfony/browser-kit": "^4.4|^5.0",
-                "symfony/css-selector": "^4.4|^5.0",
-                "symfony/dom-crawler": "^4.4|^5.0"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "^5.0"
-            },
-            "type": "application",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Goutte\\": "Goutte"
-                },
-                "exclude-from-classmap": [
-                    "Goutte/Tests"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "A simple PHP Web Scraper",
-            "homepage": "https://github.com/FriendsOfPHP/Goutte",
-            "keywords": [
-                "scraper"
-            ],
-            "abandoned": "symfony/browser-kit",
-            "time": "2020-11-01T09:30:18+00:00"
-        },
-        {
             "name": "kint-php/kint",
             "version": "4.2.3",
             "source": {
@@ -15697,6 +15682,69 @@
                 "xunit"
             ],
             "time": "2023-02-04T13:09:21+00:00"
+        },
+        {
+            "name": "masterminds/html5",
+            "version": "2.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Masterminds/html5-php.git",
+                "reference": "f47dcf3c70c584de14f21143c55d9939631bc6cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/masterminds/html5/masterminds-html5-f47dcf3c70c584de14f21143c55d9939631bc6cf-zip-fae31c.zip",
+                "reference": "f47dcf3c70c584de14f21143c55d9939631bc6cf",
+                "shasum": "d2dabcabf91e4655e39bfcb98e45bf54a95ee70d"
+            },
+            "require": {
+                "ext-dom": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7 || ^8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Masterminds\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Butcher",
+                    "email": "technosophos@gmail.com"
+                },
+                {
+                    "name": "Matt Farina",
+                    "email": "matt@mattfarina.com"
+                },
+                {
+                    "name": "Asmir Mustafic",
+                    "email": "goetas@gmail.com"
+                }
+            ],
+            "description": "An HTML5 parser and serializer.",
+            "homepage": "http://masterminds.github.io/html5-php",
+            "keywords": [
+                "HTML5",
+                "dom",
+                "html",
+                "parser",
+                "querypath",
+                "serializer",
+                "xml"
+            ],
+            "time": "2023-05-10T11:58:31+00:00"
         },
         {
             "name": "mikey179/vfsstream",
@@ -18031,34 +18079,26 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v5.4.25",
+            "version": "v6.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "d2aefa5a7acc5511422792931d14d1be96fe9fea"
+                "reference": "3fdd2a3d5fdc363b2e8dbf817f9726a4d013cbd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/dom-crawler/symfony-dom-crawler-d2aefa5a7acc5511422792931d14d1be96fe9fea-zip-95fb5a.zip",
-                "reference": "d2aefa5a7acc5511422792931d14d1be96fe9fea",
-                "shasum": "96ae5c3c568bbe9b2c39777c36030f04ad905c49"
+                "url": "https://composer.tiki.org/dist/symfony/dom-crawler/symfony-dom-crawler-3fdd2a3d5fdc363b2e8dbf817f9726a4d013cbd1-zip-5d4787.zip",
+                "reference": "3fdd2a3d5fdc363b2e8dbf817f9726a4d013cbd1",
+                "shasum": "0e9674d041401d50dccdb0df84b741fbf2df9103"
             },
             "require": {
-                "php": ">=7.2.5",
-                "symfony/deprecation-contracts": "^2.1|^3",
+                "masterminds/html5": "^2.6",
+                "php": ">=8.1",
                 "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-mbstring": "~1.0",
-                "symfony/polyfill-php80": "^1.16"
-            },
-            "conflict": {
-                "masterminds/html5": "<2.6"
+                "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
-                "masterminds/html5": "^2.6",
-                "symfony/css-selector": "^4.4|^5.0|^6.0"
-            },
-            "suggest": {
-                "symfony/css-selector": ""
+                "symfony/css-selector": "^5.4|^6.0"
             },
             "type": "library",
             "autoload": {
@@ -18099,7 +18139,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-05T08:05:41+00:00"
+            "time": "2023-08-01T07:43:40+00:00"
         },
         {
             "name": "symfony/event-dispatcher",

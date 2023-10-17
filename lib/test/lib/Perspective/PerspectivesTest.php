@@ -82,10 +82,7 @@ class PerspectivesTest extends PerspectivesNavigationBaseTestCase
     {
         $host = getenv('TIKI_TEST_HOST');
 
-        $client = WebClientHelper::createTestClient(false);
-        $client->getCookieJar()->clear();
-        $client->followRedirects(true);
-
+        $client = WebClientHelper::createTestClient(true);
         $client->request('GET', 'http://' . $host . '/tiki-index.php');
 
         $client->request('GET', 'http://' . $host . '/tiki-switch_perspective.php?perspective=1');

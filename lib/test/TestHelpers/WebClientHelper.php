@@ -6,32 +6,24 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Test\TestHelpers;
 
-use Goutte\Client as GoutteClient;
-use GuzzleHttp\Client as GuzzleClient;
+use Symfony\Component\BrowserKit\HttpBrowser;
+use Symfony\Component\HttpClient\HttpClient;
 
 class WebClientHelper
 {
     /**
      * @var bool $followRedirects if the client should automatically follow redirects
      *
-     * @return GoutteClient
+     * @return HttpBrowser
      */
-    public static function createTestClient($followRedirects = true): GoutteClient
+    public static function createTestClient($followRedirects = true): HttpBrowser
     {
-        $client = new GoutteClient();
-        $client->setClient(
-            new GuzzleClient([
-                'allow_redirects' => false,
-                'cookies'         => true,
-                'curl' => [
-                    CURLOPT_SSL_VERIFYPEER => false,
-                    CURLOPT_SSL_VERIFYHOST => false,
-                ]
-            ])
-        );
-        $client->followRedirects($followRedirects);
-        $client->getCookieJar()->clear();
-
-        return $client;
+        $browser = new HttpBrowser(HttpClient::create([
+            'max_redirects' => $followRedirects ? 20 : 0,
+            'verify_host' => false,
+            'verify_peer' => false,
+        ]));
+        $browser->getCookieJar()->clear();
+        return $browser;
     }
 }
