@@ -37,6 +37,7 @@ function smarty_function_object_selector_multi($params, $smarty)
         'simpleclass' => null,
         'simplevalue' => null,
         'separator' => null,
+        'use_permname' => 'n',
         'threshold' => null,
         'parent' => null,
         'parentkey' => null,

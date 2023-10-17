@@ -63,6 +63,7 @@ function wikiplugin_pivottable_info()
                 'filter' => 'text',
                 'default' => '',
                 'profile_reference' => 'tracker_field',
+                'use_permname' => 'y',
                 'separator' => ':',
             ],
             'cols' => [
@@ -73,6 +74,7 @@ function wikiplugin_pivottable_info()
                 'filter' => 'text',
                 'default' => '',
                 'profile_reference' => 'tracker_field',
+                'use_permname' => 'y',
                 'separator' => ':',
             ],
             'colOrder' => [
@@ -184,6 +186,7 @@ function wikiplugin_pivottable_info()
                 'required' => false,
                 'filter' => 'text',
                 'profile_reference' => 'tracker_field',
+                'use_permname' => 'y',
                 'separator' => ':',
             ],
             'inclusions' => [
@@ -207,6 +210,7 @@ function wikiplugin_pivottable_info()
                 'required' => false,
                 'filter' => 'text',
                 'profile_reference' => 'tracker_field',
+                'use_permname' => 'y',
                 'separator' => ':',
             ],
             'aggregateDetailsFormat' => [

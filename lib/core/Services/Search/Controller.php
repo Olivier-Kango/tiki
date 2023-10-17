@@ -179,6 +179,7 @@ class Services_Search_Controller
         try {
             $filter = $input->filter->none() ?: [];
             $format = $input->format->text() ?: '{title}';
+            $use_permname = $input->use_permname->text();
             $titleFilter = null;
             $highlightHelper = null;
 
@@ -215,10 +216,10 @@ class Services_Search_Controller
 
             $result = $query->search($lib->getIndex());
 
-            $result->applyTransform(function ($item) use ($format, $smarty, $titleFilter, $highlightHelper) {
+            $result->applyTransform(function ($item) use ($format, $smarty, $titleFilter, $highlightHelper, $use_permname) {
                 $transformed = [
                     'object_type' => $item['object_type'],
-                    'object_id' => $item['object_id'],
+                    'object_id' => $use_permname != 'y' ? $item['object_id'] : (TikiLib::lib('trk')->get_field_info($item['object_id'])['permName'] ?? $item['object_id']),
                     'parent_id' => $item['gallery_id'],
                     'title' => preg_replace_callback('/\{([\w\.]+)\}/', function ($matches) use ($item, $format, $titleFilter, $highlightHelper) {
                         $key = $matches[1];

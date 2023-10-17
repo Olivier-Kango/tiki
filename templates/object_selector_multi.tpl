@@ -2,6 +2,7 @@
 {if !empty($object_selector_multi.separator)}
     <input
         data-separator="{$object_selector_multi.separator|escape}"
+        data-use_permname="{$object_selector_multi.use_permname|escape}"
         type="text"
         {if $prefs.javascript_enabled eq 'y'}style="display: none"{/if}
         id="{$object_selector_multi.simpleid|escape}"
