@@ -22,7 +22,7 @@
         {/remarksbox}
         <h3>{tr}Profiles:{/tr}</h3>
         <div class="row">
-        <!--
+        {*
                 <div class="col-md-6">
                     <h4>{tr}CartoGraf{/tr}</h4>
                     (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=CartoGraf_15&show_details_for=CartoGraf_15&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
@@ -30,7 +30,7 @@
                     {tr}CartoGraf is an interactive web-based mapping application to enhance learning in history and geography classes in high schools.{/tr}
                     {tr}CartoGraf is a great example of how to use profiles in a general purpose app (Tiki) to make a very specific application.{/tr}
                     <br/>
-                    <a href="https://tv.tiki.org/CartoGraf" target="tikihelp" class="tikihelp" title="{tr}CartoGraf{/tr}:
+                    <a href="https://tv.tiki.org/CartoGraf" target="tikihelp" class="tikihelp" title="{tr}CartoGraf:{/tr}
                         {tr}This profile is using Tiki as Framework, with these details:{/tr}
                         <ul>
                             <li>{tr}It is mainly based on Maps, Drawings, PluginAppFrame and Trackers{/tr}</li>
@@ -53,13 +53,13 @@
                         </div>
                     </div>
                 </div>
-        -->
+        *}
                 <div class="col-md-6">
                     <h4>{tr}R demo{/tr}</h4> (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=R_demo&show_details_for=R_demo&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
                     <br/>
                     {tr}This profile demonstrates common uses of R language for statistics to produce advanced and/or interactive graphs and reports in web 2.0 pages.{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/PluginR" target="tikihelp" class="tikihelp" title="{tr}R demo{/tr}:
+                    <a href="https://doc.tiki.org/PluginR" target="tikihelp" class="tikihelp" title="{tr}R demo:{/tr}
                         {tr}It uses the R Project for Statistical Computing software & PluginR in Tiki (both of which are not bundled within a default Tiki installation and they need to be installed in the same server as Tiki).{/tr}
                         <br/><br/>
                         {tr}The profile creates many demo pages, which comprise:{/tr}
@@ -72,7 +72,7 @@
                     >
                         {icon name="help"}
                     </a>
-                    <a href="http://r.tiki.org" target="tikihelp" class="tikihelp" title="{tr}r.tiki.org site{/tr}:
+                    <a href="http://r.tiki.org" target="tikihelp" class="tikihelp" title="{tr}r.tiki.org site:{/tr}
                         <em>{tr}See also{/tr} {tr}r.tiki.org live site{/tr}</em>
                         <br/><br/>
                         {tr}Click to read more{/tr}"
@@ -107,7 +107,7 @@
         </div>
     </div>
 </div>
-<!--
+{*
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <h4>{tr}R Heatmaps{/tr}</h4>
@@ -116,7 +116,7 @@
                     {tr}This profile adds a web interface for an R package called EasyHeatMap (link to package provided in the instructions page once the profile is applied).{/tr}
                     {tr}This R package allows the creation and edition of HeatMap graphics (as used in Bioinformatics).{/tr}
                     <br/>
-                    <a href="http://ueb.vhir.org/tools/Heatmaps" target="tikihelp" class="tikihelp" title="{tr}R Heatmaps{/tr}:
+                    <a href="http://ueb.vhir.org/tools/Heatmaps" target="tikihelp" class="tikihelp" title="{tr}R Heatmaps:{/tr}
                         {tr}This profile creates:{/tr}
                         <ul>
                             <li>{tr}A single wiki page where the whole heatmap generation can be run, to allow debugging your server installation of the required system and R packages if anything fails for you{/tr}</li>
@@ -127,7 +127,7 @@
                     >
                         {icon name="help"}
                     </a>
-                    <a href="https://doc.tiki.org/PluginR" target="tikihelp" class="tikihelp" title="{tr}Plugin R{/tr}:
+                    <a href="https://doc.tiki.org/PluginR" target="tikihelp" class="tikihelp" title="{tr}Plugin R:{/tr}
                         <em>{tr}See also{/tr} {tr}Plugin R in doc.tiki.org{/tr}</em>
                         <br/><br/>
                         {tr}Click to read more{/tr}"
@@ -146,6 +146,6 @@
                     </div>
                 </div>
             </div>
-            -->
+            *}
     </div>
 </div>

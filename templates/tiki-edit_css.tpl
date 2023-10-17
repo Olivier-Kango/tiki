@@ -11,7 +11,7 @@
                 {tr}Theme{/tr}
             </label>
             <input type="text" name="theme" value="{$theme}" class="form-control" readonly>
-            <small class="form-text">CSS {tr}file{/tr}: {$file}</small>
+            <small class="form-text">CSS {tr}file:{/tr} {$file}</small>
             <div class="input-group">
                 <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Save{/tr}">
                 <input type="submit" class="btn btn-secondary btn-sm" name="save_and_view" value="{tr}Save{/tr} &amp; {tr}View{/tr}">
@@ -22,7 +22,7 @@
             {/if}
             {if !empty($theme) && !$writable}
                 {remarksbox type="warning" title="{tr}Warning{/tr}"}
-                    {tr}Cannot write the file{/tr}: {$file}
+                    {tr}Cannot write the file:{/tr} {$file}
                 {/remarksbox}
             {/if}
         </div>
@@ -31,7 +31,7 @@
         </div>
     {else}
         {if $try_active}
-            {remarksbox type="tip" title="{tr}Currently trying{/tr}: {$try_theme}{if $try_theme_option}/{$try_theme_option}{/if}" close="n"}
+            {remarksbox type="tip" title="{tr}Currently trying:{/tr} {$try_theme}{if $try_theme_option}/{$try_theme_option}{/if}" close="n"}
                 <input type="submit" class="btn btn-link btn-sm" name="cancel_try" value="{tr}Cancel{/tr}">
             {/remarksbox}
         {/if}
@@ -46,7 +46,7 @@
                 {/foreach}
             </select>
             {if $theme}
-                <small class="form-text">CSS {tr}file{/tr}: {$file}</small>
+                <small class="form-text">CSS {tr}file:{/tr} {$file}</small>
             {/if}
             <div class="input-group">
                 <input type="submit" class="btn btn-info btn-sm" name="try" value="{tr}Try{/tr}">

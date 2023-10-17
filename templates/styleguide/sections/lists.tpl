@@ -29,15 +29,15 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p>
-                    <label for="tc-ul-list-type">{tr}List style type{/tr}:</label>
+                    <label for="tc-ul-list-type">{tr}List style type:{/tr}</label>
                     <input id="tc-ul-list-type" class="nocolor" data-selector="ul" data-element="list-style-type" type="text">
                 </p>
                 <p>
-                    <label for="tc-ul-padding">{tr}Padding (ul){/tr}:</label>
+                    <label for="tc-ul-padding">{tr}Padding (ul):{/tr}</label>
                     <input id="tc-ul-padding" class="nocolor" data-selector="ul" data-element="padding" type="text">
                 </p>
                 <p>
-                    <label for="tc-li-padding">{tr}Padding (li){/tr}:</label>
+                    <label for="tc-li-padding">{tr}Padding (li):{/tr}</label>
                     <input id="tc-li-padding" class="nocolor" data-selector="li" data-element="padding" type="text">
                 </p>
             </div>

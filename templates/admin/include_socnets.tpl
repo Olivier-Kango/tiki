@@ -9,7 +9,7 @@
     </div>
 
     {remarksbox type="note" title="{tr}Note{/tr}"}
-                  {tr}To use socnets integration and/or login you need at least{/tr}:
+                  {tr}To use socnets integration and/or login you need at least:{/tr}
                  <ol>
                     <li>{tr}Register your site as a web application at the corresponding socnets site(s){/tr}.</li>
                     <li>{tr}Enable that socnet settings with a tick in the ENABLED tab below{/tr}.</li>
@@ -64,7 +64,7 @@
 {$providername = $providerName|lower}
 <strong><li>{$providerName}</li></strong>
 
-<!-- START of adminoptionsbox for {$providerName} -->
+{* START of adminoptionsbox for {$providerName} *}
 <div class="adminoptionbox {$providername} card">
     <ol>
     <br>
@@ -75,10 +75,10 @@
               {continue}
         {elseif ($basePref === '_loginEnabled') }
                 {* if we use closing buttons again... *}
-                <!-- start of _loginEnabled for {$providerName} -->
+                {* start of _loginEnabled for {$providerName} *}
                 <div class="col-sm-12 {$providername} _loginEnabled" style="padding-top:5px;">{preference name=$prefname}
                 <button class="{$providername} socbutton btn-secondary" style="border: none;">more/less... <i class="{$providername} fa fa-caret-right"></i> </button>
-                </div> <!-- end of _loginEnabled for {$providerName} -->
+                </div> {* end of _loginEnabled for {$providerName} *}
         {else}
         <div class="col-sm-12 {$providername} _else_loginEnabled">
             <li>{preference name=$prefname}</li>
@@ -93,7 +93,7 @@
         Remove&nbsp;url: {$callbackUrl}?remove={$providerName}
         {/remarksbox}
     </div>
-</div> <!-- END of adminoptionsbox for {$providerName} -->
+</div> {* END of adminoptionsbox for {$providerName} *}
 
 {/foreach}
 </ol>

@@ -13,7 +13,7 @@
             <h4>{tr}Default search behavior{/tr}</h4>
             <p>
                 <strong>{tr}Tiki uses the asterisk{/tr}</strong> {tr}"*" as wildcard symbol that broadens a search by finding words that start with the same letters.{/tr}<br />
-                {tr}Example{/tr}: <strong>{tr}Home*{/tr}</strong> {tr}will find objects that contain a term starting with "Home" like "HomePage", "Home", "Homework", etc.{/tr}
+                {tr}Example:{/tr} <strong>{tr}Home*{/tr}</strong> {tr}will find objects that contain a term starting with "Home" like "HomePage", "Home", "Homework", etc.{/tr}
             </p>
             <p>
                 {tr}By default, all search terms are <em>optional</em>.{/tr}&nbsp;{tr}It behaves like an OR logic.{/tr}

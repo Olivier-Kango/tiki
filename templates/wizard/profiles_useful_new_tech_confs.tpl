@@ -17,8 +17,8 @@
                 <br/>
                 {tr}This profile adds a simple wiki page on a side module (using the Module menupage), showing the button to start co-writing with TogetherJS.{/tr}
                 <br/>
-                <a href="https://doc.tiki.org/PluginTogether" target="tikihelp" class="tikihelp" title="{tr}Write Together{/tr}:
-                        {tr}More details{/tr}:
+                <a href="https://doc.tiki.org/PluginTogether" target="tikihelp" class="tikihelp" title="{tr}Write Together:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Allows cowriting documents in real time{/tr}</li>
                             <li>{tr}Allows voice communication in real time while editing{/tr}</li>
@@ -45,8 +45,8 @@
                 <br>
                 {tr}This profile allows to display a sticky note (a "post-it") in your tiki site{/tr}.
                 <br/>
-                <a href="http://doc.tiki.org/Custom-Code-HowTo-Post-It-Notes" target="tikihelp" class="tikihelp" title="{tr}Post-it Sticky Note{/tr}:
-                        {tr}More details{/tr}:
+                <a href="http://doc.tiki.org/Custom-Code-HowTo-Post-It-Notes" target="tikihelp" class="tikihelp" title="{tr}Post-it Sticky Note:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}You can move it to another location{/tr}</li>
                             <li>{tr}You can customize the contents and which groups of users will see it (by default, only to Admins){/tr}</li>
@@ -75,7 +75,7 @@
                 <br/>
                 {tr}This profile allows to provide a way for a team (a Tiki group) to process email contact requests, save them in contact lists and act on them and record the process in wiki pages.{/tr}
                 <br/>
-                <a href="https://profiles.tiki.org/Groupmail_20" target="tikihelp" class="tikihelp" title="{tr}Groupmail{/tr}:
+                <a href="https://profiles.tiki.org/Groupmail_20" target="tikihelp" class="tikihelp" title="{tr}Groupmail:{/tr}
     {tr}It creates:{/tr}
                         <ul>
                             <li>{tr}A tracker for email messages received and store addresses in the Contacts feature{/tr}</li>
@@ -102,7 +102,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <!--    <b>{tr}Profile X{/tr}</b> (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Profile_X&show_details_for=Profile_X&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)<br/>
+                {*    <b>{tr}Profile X{/tr}</b> (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Profile_X&show_details_for=Profile_X&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)<br/>
                     <br>
                     {tr}This profile allows to {/tr}
                     <ul>
@@ -111,10 +111,10 @@
                         <li>{tr}...{/tr}</li>
                         <br/><em>{tr}See also{/tr} <a href="https://doc.tiki.org/Feature_X" target="_blank">{tr}Feature_X in doc.tiki.org{/tr}</a></em>
                     </ul>
-                    -->
+                    *}
             </div>
             <div class="col-md-6">
-                <!--    <b>{tr}Profile X{/tr}</b> (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Profile_X&show_details_for=Profile_X&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)<br/>
+                {*    <b>{tr}Profile X{/tr}</b> (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Profile_X&show_details_for=Profile_X&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)<br/>
                     <br>
                     {tr}This profile allows to {/tr}
                     <ul>
@@ -123,7 +123,7 @@
                         <li>{tr}...{/tr}</li>
                         <br/><em>{tr}See also{/tr} <a href="https://doc.tiki.org/Feature_X" target="_blank">{tr}Feature_X in doc.tiki.org{/tr}</a></em>
                     </ul>
-                    -->
+                    *}
             </div>
         </div>
     </div>

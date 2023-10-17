@@ -35,9 +35,9 @@
                 {* Show language dropdown only if there is more than 1 language or user has right to edit *}
                 {if ($tiki_p_admin eq 'y' or $tiki_p_admin_wiki eq 'y' or $tiki_p_edit eq 'y' or $tiki_p_edit eq 'y' or $tiki_p_edit_inline eq 'y') or $translationsCount gt 1}
                     {if $prefs.feature_multilingual eq 'y' && $prefs.show_available_translations eq 'y' && $machine_translate_to_lang eq '' }
-                        <!--span class="btn-i18n" -->
+                        {*span class="btn-i18n" *}
                         {include file='translated-lang.tpl' object_type='wiki page'}
-                        <!--/span -->
+                        {*/span *}
                     {/if}
                 {/if}
 
@@ -95,7 +95,7 @@
                             <div class="dropdown-divider"></div>
                             {*<li role="presentation">*}
                                 {section name=struct loop=$showstructs}
-                                    <a href="tiki-index.php?page={$page|escape:url}&amp;structure={$showstructs[struct].pageName|escape:url}" {if isset($structure_path[0].pageName) and $showstructs[struct].pageName eq $structure_path[0].pageName} title="Current structure: {$showstructs[struct].pageName|escape}" class="dropdown-item selected tips" {else} class="dropdown-item tips" title="{tr}Show structure{/tr}: {$showstructs[struct].pageName|escape}"{/if}>
+                                    <a href="tiki-index.php?page={$page|escape:url}&amp;structure={$showstructs[struct].pageName|escape:url}" {if isset($structure_path[0].pageName) and $showstructs[struct].pageName eq $structure_path[0].pageName} title="Current structure: {$showstructs[struct].pageName|escape}" class="dropdown-item selected tips" {else} class="dropdown-item tips" title="{tr}Show structure{/tr}| {$showstructs[struct].pageName|escape}"{/if}>
                                         {if $showstructs[struct].page_alias}
                                             {$showstructs[struct].page_alias}
                                         {else}

@@ -1,4 +1,4 @@
-{* $Id$ *} 
+{* $Id$ *}
 {$showBoxCheck}
 
 {if $nlId}
@@ -134,9 +134,6 @@
             {tr}None{/tr}
         {/if}
     </div>
-
-
-
     </div>
 
     <div id="sendingArea" style="display:none">
@@ -308,7 +305,7 @@ $(".copy-html").click(function () {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm-2">{tr}Attached Files{/tr}:</label>
+                    <label class="col-form-label col-sm-2">{tr}Attached Files:{/tr}</label>
                     <div class="col-sm-10">
                         <div style='display: none' id='newsletterfileshack'></div>
                         <div id="newsletterfiles">

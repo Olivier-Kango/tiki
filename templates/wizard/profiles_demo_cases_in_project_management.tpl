@@ -18,7 +18,7 @@
                 <br/>
                 {tr}This profile show cases the use of Gantt Charts in Tiki for Project Management. You can visually edit task details through the Gantt Chart UI and tracker items get updated accordingly{/tr}
                 <br/>
-                <a href="https://profiles.tiki.org/GanttChart" target="tikihelp" class="tikihelp" title="{tr}Gantt Chart{/tr}:
+                <a href="https://profiles.tiki.org/GanttChart" target="tikihelp" class="tikihelp" title="{tr}Gantt Chart:{/tr}
     {tr}It creates:{/tr}
                         <ul>
                             <li>{tr}a sample tracker that will hold the tasks{/tr}</li>
@@ -46,7 +46,7 @@
                 <br/>
                 {tr}This profile is a showcase of how to setup trackers to allow defining work orders in one tracker, and linked them to billable tasks from another one.{/tr}
                 <br/>
-                <a href="https://profiles.tiki.org/Work_Custom_Pricing" target="tikihelp" class="tikihelp" title="{tr}Work Custom Pricing{/tr}:
+                <a href="https://profiles.tiki.org/Work_Custom_Pricing" target="tikihelp" class="tikihelp" title="{tr}Work Custom Pricing:{/tr}
                         {tr}This allows to define a custom price aside of the guide and get some of the items selected summed in another field of tracker1. The tracker also demonstrates how item link field currently allows to create and link items in a second tracker on the fly and get them stored while adding the new item in the first tracker. Objects created by this profile:{/tr}
                         <ul>
                             <li>{tr}...{/tr}</li>
@@ -76,7 +76,7 @@
                 <br/>
                 {tr}This profile adds a way to provide reusable items in a tracker coming from another one working as templates.{/tr}
                 <br/>
-                <a href="https://profiles.tiki.org/Wildcard_items" target="tikihelp" class="tikihelp" title="{tr}Wildcard items{/tr}:
+                <a href="https://profiles.tiki.org/Wildcard_items" target="tikihelp" class="tikihelp" title="{tr}Wildcard items:{/tr}
                         {tr}This profile provides some tracker items to work as template items that you can include in other trackers when needed. Objects created are:{/tr}
                         <ul>
                             <li>{tr}A couple of trackers. One for current items, and another one for the reusable items working ass templates{/tr}</li>

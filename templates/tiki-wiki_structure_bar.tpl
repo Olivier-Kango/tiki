@@ -12,38 +12,38 @@
                         </ul>
                     </span>
                 {else}
-                    {self_link page=$home_info.pageName structure=$home_info.pageName page_ref_id=$home_info.page_ref_id _title="{tr}Structure{/tr}:$icon_title" _class="tips"}{icon name="home"}{/self_link}
+                    {self_link page=$home_info.pageName structure=$home_info.pageName page_ref_id=$home_info.page_ref_id _title="{tr}Structure:{/tr}$icon_title" _class="tips"}{icon name="home"}{/self_link}
                 {/if}
             {/if}
             {if $prev_info and $prev_info.page_ref_id}{if $prev_info.page_alias}{assign var=icon_title value=$prev_info.page_alias}{else}{assign var=icon_title value=$prev_info.pageName}{/if}
-                <a href="{sefurl page=$prev_info.pageName structure=$home_info.pageName page_ref_id=$prev_info.page_ref_id}" class="tips mt-1" title="{tr}Previous page{/tr}:{$icon_title}">
+                <a href="{sefurl page=$prev_info.pageName structure=$home_info.pageName page_ref_id=$prev_info.page_ref_id}" class="tips mt-1" title="{tr}Previous page:{/tr}{$icon_title}">
                     {icon name="caret-left"}
                 </a>
             {/if}
             {if $parent_info}{if $parent_info.page_alias}{assign var=icon_title value=$parent_info.page_alias}{else}{assign var=icon_title value=$parent_info.pageName}{/if}
-                <a href="{sefurl page=$parent_info.pageName structure=$home_info.pageName page_ref_id=$parent_info.page_ref_id}" class="tips mt-1" title="{tr}Parent page{/tr}:{$icon_title}">
+                <a href="{sefurl page=$parent_info.pageName structure=$home_info.pageName page_ref_id=$parent_info.page_ref_id}" class="tips mt-1" title="{tr}Parent page:{/tr}{$icon_title}">
                     {icon name="up"}
                 </a>
             {/if}
             {if $next_info and $next_info.page_ref_id}{if $next_info.page_alias}{assign var=icon_title value=$next_info.page_alias}{else}{assign var=icon_title value=$next_info.pageName}{/if}
-                <a href="{sefurl page=$next_info.pageName structure=$home_info.pageName page_ref_id=$next_info.page_ref_id}" class="tips mr-5 mt-1" title="{tr}Next page{/tr}:{$icon_title}">
+                <a href="{sefurl page=$next_info.pageName structure=$home_info.pageName page_ref_id=$next_info.page_ref_id}" class="tips mr-5 mt-1" title="{tr}Next page:{/tr}{$icon_title}">
                     {icon name="caret-right"}
                 </a>
             {/if}
             {section loop=$structure_path name=ix}
                 {if $structure_path[ix].parent_id}&nbsp;{$prefs.site_crumb_seper}&nbsp;{/if}
                     <li class="breadcrumb-item">
-                        
+
                         {if $smarty.section.ix.last }
-                    	
+
                     		{if $structure_path[ix].page_alias}
 				                {$structure_path[ix].page_alias|escape}
 				            {else}
 				                {$structure_path[ix].stripped_pageName|pagename}
 				            {/if}
-                    		
+
                     	{else}
-                    	
+
                     		<a href="{sefurl page=$structure_path[ix].pageName structure=$home_info.pageName page_ref_id=$structure_path[ix].page_ref_id}">
 						        {if $structure_path[ix].page_alias}
 						            {$structure_path[ix].page_alias|escape}
@@ -51,9 +51,9 @@
 						            {$structure_path[ix].stripped_pageName|pagename}
 						        {/if}
                         	</a>
-                        	
+
                     	{/if}
-                    	
+
                     </li>
             {/section}
         </ol>
@@ -62,7 +62,7 @@
                     <div class="form-group" style="flex-shrink: 1;">
                         <input type="hidden" name="current_page_id" value="{$page_info.page_ref_id}">
                         <div class="input-group">
-                            <div class="input-group-prepend"><div class="input-group-text" style="font-size:50% !important">{self_link _script="tiki-edit_structure.php" page_ref_id=$home_info.page_ref_id _class="tips" _title="{tr}Manage Stucture{/tr}:{$home_info.pageName} ($cur_pos)"}{icon name="structure"}{/self_link}</div></div>
+                            <div class="input-group-prepend"><div class="input-group-text" style="font-size:50% !important">{self_link _script="tiki-edit_structure.php" page_ref_id=$home_info.page_ref_id _class="tips" _title="{tr}Manage Stucture:{/tr}{$home_info.pageName} ($cur_pos)"}{icon name="structure"}{/self_link}</div></div>
                             <input type="text" id="structure_add_page" name="page" class="form-control form-control-sm">
                             {autocomplete element='#structure_add_page' type='pagename'}
                             <div class="input-group-append">
@@ -81,7 +81,7 @@
                 </form>
         {else}
             {if $struct_editable eq 'y'}
-                <span class="float-right">{self_link _script="tiki-edit_structure.php" page_ref_id=$home_info.page_ref_id _class="tips" _title="{tr}Manage Stucture{/tr}:{$home_info.pageName} ($cur_pos)"}{icon name="structure"}{/self_link}</span>
+                <span class="float-right">{self_link _script="tiki-edit_structure.php" page_ref_id=$home_info.page_ref_id _class="tips" _title="{tr}Manage Stucture:{/tr}{$home_info.pageName} ($cur_pos)"}{icon name="structure"}{/self_link}</span>
             {/if}
         {/if}
 </nav>

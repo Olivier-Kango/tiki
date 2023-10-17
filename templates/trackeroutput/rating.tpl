@@ -18,7 +18,7 @@
         <span class="rating">
         <span style="white-space:nowrap">
         {section name=i loop=$field.rating_options}
-            {if $field.mode eq 'radio'}{tr}{$field.labels[i]}{/tr}: {/if}
+            {if $field.mode eq 'radio'}{tr}{$field.labels[i]}:{/tr} {/if}
             {$star = 'display:none'}
             {$starselected = 'display:none'}
             {$starhalf = 'display:none'}

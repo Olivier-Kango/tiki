@@ -72,7 +72,7 @@
                     </td>
                     <td class="id">{$users[user].id|escape}</td>
                     <td class="text">
-                        <a class="link tips" href="{$href}"{$onclick} title="{tr}Edit group{/tr}:{$users[user].groupName|escape}">
+                        <a class="link tips" href="{$href}"{$onclick} title="{tr}Edit group:{/tr}{$users[user].groupName|escape}">
                             {$users[user].groupName|escape}
                         </a>
                         {if $users[user].isTplGroup eq 'y' and $prefs.feature_templated_groups eq 'y'}

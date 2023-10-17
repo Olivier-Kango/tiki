@@ -35,7 +35,7 @@
                         <input type="text" class="form-control mr-sm-2" placeholder="Search" aria-label="Search">
                         <button type="submit" class="btn btn-primary my-2 my-sm-0">Submit</button>
                     </form>
-<!--
+{*
                     <ul class="navbar-nav navbar-right mr-auto">
                         <li><a href="javascript:void(0);">Link</a></li>
                         <li class="dropdown">
@@ -51,7 +51,7 @@
                             </ul>
                         </li>
                     </ul>
--->
+*}
                 </div>
             </nav>
         </div>
@@ -59,22 +59,22 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".bg-dark" data-element="background-color">
-                    <label for="tc-navbar-bg-color">{tr}Background{/tr}:</label>
+                    <label for="tc-navbar-bg-color">{tr}Background:{/tr}</label>
                     <input id="tc-navbar-bg-color" data-selector=".bg-dark" data-element="background-color" data-var="$navbar-dark-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".navbar-dark .navbar-nav .nav-link" data-element="color">
-                    <label for="tc-navbar-link-color">{tr}Text color{/tr}:</label>
+                    <label for="tc-navbar-link-color">{tr}Text color:{/tr}</label>
                     <input id="tc-navbar-link-color" data-selector=".navbar-dark .navbar-nav .nav-link" data-element="color" data-var="$navbar-dark-link-color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".navbar-dark .navbar-nav .active > .nav-link" data-element="color">
-                    <label for="tc-navbar-active-link-color">{tr}Active menu{/tr}:</label>
+                    <label for="tc-navbar-active-link-color">{tr}Active menu:{/tr}</label>
                     <input id="tc-navbar-active-link-color" data-selector=".navbar-dark .navbar-nav .active > .nav-link" data-element="color" data-var="$navbar-dark-link-active-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p>
-                    <label for="tc-navbar-border-radius">{tr}Border radius{/tr}:</label>
+                    <label for="tc-navbar-border-radius">{tr}Border radius:{/tr}</label>
                     <input id="tc-navbar-border-radius" class="nocolor" data-selector=".navbar" data-element="border-radius" data-var="$border-radius" type="text">
                 </p>
             </div>

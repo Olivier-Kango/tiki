@@ -79,7 +79,7 @@
         </tr>
         <tr>
             <td>
-                {icon name='align-center'} <strong>{tr}Centered text{/tr}</strong> &nbsp;&nbsp;&nbsp; {if $prefs.feature_use_three_colon_centertag eq 'y'}:::{tr}text{/tr}:::{else}::{tr}text{/tr}::{/if}
+                {icon name='align-center'} <strong>{tr}Centered text{/tr}</strong> &nbsp;&nbsp;&nbsp; {if $prefs.feature_use_three_colon_centertag eq 'y'}:::{tr}text:::{/tr}{else}::{tr}text::{/tr}{/if}
             </td>
         </tr>
     {/if}{* wysiwyg *}
@@ -110,7 +110,7 @@
     {if (!isset($wysiwyg) or $wysiwyg ne 'y') or (isset($wysiwyg) and $wysiwyg eq 'y' and $prefs.wysiwyg_wiki_parsed eq 'y')}
         <tr>
             <td>
-                {icon name='list'} {icon name='list-numbered'} <strong>{tr}Lists{/tr}</strong> <br> * {tr}for bullet lists{/tr}, # {tr}for numbered lists{/tr}, ;{tr}Word:{/tr}{tr}definition{/tr} {tr}for definiton lists{/tr}
+                {icon name='list'} {icon name='list-numbered'} <strong>{tr}Lists{/tr}</strong> <br> * {tr}for bullet lists,{/tr} # {tr}for numbered lists,{/tr} ;{tr}Word:{/tr}{tr}definition{/tr} {tr}for definiton lists{/tr}
             </td>
         </tr>
         <tr>
@@ -182,7 +182,7 @@
     <tr>
         <td>
             <strong>{tr}Special characters{/tr}</strong> <br/>
-            {literal}~hs~{/literal} {tr}hard space{/tr},
+            {literal}~hs~{/literal} {tr}hard space,{/tr}
             {literal}~c~{/literal} &copy;,
             {literal}~amp~{/literal} &amp;,
             {literal}~lt~{/literal} &lt;,

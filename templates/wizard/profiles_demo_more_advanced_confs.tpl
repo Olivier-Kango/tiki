@@ -28,7 +28,7 @@
                     {tr}This profile provides a Shopping Cart and the corresponding basic payment system.{/tr}
                     {tr}It currently uses the PayPal shopping cart rather than the built in Tiki{/tr}.
                     <br/>
-                    <a href="https://doc.tiki.org/Shopping+Cart" target="tikihelp" class="tikihelp" title="{tr}Shopping Cart{/tr}:
+                    <a href="https://doc.tiki.org/Shopping+Cart" target="tikihelp" class="tikihelp" title="{tr}Shopping Cart:{/tr}
                         {tr}It creates:{/tr}
                         <ul>
                             <li>{tr}A tracker for products including price, weight, image and stock quantity{/tr}</li>
@@ -57,8 +57,8 @@
                     <br>
                     {tr}This profile demonstrates the geolocation of Blog posts, in conjunction with other associated features{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/Geolocation" target="tikihelp" class="tikihelp" title="{tr}Easy GeoBlog{/tr}:
-                        {tr}More details{/tr}:
+                    <a href="https://doc.tiki.org/Geolocation" target="tikihelp" class="tikihelp" title="{tr}Easy GeoBlog:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Single map with all geolocated blog posts{/tr}</li>
                             <li>{tr}Different home page once the user logs in{/tr}</li>
@@ -91,7 +91,7 @@
                             {tr}This profile demonstrates the setup to conditionally hide or display some fields in a form{/tr}.
                     <br/>
                     <a href="https://doc.tiki.org/PluginJQ" target="tikihelp" class="tikihelp" title="{tr}Conditional_Display_in_Forms:{/tr}
-                            {tr}Main features used{/tr}:
+                            {tr}Main features used:{/tr}
                             <ul>
                                 <li>{tr}Trackers{/tr}</li>
                                 <li>{tr}Plugin JQ (jQuery){/tr}</li>
@@ -120,7 +120,7 @@
                     {tr}This profile demonstrates how to perform actions on several items from a list using Plugin ListExecute{/tr}.
                     <br/>
                     <a href="https://doc.tiki.org/PluginListExecute" target="tikihelp" class="tikihelp" title="{tr}Execute on list:{/tr}
-                            {tr}Main features used{/tr}:
+                            {tr}Main features used:{/tr}
                             <ul>
                                 <li>{tr}Trackers{/tr}</li>
                                 <li>{tr}Plugin ListExecute{/tr}</li>

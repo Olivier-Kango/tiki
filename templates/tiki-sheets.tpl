@@ -40,7 +40,7 @@
             {if $sheetId eq 0}
                 <h2>{tr}Create sheet{/tr}</h2>
             {else}
-                <h2>{tr}Configure sheet{/tr}: {$title|escape}</h2>
+                <h2>{tr}Configure sheet:{/tr} {$title|escape}</h2>
             {/if}
             {if $individual eq 'y'}
                 {permission_link mode=link type=sheet id=$sheetId title=$name label="{tr}There are individual permissions set for this sheet{/tr}"}
@@ -63,9 +63,9 @@
                         <textarea rows="5" class="form-control" name="description">{$description|escape}</textarea>
                     </div>
                 </div>
-                <!--<tr><td>{tr}Class Name:{/tr}</td><td><input type="text" name="className" value="{$className|escape}"></td></tr>
+                {*<tr><td>{tr}Class Name:{/tr}</td><td><input type="text" name="className" value="{$className|escape}"></td></tr>
                 <tr><td>{tr}Header Rows:{/tr}</td><td><input type="text" name="headerRow" value="{$headerRow|escape}"></td></tr>
-                <tr><td>{tr}Footer Rows:{/tr}</td><td><input type="text" name="footerRow" value="{$footerRow|escape}"></td></tr>-->
+                <tr><td>{tr}Footer Rows:{/tr}</td><td><input type="text" name="footerRow" value="{$footerRow|escape}"></td></tr>*}
                 <div class="form-group row">
                     <div class="form-check offset-sm-3">
                         <label for="parseValues" class="form-check-label">

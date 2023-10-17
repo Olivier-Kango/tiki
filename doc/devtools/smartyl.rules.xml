@@ -12,6 +12,16 @@
     <ignore>
         <rule name="Commenting.FileNoComment.Missing"/>
         <rule name="Indent.DisallowTabIndent.TabsUsed"/>
+        <!-- Most of TPL files uses {* *} as file docblock -->
         <rule name="Commenting.FileComment.WrongStyle"/>
+        <rule name="Commenting.Fixme.TaskFound">
+            <pattern>templates/admin/include_profiles.tpl</pattern>
+        </rule>
+        <rule name="Commenting.Todo.TaskFound">
+            <pattern>templates/admin/include_socialnetworks.tpl</pattern>
+            <pattern>templates/admin/include_socnets.tpl</pattern>
+            <pattern>templates/mail/tracker_changed_notification.tpl</pattern>
+            <pattern>templates/tiki-edit_help.tpl</pattern>
+        </rule>
     </ignore>
 </rules>

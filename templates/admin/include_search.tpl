@@ -64,12 +64,12 @@
 
                     <div class="adminoptionbox preference advanced">{* pretend this remarks box is an advanced pref so it only shows when advanced irefs are enabled *}
                         {remarksbox type=tip title="{tr}About Unified search engines{/tr}"}
-                            <b>{tr}MySQL full-text search{/tr}: </b><br>
-                            {tr}Advantages{/tr}: {tr}Fast performance. Works out of the box with Tiki and even on most basic server setups{/tr}.<br>
-                            {tr}Disadvantages{/tr}: {tr}Many common words (such as "first", "second", and "third" are not searchable unless MySQL configuration is modified). Only the first 65,535 characters (about 8000 words) of long pieces of content are searchable{/tr}(See this <a class='alert-link' href='http://dev.mysql.com/doc/refman/5.7/en/fulltext-stopwords.html'>{tr}link{/tr}</a> {tr} for full list) {/tr}<br>
-                            <b>{tr}Elasticsearch{/tr}: </b><br>
-                            {tr}Advantages{/tr}: {tr}Most advanced, fast and scalable search engine. Enables some very advanced/new features of Tiki{/tr}.<br>
-                            {tr}Disadvantages{/tr}: {tr}Needs to be separately installed from Tiki and requires more configuration{/tr} (See this <a class='alert-link' href='http://doc.tiki.org/Elasticsearch'>{tr}link{/tr}</a> {tr}for more information) {/tr}<br>
+                            <b>{tr}MySQL full-text search:{/tr} </b><br>
+                            {tr}Advantages:{/tr} {tr}Fast performance. Works out of the box with Tiki and even on most basic server setups{/tr}.<br>
+                            {tr}Disadvantages:{/tr} {tr}Many common words (such as "first", "second", and "third" are not searchable unless MySQL configuration is modified). Only the first 65,535 characters (about 8000 words) of long pieces of content are searchable{/tr}(See this <a class='alert-link' href='http://dev.mysql.com/doc/refman/5.7/en/fulltext-stopwords.html'>{tr}link{/tr}</a> {tr} for full list) {/tr}<br>
+                            <b>{tr}Elasticsearch:{/tr} </b><br>
+                            {tr}Advantages:{/tr} {tr}Most advanced, fast and scalable search engine. Enables some very advanced/new features of Tiki{/tr}.<br>
+                            {tr}Disadvantages:{/tr} {tr}Needs to be separately installed from Tiki and requires more configuration{/tr} (See this <a class='alert-link' href='http://doc.tiki.org/Elasticsearch'>{tr}link{/tr}</a> {tr}for more information) {/tr}<br>
                         {/remarksbox}
                     </div>
 

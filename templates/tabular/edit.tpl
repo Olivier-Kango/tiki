@@ -55,7 +55,7 @@
                     <label class="col-form-label col-sm-2 offset-sm-1">{tr}Sync deletes{/tr}</label>
                     <div class="col-sm-9">
                         <input class="form-check-input" type="checkbox" name="odbc[sync_deletes]" {if $odbc_config.sync_deletes}checked{/if} value="1">
-                        <a class="tikihelp text-warning" title="{tr}Synchronization{/tr}: {tr}Deleting a tracker item or clearing the local tracker will also erase items remotely. Use with care!{/tr}">
+                        <a class="tikihelp text-warning" title="{tr}Synchronization:{/tr} {tr}Deleting a tracker item or clearing the local tracker will also erase items remotely. Use with care!{/tr}">
                             {icon name=warning}
                         </a>
                     </div>
@@ -294,21 +294,21 @@
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[simple_headers]" value="1" {if $config['simple_headers']} checked {/if}>
                         <label class="form-check-label">{tr}Simple headers{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Simple headers{/tr}: {tr}Allow using field labels only as a header row when importing rather than the full &quot;Field [permName:type]&quot; format.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Simple headers:{/tr} {tr}Allow using field labels only as a header row when importing rather than the full &quot;Field [permName:type]&quot; format.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[import_update]" value="1" {if $config['import_update']} checked {/if}>
                         <label class="form-check-label">{tr}Import updates{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Import update{/tr}: {tr}Allow updating existing entries matched by PK when importing. If this is disabled, only new items will be imported.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Import update:{/tr} {tr}Allow updating existing entries matched by PK when importing. If this is disabled, only new items will be imported.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[ignore_blanks]" value="1" {if $config['ignore_blanks']} checked {/if}>
                         <label class="form-check-label">{tr}Ignore blanks{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Ignore blanks{/tr}: {tr}Ignore blank values when import is updating existing items. Only non-blank values will be updated this way.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Ignore blanks:{/tr} {tr}Ignore blank values when import is updating existing items. Only non-blank values will be updated this way.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
@@ -317,14 +317,14 @@
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[import_transaction]" value="1" {if $config['import_transaction']} checked {/if}>
                         <label class="form-check-label">{tr}Transactional import{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Import transaction{/tr}: {tr}Import in a single transaction. If any of the items fails validation, the whole import is rejected and nothing is saved.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Import transaction:{/tr} {tr}Import in a single transaction. If any of the items fails validation, the whole import is rejected and nothing is saved.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[bulk_import]" value="1" {if $config['bulk_import']} checked {/if}>
                         <label class="form-check-label">{tr}Bulk import{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Bulk Import{/tr}: {tr}Import in 'bulk' mode so the search index is not updated for each item and no notifications should be sent.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Bulk Import:{/tr} {tr}Import in 'bulk' mode so the search index is not updated for each item and no notifications should be sent.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
@@ -335,7 +335,7 @@
                 </div>
                 <label class="col-sm-2 offset-sm-2 mt-2">
                     {tr}CSV Encoding{/tr}
-                    <a class="tikihelp text-info" title="{tr}Encoding{/tr}: {tr}Excel will often expect 'Windows-1252' encoding{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Encoding:{/tr} {tr}Excel will often expect 'Windows-1252' encoding{/tr}">
                         {icon name=information}
                     </a>
                 </label>

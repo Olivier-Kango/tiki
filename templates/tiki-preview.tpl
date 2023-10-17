@@ -1,4 +1,4 @@
-<!-- templates/tiki-preview.tpl start -->
+{* templates/tiki-preview.tpl start *}
 <div class="wikipreview" {if $prefs.ajax_autosave eq "y"}style="display:none;" id="autosave_preview"><div{/if}>
     {if $prefs.ajax_autosave eq "y"}
         <div class="form-group float-sm-right">
@@ -45,7 +45,7 @@
             $("#autosave_preview>div").height(getCookie("wiki", "preview", ""));
         {/jq}
     {/if}
-    <h2>{tr}Preview{/tr}: {$page|escape}</h2>
+    <h2>{tr}Preview:{/tr} {$page|escape}</h2>
     {if $prefs.feature_wiki_description eq 'y'}
         <small>{$description}</small>
     {/if}
@@ -67,4 +67,4 @@
 </div>
 <hr style="clear:both; height:0px;"/> {* Information below the wiki content
 must not overlap the wiki content that could contain floated elements *}
-<!-- templates/tiki-preview.tpl end -->
+{* templates/tiki-preview.tpl end *}

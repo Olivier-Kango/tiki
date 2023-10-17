@@ -27,8 +27,8 @@
                     <br>
                     {tr}This profile will get you started with Wiki Structures, containing multiple wiki pages with a hierarchical order, like master documents from office suites, and more{/tr}.
                     <br/>
-                    <a href="https://doc.tiki.org/Structures" target="tikihelp" class="tikihelp" title="{tr}Structured Master Documents{/tr}:
-                        {tr}More details{/tr}:
+                    <a href="https://doc.tiki.org/Structures" target="tikihelp" class="tikihelp" title="{tr}Structured Master Documents:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Many pages are pre-created to let you easily set up several wiki structures{/tr}</li>
                             <li>{tr}A common navigation menu is created and shown at the top of pages in the structure{/tr}</li>
@@ -56,8 +56,8 @@
                     <br>
                     {tr}This profile sets up the configuration needed to facilitate forums that help their users to seek consensus on the discussion topics held{/tr}.
                     <br/>
-                    <a href="https://doc.tiki.org/Rating#Users_ratings_in_Forums" target="tikihelp" class="tikihelp" title="{tr}Users ratings in Forums{/tr}:
-                        {tr}More details{/tr}:
+                    <a href="https://doc.tiki.org/Rating#Users_ratings_in_Forums" target="tikihelp" class="tikihelp" title="{tr}Users ratings in Forums:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Topics with less agreement can be easily identified from the topic list{/tr}</li>
                             <li>{tr}The current rating of each user to the thread topic is shown each time, so that further attention and explanations can be given where needed to help reaching a higher degree of consensus{/tr}</li>
@@ -87,8 +87,8 @@
                     <br>
                     {tr}This profile creates three trackers with some demo data to showcase a basic setup for a barter market of linked offers and wants of goods, services and knowledge.{/tr}
                     <br/>
-                    <a href="http://profiles.tiki.org/Barter_Market" target="tikihelp" class="tikihelp" title="{tr}Barter Market{/tr}:
-                        {tr}More details{/tr}:
+                    <a href="http://profiles.tiki.org/Barter_Market" target="tikihelp" class="tikihelp" title="{tr}Barter Market:{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                                 <li>{tr}minimal number of fields in these trackers, which can be extended{/tr}</li>
                                 <li>{tr}tracker items are categorized{/tr}</li>
@@ -116,8 +116,8 @@
                     <br>
                     {tr}This profile sets up the configuration needed to facilitate the handling of document revision approval for quality certification systems (such as ISO9001){/tr}.
                     <br/>
-                    <a href="https://doc.tiki.org/Flagged+Revisions" target="tikihelp" class="tikihelp" title="{tr}Revision Approval (ISO9001){/tr}:
-                        {tr}More details{/tr}:
+                    <a href="https://doc.tiki.org/Flagged+Revisions" target="tikihelp" class="tikihelp" title="{tr}Revision Approval (ISO9001):{/tr}
+                        {tr}More details:{/tr}
                         <ul>
                             <li>{tr}Additions: 1 group, 2 users, 2 wiki pages, 3 categories{/tr}</li>
                             <li>{tr}Revision approval is set for homepage and 'official document'{/tr}</li>

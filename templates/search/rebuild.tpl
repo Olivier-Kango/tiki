@@ -78,7 +78,7 @@
             <p style="overflow-wrap: break-word">{tr}Last line of log file (web):{/tr} <strong>{$lastLogItemWeb|escape}</strong></p>
             <p style="overflow-wrap: break-word">{tr}Last line of log file (console):{/tr} <strong>{$lastLogItemConsole|escape}</strong></p>
 
-            <p>{tr}Common failures include{/tr}:</p>
+            <p>{tr}Common failures include:{/tr}</p>
             <ul>
                 <li><strong>{tr}Not enough memory.{/tr}</strong> {tr}Larger sites require more memory to re-index{/tr}.</li>
                 <li><strong>{tr}Time limit too short.{/tr}</strong> {tr}It may be required to run the rebuild through the command line{/tr}.</li>

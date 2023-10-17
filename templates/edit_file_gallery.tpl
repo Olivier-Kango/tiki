@@ -251,7 +251,7 @@ if ($(this).val() != '') {
                         <div class="col-sm-8">
                             <div class="form-control-plaintext">
                                 <input type="text" id="archives" name="archives" value="{$gal_info.archives|escape}" class="form-control">
-                                <span class="form-text">{tr}Use{/tr}: 0={tr}unlimited{/tr}, -1={tr}none{/tr}.</span>
+                                <span class="form-text">{tr}Use:{/tr} 0={tr}unlimited,{/tr} -1={tr}none{/tr}.</span>
 
                             </div>
                         </div>
@@ -384,7 +384,7 @@ if ($(this).val() != '') {
 
             {/tab}
 
-<!-- display properties -->
+{* display properties *}
             {tab name="{tr}Display Settings{/tr}"}
                 <h2>{tr}Display Settings{/tr}</h2><br>
                 <div class="form-group row">

@@ -72,7 +72,7 @@
                 <label class="col-form-label col-sm-2 offset-sm-1">{tr}Sync deletes{/tr}</label>
                 <div class="col-sm-9">
                     <input class="form-check-input" type="checkbox" name="odbc[sync_deletes]" value="1">
-                    <a class="tikihelp text-info" title="{tr}Synchronization{/tr}: {tr}Deleting a tracker item or clearing the local tracker will also erase items remotely. Use with care!{/tr}">
+                    <a class="tikihelp text-info" title="{tr}Synchronization:{/tr} {tr}Deleting a tracker item or clearing the local tracker will also erase items remotely. Use with care!{/tr}">
                         {icon name=warning}
                     </a>
                 </div>
@@ -82,7 +82,7 @@
                 <div class="col-sm-9">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="prefill_odbc" value="1">
-                        <a class="tikihelp text-info" title="{tr}Remote initialization{/tr}: {tr}Create missing fields in related tracker and in this tabular format from remote schema.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Remote initialization:{/tr} {tr}Create missing fields in related tracker and in this tabular format from remote schema.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
