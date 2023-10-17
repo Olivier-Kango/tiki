@@ -1566,6 +1566,7 @@ class EditLib
                 $ppArray['values'][] = $m[0];
                 return $hash;
             }, $data);
+            $data = preg_replace('/^;:/m', '', $data);
         }
         $data = $this->convertSmileysToUnicode($data);
 
