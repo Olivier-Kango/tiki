@@ -359,8 +359,8 @@ function wikiplugin_include($dataIn, $params)
         }
     }
 
+    $old_options = $parserlib->option;
     if ($params['parse_included_page'] === 'y') {
-        $old_options = $parserlib->option;
         $options = [
             'is_html' => $data[$fragmentIdentifier]['is_html'],
             'suppress_icons' => true,
@@ -371,7 +371,6 @@ function wikiplugin_include($dataIn, $params)
         $parserlib->setOptions($options);
         $fragment = new WikiParser_Parsable($text);
         $text = $fragment->parse($options);
-        $parserlib->setOptions($old_options);
     } else {
         if (! empty($_REQUEST['page'])) {
             $options['page'] = $_REQUEST['page'];
@@ -379,6 +378,7 @@ function wikiplugin_include($dataIn, $params)
         $parserlib->setOptions();
         $parserlib->parse_wiki_argvariable($text);
     }
+    $parserlib->setOptions($old_options);
 
     global $smarty;
     // append a "See full page" link at end of text if only a portion of page is being included
