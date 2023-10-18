@@ -1428,7 +1428,7 @@ class ParserLib extends TikiDb_Bridge
         if ($this->core_options) {
             $option = array_merge($this->option, $option);
         }
-        return (new WikiParser_Parsable($data))->parse($option);
+        return (new WikiParser_Parsable($data))->parse($option, empty($this->core_options));
     }
 
     /**
