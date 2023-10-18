@@ -354,7 +354,7 @@ if ( \$('#$id') ) {
      * options defaults : is_html => false, absolute_links => false, language => ''
      * @return string
      */
-    public function parse($options)
+    public function parse($options, $toplevel = true)
     {
         // Don't bother if there's nothing...
         if (gettype($this->markup) <> 'string' || mb_strlen($this->markup) < 1) {
@@ -371,10 +371,10 @@ if ( \$('#$id') ) {
         $data = $this->markup;
 
         // keep core parser options the same during recursive plugin parsing
-        if (empty(TikiLib::lib('parser')->core_options)) {
+        if ($toplevel) {
             $this->guess_syntax($data);
-            TikiLib::lib('parser')->core_options = TikiLib::lib('parser')->option;
             TikiLib::lib('parser')->setOptions($this->option);
+            TikiLib::lib('parser')->core_options = TikiLib::lib('parser')->option;
         }
 
         $this->parse_wiki_argvariable($data);
@@ -416,7 +416,9 @@ if ( \$('#$id') ) {
 
         // restore core parser options at the end of parsing
         TikiLib::lib('parser')->setOptions(TikiLib::lib('parser')->core_options);
-        TikiLib::lib('parser')->core_options = [];
+        if ($toplevel) {
+            TikiLib::lib('parser')->core_options = [];
+        }
 
         return $data;
     }
