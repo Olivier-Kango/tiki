@@ -658,6 +658,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
      * @param JitFilter $input    the whole input
      *
      * @return bool
+     * @throws Services_Exception_NotAvailable
      */
     private function saveEvent(array $calitem, array $calendar, JitFilter $input): bool
     {
@@ -672,8 +673,6 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $calitem = array_merge($eventDefaults, $calitem);
 
         if ($calitem['end'] < $calitem['start']) {
-            $impossibleDates = true;
-        } elseif ($calitem['start'] + (24 * 60 * 60) < $calitem['end']) { // more than a day?
             $impossibleDates = true;
         } else {
             $impossibleDates = false;
@@ -736,6 +735,14 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 }
                 return $calitemId > 0;
             }
+        } else {
+            throw new Services_Exception_NotAvailable(
+                tr(
+                    'Cannot save calendar event, impossible dates - start: %0, end: %1',
+                    TikiLib::lib('tiki')->get_short_datetime($calitem['start']),
+                    TikiLib::lib('tiki')->get_short_datetime($calitem['end'])
+                )
+            );
         }
         return false;
     }
