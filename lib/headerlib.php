@@ -133,7 +133,7 @@ class HeaderLib
     public $forceJsRankLate = false;
 
 
-    public $jquery_version = '3.5.1';
+    public $jquery_version = '3.7.1';
     public $jqueryui_version = '1.12.1';
     public $jquerymigrate_version = '3.0.0';
 
