@@ -13,12 +13,12 @@ CasperJS:
       - "CasperJsInstaller\\Installer::install"
 Dexie:
   licence: Apache-2.0
-  licenceUrl: "https://github.com/dfahlander/Dexie.js/blob/v2.0.4/LICENSE"
+  licenceUrl: "https://github.com/dfahlander/Dexie.js/blob/v3.2.4/LICENSE"
   name: npm-asset/dexie
   link: 'https://asset-packagist.org/package/npm-asset/dexie'
   requiredBy:
     - pwa_feature
-  requiredVersion: "2.0.4"
+  requiredVersion: ^3.2.4
 Expose:
   licence: MIT
   licenceUrl: "https://github.com/enygma/expose/blob/master/LICENSE"
