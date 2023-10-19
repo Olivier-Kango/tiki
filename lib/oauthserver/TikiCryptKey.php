@@ -13,6 +13,7 @@ class TikiCryptKey extends CryptKey
     public function __construct($key, $passPhrase = null, $keyPermissionsCheck = true)
     {
         $this->key = $key;
+        $this->keyContents = $key;
     }
 
     public function getKeyPath()

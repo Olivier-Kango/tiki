@@ -42,7 +42,7 @@ class AuthCodeEntity implements AuthCodeEntityInterface
         return $this->expiryDateTime;
     }
 
-    public function setExpiryDateTime(DateTime $dateTime)
+    public function setExpiryDateTime(DateTimeImmutable $dateTime)
     {
         $this->expiryDateTime = $dateTime;
     }

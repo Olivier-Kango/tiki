@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b30b80abcb10f7e118c8e3e38598b45b",
+    "content-hash": "55eecf79ccbdbb9e6639f72435ed17e5",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2757,13 +2757,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "eff30c832c76def6022649268f05e82e118f292b"
+                "reference": "a5285756aff89bf1ee85cffa7fea2a6fd9b132ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-eff30c832c76def6022649268f05e82e118f292b-zip-f50be8.zip",
-                "reference": "eff30c832c76def6022649268f05e82e118f292b",
-                "shasum": "b8e5d20316e1e7b688b528ae791fb34b66f6d54e"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-a5285756aff89bf1ee85cffa7fea2a6fd9b132ce-zip-237623.zip",
+                "reference": "a5285756aff89bf1ee85cffa7fea2a6fd9b132ce",
+                "shasum": "7fdd8b99d1e4983fcbe309bb1c7401cd3ff2e5de"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2823,7 +2823,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-10-16T07:42:45+00:00"
+            "time": "2023-10-18T11:52:01+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3156,17 +3156,17 @@
         },
         {
             "name": "laminas/laminas-captcha",
-            "version": "2.16.0",
+            "version": "2.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-captcha.git",
-                "reference": "8623619b1b634ba3672f91a9fb610deffec9c932"
+                "reference": "981b3d1e287653b1fc5b71859964508ac0a2d7cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-captcha/laminas-laminas-captcha-8623619b1b634ba3672f91a9fb610deffec9c932-zip-4fe609.zip",
-                "reference": "8623619b1b634ba3672f91a9fb610deffec9c932",
-                "shasum": "bb5670d3473d44645de34906aee458bdf4981e0f"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-captcha/laminas-laminas-captcha-981b3d1e287653b1fc5b71859964508ac0a2d7cb-zip-789890.zip",
+                "reference": "981b3d1e287653b1fc5b71859964508ac0a2d7cb",
+                "shasum": "fe18ee3959e433e730986186c68a1a67bd92bdeb"
             },
             "require": {
                 "laminas/laminas-recaptcha": "^3.4.0",
@@ -3174,14 +3174,14 @@
                 "laminas/laminas-stdlib": "^3.10.1",
                 "laminas/laminas-text": "^2.9.0",
                 "laminas/laminas-validator": "^2.19.0",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-captcha": "*"
             },
             "require-dev": {
                 "ext-gd": "*",
-                "laminas/laminas-coding-standard": "~2.4.0",
+                "laminas/laminas-coding-standard": "~2.5.0",
                 "phpunit/phpunit": "^9.5.26",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "vimeo/psalm": "^5.1"
@@ -3211,33 +3211,33 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-01-01T13:12:40+00:00"
+            "time": "2023-10-18T10:03:37+00:00"
         },
         {
             "name": "laminas/laminas-code",
-            "version": "4.12.0",
+            "version": "4.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "36cbee228b427446419dd51944bdfb6bb8ddbcd0"
+                "reference": "7353d4099ad5388e84737dd16994316a04f48dbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-code/laminas-laminas-code-36cbee228b427446419dd51944bdfb6bb8ddbcd0-zip-02d708.zip",
-                "reference": "36cbee228b427446419dd51944bdfb6bb8ddbcd0",
-                "shasum": "f9d8a7e43d74da15201c3fd01e9fa5372c1f891f"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-code/laminas-laminas-code-7353d4099ad5388e84737dd16994316a04f48dbf-zip-93faa5.zip",
+                "reference": "7353d4099ad5388e84737dd16994316a04f48dbf",
+                "shasum": "d385121d76c466312ab0e4d4d7b945eb738222e5"
             },
             "require": {
-                "php": "~8.1.0 || ~8.2.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "require-dev": {
-                "doctrine/annotations": "^2.0.0",
+                "doctrine/annotations": "^2.0.1",
                 "ext-phar": "*",
-                "laminas/laminas-coding-standard": "^2.3.0",
-                "laminas/laminas-stdlib": "^3.6.1",
-                "phpunit/phpunit": "^10.0.9",
+                "laminas/laminas-coding-standard": "^2.5.0",
+                "laminas/laminas-stdlib": "^3.17.0",
+                "phpunit/phpunit": "^10.3.3",
                 "psalm/plugin-phpunit": "^0.18.4",
-                "vimeo/psalm": "^5.7.1"
+                "vimeo/psalm": "^5.15.0"
             },
             "suggest": {
                 "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
@@ -3266,7 +3266,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-09-06T14:56:25+00:00"
+            "time": "2023-10-18T10:00:55+00:00"
         },
         {
             "name": "laminas/laminas-config",
@@ -3440,20 +3440,20 @@
         },
         {
             "name": "laminas/laminas-eventmanager",
-            "version": "3.11.0",
+            "version": "3.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-eventmanager.git",
-                "reference": "9cfa79ce247c567f05ce4b7c975c6bdf9698c5dd"
+                "reference": "4a576922c00cc7838d60d004a7bd6f5a02c23b57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-eventmanager/laminas-laminas-eventmanager-9cfa79ce247c567f05ce4b7c975c6bdf9698c5dd-zip-d77b5b.zip",
-                "reference": "9cfa79ce247c567f05ce4b7c975c6bdf9698c5dd",
-                "shasum": "d4127cf01f00dd4b2e6421d5c966044d484a43c2"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-eventmanager/laminas-laminas-eventmanager-4a576922c00cc7838d60d004a7bd6f5a02c23b57-zip-a386ff.zip",
+                "reference": "4a576922c00cc7838d60d004a7bd6f5a02c23b57",
+                "shasum": "2feaae6ff32ec5042a5321a0368c43e0b2773a7e"
             },
             "require": {
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "container-interop/container-interop": "<1.2",
@@ -3461,12 +3461,12 @@
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.5.0",
-                "laminas/laminas-stdlib": "^3.15",
-                "phpbench/phpbench": "^1.2.7",
-                "phpunit/phpunit": "^9.5.26",
-                "psalm/plugin-phpunit": "^0.18.0",
+                "laminas/laminas-stdlib": "^3.17",
+                "phpbench/phpbench": "^1.2.10",
+                "phpunit/phpunit": "^10.4.1",
+                "psalm/plugin-phpunit": "^0.18.4",
                 "psr/container": "^1.1.2 || ^2.0.2",
-                "vimeo/psalm": "^5.0.0"
+                "vimeo/psalm": "^5.11"
             },
             "suggest": {
                 "laminas/laminas-stdlib": "^2.7.3 || ^3.0, to use the FilterChain feature",
@@ -3496,7 +3496,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-10-10T08:29:58+00:00"
+            "time": "2023-10-18T16:36:45+00:00"
         },
         {
             "name": "laminas/laminas-feed",
@@ -3776,27 +3776,27 @@
         },
         {
             "name": "laminas/laminas-json",
-            "version": "3.5.0",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-json.git",
-                "reference": "7a8a1d7bf2d05dd6c1fbd7c0868d3848cf2b57ec"
+                "reference": "53ff787b20b77197f38680c737e8dfffa846b85b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-json/laminas-laminas-json-7a8a1d7bf2d05dd6c1fbd7c0868d3848cf2b57ec-zip-7c4453.zip",
-                "reference": "7a8a1d7bf2d05dd6c1fbd7c0868d3848cf2b57ec",
-                "shasum": "711b228cb6646d5b861edf35f1592c02d1cee889"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-json/laminas-laminas-json-53ff787b20b77197f38680c737e8dfffa846b85b-zip-2209e4.zip",
+                "reference": "53ff787b20b77197f38680c737e8dfffa846b85b",
+                "shasum": "ee407074853632ddbd5d08802ce30f1a840d3bbc"
             },
             "require": {
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-json": "*"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.4.0",
-                "laminas/laminas-stdlib": "^2.7.7 || ^3.1",
+                "laminas/laminas-stdlib": "^2.7.7 || ^3.8",
                 "phpunit/phpunit": "^9.5.25"
             },
             "suggest": {
@@ -3825,7 +3825,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-10-17T04:06:45+00:00"
+            "time": "2023-10-18T09:54:55+00:00"
         },
         {
             "name": "laminas/laminas-ldap",
@@ -3887,20 +3887,20 @@
         },
         {
             "name": "laminas/laminas-loader",
-            "version": "2.9.0",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-loader.git",
-                "reference": "51ed9c3fa42d1098a9997571730c0cbf42d078d3"
+                "reference": "e6fe952304ef40ce45cd814751ab35d42afdad12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-loader/laminas-laminas-loader-51ed9c3fa42d1098a9997571730c0cbf42d078d3-zip-67a336.zip",
-                "reference": "51ed9c3fa42d1098a9997571730c0cbf42d078d3",
-                "shasum": "186c8aedcbed923813d07d9ee451c90ff88a83ef"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-loader/laminas-laminas-loader-e6fe952304ef40ce45cd814751ab35d42afdad12-zip-7b9975.zip",
+                "reference": "e6fe952304ef40ce45cd814751ab35d42afdad12",
+                "shasum": "c2a976080077a2a457a514451b2f3ea455462c33"
             },
             "require": {
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-loader": "*"
@@ -3931,7 +3931,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-10-16T12:50:49+00:00"
+            "time": "2023-10-18T09:58:51+00:00"
         },
         {
             "name": "laminas/laminas-log",
@@ -4084,21 +4084,21 @@
         },
         {
             "name": "laminas/laminas-math",
-            "version": "3.6.0",
+            "version": "3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-math.git",
-                "reference": "5770fc632a3614f5526632a8b70f41b65130460e"
+                "reference": "3e90445828fd64308de2a600b48c3df051b3b17a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-math/laminas-laminas-math-5770fc632a3614f5526632a8b70f41b65130460e-zip-70fe7f.zip",
-                "reference": "5770fc632a3614f5526632a8b70f41b65130460e",
-                "shasum": "903fbb29553ddcc31d9b3f42d8d397561b2535b7"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-math/laminas-laminas-math-3e90445828fd64308de2a600b48c3df051b3b17a-zip-9bfa95.zip",
+                "reference": "3e90445828fd64308de2a600b48c3df051b3b17a",
+                "shasum": "89b348fbc61ece6551b3377ff549aee8ea7550fb"
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-math": "*"
@@ -4139,7 +4139,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-10-16T14:22:28+00:00"
+            "time": "2023-10-18T09:53:37+00:00"
         },
         {
             "name": "laminas/laminas-mime",
@@ -4517,17 +4517,17 @@
         },
         {
             "name": "laminas/laminas-soap",
-            "version": "2.12.0",
+            "version": "2.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-soap.git",
-                "reference": "127de3d876b992a6327c274b15df6de26d7aa712"
+                "reference": "68fdb11ec50eb8cf73ca266643c681d36c884b7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-soap/laminas-laminas-soap-127de3d876b992a6327c274b15df6de26d7aa712-zip-5e70a2.zip",
-                "reference": "127de3d876b992a6327c274b15df6de26d7aa712",
-                "shasum": "c79254bc2f6ac3fc510da3a1ea5df4f1847bb013"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-soap/laminas-laminas-soap-68fdb11ec50eb8cf73ca266643c681d36c884b7f-zip-ce1356.zip",
+                "reference": "68fdb11ec50eb8cf73ca266643c681d36c884b7f",
+                "shasum": "42ca7cdf1a6fd24920601cd0643b87c09940154d"
             },
             "require": {
                 "ext-dom": "*",
@@ -4535,7 +4535,7 @@
                 "laminas/laminas-server": "^2.15",
                 "laminas/laminas-stdlib": "^3.16",
                 "laminas/laminas-uri": "^2.10",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "laminas/laminas-code": "<4.4",
@@ -4575,7 +4575,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-01-09T13:58:49+00:00"
+            "time": "2023-10-18T09:49:25+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
@@ -4790,22 +4790,22 @@
         },
         {
             "name": "laminas/laminas-uri",
-            "version": "2.10.0",
+            "version": "2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-uri.git",
-                "reference": "663b050294945c7345cc3a61f3ca661d5f9e1f80"
+                "reference": "e662c685125061d3115906e5eb30f966842cc226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-uri/laminas-laminas-uri-663b050294945c7345cc3a61f3ca661d5f9e1f80-zip-d9633d.zip",
-                "reference": "663b050294945c7345cc3a61f3ca661d5f9e1f80",
-                "shasum": "c5f6a27024979ecd889b102479909872e16bb7f2"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-uri/laminas-laminas-uri-e662c685125061d3115906e5eb30f966842cc226-zip-f60844.zip",
+                "reference": "e662c685125061d3115906e5eb30f966842cc226",
+                "shasum": "9a4c523131201c181526a53b477ca5c9032f24e9"
             },
             "require": {
                 "laminas/laminas-escaper": "^2.9",
-                "laminas/laminas-validator": "^2.15",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "laminas/laminas-validator": "^2.39",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-uri": "*"
@@ -4836,7 +4836,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-10-16T15:02:45+00:00"
+            "time": "2023-10-18T09:56:55+00:00"
         },
         {
             "name": "laminas/laminas-validator",
@@ -4971,40 +4971,102 @@
             "time": "2022-12-12T11:44:10+00:00"
         },
         {
-            "name": "lcobucci/jwt",
-            "version": "3.2.5",
+            "name": "lcobucci/clock",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/lcobucci/jwt.git",
-                "reference": "82be04b4753f8b7693b62852b7eab30f97524f9b"
+                "url": "https://github.com/lcobucci/clock.git",
+                "reference": "c7aadcd6fd97ed9e199114269c0be3f335e38876"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/lcobucci/jwt/lcobucci-jwt-82be04b4753f8b7693b62852b7eab30f97524f9b-zip-3a3dd9.zip",
-                "reference": "82be04b4753f8b7693b62852b7eab30f97524f9b",
-                "shasum": "fc3c31e9f597cf60e932900c7bad64e9d3f1da95"
+                "url": "https://composer.tiki.org/dist/lcobucci/clock/lcobucci-clock-c7aadcd6fd97ed9e199114269c0be3f335e38876-zip-b23d29.zip",
+                "reference": "c7aadcd6fd97ed9e199114269c0be3f335e38876",
+                "shasum": "e426e6ced0f29a980d43cbc82c5c2b650d9bd484"
             },
             "require": {
-                "ext-openssl": "*",
-                "php": ">=5.5"
+                "php": "~8.1.0 || ~8.2.0",
+                "stella-maris/clock": "^0.1.7"
+            },
+            "provide": {
+                "psr/clock-implementation": "1.0"
             },
             "require-dev": {
-                "mdanter/ecc": "~0.3.1",
-                "mikey179/vfsstream": "~1.5",
-                "phpmd/phpmd": "~2.2",
-                "phpunit/php-invoker": "~1.1",
-                "phpunit/phpunit": "~4.5",
-                "squizlabs/php_codesniffer": "~2.3"
-            },
-            "suggest": {
-                "mdanter/ecc": "Required to use Elliptic Curves based algorithms."
+                "infection/infection": "^0.26",
+                "lcobucci/coding-standard": "^9.0",
+                "phpstan/extension-installer": "^1.2",
+                "phpstan/phpstan": "^1.9.4",
+                "phpstan/phpstan-deprecation-rules": "^1.1.1",
+                "phpstan/phpstan-phpunit": "^1.3.2",
+                "phpstan/phpstan-strict-rules": "^1.4.4",
+                "phpunit/phpunit": "^9.5.27"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.1-dev"
+            "autoload": {
+                "psr-4": {
+                    "Lcobucci\\Clock\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luís Cobucci",
+                    "email": "lcobucci@gmail.com"
+                }
+            ],
+            "description": "Yet another clock abstraction",
+            "funding": [
+                {
+                    "url": "https://github.com/lcobucci",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/lcobucci",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-12-19T14:38:11+00:00"
+        },
+        {
+            "name": "lcobucci/jwt",
+            "version": "4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lcobucci/jwt.git",
+                "reference": "4d7de2fe0d51a96418c0d04004986e410e87f6b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/lcobucci/jwt/lcobucci-jwt-4d7de2fe0d51a96418c0d04004986e410e87f6b4-zip-8ba8e8.zip",
+                "reference": "4d7de2fe0d51a96418c0d04004986e410e87f6b4",
+                "shasum": "c1dacc7421ec19586afe91d6b624f40606a5cf57"
+            },
+            "require": {
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "ext-sodium": "*",
+                "lcobucci/clock": "^2.0 || ^3.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "infection/infection": "^0.21",
+                "lcobucci/coding-standard": "^6.0",
+                "mikey179/vfsstream": "^1.6.7",
+                "phpbench/phpbench": "^1.2",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^1.4",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpstan/phpstan-strict-rules": "^1.0",
+                "phpunit/php-invoker": "^3.1",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "Lcobucci\\JWT\\": "src"
@@ -5016,7 +5078,7 @@
             ],
             "authors": [
                 {
-                    "name": "Luís Otávio Cobucci Oblonczyk",
+                    "name": "Luís Cobucci",
                     "email": "lcobucci@gmail.com",
                     "role": "Developer"
                 }
@@ -5026,7 +5088,17 @@
                 "JWS",
                 "jwt"
             ],
-            "time": "2018-11-11T12:22:26+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/lcobucci",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/lcobucci",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2023-01-02T13:28:00+00:00"
         },
         {
             "name": "league/commonmark",
@@ -5482,17 +5554,17 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.13.0",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "a6dfb1194a2946fcdc1f38219445234f65b35c96"
+                "reference": "b6a5854368533df0295c5761a0253656a2e52d9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-a6dfb1194a2946fcdc1f38219445234f65b35c96-zip-f76d25.zip",
-                "reference": "a6dfb1194a2946fcdc1f38219445234f65b35c96",
-                "shasum": "67d4675512bd47837076db92cc81fbaa451956a9"
+                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-b6a5854368533df0295c5761a0253656a2e52d9e-zip-7429ec.zip",
+                "reference": "b6a5854368533df0295c5761a0253656a2e52d9e",
+                "shasum": "14daf256e3fe040c99e61d5033921f76e242bbb5"
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -5530,7 +5602,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-05T12:09:49+00:00"
+            "time": "2023-10-17T14:13:20+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -5600,37 +5672,38 @@
         },
         {
             "name": "league/oauth2-server",
-            "version": "7.4.0",
+            "version": "8.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-server.git",
-                "reference": "2eb1cf79e59d807d89c256e7ac5e2bf8bdbd4acf"
+                "reference": "ab7714d073844497fd222d5d0a217629089936bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/oauth2-server/league-oauth2-server-2eb1cf79e59d807d89c256e7ac5e2bf8bdbd4acf-zip-6ca897.zip",
-                "reference": "2eb1cf79e59d807d89c256e7ac5e2bf8bdbd4acf",
-                "shasum": "67e7ccdcbc6c9e0b6d0039dff6dc074b53c1420c"
+                "url": "https://composer.tiki.org/dist/league/oauth2-server/league-oauth2-server-ab7714d073844497fd222d5d0a217629089936bc-zip-f8bca6.zip",
+                "reference": "ab7714d073844497fd222d5d0a217629089936bc",
+                "shasum": "f0af27f5a034a6639b3fa902fd36ee82f5b5316f"
             },
             "require": {
-                "defuse/php-encryption": "^2.1",
+                "defuse/php-encryption": "^2.3",
                 "ext-openssl": "*",
-                "lcobucci/jwt": "^3.2.2",
-                "league/event": "^2.1",
-                "php": ">=7.0.0",
-                "psr/http-message": "^1.0.1"
+                "lcobucci/clock": "^2.2 || ^3.0",
+                "lcobucci/jwt": "^4.3 || ^5.0",
+                "league/event": "^2.2",
+                "league/uri": "^6.7 || ^7.0",
+                "php": "^8.0",
+                "psr/http-message": "^1.0.1 || ^2.0"
             },
             "replace": {
                 "league/oauth2server": "*",
                 "lncd/oauth2": "*"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.9.2",
-                "phpstan/phpstan-phpunit": "^0.9.4",
-                "phpstan/phpstan-strict-rules": "^0.9.0",
-                "phpunit/phpunit": "^6.3 || ^7.0",
-                "roave/security-advisories": "dev-master",
-                "zendframework/zend-diactoros": "^1.3.2"
+                "laminas/laminas-diactoros": "^3.0.0",
+                "phpstan/phpstan": "^0.12.57",
+                "phpstan/phpstan-phpunit": "^0.12.16",
+                "phpunit/phpunit": "^9.6.6",
+                "roave/security-advisories": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -5673,7 +5746,175 @@
                 "secure",
                 "server"
             ],
-            "time": "2019-05-05T09:22:01+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sephster",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-08-25T22:35:12+00:00"
+        },
+        {
+            "name": "league/uri",
+            "version": "7.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/uri.git",
+                "reference": "36743c3961bb82bf93da91917b6bced0358a8d45"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/league/uri/league-uri-36743c3961bb82bf93da91917b6bced0358a8d45-zip-3151db.zip",
+                "reference": "36743c3961bb82bf93da91917b6bced0358a8d45",
+                "shasum": "f9923f364b1a7cef1be6bde608c4c2c3645944a7"
+            },
+            "require": {
+                "league/uri-interfaces": "^7.3",
+                "php": "^8.1"
+            },
+            "conflict": {
+                "league/uri-schemes": "^1.0"
+            },
+            "suggest": {
+                "ext-bcmath": "to improve IPV4 host parsing",
+                "ext-fileinfo": "to create Data URI from file contennts",
+                "ext-gmp": "to improve IPV4 host parsing",
+                "ext-intl": "to handle IDN host with the best performance",
+                "jeremykendall/php-domain-parser": "to resolve Public Suffix and Top Level Domain",
+                "league/uri-components": "Needed to easily manipulate URI objects components",
+                "php-64bit": "to improve IPV4 host parsing",
+                "symfony/polyfill-intl-idn": "to handle IDN host via the Symfony polyfill if ext-intl is not present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Uri\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://nyamsprod.com"
+                }
+            ],
+            "description": "URI manipulation library",
+            "homepage": "https://uri.thephpleague.com",
+            "keywords": [
+                "data-uri",
+                "file-uri",
+                "ftp",
+                "hostname",
+                "http",
+                "https",
+                "middleware",
+                "parse_str",
+                "parse_url",
+                "psr-7",
+                "query-string",
+                "querystring",
+                "rfc3986",
+                "rfc3987",
+                "rfc6570",
+                "uri",
+                "uri-template",
+                "url",
+                "ws"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/nyamsprod",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-09-09T17:21:43+00:00"
+        },
+        {
+            "name": "league/uri-interfaces",
+            "version": "7.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/uri-interfaces.git",
+                "reference": "c409b60ed2245ff94c965a8c798a60166db53361"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/league/uri-interfaces/league-uri-interfaces-c409b60ed2245ff94c965a8c798a60166db53361-zip-a55b16.zip",
+                "reference": "c409b60ed2245ff94c965a8c798a60166db53361",
+                "shasum": "396611fd933265708863fccb710df3fe88a39746"
+            },
+            "require": {
+                "ext-filter": "*",
+                "php": "^8.1",
+                "psr/http-factory": "^1",
+                "psr/http-message": "^1.1 || ^2.0"
+            },
+            "suggest": {
+                "ext-bcmath": "to improve IPV4 host parsing",
+                "ext-gmp": "to improve IPV4 host parsing",
+                "ext-intl": "to handle IDN host with the best performance",
+                "php-64bit": "to improve IPV4 host parsing",
+                "symfony/polyfill-intl-idn": "to handle IDN host via the Symfony polyfill if ext-intl is not present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Uri\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://nyamsprod.com"
+                }
+            ],
+            "description": "Common interfaces and classes for URI representation and interaction",
+            "homepage": "https://uri.thephpleague.com",
+            "keywords": [
+                "data-uri",
+                "file-uri",
+                "ftp",
+                "hostname",
+                "http",
+                "https",
+                "parse_str",
+                "parse_url",
+                "psr-7",
+                "query-string",
+                "querystring",
+                "rfc3986",
+                "rfc3987",
+                "rfc6570",
+                "uri",
+                "url",
+                "ws"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/nyamsprod",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-09-09T17:21:43+00:00"
         },
         {
             "name": "manticoresoftware/manticoresearch-php",
@@ -9085,6 +9326,50 @@
             "time": "2019-10-21T17:49:22+00:00"
         },
         {
+            "name": "psr/clock",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/clock.git",
+                "reference": "e41a24703d4560fd0acb709162f73b8adfc3aa0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/psr/clock/psr-clock-e41a24703d4560fd0acb709162f73b8adfc3aa0d-zip-9b79d0.zip",
+                "reference": "e41a24703d4560fd0acb709162f73b8adfc3aa0d",
+                "shasum": "83b7d05d68c456b92c78d18af3fea6c8dfadfa00"
+            },
+            "require": {
+                "php": "^7.0 || ^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Clock\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for reading the clock.",
+            "homepage": "https://github.com/php-fig/clock",
+            "keywords": [
+                "clock",
+                "now",
+                "psr",
+                "psr-20",
+                "time"
+            ],
+            "time": "2022-11-25T14:36:26+00:00"
+        },
+        {
             "name": "psr/container",
             "version": "1.1.2",
             "source": {
@@ -9277,17 +9562,17 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.1",
+            "version": "2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/psr/http-message/psr-http-message-cb6ce4845ce34a8ad9e68117c10ee90a29919eba-zip-201a70.zip",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
-                "shasum": "e713b8407346b5b0eb87f293ef3faf308920d1a8"
+                "url": "https://composer.tiki.org/dist/psr/http-message/psr-http-message-402d35bcb92c70c026d1a6a9883f06b2ead23d71-zip-c036fc.zip",
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71",
+                "shasum": "a521902e55440de7f02cc4bda639adbe2e82ed65"
             },
             "require": {
                 "php": "^7.2 || ^8.0"
@@ -9295,7 +9580,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -9310,7 +9595,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for HTTP messages",
@@ -9323,7 +9608,7 @@
                 "request",
                 "response"
             ],
-            "time": "2023-04-04T09:50:52+00:00"
+            "time": "2023-04-04T09:54:51+00:00"
         },
         {
             "name": "psr/log",
@@ -11324,28 +11609,79 @@
             "time": "2021-08-11T06:10:54+00:00"
         },
         {
-            "name": "steverhoades/oauth2-openid-connect-client",
-            "version": "v0.3.0",
+            "name": "stella-maris/clock",
+            "version": "0.1.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/steverhoades/oauth2-openid-connect-client.git",
-                "reference": "0159471487540a4620b8d0b693f5f215503a8d75"
+                "url": "https://github.com/stella-maris-solutions/clock.git",
+                "reference": "fa23ce16019289a18bb3446fdecd45befcdd94f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/steverhoades/oauth2-openid-connect-client/steverhoades-oauth2-openid-connect-client-0159471487540a4620b8d0b693f5f215503a8d75-zip-12c165.zip",
-                "reference": "0159471487540a4620b8d0b693f5f215503a8d75",
-                "shasum": "4c440f4aecf631c2262a647fd6729cbebc1faad5"
+                "url": "https://composer.tiki.org/dist/stella-maris/clock/stella-maris-clock-fa23ce16019289a18bb3446fdecd45befcdd94f8-zip-bfb2dc.zip",
+                "reference": "fa23ce16019289a18bb3446fdecd45befcdd94f8",
+                "shasum": "f9045294a2fb9b49c645a7e195533d20f5d78dce"
             },
             "require": {
-                "lcobucci/jwt": "^3.2",
-                "league/oauth2-client": "^2.0"
+                "php": "^7.0|^8.0",
+                "psr/clock": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellaMaris\\Clock\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Heigl",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A pre-release of the proposed PSR-20 Clock-Interface",
+            "homepage": "https://gitlab.com/stella-maris/clock",
+            "keywords": [
+                "clock",
+                "datetime",
+                "point in time",
+                "psr20"
+            ],
+            "time": "2022-11-25T16:15:06+00:00"
+        },
+        {
+            "name": "steverhoades/oauth2-openid-connect-client",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/steverhoades/oauth2-openid-connect-client.git",
+                "reference": "0f8d39cac97a749c34b0cf4fac283d0e9e38fa46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/steverhoades/oauth2-openid-connect-client/steverhoades-oauth2-openid-connect-client-0f8d39cac97a749c34b0cf4fac283d0e9e38fa46-zip-bfd77e.zip",
+                "reference": "0f8d39cac97a749c34b0cf4fac283d0e9e38fa46",
+                "shasum": "f5d01ffe7d8c511c4795efe576d23bb566c3da3c"
+            },
+            "require": {
+                "lcobucci/jwt": "~4.0",
+                "league/oauth2-client": "^2.0",
+                "php": ">= 7.4",
+                "webmozart/assert": "^1.10"
             },
             "require-dev": {
-                "phpmd/phpmd": "~2.2",
-                "phpunit/php-invoker": "~1.1",
-                "phpunit/phpunit": "~4.5",
-                "squizlabs/php_codesniffer": "~2.3"
+                "dg/bypass-finals": "^1.3",
+                "enlightn/security-checker": "^1.9",
+                "ergebnis/composer-normalize": "^2.15",
+                "insolita/unused-scanner": "^2.3",
+                "maglnet/composer-require-checker": "^3.3",
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpunit/phpunit": "^9.5",
+                "roave/security-advisories": "dev-master",
+                "squizlabs/php_codesniffer": "^3.6"
             },
             "type": "library",
             "autoload": {
@@ -11364,7 +11700,7 @@
                 }
             ],
             "description": "OAuth2 OpenID Connect Client that utilizes the PHP Leagues OAuth2 Client",
-            "time": "2020-05-19T23:06:36+00:00"
+            "time": "2023-01-13T18:13:02+00:00"
         },
         {
             "name": "studio-42/elfinder",
@@ -16221,17 +16557,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.38",
+            "version": "1.10.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "5302bb402c57f00fb3c2c015bac86e0827e4b691"
+                "reference": "d9dedb0413f678b4d03cbc2279a48f91592c97c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-5302bb402c57f00fb3c2c015bac86e0827e4b691-zip-cd39c1.zip",
-                "reference": "5302bb402c57f00fb3c2c015bac86e0827e4b691",
-                "shasum": "11ffeaf94a0fde0553ab7b3f83e7f57f9f3d36f2"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-d9dedb0413f678b4d03cbc2279a48f91592c97c4-zip-857d5c.zip",
+                "reference": "d9dedb0413f678b4d03cbc2279a48f91592c97c4",
+                "shasum": "f679527ecc0613e41a86c5bb938be0403d6a8d97"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -16272,7 +16608,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-06T14:19:14+00:00"
+            "time": "2023-10-17T15:46:26+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",

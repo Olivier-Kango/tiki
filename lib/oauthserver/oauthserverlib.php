@@ -106,14 +106,11 @@ class OAuthServerLib extends \TikiLib
 
     public function determineServerGrant($skip_keypair = false)
     {
-        global $user;
         $server = $this->getServer($skip_keypair);
 
-        if (! empty($user)) {
-            // TODO: this is legacy, see if xmpp/converse really need it
-            $grant = new ImplicitGrant(new \DateInterval('PT1H'), '?');
-            $server->enableGrantType($grant);
-        }
+        // TODO: ImplicitGrant is legacy, see how to make xmpp/converse use auth code grant
+        $grant = new ImplicitGrant(new \DateInterval('PT1H'), '?');
+        $server->enableGrantType($grant);
 
         // end user/app auth flow
         $grant = new AuthCodeGrant(

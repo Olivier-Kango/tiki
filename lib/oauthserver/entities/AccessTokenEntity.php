@@ -1,10 +1,9 @@
 <?php
 
-use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Signer\Key;
-use Lcobucci\JWT\Signer\Rsa\Sha256 as RSASHA256;
-use Lcobucci\JWT\Signer\Hmac\Sha256 as HMACSHA256;
-use League\OAuth2\Server\CryptKey;
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Signer\Hmac\Sha256 as Hmac256;
+use Lcobucci\JWT\Signer\Rsa\Sha256 as Rsa256;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
 use League\OAuth2\Server\Entities\Traits\EntityTrait;
@@ -16,23 +15,22 @@ class AccessTokenEntity implements AccessTokenEntityInterface
     use TokenEntityTrait;
     use EntityTrait;
 
-    public function convertToJWT(CryptKey $privateKey = null)
+    public function initJwtConfiguration()
     {
-        $token = (new Builder())
-            ->setAudience($this->getClient()->getIdentifier())
-            ->setId($this->getIdentifier(), true)
-            ->setIssuedAt(time())
-            ->setNotBefore(time())
-            ->setExpiration($this->getExpiryDateTime()->getTimestamp())
-            ->setSubject($this->getUserIdentifier())
-            ->set('scopes', $this->getScopes());
-
-        if (is_null($privateKey) || (is_object($privateKey) && method_exists($privateKey, 'isNullKey') && $privateKey->isNullKey())) {
-            $token->sign(new HMACSHA256(), $this->getClient()->getClientSecret());
+        if (is_null($this->privateKey) || (is_object($this->privateKey) && method_exists($this->privateKey, 'isNullKey') && $this->privateKey->isNullKey())) {
+            $key = $this->getClient()->getClientSecret();
+            $passPhrase = '';
+            $signer = new Hmac256();
         } else {
-            $token->sign(new RSASHA256(), new Key($privateKey->getKeyPath(), $privateKey->getPassPhrase()));
+            $key = $this->privateKey->getKeyContents();
+            $passPhrase = $this->privateKey->getPassPhrase() ?? '';
+            $signer = new Rsa256();
         }
 
-        return $token->getToken();
+        $this->jwtConfiguration = Configuration::forAsymmetricSigner(
+            $signer,
+            InMemory::plainText($key, $passPhrase),
+            InMemory::plainText('empty', 'empty')
+        );
     }
 }
