@@ -161,7 +161,12 @@ class WikiParser_Parsable extends ParserLib
 
             if (! empty($this->option['indexing'])) {
                 $info = $this->plugin_info(strtolower($plugin_name));
-                $isSearchableByDefault = isset($info['searchable_by_default']) ? $info['searchable_by_default'] : false;
+                if (empty($info)) {
+                    // {literal} smarty blocks or {display} and other LIST-plugin syntax gets removed if we don't make it searchable by default
+                    $isSearchableByDefault = true;
+                } else {
+                    $isSearchableByDefault = isset($info['searchable_by_default']) ? $info['searchable_by_default'] : false;
+                }
                 //We are in an indexing context, check if plugins should be indexed, and strip them out if not
 
                 $shouldIndexPlugin = false;
@@ -391,6 +396,7 @@ if ( \$('#$id') ) {
         $preparsed = ['data' => [],'key' => []];
         $noparsed = ['data' => [],'key' => []];
         $this->strip_unparsed_block($data, $noparsed, true);
+
         if (! $this->option['noparseplugins'] || $this->option['stripplugins']) {
             $this->parse_first($data, $preparsed, $noparsed);
             $this->parse_wiki_argvariable($data);
