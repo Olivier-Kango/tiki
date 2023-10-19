@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55eecf79ccbdbb9e6639f72435ed17e5",
+    "content-hash": "c59967b4aaeb038d6525ad82b0216712",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2498,17 +2498,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8"
+                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-a4176476c8920b3e75fe85b99c9cb942021488e8-zip-eda341.zip",
-                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8",
-                "shasum": "b60e390284fa35f732c610b14c015ac5a68cde7b"
+                "url": "https://api.github.com/repos/cypht-org/php-sieve-manager/zipball/29a9b4396322cc3403b5d64578917ea025c5164e",
+                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4"
@@ -2538,7 +2538,11 @@
                 "php",
                 "sieve"
             ],
-            "time": "2023-07-11T09:01:24+00:00"
+            "support": {
+                "issues": "https://github.com/cypht-org/php-sieve-manager/issues",
+                "source": "https://github.com/cypht-org/php-sieve-manager/tree/v1.0.1"
+            },
+            "time": "2023-10-19T14:43:05+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -7124,11 +7128,11 @@
         },
         {
             "name": "npm-asset/nanoid",
-            "version": "3.3.4",
+            "version": "3.3.6",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/nanoid/npm-asset-nanoid-3.3.4.zip",
-                "shasum": "34e7e53ff2abde690e49bab22325474cfc722fe8"
+                "url": "https://composer.tiki.org/dist/npm-asset/nanoid/npm-asset-nanoid-3.3.6.zip",
+                "shasum": "c05a61ff0cdf153148e3d9be7651e0d07402d7db"
             },
             "type": "npm-asset",
             "license": [
@@ -7176,14 +7180,14 @@
         },
         {
             "name": "npm-asset/postcss",
-            "version": "8.4.14",
+            "version": "8.4.31",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.14.zip",
-                "shasum": "c6182c399bf49d6f458aa52d0fae550e5f4a9330"
+                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.31.zip",
+                "shasum": "f7df4ce815b7497724b9af5867dd5864d5de9044"
             },
             "require": {
-                "npm-asset/nanoid": ">=3.3.4,<4.0.0",
+                "npm-asset/nanoid": ">=3.3.6,<4.0.0",
                 "npm-asset/picocolors": ">=1.0.0,<2.0.0",
                 "npm-asset/source-map-js": ">=1.0.2,<2.0.0"
             },
