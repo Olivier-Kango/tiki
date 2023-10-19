@@ -5253,8 +5253,11 @@ class TikiLib extends TikiDb_Bridge
                 'user' => $user,
             ]
         );
+        $data_parse = $edit_data;
+        $wikiParserParsable = new WikiParser_Parsable($edit_data);
+        $syntax = $wikiParserParsable->guess_syntax($data_parse)['syntax'];
 
-        if ($html == 1 && $prefs['feature_purifier'] != 'n' && ! $autoupdate) {
+        if ($html == 1 && $prefs['feature_purifier'] != 'n' && ! $autoupdate && $syntax !== 'markdown') {
             $noparsed = [];
             $parserlib->plugins_remove($edit_data, $noparsed);
 

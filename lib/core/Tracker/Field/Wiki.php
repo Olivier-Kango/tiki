@@ -234,10 +234,12 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements \Tracker\Field\Ex
                 $page_data = $page_info['data'];
 
                 if (! empty($newPageData)) {
-                    // to compare new data with esiting HTMLPurifier must be taken into consideration
-                    if ($page_info['is_html'] == 1 && $prefs['feature_purifier'] != 'n') {
+                    // to compare new data with editing HTMLPurifier must be taken into consideration
+                    $parserLib = TikiLib::lib('parser');
+
+                    if ($page_info['is_html'] == 1 && $prefs['feature_purifier'] != 'n' && (! $parserLib->option['is_markdown']) && $prefs['feature_htmlpurifier_output'] == 'y') {
                         $noparsed = [];
-                        $parserLib = TikiLib::lib('parser');
+
                         $parserLib->plugins_remove($newPageData, $noparsed);
 
                         require_once('lib/htmlpurifier_tiki/HTMLPurifier.tiki.php');
