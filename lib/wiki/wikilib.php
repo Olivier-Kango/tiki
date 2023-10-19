@@ -1515,6 +1515,35 @@ class WikiLib extends TikiLib
         return $ret;
     }
 
+    //get all backlinks
+    public function getAllBacklinks()
+    {
+        global $prefs;
+        $tikilib = TikiLib::lib('tiki');
+
+        $query = "select `fromPage`, `toPage` from `tiki_links` order by lastmodif desc";
+        $result = $this->query($query);
+        $ret = [];
+
+        while ($res = $result->fetchRow()) {
+            if ($tikilib->get_page_id_from_name($res['toPage']) == false) {
+                continue;
+            }
+            $is_wiki_page = substr($res['fromPage'], 0, 11) != 'objectlink:';
+            if ($is_wiki_page) {
+                $objectId = $res['fromPage'];
+                $toPage = $res['toPage'];
+            } else {
+                continue;
+            }
+
+            $aux["toPage"] = $toPage;
+            $aux["objectId"] = $objectId;
+            $ret[] = $aux;
+        }
+        return $ret;
+    }
+
     //Set the last modified item (wiki page or tracker item)
     public function getBacklinkLastModif($page)
     {

@@ -109,8 +109,12 @@ abstract class AbstractType
                 if (function_exists('filter_out_sefurl')) {
                     $url = filter_out_sefurl($url, $entryType, ($entryType[$titleField] ?? ''));
                 }
-
-                $map->loc($url)->priority($priority)->freq($changeFrequency)->lastMod(date('Y/m/d H:i:s', $entry[$updateField]) ?? time());
+                if (is_array($priority) && $priority[$entry[$idField]] !== null) {
+                    $priorities = $priority[$entry[$idField]];
+                } else {
+                    $priorities = '0.6';
+                }
+                $map->loc($url)->priority($priorities)->freq($changeFrequency)->lastMod(date('Y/m/d H:i:s', $entry[$updateField]) ?? time());
             }
         });
     }

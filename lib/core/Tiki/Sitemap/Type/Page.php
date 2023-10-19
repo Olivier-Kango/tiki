@@ -19,7 +19,9 @@ class Page extends AbstractType
      */
     public function generate()
     {
-        global $tikilib;
+        global $tikilib, $prefs;
+        $wikilib = TikiLib::lib('wiki');
+        $priority = [];
 
         if (! $this->checkFeatureAndPermissions('feature_wiki')) {
             return;
@@ -33,6 +35,11 @@ class Page extends AbstractType
                 return ($page);
             }
         });
-        $this->addEntriesToSitemap($listPages, '/tiki-index.php?page=%s', 'pageSlug', null, 'sitemap.xml', '', 'lastModif');
+        $priority = array_count_values(array_column($wikilib->getAllBacklinks(), 'toPage'));
+        foreach ($priority as $key => $values) {
+            $priority[$key] = '0.8';
+        }
+        $priority[$prefs['wikiHomePage']] = '1.0';
+        $this->addEntriesToSitemap($listPages, '/tiki-index.php?page=%s', 'pageSlug', null, 'sitemap.xml', '', 'lastModif', $priority);
     }
 }
