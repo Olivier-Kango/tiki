@@ -17,7 +17,6 @@
  * @copyright (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
  *          See copyright.txt for details and a complete list of authors.
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
- * @version     SVN $Rev$
  * @filesource
  * @link        http://dev.tiki.org/Parser
  * @since       8

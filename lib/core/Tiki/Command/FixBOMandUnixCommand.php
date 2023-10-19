@@ -5,14 +5,6 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-/**
- *
- * This file may be run to fix the Id's of SVN Keyword for all files within tiki.
- *
- * Reads the beginning of each file in tiki, and adds a svn Keyword id if the $Id$ marker is found.
- *
- */
-
 namespace Tiki\Command;
 
 use Symfony\Component\Console\Command\Command;
