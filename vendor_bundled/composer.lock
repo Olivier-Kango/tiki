@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d0737e613dc88fc0158264410faf155",
+    "content-hash": "6bde00392ad47d344e73c73be49e11db",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2498,17 +2498,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8"
+                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-a4176476c8920b3e75fe85b99c9cb942021488e8-zip-eda341.zip",
-                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8",
-                "shasum": "b60e390284fa35f732c610b14c015ac5a68cde7b"
+                "url": "https://api.github.com/repos/cypht-org/php-sieve-manager/zipball/29a9b4396322cc3403b5d64578917ea025c5164e",
+                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4"
@@ -2538,7 +2538,11 @@
                 "php",
                 "sieve"
             ],
-            "time": "2023-07-11T09:01:24+00:00"
+            "support": {
+                "issues": "https://github.com/cypht-org/php-sieve-manager/issues",
+                "source": "https://github.com/cypht-org/php-sieve-manager/tree/v1.0.1"
+            },
+            "time": "2023-10-19T14:43:05+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
