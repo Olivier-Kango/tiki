@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c59967b4aaeb038d6525ad82b0216712",
+    "content-hash": "55eecf79ccbdbb9e6639f72435ed17e5",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2506,9 +2506,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cypht-org/php-sieve-manager/zipball/29a9b4396322cc3403b5d64578917ea025c5164e",
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-29a9b4396322cc3403b5d64578917ea025c5164e-zip-bc122f.zip",
                 "reference": "29a9b4396322cc3403b5d64578917ea025c5164e",
-                "shasum": ""
+                "shasum": "d67af82acefb4f96f14c4e016c3a584f341f6c4d"
             },
             "require": {
                 "php": ">=5.4"
@@ -2538,10 +2538,6 @@
                 "php",
                 "sieve"
             ],
-            "support": {
-                "issues": "https://github.com/cypht-org/php-sieve-manager/issues",
-                "source": "https://github.com/cypht-org/php-sieve-manager/tree/v1.0.1"
-            },
             "time": "2023-10-19T14:43:05+00:00"
         },
         {
@@ -2761,13 +2757,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "a5285756aff89bf1ee85cffa7fea2a6fd9b132ce"
+                "reference": "3d450976923c0f577c3eb11443216bb6ac97a90b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-a5285756aff89bf1ee85cffa7fea2a6fd9b132ce-zip-237623.zip",
-                "reference": "a5285756aff89bf1ee85cffa7fea2a6fd9b132ce",
-                "shasum": "7fdd8b99d1e4983fcbe309bb1c7401cd3ff2e5de"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-3d450976923c0f577c3eb11443216bb6ac97a90b-zip-fc90a3.zip",
+                "reference": "3d450976923c0f577c3eb11443216bb6ac97a90b",
+                "shasum": "7c4d3c80a96711911c200f720b46805ca727b9f6"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2827,7 +2823,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-10-18T11:52:01+00:00"
+            "time": "2023-10-19T14:57:04+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
