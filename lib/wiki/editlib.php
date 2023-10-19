@@ -1530,9 +1530,9 @@ class EditLib
      * @return string converted content
      * @throws Exception
      */
-    public function convertWikiSyntax($data, $target_syntax)
+    public function convertWikiSyntax($data, $target_syntax, $page_name = null)
     {
-        global $page_regex, $prefs;
+        global $page_regex, $prefs, $page, $tikilib;
 
         if ($target_syntax != 'markdown' && $target_syntax != 'tiki') {
             throw new Exception(tr('Failed converting content: unrecognized target syntax passed: %0', $target_syntax));
@@ -1588,6 +1588,16 @@ class EditLib
         ]);
 
         $prefs['wiki_heading_links'] = $old_pref;
+
+        $wiki_page = $page ?? $page_name;
+        $page_infos = $tikilib->get_page_info($wiki_page);
+
+        if ($prefs['feature_wiki_allowhtml'] === 'y' && $page_infos['is_html']) {
+            if ($target_syntax == $source_syntax) {
+                throw new Exception(tr('Content already in ' . $source_syntax . ' syntax.'));
+            }
+            return $data;
+        }
 
         if ($target_syntax == 'markdown') {
             // convert to markdown

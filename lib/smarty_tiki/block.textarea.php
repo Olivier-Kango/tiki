@@ -33,7 +33,7 @@
 
 function smarty_block_textarea($params, $content, $smarty, $repeat)
 {
-    global $prefs, $is_html, $tiki_p_admin;
+    global $prefs, $is_html, $tiki_p_admin, $page;
     $headerlib = TikiLib::lib('header');
 
     if ($repeat) {
@@ -371,6 +371,7 @@ function switchEditor(mode, form) {
     form.submit();
 }';
             } elseif ($params['syntax'] === 'tiki' || $params['syntax'] === 'markdown') {
+                $smarty->assign('page', $page);
                 $html .= $smarty->fetch('edit/editor_settings.tpl');
             }
         }

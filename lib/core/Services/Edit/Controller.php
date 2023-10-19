@@ -340,7 +340,8 @@ $(window).on("load", function(){
         try {
             $converted = TikiLib::lib('edit')->convertWikiSyntax(
                 $converted,
-                $input->syntax->word()
+                $input->syntax->word(),
+                $input->page->word()
             );
         } catch (Exception $e) {
             Feedback::error($e->getMessage());
