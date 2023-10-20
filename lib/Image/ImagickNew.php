@@ -67,7 +67,7 @@ class ImagickNew extends ImageAbstract
     protected function resizeImage($x, $y)
     {
         if ($this->data) {
-            return $this->data->scaleImage($x, $y);
+            return $this->data->scaleImage(intval($x), intval($y));
         }
     }
 
