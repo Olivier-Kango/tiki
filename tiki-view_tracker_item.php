@@ -10,6 +10,16 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'trackers';
 
+if (isset($_REQUEST['trackerId']) && ! filter_var($_REQUEST['trackerId'], FILTER_VALIDATE_INT)) {
+    http_response_code(400);
+    die;
+}
+
+if (isset($_REQUEST['itemId']) && ! filter_var($_REQUEST['itemId'], FILTER_VALIDATE_INT)) {
+    http_response_code(400);
+    die;
+}
+
 if (isset($_REQUEST["trackerId"]) && ! is_numeric($_REQUEST["trackerId"])) {
     $params = explode("-", $_REQUEST['trackerId']);
     $_REQUEST["trackerId"] = $_GET['trackerId'] = $params[0];
