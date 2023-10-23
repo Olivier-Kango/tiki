@@ -1665,7 +1665,15 @@ class EditLib
             $converted = preg_replace_callback('/\[(.+)\]/', function ($m) {
                 return str_replace('\\_', '_', $m[0]);
             }, $converted);
-            $converted = preg_replace('/({DIV(.*?)}.+{DIV}\s*)(?![\r\n])/s', "$1\n\n", $converted);
+
+            // Processing plugin div as it needs space around
+            // First of all add \n around plugin div split on multiple lines
+            $converted = preg_replace_callback('/{DIV(.*?)}(.*?){DIV}/s', function ($m) {
+                $lines = explode("\n", $m[0]);
+                return count($lines) > 1 ? "\n{$m[0]}\n" : $m[0];
+            }, $converted);
+            // after add \n around plugin div which is not in a table
+            $converted = preg_replace('/^(?!^\|).*({DIV(.*?)}.+{DIV}).*(?!^\|\s*)/m', "\n$1\n", $converted);
 
             // Bring back > character
             $converted = str_replace('&gt;', '>', $converted);
