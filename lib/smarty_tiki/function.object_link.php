@@ -202,7 +202,7 @@ function smarty_function_object_link_comment($smarty, $object, $title = null, $t
     $smarty->loadPlugin('smarty_modifier_sefurl');
     $comments_lib = TikiLib::lib('comments');
     $comment = $comments_lib->get_comment($object);
-    $url = smarty_modifier_sefurl($object, $comment['objectType'] . '_comment');
+    $url = is_array($comment) ? smarty_modifier_sefurl($object, $comment['objectType'] . '_comment') : smarty_modifier_sefurl($object, 'comment' . '_comment');
 
     if (empty($title)) {
         $title = TikiLib::lib('object')->get_title($type, $object, empty($params['format']) ? null : $params['format']);
