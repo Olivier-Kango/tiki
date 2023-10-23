@@ -145,7 +145,7 @@ try {
         if ($kmedialist) {
             if ($jitRequest->view->alpha() != 'browse') {
                 for ($i = 0; $i < $kmedialist->totalCount; $i++) {
-                    if (isset($kmedialist->objects[$i]) && $kmedialist->objects[$i] !== null) {
+                    if (! empty($kmedialist->objects[$i]) && $kmedialist->objects[$i] !== null) {
                         $kmedialist->objects[$i]->mediaType = $mediaTypeAsString[$kmedialist->objects[$i]->mediaType];
                         $kmedialist->objects[$i]->statusString = $statusAsString[$kmedialist->objects[$i]->status];
                     }
