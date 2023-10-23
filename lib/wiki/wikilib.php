@@ -56,18 +56,25 @@ class WikiLib extends TikiLib
         // Get slides
         global $prefs;
         $parts = explode($prefs['wiki_page_separator'], $data);
-        $ret = $parts[$i - 1];
 
-        if (substr($parts[$i - 1], 1, 5) == '<br/>') {
-            $ret = substr($parts[$i - 1], 6);
+        if (isset($parts[$i - 1])) {
+            $ret = $parts[$i - 1];
+
+            if (substr($parts[$i - 1], 1, 5) == '<br/>') {
+                $ret = substr($parts[$i - 1], 6);
+            }
+
+            if (substr($parts[$i - 1], 1, 6) == '<br />') {
+                $ret = substr($parts[$i - 1], 7);
+            }
+
+            return $ret;
+        } else {
+            //The case where $parts[$i - 1] is not set (null or out of range).
+            Feedback::errorPage(['mes' => "Page not found"]);
         }
-
-        if (substr($parts[$i - 1], 1, 6) == '<br />') {
-            $ret = substr($parts[$i - 1], 7);
-        }
-
-        return $ret;
     }
+
 
     public function get_page_by_slug($slug)
     {
