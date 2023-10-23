@@ -19,7 +19,7 @@ body.tiki-admin {
   padding-left: 2.5rem !important;
 }
 @media (min-width: 993px) {
-  .tiki-admin.uab:not(.fixed_width) #tikifeedback, .tiki-admin.uab:not(.fixed_width) .admin-content {
+  .tiki-admin.uab:not(.fixed_width) #tikifeedback, .tiki-admin.uab:not(.fixed_width) .admin-content, .tiki-admin.uab:not(.fixed_width) .bottom_modules {
     padding-left: 278px !important;
   }
 }
