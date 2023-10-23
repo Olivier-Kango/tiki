@@ -378,6 +378,9 @@ class CalendarLib extends TikiLib
                 $parserlib = TikiLib::lib('parser');
                 $timezone = TikiLib::lib('tiki')->get_display_timezone();
                 $sub = $this->get_subscription(substr($calendarId, 1));
+                if (empty($sub['vcalendar'])) {
+                    continue;
+                }
                 $vcalendar = Sabre\VObject\Reader::read($sub['vcalendar']);
                 $expanded = $vcalendar->expand(DateTime::createFromFormat('U', $tstart), DateTime::createFromFormat('U', $tstop), new DateTimeZone($timezone));
                 foreach ($expanded->VEVENT as $component) {
@@ -2009,6 +2012,7 @@ class CalendarLib extends TikiLib
     public function create_subscription($data)
     {
         $data['lastmodif'] = time();
+        $data = $this->sanitizeSubscriptionData($data);
         $query = 'insert into `tiki_calendar_subscriptions` (`' . implode('`, `', array_keys($data)) . '`) values (' . implode(",", array_fill(0, count($data), "?")) . ')';
         $bindvars = array_values($data);
         $this->query($query, $bindvars);
@@ -2018,6 +2022,7 @@ class CalendarLib extends TikiLib
     public function update_subscription($subscriptionId, $data)
     {
         $data['lastmodif'] = time();
+        $data = $this->sanitizeSubscriptionData($data);
         $query = 'update `tiki_calendar_subscriptions` set `' . implode('` = ?, `', array_keys($data)) . '` = ? where subscriptionId = ?';
         $bindvars = array_merge(array_values($data), [$subscriptionId]);
         return $this->query($query, $bindvars);
@@ -2026,6 +2031,23 @@ class CalendarLib extends TikiLib
     public function delete_subscription($subscriptionId)
     {
         return $this->query('delete from `tiki_calendar_subscriptions` where subscriptionId = ?', [$subscriptionId]);
+    }
+
+    private function sanitizeSubscriptionData($data)
+    {
+        if (isset($data['order'])) {
+            $data['order'] = intval($data['order']);
+        }
+        if (isset($data['strip_todos'])) {
+            $data['strip_todos'] = intval($data['strip_todos']);
+        }
+        if (isset($data['strip_alarms'])) {
+            $data['strip_alarms'] = intval($data['strip_alarms']);
+        }
+        if (isset($data['strip_attachments'])) {
+            $data['strip_attachments'] = intval($data['strip_attachments']);
+        }
+        return $data;
     }
 
     /**
