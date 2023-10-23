@@ -17,11 +17,13 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
     exit;
 }
 
+const CUSTOM_PATH = '_custom';
 const DB_PATH = 'db';
 const FILES_PATH = 'files';
 const IMG_WIKI_PATH = 'img/wiki';
 const IMG_WIKI_UP_PATH = 'img/wiki_up';
 const IMG_TRACKERS_PATH = 'img/trackers';
+const NODE_MODULES_PATH = 'node_modules';
 const MODS_PATH = 'mods';
 const TEMP_PATH = 'temp';
 const TEMP_CACHE_PATH = 'temp/cache';
@@ -31,3 +33,6 @@ const TEMPLATES_PATH = 'templates';
 const THEMES_PATH = 'themes';
 const TIKI_TESTS_TESTS_PATH = 'tiki_tests/tests';
 const WHELP_PATH = 'whelp';
+const VENDOR_PATH = 'vendor';
+const VENDOR_BUNDLED_PATH = 'vendor_bundled';
+const VENDOR_CUSTOM_PATH = 'vendor_custom';
