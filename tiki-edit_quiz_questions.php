@@ -52,8 +52,7 @@ $smarty->assign('question', $info['question']);
 $smarty->assign('type', $info['type']);
 $smarty->assign('position', $info['position']);
 
-if (isset($_REQUEST['remove'])) {
-    $access->check_authenticity();
+if (isset($_REQUEST['remove']) && $access->checkCsrf()) {
     $quizlib->remove_quiz_question($_REQUEST['remove']);
 }
 

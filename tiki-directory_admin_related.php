@@ -28,8 +28,7 @@ $smarty->assign('parent_name', $parent_name);
 $path = $dirlib->dir_get_category_path_admin($_REQUEST["parent"]);
 $smarty->assign_by_ref('path', $path);
 // Remove a relationship
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $dirlib->dir_remove_related($_REQUEST["parent"], $_REQUEST["categId"]);
 }
 // Update a relationship

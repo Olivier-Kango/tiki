@@ -13,16 +13,13 @@ $access->check_permission('tiki_p_minical');
 if (! isset($_REQUEST["eventId"])) {
     $_REQUEST["eventId"] = 0;
 }
-if (isset($_REQUEST['remove'])) {
-    $access->check_authenticity();
+if (isset($_REQUEST['remove']) && $access->checkCsrf()) {
     $minicallib->minical_remove_event($user, $_REQUEST['remove']);
 }
-if (isset($_REQUEST['remove2'])) {
-    $access->check_authenticity();
+if (isset($_REQUEST['remove2']) && $access->checkCsrf()) {
     $minicallib->minical_remove_event($user, $_REQUEST['eventId']);
 }
-if (isset($_REQUEST['delete'])) {
-    $access->check_authenticity();
+if (isset($_REQUEST['delete']) && $access->checkCsrf()) {
     if (is_array($_REQUEST["event"]) && ! empty($_REQUEST["event"])) {
         foreach (array_keys($_REQUEST["event"]) as $ev) {
             $minicallib->minical_remove_event($user, $ev);
@@ -48,8 +45,7 @@ $smarty->assign('year', date("Y", $pdate));
 $pdate_h = mktime(date("G"), date("i"), date("s"), date("m", $pdate), date("d", $pdate), date("Y", $pdate));
 $smarty->assign('pdate', $pdate);
 $smarty->assign('pdate_h', $pdate_h);
-if (isset($_REQUEST['removeold'])) {
-    $access->check_authenticity();
+if (isset($_REQUEST['removeold']) && $access->checkCsrf()) {
     $minicallib->minical_remove_old($user, $pdate_h);
 }
 if ($_REQUEST["eventId"]) {

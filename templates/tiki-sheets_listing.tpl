@@ -57,9 +57,16 @@
                         </form>
                     </action>
                     <action>
-                        <a class="gallink" href="tiki-sheets.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;removesheet=y&amp;sheetId={$sheet.sheetId}">
-                            {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
-                        </a>
+                        <form action="tiki-sheets.php" method="post">
+                            {ticket}
+                            <input type="hidden" name="offset" value="{$offset}">
+                            <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                            <input type="hidden" name="removesheet" value="y">
+                            <input type="hidden" name="sheetId" value="{$sheet.sheetId}">
+                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0 gallink" onclick="confirmPopup('{tr}Are you sure you want to delete this spreadsheet?{/tr}')">
+                                {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
+                            </button>
+                        </form>
                     </action>
                 {/if}
             {/strip}

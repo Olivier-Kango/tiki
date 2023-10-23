@@ -15,8 +15,7 @@ if (! isset($_REQUEST["receivedPageId"])) {
 }
 $smarty->assign('receivedPageId', $_REQUEST["receivedPageId"]);
 $errors = [];
-if (isset($_REQUEST["accept"])) {
-    $access->checkCsrf();
+if (isset($_REQUEST["accept"]) && $access->checkCsrf()) {
     // CODE TO ACCEPT A PAGE HERE
     if (! $commlib->accept_page($_REQUEST["accept"])) {
         $info = $commlib->get_received_page($_REQUEST['accept']);
@@ -46,8 +45,7 @@ $smarty->assign('data', $info["data"]);
 $smarty->assign('comment', $info["comment"]);
 // Assign parsed
 $smarty->assign('parsed', TikiLib::lib('parser')->parse_data($info["data"]));
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $commlib->remove_received_page($_REQUEST["remove"]);
 }
 if (isset($_REQUEST["save"])) {

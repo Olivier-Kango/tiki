@@ -67,9 +67,18 @@
                                 </action>
                             {/if}
                             <action>
-                                <a href="tiki-list_posts.php?{if isset($blogId)}blogId={$blogId}&amp;{/if}offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$posts[changes].postId}" title=":{tr}Delete{/tr}">
-                                    {icon name="remove" _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                </a>
+                                <form action="tiki-list_posts.php" method="post">
+                                    {ticket}
+                                    {if isset($blogId)}
+                                        <input type="hidden" name="blogId" value="{$blogId}">
+                                    {/if}
+                                    <input type="hidden" name="offset" value="{$offset}">
+                                    <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                    <input type="hidden" name="remove" value="{$posts[changes].postId}">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Delete this item{/tr}?')">
+                                        {icon name='delete' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                         {/strip}
                     {/actions}
@@ -88,7 +97,7 @@
                 <select name="remove" class="form-control text-danger">
                     <option value="y">{tr}Delete{/tr}</option>
                 </select>
-                <input type="submit" class="btn btn-primary" name="remove" value="{tr}Ok{/tr}">
+                <input type="submit" class="btn btn-primary" onclick="confirmPopup('{tr}Delete posts{/tr}')" name="remove" value="{tr}Ok{/tr}">
             </div>
         </div>
     </form>

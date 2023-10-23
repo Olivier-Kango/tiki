@@ -47,9 +47,14 @@
                     {/if}
                     {if $canRemove}
                         <li class="dropdown-item">
-                            {self_link remove=$itemId}
-                                {icon name="delete"} {tr}Delete{/tr}
-                            {/self_link}
+                            <form action="tiki-view_tracker_item.php" method="post">
+                                {ticket}
+                                <input type="hidden" name="remove" value="{$itemId}">
+                                <input type="hidden" name="itemId" value={$itemId}>
+                                <button type="submit" name="trackerId" value="{$trackerId}" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to permanently delete this item?{/tr}')">
+                                    {icon name="delete"} {tr}Delete{/tr}
+                                </button>
+                            </form>
                         </li>
                     {/if}
                     {if $prefs.monitor_enabled eq 'y'}

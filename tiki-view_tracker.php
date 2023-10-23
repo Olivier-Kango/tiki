@@ -292,13 +292,11 @@ if (! empty($_REQUEST['remove'])) {
     if ($actionObject->canRemove()) {
         //bypass the question to confirm delete or not
         if (empty($_REQUEST['force'])) {
-            $access->check_authenticity();
+            $access->checkCsrf();
             $trklib->remove_tracker_item($_REQUEST['remove']);
         }
     }
-} elseif (isset($_REQUEST["batchaction"]) and $_REQUEST["batchaction"] == 'delete') {
-    $access->checkCsrf();
-    $access->checkCsrf(tr('Are you sure you want to delete the selected items?'));
+} elseif (isset($_REQUEST["batchaction"]) and $_REQUEST["batchaction"] == 'delete' && $access->checkCsrf()) {
     $transaction = $tikilib->begin();
 
     foreach ($_REQUEST['action'] ?? [] as $batchid) {

@@ -27,8 +27,7 @@ if (isset($_REQUEST["add"])) {
     }
     $shoutboxlib->add_bad_word($_REQUEST["word"]);
 }
-if (isset($_REQUEST["remove"]) && ! empty($_REQUEST["remove"])) {
-    $access->checkCsrf("Are you sure you want to delete this word?");
+if (! empty($_REQUEST["remove"]) && $access->checkCsrf()) {
     $shoutboxlib->remove_bad_word($_REQUEST["remove"]);
 }
 if (! isset($_REQUEST["sort_mode"])) {

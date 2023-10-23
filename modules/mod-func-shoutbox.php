@@ -107,7 +107,7 @@ function module_shoutbox($mod_reference, $module_params)
         if (isset($_REQUEST['shout_remove'])) {
             $info = $shoutboxlib->get_shoutbox($_REQUEST['shout_remove']);
             if ($tiki_p_admin_shoutbox == 'y' || $info['user'] == $user) {
-                $access->check_authenticity();
+                $access->checkCsrf();
                 $shoutboxlib->remove_shoutbox($_REQUEST["shout_remove"]);
             }
         }

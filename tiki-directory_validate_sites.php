@@ -18,8 +18,7 @@ if (isset($_REQUEST["validate"]) && isset($_REQUEST['sites'])) {
         $dirlib->dir_validate_site($siteId);
     }
 }
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $dirlib->dir_remove_site($_REQUEST["remove"]);
 }
 if (isset($_REQUEST["del"]) && isset($_REQUEST['sites'])) {

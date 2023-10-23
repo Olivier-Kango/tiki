@@ -199,7 +199,11 @@ To save the current set use the dropdown (and optionally check the comments chec
 {/remarksbox}
 {remarksbox title='Note' type='note'}
     {tr}If you are experiencing problems with this page after upgrading from Tiki 4 please use this link to delete all your customised tools:{/tr}
-    <strong>{self_link reset_all_custom_tools=y _class='alert-link'}{tr}Delete all custom tools{/tr}{/self_link}</strong>
+    <strong> <input form="reset_all_custom_tools" style="border: none; background: none;" type="submit" class="alert-link" value="{tr}Delete all custom tools{/tr}" onclick="confirmPopup('{tr}Are you sure you want to delete all your custom tools?{/tr}')"> </strong>
     <em>{tr}Warning: There is no undo!{/tr}</em>
 {/remarksbox}
+    <form action="tiki-admin_toolbars.php" method="post" id="reset_all_custom_tools">
+        {ticket}
+        <input type="hidden" name="reset_all_custom_tools" value="y">
+    </form>
 </div>

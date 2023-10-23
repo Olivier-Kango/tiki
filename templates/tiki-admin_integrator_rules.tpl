@@ -180,9 +180,15 @@
                                 </a>
                             </action>
                             <action>
-                                <a href="tiki-admin_integrator_rules.php?action=rm&amp;repID={$repID|escape}&amp;ruleID={$rules[rule].ruleID|escape}">
-                                    {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                </a>
+                                <form action="tiki-admin_integrator_rules.php" method="post">
+                                    {ticket}
+                                    <input type="hidden" name="action" value="rm">
+                                    <input type="hidden" name="repID" value="{$repID}">
+                                    <input type="hidden" name="ruleID" value="{$rules[rule].ruleID}">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" title=":{tr}Delete{/tr}" onclick="confirmPopup('{tr _0=$rules[rule].srch}Are you sure you want to delete %0?{/tr}')">
+                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                         {/strip}
                     {/actions}

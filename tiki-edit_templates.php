@@ -97,7 +97,7 @@ if ($tiki_p_edit_templates == 'y') {
     }
 
     if (isset($_REQUEST['delete']) && ! empty($_REQUEST['template'])) {
-        $access->check_authenticity();
+        $access->checkCsrf();
         $file = $smarty->get_filename($_REQUEST['template']);
         unlink($file);
         unset($_REQUEST['template']);

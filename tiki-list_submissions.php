@@ -25,36 +25,31 @@ $auto_query_args = [
     'topic',
     'lang',
 ];
-if (isset($_REQUEST["remove"])) {
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $access->check_permission('tiki_p_remove_submission');
-    $access->checkCsrf(tr('Are you sure you want to permanently remove the submitted article with identifier %0?', $_REQUEST["remove"]));
     $artlib->remove_submission($_REQUEST["remove"]);
 }
-if (isset($_REQUEST["approve"])) {
-    $access->checkCsrf();
+if (isset($_REQUEST["approve"]) && $access->checkCsrf()) {
     $access->check_permission('tiki_p_approve_submission');
     $artlib->approve_submission($_REQUEST["approve"]);
 }
-if (isset($_REQUEST['submit_mult']) && count($_REQUEST["checked"]) > 0) {
+if (isset($_REQUEST['submit_mult']) && count($_REQUEST["checked"]) > 0 &&  $access->checkCsrf()) {
     if ($_REQUEST['submit_mult'] === 'remove_subs') {
         $access->check_permission('tiki_p_remove_submission');
-        $access->checkCsrf(tr('Are you sure you want to permanently remove these %0 submitted articles?', count($_REQUEST["checked"])));
 
         foreach ($_REQUEST["checked"] as $sId) {
             $artlib->remove_submission($sId);
         }
     } elseif ($_REQUEST['submit_mult'] === 'approve_subs') {
         $access->check_permission('tiki_p_approve_submission');
-        $access->checkCsrf(tr('Are you sure you want to approve these %0 submitted articles?', count($_REQUEST["checked"])));
 
         foreach ($_REQUEST["checked"] as $sId) {
             $artlib->approve_submission($sId);
         }
     }
 }
-if (isset($_REQUEST["deleteexpired"])) {
+if (isset($_REQUEST["deleteexpired"]) && $access->checkCsrf()) {
     $access->check_permission('tiki_p_remove_submission');
-    $access->checkCsrf(tr('Are you sure you want to permanently remove all expired submitted articles?'));
     $artlib->delete_expired_submissions();
 }
 // This script can receive the threshold

@@ -50,8 +50,7 @@ $smarty->assign('answer', $info["answer"]);
 $smarty->assign('fromPoints', $info["fromPoints"]);
 $smarty->assign('toPoints', $info["toPoints"]);
 
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $quizlib->remove_quiz_result($_REQUEST["remove"]);
 }
 

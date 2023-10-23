@@ -51,8 +51,7 @@ if ($_REQUEST["optionId"]) {
 $smarty->assign('optionText', $info["optionText"]);
 $smarty->assign('points', $info["points"]);
 
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $quizlib->remove_quiz_question_option($_REQUEST["remove"]);
 }
 

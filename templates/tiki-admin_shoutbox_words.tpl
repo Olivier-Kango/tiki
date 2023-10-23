@@ -36,9 +36,15 @@
         <tr>
             <td class="text">{$words[user].word|escape}</td>
             <td class="action">
-                <a class="tips" href="tiki-admin_shoutbox_words.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$words[user].word|escape:"url"}" onclick="return confirmTheLink(this,"{tr}Are you sure you want to delete this word?{/tr}")" title=":{tr}Delete{/tr}">
-                    {icon name='remove'}
-                </a>
+                <form action="tiki-admin_shoutbox_words.php" method="post">
+                    {ticket}
+                    <input type="hidden" name="offset" value="{$offset}">
+                    <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                    <input type="hidden" name="remove" value="{$words[user].word}">
+                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0 tips" title=":{tr}Delete{/tr}" onclick="confirmPopup('{tr}Are you sure you want to delete this word?{/tr}')">
+                        {icon name='remove'}
+                    </button>
+                </form>
             </td>
         </tr>
     {sectionelse}

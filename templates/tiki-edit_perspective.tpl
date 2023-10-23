@@ -56,9 +56,14 @@
                                     {/if}
                                     {if !empty($persp.can_remove)}
                                         <action>
-                                            {self_link action=remove id=$persp.perspectiveId _menu_text='y' _menu_icon='y' _icon_name='remove'}
-                                                {tr}Delete{/tr}
-                                            {/self_link}
+                                            <form action="tiki-edit_perspective.php" method="post">
+                                                {ticket}
+                                                <input type="hidden" name="action" value="remove">
+                                                <input type="hidden" name="id" value="{$persp.perspectiveId}">
+                                                <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to remove this perspective?{/tr}')">
+                                                    {icon name='delete' _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
+                                                </button>
+                                            </form>
                                         </action>
                                     {/if}
                                 {/strip}

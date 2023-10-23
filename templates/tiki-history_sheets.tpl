@@ -42,7 +42,16 @@
                                     <div style="text-align: center;">
                                         {button _keepall='y' href="tiki-view_sheets.php" sheetId=$sheetId readdate=$history[$sheetIndexes[$smarty.section.date.index]].stamp parse="y" class="view_button" _text="{tr}View{/tr}" _htmlelement="role_main" _title="{tr}View{/tr}"}
                                         {button _keepall='y' href="tiki-view_sheets.php" sheetId=$sheetId readdate=$history[$sheetIndexes[$smarty.section.date.index]].stamp parse="clone" class="clone_button" _text="{tr}Clone{/tr}" _htmlelement="role_main" _title="{tr}Clone{/tr}"}
-                                        {button _keepall='y' href="tiki-view_sheets.php" sheetId=$sheetId readdate=$history[$sheetIndexes[$smarty.section.date.index]].stamp parse="rollback" class="rollback_button" _text="{tr}Roll back{/tr}" _htmlelement="role_main" _title="{tr}Roll back{/tr}"}
+                                        <form style="display: inline" action="tiki-view_sheets.php" method="post">
+                                            {ticket}
+                                            <input type="hidden" name="sheetId" value="{$sheetId}">
+                                            <input type="hidden" name="readdate" value="{$history[$sheetIndexes[$smarty.section.date.index]].stamp}">
+                                            <input type="hidden" name="parse" value="rollback">
+                                            <input type="hidden" name="class" value="rollback_button">
+                                            <button type="submit" class="btn btn-primary" onclick="confirmPopup('{tr}Are you sure you want to roll back this spreadsheet?{/tr}')">
+                                                {icon _menu_text='y' _menu_icon='n' alt="{tr}Roll back{/tr}"}
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             {/section}

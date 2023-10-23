@@ -117,8 +117,7 @@ if (isset($_REQUEST["bannerId"]) && $_REQUEST["bannerId"] > 0) {
     $smarty->assign('imageType', '');
 }
 
-if (isset($_REQUEST["removeZone"])) {
-    $access->checkCsrf(tra("Do you want to delete this zone") . " ?");
+if (isset($_REQUEST["removeZone"]) && $access->checkCsrf()) {
     $bannerlib->banner_remove_zone($_REQUEST["removeZone"]);
 }
 

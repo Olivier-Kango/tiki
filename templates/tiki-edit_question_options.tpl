@@ -62,9 +62,16 @@
                                 </a>
                             </action>
                             <action>
-                                <a href="tiki-edit_question_options.php?questionId={$questionId}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$channels[user].optionId}">
-                                    {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                </a>
+                                <form action="tiki-edit_question_options.php" method="post">
+                                    {ticket}
+                                    <input type="hidden" name="questionId" value="{$questionId}">
+                                    <input type="hidden" name="offset" value="{$offset}">
+                                    <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                    <input type="hidden" name="remove" value="{$channels[user].optionId}">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" title=":{tr}Delete{/tr}" onclick="confirmPopup()">
+                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                         {/strip}
                     {/actions}

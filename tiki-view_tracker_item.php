@@ -364,8 +364,7 @@ if (isset($tracker_info['adminOnlyViewEditItem']) && $tracker_info['adminOnlyVie
 
 include_once('tiki-sefurl.php');
 
-if (isset($_REQUEST["remove"]) && $itemObject->canRemove()) {
-    $access->checkCsrf(tr('Are you sure you want to permanently delete this item?'));
+if (isset($_REQUEST["remove"]) && $itemObject->canRemove() && $access->checkCsrf()) {
     $trklib->remove_tracker_item($_REQUEST["remove"]);
     $access->redirect(filter_out_sefurl('tiki-view_tracker.php?trackerId=' . $trackerId));
 }

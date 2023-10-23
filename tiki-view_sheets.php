@@ -115,12 +115,11 @@ if (isset($_REQUEST['s']) && ! empty($_REQUEST['s'])) { //save
     }
 
 //Rollback
-} elseif ($_REQUEST['parse'] == 'rollback' && ! empty($_REQUEST['readdate'])) {
+} elseif ($_REQUEST['parse'] == 'rollback' && ! empty($_REQUEST['readdate']) && $access->checkCsrf()) {
     if (! $sheetlib->user_can_edit($_REQUEST['sheetId'])) {
         $smarty->assign('msg', tra('Permission denied'));
         die;
     }
-    $access->check_authenticity(tra('Are you sure you want to roll back this spreadsheet?'));
     $id = $sheetlib->rollback_sheet($_REQUEST['sheetId'], $_REQUEST['readdate']);
     if ($id) {
         header('Location: tiki-view_sheets.php?sheetId=' . $id);

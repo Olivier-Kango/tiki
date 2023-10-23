@@ -18,7 +18,14 @@
         {/if}
 
         {if $prefs.feature_wiki_undo eq 'y' and $canundo eq 'y'}
-            {button _keepall='y' href="tiki-index.php" page=$page undo="1" _type="link" _class="dropdown-item" _text="{tr}Undo{/tr}"}
+            <form action="tiki-index.php" method="post" id="undo">
+                {ticket}
+                <input type="hidden" name="page" value="{$page}">
+                <input type="hidden" name="undo" value="1">
+            </form>
+            <button type="submit" form="undo" class="btn btn-link dropdown-item pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to undo the last change?{/tr}')">
+                Undo
+            </button>
         {/if}
 
         {if $prefs.feature_wiki_make_structure eq 'y' and $tiki_p_edit_structures eq 'y' and (isset($editable)

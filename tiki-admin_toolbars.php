@@ -94,8 +94,7 @@ if ($view_mode === 'sheet' && $section !== 'sheet') {
 }
 $smarty->assign('view_mode', $view_mode);
 
-if (! empty($_REQUEST['reset_all_custom_tools'])) {
-    $access->checkCsrf(tra('Are you sure you want to delete all your custom tools?'));
+if (! empty($_REQUEST['reset_all_custom_tools']) && $access->checkCsrf()) {
     ToolbarItem::deleteAllCustomTools();
     $access->redirect('tiki-admin_toolbars.php');
 }

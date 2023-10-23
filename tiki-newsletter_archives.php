@@ -21,13 +21,12 @@ if (! empty($_REQUEST['nlId'])) {
 $access->check_feature('feature_newsletters');
 $access->check_permission_either(['tiki_p_view_newsletter']);
 
-if (isset($_REQUEST['remove']) && ! empty($_REQUEST['nlId'])) {
+if (isset($_REQUEST['remove']) && ! empty($_REQUEST['nlId']) && $access->checkCsrf()) {
     if (! $tikilib->user_has_perm_on_object($user, $_REQUEST['nlId'], 'newsletter', 'tiki_p_admin_newsletters')) {
         $smarty->assign('msg', tra("You do not have the permission that is needed to use this feature"));
         $smarty->display("error.tpl");
         die;
     }
-    $access->check_authenticity();
     $nllib->remove_edition($_REQUEST["nlId"], $_REQUEST["remove"]);
 }
 if (! empty($_REQUEST['error'])) {

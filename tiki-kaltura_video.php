@@ -52,7 +52,7 @@ try {
 
             case 'delete':
                 $access->check_permission(['tiki_p_delete_videos']);
-                $access->check_authenticity();
+                $access->checkCsrf();
                 if ($kentryType == 'media') {
                     $kalturalib = TikiLib::lib('kalturauser');
                     foreach ($videoId as $vi) {

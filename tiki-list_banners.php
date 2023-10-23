@@ -10,14 +10,13 @@ $access->check_feature('feature_banners');
 
 $bannerlib = TikiLib::lib('banner');
 
-if (isset($_REQUEST["remove"])) {
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     if ($tiki_p_admin_banners != 'y') {
         $smarty->assign('errortype', 401);
         $smarty->assign('msg', tra("You do not have permission to remove banners"));
         $smarty->display("error.tpl");
         die;
     }
-    $access->check_authenticity();
     $bannerlib->remove_banner($_REQUEST["remove"]);
 }
 // This script can receive the threshold

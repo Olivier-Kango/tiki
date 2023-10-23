@@ -44,9 +44,15 @@
                                 </form>
                             </action>
                             <action>
-                                <a href="tiki-list_cache.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$listpages[changes].cacheId}">
-                                    {icon name="remove" _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                </a>
+                                <form action="tiki-list_cache.php" method="post">
+                                    {ticket}
+                                    <input type="hidden" name="offset" value="{$offset}">
+                                    <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                    <input type="hidden" name="remove" value="{$listpages[changes].cacheId}">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup()">
+                                        {icon name="remove" _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                         {/strip}
                     {/actions}

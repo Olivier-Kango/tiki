@@ -109,7 +109,7 @@
 
             {section name=user loop=$items}
             <tr class="{cycle advance=false}">
-                <td class="checkbox-cell"><div class="form-check"><input type="checkbox" name="remove[]" value="{$items[user].siteId}"></div></td>
+                <td class="checkbox-cell"><div class="form-check"><input class="checkboxes" type="checkbox" name="remove[]" value="{$items[user].siteId}" required></div></td>
                 <td class="text">{$items[user].name|escape}</td>
                 <td class="text"><a href="{$items[user].url}" target="_new">{$items[user].url}</a></td>
                 {if $prefs.directory_country_flag eq 'y'}
@@ -126,9 +126,16 @@
                                 </a>
                             </action>
                             <action>
-                                <a href="tiki-directory_admin_sites.php?parent={$parent}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$items[user].siteId}">
-                                    {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                </a>
+                                <form action="tiki-directory_admin_sites.php" method="post">
+                                    {ticket}
+                                    <input type="hidden" name="parent" value="{$parent}">
+                                    <input type="hidden" name="offset" value="{$offset}">
+                                    <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                    <input type="hidden" name="remove" value="{$items[user].siteId}">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" title=":{tr}Delete{/tr}" onclick="confirmPopup('{tr _0=$items[user].name}Are you sure you want to delete %0?{/tr}')">
+                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                         {/strip}
                     {/actions}
@@ -154,7 +161,24 @@
     </div>
     {if $items}
         {tr}Perform action with selected:{/tr}
-        <input type="submit" class="btn btn-danger btn-sm" name="groupdel" value=" {tr}Delete{/tr} ">
+        <input id="submit_mult" type="submit" class="btn btn-danger btn-sm" name="groupdel" value=" {tr}Delete{/tr} ">
     {/if}
 </form>
+{jq}
+    var checkboxes = $('.checkboxes');
+    checkboxes.change(function(){
+        if($('.checkboxes:checked').length > 0) {
+            checkboxes.removeAttr('required');
+        } else {
+            checkboxes.attr('required', 'required');
+        }
+    });
+
+    $("#submit_mult").click(function(){
+        if ($('.checkboxes:checked').length > 0) {
+            confirmPopup("Are you sure you want to delete the selected items?");
+        }
+    });
+
+{/jq}
 {pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}

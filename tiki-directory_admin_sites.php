@@ -58,7 +58,7 @@ if (isset($_REQUEST["remove"])) {
             $dirlib->dir_remove_site($remid);
         }
     } else {
-        $access->check_authenticity();
+        $access->checkCsrf();
         $dirlib->dir_remove_site($_REQUEST["remove"]);
     }
 }

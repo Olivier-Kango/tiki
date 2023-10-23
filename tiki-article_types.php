@@ -19,7 +19,7 @@ $access->check_permission(['tiki_p_articles_admin_types']);
 if (isset($_REQUEST["add_type"])) {
     $artlib->add_type($_REQUEST["new_type"]);
 } elseif (isset($_REQUEST["remove_type"])) {
-    $access->check_authenticity();
+    $access->checkCsrf();
     $artlib->remove_type($_REQUEST["remove_type"]);
 } elseif (isset($_REQUEST["update_type"])) {
     foreach (array_keys($_REQUEST["type_array"]) as $this_type) {

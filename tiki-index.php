@@ -570,9 +570,7 @@ if (
 
 // Process an undo here
 if (isset($_REQUEST['undo'])) {
-    if ($pageRenderer->canUndo()) {
-        $access->checkCsrf(tra('Are you sure you want to undo the last change?'));
-
+    if ($pageRenderer->canUndo() && $access->checkCsrf()) {
         $historylib = TikiLib::lib('hist');
         $last = $historylib->get_page_latest_version($page);
         if ($last > 1) {
@@ -601,7 +599,6 @@ if ($prefs['feature_wiki_attachments'] == 'y' && $prefs['feature_use_fgal_for_wi
         $access->checkCsrf();
         $owner = $wikilib->get_attachment_owner($_REQUEST['removeattach']);
         if (($user && ($owner == $user) ) || $objectperms->wiki_admin_attachments) {
-            $access->check_authenticity();
             $wikilib->remove_wiki_attachment($_REQUEST['removeattach']);
         }
         $pageRenderer->setShowAttachments('y');

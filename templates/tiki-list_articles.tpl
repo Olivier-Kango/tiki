@@ -35,6 +35,7 @@
 {/if}
 
 <form name="checkform" method="get">
+    {ticket}
     <input type="hidden" name="maxRecords" value="{$maxRecords|escape}">
     {assign var=numbercol value=1}
     <div class="{if $js}table-responsive{/if}"> {*the table-responsive class cuts off dropdown menus *}
@@ -132,7 +133,7 @@
                     {if $listpages[changes].perms.tiki_p_remove_article eq 'y'}
                         <td class="checkbox-cell">
                             <div class="form-check">
-                                <input type="checkbox" name="checked[]" value="{$listpages[changes].articleId|escape}" {if $listpages[changes].checked eq 'y'}checked="checked" {/if}>
+                                <input class="checkboxes" type="checkbox" name="checked[]" value="{$listpages[changes].articleId|escape}" {if $listpages[changes].checked eq 'y'}checked="checked" {/if} required>
                             </div>
                         </td>
                     {/if}
@@ -214,9 +215,13 @@
                                 {/if}
                                 {if $listpages[changes].perms.tiki_p_remove_article eq 'y'}
                                     <action>
-                                        {self_link _menu_text='y' _menu_icon='y' remove=$listpages[changes].articleId _icon_name="remove"}
-                                            {tr}Remove{/tr}
-                                        {/self_link}
+                                        <form action="tiki-list_articles.php" method="post">
+                                            {ticket}
+                                            <input type="hidden" name="remove" value="{$listpages[changes].articleId}">
+                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr _0=$listpages[changes].articleId}Are you sure you want to permanently remove the article with identifier %0?{/tr}')">
+                                                {icon name='delete' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                            </button>
+                                        </form>
                                     </action>
                                 {/if}
                             {/strip}
@@ -237,10 +242,28 @@
                     <option value="">{tr}Select action to perform with checked...{/tr}</option>
                     <option value="remove_articles">{tr}Remove{/tr}</option>
                 </select>
-                <input type="submit" class="btn btn-warning" value="{tr}OK{/tr}">
+                <input id="submit_mult" type="submit" class="btn btn-warning" value="{tr}OK{/tr}">
             </div>
         </div>
     {/if}
 
     {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
 </form>
+
+{jq}
+    var checkboxes = $('.checkboxes');
+    checkboxes.change(function(){
+        if($('.checkboxes:checked').length > 0) {
+            checkboxes.removeAttr('required');
+        } else {
+            checkboxes.attr('required', 'required');
+        }
+    });
+
+    $("#submit_mult").click(function(){
+        if ($('.checkboxes:checked').length > 0) {
+            confirmPopup("Are you sure you want to permanently remove these "+$('.checkboxes:checked').length+" articles?");
+        }
+    });
+
+{/jq}

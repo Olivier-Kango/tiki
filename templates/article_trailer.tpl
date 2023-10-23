@@ -76,9 +76,13 @@
                             </a>
                         {/if}
                         {if $tiki_p_remove_article eq 'y'}
-                            <a class="dropdown-item" href="tiki-list_articles.php?remove={$articleId}">
-                                {icon name='remove'} {tr}Remove{/tr}
-                            </a>
+                            <form action="tiki-list_articles.php" method="post">
+                                {ticket}
+                                <input type="hidden" name="remove" value="{$articleId}">
+                                <button type="submit" class="btn btn-link dropdown-item" onclick="confirmPopup('{tr _0=$articleId}Are you sure you want to permanently remove the article with identifier %0?{/tr}')">
+                                    {icon name='remove'} {tr}Remove{/tr}
+                                </button>
+                            </form>
                         {/if}
                         {if $tiki_p_admin_cms eq 'y' or $tiki_p_assign_perm_cms eq 'y'}
                             <span class="dropdown-item">

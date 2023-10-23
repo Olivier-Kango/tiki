@@ -30,13 +30,12 @@ if ($_REQUEST["faqId"]) {
 $smarty->assign('title', $info["title"]);
 $smarty->assign('description', $info["description"]);
 $smarty->assign('canSuggest', $info["canSuggest"]);
-if (isset($_REQUEST["remove"])) {
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     if ($tiki_p_admin_faqs != 'y') {
         $smarty->assign('msg', tra("You do not have the permission that is needed to use this feature"));
         $smarty->display("error.tpl");
         die;
     }
-    $access->check_authenticity();
     $faqlib->remove_faq($_REQUEST["remove"]);
 }
 if (isset($_REQUEST["save"])) {

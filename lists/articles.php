@@ -24,7 +24,7 @@ $access->check_permission_either(['tiki_p_read_article', 'tiki_p_articles_read_h
 
 if (isset($_REQUEST["remove"])) {
     $access->check_permission('tiki_p_remove_article');
-    $access->check_authenticity();
+    $access->checkCsrf();
     $artlib->remove_article($_REQUEST["remove"]);
 }
 // This script can receive the threshold

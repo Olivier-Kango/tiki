@@ -87,12 +87,24 @@
                         <a class="tips" title=":{tr}View{/tr}" href="tiki-received_pages.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;view={$channels[user].receivedPageId}">
                             {icon name='view'}
                         </a>
-                        <a class="tips" title=":{tr}Accept{/tr}" href="tiki-received_pages.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;accept={$channels[user].receivedPageId}">
-                            {icon name='ok'}
-                        </a> &nbsp;
-                        <a class="tips" title=":{tr}Remove{/tr}" href="tiki-received_pages.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$channels[user].receivedPageId}">
-                            {icon name='remove'}
-                        </a>
+                        <form style="display: inline;" action="tiki-received_pages.php" method="post">
+                            {ticket}
+                            <input type="hidden" name="offset" value="{$offset}">
+                            <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                            <input type="hidden" name="accept" value="{$channels[user].receivedPageId}">
+                            <button id="deleteButton" type="button" onclick="confirmPopup()" class="btn btn-link px-0 pt-0 tips" title=":{tr}Accept{/tr}">
+                                {icon name='ok'}
+                            </button>
+                        </form>
+                        <form style="display: inline;" action="tiki-received_pages.php" method="post">
+                            {ticket}
+                            <input type="hidden" name="offset" value="{$offset}">
+                            <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                            <input type="hidden" name="remove" value="{$channels[user].receivedPageId}">
+                            <button id="deleteButton" type="button" onclick="confirmPopup()" class="btn btn-link px-0 pt-0 tips" title=":{tr}Remove{/tr}">
+                                {icon name='remove'}
+                            </button>
+                        </form>
                     </td>
                 </tr>
             {sectionelse}
@@ -149,9 +161,15 @@
                                 {icon name='ok'}
                             </a>
                             &nbsp;
-                            <a class="tips" title=":{tr}Remove{/tr}" href="tiki-received_pages.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$structures[user].receivedPageId}">
-                                {icon name='remove'}
-                            </a>
+                            <form style="display: inline;" action="tiki-received_pages.php" method="post">
+                                {ticket}
+                                <input type="hidden" name="offset" value="{$offset}">
+                                <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                <input type="hidden" name="remove" value="{$structures[user].receivedPageId}">
+                                <button id="deleteButton" type="button" onclick="confirmPopup()" class="btn btn-link px-0 pt-0 tips" title=":{tr}Remove{/tr}">
+                                    {icon name='remove'}
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     {section name=ix loop=$structures}

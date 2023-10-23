@@ -328,8 +328,7 @@ if (! empty($_SESSION['perms_clipboard'])) {
         $perms_clipboard['type'] . (empty($perms_clipboard['object']) ? '' : ' : ') . $perms_clipboard['object']
     );
 
-    if (isset($_REQUEST['paste'])) {
-        $access->check_authenticity(tra('Are you sure you want to paste the copied permissions into this object?'));
+    if (isset($_REQUEST['paste']) && $access->checkCsrf()) {
         unset($_SESSION['perms_clipboard']);
 
         $set = new Perms_Reflection_PermissionSet();
@@ -373,7 +372,7 @@ if ($prefs['feature_quick_object_perms'] == 'y') {
     }
 
     if (isset($_REQUEST['assign']) && isset($_REQUEST['quick_perms'])) {
-        $access->check_authenticity(tr('Are you sure you want to modify permissions?'));
+        $access->checkCsrf();
 
         $groups = $userlib->get_groups(0, -1, 'groupName_asc', '', '', 'n');
 

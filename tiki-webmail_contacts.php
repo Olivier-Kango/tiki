@@ -30,8 +30,7 @@ if ($_REQUEST["contactId"]) {
 
 $smarty->assign('info', $info);
 
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $contactlib->remove_contact($_REQUEST["remove"], $user);
 }
 

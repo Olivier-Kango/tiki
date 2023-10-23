@@ -21,7 +21,7 @@
             <table class="table table-striped table-hover">
                 <tr>
                     <th style="text-align:center;">
-                        <input type="submit" class="btn btn-danger btn-sm" name="delete" title="{tr}Delete{/tr}" value="{tr}x{/tr} ">
+                        <input type="submit" class="btn btn-danger btn-sm" name="delete" onclick="confirmPopup('{tr}Delete selected{/tr} ?')" title="{tr}Delete{/tr}" value="{tr}x{/tr} ">
                     </th>
                     <th>
                         <a href="tiki-notepad_list.php?offset={$offset}&amp;sort_mode={if $sort_mode eq 'name_desc'}name_asc{else}name_desc{/if}">{tr}Name{/tr}</a>
@@ -74,9 +74,14 @@
                                         </a>
                                     </action>
                                     <action>
-                                        <a href="tiki-notepad_read.php?noteId={$channels[user].noteId}&amp;remove=1">
-                                            {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                        </a>
+                                        <form action="tiki-notepad_read.php" method="post">
+                                            {ticket}
+                                            <input type="hidden" name="noteId" value="{$channels[user].noteId}">
+                                            <input type="hidden" name="remove" value="1">
+                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to delete this note?{/tr}')">
+                                                {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                            </button>
+                                        </form>
                                     </action>
                                 {/strip}
                             {/actions}

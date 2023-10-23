@@ -49,9 +49,13 @@
                                         </a>
                                     </action>
                                     <action>
-                                        {self_link _icon_name='remove' _menu_text='y' _menu_icon='y' _template='confirm.tpl' remove=$listpages[changes].contentId}
-                                            {tr}Remove{/tr}
-                                        {/self_link}
+                                        <form action="tiki-list_contents.php" method="post">
+                                            {ticket}
+                                            <input type="hidden" name="remove" value="{$listpages[changes].contentId}">
+                                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                                                {icon name="remove" _menu_text='y'  _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                            </button>
+                                        </form>
                                     </action>
                                 {/strip}
                             {/actions}

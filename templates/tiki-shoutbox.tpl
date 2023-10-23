@@ -76,9 +76,16 @@
             <a href="tiki-shoutbox.php?find={$find}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;msgId={$channels[user].msgId}" class="tips text-primary" title=":{tr}Edit{/tr}">
                 {icon name='edit'}
             </a>
-            <a href="tiki-shoutbox.php?find={$find}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$channels[user].msgId}" class="tips text-danger" title=":{tr}Remove{/tr}">
-                {icon name='remove'}
-            </a>
+            <form style="display: inline" action="tiki-shoutbox.php" method="post">
+                {ticket}
+                <input type="hidden" name="find" value="{$find}">
+                <input type="hidden" name="offset" value="{$offset}">
+                <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                <input type="hidden" name="remove" value="{$channels[user].msgId}">
+                <button type="submit" class="btn btn-link px-0 pt-0 tips text-danger" title=":{tr}Remove{/tr}" onclick="confirmPopup()">
+                    {icon name='remove'}
+                </button>
+            </form>
         {/if}
         <br>
         {$channels[user].message}

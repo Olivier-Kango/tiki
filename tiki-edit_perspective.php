@@ -40,9 +40,8 @@ if (isset($_REQUEST['id'])) {
     $cookietab = 3;
 }
 
-if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'remove' && $selectedId && $objectperms->perspective_admin) {
+if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'remove' && $selectedId && $objectperms->perspective_admin && $access->checkCsrf()) {
     $perspectiveInfo = $perspectivelib->get_perspective($selectedId);
-    $access->checkCsrf(tr('Are you sure you want to remove the "%0" perspective?', $perspectiveInfo['name']));
 
     $perspectivelib->remove_perspective($selectedId);
     $selectedId = 0;

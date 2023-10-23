@@ -111,14 +111,16 @@
                                 </a>
                             </action>
                             <action>
-                                <a href="tiki-edit_quiz_questions.php?quizId={$quizId}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;questionId={$channels[user].questionId}">
-                                    {icon name='edit' _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
-                                </a>
-                            </action>
-                            <action>
-                                <a href="tiki-edit_quiz_questions.php?quizId={$quizId}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$channels[user].questionId}">
-                                    {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                </a>
+                                <form action="tiki-edit_quiz_questions.php" method="post">
+                                    {ticket}
+                                    <input type="hidden" name="quizId" value="{$quizId}">
+                                    <input type="hidden" name="offset" value="{$offset}">
+                                    <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                    <input type="hidden" name="remove" value="{$channels[user].questionId}">
+                                    <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                         {/strip}
                     {/actions}

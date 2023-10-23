@@ -19,8 +19,7 @@ if (! isset($_REQUEST["noteId"])) {
     $smarty->display("error.tpl");
     die;
 }
-if (isset($_REQUEST["remove"])) {
-    $access->checkCsrf(tra('Are you sure you want to delete this note?'));
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $notepadlib->remove_note($user, $_REQUEST['noteId']);
     header('location: tiki-notepad_list.php');
     die;

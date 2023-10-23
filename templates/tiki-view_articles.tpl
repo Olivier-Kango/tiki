@@ -33,11 +33,25 @@
                     <div class="dropdown-divider"></div>
                     {if $prefs.feature_user_watches eq 'y'}
                         {if $user_watching_articles eq 'n'}
-                            {self_link watch_event='article_*' watch_object='*' watch_action='add' _icon_name='watch' _class='dropdown-item' _text="{tr}Monitor articles{/tr}"}
-                            {/self_link}
+                            <form action="tiki-view_articles.php" method="post">
+                                {ticket}
+                                <input type="hidden" name="watch_event" value="article_*">
+                                <input type="hidden" name="watch_object" value="*">
+                                <input type="hidden" name="watch_action" value="add">
+                                <button type="submit" class="btn btn-link dropdown-item" title=":{tr}Delete{/tr}" onclick="confirmPopup()">
+                                    {icon name='watch' _menu_text='y' _menu_icon='y' alt="{tr}Monitor articles{/tr}"}
+                                </button>
+                            </form>
                         {else}
-                            {self_link watch_event='article_*' watch_object='*' watch_action='remove' _icon_name='stop-watching' _class='dropdown-item' _text="{tr}Stop monitoring articles{/tr}"}
-                            {/self_link}
+                            <form action="tiki-view_articles.php" method="post">
+                                {ticket}
+                                <input type="hidden" name="watch_event" value="article_*">
+                                <input type="hidden" name="watch_object" value="*">
+                                <input type="hidden" name="watch_action" value="remove">
+                                <button type="submit" class="btn btn-link dropdown-item" title=":{tr}Delete{/tr}" onclick="confirmPopup()">
+                                    {icon name='stop-watching' _menu_text='y' _menu_icon='y' alt="{tr}Stop monitoring articles{/tr}"}
+                                </button>
+                            </form>
                         {/if}
                     {/if}
                     {if $prefs.feature_group_watches eq 'y' and $tiki_p_admin_users eq 'y'}
@@ -273,9 +287,13 @@
                                     </a>
                                 {/if}
                                 {if $listpages[ix].perms.tiki_p_remove_article eq 'y'}
-                                    <a class="dropdown-item" href="tiki-list_articles.php?remove={$listpages[ix].articleId}">
-                                        {icon name='remove'} {tr}Remove{/tr}
-                                    </a>
+                                    <form action="tiki-list_articles.php" method="post">
+                                        {ticket}
+                                        <input type="hidden" name="remove" value="{$listpages[ix].articleId}">
+                                        <button type="submit" class="btn btn-link dropdown-item" title=":{tr}Delete{/tr}" onclick="confirmPopup('{tr _0=$listpages[ix].articleId}Are you sure you want to permanently remove the article with identifier %0?{/tr}')">
+                                            {icon name='remove'} {tr}Remove{/tr}
+                                        </button>
+                                    </form>
                                 {/if}
                                 {if $listpages[ix].perms.tiki_p_admin_cms eq 'y' or $listpages[ix].perms.tiki_p_assign_perm_cms eq 'y'}
                                     <span class="dropdown-item">

@@ -46,7 +46,7 @@ if (! empty($_REQUEST['remove'])) {
         $smarty->display("error.tpl");
         die;
     }
-    $access->check_authenticity(($removeInfo['archiveId'] ? tra('Remove archive: ') : tra('Remove file gallery: ')) . (! empty($removeInfo['name']) ? $removeInfo['name'] . ' - ' : '') . $removeInfo['filename']);
+    $access->checkCsrf(($removeInfo['archiveId'] ? tra('Remove archive: ') : tra('Remove file gallery: ')) . (! empty($removeInfo['name']) ? $removeInfo['name'] . ' - ' : '') . $removeInfo['filename']);
     $filegallib->remove_file($removeInfo, $gal_info);
 }
 if (isset($_REQUEST['fgal_actions'])) {

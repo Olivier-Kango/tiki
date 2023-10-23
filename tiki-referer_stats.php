@@ -13,8 +13,7 @@ include_once('lib/refererstats/refererlib.php');
 $access->check_feature('feature_referer_stats');
 $access->check_permission('tiki_p_view_referer_stats');
 
-if (isset($_REQUEST["clear"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["clear"]) && $access->checkCsrf()) {
     $refererlib->clear_referer_stats();
 }
 if (! isset($_REQUEST["sort_mode"])) {

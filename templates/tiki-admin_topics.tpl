@@ -71,15 +71,23 @@
                             </action>
                             {if $topics[user].active eq 'n'}
                                 <action>
-                                    <a href="tiki-admin_topics.php?activate={$topics[user].topicId}">
-                                        {icon name="toggle-on" _menu_text='y' _menu_icon='y' alt="{tr}Activate{/tr}"}
-                                    </a>
+                                    <form action="tiki-admin_topics.php" method="post">
+                                        {ticket}
+                                        <input type="hidden" name="activate" value="{$topics[user].topicId}">
+                                        <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to activate this topic?{/tr}')">
+                                            {icon name="toggle-on" _menu_text='y' _menu_icon='y' alt="{tr}Activate{/tr}"}
+                                        </button>
+                                    </form>
                                 </action>
                             {else}
                                 <action>
-                                    <a href="tiki-admin_topics.php?deactivate={$topics[user].topicId}">
-                                        {icon name="toggle-off" _menu_text='y' _menu_icon='y' alt="{tr}De-activate{/tr}"}
-                                    </a>
+                                    <form action="tiki-admin_topics.php" method="post">
+                                        {ticket}
+                                        <input type="hidden" name="deactivate" value="{$topics[user].topicId}">
+                                        <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to de-activate this topic?{/tr}')">
+                                            {icon name="toggle-off" _menu_text='y' _menu_icon='y' alt="{tr}De-activate{/tr}"}
+                                        </button>
+                                    </form>
                                 </action>
                             {/if}
                             <action>
@@ -88,14 +96,22 @@
                                 </a>
                             </action>
                             <action>
-                                <a href="tiki-admin_topics.php?remove={$topics[user].topicId}">
-                                    {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                </a>
+                                <form action="tiki-admin_topics.php" method="post">
+                                    {ticket}
+                                    <input type="hidden" name="remove" value="{$topics[user].topicId}">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to remove this topic?{/tr}')">
+                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                             <action>
-                                <a href="tiki-admin_topics.php?removeall={$topics[user].topicId}">
-                                    {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove with articles{/tr}"}
-                                </a>
+                                <form action="tiki-admin_topics.php" method="post">
+                                    {ticket}
+                                    <input type="hidden" name="removeall" value="{$topics[user].topicId}">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to remove this topic AND all the articles related?{/tr}')">
+                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove with articles{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                         {/strip}
                     {/actions}

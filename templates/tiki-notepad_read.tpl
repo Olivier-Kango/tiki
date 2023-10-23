@@ -20,8 +20,9 @@
         </td>
         <td>
             <form action="tiki-notepad_read.php" method="post">
+                {ticket}
                 <input type="hidden" name="noteId" value="{$noteId|escape}">
-                <input type="submit" class="btn btn-warning btn-sm" name="remove" value="{tr}Delete{/tr}">
+                <input type="submit" class="btn btn-warning btn-sm" onclick="confirmPopup('{tr}Are you sure you want to delete this note?{/tr}')" name="remove" value="{tr}Delete{/tr}">
             </form>
         </td>
         <td>

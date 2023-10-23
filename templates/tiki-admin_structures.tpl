@@ -150,9 +150,13 @@
 
                                         {if $channels[ix].admin_structure == 'y'}
                                             <action>
-                                                <a href="tiki-admin_structures.php?remove={$channels[ix].page_ref_id|escape:"url"}">
-                                                    {icon name="remove" _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                                </a>
+                                                <form action="tiki-admin_structures.php" method="post">
+                                                    {ticket}
+                                                    <input type="hidden" name="remove" value="{$channels[ix].page_ref_id}">
+                                                    <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                                    </button>
+                                                </form>
                                             </action>
                                         {/if}
 

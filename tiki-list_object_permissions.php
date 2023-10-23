@@ -74,7 +74,7 @@ $feedbacks = [];
 $del = ! empty($_REQUEST['delete']) && $_REQUEST['delete'] === 'delete';
 $dup = ! empty($_REQUEST['duplicate']) && $_REQUEST['duplicate'] === 'duplicate';
 if ($del || $dup) {
-    $access->check_authenticity();
+    $access->checkCsrf();
     if (! empty($_REQUEST['groupPerm'])) {
         foreach ($_REQUEST['groupPerm'] as $perm) {
             $perm = json_decode($perm, true);

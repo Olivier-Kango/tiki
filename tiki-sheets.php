@@ -127,9 +127,8 @@ if (isset($_REQUEST["edit"])) {
     include_once("categorize.php");
     $smarty->assign('edit_mode', 'n');
 }
-if (isset($_REQUEST["removesheet"])) {
+if (isset($_REQUEST["removesheet"]) && $access->checkCsrf()) {
     $access->check_permission('tiki_p_edit_sheet');
-    $access->checkCsrf(tra("Are you sure you want to delete this spreadsheet?"));
     $sheetlib->remove_sheet($_REQUEST["sheetId"]);
     header("Location: tiki-sheets.php");
 }

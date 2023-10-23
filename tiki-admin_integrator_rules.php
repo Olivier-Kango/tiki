@@ -130,8 +130,7 @@ if (isset($_REQUEST["action"])) {
             break;
 
         case 'rm':
-            if ($ruleID != 0) {
-                $access->check_authenticity();
+            if ($ruleID != 0 && $access->checkCsrf()) {
                 $integrator->remove_rule($ruleID);
             }
             break;

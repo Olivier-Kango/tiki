@@ -73,7 +73,14 @@
                                         {/if}
                                     {/if}
                                     <a title="{$slots[ix].events[jj].start|tiki_short_time}-{$slots[ix].events[jj].end|tiki_short_time}:{$slots[ix].events[jj].description}" class="link" href="tiki-minical.php?view={$view}&amp;eventId={$slots[ix].events[jj].eventId}#add">{$slots[ix].events[jj].title|escape}</a>
-                                    <a class="link" href="tiki-minical.php?view={$view}&amp;remove={$slots[ix].events[jj].eventId}">{icon name='remove' alt="{tr}Remove{/tr}" style="vertical-align:middle;"}</a>
+                                    <form style="display: inline;" action="tiki-minical.php" method="post">
+                                        {ticket}
+                                        <input type="hidden" name="view" value="{$view}">
+                                        <input type="hidden" name="remove" value="{$slots[ix].events[jj].eventId}">
+                                        <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup()">
+                                            {icon name='remove' alt="{tr}Remove{/tr}" style="vertical-align:middle;"}
+                                        </button>
+                                    </form>
                                     <br>
                                 {/section}
                             </td>
@@ -126,14 +133,22 @@
 {if $view eq 'list' and (count($channels) > 0 or $find ne '')}
     {include file='find.tpl'}
 
-    <a class="link" href="tiki-minical.php?view={$view}&amp;removeold=1">{tr}Remove old events{/tr}</a>
+
+    <form action="tiki-minical.php" method="post">
+        {ticket}
+        <input type="hidden" name="view" value="{$view}">
+        <input type="hidden" name="removeold" value="1">
+        <button type="submit" class="btn btn-link px-0 pt-0 pb-0 link" onclick="confirmPopup()">
+            {tr}Remove old events{/tr}
+        </button>
+    </form>
     <form action="tiki-minical.php" method="post">
         {ticket}
         <input type="hidden" name="view" value="{$view|escape}">
         <div class="table-responsive">
             <table class="table">
                 <tr>
-                    <th><input type="submit" class="btn btn-primary btn-sm" name="delete" value="x "></th>
+                    <th><input type="submit" class="btn btn-primary btn-sm" name="delete" onclick="confirmPopup()" value="x "></th>
                     <th>
                         <a href="tiki-minical.php?view={$view}&amp;offset={$offset}&amp;sort_mode={if $sort_mode eq 'title_desc'}title_asc{else}title_desc{/if}">{tr}Title{/tr}</a>
                     </th>
@@ -241,7 +256,7 @@
         <div class="col-sm-7">
             <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
             {if $eventId}
-                <input type="submit" class="btn btn-danger btn-sm" name="remove2" value="{tr}Delete{/tr}">
+                <input type="submit" class="btn btn-danger btn-sm" name="remove2" onclick="confirmPopup()" value="{tr}Delete{/tr}">
             {/if}
         </div>
     </div>

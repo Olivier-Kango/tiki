@@ -26,12 +26,10 @@ if (! isset($_REQUEST["quizId"])) {
 $smarty->assign('quizId', $_REQUEST["quizId"]);
 $quiz_info = $quizlib->get_quiz($_REQUEST["quizId"]);
 $smarty->assign('quiz_info', $quiz_info);
-if (isset($_REQUEST["remove"]) && $tiki_p_admin_quizzes == 'y') {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $tiki_p_admin_quizzes == 'y' && $access->checkCsrf()) {
     $quizlib->remove_quiz_stat($_REQUEST["remove"]);
 }
-if (isset($_REQUEST["clear"]) && $tiki_p_admin_quizzes == 'y') {
-    $access->check_authenticity();
+if (isset($_REQUEST["clear"]) && $tiki_p_admin_quizzes == 'y' && $access->checkCsrf()) {
     $quizlib->clear_quiz_stats($_REQUEST["clear"]);
 }
 if (! isset($_REQUEST["sort_mode"])) {

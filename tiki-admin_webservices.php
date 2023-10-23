@@ -19,7 +19,7 @@ require_once 'lib/webservicelib.php';
 if (! empty($_REQUEST['name'])) {
     $webservice = Tiki_Webservice::getService($_REQUEST['name']);
     if ($webservice && isset($_REQUEST['delete'])) {
-        $access->check_authenticity(tr('Are you sure you want to delete the webservice "%0"?', $_REQUEST['name']));
+        $access->checkCsrf(tr('Are you sure you want to delete the webservice "%0"?', $_REQUEST['name']));
         $webservice->delete();
         $webservice = null;
     }

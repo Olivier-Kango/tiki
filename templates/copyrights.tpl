@@ -34,9 +34,15 @@
             <div class="col-sm-9 offset-sm-3">
                 <input type="submit" class="btn btn-primary btn-sm" name="editcopyright" value="{tr}Edit{/tr}">
 
-                <a class="tips text-danger" title=":{tr}Delete{/tr}" href="copyrights.php?page={$page|escape:"url"}&amp;action=delete&amp;copyrightId={$copyrights[i].copyrightId}" >
-                    {icon name='remove' alt="{tr}Remove{/tr}"}
-                </a>
+                <form style="display: inline;" action="copyrights.php" method="post">
+                    {ticket}
+                    <input type="hidden" name="page" value="{$page}">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="copyrightId" value="{$copyrights[i].copyrightId}">
+                    <button type="submit" class="btn btn-link px-0 pt-0 tips text-danger" title=":{tr}Delete{/tr}" onclick="confirmPopup()">
+                        {icon name='remove' alt="{tr}Remove{/tr}"}
+                    </button>
+                </form>
                 <a class="tips" title=":{tr}Up{/tr}" href="copyrights.php?page={$page|escape:"url"}&amp;action=up&amp;copyrightId={$copyrights[i].copyrightId}">
                     {icon name='up'}
                 </a>

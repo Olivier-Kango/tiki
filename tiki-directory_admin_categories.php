@@ -48,8 +48,7 @@ if ($_REQUEST["categId"]) {
 }
 $smarty->assign_by_ref('info', $info);
 // Remove a category
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $dirlib->dir_remove_category($_REQUEST["remove"]);
 }
 // Replace (add or edit) a category

@@ -55,9 +55,13 @@
                                     {/self_link}
                                 </action>
                                 <action>
-                                    {self_link _icon_name='remove' _menu_text='y' _menu_icon='y' remove=$channels[user].questionId}
-                                        {tr}Delete{/tr}
-                                    {/self_link}
+                                    <form method="post">
+                                        {ticket}
+                                        <input type="hidden" name="remove" value="{$channels[user].questionId}">
+                                        <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                                            {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
+                                        </button>
+                                    </form>
                                 </action>
                             {/strip}
                         {/actions}

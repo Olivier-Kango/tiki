@@ -54,8 +54,7 @@ if (! empty($_REQUEST["surveyId"])) {
     $cookietab = 1;
 }
 $smarty->assign('info', $info);
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $srvlib->remove_survey($_REQUEST["remove"]);
 }
 if (! isset($_REQUEST["sort_mode"])) {

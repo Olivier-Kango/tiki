@@ -64,8 +64,7 @@ if (isset($_REQUEST['action'])) {
             break;
 
         case 'rm':
-            if ($repID != 0) {
-                $access->checkCsrf(tra('Are you sure you want to delete this repository') . " ?");
+            if ($repID != 0 && $access->checkCsrf()) {
                 $integrator->remove_repository($repID);
             }
             break;

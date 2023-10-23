@@ -10,8 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 require_once('tiki-setup.php');
 $access->check_permission('tiki_p_admin');
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $tikilib->remove_cache($_REQUEST["remove"]);
 }
 if (isset($_REQUEST["refresh"])) {

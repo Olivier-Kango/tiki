@@ -200,9 +200,17 @@
                                         </action>
                                     {/if}
                                     <action>
-                                        <a href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;initial={$setInitial}&amp;remove={$channels[user].contactId}">
-                                            {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                        </a>
+                                        <form action="tiki-contacts.php" method="post">
+                                            {ticket}
+                                            <input type="hidden" name="offset" value="{$offset}">
+                                            <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                            <input type="hidden" name="find" value="{$find}">
+                                            <input type="hidden" name="initial" value="{$setInitial}">
+                                            <input type="hidden" name="remove" value="{$channels[user].contactId}">
+                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" title=":{tr}Delete{/tr}" onclick="confirmPopup('{tr _0=$channels[user].email}Are you sure you want to delete %0?{/tr}')">
+                                                {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                            </button>
+                                        </form>
                                     </action>
                                 {/if}
                             {/strip}

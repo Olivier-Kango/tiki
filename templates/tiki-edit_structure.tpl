@@ -8,9 +8,25 @@
     {remarksbox type="warning" title="{tr}Warning{/tr}"}
         {tr}You will remove{/tr} '{$removePageName}' {if $page_removable == 'y'}{tr}and its subpages from the structure, now you have two options:{/tr}{else}{tr}and its subpages from the structure{/tr}{/if}
         <div class="text-center">
-            <a class="btn btn-warning btn-sm" href="tiki-edit_structure.php?page_ref_id={$structure_id}&amp;rremove={$removepage}&amp;page={$removePageName|escape:"url"}">{icon name="remove"} {tr}Remove from structure{/tr}</a>
+            <form style="display: inline;" action="tiki-edit_structure.php" method="post">
+                {ticket}
+                <input type="hidden" name="page_ref_id" value="{$structure_id}">
+                <input type="hidden" name="rremove" value="{$removepage}">
+                <input type="hidden" name="page" value="{$removePageName}">
+                <button type="submit" class="btn btn-warning btn-sm" onclick="confirmPopup()">
+                    {icon name="remove"} {tr}Remove from structure{/tr}
+                </button>
+            </form>
             {if $page_removable == 'y'}
-                <a class="btn btn-warning btn-sm" href="tiki-edit_structure.php?page_ref_id={$structure_id}&amp;sremove={$removepage}&amp;page={$removePageName|escape:"url"}">{icon name="delete"} {tr}Remove from structure and remove page too{/tr}</a>
+                <form style="display: inline;" action="tiki-edit_structure.php" method="post">
+                    {ticket}
+                    <input type="hidden" name="page_ref_id" value="{$structure_id}">
+                    <input type="hidden" name="sremove" value="{$removepage}">
+                    <input type="hidden" name="page" value="{$removePageName}">
+                    <button type="submit" class="btn btn-warning btn-sm" onclick="confirmPopup()">
+                        {icon name="delete"} {tr}Remove from structure and remove page too{/tr}
+                    </button>
+                </form>
             {/if}
         </div>
     {/remarksbox}

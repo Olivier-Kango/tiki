@@ -219,9 +219,15 @@
                             {icon name='edit'}
                         </a>
                         &nbsp;
-                        <a class="tips" href="tiki-received_articles.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$channels[user].receivedArticleId}" title=":{tr}Remove{/tr}">
-                            {icon name='remove'}
-                        </a>
+                        <form style="display: inline;" action="tiki-received_articles.php" method="post">
+                            {ticket}
+                            <input type="hidden" name="offset" value="{$offset}">
+                            <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                            <input type="hidden" name="remove" value="{$channels[user].receivedArticleId}">
+                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                                {icon name='remove'}
+                            </button>
+                        </form>
                     </td>
                 </tr>
             {sectionelse}

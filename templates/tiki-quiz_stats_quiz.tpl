@@ -6,7 +6,14 @@
     {button href="tiki-quiz_stats_quiz.php?quizId=$quizId" class="btn btn-info" _text="{tr}This Quiz Stats{/tr}"}
     {button href="tiki-edit_quiz.php?quizId=$quizId" class="btn btn-primary" _text="{tr}Edit this Quiz{/tr}"}
     {if $tiki_p_admin_quizzes eq 'y'}
-        {button href="tiki-quiz_stats_quiz.php?quizId=$quizId&clear=$quizId" class="btn btn-primary" _text="{tr}Clear Stats{/tr}"}
+        <form style="display: inline;" action="tiki-quiz_stats_quiz.php" method="post">
+            {ticket}
+            <input type="hidden" name="quizId" value="{$quizId}">
+            <input type="hidden" name="clear" value="{$quizId}">
+            <button type="submit" class="btn btn-primary" onclick="confirmPopup()">
+                {tr}Clear Stats{/tr}
+            </button>
+        </form>
     {/if}
     {button href="tiki-edit_quiz.php" _text="{tr}Admin Quizzes{/tr}"}
 </div>
@@ -60,9 +67,14 @@
                     {/if}
 
                     {if $tiki_p_admin_quizzes eq 'y'}
-                        <a class="tips" href="tiki-quiz_stats_quiz.php?quizId={$quizId}&amp;remove={$channels[user].userResultId}" title=":{tr}Remove{/tr}">
-                            {icon name='remove'}
-                        </a>
+                        <form style="display: inline;" action="tiki-quiz_stats_quiz.php" method="post">
+                            {ticket}
+                            <input type="hidden" name="quizId" value="{$quizId}">
+                            <input type="hidden" name="remove" value="{$channels[user].userResultId}">
+                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                                {icon name='remove'}
+                            </button>
+                        </form>
                     {/if}
                 </td>
                 <td>{if $channels[user].ispassing}{tr}Passed{/tr}{else}{tr}Failed{/tr}{/if}</td>

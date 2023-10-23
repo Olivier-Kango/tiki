@@ -27,8 +27,7 @@ $smarty->assign('contentId', $_REQUEST["contentId"]);
 $smarty->assign('pId', 0);
 $info = $dcslib->get_content($_REQUEST["contentId"]);
 $smarty->assign('description', $info["description"] ?? '');
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $dcslib->remove_programmed_content($_REQUEST["remove"]);
 }
 

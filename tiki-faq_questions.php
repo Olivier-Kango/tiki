@@ -63,8 +63,7 @@ if ($_REQUEST["questionId"]) {
 }
 // $smarty->assign('question',$info["question"]);  AWC moved this
 // $smarty->assign('answer',$info["answer"]);      AWC moved this
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $faqlib->remove_faq_question($_REQUEST["remove"]);
 }
 

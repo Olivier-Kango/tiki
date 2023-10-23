@@ -31,7 +31,7 @@ if ($tiki_p_edit_structures == 'y') {
             $smarty->display("error.tpl");
             die;
         }
-        $access->check_authenticity();
+        $access->checkCsrf();
         $structlib->s_remove_page($_REQUEST["rremove"], false, empty($_REQUEST['page']) ? '' : $_REQUEST['page']);
     }
     if (isset($_REQUEST['rremovex'])) {
@@ -42,7 +42,7 @@ if ($tiki_p_edit_structures == 'y') {
             $smarty->display("error.tpl");
             die;
         }
-        $access->check_authenticity();
+        $access->checkCsrf();
         $structlib->s_remove_page($_REQUEST["rremovex"], true, empty($_REQUEST['page']) ? '' : $_REQUEST['page']);
     }
     if (isset($_REQUEST['export'])) {
@@ -99,8 +99,7 @@ if ($tiki_p_edit_structures == 'y') {
         }
     }
     $smarty->assign('askremove', 'n');
-    if (isset($_REQUEST['remove'])) {
-        $access->checkCsrf();
+    if (isset($_REQUEST['remove']) && $access->checkCsrf()) {
         $structure_info = $structlib->s_get_structure_info($_REQUEST['remove']);
         if (! $tikilib->user_has_perm_on_object($user, $structure_info["pageName"], 'wiki page', 'tiki_p_edit')) {
             $smarty->assign('errortype', 401);

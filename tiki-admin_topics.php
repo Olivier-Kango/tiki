@@ -42,12 +42,10 @@ if (isset($_REQUEST["addtopic"])) {
     // Store the image
     $artlib->add_topic($_REQUEST["name"], $imgname, $imgtype, $imgsize, $data);
 }
-if (isset($_REQUEST["remove"])) {
-    $access->checkCsrf(tra('Are you sure you want to remove this topic?'));
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $artlib->remove_topic($_REQUEST["remove"]);
 }
-if (isset($_REQUEST["removeall"])) {
-    $access->checkCsrf(tra('Are you sure you want to remove this topic AND all the articles related?'));
+if (isset($_REQUEST["removeall"]) && $access->checkCsrf()) {
     $artlib->remove_topic($_REQUEST["removeall"], 1);
 }
 if (isset($_REQUEST["activate"]) && $access->checkCsrf()) {

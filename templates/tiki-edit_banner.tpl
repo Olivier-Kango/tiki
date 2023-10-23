@@ -218,9 +218,13 @@
                         <tr>
                             <td class="text">{$zones[ix].zone|escape}</td>
                             <td class="action">
-                                <a class="tips" title=":{tr}Remove{/tr}" href="tiki-edit_banner.php?removeZone={$zones[ix].zone|escape:url}">
-                                    {icon name='remove'}
-                                </a>
+                                <form action="tiki-edit_banner.php" method="post">
+                                    {ticket}
+                                    <input type="hidden" name="removeZone" value="{$zones[ix].zone}">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0 tips" title=":{tr}Remove{/tr}" onclick="confirmPopup('{tr}Do you want to delete this zone{/tr} ?')">
+                                        {icon name='remove' _menu_icon='y' }
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     {/section}

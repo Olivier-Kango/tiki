@@ -119,9 +119,14 @@
                                 </a>
                             </action>
                             <action>
-                                <a class="text-danger" href="tiki-admin_integrator.php?action=rm&amp;repID={$repositories[rep].repID|escape}">
-                                    {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                </a>
+                                <form action="tiki-admin_integrator.php" method="post">
+                                    {ticket}
+                                    <input type="hidden" name="action" value="rm">
+                                    <input type="hidden" name="repID" value="{$repositories[rep].repID|escape}">
+                                    <button type="submit" class="btn btn-link text-danger px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to delete this repository ?{/tr}')">
+                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                    </button>
+                                </form>
                             </action>
                         {/strip}
                     {/actions}

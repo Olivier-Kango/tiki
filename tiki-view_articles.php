@@ -27,7 +27,7 @@ if ($prefs['feature_categories'] == 'y') {
 
 $access->check_feature('feature_articles');
 
-if (isset($_REQUEST["remove"])) {
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $artperms = Perms::get([ 'type' => 'article', 'object' => $_REQUEST['remove'] ]);
     if ($artperms->remove_article != 'y') {
         $smarty->assign('errortype', 401);
@@ -35,7 +35,6 @@ if (isset($_REQUEST["remove"])) {
         $smarty->display("error.tpl");
         die;
     }
-    $access->check_authenticity();
     $artlib->remove_article($_REQUEST["remove"]);
 }
 // This script can receive the threshold
@@ -162,7 +161,7 @@ $smarty->assign_by_ref('listpages', $listpages["data"]);
 $smarty->assign_by_ref('cant', $listpages["cant"]);
 if ($prefs['feature_user_watches'] == 'y') {
     if ($user && isset($_REQUEST['watch_action'])) {
-        $access->check_authenticity();
+        $access->checkCsrf();
         if ($_REQUEST['watch_action'] == 'add') {
             $tikilib->add_user_watch($user, 'article_*', '*');
         } else {

@@ -109,7 +109,13 @@
                     </td>
                     <td style="text-align:right;">
                         {if $tiki_p_live_support_admin eq 'y'}
-                            <a href='tiki-live_support_admin.php?removeuser={$offline_operators[ix].user|escape}'><img src='img/icons/trash.gif' alt="{tr}Del{/tr}" title="{tr}Del{/tr}"></a>
+                            <form action="tiki-live_support_admin.php" method="post">
+                                {ticket}
+                                <input type="hidden" name="removeuser" value="{$offline_operators[ix].user}">
+                                <button type="submit" class="btn btn-link px-0 pt-0" title=":{tr}Delete{/tr}" onclick="confirmPopup()">
+                                {icon name='trash' _menu_text='n' _menu_icon='y' alt="{tr}Delete{/tr}"}
+                                </button>
+                            </form>
                         {else}
                             &nbsp;
                         {/if}

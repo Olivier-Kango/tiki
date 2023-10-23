@@ -16,8 +16,7 @@ $access->check_permission('tiki_p_admin_dynamic');
 
 $dcslib = TikiLib::lib('dcs');
 
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $dcslib->remove_contents($_REQUEST["remove"]);
 }
 $smarty->assign('description', '');

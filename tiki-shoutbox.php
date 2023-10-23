@@ -34,8 +34,7 @@ if ($_REQUEST["msgId"]) {
 }
 $smarty->assign('message', $info["message"]);
 if ($tiki_p_admin_shoutbox == 'y' || $user == $owner) {
-    if (isset($_REQUEST["remove"])) {
-        $access->check_authenticity();
+    if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
         $shoutboxlib->remove_shoutbox($_REQUEST["remove"]);
     } elseif (isset($_REQUEST["shoutbox_admin"])) {
         $prefs['shoutbox_autolink'] = (isset($_REQUEST["shoutbox_autolink"])) ? 'y' : 'n';

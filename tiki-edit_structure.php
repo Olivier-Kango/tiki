@@ -89,14 +89,12 @@ if ($editable === 'y') {
         $smarty->assign('removePageName', $remove_info["pageName"]);
     }
 
-    if (isset($_REQUEST["rremove"])) {
-        $access->check_authenticity();
+    if (isset($_REQUEST["rremove"]) && $access->checkCsrf()) {
         $structlib->s_remove_page($_REQUEST["rremove"], false, empty($_REQUEST['page']) ? '' : $_REQUEST['page']);
         $_REQUEST["page_ref_id"] = $page_info["parent_id"];
     }
     # TODO : Case where the index page of the structure is removed seems to be unexpected, leaving a corrupted structure
-    if (isset($_REQUEST["sremove"])) {
-        $access->check_authenticity();
+    if (isset($_REQUEST["sremove"]) && $access->checkCsrf()) {
         $page = $page_info["pageName"];
         $delete = $tikilib->user_has_perm_on_object($user, $page_info['pageName'], 'wiki page', 'tiki_p_remove');
         $structlib->s_remove_page($_REQUEST["sremove"], $delete, empty($_REQUEST['page']) ? '' : $_REQUEST['page']);

@@ -13,16 +13,13 @@ $bloglib = TikiLib::lib('blog');
 $access->check_feature('feature_blogs');
 $access->check_permission('tiki_p_blog_admin');
 
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $bloglib->remove_post($_REQUEST["remove"]);
 }
-if (isset($_REQUEST['checked'])) {
-    $access->checkCsrf();
+if (isset($_REQUEST['checked']) && $access->checkCsrf()) {
     $checked = is_array($_REQUEST['checked']) ? $_REQUEST['checked'] : [$_REQUEST['checked']];
     // Delete post(s)
-    if (isset($_REQUEST['remove']) || isset($_REQUEST['remove_x'])) {
-        $access->checkCsrf(tra('Delete posts'));
+    if ((isset($_REQUEST['remove']) || isset($_REQUEST['remove_x'])) && $access->checkCsrf()) {
         foreach ($checked as $id) {
             $bloglib->remove_post($id);
         }

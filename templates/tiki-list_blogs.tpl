@@ -138,9 +138,15 @@
                             {if ($user and $listpages[changes].user eq $user) or ($tiki_p_blog_admin eq 'y')}
                                 {if ($tiki_p_admin eq 'y') or ($listpages[changes].individual eq 'n') or ($listpages[changes].individual_tiki_p_blog_create_blog eq 'y' )}
                                     <action>
-                                        <a href="tiki-list_blogs.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$listpages[changes].blogId}">
-                                            {icon name="delete" _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                        </a>
+                                        <form action="tiki-list_blogs.php" method="post">
+                                            {ticket}
+                                            <input type="hidden" name="offset" value="{$offset}">
+                                            <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                            <input type="hidden" name="remove" value="{$listpages[changes].blogId}">
+                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr _0=$listpages[changes].blogId}Are you sure you want to permanently remove the blog with identifier %0?{/tr}')">
+                                                {icon name='delete' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                            </button>
+                                        </form>
                                     </action>
                                 {/if}
                             {/if}

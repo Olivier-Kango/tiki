@@ -46,9 +46,26 @@
                                         {$channels[user].email}
                                     </a>
                                     [&nbsp;&nbsp;
-                                    <a class="link tips" href="tiki-webmail_contacts.php?element={$element}&amp;section=contacts&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;remove={$channels[user].contactId}" title=":{tr}Delete{/tr}">
-                                        {icon name='delete'}
-                                    </a>
+                                    <form style="display: inline;" action="tiki-webmail_contacts.php" method="post">
+                                        {ticket}
+                                        <input type="hidden" name="element" value="{$element}">
+                                        <input type="hidden" name="section" value="contacts">
+                                        <input type="hidden" name="offset" value="{$offset}">
+                                        <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                        <input type="hidden" name="find" value="{$find}">
+                                        <input type="hidden" name="initial" value="{$setInitial}">
+                                        <input type="hidden" name="remove" value="{$channels[user].contactId}">
+                                        <button id="deleteButton" type="button" onClick="show_alert(this.form);" class="btn btn-link px-0 pt-0 pb-0" title=":{tr}Delete{/tr}">
+                                            {icon name='delete'}
+                                        </button>
+                                    </form>
+                                    <script>
+                                        function show_alert(form) {
+                                            if(confirm("Are you sure you want to delete this contact?")) {
+                                                form.submit();
+                                            }
+                                        }
+                                    </script>
                                     &nbsp;&nbsp;]
                                 </td>
                                 <td class="text">{$channels[user].nickname}</td>

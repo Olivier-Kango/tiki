@@ -65,8 +65,7 @@ if (isset($_REQUEST['action']) && isset($_REQUEST['copyrightId'])) {
         $copyrightslib->up_copyright($_REQUEST['copyrightId']);
     } elseif ($_REQUEST['action'] == 'down') {
         $copyrightslib->down_copyright($_REQUEST['copyrightId']);
-    } elseif ($_REQUEST['action'] == 'delete') {
-        $access->check_authenticity();
+    } elseif ($_REQUEST['action'] == 'delete' && $access->checkCsrf()) {
         $copyrightslib->remove_copyright($_REQUEST['copyrightId']);
     }
 }

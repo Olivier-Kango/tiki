@@ -125,8 +125,7 @@ $smarty->assign(
     )
 );
 $smarty->assign('parsed_body', TikiLib::lib('parser')->parse_data($info["body"], ['is_html' => $artlib->is_html($info)]));
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $commlib->remove_received_article($_REQUEST["remove"]);
 }
 if (isset($_REQUEST["save"])) {

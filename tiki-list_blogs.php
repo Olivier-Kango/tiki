@@ -16,7 +16,7 @@ if ($prefs['feature_categories'] == 'y') {
     $categlib = TikiLib::lib('categ');
 }
 $access->check_feature('feature_blogs');
-if (isset($_REQUEST["remove"])) {
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     // Check if it is the owner
     $data = $bloglib->get_blog($_REQUEST["remove"]);
     if ($data["user"] != $user) {
@@ -27,7 +27,6 @@ if (isset($_REQUEST["remove"])) {
             die;
         }
     }
-    $access->check_authenticity();
     $bloglib->remove_blog($_REQUEST["remove"]);
 }
 // This script can receive the threshold

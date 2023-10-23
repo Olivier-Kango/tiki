@@ -7,7 +7,14 @@
     {button href="tiki-survey_stats.php" class="btn btn-info" _icon_name='chart' _text="{tr}Survey Stats{/tr}"}
     {if $tiki_p_admin_surveys eq 'y'}
         {button _keepall='y' href="tiki-admin_surveys.php" surveyId=$surveyId class="btn btn-primary" _icon_name='edit' _text="{tr}Edit this Survey{/tr}"}
-        {button _keepall='y' href="tiki-survey_stats_survey.php" surveyId=$surveyId clear=$surveyId class="btn btn-primary" _icon_name='trash' _text="{tr}Clear Stats{/tr}"}
+        <form style="display: inline;" action="tiki-survey_stats_survey.php" method="post">
+            {ticket}
+            <input type="hidden" name="surveyId" value="{$surveyId}">
+            <input type="hidden" name="clear" value="{$surveyId}">
+            <button type="submit" class="btn btn-primary" onclick="confirmPopup('{tr}Are you sure you want to clear all statistics and data for this survey?{/tr}')">
+                {icon name='trash' _menu_text='y' _menu_icon='y' alt="{tr}Clear Stats{/tr}"}
+            </button>
+        </form>
         {button href="tiki-admin_surveys.php" class="btn btn-primary" _icon_name='cog' _text="{tr}Admin Surveys{/tr}"}
     {/if}
 </div>

@@ -24,7 +24,7 @@ if (isset($_REQUEST["mapview"]) && $_REQUEST["mapview"] == 'y' && ! isset($_REQU
 if (isset($_REQUEST["mapview"]) && $_REQUEST["mapview"] == 'n' && ! isset($_REQUEST["searchmap"]) && ! isset($_REQUEST["searchlist"]) || isset($_REQUEST["searchlist"]) && ! isset($_REQUEST["searchmap"])) {
     $smarty->assign('mapview', false);
 }
-if (isset($_REQUEST["remove"])) {
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $artperms = Perms::get([ 'type' => 'article', 'object' => $_REQUEST['remove'] ]);
 
     if ($artperms->remove_article != 'y') {
@@ -33,10 +33,9 @@ if (isset($_REQUEST["remove"])) {
         $smarty->display("error.tpl");
         die;
     }
-    $access->checkCsrf(tr('Are you sure you want to permanently remove the article with identifier %0?', $_REQUEST["remove"]));
     $artlib->remove_article($_REQUEST["remove"]);
 }
-if (isset($_REQUEST['submit_mult'])) {
+if (isset($_REQUEST['submit_mult']) && $access->checkCsrf()) {
     if ($_REQUEST['submit_mult'] === 'remove_articles' && count($_REQUEST["checked"]) > 0) {
         foreach ($_REQUEST["checked"] as $aId) {
             $artperms = Perms::get([ 'type' => 'article', 'object' => $aId ]);
@@ -48,7 +47,6 @@ if (isset($_REQUEST['submit_mult'])) {
                 die;
             }
         }
-        $access->checkCsrf(tr('Are you sure you want to permanently remove these %0 articles?', count($_REQUEST["checked"])));
 
         foreach ($_REQUEST["checked"] as $aId) {
             $artlib->remove_article($aId);

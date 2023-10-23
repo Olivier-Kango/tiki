@@ -133,7 +133,7 @@ $showBoxCheck .= "
     ";
 $smarty->assign('showBoxCheck', $showBoxCheck);
 if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+    $access->checkCsrf();
     $nllib->remove_edition($_REQUEST["nlId"], $_REQUEST["remove"]);
 }
 

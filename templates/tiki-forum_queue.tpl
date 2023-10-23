@@ -198,8 +198,8 @@
     {if $items}
         <br>
         {tr}Perform action with checked:{/tr}
-        <input type="submit" class="btn btn-primary btn-sm" name="rej" value="{tr}Reject{/tr}">
-        <input type="submit" class="btn btn-primary btn-sm" name="app" value="{tr}Approve{/tr}">
+        <input type="submit" class="btn btn-primary btn-sm" name="rej" onclick="confirmPopup()" value="{tr}Reject{/tr}">
+        <input type="submit" class="btn btn-primary btn-sm" name="app" onclick="confirmPopup()" value="{tr}Approve{/tr}">
     {/if}
 </form>
 {* END OF LISTING *}

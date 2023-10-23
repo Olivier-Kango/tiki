@@ -127,7 +127,7 @@ if (isset($_REQUEST['qId'])) {
     }
 
     if (isset($_REQUEST['remove'])) {
-        $access->check_authenticity();
+        $access->checkCsrf();
         $smarty->assign('form', 'n');
         $commentslib->remove_queued($_REQUEST['qId']);
     }

@@ -61,7 +61,7 @@ try {
         switch ($_REQUEST['action']) {
             case tra('Delete'):
                 $access->check_permission(['tiki_p_delete_videos']);
-                $access->check_authenticity();
+                $access->checkCsrf();
                 $kalturalib = TikiLib::lib('kalturauser');
 
                 if ($kentryType == 'media') {

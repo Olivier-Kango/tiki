@@ -2,9 +2,15 @@
 {ticket mode=get}
 <div class="t_navbar mb-4">
     {button href="tiki-edit_submission.php" class="btn btn-primary" _icon_name="create" _text="{tr}New Submission{/tr}"}
-    {button href="tiki-list_submissions.php?deleteexpired=y" _class="btn btn-danger" _icon_name="delete" _text="{tr}Delete Expired Submissions{/tr}" _title="{tr}Deletes expired submissions 1000 at a time to avoid timeouts{/tr}"}
+    <button form="deleteexpired_form" type="submit" class="btn btn-danger" title="{tr}Deletes expired submissions 1000 at a time to avoid timeouts{/tr}" onclick="confirmPopup('{tr}Are you sure you want to permanently remove all expired submitted articles?{/tr}')">
+        {icon name='delete' _menu_text='y' _menu_icon='y' alt="{tr}Delete Expired Submissions{/tr}"}
+    </button>
+    <form id="deleteexpired_form" action="tiki-list_submissions.php" method="post">
+        {ticket}
+        <input type="hidden" name="deleteexpired" value="y">
+    </form>
     {if $tiki_p_read_article eq 'y'}
-        {button href="tiki-list_articles.php" class="btn btn-info" _icon_name="list" _text="{tr}List Articles{/tr}"}
+        {button href="tiki-list_articles.php" class="btn btn-info mt-3" _icon_name="list" _text="{tr}List Articles{/tr}"}
     {/if}
 </div>
 
@@ -85,7 +91,7 @@
                     {if $tiki_p_remove_submission eq 'y' or $tiki_p_approve_submission eq 'y'}
                         <td class="checkbox-cell">
                             <div class="form-check">
-                                <input type="checkbox" name="checked[]" value="{$listpages[changes].subId|escape}" {if $listpages[changes].checked eq 'y'}checked="checked" {/if}>
+                                <input class="checkboxes" type="checkbox" name="checked[]" value="{$listpages[changes].subId|escape}" {if $listpages[changes].checked eq 'y'}checked="checked" {/if} required>
                             </div>
                         </td>
                     {/if}
@@ -129,7 +135,7 @@
                                     <action>
                                         <form action="tiki-list_submissions.php" method="post" >
                                             {ticket}
-                                            <button type="submit" name="approve" value={$listpages[changes].subId} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">
+                                            <button type="submit" name="approve" value="{$listpages[changes].subId}" class="tips btn btn-link btn-sm px-0 pt-0 pb-0" onclick="confirmPopup('{tr _0=$listpages[changes].subId}Are you sure you want to approve the submitted article with identifier %0?{/tr}')">
                                                 {icon name="ok"}{tr} Approve{/tr}
                                             </button>
                                         </form>
@@ -137,9 +143,13 @@
                                 {/if}
                                 {if $tiki_p_remove_submission eq 'y'}
                                     <action>
-                                        {self_link remove=$listpages[changes].subId _icon_name="remove" _menu_text='y' _menu_icon='y'}
-                                            {tr}Remove{/tr}
-                                        {/self_link}
+                                        <form action="tiki-list_submissions.php" method="post">
+                                            {ticket}
+                                            <input type="hidden" name="remove" value="{$listpages[changes].subId}">
+                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr _0=$listpages[changes].subId}Are you sure you want to permanently remove the submitted article with identifier %0?{/tr}')">
+                                                {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                            </button>
+                                        </form>
                                     </action>
                                 {/if}
                             {/strip}
@@ -159,13 +169,13 @@
                                     {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this,'td:not(:eq(2))'); return false;"}
                                 {/if}
                                 <label>{tr}Perform action with checked:{/tr}
-                                    <select name="submit_mult">
-                                        <option value="">{tr}Select action to perform with checked{/tr}...</option>
-                                        {if $tiki_p_remove_submission eq 'y'}<option value="remove_subs" >{tr}Remove{/tr}</option>{/if}
-                                        {if $tiki_p_approve_submission eq 'y'}<option value="approve_subs" >{tr}Approve{/tr}</option>{/if}
+                                    <select id="submit_mult_action" name="submit_mult">
+                                        {if $tiki_p_remove_submission eq 'y'}<option id="remove" value="remove_subs" >{tr}Remove{/tr}</option>{/if}
+                                        {if $tiki_p_approve_submission eq 'y'}<option id="approve" value="approve_subs" >{tr}Approve{/tr}</option>{/if}
                                     </select>
                                 </label>
-                                <input type="submit" class="btn btn-primary btn-sm" value="{tr}Ok{/tr}">
+                                <input id="submit_mult" type="submit" class="btn btn-primary btn-sm" value="{tr}Ok{/tr}">
+
                             </p>
                         {/if}
                     </td>
@@ -175,3 +185,25 @@
     </div>
     {pagination_links cant=$cant_pages step=$maxRecords offset=$offset}{/pagination_links}
 </form>
+{jq}
+    var checkboxes = $('.checkboxes');
+    checkboxes.change(function(){
+        if($('.checkboxes:checked').length > 0) {
+            checkboxes.removeAttr('required');
+        } else {
+            checkboxes.attr('required', 'required');
+        }
+    });
+
+    $("#submit_mult").click(function(){
+        if ($('.checkboxes:checked').length > 0) {
+            var action = $('#submit_mult_action').val()
+            if (action == "remove_subs") {
+                confirmPopup("Are you sure you want to permanently remove these "+$('.checkboxes:checked').length+" submitted articles?");
+            } else {
+                confirmPopup("Are you sure you want to approve these "+$('.checkboxes:checked').length+" submitted articles?");
+            }
+        }
+    });
+
+{/jq}

@@ -49,8 +49,7 @@ if ($_REQUEST["questionId"]) {
     $info["min_answers"] = '';
     $info["max_answers"] = '';
 }
-if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity();
+if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $srvlib->remove_survey_question($_REQUEST["remove"]);
     $cookietab = 1;
 }

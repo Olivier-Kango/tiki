@@ -141,9 +141,14 @@
                                                 {/self_link}
                                             </action>
                                             <action>
-                                                {self_link transitionId=$trans.transitionId action=remove _icon_name="remove" _menu_text='y' _menu_icon='y'}
-                                                    {tr}Remove{/tr}
-                                                {/self_link}
+                                                <form action="tiki-admin_transitions.php" method="post">
+                                                    {ticket}
+                                                    <input type="hidden" name="action" value="remove">
+                                                    <input type="hidden" name="transitionId" value="{$trans.transitionId}">
+                                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Do you want to remove this transition ?{/tr}')">
+                                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                                    </button>
+                                                </form>
                                             </action>
                                         {/strip}
                                     {/actions}

@@ -32,8 +32,7 @@ if ($tiki_p_live_support_admin == 'y') {
         $access->checkCsrf();
         $lslib->set_operator_status($_REQUEST['offline'], 'offline');
     }
-    if (isset($_REQUEST['removeuser'])) {
-        $access->check_authenticity();
+    if (isset($_REQUEST['removeuser']) && $access->checkCsrf()) {
         $lsadminlib->remove_operator($_REQUEST['removeuser']);
     }
 }
