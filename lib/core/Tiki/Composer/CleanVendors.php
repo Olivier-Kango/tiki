@@ -474,14 +474,6 @@ class CleanVendors
 			]
 		);
 		self::remove(
-			$vendors . 'kriswallsmith/assetic',
-			[
-				'CHANGELOG-1.0.md',
-				'CHANGELOG-1.1.md',
-				'CHANGELOG-1.2.md',
-			]
-		);
-		self::remove(
 			$vendors . 'openid/php-openid',
 			[
 				'CHANGES-2.1.0',
