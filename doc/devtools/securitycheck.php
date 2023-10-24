@@ -112,6 +112,8 @@ function feature_pattern(&$featureNameIndex) // {{{
         $featureNameIndex = 1;
         return "/\\\$prefs\s*\[$q(\w+)$q\]\s*(!=|==)=?\s*$q(y|n)$q/";
     }
+
+    return '';
 }
 // }}}
 
