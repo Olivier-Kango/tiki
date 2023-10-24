@@ -21,7 +21,7 @@ foreach (TikiLib::fetchAll('SHOW TABLES') as $table) {
 
         foreach ($row as $field) {
             $field = addslashes($field);
-            $field = preg_replace("\n", "\\n", $field);
+            $field = preg_replace("/\n/", "\\n", $field);
             $fields[] = (isset($field) ? '"' . $field . '"' : '""');
         }
 
