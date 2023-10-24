@@ -2,11 +2,6 @@
 
 <h2  class="showhide_heading" id="Server_Compatibility">{tr}Server compatibility{/tr} <a href="#Server_Compatibility" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 
-{if ! $is_compatible}
-    {remarksbox type='error' title="{tr}Server compatibility{/tr}" close='n'}
-        <p>{tr}The server does not match the minimum requirements for this Tiki version.{/tr}</p>
-    {/remarksbox}
-{/if}
 <div class="table-responsive">
     <table class="table">
         <thead>
@@ -31,45 +26,6 @@
             </tr>
             {foreachelse}
             {norecords _colspan=2}
-        {/foreach}
-        </tbody>
-    </table>
-</div>
-<h3>{tr}Tiki versions compatible with your current server configuration{/tr}</h3>
-<div class="table-responsive">
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>{tr}Tiki Version{/tr}</th>
-            <th>{tr}PHP{/tr}</th>
-            <th>{tr}MySQL{/tr}</th>
-            <th>{tr}MariaDB{/tr}</th>
-            <th>{tr}Fitness{/tr}</th>
-            <th>{tr}Explanation{/tr}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {foreach from=$available_tiki_properties key=key item=item}
-            <tr>
-                <th class="text">{$item.name}</th>
-                <td class="text">
-                    {$item.php.min}{if $item.php.max && $item.php.max != $item.php.min} - {$item.php.max}{elseif !$item.php.max}+{/if}
-                </td>
-                <td class="text">
-                    {$item.mysql.min}{if $item.mysql.max && $item.mysql.max != $item.mysql.min} - {$item.mysql.max}{elseif !$item.mysql.max}+{/if}
-                </td>
-                <td class="text">
-                    {$item.mariadb.min}{if $item.mariadb.max && $item.mariadb.max != $item.mariadb.min} - {$item.mariadb.max}{elseif !$item.mariadb.max}+{/if}
-                </td>
-                <td class="text">
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
-                    </span>
-                </td>
-                <td class="text">{$item.message}</td>
-            </tr>
-        {foreachelse}
-            {norecords _colspan=4}
         {/foreach}
         </tbody>
     </table>
@@ -105,7 +61,7 @@
                 <td data-th="{tr}OK:{/tr}" class="text">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                 <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
             </tr>
-        {foreachelse}
+        {foreachelse} 
             {norecords _colspan=4}
         {/foreach}
         </tbody>
