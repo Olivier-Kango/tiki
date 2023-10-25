@@ -254,7 +254,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 
         $tx = $this->begin();
 
-        $installer = new Tiki_Profile_Installer();
+        $installer = new \Tiki_Profile_Installer();
         $ret = $installer->install($profile);
 
         $tx->commit();
