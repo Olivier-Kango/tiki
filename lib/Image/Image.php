@@ -19,15 +19,13 @@ class Image
      * @param $image
      * @param bool $isFile
      * @param string $format
-     * @return ImagickNew|ImagickOld|Gd|null
+     * @return ImagickNew|Gd|null
      */
     public static function create($image, $isFile = false, $format = 'jpeg')
     {
         $libEntity = null;
         if (class_exists('Imagick')) {
             $libEntity = new ImagickNew($image, $isFile, $format); // create Imagick 2.x entity
-        } elseif (function_exists('imagick_rotate')) {
-            $libEntity = new ImagickOld($image, $isFile, $format); // create Imagick 1.x entity
         } elseif (function_exists('gd_info')) {
             $libEntity = new Gd($image, $isFile, $format); // create GD entity
         }
@@ -43,8 +41,6 @@ class Image
     public static function isAvailable()
     {
         if (class_exists('Imagick')) {
-            return true;
-        } elseif (function_exists('imagick_rotate')) {
             return true;
         } elseif (function_exists('gd_info')) {
             return true;
