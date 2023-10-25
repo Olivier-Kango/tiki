@@ -186,6 +186,10 @@ function smarty_function_user_registration($params, $smarty)
                 $result = null;
                 $smarty->assign('msg', '');
                 $smarty->assign('showmsg', 'n');
+                if (! empty($_REQUEST['name'])) {
+                    // tracker generated an error (e.g. user item creation failed), so delete user here
+                    $userlib->remove_user($_REQUEST['name']);
+                }
             } elseif (isset($_REQUEST['name'])) {       // user tracker saved ok
                 $result = $registrationlib->register_new_user($_REQUEST);
                 if (is_array($result)) {
