@@ -8,6 +8,7 @@ namespace Tiki\Installer;
 
 use LogicException;
 use Tiki\TikiInit;
+use Tiki_Profile;
 use TikiDb_Bridge;
 use SplSubject;
 use SplObjectStorage;
