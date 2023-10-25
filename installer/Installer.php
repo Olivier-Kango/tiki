@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Installer;
 
+use LogicException;
 use Tiki\TikiInit;
 use TikiDb_Bridge;
 use SplSubject;
