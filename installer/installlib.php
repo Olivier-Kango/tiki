@@ -462,6 +462,7 @@ function initTikiDB(&$api, $host, $user, $pass, $dbname, $client_charset, &$dbTi
  */
 function createTikiDBUser(&$dbTiki, $host, $user, $pass, $dbname)
 {
+    $error = '';
     if (preg_match('/^(127\.0\.\d{1,3}\.\d{1,3}|localhost)(:\d+)?$/', $host)) {
         $host = 'localhost';
     } else {
