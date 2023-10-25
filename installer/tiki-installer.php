@@ -823,7 +823,7 @@ if ($install_step == '4') {
     }
 
     $value = '';
-    if (($db = TikiDB::get()) && ($result = $db->fetchAll('show variables like "character_set_database"'))) {
+    if (($db = TikiDb::get()) && ($result = $db->fetchAll('show variables like "character_set_database"'))) {
         $res = reset($result);
         $variable = array_shift($res);
         $value = array_shift($res);
@@ -831,7 +831,7 @@ if ($install_step == '4') {
     $smarty->assign('database_charset', $value);
 }
 
-if (((isset($value) && $value == 'utf8mb4') || $install_step == '7') && $db = TikiDB::get()) {
+if (((isset($value) && $value == 'utf8mb4') || $install_step == '7') && $db = TikiDb::get()) {
     $result = $db->fetchAll(
         'SELECT TABLE_COLLATION FROM INFORMATION_SCHEMA.TABLES '
         . ' WHERE TABLE_SCHEMA = ? AND TABLE_COLLATION NOT LIKE "utf8mb4%" '
