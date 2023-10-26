@@ -44,8 +44,11 @@ function listfgal_pref()
 
     global $prefs;
     $allfgals = $filegallib->getSubGalleries($prefs['fgal_root_id']);
-    array_unshift($allfgals['data'], $filegallib->get_file_gallery($prefs['fgal_root_id']));
-    $allfgals['data'][0]['id'] = $allfgals['data'][0]['galleryId']; // sometimes galleries have a galleryId, sometimes it's in id :(
+    $rootgal = $filegallib->get_file_gallery($prefs['fgal_root_id']);
+    if ($rootgal) {
+        array_unshift($allfgals['data'], $rootgal);
+        $allfgals['data'][0]['id'] = $allfgals['data'][0]['galleryId']; // sometimes galleries have a galleryId, sometimes it's in id :(
+    }
 
     $listfgals = [];
 

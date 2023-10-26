@@ -15,7 +15,7 @@ class PdfLibTest extends TestCase
     {
         global $base_url, $tikipath;
 
-        $tikipath = dirname(__DIR__, 3);
+        $tikipath = dirname(__DIR__, 3) . '/';
 
         $base_url = 'https://test.tiki.org/';
 

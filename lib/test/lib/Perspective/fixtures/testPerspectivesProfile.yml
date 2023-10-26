@@ -15,6 +15,10 @@ preferences:
   feature_search: y
   feature_top_bar: y
   feature_sheet: y
+  home_file_gallery: $fg1
+  fgal_root_id: $root
+  areas_root: $workspaces
+  language: en
 
 permissions:
   Anonymous:
@@ -129,6 +133,11 @@ objects:
         - [ wiki page, $obx ]
         - [ file gallery, $fg3 ]
         - [ file gallery, $fgbx ]
+  -
+    type: category
+    ref: workspaces
+    data:
+      name: Workspaces
 
 #
 # Data
@@ -211,6 +220,13 @@ objects:
       name: A and B
 
 # File Gallery
+  -
+    type: file_gallery
+    ref: root
+    data:
+      name: Root Gallery
+      type: system
+      flags: [ public, visible ]
   -
     type: file_gallery
     ref: fg1

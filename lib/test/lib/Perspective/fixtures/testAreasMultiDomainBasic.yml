@@ -2,6 +2,7 @@ permissions: {  }
 
 preferences:
   browsertitle: perspective-none
+  language: en
 
   feature_categories: 'y'
   categories_add_class_to_body_tag: 'y'

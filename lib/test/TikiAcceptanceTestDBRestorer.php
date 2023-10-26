@@ -57,18 +57,12 @@ abstract class TikiAcceptanceTestDBRestorer
 
     public function __construct()
     {
-        if (getenv('MYSQL_HOST')) {
-            $this->host = getenv('MYSQL_HOST');
-        }
-        if (getenv('MYSQL_DATABASE')) {
-            $this->tiki_test_db = getenv('MYSQL_DATABASE');
-        }
-        if (getenv('MYSQL_USER')) {
-            $this->tiki_test_db_user = getenv('MYSQL_USER');
-        }
-        if (getenv('MYSQL_PASSWORD')) {
-            $this->tiki_test_db_pwd = getenv('MYSQL_PASSWORD');
-        }
+        global $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki;
+
+        $this->host = $host_tiki;
+        $this->tiki_test_db = $dbs_tiki;
+        $this->tiki_test_db_user = $user_tiki;
+        $this->tiki_test_db_pwd = $pass_tiki;
 
         $this->current_dir = getcwd();
         $this->mysql_data_dir = $this->setMysqlDataDir();
@@ -216,10 +210,15 @@ class TikiAcceptanceTestDBRestorerSQLDumps extends TikiAcceptanceTestDBRestorer
         chdir($this->mysql_data_dir);
         if (! file_exists($tiki_test_db_dump)) {
             chdir($this->current_dir);
-            $error_msg =
-                "\nTried to run an acceptance test without an initial database dump. " .
-                "Run script lib/core/test/create_dump_db_file.php to create it.\n";
-            return $error_msg;
+            $conn = mysqli_connect($this->host, $this->tiki_test_db_user, $this->tiki_test_db_pwd);
+            mysqli_select_db($conn, $this->tiki_test_db);
+            foreach (['tiki_blogs', 'tiki_categories', 'tiki_category_objects', 'tiki_categorized_objects', 'tiki_forums', 'tiki_file_galleries', 'tiki_objects', 'tiki_pages', 'tiki_perspectives', 'tiki_perspective_preferences'] as $table) {
+                mysqli_query($conn, "delete from $table");
+                mysqli_query($conn, "ALTER TABLE $table AUTO_INCREMENT = 1");
+            }
+            mysqli_query($conn, "delete from tiki_profile_symbols");
+            $this->reinitializeInternalValuesAndClearCaches();
+            return;
         }
 
         if ($last_restored == $tiki_test_db_dump) {

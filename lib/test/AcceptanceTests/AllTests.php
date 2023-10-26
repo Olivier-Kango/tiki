@@ -4,24 +4,24 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-require_once('AcceptanceTests/CollaborativeMultilingualTerminologyTest.php');
-require_once('AcceptanceTests/ListPagesTest.php');
-require_once('AcceptanceTests/MultilingualTest.php');
-require_once('AcceptanceTests/MultilinguallibTest.php');
-require_once('AcceptanceTests/SearchTest.php');
-require_once('AcceptanceTests/TikiLibrariesAccessTest.php');
+require_once(__DIR__ . '/CollaborativeMultilingualTerminologyTest.php');
+require_once(__DIR__ . '/ListPagesTest.php');
+require_once(__DIR__ . '/MultilingualTest.php');
+require_once(__DIR__ . '/MultilinguallibTest.php');
+require_once(__DIR__ . '/SearchTest.php');
+require_once(__DIR__ . '/TikiLibrariesAccessTest.php');
 
 
 class AcceptanceTests_AllTests
 {
     public static function main()
     {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
+        PHPUnit\TextUI\TestRunner::run(self::suite());
     }
 
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('AcceptanceTestsSuite');
+        $suite = new PHPUnit\Framework\TestSuite('AcceptanceTestsSuite');
 
         $suite->addTestSuite('AcceptanceTests_CollaborativeMultilingualTerminologyTest');
         $suite->addTestSuite('AcceptanceTests_ListPagesTest');

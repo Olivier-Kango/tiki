@@ -497,8 +497,10 @@ function feature_home_pages($partial = false)
     if (! $partial && $prefs['feature_file_galleries'] == 'y') {
             $filegallib = TikiLib::lib('filegal');
             $hgalinfo = $filegallib->get_file_gallery($prefs['home_file_gallery']);
-            $home_gal_name = substr($hgalinfo["name"], 0, 20);
-            $tikiIndex['tiki-list_file_gallery.php?galleryId=' . $prefs['home_file_gallery']] = tra('File Gallery:') . $home_gal_name;
+            if ($hgalinfo) {
+                $home_gal_name = substr($hgalinfo["name"], 0, 20);
+                $tikiIndex['tiki-list_file_gallery.php?galleryId=' . $prefs['home_file_gallery']] = tra('File Gallery:') . $home_gal_name;
+            }
     }
 
     // Forum

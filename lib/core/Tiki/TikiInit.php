@@ -383,6 +383,10 @@ class TikiInit
         $default_api_tiki = $api_tiki;
         $api_tiki = '';
 
+        if (getenv('TIKI_TEST_HOST') && getenv('TIKI_TEST_HOST_A') && getenv('TIKI_TEST_HOST_B')) {
+            $local_php = 'lib/test/local.php';
+        }
+
         return $local_php;
     }
 

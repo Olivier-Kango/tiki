@@ -26,6 +26,8 @@ class PerspectivesNavigationBaseTestCase extends TestCase
      */
     public const FIXTURE_SITE = 'tiki-a.localdomain';
 
+    public static $cached_prefs;
+
     public static function setUpBeforeClass(): void
     {
         if (! getenv('TIKI_TEST_HOST') || ! getenv('TIKI_TEST_HOST_A') || ! getenv('TIKI_TEST_HOST_B')) {
@@ -33,11 +35,27 @@ class PerspectivesNavigationBaseTestCase extends TestCase
                 'To run perspective tests you are expected to have a running webserver with 3 vhosts pointing to it and to setup the env TIKI_TEST_HOST, TIKI_TEST_HOST_A and TIKI_TEST_HOST_B'
             );
         }
+        global $prefs;
+        self::$cached_prefs = $prefs;
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        global $prefs;
+        foreach (self::$cached_prefs as $name => $val) {
+            $def = \TikiLib::lib('prefs')->getPreference($name);
+            if ($def && ! empty($def['available'])) {
+                \TikiLib::lib('tiki')->set_preference($name, $val);
+            } else {
+                $prefs[$name] = $val;
+            }
+        }
     }
 
     public function navigateSteps($steps, $cleanCookies = false)
     {
         $client = WebClientHelper::createTestClient(false);
+        $client->followRedirects(false);
 
         foreach ($steps as $stepIndex => $step) {
             [$url, $httpCode, $location, $perspective] = $step;

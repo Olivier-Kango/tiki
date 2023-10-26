@@ -9,7 +9,7 @@
  */
 
 
-class TikiSeleniumTestCase extends PHPUnit_Extensions_Selenium2TestCase
+class TikiSeleniumTestCase extends PHPUnit\Extensions\Selenium2TestCase
 {
     protected $backupGlobals = false;
     public $current_test_db;

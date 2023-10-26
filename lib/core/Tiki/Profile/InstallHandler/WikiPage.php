@@ -136,7 +136,8 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
         // Normalize mode
         $this->canInstall();
 
-        global $tikilib;
+        $tikilib = \TikiLib::lib('tiki');
+
         $this->fetchData();
         $this->replaceReferences($this->name);
         $this->replaceReferences($this->namespace);
