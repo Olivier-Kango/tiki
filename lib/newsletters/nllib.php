@@ -1414,14 +1414,7 @@ class NlLib extends TikiLib
                 $is_html = ! empty($is_html);
             }
             if (stristr($info['data'], '<body') === false) {
-                $html = "<html>$beginHtml" . TikiLib::lib('parser')->parse_data(
-                    $info['data'],
-                    [
-                        'absolute_links' => true,
-                        'suppress_icons' => true,
-                        'is_html' => $is_html,
-                    ]
-                ) . "$endHtml</html>";
+                $html = "<html>$beginHtml" . $this->parseBody($info['data'], $is_html) . "$endHtml</html>";
             } else {
                 $html = str_ireplace('<body>', $beginHtml, $info['data']);
                 $html = str_ireplace('</body>', $endHtml, $html);
@@ -1819,6 +1812,32 @@ class NlLib extends TikiLib
 
         $txt = html_entity_decode($txt);
         return $txt;
+    }
+
+    /**
+     * @param      $data
+     * @param bool $is_html
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function parseBody($data, int $is_html = 0): string
+    {
+        global $prefs;
+        $allowImageLazyLoad = $prefs['allowImageLazyLoad'];
+        $prefs['allowImageLazyLoad'] = 'n';
+
+        $parsed = TikiLib::lib('parser')->parse_data(
+            $data,
+            [
+                'absolute_links' => true,
+                'suppress_icons' => true,
+                'is_html'        => $is_html,
+            ]
+        );
+
+        $prefs['allowImageLazyLoad'] = $allowImageLazyLoad;
+        return $parsed;
     }
 }
 
