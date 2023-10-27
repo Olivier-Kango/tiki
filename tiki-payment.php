@@ -202,7 +202,7 @@ if (isset($_POST['request']) && $globalperms->request_payment) {
     // Create new payment request
 
     if (! empty($_POST['description']) && preg_match('/^\d+(\.\d{2})?$/', $_POST['amount']) && $_POST['payable'] > 0) {
-        $id = $paymentlib->requestPayment(
+        $id = $paymentlib->request_payment(
             $_POST['description'],
             $_POST['amount'],
             (int)$_POST['payable'],
