@@ -42,6 +42,13 @@ function handle_series($serie, &$sheet)
 $access->check_feature('feature_sheet');
 $access->check_feature('feature_jquery_ui');
 
+if (! isset($_REQUEST['sheetId'])) {
+    $smarty->assign('msg', tra('No sheet specified.'));
+
+    $smarty->display('error.tpl');
+    die;
+}
+
 $info = $sheetlib->get_sheet_info($_REQUEST['sheetId']);
 if (empty($info)) {
     $smarty->assign('Incorrect parameter');
@@ -59,13 +66,6 @@ if ($tiki_p_admin != 'y' && ! $objectperms->view_sheet && ! ($user && $info['aut
 // This condition will be removed when a php-based renderer will be written
 if (! function_exists('pdf_new') && ! function_exists('imagepng')) {
     $smarty->assign('msg', tra('No valid renderer found. GD or PDFLib required.'));
-
-    $smarty->display('error.tpl');
-    die;
-}
-
-if (! isset($_REQUEST['sheetId'])) {
-    $smarty->assign('msg', tra('No sheet specified.'));
 
     $smarty->display('error.tpl');
     die;
