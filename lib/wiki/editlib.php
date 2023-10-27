@@ -1673,7 +1673,7 @@ class EditLib
                 return count($lines) > 1 ? "\n{$m[0]}\n" : $m[0];
             }, $converted);
             // after add \n around plugin div which is not in a table
-            $converted = preg_replace('/^(?!^\|).*({DIV(.*?)}.+{DIV}).*(?!^\|\s*)/m', "\n$1\n", $converted);
+            $converted = preg_replace("/^(?!^\|)(.*)({DIV.*?}.*{DIV})(.*)(?!^\|\s*)$/m", "$1\n$2\n$3", $converted);
 
             // Bring back > character
             $converted = str_replace('&gt;', '>', $converted);
