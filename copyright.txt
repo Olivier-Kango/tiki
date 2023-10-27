@@ -12,7 +12,7 @@ This is how we implement the Tiki Social Contract.
 http://tiki.org/Social+Contract
 
 List of members of the Community
-As of 2023-07-11, the community has:
+As of 2023-10-27, the community has:
   * 632 members on SourceForge.net,
   * Array of those people who made at least one code commit
 
@@ -135,7 +135,7 @@ Number of Commits: 1
 Nickname: RobertPlummer
 First Commit: Tue Mar 20 18:24:02 2012 +0000
 Last Commit: Tue Jan 26 14:52:38 2016 +0000
-Number of Commits: 936
+Number of Commits: 935
 
 Nickname: Roberto Kirschbaum
 First Commit: Mon Feb 26 17:57:13 2018 +0000
@@ -144,8 +144,8 @@ Number of Commits: 39
 
 Nickname: Rodriguez Nyiringabo
 First Commit: Wed Jan 18 18:01:38 2023 +0200
-Last Commit: Fri Mar 31 14:43:26 2023 +0200
-Number of Commits: 4
+Last Commit: Fri Oct 27 22:52:48 2023 +0200
+Number of Commits: 7
 
 Nickname: Serge Kishiko
 First Commit: Wed Aug 7 22:50:20 2019 +0200
@@ -164,8 +164,8 @@ Number of Commits: 1
 
 Nickname: Victor Emanouilov
 First Commit: Fri Jan 25 10:17:56 2019 +0000
-Last Commit: Mon Jul 10 14:09:36 2023 +0300
-Number of Commits: 28
+Last Commit: Fri Oct 27 14:43:01 2023 +0300
+Number of Commits: 30
 
 Nickname: abbasmousavi
 SF Role: Developer
@@ -1388,7 +1388,7 @@ Nickname: jonnybradley
 Name: jonny Bradley
 First Commit: 2007-08-15
 Last Commit: Mon Jun 25 15:54:32 2018 +0000
-Number of Commits: 5187
+Number of Commits: 5184
 SF Role: Admin
 
 Nickname: josefgc
@@ -1633,7 +1633,7 @@ Nickname: lindonb
 Name: lindon
 First Commit: 2009-05-10
 Last Commit: Thu Sep 3 15:23:42 2020 -0400
-Number of Commits: 1693
+Number of Commits: 1689
 SF Role: Admin, Developer
 
 Nickname: llunax
@@ -2482,8 +2482,8 @@ SF Role: Developer
 Nickname: robertokir
 Name: Roberto Kirschbaum
 First Commit: 2017-06-27
-Last Commit: Tue Jul 11 16:07:33 2023 +0100
-Number of Commits: 170
+Last Commit: Tue Jul 11 16:32:27 2023 +0100
+Number of Commits: 173
 SF Role: Admin, Developer
 
 Nickname: robertplummer
@@ -2505,9 +2505,11 @@ Name: Rodrigo Curvelo
 SF Role: Developer
 
 Nickname: rodriguezny
+Name: Rodriguez Nyiringabo
 First Commit: Tue Jan 11 19:58:41 2022 +0200
 Last Commit: Tue Jan 11 19:58:41 2022 +0200
 Number of Commits: 1
+SF Role: Admin
 
 Nickname: ronchon
 Name: Patrice ALBARET
