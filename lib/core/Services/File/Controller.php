@@ -228,28 +228,28 @@ class Services_File_Controller
 
         if (isset($_FILES['files']) && is_array($_FILES['files']['tmp_name']) && $util->checkCsrf()) {
             // a few other params that are still arrays but shouldn't be (mostly)
-            if (is_array($input->galleryId->asArray())) {
+            if (! empty($input->asArray('galleryId')) && is_array($input->galleryId->asArray())) {
                 $input->offsetSet('galleryId', $input->asArray('galleryId')[0]);
             }
-            if (is_array($input->hit_limit->asArray())) {
+            if (! empty($input->asArray('hit_limit')) && is_array($input->hit_limit->asArray())) {
                 $input->offsetSet('hit_limit', $input->asArray('hit_limit')[0]);
             }
-            if (is_array($input->isbatch->asArray())) {
+            if (! empty($input->asArray('isbatch')) && is_array($input->isbatch->asArray())) {
                 $input->offsetSet('isbatch', $input->asArray('isbatch')[0]);
             }
-            if (is_array($input->deleteAfter->asArray())) {
+            if (! empty($input->asArray('deleteAfter')) && is_array($input->deleteAfter->asArray())) {
                 $input->offsetSet('deleteAfter', $input->asArray('deleteAfter')[0]);
             }
-            if (is_array($input->deleteAfter_unit->asArray())) {
+            if (! empty($input->asArray('deleteAfter_unit')) && is_array($input->deleteAfter_unit->asArray())) {
                 $input->offsetSet('deleteAfter_unit', $input->asArray('deleteAfter_unit')[0]);
             }
-            if (is_array($input->author->asArray())) {
+            if (! empty($input->asArray('author')) && is_array($input->author->asArray())) {
                 $input->offsetSet('author', $input->asArray('author')[0]);
             }
-            if (is_array($input->user->asArray())) {
+            if (! empty($input->asArray('user')) && is_array($input->user->asArray())) {
                 $input->offsetSet('user', $input->asArray('user')[0]);
             }
-            if (is_array($input->listtoalert->asArray())) {
+            if (! empty($input->asArray('listtoalert')) && is_array($input->listtoalert->asArray())) {
                 $input->offsetSet('listtoalert', $input->asArray('listtoalert')[0]);
             }
 
@@ -276,7 +276,7 @@ class Services_File_Controller
                         $file['syntax'] = $filegallib->getWikiSyntax($file['galleryId'], $file['info'], $input->asArray());
                     }
 
-                    if ($input->isbatch->word() && stripos($_FILES['data']['type'], 'zip') !== false) {
+                    if (! empty($input->asArray('isbatch')) && $input->isbatch->word() && stripos($_FILES['data']['type'], 'zip') !== false) {
                         $errors = [];
                         $perms = Perms::get(['type' => 'file', 'object' => $file['fileId']]);
                         if ($perms->batch_upload_files) {
@@ -308,7 +308,7 @@ class Services_File_Controller
                 }
             }
 
-            if ($input->autoupload->word()) {
+            if (! empty($input->asArray('autoupload')) && $input->autoupload->word()) {
                 TikiLib::lib('user')->set_user_preference($user, 'filegals_autoupload', 'y');
             } else {
                 TikiLib::lib('user')->set_user_preference($user, 'filegals_autoupload', 'n');
