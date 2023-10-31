@@ -91,7 +91,7 @@ class MarkdownConvertCommand extends Command
             $pages = [$pageInfo];
         } else {
             $excluded = $input->getArgument('exclude');
-            $allPages = $tikilib->list_pages(exclude_pages: $excluded);
+            $allPages = $tikilib->list_pages(exclude_pages: $excluded, sort_mode: 'pageName_asc');
             $pages = $allPages['data'] ?: [];
         }
 
