@@ -2515,7 +2515,7 @@ class ParserLib extends TikiDb_Bridge
             if (substr($line, 0, 3) == '---') {
                 // This is not a list item --- close open paragraph and lists, but not div's
                 $this->close_blocks($data, $in_paragraph, $listbeg, $divdepth, 1, 1, 0);
-                $line = '<hr />';
+                $line = preg_replace("/---/s", "<hr />", $line);
             } else {
                 $litype = substr($line, 0, 1);
                 if (($litype == '*' || $litype == '#') && ! (strlen($line) - count($listbeg) > 4 && preg_match('/^\*+$/', $line))) {
