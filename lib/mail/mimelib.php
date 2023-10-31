@@ -144,6 +144,10 @@ class mime
             }
         }
 
+        if (! empty($back['ctype_parameters']['charset'])) {
+                $back['ctype_parameters']['charset'] = preg_replace('/;.*$/', '', $back['ctype_parameters']['charset']);
+        }
+
         if (isset($content_type)) {
             $type = 'text';
             switch (strtolower($content_type['value'])) {
