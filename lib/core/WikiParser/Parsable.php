@@ -490,7 +490,7 @@ if ( \$('#$id') ) {
         $func_name = 'wikiplugin_' . $name;
 
         $plugins_parsing_data = ['accordion', 'benchmark', 'button', 'code', 'fade', 'footnote', 'gdgraph', 'html', 'htmlfeed', 'markdown', 'pdfpage', 'quote',
-                                'registermemberpayment', 'rr_info', 'shorten', 'slideshowslide', 'swiper', 'tabs', 'tour', 'tracker', 'trackerquerytemplate', 'split'];
+                                'registermemberpayment', 'rr_info', 'shorten', 'slideshowslide', 'swiper', 'tabs', 'tour', 'tracker', 'trackerquerytemplate', 'split', 'wantedpages'];
         if (($this->option['is_markdown'] ?? false) && ! in_array($name, $plugins_parsing_data)) {
             $temp_nonparsed = [];
             $this->plugins_remove($data, $temp_nonparsed);
