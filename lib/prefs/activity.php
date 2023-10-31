@@ -68,5 +68,15 @@ function prefs_activity_list()
             'type' => 'flag',
             'default' => 'n',
         ],
+        'activity_stream_disable_indexing' => [
+            'name' => tr('Disable indexing of activity stream log'),
+            'description' => tr('Activity stream log in the search index is controlled by the presence of custom or basic activity events and also by enabling monitoring of events by users. Larger activity streams can cause problems with certain search engines. If you have such problems, you can disable indexing of activity stream here.'),
+            'help' => 'Activity-Stream',
+            'type' => 'flag',
+            'default' => 'n',
+            'dependencies' => [
+                'feature_search',
+            ],
+        ],
     ];
 }

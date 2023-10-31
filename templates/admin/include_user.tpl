@@ -164,6 +164,7 @@
                             <strong>{tr}Sample command:{/tr}</strong>
                             <code>/usr/bin/php {$monitor_command|escape}</code>
                         {/remarksbox}
+                        {preference name=activity_stream_disable_indexing}
                     </div>
                 </div>
                 {preference name=feature_user_watches}
