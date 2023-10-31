@@ -263,6 +263,9 @@ function wikiplugin_sharethis($data, $params)
     // put all the options together
 
     $sharethiscode = "~hc~ ))ShareThis(( Bookmark Button BEGIN ~/hc~";
+    if (TikiLib::lib('parser')->option['is_markdown']) {
+        $sharethiscode .= '~np~';
+    }
     $sharethiscode .= '<script type="text/javascript" src="https://ws.sharethis.com/button/sharethis.js#';
     $sharethiscode .= "type=" . $sharethis_options['type'];
 
@@ -300,6 +303,9 @@ function wikiplugin_sharethis($data, $params)
         $sharethiscode .= ';button=false';
     }
     $sharethiscode .= "\"></script>\n";
+    if (TikiLib::lib('parser')->option['is_markdown']) {
+        $sharethiscode = $sharethiscode . '~/np~';
+    }
     if (! empty($iconcode)) {
         $sharethiscode .= $iconcode;
     }
