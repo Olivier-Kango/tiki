@@ -791,7 +791,9 @@ class UnifiedSearchLib
         }
 
         if ($prefs['activity_custom_events'] == 'y' || $prefs['activity_basic_events'] == 'y' || $prefs['monitor_enabled'] == 'y') {
-            $aggregator->addContentSource('activity', new Search_ContentSource_ActivityStreamSource($aggregator instanceof Search_Indexer ? $aggregator : null));
+            if ($prefs['activity_stream_disable_indexing'] !== 'y') {
+                $aggregator->addContentSource('activity', new Search_ContentSource_ActivityStreamSource($aggregator instanceof Search_Indexer ? $aggregator : null));
+            }
         }
 
         if ($prefs['goal_enabled'] == 'y') {

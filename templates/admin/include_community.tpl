@@ -86,6 +86,7 @@
                 {/if}
 
                 {preference name=activity_notifications}
+                {preference name=activity_stream_disable_indexing}
             </fieldset>
             <fieldset>
                 <legend>{tr}Goal, recognition and rewards{/tr}</legend>
