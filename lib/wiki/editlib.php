@@ -1543,7 +1543,7 @@ class EditLib
 
         if ($target_syntax == 'markdown') {
             // handle some Tiki syntax to Wiki plugins that are not supported in Markdown
-            $data = preg_replace('/^\s*-=(.+)=-\s*$/m', '{DIV(class=titlebar)}$1{DIV}', $data);
+            $data = preg_replace('/\s*-=(.+)=-\s*/m', '{DIV(class=titlebar)}$1{DIV}', $data);
             $data = preg_replace_callback('/^(!+)([+\-#]+)(.*)$/m', function ($matches) {
                 $level = strlen($matches[1]);
                 if ($level < 1 || $level > 6) {
@@ -1557,6 +1557,9 @@ class EditLib
                 return preg_replace_callback('/^-+\(.*?\)-+/m', function ($innerMatches) {
                     return str_replace('-', '@-', $innerMatches[0]);
                 }, $matches[0]);
+            }, $data);
+            $data = preg_replace_callback('/\{SPLIT\(.*\)\}(.+)\{SPLIT\}/s', function ($matches) {
+                return preg_replace('/(?<![\-|])---(?![\-|])/', '@-@-@-', $matches[0]);
             }, $data);
 
             $ppArray = [];
@@ -1705,6 +1708,9 @@ class EditLib
                 return preg_replace_callback('/^(@-)+\(.*?\)(@-)+/m', function ($innerMatches) {
                     return str_replace('@-', '-', $innerMatches[0]);
                 }, $matches[0]);
+            }, $converted);
+            $converted = preg_replace_callback('/\{SPLIT\(.*\)\}(.+)\{SPLIT\}/s', function ($matches) {
+                return str_replace('@-', '-', $matches[0]);
             }, $converted);
         }
 
