@@ -386,6 +386,9 @@ class WikiPluginWantedPages extends PluginsLib
             }
         }
         $sOutput .= $endtable;
+        if (TikiLib::lib('parser')->option['is_markdown']) {
+            $sOutput = TikiLib::lib('parser')->parse_data($sOutput, ['is_markdown' => false, 'is_html' => true]);
+        }
         return $sOutput;
     }
 }

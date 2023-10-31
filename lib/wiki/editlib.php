@@ -1579,6 +1579,7 @@ class EditLib
         $wikiParserParsable->stripPlugins('code');
         $wikiParserParsable->stripPlugins('html');
         $wikiParserParsable->stripPlugins('maketoc');
+        $wikiParserParsable->stripPlugins('wantedpages');
         $wikiParserParsable->stripNP();
         $html = $wikiParserParsable->parse([
             'noparseplugins' => true,
