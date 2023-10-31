@@ -386,19 +386,19 @@ class ReconcileExifIptcXmp
         if (empty($omni['iptc']) || empty($omni['xmp'])) {
             return $omni;
         }
-        if (array_key_exists('2#060', $omni['iptc']['flat'])) {
-            if (array_key_exists('DateTimeOriginal', $omni['exif']['flat'])) {
+        if (! empty($omni['iptc']['flat']) && array_key_exists('2#060', $omni['iptc']['flat'])) {
+            if (! empty($omni['exif']['flat']) && array_key_exists('DateTimeOriginal', $omni['exif']['flat'])) {
                 $omni['exif']['flat']['DateTimeOriginalTime'] = $omni['exif']['flat']['DateTimeOriginal'];
             }
-            if (array_key_exists('DateCreated', $omni['xmp']['flat'])) {
+            if (! empty($omni['xmp']['flat']) && array_key_exists('DateCreated', $omni['xmp']['flat'])) {
                 $omni['xmp']['flat']['DateCreatedTime'] = $omni['xmp']['flat']['DateCreated'];
             }
         }
-        if (array_key_exists('2#063', $omni['iptc']['flat'])) {
-            if (array_key_exists('DateTimeDigitized', $omni['exif']['flat'])) {
+        if (! empty($omni['iptc']['flat']) && array_key_exists('2#063', $omni['iptc']['flat'])) {
+            if (! empty($omni['exif']['flat']) && array_key_exists('DateTimeDigitized', $omni['exif']['flat'])) {
                 $omni['exif']['flat']['DateTimeDigitizedTime'] = $omni['exif']['flat']['DateTimeDigitized'];
             }
-            if (array_key_exists('CreateDate', $omni['xmp']['flat'])) {
+            if (! empty($omni['xmp']['flat']) && array_key_exists('CreateDate', $omni['xmp']['flat'])) {
                 $omni['xmp']['flat']['CreateDateTime'] = $omni['xmp']['flat']['CreateDate'];
             }
         }

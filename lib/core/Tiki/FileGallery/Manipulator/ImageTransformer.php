@@ -44,9 +44,8 @@ class ImageTransformer extends Manipulator
             $exif = exif_read_data($work_file);
         }
 
-        if (! empty($exif['Orientation'])) {
+        if (! empty($exif['Orientation']) && $imageResource = $imageReader($work_file)) {
             // Rotate the image if the exif 'Orientation' shows it is needed
-            $imageResource = $imageReader($work_file);
             switch ($exif['Orientation']) {
                 case 3:
                     $image = imagerotate($imageResource, 180, 0);
@@ -102,16 +101,18 @@ class ImageTransformer extends Manipulator
                 $image_p = $imageReader($work_file);
             }
 
-            if (! imagecopyresampled($image_resized_p, $image_p, 0, 0, 0, 0, $image_new_x, $image_new_y, $image_x, $image_y)) {
-                Feedback::error(tra('Cannot resize the file:') . ' ' . $work_file);
-            }
+            if ($image_p) {
+                if (! imagecopyresampled($image_resized_p, $image_p, 0, 0, 0, 0, $image_new_x, $image_new_y, $image_x, $image_y)) {
+                    Feedback::error(tra('Cannot resize the file:') . ' ' . $work_file);
+                }
 
-            imagedestroy($image_p);
+                imagedestroy($image_p);
 
-            if (! $imageWriter($image_resized_p, $work_file)) {
-                Feedback::error(tra('Cannot write the file:') . ' ' . $work_file);
-            } else {
-                Feedback::success(tr('Image was reduced: %s x %s -> %s x %s', $image_x, $image_y, (int)$image_new_x, (int)$image_new_y));
+                if (! $imageWriter($image_resized_p, $work_file)) {
+                    Feedback::error(tra('Cannot write the file:') . ' ' . $work_file);
+                } else {
+                    Feedback::success(tr('Image was reduced: %s x %s -> %s x %s', $image_x, $image_y, (int)$image_new_x, (int)$image_new_y));
+                }
             }
         }
 
