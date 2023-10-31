@@ -100,6 +100,7 @@ class WikiParser_ParsableMarkdown extends ParserLib
         // wiki page links and external links are handled in Tiki-syntax to allow sister sites and other semantic linking
         $data = $this->parse_data_wikilinks($data, false, $this->option['wysiwyg']);
         $data = $this->parse_data_externallinks($data, false);
+        $data = preg_replace(';~hc~(.*?)~/hc~;s', '<!-- $1 -->', $data);
 
         // converter/parser expects UTF-8, try to cleanup invalid characters
         $data = mb_convert_encoding($data, 'UTF-8', 'UTF-8');
