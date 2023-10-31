@@ -222,5 +222,9 @@ function wikiplugin_snarf($data, $params)
         $ret = $icon . $ret;
     }
 
+    if (TikiLib::lib('parser')->option['is_markdown']) {
+        $ret = '~np~' . $ret . '~/np~';
+    }
+
     return $ret;
 }
