@@ -71,5 +71,9 @@ function wikiplugin_skype($data, $params)
     }
     $ret .= "</a>";
 
+    if (TikiLib::lib('parser')->option['is_markdown']) {
+        $ret = '~np~' . $ret . '~/np~';
+    }
+
     return $ret;
 }
