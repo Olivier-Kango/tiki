@@ -1583,6 +1583,7 @@ class EditLib
         $wikiParserParsable->stripPlugins('html');
         $wikiParserParsable->stripPlugins('maketoc');
         $wikiParserParsable->stripPlugins('wantedpages');
+        $wikiParserParsable->stripPlugins('markdown');
         $wikiParserParsable->stripNP();
         $html = $wikiParserParsable->parse([
             'noparseplugins' => true,
@@ -1712,6 +1713,9 @@ class EditLib
             $converted = preg_replace_callback('/\{SPLIT\(.*\)\}(.+)\{SPLIT\}/s', function ($matches) {
                 return str_replace('@-', '-', $matches[0]);
             }, $converted);
+
+            // Markdown plugin is not needed any more
+            $converted = preg_replace('/\{MARKDOWN.*?\}(.*?)\{MARKDOWN\}/s', "$1", $converted);
         }
 
         return $converted;
