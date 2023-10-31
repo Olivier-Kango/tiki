@@ -1679,6 +1679,9 @@ class EditLib
             // Bring back > character
             $converted = str_replace('&gt;', '>', $converted);
 
+            // When ** closing is precedeed by : directly followed by a non space it fails
+            $converted = preg_replace('/\*\*(.*):\*\*(?![\s\n\r])/', "**$1:** ", $converted);
+
             if ($ppArray) {
                 $converted = str_replace($ppArray['keys'], $ppArray['values'], $converted);
             }
