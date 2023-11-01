@@ -5,7 +5,7 @@
         </aside>
     {/if}
     <div class="admin-content w-100 mx-3">
-        {if $adminpage eq ''}
+        {* {if $adminpage eq ''}
             <form class="d-none toggle-unified-admin-panel-alertbox">
                 {ticket}
                 <div class="alert alert-info alert-dismissible was-toggle-unified-admin-panel">
@@ -32,7 +32,7 @@
                     <button id="dont-show-toggle-unified-admin-panel-alertbox" data-bs-dismiss="alert" aria-label="Close" class="btn btn-secondary btn-sm mt-2">{icon name="close"}&nbsp; {tr}Don't show again{/tr}</button>
                 </div>
             </form>
-        {/if}
+        {/if} *}
         {include file="admin/admin_navbar.tpl"}
         {if $prefs.sender_email eq ''}
             {remarksbox type=warning title="{tr}Warning{/tr}" close="y"}
