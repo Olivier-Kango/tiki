@@ -363,6 +363,7 @@ function smarty_function_object_link_forumpost($smarty, $object, $title = null, 
         } else {
             break;
         }
-    }
-    return "<a href='tiki-view_forum_thread.php?threadId=" . $comment['threadId'] . "'>" . $comment['title'] . "</a>";
+    };
+    // Check if 'threadId' key exists in $comment array before accessing it
+    return array_key_exists('threadId', $comment) && isset($comment['threadId']) ? "<a href='tiki-view_forum_thread.php?threadId=" . $comment['threadId'] . "'>" . $comment['title'] . "</a>" : "<span>" . $comment['title'] . "</span>";
 }
