@@ -116,7 +116,7 @@ GREP=`which grep`
 ID=`which id`
 MKDIR=`which mkdir`
 MV=`which mv`
-PHPCLI=`which php`
+PHPCLI=$(which php || type -p php)
 RM=`which rm`
 SORT=`which sort`
 TOUCH=`which touch`
@@ -212,7 +212,7 @@ while getopts "hu:g:v:p:nkd:q" OPTION; do
         ?) usage ; exit 1 ;;
     esac
     if [ -n "$OPT_PHPCLI" ]; then
-        PHPCLI=`which "${OPT_PHPCLI}"`
+        PHPCLI=$(which "${OPT_PHPCLI}" || type -p "${OPT_PHPCLI}")
         if [ ! -n "$PHPCLI" ]; then
             echo "PHP command: ${OPT_PHPCLI} not found. Please provide an existing command."
             exit 1
@@ -673,7 +673,7 @@ composer()
         echo "Wrong PHP version: php${LOCAL_PHP_VERSION}.  A version >= php${REQUIRED_PHP_VERSION} and <= php${MAX_PHP_VERSION} is necessary."
         echo "Searching for typically named alternative PHP version ..."
         for phptry in $LIKELY_ALTERNATE_PHP_CLI; do
-            PHPTRY=`which $phptry`
+            PHPTRY=$(which "${phptry}" || type -p "${phptry}")
             #echo "debug: $PHPTRY"
             if [ -n "${PHPTRY}" ]; then
                 echo "... correct PHP version ${phptry} detected and used"
