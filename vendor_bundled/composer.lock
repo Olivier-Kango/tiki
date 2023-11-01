@@ -686,7 +686,7 @@
             "version": "5.15.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
                 "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e"
             },
             "dist": {
@@ -830,17 +830,17 @@
         },
         {
             "name": "ckeditor/ckeditor",
-            "version": "4.22.1",
+            "version": "4.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3"
+                "reference": "13a70b2385e6ff7805c2faff1278fca6e42646f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-0d51138b0a258165ac09724e8f5cda67cf9126a3-zip-a74417.zip",
-                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3",
-                "shasum": "ef0f60c617f38407c987a0b5f818823cade101d9"
+                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-13a70b2385e6ff7805c2faff1278fca6e42646f7-zip-a3bb6c.zip",
+                "reference": "13a70b2385e6ff7805c2faff1278fca6e42646f7",
+                "shasum": "08787e572a1c8aa6ab2210fe5fda8be936347a4d"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -868,7 +868,7 @@
                 "text",
                 "wysiwyg"
             ],
-            "time": "2023-06-30T13:35:30+00:00"
+            "time": "2023-08-24T13:32:10+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -2299,17 +2299,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8"
+                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-a4176476c8920b3e75fe85b99c9cb942021488e8-zip-eda341.zip",
-                "reference": "a4176476c8920b3e75fe85b99c9cb942021488e8",
-                "shasum": "b60e390284fa35f732c610b14c015ac5a68cde7b"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-29a9b4396322cc3403b5d64578917ea025c5164e-zip-bc122f.zip",
+                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e",
+                "shasum": "d67af82acefb4f96f14c4e016c3a584f341f6c4d"
             },
             "require": {
                 "php": ">=5.4"
@@ -2339,7 +2339,7 @@
                 "php",
                 "sieve"
             ],
-            "time": "2023-07-11T09:01:24+00:00"
+            "time": "2023-10-19T14:43:05+00:00"
         },
         {
             "name": "hesammousavi/bootstrap-v4-rtl",
@@ -5133,17 +5133,17 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.13.0",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "a6dfb1194a2946fcdc1f38219445234f65b35c96"
+                "reference": "b6a5854368533df0295c5761a0253656a2e52d9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-a6dfb1194a2946fcdc1f38219445234f65b35c96-zip-f76d25.zip",
-                "reference": "a6dfb1194a2946fcdc1f38219445234f65b35c96",
-                "shasum": "67d4675512bd47837076db92cc81fbaa451956a9"
+                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-b6a5854368533df0295c5761a0253656a2e52d9e-zip-7429ec.zip",
+                "reference": "b6a5854368533df0295c5761a0253656a2e52d9e",
+                "shasum": "14daf256e3fe040c99e61d5033921f76e242bbb5"
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -5181,7 +5181,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-05T12:09:49+00:00"
+            "time": "2023-10-17T14:13:20+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -6300,11 +6300,11 @@
         },
         {
             "name": "npm-asset/nanoid",
-            "version": "3.3.4",
+            "version": "3.3.6",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/nanoid/npm-asset-nanoid-3.3.4.zip",
-                "shasum": "34e7e53ff2abde690e49bab22325474cfc722fe8"
+                "url": "https://composer.tiki.org/dist/npm-asset/nanoid/npm-asset-nanoid-3.3.6.zip",
+                "shasum": "c05a61ff0cdf153148e3d9be7651e0d07402d7db"
             },
             "type": "npm-asset",
             "license": [
@@ -6339,14 +6339,14 @@
         },
         {
             "name": "npm-asset/postcss",
-            "version": "8.4.14",
+            "version": "8.4.31",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.14.zip",
-                "shasum": "c6182c399bf49d6f458aa52d0fae550e5f4a9330"
+                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.31.zip",
+                "shasum": "f7df4ce815b7497724b9af5867dd5864d5de9044"
             },
             "require": {
-                "npm-asset/nanoid": ">=3.3.4,<4.0.0",
+                "npm-asset/nanoid": ">=3.3.6,<4.0.0",
                 "npm-asset/picocolors": ">=1.0.0,<2.0.0",
                 "npm-asset/source-map-js": ">=1.0.2,<2.0.0"
             },
@@ -7944,31 +7944,26 @@
         },
         {
             "name": "php-http/promise",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/promise.git",
-                "reference": "4c4c1f9b7289a2ec57cde7f1e9762a5789506f88"
+                "reference": "ef4905bfb492ff389eb7f12e26925a0f20073050"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/php-http/promise/php-http-promise-4c4c1f9b7289a2ec57cde7f1e9762a5789506f88-zip-1aaead.zip",
-                "reference": "4c4c1f9b7289a2ec57cde7f1e9762a5789506f88",
-                "shasum": "0bd6758ca54ad2497934a4010609ffd11c1b31a2"
+                "url": "https://composer.tiki.org/dist/php-http/promise/php-http-promise-ef4905bfb492ff389eb7f12e26925a0f20073050-zip-3e0c82.zip",
+                "reference": "ef4905bfb492ff389eb7f12e26925a0f20073050",
+                "shasum": "d22d6387f63bf76afba0c30fe3656dbe56a7cc72"
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
-                "phpspec/phpspec": "^5.1.2 || ^6.2"
+                "friends-of-phpspec/phpspec-code-coverage": "^4.3.2 || ^6.3",
+                "phpspec/phpspec": "^5.1.2 || ^6.2 || ^7.4"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Http\\Promise\\": "src/"
@@ -7993,7 +7988,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2020-07-07T09:29:14+00:00"
+            "time": "2023-10-24T09:20:26+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -9629,17 +9624,17 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.21.0",
+            "version": "3.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "624aafc22b84b089ffa43b71fb01e0096505ec4f"
+                "reference": "c0e3df5a5c1d133cd9461e7672568ff07042c19d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-624aafc22b84b089ffa43b71fb01e0096505ec4f-zip-a82bb5.zip",
-                "reference": "624aafc22b84b089ffa43b71fb01e0096505ec4f",
-                "shasum": "821b027a2c18ea9288cf7ff7a6d5f09f67a546cc"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-c0e3df5a5c1d133cd9461e7672568ff07042c19d-zip-4ff8dd.zip",
+                "reference": "c0e3df5a5c1d133cd9461e7672568ff07042c19d",
+                "shasum": "b75498bf261fda8927c1c3c3e8f8b5f9c0ac0949"
             },
             "require": {
                 "ext-json": "*",
@@ -9656,7 +9651,7 @@
                 "psr/http-factory": "^1.0",
                 "psr/http-factory-implementation": "^1.0",
                 "psr/log": "^1.0|^2.0|^3.0",
-                "symfony/options-resolver": "^3.4.43|^4.4.30|^5.0.11|^6.0",
+                "symfony/options-resolver": "^3.4.43|^4.4.30|^5.0.11|^6.0|^7.0",
                 "symfony/polyfill-php80": "^1.17"
             },
             "conflict": {
@@ -9721,7 +9716,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-07-31T15:31:24+00:00"
+            "time": "2023-10-23T20:34:53+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -15170,5 +15165,5 @@
         "ext-soap": "0",
         "php": "7.4"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
