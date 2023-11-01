@@ -492,6 +492,9 @@ if ( \$('#$id') ) {
         $plugins_parsing_data = ['accordion', 'benchmark', 'button', 'code', 'fade', 'footnote', 'gdgraph', 'html', 'htmlfeed', 'markdown', 'pdfpage', 'quote',
                                 'registermemberpayment', 'rr_info', 'shorten', 'slideshowslide', 'swiper', 'tabs', 'tour', 'tracker', 'trackerquerytemplate', 'split', 'wantedpages', 'fluidgrid'];
         if (($this->option['is_markdown'] ?? false) && ! in_array($name, $plugins_parsing_data)) {
+            if ($name == 'fancytable') {
+                $data = str_replace('~|~', '{ftlongseparator}', $data);
+            }
             $temp_nonparsed = [];
             $this->plugins_remove($data, $temp_nonparsed);
             $parsable = new WikiParser_ParsableMarkdown($data);
@@ -500,6 +503,9 @@ if ( \$('#$id') ) {
             $data = preg_replace('/^\s*<p>(.*)<\/p>\s*$/s', '$1', $data);
             $this->plugins_replace($data, $temp_nonparsed);
             unset($temp_nonparsed);
+            if ($name == 'fancytable') {
+                $data = str_replace('{ftlongseparator}', '~|~', $data);
+            }
         }
 
         if (! $validationPerformed && ! ($this->option['wysiwyg'] ?? false)) {
