@@ -3854,7 +3854,7 @@ class TikiLib extends TikiDb_Bridge
                 $valid = false;
                 $verified = self::take_away_accent($res['pageName']);
                 foreach ((array) $initial as $candidate) {
-                    if (stripos($verified, $candidate) === 0) {
+                    if (stripos($verified, $candidate) === 0 || stripos($res['pageName'], $candidate) === 0) {
                         $valid = true;
                         break;
                     }
