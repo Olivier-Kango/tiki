@@ -29,6 +29,8 @@ class Services_Performance_Controller
             return;
         }
 
-        return $performanceLib->addRecord($input['u'], $input['t_done']);
+        $time_taken = intval($input['t_done']); // Convert to integer or use 0 if null or invalid
+
+        return $performanceLib->addRecord($input['u'], $time_taken);
     }
 }
