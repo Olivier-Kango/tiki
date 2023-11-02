@@ -19,4 +19,4 @@ $access->check_feature('feature_calendar');
 
 $authBackend = new BasicAuth();
 $server = Utilities::buildCaldavServer($authBackend);
-$server->exec();
+$server->stat();
