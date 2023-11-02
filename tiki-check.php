@@ -1167,6 +1167,23 @@ if (empty($s)) {
     );
 }
 
+$tempDir = sys_get_temp_dir();
+$tmpfile = tempnam($tempDir, 'symfony');
+
+if (! is_writable($tmpfile) || empty($tmpfile)) {
+    $php_properties['sys_get_temp_dir'] = array(
+        'fitness' => tra('bad'),
+        'setting' => '',
+        'message' => tra("Temporary folder is set to $tempDir, but it is not accessible by Tiki.")
+    );
+} else {
+    $php_properties['sys_get_temp_dir'] = array(
+        'fitness' => tra('good'),
+        'setting' => 'Ok',
+        'message' => tra('The Temporary is accessible and writable by Tiki.')
+    );
+}
+
 // file_uploads
 $s = ini_get('file_uploads');
 if ($s) {

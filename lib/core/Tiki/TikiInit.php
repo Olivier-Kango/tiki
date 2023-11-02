@@ -87,6 +87,13 @@ class TikiInit
 
         $loader = new XmlFileLoader($container, new FileLocator($path));
 
+        $tempDir = sys_get_temp_dir();
+        $tmpfile = tempnam($tempDir, 'symfony');
+
+        if (! is_writable($tmpfile) || empty($tmpfile)) {
+            throw new \RuntimeException("Temporary folder is set to $tempDir, but it is not accessible by Tiki.");
+        }
+
         $loader->load('tiki.xml');
         $loader->load('controllers.xml');
         $loader->load('mailin.xml');
