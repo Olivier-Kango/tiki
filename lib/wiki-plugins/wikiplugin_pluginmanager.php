@@ -297,7 +297,11 @@ class WikiPluginPluginManager extends PluginsLib
                             $optcounter = 1;
                             $numoptions = count($paraminfo['options']);
                             foreach ($paraminfo['options'] as $oplist => $opitem) {
-                                $rows .= isset($opitem['value']) && strlen($opitem['value']) == 0 ? tra('(blank)') : $opitem['value'];
+                                if (isset($opitem['value'])) {
+                                    $rows .= strlen($opitem['value']) == 0 ? tra('(blank)') : $opitem['value'];
+                                } else {
+                                    $rows .= tra('(blank)'); // Set a default value if 'value' key is not defined
+                                }
                                 if ($optcounter < $numoptions) {
                                     if ($numoptions > 10) {
                                         $rows .= $sep;
