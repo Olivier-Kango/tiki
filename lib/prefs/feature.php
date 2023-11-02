@@ -821,6 +821,8 @@ function prefs_feature_list($partial = false)
             'type' => 'flag',
             'description' => tr('Displays a personal calendar for each user.'),
             'default' => 'n',
+            'tags' => ['deprecated'],
+            'warning' => tra("Deprecated: This feature will be phased out in favor of Tiki Calendars which now support CalDAV and many other goodies."),
         ],
         'feature_userPreferences' => [
             'name' => tra('User preferences screen'),

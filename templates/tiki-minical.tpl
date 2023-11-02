@@ -2,6 +2,10 @@
 
 {include file='tiki-mytiki_bar.tpl'}
 
+{remarksbox type=warning title="{tr}Warning{/tr}" close="y"}
+    {tr}Mini Calendar feature is deprecated in Tiki 27 and will be removed starting from Tiki 28. You are advised to migrate to Tiki Calendars.{/tr}
+{/remarksbox}
+
 <div class="t_navbar mb-4">
     {button href="tiki-minical.php#add" class="btn btn-primary" _text="{tr}Add{/tr} "}
     {button href="tiki-minical_export.php" class="btn btn-primary" _text="{tr}Export{/tr}"}
