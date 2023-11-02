@@ -16,7 +16,7 @@
 {block name="content"}
     {if $completed}
         {remarksbox type=confirm title="{tr}Import Completed{/tr}"}
-            {tr}Your import was completed succesfully.{/tr}
+            {tr}Your import was completed successfully.{/tr}
         {/remarksbox}
     {else}
         <form class="no-ajax" method="post" action="{service controller=tabular action=import_csv tabularId=$tabularId}" enctype="multipart/form-data">
