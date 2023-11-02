@@ -16,7 +16,7 @@ if (isset($_POST['import']) && $access->checkCsrf()) {
     $msgs = [];
     $result = $artlib->import_csv($fname, $msgs);
     if ($result) {
-        Feedback::success(tr('File %0 succesfully imported.', $_FILES['csvlist']['name']));
+        Feedback::success(tr('File %0 successfully imported.', $_FILES['csvlist']['name']));
     } elseif (! empty($msgs)) {
         Feedback::error(['mes' => $msgs]);
     }
