@@ -111,6 +111,7 @@ class Comments extends TikiLib
     /* Add an attachment to a post in a forum */
     public function add_thread_attachment($forum_info, $threadId, &$errors, $name, $type, $size, $inbound_mail = 0, $qId = 0, $fp = '', $data = '')
     {
+        global $prefs;
         $perms = Perms::get(['type' => 'thread', 'object' => $threadId]);
         if (
             ! ($forum_info['att'] == 'att_all'
@@ -1024,6 +1025,10 @@ class Comments extends TikiLib
         $reply_state,
         $forum_info = ''
     ) {
+        // Initialize the $bind_vars array as an empty array
+        $bind_vars = [];
+        $join = '';
+        $where = '';
 
         if ($sort_mode == 'points_asc') {
             $sort_mode = 'average_asc';
@@ -1441,6 +1446,8 @@ class Comments extends TikiLib
         global $prefs;
 
         $bindvars = [];
+        $join = '';
+        $where = '';
 
         $categlib = TikiLib::lib('categ');
         if ($jail = $categlib->get_jail()) {
@@ -2724,6 +2731,9 @@ class Comments extends TikiLib
         $toponly = false,
         $objectId = ''
     ) {
+        $jail_join = '';
+        $jail_where = '';
+        $jail_bind = [];
 
         $join = '';
         if (empty($type)) {
@@ -3800,6 +3810,7 @@ class Comments extends TikiLib
      */
     public function post_in_forum($forum_info, &$params, &$feedbacks, &$errors)
     {
+        global $message_id;
         global $tiki_p_admin_forum, $tiki_p_forum_post_topic;
         global $tiki_p_forum_post, $prefs, $user, $tiki_p_forum_autoapp;
         $captchalib = TikiLib::lib('captcha');
@@ -4275,8 +4286,8 @@ class Comments extends TikiLib
     {
         $topics = $this->get_forum_topics($forumId);
 
-        foreach ($topics as $topic) {
-            if ($element === end($array)) { //if element is the last in the array, then run the process.
+        foreach ($topics as $element => $topic) {
+            if ($element === array_key_last($topics)) { //if element is the last in the array, then run the process.
                 refresh_index('forum post', $topic['threadId'], true);
             } else {
                 refresh_index('forum post', $topic['threadId'], false); //don't run the process right away (re: false), wait until last element
