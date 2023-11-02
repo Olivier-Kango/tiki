@@ -97,6 +97,8 @@ class BlogLib extends TikiDb_Bridge
         $tikilib = TikiLib::lib('tiki');
         $categlib = TikiLib::lib('categ');
         $bindvars = [];
+        $join = '';
+        $where = '';
 
         if ($jail = $categlib->get_jail()) {
             $categlib->getSqlJoin($jail, 'blog', '`tiki_blogs`.`blogId`', $join, $where, $bindvars);
