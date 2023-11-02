@@ -47,9 +47,6 @@ class WikiPluginPluginManager extends PluginsLib
         if (empty($helpurl)) {
             $helpurl = 'http://doc.tiki.org/';
         }
-        if (empty($sourceurl)) {
-            $sourceurl = 'https://gitlab.com/tikiwiki/tiki/-/blob/master/lib/wiki-plugins/';
-        }
 
         $params = $this->getParams($params);
         extract($params, EXTR_SKIP);
@@ -66,6 +63,7 @@ class WikiPluginPluginManager extends PluginsLib
             $mod = true;
             $type = ' module';
             $plugin = $module;
+            $sourceurl = 'https://gitlab.com/tikiwiki/tiki/-/blob/master/modules/';
         } else {
             $aPrincipalField = ['field' => 'plugin', 'name' => 'Plugin'];
             $helppath = $helpurl . $aPrincipalField['name'];
@@ -73,6 +71,7 @@ class WikiPluginPluginManager extends PluginsLib
             $aPlugins = $wikilib->list_plugins();
             $mod = false;
             $type = ' plugin';
+            $sourceurl = 'https://gitlab.com/tikiwiki/tiki/-/blob/master/lib/wiki-plugins/';
         }
         $all = $aPlugins;
         //if the user set $module, that setting has now been moved to $plugin so that one code set is used
