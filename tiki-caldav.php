@@ -60,4 +60,4 @@ $browser = new DAV\Browser\Plugin();
 $server->addPlugin($browser);
 
 // And off we go!
-$server->exec();
+$server->start();
