@@ -90,7 +90,7 @@ class Captcha_Questions extends Laminas\Captcha\AbstractWord
     public function isValid($value, $context = null)
     {
         if (! is_array($value) && ! is_array($context)) {
-            $this->_error(self::MISSING_VALUE);
+            $this->error(self::MISSING_VALUE);
             return false;
         }
         if (! is_array($value) && is_array($context)) {
