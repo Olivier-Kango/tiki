@@ -78,7 +78,7 @@ class Patch
      */
     public function record()
     {
-        Installer::getInstance()->query("INSERT INTO tiki_schema (patch_name, install_date) VALUES(?, NOW())", [$this->name]);
+        Installer::getInstance()->query("INSERT INTO tiki_schema (patch_name, install_date) VALUES(?, NOW())", [$this->name], countQueries: false);
         $this->pushPatchNameToBrowser('build_patch', $this->name);
         self::$list[$this->name]->setStatus(self::NEWLY_APPLIED);
     }

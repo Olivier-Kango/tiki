@@ -342,18 +342,23 @@ class Installer extends TikiDb_Bridge implements SplSubject
      * @param $offset
      * @param bool $reporterrors
      * @param string $patch
+     * @param bool $countQueries
      * @return TikiDb_Pdo_Result or false if the query failed
      */
-    public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true, $patch = '')
+    public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true, $patch = '', $countQueries = true)
     {
         $error = '';
         $result = $this->queryError($query, $error, $values);
 
         if ($result && empty($error)) {
-            $this->queries['successful'][] = $query;
+            if ($countQueries) {
+                $this->queries['successful'][] = $query;
+            }
             return $result;
         } else {
-            $this->queries['failed'][] = [$query, $error, substr(basename($patch), 0, -4)];
+            if ($countQueries) {
+                $this->queries['failed'][] = [$query, $error, substr(basename($patch), 0, -4)];
+            }
             return false;
         }
     }
@@ -580,14 +585,16 @@ class Installer extends TikiDb_Bridge implements SplSubject
     protected function assureDefaultCharSetIsAlignedWithTikiSchema()
     {
         $databaseInfoResult = $this->query(
-            'SELECT SCHEMA_NAME, DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = DATABASE()'
+            'SELECT SCHEMA_NAME, DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = DATABASE()',
+            countQueries: false
         );
         if (! $databaseInfoResult || ! $databaseInfo = $databaseInfoResult->fetchRow()) {
             return;
         }
 
         $tableInfoResult = $this->query(
-            'SELECT TABLE_SCHEMA, CHARACTER_SET_NAME, COLLATION_NAME from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = "tiki_schema" AND COLUMN_NAME="patch_name"'
+            'SELECT TABLE_SCHEMA, CHARACTER_SET_NAME, COLLATION_NAME from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = "tiki_schema" AND COLUMN_NAME="patch_name"',
+            countQueries: false
         );
         if (! $tableInfoResult || ! $tableInfo = $tableInfoResult->fetchRow()) {
             return;

@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\Installer\Installer;
+
 /**
  * Class TikiDb
  * Implemented by TikiDb_Pdo and TikiDb_Adodb
@@ -375,7 +377,7 @@ abstract class TikiDb
     {
         static $engine = '';
         if (empty($engine)) {
-            $result = $this->query('SHOW TABLE STATUS LIKE "tiki_schema"');
+            $result = Installer::getInstance()->query('SHOW TABLE STATUS LIKE "tiki_schema"', countQueries: false);
             if ($result) {
                 $res = $result->fetchRow();
                 $engine  = $res['Engine'];
