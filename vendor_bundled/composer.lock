@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21180eb1e975fdba03797e4b61d015d5",
+    "content-hash": "88bd308b235ce0baf979dda4e83e092e",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -830,17 +830,17 @@
         },
         {
             "name": "ckeditor/ckeditor",
-            "version": "4.23.0",
+            "version": "4.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "13a70b2385e6ff7805c2faff1278fca6e42646f7"
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-13a70b2385e6ff7805c2faff1278fca6e42646f7-zip-a3bb6c.zip",
-                "reference": "13a70b2385e6ff7805c2faff1278fca6e42646f7",
-                "shasum": "08787e572a1c8aa6ab2210fe5fda8be936347a4d"
+                "url": "https://composer.tiki.org/dist/ckeditor/ckeditor/ckeditor-ckeditor-0d51138b0a258165ac09724e8f5cda67cf9126a3-zip-a74417.zip",
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3",
+                "shasum": "ef0f60c617f38407c987a0b5f818823cade101d9"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -868,7 +868,7 @@
                 "text",
                 "wysiwyg"
             ],
-            "time": "2023-08-24T13:32:10+00:00"
+            "time": "2023-06-30T13:35:30+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -15165,5 +15165,5 @@
         "ext-soap": "0",
         "php": "7.4"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
