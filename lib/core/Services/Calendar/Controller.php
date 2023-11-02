@@ -204,6 +204,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
         $timezones = TikiDate::getTimeZoneList();
         $timezones = array_keys($timezones);
+        $return_url = $input->return_url->url();
 
         $rawcals = $this->calendarLib->list_calendars();
 
@@ -246,6 +247,9 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                             if ($input->offsetExists('redirect')) {
                                 return ['url' => $input->redirect->url()];
                             } else {
+                                if ($return_url && ! $access->is_xml_http_request()) {
+                                    return $access->redirect($return_url, tr('The event was saved successfully'));
+                                }
                                 // reload the page?
                                 return [];
                             }
