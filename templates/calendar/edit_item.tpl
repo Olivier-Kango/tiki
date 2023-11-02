@@ -8,7 +8,8 @@
     <form action="{service controller='calendar' action='edit_item'}" method="post" class="edit-event-form">
         <div class="form-contents">
             <div class="preview d-none">
-                {remarksbox title="{tr}Preview{/tr}" type='secondary' icon='edit'}{/remarksbox}
+                <button type="button" class="btn-close" style="position:absolute;right:2rem;top:2rem;z-index:1;" aria-label="{tr}Close{/tr}"></button>
+                {remarksbox title="{tr}Preview{/tr}" type='secondary' icon='edit' close='n'}{/remarksbox}
             </div>
             <div class="h5 my-3">
                 {if $calitemId}
