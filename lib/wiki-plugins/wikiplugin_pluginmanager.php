@@ -338,7 +338,8 @@ class WikiPluginPluginManager extends PluginsLib
                         if (! isset($paraminfo['default'])) {
                             $paraminfo['default'] = '';
                         }
-                        $rows .= $cellbegin . $paraminfo['default'] . '</td>';
+                        $default = is_array($paraminfo['default']) ? implode(',', $paraminfo['default']) : $paraminfo['default'];
+                        $rows .= $cellbegin . $default . '</td>';
                         //Since column
                         if ($rowCounter == 1) {
                             $header .= $headbegin . tra('Since') . '</th>';
