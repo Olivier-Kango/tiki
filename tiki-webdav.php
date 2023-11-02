@@ -38,4 +38,4 @@ $locksBackend = new LocksBackend($tikipath . 'temp/davlocks');
 $locksPlugin = new DAV\Locks\Plugin($locksBackend);
 $server->addPlugin($locksPlugin);
 
-$server->exec();
+$server->start();
