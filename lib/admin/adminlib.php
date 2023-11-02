@@ -570,6 +570,7 @@ class AdminLib extends TikiLib
      */
     public function checkSystemConfigurationFile()
     {
+        global $system_configuration_file;
         $show_warning = false;
 
         $db_file = 'db/local.php';
