@@ -100,7 +100,9 @@ class TikiDb_Pdo extends TikiDb
             $tikiDbPdoResult = $this->query("SHOW VARIABLES LIKE 'version'");
             $mysqlVersion = $tikiDbPdoResult->fetchRow();
             if (version_compare($mysqlVersion['Value'], '8.0.4') >= 0) {
-                $values = str_replace(['[[:<:]]', '[[:>:]]'], '\\b', $values);
+                if ($values !== null) {
+                    $values = str_replace(['[[:<:]]', '[[:>:]]'], '\\b', $values);
+                }
                 // TODO other exceptions as listed here maybe?
                 // https://dev.mysql.com/doc/refman/8.0/en/regexp.html#regexp-compatibility
             }
