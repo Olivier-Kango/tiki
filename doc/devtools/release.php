@@ -1,5 +1,8 @@
 <?php
 
+include_once('lib/core/Tiki/TikiInit.php');
+use Tiki\TikiInit;
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -385,7 +388,13 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
                 // Escape filename. Since this requires a connection to MySQL (due to the charset), do so conditionally to reduce the risk of connection failure.
                 if (! preg_match('/^[a-zA-Z!-9\/ _+.-@]+$/', $file)) {
                     if (! $link) {
-                        $link = mysqli_connect();
+                        require TikiInit::getCredentialsFile();
+                        $link = mysqli_connect(
+                            $host_tiki,
+                            $user_tiki,
+                            $pass_tiki,
+                            $dbs_tiki
+                        );
 
                         if (mysqli_connect_errno()) {
                             global $phpCommand, $phpCommandArguments;
