@@ -68,6 +68,7 @@ class TikiCalendarLib extends CalendarLib
         }
 
         foreach ($tikiobj as $type) {
+            $where = '';
             if ($type != '' && $type != 'wiki') {
                 $objectType = ( $type == 'wiki comment' ) ? 'wiki page' : $type;
                 $result = $this->get_object_cal_infos($type, [$tstart, $tstop, $objectType]);
