@@ -179,7 +179,7 @@ class Manager
 
         $tabularId = $definition->getConfiguration('tabularSync', 0);
         if (! $tabularId) {
-            \Feedback::error(tr("Tracker not congfigured for remote synchronization: %0", $trackerId));
+            \Feedback::error(tr("Tracker not configured for remote synchronization: %0", $trackerId));
             return true;
         }
 
