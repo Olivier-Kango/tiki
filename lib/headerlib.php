@@ -123,7 +123,7 @@ class HeaderLib
 
     public $rssfeeds = [];
     public $metatags = [];
-    public $linktags;
+    public $linktags = [];
     public $rawhtml = '';
 
     /* If set to true, any js added through add_jsfile() that has not rank 'external' will be put to rank 'late'
