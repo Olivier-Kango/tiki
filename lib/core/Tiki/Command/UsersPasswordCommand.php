@@ -29,7 +29,7 @@ class UsersPasswordCommand extends Command
             )
             ->addArgument(
                 'username',
-                InputArgument::REQUIRED,
+                InputArgument::OPTIONAL,
                 'User login name'
             )
             ->addArgument(
@@ -46,19 +46,46 @@ class UsersPasswordCommand extends Command
 
         $userlib = TikiLib::lib('user');
         $logslib = TikiLib::lib('logs');
+        $helper = $this->getHelper('question');
 
+        /* ============================== */
+        /* = username argument = */
+        /* ============================== */
         $user = $input->getArgument('username');
 
+        // If the username is not provided as an argument,
+        if (empty($user)) {
+            // try to get it from the environment variable
+            $env_user = getenv('USERNAME');
+            $show_env_user = $env_user ? " [{$env_user}]" : '';
+            // If the environment variable is not set, prompt the user for the username interactively
+            $question = new Question("Please enter the username {$show_env_user}: ");
+            $user = $helper->ask($input, $output, $question) ?: $env_user;
+        }
+
+        // If the username is still empty, exit with an error
+        if (! $user) {
+            $output->writeln('<error>The username argument is required.</error>');
+            return Command::FAILURE;
+        }
+
+        // Check if the user exists
         if (! $userlib->user_exists($user)) {
             $output->writeln("<error>User {$user} does not exist.</error>");
             exit(1);
         }
 
+        /* ============================== */
+        /* = password argument = */
+        /* ============================== */
+        $password = $input->getArgument('password');
+
+        // If the password is not provided as an argument,
         if (empty($password)) {
+            // try to get it from the environment variable
             $password = getenv('PASSWORD');
             if (empty($password)) {
-                // Prompt the user for the password interactively
-                $helper = $this->getHelper('question');
+                // If the environment variable is not set, prompt the user for the password interactively
                 $question = new Question('Please enter the new password: ');
                 $question->setHidden(true);
                 $question->setHiddenFallback(false);
@@ -66,6 +93,7 @@ class UsersPasswordCommand extends Command
             }
         }
 
+        // If the password is still empty, exit with an error
         if (empty($password)) {
             $output->writeln("<error>Password cannot be empty.</error>");
             exit(1);
