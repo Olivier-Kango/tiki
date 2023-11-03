@@ -161,43 +161,44 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
         }
         //echo'<pre>';print_r($fieldInfo);echo '</pre>';
     }
+    if (is_array($fieldValuesParam) && ! empty($fieldValuesParam)) {
+        foreach ($fieldValuesParam as $key => $fieldParams) {
+            $fieldParamsArray = explode(',', $fieldParams);
 
-    foreach ($fieldValuesParam as $key => $fieldParams) {
-        $fieldParamsArray = explode(',', $fieldParams);
-
-        $fieldValue = trim($fieldParamsArray[0]);
-        if ($fieldValue !== '' && ! $fieldValuesMap[$fieldValue]) {
-            throw new TypeError(tra('Column value "%0" specified in parameter "%1=%2" is not found in tracker field "%3".  Possible values are %4', '', false, [
-                $fieldValue,
-                $fieldValuesParamName,
-                implode(':', $fieldValuesParam),
-                $fieldPermName,
-                implode(',', array_keys($fieldValuesMap))
-            ]));
-        }
-        //echo '<pre>';print_r($fieldValue);echo '</pre>';
-        if ($fieldValue !== '') {
-            $fieldData = ['title' => $fieldValuesMap[$fieldValue], 'value' => $fieldValue];
-        } else {
-            $fieldData = ['title' => tra('Empty values'), 'value' => $fieldValue];
-        }
-
-        $fieldInfo[$fieldValue] = array_merge($fieldDefaultConfig, $fieldData);
-        //Override column label
-        if (isset($fieldParamsArray[1]) && $fieldParamsArray[1] !== 'null') {
-            $fieldInfo[$fieldValue]['title'] = trim($fieldParamsArray[1]);
-        }
-        //wip limit
-        if (isset($fieldParamsArray[2]) && $fieldParamsArray[2] !== 'null') {
-            if (! is_numeric($fieldParamsArray[2])) {
-                throw new TypeError(tra('Wip limit value "%0" specified in parameter "%1=%2" is not numeric', '', false, [
-                    $fieldParamsArray[2],
+            $fieldValue = trim($fieldParamsArray[0]);
+            if ($fieldValue !== '' && ! $fieldValuesMap[$fieldValue]) {
+                throw new TypeError(tra('Column value "%0" specified in parameter "%1=%2" is not found in tracker field "%3".  Possible values are %4', '', false, [
+                    $fieldValue,
                     $fieldValuesParamName,
-                    implode(':', $fieldValuesParam)
+                    implode(':', $fieldValuesParam),
+                    $fieldPermName,
+                    implode(',', array_keys($fieldValuesMap))
                 ]));
             }
-            $wipValue = intval($fieldParamsArray[2]);
-            $fieldInfo[$fieldValue]['wip'] = $wipValue;
+            //echo '<pre>';print_r($fieldValue);echo '</pre>';
+            if ($fieldValue !== '') {
+                $fieldData = ['title' => $fieldValuesMap[$fieldValue], 'value' => $fieldValue];
+            } else {
+                $fieldData = ['title' => tra('Empty values'), 'value' => $fieldValue];
+            }
+
+            $fieldInfo[$fieldValue] = array_merge($fieldDefaultConfig, $fieldData);
+            //Override column label
+            if (isset($fieldParamsArray[1]) && $fieldParamsArray[1] !== 'null') {
+                $fieldInfo[$fieldValue]['title'] = trim($fieldParamsArray[1]);
+            }
+            //wip limit
+            if (isset($fieldParamsArray[2]) && $fieldParamsArray[2] !== 'null') {
+                if (! is_numeric($fieldParamsArray[2])) {
+                    throw new TypeError(tra('Wip limit value "%0" specified in parameter "%1=%2" is not numeric', '', false, [
+                        $fieldParamsArray[2],
+                        $fieldValuesParamName,
+                        implode(':', $fieldValuesParam)
+                    ]));
+                }
+                $wipValue = intval($fieldParamsArray[2]);
+                $fieldInfo[$fieldValue]['wip'] = $wipValue;
+            }
         }
     }
 
