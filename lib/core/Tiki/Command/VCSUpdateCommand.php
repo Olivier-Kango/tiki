@@ -656,7 +656,7 @@ class VCSUpdateCommand extends Command
     {
         $this->logger->debug('Command: ' . $command);
         $output = shell_exec($command);
-        $output = trim($output);
+        $output = trim($output || '');
         $this->logger->debug('Output: ' . $output);
 
         return $output;
