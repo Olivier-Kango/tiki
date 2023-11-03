@@ -143,6 +143,7 @@ class HeaderLib
         $this->css = [];
         $this->rssfeeds = [];
         $this->metatags = [];
+        $this->linktags = [];
         $this->rawhtml = '';
 
         $this->forceJsRankLate = false;
