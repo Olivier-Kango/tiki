@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "865a0b6fd3df1319d43603ff447cb2be",
+    "content-hash": "2d3557de3115d44393ff263171e743d2",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -18,17 +18,17 @@
         },
         {
             "name": "adodb/adodb-php",
-            "version": "v5.22.6",
+            "version": "v5.22.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "2e916ebc543b95f955af3c91366d799b8c6134aa"
+                "reference": "e7150539d5707ae556172532e2b25ac4e88cb2a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-2e916ebc543b95f955af3c91366d799b8c6134aa-zip-b4ec6e.zip",
-                "reference": "2e916ebc543b95f955af3c91366d799b8c6134aa",
-                "shasum": "6be0935bf56166f898ca4684a94be5af324eb6f6"
+                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-e7150539d5707ae556172532e2b25ac4e88cb2a6-zip-b5bbe7.zip",
+                "reference": "e7150539d5707ae556172532e2b25ac4e88cb2a6",
+                "shasum": "b217bc18326264c1f52960e945a5634fef12232a"
             },
             "require": {
                 "php": "^7.0 || ^8.0"
@@ -71,7 +71,7 @@
                 "library",
                 "php"
             ],
-            "time": "2023-06-11T11:05:41+00:00"
+            "time": "2023-11-04T22:25:49+00:00"
         },
         {
             "name": "afarkas/html5shiv",
@@ -2757,13 +2757,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "66df827bf67397fa9f88b3ab2adf88863a3a56fa"
+                "reference": "7f9f2023374fc10c47d5879245e4c5978bcb3ce7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-66df827bf67397fa9f88b3ab2adf88863a3a56fa-zip-118dc4.zip",
-                "reference": "66df827bf67397fa9f88b3ab2adf88863a3a56fa",
-                "shasum": "6938dd3781b1923de62a2fb706111499053ecf7a"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-7f9f2023374fc10c47d5879245e4c5978bcb3ce7-zip-e3f4bf.zip",
+                "reference": "7f9f2023374fc10c47d5879245e4c5978bcb3ce7",
+                "shasum": "d7ecf06d58d28dfa26de815c18fe12d1980a4725"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2823,7 +2823,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-11-02T09:39:55+00:00"
+            "time": "2023-11-02T13:19:59+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3572,23 +3572,23 @@
         },
         {
             "name": "laminas/laminas-filter",
-            "version": "2.32.0",
+            "version": "2.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-filter.git",
-                "reference": "2b7e6b2b26a92412c38336ee3089251164edf141"
+                "reference": "6ad64828d25ec4bdf226ec5096aabb04aa710324"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-2b7e6b2b26a92412c38336ee3089251164edf141-zip-351076.zip",
-                "reference": "2b7e6b2b26a92412c38336ee3089251164edf141",
-                "shasum": "bdb24aba7af5e852c425ab5d59b8ead1dcd96cb0"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-6ad64828d25ec4bdf226ec5096aabb04aa710324-zip-867944.zip",
+                "reference": "6ad64828d25ec4bdf226ec5096aabb04aa710324",
+                "shasum": "418ae777839d0e29f1270d35b769cc8f43fc8f81"
             },
             "require": {
                 "ext-mbstring": "*",
                 "laminas/laminas-servicemanager": "^3.21.0",
                 "laminas/laminas-stdlib": "^3.13.0",
-                "php": "~8.1.0 || ~8.2.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "laminas/laminas-validator": "<2.10.1",
@@ -3597,12 +3597,13 @@
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.5.0",
                 "laminas/laminas-crypt": "^3.10",
-                "laminas/laminas-uri": "^2.10",
+                "laminas/laminas-i18n": "^2.23.1",
+                "laminas/laminas-uri": "^2.11",
                 "pear/archive_tar": "^1.4.14",
-                "phpunit/phpunit": "^10.1.3",
+                "phpunit/phpunit": "^10.4.2",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "psr/http-factory": "^1.0.2",
-                "vimeo/psalm": "^5.11"
+                "vimeo/psalm": "^5.15.0"
             },
             "suggest": {
                 "laminas/laminas-crypt": "Laminas\\Crypt component, for encryption filters",
@@ -3638,28 +3639,28 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-05-16T23:25:05+00:00"
+            "time": "2023-11-03T13:29:10+00:00"
         },
         {
             "name": "laminas/laminas-http",
-            "version": "2.18.0",
+            "version": "2.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-http.git",
-                "reference": "76de9008f889bc7088f85a41d0d2b06c2b59c53d"
+                "reference": "26dd6d1177e25d970058863c2afed12bb9dbff4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-http/laminas-laminas-http-76de9008f889bc7088f85a41d0d2b06c2b59c53d-zip-050dca.zip",
-                "reference": "76de9008f889bc7088f85a41d0d2b06c2b59c53d",
-                "shasum": "64f7f21b781ac295357962b1ee21de9f66675e0e"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-http/laminas-laminas-http-26dd6d1177e25d970058863c2afed12bb9dbff4d-zip-0517e2.zip",
+                "reference": "26dd6d1177e25d970058863c2afed12bb9dbff4d",
+                "shasum": "8282f1fd9aa0625ceb4869df04dbcd945ab16a99"
             },
             "require": {
-                "laminas/laminas-loader": "^2.8",
+                "laminas/laminas-loader": "^2.10",
                 "laminas/laminas-stdlib": "^3.6",
-                "laminas/laminas-uri": "^2.9.1",
+                "laminas/laminas-uri": "^2.11",
                 "laminas/laminas-validator": "^2.15",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-http": "*"
@@ -3695,7 +3696,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-11-23T15:45:41+00:00"
+            "time": "2023-11-02T16:27:41+00:00"
         },
         {
             "name": "laminas/laminas-i18n",
@@ -4141,21 +4142,21 @@
         },
         {
             "name": "laminas/laminas-mime",
-            "version": "2.11.0",
+            "version": "2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-mime.git",
-                "reference": "60ec04b755821c79c1987ce291b44e69f2c0831f"
+                "reference": "08cc544778829b7d68d27a097885bd6e7130135e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-mime/laminas-laminas-mime-60ec04b755821c79c1987ce291b44e69f2c0831f-zip-e86982.zip",
-                "reference": "60ec04b755821c79c1987ce291b44e69f2c0831f",
-                "shasum": "9f2c8e810a9e26c5e6ed393649f44d795038351a"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-mime/laminas-laminas-mime-08cc544778829b7d68d27a097885bd6e7130135e-zip-c169d6.zip",
+                "reference": "08cc544778829b7d68d27a097885bd6e7130135e",
+                "shasum": "f4399b6354db81af626747b9422862cf626db3b3"
             },
             "require": {
                 "laminas/laminas-stdlib": "^2.7 || ^3.0",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-mime": "*"
@@ -4190,7 +4191,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-10-18T08:38:15+00:00"
+            "time": "2023-11-02T16:47:19+00:00"
         },
         {
             "name": "laminas/laminas-oauth",
@@ -4628,29 +4629,29 @@
         },
         {
             "name": "laminas/laminas-tag",
-            "version": "2.9.0",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-tag.git",
-                "reference": "570b206c9a5126a97fdd5f0bf9de6cec08402658"
+                "reference": "efe33f2eca062824cd4edd01c1a38420e96dc914"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-tag/laminas-laminas-tag-570b206c9a5126a97fdd5f0bf9de6cec08402658-zip-d37c02.zip",
-                "reference": "570b206c9a5126a97fdd5f0bf9de6cec08402658",
-                "shasum": "325e0c044636aad25cfca9facd8632a03ccb552f"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-tag/laminas-laminas-tag-efe33f2eca062824cd4edd01c1a38420e96dc914-zip-6c2aea.zip",
+                "reference": "efe33f2eca062824cd4edd01c1a38420e96dc914",
+                "shasum": "c3d8d63ad75995b789de09adcdacc4231bfee1af"
             },
             "require": {
                 "laminas/laminas-escaper": "^2.9",
                 "laminas/laminas-stdlib": "^3.6",
-                "php": "^7.4 || ~8.0.0 || ~8.1.0"
+                "php": "~8.1.0 || ~8.2.0"
             },
             "conflict": {
                 "zendframework/zend-tag": "*"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.3",
-                "laminas/laminas-servicemanager": "^3.8",
+                "laminas/laminas-servicemanager": "^3.21.0",
                 "phpunit/phpunit": "^9.5.5"
             },
             "suggest": {
@@ -4678,7 +4679,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-12-02T16:04:39+00:00"
+            "time": "2023-11-02T19:40:10+00:00"
         },
         {
             "name": "laminas/laminas-text",
@@ -5030,43 +5031,41 @@
         },
         {
             "name": "lcobucci/jwt",
-            "version": "4.0.4",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lcobucci/jwt.git",
-                "reference": "55564265fddf810504110bd68ca311932324b0e9"
+                "reference": "4d7de2fe0d51a96418c0d04004986e410e87f6b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/lcobucci/jwt/lcobucci-jwt-55564265fddf810504110bd68ca311932324b0e9-zip-763c36.zip",
-                "reference": "55564265fddf810504110bd68ca311932324b0e9",
-                "shasum": "79d2e1a02061d8552068df6bf810b9385f2e6b0b"
+                "url": "https://composer.tiki.org/dist/lcobucci/jwt/lcobucci-jwt-4d7de2fe0d51a96418c0d04004986e410e87f6b4-zip-8ba8e8.zip",
+                "reference": "4d7de2fe0d51a96418c0d04004986e410e87f6b4",
+                "shasum": "c1dacc7421ec19586afe91d6b624f40606a5cf57"
             },
             "require": {
+                "ext-hash": "*",
+                "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
-                "lcobucci/clock": "^2.0",
+                "ext-sodium": "*",
+                "lcobucci/clock": "^2.0 || ^3.0",
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "infection/infection": "^0.20",
+                "infection/infection": "^0.21",
                 "lcobucci/coding-standard": "^6.0",
-                "mikey179/vfsstream": "^1.6",
-                "phpbench/phpbench": "^0.17",
+                "mikey179/vfsstream": "^1.6.7",
+                "phpbench/phpbench": "^1.2",
                 "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-deprecation-rules": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpstan/phpstan-strict-rules": "^0.12",
+                "phpstan/phpstan": "^1.4",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpstan/phpstan-strict-rules": "^1.0",
                 "phpunit/php-invoker": "^3.1",
-                "phpunit/phpunit": "^9.4"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Lcobucci\\JWT\\": "src"
@@ -5098,7 +5097,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-09-28T19:18:28+00:00"
+            "time": "2023-01-02T13:28:00+00:00"
         },
         {
             "name": "league/commonmark",
@@ -5672,37 +5671,37 @@
         },
         {
             "name": "league/oauth2-server",
-            "version": "8.4.2",
+            "version": "8.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-server.git",
-                "reference": "007dc5f6c0151a73b133fec36c9686cc956209d3"
+                "reference": "ab7714d073844497fd222d5d0a217629089936bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/oauth2-server/league-oauth2-server-007dc5f6c0151a73b133fec36c9686cc956209d3-zip-559304.zip",
-                "reference": "007dc5f6c0151a73b133fec36c9686cc956209d3",
-                "shasum": "2ea922de27dc268c5aeedc7895976c4ac14dc654"
+                "url": "https://composer.tiki.org/dist/league/oauth2-server/league-oauth2-server-ab7714d073844497fd222d5d0a217629089936bc-zip-f8bca6.zip",
+                "reference": "ab7714d073844497fd222d5d0a217629089936bc",
+                "shasum": "f0af27f5a034a6639b3fa902fd36ee82f5b5316f"
             },
             "require": {
-                "defuse/php-encryption": "^2.2.1",
-                "ext-json": "*",
+                "defuse/php-encryption": "^2.3",
                 "ext-openssl": "*",
-                "lcobucci/jwt": "^3.4.6 || ^4.0.4",
+                "lcobucci/clock": "^2.2 || ^3.0",
+                "lcobucci/jwt": "^4.3 || ^5.0",
                 "league/event": "^2.2",
-                "league/uri": "^6.4",
-                "php": "^7.2 || ^8.0",
-                "psr/http-message": "^1.0.1"
+                "league/uri": "^6.7 || ^7.0",
+                "php": "^8.0",
+                "psr/http-message": "^1.0.1 || ^2.0"
             },
             "replace": {
                 "league/oauth2server": "*",
                 "lncd/oauth2": "*"
             },
             "require-dev": {
-                "laminas/laminas-diactoros": "^2.4.1",
+                "laminas/laminas-diactoros": "^3.0.0",
                 "phpstan/phpstan": "^0.12.57",
                 "phpstan/phpstan-phpunit": "^0.12.16",
-                "phpunit/phpunit": "^8.5.13",
+                "phpunit/phpunit": "^9.6.6",
                 "roave/security-advisories": "dev-master"
             },
             "type": "library",
@@ -5752,58 +5751,48 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-02T22:54:39+00:00"
+            "time": "2023-08-25T22:35:12+00:00"
         },
         {
             "name": "league/uri",
-            "version": "6.8.0",
+            "version": "7.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri.git",
-                "reference": "a700b4656e4c54371b799ac61e300ab25a2d1d39"
+                "reference": "36743c3961bb82bf93da91917b6bced0358a8d45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/uri/league-uri-a700b4656e4c54371b799ac61e300ab25a2d1d39-zip-3fb47e.zip",
-                "reference": "a700b4656e4c54371b799ac61e300ab25a2d1d39",
-                "shasum": "4b24233d2e7b2a949133481a1a7bdf86435108a9"
+                "url": "https://composer.tiki.org/dist/league/uri/league-uri-36743c3961bb82bf93da91917b6bced0358a8d45-zip-3151db.zip",
+                "reference": "36743c3961bb82bf93da91917b6bced0358a8d45",
+                "shasum": "f9923f364b1a7cef1be6bde608c4c2c3645944a7"
             },
             "require": {
-                "ext-json": "*",
-                "league/uri-interfaces": "^2.3",
-                "php": "^8.1",
-                "psr/http-message": "^1.0.1"
+                "league/uri-interfaces": "^7.3",
+                "php": "^8.1"
             },
             "conflict": {
                 "league/uri-schemes": "^1.0"
             },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^v3.9.5",
-                "nyholm/psr7": "^1.5.1",
-                "php-http/psr7-integration-tests": "^1.1.1",
-                "phpbench/phpbench": "^1.2.6",
-                "phpstan/phpstan": "^1.8.5",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.1.1",
-                "phpstan/phpstan-strict-rules": "^1.4.3",
-                "phpunit/phpunit": "^9.5.24",
-                "psr/http-factory": "^1.0.1"
-            },
             "suggest": {
-                "ext-fileinfo": "Needed to create Data URI from a filepath",
-                "ext-intl": "Needed to improve host validation",
-                "league/uri-components": "Needed to easily manipulate URI objects",
-                "psr/http-factory": "Needed to use the URI factory"
+                "ext-bcmath": "to improve IPV4 host parsing",
+                "ext-fileinfo": "to create Data URI from file contennts",
+                "ext-gmp": "to improve IPV4 host parsing",
+                "ext-intl": "to handle IDN host with the best performance",
+                "jeremykendall/php-domain-parser": "to resolve Public Suffix and Top Level Domain",
+                "league/uri-components": "Needed to easily manipulate URI objects components",
+                "php-64bit": "to improve IPV4 host parsing",
+                "symfony/polyfill-intl-idn": "to handle IDN host via the Symfony polyfill if ext-intl is not present"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.x-dev"
+                    "dev-master": "7.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "League\\Uri\\": "src"
+                    "League\\Uri\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5846,46 +5835,44 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-09-13T19:58:47+00:00"
+            "time": "2023-09-09T17:21:43+00:00"
         },
         {
             "name": "league/uri-interfaces",
-            "version": "2.3.0",
+            "version": "7.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-interfaces.git",
-                "reference": "00e7e2943f76d8cb50c7dfdc2f6dee356e15e383"
+                "reference": "c409b60ed2245ff94c965a8c798a60166db53361"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/uri-interfaces/league-uri-interfaces-00e7e2943f76d8cb50c7dfdc2f6dee356e15e383-zip-9d6746.zip",
-                "reference": "00e7e2943f76d8cb50c7dfdc2f6dee356e15e383",
-                "shasum": "353d97ed966f87006a9c2f18011278f07962bcba"
+                "url": "https://composer.tiki.org/dist/league/uri-interfaces/league-uri-interfaces-c409b60ed2245ff94c965a8c798a60166db53361-zip-a55b16.zip",
+                "reference": "c409b60ed2245ff94c965a8c798a60166db53361",
+                "shasum": "396611fd933265708863fccb710df3fe88a39746"
             },
             "require": {
-                "ext-json": "*",
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.19",
-                "phpstan/phpstan": "^0.12.90",
-                "phpstan/phpstan-phpunit": "^0.12.19",
-                "phpstan/phpstan-strict-rules": "^0.12.9",
-                "phpunit/phpunit": "^8.5.15 || ^9.5"
+                "ext-filter": "*",
+                "php": "^8.1",
+                "psr/http-factory": "^1",
+                "psr/http-message": "^1.1 || ^2.0"
             },
             "suggest": {
-                "ext-intl": "to use the IDNA feature",
-                "symfony/intl": "to use the IDNA feature via Symfony Polyfill"
+                "ext-bcmath": "to improve IPV4 host parsing",
+                "ext-gmp": "to improve IPV4 host parsing",
+                "ext-intl": "to handle IDN host with the best performance",
+                "php-64bit": "to improve IPV4 host parsing",
+                "symfony/polyfill-intl-idn": "to handle IDN host via the Symfony polyfill if ext-intl is not present"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "7.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "League\\Uri\\": "src/"
+                    "League\\Uri\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5899,13 +5886,26 @@
                     "homepage": "https://nyamsprod.com"
                 }
             ],
-            "description": "Common interface for URI representation",
-            "homepage": "http://github.com/thephpleague/uri-interfaces",
+            "description": "Common interfaces and classes for URI representation and interaction",
+            "homepage": "https://uri.thephpleague.com",
             "keywords": [
+                "data-uri",
+                "file-uri",
+                "ftp",
+                "hostname",
+                "http",
+                "https",
+                "parse_str",
+                "parse_url",
+                "psr-7",
+                "query-string",
+                "querystring",
                 "rfc3986",
                 "rfc3987",
+                "rfc6570",
                 "uri",
-                "url"
+                "url",
+                "ws"
             ],
             "funding": [
                 {
@@ -5913,7 +5913,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-28T04:27:21+00:00"
+            "time": "2023-09-09T17:21:43+00:00"
         },
         {
             "name": "manticoresoftware/manticoresearch-php",
@@ -9556,17 +9556,17 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.1",
+            "version": "2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/psr/http-message/psr-http-message-cb6ce4845ce34a8ad9e68117c10ee90a29919eba-zip-201a70.zip",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
-                "shasum": "e713b8407346b5b0eb87f293ef3faf308920d1a8"
+                "url": "https://composer.tiki.org/dist/psr/http-message/psr-http-message-402d35bcb92c70c026d1a6a9883f06b2ead23d71-zip-c036fc.zip",
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71",
+                "shasum": "a521902e55440de7f02cc4bda639adbe2e82ed65"
             },
             "require": {
                 "php": "^7.2 || ^8.0"
@@ -9574,7 +9574,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -9589,7 +9589,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for HTTP messages",
@@ -9602,7 +9602,7 @@
                 "request",
                 "response"
             ],
-            "time": "2023-04-04T09:50:52+00:00"
+            "time": "2023-04-04T09:54:51+00:00"
         },
         {
             "name": "psr/log",
@@ -11426,17 +11426,17 @@
         },
         {
             "name": "slm/mail",
-            "version": "v4.5.2",
+            "version": "v4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Webador/SlmMail.git",
-                "reference": "fb567a4df9b4ed81a1b7b50ce27a2c593966d9a6"
+                "reference": "bbeb128444e7538b648f515836aa23a93f61a2b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/slm/mail/slm-mail-fb567a4df9b4ed81a1b7b50ce27a2c593966d9a6-zip-f6cd90.zip",
-                "reference": "fb567a4df9b4ed81a1b7b50ce27a2c593966d9a6",
-                "shasum": "856c0046e6ea256a776eef52fd7806b293a4d53a"
+                "url": "https://composer.tiki.org/dist/slm/mail/slm-mail-bbeb128444e7538b648f515836aa23a93f61a2b1-zip-16a069.zip",
+                "reference": "bbeb128444e7538b648f515836aa23a93f61a2b1",
+                "shasum": "6f29848cb640cb9416c714ccddfc7f6e2ac6bad8"
             },
             "require": {
                 "laminas/laminas-http": "^2.8",
@@ -11512,7 +11512,7 @@
                 "sendgrid",
                 "transactional email"
             ],
-            "time": "2023-09-14T14:08:56+00:00"
+            "time": "2023-11-04T10:23:30+00:00"
         },
         {
             "name": "smarty/smarty",
@@ -15723,41 +15723,6 @@
     ],
     "packages-dev": [
         {
-            "name": "bafs/testify",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/BafS/Testify.php.git",
-                "reference": "52dda3459096976689d255d44250c6f8f30e62a0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/bafs/testify/bafs-testify-52dda3459096976689d255d44250c6f8f30e62a0-zip-faf2a3.zip",
-                "reference": "52dda3459096976689d255d44250c6f8f30e62a0",
-                "shasum": "6cb07bb5364d4e53f5d77a177bed9fc31e8ecbce"
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Testify\\": "lib/Testify/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0"
-            ],
-            "description": "Testify makes writing unit tests fun again. It has an elegant syntax and keeps things simple",
-            "keywords": [
-                "framework",
-                "testing",
-                "unit"
-            ],
-            "time": "2016-03-14T11:52:02+00:00"
-        },
-        {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
             "version": "v1.0.0",
             "source": {
@@ -18809,7 +18774,6 @@
         "teqneers/shamir": 20,
         "npm-asset/select2": 5,
         "rubix/extras": 10,
-        "bafs/testify": 20,
         "phpcompatibility/php-compatibility": 20,
         "phpcsstandards/phpcsutils": 15
     },
@@ -18834,5 +18798,5 @@
         "ext-soap": "0",
         "php": "8.1"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
