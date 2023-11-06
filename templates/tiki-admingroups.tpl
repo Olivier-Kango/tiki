@@ -136,7 +136,7 @@
                         <input
                             type="submit"
                             form="checkform1"
-                            formaction="{bootstrap_modal controller=group}"
+                            formaction="{service controller=group}"
                             class="btn btn-primary"
                             value="{tr}OK{/tr}"
                             onclick="confirmPopup()"
@@ -511,7 +511,7 @@
                             type="submit"
                             class="btn btn-primary"
                             form="groupEdit"
-                            formaction="{bootstrap_modal controller=group action=modify_group}"
+                            formaction="{service controller=group action=modify_group}"
                             onclick="confirmPopup()"
                         >
                             {tr}Save{/tr}
@@ -521,7 +521,7 @@
                             type="submit"
                             class="btn btn-primary"
                             form="groupEdit"
-                            formaction="{bootstrap_modal controller=group action=new_group}"
+                            formaction="{service controller=group action=new_group}"
                             onclick="confirmPopup()"
                         >
                             {tr}Add{/tr}
