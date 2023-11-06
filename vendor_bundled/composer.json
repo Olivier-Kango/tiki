@@ -155,7 +155,6 @@
 		"ext-zip": "*"
 	},
 	"require-dev": {
-		"bafs/testify": "dev-master",
 		"fabpot/goutte": "^3.2",
 		"mikey179/vfsstream": "^1",
 		"overtrue/phplint": "^1.1",
