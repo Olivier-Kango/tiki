@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50260615c25972ba8b512ba307f1a07f",
+    "content-hash": "2c338118e9736f4b7cb56e3a9dec2c67",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -18,17 +18,17 @@
         },
         {
             "name": "adodb/adodb-php",
-            "version": "v5.22.6",
+            "version": "v5.22.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "2e916ebc543b95f955af3c91366d799b8c6134aa"
+                "reference": "e7150539d5707ae556172532e2b25ac4e88cb2a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-2e916ebc543b95f955af3c91366d799b8c6134aa-zip-b4ec6e.zip",
-                "reference": "2e916ebc543b95f955af3c91366d799b8c6134aa",
-                "shasum": "6be0935bf56166f898ca4684a94be5af324eb6f6"
+                "url": "https://composer.tiki.org/dist/adodb/adodb-php/adodb-adodb-php-e7150539d5707ae556172532e2b25ac4e88cb2a6-zip-b5bbe7.zip",
+                "reference": "e7150539d5707ae556172532e2b25ac4e88cb2a6",
+                "shasum": "b217bc18326264c1f52960e945a5634fef12232a"
             },
             "require": {
                 "php": "^7.0 || ^8.0"
@@ -71,7 +71,7 @@
                 "library",
                 "php"
             ],
-            "time": "2023-06-11T11:05:41+00:00"
+            "time": "2023-11-04T22:25:49+00:00"
         },
         {
             "name": "afarkas/html5shiv",
@@ -3571,23 +3571,23 @@
         },
         {
             "name": "laminas/laminas-filter",
-            "version": "2.32.0",
+            "version": "2.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-filter.git",
-                "reference": "2b7e6b2b26a92412c38336ee3089251164edf141"
+                "reference": "6ad64828d25ec4bdf226ec5096aabb04aa710324"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-2b7e6b2b26a92412c38336ee3089251164edf141-zip-351076.zip",
-                "reference": "2b7e6b2b26a92412c38336ee3089251164edf141",
-                "shasum": "bdb24aba7af5e852c425ab5d59b8ead1dcd96cb0"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-6ad64828d25ec4bdf226ec5096aabb04aa710324-zip-867944.zip",
+                "reference": "6ad64828d25ec4bdf226ec5096aabb04aa710324",
+                "shasum": "418ae777839d0e29f1270d35b769cc8f43fc8f81"
             },
             "require": {
                 "ext-mbstring": "*",
                 "laminas/laminas-servicemanager": "^3.21.0",
                 "laminas/laminas-stdlib": "^3.13.0",
-                "php": "~8.1.0 || ~8.2.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "laminas/laminas-validator": "<2.10.1",
@@ -3596,12 +3596,13 @@
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.5.0",
                 "laminas/laminas-crypt": "^3.10",
-                "laminas/laminas-uri": "^2.10",
+                "laminas/laminas-i18n": "^2.23.1",
+                "laminas/laminas-uri": "^2.11",
                 "pear/archive_tar": "^1.4.14",
-                "phpunit/phpunit": "^10.1.3",
+                "phpunit/phpunit": "^10.4.2",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "psr/http-factory": "^1.0.2",
-                "vimeo/psalm": "^5.11"
+                "vimeo/psalm": "^5.15.0"
             },
             "suggest": {
                 "laminas/laminas-crypt": "Laminas\\Crypt component, for encryption filters",
@@ -3637,28 +3638,28 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-05-16T23:25:05+00:00"
+            "time": "2023-11-03T13:29:10+00:00"
         },
         {
             "name": "laminas/laminas-http",
-            "version": "2.18.0",
+            "version": "2.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-http.git",
-                "reference": "76de9008f889bc7088f85a41d0d2b06c2b59c53d"
+                "reference": "26dd6d1177e25d970058863c2afed12bb9dbff4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-http/laminas-laminas-http-76de9008f889bc7088f85a41d0d2b06c2b59c53d-zip-050dca.zip",
-                "reference": "76de9008f889bc7088f85a41d0d2b06c2b59c53d",
-                "shasum": "64f7f21b781ac295357962b1ee21de9f66675e0e"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-http/laminas-laminas-http-26dd6d1177e25d970058863c2afed12bb9dbff4d-zip-0517e2.zip",
+                "reference": "26dd6d1177e25d970058863c2afed12bb9dbff4d",
+                "shasum": "8282f1fd9aa0625ceb4869df04dbcd945ab16a99"
             },
             "require": {
-                "laminas/laminas-loader": "^2.8",
+                "laminas/laminas-loader": "^2.10",
                 "laminas/laminas-stdlib": "^3.6",
-                "laminas/laminas-uri": "^2.9.1",
+                "laminas/laminas-uri": "^2.11",
                 "laminas/laminas-validator": "^2.15",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-http": "*"
@@ -3694,7 +3695,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-11-23T15:45:41+00:00"
+            "time": "2023-11-02T16:27:41+00:00"
         },
         {
             "name": "laminas/laminas-i18n",
@@ -4140,21 +4141,21 @@
         },
         {
             "name": "laminas/laminas-mime",
-            "version": "2.11.0",
+            "version": "2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-mime.git",
-                "reference": "60ec04b755821c79c1987ce291b44e69f2c0831f"
+                "reference": "08cc544778829b7d68d27a097885bd6e7130135e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-mime/laminas-laminas-mime-60ec04b755821c79c1987ce291b44e69f2c0831f-zip-e86982.zip",
-                "reference": "60ec04b755821c79c1987ce291b44e69f2c0831f",
-                "shasum": "9f2c8e810a9e26c5e6ed393649f44d795038351a"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-mime/laminas-laminas-mime-08cc544778829b7d68d27a097885bd6e7130135e-zip-c169d6.zip",
+                "reference": "08cc544778829b7d68d27a097885bd6e7130135e",
+                "shasum": "f4399b6354db81af626747b9422862cf626db3b3"
             },
             "require": {
                 "laminas/laminas-stdlib": "^2.7 || ^3.0",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-mime": "*"
@@ -4189,7 +4190,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-10-18T08:38:15+00:00"
+            "time": "2023-11-02T16:47:19+00:00"
         },
         {
             "name": "laminas/laminas-oauth",
@@ -4627,29 +4628,29 @@
         },
         {
             "name": "laminas/laminas-tag",
-            "version": "2.9.0",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-tag.git",
-                "reference": "570b206c9a5126a97fdd5f0bf9de6cec08402658"
+                "reference": "efe33f2eca062824cd4edd01c1a38420e96dc914"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-tag/laminas-laminas-tag-570b206c9a5126a97fdd5f0bf9de6cec08402658-zip-d37c02.zip",
-                "reference": "570b206c9a5126a97fdd5f0bf9de6cec08402658",
-                "shasum": "325e0c044636aad25cfca9facd8632a03ccb552f"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-tag/laminas-laminas-tag-efe33f2eca062824cd4edd01c1a38420e96dc914-zip-6c2aea.zip",
+                "reference": "efe33f2eca062824cd4edd01c1a38420e96dc914",
+                "shasum": "c3d8d63ad75995b789de09adcdacc4231bfee1af"
             },
             "require": {
                 "laminas/laminas-escaper": "^2.9",
                 "laminas/laminas-stdlib": "^3.6",
-                "php": "^7.4 || ~8.0.0 || ~8.1.0"
+                "php": "~8.1.0 || ~8.2.0"
             },
             "conflict": {
                 "zendframework/zend-tag": "*"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.3",
-                "laminas/laminas-servicemanager": "^3.8",
+                "laminas/laminas-servicemanager": "^3.21.0",
                 "phpunit/phpunit": "^9.5.5"
             },
             "suggest": {
@@ -4677,7 +4678,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-12-02T16:04:39+00:00"
+            "time": "2023-11-02T19:40:10+00:00"
         },
         {
             "name": "laminas/laminas-text",
@@ -11164,17 +11165,17 @@
         },
         {
             "name": "slm/mail",
-            "version": "v4.5.2",
+            "version": "v4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Webador/SlmMail.git",
-                "reference": "fb567a4df9b4ed81a1b7b50ce27a2c593966d9a6"
+                "reference": "bbeb128444e7538b648f515836aa23a93f61a2b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/slm/mail/slm-mail-fb567a4df9b4ed81a1b7b50ce27a2c593966d9a6-zip-f6cd90.zip",
-                "reference": "fb567a4df9b4ed81a1b7b50ce27a2c593966d9a6",
-                "shasum": "856c0046e6ea256a776eef52fd7806b293a4d53a"
+                "url": "https://composer.tiki.org/dist/slm/mail/slm-mail-bbeb128444e7538b648f515836aa23a93f61a2b1-zip-16a069.zip",
+                "reference": "bbeb128444e7538b648f515836aa23a93f61a2b1",
+                "shasum": "6f29848cb640cb9416c714ccddfc7f6e2ac6bad8"
             },
             "require": {
                 "laminas/laminas-http": "^2.8",
@@ -11250,7 +11251,7 @@
                 "sendgrid",
                 "transactional email"
             ],
-            "time": "2023-09-14T14:08:56+00:00"
+            "time": "2023-11-04T10:23:30+00:00"
         },
         {
             "name": "smarty/smarty",
@@ -15410,41 +15411,6 @@
     ],
     "packages-dev": [
         {
-            "name": "bafs/testify",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/BafS/Testify.php.git",
-                "reference": "52dda3459096976689d255d44250c6f8f30e62a0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/bafs/testify/bafs-testify-52dda3459096976689d255d44250c6f8f30e62a0-zip-faf2a3.zip",
-                "reference": "52dda3459096976689d255d44250c6f8f30e62a0",
-                "shasum": "6cb07bb5364d4e53f5d77a177bed9fc31e8ecbce"
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Testify\\": "lib/Testify/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0"
-            ],
-            "description": "Testify makes writing unit tests fun again. It has an elegant syntax and keeps things simple",
-            "keywords": [
-                "framework",
-                "testing",
-                "unit"
-            ],
-            "time": "2016-03-14T11:52:02+00:00"
-        },
-        {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
             "version": "v1.0.0",
             "source": {
@@ -18495,7 +18461,6 @@
         "teqneers/shamir": 20,
         "npm-asset/select2": 5,
         "rubix/extras": 10,
-        "bafs/testify": 20,
         "phpcompatibility/php-compatibility": 20,
         "phpcsstandards/phpcsutils": 15
     },

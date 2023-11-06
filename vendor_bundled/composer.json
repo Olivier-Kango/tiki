@@ -301,7 +301,6 @@
         "phpxmlrpc/phpxmlrpc": "^4.9"
     },
     "require-dev": {
-        "bafs/testify": "dev-master",
         "kint-php/kint": "^4.1",
         "kornrunner/dbunit": "^7",
         "mikey179/vfsstream": "^1",
