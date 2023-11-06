@@ -742,7 +742,8 @@ class Hm_Output_add_move_to_trackers extends Hm_Output_Module
 {
     protected function output()
     {
-        $res = '| ' . tiki_move_to_tracker_dropdown($this);
+        $res = tiki_move_to_tracker_dropdown($this);
+        $res = ! empty($res) ? '| ' . $res : '';
         $headers = $this->get('msg_headers');
         $headers = preg_replace("#<a class=\"archive_link[^>]*>.*?</a>#", "\\0 " . $res, $headers);
         $this->out('msg_headers', $headers, false);
