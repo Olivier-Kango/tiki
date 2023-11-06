@@ -138,7 +138,7 @@ class CalRecurrence extends TikiLib
                 $this->setYears(1);
                 $this->setYearlyType('');
                 $this->setDateOfYear(0);
-                $this->setYearlyWeekdayValue(0);
+                $this->setYearlyWeekdayValue(" ");
                 $this->setYearlyWeekMonth(0);
                 $this->setNbRecurrences(0);
                 $this->setStartPeriod(0);
@@ -1016,7 +1016,7 @@ class CalRecurrence extends TikiLib
             'dateOfYear' => $this->getDateOfYear(),
             'yearlyMonth' => intval(floor($this->getDateOfYear() / 100)),
             'yearlyDay' => intval($this->getDateOfYear() - 100 * floor($this->getDateOfYear() / 100)),
-            'yearlyWeekdayValue' => $this->getYearlyWeekdayValue(),
+            'yearlyWeekdayValue' => $this->getYearlyWeekdayValue() ?? " ",
             'yearlyWeekMonth' => $this->getYearlyWeekMonth(),
             'nbRecurrences' => $this->getNbRecurrences(),
             'startPeriod' => $this->getStartPeriod(),
