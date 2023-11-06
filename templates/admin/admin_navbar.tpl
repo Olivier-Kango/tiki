@@ -68,67 +68,6 @@
                             </div>
                             {$headerlib->add_jsfile("lib/jquery_tiki/tiki-connect.js")}
                         {/if}
-                        {jq}
-                            var updateVisible = function() {
-                                var show = function (selector) {
-                                    selector.show();
-                                    selector.parents('fieldset:not(.tabcontent)').show();
-                                    selector.closest('fieldset.tabcontent').addClass('filled');
-                                };
-                                var hide = function (selector) {
-                                    selector.hide();
-                                };
-
-                                var filters = [];
-                                var prefs = $('#col1 .adminoptionbox.preference, .admbox').hide();
-                                prefs.parents('fieldset:not(.tabcontent)').hide();
-                                prefs.closest('fieldset.tabcontent').removeClass('filled');
-                                $('.preffilter').each(function () {
-                                    var targets = $('.adminoptionbox.preference.' + $(this).val() + ',.admbox.' + $(this).val());
-                                    if ($(this).is(':checked')) {
-                                        filters.push($(this).val());
-                                        show(targets);
-                                    } else if ($(this).is('.negative:not(:checked)')) {
-                                        hide(targets);
-                                    }
-                                });
-
-                                show($('.adminoptionbox.preference.modified'));
-
-                                $('input[name="filters"]').val(filters.join(' '));
-                                $('.tabset .tabmark a').each(function () {
-                                    var selector = 'fieldset.tabcontent.' + $(this).attr('href').substring(1);
-                                    var content = $(this).closest('.tabset').find(selector);
-
-                                    $(this).parent().toggle(content.is('.filled') || content.find('.preference').length === 0);
-                                });
-                            };
-
-                            updateVisible();
-                            $('.preffilter').change(updateVisible);
-                            $('.preffilter-toggle').change(function () {
-                                var checked = $(this).is(":checked");
-                                $("input.preffilter[value=advanced]").prop("checked", checked);
-                                updateVisible();
-                            });
-
-                            $('.input-pref_filters').change(function () {
-                                var pref_filters_values = $("input[name='pref_filters[]']:checked").map(function(){return $(this).val();}).get();
-                                $("#preffilter-loader").removeClass('d-none');
-                                $.ajax("tiki-admin.php", {
-                                    type: 'POST',
-                                    data: {"pref_filters" : pref_filters_values},
-                                    success: function (data) {
-                                        $("#tikifeedback").html('<div class="alert alert-success alert-dismissible">'+tr("Default preference filters set.")+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
-                                        $("#preffilter-loader").addClass('d-none');
-                                    },
-                                    error: function () {
-                                        $("#tikifeedback").show(tr("An error occurred while modifying the default preferences."));
-                                        $("#preffilter-loader").addClass('d-none');
-                                    }
-                                });
-                            })
-                        {/jq}
                     </ul>
                 </li>
             </ul>

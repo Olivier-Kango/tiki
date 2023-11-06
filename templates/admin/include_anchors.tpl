@@ -32,7 +32,7 @@
                             <label for="preffilter-toggle-1" class="form-check-label"></label>
                         </div> *}
 
-                        <div class="nav-item was-accordion-item tips right" title="{tr}Preference Filters{/tr}|{tr}Change your preference filter settings in order to view advanced preferences by default{/tr}">
+                        <div class="nav-item was-accordion-item">
                             <div class="accordion-header" id="flush-heading-preference-filters">
                                 <a class="nav-link was-accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-preference-filters" aria-expanded="false" aria-controls="flush-collapse-preference-filters">
                                     {icon name="filter"}<span class="narrow-hide"> {tr}Preference Filters{/tr}</span> </a>
@@ -43,8 +43,9 @@
                                         {foreach from=$pref_filters key=name item=info}
                                             <div class="dropdown-item tips right icon">
                                                 <div class="form-check justify-content-start form-switch">
-                                                    <label>
-                                                        <input type="checkbox" class="form-check-input preffilter {$info.type|escape} input-pref_filters" name="pref_filters[]" value="{$name|escape}"{if !empty($info.selected)} checked="checked"{/if}{if $name eq basic} disabled="disabled"{/if}>{$info.label|escape}
+                                                    <label {if $name eq 'advanced'} class="tips" title="|{tr}Change your preference filter settings in order to view advanced preferences by default{/tr}"{/if}>
+                                                        <input type="checkbox" class="form-check-input preffilter {$info.type|escape} input-pref_filters" name="pref_filters[]" value="{$name|escape}"{if !empty($info.selected)} checked="checked"{/if}{if $name eq basic} disabled="disabled"{/if}>
+                                                        {$info.label|escape}
                                                     </label>
                                                 </div>
                                             </div>
@@ -77,71 +78,6 @@
                                             </div>
                                             {$headerlib->add_jsfile("lib/jquery_tiki/tiki-connect.js")}
                                         {/if}
-                                        {jq}
-                                            var updateVisible = function() {
-                                            var show = function (selector) {
-                                            selector.show();
-                                            selector.parents('fieldset:not(.tabcontent)').show();
-                                            selector.closest('fieldset.tabcontent').addClass('filled');
-                                            };
-                                            var hide = function (selector) {
-                                            selector.hide();
-                                            };
-
-                                            var filters = [];
-                                            var prefs = $('#col1 .adminoptionbox.preference, .admbox').hide();
-                                            prefs.parents('fieldset:not(.tabcontent)').hide();
-                                            prefs.closest('fieldset.tabcontent').removeClass('filled');
-                                            $('.preffilter').each(function () {
-                                            var targets = $('.adminoptionbox.preference.' + $(this).val() + ',.admbox.' + $(this).val());
-                                            if ($(this).is(':checked')) {
-                                            filters.push($(this).val());
-                                            show(targets);
-                                            } else if ($(this).is('.negative:not(:checked)')) {
-                                            hide(targets);
-                                            }
-                                            });
-
-                                            show($('.adminoptionbox.preference.modified'));
-
-                                            $('input[name="filters"]').val(filters.join(' '));
-                                            $('.tabset .tabmark a').each(function () {
-                                            var selector = 'fieldset.tabcontent.' + $(this).attr('href').substring(1);
-                                            var content = $(this).closest('.tabset').find(selector);
-
-                                            $(this).parent().toggle(content.is('.filled') || content.find('.preference').length === 0);
-                                            });
-                                            };
-
-                                            updateVisible();
-                                            $('.preffilter').change(updateVisible);
-                                            $('.preffilter-toggle').change(function () {
-                                            var checked = $(this).is(":checked");
-                                            $("input.preffilter[value=advanced]").prop("checked", checked);
-                                            updateVisible();
-                                            });
-
-                                            $('.input-pref_filters').change(function () {
-                                            var pref_filters_values = $("input[name='pref_filters[]']:checked").map(function(){return $(this).val();}).get();
-                                            $("#preffilter-loader").removeClass('d-none');
-                                            $.ajax("tiki-admin.php", {
-                                            type: 'POST',
-                                            data: {"pref_filters" : pref_filters_values},
-                                            success: function (data) {
-                                            $("#tikifeedback").html('
-                                            <div class="alert alert-success alert-dismissible">'+tr("Default preference filters set.")+'
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
-                                            ');
-                                            $("#preffilter-loader").addClass('d-none');
-                                            },
-                                            error: function () {
-                                            $("#tikifeedback").show(tr("An error occurred while modifying the default preferences."));
-                                            $("#preffilter-loader").addClass('d-none');
-                                            }
-                                            });
-                                            })
-                                        {/jq}
                                     </div>
                                 </div>
                             </div>
