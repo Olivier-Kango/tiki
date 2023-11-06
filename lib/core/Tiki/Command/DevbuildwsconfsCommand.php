@@ -75,8 +75,8 @@ class DevbuildwsconfsCommand extends Command
                 '.', // Directories that are hidden (Ex: .composer)
                 TEMP_PATH,
                 CUSTOM_PATH,
-                VENDOR_PATH,
-                VENDOR_BUNDLED_PATH,
+                TIKI_VENDOR_PATH,
+                TIKI_VENDOR_BUNDLED_PATH,
                 NODE_MODULES_PATH
             ];
 

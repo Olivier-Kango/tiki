@@ -36,8 +36,8 @@ TEMPLATES_PATH=templates
 TESTS_PATH=tests
 THEMES_PATH=themes
 TIKI_TESTS_TESTS_PATH=tiki_tests/tests
-VENDOR_PATH=vendor
-VENDOR_CUSTOM_PATH=vendor_custom
+TIKI_VENDOR_PATH=vendor
+TIKI_VENDOR_CUSTOM_PATH=vendor_custom
 WHELP_PATH=whelp
 
 # EOF
