@@ -117,7 +117,7 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
             'dateOfYear' => 915,
             'yearlyMonth' => 9,
             'yearlyDay' => 15,
-            'yearlyWeekdayValue' => null,
+            'yearlyWeekdayValue' => " ",
             'yearlyWeekMonth' => null,
             'nbRecurrences' => null,
             'startPeriod' => $rec->getStartPeriod(),

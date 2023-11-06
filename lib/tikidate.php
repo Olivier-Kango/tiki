@@ -304,7 +304,7 @@ class TikiDate
         if (! is_null($hour) && ! is_null($minute) && ! is_null($second)) {
             list ($year, $month, $day) = explode('-', $this->format('Y-m-d', false));
         } else {
-            list ($year, $month, $day, $hour, $minute, $second) = explode('-', $this->format('Y-m-d-H:i:s', false));
+            list ($year, $month, $day, $hour, $minute, $second) = preg_split('/[-:]/', $this->format('Y-m-d-H:i:s', false));
         }
         $this->setTZbyID('UTC');
         $this->setLocalTime($day, $month, $year, $hour, $minute, $second, '');
