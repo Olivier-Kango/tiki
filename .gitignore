@@ -109,7 +109,7 @@ db/cert/*.pem
 db/config/custom.xml
 db/local.php
 db/lock
-db/tiki-secdb_*svn_mysql.sql
+db/tiki-secdb_*vcs_mysql.sql
 db/virtuals.inc
 
 lang/.htaccess
