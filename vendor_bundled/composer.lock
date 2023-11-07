@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8bf036712cc765aaf6aec7929196569",
+    "content-hash": "c5d422e2151fcae66cc27130c396b792",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -6386,11 +6386,11 @@
         },
         {
             "name": "npm-asset/sass-svg-uri",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/sass-svg-uri/npm-asset-sass-svg-uri-1.0.0.zip",
-                "shasum": "7c188e107890d085834ebd8286d9b26d1204e25a"
+                "url": "https://composer.tiki.org/dist/npm-asset/sass-svg-uri/npm-asset-sass-svg-uri-1.0.2.zip",
+                "shasum": "90fd441d6f01fc19ea4af747aaf3b5418f2f5a1f"
             },
             "type": "npm-asset",
             "license": [
@@ -7598,7 +7598,7 @@
         },
         {
             "name": "philippemarcmeyer/fieldslinker",
-            "version": "dev-master",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PhilippeMarcMeyer/FieldsLinker.git",
@@ -15103,7 +15103,6 @@
         "hesammousavi/bootstrap-v4-rtl": 20,
         "league/flysystem": 10,
         "npm-asset/html2canvas": 5,
-        "philippemarcmeyer/fieldslinker": 20,
         "rubix/extras": 10,
         "teqneers/shamir": 20,
         "montefuscolo/xmpp": 20
