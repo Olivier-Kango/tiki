@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7cb33753f97149afe3bb9a739d779286",
+    "content-hash": "200e8dc5fcf6eb3f90022c91ae8f9959",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -4408,28 +4408,28 @@
         },
         {
             "name": "laminas/laminas-text",
-            "version": "2.10.0",
+            "version": "2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-text.git",
-                "reference": "40f7acdb284d41553d32db811e704d6e15e415b4"
+                "reference": "d799f3ccb3547e9e6ab313447138bae7009c7cc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-text/laminas-laminas-text-40f7acdb284d41553d32db811e704d6e15e415b4-zip-578592.zip",
-                "reference": "40f7acdb284d41553d32db811e704d6e15e415b4",
-                "shasum": "f2a0af25bd345d9af0e32b23d6c30dcf5f1acce4"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-text/laminas-laminas-text-d799f3ccb3547e9e6ab313447138bae7009c7cc7-zip-e4723e.zip",
+                "reference": "d799f3ccb3547e9e6ab313447138bae7009c7cc7",
+                "shasum": "c29c4912b4876c9c6e1f25d29b7dc5cbacfebc5d"
             },
             "require": {
-                "laminas/laminas-servicemanager": "^3.19.0",
+                "laminas/laminas-servicemanager": "^3.22.0",
                 "laminas/laminas-stdlib": "^3.7.1",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-text": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~2.4.0",
+                "laminas/laminas-coding-standard": "~2.5.0",
                 "phpunit/phpunit": "^9.5",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "vimeo/psalm": "^5.1"
@@ -4456,7 +4456,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-12-11T15:36:27+00:00"
+            "time": "2023-11-07T16:45:45+00:00"
         },
         {
             "name": "laminas/laminas-twitter",
@@ -6520,19 +6520,6 @@
             ]
         },
         {
-            "name": "npm-asset/bootstrap",
-            "version": "5.3.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/bootstrap/npm-asset-bootstrap-5.3.2.zip",
-                "shasum": "28c81c30822ef869af0ea02f8a43f5cc3a6e1569"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "npm-asset/chart.js",
             "version": "4.4.0",
             "dist": {
@@ -6559,19 +6546,6 @@
             "type": "npm-asset",
             "license": [
                 "MPL-2.0"
-            ]
-        },
-        {
-            "name": "npm-asset/cookie",
-            "version": "0.4.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/cookie/npm-asset-cookie-0.4.2.zip",
-                "shasum": "58c3adeb74bd867e347b7837c55df83ada23d626"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
             ]
         },
         {
@@ -6656,22 +6630,6 @@
             "require": {
                 "npm-asset/css-line-break": ">=2.1.0,<3.0.0",
                 "npm-asset/text-segmentation": ">=1.0.3,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/import-map-overrides",
-            "version": "2.4.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/import-map-overrides/npm-asset-import-map-overrides-2.4.2.zip",
-                "shasum": "40f7dfd42e5e1c05adb0f39ec659475b537b4c78"
-            },
-            "require": {
-                "npm-asset/cookie": ">=0.4.1,<0.5.0"
             },
             "type": "npm-asset",
             "license": [
@@ -6996,35 +6954,6 @@
             ]
         },
         {
-            "name": "npm-asset/select2",
-            "version": "4.1.0-RC.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/select2/npm-asset-select2-4.1.0-RC.0.zip",
-                "shasum": "336a5ca561afc048c422d96f87653edbcd29be80"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/select2-bootstrap-5-theme",
-            "version": "1.3.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/select2-bootstrap-5-theme/npm-asset-select2-bootstrap-5-theme-1.3.0.zip",
-                "shasum": "127b4512df741c8e6bae819e3566266921aee305"
-            },
-            "require": {
-                "npm-asset/bootstrap": ">=5.1.3,<6.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "npm-asset/sentry--browser",
             "version": "6.19.7",
             "dist": {
@@ -7143,19 +7072,6 @@
             ]
         },
         {
-            "name": "npm-asset/sortablejs",
-            "version": "1.15.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/sortablejs/npm-asset-sortablejs-1.15.0.zip",
-                "shasum": "ae3cfe9de7f63e9a521c61550ee54770b0af2670"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "npm-asset/source-map",
             "version": "0.6.1",
             "dist": {
@@ -7192,19 +7108,6 @@
             "type": "npm-asset",
             "license": [
                 "SEE LICENSE IN LICENSE"
-            ]
-        },
-        {
-            "name": "npm-asset/systemjs",
-            "version": "6.14.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/systemjs/npm-asset-systemjs-6.14.2.zip",
-                "shasum": "5867547329b6ab16c624cb11e8e0816cea0a056a"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
             ]
         },
         {
@@ -15201,41 +15104,6 @@
     ],
     "packages-dev": [
         {
-            "name": "bafs/testify",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/BafS/Testify.php.git",
-                "reference": "52dda3459096976689d255d44250c6f8f30e62a0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/bafs/testify/bafs-testify-52dda3459096976689d255d44250c6f8f30e62a0-zip-faf2a3.zip",
-                "reference": "52dda3459096976689d255d44250c6f8f30e62a0",
-                "shasum": "6cb07bb5364d4e53f5d77a177bed9fc31e8ecbce"
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Testify\\": "lib/Testify/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0"
-            ],
-            "description": "Testify makes writing unit tests fun again. It has an elegant syntax and keeps things simple",
-            "keywords": [
-                "framework",
-                "testing",
-                "unit"
-            ],
-            "time": "2016-03-14T11:52:02+00:00"
-        },
-        {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
             "version": "v1.0.0",
             "source": {
@@ -18285,9 +18153,7 @@
         "npm-asset/html2canvas": 5,
         "sorich87/bootstrap-tour": 20,
         "teqneers/shamir": 20,
-        "npm-asset/select2": 5,
         "rubix/extras": 10,
-        "bafs/testify": 20,
         "phpcompatibility/php-compatibility": 20,
         "phpcsstandards/phpcsutils": 15
     },
