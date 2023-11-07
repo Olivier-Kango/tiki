@@ -35,7 +35,7 @@ function tiki_route($path)
     }
     */
 
-
+    /** Simple path => php file aliases, no parameters */
     $simple = [
         'articles' => 'tiki-view_articles.php',
         'blogs' => 'tiki-list_blogs.php',

@@ -465,17 +465,17 @@ $headerlib->add_jsfile('lib/tiki-js.js');
 if (isset($prefs['javascript_cdn']) && $prefs['javascript_cdn'] == 'google') {
     $headerlib->add_jsfile_cdn("$url_scheme://ajax.googleapis.com/ajax/libs/jquery/$headerlib->jquery_version/jquery.min.js");
     // goggle is not hosting migrate so load from local
-    $headerlib->add_jsfile_dependency("vendor_bundled/vendor/components/jquery-migrate/jquery-migrate.min.js", true);
+    $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery-migrate/dist/jquery-migrate.min.js", true);
 } elseif (isset($prefs['javascript_cdn']) && $prefs['javascript_cdn'] == 'jquery') {
     $headerlib->add_jsfile_cdn("$url_scheme://code.jquery.com/jquery-$headerlib->jquery_version.min.js");
     $headerlib->add_jsfile_cdn("$url_scheme://code.jquery.com/jquery-migrate-$headerlib->jquerymigrate_version.min.js");
 } else {
     if (isset($prefs['tiki_minify_javascript']) && $prefs['tiki_minify_javascript'] === 'y') {
-        $headerlib->add_jsfile_dependency("vendor_bundled/vendor/components/jquery/jquery.min.js", true);
-        $headerlib->add_jsfile_dependency("vendor_bundled/vendor/components/jquery-migrate/jquery-migrate.min.js", true);
+        $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery/dist/jquery.min.js", true);
+        $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery-migrate/dist/jquery-migrate.min.js", true);
     } else {
-        $headerlib->add_jsfile_dependency("vendor_bundled/vendor/components/jquery/jquery.js", true);
-        $headerlib->add_jsfile_dependency("vendor_bundled/vendor/components/jquery-migrate/jquery-migrate.js", true);
+        $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery/dist/jquery.js", true);
+        $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery-migrate/dist/jquery-migrate.js", true);
     }
 }
 
@@ -560,9 +560,9 @@ if ($prefs['feature_jquery_ui'] == 'y') {
         $headerlib->add_jsfile_cdn("$url_scheme://code.jquery.com/ui/$headerlib->jqueryui_version/jquery-ui.min.js");
     } else {
         if ($prefs['tiki_minify_javascript'] === 'y') {
-            $headerlib->add_jsfile_dependency("vendor_bundled/vendor/components/jqueryui/jquery-ui.min.js", true);
+            $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery-ui/dist/jquery-ui.min.js", true);
         } else {
-            $headerlib->add_jsfile_dependency("vendor_bundled/vendor/components/jqueryui/jquery-ui.js");
+            $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery-ui/dist/jquery-ui.js");
         }
     }
 
@@ -579,7 +579,7 @@ if (typeof $.fn.button.noConflict === "function") {
         // cdn for css not working - this is the only css from a cdn anyway - so use local version
         //if ( isset($prefs['javascript_cdn']) && $prefs['javascript_cdn'] == 'jquery' ) {
             // $headerlib->add_cssfile("$url_scheme://code.jquery.com/ui/$headerlib->jqueryui_version/themes/{$prefs['feature_jquery_ui_theme']}/jquery-ui.css");
-            $headerlib->add_cssfile('vendor_bundled/vendor/components/jqueryui/themes/' . $prefs['feature_jquery_ui_theme'] . '/jquery-ui.css');
+            $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/jquery-ui/dist/themes/' . $prefs['feature_jquery_ui_theme'] . '/jquery-ui.css');
     //  } else {
     //      $headerlib->add_cssfile('vendor_bundled/vendor/jquery/jquery-ui-themes/themes/' . $prefs['feature_jquery_ui_theme'] . '/jquery-ui.css');
     //  }

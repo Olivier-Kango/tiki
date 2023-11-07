@@ -19,7 +19,7 @@ function generateJsImportmapScripts()
                 "bootstrap" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/bootstrap/dist/js/bootstrap.esm.min.js",
                 "clipboard" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/clipboard/dist/clipboard.min.js",
                 "moment" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/moment/dist/moment.js",
-                "vue" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/vue/vue.esm-browser.prod.js",
+                "vue" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.prod.js",
                 /* jquery_tiki */
                 "@tiki/tiki-calendar" => $tikiroot . JS_ASSETS_PATH . "/tiki-calendar.js",
                 "@tiki/wikiplugin-trackercalendar" => $tikiroot . JS_ASSETS_PATH . "/wikiplugin-trackercalendar.js",

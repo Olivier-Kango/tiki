@@ -197,8 +197,24 @@ export default defineConfig(({ command, mode }) => ({
                     dest: "vendor_dist/moment/dist",
                 },
                 {
+                    src: "node_modules/jquery/dist/*",
+                    dest: "vendor_dist/jquery/dist",
+                },
+                {
+                    src: "node_modules/jquery-ui/dist/*",
+                    dest: "vendor_dist/jquery-ui/dist",
+                },
+                {
+                    src: "node_modules/jquery-migrate/dist/*",
+                    dest: "vendor_dist/jquery-migrate/dist",
+                },
+                {
+                    src: "node_modules/jquery/dist/*",
+                    dest: "vendor_dist/jquery/dist",
+                },
+                {
                     src: "node_modules/vue/dist/vue.esm-browser.prod.js",
-                    dest: "vendor_dist/moment/vue",
+                    dest: "vendor_dist/vue/dist",
                 },
             ],
         }),

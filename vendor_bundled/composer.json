@@ -127,9 +127,6 @@
         "ckeditor/ckeditor": "<=4.22.1",
         "codemirror/codemirror": "5.19.0",
         "codercat/jwk-to-pem": "^1.0",
-        "components/jquery": "^3.1.0",
-        "components/jquery-migrate": "^3.0.0",
-        "components/jqueryui": "^1.12",
         "npm-asset/reveal.js": "^3.9.2",
         "cboden/ratchet": "^0.4",
         "composer/semver": "^3.2",
@@ -323,7 +320,6 @@
     "config": {
         "process-timeout": 5000,
         "bin-dir": "../bin",
-        "component-dir": "vendor/components",
         "platform": {
             "ext-ldap": "0",
             "ext-soap": "0",
@@ -335,7 +331,6 @@
             "oomphinc/composer-installers-extender": true,
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "robloach/component-installer": true,
             "php-http/discovery": true
         }
     },

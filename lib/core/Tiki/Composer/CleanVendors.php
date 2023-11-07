@@ -407,12 +407,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'moment/moment/',
-            [
-                'min/tests.js', // 5.2 MB
-            ]
-        );
-        self::remove(
             $vendors . 'plotly/plotly.js/',
             [
                 'test',
