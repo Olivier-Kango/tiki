@@ -35,6 +35,7 @@ $maxSimultaneousWeekViewEvents = 3;
 
 $myurl = $prefs['feature_sefurl'] === 'y' ? 'calendar' : 'tiki-calendar.php';
 $iCalAdvParamsUrl = 'tiki-calendar_params_ical.php';
+$smarty->assign('iCalAdvParamsUrl', $iCalAdvParamsUrl);
 
 if (! isset($cookietab)) {
     $cookietab = '1';
