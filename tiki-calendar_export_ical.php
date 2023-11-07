@@ -110,7 +110,7 @@ if (((is_array($calendarIds) && (count($calendarIds) > 0)) or isset($_REQUEST["c
     if (! isset($_REQUEST["calendarItem"])) {
         $events = $calendarlib->list_raw_items($calendarIds, $user, $startTime, $stopTime, -1, $maxRecords, $sort_mode = 'start_asc', $find = '');
     } else {
-        $events[] = $calendarlib->get_item($_REQUEST["calendarItem"]);
+        $events = $calendarlib->getItemWithRecurrence($_REQUEST["calendarItem"]);
     }
 
     if (isset($_REQUEST['csv'])) {

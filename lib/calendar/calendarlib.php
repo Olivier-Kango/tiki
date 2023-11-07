@@ -629,6 +629,21 @@ class CalendarLib extends TikiLib
         return $res;
     }
 
+    /**
+     * @param $calitemId
+     * @return array
+     */
+    public function getItemWithRecurrence($calitemId)
+    {
+        $events = [];
+        $query = "select `calitemId` from `tiki_calendar_items` where `recurrenceId`=? or `calitemId`=?";
+        $result = $this->query($query, [(int)($this->get_item($calitemId)['recurrenceId'] ?? 0), $calitemId]);
+        while ($res = $result->fetchRow()) {
+            $events[] = $this->get_item($res['calitemId']);
+        }
+        return $events;
+    }
+
     public function get_item_by_uri($uri)
     {
         $result = $this->query("select calitemId from `tiki_calendar_items` where uri = ?", [$uri]);
