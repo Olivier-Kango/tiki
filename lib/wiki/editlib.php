@@ -1552,6 +1552,7 @@ class EditLib
                 return "{tikiheading level=$level options=$matches[2]}" . trim($matches[3]) . "{/tikiheading}";
             }, $data);
             $data = preg_replace('/~~(.+?):(.+?)~~/', '{HTML()}<span style="color:$1">$2</span>{HTML}', $data);
+            $data = preg_replace('/--(.+?)--/', '~~$1~~', $data);
             $data = preg_replace('/-\+(.+?)\+-/', '`$1`', $data);
             $data = preg_replace_callback('/\{VERSIONS\(.*\)\}(.+)\{VERSIONS\}/s', function ($matches) {
                 return preg_replace_callback('/^-+\(.*?\)-+/m', function ($innerMatches) {
