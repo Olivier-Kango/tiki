@@ -249,7 +249,7 @@ class PrefsDoc extends TWVersion
         $this->prefDefault = trim($this->prefDefault);
 
         if ($this->prefDefault == '') {
-            $this->prefDefault = '~~gray:None~~';
+            $this->prefDefault = '<span style="color:gray">None</span>';
         } elseif (! empty($param->units)) {
             $this->prefDefault .= ' ' . $param->units;
         } elseif (! preg_match('/\W/', $this->prefDefault)) {                // if Pref is a singe word
