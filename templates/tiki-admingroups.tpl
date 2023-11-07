@@ -625,7 +625,7 @@
                                             type="submit"
                                             class="btn btn-primary"
                                             form="checkform2"
-                                            formaction="{bootstrap_modal controller=user groupremove="$groupname" anchor='#contenttabs_admingroups-3'}"
+                                            formaction="{service controller=user groupremove="$groupname" anchor='#contenttabs_admingroups-3'}"
                                             value="{tr}OK{/tr}"
                                             onclick="confirmPopup(event, true)"
                                         >
@@ -658,7 +658,7 @@
                                 type="submit"
                                 class="btn btn-link tips"
                                 form="addorban"
-                                formaction="{bootstrap_modal controller=group action=add_user}"
+                                formaction="{service controller=group action=add_user}"
                                 title=":{tr}Add to group{/tr}"
                                 onclick="confirmPopup(event, true)"
                             >
@@ -668,7 +668,7 @@
                                 type="submit"
                                 class="btn btn-link tips"
                                 form="addorban"
-                                formaction="{bootstrap_modal controller=group action=ban_user}"
+                                formaction="{service controller=group action=ban_user}"
                                 title=":{tr}Ban from group{/tr}"
                                 onclick="confirmPopup(event, true)"
                             >
@@ -726,7 +726,7 @@
                             type="submit"
                             class="btn btn-primary"
                             form="checkform3"
-                            formaction="{bootstrap_modal controller=group}"
+                            formaction="{service controller=group}"
                             value="{tr}OK{/tr}"
                             onclick="confirmPopup(event, true)"
                         >
