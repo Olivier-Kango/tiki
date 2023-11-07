@@ -50,9 +50,16 @@ class PatchCypht
         $cypthFolder = $fixDS('jason-munro/cypht');
         $genScript = $fixDS('scripts/config_gen.php');
         $output = `cd {$vendors}{$cypthFolder} && {$php_binary} {$genScript}`;
-        if (! strstr($output, 'hm3.rc file written')) {
+        if (! is_string($output) || ! strstr($output, 'hm3.rc file written')) {
             $io->write('Could not build Cypht package configuration. Check the output below and make sure minimum PHP version is available and executable as CLI.');
-            $io->write($output);
+            if ($output === false) {
+                $io->write('The pipe cannot be established.');
+            } elseif ($output === null) {
+                $lastError = error_get_last();
+                $io->write($lastError['message'] ?? '');
+            } else {
+                $io->write($output);
+            }
         }
 
         // copy site.js and site.css
