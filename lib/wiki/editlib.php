@@ -1594,14 +1594,15 @@ class EditLib
 
         $prefs['wiki_heading_links'] = $old_pref;
 
-        $wiki_page = $page ?? $page_name;
-        $page_infos = $tikilib->get_page_info($wiki_page);
+        if ($page_name) {
+            $page_infos = $tikilib->get_page_info($page_name);
 
-        if ($prefs['feature_wiki_allowhtml'] === 'y' && $page_infos['is_html']) {
-            if ($target_syntax == $source_syntax) {
-                throw new Exception(tr('Content already in ' . $source_syntax . ' syntax.'));
+            if ($prefs['feature_wiki_allowhtml'] === 'y' && $page_infos['is_html']) {
+                if ($target_syntax == $source_syntax) {
+                    throw new Exception(tr('Content already in ' . $source_syntax . ' syntax.'));
+                }
+                return $data;
             }
-            return $data;
         }
 
         if ($target_syntax == 'markdown') {
