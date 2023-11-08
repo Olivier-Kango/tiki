@@ -72,7 +72,7 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
         $customflags["private"] = $_REQUEST["private"];
     } else {
         $customflags["personal"] = 'y';
-        $customflags["private"] = 'y'; 
+        $customflags["private"] = 'y';
     }
     $customflags['customstatus'] = isset($_REQUEST['customstatus']) ? $_REQUEST['customstatus'] : 'y';
     $options = $_REQUEST['options'];
