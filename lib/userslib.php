@@ -4148,6 +4148,15 @@ class UsersLib extends TikiLib
                 'scope' => 'object',
             ],
             [
+                'name' => 'tiki_p_admin_private_calendar',
+                'description' => tr('Can create/admin private/personal calendars'),
+                'level' => 'registered',
+                'type' => 'calendar',
+                'admin' => false,
+                'prefs' => ['feature_calendar'],
+                'scope' => 'object',
+            ],
+            [
                 'name' => 'tiki_p_add_events',
                 'description' => tra('Can add events in the calendar'),
                 'level' => 'registered',

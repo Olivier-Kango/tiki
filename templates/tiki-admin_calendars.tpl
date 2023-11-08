@@ -73,11 +73,18 @@
                     </a>
                 </th>
 *}
-                <th>
-                    <a href="tiki-admin_calendars.php?offset={$offset}&amp;sort_mode={if $sort_mode eq 'personal_desc'}personal_asc{else}personal_desc{/if}">
-                        {tr}Personal{/tr}
-                    </a>
-                </th>
+                {if $tiki_p_admin_calendar eq 'y'}
+                    <th>
+                        <a href="tiki-admin_calendars.php?offset={$offset}&amp;sort_mode={if $sort_mode eq 'personal_desc'}personal_asc{else}personal_desc{/if}">
+                            {tr}Personal{/tr}
+                        </a>
+                    </th>
+                    <th>
+                        <a href="tiki-admin_calendars.php?offset={$offset}&amp;sort_mode={if $sort_mode eq 'private_desc'}private_asc{else}private_desc{/if}">
+                            {tr}Private{/tr}
+                        </a>
+                    </th>
+                {/if}
                 <th></th>
             </tr>
 
@@ -97,7 +104,10 @@
                     <td class="text">
                         {$cal.customlanguages|yesno}{if $cal.show_language eq 'y'}{icon name="list-alt" class="tips" title="{tr}Custom languages:{/tr}{tr}Field will show in popup{/tr}"}{/if}
                     </td>
-                    <td class="text">{$cal.personal|yesno}</td>
+                    {if $tiki_p_admin_calendar eq 'y'}
+                        <td class="text">{$cal.personal|yesno}</td>
+                        <td class="text">{$cal.private|yesno}</td>
+                    {/if}
                     <td class="action">
                         {actions}
                             {strip}
@@ -378,17 +388,32 @@
                     </select>
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label" for="personal">
-                    {tr}Personal Calendar{/tr}
-                </label>
-                <div class="col-sm-2">
-                    <select name="personal" id="personal" class="form-select">
-                        <option value='y' {if $personal eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
-                        <option value='n' {if $personal eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
-                    </select>
+            {if $tiki_p_admin_calendar eq 'y'}
+                <div class="mb-3 row">
+                    <label class="col-sm-4 col-form-label" for="personal">
+                        {tr}Personal Calendar{/tr}
+                        <a class="tikihelp text-info" title="{tr}Personal Calendar:{/tr} {tr}Events will be visible only to users creating them.{/tr}"><span class="icon icon-help fas fa-question-circle fa-fw "></span></a>
+                    </label>
+                    <div class="col-sm-2">
+                        <select name="personal" id="personal" class="form-select">
+                            <option value='y' {if $personal eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
+                            <option value='n' {if $personal eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-4 col-form-label" for="private">
+                        {tr}Private Calendar{/tr}
+                        <a class="tikihelp text-info" title="{tr}Private Calendar:{/tr} {tr}Calendar will be accessible only for your user.{/tr}"><span class="icon icon-help fas fa-question-circle fa-fw "></span></a>
+                    </label>
+                    <div class="col-sm-2">
+                        <select name="private" id="private" class="form-select">
+                            <option value='y' {if $private eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
+                            <option value='n' {if $private eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
+                        </select>
+                    </div>
+                </div>
+            {/if}
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customcategories">
                     {tr}Start of day{/tr}

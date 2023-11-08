@@ -16,8 +16,8 @@ if ($prefs['feature_groupalert'] == 'y') {
     $groupalertlib = TikiLib::lib('groupalert');
 }
 $auto_query_args = ['calendarId', 'sort_mode', 'find', 'offset'];
-if (! isset($_REQUEST["calendarId"])) {
-    $access->check_permission(['tiki_p_admin_calendar']);
+if (empty($_REQUEST["calendarId"])) {
+    $access->check_permission_either(['tiki_p_admin_calendar', 'tiki_p_admin_private_calendar']);
     $_REQUEST['calendarId'] = 0;
 } elseif ($_REQUEST['calendarId'] != 0) {
     if ($calendarlib->calendarExists($_REQUEST['calendarId'])) {
@@ -27,8 +27,7 @@ if (! isset($_REQUEST["calendarId"])) {
             $smarty->display('error.tpl');
             die;
         }
-        $objectperms = Perms::get('calendar', $_REQUEST['calendarId']);
-        if (! $objectperms->admin_calendar) {
+        if (! $calendarlib->canAdminCalendar($info)) {
             $access->display_error('', tra('Permission denied') . ": " . 'tiki_p_admin_calendar', '403');
         }
     } else {
@@ -67,7 +66,14 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     $customflags["customcategories"] = $_REQUEST["customcategories"];
     $customflags["custompriorities"] = $_REQUEST["custompriorities"];
     $customflags["customsubscription"] = isset($_REQUEST["customsubscription"]) ? $_REQUEST["customsubscription"] : 'n';
-    $customflags["personal"] = $_REQUEST["personal"];
+    $objectperms = Perms::get('calendar', $info['calendarId']);
+    if ($objectperms->admin_calendar) {
+        $customflags["personal"] = $_REQUEST["personal"];
+        $customflags["private"] = $_REQUEST["private"];
+    } else {
+        $customflags["personal"] = 'y';
+        $customflags["private"] = 'y'; 
+    }
     $customflags['customstatus'] = isset($_REQUEST['customstatus']) ? $_REQUEST['customstatus'] : 'y';
     $options = $_REQUEST['options'];
     if (array_key_exists('customcolors', $options) && strPos($options['customcolors'], '-') > 0) {
@@ -134,7 +140,7 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     if ($prefs['feature_groupalert'] == 'y') {
         $groupalertlib->AddGroup('calendar', $_REQUEST["calendarId"], $_REQUEST['groupforAlert'], ! empty($_REQUEST['showeachuser']) ? $_REQUEST['showeachuser'] : 'n');
     }
-    if ($_REQUEST['personal'] == 'y') {
+    if ($info['personal'] === 'y' && $info['private'] === 'n') {
         $userlib->assign_object_permission("Registered", $_REQUEST["calendarId"], "calendar", "tiki_p_view_calendar");
         $userlib->assign_object_permission("Registered", $_REQUEST["calendarId"], "calendar", "tiki_p_view_events");
         $userlib->assign_object_permission("Registered", $_REQUEST["calendarId"], "calendar", "tiki_p_add_events");
@@ -234,6 +240,7 @@ if ($_REQUEST['calendarId'] != 0) {
     $info['show_status_calview'] = '';
     $info["user"] = "$user";
     $info["personal"] = 'n';
+    $info["private"] = 'n';
     $info["startday"] = '25200';
     $info["endday"] = '72000';
     $info["allday"] = '';
@@ -292,6 +299,7 @@ $smarty->assign('show_participants', $info["show_participants"]);
 $smarty->assign('show_url', $info["show_url"]);
 $smarty->assign('calendarId', $_REQUEST["calendarId"]);
 $smarty->assign('personal', $info["personal"]);
+$smarty->assign('private', $info["private"]);
 $smarty->assign('startday', $info["startday"] < 0 ? 0 : $info['startday']);
 $smarty->assign('endday', $info["endday"] < 0 ? 0 : $info['endday']);
 //Use 12- or 24-hour clock for $publishDate time selector based on admin and user preferences
@@ -326,7 +334,7 @@ if (! isset($_REQUEST["offset"])) {
     $offset = $_REQUEST["offset"];
 }
 $smarty->assign_by_ref('offset', $offset);
-$calendars = $calendarlib->list_calendars($offset, $maxRecords, $sort_mode, $find);
+$calendars = $calendarlib->list_calendars($offset, $maxRecords, $sort_mode, $find, '', true);
 foreach (array_keys($calendars["data"]) as $i) {
     $calendars["data"][$i]["individual"] = $userlib->object_has_one_permission($i, 'calendar');
 }

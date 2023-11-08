@@ -62,6 +62,8 @@
                 {/if}
             {/if}
             {button href="tiki-admin_calendars.php?cookietab=1" _type="link" _text="{tr}Admin{/tr}" _icon_name="admin"}
+        {elseif $tiki_p_admin_private_calendar eq 'y'}
+            {button href="tiki-admin_calendars.php?cookietab=1" _type="link" _text="{tr}Admin{/tr}" _icon_name="admin"}
         {/if}
 
         {* avoid Add Event being shown if no calendar is displayed *}

@@ -114,6 +114,7 @@ import-export:
     - tabular_import
 calendar:
     - admin_calendar
+    - admin_private_calendar
     - view_calendar
     - view_tiki_calendar
     - view_events

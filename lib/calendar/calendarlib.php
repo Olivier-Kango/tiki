@@ -36,8 +36,10 @@ class CalendarLib extends TikiLib
      * @param string $user
      * @return mixed
      */
-    public function list_calendars($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $user = '')
+    public function list_calendars($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $fuser = '', $filter_admin_calendar = false)
     {
+        global $user;
+
         $mid = '';
         $res = [];
         $bindvars = [];
@@ -48,11 +50,20 @@ class CalendarLib extends TikiLib
             $bindvars[] = '%' . $find . '%';
         }
 
-        if ($user) {
+        if ($fuser) {
             $mid = "and ( tcal.`user` = ? or tcali.`calendarInstanceId` IS NOT NULL )";
-            $bindvars[] = $user;
+            $bindvars[] = $fuser;
             $join .= ' left join `tiki_calendar_instances` tcali on tcal.calendarId = tcali.calendarId and tcali.`user` = ?';
-            array_unshift($bindvars, $user);
+            array_unshift($bindvars, $fuser);
+        }
+
+        if ($filter_admin_calendar && ! Perms::get()->admin_calendar) {
+            if (Perms::get()->admin_private_calendar) {
+                $mid .= " AND tcal.`private` = 'y' AND tcal.`user` = ?";
+                $bindvars[] = $user;
+            } else {
+                $mid .= ' AND 0';
+            }
         }
 
         $categlib = TikiLib::lib('categ');
@@ -61,7 +72,7 @@ class CalendarLib extends TikiLib
             $categlib->getSqlJoin($jail, 'calendar', 'tcal.`calendarId`', $join, $mid, $bindvars);
         }
 
-        $sort = $this->convertSortMode($sort_mode, ['calendarId', 'name', 'customlocations', 'customparticipants', 'customlanguages', 'personal']);
+        $sort = $this->convertSortMode($sort_mode, ['calendarId', 'name', 'customlocations', 'customparticipants', 'customlanguages', 'personal', 'private']);
         if (! empty($sort) && $sort != '1') {
             $sort = 'tcal.' . $sort;
         }
@@ -78,10 +89,10 @@ class CalendarLib extends TikiLib
             while ($r2 = $res2->fetchRow()) {
                 $r[$r2['optionName']] = $r2['value'];
             }
-            if ($user) {
+            if ($fuser) {
                 // override with per user instance values if those exist
                 $query = "select * from `tiki_calendar_instances` where calendarId = ? and user = ?";
-                $instance_result = $this->query($query, [$r['calendarId'], $user]);
+                $instance_result = $this->query($query, [$r['calendarId'], $fuser]);
                 $instance = $instance_result->fetchRow();
                 if ($instance) {
                     $r['name'] = $instance['name'];
@@ -328,6 +339,22 @@ class CalendarLib extends TikiLib
             return [];
         }
 
+        $calIdsCanAdmin = Perms::filter(
+            ['type' => 'calendar'],
+            'object',
+            array_map(function ($calId) {
+                return ['calendarId' => $calId];
+            }, $calIds),
+            [ 'object' => 'calendarId' ],
+            'admin_calendar'
+        );
+        $calIdsCanAdmin = array_map(function ($object) {
+            return intval($object['calendarId']);
+        }, $calIdsCanAdmin);
+        if (empty($calIdsCanAdmin)) {
+            $calIdsCanAdmin[] = 0;
+        }
+
         $where = [];
         $bindvars = [];
         foreach ($calIds as $calendarId) {
@@ -343,7 +370,8 @@ class CalendarLib extends TikiLib
         $bindvars[] = (int)$tstop;
         $bindvars[] = (int)$tstart;
 
-        $cond .= " and ((c.`personal`='y' and i.`user`=?) or c.`personal` != 'y')";
+        $cond .= " and (c.`personal` != 'y' or (c.`personal`='y' and c.`private` = 'n' and i.`user`=?) or (c.`personal` = 'y' and c.`private` = 'y' and (i.`user` = ? or c.calendarId in (" . implode(', ', $calIdsCanAdmin) . "))))";
+        $bindvars[] = $user;
         $bindvars[] = $user;
 
         $query = "select i.`calitemId` as `calitemId` ";
@@ -2168,5 +2196,30 @@ class CalendarLib extends TikiLib
             $list[] = $row;
         }
         return $list;
+    }
+
+    /**
+     * Helper method to check if user can admin the calendar info object passed.
+     * Should either have global calendar admin permission or ability to admin
+     * private calendars and this calendar belongs to the user.
+     * @param array $info - calendar info object
+     * @return boolean
+     */
+    public function canAdminCalendar(array $info): bool
+    {
+        global $user;
+
+        $objectperms = Perms::get('calendar', $info['calendarId']);
+        if ($objectperms->admin_calendar) {
+            return true;
+        }
+
+        if ($info['private'] === 'y') {
+            if ($objectperms->admin_private_calendar && $info['user'] == $user) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

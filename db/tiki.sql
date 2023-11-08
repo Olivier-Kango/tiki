@@ -507,6 +507,7 @@ CREATE TABLE `tiki_calendars` (
   `created` int(14) NOT NULL default '0',
   `lastmodif` int(14) NOT NULL default '0',
   `personal` enum ('n', 'y') NOT NULL default 'n',
+  `private` enum ('n', 'y') NOT NULL default 'n',
   PRIMARY KEY (`calendarId`)
 ) ENGINE=MyISAM ;
 

@@ -267,7 +267,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         list($calendarId, $instanceId) = $calendarId;
 
         if ($instanceId == 0) {
-            $this->ensureCalendarAccess($calendarId, $instanceId, 'admin_calendar');
+            $this->ensureCalendarAccess($calendarId, $instanceId, null, 'admin_calendar');
         }
 
         $supportedProperties = array_keys($this->propertyMap);
@@ -324,7 +324,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
              * If the user is the owner of the calendar, we delete all data and all
              * instances.
              **/
-            $this->ensureCalendarAccess($calendarId, $instanceId, 'admin_calendar');
+            $this->ensureCalendarAccess($calendarId, $instanceId, null, 'admin_calendar');
             TikiLib::lib('calendar')->drop_calendar($calendarId);
         } else {
             /**
@@ -335,8 +335,9 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         }
     }
 
-    protected function ensureCalendarAccess($calendarId, $instanceId, $tiki_permission, $instance_permission = null)
+    protected function ensureCalendarAccess($calendarId, $instanceId, $itemId, $tiki_permission, $instance_permission = null)
     {
+        global $user;
         if ($instanceId > 0) {
             $instance = TikiLib::lib('calendar')->get_calendar_instance($instanceId);
             if ($instance_permission == 'read') {
@@ -348,12 +349,13 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
                 throw new DAV\Exception\Forbidden(tra('Permission denied') . ": " . tra('shared calendar not writable'));
             }
         } else {
-            if (is_array($calendarId)) {
-                $perms = Perms::get($calendarId[0], $calendarId[1]);
+            $calendar = TikiLib::lib('calendar')->get_calendar($calendarId);
+            if (! is_null($itemId)) {
+                $perms = Perms::get('event', $itemId);
             } else {
                 $perms = Perms::get('calendar', $calendarId);
             }
-            if (! $perms->$tiki_permission) {
+            if (! $perms->$tiki_permission && ! TikiLib::lib('calendar')->canAdminCalendar($calendar)) {
                 throw new DAV\Exception\Forbidden(tra('Permission denied') . ": " . 'tiki_p_' . $tiki_permission);
             }
         }
@@ -397,7 +399,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         }
         list($calendarId, $instanceId) = $calendarId;
 
-        $this->ensureCalendarAccess($calendarId, $instanceId, 'view_calendar', 'read');
+        $this->ensureCalendarAccess($calendarId, $instanceId, null, 'view_calendar', 'read');
 
         $objects = TikiLib::lib('calendar')->get_events($calendarId);
         $filtered = Perms::filter([ 'type' => 'event' ], 'object', $objects, [ 'object' => 'calitemId' ], 'view_events');
@@ -458,7 +460,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         }
         list($calendarId, $instanceId) = $calendarId;
 
-        $this->ensureCalendarAccess($calendarId, $instanceId, 'view_calendar', 'read');
+        $this->ensureCalendarAccess($calendarId, $instanceId, null, 'view_calendar', 'read');
 
         $row = $this->mapCalendarObjectUriToItem($objectUri);
         if (! is_array($row)) {
@@ -513,7 +515,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         }
         list($calendarId, $instanceId) = $calendarId;
 
-        $this->ensureCalendarAccess($calendarId, $instanceId, 'view_calendar', 'read');
+        $this->ensureCalendarAccess($calendarId, $instanceId, null, 'view_calendar', 'read');
 
         $result = [];
         foreach (array_chunk($uris, 900) as $chunk) {
@@ -584,7 +586,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         }
         list($calendarId, $instanceId) = $calendarId;
 
-        $this->ensureCalendarAccess($calendarId, $instanceId, 'add_events', 'write');
+        $this->ensureCalendarAccess($calendarId, $instanceId, null, 'add_events', 'write');
 
         if (preg_match('/sabredav-.*\.ics/', $objectUri)) {
             // scheduling plugin tries to create events that will be later created by server createFile method
@@ -593,6 +595,12 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
 
         $calendar = TikiLib::lib('calendar')->get_calendar($calendarId);
         $timezone = TikiLib::lib('tiki')->get_display_timezone($calendar['user']);
+
+        if ($calendar['private'] === 'y') {
+            $userToSet = $calendar['user'];
+        } else {
+            $userToSet = $user;
+        }
 
         $data = Utilities::getDenormalizedData($calendarData, $timezone);
         $data['calendarId'] = $calendarId;
@@ -611,13 +619,13 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
             if (empty($data['nlId'])) {
                 $data['nlId'] = 0;
             }
-            $data['user'] = $user;
+            $data['user'] = $userToSet;
             $rec = $data['rec'];
             $rec->updateDetails($data);
             $rec->save(true);
             $rec->updateOverrides($data['overrides']);
         } else {
-            TikiLib::lib('calendar')->set_item($user, 0, $data);
+            TikiLib::lib('calendar')->set_item($userToSet, 0, $data);
         }
 
         return '"' . $data['etag'] . '"';
@@ -658,10 +666,16 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
             $rec = null;
         }
 
-        $this->ensureCalendarAccess(['event', $item['calitemId']], $instanceId, 'change_events', 'write');
+        $this->ensureCalendarAccess($calendarId, $instanceId, $item['calitemId'], 'change_events', 'write');
 
         $calendar = TikiLib::lib('calendar')->get_calendar($calendarId);
         $timezone = TikiLib::lib('tiki')->get_display_timezone($calendar['user']);
+
+        if ($calendar['private'] === 'y') {
+            $userToSet = $calendar['user'];
+        } else {
+            $userToSet = $user;
+        }
 
         $data = Utilities::getDenormalizedData($calendarData, $timezone);
         $data['calendarId'] = $calendarId;
@@ -674,11 +688,11 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
             }
             $data['calitemId'] = $item['calitemId'];
             $rec->updateDetails($data);
-            $rec->setUser($user);
+            $rec->setUser($userToSet);
             $rec->save($data['updateManuallyChangedEvents'] ?? true);
             $rec->updateOverrides($data['overrides']);
         } else {
-            TikiLib::lib('calendar')->set_item($user, $item['calitemId'], $data);
+            TikiLib::lib('calendar')->set_item($userToSet, $item['calitemId'], $data);
         }
 
         return '"' . $data['etag'] . '"';
@@ -710,7 +724,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
             $rec = null;
         }
 
-        $this->ensureCalendarAccess(['event', $item['calitemId']], $instanceId, 'change_events', 'write');
+        $this->ensureCalendarAccess($calendarId, $instanceId, $item['calitemId'], 'change_events', 'write');
 
         if ($rec) {
             $rec->delete(0);
@@ -857,7 +871,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         }
         list($calendarId, $instanceId) = $calendarId;
 
-        $this->ensureCalendarAccess($calendarId, $instanceId, 'view_calendar', 'read');
+        $this->ensureCalendarAccess($calendarId, $instanceId, null, 'view_calendar', 'read');
 
         $componentType = null;
         $requirePostFilter = true;
@@ -1029,7 +1043,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         }
         list($calendarId, $instanceId) = $calendarId;
 
-        $this->ensureCalendarAccess($calendarId, $instanceId, 'view_calendar', 'read');
+        $this->ensureCalendarAccess($calendarId, $instanceId, null, 'view_calendar', 'read');
 
         $options = TikiLib::lib('calendar')->get_calendar_options($calendarId);
 
