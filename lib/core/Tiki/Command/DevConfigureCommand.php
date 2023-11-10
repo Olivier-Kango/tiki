@@ -7,6 +7,7 @@
 namespace Tiki\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TikiLib;
@@ -21,6 +22,11 @@ use TikiLib;
 
 class DevConfigureCommand extends Command
 {
+    protected $user_tiki;
+    protected $pass_tiki;
+    protected $dbs_tiki;
+    protected $host_tiki;
+
     protected static $defaultDescription = 'Install or update development files';
     protected function configure()
     {
@@ -28,11 +34,65 @@ class DevConfigureCommand extends Command
             ->setName('dev:configure')
             ->setHelp(
                 'Install or update and configure composer development vendor files and unit test config & database.'
+            )
+            ->addArgument(
+                'db_user',
+                InputArgument::OPTIONAL,
+                'User for the PHPUnit database'
+            )
+            ->addArgument(
+                'db_pass',
+                InputArgument::OPTIONAL,
+                'Password for the PHPUnit database'
+            )
+            ->addArgument(
+                'db_name',
+                InputArgument::OPTIONAL,
+                'Name of the PHPUnit database'
+            )
+            ->addArgument(
+                'db_host',
+                InputArgument::OPTIONAL,
+                'Host of the PHPUnit database'
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // If any argument is missing,
+        if (! $input->getArgument('db_user') || ! $input->getArgument('db_pass') || ! $input->getArgument('db_name') || ! $input->getArgument('db_host')) {
+            // and the file lib/test/local.php exists,
+            if (file_exists('lib/test/local.php')) {
+                // try to load from it
+                include 'lib/test/local.php';
+
+                // If the argument "db_user" was not passed, set it to the value of $user_tiki from local.php
+                if (! $input->getArgument('db_user')) {
+                    $input->setArgument('db_user', $user_tiki);
+                }
+
+                // If the argument "db_pass" was not passed, set it to the value of $pass_tiki from local.php
+                if (! $input->getArgument('db_pass')) {
+                    $input->setArgument('db_pass', $pass_tiki);
+                }
+
+                // If the argument "db_name" was not passed, set it to the value of $dbs_tiki from local.php
+                if (! $input->getArgument('db_name')) {
+                    $input->setArgument('db_name', $dbs_tiki);
+                }
+
+                // If the argument "db_host" was not passed, set it to the value of $host_tiki from local.php
+                if (! $input->getArgument('db_host')) {
+                    $input->setArgument('db_host', $host_tiki);
+                }
+            }
+        }
+
+        $this->user_tiki = $input->getArgument('db_user');
+        $this->pass_tiki = $input->getArgument('db_pass');
+        $this->dbs_tiki = $input->getArgument('db_name');
+        $this->host_tiki = $input->getArgument('db_host');
+
         // Lets first check that some requirements are met.
         if (! is_callable('exec')) {
             $output->writeln('<error>Must enable exec() for this command</error>');
@@ -140,13 +200,13 @@ EOT;
         $output->writeln('Checking PHPUnit database status');
         if ($this->databaseConnect()) {
             $output->writeln('<info>Done: Database already connecting</info>');
-        } elseif ((include('lib/test/local.php'))) {
+        } elseif ($this->user_tiki && $this->pass_tiki && $this->dbs_tiki && $this->host_tiki) {
             if (DB_STATUS) {
                 $tikilib = TikiLib::lib('tiki');
                 $error = '';
 
                 $output->writeln('* Creating Database User', OutputInterface::VERBOSITY_VERBOSE);
-                $query = "CREATE USER IF NOT EXISTS `$user_tiki`@`$host_tiki` IDENTIFIED BY '$pass_tiki';";
+                $query = "CREATE USER IF NOT EXISTS `$this->user_tiki`@`$this->host_tiki` IDENTIFIED BY '$this->pass_tiki';";
                 $tikilib->queryError($query, $error);
                 if (! empty($error)) {
                     $output->writeln('<comment>* Could not create user</comment>', OutputInterface::VERBOSITY_VERBOSE);
@@ -154,7 +214,7 @@ EOT;
                 }
 
                 $output->writeln('* Creating Database', OutputInterface::VERBOSITY_VERBOSE);
-                $query = "CREATE DATABASE IF NOT EXISTS `$dbs_tiki` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;";
+                $query = "CREATE DATABASE IF NOT EXISTS `$this->dbs_tiki` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;";
                 $tikilib->queryError($query, $error);
                 if (! empty($error)) {
                     $output->writeln('<comment>* Could not create database</comment>', OutputInterface::VERBOSITY_VERBOSE);
@@ -162,7 +222,7 @@ EOT;
                 }
 
                 $output->writeln('* Assigning user rights on database', OutputInterface::VERBOSITY_VERBOSE);
-                $query = "GRANT ALL ON $dbs_tiki.* TO `$user_tiki`@`$host_tiki`;";
+                $query = "GRANT ALL ON $this->dbs_tiki.* TO `$this->user_tiki`@`$this->host_tiki`;";
                 $tikilib->queryError($query, $error);
                 if (! empty($error)) {
                     $output->writeln('<comment>* Could not assign user rights</comment>', OutputInterface::VERBOSITY_VERBOSE);
@@ -181,14 +241,14 @@ EOT;
                 $output->writeln('You may try the following:');
                 $output->writeln('1. Ensure Tiki database connection root credentials and run this command again.');
                 $output->writeln('2. Open PHPMyAdmin and run the following commands:');
-                $output->writeln("  CREATE USER IF NOT EXISTS `$user_tiki`@`$host_tiki` IDENTIFIED BY '$pass_tiki';");
-                $output->writeln("  CREATE DATABASE IF NOT EXISTS `$dbs_tiki` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
-                $output->writeln("  GRANT ALL ON $dbs_tiki.* TO `$user_tiki`@`$host_tiki`;");
+                $output->writeln("  CREATE USER IF NOT EXISTS `$this->user_tiki`@`$this->host_tiki` IDENTIFIED BY '$this->pass_tiki';");
+                $output->writeln("  CREATE DATABASE IF NOT EXISTS `$this->dbs_tiki` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
+                $output->writeln("  GRANT ALL ON $this->dbs_tiki.* TO `$this->user_tiki`@`$this->host_tiki`;");
                 $output->writeln('3. Install via the terminal:');
                 $output->writeln('Hints: The default mysql password is "root". Your mysql $PATH must be configured for the below to work.');
                 $output->writeln('  mysql -u root -p');
-                $output->writeln("  create database $dbs_tiki;");
-                $output->writeln("  grant all privileges on $dbs_tiki.* TO '$user_tiki'@'$host_tiki' identified by '$pass_tiki';");
+                $output->writeln("  create database $this->dbs_tiki;");
+                $output->writeln("  grant all privileges on $this->dbs_tiki.* TO '$this->user_tiki'@'$this->host_tiki' identified by '$this->pass_tiki';");
                 $output->writeln('  flush privileges;');
                 $output->writeln('  \q');
             }
@@ -207,10 +267,10 @@ EOT;
 
     private function databaseConnect(): bool
     {
-        if (! (include 'lib/test/local.php')) {
+        if (! $this->user_tiki || ! $this->pass_tiki || ! $this->dbs_tiki || ! $this->host_tiki) {
             return false;
         }
-        $link = @mysqli_connect($host_tiki, $user_tiki, $pass_tiki, $dbs_tiki);
+        $link = @mysqli_connect($this->host_tiki, $this->user_tiki, $this->pass_tiki, $this->dbs_tiki);
 
         if (! $link) {
             return false;
