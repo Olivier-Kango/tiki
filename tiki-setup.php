@@ -993,5 +993,11 @@ if ($prefs['feature_calendar'] === 'y') {
     $headerlib->add_jsfile('lib/jquery_tiki/tiki-calendar.js');
 }
 
+// Using boomerang for performance monitoring
+if ($prefs['tiki_monitor_performance'] == 'y') {
+    $headerlib->add_jsfile_dependency('vendor_bundled/vendor/npm-asset/boomerangjs/boomerang.js');
+    $headerlib->add_jsfile_dependency('vendor_bundled/vendor/npm-asset/boomerangjs/plugins/rt.js');
+}
+
 // use this to distinguish if tiki-setup has completed, e.g. in smarty lib when including tiki-modules and determining if a redirect must be served or not
 define('TIKI_SETUP_FINISHED', true);

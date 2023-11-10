@@ -231,11 +231,6 @@
     {/foreach}
 {/if}
 
-{if $prefs.tiki_monitor_performance eq 'y'}
-    <script type="text/javascript" src="vendor_bundled/vendor/npm-asset/boomerangjs/boomerang.js"></script>
-    <script type="text/javascript" src="vendor_bundled/vendor/npm-asset/boomerangjs/plugins/rt.js"></script>
-{/if}
-
 {if ($prefs.feature_blogs eq 'y' and $prefs.feature_blog_sharethis eq 'y') or ($prefs.feature_articles eq 'y' and $prefs.feature_cms_sharethis eq 'y') or ($prefs.feature_wiki eq 'y' and $prefs.feature_wiki_sharethis eq 'y')}
     {if $prefs.blog_sharethis_publisher neq "" and $prefs.article_sharethis_publisher neq ""}
         <script type="text/javascript" src="https://ws.sharethis.com/button/sharethis.js#publisher={$prefs.blog_sharethis_publisher}&amp;type=website&amp;buttonText=&amp;onmouseover=false&amp;send_services=aim"></script>

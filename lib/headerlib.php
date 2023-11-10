@@ -772,7 +772,7 @@ class HeaderLib
                     $msg = '';
                     // if the name contains not  'min' and that file is not blacklisted for minification assume it is minified
                     // preferable is to set $skip_minify proper
-                    if (! preg_match('/\bmin\./', $f) && isset($this->skip_minify[$f]) && $this->skip_minify[$f] !== true) {
+                    if (! preg_match('/\bmin\./', $f) && (! isset($this->skip_minify[$f]) || $this->skip_minify[$f] !== true)) {
                         set_time_limit(600);
                         try {
                             // remove cache-buster parameters from the end of the filename
