@@ -8216,16 +8216,18 @@ class UsersLib extends TikiLib
 
         $response_value = $rpcauth->value();
 
-        for (;;) {
-            list($key, $value) = $response_value->structeach();
-            if ($key == '') {
-                break;
-            } elseif ($key == 'login') {
-                $u['login'] = $value->scalarval();
-            } elseif ($key == 'email') {
-                $u['email'] = $value->scalarval();
+        if ($rpcauth->valueType() == 'xmlrpcvals') {
+            foreach ($response_value as $key => $value) {
+                if ($key == '') {
+                    break;
+                } elseif ($key == 'login') {
+                    $u['login'] = $value->scalarval();
+                } elseif ($key == 'email') {
+                    $u['email'] = $value->scalarval();
+                }
             }
         }
+
 
         return $u;
     }
@@ -8259,8 +8261,7 @@ class UsersLib extends TikiLib
         $tikilib = TikiLib::lib('tiki');
 
         if ($response_value->kindOf() == 'struct') {
-            for (;;) {
-                list($key, $value) = $response_value->structeach();
+            foreach ($response_value as $key => $value) {
                 if ($key == '') {
                     break;
                 } elseif ($key == 'user_details') {
