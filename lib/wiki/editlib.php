@@ -1691,6 +1691,9 @@ class EditLib
             if ($ppArray) {
                 $converted = str_replace($ppArray['keys'], $ppArray['values'], $converted);
             }
+
+            // Remarks box need \n as they return div tag
+            $converted = preg_replace('/\{REMARKSBOX.*?\}(.*?)\{REMARKSBOX\}(?![\n\r])/s', "$0\n", $converted);
         } else {
             // convert to tiki syntax
             if ($source_syntax == 'tiki') {
