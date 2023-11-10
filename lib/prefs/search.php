@@ -19,21 +19,16 @@ function prefs_search_list()
             'name' => tra('Default where'),
             'description' => tra('When object filter is not on, limit to search one type of object'),
             'type' => 'multicheckbox',
-            'options' => isset($prefs['feature_search_fulltext']) && $prefs['feature_search_fulltext'] === 'y' ?
-                    [
-                        '' => tra('Entire site'),
-                        'wikis' => tra('Wiki Pages'),
-                        'trackers' => tra('Trackers'),
-                    ] : [
-                        '' => tra('Entire site'),
-                        'wiki page' => tra('Wiki pages'),
-                        'blog post' => tra('Blog posts'),
-                        'article' => tra('Articles'),
-                        'file' => tra('Files'),
-                        'forum post' => tra('Forums'),
-                        'trackeritem' => tra('Tracker items'),
-                        'sheet' => tra('Spreadsheets'),
-                    ],
+            'options' => [
+                '' => tra('Entire site'),
+                'wiki page' => tra('Wiki pages'),
+                'blog post' => tra('Blog posts'),
+                'article' => tra('Articles'),
+                'file' => tra('Files'),
+                'forum post' => tra('Forums'),
+                'trackeritem' => tra('Tracker items'),
+                'sheet' => tra('Spreadsheets'),
+            ],
             'default' => [],
         ],
         'search_default_interface_language' => [

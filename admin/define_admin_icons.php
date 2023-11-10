@@ -60,7 +60,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'title'       => tr('Search'),
                     'description' => tr('Search configuration'),
                     'help'        => 'Search',
-                    'disabled'    => $prefs['feature_search'] !== 'y' && $prefs['feature_search_fulltext'] !== 'y',
+                    'disabled'    => $prefs['feature_search'] !== 'y',
                 ],
                 'i18n'     => [
                     'title'       => tr('i18n'),
@@ -453,8 +453,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
             'title' => tr('Search'),
             'description' => tr('Search configuration'),
             'help' => 'Search',
-            'disabled' => $prefs['feature_search'] !== 'y' &&
-                            $prefs['feature_search_fulltext'] !== 'y',
+            'disabled' => $prefs['feature_search'] !== 'y',
         ],
         "wiki" => [
             'title' => tr('Wiki'),

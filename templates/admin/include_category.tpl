@@ -133,7 +133,6 @@
 
     <fieldset>
         <legend>{tr}Performance{/tr}</legend>
-        {preference name=feature_search_show_forbidden_cat}
         {preference name=category_browse_count_objects}
     </fieldset>
 

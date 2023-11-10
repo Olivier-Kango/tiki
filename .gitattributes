@@ -6329,7 +6329,6 @@ templates/tiki-search_stats.tpl -text
 templates/tiki-searchfacets.tpl -text
 templates/tiki-searchindex.tpl -text
 templates/tiki-searchindex_form.tpl -text
-templates/tiki-searchresults.tpl -text
 templates/tiki-send_newsletters.tpl -text
 templates/tiki-send_objects.tpl -text
 templates/tiki-share.tpl -text
@@ -8227,7 +8226,6 @@ themes/yeti/templates/index.php -text
 /tiki-search_replace.php -text
 /tiki-search_stats.php -text
 /tiki-searchindex.php -text
-/tiki-searchresults.php -text
 /tiki-section_options.php -text
 /tiki-sefurl.php -text
 /tiki-send_mail.php -text

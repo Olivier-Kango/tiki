@@ -7,22 +7,11 @@
     </div>
     <div class="flex-grow-1 ms-3">
         {icon name="admin_search" size=3 iclass="float-sm-end"}
-        {tr}There are two search systems in Tiki that use different search engines: <strong>Basic Search</strong> and <strong>Advanced Search</strong>{/tr}.
-        {tr}The Advanced Search generally provides better results, but is more demanding on the server (it creates a search index, updated either incrementally or based on a cron job configured elsewhere){/tr}.
         <div class="row">
             <div class="col-md-6">
                 <fieldset>
-                    <legend>{tr}Basic Search{/tr} {help url="Search"}</legend>
-                    {tr}Uses MySQL full-text search{/tr}.
-                    {tr}If enabled, the search module and search feature in the main application menu will use it by default, even if 'Advanced Search' is also enabled below{/tr}.
-                    {preference name=feature_search_fulltext}
-                    <div class="adminoptionboxchild" id="feature_search_fulltext_childcontainer">
-                        {preference name=feature_referer_highlight}
-                    </div>
-                </fieldset>
-                <fieldset>
                     <legend>{tr}Advanced Search{/tr}</legend>
-                    {tr}Uses Unified Search Index with a specified search engine{/tr}. {tr}If you have issues with Advanced Search, simply revert to Basic Search{/tr}.
+                    {tr}Uses Unified Search Index with a specified search engine{/tr}.
                     {tr}Unified Search is required by a number of other features, e.g. the community friendship network{/tr}
                     {preference name=feature_search visible="always"}
                     <div class="adminoptionboxchild" id="feature_search_childcontainer">

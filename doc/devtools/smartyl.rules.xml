@@ -25,7 +25,6 @@
             <!-- HTML comments used for nohighlight smarty filter -->
             <pattern>templates/tiki-searchfacets.tpl</pattern>
             <pattern>templates/tiki-searchindex_form.tpl</pattern>
-            <pattern>templates/tiki-searchresults.tpl</pattern>
             <pattern>templates/tiki-view_tracker_item.tpl</pattern>
         </rule>
 

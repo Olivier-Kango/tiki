@@ -21,7 +21,6 @@ if (($id = (int)$_GET['id']) > 0) {
     if (
         $prefs['feature_file_galleries'] == 'y'
         && $prefs['feature_search'] == 'y'
-        && $prefs['feature_search_fulltext'] != 'y'
         && $prefs['search_refresh_index_mode'] == 'normal'
         && $prefs['fgal_asynchronous_indexing'] == 'y'
     ) {

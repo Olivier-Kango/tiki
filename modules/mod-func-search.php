@@ -18,7 +18,7 @@ function module_search_info()
     return [
         'name' => tra('Search'),
         'description' => tra('Multi-purpose search module (go or edit page by name and/or search site)'),
-        'prefs' => [], // feature_search_fulltext does not depend on feature_search (apparently?)
+        'prefs' => [],
         'params' => [
             'legacy_mode' => [
                 'name' => tra('Legacy Mode'),
@@ -40,14 +40,6 @@ function module_search_info()
                 'name' => tra('Advanced search'),
                 'description' => tra('Use advanced (boolean) search (full text search only).') . ' ' . tra('Default:') . ' "y"' . tra(' (use advanced search)'),
             ],
-            'advanced_search_option' => [
-                'name' => tra('Advanced search checkbox'),
-                'description' => tra('Show advanced search checkbox (full text search only).') . ' ' . tra('Default:') . ' "n"' . tra(' (advanced search checkbox off)'),
-            ],
-            'advanced_search_help' => [
-                'name' => tra('Advanced search help'),
-                'description' => tra('Show advanced search help icon (full text search only).') . ' ' . tra('Default:') . ' "n"' . tra(' (advanced search help off)'),
-            ],
             'show_search_button' => [
                 'name' => tra('Show Search Button'),
                 'description' => tra('Show search button.') . ' ' . tra('Default:') . ' "y"' . tra(' (do show search button)'),
@@ -67,7 +59,7 @@ function module_search_info()
             // initially from quick-edit
             'search_action' => [
                 'name' => tra('Search Form Action'),
-                'description' => tra("If set, send the form to the given location (relative to Tiki's root) for processing.") . ' ' . tra('Default:') . tra(' tiki-searchresults.php or tiki-searchindex.php (for Tiki search)'),
+                'description' => tra("If set, send the form to the given location (relative to Tiki's root) for processing.") . ' ' . tra('Default:') . tra(' tiki-searchindex.php (for Tiki search)'),
             ],
             'search_submit' => [
                 'name' => tra('Search Submit Label'),
@@ -161,8 +153,6 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
         'use_autocomplete' => 'y',
         'tiki_search' => 'y',
         'advanced_search' => 'y',
-        'advanced_search_option' => 'n',
-        'advanced_search_help' => 'n',
         'show_search_button' => 'y',
         'show_go_button' => 'y',
         'show_edit_button' => 'y',
@@ -186,8 +176,6 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
 
     if (isset($smod_params['tiki_search']) && $smod_params['tiki_search'] == 'y') {
         $smod_params['advanced_search'] = 'n';
-        $smod_params['advanced_search_option'] = 'n';
-        $smod_params['advanced_search_help'] = 'n';
     }
 
     switch ($smod_params['legacy_mode']) {
@@ -209,8 +197,6 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
             $smod_params['show_go_button'] = 'n';
             $smod_params['show_edit_button'] = 'n';
             $smod_params['advanced_search'] = 'y';
-            $smod_params['advanced_search_option'] = $prefs['feature_search_fulltext'];
-            $smod_params['advanced_search_help'] = $prefs['feature_search_fulltext'];
             $smod_params['search_submit'] = tra('Go');
             $smod_params['default_button'] = 'search';
             $smod_params['show_object_filter'] = $prefs['feature_search_show_object_filter'];

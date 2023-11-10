@@ -3034,9 +3034,6 @@
         "lib\/filegals\/h5plib.php": {
             "class:H5PLib": true
         },
-        "lib\/search\/searchlib-mysql.php": {
-            "class:SearchLib": true
-        },
         "lib\/search\/searchstatslib.php": {
             "class:SearchStatsLib": true
         },
@@ -9034,21 +9031,6 @@
             "H5PLib::handle_fileDelete": true,
             "H5PLib::alter_assets": true
         },
-        "lib\/search\/searchlib-mysql.php": {
-            "SearchLib::register_search": true,
-            "SearchLib::find_wikis": true,
-            "SearchLib::find_relevance_cmp": true,
-            "SearchLib::find_calendars": true,
-            "SearchLib::find_faqs": true,
-            "SearchLib::find_directory": true,
-            "SearchLib::find_forums": true,
-            "SearchLib::find_files": true,
-            "SearchLib::find_blogs": true,
-            "SearchLib::find_articles": true,
-            "SearchLib::find_posts": true,
-            "SearchLib::find_trackers": true,
-            "SearchLib::find_pages": true
-        },
         "lib\/search\/searchstatslib.php": {
             "SearchStatsLib::clear_search_stats": true,
             "SearchStatsLib::register_term_hit": true,
@@ -10816,9 +10798,6 @@
             "_getMultilistValue": true,
             "_getRadioValue": true,
             "_getMulticheckboxValue": true
-        },
-        "lib\/search\/searchlib-mysql.php": {
-            "_find": true
         },
         "lib\/sheet\/grid.php": {
             "_load": true,

@@ -6360,7 +6360,7 @@ class UsersLib extends TikiLib
                 'level' => 'basic',
                 'type' => 'tiki',
                 'admin' => false,
-                'prefs' => [], // This could depend on feature_search when FULLTEXT search (feature_search_fulltext) is removed
+                'prefs' => ['feature_search'],
                 'scope' => 'global',
             ],
             [

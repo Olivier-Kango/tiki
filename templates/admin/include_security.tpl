@@ -206,11 +206,6 @@
             {preference name=registerKey}
         {/tab}
 
-        {tab name="{tr}Search results{/tr}"}
-            {preference name=feature_search_show_forbidden_cat}
-            {preference name=feature_search_show_forbidden_obj}
-        {/tab}
-
         {tab name="{tr}Site Access{/tr}"}
             {preference name=site_closed}
             <div class="adminoptionboxchild" id="site_closed_childcontainer">

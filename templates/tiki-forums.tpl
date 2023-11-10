@@ -30,7 +30,7 @@
                 {if $prefs.feature_forums_search eq 'y' and $prefs.feature_search eq 'y'}
                     <div class="row mb-4 mx-0">
                         <div class="col-md-5 offset-md-7">
-                            <form class="form mb-3" method="get" role="form" action="{if $prefs.feature_search_fulltext neq 'y'}tiki-searchindex.php{else}tiki-searchresults.php{/if}">
+                            <form class="form mb-3" method="get" role="form" action="tiki-searchindex.php">
                                 <div class="input-group">
                                     <span class="input-group-text">
                                          {icon name="search"}
@@ -49,7 +49,7 @@
     {elseif $prefs.feature_forums_search eq 'y' and $prefs.feature_search eq 'y'}{* and $ts.enabled *}
         <div class="row mb-4 mx-0">
             <div class="col-12">
-                <form class="form" method="get" role="form" action="{if $prefs.feature_search_fulltext neq 'y'}tiki-searchindex.php{else}tiki-searchresults.php{/if}">
+                <form class="form" method="get" role="form" action="tiki-searchindex.php">
 
                         <div class="input-group">
                             <span class="input-group-text">
