@@ -180,7 +180,7 @@ $blockquote-footer-color:     var(--#{$prefix}secondary-color) !default; // Depr
 
 // Tables
 
-$table-bg-scale:              0 !default;
+$table-bg-scale:              0% !default;
 
 // Dropdowns
 
@@ -197,9 +197,9 @@ $dropdown-link-active-bg:           $component-active-bg !default;
 
 // Navs
 
-$nav-link-padding-y:                .5rem !default !default;
+$nav-link-padding-y:                .5rem !default;
 $nav-link-padding-x:                2rem !default;
-$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $gray-600 !default !default;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $gray-600 !default;
 $nav-tabs-border-color:             $gray-200 !default;
 $nav-link-disabled-color: var(--#{$prefix}secondary-color) !default; //  #696969; // Changed for Tiki (WCAG)
 

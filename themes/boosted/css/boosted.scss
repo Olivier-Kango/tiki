@@ -1,0 +1,124 @@
+// Files for the Boosted theme for Tiki Wiki CMS Groupware, Bootstrap 5+.
+/* Boosted is an implementation for Tiki Wiki CMS Groupware of Orange Boosted (MIT license).
+/* "Orange Boosted is a Bootstrap based, Orange branded accessible and ergonomic components library."  */
+// Because Tiki already has the Bootstrap vendor files, this implementation uses just parts of the Orange Boosted package.
+// The Orange Boosted files and directories are used unedited and identified in comments.
+// This implementation is a work in progress and not all details are integrated at this time.
+// Original source: https://boosted.orange.com/
+
+@import "../../base_files/scss/_tiki-bootstrap_functions";
+
+.accordion-button {
+    --bs-accordion-btn-icon-width: 0;
+}
+
+@import "../scss/variables";
+@import "../scss/variables-dark";
+@import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
+@import "../../default/scss/variables"; // Bootstrap default variables, with a few Tiki overrides
+@import "../../default/scss/variables-dark"; // Bootstrap dark mode default variables
+
+@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
+@import "../scss/css-variables"; // Needs to be loaded after default variables to override them
+
+@import "../../base_files/scss/_tiki-selectors.scss";
+@import "../../base_files/scss/tiki-pagetop_colors"; // Import for unified styling of top and topzone navbars, etc. using CSS variables
+@import "../scss/mixins"; // original source: Orange-Boosted-Bootstrap-5.2.0/scss/mixins
+@import "../scss/forms"; // original source: Orange-Boosted-Bootstrap-5.2.0/scss/forms (imported to get the checkbox slide and range styling)
+@import "../scss/accordion"; // original source: Orange-Boosted-Bootstrap-5.2.0/scss/_accordion.scss
+@import "../scss/nav";
+@import "../scss/_tiki-selectors.scss";
+@import "../../base_files/scss/_external-scripts.scss";
+@import "../../base_files/scss/_select2-tiki_colors.scss"; // This can be commented out if the theme uses default standard dark-on-light colors
+
+
+@font-face{
+    font-family: HelveticaNeueW20-55Roman;
+    font-style: normal;
+    font-weight: 400;
+    font-display:fallback;
+    src:url(../fonts/HelveticaNeueW20-55Roman.woff2) format("woff2");
+}
+
+@font-face{
+    font-family: HelveticaNeueW20-55Roman;
+    font-style: normal;
+    font-weight: 400;
+    font-display: fallback;
+    src: url(../fonts/HelveticaNeueW20-75Bold.woff2) format("woff2");
+}
+
+@font-face{
+    font-family: HelvNeue55_W1G;
+    font-style: normal;
+    font-weight: 400;
+    font-display: fallback;
+    src: url(../fonts/HelvNeue55_W1G.woff2) format("woff2");
+}
+
+@font-face{
+    font-family: HelvNeue75_W1G;
+    font-style: normal;
+    font-weight: 400;
+    font-display: fallback;
+    src: url(../fonts/HelvNeue75_W1G.woff2) format("woff2");
+}
+
+.form-switch .form-check-input {
+    width: 3.75rem;
+    height: 1.875rem;
+    margin-left: -4.25rem;
+    background-color: #fff;
+    background-image: var(--o-close-icon),var(--o-switch-gradient);
+    filter: invert(1);
+    background-position: right .5rem top 50%,0 0;
+    background-size: .75rem,1.625rem;
+    border-color: #fff;
+    outline-color: #fff;
+    outline-offset: 1.25rem;
+    transition: background-position .15s ease-in-out,outline-offset .2s ease-in-out;
+}
+
+.form-check-input[type="checkbox"] {
+    border-radius: 0;
+}
+.form-check .form-check-input {
+    float: left;
+    margin-left: -1.5em;
+}
+.form-check-input {
+    width: 1em;
+    height: 1em;
+    margin-top: .125em;
+    vertical-align: top;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: .125rem solid #ccc;
+    border-top-color: rgb(204, 204, 204);
+    border-right-color: rgb(204, 204, 204);
+    border-bottom-color: rgb(204, 204, 204);
+    border-left-color: rgb(204, 204, 204);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+//    print-color-adjust: exact;
+}
+
+.form-switch .form-check-input:checked:not(:disabled) {
+
+    --o-switch-gradient: linear-gradient(to right, #fff 1.625rem, transparent);
+
+}
+.form-switch .form-check-input:checked {
+    background-color: #ff7900;
+    filter: none;
+    border-color: #ff7900;
+    background-image: var(--o-check-icon),var(--o-switch-gradient);
+    background-position: .375rem 50%,100% 0;
+    background-size: .9375rem,1.625rem;
+
+}

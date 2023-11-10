@@ -2,6 +2,9 @@
 //custom formatting for individual themes
 
 // set background and text color
+
+$ts-bg : null;
+$ts-color : null;
 @if(type-of($body-bg) == color and $body-bg != transparent) {
      $ts-bg        : $body-bg;
      $ts-color    : $body-color;
@@ -19,7 +22,7 @@
      $ts-color    : black;
  }
 
-$ts-color: $body-color;
+$ts-color: $body-color;  //Won't this owewrite the above?  benoitg - 2023-11-08
 
 // dark icons and colors for light background
 $unsortedDark        : url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);

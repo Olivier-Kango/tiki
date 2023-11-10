@@ -36,6 +36,7 @@ POSTPONED:
 
 - Use https://vitejs.dev/config/shared-options.html#resolve-dedupe once it's fixed for ESM
 
+- Figure out how to manage CSS with multiple entry points in a single vite project.  Awaiting movement on https://github.com/vitejs/vite/issues/12072#issuecomment-1793736497 
 
 Maybe obsolete: https://dev.to/hontas/using-vite-with-linked-dependencies-37n7  Use the Vite config option optimizeDeps.exclude when working with linked local dependencies 
 
@@ -44,7 +45,6 @@ DONE:
 
 - Decide turborepo https://github.com/gajus/turbowatch#readme vs concurrently https://github.com/open-cli-tools/concurrently:  DONE:  Concurrently for now
 - Integrate with setup.sh
-- Migrate moment.js
 
 IN PROGRESS:
 
@@ -72,11 +72,7 @@ TODO:
 
 - Use import maps to be able to use vite dev
 
-- Figure out how to manage CSS with multiple entry points in a single vite project.
 
-
-- Manual: 
- https://webjose.hashnode.dev/injecting-micro-frontend-css-in-single-spa is not working or use https://github.com/single-spa/single-spa-css and eventually wrap it?
 */
 
 
@@ -84,9 +80,9 @@ TODO:
 
 There are still issues with multiple entry point modules.
 
-While it's quickly improving, vite and rollup still ocasionnally make unfortunate assumptions that all modules are included.
+While it's quickly improving, vite and rollup still occasionally make unfortunate assumptions that all modules are included.
 
-Currently (2023-09-27), this is problematic for common CSS.  If input module1 and input module2 import (js import) css for library 1, only module 2 has the css in it's final build file.  This is especially confusing since if module 1 was developped before module 2, it works fine until module 2 is build.
+Currently (2023-09-27), this is problematic for common CSS.  If input module1 and input module2 import (js import) css for library 1, only module 2 has the css in it's final build file.  This is especially confusing since if module 1 was developed before module 2, it works fine until module 2 is build.
 
 */
 export default defineConfig(({ command, mode }) => ({

@@ -2,6 +2,8 @@
 
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 
+@use "sass:math";
+
 // Colors
 $white:    #fff !default;
 $gray-100: #f8f9fa;
@@ -119,7 +121,7 @@ $h3-text-transform:       uppercase;
 $h4-color:                $gray-500;
 $h4-font-weight:          300;
 $h4-margin:               0;
-$h6-margin:               10/16rem 0;
+$h6-margin:               math.div(10,16)rem 0;
 $text-muted:              var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B; // Darkened for WCAG compliance
 $blockquote-footer-color:     $text-muted; // also darkened
 
@@ -140,10 +142,10 @@ $input-border:                     $body-bg;
 $input-border-focus:            $primary;
 $input-color-placeholder:       #646C73; // Darkened for WCAG compliance
 
-$legend-font-size:               21/16rem;
+$legend-font-size:               math.div(21,16)rem;
 $legend-border-bottom:           #e3e3e3;
-$legend-margin-bottom:           21/16rem;
-$legend-padding:                 10/16rem 0;
+$legend-margin-bottom:           math.div(21,16)rem;
+$legend-padding:                 math.div(10,16)rem 0;
 $form-text-color:                $text-muted;
 
 // Dropdowns

@@ -96,7 +96,7 @@ $table-color:                 var(--#{$prefix}body-color);
 $table-dark-bg:               $dark;
 $table-dark-border-color:     darken($dark, 5%);
 
-$table-bg-scale:              0;
+$table-bg-scale:              0%;
 $table-hover-color:           $table-color;
 
 // Buttons + Forms

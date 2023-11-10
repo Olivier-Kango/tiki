@@ -1,6 +1,7 @@
 // This file contains rules for colors, consolidated from the tiki_base less files. They're moved here so that theme variables can provide values for them.
 //@import "_bs3-bs4-transition.scss";
 //@import "_tiki-variables.scss";
+@use "sass:color";
 $imagePathToImgDir: "../../../img/";
 @import "../../../node_modules/bootstrap/scss/_mixins.scss"; //
 //@import "../../../node_modules/bootstrap/scss/_variables.scss";
@@ -250,7 +251,7 @@ table.treetable.objectperms td.removed {
 //}
 
 #cookie_consent_div .description a {
-    color: adjust-hue($primary, 30%);
+    color: color.adjust($primary, $hue: 30deg);
     font-weight: bold;
 }
 
@@ -271,20 +272,21 @@ body.fullscreen {
 
 #debugconsole {
     background: rgba(lighten($body-bg, 30%), 0.9); // Todo - what's the way to specify backgrounds?
-    color: rgba($navbar-light-color, 0.9);
-    border: 2px solid rgba($navbar-light-color, 0.9);
+    //The following 4 uses of $navbar-light-color used to be rgba($navbar-light-color, 0.9), which doesn't compile (mix of native css rgba and sass, which doesn't compile.  The problem is in the declarations of navbar-light-color, but there are 4 per themes, and I didn't want to touch that many just for the debug console.  Replacing rgba values by proper color.adjust is a wider discussion.  In the meantime if someone wants to restore transparency in the debug console, it'S own color will have to be assigned.  benoitg - 2023-11-08;
+    color: $navbar-light-color;
+    border: 2px solid $navbar-light-color;
 }
 
 #debugconsole form {
-    color: rgba($navbar-light-color, 0.9);
+    color: $navbar-light-color;
 }
 
 #debugconsole a {
-    color: rgba($navbar-light-color, 0.9);
+    color: $navbar-light-color
 }
 
 #debugconsole a.btn {
-    color: rgba($navbar-light-color, 0.9);
+    color: $navbar-light-color;
 }
 
 // /* Icons */
@@ -1180,7 +1182,7 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
     $color-brightness: round((red($n) * 299) + (green($n) * 587) + (blue($n) * 114) / 1000);
     $light-color: round((red(#ffffff) * 299) + (green(#ffffff) * 587) + (blue(#ffffff) * 114) / 1000);
 
-    @if abs($color-brightness) < ($light-color/2){
+    @if abs($color-brightness) < calc($light-color/2){
         color: white;
     }
 

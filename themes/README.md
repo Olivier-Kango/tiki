@@ -1,5 +1,4 @@
-themes/
--------
+# themes/
 
 This directory is processed by lib/theme/themelib.php and contains:
 
@@ -11,8 +10,7 @@ This directory is processed by lib/theme/themelib.php and contains:
 * [css/](css/README.md), fallback custom css
 * [js/](js/README.md), additional custom javascript
 
-DESCRIPTION OF THEME SUBDIRECTORIES
------------------------------------
+## DESCRIPTION OF THEME SUBDIRECTORIES
 
 To make a new theme (for example, a theme called "abc"), add a new directory abc with the following layout:
 
@@ -30,11 +28,10 @@ These are the supported theme sub-directories and their contents:
 * less/: (Tiki 13 to 18) contains Less files to be compiled to create the theme CSS file
 * layouts:  Allows a theme to define custom layouts for prefs site_layout and site_layout_admin.  See <https://gitlab.com/tikiwiki/tiki/-/commit/4f41519a14ad9e268618dd28ca111684efed8cb5>
 * options/: contains "child" themes that are variants of the main theme (for example, check the FiveAlive theme)
-* scss/: (Tiki 19 and newer) contains SCSS files to be compiled to create the theme CSS file.  Best practice is to create the theme stylesheet by compiling SCSS files, which go in this directory.
+* scss/: (Tiki 19+) contains SCSS files to be compiled to create the theme CSS file.  Best practice is to create the theme stylesheet by compiling SCSS files, which go in this directory.  Since tiki 27, only scss partials (files starting with a _) go in the scss directory.  Files that output css files go in the css directory.  This is because of a limitation of recursive compilation in dart CSS:  there are no wildcards, so it's the only way for generated files to end up in the css directory.  We didn't want to change the final theme folder structure to maintain backward compatibility with the tiki theme system.
 * templates/: contains theme-specific variants of the default Smarty template (.tpl) files which override same-name equivalents in tiki's templates/
 
-TIKI THEMES
------------
+## TIKI THEMES
 
 A number of visual themes (also known as skins or templates) are distributed with Tiki but more are available, and you can
 create an original theme or adapt an existing theme made for plain HTML or for another platform such as WordPress (respecting licence restrictions) for your own purpose.
@@ -59,15 +56,20 @@ A Tiki consultant (providing paid services) can be found and contacted at: https
 
 Please note that Tiki also has a theme customizer that is currently partially functional. See https://doc.tiki.org/Theme-Customizer .
 
+## FOR DEVELOPERS
 
-FOR DEVELOPERS
---------------
+### Documentation
 
 Web developers/designers with some knowledge of CSS can create or adapt a visual theme for Tiki. Please see the links below for more details and help:
 
-https://themes.tiki.org/How+To+Add+a+New+Bootstrap+Theme
-https://themes.tiki.org/Creating-a-Tiki-theme
-https://themes.tiki.org/Theme-making-Questions-and-Answers
-https://themes.tiki.org/Customizing-Icons
-https://themes.tiki.org/Template-Tricks
-https://doc.tiki.org/Favicon
+* https://themes.tiki.org/How+To+Add+a+New+Bootstrap+Theme
+* https://themes.tiki.org/Creating-a-Tiki-theme>
+* https://themes.tiki.org/Theme-making-Questions-and-Answers>
+* https://themes.tiki.org/Customizing-Icons>
+* https://themes.tiki.org/Template-Tricks
+* https://doc.tiki.org/Favicon
+
+### TODO
+
+1. Our themes extensively use the rgba() function in a way that is problematic.  It causes "is no a color error" if we try to re-process the color.  The following stackoverflow explains the issue well
+<https://stackoverflow.com/a/76862918> (it's been fixed in bootstrap since, but we have the same issue)

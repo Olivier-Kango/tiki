@@ -1,0 +1,63 @@
+/* Bootswatch theme adapted by the Tiki Community for Tiki Wiki CMS Groupware */
+/* Original Bootswatch information:
+ * bootswatch v5.2.0
+ * Homepage: http://bootswatch.com
+ * Copyright 2012-2022 Thomas Park
+ * Licensed under MIT
+ * Based on Bootstrap
+ *
+ * Adapted by the Tiki Community for Tiki Wiki CMS Groupware
+*/
+
+@import "../../base_files/scss/_tiki-bootstrap_functions";
+
+@import "../scss/variables";
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
+@import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/superhero/bootswatch";
+//@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
+@import "../scss/css-variables"; // Needs to be loaded after default variables to override them
+
+@import "../../base_files/scss/_tiki-selectors.scss";
+@import "../../base_files/scss/_tiki-pagetop_colors.scss"; // Import if needed to specify top and topbar zone colors in more detail
+@import "../../base_files/scss/_external-scripts.scss";
+@import "../../base_files/scss/_select2-tiki_colors.scss";
+
+// the Bootstrap variables.scss file with theme-specific values replacing the defaults
+
+body.fullscreen { background: $body-bg; }
+
+//Theme variables aren't overriding default values for these.
+body {
+    color: #EBEBEB;
+    background: #2B3E50;
+}
+
+// override for some cypht background colors
+.tiki {
+    .inline-cypht {
+        .list_controls {
+            background: transparent;
+        }
+    }
+    &.mobile.tiki-cypht {
+        .content_title {
+            &, .list_controls { background: $card-bg; }
+        }
+    }
+}
+
+.tiki_trackers {
+    .icon-status-open, .icon-status-pending, .icon-status-closed {
+        filter: drop-shadow(0px 0px 1px black);
+    }
+}
+// Increase navbar height to reinstate Bootswatch style
+.topbar_modules > * {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+a.linkmodule {
+    color: #BBD9F7;
+}
