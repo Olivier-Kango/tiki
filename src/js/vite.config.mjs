@@ -3,6 +3,9 @@ import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import glob from "glob";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 /*
 
 Overarching principles:  
@@ -75,7 +78,6 @@ TODO:
 
 */
 
-
 /* GOTCHAS!
 
 There are still issues with multiple entry point modules.
@@ -85,136 +87,158 @@ While it's quickly improving, vite and rollup still occasionally make unfortunat
 Currently (2023-09-27), this is problematic for common CSS.  If input module1 and input module2 import (js import) css for library 1, only module 2 has the css in it's final build file.  This is especially confusing since if module 1 was developed before module 2, it works fine until module 2 is build.
 
 */
-export default defineConfig(({ command, mode }) => ({
-    base: "/public/generated/js", //This must NOT have a trailing slash
-    publicDir: false, //tiki already uses public for other purposes.  If we want to use this feature we can create a src/public folder for it.
-    resolve: {
-        /*alias: {
+
+export default defineConfig(({ command, mode }) => {
+    let rollupInput = {};
+    /* Proof of concept.  Inspired by the documentation for input on https://rollupjs.org/configuration-options/#input but needs to be generalized further so it's not only used for jquery-tiki.  But it does work to generate stuff in subdirectories!
+    
+    We now need a function that computes everything from the glob - benoitg - 2023-11-10 */
+    Object.assign(
+        rollupInput,
+        Object.fromEntries(
+            glob.sync("src/js/jquery-tiki/*.js").map((file) => {
+                //console.log(path.relative(__dirname, file));
+                return [
+                    // This remove `src/js/jquery-tiki` as well as the file extension from each
+                    // file, so e.g. src/js/jquery-tiki/nested/foo.js becomes src/js/jquery-tiki/nested/foo
+                    "jquery-tiki/" + path.relative("src/js/jquery-tiki", file.slice(0, file.length - path.extname(file).length)),
+                    // This expands the relative paths to absolute paths, so e.g.
+                    resolve(__dirname, path.relative(__dirname, file)),
+                ];
+            }),
+        ),
+    );
+    Object.assign(rollupInput, {
+        //Watch out, __dirname is the path of the config file, no matter how vite is called...
+        "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
+        "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
+        kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
+        "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
+        styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
+        "toolbar-dialogs": resolve(__dirname, "vue-mf/toolbar-dialogs/src/toolbar-dialogs.js"),
+    });
+    //console.log(rollupInput);
+    return {
+        base: "/public/generated/js", //This must NOT have a trailing slash
+        publicDir: false, //tiki already uses public for other purposes.  If we want to use this feature we can create a src/public folder for it.
+        resolve: {
+            /*alias: {
             "@vue-mf/styleguide": resolve(__dirname, "vue-mf/styleguide/src/main.js"),
         },*/
-    },
-    build: {
-        outDir: resolve(__dirname, "../../public/generated/js"),
-        emptyOutDir: true,
-        minify: mode === "production",
-        sourcemap: mode === "production",
-        cssCodeSplit: true,
-        // emit manifest so PHP can find the hashed files
-        manifest: true,
-        target: "es2022", //https://caniuse.com/?search=es2022 Who cares about IE these days...
-        optimizeDeps: {
-            disabled: false,
-            //If you ever need to debug a dependency and see your changes do this (ref: https://dev.to/hontas/using-vite-with-linked-dependencies-37n7):
-            //exclude: ["svelte"],
         },
-        rollupOptions: {
-            external: ["vue", "moment", /^@vue-mf\/.+/, "bootstrap"],
-            //external: [/^@vue-mf\/.+/],
-            //external: ["vue"],
-            input: {
-                //Watch out, __dirname is the path of the config file, no matter how vite is called...
-                "tiki-calendar": resolve(__dirname, "jquery-tiki/tiki-calendar.js"),
-
-                "wikiplugin-trackercalendar": resolve(__dirname, "jquery-tiki/wikiplugin-trackercalendar.js"),
-                "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
-                "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
-                kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
-                "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
-                styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
-                "toolbar-dialogs": resolve(__dirname, "vue-mf/toolbar-dialogs/src/toolbar-dialogs.js"),
-
-                //STILL BREAKS IF WE UNCOMMENT, but different error.  Kanban becomes smaller, so some code is factored out.
+        build: {
+            outDir: resolve(__dirname, "../../public/generated/js"),
+            emptyOutDir: true,
+            minify: mode === "production",
+            sourcemap: mode === "production",
+            cssCodeSplit: true,
+            // emit manifest so PHP can find the hashed files
+            manifest: true,
+            target: "es2022", //https://caniuse.com/?search=es2022 Who cares about IE these days...
+            optimizeDeps: {
+                disabled: false,
+                //If you ever need to debug a dependency and see your changes do this (ref: https://dev.to/hontas/using-vite-with-linked-dependencies-37n7):
+                //exclude: ["svelte"],
             },
-            output: {
-                //dir: "./public/generated/js",
-                //file: "../../../storage/public/vue-mf/kanban/vue-mf-kanban.min.js",
-                //preserveModules: true,
-                //preserveModulesRoot: 'src/js/',
-                manualChunks: undefined,
-                format: "es",
-                //And this is super hard to integrate since this bug introduced in vite 4 https://github.com/vitejs/vite/issues/12072
-                //Maybe we can try the solution at the end of https://github.com/vitejs/vite/issues/4863
-                //It means we can't use hashing, and we need to name the entry point nameofmodule.js so we can have a nameofmodule.css file
-                //Can't use the hash untill we have deeper integration of manifest in php anyway
-                //assetFileNames: "[name]-assets/[name][extname]",
-                assetFileNames: (assetInfo) => {
-                    //console.log(assetInfo);
-                    return assetInfo.name;
+            rollupOptions: {
+                external: [/^@vue-mf\/.+/, "@popperjs/core", "bootstrap", "clipboard", "jquery", "jquery-ui", "moment", "sortablejs", "vue"],
+                //external: [/^@vue-mf\/.+/],
+                input: rollupInput,
+                output: {
+                    //dir: "./public/generated/js",
+                    //file: "../../../storage/public/vue-mf/kanban/vue-mf-kanban.min.js",
+                    //preserveModules: true,
+                    //preserveModulesRoot: 'src/js/',
+                    manualChunks: undefined,
+                    format: "es",
+                    //And this is super hard to integrate since this bug introduced in vite 4 https://github.com/vitejs/vite/issues/12072
+                    //Maybe we can try the solution at the end of https://github.com/vitejs/vite/issues/4863
+                    //It means we can't use hashing, and we need to name the entry point nameofmodule.js so we can have a nameofmodule.css file
+                    //Can't use the hash untill we have deeper integration of manifest in php anyway
+                    //assetFileNames: "[name]-assets/[name][extname]",
+                    assetFileNames: (assetInfo) => {
+                        //console.log(assetInfo);
+                        return assetInfo.name;
+                    },
+                    entryFileNames: "[name].js",
                 },
-                entryFileNames: "[name].js",
+                preserveEntrySignatures: "allow-extension",
             },
-            preserveEntrySignatures: "allow-extension",
         },
-    },
-    plugins: [
-        vue({
-            template: {
-                transformAssetUrls: {
-                    base: "/public/generated/js/",
+        plugins: [
+            vue({
+                template: {
+                    transformAssetUrls: {
+                        base: "/public/generated/js/",
+                    },
                 },
-            },
-        }),
+            }),
 
-        //These are re-bundled files that need to be read at runtime
+            //These are re-bundled files that need to be read at runtime
 
-        viteStaticCopy({
-            //This object should really be imported from a file in common-externals
-            //In development, this should be served directly from node_modules once we have vite dev server working
-            targets: [
-                /* jquery_tiki */
-                {
-                    src: "node_modules/bootstrap/dist/css/bootstrap.min.*",
-                    dest: "vendor_dist/bootstrap/dist/css",
-                },
-                {
-                    src: "node_modules/bootstrap/dist/js/bootstrap.esm.min.js",
-                    dest: "vendor_dist/bootstrap/dist/js",
-                },
-                {
-                    src: "node_modules/@popperjs/core/dist/esm/*",
-                    dest: "vendor_dist/@popperjs/core/dist/esm",
-                },
-                {
-                    src: "node_modules/bootstrap-icons/font/*",
-                    dest: "vendor_dist/bootstrap-icons/font",
-                },
-                /* module system */
-                {
-                    src: "node_modules/es-module-shims/dist/es-module-shims.js",
-                    dest: "vendor_dist/es-module-shims/dist",
-                },
-                /* common_externals */
-                {
-                    src: "node_modules/clipboard/dist/*",
-                    dest: "vendor_dist/clipboard/dist",
-                },
-                {
-                    src: "node_modules/moment/dist/*",
-                    dest: "vendor_dist/moment/dist",
-                },
-                {
-                    src: "node_modules/jquery/dist/*",
-                    dest: "vendor_dist/jquery/dist",
-                },
-                {
-                    src: "node_modules/jquery-ui/dist/*",
-                    dest: "vendor_dist/jquery-ui/dist",
-                },
-                {
-                    src: "node_modules/jquery-migrate/dist/*",
-                    dest: "vendor_dist/jquery-migrate/dist",
-                },
-                {
-                    src: "node_modules/jquery/dist/*",
-                    dest: "vendor_dist/jquery/dist",
-                },
-                {
-                    src: "node_modules/vue/dist/vue.esm-browser.prod.js",
-                    dest: "vendor_dist/vue/dist",
-                },
-            ],
-        }),
-        /* Uncomment this in development to see which dependencies contribute to bundle size */
-        //visualizer({ filename: "temp/dev/stats.html", open: true, gzipSize: false }),
-    ],
-}));
+            viteStaticCopy({
+                //This object should really be imported from a file in common-externals
+                //In development, this should be served directly from node_modules once we have vite dev server working
+                targets: [
+                    /* jquery_tiki */
+                    {
+                        src: "node_modules/bootstrap/dist/css/bootstrap.min.*",
+                        dest: "vendor_dist/bootstrap/dist/css",
+                    },
+                    {
+                        src: "node_modules/bootstrap/dist/js/bootstrap.esm.min.js",
+                        dest: "vendor_dist/bootstrap/dist/js",
+                    },
+                    {
+                        src: "node_modules/@popperjs/core/dist/esm/*",
+                        dest: "vendor_dist/@popperjs/core/dist/esm",
+                    },
+                    {
+                        src: "node_modules/bootstrap-icons/font/*",
+                        dest: "vendor_dist/bootstrap-icons/font",
+                    },
+                    /* module system */
+                    {
+                        src: "node_modules/es-module-shims/dist/es-module-shims.js",
+                        dest: "vendor_dist/es-module-shims/dist",
+                    },
+                    /* common_externals */
+                    {
+                        src: "node_modules/clipboard/dist/*",
+                        dest: "vendor_dist/clipboard/dist",
+                    },
+                    {
+                        src: "node_modules/moment/dist/*",
+                        dest: "vendor_dist/moment/dist",
+                    },
+                    {
+                        src: "node_modules/jquery/dist/*",
+                        dest: "vendor_dist/jquery/dist",
+                    },
+                    {
+                        src: "node_modules/jquery-ui/dist/*",
+                        dest: "vendor_dist/jquery-ui/dist",
+                    },
+                    {
+                        src: "node_modules/jquery-migrate/dist/*",
+                        dest: "vendor_dist/jquery-migrate/dist",
+                    },
+                    {
+                        src: "node_modules/jquery/dist/*",
+                        dest: "vendor_dist/jquery/dist",
+                    },
+                    {
+                        src: "node_modules/sortablejs/modular/*",
+                        dest: "vendor_dist/sortablejs/modular",
+                    },
+                    {
+                        src: "node_modules/vue/dist/vue.esm-browser.prod.js",
+                        dest: "vendor_dist/vue/dist",
+                    },
+                ],
+            }),
+            /* Uncomment this in development to see which dependencies contribute to bundle size */
+            //visualizer({ filename: "temp/dev/stats.html", open: true, gzipSize: false }),
+        ],
+    };
+});

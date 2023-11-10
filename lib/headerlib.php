@@ -859,9 +859,23 @@ class HeaderLib
     public function output_js_files()
     {
         $this->outputStaticJSFooterWasStartedBy = $this->getOutputCallerInfo();
+
+        $output = '';
+
+        //We need the modules as they are likely dependencied of all the rest
+        if (count($this->js_modules)) {
+            $b = '';
+            foreach ($this->js_modules as $x => $js) {
+                $b .= "// js_modules $x \n";
+                foreach ($js as $j) {
+                    $b .= "$j\n";
+                }
+            }
+            $output .= $this->wrap_js($b, true);
+        }
+
         // we get one sorted array with script tags
         $js_files = $this->getJsFilesWithScriptTags();
-        $output = '';
 
         foreach ($js_files as $entry) {
             $output .= "\n$entry";
@@ -928,21 +942,6 @@ class HeaderLib
         ksort($this->js_modules);
 
         $back = "\n";
-
-        if (count($this->js_modules)) {
-            $b = '';
-            foreach ($this->js_modules as $x => $js) {
-                $b .= "// js $x \n";
-                foreach ($js as $j) {
-                    $b .= "$j\n";
-                }
-            }
-            if ($wrap === true) {
-                $back .= $this->wrap_js($b, true);
-            } else {
-                $back .= $b;
-            }
-        }
 
         if (count($this->js)) {
             $b = '';

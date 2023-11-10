@@ -19,10 +19,13 @@ function generateJsImportmapScripts()
                 "bootstrap" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/bootstrap/dist/js/bootstrap.esm.min.js",
                 "clipboard" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/clipboard/dist/clipboard.min.js",
                 "moment" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/moment/dist/moment.js",
+                "sortablejs" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/sortablejs/modular/sortable.esm.js",
                 "vue" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.prod.js",
                 /* jquery_tiki */
-                "@tiki/tiki-calendar" => $tikiroot . JS_ASSETS_PATH . "/tiki-calendar.js",
-                "@tiki/wikiplugin-trackercalendar" => $tikiroot . JS_ASSETS_PATH . "/wikiplugin-trackercalendar.js",
+                "@jquery-tiki/tiki-calendar" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-calendar.js",
+                "@jquery-tiki/tiki-admin_menu_options" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-admin_menu_options.js",
+                "@jquery-tiki/tiki-edit_structure" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-edit_structure.js",
+                "@jquery-tiki/wikiplugin-trackercalendar" => $tikiroot . JS_ASSETS_PATH . "/wikiplugin-trackercalendar.js",
                 /* single-spa microfrontends and common files (root and styleguide) */
                 "@vue-mf/root-config" => $tikiroot . JS_ASSETS_PATH . "/root-config.js",
                 "@vue-mf/styleguide" => $tikiroot . JS_ASSETS_PATH . "/styleguide.js",

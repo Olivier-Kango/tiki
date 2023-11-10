@@ -2,6 +2,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+import Sortable from "sortablejs";
+
 $(document).ready(function () {
 
     var dirty = false,

@@ -185,10 +185,36 @@ These paths may or may not still be used by code, or need more information to de
 ### To DELETE paths (including content)
 As far as we can tell, these are not referenced by any active code and are ready to be removed from git, setup scripts, .gitignore, etc.
 
-Some of these may be created by scripts, and not currently versionned in git.
+Some of these may be created by scripts, and not currently versioned in git.
 
 * **tests/**
   * Was that commited in error?
+
+## Generated files
+
+Some generated files will always be in git (ex:  package manager lock files like composer.lock), other will remain for some time.  
+
+* **vendor_bundled/composer.lock**
+  * Generated from vendor_bundled/composer.json using ``composer -d vendor_bundled update``
+* **package.lock.json**
+  * Generated from */package.json using ``npm install``
+* **doc/devtools/codesniffer/standards/TikiIgnore/generate_ignore_list.php**
+  * Generated using `doc/devtools/codesniffer/standards/TikiIgnore/generate_ignore_list.php`.
+
+It is useful to list theme here, so developers that hit merge conflicts can regenerate them instead of spending hours resolving conflicts manually.
+
+A typical flow to resolve merge conflicts in one of these would be (rebase example):
+
+```bash
+git rebase upstream/master
+git checkout --theirs vendor_bundled/composer.lock
+git add vendor_bundled/composer.lock
+git rebase --continue
+// Regenerate the file
+composer -d vendor_bundled update
+git add vendor_bundled/composer.lock
+git commit --amend
+```
 
 ## Discussion/justifications
 

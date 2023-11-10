@@ -419,7 +419,7 @@ $headerlib->add_cssfile(CSS_ASSETS_PATH . 'wikiplugin-trackercalendar.css');
     $headerlib->add_cssfile($vendorPath . '/npm-asset/fullcalendar-scheduler/main.css');
     // Disable fullcalendar's force events to be one-line tall
     $headerlib->add_css('.fc-day-grid-event > .fc-content { white-space: normal; }');
-    $headerlib->add_js_module('import "@tiki/wikiplugin-trackercalendar";');
+    $headerlib->add_js_module('import "@jquery-tiki/wikiplugin-trackercalendar";');
 
     $jit = new JitFilter($params);
     $definition = Tracker_Definition::get($jit->trackerId->int());

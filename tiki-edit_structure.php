@@ -356,7 +356,7 @@ if ($prefs['feature_wiki_categorize_structure'] == 'y' && $all_editable == 'y') 
 include_once('tiki-section_options.php');
 
 if ($prefs['feature_jquery_ui'] === 'y') {
-    $headerlib->add_jsfile('lib/structures/tiki-edit_structure.js');
+    $headerlib->add_js_module('import "@jquery-tiki/tiki-edit_structure";');
     $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/nestedsortable/jquery.ui.nestedSortable.js');
     $structlib = TikiLib::lib('struct');
 
