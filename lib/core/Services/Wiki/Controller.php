@@ -70,6 +70,12 @@ class Services_Wiki_Controller
         if (! $info) {
             throw new Services_Exception_NotFound(tr('Page "%0" not found', $page));
         }
+
+        $perms = Perms::get('wiki page', $page);
+        if (! $perms->view) {
+            throw new Services_Exception_Denied();
+        }
+
         $canBeRefreshed = false;
         $data = TikiLib::lib('wiki')->get_parse($page, $canBeRefreshed);
         return ['data' => $data];
