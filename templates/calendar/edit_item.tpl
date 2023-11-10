@@ -354,7 +354,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-sm-9">
-                                    <input type="text" name="add_participant_email" id="add_participant_email" value="" placeholder="or invite email address..." class="form-control">
+                                    <input type="text" name="add_participant_email" id="add_participant_email" value="" placeholder="or invite by email address..." class="form-control">
                                 </div>
                                 <div class="col-sm-3">
                                     <input type="button" class="btn btn-primary btn-sm" value="Add" id="invite_emails">
