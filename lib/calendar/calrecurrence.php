@@ -65,6 +65,7 @@ class CalRecurrence extends TikiLib
 
     public function load()
     {
+        $dataExists = false;
         if ($this->getId() > 0) {
             $query = "SELECT calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, daily, days,"
                      . "weekly, weeks, weekdays, monthly, months, dayOfMonth, monthlyType, monthlyWeekdayValue, yearly, years, yearlyType, dateOfYear,"
@@ -72,6 +73,7 @@ class CalRecurrence extends TikiLib
                      . "FROM tiki_calendar_recurrence WHERE recurrenceId = ?";
             $result = $this->query($query, [(int)$this->getId()]);
             if ($row = $result->fetchRow()) {
+                $dataExists = true;
                 $this->setCalendarId($row['calendarId']);
                 $this->setStart($row['start']);
                 $this->setEnd($row['end']);
@@ -110,46 +112,47 @@ class CalRecurrence extends TikiLib
                 $this->setUri($row['uri']);
                 $this->setUid($row['uid']);
                 $this->setRecurenceDstTimezone($row['recurrenceDstTimezone']);
-            } else {
-                $this->setCalendarId(0);
-                $this->setStart(0);
-                $this->setEnd(0);
-                $this->setAllday(0);
-                $this->setLocationId(0);
-                $this->setCategoryId(0);
-                $this->setNlId(0);
-                $this->setPriority(0);
-                $this->setStatus(0);
-                $this->setUrl('');
-                $this->setLang('');
-                $this->setName('');
-                $this->setDescription('');
-                $this->setDaily(0);
-                $this->setDays(1);
-                $this->setWeekly(0);
-                $this->setWeeks(1);
-                $this->setWeekdays([]);
-                $this->setMonthly(0);
-                $this->setMonths(1);
-                $this->setDayOfMonth('');
-                $this->setMonthlyType('');
-                $this->setMonthlyWeekdayValue(0);
-                $this->setYearly(0);
-                $this->setYears(1);
-                $this->setYearlyType('');
-                $this->setDateOfYear(0);
-                $this->setYearlyWeekdayValue(" ");
-                $this->setYearlyWeekMonth(0);
-                $this->setNbRecurrences(0);
-                $this->setStartPeriod(0);
-                $this->setEndPeriod(0);
-                $this->setUser('');
-                $this->setCreated(0);
-                $this->setLastModif(0);
-                $this->setUri('');
-                $this->setUid('');
-                $this->setRecurenceDstTimezone('');
             }
+        }
+        if (! $this->getId() || ! $dataExists) {
+            $this->setCalendarId(0);
+            $this->setStart(0);
+            $this->setEnd(0);
+            $this->setAllday(0);
+            $this->setLocationId(0);
+            $this->setCategoryId(0);
+            $this->setNlId(0);
+            $this->setPriority(0);
+            $this->setStatus(0);
+            $this->setUrl('');
+            $this->setLang('');
+            $this->setName('');
+            $this->setDescription('');
+            $this->setDaily(0);
+            $this->setDays(1);
+            $this->setWeekly(0);
+            $this->setWeeks(1);
+            $this->setWeekdays([]);
+            $this->setMonthly(0);
+            $this->setMonths(1);
+            $this->setDayOfMonth('');
+            $this->setMonthlyType('');
+            $this->setMonthlyWeekdayValue(0);
+            $this->setYearly(0);
+            $this->setYears(1);
+            $this->setYearlyType('');
+            $this->setDateOfYear(0);
+            $this->setYearlyWeekdayValue(" ");
+            $this->setYearlyWeekMonth(0);
+            $this->setNbRecurrences(0);
+            $this->setStartPeriod(0);
+            $this->setEndPeriod(0);
+            $this->setUser('');
+            $this->setCreated(0);
+            $this->setLastModif(0);
+            $this->setUri('');
+            $this->setUid('');
+            $this->setRecurenceDstTimezone('');
         }
     }
 
@@ -247,11 +250,16 @@ class CalRecurrence extends TikiLib
         if ($this->isYearly() && ! $this->getYears()) {
             return false;
         }
-        // recurrence should be correctly defined
-        $weekdays = explode(',', $this->getWeekdays());
-        $weekdays = array_filter($weekdays, function ($day) {
-            return in_array($day, ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']);
-        });
+        if ($this->isWeekly()) {
+            $weekdays = $this->getWeekdays();
+            // recurrence should be correctly defined
+            if (is_string($this->getWeekdays())) {
+                $weekdays = explode(',', $this->getWeekdays());
+            }
+            $weekdays = array_filter($weekdays, function ($day) {
+                return in_array($day, ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']);
+            });
+        }
         //Set monthly weekday possible value
         $possibleWeekdayValues = [];
         foreach (['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'] as $day) {

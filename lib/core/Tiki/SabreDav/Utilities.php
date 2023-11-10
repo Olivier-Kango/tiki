@@ -251,7 +251,7 @@ class Utilities
                 $lastOccurence = $firstOccurence;
             }
             if (isset($component->RRULE)) {
-                $rec = self::mapRRuleToRecurrence($component->RRULE, $timezone);
+                $rec = self::mapRRuleToRecurrence($component, $timezone);
                 $rec->setStartPeriod(\TikiDate::getStartDay($firstOccurence, $timezone));
             }
 
