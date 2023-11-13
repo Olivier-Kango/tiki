@@ -3,13 +3,12 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "package-lock-check && vite --config=src/js/vite.config.mjs build --mode=production",
-    "watch:vue-mf": "vite --config=src/js/vite.config.mjs build --watch --mode=development",
+    "build:js": "vite --config=src/js/vite.config.mjs build --mode=production",
+    "build:scss": "npm run build -w src/scss",
+    "build": "package-lock-check && concurrently \"npm:build:*\"",
+    "watch:js": "vite --config=src/js/vite.config.mjs build --watch --mode=development",
     "watch:scss": "npm run watch -w src/scss",
-    "DISABLEDwatch:root-config": "npm --workspace=root-config run watch",
     "watch": "package-lock-check && concurrently \"npm:watch:*\"",
-    "serve": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "format": "prettier .  --write"
   },
