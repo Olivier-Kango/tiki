@@ -9,7 +9,7 @@ function wikiplugin_preference_info()
     return [
         'name' => tra('Preference'),
         'documentation' => 'PluginPreference',
-        'description' => tra('Allows to edit a permission by anyone that has permissions to see the current page'),
+        'description' => tra('Allows to edit a preference by anyone that has permissions to see the current page'),
         'prefs' => ['wikiplugin_preference'],
         'extraparams' => true,
         'iconname' => 'settings',
