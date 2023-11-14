@@ -678,7 +678,7 @@ class CategLib extends ObjectLib
         $cant = count($result);
 
         if ($sort_mode == 'shuffle') {
-            shuffle($ret);
+            shuffle($result);
         }
 
         return $this->filter_object_list($result, $cant, $offset, $maxRecords);
@@ -785,14 +785,14 @@ class CategLib extends ObjectLib
         // 1st query 'common' element to get objects that are definitely not categorised if they are not in tiki_objects - needs to be modified for wiki pages using the new method
         if ($object_type == "wiki page") {
             $common1 = "
-            FROM tiki_" . $object_table . " 
-            WHERE pageName NOT IN 
+            FROM tiki_" . $object_table . "
+            WHERE pageName NOT IN
             (SELECT itemId FROM tiki_objects WHERE type='" . $object_type . "')
             ";
         } else {
             $common1 = "
-            FROM tiki_" . $object_table . " 
-            WHERE " . $object_ref . " NOT IN 
+            FROM tiki_" . $object_table . "
+            WHERE " . $object_ref . " NOT IN
             (SELECT itemId FROM tiki_objects WHERE type='" . $object_type . "')
             ";
         }
@@ -925,7 +925,11 @@ class CategLib extends ObjectLib
         if (! empty($filter)) {
             $from = ',`' . $filter['table'] . '` ft';
             $where .= ' and o.`itemId`=ft.`' . $filter['join'] . '` and ft.`' . $filter['filter'] . '`=?';
-            $bindVars[] .= $filter['bindvars'];
+            if (is_array($filter['bindvars'])) {
+                $bindVars = array_merge($bindVars, $filter['bindvars']);
+            } else {
+                $bindVars[] = $filter['bindvars'];
+            }
         } else {
             $from = '';
         }
