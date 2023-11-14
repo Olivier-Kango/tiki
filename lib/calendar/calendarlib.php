@@ -1886,6 +1886,31 @@ class CalendarLib extends TikiLib
     }
 
     /**
+     * @param mixed $name
+     * @access public
+     * @return
+     */
+    public function getCalendarsContaining($name)
+    {
+        if (empty($name)) {
+            return [];
+        }
+
+        $result = $this->fetchAll(
+            'SELECT `name` FROM `tiki_calendars` WHERE `name` LIKE ?',
+            [$name . '%'],
+            10
+        );
+
+        $names = [];
+        foreach ($result as $row) {
+            $names[] = $row['name'];
+        }
+
+        return $names;
+    }
+
+    /**
      * @param $calitemId
      * @param null $adds
      * @param null $dels
