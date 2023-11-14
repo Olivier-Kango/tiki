@@ -38,7 +38,11 @@ function applyAlterForTable(Installer $installer, $tableName, $query): void
             $installer::get()->queryException("ALTER TABLE " . $tableName . " " . $query);
         } catch (Exception $e) {
             $fname = basename(__FILE__, '.php');
-            $output->writeLn('Warning : <href=' . __FILE__ . '>' . $fname . '</>, <error>' . $e->getMessage() . '</error> on ' . $tableName . ' table');
+            if (isset($output)) {
+                $output->writeLn('Warning : <href=' . __FILE__ . '>' . $fname . '</>, <error>' . $e->getMessage() . '</error> on ' . $tableName . ' table');
+            } else {
+                echo 'Warning :' . $fname . ', ' . $e->getMessage() . ' on ' . $tableName . ' table';
+            }
         }
     }
 }
