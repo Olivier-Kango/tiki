@@ -1540,6 +1540,7 @@ class EditLib
 
         $old_pref = $prefs['wiki_heading_links'];
         $prefs['wiki_heading_links'] = 'n';
+        $hashed = [];
 
         if ($target_syntax == 'markdown') {
             // handle some Tiki syntax to Wiki plugins that are not supported in Markdown
@@ -1563,14 +1564,24 @@ class EditLib
                 return preg_replace('/(?<![\-|])---(?![\-|])/', '@-@-@-', $matches[0]);
             }, $data);
 
-            $ppArray = [];
-            $data = preg_replace_callback('/~pp~(.+?)~\/pp~/s', function ($m) use (&$ppArray) {
-                $hash = uniqid();
-                $ppArray['keys'][] = $hash;
-                $ppArray['values'][] = $m[0];
+            $data = preg_replace_callback('/~pp~(.+?)~\/pp~/s', function ($m) use (&$hashed) {
+                $hash = $this->pushToHashed($hashed, $m[0]);
                 return $hash;
             }, $data);
             $data = preg_replace('/^;:/m', '', $data);
+
+            // Preserving dynamic variables
+            $enclose = TikiLib::lib('parser')->dynVarEnclose();
+            if ($enclose) {
+                $dVars = TikiLib::lib('parser')->getDynVariables($data, $enclose);
+                foreach ($dVars as $dVar) {
+                    $dvar_preg = preg_quote($dVar);
+                    $data = preg_replace_callback("+$enclose($dvar_preg)$enclose+", function ($m) use (&$hashed) {
+                        $hash = $this->pushToHashed($hashed, $m[0]);
+                        return $hash;
+                    }, $data);
+                }
+            }
         }
         $data = $this->convertSmileysToUnicode($data);
 
@@ -1688,10 +1699,6 @@ class EditLib
             // When ** closing is precedeed by : directly followed by a non space it fails
             $converted = preg_replace('/\*\*(.*):\*\*(?![\s\n\r])/', "**$1:** ", $converted);
 
-            if ($ppArray) {
-                $converted = str_replace($ppArray['keys'], $ppArray['values'], $converted);
-            }
-
             // Remarks box need \n as they return div tag
             $converted = preg_replace('/\{REMARKSBOX.*?\}(.*?)\{REMARKSBOX\}(?![\n\r])/s', "$0\n", $converted);
         } else {
@@ -1705,6 +1712,10 @@ class EditLib
         $converted = $wikiParserParsable->restorePlugins($converted);
         $converted = preg_replace('/&amp;(#\d{6}|rarr|excl|quest);/', "&$1;", $converted);
         $converted = str_replace('[[[[', "[[", $converted);
+
+        if ($hashed) {
+            $converted = str_replace($hashed['keys'], $hashed['values'], $converted);
+        }
 
         if ($target_syntax == 'markdown') {
             $converted = preg_replace_callback('/\{tikiheading level=(.*) options=(.*)\}(.*?)\{\/tikiheading\}/', function ($matches) {
@@ -1721,6 +1732,11 @@ class EditLib
 
             // Markdown plugin is not needed any more
             $converted = preg_replace('/\{MARKDOWN.*?\}(.*?)\{MARKDOWN\}/s', "$1", $converted);
+
+            // Put back dynamic variables
+            if ($enclose) {
+                $converted = preg_replace('/\{dynVar\}(.*)\{dynVar\}/', "$enclose$1$enclose", $converted);
+            }
         }
 
         return $converted;
@@ -1746,15 +1762,22 @@ class EditLib
         $data = preg_replace_callback("/<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>/s", function ($m) use (&$invalidTags, $validTags) {
             list($tagName) = explode(' ', substr($m[0], 1, strlen($m[0]) - 2));
             if (! in_array($tagName, $validTags) && $tagName[0] != '/') {
-                $hash = '§' . md5(uniqid()) . '§';
-                $invalidTags['keys'][] = $hash;
-                $invalidTags['values'][] = $m[0];
+                $hash = $this->pushToHashed($invalidTags, $m[0]);
                 return $hash;
             }
             return $m[0];
         }, $data);
 
         return $invalidTags;
+    }
+
+    private function pushToHashed(array &$array, string $content)
+    {
+        $hash = '§' . md5(uniqid()) . '§';
+        $array['keys'][] = $hash;
+        $array['values'][] = $content;
+
+        return $hash;
     }
 
     private function restoreInvalidTags(array $map, $data)
