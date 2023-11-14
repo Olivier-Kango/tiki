@@ -24,8 +24,8 @@
             {button href="tiki-admin.php?page=community" _icon_name="settings" _text="{tr}Community{/tr}" _class="tips" _title=":{tr}Community Control Panel{/tr}"}
             {* former add_dracula() *}
             {$headerlib->add_jsfile('lib/dracula/raphael-min.js', true)}
-            {$headerlib->add_jsfile('lib/dracula/graffle.js', true)}
-            {$headerlib->add_jsfile('lib/dracula/graph.js', true)}
+            {$headerlib->add_jsfile('lib/dracula/graffle.js')}
+            {$headerlib->add_jsfile('lib/dracula/graph.js')}
             <button href="#" id="graph-draw" class="btn btn-primary">{icon name="image"} {tr}Event Chain Diagram{/tr}</button>
             <div id="graph-canvas" class="graph-canvas" data-graph-nodes="{$event_graph.nodes|@json_encode|escape}" data-graph-edges="{$event_graph.edges|@json_encode|escape}"></div>
     {jq}

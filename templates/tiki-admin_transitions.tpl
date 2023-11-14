@@ -100,8 +100,8 @@
             <h2>{tr}Transitions{/tr}</h2>
             {* former add_dracula() *}
             {$headerlib->add_jsfile('lib/dracula/raphael-min.js', true)}
-            {$headerlib->add_jsfile('lib/dracula/graffle.js', true)}
-            {$headerlib->add_jsfile('lib/dracula/graph.js', true)}
+            {$headerlib->add_jsfile('lib/dracula/graffle.js')}
+            {$headerlib->add_jsfile('lib/dracula/graph.js')}
             <div id="graph-canvas" class="graph-canvas" data-graph-nodes="{$graph_nodes|escape}" data-graph-edges="{$graph_edges|escape}"></div>
             <a href="#" id="graph-draw" class="button">{tr}Draw Transition Diagram{/tr}</a>
             {jq}

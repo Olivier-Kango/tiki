@@ -52,8 +52,8 @@ class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File
             }
             if (isset($output_modules[$page]['page_js'])) {
                 unset($output_modules[$page]['page_js']);
-                $headerlib->add_jsfile('lib/cypht/jquery.touch.js', true);
-                $headerlib->add_jsfile('lib/cypht/site.js', true);
+                $headerlib->add_jsfile('lib/cypht/jquery.touch.js');
+                $headerlib->add_jsfile('lib/cypht/site.js');
             }
         }
         // cleanup side menu
