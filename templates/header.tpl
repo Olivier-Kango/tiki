@@ -289,6 +289,31 @@
     {eval var=$prefs.feature_custom_html_head_content}
 {/if}
 
+
+{if $prefs.switch_color_module_assigned eq 'y'}
+    <script>
+        const getStoredTheme = () => localStorage.getItem("theme");
+        const setStoredTheme = (theme) => localStorage.setItem("theme", theme);
+        const getPreferredTheme = () => {
+            const storedTheme = getStoredTheme();
+            if (storedTheme)  return storedTheme;
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        };
+        const setTheme = (theme) => {
+            if (theme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches)  document.documentElement.setAttribute("data-bs-theme", "dark"); 
+            else document.documentElement.setAttribute("data-bs-theme", theme);
+        };
+        setTheme(getPreferredTheme());
+    </script>
+    <style>
+        {foreach from=$prefs['custom_color_mode'] item=mode}
+            {if null !== $mode['css_variables']}
+                {$mode['css_variables']}
+            {/if}
+        {/foreach}
+    </style>
+{/if}
+
 {* Include mautic snipet code with mautic *}
 {if $prefs.site_mautic_enable eq 'y' && $prefs.wikiplugin_mautic eq 'y' && $prefs.site_mautic_tracking_script_location eq 'head'}
     {wikiplugin _name=mautic type="inclusion"}{/wikiplugin}

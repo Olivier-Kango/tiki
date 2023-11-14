@@ -161,5 +161,14 @@ function prefs_theme_list($partial = false)
             'default' => 'n',
             'tags' => ['basic'],
         ],
+        'theme_default_color_mode' => [
+            'name' => tra('Default color mode'),
+            'type' => 'list',
+            'help' => 'Module-switch_color_mode',
+            'description' => tra('Change the default color mode for active theme'),
+            'options' => $prefs['color_modes_names'] ?? [],
+            'default' => 'auto',
+            'tags' => ['basic']
+        ]
     ];
 }
