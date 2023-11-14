@@ -283,7 +283,7 @@
                     <label class="col-form-label col-sm-3">{tr}Location{/tr}</label>
                     <div class="col-sm-9">
                         <select name="calitem[locationId]" class="form-control">
-                            <option value=""></option>
+                            <option value="">{tr}No location selected yet, please add one{/tr}</option>
                             {foreach $customLocations as $location}
                                 <option value="{$location.locationId}" {if $calitem.locationId eq $location.locationId} selected="selected" {/if}>
                                     {$location.name|escape}
