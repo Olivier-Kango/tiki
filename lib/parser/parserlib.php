@@ -2262,49 +2262,74 @@ class ParserLib extends TikiDb_Bridge
         }
     }
 
-    //*
-    protected function parse_data_dynamic_variables($data, $lang = null)
+    public function dynVarEnclose()
     {
-        global $tiki_p_edit_dynvar, $prefs;
+        global $prefs;
 
         $enclose = '%';
         if ($prefs['wiki_dynvar_style'] == 'disable') {
-            return $data;
+            return null;
         } elseif ($prefs['wiki_dynvar_style'] == 'double') {
             $enclose = '%%';
+        }
+
+        return $enclose;
+    }
+
+    public function getDynVariables($data, $enclose)
+    {
+        global $prefs;
+
+        //     Now won't match HTML-style '%nn' letter codes and some special utf8 situations...
+        if (preg_match_all("/[^%]$enclose([^% 0-9A-Z][^% 0-9A-Z][^% ]*){$enclose}[^%]/", $data, $dVars)) {
+            // remove repeated elements
+            return array_unique($dVars[1]);
+        }
+
+        return [];
+    }
+
+    //*
+    protected function parse_data_dynamic_variables($data, $lang = null)
+    {
+        global $tiki_p_edit_dynvar;
+        $enclose = $this->dynVarEnclose();
+
+        if (! $enclose) {
+            return $data;
+        }
+
+        if (! $dvars = $this->getDynVariables($data, $enclose)) {
+            return $data;
         }
 
         // Replace dynamic variables
         // Dynamic variables are similar to dynamic content but they are editable
         // from the page directly, intended for short data, not long text but text
         // will work too
-        //     Now won't match HTML-style '%nn' letter codes and some special utf8 situations...
-        if (preg_match_all("/[^%]$enclose([^% 0-9A-Z][^% 0-9A-Z][^% ]*){$enclose}[^%]/", $data, $dvars)) {
-            // remove repeated elements
-            $dvars = array_unique($dvars[1]);
-            // Now replace each dynamic variable by a pair composed of the
-            // variable value and a text field to edit the variable. Each
-            foreach ($dvars as $dvar) {
-                $value = $this->get_dynamic_variable($dvar, $lang);
-                //replace backslash with html entity to avoid losing backslashes in the preg_replace function below
-                $value = str_replace('\\', '&bsol;', $value);
-                // Now build 2 divs
-                $id = 'dyn_' . $dvar;
 
-                if (isset($tiki_p_edit_dynvar) && $tiki_p_edit_dynvar == 'y') {
-                    $span1 = "<span style='display:inline;' id='dyn_" . $dvar . "_display'><a class='dynavar' onclick='javascript:toggle_dynamic_var(\"$dvar\");' title='" . tra('Click to edit dynamic variable', '', true) . ": $dvar'>$value</a></span>";
-                    $span2 = "<span style='display:none;' id='dyn_" . $dvar . "_edit'><input type='text' class='input-sm' name='dyn_" . $dvar . "' value='" . $value . "' />" . '<input type="submit" class="btn btn-primary btn-sm" name="_dyn_update" value="' . tra('Update variable', '', true) . '"/></span>';
-                } else {
-                    $span1 = "<span class='dynavar' style='display:inline;' id='dyn_" . $dvar . "_display'>$value</span>";
-                    $span2 = '';
-                }
-                $html = $span1 . $span2;
-                //It's important to replace only once
-                $dvar_preg = preg_quote($dvar);
-                $data = preg_replace("+$enclose$dvar_preg$enclose+", $html, $data, 1);
-                //Further replacements only with the value
-                $data = str_replace("$enclose$dvar$enclose", $value, $data);
+        // Now replace each dynamic variable by a pair composed of the
+        // variable value and a text field to edit the variable. Each
+        foreach ($dvars as $dvar) {
+            $value = $this->get_dynamic_variable($dvar, $lang);
+            //replace backslash with html entity to avoid losing backslashes in the preg_replace function below
+            $value = str_replace('\\', '&bsol;', $value);
+            // Now build 2 divs
+            $id = 'dyn_' . $dvar;
+
+            if (isset($tiki_p_edit_dynvar) && $tiki_p_edit_dynvar == 'y') {
+                $span1 = "<span style='display:inline;' id='dyn_" . $dvar . "_display'><a class='dynavar' onclick='javascript:toggle_dynamic_var(\"$dvar\");' title='" . tra('Click to edit dynamic variable', '', true) . ": $dvar'>$value</a></span>";
+                $span2 = "<span style='display:none;' id='dyn_" . $dvar . "_edit'><input type='text' class='input-sm' name='dyn_" . $dvar . "' value='" . $value . "' />" . '<input type="submit" class="btn btn-primary btn-sm" name="_dyn_update" value="' . tra('Update variable', '', true) . '"/></span>';
+            } else {
+                $span1 = "<span class='dynavar' style='display:inline;' id='dyn_" . $dvar . "_display'>$value</span>";
+                $span2 = '';
             }
+            $html = $span1 . $span2;
+            //It's important to replace only once
+            $dvar_preg = preg_quote($dvar);
+            $data = preg_replace("+$enclose$dvar_preg$enclose+", $html, $data, 1);
+            //Further replacements only with the value
+            $data = str_replace("$enclose$dvar$enclose", $value, $data);
         }
 
         return $data;
