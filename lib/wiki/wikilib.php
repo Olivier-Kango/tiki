@@ -1714,6 +1714,7 @@ class WikiLib extends TikiLib
         global $prefs, $info;
         $smarty = TikiLib::lib('smarty');
         $script_name = 'tiki-index.php';
+        $script_name2 = 'tiki-editpage.php';
 
         if ($prefs['feature_multilingual_one_page'] == 'y') {
             //  if ( basename($_SERVER['PHP_SELF']) == 'tiki-all_languages.php' ) {
@@ -1727,7 +1728,11 @@ class WikiLib extends TikiLib
 
         $pages = TikiDb::get()->table('tiki_pages');
         $page = $pages->fetchOne('pageSlug', ['pageName' => $page]) ?: $page;
-        $href = "$script_name?page=" . $page;
+        if (TikiLib::lib('tiki')->page_exists($page)) {
+            $href = "$script_name?page=" . $page;
+        } else {
+            $href = "$script_name2?page=" . $page;
+        }
 
         if (isset($prefs['feature_wiki_use_date_links']) && $prefs['feature_wiki_use_date_links'] == 'y') {
             if (isset($_REQUEST['date'])) {

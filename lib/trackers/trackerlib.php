@@ -6272,10 +6272,10 @@ class TrackerLib extends TikiLib
         foreach ($definition->getFields() as $field) {
             $fieldId = $field['fieldId'];
             $value = isset($args['values'][$fieldId]) ? $args['values'][$fieldId] : '';
-            if ($field['type'] == 'k' && $value != '' && ! empty($field['options'][2])) {
+            if ($field['type'] == 'k' && $value != '' && ! empty($field['options_array'][2])) {
                 if (! $this->page_exists($value)) {
                     $IP = $this->get_ip_address();
-                    $info = $this->get_page_info($field['options'][2]);
+                    $info = $this->get_page_info($field['options_array'][2]);
                     $tikilib->create_page($value, 0, $info['data'], $tikilib->now, '', $user, $IP, $info['description'], $info['lang'], $info['is_html'], [], $info['wysiwyg'], $info['wiki_authors_style']);
                 }
             }
