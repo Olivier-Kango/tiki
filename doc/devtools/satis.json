@@ -2102,7 +2102,7 @@
         "mikey179/vfsStream": ">=v1.1.0",
         "minishlink/web-push" : "~7.0.0",
         "moment/moment": "^2.22",
-        "montefuscolo/xmpp": ">=0.7.0",
+        "montefuscolo/xmpp": ">=0.7.0||dev-php8.1",
         "morteza/bootstrap-rtl": ">=3.3.2",
         "mottie/tablesorter": ">=2.14.4",
         "mpdf/mpdf": ">=8.0.0",
