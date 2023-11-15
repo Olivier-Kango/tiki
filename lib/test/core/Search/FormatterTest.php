@@ -261,9 +261,21 @@ OUT;
             ]
         );
 
+        if (TikiLib::lib('tiki')->page_exists("HomePage")) {
+            $url1 = "tiki-index.php?page=HomePage";
+        } else {
+            $url1 = "tiki-editpage.php?page=HomePage";
+        }
+
+        if (TikiLib::lib('tiki')->page_exists("Some Page")) {
+            $url2 = "tiki-index.php?page=Some Page";
+        } else {
+            $url2 = "tiki-editpage.php?page=Some Page";
+        }
+
         $expect = <<<OUT
-* ~np~<a href="HomePage" class="" title="Home" data-type="wiki page" data-object="HomePage">Home</a>~/np~
-* ~np~<a href="Some Page" class="" title="Test" data-type="wiki page" data-object="Some Page">Test</a>~/np~
+* ~np~<a href="$url1" class="" title="Home" data-type="wiki page" data-object="HomePage">Home</a>~/np~
+* ~np~<a href="$url2" class="" title="Test" data-type="wiki page" data-object="Some Page">Test</a>~/np~
 
 OUT;
         $this->assertEquals($expect, $output);
@@ -288,11 +300,17 @@ OUT;
             ]
         );
 
+        if (TikiLib::lib('tiki')->page_exists("HomePage")) {
+            $url = "tiki-index.php?page=HomePage";
+        } else {
+            $url = "tiki-editpage.php?page=HomePage";
+        }
+
         $expect = <<<OUT
 <div>~np~<table>
     <caption>Count: 1</caption>
     <tr><th>Object</th><th>Type</th></tr>
-    <tr><td><a href="HomePage" class="" title="HomePage" data-type="wiki page" data-object="HomePage">HomePage</a></td><td>wiki page</td></tr>
+    <tr><td><a href="$url" class="" title="HomePage" data-type="wiki page" data-object="HomePage">HomePage</a></td><td>wiki page</td></tr>
 </table>
 ~/np~</div>
 OUT;
