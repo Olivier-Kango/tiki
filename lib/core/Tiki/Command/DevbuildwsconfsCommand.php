@@ -161,18 +161,17 @@ class DevbuildwsconfsCommand extends Command
                 $indexPath = preg_replace('/(\w+)/', '../', $path);
                 $indexPath = str_replace('//', '/', $indexPath);
                 $indexContent = '<?php' . PHP_EOL . PHP_EOL;
-                $indexContent .= '//This file is generated using php console.php dev:buildwsconfs ' . PHP_EOL;
-                $indexContent .= PHP_EOL . '// This redirects to the sites root to prevent directory browsing' . PHP_EOL;
+                $indexContent .= '//This file is generated using php console.php dev:buildwsconfs' . PHP_EOL;
+                $indexContent .= '//This redirects to the sites root to prevent directory browsing' . PHP_EOL;
                 $indexContent .= 'header("location: ' . $indexPath . '/");' . PHP_EOL;
                 $indexContent .= 'die;' . PHP_EOL;
 
                 $newFile = file_put_contents($filePath . '/index.php', $indexContent);
 
-
                 if (! $this->folderHasIndexPhpFile($filePath)) {
                     $failCreateMessage .= '<error>' . $filePath . '</error>' . PHP_EOL;
                 } else {
-                                    $missingIndexMessageFixed .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
+                    $missingIndexMessageFixed .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
                 }
             } else {
                 $missingIndexMessage .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;

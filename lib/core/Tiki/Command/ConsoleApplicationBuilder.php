@@ -79,7 +79,6 @@ class ConsoleApplicationBuilder
                 new ConfigureCommand(),
                 new InstallerLockCommand(),
                 new InstallerUnlockCommand(),
-                new ScssCompileCommand(),
                 new EnglishUpdateCommand(),
                 new VCSUpdateCommand(),
                 new FixBOMandUnixCommand(),

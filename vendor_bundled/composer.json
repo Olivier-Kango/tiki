@@ -265,7 +265,6 @@
         "robicch/jquery-gantt": "^6.3",
         "rmm5t/jquery-timeago": "^1.5",
         "sabre/dav": "~4.4.0",
-        "scssphp/scssphp": "^1.0.6",
         "sentry/sdk": "^3.3",
         "simile_timeline/simile_timeline": "2.3.0",
         "slm/mail": "^4.2",
@@ -310,8 +309,7 @@
         "ext-zip": "*",
         "rubix/ml": "^2.1",
         "rubix/extras": "2.0.0-beta",
-        "phpxmlrpc/phpxmlrpc": "^4.9",
-        "scssphp/server": "^1.10"
+        "phpxmlrpc/phpxmlrpc": "^4.9"
     },
     "require-dev": {
         "kint-php/kint": "^4.1",
