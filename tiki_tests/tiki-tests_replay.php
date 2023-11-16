@@ -236,7 +236,7 @@ if (isset($_REQUEST['filename'])) {
 
 if (isset($_REQUEST['action'])) {
     $smarty->assign('filename', $_REQUEST['filename']);
-    $xml = file_get_contents('tiki_tests/tests/' . $_REQUEST['filename']);
+    $xml = file_get_contents(TIKI_TESTS_PATH . '/' . $_REQUEST['filename']);
     if ($xml == '') {
         $smarty->assign('msg', tra('The TikiTest Replay File is Empty'));
         $smarty->display('error.tpl');

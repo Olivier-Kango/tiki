@@ -8,15 +8,18 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 /*
 
-Overarching principles:  
+Overarching principles:
 
 -  Don't break npm run watch from root.  It doesn't mean that HMR style no-reload works everywhere, but no code should ever have to be rebuild manually when changing a source file in an IDE.  An most reloading the page is sufficient.
 
 -  Don't tie ourselves to tooling or a stack too deeply.  A lot of this is in flux.  npm workspaces are new.  Vite is maturing very quickly, but watching multiple codebases has no internal support.  So while we strive to have all dependencies synchronised, it must remain possible to run completely independent js codebases with single-spa (https://single-spa.js.org/docs/getting-started-overview) to orchestrate individual independent frontends. 
 
-- It's not workable to have entirely independent modules all with their own vite.config.  Aside from the fact some developers would run out of RAM locally, I did a prototype and while possible, it's EXTREMELY painfull to share common configs, and real global HMR would never be a reality - benoitg - 2023-09-19
+- It's not workable to have entirely independent modules all with their own vite.config.  Aside from the fact some developers would run out of RAM locally, I did a prototype and while possible, it's EXTREMELY painful to share common configs, and real global HMR would never be a reality - benoitg - 2023-09-19
 
-TODO Explain how to instanciate apps (see wikiplugin_kanban.tpl and importmap)
+TODO Explain how to instantiate apps (see wikiplugin_kanban.tpl and importmap path_js_importmap_generator.php)
+
+TODO: Explain how to add a new module.   (see path_js_importmap_generator.php)
+Stack choices:
 
 Stack choices:
 
@@ -24,63 +27,63 @@ CHOSEN:
 
 - single-spa, DONE
 - single-spa-vue, DONE
-- single-spa-css  DONE, temporary.  We may have to write our own abstraction, it was designed for webpack.  It's a stopgap after 
+- single-spa-css  DONE, temporary.  We may have to write our own abstraction, it was designed for webpack.  It's a stopgap after using vite-plugin-single-spa failed
 
 NOT CHOSEN
-- vite-plugin-single-spa (https://github.com/WJSoftware/vite-plugin-single-spa) Pretty new (4 months), excellent overall,and we are kind of already commited to single-spa.  It allows transparently managing CSS for js, in effect replacing single-spa-css.  Unfortunately it doesn't handle multiple entry points properly, it's not compiling it's ex extension properly if more than one module use it. After EXTENSIVE testing, it seems unlikely we can ever use it as is.  It may get better in the future, but it also causes a lot of problems because of all it sets in vite config.  benoitg - 2023-09-19
+- vite-plugin-single-spa (https://github.com/WJSoftware/vite-plugin-single-spa) Pretty new (4 months), excellent overall,and we are kind of already committed to single-spa.  It allows transparently managing CSS for js, in effect replacing single-spa-css.  Unfortunately it doesn't handle multiple entry points properly, it's not compiling it's ex extension properly if more than one module use it. After EXTENSIVE testing, it seems unlikely we can ever use it as is.  It may get better in the future, but it also causes a lot of problems because of all it sets in vite config.  benoitg - 2023-09-19
 
-- https://github.com/single-spa/self-hosted-shared-dependencies , we have that exact need, but it's better to do it manually, since we also use raw file from php.
+- https://github.com/single-spa/self-hosted-shared-dependencies , we have that exact need, but it's better to do it manually, since we also use raw js files from php.
 
-CONSIDERED 
+CONSIDERED
 
-Module federation and https://github.com/originjs/vite-plugin-federation , it's essentially an alternative to importmaps, maybe it doesn't buy us much.  Claims to work with vite build --watch, but not with vite dev, so not great for the development experience considering the effort we put in having a single vite.config.mjs for most things.  But depending on where single-spa goes in the future, we may have to condider it again.  Especially since it can be used as a performance optimization:  https://single-spa.js.org/docs/recommended-setup/#module-federation
+Module federation and https://github.com/originjs/vite-plugin-federation , it's essentially an alternative to importmaps, maybe it doesn't buy us much.  Claims to work with vite build --watch, but not with vite dev, so not great for the development experience considering the effort we put in having a single vite.config.mjs for most things.  But depending on where single-spa goes in the future, we may have to consider it again.  Especially since it can be used as a performance optimization:  https://single-spa.js.org/docs/recommended-setup/#module-federation
 
-POSTPONED: 
+POSTPONED:
 
 - Use https://vitejs.dev/config/shared-options.html#resolve-dedupe once it's fixed for ESM
 
-- Figure out how to manage CSS with multiple entry points in a single vite project.  Awaiting movement on https://github.com/vitejs/vite/issues/12072#issuecomment-1793736497 
+- Figure out how to manage CSS with multiple entry points in a single vite project.  Awaiting movement on https://github.com/vitejs/vite/issues/12072#issuecomment-1793736497 Update:  A lot of this has now been implemented in https://github.com/vitejs/vite/pull/14945 
 
-Maybe obsolete: https://dev.to/hontas/using-vite-with-linked-dependencies-37n7  Use the Vite config option optimizeDeps.exclude when working with linked local dependencies 
+Maybe obsolete: https://dev.to/hontas/using-vite-with-linked-dependencies-37n7  Use the Vite config option optimizeDeps.exclude when working with linked local dependencies.
 
 
 DONE:
 
 - Decide turborepo https://github.com/gajus/turbowatch#readme vs concurrently https://github.com/open-cli-tools/concurrently:  DONE:  Concurrently for now
 - Integrate with setup.sh
-
+- Migrate to workspaces IN PROGRESS
+- Migrate twbs from composer, it's referenced by CSS (themes) and JS (BootstrapModal.vue) AND PHP (multiple places), so it's a good complete test.
+- Migrate at least one of the tiki traditional javascript to an ESM module as an example.
+- Get scss files compiling with dart-css, and remove them from git
 IN PROGRESS:
 
-- Migrate to workspaces IN PROGRESS
+TODO:
 
-TODO: 
+- Get index.php and htaccess fiels generated
 
-- Migrate twbs from composer second, it's referenced by CSS (themes) and JS (BootstrapModal.vue) AND PHP (multiple places), so it's a good complete test.
+- Test on windows
 
--  Manage versions https://www.npmjs.com/package/check-dependency-version-consistency, this is not optional, having varying versions increase bundle sizes AND can cause serious problems.
+- Finish generating rollupInput below dynamically
 
-- Get index.php and htaccess generated
+- Replace viteStaticCopy
 
-- Get scss files compiling, and remove them from git
+- Manage versions https://www.npmjs.com/package/check-dependency-version-consistency, this is not optional, having varying versions increase bundle sizes AND can cause serious problems.
 
-- GET HMR and vite dev working, especially for scss files.  
+- GET HMR and vite dev working.  vite dev is more important that HMR, as many developpers have slow machines and recompiline everything with vite build --watch is likely to take more than 10 seconds.   That will require (among other thing) generating import maps in to be able to use vite dev
  * There are Here is a drupal example https://www.drupal.org/project/vite.  Might be simpler to just rewrite base for vite dev server:  https://single-spa.js.org/docs/ecosystem-vite/, but that doesn't touch html and the like. 
- * Other solution:  proxy:  https://vitejs.dev/config/server-options.html#server-proxy  
+ * Other solution:  proxy:  https://vitejs.dev/config/server-options.html#server-proxy
  * Other solution:  see how vite-plugin-single-spa did it https://github.com/WJSoftware/vite-plugin-single-spa/commit/ed31833a7a9b7368c3227e6becbd02ac9585aab2
 
-- Vite assumes everything is build by a single vite pass. a single manifest.json is build.  We could read the latter with https://packagist.org/packages/gin0115/vite-manifest-parser and try to generate an importmap
+- Vite assumes everything is build by a single vite pass. a single manifest.json is build.  We could read the latter with https://packagist.org/packages/gin0115/vite-manifest-parser and try to generate an importmap dynamically in path_js_importmap_generator.phps
+ * Use generated manifest from PHP https://vitejs.dev/guide/backend-integration.html ?
 
-
-- Use generated manifest from PHP https://vitejs.dev/guide/backend-integration.html
-
-- Use import maps to be able to use vite dev
-
+- Generate unique file names at build time and make it available to PHP so we don't need any cache busting mechanism and can eventually us long server cache times.
 
 */
 
 /* GOTCHAS!
 
-There are still issues with multiple entry point modules.
+There are still issues with multiple entry point modules in vite.
 
 While it's quickly improving, vite and rollup still occasionally make unfortunate assumptions that all modules are included.
 
@@ -91,7 +94,7 @@ Currently (2023-09-27), this is problematic for common CSS.  If input module1 an
 export default defineConfig(({ command, mode }) => {
     let rollupInput = {};
     /* Proof of concept.  Inspired by the documentation for input on https://rollupjs.org/configuration-options/#input but needs to be generalized further so it's not only used for jquery-tiki.  But it does work to generate stuff in subdirectories!
-    
+
     We now need a function that computes everything from the glob - benoitg - 2023-11-10 */
     Object.assign(
         rollupInput,
@@ -179,6 +182,7 @@ export default defineConfig(({ command, mode }) => {
             viteStaticCopy({
                 //This object should really be imported from a file in common-externals
                 //In development, this should be served directly from node_modules once we have vite dev server working
+                //TODO IMPORTANT:  This does not check if the path exits (nor ooutput what was done to the console).  This will INEVITABLY cause silent errors when package accidentally get duplicated or moved among node_modules in workspaces, or if there is any typo.  So we need something better than viteStaticCopy
                 targets: [
                     /* jquery_tiki */
                     {

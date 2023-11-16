@@ -89,8 +89,8 @@ function create_dirs($domain = '')
         IMG_TRACKERS_PATH,
         TEMP_PATH,
         TEMP_CACHE_PATH,
-        TEMP_TEMPLATES_C_PATH,
-        TEMPLATES_PATH
+        SMARTY_COMPILED_TEMPLATES_PATH,
+        SMARTY_TEMPLATES_PATH
     ];
 
     $ret = "";

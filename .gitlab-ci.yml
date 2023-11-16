@@ -234,14 +234,6 @@ unix-ending-line:
   dependencies: []
   needs: []
 
-check-directories:
-  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
-  stage: tiki-check
-  script:
-    - php doc/devtools/check_tiki_directories.php
-  dependencies: []
-  needs: []
-
 #This is a non-network check
 composer-validates:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
@@ -253,7 +245,7 @@ composer-validates:
   needs: []
 
 #This tests if composer COULD update the current composer.lock (it is coherent and installable).  This is important because a developer wanting to update or add a dependency wouldn't be able to do so without figuring out why a composer.lock cannot be generated even before his changes.
-#What we want to know is if a developper could successfully generate a new composer.lock file to update minor versions, or when adding dependencies.  Not if he could generate a minimal-impact composer.lock file with composer update --lock on stable branches, which is much harder, and not necessary for the master branch.
+#What we want to know is if a developer could successfully generate a new composer.lock file to update minor versions, or when adding dependencies.  Not if he could generate a minimal-impact composer.lock file with composer update --lock on stable branches, which is much harder, and not necessary for the master branch.
 #This is a network check, it could fail because composer.tiki.org is not up to date or some other non-code related reason.
 composer-could-update-lock:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
@@ -567,6 +559,17 @@ tiki-package:
       - tiki-${CI_COMMIT_SHORT_SHA}-${CI_COMMIT_REF_SLUG}.tar.gz
     expire_in: 30 days
   allow_failure: true
+
+check-directories:
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  stage: package-tiki
+  script:
+    - php console.php dev:buildwsconfs --generate
+    - php console.php dev:buildwsconfs
+  dependencies:
+    - composer
+  needs:
+    - composer
 
 # Vendors Security
 #

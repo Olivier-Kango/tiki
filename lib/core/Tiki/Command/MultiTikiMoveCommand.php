@@ -95,14 +95,14 @@ class MultiTikiMoveCommand extends Command
                     IMG_TRACKERS_PATH,
                     TEMP_PATH,
                     TEMP_CACHE_PATH,
-                    TEMP_PUBLIC_PATH,
-                    TEMP_TEMPLATES_C_PATH,
-                    TEMPLATES_PATH,
+                    TEMP_HTTP_PUBLIC_PATH,
+                    SMARTY_COMPILED_TEMPLATES_PATH,
+                    SMARTY_TEMPLATES_PATH,
                     THEMES_PATH,
                     WHELP_PATH,
                     MODS_PATH,
                     FILES_PATH,
-                    TIKI_TESTS_TESTS_PATH,
+                    TIKI_TESTS_PATH,
                     //'temp/unified-index'
                 ];
 

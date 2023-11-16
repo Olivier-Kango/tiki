@@ -13,28 +13,32 @@ use Symfony\Component\Console\Output\OutputInterface;
 use TikiLib;
 
 /**
- * ndex.php and .htaccess are designed to disallow directory listing in apache.
+ * index.php and .htaccess are designed to disallow directory listing in apache.
  *
+ * This command replaces the deprecated doc/devtools/check_tiki_directories.php
  * @package Tiki\Command
  */
 
 class DevbuildwsconfsCommand extends Command
 {
-    /**
-     * Configure the command
-     *
-     * @return void
-     */
+    protected static $defaultDescription = 'Checks or generate .index.php & .htaccess files.';
     protected function configure()
     {
         $this
-            ->setName('dev:buildwsconfs')
-            ->addOption(
-                'check-only',
-                'c',
-                InputOption::VALUE_NONE,
-                'just to see the folder where index.php is not yet located'
-            );
+        ->setName('dev:buildwsconfs')
+        ->setHelp('Allows checking for the presence and generating of index.php and .htaccess files to avoid unintended php code from being executed in production.')
+        ->addOption(
+            'generate',
+            'g',
+            InputOption::VALUE_NONE,
+            'generate missing index.php.  Does not support .htaccess yet'
+        )
+        ->addOption(
+            'clean',
+            'c',
+            InputOption::VALUE_NONE,
+            'remove all index.php not part of the git repo'
+        );
     }
 
     /**
@@ -50,10 +54,9 @@ class DevbuildwsconfsCommand extends Command
             die('Only available through command-line.');
         }
 
-        $checkOnly = $input->getOption('check-only');
-
-        require realpath(__DIR__ . '/../../../../doc/devtools/svntools.php');
-        require realpath(__DIR__ . '/../../../../path_constants.php');
+        $generate = $input->getOption('generate');
+        $verbose = $input->getOption('verbose');
+        $cleanFiles = $input->getOption('clean');
 
         $tikiRootFolder = realpath(__DIR__ . '/../../../../');
 
@@ -70,17 +73,34 @@ class DevbuildwsconfsCommand extends Command
         $filter = function ($o_path) {
             $filePath = $o_path->getRealpath();
             $folders = explode(\DIRECTORY_SEPARATOR, $filePath);
+            $folderName = end($folders);//This is a string...
+            //var_dump($folders);
             $folder = count($folders);
-            $excludeDir = [
-                '.', // Directories that are hidden (Ex: .composer)
-                TEMP_PATH,
-                CUSTOM_PATH,
-                TIKI_VENDOR_PATH,
-                TIKI_VENDOR_BUNDLED_PATH,
-                NODE_MODULES_PATH
-            ];
 
-            if (in_array($folders[$folder - 1], $excludeDir)) {
+            $excludeDir = [
+            TEMP_PATH, //This needs to be changed once we are sure everything that needs to be served has been moved to TEMP_HTTP_PUBLIC_PATH
+            USER_CUSTOM_PATH,
+            //These are only here because we still include some js and css assets from composer packages
+            TIKI_VENDOR_PATH,
+            TIKI_VENDOR_BUNDLED_PATH,
+            TIKI_VENDOR_CUSTOM_PATH
+            ];
+            $excludeDirAnywhere = [
+            NODE_MODULES_PATHNAME
+            ];
+            //'.' // Directories that are hidden (Ex: .composer)
+
+
+            if ($o_path->isDir() && str_starts_with($folderName, '.')) {// UNIX directories that are hidden (Ex: .composer)
+                //var_dump($folderName);
+                return false;
+            }
+
+            //I know this will still exclude path fragments anywhere, didn't have time to change it.  Benoitg- 2023-11-15
+            if (in_array($folderName, $excludeDir)) {
+                return false;
+            }
+            if (in_array($folderName, $excludeDirAnywhere)) {
                 return false;
             }
             return true;
@@ -88,51 +108,85 @@ class DevbuildwsconfsCommand extends Command
 
         $it = new \RecursiveDirectoryIterator($tikiRootFolder, \FilesystemIterator::SKIP_DOTS);
         $folder = new \RecursiveCallbackFilterIterator($it, $filter);
-
-        foreach (new \RecursiveIteratorIterator($folder) as $file) {
-            $filePath = $file->getRealpath();
-            $fileName = $file->getFilename();
-
-            if ($fileName == '..' || ! $file->isDir()) {
+        $iterator = new \RecursiveIteratorIterator($folder, \RecursiveIteratorIterator::SELF_FIRST);
+        if ($cleanFiles) {
+            $iterator->setMaxDepth(0);  //git will take care of the recursion
+        }
+        foreach ($iterator as $file) {
+            if (! $file->isDir()) {
                 continue;
             }
-
+            $filePath = $file->getRealpath();
+            $fileName = $file->getFilename();
+            //$output->writeln("<info>$filePath</info>");
+            if ($fileName == '..') {
+                continue;
+            }
+            if ($verbose) {
+                $output->writeln("<info>Checking directory: $filePath</info>");
+            }
+            if ($cleanFiles) {
+                $command = "git clean -f -x $filePath\*\*/index.php";
+                $output->writeln("<info>$command</info>");
+                exec(
+                    $command,
+                    $raw,
+                    $error
+                );
+                $output->writeln($raw, OutputInterface::VERBOSITY_NORMAL);
+                foreach ($raw as $line) {
+                    if ($error) {
+                        $output->writeln(
+                            "<error>$line</error>"
+                        );
+                    } else {
+                        $output->writeln("<info>$line</info>");
+                    }
+                }
+                continue;
+            }
             if ($this->isEmptyDir($filePath)) {
                 $emptyDirectoriesMessage .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
                 continue;
             }
 
-            if (empty(glob($filePath . '/[iI][nN][dD][eE][xX].[pP][hH][pP]'))) { // index.php case-insensitive
+            if ($this->folderHasIndexPhpFile($filePath)) {
+                if ($verbose) {
+                    $output->writeln("<info>$filePath has proper index.php</info>");
+                }
+            } elseif ($generate) {
+                $projectFolder = str_replace('doc', '', dirname(__DIR__)); //Why do we make this replacement?  benoitg - 2023-11-16
+                $path = str_replace($projectFolder, '', $filePath);
+                $path = str_replace('-', '', $path);
+                $indexPath = preg_replace('/(\w+)/', '../', $path);
+                $indexPath = str_replace('//', '/', $indexPath);
+                $indexContent = '<?php' . PHP_EOL . PHP_EOL;
+                $indexContent .= '//This file is generated using php console.php dev:buildwsconfs ' . PHP_EOL;
+                $indexContent .= PHP_EOL . '// This redirects to the sites root to prevent directory browsing' . PHP_EOL;
+                $indexContent .= 'header("location: ' . $indexPath . '/");' . PHP_EOL;
+                $indexContent .= 'die;' . PHP_EOL;
+
+                $newFile = file_put_contents($filePath . '/index.php', $indexContent);
+
+
+                if (! $this->folderHasIndexPhpFile($filePath)) {
+                    $failCreateMessage .= '<error>' . $filePath . '</error>' . PHP_EOL;
+                } else {
+                                    $missingIndexMessageFixed .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
+                }
+            } else {
                 $missingIndexMessage .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
+            }
 
-                if (! $checkOnly) {
-                    $projectFolder = str_replace('doc', '', dirname(__DIR__));
-                    $path = str_replace($projectFolder, '', $filePath);
-                    $path = str_replace('-', '', $path);
-                    $indexPath = preg_replace('/(\w+)/', '../', $path);
-                    $indexPath = str_replace('//', '/', $indexPath);
-
-                    $indexContent = '<?php' . PHP_EOL . PHP_EOL . '// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project' . PHP_EOL;
-                    $indexContent .= '//' . PHP_EOL . '// All Rights Reserved. See copyright.txt for details and a complete list of authors.' . PHP_EOL;
-                    $indexContent .= '// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.' . PHP_EOL;
-                    $indexContent .= PHP_EOL . '// This redirects to the sites root to prevent directory browsing' . PHP_EOL;
-                    $indexContent .= 'header("location: ' . $indexPath . 'index.php");' . PHP_EOL;
-                    $indexContent .= 'die;' . PHP_EOL;
-
-                    $newFile = file_put_contents($filePath . '/index.php', $indexContent);
-                    $missingIndexMessageFixed .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
-
-                    if ($newFile === false) {
-                        $failCreateMessage .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
-                    }
+            if ($this->folderHasHtaccess($filePath, $tikiRootFolder)) {
+                if ($verbose) {
+                    $output->writeln("<info>$filePath has proper htaccess file</info>");
                 }
-
-                if (! $this->folderHasHtaccess($filePath)) {
-                    $missingHtaccessMessage .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
-                }
+            } else {
+                $missingHtaccessMessage .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
             }
         }
-
+        $output->writeln('<comment>Processing complete</comment>', OutputInterface::VERBOSITY_VERBOSE);
         if (! empty($emptyDirectoriesMessage) || ! empty($missingIndexMessage) || ! empty($missingHtaccessMessage)) {
             if (! empty($emptyDirectoriesMessage)) {
                 $output->writeln('<comment>The following directories are empty:</comment>');
@@ -141,23 +195,22 @@ class DevbuildwsconfsCommand extends Command
             if (! empty($missingIndexMessage)) {
                 $output->writeln('<comment>index.php file is missing in the following directories:</comment>');
                 $output->writeln($missingIndexMessage);
-
-                if (! empty($missingIndexMessageFixed)) {
-                    $output->writeln('<info>index.php file was fixed in the following directories:</info>');
-                    $output->writeln($missingIndexMessageFixed);
-                }
+            }
+            if (! empty($missingIndexMessageFixed)) {
+                $output->writeln('<info>index.php file was successfully added in the following directories:</info>');
+                $output->writeln($missingIndexMessageFixed);
             }
             if (! empty($missingHtaccessMessage)) {
                 $output->writeln('<comment>.htaccess file is missing in the following directories:</comment>');
                 $output->writeln($missingHtaccessMessage);
             }
             if (! empty($failCreateMessage)) {
-                $output->writeln('<comment>The directory where he failed</comment>');
+                $output->writeln('<comment>The directory where we failed to create files</comment>');
                 $output->writeln($failCreateMessage);
             }
-            exit(1);
+            return Command::FAILURE;
         } else {
-            important('All directories OK');
+            $output->writeln('All directories OK');
         }
         return Command::SUCCESS;
     }
@@ -172,6 +225,16 @@ class DevbuildwsconfsCommand extends Command
     {
         return (($files = scandir($dir)) && count($files) <= 2);
     }
+    /**
+     * Check if .htaccess file exist
+     *
+     * @param $dir
+     * @return boolean
+     */
+    private function folderHasIndexPhpFile($filePath): bool
+    {
+        return ! empty(glob($filePath . '/[iI][nN][dD][eE][xX].[pP][hH][pP]'));  // index.php case-insensitive
+    }
 
     /**
      * Check if .htaccess file exist
@@ -179,15 +242,13 @@ class DevbuildwsconfsCommand extends Command
      * @param $dir
      * @return boolean
      */
-    protected function folderHasHtaccess($dir)
+    protected function folderHasHtaccess($dir, $tikiRootFolder)
     {
-        global $tikiRootFolder;
-
         $hasHtaccess = file_exists($dir . '/.htaccess');
 
         // We want to ensure that first level folders have .htaccess
         if (! $hasHtaccess && dirname($dir) !== $tikiRootFolder && $dir != $tikiRootFolder) {
-            return $this->folderHasHtaccess(dirname($dir));
+            return $this->folderHasHtaccess(dirname($dir), $tikiRootFolder);
         }
 
         return $hasHtaccess;

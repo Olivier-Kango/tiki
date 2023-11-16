@@ -90,17 +90,17 @@ function enlight_xpath($url, $xpath)
 }
 
 
-$xml = file_get_contents('tiki_tests/tests/' . basename($_REQUEST['filename']));
+$xml = file_get_contents(TIKI_TESTS_PATH . "/" . basename($_REQUEST['filename']));
 if ($xml == '') {
-    $smarty->assign('msg', tra('The TikiTests Replay File is Empty'));
-    $smarty->display('error.tpl');
+    $smarty->assign('msg', tra('The TikiTests Replay File is empty'));
+    $smarty->display('error . tpl');
     die();
 } else {
     $dom = DOMDocument::loadXML($xml);
     $element_test = $dom->getElementsByTagName('test')->item(0);
     if ($element_test == null) {
-        $smarty->assign('msg', tra('The TikiTests Replay File is Empty'));
-        $smarty->display('error.tpl');
+        $smarty->assign('msg', tra('The TikiTests Replay File is empty'));
+        $smarty->display('error . tpl');
         die();
     }
 }

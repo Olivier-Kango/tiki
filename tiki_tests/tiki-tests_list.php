@@ -28,8 +28,8 @@ function delete_test($file)
     $access->checkCsrf(tra("You are about to delete a TikiTest file. Do you want to continue ?"));
     // Clean the filename
     $file = basename($file);
-    if (file_exists("tiki_tests/tests/$file")) {
-        return unlink("tiki_tests/tests/$file");
+    if (file_exists(TIKI_TESTS_PATH . "/$file")) {
+        return unlink(TIKI_TESTS_PATH . "/$file");
     }
     return false;
 }
@@ -59,7 +59,7 @@ if (isset($_REQUEST['action'])) {
     }
 }
 
-chdir('tiki_tests/tests');
+chdir(TIKI_TESTS_PATH);
 $files = glob('*.xml');
 chdir('../..');
 $files_number = count($files);

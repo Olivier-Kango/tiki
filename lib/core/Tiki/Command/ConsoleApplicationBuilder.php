@@ -198,7 +198,6 @@ class ConsoleApplicationBuilder
                 new SieveFiltersCommand(),
                 new CalendarSyncCommand(),
                 new SchedulerRunCommand(),
-                new DevbuildwsconfsCommand(),
                 ],
             ],[
             'condition' => 'checkIsOCRAvailable',
@@ -274,6 +273,7 @@ class ConsoleApplicationBuilder
                 new VCSUpdateCommand(),
                 new SemiAutoMergeCommand(),
                 new DevConfigureCommand(),
+                new DevbuildwsconfsCommand(),
                 ],
             ],[
             'condition' => 'checkIsPerformanceMonitoringActive',

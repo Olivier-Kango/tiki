@@ -139,7 +139,7 @@ if (isset($_REQUEST['filename'])) {
     $_REQUEST['filename'] = str_replace("<x>", "", $_REQUEST['filename']);
 }
 
-$xml = file_get_contents("tiki_tests/tests/" . basename($_REQUEST['filename']));
+$xml = file_get_contents(TIKI_TESTS_PATH . "/" . basename($_REQUEST['filename']));
 
 if ($xml == '' or $xml == false) {
     $smarty->assign('msg', tra("The TikiTests Replay File is Empty"));
@@ -192,8 +192,8 @@ foreach ($urls as $url) {
     $count++;
 }
 
-if ($edit and file_exists("tiki_tests/tests/" . basename($_REQUEST['filename']))) {
-    save_test($result, "tiki_tests/tests/" . basename($_REQUEST['filename']), $options);
+if ($edit and file_exists(TIKI_TESTS_PATH . "/" . basename($_REQUEST['filename']))) {
+    save_test($result, TIKI_TESTS_PATH . "/" . basename($_REQUEST['filename']), $options);
 }
 
 $smarty->assign_by_ref('result', $result);

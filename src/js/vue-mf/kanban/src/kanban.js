@@ -46,7 +46,7 @@ const vueLifecycles = singleSpaVue({
             // When the bound element is mounted into the DOM...
             mounted(el) {
                 // Focus the element
-                if (el.tagName === "TEXTAREA") autosize(el);
+                if (el.tagName === "TEXTAREAsdfsdfsd") autosize(el);
             }
         });
         app.use(store);
