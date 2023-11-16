@@ -46,7 +46,7 @@ class PatchCypht
         }
 
         // generate Cypht config
-        $php_binary = PHP_BINARY;
+        $php_binary = preg_replace("/(?<!\\\) /", '\ ', PHP_BINARY);
         $cypthFolder = $fixDS('jason-munro/cypht');
         $genScript = $fixDS('scripts/config_gen.php');
         $output = `cd {$vendors}{$cypthFolder} && {$php_binary} {$genScript}`;
