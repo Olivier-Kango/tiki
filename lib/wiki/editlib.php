@@ -1553,13 +1553,13 @@ class EditLib
                 return "{tikiheading level=$level options=$matches[2]}" . trim($matches[3]) . "{/tikiheading}";
             }, $data);
             $data = preg_replace('/~~(.+?):(.+?)~~/', '{HTML()}<span style="color:$1">$2</span>{HTML}', $data);
-            $data = preg_replace('/--(.+?)--/', '~~$1~~', $data);
             $data = preg_replace('/-\+(.+?)\+-/', '`$1`', $data);
             $data = preg_replace_callback('/\{VERSIONS\(.*\)\}(.+)\{VERSIONS\}/s', function ($matches) {
-                return preg_replace_callback('/^-+\(.*?\)-+/m', function ($innerMatches) {
+                return preg_replace_callback('/^---\(([^\):]*)( : [^\)]*)?\)---*/m', function ($innerMatches) {
                     return str_replace('-', '@-', $innerMatches[0]);
                 }, $matches[0]);
             }, $data);
+            $data = preg_replace('/--(.+?)--/', '~~$1~~', $data);
             $data = preg_replace_callback('/\{SPLIT\(.*\)\}(.+)\{SPLIT\}/s', function ($matches) {
                 return preg_replace('/(?<![\-|])---(?![\-|])/', '@-@-@-', $matches[0]);
             }, $data);
