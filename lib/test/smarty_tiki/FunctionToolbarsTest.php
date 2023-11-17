@@ -36,6 +36,8 @@ class FunctionToolbarsTest extends TikiTestCase
 
     public function testFunctionToolbarsDefault(): void
     {
+        //This test seems to depend on cache somehow.  If it's disabled, the testFunctionToolbarsWysiwyg test will fail.  We need to completely revisit how we do these tests - benoitg - 2023-11-17';
+
         $params = [
             '_wysiwyg'     => 'n',
             'area_id'      => 'editwiki',
@@ -48,7 +50,8 @@ class FunctionToolbarsTest extends TikiTestCase
 
         $result = smarty_function_toolbars($params, $this->smarty);
 
-        // It's a real problem that the templated generates a href that both depends on the path AND the filename used to call phpunit.  It makes this test extremely brittle.  I don't know which file actually generates the href and how to inject it. - benoitg
+        // It's a real problem that the templated generates a href that both depends on the path AND the filename used to call phpunit.  It makes this test extremely brittle.  I don't know which file actually generates the href and how to inject it. - benoitg 2023-01
+
 
         // currently the fixture used for comparing is commited with this path, which needs to be stripped, because it may or may not be how phpunit is called
         $expectedResults = str_replace('vendor_bundled/vendor/phpunit/phpunit/', '', $expectedResults);

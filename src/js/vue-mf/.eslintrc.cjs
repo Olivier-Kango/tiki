@@ -9,16 +9,11 @@ module.exports = {
         "plugin:vue/vue3-recommended",
         "plugin:prettier/recommended"
     ],
-    parserOptions: {
-        parser: "@babel/eslint-parser",
-        ecmaVersion: 2018,
-        requireConfigFile: false,
-    },
     plugins: ["prettier"],
     rules: {
         indent: ["error", 4],
-        "linebreak-style": ["error", "unix"],
-        "vue/no-unused-vars": "error",
+        "vue/no-unused-vars": "off", //vue/no-unused-vars does not support args: none
+        "no-unused-vars": ["error", { args: "none" }],
         "vue/component-name-in-template-casing": ["error", "PascalCase"],
     },
 };

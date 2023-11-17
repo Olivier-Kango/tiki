@@ -13,7 +13,7 @@ Some things that write here.  If you know of additional files/directories, or wh
 
 Other current directories:
 
-* temp/cache
+* [temp/cache](./cache/README.md)
   * Mostly caches from various tiki php files
 * temp/cache/container.php
   * Symfony dependency injection cache
@@ -24,7 +24,7 @@ Other current directories:
 * [temp/public/](./public/README.md), will move to public/temp/
 * temp/templaces_c/*
   * Compiled smarty templates
-* temp/inified-index/
+* temp/unified-index/
 
 Other current individial files:
 

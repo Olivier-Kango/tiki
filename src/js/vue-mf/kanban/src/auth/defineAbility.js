@@ -1,4 +1,4 @@
-import { Ability } from '@casl/ability';
+import { Ability } from "@casl/ability";
 
 // export default (user) => defineAbility((can) => {
 //     can('read', 'Card');
@@ -10,5 +10,5 @@ import { Ability } from '@casl/ability';
 // });
 
 export default (rules) => {
-    return new Ability(rules)
-}
+    return new Ability(rules);
+};

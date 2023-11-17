@@ -79,7 +79,7 @@ export default createStore({
             return state.user;
         },
         getRules(state) {
-            return state.rules
+            return state.rules;
         },
         getAccessToken(state) {
             return state.accessToken;
@@ -149,7 +149,7 @@ export default createStore({
             commit("setUser", data);
         },
         addRules({ commit }, data) {
-            commit('addRules', data)
+            commit("addRules", data);
         },
         addBoard({ commit }, added) {
             commit("addBoard", added);
@@ -222,7 +222,7 @@ export default createStore({
             state.rules = data.CASLAbilityRules;
         },
         addRules(state, data) {
-            state.rules = state.rules.concat(data)
+            state.rules = state.rules.concat(data);
         },
         addBoard(state, data) {
             // Add new board
@@ -321,7 +321,7 @@ function makeKanbanData(data) {
         rows: []
     };
 
-    if (!data.rows || data.rows.length === 0) data.rows = [{id: 0}]; // when no data.rows or empty array
+    if (!data.rows || data.rows.length === 0) data.rows = [{ id: 0 }]; // when no data.rows or empty array
     let rowsById = data.rows;
     //console.log("CANARI", data.rows); //test2
     let rowsAllIds = Object.keys(data.rows);

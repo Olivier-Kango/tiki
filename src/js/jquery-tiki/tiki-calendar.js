@@ -201,7 +201,7 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
             },
             height: "auto",
         });
-        
+
         calendar.render();
     });
 

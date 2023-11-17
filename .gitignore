@@ -30,6 +30,7 @@ report.xml
 /.composercache
 /before
 /after
+/.npm/
 
 #PRODUCTION AND SYSADMIN SECTION
 

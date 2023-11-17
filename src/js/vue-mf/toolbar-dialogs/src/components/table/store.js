@@ -1,3 +1,3 @@
-import { ref } from 'vue'
+import { ref } from "vue";
 
-export const cells = ref([[]])
+export const cells = ref([[]]);

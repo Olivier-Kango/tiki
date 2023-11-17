@@ -1,6 +1,7 @@
 {
   "name": "kanban",
   "version": "0.0.1",
+  "type": "module",
   "scripts": {
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "format": "prettier .  --write"

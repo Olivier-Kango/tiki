@@ -3,7 +3,7 @@ import qs from "qs";
 import store from "../store";
 
 //Strip the last fragment of the path, and appends the api path.
-const baseUrl = location.protocol + "//" + location.host + location.pathname.replace(/\/[^\/]*$/, "") + "/api";
+const baseUrl = location.protocol + "//" + location.host + location.pathname.replace(/\/[^/]*$/, "") + "/api";
 //console.log("LOCATION:",location);
 const api = axios.create({
     baseURL: baseUrl

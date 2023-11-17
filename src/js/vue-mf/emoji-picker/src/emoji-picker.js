@@ -1,13 +1,12 @@
 import singleSpaVue from "single-spa-vue";
 import singleSpaCss from "single-spa-css";
-import {createApp, h} from 'vue'
-import App from './App.vue'
+import { createApp, h } from "vue";
+import App from "./App.vue";
 
 const vueLifecycles = singleSpaVue({
     createApp,
     appOptions: {
-        render()
-        {
+        render() {
             return h(App, {
                 customProps: {
                     // single-spa props are available on the "this" object. Forward them to your component as needed.
@@ -18,7 +17,7 @@ const vueLifecycles = singleSpaVue({
                 },
             });
         },
-        el: ".emoji-picker"
+        el: ".emoji-picker",
     },
     handleInstance: (app) => {
         if (import.meta.env.MODE === "development") {

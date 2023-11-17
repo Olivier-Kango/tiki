@@ -18,6 +18,7 @@ function generateJsImportmapScripts()
                 "@popperjs/core" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/@popperjs/core/dist/esm/index.js",
                 "bootstrap" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/bootstrap/dist/js/bootstrap.esm.min.js",
                 "clipboard" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/clipboard/dist/clipboard.min.js",
+                "jquery" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/jquery/dist/jquery.js",
                 "moment" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/moment/dist/moment.js",
                 "sortablejs" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/sortablejs/modular/sortable.esm.js",
                 "vue" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.prod.js",

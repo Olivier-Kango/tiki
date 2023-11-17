@@ -22,11 +22,13 @@ variables:
 
   MYSQL_8_IMAGE: mysql:8.0.11
   MYSQL_5_IMAGE: mysql:5.6
+  NODE_IMAGE: node:18
   MANTICORE_DSN: http://manticore
   # You can set USE_GITLAB_PROXY to "true" in your project configuration to use the gitlab dependency proxy. (default not using as it may cause issues for some accounts)
   USE_GITLAB_PROXY: ''
   # Default value for DEPENDENCY_PROXY_PREFIX (not using any proxy), you can set this on your project also if you do not set USE_GITLAB_PROXY to "true"
   DEPENDENCY_PROXY_PREFIX: ''
+  npm_config_cache: "$CI_PROJECT_DIR/.npm" 
 
 workflow:
   rules:
@@ -48,6 +50,54 @@ workflow:
         DEPENDENCY_PROXY_PREFIX: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/
     # THIS WILL TRIGGER PIPELINES FOR MERGE REQUESTS AND SCHEDULES, AND PUSHES ON VERSION BRANCHES LIKE 21.x. 18.x
     - when: always
+
+#Inspired from https://dev.to/drakulavich/gitlab-ci-cache-and-artifacts-explained-by-example-2opi
+
+# Define a hidden job to be used with extends
+# Better than default to avoid activating cache for all jobs
+.node_dependencies_cache:
+  image:
+    name: ${DEPENDENCY_PROXY_PREFIX}${NODE_IMAGE}
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm
+    policy: pull
+
+node_modules:
+  stage: build
+  script:
+    - npm ci --prefer-offline
+  extends: .node_dependencies_cache
+  cache:
+    policy: pull-push
+  artifacts:
+    expire_in: 1h
+    paths:
+      - node_modules
+      - src/**/node_modules
+
+#Tests for a successful compile of all generated files
+node_build:
+  stage: build
+  image:
+    name: ${DEPENDENCY_PROXY_PREFIX}${NODE_IMAGE}
+  script:
+    - npm run build
+  dependencies: 
+    - node_modules #This is only because we still have some scss files installed from composer - 2023-11-17
+    - composer
+  needs: 
+    - node_modules
+    - composer
+  artifacts:
+    expire_in: 1h
+    paths:
+      - public/generated/
+      # TODO:  This also generates the CSS files in themes/*.  Maybe ok to ignore for CI purposes. - benoitg - 2023-11-17
+
 #
 # build
 #
@@ -111,6 +161,7 @@ composer-dbdiff:
     expire_in: 7 days
     when: always
 
+
 #
 # Lint
 #
@@ -160,12 +211,14 @@ smarty-lint:
 eslint:
   stage: lint
   image:
-    name: ${DEPENDENCY_PROXY_PREFIX}cytopia/eslint:latest
-    entrypoint: ["/bin/sh", "-c"]
+    name: ${DEPENDENCY_PROXY_PREFIX}${NODE_IMAGE}
+    #entrypoint: ["/bin/sh", "-c"]
   script:
-    - eslint .
-  dependencies: []
-  needs: []
+    - npx eslint .
+  dependencies: 
+    - node_modules
+  needs: 
+    - node_modules
   tags:
     - docker
 
@@ -522,6 +575,8 @@ tiki-package:
     - echo "=> Removing Composer dev dependencies ..."
     - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d vendor_bundled --no-dev --optimize-autoloader --no-progress --prefer-dist -n # remove dev packages
+    # TODO: Remove dev dependencies in npm - benoitg - 2023-11-17
+    # TODO: Generate index.php files (see check-directories below) - benoitg - 2023-11-17
     # Cleanup folders that may have data, and we do not want to be packed
     - echo "=> Cleanup ..."
     # Assure temp folder is empty

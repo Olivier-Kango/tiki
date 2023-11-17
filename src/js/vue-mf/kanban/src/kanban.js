@@ -80,7 +80,6 @@ const cssLifecycle = singleSpaCss({
     ]
 });
 
-
 export const bootstrap = [cssLifecycle.bootstrap, vueLifecycles.bootstrap];
 export const mount = [cssLifecycle.mount, vueLifecycles.mount];
 export const unmount = [cssLifecycle.unmount, vueLifecycles.unmount];

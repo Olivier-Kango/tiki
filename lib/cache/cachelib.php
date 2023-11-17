@@ -501,6 +501,10 @@ class CacheLibFileSystem
         if (! is_dir($this->folder)) {
             mkdir($this->folder);
             chmod($this->folder, 0777);
+            $resource = opendir($this->folder);
+            if ($resource === false) {
+                throw new Exception("Unable to create cache directory {$this->folder}");
+            }
         }
     }
 
@@ -546,6 +550,9 @@ class CacheLibFileSystem
     {
         $path = $this->folder;
         $all = opendir($path);
+        if ($all === false) {
+            throw new Exception("Unable to open cache directory {$this->folder}");
+        }
         while ($file = readdir($all)) {
             if (strpos($file, $type) === 0) {
                 unlink("$path/$file");
