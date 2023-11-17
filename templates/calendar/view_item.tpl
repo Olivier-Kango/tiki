@@ -105,7 +105,7 @@
                 <tr class="organizers">
                     <th>{tr}Organizers:{/tr}</th>
                     <td>
-                        {if $calitem.organizers|@count}
+                        {if ! empty($calitem.organizers) && ($calitem.organizers|@count)}
                             <ul>
                             {foreach $calitem.organizers as $organizer}
                                 <li>{$organizer|userlink}</li>
