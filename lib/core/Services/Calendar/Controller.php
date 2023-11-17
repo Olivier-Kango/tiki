@@ -57,6 +57,37 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         ];
     }
 
+    public function action_add_me($input)
+    {
+        global $user;
+        $itemId = $this->getItemId($input);
+        $this->calendarLib->update_participants($itemId, [['name' => $user]], null);
+        Feedback::success(tr('You have been added successfully to the list of participants'));
+        return [
+            'FORWARD' => [
+                'controller' => 'calendar',
+                'action' => 'view_item',
+                'calitemId' => $itemId,
+            ]
+        ];
+    }
+
+    public function action_del_me($input)
+    {
+        global $user;
+
+        $itemId = $this->getItemId($input);
+        $this->calendarLib->update_participants($itemId, null, [$user]);
+        Feedback::success(tr('You have been removed successfully from the list of participants'));
+        return [
+            'FORWARD' => [
+                'controller' => 'calendar',
+                'action' => 'view_item',
+                'calitemId' => $itemId,
+            ]
+        ];
+    }
+
     /**
      * Retreives visible events for full calendar via ajax
      *

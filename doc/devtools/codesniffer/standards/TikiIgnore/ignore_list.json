@@ -8553,6 +8553,8 @@
             "Services_Cypht_Controller::action_ajax": true
         },
         "lib\/core\/Services\/Calendar\/Controller.php": {
+            "Services_Calendar_Controller::action_add_me": true,
+            "Services_Calendar_Controller::action_del_me": true,
             "Services_Calendar_Controller::action_move": true,
             "Services_Calendar_Controller::action_resize": true,
             "Services_Calendar_Controller::action_list_items": true,

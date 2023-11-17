@@ -137,9 +137,9 @@
                         </p>
                         {if not $preview and $tiki_p_calendar_add_my_particip eq 'y'}
                             {if $particiapting}
-                                {button _text="{tr}Withdraw me from the list of participants{/tr}" href="?del_me=y&viewcalitemId=$calitemId" _class='btn-sm'}
+                                {button _text="{tr}Withdraw me from the list of participants{/tr}" href="{service controller='calendar' action='del_me' calitemId=$calitem.calitemId}" _class='btn-sm'}
                             {else}
-                                {button _text="{tr}Add me to the list of participants{/tr}" href="?add_me=y&viewcalitemId=$calitemId" _class='btn-sm'}
+                                {button _text="{tr}Add me to the list of participants{/tr}" href="{service controller='calendar' action='add_me' calitemId=$calitem.calitemId}" _class='btn-sm'}
                             {/if}
                         {/if}
                     </td>
