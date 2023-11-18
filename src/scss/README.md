@@ -1,6 +1,6 @@
 # src/scss directory
 
-This is a npm workspace to build the themes using [dart-css](https://github.com/sass/dart-sass) .  It builds from AND into the themes/ repository at the root, for legacy reasons (avoid breaking the the theme system, especially in custom packages)
+This is a npm workspace to build the themes using [dart-css](https://github.com/sass/dart-sass) .  It builds from AND into the [themes/](../../themes/README.md) directory at the root, for legacy reasons (avoid breaking the the theme system, especially in custom packages)
 
 This not normally ran directly, it's normally run from the root as part of:
 

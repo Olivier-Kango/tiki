@@ -1,6 +1,6 @@
 # themes/
 
-This directory is processed by lib/theme/themelib.php and contains:
+This directory is processed at runtime by lib/theme/themelib.php and contains:
 
 * default/, which is the tiki default theme
 * nameofthetheme/ subdirectories,  all tiki themes distributed with tiki, as well as any user created custom ones
@@ -9,6 +9,8 @@ This directory is processed by lib/theme/themelib.php and contains:
 * [templates/](templates/README.md), override templates
 * [css/](css/README.md), fallback custom css
 * [js/](js/README.md), additional custom javascript
+
+To build the sccs files, see documentation at [src/scss/](../src/scss/README.md)
 
 ## DESCRIPTION OF THEME SUBDIRECTORIES
 
