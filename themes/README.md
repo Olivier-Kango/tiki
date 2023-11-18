@@ -56,7 +56,7 @@ Help with Tiki is available at: https://tiki.org/Help .
 
 A Tiki consultant (providing paid services) can be found and contacted at: https://tiki.org/Consultants .
 
-Please note that Tiki also has a theme customizer that is currently partially functional. See https://doc.tiki.org/Theme-Customizer .
+Please note that Tiki also has a theme customizer that worked for Bootstrap 3 (Up to Tiki18) but it wasn't ported to Bootstrap 4/5. See https://doc.tiki.org/Theme-Customizer .
 
 ## FOR DEVELOPERS
 
@@ -64,10 +64,10 @@ Please note that Tiki also has a theme customizer that is currently partially fu
 
 Web developers/designers with some knowledge of CSS can create or adapt a visual theme for Tiki. Please see the links below for more details and help:
 
-* https://themes.tiki.org/How+To+Add+a+New+Bootstrap+Theme
-* https://themes.tiki.org/Creating-a-Tiki-theme>
-* https://themes.tiki.org/Theme-making-Questions-and-Answers>
-* https://themes.tiki.org/Customizing-Icons>
+* https://themes.tiki.org/How-To-Add-a-New-Theme
+* https://themes.tiki.org/Creating-a-Tiki-theme
+* https://themes.tiki.org/Theme-making-Questions-and-Answers
+* https://themes.tiki.org/Icons
 * https://themes.tiki.org/Template-Tricks
 * https://doc.tiki.org/Favicon
 
