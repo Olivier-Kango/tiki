@@ -704,7 +704,13 @@ npm_setup() {
 
     echo "Running node install and build"
     set -x
-    npm install
+    npm install --engine-strict
+    {
+        exitCode=$?
+        if [ $exitCode -ne 0 ]; then
+            exit 1
+        fi
+    } >/dev/null 2>&1
     npm run build
     set +x
 }

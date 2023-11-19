@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build:js": "vite --config=src/js/vite.config.mjs build --mode=production",
-    "build:scss": "npm run build -w src/scss",
-    "build": "package-lock-check && concurrently \"npm:build:*\"",
+    "engine-check": "node engineCheck.js",
+    "prebuild": "npm run engine-check",
+    "build:js": "npm run prebuild && vite --config=src/js/vite.config.mjs build --mode=production",
+    "build:scss": "npm run prebuild && npm run build -w src/scss",
+    "build": "npm run engine-check && package-lock-check && concurrently \"npm:build:*\"",
     "watch:js": "vite --config=src/js/vite.config.mjs build --watch --mode=development",
     "watch:scss": "npm run watch -w src/scss",
     "watch": "package-lock-check && concurrently \"npm:watch:*\"",
@@ -18,8 +20,8 @@
     "node": ">=18.0.0 <22"
   },
   "enginesComment": {
-      "npm": "Npm was at version 9 as of node 18",
-      "node": "We track supported vite note version, which is 18 as of vite 5"
+    "npm": "Npm was at version 9 as of node 18",
+    "node": "We track supported vite note version, which is 18 as of vite 5"
   },
   "dependencies": {
     "single-spa-css": "^2.0.0",
@@ -28,6 +30,7 @@
   "depencenciesCommentSingleLibs": {},
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",
+    "check-engines": "^1.6.0",
     "concurrently": "^8.2.1",
     "es-module-shims": "^1.8.0",
     "eslint": "^8.49.0",
