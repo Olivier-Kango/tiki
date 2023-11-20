@@ -2136,9 +2136,9 @@ class TrackerLib extends TikiLib
                 if ($value !== false) {
                     $this->modify_field($currentItemId, $array['fieldId'], $value);
 
-                    if ($itemId && $old_value != $value) {
-                        // On update, save old value
-                        $this->log($version, $itemId, $array['fieldId'], $old_value);
+                    if ($old_value != $value) {
+                        // Save old value
+                        $this->log($version, $currentItemId, $array['fieldId'], $old_value);
                     }
                     $fil[$fieldId] = $value;
                 }
@@ -2152,9 +2152,9 @@ class TrackerLib extends TikiLib
                 if ($value !== false) {
                     $this->modify_field($currentItemId, $array['fieldId'], $value);
 
-                    if ($itemId && $old_value != $value) {
-                        // On update, save old value
-                        $this->log($version, $itemId, $array['fieldId'], $old_value);
+                    if ($old_value != $value) {
+                        // Save old value
+                        $this->log($version, $currentItemId, $array['fieldId'], $old_value);
                     }
                     $fil[$fieldId] = $value;
                 }
@@ -5166,9 +5166,6 @@ class TrackerLib extends TikiLib
 
     public function log($version, $itemId, $fieldId, $value = '')
     {
-        if (empty($version)) {
-             return;
-        }
         if ($value === null) {
             $value = ''; // we want to log it after all, so change is in history
         }

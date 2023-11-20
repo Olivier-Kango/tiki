@@ -66,21 +66,14 @@
 
         {$last_version = 0}
         {foreach from=$history item=hist}
-            {if $hist.value neq $hist.new}
+            {if $hist.value neq $hist.new or $hist.version == 0}
                 {assign var='fieldId' value=$hist.fieldId}
                 {assign var='field_value' value=$field_option[$fieldId]}
-                {if $field_value.visibleInHistoryMode eq 'y'}
+                {if $field_value.visibleInHistoryMode eq 'y' or $hist.version == 0}
                     <tr>
-                        {if $last_version neq $hist.version}
-                            <td class="id"><strong>{$hist.version|escape}</strong></td>
-                            <td class="date"><strong>{if not empty($hist.lastModif)}{$hist.lastModif|tiki_short_datetime}{/if}</strong></td>
-                            <td class="username"><strong>{$hist.user|username}</strong></td>
-                            {$last_version = $hist.version}
-                        {else}
-                            <td class="id">&nbsp;</td>
-                            <td class="date">&nbsp;</td>
-                            <td class="username">&nbsp;</td>
-                        {/if}
+                        <td class="id"><strong>{$hist.version|escape}</strong></td>
+                        <td class="date"><strong>{if not empty($hist.lastModif)}{$hist.lastModif|tiki_short_datetime}{/if}</strong></td>
+                        <td class="username"><strong>{$hist.user|username}</strong></td>
                         <td class="text">
                             {if $fieldId ne -1}{$fieldId}{/if}
                         </td>

@@ -50,8 +50,11 @@ if (! empty($_GET['itemId'])) {
         $history = $trklib->get_item_history($item_info, $fieldId, $filter, $offset, $prefs['maxRecords']);
         $smarty->assign_by_ref('history', $history['data']);
         $smarty->assign_by_ref('cant', $history['cant']);
-
+        $has_initial_version = false;
         foreach ($history['data'] as $i => $hist) {
+            if ($hist['version'] == 0) {
+                $has_initial_version = true;
+            }
             if (empty($field_option[$hist['fieldId']])) {
                 if ($hist['fieldId'] > 0) {
                     $field_option[$hist['fieldId']] = $trklib->get_tracker_field($hist['fieldId']);
@@ -64,7 +67,9 @@ if (! empty($_GET['itemId'])) {
                 }
             }
         }
-
+        if (! $has_initial_version) {
+            array_push($history['data'], ["version" => 0, "fieldId" => null, "value" => "", "user" => $item_info['createdBy'], "lastModif" => $item_info['created'], "new" => ""]);
+        }
         $diff_style = empty($_GET['diff_style']) ? $prefs['tracker_history_diff_style'] : $_GET['diff_style'];
         $smarty->assign('diff_style', $diff_style);
         $smarty->assign_by_ref('item_info', $item_info);
