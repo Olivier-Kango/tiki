@@ -3513,6 +3513,8 @@ class FileGalLib extends TikiLib
 
         $tx->commit();
 
+        $this->notify($gal_info['galleryId'], $title, $name, $description, 'upload file', $asuser);
+
         return $ret;
     }
 
@@ -3535,6 +3537,8 @@ class FileGalLib extends TikiLib
         $ret = $file->replace($data, $type, $title, $name);
 
         $tx->commit();
+
+        $this->notify($gal_info['galleryId'], $title, $name, '', 'upload file', $asuser);
 
         return $ret;
     }
