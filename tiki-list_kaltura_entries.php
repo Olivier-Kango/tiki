@@ -128,6 +128,7 @@ try {
                 }
             }
         } else {
+            $kalturaadminlib = TikiLib::lib('kalturaadmin');
             $kmixlist = $kalturaadminlib->listMix($sort_mode, $page, $page_size, $find);
         }
 

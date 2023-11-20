@@ -149,7 +149,6 @@
         "avianey/jqdoublescroll": ">=1.0.0",
         "bacon/bacon-qr-code": "^2.0.0",
         "bower-asset/swfobject": "^2.2",
-        "bower-asset/fontawesome": "^6.1.2",
         "candy-chat/xmpp-prebind-php": "dev-master",
         "christian-vigh-phpclasses/pdftotext": "^1.6.0",
         "ckeditor/ckeditor": "<=4.22.1",

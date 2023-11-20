@@ -201,63 +201,6 @@ class KalturaLib
         }
     }
 
-    public function updateStandardTikiKcw()
-    {
-        if ($client = $this->getClient()) {
-            // first check if there is an existing one
-            $pager = null;
-            $filter = new UiConfFilter();
-            $filter->nameLike = 'Tiki.org Standard 2013';
-            $filter->objTypeEqual = UiConfObjType::CONTRIBUTION_WIZARD;
-            $existing = $client->uiConf->listAction($filter, $pager);
-            if (count($existing->objects) > 0) {
-                $current_obj = array_pop($existing->objects);
-                $current = $current_obj->id;
-            } else {
-                $current = '';
-            }
-
-            global $tikipath;
-            $uiConf = new UiConf();
-            $uiConf->name = 'Tiki.org Standard 2013';
-            $uiConf->objType = UiConfObjType::CONTRIBUTION_WIZARD;
-            $filename = $tikipath . "lib/videogals/standardTikiKcw.xml";
-            $fh = fopen($filename, 'r');
-            $confXML = fread($fh, filesize($filename));
-            $uiConf->confFile = $confXML;
-            $uiConf->useCdn = 1;
-            $uiConf->swfUrl = '/flash/kcw/v2.1.4/ContributionWizard.swf';
-            $uiConf->tags = 'autodeploy, content_v3.2.5, content_upload';
-
-            // first try to update
-            if ($current) {
-                try {
-                    $results = $client->uiConf->update($current, $uiConf);
-                    if (isset($results->id)) {
-                        return $results->id;
-                    }
-                } catch (Exception $e) {
-                    Feedback::error(tr("There was an issue with the integration with Kaltura: %0", $e->getMessage()));
-                }
-            } else {
-                try {
-                    // create if updating failed or not updating
-                    $uiConf->creationMode = UiConfCreationMode::ADVANCED;
-                    $results = $client->uiConf->add($uiConf);
-                    if (isset($results->id)) {
-                        return $results->id;
-                    } else {
-                        return '';
-                    }
-                } catch (Exception $e) {
-                    Feedback::error(tr("There was an issue with the integration with Kaltura: %0", $e->getMessage()));
-                }
-            }
-        }
-
-        return '';
-    }
-
     public function cloneMix($entryId)
     {
         if ($client = $this->getClient()) {

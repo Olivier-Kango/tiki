@@ -20,22 +20,6 @@ if ($prefs['feature_kaltura'] === 'y') {
             TikiLib::lib('tiki')->set_preference('kaltura_kServiceUrl', $prefs['kaltura_kServiceUrl']);
         }
 
-        // contribution wizard
-        $kcwDefault = $prefs['kaltura_kcwUIConf'];
-        if (empty($kcwDefault) || ! empty($_REQUEST['kcw_rebuild'])) {
-            $kcwDefault = $kalturaadminlib->updateStandardTikiKcw();
-            $cachelib->invalidate($kalturaadminlib::CONFIGURATION_LIST);
-            $playerList = $kalturaadminlib->getPlayersUiConfs();
-        }
-        if ($kcwDefault) {
-            $kcwText = "<div class='adminoptionbox'>" . tr("KCW Configuration ID: %0 (automatically configured)", $kcwDefault) . "</div>";
-        } else {
-            $kcwText = "<div class='adminoptionbox'>" . tr("Unable to retrieve configuration from Kaltura. Please reload page after setting up the Kaltura Partner Settings section") . "</div>";
-        }
-        // TODO make way to override this for certain sites...
-        if ($kcwDefault != $prefs['kaltura_kcwUIConf']) {
-            $tikilib->set_preference('kaltura_kcwUIConf', $kcwDefault);
-        }
         if (empty($prefs['kaltura_kdpUIConf'])) {   // player pref empty
             $playerList = $kalturaadminlib->getPlayersUiConfs();
             if ($playerList) {

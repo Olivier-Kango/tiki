@@ -21,7 +21,6 @@
     RewriteRule "^(vendor/player/).*/.*\.(swf|html)$" "-" [PT,L]
     RewriteRule "^(vendor/jquery/).*/.*\.(swf|html)$" "-" [PT,L]
     RewriteRule "^(vendor/studio-42/).*/.*\.(wav|html)$" "-" [PT,L]
-    RewriteRule "^(vendor/bower-asset/swfobject/).*/.*\.(swf|html)$" "-" [PT,L]
     RewriteRule "^(vendor/twbs/).*/.*\.html$" "-" [PT,L]
     RewriteRule "^(vendor/ckeditor).*/.*\.html$" "-" [PT,L]
     RewriteRule "^(vendor/npm-asset/converse\.js/).*/.*\.html$" "-" [PT,L]

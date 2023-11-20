@@ -31,10 +31,9 @@ function wikiplugin_kaltura_info()
         'introduced' => 4,
         'params' => [
             'id' => [
-                'required' => false,
+                'required' => true,
                 'name' => tra('Kaltura Entry ID'),
-                'description' => tra('Kaltura ID of the video to be displayed, or leave empty to show a button to allow
-                    users to add a new one.'),
+                'description' => tra('Kaltura ID of the video to be displayed'),
                 'since' => '4.0',
                 'tags' => ['basic'],
                 'area' => 'kaltura_uploader_id',
@@ -94,21 +93,14 @@ function wikiplugin_kaltura_info()
                     ['text' => tra('Left'), 'value' => 'left'],
                     ['text' => tra('Right'), 'value' => 'right'],
                 ],
-            ],
-            'add_button_label' => [
-                'required' => false,
-                'name' => tra('Add Media Button Label'),
-                'description' => tra('Text to display on button for adding new media.'),
-                'since' => '10.0',
-                'default' => tra('Add media'),
-            ],
+            ]
         ],
     ];
 }
 
 function wikiplugin_kaltura($data, $params)
 {
-    global $prefs, $tiki_p_upload_videos, $user, $page;
+    global $prefs, $user, $page;
 
     static $instance = 0;
 
@@ -123,64 +115,8 @@ function wikiplugin_kaltura($data, $params)
     }
 
     if (empty($params['id'])) {
-        if ($tiki_p_upload_videos === 'y') {
-            $smarty = TikiLib::lib('smarty');
-            $smarty->loadPlugin('smarty_function_button');
-
-            $json_page = json_encode($page);
-            $json_instance = json_encode($instance);
-            $json_title = json_encode(tr('Upload Media'));
-            TikiLib::lib('header')->add_jq_onready(
-                <<<REG
-$("#kaltura_upload_btn$instance a").on("click", function() {
-    $(this).serviceDialog({
-        title: $json_title,
-        width: 710,
-        height: 450,
-        hideButtons: true,
-        success: function (data) {
-            if (data.entries) {
-                $.post('tiki-wikiplugin_edit.php', {
-                    content: '',
-                    type: 'kaltura',
-                    page: {$json_page},
-                    index: {$json_instance},
-                    params: {
-                        id: data.entries[0]
-                    }
-                }, function () {
-                    document.location.reload();
-                });
-            }
-        }
-    });
-    return false;
-});
-REG
-            );
-
-            $html = smarty_function_button(
-                [   // default for add_button_label already tra but not merged yet
-                    '_text' => ! empty($params['add_button_label']) ? tra($params['add_button_label']) : $defaults['add_button_label'],
-                    '_id' => 'kaltura_upload_btn' . $instance,
-                    'href' => TikiLib::lib('service')->getUrl(
-                        [
-                            'controller' => 'kaltura',
-                            'action' => 'upload'
-                        ]
-                    ),
-                ],
-                $smarty->getEmptyInternalTemplate()
-            );
-        } elseif (! empty($user)) {
-            $html = '<span class="alert-warning">' . tra('Media ID or permission to upload video is required') . '</span>';
-        } else {
-            $html = '<span class="alert-warning">' . tra('Log in to upload video') . '</span>';
-        }
-
+        $html = '<span class="alert-warning">' . tra('Media ID is required to display the video') . '</span>';
         return $html;
-    } else {
-        $id = $params['id'];
     }
 
     if (empty($params['player_id'])) {

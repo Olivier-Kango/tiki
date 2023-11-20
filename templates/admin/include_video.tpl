@@ -11,7 +11,6 @@
 
             {button _text="{tr}List Media{/tr}" href="tiki-list_kaltura_entries.php"}
             {if $kaltura_legacyremix eq 'y'}{button _text="{tr}List Remix Entries{/tr}" href="tiki-list_kaltura_entries.php?list=mix"}{/if}
-            {button _text="{tr}Add New Media{/tr}" href="tiki-kaltura_upload.php"}
 
             <div class="row">
                 <div class="mb-3 col-lg-12 clearfix">
@@ -53,18 +52,6 @@
                 {preference name=kaltura_kdpUIConf}
                 {preference name=kaltura_kdpEditUIConf}
                 {$kplayerlist}
-            </fieldset>
-
-            <br>
-
-            <fieldset>
-                <legend>{tr}Kaltura contribution wizard{/tr}</legend>
-                {preference name=kaltura_kcwUIConf}
-                {$kcwText}
-                <div class="adminoptionbox">
-                    {tr}You can manually edit these values in lib/videogals/standardTikiKcw.xml{/tr}<br>
-                    {tr}Recreate KCW "uiConf"{/tr} {button  _text="{tr}Update{/tr}" kcw_rebuild=1 _keepall='y' _auto_args='*'}
-                </div>
             </fieldset>
 
             <br>

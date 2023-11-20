@@ -4302,11 +4302,6 @@ lib/surveys/surveylib.php -text
 lib/surveys/tiki-admin_survey_questions.js -text
 lib/svg-edit_tiki/draw.js -text
 lib/svg-edit_tiki/index.php -text
-lib/swfobject/expressInstall.swf -text
-lib/swfobject/index.php -text
-lib/swfobject/src/expressInstall.fla -text
-lib/swfobject/src/index.php -text
-lib/swfobject/test.swf -text
 lib/taglines/index.php -text
 lib/taglines/taglinelib.php -text
 lib/tail/index.php -text
@@ -4787,7 +4782,6 @@ lib/validators/validator_username.php -text
 lib/validatorslib.php -text
 lib/videogals/index.php -text
 lib/videogals/kalturalib.php -text
-lib/videogals/standardTikiKcw.xml -text
 lib/web.config -text
 lib/webmail/API.txt -text
 lib/webmail/addressbooklib.php -text
@@ -5585,7 +5579,6 @@ templates/index.php -text
 templates/interactive_translation_box.tpl -text
 templates/kaltura/index.php -text
 templates/kaltura/list.tpl -text
-templates/kaltura/upload.tpl -text
 templates/language/index.php -text
 templates/language/manage_custom_translations.tpl -text
 templates/language/upload.tpl -text
@@ -6224,7 +6217,6 @@ templates/tiki-install.tpl -text
 templates/tiki-integrator.tpl -text
 templates/tiki-invite.tpl -text
 templates/tiki-invited.tpl -text
-templates/tiki-kaltura_upload.tpl -text
 templates/tiki-kaltura_video.tpl -text
 templates/tiki-lastchanges.tpl -text
 templates/tiki-likepages.tpl -text
@@ -8127,7 +8119,6 @@ themes/yeti/templates/index.php -text
 /tiki-interactive_trans.php -text
 /tiki-invite.php -text
 /tiki-invited.php -text
-/tiki-kaltura_upload.php -text
 /tiki-kaltura_video.php -text
 /tiki-lastchanges.php -text
 /tiki-layout_options.php -text

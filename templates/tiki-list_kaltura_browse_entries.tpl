@@ -14,8 +14,6 @@
     {/if}
 {/if}
 
-{if $tiki_p_upload_videos eq 'y' or $tiki_p_admin_kaltura eq 'y' or $tiki_p_admin eq 'y'}{button _text="{tr}Add New Media{/tr}" href="tiki-kaltura_upload.php"}{/if}
-
     <div class="text-center">
         {wikiplugin _name=kaltura id=$klist[0]->id}{/wikiplugin}
         <div class="navi kaltura">

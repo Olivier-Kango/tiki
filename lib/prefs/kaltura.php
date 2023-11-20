@@ -63,13 +63,6 @@ function prefs_kaltura_list()
             'default' => '',
             'tags' => ['basic'],
         ],
-        'kaltura_kcwUIConf' => [
-            'name' => tra('KCW UI configuration ID'),
-            'description' => tra('Kaltura Configuration Wizard (KCW) user interface configuration ID'),
-            'type' => 'text',
-            'size' => 20,
-            'default' => '',
-        ],
         'kaltura_kServiceUrl' => [
             'name' => tra('Kaltura service URL'),
             'description' => tra('for example, https://www.kaltura.com/'),
