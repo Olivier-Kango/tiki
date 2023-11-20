@@ -1727,8 +1727,8 @@ class WikiLib extends TikiLib
         }
 
         $pages = TikiDb::get()->table('tiki_pages');
-        $page = $pages->fetchOne('pageSlug', ['pageName' => $page]) ?: $page;
         if (TikiLib::lib('tiki')->page_exists($page)) {
+            $page = $pages->fetchOne('pageSlug', ['pageName' => $page]) ?: $page;
             $href = "$script_name?page=" . $page;
         } else {
             $href = "$script_name2?page=" . $page;
