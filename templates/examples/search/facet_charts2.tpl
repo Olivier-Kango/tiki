@@ -17,17 +17,6 @@ Example wiki page "chart" contents:
   {OUTPUT}
 {LIST}
 
-Example wiki page "chart tpl" contents for the form is using plugin customsearch
-
-{literal}<div  class="row"><div class="col-sm-4 col-sm-offset-4"><div class="input-group">
-      {input _filter="content" type="text" class="form-control" placeholder="Search..."}
-      <div class="input-group-text">
-        {input type="submit" value="Go" class="btn btn-primary"}
-        {input _filter="content" type="hidden" _field="tracker_status" id="tracker_status"}
-        {input _filter="content" type="hidden" _field="tracker_field_eventCategory" id="deep_categories_under_2"}
-      </div></div></div></div>
-{/literal}
-
 ChartJS options can be added in JSON format only so far (sorry), but single quotes need to be used instead of double, e.g.
 
     {chart _type="pie" _options="{'plugins':{'labels':{'render':'value'}},'responsive':true,'animation':{'animateRotate':false}}"}
@@ -81,6 +70,7 @@ Debugging:
 
                 {$values = []}
                 {$labels = []}
+                {$matches = []}
                 {foreach from=$facet.options key=value item=label}
                     {if isset($label) && strpos($label, 'trackeritem:0 ') !== false}
                         {continue}
