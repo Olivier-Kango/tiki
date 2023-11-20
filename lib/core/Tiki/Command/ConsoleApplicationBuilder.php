@@ -297,7 +297,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException If development files are not installed.
 	 */
-	protected function checkIsDevMode () : void
+	protected function checkIsDevMode() : void
 	{
 		$this->checkIsVCS();
 
@@ -475,7 +475,7 @@ class ConsoleApplicationBuilder
 	 * @param boolean $returnLastInstance
 	 * @return Application
 	 */
-	public function create( bool $returnLastInstance = false) : Application
+	public function create(bool $returnLastInstance = false) : Application
 	{
 		if ($returnLastInstance && self::$lastInstance instanceof self) {
 			return self::$lastInstance;

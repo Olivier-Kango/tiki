@@ -90,7 +90,7 @@ class IndexRebuildCommand extends Command
 				$io->listing($logFiles);
 			}
 
-	
+
 			list($engine, $version) = $unifiedsearchlib->getCurrentEngineDetails();
 			if (! empty($engine)) {
 				$engineMessage = 'Unified search engine: ' . $engine;

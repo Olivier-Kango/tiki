@@ -61,7 +61,7 @@ class ListExecuteCommand extends Command
 
 		$_POST['list_action'] = $action;
 		for ($i = 1; $i <= 10; $i++) {
-			$_POST['objects'.$i] = ['ALL'];
+			$_POST['objects' . $i] = ['ALL'];
 		}
 		$_POST['list_input'] = $input->getArgument('input');
 

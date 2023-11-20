@@ -164,7 +164,6 @@ class FakerCommentsCommand extends Command
 		$prefs['user_show_realnames'] = 'n';
 
 		for ($i = 0; $i < $numberItems; $i++) {
-
 			if ($prefs['feature_comments_post_as_anonymous'] === 'y' && random_int(0, 100) < $anonymousPercentage) {
 				$fakerMap['userName'] = '';
 				$fakerMap['anonymous_name'] = 'name';
@@ -180,7 +179,6 @@ class FakerCommentsCommand extends Command
 			$commentData = [];
 
 			foreach ($fakerMap as $argument => $thisFaker) {
-
 				if (is_array($thisFaker)) {
 					$fakerAction = $thisFaker[0];
 					$fakerArguments = $thisFaker[1];
@@ -248,6 +246,4 @@ class FakerCommentsCommand extends Command
 
 		return 0;
 	}
-
-
 }

@@ -40,7 +40,7 @@ class CommandUnavailableException extends Exception
 	 * Error for when the Database is out of sync, (it needs to be updated)
 	 * @see ConsoleApplicationBuilder::checkDatabaseUpToUpdate()
 	 */
-	
+
 	public const CHECK_UPDATED = 204;
 	/**
 	 * Dummy error code denoting a default value.

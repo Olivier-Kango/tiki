@@ -39,7 +39,7 @@ class SemiAutoMergeCommand extends Command
 
 		$TWV = new TWVersion;
 
-		if ($TWV->branch !== 'trunk'){
+		if ($TWV->branch !== 'trunk') {
 			$output->writeln('<error>Must be in trunk to merge</error>');
 			exit(1);
 		}
@@ -54,7 +54,7 @@ class SemiAutoMergeCommand extends Command
 
 		// if there is changes that have not been committed, then ask to commit them.
 		if (is_file('svn-commit.tmp')) {
-            $output->writeln('<info>A previous semi-auto merge existed </info>');
+			$output->writeln('<info>A previous semi-auto merge existed </info>');
 			$this->commitChanges($input, $output, true);
 		}
 
@@ -68,10 +68,10 @@ class SemiAutoMergeCommand extends Command
 		// Do merge
 		$output->writeln('Merging...');
 
-		$this->branch = 'branches/' . ((int)$TWV->getBaseVersion()-1) . '.x';
+		$this->branch = 'branches/' . ((int)$TWV->getBaseVersion() - 1) . '.x';
 		// we find the last merge and then advance by one to know where we must merge from
 		try {
-		    $output->writeln('Finding last merge', $output::VERBOSITY_DEBUG);
+			$output->writeln('Finding last merge', $output::VERBOSITY_DEBUG);
 			$mergeFrom = $this->findLastMerge();
 			$mergeFrom ++;
 		} catch (Exception $e) {
@@ -85,7 +85,7 @@ class SemiAutoMergeCommand extends Command
 		}
 
 		$command = "svn log -r $mergeFrom:HEAD --xml " . escapeshellarg('^/' . $this->branch) . ' 2>&1';
-        $output->writeln($command, $output::VERBOSITY_DEBUG);
+		$output->writeln($command, $output::VERBOSITY_DEBUG);
 		$logFile = shell_exec($command);
 		$output->writeln($logFile, $output::VERBOSITY_DEBUG);
 		$logFile = simplexml_load_string($logFile, null, LIBXML_NOCDATA);
@@ -94,21 +94,21 @@ class SemiAutoMergeCommand extends Command
 
 
 		if (! isset($logFile['logentry'])) {
-		    // if there was no results returned, remove any empty array elements
-		    $logFile = false;
-        } elseif (isset($logFile['logentry'][0])) {
-            // the logentry is an multidimensional array if more than one result is returned, so lets make them all even so we can loop through.
-		    $logFile = $logFile['logentry'];
+			// if there was no results returned, remove any empty array elements
+			$logFile = false;
+		} elseif (isset($logFile['logentry'][0])) {
+			// the logentry is an multidimensional array if more than one result is returned, so lets make them all even so we can loop through.
+			$logFile = $logFile['logentry'];
 		}
 		$commitMessages = [];
 		$commitTags = [];
 
 		foreach ($logFile as $log) {
-			if (strpos($log['msg'],'[bp/r') === false) {
+			if (strpos($log['msg'], '[bp/r') === false) {
 				$authors[] = $log['author'];
 				$commitMessages[] = '(' . $log['author'] . ') ' . trim($log['msg']);
 				preg_match_all('/\[[A-Z]{2,3}\]/', $log['msg'], $matches);
-				foreach ($matches[0] as $match){
+				foreach ($matches[0] as $match) {
 					if (! in_array($match, $commitTags, false)) {
 						$commitTags[] = $match;
 					}
@@ -120,7 +120,7 @@ class SemiAutoMergeCommand extends Command
 		if ($commitCount === 0) {
 			$output->writeln('<info>No changes to merge</info>');
 			// If there was an svn commit file, we remove it because it is certainly not needed any longer.
-            $output->writeln('Now deleting svn-commit.tmp if it exists.', $output::VERBOSITY_DEBUG);
+			$output->writeln('Now deleting svn-commit.tmp if it exists.', $output::VERBOSITY_DEBUG);
 			if (file_exists('svn-commit.tmp')) {
 				unlink('svn-commit.tmp');
 			}
@@ -130,7 +130,7 @@ class SemiAutoMergeCommand extends Command
 		$lastRevision = '';
 		$separator = '';
 
-		if ($commitCount > 1 ) {
+		if ($commitCount > 1) {
 			$authors = array_unique($authors);
 			$authors = implode(', ', $authors) . "\n";
 			$separator = ':';
@@ -143,7 +143,7 @@ class SemiAutoMergeCommand extends Command
 
 		$firstRevision = $logFile[0]['@attributes']['revision'];
 
-		$command = 'svn merge '. escapeshellarg('^/' . $this->branch) . " -r $mergeFrom:HEAD";
+		$command = 'svn merge ' . escapeshellarg('^/' . $this->branch) . " -r $mergeFrom:HEAD";
 		$output->writeln($command, $output::VERBOSITY_DEBUG);
 		passthru($command);
 
@@ -159,7 +159,6 @@ class SemiAutoMergeCommand extends Command
 
 		$output->writeln('<info>Please verify local copy now. All changes in the working copy will be committed.</info>');
 		$this->commitChanges($input, $output);
-
 	}
 
 	/**
@@ -176,17 +175,16 @@ class SemiAutoMergeCommand extends Command
 		$output->writeln('<info>The following commit message will be used:</info>');
 		$output->writeln(file_get_contents('svn-commit.tmp'));
 
-        /** Contains the options available, the last option becomes the default */
+		/** Contains the options available, the last option becomes the default */
 		$bundles = ['yes', 'no'];
 		if ($ignore) {
 			$bundles[] = 'ignore';
-
 		}
 
 		$options = implode('|', $bundles);
-        if ($ignore) {
-            $output->writeln('<info>This is a previous Semi Merge. (use ignore to discard and check for new changes)</info>');
-        }
+		if ($ignore) {
+			$output->writeln('<info>This is a previous Semi Merge. (use ignore to discard and check for new changes)</info>');
+		}
 		$question = new Question("<info>Would you like to commit the Semi Auto Merge now?</info> ($options)", end($bundles));
 		$question->setAutocompleterValues($bundles);
 
@@ -202,8 +200,8 @@ class SemiAutoMergeCommand extends Command
 					$command = 'svn ci -F svn-commit.tmp';
 					$output->writeln($command, $output::VERBOSITY_DEBUG);
 					passthru($command);
-                    $output->writeln('Now deleting svn-commit.tmp.', $output::VERBOSITY_DEBUG);
-                    unlink('svn-commit.tmp');
+					$output->writeln('Now deleting svn-commit.tmp.', $output::VERBOSITY_DEBUG);
+					unlink('svn-commit.tmp');
 				}
 		}
 	}
@@ -241,7 +239,7 @@ class SemiAutoMergeCommand extends Command
 				}
 				$c++;
 				if ($c > 100000) {
-					Throw New Exception("[MRG] or [BRANCH] message for '$this->branch' not found in 1000000 lines of logs, something has gone wrong...");
+					throw new Exception("[MRG] or [BRANCH] message for '$this->branch' not found in 1000000 lines of logs, something has gone wrong...");
 				}
 			}
 
@@ -249,7 +247,7 @@ class SemiAutoMergeCommand extends Command
 			proc_close($process);
 			if (! $rev) {
 				if ($c > 100000) {
-					exit (1);
+					exit(1);
 				}
 				throw new Exception('Could not find last revision.');
 			}

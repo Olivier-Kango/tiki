@@ -72,7 +72,7 @@ class ObjectsNotifyMaintainersCommand extends Command
 						$mail->setSender($prefs['sender_email'], $prefs['sender_name']);
 
 						if (empty($maintainer_info['email'])) {
-							$output->writeln('Object "' . $object_id . '": Email not sent to maintainer ' . $maintainer .': user email is empty');
+							$output->writeln('Object "' . $object_id . '": Email not sent to maintainer ' . $maintainer . ': user email is empty');
 							continue;
 						}
 
@@ -109,7 +109,6 @@ class ObjectsNotifyMaintainersCommand extends Command
 						}*/
 
 						$output->writeln('Object "' . $object_id . '": Email sent to maintainer ' . $maintainer);
-
 					} catch (Exception $e) {
 						// TODO:
 /*						if ($prefs['log_mail'] == 'y') {
@@ -119,7 +118,6 @@ class ObjectsNotifyMaintainersCommand extends Command
 
 						throw new Search_Action_Exception(tr('Error sending email to ' . $maintainer_info['email'] . ': %0', $e->getMessage()));
 						// AND/OR $output->writeln('Email not sent to ' . $maintainer);
-
 					}
 				}
 			}

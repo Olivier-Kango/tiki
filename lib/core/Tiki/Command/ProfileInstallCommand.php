@@ -61,7 +61,7 @@ class ProfileInstallCommand extends Command
 		}
 
 		$profileData = $profile->getData();
-		if (! empty( $profileData['error'])) {
+		if (! empty($profileData['error'])) {
 			$output->writeln('<error>' . tr('There were some errors while trying to load the profile definition') . '</error>');
 			$output->writeln('<error>' . $profileData['error'] . '</error>');
 			return;

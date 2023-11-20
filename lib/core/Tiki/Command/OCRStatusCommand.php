@@ -11,7 +11,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 class OCRStatusCommand extends Command
 {
 	protected function configure()
@@ -50,6 +49,5 @@ class OCRStatusCommand extends Command
 			['ocr_state' => $ocrLib::OCR_STATUS_SKIP]
 		);
 		$output->writeln("Will not OCR:       $count");
-
 	}
 }

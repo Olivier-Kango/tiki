@@ -59,8 +59,9 @@ class PreferencesExportCommand extends Command
 		$inputfields = $input->getOption('fields');
 		$wikiexport = $input->getOption('wiki');
 
-		if(isset($inputfields))
+		if (isset($inputfields)) {
 			$inputfields = explode(",", $inputfields);
+		}
 
 		$fields = [
 			'preference' => '',
@@ -112,44 +113,45 @@ class PreferencesExportCommand extends Command
 		$export_file = fopen($filename, 'w');
 
 		//error on opening file
-		if($export_file == null){
+		if ($export_file == null) {
 			die();
 		}
 
 		//export only specifics fields
-		if(isset($inputfields)) {
+		if (isset($inputfields)) {
 			$fields_keys = array_keys($fields);
 			foreach ($fields_keys as $key) {
-				if (!in_array($key, $inputfields)) {
+				if (! in_array($key, $inputfields)) {
 					unset($fields[$key]);
 				}
 			}
 		}
 
-		if(!isset($wikiexport))
+		if (! isset($wikiexport)) {
 			fputcsv($export_file, array_keys($fields), ";");
+		}
 		foreach ($data as $datakey => $values) {
-
 			//export only values of input fields
-			if(isset($inputfields)) {
+			if (isset($inputfields)) {
 				foreach ($values as $valuekey => $value) {
-					if (!in_array($valuekey, $inputfields)) {
+					if (! in_array($valuekey, $inputfields)) {
 						unset($values[$valuekey]);
 						unset($data[$datakey][$valuekey]);
 					}
 				}
 			}
 
-			if(!isset($wikiexport))
-				fputcsv($export_file, array_values($values),";");
+			if (! isset($wikiexport)) {
+				fputcsv($export_file, array_values($values), ";");
+			}
 		}
 
-		if(isset($wikiexport)) {
+		if (isset($wikiexport)) {
 			$filename .= ".tiki";
 			$this->export_wiki($filename, array_keys($fields), $data);
 		}
 
-		$output->writeln(sprintf("Preferences exported in %s",$filename));
+		$output->writeln(sprintf("Preferences exported in %s", $filename));
 	}
 
 	/**
@@ -157,20 +159,20 @@ class PreferencesExportCommand extends Command
 	 * @param $fields
 	 * @param $data
 	 */
-	function export_wiki($export_file,$fields,$data)
+	function export_wiki($export_file, $fields, $data)
 	{
-		$header_fields = implode("|",$fields);
-		$header = "{FANCYTABLE(head=\"". $header_fields . "\")}";
+		$header_fields = implode("|", $fields);
+		$header = "{FANCYTABLE(head=\"" . $header_fields . "\")}";
 		$body = "";
 		$footer = "{FANCYTABLE}";
 
 		foreach ($data as $values) {
 			$values = array_values($values);
-			$body .= implode("|",$values) . "\n";
+			$body .= implode("|", $values) . "\n";
 		}
 
 		$content = $header . "\n" . $body . "\n" . $footer;
-		file_put_contents($export_file,$content);
+		file_put_contents($export_file, $content);
 	}
 
 	/**
@@ -227,7 +229,7 @@ class PreferencesExportCommand extends Command
 	/**
 	 * @param $data
 	 */
-	function remove_fake_descriptions(& $data)
+	function remove_fake_descriptions(&$data)
 	{
 		foreach ($data as & $row) {
 			if ($row['name'] == $row['description']) {
@@ -240,7 +242,7 @@ class PreferencesExportCommand extends Command
 	 * @param $data
 	 * @param $prefs
 	 */
-	function set_default_values(& $data, $prefs)
+	function set_default_values(&$data, $prefs)
 	{
 		foreach ($data as & $row) {
 			$row['default'] = isset($prefs[$row['preference']]) ? $prefs[$row['preference']] : '';
@@ -276,7 +278,7 @@ class PreferencesExportCommand extends Command
 	/**
 	 * @param $data
 	 */
-	function collect_locations(& $data)
+	function collect_locations(&$data)
 	{
 		$prefslib = TikiLib::lib('prefs');
 
@@ -294,7 +296,7 @@ class PreferencesExportCommand extends Command
 	 * @param $index
 	 * @param $stopWords
 	 */
-	function update_search_flag(& $data, $index, $stopWords)
+	function update_search_flag(&$data, $index, $stopWords)
 	{
 		foreach ($data as & $row) {
 			$name = strtolower($row['name']);

@@ -31,7 +31,6 @@ class GalleryMigrateCommand extends Command
 			$fileGalLib->migrateFilesFromImageGalleries();
 
 			$output->writeln('<info>' . tr('All files migrated!') . '</info>');
-
 		} else {
 			$output->writeln('<error>' . tr('No files migrated, default file gallery path is not writable.') . '</error>');
 		}

@@ -149,7 +149,7 @@ class ScssCompileCommand extends Command
 					$output->writeln('<error>' . tr('SCSS Error') . ' compiling: ' . $file['scss'] . '</error>');
 					$output->writeln('<info>' . $e->getMessage() . '</info>');
 				}
-				if (isset($e) && !$continueOnError) {
+				if (isset($e) && ! $continueOnError) {
 					break 2;
 				}
 			}
