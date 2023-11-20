@@ -35,6 +35,7 @@
             <th>{self_link _sort_arg="sort_mode" _sort_field="comment"}{tr}Message{/tr}{/self_link}</th>
             <th>{self_link _sort_arg="sort_mode" _sort_field="ip"}{tr}IP{/tr}{/self_link}</th>
             <th>{self_link _sort_arg="sort_mode" _sort_field="client"}{tr}Client{/tr}{/self_link}</th>
+            <th>Actions</th>
         </tr>
 
         {section name=ix loop=$list}
@@ -46,6 +47,20 @@
                 <td class="text"><textarea class="form-control" readonly="readonly">{$list[ix].action|escape:'html'}</textarea></td>
                 <td class="text">{$list[ix].ip|escape:"html"}</td>
                 <td class="text"><span title="{$list[ix].client|escape:'html'}">{$list[ix].client|truncate:30:"..."|escape:'html'}</span></td>
+                <td class="text">
+                    {if $list[ix].object == 'profile apply' && strpos($list[ix].log, 'reverted') === false}
+                        <form method="post" action="tiki-syslog.php" onsubmit="return confirm('{tr}Are you sure you want to revert{/tr} &QUOT;{$list[ix].action|escape}&QUOT;?');">
+                            {ticket}
+                            <input type="hidden" name="page" value="profiles">
+                            <input type="hidden" name="actionId" value="{$list[ix].actionId}">
+                            <input type="submit" class="btn btn-secondary" name="revert" value="{tr}Revert{/tr}">
+                        </form>
+                    {elseif !empty($list[ix].log)}
+                        <a href='#' {popup  text="<pre style=\"width: 700px;\">{$list[ix].log_pretty|escape:'html'}</pre>" trigger="click"} title="{tr}Log Details{/tr}">{icon name='information' alt="{tr}More Information{/tr}" title=''}</a>
+                    {else}
+                        &nbsp;
+                    {/if}
+                </td>
                 <td>
                     {if $list[ix].object == 'profile apply' && strpos($list[ix].log, 'reverted') === false}
                         <form method="post" action="tiki-syslog.php" onsubmit="return confirm('{tr}Are you sure you want to revert{/tr} &QUOT;{$list[ix].action|escape}&QUOT;?');">
