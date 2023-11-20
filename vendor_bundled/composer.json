@@ -19,6 +19,8 @@
         "    composer -d vendor_bundled update",
         "  Useful to look at: ",
         "    composer -d vendor_bundled outdated",
+        "  This is what setup.sh runs: ",
+            "    composer -d vendor_bundled --prefer-dist",
         "",
         "DIRECT PHP PACKAGE DEPENDENCIES NOTES:",
         "",
