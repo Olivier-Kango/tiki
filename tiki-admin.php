@@ -182,7 +182,7 @@ if (isset($_POST['pass_blacklist'])) {    // if preferences were updated and bla
 $temp_filters = isset($_REQUEST['filters']) ? explode(' ', $_REQUEST['filters']) : null;
 $smarty->assign('pref_filters', $prefslib->getFilters($temp_filters));
 
-if (isset($_POST['lm_preference'] ) && $access->checkCsrf()) {
+if (isset($_POST['lm_preference']) && $access->checkCsrf()) {
 	$changes = $prefslib->applyChanges((array) $_POST['lm_preference'], $_POST);
 	foreach ($changes as $pref => $val) {
 		if ($val['type'] == 'reset') {
@@ -582,8 +582,7 @@ if (isset($_REQUEST['page'])) {
 	//however other forms that perform actions other than changing preferences should not redirect to avoid infinite loops
 	//for these add a hidden input named redirect with a value of 0
 	if ($access->csrfResult() && (! isset($_POST['redirect']) || $_POST['redirect'] === 1)
-		&& ! isset($_POST['saveblacklist']) && ! isset($_POST['viewblacklist']))
-	{
+		&& ! isset($_POST['saveblacklist']) && ! isset($_POST['viewblacklist'])) {
 		$access->redirect($_SERVER['REQUEST_URI'], '', 200);
 	}
 } else {
@@ -634,6 +633,11 @@ $smarty->assign('admin_icons', $admin_icons);
 $show_warning = $adminlib->checkSystemConfigurationFile();
 $smarty->assign('show_system_configuration_warning', $show_warning);
 
+if (isset($system_configuration_file)) {
+	$config_file_errors = $adminlib->checkConfigurationFileErrors();
+	$smarty->assign('config_file_errors', $config_file_errors);
+}
+
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template
@@ -667,7 +671,7 @@ if (file_exists(__DIR__ . '/vendor/autoload-disabled.php')) {
 
 $smarty->assign('fgal_web_accessible', false);
 if ($prefs['fgal_use_dir'] && $prefs['fgal_use_db'] === 'n') {
-	$smarty->assign('fgal_web_accessible', $access->isFileWebAccessible($prefs['fgal_use_dir']. 'index.php'));
+	$smarty->assign('fgal_web_accessible', $access->isFileWebAccessible($prefs['fgal_use_dir'] . 'index.php'));
 }
 $smarty->assign('vendor_autoload_ignored', $vendorAutoloadIgnored);
 $smarty->assign('vendor_autoload_disabled', $vendorAutoloadDisabled);

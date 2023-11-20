@@ -12,6 +12,17 @@
 	{/remarksbox}
 {/if}
 
+{if $config_file_errors}
+    {remarksbox type="warning" title="{tr}Warning{/tr}"}
+        {tr _0='<strong><a href="https://doc.tiki.org/System-Configuration">https://doc.tiki.org/System-Configuration</a></strong>'}Possible error(s) in your system configuration file. Please check the doc %0 for the right syntax to use.{/tr}<br>
+        <ul>
+            {foreach from=$config_file_errors item=value}
+                <li>{tr}Error in .ini file near{/tr} <strong>{$value|escape}</strong></li>
+            {/foreach}
+        </ul>
+    {/remarksbox}
+{/if}
+
 <div class="d-flex align-content-start flex-wrap">
 	{foreach from=$admin_icons key=page item=info}
 			{if $info.disabled}
