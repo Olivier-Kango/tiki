@@ -74,6 +74,11 @@ if (isset($_REQUEST["max"])) {
 $smarty->assign_by_ref('maxRecords', $maxRecords);
 
 $list = $logslib->list_logs('', '', $offset, $maxRecords, $sort_mode, $find);
+foreach ($list['data'] as &$row) {
+    if (! empty($row['log'])) {
+        $row['log_pretty'] = print_r(unserialize($row['log']), true);
+    }
+}
 $smarty->assign_by_ref('cant', $list['cant']);
 $smarty->assign('list', $list['data']);
 $smarty->assign('api_tiki', $api_tiki);

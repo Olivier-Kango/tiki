@@ -24,6 +24,7 @@ class TikiAccessLib extends TikiLib
     private $origin;
     private $originSource;
     private $logMsg = '';
+    private $logInfo = [];
     private $userMsg = '';
 
     public function preventRedirect($prevent)
@@ -457,6 +458,10 @@ class TikiAccessLib extends TikiLib
             return true;
         }
 
+        if (empty($this->logInfo[__FUNCTION__])) {
+            $this->logInfo[__FUNCTION__] = [];
+        }
+
         // allow null value to equate to default for skipped parameters
         $confirmText = '';
         if ($postConfirm === null) {
@@ -481,17 +486,36 @@ class TikiAccessLib extends TikiLib
         if ($ticket === null) {
             $ticket = '';
         }
+
+        $this->logInfo[__FUNCTION__][] = [
+            'step' => 'args',
+            'postConfirm' => $postConfirm,
+            'getNoConfirm' => $getNoConfirm,
+            'checkWhat' => $checkWhat,
+            'unsetTicket' => $unsetTicket,
+            'ticket' => $ticket,
+            'error' => $error,
+        ];
+
         //send requests requiring confirmation to confirmation form
         if (
             ($getNoConfirm === false && ! $this->requestIsPost())
             || ($postConfirm && (empty($_POST['confirmForm']) || $_POST['confirmForm'] !== 'y'))
         ) {
+            $this->logInfo[__FUNCTION__][] = [
+                'step' => 'confirmRedirect',
+            ];
+
             $this->confirmRedirect($confirmText, $error);
             //perform check if action post or required confirmation post
         } elseif (
             (! $postConfirm && ($this->isActionPost() || $getNoConfirm === true))
             || ($postConfirm && ! empty($_POST['confirmForm']) && $_POST['confirmForm'] === 'y')
         ) {
+            $this->logInfo[__FUNCTION__][] = [
+                'step' => 'confirmPost',
+            ];
+
             //return true if check already performed - e.g., multiple checks on tiki-login.php for same request
             if ($this->csrfResult()) {
                 return true;
@@ -503,6 +527,10 @@ class TikiAccessLib extends TikiLib
                 //note result if only checking host
                 if ($checkWhat === 'host') {
                     $result = $this->originMatch();
+                    $this->logInfo[__FUNCTION__][] = [
+                        'step' => 'originMatch',
+                        'result' => $result,
+                    ];
                 }
             }
             //check ticket
@@ -511,11 +539,19 @@ class TikiAccessLib extends TikiLib
                 //note result if only checking ticket
                 if ($checkWhat === 'ticket') {
                     $result = $this->ticketMatch();
+                    $this->logInfo[__FUNCTION__][] = [
+                        'step' => 'ticketMatch',
+                        'result' => $result,
+                    ];
                 }
             }
             //check both host and ticket
             if ($checkWhat === 'hostTicket') {
                 $result = $this->csrfResult();
+                $this->logInfo[__FUNCTION__][] = [
+                    'step' => 'csrfResult',
+                    'result' => $result,
+                ];
             }
             if ($result) {
                 return true;
@@ -591,6 +627,15 @@ class TikiAccessLib extends TikiLib
                 $this->userMsg .= ' ' . tr('The requesting site domain does not match this site\'s domain.');
             }
         }
+
+        if (empty($this->logInfo[__FUNCTION__])) {
+            $this->logInfo[__FUNCTION__] = [];
+        }
+        $this->logInfo[__FUNCTION__][] = [
+            'originSource' => $this->originSource,
+            'origin' => $this->origin,
+            'originMatch' => $this->originMatch
+        ];
     }
 
     /**
@@ -610,6 +655,9 @@ class TikiAccessLib extends TikiLib
      */
     private function ticketCheck($unsetTicket, $ticket)
     {
+        $logInfo = [];
+        $logInfo[] = ['step' => 'args', 'unsetTicket' => $unsetTicket, 'ticket' => $ticket];
+
         if (! empty($ticket)) {
             $this->ticket = $ticket;
         } elseif (! empty($_POST['ticket'])) {
@@ -621,6 +669,8 @@ class TikiAccessLib extends TikiLib
         if (strpos($this->ticket, '%') !== false) {
             $this->ticket = urldecode($this->ticket);
         }
+
+        $logInfo[] = ['step' => 'final_ticket', 'ticket' => $this->ticket];
 
         global $prefs;
 
@@ -661,6 +711,19 @@ class TikiAccessLib extends TikiLib
             $this->userMsg = ' ' . $this->logMsg . ' ' . tr('Reloading the page may help.');
             $this->ticketMatch = false;
         }
+
+        $logInfo[] = [
+            'step' => 'main_check',
+            'pref_short' => $prefs['site_short_lived_csrf_tokens'],
+            'session_token' => $_SESSION['CSRF_TOKEN'] ?? '',
+            'cookie_token' => $this->retrieveTicketFromCookie(),
+            'session_tickets' => $_SESSION['tickets'][$this->ticket] ?? '',
+            'ticketMatch' => $this->ticketMatch
+        ];
+        if (empty($this->logInfo[__FUNCTION__])) {
+            $this->logInfo[__FUNCTION__] = [];
+        }
+        $this->logInfo[__FUNCTION__][] = $logInfo;
     }
 
     /**
@@ -675,16 +738,14 @@ class TikiAccessLib extends TikiLib
     private function csrfError($error = 'session')
     {
         if ($error !== 'none') {
-            $log = ! empty(ini_get('error_log'));
-            if ($log) {
-                $moreUserMsg = ' ' . tr('For more information, administrators can check the server php error log as defined in php.ini.');
-            } else {
-                $moreUserMsg = ' ' . tr('For more information in the future, administrators can define the error_log setting in the php.ini file.');
-            }
-            $this->userMsg = tr('Request could not be completed due to problems encountered in the security check.')
-                . $this->userMsg . $moreUserMsg;
+            global $user;
+
+            $crsfErrorId = 'CRSF' . md5(uniqId($user));
+            $this->userMsg = tr('Your attempt was blocked as a suspected malicious operation. If you are a real person and this is an incorrect report, please report to the site administrators with the following code: ') . $crsfErrorId;
             //log message
             $this->csrfPhpErrorLog($this->logMsg);
+            $this->csrfSystemLog($crsfErrorId);
+
             //user feedback
             switch ($error) {
                 case 'services':
@@ -1574,5 +1635,51 @@ class TikiAccessLib extends TikiLib
         header("HTTP/1.0 503 Service Unavailable");
 
         die($html);
+    }
+
+    /**
+     * Save CSRF error to system log
+     *
+     * @param string $crsfErrorId
+     * @return null
+     */
+    private function csrfSystemLog($crsfErrorId)
+    {
+        global $prefs, $user;
+
+        $tikilib = TikiLib::lib('tiki');
+        $logslib = TikiLib::lib('logs');
+
+        $redactPass = function (&$item, $key) {
+            if (strpos($key, 'pass') !== false) {
+                $item = '** ' . tr('redacted') . ' **';
+            }
+        };
+
+        $get = count($_GET) ? $_GET : tr('empty');
+        if (is_array($get)) {
+            array_walk($get, $redactPass);
+        }
+        $post = count($_POST) ? $_POST : tr('empty');
+        if (is_array($post)) {
+            array_walk($post, $redactPass);
+        }
+
+        $logCrsf = [
+            'serverName' => $_SERVER['SERVER_NAME'],
+            'userMessage' => $this->userMsg,
+            'internalMessage' => $this->logMsg,
+            'internalInfo' => $this->logInfo,
+            'siteSecurityTimeout' => tr('preference:') . ' ' . $prefs['site_security_timeout'] . tr('seconds') . ' (' . $prefs['site_security_timeout'] / 60 . ' minutes)',
+            'scriptName' => $_SERVER['SCRIPT_NAME'],
+            'requestURI' => $_SERVER['REQUEST_URI'],
+            'httpOrigin' => $_SERVER['HTTP_ORIGIN'],
+            'httpReferer' => $_SERVER['HTTP_REFERER'],
+            'requestMethod' => $_SERVER['REQUEST_METHOD'],
+            'queryString' => $_SERVER['QUERY_STRING'] ?? tr('empty'),
+            'get' => $get,
+            'post' => $post
+        ];
+        $logslib->add_action('CRSF Error', 'system', 'system', $crsfErrorId, '', '', '', '', '', '', $logCrsf);
     }
 }
