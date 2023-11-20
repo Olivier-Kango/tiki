@@ -87,7 +87,11 @@ class AttachmentsMigrateCommand extends Command
                     'hits' => $att['hits'],
                 ]);
                 $data = $wikilib->get_item_attachement_data($att);
-                $fileId = $file->replace($data, $att['filetype'], $att['filename'], $att['filename']);
+                $name = $att['filename'];
+                if (strlen($name) > 40) {
+                    $name = substr($name, 0, 18) . '...' . substr($name, -18);
+                }
+                $fileId = $file->replace($data, $att['filetype'], $name, $att['filename']);
                 // remove wiki attachment row
                 $wikilib->remove_wiki_attachment($att['attId']);
                 // replace attachment usage in wiki page
