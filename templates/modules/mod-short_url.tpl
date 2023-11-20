@@ -46,29 +46,18 @@
     }
 
     $('#short-url-get').on('click', function() { getShortUrl(); });
-    $('#short-url-copy').on('click', function() {
-        $('#short-url-link input[type="text"]').select();
-
-        var defaultText = $('#short-url-copy').html();
-        var successText = '{{icon name="check"}} {tr}Copied{/tr}';
-        var errorText = '{{icon name="close"}} {tr}Error copying url{/tr}';
-
-        try {
-            document.execCommand('copy');
-            $('#short-url-link input[type="text"]').blur();
-            window.getSelection().removeAllRanges();
-
-            $('#short-url-copy').addClass('btn-success').attr('disabled', 'disabled').html(successText);
-            setTimeout(function(){
-                $('#short-url-copy').removeClass('btn-success').removeAttr('disabled').html(defaultText);
-            }, 1000);
-
-        }
-        catch (err) {
-            $('#short-url-copy').addClass('btn-danger').html(errorText);
-            setTimeout(function(){
-                $('#short-url-copy').removeClass('btn-danger').html(defaultText);
-            }, 1000);
-        }
-    });
+    var defaultText = $('#short-url-copy').html();
+    var successText = '{{icon name="check"}} {tr}Copied{/tr}';
+    var errorText = '{{icon name="close"}} {tr}Error copying url{/tr}';
+    $(document).tiki('copy')('#short-url-copy', () => $('#short-url-link input[type="text"]').val(), function() {
+        $('#short-url-copy').addClass('btn-success').html(successText);
+        setTimeout(function(){
+            $('#short-url-copy').removeClass('btn-success').html(defaultText);
+        }, 1000);
+    }, function() {
+        $('#short-url-copy').addClass('btn-danger').html(errorText);
+        setTimeout(function(){
+            $('#short-url-copy').removeClass('btn-danger').html(defaultText);
+        }, 1000);
+    })
 {/jq}
