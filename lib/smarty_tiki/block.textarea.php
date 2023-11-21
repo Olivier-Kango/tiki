@@ -420,10 +420,22 @@ function addSyntaxPlugin(domId, $form) {
 
         $headerlib->add_js(
             /** @lang JavaScript */            '
-$("#' . $as_id . '").form().submit(function () {
+function assignSubmitAction(editor){
+    editor.form().submit(function () {
     addSyntaxPlugin("' . $as_id . '", $(this));
     return true;
-});'
+});
+}
+editorDomId = "#' . $as_id . '";
+//This does not actually fix the bug, this is looking for #editwiki, right now here on tiki-editpage.php the form has an id of #editpageform
+//Without the catch block this will stop execution of javascript in the global scope, causing hard to track side effects - benoitg - 2023-11-21
+try{
+    assignSubmitAction($(editorDomId));
+} catch (error) {
+    console.error(`Unable to assign submit action to editor ${editorDomId}, error was: ${error}`)
+}
+
+'
         );
     }
     return $html;
