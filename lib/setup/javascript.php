@@ -155,7 +155,6 @@ try {
 
 // this is used by tiki-confirm.js checkTimeout, so needs to be always set
 const scriptStartDate = new Date(); //Be carefull, this will not be a global if this script ever becomes a module - benoitg - 2023-11-21
-console.log("now variable has been set");
 
 if (! timezone) {
     function inArray(item, array) {

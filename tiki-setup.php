@@ -458,8 +458,6 @@ if ($errorTrkLib->isJSEnabled()) {
     );
 }
 
-$headerlib->add_jsfile('lib/tiki-js.js');
-
 // using jquery-migrate-1.3.0.js plugin for tiki 11, still required in tiki 12 LTS to support some 3rd party plugins
 
 if (isset($prefs['javascript_cdn']) && $prefs['javascript_cdn'] == 'google') {
@@ -486,6 +484,7 @@ if (isset($prefs['fgal_elfinder_feature']) && $prefs['fgal_elfinder_feature'] ==
 }
 
 $headerlib->add_jsfile('lib/jquery_tiki/tiki-jquery.js');
+$headerlib->add_jsfile('lib/tiki-js.js'); //This depends on tiki-jquery.js in at least one place, so must load after - benoitg - 2023-11-21
 
 if (isset($_REQUEST['geo_zoomlevel_to_found_location'])) {
     $zoomToFoundLocation = $_REQUEST['geo_zoomlevel_to_found_location'];
