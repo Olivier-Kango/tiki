@@ -553,31 +553,26 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
                                 $viewicon
                             </a>";
                         }
-                    } elseif ($file['filetype'] == $mimetypes['mp3'] || $file['filetype'] == $mimetypes['oga']) {
+                    } elseif ($this->isMimeType($mimetypes, $file['filetype'], ['mp3', 'oga', 'webm', 'mp4', 'wmv', 'ogv'])) {
                         global $base_url;
                         $src = smarty_modifier_sefurl($file['fileId'], 'display');
                         $fileurl = $base_url . $src;
 
-                        //Audio preview modal
-                        $audiomodal = '
-                            <div class="modal fade" id="audioModal' . $fileId . '" tabindex="-1" role="dialog"  aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                                <audio controls style="width : 100%">
-                                                    <source src="' . $fileurl . '" type="audio/mpeg">
-                                                </audio>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>';
-
-                        $ret .= $audiomodal . " <a type='button' href='' title='preview' data-bs-toggle='modal' data-backdrop='false' data-bs-target='#audioModal$fileId' >
-                            $viewicon
-                        </a>";
+                        $ret .= "<div style='display:none'>
+                            <div id='inline-file-$fileId'>";
+                        if ($this->isMimeType($mimetypes, $file['filetype'], ['mp3', 'oga'])) {
+                            $tag = 'audio';
+                            $style = "data-box-width='35%' data-box-height='20%'";
+                        } else {
+                            $tag = 'video';
+                            $style = '';
+                        }
+                        $ret .= "<{$tag} controls style='width : 100%'>
+                                    <source src='{$fileurl}' type='{$file['filetype']}'>
+                                </{$tag}>
+                            </div>
+                        </div>
+                        <a class='cboxInlineMedia' $style title='{$tag} preview' href='#inline-file-$fileId'>$viewicon</a>";
                     } else {
                         $dataAttributes = [];
 
@@ -597,6 +592,16 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
             }
         }
         return $ret;
+    }
+
+    private function isMimeType(array $mimes, string $fileType, array $extensions): bool
+    {
+        foreach ($extensions as $ext) {
+            if ($mimes[$ext] == $fileType) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function handleSave($value, $oldValue)
