@@ -21,7 +21,7 @@
   },
   "enginesComment": {
     "npm": "Npm was at version 9 as of node 18",
-    "node": "We track supported vite note version, which is 18 as of vite 5"
+    "node": "We track supported vite node version, which is 18 as of vite 5"
   },
   "dependencies": {
     "single-spa-css": "^2.0.0",
