@@ -367,6 +367,7 @@
                             </select>
                             <button
                                 type="submit"
+                                form="checkform"
                                 formaction="{bootstrap_modal controller=user}"
                                 class="btn btn-primary"
                                 onclick="confirmPopup()"
