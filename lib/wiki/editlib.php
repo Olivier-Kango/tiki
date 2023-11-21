@@ -1633,6 +1633,11 @@ class EditLib
                 $converter->getEnvironment()->addConverter(new DefinitionListConverter());
                 $converter->getEnvironment()->addConverter(new StrikeConverter());
             }
+
+            // GithubFlovoredMarkdown uses ~text~ for striking through.
+            // This escapes ~ as in tiki syntax it is printed as it is
+            $html = preg_replace('/~/', 'preserveTildeChar', $html);
+
             $invalidTagsMap = $this->preserveInvalidTags($html);
             $converted = $converter->convert($html);
             $converted = $this->restoreInvalidTags($invalidTagsMap, $converted);
@@ -1737,6 +1742,7 @@ class EditLib
             if ($enclose) {
                 $converted = preg_replace('/\{dynVar\}(.*)\{dynVar\}/', "$enclose$1$enclose", $converted);
             }
+            $converted = preg_replace('/preserveTildeChar/', '\\~', $converted);
         }
 
         return $converted;
