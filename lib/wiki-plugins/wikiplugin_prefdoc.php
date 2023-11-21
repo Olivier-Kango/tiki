@@ -481,7 +481,7 @@ class PrefsDoc extends TWVersion
                 preg_match_all('/{preference.*name="?\'?(\w*)"?\'?.*}/i', $tabs[2][$count], $prefs);                    // Generate array of all the prefs
                 $tabs[1][$count] = mb_ereg_replace('\W', '', strtolower($tabs[1][$count]));                // sanitize the tab name for disk
                 foreach ($prefs[1] as $pref) {
-                    if ($this->PrefVars[$pref]['name']) {                                                                        // dont save prefs that have no name
+                    if (isset($this->PrefVars[$pref]['name']) && $this->PrefVars[$pref]['name']) {                                                                        // dont save prefs that have no name
                         $tabPrefs[$fileName . '-' . $tabs[1][$count]][$pref] = $this->PrefVars[$pref];                        // Add full pref info in right order
                     }
                 }
