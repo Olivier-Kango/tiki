@@ -582,6 +582,7 @@
                     {if $comments_coms|@count > 1}
                         <button
                             type="submit"
+                            form="view_forum"
                             formaction="{bootstrap_modal controller=forum action=merge_topic}"
                             title=":{tr}Merge{/tr}"
                             class="btn btn-primary btn-sm tips"
@@ -593,6 +594,7 @@
                     {if $all_forums|@count > 1 && $comments_coms|@count > 0}
                         <button
                             type="submit"
+                            form="view_forum"
                             formaction="{bootstrap_modal controller=forum action=move_topic}"
                             title=":{tr}Move{/tr}"
                             class="btn btn-primary btn-sm tips"
@@ -604,6 +606,7 @@
                     {if $comments_coms|@count > 0}
                         <button
                             type="submit"
+                            form="view_forum"
                             formaction="{bootstrap_modal controller=forum action=lock_topic}"
                             title=":{tr}Lock{/tr}"
                             class="btn btn-primary btn-sm tips"
@@ -613,6 +616,7 @@
                         </button>
                         <button
                             type="submit"
+                            form="view_forum"
                             formaction="{bootstrap_modal controller=forum action=unlock_topic}" 
                             title=":{tr}Unlock{/tr}"
                             class="btn btn-primary btn-sm tips"
@@ -622,6 +626,7 @@
                         </button>
                         <button
                             type="submit"
+                            form="view_forum"
                             formaction="{bootstrap_modal controller=forum action=delete_topic}"
                             title=":{tr}Delete{/tr}"
                             class="btn btn-primary btn-sm tips"
