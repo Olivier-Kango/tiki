@@ -44,4 +44,34 @@ class EditLibTest extends TestCase
 
         $this->assertSame($expected, $converted);
     }
+
+    public function testConvertWikiSyntaxStrikeTrough()
+    {
+        global $prefs;
+        $prefs['feature_wiki_paragraph_formatting'] = 'n';
+
+        $editlib = TikiLib::lib('edit');
+
+        $input = "--text--"
+            . "\n{VERSIONS(nav=\"n\")}"
+            . "\nThis comes after strikethrough"
+            . "\n---(version 2)-----------------------------"
+            . "\nThis is version 2 info"
+            . "\n---(version 1)-----------------------------"
+            . "\nThis is version 1 info"
+            . "\n{VERSIONS}";
+
+        $expected = "~~text~~"
+            . "\n{VERSIONS(nav=\"n\")}"
+            . "\nThis comes after strikethrough"
+            . "\n---(version 2)-----------------------------"
+            . "\nThis is version 2 info"
+            . "\n---(version 1)-----------------------------"
+            . "\nThis is version 1 info"
+            . "\n{VERSIONS}";
+
+        $result = $editlib->convertWikiSyntax($input, "markdown");
+
+        $this->assertSame($expected, $result);
+    }
 }

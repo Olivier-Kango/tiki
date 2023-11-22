@@ -1559,7 +1559,7 @@ class EditLib
                     return str_replace('-', '@-', $innerMatches[0]);
                 }, $matches[0]);
             }, $data);
-            $data = preg_replace('/--(.+?)--/', '~~$1~~', $data);
+            $data = preg_replace('/--(.+?)--/', '<strike>$1</strike>', $data);
             $data = preg_replace_callback('/\{SPLIT\(.*\)\}(.+)\{SPLIT\}/s', function ($matches) {
                 return preg_replace('/(?<![\-|])---(?![\-|])/', '@-@-@-', $matches[0]);
             }, $data);
@@ -1761,7 +1761,7 @@ class EditLib
             'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'cite', 'code', 'dfn', 'em',
             'kbd', 'samp', 'strong', 'var', 'plaintext', 'pre', 'progress', 'q', 'ruby', 'script',
             'section', 'select', 'spacer', 'span', 's', 'style', 'sub', 'sup', 'table', 'tbody', 'td',
-            'textarea', 'tfoot', 'thead', 'time', 'title', 'tr', 'u', 'ul', 'video', 'wbr', 'xmp'
+            'textarea', 'tfoot', 'thead', 'time', 'title', 'tr', 'u', 'ul', 'video', 'wbr', 'xmp', 'strike'
         ];
 
         $invalidTags = [];
