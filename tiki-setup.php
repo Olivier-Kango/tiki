@@ -160,16 +160,23 @@ foreach ($assigned_modules as $position => $modules) {
     }
 }
 
-try {
-    $custom_color_mode = TikiDb::get()->fetchAll("SELECT css_variables FROM tiki_custom_color_modes WHERE custom='y'", null, -1, -1, 'exception');
-    $color_mode_names = TikiDb::get()->fetchAll("SELECT name FROM tiki_custom_color_modes WHERE 1", null, -1, -1, 'exception');
-    $prefs['custom_color_mode'] = $custom_color_mode;
-    $prefs['color_modes_names'] = [];
-    foreach ($color_mode_names as $mode) {
-        $prefs['color_modes_names'][$mode['name']] = $mode['name'];
-    };
-} catch (Exception $e) {
-    //failed to pull css variables from DB
+$tables = TikiDb::get()->listTables();
+$color_mode_table_exists = in_array("tiki_custom_color_modes", $tables);
+if ($color_mode_table_exists) {
+    try {
+        $custom_color_mode = TikiDb::get()->fetchAll("SELECT css_variables FROM tiki_custom_color_modes WHERE custom='y'", null, -1, -1, 'exception');
+        $color_mode_names = TikiDb::get()->fetchAll("SELECT name FROM tiki_custom_color_modes WHERE 1", null, -1, -1, 'exception');
+        $prefs['custom_color_mode'] = $custom_color_mode;
+        $prefs['color_modes_names'] = [];
+        foreach ($color_mode_names as $mode) {
+            $prefs['color_modes_names'][$mode['name']] = $mode['name'];
+        };
+    } catch (Exception $e) {
+        //failed to pull css variables from DB
+        $prefs['custom_color_mode'] = [];
+        $prefs['color_modes_names'] = [];
+    }
+} else {
     $prefs['custom_color_mode'] = [];
     $prefs['color_modes_names'] = [];
 }
