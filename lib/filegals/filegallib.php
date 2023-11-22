@@ -1134,7 +1134,7 @@ class FileGalLib extends TikiLib
         $galleryName = $this->table('tiki_file_galleries')->fetchOne('name', ['galleryId' => $args['galleryId']]);
 
         include_once(__DIR__ . '/../notifications/notificationemaillib.php');
-        sendFileGalleryEmailNotification('file_gallery_changed', $args['galleryId'], $galleryName, $file->name, $file->filename, $file->description, $action, $args['user'] ?? $user, $file->fileId);
+        sendFileGalleryEmailNotification('file_gallery_changed', $args['galleryId'], $galleryName, $file->name, $file->filename, $file->description, $action, $args['user'] ?? $user, $args['object']);
     }
 
     /**
