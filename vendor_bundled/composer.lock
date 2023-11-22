@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2dd25940fdc2546f538af740a4c3aa88",
+    "content-hash": "9bc53689cd395bc4f14ae529bff29326",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -685,18 +685,18 @@
             "time": "2022-12-07T17:46:57+00:00"
         },
         {
-            "name": "bower-asset/swfobject",
-            "version": "2.2",
+            "name": "bower-asset/fontawesome",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:swfobject/swfobject.git",
-                "reference": "9e0104326a8913918f2170f15a69d60624c4bf68"
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "reference": "d02961b018153506364077343b0edcde0a39d27e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/bower-asset/swfobject/bower-asset-swfobject-9e0104326a8913918f2170f15a69d60624c4bf68-zip-0e58de.zip",
-                "reference": "9e0104326a8913918f2170f15a69d60624c4bf68",
-                "shasum": "ecda9ec89d9253d6919bcf52f24f3e65d7cfe20c"
+                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-d02961b018153506364077343b0edcde0a39d27e-zip-7b6699.zip",
+                "reference": "d02961b018153506364077343b0edcde0a39d27e",
+                "shasum": "496b962423da26b2d2552229fbef6a7403a200ff"
             },
             "type": "bower-asset"
         },
