@@ -299,6 +299,7 @@ function tiki_setup_events()
     $events->bind('tiki.file.delete', 'tiki.file.save');
     $events->bind('tiki.file.save', 'tiki.save');
     $events->bind('tiki.file.download', 'tiki.view');
+    $events->bind('tiki.file.save', $defer('filegal', 'notify'));
 
     $events->bind('tiki.filegallery.update', 'tiki.filegallery.save');
     $events->bind('tiki.filegallery.create', 'tiki.filegallery.save');
