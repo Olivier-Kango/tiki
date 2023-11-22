@@ -325,9 +325,10 @@ class FileGalLib extends TikiLib
         }
 
         $definition = $this->getGalleryDefinition($fileInfo['galleryId']);
+        $file = new TikiFile($fileInfo);
 
         $this->deleteBacklinks(null, $fileId);
-        $definition->delete(new TikiFile($fileInfo));
+        $definition->delete($file);
 
         $archives = $this->get_archives($fileId);
         foreach ($archives['data'] as $archive) {
@@ -342,11 +343,6 @@ class FileGalLib extends TikiLib
         $this->remove_draft($fileId);
         $this->remove_object('file', $fileId);
 
-        //Watches
-        if (! $disable_notifications) {
-            $this->notify($fileInfo['galleryId'], $fileInfo['name'], $fileInfo['filename'], '', 'remove file', $user);
-        }
-
         if ($prefs['feature_actionlog'] == 'y') {
             $logslib = TikiLib::lib('logs');
             $logslib->add_action('Removed', $fileId . '/' . $fileInfo['filename'], 'file', '');
@@ -357,9 +353,11 @@ class FileGalLib extends TikiLib
             [
                 'type' => 'file',
                 'object' => $fileId,
+                'file' => $file,
                 'galleryId' => $fileInfo['galleryId'],
                 'filetype' => $fileInfo['filetype'],
                 'user' => $GLOBALS['user'],
+                'disable_notifications' => $disable_notifications
             ]
         );
 
@@ -1098,17 +1096,45 @@ class FileGalLib extends TikiLib
         $this->loadedGalleryDefinitions = [];
     }
 
-    public function notify($galleryId, $name, $filename, $description, $action, $user, $fileId = false)
+    public function notify($args, $eventName)
     {
-        global $prefs;
-        if ($prefs['feature_user_watches'] == 'y') {
-                        //  Deal with mail notifications.
-            include_once(__DIR__ . '/../notifications/notificationemaillib.php');
-            $galleryName = $this->table('tiki_file_galleries')->fetchOne('name', ['galleryId' => $galleryId]);
+        global $prefs, $user;
 
-            sendFileGalleryEmailNotification('file_gallery_changed', $galleryId, $galleryName, $name, $filename, $description, $action, $user, $fileId);
+        if (! empty($args['disable_notifications'])) {
+            return;
         }
+
+        if ($prefs['feature_user_watches'] != 'y') {
+            return;
+        }
+
+        switch ($eventName) {
+            case 'tiki.file.create':
+            case 'tiki.file.update':
+                $action = 'upload file';
+                break;
+            case 'tiki.file.delete':
+                $action = 'remove file';
+                break;
+            default:
+                $action = null;
+        }
+
+        if (empty($action)) {
+            return;
+        }
+
+        if (isset($args['file'])) {
+            $file = $args['file'];
+        } else {
+            $file = TikiFile::id($args['object']);
+        }
+        $galleryName = $this->table('tiki_file_galleries')->fetchOne('name', ['galleryId' => $args['galleryId']]);
+
+        include_once(__DIR__ . '/../notifications/notificationemaillib.php');
+        sendFileGalleryEmailNotification('file_gallery_changed', $args['galleryId'], $galleryName, $file->name, $file->filename, $file->description, $action, $args['user'] ?? $user, $file->fileId);
     }
+
     /**
      * Lock a file
      *
@@ -3487,8 +3513,6 @@ class FileGalLib extends TikiLib
 
         $tx->commit();
 
-        $this->notify($gal_info['galleryId'], $title, $name, $description, 'upload file', $asuser);
-
         return $ret;
     }
 
@@ -3511,8 +3535,6 @@ class FileGalLib extends TikiLib
         $ret = $file->replace($data, $type, $title, $name);
 
         $tx->commit();
-
-        $this->notify($gal_info['galleryId'], $title, $name, '', 'upload file', $asuser);
 
         return $ret;
     }

@@ -76,11 +76,12 @@ class SaveHandler
 
         if (isset($final_event) && $final_event) {
             $event_params = [
-            'type' => 'file',
-            'object' => $fileId,
-            'user' => $user,
-            'galleryId' => $this->file->galleryId,
-            'filetype' => $this->file->filetype,
+                'type' => 'file',
+                'object' => $fileId,
+                'file' => $this->file,
+                'galleryId' => $this->file->galleryId,
+                'filetype' => $this->file->filetype,
+                'user' => $user,
             ];
             if ($initialFileId) {
                 $event_params['initialFileId'] = $initialFileId;
@@ -106,11 +107,13 @@ class SaveHandler
             TikiLib::events()->trigger(
                 'tiki.file.update',
                 [
-                'type' => 'file',
-                'object' => $this->file->fileId,
-                'galleryId' => $this->file->galleryId,
-                'initialFileId' => $this->file->fileId,
-                'filetype' => $this->file->filetype,
+                    'type' => 'file',
+                    'object' => $this->file->fileId,
+                    'file' => $this->file,
+                    'galleryId' => $this->file->galleryId,
+                    'initialFileId' => $this->file->fileId,
+                    'filetype' => $this->file->filetype,
+                    'user' => $user,
                 ]
             );
         } else {
@@ -145,16 +148,6 @@ class SaveHandler
         if ($prefs['feature_actionlog'] == 'y') {
             $logslib = TikiLib::lib('logs');
             $logslib->add_action('Uploaded', $file->galleryId, 'file gallery', "fileId=$fileId&amp;add=" . $file->filesize);
-        }
-
-      //Watches
-        if ($sendWatches) {
-            $smarty = TikiLib::lib('smarty');
-            $smarty->assign('galleryId', $file->galleryId);
-            $smarty->assign('fname', $file->name);
-            $smarty->assign('filename', $file->filename);
-            $smarty->assign('fdescription', $file->description);
-            TikiLib::lib('filegal')->notify($file->galleryId, $file->name, $file->filename, $file->description, 'upload file', $user, $fileId);
         }
 
         return $fileId;
