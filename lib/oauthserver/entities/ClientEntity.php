@@ -38,6 +38,7 @@ class ClientEntity implements ClientEntityInterface
         $this->setClientSecret($data['client_secret']);
         $this->setRedirectUri($data['redirect_uri']);
         $this->setUser($data['user']);
+        $this->isConfidential = true;
     }
 
     public static function build($data)

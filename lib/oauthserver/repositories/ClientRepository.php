@@ -164,16 +164,32 @@ class ClientRepository implements ClientRepositoryInterface
         return $errors;
     }
 
-    public function getClientEntity($clientId, $grantType = null, $clientSecret = null, $mustValidateSecret = true)
+    public function getClientEntity($clientId)
     {
-        $client = $this->get($clientId);
+        return $this->get($clientId);
+    }
+
+    /**
+     * Validate a client's secret.
+     *
+     * @param string      $clientIdentifier The client's identifier
+     * @param null|string $clientSecret     The client's secret (if sent)
+     * @param null|string $grantType        The type of grant the client is using (if sent)
+     *
+     * @return bool
+     */
+    public function validateClient($clientIdentifier, $clientSecret, $grantType)
+    {
+        $client = $this->get($clientIdentifier);
         if (is_null($client)) {
             return false;
         }
-        if ($mustValidateSecret === true && $client->getClientSecret() !== $clientSecret) {
-            return false;
+        if ($client->isConfidential() && $clientSecret) {
+            if ($client->getClientSecret() !== $clientSecret) {
+                return false;
+            }
         }
-        return $client;
+        return true;
     }
 
     public static function generateSecret($length = 32)

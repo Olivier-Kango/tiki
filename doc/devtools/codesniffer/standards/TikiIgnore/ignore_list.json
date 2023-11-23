@@ -4139,6 +4139,18 @@
         },
         "lib\/calendar\/calrecurrence.php": {
             "class:CalRecurrence" : true
+        },
+        "lib\/test\/Calendar\/CalRecurrenceTest.php": {
+            "class:Calendar_CalRecurrenceTest" : true
+        },
+        "lib\/accounting\/accountinglib.php": {
+            "class:AccountingLib" : true
+        },
+        "lib\/calendar\/tikicalendarlib.php": {
+            "class:TikiCalendarLib" : true
+        },
+        "lib\/blogs\/bloglib.php": {
+            "class::BlogLib" : true
         }
     },
     "PSR12.Properties.ConstantVisibility.NotFound": {
@@ -10923,6 +10935,9 @@
         "tiki-webservices.php": {
             "Tiki_ComplexType": true,
             "Tiki_WebServices": true
+        },
+        "lib\/test\/Calendar\/CalRecurrenceTest.php": {
+            "Calendar_CalRecurrenceTest" : true
         }
     },
     "PSR2.Methods.MethodDeclaration.Underscore": {
