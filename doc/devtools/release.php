@@ -388,15 +388,19 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
                 // Escape filename. Since this requires a connection to MySQL (due to the charset), do so conditionally to reduce the risk of connection failure.
                 if (! preg_match('/^[a-zA-Z!-9\/ _+.-@]+$/', $file)) {
                     if (! $link) {
-                        require TikiInit::getCredentialsFile();
-                        $link = mysqli_connect(
-                            $host_tiki,
-                            $user_tiki,
-                            $pass_tiki,
-                            $dbs_tiki
-                        );
-
-                        if (mysqli_connect_errno()) {
+                        try {
+                            if (class_exists('Tiki\TikiInit')) {
+                                require TikiInit::getCredentialsFile();
+                                $link = mysqli_connect(
+                                    $host_tiki,
+                                    $user_tiki,
+                                    $pass_tiki,
+                                    $dbs_tiki
+                                );
+                            } else {
+                                $link = mysqli_connect();
+                            }
+                        } catch (Exception $e) {
                             global $phpCommand, $phpCommandArguments;
                             error(
                                 "SecDB step failed because some filenames (e.g. {$file}) need escaping but no MySQL connection has been found (" . mysqli_connect_error() . ")."
