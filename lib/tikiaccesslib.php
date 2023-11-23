@@ -646,7 +646,7 @@ class TikiAccessLib extends TikiLib
 
         global $prefs;
 
-        if ($this->ticket && ($prefs['site_short_lived_csrf_tokens'] ?? 'n') !== 'y' && ($this->ticket === $_SESSION['CSRF_TOKEN'] ?? $this->retrieveTicketFromCookie())) {
+        if ($this->ticket && ($prefs['site_short_lived_csrf_tokens'] ?? 'n') !== 'y' && ($this->ticket === ($_SESSION['CSRF_TOKEN'] ?? $this->retrieveTicketFromCookie()))) {
             $this->ticketMatch = true;
         } elseif ($this->ticket && ! empty($_SESSION['tickets'][$this->ticket])) {
             //check that request ticket matches server ticket
