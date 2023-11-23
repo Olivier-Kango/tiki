@@ -75,7 +75,7 @@ if ($user) {
         $smarty->assign('tiki_p_admin_directory_sites', 'y');
     }
 }
-if ($categ_info['allowSites'] == 'y') {
+if (is_array($categ_info) && isset($categ_info['allowSites']) && $categ_info['allowSites'] == 'y') {
     if (! isset($_REQUEST["sort_mode"])) {
         $sort_mode = 'hits_desc';
     } else {
