@@ -209,32 +209,33 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
 
 // open modal for edit form
 $(document).on("click", ".edit-calendar-item-btn", function (e) {
-    if ($.isFunction(e.preventDefault)) {
-        e.preventDefault();
-    }
-
     const $this = $(this);
-
-    $.closeModal({
-        done: function () {
-            $.openModal({
-                title: tr("Edit event"),
-                size: "modal-lg",
-                remote: $this.attr("href"),
-                open: function () {
-                    $this.tikiModal();
-
-                    $("form:not(.no-ajax)", this)
-                        .addClass('no-ajax') // Remove default ajax handling, we replace it
-                        .submit(ajaxSubmitEventHandler(function (data) {
-                            calendarEditSubmit(data, this);
-                        }));
-                }
-            });
+    const $modal = $this.parents().hasClass('modal-body');
+    if ($modal) {
+        if ($.isFunction(e.preventDefault)) {
+            e.preventDefault();
         }
-    });
+        $.closeModal({
+            done: function () {
+                $.openModal({
+                    title: tr("Edit event"),
+                    size: "modal-lg",
+                    remote: $this.attr("href"),
+                    open: function () {
+                        $this.tikiModal();
 
-    return false;
+                        $("form:not(.no-ajax)", this)
+                            .addClass('no-ajax') // Remove default ajax handling, we replace it
+                            .submit(ajaxSubmitEventHandler(function (data) {
+                                calendarEditSubmit(data, this);
+                            }));
+                    }
+                });
+            }
+        });
+
+        return false;
+    }
 });
 
 
