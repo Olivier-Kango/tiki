@@ -41,6 +41,12 @@ function getCookie($name, $section = null, $default = null)
         $cookie = $jitCookie[$name];
     }
 
+    if (isset($cookie)) {
+        // we need a reliable way to get cookies even if user has not accepted cookies
+        // e.g. CSRF token in a cookie needs to be read as it is already set as a cookie
+        return $cookie;
+    }
+
     if ($feature_no_cookie || (empty($section) && ! isset($cookie) && isset($_SESSION['tiki_cookie_jar'][$name]))) {
         if (isset($_SESSION['tiki_cookie_jar'][$name])) {
             return $_SESSION['tiki_cookie_jar'][$name];
