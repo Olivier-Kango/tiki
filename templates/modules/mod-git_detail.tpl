@@ -11,9 +11,9 @@ style="{$module_params.style}"
 }
 {if empty($error)}
     <div class="mod-git_detail cvsup">
-        <span class="label">{tr}Last updated{/tr}</span>&nbsp;
-        <span class="branch">(Git {$content.branch}:{$content.commit.hash|substring:0:8}):</span>&nbsp;
-        <span class="date">{$content.mdate|tiki_long_datetime}</span>
+        <span class="label">{tr}Git information:{/tr}</span>&nbsp;
+        <span class="branch">{$content.branch}:<a href="https://gitlab.com/tikiwiki/tiki/-/commit/{$content.commit.hash}">{$content.commit.hash|substr:0:8}</a></span>&nbsp;
+        <span class="date">{tr}from{/tr} {$content.mdate|tiki_short_datetime}</span>
     </div>
 {else}
     {tr}No Git checkout or unable to determine last update{/tr}
