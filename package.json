@@ -16,9 +16,14 @@
   "name": "tiki",
   "version": "0.0.1",
   "type": "module",
-  "scripts": {
-    "checkEnvironment:engine": "node engineCheck.js",
-    "checkEnvironment:packageLock": "package-lock-check",
+    "scriptsComments": {
+      "checkEnvironment:packageLockDate": "This is instantaneous, and will catch the case of a dev not running npm install after updating package.json, but NOT the case where he forgot to run npm install after a git update",
+      "checkEnvironment:validNodeModules":  "The idea is to stop everything if a dev updated from git and forgot to run npm install.  npm ls will do that (we check it's return code).  Unfortunately it is verbose (no easy cross platform way to suppress the output and keep the return code) and takes almost as long to run as a npm install...  Maybe just keep it until PHP developers get used to re-running composer and node - benoitg - 2023-11-24."
+    },
+    "scripts": {
+    "checkEnvironment:engine": "node src/js/build_utils/engineCheck.js",
+    "checkEnvironment:packageLockDate": "node src/js/build_utils/packageLockDateCheck.js",
+    "checkEnvironment:validNodeModules": "npm ls",
     "checkEnvironmentComment": "The idea is to emulate running all processes sequentially with && (fail if any return a non zero exit code), but be compatible with the different shells on windows",
     "checkEnvironment": "run-s --print-label \"checkEnvironment:*\"",
     "prebuild": "npm run checkEnvironment",
@@ -38,7 +43,7 @@
     "node": ">=18.0.0 <22"
   },
   "enginesComment": {
-    "npm": "Npm was at version 9 as of node 18",
+    "npm": "Npm arrived at version 9 in the middle of node 18 lifecycle, but version 9 is required to keep the version of package-lock.json at v3",
     "node": "We track supported vite node version, which is 18 as of vite 5"
   },
   "dependencies": {
@@ -56,11 +61,10 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-vue": "^9.17.0",
     "npm-run-all2": "^6.1.1",
-    "package-lock-check": "^1.1.0",
     "prettier": "^3.1.0",
     "rollup-plugin-visualizer": "^5.9.2",
     "vite": "^5.0.0",
-    "vite-plugin-static-copy": "^0.17.1"
+    "vite-plugin-static-copy": "^1.0.0"
   },
   "devDepencenciesCommentWillAlsoBeAvailableAsDevDependenciesInWorkspace": {
     "es-module-shims": "Copied to be available as an external, but not in common-externals, because it will not be included from import-maps",
