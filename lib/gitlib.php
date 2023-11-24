@@ -25,8 +25,6 @@ class GitLib extends TikiLib
 
         if (! empty($bin)) {
             $this->bin = $bin;
-        } else {
-            $this->detect_git_binary();
         }
     }
 
@@ -54,7 +52,7 @@ class GitLib extends TikiLib
 
     public function run_git($args = [])
     {
-        array_unshift($args, $this->bin);
+        array_unshift($args, $this->getBin());
 
         $process = new Process($args);
         $process->run();
@@ -91,6 +89,7 @@ class GitLib extends TikiLib
      *
      * @param string $branch relative path to branch file
      * @return string
+     * @throws Exception
      */
     public function get_commit($branch = null)
     {
@@ -109,6 +108,7 @@ class GitLib extends TikiLib
             while (! feof($file)) {
                 $line = fgets($file);
                 if (strpos($line, $branch)) {
+                    fclose($file);
                     return substr($line, 0, 40);
                 }
             }
@@ -135,7 +135,7 @@ class GitLib extends TikiLib
         if (file_exists($filename) && is_readable($filename)) {
             $object = file_get_contents($filename);
             return zlib_decode($object);
-        } elseif ($this->bin) {
+        } elseif ($this->getBin()) {
             $object = $this->run_git(['cat-file', '-t', $commit]);
             $object = rtrim($object) . " " . $this->run_git(['cat-file', '-s', $commit]);
             $object = rtrim($object) . "\0" . $this->run_git(['cat-file', '-p', $commit]);
@@ -175,13 +175,36 @@ class GitLib extends TikiLib
      */
     public function get_info()
     {
-        $branch = $this->get_branch();
-        $commit = $this->get_commit($branch);
-        $object = $this->get_object($commit);
-        $object = $this->parse_object($object);
+        $cachelib = TikiLib::lib('cache');
+        $object = null;
 
-        $object['branch'] = substr($branch, strrpos($branch, '/') + 1);
-        $object['commit']['hash'] = $commit;
+        if (is_dir('.git') && is_readable('.git')) {
+            if (! $cachelib->isCached('.git', 'head')) {
+                $cachelib->cacheItem('.git', md5_file('.git/HEAD'), 'head');
+            } else {
+                $cachedMd5 = $cachelib->getCached('.git', 'head');
+
+                if ($cachedMd5 === md5_file('.git/HEAD')) {
+                    $object = $cachelib->getSerialized('.git', 'info');
+                } else {
+                    $cachelib->invalidate('.git', 'head');
+                }
+            }
+        }
+
+        if (empty($object)) {
+            $branch = $this->get_branch();
+            $commit = $this->get_commit($branch);
+            $object = $this->get_object($commit);
+            $object = $this->parse_object($object);
+
+            $object['branch'] = substr($branch, strrpos($branch, '/') + 1);
+            $object['commit']['hash'] = $commit;
+            $object['mdate'] = $this->getDate();
+
+            $cachelib->cacheItem('.git', serialize($object), 'info');
+        }
+
         return $object;
     }
 
@@ -252,8 +275,31 @@ class GitLib extends TikiLib
                 $info['parent'][] = $line[ 1 ];
             }
         }
-        $info['mdate'] = filemtime('.git/FETCH_HEAD');
 
         return $info;
+    }
+
+    /**
+     * Get loaded binary or load it.
+     * @return string|null
+     */
+    private function getBin()
+    {
+        if ($this->bin) {
+            return $this->bin;
+        }
+
+        $bin = $this->detect_git_binary();
+
+        return $bin ?? null;
+    }
+
+    /**
+     * Get modification time
+     * @return int|false
+     */
+    private function getDate()
+    {
+        return filemtime('.git/FETCH_HEAD');
     }
 }
