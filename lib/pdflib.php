@@ -920,6 +920,12 @@ class PdfGenerator
         }
         $xpath = new DOMXpath($doc);
 
+        // remove d-print-none elements
+        $elements = $xpath->query('//*[contains(@class, "d-print-none")]');
+        foreach ($elements as $element) {
+            $element->parentNode->removeChild($element);
+        }
+
         //defining array of plugins to be sorted
         $pluginArr = [["class","customsearch_results","div"],["id","container_pivottable","div"],["class","dynavar","a"], ["class", "tiki_sheet", "div"]];
         $tagsArr = [["input","tablesorter-filter","class"],["select","tablesorter-filter","class"],["select","pvtRenderer","class"],["select","pvtAggregator","class"],["td","pvtCols","class"],["td","pvtUnused","class"],["td","pvtRows","class"],["div","plot-container","class",true],["a","heading-link","class"],["a","tablename","class","1"], ["div", "jSScroll", "class"], ["span", "jSTabContainer", "class"], ["a", "tiki_sheeteditbtn", "class"],["div","comment-footer","class"],["div","buttons comment-form","class"],["div","clearfix tabs","class"],["a","pvtRowOrder","class"],["a","pvtColOrder","class"],["select","pvtAttrDropdown","class"], ["div", "modebar-container", "class"], ["div", "gl-container", "class"]];
