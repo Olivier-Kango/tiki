@@ -1,4 +1,18 @@
 {
+  "//": [
+    "Note about updating package.json:",
+    "The behaviour of package-lock.json files upon running npm install has many subtleties, that are not especially obvious.",
+    "The short version is that when you update package.json, you have two general choices to get package-lock.json up to date.",
+    "1- Just run: ",
+    "     npm install",
+    "   It will update package-lock.json to meet the constraints, but not touch any installed package that already meets the constraints.  So it's a minimal impact update",
+    "2- Run:",
+    "     npm update",
+    "   This will update ALL packages including transitive dependencies to the latest version that meet the semver in package.json.",
+    "To regenerate package-lock.json from scratch, run:",
+    "  rm -r package-lock.json node_modules/;npm install",
+    "The above should have the same results as npm update, but that isn't always exactly the case."
+  ],
   "name": "tiki",
   "version": "0.0.1",
   "type": "module",
@@ -20,7 +34,7 @@
     "clean": "php console.php dev:buildwsconfs --clean"
   },
   "engines": {
-    "npm": ">=8.0.0 <11",
+    "npm": ">=9.0.0 <11",
     "node": ">=18.0.0 <22"
   },
   "enginesComment": {
