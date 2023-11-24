@@ -2857,6 +2857,9 @@
         "lib\/pdfimages.php": {
             "class:PdfImagesLib": true
         },
+        "lib\/pdflib.php": {
+            "class:PdfGenerator": true
+        },
         "lib\/graph-engine\/pdflib.php": {
             "class:PDFLib_GRenderer": true
         },
