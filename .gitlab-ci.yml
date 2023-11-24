@@ -74,7 +74,7 @@ node_modules:
   cache:
     policy: pull-push
   artifacts:
-    expire_in: 1h
+    expire_in: 7 days
     paths:
       - node_modules
       - src/**/node_modules
@@ -93,11 +93,11 @@ node_build:
     - node_modules
     - composer
   artifacts:
-    expire_in: 1h
+    expire_in: 7 days
     paths:
       - public/generated/
-      # TODO:  This also generates the CSS files in themes/*.  Maybe ok to ignore for CI purposes. - benoitg - 2023-11-17
-
+      - themes/**/*.css # this includes not only the generated files, but all css files. Still should be ok.
+      - themes/**/*.css.map
 #
 # build
 #
@@ -576,7 +576,7 @@ tiki-package:
     - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d vendor_bundled --no-dev --optimize-autoloader --no-progress --prefer-dist -n # remove dev packages
     # TODO: Remove dev dependencies in npm - benoitg - 2023-11-17
-    # TODO: Generate index.php files (see check-directories below) - benoitg - 2023-11-17
+    - php console.php dev:buildwsconfs --generate
     # Cleanup folders that may have data, and we do not want to be packed
     - echo "=> Cleanup ..."
     # Assure temp folder is empty
@@ -607,8 +607,10 @@ tiki-package:
       policy: pull
   dependencies:
     - composer
+    - node_build
   needs:
     - composer
+    - node_build
   artifacts:
     paths:
       - tiki-${CI_COMMIT_SHORT_SHA}-${CI_COMMIT_REF_SLUG}.tar.gz
