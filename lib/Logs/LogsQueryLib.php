@@ -32,7 +32,7 @@ class LogsQueryLib
         return LogsQueryLib::type("wiki page")->id($id);
     }
 
-    public static function wikiPagesFrom($user = "")
+    public static function wikiPagesFrom($id = "")
     {
         return LogsQueryLib::type("wiki page")->id($id);
     }

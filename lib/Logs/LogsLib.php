@@ -116,38 +116,6 @@ class LogsLib extends TikiLib
         return $this->query($query, [(int)$date]);
     }
 
-    /**
-     *  action = "Updated", "Created", "Removed", "Viewed", "Removed version $version", "Changed actual version to $version"
-     * type = 'wiki page', 'category', 'article', 'image gallery', 'tracker', 'forum thread'
-     * TODO: merge $param and $contributions together into a hash and but everything in actionlog_params
-     */
-    public function object_must_be_logged($action, $object, $objectType)
-    {
-        global $prefs;
-
-        if ($objectType == 'wiki page' && $action != 'Viewed') {
-            $logObject = true; // to have the tiki_my_edit, history and mod-last_modif_pages
-        } else {
-            $logObject = $this->action_must_be_logged($action, $objectType);
-        }
-
-        $logCateg = $prefs['feature_categories'] == 'y' ? $this->action_must_be_logged('*', 'category') : false;
-
-        if (! $logObject && ! $logCateg) {
-            return 0;
-        }
-
-        if ($logCateg) {
-            $categlib = TikiLib::lib('categ');
-            if ($objectType == 'comment') {
-                preg_match('/type=([^&]*)/', $param, $matches);
-                $categs = $categlib->get_object_categories($matches[1], $object);
-            } else {
-                $categs = $categlib->get_object_categories($objectType, $object);
-            }
-        }
-    }
-
     public function add_action(
         $action,
         $object,
@@ -414,9 +382,9 @@ class LogsLib extends TikiLib
         return str_replace(' ', '0', $action . '_' . $objectType);
     }
 
-    public function decode_actionlog_conf($string)
+    public function decode_actionlog_conf($string = '')
     {
-        return explode('_', str_replace('0', ' ', $conf));
+        return explode('_', str_replace('0', ' ', $string));
     }
 
     public function list_actions(
