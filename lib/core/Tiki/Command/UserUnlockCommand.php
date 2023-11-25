@@ -58,8 +58,9 @@ class UserUnlockCommand extends Command
                 $row['message'] = 'user already unlocked';
             } else {
                 $userlib->confirm_user($user['login']);
+                $userlib->set_unsuccessful_logins($user['login'], 0);
                 $row['result'] = 'success';
-                $row['message'] = 'user unlocked';
+                $row['message'] = 'user unlocked and unsuccessful login was reset';
 
                 $logslib->add_action('adminusers', 'system', 'system', 'User ' . $user['login'] . ' unlocked');
             }
