@@ -7,6 +7,7 @@
 
 use Sentry\Event;
 use Sentry\EventHint;
+use Tiki\Errors;
 
 /* This file handles reporting PHP errors to a remote service like glitchtip or sentry */
 
@@ -104,6 +105,7 @@ class ErrorTracking
             'dsn'         => $this->getDSN(),
             'http_proxy'  => ($prefs['use_proxy'] ?? 'n') === 'y' ? $this->getProxyURL() : null,
             'sample_rate' => $this->getSampleRate(),
+            'error_types' => Errors::getErrorReportingLevel(),
             'before_send' => function (Event $event, ?EventHint $hint): ?Event {
                 if (true && self::LOCAL_DEBUG_MODE) {
                     echo '<pre>';
@@ -123,15 +125,15 @@ class ErrorTracking
 
                 return null;
             },
-                        'before_send_transaction' => function (Event $transaction): ?Event {
-                            if (false && self::LOCAL_DEBUG_MODE) {
-                                echo '<pre>';
-                                print_r("Incoming sentry transaction:<br/>");
-                                var_dump($transaction);
-                                echo '</pre>';
-                            }
-                            return $transaction;
-                        },
+                'before_send_transaction' => function (Event $transaction): ?Event {
+                    if (false && self::LOCAL_DEBUG_MODE) {
+                        echo '<pre>';
+                        print_r("Incoming sentry transaction:<br/>");
+                        var_dump($transaction);
+                        echo '</pre>';
+                    }
+                    return $transaction;
+                },
             ]);
 
             $this->setState(self::STATE_HOLD);

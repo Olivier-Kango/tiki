@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 //this script may only be included - so its better to die if called directly.
 
+use Tiki\Errors;
+
 require_once 'lib/tikilib.php';
 
 global $prefs, $tiki_p_admin;
@@ -18,16 +20,8 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) != false) {
 
 if ($prefs['error_reporting_adminonly'] == 'y' and $tiki_p_admin != 'y') {
     $errorReportingLevel = 0;
-} elseif ($prefs['error_reporting_level'] == 2047) {
-    $errorReportingLevel = E_ALL & ~E_STRICT;
-} elseif ($prefs['error_reporting_level'] == 2039) {
-    $errorReportingLevel = E_ALL & ~E_STRICT & ~E_NOTICE & ~E_USER_NOTICE;
-} elseif ($prefs['error_reporting_level'] == -1) {
-    $errorReportingLevel = E_ALL;
-} elseif ($prefs['error_reporting_level'] == 1) {
-    $errorReportingLevel = error_reporting();
 } else {
-    $errorReportingLevel = $prefs['error_reporting_level'];
+    $errorReportingLevel = Errors::getErrorReportingLevel();
 }
 
 // Handle Smarty specific error reporting level
