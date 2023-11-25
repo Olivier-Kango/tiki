@@ -18,7 +18,7 @@ function upgrade_20181127_convert_db_local_to_utf8mb4_tiki($installer)
     $date = date("Ymd");
     $time = date("His");
     // Unique name so as to avoid losing the backup in case something goes wrong
-    $backuplocalfile = "db/obsolete_${date}-${time}_local.php";
+    $backuplocalfile = 'db/obsolete_' . $date . '-' . $time . '_local.php';
 
     // Parse local.php file and look for obsolete 'utf8' client_charset value
     $contents = @file($localfile);
@@ -51,7 +51,7 @@ function upgrade_20181127_convert_db_local_to_utf8mb4_tiki($installer)
         }
         // Rewrite the new db/local.php
         $handle = fopen($localfile, 'xb');
-        $contents[$last_matched_line] = "// Commented by installer on ${date} // " . $contents[$last_matched_line] . "\$client_charset='utf8mb4';" . PHP_EOL;
+        $contents[$last_matched_line] = "// Commented by installer on $date // " . $contents[$last_matched_line] . "\$client_charset='utf8mb4';" . PHP_EOL;
         reset($contents);
         foreach ($contents as $key => $line) {
             fwrite($handle, $line);

@@ -48,9 +48,9 @@ function deldirfiles($dir)
     $current_dir = opendir($dir);
     while ($entryname = readdir($current_dir)) {
         if (is_dir("$dir/$entryname") and ($entryname != '.' and $entryname != '..')) {
-            deldirfiles("${dir}/${entryname}");
+            deldirfiles("$dir/$entryname");
         } elseif ($entryname != '.' and $entryname != '..') {
-            unlink("${dir}/${entryname}");
+            unlink("$dir/$entryname");
         }
     }
     closedir($current_dir);

@@ -361,7 +361,7 @@ class OpenPGPLib
                     $gpg_recipient_list .= ' -r ' . $item;
                 }
             } else {
-                $gpg_recipient_list .= " -r ${gpg_recipient}";
+                $gpg_recipient_list .= " -r " . $gpg_recipient;
             }
         }
 
@@ -1221,7 +1221,7 @@ class OpenPGPLib
 
             // encrypt $message to recipients
             // sign wth signer
-        $gpg = $this->gpg_encrypt("${unencrypted_message}", $recipients);
+        $gpg = $this->gpg_encrypt("$unencrypted_message", $recipients);
 
             // $gpg is an array containing
             // $gpg[0] encrypted output (STDOUT)

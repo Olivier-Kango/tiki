@@ -804,7 +804,7 @@ function MimeMultipart($parts)
 
     $sep = "\r\n--$boundary\r\n";
 
-    return $head . $sep . implode($sep, $parts) . "\r\n--${boundary}--\r\n";
+    return $head . $sep . implode($sep, $parts) . "\r\n--$boundary--\r\n";
 }
 
 /**

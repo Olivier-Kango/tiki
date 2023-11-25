@@ -103,7 +103,7 @@ if (strstr($orig_url, 'tiki-index.php') || strstr($orig_url, 'tiki-read_article.
             $newPage = $tikilib->get_page_name_from_id($bestLangPageId);
             $newPage = TikiLib::lib('wiki')->get_slug_by_page($newPage);
             $newPage = urlencode($newPage);
-            $orig_url = preg_replace('/(.*[&?]page=)' . preg_quote($page) . '(.*)/', '${1}' . "${newPage}" . '$2', $orig_url);
+            $orig_url = preg_replace('/(.*[&?]page=)' . preg_quote($page) . '(.*)/', '${1}' . $newPage . '$2', $orig_url);
             $orig_url = preg_replace('/(.*)(tiki-index.php)$/', "$1$2?page=$newPage", $orig_url);
         }
     }

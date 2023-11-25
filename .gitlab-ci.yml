@@ -15,7 +15,7 @@ variables:
   ELASTICSEARCH_HOST: elasticsearch
   #The source for these images is at https://github.com/rjsmelo/docker-ubuntu-php
   #Would be nice to update them from code, similar to https://medium.com/devops-with-valentine/how-to-build-a-docker-image-and-push-it-to-the-gitlab-container-registry-from-a-gitlab-ci-pipeline-acac0d1f26df
-  BASE_QA_IMAGE: xorti/ubuntu-php:8.1-qa
+  BASE_QA_IMAGE: rjsmelo/ubuntu-php:8.1-qa
   #DBDiff is sensitive to mysql version.  
   #The schemas dumped for prior tikis on https://gitlab.com/tikiwiki/tikiwiki-ci-databases have explicit COLLATION() statements for each table column.  Later versions of mysql (8.0.11+, but not sure) will not dump the same whits explicit collations.
   #Running php doc/devtools/check_schema_upgrade.php -m 22 --db1=tiki:tiki@localhost:tikiold --db2=tiki:tiki@localhost:tikinew gives other errors localy that are false positives.  But locally, unless you decompress https://gitlab.com/tikiwiki/tikiwiki-ci-databases into doc/devtool/dbdiff/cache, tiki.org won't give the schemas to you, and will blacklist your IP address!  benoitg - 2023-05-16
@@ -186,7 +186,7 @@ phpcs:
 
 phplint81:
   stage: lint
-  image: ${DEPENDENCY_PROXY_PREFIX}xorti/ubuntu-php:8.1-qa
+  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:8.1-qa
   script:
     - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
   dependencies:
@@ -195,6 +195,20 @@ phplint81:
     - composer
   cache:
     key: phplint81
+    paths:
+      - phplint.cache
+
+phplint82:
+  stage: lint
+  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:8.2-qa
+  script:
+    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
+  dependencies:
+    - composer
+  needs:
+    - composer
+  cache:
+    key: phplint82
     paths:
       - phplint.cache
 
@@ -552,14 +566,26 @@ sql-engine-conversion:
 unit-tests-81:
   <<: *template-unit-tests
   variables:
-    IMAGE: xorti/ubuntu-php:8.1-qa
+    IMAGE: rjsmelo/ubuntu-php:8.1-qa
   allow_failure: false
 
 unit-tests-81-mysql8:
   <<: *template-unit-tests-mysql8
   variables:
-    IMAGE: xorti/ubuntu-php:8.1-qa
+    IMAGE: rjsmelo/ubuntu-php:8.1-qa
   allow_failure: false
+
+unit-tests-82:
+  <<: *template-unit-tests
+  variables:
+    IMAGE: rjsmelo/ubuntu-php:8.2-qa
+  allow_failure: true
+
+unit-tests-82-mysql8:
+  <<: *template-unit-tests-mysql8
+  variables:
+    IMAGE: rjsmelo/ubuntu-php:8.2-qa
+  allow_failure: true
 
 #
 # Package this Tiki build
