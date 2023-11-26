@@ -16,9 +16,9 @@ class ErrorTracking
     /** Set this to true when developing this tool.  It will ignore preferences and activate the code with a dummy DSN */
     private const LOCAL_DEBUG_MODE = false;
 
-    const STATE_DISABLED = 0;
-    const STATE_HOLD = 1;
-    const STATE_PUSH = 2;
+    private const STATE_DISABLED = 0;
+    private const STATE_HOLD = 1;
+    private const STATE_PUSH = 2;
 
     protected const REDACTED_PARAMS = ['twoFactorAuthCode', 'pass', 'passAgain', 'ticket', 'TOKEN'];
     protected const REDACTED_SESSION = ['', 'CV', '_CSRF'];
@@ -105,56 +105,56 @@ class ErrorTracking
         }
         try {
             Sentry\init([
-            'dsn'         => $this->getDSN(),
-            'http_proxy'  => ($prefs['use_proxy'] ?? 'n') === 'y' ? $this->getProxyURL() : null,
-            'sample_rate' => $this->getSampleRate(),
-            'error_types' => Errors::getErrorReportingLevel(),
-            'attach_stacktrace' => true,
-            'before_send' => function (Event $event, ?EventHint $hint): ?Event {
-                if (true && self::LOCAL_DEBUG_MODE) {
-                    echo '<pre>';
-                    print_r("Incoming sentry event:<br/>");
-                    //cho $event->getId();
-                    echo $event->getLevel() . ': ' . $event->getMessage();
-                    print($hint->exception->getMessage());
-                    echo '<br/></pre>';
-                }
-
-                if ($this->state === self::STATE_PUSH) {
-                    // only filter entries when pushing, since will not impact rendering time for pages
-                    $eventExceptions = $event->getExceptions();
-                    foreach ($eventExceptions as &$exception) {
-                        $stackTrace = $exception->getStacktrace();
-                        if (empty($stackTrace)) {
-                            continue;
-                        }
-                        $frames = $stackTrace->getFrames();
-                        if (empty($frames)) {
-                            continue;
-                        }
-                        foreach ($frames as &$frame) {
-                            $vars = $frame->getVars();
-                            $this->redactEntries($vars);
-                            $frame->setVars($vars);
-                        }
-                        $exception->setStacktrace(new \Sentry\Stacktrace($frames));
+                'dsn'                     => $this->getDSN(),
+                'http_proxy'              => ($prefs['use_proxy'] ?? 'n') === 'y' ? $this->getProxyURL() : null,
+                'sample_rate'             => $this->getSampleRate(),
+                'error_types'             => Errors::getErrorReportingLevel(),
+                'attach_stacktrace'       => true,
+                'before_send'             => function (Event $event, ?EventHint $hint): ?Event {
+                    if (true && self::LOCAL_DEBUG_MODE) {
+                        echo '<pre>';
+                        print_r("Incoming sentry event:<br/>");
+                        //cho $event->getId();
+                        echo $event->getLevel() . ': ' . $event->getMessage();
+                        print($hint->exception->getMessage());
+                        echo '<br/></pre>';
                     }
-                    $event->setExceptions($eventExceptions);
 
-                    return $event;
-                }
+                    if ($this->state === self::STATE_PUSH) {
+                        // only filter entries when pushing, since will not impact rendering time for pages
+                        $eventExceptions = $event->getExceptions();
+                        foreach ($eventExceptions as &$exception) {
+                            $stackTrace = $exception->getStacktrace();
+                            if (empty($stackTrace)) {
+                                continue;
+                            }
+                            $frames = $stackTrace->getFrames();
+                            if (empty($frames)) {
+                                continue;
+                            }
+                            foreach ($frames as &$frame) {
+                                $vars = $frame->getVars();
+                                $this->redactEntries($vars);
+                                $frame->setVars($vars);
+                            }
+                            $exception->setStacktrace(new \Sentry\Stacktrace($frames));
+                        }
+                        $event->setExceptions($eventExceptions);
 
-                if ($this->state === self::STATE_HOLD) {
-                    if (empty($event->getUser())) {
-                        // Set here because when we run the function from Sentry\configureScope user may not be set
-                        global $user;
-                        $event->setUser(Sentry\UserDataBag::createFromArray(['username' => $user ?? 'Anonymous']));
+                        return $event;
                     }
-                    $this->registerEvent($event);
-                }
 
-                return null;
-            },
+                    if ($this->state === self::STATE_HOLD) {
+                        if (empty($event->getUser())) {
+                            // Set here because when we run the function from Sentry\configureScope user may not be set
+                            global $user;
+                            $event->setUser(Sentry\UserDataBag::createFromArray(['username' => $user ?? 'Anonymous']));
+                        }
+                        $this->registerEvent($event);
+                    }
+
+                    return null;
+                },
                 'before_send_transaction' => function (Event $transaction): ?Event {
                     if (false && self::LOCAL_DEBUG_MODE) {
                         echo '<pre>';
@@ -284,18 +284,18 @@ class ErrorTracking
     }
 
     /**
- * A callback for PHP set_error_handler()
- *
- * In practice, this is called directly by initlib::tiki_error_handling
- *
- * Set how Tiki will report Errors
- * @param $errno
- * @param $errstr
- * @param $errfile
- * @param $errline
- *
- * @return bool Skip running any other error handler after this one.
- */
+     * A callback for PHP set_error_handler()
+     *
+     * In practice, this is called directly by initlib::tiki_error_handling
+     *
+     * Set how Tiki will report Errors
+     * @param $errno
+     * @param $errstr
+     * @param $errfile
+     * @param $errline
+     *
+     * @return bool Skip running any other error handler after this one.
+     */
     public function handleError($errno, $errstr, $errfile, $errline): bool
     {
         if ($this->previousErrorHandler) {
@@ -310,6 +310,13 @@ class ErrorTracking
         $this->previousErrorHandler = $handler;
     }
 
+    /**
+     * Replace entries that may have sensitive information with [Redacted]
+     *
+     * @param $arrayToProcess
+     *
+     * @return void
+     */
     protected function redactEntries(&$arrayToProcess): void
     {
         static $redactedParametersLowercase = null;
