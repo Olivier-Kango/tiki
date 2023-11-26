@@ -390,6 +390,11 @@ if (isset($_REQUEST["removeattach"])) {
         $trklib->remove_item_attachment($_REQUEST["removeattach"]);
     }
 }
+if (isset($_REQUEST['print'])) {
+    $access->check_permission('tiki_p_print', '', 'trackeritem', $itemId);
+} elseif (isset($_REQUEST['pdf'])) {
+    $access->check_permission('tiki_p_export_pdf', '', 'trackeritem', $itemId);
+}
 
 
 $status_types = $trklib->status_types();

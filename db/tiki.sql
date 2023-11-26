@@ -2903,7 +2903,12 @@ CREATE TABLE `users_grouppermissions` (
 
 
 INSERT INTO users_grouppermissions (`groupName`,`permName`)
-    VALUES('Anonymous','tiki_p_view'),('Anonymous','tiki_p_search'),('Anonymous','tiki_p_download_files');
+  VALUES
+    ('Anonymous','tiki_p_view'),
+    ('Anonymous','tiki_p_search'),
+    ('Anonymous','tiki_p_download_files'),
+    ('Anonymous','tiki_p_print'),
+    ('Anonymous','tiki_p_export_pdf');
 
 DROP TABLE IF EXISTS `users_groups`;
 CREATE TABLE `users_groups` (

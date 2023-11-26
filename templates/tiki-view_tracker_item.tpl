@@ -18,6 +18,7 @@
                         {tr}Tracker item actions{/tr}
                     </li>
                     <li class="dropdown-divider"></li>
+                    {if $tiki_p_print eq 'y'}
                     <li class="dropdown-item">
                         {if !empty($viewItemPretty.override)}
                             {self_link print='y' vi_tpl={$viewItemPretty.value}}
@@ -29,8 +30,9 @@
                             {/self_link}
                         {/if}
                     </li>
+                    {/if}
 
-                    {if $pdf_export eq 'y'}
+                    {if $pdf_export eq 'y' and $tiki_p_export_pdf eq 'y'}
                         <li class="dropdown-item">
                             <a href="{$smarty.server.SCRIPT_NAME}?{query pdf='y'}">
                                 {icon name="pdf"} {tr}PDF{/tr}

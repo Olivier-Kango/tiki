@@ -170,6 +170,14 @@ if ($tiki_p_admin_forum == 'y') {
 
 $access->check_permission(['tiki_p_forum_read'], '', 'thread', $_REQUEST['comments_parentId']);
 
+if (isset($_REQUEST['display'])) {
+    if ($_REQUEST['display'] == 'pdf') {
+        $access->check_permission(['tiki_p_export_pdf'], '', 'thread', $_REQUEST['comments_parentId']);
+    } else {
+        $access->check_permission(['tiki_p_print'], '', 'thread', $_REQUEST['comments_parentId']);
+    }
+}
+
 $smarty->assign('topics_next_offset', $_REQUEST['topics_offset'] + 1);
 $smarty->assign('topics_prev_offset', $_REQUEST['topics_offset'] - 1);
 

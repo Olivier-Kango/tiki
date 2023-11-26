@@ -63,19 +63,23 @@
                     {tr}Thread actions{/tr}
                 </h6>
                 <div class="dropdown-divider"></div>
-                {if $pdf_export eq 'y'}
+                {if $pdf_export eq 'y' and $tiki_p_export_pdf eq 'y'}
                     <a class="dropdown-item" href="{$smarty.server.SCRIPT_NAME}?{query display='pdf'}">
                         {icon name="pdf"} {tr}PDF{/tr}
                     </a>
                     {/if}
+                {if $tiki_p_print eq 'y'}
                     <a class="dropdown-item" href="{$smarty.server.SCRIPT_NAME}?{query display='print'}">
                         {icon name="print"} {tr}Print this page{/tr}
                     </a>
+                {/if}
                 </li>
                 <li class="dropdown-item">
+                    {if $tiki_p_print eq 'y'}
                     <a href="{$smarty.server.SCRIPT_NAME}?{query display='print_all'}">
                         {icon name="print"} {tr}Print all pages{/tr}
                     </a>
+                    {/if}
                 {if $prefs.sefurl_short_url eq 'y'}
                     <a class="dropdown-item" id="short_url_link" href="#" onclick="(function() { $(document.activeElement).attr('href', 'tiki-short_url.php?url=' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title)); })();">
                         {icon name="link"} {tr}Get a short URL{/tr}

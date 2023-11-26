@@ -47,6 +47,25 @@ $smarty->assign('page_id', $info['page_id']);
 $tikilib->get_perm_object($page, 'wiki page', $info);
 $access->check_permission('tiki_p_view', '', 'wiki page', $page);
 
+// check if the user can export to pdf (including sub request to print system)
+if (($_REQUEST['display'] ?? '') == 'pdf') {
+    $access->check_permission('tiki_p_export_pdf', '', 'wiki page', $page);
+}
+$pdfExportSubRequest = false;
+if (($_REQUEST['pdf_token'] ?? '') != '') {
+    /** @var Cachelib $cachelib */
+    $cachelib = TikiLib::lib('cache');
+    $pdfTokenValue = $cachelib->getCached($_REQUEST['pdf_token'], 'pdfprint_');
+    if ($pdfTokenValue !== false && $page == $pdfTokenValue) {
+        $pdfExportSubRequest = true;
+    }
+}
+
+// check if user can print
+if (! $pdfExportSubRequest && ($_REQUEST['display'] ?? '') != 'pdf') {
+    $access->check_permission('tiki_p_print', '', 'wiki page', $page);
+}
+
 // Now increment page hits since we are visiting this page
 $tikilib->add_hit($page);
 
@@ -145,7 +164,17 @@ if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'pdf') {
                 $page = $_REQUEST['filename'];
             }
             try {
-                $pdf = $generator->getPdf('tiki-print.php', ['page' => $page], $pdata);
+                // Allow to mark a subrequest to tiki-print as being part of the pdf export (when using external services)
+                $pdfToken = md5($page . time() . uniqid('', true));
+                /** @var Cachelib $cachelib */
+                $cachelib = TikiLib::lib('cache');
+                $cachelib->cacheItem($pdfToken, $page, 'pdfprint_');
+
+                $pdf = $generator->getPdf('tiki-print.php', ['page' => $page, 'pdf_token' => $pdfToken], $pdata);
+
+                // cleanup subrequest token for pdf export
+                $cachelib->invalidate($pdfToken, 'pdfprint_');
+
                 $length = strlen($pdf);
                 header('Cache-Control: private, must-revalidate');
                 header('Pragma: private');

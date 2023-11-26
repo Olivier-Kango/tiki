@@ -48,6 +48,22 @@ if (isset($_REQUEST["print"]) || isset($_REQUEST["display"])) {
             $smarty->display("error.tpl");
             die;
         }
+        // check if user can print or export pdf
+        if (isset($_REQUEST["display"]) && $_REQUEST["display"] == 'pdf') {
+            if (! $tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'tiki_p_export_pdf')) {
+                $smarty->assign('errortype', 401);
+                $smarty->assign('msg', tra("You do not have permission to export to pdf this page."));
+                $smarty->display("error.tpl");
+                die;
+            }
+        } else {
+            if (! $tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'tiki_p_print')) {
+                $smarty->assign('errortype', 401);
+                $smarty->assign('msg', tra("You do not have permission to view the print version of this page."));
+                $smarty->display("error.tpl");
+                die;
+            }
+        }
         $pages[] = $tikilib->get_page_print_info($page);
     }
     foreach ($printstructures as $structureId) {
