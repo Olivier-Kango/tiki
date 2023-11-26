@@ -291,6 +291,20 @@ else
 fi
 }
 
+check_hosting_platform() {
+    # check if looks like a virtualmin, where sites are hosted within the home folder
+    if [ -f /usr/sbin/virtualmin ]; then
+        CURRENT_SCRIPT=${BASH_SOURCE[0]}
+        DIR_PATH=$(cd $(dirname $CURRENT_SCRIPT) && pwd)
+        PATH=$DIR_PATH/$(basename $CURRENT_SCRIPT)
+
+        if [[ $PATH =~ home\/([^\/]*) ]]; then
+            AUSER=${BASH_REMATCH[1]}
+            AGROUP=$(/usr/bin/id -gn $AUSER)
+        fi
+    fi
+}
+
 check_webroot() {
     AUSER=`stat -c "%U" .`
     AGROUP=`stat -c "%G" .`
@@ -298,6 +312,7 @@ check_webroot() {
 
 if [ -z "${OPT_GUESS_USER_GROUP_FROM_ROOT}" ]; then
     check_distribution
+    check_hosting_platform
 else
     check_webroot
 fi
