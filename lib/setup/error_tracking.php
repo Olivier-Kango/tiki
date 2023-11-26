@@ -20,6 +20,9 @@ class ErrorTracking
     const STATE_HOLD = 1;
     const STATE_PUSH = 2;
 
+    protected const REDACTED_PARAMS = ['twoFactorAuthCode', 'pass', 'passAgain', 'ticket', 'TOKEN'];
+    protected const REDACTED_SESSION = ['', 'CV', '_CSRF'];
+
     protected int $state = self::STATE_DISABLED;
 
     protected bool $phpEnabled;
@@ -106,6 +109,7 @@ class ErrorTracking
             'http_proxy'  => ($prefs['use_proxy'] ?? 'n') === 'y' ? $this->getProxyURL() : null,
             'sample_rate' => $this->getSampleRate(),
             'error_types' => Errors::getErrorReportingLevel(),
+            'attach_stacktrace' => true,
             'before_send' => function (Event $event, ?EventHint $hint): ?Event {
                 if (true && self::LOCAL_DEBUG_MODE) {
                     echo '<pre>';
@@ -115,11 +119,37 @@ class ErrorTracking
                     print($hint->exception->getMessage());
                     echo '<br/></pre>';
                 }
+
                 if ($this->state === self::STATE_PUSH) {
+                    // only filter entries when pushing, since will not impact rendering time for pages
+                    $eventExceptions = $event->getExceptions();
+                    foreach ($eventExceptions as &$exception) {
+                        $stackTrace = $exception->getStacktrace();
+                        if (empty($stackTrace)) {
+                            continue;
+                        }
+                        $frames = $stackTrace->getFrames();
+                        if (empty($frames)) {
+                            continue;
+                        }
+                        foreach ($frames as &$frame) {
+                            $vars = $frame->getVars();
+                            $this->redactEntries($vars);
+                            $frame->setVars($vars);
+                        }
+                        $exception->setStacktrace(new \Sentry\Stacktrace($frames));
+                    }
+                    $event->setExceptions($eventExceptions);
+
                     return $event;
                 }
 
                 if ($this->state === self::STATE_HOLD) {
+                    if (empty($event->getUser())) {
+                        // Set here because when we run the function from Sentry\configureScope user may not be set
+                        global $user;
+                        $event->setUser(Sentry\UserDataBag::createFromArray(['username' => $user ?? 'Anonymous']));
+                    }
                     $this->registerEvent($event);
                 }
 
@@ -137,6 +167,13 @@ class ErrorTracking
             ]);
 
             $this->setState(self::STATE_HOLD);
+
+            Sentry\configureScope(function (Sentry\State\Scope $scope) {
+                // track REQUEST parameters
+                $requestCopy = $_REQUEST;
+                $this->redactEntries($requestCopy);
+                $scope->setExtra('_REQUEST', $requestCopy);
+            });
         } catch (Symfony\Component\OptionsResolver\Exception\InvalidOptionsException $e) {
             //Without this catch, if you enter an invalid DSN, you won't be able to access the tiki admin interface.
             $message = 'Tiki:  the options in error_tracking_dsn was refused by Sentry\init() with message: ' . $e->getMessage();
@@ -271,5 +308,29 @@ class ErrorTracking
     public function setPreviousErrorHandler(Closure $handler)
     {
         $this->previousErrorHandler = $handler;
+    }
+
+    protected function redactEntries(&$arrayToProcess): void
+    {
+        static $redactedParametersLowercase = null;
+
+        if ($redactedParametersLowercase === null) {
+            $redactedSessionEntries = array_map( // prepend session name
+                function ($item) {
+                    return session_name() . $item;
+                },
+                self::REDACTED_SESSION
+            );
+            $redactedParametersLowercase = array_map(
+                'strtolower',
+                array_merge(self::REDACTED_PARAMS, $redactedSessionEntries)
+            );
+        }
+
+        array_walk_recursive($arrayToProcess, function (&$item, $key) use ($redactedParametersLowercase) {
+            if (in_array(strtolower($key), $redactedParametersLowercase)) {
+                $item = '[Redacted]';
+            }
+        });
     }
 }
