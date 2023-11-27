@@ -154,6 +154,9 @@
             "class:ObjectRenderer_Wiki": true,
             "class:ObjectRenderer_MultilingualWiki": true
         },
+        "lib\/core\/Category\/Manipulator.php": {
+            "class:Category_Manipulator": true
+        },
         "lib\/core\/TikiDb\/Adodb.php": {
             "class:TikiDb_Adodb_Result": true,
             "class:TikiDb_Adodb": true
@@ -2193,6 +2196,9 @@
         "lib\/core\/TikiFilter\/RelativeURL.php": {
             "class:TikiFilter_RelativeURL": true
         },
+        "lib\/core\/TikiFilter\/StripTags.php": {
+            "class:TikiFilter_StripTags": true
+        },
         "lib\/core\/TikiFilter\/WikiContent.php": {
             "class:TikiFilter_WikiContent": true
         },
@@ -2695,6 +2701,9 @@
         },
         "lib\/live_support\/lslib.php": {
             "class:Lslib": true
+        },
+        "lib\/loginlib.php": {
+            "class:LoginLib": true
         },
         "lib\/faqs\/faqlib.php": {
             "class:FaqLib": true
@@ -3891,6 +3900,9 @@
         "lib\/categories\/categlib.php": {
             "class:CategLib": true
         },
+        "lib\/wiki-plugins\/wikiplugin_backlinks.php": {
+            "class:WikiPluginBackLinks": true
+        },
         "lib\/wiki-plugins\/wikiplugin_prefdoc.php": {
             "class:PrefsDoc": true
         },
@@ -4153,7 +4165,7 @@
             "class:TikiCalendarLib" : true
         },
         "lib\/blogs\/bloglib.php": {
-            "class::BlogLib" : true
+            "class:BlogLib" : true
         }
     },
     "PSR12.Properties.ConstantVisibility.NotFound": {
@@ -9990,6 +10002,9 @@
         },
         "lib\/core\/TikiFilter\/RelativeURL.php": {
             "TikiFilter_RelativeURL": true
+        },
+        "lib\/core\/TikiFilter\/StripTags.php": {
+            "TikiFilter_StripTags": true
         },
         "lib\/core\/TikiFilter\/WikiContent.php": {
             "TikiFilter_WikiContent": true
