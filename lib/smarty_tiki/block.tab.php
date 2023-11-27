@@ -58,7 +58,7 @@ function smarty_block_tab($params, $content, $smarty, &$repeat)
             }
 
             $id = $id = "content$name-{$params['key']}";
-            $active = ($smarty_tabset_i_tab == $cookietab) ? 'active show' : '';
+            $active = ($smarty_tabset_i_tab == $cookietab) ? 'active' : '';
             $def = [
                 'label' => $params['name'],
                 'id' => $id,
