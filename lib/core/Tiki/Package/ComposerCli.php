@@ -496,6 +496,9 @@ class ComposerCli
             $package->getRequiredVersion(),
             $package->getScripts()
         );
+
+        $composerJson = $this->sanitizeEmptyArrays($composerJson);
+
         $fileContent = json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents($this->getComposerConfigFilePath(), $fileContent);
 
@@ -840,5 +843,28 @@ class ComposerCli
             $fileContent = json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             file_put_contents($this->getComposerConfigFilePath(), $fileContent);
         }
+    }
+
+    /**
+     * Convert empty array attributes to object to be used in json encode
+     *
+     * @param $composerAttributes
+     * @return array
+     */
+    private function sanitizeEmptyArrays($composerAttributes)
+    {
+        $objectRequiredIdentifiers = ['require', 'require-dev', 'autoload', 'autoload-dev'];
+
+        foreach ($objectRequiredIdentifiers as $identifier) {
+            if (
+                isset($composerAttributes[$identifier])
+                && is_array($composerAttributes[$identifier])
+                && empty($composerAttributes[$identifier])
+            ) {
+                $composerAttributes[$identifier] = (object) [];
+            }
+        }
+
+        return $composerAttributes;
     }
 }
