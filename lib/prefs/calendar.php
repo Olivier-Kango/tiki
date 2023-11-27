@@ -166,5 +166,23 @@ function prefs_calendar_list()
             ],
             'default' => 'edit_item',
         ],
+        'calendar_start_day' => [
+            'name' => tra('Calendar start of day'),
+            'description' => '',
+            'type' => 'text',
+            'filter' => 'int',
+            'size' => 5,
+            'units' => tra('seconds'),
+            'default' => 25200,
+        ],
+        'calendar_end_day' => [
+            'name' => tra('Calendar end of day'),
+            'description' => '',
+            'type' => 'text',
+            'filter' => 'int',
+            'size' => 5,
+            'units' => tra('seconds'),
+            'default' => 72000,
+        ],
     ];
 }
