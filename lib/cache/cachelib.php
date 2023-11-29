@@ -13,18 +13,40 @@ class Cachelib
 {
     private $implementation;
 
+    private const OPTIONAL_SUBSYSTEMS = [
+        'Memcache' => [
+            'pref' => 'memcache_enabled',
+            'extension' => 'memcache',
+            'class' => CacheLibMemcache::class,
+            'require' => ''
+        ],
+        'Redis' => [
+            'pref' => 'redis_enabled',
+            'extension' => 'redis',
+            'class' => CacheLibRedis::class,
+            'require' => 'lib/cache/redislib.php'
+        ],
+    ];
+
     public function __construct()
     {
         global $prefs;
 
-        if (isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] == 'y') {
-            $this->implementation = new CacheLibMemcache();
-        } elseif (isset($prefs['redis_enabled']) && $prefs['redis_enabled'] == 'y') {
-            require_once('lib/cache/redislib.php');
-            $this->implementation = new CacheLibRedis();
-        } else {
-            $this->implementation = new CacheLibFileSystem();
+        foreach (self::OPTIONAL_SUBSYSTEMS as $subsystem => $params) {
+            if (
+                ($prefs[$params['pref']] ?? 'n') === 'y'
+                && (empty($params['extension']) || extension_loaded($params['extension']))
+            ) {
+                if (! empty($params['require'])) {
+                    require_once($params['require']);
+                }
+                $this->implementation = new $params['class']();
+                return;
+            }
         }
+
+        // Default implementation and fallback
+        $this->implementation = new CacheLibFileSystem();
     }
 
     public function replaceImplementation($implementation)
@@ -212,7 +234,7 @@ class Cachelib
     {
         global $prefs;
 
-        if (isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] == 'y') {
+        if (isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] === 'y' && ($this->implementation instanceof CacheLibMemcache)) {
             $memcachelib = TikiLib::lib("memcache");
             if ($memcachelib->isEnabled()) {
                 $memcachelib->flush();
@@ -225,7 +247,7 @@ class Cachelib
     {
         global $prefs;
 
-        if (isset($prefs['redis_enabled']) && $prefs['redis_enabled'] == 'y') {
+        if (isset($prefs['redis_enabled']) && $prefs['redis_enabled'] === 'y' && $this->implementation instanceof CacheLibRedis) {
             $this->implementation->flush();
         }
         return;
@@ -484,6 +506,25 @@ class Cachelib
                 }
             }
         }
+    }
+
+    /**
+     * If there is a failure with the caching subsystem, reports the - first - system that failed.
+     * If no failures occurred, an empty string is return instead.
+     *
+     * @return string
+     */
+    public function reportOptionalSubSystemFail(): string
+    {
+        global $prefs;
+
+        foreach (self::OPTIONAL_SUBSYSTEMS as $subsystem => $params) {
+            if (($prefs[$params['pref']] ?? 'n') === 'y' && ! $this->implementation instanceof $params['class']) {
+                return $subsystem;
+            }
+        }
+
+        return ''; // empty string if no failure found
     }
 }
 

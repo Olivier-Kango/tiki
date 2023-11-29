@@ -385,6 +385,8 @@ $smarty->assign('headtitle', $headtitle);
 $smarty->assign('helpUrl', $helpUrl);
 $smarty->assign('description', $description);
 
+$smarty->assign('ProblemsLoadingCacheSubSystem', TikiLib::lib('cache')->reportOptionalSubSystemFail());
+
 // VERSION TRACKING
 $forcecheck = ! empty($_GET['forcecheck']);
 

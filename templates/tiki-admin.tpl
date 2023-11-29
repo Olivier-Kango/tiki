@@ -52,6 +52,11 @@
                 {breadcrumbs type="pagetitle" loc="page" crumbs=$crumbs}
             {/if}
             *}
+            {if $ProblemsLoadingCacheSubSystem}
+                {remarksbox type="warning" title="{tr _0=$ProblemsLoadingCacheSubSystem}%0 did not load properly{/tr}"}
+                {tr _0=$ProblemsLoadingCacheSubSystem}Tiki is configured to use <strong>%0 cache system</strong>, however, it was not loaded properly. Check if the extension has been properly loaded.{/tr}<br />
+                {/remarksbox}
+            {/if}
             {if $db_requires_update}
                 {remarksbox type="error" title="{tr}Database Version Problem{/tr}"}
                     {tr _0='<a class="alert-link" href="tiki-install.php">' _1="</a>"}Your database requires an update to match the current Tiki version. Please proceed to %0the installer%1. Using Tiki with an incorrect database version usually provokes errors{/tr}
