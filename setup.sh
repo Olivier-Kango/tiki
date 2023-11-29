@@ -1135,6 +1135,7 @@ Database: Please note that the Tiki schema does not support downgrading the data
  L run composer (log output to logfile) and exit (recommended to be done first)
  V run composer (verbose log output on screen) and exit (recommended to be done first)
  H make composer download packages over HTTP and return here
+ n run npm (install and build) and exit
 
 For all Tiki instances (via GIT or via a released package):
 
@@ -1187,6 +1188,7 @@ tiki_setup_default() {
             f)    WHAT=$WHAT_NEXT_AFTER_f ; command_fix ;;
             o)    WHAT=${DEFAULT_WHAT} ; command_open ;;
             b)    WHAT='x' ; build ;;
+            n)    WHAT=$WHAT_NEXT_AFTER_c ; npm_setup ;;
             c)    WHAT=$WHAT_NEXT_AFTER_c ; LOGCOMPOSERFLAG="0" ; composer ;;
             C)    WHAT=$WHAT_NEXT_AFTER_c ; LOGCOMPOSERFLAG="0" ; composer ;;
             L)    WHAT=$WHAT_NEXT_AFTER_c ; LOGCOMPOSERFLAG="1" ; composer ;;
