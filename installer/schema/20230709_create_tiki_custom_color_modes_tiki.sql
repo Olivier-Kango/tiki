@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `tiki_custom_color_modes` (
   	UNIQUE INDEX (`name`)
 ) ENGINE=MyISAM;
 
-INSERT INTO `tiki_custom_color_modes` (`name`, `icon`) VALUES ('light', 'sun'), ('dark','moon'), ('auto', 'circle-half');
+INSERT IGNORE INTO `tiki_custom_color_modes` (`name`, `icon`) VALUES ('light', 'sun'), ('dark','moon'), ('auto', 'circle-half');
