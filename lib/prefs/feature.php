@@ -806,6 +806,7 @@ function prefs_feature_list($partial = false)
             'help' => 'Communication-Center',
             'type' => 'flag',
             'default' => 'n',
+            'warning' => tra('This feature will be removed after Tiki27 LTS'),
         ],
         'feature_mytiki' => [
             'name' => tra('Display "My Account" in the application menu'),
