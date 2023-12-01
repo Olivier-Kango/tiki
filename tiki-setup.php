@@ -452,18 +452,6 @@ if ($prefs['rating_advanced'] == 'y' && $prefs['rating_recalculation'] == 'rando
     $ratinglib = TikiLib::lib('rating');
     $ratinglib->attempt_refresh();
 }
-//Why isn't this in lib/setup/error_tracking.php? - benoitg - 2023-05-11
-$errorTrkLib = TikiLib::lib('errortracking');
-if ($errorTrkLib->isJSEnabled()) {
-    $dsn = $errorTrkLib->getDSN();
-    $sampleRate = $errorTrkLib->getSampleRate();
-    $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/sentry--browser/build/bundle.min.js');
-    $headerlib->add_js(
-        <<<EOF
-        Sentry.init({ dsn: "$dsn", sampleRate: $sampleRate });
-        EOF
-    );
-}
 
 // using jquery-migrate-1.3.0.js plugin for tiki 11, still required in tiki 12 LTS to support some 3rd party plugins
 
