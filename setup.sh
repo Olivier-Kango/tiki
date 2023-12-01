@@ -298,8 +298,8 @@ check_hosting_platform() {
         DIR_PATH=$(cd $(dirname $CURRENT_SCRIPT) && pwd)
         PATH=$DIR_PATH/$(basename $CURRENT_SCRIPT)
 
-        if [[ $PATH =~ home\/([^\/]*) ]]; then
-            AUSER=${BASH_REMATCH[1]}
+        if echo "$PATH" | grep -q "home/[^/]*"; then
+            AUSER=$(echo "$PATH" | grep -o "home/[^/]*" | cut -d "/" -f 2)
             AGROUP=$(/usr/bin/id -gn $AUSER)
         fi
     fi
