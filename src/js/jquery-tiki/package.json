@@ -10,10 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {},
+  "devDependenciesComment": {
+    "@fullcalendar": "https://github.com/fullcalendar/fullcalendar/blob/main/CHANGELOG.md"
+  },
   "devDependencies": {
-    "@fullcalendar/core": "^6.1.9",
-    "@fullcalendar/daygrid": "^6.1.9",
-    "@fullcalendar/resource-timeline": "^6.1.9",
-    "@fullcalendar/resource-timegrid": "^6.1.9"
+    "@fullcalendar/core": "^6.1.10",
+    "@fullcalendar/daygrid": "^6.1.10",
+    "@fullcalendar/resource-timeline": "^6.1.10",
+    "@fullcalendar/resource-timegrid": "^6.1.10"
   }
 }
