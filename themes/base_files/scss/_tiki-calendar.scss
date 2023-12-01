@@ -60,5 +60,35 @@
             white-space: normal;
             font-size: 0.7rem;
         }
-    }                     
+    }
+}
+                   
+.fc-day-today {
+    .fc-daygrid-day-number {
+        background-color: #dfdfdf;
+    }
+}
+
+.fc-daygrid-day-number {
+    height: 1.4rem;
+    width: 1.4rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 5px 5px 0px 0px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+        background-color: #1977db;
+        color: #fff;           
+        cursor: pointer;
+    }
+}
+
+.fc-semester-view .fc-daygrid-day-number, .fc-quarter-view .fc-daygrid-day-number {
+    width: fit-content;
+    border-radius: 8px;
 }

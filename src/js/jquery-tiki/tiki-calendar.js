@@ -3,6 +3,8 @@
  */
 import { Calendar } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import moment from "moment";
 
 $.fn.setupFullCalendar = function (fullCalendarParams) {
@@ -12,7 +14,7 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
         $(calendarEl).tikiModal(tr("Loading..."));
 
         window.calendar = new Calendar(calendarEl, {
-            plugins: [dayGridPlugin],
+            plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
             themeSystem: "bootstrap5",
             eventTimeFormat: {
                 hour: "numeric",
@@ -168,27 +170,34 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                 }
             },
             dateClick: function (info) {
-                let $this = $(info.dayEl).tikiModal(" ");
-                const countCals = $("#filtercal ul li").length;
-                if (countCals >= 1) {
-                    $.openModal({
-                        title: tr("New event"),
-                        size: "modal-lg",
-                        remote: $.service("calendar", "edit_item", { todate: info.date.toUnix(), modal: 1 }),
-                        open: function () {
-                            $this.tikiModal();
-
-                            $("form:not(.no-ajax)", this)
-                                .addClass("no-ajax") // Remove default ajax handling, we replace it
-                                .submit(
-                                    ajaxSubmitEventHandler(function (data) {
-                                        calendarEditSubmit(data, this);
-                                    }),
-                                );
-                        },
-                    });
+                // Handle date clicks in FullCalendar.
+                // If a date number is clicked, switch to Day View for the selected date.
+                // If any other part of the date cell is clicked, open a form to create a new event.
+                if (info.jsEvent.target.classList.contains('fc-daygrid-day-number')) {
+                    window.calendar.changeView('timeGridDay', info.dateStr);
                 } else {
-                    location.href = "tiki-calendar.php";
+                    let $this = $(info.dayEl).tikiModal(" ");
+                    const countCals = $("#filtercal ul li").length;
+                    if (countCals >= 1) {
+                        $.openModal({
+                            title: tr("New event"),
+                            size: "modal-lg",
+                            remote: $.service("calendar", "edit_item", { todate: info.date.toUnix(), modal: 1 }),
+                            open: function () {
+                                $this.tikiModal();
+
+                                $("form:not(.no-ajax)", this)
+                                    .addClass("no-ajax") // Remove default ajax handling, we replace it
+                                    .submit(
+                                        ajaxSubmitEventHandler(function (data) {
+                                            calendarEditSubmit(data, this);
+                                        }),
+                                    );
+                            },
+                        });
+                    } else {
+                        location.href = "tiki-calendar.php";
+                    }
                 }
             },
             eventResize: function (info) {
