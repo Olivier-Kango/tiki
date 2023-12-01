@@ -443,7 +443,7 @@ tikiToastEditor($jsonOptions);
 
     private function processSpecialHeadings($content)
     {
-        $lines = explode("\r\n", $content);
+        $lines = preg_split('#\r?\n#', $content, 0);
         $newLines = '';
         $totalLines = count($lines);
         $r = '/#{1,6}[\$[\+\-]]?\s/';
