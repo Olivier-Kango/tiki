@@ -103,6 +103,7 @@ function smarty_function_html_select_time($params, $smarty)
         } elseif ($prefix == 'duration_' || $prefix == 'startday_' || $prefix == 'endday_') {
             if ($use_24_hours) {
                 $selected = floor($time / (60 * 60));
+                $selected = $selected < 10 ? '0' . (string) $selected : $selected;
             } else {
                 $selected = date('h', strtotime(floor($time / (60 * 60)) . ':00 '));
             }
