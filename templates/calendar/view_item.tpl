@@ -5,9 +5,11 @@
 {/block}
 
 {block name="content"}
-    <h2>{$calitem.parsedName}</h2>
-    <div class="summary">
-        {$calendar.name|escape}
+    <h5 class="mb-3">{$calitem.parsedName}</h5>
+    <div class="summary mb-4">
+        {$thiscustombgcolor = $calendar.custombgcolor}
+        {$thiscustomfgcolor = $calendar.customfgcolor}
+        <span class="px-3 py-2 rounded" style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};">{tr}Calendar{/tr} : <b>{$calendar.name|escape}</b></span>
     </div>
     {if $recurrent}
         {if $recurrence.nbRecurrences eq 1}
@@ -46,7 +48,7 @@
         {$calitem.parsed|default:"<em>{tr}No description{/tr}</em>"}
     </div>
     <div class="small mt-3">
-        <table class="table table-borderless table-sm{if $preview} table-secondary{/if}">
+        <table class="table table-borderless p-0 table-sm{if $preview} table-secondary{/if}">
             {* custom properties *}
             {if $calendar.customstatus eq 'y'}
                 <tr>

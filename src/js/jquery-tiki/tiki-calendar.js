@@ -128,12 +128,16 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                     if (textColor === "#") {
                         textColor = defaultTextColor;
                     }
-                    $(element).attr('style', 'background-color: ' + backgroundColor + '; border: 1px solid ' + textColor);
+                    $(element).attr('style', 'background-color: ' + backgroundColor);
                     if (categoryBackgroundColor !== '') {
                         $(element).attr('style', 'background-color: ' + categoryBackgroundColor);
                     }
-                    $(element).children('.fc-event-time').attr('style', 'color: ' + textColor);
-                    $(element).children('.fc-event-title').attr('style', 'color: ' + textColor);
+                    $(element).find('.fc-event-time').css({
+                        "color": textColor,
+                    });
+                    $(element).find('.fc-event-title').css({
+                        "color": textColor,
+                    });
                 }
                 element.attr("title", event.title + "|" + event.extendedProps.description);
                 element.addClass("tips");

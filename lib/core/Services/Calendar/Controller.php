@@ -639,6 +639,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         }
 
         return [
+            'title'                => $calitem['parsedName'],
             'calitem'              => $calitem,
             'recurrent'            => $calitem['recurrenceId'] ?: $input->recurrent->int(),
             'recurrence'           => $recurrence,
