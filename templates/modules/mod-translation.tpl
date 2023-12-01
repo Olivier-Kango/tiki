@@ -2,7 +2,7 @@
 
 {if $show_translation_module}
     {tikimodule error=$module_params.error title=$tpl_module_title name="translation" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
-        {if $trads|@count eq '1'}<p>{tr}There are no translations of this page.{/tr}<p>{/if}
+        {if ! empty($trads) && ($trads|@count eq '1')}<p>{tr}There are no translations of this page.{/tr}<p>{/if}
             {if $prefs.quantify_changes eq 'y'}
                 <div>
                     {tr}Up-to-date-ness:{/tr} {$mod_translation_quantification}%
