@@ -458,7 +458,7 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
 }
 
 // Get PHP properties and check them
-$php_properties = false;
+$php_properties = array();
 
 // Check error reporting level
 $e = error_reporting();
@@ -472,7 +472,6 @@ if ($l) {
         'message' => tra('Errors will be logged, since log_errors is enabled. Also, display_errors is disabled. This is good practice for a production site, to log the errors instead of displaying them.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
         );
     } else {
-        $php_properties = array();
         $php_properties['Error logging'] = array(
         'fitness' => tra('info'),
         'setting' => 'Enabled',
@@ -4036,10 +4035,10 @@ function createPage($title, $content)
             .bad, .risky { background-color: #bd362f;}
             .good, .safe { background-color: #5bb75b;}
             .info {background-color: #2f96b4;}
-           .sitetitle, h1, h2, h3, h4, h5 { 
+           .sitetitle, h1, h2, h3, h4, h5 {
             font-family: BlinkMacSystemFont,"Segoe UI", Roboto, sans-serif;
            }
-        
+
 table {
   border-spacing: 0;
 }
