@@ -377,7 +377,8 @@ class WikiPluginPluginManager extends PluginsLib
                 '<strong><code>',
                 '</code></strong>.'
             ) : '';
-            $sOutput = $title . $bold . '<br>' . $link . '<br>' . $pluginprefs . '<br> <div class="table-responsive overflow-visible">' .
+            $description = $infoPlugin['description'];
+            $sOutput = $description . '<br/>' . $title . $bold . '<br>' . $link . '<br>' . $pluginprefs . '<br> <div class="table-responsive overflow-visible">' .
                 '<table class="table table-striped table-hover">' . $header . $rows . '</table></div>' . "\n";
             return $sOutput;
         }
