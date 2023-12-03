@@ -61,7 +61,8 @@ function wikiplugin_like($data, $params)
     }
     $smarty->assign('wikiplugin_like_objectId', urlencode($objectId));
     $smarty->assign('wikiplugin_like_objectType', urlencode($objectType));
-    $smarty->assign('wikiplugin_like_count_only', urlencode($params['count_only']));
+    $smarty->assign('wikiplugin_like_count_only', urlencode($params['count_only'] ?? false));
+
     $ret = $smarty->fetch('wiki-plugins/wikiplugin_like.tpl');
     return $ret;
 }
