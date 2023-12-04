@@ -8,7 +8,7 @@
             <label class="col-form-label">
                 {tr}Raw Fields{/tr}
             </label>
-            <textarea class="form-control" name="raw" rows="30"></textarea>
+            <textarea class="form-control" name="raw" rows="20"></textarea>
         </div>
         <div class="form-check">
             <label>

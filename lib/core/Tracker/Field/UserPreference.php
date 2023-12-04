@@ -14,7 +14,6 @@ class Tracker_Field_UserPreference extends \Tracker\Field\AbstractField
 {
     public static function getTypes()
     {
-        global $prefs;
 
         $options = [
             'email' => 'email',
@@ -23,9 +22,21 @@ class Tracker_Field_UserPreference extends \Tracker\Field\AbstractField
             'avatar' => 'avatar',
         ];
 
-        foreach (array_keys($prefs) as $prefName) {
-            $options[$prefName] = $prefName;
+        $tiki_user_preferences = TikiDb::get()->table('tiki_user_preferences', false);
+
+        $userPrefs = $tiki_user_preferences->fetchColumn(
+            $tiki_user_preferences->expr('DISTINCT `prefName`'),
+            []
+        );
+
+        foreach ($userPrefs as $prefName) {
+            // filter out some prefs (lon, lat, zoom are combined in location
+            if (! in_array($prefName, ['lon', 'lat', 'zoom'])) {
+                $options[$prefName] = $prefName;
+            }
         }
+
+        ksort($options);
 
         return [
             'p' => [
