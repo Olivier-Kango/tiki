@@ -197,6 +197,10 @@ class Services_File_Controller
             throw new Services_Exception(tr('File could not be uploaded'), 406);
         }
 
+        if ($input->deleteAfter->int() && $input->deleteAfter_unit->int()) {
+            TikiLib::lib('filegal')->updateDeleteAfter($fileId, $input->deleteAfter->int() * $input->deleteAfter_unit->int());
+        }
+
         $cat_type = 'file';
         $cat_objid = $fileId;
         $cat_desc = null;

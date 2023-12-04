@@ -3547,6 +3547,11 @@ class FileGalLib extends TikiLib
         return $ret;
     }
 
+    public function updateDeleteAfter($fileId, $deleteAfter)
+    {
+        $this->table('tiki_files')->update(['deleteAfter' => $deleteAfter], ['fileId' => $fileId]);
+    }
+
     public static function getTitleFromFilename($title)
     {
         if (strpos($title, '.zip') !== strlen($title) - 4) {
