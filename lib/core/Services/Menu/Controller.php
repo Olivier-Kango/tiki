@@ -245,7 +245,7 @@ class Services_Menu_Controller
             $perm = $input->perm->text();
             $groupname = $input->asArray('groupname');
             $groupname = implode(',', $groupname);
-            $level = $input->level->text();
+            $level = $input->level->int();
             $icon = $input->icon->text();
             $class = $input->class->text();
             $tplGroupContainer = $input->tplGroupContainer->text();
