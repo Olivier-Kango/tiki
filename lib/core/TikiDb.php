@@ -20,6 +20,7 @@ abstract class TikiDb
 
     private $errorHandler;
     private $errorMessage;
+    private $errorNo;
     private $serverType;
 
     protected $savedQuery;
@@ -182,6 +183,16 @@ abstract class TikiDb
     protected function setErrorMessage($message)
     {
         $this->errorMessage = $message;
+    }
+
+    public function getErrorNo()
+    {
+        return $this->errorNo;
+    }
+
+    protected function setErrorNo($no)
+    {
+        $this->errorNo = $no;
     }
 
     protected function handleQueryError($query, $values, $result, $mode)

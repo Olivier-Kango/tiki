@@ -81,6 +81,16 @@ class TikiDb_Bridge extends TikiDb
         self::get()->setErrorMessage($message);
     }
 
+    public function getErrorNo()
+    {
+        return self::get()->getErrorNo();
+    }
+
+    protected function setErrorNo($no)
+    {
+        self::get()->setErrorNo($no);
+    }
+
     protected function handleQueryError($query, $values, $result, $mode)
     {
         self::get()->handleQueryError($query, $values, $result, $mode);

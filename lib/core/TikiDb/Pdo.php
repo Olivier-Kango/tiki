@@ -120,7 +120,7 @@ class TikiDb_Pdo extends TikiDb
                 $this->rowCount = $pq->rowCount();
             }
         } else {
-            $result = @ $this->db->query($query);
+            $result = $this->db->query($query);
             $this->rowCount = is_object($result) && get_class($result) === 'PDOStatement' ? $result->rowCount() : 0;
         }
 
@@ -134,9 +134,11 @@ class TikiDb_Pdo extends TikiDb
                 $pq->closeCursor();
             }
             $this->setErrorMessage($tmp[2]);
+            $this->setErrorNo($tmp[1]);
             return false;
         } else {
             $this->setErrorMessage("");
+            $this->setErrorNo(0);
             if (($values && ! $pq->columnCount()) || (! $values && ! $result->columnCount())) {
                 return []; // Return empty result set for statements of manipulation
             } elseif (! $values) {
