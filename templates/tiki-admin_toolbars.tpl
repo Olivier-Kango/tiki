@@ -7,7 +7,7 @@
                 {tr}Section{/tr}
             </label>
             <div class="col-sm-8">
-                <select id="section" name="section" onchange="$(this).form().tikiModal(tr('Loading...')).submit();" class="form-select">
+                <select id="section" name="section" onchange="$(this).closest('form').tikiModal(tr('Loading...')).submit();" class="form-select">
                     {foreach from=$sections item=name key=skey}
                         <option value="{$skey}"{if $skey eq $loaded} selected="selected"{/if}>{$name|escape}</option>
                     {/foreach}
@@ -19,7 +19,7 @@
                 {tr}Comments{/tr}
             </label>
             <div class="col-sm-8">
-                <input id="comments" name="comments" type="checkbox" class="form-check-input" onchange="$(this).form().tikiModal(tr('Loading...')).submit();" {if $comments eq 'on'}checked="checked" {/if}>
+                <input id="comments" name="comments" type="checkbox" class="form-check-input" onchange="$(this).closest('form').tikiModal(tr('Loading...')).submit();" {if $comments eq 'on'}checked="checked" {/if}>
             </div>
         </div>
         <div class="adminoptionbox mb-3 row">

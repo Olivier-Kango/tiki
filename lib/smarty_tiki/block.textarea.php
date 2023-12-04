@@ -421,7 +421,7 @@ function addSyntaxPlugin(domId, $form) {
         $headerlib->add_js(
             /** @lang JavaScript */            '
 function assignSubmitAction(editor){
-    editor.form().submit(function () {
+    editor.closest("form").submit(function () {
     addSyntaxPlugin("' . $as_id . '", $(this));
     return true;
 });

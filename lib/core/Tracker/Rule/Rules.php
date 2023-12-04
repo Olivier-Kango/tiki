@@ -78,11 +78,11 @@ class Rules
                 ($field['type'] === 'e' && $field['options_map']['inputtype'] === 'checkbox')
             ) {
                 // radio button / checkbox value is only relevant for the :checked one
-                $conditionPrefix = '$("' . $selector . $selectorQualifier . '", $(this).form()).length && ';
+                $conditionPrefix = '$("' . $selector . $selectorQualifier . '", $(this).closest("form")).length && ';
             } else {
                 $conditionPrefix = '';
             }
-            $conditions[] = $conditionPrefix . '$("' . $selector . $selectorQualifier . '", $(this).form())' .
+            $conditions[] = $conditionPrefix . '$("' . $selector . $selectorQualifier . '", $(this).closest("form"))' .
                 $this->getPredicateSyntax($predicate, 'Operator');
         }
 
@@ -92,7 +92,7 @@ class Rules
 
         foreach ($this->actions->predicates as $predicate) {
             if ($predicate->operator_id !== 'NoOp') {
-                $targetSelector = "\$(\"[name='{$predicate->target_id}']:last\", $(this).form())";
+                $targetSelector = "\$(\"[name='{$predicate->target_id}']:last\", $(this).closest(\"form\"))";
                 $actions[]
                     = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
                 if (strpos($predicate->operator_id, 'Required') === false) {
@@ -113,7 +113,7 @@ class Rules
         if ($this->else->predicates) {
             foreach ($this->else->predicates as $predicate) {
                 if ($predicate->operator_id !== 'NoOp') {
-                    $targetSelector = "\$(\"[name='{$predicate->target_id}']:last\", $(this).form())";
+                    $targetSelector = "\$(\"[name='{$predicate->target_id}']:last\", $(this).closest(\"form\"))";
                     $else[]
                         = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
                     if (strpos($predicate->operator_id, 'Required') === false) {
