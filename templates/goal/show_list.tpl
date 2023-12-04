@@ -19,7 +19,7 @@
 {/block}
 
 {block name="content"}
-    <div class="card bg-light">
+    <div class="card bg-body-tertiary">
         <div class="card-body">
             {$goal.description|escape}
         </div>

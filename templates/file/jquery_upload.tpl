@@ -2,7 +2,7 @@
 {* The fileinput-button span is used to style the file input field as button *}
 <div class="mb-3 row">
     <div class="col-md-12">
-        <div class="card bg-light fileupload mb-0">
+        <div class="card bg-body-tertiary fileupload mb-0">
             <div class="card-body">
                 <h3 class="text-center">{icon name="cloud-upload"} {tr}Drop files or {/tr}
                     <div class="btn btn-primary fileinput-button">

@@ -82,7 +82,7 @@
 {/if}
 <div {if $id}id="{$id}-div" {/if}class="table-responsive ts-wrapperdiv {if $sticky}table-sticky{/if}" {if $tsOn}style="visibility:hidden;"{/if}>
     <table {if $id}id="{$id}" {/if}class="table normal table-hover table-striped" data-count="{$count}">
-        <thead class="{if $sticky}bg-light{/if}">
+        <thead class="{if $sticky}bg-body-tertiary{/if}">
         {$header=false}
         {if isset($column)}
             {foreach from=$column item=col}

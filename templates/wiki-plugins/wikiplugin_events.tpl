@@ -1,5 +1,5 @@
 {if $invalideid}
-    <div class="card bg-light"><div class="card-body">{tr}The calendarid parameter is invalid or contains an id that does not exist.{/tr}</div></div>
+    <div class="card bg-body-tertiary"><div class="card-body">{tr}The calendarid parameter is invalid or contains an id that does not exist.{/tr}</div></div>
 {else}
     <div class="table-responsive">
     <table class="table table-condensed table-bordered">

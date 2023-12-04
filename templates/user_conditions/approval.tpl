@@ -5,7 +5,7 @@
 {/block}
 
 {block name="content"}
-    <div class="card bg-light">
+    <div class="card bg-body-tertiary">
         <div class="card-body">
             <div style="overflow: auto; max-height: 400px;">
             {$content}

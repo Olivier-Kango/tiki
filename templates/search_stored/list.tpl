@@ -7,7 +7,7 @@
 {block name="content"}
 {if $queryId}
     {if $description}
-        <div class="card bg-light">
+        <div class="card bg-body-tertiary">
             <div class="card-body">
                 {$description}
             </div>

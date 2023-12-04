@@ -127,7 +127,7 @@
                 >
 
                     {if $showfieldname ne 'n' and empty($tpl)}
-                        <thead class="{if $sticky}bg-light{/if}">
+                        <thead class="{if $sticky}bg-body-tertiary{/if}">
                             <tr>
                                 {$precols = 0}
                                 {$fieldcount = 0}

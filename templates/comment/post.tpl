@@ -75,7 +75,7 @@
                         </div>
                     {else}
                         {if $diffInfo}
-                            <div class="card bg-light">
+                            <div class="card bg-body-tertiary">
                                 <div class="card-body">
                                     {foreach $diffInfo as $info}
                                         <label>{$info.fieldName}</label> {*{$info.value} => {$info.new}<br>*}

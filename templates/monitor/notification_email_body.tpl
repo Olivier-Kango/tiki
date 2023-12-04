@@ -9,7 +9,7 @@
 
                     {activity info=$monitor}
 
-                    <div class="card bg-light">
+                    <div class="card bg-body-tertiary">
                         <div class="card-body">
                             <p>
                             <small>{tr}You receive this notification because you requested it.{/tr} {tr}If you did not request these emails or did so in an error, please use the following link:{/tr}</small>

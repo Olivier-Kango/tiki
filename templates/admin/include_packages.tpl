@@ -258,7 +258,7 @@
                         <button type="button" data-bs-toggle="collapse" data-package-name="{$entry.name}" data-collapse-key="collapse-{$entry.key}" href="#collapse-{$entry.key}" role="button" aria-expanded="false" aria-controls="collapse-{$entry.name}" class="btn btn-light collapse-package-detail">{tr}Info{/tr}</button>
                     </td>
                 </tr>
-                <tr class="collapse border bg-light" id="collapse-{$entry.key}">
+                <tr class="collapse border bg-body-tertiary" id="collapse-{$entry.key}">
                     <td colspan="5">
                         <h6 class="text-info"><b>{$entry.name}</b></h6>
                         <div class="detail-package" data-package-name="{$entry.name}"></div>

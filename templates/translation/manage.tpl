@@ -20,7 +20,7 @@
             {/foreach}
         </ul>
     {else}
-        <div class="card bg-light">
+        <div class="card bg-body-tertiary">
             <div class="card-body">
                 {tr}No translations available at this time.{/tr}
             </div>
@@ -45,7 +45,7 @@
                 </div>
             </form>
         {else}
-            <div class="card bg-light">
+            <div class="card bg-body-tertiary">
                 <div class="card-body">
                     {tr}All possible translations exist.{/tr}
                 </div>

@@ -8,7 +8,7 @@
             </label>
             <input id="vimeofiletitle" type="text" name="title" class="form-control" required />
         </div>
-        <div class="card bg-light fileupload mb-0">
+        <div class="card bg-body-tertiary fileupload mb-0">
             <div class="card-body">
                 <p class="text-center">{icon name="cloud-upload"} {tr}Browse for video file to upload{/tr}
                     {* The file input field used as target for the file upload widget *}

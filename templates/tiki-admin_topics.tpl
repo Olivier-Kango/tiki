@@ -24,7 +24,7 @@
     <div class="mb-3 row">
         <label class="col-sm-2 col-form-label" for="notificationemail">{tr}Notification Email{/tr}</label>
         <div class="col-sm-10">
-            <div class="card bg-light">
+            <div class="card bg-body-tertiary">
                 <div class="card-body">
                     {tr}You will be able to add a notification email per article topic when you edit the topic after its creation{/tr}
                 </div>
