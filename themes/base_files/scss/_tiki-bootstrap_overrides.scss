@@ -431,3 +431,8 @@ body.fullscreen.tiki.navbar-padding {
     padding-top: .5rem;
     padding-bottom: .5rem;
 }
+
+// !important is needed here (after setting enable-important-utilities variable to false). g_c-l
+.flex-column {
+    flex-direction: column !important;
+}
