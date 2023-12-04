@@ -91,7 +91,7 @@ class CalRecurrence extends TikiLib
                 $this->setDays($row['days']);
                 $this->setWeekly($row['weekly'] == 1);
                 $this->setWeeks($row['weeks']);
-                $this->setWeekdays($row['weekdays']);
+                $this->setWeekdays(is_null($row['weekdays']) ? '' : $row['weekdays']);
                 $this->setMonthly($row['monthly'] == 1);
                 $this->setMonths($row['months']);
                 $this->setDayOfMonth($row['dayOfMonth']);
@@ -132,7 +132,7 @@ class CalRecurrence extends TikiLib
             $this->setDays(1);
             $this->setWeekly(0);
             $this->setWeeks(1);
-            $this->setWeekdays([]);
+            $this->setWeekdays('');
             $this->setMonthly(0);
             $this->setMonths(1);
             $this->setDayOfMonth('');
@@ -251,11 +251,8 @@ class CalRecurrence extends TikiLib
             return false;
         }
         if ($this->isWeekly()) {
-            $weekdays = $this->getWeekdays();
             // recurrence should be correctly defined
-            if (is_string($this->getWeekdays())) {
-                $weekdays = explode(',', $this->getWeekdays());
-            }
+            $weekdays = $this->getWeekdays();
             $weekdays = array_filter($weekdays, function ($day) {
                 return in_array($day, ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']);
             });
@@ -368,7 +365,7 @@ class CalRecurrence extends TikiLib
                         $this->getDays(),
                         $this->isWeekly() ? 1 : 0,
                         $this->getWeeks(),
-                        $this->getWeekdays(),
+                        implode(',', $this->getWeekdays()),
                         $this->isMonthly() ? 1 : 0,
                         $this->getMonths(),
                         $this->getDayOfMonth(),
@@ -430,7 +427,7 @@ class CalRecurrence extends TikiLib
                         $this->getDays(),
                         $this->isWeekly() ? 1 : 0,
                         $this->getWeeks(),
-                        $this->getWeekdays(),
+                        implode(',', $this->getWeekdays()),
                         $this->isMonthly() ? 1 : 0,
                         $this->getMonths(),
                         $this->getDayOfMonth(),
@@ -721,7 +718,7 @@ class CalRecurrence extends TikiLib
         if ($this->isWeekly() && ($this->getWeeks() != $oldRec->getWeeks())) {
             $result[] = "_weeks";
         }
-        if ($this->isWeekly() && ($this->getWeekdays() != $oldRec->getWeekdays())) {
+        if ($this->isWeekly() && (implode(',', $this->getWeekdays()) != $oldRec->getWeekdays())) {
             $result[] = "_weekdays";
         }
         if ($this->isMonthly() && ($this->getMonths() != $oldRec->getMonths())) {
@@ -810,7 +807,7 @@ class CalRecurrence extends TikiLib
         }
         if ($oldRec->isWeekly()) {
             $weekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-            if (! in_array($weekdays[TikiLib::date_format2('w', $evt['start'])], explode(',', $oldRec->getWeekdays()))) {
+            if (! in_array($weekdays[TikiLib::date_format2('w', $evt['start'])], $oldRec->getWeekdays())) {
                 $result[] = "_weekdays";
             }
         } elseif ($oldRec->isMonthly()) {
@@ -954,7 +951,7 @@ class CalRecurrence extends TikiLib
                 $rrule .= ';INTERVAL=' . $this->getDays();
             }
         } elseif ($this->isWeekly()) {
-            $rrule = 'FREQ=WEEKLY;BYDAY=' . $this->getWeekdays();
+            $rrule = 'FREQ=WEEKLY;BYDAY=' . implode(',', $this->getWeekdays());
             if ($this->getWeeks() > 1) {
                 $rrule .= ';INTERVAL=' . $this->getWeeks();
             }
@@ -1012,7 +1009,7 @@ class CalRecurrence extends TikiLib
             'days' => $this->getDays(),
             'weekly' => $this->isWeekly(),
             'weeks' => $this->getWeeks(),
-            'weekdays' => array_filter(explode(',', $this->getWeekdays())),
+            'weekdays' => $this->getWeekdays(),
             'monthly' => $this->isMonthly(),
             'months' => $this->getMonths(),
             'dayOfMonth' => array_filter(explode(',', $this->getDayOfMonth())),
@@ -1280,7 +1277,7 @@ class CalRecurrence extends TikiLib
      */
     public function setWeekdays($value)
     {
-        $this->weekdays = $value;
+        $this->weekdays = array_filter(explode(',', $value));
     }
 
     public function isMonthly()
