@@ -106,7 +106,6 @@
             <div class="mb-3 row">
                 <label class="col-md-4 col-form-label" for="geolocation">{tr}Location{/tr}</label>
                 <div class="col-md-8">
-                    {$headerlib->add_map()}
                     <div class="map-container form-control" data-geo-center="{defaultmapcenter}" data-target-field="geolocation" style="height: 250px;"></div>
                     <input type="hidden" name="geolocation" id="geolocation" value="{$geolocation_string}">
                 </div>

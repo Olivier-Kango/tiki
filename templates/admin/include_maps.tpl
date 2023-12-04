@@ -31,8 +31,6 @@
             {preference name=wikiplugin_map}
             {preference name=trackerfield_location}
 
-            {preference name=geo_always_load_openlayers}
-
             {preference name=gmap_key}
             {preference name=geo_bingmaps_key}
             {preference name=geo_nextzen_key}

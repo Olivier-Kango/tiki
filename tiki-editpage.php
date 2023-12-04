@@ -1714,7 +1714,6 @@ if ($prefs['feature_contribution'] === 'y') {
 
 if (! empty($prefs['geo_locate_wiki']) && $prefs['geo_locate_wiki'] == 'y') {
     $smarty->assign('geolocation_string', TikiLib::lib('geo')->get_coordinates_string('wiki page', $page));
-    $headerlib->add_map();
 }
 
 if ($prefs['feature_multilingual'] === 'y' && $tikilib->page_exists($page)) {

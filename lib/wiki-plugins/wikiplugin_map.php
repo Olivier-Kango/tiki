@@ -253,8 +253,6 @@ function wikiplugin_map($data, $params)
         $center = $geolib->get_default_center();
     }
 
-    TikiLib::lib('header')->add_map();
-
     global $prefs;
 
     if (! isset($params['library'])) {

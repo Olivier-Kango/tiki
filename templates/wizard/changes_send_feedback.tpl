@@ -49,7 +49,6 @@
                     {preference name="connect_site_keywords"}
                     {preference name="connect_site_location"}
                     <div class="adminoptionboxchild ps-5">
-                        {$headerlib->add_map()}
                         <div class="adminoptionboxchild map-container" style="height:250px;width:400px;" data-geo-center="{defaultmapcenter}" data-target-field="connect_site_location"{if $prefs.connect_server_mode eq "y"}
                             data-icon-name="tiki" data-icon-src="img/tiki/tikiicon.png"
                             data-icon-size="[16,16]" data-icon-offset="[-8,-16]" data-marker-filter=".geolocated.connection"{/if}>

@@ -31,8 +31,6 @@ $access->check_user($user);
 
 $auto_query_args = ['userId', 'view_user'];
 
-$headerlib->add_map();
-
 // Make sure user preferences uses https if SET
 if (! $https_mode && isset($https_login) && $https_login == 'required') {
     header('Location: ' . $base_url_https . 'tiki-user_preferences.php');

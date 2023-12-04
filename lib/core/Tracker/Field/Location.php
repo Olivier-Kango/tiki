@@ -143,7 +143,6 @@ class Tracker_Field_Location extends \Tracker\Field\AbstractField implements \Tr
 
     public function renderInput($context = [])
     {
-        TikiLib::lib('header')->add_map();
         return $this->renderTemplate('trackerinput/location.tpl', $context);
     }
 
@@ -152,8 +151,6 @@ class Tracker_Field_Location extends \Tracker\Field\AbstractField implements \Tr
         if ($context['list_mode'] === 'csv') {
             return $this->getConfiguration('value');
         } else {
-            TikiLib::lib('header')->add_map();
-
             $attributes = TikiLib::lib('attribute')->get_attributes('trackeritem', $this->getItemId());
 
             if (isset($attributes['tiki.icon.src'])) {

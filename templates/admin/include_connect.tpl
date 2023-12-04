@@ -85,7 +85,6 @@
                         {preference name="connect_site_location"}
                         <div class="mb-3 row">
                             <div class="offset-sm-4 col-sm-8">
-                                {$headerlib->add_map()}
                                 <div class="map-container" style="height:250px;width:400px;" data-geo-center="{defaultmapcenter}"
                                     data-target-field="connect_site_location"{if $prefs.connect_server_mode eq "y"}
                                     data-icon-name="tiki" data-icon-src="img/tiki/tikiicon.png"

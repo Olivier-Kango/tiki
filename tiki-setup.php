@@ -725,7 +725,7 @@ if ($prefs['feature_draw'] == 'y') {
     $headerlib->add_cssfile("themes/base_files/feature_css/svg-edit-draw.css");
 }
 
-if ($prefs['geo_always_load_openlayers'] == 'y') {
+if ($prefs['geo_enabled'] === 'y') {
     $headerlib->add_map();
 }
 

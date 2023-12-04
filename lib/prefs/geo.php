@@ -90,13 +90,6 @@ function prefs_geo_list()
             'default' => 'n',
             'tags' => ['basic', 'experimental'],
         ],
-        'geo_always_load_openlayers' => [
-            'name' => tr('Always load OpenLayers'),
-            'description' => tr('Load the OpenLayers library even if no map is explicitly included in the page'),
-            'dependencies' => ['geo_enabled'],
-            'type' => 'flag',
-            'default' => 'n',
-        ],
         'geo_zoomlevel_to_found_location' => [
             'name' => tr('Zoom level for the found location'),
             'description' => tr('Zoom level when a searched-for location is found'),

@@ -348,7 +348,6 @@
                     <div class="col-md-8">
                         <div class="map-container" data-geo-center="{defaultmapcenter}" data-target-field="geolocation"></div>
                         <input type="hidden" name="geolocation" value="{$geolocation_string|escape}">
-                        {$headerlib->add_map()}
                     </div>
                 </div>
             {/if}
