@@ -24,7 +24,17 @@ if (http_response_code() !== false) {
 }
     /** Present if we are in the Tiki console. */
 const TIKI_CONSOLE = 1;
+$_autoloaderIsAvailable = false;
 
+// we autoload if autoloading is available, otherwise we continue so Tiki can throw its regular errors.
+if (include('vendor_bundled/vendor/autoload.php')) {
+    $_autoloaderIsAvailable = true;
+    // Set MultiTiki status before Tiki is initialized
+    $input = new ArgvInput();
+    $_SERVER['TIKI_VIRTUAL'] = $input->getParameterOption(['--site']) ?: null;
+}
+
+// Include this after autoloader because part of custom handler depends on autoloader
 set_error_handler("custom_error_handler"); // attempt to throw exceptions that we can catch
 declare(ticks=1); // how often to check for signals
 if (function_exists('pcntl_signal')) {
@@ -38,13 +48,6 @@ if (function_exists('pcntl_signal')) {
     pcntl_signal(SIGTERM, $exit);
     pcntl_signal(SIGHUP, $exit);
     pcntl_signal(SIGINT, $exit);
-}
-
-// we autoload if autoloading is available, otherwise we continue so Tiki can throw its regular errors.
-if (include('vendor_bundled/vendor/autoload.php')) {
-    // Set MultiTiki status before Tiki is initialized
-    $input = new ArgvInput();
-    $_SERVER['TIKI_VIRTUAL'] = $input->getParameterOption(['--site']) ?: null;
 }
 
 try {
@@ -134,8 +137,10 @@ function custom_error_handler($number, $message, $file, $line): void
 
     if ($error_is_enabled) {
         $exception = new ErrorException($message, 0, $number, $file, $line);
-        TikiLib::lib('errortracking')->captureException($exception);
-
+        // Check if autoloader is available, then call TikiLib
+        if ($GLOBALS['_autoloaderIsAvailable']) {
+            TikiLib::lib('errortracking')->captureException($exception);
+        }
         // Fatal Errors
         // throw an Error Exception, to be handled by whatever Exception handling logic is available in this context
         if (in_array($number, [E_USER_ERROR, E_RECOVERABLE_ERROR]) && $error_is_enabled) {
