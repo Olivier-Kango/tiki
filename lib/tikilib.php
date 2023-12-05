@@ -205,6 +205,12 @@ class TikiLib extends TikiDb_Bridge
             $arguments = json_decode($arguments, true);
         }
 
+        if (empty($arguments) && ! empty($info['user']) && ! empty($info['pass'])) {
+            $method = 'basic';
+            $arguments['username'] = $info['user'];
+            $arguments['password'] = $info['pass'];
+        }
+
         return compact('method', 'arguments');
     }
 
