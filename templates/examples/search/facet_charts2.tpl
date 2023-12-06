@@ -126,4 +126,10 @@ Debugging:
             {/if}
         {/foreach}
     </div>
+{else}
+    {if $prefs.unified_engine neq 'elastic' and $prefs.unified_engine neq 'manticore'}
+        {remarksbox type="error" title="{tr}Search engine not supported{/tr}"}
+            {tr}Only Elasticsearch and Manticore Search engines support facets, not {$prefs.unified_engine}{/tr}
+        {/remarksbox}
+    {/if}
 {/if}
