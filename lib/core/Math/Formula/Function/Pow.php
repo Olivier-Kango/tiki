@@ -23,7 +23,7 @@ class Math_Formula_Function_Pow extends Math_Formula_Function
 
         foreach ($elements as $child) {
             if (! is_numeric($child)) {
-               $this->error(tr('Trying to execute pow on a non-numeric value "%0"', $child));
+                $this->error(tr('Trying to execute pow on a non-numeric value "%0"', $child));
             }
         }
 
