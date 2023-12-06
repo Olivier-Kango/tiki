@@ -1141,6 +1141,18 @@
         "lib\/core\/Math\/Formula\/Function\/Upper.php": {
             "class:Math_Formula_Function_Upper": true
         },
+        "lib\/core\/Math\/Formula\/Function\/Percentile.php": {
+            "class:Math_Formula_Function_Percentile": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/Pow.php": {
+            "class:Math_Formula_Function_Pow": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/Sqrt.php": {
+            "class:Math_Formula_Function_Sqrt": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/StandardDeviation.php": {
+            "class:Math_Formula_Function_StandardDeviation": true
+        },
         "lib\/core\/Math\/Formula\/Runner.php": {
             "class:Math_Formula_Runner": true
         },
@@ -4675,6 +4687,18 @@
         },
         "lib\/core\/Math\/Formula\/Function\/Upper.php": {
             "Math_Formula_Function_Upper": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/Percentile.php": {
+            "Math_Formula_Function_Percentile": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/Pow.php": {
+            "Math_Formula_Function_Pow": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/Sqrt.php": {
+            "Math_Formula_Function_Sqrt": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/StandardDeviation.php": {
+            "Math_Formula_Function_StandardDeviation": true
         },
         "lib\/core\/Math\/Formula\/Runner.php": {
             "Math_Formula_Runner": true

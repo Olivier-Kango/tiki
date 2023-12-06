@@ -52,6 +52,6 @@ class Math_Formula_Function_Percentile extends Math_Formula_Function
             return $list[$i];
         }
 
-        return $list[$i] + ($list[$i+1] - $list[$i]) * $dec;
+        return $list[$i] + ($list[$i + 1] - $list[$i]) * $dec;
     }
 }

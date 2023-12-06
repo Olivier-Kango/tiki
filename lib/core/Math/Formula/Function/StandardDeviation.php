@@ -23,7 +23,7 @@ class Math_Formula_Function_StandardDeviation extends Math_Formula_Function
 
         foreach ($elements as $child) {
             if (! is_numeric($child)) {
-               $this->error(tr('Trying to execute standard-deviation on a non-numeric value "%0"', $child));
+                $this->error(tr('Trying to execute standard-deviation on a non-numeric value "%0"', $child));
             }
         }
 
