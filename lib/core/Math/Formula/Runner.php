@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Math_Formula_Runner
 {
+    public static $cached_variables = [];
+
     private $sources = [];
     private $collected = [];
     private $element;
@@ -83,6 +85,8 @@ class Math_Formula_Runner
             }
         } elseif (false !== $value = $this->findVariable(explode('.', $data), $this->variables)) {
             $out = $value;
+        } elseif (isset(self::$cached_variables[$data])) {
+            $out = self::$cached_variables[$data];
         } else {
             throw new Math_Formula_Exception(tr('Variable not found "%0".', $data));
         }
