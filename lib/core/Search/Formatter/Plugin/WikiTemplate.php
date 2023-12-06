@@ -47,6 +47,8 @@ class Search_Formatter_Plugin_WikiTemplate implements Search_Formatter_Plugin_In
 
     public function prepareEntry($valueFormatter)
     {
+        $parser = new WikiParser_PluginArgumentParser();
+
         $matches = clone $this->template;
 
         foreach ($matches as $match) {
@@ -55,7 +57,13 @@ class Search_Formatter_Plugin_WikiTemplate implements Search_Formatter_Plugin_In
             if ($name === 'display') {
                 $match->replaceWith((string) $this->processDisplay($valueFormatter, $match->getBody(), $match->getArguments()));
             } elseif ($name === 'calc') {
-                $match->replaceWith((string) $this->processCalc($valueFormatter, $match));
+                $value = $this->processCalc($valueFormatter, $match);
+                $match->replaceWith((string) $value);
+
+                $arguments = $parser->parse($match->getArguments());
+                if (! empty($arguments['cache_as'])) {
+                    Math_Formula_Runner::$cached_variables[$arguments['cache_as']] = $value;
+                }
             }
         }
 

@@ -57,7 +57,28 @@ class Search_Formatter_Plugin_ReportTemplate implements Search_Formatter_Plugin_
 
     public function renderEntries(Search_ResultSet $entries)
     {
+        $parser = new WikiParser_PluginArgumentParser();
+
+        $variables = ['results' => (array)$entries];
+
         $matches = clone $this->template;
+        foreach ($matches as $match) {
+            $name = $match->getName();
+
+            if ($name === 'groupreport') {
+                $arguments = $parser->parse($match->getArguments());
+                if (isset($arguments['field'], $arguments['value'], $arguments['name'])) {
+                    $filtered = [];
+                    foreach ($entries as $entry) {
+                        if ($entry[$arguments['field']] == $arguments['value']) {
+                            $filtered[] = $entry;
+                        }
+                    }
+                    $variables[$arguments['name']] = $filtered;
+                }
+                $match->replaceWith('');
+            }
+        }
         foreach ($matches as $match) {
             $name = $match->getName();
 
@@ -71,12 +92,17 @@ class Search_Formatter_Plugin_ReportTemplate implements Search_Formatter_Plugin_
                 $value = '';
                 try {
                     $runner->setFormula($match->getBody());
-                    $runner->setVariables(['results' => (array)$entries]);
+                    $runner->setVariables($variables);
                     $value = $runner->evaluate();
                 } catch (Math_Formula_Exception $e) {
                     $value = tr('Error evaluating formula %0: %1', $match->getBody(), $e->getMessage());
                 }
                 $match->replaceWith((string)$value);
+
+                $arguments = $parser->parse($match->getArguments());
+                if (! empty($arguments['cache_as'])) {
+                    Math_Formula_Runner::$cached_variables[$arguments['cache_as']] = $value;
+                }
             }
         }
         return $matches->getText();
