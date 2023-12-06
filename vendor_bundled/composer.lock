@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0418d9efa0950649bbdfc39a4fc51809",
+    "content-hash": "f82f0430a8c9a416484ac5f07ff19fbf",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1364,20 +1364,20 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.16.0",
+            "version": "v4.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "523407fb06eb9e5f3d59889b3978d5bfe94299c8"
+                "reference": "bbc513d79acf6691fa9cf10f192c90dd2957f18c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/ezyang/htmlpurifier/ezyang-htmlpurifier-523407fb06eb9e5f3d59889b3978d5bfe94299c8-zip-1aa00e.zip",
-                "reference": "523407fb06eb9e5f3d59889b3978d5bfe94299c8",
-                "shasum": "e8ee030570a8f89384f83e400060276040b36383"
+                "url": "https://composer.tiki.org/dist/ezyang/htmlpurifier/ezyang-htmlpurifier-bbc513d79acf6691fa9cf10f192c90dd2957f18c-zip-4462df.zip",
+                "reference": "bbc513d79acf6691fa9cf10f192c90dd2957f18c",
+                "shasum": "8160d9e1c6c2aa772c31946492b8e52ff3e630bc"
             },
             "require": {
-                "php": "~5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0"
+                "php": "~5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "require-dev": {
                 "cerdic/css-tidy": "^1.7 || ^2.0",
@@ -1417,7 +1417,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2022-09-18T07:06:19+00:00"
+            "time": "2023-11-17T15:01:25+00:00"
         },
         {
             "name": "fullcalendar/fullcalendar",
@@ -4113,6 +4113,7 @@
                 "laminas",
                 "twitter"
             ],
+            "abandoned": true,
             "time": "2019-12-31T17:55:08+00:00"
         },
         {
@@ -4305,6 +4306,7 @@
                     "type": "community_bridge"
                 }
             ],
+            "abandoned": true,
             "time": "2020-09-14T14:23:00+00:00"
         },
         {
@@ -4978,7 +4980,6 @@
                 "jabber",
                 "xmpp"
             ],
-            "abandoned": true,
             "time": "2019-05-20T19:04:46+00:00"
         },
         {
@@ -5182,11 +5183,11 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.22.14",
+            "version": "7.23.3",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.22.14.zip",
-                "shasum": "24743114bc73b7ef65a91a9bd14c9ddfd18e5e12"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.23.3.zip",
+                "shasum": "749807a4adb0872c2768f86caf1dd8845e6c2f2a"
             },
             "type": "npm-asset",
             "license": [
@@ -5378,11 +5379,11 @@
         },
         {
             "name": "npm-asset/csstype",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/csstype/npm-asset-csstype-3.1.1.zip",
-                "shasum": "18b4907ae5dbc3a8f363a63d51432538752f4d53"
+                "url": "https://composer.tiki.org/dist/npm-asset/csstype/npm-asset-csstype-3.1.2.zip",
+                "shasum": "11a1aa17438ef24ffe2be2b4e7f0608c8b1e08f3"
             },
             "type": "npm-asset",
             "license": [
@@ -5520,11 +5521,11 @@
         },
         {
             "name": "npm-asset/sass-svg-uri",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/sass-svg-uri/npm-asset-sass-svg-uri-1.0.0.zip",
-                "shasum": "7c188e107890d085834ebd8286d9b26d1204e25a"
+                "url": "https://composer.tiki.org/dist/npm-asset/sass-svg-uri/npm-asset-sass-svg-uri-1.0.2.zip",
+                "shasum": "90fd441d6f01fc19ea4af747aaf3b5418f2f5a1f"
             },
             "type": "npm-asset",
             "license": [
@@ -5591,15 +5592,15 @@
         },
         {
             "name": "npm-asset/vue",
-            "version": "2.7.14",
+            "version": "2.7.15",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/vue/npm-asset-vue-2.7.14.zip",
-                "shasum": "fe786c54149871da69c2bd01edf2e79bf3bcd0ae"
+                "url": "https://composer.tiki.org/dist/npm-asset/vue/npm-asset-vue-2.7.15.zip",
+                "shasum": "1ecbcfdd84e0274fbdfd38146df307c9ff5c1d95"
             },
             "require": {
                 "npm-asset/csstype": ">=3.1.0,<4.0.0",
-                "npm-asset/vue--compiler-sfc": "2.7.14"
+                "npm-asset/vue--compiler-sfc": "2.7.15"
             },
             "type": "npm-asset",
             "license": [
@@ -5608,11 +5609,11 @@
         },
         {
             "name": "npm-asset/vue--compiler-sfc",
-            "version": "2.7.14",
+            "version": "2.7.15",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/vue--compiler-sfc/npm-asset-vue--compiler-sfc-2.7.14.zip",
-                "shasum": "44f4de57643a63a7501bfa7044738c57cb4c8e88"
+                "url": "https://composer.tiki.org/dist/npm-asset/vue--compiler-sfc/npm-asset-vue--compiler-sfc-2.7.15.zip",
+                "shasum": "315b630280b5b08f9d9b725c81b70098956bbd9a"
             },
             "require": {
                 "npm-asset/babel--parser": ">=7.18.4,<8.0.0",
@@ -6040,17 +6041,17 @@
         },
         {
             "name": "pear/pear",
-            "version": "v1.10.13",
+            "version": "v1.10.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/pear-core.git",
-                "reference": "edb8e0cf49755b1c0528c46edaa0238c63cc4d47"
+                "reference": "92bf682de3a1921e6eadb880e933250b6cc78cfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/pear/pear/pear-pear-edb8e0cf49755b1c0528c46edaa0238c63cc4d47-zip-cd6e7d.zip",
-                "reference": "edb8e0cf49755b1c0528c46edaa0238c63cc4d47",
-                "shasum": "092b82a4e29ea67518adda84e6d00d0d4588bed9"
+                "url": "https://composer.tiki.org/dist/pear/pear/pear-pear-92bf682de3a1921e6eadb880e933250b6cc78cfd-zip-2a8efa.zip",
+                "reference": "92bf682de3a1921e6eadb880e933250b6cc78cfd",
+                "shasum": "3fc3c61fb155fdb885ee688e0c3a0c078e184c5c"
             },
             "require": {
                 "ext-pcre": "*",
@@ -6058,7 +6059,8 @@
                 "pear/archive_tar": "*",
                 "pear/console_getopt": "*",
                 "pear/structures_graph": "*",
-                "pear/xml_util": "*"
+                "pear/xml_util": "*",
+                "php": ">=5.4"
             },
             "replace": {
                 "pear/pear-core-minimal": "*"
@@ -6074,6 +6076,9 @@
             "autoload": {
                 "classmap": [
                     "./"
+                ],
+                "exclude-from-classmap": [
+                    "/tests/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -6131,7 +6136,7 @@
                 }
             ],
             "description": "This is the definitive source of PEAR's core files.",
-            "time": "2021-08-10T22:24:49+00:00"
+            "time": "2023-11-26T16:17:59+00:00"
         },
         {
             "name": "pear/pear_exception",
@@ -7120,17 +7125,17 @@
         },
         {
             "name": "sabre/vobject",
-            "version": "4.5.3",
+            "version": "4.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/vobject.git",
-                "reference": "fe6d9183154ed6f2f913f2b568d3d51d8ae9b308"
+                "reference": "a6d53a3e5bec85ed3dd78868b7de0f5b4e12f772"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/vobject/sabre-vobject-fe6d9183154ed6f2f913f2b568d3d51d8ae9b308-zip-1d5dcb.zip",
-                "reference": "fe6d9183154ed6f2f913f2b568d3d51d8ae9b308",
-                "shasum": "c2a190c2fc23314f2039c905b6b42b47f54d1199"
+                "url": "https://composer.tiki.org/dist/sabre/vobject/sabre-vobject-a6d53a3e5bec85ed3dd78868b7de0f5b4e12f772-zip-720dbb.zip",
+                "reference": "a6d53a3e5bec85ed3dd78868b7de0f5b4e12f772",
+                "shasum": "2f5c2a84ac8be11ccaf9020255a17ff86a03dcd5"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -7215,7 +7220,7 @@
                 "xCal",
                 "xCard"
             ],
-            "time": "2023-01-22T12:21:50+00:00"
+            "time": "2023-11-09T12:54:37+00:00"
         },
         {
             "name": "sabre/xml",
@@ -7283,17 +7288,17 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "v1.11.1",
+            "version": "v1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "ace2503684bab0dcc817d7614c8a54b865122414"
+                "reference": "a6b20c170ddb95f116b3d148a466a7bed1e85c35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/scssphp/scssphp/scssphp-scssphp-ace2503684bab0dcc817d7614c8a54b865122414-zip-2850eb.zip",
-                "reference": "ace2503684bab0dcc817d7614c8a54b865122414",
-                "shasum": "90be36e0a97997d01b51d90c7220e81231113125"
+                "url": "https://composer.tiki.org/dist/scssphp/scssphp/scssphp-scssphp-a6b20c170ddb95f116b3d148a466a7bed1e85c35-zip-e51cce.zip",
+                "reference": "a6b20c170ddb95f116b3d148a466a7bed1e85c35",
+                "shasum": "06e099e4ec712a476eface11e07c448761d5c9d5"
             },
             "require": {
                 "ext-ctype": "*",
@@ -7355,7 +7360,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2023-09-24T13:38:17+00:00"
+            "time": "2023-11-14T14:56:09+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -7426,17 +7431,17 @@
         },
         {
             "name": "sorich87/bootstrap-tour",
-            "version": "dev-master",
+            "version": "v0.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sorich87/bootstrap-tour.git",
-                "reference": "c501ce7ad1728050b0882bb9316f5c33df87f6a2"
+                "reference": "1a06475e27f852bb642b9353574638d51673b0d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sorich87/bootstrap-tour/sorich87-bootstrap-tour-c501ce7ad1728050b0882bb9316f5c33df87f6a2-zip-c67f6d.zip",
-                "reference": "c501ce7ad1728050b0882bb9316f5c33df87f6a2",
-                "shasum": "0c3815b7a79c2afaa21f953288131a872245599f"
+                "url": "https://composer.tiki.org/dist/sorich87/bootstrap-tour/sorich87-bootstrap-tour-1a06475e27f852bb642b9353574638d51673b0d5-zip-c047fa.zip",
+                "reference": "1a06475e27f852bb642b9353574638d51673b0d5",
+                "shasum": "d3d538b9d49daced2a2b1f3e55aa9dc67856a833"
             },
             "type": "component",
             "notification-url": "https://packagist.org/downloads/",
@@ -7449,7 +7454,7 @@
                 "bootstrap",
                 "tour"
             ],
-            "time": "2021-08-11T06:10:54+00:00"
+            "time": "2017-09-30T10:35:18+00:00"
         },
         {
             "name": "studio-42/elfinder",
@@ -10811,17 +10816,17 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v5.4.21",
+            "version": "v5.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "a866ca7e396f15d7efb6d74a8a7d364d4e05b704"
+                "reference": "0ed1f634a36606f2065eec221b3975e05016cbbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/browser-kit/symfony-browser-kit-a866ca7e396f15d7efb6d74a8a7d364d4e05b704-zip-780938.zip",
-                "reference": "a866ca7e396f15d7efb6d74a8a7d364d4e05b704",
-                "shasum": "85761c4a1a75d8f4e51db52457c074833d1cadf6"
+                "url": "https://composer.tiki.org/dist/symfony/browser-kit/symfony-browser-kit-0ed1f634a36606f2065eec221b3975e05016cbbe-zip-4d66cb.zip",
+                "reference": "0ed1f634a36606f2065eec221b3975e05016cbbe",
+                "shasum": "cca18faeb5959e9feebcf0dbdb2e61e5df521e67"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -10876,7 +10881,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-14T08:03:56+00:00"
+            "time": "2023-10-31T07:58:33+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -11077,7 +11082,6 @@
         "erusev/parsedown": 10,
         "hesammousavi/bootstrap-v4-rtl": 20,
         "npm-asset/html2canvas": 5,
-        "sorich87/bootstrap-tour": 20,
         "zendframework/zendsearch": 20,
         "montefuscolo/xmpp": 20
     },
