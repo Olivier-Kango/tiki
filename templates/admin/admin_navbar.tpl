@@ -98,7 +98,7 @@
 
 {if $lm_searchresults}
     <div class="alert alert-secondary alert-dismissible pe-3" id="pref_searchresults">
-        <button type="button" id="pref_searchresults-close" class="btn-close mt-3" aria-hidden="true"></button>
+        <button type="button" class="btn-close mt-3" aria-hidden="true" data-bs-dismiss="alert"></button>
             <h3 class=alert-heading">{tr}Preference Search Results{/tr}</h3>
         <form method="post" href="tiki-admin.php" class="px-4" role="form">
             <div class="pref_search_results">
@@ -113,11 +113,6 @@
             {ticket}
         </form>
     </div>
-    {jq}
-        $( "#pref_searchresults-close" ).click(function() {
-            $( "#pref_searchresults" ).hide();
-        });
-    {/jq}
 {elseif $lm_criteria}
     {remarksbox type="note" title="{tr}No results{/tr}" icon="magnifier"}
         {tr}No preferences were found for your search query.{/tr}<br>
