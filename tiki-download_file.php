@@ -157,6 +157,10 @@ if (isset($attributes['tiki.content.url'])) {
     exit();
 }
 
+if (! is_array($info)) {
+    $access->display_error(null, tra('File has been deleted'), 404);
+}
+
 // Add hits ( if download or display only ) + lock if set
 if (! isset($_GET['thumbnail']) && ! isset($_GET['icon'])) {
     $statslib = TikiLib::lib('stats');
