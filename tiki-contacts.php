@@ -118,7 +118,7 @@ if (is_array($contacts)) {
         $all_personnal = [];
 
         foreach ($contacts as $c) {
-            if (is_array($c['groups'])) {
+            if (array_key_exists('groups', $c) && is_array($c['groups'])) {
                 foreach ($c['groups'] as $g) {
                     $all[$g][] = $c;
                 }

@@ -26,10 +26,15 @@ class DirLib extends TikiLib
     {
         global $prefs;
         $info = $this->dir_get_category($categId);
-        $path = '<a class="link" href="tiki-directory_admin_categories.php?parent=' . $info["categId"] . '">' . $info["name"] . '</a>';
-        while ($info["parent"] != 0) {
-            $info = $this->dir_get_category($info["parent"]);
-            $path = '<a class="link" href="tiki-directory_admin_categories.php?parent=' . $info["categId"] . '">' . $info["name"] . '</a>' . $prefs['site_crumb_seper'] . $path;
+        $path = '';
+        if ($info) {
+            $path = '<a class="link" href="tiki-directory_admin_categories.php?parent=' . $info["categId"] . '">' . $info["name"] . '</a>';
+            while ($info["parent"] != 0) {
+                $info = $this->dir_get_category($info["parent"]);
+                if ($info) {
+                    $path = '<a class="link" href="tiki-directory_admin_categories.php?parent=' . $info["categId"] . '">' . $info["name"] . '</a>' . $prefs['site_crumb_seper'] . $path;
+                }
+            }
         }
         return $path;
     }
@@ -42,10 +47,14 @@ class DirLib extends TikiLib
     {
         global $prefs;
         $info = $this->dir_get_category($categId);
-        $path = $info["name"];
-        while ($info["parent"] != 0) {
-            $info = $this->dir_get_category($info["parent"]);
-            $path = $info["name"] . $prefs['site_crumb_seper'] . $path;
+        if ($info) {
+            $path = $info["name"];
+            while ($info["parent"] != 0) {
+                $info = $this->dir_get_category($info["parent"]);
+                if ($info) {
+                    $path = $info["name"] . $prefs['site_crumb_seper'] . $path;
+                }
+            }
         }
         return $path;
     }
@@ -59,10 +68,14 @@ class DirLib extends TikiLib
         global $prefs;
         $path = '';
         $info = $this->dir_get_category($categId);
-        $path = '<a class="dirlink" href="tiki-directory_browse.php?parent=' . $info["categId"] . '">' . htmlspecialchars($info["name"] ?? "") . '</a>';
-        while ($info["parent"] != 0) {
-            $info = $this->dir_get_category($info["parent"]);
-            $path = '<a class="dirlink" href="tiki-directory_browse.php?parent=' . $info["categId"] . '">' . htmlspecialchars($info["name"] ?? "") . '</a> ' . $prefs['site_crumb_seper'] . ' ' . $path;
+        if ($info) {
+            $path = '<a class="dirlink" href="tiki-directory_browse.php?parent=' . $info["categId"] . '">' . htmlspecialchars($info["name"] ?? "") . '</a>';
+            while ($info["parent"] != 0) {
+                $info = $this->dir_get_category($info["parent"]);
+                if ($info) {
+                    $path = '<a class="dirlink" href="tiki-directory_browse.php?parent=' . $info["categId"] . '">' . htmlspecialchars($info["name"] ?? "") . '</a> ' . $prefs['site_crumb_seper'] . ' ' . $path;
+                }
+            }
         }
 
         return $path;
@@ -79,7 +92,7 @@ class DirLib extends TikiLib
         if (isset($info["name"])) {
             $crumbs[] = new Breadcrumb($info["name"], '', 'tiki-directory_browse.php?parent=' . $info["categId"], '', '');
         }
-        while ($info["parent"] != 0) {
+        while (isset($info) && $info["parent"] != 0) {
             $info = $this->dir_get_category($info["parent"]);
             $crumbs[] = new Breadcrumb($info["name"], '', 'tiki-directory_browse.php?parent=' . $info["categId"], '', '');
         }
@@ -567,7 +580,7 @@ class DirLib extends TikiLib
 
     /**
      * @param $categId
-     * @return bool
+     * @return bool | array
      */
     public function dir_get_category($categId)
     {
