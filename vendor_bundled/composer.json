@@ -196,7 +196,6 @@
         "rubix/extras": "2.0.0-beta"
     },
     "require-dev": {
-        "bafs/testify": "dev-master",
         "fabpot/goutte": "^3.2",
         "mikey179/vfsstream": "^1",
         "overtrue/phplint": "^2.0",
