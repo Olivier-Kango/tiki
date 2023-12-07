@@ -87,7 +87,16 @@ function wikiplugin_redirect($data, $params)
         $areturn = tra("REDIRECT plugin: redirect loop detected!");
     } elseif (isset(TikiLib::lib('parser')->option['print']) && TikiLib::lib('parser')->option['print'] == 'y') {
         $info = $tikilib->get_page_info($location);
-        return TikiLib::lib('parser')->parse_data($info['data'], TikiLib::lib('parser')->option);
+        $defaultOptions = [
+            'is_html' => false,
+            'absolute_links' => false,
+            'language' => ''
+        ];
+
+        $parserOptions = TikiLib::lib('parser')->option ?? $defaultOptions;
+        if (is_array($info) && isset($info['data'])) {
+            return TikiLib::lib('parser')->parse_data($info['data'], $parserOptions);
+        }
     } else {
         if (isset($perspective)) {
             global $base_host;
