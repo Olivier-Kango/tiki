@@ -402,14 +402,16 @@ class PrefsDoc extends TWVersion
         $this->getPrefs();
 
         $docFiles = scandir('templates/admin'); // grab all the files that house prefs
-        foreach ($docFiles as $fileName) {
-            if (substr($fileName, 0, 8) === 'include_') {  // filter out any file thats not a pref file
-                $FilePrefs = $this->getAdminUIPrefs($fileName);
-                foreach ($FilePrefs as $tabName => $tab) {
-                    if (! $this->writeFile($tabName, $tab)) {
-                        return false;
+        if ($docFiles) {
+            foreach ($docFiles as $fileName) {
+                if (substr($fileName, 0, 8) === 'include_') {  // filter out any file thats not a pref file
+                    $FilePrefs = $this->getAdminUIPrefs($fileName);
+                    foreach ($FilePrefs as $tabName => $tab) {
+                        if (! $this->writeFile($tabName, $tab)) {
+                            return false;
+                        }
+                        $this->prefCount++;
                     }
-                    $this->prefCount++;
                 }
             }
         }
