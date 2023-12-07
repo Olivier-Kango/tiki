@@ -15,7 +15,8 @@
 use Tiki\TikiInit;
 
 const MIN_PHP_VERSION = '7.4.0';
-
+// Allow to restrict the installation of Tiki on a too recent PHP version.
+const TOO_RECENT_PHP_VERSION = '8.0.0';
 $in_installer = 1;
 define('TIKI_IN_INSTALLER', 1);
 if (! isset($title)) {
@@ -44,8 +45,8 @@ if (! isset($content)) {
     $content = tr('No content specified. Something went wrong.<br/>Please tell your administrator.<br/>If you are the administrator, you may want to check for / file a bug report.');
 }
 
-// Check that PHP version is sufficient
-if (version_compare(PHP_VERSION, MIN_PHP_VERSION, '<')) {
+// Check that PHP version is sufficient or if the PHP version is too recent, i.e. higher than the required version.
+if (version_compare(PHP_VERSION, MIN_PHP_VERSION, '<') || version_compare(PHP_VERSION, TOO_RECENT_PHP_VERSION, '>=')) {
     $title = 'PHP ' . MIN_PHP_VERSION . ' is required';
     $content = '<p>'.tr("Please contact your system administrator ( if you are not the one ;) ). Your version: ") . PHP_VERSION . ' <br /> <br /> ' . '</p>';
     createPage($title, $content);
