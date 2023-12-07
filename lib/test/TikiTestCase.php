@@ -46,4 +46,16 @@ abstract class TikiTestCase extends TestCase
         // taken from: 'lib/setup/wiki.php' with  $prefs['wiki_page_regex'] == 'full'
         $page_regex = '([A-Za-z0-9_]|[\x80-\xFF])([\.: A-Za-z0-9_\-]|[\x80-\xFF])*([A-Za-z0-9_]|[\x80-\xFF])';
     }
+
+    protected function assertThrowableMessage(
+        string $message,
+        callable $callback,
+        ...$args
+    ): void {
+        try {
+            $callback(...$args);
+        } catch (Throwable $e) {
+            $this->assertEquals($message, $e->getMessage());
+        }
+    }
 }

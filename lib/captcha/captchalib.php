@@ -190,7 +190,7 @@ class Captcha
                 $params = json_encode($this->captcha->getService()->getOptions());
                 $id = 1;
                 TikiLib::lib('header')->add_js('
-Recaptcha.create("' . $this->captcha->getPubKey() . '",
+Recaptcha.create("' . $this->captcha->getSiteKey() . '",
     "captcha' . $id . '",' . $params . '
   );
 ', 100);

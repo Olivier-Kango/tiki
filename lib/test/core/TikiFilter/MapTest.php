@@ -67,8 +67,7 @@ class TikiFilter_MapTest extends TikiTestCase
      */
     public function testTikiFiltersInstanceOfUnknown(): void
     {
-        $this->expectError();
-        $this->assertInstanceOf(TikiFilter_PreventXss::class, TikiFilter::get('does_not_exist'));
+        $this->assertThrowableMessage(tr('Filter not found: %0', 'does_not_exist'), TikiFilter::class . '::get', 'does_not_exist');
     }
 
     public function testComposed(): void
