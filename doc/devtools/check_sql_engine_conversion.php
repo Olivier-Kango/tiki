@@ -18,8 +18,8 @@ use TWVersion;
  */
 class CheckSqlEngineConversion
 {
-    const DB_OLD = 'OLD';
-    const DB_NEW = 'NEW';
+    private const DB_OLD = 'OLD';
+    private const DB_NEW = 'NEW';
 
     /**
      * @var string Tiki root folder

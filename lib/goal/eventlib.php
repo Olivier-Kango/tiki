@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class GoalEventLib
 {
-    const CACHE_KEY = 'goal_events';
+    private const CACHE_KEY = 'goal_events';
 
     public function touch()
     {

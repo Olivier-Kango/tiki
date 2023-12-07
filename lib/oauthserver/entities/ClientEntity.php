@@ -19,8 +19,6 @@ class ClientEntity implements ClientEntityInterface
     public $redirect_uri;
     public $user;
 
-    const TABLE = 'tiki_oauthserver_clients';
-
     public function __construct($data = [])
     {
         $data = array_merge([

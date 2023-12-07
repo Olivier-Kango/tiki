@@ -15,8 +15,6 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 class PerformanceStatsLib extends TikiLib
 {
-    const TYPE_NAVIGATION = 'navigation';
-
     /**
      * Insert a performance record on the table
      * @param string $url

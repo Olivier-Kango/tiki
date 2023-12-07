@@ -13,8 +13,8 @@ use Tiki\TikiInit;
  */
 class UnifiedSearchLib
 {
-    const INCREMENT_QUEUE = 'search-increment';
-    const INCREMENT_QUEUE_REBUILD = 'search-increment-rebuild';
+    private const INCREMENT_QUEUE = 'search-increment';
+    private const INCREMENT_QUEUE_REBUILD = 'search-increment-rebuild';
 
     private $batchToken;
     private $isRebuildingNow = false;

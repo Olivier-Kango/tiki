@@ -6,8 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Multilingual_MachineTranslation_BingTranslateWrapper implements Multilingual_MachineTranslation_Interface
 {
-    const AUTH_URL = 'https://datamarket.accesscontrol.windows.net/v2/OAuth2-13';
-    const TRANSLATE_URL = 'http://api.microsofttranslator.com/V2/Http.svc/Translate';
+    private const AUTH_URL = 'https://datamarket.accesscontrol.windows.net/v2/OAuth2-13';
+    private const TRANSLATE_URL = 'http://api.microsofttranslator.com/V2/Http.svc/Translate';
 
     private $clientId;
     private $clientSecret;

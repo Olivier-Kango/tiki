@@ -7,7 +7,7 @@ use SplSubject;
 
 class ProgressBar implements SplObserver
 {
-    const EXTRACT_TABLE_REGEX = '/CREATE ((FULLTEXT INDEX|INDEX) \w+ ON|(TABLE)) `?(\w+)`?/';
+    private const EXTRACT_TABLE_REGEX = '/CREATE ((FULLTEXT INDEX|INDEX) \w+ ON|(TABLE)) `?(\w+)`?/';
 
     public function __construct()
     {

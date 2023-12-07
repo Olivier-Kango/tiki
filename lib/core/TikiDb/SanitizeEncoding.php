@@ -11,7 +11,7 @@ class SanitizeEncoding
     /**
      * string Replacement char when checking for invalid chars
      */
-    const INVALID_CHAR_REPLACEMENT = ' '; // invalid chars will be replaced with space
+    public const INVALID_CHAR_REPLACEMENT = ' '; // invalid chars will be replaced with space
 
     /**
      * Filter chars from the input (string or array) based on the expected charset in the database

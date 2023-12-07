@@ -21,8 +21,8 @@ use TikiLib;
  */
 class AlchemyLib
 {
-    const TYPE_IMAGE = 'image/png';
-    const TYPE_IMAGE_ANIMATION = 'image/gif';
+    private const TYPE_IMAGE = 'image/png';
+    private const TYPE_IMAGE_ANIMATION = 'image/gif';
 
     /** @var Alchemyst */
     protected $alchemyst;

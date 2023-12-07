@@ -21,7 +21,7 @@ class IndexCompareEnginesCommand extends Command
     /**
      * Add or remove plugins to this array to be considered when checking the results
      */
-    const PLUGINS_TO_CHECK = ['list', 'listexecute', 'pivottable'];
+    private const PLUGINS_TO_CHECK = ['list', 'listexecute', 'pivottable'];
 
     protected function configure()
     {

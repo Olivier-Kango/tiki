@@ -15,7 +15,7 @@
  */
 class ScoreLib extends TikiLib
 {
-    const CACHE_KEY = 'score_events';
+    private const CACHE_KEY = 'score_events';
 
     public function touch()
     {

@@ -78,16 +78,6 @@ $process = [
         $parts = explode('"', $message['message']);
         return $parts[1];
     },
-    'PSR12.Properties.ConstantVisibility.NotFound' => function ($file, $message) {
-        $lines = file($file);
-        preg_match(
-            '/const[[:space:]]*([a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*).*/mi',
-            $lines[$message['line'] - 1],
-            $matches
-        );
-
-        return $matches[1];
-    },
     'PSR2.Methods.MethodDeclaration.Underscore' => function ($file, $message) {
         $parts = explode('"', $message['message']);
         return $parts[1];

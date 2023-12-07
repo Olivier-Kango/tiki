@@ -10,7 +10,7 @@ use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 
 class ClientRepository implements ClientRepositoryInterface
 {
-    const TABLE = 'tiki_oauthserver_clients';
+    private const TABLE = 'tiki_oauthserver_clients';
     private $database;
 
     public function __construct($database)

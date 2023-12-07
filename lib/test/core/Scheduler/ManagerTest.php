@@ -19,7 +19,7 @@ use UsersLib;
  */
 class ManagerTest extends TestCase
 {
-    const USER = 'membershiptest_a';
+    private const USER = 'membershiptest_a';
     protected static $items = [];
 
     public static function tearDownAfterClass(): void

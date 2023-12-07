@@ -16,7 +16,7 @@ class MLModelTest extends TikiTestCase
     protected static $labels;
     protected static $mlt;
 
-    const SAMPLES = [
+    private const SAMPLES = [
         'The objective of the clean-up is to provide an homogeneous interface to access permissions in a way that is simple and efficient.',
         'The interface used should not reflect how the permissions are stored.',
         'The previous interfaces used multiple functions across different libraries that were confusing and caused frequent WYSIWYCA problems in addition to being inefficient when filtering lists of objects.',

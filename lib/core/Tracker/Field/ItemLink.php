@@ -12,10 +12,10 @@
  */
 class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, Search_FacetProvider_Interface, \Tracker\Field\FilterableInterface, \Tracker\Field\EnumerableInterface
 {
-    const CASCADE_NONE = 0;
-    const CASCADE_CATEG = 1;
-    const CASCADE_STATUS = 2;
-    const CASCADE_DELETE = 4;
+    private const CASCADE_NONE = 0;
+    private const CASCADE_CATEG = 1;
+    private const CASCADE_STATUS = 2;
+    private const CASCADE_DELETE = 4;
 
     public static function getTypes()
     {

@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class AuthTokens
 {
-    const SCHEME = 'MD5( CONCAT(tokenId, creation, timeout, entry, parameters, `groups`) )';
+    private const SCHEME = 'MD5( CONCAT(tokenId, creation, timeout, entry, parameters, `groups`) )';
     private $db;
     private $table;
     private $dt;

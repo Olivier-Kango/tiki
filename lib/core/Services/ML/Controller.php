@@ -17,7 +17,7 @@ class Services_ML_Controller
 {
     private $mllib;
 
-    const LEARNERS = [
+    private const LEARNERS = [
         'Classifiers' => [
             'path' => 'Classifiers',
             'classes' => [
@@ -145,7 +145,7 @@ class Services_ML_Controller
         ],
     ];
 
-    const TOKENIZERS = [
+    private const TOKENIZERS = [
         'path' => 'Other\Tokenizers',
         'classes' => [
             'KSkipNGram',
@@ -157,7 +157,7 @@ class Services_ML_Controller
         ]
     ];
 
-    const TREES = [
+    private const TREES = [
         'path' => 'Graph\Trees',
         'classes' => [
             'BallTree',
@@ -165,7 +165,7 @@ class Services_ML_Controller
         ]
     ];
 
-    const KERNELS = [
+    private const KERNELS = [
         'path' => 'Kernels\Distance',
         'classes' => [
             'Canberra',
@@ -181,7 +181,7 @@ class Services_ML_Controller
         ]
     ];
 
-    const NEURALNET_OPTIMIZERS = [
+    private const NEURALNET_OPTIMIZERS = [
         'path' => 'NeuralNet\Optimizers',
         'classes' => [
             'AdaGrad',
@@ -195,7 +195,7 @@ class Services_ML_Controller
         ]
     ];
 
-    const NEURALNET_COST_FUNCTIONS = [
+    private const NEURALNET_COST_FUNCTIONS = [
         'path' => 'NeuralNet\CostFunctions',
         'classes' => [
             'CrossEntropy',
@@ -205,7 +205,7 @@ class Services_ML_Controller
         ]
     ];
 
-    const NEURALNET_ACTIVATION_FUNCTIONS = [
+    private const NEURALNET_ACTIVATION_FUNCTIONS = [
         'path' => 'NeuralNet\ActivationFunctions',
         'classes' => [
             'ELU',
@@ -221,7 +221,7 @@ class Services_ML_Controller
         ]
     ];
 
-    const NEURALNET_INITIALIZERS = [
+    private const NEURALNET_INITIALIZERS = [
         'path' => 'NeuralNet\Initializers',
         'classes' => [
             'Constant',
@@ -234,7 +234,7 @@ class Services_ML_Controller
         ]
     ];
 
-    const NEURALNET_LAYERS = [
+    private const NEURALNET_LAYERS = [
         'path' => 'NeuralNet\Layers',
         'classes' => [
             'Activation',
@@ -248,7 +248,7 @@ class Services_ML_Controller
         ]
     ];
 
-    const METRICS = [
+    private const METRICS = [
         'path' => 'CrossValidation\Metrics',
         'classes' => [
             'Accuracy',

@@ -8,7 +8,7 @@ use Tiki\Package\ComposerManager;
 
 class PreferencesLib
 {
-    const DEFAULT_HIDDEN_PREFERENCES = [
+    private const DEFAULT_HIDDEN_PREFERENCES = [
         'feature_editcss',
         'feature_edit_templates',
         'feature_purifier',

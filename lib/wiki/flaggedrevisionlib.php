@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class FlaggedRevisionLib extends TikiDb_Bridge
 {
-    const ACTION = 'Flagged';
+    private const ACTION = 'Flagged';
 
     public function flag_revision($pageName, $version, $flag, $value, $comment = '')
     {

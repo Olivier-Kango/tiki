@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class TikiXmppPrebind extends XmppPrebind
 {
-    const ENCRYPTION_TIKITOKEN = 'TIKITOKEN';
+    private const ENCRYPTION_TIKITOKEN = 'TIKITOKEN';
 
     /**
      * Connect to XMPP server, but setting TIKITOKEN as preferred

@@ -12,9 +12,9 @@ use Tiki\Installer\Installer;
  */
 abstract class TikiDb
 {
-    const ERR_DIRECT = true;
-    const ERR_NONE = false;
-    const ERR_EXCEPTION = 'exception';
+    public const ERR_DIRECT = true;
+    public const ERR_NONE = false;
+    public const ERR_EXCEPTION = 'exception';
 
     private static $instance;
 

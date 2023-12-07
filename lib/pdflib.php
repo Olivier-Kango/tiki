@@ -9,10 +9,11 @@
  */
 class PdfGenerator
 {
-    const WEBKIT = 'webkit';
-    const WEASYPRINT = 'weasyprint';
-    const WEBSERVICE = 'webservice';
-    const MPDF = 'mpdf';
+    private const WEBKIT = 'webkit';
+    private const WEASYPRINT = 'weasyprint';
+    private const WEBSERVICE = 'webservice';
+
+    public const MPDF = 'mpdf';
 
     public $error;
 

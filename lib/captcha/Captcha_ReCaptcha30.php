@@ -8,8 +8,8 @@ class Captcha_ReCaptcha30 extends Laminas\Captcha\ReCaptcha
 {
     protected $_RESPONSE  = 'g-recaptcha-response';
 
-    const API_SERVER = 'https://www.google.com/recaptcha/api.js';
-    const VERIFY_SERVER = 'https://www.google.com/recaptcha/api/siteverify';
+    private const API_SERVER = 'https://www.google.com/recaptcha/api.js';
+    private const VERIFY_SERVER = 'https://www.google.com/recaptcha/api/siteverify';
 
     /**
      * Validate captcha

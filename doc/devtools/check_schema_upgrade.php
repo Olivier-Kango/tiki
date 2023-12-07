@@ -20,10 +20,10 @@ class CheckSchemaUpgrade
 {
     //These database are actually from here:  https://gitlab.com/tikiwiki/tikiwiki-ci-databases
     //Todo:  Try to get them from https://gitlab.com/tikiwiki/tikiwiki-ci-databases/-/blob/master/ci_%d.sql.gz and gunzip them, or better yet clone them in the cache and gunzip them
-    const DB_URL_TEMPLATE = 'http://tiki.org/ci_%d.sql';
+    private const DB_URL_TEMPLATE = 'http://tiki.org/ci_%d.sql';
 
-    const DB_OLD = 'OLD';
-    const DB_NEW = 'NEW';
+    private const DB_OLD = 'OLD';
+    private const DB_NEW = 'NEW';
 
     /**
      * @var string Tiki root folder

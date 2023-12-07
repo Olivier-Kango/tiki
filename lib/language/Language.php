@@ -21,7 +21,7 @@ class Language extends TikiDb_Bridge
     /**
      * Characters at end of translation string that are not a part of the translation
      */
-    const PUNCTUATIONS = [':', '!', ';', '.', ',', '?'];
+    public const PUNCTUATIONS = [':', '!', ';', '.', ',', '?'];
 
     /**
      * Return a list of languages available in Tiki

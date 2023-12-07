@@ -6,10 +6,10 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 interface Search_Formatter_Plugin_Interface
 {
-    const FORMAT_WIKI = 'wiki';
-    const FORMAT_HTML = 'html';
-    const FORMAT_ARRAY = 'array';
-    const FORMAT_CSV = 'csv';
+    public const FORMAT_WIKI = 'wiki';
+    public const FORMAT_HTML = 'html';
+    public const FORMAT_ARRAY = 'array';
+    public const FORMAT_CSV = 'csv';
 
     public function getFields();
 

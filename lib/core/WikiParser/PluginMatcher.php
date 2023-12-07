@@ -353,10 +353,10 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 
 class WikiParser_PluginMatcher_Match
 {
-    const LONG = 1;
-    const SHORT = 2;
-    const LEGACY = 3;
-    const NAME_MAX_LENGTH = 50;
+    private const LONG = 1;
+    private const SHORT = 2;
+    private const LEGACY = 3;
+    private const NAME_MAX_LENGTH = 50;
 
     private $matchType = false;
     private $nameEnd = false;

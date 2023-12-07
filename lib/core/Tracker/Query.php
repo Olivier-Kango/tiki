@@ -90,10 +90,10 @@ class Tracker_Query
     private $limit = 100; //added limit so default wouldn't crash system
     private $offset = 0;
     //Should be marked final, but only supported from php > 8.1
-    const ALLOWED_TRACKER_KEY_COLUMNS = ['trackerId', 'name'];
+    private const ALLOWED_TRACKER_KEY_COLUMNS = ['trackerId', 'name'];
     private $trackerKey = 'trackerId';
     //Should be marked final, but only supported from php > 8.1
-    const ALLOWED_FIELD_KEY_COLUMNS = ['fieldId', 'name', 'permName'];
+    private const ALLOWED_FIELD_KEY_COLUMNS = ['fieldId', 'name', 'permName'];
     private $fieldKey = 'fieldId';
     private $desc = false;
     private $render = true;

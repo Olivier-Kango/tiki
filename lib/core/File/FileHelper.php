@@ -17,7 +17,7 @@ use TikiLib;
  */
 class FileHelper
 {
-    const FILE_DISPLAY_TEMPLATE_FOLDER = 'file_displays/';
+    public const FILE_DISPLAY_TEMPLATE_FOLDER = 'file_displays/';
 
     /**
      * Function used to retrieve the file template display based on the file type

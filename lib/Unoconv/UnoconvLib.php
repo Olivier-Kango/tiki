@@ -17,7 +17,7 @@ class UnoconvLib
 
     public static $homeEnvCopy;
 
-    const DEFAULT_PORT = 2002;
+    public const DEFAULT_PORT = 2002;
 
     /**
      * UnoconvLib constructor.

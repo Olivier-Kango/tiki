@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Search_MySql_Table extends TikiDb_Table
 {
-    const MAX_MYSQL_INDEXES_PER_TABLE = 64;
+    public const MAX_MYSQL_INDEXES_PER_TABLE = 64;
 
     private $definition = false;
     private $indexes = [];

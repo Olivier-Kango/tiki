@@ -47,15 +47,15 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 class OpenPGPLib
 {
     //PGP/MIME HEADER CONSTANTS
-    const MULTIPART_PGP_ENCRYPTED = 'multipart/encrypted';
-    const TYPE_PGP_PROTOCOL = 'application/pgp-encrypted';
-    const PGP_MIME_NOTE = 'This is an OpenPGP/MIME encrypted message (RFC 2440 and 3156)';
-    const TYPE_PGP_CONTENT_VERSION = 'application/pgp-encrypted';
-    const DESCRIPTION_PGP_CONTENT_VERSION = 'PGP/MIME version identification';
-    const PGP_MIME_VERSION_IDENTIFICATION = 'Version: 1';
-    const TYPE_PGP_CONTENT_ENCRYPTED = 'application/octet-stream; name="encrypted.asc"';
-    const DESCRIPTION_PGP_CONTENT_ENCRYPTED = 'OpenPGP encrypted message';
-    const DISPOSITION_PGP_CONTENT_INLINE = 'inline; filename="encrypted.asc"';
+    private const MULTIPART_PGP_ENCRYPTED = 'multipart/encrypted';
+    private const TYPE_PGP_PROTOCOL = 'application/pgp-encrypted';
+    private const PGP_MIME_NOTE = 'This is an OpenPGP/MIME encrypted message (RFC 2440 and 3156)';
+    private const TYPE_PGP_CONTENT_VERSION = 'application/pgp-encrypted';
+    private const DESCRIPTION_PGP_CONTENT_VERSION = 'PGP/MIME version identification';
+    private const PGP_MIME_VERSION_IDENTIFICATION = 'Version: 1';
+    private const TYPE_PGP_CONTENT_ENCRYPTED = 'application/octet-stream; name="encrypted.asc"';
+    private const DESCRIPTION_PGP_CONTENT_ENCRYPTED = 'OpenPGP encrypted message';
+    private const DISPOSITION_PGP_CONTENT_INLINE = 'inline; filename="encrypted.asc"';
 
     /**
      * EOL character string used by transport

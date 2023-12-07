@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class WikiPlugin_Casperjs_Runner
 {
-    const BASE_MARKER = "TIKI_BRIDGE";
+    private const BASE_MARKER = "TIKI_BRIDGE";
     protected $casperBin;
     protected $casperInstalled = false;
 

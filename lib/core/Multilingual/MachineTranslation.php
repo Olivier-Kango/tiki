@@ -7,7 +7,7 @@
 
 class Multilingual_MachineTranslation
 {
-    const DETECT_LANGUAGE = 'auto';
+    public const DETECT_LANGUAGE = 'auto';
 
     private $implementation = 'null';
 

@@ -22,8 +22,8 @@ class Scheduler_Item
     public $user_run_now;
     private $logger;
 
-    const STATUS_ACTIVE = 'active';
-    const STATUS_INACTIVE = 'inactive';
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_INACTIVE = 'inactive';
 
     public static $availableTasks = [
         'ConsoleCommandTask' => 'ConsoleCommand',

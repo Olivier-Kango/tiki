@@ -11,8 +11,8 @@ namespace Tiki\WikiPlugin;
  */
 class Reference
 {
-    const STYLE_AMA = 'ama';
-    const STYLE_MLA = 'mla';
+    public const STYLE_AMA = 'ama';
+    public const STYLE_MLA = 'mla';
 
     /**
      * Returns the current citation style

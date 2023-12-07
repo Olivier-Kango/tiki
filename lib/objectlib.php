@@ -12,7 +12,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class ObjectLib extends TikiLib
 {
-    const SECONDSPERDAY = 86400;
+    private const SECONDSPERDAY = 86400;
 
     /**
      *  Create an object record for the given Tiki object if one doesn't already exist.

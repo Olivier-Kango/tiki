@@ -18,9 +18,9 @@ use Kaltura\Client\Type\UiConfFilter;
 
 class KalturaLib
 {
-    const CONFIGURATION_LIST = 'kaltura_configuration_list';
-    const SESSION_ADMIN = 2;
-    const SESSION_USER = 0;
+    private const CONFIGURATION_LIST = 'kaltura_configuration_list';
+    private const SESSION_ADMIN = 2;
+    private const SESSION_USER = 0;
 
     private $kconfig;
     private $client;

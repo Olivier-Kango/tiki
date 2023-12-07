@@ -15,7 +15,7 @@ class H5PLib
      * @since 1.0.0
      * @var string
      */
-    const VERSION = '1.6.0';
+    public const VERSION = '1.6.0';
 
     private $H5PTiki = null;
 

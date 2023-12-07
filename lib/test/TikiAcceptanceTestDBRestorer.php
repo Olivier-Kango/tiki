@@ -39,7 +39,6 @@ abstract class TikiAcceptanceTestDBRestorer
      * @var string|bool
      */
     public $current_dir;
-    const EMPTY_DB = 'emptyDb.sql';
 
     protected $host = "localhost";
 

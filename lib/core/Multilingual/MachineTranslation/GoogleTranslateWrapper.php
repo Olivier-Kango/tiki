@@ -11,18 +11,18 @@
 
 class Multilingual_MachineTranslation_GoogleTranslateWrapper implements Multilingual_MachineTranslation_Interface
 {
-    const SERVICE_URL = "https://www.googleapis.com/language/translate/v2";
+    private const SERVICE_URL = "https://www.googleapis.com/language/translate/v2";
 
     //wiki markup (keep this regex in case we decide to translate wiki markup and not html)
     //  const WIKI_MARKUP = "/<[^>]*>| ?[\`\!\@\#\$\%\^\&\*\[\]\:\;\"\'\<\,\>\/\|\\\=\-\+\_\(\)]{2,} ?|\(\([\s\S]*?\)\)|\~[a-z]{2,3}\~[\s\S]*?\~\/[a-z]{2,3}\~|\~hs\~|\~\~[\s\S]*?\:|\~\~|[[^\|]*?\||\[[^|\]]*\]|\{\*[^\}\*]*?\*\}|\{[^\}]*?\}|^;|!/m";
-    const WIKI_MARKUP = "/<[^>]*>| ?[\`\!\@\#\$\%\^\&\*\[\]\:\;\"\'\<\,\>\/\|\\\=\-\+\_\(\)]{2,} ?|\(\([\s\S]*?\)\)|\~\/?[a-z]{2,3}\~|\~hs\~|\~\~[\s\S]*?\:|\~\~|[[^\|]*?\||\[[^|\]]*\]|\{\*[^\}\*]*?\*\}|\{[^\}]*?\}|^;|!/m";
+    private const WIKI_MARKUP = "/<[^>]*>| ?[\`\!\@\#\$\%\^\&\*\[\]\:\;\"\'\<\,\>\/\|\\\=\-\+\_\(\)]{2,} ?|\(\([\s\S]*?\)\)|\~\/?[a-z]{2,3}\~|\~hs\~|\~\~[\s\S]*?\:|\~\~|[[^\|]*?\||\[[^|\]]*\]|\{\*[^\}\*]*?\*\}|\{[^\}]*?\}|^;|!/m";
 
     //Google doesn't return parens upon translation
     //Include spaces in markup (Google adds some, and they will be stripped later. Want to preserve the original ones)
-    const HTML_MARKUP = "/ ?<[^>]*> ?| ?\(|\) ?/";
-    const TITLE_TAG = "/(<[Hh][\d][^>]*>(<[^>]*>)*)([^<]*)/";
-    const NO_TRANSLATE_STRING = "<span class='notranslate'>\$0</span>";
-    const NO_TRANSLATE_PATTERN = "/ <span class='notranslate'>(.*)<\/span> |^<span class='notranslate'>(.*)<\/span> | <span class='notranslate'>(.*)<\/span>\$|^<span class='notranslate'>(.*)<\/span>\$|<span class='notranslate'>(.*)<\/span>/Um";
+    private const HTML_MARKUP = "/ ?<[^>]*> ?| ?\(|\) ?/";
+    private const TITLE_TAG = "/(<[Hh][\d][^>]*>(<[^>]*>)*)([^<]*)/";
+    private const NO_TRANSLATE_STRING = "<span class='notranslate'>\$0</span>";
+    private const NO_TRANSLATE_PATTERN = "/ <span class='notranslate'>(.*)<\/span> |^<span class='notranslate'>(.*)<\/span> | <span class='notranslate'>(.*)<\/span>\$|^<span class='notranslate'>(.*)<\/span>\$|<span class='notranslate'>(.*)<\/span>/Um";
 
     private $key;
     private $sourceLang;

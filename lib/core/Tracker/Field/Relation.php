@@ -35,10 +35,10 @@ use Tiki\Relation\ObjectRelation;
 
 class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
-    const OPT_RELATION = 'relation';
-    const OPT_FILTER = 'filter';
-    const OPT_READONLY = 'readonly';
-    const OPT_INVERT = 'invert';
+    private const OPT_RELATION = 'relation';
+    private const OPT_FILTER = 'filter';
+    private const OPT_READONLY = 'readonly';
+    private const OPT_INVERT = 'invert';
 
     public static $refreshedTargets = [];
 
@@ -833,8 +833,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                         }
                     }
                 }
-            })
-        ;
+            });
 
         return $collection;
     }

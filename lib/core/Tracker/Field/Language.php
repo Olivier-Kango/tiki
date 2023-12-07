@@ -6,8 +6,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Tracker_Field_Language extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
 {
-    const OPT_AUTOASSIGN = 0;
-
     public static function getTypes()
     {
         return [

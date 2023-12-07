@@ -18,12 +18,12 @@ use WikiParser_PluginMatcher;
 
 class DiagramHelper
 {
-    const DRAW_IO_IMAGE_FORMAT = 'png';
-    const FETCH_IMAGE_CONTENTS_TIMEOUT = 5;
+    private const DRAW_IO_IMAGE_FORMAT = 'png';
+    private const FETCH_IMAGE_CONTENTS_TIMEOUT = 5;
 
-    const WIKI_SYNTAX_DEFAULT_DIAGRAM_MXCELL_REPEAT = 'vertical';
-    const WIKI_SYNTAX_DEFAULT_DIAGRAM_MXCELL_OFFSET = '10';
-    const WIKI_SYNTAX_DIAGRAM_PLUGIN = 'diagram';
+    private const WIKI_SYNTAX_DEFAULT_DIAGRAM_MXCELL_REPEAT = 'vertical';
+    private const WIKI_SYNTAX_DEFAULT_DIAGRAM_MXCELL_OFFSET = '10';
+    private const WIKI_SYNTAX_DIAGRAM_PLUGIN = 'diagram';
 
     /**
      * Get diagram as image given a file ID or diagram contents.

@@ -21,9 +21,9 @@ class Item
     public $active;
     public $short_url;
 
-    const TYPE_DIRECT = 'Direct';
-    const TYPE_OBJECT = 'TikiObject';
-    const TYPE_TRACKER_FIELD = 'TrackerField';
+    public const TYPE_DIRECT = 'Direct';
+    public const TYPE_OBJECT = 'TikiObject';
+    public const TYPE_TRACKER_FIELD = 'TrackerField';
 
     /**
      * Item constructor.

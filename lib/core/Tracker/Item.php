@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Tracker_Item
 {
-    const PERM_NAME_MAX_ALLOWED_SIZE = 50;
+    public const PERM_NAME_MAX_ALLOWED_SIZE = 50;
 
     /**
      * includes itemId, trackerId and fields using the fieldId as key

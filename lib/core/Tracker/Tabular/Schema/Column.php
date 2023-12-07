@@ -8,7 +8,7 @@ namespace Tracker\Tabular\Schema;
 
 class Column implements \JsonSerializable
 {
-    const HEADER_PATTERN = '/\[(\*?)(\w+):([^\]]+)\]$/';
+    public const HEADER_PATTERN = '/\[(\*?)(\w+):([^\]]+)\]$/';
 
     private $permName;
     private $remoteField = '';

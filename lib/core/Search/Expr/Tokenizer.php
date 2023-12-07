@@ -6,9 +6,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Search_Expr_Tokenizer
 {
-    const QUOTE = '"';
-    const OPEN = '(';
-    const CLOSE = ')';
+    private const QUOTE = '"';
+    private const OPEN = '(';
+    private const CLOSE = ')';
 
     public function tokenize($string)
     {

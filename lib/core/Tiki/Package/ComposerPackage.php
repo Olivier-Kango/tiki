@@ -11,9 +11,9 @@ namespace Tiki\Package;
  */
 class ComposerPackage
 {
-    const STATE_ACTIVE = 'active';
-    const STATE_DEPRECATED = 'deprecated';
-    const STATE_REPLACED = 'replaced';
+    public const STATE_ACTIVE = 'active';
+    public const STATE_DEPRECATED = 'deprecated';
+    public const STATE_REPLACED = 'replaced';
 
     protected string $state;
     protected string $key;
