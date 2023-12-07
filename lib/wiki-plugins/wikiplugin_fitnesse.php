@@ -159,7 +159,7 @@ class FixtureTable implements Iterator
     private $data = [];
     private $position = 0;
 
-    function __construct($string)
+    public function __construct($string)
     {
         $lines = explode("\n", $string);
         $lines = array_map(function ($line) {
@@ -173,7 +173,7 @@ class FixtureTable implements Iterator
         }, $lines);
     }
 
-    function __toString()
+    public function __toString()
     {
         $lines = $this->data;
         array_unshift($lines, array_map(function ($entry) {
@@ -188,23 +188,23 @@ class FixtureTable implements Iterator
         }, $lines)) . "||";
     }
 
-    function getHeadings()
+    public function getHeadings()
     {
         return $this->headings;
     }
 
-    function setTitle($title)
+    public function setTitle($title)
     {
         $this->title = $title;
     }
 
-    function rewind(): void
+    public function rewind(): void
     {
         $this->position = 0;
     }
 
     #[\ReturnTypeWillChange]
-    function current()
+    public function current()
     {
         return array_map(function ($value) {
             return str_replace('%%%', "\n", $value);
@@ -212,22 +212,22 @@ class FixtureTable implements Iterator
     }
 
     #[\ReturnTypeWillChange]
-    function key()
+    public function key()
     {
         return $this->position;
     }
 
-    function next(): void
+    public function next(): void
     {
         ++$this->position;
     }
 
-    function valid(): bool
+    public function valid(): bool
     {
         return isset($this->data[$this->position]);
     }
 
-    function setValue($pos, $value, $color = null)
+    public function setValue($pos, $value, $color = null)
     {
         if ($color) {
             $value = "~~$color:$value~~";
@@ -241,7 +241,7 @@ class FixtureMockTrackerField extends Tiki_Formula_Function_TrackerField
 {
     private $data = [];
 
-    function fetchValue($object, $field, $default)
+    public function fetchValue($object, $field, $default)
     {
         if (isset($this->data[$object][$field])) {
             return $this->data[$object][$field];
@@ -250,7 +250,7 @@ class FixtureMockTrackerField extends Tiki_Formula_Function_TrackerField
         }
     }
 
-    function addValues($id, array $data)
+    public function addValues($id, array $data)
     {
         if (! isset($this->data[$id])) {
             $this->data[$id] = $data;

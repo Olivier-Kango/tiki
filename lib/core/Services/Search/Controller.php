@@ -270,7 +270,7 @@ class Services_Search_Controller
         }
     }
 
-    function action_object_selector($input)
+    public function action_object_selector($input)
     {
         global $smarty;
         $smarty->loadPlugin('smarty_function_object_selector');

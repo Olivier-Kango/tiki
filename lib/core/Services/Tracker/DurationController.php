@@ -10,12 +10,12 @@ class Services_Tracker_DurationController
      * Returns the section for use with certain features like banning
      * @return string
      */
-    function getSection()
+    public function getSection()
     {
         return 'trackers';
     }
 
-    function action_drafts($input)
+    public function action_drafts($input)
     {
         $id = $input->id->text();
         if (! empty($id)) {
@@ -25,7 +25,7 @@ class Services_Tracker_DurationController
         }
     }
 
-    function action_update_draft($input)
+    public function action_update_draft($input)
     {
         $id = $input->id->text();
         $array1 = $_SESSION['duration_drafts'][$id];
@@ -34,7 +34,7 @@ class Services_Tracker_DurationController
         return $_SESSION['duration_drafts'][$id];
     }
 
-    function action_delete_draft($input)
+    public function action_delete_draft($input)
     {
         $id = $input->id->text();
         $deleted = $_SESSION['duration_drafts'][$id];

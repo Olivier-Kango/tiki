@@ -17,7 +17,7 @@ class Math_Formula_Function_If extends Math_Formula_Function
         return $this->evaluateChild($cond ? $then : $else);
     }
 
-    function evaluateFull($element)
+    public function evaluateFull($element)
     {
         $out = [];
 

@@ -631,7 +631,7 @@ class WikiPlugin_Negotiator_Wiki
         return '';
     }
 
-    function blockFromExecution($status = '')
+    public function blockFromExecution($status = '')
     {
         $smarty = TikiLib::lib('smarty');
         $smarty->assign('plugin_fingerprint', $status);
@@ -659,7 +659,7 @@ class WikiPlugin_Negotiator_Wiki
         return trim($smarty->fetch('tiki-plugin_blocked.tpl'));
     }
 
-    function executeAwaiting(&$input)
+    public function executeAwaiting(&$input)
     {
         foreach (self::$parserLevels as &$level) {
             self::$currentParserLevel = $level;

@@ -328,7 +328,7 @@ class RelationLib extends TikiDb_Bridge
      * @param $id
      * @return mixed
      */
-    function get_relation($id)
+    public function get_relation($id)
     {
         return $this->table->fetchFullRow(
             [

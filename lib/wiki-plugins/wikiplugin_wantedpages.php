@@ -130,7 +130,7 @@ function wikiplugin_wantedpages_info()
 
 class WikiPluginWantedPages extends PluginsLib
 {
-    function getDefaultArguments()
+    public function getDefaultArguments()
     {
         return [    'ignore' => '', // originating pages to be ignored
                         'splitby' => '+', // split ignored pages by this character
@@ -144,22 +144,22 @@ class WikiPluginWantedPages extends PluginsLib
                             // tries to allocate as little memory as possible.
     }
 
-    function getName()
+    public function getName()
     {
         return 'WantedPages';
     }
 
-    function getDescription()
+    public function getDescription()
     {
         return wikiplugin_wantedpages_help();
     }
 
-    function getVersion()
+    public function getVersion()
     {
         return preg_replace("/[Revision: $]/", '', "\$Revision: 1.7 $");
     }
 
-    function run($data, $params)
+    public function run($data, $params)
     {
         global $prefs, $page_regex;
 

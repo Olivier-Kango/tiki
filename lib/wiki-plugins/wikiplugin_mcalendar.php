@@ -48,7 +48,7 @@ class MCalendar
     var $Julian = 0;
 
 
-    function setLongKin()
+    public function setLongKin()
     {
         $this->LongKin = $this->LongCount["Baktun"] * 144000
                     + $this->LongCount["Katun"] * 7200
@@ -59,7 +59,7 @@ class MCalendar
     }
 
 
-    function setJulian()
+    public function setJulian()
     {
 
         $Year = $this->Gregorian["Year"];
@@ -80,7 +80,7 @@ class MCalendar
     }
 
 
-    function Maya()
+    public function Maya()
     {
 
         $this->setJulian();

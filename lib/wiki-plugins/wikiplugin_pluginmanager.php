@@ -9,7 +9,7 @@ require_once 'lib/wiki/pluginslib.php';
 class WikiPluginPluginManager extends PluginsLib
 {
     var $expanded_params = ['info'];
-    function getDefaultArguments()
+    public function getDefaultArguments()
     {
         return [
                     'info' => 'description|parameters|paraminfo',
@@ -24,19 +24,19 @@ class WikiPluginPluginManager extends PluginsLib
                     'showtopinfo' => 'y'
                 ];
     }
-    function getName()
+    public function getName()
     {
         return 'PluginManager';
     }
-    function getVersion()
+    public function getVersion()
     {
         return preg_replace("/[Revision: $]/", '', "\$Revision: 1.11 $");
     }
-    function getDescription()
+    public function getDescription()
     {
         return wikiplugin_pluginmanager_help();
     }
-    function run($data, $params)
+    public function run($data, $params)
     {
         global $helpurl;
         $wikilib = TikiLib::lib('wiki');
@@ -383,7 +383,7 @@ class WikiPluginPluginManager extends PluginsLib
             return $sOutput;
         }
     }
-    function processDescription($sDescription)
+    public function processDescription($sDescription)
     {
         $sDescription = str_replace(',', ', ', $sDescription);
         $sDescription = str_replace('|', '| ', $sDescription);

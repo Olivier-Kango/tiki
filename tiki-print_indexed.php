@@ -43,7 +43,7 @@ class ObjectList // {{{
     /**
      * @param $indexKey
      */
-    function addCustomIndex($indexKey)
+    public function addCustomIndex($indexKey)
     {
         $this->customIndexes[ $indexKey ] = [];
     }
@@ -53,7 +53,7 @@ class ObjectList // {{{
      * @param $object
      * @param $options
      */
-    function add($type, $object, $options)
+    public function add($type, $object, $options)
     {
         if (! isset($dataIndex[$type])) {
             $this->dataIndex[$type] = [];
@@ -92,7 +92,7 @@ class ObjectList // {{{
         }
     }
 
-    function finalize()
+    public function finalize()
     {
         foreach ($this->customIndexes as & $data) {
             ksort($data);
@@ -104,7 +104,7 @@ class ObjectList // {{{
      * @param $key
      * @param $options
      */
-    function render($smarty, $key, $options)
+    public function render($smarty, $key, $options)
     {
         if (is_null($key)) {
             foreach ($this->renderers as $index => $renderer) {
@@ -138,7 +138,7 @@ abstract class ObjectRenderer // {{{
      * @param $objectType
      * @param $objectId
      */
-    function __construct($objectType, $objectId)
+    public function __construct($objectType, $objectId)
     {
         $this->objectType = $objectType;
         $this->objectId = $objectId;
@@ -148,7 +148,7 @@ abstract class ObjectRenderer // {{{
      * @param $smarty
      * @param $options
      */
-    function render($smarty, $options)
+    public function render($smarty, $options)
     {
         $options['decorator_template'] = 'print/print-decorator_' . $options['decorator'] . '.tpl';
         $smarty->assign('body', $this->doRender($smarty, $options));
@@ -158,7 +158,7 @@ abstract class ObjectRenderer // {{{
     /**
      * @return bool
      */
-    function isValid()
+    public function isValid()
     {
         return true;
     }
@@ -168,13 +168,13 @@ abstract class ObjectRenderer // {{{
      * @param $template
      * @return mixed
      */
-    abstract function doRender($smarty, $template);
+    abstract public function doRender($smarty, $template);
 
     /**
      * @param $key
      * @return mixed
      */
-    abstract function getIndexValue($key);
+    abstract public function getIndexValue($key);
 }
 // }}}
 
@@ -193,7 +193,7 @@ class ObjectRenderer_TrackerItem extends ObjectRenderer // {{{
      * @param $object
      * @param array $options
      */
-    function __construct($type, $object, $options = [])
+    public function __construct($type, $object, $options = [])
     {
         parent::__construct($type, $object, $options);
 
@@ -225,7 +225,7 @@ class ObjectRenderer_TrackerItem extends ObjectRenderer // {{{
     /**
      * @return bool
      */
-    function isValid()
+    public function isValid()
     {
         return $this->valid;
     }
@@ -235,7 +235,7 @@ class ObjectRenderer_TrackerItem extends ObjectRenderer // {{{
      * @param $options
      * @return mixed
      */
-    function doRender($smarty, $options)
+    public function doRender($smarty, $options)
     {
         $smarty->assign('title', $this->getTitle());
         $smarty->assign('tracker', $this->tracker);
@@ -249,7 +249,7 @@ class ObjectRenderer_TrackerItem extends ObjectRenderer // {{{
      * @param $key
      * @return mixed
      */
-    function getIndexValue($key)
+    public function getIndexValue($key)
     {
         switch ($key) {
             case 'title':
@@ -260,7 +260,7 @@ class ObjectRenderer_TrackerItem extends ObjectRenderer // {{{
     /**
      * @return mixed
      */
-    function getTitle()
+    public function getTitle()
     {
         foreach ($this->tracker['fields'] as $field) {
             if ($field['isMain'] == 'y') {
@@ -282,7 +282,7 @@ class ObjectRenderer_Wiki extends ObjectRenderer // {{{
      * @param $objectType
      * @param $objectId
      */
-    function __construct($objectType, $objectId)
+    public function __construct($objectType, $objectId)
     {
         parent::__construct($objectType, $objectId);
         global $tikilib;
@@ -305,7 +305,7 @@ class ObjectRenderer_Wiki extends ObjectRenderer // {{{
      * @param $options
      * @return mixed
      */
-    function doRender($smarty, $options)
+    public function doRender($smarty, $options)
     {
         $options['display_template'] = 'print/print-' . $options['display'] . '_wiki.tpl';
         $smarty->assign('info', $this->info);
@@ -317,7 +317,7 @@ class ObjectRenderer_Wiki extends ObjectRenderer // {{{
      * @param $key
      * @return mixed
      */
-    function getIndexValue($key)
+    public function getIndexValue($key)
     {
         switch ($key) {
             case 'title':
@@ -339,7 +339,7 @@ class ObjectRenderer_MultilingualWiki extends ObjectRenderer // {{{
      * @param $object
      * @param array $options
      */
-    function __construct($type, $object, $options = [])
+    public function __construct($type, $object, $options = [])
     {
         parent::__construct($type, $object, $options);
         $multilinguallib = TikiLib::lib('multilingual');
@@ -364,7 +364,7 @@ class ObjectRenderer_MultilingualWiki extends ObjectRenderer // {{{
      * @param $options
      * @return string
      */
-    function doRender($smarty, $options)
+    public function doRender($smarty, $options)
     {
         $out = '';
 
@@ -386,7 +386,7 @@ class ObjectRenderer_MultilingualWiki extends ObjectRenderer // {{{
      * @param $key
      * @return mixed
      */
-    function getIndexValue($key)
+    public function getIndexValue($key)
     {
         if (strpos($key, 'lang_') === 0) {
             list( $key, $lang ) = explode('_', substr($key, 5), 2);

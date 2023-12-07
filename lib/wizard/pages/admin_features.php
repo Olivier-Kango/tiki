@@ -15,7 +15,7 @@ class AdminWizardFeatures extends Wizard
     {
         return tra('Set up Main features');
     }
-    function isEditable()
+    public function isEditable()
     {
         return true;
     }

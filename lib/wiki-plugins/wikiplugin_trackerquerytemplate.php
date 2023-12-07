@@ -259,7 +259,7 @@ class dataToFieldHandler
     private $fields;
     private $fieldsRaw;
 
-    function __construct() //initially set it to the last called item from trackers if it exists
+    public function __construct() //initially set it to the last called item from trackers if it exists
     {
         $last = end(self::$itemStack);
 
@@ -268,7 +268,7 @@ class dataToFieldHandler
         }
     }
 
-    function set($pattern, $fields, $fieldsRaw, $itemId, $trackerId)
+    public function set($pattern, $fields, $fieldsRaw, $itemId, $trackerId)
     {
         $this->pattern = $pattern;
         $this->trackerId = $trackerId;
@@ -285,12 +285,12 @@ class dataToFieldHandler
         ];
     }
 
-    function pop()
+    public function pop()
     {
         array_pop(self::$itemStack);
     }
 
-    function parse($data)
+    public function parse($data)
     {
         global $tikilib;
 

@@ -47,7 +47,7 @@ class Tiki_WebServices
      * @param string $param3
      * @return string
      */
-    function test($param2, $param1, $param3)
+    public function test($param2, $param1, $param3)
     {
         return 'test1 ' . $param1 . ' test2 ' . $param2 . ' test3 ' . $param3;
     }
@@ -58,7 +58,7 @@ class Tiki_WebServices
      * @param Tiki_ComplexType $complex_param
      * @return string
      */
-    function test_complex(Tiki_ComplexType $complex_param)
+    public function test_complex(Tiki_ComplexType $complex_param)
     {
         return $complex_param->param1 . ' =====> ' . $complex_param->param2;
     }

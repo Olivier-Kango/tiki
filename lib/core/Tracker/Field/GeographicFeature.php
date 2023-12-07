@@ -101,7 +101,7 @@ class Tracker_Field_GeographicFeature extends \Tracker\Field\AbstractField imple
         return [];
     }
 
-    function getTabularSchema()
+    public function getTabularSchema()
     {
         $schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 

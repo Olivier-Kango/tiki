@@ -33,12 +33,12 @@ class WikiPlugin_Transclude_Replacer
 {
     private $params;
 
-    function __construct(array $params)
+    public function __construct(array $params)
     {
         $this->params = $params;
     }
 
-    function callback($matches)
+    public function callback($matches)
     {
         if (isset($this->params[$matches[1]])) {
             return $this->params[$matches[1]];

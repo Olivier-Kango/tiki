@@ -69,11 +69,11 @@ function wikiplugin_titlesearch_info()
 class WikiPluginTitleSearch extends PluginsLib
 {
     var $expanded_params = ["exclude", "info"];
-    function getDescription()
+    public function getDescription()
     {
         return wikiplugin_titlesearch_help();
     }
-    function getDefaultArguments()
+    public function getDefaultArguments()
     {
         return ['exclude' => '',
             'noheader' => 0,
@@ -82,15 +82,15 @@ class WikiPluginTitleSearch extends PluginsLib
                 'style' => 'table'
         ];
     }
-    function getName()
+    public function getName()
     {
         return "TitleSearch";
     }
-    function getVersion()
+    public function getVersion()
     {
         return preg_replace("/[Revision: $]/", '', "\$Revision: 1.25 $");
     }
-    function run($data, $params)
+    public function run($data, $params)
     {
         $wikilib = TikiLib::lib('wiki');
         $tikilib = TikiLib::lib('tiki');

@@ -92,10 +92,6 @@ $process = [
         $parts = explode('"', $message['message']);
         return $parts[1];
     },
-    'Squiz.Scope.MethodScope.Missing' => function ($file, $message) {
-        $parts = explode('"', $message['message']);
-        return $parts[1];
-    },
     'PSR2.Classes.PropertyDeclaration.Underscore' => function ($file, $message) {
         $parts = explode('"', $message['message']);
         return $parts[1];

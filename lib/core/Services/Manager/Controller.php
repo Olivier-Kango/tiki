@@ -1057,14 +1057,14 @@ class Services_Manager_Controller
             }
         }
     }
-    function action_manager_backup($input)
+    public function action_manager_backup($input)
     {
         $cmd = new TikiManager\Command\SetupBackupManagerCommand();
 
         return $this->manager_setup($input, $cmd, "backup");
     }
 
-    function action_manager_update($input)
+    public function action_manager_update($input)
     {
         $cmd = new TikiManager\Command\SetupUpdateCommand();
 

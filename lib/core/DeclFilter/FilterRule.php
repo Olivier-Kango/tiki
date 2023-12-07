@@ -8,7 +8,7 @@ abstract class DeclFilter_FilterRule implements DeclFilter_Rule
 {
     private $composite = false;
 
-    abstract function getFilter($key);
+    abstract public function getFilter($key);
 
     public function apply(array &$data, $key)
     {

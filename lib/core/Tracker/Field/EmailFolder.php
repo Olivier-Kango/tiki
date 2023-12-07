@@ -127,7 +127,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         return $options;
     }
 
-    function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = [])
     {
         global $prefs;
         $filegallib = TikiLib::lib('filegal');
@@ -221,12 +221,12 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         return $parsed_fields;
     }
 
-    function renderInput($context = [])
+    public function renderInput($context = [])
     {
         return tr("Emails can be copied or moved here via the Webmail interface.");
     }
 
-    function renderOutput($context = [])
+    public function renderOutput($context = [])
     {
         if (! isset($context['list_mode'])) {
             $context['list_mode'] = 'n';
@@ -292,7 +292,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         ]);
     }
 
-    function handleSave($value, $oldValue)
+    public function handleSave($value, $oldValue)
     {
         $existing = json_decode($oldValue, true);
         if ($existing === null) {
@@ -321,7 +321,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         ];
     }
 
-    function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+    public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
     {
         $value = $this->getValue();
         $baseKey = $this->getBaseKey();
@@ -354,7 +354,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         return $out;
     }
 
-    function getProvidedFields()
+    public function getProvidedFields()
     {
         $baseKey = $this->getBaseKey();
         $fields = [
@@ -367,7 +367,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         return $fields;
     }
 
-    function getProvidedFieldTypes()
+    public function getProvidedFieldTypes()
     {
         $baseKey = $this->getBaseKey();
         $fields = [
@@ -380,13 +380,13 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         return $fields;
     }
 
-    function getGlobalFields()
+    public function getGlobalFields()
     {
         $baseKey = $this->getBaseKey();
         return [$baseKey => true];
     }
 
-    function getTabularSchema()
+    public function getTabularSchema()
     {
         $schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 

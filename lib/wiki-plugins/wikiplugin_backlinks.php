@@ -9,7 +9,7 @@ require_once "lib/wiki/pluginslib.php";
 class WikiPluginBackLinks extends PluginsLib
 {
     var $expanded_params = ["exclude", "info"];
-    function getDefaultArguments()
+    public function getDefaultArguments()
     {
         return ['exclude' => [],
                 'include_self' => 0,
@@ -18,22 +18,22 @@ class WikiPluginBackLinks extends PluginsLib
                 'info' => false ];
     }
 
-    function getName()
+    public function getName()
     {
         return "BackLinks";
     }
 
-    function getDescription()
+    public function getDescription()
     {
         return wikiplugin_backlinks_help();
     }
 
-    function getVersion()
+    public function getVersion()
     {
         return preg_replace("/[Revision: $]/", '', "\$Revision: 1.17 $");
     }
 
-    function get_backlink_from_tracker_item($trackerObjectId)
+    public function get_backlink_from_tracker_item($trackerObjectId)
     {
         $backlink = "";
         $ids = explode(":", $trackerObjectId);
@@ -61,7 +61,7 @@ class WikiPluginBackLinks extends PluginsLib
         return $backlink;
     }
 
-    function get_item_field_id($itemId)
+    public function get_item_field_id($itemId)
     {
         global $tikilib;
         $query = "SELECT `fieldId` FROM `tiki_tracker_item_fields` WHERE `itemId` = ? ORDER BY `fieldId` ASC LIMIT 1";
@@ -70,7 +70,7 @@ class WikiPluginBackLinks extends PluginsLib
         return $fieldId;
     }
 
-    function list_backlinks_from_tracker_items($itemsLinks)
+    public function list_backlinks_from_tracker_items($itemsLinks)
     {
         $head = '<ul>';
         $foot = '</ul>';
@@ -81,7 +81,7 @@ class WikiPluginBackLinks extends PluginsLib
         return $head . $body . $foot;
     }
 
-    function run($data, $params)
+    public function run($data, $params)
     {
         //To be able to read prefs
         global $prefs;
