@@ -67,13 +67,15 @@ class FixBOMandUnixCommand extends Command
         foreach ($files as $fileName) {
             $progress->setMessage('Processing ' . $fileName);
             $progress->advance();
-            $beforeHash = hash_file('crc32b', $fileName);
-            $raw = shell_exec('dos2unix ' . $fileName . ' 2>&1');
-            if ($output->isDebug()) {
-                $output->writeln($raw);
-            }
-            if ($beforeHash !== hash_file('crc32b', $fileName)) {
-                $filesUpdated++;
+            if (is_file($fileName)) {
+                $beforeHash = hash_file('crc32b', $fileName);
+                $raw = shell_exec('dos2unix ' . $fileName . ' 2>&1');
+                if ($output->isDebug()) {
+                    $output->writeln($raw);
+                }
+                if ($beforeHash !== hash_file('crc32b', $fileName)) {
+                    $filesUpdated++;
+                }
             }
         }
 
