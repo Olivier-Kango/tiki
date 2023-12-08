@@ -36,7 +36,7 @@
             </label>
         </div>
         <div class="col-sm-9">
-            {object_selector _format='{title} (id# {object_id} recurrence# {recurrence_id})' _simplevalue=$data.event.calitemId _simplename=$name _simpleid=$id type='calendaritem' calendar_id=$field.options_map.calendarId _current_selection=''}
+            {object_selector _format='{title} (id# {object_id} recurrence# {recurrence_id})' _simplevalue=$data.event.calitemId _simplename=$id _simpleid=$id type='calendaritem' calendar_id=$field.options_map.calendarId _current_selection=''}
             {jq}
 // this strips out repeated instances of the same recurrence id so we attach only the first one to the trascker item
 $(document).on("ready.object_selector", function (event, container) {
