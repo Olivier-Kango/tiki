@@ -85,20 +85,22 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 
         if ($this->getOption('showEventIdInput')) {
             // check if event changed or removed
-            $setCalitemId = isset($_POST['calitemId_' . $this->getFieldId()]) ? $_POST['calitemId_' . $this->getFieldId()] : 0;
+            global $jitPost;
+            $calItemName = 'calitemId_' . $this->getFieldId();
+            $setCalitemId = $jitPost->offsetExists($calItemName) ? $jitPost->offsetGet($calItemName) : 0;
 
             if ($setCalitemId && $setCalitemId !== $calitemId) {
                 $event = $this->calendarLib->get_item($setCalitemId);
                 if ($event) {
                     $value = $event['start'];
-                    $this->setCalendarItemId($calitemId);
+                    $this->setCalendarItemId($setCalitemId);
                 } else {
                     Feedback::error(tr('Calendar Item %0 not found', $setCalitemId));
                 }
                 return [
                     'value' => $value,
                 ];
-            } elseif ($setCalitemId === '') {       // event detached
+            } elseif (empty($setCalitemId)) {       // event detached
                 $this->removeCalendarItemId();
                 return [
                     'value' => $value,
