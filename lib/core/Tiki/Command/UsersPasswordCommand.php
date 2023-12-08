@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use TikiLib;
 
 class UsersPasswordCommand extends Command
@@ -27,15 +28,20 @@ class UsersPasswordCommand extends Command
                 InputOption::VALUE_NONE,
                 'Force set password'
             )
+            // ->addArgument(
+            //     'username',
+            //     InputArgument::OPTIONAL,
+            //     'User login name'
+            // )
+            // ->addArgument(
+            //     'password',
+            //     InputArgument::OPTIONAL,
+            //     'User new password'
+            // );
             ->addArgument(
-                'username',
-                InputArgument::OPTIONAL,
-                'User login name'
-            )
-            ->addArgument(
-                'password',
-                InputArgument::OPTIONAL,
-                'User new password'
+                'params',
+                InputArgument::IS_ARRAY,
+                'User login name and password'
             );
     }
 
@@ -48,10 +54,26 @@ class UsersPasswordCommand extends Command
         $logslib = TikiLib::lib('logs');
         $helper = $this->getHelper('question');
 
+        $params = $input->getArgument('params');
+
+        // If more than 2 arguments are provided, exit with an error
+        if (count($params) > 2) {
+            $io = new SymfonyStyle($input, $output);
+            $io->error('Wrong number of arguments.');
+            $io->writeln('Maybe your password contains special characters messing up the command line syntax?');
+            $io->writeln('===================================================================================');
+            $io->note([
+                'Please try again with the following command:',
+                'php console.php users:password [username]',
+                'A prompt will ask for the password'
+            ]);
+            exit(1);
+        }
+
         /* ============================== */
         /* = username argument = */
         /* ============================== */
-        $user = $input->getArgument('username');
+        $user = $params[0] ?? null;
 
         // If the username is not provided as an argument,
         if (empty($user)) {
@@ -78,7 +100,7 @@ class UsersPasswordCommand extends Command
         /* ============================== */
         /* = password argument = */
         /* ============================== */
-        $password = $input->getArgument('password');
+        $password = $params[1] ?? '';
 
         // If the password is not provided as an argument,
         if (empty($password)) {
