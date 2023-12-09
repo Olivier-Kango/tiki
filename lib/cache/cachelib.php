@@ -302,7 +302,10 @@ class Cachelib
                     @rmdir($path . "/" . $file);    // dir won't be empty if there are multitiki dirs inside
                 } else {
                     try {
-                        unlink($path . "/" . $file);
+                        $filePath = $path . "/" . $file;
+                        if (file_exists($filePath)) {
+                            unlink($filePath);
+                        }
                     } catch (Error $e) {
                         Feedback::error(tr('Cache file %0 is not writable (%1)', $path . "/" . $file, $e->getMessage()));
                     }
