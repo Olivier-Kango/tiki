@@ -115,6 +115,15 @@ class PdfGenerator
                     foreach ($params['pages'] as $page) {
                         $pdata .= $page['parsed'];
                     }
+                } else {
+                    $page = $params['page'];
+                    if (isset($page)) {
+                        $tikilib = TikiLib::lib('tiki');
+                        $page_info = $tikilib->get_page_info($page);
+                        if ($page_info) {
+                            $pdata = TikiLib::lib('parser')->parse_data($page_info['data'], ['is_html' => $page_info['is_html'], 'print' => 'y', 'namespace' => $page_info['namespace']]);
+                        }
+                    }
                 }
                 $url = $base_url . $file . '?' . http_build_query($params, '', '&');
                 $return = $this->{$this->mode}($url, $pdata, $params);
