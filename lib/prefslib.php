@@ -788,14 +788,17 @@ class PreferencesLib
         foreach ((array) $dependencies as $key => $dep) {
             $info = $this->getPreference($dep, false);
             if ($info) {
+                $name = isset($info['name']) ? $info['name'] : '';
+                $type = isset($info['type']) ? $info['type'] : '';
+                $link = isset($info['adminurl']) ? $info['adminurl'] : '';
                 $out[] = [
                     'name' => $dep,
-                    'label' => $info['name'],
-                    'type' => $info['type'],
-                    'link' => $info['adminurl'],
+                    'label' => $name,
+                    'type' => $type,
+                    'link' => $link,
                     'met' =>
-                        ( $info['type'] == 'flag' && $info['value'] == 'y' )
-                        || ( $info['type'] != 'flag' && ! empty($info['value']) )
+                        ( $type == 'flag' && $info['value'] == 'y' )
+                        || ( $type != 'flag' && ! empty($info['value']) )
                 ];
             } elseif ($key === 'profiles') {
                 foreach ((array) $dep as $profile) {
