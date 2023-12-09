@@ -124,7 +124,12 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
         if ($params['date']) {
             // convert to UTC to display it properly for browser based timezone
             if ($this->getOption('datetime') !== 'd') {
-                $params['date'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $params['date']);
+                // check if the date parameter contains any alphabetic characters, and # symbol help to delimit the regular expression pattern.
+                if (preg_match('#[a-zA-Z]#', $params['date'])) {
+                    $params['date'] = strtotime($params['date']);
+                }
+                $tiki_date = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $params['date']);
+                $params['date'] += $tiki_date;
             }
             $params['isutc'] = true;
         }
