@@ -13,7 +13,7 @@
                 <td class="date">
                     <div class="row">
                         <div class="dtstart col-sm-7 text-nowrap" title="{$event.start|tiki_short_date:'n'}">
-                            <a href="{$myurl}?todate={$event.start}" title="{tr}Change Focus{/tr}">{$event.start|tiki_short_date:'n'}</a>
+                            {$event.start|tiki_short_date:'n'}
                         </div>
                         <div class="dtstart-time col-sm-5 text-end text-nowrap">
                             {if !empty($event.allday)}{tr}All day{/tr}{else}{$event.start|tiki_short_time}{/if}
@@ -24,7 +24,7 @@
                     <div class="row">
                         {if $event.start|tiki_short_date:'n' ne $event.end|tiki_short_date:'n'}
                             <div class="dtend col-sm-7 text-nowrap" title="{$event.end|tiki_short_date:'n'}">
-                                <a href="{$myurl}?todate={$event.end}" title="{tr}Change Focus{/tr}">{$event.end|tiki_short_date:'n'}</a>
+                                {$event.end|tiki_short_date:'n'}
                             </div>
                         {/if}
                         <div class="dtstart-time col-sm-5 text-end text-nowrap">
