@@ -50,10 +50,22 @@ if (! empty($_SESSION['try_theme'])) {
 //START loading theme related items
 //This bundle Loads bootstrap JS and popper JS
 
-//We now use popper elsewhere, so use the bootstrap that doesn't include it.  + Use esm bundle https://getbootstrap.com/docs/5.0/getting-started/contents/#precompiled-bootstrap
+//We now use popper elsewhere, so use the bootstrap that doesn't include it.
 
+/*
+bootstrap actually distributes a native ESM bundle https://getbootstrap.com/docs/5.0/getting-started/contents/#precompiled-bootstrap
+
+Note that assigning to the global object (window) is normally an antipattern.  ESM modules are normally imported from, not used from the global namespace.
+
+But older scripts may assume that it is set on the global object and it may be necessary to manually assign to the global object.  (for example it would be necessary if jquery were distributed as an ESM module).
+
+So this is an example of using a native ESM modules dependency and making it available in the global namespace for legacy code.
+
+This is necessary (As of 2023-12-11 bootstrap is used from legacy scripts: tiki-jquery.js, and several other places)
+*/
 $headerlib->add_js_module('
     import * as bootstrap from "bootstrap";
+    window.bootstrap = bootstrap;
 ');
 $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/clipboard/dist/clipboard.min.js');
 
