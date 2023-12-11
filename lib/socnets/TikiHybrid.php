@@ -72,7 +72,7 @@ class TikiHybrid extends LogsLib
                 // do we need to land on tiki-admin.php?
                 header('Location: tiki-index.php');
     //          header('Location: tiki-admin.php'); //?page=socialnetworks');
-                die();
+                throw new Exception(tr('TikiHybrid __construct: this site is not registered with ' . $this->$providerName));
             }
 
 

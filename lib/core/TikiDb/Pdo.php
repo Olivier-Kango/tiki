@@ -54,7 +54,7 @@ class TikiDb_Pdo extends TikiDb
     public function __construct($db)
     {
         if (! $db) {
-            die("Invalid db object passed to TikiDB constructor");
+            throw new Exception('Invalid db object passed to TikiDB constructor');
         }
 
         $this->db = $db;

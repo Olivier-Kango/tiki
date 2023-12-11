@@ -287,13 +287,6 @@
         <exclude-pattern>tiki-importer.php</exclude-pattern>
         <exclude-pattern>tiki-user_reports.php</exclude-pattern>
     </rule>
-    <rule ref="PHPCompatibility.FunctionDeclarations.RemovedCallingDestructAfterConstructorExit.Found">
-        <exclude-pattern>lib/core/TikiDb/Adodb.php</exclude-pattern>
-    </rule>
-    <rule ref="PHPCompatibility.FunctionDeclarations.RemovedCallingDestructAfterConstructorExit.NeedsInspection">
-        <exclude-pattern>lib/core/TikiDb/Pdo.php</exclude-pattern>
-        <exclude-pattern>lib/socnets/TikiHybrid.php</exclude-pattern>
-    </rule>
     <rule ref="PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.NeedsInspection">
         <exclude-pattern>lib/core/Perms.php</exclude-pattern>
         <exclude-pattern>lib/parser/parserlib.php</exclude-pattern>
