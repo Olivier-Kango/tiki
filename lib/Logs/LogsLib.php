@@ -409,6 +409,8 @@ class LogsLib extends TikiLib
         $bindvarsJoin = [];
         $amid = [];
         $mid1 = '';
+        $where1 = '';
+
         if ($find) {
             $findesc = '%' . $find . '%';
             $amid[] = "(`comment` like ? or a.`action` like ? or `object` like ?)";
