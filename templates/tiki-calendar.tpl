@@ -85,7 +85,7 @@
                 <form class="card" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
                     <div class="card-header caltitle py-1 px-2">
                         <strong>{tr}Calendars{/tr}</strong>
-                        <button type="button" class="btn-close"  onclick="toggle('filtercal')" aria-hidden="true"></button>
+                        <button type="button" class="btn-close float-end"  onclick="toggle('filtercal')" aria-hidden="true"></button>
                     </div>
                     <ul class="list-group list-group-flush list-unstyled mt-2">
                         <li class="caltoggle">
@@ -122,7 +122,10 @@
                 <div class="d-inline-block">
                     <form id="exportcal" class="card" method="post" action="tiki-calendar_export_ical.php" name="f" style="display:none;">
                         <input type="hidden" name="export" value="y">
-                        <div class="card-header caltitle py-1 px-2">{tr}Export calendars{/tr}</div>
+                        <div class="card-header caltitle py-1 px-2">
+                            <strong>{tr}Export calendars{/tr}</strong>
+                            <button type="button" class="btn-close float-end"  onclick="toggle('exportcal')" aria-hidden="true"></button>
+                        </div>
                         <div class="caltoggle">
                             {select_all checkbox_names='calendarIds[]' label="{tr}Check / Uncheck All{/tr}"}
                         </div>
