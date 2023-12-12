@@ -17,7 +17,33 @@ use TikiLib;
 
 class UsersPasswordCommand extends Command
 {
+    /**
+     * ============================================
+     * Constants for the output messages
+     *  ============================================
+     */
+    const MSG_PASSWORD_CHANGED = 'Password changed successfully.';
+    const MSG_TOO_MANY_ARGUMENTS = 'Wrong number of arguments.';
+    const MSG_USER_REQUIRED = 'The username argument is required.';
+    const MSG_PASSWORD_REQUIRED = 'Password cannot be empty.';
+    const MSG_USER_DOES_NOT_EXIST = 'User %s does not exist.';
+    const MSG_PROMPT_USER = 'Please enter the username %s:';
+    const MSG_PROMPT_PASSWORD = 'Please enter the new password: ';
+    const MSG_ENCRYPTION_FT_NOTICE = "User encryption feature is enabled.";
+    /**
+     * ============================================
+     */
+
+    private $userlib;
+
     protected static $defaultDescription = 'Set the password to a given user';
+
+    public function __construct($userlib = null)
+    {
+        $this->userlib = $userlib ?: TikiLib::lib('user');
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this
@@ -28,16 +54,6 @@ class UsersPasswordCommand extends Command
                 InputOption::VALUE_NONE,
                 'Force set password'
             )
-            // ->addArgument(
-            //     'username',
-            //     InputArgument::OPTIONAL,
-            //     'User login name'
-            // )
-            // ->addArgument(
-            //     'password',
-            //     InputArgument::OPTIONAL,
-            //     'User new password'
-            // );
             ->addArgument(
                 'params',
                 InputArgument::IS_ARRAY,
@@ -50,7 +66,6 @@ class UsersPasswordCommand extends Command
 
         global $prefs;
 
-        $userlib = TikiLib::lib('user');
         $logslib = TikiLib::lib('logs');
         $helper = $this->getHelper('question');
 
@@ -59,7 +74,7 @@ class UsersPasswordCommand extends Command
         // If more than 2 arguments are provided, exit with an error
         if (count($params) > 2) {
             $io = new SymfonyStyle($input, $output);
-            $io->error('Wrong number of arguments.');
+            $io->error($this::MSG_TOO_MANY_ARGUMENTS);
             $io->writeln('Maybe your password contains special characters messing up the command line syntax?');
             $io->writeln('===================================================================================');
             $io->note([
@@ -67,7 +82,7 @@ class UsersPasswordCommand extends Command
                 'php console.php users:password [username]',
                 'A prompt will ask for the password'
             ]);
-            exit(1);
+            return Command::FAILURE;
         }
 
         /* ============================== */
@@ -79,22 +94,22 @@ class UsersPasswordCommand extends Command
         if (empty($user)) {
             // try to get it from the environment variable
             $env_user = getenv('USERNAME');
-            $show_env_user = $env_user ? " [{$env_user}]" : '';
+            $show_env_user = $env_user ? "[{$env_user}]" : '';
             // If the environment variable is not set, prompt the user for the username interactively
-            $question = new Question("Please enter the username {$show_env_user}: ");
+            $question = new Question(sprintf($this::MSG_PROMPT_USER, $show_env_user));
             $user = $helper->ask($input, $output, $question) ?: $env_user;
         }
 
         // If the username is still empty, exit with an error
         if (! $user) {
-            $output->writeln('<error>The username argument is required.</error>');
+            $output->writeln('<error>' . $this::MSG_USER_REQUIRED . '</error>');
             return Command::FAILURE;
         }
 
         // Check if the user exists
-        if (! $userlib->user_exists($user)) {
-            $output->writeln("<error>User {$user} does not exist.</error>");
-            exit(1);
+        if (! $this->userlib->user_exists($user)) {
+            $output->writeln(sprintf('<error>' . $this::MSG_USER_DOES_NOT_EXIST . '</error>', $user));
+            return Command::FAILURE;
         }
 
         /* ============================== */
@@ -117,15 +132,15 @@ class UsersPasswordCommand extends Command
 
         // If the password is still empty, exit with an error
         if (empty($password)) {
-            $output->writeln("<error>Password cannot be empty.</error>");
-            exit(1);
+            $output->writeln('<error>' . $this::MSG_PASSWORD_REQUIRED . '</error>');
+            return Command::FAILURE;
         }
 
         // Check password constraints
-        $polerr = $userlib->check_password_policy($password);
+        $polerr = $this->userlib->check_password_policy($password);
         if (! empty($polerr)) {
             $output->writeln("<error>{$polerr}</error>");
-            exit(1);
+            return Command::FAILURE;
         }
 
         if ($prefs['auth_method'] != 'tiki') {
@@ -136,14 +151,14 @@ class UsersPasswordCommand extends Command
         }
 
         if ($prefs['feature_user_encryption'] === 'y' && ! $input->getOption('force')) {
-            $output->writeln("<error>User encryption feature is enabled.\n" .
+            $output->writeln("<error>" . $this::MSG_ENCRYPTION_FT_NOTICE . "\n" .
                 "Changing the user password might loose encrypted data.\n\n" .
                 "Use -f to force changing password.</error>");
             return Command::FAILURE;
         }
 
-        $userlib->change_user_password($user, $password);
-        $output->writeln('Password changed successfully.');
+        $this->userlib->change_user_password($user, $password);
+        $output->writeln($this::MSG_PASSWORD_CHANGED);
         $logslib->add_action('adminusers', 'system', 'system', 'Password changed for ' . $user);
         return Command::SUCCESS;
     }
