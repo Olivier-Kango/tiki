@@ -57,23 +57,23 @@ class FreetagLib extends ObjectLib
     /* @access private
      * @param string The regex-style set of characters that are valid for normalized tags.
      */
-    public $_normalized_valid_chars = 'a-zA-Z0-9';
+    public $normalized_valid_chars = 'a-zA-Z0-9';
     /**
      * @access private
      * @param string The regex-style set of characters that are valid for normalized tags.
      */
-    public $_normalize_in_lowercase = 1;
+    public $normalize_in_lowercase = 1;
     /**
      * @access private
      * @param string Whether to prevent multiple users from tagging the same object. By default, set to block (ala Upcoming.org)
      */
-    public $_block_multiuser_tag_on_object = 1;
+    public $block_multiuser_tag_on_object = 1;
 
     /**
      * @access private
      * @param int The maximum length of a tag.
      */
-    public $_MAX_TAG_LENGTH = 128;
+    public $MAX_TAG_LENGTH = 128;
     /**
      * @access public
      * @param int The number of size degrees for tags in cloud. There should be correspondent classes in css.
@@ -95,12 +95,12 @@ class FreetagLib extends ObjectLib
 
         global $prefs;
         if ($prefs['freetags_lowercase_only'] != 'y') {
-            $this->_normalize_in_lowercase = 0;
+            $this->normalize_in_lowercase = 0;
         }
         if (isset($prefs['freetags_ascii_only']) && $prefs['freetags_ascii_only'] != 'y') {
-            $this->_normalized_valid_chars = '';
+            $this->normalized_valid_chars = '';
         } else {
-            $this->_normalized_valid_chars = $prefs['freetags_normalized_valid_chars'];
+            $this->normalized_valid_chars = $prefs['freetags_normalized_valid_chars'];
         }
 
         $this->multilingual = ( $prefs['freetags_multilingual'] == 'y'
@@ -618,8 +618,8 @@ class FreetagLib extends ObjectLib
         // To be sure that the tag lenght is correct.
         // If multibyte string functions are available, it's preferable to use them.
         if (
-            (function_exists('mb_strlen') && (mb_strlen($tag) >= $this->_MAX_TAG_LENGTH))
-                || (strlen($tag) >= $this->_MAX_TAG_LENGTH)
+            (function_exists('mb_strlen') && (mb_strlen($tag) >= $this->MAX_TAG_LENGTH))
+                || (strlen($tag) >= $this->MAX_TAG_LENGTH)
         ) {
             return false;
         }
@@ -632,7 +632,7 @@ class FreetagLib extends ObjectLib
         // First, check for duplicate of the normalized form of the tag on this object.
         // Dynamically switch between allowing duplication between users on the
         // constructor param 'block_multiuser_tag_on_object'.
-        if (! $this->_block_multiuser_tag_on_object) {
+        if (! $this->block_multiuser_tag_on_object) {
             $mid .= ' AND user = ?';
             $bindvals[] = $user;
         }
@@ -694,12 +694,12 @@ class FreetagLib extends ObjectLib
      */
     public function normalize_tag($tag)
     {
-        if (! empty($this->_normalized_valid_chars) && $this->_normalized_valid_chars != '*') {
-            $normalized_valid_chars = $this->_normalized_valid_chars;
+        if (! empty($this->normalized_valid_chars) && $this->normalized_valid_chars != '*') {
+            $normalized_valid_chars = $this->normalized_valid_chars;
             $tag = preg_replace("/[^$normalized_valid_chars]/", '', $tag);
         }
 
-        return $this->_normalize_in_lowercase ? TikiLib::strtolower($tag, 'UTF-8') : $tag;
+        return $this->normalize_in_lowercase ? TikiLib::strtolower($tag, 'UTF-8') : $tag;
     }
 
     /**

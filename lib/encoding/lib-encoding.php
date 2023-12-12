@@ -9,9 +9,9 @@ class Encoding
     private $inputEncoding;
     private $outputEncoding;
     private $outputSupportedEncodings;
-    public $_inputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8'];
-    public $_ouputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8',];
-    public $_supportedEncodings = 'UTF-8,ISO-8859-1,ISO-8859-15';
+    public $inputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8'];
+    public $ouputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8',];
+    public $supportedEncodings = 'UTF-8,ISO-8859-1,ISO-8859-15';
 
     // Class constructor
     public function __construct($inputEncoding = 'ISO-8859-1', $outputEncoding = 'UTF-8')
@@ -54,7 +54,7 @@ class Encoding
     // Return encoding of a string
     public function detect_encoding($str)
     {
-        return mb_detect_encoding($str, $this->_supportedEncodings);
+        return mb_detect_encoding($str, $this->supportedEncodings);
     }
 
     // Convert string to another encoding, return false on failure
@@ -103,7 +103,7 @@ class Encoding
     // Return array of supported input encodings
     public function get_input_supported_encodings()
     {
-        return $this->_inputSupportedEncodings;
+        return $this->inputSupportedEncodings;
     }
 
     // Return array of supported output encodings
@@ -115,6 +115,6 @@ class Encoding
     // Return array of supported encodings
     public function get_supported_encodings()
     {
-        return $this->_supportedEncodings;
+        return $this->supportedEncodings;
     }
 }

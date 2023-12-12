@@ -10312,68 +10312,6 @@
             "class:TikiSheetHTMLTableHandler": true
         }
     },
-    "PSR2.Classes.PropertyDeclaration.Underscore": {
-        "lib\/openpgp\/openpgplib.php": {
-            "$_gpg_path": true,
-            "$_gpg_home": true,
-            "$_gpg_sgn_id": true,
-            "$_gpg_sgn_passphrase": true,
-            "$_gpg_sgn_passfile_path": true,
-            "$_gpg_trust": true
-        },
-        "lib\/wiki\/histlib.php": {
-            "$_document": true,
-            "$_statistics": true,
-            "$_total": true,
-            "$_filter": true,
-            "$_process": true,
-            "$_parsed": true,
-            "$_nohtml": true,
-            "$_search": true,
-            "$_info": true,
-            "$_data": true
-        },
-        "lib\/freetag\/freetaglib.php": {
-            "$_normalized_valid_chars": true,
-            "$_normalize_in_lowercase": true,
-            "$_block_multiuser_tag_on_object": true,
-            "$_MAX_TAG_LENGTH": true
-        },
-        "lib\/captcha\/Captcha_ReCaptcha20.php": {
-            "$_RESPONSE": true
-        },
-        "lib\/captcha\/Captcha_ReCaptcha30.php": {
-            "$_RESPONSE": true
-        },
-        "lib\/accounting\/accountinglib.php": {
-            "$_book": true
-        },
-        "lib\/diff\/Diff.php": {
-            "$_edits": true
-        },
-        "lib\/diff\/Renderer.php": {
-            "$_leading_context_lines": true,
-            "$_trailing_context_lines": true
-        },
-        "lib\/diff\/renderer_unified.php": {
-            "$_table": true
-        },
-        "lib\/ldap\/filter.php": {
-            "$_subfilters": true,
-            "$_match": true,
-            "$_filter": true
-        },
-        "lib\/wiki\/pluginslib.php": {
-            "$_errors": true,
-            "$_data": true,
-            "$_params": true
-        },
-        "lib\/encoding\/lib-encoding.php": {
-            "$_inputSupportedEncodings": true,
-            "$_ouputSupportedEncodings": true,
-            "$_supportedEncodings": true
-        }
-    },
     "PSR2.Methods.MethodDeclaration.Underscore": {
         "lib\/pdflib.php": {
             "_getImages": true,
@@ -10601,50 +10539,6 @@
         },
         "lib\/tikilib.php": {
             "_get_values": true
-        }
-    },
-    "PSR2.Classes.PropertyDeclaration.VarUsed": {
-        "lib\/wiki-plugins\/wikiplugin_backlinks.php": {
-            "$expanded_params": true
-        },
-        "lib\/wiki-plugins\/wikiplugin_pluginmanager.php": {
-            "$expanded_params": true
-        },
-        "lib\/wiki-plugins\/wikiplugin_titlesearch.php": {
-            "$expanded_params": true
-        },
-        "lib\/wiki-plugins\/wikiplugin_mcalendar.php": {
-            "$StartLongCount": true,
-            "$LongCount": true,
-            "$LongKin": true,
-            "$Tzolkin": true,
-            "$TzolkinNames": true,
-            "$Haab": true,
-            "$HaabNames": true,
-            "$Gregorian": true,
-            "$Julian": true
-        }
-    },
-    "PSR2.Classes.PropertyDeclaration.ScopeMissing": {
-        "lib\/wiki-plugins\/wikiplugin_backlinks.php": {
-            "$expanded_params": true
-        },
-        "lib\/wiki-plugins\/wikiplugin_pluginmanager.php": {
-            "$expanded_params": true
-        },
-        "lib\/wiki-plugins\/wikiplugin_titlesearch.php": {
-            "$expanded_params": true
-        },
-        "lib\/wiki-plugins\/wikiplugin_mcalendar.php": {
-            "$StartLongCount": true,
-            "$LongCount": true,
-            "$LongKin": true,
-            "$Tzolkin": true,
-            "$TzolkinNames": true,
-            "$Haab": true,
-            "$HaabNames": true,
-            "$Gregorian": true,
-            "$Julian": true
         }
     }
 }

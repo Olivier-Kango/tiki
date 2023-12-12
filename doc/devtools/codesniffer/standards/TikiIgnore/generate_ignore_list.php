@@ -82,25 +82,6 @@ $process = [
         $parts = explode('"', $message['message']);
         return $parts[1];
     },
-    'PSR2.Classes.PropertyDeclaration.Underscore' => function ($file, $message) {
-        $parts = explode('"', $message['message']);
-        return $parts[1];
-    },
-    'PSR2.Classes.PropertyDeclaration.ScopeMissing' => function ($file, $message) {
-        $parts = explode('"', $message['message']);
-        return $parts[1];
-    },
-    'PSR2.Classes.PropertyDeclaration.VarUsed' => function ($file, $message) {
-        $lines = file($file);
-        preg_match(
-            '/var[[:space:]]*(\$[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*).*/mi',
-            $lines[$message['line'] - 1],
-            $matches
-        );
-
-        return $matches[1];
-    },
-
 ];
 
 echo "# Processing results ...." . PHP_EOL;

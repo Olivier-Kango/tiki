@@ -11,9 +11,9 @@
  */
 class LDAPFilter
 {
-    public $_subfilters = [];
-    public $_match;
-    public $_filter;
+    public $subfilters = [];
+    public $match;
+    public $filter;
 
    /**
     * Combine two or more filter objects using a logical operator
@@ -75,8 +75,8 @@ class LDAPFilter
             }
         }
 
-        $combined_filter->_subfilters = $filters;
-        $combined_filter->_match      = $log_op;
+        $combined_filter->subfilters = $filters;
+        $combined_filter->match      = $log_op;
         return $combined_filter;
     }
 
@@ -122,7 +122,7 @@ class LDAPFilter
                     } else {
                         $filter_o          = new LDAPFilter();
                         $value             = $filter_parts[2];
-                        $filter_o->_filter = '(' . $filter_parts[0] . $filter_parts[1] . $value . ')';
+                        $filter_o->filter = '(' . $filter_parts[0] . $filter_parts[1] . $value . ')';
                         return $filter_o;
                     }
                 }

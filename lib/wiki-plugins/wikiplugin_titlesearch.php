@@ -68,7 +68,7 @@ function wikiplugin_titlesearch_info()
 }
 class WikiPluginTitleSearch extends PluginsLib
 {
-    var $expanded_params = ["exclude", "info"];
+    public $expanded_params = ["exclude", "info"];
     public function getDescription()
     {
         return wikiplugin_titlesearch_help();

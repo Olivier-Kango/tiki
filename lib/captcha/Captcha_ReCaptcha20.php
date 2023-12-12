@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
 {
-    protected $_RESPONSE  = 'g-recaptcha-response';
+    protected $RESPONSE  = 'g-recaptcha-response';
 
     /**
      * Validate captcha
@@ -23,7 +23,7 @@ class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
             return false;
         }
 
-        if (empty($value[$this->_RESPONSE])) {
+        if (empty($value[$this->RESPONSE])) {
             $this->error(self::MISSING_VALUE);
             return false;
         }
@@ -34,7 +34,7 @@ class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
         }
 
         // Google request was cached
-        if (is_array($_SESSION['recaptcha_cache']) && in_array($value[$this->_RESPONSE], $_SESSION['recaptcha_cache'])) {
+        if (is_array($_SESSION['recaptcha_cache']) && in_array($value[$this->RESPONSE], $_SESSION['recaptcha_cache'])) {
             return true;
         }
 
@@ -42,7 +42,7 @@ class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $fields = [
             'secret' => urlencode($this->getSecretKey()),
-            'response' => urlencode($value[$this->_RESPONSE]),
+            'response' => urlencode($value[$this->RESPONSE]),
             'remoteip' => urlencode($_SERVER['REMOTE_ADDR']),
         ];
 
@@ -69,7 +69,7 @@ class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
         }
 
         // Cache google respnonse to avoid second resubmission on ajax form
-        $_SESSION['recaptcha_cache'][] = $value[$this->_RESPONSE];
+        $_SESSION['recaptcha_cache'][] = $value[$this->RESPONSE];
 
         return true;
     }

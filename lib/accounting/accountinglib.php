@@ -24,9 +24,9 @@ class AccountingLib extends LogsLib
     /**
      *
      * Storing the book data if already requested once, this may save us a few queries
-     * @var array   $_book  array with the books structure
+     * @var array   $book  array with the books structure
      */
-    private $_book = '';
+    private $book = '';
 
     /**
      * Lists all books available to a user
@@ -132,12 +132,12 @@ class AccountingLib extends LogsLib
      */
     public function getBook($bookId)
     {
-        if (! is_array($this->_book) or $this->_book['bookId'] != $bookId) {
+        if (! is_array($this->book) or $this->book['bookId'] != $bookId) {
             $query = "SELECT * FROM `tiki_acct_book` WHERE `bookId`=?";
             $res = $this->query($query, [$bookId]);
-            $this->_book = $res->fetchRow();
+            $this->book = $res->fetchRow();
         }
-        return $this->_book;
+        return $this->book;
     }
 
     /**

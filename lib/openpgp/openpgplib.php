@@ -70,35 +70,35 @@ class OpenPGPLib
     * @var string
     * @access protected
     */
-    private $_gpg_path;
+    private $gpg_path;
 
     /**
     * Full path to keyring directory
     * @var string
     * @access protected
     */
-    private $_gpg_home;
+    private $gpg_home;
 
     /**
     * gpg signer idfile
     * @var string
     * @access protected
     */
-    private $_gpg_sgn_id;
+    private $gpg_sgn_id;
 
     /**
     * gpg signer passphrase
     * @var string
     * @access protected
     */
-    private $_gpg_sgn_passphrase;
+    private $gpg_sgn_passphrase;
 
     /**
     * gpg signer full passfile path
     * @var string
     * @access protected
     */
-    private $_gpg_sgn_passfile_path;
+    private $gpg_sgn_passfile_path;
 
     /**
     * gpg trust
@@ -107,7 +107,7 @@ class OpenPGPLib
     * @var string
     * @access protected
     */
-    private $_gpg_trust;
+    private $gpg_trust;
 
     /**
     * Constructor function. Set initial defaults.
@@ -116,17 +116,17 @@ class OpenPGPLib
     {
         global $prefs,$tiki_p_admin;
 
-        $this->_gpg_path = $prefs['openpgp_gpg_path'];
-        $this->_gpg_home = $prefs['openpgp_gpg_home'];
-        $this->_gpg_sgn_id = $prefs['sender_email'];
+        $this->gpg_path = $prefs['openpgp_gpg_path'];
+        $this->gpg_home = $prefs['openpgp_gpg_home'];
+        $this->gpg_sgn_id = $prefs['sender_email'];
         if ($prefs['openpgp_gpg_signer_passphrase_store'] == 'file') {
-            $this->_gpg_sgn_passfile_path = $prefs['openpgp_gpg_signer_passfile'];
-            $this->_gpg_sgn_passphrase = '';
+            $this->gpg_sgn_passfile_path = $prefs['openpgp_gpg_signer_passfile'];
+            $this->gpg_sgn_passphrase = '';
         } else {
-            $this->_gpg_sgn_passfile_path = '';
-            $this->_gpg_sgn_passphrase = $prefs['openpgp_gpg_signer_passphrase'];
+            $this->gpg_sgn_passfile_path = '';
+            $this->gpg_sgn_passphrase = $prefs['openpgp_gpg_signer_passphrase'];
         }
-        $this->_gpg_trust = '';
+        $this->gpg_trust = '';
 
         $this->setCrlf();
     }
@@ -161,7 +161,7 @@ class OpenPGPLib
         ///////////////////////////////
         // open the GnuPG process and get the reply
         // we're only concerned with the first line of output, so use "false" as last argument
-        $commandline = $this->_gpg_path
+        $commandline = $this->gpg_path
                     . ' --version';
         $ret = $this->gpgExecProc($commandline, null, false);
 
@@ -173,7 +173,7 @@ class OpenPGPLib
         ///////////////////////////////////////////////
         // sanity check - see if we're working with gpg
         if (preg_match('/^gpg /', $gpg_version_output) == 0) {
-            $error_msg = 'gpg executable is not GnuPG: "' . $this->_gpg_path . '"';
+            $error_msg = 'gpg executable is not GnuPG: "' . $this->gpg_path . '"';
             trigger_error($error_msg, E_USER_ERROR);
             // if an error message directs you to the line above please
             // double check that your path to gpg is really GnuPG
@@ -190,9 +190,9 @@ class OpenPGPLib
         // depending on which version of GnuPG we're using there
         // are two different ways to specify "always trust"
         if ("$gpg_gpg_version" < '1.2.3') {
-            $this->_gpg_trust = '--always-trust';       // the old way
+            $this->gpg_trust = '--always-trust';       // the old way
         } else {
-            $this->_gpg_trust = '--trust-model always'; // the new way
+            $this->gpg_trust = '--trust-model always'; // the new way
         }
 
         /////////////////////////////////////////////
@@ -368,7 +368,7 @@ class OpenPGPLib
         //////////////////////////////////////////
         // find which version of GnuPG we're using
         //////////////////////////////////////////
-        if ($this->_gpg_trust == '') {
+        if ($this->gpg_trust == '') {
             $this->gpgCheckVersion();
         }
 
@@ -377,24 +377,24 @@ class OpenPGPLib
         $commandline = '';
         if ($prefs['openpgp_gpg_signer_passphrase_store'] == 'file') {
             // get signer-key passphrase from a file
-            $commandline .= $this->_gpg_path
+            $commandline .= $this->gpg_path
                     . ' --no-random-seed-file'
-                    . ' --homedir ' . $this->_gpg_home
-                    . ' ' . $this->_gpg_trust
+                    . ' --homedir ' . $this->gpg_home
+                    . ' ' . $this->gpg_trust
                     . ' --batch'
-                    . ' --local-user ' . $this->_gpg_sgn_id
-                    . ' --passphrase-file ' . $this->_gpg_sgn_passfile_path
+                    . ' --local-user ' . $this->gpg_sgn_id
+                    . ' --passphrase-file ' . $this->gpg_sgn_passfile_path
                     . ' -sea ' . $gpg_recipient_list
                     . ' ';
         } else {
             // get signer-key passphrase from preferences
-            $commandline .= $this->_gpg_path
+            $commandline .= $this->gpg_path
                     . ' --no-random-seed-file'
-                    . ' --homedir ' . $this->_gpg_home
-                    . ' ' . $this->_gpg_trust
+                    . ' --homedir ' . $this->gpg_home
+                    . ' ' . $this->gpg_trust
                     . ' --batch'
-                    . ' --local-user ' . $this->_gpg_sgn_id
-                    . ' --passphrase ' . $this->_gpg_sgn_passphrase
+                    . ' --local-user ' . $this->gpg_sgn_id
+                    . ' --passphrase ' . $this->gpg_sgn_passphrase
                     . ' -sea ' . $gpg_recipient_list
                     . ' ';
         }
@@ -458,15 +458,15 @@ class OpenPGPLib
         //////////////////////////////////////////
         // find which version of GnuPG we're using
         //////////////////////////////////////////
-        if ($this->_gpg_trust == '') {
+        if ($this->gpg_trust == '') {
             $this->gpgCheckVersion();
         }
 
         ///////////////////////////////
         // open the GnuPG process and get the reply
-        $commandline = $this->_gpg_path
-                    . ' --homedir ' . $this->_gpg_home
-                    . ' ' . $this->_gpg_trust
+        $commandline = $this->gpg_path
+                    . ' --homedir ' . $this->gpg_home
+                    . ' ' . $this->gpg_trust
                     . ' --fingerprint'
                     . ' --list-sigs ' . $gpg_key_id_to_return
                     . ' ';
@@ -528,15 +528,15 @@ class OpenPGPLib
         //////////////////////////////////////////
         // find which version of GnuPG we're using
         //////////////////////////////////////////
-        if ($this->_gpg_trust == '') {
+        if ($this->gpg_trust == '') {
             $this->gpgCheckVersion();
         }
 
         ///////////////////////////////
         // open the GnuPG process and get the reply
-        $commandline = $this->_gpg_path
-                    . ' --homedir ' . $this->_gpg_home
-                    . ' ' . $this->_gpg_trust
+        $commandline = $this->gpg_path
+                    . ' --homedir ' . $this->gpg_home
+                    . ' ' . $this->gpg_trust
                     . ' --export --armor ' . $gpg_key_id_to_return
                     . ' ';
         $ret = $this->gpgExecProc($commandline);

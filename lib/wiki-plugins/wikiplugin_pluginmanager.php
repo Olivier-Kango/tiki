@@ -8,7 +8,7 @@ require_once 'lib/wiki/pluginslib.php';
 
 class WikiPluginPluginManager extends PluginsLib
 {
-    var $expanded_params = ['info'];
+    public $expanded_params = ['info'];
     public function getDefaultArguments()
     {
         return [

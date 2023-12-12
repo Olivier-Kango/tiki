@@ -37,9 +37,9 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class PluginsLib extends TikiLib
 {
-    public $_errors;
-    public $_data;
-    public $_params;
+    public $errors;
+    public $data;
+    public $params;
     /**
      * Array of params to be expanded as arrays. Explode the string with {@link $separator}
      * @var array
@@ -167,12 +167,12 @@ class PluginsLib extends TikiLib
 
     public function getErrorDetail()
     {
-        return $this->_errors;
+        return $this->errors;
     }
 
     public function setErrorDetail($message)
     {
-        $this->_errors = $message;
+        $this->errors = $message;
         return false;
     }
 }

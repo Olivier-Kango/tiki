@@ -15,13 +15,13 @@
  */
 class Text_Diff_Renderer_unified extends Tiki_Text_Diff_Renderer
 {
-    public $_table;
+    public $table;
 
     public function __construct($context_lines = 4)
     {
         $this->_leading_context_lines = $context_lines;
         $this->_trailing_context_lines = $context_lines;
-        $this->_table = [];
+        $this->table = [];
     }
 
     protected function _startDiff()
@@ -30,7 +30,7 @@ class Text_Diff_Renderer_unified extends Tiki_Text_Diff_Renderer
 
     protected function _endDiff()
     {
-        return $this->_table;
+        return $this->table;
     }
 
     protected function _blockHeader($xbeg, $xlen, $ybeg, $ylen)
@@ -43,21 +43,21 @@ class Text_Diff_Renderer_unified extends Tiki_Text_Diff_Renderer
             $l = $ybeg + $ylen - 1;
             $ybeg .= '-' . $l;
         }
-        $this->_table[] = ['type' => "diffheader", 'old' => "$xbeg", 'new' => "$ybeg"];
+        $this->table[] = ['type' => "diffheader", 'old' => "$xbeg", 'new' => "$ybeg"];
     }
 
     protected function _context($lines)
     {
-        $this->_table[] = ['type' => "diffbody", 'data' => $lines];
+        $this->table[] = ['type' => "diffbody", 'data' => $lines];
     }
     protected function _added($lines)
     {
-        $this->_table[] = ['type' => "diffadded", 'data' => $lines];
+        $this->table[] = ['type' => "diffadded", 'data' => $lines];
     }
 
     protected function _deleted($lines)
     {
-        $this->_table[] = ['type' => "diffdeleted", 'data' => $lines];
+        $this->table[] = ['type' => "diffdeleted", 'data' => $lines];
     }
 
     protected function _changed($orig, $final)

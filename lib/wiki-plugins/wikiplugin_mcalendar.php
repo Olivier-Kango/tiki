@@ -9,43 +9,43 @@ class MCalendar
    // GMT correlation initiated on August 11, 3114 BC (Gregorian).
    // For another popular GMT correlation initiated on August 13, 3114 BC
    // set MCalendar->StartLongCount = 584285 before calling function MCalendar->Maya()
-    var $StartLongCount = 584283;
-    var $LongCount = [
+    public $StartLongCount = 584283;
+    public $LongCount = [
                            "Baktun" => 13,
                            "Katun" => 0,
                            "Tun" => 0,
                            "Winal" => 0,
                            "Kin" => 0
                            ];
-    var $LongKin;
-    var $Tzolkin = [
+    public $LongKin;
+    public $Tzolkin = [
                         "Kin13" => 0,
                         "Kin20" => 0
                          ];
-    var $TzolkinNames = [
+    public $TzolkinNames = [
                       "AHAU", "IMIX", "IK", "AKBAL", "KAN",
                       "CHICCHAN", "CIMI", "MANIK", "LAMAT",
                       "MULUC", "OC", "CHUEN", "EB", "BEN",
                       "IX", "MEN", "CIB", "CABAN", "ETZNAB",
                       "CAUAC"
                      ];
-    var $Haab = [
+    public $Haab = [
                       "Winal" => 0,
                       "Kin" => 0
                       ];
-    var $HaabNames = [
+    public $HaabNames = [
                      "POP", "WO", "SIP", "SOTZ",
                      "SEK", "XUL", "YAXKIN", "MOL",
                      "CHEN", "YAX", "SAC", "KEH", "MAK",
                      "KANKIN", "MUWAN", "PAX", "KAYAB",
                      "KUMKU", "WAYEB"
                      ];
-    var $Gregorian = [
+    public $Gregorian = [
                            "Year" => 2008,
                            "Month" => 11,
                            "Day" => 25
                            ];
-    var $Julian = 0;
+    public $Julian = 0;
 
 
     public function setLongKin()

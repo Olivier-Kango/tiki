@@ -8,7 +8,7 @@ require_once "lib/wiki/pluginslib.php";
 
 class WikiPluginBackLinks extends PluginsLib
 {
-    var $expanded_params = ["exclude", "info"];
+    public $expanded_params = ["exclude", "info"];
     public function getDefaultArguments()
     {
         return ['exclude' => [],

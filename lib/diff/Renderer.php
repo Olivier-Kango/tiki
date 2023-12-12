@@ -18,7 +18,7 @@ class Text_Diff_Renderer
      * This should be left at zero for this class, but subclasses may want to
      * set this to other values.
      */
-    protected $_leading_context_lines = 0;
+    protected $leading_context_lines = 0;
 
     /**
      * Number of trailing context "lines" to preserve.
@@ -26,7 +26,7 @@ class Text_Diff_Renderer
      * This should be left at zero for this class, but subclasses may want to
      * set this to other values.
      */
-    protected $_trailing_context_lines = 0;
+    protected $trailing_context_lines = 0;
 
     /**
      * Constructor.
@@ -54,8 +54,8 @@ class Text_Diff_Renderer
         $block = false;
         $context = [];
 
-        $nlead = $this->_leading_context_lines;
-        $ntrail = $this->_trailing_context_lines;
+        $nlead = $this->leading_context_lines;
+        $ntrail = $this->trailing_context_lines;
 
         $this->_startDiff();
 

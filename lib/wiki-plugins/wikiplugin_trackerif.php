@@ -97,10 +97,10 @@ function wikiplugin_trackerif_test(LDAPFilter $test, array $values)
 {
     $return = true;
 
-    if ($test->_subfilters != null) {
+    if ($test->subfilters != null) {
         // Current filter is not a leaf
-        foreach ($test->_subfilters as $subfilter) {
-            switch ($test->_match) {
+        foreach ($test->subfilters as $subfilter) {
+            switch ($test->match) {
                 case '&':
                     // And
                     $return &= wikiplugin_trackerif_test($subfilter, $values);
@@ -111,9 +111,9 @@ function wikiplugin_trackerif_test(LDAPFilter $test, array $values)
                     break;
             }
         }
-    } elseif ($test->_filter != null) {
+    } elseif ($test->filter != null) {
         // a operator b
-        preg_match('/^\(\'?([^!\']*)\'?(=|!=|<|<=|>|>=)\'?([^\']*)\'?\)$/', $test->_filter, $matches);
+        preg_match('/^\(\'?([^!\']*)\'?(=|!=|<|<=|>|>=)\'?([^\']*)\'?\)$/', $test->filter, $matches);
 
         if (count($matches) == 4) {
             $_a = $matches[1];
