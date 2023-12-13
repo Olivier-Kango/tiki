@@ -19,7 +19,7 @@ function prefs_unsuccessful_list()
             'keywords' => tra('brute force, brute-force, login failure, login-failure, failed logins'),
         ],
         'unsuccessful_logins_invalid' => [
-            'name' => tra('Suspend account after'),
+            'name' => tra('Suspend/lockout account after'),
             'type' => 'text',
             'size' => 5,
             'filter' => 'int',
