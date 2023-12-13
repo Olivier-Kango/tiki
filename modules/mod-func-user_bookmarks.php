@@ -123,8 +123,12 @@ function module_user_bookmarks($mod_reference, $module_params)
         }
 
         $modb_p_info = $bookmarklib->get_folder($_SESSION["bookmarks_directory"], $user);
-        $modb_father = $modb_p_info["parentId"];
-        // get urls
+        if (is_array($modb_p_info) && isset($modb_p_info["parentId"])) {
+            $modb_father = $modb_p_info["parentId"];
+        } else {
+            $modb_father = 0;
+        }
+
         $modb_urls = $bookmarklib->list_folder($_SESSION["bookmarks_directory"], 0, -1, 'name_asc', '', $user);
         $smarty->assign('modb_urls', $modb_urls["data"]);
         // get folders
