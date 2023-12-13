@@ -29,7 +29,7 @@ class cssLib extends TikiLib
 
         $available_layouts = [];
         foreach (scandir(TIKI_PATH . '/templates/layouts/') as $layoutName) {
-            if ($layoutName[0] != '.' && $layoutName != 'index.php') {
+            if ($layoutName[0] != '.' && $layoutName != 'index.php' && $layoutName != 'README.md') {
                 $available_layouts[$layoutName] = ucfirst($layoutName);
             }
         }
