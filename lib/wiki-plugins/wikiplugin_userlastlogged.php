@@ -54,6 +54,8 @@ function wikiplugin_userlastlogged($data, $params)
     $allowed_methods = ['long_date', 'short_date', 'long_time', 'short_time', 'long_datetime', 'short_datetime', 'iso8601_datetime',
                         'compact_iso8601_datetime'];
 
+    $lastLogin = $info['lastLogin'] ?? null;
+
     if (! empty($params['user'])) {
         $info = $userlib->get_user_info($params['user']);
     } else {
@@ -63,13 +65,13 @@ function wikiplugin_userlastlogged($data, $params)
     if (! empty($params['date_format']) && in_array($params['date_format'], $allowed_methods)) {
         $functionName = 'get_' . $params['date_format'];
         if (method_exists($tikilib, $functionName)) {
-            return $tikilib->$functionName($info['lastLogin']);
+            return $tikilib->$functionName($lastLogin);
         } elseif ($params['date_format'] == 'timestamp') {
-            return $info['lastLogin'];
+            return $lastLogin;
         } else {
-            return $tikilib->get_short_datetime($info['lastLogin']);
+            return $tikilib->get_short_datetime($lastLogin);
         }
     } else {
-        return $tikilib->get_short_datetime($info['lastLogin']);
+        return $tikilib->get_short_datetime($lastLogin);
     }
 }
