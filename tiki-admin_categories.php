@@ -504,9 +504,9 @@ foreach ($categories as $category) {
                 0,
                 ''
             );
-            $desc .= '<span class="object-count badge badge-pill badge-info">' . $objectcount['cant'] . '</span>';
+            $desc .= '<span class="object-count badge badge-pill badge-info bg-info">' . $objectcount['cant'] . '</span>';
         } elseif ($prefs['feature_search'] === 'y') {   // fall back to unified search if not category_browse_count_objects
-            $desc .= '<a class="object-count badge badge-pill badge-info" data-categid="' . $category['categId'] . '">' .
+            $desc .= '<a class="object-count badge badge-pill badge-info bg-info" data-categid="' . $category['categId'] . '">' .
                 $fetchCountIcon . '</a>';
 
             $headerlib->add_jq_onready(
