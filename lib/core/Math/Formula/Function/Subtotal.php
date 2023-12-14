@@ -81,6 +81,7 @@ class Math_Formula_Function_Subtotal extends Math_Formula_Function
 
         // evaluate aggregate function for each field
         foreach ($out as $group_value => $rows) {
+            $previous = [];
             foreach ($aggregate as $position => $field) {
                 $simple = false;
                 if (is_string($formula[$position])) {
@@ -95,7 +96,7 @@ class Math_Formula_Function_Subtotal extends Math_Formula_Function
                     }
                 }
                 if (! $simple) {
-                    $out[$group_value][$position] = $this->evaluateChild($formula[$position], ['$1' => $rows[$position]]);
+                    $out[$group_value][$position] = $this->evaluateChild($formula[$position], array_merge($previous, ['$1' => $rows[$position]]));
                 }
                 // process having clause
                 if (isset($having[$position])) {
@@ -107,7 +108,10 @@ class Math_Formula_Function_Subtotal extends Math_Formula_Function
                 }
                 // transform
                 if (isset($transformers[$position])) {
-                    $out[$group_value][$position] = $this->evaluateChild($transformers[$position], ['$1' => $out[$group_value][$position]]);
+                    $out[$group_value][$position] = $this->evaluateChild($transformers[$position], array_merge($previous, ['$1' => $out[$group_value][$position]]));
+                }
+                if (is_string($formula[$position])) {
+                    $previous['$' . $formula[$position]] = $out[$group_value][$position];
                 }
             }
         }
