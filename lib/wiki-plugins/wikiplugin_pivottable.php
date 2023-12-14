@@ -257,6 +257,15 @@ function wikiplugin_pivottable_info()
                     ['text' => tra('No'), 'value' => 'n']
                 ]
             ],
+            'highlightRequest' => [
+                'name' => tra('Highlight items matching field values coming from request.'),
+                'description' => tra('Highlight items\' values matching those coming from request like a search form POST. List pairs of tracker field names and incoming request variable names separated by a dash.'),
+                'since' => '24.7',
+                'required' => false,
+                'filter' => 'text',
+                'default' => '',
+                'separator' => ':',
+            ],
             'highlightGroupColors' => [
                 'required' => false,
                 'name' => tra('Color for each highlighted group items.'),
@@ -324,7 +333,14 @@ function wikiplugin_pivottable_info()
                     ['text' => tra('No'), 'value' => 'n'],
                     ['text' => tra('Yes'), 'value' => 'y']
                 ]
-            ]
+            ],
+            'dataCallback' => [
+                'name' => tr('Callback run just before rendering the UI with layout and data passed'),
+                'description' => tr('Pass a custom javascript function to tweak the final layout and data traces before rendering them.'),
+                'since' => '24.7',
+                'required' => false,
+                'filter' => 'text',
+            ],
         ],
     ];
 }
@@ -950,6 +966,26 @@ function wikiplugin_pivottable($data, $params)
         }
     }
 
+    if (! empty($params['highlightRequest'])) {
+        $compare = [];
+        foreach ($params['highlightRequest'] as $pair) {
+            list($tf, $rf) = explode('-', $pair);
+            $compare[$tf] = $_REQUEST[$rf];
+        }
+        foreach ($pivotData as $item) {
+            $matching = true;
+            foreach ($compare as $tf => $value) {
+                if ($item[$tf] != $value) {
+                    $matching = false;
+                    break;
+                }
+            }
+            if ($matching) {
+                $highlight[] = ['type' => 'same', 'item' => $item, 'group' => 'request', 'color' => $params['highlightGroupColors'][0] ?? null];
+            }
+        }
+    }
+
     //checking if user can see edit button
     if (! empty($wikiplugin_included_page)) {
         $sourcepage = $wikiplugin_included_page;
@@ -999,6 +1035,7 @@ function wikiplugin_pivottable($data, $params)
         'chartTitle' => empty($params['chartTitle']) ? null : $params['chartTitle'],
         'chartHoverBar' => empty($params['chartHoverBar']) ? null : $params['chartHoverBar'],
         'translate' => empty($params['translate']) ? null : $params['translate'],
+        'dataCallback' => $params['dataCallback'] ?? null,
         'index' => $id
     ]);
 
