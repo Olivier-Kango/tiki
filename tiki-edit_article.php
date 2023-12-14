@@ -269,37 +269,16 @@ if (isset($_REQUEST['preview'])) {
 
 // If we are in preview mode then preview it!
 if (isset($_REQUEST['preview']) or ! empty($errors)) {
-    # convert from the displayed 'site' time to 'server' time
-    if (isset($_REQUEST['publish_Hour'])) {
-        //Convert 12-hour clock hours to 24-hour scale to compute time
-        if (! empty($_REQUEST['publish_Meridian'])) {
-            $_REQUEST['publish_Hour'] = date('H', strtotime($_REQUEST['publish_Hour'] . ':00 ' . $_REQUEST['publish_Meridian']));
-        }
-        $publishDate = $tikilib->make_time(
-            $_REQUEST['publish_Hour'],
-            $_REQUEST['publish_Minute'],
-            0,
-            $_REQUEST['publish_Month'],
-            $_REQUEST['publish_Day'],
-            $_REQUEST['publish_Year']
-        );
+    $tz_params = ['tzname' => TikiLib::lib('tiki')->get_display_timezone()];
+
+    if (isset($_REQUEST['publishDate'])) {
+        $publishDate = TikiDate::convertWithTimezone($tz_params, $_REQUEST['publishDate']) - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $_REQUEST['publishDate']);
     } else {
         $publishDate = $tikilib->now;
     }
 
-    if (isset($_REQUEST['expire_Hour'])) {
-        //Convert 12-hour clock hours to 24-hour scale to compute time
-        if (! empty($_REQUEST['expire_Meridian'])) {
-            $_REQUEST['expire_Hour'] = date('H', strtotime($_REQUEST['expire_Hour'] . ':00 ' . $_REQUEST['expire_Meridian']));
-        }
-        $expireDate = $tikilib->make_time(
-            $_REQUEST['expire_Hour'],
-            $_REQUEST['expire_Minute'],
-            0,
-            $_REQUEST['expire_Month'],
-            $_REQUEST['expire_Day'],
-            $_REQUEST['expire_Year']
-        );
+    if (isset($_REQUEST['expireDate'])) {
+        $expireDate = TikiDate::convertWithTimezone($tz_params, $_REQUEST['expireDate']) - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $_REQUEST['expireDate']);
     } else {
         $expireDate = $publishDate;
     }
@@ -478,39 +457,18 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
 
 if (isset($_REQUEST['save']) && empty($errors)) {
     $access->checkCsrf();
+    $tz_params = ['tzname' => TikiLib::lib('tiki')->get_display_timezone()];
 
-    # convert from the displayed 'site' time to 'server' time
-    if (isset($_REQUEST['publish_Hour'])) {
-        //Convert 12-hour clock hours to 24-hour scale to compute time
-        if (! empty($_REQUEST['publish_Meridian'])) {
-            $_REQUEST['publish_Hour'] = date('H', strtotime($_REQUEST['publish_Hour'] . ':00 ' . $_REQUEST['publish_Meridian']));
-        }
-        $publishDate = $tikilib->make_time(
-            $_REQUEST['publish_Hour'],
-            $_REQUEST['publish_Minute'],
-            0,
-            $_REQUEST['publish_Month'],
-            $_REQUEST['publish_Day'],
-            $_REQUEST['publish_Year']
-        );
+    if (isset($_REQUEST['publishDate'])) {
+        $publishDate = TikiDate::convertWithTimezone($tz_params, $_REQUEST['publishDate']) - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $_REQUEST['publishDate']);
     } else {
         $publishDate = $tikilib->now;
     }
-    if (isset($_REQUEST['expire_Hour'])) {
-        //Convert 12-hour clock hours to 24-hour scale to compute time
-        if (! empty($_REQUEST['expire_Meridian'])) {
-            $_REQUEST['expire_Hour'] = date('H', strtotime($_REQUEST['expire_Hour'] . ':00 ' . $_REQUEST['expire_Meridian']));
-        }
-        $expireDate = $tikilib->make_time(
-            $_REQUEST['expire_Hour'],
-            $_REQUEST['expire_Minute'],
-            0,
-            $_REQUEST['expire_Month'],
-            $_REQUEST['expire_Day'],
-            $_REQUEST['expire_Year']
-        );
+
+    if (isset($_REQUEST['expireDate'])) {
+        $expireDate = TikiDate::convertWithTimezone($tz_params, $_REQUEST['expireDate']) - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $_REQUEST['expireDate']);
     } else {
-        $expireDate = $tikilib->now;
+        $expireDate = $publishDate;
     }
 
     if (isset($_REQUEST['allowhtml']) && $_REQUEST['allowhtml'] == 'on' || $_SESSION['wysiwyg'] == 'y') {

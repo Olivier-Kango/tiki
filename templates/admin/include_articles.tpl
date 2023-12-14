@@ -98,13 +98,6 @@
                     </div>
                 </div>
             </fieldset>
-            <fieldset id="year_dropdown">
-                <legend>
-                    {tr}Year dropdown{/tr}
-                </legend>
-                {preference name=article_start_year}
-                {preference name=article_end_year}
-            </fieldset>
         {/tab}
         {tab name="{tr}Articles Listing and View{/tr}"}
             <br>

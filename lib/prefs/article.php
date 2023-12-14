@@ -152,23 +152,5 @@ function prefs_article_list()
             ],
             'default' => 'n',
         ],
-        'article_start_year' => [
-            'name' => tra('First year in the dropdown'),
-            'units' => tra('years'),
-            'description' => '',
-            'type' => 'text',
-            'size' => '5',
-            'hint' => tra('Enter a year or use +/- N to specify a year relative to the current year'),
-            'default' => '-10',
-        ],
-        'article_end_year' => [
-            'name' => tra('Last year in the dropdown'),
-            'description' => '',
-            'units' => tra('years'),
-            'type' => 'text',
-            'size' => '5',
-            'hint' => tra('Enter a year or use +/- N to specify a year relative to the current year'),
-            'default' => '+10',
-        ],
     ];
 }
