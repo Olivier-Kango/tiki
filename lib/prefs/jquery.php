@@ -92,7 +92,7 @@ function prefs_jquery_list($partial = false)
             'name' => tra('jQuery Select2 Select Boxes'),
             'description' => tra('Styled replacement for dropdown select lists and multiple-select inputs.'),
             'type' => 'flag',
-            'default' => 'n',
+            'default' => 'y',
             'dependencies' => [
                 'jquery',
             ],
