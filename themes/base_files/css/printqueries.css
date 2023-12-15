@@ -26,6 +26,9 @@
     .hidden-print {
         display: none !important;
     }
+    .icon_copy_code {
+        display: none !important;
+    }
 }
 
 
