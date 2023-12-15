@@ -48,63 +48,65 @@
         </div>
         <div id="tracker-columns" class="tiki-form-group row" style="display:none">
             <div class="col-sm-12">
-                <table class="table fields">
-                    <thead>
-                    <tr>
-                        <th>{tr}Field{/tr}</th>
-                        <th>{tr}Field Type{/tr}</th>
-                        <th><abbr title="{tr}Primary Key{/tr}">{tr}PK{/tr}</abbr></th>
-                        <th><abbr title="{tr}Unique Key{/tr}">{tr}UK{/tr}</abbr></th>
-                        <th><abbr title="{tr}Read-Only{/tr}">{tr}RO{/tr}</abbr></th>
-                        <th><abbr title="{tr}Export-Only{/tr}">{tr}EO{/tr}</abbr></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr id="row-template" class="d-none" style="display: none;">
-                        <td>
-                            <div class="input-group input-group-sm">
-                                <input type="text" class="field-label form-control" readonly/>
-                                <div class="input-group-text">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="align">{tr}Left{/tr}</span>
-                                        <input class="display-align" type="hidden" value="left">
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" role="menu">
-                                        <a class="dropdown-item align-option" href="#left">{tr}Left{/tr}</a>
-                                        <a class="dropdown-item align-option" href="#center">{tr}Center{/tr}</a>
-                                        <a class="dropdown-item align-option" href="#right">{tr}Right{/tr}</a>
-                                        <a class="dropdown-item align-option" href="#justify">{tr}Justify{/tr}</a>
+                <div class="table-responsive">
+                    <table class="table fields">
+                        <thead>
+                        <tr>
+                            <th>{tr}Field{/tr}</th>
+                            <th>{tr}Field Type{/tr}</th>
+                            <th><abbr title="{tr}Primary Key{/tr}">{tr}PK{/tr}</abbr></th>
+                            <th><abbr title="{tr}Unique Key{/tr}">{tr}UK{/tr}</abbr></th>
+                            <th><abbr title="{tr}Read-Only{/tr}">{tr}RO{/tr}</abbr></th>
+                            <th><abbr title="{tr}Export-Only{/tr}">{tr}EO{/tr}</abbr></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="row-template" class="d-none" style="display: none;">
+                            <td>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="field-label form-control" readonly/>
+                                    <div class="input-group-text">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="align">{tr}Left{/tr}</span>
+                                            <input class="display-align" type="hidden" value="left">
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" role="menu">
+                                            <a class="dropdown-item align-option" href="#left">{tr}Left{/tr}</a>
+                                            <a class="dropdown-item align-option" href="#center">{tr}Center{/tr}</a>
+                                            <a class="dropdown-item align-option" href="#right">{tr}Right{/tr}</a>
+                                            <a class="dropdown-item align-option" href="#justify">{tr}Justify{/tr}</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="tiki-form-group">
-                            <select class="form-select type">
-                                {foreach from=$types key=k item=info}
-                                    <option value="{$k}" {if $k eq 't'}selected{/if}>{$info.name|escape} {if !empty($info.deprecated)}- Deprecated{/if}</option>
-                                {/foreach}
-                            </select>
-                            {*<ul class="dropdown-menu dropdown-menu-end" role="menu">*}
-                                {**}
-                            {*</ul>*}
+                            </td>
+                            <td class="tiki-form-group">
+                                <select class="form-select type">
+                                    {foreach from=$types key=k item=info}
+                                        <option value="{$k}" {if $k eq 't'}selected{/if}>{$info.name|escape} {if !empty($info.deprecated)}- Deprecated{/if}</option>
+                                    {/foreach}
+                                </select>
+                                {*<ul class="dropdown-menu dropdown-menu-end" role="menu">*}
+                                    {**}
+                                {*</ul>*}
 
-                        </td>
-                        <td><input class="primary" type="radio" name="pk" required /></td>
-                        <td><input class="unique-key" type="checkbox" /></td>
-                        <td><input class="read-only" type="checkbox" /></td>
-                        <td><input class="export-only" type="checkbox" /></td>
-                        <td class="text-end"><button class="remove">{icon name=remove}</button></td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colspan="5">
-                            <textarea name="fields" class="d-none"></textarea>
-                        </td>
-                    </tr>
-                    </tfoot>
-                </table>
+                            </td>
+                            <td><input class="primary" type="radio" name="pk" required /></td>
+                            <td><input class="unique-key" type="checkbox" /></td>
+                            <td><input class="read-only" type="checkbox" /></td>
+                            <td><input class="export-only" type="checkbox" /></td>
+                            <td class="text-end"><button class="remove">{icon name=remove}</button></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <textarea name="fields" class="d-none"></textarea>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
                 <div class="form-text">
                     <p><strong>{tr}Primary Key:{/tr}</strong> {tr}Required to import data. Can be any field as long as it is unique.{/tr}</p>
                     <p><strong>{tr}Unique Key:{/tr}</strong> {tr}Impose unique value requirement for the target column. This only works with Transactional Import feature.{/tr}</p>

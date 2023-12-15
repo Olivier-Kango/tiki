@@ -5,70 +5,72 @@
 {/block}
 
 {block name="content"}
-    <table class="table table-striped table-hover">
-        <tr>
-            <th>{tr}Account{/tr}</th>
-            <th>{tr}Allow{/tr}</th>
-            <th>{tr}Attach{/tr}</th>
-            <th>{tr}HTML{/tr}</th>
-            <th>{tr}Leave{/tr}</th>
-            <th></th>
-        </tr>
-
-        {foreach $accounts as $account}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
             <tr>
-                <td>
-                    <a href="{bootstrap_modal controller=mailin action=replace_account accountId=$account.accountId}">
-                        <strong>{$account.account|escape}</strong>
-                    </a>
-                    <div>{$mailin_types[$account.type].name|escape}</div>
-                    {if $account.active neq 'y'}
-                        <span class="label label-warning">{tr}Disabled{/tr}</span>
-                    {/if}
-                    {if !empty($account.categoryId)}
-                        <div class="text-muted">
-                            {tr}Auto-category:{/tr}
-                            {object_link type=category id=$account.categoryId}
-                        </div>
-                    {/if}
-                    {if !empty($account.namespace)}
-                        <div class="text-muted">
-                            {tr}Auto-namespace:{/tr}
-                            {object_link type="wiki page" id=$account.namespace}
-                        </div>
-                    {/if}
-                </td>
-                <td>
-                    {if $account.anonymous eq 'y'}<span class="label label-info">{tr}Anonymous{/tr}</span>{/if}
-                    {if $account.admin eq 'y'}<span class="label label-warning">{tr}Administrator{/tr}</span>{/if}
-                </td>
-                <td>{if $account.attachments eq 'y'}{icon name="ok"}{/if}</td>
-                <td>{if $account.save_html eq 'y'}{icon name="ok"}{/if}</td>
-                <td>{if $account.leave_email eq 'y'}{icon name="ok"}{/if}</td>
-
-                <td class="action">
-                    {actions}
-                        {strip}
-                            <action>
-                                <a href="{bootstrap_modal controller=mailin action=replace_account accountId=$account.accountId}"
-                                    onclick="$('[data-bs-toggle=popover]').popover('hide');"
-                                >
-                                    {icon name='edit' _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
-                                </a>
-                            </action>
-                            <action>
-                                <a href="{bootstrap_modal controller=mailin action=remove_account accountId=$account.accountId}"
-                                    onclick="$('[data-bs-toggle=popover]').popover('hide');"
-                                >
-                                    {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                </a>
-                            </action>
-                        {/strip}
-                    {/actions}
-                </td>
+                <th>{tr}Account{/tr}</th>
+                <th>{tr}Allow{/tr}</th>
+                <th>{tr}Attach{/tr}</th>
+                <th>{tr}HTML{/tr}</th>
+                <th>{tr}Leave{/tr}</th>
+                <th></th>
             </tr>
-        {/foreach}
-    </table>
+
+            {foreach $accounts as $account}
+                <tr>
+                    <td>
+                        <a href="{bootstrap_modal controller=mailin action=replace_account accountId=$account.accountId}">
+                            <strong>{$account.account|escape}</strong>
+                        </a>
+                        <div>{$mailin_types[$account.type].name|escape}</div>
+                        {if $account.active neq 'y'}
+                            <span class="label label-warning">{tr}Disabled{/tr}</span>
+                        {/if}
+                        {if !empty($account.categoryId)}
+                            <div class="text-muted">
+                                {tr}Auto-category:{/tr}
+                                {object_link type=category id=$account.categoryId}
+                            </div>
+                        {/if}
+                        {if !empty($account.namespace)}
+                            <div class="text-muted">
+                                {tr}Auto-namespace:{/tr}
+                                {object_link type="wiki page" id=$account.namespace}
+                            </div>
+                        {/if}
+                    </td>
+                    <td>
+                        {if $account.anonymous eq 'y'}<span class="label label-info">{tr}Anonymous{/tr}</span>{/if}
+                        {if $account.admin eq 'y'}<span class="label label-warning">{tr}Administrator{/tr}</span>{/if}
+                    </td>
+                    <td>{if $account.attachments eq 'y'}{icon name="ok"}{/if}</td>
+                    <td>{if $account.save_html eq 'y'}{icon name="ok"}{/if}</td>
+                    <td>{if $account.leave_email eq 'y'}{icon name="ok"}{/if}</td>
+
+                    <td class="action">
+                        {actions}
+                            {strip}
+                                <action>
+                                    <a href="{bootstrap_modal controller=mailin action=replace_account accountId=$account.accountId}"
+                                        onclick="$('[data-bs-toggle=popover]').popover('hide');"
+                                    >
+                                        {icon name='edit' _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
+                                    </a>
+                                </action>
+                                <action>
+                                    <a href="{bootstrap_modal controller=mailin action=remove_account accountId=$account.accountId}"
+                                        onclick="$('[data-bs-toggle=popover]').popover('hide');"
+                                    >
+                                        {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                    </a>
+                                </action>
+                            {/strip}
+                        {/actions}
+                    </td>
+                </tr>
+            {/foreach}
+        </table>
+    </div>
     <a href="{bootstrap_modal controller=mailin action=replace_account}" class="btn btn-primary">{icon name="add"} {tr}Add Account{/tr}</a>
     {button _icon_name="cog" _text="{tr}Admin Mail-in Routes{/tr}" _type="link" href="tiki-admin_mailin_routes.php"}
 

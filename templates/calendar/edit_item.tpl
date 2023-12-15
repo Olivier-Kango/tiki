@@ -361,60 +361,62 @@
                                 </div>
                             </div>
                             <br>
-                            <table class="table normal table-bordered" id="participant_roles">
-                                <tr>
-                                    <th>{tr}Invitee{/tr}</th>
-                                    <th>{tr}Status{/tr}</th>
-                                    <th>{tr}Role{/tr}</th>
-                                    <th></th>
-                                </tr>
-                                <tr class="d-none" id="participant-template-row">
-                                    <td class="username"></td>
-                                    <td>
-                                        <select class="form-control noselect2" name="calitem[participant_partstat]">
-                                            <option value="NEEDS-ACTION">{tr}NEEDS-ACTION{/tr}</option>
-                                            <option value="ACCEPTED">{tr}ACCEPTED{/tr}</option>
-                                            <option value="TENTATIVE">{tr}TENTATIVE{/tr}</option>
-                                            <option value="DECLINED">{tr}DECLINED{/tr}</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control noselect2" name="calitem[participant_roles]">
-                                            <option value="0">{tr}Chair{/tr}</option>
-                                            <option value="1">{tr}Required participant{/tr}</option>
-                                            <option value="2">{tr}Optional participant{/tr}</option>
-                                            <option value="3">{tr}Non-participant{/tr}</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        {icon name='delete' iclass='text-danger delete-participant'}
-                                    </td>
-                                </tr>
-                                {foreach item=ppl from=$calitem.participants}
-                                    <tr data-user="{$ppl.username|escape}" class="{$ppl.username|escape}">
-                                        <td>{$ppl.username|userlink}</td>
+                            <div class="table-responsive">
+                                <table class="table normal table-bordered" id="participant_roles">
+                                    <tr>
+                                        <th>{tr}Invitee{/tr}</th>
+                                        <th>{tr}Status{/tr}</th>
+                                        <th>{tr}Role{/tr}</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr class="d-none" id="participant-template-row">
+                                        <td class="username"></td>
                                         <td>
-                                            <select name="calitem[participant_partstat][{$ppl.username}]" class="form-control">
-                                                <option value="NEEDS-ACTION">NEEDS-ACTION</option>
-                                                <option value="ACCEPTED" {if $ppl.partstat eq 'ACCEPTED'}selected{/if}>ACCEPTED</option>
-                                                <option value="TENTATIVE" {if $ppl.partstat eq 'TENTATIVE'}selected{/if}>TENTATIVE</option>
-                                                <option value="DECLINED" {if $ppl.partstat eq 'DECLINED'}selected{/if}>DECLINED</option>
+                                            <select class="form-control noselect2" name="calitem[participant_partstat]">
+                                                <option value="NEEDS-ACTION">{tr}NEEDS-ACTION{/tr}</option>
+                                                <option value="ACCEPTED">{tr}ACCEPTED{/tr}</option>
+                                                <option value="TENTATIVE">{tr}TENTATIVE{/tr}</option>
+                                                <option value="DECLINED">{tr}DECLINED{/tr}</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <select name="calitem[participant_roles][{$ppl.username}]" class="form-control">
-                                                <option value="0">{tr}chair{/tr}</option>
-                                                <option value="1" {if $ppl.role eq '1'}selected{/if}>{tr}required participant{/tr}</option>
-                                                <option value="2" {if $ppl.role eq '2'}selected{/if}>{tr}optional participant{/tr}</option>
-                                                <option value="3" {if $ppl.role eq '3'}selected{/if}>{tr}non-participant{/tr}</option>
+                                            <select class="form-control noselect2" name="calitem[participant_roles]">
+                                                <option value="0">{tr}Chair{/tr}</option>
+                                                <option value="1">{tr}Required participant{/tr}</option>
+                                                <option value="2">{tr}Optional participant{/tr}</option>
+                                                <option value="3">{tr}Non-participant{/tr}</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <a href="#" class="delete-participant"><span class="icon icon-remove fas fa-times"></span></a>
+                                            {icon name='delete' iclass='text-danger delete-participant'}
                                         </td>
                                     </tr>
-                                {/foreach}
-                            </table>
+                                    {foreach item=ppl from=$calitem.participants}
+                                        <tr data-user="{$ppl.username|escape}" class="{$ppl.username|escape}">
+                                            <td>{$ppl.username|userlink}</td>
+                                            <td>
+                                                <select name="calitem[participant_partstat][{$ppl.username}]" class="form-control">
+                                                    <option value="NEEDS-ACTION">NEEDS-ACTION</option>
+                                                    <option value="ACCEPTED" {if $ppl.partstat eq 'ACCEPTED'}selected{/if}>ACCEPTED</option>
+                                                    <option value="TENTATIVE" {if $ppl.partstat eq 'TENTATIVE'}selected{/if}>TENTATIVE</option>
+                                                    <option value="DECLINED" {if $ppl.partstat eq 'DECLINED'}selected{/if}>DECLINED</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="calitem[participant_roles][{$ppl.username}]" class="form-control">
+                                                    <option value="0">{tr}chair{/tr}</option>
+                                                    <option value="1" {if $ppl.role eq '1'}selected{/if}>{tr}required participant{/tr}</option>
+                                                    <option value="2" {if $ppl.role eq '2'}selected{/if}>{tr}optional participant{/tr}</option>
+                                                    <option value="3" {if $ppl.role eq '3'}selected{/if}>{tr}non-participant{/tr}</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="delete-participant"><span class="icon icon-remove fas fa-times"></span></a>
+                                            </td>
+                                        </tr>
+                                    {/foreach}
+                                </table>
+                            </div>
                             <div><a href="#" class="btn btn-secondary btn-sm availability-check">{tr}Check availability{/tr}</a></div>
                             <br/>
                             <input type="checkbox" name="calitem[process_itip]" value="1" checked>

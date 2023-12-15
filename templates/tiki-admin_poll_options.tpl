@@ -44,7 +44,7 @@
 </form>
 <br>
 <h2>{tr}Poll options{/tr}</h2>
-<div align="center">
+<div class="table-responsive" align="center">
     <table class="table table-striped table-hover">
         <tr>
             <th>{tr}Position{/tr}</th>

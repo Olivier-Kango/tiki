@@ -249,7 +249,7 @@
                         <legend>
                             <strong>{tr}Available alias{/tr}</strong>
                         </legend>
-                        <div class="input_submit_container">
+                        <div class="input_submit_container table-responsive">
                             <table class="table table-striped">
                                 <tr>
                                     <th></th>

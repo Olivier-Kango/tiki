@@ -237,47 +237,49 @@
         {tab name="{tr}Scheduler logs{/tr}"}
             <h2>{tr}Scheduler{/tr} {$schedulerinfo.name|escape} Logs</h2>
             <h3>{tr}Last {$numOfLogs} Logs{/tr}</h3>
-            <table class="table normal table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Status</th>
-                    <th>Output</th>
-                </tr>
-                </thead>
-                <tbody>
-                {section name=run loop=$schedulerruns}
+            <div class="table-responsive">
+                <table class="table normal table-striped table-hover">
+                    <thead>
                     <tr>
-                        <td>{$schedulerruns[run].id}</td>
-                        <td>{$schedulerruns[run].start_time|tiki_short_datetime}</td>
-                        <td>{if $schedulerruns[run].end_time ne null}{$schedulerruns[run].end_time|tiki_short_datetime}{/if}</td>
-                        <td>
-                            {if $schedulerruns[run].status eq 'running'}
-                                <span class="badge bg-warning">{tr}Running{/tr}</span>
-                            {/if}
-                            {if $schedulerruns[run].status eq 'failed'}
-                                <span class="badge bg-danger">{tr}Failed{/tr}</span>
-
-                            {/if}
-                            {if $schedulerruns[run].status eq 'done'}
-                                <span class="badge bg-success">{tr}Done{/tr}</span>
-                            {/if}
-                        </td>
-                        <td>
-                            {if isset($schedulerruns[run].can_stop) && $schedulerruns[run].can_stop}
-                                <a class="btn btn-secondary btn-sm" href="{bootstrap_modal controller=scheduler action=reset schedulerId=$schedulerruns[run].scheduler_id startTime=$schedulerruns[run].start_time}">
-                                {icon name="undo" _menu_text='y' _menu_icon='y' alt="{tr}Reset{/tr}"}
-                                </a>
-                            {else}
-                                {$schedulerruns[run].output|nl2br}
-                            {/if}
-                        </td>
+                        <th>ID</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Status</th>
+                        <th>Output</th>
                     </tr>
-                {/section}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {section name=run loop=$schedulerruns}
+                        <tr>
+                            <td>{$schedulerruns[run].id}</td>
+                            <td>{$schedulerruns[run].start_time|tiki_short_datetime}</td>
+                            <td>{if $schedulerruns[run].end_time ne null}{$schedulerruns[run].end_time|tiki_short_datetime}{/if}</td>
+                            <td>
+                                {if $schedulerruns[run].status eq 'running'}
+                                    <span class="badge bg-warning">{tr}Running{/tr}</span>
+                                {/if}
+                                {if $schedulerruns[run].status eq 'failed'}
+                                    <span class="badge bg-danger">{tr}Failed{/tr}</span>
+
+                                {/if}
+                                {if $schedulerruns[run].status eq 'done'}
+                                    <span class="badge bg-success">{tr}Done{/tr}</span>
+                                {/if}
+                            </td>
+                            <td>
+                                {if isset($schedulerruns[run].can_stop) && $schedulerruns[run].can_stop}
+                                    <a class="btn btn-secondary btn-sm" href="{bootstrap_modal controller=scheduler action=reset schedulerId=$schedulerruns[run].scheduler_id startTime=$schedulerruns[run].start_time}">
+                                    {icon name="undo" _menu_text='y' _menu_icon='y' alt="{tr}Reset{/tr}"}
+                                    </a>
+                                {else}
+                                    {$schedulerruns[run].output|nl2br}
+                                {/if}
+                            </td>
+                        </tr>
+                    {/section}
+                    </tbody>
+                </table>
+            </div>
             {pagination_links cant=$cant step=$numrows offset=$offset}tiki-admin_schedulers.php?scheduler={$schedulerinfo.id}&cookietab=3{/pagination_links}
         {/tab}
     {/if}

@@ -25,7 +25,7 @@
 <form name="checkform" method="post">
 {ticket}
     <input type="hidden" name="maxRecords" value="{$maxRecords|escape}">
-    <div class="table"> {*the table-responsive class cuts off dropdown menus when chosen is selected*}
+    <div class="table-responsive"> {*the table-responsive class cuts off dropdown menus when chosen is selected*}
         <table class="table table-striped table-hover">
             {assign var=numbercol value=0}
             <tr>

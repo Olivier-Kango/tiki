@@ -306,7 +306,7 @@
                     <input type="hidden" name="keyId" value="{$encryption_key.keyId}">
                     <input type="hidden" name="new_key" value="{$smarty.request.new_key}">
                     <fieldset id="encryption_keys">
-                        <div class="input_submit_container">
+                        <div class="input_submit_container table-responsive">
                             <table class="table table-striped">
                                 <tr>
                                     <th>{tr}Name{/tr}</th>

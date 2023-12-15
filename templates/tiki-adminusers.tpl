@@ -620,42 +620,44 @@
                         </div>
                     </div>
                     {if isset($userinfo.userId) && $userinfo.userId != 0}
-                        <table class="table table-striped table-condensed small">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-condensed small">
 
-                            {if $userinfo.created neq $userinfo.registrationDate}
+                                {if $userinfo.created neq $userinfo.registrationDate}
+                                    <tr>
+                                        <td>{tr}Created{/tr}</td>
+                                        <td>{$userinfo.created|tiki_long_datetime}</td>
+                                    </tr>
+                                {/if}
                                 <tr>
-                                    <td>{tr}Created{/tr}</td>
-                                    <td>{$userinfo.created|tiki_long_datetime}</td>
+                                    <td>{tr}Registered{/tr}</td><td>{if !empty($userinfo.registrationDate)}{$userinfo.registrationDate|tiki_long_datetime}{/if}</td>
                                 </tr>
-                            {/if}
-                            <tr>
-                                <td>{tr}Registered{/tr}</td><td>{if !empty($userinfo.registrationDate)}{$userinfo.registrationDate|tiki_long_datetime}{/if}</td>
-                            </tr>
-                            <tr>
-                                <td>{tr}Pass confirmed{/tr}</td><td>{if isset($userinfo.pass_confirm) && $userinfo.pass_confirm}{$userinfo.pass_confirm|tiki_long_datetime|default:'Never'}{/if}</td>
-                            </tr>
+                                <tr>
+                                    <td>{tr}Pass confirmed{/tr}</td><td>{if isset($userinfo.pass_confirm) && $userinfo.pass_confirm}{$userinfo.pass_confirm|tiki_long_datetime|default:'Never'}{/if}</td>
+                                </tr>
 
-                            {if $prefs.email_due > 0}
+                                {if $prefs.email_due > 0}
+                                    <tr>
+                                        <td style="white-space: nowrap;">{tr}Email confirmed{/tr}</td>
+                                        <td>
+                                            {if !empty($userinfo.email_confirm)}
+                                                ({tr _0=$userinfo.daysSinceEmailConfirm}%0 days ago{/tr})
+                                            {else}
+                                                {tr}Never{/tr}
+                                            {/if}
+                                        </td>
+                                    </tr>
+                                {/if}
                                 <tr>
-                                    <td style="white-space: nowrap;">{tr}Email confirmed{/tr}</td>
-                                    <td>
-                                        {if !empty($userinfo.email_confirm)}
-                                            ({tr _0=$userinfo.daysSinceEmailConfirm}%0 days ago{/tr})
-                                        {else}
-                                            {tr}Never{/tr}
-                                        {/if}
-                                    </td>
+                                    <td>{tr}Current Login{/tr}</td>
+                                    <td>{if !empty($userinfo.currentLogin)}{$userinfo.currentLogin|tiki_long_datetime|default:'Never'}{/if}</td>
                                 </tr>
-                            {/if}
-                            <tr>
-                                <td>{tr}Current Login{/tr}</td>
-                                <td>{if !empty($userinfo.currentLogin)}{$userinfo.currentLogin|tiki_long_datetime|default:'Never'}{/if}</td>
-                            </tr>
-                            <tr>
-                                <td>{tr}Last Login{/tr}</td>
-                                <td>{if !empty($userinfo.lastLogin)}{$userinfo.lastLogin|tiki_long_datetime|default:'Never'}{/if}</td>
-                            </tr>
-                        </table>
+                                <tr>
+                                    <td>{tr}Last Login{/tr}</td>
+                                    <td>{if !empty($userinfo.lastLogin)}{$userinfo.lastLogin|tiki_long_datetime|default:'Never'}{/if}</td>
+                                </tr>
+                            </table>
+                        </div>
                     {/if}
 
                 </form>

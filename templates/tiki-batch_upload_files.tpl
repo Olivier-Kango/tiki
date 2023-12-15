@@ -16,33 +16,35 @@
 {$totalsize = 0}
 <h2>{tr}Available Files{/tr}</h2>
 <form method="post" action="tiki-batch_upload_files.php" name="f" id="batchUploadForm">
-    <table class="table table-stripped" id="filelist">
-        <tr>
-            <th>{select_all checkbox_names='files[]'}</th>
-            <th>{tr}Filename{/tr}</th>
-            <th width="80">{tr}Filesize{/tr}</th>
-            <th width="80">{tr}Filetype{/tr}</th>
-            <th class="text-center">{icon name='permission' title="{tr}File Permissions{/tr}"}</th>
-        </tr>
-
-        {foreach key=k item=it from=$filelist}
+    <div class="table-responsive">
+        <table class="table table-stripped" id="filelist">
             <tr>
-                <td class="checkbox-cell"><div class="form-check"><input type="checkbox" name="files[]" value="{$it.file}" id="box_{$k}"></div></td>
-                <td><label for="box_{$k}">{$it.file|replace:$prefs.fgal_batch_dir:''}</label></td>
-                <td>{$it.size|kbsize}</td>
-                <td>{$it.ext}</td>
-                <td class="text-center">{if !empty($it.writable)}{icon name='success' title="{tr}File is writable{/tr}"}{else}{icon name='ban' title="{tr}File is not writable{/tr}"}{/if}</td>
+                <th>{select_all checkbox_names='files[]'}</th>
+                <th>{tr}Filename{/tr}</th>
+                <th width="80">{tr}Filesize{/tr}</th>
+                <th width="80">{tr}Filetype{/tr}</th>
+                <th class="text-center">{icon name='permission' title="{tr}File Permissions{/tr}"}</th>
             </tr>
-            {$totalsize = $totalsize + $it.size}
-        {/foreach}
-        <tr>
-            <td></td>
-            <td><strong>{tr _0=$filelist|count}Total: %0{/tr}</strong></td>
-            <td><em>{$totalsize|kbsize}</em></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+
+            {foreach key=k item=it from=$filelist}
+                <tr>
+                    <td class="checkbox-cell"><div class="form-check"><input type="checkbox" name="files[]" value="{$it.file}" id="box_{$k}"></div></td>
+                    <td><label for="box_{$k}">{$it.file|replace:$prefs.fgal_batch_dir:''}</label></td>
+                    <td>{$it.size|kbsize}</td>
+                    <td>{$it.ext}</td>
+                    <td class="text-center">{if !empty($it.writable)}{icon name='success' title="{tr}File is writable{/tr}"}{else}{icon name='ban' title="{tr}File is not writable{/tr}"}{/if}</td>
+                </tr>
+                {$totalsize = $totalsize + $it.size}
+            {/foreach}
+            <tr>
+                <td></td>
+                <td><strong>{tr _0=$filelist|count}Total: %0{/tr}</strong></td>
+                <td><em>{$totalsize|kbsize}</em></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
     <hr>
     <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="galleryId">{tr}Select a File Gallery{/tr}</label>

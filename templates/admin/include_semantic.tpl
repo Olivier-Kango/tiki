@@ -17,22 +17,24 @@
         <form method="post" action="{$smarty.server.REQUEST_URI|escape}">
             {ticket}
 
-            <table class="table">
-                <tr>
-                    <th></th>
-                    <th>{tr}Token{/tr}</th>
-                    <th>{tr}Label{/tr}</th>
-                    <th>{tr}Invert{/tr}</th>
-                </tr>
-                {foreach from=$tokens item=token}
-                <tr>
-                    <td><input type="checkbox" name="select[]" value="{$token.token|escape}"/></td>
-                    <td><a href="{$smarty.server.SCRIPT_NAME}?page=semantic&token={$token.token|escape}">{$token.token|escape}</a></td>
-                    <td>{$token.label|escape}</td>
-                    <td><a href="{$smarty.server.SCRIPT_NAME}?page=semantic&token={$token.invert_token|escape}">{$tokens[$token.invert_token].label|escape}</a></td>
-                </tr>
-                {/foreach}
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>{tr}Token{/tr}</th>
+                        <th>{tr}Label{/tr}</th>
+                        <th>{tr}Invert{/tr}</th>
+                    </tr>
+                    {foreach from=$tokens item=token}
+                    <tr>
+                        <td><input type="checkbox" name="select[]" value="{$token.token|escape}"/></td>
+                        <td><a href="{$smarty.server.SCRIPT_NAME}?page=semantic&token={$token.token|escape}">{$token.token|escape}</a></td>
+                        <td>{$token.label|escape}</td>
+                        <td><a href="{$smarty.server.SCRIPT_NAME}?page=semantic&token={$token.invert_token|escape}">{$tokens[$token.invert_token].label|escape}</a></td>
+                    </tr>
+                    {/foreach}
+                </table>
+            </div>
             <p>
                 <input type="submit" class="btn btn-primary btn-sm" name="list" value="{tr}Show Usage{/tr}">
                 <input type="submit" class="btn btn-danger btn-sm" name="remove" value="{tr}Delete{/tr}">

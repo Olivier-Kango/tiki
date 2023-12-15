@@ -41,7 +41,7 @@
             </form>
         {/if}
         <h2>{tr}External Feeds{/tr}</h2>
-        <div align="center">
+        <div class="table-responsive" align="center">
             {if $channels or ($find ne '')}
                 {include file='find.tpl'}
             {/if}

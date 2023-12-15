@@ -7,32 +7,34 @@
 <div class="text-center mb-4">
     <a href="tiki-admin_system.php?do=all" class="btn btn-primary" title="{tr}Empty{/tr}">{icon name="trash"} {tr}Clear all caches{/tr}</a>
 </div>
-<table class="table table-striped table-hover">
-    <tr>
-        <th>{tr}Directory{/tr}</th>
-        <th>{tr}Files{/tr}/{tr}Size{/tr}</th>
-        <th></th>
-    </tr>
-    <tr>
-        <td><b>./temp/templates_c/</b></td>
-        <td>({$templates_c.cant} {tr}Files{/tr} / {$templates_c.total|kbsize|default:'0 Kb'})</td>
-        <td><a href="tiki-admin_system.php?do=templates_c" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
-    </tr>
-    <tr>
-        <td><b>./temp/cache/</b></td>
-        <td>({$tempcache.cant} {tr}Files{/tr} / {$tempcache.total|kbsize|default:'0 Kb'})</td>
-        <td><a href="tiki-admin_system.php?do=temp_cache" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
-    </tr>
-    <tr>
-        <td><b>./temp/public/</b></td>
-        <td>({$temppublic.cant} {tr}Files{/tr} / {$temppublic.total|kbsize|default:'0 Kb'})</td>
-        <td><a href="tiki-admin_system.php?do=temp_public" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
-    </tr>
-    <tr>
-        <td colspan="2"><b>{tr}All user preference sessions{/tr}</b></td>
-        <td><a href="tiki-admin_system.php?do=prefs" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
-    </tr>
-</table>
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>{tr}Directory{/tr}</th>
+            <th>{tr}Files{/tr}/{tr}Size{/tr}</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td><b>./temp/templates_c/</b></td>
+            <td>({$templates_c.cant} {tr}Files{/tr} / {$templates_c.total|kbsize|default:'0 Kb'})</td>
+            <td><a href="tiki-admin_system.php?do=templates_c" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
+        </tr>
+        <tr>
+            <td><b>./temp/cache/</b></td>
+            <td>({$tempcache.cant} {tr}Files{/tr} / {$tempcache.total|kbsize|default:'0 Kb'})</td>
+            <td><a href="tiki-admin_system.php?do=temp_cache" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
+        </tr>
+        <tr>
+            <td><b>./temp/public/</b></td>
+            <td>({$temppublic.cant} {tr}Files{/tr} / {$temppublic.total|kbsize|default:'0 Kb'})</td>
+            <td><a href="tiki-admin_system.php?do=temp_public" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
+        </tr>
+        <tr>
+            <td colspan="2"><b>{tr}All user preference sessions{/tr}</b></td>
+            <td><a href="tiki-admin_system.php?do=prefs" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
+        </tr>
+    </table>
+</div>
 <br>
 
 {if count($dirs) && $tiki_p_admin eq 'y'}

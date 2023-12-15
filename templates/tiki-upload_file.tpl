@@ -45,64 +45,66 @@
     </div>
 {/if}
 {if isset($uploads) and count($uploads) > 0}
-    <table class="table">
-        {section name=ix loop=$uploads}
-            <tr>
-                <td class="text-center">
-                    <img src="{$uploads[ix].fileId|sefurl:thumbnail}">
-                </td>
-                <td>
-                    {if !empty($filegals_manager) && $prefs.javascript_enabled === 'y'}
-                        <a href="#" onclick="window.opener.insertAt('{$filegals_manager}','{$files[changes].wiki_syntax|escape}');checkClose();return false;" title="{tr}Click here to use the file{/tr}">{$uploads[ix].name} ({$uploads[ix].size|kbsize})</a>
-                    {else}
-                        <b>{$uploads[ix].name} ({$uploads[ix].size|kbsize})</b>
-                    {/if}
-                    {if $prefs.javascript_enabled === 'y'}
-                        {button href="#" _flip_id="uploadinfos"|cat:$uploads[ix].fileId _text="{tr}Additional Info{/tr}"}
-                    {/if}
-                    <div style="{if $prefs.javascript_enabled eq 'y'}display:none;{/if}" id="uploadinfos{$uploads[ix].fileId}">
-                        <h5>
-                            {tr}Syntax Tips{/tr}
-                        </h5>
-                        <div>
-                            {tr}Download link using Tiki syntax:{/tr}
-                        </div>
-                        <div class="ms-3">
-                            <code>
-                                [{$uploads[ix].fileId|sefurl:file}|{$uploads[ix].name}]
-                            </code>
-                        </div>
-                        <div>
-                            {tr}Display an image using Tiki syntax:{/tr}
-                        </div>
-                        <div class="ms-3">
-                            <code>
-                                &#x7b;img src="{$uploads[ix].fileId|sefurl:preview}" link="{$uploads[ix].fileId|sefurl:file}" alt="{$uploads[ix].name}"}
-                            </code>
-                        </div>
-                        {if $prefs.feature_shadowbox eq 'y'}
-                            <div>
-                                {tr}Use as a thumbnail with ShadowBox:{/tr}
-                            </div>
-                        <div class="ms-3">
-                            <code>
-                                &#x7b;img src="{$uploads[ix].fileId|sefurl:thumbnail}" link="{$uploads[ix].fileId|sefurl:preview}" rel="shadowbox[gallery];type=img" alt="{$name}"}
-                            </code>
-                        </div>
+    <div class="table-responsive">
+        <table class="table">
+            {section name=ix loop=$uploads}
+                <tr>
+                    <td class="text-center">
+                        <img src="{$uploads[ix].fileId|sefurl:thumbnail}">
+                    </td>
+                    <td>
+                        {if !empty($filegals_manager) && $prefs.javascript_enabled === 'y'}
+                            <a href="#" onclick="window.opener.insertAt('{$filegals_manager}','{$files[changes].wiki_syntax|escape}');checkClose();return false;" title="{tr}Click here to use the file{/tr}">{$uploads[ix].name} ({$uploads[ix].size|kbsize})</a>
+                        {else}
+                            <b>{$uploads[ix].name} ({$uploads[ix].size|kbsize})</b>
                         {/if}
-                        <div>
-                            {tr}Download link using HTML:{/tr}
+                        {if $prefs.javascript_enabled === 'y'}
+                            {button href="#" _flip_id="uploadinfos"|cat:$uploads[ix].fileId _text="{tr}Additional Info{/tr}"}
+                        {/if}
+                        <div style="{if $prefs.javascript_enabled eq 'y'}display:none;{/if}" id="uploadinfos{$uploads[ix].fileId}">
+                            <h5>
+                                {tr}Syntax Tips{/tr}
+                            </h5>
+                            <div>
+                                {tr}Download link using Tiki syntax:{/tr}
+                            </div>
+                            <div class="ms-3">
+                                <code>
+                                    [{$uploads[ix].fileId|sefurl:file}|{$uploads[ix].name}]
+                                </code>
+                            </div>
+                            <div>
+                                {tr}Display an image using Tiki syntax:{/tr}
+                            </div>
+                            <div class="ms-3">
+                                <code>
+                                    &#x7b;img src="{$uploads[ix].fileId|sefurl:preview}" link="{$uploads[ix].fileId|sefurl:file}" alt="{$uploads[ix].name}"}
+                                </code>
+                            </div>
+                            {if $prefs.feature_shadowbox eq 'y'}
+                                <div>
+                                    {tr}Use as a thumbnail with ShadowBox:{/tr}
+                                </div>
+                            <div class="ms-3">
+                                <code>
+                                    &#x7b;img src="{$uploads[ix].fileId|sefurl:thumbnail}" link="{$uploads[ix].fileId|sefurl:preview}" rel="shadowbox[gallery];type=img" alt="{$name}"}
+                                </code>
+                            </div>
+                            {/if}
+                            <div>
+                                {tr}Download link using HTML:{/tr}
+                            </div>
+                            <div class="ms-3">
+                                <code>
+                                    &lt;a href="{$uploads[ix].dllink}"&gt;{$uploads[ix].name}&lt;/a&gt;
+                                </code>
+                            </div>
                         </div>
-                        <div class="ms-3">
-                            <code>
-                                &lt;a href="{$uploads[ix].dllink}"&gt;{$uploads[ix].name}&lt;/a&gt;
-                            </code>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        {/section}
-    </table>
+                    </td>
+                </tr>
+            {/section}
+        </table>
+    </div>
     <h2>{tr}Upload File{/tr}</h2>
 {elseif isset($fileChangedMessage)}
     <div align="center">

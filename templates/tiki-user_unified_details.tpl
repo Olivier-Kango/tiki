@@ -45,7 +45,7 @@
                 {* Content *}
                 <div class="col-md-8">
                     {* User Information Tab *}
-                    <div id="tab_user" class="profile-tab-content">
+                    <div id="tab_user" class="profile-tab-content table-responsive">
                         <h2>User Information</h2>
                         <table class="table table-borderless profile-info-table">
                         {if $userinfo['user_realName'] && $prefs['user_show_realnames'] == 'n'}

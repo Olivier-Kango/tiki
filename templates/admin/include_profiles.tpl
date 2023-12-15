@@ -269,34 +269,36 @@
         <br>
         <fieldset>
             <h4>{tr}Repository status{/tr} <small>{tr}status of the registered profile repositories{/tr}</small></h4>
-            <table class="table">
-                <tr>
-                    <th>{tr}Profile repository{/tr}</th>
-                    <th>{tr}Status{/tr}</th>
-                    <th>{tr}Last update{/tr}</th>
-                </tr>
-                {foreach key=k item=entry from=$sources}
+            <div class="table-responsive">
+                <table class="table">
                     <tr>
-                        <td>{$entry.short}</td>
-                        <td id="profile-status-{$k}">
-                            {if $entry.status == 'open'}
-                                {icon name='status-open' iclass='tips' ititle="{tr}Status:{/tr}{tr}Open{/tr}"}
-                                {icon name='status-pending' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Pending{/tr}"}
-                                {icon name='status-closed' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Closed{/tr}"}
-                            {elseif $entry.status == 'closed'}
-                                {icon name='status-open' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Open{/tr}"}
-                                {icon name='status-pending' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Pending{/tr}"}
-                                {icon name='status-closed' iclass='tips' ititle="{tr}Status:{/tr}{tr}Closed{/tr}"}
-                            {else}
-                                {icon name='status-open' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Open{/tr}"}
-                                {icon name='status-pending' iclass='tips' ititle="{tr}Status:{/tr}{tr}Pending{/tr}"}
-                                {icon name='status-closed' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Closed{/tr}"}
-                            {/if}
-                        </td>
-                        <td><span id="profile-date-{$k}">{$entry.formatted}</span> <a href='javascript:$.profilesRefreshCache("{$baseURI}", "{$k}")' title="{tr}Refresh{/tr}">{icon name="refresh" iclass='tips' ititle=":{tr}Refresh{/tr}"}</a></td>
+                        <th>{tr}Profile repository{/tr}</th>
+                        <th>{tr}Status{/tr}</th>
+                        <th>{tr}Last update{/tr}</th>
                     </tr>
-                {/foreach}
-            </table>
+                    {foreach key=k item=entry from=$sources}
+                        <tr>
+                            <td>{$entry.short}</td>
+                            <td id="profile-status-{$k}">
+                                {if $entry.status == 'open'}
+                                    {icon name='status-open' iclass='tips' ititle="{tr}Status:{/tr}{tr}Open{/tr}"}
+                                    {icon name='status-pending' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Pending{/tr}"}
+                                    {icon name='status-closed' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Closed{/tr}"}
+                                {elseif $entry.status == 'closed'}
+                                    {icon name='status-open' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Open{/tr}"}
+                                    {icon name='status-pending' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Pending{/tr}"}
+                                    {icon name='status-closed' iclass='tips' ititle="{tr}Status:{/tr}{tr}Closed{/tr}"}
+                                {else}
+                                    {icon name='status-open' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Open{/tr}"}
+                                    {icon name='status-pending' iclass='tips' ititle="{tr}Status:{/tr}{tr}Pending{/tr}"}
+                                    {icon name='status-closed' istyle='display:none' iclass='tips' ititle="{tr}Status:{/tr}{tr}Closed{/tr}"}
+                                {/if}
+                            </td>
+                            <td><span id="profile-date-{$k}">{$entry.formatted}</span> <a href='javascript:$.profilesRefreshCache("{$baseURI}", "{$k}")' title="{tr}Refresh{/tr}">{icon name="refresh" iclass='tips' ititle=":{tr}Refresh{/tr}"}</a></td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
             <form action="tiki-admin.php?page=profiles" method="post">
                 {ticket}
                 {preference name=profile_autoapprove_wikiplugins}

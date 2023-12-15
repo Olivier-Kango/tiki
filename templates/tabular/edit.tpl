@@ -241,65 +241,32 @@
             <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Fields{/tr}</label>
                 <div class="col-sm-10">
-                    <table class="table fields">
-                        <thead>
-                            <tr>
-                                <th>{tr}Field{/tr}</th>
-                                <th>{tr}Mode{/tr}</th>
-                                {if $has_odbc}
-                                    <th><abbr title="{tr}Remote Field{/tr}">{tr}RF{/tr}</abbr></th>
-                                {/if}
-                                <th><abbr title="{tr}Primary Key{/tr}">{tr}PK{/tr}</abbr></th>
-                                <th><abbr title="{tr}Unique Key{/tr}">{tr}UK{/tr}</abbr></th>
-                                <th><abbr title="{tr}Read-Only{/tr}">{tr}RO{/tr}</abbr></th>
-                                <th><abbr title="{tr}Export-Only{/tr}">{tr}EO{/tr}</abbr></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="d-none">
-                                <td>
-                                    <div class="input-group input-group-sm">
-                                        <span class="input-group-text">{icon name=sort}</span>
-                                        <input type="text" class="field-label form-control">
-                                        <div class="input-group-text">
-                                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span class="align">{tr}Left{/tr}</span>
-                                                <input class="display-align" type="hidden" value="left">
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end" role="menu">
-                                                <a class="dropdown-item align-option" href="#left">{tr}Left{/tr}</a>
-                                                <a class="dropdown-item align-option" href="#center">{tr}Center{/tr}</a>
-                                                <a class="dropdown-item align-option" href="#right">{tr}Right{/tr}</a>
-                                                <a class="dropdown-item align-option" href="#justify">{tr}Justify{/tr}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="field">Field Name</span>:<span class="mode">Mode</span></td>
-                                {if $has_odbc}
-                                    <td>
-                                        <div class="input-group input-group-sm">
-                                            <input class="remote-field form-control" type="text" name="remoteField" size="5">
-                                        </div>
-                                    </td>
-                                {/if}
-                                <td><input class="primary" type="radio" name="pk"></td>
-                                <td><input class="unique-key" type="checkbox"></td>
-                                <td><input class="read-only" type="checkbox"></td>
-                                <td><input class="export-only" type="checkbox"></td>
-                                <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
-                            </tr>
-                            {foreach $schema->getColumns() as $column}
+                    <div class="table-responsive">
+                        <table class="table fields">
+                            <thead>
                                 <tr>
+                                    <th>{tr}Field{/tr}</th>
+                                    <th>{tr}Mode{/tr}</th>
+                                    {if $has_odbc}
+                                        <th><abbr title="{tr}Remote Field{/tr}">{tr}RF{/tr}</abbr></th>
+                                    {/if}
+                                    <th><abbr title="{tr}Primary Key{/tr}">{tr}PK{/tr}</abbr></th>
+                                    <th><abbr title="{tr}Unique Key{/tr}">{tr}UK{/tr}</abbr></th>
+                                    <th><abbr title="{tr}Read-Only{/tr}">{tr}RO{/tr}</abbr></th>
+                                    <th><abbr title="{tr}Export-Only{/tr}">{tr}EO{/tr}</abbr></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="d-none">
                                     <td>
                                         <div class="input-group input-group-sm">
                                             <span class="input-group-text">{icon name=sort}</span>
-                                            <input type="text" class="field-label form-control" value="{$column->getLabel()|escape}">
+                                            <input type="text" class="field-label form-control">
                                             <div class="input-group-text">
                                                 <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <span class="align">{$column->getDisplayAlign()|ucfirst|tra}</span>
-                                                    <input class="display-align" type="hidden" value="{$column->getDisplayAlign()|escape}">
+                                                    <span class="align">{tr}Left{/tr}</span>
+                                                    <input class="display-align" type="hidden" value="left">
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end" role="menu">
                                                     <a class="dropdown-item align-option" href="#left">{tr}Left{/tr}</a>
@@ -310,55 +277,90 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
-                                        <a href="{service controller=tabular action=select trackerId=$trackerId permName=$column->getField()
-                                                columnIndex=$column@index mode=$column->getMode()}"
-                                                   class="btn btn-sm btn-secondary add-field tips"
-                                                title="{tr}Field{/tr} {$column->getField()|escape}|{tr}Mode:{/tr} {$column->getMode()|escape}">
-                                            <span class="field d-none">{$column->getField()|escape}</span>:
-                                            <span class="mode">{$column->getMode()|escape}</span>
-                                        </a>
-                                    </td>
+                                    <td><span class="field">Field Name</span>:<span class="mode">Mode</span></td>
                                     {if $has_odbc}
                                         <td>
                                             <div class="input-group input-group-sm">
-                                                <input class="remote-field form-control" type="text" value="{$column->getRemoteField()|escape}" size="5">
+                                                <input class="remote-field form-control" type="text" name="remoteField" size="5">
                                             </div>
                                         </td>
                                     {/if}
-                                    <td><input class="primary" type="radio" name="pk" {if $column->isPrimaryKey()} checked {/if}></td>
-                                    <td><input class="unique-key" type="checkbox" {if $column->isUniqueKey()} checked {/if}></td>
-                                    <td><input class="read-only" type="checkbox" {if $column->isReadOnly()} checked {/if}></td>
-                                    <td><input class="export-only" type="checkbox" {if $column->isExportOnly()} checked {/if}></td>
+                                    <td><input class="primary" type="radio" name="pk"></td>
+                                    <td><input class="unique-key" type="checkbox"></td>
+                                    <td><input class="read-only" type="checkbox"></td>
+                                    <td><input class="export-only" type="checkbox"></td>
                                     <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                 </tr>
-                            {/foreach}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td>
-                                    <select class="selection form-select">
-                                        <option disabled="disabled" selected="selected">{tr}Select a field...{/tr}</option>
-                                        {foreach $schema->getAvailableFields() as $permName => $label}
-                                            <option value="{$permName|escape}">{$label|escape}</option>
-                                        {/foreach}
-                                    </select>
-                                </td>
-                                <td>
-                                    <a href="{service controller=tabular action=select trackerId=$trackerId}" class="btn btn-secondary add-field">{tr}Select Mode{/tr}</a>
-                                    <textarea name="fields" class="d-none">{$schema->getFormatDescriptor()|json_encode}</textarea>
-                                </td>
-                                <td colspan="6">
-                                    <div class="radio">
-                                        <label>
-                                            <input class="primary" type="radio" name="pk" {if ! $schema->getPrimaryKey()} checked {/if}>
-                                            {tr}No primary key{/tr}
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                {foreach $schema->getColumns() as $column}
+                                    <tr>
+                                        <td>
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text">{icon name=sort}</span>
+                                                <input type="text" class="field-label form-control" value="{$column->getLabel()|escape}">
+                                                <div class="input-group-text">
+                                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span class="align">{$column->getDisplayAlign()|ucfirst|tra}</span>
+                                                        <input class="display-align" type="hidden" value="{$column->getDisplayAlign()|escape}">
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end" role="menu">
+                                                        <a class="dropdown-item align-option" href="#left">{tr}Left{/tr}</a>
+                                                        <a class="dropdown-item align-option" href="#center">{tr}Center{/tr}</a>
+                                                        <a class="dropdown-item align-option" href="#right">{tr}Right{/tr}</a>
+                                                        <a class="dropdown-item align-option" href="#justify">{tr}Justify{/tr}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="{service controller=tabular action=select trackerId=$trackerId permName=$column->getField()
+                                                    columnIndex=$column@index mode=$column->getMode()}"
+                                                    class="btn btn-sm btn-secondary add-field tips"
+                                                    title="{tr}Field{/tr} {$column->getField()|escape}|{tr}Mode:{/tr} {$column->getMode()|escape}">
+                                                <span class="field d-none">{$column->getField()|escape}</span>:
+                                                <span class="mode">{$column->getMode()|escape}</span>
+                                            </a>
+                                        </td>
+                                        {if $has_odbc}
+                                            <td>
+                                                <div class="input-group input-group-sm">
+                                                    <input class="remote-field form-control" type="text" value="{$column->getRemoteField()|escape}" size="5">
+                                                </div>
+                                            </td>
+                                        {/if}
+                                        <td><input class="primary" type="radio" name="pk" {if $column->isPrimaryKey()} checked {/if}></td>
+                                        <td><input class="unique-key" type="checkbox" {if $column->isUniqueKey()} checked {/if}></td>
+                                        <td><input class="read-only" type="checkbox" {if $column->isReadOnly()} checked {/if}></td>
+                                        <td><input class="export-only" type="checkbox" {if $column->isExportOnly()} checked {/if}></td>
+                                        <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                    </tr>
+                                {/foreach}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <select class="selection form-select">
+                                            <option disabled="disabled" selected="selected">{tr}Select a field...{/tr}</option>
+                                            {foreach $schema->getAvailableFields() as $permName => $label}
+                                                <option value="{$permName|escape}">{$label|escape}</option>
+                                            {/foreach}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <a href="{service controller=tabular action=select trackerId=$trackerId}" class="btn btn-secondary add-field">{tr}Select Mode{/tr}</a>
+                                        <textarea name="fields" class="d-none">{$schema->getFormatDescriptor()|json_encode}</textarea>
+                                    </td>
+                                    <td colspan="6">
+                                        <div class="radio">
+                                            <label>
+                                                <input class="primary" type="radio" name="pk" {if ! $schema->getPrimaryKey()} checked {/if}>
+                                                {tr}No primary key{/tr}
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                     <div class="form-text">
                         <p><strong>{tr}Remote Field:{/tr}</strong> {tr}When connecting to an external ODBC schema, this should reference the remote schema field.{/tr}</p>
                         <p><strong>{tr}Primary Key:{/tr}</strong> {tr}Can be any field as long as it is unique. If none is specified full record matching will be executed upon import to prevent duplicates which can be slow.{/tr}</p>
@@ -376,46 +378,25 @@
             <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Filters{/tr}</label>
                 <div class="col-sm-10">
-                    <table class="table filters">
-                        <thead>
-                            <tr>
-                                <th>{tr}Field{/tr}</th>
-                                <th>{tr}Mode{/tr}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="d-none">
-                                <td>
-                                    <div class="input-group input-group-sm">
-                                        <span class="input-group-text">{icon name=sort}</span>
-                                        <input type="text" class="filter-label form-control" value="Label">
-                                        <div class="input-group-text">
-                                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span class="position-label">{tr}Default{/tr}</span>
-                                                <input class="position" type="hidden" value="default">
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end" role="menu">
-                                                <a class="dropdown-item position-option" href="#default">{tr}Default{/tr}</a>
-                                                <a class="dropdown-item position-option" href="#primary">{tr}Primary{/tr}</a>
-                                                <a class="dropdown-item position-option" href="#side">{tr}Side{/tr}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="field">Field Name</span>:<span class="mode">Mode</span></td>
-                                <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
-                            </tr>
-                            {foreach $filterCollection->getFilters() as $filter}
+                    <div class="table-responsive">
+                        <table class="table filters">
+                            <thead>
                                 <tr>
+                                    <th>{tr}Field{/tr}</th>
+                                    <th>{tr}Mode{/tr}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="d-none">
                                     <td>
                                         <div class="input-group input-group-sm">
                                             <span class="input-group-text">{icon name=sort}</span>
-                                            <input type="text" class="field-label form-control" value="{$filter->getLabel()|escape}">
+                                            <input type="text" class="filter-label form-control" value="Label">
                                             <div class="input-group-text">
                                                 <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <span class="position-label">{$filter->getPosition()|ucfirst|tra}</span>
-                                                    <input class="position" type="hidden" value="{$filter->getPosition()|escape}">
+                                                    <span class="position-label">{tr}Default{/tr}</span>
+                                                    <input class="position" type="hidden" value="default">
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end" role="menu">
                                                     <a class="dropdown-item position-option" href="#default">{tr}Default{/tr}</a>
@@ -425,28 +406,51 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td><span class="field">{$filter->getField()|escape}</span>:<span class="mode">{$filter->getMode()|escape}</td>
+                                    <td><span class="field">Field Name</span>:<span class="mode">Mode</span></td>
                                     <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                 </tr>
-                            {/foreach}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td>
-                                    <select class="selection form-select">
-                                        <option disabled="disabled" selected="selected">{tr}Select a field...{/tr}</option>
-                                        {foreach $filterCollection->getAvailableFields() as $permName => $label}
-                                            <option value="{$permName|escape}">{$label|escape}</option>
-                                        {/foreach}
-                                    </select>
-                                </td>
-                                <td>
-                                    <a href="{service controller=tabular action=select_filter trackerId=$trackerId}" class="btn btn-secondary add-filter">{tr}Select Mode{/tr}</a>
-                                    <textarea name="filters" class="d-none">{$filterCollection->getFilterDescriptor()|json_encode}</textarea>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                {foreach $filterCollection->getFilters() as $filter}
+                                    <tr>
+                                        <td>
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text">{icon name=sort}</span>
+                                                <input type="text" class="field-label form-control" value="{$filter->getLabel()|escape}">
+                                                <div class="input-group-text">
+                                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span class="position-label">{$filter->getPosition()|ucfirst|tra}</span>
+                                                        <input class="position" type="hidden" value="{$filter->getPosition()|escape}">
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end" role="menu">
+                                                        <a class="dropdown-item position-option" href="#default">{tr}Default{/tr}</a>
+                                                        <a class="dropdown-item position-option" href="#primary">{tr}Primary{/tr}</a>
+                                                        <a class="dropdown-item position-option" href="#side">{tr}Side{/tr}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="field">{$filter->getField()|escape}</span>:<span class="mode">{$filter->getMode()|escape}</td>
+                                        <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                    </tr>
+                                {/foreach}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <select class="selection form-select">
+                                            <option disabled="disabled" selected="selected">{tr}Select a field...{/tr}</option>
+                                            {foreach $filterCollection->getAvailableFields() as $permName => $label}
+                                                <option value="{$permName|escape}">{$label|escape}</option>
+                                            {/foreach}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <a href="{service controller=tabular action=select_filter trackerId=$trackerId}" class="btn btn-secondary add-filter">{tr}Select Mode{/tr}</a>
+                                        <textarea name="filters" class="d-none">{$filterCollection->getFilterDescriptor()|json_encode}</textarea>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                     <div class="form-text">
                         <p>{tr}Filters will be available in partial export menus.{/tr}</p>
                     </div>

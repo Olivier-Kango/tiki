@@ -41,30 +41,32 @@
             <div class="adminoptionbox clearfix">
                 <fieldset class="mb-3 w-100">
                     <legend>{tr}List of pages and content of the title tag{/tr}</legend>
-                    <table class="table" >
-                        <tr>
-                            <th>{tr}Name of the page{/tr}</th>
-                            <th>{tr}Content Tag Title{/tr}</th>
-                            <th>{tr}Edit content Tag{/tr}</th>
-                        </tr>
-                        {foreach item=pages from=$listPages}
-                        <tr>
-                            <td>
-                                {$pages.pageName}
-                            </td>
-                            <td>
-                                {$pages.attribute_title}
-                            </td>
-                            <td>
-                                <div class="">
-                                    <a href="tiki-editpage.php?page={$pages.pageName}#contenttabs_editpage-2">
-                                        <input type="submit" class="btn btn-outline-primary btn-sm" value="{tr}Edit{/tr}"/>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        {/foreach}
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table" >
+                            <tr>
+                                <th>{tr}Name of the page{/tr}</th>
+                                <th>{tr}Content Tag Title{/tr}</th>
+                                <th>{tr}Edit content Tag{/tr}</th>
+                            </tr>
+                            {foreach item=pages from=$listPages}
+                            <tr>
+                                <td>
+                                    {$pages.pageName}
+                                </td>
+                                <td>
+                                    {$pages.attribute_title}
+                                </td>
+                                <td>
+                                    <div class="">
+                                        <a href="tiki-editpage.php?page={$pages.pageName}#contenttabs_editpage-2">
+                                            <input type="submit" class="btn btn-outline-primary btn-sm" value="{tr}Edit{/tr}"/>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+                        </table>
+                    </div>
                 </fieldset>
             </div>
         {/tab}

@@ -19,58 +19,60 @@
             <input type="hidden" name="surveyId" value="{$surveyId|escape}">
             <input type="hidden" name="questionIds" value="">
         </form>
-        <table class="table surveyquestions table-striped table-hover">
-            <tr>
-                <th>
-                    {self_link _sort_arg='sort_mode' _sort_field='questionId'}{tr}ID{/tr}{/self_link}
-                </th>
-                <th>
-                    {self_link _sort_arg='sort_mode' _sort_field='position'}{tr}Position{/tr}{/self_link}
-                </th>
-                <th>
-                    {self_link _sort_arg='sort_mode' _sort_field='question'}{tr}Question{/tr}{/self_link}
-                </th>
-                <th>
-                    {self_link _sort_arg='sort_mode' _sort_field='type'}{tr}Type{/tr}{/self_link}
-                </th>
-                <th>
-                    {self_link _sort_arg='sort_mode' _sort_field='options'}{tr}Options{/tr}{/self_link}
-                </th>
-                <th></th>
-            </tr>
-            {cycle print=false values="odd,even"}
-            {section name=user loop=$channels}
+        <div class="table-responsive">
+            <table class="table surveyquestions table-striped table-hover">
                 <tr>
-                    <td class="id">{$channels[user].questionId}</td>
-                    <td class="integer">{$channels[user].position}</td>
-                    <td class="text">{self_link questionId=$channels[user].questionId}{$channels[user].question|escape|nl2br}{/self_link}</td>
-                    <td class="text">{$types[$channels[user].type]}</td>
-                    <td class="text">{$channels[user].options}</td>
-                    <td class="action">
-                        {actions}
-                            {strip}
-                                <action>
-                                    {self_link _icon_name='edit' _menu_text='y' _menu_icon='y' questionId=$channels[user].questionId}
-                                        {tr}Edit{/tr}
-                                    {/self_link}
-                                </action>
-                                <action>
-                                    <form method="post">
-                                        {ticket}
-                                        <input type="hidden" name="remove" value="{$channels[user].questionId}">
-                                        <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
-                                            {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
-                                        </button>
-                                    </form>
-                                </action>
-                            {/strip}
-                        {/actions}
-                    </td>
+                    <th>
+                        {self_link _sort_arg='sort_mode' _sort_field='questionId'}{tr}ID{/tr}{/self_link}
+                    </th>
+                    <th>
+                        {self_link _sort_arg='sort_mode' _sort_field='position'}{tr}Position{/tr}{/self_link}
+                    </th>
+                    <th>
+                        {self_link _sort_arg='sort_mode' _sort_field='question'}{tr}Question{/tr}{/self_link}
+                    </th>
+                    <th>
+                        {self_link _sort_arg='sort_mode' _sort_field='type'}{tr}Type{/tr}{/self_link}
+                    </th>
+                    <th>
+                        {self_link _sort_arg='sort_mode' _sort_field='options'}{tr}Options{/tr}{/self_link}
+                    </th>
+                    <th></th>
                 </tr>
-                {sectionelse}
-                {norecords _colspan=6}
-            {/section}
-        </table>
+                {cycle print=false values="odd,even"}
+                {section name=user loop=$channels}
+                    <tr>
+                        <td class="id">{$channels[user].questionId}</td>
+                        <td class="integer">{$channels[user].position}</td>
+                        <td class="text">{self_link questionId=$channels[user].questionId}{$channels[user].question|escape|nl2br}{/self_link}</td>
+                        <td class="text">{$types[$channels[user].type]}</td>
+                        <td class="text">{$channels[user].options}</td>
+                        <td class="action">
+                            {actions}
+                                {strip}
+                                    <action>
+                                        {self_link _icon_name='edit' _menu_text='y' _menu_icon='y' questionId=$channels[user].questionId}
+                                            {tr}Edit{/tr}
+                                        {/self_link}
+                                    </action>
+                                    <action>
+                                        <form method="post">
+                                            {ticket}
+                                            <input type="hidden" name="remove" value="{$channels[user].questionId}">
+                                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                                                {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
+                                            </button>
+                                        </form>
+                                    </action>
+                                {/strip}
+                            {/actions}
+                        </td>
+                    </tr>
+                    {sectionelse}
+                    {norecords _colspan=6}
+                {/section}
+            </table>
+        </div>
 
         {pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
 

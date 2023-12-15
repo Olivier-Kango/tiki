@@ -48,20 +48,22 @@
 {if !empty($filters.side.usable)}
     <div class="row">
         <div class="col-sm-9">
-            <table class="table">
-                <tr>
-                    {foreach $columns as $column}
-                        <th class="text-{$column->getDisplayAlign()|escape}">{$column->getLabel()}</th>
-                    {/foreach}
-                </tr>
-                {foreach $data as $row}
+            <div class="table-responsive">
+                <table class="table">
                     <tr>
-                        {foreach $row as $i => $col}
-                            <td class="text-{$columns[$i]->getDisplayAlign()|escape}">{$col}</td>
+                        {foreach $columns as $column}
+                            <th class="text-{$column->getDisplayAlign()|escape}">{$column->getLabel()}</th>
                         {/foreach}
                     </tr>
-                {/foreach}
-            </table>
+                    {foreach $data as $row}
+                        <tr>
+                            {foreach $row as $i => $col}
+                                <td class="text-{$columns[$i]->getDisplayAlign()|escape}">{$col}</td>
+                            {/foreach}
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
             {pagination_links resultset=$resultset}{service controller=tabular action=list tabularId=$tabularId _params=$baseArguments}{/pagination_links}
         </div>
         <div class="col-sm-3">
@@ -91,20 +93,22 @@
         </div>
     </div>
 {else}
-    <table class="table">
-        <tr>
-            {foreach $columns as $column}
-                <th class="text-{$column->getDisplayAlign()|escape}">{$column->getLabel()}</th>
-            {/foreach}
-        </tr>
-        {foreach $data as $row}
+    <div class="table-responsive">
+        <table class="table">
             <tr>
-                {foreach $row as $i => $col}
-                    <td class="text-{$columns[$i]->getDisplayAlign()|escape}">{$col}</td>
+                {foreach $columns as $column}
+                    <th class="text-{$column->getDisplayAlign()|escape}">{$column->getLabel()}</th>
                 {/foreach}
             </tr>
-        {/foreach}
-    </table>
+            {foreach $data as $row}
+                <tr>
+                    {foreach $row as $i => $col}
+                        <td class="text-{$columns[$i]->getDisplayAlign()|escape}">{$col}</td>
+                    {/foreach}
+                </tr>
+            {/foreach}
+        </table>
+    </div>
     {pagination_links resultset=$resultset}{service controller=tabular action=list tabularId=$tabularId _params=$baseArguments}{/pagination_links}
 {/if}
 </div>{* .table-responsive END *}

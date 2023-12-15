@@ -13,52 +13,54 @@
     {/if}
 
     {if $results}
-        <table class="table-responsive table">
-            <tr>
-                <th>
-                    {tr}Name{/tr}
-                </th>
-                <th>
-                    {tr}Title{/tr}
-                </th>
-                <th>
-                    {tr}Major Version{/tr}
-                </th>
-                <th>
-                    {tr}Minor Version{/tr}
-                </th>
-                <th>
-                    {tr}Tutorial URL{/tr}
-                </th>
-                <th>
-                    {tr}Restricted?{/tr}
-                </th>
-            </tr>
-            {foreach $results as $result}
+        <div class="table-responsive">
+            <table class="table">
                 <tr>
-                    <td>
-                        <a href="{service controller='h5p' action='list_libraries' machineName=$result.name|escape majorVersion=$result.majorVersion|escape minorVersion=$result.minorVersion|escape}">
-                            {$result.name|escape}
-                        </a>
-                    </td>
-                    <td>
-                        {$result.title|escape}
-                    </td>
-                    <td>
-                        {$result.majorVersion|escape}
-                    </td>
-                    <td>
-                        {$result.minorVersion|escape}
-                    </td>
-                    <td>
-                        <a href="{$result.tutorialUrl|escape:'url'}">{$result.tutorialUrl|escape}</a>
-                    </td>
-                    <td>
-                        {if !empty($result.restricted)}{icon name='check'}{/if}
-                    </td>
+                    <th>
+                        {tr}Name{/tr}
+                    </th>
+                    <th>
+                        {tr}Title{/tr}
+                    </th>
+                    <th>
+                        {tr}Major Version{/tr}
+                    </th>
+                    <th>
+                        {tr}Minor Version{/tr}
+                    </th>
+                    <th>
+                        {tr}Tutorial URL{/tr}
+                    </th>
+                    <th>
+                        {tr}Restricted?{/tr}
+                    </th>
                 </tr>
-            {/foreach}
-        </table>
+                {foreach $results as $result}
+                    <tr>
+                        <td>
+                            <a href="{service controller='h5p' action='list_libraries' machineName=$result.name|escape majorVersion=$result.majorVersion|escape minorVersion=$result.minorVersion|escape}">
+                                {$result.name|escape}
+                            </a>
+                        </td>
+                        <td>
+                            {$result.title|escape}
+                        </td>
+                        <td>
+                            {$result.majorVersion|escape}
+                        </td>
+                        <td>
+                            {$result.minorVersion|escape}
+                        </td>
+                        <td>
+                            <a href="{$result.tutorialUrl|escape:'url'}">{$result.tutorialUrl|escape}</a>
+                        </td>
+                        <td>
+                            {if !empty($result.restricted)}{icon name='check'}{/if}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
     {/if}
 
     {if not empty($name)}
