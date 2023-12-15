@@ -656,6 +656,7 @@ class Services_Calendar_Controller
             if ($this->logsLib) {
                 $this->logsLib->add_action('Removed', 'event ' . $_REQUEST['calitemId'], 'calendar event');
             }
+            Feedback::success(tr('Event deleted successfully.'));
         }
 
         return [];
