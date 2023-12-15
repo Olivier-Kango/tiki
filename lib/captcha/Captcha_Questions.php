@@ -20,10 +20,10 @@ class Captcha_Questions extends Laminas\Captcha\AbstractWord
     /**#@+
      * Error codes
      */
-    private const MISSING_VALUE = 'missingValue';
-    private const ERR_CAPTCHA   = 'errCaptcha';
-    private const BAD_CAPTCHA   = 'badCaptcha';
-    private const MISSING_ID    = 'missingID';
+    public const MISSING_VALUE = 'missingValue';
+    public const ERR_CAPTCHA   = 'errCaptcha';
+    public const BAD_CAPTCHA   = 'badCaptcha';
+    public const MISSING_ID    = 'missingID';
     /**#@-*/
 
     /**
