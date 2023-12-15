@@ -14,7 +14,7 @@ use Tiki\TikiInit;
 
 const MIN_PHP_VERSION = '8.1.0';
 // Allow to restrict the installation of Tiki on a too recent PHP version.
-const TOO_RECENT_PHP_VERSION = '8.2.0';
+const TOO_RECENT_PHP_VERSION = '9.0.0';
 
 $in_installer = 1;
 define('TIKI_IN_INSTALLER', 1);
