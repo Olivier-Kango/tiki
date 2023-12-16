@@ -8639,6 +8639,9 @@ class UsersLib extends TikiLib
     public function clean_user($u, $force_check_realnames = false, $login_fallback = true)
     {
         global $prefs;
+        if (empty($u)) {
+            return '';
+        }
         $tikilib = TikiLib::lib('tiki');
         if ($prefs['user_show_realnames'] == 'y' || $force_check_realnames) {
             // need to trim to prevent mustMatch failure
