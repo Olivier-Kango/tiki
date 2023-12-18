@@ -11,6 +11,9 @@
   "devDependencies": {
   },
   "dependencies": {
-    "single-spa": "^5.9.5"
+    "single-spa": "^6.0.0"
+  },
+  "devDepencenciesComment": {
+    "single-spa": "https://github.com/single-spa/single-spa/releases"
   }
 }
