@@ -2258,7 +2258,7 @@
         "teqneers/shamir": "dev-master",
         "thomaspark/bootswatch": "~5.1",
         "tijsverkoyen/css-to-inline-styles": ">=1.2.1",
-        "tikiwiki/diagram": "10.9.8||~12.8.6",
+        "tikiwiki/diagram": "10.9.8||~12.8.6||^22.1.11",
         "tikiwiki/ilp-client": "^1.0",
         "true/punycode": "^2.1",
         "twbs/bootstrap": ">=3.3.7",
