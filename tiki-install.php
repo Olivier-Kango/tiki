@@ -102,7 +102,7 @@ if (file_exists('db/' . $tikidomainslash . 'local.php')) {
         } else {
             $userCanAccessInstaller = false;
             $userAuthenticatedFromDbCredentialsMd5 = null;
-            $attempts = (int) @file_get_contents($authAttemptsFile);
+            $attempts = (int)@file_get_contents($authAttemptsFile);
 
             if (++$attempts >= 10) {
                 //Lock the installer
@@ -112,6 +112,9 @@ if (file_exists('db/' . $tikidomainslash . 'local.php')) {
                 file_put_contents($authAttemptsFile, $attempts);
             }
         }
+    } else if (isset($_POST['multi']) && $_POST['multi'] === $tikidomain) {
+        $userAuthenticatedFromDbCredentialsMd5 =
+            password_hash($user_tiki . $pass_tiki . $dbs_tiki, PASSWORD_DEFAULT);
     }
 
     if ($userAuthenticatedFromDbCredentialsMd5) {

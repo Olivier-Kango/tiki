@@ -217,7 +217,13 @@ $smarty->assign('mid', 'tiki-install.tpl');
 $smarty->assign('virt', isset($virt) ? $virt : null);
 $smarty->assign('multi', isset($multi) ? $multi : null);
 $smarty->assign('lang', $language);
-$smarty->assign('default_server_domain_name', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME']);
+if (isset($multi)) {
+    $smarty->assign('default_server_domain_name', $multi);
+} elseif (isset($_SERVER['HTTP_HOST'])) {
+    $smarty->assign('default_server_domain_name', $_SERVER['HTTP_HOST']);
+} else {
+    $smarty->assign('default_server_domain_name', $_SERVER['SERVER_NAME']);
+}
 
 // Try to set a longer execution time for the installer
 @ini_set('max_execution_time', '0');
@@ -762,8 +768,9 @@ $headerlib->add_cssfile('public/generated/js/vendor_dist/bootstrap/dist/css/boot
 $headerlib->add_cssfile('vendor_bundled/vendor/bower-asset/fontawesome/css/all.css');
 $headerlib->add_cssfile('themes/base_files/css/tiki_base.css');
 $headerlib->add_jsfile('lib/tiki-js.js');
-$headerlib->add_jsfile_dependency("vendor_bundled/vendor/components/jquery/jquery.min.js");
-$headerlib->add_jsfile_dependency("vendor_bundled/vendor/components/jqueryui/jquery-ui.js");
+$headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery/dist/jquery.min.js");
+$headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery-migrate/dist/jquery-migrate.min.js", true);
+$headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery-ui/dist/jquery-ui.js");
 $headerlib->add_jsfile('lib/jquery_tiki/tiki-jquery.js');
     $js = '
 // JS Object to hold prefs for jq

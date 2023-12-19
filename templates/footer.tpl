@@ -91,19 +91,21 @@
 
 {/if}
 
-{if isset($prefs.socialnetworks_user_firstlogin) && $prefs.socialnetworks_user_firstlogin == 'y'}
-    {include file='tiki-socialnetworks_firstlogin_launcher.tpl'}
-{/if}
-{*try to load cache when logged in*}
-{if (isset($pagespwa))}
-    {include file='pwa/pwa.tpl'}
-{/if}
+{if empty($TIKI_IN_INSTALLER)}
+    {if isset($prefs.socialnetworks_user_firstlogin) && $prefs.socialnetworks_user_firstlogin == 'y'}
+        {include file='tiki-socialnetworks_firstlogin_launcher.tpl'}
+    {/if}
+    {*try to load cache when logged in*}
+    {if (isset($pagespwa))}
+        {include file='pwa/pwa.tpl'}
+    {/if}
 
-{if !empty($prefs.site_google_analytics_account)}
-    {wikiplugin _name=googleanalytics account=$prefs.site_google_analytics_account group_option=$prefs.site_google_analytics_group_option groups={','|implode:$prefs.site_google_analytics_groups}}{/wikiplugin}
-{/if}
-{if !empty($prefs.feature_endbody_code)}
-    {eval var=$prefs.feature_endbody_code}
+    {if !empty($prefs.site_google_analytics_account)}
+        {wikiplugin _name=googleanalytics account=$prefs.site_google_analytics_account group_option=$prefs.site_google_analytics_group_option groups={','|implode:$prefs.site_google_analytics_groups}}{/wikiplugin}
+    {/if}
+    {if not empty($prefs.feature_endbody_code)}
+        {eval var=$prefs.feature_endbody_code}
+    {/if}
 {/if}
 {interactivetranslation}
 {* Put JS at the end *}
