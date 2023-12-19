@@ -104,6 +104,7 @@ if [ ${DEBUG_UNIX} = '1' ] ; then
     echo ${DEBUG_PREFIX} SORT=${SORT}
     echo ${DEBUG_PREFIX} TOUCH=${TOUCH}
     echo ${DEBUG_PREFIX} UNIQ=${UNIQ}
+    echo ${DEBUG_PREFIX} TR=${TR}
 fi
 # list of commands
 CAT=`which cat`
@@ -121,6 +122,7 @@ RM=`which rm`
 SORT=`which sort`
 TOUCH=`which touch`
 UNIQ=`which uniq`
+TR=`which tr`
 if [ ${DEBUG_UNIX} = '1' ] ; then
     echo ${DEBUG_PREFIX}
     echo ${DEBUG_PREFIX} after:
@@ -136,6 +138,7 @@ if [ ${DEBUG_UNIX} = '1' ] ; then
     echo ${DEBUG_PREFIX} SORT=${SORT}
     echo ${DEBUG_PREFIX} TOUCH=${TOUCH}
     echo ${DEBUG_PREFIX} UNIQ=${UNIQ}
+    echo ${DEBUG_PREFIX} TR=${TR}
 fi
 
 # hint for users
@@ -298,8 +301,8 @@ check_hosting_platform() {
         DIR_PATH=$(cd $(dirname $CURRENT_SCRIPT) && pwd)
         PATH=$DIR_PATH/$(basename $CURRENT_SCRIPT)
 
-        if echo "$PATH" | grep -q "home/[^/]*"; then
-            AUSER=$(echo "$PATH" | grep -o "home/[^/]*" | cut -d "/" -f 2)
+        if echo "$PATH" | ${GREP} -q "home/[^/]*"; then
+            AUSER=$(echo "$PATH" | ${GREP} -o "home/[^/]*" | ${CUT} -d "/" -f 2)
             AGROUP=$(/usr/bin/id -gn $AUSER)
         fi
     fi
@@ -774,14 +777,14 @@ what to answer, just press enter to each question (to use default value)"
         fi
     fi
 
-    touch db/virtuals.inc
+    ${TOUCH} db/virtuals.inc
     if [ -n "$OPT_VIRTUALS" ]; then
         VIRTUALS=$OPT_VIRTUALS
     elif [ -n "$OPT_USE_CURRENT_USER_GROUP" ]; then
         VIRTUALS=$(cat db/virtuals.inc)
     else
-        read -p "> Multi [$(cat -s db/virtuals.inc | tr '\n' ' ')]: " VIRTUALS
-        [ -z "$VIRTUALS" ] && VIRTUALS=$(cat db/virtuals.inc)
+        read -p "> Multi [$(${CAT} -s db/virtuals.inc | ${TR} '\n' ' ')]: " VIRTUALS
+        [ -z "$VIRTUALS" ] && VIRTUALS=$(${CAT} db/virtuals.inc)
     fi
 
     if [ -n "$VIRTUALS" ]; then
@@ -813,7 +816,7 @@ what to answer, just press enter to each question (to use default value)"
         echo -n "  $dir ... "
         if [ ! -d $dir ]; then
             echo -n " Creating directory"
-            mkdir -p $dir
+            ${MKDIR} -p $dir
         fi
         echo " ok."
         if [ -n "$VIRTUALS" ] && [ $dir != "temp/unified-index" ]; then
@@ -821,7 +824,7 @@ what to answer, just press enter to each question (to use default value)"
                 echo -n "  $dir/$vdir ... "
                 if [ ! -d "$dir/$vdir" ]; then
                     echo -n " Creating Directory"
-                    mkdir -p "$dir/$vdir"
+                    ${MKDIR} -p "$dir/$vdir"
                 fi
                 echo " ok."
             done
@@ -830,7 +833,7 @@ what to answer, just press enter to each question (to use default value)"
 
     # Check that the USER is in AGROUP
     USERINAGROUP="no"
-    for grp in `id -Gn $USER`; do
+    for grp in `${ID} -Gn $USER`; do
         if [ "$grp" = "$AGROUP" ]; then
             USERINAGROUP="yes"
         fi
@@ -840,7 +843,7 @@ what to answer, just press enter to each question (to use default value)"
     if [ "$USER" = 'root' ]; then
         #chown -fR $AUSER:$AGROUP . || echo "Could not change ownership to $AUSER"
         echo -n "Change user to $AUSER and group to $AGROUP..."
-        chown -fR $AUSER:$AGROUP .
+        ${CHOWN} -fR $AUSER:$AGROUP .
         echo " done."
     else
         if [ -n "$OPT_AUSER" ]; then
@@ -862,18 +865,18 @@ what to answer, just press enter to each question (to use default value)"
 #    echo " dirs perms fixed ... done"
 
     echo -n "Fix normal dirs ..."
-    chmod -fR u=rwX,go=rX .
+    ${CHMOD} -fR u=rwX,go=rX .
     echo " done."
 
     echo -n "Fix special dirs ..."
     if [ "$USER" = 'root' -o "$USERINAGROUP" = "yes" ]; then
-        chmod -R g+w $DIRS
-        chmod g+w composer.json
-        chmod g+w composer.lock
+        ${CHMOD} -R g+w $DIRS
+        ${CHMOD} g+w composer.json
+        ${CHMOD} g+w composer.lock
     else
-        chmod -fR go+w $DIRS
-        chmod go+w composer.json
-        chmod go+w composer.lock
+        ${CHMOD} -fR go+w $DIRS
+        ${CHMOD} go+w composer.json
+        ${CHMOD} go+w composer.lock
     fi
 
 #    chmod 664 robots.txt tiki-install.php
