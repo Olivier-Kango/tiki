@@ -55,7 +55,7 @@ $link-color:                $info !default;
 // Fonts
 
 // stylelint-disable-next-line value-keyword-case
-$font-family-sans-serif:      "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$font-family-sans-serif:      system-ui, sans-serif; // "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $headings-color:              null !default;
 
 // Popovers
@@ -73,3 +73,7 @@ $navbar-light-active-color:         $info !default;
 $code-color:                      $body-color; //   $pink !default; // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables
+
+// Bootswatch overrides
+
+$web-font-path: none; // Override value in vendor file

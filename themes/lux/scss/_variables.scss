@@ -63,7 +63,7 @@ $link-hover-color:                        shift-color($link-color, $link-shade-p
 
 
 // stylelint-disable-next-line value-keyword-case
-$font-family-sans-serif:      "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$font-family-sans-serif:      system-ui, sans-serif; // "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $h1-font-size:                2rem !default;
 $h2-font-size:                1.75rem !default;
 $h3-font-size:                1.5rem !default;
@@ -121,3 +121,7 @@ $pagination-disabled-border-color:  $pagination-border-color !default;
 $code-color:                      $body-color; //   $pink !default; // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables
+
+// Bootswatch overrides
+
+$web-font-path: none; // Override value in vendor file

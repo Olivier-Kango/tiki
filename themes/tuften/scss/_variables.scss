@@ -76,9 +76,9 @@ $border-color-translucent:    rgba($black, .175) !default;
 
 // Fonts
 $enable-responsive-font-sizes:                true; // from "Options"
-$font-size-base: 1.2rem;
+$font-size-base: 1rem;
 $font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-family-serif:       et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+$font-family-serif:       'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif; //et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base:        $font-family-serif;
 
@@ -158,6 +158,7 @@ $dropdown-dark-header-color:        $gray-500 !default;
 $navbar-light-color:             var(--#{$prefix}body-color); // #777;
 //$navbar-light-bg:                var(--#{$prefix}body-bg); // #f8f8f8;  -- Obsolete background variables here and below
 //$navbar-light-border:            darken( $navbar-light-bg, 6.5% );
+$nav-link-font-size:                1.1rem;
 
 // Navbar links
 $navbar-light-color:                $link-color; //#777;

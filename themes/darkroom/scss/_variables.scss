@@ -75,9 +75,9 @@ $hr-border: $gray-500;
 
 
 // Typography
-$font-family-sans-serif: "Trebuchet MS", "Bitstream Vera Sans", sans-serif;
-$font-family-serif: Georgia, "Times New Roman", Times, serif;
-$font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-sans-serif:  system-ui, sans-serif; // "Trebuchet MS", "Bitstream Vera Sans", sans-serif; - From https://modernfontstacks.com/
+$font-family-serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif; // Georgia, "Times New Roman", Times, serif;
+$font-family-monospace: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace; // Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base: $font-family-sans-serif;
 
 $headings-font-weight: 500;

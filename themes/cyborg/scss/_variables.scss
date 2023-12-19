@@ -57,10 +57,10 @@ $body-color:    #999999; // $gray-400 !default; Lightened to meet WCAG minimum
 
 $link-color:                              $primary !default;
 
-// Fonts
+// Typography
+$font-family-sans-serif:        Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+$font-size-base:                1.1rem;
 
-// stylelint-disable-next-line value-keyword-case
-$font-family-sans-serif:  Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif !default;
 $h1-font-size:            4rem !default;
 $h2-font-size:            3rem !default;
 $h3-font-size:            2.5rem !default;
@@ -205,3 +205,5 @@ $btn-close-hover-opacity:    1 !default;
 $pre-color:                         inherit !default;
 
 //--------------------------- Tiki SCSS variables
+
+$web-font-path: none; // Override value in vendor file

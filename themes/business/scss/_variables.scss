@@ -79,8 +79,10 @@ $border-radius-lg: 8px;
 
 // Typography
 // Fonts
-$font-family-sans-serif: 'Merriweather Sans', sans-serif;
-$headings-font-weight:        400;
+$font-family-sans-serif:        Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif; //'Merriweather Sans', sans-serif;
+$font-size-base:                1rem;
+$font-weight-normal:            400;
+$headings-font-weight:          400;
 
 $text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- $gray-700;
 

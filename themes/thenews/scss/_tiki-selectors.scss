@@ -46,10 +46,10 @@ $tiki-topbar-row-sidemargins: -15px;
 }
 
 .nav-link {
-  font-family: Mukta, sans-serif;
+  font-family: $font-family-sans-serif;
   text-transform: uppercase;
-  font-weight: 800;
-  //font-size: .875rem;
+  font-weight: 600;
+    font-size: .75rem;
   border-left: 1px solid var(--tiki-nav-link-border-left-color);
   border-bottom: 3px solid #09c;
 }

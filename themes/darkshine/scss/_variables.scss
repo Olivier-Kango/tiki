@@ -74,8 +74,10 @@ $component-active-bg: #fd7c32;
 $border-color:                #896b6b; //$gray-300 !default;
 
 // Typography
-$font-family-sans-serif: Arial, sans-serif;
+$font-family-sans-serif:  Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif; // Arial, sans-serif;
 $font-family-base: $font-family-sans-serif;
+$font-size-base:              1.15rem; // Increased slightly with this change in font.
+
 $headings-color: #8a0700;
 $blockquote-footer-color: #485060;
 

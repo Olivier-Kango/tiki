@@ -123,7 +123,7 @@ $link-hover-color: #999;
 //$padding-large-vertical: .9rem;
 
 // Typography
-//$font-family-sans-serif: Verdana, Geneva, Arial, Helvetica, sans-serif;
+$font-family-sans-serif: system-ui, sans-serif;
 $text-muted: var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6D747E;
 $blockquote-footer-color: var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6F7780;
 

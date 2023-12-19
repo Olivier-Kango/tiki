@@ -57,7 +57,9 @@ $link-color:                              $primary !default;
 $link-shade-percentage:                   20% !default;
 $link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
 
-// Fonts
+// Typography
+$font-family-sans-serif:        Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+$font-size-base:                1.1rem;
 
 $headings-color:         $cyan;
 

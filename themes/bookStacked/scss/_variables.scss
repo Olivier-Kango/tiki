@@ -195,7 +195,10 @@ $component-active-color:      $white !default;
 $component-active-bg:         $primary !default;
 
 // Typography
-// Tables
+$font-family-sans-serif:        system-ui, sans-serif;
+$font-family-base:              var(--#{$prefix}font-sans-serif);
+
+    // Tables
 $table-border-width:          var(--#{$prefix}border-width) !default;
 
 // Buttons + Forms
