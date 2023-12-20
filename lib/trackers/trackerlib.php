@@ -4609,7 +4609,7 @@ class TrackerLib extends TikiLib
                         $email = $userlib->get_user_email($fieldUser);
                         if (! empty($fieldUser) && ! empty($email)) {
                             $tikilib->get_user_preferences($fieldUser, ['email', 'user', 'language', 'mailCharset']);
-                            $emails[] = ['email' => $email, 'user' => $fieldUser, 'language' => $user_preferences[$fieldUser]['language'],
+                            $emails[] = ['email' => $email, 'user' => $fieldUser, 'language' => isset($user_preferences[$fieldUser]['language']) ? $user_preferences[$fieldUser]['language'] : null,
                                 'mailCharset' => $user_preferences[$fieldUser]['mailCharset'], 'template' => $f['options_map']['notify_template'], 'templateFormat' => $f['options_map']['notify_template_format']];
                         }
                     }
