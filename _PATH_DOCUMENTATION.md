@@ -42,7 +42,7 @@ Most of the tiki-*.php will progressively move to either src/php/routes or publi
 Some files a user would still have to backup individually if he uses/customizes them:
 
 * .user.ini <https://www.php.net/manual/en/configuration.file.per-user.php>
-* robot.txt
+* robot.txt (And there is a way to dynamically generate it via [tiki-robots.php](https://gitlab.com/tikiwiki/tiki/-/blob/master/tiki-robots.php))
 
 ## The directories
 
