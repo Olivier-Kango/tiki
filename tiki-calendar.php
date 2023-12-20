@@ -173,7 +173,7 @@ $viewdays = [];
 foreach ($_SESSION['CalendarViewGroups'] as $calendar) {
     $defaultCalendarId = $_SESSION['CalendarViewGroups'][0];
     $info = $calendarlib->get_calendar($calendar);
-    if (is_array($info['viewdays'])) {
+    if (isset($info['viewdays']) && is_array($info['viewdays'])) {
         $viewdays = array_merge($info['viewdays'], $viewdays);
     }
 }

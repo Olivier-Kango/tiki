@@ -218,7 +218,11 @@ class CalendarLib extends TikiLib
     {
         global $prefs;
         if (substr($calendarId, 0, 1) === 's') {
-            return $this->get_subscription(substr($calendarId, 1));
+            $subscription = $this->get_subscription(substr($calendarId, 1));
+            $subscription['startday'] = ! empty($prefs['calendar_start_day']) ? $prefs['calendar_start_day'] : 25200;
+            $subscription['endday'] = ! empty($prefs['calendar_end_day']) ? $prefs['calendar_end_day'] : 72000;
+            $subscription['viewdays'] = $prefs['calendar_view_days'];
+            return $subscription;
         }
         $res = $this->query("select * from `tiki_calendars` where `calendarId`=?", [(int)$calendarId]);
         $cal = $res->fetchRow();
