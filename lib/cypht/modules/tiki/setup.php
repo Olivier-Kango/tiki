@@ -199,6 +199,11 @@ add_handler('ajax_tiki_sieve_get_mailboxes', 'settings_load_imap', true);
 add_handler('ajax_tiki_sieve_get_mailboxes', 'tiki_sieve_get_mailboxes_script', true);
 add_output('ajax_tiki_sieve_get_mailboxes', 'tiki_sieve_get_mailboxes_output', true);
 
+add_handler('ajax_imap_unread', 'tiki_process_imap_unread', true, 'tiki', 'imap_unread', 'after');
+
+add_handler('settings', 'process_tiki_run_sieve_filters_on_imap_unread', true, 'tiki', 'save_user_settings', 'before');
+add_output('settings', 'tiki_run_sieve_filters_on_imap_unread_setting', true, 'tiki', 'enable_gmail_contacts_module_setting', 'after');
+
 return [
   'allowed_pages' => [
     'groupmail',
@@ -276,5 +281,6 @@ return [
     'action_type' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
     'imap_account' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
     'tiki_archive_replied' => FILTER_VALIDATE_INT,
+    'tiki_run_sieve_filters_on_imap_unread' => FILTER_VALIDATE_INT,
   ]
 ];

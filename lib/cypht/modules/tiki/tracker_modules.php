@@ -9,7 +9,6 @@
  * @package modules
  * @subpackage tiki
  */
-
 if (! defined('DEBUG_MODE')) {
     die();
 }
@@ -730,6 +729,90 @@ class Hm_Handler_tiki_process_move extends Hm_Handler_Module
                 Hm_Msgs::add($moved == 1 ? 'Message copied' : $moved . ' messages copied');
             }
             $this->out('move_count', $moved);
+        }
+    }
+}
+
+/**
+ * Tries to execute tiki sieve filters on unread messages
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_tiki_process_imap_unread extends Hm_Handler_Module
+{
+    public function process()
+    {
+        if (! $this->user_config->get('tiki_run_sieve_filters_setting', false)) {
+            return;
+        }
+
+        $unreadMessages = $this->get('imap_unread_data');
+        if (! $unreadMessages) {
+            return;
+        }
+
+        $userPreferences = TikiLib::lib('tiki')->table('tiki_user_preferences');
+        $configs = $userPreferences->fetchAll([], [
+            'prefName' => $userPreferences->like('cypht_user_config%'),
+        ]);
+        foreach ($configs as $user_config) {
+            $config = json_decode($user_config['value'], true);
+            if (! isset($config['sieve_scripts'])) {
+                continue;
+            }
+
+            foreach ($config['imap_servers'] as $idx => $mailbox) {
+                if (! isset($config['sieve_scripts'][$mailbox['name']])) {
+                    continue;
+                }
+                if (! isset($config['sieve_scripts'][$mailbox['name']])) {
+                    continue;
+                }
+                $actions = [];
+                foreach ($config['sieve_scripts'][$mailbox['name']] as $name => $script) {
+                    if (strstr($name, 'cyphtfilter')) {
+                        $base64_obj = str_replace("# ", "", preg_split('#\r?\n#', $script, 0)[1]);
+                        $conditions = json_decode(base64_decode($base64_obj), true);
+                        $base64_obj = str_replace("# ", "", preg_split('#\r?\n#', $script, 0)[2]);
+                        $actions = json_decode(base64_decode($base64_obj), true);
+                        $operator = strstr($script, 'allof') ? 'ALLOF' : 'ANYOF';
+                        $filters[] = compact('conditions', 'actions', 'operator');
+                    }
+                }
+                if (empty($filters)) {
+                    continue;
+                }
+                $actions = array_filter($actions, function ($action) {
+                    return in_array($action['action'], [
+                        'movetotracker',
+                        'movetooriginatingtrackerinbox'
+                    ]);
+                });
+                if (! $actions) {
+                    continue;
+                }
+                foreach ($unreadMessages as $key => $msg) {
+                    if ($msg['server_id'] == $idx) {
+                        // Delete the message
+                        $cache = Hm_IMAP_List::get_cache($this->cache, $msg['server_id']);
+                        $imap = Hm_IMAP_List::connect($msg['server_id'], $cache);
+
+                        if (imap_authed($imap)) {
+                            foreach ($filters as $filter) {
+                                $filterData = Tiki_Hm_Functions::processFilter($filter, $imap, $msg);
+                                if ($filterData['pass']) {
+                                    $tempFolder = 'Tiki-Sieve-Rules-To-Be-Applied';
+                                    if (! count($imap->get_mailbox_status($tempFolder))) {
+                                        $imap->create_mailbox($tempFolder);
+                                    }
+                                    // Move the message to temp folder
+                                    $imap->message_action('MOVE', [$msg['uid']], $tempFolder);
+                                }
+                            }
+                        }
+                    }
+                    unset($unreadMessages[$key]);
+                }
+            }
         }
     }
 }

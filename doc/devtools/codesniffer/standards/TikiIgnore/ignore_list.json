@@ -9397,8 +9397,7 @@
             "SieveFiltersCommand::action_reject": true,
             "SieveFiltersCommand::action_discard": true,
             "SieveFiltersCommand::action_reply": true,
-            "SieveFiltersCommand::action_move_to_tracker": true,
-            "SieveFiltersCommand::get_tracker_message": true
+            "SieveFiltersCommand::action_move_to_tracker": true
         },
         "lib\/menubuilder\/menulib.php": {
             "MenuLib::empty_menu_cache": true,

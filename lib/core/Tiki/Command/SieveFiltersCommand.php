@@ -21,6 +21,7 @@ use Hm_IMAP_List;
 use Hm_SMTP_List;
 use Hm_Msgs;
 use Hm_Handler_tiki_sieve_placeholder;
+use Tiki_Hm_Functions;
 
 /**
  * Runs periodically to execute defined Cypht/Sieve filters and block list
@@ -124,6 +125,8 @@ class SieveFiltersCommand extends Command
 
                 $since = date('j-M-Y', $last_timestamp);
                 list($status, $msg_list) = merge_imap_search_results([$idx], 'ALL', $cypht_session, $cypht_cache, ['INBOX'], 1000, [['SINCE', $since]]);
+                list($status, $tikiRulesMsgList) = merge_imap_search_results([$idx], 'ALL', $cypht_session, $cypht_cache, ['Tiki-Sieve-Rules-To-Be-Applied'], 1000, [['SINCE', $since]]);
+                $msg_list = array_merge($msg_list, $tikiRulesMsgList);
 
                 // Connection failed
                 if (! is_array($msg_list)) {
@@ -154,103 +157,7 @@ class SieveFiltersCommand extends Command
 
                     // 3. check filters and if matching, apply actions
                     foreach ($filters as $filter) {
-                        $filtered = [];
-                        $bouncelist = [];
-                        foreach ($filter['conditions'] as $cond) {
-                            $values = [];
-                            if (in_array($cond['condition'], ['to', 'from', 'subject', 'size'])) {
-                                $values[] = $msg[$cond['condition']];
-                            } elseif (in_array($cond['condition'], ['cc', 'bcc', 'custom'])) {
-                                $header = $cond['condition'];
-                                if ($header == 'custom') {
-                                    $header = $cond['extra_option_value'];
-                                }
-                                $msg_headers = $imap->get_message_headers($msg['uid']);
-                                foreach ($msg_headers as $key => $val) {
-                                    if (strtolower($key) == strtolower($header)) {
-                                        $values[] = $val;
-                                    }
-                                }
-                            } elseif ($cond['condition'] == 'body') {
-                                $values[] = $imap->get_message_content($msg['uid'], 0);
-                            } elseif ($cond['condition'] == 'to_or_cc') {
-                                $msg_headers = $imap->get_message_headers($msg['uid']);
-                                foreach ($msg_headers as $key => $val) {
-                                    if (strtolower($key) == 'to' || strtolower($key) == 'cc') {
-                                        $values[] = $val;
-                                    }
-                                }
-                            } elseif ($cond['condition'] == 'bounce') {
-                                $msg_headers = $imap->get_message_headers($msg['uid']);
-                                $msg_content = $imap->get_message_content($msg['uid'], 0);
-                                $bouncehandler = new BounceHandler();
-                                $bounce_output = $bouncehandler->parseEmail($msg_content);
-                                foreach ($bounce_output as $result) {
-                                    if (empty($result['action'])) {
-                                        continue;
-                                    }
-                                    $is_bounce = false;
-                                    switch ($result['action']) {
-                                        case 'failed':
-                                            $is_bounce = 'hard';
-                                            break;
-                                        case 'transient':
-                                        case 'autoreply':
-                                            $is_bounce = 'soft';
-                                            break;
-                                    }
-                                    if ($is_bounce) {
-                                        $address = $result['recipient'] ?? $msg['from'];
-                                        foreach (process_address_fld($address) as $addr) {
-                                            $bouncelist[] = [
-                                                'mailbox' => $addr['email'],
-                                                'headers' => $msg_headers,
-                                                'msg' => $msg_content,
-                                                'type' => $is_bounce,
-                                            ];
-                                        }
-                                    }
-                                    $values[] = $is_bounce;
-                                }
-                            } elseif ($cond['condition'] == 'replytotrackermessage') {
-                                $item = $this->get_tracker_message($imap, $msg);
-                                $is_tracker_reply = boolval($item);
-                                $values[] = 1;
-                            }
-                            $values = array_filter($values, function ($val) use ($cond) {
-                                $type = isset($cond['type']) ? $cond['type'] : 'tracker';
-                                $not = $type[0] == '!';
-                                if ($not) {
-                                    $type = substr($type, 1);
-                                }
-                                if ($type == 'Contains') {
-                                    $comparison = stristr($val, $cond['value']);
-                                } elseif ($type == 'Matches') {
-                                    $comparison = preg_match('/' . str_replace('*', '.*', str_replace('?', '.?', $cond['value'])) . '/i', $val);
-                                } elseif ($type == 'Regex') {
-                                    $comparison = preg_match('/' . $cond['value'] . '/i', $val);
-                                } elseif ($type == 'Over') {
-                                    $comparison = floatval($val) > floatval($cond['value']);
-                                } elseif ($type == 'Under') {
-                                    $comparison = floatval($val) < floatval($cond['value']);
-                                } elseif ($type == 'Soft') {
-                                    $comparison = $val == 'soft';
-                                } elseif ($type == 'Hard') {
-                                    $comparison = $val == 'hard';
-                                } elseif ($type == 'tracker') {
-                                    $comparison = $val == 1;
-                                } else {
-                                    $comparison = false;
-                                }
-                                return $not ? ! $comparison : $comparison;
-                            });
-                            $filtered[] = $values ? true : false;
-                        }
-                        if ($filter['operator'] == 'ALLOF') {
-                            $pass = count(array_filter($filtered)) == count($filtered);
-                        } else {
-                            $pass = count(array_filter($filtered)) > 0;
-                        }
+                        list('pass' => $pass, 'bouncelist' => $bouncelist, 'is_tracker_reply' => $is_tracker_reply) = Tiki_Hm_Functions::processFilter($filter, $imap, $msg);
                         if ($pass) {
                             foreach ($filter['actions'] as $action) {
                                 if ($action['action'] == 'keep') {
@@ -347,7 +254,7 @@ class SieveFiltersCommand extends Command
                                         }
                                     }
                                 } elseif ($action['action'] == 'movetooriginatingtrackerinbox') {
-                                    if (isset($is_tracker_reply) && $is_tracker_reply) {
+                                    if ($is_tracker_reply) {
                                         $this->action_move_to_tracker($imap, $msg, $output, $item[0]);
                                     }
                                 } elseif (in_array($action['action'], ['copytotracker', 'movetotracker'])) {
@@ -472,26 +379,5 @@ class SieveFiltersCommand extends Command
                 $output->writeln(tr("Copied msg uid %0 to tracker %1, field %2, item %3", $msg['uid'], $item['trackerId'], $field['fieldId'], $item['itemId']));
             }
         }
-    }
-
-    protected function get_tracker_message($imap, $msg)
-    {
-        $reply_id = $file = null;
-        $res = [];
-        $msg_headers = $imap->get_message_headers($msg['uid']);
-        foreach ($msg_headers as $key => $val) {
-            if (strtolower($key) == 'in-reply-to') {
-                $reply_id = $val;
-            }
-        }
-        if ($reply_id) {
-            $file = TikiLib::lib('filegal')->get_file_by_filename($reply_id);
-        }
-        if ($file) {
-            $trk = TikiLib::lib('trk');
-            $query = 'SELECT * FROM tiki_tracker_item_fields WHERE value LIKE ?';
-            $res = $trk->fetchAll($query, ['%sent\":%' . $file['fileId'] . '%']);
-        }
-        return $res;
     }
 }

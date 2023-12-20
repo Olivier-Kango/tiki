@@ -152,6 +152,45 @@ class Hm_Handler_before_save_user_settings extends Hm_Handler_Module
 }
 
 /**
+ * Run sieve filters on imap unread setting
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_process_tiki_run_sieve_filters_on_imap_unread extends Hm_Handler_Module
+{
+    public function process()
+    {
+        function tiki_run_sieve_filters_on_imap_unread_callback($val)
+        {
+            return $val;
+        }
+        process_site_setting('tiki_run_sieve_filters_on_imap_unread', $this, 'tiki_run_sieve_filters_on_imap_unread_callback', false, true);
+    }
+}
+
+/**
+ * @subpackage tiki/output
+ */
+class Hm_Output_tiki_run_sieve_filters_on_imap_unread_setting extends Hm_Output_Module
+{
+    protected function output()
+    {
+        $auto = false;
+        $settings = $this->get('user_settings', []);
+        if (array_key_exists('tiki_run_sieve_filters_on_imap_unread', $settings)) {
+            $auto = $settings['tiki_run_sieve_filters_on_imap_unread'];
+        }
+        $res = '<tr class="general_setting"><td>' . $this->trans('Run cypht filters on unread imap messages') . '</td><td><input value="1" type="checkbox" name="tiki_run_sieve_filters_on_imap_unread"';
+        $reset = '';
+        if ($auto) {
+            $res .= ' checked="checked"';
+            $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox"  src="' . Hm_Image_Sources::$refresh . '" /></span>';
+        }
+        $res .= '>' . $reset . '</td></tr>';
+        return $res;
+    }
+}
+
+/**
  * Remove special variable skipping settings save and save the settings
  * @subpackage tiki/handler
  */

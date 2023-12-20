@@ -1,0 +1,140 @@
+<?php
+
+// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
+//
+// All Rights Reserved. See copyright.txt for details and a complete list of authors.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+/**
+ * Pretent storing sieve filters and scripts without Sieve client.
+ * Use Tiki user preferences for storage to make Sieve filters UI
+ * work without Sieve backend support.
+ */
+
+use rambomst\PHPBounceHandler\BounceHandler;
+
+class Tiki_Hm_Functions
+{
+    public static function processFilter($filter, $imap, $msg)
+    {
+        $filtered = [];
+        $bouncelist = [];
+        $is_tracker_reply = false;
+        foreach ($filter['conditions'] as $cond) {
+            $values = [];
+            if (in_array($cond['condition'], ['to', 'from', 'subject', 'size'])) {
+                $values[] = $msg[$cond['condition']];
+            } elseif (in_array($cond['condition'], ['cc', 'bcc', 'custom'])) {
+                $header = $cond['condition'];
+                if ($header == 'custom') {
+                    $header = $cond['extra_option_value'];
+                }
+                $msg_headers = $imap->get_message_headers($msg['uid']);
+                foreach ($msg_headers as $key => $val) {
+                    if (strtolower($key) == strtolower($header)) {
+                        $values[] = $val;
+                    }
+                }
+            } elseif ($cond['condition'] == 'body') {
+                $values[] = $imap->get_message_content($msg['uid'], 0);
+            } elseif ($cond['condition'] == 'to_or_cc') {
+                $msg_headers = $imap->get_message_headers($msg['uid']);
+                foreach ($msg_headers as $key => $val) {
+                    if (strtolower($key) == 'to' || strtolower($key) == 'cc') {
+                        $values[] = $val;
+                    }
+                }
+            } elseif ($cond['condition'] == 'bounce') {
+                $msg_headers = $imap->get_message_headers($msg['uid']);
+                $msg_content = $imap->get_message_content($msg['uid'], 0);
+                $bouncehandler = new BounceHandler();
+                $bounce_output = $bouncehandler->parseEmail($msg_content);
+                foreach ($bounce_output as $result) {
+                    if (empty($result['action'])) {
+                        continue;
+                    }
+                    $is_bounce = false;
+                    switch ($result['action']) {
+                        case 'failed':
+                            $is_bounce = 'hard';
+                            break;
+                        case 'transient':
+                        case 'autoreply':
+                            $is_bounce = 'soft';
+                            break;
+                    }
+                    if ($is_bounce) {
+                        $address = $result['recipient'] ?? $msg['from'];
+                        foreach (process_address_fld($address) as $addr) {
+                            $bouncelist[] = [
+                                'mailbox' => $addr['email'],
+                                'headers' => $msg_headers,
+                                'msg' => $msg_content,
+                                'type' => $is_bounce,
+                            ];
+                        }
+                    }
+                    $values[] = $is_bounce;
+                }
+            } elseif ($cond['condition'] == 'replytotrackermessage') {
+                $item = self::getTrackerMessage($imap, $msg);
+                $is_tracker_reply = boolval($item);
+                $values[] = 1;
+            }
+            $values = array_filter($values, function ($val) use ($cond) {
+                $type = isset($cond['type']) ? $cond['type'] : 'tracker';
+                $not = $type[0] == '!';
+                if ($not) {
+                    $type = substr($type, 1);
+                }
+                if ($type == 'Contains') {
+                    $comparison = stristr($val, $cond['value']);
+                } elseif ($type == 'Matches') {
+                    $comparison = preg_match('/' . str_replace('*', '.*', str_replace('?', '.?', $cond['value'])) . '/i', $val);
+                } elseif ($type == 'Regex') {
+                    $comparison = preg_match('/' . $cond['value'] . '/i', $val);
+                } elseif ($type == 'Over') {
+                    $comparison = floatval($val) > floatval($cond['value']);
+                } elseif ($type == 'Under') {
+                    $comparison = floatval($val) < floatval($cond['value']);
+                } elseif ($type == 'Soft') {
+                    $comparison = $val == 'soft';
+                } elseif ($type == 'Hard') {
+                    $comparison = $val == 'hard';
+                } elseif ($type == 'tracker') {
+                    $comparison = $val == 1;
+                } else {
+                    $comparison = false;
+                }
+                return $not ? ! $comparison : $comparison;
+            });
+            $filtered[] = $values ? true : false;
+        }
+        if ($filter['operator'] == 'ALLOF') {
+            $pass = count(array_filter($filtered)) == count($filtered);
+        } else {
+            $pass = count(array_filter($filtered)) > 0;
+        }
+        return compact('pass', 'bouncelist', 'is_tracker_reply');
+    }
+
+    public static function getTrackerMessage($imap, $msg)
+    {
+        $reply_id = $file = null;
+        $res = [];
+        $msg_headers = $imap->get_message_headers($msg['uid']);
+        foreach ($msg_headers as $key => $val) {
+            if (strtolower($key) == 'in-reply-to') {
+                $reply_id = $val;
+            }
+        }
+        if ($reply_id) {
+            $file = TikiLib::lib('filegal')->get_file_by_filename($reply_id);
+        }
+        if ($file) {
+            $trk = TikiLib::lib('trk');
+            $query = 'SELECT * FROM tiki_tracker_item_fields WHERE value LIKE ?';
+            $res = $trk->fetchAll($query, ['%sent\":%' . $file['fileId'] . '%']);
+        }
+        return $res;
+    }
+}

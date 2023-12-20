@@ -27,3 +27,4 @@ require_once __DIR__ . '/Tiki_Hm_Site_Config_File.php';
 require_once __DIR__ . '/Tiki_Hm_User_Config.php';
 require_once __DIR__ . '/Tiki_Hm_Sieve_Custom_Client.php';
 require_once __DIR__ . '/Tiki_Hm_Sieve_Client_Factory.php';
+require_once __DIR__ . '/Tiki_Hm_Functions.php';
