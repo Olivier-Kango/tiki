@@ -406,6 +406,10 @@ function wikiplugin_include($dataIn, $params)
         }
     }
 
+    if (TikiLib::lib('parser')->option['is_markdown']) {
+        $text = preg_replace('/^(?!^\n)(.*)/', "\n$1", $text);
+    }
+
     if ($params['parse_included_page'] === 'y') {
         return "~np~$text~/np~";
     } else {
