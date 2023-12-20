@@ -73,7 +73,7 @@ mPDF:
   name: mpdf/mpdf
   requiredBy:
     - "Tiki Print"
-  requiredVersion: 8.0.4
+  requiredVersion: ^8.0.0
 mxGraph:
   actions:
     - remove
