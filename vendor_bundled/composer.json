@@ -20,8 +20,8 @@
         "  Useful to look at: ",
         "    composer -d vendor_bundled outdated",
         "  This is what setup.sh runs: ",
-            "    composer -d vendor_bundled --prefer-dist #In dev mode",
-            "    composer -d vendor_bundled --prefer-dist --no-dev #In release mode",
+        "    composer -d vendor_bundled install --prefer-dist #In dev mode",
+        "    composer -d vendor_bundled install --prefer-dist --no-dev #In release mode",
         "",
         "DIRECT PHP PACKAGE DEPENDENCIES NOTES:",
         "",
@@ -340,10 +340,12 @@
     "config": {
         "process-timeout": 5000,
         "bin-dir": "../bin",
+        "_comment": "platform-check CANNOT be enabled, because it would check the ext-* requirements of our dependencies not just ours.  See the workarounds below.  So anything that uses the autoloader, including console.php wouldn't work on a server without ext-soap installed.  Note that platform-check will NOT check the maximum php version anyway, even if we put it in our requires.  In platform, php: The oldest version we support, so composer doesn't pick packages that are incompatible with it (nothing to do with what is checked if we enable platform-check).  On the other hand: ext-*: 0 are workarounds.  ext-ldap is in the require of laminas/laminas-ldap. ext-soap is in the require of laminas/laminas-soap.  We couldn't composer install without this workaround if php-ldap or php-soap aren't installed",
+        "platform-check": false,
         "platform": {
+            "php": "8.1",
             "ext-ldap": "0",
-            "ext-soap": "0",
-            "php": "8.1"
+            "ext-soap": "0"
         },
         "secure-http": false,
         "allow-plugins": {
@@ -417,7 +419,9 @@
             "vendor/pear/text_wiki_mediawiki/Text/Wiki/Render/***",
             "vendor/pear/pear/./PEAR/Exception.php"
         ],
-        "files": ["../path_constants.php"]
+        "files": [
+            "../path_constants.php"
+        ]
     },
     "autoload-dev": {
         "classmap": [

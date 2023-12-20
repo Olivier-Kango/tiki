@@ -516,6 +516,17 @@ sql-engine-conversion:
     expire_in: 7 days
     when: always
 
+# This will mostly catch composer platform-check problems.
+console-php-works:
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  stage: tiki-check
+  script:
+    - php console.php
+  dependencies: 
+      - composer
+  needs: 
+      - composer
+
 #
 # Unit Tests
 #
