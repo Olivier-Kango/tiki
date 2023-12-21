@@ -49,6 +49,8 @@ class SaveHandler
 
         $initialFileId = $this->file->fileId;
 
+        $this->ensureNameLength();
+
         if (! $this->file->exists()) {
             $fileId = $this->insertFile();
             $final_event = 'tiki.file.create';
@@ -231,5 +233,21 @@ class SaveHandler
         }
 
         return $idNew;
+    }
+
+    private function ensureNameLength(): void
+    {
+        $f_len = function_exists('mb_strlen') ? 'mb_strlen' : 'strlen';
+        $f_substr = function_exists('mb_substr') ? 'mb_substr' : 'substr';
+
+        if (! empty($this->file->name) && $f_len($this->file->name) > 200) {
+            $name = $f_substr($this->file->name, 0, 98) . '...' . $f_substr($this->file->name, -98);
+            $this->file->setParam('name', $name);
+        }
+
+        if (! empty($this->file->filename) && $f_len($this->file->filename) > 80) {
+            $filename = $f_substr($this->file->filename, 0, 38) . '...' . $f_substr($this->file->filename, -38);
+            $this->file->setParam('filename', $filename);
+        }
     }
 }
