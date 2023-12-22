@@ -1,6 +1,12 @@
 ---
 post:
   description: Duplicate file
+  parameters:
+    - name: fileId
+      in: path
+      required: true
+      schema:
+        type: integer
   requestBody:
     required: true
     content:
@@ -8,12 +14,12 @@ post:
         schema:
           type: object
           properties:
-            fileId:
-              type: integer
             galleryId:
               type: integer
               description: the destination gallery of the file copy
             newName:
+              type: string
+            description:
               type: string
   responses:
     '200':

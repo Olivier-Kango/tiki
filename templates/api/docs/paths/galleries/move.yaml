@@ -1,15 +1,21 @@
 ---
 post:
   description: Move gallery
+  parameters:
+  - name: galleryId
+    in: path
+    required: true
+    schema:
+      type: integer
   requestBody:
     required: true
     content:
       application/x-www-form-urlencoded:
         schema:
           type: object
+          required:
+            - newParentId
           properties:
-            galleryId:
-              type: integer
             newParentId:
               type: integer
               description: destination galleryId

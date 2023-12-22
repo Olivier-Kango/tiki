@@ -195,7 +195,7 @@ class File
         return $archives;
     }
 
-    public function replace($data, $type = null, $name = null, $filename = null, $resizex = null, $resizey = null)
+    public function replace($data, $type = null, $name = null, $filename = null, $resizex = null, $resizey = null, $description = null)
     {
         global $user, $prefs, $jitRequest;
 
@@ -212,6 +212,9 @@ class File
         }
         if (($jitRequest instanceof JitFilter) && ! empty($jitRequest->ocr_state->int())) {
             $this->setParam('ocr_state', $jitRequest->ocr_state->int());
+        }
+        if ($description) {
+            $this->setParam('description', $description);
         }
 
         $saveHandler = new SaveHandler($this);

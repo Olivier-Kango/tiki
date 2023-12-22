@@ -1,6 +1,37 @@
 ---
 get:
   description: Get all galleries.
+  parameters:
+    - name: galleryId
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: maxRecords
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: sort_mode
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: user
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: find
+      in: query
+      required: false
+      schema:
+        type: string
   responses:
     '200':
       description: gallery response
@@ -64,8 +95,6 @@ get:
                       type: string
                     metadata:
                       type: string
-                    metadata:
-                      type: string
                     lastModif:
                       type: integer
                     last_user:
@@ -121,10 +150,13 @@ post:
           properties:
             name:
               type: string
-            user:
-              type: string
             type:
               type: string
+              enum:
+                - default
+                - podcast
+                - vidcast
+                - direct
             description:
               type: string
             parentId:

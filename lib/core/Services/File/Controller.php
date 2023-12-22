@@ -95,11 +95,13 @@ class Services_File_Controller
         }
 
         $gal_info = $this->checkTargetGallery($input);
-
-        $fileId = $input->fileId->int();
+        $fileId = $input->update->int() ? $input->fileId->int() : false;
         $asuser = $input->user->text();
         $title = $input->title->text();
+        $description = $input->description->text() ?: '';
         $directoryPattern = $input->directoryPattern->text();
+        $categlib = TikiLib::lib('categ');
+        $categories = $fileId ? $categlib->get_object_categories('file', $fileId) : [];
 
         if (empty($asuser)) {
             $asuser = $GLOBALS['user'];
@@ -108,6 +110,11 @@ class Services_File_Controller
         $perms = Perms::get('file gallery', $gal_info['galleryId']);
         if (! $perms->upload_files) {
             throw new Services_Exception_Denied();
+        }
+
+        $fileInfo = ($fileId) ? TikiLib::lib('filegal')->get_file_info($fileId) : false;
+        if ($fileId && ! $fileInfo) {
+            throw new Services_Exception_NotFound(tr('Requested file does not exist'));
         }
 
         if (! $input->imagesize->word()) {
@@ -171,7 +178,7 @@ class Services_File_Controller
         $type = $mimelib->from_content($name, $data);
         */
 
-        if (empty($name) || $size == 0 || empty($data)) {
+        if (empty($fileId) && (empty($name) || $size == 0 || empty($data))) {
             $message = tr('File could not be uploaded:') . ' ';
             $error = error_get_last();
 
@@ -185,9 +192,14 @@ class Services_File_Controller
         $util = new Services_Utilities();
         if ($util->isActionPost()) {
             if ($fileId) {
-                $this->utilities->updateFile($gal_info, $name, $size, $type, $data, $fileId, $asuser, $title);
+                // if we are updating a file, we need to get the missing file info from the database
+                $size = $size ?: $fileInfo['filesize'];
+                $type = $type ?: $fileInfo['filetype'];
+                $name = $name ?: $fileInfo['filename'];
+                $title = $title ?: $fileInfo['name'];
+                $this->utilities->updateFile($gal_info, $name, $size, $type, $data, $fileId, $asuser, $title, $description);
             } else {
-                $fileId = $this->utilities->uploadFile($gal_info, $name, $size, $type, $data, $asuser, $image_x, $image_y, '', '', $title, $directoryPattern);
+                $fileId = $this->utilities->uploadFile($gal_info, $name, $size, $type, $data, $asuser, $image_x, $image_y, $description, '', $title, $directoryPattern);
             }
         } else {
             $fileId = false;
@@ -206,6 +218,8 @@ class Services_File_Controller
         $cat_desc = null;
         $cat_name = $name;
         $cat_href = "tiki-download_file.php?fileId=$fileId";
+        $_REQUEST['cat_categories'] = $categories;
+        $_REQUEST["cat_categorize"] = 'on';
         include('categorize.php');
 
         $util->setTicket();
@@ -213,6 +227,7 @@ class Services_File_Controller
             'size' => $size,
             'name' => $name,
             'title' => $title,
+            'description' => $description,
             'type' => $type,
             'fileId' => $fileId,
             'galleryId' => $gal_info['galleryId'],
@@ -519,13 +534,13 @@ class Services_File_Controller
      */
     public function action_create_update_gallery($input)
     {
-        global $user;
+        global $user, $prefs;
 
         $fileGallery = TikiLib::lib('filegal');
         $name = $input->name->text();
-        $parentId = $input->parentId->int() ?: -1;
-        $type = $input->type->text() ?: 'default';
-        $description = $input->description->text() ?: '';
+        $parentId = $input->parentId->int();
+        $type = $input->type->text();
+        $description = $input->description->text();
 
         if ($input->create->int()) {
             if (empty($name)) {
@@ -540,9 +555,9 @@ class Services_File_Controller
             $info = [
                 'name' => $name,
                 'user' => $user,
-                'type' => $type,
-                'description' => $description,
-                'parentId' => $parentId
+                'type' => $type ?: 'default',
+                'description' => $description ?: '',
+                'parentId' => $parentId ?: $prefs['fgal_root_id']
             ];
         } else {
             $galleryId = $input->galleryId->int();
@@ -561,9 +576,9 @@ class Services_File_Controller
             }
 
             $info = [
-                'name' => $name,
-                'type' => $type,
-                'description' => $description,
+                'name' => $name ?: $info['name'],
+                'type' => $type ?: $info['type'],
+                'description' => $description ?: $info['description'],
                 'galleryId' => $galleryId,
                 'parentId' => $info['parentId']
             ];
@@ -600,7 +615,7 @@ class Services_File_Controller
         if (! $removed) {
             $msg = tr('An error occured while deleting the file gallery: %0', $id);
         } else {
-            $msg = tr('The file gallery %0 has been deleted', $galleryId);
+            $msg = tr('The file gallery %0 has been deleted', $id);
         }
 
         return [
@@ -614,6 +629,10 @@ class Services_File_Controller
         $fileGallery = TikiLib::lib('filegal');
         $fileId = $input->fileId->int();
         $fileInfo = $fileGallery->get_file_info($fileId);
+
+        if (! $fileInfo) {
+            throw new Services_Exception_NotFound(tr('Requested file does not exist'));
+        }
 
         $perms = Perms::get('file gallery', $fileInfo['galleryId']);
 
@@ -719,9 +738,11 @@ class Services_File_Controller
             throw new Services_Exception_Denied();
         }
 
-        $fileGallery = TikiLib::lib('filegal');
-
-        return $fileGallery->get_file_info($fileId);
+        return [
+            'title' => tr('File Info'),
+            'fileId' => $fileId,
+            'info' => TikiLib::lib('filegal')->get_file_info($fileId)
+        ];
     }
 
     public function action_download($input)
@@ -736,6 +757,10 @@ class Services_File_Controller
 
         $fileGallery = TikiLib::lib('filegal');
         $fileInfo = $fileGallery->get_file_info($fileId);
+
+        if (! $fileInfo) {
+            throw new Services_Exception_NotFound();
+        }
 
         $file = new \Tiki\FileGallery\File($fileInfo);
 
@@ -760,6 +785,14 @@ class Services_File_Controller
         $galleryId = $input->galleryId->int();
         $new_parent_id = $input->newParentId->int();
 
+        if (empty($galleryId)) {
+            throw new Services_Exception(tr('galleryId is required.'));
+        }
+
+        if (empty($newParentId)) {
+            throw new Services_Exception(tr('newParentId is required.'));
+        }
+
         $perms = Perms::get('file gallery', $galleryId);
 
         if (! $perms->admin_file_galleries) {
@@ -772,7 +805,7 @@ class Services_File_Controller
         if (! $moved) {
             $msg = tr('An error occured while moving the file gallery: %0', $galleryId);
         } else {
-            $msg = tr('The file %0 has been moved', $galleryId);
+            $msg = tr('The file gallery %0 has been moved', $galleryId);
         }
 
         return [
@@ -786,6 +819,7 @@ class Services_File_Controller
         $fileId = $input->fileId->int();
         $galleryId = $input->galleryId->int() ?: null;
         $newName = $input->newName->text() ?: false;
+        $description = $input->description->text() ?: '';
 
         $perms = Perms::get('file gallery', $fileId);
 
@@ -794,7 +828,15 @@ class Services_File_Controller
         }
 
         $fileGallery = TikiLib::lib('filegal');
-        $newFileId = $fileGallery->duplicate_file($fileId, $galleryId, $newName);
+
+        if ($galleryId) {
+            $fileGalleryInfo = $fileGallery->get_file_gallery_info($galleryId);
+            if (! $fileGalleryInfo) {
+                throw new Services_Exception_NotFound(tr('Requested file gallery does not exist'));
+            }
+        }
+
+        $newFileId = $fileGallery->duplicate_file($fileId, $galleryId, $newName, $description);
 
         return [
             'title' => tr('Duplicate file'),
@@ -808,6 +850,14 @@ class Services_File_Controller
         $galleryId = $input->galleryId->int();
         $name = $input->name->text();
         $description = $input->description->text() ?: '';
+
+        if (empty($galleryId)) {
+            throw new Services_Exception(tr('galleryId is required.'));
+        }
+
+        if (empty($name)) {
+            throw new Services_Exception(tr('name is required.'));
+        }
 
         $perms = Perms::get('file gallery', $galleryId);
 
@@ -878,7 +928,12 @@ class Services_File_Controller
 
     private function checkTargetGallery($input)
     {
-        $galleryId = $input->galleryId->int() ?: $this->defaultGalleryId;
+        if ($input->fileId->int()) {
+            $fileInfo = TikiLib::lib('filegal')->get_file_info($input->fileId->int());
+            $galleryId = $fileInfo ? $fileInfo['galleryId'] : $this->defaultGalleryId;
+        } else {
+            $galleryId = $input->galleryId->int() ?: $this->defaultGalleryId;
+        }
 
         // Patch for uninitialized utilities.
         //  The real problem is that setup is not called

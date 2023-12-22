@@ -1,6 +1,12 @@
 ---
 post:
   description: Update file
+  parameters:
+    - name: fileId
+      in: path
+      required: true
+      schema:
+        type: integer
   requestBody:
     required: true
     content:
@@ -8,20 +14,30 @@ post:
         schema:
           type: object
           properties:
-            fileId:
-              type: integer
-            data:
-              type: object
-              description: file to be updated
             user:
               type: string
             title:
               type: string
             name:
               type: string
-            size:
-              type: integer
-            type:
+            description:
+              type: string
+      multipart/form-data:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              type: string
+              description: file path
+            user:
+              type: string
+            title:
+              type: string
+            name:
+              type: string
+            description:
               type: string
   responses:
     '200':
@@ -36,6 +52,8 @@ post:
               name:
                 type: string
               title:
+                type: string
+              description:
                 type: string
               type:
                 type: string

@@ -750,6 +750,12 @@ class FileGalLib extends TikiLib
     {
         global $prefs, $user;
 
+        // avoid empty fileId to prevent fetching all files
+        // FIXME: actually the method get_files_info returns data when $fileId is empty
+        if (empty($fileId)) {
+            return false;
+        }
+
         $return = $this->get_files_info(null, (int)$fileId, $include_search_data, $include_data, 1);
 
         if (! $return) {
@@ -848,7 +854,7 @@ class FileGalLib extends TikiLib
         return $result;
     }
 
-    public function duplicate_file($id, $galleryId = null, $newName = false)
+    public function duplicate_file($id, $galleryId = null, $newName = false, $description = '')
     {
         global $user;
 
@@ -861,7 +867,7 @@ class FileGalLib extends TikiLib
         }
 
         $newName = ($newName ? $newName : $origFile->name . tra(' copy'));
-        $id = $file->replace($origFile->getContents(), $origFile->filetype, $newName, $file->filename);
+        $id = $file->replace($origFile->getContents(), $origFile->filetype, $newName, $file->filename, null, null, $description);
 
         $attributes = TikiLib::lib('attribute')->get_attributes('file', $origFile->fileId);
         if ($url = $attributes['tiki.content.url']) {
@@ -3524,7 +3530,7 @@ class FileGalLib extends TikiLib
         return $ret;
     }
 
-    public function update_single_file($gal_info, $name, $size, $type, $data, $id, $asuser = null, $title = '')
+    public function update_single_file($gal_info, $name, $size, $type, $data, $id, $asuser = null, $title = '', $description = '')
     {
         global $user;
         if (empty($asuser)) {
@@ -3540,7 +3546,7 @@ class FileGalLib extends TikiLib
 
         $file = TikiFile::id($id);
         $file->setParam('user', $asuser);
-        $ret = $file->replace($data, $type, $title, $name);
+        $ret = $file->replace($data, $type, $title, $name, null, null, $description);
 
         $tx->commit();
 

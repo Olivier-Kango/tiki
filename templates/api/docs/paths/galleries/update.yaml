@@ -1,6 +1,6 @@
 ---
 post:
-  description: Duplicate gallery
+  description: Update a gallery
   parameters:
     - name: galleryId
       in: path
@@ -13,30 +13,33 @@ post:
       application/x-www-form-urlencoded:
         schema:
           type: object
-          required:
-            - name
           properties:
             name:
               type: string
+            type:
+              type: string
+              enum:
+                - default
+                - podcast
+                - vidcast
+                - direct
             description:
               type: string
   responses:
     '200':
-      description: duplicate gallery response
+      description: gallery response
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              title:
-                type: string
-              message:
-                type: string
-              id:
-                type: integer
-                description: id of the gallery copy
+            $ref: schemas-Gallery.yaml
     '403':
       description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
       content:
         application/json:
           schema:

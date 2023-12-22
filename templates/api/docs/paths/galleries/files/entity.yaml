@@ -78,8 +78,8 @@ get:
               ocr_data:
                 type: string
     '403':
-    description: forbidden
-    content:
-      application/json:
-        schema:
-          $ref: schemas-Error.yaml
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

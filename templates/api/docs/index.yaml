@@ -56,6 +56,8 @@ paths:
     $ref: paths-galleries-index.yaml
   /galleries/{galleryId}:
     $ref: paths-galleries-entity.yaml
+  /galleries/{galleryId}/update:
+    $ref: paths-galleries-update.yaml
   /galleries/{galleryId}/move:
     $ref: paths-galleries-move.yaml
   /galleries/{galleryId}/duplicate:
