@@ -919,40 +919,44 @@ body.wikitext {
     color: lighten($success, 50%);
 }
 
+.highlight_word {
+    font-size: bold;
+}
+
 //.searchresults blockquote em.hlt1,
 //.searchresults blockquote em.hlt6,
-//.highlight_word_0 {
-//    color: $success;
-//    background: $success;
-//}
+.highlight_word_0 {
+   color: $white;
+   background: $success;
+}
 
 //.searchresults blockquote em.hlt2,
 //.searchresults blockquote em.hlt7,
-//.highlight_word_1 {
-//    color: $info;
-//    background: $info-;
-//}
+.highlight_word_1 {
+   color: $white;
+   background: $info;
+}
 
 //.searchresults blockquote em.hlt3,
 //.searchresults blockquote em.hlt8,
-//.highlight_word_2 {
-//    color: $panel-warning-text;
-//    background: $warning;
-//}
+.highlight_word_2 {
+   color: $white;
+   background: $warning;
+}
 
 //.searchresults blockquote em.hlt4,
 //.searchresults blockquote em.hlt9,
-//.highlight_word_3 {
-//    color: $panel-danger-text;
-//    background: $danger;
-//}
+.highlight_word_3 {
+   color: $white;
+   background: $danger;
+}
 
 //.searchresults blockquote em.hlt5,
 //.searchresults blockquote em.hlt10,
-//.highlight_word_4 {
-//    color: adjust-hue($panel-danger-text, 20);
-//    background: adjust-hue($danger, 20);
-//}
+.highlight_word_4 {
+   color: $white;
+   background: adjust-hue($danger, 20);
+}
 
 /* Structures drill-down menu */
 div.drillshow {
