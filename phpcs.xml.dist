@@ -300,10 +300,6 @@
         <exclude-pattern>lib/wiki-plugins/wikiplugin_now.php</exclude-pattern>
         <exclude-pattern>tiki-invite.php</exclude-pattern>
     </rule>
-    <rule ref="PHPCompatibility.IniDirectives.RemovedIniDirectives.auto_detect_line_endingsDeprecated">
-        <exclude-pattern>lib/core/Tracker/Tabular/Source/CsvSource.php</exclude-pattern>
-        <exclude-pattern>lib/core/Tracker/Tabular/Source/JsonSource.php</exclude-pattern>
-    </rule>
     <rule ref="PHPCompatibility.Variables.ForbiddenGlobalVariableVariable.NonBareVariableFound">
         <exclude-pattern>lib/init/tra.php</exclude-pattern>
         <exclude-pattern>lib/language/Language.php</exclude-pattern>

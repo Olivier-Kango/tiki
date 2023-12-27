@@ -17,7 +17,6 @@ class JsonSource implements SourceInterface
 
     public function __construct(Schema $schema, string $fileName, string $encoding = null)
     {
-        ini_set('auto_detect_line_endings', true);
         $this->schema = $schema->getPlainOutputSchema();
         $this->file = new \SplFileObject($fileName, 'r');
         if ($encoding === null) {
