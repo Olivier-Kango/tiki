@@ -2350,32 +2350,41 @@ if (! $standalone) {
     foreach ($installedLibs as $installedPackage) {
         $key = array_search($installedPackage['name'], array_column($packagesToCheck, 'name'));
         if ($key !== false) {
-            $warnings = array();
+            $messages = array(
+                'successes' => array(),
+                'warnings' => array()
+            );
             if (isset($packagesToCheck[$key]['preferences'])) {
-                $warnings = array_merge($warnings, checkPreferences($packagesToCheck[$key]['preferences']));
+                $preferenceMessages = checkPreferences($packagesToCheck[$key]['preferences']);
+                $messages['successes'] = array_merge($messages['successes'], $preferenceMessages['successes']);
+                $messages['warnings'] = array_merge($messages['warnings'], $preferenceMessages['warnings']);
             }
             if (isset($packagesToCheck[$key]['commands'])) {
                 foreach ($packagesToCheck[$key]['commands'] as $command) {
                     if (! commandIsAvailable($command)) {
-                        $warnings[] = tr("Command '%0' not found, check if it is installed and available.", $command);
+                        $messages['warnings'][] = tr("Command '%0' not found, check if it is installed and available.", $command);
+                    } else {
+                        $messages['successes'][] = tr("Command '%0' found, it is installed and available.", $command);
                     }
                 }
             }
             if (isset($packagesToCheck[$key]['urls'])) {
                 foreach ($packagesToCheck[$key]['urls'] as $url) {
                     if (! urlIsAvailable($url)) {
-                        $warnings[] = tr("URL '%0' is not reachable, check your firewall or proxy configurations.", $url);
+                        $messages['warnings'][] = tr("URL '%0' is not reachable, check your firewall or proxy configurations.", $url);
+                    } else {
+                        $messages['successes'][] = tr("Command '%0' found, it is installed and available.", $command);
                     }
                 }
             }
 
-            checkPackageWarnings($warnings, $installedPackage);
+            $messages = checkPackageMessages($messages, $installedPackage);
 
             $packageInfo = array(
                 'name' => $installedPackage['name'],
                 'version' => $installedPackage['installed'],
-                'status' => count($warnings) > 0 ? tra('unsure') : tra('good'),
-                'message' => $warnings
+                'status' => count($messages['warnings']) > 0 ? tra('unsure') : tra('good'),
+                'message' => array_merge($messages['warnings'], $messages['successes'])
             );
         } else {
             $packageInfo = array(
@@ -3600,32 +3609,43 @@ if ($standalone && ! $nagios) {
 
 /**
  * Check package warnings based on specific nuances of each package
- * @param $warnings
+ * @param $messages
  * @param $package
  */
-function checkPackageWarnings(&$warnings, $package)
+function checkPackageMessages($messages, $package)
 {
     global $prefs;
 
     switch ($package['name']) {
         case 'media-alchemyst/media-alchemyst':
             if (! AlchemyLib::hasReadWritePolicies()) {
-                $warnings[] = tr(
+                $messages['warnings'][] = tr(
                     'Alchemy requires "Read" and "Write" policy rights. More info: <a href="%0" target="_blank">%1</a>',
                     'https://doc.tiki.org/tiki-index.php?page=Media+Alchemyst#Document_to_Image_issues',
                     'Media Alchemyst - Document to Image issues'
                 );
+            } else {
+                $messages['successes'][] = tr('Alchemy has "Read" and "Write" policy rights.');
             }
 
             if (! UnoconvLib::isPortAvailable()) {
-                $warnings[] = tr(
+                $messages['warnings'][] = tr(
                     'The configured port (%0) to execute unoconv is in use by another process. The port can be set in \'unoconv port\' preference.',
                     $prefs['alchemy_unoconv_port'] ?: UnoconvLib::DEFAULT_PORT
                 );
+            } else {
+                $messages['successes'][] = tr(
+                    'The configured port (%0) is configured to execute unoconv.',
+                    $prefs['alchemy_unoconv_port'] ?: UnoconvLib::DEFAULT_PORT
+                );
             }
-
+            break;
+        default:
+            $messages['successes'] = array();
             break;
     }
+
+    return $messages;
 }
 
 /**
@@ -3639,33 +3659,52 @@ function checkPreferences(array $preferences)
 {
     global $prefs;
 
-    $warnings = array();
+    $messages = array(
+        'successes' => array(),
+        'warnings' => array()
+    );
 
     foreach ($preferences as $prefKey => $pref) {
         if ($pref['type'] == 'path') {
-            if (isset($prefs[$prefKey]) && ! file_exists($prefs[$prefKey])) {
-                $warnings[] = tr("The path '%0' on preference '%1' does not exist", $prefs[$prefKey], $pref['name']);
+            if (! empty($prefs[$prefKey])) {
+                if (! file_exists($prefs[$prefKey])) {
+                    $messages['warnings'][] = tr("The path '%0' on preference '%1' does not exist", $prefs[$prefKey], $pref['name']);
+                } else {
+                    $messages['successes'][] = tr("The path '%0' on preference '%1' exists", $prefs[$prefKey], $pref['name']);
+                }
             }
         } elseif ($pref['type'] == 'classOptions') {
             if (isset($prefs[$prefKey])) {
                 $options = $pref['options'][$prefs[$prefKey]];
 
-                if (! empty($options['classLib']) && ! class_exists($options['classLib'])) {
-                    $warnings[] = tr("The lib '%0' on preference '%1', option '%2' does not exist", $options['classLib'], $pref['name'], $options['name']);
+                if (! empty($options['classLib'])) {
+                    if (! class_exists($options['classLib'])) {
+                        $messages['warnings'][] = tr("The lib '%0' on preference '%1', option '%2' does not exist", $options['classLib'], $pref['name'], $options['name']);
+                    } else {
+                        $messages['successes'][] = tr("The lib '%0' on preference '%1', option '%2' exists", $options['classLib'], $pref['name'], $options['name']);
+                    }
                 }
 
-                if (! empty($options['className']) && ! class_exists($options['className'])) {
-                    $warnings[] = tr("The class '%0' needed for preference '%1', with option '%2' selected, does not exist", $options['className'], $pref['name'], $options['name']);
+                if (! empty($options['className'])) {
+                    if (! class_exists($options['className'])) {
+                        $messages['warnings'][] = tr("The class '%0' needed for preference '%1', with option '%2' selected, does not exist", $options['className'], $pref['name'], $options['name']);
+                    } else {
+                        $messages['successes'][] = tr("The class '%0' needed for preference '%1', with option '%2' selected, exists", $options['className'], $pref['name'], $options['name']);
+                    }
                 }
 
-                if (! empty($options['extension']) && ! extension_loaded($options['extension'])) {
-                    $warnings[] = tr("The extension '%0' on preference '%1', with option '%2' selected, is not loaded", $options['extension'], $pref['name'], $options['name']);
+                if (! empty($options['extension'])) {
+                    if (! extension_loaded($options['extension'])) {
+                        $messages['warnings'][] = tr("The extension '%0' on preference '%1', with option '%2' selected, is not loaded", $options['extension'], $pref['name'], $options['name']);
+                    } else {
+                        $messages['successes'][] = tr("The extension '%0' on preference '%1', with option '%2' selected, is loaded", $options['extension'], $pref['name'], $options['name']);
+                    }
                 }
             }
         }
     }
 
-    return $warnings;
+    return $messages;
 }
 
 /**
