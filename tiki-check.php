@@ -1436,6 +1436,7 @@ if ($s) {
 // mbstring
 $s = extension_loaded('mbstring');
 if ($s) {
+    // phpcs:ignore PHPCompatibility.IniDirectives.RemovedIniDirectives.mbstring_func_overloadDeprecatedRemoved -- tiki-check supports also older versions of PHP
     $func_overload = ini_get('mbstring.func_overload');
     if (! function_exists('mb_split')) {
         $php_properties['mbstring'] = array(
