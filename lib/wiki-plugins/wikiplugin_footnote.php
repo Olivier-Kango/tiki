@@ -150,6 +150,7 @@ function wikiplugin_footnote($data, $params, $offset, $context)
         $smarty->assign('listNum', $listNum);
         $smarty->assign('class', $footnote[$listNum]['class']);
         $smarty->assign('listType', $footnotes['lists'][$list]['listType']);
+        $smarty->assign('data', $data);
         return $smarty->fetch('templates/wiki-plugins/wikiplugin_footnote.tpl');
     } else {                             // if there is no data
         if (isset($params['sameastag'])) {
