@@ -279,14 +279,6 @@
         <exclude-pattern>lib/core/WikiParser/PluginMatcher.php</exclude-pattern>
         <exclude-pattern>lib/wiki-plugins/wikiplugin_fitnesse.php</exclude-pattern>
     </rule>
-    <rule ref="PHPCompatibility.Constants.RemovedConstants.filter_sanitize_stringDeprecated">
-        <exclude-pattern>lib/core/Services/H5P/Controller.php</exclude-pattern>
-        <exclude-pattern>lib/cypht/modules/tiki/setup.php</exclude-pattern>
-        <exclude-pattern>lib/wizard/pages/user_preferences_reports.php</exclude-pattern>
-        <exclude-pattern>tiki-admin_tokens.php</exclude-pattern>
-        <exclude-pattern>tiki-importer.php</exclude-pattern>
-        <exclude-pattern>tiki-user_reports.php</exclude-pattern>
-    </rule>
     <rule ref="PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.NeedsInspection">
         <exclude-pattern>lib/core/Perms.php</exclude-pattern>
         <exclude-pattern>lib/parser/parserlib.php</exclude-pattern>
