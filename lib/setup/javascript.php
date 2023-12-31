@@ -257,6 +257,7 @@ if (! timezone) {
     $jqueryTiki['bingMapsAPIKey'] = $prefs['geo_bingmaps_key'];
     $jqueryTiki['nextzenAPIKey'] = $prefs['geo_nextzen_key'];
     $jqueryTiki['numericFieldScroll'] = $prefs['unified_numeric_field_scroll'];
+    $jqueryTiki['themeIconset'] = $prefs['theme_iconset'];
     //set at 4 hours if empty
     $jqueryTiki['securityTimeout'] = ! empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
         : TikiLib::lib('access')->getDefaultTimeout();
