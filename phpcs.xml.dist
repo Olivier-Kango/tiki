@@ -279,10 +279,20 @@
         <exclude-pattern>lib/core/WikiParser/PluginMatcher.php</exclude-pattern>
         <exclude-pattern>lib/wiki-plugins/wikiplugin_fitnesse.php</exclude-pattern>
     </rule>
-    <rule ref="PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.NeedsInspection">
-        <exclude-pattern>lib/core/Perms.php</exclude-pattern>
-        <exclude-pattern>lib/parser/parserlib.php</exclude-pattern>
-        <exclude-pattern>lib/wiki-plugins/wikiplugin_archivebuilder.php</exclude-pattern>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.filter_sanitize_stringDeprecated">
+        <exclude-pattern>lib/core/Services/H5P/Controller.php</exclude-pattern>
+        <exclude-pattern>lib/cypht/modules/tiki/setup.php</exclude-pattern>
+        <exclude-pattern>lib/wizard/pages/user_preferences_reports.php</exclude-pattern>
+        <exclude-pattern>tiki-admin_tokens.php</exclude-pattern>
+        <exclude-pattern>tiki-importer.php</exclude-pattern>
+        <exclude-pattern>tiki-user_reports.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionDeclarations.RemovedCallingDestructAfterConstructorExit.Found">
+        <exclude-pattern>lib/core/TikiDb/Adodb.php</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionDeclarations.RemovedCallingDestructAfterConstructorExit.NeedsInspection">
+        <exclude-pattern>lib/core/TikiDb/Pdo.php</exclude-pattern>
+        <exclude-pattern>lib/socnets/TikiHybrid.php</exclude-pattern>
     </rule>
     <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.strftimeDeprecated">
         <exclude-pattern>lib/smarty_tiki/function.html_select_date.php</exclude-pattern>

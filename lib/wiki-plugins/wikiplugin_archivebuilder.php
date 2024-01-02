@@ -188,7 +188,7 @@ function wikiplugin_archivebuilder_tracker_get_attbody($info)
     }
 }
 
-function wikiplugin_archivebuilder_pagetopdf($file, $pageName)
+function wikiplugin_archivebuilder_pagetopdf($file, $pageName, ...$extraArgs)
 {
     if (! Perms::get('wiki page', $pageName)->view) {
         return [];
@@ -202,9 +202,7 @@ function wikiplugin_archivebuilder_pagetopdf($file, $pageName)
         $access->redirect($_SERVER['HTTP_REFERER']);
     } else {
         $params = [ 'page' => $pageName ];
-        $args = func_get_args();
-        $args = array_slice($args, 2);
-        foreach ($args as $arg) {
+        foreach ($extraArgs as $arg) {
             list( $key, $value ) = explode('=', $arg, 2);
             $params[$key] = $value;
         }

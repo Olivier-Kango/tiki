@@ -114,14 +114,13 @@ class Perms
      * Provides a new accessor configured with the global settings and
      * a resolver appropriate to the context requested.
      */
-    public static function get($context = [])
+    public static function get($context = [], $object = null, $parentId = null)
     {
         if (! is_array($context)) {
-            $args = func_get_args();
             $context = [
-                'type' => $args[0],
-                'object' => $args[1],
-                'parentId' => isset($args[2]) ? $args[2] : null,
+                'type' => $context,
+                'object' => $object ?? null,
+                'parentId' => $parentId ?? null
             ];
         }
 
