@@ -60,11 +60,11 @@ function wikiplugin_html($data, $params)
 
     // parse using is_html if wiki param set, or just decode html entities
     if ($params['wiki'] == 1) {
-        $html = TikiLib::lib('parser')->parse_data($html, ['is_html' => true, 'parse_wiki' => true]);
+        $html = TikiLib::lib('parser')->parse_data($html, ['is_html' => true, 'parse_wiki' => true, 'is_plugin_html' => true]);
     } else {
         $html  = html_entity_decode($html, ENT_NOQUOTES, 'UTF-8');
     }
-
+    // exit($html);
     if (isset($params['tohead']) && $params['tohead'] == 1) {
         // Insert in HTML head rather than in body
         TikiLib::lib('header')->add_rawhtml($html);

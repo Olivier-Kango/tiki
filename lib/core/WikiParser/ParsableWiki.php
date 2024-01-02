@@ -38,7 +38,7 @@ class WikiParser_ParsableWiki extends ParserLib
         // done after url catching because otherwise urls of dyn. sites will be modified // What? Chealer
         // must be done before color as we can have "~hs~~hs" (2 consecutive non-breaking spaces. The color syntax uses "~~".)
         // jb 9.0 html entity fix - excluded not $this->option['is_html'] pages
-        if (! $this->option['is_html']) {
+        if (! $this->option['is_html'] || (isset($this->option['is_plugin_html']) && $this->option['is_plugin_html'])) {
             $this->parse_htmlchar($data);
         }
 
