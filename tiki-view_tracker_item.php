@@ -935,14 +935,24 @@ try {
         $trackerData = $smarty->fetch('tiki-print.tpl');
         //getting comments associated with tracker item
         $broker = TikiLib::lib('service')->getBroker();
-        $comments = $broker->internalRender("comment", "list", $jitRequest = new JitFilter(["controller" => "comment","action" => "list","type" => "trackeritem","objectId" => $itemId]));
+        try {
+            $comments = $broker->internalRender("comment", "list", $jitRequest = new JitFilter(["controller" => "comment","action" => "list","type" => "trackeritem","objectId" => $itemId]));
+        } catch (Services_Exception $e) {
+            $comments = $e->getMessage();
+        }
+
         require_once 'lib/pdflib.php';
         $generator = new PdfGenerator();
         if (! empty($generator->error)) {
             Feedback::error($generator->error);
             $access->redirect($page);
         } else {
-            $pdf = $generator->getPdf('tiki-print.php', ['page' => $tracker_info['name']], str_ireplace("</dl>", "</dl><h3>Comments</h3>" . $comments . "<br />", $trackerData));
+            if ($comments) {
+                $data = str_ireplace("</dl>", "</dl><h3>Comments</h3>" . $comments . "<br />", $trackerData);
+            } else {
+                $data = $trackerData;
+            }
+            $pdf = $generator->getPdf('tiki-print.php', ['page' => $tracker_info['name']], $data);
             $length = strlen($pdf);
             header('Cache-Control: private, must-revalidate');
             header('Pragma: private');
