@@ -85,7 +85,7 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
             'yearlyWeekdayValue' => '-1FR',
             'yearlyWeekMonth' => 6,
             'startPeriod' => $start,
-            'endPeriod' => strtotime('12am', strtotime('+5 years')),
+            'endPeriod' => strtotime('12am', strtotime(date('Y-12-31', strtotime('+5 years')))),
         ]);
     }
 
@@ -243,12 +243,11 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
 
     public function testEventCreationYearlyWeekday(): void
     {
-        self::markTestSkipped("Skipping temporarily the test as it seems to be false negative");
         $rec = new CalRecurrence($this->recIds['yearly-weekday']);
         $rec->createEvents();
         $events = $this->getEventsByRecurrence($rec->getId());
         $last = array_pop($events);
-        $this->assertEquals(date('m-d', strtotime('last Friday of June')), date('m-d', $last['start']));
+        $this->assertEquals(date('m-d', strtotime('last Friday of June', strtotime('+5 years'))), date('m-d', $last['start']));
     }
 
     public function testEventComparison(): void
