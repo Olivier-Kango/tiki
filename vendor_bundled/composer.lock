@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc587ac512bab39fcfb984e04a5ad114",
+    "content-hash": "cd06a69012a8814a757aac5ab733280b",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -987,23 +987,23 @@
         },
         {
             "name": "clue/stream-filter",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/stream-filter.git",
-                "reference": "d6169430c7731d8509da7aecd0af756a5747b78e"
+                "reference": "049509fef80032cb3f051595029ab75b49a3c2f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/clue/stream-filter/clue-stream-filter-d6169430c7731d8509da7aecd0af756a5747b78e-zip-a3c203.zip",
-                "reference": "d6169430c7731d8509da7aecd0af756a5747b78e",
-                "shasum": "4f3522bd4e7ea1d6a3b000163431673a462c341d"
+                "url": "https://composer.tiki.org/dist/clue/stream-filter/clue-stream-filter-049509fef80032cb3f051595029ab75b49a3c2f7-zip-b2586f.zip",
+                "reference": "049509fef80032cb3f051595029ab75b49a3c2f7",
+                "shasum": "c99b5d647223d5eb847e0b962386cbbeebafd41e"
             },
             "require": {
                 "php": ">=5.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.36"
+                "phpunit/phpunit": "^9.6 || ^5.7 || ^4.8.36"
             },
             "type": "library",
             "autoload": {
@@ -1025,7 +1025,7 @@
                 }
             ],
             "description": "A simple and modern approach to stream filtering in PHP",
-            "homepage": "https://github.com/clue/php-stream-filter",
+            "homepage": "https://github.com/clue/stream-filter",
             "keywords": [
                 "bucket brigade",
                 "callback",
@@ -1045,7 +1045,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-21T13:15:14+00:00"
+            "time": "2023-12-20T15:40:13+00:00"
         },
         {
             "name": "codemirror/codemirror",
@@ -2700,17 +2700,17 @@
         },
         {
             "name": "hybridauth/hybridauth",
-            "version": "v3.10.0",
+            "version": "v3.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "9b5e8a7782b630d5b1151003999d6db91a863ffe"
+                "reference": "b70b9cbe1c7fa99b5847c5868610a8f024cc7d38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/hybridauth/hybridauth/hybridauth-hybridauth-9b5e8a7782b630d5b1151003999d6db91a863ffe-zip-17a049.zip",
-                "reference": "9b5e8a7782b630d5b1151003999d6db91a863ffe",
-                "shasum": "af15367245020c1433e5a1ac83a61f8048135d8c"
+                "url": "https://composer.tiki.org/dist/hybridauth/hybridauth/hybridauth-hybridauth-b70b9cbe1c7fa99b5847c5868610a8f024cc7d38-zip-76cd0c.zip",
+                "reference": "b70b9cbe1c7fa99b5847c5868610a8f024cc7d38",
+                "shasum": "4894e5d7c1334fab992453b05afc352d763fd2ca"
             },
             "require": {
                 "php": "^5.4 || ^7.0 || ^8.0"
@@ -2753,7 +2753,7 @@
                 "social",
                 "twitter"
             ],
-            "time": "2023-07-25T15:02:07+00:00"
+            "time": "2024-01-02T23:09:56+00:00"
         },
         {
             "name": "itsjavi/bootstrap-colorpicker",
@@ -6654,11 +6654,11 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.23.3",
+            "version": "7.23.6",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.23.3.zip",
-                "shasum": "749807a4adb0872c2768f86caf1dd8845e6c2f2a"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.23.6.zip",
+                "shasum": "5f59572d778dc405aa34d1cd29aed2172917f1df"
             },
             "type": "npm-asset",
             "license": [
@@ -7037,11 +7037,11 @@
         },
         {
             "name": "npm-asset/moment",
-            "version": "2.29.4",
+            "version": "2.30.1",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/moment/npm-asset-moment-2.29.4.zip",
-                "shasum": "cd030c49c6a8944e304ac02c40e6f762a122b268"
+                "url": "https://composer.tiki.org/dist/npm-asset/moment/npm-asset-moment-2.30.1.zip",
+                "shasum": "b1a46958fddffacbd0642db1ef286bb4c349fc47"
             },
             "type": "npm-asset",
             "license": [
@@ -8951,17 +8951,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.45",
+            "version": "2.0.46",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "28d8f438a0064c9de80857e3270d071495544640"
+                "reference": "498e67a0c82bd5791fda9b0dd0f4ec8e8aebb02d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-28d8f438a0064c9de80857e3270d071495544640-zip-459e62.zip",
-                "reference": "28d8f438a0064c9de80857e3270d071495544640",
-                "shasum": "a2c6411d66d3e20b6a04cdaa705e9a0b86bafeaf"
+                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-498e67a0c82bd5791fda9b0dd0f4ec8e8aebb02d-zip-a3d254.zip",
+                "reference": "498e67a0c82bd5791fda9b0dd0f4ec8e8aebb02d",
+                "shasum": "c747d5645cd2696cdb6dca3f28d115efb973bb54"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -9053,7 +9053,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-15T20:55:47+00:00"
+            "time": "2023-12-29T01:52:43+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -10011,17 +10011,17 @@
         },
         {
             "name": "react/socket",
-            "version": "v1.14.0",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/socket.git",
-                "reference": "21591111d3ea62e31f2254280ca0656bc2b1bda6"
+                "reference": "216d3aec0b87f04a40ca04f481e6af01bdd1d038"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/react/socket/react-socket-21591111d3ea62e31f2254280ca0656bc2b1bda6-zip-f2e4c4.zip",
-                "reference": "21591111d3ea62e31f2254280ca0656bc2b1bda6",
-                "shasum": "f0a74de960121ab654c9960267ec050d6fb1783e"
+                "url": "https://composer.tiki.org/dist/react/socket/react-socket-216d3aec0b87f04a40ca04f481e6af01bdd1d038-zip-685dcc.zip",
+                "reference": "216d3aec0b87f04a40ca04f481e6af01bdd1d038",
+                "shasum": "784a8a0a98de3e7af155d8d43527d8549e726b1b"
             },
             "require": {
                 "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
@@ -10032,7 +10032,7 @@
                 "react/stream": "^1.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.35",
+                "phpunit/phpunit": "^9.6 || ^5.7 || ^4.8.36",
                 "react/async": "^4 || ^3 || ^2",
                 "react/promise-stream": "^1.4",
                 "react/promise-timer": "^1.10"
@@ -10040,7 +10040,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "React\\Socket\\": "src"
+                    "React\\Socket\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -10083,7 +10083,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-08-25T13:48:09+00:00"
+            "time": "2023-12-15T11:02:10+00:00"
         },
         {
             "name": "react/stream",
@@ -11535,17 +11535,17 @@
         },
         {
             "name": "studio-42/elfinder",
-            "version": "2.1.62",
+            "version": "2.1.64",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Studio-42/elFinder.git",
-                "reference": "91133c14a341158beca82aede0b2138236a96bc8"
+                "reference": "deaa6797df1c6f288238b47284c9b593174bfc0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/studio-42/elfinder/studio-42-elfinder-91133c14a341158beca82aede0b2138236a96bc8-zip-929e42.zip",
-                "reference": "91133c14a341158beca82aede0b2138236a96bc8",
-                "shasum": "13e9c8c7434ac388699e4d0bc43c9015169addb8"
+                "url": "https://composer.tiki.org/dist/studio-42/elfinder/studio-42-elfinder-deaa6797df1c6f288238b47284c9b593174bfc0f-zip-9a5559.zip",
+                "reference": "deaa6797df1c6f288238b47284c9b593174bfc0f",
+                "shasum": "10637efc4cb25925f7d5b48e4618e11be1f7b747"
             },
             "require": {
                 "php": ">=5.2"
@@ -11595,7 +11595,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-13T16:39:07+00:00"
+            "time": "2023-12-20T07:43:10+00:00"
         },
         {
             "name": "svg-edit/svg-edit",
@@ -12158,17 +12158,17 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.4.31",
+            "version": "v5.4.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "6cdf6cdf48101454f014a9ab4e0905f0b902389d"
+                "reference": "8fe833b758bc5b325e9d96a913376d6d57a90fb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-6cdf6cdf48101454f014a9ab4e0905f0b902389d-zip-13f808.zip",
-                "reference": "6cdf6cdf48101454f014a9ab4e0905f0b902389d",
-                "shasum": "b29f77959c701d2932ab4351858485058f6f56e5"
+                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-8fe833b758bc5b325e9d96a913376d6d57a90fb0-zip-ccfaf6.zip",
+                "reference": "8fe833b758bc5b325e9d96a913376d6d57a90fb0",
+                "shasum": "a27e13299920cf58ad30be7dbfb100c5a673803b"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -12242,7 +12242,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-29T12:33:05+00:00"
+            "time": "2023-12-02T08:41:43+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -12321,17 +12321,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.4.32",
+            "version": "v5.4.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "cbcd80a4c36f59772d62860fdb0cb6a38da63fd2"
+                "reference": "4da1713e88cf9c44bd4bf65f54772681222fcbec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-foundation/symfony-http-foundation-cbcd80a4c36f59772d62860fdb0cb6a38da63fd2-zip-674710.zip",
-                "reference": "cbcd80a4c36f59772d62860fdb0cb6a38da63fd2",
-                "shasum": "532e14063b0af6fac98fd2aa78de12cc0d7f2d11"
+                "url": "https://composer.tiki.org/dist/symfony/http-foundation/symfony-http-foundation-4da1713e88cf9c44bd4bf65f54772681222fcbec-zip-545540.zip",
+                "reference": "4da1713e88cf9c44bd4bf65f54772681222fcbec",
+                "shasum": "ef798287910dfcb8a186cec524eec881173c3aa8"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -12390,7 +12390,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-20T15:40:25+00:00"
+            "time": "2023-12-27T11:45:35+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -13940,17 +13940,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.4.32",
+            "version": "v5.4.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "91bf4453d65d8231688a04376c3a40efe0770f04"
+                "reference": "e3f98bfc7885c957488f443df82d97814a3ce061"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/string/symfony-string-91bf4453d65d8231688a04376c3a40efe0770f04-zip-33c10b.zip",
-                "reference": "91bf4453d65d8231688a04376c3a40efe0770f04",
-                "shasum": "3a7e64d320ca330a13d13fdb4c2eda944a31730a"
+                "url": "https://composer.tiki.org/dist/symfony/string/symfony-string-e3f98bfc7885c957488f443df82d97814a3ce061-zip-4eb7a0.zip",
+                "reference": "e3f98bfc7885c957488f443df82d97814a3ce061",
+                "shasum": "30ebe1c984aca70462cae896a1d8193813e41836"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -14019,7 +14019,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-26T13:43:46+00:00"
+            "time": "2023-12-09T13:20:28+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -14091,21 +14091,21 @@
         },
         {
             "name": "teqneers/shamir",
-            "version": "dev-master",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/teqneers/shamir.git",
-                "reference": "4489160ce6b4e80490378a13c9f3144e2f6a35f3"
+                "reference": "c957ee9efdd0efcf2b8ca7b28d5fb6c852662119"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/teqneers/shamir/teqneers-shamir-4489160ce6b4e80490378a13c9f3144e2f6a35f3-zip-7da8df.zip",
-                "reference": "4489160ce6b4e80490378a13c9f3144e2f6a35f3",
-                "shasum": "ce927c1d865691bb53e9e2dfd76cd51630c4d67a"
+                "url": "https://composer.tiki.org/dist/teqneers/shamir/teqneers-shamir-c957ee9efdd0efcf2b8ca7b28d5fb6c852662119-zip-2df257.zip",
+                "reference": "c957ee9efdd0efcf2b8ca7b28d5fb6c852662119",
+                "shasum": "46733af9b572b1eee98089760639e07ac8baa09e"
             },
             "require": {
                 "ext-bcmath": "*",
-                "php": ">=7.2",
+                "php": ">=7.2 <8.2",
                 "symfony/console": "^2.0 || ^3.0 || ^4.0 || ^5.0"
             },
             "require-dev": {
@@ -14138,7 +14138,7 @@
                 }
             ],
             "description": "This is Shamir's Shared Secret implementation in PHP. It allows you to create shared secrets using the PHP classes or the CLI interface.",
-            "time": "2023-05-15T17:46:47+00:00"
+            "time": "2023-05-22T21:53:51+00:00"
         },
         {
             "name": "thomaspark/bootswatch",
@@ -14183,23 +14183,23 @@
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
-            "version": "2.2.6",
+            "version": "v2.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
-                "reference": "c42125b83a4fa63b187fdf29f9c93cb7733da30c"
+                "reference": "83ee6f38df0a63106a9e4536e3060458b74ccedb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/tijsverkoyen/css-to-inline-styles/tijsverkoyen-css-to-inline-styles-c42125b83a4fa63b187fdf29f9c93cb7733da30c-zip-3c127b.zip",
-                "reference": "c42125b83a4fa63b187fdf29f9c93cb7733da30c",
-                "shasum": "8d983c8b9863e86b756ed4fe824e0c4cf60cd27b"
+                "url": "https://composer.tiki.org/dist/tijsverkoyen/css-to-inline-styles/tijsverkoyen-css-to-inline-styles-83ee6f38df0a63106a9e4536e3060458b74ccedb-zip-966477.zip",
+                "reference": "83ee6f38df0a63106a9e4536e3060458b74ccedb",
+                "shasum": "67b2cb4eec008ee5a7e3bd5c8cf8ba18a69d3521"
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "php": "^5.5 || ^7.0 || ^8.0",
-                "symfony/css-selector": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
+                "symfony/css-selector": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0 || ^7.5 || ^8.5.21 || ^9.5.10"
@@ -14228,7 +14228,7 @@
             ],
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
-            "time": "2023-01-03T09:29:04+00:00"
+            "time": "2023-12-08T13:03:43+00:00"
         },
         {
             "name": "tikiwiki/ilp-client",
@@ -14313,17 +14313,17 @@
         },
         {
             "name": "twbs/bootstrap-icons",
-            "version": "v1.11.2",
+            "version": "v1.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/icons.git",
-                "reference": "108565f11f099f177b31929e3eafc2c8d497fcd1"
+                "reference": "8d88686c03c3768a2d82ba4f20c3c4e1b100fa29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/twbs/bootstrap-icons/twbs-bootstrap-icons-108565f11f099f177b31929e3eafc2c8d497fcd1-zip-402f45.zip",
-                "reference": "108565f11f099f177b31929e3eafc2c8d497fcd1",
-                "shasum": "034a9cc08f7fa310c5236fe616fbe920f04b133b"
+                "url": "https://composer.tiki.org/dist/twbs/bootstrap-icons/twbs-bootstrap-icons-8d88686c03c3768a2d82ba4f20c3c4e1b100fa29-zip-aa97f0.zip",
+                "reference": "8d88686c03c3768a2d82ba4f20c3c4e1b100fa29",
+                "shasum": "e0119ccb3c7767dd70a1e45666c4f407fcf7d4dc"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -14344,7 +14344,7 @@
                 "icons",
                 "svg"
             ],
-            "time": "2023-11-21T20:06:00+00:00"
+            "time": "2024-01-03T15:44:45+00:00"
         },
         {
             "name": "undojs/undojs",
@@ -14975,17 +14975,17 @@
     "packages-dev": [
         {
             "name": "composer/ca-bundle",
-            "version": "1.3.7",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "76e46335014860eec1aa5a724799a00a2e47cc85"
+                "reference": "b66d11b7479109ab547f9405b97205640b17d385"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/composer/ca-bundle/composer-ca-bundle-76e46335014860eec1aa5a724799a00a2e47cc85-zip-95895e.zip",
-                "reference": "76e46335014860eec1aa5a724799a00a2e47cc85",
-                "shasum": "04e6193c880fa72ef371da4dcef7a006d99f70c4"
+                "url": "https://composer.tiki.org/dist/composer/ca-bundle/composer-ca-bundle-b66d11b7479109ab547f9405b97205640b17d385-zip-224fd1.zip",
+                "reference": "b66d11b7479109ab547f9405b97205640b17d385",
+                "shasum": "67ca5adb9fec17be3b171a82ec04d7d38227a1f6"
             },
             "require": {
                 "ext-openssl": "*",
@@ -14996,7 +14996,7 @@
                 "phpstan/phpstan": "^0.12.55",
                 "psr/log": "^1.0",
                 "symfony/phpunit-bridge": "^4.2 || ^5",
-                "symfony/process": "^2.5 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
+                "symfony/process": "^2.5 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "type": "library",
             "extra": {
@@ -15042,7 +15042,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-30T09:31:38+00:00"
+            "time": "2023-12-18T12:05:55+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -15734,29 +15734,29 @@
         },
         {
             "name": "phpcsstandards/phpcsutils",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "69465cab9d12454e5e7767b9041af0cd8cd13be7"
+                "reference": "908247bc65010c7b7541a9551e002db12e9dae70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcsstandards/phpcsutils/phpcsstandards-phpcsutils-69465cab9d12454e5e7767b9041af0cd8cd13be7-zip-72ca8e.zip",
-                "reference": "69465cab9d12454e5e7767b9041af0cd8cd13be7",
-                "shasum": "f4fd2b2d5e3ca6028df8020b8b71839379ef4cad"
+                "url": "https://composer.tiki.org/dist/phpcsstandards/phpcsutils/phpcsstandards-phpcsutils-908247bc65010c7b7541a9551e002db12e9dae70-zip-551b3d.zip",
+                "reference": "908247bc65010c7b7541a9551e002db12e9dae70",
+                "shasum": "fe9dff95d92922f75a84322db2d2cfe197c64602"
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0",
                 "php": ">=5.4",
-                "squizlabs/php_codesniffer": "^3.7.1 || 4.0.x-dev@dev"
+                "squizlabs/php_codesniffer": "^3.8.0 || 4.0.x-dev@dev"
             },
             "require-dev": {
                 "ext-filter": "*",
                 "php-parallel-lint/php-console-highlighter": "^1.0",
                 "php-parallel-lint/php-parallel-lint": "^1.3.2",
                 "phpcsstandards/phpcsdevcs": "^1.1.6",
-                "yoast/phpunit-polyfills": "^1.0.5 || ^2.0.0"
+                "yoast/phpunit-polyfills": "^1.1.0 || ^2.0.0"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -15798,7 +15798,21 @@
                 "tokens",
                 "utility"
             ],
-            "time": "2023-07-16T21:39:41+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/PHPCSStandards",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/php_codesniffer",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2023-12-08T14:50:00+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -16912,17 +16926,17 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.7.2",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
+                "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
+                "reference": "5805f7a4e4958dbb5e944ef1e6edae0a303765e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-ed8e00df0a83aa96acf703f8c2979ff33341f879-zip-b8b5fd.zip",
-                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
-                "shasum": "93d1c71ff498ed43adc75fd52ea6bb87f1da0fe1"
+                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-5805f7a4e4958dbb5e944ef1e6edae0a303765e7-zip-c09855.zip",
+                "reference": "5805f7a4e4958dbb5e944ef1e6edae0a303765e7",
+                "shasum": "ab8372c496b4fda61ff5d56fd2913ff7a7303f73"
             },
             "require": {
                 "ext-simplexml": "*",
@@ -16931,7 +16945,7 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
             },
             "bin": [
                 "bin/phpcs",
@@ -16950,17 +16964,39 @@
             "authors": [
                 {
                     "name": "Greg Sherwood",
-                    "role": "lead"
+                    "role": "Former lead"
+                },
+                {
+                    "name": "Juliette Reinders Folmer",
+                    "role": "Current lead"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer/graphs/contributors"
                 }
             ],
             "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
-            "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
+            "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
                 "standards",
                 "static analysis"
             ],
-            "time": "2023-02-22T23:07:41+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/PHPCSStandards",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/php_codesniffer",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2023-12-08T12:32:31+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -17170,7 +17206,6 @@
         "league/flysystem": 10,
         "npm-asset/html2canvas": 5,
         "sorich87/bootstrap-tour": 20,
-        "teqneers/shamir": 20,
         "zendframework/zendservice-akismet": 20,
         "montefuscolo/xmpp": 20,
         "rubix/extras": 10,
