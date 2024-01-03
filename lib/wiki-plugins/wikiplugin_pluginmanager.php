@@ -548,7 +548,6 @@ function get_module_params($sPluginFile)
         $param['required'] = ! empty($param['required']);
     }
     $numparams = isset($infoPluginParams) ? count($infoPluginParams) : 0;
-    $infoPlugin['params'] = $infoPluginParams;
     return $infoPlugin;
 }
 
