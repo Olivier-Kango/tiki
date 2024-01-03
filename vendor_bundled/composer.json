@@ -157,7 +157,7 @@
         "symfony/process": "^3.2.6",
         "symfony/routing": "^3.2.6",
         "symfony/yaml": "^3.2.6",
-        "teqneers/shamir": "dev-master",
+        "teqneers/shamir": "1.1.0",
         "tijsverkoyen/css-to-inline-styles": "^2.2.0",
         "tikiwiki/ilp-client": "^1.0",
         "twbs/bootstrap": "^4.1",
