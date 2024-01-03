@@ -104,7 +104,7 @@ function module_reading_time($mod_reference, &$module_params)
     // Wiki page (only case for now) todo : add blogs, articles, forums and tracker textarea
     // Grabbing the data to get the content, we need the words
     $pagedata = $tikilib->get_page_info($page);
-    $words = $pagedata['data'];
+    $words = (is_array($pagedata) && array_key_exists('data', $pagedata)) ? $pagedata['data'] : " ";
 
     // Cleaning and assuring the counting work with accents and languages - non latin
     $wordCleaned = preg_split("/[\n\r\t ]+/", $words, 0, PREG_SPLIT_NO_EMPTY);
