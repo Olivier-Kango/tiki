@@ -270,9 +270,6 @@
             or (!$file.lockedby and (($user and $user eq $file.user)
             or ($file.perms.tiki_p_edit_gallery_file eq 'y'
             and $file.perms.tiki_p_remove_files eq 'y')))}
-                <a href="tiki-list_file_gallery.php?remove={$file.fileId}&galleryId={$file.galleryId}" onclick="confirmPopup('{tr}Delete file?{/tr}', '{ticket mode=get}')">
-                    {icon _menu_text=$menu_text _menu_icon=$menu_icon name='remove' alt="{tr}Delete{/tr}"}
-                </a>
                 <form action="tiki-list_file_gallery.php" method="post">
                     {ticket}
                     <input type="hidden" name="remove" value="{$file.fileId}">
