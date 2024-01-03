@@ -8,6 +8,7 @@ use Search_Expr_Token as Token;
 use Search_Expr_And as AndX;
 use Search_Expr_Or as OrX;
 use Search_Expr_Not as NotX;
+use Search_Expr_MoreLikeThis as MoreLikeThis;
 
 class Search_MySql_FieldQueryBuilder
 {
@@ -65,6 +66,8 @@ class Search_MySql_FieldQueryBuilder
                         : '(+' . implode(' +', $childNodes) . ')';
                 } elseif ($node instanceof NotX) {
                     return '-' . reset($childNodes);
+                } elseif ($node instanceof MoreLikeThis) {
+                    return implode(' ', $childNodes);
                 } else {
                     throw new Search_MySql_QueryException('Expression not supported: ' . get_class($node));
                 }
