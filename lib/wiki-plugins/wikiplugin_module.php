@@ -399,7 +399,7 @@ function wikiplugin_module($data, $params)
         $out = $modlib->execute_module($module_reference);
     }
 
-    if ($out) {
+    if (! is_null($out)) {
         if ($float != 'nofloat') {
             $data = "<div style='float: $float;'>$out</div>";
         } else {
