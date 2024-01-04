@@ -163,7 +163,7 @@
         "symfony/process": "^4.3",
         "symfony/routing": "^4.1",
         "symfony/yaml": "^4.3",
-        "teqneers/shamir": "1.1.0",
+        "teqneers/shamir": "^1.1.0",
         "tijsverkoyen/css-to-inline-styles": "^2.2.0",
         "tikiwiki/ilp-client": "^1.0",
         "twbs/bootstrap": "^5.1",
