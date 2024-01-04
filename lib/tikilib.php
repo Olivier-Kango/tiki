@@ -3383,7 +3383,8 @@ class TikiLib extends TikiDb_Bridge
         $res = $linkCache->fetchFullRow(['url' => $url]);
         $now = $this->now;
 
-        if (empty($res) || ($now - $res['refresh']) > $cachetime) { // no cache or need to refresh
+        // Check if $res is not false and if there's no cache or need to refresh
+        if ($res !== false && ($now - $res['refresh']) > $cachetime) {
             $res['data'] = $this->httprequest($url);
             $isFresh = true;
             //echo '<br />Not cached:'.$url.'/'.strlen($res['data']);
@@ -3391,7 +3392,6 @@ class TikiLib extends TikiDb_Bridge
             if ($cachetime > 0) {
                 if (empty($res['cacheId'])) {
                     $linkCache->insert(['url' => $url, 'data' => $res['data'], 'refresh' => $res['refresh']]);
-
                     $res = $linkCache->fetchFullRow(['url' => $url]);
                 } else {
                     $linkCache->update(['data' => $res['data'], 'refresh' => $res['refresh']], ['cacheId' => $res['cacheId']]);
