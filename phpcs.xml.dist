@@ -254,17 +254,6 @@
     </rule>
 
     <!-- Temporary exceptions while codebase is not fixed -->
-    <rule ref="PHPCompatibility.TextStrings.RemovedDollarBraceStringEmbeds.DeprecatedVariableSyntax">
-        <exclude-pattern>tiki-create_webhelp.php</exclude-pattern>
-        <exclude-pattern>tiki-switch_lang.php</exclude-pattern>
-        <exclude-pattern>lib/openpgp/openpgplib.php</exclude-pattern>
-        <exclude-pattern>lib/wiki/editlib.php</exclude-pattern>
-        <exclude-pattern>lib/ziplib.php</exclude-pattern>
-        <exclude-pattern>installer/schema/20181127_convert_db_local_to_utf8mb4_tiki.php</exclude-pattern>
-        <exclude-pattern>lib/registration/registrationlib.php</exclude-pattern>
-        <exclude-pattern>lib/core/WikiParser/ParsableWiki.php</exclude-pattern>
-        <exclude-pattern>lib/wiki-plugins/wikiplugin_rr.php</exclude-pattern>
-    </rule>
     <rule ref="PHPCompatibility.Attributes.NewAttributes.Found">
         <exclude-pattern>lib/core/JitFilter.php</exclude-pattern>
         <exclude-pattern>lib/core/Math/Formula/Element.php</exclude-pattern>
