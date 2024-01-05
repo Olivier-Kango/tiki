@@ -45,6 +45,8 @@
  * the old password is unknown. The encrypted data can then no longer be decrypted when the user logs in,
  * since the "secret key" has changed. The user will have to re-enter the lost data.
  * A recovery is possible. The recovery mechanism should call onChangeUserPassword.
+ * To read more on how mcrypt is being phased out of Tiki
+ * See https://dev.tiki.org/Removing-MCrypt-as-a-dependency
  */
 class CryptLib extends TikiLib
 {
@@ -85,6 +87,18 @@ class CryptLib extends TikiLib
         $this->initSeed($phraseMD5);
     }
 
+    // E_DEPRECATED error handler function
+    public function handleDeprecatedError($errno, $errstr)
+    {
+        if ($errno === E_DEPRECATED) {
+            // Indicate that the error E_DEPRECATED has been handled.
+            return true;
+        } else {
+            // Allow other errors to propagate and get handled
+            return false;
+        }
+    }
+
     public function initSeed($phraseMD5)
     {
         if (extension_loaded('sodium')) {
@@ -98,11 +112,16 @@ class CryptLib extends TikiLib
             $this->key = $phraseMD5;
         }
 
+        // https://pecl.php.net/package/mcrypt is installed, we may still want this to convert old user passwords
         if (extension_loaded('mcrypt') && $this->mcrypt == null) {
             $this->mcrypt_key = $phraseMD5;
+            // Set custom handler for E_DEPRECATED errors
+            set_error_handler([$this, 'handleDeprecatedError'], E_DEPRECATED);
 
             // Using Rijndael 256 in CBC mode.
             $this->mcrypt = mcrypt_module_open(MCRYPT_RIJNDAEL_256, '', 'cbc', '');
+
+            restore_error_handler();
         }
     }
 
@@ -117,9 +136,15 @@ class CryptLib extends TikiLib
             $this->key = null;
         }
         if ($this->mcrypt != null) {
+            // Set custom handler for E_DEPRECATED errors
+            set_error_handler([$this, 'handleDeprecatedError'], E_DEPRECATED);
+
+            // Call mcrypt_module_close that might trigger E_DEPRECATED
             mcrypt_module_close($this->mcrypt);
             $this->mcrypt_key = null;
             $this->mcrypt = null;
+
+            restore_error_handler();
         }
     }
 
@@ -607,8 +632,9 @@ class CryptLib extends TikiLib
     private function decryptMcrypt($cryptData64)
     {
         if ($this->hasMCrypt()) {
-            $cryptData = base64_decode($cryptData64);
+            set_error_handler([$this, 'handleDeprecatedError'], E_DEPRECATED);
 
+            $cryptData = base64_decode($cryptData64);
             $ivSize = mcrypt_enc_get_iv_size($this->mcrypt);
             $iv = substr($cryptData, 0, $ivSize);
             $crypttext = substr($cryptData, $ivSize);
@@ -617,6 +643,8 @@ class CryptLib extends TikiLib
 
             // Clear trailing null-characters
             $cleartext = rtrim($rawcleartext);
+
+            restore_error_handler();
         } else {
             // Use Base64 encoding
             $cleartext = base64_decode($cryptData64);
