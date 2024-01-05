@@ -19,10 +19,10 @@
                     </li>
                     <li class="dropdown-divider"></li>
                     <li class="dropdown-item">
-                        {if $user_watching_tracker ne 'y'}
-                            <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&amp;itemId={$itemId}&amp;watch=add">
-                                {icon name="watch"} {tr}Monitor{/tr}
-                            </a>
+                        {if !empty($viewItemPretty.override)}
+                            {self_link print='y' vi_tpl={$viewItemPretty.value}}
+                                {icon name="print"} {tr}Print{/tr}
+                            {/self_link}
                         {else}
                             {self_link print='y'}
                                 {icon name="print"} {tr}Print{/tr}
@@ -60,14 +60,9 @@
                     {if $prefs.feature_user_watches eq 'y' and $tiki_p_watch_trackers eq 'y'}
                         <li class="dropdown-item">
                             {if $user_watching_tracker ne 'y'}
-                                <form action="tiki-view_tracker_item.php" method="post" >
-                                    {ticket}
-                                    <input type="hidden" name="itemId" value={$itemId}>
-                                    <input type="hidden" name="watch" value="add">
-                                    <button type="submit"  name="trackerId" value={$trackerId} class="tips btn btn-link  px-0 pt-0 pb-0">
-                                        {icon name="watch"} {tr}Monitor{/tr}
-                                    </button>
-                                </form>
+                                <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&amp;itemId={$itemId}&amp;watch=add">
+                                    {icon name="watch"} {tr}Monitor{/tr}
+                                </a>
                             {else}
                                 <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&amp;itemId={$itemId}&amp;watch=stop">
                                     {icon name="stop-watching"} {tr}Stop monitoring{/tr}
@@ -224,7 +219,6 @@
 
                     {if $tiki_p_admin_trackers eq 'y' and !empty($trackers)}
                         <form role="form">
-                            {ticket}
                             <input type="hidden" name="itemId" value="{$itemId}">
                             <select name="moveto">
                                 {foreach from=$trackers item=tracker}
@@ -237,34 +231,20 @@
                         </form>
                     {/if}
 
-                {if $tiki_p_admin_trackers eq 'y' and !empty($trackers)}
-                    <form role="form">
-                        <input type="hidden" name="itemId" value="{$itemId}">
-                        <select name="moveto">
-                            {foreach from=$trackers item=tracker}
-                                {if $tracker.trackerId ne $trackerId}
-                                    <option value="{$tracker.trackerId}">{$tracker.name|escape}</option>
-                                {/if}
-                            {/foreach}
-                        </select>
-                        <input type="submit" class="btn btn-primary btn-sm" name="go" value="{tr}Move to another tracker{/tr}">
-                    </form>
-                {/if}
-
-                <form enctype="multipart/form-data" action="{$formAction}" method="post" id="editItemForm">
-                    {if $special}
-                        <input type="hidden" name="view" value=" {$special}">
-                    {else}
-                        <input type="hidden" name="trackerId" value="{$trackerId|escape}">
-                        <input type="hidden" name="itemId" value="{$itemId|escape}">
-                    {/if}
-                    {if $from}
-                        <input type="hidden" name="from" value="{$from}">
-                    {/if}
-                    {if $cant}
-                        <input type="hidden" name="cant" value="{$cant}">
-                    {/if}
-                    <input type="hidden" name="conflictoverride" value="{$conflictoverride}">
+                    <form enctype="multipart/form-data" action="{$formAction}" method="post" id="editItemForm">
+                        {if $special}
+                            <input type="hidden" name="view" value=" {$special}">
+                        {else}
+                            <input type="hidden" name="trackerId" value="{$trackerId|escape}">
+                            <input type="hidden" name="itemId" value="{$itemId|escape}">
+                        {/if}
+                        {if $from}
+                            <input type="hidden" name="from" value="{$from}">
+                        {/if}
+                        {if $cant}
+                            <input type="hidden" name="cant" value="{$cant}">
+                        {/if}
+                        <input type="hidden" name="conflictoverride" value="{$conflictoverride}">
 
                         <div class="previewTrackerItem"></div>
 
@@ -388,7 +368,6 @@
                         {if $cur_field.type eq 'x'}
                             {capture name=trkaction}
                                 <form action="{$cur_field.options_array[2]}" {if $cur_field.options_array[1] eq 'post'}method="post"{else}method="get"{/if}>
-                                    {ticket}
                                     {section name=tl loop=$cur_field.options_array start=3}
                                         {assign var=valvar value=$cur_field.options_array[tl]|regex_replace:"/^[^:]*:/":""|escape}
                                         {if $info.$valvar eq ''}
@@ -410,62 +389,10 @@
                             {/capture}
                             {assign var=trkact value=$trkact|cat:$smarty.capture.trkaction}
                         {/if}
-                        <div class="mb-3 mx-0">
-                                <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Save{/tr}" onclick="needToConfirm=false">
-                                {* --------------------------- to return to tracker list after saving --------- *}
-                                {if $canView}
-                                    <input type="submit" class="btn btn-primary btn-sm" name="save_return" value="{tr}Save Returning to Item List{/tr}" onclick="needToConfirm=false">
-                                {/if}
-                                {if not empty($saveAndComment) and $saveAndComment neq 'n'}
-                                    <input type="submit" class="btn btn-primary btn-sm" name="save_and_comment" value="{tr}Save and Comment{/tr}">
-                                {/if}
-
-                                {if $canRemove}
-                                    <a class="link tips text-danger" href="tiki-view_tracker.php?trackerId={$trackerId}&amp;remove={$itemId}" title=":{tr}Delete{/tr}">
-                                        {icon name='remove'}
-                                    </a>
-                                {/if}
-                                {if !empty($item_info.logs.cant)}
-                                    <a class="link tips" href="tiki-tracker_view_history.php?itemId={$itemId}" title=":{tr}History{/tr}">
-                                        {icon name='history'}
-                                    </a>
-                                {/if}
-                                {if $tiki_p_admin_trackers eq 'y' && empty($trackers)}
-                                    <a class="link tips" href="tiki-view_tracker_item.php?itemId={$itemId}&moveto" title=":{tr}Move to another tracker{/tr}">
-                                        {icon name='next'}
-                                    </a>
-                                {/if}
-
-                        </div>
-
-
-                    {* ------------------- *}
-                </form>
-
-                {foreach from=$ins_fields item=cur_field}
-                    {if $cur_field.type eq 'x'}
-                        {capture name=trkaction}
-                            <form action="{$cur_field.options_array[2]}" {if $cur_field.options_array[1] eq 'post'}method="post"{else}method="get"{/if}>
-                                {section name=tl loop=$cur_field.options_array start=3}
-                                    {assign var=valvar value=$cur_field.options_array[tl]|regex_replace:"/^[^:]*:/":""|escape}
-                                    {if $info.$valvar eq ''}
-                                        {assign var=valvar value=$cur_field.options_array[tl]|regex_replace:"/^[^\=]*\=/":""|escape}
-                                        <input type="hidden" name="{$cur_field.options_array[tl]|regex_replace:"/\=.*$/":""|escape}" value="{$valvar|escape}">
-                                    {else}
-                                        <input type="hidden" name="{$cur_field.options_array[tl]|regex_replace:"/:.*$/":""|escape}" value="{$info.$valvar|escape}">
-                                    {/if}
-                                {/section}
-                                <div class="mb-3 row">
-                                        <div class="col-sm-6">
-                                            {$cur_field.name|tra}
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="submit" class="btn btn-primary btn-sm" name="trck_act" value="{$cur_field.options_array[0]|escape}" >
-                                        </div>
-                                </div>
-                            </form>
-                        {/capture}
-                        {assign var=trkact value=$trkact|cat:$smarty.capture.trkaction}
+                    {/foreach}
+                    {if $trkact}
+                        <h2>{tr}Special Operations{/tr}</h2>
+                        {$trkact}
                     {/if}
                 </td></tr></table></div><!--nohighlight-->{*important comment to delimit the zone not to highlight in a search result*}
             {/tab}
