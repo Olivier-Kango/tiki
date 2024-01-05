@@ -169,6 +169,7 @@ class TikiFilter
             case 'date':
             case 'time':
             case 'datetime':
+            case 'dateformat':
             case 'striptags':
             case 'string':
             case 'password':
