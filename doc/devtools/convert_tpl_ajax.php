@@ -141,7 +141,7 @@ JS
 );
 
 $smarty->assign('source', true);
-$smarty->assign('sourced', htmlentities($markup));
+$smarty->assign('sourced', htmlentities($markup, ENT_COMPAT));
 $smarty->assign('noHistory', true);
 $smarty->assign('info', ['version' => true]);
 

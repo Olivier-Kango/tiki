@@ -86,8 +86,8 @@ function wikiplugin_draw($data, $params)
         }
 
         $label = tra('Draw New SVG Image');
-        $page = htmlentities($page);
-        $content = htmlentities($data);
+        $page = htmlentities($page, ENT_COMPAT);
+        $content = htmlentities($data, ENT_COMPAT);
         $formId = "form$drawIndex";
         $gals = $filegallib->list_file_galleries(0, -1, 'name_desc', $user);
 

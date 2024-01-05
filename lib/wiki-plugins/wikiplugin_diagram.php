@@ -196,7 +196,7 @@ function wikiplugin_diagram($data, $params)
             }
 
             $label = tra('Create New Diagram');
-            $page = htmlentities($page);
+            $page = htmlentities($page, ENT_COMPAT);
             $in = tr(" in ");
 
             $gals = $filegallib->list_file_galleries(0, -1, 'name_desc', $user);
@@ -214,7 +214,7 @@ function wikiplugin_diagram($data, $params)
                         if ($gal['parentId'] == -1) {
                             // If the current user has permission to access the gallery, then add gallery to the hierarchy.
                             if ($gal['perms']['tiki_p_view_file_gallery'] == 'y') {
-                                $galHtml .= "<option value='" . $gal['id'] . "'>" . htmlentities($gal['name']);
+                                $galHtml .= "<option value='" . $gal['id'] . "'>" . htmlentities($gal['name'], ENT_COMPAT);
                             }
                             $galHtml .= $filegallib->getNodes($gals['data'], $gal['id'], "");
                             $galHtml .= "</option>";

@@ -783,7 +783,7 @@ class PdfGenerator
             if ($page->hasAttributes()) {
                 foreach ($page->attributes as $attr) {
                     $pages[$attr->nodeName] = $attr->nodeValue;
-                    $paramVal = str_replace("&quot;", '"', htmlentities($attr->nodeValue));
+                    $paramVal = str_replace("&quot;", '"', htmlentities($attr->nodeValue, ENT_COMPAT));
                     strchr($paramVal, '"') ? $enclosingChar = "'" : $enclosingChar = "\"";
                     $pageTag .= " " . $attr->nodeName . "=" . $enclosingChar . $paramVal . $enclosingChar;
                 }

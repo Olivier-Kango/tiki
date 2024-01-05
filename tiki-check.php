@@ -3288,17 +3288,17 @@ if ($standalone && ! $nagios) {
             $render .= '<div class="tiki-form-group"><input type="submit" class="btn btn-primary btn-sm" value=" Send e-mail " /></div>';
             $render .= '<p><input type="hidden" id="dbhost" name="dbhost" value="';
             if (isset($_POST['dbhost'])) {
-                $render .= htmlentities(strip_tags($_POST['dbhost']));
+                $render .= htmlentities(strip_tags($_POST['dbhost']), ENT_COMPAT);
             };
                 $render .= '" /></p>';
                 $render .= '<p><input type="hidden" id="dbuser" name="dbuser" value="';
             if (isset($_POST['dbuser'])) {
-                $render .= htmlentities(strip_tags($_POST['dbuser']));
+                $render .= htmlentities(strip_tags($_POST['dbuser']), ENT_COMPAT);
             };
                 $render .= '"/></p>';
                 $render .= '<p><input type="hidden" id="dbpass" name="dbpass" value="';
             if (isset($_POST['dbpass'])) {
-                $render .= htmlentities(strip_tags($_POST['dbpass']));
+                $render .= htmlentities(strip_tags($_POST['dbpass']), ENT_COMPAT);
             };
                 $render .= '"/></p>';
             $render .= '</form>';

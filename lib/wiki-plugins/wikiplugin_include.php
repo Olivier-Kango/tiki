@@ -351,7 +351,7 @@ function wikiplugin_include($dataIn, $params)
                 || (isset($_GET['replaceby']) && (int) $_GET['replaceby'] != $includeId)
                 && (empty($_REQUEST['display']) || $_REQUEST['display'] != 'pdf')
             ) {
-                $text .= '<a id="' . $id . '" class="editplugin wikiplugin-include-replace" href="javascript:void(1)" data-index="' . $includeId . '" data-page="' . htmlentities($returnto) . '" data-ticket="' . smarty_function_ticket(['mode' => 'get'], $smarty) . '">' .
+                $text .= '<a id="' . $id . '" class="editplugin wikiplugin-include-replace" href="javascript:void(1)" data-index="' . $includeId . '" data-page="' . htmlentities($returnto, ENT_COMPAT) . '" data-ticket="' . smarty_function_ticket(['mode' => 'get'], $smarty) . '">' .
                     smarty_function_icon(['name' => 'exchange', 'iclass' => 'tips', 'ititle' => $tip], $smarty->getEmptyInternalTemplate()) . '</a>';
             }
 

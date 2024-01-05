@@ -270,7 +270,7 @@ $jsTracking = "$.wikiTrackingDraw = {
 if (isset($_REQUEST['raw'])) {
     $jsFunctionality = "";
 } else {
-    $prefs['feature_draw_hide_buttons'] = addslashes(htmlentities($prefs['feature_draw_hide_buttons']));
+    $prefs['feature_draw_hide_buttons'] = addslashes(htmlentities($prefs['feature_draw_hide_buttons'], ENT_COMPAT));
 
     $jsFunctionality =
         "$('#drawFullscreen')

@@ -207,7 +207,7 @@ function smarty_block_self_link($params, $content, $smarty, &$repeat = false)
             $link .= $rel;
             foreach ($params as $k => $v) {
                 if (strlen($k) > 3 && substr($k, 0, 3) == '_on' && ! empty($v)) {
-                    $link .= htmlentities(substr($k, 1)) . '="' . $v . '" '; // $v should be already htmlentitized in the template
+                    $link .= htmlentities(substr($k, 1), ENT_COMPAT) . '="' . $v . '" '; // $v should be already htmlentitized in the template
                     unset($params[$k]);
                 }
             }

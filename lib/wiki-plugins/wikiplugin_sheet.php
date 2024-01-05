@@ -158,8 +158,8 @@ function wikiplugin_sheet($data, $params)
             if (isset($_POST['create_sheet'], $_POST['index']) && $index == $_POST['index']) {
                 // Create a new sheet and rewrite page
                 $sheetId = $sheetlib->replace_sheet(null, tra('New sheet in page: ') . $page, '', $user);
-                $page = htmlentities($page);
-                $content = htmlentities($data);
+                $page = htmlentities($page, ENT_COMPAT);
+                $content = htmlentities($data, ENT_COMPAT);
                 $formId = "form$index";
                 $smarty->loadPlugin('smarty_function_ticket');
                 $ticket = smarty_function_ticket([], $smarty->getEmptyInternalTemplate());

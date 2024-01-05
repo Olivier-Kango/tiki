@@ -105,12 +105,12 @@ if (isset($_REQUEST['search']) && $searchtext) {
             $righthash = md5($curpos . $searchtext . $r["version"] . $r["page_id"]);
 
             $beforeSnippet = substr($r["data"], $snippetStart, $leftpartLength) . $lefthash . $foundtext . $righthash . substr($r["data"], $rightpartStart, $rightpartLength);
-            $beforeSnippet = htmlentities($beforeSnippet);
+            $beforeSnippet = htmlentities($beforeSnippet, ENT_COMPAT);
             $beforeSnippet = str_replace($lefthash, '<strong>', $beforeSnippet);
             $beforeSnippet = str_replace($righthash, '</strong>', $beforeSnippet);
 
             $afterSnippet = substr($r["data"], $snippetStart, $leftpartLength) . $lefthash . $replacetext . $righthash . substr($r["data"], $rightpartStart, $rightpartLength);
-            $afterSnippet = htmlentities($afterSnippet);
+            $afterSnippet = htmlentities($afterSnippet, ENT_COMPAT);
             $afterSnippet = str_replace($lefthash, '<strong>', $afterSnippet);
             $afterSnippet = str_replace($righthash, '</strong>', $afterSnippet);
 
@@ -144,7 +144,7 @@ if (isset($_REQUEST['replace']) && $searchtext) {
                 continue;
             }
             if ($page_info["version"] != $version) {
-                $message .= tra("Page has changed since preview: ") . htmlentities($page_info["pageName"]) . "<br />";
+                $message .= tra("Page has changed since preview: ") . htmlentities($page_info["pageName"], ENT_COMPAT) . "<br />";
                 continue;
             }
             // do replacing
@@ -153,12 +153,12 @@ if (isset($_REQUEST['replace']) && $searchtext) {
             $firstpart = substr($data, 0, $curpos);
             $lastpart = substr($data, $curpos + $searchtextLength);
             if (strtolower(substr($data, $curpos, $searchtextLength)) != strtolower($searchtext)) {
-                $message .= tra("Page not updated due to error in replacing: ") . htmlentities($page_info["pageName"]) . "<br />";
+                $message .= tra("Page not updated due to error in replacing: ") . htmlentities($page_info["pageName"], ENT_COMPAT) . "<br />";
                 continue;
             }
             $data = $firstpart . $replacetext . $lastpart;
             $tikilib->update_page($page_info["pageName"], $data, tra('Mass search and replace'), $user, $tikilib->get_ip_address());
-            $message .= tra("Page updated: ") . htmlentities($page_info["pageName"]) . "<br />";
+            $message .= tra("Page updated: ") . htmlentities($page_info["pageName"], ENT_COMPAT) . "<br />";
             $versionadjuster++;
             $curposadjuster = $curposadjuster + strlen($replacetext) - $searchtextLength;
             $last_page_id = $page_id;

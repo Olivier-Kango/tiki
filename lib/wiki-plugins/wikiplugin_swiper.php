@@ -472,7 +472,7 @@ function wikiplugin_swiper($data, $params)
                     $slidesHtml .= '&amp;scale=' . $params['displaySize'];
                 }
             }
-            $slidesHtml .= '" alt="' . htmlentities($file['description']) . '" /></div>';
+            $slidesHtml .= '" alt="' . htmlentities($file['description'], ENT_COMPAT) . '" /></div>';
         }
     }
     foreach ($slides as $slide) {

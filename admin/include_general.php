@@ -20,7 +20,7 @@ if (! empty($_POST['testMail']) && $access->checkCsrf()) {
         $msg = tra('Unable to send mail');
         if ($tiki_p_admin == 'y') {
             $mailerrors = print_r($mail->errors, true);
-            $msg .= '<br>' . htmlentities($mailerrors);
+            $msg .= '<br>' . htmlentities($mailerrors, ENT_COMPAT);
         }
         Feedback::warning($msg);
     } else {

@@ -254,9 +254,6 @@
     </rule>
 
     <!-- Temporary exceptions while codebase is not fixed -->
-    <rule ref="PHPCompatibility.ParameterValues.NewHTMLEntitiesFlagsDefault.NotSet">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
     <rule ref="PHPCompatibility.TextStrings.RemovedDollarBraceStringEmbeds.DeprecatedVariableSyntax">
         <exclude-pattern>tiki-create_webhelp.php</exclude-pattern>
         <exclude-pattern>tiki-switch_lang.php</exclude-pattern>

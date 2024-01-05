@@ -95,7 +95,7 @@ class WikipluginDBReportField
     }
     public function html()
     {
-        return htmlentities($this->text());
+        return htmlentities($this->text(), ENT_COMPAT);
     }
     public function uri()
     {
@@ -120,7 +120,7 @@ class WikipluginDBReportString
     }
     public function html()
     {
-        return htmlentities($this->text());
+        return htmlentities($this->text(), ENT_COMPAT);
     }
     public function uri()
     {

@@ -200,7 +200,7 @@ function smarty_function_button($params, $smarty)
         );
 
         $url = str_replace('+', ' ', str_replace('&amp;', '&', urldecode($_SERVER['REQUEST_URI'])));
-        $encoded_html = htmlentities($html);
+        $encoded_html = htmlentities($html, ENT_COMPAT);
         $dom = new DOMDocument();
         $dom->loadHTML($encoded_html);
         foreach ($dom->getElementsByTagName('a') as $link) {

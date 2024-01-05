@@ -162,7 +162,7 @@ function sanitizeTableName($table)
     global $tikilib;
     $validTables = $tikilib->listTables();
     if (! in_array($table, $validTables)) {
-        throw new Exception(tra('Invalid table name:') . ' ' . htmlentities($table));
+        throw new Exception(tra('Invalid table name:') . ' ' . htmlentities($table, ENT_COMPAT));
     }
 }
 
@@ -174,6 +174,6 @@ function sanitizeColumnName($column, $table)
         $colnames[] = $col['Field'];
     }
     if (! in_array($column, $colnames)) {
-        throw new Exception(tra('Invalid column name:') . ' ' . htmlentities($column));
+        throw new Exception(tra('Invalid column name:') . ' ' . htmlentities($column, ENT_COMPAT));
     }
 }

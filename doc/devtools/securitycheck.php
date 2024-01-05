@@ -669,7 +669,7 @@ usort($unsafe, 'sort_cb');
         ?>
         <li>
             <?php echo $fileType; ?>
-            <a href="<?php echo htmlentities($url) ?>"><?php echo htmlentities($pathname) ?></a>
+            <a href="<?php echo htmlentities($url, ENT_COMPAT) ?>"><?php echo htmlentities($pathname, ENT_COMPAT) ?></a>
         </li>
     <?php endforeach; ?>
 </ol>
@@ -691,7 +691,7 @@ usort($unsafe, 'sort_cb');
     foreach ($files as $file) {
         if (in_array($file['type'], ['script', 'module', 'include', 'public', 'lib', '3rdparty', 'wikiplugin'])) : ?>
             <tr>
-                <td><a href="<?php echo htmlentities(substr($file['path'], 2)) ?>"><?php echo htmlentities($file['path']) ?></a></td>
+                <td><a href="<?php echo htmlentities(substr($file['path'], 2), ENT_COMPAT) ?>"><?php echo htmlentities($file['path'], ENT_COMPAT) ?></a></td>
                 <td>
                     <?php
                     if (isset($file['includeonly']) && $file['includeonly']) {
