@@ -231,6 +231,8 @@ function wikiplugin_trackertimeline($data, $params)
     $start = strtotime($params['lower']);
     $end = strtotime($params['upper']);
     $size = $end - $start;
+    $paramScale1 = $params['scale1'] ?? null;
+    $paramScale2 = $params['scale2'] ?? null;
 
     if ($size <= 0) {
         return '{BOX(class="text-bg-light")}' . tr("Start date after end date.") . '{BOX}';
@@ -267,38 +269,43 @@ function wikiplugin_trackertimeline($data, $params)
             $detail[ $fieldIds[$field['fieldId']] ] = $field['value'];
         }
 
+        $detailStart = $detail['start'] ?? null;
+        $detailEnd = $detail['end'] ?? null;
+        $detailSummary = $detail['summary'] ?? null;
+        $detailGroup = $detail['group'] ?? null;
+
         // Filter elements
         if ($params['simile_timeline'] !== 'y') {
-            if ($detail['start'] >= $detail['end']) {
+            if ($detailStart >= $detailEnd) {
                 continue;
             }
-            if ($detail['end'] <= $start || $detail['start'] > $end) {
+            if ($detailEnd <= $start || $detailStart > $end) {
                 continue;
             }
         } else {
-            if (! empty($detail['end']) && $detail['start'] > $detail['end']) {
+            if (! empty($detailEnd) && $detailStart > $detailEnd) {
                 continue;
             }
-            if ((! empty($detail['end']) && $detail['end'] < $start) || $detail['start'] > $end) {
+            if ((! empty($detailEnd) && $detailEnd < $start) || $detailStart > $end) {
                 continue;
             }
         }
 
-        $detail['lstart'] = max($start, $detail['start']);
-        $detail['lend'] = min($end, $detail['end']);
+        $detail['lstart'] = max($start, $detailStart);
+        $detail['lend'] = min($end, $detailEnd);
         $detail['lsize'] = round(( $detail['lend'] - $detail['lstart'] ) / $size * 80);
 
-        $detail['fstart'] = date($formats[$params['scale1']], $detail['start']);
-        $detail['fend'] = date($formats[$params['scale1']], $detail['end']);
-        $detail['psummary'] = TikiLib::lib('parser')->parse_data($detail['summary']);
+        $detail['fstart'] = date($formats[$params['scale1']], $detailStart);
+        $detail['fend'] = date($formats[$params['scale1']], $detailEnd);
+        $detail['psummary'] = TikiLib::lib('parser')->parse_data($detailSummary);
 
         $detail['encoded'] = json_encode($detail);
 
         // Add to data list
-        if (! array_key_exists($detail['group'], $data)) {
-            $data[$detail['group']] = [];
+        if (! array_key_exists($detailGroup, $data)) {
+            $data[$detailGroup] = [];
         }
-        $data[ $detail['group'] ][] = $detail;
+        $data[ $detailGroup ][] = $detail;
     }
 
     if ($params['simile_timeline'] !== 'y') {
@@ -330,10 +337,14 @@ function wikiplugin_trackertimeline($data, $params)
         $events = [];
         foreach ($data as $group => $list) {    // ignoring group for now
             foreach ($list as $item) {
+                $itemStart = $item['start'] ?? null;
+                $itemSummary = $item['summary'] ?? null;
+                $itemImage = $item['image'] ?? null;
+
                 $event = [
                     'title' => $item['title'],
-                    'start' => date('r', $item['start']),
-                    'description' => $item['summary'],
+                    'start' => date('r', $itemStart),
+                    'description' => $itemSummary,
                 ];
                 if (! empty($item['end'])) {
                     $event['end'] = date('r', $item['end']);
@@ -342,7 +353,7 @@ function wikiplugin_trackertimeline($data, $params)
                 if (! empty($item['link'])) {
                     $event['link'] = $item['link'];
                 }
-                $image = $item['image'];
+                $image = $itemImage;
                 if (! empty($image)) {
                     if (strpos($image, ',') !== false) {
                         // just the first one
@@ -366,7 +377,7 @@ function wikiplugin_trackertimeline($data, $params)
         $js = 'var ttl_eventData_' . $instance . ' = ' . json_encode($ttl_data) . ";\n";
 
         $js .= '
-setTimeout( function(){ ttlInit("ttl_timeline_' . $instance . '",ttl_eventData_' . $instance . ',"' . $params['scale1'] . '","' . $params['scale2'] . '","' . $params['band2_height'] . '"); }, 1000);
+setTimeout( function(){ ttlInit("ttl_timeline_' . $instance . '",ttl_eventData_' . $instance . ',"' . $paramScale1 . '","' . $paramScale2 . '","' . $params['band2_height'] . '"); }, 1000);
 ';
 
         $headerlib->add_jq_onready($js, 10);
