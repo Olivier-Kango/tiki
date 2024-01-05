@@ -1200,8 +1200,7 @@ class TrackerLib extends TikiLib
             $ret[$perm['permName']] = 'y';
             if ($global) {
                 $p = $perm['permName'];
-                global $$p;
-                $$p = 'y';
+                $GLOBALS[$p] = 'y';
                 $smarty->assign("$p", 'y');
             }
         }
@@ -1209,6 +1208,7 @@ class TrackerLib extends TikiLib
             // old configuration
             $ret['tiki_p_modify_tracker_items'] = 'y';
             if ($global) {
+                global $tiki_p_modify_tracker_items;
                 $tiki_p_modify_tracker_items = 'y';
                 $smarty->assign('tiki_p_modify_tracker_items', 'y');
             }

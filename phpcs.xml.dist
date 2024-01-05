@@ -288,17 +288,6 @@
         <exclude-pattern>lib/wiki-plugins/wikiplugin_now.php</exclude-pattern>
         <exclude-pattern>tiki-invite.php</exclude-pattern>
     </rule>
-    <rule ref="PHPCompatibility.Variables.ForbiddenGlobalVariableVariable.NonBareVariableFound">
-        <exclude-pattern>lib/init/tra.php</exclude-pattern>
-        <exclude-pattern>lib/language/Language.php</exclude-pattern>
-        <exclude-pattern>lib/language/LanguageTranslations.php</exclude-pattern>
-        <exclude-pattern>lib/search/searchlib-mysql.php</exclude-pattern>
-        <exclude-pattern>lib/test/language/LanguageTranslationsTest.php</exclude-pattern>
-        <exclude-pattern>lib/tikiaccesslib.php</exclude-pattern>
-        <exclude-pattern>lib/trackers/trackerlib.php</exclude-pattern>
-        <exclude-pattern>lib/wiki-plugins/wikiplugin_perm.php</exclude-pattern>
-        <exclude-pattern>lib/wiki-plugins/wikiplugin_sql.php</exclude-pattern>
-    </rule>
 
     <!-- ## Mark some rules as warnings until tiki gets in a better shape -->
 

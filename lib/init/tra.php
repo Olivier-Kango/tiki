@@ -72,8 +72,6 @@ function init_language($lg)
 {
     global $tikidomain, $prefs;
     if (is_file("lang/$lg/language.php")) {
-        global ${"lang_$lg"};
-
         $lang = [];
         include("lang/$lg/language.php");
 
@@ -120,7 +118,7 @@ function init_language($lg)
             }
         }
 
-        ${"lang_$lg"} = $lang;
+        $GLOBALS["lang_$lg"] = $lang;
     }
 }
 
@@ -139,8 +137,7 @@ function tra_impl($content, $lg = '', $args = [])
         return ['', false, false];
     }
 
-    global ${"lang_$lg"};
-    $lang = ${"lang_$lg"};
+    $lang = $GLOBALS["lang_$lg"] ?? [];
 
     if ($lg and isset($lang[$content])) {
         return [$content, tr_replace($lang[$content], $args), true];

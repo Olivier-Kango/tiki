@@ -46,11 +46,11 @@ class LanguageTranslationsTest extends TikiTestCase
         TikiDb::get()->query('INSERT INTO `tiki_untranslated` (`source`, `lang`) VALUES (?, ?)', ['Untranslated string 2', $this->lang]);
         TikiDb::get()->query('INSERT INTO `tiki_untranslated` (`source`, `lang`) VALUES (?, ?)', ['Untranslated string 3', $this->lang]);
 
-        global ${"lang_$this->lang"};
+        $langKey = "lang_$this->lang";
 
         copy(__DIR__ . '/fixtures/language_orig.php', $this->langDir . '/language.php');
 
-        if (! isset(${"lang_$this->lang"})) {
+        if (! isset($GLOBALS[$langKey])) {
             require_once('lib/init/tra.php');
             init_language($this->lang);
         }

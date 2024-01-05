@@ -80,7 +80,9 @@ class LanguageTranslations extends TikiDb_Bridge
      */
     public function updateTrans($originalStr, $translatedStr, $optionalParameters = [])
     {
-        global ${"lang_$this->lang"}, $user, $tikilib;
+        global $user, $tikilib;
+
+        $langKey = "lang_$this->lang";
 
         $general = null; // default value
         foreach ($optionalParameters as $name => $value) {
@@ -103,7 +105,7 @@ class LanguageTranslations extends TikiDb_Bridge
         $userId = $tikilib->get_user_id($user);
 
         // initialize language (used when this function is called by tiki-interactive_translation.php)
-        if (! isset(${"lang_$this->lang"})) {
+        if (! isset($GLOBALS[$langKey])) {
             init_language($this->lang);
         }
 
@@ -118,7 +120,7 @@ class LanguageTranslations extends TikiDb_Bridge
         }
 
         // If the translation is not in the database and the new translation is the same as the translation defined by the filesystem, ignore it (do not insert in the database)
-        if (isset(${"lang_$this->lang"}[$originalStr]) && ${"lang_$this->lang"}[$originalStr] == $translatedStr) {
+        if (isset($GLOBALS[$langKey][$originalStr]) && $GLOBALS[$langKey][$originalStr] == $translatedStr) {
             {
                 static $initialDatabaseTranslations = [];
 

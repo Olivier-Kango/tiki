@@ -280,8 +280,7 @@ class TikiAccessLib extends TikiLib
         require_once('tiki-setup.php');
 
         foreach ($permissions as $permission) {
-            global $$permission;
-            if ((isset($$permission) && $$permission == 'n')) {
+            if (isset($GLOBALS[$permission]) && $GLOBALS[$permission] == 'n') {
                 if ($permission_name) {
                     $permission = $permission_name;
                 }

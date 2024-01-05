@@ -333,7 +333,7 @@ class Language extends TikiDb_Bridge
      */
     public function loadThemeOverrides($lang, $themeName)
     {
-        global ${"lang_$lang"};
+        $langKey = "lang_$lang";
 
         $themeLib = TikiLib::lib('theme');
         $themePath = rtrim($themeLib->get_theme_path($themeName), '/');
@@ -343,7 +343,7 @@ class Language extends TikiDb_Bridge
             require $themeLangPath;
 
             if (isset($language) && is_array($language)) {
-                ${"lang_$lang"} = array_merge(${"lang_$lang"}, $language);
+                $GLOBALS[$langKey] = array_merge($GLOBALS[$langKey] ?? [], $language);
             }
         }
     }

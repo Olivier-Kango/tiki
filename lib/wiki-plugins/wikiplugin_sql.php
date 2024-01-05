@@ -105,8 +105,7 @@ function wikiplugin_sql($data, $params)
                     if ($originalVarValue !== $varValue) {
                         $bindvars[$key] = $variable[1] . $varValue . $variable[3];
                     } else {
-                        global $$varName;
-                        $bindvars[$key] = $variable[1] . $$varName . $variable[3];
+                        $bindvars[$key] = $variable[1] . $GLOBALS[$varName] . $variable[3];
                     }
                 } elseif (strpos($value, "$") === 0) {
                     $varName = substr($value, 1);
@@ -115,8 +114,7 @@ function wikiplugin_sql($data, $params)
                     if ($originalVarValue !== $varValue) {
                         $bindvars[$key] = $varValue;
                     } else {
-                        global $$varName;
-                        $bindvars[$key] = $$varName;
+                        $bindvars[$key] = $GLOBALS[$varName];
                     }
                 } else {
                     $bindvars[$key] = $value;

@@ -120,8 +120,7 @@ function wikiplugin_perm($data, $params)
                     break;
                 }
             } else {
-                global $$perm;
-                if ($$perm == 'y') {
+                if (isset($GLOBALS[$perm]) && $GLOBALS[$perm] == 'y') {
                     $ok = true;
                     break;
                 }
@@ -142,8 +141,7 @@ function wikiplugin_perm($data, $params)
                     break;
                 }
             } else {
-                global $$perm;
-                if ($$perm == 'y') {
+                if (isset($GLOBALS[$perm]) && $GLOBALS[$perm] == 'y') {
                     $ok = false;
                     break;
                 }
