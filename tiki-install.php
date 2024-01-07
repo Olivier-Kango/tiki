@@ -112,7 +112,7 @@ if (file_exists('db/' . $tikidomainslash . 'local.php')) {
                 file_put_contents($authAttemptsFile, $attempts);
             }
         }
-    } else if (isset($_POST['multi']) && $_POST['multi'] === $tikidomain) {
+    } elseif (isset($_POST['multi']) && $_POST['multi'] === $tikidomain) {
         $userAuthenticatedFromDbCredentialsMd5 =
             password_hash($user_tiki . $pass_tiki . $dbs_tiki, PASSWORD_DEFAULT);
     }

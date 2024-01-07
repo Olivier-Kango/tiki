@@ -331,6 +331,7 @@ if (isset($_POST['check_files'])) {
     $smarty->assign('filecheck', true);
     $smarty->assign_by_ref('tikifiles', $result);
 }
+
 define('S_ISUID', '2048');
 define('S_ISGID', '1024');
 define('S_ISVTX', '512');
@@ -343,6 +344,17 @@ define('S_IXGRP', '8');
 define('S_IROTH', '4');
 define('S_IWOTH', '2');
 define('S_IXOTH', '1');
+// These constants were removed from PHP but are declared above, so available
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.s_irgrpRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.s_irothRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.s_irusrRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.s_iwgrpRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.s_iwothRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.s_iwusrRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.s_ixgrpRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.s_ixothRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.s_ixusrRemoved
+
 // Function to check Filesystem permissions
 /**
  * @param $dir

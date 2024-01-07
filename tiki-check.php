@@ -19,6 +19,13 @@ IMPORTANT:
 1) Be careful, this file will copied to past branches as-is, so it needs to run on the oldest php version that supported tiki versions managed by this tool runs. As of 2023-05-18, it is Tiki 18, and thus PHP 7.2
 */
 
+// Disable the following PHPCS checks. tiki-check.php is shared across tiki versions, so may refer to old software
+// phpcs:disable PHPCompatibility.Extensions.RemovedExtensions
+// phpcs:disable PHPCompatibility.FunctionUse.RemovedFunctions.mysql_queryDeprecatedRemoved
+// phpcs:disable PHPCompatibility.FunctionUse.RemovedFunctions.mysql_fetch_arrayDeprecatedRemoved
+// phpcs:disable PHPCompatibility.FunctionUse.RemovedFunctions.mysql_connectDeprecatedRemoved
+// phpcs:disable PHPCompatibility.IniDirectives.RemovedIniDirectives.mbstring_func_overloadDeprecated
+
 use Tiki\Lib\Alchemy\AlchemyLib;
 use Tiki\Lib\Unoconv\UnoconvLib;
 use Tiki\Package\ComposerManager;

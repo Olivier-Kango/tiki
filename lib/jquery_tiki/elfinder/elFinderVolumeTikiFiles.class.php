@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+// phpcs:disable PSR2.Methods.MethodDeclaration.Underscore -- is mostly a clone of upstream files, so ignore method name
+
 /**
  * Started life as copy of elFinderVolumeMySQL.class.php
  * Initial convertion to work with Tiki filegals for Tiki 10

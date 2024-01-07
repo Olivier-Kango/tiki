@@ -48,6 +48,16 @@
  * To read more on how mcrypt is being phased out of Tiki
  * See https://dev.tiki.org/Removing-MCrypt-as-a-dependency
  */
+
+// Disable PHPCS checks as mcrypt is provided for compatibility support, if available in PHP
+// phpcs:disable PHPCompatibility.Extensions.RemovedExtensions.mcryptDeprecatedRemoved
+// phpcs:disable PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_module_openDeprecatedRemoved
+// phpcs:disable PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_module_closeDeprecatedRemoved
+// phpcs:disable PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_enc_get_iv_sizeDeprecatedRemoved
+// phpcs:disable PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_decryptDeprecatedRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.mcrypt_rijndael_256DeprecatedRemoved
+// phpcs:disable PHPCompatibility.Constants.RemovedConstants.mcrypt_mode_cbcDeprecatedRemoved
+
 class CryptLib extends TikiLib
 {
     // MCrypt attributes (Old, phased out encryption) . Kept for conversion of existing data
