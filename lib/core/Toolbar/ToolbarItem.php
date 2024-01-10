@@ -96,6 +96,8 @@ abstract class ToolbarItem
             return new ToolbarSeparator();
         } elseif ($tagName == '|') {
             return new ToolbarSpacer();
+        } elseif ($tagName == 'autosave') {
+            return new ToolbarAutosave();
         }
         return null;
     }
@@ -127,6 +129,7 @@ abstract class ToolbarItem
                     'sub',
                     'sup',
                     'tikilink',
+                    'autosave',
                     'link',
                     'anchor',
                     'color',
@@ -343,6 +346,9 @@ abstract class ToolbarItem
                 break;
             case 'Fullscreen':
                 $tag = new ToolbarFullscreen();
+                break;
+            case 'Autosave':
+                $tag = new ToolbarAutosave();
                 break;
             case 'Helptool':
                 $tag = new ToolbarHelptool();
