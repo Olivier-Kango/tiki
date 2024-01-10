@@ -199,7 +199,7 @@
                 <label class="col-form-label col-sm-3">{tr}Description{/tr}</label>
                 <div class="col-sm-9">
                         {strip}
-                            {textarea name="calitem[description]" id="editwiki" cols=40 rows=10}
+                            {textarea name="calitem[description]" id="editwiki" cols=40 rows=10 _preview=$prefs.ajax_edit_previews}
                             {$calitem.description}
                             {/textarea}
                         {/strip}

@@ -254,7 +254,7 @@
                 </div>
                 <div class="mb-3 row">
                     <div class="col-sm-12">
-                        {textarea class="form-control" name='data' id='editwiki'}{$info.data}{/textarea}
+                        {textarea class="form-control" name='data' id='editwiki' _preview=$prefs.ajax_edit_previews}{$info.data}{/textarea}
                     </div>
                 </div>
                 <div class="mb-3 d-flex flex-row flex-wrap align-items-center">
