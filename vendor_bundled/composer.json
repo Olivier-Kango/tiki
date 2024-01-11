@@ -282,7 +282,7 @@
         "symfony/process": "^5.4.23",
         "symfony/routing": "^4.1",
         "symfony/yaml": "^5.4.23",
-        "teqneers/shamir": "dev-master",
+        "teqneers/shamir": "^2.0.0",
         "tijsverkoyen/css-to-inline-styles": "^2.2.0",
         "tikiwiki/ilp-client": "^1.0",
         "thomaspark/bootswatch": "~5.1",

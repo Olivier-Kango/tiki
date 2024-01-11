@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1bbab9b12e9a33721c16817681f88f70",
+    "content-hash": "89f1acaf8560042085caa6ee4d6fea77",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -13785,25 +13785,25 @@
         },
         {
             "name": "teqneers/shamir",
-            "version": "dev-master",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/teqneers/shamir.git",
-                "reference": "7a89d8f595774940249d902e34b077e7b858ceeb"
+                "reference": "60d4f0feb4ad272a7964d1c9cf70450b40746f27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/teqneers/shamir/teqneers-shamir-7a89d8f595774940249d902e34b077e7b858ceeb-zip-ee62e9.zip",
-                "reference": "7a89d8f595774940249d902e34b077e7b858ceeb",
-                "shasum": "00942e5666134a7d0c00e1754969e04f33d34bdc"
+                "url": "https://composer.tiki.org/dist/teqneers/shamir/teqneers-shamir-60d4f0feb4ad272a7964d1c9cf70450b40746f27-zip-94b7b9.zip",
+                "reference": "60d4f0feb4ad272a7964d1c9cf70450b40746f27",
+                "shasum": "439d074d9f59e561f3a1a4608e8be3cc40b696eb"
             },
             "require": {
                 "ext-bcmath": "*",
                 "php": ">=8.1",
-                "symfony/console": "^5.0 || ^6.0 || ^7.0"
+                "symfony/console": "^5.0 || ^6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.5",
+                "phpunit/phpunit": "^10.0",
                 "roave/security-advisories": "dev-master",
                 "scrutinizer/ocular": "dev-master"
             },
@@ -13833,7 +13833,7 @@
                 }
             ],
             "description": "This is Shamir's Shared Secret implementation in PHP. It allows you to create shared secrets using the PHP classes or the CLI interface.",
-            "time": "2023-12-22T13:13:52+00:00"
+            "time": "2023-12-21T15:44:02+00:00"
         },
         {
             "name": "thomaspark/bootswatch",
@@ -18012,7 +18012,6 @@
         "npm-asset/html2canvas": 5,
         "npm-asset/select2": 5,
         "sorich87/bootstrap-tour": 20,
-        "teqneers/shamir": 20,
         "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
         "phpcsstandards/phpcsutils": 15
