@@ -92,7 +92,7 @@
                 <tr>
                     <td class="id">{$id}</td>
                     <td class="text">
-                        <a class="tablename" href="tiki-admin_calendars.php?calendarId={$id}&cookietab=2" title="{tr}Edit{/tr}">{$cal.name|escape}</a>
+            <a class="tablename" href="tiki-admin_calendars.php?calendarId={$id}&cookietab=2" title="{tr}Edit{/tr}">{$cal.displayName|escape}</a>
                         {if $cal.show_calname eq 'y'} {icon name="list-alt" class="tips" title="{tr}Name:{/tr}{tr}Field will show in popup{/tr}"}{/if}
                     </td>
                     <td class="text">

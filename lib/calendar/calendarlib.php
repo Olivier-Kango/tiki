@@ -85,6 +85,11 @@ class CalendarLib extends TikiLib
         $res = [];
         while ($r = $result->fetchRow()) {
             $k = $r["calendarId"];
+            if (! empty($r['name'])) {
+                $r['displayName'] = $r['name'];
+            } else {
+                $r['displayName'] = tr("Id #%0", $r['calendarId']);
+            }
             $res2 = $this->query("select `optionName`,`value` from `tiki_calendar_options` where `calendarId`=?", [(int)$k]);
             while ($r2 = $res2->fetchRow()) {
                 $r[$r2['optionName']] = $r2['value'];

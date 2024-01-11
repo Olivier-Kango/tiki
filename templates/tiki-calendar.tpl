@@ -1,6 +1,6 @@
 {title admpage="calendar"}
     {if $displayedcals|@count eq 1}
-        {tr}Calendar:{/tr} {$calendars[$displayedcals[0]].name}
+    {tr}Calendar:{/tr}{$calendars[$displayedcals[0]].displayName|escape}
     {else}
         {tr}Calendar{/tr}
     {/if}
@@ -93,9 +93,9 @@
                         </li>
                         {foreach $calendars as $calendarId => $calendar}
                             <li class="calcheckbox">
-                                <input type="checkbox" name="calIds[]" value="{$calendarId|escape}" id="groupcal_{$k}"
+                                <input type="checkbox" name="calIds[]" value="{$calendarId|escape}" id="groupcal_{$calendarId}"
                                     {if in_array($calendarId, $displayedcals)}checked="checked"{/if}>
-                                <label for="groupcal_{$k}" class="calId{$k}">{$calendar.name|escape} (id #{$k})</label>
+                                <label for="groupcal_{$calendarId}" class="calId{$calendarId}">{$calendar.name|escape} ({tr}Id #{$calendarId}{/tr})</label>
                             </li>
                         {/foreach}
                         <li class="calinput">
@@ -133,7 +133,7 @@
                             <div class="calcheckbox">
                                 <input type="checkbox" name="calendarIds[]" value="{$calendarId|escape}" id="groupexcal_{$calendarId}"
                                     {if in_array($calendarId, $displayedcals)}checked="checked"{/if}>
-                                <label for="groupexcal_{$calendarId}" class="calId{$calendarId}">{$calendar.name|escape}</label>
+                                <label for="groupexcal_{$calendarId}" class="calId{$calendarId}">{$calendar.name|escape} ({tr}Id #{$calendarId}{/tr})</label>
                             </div>
                         {/foreach}
                         <div class="calcheckbox">
@@ -155,13 +155,13 @@
                         {if $calendarId}
                             {$thiscustombgcolor = $calendars[$checkedCalId].custombgcolor}
                             {$thiscustomfgcolor = $calendars[$checkedCalId].customfgcolor}
-                            {$thiscalendarsname = $calendars[$checkedCalId].name|escape}
+                            {$thiscalendarsname = $calendars[$checkedCalId].displayName|escape}
                             {if count($checkedCalIds) > $maxCalsForButton}
                                 <option style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};" onclick="toggle('filtercal')">
                                     {$thiscalendarsname}
                                 </option>
                             {else}
-                                {button href="{$checkedCalId|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="$thiscalendarsname" _class='btn btn-sm me-2'}
+                                {button href="{$checkedCalId|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="{$thiscalendarsname}" _class='btn btn-sm me-2'}
                             {/if}
                         {/if}
                     {/foreach}
