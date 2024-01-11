@@ -494,8 +494,11 @@ foreach ($categories as $category) {
             ';
         }
 
-        $desc = '<small class="d-block">' . smarty_modifier_escape($category['description']) . '</small>';
-        $catid = "<span class='badge bg-secondary'>ID: {$category["categId"]}</span>";
+        if ($prefs['category_browse_show_categids'] === 'y') {
+            $catid = "<span class='badge text-bg-light text-muted float-end'>ID: {$category["categId"]}</span>";
+        } else {
+            $catid = '';
+        }
 
         if ($prefs['category_browse_count_objects'] === 'y') {
             $objectcount = $categlib->list_category_objects(
@@ -504,10 +507,12 @@ foreach ($categories as $category) {
                 0,
                 ''
             );
-            $desc .= '<span class="object-count badge badge-pill badge-info bg-info">' . $objectcount['cant'] . '</span>';
-        } elseif ($prefs['feature_search'] === 'y') {   // fall back to unified search if not category_browse_count_objects
-            $desc .= '<a class="object-count badge badge-pill badge-info bg-info" data-categid="' . $category['categId'] . '">' .
-                $fetchCountIcon . '</a>';
+            $countString = '<span class="object-count badge badge-pill badge-info bg-info float-end">' .
+                $objectcount['cant'] . '</span>';
+        } elseif ($prefs['feature_search'] === 'y') {
+            // fall back to unified search if not category_browse_count_objects
+            $countString = '<a class="object-count badge badge-pill badge-info bg-info float-end" data-categid="' .
+                $category['categId'] . '">' . $fetchCountIcon . '</a>';
 
             $headerlib->add_jq_onready(
                 /** @lang JavaScript */
@@ -535,11 +540,12 @@ foreach ($categories as $category) {
             '
             );
         }
+        $desc = '<small class="d-block text-muted">' . smarty_modifier_escape($category['description']) . '</small>';
 
         $treeNodes[] = [
             'id' => $category['categId'],
             'parent' => $category['parentId'],
-            'data' => $newdata . $catlink . $catid . $desc,
+            'data' => $newdata . $catlink . $countString . $catid . $desc,
         ];
     }
 }

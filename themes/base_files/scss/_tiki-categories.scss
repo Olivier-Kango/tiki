@@ -86,11 +86,8 @@ a.categpath {
     display: inline-block;
 }
 
-.tree.root .object-count {
-    float: right;
-    font-weight: bold;
-    margin-left: 10px;
-    margin-right: 10px;
+.tree.root a.object-count {
+    cursor: pointer;
 }
 
 ul.tree {

@@ -149,6 +149,12 @@ function prefs_category_list()
             'type' => 'flag',
             'default' => 'y',
         ],
+        'category_browse_show_categids' => [
+            'name' => tra("Show category id's"),
+            'description' => tra("Show object id's when browsing categories"),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
     ];
 }
 

@@ -134,6 +134,7 @@
     <fieldset>
         <legend>{tr}Performance{/tr}</legend>
         {preference name=category_browse_count_objects}
+        {preference name=category_browse_show_categids}
     </fieldset>
 
     <fieldset>

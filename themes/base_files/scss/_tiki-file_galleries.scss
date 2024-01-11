@@ -85,11 +85,7 @@ table.treetable tr.expanded span.indenter a {
 
 .tree li {
     display: block;
-    width: 98%;
-}
-
-.tree li ul li {
-    width: auto;
+    padding: 0 0 .1rem .5rem;
 }
 
 //* treeTable definitions - used in object-perms so far */

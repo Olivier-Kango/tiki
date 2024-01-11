@@ -165,9 +165,20 @@ foreach ($ctall as &$c) {
     $c['eyes'] = $eyes;
 }
 unset($c);
+
+$fetchCountIcon = smarty_function_icon(
+    [
+        'name'       => 'calculator',
+        '_menu_text' => 'n',
+        '_menu_icon' => 'n',
+        'alt'        => tra('Fetch count'),
+    ],
+    $smarty->getEmptyInternalTemplate()
+);
+
 $tree_nodes = [];
 foreach ($ctall as $c) {
-    if ($prefs['category_browse_count_objects'] === 'y' || isset($_REQUEST['count'])) {    // show/hide count button TODO after 12.0
+    if ($prefs['category_browse_count_objects'] === 'y' || isset($_REQUEST['deep'])) {
         // display correct count of objects depending on browse in and find filters -- luci Thu 05 Sep 2013 10:15:50 PM UTC
         $objectcount = $categlib->list_category_objects(
             $c['categId'],
@@ -179,12 +190,47 @@ foreach ($ctall as $c) {
             $deep == 'on',
             (! empty($_REQUEST['and'])) ? true : false
         );
-        $countString = '<span class="object-count badge badge-pill badge-info">' . $objectcount['cant'] . '</span>';
+        $countString = '<span class="object-count badge rounded-pill text-bg-info px-3 float-end">' .
+            $objectcount['cant'] . '</span>';
+    } elseif ($prefs['feature_search'] === 'y') {   // fall back to unified search if not category_browse_count_objects
+        $countString = '<a class="object-count badge badge-pill badge-info bg-info float-end" data-categid="' .
+            $c['categId'] . '">' . $fetchCountIcon . '</a>';
+
+        $headerlib->add_jq_onready(
+            /** @lang JavaScript */
+            '$(".object-count").click(function () {
+                let $this = $(this).tikiModal("*");
+                $.getJSON(
+                    $.service("search", "lookup"),
+                    {
+                    	filter: {
+                            deep_categories: $this.data("categid"),
+                            object_type: "not activity and not category",
+                            searchable: "y"
+                        },
+                        maxRecords: 1
+                    }).done(function (data) {
+                    	$this.text(data.resultset.count).tikiModal();
+                    	// now click all the child category badges
+                    	$this.parent().find("ul .object-count").eachAsync({
+                            bulk: 10,
+                            delay: 500,
+                            loop: function() { $(this).click(); }
+                        });
+                    });
+            });
+        '
+        );
     } else {
         $countString = '';
     }
 
-    $catid = "<span class='badge bg-secondary'>ID: {$c["categId"]}</span>";
+    if ($prefs['category_browse_show_categids'] === 'y') {
+        $catid = "<span class='badge text-bg-light text-muted ms-5 float-end'>ID: {$c["categId"]}</span>";
+    } else {
+        $catid = '';
+    }
+
     $tree_nodes[] = [
         'id' => $c['categId'],
         'categId' => $c['categId'],
@@ -192,7 +238,8 @@ foreach ($ctall as $c) {
         'parentId' => $c['parentId'],
         'data' => $countString .
             $c['eyes'] . ' <a class="catname" href="tiki-browse_categories.php?parentId=' . $c['categId'] .
-            '&amp;deep=' . $deep . '&amp;type=' . urlencode($type) . '">' . htmlspecialchars($c['name']) . '</a> ' . $catid,
+            '&amp;deep=' . $deep . '&amp;type=' . urlencode($type) . '">' .
+            htmlspecialchars($c['name']) . '</a> ' . $catid,
     ];
 }
 $res = '';
