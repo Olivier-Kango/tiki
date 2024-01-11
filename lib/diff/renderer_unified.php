@@ -19,8 +19,8 @@ class Text_Diff_Renderer_unified extends Tiki_Text_Diff_Renderer
 
     public function __construct($context_lines = 4)
     {
-        $this->_leading_context_lines = $context_lines;
-        $this->_trailing_context_lines = $context_lines;
+        $this->leading_context_lines = $context_lines;
+        $this->trailing_context_lines = $context_lines;
         $this->table = [];
     }
 

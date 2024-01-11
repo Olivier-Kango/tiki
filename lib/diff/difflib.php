@@ -30,8 +30,8 @@ class Tiki_Text_Diff_Renderer extends Text_Diff_Renderer
         $block = false;
         $context = [];
 
-        $nlead = $this->_leading_context_lines;
-        $ntrail = $this->_trailing_context_lines;
+        $nlead = $this->leading_context_lines;
+        $ntrail = $this->trailing_context_lines;
 
         $this->_startDiff();
 

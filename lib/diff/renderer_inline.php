@@ -20,8 +20,8 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer_sidebyside
     private $words;
     public function __construct($context_lines = 4, $words = 1)
     {
-        $this->_leading_context_lines = $context_lines;
-        $this->_trailing_context_lines = $context_lines;
+        $this->leading_context_lines = $context_lines;
+        $this->trailing_context_lines = $context_lines;
         $this->words = $words;
     }
 

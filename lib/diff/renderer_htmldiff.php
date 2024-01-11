@@ -23,8 +23,8 @@ class Text_Diff_Renderer_htmldiff extends Tiki_Text_Diff_Renderer
     public $tags;
     public function __construct($context_lines = 0, $words = 0)
     {
-        $this->_leading_context_lines = $context_lines;
-        $this->_trailing_context_lines = $context_lines;
+        $this->leading_context_lines = $context_lines;
+        $this->trailing_context_lines = $context_lines;
         $this->words = $words;
     }
 
