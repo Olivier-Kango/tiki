@@ -1369,7 +1369,11 @@ class TrackerLib extends TikiLib
 
                 if ($filter['type'] == 'p' && (! empty($fv) || ! empty($ev))) {
                     $definition = Tracker_Definition::get($trackerId);
-                    $userFieldId = $definition->getUserField();
+                    if ($definition) {
+                        $userFieldId = $definition->getUserField();
+                    } else {
+                        $userFieldId = null;
+                    }
                     $prefName = '';
                     $trackerFieldOptions = $this->getOne('SELECT `options` FROM `tiki_tracker_fields` WHERE fieldId = ?', $ff);
                     if ($trackerFieldOptions && $trackerFieldOptions = json_decode($trackerFieldOptions)) {
@@ -1459,7 +1463,11 @@ class TrackerLib extends TikiLib
                     }
                 } elseif ($filter['type'] == 'usergroups') {
                     $definition = Tracker_Definition::get($trackerId);
-                    $userFieldId = $definition->getUserField();
+                    if ($definition) {
+                        $userFieldId = $definition->getUserField();
+                    } else {
+                        $userFieldId = null;
+                    }
                     $cat_table .= " INNER JOIN `tiki_tracker_item_fields` ttifu ON (tti.`itemId`=ttifu.`itemId`) INNER JOIN `users_users` uu ON ttifu.`value` REGEXP CONCAT('[[:<:]]', uu.`login`, '[[:>:]]') INNER JOIN `users_usergroups` uug ON (uug.`userId`=uu.`userId`)";
                     $mid .= ' AND ttifu.`fieldId`=? AND uug.`groupName`=? ';
                     $bindvars[] = $userFieldId;
@@ -1689,10 +1697,15 @@ class TrackerLib extends TikiLib
 
         // optimize permission check - preload ownership fields to be able to quickly enforce canSeeOwn or wrtier group can modify permissions
         $definition = Tracker_Definition::get($trackerId);
-        $ownershipFields = $definition->getItemOwnerFields();
-        $groupOwnershipFields = $definition->getItemGroupOwnerFields();
-        if ($groupField = $definition->getWriterGroupField()) {
-            $groupOwnershipFields[] = $groupField;
+        if ($definition) {
+            $ownershipFields = $definition->getItemOwnerFields();
+            $groupOwnershipFields = $definition->getItemGroupOwnerFields();
+            if ($groupField = $definition->getWriterGroupField()) {
+                $groupOwnershipFields[] = $groupField;
+            }
+        } else {
+            $ownershipFields = [];
+            $groupOwnershipFields = [];
         }
 
         while (! $finished) {
@@ -1881,6 +1894,10 @@ class TrackerLib extends TikiLib
         global $prefs, $user, $tiki_p_admin_trackers;
 
         $definition = Tracker_Definition::get($trackerId);
+        if (! $definition) {
+            return [];
+        }
+
         $info = $this->get_tracker_item((int) $itemId);
         $factory = $definition->getFieldFactory();
 
