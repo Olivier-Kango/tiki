@@ -14,7 +14,7 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
 
         if ($prefs['markdown_enabled'] === 'y') {
             $iconname = 'cog';
-            $iconPath = 'img/icons/wrench.png';
+            $iconPath = 'img/icons/gear.png';
             $label = 'Syntax and Editor Settings';
         } else {
             $iconname = 'pencil';
