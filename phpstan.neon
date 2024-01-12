@@ -70,8 +70,6 @@ parameters:
     - '#Variable \$tikilib might not be defined.#'
     - '#Variable \$tikipath might not be defined.#'
     - '#Variable \$tikiroot might not be defined.#'
-    # Need to port to XML_RPC2
-    - '#Class XML_RPC_#'
     #File specific globals
     - 
       message: '#Variable \$tikilib might not be defined.#'

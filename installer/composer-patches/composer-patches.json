@@ -17,9 +17,6 @@
       "Renamed method to avoid collision with func from parent class": "../installer/composer-patches/text_wiki_mediawiki__func_collision.patch",
       "Removed string access with curly braces syntax in PHP8": "../installer/composer-patches/text_wiki_mediawiki__php8fixes.patch"
     },
-    "pear/xml_rpc": {
-      "Add support for PHP7": "../installer/composer-patches/pear_xml_rpc-php7-patch-RELEASE_1_5_5.patch"
-    },
     "npm-asset/converse.js": {
       "Remove native javascript for bootstrap": "../installer/composer-patches/jcbrand-conversejs_remove-native-javascript-for-bootstrap.patch"
     },
