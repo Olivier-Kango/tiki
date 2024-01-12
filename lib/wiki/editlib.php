@@ -1777,7 +1777,7 @@ class EditLib
         return $invalidTags;
     }
 
-    private function pushToHashed(array &$array, string $content)
+    public function pushToHashed(array &$array, string $content): string
     {
         $hash = '§' . md5(uniqid()) . '§';
         $array['keys'][] = $hash;

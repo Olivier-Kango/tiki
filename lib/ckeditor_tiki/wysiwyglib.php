@@ -219,6 +219,11 @@ ajaxLoadingShow("' . $dom_id . '");
     public function setUpMarkdownEditor(string $dom_id, string $content, array $params = [], string $auto_save_referrer = ''): array
     {
         global $prefs;
+        $hashed = [];
+        // replace all Wiki Argument Variables by a hash to prevent to be transalted as plugins
+        $content = preg_replace_callback('/\{\{(.+?)\}\}/', function ($m) use (&$hashed) {
+            return TikiLib::lib('edit')->pushToHashed($hashed, $m[0]);
+        }, $content);
 
         $matches = WikiParser_PluginMatcher::match($content);
         $position = 0;
@@ -261,6 +266,10 @@ ajaxLoadingShow("' . $dom_id . '");
         /** @var HeaderLib $headerlib */
         $headerlib = TikiLib::lib('header');
 
+        if (count($hashed) > 0) {
+            $content = str_replace($hashed['keys'], $hashed['values'], $content);
+        }
+
         $options = [
             'domId' => "$dom_id",
             'height' => $prefs['markdown_wysiwyg_height'],
@@ -302,9 +311,7 @@ ajaxLoadingShow("' . $dom_id . '");
             //->add_jsfile('vendor_bundled/vendor/npm-asset/toast-ui--editor/dist/toastui-editor.js', true)
             //->add_cssfile('vendor_bundled/vendor/npm-asset/toast-ui--editor/dist/toastui-editor.css')
             //->add_cssfile('https://uicdn.toast.com/editor/latest/toastui-editor.min.css')
-            ->add_jq_onready("
-tikiToastEditor($jsonOptions);
-");
+            ->add_jq_onready("tikiToastEditor($jsonOptions);");
 
         return [];
     }
