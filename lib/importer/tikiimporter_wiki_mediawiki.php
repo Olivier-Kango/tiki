@@ -196,7 +196,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
     {
         global $tikidomain;
 
-        $this->attachmentsDestDir = __DIR__ . '/../../img/wiki_up/';
+        $this->attachmentsDestDir = __DIR__ . '/../../' . DEPRECATED_IMG_WIKI_UP_PATH . '/';
         if ($tikidomain) {
             $this->attachmentsDestDir .= $tikidomain;
         }

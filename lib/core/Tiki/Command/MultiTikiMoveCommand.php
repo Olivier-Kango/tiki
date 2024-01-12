@@ -89,19 +89,19 @@ class MultiTikiMoveCommand extends Command
                 }
 
                 $dirs = [   // from setup.sh currently
-                    DB_PATH,
-                    IMG_WIKI_PATH,
-                    IMG_WIKI_UP_PATH,
-                    IMG_TRACKERS_PATH,
+                    CONFIG_PATH,
+                    DEPRECATED_IMG_WIKI_PATH,
+                    DEPRECATED_IMG_WIKI_UP_PATH,
+                    TRACKER_FIELD_IMAGE_STORAGE_PATH,
                     TEMP_PATH,
                     TEMP_CACHE_PATH,
                     TEMP_HTTP_PUBLIC_PATH,
                     SMARTY_COMPILED_TEMPLATES_PATH,
                     SMARTY_TEMPLATES_PATH,
-                    THEMES_PATH,
+                    THEMES_SRC_PATH,
                     WHELP_PATH,
-                    MODS_PATH,
-                    FILES_PATH,
+                    DEPRECATED_MODS_PATH,
+                    DEPRECATED_FILES_PATH,
                     TIKI_TESTS_PATH,
                     //'temp/unified-index'
                 ];

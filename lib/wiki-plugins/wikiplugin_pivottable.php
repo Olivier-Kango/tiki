@@ -375,7 +375,7 @@ function wikiplugin_pivottable($data, $params)
     global $prefs, $page, $wikiplugin_included_page, $user;
 
     //checking if vendor files are present
-    if (! file_exists('vendor_bundled/vendor/nicolaskruchten/pivottable/')) {
+    if (! file_exists(PIVOTTABLE_DIST_PATH . '/')) {
         return WikiParser_PluginOutput::internalError(tr('Missing required files, please make sure plugin files are installed at vendor_bundled/vendor/nicolaskruchten/pivottable. <br/><br /> To install, please run composer or download from following url:<a href="https://github.com/nicolaskruchten/pivottable/archive/master.zip" target="_blank">https://github.com/nicolaskruchten/pivottable/archive/master.zip</a>'));
     }
 
@@ -383,10 +383,10 @@ function wikiplugin_pivottable($data, $params)
     $id++;
 
     $headerlib = TikiLib::lib('header');
-    $headerlib->add_cssfile('vendor_bundled/vendor/nicolaskruchten/pivottable/dist/pivot.css');
-    $headerlib->add_jsfile('vendor_bundled/vendor/nicolaskruchten/pivottable/dist/pivot.js', true);
-    $headerlib->add_jsfile('vendor_bundled/vendor/plotly/plotly.js/dist/plotly-cartesian.min.js', true);
-    $headerlib->add_jsfile('vendor_bundled/vendor/nagarajanchinnasamy/subtotal/dist/subtotal.min.js', true);
+    $headerlib->add_cssfile(PIVOTTABLE_DIST_PATH . '/pivot.css');
+    $headerlib->add_jsfile(PIVOTTABLE_DIST_PATH . '/pivot.js', true);
+    $headerlib->add_jsfile(PLOTLYJS_DIST_PATH . '/plotly-cartesian.min.js', true);
+    $headerlib->add_jsfile(SUBTOTAL_DIST_PATH . '/subtotal.min.js', true);
     $headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-pivottable.js', true);
 
     // use default param value if not given
@@ -402,8 +402,8 @@ function wikiplugin_pivottable($data, $params)
     } else {
         $lang = substr($params['lang'], 0, 2); //Here we don't use the site language anymore!
     }
-    if (file_exists('vendor_bundled/vendor/nicolaskruchten/pivottable/dist/pivot.' . $lang . '.js')) {
-        $headerlib->add_jsfile('vendor_bundled/vendor/nicolaskruchten/pivottable/dist/pivot.' . $lang . '.js', true);
+    if (file_exists(PIVOTTABLE_DIST_PATH . '/pivot.' . $lang . '.js')) {
+        $headerlib->add_jsfile(PIVOTTABLE_DIST_PATH . '/pivot.' . $lang . '.js', true);
     }
 
     $translate = (! empty($params['translate']) && $params['translate'] == 'y') ? true : false;

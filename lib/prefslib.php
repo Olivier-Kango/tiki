@@ -947,16 +947,16 @@ class PreferencesLib
         global $prefs;
 
         // check for or create array of where each pref is used
-        $file = 'temp/cache/preference-usage-index';
+        $file = TEMP_CACHE_PATH . '/preference-usage-index';
         if (! file_exists($file)) {
             $prefs_usage_array = [];
-            $fp = opendir('templates/admin/');
+            $fp = opendir(TEMPLATES_ADMIN_PATH . '/');
 
             while (false !== ($f = readdir($fp))) {
                 preg_match('/^include_(.*)\.tpl$/', $f, $m);
                 if (count($m) > 0) {
                     $page = $m[1];
-                    $c = file_get_contents('templates/admin/' . $f);
+                    $c = file_get_contents(TEMPLATES_ADMIN_PATH . '/' . $f);
                     preg_match_all('/{preference.*name=[\'"]?(\w*)[\'"]?.*}/i', $c, $m2, PREG_OFFSET_CAPTURE);
                     if (count($m2[1]) > 0) {
                         // count number of tabs in front of each found pref

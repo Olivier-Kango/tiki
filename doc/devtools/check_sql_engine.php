@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace TikiDevTools;
 
+require_once __DIR__ . '/../../path_constants.php';
+
 /**
  * Script to check sql CREATE statements used MyISAM engine in ../../db/tiki.sql and ../../installer/schema sql files
  *
@@ -158,15 +160,16 @@ class CheckSqlEngine
         $result = $this->checkFile(__DIR__ . '/../../db/tiki.sql', $should_fix, $output_path);
         $error_count += $result['error_count'];
         $fixed_count += $result['fixed_count'];
-        $filenameList = scandir(__DIR__ . '/../../installer/schema');
+        $path = __DIR__ . '/../../' . TIKI_UPGRADE_SQL_SCHEMA_PATH;
+        $filenameList = scandir($path);
         if ($filenameList === false) {
-            $this->printMessageError('Scandir failed on installer/schema');
+            $this->printMessageError("Scandir failed on $path");
         } else {
             foreach ($filenameList as $filename) {
                 $ext = substr($filename, -4);
                 if ($ext === '.sql') {
                     $result = $this->checkFile(
-                        __DIR__ . '/../../installer/schema/' . $filename,
+                        $path . '/' . $filename,
                         $should_fix,
                         $output_path
                     );

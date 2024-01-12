@@ -44,10 +44,10 @@ function getHTMLPurifierTikiConfig()
 {
     global $tikipath, $prefs;
 
-    $directory = $tikipath . 'temp/cache/HTMLPurifierCache';
+    $directory = $tikipath . HTMLPURIFIERCACHE_CACHE_PATH;
     if (! is_dir($directory)) {
         if (! mkdir($directory)) {
-            $directory = $tikipath . 'temp/cache';
+            $directory = $tikipath . TEMP_CACHE_PATH;
         } else {
             chmod(
                 $directory,

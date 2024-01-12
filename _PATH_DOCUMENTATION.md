@@ -179,8 +179,6 @@ These paths may or may not still be used by code, or need more information to de
 
 * **doc/reports/**
   * What does that do, what uses it?
-* **files/**
-  * I think this is a remnant of Image Gallery (File gallery stores in storage/fgal by default).  benoitg 2023-04-04
 
 ### To DELETE paths (including content)
 As far as we can tell, these are not referenced by any active code and are ready to be removed from git, setup scripts, .gitignore, etc.

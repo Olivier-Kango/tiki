@@ -36,21 +36,21 @@ use Rector\Symfony\Set\SymfonyLevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-        __DIR__ . '/admin',
-        __DIR__ . '/db',
-        __DIR__ . '/doc',
-        __DIR__ . '/installer',
-        //__DIR__ . '/lang',
-        __DIR__ . '/lib',
-        __DIR__ . '/lists',
-        __DIR__ . '/modules',
-        __DIR__ . '/permissioncheck',
-        __DIR__ . '/profiles',
-        __DIR__ . '/themes',
+        __DIR__ . '/' . ADMIN_PATH,
+        __DIR__ . '/' . CONFIG_PATH,
+        __DIR__ . '/' . DEPRECATED_DEVTOOLS_PATH,
+        __DIR__ . '/' . INSTALLER_PATH,
+        //__DIR__ . '/' . LANG_PATH,
+        __DIR__ . '/' . LIB_PATH,
+        __DIR__ . '/' . LISTS_PATH,
+        __DIR__ . '/' . MODULES_PATH,
+        __DIR__ . '/' . PERMISSIONCHECK_PATH,
+        __DIR__ . '/' . PROFILES_PATH,
+        __DIR__ . '/' . THEMES_SRC_PATH,
     ]);
     $rectorConfig->skip([
-        __DIR__ . '/src/SingleFile.php',
-        __DIR__ . '/src/WholeDirectory',
+        // __DIR__ . '/src/SingleFile.php',
+        // __DIR__ . '/src/WholeDirectory',
 
         // or use fnmatch
         __DIR__ . '*/vendor/*',

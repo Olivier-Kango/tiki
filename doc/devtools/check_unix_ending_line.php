@@ -8,17 +8,18 @@ if (PHP_SAPI !== 'cli') {
     die('Only available through command-line.');
 }
 
+require_once __DIR__ . '/../../path_constants.php';
 require dirname(__FILE__) . '/svntools.php';
 
 $dir = realpath(__DIR__ . '/../../');
 
 $excludePattern = [
     // composer related folders
-    $dir . '/vendor',
-    $dir . '/vendor_bundled',
+    $dir . '/' . TIKI_VENDOR_NONBUNDLED_PATH,
+    $dir . '/' . TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH,
 
     // temp folder (generated files)
-    $dir . '/temp',
+    $dir . '/' . TEMP_PATH,
 
     // folders where node modules can be installed
     $dir . '/lib/vue-mf/duration-picker/node_modules',

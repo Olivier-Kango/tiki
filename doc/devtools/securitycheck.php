@@ -38,9 +38,9 @@ needs to be changed to accept access->check_permissions() so that also that it l
 $safePaths = [
 
     /* Not in build */
-    '\./doc/devtools/.*',
-    '\./db/local.php',
-    '\./db/virtuals.inc',
+    '\./' . DEPRECATED_DEVTOOLS_PATH . '/.*',
+    '\./' . TIKI_CONFIG_FILE_PATH,
+    '\./' . CONFIG_PATH . '/virtuals.inc',
 
     /* The following are DELIBERATELY PUBLIC. */
     '\./tiki-cookie-jar.php',
@@ -58,8 +58,8 @@ $safePaths = [
     '\./tiki-testGD.php',
 
     /* vendor and vendor_bundled dirs, not tiki files*/
-    '\./vendor_bundled/*',
-    '\./vendor/*',
+    '\./' . TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH . '/*',
+    '\./' . TIKI_VENDOR_NONBUNDLED_PATH . '/*',
 ];
 
 if (! file_exists('tiki-setup.php')) {
@@ -244,7 +244,7 @@ function analyse_file_path($path) // {{{
 
     if (strpos($path, '/CVS/') !== false) {
         $type = 'cvs';
-    } elseif (strpos($path, './temp/templates_c/') === 0) {
+    } elseif (strpos($path, "./" . SMARTY_COMPILED_TEMPLATES_PATH . "/") === 0) {
         $type = 'cache';
     } elseif (regex_match($path, $safePaths)) {
         $type = 'safe';
@@ -270,7 +270,7 @@ function analyse_file_path($path) // {{{
         }
     } elseif (in_array($extension, ['txt', 'png', 'jpg', 'html', 'css', 'sql', 'gif', 'afm', 'js'])) {
         $type = 'static';
-    } elseif (strpos($path, './doc/devtools/') === 0) {
+    } elseif (strpos($path, './' . DEPRECATED_DEVTOOLS_PATH . '/') === 0) {
         $type = 'script';
     } elseif (strpos($path, './files/') === 0) {
         $type = 'user';

@@ -951,8 +951,8 @@ if ($prefs['print_pdf_from_url'] != 'none') {
     $headerlib->add_jsfile('lib/jquery_tiki/fullcalendar_to_pdf.js');
 }
 
-if (file_exists(USER_CUSTOM_PHP_FILE)) {
-    include_once(USER_CUSTOM_PHP_FILE);
+if (file_exists(USER_CUSTOM_SETUP_PHP_FILE)) {
+    include_once(USER_CUSTOM_SETUP_PHP_FILE);
 }
 
 // any furher $headerlib->add_js() call not using rank = 'external' will be put into rank 'late'

@@ -64,9 +64,9 @@ class TikiSetup extends TikiInit
 
         static $dirs = [
                 # 'img/wiki',
-                # 'img/wiki_up',
-                'temp',
-                'temp/templates_c',
+                # DEPRECATED_IMG_WIKI_UP_PATH,
+                TEMP_PATH,
+                SMARTY_COMPILED_TEMPLATES_PATH,
                 # 'var',
                 # 'var/log',
                 # 'var/log/irc',

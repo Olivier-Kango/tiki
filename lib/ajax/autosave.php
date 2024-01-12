@@ -125,7 +125,7 @@ class AutoSaveLib
         global $user;
         $referer = preg_replace('/(\?|\&)noautosave=y/', '', $this->ensureReferrer($referer));
         $referer = rawurldecode($referer); // this is needed to ensure consistency whether coming from js or php
-        return ($only_md5 ? '' : 'temp/cache/auto_save-') . md5("$user:$referer:$id");
+        return ($only_md5 ? '' : TEMP_CACHE_PATH . '/auto_save-') . md5("$user:$referer:$id");
     }
 
     /**
@@ -138,6 +138,6 @@ class AutoSaveLib
     private function auto_save_log($id, $referer = '', $action = '')
     {
         global $user;
-        file_put_contents('temp/cache/auto_save-log-' . ($this->auto_save_name($id, $referer, true)), $user . ' : ' . $this->ensureReferrer($referer) . " : $id : $action\n", FILE_APPEND);
+        file_put_contents(TEMP_CACHE_PATH . '/auto_save-log-' . ($this->auto_save_name($id, $referer, true)), $user . ' : ' . $this->ensureReferrer($referer) . " : $id : $action\n", FILE_APPEND);
     }
 }

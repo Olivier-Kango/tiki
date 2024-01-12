@@ -74,7 +74,7 @@ class XmlLib extends TikiLib
 
         $this->zip = new ZipArchive();
         if (! file_exists($zipFile)) {
-            mkdir('dump', 0777, true);
+            mkdir(EXPORT_DUMP_PATH, 0777, true);
         }
 
         if (! $this->zip->open($zipFile, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE)) {
@@ -211,10 +211,10 @@ class XmlLib extends TikiLib
                 $args = $parserlib->plugin_split_args($match);
 
                 // An image specified va "src" (an URL) pointing into the img/wiki_up directory
-                if (! empty($args['src']) && preg_match('|img/wiki_up/(.*)|', $args['src'], $m)) {
+                if (! empty($args['src']) && preg_match('|' . DEPRECATED_IMG_WIKI_UP_PATH . '/(.*)|', $args['src'], $m)) {
                     $file = empty($tikidomain) ?
                           $args['src'] :
-                          str_replace('img/wiki_up/', "img/wiki_up/$tikidomain/", $args['src']);
+                          str_replace(DEPRECATED_IMG_WIKI_UP_PATH . "/", DEPRECATED_IMG_WIKI_UP_PATH . "/$tikidomain/", $args['src']);
                     $image = ['filename' => $m[1],
                               'where' => 'wiki',
                               'zip' => "$dir/images/wiki/" . $m[1],
@@ -539,11 +539,11 @@ class XmlLib extends TikiLib
                     return false;
                 }
                 if ($image['where'] == 'wiki') {
-                    $wiki_up = 'img/wiki_up/';
+                    $wiki_up = DEPRECATED_IMG_WIKI_UP_PATH . '/';
                     if ($tikidomain) {
                         $wiki_up .= "$tikidomain/";
                     }
-                    $name = str_replace('img/wiki_up/', '', $image['wiki']);
+                    $name = str_replace(DEPRECATED_IMG_WIKI_UP_PATH . '/', '', $image['wiki']);
                     file_put_contents($wiki_up . $name, $image['data']);
                     chmod($wiki_up . $name, 0644);
                 }

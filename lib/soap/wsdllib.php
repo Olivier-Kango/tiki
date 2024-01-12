@@ -45,7 +45,7 @@ class Tiki_Wsdl
             return [];
         }
 
-        $wsdlFile = $GLOBALS['tikipath'] . 'temp/cache/' . md5($wsdlUri);
+        $wsdlFile = $GLOBALS['tikipath'] . TEMP_CACHE_PATH . '/' . md5($wsdlUri);
         file_put_contents($wsdlFile, $wsdl_data);
 
         // Read wsdl from local copy

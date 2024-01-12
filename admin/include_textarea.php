@@ -32,7 +32,7 @@ if (
     && $access->checkCsrf()
 ) {
     // tab=3 is plugins alias tab (TODO improve)
-    foreach (glob('temp/cache/wikiplugin_*') as $file) {
+    foreach (glob(WIKIPLUGIN_CACHE_FILES_GLOB) as $file) {
         unlink($file);
     }
 }
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         foreach ($pluginsAliasNames as $name) {
             $tikilib->set_preference("wikiplugin_$name", in_array($name, $_POST['enabled']) ? 'y' : 'n');
         }
-        foreach (glob('temp/cache/wikiplugin_*') as $file) {
+        foreach (glob(WIKIPLUGIN_CACHE_FILES_GLOB) as $file) {
             unlink($file);
         }
     }
@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pluginAlias[] = $_POST['plugins'];
         }
 
-        foreach (glob('temp/cache/wikiplugin_*') as $file) {
+        foreach (glob(WIKIPLUGIN_CACHE_FILES_GLOB) as $file) {
             unlink($file);
         }
 

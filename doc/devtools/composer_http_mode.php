@@ -10,9 +10,9 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 
 $tikiBase = realpath(__DIR__ . '/../..');
 
-$composerJsonFile = "$tikiBase/vendor_bundled/composer.json";
+$composerJsonFile = "$tikiBase/" . PRIMARY_COMPOSERJSON_FILE_PATH;
 $composerJsonFileBackup = str_replace('/composer.', '/composer_https.', $composerJsonFile);
-$composerLockFile = "$tikiBase/vendor_bundled/composer.lock";
+$composerLockFile = "$tikiBase/" . COMPOSERLOCK_FILE_PATH;
 $composerLockFileBackup = str_replace('/composer.', '/composer_https.', $composerLockFile);
 
 if ($_SERVER['argc'] <= 1 || isset($_SERVER['argv']['help'])) {
@@ -36,8 +36,8 @@ function execute()
     $repoUrlHttps = 'https://composer.tiki.org';
     $repoUrlHttp = 'http://composer.tiki.org';
 
-    if (! is_writable("$tikiBase/vendor_bundled/") || ! is_writable($composerJsonFile) || ! is_writable($composerLockFile)) {
-        echo "Error: Cannot write to $tikiBase/vendor_bundled/ or the composer files\n";
+    if (! is_writable("$tikiBase/" . TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH . "/") || ! is_writable($composerJsonFile) || ! is_writable($composerLockFile)) {
+        echo "Error: Cannot write to $tikiBase/" . TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH . "/ or the composer files\n";
         return;
     }
 
@@ -79,8 +79,8 @@ function revert()
 {
     global $tikiBase, $composerJsonFile, $composerJsonFileBackup, $composerLockFile, $composerLockFileBackup;
 
-    if (! is_writable("$tikiBase/vendor_bundled/") || ! is_writable($composerJsonFile) || ! is_writable($composerLockFile)) {
-        echo "Error: Cannot write to $tikiBase/vendor_bundled/ or the composer files\n";
+    if (! is_writable("$tikiBase/" . TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH . "/") || ! is_writable($composerJsonFile) || ! is_writable($composerLockFile)) {
+        echo "Error: Cannot write to $tikiBase/" . TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH . "/ or the composer files\n";
         return;
     }
 

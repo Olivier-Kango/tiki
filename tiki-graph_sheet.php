@@ -98,7 +98,7 @@ $smarty->assign('page_mode', 'form');
 $sheetId = $_REQUEST['sheetId'];
 
 if (isset($_REQUEST['title'])) {
-    $cache_file = 'temp/cache/tsge_' . md5($_SERVER['REQUEST_URI']);
+    $cache_file = TEMP_CACHE_PATH . '/tsge_' . md5($_SERVER['REQUEST_URI']);
 
     switch ($_REQUEST['renderer']) {
         case 'PNG':

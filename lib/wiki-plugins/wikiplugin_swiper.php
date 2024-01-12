@@ -387,7 +387,7 @@ function wikiplugin_swiper_info()
 function wikiplugin_swiper($data, $params)
 {
     //checking for swiper existance
-    if (! file_exists("vendor_bundled/vendor/nolimits4web/swiper/dist/js/swiper.min.js")) {
+    if (! file_exists(SWIPER_DIST_PATH . "/js/swiper.min.js")) {
         Feedback::error(tr(' Please update composer to install required files'));
         return;
     }
@@ -442,8 +442,8 @@ function wikiplugin_swiper($data, $params)
         $navigationDiv = '';
     }
     $headerlib = TikiLib::lib('header');
-    $headerlib->add_jsfile('vendor_bundled/vendor/nolimits4web/swiper/dist/js/swiper.min.js');
-    $headerlib->add_cssfile('vendor_bundled/vendor/nolimits4web/swiper/dist/css/swiper.css');
+    $headerlib->add_jsfile(SWIPER_DIST_PATH . '/js/swiper.min.js');
+    $headerlib->add_cssfile(SWIPER_DIST_PATH . '/css/swiper.css');
 
     $slides = explode("|", ($data ? $data : ""));
     $slidesHtml = '';

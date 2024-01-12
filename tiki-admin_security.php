@@ -154,11 +154,11 @@ if ($prefs['feature_mailin'] == 'y') {
 
 //check to see if installer lock is being used
 //check multitiki
-if (is_file('db/virtuals.inc')) {
-    $virtuals = array_map('trim', file('db/virtuals.inc'));
+if (is_file(CONFIG_PATH . '/virtuals.inc')) {
+    $virtuals = array_map('trim', file(CONFIG_PATH . '/virtuals.inc'));
     foreach ($virtuals as $v) {
         if ($v) {
-            if (is_file("db/$v/local.php") && is_readable("db/$v/local.php")) {
+            if (is_file(CONFIG_PATH . "/$v/local.php") && is_readable(CONFIG_PATH . "/$v/local.php")) {
                 $virt[$v] = 'y';
             } else {
                 $virt[$v] = 'n';
@@ -171,17 +171,17 @@ if (is_file('db/virtuals.inc')) {
 }
 $multi = '';
 if ($virtuals) {
-    if (isset($_SERVER['TIKI_VIRTUAL']) && is_file('db/' . $_SERVER['TIKI_VIRTUAL'] . '/local.php')) {
+    if (isset($_SERVER['TIKI_VIRTUAL']) && is_file(CONFIG_PATH . '/' . $_SERVER['TIKI_VIRTUAL'] . '/local.php')) {
         $multi = $_SERVER['TIKI_VIRTUAL'];
-    } elseif (isset($_SERVER['SERVER_NAME']) && is_file('db/' . $_SERVER['SERVER_NAME'] . '/local.php')) {
+    } elseif (isset($_SERVER['SERVER_NAME']) && is_file(CONFIG_PATH . '/' . $_SERVER['SERVER_NAME'] . '/local.php')) {
         $multi = $_SERVER['SERVER_NAME'];
-    } elseif (isset($_SERVER['HTTP_HOST']) && is_file('db/' . $_SERVER['HTTP_HOST'] . '/local.php')) {
+    } elseif (isset($_SERVER['HTTP_HOST']) && is_file(CONFIG_PATH . '/' . $_SERVER['HTTP_HOST'] . '/local.php')) {
         $multi = $_SERVER['HTTP_HOST'];
     }
 }
 $tikidomain = $multi;
 $tikidomainslash = (! empty($tikidomain) ? $tikidomain . '/' : '');
-if (! file_exists('db/' . $tikidomainslash . 'lock')) {
+if (! file_exists(CONFIG_PATH . '/' . $tikidomainslash . 'lock')) {
     $tikisettings['installer lock'] = [
         'risk' => tra('unsafe') ,
         'setting' => tra('Unlocked') ,
@@ -239,7 +239,7 @@ function md5_check_dir($dir, &$result, $vcs_diff = [])
     while (false !== ($e = $d->read())) {
         $entry = $dir . '/' . $e;
         if (is_dir($entry)) {
-            if ($e != '..' && $e != '.' && $entry != './temp/templates_c' && $entry != './temp') { // do not descend and no checking of templates_c since the file based md5 database would grow to big
+            if ($e != '..' && $e != '.' && $entry != './' . SMARTY_COMPILED_TEMPLATES_PATH && $entry != './' . TEMP_PATH) { // do not descend and no checking of templates_c since the file based md5 database would grow to big
                 md5_check_dir($entry, $result, $vcs_diff);
             }
         } elseif (preg_match('/\.(sql|css|tpl|js|php)$/', $e)) {
@@ -310,11 +310,11 @@ if (isset($_POST['check_files'])) {
     $tiki_versions[] = $version->version;
     $result = [];
 
-    if ($version->svn == 'y' && is_readable('doc/devtools/svntools.php')) { // svn checkout
-        require_once('doc/devtools/svntools.php');
+    if ($version->svn == 'y' && is_readable(DEPRECATED_DEVTOOLS_PATH . '/svntools.php')) { // svn checkout
+        require_once(DEPRECATED_DEVTOOLS_PATH . '/svntools.php');
         $svn_diff = files_differ('./');
-    } elseif ($version->git == 'y' && is_readable('doc/devtools/gittools.php')) {   // git checkout
-        require_once('doc/devtools/gittools.php');
+    } elseif ($version->git == 'y' && is_readable(DEPRECATED_DEVTOOLS_PATH . '/gittools.php')) {   // git checkout
+        require_once(DEPRECATED_DEVTOOLS_PATH . '/gittools.php');
         $svn_diff = files_differ('./');
     } else {
         $svn_diff = [];

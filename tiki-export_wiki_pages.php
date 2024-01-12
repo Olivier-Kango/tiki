@@ -16,7 +16,7 @@ if (empty($_REQUEST['page'])) {
 
 if (! isset($_REQUEST["page"])) {
     $exportlib->MakeWikiZip();
-    $dump = 'dump';
+    $dump = EXPORT_DUMP_PATH;
     if (! empty($tikidomain)) {
         $dump .= "/$tikidomain";
     }

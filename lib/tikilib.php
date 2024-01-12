@@ -80,8 +80,8 @@ class TikiLib extends TikiDb_Bridge
                 return self::$libraries[$name] = $tikilib;
         }
 
-        if (file_exists(__DIR__ . '/../temp/cache/container.php')) {
-            unlink(__DIR__ . '/../temp/cache/container.php'); // Remove the container cache to help transition
+        if (file_exists(__DIR__ . '/../' . TEMP_CACHE_PATH . '/container.php')) {
+            unlink(__DIR__ . '/../' . TEMP_CACHE_PATH . '/container.php'); // Remove the container cache to help transition
         }
 
         trigger_error(tr("%0 library not found. This may be due to a typo or caused by a recent update.", $name));
@@ -575,7 +575,7 @@ class TikiLib extends TikiDb_Bridge
                 $database = $info['database'];
 
                 $api_tiki = null;
-                require 'db/local.php';
+                require TIKI_CONFIG_FILE_PATH;
                 if (isset($api_tiki) &&  $api_tiki == 'adodb') {
                     // Force autoloading
                     if (! class_exists('ADOConnection')) {

@@ -26,7 +26,7 @@ class ExportLib extends TikiLib
             $content = $this->export_wiki_page($page, 0);
             $tar->addData($page, $content, $this->now);
         }
-        $dump = 'dump';
+        $dump = EXPORT_DUMP_PATH;
 
         if ($tikidomain) {
             $dump .= "/$tikidomain";

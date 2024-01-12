@@ -49,7 +49,7 @@ class SchedulerRunCommand extends Command
         $manager = new \Scheduler_Manager($logger);
 
         if (! $input->getOption('skip-check-user') && ! TikiInit::isWindows() && function_exists('posix_getuid')) {
-            $manager->setHasTempFolderOwnership(posix_getuid() === fileowner(TIKI_PATH . '/temp/cache'));
+            $manager->setHasTempFolderOwnership(posix_getuid() === fileowner(TIKI_PATH . '/' . TEMP_CACHE_PATH));
         }
 
         $manager->run();

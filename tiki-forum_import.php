@@ -174,10 +174,10 @@ if (isset($_POST["step4"])) {
             $smarty->assign('filecheck', $prefs['tmpDir']);
             $smarty->assign('passed', 'true');
             $smarty->assign('server', $prefs['tmpDir'] . '/' . $server);
-        } elseif (file_exists('img/wiki_up/' . $server)) {
-            $smarty->assign('filecheck', "img/wiki_up");
+        } elseif (file_exists(DEPRECATED_IMG_WIKI_UP_PATH . '/' . $server)) {
+            $smarty->assign('filecheck', DEPRECATED_IMG_WIKI_UP_PATH);
             $smarty->assign('passed', 'true');
-            $smarty->assign('server', "img/wiki_up" . $server);
+            $smarty->assign('server', DEPRECATED_IMG_WIKI_UP_PATH . $server);
         } else {
             $smarty->assign('filecheck', $prefs['tmpDir']);
             $smarty->assign('passed', 'false');

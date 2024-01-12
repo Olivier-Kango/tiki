@@ -23,8 +23,8 @@ class ComposerGetPackages
         $this->minimumVersion = 11;
 
         $this->repoUri = 'https://gitlab.com/tikiwiki/tiki/-/raw/%branch%/';
-        $this->lockFile = 'vendor_bundled/composer.lock';
-        $this->jsonFile = 'vendor_bundled/composer.json';
+        $this->lockFile = TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH . '/composer.lock';
+        $this->jsonFile = TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH . '/composer.json';
 
         $this->gitLib = \TikiLib::lib('git');
     }

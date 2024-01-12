@@ -3,13 +3,13 @@
 use Symfony\Component\Yaml\Yaml;
 
 $tikiBase = realpath(__DIR__ . '/../..');
-require_once $tikiBase . '/vendor_bundled/vendor/autoload.php';
+require_once $tikiBase . '/' . PRIMARY_AUTOLOAD_FILE_PATH;
 
 const TIKI_GITLAB_ID = 6204173;
 $tags = [];
 $versions = [];
 
-$tempDir = $tikiBase . '/temp/satis/';
+$tempDir = $tikiBase . '/' . SATIS_TEMP_PATH . '/';
 if (! file_exists($tempDir)) {
     mkdir($tempDir);
 }
@@ -39,7 +39,7 @@ function getPackages($path, &$payload)
     $majorVersion = intval($match[1] ?? false);
 
     if ($path == 'master' || $majorVersion >= 17) {
-        $repositoryUrl .= 'vendor_bundled/';
+        $repositoryUrl .= TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH . '/';
     }
 
     $composerLockContents = json_decode(@file_get_contents("$repositoryUrl/composer.lock"));

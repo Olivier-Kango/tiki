@@ -26,11 +26,11 @@ class ModLib extends TikiLib
 
     public $cssfiles  = [
         'calendar_new'  => [
-            'csspath'   => 'themes/base_files/feature_css/calendar.css',
+            'csspath'   => THEMES_BASE_FILES_FEATURE_CSS_PATH . '/calendar.css',
             'rank'      => 20,
         ],
         'action_calendar'   => [
-            'csspath'   => 'themes/base_files/feature_css/calendar.css',
+            'csspath'   => THEMES_BASE_FILES_FEATURE_CSS_PATH . '/calendar.css',
             'rank'      => 20,
         ],
     ];
@@ -297,7 +297,7 @@ class ModLib extends TikiLib
         }
 
         // Now add all the system modules
-        $h = opendir("templates/modules");
+        $h = opendir(TEMPLATES_MODULES_PATH);
         while (($file = readdir($h)) !== false) {
             if (substr($file, 0, 4) == 'mod-' && preg_match("/\.tpl$/", $file)) {
                 if (! strstr($file, "nocache")) {
@@ -361,7 +361,7 @@ class ModLib extends TikiLib
     public function clear_cache()
     {
         global $tikidomain;
-        $dircache = "temp/cache";
+        $dircache = TEMP_CACHE_PATH;
         if ($tikidomain) {
             $dircache .= "/$tikidomain";
         }
@@ -816,8 +816,8 @@ class ModLib extends TikiLib
     public function list_module_files()
     {
         $files = [];
-        if (is_dir('modules')) {
-            if ($dh = opendir('modules')) {
+        if (is_dir(MODULES_PATH)) {
+            if ($dh = opendir(MODULES_PATH)) {
                 while (($file = readdir($dh)) !== false) {
                     if (preg_match("/^mod-func-.*\.php$/", $file)) {
                         array_push($files, $file);
@@ -855,7 +855,7 @@ class ModLib extends TikiLib
             return $info;
         }
 
-        $phpfuncfile = 'modules/mod-func-' . $moduleName . '.php';
+        $phpfuncfile = MODULES_PATH . '/mod-func-' . $moduleName . '.php';
         $info_func = "module_{$moduleName}_info";
         $info = [];
 
@@ -1139,14 +1139,14 @@ class ModLib extends TikiLib
                 $smarty->assign('nonums', $module_params['nonums']);
 
                 if ($info['type'] == 'include') {
-                    $phpfile = 'modules/mod-' . $mod_reference['name'] . '.php';
+                    $phpfile = MODULES_PATH . '/mod-' . $mod_reference['name'] . '.php';
 
                     if (file_exists($phpfile)) {
                         include $phpfile;
                     }
                 } elseif ($info['type'] == 'function') {
                     $function = 'module_' . $mod_reference['name'];
-                    $phpfuncfile = 'modules/mod-func-' . $mod_reference['name'] . '.php';
+                    $phpfuncfile = MODULES_PATH . '/mod-func-' . $mod_reference['name'] . '.php';
 
                     if (file_exists($phpfuncfile)) {
                         include_once $phpfuncfile;
@@ -1183,9 +1183,9 @@ class ModLib extends TikiLib
                 }
                 $smarty->assign('tpl_module_style', $tpl_module_style);
 
-                $template = 'modules/mod-' . $mod_reference['name'] . '.tpl';
+                $template = MODULES_PATH . '/mod-' . $mod_reference['name'] . '.tpl';
 
-                if (file_exists('templates/' . $template)) {
+                if (file_exists(SMARTY_TEMPLATES_PATH . '/' . $template)) {
                     $data = $smarty->fetch($template);
                 } else {
                     $data = $this->get_user_module_content($mod_reference['name'], $module_params);
@@ -1304,7 +1304,7 @@ class ModLib extends TikiLib
     public function get_cache_file($mod_reference, $info)
     {
         global $tikidomain, $user;
-        $nocache = 'templates/modules/mod-' . $mod_reference["name"] . '.tpl.nocache';
+        $nocache = TEMPLATES_MODULES_PATH . '/mod-' . $mod_reference["name"] . '.tpl.nocache';
 
         // Uncacheable
         if (! empty($user) || $mod_reference['cache_time'] <= 0 || file_exists($nocache)) {
@@ -1313,7 +1313,7 @@ class ModLib extends TikiLib
 
         $cb = $info['cachekeygen'];
 
-        $cachefile = 'temp/cache/';
+        $cachefile = TEMP_CACHE_PATH;
         if ($tikidomain) {
             $cachefile .= "$tikidomain/";
         }

@@ -67,14 +67,14 @@ class Installer extends TikiDb_Bridge implements SplSubject
             $this->buildScriptList();
         } else {
             // No image specified, standard install
-            $this->runFile(__DIR__ . '/../db/tiki.sql');
+            $this->runFile(__DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki.sql');
             if ($this->isMySQLFulltextSearchSupported()) {
-                $this->runFile(__DIR__ . '/../db/tiki_fulltext_indexes.sql', true, true);
+                $this->runFile(__DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki_fulltext_indexes.sql', true, true);
             }
             if ($this->useInnoDB) {
-                $this->runFile(__DIR__ . '/../db/tiki_innodb.sql', true, true);
+                $this->runFile(__DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki_innodb.sql', true, true);
             } else {
-                $this->runFile(__DIR__ . '/../db/tiki_myisam.sql', true, true);
+                $this->runFile(__DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki_myisam.sql', true, true);
             }
             $this->buildPatchList();
             $this->buildScriptList();
@@ -102,15 +102,15 @@ class Installer extends TikiDb_Bridge implements SplSubject
         if (! $this->tableExists('tiki_schema')) {
             // DB too old to handle auto update
 
-            if (file_exists(__DIR__ . '/../db/custom_upgrade.sql')) {
-                $this->runFile(__DIR__ . '/../db/custom_upgrade.sql');
+            if (file_exists(__DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/custom_upgrade.sql')) {
+                $this->runFile(__DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/custom_upgrade.sql');
             } else {
                 // If 1.9
                 if (! $this->tableExists('tiki_minichat')) {
-                    $this->runFile(__DIR__ . '/../db/tiki_1.9to2.0.sql');
+                    $this->runFile(__DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki_1.9to2.0.sql');
                 }
 
-                $this->runFile(__DIR__ . '/../db/tiki_2.0to3.0.sql');
+                $this->runFile(__DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki_2.0to3.0.sql');
             }
         }
 
@@ -121,8 +121,8 @@ class Installer extends TikiDb_Bridge implements SplSubject
 
         // If a Mysql data file exists, use that. Very fast
         //  If data file is missing or the batch loader is not available, use the single insert method
-        $secdb = __DIR__ . '/../db/tiki-secdb_' . $dbversion_tiki . '_mysql.sql';
-        $secdbData = __DIR__ . '/../db/tiki-secdb_' . $dbversion_tiki . '_mysql.data';
+        $secdb = __DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki-secdb_' . $dbversion_tiki . '_mysql.sql';
+        $secdbData = __DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki-secdb_' . $dbversion_tiki . '_mysql.data';
         if (file_exists($secdbData)) {
             // A MySQL datafile exists
             $truncateTable = true;
@@ -246,7 +246,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
     private function applyProfile($profileFile)
     {
         // By the time a profile install is requested, the installation should be functional enough to work
-        require_once 'tiki-setup.php';
+        require_once('tiki-setup.php');
         $directory = dirname($profileFile);
         $profile = substr(basename($profileFile), 0, -4);
 
@@ -451,7 +451,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
      */
     public function missingPatches()
     {
-        $patchDir = "installer/schema/";
+        $patchDir = TIKI_UPGRADE_SQL_SCHEMA_PATH . '/';
         $patches = Patch::getPatches([Patch::NOT_APPLIED]);
         $patchesFilesNames = [];
         foreach ($patches as $key => $patch) {
@@ -510,7 +510,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
             return;
         }
 
-        $cacheFile = __DIR__ . '/../temp/cache/sql' . md5($fetch);
+        $cacheFile = __DIR__ . '/../' . TEMP_CACHE_PATH . '/sql' . md5($fetch);
 
         if (is_readable($cacheFile)) {
             return $cacheFile;

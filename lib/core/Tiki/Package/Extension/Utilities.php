@@ -53,7 +53,7 @@ class Utilities extends TikiDb_Bridge
         $type = \Tiki_Profile_Installer::convertTypeInvert($type);
         $domain = $this->table('tiki_profile_symbols')->fetchOne('domain', ['value' => $id, 'type' => $type]);
 
-        preg_match('/^file://?(vendor|vendor_custom)/(.*)/profiles$/', $domain, $matches);
+        preg_match('/^file://?(' . TIKI_VENDOR_NONBUNDLED_PATH . '|' . TIKI_VENDOR_CUSTOM_PATH . ')/(.*)/profiles$/', $domain, $matches);
 
         return empty($matches[2]) ? '' : $matches[2];
     }

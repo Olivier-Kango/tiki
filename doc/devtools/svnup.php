@@ -37,13 +37,13 @@ if (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] === 'dbcheck') {
 }
 
 // if database is unavailable, just autoload. Yo cant call tiki-setup* after autoloading without causing errors.
-$error = shell_exec('php ' . escapeshellarg($tikiBase . '/doc/devtools/svnup.php') . ' dbcheck');
+$error = shell_exec('php ' . escapeshellarg($tikiBase . '/' . DEPRECATED_DEVTOOLS_PATH . '/svnup.php') . ' dbcheck');
 if ($error) {
     if (strpos($error, 'Tiki is not completely installed')) { // if tiki didn't install properly, there could be issues initializing autoload, so just die.
         die($error);
     }
-    echo shell_exec('php ' . escapeshellarg($tikiBase . '/doc/devtools/svnup.php') . ' dbcheck');
-    require_once $tikiBase . '/vendor_bundled/vendor/autoload.php';
+    echo shell_exec('php ' . escapeshellarg($tikiBase . '/' . DEPRECATED_DEVTOOLS_PATH . '/svnup.php') . ' dbcheck');
+    require_once $tikiBase . '/' . PRIMARY_AUTOLOAD_FILE_PATH;
 } else {
     require_once $tikiBase . '/tiki-setup_base.php';
 }

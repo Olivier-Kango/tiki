@@ -45,7 +45,7 @@ function wikiplugin_smarty($data, $params)
     } else {
         $path = 'lib/smarty_tiki/function.' . $params['name'] . '.php';
         if (! file_exists($path)) {
-            $path = 'vendor_bundled/vendor/smarty/smarty/libs/plugins/function.' . $params['name'] . '.php';
+            $path = TIKI_VENDOR_BUNDLED_PATH . '/smarty/smarty/libs/plugins/function.' . $params['name'] . '.php';
             if (! file_exists($path)) {
                 return tra('Incorrect parameter');
             }

@@ -41,7 +41,7 @@ error_reporting(ERROR_REPORTING_LEVEL);
 chdir(ROOT . '/');
 
 require_once ROOT . '/lib/setup/third_party.php';
-require_once ROOT . '/doc/devtools/vcscommons.php';
+require_once ROOT . '/' . DEPRECATED_DEVTOOLS_PATH . '/vcscommons.php';
 
 if (version_compare(PHP_VERSION, '5.0.0', '<')) {
     error("You need PHP version 5 or more to run this script\n");
@@ -279,7 +279,7 @@ function updateSecdb($version)
 
     // if we are not creating a release skip deleting old files.
     if (! $vcs) {
-        $files = glob(ROOT . '/db/tiki-secdb_*_mysql.sql');
+        $files = glob(ROOT . '/' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki-secdb_*_mysql.sql');
         foreach ($files as $file) {
             $file = escapeshellarg($file);
             delete_file($file);
@@ -291,7 +291,7 @@ function updateSecdb($version)
         $excludes = array_keys(files_differ(ROOT));
     }
 
-    $file = "/db/tiki-secdb_{$version}_mysql.sql";
+    $file = "/" . TIKI_BASE_SQL_SCHEMA_PATH . "/tiki-secdb_{$version}_mysql.sql";
 
     if (! $fp = @fopen(ROOT . $file, 'w')) {
         error('The SecDB file "' . ROOT . $file . '" is not writable or can\'t be created.');
@@ -355,8 +355,8 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
 {
     $d = dir($dir);
     $link = null;
-    if (is_file('db/virtuals.inc')) {
-        $virtuals = array_map('trim', file('db/virtuals.inc'));
+    if (is_file(CONFIG_PATH . '/virtuals.inc')) {
+        $virtuals = array_map('trim', file(CONFIG_PATH . '/virtuals.inc'));
     } else {
         $virtuals = [];
     }
@@ -368,7 +368,7 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
         }
         if (is_dir($entry)) {
             // do not descend and no CVS/Subversion files
-            if ($e != '..' && $e != '.' && $e != 'CVS' && $e != '.git' && $e != '.gitignore' && $e != '.svn' && $entry != ROOT . '/temp' && $entry != ROOT . '/vendor_custom' && $entry != ROOT . '/_custom') {
+            if ($e != '..' && $e != '.' && $e != 'CVS' && $e != '.git' && $e != '.gitignore' && $e != '.svn' && $entry != ROOT . '/' . TEMP_PATH && $entry != ROOT . '/' . TIKI_VENDOR_CUSTOM_PATH && $entry != ROOT . '/' . DEPRECATED_CUSTOM_PATH) {
                 build_secdb_queries($entry, $version, $queries, $excludes);
             }
         } else {
@@ -574,7 +574,7 @@ function build_packages($releaseVersion)
     }
 
 
-    if (! is_file($sourceDir . '/vendor_bundled/composer.json')) {
+    if (! is_file($sourceDir . '/' . PRIMARY_COMPOSERJSON_FILE_PATH)) {
         echo 'composer.json not found. Aborting.' . "\n";
         die();
     }
@@ -612,7 +612,7 @@ function build_packages($releaseVersion)
     unlink($composerInstaller);
 
     echo 'Installing dependencies through composer' . "\n";
-    $shellout = shell_exec('php ' . escapeshellarg($workDir . '/composer.phar') . ' install -d ' . escapeshellarg($sourceDir . '/vendor_bundled') . ' --prefer-dist --no-dev 2>&1');
+    $shellout = shell_exec('php ' . escapeshellarg($workDir . '/composer.phar') . ' install -d ' . escapeshellarg($sourceDir . '/' . TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH) . ' --prefer-dist --no-dev 2>&1');
     if ($options['debug-packaging']) {
         echo $shellout . "\n";
     }
@@ -632,22 +632,22 @@ function build_packages($releaseVersion)
     }
 
     echo "Removing development files\n";
-    $shellout = rrmdir($sourceDir . '/tests');
+    $shellout = rrmdir($sourceDir . '/' . TESTS_PATH);
     if ($shellout) {
         die($shellout . "\n");
     }
-
+    /** @deprecated Looks like an artefact of past tiki versions, can this be removed?  benoitg - 2023-12-22 */
     $shellout = rrmdir($sourceDir . '/db/convertscripts');
     if ($shellout) {
         die($shellout . "\n");
     }
 
-    $shellout = rrmdir($sourceDir . '/doc/devtools');
+    $shellout = rrmdir($sourceDir . '/' . DEPRECATED_DEVTOOLS_PATH);
     if ($shellout) {
         die($shellout . "\n");
     }
 
-    $shellout = rrmdir($sourceDir . '/bin');
+    $shellout = rrmdir($sourceDir . '/' . BIN_PATH);
     if ($shellout) {
         die($shellout . "\n");
     }
@@ -655,9 +655,9 @@ function build_packages($releaseVersion)
     removeFiles($sourceDir, ['.gitignore']);
 
     echo "Removing language file comments\n";
-    foreach (scandir($sourceDir . '/lang') as $strip) {
-        if (is_file($sourceDir . '/lang/' . $strip . '/language.php')) {
-            $shellout = shell_exec('php ' . escapeshellarg(__DIR__ . '/stripcomments.php') . ' ' . escapeshellarg($sourceDir . '/lang/' . $strip . '/language.php') . ' 2>&1');
+    foreach (scandir($sourceDir . '/' . LANG_PATH) as $strip) {
+        if (is_file($sourceDir . '/' . LANG_PATH . '/' . $strip . '/language.php')) {
+            $shellout = shell_exec('php ' . escapeshellarg(__DIR__ . '/stripcomments.php') . ' ' . escapeshellarg($sourceDir . '/' . LANG_PATH . '/' . $strip . '/language.php') . ' 2>&1');
         }
         if ($shellout) {
             die($shellout . "\n");
@@ -721,7 +721,7 @@ function get_files_list($dir, &$entries, $regexp_pattern)
         $entry = $dir . '/' . $e;
         if (is_dir($entry)) {
             // do not descend and no CVS/Subversion files
-            if ($e != '..' && $e != '.' && $e != 'CVS' && $e != '.git' && $e != '.gitignore' && $e != '.svn' && $entry != './temp/templates_c' && $entry != './vendor_bundled/vendor') {
+            if ($e != '..' && $e != '.' && $e != 'CVS' && $e != '.git' && $e != '.gitignore' && $e != '.svn' && $entry != './' . SMARTY_COMPILED_TEMPLATES_PATH && $entry != './' . TIKI_VENDOR_BUNDLED_PATH) {
                 if (! get_files_list($entry, $entries, $regexp_pattern)) {
                     return false;
                 }
@@ -786,7 +786,7 @@ function check_smarty_syntax(&$error_msg)
     $smarty = new Smarty_Tiki();
     set_error_handler('check_smarty_syntax_error_handler');
 
-    $templates_dir = TIKI_PATH . '/templates';
+    $templates_dir = TIKI_PATH . '/' . SMARTY_TEMPLATES_PATH;
 
     // tell TikiDb we don't need the database
     define('DB_TIKI_SETUP', 0);

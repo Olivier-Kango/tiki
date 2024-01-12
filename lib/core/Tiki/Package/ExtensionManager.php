@@ -16,7 +16,7 @@ use Tiki\Package\Extension\Api\Search as ApiSearch;
 
 class ExtensionManager
 {
-    public const ENABLED_PACKAGES_FILE = 'db/config/packages.yml';
+    public const ENABLED_PACKAGES_FILE = CONFIG_PATH . '/config/packages.yml';
 
     private static $enabled = [];
     private static $installed = []; // Hold config
@@ -26,8 +26,8 @@ class ExtensionManager
     protected static $messages = [];
 
     public static $availablePaths = [
-        'vendor',
-        'vendor_custom'
+        TIKI_VENDOR_NONBUNDLED_PATH,
+        TIKI_VENDOR_CUSTOM_PATH
     ];
 
     protected static ?PackageInformationCache $cache = null;
@@ -183,7 +183,7 @@ class ExtensionManager
             self::$enabled = $enabledPackages; // Update list of enabled packages
 
             // Force container refresh
-            @unlink(TIKI_PATH . '/temp/cache/container.php');
+            @unlink(TIKI_PATH . '/' . TEMP_CACHE_PATH . '/container.php');
 
             \TikiLib::lib('cache')->invalidate('global_preferences');
             \TikiLib::lib('cache')->invalidate('tiki_default_preferences_cache');
@@ -340,7 +340,7 @@ class ExtensionManager
      * @param string $searchFolder
      * @return bool|string
      */
-    protected static function locateVendorCustomPackage($packageName, $searchFolder = 'vendor_custom')
+    protected static function locateVendorCustomPackage($packageName, $searchFolder = TIKI_VENDOR_CUSTOM_PATH)
     {
         $directories = new DirectoryIterator($searchFolder);
         foreach ($directories as $directory) {

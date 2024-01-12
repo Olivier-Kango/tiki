@@ -596,7 +596,7 @@ class Smarty_Tiki extends Smarty
         //get the list of template directories
         $dirs = array_merge(
             $this->getTemplateDir(),
-            ['temp/cache'],
+            [TEMP_CACHE_PATH],
             $this->security_policy ? array_map('realpath', $this->security_policy->secure_dir) : []
         );
 
@@ -694,8 +694,8 @@ class Smarty_Tiki extends Smarty
 
         if (! $this->main_template_dir) {
             // First run only
-            $this->main_template_dir = TIKI_PATH . '/templates/';
-            $this->setCompileDir(TIKI_PATH . "/temp/templates_c");
+            $this->main_template_dir = TIKI_PATH . '/' . SMARTY_TEMPLATES_PATH . '/';
+            $this->setCompileDir(TIKI_PATH . '/' . SMARTY_COMPILED_TEMPLATES_PATH);
             $this->setPluginsDir(
                 [   // the directory order must be like this to overload a plugin
                     TIKI_PATH . '/' . TIKI_SMARTY_DIR,
@@ -752,7 +752,7 @@ class Smarty_Tiki extends Smarty
                 $this->addTemplatedir($this->main_template_dir . '/' . $tikidomainslash); // legacy tpls just in case, for example: /templates/mydomain.ltd/
             }
 
-            $this->addTemplateDir(TIKI_PATH . "/themes/templates/"); //This dir stores templates that override templates for any base theme if it has the name of the theme
+            $this->addTemplateDir(TIKI_PATH . "/" . THEMES_TEMPLATE_OVERRIDES_PATH . "/"); //This dir stores templates that override templates for any base theme if it has the name of the theme
 
             //Addon templates
             foreach (\Tiki\Package\ExtensionManager::getPaths() as $path) {

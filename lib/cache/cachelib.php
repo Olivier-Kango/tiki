@@ -105,14 +105,14 @@ class Cachelib
             $dir_names = [$dir_names];
         }
         if (in_array('all', $dir_names)) {
-            $this->erase_dir_content("temp/templates_c/$tikidomain");
-            $this->erase_dir_content("temp/public/$tikidomain");
-            $this->erase_dir_content("temp/cache/$tikidomain");
+            $this->erase_dir_content(SMARTY_COMPILED_TEMPLATES_PATH . "/$tikidomain");
+            $this->erase_dir_content(TEMP_PUBLIC_PATH . "/$tikidomain");
+            $this->erase_dir_content(TEMP_CACHE_PATH . "/$tikidomain");
 
-            $banner = glob("temp/banner*.*");
+            $banner = glob(TEMP_PATH . "/banner*.*");
             array_map('unlink', $banner);
 
-            $banner = glob("temp/TMPIMG*");
+            $banner = glob(TEMP_PATH . "/TMPIMG*");
             array_map('unlink', $banner);
 
             $this->flush_opcode_cache();
@@ -124,17 +124,17 @@ class Cachelib
             }
         }
         if (in_array('templates_c', $dir_names)) {
-            $this->erase_dir_content("temp/templates_c/$tikidomain");
+            $this->erase_dir_content(SMARTY_COMPILED_TEMPLATES_PATH . "/$tikidomain");
             $this->flush_opcode_cache();
             if (! $inInstaller) {
                 $logslib->add_log($log_section, 'erased templates_c content');
             }
         }
         if (in_array('temp_cache', $dir_names)) {
-            $this->erase_dir_content("temp/cache/$tikidomain");
+            $this->erase_dir_content(TEMP_CACHE_PATH . "/$tikidomain");
             // Next case is needed to clean also cached data created through mod PluginR
             if ((isset($prefs['wikiplugin_rr']) && $prefs['wikiplugin_rr'] == 'y') or (isset($prefs['wikiplugin_r']) && $prefs['wikiplugin_r'] == 'y')) {
-                $this->erase_dir_content("temp/cache/$tikidomain/R_*/");
+                $this->erase_dir_content(TEMP_CACHE_PATH . "/$tikidomain/R_*/");
             }
             $this->flush_redis();
             if (! $inInstaller) {
@@ -142,9 +142,9 @@ class Cachelib
             }
         }
         if (in_array('temp_public', $dir_names)) {
-            $this->erase_dir_content("temp/public/$tikidomain");
+            $this->erase_dir_content(TEMP_PUBLIC_PATH . "/$tikidomain");
             if (! $inInstaller) {
-                $logslib->add_log($log_section, 'erased temp/public content');
+                $logslib->add_log($log_section, 'erased ' . TEMP_PUBLIC_PATH . ' content');
             }
         }
         if (in_array('prefs', $dir_names)) {
@@ -171,8 +171,8 @@ class Cachelib
         $all = opendir($path);
 
         // If using multiple Tikis but flushing cache on default install...
-        if (empty($tikidomain) && is_file('db/virtuals.inc')) {
-            $virtuals = array_map('trim', file('db/virtuals.inc'));
+        if (empty($tikidomain) && is_file(CONFIG_PATH . '/virtuals.inc')) {
+            $virtuals = array_map('trim', file(CONFIG_PATH . '/virtuals.inc'));
         } else {
             $virtuals = false;
         }
@@ -263,8 +263,8 @@ class Cachelib
         }
         if ($dir = opendir($path)) {
             // If using multiple Tikis but flushing cache on default install...
-            if (empty($tikidomain) && is_file('db/virtuals.inc')) {
-                $virtuals = array_map('trim', file('db/virtuals.inc'));
+            if (empty($tikidomain) && is_file(CONFIG_PATH . '/virtuals.inc')) {
+                $virtuals = array_map('trim', file(CONFIG_PATH . '/virtuals.inc'));
             } else {
                 $virtuals = false;
             }
@@ -538,7 +538,7 @@ class CacheLibFileSystem
     public function __construct()
     {
         global $tikidomain;
-        $this->folder = realpath("temp/cache");
+        $this->folder = realpath(TEMP_CACHE_PATH);
         if ($tikidomain) {
             $this->folder .= "/$tikidomain";
         }

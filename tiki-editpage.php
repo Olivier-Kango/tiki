@@ -581,7 +581,7 @@ if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_na
 
 $smarty->assign('category_needed', $category_needed);
 $smarty->assign('contribution_needed', $contribution_needed);
-$wiki_up = "img/wiki_up";
+$wiki_up = DEPRECATED_IMG_WIKI_UP_PATH;
 if ($tikidomain) {
     $wiki_up .= "/$tikidomain";
 }

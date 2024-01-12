@@ -59,9 +59,9 @@ class elFinderVolumeTikiFiles extends elFinderVolumeDriver
         $this->filesTable = TikiDb::get()->table('tiki_files');
 
         $opts = [
-            'tmbPath'       => 'temp/public/' . $tikidomainslash,
-            'tmpPath'       => 'temp/' . $tikidomainslash,
-            'tmbURL'        => 'temp/public/' . $tikidomainslash,
+            'tmbPath'       => TEMP_PUBLIC_PATH . '/' . $tikidomainslash,
+            'tmpPath'       => TEMP_PATH . '/' . $tikidomainslash,
+            'tmbURL'        => TEMP_PUBLIC_PATH . '/' . $tikidomainslash,
             //'tmbSize'     => $prefs['fgal_thumb_max_size'],
         ];
         $this->options = array_merge($this->options, $opts);
@@ -1112,7 +1112,7 @@ class elFinderVolumeTikiFiles extends elFinderVolumeDriver
             }
             // write out to a temp file as process_batch_file_upload deletes the filepath file
             $filepath = $this->tmpname($path);
-            $filepath = str_replace('temp/', 'temp/cache/', $filepath); // this one has to be in a different place otherwise unzip fails
+            $filepath = str_replace(TEMP_PATH . '/', TEMP_CACHE_PATH . '/', $filepath); // this one has to be in a different place otherwise unzip fails
             $fp = $this->tmbPath
                 ? @fopen($filepath, 'w+')
                 : @tmpfile();

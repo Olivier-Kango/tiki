@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace TikiDevTools;
 
+require_once __DIR__ . '/../../path_constants.php';
 use DateTime;
 
 /*
@@ -66,7 +67,7 @@ class CheckSchemaNamingConvention
      */
     protected function getPath()
     {
-        $schemaFolderPath = '../../installer/schema';
+        $schemaFolderPath = '../../' . TIKI_UPGRADE_SQL_SCHEMA_PATH;
         $options = $this->getOpts();
         if (! empty($options['p'])) {
             $schemaFolderPath = $options['p'];

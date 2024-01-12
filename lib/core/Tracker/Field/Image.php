@@ -286,9 +286,9 @@ class Tracker_Field_Image extends Tracker_Field_File
         do {
             $name = md5(uniqid("$name.$itemId.$fieldId"));
             $name .= '.' . $ext;
-        } while (file_exists("img/trackers/$name"));
+        } while (file_exists(TRACKER_FIELD_IMAGE_STORAGE_PATH . "/$name"));
 
-        return "img/trackers/$name";
+        return TRACKER_FIELD_IMAGE_STORAGE_PATH . "/$name";
     }
 
     public function isImageType($mimeType)

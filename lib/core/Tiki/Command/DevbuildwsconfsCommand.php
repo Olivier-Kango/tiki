@@ -79,14 +79,14 @@ class DevbuildwsconfsCommand extends Command
 
             $excludeDir = [
             TEMP_PATH, //This needs to be changed once we are sure everything that needs to be served has been moved to TEMP_HTTP_PUBLIC_PATH
-            USER_CUSTOM_PATH,
+            DEPRECATED_CUSTOM_PATH,
             //These are only here because we still include some js and css assets from composer packages
-            TIKI_VENDOR_PATH,
-            TIKI_VENDOR_BUNDLED_PATH,
+            TIKI_VENDOR_NONBUNDLED_PATH,
+            TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH,
             TIKI_VENDOR_CUSTOM_PATH
             ];
             $excludeDirAnywhere = [
-            NODE_MODULES_PATHNAME
+            'node_modules'
             ];
             //'.' // Directories that are hidden (Ex: .composer)
 

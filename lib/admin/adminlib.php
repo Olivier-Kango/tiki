@@ -227,7 +227,7 @@ class AdminLib extends TikiLib
         }
         $pictures = array_unique($pictures);
 
-        $path = "img/wiki_up";
+        $path = DEPRECATED_IMG_WIKI_UP_PATH;
         if ($tikidomain) {
             $path .= "/$tikidomain";
         }
@@ -383,7 +383,7 @@ class AdminLib extends TikiLib
         global $tikidomain, $prefs;
         $parserlib = TikiLib::lib('parser');
 
-        $dumpPath = "storage";
+        $dumpPath = EXPORT_DUMP_PATH;
         if ($tikidomain) {
             $dumpPath .= "/$tikidomain";
         }
@@ -573,7 +573,7 @@ class AdminLib extends TikiLib
         global $system_configuration_file;
         $show_warning = false;
 
-        $db_file = 'db/local.php';
+        $db_file = TIKI_CONFIG_FILE_PATH;
         if (file_exists($db_file)) {
             include($db_file);
 

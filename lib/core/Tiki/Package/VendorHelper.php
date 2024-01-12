@@ -21,8 +21,8 @@ class VendorHelper
      * Available vendor paths to check
      */
     public const AVAILABLE_VENDOR_PATHS = [
-        'vendor_custom' => 'vendor_custom/tiki-pkg-' . self::REPLACEABLE_PACKAGE_NAME_KEYWORD . '/',
-        'vendor'        => 'vendor/'
+        'vendor_custom' => TIKI_VENDOR_CUSTOM_PATH . '/tiki-pkg-' . self::REPLACEABLE_PACKAGE_NAME_KEYWORD . '/',
+        'vendor'        => TIKI_VENDOR_NONBUNDLED_PATH . '/'
     ];
 
     /**

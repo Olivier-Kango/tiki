@@ -75,7 +75,7 @@ function wikiplugin_totp($data, $params)
     }
     $headerlib = TikiLib::lib('header');
     $headerlib->add_jsfile(
-        'vendor_bundled/vendor/npm-asset/zxing--library/umd/index.min.js'
+        ZXING_DIST_PATH . '/umd/index.min.js'
     );
     $headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-totp.js', true);
 

@@ -404,7 +404,7 @@ class Tiki_Webservice_Template
     public function getTemplateFile()
     {
         $token = sprintf("%s_%s", $this->webservice->getName(), $this->name);
-        $file = "temp/cache/" . md5($token) . '.tpl';
+        $file = TEMP_CACHE_PATH . "/" . md5($token) . '.tpl';
 
         if (! file_exists($file) || $this->lastModif > filemtime($file)) {
             file_put_contents($file, $this->content);

@@ -16,7 +16,7 @@ class ConverseJS
                 'show_occupants_by_default' => true,
                 'use_emojione' => false,
                 'view_mode' => 'overlayed',
-                'assets_path'   => 'vendor_bundled/vendor/npm-asset/converse.js/dist/',
+                'assets_path'   => CONVERSEJS_DIST_PATH . '/',
                 'whitelisted_plugins' => ['tiki', 'tiki-oauth'],
             ],
             $options
@@ -156,7 +156,7 @@ class ConverseJS
     public function get_css_dependencies()
     {
         $deps = [
-            'vendor_bundled/vendor/npm-asset/converse.js/dist/converse.min.css',
+            CONVERSEJS_DIST_PATH . '/converse.min.css',
             'lib/xmpp/css/conversejs.css',
         ];
         return array_map([$this, 'append_mtime'], $deps);
@@ -165,7 +165,7 @@ class ConverseJS
     public function get_js_dependencies()
     {
         $deps = [
-            'vendor_bundled/vendor/npm-asset/converse.js/dist/converse.js',
+            CONVERSEJS_DIST_PATH . '/converse.js',
             'lib/xmpp/js/conversejs-tiki.js',
             'lib/xmpp/js/conversejs-tiki-oauth.js',
         ];

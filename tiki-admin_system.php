@@ -42,8 +42,8 @@ if (isset($_GET['do'])) {
         TikiLib::lib('prefs')->rebuildIndex();
 
         // also rebuild plugin prefdoc current version
-        if (file_exists('storage/prefsdoc/state.json')) {
-            unlink('storage/prefsdoc/state.json');
+        if (file_exists(STORAGE_PREFSDOC_PATH . '/state.json')) {
+            unlink(STORAGE_PREFSDOC_PATH . '/state.json');
         }
 
         // seems combination of clearing prefs and public now messes up the page, so reload
@@ -58,7 +58,7 @@ if (isset($_GET['do'])) {
     }
 }
 if (isset($_GET['compiletemplates'])) {
-    $ctempl = 'templates';
+    $ctempl = SMARTY_TEMPLATES_PATH;
     $cachelib->cache_templates($ctempl, $_GET['compiletemplates']);
     if ($tikidomain) {
         $ctempl .= "/$tikidomain";
@@ -73,18 +73,18 @@ $smarty->assign('lostGroups', $userlib->get_lost_groups());
 $languages = [];
 $langLib = TikiLib::lib('language');
 $languages = $langLib->list_languages();
-$templates_c = $cachelib->count_cache_files("temp/templates_c/$tikidomain");
+$templates_c = $cachelib->count_cache_files(SMARTY_COMPILED_TEMPLATES_PATH . '/' . $tikidomain);
 $smarty->assign('templates_c', $templates_c);
-$tempcache = $cachelib->count_cache_files("temp/cache/$tikidomain");
+$tempcache = $cachelib->count_cache_files(TEMP_CACHE_PATH . '/' . $tikidomain);
 $smarty->assign('tempcache', $tempcache);
-$temppublic = $cachelib->count_cache_files("temp/public/$tikidomain");
+$temppublic = $cachelib->count_cache_files(TEMP_PUBLIC_PATH . '/' . $tikidomain);
 $smarty->assign('temppublic', $temppublic);
 $templates = [];
 foreach ($languages as $clang) {
     if ($smarty->use_sub_dirs) { // was if (is_dir("templates_c/$tikidomain/")) ppl with tikidomains should test. redflo
-        $templates[$clang["value"]] = $cachelib->count_cache_files("temp/templates_c/$tikidomain/" . $clang["value"] . "/");
+        $templates[$clang["value"]] = $cachelib->count_cache_files(SMARTY_COMPILED_TEMPLATES_PATH . '/' . $tikidomain . '/' . $clang["value"] . '/');
     } else {
-        $templates[$clang["value"]] = $cachelib->count_cache_files("temp/templates_c/", $tikidomain . $clang["value"]);
+        $templates[$clang["value"]] = $cachelib->count_cache_files(SMARTY_COMPILED_TEMPLATES_PATH . '/', $tikidomain . $clang["value"]);
     }
 }
 $smarty->assign_by_ref('templates', $templates);
@@ -101,17 +101,17 @@ if ($prefs['feature_trackers'] == 'y') {
     if (! empty($prefs['t_use_dir'])) {
         $dirs[] = $prefs['t_use_dir'];
     }
-    $dirs[] = 'img/trackers';
+    $dirs[] = TRACKER_FIELD_IMAGE_STORAGE_PATH;
 }
 if ($prefs['feature_wiki'] == 'y') {
     if (! empty($prefs['w_use_dir'])) {
         $dirs[] = $prefs['w_use_dir'];
     }
     if ($prefs['feature_create_webhelp'] == 'y') {
-        $dirs[] = 'whelp';
+        $dirs[] = WHELP_PATH;
     }
-    $dirs[] = 'img/wiki';
-    $dirs[] = 'img/wiki_up';
+    $dirs[] = DEPRECATED_IMG_WIKI_PATH;
+    $dirs[] = DEPRECATED_IMG_WIKI_UP_PATH;
 }
 $dirs = array_unique($dirs);
 $dirsExist = [];

@@ -21,9 +21,8 @@ use ZipArchive;
  */
 class ThemeInstaller
 {
-    public const TEMPORARY_FOLDER_NAME = 'temp/';
-    public const CONFIG_FOLDER_NAME = 'db/';
-    public const SCHEMA_FOLDER_NAME = 'installer/schema/';
+    public const CONFIG_FOLDER_NAME = CONFIG_PATH . '/';
+    public const SCHEMA_FOLDER_NAME = TIKI_UPGRADE_SQL_SCHEMA_PATH . '/';
 
     protected $fileName = '';
 
@@ -65,7 +64,7 @@ class ThemeInstaller
             $fileName = $info->getPathname();
             $fileInfo = pathinfo($fileName);
             $fileExtension = ! empty($fileInfo['extension']) ? $fileInfo['extension'] : '';
-            if ($fileExtension == 'sql' && strpos($fileInfo['dirname'], 'installer/schema') !== false) {
+            if ($fileExtension == 'sql' && strpos($fileInfo['dirname'], TIKI_UPGRADE_SQL_SCHEMA_PATH) !== false) {
                 $this->schemas[] = $fileInfo['basename'];
             }
             if ($fileExtension == 'yaml' && strpos($fileInfo['dirname'], '/profiles') !== false) {

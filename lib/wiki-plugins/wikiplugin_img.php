@@ -787,7 +787,7 @@ function wikiplugin_img($data, $params)
         global $base_host, $url_path;
         $src = $base_host . ( $imgdata['src'][0] == '/' ? '' : $url_path ) . $imgdata['src'];
     } elseif (! empty($imgdata['src']) && $tikidomain && ! preg_match('|^https?:|', $imgdata['src'])) {
-        $src = preg_replace("~img/wiki_up/~", "img/wiki_up/$tikidomain/", $imgdata['src']);
+        $src = preg_replace("~" . DEPRECATED_IMG_WIKI_UP_PATH . " /~", DEPRECATED_IMG_WIKI_UP_PATH . "/$tikidomain/", $imgdata['src']);
     } elseif (! empty($imgdata['src'])) {
         $src = $imgdata['src'];
     }

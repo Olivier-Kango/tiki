@@ -180,7 +180,7 @@ class TikiFilter
             case 'html':
                 // Test Return " :/g.,:|4hΔ δ_🍘コン onclick<b></b>"
                 // Strips non-valid HTML and potentially malicious HTML
-                return new TikiFilter_HtmlPurifier('temp/cache');
+                return new TikiFilter_HtmlPurifier(TEMP_CACHE_PATH);
             case 'xss':
                 // Test Return " :/g.,:|4h&#Δ δ_🍘コン on<x>click<b><sc<x>ript> "
                 // Leave everything except for potentially malicious HTML

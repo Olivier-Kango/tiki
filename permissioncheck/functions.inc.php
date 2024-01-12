@@ -125,7 +125,7 @@ function get_page_url_clean($filename)
     $page_basename .= '://';
     $page_basename .= $_SERVER["SERVER_NAME"];
     $tmp_path = dirname($_SERVER['PHP_SELF']);
-    $perm_check_subdir = 'permissioncheck';
+    $perm_check_subdir = PERMISSIONCHECK_PATH;
 //  $tiki_path = str_replace("/$perm_check_subdir",'/',$tmp_path);
     // previous one does not work in cases where 'permissioncheck' is already
     // subdir in path to Tiki, e.g. /foo/permissioncheck/tiki/

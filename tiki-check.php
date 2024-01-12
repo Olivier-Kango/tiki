@@ -2854,7 +2854,7 @@ if (! $standalone) {
         if (! empty($prefs['t_use_dir'])) {
             $dirs[] = $prefs['t_use_dir'];
         }
-        $dirs[] = IMG_TRACKERS_PATH;
+        $dirs[] = TRACKER_FIELD_IMAGE_STORAGE_PATH;
     }
     if ($prefs['feature_wiki'] == 'y') {
         if (! empty($prefs['w_use_dir'])) {
@@ -2863,8 +2863,8 @@ if (! $standalone) {
         if ($prefs['feature_create_webhelp'] == 'y') {
             $dirs[] = WHELP_PATH;
         }
-        $dirs[] = IMG_WIKI_PATH;
-        $dirs[] = IMG_WIKI_UP_PATH;
+        $dirs[] = DEPRECATED_IMG_WIKI_PATH;
+        $dirs[] = DEPRECATED_IMG_WIKI_UP_PATH;
     }
     $dirs = array_unique($dirs);
     $dirsExist = array();

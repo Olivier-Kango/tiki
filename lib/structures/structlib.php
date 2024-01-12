@@ -35,7 +35,7 @@ class StructLib extends TikiLib
             $data = $exportlib->export_wiki_page($page['pageName'], 0);
             $tar->addData($page['pageName'], $data, $this->now);
         }
-        $dump = 'dump';
+        $dump = EXPORT_DUMP_PATH;
         if ($tikidomain) {
             $dump .= "/$tikidomain";
         }
@@ -1220,7 +1220,7 @@ class StructLib extends TikiLib
         while ($res = $result->fetchRow()) {
             global $user;
             if ($this->user_has_perm_on_object($user, $res['pageName'], 'wiki page', 'tiki_p_view')) {
-                if (file_exists('whelp/' . $res['pageName'] . '/index.html')) {
+                if (file_exists(WHELP_PATH . '/' . $res['pageName'] . '/index.html')) {
                     $res['webhelp'] = 'y';
                 } else {
                     $res['webhelp'] = 'n';
@@ -1278,7 +1278,7 @@ class StructLib extends TikiLib
         //Now we have the tree in $tree!
         $menucode = "foldersTree = gFld(\"Contents\", \"content.html\")\n";
         $menucode .= $this->traverse($tree);
-        $base = "whelp/$dir";
+        $base = WHELP_PATH . "/$dir";
         copy("$base/menu/options.cfg", "$base/menu/menuNodes.js");
         $fw = fopen("$base/menu/menuNodes.js", 'a+');
         fwrite($fw, $menucode);

@@ -84,10 +84,10 @@ function create_dirs($domain = '')
 {
     global $tikipath;
     $dirs = [
-        DB_PATH,
-        IMG_WIKI_PATH,
-        IMG_WIKI_UP_PATH,
-        IMG_TRACKERS_PATH,
+        CONFIG_PATH,
+        DEPRECATED_IMG_WIKI_PATH,
+        DEPRECATED_IMG_WIKI_UP_PATH,
+        TRACKER_FIELD_IMAGE_STORAGE_PATH,
         TEMP_PATH,
         TEMP_CACHE_PATH,
         SMARTY_COMPILED_TEMPLATES_PATH,

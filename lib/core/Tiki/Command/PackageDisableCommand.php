@@ -42,8 +42,8 @@ class PackageDisableCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $availablePaths = [
-            'vendor',
-            'vendor_custom'
+            TIKI_VENDOR_NONBUNDLED_PATH,
+            TIKI_VENDOR_CUSTOM_PATH
         ];
 
         $packageName = $input->getArgument('package');

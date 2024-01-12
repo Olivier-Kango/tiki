@@ -219,8 +219,8 @@ EOD;
     {
         // there are some cached templates that will stop tiki to work after the migration
         $loopDirs = array_merge(
-            [$rootFolder . '/temp/templates_c'],
-            glob($rootFolder . '/temp/templates_c/*', GLOB_ONLYDIR)
+            [$rootFolder . '/' . SMARTY_COMPILED_TEMPLATES_PATH],
+            glob($rootFolder . '/' . SMARTY_COMPILED_TEMPLATES_PATH . '/*', GLOB_ONLYDIR)
         );
         foreach ($loopDirs as $dir) {
             $cachedTemplates = glob($dir . '/*.tpl.php');

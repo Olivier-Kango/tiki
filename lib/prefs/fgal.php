@@ -150,7 +150,7 @@ When the limit is reached, no more files can be uploaded. The user will see an e
             'type' => 'text',
             'size' => 50,
             'perspective' => false,
-            'default' => 'storage/fgal/',
+            'default' => FILE_GALLERY_DEFAULT_STORAGE_PATH . '/',
             'tags' => ['basic'],
         ],
         'fgal_preserve_filenames' => [

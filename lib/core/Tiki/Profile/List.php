@@ -177,7 +177,7 @@ class Tiki_Profile_List
     private function getCacheLocation($path)
     {
         $hash = md5($path);
-        return "temp/cache/profile$hash";
+        return TEMP_CACHE_PATH . "/profile$hash";
     }
 
     private function getCacheLastUpdate($path)

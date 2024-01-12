@@ -38,7 +38,9 @@ if (! file_exists(__DIR__ . '/../../vendor_bundled/vendor/autoload.php')) {
 require_once __DIR__ . '/../../vendor_bundled/vendor/autoload.php'; // vendor libs bundled into tiki
 
 // vendor libs managed by the user using composer (if any)
-if (file_exists(__DIR__ . '/../../vendor/autoload.php')) {
+$legacyVendorPath = __DIR__ . '/../../' . TIKI_VENDOR_NONBUNDLED_PATH;
+$legacyVendorAutoloaderPath = $legacyVendorPath . '/autoload.php';
+if (file_exists($legacyVendorAutoloaderPath)) {
     // In some cases, the vendor folder may contain the files from the old vendor folder before migrating to
     // vendor_bundled. In these cases eg. when unzipping a Tiki => 17.x on top of an existing Tiki <= 16.x instance,
     // loading the autoload from the vendor folder will cause issues.
@@ -46,19 +48,19 @@ if (file_exists(__DIR__ . '/../../vendor/autoload.php')) {
     // vendor folder we will consider that there is a old vendor folder, and skip loading the autoload.php unless
     // there is a file called do_not_clean.txt inside the vendor folder (we will only check the file exists)
     if (
-        file_exists(__DIR__ . '/../../vendor/do_not_clean.txt')
+        file_exists($legacyVendorPath . '/do_not_clean.txt')
         || ! ( // check the existence of critical files denoting a legacy vendor folder
-            (file_exists(__DIR__ . '/../../vendor/zendframework/zend-config/src/Config.php') //ZF2
-                || file_exists(__DIR__ . '/../../vendor/bombayworks/zendframework1/library/Zend/Config.php')) //ZF1
-            && (file_exists(__DIR__ . '/../../vendor/smarty/smarty/libs/Smarty.class.php') //Smarty
-                || file_exists(__DIR__ . '/../../vendor/smarty/smarty/distribution/libs/Smarty.class.php')) //Smarty
-            && file_exists(__DIR__ . '/../../vendor/adodb/adodb/adodb.inc.php') //Adodb
+            (file_exists($legacyVendorPath . '/zendframework/zend-config/src/Config.php') //ZF2
+                || file_exists($legacyVendorPath . '/bombayworks/zendframework1/library/Zend/Config.php')) //ZF1
+            && (file_exists($legacyVendorPath . '/smarty/smarty/libs/Smarty.class.php') //Smarty
+                || file_exists($legacyVendorPath . '/smarty/smarty/distribution/libs/Smarty.class.php')) //Smarty
+            && file_exists($legacyVendorPath . '/adodb/adodb/adodb.inc.php') //Adodb
         )
     ) {
-        $autoloader = require_once __DIR__ . '/../../vendor/autoload.php';
+        $autoloader = require_once($legacyVendorAutoloaderPath);
         // Autoload extension packages libs
         foreach (\Tiki\Package\ExtensionManager::getEnabledPackageExtensions(false) as $package) {
-            if (is_dir($package['path'] . '/lib/') && strpos($package['path'], 'vendor_custom') === false) {
+            if (is_dir($package['path'] . '/lib/') && strpos($package['path'], TIKI_VENDOR_CUSTOM_PATH) === false) {
                 $autoloader->addPsr4(str_replace('/', '\\', $package['name']) . '\\', $package['path'] . '/lib/');
             }
         }
@@ -66,8 +68,8 @@ if (file_exists(__DIR__ . '/../../vendor/autoload.php')) {
 }
 
 // vendor libraries managed by the user, packaged (if any)
-if (is_dir(__DIR__ . '/../../vendor_custom')) {
-    foreach (new DirectoryIterator(__DIR__ . '/../../vendor_custom') as $fileInfo) {
+if (is_dir(__DIR__ . '/../../' . TIKI_VENDOR_CUSTOM_PATH)) {
+    foreach (new DirectoryIterator(__DIR__ . '/../../' . TIKI_VENDOR_CUSTOM_PATH) as $fileInfo) {
         if (! $fileInfo->isDir() || $fileInfo->isDot()) {
             continue;
         }

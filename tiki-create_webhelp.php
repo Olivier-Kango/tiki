@@ -80,24 +80,24 @@ if (isset($_REQUEST['create'])) {
     $output .= tra('TikiHelp WebHelp generation engine. Generating WebHelp using:');
     $output .= '<ul><li>' . tr("Index: <strong>%0</strong>", $name) . '</li>';
     $output .= '<li>' . tr("Directory: <strong>%0</strong>", $dir) . '</li></ul>';
-    $base = "whelp/$dir";
+    $base = WHELP_PATH . "/$dir";
 
-    if (! is_dir("whelp")) {
-        if (! mkdir("whelp")) {
+    if (! is_dir(WHELP_PATH)) {
+        if (! mkdir(WHELP_PATH)) {
             $smarty->assign('msg', tra("Unable to create directory Run <code>sh setup.sh</code> from the command line to fix."));
             $smarty->display('error.tpl');
             die;
         }
     }
-    if (! is_writeable('whelp')) {
+    if (! is_writeable(WHELP_PATH)) {
         $smarty->assign('msg', tra("You need to change chmod 'whelp' manually to 777"));
         $smarty->display('error.tpl');
         die;
     }
 
-    if (! is_dir("whelp/$dir")) {
+    if (! is_dir(WHELP_PATH . "/$dir")) {
         $output .= '<p>' . tr("Creating directory structure in <strong>%0</strong>.", $base) . '</p>';
-        mkdir("whelp/$dir");
+        mkdir(WHELP_PATH . "/$dir");
         mkdir("$base/js");
         mkdir("$base/css");
         mkdir("$base/icons");
@@ -115,7 +115,7 @@ if (isset($_REQUEST['create'])) {
     deldirfiles("$base/pages/img/wiki_up");
     // Copy base files to the webhelp directory
     copys('lib/tikihelp', "$base/");
-    copys('img/tikihelp', "$base/icons");
+    copys(IMG_TIKIHELP_PATH, "$base/icons");
 
     $structlib->structure_to_webhelp($struct, $dir, $top);
     $smarty->assign('generated', 'y');

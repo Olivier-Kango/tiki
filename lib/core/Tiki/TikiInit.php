@@ -46,7 +46,7 @@ class TikiInit
         $TWV = new TWVersion();
         $version = $TWV->getVersion();
 
-        $cache = TIKI_PATH . '/temp/cache/container.php';
+        $cache = TIKI_PATH . '/' . TEMP_CACHE_PATH . '/container.php';
         if (is_readable($cache)) {
             require_once $cache;
 
@@ -74,7 +74,7 @@ class TikiInit
             }
         }
 
-        $path = TIKI_PATH . '/db/config';
+        $path = TIKI_PATH . '/' . CONFIG_PATH . '/config';
         $container = new ContainerBuilder();
         $container->addCompilerPass(new \Tiki\MailIn\Provider\CompilerPass());
         $container->addCompilerPass(new \Tiki\Recommendation\Engine\CompilerPass());
@@ -362,27 +362,27 @@ class TikiInit
         */
 
         if (! isset($local_php) or ! is_file($local_php)) {
-            $local_php = 'db/local.php';
+            $local_php = TIKI_CONFIG_FILE_PATH;
         } else {
             $local_php = preg_replace(['/\.\./', '/^db\//'], ['', ''], $local_php);
         }
         $tikidomain = '';
-        if (is_file('db/virtuals.inc')) {
-            if (isset($_SERVER['TIKI_VIRTUAL']) and is_file('db/' . $_SERVER['TIKI_VIRTUAL'] . '/local.php')) {
+        if (is_file(CONFIG_PATH . '/virtuals.inc')) {
+            if (isset($_SERVER['TIKI_VIRTUAL']) and is_file(CONFIG_PATH . '/' . $_SERVER['TIKI_VIRTUAL'] . '/local.php')) {
                 $tikidomain = $_SERVER['TIKI_VIRTUAL'];
-            } elseif (isset($_SERVER['SERVER_NAME']) and is_file('db/' . $_SERVER['SERVER_NAME'] . '/local.php')) {
+            } elseif (isset($_SERVER['SERVER_NAME']) and is_file(CONFIG_PATH . '/' . $_SERVER['SERVER_NAME'] . '/local.php')) {
                 $tikidomain = $_SERVER['SERVER_NAME'];
-            } elseif (isset($_REQUEST['multi']) && is_file('db/' . $_REQUEST['multi'] . '/local.php')) {
+            } elseif (isset($_REQUEST['multi']) && is_file(CONFIG_PATH . '/' . $_REQUEST['multi'] . '/local.php')) {
                 $tikidomain = $_REQUEST['multi'];
             } elseif (isset($_SERVER['HTTP_HOST'])) {
-                if (is_file('db/' . $_SERVER['HTTP_HOST'] . '/local.php')) {
+                if (is_file(CONFIG_PATH . '/' . $_SERVER['HTTP_HOST'] . '/local.php')) {
                     $tikidomain = $_SERVER['HTTP_HOST'];
-                } elseif (is_file('db/' . preg_replace('/^www\./', '', $_SERVER['HTTP_HOST']) . '/local.php')) {
+                } elseif (is_file(CONFIG_PATH . '/' . preg_replace('/^www\./', '', $_SERVER['HTTP_HOST']) . '/local.php')) {
                     $tikidomain = preg_replace('/^www\./', '', $_SERVER['HTTP_HOST']);
                 }
             }
             if (! empty($tikidomain)) {
-                $local_php = "db/$tikidomain/local.php";
+                $local_php = CONFIG_PATH . "/$tikidomain/local.php";
             }
         }
         $tikidomainslash = (! empty($tikidomain) ? $tikidomain . '/' : '');

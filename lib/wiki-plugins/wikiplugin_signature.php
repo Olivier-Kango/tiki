@@ -88,11 +88,11 @@ function wikiplugin_signature($data, $params)
 
     $headerlib = TikiLib::lib('header');
     $headerlib->add_jsfile(
-        'vendor_bundled/vendor/npm-asset/signature_pad/dist/signature_pad.min.js'
+        SIGNATURE_PAD_DIST_PATH . '/signature_pad.min.js'
     );
     $headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-signature.js', true);
     $headerlib->add_cssfile(
-        'themes/base_files/feature_css/wikiplugin-signature.css'
+        THEMES_BASE_FILES_FEATURE_CSS_PATH . '/wikiplugin-signature.css'
     );
 
     $defaults = [

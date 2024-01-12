@@ -98,12 +98,16 @@ class GetStringsCommand extends Command
         $options = [];
         $options['lang'] = $input->getOption('lang') ?: null;
         $options['outputFiles'] = $input->getOption('outputfiles') ?: null;
-        $excludeDirs = ['_custom', 'dump', 'img', 'lang', 'bin', 'installer/schema', 'vendor_bundled', 'vendor', 'vendor_custom',
-                        'lib/test', 'temp', 'permissioncheck', 'storage', 'tiki_tests', 'doc', 'db', 'lib/openlayers', 'tests'];
+        $excludeDirs = [
+            DEPRECATED_CUSTOM_PATH, EXPORT_DUMP_PATH, STATIC_IMG_PATH, LANG_PATH, BIN_PATH,
+            TIKI_UPGRADE_SQL_SCHEMA_PATH, TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH, TIKI_VENDOR_NONBUNDLED_PATH,
+            TIKI_VENDOR_CUSTOM_PATH, 'lib/test', TEMP_PATH, PERMISSIONCHECK_PATH,
+            DEPRECATED_STORAGE_PATH, TIKI_TESTS_PATH, DEPRECATED_DEVTOOLS_PATH, CONFIG_PATH, 'lib/openlayers', TESTS_PATH
+        ];
         $excludeDirs = array_filter($excludeDirs, 'is_dir'); // only keep in the exclude list if the dir exists
 
         // Files are processed after the base directory, so adding a file here allows to scan it even if its directory was excluded.
-        $includeFiles = ['./lang/langmapping.php', './img/flags/flagnames.php'];
+        $includeFiles = ['./' . LANG_PATH . '/langmapping.php', './' . IMG_FLAGNAMES_FILE];
 
         if ($input->getOption('basedir')) {
             $options['baseDir'] = $input->getOption('basedir');

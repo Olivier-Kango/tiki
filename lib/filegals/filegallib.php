@@ -904,7 +904,7 @@ class FileGalLib extends TikiLib
                 };
             case 'application/pdf':
                 return function (FileWrapper $wrapper) {
-                    include_once "vendor_bundled/vendor/christian-vigh-phpclasses/PdfToText/PdfToText.phpclass";
+                    include_once TIKI_VENDOR_NONBUNDLED_PATH . "/christian-vigh-phpclasses/PdfToText/PdfToText.phpclass";
                     ob_start();
                     $pdf = new PdfToText($wrapper->getReadableFile());
                     ob_end_clean();
@@ -3957,7 +3957,7 @@ class FileGalLib extends TikiLib
         $mimelib = TikiLib::lib('mime');
         $argumentParser = new WikiParser_PluginArgumentParser();
         $files = [];
-        if (strpos($page_info['data'], 'img/wiki_up') === false) {
+        if (strpos($page_info['data'], DEPRECATED_IMG_WIKI_UP_PATH) === false) {
             return false;
         }
         $matches = WikiParser_PluginMatcher::match($page_info['data']);
@@ -3969,7 +3969,7 @@ class FileGalLib extends TikiLib
                 $arguments = $argumentParser->parse($match->getArguments());
                 $newArgs = [];
                 foreach ($arguments as $key => $val) {
-                    if ($key === 'src' && strpos($val, 'img/wiki_up') !== false) {
+                    if ($key === 'src' && strpos($val, DEPRECATED_IMG_WIKI_UP_PATH) !== false) {
                         //first time the wiki_up file is found
                         if (! isset($this->wikiupMoved[$val])) {
                             if (false === $data = @file_get_contents($val)) {

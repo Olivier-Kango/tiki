@@ -63,7 +63,7 @@ class SchedulerRunOutput extends BufferedOutput
 
     private static function getFilePath($itemId)
     {
-        return 'temp/cache/' . self::getFileName($itemId);
+        return TEMP_CACHE_PATH . '/' . self::getFileName($itemId);
     }
 
     private function createStream()

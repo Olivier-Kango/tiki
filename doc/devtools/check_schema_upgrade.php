@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace TikiDevTools;
 
+require_once(__DIR__ . '/../../path_constants.php');
 use DBDiff;
 use Exception;
 use PDO;
@@ -183,13 +184,13 @@ class CheckSchemaUpgrade
             require_once __DIR__ . '/dbdiff/vendor/autoload.php';
         }
 
-        if (! file_exists($this->tikiRoot . '/vendor_bundled/vendor/autoload.php')) {
+        if (! file_exists($this->tikiRoot . '/' . PRIMARY_AUTOLOAD_FILE_PATH)) {
             $errors++;
             $this->printMessageError(
-                'vendor_bundled/vendor/autoload.php not available, did you run composer for tiki?'
+                PRIMARY_AUTOLOAD_FILE_PATH . ' not available, did you run composer for tiki?'
             );
         } else {
-            require_once $this->tikiRoot . '/vendor_bundled/vendor/autoload.php';
+            require_once $this->tikiRoot . '/' . PRIMARY_AUTOLOAD_FILE_PATH;
             require_once $this->tikiRoot . '/lib/setup/twversion.class.php';
         }
 
@@ -293,11 +294,11 @@ class CheckSchemaUpgrade
      */
     protected function backupLocalConfig()
     {
-        if (file_exists($this->tikiRoot . '/db/local.php')) {
+        if (file_exists($this->tikiRoot . '/' . TIKI_CONFIG_FILE_PATH)) {
             $this->localConfig = $this->tikiRoot . '/db/schema_update_' . uniqid() . '_local.php';
-            rename($this->tikiRoot . '/db/local.php', $this->localConfig);
+            rename($this->tikiRoot . '/' . TIKI_CONFIG_FILE_PATH, $this->localConfig);
             $this->printMessage(
-                'File: ' . $this->tikiRoot . '/db/local.php' . "\n" . '    renamed as ' . $this->localConfig
+                'File: ' . $this->tikiRoot . '/' . TIKI_CONFIG_FILE_PATH . "\n" . '    renamed as ' . $this->localConfig
             );
         }
     }
@@ -308,9 +309,9 @@ class CheckSchemaUpgrade
     protected function restoreLocalConfig()
     {
         if (! empty($this->localConfig) && file_exists($this->localConfig)) {
-            rename($this->localConfig, $this->tikiRoot . '/db/local.php');
+            rename($this->localConfig, $this->tikiRoot . '/' . TIKI_CONFIG_FILE_PATH);
             $this->printMessage(
-                'File: ' . $this->tikiRoot . '/db/local.php' . "\n" . '    restored from ' . $this->localConfig
+                'File: ' . $this->tikiRoot . '/' . TIKI_CONFIG_FILE_PATH . "\n" . '    restored from ' . $this->localConfig
             );
         }
     }
@@ -332,7 +333,7 @@ class CheckSchemaUpgrade
             . '$dbs_tiki = "' . $dbConfig['dbs'] . '";' . "\n"
             . '$client_charset = "utf8";' . "\n";
 
-        file_put_contents($this->tikiRoot . '/db/local.php', $local);
+        file_put_contents($this->tikiRoot . '/' . TIKI_CONFIG_FILE_PATH, $local);
     }
 
     /**

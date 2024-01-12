@@ -87,7 +87,7 @@ class WikiPlugin_Negotiator_Wiki_Alias
             $tikilib->set_preference('pluginaliaslist', serialize($list));
         }
 
-        foreach (glob('temp/cache/wikiplugin_*') as $file) {
+        foreach (glob(WIKIPLUGIN_CACHE_FILES_GLOB) as $file) {
             unlink($file);
         }
 
@@ -112,7 +112,7 @@ class WikiPlugin_Negotiator_Wiki_Alias
         // Clear cache
         $cachelib = TikiLib::lib('cache');
         $cachelib->invalidate('plugindesc');
-        foreach (glob('temp/cache/wikiplugin_*') as $file) {
+        foreach (glob(WIKIPLUGIN_CACHE_FILES_GLOB) as $file) {
             unlink($file);
         }
     }
