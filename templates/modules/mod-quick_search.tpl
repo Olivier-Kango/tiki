@@ -47,9 +47,20 @@ $('.mod_quick_search:not(.done)').addClass('done').submit(function () {
         var ol = $('<ol/>');
         results.append(ol);
 
-        $.each(data, function (k, item) {
-            ol.append($('<li/>').append($(item.link)));
-        });
+        if (data.result.length === 0) {
+            results.append('<p>No result found.</p>');
+        } else {
+            $.each(data.result, function (k, item) {
+                var li = $('<li/>');
+                var link = item.link;
+
+                var itemTypeSpan = $('<em/>', {
+                    text: item.object_type
+                });
+                li.append(link, '<br>', itemTypeSpan);
+                ol.append(li);
+            });
+        }
     });
 
     return false;
