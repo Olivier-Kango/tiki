@@ -49,7 +49,7 @@ function wikiplugin_fluidgrid_info()
             'colsize' => [
                 'required' => false,
                 'name' => tra('Column Sizes'),
-                'description' => tra('Specify all column widths in units which add up to 12'),
+                'description' => tra('Specify all column widths in units which add up to 12 or percent, separating each width by a pipe (|)'),
                 'since' => '17',
                 'seprator' => '|',
                 'filter' => 'text',
