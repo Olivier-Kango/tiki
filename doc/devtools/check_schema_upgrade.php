@@ -82,6 +82,11 @@ class CheckSchemaUpgrade
     protected $ignorePreferenceChanges = true;
 
     /**
+     * @var bool Remove the collation key from the old databases before loading the database
+     */
+    protected $removeColumnCollateKey = true;
+
+    /**
      * CheckSchemaUpgrade constructor.
      */
     public function __construct()
@@ -228,6 +233,7 @@ class CheckSchemaUpgrade
         $this->verbose = $this->getOption($options, 'v', 'verbose') === false ? true : false;
         $this->ignorePreferenceChanges = $this->getOption($options, 'p', 'preferences') === false ? false : true;
         $this->useInnoDB = strtolower($this->getOption($options, 'e', 'engine')) === 'myisam' ? false : true;
+        $this->removeColumnCollateKey = $this->getOption($options, 'c', 'keep-collate') === false ? false : true;
 
         $this->oldDbRaw = $this->getOption($options, null, 'db1');
         $result = $this->parseDbRaw($this->oldDbRaw);
@@ -383,6 +389,10 @@ class CheckSchemaUpgrade
             }
         }
 
+        if ($this->removeColumnCollateKey) {
+            $sql = $this->removeColumnCollateKeyFromSql($sql);
+        }
+
         $this->printMessage('Loading the database for major version: ' . $tryMajor);
 
         if (! empty($sql)) {
@@ -430,6 +440,25 @@ class CheckSchemaUpgrade
         // TODO: try to install old version of Tiki to get the db generated, instead of rely om pre generated files
 
         return false;
+    }
+
+    /**
+     * Removes COLLATE from being specifically set in the column definition in tables.
+     * @param $sql
+     *
+     * @return string
+     */
+    protected function removeColumnCollateKeyFromSql($sql)
+    {
+        // `user` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+        // will be transformed into
+        // `user` varchar(40) NOT NULL DEFAULT '',
+        $result = preg_replace('/^([[:space:]]*`[^`]*` .*) COLLATE [^ ,]*(.*)$/m', '\1\2', $sql);
+
+        if ($result === null) {
+            return $sql;
+        }
+        return $result;
     }
 
     /**
@@ -729,7 +758,7 @@ class CheckSchemaUpgrade
      */
     protected function getOpts()
     {
-        $shortOpts = 'm:vpe:';
+        $shortOpts = 'm:vpe:c';
         $longOpts = [
             'major:',
             'verbose',
@@ -737,6 +766,7 @@ class CheckSchemaUpgrade
             'engine:',
             'db1:',
             'db2:',
+            'keep-collate',
         ];
         $options = getopt($shortOpts, $longOpts);
 

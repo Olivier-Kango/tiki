@@ -21,7 +21,7 @@ variables:
   #Running php doc/devtools/check_schema_upgrade.php -m 22 --db1=tiki:tiki@localhost:tikiold --db2=tiki:tiki@localhost:tikinew gives other errors localy that are false positives.  But locally, unless you decompress https://gitlab.com/tikiwiki/tikiwiki-ci-databases into doc/devtool/dbdiff/cache, tiki.org won't give the schemas to you, and will blacklist your IP address!  benoitg - 2023-05-16
 
   MARIADB_10_IMAGE: mariadb:10.3.0
-  MYSQL_8_IMAGE: mysql:8.0.11
+  MYSQL_8_IMAGE: mysql:8.0.29
   MYSQL_5_IMAGE: mysql:5.6
   NODE_IMAGE: node:18
   MANTICORE_DSN: http://manticore
@@ -413,7 +413,7 @@ composer-could-update-lock:
   <<: *template-tiki-schema-upgrade
   services:
     - name: ${DEPENDENCY_PROXY_PREFIX}$IMAGE
-      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
+      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
       alias: mysql
 
 db-upgrade-22-mariadb:
@@ -424,7 +424,7 @@ db-upgrade-22-mariadb:
     IMAGE: ${MARIADB_10_IMAGE}
     ENGINE: InnoDB
 
-.db-upgrade-22-mysql8:
+db-upgrade-22-mysql8:
   <<: *template-tiki-schema-upgrade-mysql8
   variables:
     DBFILE: ci_22.sql
@@ -440,7 +440,7 @@ db-upgrade-22:
     IMAGE: ${MYSQL_5_IMAGE}
     ENGINE: InnoDB
 
-.db-upgrade-21-mysql8:
+db-upgrade-21-mysql8:
   <<: *template-tiki-schema-upgrade-mysql8
   variables:
     DBFILE: ci_21.sql
@@ -456,7 +456,7 @@ db-upgrade-21:
     IMAGE: ${MYSQL_5_IMAGE}
     ENGINE: InnoDB
 
-.db-upgrade-20-mysql8:
+db-upgrade-20-mysql8:
   <<: *template-tiki-schema-upgrade-mysql8
   variables:
     DBFILE: ci_20.sql
