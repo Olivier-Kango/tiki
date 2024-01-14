@@ -3626,14 +3626,18 @@ function checkPackageMessages($messages, $package)
 
     switch ($package['name']) {
         case 'media-alchemyst/media-alchemyst':
-            if (! AlchemyLib::hasReadWritePolicies()) {
-                $messages['warnings'][] = tr(
-                    'Alchemy requires "Read" and "Write" policy rights. More info: <a href="%0" target="_blank">%1</a>',
-                    'https://doc.tiki.org/tiki-index.php?page=Media+Alchemyst#Document_to_Image_issues',
-                    'Media Alchemyst - Document to Image issues'
-                );
-            } else {
-                $messages['successes'][] = tr('Alchemy has "Read" and "Write" policy rights.');
+            try {
+                if (! AlchemyLib::hasReadWritePolicies()) {
+                    $messages['warnings'][] = tr(
+                        'Alchemy requires "Read" and "Write" policy rights. More info: <a href="%0" target="_blank">%1</a>',
+                        'https://doc.tiki.org/tiki-index.php?page=Media+Alchemyst#Document_to_Image_issues',
+                        'Media Alchemyst - Document to Image issues'
+                    );
+                } else {
+                    $messages['successes'][] = tr('Alchemy has "Read" and "Write" policy rights.');
+                }
+            } catch (\Exception $e) {
+                $messages['warnings'][] = tr('Error when checking Alchemy "Read" and "Write" policy rights: %0', $e->getMessage());
             }
 
             if (! UnoconvLib::isPortAvailable()) {

@@ -77,10 +77,15 @@ class AlchemyLib
     /**
      * Check if we have the required rights related to the AlchemyLib
      * @return bool
+     * @throws \Exception
      */
     public static function hasReadWritePolicies()
     {
-        $commandOutput = `identify -list policy`;
+        if (! function_exists('shell_exec')) {
+            throw new \Exception(tr('It was not possible to check for read/write policies because "shell_exec" function does not seem to be available on your PHP environment.'));
+        }
+
+        $commandOutput = shell_exec('identify -list policy');
         preg_match("/Path: .*ImageMagick.*policy.xml.*rights:(.+)pattern: PDF/s", $commandOutput, $matches);
 
         if (! isset($matches[1])) {
