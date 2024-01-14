@@ -4763,10 +4763,12 @@ class TrackerLib extends TikiLib
                     $trackerId = $field['trackerId'];
                     $definition = Tracker_Definition::get($trackerId);
                     $field = $definition->getField($fieldId);
-                    if ($field['options_map']['syncwikipagename'] != 'n') {
+
+                    if ($field['options_map']['syncwikipagename'] == 'y' || $field['options_map']['syncWikiPageNameWithTrackerField'] == 'y') {
                         $toSync = true;
                     }
-                                        $nameFieldId = $field['options_map']['fieldIdForPagename'];
+
+                    $nameFieldId = $field['options_map']['fieldIdForPagename'];
                 } elseif ($prefs['tracker_wikirelation_synctitle'] == 'y') {
                     $toSync = true;
                 }

@@ -68,6 +68,16 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements \Tracker\Field\Ex
                             'y' => tr('Yes'),
                         ],
                     ],
+                    'syncWikiPageNameWithTrackerField' => [
+                        'name' => tr('Update field value when the Wiki Page name changes'),
+                        'description' => tr('Update the value of the field used to name the Wiki Page, if the related Wiki Page is renamed'),
+                        'default' => 'n',
+                        'filter' => 'alpha',
+                        'options' => [
+                            'n' => tr('No'),
+                            'y' => tr('Yes'),
+                        ],
+                    ],
                     'syncwikipagedelete' => [
                         'name' => tr('Delete Wiki Page when tracker item is deleted'),
                         'description' => tr('Delete associated wiki page when the tracker item is deleted.'),
