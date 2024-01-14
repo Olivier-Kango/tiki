@@ -9,6 +9,8 @@
  */
 class SearchStatsLib extends TikiLib
 {
+    private const MAX_SEARCH_TERM_LENGTH = 50;
+
     public function clear_search_stats()
     {
         $query = "delete from tiki_search_stats";
@@ -18,6 +20,14 @@ class SearchStatsLib extends TikiLib
     public function register_term_hit($term)
     {
         $term = trim($term);
+
+        if (function_exists('mb_strlen') && function_exists('mb_substr')) {
+            if (mb_strlen($term, 'UTF-8') > self::MAX_SEARCH_TERM_LENGTH) {
+                $term = mb_substr($term, 0, self::MAX_SEARCH_TERM_LENGTH, 'UTF-8');
+            }
+        } elseif (strlen($term) > self::MAX_SEARCH_TERM_LENGTH) {
+            $term = substr($term, 0, self::MAX_SEARCH_TERM_LENGTH);
+        }
 
         $table = $this->table('tiki_search_stats');
         $table->insertOrUpdate(
