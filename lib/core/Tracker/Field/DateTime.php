@@ -100,6 +100,29 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractField implements \Tr
                 $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $data['value']);
                 $data['value'] += $server_offset;
             }
+        } else {
+            // This condition addresses the scenario where data is received from the API, and the timestamp value is provided in its raw form.
+            $value = (isset($requestData[$ins_id]) && ! empty($requestData[$ins_id]))
+                ? $requestData[$ins_id]
+                : $this->getValue();
+
+            if (! empty($value) && ! is_numeric($value)) {
+                throw new Services_Exception(tr('Invalid UNIX timestamp "%0"', $value), 400);
+            }
+
+            // Validate that the given raw timestamp value is a numeric representation and logically corresponds to a valid timestamp.
+            if ($value && is_numeric($value)) {
+                try {
+                    $datetime = DateTime::createFromFormat('U', $value);
+                    if ($datetime == false || $datetime->format('U') != $value) {
+                        throw new Services_Exception(tr('Invalid UNIX timestamp "%0"', $value), 400);
+                    }
+                } catch (Exception $e) {
+                    throw new Services_Exception($e->getMessage(), 400);
+                }
+            }
+
+            $data['value'] = $value;
         }
 
         return $data;
