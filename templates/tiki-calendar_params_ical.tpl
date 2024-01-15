@@ -17,8 +17,8 @@
                 <td>{tr}Calendars{/tr}</td>
                 <td>
                     {foreach item=k from=$listcals}
-                        <input type="checkbox" name="calendarIds[]" value="{$k.calendarId|escape}" id="groupcal_{$k}" {if $k}checked="checked"{/if}>
-                        <label for="groupcal_{$k}" class="calId{$k}">{$k.displayName|escape}</label><br>
+                        <input type="checkbox" name="calendarIds[]" value="{$k.calendarId|escape}" id="groupcal_{$k.calendarId}" {if $k.calendarId}checked="checked"{/if}>
+                        <label for="groupcal_{$k.calendarId}" class="calId{$k.calendarId}">{$k.displayName|escape}</label><br>
                     {/foreach}
                 </td>
             </tr>
