@@ -280,10 +280,16 @@ class WikiPluginPluginManager extends PluginsLib
                         $rows .= '</td>';
                         //Accepted Values column
                         $rows .= $cellbegin;
-                        if (isset($paraminfo['separator']) && is_string($paraminfo['separator'])) {
+                        if (isset($paraminfo['separator'])) {
                             $sep = $paraminfo['separator'];
-                            $septext = tr('%0separator:%1 ', '<em>', '</em>') . '<code>' . $paraminfo['separator'] .
-                                '</code>';
+                            $septext = tr('%0separator:%1 ', '<em>', '</em>');
+                            if (is_string($paraminfo['separator'])) {
+                                $septext .= '<code>' . $paraminfo['separator'] . '</code>';
+                            } elseif (is_array($paraminfo['separator'])) {
+                                $septext .= implode(' ', array_map(function ($separator) {
+                                    return '<code>' . $separator . '</code>';
+                                }, $paraminfo['separator']));
+                            }
                         } else {
                             $sep = '| ';
                         }
