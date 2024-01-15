@@ -10,11 +10,11 @@
 // php doc/devtools/securitycheck.php > securityreport.html
 // visit securityreport.html (where your Tiki is)
 //
-// Each PHP file in Tiki should start with a feature check. So if the feature is 
-// de-activated, the file is dead. If a particular file is discovered to be insecure, 
-// users can deactivate the feature until they upgrade to the release which contains 
-// a fix. To avoid forgetting to add this feature check on new files, a feature check 
-// script has been created. Some files, by design, can't have a feature check and 
+// Each PHP file in Tiki should start with a feature check. So if the feature is
+// de-activated, the file is dead. If a particular file is discovered to be insecure,
+// users can deactivate the feature until they upgrade to the release which contains
+// a fix. To avoid forgetting to add this feature check on new files, a feature check
+// script has been created. Some files, by design, can't have a feature check and
 // these files should be audited manually.
 //
 //
