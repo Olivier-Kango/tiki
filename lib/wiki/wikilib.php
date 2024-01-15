@@ -956,7 +956,7 @@ class WikiLib extends TikiLib
             } else {
                 $shortsort = $sort_mode;
             }
-            if (! in_array(['user', 'attId', 'page', 'filename', 'filesize', 'filetype', 'hits', 'created', 'comment'], $shortsort)) {
+            if (! in_array($shortsort, ['user', 'attId', 'page', 'filename', 'filesize', 'filetype', 'hits', 'created', 'comment'])) {
                 $sort_mode = 'created_desc';
             }
         }
