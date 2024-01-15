@@ -63,7 +63,7 @@ function module_last_tracker_items($mod_reference, $module_params)
         if (isset($module_params['name'])) {
             $module_params['fieldId'] = $trklib->get_field_id($module_params['trackerId'], $module_params['name']);
         }
-        if (empty($module_params['fieldId'])) {
+        if (empty($module_params['fieldId']) && isset($module_params['trackerId'])) {
             $module_params['fieldId'] = $trklib->get_main_field($module_params['trackerId']);
         }
         if (empty($module_params['fieldId'])) {
