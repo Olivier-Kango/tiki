@@ -684,9 +684,8 @@ class PdfGenerator
         $pdfSettings = [];
         if (! empty($html)) {
             //checking if pdf plugin is set and passed
-            $doc = new DOMDocument();
             $html = cleanHtml($html, null, 'utf8');
-            @$doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+            $doc = loadHTMLContent($html);
 
             $pdf = $doc->getElementsByTagName('pdfsettings')->item(0);
             $prefs['print_pdf_mpdf_pagesize'] = $prefs['print_pdf_mpdf_size'];
@@ -766,9 +765,8 @@ class PdfGenerator
     public function getPDFPages($html, $pdfSettings)
     {
         //checking if pdf page tag exists
-        $doc = new DOMDocument();
         $html = cleanHtml($html, null, 'utf8');
-        $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $doc = loadHTMLContent($html);
         $xpath = new DOMXpath($doc);
         //Getting pdf page custom pages from content
         $pdfPages = $doc->getElementsByTagName('pdfpage');
@@ -833,9 +831,8 @@ class PdfGenerator
 
     public function _getImages(&$html, &$tempImgArr)
     {
-        $doc = new DOMDocument();
         $html = cleanHtml($html, null, 'utf8');
-        @$doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $doc = loadHTMLContent($html);
 
         $tags = $doc->getElementsByTagName('img');
 
@@ -915,9 +912,8 @@ class PdfGenerator
         $html = str_replace(["<wbr>", "<wbr/>"], "", $html);
         $html = str_replace('&', '&amp;', $html);
 
-        $doc = new DOMDocument();
         $html = cleanHtml($html, null, 'utf8');
-        $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $doc = loadHTMLContent($html);
 
         $tables = $doc->getElementsByTagName('table');
         $tempValue = [];
@@ -957,7 +953,7 @@ class PdfGenerator
         $html = cleanContent($html, $tagsArr);
 
         //making tablesorter and pivottable charts wrapper divs visible
-        $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $doc = loadHTMLContent($html);
         $this->checkLargeTables($doc); //hack function for large data columns
         $xpath = new DOMXpath($doc);
         $wrapperDefs = [["class","ts-wrapperdiv","visibility:visible"],["id","png_container_pivottable","display:none"]];
@@ -1049,9 +1045,8 @@ class PdfGenerator
 
     public function fontawesome(&$html)
     {
-        $doc = new DOMDocument();
         $html = cleanHtml($html, null, 'utf8');
-        $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $doc = loadHTMLContent($html);
         $xpath = new DOMXpath($doc);
       //font awesome code insertion
         $fadivs = $xpath->query('//*[contains(@class, "fa")]');
@@ -1174,9 +1169,8 @@ TEXT;
     {
         global $base_url;
 
-        $doc = new DOMDocument();
         $content = cleanHtml($content, null, 'utf8');
-        $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        $doc = loadHTMLContent($content);
         $anchors = $doc->getElementsByTagName('a');
         $len = $anchors->length;
         $hrefDiv = $doc->createElement('div');
@@ -1331,11 +1325,32 @@ function cleanHtml($html, $config = null, $encoding = 'utf8')
     return $html;
 }
 
-function cleanContent($content, $tagArr)
+/**
+ * Load HTML content into a DOMDocument, suppressing warnings during the operation.
+ *
+ * @param string $html The HTML content to load.
+ * @return DOMDocument The DOMDocument instance containing the parsed HTML.
+ */
+function loadHTMLContent($html)
 {
     $doc = new DOMDocument();
+    $errorLevel = error_reporting();
+
+    // Set error reporting to ignore warnings
+    error_reporting($errorLevel & ~E_WARNING);
+
+    $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+
+    // Restore the previous error reporting level
+    error_reporting($errorLevel);
+
+    return $doc;
+}
+
+function cleanContent($content, $tagArr)
+{
     $content = cleanHtml($content, null, 'utf8');
-    $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+    $doc = loadHTMLContent($content);
     $xpath = new DOMXpath($doc);
 
     foreach ($tagArr as $tag) {

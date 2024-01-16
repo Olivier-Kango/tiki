@@ -202,7 +202,12 @@ function smarty_function_button($params, $smarty)
         $url = str_replace('+', ' ', str_replace('&amp;', '&', urldecode($_SERVER['REQUEST_URI'])));
         $encoded_html = htmlentities($html, ENT_COMPAT);
         $dom = new DOMDocument();
+
+        $errorLevel = error_reporting();
+        error_reporting($errorLevel & ~E_WARNING);
         $dom->loadHTML($encoded_html);
+        error_reporting($errorLevel);
+
         foreach ($dom->getElementsByTagName('a') as $link) {
             if ($url == $link->getAttribute('href')) {
                 $selected = true;
