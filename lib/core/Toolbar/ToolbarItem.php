@@ -205,6 +205,8 @@ abstract class ToolbarItem
 
                     'objectlink',
                     'tikitable',
+                    'task',
+                    'codeblock',
                 ],
                 $plugins
             )

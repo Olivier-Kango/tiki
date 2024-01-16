@@ -75,6 +75,16 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
                 $wysiwyg = 'TOC';
                 $syntax = '{maketoc}';
                 break;
+            case 'task':
+                $label = tra('Task');
+                $iconname = 'check-square-o';
+                $markdown_wysiwyg = 'task';
+                break;
+            case 'codeblock':
+                $label = tra('Code block');
+                $iconname = 'file-text-o';
+                $markdown_wysiwyg = 'codeblock';
+                break;
             default:
                 return null;
         }
