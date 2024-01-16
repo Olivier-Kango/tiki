@@ -513,7 +513,11 @@ class PrefsDoc extends TWVersion
     private function retrieveParentAndChildTags($text, $tag = '')
     {
         $doc = new DOMDocument();
+
+        $errorLevel = error_reporting();
+        error_reporting($errorLevel & ~E_WARNING);
         $doc->loadHTML($text);
+        error_reporting($errorLevel);
 
         $tags = $doc->getElementsByTagName("$tag");
 

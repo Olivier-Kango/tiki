@@ -635,7 +635,11 @@ $(document).trigger('formSearchReady');
 
             // $out contains the html for the form
             $doc = new DOMDocument();
+
+            $errorLevel = error_reporting();
+            error_reporting($errorLevel & ~E_WARNING);
             $doc->loadHTML("<html lang='en'><body>$out</body></html>");
+            error_reporting($errorLevel);
 
             $adddata = [];
             $inputs = $doc->getElementsByTagName('*');

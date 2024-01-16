@@ -535,7 +535,11 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
     {
         $newcontent = $content;
         $dom = new DOMDocument();
+
+        $errorLevel = error_reporting();
+        error_reporting($errorLevel & ~E_WARNING);
         $dom->loadHTML($content);
+        error_reporting($errorLevel);
 
         $tags = $dom->getElementsByTagName('iframe');
         foreach ($tags as $tag) {
