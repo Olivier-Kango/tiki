@@ -272,7 +272,7 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
             $item = $this->trk->get_tracker_item($row['itemId']);
             $data = array_merge($data, [
                 'tracker_item_id' => $typeFactory->identifier($row['itemId']),
-                'tracker_item_status' => $typeFactory->identifier($item['status']),
+                'tracker_item_status' => $typeFactory->identifier($item['status'] ?? false),
             ]);
 
             foreach (Search_ContentSource_TrackerItemSource::getIndexableHandlers($definition, $item) as $baseKey => $handler) {
