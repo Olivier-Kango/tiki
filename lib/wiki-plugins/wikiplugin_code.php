@@ -33,7 +33,7 @@ function wikiplugin_code_info()
         'description' => tra('Display code with syntax highlighting and line numbering.'),
         'prefs' => ['wikiplugin_code'],
         'body' => tra('Code to be displayed'),
-        'iconname' => 'code',
+        'iconname' => 'laptop-code',
         'introduced' => 1,
         'filter' => 'rawhtml_unsafe',
         'format' => 'html',

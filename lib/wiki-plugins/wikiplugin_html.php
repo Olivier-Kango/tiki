@@ -14,7 +14,7 @@ function wikiplugin_html_info()
         'body' => tra('HTML code'),
         'validate' => 'all',
         'filter' => 'rawhtml_unsafe',
-        'iconname' => 'code',
+        'iconname' => 'file-code',
         'tags' => [ 'basic' ],
         'introduced' => 3,
         'params' => [
