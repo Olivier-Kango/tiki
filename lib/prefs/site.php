@@ -132,11 +132,11 @@ function prefs_site_list()
         ],
         'site_google_analytics_account' => [
             'name' => tr('Google Analytics account number'),
-            'description' => tra('The account number for the site. The account number from Google is something like UA-XXXXXXX-YY.'),
+            'description' => tra('The account number for the site. The account number from Google is something like UA-XXXXXXX-YY or G-XXXXXXXXXX.'),
             'type' => 'text',
             'size' => 15,
             'default' => '',
-            'hint' => tr(' Enter only XXXXXXX-YY (without the UA)'),
+            'hint' => tr(' Enter the account number with prefix (prefix eg: "G-" or "UA-")'),
             'dependencies' => [
                 'wikiplugin_googleanalytics',
             ],

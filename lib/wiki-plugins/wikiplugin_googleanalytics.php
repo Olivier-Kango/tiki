@@ -58,6 +58,11 @@ function wikiplugin_googleanalytics($data, $params)
     }
     $account = htmlspecialchars($params['account'], ENT_QUOTES);
 
+    // Maintain retro-compatibility with old preference
+    if (substr($account, 0, 3) !== "UA-" && substr($account, 0, 2) !== "G-") {
+        $account = "UA-" . $account;
+    }
+
     if ($prefs['site_google_analytics_gtag'] !== 'y') {
         $ret = <<<HTML
 <script>
@@ -66,7 +71,7 @@ function wikiplugin_googleanalytics($data, $params)
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-$account', 'auto');  // Replace with your property ID.
+ga('create', '$account', 'auto');  // Replace with your property ID.
 ga('send', 'pageview');
 
 </script>
@@ -74,13 +79,13 @@ HTML;
     } else {
         $ret = <<<HTML
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-$account"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=$account"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-$account');
+  gtag('config', '$account');
 </script>
 HTML;
     }
