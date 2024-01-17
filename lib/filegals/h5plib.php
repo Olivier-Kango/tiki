@@ -524,8 +524,13 @@ class H5PLib
         // Get preloaded user data for the current user
 
         if ($prefs['h5p_save_content_state'] === 'y' && $userId) {
-            $results = json_decode(TikiLib::lib('user')->get_user_preference($user, "h5p_content_{$content['id']}"), true);
+            $userPreference = TikiLib::lib('user')->get_user_preference($user, "h5p_content_{$content['id']}");
 
+            if ($userPreference !== null) {
+                $results = json_decode($userPreference, true);
+            } else {
+                $results = [];
+            }
             if (! empty($results['preload'])) {
                     $settings['contentUserData'][$results['subContentId']][$results['dataType']] = json_encode($results['data']);
             }
