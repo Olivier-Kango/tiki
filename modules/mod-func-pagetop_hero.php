@@ -70,12 +70,12 @@ function module_pagetop_hero($mod_reference, $module_params)
 
     $pagetitle = '';
     $breadcrumbs = [];
-    if ($module_params["usepagename"] == 'y') {
-        $pagetitle = $_REQUEST['page'];
+    if (isset($module_params["usepagename"]) && $module_params["usepagename"] == 'y') {
+        $pagetitle = $_REQUEST['page'] ?? '';
         $breadcrumbs[] = tra("Home");
         $breadcrumbs[] = $pagetitle;
     } else {
-        $pagetitle = $module_params["pagetitle"];
+        $pagetitle = $module_params["pagetitle"] ?? '';
         if (! empty($module_params["breadcrumbs"])) {
             $breadcrumbs = isset($module_params["breadcrumbs"]) ? explode(",", $module_params["breadcrumbs"]) : [];
             $breadcrumbs[] = $pagetitle;
@@ -83,8 +83,8 @@ function module_pagetop_hero($mod_reference, $module_params)
     }
 
     $smarty->assign('pagetitle', $pagetitle);
-    $smarty->assign('description', isset($module_params["description"]) ? $module_params["description"] : '');
-    $smarty->assign('content_position', isset($module_params["content_position"]) ? $module_params["content_position"] : 'center');
+    $smarty->assign('description', $module_params["description"] ?? '');
+    $smarty->assign('content_position', $module_params["content_position"] ?? 'center');
     $smarty->assign('breadcrumbs', $breadcrumbs);
-    $smarty->assign('bgimage', isset($module_params["bgimage"]) ? $module_params["bgimage"] : '');
+    $smarty->assign('bgimage', $module_params["bgimage"] ?? '');
 }
