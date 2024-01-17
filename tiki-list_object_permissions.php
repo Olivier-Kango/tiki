@@ -225,12 +225,13 @@ foreach ($types as $type) {
             $objects = $bloglib->list_blogs();
 
             foreach ($objects['data'] as $object) {
-                $r = list_perms($object['blogId'], $type, isset($object['name']) ? $object['name'] : null, $filterGroup);
+                $objectName = isset($object['name']) ? $object['name'] : null;
+                $r = list_perms($object['blogId'], $type, $objectName, $filterGroup);
                 if (count($r['special']) > 0) {
-                    $res[$type]['objects'][] = ['objectId' => $r['objectId'], 'special' => $r['special'], 'objectName' => $object['name'], 'objectType' => $type];
+                    $res[$type]['objects'][] = ['objectId' => $r['objectId'], 'special' => $r['special'], 'objectName' => $objectName, 'objectType' => $type];
                 }
                 if (count($r['category']) > 0) {
-                    $res[$type]['category'][] = ['objectId' => $r['objectId'], 'category' => $r['category'], 'objectName' => $object['name'], 'objectType' => $type];
+                    $res[$type]['category'][] = ['objectId' => $r['objectId'], 'category' => $r['category'], 'objectName' => $objectName, 'objectType' => $type];
                 }
             }
             break;
