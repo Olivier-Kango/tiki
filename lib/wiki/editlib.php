@@ -1544,7 +1544,8 @@ class EditLib
 
         if ($target_syntax == 'markdown') {
             // handle some Tiki syntax to Wiki plugins that are not supported in Markdown
-            $data = preg_replace('/\s*-=(.+)=-\s*/m', '{DIV(class=titlebar)}$1{DIV}', $data);
+            $data = preg_replace('/\s*-=(.+)=-\s*/m', "{DIV(class=titlebar)}$1{DIV}", $data);
+            $data = preg_replace('/\{DIV\(class=titlebar\)\}.*?\{DIV\}(?![\n\r])/m', "$0\n", $data);
             $data = preg_replace_callback('/^(!+)([+\-#]+)(.*)$/m', function ($matches) {
                 $level = strlen($matches[1]);
                 if ($level < 1 || $level > 6) {
