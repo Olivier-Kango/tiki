@@ -315,4 +315,20 @@ class EditLibTest extends TikiTestCase
         $res = $this->el->parseToWiki($inData);
         $this->assertEquals($ex, $res);
     }
+
+    public function testConvertWikiSyntaxCreatesTitlebarDiv()
+    {
+        global $prefs;
+        $prefs['feature_wiki_paragraph_formatting'] = 'n';
+
+        $converted = $this->el->convertWikiSyntax(
+            "-=the titlebar content=- line after the title bar",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "\n{DIV(class=titlebar)}the titlebar content{DIV}\n" . "\nline after the title bar"
+        );
+    }
 }
