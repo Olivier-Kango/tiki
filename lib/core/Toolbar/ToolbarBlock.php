@@ -50,6 +50,11 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
                 $iconname = 'envelope';
                 $syntax = '[mailto:email@example.com|text]';
                 break;
+            case 'blockquote':
+                $label = tra('Block quote');
+                $iconname = 'quote-left';
+                $markdown_wysiwyg = 'quote';
+                break;
             case 'h1':
             case 'h2':
             case 'h3':
