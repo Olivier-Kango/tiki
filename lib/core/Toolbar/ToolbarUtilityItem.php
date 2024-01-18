@@ -26,6 +26,9 @@ abstract class ToolbarUtilityItem extends ToolbarItem
                 'tooltip' => $this->label,
                 'el'      => "%~tuiToolbarItem{$this->markdown_wysiwyg}~%",
             ];
+            if ($this->class !== '') {
+                $item['className'] = $this->class;
+            }
             return json_encode($item);
         }
         return '';
