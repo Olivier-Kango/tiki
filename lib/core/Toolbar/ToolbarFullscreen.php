@@ -9,6 +9,8 @@ class ToolbarFullscreen extends ToolbarUtilityItem
         $this->setLabel(tra('Full-screen edit'))
             ->setIconName('fullscreen')
             ->setWysiwygToken('Maximize')
+            ->setMarkdownSyntax('fullscreen')
+            ->setMarkdownWysiwyg('fullscreen')
             ->setType('Fullscreen')
             ->setClass('qt-fullscreen')
         ;
