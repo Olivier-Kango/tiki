@@ -79,6 +79,9 @@ function prefs_comments_list()
             'units' => tra('minutes'),
             'default'  => 90,
             'tags' => ['advanced'],
+            'dependencies' => [
+                'comments_allow_correction',
+            ],
         ],
         'comments_inline_annotator' => [
             'name' => tr('Inline comments using Apache Annotator'),
