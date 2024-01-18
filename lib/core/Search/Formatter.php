@@ -4,12 +4,16 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Search\Formatter\Sublist\Record as Sublist;
+
 class Search_Formatter
 {
-    private $plugin;
+    public $plugin;
     private $counter;
     private $subFormatters = [];
     private $customFilters = [];
+    private $subLists = [];
     private $alternateOutput;
 
     public function __construct(Search_Formatter_Plugin_Interface $plugin, $counter = 0)
@@ -31,6 +35,11 @@ class Search_Formatter
     public function addCustomFilter($filter)
     {
         $this->customFilters[] = $filter;
+    }
+
+    public function addSubList(Sublist $sublist)
+    {
+        $this->subLists[] = $sublist;
     }
 
     public function format($list)
@@ -98,15 +107,23 @@ class Search_Formatter
                 $row['highlight'] = $list->highlight($row);
             }
 
+            $data[] = $row;
+        }
+
+        foreach ($this->subLists as $sublist) {
+            $sublist->executeOverDataset($data, $this);
+        }
+
+        foreach ($data as $i => $row) {
             $subEntries = [];
             foreach ($this->subFormatters as $key => $plugin) {
                 $subInput = new Search_Formatter_ValueFormatter(array_merge($subDefault[$key], $row));
-                $subEntries[$key] = $this->render($plugin, Search_ResultSet::create([$plugin->prepareEntry($subInput)]), $this->plugin->getFormat(), $list);
+                $subEntries[$key] = $this->render($plugin, Search_ResultSet::create([$plugin->prepareEntry($subInput)]), $this->plugin->getFormat());
             }
 
             $row = array_merge($row, $subEntries);
 
-            $data[] = $this->plugin->prepareEntry(new Search_Formatter_ValueFormatter($row));
+            $data[$i] = $this->plugin->prepareEntry(new Search_Formatter_ValueFormatter($row));
         }
 
         $formattedList = $list->replaceEntries($data);
@@ -188,19 +205,23 @@ class Search_Formatter
         $this->counter = $cnt;
     }
 
-    private function render($plugin, $resultSet, $target)
+    public function render($plugin, $resultSet, $target)
     {
         $pluginFormat = $plugin->getFormat();
-        $rawOutput = $plugin->renderEntries($resultSet);
+        $out = $plugin->renderEntries($resultSet);
 
         if ($target == $pluginFormat || $pluginFormat == Search_Formatter_Plugin_Interface::FORMAT_CSV) {
-            $out = $rawOutput;
+            // noop
         } elseif ($target == Search_Formatter_Plugin_Interface::FORMAT_WIKI && $pluginFormat == Search_Formatter_Plugin_Interface::FORMAT_HTML) {
-            $out = "~np~$rawOutput~/np~";
+            if (substr($out, 0, 4) != '~np~' && substr($out, -5) != '~/np~') {
+                $out = "~np~$out~/np~";
+            }
         } elseif ($target == Search_Formatter_Plugin_Interface::FORMAT_HTML && $pluginFormat == Search_Formatter_Plugin_Interface::FORMAT_WIKI) {
-            $out = "~/np~$rawOutput~np~";
+            if (substr($out, 0, 5) != '~/np~' && substr($out, -4) != '~np~') {
+                $out = "~/np~$out~np~";
+            }
         } elseif ($target == Search_Formatter_Plugin_Interface::FORMAT_CSV) {
-            $out = strip_tags(TikiLib::lib('parser')->parse_data($rawOutput, ['is_html' => true]));
+            $out = strip_tags(TikiLib::lib('parser')->parse_data($out, ['is_html' => true]));
         }
 
         $out = str_replace(['~np~~/np~', '~/np~~np~'], '', $out);

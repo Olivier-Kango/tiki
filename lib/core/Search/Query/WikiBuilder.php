@@ -43,9 +43,19 @@ class Search_Query_WikiBuilder
     {
         $argumentParser = new WikiParser_PluginArgumentParser();
 
+        $checkIgnored = null;
+
         foreach ($matches as $match) {
             $name = $match->getName();
             $arguments = $argumentParser->parse($match->getArguments());
+
+            if ($name == 'sublist') {
+                $checkIgnored = $match;
+            }
+
+            if ($checkIgnored && $match->inside($checkIgnored)) {
+                continue;
+            }
 
             $this->addQueryArgument($name, $arguments);
         }

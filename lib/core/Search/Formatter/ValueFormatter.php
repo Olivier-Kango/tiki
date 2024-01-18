@@ -37,8 +37,26 @@ class Search_Formatter_ValueFormatter
             TikiLib::lib('smarty')->assign('description', self::$pageDescription);
         }
 
-        // ugly exception for wikiplugin - TODO better?
-        if ($format !== 'wikiplugin' && (! isset($this->valueSet[$name]) || is_null($this->valueSet[$name]))) {
+        $value = null;
+        if (strstr($name, '.')) {
+            $parts = explode('.', $name);
+            $value = $this->valueSet;
+            while ($part = array_shift($parts)) {
+                if (! isset($value[$part])) {
+                    break;
+                }
+                $value = $value[$part];
+            }
+            if (! empty($parts)) {
+                $value = null;
+            }
+        }
+
+        if (is_null($value) && isset($this->valueSet[$name])) {
+            $value = $this->valueSet[$name];
+        }
+
+        if ($format !== 'wikiplugin' && is_null($value)) {
             return tr("No value for '%0'", $name);
         }
 
@@ -53,7 +71,8 @@ class Search_Formatter_ValueFormatter
                 return $cachelib->getCached($cacheName, $cacheType);
             } else {
                 $formatter = new $class($arguments);
-                $ret = $formatter->render($name, $this->valueSet[$name], $this->valueSet);
+
+                $ret = $formatter->render($name, $value, $this->valueSet);
                 if (in_array($format, $prefs['unified_cached_formatters']) && $formatter->canCache()) {
                     $cachelib->cacheItem($cacheName, $ret, $cacheType);
                 }
