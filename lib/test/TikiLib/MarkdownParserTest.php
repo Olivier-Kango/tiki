@@ -193,12 +193,12 @@ Duplicated footnote reference[^second].
             $res = '<hr />
 <h2 class="showhide_heading" id="User:_admin">User: admin<a href="#User:_admin" class="heading-link"><img src="img/icons/green_question.png" alt="Question" width="16" height="16" name="link" title="Question" class="icon" /></a></h2>
 <h2 class="showhide_heading" id="Plugin_test:_12">Plugin test: <sup><strong>12</strong></sup><a href="#Plugin_test:_12" class="heading-link"><img src="img/icons/green_question.png" alt="Question" width="16" height="16" name="link" title="Question" class="icon" /></a></h2>
-<h1 class="showhide_heading" id="h1_Heading_8-_">h1 Heading <img alt="B-)" title="cool" src="img/smiles/icon_cool.gif" /><a href="#h1_Heading_8-_" class="heading-link"><img src="img/icons/green_question.png" alt="Question" width="16" height="16" name="link" title="Question" class="icon" /></a></h1>';
+<h1 class="showhide_heading" id="h1_Heading_8-_">h1 Heading 😎<a href="#h1_Heading_8-_" class="heading-link"><img src="img/icons/green_question.png" alt="Question" width="16" height="16" name="link" title="Question" class="icon" /></a></h1>';
         } else {
             $res = '<hr />
 <h2>User: admin</h2>
 <h2>Plugin test: <sup><strong>12</strong></sup></h2>
-<h1>h1 Heading <img alt="B-)" title="cool" src="img/smiles/icon_cool.gif" /></h1>';
+<h1>h1 Heading 😎</h1>';
         }
 
         $res .= '

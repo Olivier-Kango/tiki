@@ -28,47 +28,6 @@ class ToolbarPicker extends ToolbarDialog
                 );
                 $list = array_combine($list, $list);
                 break;
-            case 'smiley':
-                $wysiwyg = 'Emoji';
-                $label = tra('Smileys');
-                $iconname = 'smile';
-                $rawList = [
-                    'biggrin',
-                    'confused',
-                    'cool',
-                    'cry',
-                    'eek',
-                    'evil',
-                    'exclaim',
-                    'frown',
-                    'idea',
-                    'lol',
-                    'mad',
-                    'mrgreen',
-                    'neutral',
-                    'question',
-                    'razz',
-                    'redface',
-                    'rolleyes',
-                    'sad',
-                    'smile',
-                    'surprised',
-                    'twisted',
-                    'wink',
-                    'arrow',
-                    'santa',
-                ];
-                $tool_prefs[] = 'feature_smileys';
-
-                $list = [];
-                foreach ($rawList as $smiley) {
-                    $tra = htmlentities(tra($smiley), ENT_QUOTES, 'UTF-8');
-                    $list["(:$smiley:)"] = '<img src="' . $headerlib->convert_cdn(
-                        'img/smiles/icon_' . $smiley . '.gif'
-                    ) . '" alt="' . $tra . '" title="' . $tra . '" width="15" height="15" />';
-                }
-
-                break;
             case 'emoji':
                 // TODO once working this will replace feature_smileys
                 $wysiwyg = 'Emoji';

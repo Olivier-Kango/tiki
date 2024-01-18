@@ -76,7 +76,7 @@ class FunctionToolbarsTest extends TikiTestCase
         ];
 
         $expectedResults = [
-            [['Bold', 'Italic', 'Underline', 'Strike', '-', 'TextColor', '-', 'tikiimage', 'tikilink', 'externallink', 'Unlink', '-', 'Undo', 'Redo', '-', 'Find', 'Replace', '-', 'RemoveFormat', 'SpecialChar', 'Emoji', '-', 'tikihelp', 'autosave',],],
+            [['Bold', 'Italic', 'Underline', 'Strike', '-', 'TextColor', '-', 'tikiimage', 'tikilink', 'externallink', 'Unlink', '-', 'Undo', 'Redo', '-', 'Find', 'Replace', '-', 'RemoveFormat', 'SpecialChar', '-', 'tikihelp', 'autosave',],],
             [['Format', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'JustifyLeft', 'JustifyCenter', '-', 'BulletedList', 'NumberedList', '-', 'PageBreak', 'HorizontalRule', '-', 'tikitable', '-', 'Source', 'ShowBlocks', '-', 'Maximize',],],
         ];
         /** @var HeaderLib $headerlib */

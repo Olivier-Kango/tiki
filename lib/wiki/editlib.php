@@ -1820,34 +1820,39 @@ class EditLib
         }
     }
 
-    private function convertSmileysToUnicode($data)
+    public function convertSmileysToUnicode($data)
     {
         $conversion = [
-            'biggrin' => '&#128512;',
-            'confused' => '&#128533;',
-            'cool' => '&#128526;',
-            'cry' => '&#128557;',
-            'eek' => '&#128563;',
-            'evil' => '&#128123;',
-            'exclaim' => '&excl;',
-            'frown' => '&#128577;',
-            'idea' => '&#128161;',
-            'lol' => '&#128514;',
-            'mad' => '&#128551;',
-            'mrgreen' => '&#128513;',
-            'neutral' => '&#128528;',
-            'question' => '&quest;',
-            'razz' => '&#128539;',
-            'redface' => '&#128545;',
-            'rolleyes' => '&#128580;',
-            'sad' => '&#128529;',
-            'smile' => '&#128522;',
-            'surprised' => '&#1F60E;',
-            'twisted' => '&#128576;',
-            'wink' => '&#128521;',
-            'arrow' => '&rarr;',
-            'santa' => '&#127877;',
+            'biggrin' => '😀',
+            'confused' => '😕',
+            'cool' => '😎',
+            'cry' => '😢',
+            'eek' => '😬',
+            'evil' => '👻',
+            'exclaim' => '❗',
+            'frown' => '🙁',
+            'idea' => '💡',
+            'lol' => '😂',
+            'mad' => '😧',
+            'mrgreen' => '😁',
+            'neutral' => '😐',
+            'question' => '❓',
+            'razz' => '😛',
+            'redface' => '😡',
+            'rolleyes' => '🙄',
+            'sad' => '😑',
+            'smile' => '😊',
+            'surprised' => '😯',
+            'twisted' => '🙀',
+            'wink' => '😉',
+            'arrow' => '➡️',
+            'santa' => '🎅',
         ];
+
+        $shorts = [':-D', ':D', ':-/', '8-)', '8)', ':-)', ':)', ':-(', ':(', ':-|', ':|', ':-p', ':p', ':-o', ':o', ';-)', ';)'];
+        $emojis = ['😀', '😀', '😕', '😎', '😎', '😊', '😊', '😑', '😑', '😐', '😐', '😛', '😛', '😯', '😯', '😉', '😉'];
+
+        $data = str_replace($shorts, $emojis, $data);
 
         $data = preg_replace_callback('/\(:(\w+):\)/i', function ($matches) use ($conversion) {
             if (! isset($conversion[$matches[1]])) {
