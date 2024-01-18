@@ -17,7 +17,14 @@ if (! isset($_REQUEST['siteId'])) {
     $smarty->display("error.tpl");
     die;
 }
+
 $site_info = $dirlib->dir_get_site($_REQUEST['siteId']);
+if (! $site_info) {
+    $smarty->assign('msg', tra("Site not found"));
+    $smarty->display("error.tpl");
+    die;
+}
+
 $url = $site_info['url'];
 // Add a hit to the site
 $dirlib->dir_add_site_hit($_REQUEST['siteId']);
