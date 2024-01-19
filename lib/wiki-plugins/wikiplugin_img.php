@@ -15,7 +15,7 @@ function wikiplugin_img_info()
         'documentation' => 'PluginImg',
         'description' => tra('Display one or more custom-formatted images'),
         'prefs' => [ 'wikiplugin_img'],
-        'iconname' => 'image',
+        'iconname' => 'camera',
         'tags' => [ 'basic' ],
         'introduced' => 3,
         'params' => [

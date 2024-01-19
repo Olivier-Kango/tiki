@@ -44,9 +44,9 @@ class ToolbarCkOnly extends ToolbarItem
             case 'paste':
                 return new self('Paste', null, 'paste');
             case 'pastetext':
-                return new self('PasteText', null, 'paste');
+                return new self('PasteText', null, 'clipboard');
             case 'pasteword':
-                return new self('PasteFromWord', null, 'paste');
+                return new self('PasteFromWord', null, 'clone');
             case 'print':
                 return new self('Print', null, 'print');
             case 'spellcheck':
@@ -96,7 +96,7 @@ class ToolbarCkOnly extends ToolbarItem
             case 'sub':
                 return new self('Subscript', null, 'subscript');
             case 'sup':
-                return new self('Superscript', null, 'subscript');
+                return new self('Superscript', null, 'superscript');
             case 'anchor':
                 return new self('Anchor', null, 'anchor');
             case 'bidiltr':

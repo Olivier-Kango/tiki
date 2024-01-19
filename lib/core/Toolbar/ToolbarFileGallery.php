@@ -10,7 +10,7 @@ class ToolbarFileGallery extends ToolbarUtilityItem
     public function __construct()
     {
         $this->setLabel(tra('Choose or upload images'))
-            ->setIconName('image')
+            ->setIconName('images')
             ->setIcon(tra('img/icons/pictures.png'))
             ->setWysiwygToken('tikiimage')
             ->setMarkdownSyntax('tikiimage')

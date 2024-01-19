@@ -12,7 +12,7 @@ function wikiplugin_accordion_info()
         'description' => tra('Create content within collapsable items'),
         'prefs' => ['wikiplugin_accordion'],
         'body' => tra('Content of the collapsible zones, separated by "/////"'),
-        'iconname' => 'wizard',
+        'iconname' => 'grip-lines',
         'filter' => 'wikicontent',
         'format' => 'html',
         'introduced' => 25,

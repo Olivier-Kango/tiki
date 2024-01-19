@@ -10,7 +10,7 @@ function wikiplugin_zoterolist_info()
         'name' => tra('Zotero Reference List'),
         'description' => tra('Display the complete reference list from a Zotero server'),
         'prefs' => ['zotero_enabled', 'wikiplugin_zoterolist'],
-        'iconname' => 'bookmark',
+        'iconname' => 'book-bookmark',
         'introduced' => 7,
         'params' => [
             'tag' => [

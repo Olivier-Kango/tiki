@@ -158,7 +158,7 @@ class ToolbarDialog extends ToolbarItem
 
             case 'replace':
                 $icon = tra('img/icons/text_replace.png');
-                $iconname = 'repeat';
+                $iconname = 'exchange';
                 $wysiwyg = 'Replace';
                 $markdown = ''; // TODO
                 $label = tra('Text Replace');
