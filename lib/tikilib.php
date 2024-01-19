@@ -38,6 +38,8 @@ class TikiLib extends TikiDb_Bridge
     public $cache_page_info = [];
     public $sessionId = null;
 
+    public $is_slideshow = false;
+
     /**
      * Collection of Tiki libraries.
      * Populated by TikiLib::lib()

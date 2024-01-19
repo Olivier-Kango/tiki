@@ -94,7 +94,11 @@ if ($prefs['feature_wiki_structure'] == 'y') {
         // If a structure page has been requested
         $page_ref_id = $_REQUEST['page_ref_id'];
     } else {
-        $page_ref_id = $structlib->get_struct_ref_id($_REQUEST['page']);
+        if (isset($_REQUEST['page'])) {
+            $page_ref_id = $structlib->get_struct_ref_id($_REQUEST['page']);
+        } else {
+            $page_ref_id = null;
+        }
     }
     if ($page_ref_id) {
         $page_info = $structlib->s_get_page_info($page_ref_id);

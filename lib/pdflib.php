@@ -117,8 +117,8 @@ class PdfGenerator
                         $pdata .= $page['parsed'];
                     }
                 } else {
-                    $page = $params['page'];
-                    if (isset($page)) {
+                    $page = $params['page'] ?? null;
+                    if ($page) {
                         $tikilib = TikiLib::lib('tiki');
                         $page_info = $tikilib->get_page_info($page);
                         if ($page_info) {
