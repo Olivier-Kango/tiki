@@ -1822,7 +1822,9 @@ class CalendarLib extends TikiLib
                             $e++;
                             $key = "{$lte['time']}$e";
                             $leday[$key] = $lte;
-                            $lte['desc_name'] .= tra($lte['action']);
+                            if (isset($lte['action'])) {
+                                $lte['desc_name'] .= tra($lte['action']);
+                            }
                         }
                     }
                     foreach ($leday as $key => $lte) {
