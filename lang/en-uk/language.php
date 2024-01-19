@@ -1,6 +1,6 @@
 <?php
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
-// 
+//
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
@@ -13171,8 +13171,6 @@ $lang_current = array(
 // "new events" => "new events",
 // "starting on" => "starting on",
 // "If comments don't use titles this sets the maximum length for the comment snippet" => "If comments don't use titles this sets the maximum length for the comment snippet",
-// "SVN Up Info" => "SVN Up Info",
-// "SVN Version and last update information" => "SVN Version and last update information",
 // "Switch Language" => "Switch Language",
 // "Displays a language picker to change the language of the site" => "Displays a language picker to change the language of the site",
 // "Display mode" => "Display mode",
@@ -14412,7 +14410,6 @@ $lang_current = array(
 // "Note that if the SEFURL feature is on, page links created using wysiwyg might not be automatically updated when pages are renamed. This is addressed through the \"Use Wiki syntax in WYSIWYG\" feature" => "Note that if the SEFURL feature is on, page links created using wysiwyg might not be automatically updated when pages are renamed. This is addressed through the \"Use Wiki syntax in WYSIWYG\" feature",
 // "WYSIWYG editor features" => "WYSIWYG editor features",
 // "Related features" => "Related features",
-// "Last update from SVN" => "Last update from SVN",
 // "{\$sect|capitalize}" => "{\$sect|capitalize}",
 // "Cache Time" => "Cache Time",
 // "secs" => "secs",
@@ -19730,7 +19727,6 @@ $lang_current = array(
 // "Create new snapshot" => "Create new snapshot",
 // "Destroy this {\$field.options_map.domain|escape} instance" => "Destroy this {\$field.options_map.domain|escape} instance",
 // "Reset password to 12345" => "Reset password to 12345",
-// "SVN update" => "SVN update",
 // "Debug Mode Information" => "Debug Mode Information",
 // "Get instance information and refresh cache" => "Get instance information and refresh cache",
 // "Filter by group" => "Filter by group",
@@ -21246,7 +21242,6 @@ $lang_current = array(
 // "High-performance scientific computing library for PHP" => "High-performance scientific computing library for PHP",
 // "This extension is required for H5P" => "This extension is required for H5P",
 // "This extension is required for many features in Tiki" => "This extension is required for many features in Tiki",
-// "This extension is used to interpret SVN information for TortoiseSVN 1.7 or higher" => "This extension is used to interpret SVN information for TortoiseSVN 1.7 or higher",
 // "Enable safe, encrypted storage of data such as passwords. Since Tiki 22, Sodium lib (included in PHP 7.2 core) is used for the User Encryption feature and improves encryption in other features, when available" => "Enable safe, encrypted storage of data such as passwords. Since Tiki 22, Sodium lib (included in PHP 7.2 core) is used for the User Encryption feature and improves encryption in other features, when available",
 // "Enable safe, encrypted storage of data such as passwords. Tiki 21 and earlier versions, require OpenSSL for the User Encryption feature and improves encryption in other features, when available" => "Enable safe, encrypted storage of data such as passwords. Tiki 21 and earlier versions, require OpenSSL for the User Encryption feature and improves encryption in other features, when available",
 // "Tiki still uses OpenSSL to decrypt user data encrypted with OpenSSL, when converting that data to Sodium (PHP 7.2+)" => "Tiki still uses OpenSSL to decrypt user data encrypted with OpenSSL, when converting that data to Sodium (PHP 7.2+)",

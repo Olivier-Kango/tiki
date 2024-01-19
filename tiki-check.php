@@ -1656,27 +1656,6 @@ if ($s) {
     );
 }
 
-/*
-*    If TortoiseSVN 1.7 is used, it uses an sqlite database to store the SVN info. sqlite3 extention needed to read svn info.
-*/
-if (is_file('.svn/wc.db')) {
-    // It's an TortoiseSVN 1.7+ installation
-    $s = extension_loaded('sqlite3');
-    if ($s) {
-        $php_properties['sqlite3'] = array(
-            'fitness' => tra('good'),
-            'setting' => 'Loaded',
-            'message' => tra('This extension is used to interpret SVN information for TortoiseSVN 1.7 or higher.')
-            );
-    } else {
-        $php_properties['sqlite3'] = array(
-            'fitness' => tra('unsure'),
-            'setting' => 'Not available',
-            'message' => tra('This extension is used to interpret SVN information for TortoiseSVN 1.7 or higher.')
-            );
-    }
-}
-
 $s = extension_loaded('sodium');
 $msg = tra('This extension is required to encrypt data such as CSRF ticket cookie and user data.') . PHP_EOL;
 $msg .= tra('Enable safe, encrypted storage of data such as passwords. Since Tiki 22, Sodium lib (included in PHP 7.2 core) is used for the User Encryption feature and improves encryption in other features, when available');

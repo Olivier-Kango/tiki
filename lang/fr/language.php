@@ -1,6 +1,6 @@
 <?php
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
-// 
+//
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
@@ -13222,8 +13222,6 @@ $lang_current = array(
 // "new events" => "new events",
 // "starting on" => "starting on",
 // "If comments don't use titles this sets the maximum length for the comment snippet" => "If comments don't use titles this sets the maximum length for the comment snippet",
-// "SVN Up Info" => "SVN Up Info",
-"SVN Version and last update information" => "Version SVN et information de dernière mise à jour",
 "Switch Language" => "Changer de langue",
 "Displays a language picker to change the language of the site" => "Affiche un sélecteur de langue pour changer la lague du site",
 "Display mode" => "Mode d'affichage",
@@ -14466,7 +14464,6 @@ $lang_current = array(
 // "WYSIWYG editor features" => "WYSIWYG editor features",
 "Related features" => "Fonctionnalités associées",
 // "Tiki version" => "Tiki version",
-"Last update from SVN" => "Dernière mise à jour depuis SVN",
 // "{\$sect|capitalize}" => "{\$sect|capitalize}",
 "Cache Time" => "Temps d'antémémoire",
 "secs" => "secs",
@@ -19876,7 +19873,6 @@ $lang_current = array(
 // "Create new snapshot" => "Create new snapshot",
 // "Destroy this {\$field.options_map.domain|escape} instance" => "Destroy this {\$field.options_map.domain|escape} instance",
 "Reset password to 12345" => "Réinitialiser le mot de passe à 12345",
-// "SVN update" => "SVN update",
 // "Debug Mode Information" => "Debug Mode Information",
 // "Get instance information and refresh cache" => "Get instance information and refresh cache",
 // "Filter by group" => "Filter by group",
@@ -21395,7 +21391,6 @@ $lang_current = array(
 // "High-performance scientific computing library for PHP" => "High-performance scientific computing library for PHP",
 // "This extension is required for H5P" => "This extension is required for H5P",
 // "This extension is required for many features in Tiki" => "This extension is required for many features in Tiki",
-// "This extension is used to interpret SVN information for TortoiseSVN 1.7 or higher" => "This extension is used to interpret SVN information for TortoiseSVN 1.7 or higher",
 // "Enable safe, encrypted storage of data such as passwords. Since Tiki 22, Sodium lib (included in PHP 7.2 core) is used for the User Encryption feature and improves encryption in other features, when available" => "Enable safe, encrypted storage of data such as passwords. Since Tiki 22, Sodium lib (included in PHP 7.2 core) is used for the User Encryption feature and improves encryption in other features, when available",
 // "Enable safe, encrypted storage of data such as passwords. Tiki 21 and earlier versions, require OpenSSL for the User Encryption feature and improves encryption in other features, when available" => "Enable safe, encrypted storage of data such as passwords. Tiki 21 and earlier versions, require OpenSSL for the User Encryption feature and improves encryption in other features, when available",
 // "Tiki still uses OpenSSL to decrypt user data encrypted with OpenSSL, when converting that data to Sodium (PHP 7.2+)" => "Tiki still uses OpenSSL to decrypt user data encrypted with OpenSSL, when converting that data to Sodium (PHP 7.2+)",

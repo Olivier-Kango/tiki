@@ -107,13 +107,6 @@ function upgrade_20110115_create_bottom_modules_tiki($installer)
         );
     }
 
-    // add svnup
-    if (is_dir('.svn')) {
-        $installer->query(
-            "INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,`groups`) VALUES " .
-            "('svnup','b',7,0,'nobox=y','a:1:{i:0;s:6:\"Admins\";}');"
-        );
-    }
 
     //  TODO uncomment when stable (pre Tiki 7 release)
     //  $installer->query("DELETE FROM `tiki_preferences` WHERE `name` IN ".

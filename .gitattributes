@@ -5203,7 +5203,6 @@ modules/mod-func-share.php -text
 modules/mod-func-shoutbox.php -text
 modules/mod-func-since_last_visit.php -text
 modules/mod-func-since_last_visit_new.php -text
-modules/mod-func-svnup.php -text
 modules/mod-func-switch_lang.php -text
 modules/mod-func-switch_theme.php -text
 modules/mod-func-terminology.php -text
@@ -5828,7 +5827,6 @@ templates/modules/mod-shoutbox.tpl -text
 templates/modules/mod-shoutbox.tpl.nocache -text
 templates/modules/mod-since_last_visit.tpl -text
 templates/modules/mod-since_last_visit_new.tpl -text
-templates/modules/mod-svnup.tpl -text
 templates/modules/mod-switch_lang.tpl -text
 templates/modules/mod-switch_theme.tpl -text
 templates/modules/mod-switch_theme.tpl.nocache -text
