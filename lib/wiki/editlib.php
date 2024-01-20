@@ -1443,7 +1443,7 @@ class EditLib
                 require_once('lib/diff/difflib.php');
                 $textDiff = new Text_Diff($oldData, $newData, true);
                 if (! $textDiff->isEmpty()) {
-                    foreach ($textDiff->_edits as $edit) {
+                    foreach ($textDiff->edits as $edit) {
                         if (is_a($edit, 'Text_Diff_Op_add')) { // new content
                             $sections[] = findMentions($edit->final, 'new');
                         } elseif (is_a($edit, 'Text_Diff_Op_change')) { // change or new content
