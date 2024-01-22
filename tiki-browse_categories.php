@@ -14,6 +14,9 @@ $categlib = TikiLib::lib('categ');
 include_once('lib/tree/BrowseTreeMaker.php');
 $access->check_feature('feature_categories');
 
+$smarty = TikiLib::lib('smarty');
+$smarty->loadPlugin('smarty_function_icon');
+
 $prefsgroups = $prefs['feature_group_watches'];
 global $prefsgroups, $tiki_p_admin_users, $tiki_p_admin;
 
@@ -225,7 +228,7 @@ foreach ($ctall as $c) {
         $countString = '';
     }
 
-    if ($prefs['category_browse_show_categids'] === 'y') {
+    if (isset($prefs['category_browse_show_categids']) && $prefs['category_browse_show_categids'] === 'y') {
         $catid = "<span class='badge text-bg-light text-muted ms-5 float-end'>ID: {$c["categId"]}</span>";
     } else {
         $catid = '';

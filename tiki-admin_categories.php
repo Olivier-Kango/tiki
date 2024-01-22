@@ -494,13 +494,13 @@ foreach ($categories as $category) {
             ';
         }
 
-        if ($prefs['category_browse_show_categids'] === 'y') {
+        if (isset($prefs['category_browse_show_categids']) && $prefs['category_browse_show_categids'] === 'y') {
             $catid = "<span class='badge text-bg-light text-muted float-end'>ID: {$category["categId"]}</span>";
         } else {
             $catid = '';
         }
 
-        if ($prefs['category_browse_count_objects'] === 'y') {
+        if (isset($prefs['category_browse_show_categids']) && $prefs['category_browse_count_objects'] === 'y') {
             $objectcount = $categlib->list_category_objects(
                 $category['categId'],
                 0,
