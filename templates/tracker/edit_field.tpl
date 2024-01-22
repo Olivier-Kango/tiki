@@ -49,7 +49,7 @@
                         <select multiple name="option~{$param|escape}[]" class="form-select">
                             {foreach from=$def.options key=val item=label}
                                 <option value="{$label|escape}"
-                                    {if in_array($label, $options[$param])} selected="selected"{/if}>
+                                    {if is_array($options[$param])}{if in_array($label, $options[$param])} selected="selected"{/if}{/if}>
                                     {$label|escape}
                                 </option>
                             {/foreach}
