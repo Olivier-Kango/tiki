@@ -3289,7 +3289,7 @@ class ParserLib extends TikiDb_Bridge
 
         $count = 1;
         return preg_replace_callback(
-            '/@(\w+)/i',
+            '/@([\w\-\.]+)/i',
             function ($matches) use (&$count) {
                 $myUser = substr($matches[0], strpos($matches[0], "@") + 1);
                 if ($myUser) {
