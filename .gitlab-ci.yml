@@ -29,7 +29,12 @@ variables:
   USE_GITLAB_PROXY: ''
   # Default value for DEPENDENCY_PROXY_PREFIX (not using any proxy), you can set this on your project also if you do not set USE_GITLAB_PROXY to "true"
   DEPENDENCY_PROXY_PREFIX: ''
-  npm_config_cache: "$CI_PROJECT_DIR/.npm" 
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  #Be careful here, composer cache dir handling can be a bit surprising.
+  #If cache dir is a relative path, it's relative to the working directory, or the -d parameter if specified.
+  #If cache dir in an absolute path, it's used as is.
+  #Since we use multiple vendor directories, and gitlab-ci has different rules for cache, and we want a global cache, we use ${CI_PROJECT_DIR} here so it's always at the root
+  COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
 
 workflow:
   rules:
@@ -75,7 +80,7 @@ node_modules:
   cache:
     policy: pull-push
   artifacts:
-    expire_in: 7 days
+    expire_in: 30 mins
     paths:
       - node_modules
       - src/**/node_modules
@@ -87,14 +92,11 @@ node_build:
     name: ${DEPENDENCY_PROXY_PREFIX}${NODE_IMAGE}
   script:
     - npm run build
-  dependencies: 
-    - node_modules #This is only because we still have some scss files installed from composer - 2023-11-17
-    - composer
   needs: 
-    - node_modules
+    - node_modules  #This is only because we still have some scss files installed from composer - 2023-11-17
     - composer
   artifacts:
-    expire_in: 7 days
+    expire_in: 30 mins
     paths:
       - public/generated/
       - themes/**/*.css # this includes not only the generated files, but all css files. Still should be ok.
@@ -103,40 +105,38 @@ node_build:
 # build
 #
 
+.cache-vendor_bundled: &cache-vendor_bundled
+    key:
+      prefix: "vendor_bundled"
+      files:
+          - vendor_bundled/composer.lock
+    paths:
+      - vendor_bundled/vendor
+    policy: pull
+
+.cache-composercache: &cache-composercache
+    key:
+      prefix: "composer"
+      files:
+        - vendor_bundled/composer.lock
+    paths:
+      - .composercache/
+    policy: pull-push
+
 composer:
   stage: build
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   variables:
     COMPOSER_DISCARD_CHANGES: "true"
     COMPOSER_NO_INTERACTION: "1"
-    #Be carefull here, composer cache dir handling can be a bit surprising.
-    #If cache dir is a relative path, it's relative to the working directory, or the -d parameter if specified.
-    #If cache dir in an absolute path, it's used as is.
-    #Since we use multiple vendor directories, and gitlab-ci has different rules for cache, and we want a global cache, we use ${CI_PROJECT_DIR} here so it's always at the root
-    COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d vendor_bundled --no-progress --prefer-dist --no-interaction
-  cache:
-    - key:
-        prefix: "composer"
-        files:
-          - vendor_bundled/composer.lock
-      paths:
-        - .composercache/
-      policy: pull-push
-    - key:
-        prefix: "vendor_bundled"
-        files:
-          - vendor_bundled/composer.lock
-      paths:
-        - vendor_bundled/vendor/
-      policy: pull-push
+  cache: [*cache-composercache, *cache-vendor_bundled]
   artifacts:
     paths:
       - vendor_bundled/vendor/
-    expire_in: 7 days
-    when: always
+    expire_in: 30 min
 
 composer-dbdiff:
   stage: build
@@ -159,7 +159,7 @@ composer-dbdiff:
   artifacts:
     paths:
       - doc/devtools/dbdiff/vendor/
-    expire_in: 7 days
+    expire_in: 30 mins
     when: always
 
 
@@ -172,8 +172,6 @@ phpcs:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php vendor_bundled/vendor/squizlabs/php_codesniffer/bin/phpcs --cache=phpcs.cache -s --runtime-set ignore_warnings_on_exit true --parallel=8
-  dependencies:
-    - composer
   needs:
     - composer
   cache:
@@ -190,8 +188,6 @@ phplint81:
   image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:8.1-qa
   script:
     - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
-  dependencies:
-    - composer
   needs:
     - composer
   cache:
@@ -204,8 +200,6 @@ phplint82:
   image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:8.2-qa
   script:
     - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
-  dependencies:
-    - composer
   needs:
     - composer
   cache:
@@ -216,12 +210,10 @@ phplint82:
 smarty-lint:
   stage: lint
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
-  script:
-    - php vendor_bundled/vendor/umakantp/smartylint/smartyl -p --files=lib/test,templates,themes --rules=doc/devtools/smartyl.rules.xml
-  dependencies:
-    - composer
   needs:
     - composer
+  script:
+    - php vendor_bundled/vendor/umakantp/smartylint/smartyl -p --files=lib/test,templates,themes --rules=doc/devtools/smartyl.rules.xml
 
 eslint:
   stage: lint
@@ -230,12 +222,24 @@ eslint:
     #entrypoint: ["/bin/sh", "-c"]
   script:
     - npx eslint .
-  dependencies: 
-    - node_modules
   needs: 
     - node_modules
   tags:
     - docker
+
+check-bom-encoding:
+  stage: lint
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  script:
+    - php doc/devtools/check_bom_encoding.php
+  needs: []
+
+unix-ending-line:
+  stage: lint
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  script:
+    - php doc/devtools/check_unix_ending_line.php
+  needs: []
 
 #
 # Check Tikiwiki development specific check (related also with release)
@@ -246,7 +250,6 @@ sql-engine:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php -d display_errors=On doc/devtools/check_sql_engine.php
-  dependencies: []
   needs: []
 
 schema-sql-drop:
@@ -254,7 +257,6 @@ schema-sql-drop:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php -d display_errors=On doc/devtools/check_schema_sql_drop.php
-  dependencies: []
   needs: []
 
 schema-naming-convention:
@@ -262,7 +264,6 @@ schema-naming-convention:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php -d display_errors=On doc/devtools/check_schema_naming_convention.php
-  dependencies: []
   needs: []
 
 translation:
@@ -270,8 +271,6 @@ translation:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - git log --first-parent --pretty="format:%h" -1 --skip=1 | xargs -I gitHash php -d display_errors=On console.php translation:englishupdate --diff-command="git diff gitHash" --git --audit
-  dependencies:
-    - composer
   needs:
     - composer
   allow_failure: true
@@ -281,26 +280,8 @@ translation-standards:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
     - php doc/devtools/check_template_translation_standards.php --all
-  dependencies:
-    - composer
   needs:
     - composer
-
-check-bom-encoding:
-  stage: tiki-check
-  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
-  script:
-    - php doc/devtools/check_bom_encoding.php
-  dependencies: []
-  needs: []
-
-unix-ending-line:
-  stage: tiki-check
-  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
-  script:
-    - php doc/devtools/check_unix_ending_line.php
-  dependencies: []
-  needs: []
 
 #This is a non-network check
 composer-validates:
@@ -309,7 +290,6 @@ composer-validates:
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - composer validate -d vendor_bundled --no-check-all
-  dependencies: []
   needs: []
 
 #This tests if composer COULD update the current composer.lock (it is coherent and installable).  This is important because a developer wanting to update or add a dependency wouldn't be able to do so without figuring out why a composer.lock cannot be generated even before his changes.
@@ -317,25 +297,13 @@ composer-validates:
 #This is a network check, it could fail because composer.tiki.org is not up to date or some other non-code related reason.
 composer-could-update-lock:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
-  variables:
-    COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   stage: tiki-check
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - composer update -d vendor_bundled --dry-run
-  dependencies:
-    - composer
   needs:
     - composer
-  cache:
-    - key:
-        prefix: "composer"
-        files:
-          - vendor_bundled/composer.lock
-      paths:
-        - .composercache/
-      #We need push, because otherwise repo information isn't cached
-      policy: pull-push
+  cache: [*cache-composercache]
   #This test should only run when composer-validates fail (because changes in the upstream deps can make this fail without code changes).  But I could find no way to have a test only run in gitlab-ci if a specific one fails.  So allow it to fail like composer-lock for now - benoitg 2023-05-03
   allow_failure: true
 
@@ -343,8 +311,6 @@ composer-could-update-lock:
 .composer-lock:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: tiki-check
-  variables:
-      COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   script:
     - cp $(command -v composer) temp/composer.phar
     - php temp/composer.phar -V | grep "version 2" || php temp/composer.phar self-update --2
@@ -356,24 +322,15 @@ composer-could-update-lock:
     - mkdir after || true
     - cp vendor_bundled/composer.json vendor_bundled/composer.lock after
     - diff -u before/composer.lock after/composer.lock
-  dependencies:
-    - composer
   needs:
     - composer
   artifacts:
     paths:
       - before
       - after
-    expire_in: 7 days
+    expire_in: 2 days
     when: always
-  cache:
-    - key:
-        prefix: "composer"
-        files:
-          - vendor_bundled/composer.lock
-      paths:
-        - .composercache/
-      policy: pull-push
+  cache: [*cache-composercache]
   allow_failure:
       exit_codes: 1
 
@@ -396,9 +353,6 @@ composer-could-update-lock:
     - echo "SHOW CREATE DATABASE tikinew" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
     - mysqldump --column-statistics=0  --default-character-set=utf8mb4 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikiold > tikiold.sql
     - mysqldump --column-statistics=0  --default-character-set=utf8mb4 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikinew > tikinew.sql
-  dependencies:
-    - composer
-    - composer-dbdiff
   needs:
     - composer
     - composer-dbdiff
@@ -406,7 +360,7 @@ composer-could-update-lock:
     paths:
       - tikiold.sql
       - tikinew.sql
-    expire_in: 7 days
+    expire_in: 2 days
     when: always
 
 .template-tiki-schema-upgrade-mysql8: &template-tiki-schema-upgrade-mysql8
@@ -512,9 +466,6 @@ sql-engine-conversion:
     - echo "SHOW CREATE DATABASE tikinew" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
     - mysqldump --column-statistics=0 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikiold > tikiold.sql
     - mysqldump --column-statistics=0 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikinew > tikinew.sql
-  dependencies:
-    - composer
-    - composer-dbdiff
   needs:
     - composer
     - composer-dbdiff
@@ -522,7 +473,7 @@ sql-engine-conversion:
     paths:
       - tikiold.sql
       - tikinew.sql
-    expire_in: 7 days
+    expire_in: 2 days
     when: always
 
 # This will mostly catch composer platform-check problems.
@@ -531,8 +482,6 @@ console-php-works:
   stage: tiki-check
   script:
     - php console.php
-  dependencies: 
-      - composer
   needs: 
       - composer
 
@@ -560,8 +509,6 @@ console-php-works:
     - 'echo -n "Manticore Version: " && mysql -h manticore -P 9306 -e "status" | grep "Server version:" | sed "s/^[^:]*:[[:space:]]*//"'
     - echo '<?php $dbversion_tiki = "21.0"; $host_tiki = "mysql"; $user_tiki = "tikiuser"; $pass_tiki = "tikipass"; $dbs_tiki = "tikitest"; $client_charset = "utf8mb4"; ' > lib/test/local.php
     - php -d display_errors=On vendor_bundled/vendor/phpunit/phpunit/phpunit --colors=always --log-junit report.xml
-  dependencies:
-    - composer
   needs:
     - composer
   artifacts:
@@ -570,7 +517,7 @@ console-php-works:
       - report.xml
     reports:
       junit: report.xml
-    expire_in: 7 days
+    expire_in: 2 days
 
 .template-unit-tests-mysql8: &template-unit-tests-mysql8
   <<: *template-unit-tests
@@ -628,8 +575,6 @@ unit-tests-81-mariadb:
 tiki-package:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: package-tiki
-  variables:
-    COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
   script:
     # Remove dev dependencies in composer
     - echo "=> Removing Composer dev dependencies ..."
@@ -657,24 +602,14 @@ tiki-package:
     # pack
     - echo "=> Pack tiki ..."
     - tar --exclude *.DS_Store --exclude tests --exclude doc/devtools --exclude .git --exclude .gitignore --exclude .composercache -pczf tiki-${CI_COMMIT_SHORT_SHA}-${CI_COMMIT_REF_SLUG}.tar.gz *
-  cache:
-    - key:
-        prefix: "composer"
-        files:
-          - vendor_bundled/composer.lock
-      paths:
-        - .composercache/
-      policy: pull
-  dependencies:
-    - composer
-    - node_build
+  cache: [*cache-composercache]
   needs:
     - composer
     - node_build
   artifacts:
     paths:
       - tiki-${CI_COMMIT_SHORT_SHA}-${CI_COMMIT_REF_SLUG}.tar.gz
-    expire_in: 30 days
+    expire_in: 30 mins
   allow_failure: true
 
 check-directories:
@@ -683,8 +618,6 @@ check-directories:
   script:
     - php console.php dev:buildwsconfs --generate
     - php console.php dev:buildwsconfs
-  dependencies:
-    - composer
   needs:
     - composer
 
@@ -720,8 +653,6 @@ check-directories:
     - cd ..
     - bin/local-php-security-checker --path=composer.lock
   allow_failure: false
-  dependencies:
-    - composer
   needs:
     - composer
   only:
@@ -739,8 +670,6 @@ vendor-bundled-security-check:
     - php vendor/thibautselingue/local-php-security-checker-installer/bin/local-php-security-checker-installer
     - cd ..
     - bin/local-php-security-checker --path=vendor_bundled/composer.lock
-  dependencies:
-    - composer
   needs:
     - composer
   #We do want our pipeline to spontaneously warn us if a security advisory is released, but we don't want it to stop the development process
@@ -759,8 +688,6 @@ vendor-bundled-security-check:
 update_vendor_bundled_dependencies:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   stage: vendors_update
-  dependencies:
-    - composer
   needs:
     - composer
   variables:
