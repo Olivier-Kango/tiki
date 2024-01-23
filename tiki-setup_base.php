@@ -61,7 +61,7 @@ $tikilib = new TikiLib();
 // Get tiki-setup_base needed preferences in one query
 $prefs = [];
 $needed_prefs = [
-    'session_lifetime' => '0',
+    'session_lifetime' => 10080,
     'session_storage' => 'default',
     'session_silent' => 'n',
     'session_cookie_name' => session_name(),
