@@ -17,28 +17,150 @@
         {elseif $recurrence.nbRecurrences gt 1 or $recurrence.endPeriod gt 0}
             {tr}Event is repeated{/tr}&nbsp;
             {if $recurrence.nbRecurrences gt 1}
-                {$recurrence.nbRecurrences} {tr}times,{/tr}&nbsp;
+                {$recurrence.nbRecurrences} {tr}times{/tr}<br>
             {/if}
-            {if $recurrence.weekly}
-                    {tr}on{/tr}&nbsp;
-                    {foreach $recurrence.weekdays as $day}{strip}
-                        {if $day@iteration eq $day@total and not $day@first}
-                            &nbsp;{tr}and{/tr}&nbsp;
-                        {elseif not $day@last and not $day@first}
-                            ,&nbsp;
-                        {/if}
-                        {$daynames[$day]}
-                    {/strip}{/foreach}
+            {if $recurrence.daily}
+                {tr}Every{/tr} {$recurrence.days} {tr}day(s){/tr}
+            {elseif $recurrence.weekly}
+                {tr}Every{/tr} {$recurrence.weeks} {tr}week(s){/tr}<br>
+                {tr}Each{/tr}
+                {foreach $recurrence.weekdays as $day}{strip}
+                    {if $day@iteration eq $day@total and not $day@first}
+                        &nbsp;{tr}and{/tr}&nbsp;
+                    {elseif not $day@last and not $day@first}
+                        ,&nbsp;
+                    {/if}
+                    {$daynames[$day]}
+                {/strip}{/foreach}
+                {tr}of the week{/tr}
             {elseif $recurrence.monthly}
-                {tr}on{/tr}&nbsp;{$recurrence.dayOfMonth} {tr}of every month{/tr}
-            {else}
-                {tr}on each{/tr}&nbsp;{$recurrence.dateOfYear_day} {tr}of{/tr} {$monthnames[$recurrence.dateOfYear_month]}
+                {tr}Every{/tr} {$recurrence.months} {tr}month(s){/tr}<br>
+                {if $recurrence.monthlyType eq 'date'}
+                    {tr}Each{/tr} {', '|implode:$recurrence.dayOfMonth} {tr}of the month{/tr}
+                {else}
+                    {tr}Every{/tr}
+                    {if $recurrence.monthlyWeekdayValue[0] eq '1'}
+                        {tr}First{/tr}
+                    {elseif $recurrence.monthlyWeekdayValue[0] eq '2'}
+                        {tr}Second{/tr}
+                    {elseif $recurrence.monthlyWeekdayValue[0] eq '3'}
+                        {tr}Third{/tr}
+                    {elseif $recurrence.monthlyWeekdayValue[0] eq '4'}
+                        {tr}Fourth{/tr}
+                    {elseif $recurrence.monthlyWeekdayValue[0] eq '5'}
+                        {tr}Fifth{/tr}
+                    {elseif $recurrence.monthlyWeekdayValue[0] eq '-1'}
+                        {tr}Last{/tr}
+                    {/if}
+                    {if strpos($recurrence.monthlyWeekdayValue, 'SU') eq true}
+                        {tr}Sunday{/tr}
+                    {elseif strpos($recurrence.monthlyWeekdayValue, 'MO') eq true}
+                        {tr}Monday{/tr}
+                    {elseif strpos($recurrence.monthlyWeekdayValue, 'TU') eq true}
+                        {tr}Tuesday{/tr}
+                    {elseif strpos($recurrence.monthlyWeekdayValue, 'WE') eq true}
+                        {tr}Wednesday{/tr}
+                    {elseif strpos($recurrence.monthlyWeekdayValue, 'TH') eq true}
+                        {tr}Thursday{/tr}
+                    {elseif strpos($recurrence.monthlyWeekdayValue, 'FR') eq true}
+                        {tr}Friday{/tr}
+                    {elseif strpos($recurrence.monthlyWeekdayValue, 'SA') eq true}
+                        {tr}Saturday{/tr}
+                    {/if}
+                    {tr}of the month{/tr}
+                {/if}
+            {elseif $recurrence.yearly}
+                {tr}Every{/tr} {$recurrence.years} {tr}year(s){/tr}<br>
+                {if $recurrence.yearlyType eq 'date'}
+                    {tr}Each{/tr} {$recurrence.yearlyDay} {tr}of{/tr}
+                    {if $recurrence.yearlyMonth eq '1'}
+                        {tr}January{/tr}
+                    {elseif $recurrence.yearlyMonth eq '2'}
+                        {tr}February{/tr}
+                    {elseif $recurrence.yearlyMonth eq '3'}
+                        {tr}March{/tr}
+                    {elseif $recurrence.yearlyMonth eq '4'}
+                        {tr}April{/tr}
+                    {elseif $recurrence.yearlyMonth eq '5'}
+                        {tr}May{/tr}
+                    {elseif $recurrence.yearlyMonth eq '6'}
+                        {tr}June{/tr}
+                    {elseif $recurrence.yearlyMonth eq '7'}
+                        {tr}July{/tr}
+                    {elseif $recurrence.yearlyMonth eq '8'}
+                        {tr}August{/tr}
+                    {elseif $recurrence.yearlyMonth eq '9'}
+                        {tr}September{/tr}
+                    {elseif $recurrence.yearlyMonth eq '10'}
+                        {tr}October{/tr}
+                    {elseif $recurrence.yearlyMonth eq '11'}
+                        {tr}November{/tr}
+                    {elseif $recurrence.yearlyMonth eq '12'}
+                        {tr}December{/tr}
+                    {/if}
+                {else}
+                    {tr}Every{/tr}
+                    {if $recurrence.yearlyWeekdayValue[0] eq '1'}
+                        {tr}First{/tr}
+                    {elseif $recurrence.yearlyWeekdayValue[0] eq '2'}
+                        {tr}Second{/tr}
+                    {elseif $recurrence.yearlyWeekdayValue[0] eq '3'}
+                        {tr}Third{/tr}
+                    {elseif $recurrence.yearlyWeekdayValue[0] eq '4'}
+                        {tr}Fourth{/tr}
+                    {elseif $recurrence.yearlyWeekdayValue[0] eq '5'}
+                        {tr}Fifth{/tr}
+                    {elseif $recurrence.yearlyWeekdayValue[0] eq '-1'}
+                        {tr}Last{/tr}
+                    {/if}
+                    {if strpos($recurrence.yearlyWeekdayValue, 'SU') eq true}
+                        {tr}Sunday{/tr}
+                    {elseif strpos($recurrence.yearlyWeekdayValue, 'MO') eq true}
+                        {tr}Monday{/tr}
+                    {elseif strpos($recurrence.yearlyWeekdayValue, 'TU') eq true}
+                        {tr}Tuesday{/tr}
+                    {elseif strpos($recurrence.yearlyWeekdayValue, 'WE') eq true}
+                        {tr}Wednesday{/tr}
+                    {elseif strpos($recurrence.yearlyWeekdayValue, 'TH') eq true}
+                        {tr}Thursday{/tr}
+                    {elseif strpos($recurrence.yearlyWeekdayValue, 'FR') eq true}
+                        {tr}Friday{/tr}
+                    {elseif strpos($recurrence.yearlyWeekdayValue, 'SA') eq true}
+                        {tr}Saturday{/tr}
+                    {/if}
+                    {tr}of{/tr}
+                    {if $recurrence.yearlyWeekMonth eq '1'}
+                        {tr}January{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '2'}
+                        {tr}February{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '3'}
+                        {tr}March{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '4'}
+                        {tr}April{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '5'}
+                        {tr}May{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '6'}
+                        {tr}June{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '7'}
+                        {tr}July{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '8'}
+                        {tr}August{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '9'}
+                        {tr}September{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '10'}
+                        {tr}October{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '11'}
+                        {tr}November{/tr}
+                    {elseif $recurrence.yearlyWeekMonth eq '12'}
+                        {tr}December{/tr}
+                    {/if}
+                {/if}
             {/if}
             <br>
-            {tr}starting{/tr} {$recurrence.startPeriod|tiki_long_date}
+            {tr}Starting{/tr} {$recurrence.startPeriod|tiki_long_date}
             {if $recurrence.endPeriod gt 0}
-                , {tr}ending{/tr}&nbsp;{$recurrence.endPeriod|tiki_long_date}
-            {/if}.
+                <br>{tr}Ending{/tr} {$recurrence.endPeriod|tiki_long_date}
+            {/if}
         {/if}
     {/if}
     <div class="summary">
