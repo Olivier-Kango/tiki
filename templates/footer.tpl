@@ -94,6 +94,10 @@
 {if isset($prefs.socialnetworks_user_firstlogin) && $prefs.socialnetworks_user_firstlogin == 'y'}
     {include file='tiki-socialnetworks_firstlogin_launcher.tpl'}
 {/if}
+{*try to load cache when logged in*}
+{if (isset($pagespwa))}
+    {include file='pwa/pwa.tpl'}
+{/if}
 
 {if !empty($prefs.site_google_analytics_account)}
     {wikiplugin _name=googleanalytics account=$prefs.site_google_analytics_account group_option=$prefs.site_google_analytics_group_option groups={','|implode:$prefs.site_google_analytics_groups}}{/wikiplugin}
