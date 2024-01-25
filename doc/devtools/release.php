@@ -41,6 +41,7 @@ error_reporting(ERROR_REPORTING_LEVEL);
 chdir(ROOT . '/');
 
 require_once ROOT . '/lib/setup/third_party.php';
+require_once ROOT . '/path_constants.php';
 require_once ROOT . '/' . DEPRECATED_DEVTOOLS_PATH . '/vcscommons.php';
 
 if (version_compare(PHP_VERSION, '5.0.0', '<')) {
