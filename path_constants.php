@@ -112,8 +112,8 @@ const TIKI_VENDOR_NONBUNDLED_PATH = 'vendor'; //VENDOR_PATH caused a problem wit
 const TIKI_VENDOR_CUSTOM_PATH = 'vendor_custom';
 
 const PRIMARY_AUTOLOAD_FILE_PATH = 'vendor_bundled/vendor/autoload.php';
-const PRIMARY_COMPOSERJSON_FILE_PATH = 'vendor_bundled/vendor/composer.json';
-const COMPOSERLOCK_FILE_PATH = 'vendor_bundled/vendor/composer.lock';
+const PRIMARY_COMPOSERJSON_FILE_PATH = 'vendor_bundled/composer.json';
+const COMPOSERLOCK_FILE_PATH = 'vendor_bundled/composer.lock';
 
 const HTTP_PUBLIC_PATH = 'public';
 /* Javascript assets servable over http, including css generated from js files. */
