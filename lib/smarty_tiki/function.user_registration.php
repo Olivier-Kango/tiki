@@ -4,11 +4,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
 function smarty_function_user_registration($params, $smarty)
 {
     global $prefs, $https_mode, $base_url_https, $user;
+
     $registrationlib = TikiLib::lib('registration');
     $userlib = TikiLib::lib('user');
+    $captchalib = TikiLib::lib('captcha');
+    $access = TikiLib::lib('access');
+
+    $captchalib->generate();
 
     if ($prefs['allowRegister'] != 'y') {
         return;
@@ -24,6 +30,7 @@ function smarty_function_user_registration($params, $smarty)
     }
     $smarty->assignByRef('merged_prefs', $registrationlib->merged_prefs);
     $smarty->assign('allowRegister', 'y');
+    $smarty->assign('captchalib', $captchalib);
 
 // NOTE that this is not a standard access check, it checks for the opposite of that, i.e. whether logged in already
     if (! empty($user)) {
