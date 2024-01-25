@@ -2,19 +2,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function  addFullCalendarPrint(calendarId, buttonId, calendar){
-    let viewContainer = $(calendarId);
+
+import moment from "moment";
+
+$.fn.addFullCalendarPrint = function (buttonId, calendar){
+    let viewContainer = $(this);
+    var calendarId = "#" + $(this).attr("id");
     if(!viewContainer){
-        console.warn(calendarId+" not found");
+        console.warn(calendarId + " not found");
         return;
     }
     viewContainer.append($(buttonId));
     $(buttonId).show();
-    // We need to remove previoud binds to avoid $('.icon-pdf').parent() to trigger page to PDF
-    $(buttonId).off('click');
+    // We need to remove previoud binds to avoid $(".icon-pdf").parent() to trigger page to PDF
+    $(buttonId).off("click");
     $(buttonId).click(function (event) {
         event.preventDefault();
-        var elementToPrint = $(calendarId + ' .fc-view');
+        var elementToPrint = $(calendarId + " .fc-view");
         $("html, body").animate({ scrollTop: 0 }, 0);
         setTimeout(function() {
             html2canvas(elementToPrint[0], {
@@ -29,19 +33,19 @@ function  addFullCalendarPrint(calendarId, buttonId, calendar){
                 var pageHeight = 250;
                 var imgHeight = canvas.height * imgWidth / canvas.width;
                 var heightLeft = imgHeight;
-                var doc = new jsPDF('p', 'mm');
+                var doc = new jsPDF("p", "mm");
                 doc.setFontSize(14);
-                doc.text((210-imgWidth)/2, 20, monthName+ " "+year);
+                doc.text((210-imgWidth)/2, 20, monthName + " " + year);
 
                 if(imgHeight > pageHeight){
                     imgHeight = pageHeight;
                     imgWidth = canvas.width * imgHeight/canvas.height;
                 }
 
-                doc.addImage(imgData, 'JPEG', (210-imgWidth)/2, 30, imgWidth, (heightLeft > pageHeight)?pageHeight:heightLeft);
+                doc.addImage(imgData, "JPEG", (210-imgWidth)/2, 30, imgWidth, (heightLeft > pageHeight)?pageHeight:heightLeft);
 
-                doc.save(monthName+year+".pdf");
+                doc.save(monthName + year + ".pdf");
             });
         }, 200);
     });
-}
+};
