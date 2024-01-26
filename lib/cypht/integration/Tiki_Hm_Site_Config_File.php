@@ -26,6 +26,7 @@ class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File
         $this->set('session_type', 'custom');
         $this->set('session_class', 'Tiki_Hm_Custom_Session');
         $this->set('cache_class', 'Tiki_Hm_Custom_Cache');
+        $this->set('auth_class', 'Tiki_Hm_Custom_Auth');
         $this->set('session_prefix', $session_prefix);
         $this->set('auth_type', 'custom');
         $this->set('output_class', 'Tiki_Hm_Output_HTTP');
