@@ -422,7 +422,7 @@ CREATE TABLE `tiki_calendar_recurrence` (
   `weekdays` VARCHAR(20) DEFAULT NULL,
   `monthly` tinyint(1) default '0',
   `months` int default NULL,
-  `dayOfMonth` int(2),
+  `dayOfMonth` varchar(100) default NULL,
   `monthlyType` enum('date','weekday') NULL default NULL,
   `monthlyWeekdayValue` varchar(4) NULL default NULL COMMENT 'Format => (-) + 1digit + 2 letters for weekday (1MO for every 1st Monday or -1TH for last Thursday of each month )',
   `yearly` tinyint(1) default '0',
