@@ -43,12 +43,15 @@ $('.mod_quick_search:not(.done)').addClass('done').submit(function () {
     var query = $(this).serialize();
     var results = $('.results', this).empty();
 
+    var submitButton = $(this).find('input[type="submit"]');
+    submitButton.prop('disabled', true).val('{tr}Processing{/tr}...');
+
     $.getJSON($(this).attr('action'), query, function (data) {
         var ol = $('<ol/>');
         results.append(ol);
 
         if (data.result.length === 0) {
-            results.append('<p>No result found.</p>');
+            results.append('<p>{tr}No results for query{/tr}.</p>');
         } else {
             $.each(data.result, function (k, item) {
                 var li = $('<li/>');
@@ -62,6 +65,8 @@ $('.mod_quick_search:not(.done)').addClass('done').submit(function () {
             });
         }
     });
+
+    submitButton.prop('disabled', false).val('{tr}Search{/tr}');
 
     return false;
 })
