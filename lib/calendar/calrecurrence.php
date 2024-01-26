@@ -136,11 +136,11 @@ class CalRecurrence extends TikiLib
             $this->setMonthly(0);
             $this->setMonths(1);
             $this->setDayOfMonth('');
-            $this->setMonthlyType('');
+            $this->setMonthlyType(null);
             $this->setMonthlyWeekdayValue(0);
             $this->setYearly(0);
             $this->setYears(1);
-            $this->setYearlyType('');
+            $this->setYearlyType(null);
             $this->setDateOfYear(0);
             $this->setYearlyWeekdayValue(" ");
             $this->setYearlyWeekMonth(0);
