@@ -354,13 +354,12 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
          * This checks to see if a particular query is cached if we are trying to sort by modification date.
          * If cached, set a time range filter to minimize results.
          */
-        $soField = $query->getSortOrder()->getField();
         if ($prefs['unified_trim_sorted_search'] == 'y') {
             $cacheLib = TikiLib::lib("cache");
             $cacheKey = ($query->getExpr()->getSerializedParts());
             // if the sort order is modified or creation date, and there is a trim query cache item,
             // fetch the period filter that it should be filtering by (set in part 2, below) and add it to the search
-            if (($soField == "modification_date" || $soField = "creation_date") && $periodFilter = $cacheLib->getCached($cacheKey, "esquery")) {
+            if (($query->getSortOrder()->hasField("modification_date") || $query->getSortOrder()->hasField("creation_date")) && $periodFilter = $cacheLib->getCached($cacheKey, "esquery")) {
                 $query->filterRange(strtotime("-" . $periodFilter . " days"), time(), $soField);
             }
         }
@@ -377,7 +376,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
             $builder = new Search_Elastic_FacetBuilder($this->facetCount, $this->connection->getVersion() >= 2.0, $this->connection->getVersion() >= 8.0);
             $facetPart = $builder->build($query->getFacets());
 
-            if ($this->connection->getVersion() >= 6.0 && $query->getSortOrder()->getField() === Search_Query_Order::FIELD_SCORE) {
+            if ($this->connection->getVersion() >= 6.0 && $query->getSortOrder()->hasField(Search\Query\Order::FIELD_SCORE)) {
                 $builder = new Search_Elastic_RescoreQueryBuilder();
                 $rescorePart = $builder->build($query->getExpr());
             } else {

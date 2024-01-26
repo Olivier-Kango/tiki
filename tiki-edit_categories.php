@@ -77,7 +77,7 @@ $smarty->assign('filter', $filter);
 if (count($filter)) {
     $unifiedsearchlib = TikiLib::lib('unifiedsearch');
     $query = $unifiedsearchlib->buildQuery($filter);
-    if (isset($_REQUEST['sort_mode']) && $order = Search_Query_Order::parse($_REQUEST['sort_mode'])) {
+    if (isset($_REQUEST['sort_mode']) && $order = Search\Query\Order::parse($_REQUEST['sort_mode'])) {
         $query->setOrder($order);
     }
     $result = $query->search($unifiedsearchlib->getIndex());

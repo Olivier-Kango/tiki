@@ -15,8 +15,17 @@ class Search_Query_OrderTest extends PHPUnit\Framework\TestCase
      */
     public function testParse($mode, $field, $order, $type)
     {
-        $obtained = Search_Query_Order::parse($mode);
-        $this->assertEquals(new Search_Query_Order($field, $type, $order), $obtained);
+        $obtained = Search\Query\Order::parse($mode);
+        $this->assertEquals([new Search\Query\Order($field, $type, $order)], $obtained->getParts());
+    }
+
+    public function testMultiParse()
+    {
+        $obtained = Search\Query\Order::parse("title_asc, object_id_ndesc");
+        $this->assertEquals([
+            new Search\Query\Order('title', 'text', 'asc'),
+            new Search\Query\Order('object_id', 'numeric', 'desc'),
+        ], $obtained->getParts());
     }
 
     public function sortMatches()

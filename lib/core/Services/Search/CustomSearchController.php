@@ -403,7 +403,7 @@ class Services_Search_CustomSearchController
 
                 if (! empty($config['sort']) || ! empty($config['_mode'])) {
                     $order = empty($config['_mode']) ? 'asc' : $config['_mode'];
-                    $sortOrder = new Search_Query_Order(
+                    $sortOrder = new Search\Query\OrderClause(new Search\Query\Order(
                         $field,
                         'distance',
                         $order,
@@ -412,7 +412,7 @@ class Services_Search_CustomSearchController
                             'lat' => $lat,
                             'lon' => $lon,
                         ]
-                    );
+                    ));
                     $query->setOrder($sortOrder);
                 }
             }

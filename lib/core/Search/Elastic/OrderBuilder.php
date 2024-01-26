@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Search\Query\Order;
+use Search\Query\OrderClause;
+
 class Search_Elastic_OrderBuilder
 {
     private $index;
@@ -13,12 +17,23 @@ class Search_Elastic_OrderBuilder
         $this->index = $index;
     }
 
-    public function build(Search_Query_Order $order)
+    public function build(OrderClause $order)
+    {
+        $components = [];
+        foreach ($order->getParts() as $part) {
+            $components[] = $this->buildOne($part);
+        }
+        return [
+            "sort" => $components,
+        ];
+    }
+
+    protected function buildOne(Order $order)
     {
         $component = '_score';
         $field = $order->getField();
 
-        if ($order->getMode() == Search_Query_Order::MODE_SCRIPT) {
+        if ($order->getMode() == Order::MODE_SCRIPT) {
             $arguments = $order->getArguments();
 
             $component = [
@@ -31,13 +46,13 @@ class Search_Elastic_OrderBuilder
                     'order'  => $arguments['order'],
                 ],
             ];
-        } elseif ($field !== Search_Query_Order::FIELD_SCORE) {
+        } elseif ($field !== Order::FIELD_SCORE) {
             $this->ensureHasField($field);
-            if ($order->getMode() == Search_Query_Order::MODE_NUMERIC) {
+            if ($order->getMode() == Order::MODE_NUMERIC) {
                 $component = [
                     "$field.nsort" => $order->getOrder(),
                 ];
-            } elseif ($order->getMode() == Search_Query_Order::MODE_DISTANCE) {
+            } elseif ($order->getMode() == Order::MODE_DISTANCE) {
                 $arguments = $order->getArguments();
 
                 $component = [
@@ -57,12 +72,7 @@ class Search_Elastic_OrderBuilder
                 ];
             }
         }
-
-        return [
-            "sort" => [
-                $component,
-            ],
-        ];
+        return $component;
     }
 
     public function ensureHasField($field)

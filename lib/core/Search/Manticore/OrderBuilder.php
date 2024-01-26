@@ -6,7 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Search\Manticore;
 
-use Search_Query_Order;
+use Search\Query\Order;
+use Search\Query\OrderClause;
 
 class OrderBuilder
 {
@@ -17,19 +18,28 @@ class OrderBuilder
         $this->index = $index;
     }
 
-    public function build(Search_Query_Order $order)
+    public function build(OrderClause $clause)
+    {
+        $parts = [];
+        foreach ($clause->getParts() as $order) {
+            $parts[] = $this->buildOne($order);
+        }
+        return implode(', ', $parts);
+    }
+
+    protected function buildOne(Order $order)
     {
         $field = strtolower($order->getField());
 
-        if ($order->getMode() == Search_Query_Order::MODE_SCRIPT) {
+        if ($order->getMode() == Order::MODE_SCRIPT) {
             $arguments = $order->getArguments();
             return $arguments['source'] . ' ' . $order->getOrder();
-        } elseif ($field !== Search_Query_Order::FIELD_SCORE) {
+        } elseif ($field !== Order::FIELD_SCORE) {
             $mapping = $this->index ? $this->index->getFieldMapping($field) : [];
-            if ($order->getMode() == Search_Query_Order::MODE_NUMERIC && $mapping && ! in_array('float', $mapping['types']) && substr($field, -6) != '_nsort') {
+            if ($order->getMode() == Order::MODE_NUMERIC && $mapping && ! in_array('float', $mapping['types']) && substr($field, -6) != '_nsort') {
                 $this->index->ensureHasField($field . '_nsort');
                 return $field . '_nsort' . ' ' . $order->getOrder();
-            } elseif ($order->getMode() == Search_Query_Order::MODE_DISTANCE) {
+            } elseif ($order->getMode() == Order::MODE_DISTANCE) {
                 $this->index->ensureHasField($field);
                 $arguments = $order->getArguments();
                 $fields = preg_split('/\s*,\s*/', $field);

@@ -80,8 +80,11 @@ class Search_Query_Facet_Term extends Search_Query_Facet_Abstract implements Sea
         $order = null;
 
         if ($this->order) {
-            $searchQueryOrder = \Search_Query_Order::parse($this->order);
-            $order = [$searchQueryOrder->getField() => $searchQueryOrder->getOrder()];
+            $order = [];
+            $searchQueryOrder = \Search\Query\Order::parse($this->order);
+            foreach ($searchQueryOrder->getParts() as $part) {
+                $order[$part->getField()] = $part->getOrder();
+            }
         }
 
         return $order;

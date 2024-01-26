@@ -2800,9 +2800,6 @@
         "lib\/core\/Search\/Query\/WikiBuilder.php": {
             "class:Search_Query_WikiBuilder": true
         },
-        "lib\/core\/Search\/Query\/Order.php": {
-            "class:Search_Query_Order": true
-        },
         "lib\/core\/Search\/Query\/FacetWikiBuilder.php": {
             "class:Search_Query_FacetWikiBuilder": true
         },
@@ -5940,9 +5937,6 @@
         },
         "lib\/core\/Search\/Query\/WikiBuilder.php": {
             "Search_Query_WikiBuilder": true
-        },
-        "lib\/core\/Search\/Query\/Order.php": {
-            "Search_Query_Order": true
         },
         "lib\/core\/Search\/Query\/FacetWikiBuilder.php": {
             "Search_Query_FacetWikiBuilder": true

@@ -15,19 +15,22 @@ function smarty_function_show_sort($params, $smarty)
     }
 
     if (isset($params['sort']) and isset($params['var']) and isset($p)) {
-        $prop = substr($p, 0, strrpos($p, '_'));
-        $order = substr($p, strrpos($p, '_') + 1);
+        $p = preg_split('/\s*,\s*/', $p);
+        foreach ($p as $value) {
+            $prop = substr($value, 0, strrpos($value, '_'));
+            $order = substr($value, strrpos($value, '_') + 1);
 
-        if (strtolower($prop) == strtolower(trim($params['var']))) {
-            $smarty->loadPlugin('smarty_function_icon');
+            if (strtolower($prop) == strtolower(trim($params['var']))) {
+                $smarty->loadPlugin('smarty_function_icon');
 
-            switch ($order) {
-                case 'asc':
-                case 'nasc':
-                    return ' ' . smarty_function_icon(['name' => 'sort-up'], $smarty);
-                case 'desc':
-                case 'ndesc':
-                    return ' ' . smarty_function_icon(['name' => 'sort-down'], $smarty);
+                switch ($order) {
+                    case 'asc':
+                    case 'nasc':
+                        return ' ' . smarty_function_icon(['name' => 'sort-up'], $smarty);
+                    case 'desc':
+                    case 'ndesc':
+                        return ' ' . smarty_function_icon(['name' => 'sort-down'], $smarty);
+                }
             }
         }
     }

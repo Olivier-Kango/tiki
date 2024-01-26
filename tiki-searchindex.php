@@ -211,7 +211,7 @@ function tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords
         $unifiedsearchlib->buildQuery($postfilter, $query->getPostFilter());
     }
 
-    if (isset($_REQUEST['sort_mode']) && $order = Search_Query_Order::parse($_REQUEST['sort_mode'])) {
+    if (isset($_REQUEST['sort_mode']) && $order = Search\Query\Order::parse($_REQUEST['sort_mode'])) {
         $query->setOrder($order);
     }
 

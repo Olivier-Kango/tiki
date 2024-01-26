@@ -299,7 +299,7 @@ class Search_Query implements Search_Query_Interface
     public function setOrder($order)
     {
         if (is_string($order)) {
-            $this->sortOrder = Search_Query_Order::parse($order);
+            $this->sortOrder = Search\Query\Order::parse($order);
         } else {
             $this->sortOrder = $order;
         }
@@ -341,7 +341,7 @@ class Search_Query implements Search_Query_Interface
         if ($this->sortOrder) {
             return $this->sortOrder;
         } else {
-            return Search_Query_Order::getDefault();
+            return new Search\Query\OrderClause(Search\Query\Order::getDefault());
         }
     }
 

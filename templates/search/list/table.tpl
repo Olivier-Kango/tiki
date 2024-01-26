@@ -178,6 +178,38 @@
         {/if}
     </table>
 </div>
+{jq}
+    // multi-column sort by alt key
+    $('#{{$id}} thead th a').on('click', function(e) {
+        if (e.originalEvent && e.originalEvent.altKey) {
+            e.preventDefault();
+            var params = new URLSearchParams(window.location.search);
+            var current_sort_mode = params.get('{{$sort_arg}}');
+            if (! current_sort_mode) {
+                return true;
+            }
+            var orders = current_sort_mode.split(',');
+            params = new URLSearchParams($(this).attr('href').replace(/^[^?]*/, ''));
+            var sort_mode = params.get('{{$sort_arg}}');
+            var found = false;
+            for (var i = 0, l = orders.length; i < l; i++) {
+                if (orders[i].replace(/_n?(asc|desc)$/, '') == sort_mode.replace(/_n?(asc|desc)$/, '')) {
+                    orders[i] = sort_mode;
+                    found = true;
+                    break;
+                }
+            }
+            if (! found) {
+                orders.push(sort_mode);
+            }
+            params.delete('{{$sort_arg}}');
+            params.append('{{$sort_arg}}', orders.join(','));
+            window.location.href = $(this).attr('href').replace(/\?.*$/, '') + '?' + params.toString();
+            return false;
+        }
+        return true;
+    });
+{/jq}
 {if $actions}
     <div class="row w-100 list_execute_actions">
         <div class="col-sm-1">

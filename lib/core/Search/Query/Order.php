@@ -4,7 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-class Search_Query_Order
+
+namespace Search\Query;
+
+class Order
 {
     public const FIELD_SCORE = 'score';
     public const FIELD_MODIFICATION = 'modification_date';
@@ -67,14 +70,23 @@ class Search_Query_Order
 
     public static function parse($orderString)
     {
-        if (empty($orderString)) {
-            return self::getDefault();
-        } elseif (preg_match('/^(.+)_(asc|desc)$/', $orderString, $parts)) {
-            return new self($parts[1], self::MODE_TEXT, $parts[2]);
-        } elseif (preg_match('/^(.+)_n(asc|desc)$/', $orderString, $parts)) {
-            return new self($parts[1], self::MODE_NUMERIC, $parts[2]);
-        } else {
-            return new self($orderString, self::MODE_TEXT, self::ORDER_ASC);
+        $clause = new OrderClause();
+        $orderStrings = preg_split('/\s*,\s*/', $orderString);
+        foreach ($orderStrings as $orderString) {
+            if (empty($orderString)) {
+                continue;
+            }
+            if (preg_match('/^(.+)_(asc|desc)$/', $orderString, $parts)) {
+                $clause->add(new self($parts[1], self::MODE_TEXT, $parts[2]));
+            } elseif (preg_match('/^(.+)_n(asc|desc)$/', $orderString, $parts)) {
+                $clause->add(new self($parts[1], self::MODE_NUMERIC, $parts[2]));
+            } else {
+                $clause->add(new self($orderString, self::MODE_TEXT, self::ORDER_ASC));
+            }
         }
+        if (! $clause->any()) {
+            $clause->add(self::getDefault());
+        }
+        return $clause;
     }
 }

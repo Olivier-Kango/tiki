@@ -189,20 +189,30 @@ class Search_MySql_Index implements Search_Index_Interface
     {
         $order = $query->getSortOrder();
 
-        if ($order->getField() == Search_Query_Order::FIELD_SCORE) {
-            if ($useScore) {
-                return ['score' => 'DESC'];
+        $parts = [];
+        foreach ($order->getParts() as $part) {
+            if ($part->getField() == Search\Query\Order::FIELD_SCORE) {
+                if ($useScore) {
+                    $parts[] = '`score` DESC';
+                } else {
+                    // No specific order
+                }
+                continue;
+            }
+
+            $this->table->ensureHasIndex($part->getField(), 'sort');
+
+            if ($part->getMode() == Search\Query\Order::MODE_NUMERIC) {
+                $parts[] = "CAST(`{$this->tfTranslator->shortenize($part->getField())}` as SIGNED) {$part->getOrder()}";
             } else {
-                return; // No specific order
+                $parts[] = "`{$this->tfTranslator->shortenize($part->getField())}` {$part->getOrder()}";
             }
         }
 
-        $this->table->ensureHasIndex($order->getField(), 'sort');
-
-        if ($order->getMode() == Search_Query_Order::MODE_NUMERIC) {
-            return $this->table->expr("CAST(`{$this->tfTranslator->shortenize($order->getField())}` as SIGNED) {$order->getOrder()}");
+        if ($parts) {
+            return $this->table->expr(implode(', ', $parts));
         } else {
-            return $this->table->expr("`{$this->tfTranslator->shortenize($order->getField())}` {$order->getOrder()}");
+            return;
         }
     }
 

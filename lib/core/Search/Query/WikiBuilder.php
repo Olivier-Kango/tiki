@@ -439,7 +439,7 @@ class Search_Query_WikiBuilder
                     'distance_type' => 'sloppy_arc',
                 ], $arguments);
 
-                $value = new Search_Query_Order('geo_point', 'distance', $arguments['order'], $arguments);
+                $value = new Search\Query\OrderClause(new Search\Query\Order('geo_point', 'distance', $arguments['order'], $arguments));
             } else {
                 Feedback::error(tr('Distance sort: Missing lat or lon arguments'));
                 return;
@@ -453,7 +453,7 @@ class Search_Query_WikiBuilder
                 unset($arguments['mode']);
 
                 // using a dummy field for now
-                $value = new Search_Query_Order('_script', 'script', $arguments['order'], $arguments);
+                $value = new Search\Query\OrderClause(new Search\Query\Order('_script', 'script', $arguments['order'], $arguments));
             } else {
                 Feedback::error(tr('Script sort: Missing source argument'));
                 return;

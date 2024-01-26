@@ -139,7 +139,7 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
         $query->search($index);
 
-        $this->assertEquals(Search_Query_Order::searchResult(), $index->getLastOrder());
+        $this->assertEquals(new Search\Query\OrderClause(Search\Query\Order::searchResult()), $index->getLastOrder());
     }
 
     public function testSpecifiedOrder()
@@ -147,11 +147,11 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
         $index = new Search_Index_Memory();
         $query = new Search_Query();
 
-        $query->setOrder(Search_Query_Order::recentChanges());
+        $query->setOrder(new Search\Query\OrderClause(Search\Query\Order::recentChanges()));
 
         $query->search($index);
 
-        $this->assertEquals(Search_Query_Order::recentChanges(), $index->getLastOrder());
+        $this->assertEquals(new Search\Query\OrderClause(Search\Query\Order::recentChanges()), $index->getLastOrder());
     }
 
     public function testOrderFromString()
@@ -163,7 +163,7 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
         $query->search($index);
 
-        $this->assertEquals(new Search_Query_Order('title', 'text', 'asc'), $index->getLastOrder());
+        $this->assertEquals(new Search\Query\OrderClause(new Search\Query\Order('title', 'text', 'asc')), $index->getLastOrder());
     }
 
     public function testFilterBasedOnPermissions()
