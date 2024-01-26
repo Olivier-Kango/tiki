@@ -472,7 +472,7 @@ function formatContent($content, $tagArr, $slidePluginHeadingLevelSlideSeparator
     $internalErrors = libxml_use_internal_errors(true);
 
     $doc->loadHTML(
-        mb_convert_encoding('<html lang="en"><body>' . $content . '</body></html>', 'HTML-ENTITIES', 'UTF-8'),
+        htmlentities('<html lang="en"><body>' . $content . '</body></html>', ENT_QUOTES, 'UTF-8'),
         LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
     );
     $xpath = new DOMXpath($doc);
