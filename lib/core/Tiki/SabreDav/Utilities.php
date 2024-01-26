@@ -329,6 +329,9 @@ class Utilities
                 $rec->setLang($component->{'X-Tiki-Language'});
             }
         }
+        if (isset($component->{'X-Tiki-Dst-Timezone'}) && $rec) {
+            $rec->setRecurenceDstTimezone($component->{'X-Tiki-Dst-Timezone'});
+        }
         if (isset($component->{'X-Tiki-ProcessITip'})) {
             $result['process_itip'] = $component->{'X-Tiki-ProcessITip'};
         }

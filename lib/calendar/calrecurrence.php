@@ -943,6 +943,9 @@ class CalRecurrence extends TikiLib
         if (! empty($this->getLang())) {
             $data['X-Tiki-Language'] = $this->getLang();
         }
+        if (! empty($this->getRecurenceDstTimezone())) {
+            $data['X-Tiki-Dst-Timezone'] = $this->getRecurenceDstTimezone();
+        }
 
         $weekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
         if ($this->isDaily()) {
