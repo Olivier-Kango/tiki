@@ -234,8 +234,8 @@ if (
         $oicLib = TikiLib::lib('openidconnect');
         $token = $oicLib->getAccessToken($_GET['code']);
         $idToken = $token->getIdToken();
-        $name = $idToken->getClaim('preferred_username', false) ?: $idToken->getClaim('name', false);
-        $email = $idToken->getClaim('email', false);
+        $name = $idToken->claims()->get('preferred_username', false) ?: $idToken->claims()->get('name', false);
+        $email = $idToken->claims()->get('email', false);
 
         $username = $userlib->get_user_by_email($email);
 
