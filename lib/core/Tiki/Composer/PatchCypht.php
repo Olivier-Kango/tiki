@@ -49,6 +49,9 @@ class PatchCypht
         $php_binary = preg_replace("/(?<!\\\) /", '\ ', PHP_BINARY);
         $cypthFolder = $fixDS('jason-munro/cypht');
         $genScript = $fixDS('scripts/config_gen.php');
+        $contents = file_get_contents($vendors . $cypthFolder . DIRECTORY_SEPARATOR . $genScript);
+        $contents = preg_replace('/define.*?VENDOR_PATH.*?;/', "define('VENDOR_PATH', '$vendors');", $contents);
+        file_put_contents($vendors . $cypthFolder . DIRECTORY_SEPARATOR . $genScript, $contents);
         $output = `cd {$vendors}{$cypthFolder} && {$php_binary} {$genScript}`;
 
         if (! is_string($output)  || ! strstr($output, 'dynamic.php file written')) {
@@ -73,8 +76,11 @@ class PatchCypht
         $js = str_replace("xhr.open('POST', '', true);", "xhr.open('POST', 'tiki-ajax_services.php?controller=cypht&action=ajax&'+window.location.search.substr(1), true);", $js);
         $js = str_replace("var ajax = new Hm_Ajax_Request", "var ajax = new tiki_Hm_Ajax_Request", $js);
         $js = preg_replace("#^.*/\* swipe event handler \*/#s", "", $js);
-        $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/resumable.min.js")) . "\n\n" . $js;
+        $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/sortable.min.js")) . "\n\n" . $js;
+        $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/jquery.are-you-sure.js")) . "\n\n" . $js;
+        $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/ays-beforeunload-shim.js")) . "\n\n" . $js;
         $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/tingle.min.js")) . "\n\n" . $js;
+        $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/resumable.min.js")) . "\n\n" . $js;
         file_put_contents($cypht . 'site.js', $js);
     }
 }

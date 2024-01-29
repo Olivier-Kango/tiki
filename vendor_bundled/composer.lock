@@ -686,17 +686,17 @@
         },
         {
             "name": "bower-asset/fontawesome",
-            "version": "6.3.0",
+            "version": "6.5.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:FortAwesome/Font-Awesome.git",
-                "reference": "d02961b018153506364077343b0edcde0a39d27e"
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "deeea78c52bfe00b6e251ffddccf5570d5fdb05e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-d02961b018153506364077343b0edcde0a39d27e-zip-7b6699.zip",
-                "reference": "d02961b018153506364077343b0edcde0a39d27e",
-                "shasum": "496b962423da26b2d2552229fbef6a7403a200ff"
+                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-deeea78c52bfe00b6e251ffddccf5570d5fdb05e-zip-1a7676.zip",
+                "reference": "deeea78c52bfe00b6e251ffddccf5570d5fdb05e",
+                "shasum": "4039afc45453b645c4bb2866a0e0f4bc3b75fd7f"
             },
             "type": "bower-asset"
         },
@@ -2476,13 +2476,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "6f825b87724874007731a4da0a62748f9e1a7a8b"
+                "reference": "5150a3f9703e2338b4a142398f76e0b538e86616"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-6f825b87724874007731a4da0a62748f9e1a7a8b-zip-99dbff.zip",
-                "reference": "6f825b87724874007731a4da0a62748f9e1a7a8b",
-                "shasum": "69b0c43003b27065bb2bb1549aaf46d330fbe348"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-5150a3f9703e2338b4a142398f76e0b538e86616-zip-eddc84.zip",
+                "reference": "5150a3f9703e2338b4a142398f76e0b538e86616",
+                "shasum": "b3b719b5dbb53a0280703c00720f8dc98dc47ba7"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2543,7 +2543,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-01-14T02:03:28+00:00"
+            "time": "2024-01-29T11:39:56+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5074,17 +5074,17 @@
         },
         {
             "name": "league/flysystem-local",
-            "version": "3.23.0",
+            "version": "3.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-local.git",
-                "reference": "5cf046ba5f059460e86a997c504dd781a39a109b"
+                "reference": "b884d2bf9b53bb4804a56d2df4902bb51e253f00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/flysystem-local/league-flysystem-local-5cf046ba5f059460e86a997c504dd781a39a109b-zip-f73800.zip",
-                "reference": "5cf046ba5f059460e86a997c504dd781a39a109b",
-                "shasum": "dc3058c22b14f85ac57822a17637315933f016e5"
+                "url": "https://composer.tiki.org/dist/league/flysystem-local/league-flysystem-local-b884d2bf9b53bb4804a56d2df4902bb51e253f00-zip-c3a6e9.zip",
+                "reference": "b884d2bf9b53bb4804a56d2df4902bb51e253f00",
+                "shasum": "24bcbb81b3e6fab69271594a6aa26717208d2064"
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -5126,7 +5126,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-12-04T10:14:46+00:00"
+            "time": "2024-01-26T18:25:23+00:00"
         },
         {
             "name": "league/html-to-markdown",
@@ -5215,17 +5215,17 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "b6a5854368533df0295c5761a0253656a2e52d9e"
+                "reference": "ce0f4d1e8a6f4eb0ddff33f57c69c50fd09f4301"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-b6a5854368533df0295c5761a0253656a2e52d9e-zip-7429ec.zip",
-                "reference": "b6a5854368533df0295c5761a0253656a2e52d9e",
-                "shasum": "14daf256e3fe040c99e61d5033921f76e242bbb5"
+                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-ce0f4d1e8a6f4eb0ddff33f57c69c50fd09f4301-zip-223133.zip",
+                "reference": "ce0f4d1e8a6f4eb0ddff33f57c69c50fd09f4301",
+                "shasum": "8906dcf57c9fdfa80ebd786fb86c37aacd0daa12"
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -5263,7 +5263,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-17T14:13:20+00:00"
+            "time": "2024-01-28T23:22:08+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -6356,11 +6356,11 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.23.6",
+            "version": "7.23.9",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.23.6.zip",
-                "shasum": "5f59572d778dc405aa34d1cd29aed2172917f1df"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.23.9.zip",
+                "shasum": "aec424becab701478ebe8e48be11475a83230232"
             },
             "type": "npm-asset",
             "license": [
@@ -6588,14 +6588,14 @@
         },
         {
             "name": "npm-asset/interactjs",
-            "version": "1.10.17",
+            "version": "1.10.26",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/interactjs/npm-asset-interactjs-1.10.17.zip",
-                "shasum": "11b22b9799629be07f44890356e97bb34319ed28"
+                "url": "https://composer.tiki.org/dist/npm-asset/interactjs/npm-asset-interactjs-1.10.26.zip",
+                "shasum": "f79cd4335308841183e238db126d689c4daa2f72"
             },
             "require": {
-                "npm-asset/interactjs--types": "1.10.17"
+                "npm-asset/interactjs--types": "1.10.26"
             },
             "type": "npm-asset",
             "license": [
@@ -6604,11 +6604,11 @@
         },
         {
             "name": "npm-asset/interactjs--types",
-            "version": "1.10.17",
+            "version": "1.10.26",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/interactjs--types/npm-asset-interactjs--types-1.10.17.zip",
-                "shasum": "aefb3667c9b1ee3787b279f933db0e3e063d8736"
+                "url": "https://composer.tiki.org/dist/npm-asset/interactjs--types/npm-asset-interactjs--types-1.10.26.zip",
+                "shasum": "b38e3ce1216164d5ea8152fc243823c0a4065469"
             },
             "type": "npm-asset",
             "license": [
@@ -10891,17 +10891,17 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v4.3.4",
+            "version": "v4.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "3931d8f54b8f7a4ffab538582d34d4397ba8daa5"
+                "reference": "e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-3931d8f54b8f7a4ffab538582d34d4397ba8daa5-zip-8d40f5.zip",
-                "reference": "3931d8f54b8f7a4ffab538582d34d4397ba8daa5",
-                "shasum": "d913fe31879e842ae5ea9ddb8178bf8038fb3c23"
+                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c-zip-042a1a.zip",
+                "reference": "e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c",
+                "shasum": "486364315098b9772a4b6722a99f81e668a66740"
             },
             "require": {
                 "php": "^7.1 || ^8.0"
@@ -10948,7 +10948,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2023-09-14T10:59:08+00:00"
+            "time": "2024-01-23T10:47:54+00:00"
         },
         {
             "name": "sorich87/bootstrap-tour",
@@ -15671,17 +15671,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.56",
+            "version": "1.10.57",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "27816a01aea996191ee14d010f325434c0ee76fa"
+                "reference": "1627b1d03446904aaa77593f370c5201d2ecc34e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-27816a01aea996191ee14d010f325434c0ee76fa-zip-0f3543.zip",
-                "reference": "27816a01aea996191ee14d010f325434c0ee76fa",
-                "shasum": "716ceecf590af80426ccffbc58fcbdbc210fbe50"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-1627b1d03446904aaa77593f370c5201d2ecc34e-zip-0f87ea.zip",
+                "reference": "1627b1d03446904aaa77593f370c5201d2ecc34e",
+                "shasum": "e0149c860628035f35e053965ecd12147295cbdb"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15722,7 +15722,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-15T10:43:00+00:00"
+            "time": "2024-01-24T11:51:34+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -17975,5 +17975,5 @@
         "ext-ldap": "0",
         "ext-soap": "0"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
