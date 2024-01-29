@@ -115,6 +115,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
         }
 
         $this->assureDefaultCharSetIsAlignedWithTikiSchema();
+        $this->assureInnoDdTableRowFormatIsDynamicOrBetter();
 
         $TWV = new TWVersion();
         $dbversion_tiki = $TWV->version;
@@ -630,6 +631,36 @@ class Installer extends TikiDb_Bridge implements SplSubject
             default:
                 // we will only attempt to align for some char sets, other configuration needs to be done manually
                 break;
+        }
+    }
+
+    /**
+     * In some cases, databases/tables may have been upgraded from old versions and still using
+     * The format Compact or Redundant. This will lead to errors "Row size too large" on some tables
+     * like tiki_tracker_fields that have a large number of text/blob columns.
+     *
+     * This code attempts to update the row format to DYNAMIC if they still use one of the older format.
+     * If running a newer format, leave untouched to make it future-proof.
+     *
+     * @return void
+     */
+    protected function assureInnoDdTableRowFormatIsDynamicOrBetter(): void
+    {
+        $tableList = $this->fetchAll(
+            'SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE'
+            . ' TABLE_SCHEMA = DATABASE()'
+            . ' AND ENGINE="InnoDB"'
+            . ' AND ROW_FORMAT IN ("Compact", "Redundant")'
+        );
+
+        if (empty($tableList)) {
+            return;
+        }
+
+        foreach ($tableList as $tableListEntry) {
+            $this->query(
+                'ALTER TABLE `' . $tableListEntry['TABLE_NAME'] . '` ROW_FORMAT=DYNAMIC'
+            );
         }
     }
 }
