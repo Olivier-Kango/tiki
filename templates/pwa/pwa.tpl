@@ -1,4 +1,3 @@
-<script src="lib/pwa/app.js"></script>
 <script>
     window.pagespwa = {$pagespwa};
     (function () {

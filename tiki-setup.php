@@ -337,6 +337,7 @@ if ($prefs['feature_wysiwyg'] == 'y') {
 
 if ($prefs['pwa_feature'] == 'y') { //pwa test propose, pages to cache
     $headerlib->add_jsfile(VendorHelper::getAvailableVendorPath('dexie', 'npm-asset/dexie/dist/dexie.min.js'), true);
+    $headerlib->add_jsfile("lib/pwa/app.js");
     $pages = ['trackers' => [], 'wiki' => []];
 
     if (isset($user)) {
