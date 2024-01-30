@@ -45,7 +45,7 @@
     </div>
 
     <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label">{tr}Email{/tr}</label>
+        <label class="col-sm-3 col-form-label">{tr}Personal Email{/tr}</label>
         <div class="col-sm-7">
             <input {if $user eq null}readonly{/if} type="text" maxlength="80" size="20" name="email" value="{$info.email|escape}" class="form-control {if $user eq null}form-control-plaintext{/if}">
         </div>
@@ -158,9 +158,16 @@
                     <td class="email">
                         {if $prefs.feature_webmail eq 'y' and $tiki_p_use_webmail eq 'y' and $tiki_p_use_group_webmail eq 'y'}
                             {self_link _script='tiki-webmail.php' page='compose' compose_to=$channels[user].email}{$channels[user].email}{/self_link}
+                            {if isset($channels[user].workEmail)}
+                                <br>{self_link _script='tiki-webmail.php' page='compose' compose_to=$channels[user].workEmail}{$channels[user].workEmail}{/self_link}
+                            {/if}
                         {else}
                             <a class="link" href="mailto:{$channels[user].email}">{$channels[user].email}</a>
+                            {if isset($channels[user].workEmail)}
+                                <br><a class="link" href="mailto:{$channels[user].workEmail}">{$channels[user].workEmail}</a>
+                            {/if}
                         {/if}
+                        
                     </td>
                     <td class="text">
                         {$channels[user].nickname}

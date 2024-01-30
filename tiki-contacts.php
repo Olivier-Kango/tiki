@@ -110,6 +110,18 @@ $_SESSION['UserContactsView'] = $_REQUEST['view'] ??
 $smarty->assign('view', $_SESSION['UserContactsView']);
 
 if (is_array($contacts)) {
+    foreach ($contacts as $key => $contact) {
+        if (array_key_exists('ext', $contact)) {
+            foreach ($contact['ext'] as $extVal) {
+                // Checking for work email
+                if (filter_var($extVal, FILTER_VALIDATE_EMAIL)) {
+                    $contacts[$key]['workEmail'] = $extVal;
+                    break;
+                }
+            }
+        }
+    }
+
     if ($_SESSION['UserContactsView'] == 'list') {
         $smarty->assign('all', [$contacts]);
     } else {

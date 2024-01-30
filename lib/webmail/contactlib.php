@@ -335,6 +335,7 @@ class ContactLib extends TikiLib
         tra('Work Phone');
         tra('Work Mobile');
         tra('Work Fax');
+        tra('Work Email');
         tra('Company');
         tra('Organization');
         tra('Department');
@@ -356,7 +357,7 @@ class ContactLib extends TikiLib
         // If the user is not specified or has an empty value, we return an empty array because we cannot store the default contact values ($exts) in the database without a valid user.
         // However, if a valid user is provided, we populate the database with default contact values and then retrieve the contact list to ensure that contact information is available for the user.
         if (! $res->numRows()) {
-            $exts = ['Personal Phone', 'Personal Mobile', 'Personal Fax', 'Work Phone', 'Work Mobile',
+            $exts = ['Personal Phone', 'Personal Mobile', 'Personal Fax', 'Work Phone', 'Work Mobile', 'Work Email',
                     'Work Fax', 'Company', 'Organization', 'Department', 'Division', 'Job Title',
                     'Street Address', 'City', 'State', 'Postal Code', 'Country'];
             if (($user == null) || (empty($user))) {
