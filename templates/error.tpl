@@ -79,7 +79,7 @@ close();
                         <form method="post" action="tiki-admin.php" role="form" class="form">
                             {ticket}
                             {foreach from=$required_preferences item=pref}
-                                {preference name=$pref}
+                                {preference name=$pref visible="always"}
                             {/foreach}
                             <div class="text-center">
                                 <input type="submit" class="btn btn-primary" value="{tr}Apply{/tr}">
