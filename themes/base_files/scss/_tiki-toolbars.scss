@@ -86,3 +86,20 @@ a.cke_button span.cke_icon {
     width: 16px;
     margin-top: -5px;
 }
+
+.toastui-editor-toolbar-item-wrapper >span {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-block;
+    background: inherit;
+    border-radius: 3px;
+    border: 1px solid #f7f9fc;
+}
+
+.toastui-editor-toolbar-item-wrapper >span:hover {
+    border: 1px solid #e4e7ee;
+    background: #fff;
+    padding: 0;
+}
