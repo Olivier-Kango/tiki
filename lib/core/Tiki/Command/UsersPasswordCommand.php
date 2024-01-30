@@ -151,10 +151,13 @@ class UsersPasswordCommand extends Command
         }
 
         if ($prefs['feature_user_encryption'] === 'y' && ! $input->getOption('force')) {
-            $output->writeln("<error>" . $this::MSG_ENCRYPTION_FT_NOTICE . "\n" .
-                "Changing the user password might loose encrypted data.\n\n" .
-                "Use -f to force changing password.</error>");
-            return Command::FAILURE;
+            $cryptlib = TikiLib::lib('crypt');
+            if ($cryptlib->getUserCryptDataStats('mcrypt') > 0 || $cryptlib->getUserCryptDataStats('openssl') > 0 || $cryptlib->getUserCryptDataStats('sodium') > 0) {
+                $output->writeln("<error>" . $this::MSG_ENCRYPTION_FT_NOTICE . "\n" .
+                    "Changing the user password might loose encrypted data.\n\n" .
+                    "Use -f to force changing password.</error>");
+                return Command::FAILURE;
+            }
         }
 
         $this->userlib->change_user_password($user, $password);

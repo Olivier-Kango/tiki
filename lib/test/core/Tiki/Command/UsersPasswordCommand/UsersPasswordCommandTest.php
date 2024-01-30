@@ -213,6 +213,7 @@ class UsersPasswordCommandTest extends TestCase
     {
         global $prefs;
         $prefs['feature_user_encryption'] = 'y';
+        $cryptlib = TikiLib::lib('crypt');
 
         $commandTester = $this->getCommandTester();
 
@@ -221,10 +222,15 @@ class UsersPasswordCommandTest extends TestCase
             'params' => [$this::TEST_USER, $this::TEST_PASSWORD],
         ]);
         $output = $commandTester->getDisplay();
-
-        $this->assertStringContainsString(UsersPasswordCommand::MSG_ENCRYPTION_FT_NOTICE, $output);
-        $this->assertStringNotContainsString(UsersPasswordCommand::MSG_PASSWORD_CHANGED, $output);
-        $this->assertSame(1, $commandTester->getStatusCode());
+        if ($cryptlib->getUserCryptDataStats('mcrypt') > 0 || $cryptlib->getUserCryptDataStats('openssl') > 0 || $cryptlib->getUserCryptDataStats('sodium') > 0) {
+            $this->assertStringNotContainsString(UsersPasswordCommand::MSG_PASSWORD_CHANGED, $output);
+            $this->assertStringContainsString(UsersPasswordCommand::MSG_ENCRYPTION_FT_NOTICE, $output);
+            $this->assertSame(1, $commandTester->getStatusCode());
+        } else {
+            $this->assertStringNotContainsString(UsersPasswordCommand::MSG_ENCRYPTION_FT_NOTICE, $output);
+            $this->assertStringContainsString(UsersPasswordCommand::MSG_PASSWORD_CHANGED, $output);
+            $this->assertSame(0, $commandTester->getStatusCode());
+        }
     }
 
     public function testExecuteWithUserEncryptionEnabledAndForceOption()
