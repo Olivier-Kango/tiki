@@ -354,10 +354,12 @@
                                     {/if}
                                     href="{$files[changes].id|sefurl:'filegallery':$query}{$query|escape}"
                                 {else}
-
                                     {if !empty($filegals_manager)}
-                                        href="#" onclick="window.opener.insertAt('{$filegals_manager}',processFgalSyntax('{$files[changes]|json_encode:JSON_HEX_QUOT|replace:'"':'&quot;'|replace:'\u0022':'\\\u0022'}'), false, false, true);checkClose();return false;" title="{tr}Click here to use the file{/tr}"
-
+                                        href="#" title="{tr}Click here to use the file{/tr}"
+                                        {assign var=mimeRegex value="#`$allowedMimeTypes|replace:'*': '.'`#"}
+                                        {if ! isset($allowedMimeTypes) || (isset($files[changes].type) && preg_match($mimeRegex, $files[changes].type))}
+                                            onclick="window.opener.insertAt('{$filegals_manager}',processFgalSyntax('{$files[changes]|json_encode:JSON_HEX_QUOT|replace:'"':'&quot;'|replace:'\u0022':'\\\u0022'}'), false, false, true);checkClose();return false;"
+                                        {/if}
                                     {elseif (isset($files[changes].p_download_files) and $files[changes].p_download_files eq 'y')
                                     or (!isset($files[changes].p_download_files) and $files[changes].perms.tiki_p_download_files eq 'y')}
                                         {if $gal_info.type eq 'podcast' or $gal_info.type eq 'vidcast'}

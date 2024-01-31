@@ -8,7 +8,7 @@
                     <div class="btn btn-primary fileinput-button">
                         <span>{tr}Choose files{/tr}</span>
                         {* The file input field used as target for the file upload widget *}
-                        <input id="fileupload" type="file" name="files[]" multiple>
+                        <input id="fileupload" type="file" name="files[]" multiple{if isset($allowedMimeTypes)} accept="{$allowedMimeTypes|escape}"{/if}>
                     </div>
                 </h3>
             </div>

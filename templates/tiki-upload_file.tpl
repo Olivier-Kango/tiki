@@ -7,14 +7,26 @@
 {if !empty($galleryId) or (isset($galleries) and count($galleries) > 0 and $tiki_p_list_file_galleries eq 'y') or (isset($uploads) and count($uploads) > 0)}
     <div class="t_navbar mb-4">
         {if !empty($galleryId)}
-            {button galleryId="$galleryId" href="tiki-list_file_gallery.php" class="btn btn-primary" _text="{tr}Browse Gallery{/tr}"}
+            {assign var=btnHref value="tiki-list_file_gallery.php"}
+            {if isset($allowedMimeTypes)}
+                {assign var=btnHref value=$btnHref|cat:"?allowedMimeTypes="|cat:$allowedMimeTypes}
+            {/if}
+            {button galleryId="$galleryId" href=$btnHref class="btn btn-primary" _text="{tr}Browse Gallery{/tr}"}
         {/if}
         {if isset($galleries) and count($galleries) > 0 and $tiki_p_list_file_galleries eq 'y'}
             {if !empty($filegals_manager)}
                 {assign var=fgmanager value=$filegals_manager|escape}
-                {button href="tiki-list_file_gallery.php?filegals_manager=$fgmanager" class="btn btn-info" _text="{tr}List Galleries{/tr}"}
+                {assign var=btnHref value="tiki-list_file_gallery.php?filegals_manager=$fgmanager"}
+                {if isset($allowedMimeTypes)}
+                    {assign var=btnHref value=$btnHref|cat:"&allowedMimeTypes="|cat:$allowedMimeTypes}
+                {/if}
+                {button href=$btnHref|escape class="btn btn-info" _text="{tr}List Galleries{/tr}"}
             {else}
-                {button href="tiki-list_file_gallery.php" class="btn btn-info" _text="{tr}List Galleries{/tr}"}
+                {assign var=btnHref value="tiki-list_file_gallery.php"}
+                {if isset($allowedMimeTypes)}
+                    {assign var=btnHref value=$btnHref|cat:"?allowedMimeTypes="|cat:$allowedMimeTypes}
+                {/if}
+                {button href=$btnHref class="btn btn-info" _text="{tr}List Galleries{/tr}"}
             {/if}
         {/if}
         {if isset($uploads) and count($uploads) > 0}
@@ -186,7 +198,7 @@
                         </div>
                     {/if}
                 {else}{* file_galleries_use_jquery_upload = y *}
-                    {filegal_uploader}
+                    {filegal_uploader allowedMimeTypes=$allowedMimeTypes}
                 {/if}
             </div>
             <div class="col-sm-12">

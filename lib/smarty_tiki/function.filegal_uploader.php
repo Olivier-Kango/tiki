@@ -16,6 +16,10 @@ function smarty_function_filegal_uploader($params, $smarty)
 {
     $headerlib = TikiLib::lib('header');
 
+    if (! empty($params['allowedMimeTypes'])) {
+        $smarty->assign('allowedMimeTypes', $params['allowedMimeTypes']);
+    }
+
 //  Image loader and canvas libs
     $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/blueimp-load-image/js/load-image.all.min.js');
     $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/blueimp-canvas-to-blob/js/canvas-to-blob.js');

@@ -39,7 +39,7 @@ $expectedJsArray = [
             var command = editor.addCommand( \'tikiimage\', new window.CKEDITOR.command( editor , {
                 modes: { wysiwyg:1 },
                 exec: function (editor, data) {
-                    openFgalsWindow(\'tiki-upload_file.php?galleryId=1&view=browse&filegals_manager=editwiki\', true);
+                    openFgalsWindow(\'tiki-upload_file.php?galleryId=1&view=browse&filegals_manager=editwiki&allowedMimeTypes=image/*\', true);
                 },
                 canUndo: false
             }));

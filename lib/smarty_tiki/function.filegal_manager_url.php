@@ -17,5 +17,9 @@ function smarty_function_filegal_manager_url($params, $smarty)
         $return .= '&filegals_manager=' . $params['area_id'];
     }
 
+    if (! empty($params['allowedMimeTypes']) && is_array($params['allowedMimeTypes'])) {
+        $return .= '&allowedMimeTypes=' . implode(' ', $params['allowedMimeTypes']);
+    }
+
     return $return;
 }

@@ -53,6 +53,10 @@ if (empty($_REQUEST['galleryId']) && ! empty($_SESSION['lastUploadGalleryId'])) 
     $_REQUEST['galleryId'] = [ $_SESSION['lastUploadGalleryId'] ];
 }
 
+if (isset($_REQUEST['allowedMimeTypes'])) {
+    $smarty->assign('allowedMimeTypes', $_REQUEST['allowedMimeTypes']);
+}
+
 $fileInfo = null;
 $fileId = null;
 if (! empty($_REQUEST['fileId'])) {

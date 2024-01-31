@@ -990,6 +990,10 @@ if (! empty($_REQUEST['find_fileType']) && ! empty($_REQUEST['find_fileType'])) 
     $find['fileType'] = $mimetypes[$_REQUEST['find_fileType']];
 }
 
+if (! empty($_REQUEST['allowedMimeTypes'])) {
+    $smarty->assign('allowedMimeTypes', $_REQUEST['allowedMimeTypes']);
+}
+
 if (! isset($_REQUEST['find'])) {
     $_REQUEST['find'] = '';
 }
