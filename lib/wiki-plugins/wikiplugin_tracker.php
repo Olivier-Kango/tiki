@@ -2415,6 +2415,9 @@ function wikiplugin_tracker_render_input($f, $item, $dynamicSave, $requestData =
 
     if (! $item['itemId']) {
         // Non-selected items have not been processed
+        if (isset($f['value']) && ! isset($requestData['ins_' . $f['fieldId']])) {
+            $requestData['ins_' . $f['fieldId']] = $f['value'];
+        }
         $f = array_merge($f, $handler->getFieldData($requestData));
         $handler = TikiLib::lib("trk")->get_field_handler($f, $item);
     }
