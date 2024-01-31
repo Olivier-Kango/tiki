@@ -40,10 +40,10 @@
                                 {icon name='move'}
                             </a>
                         </div>
-                        <a href="#" class="file-hard-delete-icon text-danger">
+                        <a href="#" class="file-hard-delete-icon text-danger" title="{tr}Remove from tracker item and delete permanently from file gallery.{/tr}">
                             {icon name='trash'}
                         </a>
-                        <a href="#" class="file-delete-icon text-danger">
+                        <a href="#" class="file-delete-icon text-danger" title="{tr}Remove from tracker item but keep in file gallery.{/tr}">
                             {icon name='delete'}
                         </a>
                     </div>
