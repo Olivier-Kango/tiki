@@ -288,6 +288,25 @@ class TikiMail
             }
         }
 
+        $email_body = $this->mail->getBody();
+        if ($prefs['email_footer']) {
+            if (is_string($email_body)) {
+                $new_body = $email_body . PHP_EOL . PHP_EOL . $prefs['email_footer'];
+                $this->mail->setBody($new_body);
+            } else {
+                foreach ($email_body->getParts() as $part) {
+                    $content = $part->getContent();
+                    if ($part->getType() === 'text/html') {
+                        $content = str_replace('</body>', '<br><br>' . $prefs['email_footer'] . '</body>', $content);
+                    } else {    // hopefully plain text
+                        $content = $content . PHP_EOL . PHP_EOL . $prefs['email_footer'];
+                    }
+                    $part->setContent($content);
+                }
+                $this->mail->setBody($email_body);
+            }
+        }
+
         if ($prefs['zend_mail_handler'] == 'smtp' && $prefs['zend_mail_queue'] == 'y') {
             $query = "INSERT INTO `tiki_mail_queue` (message) VALUES (?)";
             $bindvars = [serialize($this->mail)];
@@ -295,25 +314,6 @@ class TikiMail
             $title = 'mail';
         } else {
             try {
-                $email_body = $this->mail->getBody();
-                if ($prefs['email_footer']) {
-                    if (is_string($email_body)) {
-                        $new_body = $email_body . PHP_EOL . PHP_EOL . $prefs['email_footer'];
-                        $this->mail->setBody($new_body);
-                    } else {
-                        foreach ($email_body->getParts() as $part) {
-                            $content = $part->getContent();
-                            if ($part->getType() === 'text/html') {
-                                $content = str_replace('</body>', '<br><br>' . $prefs['email_footer'] . '</body>', $content);
-                            } else {    // hopefully plain text
-                                $content = $content . PHP_EOL . PHP_EOL . $prefs['email_footer'];
-                            }
-                            $part->setContent($content);
-                        }
-                        $this->mail->setBody($email_body);
-                    }
-                }
-
                 tiki_send_email($this->mail);
 
                 $title = 'mail';
