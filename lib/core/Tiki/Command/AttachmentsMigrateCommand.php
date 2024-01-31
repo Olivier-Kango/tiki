@@ -86,6 +86,7 @@ class AttachmentsMigrateCommand extends Command
                     'comment' => $att['comment'],
                     'hits' => $att['hits'],
                 ]);
+                $file->setParam('created', $att['created']);
                 $data = $wikilib->get_item_attachement_data($att);
                 $name = $att['filename'];
                 if (strlen($name) > 40) {
