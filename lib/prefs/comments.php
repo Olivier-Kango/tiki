@@ -72,13 +72,16 @@ function prefs_comments_list()
             'tags' => ['advanced'],
         ],
         'comments_correction_timeout' => [
-            'name' => tra('Comment edition timeout'),
-            'description' => tra('The period(time) in minutes during which a comment can be modified by its author after posting it, for clarifications, correction of errors, etc.'),
+            'name' => tra('Comment correction timeout'),
+            'description' => tra('The time in minutes during which a comment can be modified by its author after posting it, for clarifications, correction of errors, etc.'),
             'type' => 'text',
             'filter' => 'digits',
             'units' => tra('minutes'),
             'default'  => 90,
             'tags' => ['advanced'],
+            'dependencies' => [
+                'comments_allow_correction',
+            ],
         ],
         'comments_inline_annotator' => [
             'name' => tr('Inline comments using Apache Annotator'),
