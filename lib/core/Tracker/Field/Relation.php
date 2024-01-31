@@ -121,6 +121,9 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract implements Tracker_F
                 }
             }
             $data = array_unique($data);
+            if (empty($data) && $this->getValue()) {
+                $data = explode("\n", $this->getValue());
+            }
         }
 
         return [
