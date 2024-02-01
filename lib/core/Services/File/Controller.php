@@ -135,22 +135,7 @@ class Services_File_Controller
 
                 $data = file_get_contents($_FILES['data']['tmp_name']);
             } else {
-                $message = tr('File could not be uploaded:') . ' ';
-
-                switch ($_FILES['data']['error']) {
-                    case UPLOAD_ERR_OK:
-                        break;
-                    case UPLOAD_ERR_NO_FILE:
-                        $message .= tr('No file arrived');
-                        break;
-                    case UPLOAD_ERR_INI_SIZE:
-                    case UPLOAD_ERR_FORM_SIZE:
-                        $message .= tr('File too large');
-                        break;
-                    default:
-                        $message .= tr('Unknown errors');
-                        break;
-                }
+                $message = $this->getFileUploadErrorMessage($_FILES['data']['error']);
 
                 throw new Services_Exception_NotAvailable(tr($message));
             }
@@ -163,7 +148,7 @@ class Services_File_Controller
             $data = base64_decode($data);
         }
         if (! $this->isTypeUploadable($type, $gal_info['type'])) {
-            throw new Services_Exception(tr('File could not be uploaded'), 406);
+            throw new Services_Exception(tr('File could not be uploaded: Type %0 not supported', $type), 406);
         }
 
         if (! $title) {
@@ -283,7 +268,7 @@ class Services_File_Controller
             for ($i = 0; $i < count($_FILES['files']['tmp_name']); $i++) {
                 if (is_uploaded_file($_FILES['files']['tmp_name'][$i])) {
                     if (! $this->isTypeUploadable($_FILES['files']['type'][$i], $gal_info['type'])) {
-                        throw new Services_Exception_NotAvailable(tr('File could not be uploaded.'));
+                        throw new Services_Exception_NotAvailable(tr('File could not be uploaded: Type %0 not supported', $_FILES['files']['type'][$i]));
                     }
 
                     $_FILES['data']['name'] = $_FILES['files']['name'][$i];
@@ -329,7 +314,8 @@ class Services_File_Controller
 
                     $output['files'][] = $file;
                 } else {
-                    throw new Services_Exception_NotAvailable(tr('File could not be uploaded.'));
+                    $message = $this->getFileUploadErrorMessage($_FILES['files']['error'][$i]);
+                    throw new Services_Exception_NotAvailable(tr($message));
                 }
             }
 
@@ -339,7 +325,7 @@ class Services_File_Controller
                 TikiLib::lib('user')->set_user_preference($user, 'filegals_autoupload', 'n');
             }
         } else {
-            throw new Services_Exception_NotAvailable(tr('File could not be uploaded.'));
+            throw new Services_Exception_NotAvailable(tr($this->buildFailedUploadErrorMessage()));
         }
         $util->setTicket();
         $output['ticket'] = $util->getTicket();
@@ -962,5 +948,43 @@ class Services_File_Controller
         }
 
         return $canUpload;
+    }
+
+    private function getFileUploadErrorMessage($error)
+    {
+        $message = tr('File could not be uploaded:') . ' ';
+
+        switch ($error) {
+            case UPLOAD_ERR_OK:
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                $message .= tr('No file arrived');
+                break;
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+                $message .= tr('File too large');
+                break;
+            default:
+                $message .= tr('Unknown errors');
+                break;
+        }
+
+        return $message;
+    }
+
+    private function buildFailedUploadErrorMessage()
+    {
+        require_once __DIR__ . '/../../../smarty_tiki/modifier.kbsize.php';
+
+        $tikilib = TikiLib::lib('tiki');
+        $maxPostSize = $tikilib->return_bytes(ini_get('post_max_size'));
+
+        if (isset($_SERVER['CONTENT_LENGTH']) && (int) $_SERVER['CONTENT_LENGTH'] > $maxPostSize) {
+            $message = tr('Uploaded data is larger than the max post size, uploaded data should not exceed %0', smarty_modifier_kbsize($maxPostSize, true, 0));
+        } else {
+            $message = tr('File could not be uploaded.');
+        }
+
+        return $message;
     }
 }
