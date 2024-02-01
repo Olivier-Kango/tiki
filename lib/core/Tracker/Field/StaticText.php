@@ -31,7 +31,8 @@ class Tracker_Field_StaticText extends \Tracker\Field\AbstractField implements \
                         'options' => [
                             0 => tr('Handle line breaks as new lines only'),
                             1 => tr('Wiki Parse'),
-                            2 => tr('Wiki Parse with Pretty Tracker replacements'),
+                            2 => tr('Wiki Parse with Pretty Tracker replacements before parsing'),
+                            3 => tr('Wiki Parse with Pretty Tracker replacements after parsing'),
                         ],
                         'legacy_index' => 0,
                     ],
@@ -54,9 +55,13 @@ class Tracker_Field_StaticText extends \Tracker\Field\AbstractField implements \
 
         if ($this->getOption('wikiparse') == 1) {
             $value = TikiLib::lib('parser')->parse_data($value);
-        } elseif ($this->getOption('wikiparse') == 2) { // do pretty tracker replacements
+        } elseif ($this->getOption('wikiparse') == 2 || $this->getOption('wikiparse') == 3) { // do pretty tracker replacements
             $definition = Tracker_Definition::get($this->getConfiguration('trackerId'));
             $itemData = $this->getItemData();
+
+            if ($this->getOption('wikiparse') == 3) {
+                $value = TikiLib::lib('parser')->parse_data($value);
+            }
 
             preg_match_all('/\{\$f_(\w+)\}/', $value, $matches);
 
@@ -70,7 +75,11 @@ class Tracker_Field_StaticText extends \Tracker\Field\AbstractField implements \
                 }
             }
 
-            $value = TikiLib::lib('parser')->parse_data($value);
+            $value = str_replace('{$itemId}', $this->getItemId(), $value);
+
+            if ($this->getOption('wikiparse') == 2) {
+                $value = TikiLib::lib('parser')->parse_data($value);
+            }
         }
 
         return ['value' => $value];
