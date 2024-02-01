@@ -1,3 +1,21 @@
+# composerPackage.yml - Tiki Composer Packages Configuration
+#
+# This file allows you to specify the packages that should be installed and managed
+# by Tiki in the admin panel (on the Packages page).
+#
+# Usage:
+# - Add new packages by specifying the package name and version, and other optional details
+#   under the respective package name. Please see how other packages are configured.
+# - Specify package versions using Composer version constraints (e.g., ^1.0.0, ~2.3.1).
+# - Remove packages by deleting the corresponding entry.
+#
+# Note: Instead of completely deleting a package, it is strongly recommended to mark it as deprecated.
+# This allows users who have already installed the package to see in their admin panel that the package
+# has become obsolete and they have the option to remove it. Any packages marked as obsolete will not appear
+# in the admin panel if the user does not already have them installed.
+#
+# If a package is completely removed from the composerPackage.yml file, users who already have it installed
+# will not be able to remove it. Therefore, it is important to exercise caution when deciding to remove a package.
 ---
 CasperJS:
   licence: MIT
@@ -160,7 +178,7 @@ PhpReadability:
   name: j0k3r/php-readability
   requiredBy:
     - "Fetch page content"
-  requiredVersion: ^1.1.10
+  requiredVersion: ^2.0.3
 RecordRTC:
   licence: MIT
   licenceUrl: "https://github.com/muaz-khan/recordrtc/blob/master/LICENSE"
