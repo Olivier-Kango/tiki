@@ -435,7 +435,7 @@ class Services_Tracker_Controller
 
             $data = [
                 'name' => $input->name->text(),
-                'description' => $input->description->text(),
+                'description' => $input->description_parse->int() ? $input->description->wikicontent() : $input->description->text(),
                 'descriptionIsParsed' => $input->description_parse->int() ? 'y' : 'n',
                 'options' => $options,
                 'validation' => $input->validation_type->word(),
