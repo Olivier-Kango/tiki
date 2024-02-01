@@ -24,6 +24,7 @@
             <div class="offcanvas-body p-0" style="width: 268px;">
                 <div class="tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}">
 
+                <h2 class="text-bg-secondary fs-4 py-2 px-3">{icon name="sliders-h"} <span class="ms-1 narrow-hide">Configure</span></h2>
                     {* Preference filters moved from admin_navbar.tpl start *}
                     <form method="post" class="form g-3 align-items-center" role="form"{* style="width: 15rem;"*}> {* Specified width in rem so larger fonts wouldn't cause wrapping -- This width was overridden in the stylesheet so removed (6/8/2023) *}
                         {* <div class="col-auto form-check">
@@ -56,25 +57,27 @@
                                         </div>
                                         {if $prefs.connect_feature eq "y"}
                                             {capture name=likeicon}{icon name="thumbs-up"}{/capture}
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" id="connect_feedback_cbx" class="form-check-input"{if !empty($connect_feedback_showing)} checked="checked"{/if}>
-                                                    {tr}Provide Feedback{/tr}
-                                                    <a href="https://doc.tiki.org/Connect" target="tikihelp" class="tikihelp" title="{tr}Provide Feedback:{/tr}
-                                        {tr}Once selected, some icon/s will be shown next to all features so that you can provide some on-site feedback about them{/tr}.
-                                        <br/><br/>
-                                        <ul>
-                                            <li>{tr}Icon for 'Like'{/tr} {$smarty.capture.likeicon|escape}</li>
-                                            {* <li>{tr}Icon for 'Fix me'{/tr} <img src=img/icons/connect_fix.png></li>
-                                            <li>{tr}Icon for 'What is this for?'{/tr} <img src=img/icons/connect_wtf.png></li>  *}
-                                        </ul>
-                                        <br>
-                                        {tr}Your votes will be sent when you connect with mother.tiki.org (currently only by clicking the 'Connect > <strong>Send Info</strong>' button){/tr}
-                                        <br/><br/>
-                                        {tr}Click to read more{/tr}
-                                    ">
-                                                        {icon name="help"}
-                                                    </a> </label>
+                                            <div class="dropdown-item tips right icon">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" id="connect_feedback_cbx" class="form-check-input mt-0 me-3"{if !empty($connect_feedback_showing)} checked="checked"{/if}>
+                                                        {tr}Provide Feedback{/tr}
+                                                        <a href="https://doc.tiki.org/Connect" target="tikihelp" class="tikihelp" title="{tr}Provide Feedback:{/tr}
+                                            {tr}Once selected, some icon/s will be shown next to all features so that you can provide some on-site feedback about them{/tr}.
+                                            <br/><br/>
+                                            <ul>
+                                                <li>{tr}Icon for 'Like'{/tr} {$smarty.capture.likeicon|escape}</li>
+                                                {* <li>{tr}Icon for 'Fix me'{/tr} <img src=img/icons/connect_fix.png></li>
+                                                <li>{tr}Icon for 'What is this for?'{/tr} <img src=img/icons/connect_wtf.png></li>  *}
+                                            </ul>
+                                            <br>
+                                            {tr}Your votes will be sent when you connect with mother.tiki.org (currently only by clicking the 'Connect > <strong>Send Info</strong>' button){/tr}
+                                            <br/><br/>
+                                            {tr}Click to read more{/tr}
+                                        ">
+                                                            {icon name="help"}
+                                                        </a> </label>
+                                                </div>
                                             </div>
                                             {$headerlib->add_jsfile("lib/jquery_tiki/tiki-connect.js")}
                                         {/if}
@@ -85,7 +88,6 @@
                 </div>
                 {* Preference filters moved from admin navbar.tpl end *}
 
-                <h2 class="text-bg-secondary fs-4 py-2 px-3">{icon name="sliders-h"} <span class="ms-1 narrow-hide">Configure</span></h2>
                 <div class="accordion-item pb-2">
                     <form method="post" class="d-flex justify-content-center my-md-0 ms-auto" role="form">
                         <div class="my-1 mx-4">
@@ -97,15 +99,13 @@
                         </div>
                     </form>
                 </div>
-                {if not empty($smarty.request.page)}
-                    <div class="nav-item was-accordion-item tips right" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
-                        <div class="accordion-header">
-                            <a href="tiki-admin.php" class="nav-link px-4 py-2 fw-semibold">
-                                {icon name='home' iclass='fa-fw'}
-                                <span class="narrow-hide">{tr}Admin Dashboard{/tr}</span> </a>
-                        </div>
+                <div class="nav-item was-accordion-item tips right" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
+                    <div class="accordion-header">
+                        <a href="tiki-admin.php" class="nav-link px-4 py-2 fw-semibold{if empty($smarty.request.page)} opacity-50{/if}">
+                            {icon name='home' iclass='fa-fw'}
+                            <span class="narrow-hide">{tr}Admin Dashboard{/tr}</span> </a>
                     </div>
-                {/if}
+                </div>
                 {foreach $admin_icons as $section => $secInfo}
                     <div class="nav-item was-accordion-item tips right" title="{$secInfo.title}|{$secInfo.description}">
                         <div class="accordion-header" id="flush-heading-{$section}">
@@ -129,8 +129,9 @@
                         </div>
                     </div>
                 {/foreach}
-                <h2 class="text-bg-secondary fs-4 py-2 px-3">{icon name="manage"} <span class="ms-1 narrow-hide">Manage</span></h2>
-                <div class="help-block nav-link px-2">{tr}Note: The links in the following sections go to pages that use the general, not admin, site navigation and appearance.{/tr}</div>
+                <h2 class="text-bg-secondary fs-4 py-2 px-3 tips" title="{tr}Note: The links in the following sections go to pages that use the general, not admin, site navigation and appearance.{/tr}">
+                    {icon name="manage"} <span class="ms-1 narrow-hide">Manage</span>
+                </h2>
                 {* Moved from admin_navbar_menu.tpl start *}
                 {* navbar menu for admin_navbar.tpl *}
                 <div class="nav-item was-accordion-item tips right" title="{tr}Access{/tr}|{tr}Manage user accounts, group membership, and group access to site features{/tr}">
