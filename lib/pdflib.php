@@ -1161,17 +1161,7 @@ TEXT;
             $content = str_ireplace('<st<x>yle>', '<style>', $content);
             $content = $tableTag . $content . '</' . $tag . '>';
            //end of cleaning content
-            $sortedContent[] = str_replace('<sc<x>ript type="text/javascript">
-<!--//--><![CDATA[//><!--
-$(document).ready(function(){
-// jq_onready 0 
-$(".convert-mailto").removeClass("convert-mailto").each(function () {
-                var address = $(this).data("encode-name") + "@" + $(this).data("encode-domain");
-                $(this).attr("href", "mailto:" + address).text(address);
-            });
-});
-//--><!]]>
-</script>', "", $content);
+            $sortedContent[] = preg_replace('/<sc(<x>)?ript[^>]*>.*?<\/script>/s', '', $content);
             $tempValue[] = $tableTag;
             $table->nodeValue = "";
             chmod("temp/#" . $tid . "_" . session_id() . ".txt", 0755);
