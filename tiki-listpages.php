@@ -440,15 +440,24 @@ if (! empty($multiprint_pages)) {
             $pages = [];
             foreach ($listpages['data'] as $page) {
                 if (isset($_REQUEST['nonamespace'])) {
-                    $pages[] = TikiLib::lib('wiki')->get_without_namespace($page['pageName']);
+                    $pages[] = [
+                        'label' => TikiLib::lib('wiki')->get_without_namespace($page['pageName']),
+                        'is_alias' => false,
+                    ];
                 } else {
-                    $pages[] = $page['pageName'];
+                    $pages[] = [
+                        'label' => $page['pageName'],
+                        'is_alias' => false,
+                    ];
                 }
             }
 
             if (! empty($aliases)) {
                 foreach ($aliases as $alias) {
-                    $pages[] = $alias['toPage'];
+                    $pages[] = [
+                        'label' => $alias['toPage'],
+                        'is_alias' => true,
+                    ];
                 }
             }
 
