@@ -514,6 +514,8 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements \Tracker\Field\Ex
         $parseOptions = [];
         if ($this->getOption('wysiwyg') === 'y' && $prefs['wysiwyg_htmltowiki'] != 'y') {
             $parseOptions['is_html'] = true;
+        } else {
+            $parseOptions['is_html'] = false;
         }
         return TikiLib::lib('parser')->parse_data($text, $parseOptions);
     }

@@ -392,6 +392,8 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
         ];
         if ($this->getOption('wysiwyg') === 'y') {
             $parseOptions['is_html'] = ($prefs['wysiwyg_htmltowiki'] !== 'y');
+        } else {
+            $parseOptions['is_html'] = false;
         }
         return TikiLib::lib('parser')->parse_data($text, $parseOptions);
     }
