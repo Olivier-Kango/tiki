@@ -7,7 +7,7 @@
                    {icon name='angle-double-left' class="nav-link float-end pt-1 pe-4" title='{tr}Collapse/expand this sidebar{/tr}'}
                {/if}
            </div>
-           <div class="was-accordion accordion-flush w-100 border-end" id="admin-menu-accordion"> *}
+           <div class="accordion accordion-flush w-100 border-end" id="admin-menu-accordion"> *}
     <nav class="navbar fixed-top navbar-expand-lg py-0" style="height: min-content; max-width: 268px;" {* align-items-startbg-body-tertiary  fixed-top navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}*} role="navigation">
 
         <div class="tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}" style="height: 50px">
@@ -24,7 +24,8 @@
             <div class="offcanvas-body p-0" style="width: 268px;">
                 <div class="tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}">
 
-                <h2 class="text-bg-secondary fs-4 py-2 px-3">{icon name="sliders-h"} <span class="ms-1 narrow-hide">Configure</span></h2>
+                <h2 class="text-bg-secondary fs-4 py-2 px-3 mb-0">{icon name="sliders-h"} <span class="ms-1 narrow-hide">Configure</span></h2>
+
                     {* Preference filters moved from admin_navbar.tpl start *}
                     <form method="post" class="form g-3 align-items-center" role="form"{* style="width: 15rem;"*}> {* Specified width in rem so larger fonts wouldn't cause wrapping -- This width was overridden in the stylesheet so removed (6/8/2023) *}
                         {* <div class="col-auto form-check">
@@ -32,13 +33,13 @@
                             <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if !empty($pref_filters.advanced.selected)} checked="checked"{/if}>
                             <label for="preffilter-toggle-1" class="form-check-label"></label>
                         </div> *}
-
-                        <div class="nav-item was-accordion-item">
+                        <div class="accordion accordion-flush" id="admin-accordion">
+                        <div class="was-nav-item accordion-item">
                             <div class="accordion-header" id="flush-heading-preference-filters">
-                                <a class="nav-link was-accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-preference-filters" aria-expanded="false" aria-controls="flush-collapse-preference-filters">
-                                    {icon name="filter"}<span class="narrow-hide"> {tr}Preference Filters{/tr}</span> </a>
+                                <button class="was-nav-link accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-preference-filters" aria-expanded="false" aria-controls="flush-collapse-preference-filters">
+                                    {icon name="filter"}<span class="narrow-hide"> {tr}Preference Filters{/tr}</span> </button>
                             </div>
-                            <div id="flush-collapse-preference-filters" class="accordion-collapse collapse" aria-labelledby="flush-heading-preference-filters" data-bs-parent="#admin-menu-accordion">
+                            <div id="flush-collapse-preference-filters" class="accordion-collapse collapse" aria-labelledby="flush-heading-preference-filters" data-bs-parent="#admin-accordion">
                                 <div class="accordion-body p-0">
                                     <div class="dropdown-menu show position-relative border-0 rounded-0">
                                         {foreach from=$pref_filters key=name item=info}
@@ -100,20 +101,20 @@
                     </form>
                 </div>
                 <div class="nav-item was-accordion-item tips right" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
-                    <div class="accordion-header">
+                    <div class="was-accordion-header">
                         <a href="tiki-admin.php" class="nav-link px-4 py-2 fw-semibold{if empty($smarty.request.page)} opacity-50{/if}">
                             {icon name='home' iclass='fa-fw'}
                             <span class="narrow-hide">{tr}Admin Dashboard{/tr}</span> </a>
                     </div>
                 </div>
                 {foreach $admin_icons as $section => $secInfo}
-                    <div class="nav-item was-accordion-item tips right" title="{$secInfo.title}|{$secInfo.description}">
+                    <div class="was-nav-item accordion-item tips right" title="{$secInfo.title}|{$secInfo.description}">
                         <div class="accordion-header" id="flush-heading-{$section}">
-                            <a class="nav-link was-accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{$section}" aria-expanded="false" aria-controls="flush-collapse-{$section}">
+                            <button class="was-nav-link accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{$section}" aria-expanded="false" aria-controls="flush-collapse-{$section}">
                                 {icon name=$secInfo.icon iclass='fa-fw'}
-                                <span class="ms-1 narrow-hide">{$secInfo.title}</span> </a>
+                                <span class="ms-1 narrow-hide">{$secInfo.title}</span> </button>
                         </div>
-                        <div id="flush-collapse-{$section}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{$section}" data-bs-parent="#admin-menu-accordion">
+                        <div id="flush-collapse-{$section}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{$section}" data-bs-parent="#admin-accordion">
                             <div class="accordion-body p-0">
                                 <div class="dropdown-menu show position-relative {* {if $prefs.theme_navbar_color_variant_admin eq 'dark'}dropdown-menu-dark{/if} *}border-0 rounded-0">
                                     {foreach $secInfo.children as $page => $info}
@@ -129,18 +130,19 @@
                         </div>
                     </div>
                 {/foreach}
-                <h2 class="text-bg-secondary fs-4 py-2 px-3 tips" title="{tr}Note: The links in the following sections go to pages that use the general, not admin, site navigation and appearance.{/tr}">
+
+                <h2 class="text-bg-secondary fs-4 py-2 px-3 mb-0 tips" title="{tr}Note: The links in the following sections go to pages that use the general, not admin, site navigation and appearance.{/tr}">
                     {icon name="manage"} <span class="ms-1 narrow-hide">Manage</span>
                 </h2>
                 {* Moved from admin_navbar_menu.tpl start *}
                 {* navbar menu for admin_navbar.tpl *}
-                <div class="nav-item was-accordion-item tips right" title="{tr}Access{/tr}|{tr}Manage user accounts, group membership, and group access to site features{/tr}">
+                <div class="was-nav-item accordion-item tips right" title="{tr}Access{/tr}|{tr}Manage user accounts, group membership, and group access to site features{/tr}">
                     <div class="accordion-header" id="flush-heading-access">
-                        <a class="nav-link was-accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-access" aria-expanded="false" aria-controls="flush-collapse-access">
+                        <button class="was-nav-link accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-access" aria-expanded="true" aria-controls="flush-collapse-access">
                             {icon name="door-open" iclass='fa-fw'}
-                            <span class="ms-1 narrow-hide">{tr}Access{/tr}</span> </a>
+                            <span class="ms-1 narrow-hide">{tr}Access{/tr}</span> </button>
                     </div>
-                    <div id="flush-collapse-access" class="accordion-collapse collapse" aria-labelledby="flush-heading-access" data-bs-parent="#admin-menu-accordion">
+                    <div id="flush-collapse-access" class="accordion-collapse collapse" aria-labelledby="flush-heading-access" data-bs-parent="#admin-accordion">
                         <div class="accordion-body p-0">
                             <div class="dropdown-menu show position-relative border-0 rounded-0">
                                 {if $tiki_p_admin eq "y"}
@@ -168,14 +170,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="nav-item was-accordion-item tips right" title="{tr}Content{/tr}|{tr}Create and manage instances of activated media features{/tr}">
+                <div class="was-nav-item accordion-item tips right" title="{tr}Content{/tr}|{tr}Create and manage instances of activated media features{/tr}">
                     <div class="accordion-header" id="flush-heading-content">
-                        <a class="nav-link was-accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-content" aria-expanded="false" aria-controls="flush-collapse-content">
+                        <button class="was-nav-link accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-content" aria-expanded="false" aria-controls="flush-collapse-content">
                             {icon name="content" iclass='fa-fw'}
                             <span class="ms-1 narrow-hide">{tr}Content{/tr}</span>
-                        </a>
+                        </button>
                     </div>
-                    <div id="flush-collapse-content" class="accordion-collapse collapse" aria-labelledby="flush-heading-content" data-bs-parent="#admin-menu-accordion">
+                    <div id="flush-collapse-content" class="accordion-collapse collapse" aria-labelledby="flush-heading-content" data-bs-parent="#admin-accordion">
                         <div class="accordion-body p-0">
                             <div class="dropdown-menu show position-relative border-0 rounded-0">
                                 {if $prefs.feature_articles eq "y"}
@@ -275,14 +277,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="nav-item was-accordion-item tips right" title="{tr}Website Functions{/tr}|{tr}Administer default and admin-activated features to facilitate site functionality{/tr}">
+                <div class="was-nav-item accordion-item tips right" title="{tr}Website Functions{/tr}|{tr}Administer default and admin-activated features to facilitate site functionality{/tr}">
                     <div class="accordion-header" id="flush-heading-system">
-                        <a class="nav-link was-accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-system" aria-expanded="false" aria-controls="flush-collapse-system">
+                        <button class="was-nav-link accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-system" aria-expanded="false" aria-controls="flush-collapse-system">
                             {icon name="system"}
                             <span class="ms-1 narrow-hide">{tr}Website Functions{/tr}</span>
-                        </a>
+                        </button>
                     </div>
-                    <div id="flush-collapse-system" class="accordion-collapse collapse" aria-labelledby="flush-heading-system" data-bs-parent="#admin-menu-accordion">
+                    <div id="flush-collapse-system" class="accordion-collapse collapse" aria-labelledby="flush-heading-system" data-bs-parent="#admin-accordion">
                         <div class="accordion-body p-0">
                             <div class="dropdown-menu show position-relative border-0 rounded-0">
                                 {if $tiki_p_admin eq "y"}
@@ -364,12 +366,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="nav-item was-accordion-item tips right" title="{tr}Admin Tools{/tr}|{tr}Additional features for monitoring and managing the website{/tr}">
+                <div class="was-nav-item accordion-item tips right" title="{tr}Admin Tools{/tr}|{tr}Additional features for monitoring and managing the website{/tr}">
                     <div class="accordion-header" id="flush-heading-system">
-                        <a class="nav-link was-accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-tools" aria-expanded="false" aria-controls="flush-collapse-tools">
+                        <button class="was-nav-link accordion-button collapsed px-4 py-2 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-tools" aria-expanded="false" aria-controls="flush-collapse-tools">
                             {icon name="tools"}
                             <span class="ms-1 narrow-hide">{tr}Admin Tools{/tr}</span>
-                        </a>
+                        </button>
                     </div>
                     <div id="flush-collapse-tools" class="accordion-collapse collapse" aria-labelledby="flush-heading-tools" data-bs-parent="#admin-menu-accordion">
                         <div class="accordion-body p-0">
@@ -458,7 +460,7 @@
                     </div>
                 </div>
                 {* Moved from admin_navbar_menu.tpl end *}
-
+                </div>
             </div>
         </div>
         {* </div> close navbar *}
