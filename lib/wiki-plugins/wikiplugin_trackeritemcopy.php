@@ -28,7 +28,7 @@ function wikiplugin_trackeritemcopy_info()
                 'since' => '7.0',
                 'filter' => 'text',
                 'default' => '',
-                'separator' => [':'],
+                'separator' => ':',
                 'profile_reference' => 'tracker',
             ],
             'linkFieldIds' => [
@@ -39,7 +39,7 @@ function wikiplugin_trackeritemcopy_info()
                 'since' => '8.0',
                 'filter' => 'text',
                 'default' => '',
-                'separator' => [':'],
+                'separator' => ':',
                 'profile_reference' => 'tracker_field',
             ],
             'copyFieldIds' => [

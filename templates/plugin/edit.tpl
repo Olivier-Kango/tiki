@@ -58,10 +58,14 @@ $("#picker_{{$name|escape}}").parent().click(function () {
                     {if empty($param.separator)}
                         {object_selector type=$param.selector_type _simplevalue=$val _simplename='params['|cat:$name|escape|cat:']' _simpleid=$inputId _parent=$param.parent _parentkey=$param.parentkey _class=$groupClass}
                     {else}
-                        {if $param.selector_type == 'extra'}
-                            {object_selector_multi type=$param.selector_type_reference _extra_type=$param.profile_reference_extra_values _simplevalue=$val _simplename='params['|cat:$name|escape|cat:']' _simpleid=$inputId _separator=$param.separator _parent=$param.parent _parentkey=$param.parentkey _sort=$param.sort_order _class=$groupClass}
+                        {if is_array($param.separator)}
+                            <input value="{$val|escape}" class="form-control{$groupClass}" id="{$inputId}" type="text" name="params[{$name|escape}]"{$dataAttribute}>
                         {else}
-                            {object_selector_multi type=$param.selector_type _use_permname=$param.use_permname _simplevalue=$val _simplename='params['|cat:$name|escape|cat:']' _simpleid=$inputId _separator=$param.separator _parent=$param.parent _parentkey=$param.parentkey _sort=$param.sort_order _class=$groupClass}
+                            {if $param.selector_type == 'extra'}
+                              {object_selector_multi type=$param.selector_type_reference _extra_type=$param.profile_reference_extra_values _simplevalue=$val _simplename='params['|cat:$name|escape|cat:']' _simpleid=$inputId _separator=$param.separator _parent=$param.parent _parentkey=$param.parentkey _sort=$param.sort_order _class=$groupClass}
+                            {else}
+                               {object_selector_multi type=$param.selector_type _use_permname=$param.use_permname _simplevalue=$val _simplename='params['|cat:$name|escape|cat:']' _simpleid=$inputId _separator=$param.separator _parent=$param.parent _parentkey=$param.parentkey _sort=$param.sort_order _class=$groupClass}
+                           {/if}
                         {/if}
                     {/if}
                     {if not empty($param.parentparam.name)}
