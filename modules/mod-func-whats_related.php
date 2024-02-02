@@ -25,7 +25,15 @@ function module_whats_related($mod_reference, $module_params)
 {
     $smarty = TikiLib::lib('smarty');
     $categlib = TikiLib::lib('categ');
+    $access = TikiLib::lib('access');
 
-    $WhatsRelated = $categlib->get_link_related($_SERVER["REQUEST_URI"]);
+    if ($access->is_xml_http_request()) {
+        $parsedUrl = parse_url($_SERVER['HTTP_REFERER']);
+        $url = '/tiki-index.php?' . $parsedUrl['query'];
+    } else {
+        $url = $_SERVER['REQUEST_URI'];
+    }
+
+    $WhatsRelated = $categlib->get_link_related($url);
     $smarty->assign_by_ref('WhatsRelated', $WhatsRelated);
 }
