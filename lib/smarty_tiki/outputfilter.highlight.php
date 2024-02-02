@@ -90,6 +90,7 @@ function smarty_outputfilter_highlight($source, $smarty)
         $source = preg_replace_callback(
             '~(?:<head>.*</head>                            # head blocks
         |<div[^>]*nohighlight.*</div><!--nohighlight--> # div with nohightlight
+        |<div[^>]*adminoption.*</div>                   # pref in a popup so double quote breaks it
         |<script[^>]+>.*</script>                       # script blocks
         |<a[^>]*onmouseover.*onmouseout[^>]*>           # onmouseover (user popup)
         |<[^>]*>                                        # all html tags
