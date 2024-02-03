@@ -452,7 +452,7 @@ class CreditsLib extends TikiLib
             );
         } else {
             $results = $this->query(
-                "SELECT * FROM tiki_credits_usage WHERE userId = ? AND usage_date > ? AND usage_date <= ? ORDER BY `usage_date` desc",
+                "SELECT * FROM tiki_credits_usage WHERE userId = ? AND usage_date > FROM_UNIXTIME(?) AND usage_date <= ? ORDER BY `usage_date` desc",
                 [$target_user_id, $start_date, $end_date]
             );
         }
