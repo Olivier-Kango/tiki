@@ -348,12 +348,12 @@ function smarty_function_object_link_freetag($smarty, $tag, $title = null)
 function smarty_function_object_link_forumpost($smarty, $object, $title = null, $type = 'forumpost', $url = null)
 {
     $commentslib = TikiLib::lib('comments');
-    $comment = $commentslib->get_comment($object);
+    $comment = $commentslib->getCommentLight($object);
     if (! is_array($comment)) {
         $comment = [];
     }
     while (empty($comment['title'])) {
-        $parent = isset($comment['parentId']) ? $commentslib->get_comment($comment['parentId']) : null;
+        $parent = isset($comment['parentId']) ? $commentslib->getCommentLight($comment['parentId']) : null;
         if (is_array($parent)) {
             $comment['parentId'] = $parent['parentId'];
             $comment['title'] = $parent['title'] ?? '';

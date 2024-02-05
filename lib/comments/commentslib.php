@@ -1925,6 +1925,23 @@ class Comments extends TikiLib
     }
 
     /**
+     * Quick way of getting comment's attributes like title without going through get_comment
+     * method that also parses comment content, executes plugins, etc.
+     * @param int $id
+     * @param array $fields - optionally supply the fields you want to get
+     * @return string
+     */
+    public function getCommentLight($id, $fields = [])
+    {
+        $comments = $this->table('tiki_comments');
+        if (empty($fields)) {
+            return $comments->fetchFullRow(['threadId' => $id]);
+        } else {
+            return $comments->fetchRow($fields, ['threadId' => $id]);
+        }
+    }
+
+    /**
      * @param $parentId
      * @param $query_sort_mode
      * @return mixed
