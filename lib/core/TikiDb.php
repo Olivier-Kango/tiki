@@ -120,7 +120,17 @@ abstract class TikiDb
         return false;
     }
 
-    public function fetchAll($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT)
+    /**
+     * Fetch all rows for a query
+     *
+     * @param [type] $query
+     * @param array|null $values Any values for bound parameters in the query.  Must match the number of bound parameters in the query
+     * @param integer $numrows
+     * @param integer $offset
+     * @param [type] $reporterrors
+     * @return array|false false denotes an error in the query, not an empty result
+     */
+    public function fetchAll($query = null, ?array $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT): array|false
     {
         $result = $this->query($query, $values, $numrows, $offset, $reporterrors);
 

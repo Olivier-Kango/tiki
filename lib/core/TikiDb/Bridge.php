@@ -26,7 +26,7 @@ class TikiDb_Bridge extends TikiDb
         return self::get()->query($query, $values, $numrows, $offset, $reporterrors);
     }
 
-    public function fetchAll($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true)
+    public function fetchAll($query = null, ?array $values = null, $numrows = -1, $offset = -1, $reporterrors = true): array
     {
         return self::get()->fetchAll($query, $values, $numrows, $offset, $reporterrors);
     }

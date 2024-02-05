@@ -119,7 +119,7 @@ class Tiki_Profile_InstallHandler_Category extends Tiki_Profile_InstallHandler
             $categId = $category['categId'];
 
             $items = [];
-            foreach ($categlib->get_category_objects($categId) as $row) {
+            foreach ($categlib->deprecatedGetCategoryObjectsRows([$categId]) as $row) {
                 if ($includeObjectCallback($row['type'], $row['itemId'])) {
                     $items[] = [$row['type'], $writer->getReference($row['type'], $row['itemId'])];
                 }

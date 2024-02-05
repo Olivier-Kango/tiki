@@ -14,7 +14,7 @@ interface Search_ContentSource_Interface
     public function getDocuments();
 
     /**
-     * Provides teh basic data for the specified object ID.
+     * Provides the basic data for the specified object ID.
      *
      * @return array
      */

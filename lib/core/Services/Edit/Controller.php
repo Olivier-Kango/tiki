@@ -393,7 +393,7 @@ $(window).on("load", function(){
             throw new Services_Exception_Denied(tr('You do not have permission to edit "%0"', tr($objectType)));
         }
 
-        list($dbName, $dbKey) = $objectlib->getDBFor($objectType);
+        list($dbName, $dbKey) = $objectlib->deprecatedGetDBFor($objectType);
 
         if (is_array($dbKey)) {
             $params = array_combine($dbKey, $objectId);
@@ -415,7 +415,7 @@ $(window).on("load", function(){
         }
 
         try {
-            $objectlib->set_data(
+            $objectlib->setRawData(
                 $objectType,
                 $objectId,
                 [$fieldName => $data]

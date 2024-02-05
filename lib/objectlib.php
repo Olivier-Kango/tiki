@@ -14,6 +14,22 @@ class ObjectLib extends TikiLib
 {
     private const SECONDSPERDAY = 86400;
 
+    public const TYPE_WIKI_PAGE = 'wiki page';
+    public const TYPE_TRACKER_ITEM = 'trackeritem';
+
+    /** This is the list of all the columns in the tiki_objects table this class abstracts.  It is among other things used to generate GROUP BY statements (which are very inflexible in MySql).  But is also a convenient place to document columns... */
+    public const TABLE_COLUMNS = [
+    'objectId', //int, Sequential id of the object
+    'type', //type of the real object
+    'itemId', //Primary key of the real object
+    'description',//DEPRECATED, usually empty
+    'created',//unclear if this is updated if the source object creation date is updated
+    'name',//Usually not empty, but should not be relied upon
+    'href',//Usually a relative link to the view page of the source item
+    'hits',//?
+    'comments_locked'//?
+    ];
+
     /**
      *  Create an object record for the given Tiki object if one doesn't already exist.
      * Returns the object record OID. If the designated object does not exist, may return NULL.
@@ -512,7 +528,13 @@ class ObjectLib extends TikiLib
         return (['error' => 'true']);
     }
 
-    public function set_data($objectType, $object, $data)
+    /** This is a first attempt at a generic object write abstraction.  It will set the object to a new raw data value, calling the permission checking code and data validation code on the object
+     *
+     * @param $objectType the raw object type, such as 'trackerfield'
+     * @param $object the object id
+     * @param $data For now this is both tied to how this is called in Controller.php and the actual format in the database
+    */
+    public function setRawData(string $objectType, $object, $data)
     {
         switch ($objectType) {
             case 'wiki':
@@ -1016,7 +1038,8 @@ class ObjectLib extends TikiLib
         return false;
     }
 
-    public function getDBFor($objectType)
+    /** Not sure why this is accessed from outside, it's an abstraction break to get the tables and keys for the different object type.   Currently used in Controller to make (probably slow) database calls to hydrate  */
+    public function deprecatedGetDBFor($objectType)
     {
         switch ($objectType) {
             case 'comments':

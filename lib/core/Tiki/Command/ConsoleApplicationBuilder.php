@@ -161,6 +161,7 @@ class ConsoleApplicationBuilder
                 new MailQueueSendCommand(),
                 new NotificationDigestCommand(),
                 new ObjectsNotifyMaintainersCommand(),
+                new ObjectsExportCommand(),
                 new PackageClearCacheCommand(),
                 new PackageInstallCommand(),
                 new PackageListCommand(),

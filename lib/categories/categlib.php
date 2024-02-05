@@ -4,9 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-/**
- * \brief Categories support class
- */
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
@@ -16,6 +13,16 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 
 $objectlib = TikiLib::lib('object');
 
+/**
+ * This class abstracts the categories feature, allowing
+ * tiki objects (those represented in objectlib.php) to be classified in categories managed by this class
+ *
+ * In the database this is represented by the
+ * tiki_categor* tables.
+ *
+ * The tiki_categorized_objects table is deprecated (a former cache) and shoulb be removed.
+ *
+ * WARNING, this class is NOT stateless currently! */
 class CategLib extends ObjectLib
 {
     private $parentCategories = [];
@@ -124,9 +131,9 @@ class CategLib extends ObjectLib
         while ($res = $result->fetchRow()) {
             $object = $res["catObjectId"];
 
-            $query_cant = "select count(*) from `tiki_category_objects` where `catObjectId`=?";
-            $cant = $this->getOne($query_cant, [$object]);
-            if ($cant <= 1) {
+            $query_count = "select count(*) from `tiki_category_objects` where `catObjectId`=?";
+            $count = $this->getOne($query_count, [$object]);
+            if ($count <= 1) {
                 $query2 = "delete from `tiki_categorized_objects` where `catObjectId`=?";
                 $result2 = $this->query($query2, [$object]);
             }
@@ -587,7 +594,19 @@ class CategLib extends ObjectLib
         return $result->fetchRow();
     }
 
-    public function list_category_objects($categId, $offset, $maxRecords, $sort_mode = 'pageName_asc', $type = '', $find = '', $deep = false, $and = false, $filter = null)
+    /**
+     * Get object in the listed categories.  Obeys category jails, but not permissions
+     *
+     * @param array $categoryIds
+     * @param string|null $sort_mode
+     * @param string $type
+     * @param string $find Restrict results by keyword
+     * @param boolean $deep Look into the categories recursively
+     * @param boolean $and The objects must be in ALL the categories listed in categoryIds
+     * @param [type] $filter, only supported filter is 'language' and only on wiki pages
+     * @return array
+     */
+    public function getCategoryObjectsRawRows(array $categoryIds, ?string $sort_mode = null, array $types = [], $find = '', $deep = false, $and = false, ?array $filter = null): array|bool
     {
         global $prefs;
         $userlib = TikiLib::lib('user');
@@ -598,22 +617,25 @@ class CategLib extends ObjectLib
             $trklib = TikiLib::lib('trk');
         }
 
+        if (count($categoryIds) < 1) {
+            throw new Error("There must be at least one id in categIds");
+        }
         // Build the condition to restrict which categories objects must be in to be returned.
         $join = '';
-        if (is_array($categId) && $and) {
-            $categId = $this->get_jailed($categId);
-            $i = count($categId) + 1;
+        if ($and) {
+            $categoryIds = $this->get_jailed($categoryIds);
+            $i = count($categoryIds) + 1;
             $bindWhere = [];
-            foreach ($categId as $c) {
+            foreach ($categoryIds as $c) {
                 if (--$i) {
                     $join .= " INNER JOIN tiki_category_objects tco$i on tco$i.`catObjectId`=o.`objectId` and tco$i.`categId`=? ";
                     $bindWhere[] = $c;
                 }
             }
-        } elseif (is_array($categId)) {
-            $bindWhere = $categId;
+        } else {
+            $bindWhere = $categoryIds;
             if ($deep) {
-                foreach ($categId as $c) {
+                foreach ($categoryIds as $c) {
                     $bindWhere = array_merge($bindWhere, $this->get_category_descendants($c));
                 }
             }
@@ -622,17 +644,6 @@ class CategLib extends ObjectLib
             $bindWhere[] = -1;
 
             $where = " AND c.`categId` IN (" . str_repeat("?,", count($bindWhere) - 1) . "?)";
-        } else {
-            if ($deep) {
-                $bindWhere = $this->get_category_descendants($categId);
-                $bindWhere[] = $categId;
-                $bindWhere = $this->get_jailed($bindWhere);
-                $bindWhere[] = -1;
-                $where = " AND c.`categId` IN (" . str_repeat("?,", count($bindWhere) - 1) . "?)";
-            } else {
-                $bindWhere = [$categId];
-                $where = ' AND c.`categId`=? ';
-            }
         }
 
         // Restrict results by keyword
@@ -642,16 +653,11 @@ class CategLib extends ObjectLib
             $bindWhere[] = $findesc;
             $where .= " AND (`name` LIKE ? OR `description` LIKE ?)";
         }
-        if (! empty($type)) {
-            if (is_array($type)) {
-                $where .= ' AND `type` in (' . implode(',', array_fill(0, count($type), '?')) . ')';
-                $bindWhere = array_merge($bindWhere, $type);
-            } else {
-                $where .= ' AND `type` =? ';
-                $bindWhere[] = $type;
-            }
+        if ($types) {
+                $where .= ' AND `type` in (' . implode(',', array_fill(0, count($types), '?')) . ')';
+                $bindWhere = array_merge($bindWhere, $types);
         }
-        if (! empty($filter['language']) && ! empty($type) && ($type == 'wiki' || $type == 'wiki page' || in_array('wiki', (array)$type) || in_array('wiki page', (array)$type))) {
+        if (! empty($filter['language']) && (in_array('wiki', $types) || in_array('wiki page', $types))) {
             $join .= 'LEFT JOIN `tiki_pages` tp ON (o.`itemId` = tp.`pageName`)';
             if (! empty($filter['language_unspecified'])) {
                 $where .= ' AND (tp.`lang` IS NULL OR tp.`lang` = ? OR tp.`lang`=?)';
@@ -672,26 +678,52 @@ class CategLib extends ObjectLib
         }
 
         // Fetch all results as was done before, but only do it once
-        $query_cant = "SELECT DISTINCT c.*, o.* FROM `tiki_category_objects` c, `tiki_categorized_objects` co, `tiki_objects` o $join WHERE c.`catObjectId`=o.`objectId` AND o.`objectId`=co.`catObjectId` $where";
-        $query = $query_cant . $orderBy;
-        $result = $this->fetchAll($query, $bindVars);
-        $cant = count($result);
+        $query = "SELECT o.*, GROUP_CONCAT(c.catObjectId) as category_ids";
+        $query .= " FROM `tiki_objects` o";
+        // I don't understand what the tiki_categorized_objects table does.  It looks like just a cache of objects part of tiki_category_object.  It's lone catObjectId column matches tiki_category_objects.objectId and tiki_objects.objectId, so it doesn't help the join but makes it fail if it's not present!?!?!? - benoitg- 2024-01-31
+
+        //I think the only reason that table is present is for quick access of the objects containing at least one category but that's easily achievable with proper index on tiki_category_objects and count() queries with possible "group by" statements, so this table can be removed one day... Victor: 2024-02-09
+
+        //So we'll keep writing to it (it's not the time to mess with the schema just before releasing 27), but stop reading.  There is already a multicolumn index on tiki_category_objects whose 1st column is catObjectId, so it doesn't even make this faster.  MySql is primitive, but does support optimising with the first columns of a multicolumn index - benoitg - 2023-02-09
+        //$query .= " JOIN `tiki_categorized_objects` co ";
+        //$query .= "   ON co.`catObjectId`=o.`objectId` ";
+        $query .= " JOIN `tiki_category_objects` c ";
+        $query .= "   ON c.`catObjectId`=o.`objectId` ";
+        $query .= " $join ";
+        $query .= " $where ";
+        $query .= "GROUP BY " . array_reduce(ObjectLib::TABLE_COLUMNS, function ($carry, $item) {
+            $separator = empty($carry) ? '' : ', ';
+            return "{$carry}{$separator}o.`{$item}`";
+        }) . " \n";
+        $query .= $orderBy;
+        $rows = $this->fetchAll($query, $bindVars);
+        return $rows;
+    }
+
+    public function list_category_objects($categId, ?int $offset = null, ?int $maxRecords = null, $sort_mode = 'pageName_asc', $type = '', $find = '', $deep = false, $and = false, $filter = null)
+    {
+        $categoryIds = is_array($categId) ? $categId : [$categId];
+        $types = [];
+        if (! empty($type)) {
+            $types = is_array($type) ? $type : [$type];
+        }
+        $rows = $this->getCategoryObjectsRawRows($categoryIds, sort_mode: $sort_mode, types: $types, find: $find, deep: $deep, and: $and, filter: $filter);
+        $count = count($rows);
 
         if ($sort_mode == 'shuffle') {
-            shuffle($result);
+            shuffle($rows);
         }
-
-        return $this->filter_object_list($result, $cant, $offset, $maxRecords);
+        return $this->filter_object_list($rows, $count, $offset, $maxRecords);
     }
 
     /**
      * @param array $result object list
-     * @param int $cant size of list
+     * @param int $count size of list
      * @param int $offset start of list
      * @param int $maxRecords size of page - NB: -1 will check perms etc on every object and can be very slow
      * @return array
      */
-    private function filter_object_list($result, $cant, $offset, $maxRecords)
+    private function filterObjectRows($result, $count, $offset, $maxRecords)
     {
         global $user, $prefs;
         $permMap = TikiLib::lib('object')->map_object_type_to_permission();
@@ -709,7 +741,7 @@ class CategLib extends ObjectLib
         $requiredResult = Perms::mixedFilter([], 'type', 'object', $requiredResult, $contextMapMap, $permMap);
 
         if ($maxRecords != -1) {    // if filtered result is less than what's there look for more
-            while (count($requiredResult) < $maxRecords && count($requiredResult) < $cant) {
+            while (count($requiredResult) < $maxRecords && count($requiredResult) < $count) {
                 $nextResults = array_slice($result, $maxRecords, $maxRecords - count($requiredResult));
                 $nextResults = Perms::mixedFilter([], 'type', 'object', $nextResults, $contextMapMap, $permMap);
                 if (empty($nextResults)) {
@@ -718,7 +750,7 @@ class CategLib extends ObjectLib
                 $requiredResult = array_merge($requiredResult, $nextResults);
             }
         } else {
-            $cant = count($requiredResult);
+            $count = count($requiredResult);
         }
         $result = $requiredResult;
 
@@ -748,10 +780,20 @@ class CategLib extends ObjectLib
                 $objs[] = $res['catObjectId'] . '-' . $res['categId'];
             }
         }
+    }
 
+
+    /**
+     * For historical reasons there is a spelling mistake in the return value
+     *
+     * @return array with keys cant (meaning count) and data
+     */
+    private function filter_object_list($result, $count, $offset, $maxRecords): array
+    {
+        $ret = $this->filterObjectRows($result, $count, $offset, $maxRecords);
         return [
             "data" => $ret,
-            "cant" => $cant,
+            "cant" => $count,
         ];
     }
 
@@ -910,30 +952,58 @@ class CategLib extends ObjectLib
         }
     }
 
-    // WARNING: This method is very different from get_categoryobjects()
-    // Get all the objects in a category
-    // filter = array('table'=>, 'join'=>, 'filter'=>, 'bindvars'=>)
-    public function get_category_objects($categId, $type = null, $filter = null)
+    /** Get all the objects directly categorised in a list of categories
+     *  WARNING: This method is very different from get_categoryobjects()
+     * This largely duplicates getCategoryObjectsRawRows and should be merged as soon as possible.  It's only used in
+     * wikiplugin_trackerstat.php and the Category.php tiki
+     * profile install handler - benoitg and victor - 2024-02-09
+     *
+     * @param $categId
+     * @param $type Restrict to this object type
+     * @param array $deprecatedFilter = array('table'=>, 'join'=>, 'filter'=>, 'bindvars'=>) @deprecated Raw, mixed join and filter Example from wikiplugin_trackerstat.php: ['table' => 'tiki_tracker_items', 'join' => 'itemId', 'filter' => 'trackerId', 'bindvars' => $trackerId]
+     * */
+    public function deprecatedGetCategoryObjectsRows(array $categIds, $type = null, $deprecatedFilter = null): array
     {
-        $bindVars[] = (int)$categId;
+        if (count($categIds) < 1) {
+            throw new Error("There must be at least one id in categIds");
+        }
+        $bindVars = [];
+        $bindVars += array_map(function ($value) {
+            return (int)$value;
+        }, $categIds);
         if (! empty($type)) {
             $where = ' and o.`type`=?';
             $bindVars[] = $type;
         } else {
             $where = '';
         }
-        if (! empty($filter)) {
-            $from = ',`' . $filter['table'] . '` ft';
-            $where .= ' and o.`itemId`=ft.`' . $filter['join'] . '` and ft.`' . $filter['filter'] . '`=?';
-            if (is_array($filter['bindvars'])) {
-                $bindVars = array_merge($bindVars, $filter['bindvars']);
+        if (! empty($deprecatedFilter)) {
+            $from = ',`' . $deprecatedFilter['table'] . '` ft';
+            $selectExpr = ", ft.*";
+            $where .= ' and o.`itemId`=ft.`' . $deprecatedFilter['join'] . '` and ft.`' . $deprecatedFilter['filter'] . '`=?';
+            if (is_array($deprecatedFilter['bindvars'])) {
+                $bindVars = array_merge($bindVars, $deprecatedFilter['bindvars']);
             } else {
-                $bindVars[] = $filter['bindvars'];
+                $bindVars[] = $deprecatedFilter['bindvars'];
             }
         } else {
             $from = '';
+            $selectExpr = '';
         }
-        $query = "select * from `tiki_category_objects` c,`tiki_categorized_objects` co, `tiki_objects` o $from where c.`catObjectId`=co.`catObjectId` and co.`catObjectId`=o.`objectId` and c.`categId`=?" . $where;
+
+        $query = "select DISTINCT o.*";
+        $query .= $selectExpr;
+        $query .= " from ";
+        $query .= " `tiki_objects` o";
+        $query .= " $from ";
+        $query .= " join `tiki_categorized_objects` co ";
+        $query .= "   on co.`catObjectId`=o.`objectId` ";
+        $query .= " join `tiki_category_objects` c ";
+        $query .= "   on c.`catObjectId`=co.`catObjectId` ";
+        $query .= "where ";
+        $query .= " c.`categId` in (" . implode(',', array_fill(0, count($categIds), '?')) . ")";
+        $query .= " $where ";
+
         return $this->fetchAll($query, $bindVars);
     }
 
@@ -964,8 +1034,8 @@ class CategLib extends ObjectLib
             $query = "delete from `tiki_category_objects` where `catObjectId`=? and `categId` in (" . implode(',', array_fill(0, count($categIds), '?')) . ")";
             $result = $this->query($query, array_merge([$catObjectId], $categIds));
             $query = "select count(*) from `tiki_category_objects` where `catObjectId`=?";
-            $cant = $this->getOne($query, [(int)$catObjectId]);
-            if (! $cant) {
+            $count = $this->getOne($query, [(int)$catObjectId]);
+            if (! $count) {
                 $query = "delete from `tiki_categorized_objects` where `catObjectId`=?";
                 $result = $this->query($query, [(int)$catObjectId]);
             }
@@ -1219,7 +1289,7 @@ class CategLib extends ObjectLib
     }
 
     // get categories related to a link. For Whats related module.
-    public function get_link_categories($link)
+    private function get_link_categories($link)
     {
         $ret = [];
         $parsed = parse_url($link);
@@ -1246,7 +1316,7 @@ class CategLib extends ObjectLib
 
     // input is a array of category id's and return is a array of
     // maxRows related links with description
-    public function get_related($categories, $maxRows = 10)
+    private function get_related($categories, $maxRows = 10)
     {
         global $tiki_p_admin, $user;
         if (count($categories) == 0) {
@@ -1368,9 +1438,11 @@ class CategLib extends ObjectLib
         return $catpath;
     }
 
-    // WARNING: This method is very different from get_category_objects()
-    // Format a list of objects in the given categories, returning HTML code.
-    public function get_categoryobjects($catids, $types = "*", $sort = 'created_desc', $split = true, $sub = false, $and = false, $maxRecords = 500, $filter = null, $displayParameters = [])
+
+    /** Format a list of objects in the given categories, returning HTML code.
+     *  WARNING: This method is very different from deprecatedGetCategoryObjectsRows()
+     */
+    public function get_categoryobjects($catids, $types = "*", $sort = 'created_desc', $split = true, $sub = false, $and = false, $maxRecords = 500, $filter = null, $displayParameters = []): string
     {
         global $prefs, $user;
         $smarty = TikiLib::lib('smarty');
@@ -2053,6 +2125,7 @@ class CategLib extends ObjectLib
         return array_keys($candidates);
     }
 
+    /** Get the set of categories that are allowed in the jailed categories set in the preferences */
     public function get_jailed($categories)
     {
         if ($jail = $this->get_jail()) {

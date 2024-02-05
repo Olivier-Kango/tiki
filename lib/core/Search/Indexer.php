@@ -402,7 +402,7 @@ class Search_Indexer
         return $data;
     }
 
-    private function getGlobalContent(array &$data, $globalFields)
+    public static function getGlobalContent(array &$data, $globalFields)
     {
         $content = '';
 

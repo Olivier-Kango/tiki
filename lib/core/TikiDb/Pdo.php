@@ -149,7 +149,7 @@ class TikiDb_Pdo extends TikiDb
         }
     }
 
-    public function fetchAll($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT)
+    public function fetchAll($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT): array|false
     {
         $result = $this->doQuery($query, $values, $numrows, $offset);
         if (! is_array($result)) {

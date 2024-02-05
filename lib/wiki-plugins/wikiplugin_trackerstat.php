@@ -235,7 +235,7 @@ function wikiplugin_trackerstat($data, $params)
             }
             $j = 0;
             foreach ($listCategs as $category) {
-                $objects = $categlib->get_category_objects($category['categId'], 'trackeritem', ['table' => 'tiki_tracker_items', 'join' => 'itemId', 'filter' => 'trackerId', 'bindvars' => $trackerId]);
+                $objects = $categlib->deprecatedGetCategoryObjectsRows([$category]['categId'], 'trackeritem', deprecatedFilter: ['table' => 'tiki_tracker_items', 'join' => 'itemId', 'filter' => 'trackerId', 'bindvars' => $trackerId]);
                 if ($status == 'opc' || $tracker_info['showStatus'] == 'n') {
                     $v[$j]['count'] = count($objects);
                 } else {
