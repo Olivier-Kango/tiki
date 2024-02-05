@@ -163,7 +163,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             }
             $data = array_unique($data);
             if (empty($data) && $this->getValue()) {
-                $data = explode("\n", $this->getValue());
+                $data = array_filter(explode("\n", $this->getValue()));
             }
         }
 
