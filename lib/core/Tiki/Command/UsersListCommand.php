@@ -82,7 +82,7 @@ class UsersListCommand extends Command
         foreach ($users['data'] as $user) {
             $rows[] = [
                 $user['login'],
-                $user['email'],
+                isset($user['email']) ? $user['email'] : '',
                 ! empty($user['lastLogin']) ? \TikiLib::date_format('%Y-%m-%d %H:%m', $user['lastLogin']) : 'Never',
                 \TikiLib::date_format('%Y-%m-%d %H:%m', $user['registrationDate']),
                 implode(', ', $user['groups'])
