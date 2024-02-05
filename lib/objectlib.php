@@ -491,7 +491,7 @@ class ObjectLib extends TikiLib
                 return ['title' => $info['name'] ?? ""];
 
             case 'forum post':
-                $info = TikiLib::lib('comments')->get_comment($object);
+                $info = TikiLib::lib('comments')->getCommentLight($object);
                 return ['title' => $info['title'] ?? ""];
 
             case 'tracker':
