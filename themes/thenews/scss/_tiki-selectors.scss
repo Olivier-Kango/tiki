@@ -123,3 +123,26 @@ body.fullscreen {
   padding-left: .75rem;
 }
 
+// UAB (Admin)
+// Replicate vertical menu text centering in UAB accordion
+button.was-nav-link.accordion-button {
+    border-left: 1px solid var(--tiki-nav-link-border-left-color);
+    border-bottom: 3px solid #09c;
+    span.ms-1.narrow-hide {
+    width: 100%;
+    text-align: center; }
+}
+
+.admin-dashboard {
+    padding-top: .5rem;
+    div {
+        padding: .5rem 0 0 0;
+        .nav-link {
+            padding-bottom: .75rem;
+            font-size: .85rem;
+        }
+    }
+}
+
+
+

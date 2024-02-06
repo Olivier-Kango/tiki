@@ -1,7 +1,9 @@
 /* Jqui theme (jqui.css) Trontastic theme option (trontastic.css)
     Visit http://themes.tiki.org for more information.*/
+$imagePath: "../images/";
+
 body {
-    background: url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_diagonals-small_50_262626_40x40.png') repeat !important;
+    background: url('#{$imagePath}ui-bg_diagonals-small_50_262626_40x40.png') repeat !important;
 }
 
 .icon.icon-toggle-left,
@@ -28,7 +30,7 @@ body {
 // Dropdown-menu
 .dropdown-menu {
 //    color: #fff;
-    background: #000 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
+    background: #000 url('#{$imagePath}ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
 //    border: 1px solid #1b1613;
     border-radius: $border-radius;
 }
@@ -42,7 +44,7 @@ body {
 }
 
 //body {
-//    background: url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_diagonals-small_50_262626_40x40.png') repeat;
+//    background: url('ui-bg_diagonals-small_50_262626_40x40.png') repeat;
 //}
 
 .layout_basic .container,
@@ -61,12 +63,12 @@ body {
 .layout_social > .container,
 #middle,
 .row-middle {
-    background: #9fda58 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_85_9fda58_500x100.png') repeat-x;
+    background: #9fda58 url('#{$imagePath}ui-bg_gloss-wave_85_9fda58_500x100.png') repeat-x;
 }
 
 .layout_basic #footer,
 #footer .container {
-    background: #000000 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') 50% 50% repeat-x;
+    background: #000000 url('#{$imagePath}ui-bg_gloss-wave_55_000000_500x100.png') 50% 50% repeat-x;
     color: #c6e99c;
 }
 
@@ -78,13 +80,13 @@ body {
 #col1,
 #autosave_preview {
     border: 1px solid #4a4a4a;
-    background: #000000 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
+    background: #000000 url('#{$imagePath}ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
     color: #f3fce8;
     border-radius: $border-radius;
 }
 
 body.fullscreen {
-    background: #000000 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
+    background: #000000 url('#{$imagePath}ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
 }
 
 //body.fullscreen #col1,
@@ -104,7 +106,7 @@ body.fullscreen {
 .pagination > li > span,
 .pager li > a,
 .pager li > span {
-    background: url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_glass_40_0a0a0a_1x400.png') 50% 50% repeat-x;
+    background: url('#{$imagePath}ui-bg_glass_40_0a0a0a_1x400.png') 50% 50% repeat-x;
     color: #b8ec79;
 }
 
@@ -114,7 +116,7 @@ body.fullscreen {
 .btn-info:hover,
 .btn-warning:hover,
 .btn-danger:hover {
-    background: url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_glass_60_000000_1x400.png') 50% 50% repeat-x;
+    background: url('#{$imagePath}ui-bg_glass_60_000000_1x400.png') 50% 50% repeat-x;
     color: inherit !important;
 }
 
@@ -238,7 +240,7 @@ blockquote.pull-right {
 //.navbar-nav .nav-link:focus,
 //.navbar-collapse {
 //    border: 1px solid #222222;
-//    background: #000000 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') 50% 50% repeat-x !important;
+//    background: #000000 url('ui-bg_gloss-wave_55_000000_500x100.png') 50% 50% repeat-x !important;
 //    color: #c6e99c !important;
 //}
 //
@@ -300,7 +302,7 @@ blockquote.pull-right {
 .modal,
 .modal-body {
     border: 1px solid #4a4a4a;
-    background: #000000 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
+    background: #000000 url('#{$imagePath}ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
     color: #f3fce8;
 }
 
@@ -323,7 +325,7 @@ tr.diffheader,*/
 .popover-title,
 .modal-header {
     border: 1px solid #000;
-    background: #9fda58 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
+    background: #9fda58 url('#{$imagePath}ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
     color: #222;
     font-weight: bold;
 }
@@ -344,7 +346,7 @@ tr.diffheader,*/
 
 .card-header, h3.box-title/*, th, td.heading, tr.diffheader*/ {
     border: 1px solid #000;
-    background: #9fda58 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
+    background: #9fda58 url('#{$imagePath}ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
     color: #222;
     font-weight: bold;
 }
@@ -356,8 +358,8 @@ h4.accordion-header {
 }
 
 button.accordion-button {
-    background: url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_glass_40_0a0a0a_1x400.png') 50% 50% repeat-x;
-    font-weight: bold;
+    background: url('#{$imagePath}ui-bg_glass_40_0a0a0a_1x400.png') 50% 50% repeat-x;
+     font-weight: bold;
 }
 
 .accordion-button[aria-expanded="true"] {
@@ -386,12 +388,12 @@ tr.diffheader {
 
 .post .postbody {
     border: 1px solid #4a4a4a;
-    background: #000000 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
+    background: #000000 url('#{$imagePath}ui-bg_gloss-wave_55_000000_500x100.png') 50% top repeat-x;
     color: #ffffff;
 }
 
 .postbody-title {
-    background: #9fda58 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
+    background: #9fda58 url('#{$imagePath}ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
     color: #222222;
 }
 
@@ -408,7 +410,7 @@ textarea,
 .chosen-container-multi .chosen-choices .search-choice {
     background: #c6e99c;
     color: #000;
-    /* background: #fbf9ee url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_95_f6ecd5_500x100.png') repeat-x 50% 60%;
+    /* background: #fbf9ee url('ui-bg_gloss-wave_95_f6ecd5_500x100.png') repeat-x 50% 60%;
      border: 1px solid #fcefa1;
      color: #363636; */
 }
@@ -429,16 +431,16 @@ textarea a:hover,
 
 .nav-tabs {
     border: 1px solid $border-radius;
-    background: #9fda58 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
+    background: #9fda58 url('#{$imagePath}ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
     padding: 10px 6px 0;
     border-radius: 4px;
     .nav-link {
-        background: #0a0a0a url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_glass_40_0a0a0a_1x400.png') 50% 50% repeat-x;
+        background: #0a0a0a url('#{$imagePath}ui-bg_glass_40_0a0a0a_1x400.png') 50% 50% repeat-x;
         color: $primary;
     }
     .nav-link:hover {
         color: #96f226;
-        background: #000000 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_glass_60_000000_1x400.png') 50% 50% repeat-x
+        background: #000000 url('#{$imagePath}ui-bg_glass_60_000000_1x400.png') 50% 50% repeat-x
     }
     .nav-link.active {
         background: #4c4c4c;
@@ -456,7 +458,7 @@ textarea a:hover,
 
 .caltable .even,
 .caltable .odd {
-    background: #0A0A0A url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') repeat-x scroll 50% 50%;
+    background: #0A0A0A url('#{$imagePath}ui-bg_gloss-wave_55_000000_500x100.png') repeat-x scroll 50% 50%;
     border: 1px solid #1b1613;
     color: #b8ec79;
 }
@@ -472,14 +474,14 @@ textarea a:hover,
 .caltable td.calhighlight a,
 .caltable td.calhighlight a:visited,
 td.calheadhighlight {
-    background: #9fda58 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
+    background: #9fda58 url('#{$imagePath}ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
     color: #000000;
 }
 
 td.calheadhighlight,
 td.calheadhighlight a:link,
 td.calheadhighlight a:visited {
-    background: #0a0a0a url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_55_000000_500x100.png') repeat-x scroll 50% 50%;
+    background: #0a0a0a url('#{$imagePath}ui-bg_gloss-wave_55_000000_500x100.png') repeat-x scroll 50% 50%;
     font-weight: bold;
     color: #b8ec79;
 }
@@ -504,7 +506,7 @@ td.calheadhighlight a:visited {
 
 .progress-bar {
     border: 1px solid #000000;
-    background: #9fda58 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/trontastic/images/ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
+    background: #9fda58 url('#{$imagePath}ui-bg_gloss-wave_85_9fda58_500x100.png') 50% 50% repeat-x;
     color: #222222;
     font-weight: bold;
 }

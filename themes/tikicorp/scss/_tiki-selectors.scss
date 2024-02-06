@@ -318,7 +318,7 @@ nav {
 .dropdown-menu {
     @include border-radius(0 0 0.5rem 0.5rem);
     margin-top: 0;
-    background-color: map-get($theme-colors, secondary_2);
+//    background-color: map-get($theme-colors, secondary_2);
     border: 0;
     .dropdown-item {
         position: relative;

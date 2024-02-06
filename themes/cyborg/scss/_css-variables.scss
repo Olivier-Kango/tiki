@@ -49,6 +49,9 @@
     --tiki-admin-dropdown-link-color: #{$navbar-light-color};
     --tiki-admin-dropdown-link-hover-color:  #{$dropdown-link-hover-color};
     --tiki-admin-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
+    .accordion-item {
+        border-color: transparent !important;
+    }
 }
 // Light top nav
 .tiki.tiki-admin .top_modules.navbar-light-parent {
@@ -68,6 +71,9 @@
     --tiki-admin-dropdown-bg: #{$dropdown-dark-bg};
     --tiki-admin-dropdown-link-hover-color: #{$dropdown-link-hover-color};
     --tiki-admin-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
+    .accordion-item {
+        border-color: transparent !important;
+    }
 }
 // Dark top nav
 .tiki.tiki-admin .top_modules.navbar-dark-parent {

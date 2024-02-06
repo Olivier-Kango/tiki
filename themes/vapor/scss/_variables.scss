@@ -65,6 +65,7 @@ $border-width:                0 !default;
 $border-radius:               .15rem !default;
 $border-radius-sm:            .05rem !default;
 
+$component-active-color: $white;
 $component-active-bg:         $pink !default;
 
 // Fonts
@@ -102,6 +103,14 @@ $form-range-thumb-disabled-bg:             $purple !default;
 $nav-link-disabled-color:           $text-muted !default;
 
 $nav-tabs-link-active-color:        $component-active-bg !default;
+
+// Dropdowns
+$dropdown-link-color:               var(--#{$prefix}body-color) !default;
+$dropdown-link-hover-color:         $dropdown-link-color !default;
+$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
+
+$dropdown-link-active-color:        $component-active-color !default;
+$dropdown-link-active-bg:           $component-active-bg !default;
 
 // Pagination
 

@@ -1,4 +1,4 @@
-//Custom styles for a new theme.
+//Custom styles for the Tuften theme.
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 
 // Colors
@@ -138,7 +138,7 @@ $dropdown-link-active-bg:           $component-active-bg !default;
 
 $dropdown-active-color:     $component-active-color;
 $dropdown-active-bg:        $component-active-bg;
-$dropdown-header-color:          $gray-300;
+$dropdown-header-color:     var(--#{$prefix}body-color);
 
 $dropdown-dark-color:               $gray-300 !default;
 $dropdown-dark-bg:                  $gray-800 !default;
@@ -151,7 +151,7 @@ $dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
 $dropdown-dark-link-active-color:   $dropdown-link-active-color !default;
 $dropdown-dark-link-active-bg:      $dropdown-link-active-bg !default;
 $dropdown-dark-link-disabled-color: $gray-500 !default;
-$dropdown-dark-header-color:        $gray-500 !default;
+$dropdown-dark-header-color:        var(--#{$prefix}body-color);
 
 // Navs
 // Navbar

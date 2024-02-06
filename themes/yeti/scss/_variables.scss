@@ -101,6 +101,8 @@ $link-color: #007EA8; // Darkened for WCAG compliance
 $link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
 // Components
+$component-active-color:      $white !default;
+$component-active-bg:         $primary !default;
 
 $border-radius:               0 !default;
 $border-radius-lg:            0 !default;
@@ -147,6 +149,13 @@ $btn-font-weight:             300 !default;
 
 $dropdown-border-color:             rgba($black, .1) !default;
 $dropdown-divider-bg:               rgba($black, .1) !default;
+// Dropdowns
+$dropdown-link-color:               var(--#{$prefix}body-color) !default;
+$dropdown-link-hover-color:         $dropdown-link-color !default;
+$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
+
+$dropdown-link-active-color:        $component-active-color !default;
+$dropdown-link-active-bg:           $component-active-bg !default;
 
 // Navs
 

@@ -70,6 +70,10 @@
     --tiki-admin-dropdown-link-color: #{$dropdown-link-color};
     --tiki-admin-dropdown-link-hover-color: #{$dropdown-link-hover-color};
     --tiki-admin-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
+    button.was-nav-link.accordion-button {
+        color: var(--tiki-admin-aside-nav-color) !important;
+        background: var(--tiki-admin-aside-nav-bg) !important;
+    }
 }
 // Light top nav
 .tiki.tiki-admin .top_modules.navbar-light-parent {
@@ -82,13 +86,18 @@
     --tiki-admin-top-nav-color:rgba($white, .75);
     --tiki-admin-top-nav-hover-color: rgba($white, .85);
     --tiki-admin-top-nav-hover-bg: none;
-    --tiki-admin-aside-nav-bg: linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
+    --tiki-admin-aside-nav-bg: #A8CCE2;; // linear-gradient(to bottom, #3e7ca1 0%, #609ec3 3%, #163866 5%, #0b2d5b 8%, #0f2658 11%, #002552 16%, #002d57 24%, #052b58 27%, #0c3867 43%, #11406e 57%, #1b507c 76%, #235685 86%, #1c5b87 100%);
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
     --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-link-color: #{$dropdown-dark-color};
     --tiki-admin-dropdown-bg: #{$dropdown-dark-bg};
     --tiki-admin-dropdown-link-hover-color: #{$dropdown-link-hover-color};
     --tiki-admin-dropdown-link-hover-bg: #{$dropdown-dark-link-hover-bg};
+    .accordion-item.search-preferences,
+    button.was-nav-link.accordion-button {
+        color: var(--tiki-admin-aside-nav-color) !important;
+        background: var(--tiki-admin-aside-nav-bg) !important;
+    }
 }
 // Dark top nav
 .tiki.tiki-admin .top_modules.navbar-dark-parent {

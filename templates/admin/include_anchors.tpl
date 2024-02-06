@@ -89,7 +89,7 @@
                 </div>
                 {* Preference filters moved from admin navbar.tpl end *}
 
-                <div class="accordion-item pb-2">
+                <div class="accordion-item pb-2 search-preferences" {* style="background: transparent;"*}>
                     <form method="post" class="d-flex justify-content-center my-md-0 ms-auto" role="form">
                         <div class="my-1 mx-4">
                             <input type="hidden" name="filters">
@@ -100,9 +100,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="nav-item was-accordion-item tips right" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
-                    <div class="was-accordion-header">
-                        <a href="tiki-admin.php" class="nav-link px-4 py-2 fw-semibold{if empty($smarty.request.page)} opacity-50{/if}">
+                <div class="nav-item was-accordion-item tips right admin-dashboard" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
+                    <div class="was-accordion-header px-4 py-2 fs-6 fw-bold">
+                        <a href="tiki-admin.php" class="nav-link {if empty($smarty.request.page)} opacity-50{/if}">
                             {icon name='home' iclass='fa-fw'}
                             <span class="narrow-hide">{tr}Admin Dashboard{/tr}</span> </a>
                     </div>

@@ -299,7 +299,6 @@ header.navbar.fixed-top {
 .tiki .tiki-admin-top-nav-light,
 .tiki .tiki-admin-aside-nav-light {
     --tiki-admin-top-nav-color: #{$navbar-light-color};
-    --tiki-admin-top-nav-color: #{$navbar-light-link-color};
     --tiki-admin-top-nav-hover-color: #{$navbar-light-link-hover-color};
     --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
@@ -309,6 +308,9 @@ header.navbar.fixed-top {
     --tiki-admin-dropdown-link-color: #{$navbar-light-color};
     --tiki-admin-dropdown-link-hover-color: #{$dropdown-link-hover-color};
     --tiki-admin-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
+    .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
 }
 // Light top nav
 .tiki.tiki-admin .top_modules.navbar-light-parent {
@@ -319,7 +321,6 @@ header.navbar.fixed-top {
 .tiki .tiki-admin-top-nav-dark,
 .tiki .tiki-admin-aside-nav-dark {
     --tiki-admin-top-nav-color: #{$top-dark-color};
-    --tiki-admin-top-nav-color: #{$top-dark-color};
     --tiki-admin-top-nav-hover-color: #{$navbar-dark-link-hover-color};
 //    --tiki-admin-top-nav-link-hover-bg: #{$navbar-dark-link-hover-color};
     --tiki-admin-aside-nav-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
@@ -329,6 +330,9 @@ header.navbar.fixed-top {
     --tiki-admin-dropdown-bg: #{$dropdown-dark-bg};
     --tiki-admin-dropdown-link-hover-color: #{$dropdown-link-hover-color};
 //    --tiki-admin-dropdown-link-hover-bg: #{$dropdown-dark-link-hover-bg};
+    .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
 }
 // Dark top nav
 .tiki.tiki-admin .top_modules.navbar-dark-parent {

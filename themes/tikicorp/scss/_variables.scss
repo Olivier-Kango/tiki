@@ -154,6 +154,9 @@ $nav-link-color: var(--#{$prefix}link-color) !default; // $link-color;
 //$navbar-dark-active-bg: #3270bd;
 //$navbar-dark-disabled-color: #cccccc;
 
+// Dropdowns
+$dropdown-bg:                      rgba(23, 132, 183, 0.95); // var(--#{$prefix}body-bg) !default;
+
 // Pagination
 $pagination-color:                  $link-color;
 $pagination-bg:                     $black;
