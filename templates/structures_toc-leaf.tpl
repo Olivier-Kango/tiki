@@ -45,9 +45,15 @@
 
                         {if $tiki_p_watch_structure eq 'y'}
                             {if !$structure_tree.event}
-                                {self_link page_ref_id=$structure_tree.page_ref_id watch_object=$structure_tree.page_ref_id watch_action=add page=$structure_tree.pageName _class="tips input-group-text" _title=":{tr}Monitor the Sub-Structure{/tr}"}
-                                    {icon name="watch"}
-                                {/self_link}
+                                <form action="tiki-edit_structure.php" method="post" style="display: inline-block;">
+                                    {ticket}
+                                    <input type="hidden" name="page_ref_id" value={$structure_tree.page_ref_id}>
+                                    <input type="hidden" name="watch_object" value={$structure_tree.page_ref_id}>
+                                    <input type="hidden" name="watch_action" value="add">
+                                    <button type="submit" name="page" value={$structure_tree.pageName} data-bs-trigger="hover focus" data-bs-delay="500" data-bs-content="{tr}Monitor the Sub-Structure{/tr}" class="tips input-group-text">
+                                        {icon name="watch"}
+                                    </button>
+                                </form>
                             {else}
                                 {self_link page_ref_id=$structure_tree.page_ref_id watch_object=$structure_tree.page_ref_id watch_action=remove _class="tips input-group-text" _title=":{tr}Stop Monitoring the Sub-Structure{/tr}"}
                                     {icon name="stop-watching"}
