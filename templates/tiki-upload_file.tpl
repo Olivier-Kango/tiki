@@ -134,6 +134,19 @@
         {/if}
     {/remarksbox}
 {/if}
+{if !$editFileId}
+    <div class="col-md-12">
+        <input type="hidden" id="max_file_uploads" value="{$max_file_uploads}">
+        {remarksbox type="note" title="{tr}Information{/tr}"}
+            {tr}Maximum file size is around:{/tr}
+            {if $tiki_p_admin eq 'y'}<a title="|{$max_upload_size_comment}" class="btn btn-link tips">{/if}
+                {$max_upload_size|kbsize:true:0}
+            {if $tiki_p_admin eq 'y'}</a>
+                {if $is_iis}<br>{tr}Note: You are running IIS{/tr}. {tr}maxAllowedContentLength also limits upload size{/tr}. {tr}Please check web.config in the Tiki root folder{/tr}{/if}
+            {/if}
+        {/remarksbox}
+    </div>
+{/if}
 <div>
     {capture name=upload_file assign=upload_str}
         <div class="fgal_file">
@@ -457,20 +470,6 @@
     {if !empty($fileInfo.lockedby) and $user ne $fileInfo.lockedby}
         {icon name="lock"}
         <span class="attention">{tr}The file has been locked by {$fileInfo.lockedby}{/tr}</span>
-    {/if}
-    <br>
-    {if !$editFileId}
-        <div class="col-md-12">
-            <input type="hidden" id="max_file_uploads" value="{$max_file_uploads}">
-            {remarksbox type="note" title="{tr}Information{/tr}"}
-                {tr}Maximum file size is around:{/tr}
-                {if $tiki_p_admin eq 'y'}<a title="|{$max_upload_size_comment}" class="btn btn-link tips">{/if}
-                    {$max_upload_size|kbsize:true:0}
-                {if $tiki_p_admin eq 'y'}</a>
-                    {if $is_iis}<br>{tr}Note: You are running IIS{/tr}. {tr}maxAllowedContentLength also limits upload size{/tr}. {tr}Please check web.config in the Tiki root folder{/tr}{/if}
-                {/if}
-            {/remarksbox}
-        </div>
     {/if}
 </div>
 {if not empty($metarray) and $metarray|count gt 0}

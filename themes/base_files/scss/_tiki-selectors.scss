@@ -1428,3 +1428,14 @@ blockquote {
         color: var(--bs-body-bg);
     }
 }
+
+.fileupload {
+    border: 3px dashed;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.fileupload.active {
+    padding: 4px;
+    background-color: var(--bs-backdrop-bg);
+}
