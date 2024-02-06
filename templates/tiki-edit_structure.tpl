@@ -76,60 +76,69 @@
 <div class="admintoclevel" id="topnode_{$page_ref_id}">
     <h2>{tr}Structure Layout{/tr}</h2>
     {if $editable eq 'y'}
-        <form action="tiki-edit_structure.php?page_ref_id={$page_ref_id}" method="post" class="d-flex flex-row flex-wrap align-items-center" role="form" style="display: inline-block">
-            <div class="tiki-form-group row">
-                <label for="pageAlias" class="col-sm-4 col-form-label">{tr}Alias:{/tr}</label>
-                <div class="col-sm-8">
-                    <input type="hidden" name="page_ref_id" value="{$structure_id}">
-                    <div class="input-group">
-                        <input type="text" class="form-control form-control-sm" name="pageAlias" id="pageAlias" value="{$topPageAlias|escape}">
-                        <input type="submit" class="btn btn-primary btn-sm" name="create" value="{tr}Update{/tr}">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <form action="tiki-edit_structure.php?page_ref_id={$page_ref_id}" method="post" class="d-flex flex-row flex-wrap align-items-center" role="form" style="display: inline-block;">
+                <div class="tiki-form-group row">
+                    <label for="pageAlias" class="col-sm-4 col-form-label">{tr}Alias:{/tr}</label>
+                    <div class="col-sm-8">
+                        <input type="hidden" name="page_ref_id" value="{$structure_id}">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm" name="pageAlias" id="pageAlias" value="{$topPageAlias|escape}">
+                            <input type="submit" class="btn btn-primary btn-sm" name="create" value="{tr}Update{/tr}">
+                        </div>
                     </div>
                 </div>
+                </form>
             </div>
-        </form>
-        {* modified version of row from structures_toc-leaf.tpl *}
-        {if $prefs.lock_wiki_structures eq 'y'}
-            {lock type='wiki structure' object=$structure_name}
-        {/if}
-        {self_link _script='tiki-index.php' page=$structure_name structure=$structure_name _class="tips btn btn-link btn-sm" _title=":{tr}View{/tr}" _noauto="y"}
-            {icon name="view"}
-        {/self_link}
-        {if $tiki_p_admin_structures == 'y'}
-            {permission_link mode=icon objectType='wiki page' type='wiki structure' id=$pageName title=$pageName}
-        {/if}
-        {if $tiki_p_watch_structure eq 'y'}
-            {if !$page_info.watching}
-                <form action="tiki-edit_structure.php" method="post" style="display: inline-block;">
-                    {ticket}
-                    <input type="hidden" name="page_ref_id" value={$page_ref_id}>
-                    <input type="hidden" name="watch_object" value={$page_ref_id}>
-                    <input type="hidden" name="watch_action" value="add">
-                    <button type="submit" name="page" value={$structure_name} data-bs-trigger="hover focus" data-bs-delay="500" data-bs-content="{tr}Monitor the structure{/tr}" class="tips btn btn-link btn-sm">
-                        {icon name="watch"}
-                    </button>
-            </form>
-            {else}
-                {self_link page_ref_id=$page_ref_id watch_object=$page_ref_id watch_action=remove _class="tips btn btn-link btn-sm" _title=":{tr}Stop Monitoring the structure{/tr}"}
-                    {icon name="stop-watching"}
+
+            {* Force next columns to break to new line *}
+            <div class="w-100"></div>
+            {* modified version of row from structures_toc-leaf.tpl *}
+            <div class="col-12 col-sm-6">
+                {if $prefs.lock_wiki_structures eq 'y'}
+                    {lock type='wiki structure' object=$structure_name}
+                {/if}
+                {self_link _script='tiki-index.php' page=$structure_name structure=$structure_name _class="tips btn btn-link btn-sm" _title=":{tr}View{/tr}" _noauto="y"}
+                    {icon name="view"}
                 {/self_link}
-            {/if}
-        {/if}
-        {if $editable eq 'y'}
-            {if $page_info.flag == 'L'}
-                {capture assign=title}{tr _0=$page_info.user}locked by %0{/tr}{/capture}
-                {icon name='lock' alt="{tr}Locked{/tr}" title=$title}
-            {else}
-                {self_link _script='tiki-editpage.php' page=$structure_name _class='tips btn btn-link btn-sm' _title=':{tr}Edit page{/tr}'}
-                    {icon name="edit"}
-                {/self_link}
-            {/if}
-            {if empty($page)}
-                {self_link _onclick="addNewPage(this);return false;" _class="tips btn btn-link btn-sm" _title=":{tr}Add new child page{/tr}"}
-                    {icon name="add"}
-                {/self_link}
-            {/if}
-        {/if}
+                {if $tiki_p_admin_structures == 'y'}
+                    {permission_link mode=icon objectType='wiki page' type='wiki structure' id=$pageName title=$pageName}
+                {/if}
+                {if $tiki_p_watch_structure eq 'y'}
+                    {if !$page_info.watching}
+                        <form action="tiki-edit_structure.php" method="post" style="display: inline-block;">
+                            {ticket}
+                            <input type="hidden" name="page_ref_id" value={$page_ref_id}>
+                            <input type="hidden" name="watch_object" value={$page_ref_id}>
+                            <input type="hidden" name="watch_action" value="add">
+                            <button type="submit" name="page" value={$structure_name} data-bs-trigger="hover focus" data-bs-delay="500" data-bs-content="{tr}Monitor the structure{/tr}" class="tips btn btn-link btn-sm">
+                                {icon name="watch"}
+                            </button>
+                        </form>
+                    {else}
+                        {self_link page_ref_id=$page_ref_id watch_object=$page_ref_id watch_action=remove _class="tips btn btn-link btn-sm" _title=":{tr}Stop Monitoring the structure{/tr}"}
+                            {icon name="stop-watching"}
+                        {/self_link}
+                    {/if}
+                {/if}
+                {if $editable eq 'y'}
+                    {if $page_info.flag == 'L'}
+                        {capture assign=title}{tr _0=$page_info.user}locked by %0{/tr}{/capture}
+                        {icon name='lock' alt="{tr}Locked{/tr}" title=$title}
+                    {else}
+                        {self_link _script='tiki-editpage.php' page=$structure_name _class='tips btn btn-link btn-sm' _title=':{tr}Edit page{/tr}'}
+                            {icon name="edit"}
+                        {/self_link}
+                    {/if}
+                    {if empty($page)}
+                        {self_link _onclick="addNewPage(this);return false;" _class="tips btn btn-link btn-sm" _title=":{tr}Add new child page{/tr}"}
+                            {icon name="add"}
+                        {/self_link}
+                    {/if}
+                {/if}
+            </div>
+        </div>
     {/if}
 </div>
 <div>
