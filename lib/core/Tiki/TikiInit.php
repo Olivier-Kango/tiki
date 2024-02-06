@@ -115,10 +115,6 @@ class TikiInit
             }
         }
 
-        if (TikiDb::get()) {
-            $container->set('tiki.lib.db', TikiDb::get());
-        }
-
         $container->compile();
 
         $dumper = new PhpDumper($container);
