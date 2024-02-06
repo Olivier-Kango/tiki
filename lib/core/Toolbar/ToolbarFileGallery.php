@@ -27,10 +27,9 @@ class ToolbarFileGallery extends ToolbarUtilityItem
         $smarty = TikiLib::lib('smarty');
         if ($prefs['fgal_elfinder_feature'] !== 'y' || $prefs['fgal_elfinder_on_toolbar'] !== 'y') {
             $smarty->loadPlugin('smarty_function_filegal_manager_url');
-            return 'openFgalsWindow(\'' . htmlentities(
-                smarty_function_filegal_manager_url(['area_id' => $this->domElementId, 'allowedMimeTypes' => ['image/*']], $smarty->getEmptyInternalTemplate()),
-                ENT_COMPAT
-            ) . '\', true);';
+            return 'openFgalsWindow(\'' .
+                smarty_function_filegal_manager_url(['area_id' => $this->domElementId, 'allowedMimeTypes' => ['image/*']], $smarty->getEmptyInternalTemplate())
+                . '\', true);';
         } else {
             include_once 'lib/jquery_tiki/elfinder/tikiElFinder.php';
             \tikiElFinder::loadJSCSS();
