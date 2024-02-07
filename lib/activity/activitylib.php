@@ -299,7 +299,7 @@ class ActivityLib
             if (is_array($value)) {
                 $out .= $this->serializeData($value, "$prefix$key.");
             } else {
-                if (false !== strpos($value, "\n")) {
+                if (isset($value) && false !== strpos($value, "\n")) {
                     $value = str_replace("\n", "\n  |", "\n" . $value);
                 }
                 $out .= "$prefix$key = $value\n";
