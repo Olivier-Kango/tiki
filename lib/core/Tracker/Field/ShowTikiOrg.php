@@ -111,7 +111,8 @@ class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractField
         $item = TikiLib::lib('trk')->get_tracker_item($id);
         $creator = $item['createdBy'];
         if (! $creator) {
-            $creator = reset(TikiLib::lib('trk')->get_item_creators($item['trackerId'], $id));
+            $array = TikiLib::lib('trk')->get_item_creators($item['trackerId'], $id);
+            $creator = reset($array);
         }
 
         if ($this->getOption('fixedUserId') > 0) {
