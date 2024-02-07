@@ -106,6 +106,7 @@ class OpenIdConnectLib
     public function validatePreferences(): bool
     {
         global $prefs;
+        $logslib = \TikiLib::lib('logs');
         $prefs_keys = [
             'openidconnect_name',
             'openidconnect_issuer',
@@ -118,10 +119,7 @@ class OpenIdConnectLib
         $valid = true;
         foreach ($prefs_keys as $prefsKey) {
             if (! isset($prefs[$prefsKey])) {
-                error_log(
-                    '[OpenId Connect error] Field ' . $prefsKey
-                    . ' is required.'
-                );
+                $logslib->add_log('login', '[OpenId Connect error] Field ' . $prefsKey . ' is required.');
                 $valid = false;
             }
         }
@@ -142,6 +140,7 @@ class OpenIdConnectLib
     protected function getPublicKeyFromJWKS()
     {
         try {
+            $logslib = \TikiLib::lib('logs');
             $cachelib = \TikiLib::lib('cache');
             $cacheName = 'oidc' . md5($this->jwksUrl);
             $beginOfDay = new \DateTime();
@@ -154,39 +153,38 @@ class OpenIdConnectLib
             if ($cachedValue) {
                 $jwkArr = unserialize($cachedValue);
             } else {
-                $jwkArr = json_decode(file_get_contents($this->jwksUrl), true);
-                $cachelib->cacheItem(
-                    $cacheName,
-                    serialize(
-                        $jwkArr
-                    )
-                );
+                $jwkArr = file_get_contents($this->jwksUrl);
+
+                if ($jwkArr === false) {
+                    throw new \Exception('Failed to download JWKS file.');
+                }
+
+                $jwkArr = json_decode($jwkArr, true);
+
+                if (json_last_error() !== JSON_ERROR_NONE || ! is_array($jwkArr) || ! isset($jwkArr['keys'])) {
+                    throw new \Exception('Invalid or empty JWKS file.');
+                }
+
+                $jwkConverter = new JWKConverter();
+                $keys = $jwkConverter->multipleToPEM($jwkArr['keys']);
+
+                if (is_array($keys)) {
+                    $cachelib->cacheItem(
+                        $cacheName,
+                        serialize(
+                            $keys
+                        )
+                    );
+                }
+
+                return $keys;
             }
         } catch (\Throwable $e) {
-            error_log(
-                sprintf(
-                    '[OpenId Connect error] Error getting JWKS from %s: $s',
-                    $this->jwksUrl,
-                    $e->getMessage()
-                )
-            );
-            return false;
-        }
-
-        try {
-            $jwkConverter = new JWKConverter();
-            return $jwkConverter->multipleToPEM($jwkArr['keys']);
-        } catch (\Throwable $e) {
-            error_log(
-                sprintf(
-                    '[OpenId Connect error] Error converting JWKS to PEM %s: $s',
-                    $this->jwksUrl,
-                    $e->getMessage()
-                )
-            );
+            $logslib->add_log('login', 'OpenId Connect error: Error getting JWKS from ' . $this->jwksUrl . ': ' . $e->getMessage());
             return false;
         }
     }
+
 
     public function getAccessToken($code): AccessToken
     {
