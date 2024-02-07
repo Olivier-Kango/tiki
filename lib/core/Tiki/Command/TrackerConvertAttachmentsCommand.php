@@ -265,7 +265,7 @@ class TrackerConvertAttachmentsCommand extends Command
             }
 
             if (! $preview) {
-                $handler = $definition->getFieldFactory()->getHandler($fgField, $itemObject->getData());
+                $handler = $definition->getFieldFactory()->getHandler($fgField, $item);
                 $files = $handler->bindFiles(implode(',', $fileIdList), true);
 
                 $fields[$fgField['permName']] = $files;
