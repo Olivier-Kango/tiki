@@ -5,11 +5,21 @@
     color : var(--bs-body-color);
     text-shadow: none;
 
-    a, a:visited {
+    a:not(.btn), a:not(.btn):visited {
         color: var(--bs-link-color);
         text-decoration: $link-decoration;
         &:hover {
             color: var(--bs-link-hover-color);
+            text-decoration: $link-hover-decoration;
+        }
+    }
+
+    a, a:visited {
+        color: var(--bs-btn-color);
+        text-decoration: $link-decoration;
+        line-height: initial;
+        &:hover {
+            color: var(--bs-btn-hover-color);
             text-decoration: $link-hover-decoration;
         }
     }
