@@ -54,10 +54,8 @@ function prefs_tracker_list()
             'default' => 'n',
         ],
         'tracker_legacy_insert' => [
-            'name' => tr('Use legacy tracker insertion screen'),
-            'description' => tr('Use the legacy tracker insertion screen (a tab) instead of a popup dialog.') .
-                '<br>' .
-                tr('Useful for older trackers using deprecated fields such as Image and File or when more insertion space is useful'),
+            'name' => tr('Insert and edit items in a tab'),
+            'description' => tr('Edit tracker items in a tab instead of a popup dialog.'),
             'type' => 'flag',
             'default' => 'n',
         ],

@@ -1197,11 +1197,12 @@ class Services_Tracker_Controller
             throw new Services_Exception_Denied();
         }
 
+        $access = TikiLib::lib('access');
         if ($prefs['feature_warn_on_edit'] == 'y' && $input->conflictoverride->int() !== 1) {
             try {
                 Services_Exception_EditConflict::checkSemaphore($itemId, 'trackeritem');
             } catch (Services_Exception_EditConflict $e) {
-                if ($input->modal->int() && TikiLib::lib('access')->is_xml_http_request()) {
+                if ($input->modal->int() && $access->is_xml_http_request()) {
                     $smarty = TikiLib::lib('smarty');
                     $smarty->loadPlugin('smarty_function_service');
                     $href = smarty_function_service([
@@ -1254,7 +1255,7 @@ class Services_Tracker_Controller
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            TikiLib::lib('access')->preventRedirect(true);
+            $access->preventRedirect(true);
             //fetch the processed fields and the changes made in the form. Put them in the 'fields' variable
             $processedFields = $itemObject->prepareInput($input);
             $fields = [];
@@ -1301,7 +1302,7 @@ class Services_Tracker_Controller
                 TikiLib::lib('service')->internal('semaphore', 'unset', ['object_id' => $itemId, 'object_type' => 'trackeritem']);
             }
 
-            TikiLib::lib('access')->preventRedirect(false);
+            $access->preventRedirect(false);
 
             if ($result !== false) {
                 TikiLib::lib('unifiedsearch')->processUpdateQueue();
@@ -1331,6 +1332,12 @@ class Services_Tracker_Controller
                     Feedback::sendHeaders();
                 }
                 $redirect = $input->redirect->url();
+
+                // also $prefs['tracker_legacy_insert'] === 'y'
+                if (! $redirect && ! $access->is_xml_http_request()) {
+                    TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
+                    $redirect = smarty_modifier_sefurl($itemId, 'trackeritem');
+                }
 
                 if ($input->saveAndComment->int()) {
                     $version = TikiLib::lib('trk')->last_log_version($itemId);
@@ -1367,8 +1374,10 @@ class Services_Tracker_Controller
                     $return['nextTicket'] = $util->getTicket();
 
                     return $return;
-                } else {
+                } else if ($access->is_xml_http_request()) {
                     return Services_Utilities::redirect($redirect);
+                } else {
+                    $access->redirect($redirect);
                 }
             }
         }
@@ -1466,7 +1475,11 @@ class Services_Tracker_Controller
             'saveAndComment' => $saveAndComment,
             'suppressFeedback' => $suppressFeedback,
             'conflictoverride' => $input->conflictoverride->int(),
+            'save_return' => $input->save_return->alpha() ?? 'n',
+            'can_remove' => $itemObject->canRemove(),
             'skipRefresh' => $input->skipRefresh->bool(),
+            'save_return' => $input->save_return->alpha() ?? 'n',
+            'can_remove' => $itemObject->canRemove(),
         ];
     }
 

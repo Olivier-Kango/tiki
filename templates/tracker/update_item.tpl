@@ -13,11 +13,7 @@
 {block name="content"}
     <div class="previewTrackerItem"></div>
     {if $skip_form eq 'y'}
-        <form method="post" action="{service controller=tracker
-        action=update_item
-        trackerId={$trackerId}
-        itemId={$itemId}
-        }">
+        <form method="post" action="{service controller=tracker action=update_item trackerId=$trackerId itemId=$itemId}">
             <p>
                 {$skip_form_message}
             </p>
@@ -46,6 +42,12 @@
                     <input type="hidden" name="saveAndComment" id="saveAndComment" value="">
                     <input type="submit" class="btn btn-primary" onclick="$('#saveAndComment').val(1);" value="{tr}Save and Comment{/tr}">
                 {/if}
+                {if $save_return eq 'y'}
+                    <input type="submit" class="btn btn-primary" name="save_return" value="{tr}Save Returning to Item List{/tr}" onclick="$('input[name=redirect]').val('{$trackerId|sefurl:'tracker'}'); needToConfirm=false">
+                {/if}
+                {if $save_return eq 'y'}
+                    <input type="submit" class="btn btn-primary" name="save_return" value="{tr}Save Returning to Item List{/tr}" onclick="needToConfirm=false">
+                {/if}
                 <input type="hidden" name="itemId" value="{$itemId|escape}">
                 <input type="hidden" name="trackerId" value="{$trackerId|escape}">
                 {foreach from=$forced key=permName item=value}
@@ -55,6 +57,11 @@
                 <input type="hidden" name="conflictoverride" value="{$conflictoverride|escape}">
                 <input type="hidden" name="skipRefresh" value="{$skipRefresh|escape}">
                 <input type="submit" class="btn btn-primary" value="{$button_label}" onclick="needToConfirm=false;">
+                {if $can_remove}
+                    <a class="btn btn-danger" href="tiki-view_tracker.php?trackerId={$trackerId|escape}&amp;remove={$itemId|escape}" title="Delete">
+                        {icon name='delete'}
+                    </a>
+                {/if}
             </div>
         </form>
         {* Don't warn on leaving page if the modal is closed without saving *}
