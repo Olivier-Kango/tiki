@@ -33,7 +33,7 @@ class WikiPlugin_Casperjs_Runner
 
         file_put_contents($casperScript, $fullScript);
 
-        $cmd = [$this->casperBin, $casperScript];
+        $cmd = [$this->casperBin, $casperScript, '--ignore-ssl-errors=true'];
         if (is_array($options)) {
             foreach ($options as $option => $value) {
                 $cmd[] = ' --' . $option . '=' . $value;
