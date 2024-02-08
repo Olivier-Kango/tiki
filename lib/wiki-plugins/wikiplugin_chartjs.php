@@ -98,7 +98,7 @@ function wikiplugin_chartjs_info()
 
 function wikiplugin_chartjs($data, $params)
 {
-    global $base_url;
+    global $base_url, $jitRequest;
 
     static $instance = 0;
     $instance++;
@@ -152,7 +152,7 @@ function wikiplugin_chartjs($data, $params)
         }
     }
 
-    $to_PDF = ! empty($_REQUEST['display']) && $_REQUEST['display'] == 'pdf';
+    $to_PDF = $jitRequest->display->string() == 'pdf';
     $min = $params['debug'] ? '' : 'min.';
 
     // Disable animation
@@ -220,7 +220,7 @@ JS;
             $process->setIdleTimeout($params['timeout']);
         }
         try {
-            $process->run();
+            $process->run(null, ['OPENSSL_CONF' => '/etc/ssl']);
         } catch (ProcessTimedOutException $e) {
             $logsLib = TikiLib::lib('logs');
             $logsLib->add_log('Casperjs', $e->getMessage());

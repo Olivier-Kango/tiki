@@ -556,8 +556,18 @@ window.customsearch_$id = customsearch$id;
     }
 
     global $page;
-    $script .= "$('a.generate-pdf').click(function(){storeSortTable('#customsearch_" . $id . "_results',$('#customsearch_" . $id . "_results'))});
-customsearch$id._load = function (receive) {
+    $script .= "$('a.generate-pdf').click(function(e) {
+    e.preventDefault();
+    // load the customsearch results again with display=pdf, so plugins like chartjs can render correctly for pdf context
+    // then, place the result in a hidden div and store it for later replacing when generating the pdf
+    customsearch$id._load(function(data) {
+        let el = $('<div/>').html(data).insertAfter('#customsearch_" . $id . "_results').hide();
+        storeSortTable('#customsearch_" . $id . "_results', el);
+    }, {display: 'pdf'});
+    // storeSortTable does the redirect to pdf url once all the ajax calls for storing data are complete
+    return false;
+});
+customsearch$id._load = function (receive, params) {
     var datamap = {
         definition: this.definition,
         adddata: $.toJSON(this.searchdata),
@@ -574,6 +584,9 @@ customsearch$id._load = function (receive) {
     if (customsearch$id.sort_mode) {
         // blank sort_mode is not allowed by Tiki input filter
         datamap.sort_mode = customsearch$id.sort_mode;
+    }
+    if (typeof params !== undefined) {
+        $.extend(datamap, params);
     }
     $.ajax({
         type: 'POST',
