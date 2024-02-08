@@ -170,29 +170,30 @@ $(document).ready(function() {
         return false;
     });
 
+    $(".add_new_child_page").click(function(){
+        let id = $(this).parents(".admintoclevel:first").attr("id").match(/\d*$/);
+        if (id) {
+            id = id[0];
+        }
+        $("input[name=page_ref_id]", "#newpage_dialog").val(id);
+
+        $("#newpage_dialog").dialog({
+            title: tr("Add page")
+
+        });
+        return false;
+    });
+
+    $(".move_page").click(function() {
+        let id = $(this).parents(".admintoclevel:first").attr("id").match(/\d*$/);
+        if (id) {
+            id = id[0];
+        }
+        $("input[name=page_ref_id]", "#move_dialog").val(id);
+        $("#move_dialog").dialog({
+            title: tr("Move page")
+        });
+        return false;
+    });
+
 });
-
-function movePageToStructure(element) {
-    let id = $(element).parents(".admintoclevel:first").attr("id").match(/\d*$/);
-    if (id) {
-        id = id[0];
-    }
-    $("input[name=page_ref_id]", "#move_dialog").val(id);
-    $("#move_dialog").dialog({
-        title: tr("Move page")
-    });
-}
-
-function addNewPage(element) {
-    let id = $(element).parents(".admintoclevel:first").attr("id").match(/\d*$/);
-    if (id) {
-        id = id[0];
-    }
-    $("input[name=page_ref_id]", "#newpage_dialog").val(id);
-
-    $("#newpage_dialog").dialog({
-        title: tr("Add page")
-
-    });
-}
-

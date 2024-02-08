@@ -73,10 +73,10 @@
                                 {/self_link}
                             {/if}
                             {if empty($page)}
-                                {self_link _onclick="addNewPage(this);return false;" _class="tips input-group-text" _title=":{tr}Add new child page{/tr}"}
+                                {self_link _class="tips input-group-text add_new_child_page" _title=":{tr}Add new child page{/tr}"}
                                     {icon name="add"}
                                 {/self_link}
-                                {self_link _onclick="movePageToStructure(this);return false;" _class="tips input-group-text" _title=":{tr}Move{/tr}"}
+                                {self_link _class="tips input-group-text move_page" _title=":{tr}Move{/tr}"}
                                     {icon name="caret-right"}
                                 {/self_link}
                                 {self_link page_ref_id=$structure_tree.page_ref_id remove=$structure_tree.page_ref_id _class="tips input-group-text text-danger" _title=":{tr}Delete{/tr}"}

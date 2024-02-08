@@ -132,7 +132,7 @@
                         {/self_link}
                     {/if}
                     {if empty($page)}
-                        {self_link _onclick="addNewPage(this);return false;" _class="tips btn btn-link btn-sm" _title=":{tr}Add new child page{/tr}"}
+                        {self_link _class="tips btn btn-link btn-sm add_new_child_page" _title=":{tr}Add new child page{/tr}"}
                             {icon name="add"}
                         {/self_link}
                     {/if}
@@ -212,6 +212,7 @@
     {/if}
     <div id="move_dialog" style="display: none;">
         <form action="tiki-edit_structure.php" method="post">
+            {ticket}
             <input type="hidden" name="page_ref_id" value="{$page_ref_id}">
             <div class="clearfix" style="margin-bottom: 1em;">
                 <label for="structure_id">{tr}Move to another structure:{/tr}</label>
@@ -238,6 +239,7 @@
     </div>
     <div id="newpage_dialog" style="display: none;">
         <form action="tiki-edit_structure.php" method="post">
+            {ticket}
             <input type="hidden" name="page_ref_id" value="{$page_ref_id}">
             <div class="tiki-form-group row">
                 <label class="col-sm-3 col-form-label">{tr}Create Page{/tr}</label>
