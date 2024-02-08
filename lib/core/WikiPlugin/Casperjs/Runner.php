@@ -6,6 +6,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Tiki\Process\Process;
+
 class WikiPlugin_Casperjs_Runner
 {
     const BASE_MARKER = "TIKI_BRIDGE";
@@ -31,22 +34,33 @@ class WikiPlugin_Casperjs_Runner
 
         file_put_contents($casperScript, $fullScript);
 
-        $optionsString = "";
+        $cmd = [$this->casperBin, $casperScript];
         if (is_array($options)) {
             foreach ($options as $option => $value) {
-                $optionsString .= ' --' . $option . '=' . $value;
+                $cmd[] = ' --' . $option . '=' . $value;
             }
         }
-        $commandLine = $this->casperBin . ' ' . escapeshellarg($casperScript) . $optionsString;
 
-        exec($commandLine, $output);
-        unlink($casperScript);
-
-        if (empty($output)) {
-            throw new \Exception('Can not execute CasperJS.');
+        $process = new Process($cmd);
+        try {
+            $process->run(null, ['OPENSSL_CONF' => '/etc/ssl']);
+        } catch (ProcessTimedOutException $e) {
+            throw new \Exception(tr('Failed to run CasperJS script: %0', $e->getMessage()));
+        } finally {
+            unlink($casperScript);
         }
 
-        $result = new WikiPlugin_Casperjs_Result($output, $commandLine, $fullScript);
+        if ($process->isSuccessful()) {
+            $output = $process->getOutput();
+        } else {
+            throw new \Exception(tr('Failed to run CasperJS script: %0', $process->getErrorOutput()));
+        }
+
+        if (empty($output)) {
+            throw new \Exception('Failed to run CasperJS script.');
+        }
+
+        $result = new WikiPlugin_Casperjs_Result(explode("\n", $output), implode(' ', $cmd), $fullScript);
 
         return $result;
     }
