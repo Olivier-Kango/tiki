@@ -39,6 +39,38 @@ $danger:        $red !default;
 $light:         $gray-500 !default;
 $dark:          $gray-800 !default;
 
+// Copied from variables-dark and renamed.
+$primary-text-emphasis:        tint-color($primary, 40%) !default;
+$secondary-text-emphasis:      tint-color($secondary, 40%) !default;
+$success-text-emphasis:        tint-color($success, 40%) !default;
+$info-text-emphasis:           tint-color($info, 40%) !default;
+$warning-text-emphasis:        tint-color($warning, 40%) !default;
+$danger-text-emphasis:         tint-color($danger, 40%) !default;
+$light-text-emphasis:          $gray-100 !default;
+$dark-text-emphasis:           $gray-300 !default;
+// scss-docs-end theme-text-variables
+
+// scss-docs-start theme-bg-subtle-variables
+$primary-bg-subtle:            shade-color($primary, 80%) !default;
+$secondary-bg-subtle:          shade-color($secondary, 80%) !default;
+$success-bg-subtle:            shade-color($success, 80%) !default;
+$info-bg-subtle:               shade-color($info, 80%) !default;
+$warning-bg-subtle:            shade-color($warning, 80%) !default;
+$danger-bg-subtle:             shade-color($danger, 80%) !default;
+$light-bg-subtle:              $gray-800 !default;
+$dark-bg-subtle:               mix($gray-800, $black) !default;
+// scss-docs-end theme-bg-subtle-variables
+
+// scss-docs-start theme-border-subtle-variables
+$primary-border-subtle:        shade-color($primary, 40%) !default;
+$secondary-border-subtle:      shade-color($secondary, 40%) !default;
+$success-border-subtle:        shade-color($success, 40%) !default;
+$info-border-subtle:           shade-color($info, 40%) !default;
+$warning-border-subtle:        shade-color($warning, 40%) !default;
+$danger-border-subtle:         shade-color($danger, 40%) !default;
+$light-border-subtle:          $gray-700 !default;
+$dark-border-subtle:           $gray-800 !default;
+
 $min-contrast-ratio:   1.9 !default;
 
 // Prefix for :root CSS variables
@@ -48,6 +80,14 @@ $prefix:                      bs- !default;
 
 $body-bg:                   $gray-900 !default;
 $body-color:                $white !default;
+
+// Copied from variables-dark and renamed
+$body-secondary-color:         rgba($body-color, .75) !default;
+$body-secondary-bg:            $gray-800 !default;
+$body-tertiary-color:          rgba($body-color, .5) !default;
+$body-tertiary-bg:             mix($gray-800, $gray-900, 50%) !default;
+$body-emphasis-color:          $white !default;
+$border-color:                 $gray-700 !default;
 
 // Links
 
@@ -70,7 +110,7 @@ $table-bg-scale:              0% !default;
 
 // Forms
 
-$input-bg:                              var(--#{$prefix}body-bg) !default; // $white !default;
+$input-bg:                          var(--#{$prefix}tertiary-bg); // Changed from body-bg for visibility
 $input-color:                           var(--#{$prefix}body-color) !default; // $gray-800 !default;
 $input-border-color:                var(--#{$prefix}body-bg);
 $input-group-addon-color:           $gray-500 !default;

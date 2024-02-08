@@ -95,7 +95,7 @@ $btn-font-weight:             600 !default;
 // Forms
 
 $input-line-height:                     1.5 !default;
-$input-bg:                              var(--#{$prefix}body-bg);
+$input-bg:                              var(--#{$prefix}secondary-bg); // var(--#{$prefix}body-bg);
 $input-disabled-bg:                     var(--#{$prefix}secondary-bg);
 $input-group-addon-bg:                  var(--#{$prefix}tertiary-bg) !default; // $gray-300 !default;
 

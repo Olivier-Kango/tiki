@@ -35,3 +35,27 @@ button.dropdown-toggle + .dropdown-menu  .btn.dropdown-item {
     background-position: 0 0, right calc(50% + 0px);
     background-origin: padding-box, content-box;
 }
+
+.tiki .select2-container .select2-selection--single {
+    height: inherit !important;
+}
+.tiki .select2-container--bootstrap-5 .select2-selection //,
+    //.tiki .select2.select2-container.select2-container--bootstrap-5,
+    //.tiki .select2-selection.select2-selection--multiple
+{
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius) !important;
+    box-shadow: var(--bs-box-shadow-inset) !important;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+// Increase height to compensate this theme's extra padding
+.tiki .select2-container--bootstrap-5 .select2-selection {
+    min-height: calc(2.2em + 0.75rem + 2px);
+    //    border-radius: 0 !important;
+}
+
+.tiki .select2-selection.select2-selection--multiple {
+    padding: 1rem 1.5rem;
+    min-height: calc(2.2em + 0.75rem + 2px);
+}

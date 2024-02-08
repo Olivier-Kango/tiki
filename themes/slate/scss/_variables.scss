@@ -174,3 +174,11 @@ $breadcrumb-border-radius:          .25rem !default;
 $pre-color:                         inherit !default;
 
 //--------------------------- Tiki SCSS variables
+
+//--------------------------- Additional CSS
+
+// Increase height to compensate this theme's extra padding
+.tiki .select2-container--bootstrap-5 .select2-selection {
+    min-height: calc(2.2em + 0.75rem + 2px);
+    border-radius: 0 !important;
+}

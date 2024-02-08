@@ -39,38 +39,37 @@ $danger:        $red !default;
 $light:         $gray-800 !default;
 $dark:          $gray-400 !default;
 
-// scss-docs-start theme-text-variables
-$primary-text-emphasis:   shade-color($primary, 60%) !default;
-$secondary-text-emphasis: shade-color($secondary, 60%) !default;
-$success-text-emphasis:   shade-color($success, 60%) !default;
-$info-text-emphasis:      shade-color($info, 60%) !default;
-$warning-text-emphasis:   shade-color($warning, 60%) !default;
-$danger-text-emphasis:    shade-color($danger, 60%) !default;
-$light-text-emphasis:     $gray-700 !default;
-$dark-text-emphasis:      $gray-700 !default;
+// Copied from variables-dark and renamed.
+$primary-text-emphasis:        tint-color($primary, 40%) !default;
+$secondary-text-emphasis:      tint-color($secondary, 40%) !default;
+$success-text-emphasis:        tint-color($success, 40%) !default;
+$info-text-emphasis:           tint-color($info, 40%) !default;
+$warning-text-emphasis:        tint-color($warning, 40%) !default;
+$danger-text-emphasis:         tint-color($danger, 40%) !default;
+$light-text-emphasis:          $gray-100 !default;
+$dark-text-emphasis:           $gray-300 !default;
 // scss-docs-end theme-text-variables
 
 // scss-docs-start theme-bg-subtle-variables
-$primary-bg-subtle:       tint-color($primary, 80%) !default;
-$secondary-bg-subtle:     tint-color($secondary, 80%) !default;
-$success-bg-subtle:       tint-color($success, 80%) !default;
-$info-bg-subtle:          tint-color($info, 80%) !default;
-$warning-bg-subtle:       tint-color($warning, 80%) !default;
-$danger-bg-subtle:        tint-color($danger, 80%) !default;
-$light-bg-subtle:         mix($gray-100, $white) !default;
-$dark-bg-subtle:          $gray-400 !default;
+$primary-bg-subtle:            shade-color($primary, 80%) !default;
+$secondary-bg-subtle:          shade-color($secondary, 80%) !default;
+$success-bg-subtle:            shade-color($success, 80%) !default;
+$info-bg-subtle:               shade-color($info, 80%) !default;
+$warning-bg-subtle:            shade-color($warning, 80%) !default;
+$danger-bg-subtle:             shade-color($danger, 80%) !default;
+$light-bg-subtle:              $gray-800 !default;
+$dark-bg-subtle:               mix($gray-800, $black) !default;
 // scss-docs-end theme-bg-subtle-variables
 
 // scss-docs-start theme-border-subtle-variables
-$primary-border-subtle:   tint-color($primary, 60%) !default;
-$secondary-border-subtle: tint-color($secondary, 60%) !default;
-$success-border-subtle:   tint-color($success, 60%) !default;
-$info-border-subtle:      tint-color($info, 60%) !default;
-$warning-border-subtle:   tint-color($warning, 60%) !default;
-$danger-border-subtle:    tint-color($danger, 60%) !default;
-$light-border-subtle:     $gray-200 !default;
-$dark-border-subtle:      $gray-500 !default;
-// scss-docs-end theme-border-subtle-variables
+$primary-border-subtle:        shade-color($primary, 40%) !default;
+$secondary-border-subtle:      shade-color($secondary, 40%) !default;
+$success-border-subtle:        shade-color($success, 40%) !default;
+$info-border-subtle:           shade-color($info, 40%) !default;
+$warning-border-subtle:        shade-color($warning, 40%) !default;
+$danger-border-subtle:         shade-color($danger, 40%) !default;
+$light-border-subtle:          $gray-700 !default;
+$dark-border-subtle:           $gray-800 !default;
 
 $min-contrast-ratio:   2.25 !default;
 // Options
@@ -83,6 +82,14 @@ $prefix:                      $variable-prefix !default;
 
 $body-bg:       #060606 !default;
 $body-color:    #999999; // $gray-400 !default; Lightened to meet WCAG minimum
+
+// Copied from variables-dark and renamed
+$body-secondary-color:         rgba($body-color, .75) !default;
+$body-secondary-bg:            $gray-800 !default;
+$body-tertiary-color:          rgba($body-color, .5) !default;
+$body-tertiary-bg:             mix($gray-800, $gray-900, 50%) !default;
+$body-emphasis-color:          $white !default;
+$border-color:                 $gray-700 !default;
 
 // Links
 //
@@ -118,7 +125,7 @@ $input-btn-padding-x:       1rem !default;
 
 // Forms
 
-$input-bg:                          var(--#{$prefix}body-bg);
+$input-bg:                          var(--#{$prefix}tertiary-bg); // Changed from body-bg for visibility
 $input-disabled-bg:                 var(--#{$prefix}secondary-bg) !default; // $gray-400 !default;
 
 $input-color:                       var(--#{$prefix}body-color);
