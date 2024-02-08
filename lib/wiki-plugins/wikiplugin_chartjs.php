@@ -207,8 +207,7 @@ JS;
 
         $casperFile = writeTempFile($casperjsScript, '', true, 'wikiplugin_chart_', '.js');
 
-        $command = $casperBin . ' ' . $casperFile;
-        $process = new Process($command);
+        $process = new Process([$casperBin, $casperFile, '--ignore-ssl-errors=true']);
         if (! empty($params['timeout'])) {
             $process->setTimeout($params['timeout']);
             $process->setIdleTimeout($params['timeout']);
