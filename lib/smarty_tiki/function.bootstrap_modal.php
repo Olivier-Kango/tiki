@@ -26,5 +26,5 @@ function smarty_function_bootstrap_modal($params, $smarty)
     }
     $params['modal'] = 1;
     $href = smarty_function_service($params, $smarty);
-    return "$href\" data-tiki-bs-toggle=\"modal\" data-bs-backdrop=\"static\" data-bs-target=\".modal.fade:not(.show):first$size";
+    return "$href\" data-tiki-bs-toggle=\"modal\" data-bs-backdrop=\"static\" data-bs-target=\".footer-modal.fade:not(.show):first$size";
 }
