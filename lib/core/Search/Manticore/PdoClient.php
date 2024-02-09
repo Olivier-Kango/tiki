@@ -348,7 +348,7 @@ class PdoClient
         if ($retry) {
             $stmt = $this->pdo->query('show warnings');
             foreach ($stmt->fetchAll() as $row) {
-                if (! empty($row['Message']) && preg_match('/agent.*unknown local table/', $row['Message'])) {
+                if (! empty($row['Message']) && preg_match('/unknown local table/', $row['Message'])) {
                     // remote agent rebuild has invalidated this distributed index, need recreate the distributed index with fresh index table names
                     \TikiLib::lib('federatedsearch')->recreateDistributedIndex($this);
                     return $this->fetchAllRowsets($query, false);
