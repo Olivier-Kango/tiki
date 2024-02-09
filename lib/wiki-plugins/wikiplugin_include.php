@@ -166,8 +166,12 @@ function wikiplugin_include($dataIn, $params)
 {
     global $killtoc, $prefs;
 
-    /** @var int[] $numberOfInclusions Associative array of the number of times each key (fragment) was included */
-    static $numberOfInclusions;
+    /** @var int[] $pluginIncludeNumberOfInclusions Associative array of the number of times each key (fragment) was included */
+    global $pluginIncludeNumberOfInclusions;
+
+    if (! isset($pluginIncludeNumberOfInclusions)) {
+        $pluginIncludeNumberOfInclusions = [];
+    }
 
     static $data;
     $tikilib = TikiLib::lib('tiki');
@@ -220,14 +224,14 @@ function wikiplugin_include($dataIn, $params)
         $fragmentIdentifier .= "/$stop";
     }
 
-    if (isset($numberOfInclusions[$fragmentIdentifier])) {
-        if ($numberOfInclusions[$fragmentIdentifier] >= $max_inclusions) {
+    if (isset($pluginIncludeNumberOfInclusions[$fragmentIdentifier])) {
+        if ($pluginIncludeNumberOfInclusions[$fragmentIdentifier] >= $max_inclusions) {
             trigger_error(tr('Too many inclusions for "%0" (%1)', $page, $max_inclusions), E_USER_WARNING);
             return '';
         }
-        $numberOfInclusions[$fragmentIdentifier]++;
+        $pluginIncludeNumberOfInclusions[$fragmentIdentifier]++;
     } else {
-        $numberOfInclusions[$fragmentIdentifier] = 1;
+        $pluginIncludeNumberOfInclusions[$fragmentIdentifier] = 1;
         // only evaluate permission the first time round
         // evaluate if object or system permissions enables user to see the included page
         if ($prefs['flaggedrev_approval'] != 'y') {
@@ -238,7 +242,7 @@ function wikiplugin_include($dataIn, $params)
                 if ($version_info = $flaggedrevisionlib->get_version_with($page, 'moderation', 'OK')) {
                     $data[$fragmentIdentifier] = $version_info;
                 } else {
-                    $numberOfInclusions[$fragmentIdentifier] = $max_inclusions;
+                    $pluginIncludeNumberOfInclusions[$fragmentIdentifier] = $max_inclusions;
                     return($pagenotapproved_text);
                 }
             } else {
@@ -250,7 +254,7 @@ function wikiplugin_include($dataIn, $params)
         }
         $perms = $tikilib->get_perm_object($page, 'wiki page', $data[$fragmentIdentifier], false);
         if ($perms['tiki_p_view'] != 'y') {
-            $numberOfInclusions[$fragmentIdentifier] = $max_inclusions;
+            $pluginIncludeNumberOfInclusions[$fragmentIdentifier] = $max_inclusions;
             $text = $pagedenied_text;
             return($text);
         }

@@ -15,7 +15,9 @@ class Search_Type_WikiText implements Search_Type_Interface
 
     public function getValue()
     {
-        global $prefs;
+        global $prefs, $pluginIncludeNumberOfInclusions;
+        $pluginIncludeNumberOfInclusions = [];
+
         $out = TikiLib::lib('parser')->parse_data(
             $this->value,
             [
