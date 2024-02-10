@@ -6,18 +6,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'database:update',
+    description: 'Update the database to the latest schema',
+)]
 class UpdateCommand extends Command
 {
-    protected static $defaultDescription = 'Update the database to the latest schema';
     protected function configure()
     {
         $this
-            ->setName('database:update')
             ->addOption(
                 'auto-register',
                 'a',

@@ -7,6 +7,7 @@
 
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,14 +20,15 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @package Tiki\Command
  */
-
+#[AsCommand(
+    name: 'dev:fixbom',
+    description: 'Fix BOM and line endings for all files',
+)]
 class FixBOMandUnixCommand extends Command
 {
-    protected static $defaultDescription = 'Fix BOM and line endings for all files';
     protected function configure()
     {
         $this
-            ->setName('dev:fixbom')
             ->setHelp('Fixes BOM encoding, converts windows to Unix line endings and fixes other invisible weirdness in all Tiki files.');
     }
 

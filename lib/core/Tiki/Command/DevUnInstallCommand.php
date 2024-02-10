@@ -7,6 +7,7 @@
 
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,14 +19,15 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @package Tiki\Command
  */
-
+#[AsCommand(
+    name: 'dev:remove',
+    description: 'Remove Tiki development files'
+)]
 class DevUnInstallCommand extends Command
 {
-    protected static $defaultDescription = 'Uninstall development files';
     protected function configure()
     {
         $this
-            ->setName('dev:remove')
             ->setHelp('Remove composer development vendor files and unit test config. Leaves unit testing database intact.');
     }
 

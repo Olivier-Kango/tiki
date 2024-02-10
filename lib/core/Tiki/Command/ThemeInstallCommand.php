@@ -11,30 +11,28 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Yaml\Yaml;
-use Tiki\Theme\Handler as ThemeHandler;
-use Tiki\Theme\Menu as ThemeMenu;
-use Tiki\Theme\Module as ThemeModule;
 use Tiki\Theme\ThemeInstaller;
 use Tiki\Theme\Zip as ThemeZip;
 use TikiLib;
 use ZipArchive;
 use Exception;
-use Tiki\Installer\Installer;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 /**
  * Install theme deploying via a theme package
  */
+#[AsCommand(
+    name: 'theme:install',
+    description: 'Install a new theme'
+)]
 class ThemeInstallCommand extends Command
 {
-    protected static $defaultDescription = 'Install a new theme';
     /**
      * Configures the current command.
      */
     protected function configure()
     {
         $this
-            ->setName('theme:install')
             ->addArgument(
                 'file',
                 InputArgument::REQUIRED,

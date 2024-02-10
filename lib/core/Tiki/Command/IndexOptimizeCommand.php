@@ -6,21 +6,17 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'index:optimize',
+    description: 'Optimize the unified search index'
+)]
 class IndexOptimizeCommand extends Command
 {
-    protected static $defaultDescription = 'Optimize the unified search index';
-    protected function configure()
-    {
-        $this
-            ->setName('index:optimize');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $unifiedsearchlib = \TikiLib::lib('unifiedsearch');

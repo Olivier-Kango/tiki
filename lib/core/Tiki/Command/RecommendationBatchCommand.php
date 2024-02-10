@@ -6,23 +6,18 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Tiki\Recommendation\Input\UserInput;
 use TikiLib;
 
+#[AsCommand(
+    name: 'recommendation:batch',
+    description: 'Identify and send recommendations'
+)]
 class RecommendationBatchCommand extends Command
 {
-    protected static $defaultDescription = 'Identify and send recommendations';
-    protected function configure()
-    {
-        $this
-            ->setName('recommendation:batch');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $batch = TikiLib::lib('recommendationcontentbatch');

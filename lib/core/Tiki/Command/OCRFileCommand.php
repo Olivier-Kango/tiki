@@ -12,15 +12,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Command\HelpCommand;
 use Exception;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
+#[AsCommand(
+    name: 'ocr:file',
+    description: 'Attempt to OCR a file. Defaults to queued OCR job'
+)]
 class OCRFileCommand extends Command
 {
-    protected static $defaultDescription = 'Attempt to OCR a file. Defaults to queued OCR job';
     protected function configure()
     {
         $this
-            ->setName('ocr:file')
             ->addArgument(
                 'File ID',
                 InputArgument::OPTIONAL,

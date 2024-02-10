@@ -12,17 +12,20 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Perms;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
 use TikiLib;
 use Tracker_Definition;
 
+#[AsCommand(
+    name: 'tracker:recalc',
+    description: 'Recalculate all math fields items from a tracker'
+)]
 class TrackerRecalcCommand extends Command
 {
-    protected static $defaultDescription = 'Recalculate all math fields items from a tracker';
     protected function configure()
     {
         $this
-            ->setName('tracker:recalc')
             ->addOption(
                 'trackerId',
                 null,

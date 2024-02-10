@@ -7,6 +7,7 @@
 namespace Tiki\Command;
 
 use Exception;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -14,15 +15,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use TWVersion;
 
+#[AsCommand(
+    name: 'vcs:automerge',
+    description: 'Semi Auto Merge'
+)]
 class SemiAutoMergeCommand extends Command
 {
-    protected static $defaultDescription = 'Semi Auto Merge';
     private $branch;
 
     protected function configure()
     {
         $this
-            ->setName('vcs:automerge')
             ->setHelp('While in trunk, semi auto merge changes from the previous branch.')
             ->addOption(
                 'no-check-vcs',

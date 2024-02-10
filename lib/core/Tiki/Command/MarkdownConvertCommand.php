@@ -7,7 +7,7 @@
 namespace Tiki\Command;
 
 use Exception;
-use Perms;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,15 +15,16 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TikiLib;
-use WikiParser_Parsable;
 
+#[AsCommand(
+    name: 'markdown:convert',
+    description: 'Convert wiki pages between Tiki syntax and Markdown'
+)]
 class MarkdownConvertCommand extends Command
 {
-    protected static $defaultDescription = 'Convert wiki pages between Tiki syntax and Markdown';
     protected function configure()
     {
         $this
-            ->setName('markdown:convert')
             ->setHelp(
                 'Use this command to convert Tiki wiki syntax stored in one or more pages to Markdown or vice-versa.'
             )

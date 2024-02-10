@@ -6,19 +6,20 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'installer:unlock',
+    description: 'Enable the installer',
+)]
 class InstallerUnlockCommand extends Command
 {
-    protected static $defaultDescription = 'Enable the installer';
     protected function configure()
     {
         $this
-            ->setName('installer:unlock')
             ->setHelp('Unlock the installer so that users can re-install Tiki through the browser');
     }
 

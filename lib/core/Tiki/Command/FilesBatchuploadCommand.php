@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,13 +15,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Tiki\Lib\Logs\LogsLib;
 use TikiLib;
 
+#[AsCommand(
+    name: 'files:batchupload',
+    description: 'Batch upload files into the file galleries'
+)]
 class FilesBatchuploadCommand extends Command
 {
-    protected static $defaultDescription = 'Batch upload files into the file galleries';
     protected function configure()
     {
         $this
-            ->setName('files:batchupload')
             ->addArgument(
                 'galleryId',
                 InputArgument::OPTIONAL,

@@ -6,19 +6,22 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'rss:refresh',
+    description: 'Refresh incoming RSS feeds'
+)]
 class RefreshRssCommand extends Command
 {
-    protected static $defaultDescription = 'Refresh incoming RSS feeds';
     protected function configure()
     {
         $this
-            ->setName('rss:refresh')
             ->addArgument(
                 'rssId',
                 InputArgument::OPTIONAL,

@@ -6,18 +6,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'tracker:export',
+    description: 'Export a CSV file from a tracker using a tracker import-export format'
+)]
 class TrackerExportCommand extends Command
 {
-    protected static $defaultDescription = 'Export a CSV file from a tracker using a tracker import-export format';
     protected function configure()
     {
         $this
-            ->setName('tracker:export')
             ->addArgument(
                 'tabularId',
                 InputArgument::REQUIRED,

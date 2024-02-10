@@ -6,8 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -16,13 +16,15 @@ use Symfony\Component\Console\Question\Question;
 use Tiki\Lib\Logs\LogsLib;
 use TikiLib;
 
+#[AsCommand(
+    name: 'users:create',
+    description: 'Create a new user'
+)]
 class UserCreateCommand extends Command
 {
-    protected static $defaultDescription = 'Create a new user';
     protected function configure()
     {
         $this
-            ->setName('users:create')
             ->addArgument(
                 'login',
                 InputArgument::REQUIRED,

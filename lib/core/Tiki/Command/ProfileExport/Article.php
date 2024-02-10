@@ -6,19 +6,22 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command\ProfileExport;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'profile:export:article',
+    description: 'Export an article definition'
+)]
 class Article extends ObjectWriter
 {
-    protected static $defaultDescription = 'Export an article definition';
     protected function configure()
     {
         $this
-            ->setName('profile:export:article')
             ->addOption(
                 'with-topic',
                 null,

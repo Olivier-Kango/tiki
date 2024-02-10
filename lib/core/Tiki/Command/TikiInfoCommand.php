@@ -6,18 +6,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'tiki:info',
+    description: 'Displays the Tiki and/or PHP version'
+)]
 class TikiInfoCommand extends Command
 {
-    protected static $defaultDescription = 'Displays the Tiki and/or PHP version';
     protected function configure()
     {
         $this
-            ->setName('tiki:info')
             ->addArgument(
                 'tiki_php',
                 InputArgument::OPTIONAL,

@@ -16,7 +16,7 @@ class Application extends SymfonyApplication
      *
      * @return InputDefinition An InputDefinition instance
      */
-    protected function getDefaultInputDefinition()
+    protected function getDefaultInputDefinition(): InputDefinition
     {
         $definition = parent::getDefaultInputDefinition();
         $definition->addOption(new InputOption('--site', '', InputOption::VALUE_REQUIRED, 'Multi-Tiki instance'));

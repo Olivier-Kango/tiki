@@ -12,15 +12,18 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Psr\Log\LogLevel;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Tiki\TikiInit;
 
+#[AsCommand(
+    name: 'scheduler:run',
+    description: 'Run scheduled tasks'
+)]
 class SchedulerRunCommand extends Command
 {
-    protected static $defaultDescription = 'Run scheduled tasks';
     protected function configure()
     {
         $this
-            ->setName('scheduler:run')
             ->addOption(
                 'skip-check-user',
                 null,

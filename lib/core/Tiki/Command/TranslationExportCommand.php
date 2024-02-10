@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,13 +19,15 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  * Export translations from the database to lang/xx/language.php files
  *
  */
+#[AsCommand(
+    name: 'translation:export',
+    description: 'Update language.php translations from the database'
+)]
 class TranslationExportCommand extends Command
 {
-    protected static $defaultDescription = 'Update language.php translations from the database';
     protected function configure(): void
     {
         $this
-            ->setName('translation:export')
             ->setHelp('Scans database translations and update language file.')
             ->addOption(
                 'lang',

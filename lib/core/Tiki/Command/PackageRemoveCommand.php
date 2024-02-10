@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,16 +16,18 @@ use Tiki\Package\ComposerManager;
 use Tiki\Package\PackageCommandHelper;
 use TikiLib;
 
+#[AsCommand(
+    name: 'package:remove',
+    description: 'Remove package'
+)]
 class PackageRemoveCommand extends Command
 {
-    protected static $defaultDescription = 'Remove package';
     /**
      * Configures the current command.
      */
     protected function configure()
     {
         $this
-            ->setName('package:remove')
             ->setHelp('This command allows you to remove packages.')
             ->addArgument(
                 'package',

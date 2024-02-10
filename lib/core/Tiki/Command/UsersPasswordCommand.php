@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,6 +16,10 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TikiLib;
 
+#[AsCommand(
+    name: 'users:password',
+    description: 'Set the password to a given user'
+)]
 class UsersPasswordCommand extends Command
 {
     /**
@@ -36,8 +41,6 @@ class UsersPasswordCommand extends Command
 
     private $userlib;
 
-    protected static $defaultDescription = 'Set the password to a given user';
-
     public function __construct($userlib = null)
     {
         $this->userlib = $userlib ?: TikiLib::lib('user');
@@ -47,7 +50,6 @@ class UsersPasswordCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('users:password')
             ->addOption(
                 'force',
                 'f',

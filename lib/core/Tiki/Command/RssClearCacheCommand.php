@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,13 +15,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Tiki\Lib\Logs\LogsLib;
 use TikiLib;
 
+#[AsCommand(
+    name: 'rss:clear',
+    description: 'Clear incoming RSS feed cache'
+)]
 class RssClearCacheCommand extends Command
 {
-    protected static $defaultDescription = 'Clear incoming RSS feed cache';
     protected function configure()
     {
         $this
-            ->setName('rss:clear')
             ->addArgument(
                 'rssId',
                 InputArgument::OPTIONAL,

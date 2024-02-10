@@ -6,19 +6,22 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'notification:digest',
+    description: 'Send out email notification digests'
+)]
 class NotificationDigestCommand extends Command
 {
-    protected static $defaultDescription = 'Send out email notification digests';
     protected function configure()
     {
         $this
-            ->setName('notification:digest')
             ->addArgument(
                 'domain',
                 InputArgument::OPTIONAL,

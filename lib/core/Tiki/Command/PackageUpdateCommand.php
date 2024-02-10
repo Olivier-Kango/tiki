@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -18,9 +19,12 @@ use Tiki\Package\ComposerPackage;
 use Tiki\Package\PackageCommandHelper;
 use TikiLib;
 
+#[AsCommand(
+    name: 'package:update',
+    description: 'Update package'
+)]
 class PackageUpdateCommand extends Command
 {
-    protected static $defaultDescription = 'Update package';
     private $output;
 
     /* @var SymfonyStyle */
@@ -35,7 +39,6 @@ class PackageUpdateCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('package:update')
             ->setHelp('This command allows you to update packages.')
             ->addArgument(
                 'package',

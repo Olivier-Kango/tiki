@@ -11,17 +11,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Exception;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
+#[AsCommand(
+    name: 'ocr:all',
+    description: 'OCR all queued files'
+)]
 class OCRAllCommand extends Command
 {
-    protected static $defaultDescription = 'OCR all queued files';
-    protected function configure()
-    {
-        $this
-            ->setName('ocr:all');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $ocrLib = \TikiLib::lib('ocr');

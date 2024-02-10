@@ -6,22 +6,24 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TikiDb;
 use TikiLib;
 
+#[AsCommand(
+    name: 'tiki:stats',
+    description: 'Display a table with the KPIs'
+)]
 class StatsCommand extends Command
 {
-    protected static $defaultDescription = 'Display a table with the KPIs';
     protected function configure()
     {
         $this
-            ->setName('tiki:stats')
             ->addOption(
                 'json',
                 null,

@@ -6,19 +6,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command\ProfileExport;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'profile:export:init',
+    description: 'Initialize profile export for current site.'
+)]
 class Init extends Command
 {
-    protected static $defaultDescription = 'Initialize profile export for current site.';
     protected function configure()
     {
         $this
-            ->setName('profile:export:init')
             ->addArgument(
                 'profile',
                 InputArgument::REQUIRED,

@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,13 +22,15 @@ use TikiLib;
  * Calculate translation percentage for each lang/xx/language.php files
  *
  */
+#[AsCommand(
+    name: 'translation:percentage',
+    description: 'Get the translation percentage for each language.php file'
+)]
 class TranslationPercentageCommand extends Command
 {
-    protected static $defaultDescription = 'Get the translation percentage for each language.php file';
     protected function configure(): void
     {
         $this
-            ->setName('translation:percentage')
             ->setHelp('Calculate translation percentage for each language.php file by scanning all Tiki files and output the result as wiki syntax.')
             ->addOption(
                 'page',

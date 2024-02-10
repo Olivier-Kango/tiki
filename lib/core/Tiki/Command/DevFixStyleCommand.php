@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,14 +21,15 @@ use Tiki\Process\Process;
  *
  * @package Tiki\Command
  */
-
+#[AsCommand(
+    name: 'dev:fixstyle',
+    description: 'Fix code style of changed files',
+)]
 class DevFixStyleCommand extends Command
 {
-    protected static $defaultDescription = 'Fix code style of changed files';
     protected function configure()
     {
         $this
-            ->setName('dev:fixstyle')
             ->setHelp('Fixes code style issues that are correctable with phpcbf via Tiki\'s coding standard. Will only change files modified in your working copy.')
             ->addOption(
                 'directory',

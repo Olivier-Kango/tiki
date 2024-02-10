@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,15 +17,12 @@ use TikiLib;
  * Class PerformanceCheckCommand
  * @package Tiki\Command
  */
+#[AsCommand(
+    name: 'performance:check',
+    description: 'Check statistics of some performance related statistics'
+)]
 class PerformanceCheckCommand extends Command
 {
-    protected static $defaultDescription = 'Check statistics of some performance related statistics';
-    protected function configure()
-    {
-        $this
-            ->setName('performance:check');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $performanceStatsLib = TikiLib::lib('performancestats');

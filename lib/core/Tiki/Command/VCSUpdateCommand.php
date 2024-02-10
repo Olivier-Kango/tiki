@@ -20,6 +20,7 @@ use Psr\Log\LogLevel;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Command\HelpCommand;
 use Exception;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Tiki\Package\ComposerCli;
 
 /**
@@ -27,10 +28,12 @@ use Tiki\Package\ComposerCli;
  *
  * @package Tiki\Command
  */
-
+#[AsCommand(
+    name: 'vcs:update',
+    description: 'Update Tiki to latest version & perform tasks for a smooth update.'
+)]
 class VCSUpdateCommand extends Command
 {
-    protected static $defaultDescription = 'Update Tiki to latest version & perform tasks for a smooth update.';
     /**
      * @var ConsoleLogger
      */
@@ -39,7 +42,6 @@ class VCSUpdateCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('vcs:update')
             ->setHelp('Updates Tiki repository to latest version and performs necessary tasks in Tiki for a smooth update. Suitable for both development and production.')
             ->addOption(
                 'no-secdb',

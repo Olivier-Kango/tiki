@@ -6,25 +6,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 error_reporting(E_ALL);
 use Tiki\MailIn;
 use TikiLib;
 
+#[AsCommand(
+    name: 'mail-in:poll',
+    description: 'Read the mail-in messages'
+)]
 class MailInPollCommand extends Command
 {
-    protected static $defaultDescription = 'Read the mail-in messages';
-    protected function configure()
-    {
-        $this
-            ->setName('mail-in:poll');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $mailinlib = TikiLib::lib('mailin');

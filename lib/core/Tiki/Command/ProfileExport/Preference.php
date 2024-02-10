@@ -6,19 +6,22 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command\ProfileExport;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'profile:export:preference',
+    description: 'Include a preference within the profile definition'
+)]
 class Preference extends ObjectWriter
 {
-    protected static $defaultDescription = 'Include a preference within the profile definition';
     protected function configure()
     {
         $this
-            ->setName('profile:export:preference')
             ->addOption(
                 'all',
                 null,

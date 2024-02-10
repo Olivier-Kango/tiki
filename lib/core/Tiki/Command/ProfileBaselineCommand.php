@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,13 +14,15 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TikiDb;
 
+#[AsCommand(
+    name: 'profile:baseline',
+    description: 'Generate the SQL patch to assign profile symbols for an existing installation.'
+)]
 class ProfileBaselineCommand extends Command
 {
-    protected static $defaultDescription = 'Generate the SQL patch to assign profile symbols for an existing installation.';
     protected function configure()
     {
         $this
-            ->setName('profile:baseline')
             ->addArgument(
                 'repository',
                 InputArgument::OPTIONAL,

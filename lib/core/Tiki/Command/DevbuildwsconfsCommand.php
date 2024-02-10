@@ -6,11 +6,11 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use TikiLib;
 
 /**
  * index.php and .htaccess are designed to disallow directory listing in apache.
@@ -18,14 +18,15 @@ use TikiLib;
  * This command replaces the deprecated doc/devtools/check_tiki_directories.php
  * @package Tiki\Command
  */
-
+#[AsCommand(
+    name: 'dev:buildwsconfs',
+    description: 'Checks or generate .index.php & .htaccess files.'
+)]
 class DevbuildwsconfsCommand extends Command
 {
-    protected static $defaultDescription = 'Checks or generate .index.php & .htaccess files.';
     protected function configure()
     {
         $this
-        ->setName('dev:buildwsconfs')
         ->setHelp('Allows checking for the presence and generating of index.php and .htaccess files to avoid unintended php code from being executed in production.')
         ->addOption(
             'generate',

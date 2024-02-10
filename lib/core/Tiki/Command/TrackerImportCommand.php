@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -14,13 +15,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Tiki\Lib\Logs\LogsLib;
 use TikiLib;
 
+#[AsCommand(
+    name: 'tracker:import',
+    description: 'Import a CSV file into a tracker using a tracker import-export format or initiate an ODBC import'
+)]
 class TrackerImportCommand extends Command
 {
-    protected static $defaultDescription = 'Import a CSV file into a tracker using a tracker import-export format or initiate an ODBC import';
     protected function configure()
     {
         $this
-            ->setName('tracker:import')
             ->addArgument(
                 'tabularId',
                 InputArgument::REQUIRED,

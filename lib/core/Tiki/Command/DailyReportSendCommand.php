@@ -6,25 +6,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 error_reporting(E_ALL);
 use TikiLib;
 use Reports_Factory;
 
+#[AsCommand(
+    name: 'daily-report:sendd',
+    description: 'Send daily user reports'
+)]
 class DailyReportSendCommand extends Command
 {
-    protected static $defaultDescription = 'Send daily user reports';
-    protected function configure()
-    {
-        $this
-            ->setName('daily-report:send');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $access = TikiLib::lib('access');

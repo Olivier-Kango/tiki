@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,16 +20,18 @@ use TikiLib;
 /**
  * Command to remove themes
  */
+#[AsCommand(
+    name: 'theme:remove',
+    description: 'Remove a theme'
+)]
 class ThemeRemoveCommand extends Command
 {
-    protected static $defaultDescription = 'Remove a theme';
     /**
      * Configures the current command.
      */
     protected function configure()
     {
         $this
-            ->setName('theme:remove')
             ->addArgument(
                 'theme',
                 InputArgument::REQUIRED,

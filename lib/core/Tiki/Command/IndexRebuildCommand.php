@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -14,13 +15,15 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(
+    name: 'index:rebuild',
+    description: 'Fully rebuild the unified search index'
+)]
 class IndexRebuildCommand extends Command
 {
-    protected static $defaultDescription = 'Fully rebuild the unified search index';
     protected function configure()
     {
         $this
-            ->setName('index:rebuild')
             ->addOption(
                 'log',
                 null,

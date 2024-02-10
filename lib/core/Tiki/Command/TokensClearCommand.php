@@ -6,19 +6,17 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'tokens:clear',
+    description: 'Remove expired tokens'
+)]
 class TokensClearCommand extends Command
 {
-    protected static $defaultDescription = 'Remove expired tokens';
-    protected function configure()
-    {
-        $this
-            ->setName('tokens:clear');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         global $prefs;

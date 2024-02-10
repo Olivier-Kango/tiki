@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,7 +20,10 @@ use TikiLib;
  *
  * @package Tiki\Command
  */
-
+#[AsCommand(
+    name: 'dev:configure',
+    description: 'Install or update development files'
+)]
 class DevConfigureCommand extends Command
 {
     protected $user_tiki;
@@ -27,11 +31,9 @@ class DevConfigureCommand extends Command
     protected $dbs_tiki;
     protected $host_tiki;
 
-    protected static $defaultDescription = 'Install or update development files';
     protected function configure()
     {
         $this
-            ->setName('dev:configure')
             ->setHelp(
                 'Install or update and configure composer development vendor files and unit test config & database.'
             )

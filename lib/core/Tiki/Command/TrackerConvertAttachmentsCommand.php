@@ -9,6 +9,7 @@ namespace Tiki\Command;
 use JitFilter;
 use Services_File_Utilities;
 use Services_Tracker_Utilities;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,13 +20,15 @@ use TikiLib;
 use Tracker_Definition;
 use Tracker_Item;
 
+#[AsCommand(
+    name: 'tracker:convert-attachments',
+    description: 'Convert tracker attachments'
+)]
 class TrackerConvertAttachmentsCommand extends Command
 {
-    protected static $defaultDescription = 'Convert tracker attachments';
     protected function configure()
     {
         $this
-            ->setName('tracker:convert-attachments')
             ->setHelp('Convert from tracker attachments (the ones that are global for the tracker) to attachments as a tracker file field type')
             ->addArgument(
                 'trackerId',

@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,16 +18,18 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputOption;
 use TikiLib;
 
+#[AsCommand(
+    name: 'package:install',
+    description: 'Install package'
+)]
 class PackageInstallCommand extends Command
 {
-    protected static $defaultDescription = 'Install package';
     /**
      * Configures the current command.
      */
     protected function configure()
     {
         $this
-            ->setName('package:install')
             ->setHelp('This command allows you to install packages.')
             ->addArgument(
                 'package',

@@ -19,21 +19,24 @@ use Tiki\Theme\Zip as ThemeZip;
 use TikiLib;
 use ZipArchive;
 use Exception;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Tiki\Installer\Installer;
 
 /**
  * Update theme deploying via a theme package
  */
+#[AsCommand(
+    name: 'theme:update',
+    description: 'Update a theme'
+)]
 class ThemeUpdateCommand extends Command
 {
-    protected static $defaultDescription = 'Update a theme';
     /**
      * Configures the current command.
      */
     protected function configure()
     {
         $this
-            ->setName('theme:update')
             ->addArgument(
                 'file',
                 InputArgument::REQUIRED,

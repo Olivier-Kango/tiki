@@ -9,6 +9,7 @@ namespace Tiki\Command;
 use DateInterval;
 use DateTimeInterface;
 use Exception;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,16 +22,18 @@ use Tiki\Faker as TikiFaker;
 /**
  * Enabled the usage of Faker as a way to load random data to trackers
  */
+#[AsCommand(
+    name: 'faker:comments',
+    description: 'Generate comments fake data'
+)]
 class FakerCommentsCommand extends Command
 {
-    protected static $defaultDescription = 'Generate comments fake data';
     /**
      * Configures the current command.
      */
     protected function configure()
     {
         $this
-            ->setName('faker:comments')
             ->addArgument(
                 'object',
                 InputArgument::REQUIRED,

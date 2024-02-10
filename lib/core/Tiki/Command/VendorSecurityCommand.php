@@ -7,21 +7,23 @@
 namespace Tiki\Command;
 
 use Exception;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use SensioLabs\Security\SecurityChecker;
 use Symfony\Component\Console\Input\InputOption;
 use Tiki\Package\ComposerManager;
 
+#[AsCommand(
+    name: 'security:vendorcheck',
+    description: 'Check vendor files against known security issues.'
+)]
 class VendorSecurityCommand extends Command
 {
-    protected static $defaultDescription = 'Check vendor files against known security issues.';
     protected function configure()
     {
         $this
-            ->setName('security:vendorcheck')
             ->addOption(
                 'packages',
                 'p',

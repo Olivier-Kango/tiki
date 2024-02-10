@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Faker\Factory as FakerFactory;
+use Symfony\Component\Console\Attribute\AsCommand;
 use TikiLib;
 use Tiki\Faker as TikiFaker;
 use Tracker_Definition;
@@ -19,16 +20,18 @@ use Tracker_Definition;
 /**
  * Enabled the usage of Faker as a way to load random data to trackers
  */
+#[AsCommand(
+    name: 'faker:tracker',
+    description: 'Generate tracker fake data'
+)]
 class FakerTrackerCommand extends Command
 {
-    protected static $defaultDescription = 'Generate tracker fake data';
     /**
      * Configures the current command.
      */
     protected function configure()
     {
         $this
-            ->setName('faker:tracker')
             ->addArgument(
                 'tracker',
                 InputArgument::REQUIRED,

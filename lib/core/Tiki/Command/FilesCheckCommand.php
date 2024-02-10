@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,19 +17,12 @@ use Tiki\Files\CheckFileGallery;
 /**
  * Command to check the status of the files in File and Image Gallery
  */
+#[AsCommand(
+    name: 'files:check',
+    description: 'Detect orphan or extra files'
+)]
 class FilesCheckCommand extends Command
 {
-    protected static $defaultDescription = 'Detect orphan or extra files';
-    /**
-     * Configure the command
-     *
-     * @return void
-     */
-    protected function configure()
-    {
-        $this->setName('files:check');
-    }
-
     /**
      * Command Execution entry point
      *

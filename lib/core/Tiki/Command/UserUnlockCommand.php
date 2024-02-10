@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,13 +16,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Tiki\Lib\Logs\LogsLib;
 use TikiLib;
 
+#[AsCommand(
+    name: 'users:unlock',
+    description: 'Unlock a user'
+)]
 class UserUnlockCommand extends Command
 {
-    protected static $defaultDescription = 'Unlock a user';
     protected function configure()
     {
         $this
-            ->setName('users:unlock')
             ->addArgument(
                 'identifiers',
                 InputArgument::IS_ARRAY | InputArgument::REQUIRED,

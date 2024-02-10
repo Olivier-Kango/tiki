@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,13 +17,15 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Command\HelpCommand;
 
+#[AsCommand(
+    name: 'ocr:set',
+    description: 'Set the OCR status of files (Queue, Skip)'
+)]
 class OCRSetCommand extends Command
 {
-    protected static $defaultDescription = 'Set the OCR status of files (Queue, Skip)';
     protected function configure()
     {
         $this
-            ->setName('ocr:set')
             ->addArgument(
                 'Queue or Skip',
                 InputArgument::REQUIRED,

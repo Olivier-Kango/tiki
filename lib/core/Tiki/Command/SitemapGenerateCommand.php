@@ -6,20 +6,22 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Tiki\Sitemap\Generator as SiteMapGenerator;
 
+#[AsCommand(
+    name: 'sitemap:generate',
+    description: 'Generate sitemap'
+)]
 class SitemapGenerateCommand extends Command
 {
-    protected static $defaultDescription = 'Generate sitemap';
     protected function configure()
     {
         $this
-            ->setName('sitemap:generate')
             ->addArgument(
                 'url',
                 InputArgument::REQUIRED,

@@ -13,11 +13,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use Symfony\Component\Console\Attribute\AsCommand;
 use TikiLib;
 
+#[AsCommand(
+    name: 'index:compare-engines',
+    description: 'Compare search engine results in wikiplugins'
+)]
 class IndexCompareEnginesCommand extends Command
 {
-    protected static $defaultDescription = 'Compare search engine results in wikiplugins';
     /**
      * Add or remove plugins to this array to be considered when checking the results
      */
@@ -26,7 +30,6 @@ class IndexCompareEnginesCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('index:compare-engines')
             ->setHelp(
                 'Check unified search plugin results inside wiki pages by comparing different search index results. Only plugins that use the unified search results are verified.'
             )
@@ -273,7 +276,7 @@ class IndexCompareEnginesCommand extends Command
 
                 $filenames = [];
                 foreach ($engines as $engine) {
-                    $fname = tempnam($tikipath . 'temp', 'indexcompare');
+                    $fname = tempnam(TIKI_PATH . 'temp', 'indexcompare');
                     file_put_contents($fname, $output['output'][$engine]);
                     $filenames[] = $fname;
                 }

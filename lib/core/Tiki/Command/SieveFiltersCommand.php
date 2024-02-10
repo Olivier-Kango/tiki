@@ -9,7 +9,6 @@ namespace Tiki\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use rambomst\PHPBounceHandler\BounceHandler;
 use Exception;
 use TikiLib;
 use Tiki_Hm_Site_Config_File;
@@ -21,6 +20,7 @@ use Hm_IMAP_List;
 use Hm_SMTP_List;
 use Hm_Msgs;
 use Hm_Handler_tiki_sieve_placeholder;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Tiki_Hm_Functions;
 
 /**
@@ -30,14 +30,15 @@ use Tiki_Hm_Functions;
  *
  * @package Tiki\Command
  */
-
+#[AsCommand(
+    name: 'sieve:filters',
+    description: 'Execute defined Sieve filters in Cypht'
+)]
 class SieveFiltersCommand extends Command
 {
-    protected static $defaultDescription = 'Execute defined Sieve filters in Cypht';
     protected function configure()
     {
         $this
-            ->setName('sieve:filters')
             ->setHelp(
                 'Run periodically to execute defined filters and block list in Cypht for mailboxes without access to Sieve backend.'
             );

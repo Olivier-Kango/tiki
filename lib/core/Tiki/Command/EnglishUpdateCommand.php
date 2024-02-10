@@ -14,6 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\HelpCommand;
 use Language;
 use Language_FileType_Php;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 /**
  * Add a singleton command "englishupdate" using the Symfony console component for this script
@@ -21,14 +22,15 @@ use Language_FileType_Php;
  * Class EnglishUpdateCommand
  * @package Tiki\Command
  */
-
+#[AsCommand(
+    name: 'translation:englishupdate',
+    description: 'Fix English strings after modifying them.'
+)]
 class EnglishUpdateCommand extends Command
 {
-    protected static $defaultDescription = 'Fix English strings after modifying them.';
     protected function configure()
     {
         $this
-            ->setName('translation:englishupdate')
             ->setHelp('Update translation files with updates made to English strings. Will compare working copy by default.')
             ->addOption(
                 'scm',

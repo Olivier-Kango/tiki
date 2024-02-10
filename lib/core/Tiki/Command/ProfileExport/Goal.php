@@ -6,19 +6,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command\ProfileExport;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'profile:export:goal',
+    description: 'Export a goal'
+)]
 class Goal extends ObjectWriter
 {
-    protected static $defaultDescription = 'Export a goal';
     protected function configure()
     {
         $this
-            ->setName('profile:export:goal')
             ->addArgument(
                 'goal',
                 InputArgument::REQUIRED,

@@ -6,23 +6,17 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command\ProfileExport;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'profile:export:all-modules',
+    description: 'Export all module definitions'
+)]
 class AllModules extends ObjectWriter
 {
-    protected static $defaultDescription = 'Export all module definitions';
-    protected function configure()
-    {
-        $this
-            ->setName('profile:export:all-modules');
-
-        parent::configure();
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $writer = $this->getProfileWriter($input);

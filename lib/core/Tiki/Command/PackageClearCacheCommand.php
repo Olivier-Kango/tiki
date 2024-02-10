@@ -6,21 +6,24 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tiki\Package\ComposerManager;
 
+#[AsCommand(
+    name: 'package:clearcache',
+    description: 'Deletes all content from Composer\'s cache directories.'
+)]
 class PackageClearCacheCommand extends Command
 {
-    protected static $defaultDescription = 'Deletes all content from Composer\'s cache directories.';
     /**
      * Configures the current command.
      */
     protected function configure()
     {
         $this
-            ->setName('package:clearcache')
             ->setHelp('This command allows you to clear the composer cache.');
     }
 

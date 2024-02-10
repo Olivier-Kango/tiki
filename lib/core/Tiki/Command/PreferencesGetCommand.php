@@ -6,19 +6,22 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TikiLib;
 
+#[AsCommand(
+    name: 'preferences:get',
+    description: 'Get a preference',
+)]
 class PreferencesGetCommand extends Command
 {
-    protected static $defaultDescription = 'Get a preference';
     protected function configure()
     {
         $this
-            ->setName('preferences:get')
             ->addArgument(
                 'name',
                 InputArgument::REQUIRED,

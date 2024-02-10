@@ -6,19 +6,22 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TikiLib;
 
+#[AsCommand(
+    name: 'files:deleteold',
+    description: 'Remove expired files which were uploaded using the deleteAfter option'
+)]
 class FilesDeleteoldCommand extends Command
 {
-    protected static $defaultDescription = 'Remove expired files which were uploaded using the deleteAfter option';
     protected function configure()
     {
         $this
-            ->setName('files:deleteold')
             ->addOption(
                 'confirm',
                 null,

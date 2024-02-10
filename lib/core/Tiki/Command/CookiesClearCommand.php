@@ -6,19 +6,17 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'users:remove-cookies',
+    description: 'Remove expired cookies'
+)]
 class CookiesClearCommand extends Command
 {
-    protected static $defaultDescription = 'Remove expired cookies';
-    protected function configure()
-    {
-        $this
-            ->setName('users:remove-cookies');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $userlib = \TikiLib::lib('user');

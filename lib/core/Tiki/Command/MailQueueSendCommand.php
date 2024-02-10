@@ -8,6 +8,7 @@ namespace Tiki\Command;
 
 use Laminas\Mail\Exception\ExceptionInterface as ZendMailException;
 use SlmMail\Exception\ExceptionInterface as SlmMailException;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,16 +16,12 @@ use TikiLib;
 
 error_reporting(E_ALL);
 
-
+#[AsCommand(
+    name: 'mail-queue:send',
+    description: 'Send the messages stored in the Mail Queue'
+)]
 class MailQueueSendCommand extends Command
 {
-    protected static $defaultDescription = 'Send the messages stored in the Mail Queue';
-    protected function configure()
-    {
-        $this
-            ->setName('mail-queue:send');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         require_once('lib/mail/maillib.php');

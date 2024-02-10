@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,16 +15,18 @@ use Tiki\Package\ComposerManager;
 use Tiki\Package\ComposerPackage;
 use Tiki\Package\PackageCommandHelper;
 
+#[AsCommand(
+    name: 'package:list',
+    description: 'List installed/available to install packages'
+)]
 class PackageListCommand extends Command
 {
-    protected static $defaultDescription = 'List installed/available to install packages';
     /**
      * Configures the current command.
      */
     protected function configure()
     {
         $this
-            ->setName('package:list')
             ->setHelp('This command allows you to list installed and available to install packages.');
     }
 

@@ -268,7 +268,7 @@
         "svg-edit/svg-edit": "2.8.1",
         "swagger-api/swagger-ui": "^4.1",
         "symfony/config": "~6.4.3",
-        "symfony/console": "^5.4.23",
+        "symfony/console": "~6.4.3",
         "symfony/dependency-injection": "~6.4.3",
         "symfony/mime": "^5.4.23",
         "symfony/finder": "~6.4",

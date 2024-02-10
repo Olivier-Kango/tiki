@@ -11,8 +11,8 @@ use Language_FileType_Php;
 use Language_FileType_Tpl;
 use Language_GetStrings;
 use Language_WriteFile_Factory;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -43,14 +43,15 @@ use timer;
  *
  *
  */
-
+#[AsCommand(
+    name: 'translation:getstrings',
+    description: 'Update language.php files with new strings'
+)]
 class GetStringsCommand extends Command
 {
-    protected static $defaultDescription = 'Update language.php files with new strings';
     protected function configure(): void
     {
         $this
-            ->setName('translation:getstrings')
             ->setHelp('Scans all Tiki files and adds new English strings to language files. Also reorganizes existing strings.')
             ->addOption(
                 'lang',

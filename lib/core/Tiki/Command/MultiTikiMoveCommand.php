@@ -6,19 +6,22 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'multitiki:move',
+    description: 'Moves a MultiTiki site from one tiki instance to another',
+)]
 class MultiTikiMoveCommand extends Command
 {
-    protected static $defaultDescription = 'Moves a MultiTiki site from one tiki instance to another';
     protected function configure()
     {
         $this
-            ->setName('multitiki:move')
             ->addArgument(
                 'site',
                 InputArgument::REQUIRED,

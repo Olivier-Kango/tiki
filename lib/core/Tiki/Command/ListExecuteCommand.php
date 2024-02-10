@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,13 +16,15 @@ use TikiLib;
 use WikiParser_PluginArgumentParser;
 use WikiParser_PluginMatcher;
 
+#[AsCommand(
+    name: 'list:execute',
+    description: 'Performs Plugin ListExecute command on a particular page'
+)]
 class ListExecuteCommand extends Command
 {
-    protected static $defaultDescription = 'Performs Plugin ListExecute command on a particular page';
     protected function configure()
     {
         $this
-            ->setName('list:execute')
             ->addArgument(
                 'page',
                 InputArgument::REQUIRED,

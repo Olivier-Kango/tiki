@@ -6,19 +6,20 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'installer:lock',
+    description: 'Disable the installer',
+)]
 class InstallerLockCommand extends Command
 {
-    protected static $defaultDescription = 'Disable the installer';
     protected function configure()
     {
         $this
-            ->setName('installer:lock')
             ->setHelp('Lock the installer so that users can\'t destroy the database through the browser');
     }
 

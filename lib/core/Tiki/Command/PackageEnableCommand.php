@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,13 +15,15 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Tiki\Package\ExtensionManager;
 use TikiLib;
 
+#[AsCommand(
+    name: 'package:enable',
+    description: 'Enable a Tiki Package',
+)]
 class PackageEnableCommand extends Command
 {
-    protected static $defaultDescription = 'Enable a Tiki Package';
     protected function configure()
     {
         $this
-            ->setName('package:enable')
             ->addArgument(
                 'package',
                 InputArgument::REQUIRED,
