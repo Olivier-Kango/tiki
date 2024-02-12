@@ -109,7 +109,7 @@ class Tiki_Package_ComposerCliTest extends TikiTestCase
         return [
             [self::SAMPLE_COMPOSER, self::COMPOSER_JSON_DIST, self::SAMPLE_COMPOSER],
             [null, self::COMPOSER_JSON_DIST, self::COMPOSER_JSON_DIST],
-            [null, null, str_replace('%MIN_PHP_VERSION%', $phpFinder->getMinimalVersionSupported(), ComposerCli::FALLBACK_COMPOSER_JSON_TEMPLATE)],
+            [null, null, str_replace('%TIKI_MIN_PHP_VERSION%', $phpFinder->getMinimalVersionSupported(), ComposerCli::FALLBACK_COMPOSER_JSON_TEMPLATE)],
         ];
     }
 

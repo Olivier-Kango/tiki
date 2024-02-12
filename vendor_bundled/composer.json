@@ -412,7 +412,7 @@
             "vendor/pear/pear/./PEAR/Exception.php"
         ],
         "files": [
-            "../src/php/autoload/autoload_path_constants.php"
+            "../src/php/autoload/autoload_constants.php"
         ]
     },
     "autoload-dev": {

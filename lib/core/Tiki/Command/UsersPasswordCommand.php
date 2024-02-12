@@ -22,14 +22,14 @@ class UsersPasswordCommand extends Command
      * Constants for the output messages
      *  ============================================
      */
-    const MSG_PASSWORD_CHANGED = 'Password changed successfully.';
-    const MSG_TOO_MANY_ARGUMENTS = 'Wrong number of arguments.';
-    const MSG_USER_REQUIRED = 'The username argument is required.';
-    const MSG_PASSWORD_REQUIRED = 'Password cannot be empty.';
-    const MSG_USER_DOES_NOT_EXIST = 'User %s does not exist.';
-    const MSG_PROMPT_USER = 'Please enter the username %s:';
-    const MSG_PROMPT_PASSWORD = 'Please enter the new password: ';
-    const MSG_ENCRYPTION_FT_NOTICE = "User encryption feature is enabled.";
+    public const MSG_PASSWORD_CHANGED = 'Password changed successfully.';
+    public const MSG_TOO_MANY_ARGUMENTS = 'Wrong number of arguments.';
+    public const MSG_USER_REQUIRED = 'The username argument is required.';
+    public const MSG_PASSWORD_REQUIRED = 'Password cannot be empty.';
+    public const MSG_USER_DOES_NOT_EXIST = 'User %s does not exist.';
+    public const MSG_PROMPT_USER = 'Please enter the username %s:';
+    public const MSG_PROMPT_PASSWORD = 'Please enter the new password: ';
+    public const MSG_ENCRYPTION_FT_NOTICE = "User encryption feature is enabled.";
     /**
      * ============================================
      */

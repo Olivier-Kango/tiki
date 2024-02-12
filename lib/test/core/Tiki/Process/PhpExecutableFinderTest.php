@@ -266,4 +266,33 @@ class PhpExecutableFinderTest extends TestCase
             ],
         ];
     }
+
+    private function extractMajorMinorVersion($version): string
+    {
+        list($major, $minor) = explode('.', $version);
+        return "{$major}.{$minor}";
+    }
+
+    public function testCliPhpversionIsConsistent()
+    {
+
+        $firstVersionKey = array_key_first(TIKI_PHP_CLI_VERSIONS_TO_SEARCH);
+        $lastVersionKey = array_key_last(TIKI_PHP_CLI_VERSIONS_TO_SEARCH);
+
+        $this->assertEquals(
+            $this->extractMajorMinorVersion(TIKI_MIN_PHP_VERSION),
+            $this->extractMajorMinorVersion(
+                TIKI_PHP_CLI_VERSIONS_TO_SEARCH[$firstVersionKey]
+            ),
+            "The first version of the array must match TIKI_MIN_PHP_VERSION"
+        );
+
+        $this->assertEquals(
+            $this->extractMajorMinorVersion(TIKI_MAX_SUPPORTED_PHP_VERSION),
+            $this->extractMajorMinorVersion(
+                TIKI_PHP_CLI_VERSIONS_TO_SEARCH[$lastVersionKey]
+            ),
+            "The last version to look for must match TIKI_MAX_SUPPORTED_PHP_VERSION"
+        );
+    }
 }

@@ -13,8 +13,6 @@
 // die if called directly.
 use Tiki\Package\VendorHelper;
 
-const MIN_PHP_VERSION = '8.1.0';
-
 /**
  * @global array $prefs
  * @global array $tikilib
@@ -27,13 +25,13 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
     header('location: index.php');
     exit;
 }
-if (version_compare(PHP_VERSION, MIN_PHP_VERSION, '<')) {
+if (version_compare(PHP_VERSION, TIKI_MIN_PHP_VERSION, '<')) {
     if (PHP_SAPI !== 'cli') {                   // if not running a command line version of php, show requirements
         header('location: tiki-install.php');
         exit;
     }
     // This is command-line. No 'location' command make sense here. Let admins access what works and deal with the rest.
-    echo 'Warning: Tiki expects PHP ' . MIN_PHP_VERSION . ' and above. You are running ' . PHP_VERSION . ". Use at your own risk\n";
+    echo 'Warning: Tiki expects PHP ' . TIKI_MIN_PHP_VERSION . ' and above. You are running ' . PHP_VERSION . ". Use at your own risk\n";
 }
 
 if (! defined('TIKI_API')) {

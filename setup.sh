@@ -12,6 +12,7 @@
 # ---------------------------------------------------------
 
 . ./path_constants.sh
+. ./php_version_constants.sh
 
 DEBUG=0 # production mode
 #DEBUG=1 # debugging mode
@@ -683,14 +684,16 @@ composer()
     # insert php cli version check here
     # http://dev.tiki.org/item4721
     PHP_OPTION="--version"
-    REQUIRED_PHP_VERSION=81 # minimal version PHP 8.1 but no decimal seperator, no floating point data
-    MAX_PHP_VERSION=90      # maximum version PHP 8.9 as we can't support php9.0 yet
+    # This is silly and will fail for minor version >9, but since we already do worse for the php version... benoitg - 2024-02-12
+    TIKI_MIN_PHP_VERSION_NUMERIC=`echo ${TIKI_MIN_PHP_VERSION} | ${CUT} -c1,3` # no decimal seperator, no floating point data
+    TIKI_TOO_RECENT_PHP_VERSION_NUMERIC=`echo ${TIKI_TOO_RECENT_PHP_VERSION} | ${CUT} -c1,3`
     #${PHPCLI} ${PHP_OPTION}
-    LOCAL_PHP_VERSION=`"${PHPCLI}" ${PHP_OPTION} | ${GREP} ^PHP | ${CUT} -c5,7`
-    #echo ${LOCAL_PHP_VERSION}
+
+    LOCAL_PHP_VERSION_NUMERIC=`"${PHPCLI}" ${PHP_OPTION} | ${GREP} ^PHP | ${CUT} -c5,7`
+    #echo ${TIKI_MIN_PHP_VERSION_NUMERIC} ${LOCAL_PHP_VERSION_NUMERIC} ${TIKI_TOO_RECENT_PHP_VERSION_NUMERIC}
     LIKELY_ALTERNATE_PHP_CLI="php81 ph8.1 php8.1-cli" # These have been known to exist on some hosting platforms
-    if [ "${LOCAL_PHP_VERSION}" -lt "${REQUIRED_PHP_VERSION}" ] || [ "${LOCAL_PHP_VERSION}" -ge "${MAX_PHP_VERSION}" ] ; then
-        echo "Wrong PHP version: php${LOCAL_PHP_VERSION}.  A version >= php${REQUIRED_PHP_VERSION} and <= php${MAX_PHP_VERSION} is necessary."
+    if [ "${LOCAL_PHP_VERSION_NUMERIC}" -lt "${TIKI_MIN_PHP_VERSION_NUMERIC}" ] || [ "${LOCAL_PHP_VERSION_NUMERIC}" -ge "${TIKI_TOO_RECENT_PHP_VERSION_NUMERIC}" ] ; then
+        echo "Wrong PHP version: php${LOCAL_PHP_VERSION_NUMERIC}.  A version >= php${TIKI_MIN_PHP_VERSION_NUMERIC} and <= php${TIKI_TOO_RECENT_PHP_VERSION_NUMERIC} is necessary."
         echo "Searching for typically named alternative PHP version ..."
         for phptry in $LIKELY_ALTERNATE_PHP_CLI; do
             PHPTRY=$(which "${phptry}" || command -v "${phptry}")
@@ -706,12 +709,12 @@ composer()
         if [ ! -n "${PHPCLIFOUND}" ]; then
             echo "... no alternative php version found."
             echo "Please provide an alternative PHP version with the -p option."
-            echo "Example: sh `basename $0` -p php${REQUIRED_PHP_VERSION}."
+            echo "Example: sh `basename $0` -p php${TIKI_MIN_PHP_VERSION_NUMERIC}."
             echo "You can use the command-line command 'php[TAB][TAB]' to find out available versions."
             exit 1
         fi
     else
-        echo "Local PHP version ${LOCAL_PHP_VERSION} >= to required PHP version ${REQUIRED_PHP_VERSION} - good"
+        echo "Local PHP version ${LOCAL_PHP_VERSION_NUMERIC} >= to required PHP version ${TIKI_MIN_PHP_VERSION_NUMERIC} - good"
         composer_core
     fi
 }

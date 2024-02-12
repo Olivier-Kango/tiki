@@ -12,8 +12,6 @@ use Tiki\TikiInit;
 
 class PhpExecutableFinder
 {
-    public const MIN_PHP_VERSION = '8.1.0';
-
     /**
      * @var int timeout in seconds waiting for php commands to execute, default 5 min (300s)
      */
@@ -26,12 +24,7 @@ class PhpExecutableFinder
      *
      * @see generatePossiblePhpCliNames
      */
-    protected const PHP_VERSIONS_TO_SEARCH = [
-        '8.1',
-        '8.2',
-        '8.3', // schedule for release end of 2023
-    ];
-
+    private const PHP_VERSIONS_TO_SEARCH = TIKI_PHP_CLI_VERSIONS_TO_SEARCH;
     /**
      * Static base list of PHP possible command names, additional PHP binary names will be generated dynamically
      *
@@ -260,13 +253,13 @@ class PhpExecutableFinder
     }
 
     /**
-     * Return the value of self::MIN_PHP_VERSION
+     * Return the value of TIKI_MIN_PHP_VERSION
      *
      * @return string
      */
     public function getMinimalVersionSupported(): string
     {
-        return self::MIN_PHP_VERSION;
+        return TIKI_MIN_PHP_VERSION;
     }
 
     /**
@@ -278,7 +271,7 @@ class PhpExecutableFinder
      */
     public function isVersionSupported($version): bool
     {
-        return version_compare($version, self::MIN_PHP_VERSION, '>=');
+        return version_compare($version, TIKI_MIN_PHP_VERSION, '>=');
     }
 
     /**

@@ -22,7 +22,7 @@ class ComposerCli
     public const COMPOSER_LOCK = 'composer.lock';
     public const COMPOSER_HOME = 'temp/composer';
 
-    public const FALLBACK_COMPOSER_JSON_TEMPLATE = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components", "prepend-autoloader": false, "platform": {"php":">=%MIN_PHP_VERSION%"}}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
+    public const FALLBACK_COMPOSER_JSON_TEMPLATE = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components", "prepend-autoloader": false, "platform": {"php":">=%TIKI_MIN_PHP_VERSION%"}}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
 
     /**
      * @var string path to the base folder from tiki
@@ -153,7 +153,7 @@ class ComposerCli
 
         if (empty($distContent)) {
             $distContent = json_decode(
-                str_replace('%MIN_PHP_VERSION%', $this->phpExecutableFinder->getMinimalVersionSupported(), ComposerCli::FALLBACK_COMPOSER_JSON_TEMPLATE),
+                str_replace('%TIKI_MIN_PHP_VERSION%', $this->phpExecutableFinder->getMinimalVersionSupported(), ComposerCli::FALLBACK_COMPOSER_JSON_TEMPLATE),
                 true
             );
         }
