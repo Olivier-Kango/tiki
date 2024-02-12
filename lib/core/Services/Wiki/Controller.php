@@ -149,6 +149,7 @@ class Services_Wiki_Controller
                 $input->wiki_authors_style->text()
             );
         } else {
+            $is_minor = ($input->is_minor->text() ?? '') === 'y' ? 1 : 0;
             $result = $tikilib->update_page(
                 $page,
                 $data,
@@ -156,7 +157,7 @@ class Services_Wiki_Controller
                 $user,
                 $tikilib->get_ip_address(),
                 $input->description->text(),
-                $input->is_minor->text() === 'y',
+                $is_minor,
                 $input->lang->text(),
                 $input->is_html->int(),
                 [
