@@ -19,7 +19,7 @@ require_once('tiki-setup.php');
 require_once('lang/langmapping.php');
 require_once('lib/language/Language.php');
 require_once('lib/language/LanguageTranslations.php');
-require_once('svntools.php');
+require_once('gittools.php');
 
 
 

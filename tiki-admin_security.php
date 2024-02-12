@@ -310,10 +310,7 @@ if (isset($_POST['check_files'])) {
     $tiki_versions[] = $version->version;
     $result = [];
 
-    if ($version->svn == 'y' && is_readable(DEPRECATED_DEVTOOLS_PATH . '/svntools.php')) { // svn checkout
-        require_once(DEPRECATED_DEVTOOLS_PATH . '/svntools.php');
-        $svn_diff = files_differ('./');
-    } elseif ($version->git == 'y' && is_readable(DEPRECATED_DEVTOOLS_PATH . '/gittools.php')) {   // git checkout
+    if ($version->git == 'y' && is_readable(DEPRECATED_DEVTOOLS_PATH . '/gittools.php')) {   // git checkout
         require_once(DEPRECATED_DEVTOOLS_PATH . '/gittools.php');
         $svn_diff = files_differ('./');
     } else {

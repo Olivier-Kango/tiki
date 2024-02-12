@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 /**
- * This tool allows updating vendor_bundled/composer.lock when vendor_bundled/composer.json is updated, and is also used bu the CI to warn about dependency issues.
+ * This tool allows updating vendor_bundled/composer.lock when vendor_bundled/composer.json is updated, and is also used by the CI to warn about dependency issues.
  */
 
 if (isset($_SERVER['REQUEST_METHOD'])) {
@@ -14,7 +14,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 }
 
 $dir = __DIR__;
-require __DIR__ . '/svntools.php';
+require __DIR__ . '/vcscommons.php';
 
 $vendorBundledDir = $dir . '/../../vendor_bundled';
 $composerLockFile = $dir . '/../../vendor_bundled/composer.lock';

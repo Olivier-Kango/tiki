@@ -12,7 +12,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 
 $dir = __DIR__;
 require_once $dir . '/../../tiki-filter-base.php';
-require __DIR__ . '/svntools.php';
+require __DIR__ . '/vcscommons.php';
 
 $input = new ArgvInput();
 $file = $input->getParameterOption(['--file']);

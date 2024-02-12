@@ -8,7 +8,7 @@ if (PHP_SAPI !== 'cli') {
     die('Only available through command-line.');
 }
 
-require dirname(__FILE__) . '/svntools.php';
+require dirname(__FILE__) . '/vcscommons.php';
 require dirname(__DIR__) . '/../lib/core/BOMChecker/Scanner.php';
 
 $dir = realpath(__DIR__ . '/../../') ;

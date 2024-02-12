@@ -9,7 +9,7 @@ if (PHP_SAPI !== 'cli') {
 }
 
 require_once __DIR__ . '/../../path_constants.php';
-require dirname(__FILE__) . '/svntools.php';
+require dirname(__FILE__) . '/vcscommons.php';
 
 $dir = realpath(__DIR__ . '/../../');
 
