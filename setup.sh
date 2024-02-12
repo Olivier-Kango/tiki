@@ -297,12 +297,12 @@ fi
 check_hosting_platform() {
     # check if looks like a virtualmin, where sites are hosted within the home folder
     if [ -f /usr/sbin/virtualmin ]; then
-        CURRENT_SCRIPT=${BASH_SOURCE[0]}
-        DIR_PATH=$(cd $(dirname $CURRENT_SCRIPT) && pwd)
-        PATH=$DIR_PATH/$(basename $CURRENT_SCRIPT)
+        CURRENT_SCRIPT=$(readlink -f "$0")
+        DIR_PATH=$(cd $(dirname "${CURRENT_SCRIPT}") && pwd)
+        SCRIPT_PATH="${DIR_PATH}"/$(basename "${CURRENT_SCRIPT}")
 
-        if echo "$PATH" | ${GREP} -q "home/[^/]*"; then
-            AUSER=$(echo "$PATH" | ${GREP} -o "home/[^/]*" | ${CUT} -d "/" -f 2)
+        if echo "${SCRIPT_PATH}" | ${GREP} -q "home/[^/]*"; then
+            AUSER=$(echo "${SCRIPT_PATH}" | ${GREP} -o "home/[^/]*" | ${CUT} -d "/" -f 2)
             AGROUP=$(/usr/bin/id -gn $AUSER)
         fi
     fi
