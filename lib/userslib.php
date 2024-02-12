@@ -3219,7 +3219,7 @@ class UsersLib extends TikiLib
         $query = "select $w from `users_users` uu, `users_usergroups` ug where uu.`userId`=ug.`userId` and `groupName`=? order by " .
                         $this->convertSortMode($sort_mode);
 
-        $result = $this->fetchAll($query, $group, $max, $offset);
+        $result = $this->fetchAll($query, [$group], $max, $offset);
         $ret = [];
 
         foreach ($result as $res) {
