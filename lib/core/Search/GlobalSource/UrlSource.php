@@ -6,12 +6,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Search_GlobalSource_UrlSource implements Search_GlobalSource_Interface
 {
-    public function __construct()
-    {
-        $smarty = TikiLib::lib('smarty');
-        $smarty->loadPlugin('smarty_modifier_sefurl');
-    }
-
     public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
     {
         if (isset($data['url'])) {

@@ -1,4 +1,4 @@
-{extends 'layout_view.tpl'}
+{extends $global_extend_layout|default:'layout_view.tpl'}
 {block name="navigation"}
     {if $tiki_p_admin eq 'y'}
         <div class="t_navbar mb-4">

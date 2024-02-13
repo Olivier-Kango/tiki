@@ -54,6 +54,7 @@ class Services_Broker
                 $smarty = TikiLib::lib('smarty');
                 $smarty->assign('title', tr('Oops'));
                 $smarty->assign('detail', ['message' => $e->getMessage()]);
+                $smarty->assign('global_extend_layout', 'layouts/internal/layout_empty.tpl');
                 $smarty->display("extends:internal/modal.tpl|error-ajax.tpl");
             } else {
                 $access->display_error(null, $e->getMessage(), $e->getCode());
@@ -66,6 +67,7 @@ class Services_Broker
                 $smarty = TikiLib::lib('smarty');
                 $smarty->assign('title', tr('Oops'));
                 $smarty->assign('detail', ['message' => $e->getMessage()]);
+                $smarty->assign('global_extend_layout', 'layouts/internal/layout_empty.tpl');
                 $smarty->display("extends:internal/modal.tpl|error-ajax.tpl");
             } else {
                 $access->display_error(null, $e->getMessage(), $e->getCode());
@@ -178,6 +180,7 @@ class Services_Broker
         }
 
         if ($layout) {
+            $smarty->assign('global_extend_layout', 'layouts/internal/layout_empty.tpl');
             return $smarty->fetch("extends:$layout|$template");
         } else {
             return $smarty->fetch($template);

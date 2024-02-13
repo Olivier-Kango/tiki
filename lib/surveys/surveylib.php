@@ -436,7 +436,6 @@ class SurveyLib extends TikiLib
             }
 
             $ids = [];
-            TikiLib::lib('smarty')->loadPlugin('smarty_modifier_escape');
 
             foreach ($questionOptions as & $questionOption) {
                 if ($total_votes) {

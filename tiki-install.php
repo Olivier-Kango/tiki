@@ -26,6 +26,7 @@ error_reporting(-1);
 ini_set('display_errors', 1);
 
 require_once('lib/init/initlib.php');
+
 $tikipath = __DIR__ . '/';
 TikiInit::appendIncludePath($tikipath);
 define('TIKI_PATH', $tikipath);

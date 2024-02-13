@@ -149,7 +149,6 @@ function wikiplugin_toc($data, $params)
                 ->add_jsfile(NESTEDSORTABLE_ASSETS_PATH . '/jquery.ui.nestedSortable.js');
 
         $smarty = TikiLib::lib('smarty');
-        $smarty->loadPlugin('smarty_function_button');
         $button = smarty_function_button(
             [
                 '_text'     => tra('Save'),

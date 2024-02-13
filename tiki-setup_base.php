@@ -350,7 +350,7 @@ $smarty = TikiLib::lib('smarty');
 
 // Define the special maxRecords global variable
 $maxRecords = $prefs['maxRecords'];
-$smarty->assignByRef('maxRecords', $maxRecords);
+$smarty->assign('maxRecords', $maxRecords);
 
 $userlib = TikiLib::lib('user');
 $user = null;  //We are still in the global scope, this variable will be available everywhere as a global.  This assignment is here so IDEs will find it.
@@ -817,9 +817,6 @@ unset($GLOBALS['HTTP_SERVER_VARS']);
 unset($GLOBALS['HTTP_SESSION_VARS']);
 unset($GLOBALS['HTTP_POST_FILES']);
 // --------------------------------------------------------------
-if (isset($_REQUEST['highlight']) || (isset($prefs['feature_referer_highlight']) && $prefs['feature_referer_highlight'] == 'y')) {
-    $smarty->loadFilter('output', 'highlight');
-}
 if (function_exists('mb_internal_encoding')) {
     mb_internal_encoding("UTF-8");
 }

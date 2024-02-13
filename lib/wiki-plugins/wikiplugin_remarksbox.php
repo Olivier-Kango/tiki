@@ -154,6 +154,6 @@ function wikiplugin_remarksbox($data, $params)
     require_once('lib/smarty_tiki/block.remarksbox.php');
 
     $repeat = false;
-    $ret = smarty_block_remarksbox($params, '~/np~' . tra($data) . ' ~np~', $smarty, $repeat);
+    $ret = smarty_block_remarksbox($params, '~/np~' . tra($data) . ' ~np~', $smarty->getEmptyInternalTemplate(), $repeat);
     return $ret;
 }

@@ -174,7 +174,6 @@ class Services_Search_Controller
         global $prefs;
 
         $smarty = TikiLib::lib('smarty');
-        $smarty->loadPlugin('smarty_function_tracker_item_status_icon');
 
         try {
             $filter = $input->filter->none() ?: [];
@@ -273,7 +272,6 @@ class Services_Search_Controller
     public function action_object_selector($input)
     {
         global $smarty;
-        $smarty->loadPlugin('smarty_function_object_selector');
         return [
             'selector' => smarty_function_object_selector($input->params->array(), $smarty->getEmptyInternalTemplate())
         ];

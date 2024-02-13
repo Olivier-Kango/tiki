@@ -4,34 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_show_sort($params, $smarty)
+
+function smarty_function_show_sort($params, \Smarty\Template $template)
 {
-    global $url_path;
-
-    if (isset($_REQUEST[$params['sort']])) {
-        $p = $_REQUEST[$params['sort']];
-    } elseif ($s = $smarty->getTemplateVars($params['sort'])) {
-        $p = $s;
-    }
-
-    if (isset($params['sort']) and isset($params['var']) and isset($p)) {
-        $p = preg_split('/\s*,\s*/', $p);
-        foreach ($p as $value) {
-            $prop = substr($value, 0, strrpos($value, '_'));
-            $order = substr($value, strrpos($value, '_') + 1);
-
-            if (strtolower($prop) == strtolower(trim($params['var']))) {
-                $smarty->loadPlugin('smarty_function_icon');
-
-                switch ($order) {
-                    case 'asc':
-                    case 'nasc':
-                        return ' ' . smarty_function_icon(['name' => 'sort-up'], $smarty);
-                    case 'desc':
-                    case 'ndesc':
-                        return ' ' . smarty_function_icon(['name' => 'sort-down'], $smarty);
-                }
-            }
-        }
-    }
+    $smartyFunctionShowShortHandler = new \SmartyTiki\FunctionHandler\ShowShort();
+    return $smartyFunctionShowShortHandler->handle($params, $template);
 }

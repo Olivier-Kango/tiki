@@ -1,4 +1,4 @@
-{extends 'layout_edit.tpl'}
+{extends $global_extend_layout|default:'layout_edit.tpl'}
 
 {block name=title}
 <h1>{tr}Please choose the language for this page:{/tr}</h1>

@@ -8,13 +8,6 @@
 
 function smarty_modifier_virtual_path($fileOrPageId, $type = 'file')
 {
-    global $prefs, $base_url;
-
-    $filegallib = TikiLib::lib('filegal');
-
-    if ($type == 'wiki page') {
-        return $base_url . 'tiki-webdav.php/Wiki Pages/' . $fileOrPageId;
-    } else {
-        return $base_url . 'tiki-webdav.php' . ($filegallib->get_full_virtual_path($fileOrPageId, $type));
-    }
+    $virtualPathModifier = new \SmartyTiki\Modifier\VirtualPath();
+    return $virtualPathModifier->handle($fileOrPageId, $type);
 }

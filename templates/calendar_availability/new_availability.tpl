@@ -1,4 +1,4 @@
-{extends 'internal/layout_view.tpl'}
+{extends $global_extend_layout|default:'internal/layout_view.tpl'}
 
 {block name="content"}
     <div class="availability-block" data-uid="{$uid|escape}">

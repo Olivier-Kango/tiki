@@ -2,7 +2,6 @@
 
 function smarty_modifier_packageitemid($token)
 {
-
-    $api = new \Tiki\Package\Extension\Api();
-        return $api->getItemIdFromToken($token);
+    $packageitemIdModifier = new \SmartyTiki\Modifier\PackageItemId();
+    return $packageitemIdModifier->handle($token);
 }

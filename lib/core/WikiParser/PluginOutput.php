@@ -53,7 +53,6 @@ class WikiParser_PluginOutput
     public static function error($label, $message)
     {
         $smarty = TikiLib::lib('smarty');
-        $smarty->loadPlugin('smarty_block_remarksbox');
         $repeat = false;
 
         return new self(
@@ -64,7 +63,7 @@ class WikiParser_PluginOutput
                             'title' => $label,
                         ],
                 $message,
-                $smarty,
+                $smarty->getEmptyInternalTemplate(),
                 $repeat
             )
         );
@@ -80,9 +79,6 @@ class WikiParser_PluginOutput
 
         if (Perms::get()->admin) {
             $smarty = TikiLib::lib('smarty');
-            $smarty->loadPlugin('smarty_function_preference');
-            $smarty->loadPlugin('smarty_modifier_escape');
-            $smarty->loadPlugin('smarty_function_ticket');
             $content .= '<form method="post" action="tiki-admin.php">';
             foreach ($preferences as $pref) {
                 $content .= smarty_function_preference(['name' => $pref, 'visible' => 'always'], $smarty->getEmptyInternalTemplate());

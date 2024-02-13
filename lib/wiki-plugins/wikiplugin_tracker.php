@@ -754,8 +754,6 @@ function wikiplugin_tracker($data, $params)
     $smarty = TikiLib::lib('smarty');
     $captchalib = TikiLib::lib('captcha');
 
-    $smarty->loadPlugin('smarty_function_ticket');
-
     $registrationTrackerId = null;
     $itemId = $params['itemId'] ?? null;
     $newItemRate = null;
@@ -1848,7 +1846,6 @@ function wikiplugin_tracker($data, $params)
                 $_REQUEST['error'] = 'y';
             }
             if (isset($field_errors['err_outputwiki'])) {
-                $smarty->loadPlugin('smarty_function_icon');
                 $icon = smarty_function_icon(['name' => 'warning'], $smarty->getEmptyInternalTemplate());
                 $back .= '<div class="alert alert-warning">' . $icon . ' ';
                 $back .= $field_errors['err_outputwiki'];
@@ -1983,7 +1980,7 @@ function wikiplugin_tracker($data, $params)
             $back .= '<form class="' . $formClasses . '" name="editItemForm' . $iTRACKER . '" id="editItemForm' . $iTRACKER . '" enctype="multipart/form-data" method="post"' . (isset($target) ? ' target="' . $target . '"' : '') . ' action="' . $_SERVER['REQUEST_URI'] . '" ' . $ajax_datas . '><input type="hidden" name="trackit" value="' . $trackerId . '" />';
             $back .= '<input type="hidden" name="refresh" value="1" />';
         }
-        $back .= smarty_function_ticket([], $smarty);
+        $back .= smarty_function_ticket([], $smarty->getEmptyInternalTemplate());
         $back .= '<input type="hidden" name="iTRACKER" value="' . $iTRACKER . '" />';
         if (isset($_REQUEST['page'])) {
             $back .= '<input type="hidden" name="page" value="' . $_REQUEST["page"] . '" />';
@@ -2267,7 +2264,6 @@ function wikiplugin_tracker($data, $params)
         }
 
         if ($datepicker) {
-            $smarty->loadPlugin('smarty_function_js_insert_icon');
             $back .= smarty_function_js_insert_icon(['type' => "jscalendar"], $smarty->getEmptyInternalTemplate());
         }
 

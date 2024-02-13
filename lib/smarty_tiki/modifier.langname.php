@@ -6,10 +6,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 function smarty_modifier_langname($lang)
 {
-    if (empty($lang)) {
-        return '';
-    }
-
-    include('lang/langmapping.php');
-    return empty($langmapping[$lang]) ? $lang : tra($langmapping[$lang][0]);
+    $langNameModifier = new \SmartyTiki\Modifier\LangName();
+    return $langNameModifier->handle($lang);
 }

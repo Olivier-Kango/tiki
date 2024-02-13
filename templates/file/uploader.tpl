@@ -1,4 +1,4 @@
-{extends "layout_view.tpl"}
+{extends $global_extend_layout|default:'layout_view.tpl'}
 
 {block name="title"}
     {if $uploadInModal}{title}{$title}{/title}{/if}

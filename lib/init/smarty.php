@@ -21,22 +21,64 @@ require_once __DIR__ . '/../setup/third_party.php';
 require_once __DIR__ . '/SmartyTikiErrorHandler.php';
 
 /**
- * extends Smarty_Security
+ * extends \Smarty\Security
  * @package TikiWiki\lib\init
  */
-class Tiki_Security_Policy extends Smarty_Security
+class Tiki_Security_Policy extends \Smarty\Security
 {
+    /**
+     * is an array of regular expressions matching URIs that are considered trusted.
+     * See https://smarty-php.github.io/smarty/5.x/api/security/ for more details
+     *
+     * @var array
+     */
     public $trusted_uri = [];
 
     /**
-     * needs a proper description
-     * @var array $secure_dir
+     * This is the list of template directories that are considered secure.
+     * $template_dir is in this list implicitly. A directory configured using $smarty->setTemplateDir() is
+     * considered secure implicitly. The default is an empty array.
+     *
+     * @var array
      */
     public $secure_dir = [];
 
     /**
+     * This is an array of allowed tags. It's the array of (registered / autoloaded) function-, block and filter plugins
+     * that should be accessible to the template. If empty, no restriction by allowed_tags.
+     *
+     * @var array
+     */
+    public $allowed_tags = [];
+
+    /**
+     * This is an array of disabled tags. It's the array of (registered / autoloaded) function-, block and filter plugins
+     * that may not be accessible to the template. If empty, no restriction by disabled_tags.
+     *
+     * @var array
+     */
+    public $disabled_tags = [];
+
+    /**
+     * This is an array of allowed modifier plugins. It's the array of (registered / autoloaded) modifiers that should be accessible to the template.
+     * If this array is non-empty, only the herein listed modifiers may be used. This is a whitelist.
+     * If empty, no restriction by allowed_modifiers.
+     *
+     * @var array
+     */
+    public $allowed_modifiers = [];
+
+    /**
+     * This is an array of disabled modifier plugins. It's the array of (registered / autoloaded) modifiers that may not be accessible to the template.
+     * If empty, no restriction by disabled_modifiers.
+     *
+     * @var array
+     */
+    public $disabled_modifiers = [];
+
+    /**
      * needs a proper description
-     * @param Smarty $smarty
+     * @param \Smarty\Smarty $smarty
      */
     public function __construct($smarty)
     {
@@ -55,8 +97,10 @@ class Tiki_Security_Policy extends Smarty_Security
             $this->trusted_uri[] = '#' . preg_quote("http://$url_host", '$#') . '#';
             $this->trusted_uri[] = '#' . preg_quote("https://$url_host", '$#') . '#';
 
-            $functions = array_filter($tikilib->get_preference('smarty_security_functions', [], true));
-            $modifiers = array_filter($tikilib->get_preference('smarty_security_modifiers', [], true));
+            $allowed_tags = array_filter($tikilib->get_preference('smarty_security_allowed_tags', [], true));
+            $disabled_tags = array_filter($tikilib->get_preference('smarty_security_disabled_tags', [], true));
+            $allowed_modifiers = array_filter($tikilib->get_preference('smarty_security_allowed_modifiers', [], true));
+            $disabled_modifiers = array_filter($tikilib->get_preference('smarty_security_disabled_modifiers', [], true));
             $dirs = array_filter($tikilib->get_preference('smarty_security_dirs', [], true));
 
             $cdns = preg_split('/\s+/', $tikilib->get_preference('tiki_cdn', ''));
@@ -66,82 +110,29 @@ class Tiki_Security_Policy extends Smarty_Security
                 $this->trusted_uri[] = '#' . preg_quote($uri) . '$#';
             }
         } else {
-            $functions = [];
-            $modifiers = [];
+            $allowed_tags = [];
+            $disabled_tags = [];
+            $allowed_modifiers = [];
+            $disabled_modifiers = [];
             $dirs = [];
         }
 
         // Add defaults
-        $this->php_modifiers = array_merge([
-            'addslashes',
-            'array_filter',
-            'array_reverse',
-            'count',
-            'escape',
-            'explode',
-            'htmlentities',
-            'implode',
-            'is_array',
-            'json_decode',
-            'json_encode',
-            'md5',
-            'nl2br',
-            'preg_split',
-            'strip_tags',
-            'stristr',
-            'strpos',
-            'substr',
-            'tra',
-            'trim',
-            'ucfirst',
-            'ucwords',
-            'urlencode',
-            'var_dump',
-            'strstr',
-        ], $modifiers);
-
-        $this->php_functions = array_merge(['isset',
-            'array',        // not needed? use {$value = []}
-            'array_rand',
-            'array_key_exists',
-            'basename',
-            'count',
-            'empty',
-            'ereg',         // deprecated and removed in php7+ use preg functions instead
-            'in_array',
-            'is_array',
-            'is_numeric',
-            'json_encode',
-            'min',
-            'max',
-            'nl2br',
-            'preg_match',
-            'preg_match_all',
-            'preg_replace',
-            'sizeof',
-            'strlen',
-            'stristr',
-            'strpos',
-            'strstr',
-            'str_replace',
-            'strtolower',
-            'time',
-            'tra',
-            'trim',
-            'zone_is_empty',
-        ], $functions);
-
+        $this->allowed_tags = $allowed_tags;
+        $this->disabled_tags = $disabled_tags;
+        $this->allowed_modifiers = $allowed_modifiers;
+        $this->disabled_modifiers = $disabled_modifiers;
         $this->secure_dir = array_merge($this->secure_dir, $dirs);
     }
 }
 
 /**
- * extends Smarty.
+ * extends \Smarty\Smarty
  *
  * Centralizing overrides here will avoid problems when upgrading to newer versions of the Smarty library.
  * @package TikiWiki\lib\init
  */
-class Smarty_Tiki extends Smarty
+class Smarty_Tiki extends \Smarty\Smarty
 {
     /**
      * needs a proper description
@@ -180,6 +171,13 @@ class Smarty_Tiki extends Smarty
         $this->customErrorHandler = new SmartyTikiErrorHandler();
         $this->initializePaths();
 
+        // Extensions order must be like to this override smarty default extension
+        $this->setExtensions([
+            new Smarty\Extension\CoreExtension(),
+            new SmartyTiki\Extension\SmartyTikiExtension(),
+            new Smarty\Extension\DefaultExtension(),
+        ]);
+
         $this->setConfigDir(null);
         if (! isset($prefs['smarty_compilation'])) {
             $prefs['smarty_compilation'] = '';
@@ -206,13 +204,6 @@ class Smarty_Tiki extends Smarty
         $this->use_sub_dirs = false;
         $this->url_overriding_prefix_stack = [];
 
-        if (! empty($prefs['smarty_cache_perms'])) {
-            $this->_file_perms = (int) $prefs['smarty_cache_perms'];
-        }
-
-        $this->loadFilter('pre', 'tr');
-        $this->loadFilter('pre', 'jq');
-
         include_once(__DIR__ . '/../smarty_tiki/resource.tplwiki.php');
         $this->registerResource('tplwiki', new Smarty_Resource_Tplwiki());
 
@@ -221,27 +212,7 @@ class Smarty_Tiki extends Smarty
 
         global $prefs;
         // Assign the prefs array in smarty, by reference
-        $this->assignByRef('prefs', $prefs);
-
-        if (! empty($prefs['log_tpl']) && $prefs['log_tpl'] === 'y') {
-            $this->loadFilter('pre', 'log_tpl');
-        }
-        if (! empty($prefs['feature_sefurl_filter']) && $prefs['feature_sefurl_filter'] === 'y') {
-            require_once('tiki-sefurl.php');
-            $this->registerFilter('output', 'filter_out_sefurl');
-        }
-
-        // restore tiki's own escape function
-        $this->loadPlugin('smarty_modifier_escape');
-        $this->registerPlugin('modifier', 'escape', 'smarty_modifier_escape');
-
-        // register PHP functions used as smarty modifiers in Tiki templates
-        $builtin = ['addslashes', 'array_reverse', 'count', 'explode', 'implode', 'is_array', 'json_decode', 'json_encode', 'md5', 'stristr', 'strpos', 'trim', 'ucfirst', 'ucwords', 'urlencode', 'var_dump'];
-        foreach ($builtin as $func) {
-            $this->registerPlugin('modifier', $func, $func);
-        }
-        include_once(__DIR__ . '/tra.php');
-        $this->registerPlugin('modifier', 'tra', 'tra');
+        $this->assign_by_ref('prefs', $prefs);
     }
 
     /**
@@ -260,7 +231,7 @@ class Smarty_Tiki extends Smarty
         if (is_array($override_vars)) {
             foreach ($override_vars as $k => $v) {
                 $smarty_orig_values[ $k ] = $this->getTemplateVars($k);
-                $this->assignByRef($k, $override_vars[ $k ]);
+                $this->assign($k, $override_vars[ $k ]);
             }
         }
 
@@ -269,7 +240,7 @@ class Smarty_Tiki extends Smarty
         // Restore original values of smarty variables
         if (count($smarty_orig_values) > 0) {
             foreach ($smarty_orig_values as $k => $v) {
-                $this->assignByRef($k, $smarty_orig_values[ $k ]);
+                $this->assign($k, $smarty_orig_values[ $k ]);
             }
         }
 
@@ -291,12 +262,6 @@ class Smarty_Tiki extends Smarty
     public function fetch($_smarty_tpl_file = null, $_smarty_cache_id = null, $_smarty_compile_id = null, $parent = null, $_smarty_display = false, $merge_tpl_vars = true, $no_output_filter = false)
     {
         $this->activateCustomErrorHandler();
-        if (strpos($_smarty_tpl_file, 'extends:') === 0) {
-            // temporarily disable extends_recursion which restores smarty < 3.1.28 behaviour
-            // see note at vendor_bundled/vendor/smarty/smarty/libs/Smarty.class.php:296 for more
-
-            $this->extends_recursion = false;
-        }
 
         $this->refreshLanguage();
 
@@ -320,9 +285,6 @@ class Smarty_Tiki extends Smarty
             $html .= '</pre>';
         }
 
-        if (! $this->extends_recursion) {
-                $this->extends_recursion = true;
-        }
         $this->deactivateCustomErrorHandler();
         return $html;
     }
@@ -341,11 +303,11 @@ class Smarty_Tiki extends Smarty
      * This is used to assign() values to the templates by reference instead of making a copy.
      * @param $var string
      * @param $value mixed
-     * @return Smarty_Internal_Data
+     * @return SmartyTiki\ReferenceVariable
      */
     public function assign_by_ref($var, &$value)
     {
-        return parent::assignByRef($var, $value);
+        return $this->tpl_vars[$var] = new SmartyTiki\ReferenceVariable($value);
     }
 
     /**
@@ -696,12 +658,6 @@ class Smarty_Tiki extends Smarty
             // First run only
             $this->main_template_dir = TIKI_PATH . '/' . SMARTY_TEMPLATES_PATH . '/';
             $this->setCompileDir(TIKI_PATH . '/' . SMARTY_COMPILED_TEMPLATES_PATH);
-            $this->setPluginsDir(
-                [   // the directory order must be like this to overload a plugin
-                    TIKI_PATH . '/' . TIKI_SMARTY_DIR,
-                    SMARTY_DIR . 'plugins'
-                ]
-            );
         }
 
         $this->setTemplateDir([]);  //Load main templates/ dir
@@ -782,15 +738,15 @@ class Smarty_Tiki extends Smarty
     }
 
     /**
-     * When calling directly smarty functions, from PHP, you need to provide a object of type Smarty_Internal_Template
-     * The method signature for smarty functions is: smarty_function_xxxx($params, Smarty_Internal_Template $template)
+     * When calling directly smarty functions, from PHP, you need to provide a object of type \Smarty\Template
+     * The method signature for smarty functions is: smarty_function_xxxx($params, \Smarty\Template $template)
      *
-     * @return Smarty_Internal_Template
+     * @return \Smarty\Template
      */
     public function getEmptyInternalTemplate()
     {
         global $prefs;
-        $tpl = new Smarty_Internal_Template('empty', $this);
+        $tpl = new \Smarty\Template('empty', $this);
         $tpl->assign('app_name', $this->getTemplateVars('app_name'));
 
         // DO NOT USE THIS, this has been added 2023-06-14 for backward compatibility with existing custom mail templates and will be removed in future versions
@@ -799,7 +755,7 @@ class Smarty_Tiki extends Smarty
             $tpl->assign('mail_machine_raw', $tikilib->tikiUrl());
         }
 
-        $tpl->assignByRef('prefs', $prefs);
+        $tpl->assign('prefs', $prefs);
         return $tpl;
     }
 
@@ -836,7 +792,6 @@ class Smarty_Tiki extends Smarty
             }
             if ($nonAdminEditorGroups) {
                 $groupString = implode(', ', $nonAdminEditorGroups);
-                TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
                 $pageLink = '<a href="' . smarty_modifier_sefurl($page) . '" class="alert-link">' . $page . '</a>';
                 if (count($nonAdminEditorGroups) > 1) {
                     $message = 'The %0 groups can edit this template page %1 but are not wiki administrators';

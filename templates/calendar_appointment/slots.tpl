@@ -1,4 +1,4 @@
-{extends $layout_name}
+{extends $global_extend_layout|default:$layout_name}
 
 {block name="title"}
     {title}{$title}{/title}

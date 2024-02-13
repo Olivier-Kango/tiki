@@ -4,15 +4,21 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-/*
+
+namespace SmartyTiki\Modifier;
+
+/**
  * Smarty plugin
  * -------------------------------------------------------------
  * Type:     modifier
- * Name:     ternary
- * Purpose:  map true and false to first and second parameter respectively
+ * Name:     file_can_convert_to_pdf
+ * Purpose:  Checks if mimetype is supported to convert to PDF
  * -------------------------------------------------------------
  */
-function smarty_modifier_ternary($input, $true = '', $false = '')
+class FileCanConvertToPdf
 {
-    return $input ? $true : $false;
+    public function handle($string)
+    {
+        return \Tiki\File\PDFHelper::canConvertToPDF($string);
+    }
 }

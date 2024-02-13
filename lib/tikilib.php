@@ -1513,7 +1513,6 @@ class TikiLib extends TikiDb_Bridge
                 $star = "<img src='img/icons/$star' height='11' width='11' alt='$alt' />&nbsp;";
             } else {
                 $smarty = TikiLib::lib('smarty');
-                $smarty->loadPlugin('smarty_function_icon');
                 $star = smarty_function_icon(['name' => 'star', 'istyle' => 'color:' . $color, 'iclass' => 'tips',
                     'ititle' => ':' . $alt], $smarty->getEmptyInternalTemplate()) . "&nbsp;";
             }
@@ -7198,9 +7197,6 @@ class TikiLib extends TikiDb_Bridge
 
         $parserlib = TikiLib::lib('parser');
         $table = $this->table('tiki_object_relations');
-
-        $smarty = TikiLib::lib('smarty');
-        $smarty->loadPlugin('smarty_modifier_sefurl');
 
         foreach ($parserlib->get_pages($edit, true) as $pointedPage => $types) {
             if (empty($types[0]) || $types[0] != 'alias') {

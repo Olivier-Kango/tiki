@@ -761,7 +761,7 @@ function wikiplugin_pivottable($data, $params)
                 $fields
             )));
             $plugin->setFieldPermNames($fields);
-        } catch (SmartyException $e) {
+        } catch (\Smarty\Exception $e) {
             throw new Services_Exception_NotAvailable($e->getMessage());
         }
     }
@@ -894,8 +894,6 @@ function wikiplugin_pivottable($data, $params)
             $dateFields[] = $field['name'];
         }
     }
-
-    $smarty->loadPlugin('smarty_function_object_link');
 
     if (! isset($params['aggregateDetails'])) {
         if (isset($fields[2])) {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f6bd11791790eeb3072c868d81ce566",
+    "content-hash": "406adac750e76b32558fe24525f01c0a",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2430,13 +2430,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "da1bf4b85ae1c5f52223416e2bbcebb8e825f99e"
+                "reference": "2c635a48a4559b6efbba90d3e49bca310672bb39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-da1bf4b85ae1c5f52223416e2bbcebb8e825f99e-zip-82338a.zip",
-                "reference": "da1bf4b85ae1c5f52223416e2bbcebb8e825f99e",
-                "shasum": "5cd602a32bfcfc4662ffa71919ac2521e6936a68"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-2c635a48a4559b6efbba90d3e49bca310672bb39-zip-2b4cb9.zip",
+                "reference": "2c635a48a4559b6efbba90d3e49bca310672bb39",
+                "shasum": "850349b524af98973451e4d4a02bf86258ca8645"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2499,7 +2499,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-02-07T07:51:56+00:00"
+            "time": "2024-02-12T12:56:41+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -10537,17 +10537,6 @@
         {
             "name": "sentry/sdk",
             "version": "3.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/getsentry/sentry-php-sdk.git",
-                "reference": "24c235ff2027401cbea099bf88689e1a1f197c7a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/24c235ff2027401cbea099bf88689e1a1f197c7a",
-                "reference": "24c235ff2027401cbea099bf88689e1a1f197c7a",
-                "shasum": ""
-            },
             "require": {
                 "http-interop/http-factory-guzzle": "^1.0",
                 "sentry/sentry": "^3.22",
@@ -10785,35 +10774,39 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v4.3.5",
+            "version": "v5.0.0-rc2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c"
+                "reference": "bc4e70f2c0a987e20dce9f77ec65e2e725630e18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c-zip-042a1a.zip",
-                "reference": "e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c",
-                "shasum": "486364315098b9772a4b6722a99f81e668a66740"
+                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-bc4e70f2c0a987e20dce9f77ec65e2e725630e18-zip-77cee2.zip",
+                "reference": "bc4e70f2c0a987e20dce9f77ec65e2e725630e18",
+                "shasum": "0ff49bcb1e0876e9241f0ce2c9109ecf8162be89"
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^7.2 || ^8.0",
+                "symfony/polyfill-mbstring": "^1.27"
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5 || ^7.5",
-                "smarty/smarty-lexer": "^3.1"
+                "smarty/smarty-lexer": "^4.0.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0.x-dev"
+                    "dev-master": "5.0.x-dev"
                 }
             },
             "autoload": {
-                "classmap": [
-                    "libs/"
-                ]
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Smarty\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -10842,7 +10835,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2024-01-23T10:47:54+00:00"
+            "time": "2023-11-06T16:36:05+00:00"
         },
         {
             "name": "sorich87/bootstrap-tour",
@@ -15414,13 +15407,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "8f663b693e14f98c222d197c3ecead427bf6f663"
+                "reference": "e5cd2e244097fb62c5ac8f1153a26a73c3a50438"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-8f663b693e14f98c222d197c3ecead427bf6f663-zip-d2c410.zip",
-                "reference": "8f663b693e14f98c222d197c3ecead427bf6f663",
-                "shasum": "362853d9d147da66f1c6a8bb22117ae8e3e54d4d"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-e5cd2e244097fb62c5ac8f1153a26a73c3a50438-zip-c236e3.zip",
+                "reference": "e5cd2e244097fb62c5ac8f1153a26a73c3a50438",
+                "shasum": "d9b41672c7a131ce703c11c8fe934c0fd41b0d1b"
             },
             "require": {
                 "php": ">=5.4",
@@ -15490,7 +15483,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-02-03T21:48:21+00:00"
+            "time": "2024-02-12T16:57:44+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -15576,17 +15569,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.57",
+            "version": "1.10.58",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1627b1d03446904aaa77593f370c5201d2ecc34e"
+                "reference": "a23518379ec4defd9e47cbf81019526861623ec2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-1627b1d03446904aaa77593f370c5201d2ecc34e-zip-0f87ea.zip",
-                "reference": "1627b1d03446904aaa77593f370c5201d2ecc34e",
-                "shasum": "e0149c860628035f35e053965ecd12147295cbdb"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-a23518379ec4defd9e47cbf81019526861623ec2-zip-5c26eb.zip",
+                "reference": "a23518379ec4defd9e47cbf81019526861623ec2",
+                "shasum": "742489b05c66e9718e2b9e91b7c83f565387132f"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15627,7 +15620,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-24T11:51:34+00:00"
+            "time": "2024-02-12T20:02:57+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -17762,7 +17755,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "RC",
     "stability-flags": {
         "candy-chat/xmpp-prebind-php": 20,
         "jason-munro/cypht": 20,

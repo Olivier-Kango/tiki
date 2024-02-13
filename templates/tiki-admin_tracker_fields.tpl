@@ -1,4 +1,4 @@
-{extends "layout_view.tpl"}
+{extends $global_extend_layout|default:'layout_view.tpl'}
 
 {block name="title"}
     {title help="Adding fields to a tracker" url="`$trackerId|sefurl:'trackerfields'`"}{tr}Tracker Fields:{/tr} {$tracker_info.name}{/title}

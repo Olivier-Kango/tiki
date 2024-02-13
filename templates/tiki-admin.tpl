@@ -100,7 +100,7 @@
                 {remarksbox type="error" title="{tr}Composer.json file issues{/tr}"}
                     {tr}Your composer.json file is outdated and differs from the stock composer.json.dist file that is coming with your Tiki version. Please update composer.json and re-run composer install or install/update a package to get the latest configuration. Not doing so might result in fatal errors loading some Tiki pages. Here's the list of differences:{/tr}<br />
                     <ul>
-                    {foreach from=$composer_options_diff item=$diff key=$key}
+                    {foreach from=$composer_options_diff key="key" item="diff"}
                         <li>{$key|cat:':'} <strong>{$diff['existing']}</strong> / <strong>{$diff['dist']}</strong></li>
                     {/foreach}
                     </ul>

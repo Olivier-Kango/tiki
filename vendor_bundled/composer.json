@@ -3,7 +3,7 @@
     "description": "Tiki Wiki CMS Groupware",
     "license": "LGPL-2.1-only",
     "homepage": "https://tiki.org",
-    "minimum-stability": "stable",
+    "minimum-stability": "RC",
     "_comment": [
         "Yes, that's the only way to do comments",
         "  https://github.com/composer/composer/issues/5364",
@@ -261,7 +261,7 @@
         "sentry/sdk": "^3.3",
         "simile_timeline/simile_timeline": "2.3.0",
         "slm/mail": "^4.2",
-        "smarty/smarty": "^4.0",
+        "smarty/smarty": "^5.0",
         "sorich87/bootstrap-tour": "dev-master",
         "studio-42/elfinder": "~2.1",
         "steverhoades/oauth2-openid-connect-client": "^2.0.0",
@@ -381,7 +381,8 @@
                 "../lib/core/"
             ],
             "Tiki\\Lib\\": "../lib/",
-            "Tiki\\Lib\\Payment\\": "../lib/payment"
+            "Tiki\\Lib\\Payment\\": "../lib/payment",
+            "SmartyTiki\\": "../lib/smarty_tiki"
         },
         "classmap": [
             "../installer/",
@@ -395,8 +396,7 @@
             "../lib/calendar/calrecurrence.php",
             "vendor/adodb/adodb-php/",
             "vendor/h5p/h5p-core",
-            "vendor/h5p/h5p-editor",
-            "vendor/smarty/smarty/libs/sysplugins/smarty_security.php"
+            "vendor/h5p/h5p-editor"
         ],
         "exclude-from-classmap": [
             "../lib/openpgp/OpenPGP_Zend_Mail_Transport_Smtp.php",

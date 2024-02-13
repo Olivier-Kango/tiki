@@ -1,4 +1,4 @@
-{extends 'layout_view.tpl'}
+{extends $global_extend_layout|default:'layout_view.tpl'}
 
 {* Separate the content display from the display of the whole page.
 Used to support printing, which use the tiki-show_content.tpl directly.

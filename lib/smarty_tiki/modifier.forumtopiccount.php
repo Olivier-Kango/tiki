@@ -2,5 +2,6 @@
 
 function smarty_modifier_forumtopiccount($forumId)
 {
-    return TikiLib::lib('comments')->count_forum_topics($forumId);
+    $forumTopicCountModifier = new \SmartyTiki\Modifier\ForumTopicCount();
+    return $forumTopicCountModifier->handle($forumId);
 }

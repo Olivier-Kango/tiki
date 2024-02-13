@@ -6,8 +6,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 function smarty_modifier_tiki_long_time($string)
 {
-    global $prefs;
-    $smarty = TikiLib::lib('smarty');
-    $smarty->loadPlugin('smarty_modifier_tiki_date_format');
-    return smarty_modifier_tiki_date_format($string, $prefs['long_time_format']);
+    $tikiLongTimeModifier = new \SmartyTiki\Modifier\TikiLongTime();
+    return $tikiLongTimeModifier->handle($string);
 }

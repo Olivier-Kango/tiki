@@ -4,34 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_tracker_item_status_icon($params, $smarty)
+
+function smarty_function_tracker_item_status_icon($params, \Smarty\Template $template)
 {
-    global $prefs;
-
-    if (empty($params['item'])) {
-        return '';
-    }
-
-    $item = $params['item'];
-
-    if (! is_object($item)) {
-        $item = Tracker_Item::fromId($item);
-    }
-
-    if (! empty($prefs['tracker_status_in_objectlink'])) {
-        $show_status = $prefs['tracker_status_in_objectlink'];
-    } else {
-        $show_status = 'y';
-    }
-
-    if (($show_status == 'y') && $item && $status = $item->getDisplayedStatus()) {
-        $smarty->loadPlugin('smarty_function_icon');
-        return smarty_function_icon([
-            'name' => 'status-' . $status,
-            'iclass' => 'tips',
-            'ititle' => ':' . tr($status),
-        ], $smarty);
-    }
-
-    return '';
+    $smartyFunctionTrackerItemStatusIcon = new \SmartyTiki\FunctionHandler\TrackerItemStatusIcon();
+    return $smartyFunctionTrackerItemStatusIcon->handle($params, $template);
 }

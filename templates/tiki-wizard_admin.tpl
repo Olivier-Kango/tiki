@@ -1,4 +1,4 @@
-{extends "layout_plain.tpl"}
+{extends $global_extend_layout|default:'layout_plain.tpl'}
 
 {block name="title"}
     {* {title}{tr}Configuration Wizard{/tr}{/title} *}

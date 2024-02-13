@@ -1,4 +1,4 @@
-{extends "layout_edit.tpl"}
+{extends $global_extend_layout|default:'layout_edit.tpl'}
 
 {block name="title"}
     {title}{$title}{/title}

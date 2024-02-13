@@ -1,4 +1,4 @@
-{extends 'layout_edit.tpl'}
+{extends $global_extend_layout|default:'layout_edit.tpl'}
 
 {block name=content}
     {if $tiki_p_edit == 'y'}

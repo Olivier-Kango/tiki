@@ -521,9 +521,6 @@ class HeaderLib
         $this->throwIfHeadersAlreadyOutput();
         $this->outputHeadersWasStartedBy = $this->getOutputCallerInfo();
 
-        $smarty = TikiLib::lib('smarty');
-        $smarty->loadPlugin('smarty_modifier_escape');
-
         ksort($this->cssfiles);
         ksort($this->css);
         ksort($this->rssfeeds);
@@ -638,9 +635,6 @@ class HeaderLib
         if (count($this->jsfiles) == 0) {
             return [];
         }
-
-        $smarty = TikiLib::lib('smarty');
-        $smarty->loadPlugin('smarty_modifier_escape');
 
         ksort($this->jsfiles);
         $jsfiles = $this->jsfiles;
@@ -1097,9 +1091,6 @@ class HeaderLib
     private function output_css_files_list($files, $media = '')
     {
         global $prefs;
-        $smarty = TikiLib::lib('smarty');
-        $smarty->loadPlugin('smarty_modifier_escape');
-
         $back = '';
 
         // remove any remote css files

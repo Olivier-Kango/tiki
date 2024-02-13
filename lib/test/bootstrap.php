@@ -88,7 +88,6 @@ const DB_TIKI_SETUP = true;
 const DB_SYNCHRONAL = true;
 
 $smarty = TikiLib::lib('smarty');
-$smarty->addPluginsDir('../smarty_tiki/');
 $cachelib = TikiLib::lib('cache');
 $wikilib = TikiLib::lib('wiki');
 $userlib = TikiLib::lib('user');

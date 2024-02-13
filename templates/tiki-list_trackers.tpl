@@ -1,4 +1,4 @@
-{extends "layout_view.tpl"}
+{extends $global_extend_layout|default:'layout_view.tpl'}
 
 {block name="title"}
     {title help="Trackers" admpage="trackers"}{tr}Trackers{/tr}{/title}

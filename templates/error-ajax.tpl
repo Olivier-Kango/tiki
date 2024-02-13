@@ -1,4 +1,4 @@
-{extends "internal/ajax.tpl"}
+{extends $global_extend_layout|default:'internal/ajax.tpl'}
 
 {block name=title}
     {title}{tr}Oops{/tr}{/title}
