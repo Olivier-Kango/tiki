@@ -20,6 +20,8 @@ class Debugger extends Base
 
             require_once 'lib/debug/debugger.php';
 
+            $smarty = \TikiLib::lib('smarty');
+
             // Get current URL
             $smarty->assign('console_father', $_SERVER['REQUEST_URI']);
 
