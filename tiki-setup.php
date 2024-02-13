@@ -13,6 +13,8 @@
 // die if called directly.
 use Tiki\Package\VendorHelper;
 
+//Be carefull, composer autoloading isn't available until tiki-setup_base.php is required further down
+
 /**
  * @global array $prefs
  * @global array $tikilib
@@ -24,14 +26,6 @@ ini_set('session.cookie_httponly', 1);
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
     header('location: index.php');
     exit;
-}
-if (version_compare(PHP_VERSION, TIKI_MIN_PHP_VERSION, '<')) {
-    if (PHP_SAPI !== 'cli') {                   // if not running a command line version of php, show requirements
-        header('location: tiki-install.php');
-        exit;
-    }
-    // This is command-line. No 'location' command make sense here. Let admins access what works and deal with the rest.
-    echo 'Warning: Tiki expects PHP ' . TIKI_MIN_PHP_VERSION . ' and above. You are running ' . PHP_VERSION . ". Use at your own risk\n";
 }
 
 if (! defined('TIKI_API')) {
@@ -61,7 +55,16 @@ require_once('lib/setup/tikisetup.class.php');
 require_once('lib/setup/timer.class.php');
 $tiki_timer = new timer();
 $tiki_timer->start();
-require_once('tiki-setup_base.php');
+require_once('tiki-setup_base.php'); //Starting here composer autoloading is available
+
+if (version_compare(PHP_VERSION, TIKI_MIN_PHP_VERSION, '<')) {
+    if (PHP_SAPI !== 'cli') {                   // if not running a command line version of php, show requirements
+        header('location: tiki-install.php');
+        exit;
+    }
+    // This is command-line. No 'location' command make sense here. Let admins access what works and deal with the rest.
+    echo 'Warning: Tiki expects PHP ' . TIKI_MIN_PHP_VERSION . ' and above. You are running ' . PHP_VERSION . ". Use at your own risk\n";
+}
 
 // Attempt setting locales. This code is just a start, locales should be set per-user.
 // Also, different operating systems use different locale strings. en_US.utf8 is valid on POSIX systems, maybe not on Windows, feel free to add alternative locale strings.
