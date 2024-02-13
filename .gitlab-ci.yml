@@ -290,6 +290,16 @@ translation-standards:
   needs:
     - composer
 
+satis-validates:
+  stage: tiki-check
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  script:
+    - php doc/devtools/check_satis_validation.php
+  needs: []
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+
 #This is a non-network check
 composer-validates:
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
@@ -297,6 +307,7 @@ composer-validates:
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - composer validate -d vendor_bundled --no-check-all
+    - php doc/devtools/check_composer_dist_urls.php
   needs: []
 
 #This tests if composer COULD update the current composer.lock (it is coherent and installable).  This is important because a developer wanting to update or add a dependency wouldn't be able to do so without figuring out why a composer.lock cannot be generated even before his changes.
