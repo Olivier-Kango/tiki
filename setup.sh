@@ -798,7 +798,7 @@ what to answer, just press enter to each question (to use default value)"
         VIRTUALS=$(cat db/virtuals.inc)
     else
         VIRTUALS_CONTENTS="$($CAT -s db/virtuals.inc | $TR '\n' ' ')"
-        printf "> Multi [%s]: " "VIRTUALS_CONTENTS"
+        printf "> Multi [%s]: " "$VIRTUALS_CONTENTS"
         read -r VIRTUALS
         [ -z "$VIRTUALS" ] && VIRTUALS=$(${CAT} db/virtuals.inc)
     fi
