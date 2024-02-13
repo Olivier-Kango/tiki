@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# shellcheck disable=SC2181
 # (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 #
 # All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -10,12 +12,12 @@
 #Production
 if [ -z "$TIKI_DBHOST" ]; then
 echo -n Enter the Tiki DB host:
-read TIKI_DBHOST
+read -r TIKI_DBHOST
 fi
 
 if [ -z "$TIKI_DBNAME" ]; then
 echo -n Enter the Tiki DB name:
-read TIKI_DBNAME
+read -r TIKI_DBNAME
 fi
 
 if [ -z "$TIKI_DBNAME" ] ; then
@@ -25,12 +27,12 @@ fi
 
 if [ -z "$TIKI_DBUSER" ]; then
 echo -n Enter the Tiki DB user:
-read TIKI_DBUSER
+read -r TIKI_DBUSER
 fi
 
 if [ -z "$TIKI_DBPASSWD" ]; then
 echo -n Enter the Tiki DB password:
-read TIKI_DBPASSWD
+read -r TIKI_DBPASSWD
 fi
 
 # Building auxiliars
@@ -41,5 +43,6 @@ fi
 time=$(date +%Y%m%d%H%M%S)
 filename=$TIKI_DBNAME-$time.sql
 mysql_command="mysqldump $db_user $db_passwd $db_host --single-transaction  $TIKI_DBNAME"
-$mysql_command > $filename
-[ $? -eq 0 ] &&  echo Please copy the  $filename file to your new deployment and import it with tiki.import tool
+$mysql_command > "$filename"
+
+[ $? -eq 0 ] &&  echo Please copy the  "$filename" file to your new deployment and import it with tiki.import tool

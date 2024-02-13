@@ -18,14 +18,15 @@
 
 # grep -r '^[A-Za-z\.\#0-9].*{' ../styles/mose.css | sed -e "s/^\([A-Za-z0-9]+\).*{$/\1/" | grep -v "{" | sort | uniq
 
-./stripbraces.pl ../../styles/$1.css \
+./stripbraces.pl ../../styles/"$1".css \
 | ./stripcomments.pl \
 | sed -e "s/,[     ]*/\n/g;" \
 | sed -e "s/^[     ]*//g;" \
 | sed -e "s/[     ]*$//g;" \
-| egrep -v "^[     ]*$" \
+| grep -E -v "^[     ]*$" \
 | sort \
 | uniq
 
 # grep -v "^[   ]*{.*}[         ]*$" \
 # ^.*;+[   ]*$ | ^[  ]*[{}][         ]*$
+

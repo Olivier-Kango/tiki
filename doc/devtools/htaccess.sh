@@ -27,8 +27,8 @@ if [ "$1" = "off" ]; then
     COMMAND="mv"
 fi
  
-for i in $(find . -name ${OLD}); do
-    chmod 644 $i
-    echo "${ACTION} `dirname $i`/${NEW}"
-    $COMMAND $i `dirname $i`/${NEW}
+find . -name "$OLD" -print0 | while IFS= read -r -d '' i; do
+    chmod 644 "$i"
+    echo "${ACTION} $(dirname "$i")/${NEW}"
+    $COMMAND "$i" "$(dirname "$i")/${NEW}"
 done

@@ -12,13 +12,13 @@
 # doc/devtools/phpstrip.sh
 
 function phpstrip { 
-php -w $1 > ${1}.w; 
-mv -f ${1}.w $1; 
+php -w "$1" > "${1}".w; 
+mv -f "${1}".w "$1"; 
 }
 
-A=`find . -name "*.php"`
+A=$(find . -name "*.php")
 
 for i in $A ; do
-  phpstrip $i;
+  phpstrip "$i";
 done
 

@@ -26,14 +26,14 @@ MODULE="tiki"
 # end of configuration
 # ############################################################
 
-if [ -z $2 ]; then
+if [ -z "$2" ]; then
 echo "Usage: tikirelease.sh <release-version> <svn-relative-path>"
     echo "  <release-version> in separated by dots like in 2.0.RC1"
     echo "  <svn-relative-path> as in subversion (ex: branches/2.0 , tags/2.0)"
     exit 0
 fi
 
-OLDIR="`pwd`"
+OLDIR="$(pwd)"
 VER=$1
 RELTAG=$2
 
@@ -46,50 +46,50 @@ fi
 cd "$WORKDIR" || die "Can't get into $WORKDIR - $!"
 echo "Working in $WORKDIR"
 
-if [ -d $VER ]; then
+if [ -d "$VER" ]; then
     echo "Deleting old $VER"
-    rm -rf $VER
+    rm -rf "$VER"
 fi
-mkdir $VER
-cd $VER
+mkdir "$VER"
+cd "$VER || exit" || exit
 
 echo "Exporting $SVNROOT/$RELTAG $MODULE-$VER"
-svn export $SVNROOT/$RELTAG $MODULE-$VER
+svn export $SVNROOT/"$RELTAG" $MODULE-"$VER"
 
-if [ -f $MODULE-$VER/vendor_bundled/composer.json ]; then
+if [ -f $MODULE-"$VER"/vendor_bundled/composer.json ]; then
     wget -N http://getcomposer.org/composer.phar >/dev/null 2>&1 || curl -O "http://getcomposer.org/composer.phar"
-    cd $MODULE-$VER
+    cd $MODULE-"$VER || exit" || exit
     php ../composer.phar install -d vendor_bundled --prefer-dist --no-dev 2>&1 | sed '/Warning: Ambiguous class resolution/d'
     cd ..
 fi
 
 echo "Cleaning up"
-find $MODULE-$VER -name .cvsignore -type f -exec rm -f {} \;
-find $MODULE-$VER -name .svnignore -type f -exec rm -f {} \;
-find $MODULE-$VER -name .gitignore -type f -exec rm -f {} \;
-find $MODULE-$VER/lang/ -type f -name language.php -exec php $MODULE-$VER/doc/devtools/stripcomments.php  {} \;
+find $MODULE-"$VER" -name .cvsignore -type f -exec rm -f {} \;
+find $MODULE-"$VER" -name .svnignore -type f -exec rm -f {} \;
+find $MODULE-"$VER" -name .gitignore -type f -exec rm -f {} \;
+find $MODULE-"$VER"/lang/ -type f -name language.php -exec php $MODULE-"$VER"/doc/devtools/stripcomments.php  {} \;
 
-rm -rf $MODULE-$VER/tests
-rm -rf $MODULE-$VER/db/convertscripts
-rm -rf $MODULE-$VER/doc/devtools
+rm -rf $MODULE-"$VER"/tests
+rm -rf $MODULE-"$VER"/db/convertscripts
+rm -rf $MODULE-"$VER"/doc/devtools
 
 echo "Setting permissions"
-find $MODULE-$VER -type d -exec chmod 775 {} \;
-find $MODULE-$VER -type f -exec chmod 664 {} \;
+find $MODULE-"$VER" -type d -exec chmod 775 {} \;
+find $MODULE-"$VER" -type f -exec chmod 664 {} \;
 
 echo "Creating tarballs"
-tar -czf $MODULE-$VER.tar.gz $MODULE-$VER
-tar -cjf $MODULE-$VER.tar.bz2 $MODULE-$VER
-zip -r -q $MODULE-$VER.zip $MODULE-$VER
-7za a $MODULE-$VER.7z $MODULE-$VER || 7z a $MODULE-$VER.7z $MODULE-$VER
+tar -czf $MODULE-"$VER".tar.gz $MODULE-"$VER"
+tar -cjf $MODULE-"$VER".tar.bz2 $MODULE-"$VER"
+zip -r -q $MODULE-"$VER".zip $MODULE-"$VER"
+7za a $MODULE-"$VER".7z $MODULE-"$VER" || 7z a $MODULE-"$VER".7z $MODULE-"$VER"
 
-ls "$WORKDIR"/$VER
+ls "$WORKDIR"/"$VER"
 
 echo ""
 echo "To upload the 'tarballs', copy-paste and execute the following line (and change '\$SF_LOGIN' by your SF.net login):"
 echo "cd $WORKDIR/$VER; scp $MODULE-$VER.tar.gz $MODULE-$VER.tar.bz2 $MODULE-$VER.zip \$SF_LOGIN@frs.sourceforge.net:uploads"
 echo ""
 
-cd "$OLDIR"
+cd "$OLDIR" || exit
 
 echo "Done."

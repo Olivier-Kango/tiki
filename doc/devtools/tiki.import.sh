@@ -9,7 +9,7 @@
 
 if [ -z "$TIKI_PATH" ]; then
 echo -n Enter the Tiki absolute path:
-read TIKI_PATH
+read -r TIKI_PATH
 fi
 
 if [ -z "$TIKI_PATH" ] ; then
@@ -19,7 +19,7 @@ fi
 
 if [ -z "$TIKI_DBDUMP" ]; then
 echo -n Enter the Tiki DB dump file:
-read TIKI_DBDUMP
+read -r TIKI_DBDUMP
 fi
 
 if [ -z "$TIKI_DBDUMP" ] ; then
@@ -29,12 +29,12 @@ fi
 
 if [ -z "$TIKI_DBHOST" ]; then
 echo -n Enter the Tiki DB host:
-read TIKI_DBHOST
+read -r TIKI_DBHOST
 fi
 
 if [ -z "$TIKI_DBNAME" ]; then
 echo -n Enter the Tiki DB name:
-read TIKI_DBNAME
+read -r TIKI_DBNAME
 fi
 
 if [ -z "$TIKI_DBNAME" ] ; then
@@ -44,12 +44,12 @@ fi
 
 if [ -z "$TIKI_DBUSER" ]; then
 echo -n Enter the Tiki DB user:
-read TIKI_DBUSER
+read -r TIKI_DBUSER
 fi
 
 if [ -z "$TIKI_DBPASSWD" ]; then
 echo -n Enter the Tiki DB password:
-read TIKI_DBPASSWD
+read -r TIKI_DBPASSWD
 fi
 
 # Building auxiliars
@@ -59,7 +59,7 @@ fi
 
 mysql_command="mysql $db_user $db_passwd $db_host"
 
-pushd $TIKI_PATH
+pushd "$TIKI_PATH || exit" || exit
 echo "Clear cache"
 php console.php -n cache:clear
 echo "Update checkout"
@@ -69,16 +69,16 @@ bash setup.sh mixed
 echo "Drop and recreate database"
 $mysql_command -e "drop database $TIKI_DBNAME;create database $TIKI_DBNAME"
 echo "Populate $TIKI_DBNAME with $TIKI_DBDUMP data"
-$mysql_command $TIKI_DBNAME < $TIKI_DBDUMP
+$mysql_command "$TIKI_DBNAME" < "$TIKI_DBDUMP"
 echo "Upgrade schema"
 php console.php -n database:update
 echo "Update search index"
 php console.php -n index:rebuild
 echo "Update memcache prefix"
-$mysql_command $TIKI_DBNAME -e "update tiki_preferences set value = \"DOGFOODtiki_\" where name = \"memcache_prefix\";"
+$mysql_command "$TIKI_DBNAME" -e "update tiki_preferences set value = \"DOGFOODtiki_\" where name = \"memcache_prefix\";"
 echo "Remove cdn"
-$mysql_command $TIKI_DBNAME -e "update tiki_preferences set value = \"\" where name = \"tiki_cdn\";"
+$mysql_command "$TIKI_DBNAME" -e "update tiki_preferences set value = \"\" where name = \"tiki_cdn\";"
 echo "Upgrading HTACCESS"
 rm .htaccess
 sh doc/devtools/htaccess.sh on
-popd
+popd || exit

@@ -9,27 +9,26 @@
 # 
 # mose@tw.o
 
-RHOST="dev.tiki.org"
 RTIKI="/usr/local/tikidev"
-RTMPDIR="/tmp"
 ARCHDIR="/usr/local/tikidev/duplidev"
 VIRTUAL="dev.tiki.org"
 
-OLDIR=`pwd`
+OLDIR=$(pwd)
 
-eval `cat $RTIKI/db/$VIRTUAL/local.php | sed -e '/[\?#]/d' -e "s/\$\([-_a-z]*\)[[:space:]]*=[[:space:]]*\([-_a-zA-Z0-9\"'\.]*\);/\\1=\\2/"`
+eval "$(sed -e '/[\?#]/d' -e "s/\$\([-_a-z]*\)[[:space:]]*=[[:space:]]*\([-_a-zA-Z0-9\"'\.]*\);/\\1=\\2/" "$RTIKI/db/$VIRTUAL/local.php")"
+
 RDBHOST=${host_tiki:-'localhost'}
 RDBNAME=${dbs_tiki:-'tikiwiki'}
 RDBUSER=${user_tiki:-'root'}
 RDBPASS=${pass_tiki:-''}
 
-DATE=`date +%Y-%m-%d`
+DATE=$(date +%Y-%m-%d)
 DUMP="dev.tiki.org.$DATE.sql"
 DUMPLIGHT="dev.tiki.org_light.$DATE.sql"
-cd $ARCHDIR
+cd $ARCHDIR || exit
 
-mysqldump -e -f --add-drop-table -h$RDBHOST -u$RDBUSER -p$RDBPASS $RDBNAME tiki_pages > $DUMPLIGHT
-mysqldump -e -f --add-drop-table -h$RDBHOST -u$RDBUSER -p$RDBPASS $RDBNAME \
+mysqldump -e -f --add-drop-table -h"$RDBHOST" -u"$RDBUSER" -p"$RDBPASS" "$RDBNAME" tiki_pages > "$DUMPLIGHT"
+mysqldump -e -f --add-drop-table -h"$RDBHOST" -u"$RDBUSER" -p"$RDBPASS" "$RDBNAME" \
     tiki_calendar_categories \
     tiki_calendar_items \
     tiki_calendar_locations \
@@ -59,12 +58,12 @@ mysqldump -e -f --add-drop-table -h$RDBHOST -u$RDBUSER -p$RDBPASS $RDBNAME \
     tiki_tracker_items  \
     tiki_tracker_options  \
     tiki_trackers  \
-    > $DUMP
+    > "$DUMP"
 
-bzip2 $DUMP
-bzip2 $DUMPLIGHT
+bzip2 "$DUMP"
+bzip2 "$DUMPLIGHT"
 
-cd $OLDIR
+cd "$OLDIR || exit" || exit
 echo "Done."
 
 exit 0

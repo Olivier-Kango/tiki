@@ -226,6 +226,13 @@ eslint:
     - node_modules
   tags:
     - docker
+      
+shlint:
+  image: koalaman/shellcheck-alpine:latest
+  stage: lint
+  script:
+    - shellcheck ./*.sh
+    - shellcheck ./doc/devtools/*.sh
 
 check-bom-encoding:
   stage: lint

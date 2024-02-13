@@ -1,5 +1,6 @@
 #! /bin/sh
 
+# shellcheck disable=SC2034
 # This is a PARTIAL list from php_version_constants.php, for setup.sh. 
 
 # But it MUST match what's in php_version_constants.php

@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# shellcheck disable=SC2034
 # (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 # 
 # All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -23,7 +25,7 @@ PHP='/usr/bin/php'
 if [ ! -x $PHP ]; then
     # It seems "which" tends to behave in unpredictable and "user-friendly" ways, so use type
     PHP=$(type -P php)
-    if [ ! -x $PHP ]; then
+    if [ ! -x "$PHP" ]; then
         echo "You need PHP command line interpreter."
         exit 1
     fi
@@ -35,6 +37,6 @@ if [ ! -d 'db' ]; then
 fi
 
 # Update old command 'installer/shell.php' to the newer one 'console.php database:update --site='
-find db/ -name local.php -follow | sed -nr 's/db(\/([a-z0-9_-.]+))?\/local\.php/\2/p' | awk '{system("'$PHP' console.php -n database:update --site=" $0)}'
+find db/ -name local.php -follow | sed -nr 's/db(\/([a-z0-9_-.]+))?\/local\.php/\2/p' | awk '{system("'"$PHP"' console.php -n database:update --site=" $0)}'
 
 exit 0

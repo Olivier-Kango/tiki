@@ -17,8 +17,8 @@
 [[ $HOST =~ ^https?://[^/]+ ]] && HOST="${BASH_REMATCH[0]}/api/v4/projects/"
 
 # Look which is the default branch
-if [ -z $TARGET_BRANCH ]; then
-  TARGET_BRANCH=`curl --silent "${HOST}${CI_PROJECT_ID}" --header "PRIVATE-TOKEN:${PRIVATE_TOKEN}" | python3 -c "import sys, json; print(json.load(sys.stdin)['default_branch'])"`;
+if [ -z "$TARGET_BRANCH" ]; then
+  TARGET_BRANCH=$(curl --silent "${HOST}${CI_PROJECT_ID}" --header "PRIVATE-TOKEN:${PRIVATE_TOKEN}" | python3 -c "import sys, json; print(json.load(sys.stdin)['default_branch'])");
 fi;
 
 if [ -z "$1" ]; then
@@ -27,11 +27,11 @@ else
     MR_TITLE="$1"
 fi;
 
-if [ -z $TARGET_PROJECT_ID ]; then 
+if [ -z "$TARGET_PROJECT_ID" ]; then 
   TARGET_PROJECT_ID=${CI_PROJECT_ID}
 fi;
 
-if [ -z $SET_MERGE ]; then
+if [ -z "$SET_MERGE" ]; then
   SET_MERGE=0
 fi;
 
@@ -50,23 +50,23 @@ BODY="{
 
 # Require a list of all the merge request and take a look if there is already
 # one with the same source branch
-LISTMR=`curl --silent "${HOST}${CI_PROJECT_ID}/merge_requests?state=opened" --header "PRIVATE-TOKEN:${PRIVATE_TOKEN}"`;
-COUNTBRANCHES=`echo ${LISTMR} | grep -o "\"source_branch\":\"${SOURCE_BRANCH}\"" | wc -l`;
+LISTMR=$(curl --silent "${HOST}${CI_PROJECT_ID}/merge_requests?state=opened" --header "PRIVATE-TOKEN:${PRIVATE_TOKEN}");
+COUNTBRANCHES=$(echo "${LISTMR}" | grep -o "\"source_branch\":\"${SOURCE_BRANCH}\"" | wc -l);
 
 # No MR found, let's create a new one
-if [ ${COUNTBRANCHES} -eq "0" ]; then
-    CREATEMR=`curl -sL -w "%{http_code}" -i -X POST "${HOST}${CI_PROJECT_ID}/merge_requests" \
+if [ "${COUNTBRANCHES}" -eq "0" ]; then
+    CREATEMR=$(curl -sL -w "%{http_code}" -i -X POST "${HOST}${CI_PROJECT_ID}/merge_requests" \
         --header "PRIVATE-TOKEN:${PRIVATE_TOKEN}" \
         --header "Content-Type: application/json" \
-        --data "${BODY}"`;
+        --data "${BODY}");
 
     [[ $CREATEMR =~ \"iid\":([0-9]+) ]] && MR_ID=${BASH_REMATCH[1]}
     [[ $CREATEMR =~ [0-9]+$ ]] && STATUS=${BASH_REMATCH[0]}
 
-    if [ ${STATUS} -eq "201" ]; then
+    if [ "${STATUS}" -eq "201" ]; then
       echo "Opened a new merge request: ${MR_TITLE} and assigned to you";
 
-      if [ ${SET_MERGE} -eq 1 ]; then
+      if [ "${SET_MERGE}" -eq 1 ]; then
         # Mark MR as accepted (auto-merge if pipeline succeeds)
         curl -sL -X PUT "${HOST}${CI_PROJECT_ID}/merge_requests/${MR_ID}/merge" \
           --header "PRIVATE-TOKEN:${PRIVATE_TOKEN}" \

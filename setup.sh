@@ -1,5 +1,6 @@
 #! /bin/sh
 
+# shellcheck disable=SC2317,SC2004,SC2034
 # (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 #
 # All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -11,6 +12,7 @@
 # part 0 - choose production mode or verbose debugging mode
 # ---------------------------------------------------------
 
+# shellcheck disable=SC1091
 . ./path_constants.sh
 . ./php_version_constants.sh
 
@@ -22,7 +24,7 @@ DEBUG_UNIX=0 # production mode
 #DEBUG_UNIX=1 # debugging mode
 DEBUG_PREFIX='D>'
 ECHOFLAG=1 # one empty line before printing used options in debugging mode
-PATCHCOMPOSERFLAG="0" # patch composer.phar to avoid the warnings
+# not used PATCHCOMPOSERFLAG="0" # patch composer.phar to avoid the warnings
                       # unfortunately, this file checks its own signature
                       # and thus does not allow modifications
 # log composer instead of screen out# log composer instead of screen outputput
@@ -57,33 +59,33 @@ define_path() {
 # define PATH for executable mode
 if [ ${DEBUG_PATH} = '1' ] ; then
     echo ${DEBUG_PREFIX}
-    echo ${DEBUG_PREFIX} old path: ${PATH}
+    echo ${DEBUG_PREFIX} old path: "${PATH}"
     echo ${DEBUG_PREFIX}
 fi
 #PATH="${PATH}:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/bin:/opt/sbin:/opt/local/bin:/opt/local/sbin"
 #for ADDPATH in `echo /bin /usr/bin /sbin /usr/sbin /usr/local/bin /usr/local/sbin /opt/bin /opt/sbin /opt/local/bin /opt/local/sbin` ; do
 for ADDPATH in ${SEARCHPATH} ; do
-    if [ -d ${ADDPATH} ] ; then
+    if [ -d "${ADDPATH}" ] ; then
         PATH="${PATH}:${ADDPATH}"
         if [ ${DEBUG_PATH} = '1' ] ; then
-             echo ${DEBUG_PREFIX} ${ADDPATH} exists
+             echo ${DEBUG_PREFIX} "${ADDPATH}" exists
         fi
     else
         if [ ${DEBUG_PATH} = '1' ] ; then
-            echo ${DEBUG_PREFIX} ${ADDPATH} does not exist
+            echo ${DEBUG_PREFIX} "${ADDPATH}" does not exist
         fi
     fi
 done
 # Virtualmin per-domain php versions
-PREPENDPATH="`dirname $0`/bin `dirname $0`/../bin"
+PREPENDPATH="$(dirname "$0")/bin $(dirname "$0")/../bin"
 for PREPPATH in ${PREPENDPATH} ; do
-    if [ -d ${PREPPATH} ] ; then
+    if [ -d "${PREPPATH}" ] ; then
         PATH="${PREPPATH}:${PATH}"
     fi
 done
 if [ ${DEBUG_PATH} = '1' ] ; then
     echo ${DEBUG_PREFIX}
-    echo ${DEBUG_PREFIX} new path: ${PATH}
+    echo ${DEBUG_PREFIX} new path: "${PATH}"
 fi
 }
 
@@ -93,63 +95,63 @@ define_path
 if [ ${DEBUG_UNIX} = '1' ] ; then
     echo ${DEBUG_PREFIX}
     echo ${DEBUG_PREFIX} before:
-    echo ${DEBUG_PREFIX} CAT=${CAT}
-    echo ${DEBUG_PREFIX} CHGRP=${CHGRP}
-    echo ${DEBUG_PREFIX} CHMOD=${CHMOD}
-    echo ${DEBUG_PREFIX} CHOWN=${CHOWN}
-    echo ${DEBUG_PREFIX} FIND=${FIND}
-    echo ${DEBUG_PREFIX} ID=${ID}
-    echo ${DEBUG_PREFIX} MKDIR=${MKDIR}
-    echo ${DEBUG_PREFIX} MV=${MV}
-    echo ${DEBUG_PREFIX} RM=${RM}
-    echo ${DEBUG_PREFIX} SORT=${SORT}
-    echo ${DEBUG_PREFIX} TOUCH=${TOUCH}
-    echo ${DEBUG_PREFIX} UNIQ=${UNIQ}
-    echo ${DEBUG_PREFIX} TR=${TR}
+    echo ${DEBUG_PREFIX} CAT="${CAT}"
+    echo ${DEBUG_PREFIX} CHGRP="${CHGRP}"
+    echo ${DEBUG_PREFIX} CHMOD="${CHMOD}"
+    echo ${DEBUG_PREFIX} CHOWN="${CHOWN}"
+    echo ${DEBUG_PREFIX} FIND="${FIND}"
+    echo ${DEBUG_PREFIX} ID="${ID}"
+    echo ${DEBUG_PREFIX} MKDIR="${MKDIR}"
+    echo ${DEBUG_PREFIX} MV="${MV}"
+    echo ${DEBUG_PREFIX} RM="${RM}"
+    echo ${DEBUG_PREFIX} SORT="${SORT}"
+    echo ${DEBUG_PREFIX} TOUCH="${TOUCH}"
+    echo ${DEBUG_PREFIX} UNIQ="${UNIQ}"
+    echo ${DEBUG_PREFIX} TR="${TR}"
 fi
 # list of commands
-CAT=`which cat`
-CHGRP=`which chgrp`
-CHMOD=`which chmod`
-CHOWN=`which chown`
-CUT=`which cut`
-FIND=`which find`
-GREP=`which grep`
-ID=`which id`
-MKDIR=`which mkdir`
-MV=`which mv`
+CAT=$(which cat)
+CHGRP=$(which chgrp)
+CHMOD=$(which chmod)
+CHOWN=$(which chown)
+CUT=$(which cut)
+FIND=$(which find)
+GREP=$(which grep)
+ID=$(which id)
+MKDIR=$(which mkdir)
+MV=$(which mv)
 PHPCLI=$(which php || command -v php)
-RM=`which rm`
-SORT=`which sort`
-TOUCH=`which touch`
-UNIQ=`which uniq`
-TR=`which tr`
+RM=$(which rm)
+SORT=$(which sort)
+TOUCH=$(which touch)
+UNIQ=$(which uniq)
+TR=$(which tr)
 if [ ${DEBUG_UNIX} = '1' ] ; then
     echo ${DEBUG_PREFIX}
     echo ${DEBUG_PREFIX} after:
-    echo ${DEBUG_PREFIX} CAT=${CAT}
-    echo ${DEBUG_PREFIX} CHGRP=${CHGRP}
-    echo ${DEBUG_PREFIX} CHMOD=${CHMOD}
-    echo ${DEBUG_PREFIX} CHOWN=${CHOWN}
-    echo ${DEBUG_PREFIX} FIND=${FIND}
-    echo ${DEBUG_PREFIX} ID=${ID}
-    echo ${DEBUG_PREFIX} MKDIR=${MKDIR}
-    echo ${DEBUG_PREFIX} MV=${MV}
-    echo ${DEBUG_PREFIX} RM=${RM}
-    echo ${DEBUG_PREFIX} SORT=${SORT}
-    echo ${DEBUG_PREFIX} TOUCH=${TOUCH}
-    echo ${DEBUG_PREFIX} UNIQ=${UNIQ}
-    echo ${DEBUG_PREFIX} TR=${TR}
+    echo ${DEBUG_PREFIX} CAT="${CAT}"
+    echo ${DEBUG_PREFIX} CHGRP="${CHGRP}"
+    echo ${DEBUG_PREFIX} CHMOD="${CHMOD}"
+    echo ${DEBUG_PREFIX} CHOWN="${CHOWN}"
+    echo ${DEBUG_PREFIX} FIND="${FIND}"
+    echo ${DEBUG_PREFIX} ID="${ID}"
+    echo ${DEBUG_PREFIX} MKDIR="${MKDIR}"
+    echo ${DEBUG_PREFIX} MV="${MV}"
+    echo ${DEBUG_PREFIX} RM="${RM}"
+    echo ${DEBUG_PREFIX} SORT="${SORT}"
+    echo ${DEBUG_PREFIX} TOUCH="${TOUCH}"
+    echo ${DEBUG_PREFIX} UNIQ="${UNIQ}"
+    echo ${DEBUG_PREFIX} TR="${TR}"
 fi
 
 # hint for users
 #POSSIBLE_COMMANDS='open|fix|nothing'
 POSSIBLE_COMMANDS="composer|fix|insane|mixed|morepain|moreworry|nothing|open|pain|paranoia|paranoia-suphp|risky|sbox|sboxworkaround|suphpworkaround|worry"
 #HINT_FOR_USER="Type 'fix', 'nothing' or 'open' as command argument."
-HINT_FOR_USER="\nType 'fix', 'nothing' or 'open' as command argument.
-\nIf you used Tiki Permission Check via PHP, you know which of the following commands will probably work:
-\ninsane mixed morepain moreworry pain paranoia paranoia-suphp risky sbox worry
-\nMore documentation: https://doc.tiki.org/Permission+Check\n"
+# unused HINT_FOR_USER="\nType 'fix', 'nothing' or 'open' as command argument.
+# \nIf you used Tiki Permission Check via PHP, you know which of the following commands will probably work:
+# \ninsane mixed morepain moreworry pain paranoia paranoia-suphp risky sbox worry
+# \nMore documentation: https://doc.tiki.org/Permission+Check\n"
 
 hint_for_users() {
     ${CAT} <<EOF
@@ -166,7 +168,7 @@ usage() {
 #usage: $0 [<switches>] open|fix
     #cat <<EOF
     ${CAT} <<EOF
-usage: sh `basename $0` [<switches>] ${POSSIBLE_COMMANDS}
+usage: sh $(basename "$0") [<switches>] ${POSSIBLE_COMMANDS}
 or if executable
 usage: $0 [<switches>] ${POSSIBLE_COMMANDS}
 -h           show help
@@ -182,7 +184,7 @@ usage: $0 [<switches>] ${POSSIBLE_COMMANDS}
 There are some other commands recommended for advanced users only.
 More documentation about this: https://doc.tiki.org/Permission+Check
 
-Example: sh `basename $0` -n fix
+Example: sh $(basename "$0") -n fix
 EOF
 }
 
@@ -217,7 +219,7 @@ while getopts "hu:g:v:p:nkd:q" OPTION; do
     esac
     if [ -n "$OPT_PHPCLI" ]; then
         PHPCLI=$(which "${OPT_PHPCLI}" || command -v "${OPT_PHPCLI}")
-        if [ ! -n "$PHPCLI" ]; then
+        if [ -z "$PHPCLI" ]; then
             echo "PHP command: ${OPT_PHPCLI} not found. Please provide an existing command."
             exit 1
         fi
@@ -229,16 +231,16 @@ while getopts "hu:g:v:p:nkd:q" OPTION; do
             echo ${DEBUG_PREFIX}
         fi
         OUTPUT="option: -${OPTION}"
-        if [ -n ${OPTARG} ] ; then
+        if [ -n "${OPTARG}" ] ; then
             OUTPUT="${OUTPUT} ${OPTARG}"
         fi
-        echo ${DEBUG_PREFIX} ${OUTPUT}
+        echo ${DEBUG_PREFIX} "${OUTPUT}"
     fi
 done
-shift $(($OPTIND - 1))
+shift $((OPTIND - 1))
 
 # define command to execute for main program
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
     COMMAND="default"
     EXITONFAIL="n"
 else
@@ -248,7 +250,7 @@ fi
 
 if [ ${DEBUG} = '1' ] ; then
     echo ${DEBUG_PREFIX}
-    echo ${DEBUG_PREFIX} COMMAND: ${COMMAND}
+    echo ${DEBUG_PREFIX} COMMAND: "${COMMAND}"
 fi
 
 if [ ${DEBUG} = '1' ] ; then
@@ -265,7 +267,7 @@ fi
 AUSER=nobody
 AGROUP=nobody
 VIRTUALS=""
-USER=`whoami`
+USER=$(whoami)
 
 check_distribution() {
 if [ -f /etc/debian_version ]; then
@@ -281,7 +283,7 @@ elif [ -f /etc/SuSE-release ]; then
     AUSER=wwwrun
     AGROUP=wwwrun
 else
-    UNAME=`uname | cut -c 1-6`
+    UNAME=$(uname | cut -c 1-6)
     if [ "$UNAME" = "CYGWIN" ]; then
         AUSER=SYSTEM
         AGROUP=SYSTEM
@@ -298,20 +300,21 @@ fi
 check_hosting_platform() {
     # check if looks like a virtualmin, where sites are hosted within the home folder
     if [ -f /usr/sbin/virtualmin ]; then
-        CURRENT_SCRIPT=$(readlink -f "$0")
-        DIR_PATH=$(cd $(dirname "${CURRENT_SCRIPT}") && pwd)
-        SCRIPT_PATH="${DIR_PATH}"/$(basename "${CURRENT_SCRIPT}")
+        # shellcheck disable=SC3028,SC3054
+        CURRENT_SCRIPT=${BASH_SOURCE[0]}
+        DIR_PATH=$(cd "$(dirname "$CURRENT_SCRIPT")" && pwd)
+        CURRENT_SCRIPT_PATH="$DIR_PATH/$(basename "$CURRENT_SCRIPT")"
 
-        if echo "${SCRIPT_PATH}" | ${GREP} -q "home/[^/]*"; then
-            AUSER=$(echo "${SCRIPT_PATH}" | ${GREP} -o "home/[^/]*" | ${CUT} -d "/" -f 2)
-            AGROUP=$(/usr/bin/id -gn $AUSER)
+        if echo "$CURRENT_SCRIPT_PATH" | ${GREP} -q "home/[^/]*"; then
+            AUSER=$(echo "$CURRENT_SCRIPT_PATH" | ${GREP} -o "home/[^/]*" | ${CUT} -d "/" -f 2)
+            AGROUP=$(/usr/bin/id -gn "$AUSER")
         fi
     fi
 }
 
 check_webroot() {
-    AUSER=`stat -c "%U" .`
-    AGROUP=`stat -c "%G" .`
+    AUSER=$(stat -c "%U" .)
+    AGROUP=$(stat -c "%G" .)
 }
 
 if [ -z "${OPT_GUESS_USER_GROUP_FROM_ROOT}" ]; then
@@ -323,7 +326,7 @@ fi
 
 # part 3 - default and writable subdirs
 # -------------------------------------
-
+# shellcheck disable=SC2153
 DIR_LIST_DEFAULT="${ADMIN_PATH} ${CONFIG_PATH} ${DOC_PATH} ${DEPRECATED_FILES_PATH} ${STATIC_IMG_PATH} ${INSTALLER_PATH} ${LANG_PATH} ${LIB_PATH} ${MODULES_PATH} ${PERMISSIONCHECK_PATH} ${DEPRECATED_STORAGE_PATH} ${TEMP_PATH} ${SMARTY_TEMPLATES_PATH} ${TESTS_PATH} ${THEMES_SRC_PATH} ${TIKI_TESTS_PATH} ${TIKI_VENDOR_NONBUNDLED_PATH} ${WHELP_PATH}"
 
 DIR_LIST_WRITABLE="${CONFIG_PATH} ${DEPRECATED_IMG_WIKI_PATH} ${DEPRECATED_IMG_WIKI_UP_PATH} ${TRACKER_FIELD_IMAGE_STORAGE_PATH} ${DEPRECATED_STORAGE_PATH} ${STORAGE_PUBLIC_PATH} ${DEPRECATED_STORAGE_PUBLIC_H5P_PATH} ${FILE_GALLERY_DEFAULT_STORAGE_PATH} ${TEMP_PATH} ${TEMP_CACHE_PATH} ${TEMP_HTTP_PUBLIC_PATH} ${SMARTY_COMPILED_TEMPLATES_PATH} ${SMARTY_TEMPLATES_PATH} ${THEMES_SRC_PATH} ${WHELP_PATH} ${DEPRECATED_MODS_PATH} ${DEPRECATED_FILES_PATH} ${TIKI_TESTS_PATH} ${UNIFIED_INDEX_TEMP_PATH} ${TIKI_VENDOR_NONBUNDLED_PATH} ${TIKI_VENDOR_CUSTOM_PATH}"
@@ -341,6 +344,7 @@ dec2oct() {
     #
     #
     R8=$(( ${DEC_IN} % 8 ))
+    R8=$((DEC_IN % 8))
     O1=${R8}
     IN=$(( ${DEC_IN} - ${R8} ))
     #
@@ -365,7 +369,7 @@ dec2oct() {
 dec2oct_test() {
     DEC_IN=$(( 0500 | 0220 ))
     dec2oct
-    echo ${OCT_OUT}
+    echo "${OCT_OUT}"
     echo break
     exit 1
 }
@@ -380,7 +384,7 @@ debug_breakpoint() {
 
 # debug exit
 debug_exit() {
-if [ ${DEBUG} = '1' ] ; then
+if [ "${DEBUG}" = '1' ] ; then
     echo
     echo "Exiting... for execution mode use option '-d off' or set DEBUG=0 at the beginning of this script"
     echo
@@ -399,25 +403,25 @@ get_permission_data() {
             MODEL_NAME=${NO_MATCH}
             MODEL_PERMS_SUBDIRS=${NO_MATCH}
             MODEL_PERMS_FILES=${NO_MATCH}
-            while read ONE_USE_CASE_PER_LINE ; do
-                USE_CASE=`echo ${ONE_USE_CASE_PER_LINE} | cut -d: -f1`
-                if [ ${USE_CASE} = ${COMMAND} ] ; then
+            while IFS= read -r ONE_USE_CASE_PER_LINE; do
+                USE_CASE=$(echo "${ONE_USE_CASE_PER_LINE}" | cut -d: -f1)
+                if [ "${USE_CASE}" = "${COMMAND}" ] ; then
                     MODEL_NAME=${USE_CASE}
-                    MODEL_PERMS_SUBDIRS=`echo ${ONE_USE_CASE_PER_LINE} | cut -d: -f2`
-                    MODEL_PERMS_FILES=`echo ${ONE_USE_CASE_PER_LINE} | cut -d: -f3`
-                    MODEL_PERMS_WRITE_SUBDIRS=`echo ${ONE_USE_CASE_PER_LINE} | cut -d: -f4`
-                    MODEL_PERMS_WRITE_FILES=`echo ${ONE_USE_CASE_PER_LINE} | cut -d: -f5`
+                    MODEL_PERMS_SUBDIRS=$(echo "${ONE_USE_CASE_PER_LINE}" | cut -d: -f2)
+                    MODEL_PERMS_FILES=$(echo "${ONE_USE_CASE_PER_LINE}" | cut -d: -f3)
+                    MODEL_PERMS_WRITE_SUBDIRS=$(echo "${ONE_USE_CASE_PER_LINE}" | cut -d: -f4)
+                    MODEL_PERMS_WRITE_FILES=$(echo "${ONE_USE_CASE_PER_LINE}" | cut -d: -f5)
                     if [ ${DEBUG} = '1' ] ; then
                         echo ${DEBUG_PREFIX}
-                        echo ${DEBUG_PREFIX} MODEL_NAME=${MODEL_NAME}
-                        echo ${DEBUG_PREFIX} MODEL_PERMS_SUBDIRS=${MODEL_PERMS_SUBDIRS}
-                        echo ${DEBUG_PREFIX} MODEL_PERMS_FILES=${MODEL_PERMS_FILES}
-                        echo ${DEBUG_PREFIX} MODEL_PERMS_WRITE_SUBDIRS=${MODEL_PERMS_WRITE_SUBDIRS}
-                        echo ${DEBUG_PREFIX} MODEL_PERMS_WRITE_FILES=${MODEL_PERMS_WRITE_FILES}
+                        echo ${DEBUG_PREFIX} MODEL_NAME="${MODEL_NAME}"
+                        echo ${DEBUG_PREFIX} MODEL_PERMS_SUBDIRS="${MODEL_PERMS_SUBDIRS}"
+                        echo ${DEBUG_PREFIX} MODEL_PERMS_FILES="${MODEL_PERMS_FILES}"
+                        echo ${DEBUG_PREFIX} MODEL_PERMS_WRITE_SUBDIRS="${MODEL_PERMS_WRITE_SUBDIRS}"
+                        echo ${DEBUG_PREFIX} MODEL_PERMS_WRITE_FILES="${MODEL_PERMS_WRITE_FILES}"
                     fi
                 fi
             done < ${USE_CASES_NAME}
-            if [ ${MODEL_NAME} = ${NO_MATCH} ] ; then
+            if [ "${MODEL_NAME}" = ${NO_MATCH} ] ; then
                     echo no matching use case found
                     exit 1
             fi
@@ -434,14 +438,14 @@ get_permission_data() {
 set_permission_dirs_special_write() {
     # function must be defined before set_permission_data
     for WRITABLE in $DIRS ; do
-        if [ -d ${WRITABLE} ] ; then
-            if [ ${DEBUG} = '1' ] ; then
-                echo ${DEBUG_PREFIX}
-                echo ${DEBUG_PREFIX} "${FIND} ${WRITABLE} -type d -exec ${CHMOD} ${MODEL_PERMS_WRITE_SUBDIRS} {} \;"
-                echo ${DEBUG_PREFIX} "${FIND} ${WRITABLE} -type f -exec ${CHMOD} ${MODEL_PERMS_WRITE_FILES} {} \;"
+        if [ -d "${WRITABLE}" ] ; then
+            if [ "${DEBUG}" = '1' ] ; then
+                echo "${DEBUG_PREFIX}"
+                echo "${DEBUG_PREFIX}" "${FIND} ${WRITABLE} -type d -exec ${CHMOD} ${MODEL_PERMS_WRITE_SUBDIRS} {} \;"
+                echo "${DEBUG_PREFIX}" "${FIND} ${WRITABLE} -type f -exec ${CHMOD} ${MODEL_PERMS_WRITE_FILES} {} \;"
             fi
-            ${FIND} ${WRITABLE} -type d -exec ${CHMOD} ${MODEL_PERMS_WRITE_SUBDIRS} {} \;
-            ${FIND} ${WRITABLE} -type f -exec ${CHMOD} ${MODEL_PERMS_WRITE_FILES} {} \;
+            ${FIND} "${WRITABLE}" -type d -exec "${CHMOD}" "${MODEL_PERMS_WRITE_SUBDIRS}" {} \;
+            ${FIND} "${WRITABLE}" -type f -exec "${CHMOD}" "${MODEL_PERMS_WRITE_FILES}" {} \;
         fi
     done
 }
@@ -449,14 +453,14 @@ set_permission_dirs_special_write() {
 set_permission_data() {
     if [ ${DEBUG} = '1' ] ; then
         echo ${DEBUG_PREFIX} 'for PHP_FILES in "./*.php" ; do'
-        echo ${DEBUG_PREFIX} "    ${CHMOD} ${MODEL_PERMS_FILES}" '${PHP_FILES}'
+        echo "${DEBUG_PREFIX}    ${CHMOD} ${MODEL_PERMS_FILES}" "${PHP_FILES}"
         echo ${DEBUG_PREFIX} "done"
         echo ${DEBUG_PREFIX} "${CHMOD} ${MODEL_PERMS_SUBDIRS} ."
     fi
-    for PHP_FILES in "./*.php" ; do
-        ${CHMOD} ${MODEL_PERMS_FILES} ${PHP_FILES}
+    for PHP_FILES in ./*.php ; do
+        ${CHMOD} "${MODEL_PERMS_FILES}" "${PHP_FILES}"
     done
-    ${CHMOD} ${MODEL_PERMS_SUBDIRS} .
+    ${CHMOD} "${MODEL_PERMS_SUBDIRS}" .
     for DEFAULT_DIR in ${DIR_LIST_DEFAULT} ; do
         if [ ${DEBUG} = '1' ] ; then
             echo ${DEBUG_PREFIX}
@@ -464,19 +468,19 @@ set_permission_data() {
             echo ${DEBUG_PREFIX} "${FIND} ${DEFAULT_DIR} -type f -exec ${CHMOD} ${MODEL_PERMS_FILES} {} \;"
         fi
         #debug_breakpoint
-        ${FIND} ${DEFAULT_DIR} -type d -exec ${CHMOD} ${MODEL_PERMS_SUBDIRS} {} \;
-        ${FIND} ${DEFAULT_DIR} -type f -exec ${CHMOD} ${MODEL_PERMS_FILES} {} \;
+        ${FIND} "${DEFAULT_DIR}" -type d -exec "${CHMOD}" "${MODEL_PERMS_SUBDIRS}" {} \;
+        ${FIND} "${DEFAULT_DIR}" -type f -exec "${CHMOD}" "${MODEL_PERMS_FILES}" {} \;
         #set_permission_dirs_special_write
     done
     for WRITABLE in $DIRS ; do
-        if [ -d ${WRITABLE} ] ; then
+        if [ -d "${WRITABLE}" ] ; then
             if [ ${DEBUG} = '1' ] ; then
                 echo ${DEBUG_PREFIX}
                 echo ${DEBUG_PREFIX} "${FIND} ${WRITABLE} -type d -exec ${CHMOD} ${MODEL_PERMS_WRITE_SUBDIRS} {} \;"
                 echo ${DEBUG_PREFIX} "${FIND} ${WRITABLE} -type f -exec ${CHMOD} ${MODEL_PERMS_WRITE_FILES} {} \;"
             fi
-            ${FIND} ${WRITABLE} -type d -exec ${CHMOD} ${MODEL_PERMS_WRITE_SUBDIRS} {} \;
-            ${FIND} ${WRITABLE} -type f -exec ${CHMOD} ${MODEL_PERMS_WRITE_FILES} {} \;
+            ${FIND} "${WRITABLE}" -type d -exec "${CHMOD}" "${MODEL_PERMS_WRITE_SUBDIRS}" {} \;
+            ${FIND} "${WRITABLE}" -type f -exec "${CHMOD}" "${MODEL_PERMS_WRITE_FILES}" {} \;
         fi
     done
 }
@@ -496,9 +500,9 @@ permission_via_php_check() {
 set_permission_data_workaround_general() {
     for DEFAULT_DIR in ${DIR_LIST_DEFAULT} ; do
         # this is quick 'n dirty
-        ${CHMOD} -R o+r ${DEFAULT_DIR}/
-        ${FIND} ${DEFAULT_DIR} -name "*.php" -exec ${CHMOD} o-r {} \;
-        ${FIND} ${DEFAULT_DIR} -type d -exec ${CHMOD} o-r {} \;
+        ${CHMOD} -R o+r "${DEFAULT_DIR}"/
+        ${FIND} "${DEFAULT_DIR}" -name "*.php" -exec "${CHMOD}" o-r {} \;
+        ${FIND} "${DEFAULT_DIR}" -type d -exec "${CHMOD}" o-r {} \;
     done
 }
 
@@ -544,7 +548,7 @@ yet_unused_permission_exceptions() {
 # Set-up and execute composer to obtain dependencies
 exists()
 {
-    if type $1 &>/dev/null
+    if type "$1" >/dev/null 2>&1
     then
         return 0
     else
@@ -557,7 +561,7 @@ composer_core()
     if [ -f temp/composer.phar ];
     then
         # todo : if exists php;
-        if [ ${LOGCOMPOSERFLAG} = "0" -o ${LOGCOMPOSERFLAG} = "2" ] ; then
+        if [ "${LOGCOMPOSERFLAG}" = "0" ] || [ "${LOGCOMPOSERFLAG}" = "2" ] ; then
             "${PHPCLI}" temp/composer.phar self-update --2 ${OPT_QUIET}
             RETURNVAL=$?
         fi
@@ -565,7 +569,7 @@ composer_core()
             "${PHPCLI}" temp/composer.phar self-update --2 ${OPT_QUIET} > ${TIKI_COMPOSER_SELF_UPDATE_LOG}
             RETURNVAL=$?
         fi
-        if [ ${RETURNVAL} -eq 0 ];
+        if [ "${RETURNVAL}" -eq 0 ];
         then
             NEED_NEW_COMPOSER="0"
         else
@@ -655,7 +659,7 @@ composer_core()
             done
         fi
         if [ ${LOGCOMPOSERFLAG} = "2" ] ; then
-            echo "Suppress output lines with 'Warning: Ambiguous class resolution'\n..."
+            printf "Suppress output lines with 'Warning: Ambiguous class resolution'\n..."
             #until php -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist --no-dev | sed '/Warning: Ambiguous class resolution/d'
             until "${PHPCLI}" -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist --optimize-autoloader --no-interaction ${DEVELOPMENT}
             # setting memory_limit here prevents suhosin ALERT - script tried to increase memory_limit to 536870912 bytes
@@ -685,12 +689,11 @@ composer()
     # http://dev.tiki.org/item4721
     PHP_OPTION="--version"
     # This is silly and will fail for minor version >9, but since we already do worse for the php version... benoitg - 2024-02-12
-    TIKI_MIN_PHP_VERSION_NUMERIC=`echo ${TIKI_MIN_PHP_VERSION} | ${CUT} -c1,3` # no decimal seperator, no floating point data
-    TIKI_TOO_RECENT_PHP_VERSION_NUMERIC=`echo ${TIKI_TOO_RECENT_PHP_VERSION} | ${CUT} -c1,3`
+    TIKI_MIN_PHP_VERSION_NUMERIC=$(echo "${TIKI_MIN_PHP_VERSION}" | ${CUT} -c1,3) # no decimal seperator, no floating point data
+    TIKI_TOO_RECENT_PHP_VERSION_NUMERIC=$(echo "${TIKI_TOO_RECENT_PHP_VERSION}" | ${CUT} -c1,3)
     #${PHPCLI} ${PHP_OPTION}
-
-    LOCAL_PHP_VERSION_NUMERIC=`"${PHPCLI}" ${PHP_OPTION} | ${GREP} ^PHP | ${CUT} -c5,7`
-    #echo ${TIKI_MIN_PHP_VERSION_NUMERIC} ${LOCAL_PHP_VERSION_NUMERIC} ${TIKI_TOO_RECENT_PHP_VERSION_NUMERIC}
+    LOCAL_PHP_VERSION_NUMERIC=$("${PHPCLI}" ${PHP_OPTION} | ${GREP} ^PHP | ${CUT} -c5,7)
+    #echo ${LOCAL_PHP_VERSION}
     LIKELY_ALTERNATE_PHP_CLI="php81 ph8.1 php8.1-cli" # These have been known to exist on some hosting platforms
     if [ "${LOCAL_PHP_VERSION_NUMERIC}" -lt "${TIKI_MIN_PHP_VERSION_NUMERIC}" ] || [ "${LOCAL_PHP_VERSION_NUMERIC}" -ge "${TIKI_TOO_RECENT_PHP_VERSION_NUMERIC}" ] ; then
         echo "Wrong PHP version: php${LOCAL_PHP_VERSION_NUMERIC}.  A version >= php${TIKI_MIN_PHP_VERSION_NUMERIC} and <= php${TIKI_TOO_RECENT_PHP_VERSION_NUMERIC} is necessary."
@@ -706,10 +709,10 @@ composer()
                 break
             fi
         done
-        if [ ! -n "${PHPCLIFOUND}" ]; then
+        if [ -z "${PHPCLIFOUND}" ]; then
             echo "... no alternative php version found."
             echo "Please provide an alternative PHP version with the -p option."
-            echo "Example: sh `basename $0` -p php${TIKI_MIN_PHP_VERSION_NUMERIC}."
+            echo "Example: sh $(basename "$0") -p php${TIKI_MIN_PHP_VERSION_NUMERIC}."
             echo "You can use the command-line command 'php[TAB][TAB]' to find out available versions."
             exit 1
         fi
@@ -750,7 +753,9 @@ command_fix() {
         if [ -n "$OPT_AUSER" ]; then
             AUSER=$OPT_AUSER
         elif [ -z "$OPT_USE_CURRENT_USER_GROUP" ]; then
-            read -p "User [$AUSER]: " REPLY
+            printf "User [%s]: " "$AUSER"
+            read -r REPLY
+
             if [ -n "$REPLY" ]; then
                 AUSER=$REPLY
             fi
@@ -768,7 +773,9 @@ but it (the script) will still fix what it can according to the permissions
 of your user. This script will now ask you some questions. If you don't know
 what to answer, just press enter to each question (to use default value)"
 
-            read -p "> Press enter to continue: " WAIT
+            printf "> Press enter to continue: "
+            read -r WAIT
+            
             AUSER=$USER
         fi
     fi
@@ -776,7 +783,9 @@ what to answer, just press enter to each question (to use default value)"
     if [ -n "$OPT_AGROUP" ]; then
         AGROUP=$OPT_AGROUP
     elif [ -z "$OPT_USE_CURRENT_USER_GROUP" ]; then
-        read -p "> Group [$AGROUP]: " REPLY
+        printf "> Group [%s]: " "$AGROUP"
+        read -r REPLY
+            
         if [ -n "$REPLY" ]; then
             AGROUP=$REPLY
         fi
@@ -788,14 +797,17 @@ what to answer, just press enter to each question (to use default value)"
     elif [ -n "$OPT_USE_CURRENT_USER_GROUP" ]; then
         VIRTUALS=$(cat db/virtuals.inc)
     else
-        read -p "> Multi [$(${CAT} -s db/virtuals.inc | ${TR} '\n' ' ')]: " VIRTUALS
+        VIRTUALS_CONTENTS="$($CAT -s db/virtuals.inc | $TR '\n' ' ')"
+        printf "> Multi [%s]: " "VIRTUALS_CONTENTS"
+        read -r VIRTUALS
         [ -z "$VIRTUALS" ] && VIRTUALS=$(${CAT} db/virtuals.inc)
     fi
 
     if [ -n "$VIRTUALS" ]; then
         for vdir in $VIRTUALS; do
-            echo $vdir >> db/virtuals.inc
-            cat db/virtuals.inc | sort | uniq > db/virtuals.inc_new
+            echo "$vdir" >> db/virtuals.inc
+            # cat db/virtuals.inc | sort | uniq > db/virtuals.inc_new @Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+            sort < db/virtuals.inc | uniq > db/virtuals.inc_new
             rm -f db/virtuals.inc && mv db/virtuals.inc_new db/virtuals.inc
         done
     fi
@@ -803,32 +815,32 @@ what to answer, just press enter to each question (to use default value)"
     # make sure composer files can be created by tiki-admin.php?page=packages
     echo "Checking non-bundled composer : "
     if [ ! -f composer.json ]; then
-        echo -n " Creating composer.json..."
+        printf " Creating composer.json..."
         cp composer.json.dist composer.json
     else
-        echo -n " Found composer.json..."
+        printf " Found composer.json..."
     fi
     if [ ! -f composer.lock ]; then
-        echo -n " created composer.lock..."
+        printf " created composer.lock..."
         echo "{}" > composer.lock
     else
-        echo -n " found composer.json..."
+        printf " found composer.json..."
     fi
     echo " done."
 
     echo "Checking dirs : "
     for dir in $DIRS; do
-        echo -n "  $dir ... "
-        if [ ! -d $dir ]; then
-            echo -n " Creating directory"
-            ${MKDIR} -p $dir
+        printf "  %s ... " "$dir"
+        if [ ! -d "$dir" ]; then
+            printf " Creating directory"
+            ${MKDIR} -p "$dir"
         fi
         echo " ok."
-        if [ -n "$VIRTUALS" ] && [ $dir != "temp/unified-index" ]; then
+        if [ -n "$VIRTUALS" ] && [ "$dir" != "temp/unified-index" ]; then
             for vdir in $VIRTUALS; do
-                echo -n "  $dir/$vdir ... "
+                printf "  %s/%s ... " "$dir" "$vdir"
                 if [ ! -d "$dir/$vdir" ]; then
-                    echo -n " Creating Directory"
+                    printf " Creating Directory"
                     ${MKDIR} -p "$dir/$vdir"
                 fi
                 echo " ok."
@@ -838,7 +850,7 @@ what to answer, just press enter to each question (to use default value)"
 
     # Check that the USER is in AGROUP
     USERINAGROUP="no"
-    for grp in `${ID} -Gn $USER`; do
+    for grp in $(${ID} -Gn "$USER"); do
         if [ "$grp" = "$AGROUP" ]; then
             USERINAGROUP="yes"
         fi
@@ -847,16 +859,16 @@ what to answer, just press enter to each question (to use default value)"
     echo "Fix global perms ..."
     if [ "$USER" = 'root' ]; then
         #chown -fR $AUSER:$AGROUP . || echo "Could not change ownership to $AUSER"
-        echo -n "Change user to $AUSER and group to $AGROUP..."
-        ${CHOWN} -fR $AUSER:$AGROUP .
+        printf "Change user to %s and group to %s..." "$AUSER" "$AGROUP"
+        ${CHOWN} -fR "$AUSER":"$AGROUP" .
         echo " done."
     else
         if [ -n "$OPT_AUSER" ]; then
             echo "You are not root. We will not try to change the file owners."
         fi
         if [ "$USERINAGROUP" = "yes" ]; then
-            echo -n "Change group to $AGROUP ..."
-            chgrp -Rf $AGROUP .
+            printf "Change group to %s ..."  "$AGROUP"
+            chgrp -Rf "$AGROUP" .
             echo " done."
         else
             echo "You are not root and you are not in the group $AGROUP. We can't change the group ownership to $AGROUP."
@@ -869,17 +881,17 @@ what to answer, just press enter to each question (to use default value)"
 #    find . -type d -exec chmod 755 {} \;
 #    echo " dirs perms fixed ... done"
 
-    echo -n "Fix normal dirs ..."
+    printf "Fix normal dirs ..."
     ${CHMOD} -fR u=rwX,go=rX .
     echo " done."
 
-    echo -n "Fix special dirs ..."
-    if [ "$USER" = 'root' -o "$USERINAGROUP" = "yes" ]; then
-        ${CHMOD} -R g+w $DIRS
+    printf "Fix special dirs ..."
+    if [ "$USER" = 'root' ] || [ "$USERINAGROUP" = "yes" ]; then
+        ${CHMOD} -R g+w "$DIRS"
         ${CHMOD} g+w composer.json
         ${CHMOD} g+w composer.lock
     else
-        ${CHMOD} -fR go+w $DIRS
+        ${CHMOD} -fR go+w "$DIRS"
         ${CHMOD} go+w composer.json
         ${CHMOD} go+w composer.lock
     fi
@@ -903,12 +915,13 @@ command_open() {
         if [ -n "$OPT_AUSER" ]; then
             AUSER=$OPT_AUSER
         elif [ -z "$OPT_USE_CURRENT_USER_GROUP" ]; then
-            read -p "User [$AUSER]: " REPLY
+            printf "User [%s]: " "$AUSER"
+            read -r REPLY
             if [ -n "$REPLY" ]; then
                 AUSER=$REPLY
             fi
         fi
-        chown -R $AUSER .
+        chown -R "$AUSER" .
     else
         echo "You are not root or you are on a shared hosting account. We will not try to change the file owners."
     fi
@@ -988,24 +1001,24 @@ set_user_plus_write() {
 
 special_dirs_set_permissions_files() {
     for WRITABLE in $DIRS ; do
-        if [ -d ${WRITABLE} ] ; then
+        if [ -d "${WRITABLE}" ] ; then
             if [ ${DEBUG} = '1' ] ; then
                 echo ${DEBUG_PREFIX}
                 echo ${DEBUG_PREFIX} "${FIND} ${WRITABLE} -type f -exec ${CHMOD} ${MODEL_PERMS_WRITE_FILES} {} \;"
             fi
-            ${FIND} ${WRITABLE} -type f -exec ${CHMOD} ${MODEL_PERMS_WRITE_FILES} {} \;
+            ${FIND} "${WRITABLE}" -type f -exec "${CHMOD}" ${MODEL_PERMS_WRITE_FILES} {} \;
         fi
     done
 }
 
 special_dirs_set_permissions_subdirs() {
     for WRITABLE in $DIRS ; do
-        if [ -d ${WRITABLE} ] ; then
+        if [ -d "${WRITABLE}" ] ; then
             if [ ${DEBUG} = '1' ] ; then
                 echo ${DEBUG_PREFIX}
                 echo ${DEBUG_PREFIX} "${FIND} ${WRITABLE} -type d -exec ${CHMOD} ${MODEL_PERMS_WRITE_SUBDIRS} {} \;"
             fi
-            ${FIND} ${WRITABLE} -type d -exec ${CHMOD} ${MODEL_PERMS_WRITE_SUBDIRS} {} \;
+            ${FIND} "${WRITABLE}" -type d -exec "${CHMOD}" ${MODEL_PERMS_WRITE_SUBDIRS} {} \;
         fi
     done
 }
@@ -1164,15 +1177,15 @@ tiki_setup_default() {
     WHAT=${DEFAULT_WHAT} # composer is recommended in case of an svn checkout
     while true
     do
-        if [ ${COMMAND} != "more-TPC-options" ] ; then
+        if [ "${COMMAND}" != "more-TPC-options" ] ; then
             tiki_setup_default_menu
         else
             permission_via_php_check_menu
             COMMAND="nothing"
         fi
-        echo -n "Your choice [${WHAT}]? "
-        read INPUT
-        if [ -z ${INPUT} ] ; then
+        printf "Your choice [%s]? " "$WHAT"
+        read -r INPUT
+        if [ -z "${INPUT}" ] ; then
             DUMMY=foo
         else
             OLDWHAT=${WHAT}

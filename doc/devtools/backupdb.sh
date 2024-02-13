@@ -18,19 +18,19 @@ ARCHIVEDIR="/tmp"
 # Somewhere to copy to
 SCPTO="username@server.tld:path/to/backup"
 
-eval `cat $TIKIDIR/db/$VIRTUAL/local.php | sed -e '/[\?#]/d' -e "s/\$\([-_a-z]*\)[[:space:]]*=[[:space:]]*\([-_a-zA-Z0-9\"'\.]*\);/\\1=\\2/"`
+eval "$(sed -e '/[\?#]/d' -e "s/\$\([-_a-z]*\)[[:space:]]*=[[:space:]]*\([-_a-zA-Z0-9\"'\.]*\);/\\1=\\2/" "$TIKIDIR/db/$VIRTUAL/local.php")"
 DBHOST=${host_tiki:-'localhost'}
 DBNAME=${dbs_tiki:-'tikiwiki'}
 DBUSER=${user_tiki:-'root'}
 DBPASS=${pass_tiki:-''}
 
-NOWDATE=`date +%Y-%m-%d`
+NOWDATE=$(date +%Y-%m-%d)
 DUMPFILE="$DBNAME-$NOWDATE-sql.bz2"
 
-cd $ARCHIVEDIR
+cd $ARCHIVEDIR || exit
 
-mysqldump -Q -u $DBUSER -h$DBHOST -p$DBPASS $DBNAME | bzip2 -c > $DUMPFILE
+mysqldump -Q -u "$DBUSER" -h"$DBHOST" -p"$DBPASS" "$DBNAME" | bzip2 -c > "$DUMPFILE"
 if [ "$SCPTO" ]; then 
-    scp -C $DUMPFILE $SCPTO
-    rm $DUMPFILE
+    scp -C "$DUMPFILE" $SCPTO
+    rm "$DUMPFILE"
 fi

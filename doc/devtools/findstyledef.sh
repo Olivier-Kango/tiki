@@ -10,4 +10,4 @@
 # 
 # ohertel@tw.o
 
-perl ./findstyles.pl $1 | sort | uniq > result.txt
+perl ./findstyles.pl "$1" | sort | uniq > result.txt
