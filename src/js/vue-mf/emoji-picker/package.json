@@ -5,7 +5,7 @@
 
   },
   "dependencies": {
-    "emoji-mart-vue-fast": "^15.0.0"
+    "emoji-mart-vue-fast": "^15.0.1"
   },
   "devDependencies": {
   }
