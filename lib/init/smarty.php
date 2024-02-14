@@ -336,16 +336,24 @@ class Smarty_Tiki extends \Smarty\Smarty
     }
 
     /**
-     * needs a proper description
-     * @param null   $resource_name
-     * @param null   $cache_id
-     * @param null   $compile_id
-     * @param null   $parent
-     * @param string $content_type
-     * @return Purified|void
-     */
-    public function display($resource_name = null, $cache_id = null, $compile_id = null, $parent = null, $content_type = 'text/html; charset=utf-8')
-    {
+     * Tiki wrapper for Smarty display (displays a template)
+     * *
+     * * @param string $template the resource handle of the template file or template object
+     * * @param mixed $cache_id cache id to be used with this template
+     * * @param mixed $compile_id compile id to be used with this template
+     * *
+     * * @return void
+     *
+     * @throws \Smarty\Exception
+     * @throws \Exception
+     * */
+    public function display(
+        $template = null,
+        $cache_id = null,
+        $compile_id = null,
+        $parent = null,
+        $content_type = 'text/html; charset=utf-8'
+    ): void {
 
         global $prefs;
         $this->activateCustomErrorHandler();
@@ -449,13 +457,13 @@ class Smarty_Tiki extends \Smarty\Smarty
 
         TikiLib::events()->trigger('tiki.process.render', []);
 
-        $this->assign_layout_sections($resource_name, $cache_id, $compile_id, $parent);
+        $this->assign_layout_sections($template, $cache_id, $compile_id, $parent);
         try {
-            $html = parent::display($resource_name, $cache_id, $compile_id);
+            parent::display($template, $cache_id, $compile_id);
         } catch (Error $e) {
             TikiLib::lib('errortracking')->captureException($e);
             $html = '<div class="error">';
-            $html .= "Fatal error rendering template resource $resource_name\n<br/>";
+            $html .= "Fatal error rendering template resource $template\n<br/>";
             $html .= '</div><pre>';
             $html .= $e;
             $html .= '</pre>';
@@ -463,14 +471,6 @@ class Smarty_Tiki extends \Smarty\Smarty
         }
 
         $this->deactivateCustomErrorHandler();
-
-        //This cannot possibly work, display never returns anything.  Presumably this was meant for fetch() - benoitg - 2023-06-07
-
-        if (! empty($prefs['feature_htmlpurifier_output']) and $prefs['feature_htmlpurifier_output'] == 'y') {
-            return $purifier->purify($html);
-        } else {
-            return $html;
-        }
     }
 
     /**
