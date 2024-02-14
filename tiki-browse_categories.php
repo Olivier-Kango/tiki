@@ -15,7 +15,6 @@ include_once('lib/tree/BrowseTreeMaker.php');
 $access->check_feature('feature_categories');
 
 $smarty = TikiLib::lib('smarty');
-$smarty->loadPlugin('smarty_function_icon');
 
 $prefsgroups = $prefs['feature_group_watches'];
 global $prefsgroups, $tiki_p_admin_users, $tiki_p_admin;

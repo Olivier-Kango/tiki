@@ -1333,7 +1333,6 @@ class Services_Tracker_Controller
 
                 // also $prefs['tracker_legacy_insert'] === 'y'
                 if (! $redirect && ! $access->is_xml_http_request()) {
-                    TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
                     $redirect = smarty_modifier_sefurl($itemId, 'trackeritem');
                 }
 

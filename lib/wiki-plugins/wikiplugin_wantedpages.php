@@ -503,7 +503,6 @@ if (! function_exists('parse_object_link')) {
     function parse_object_link($link)
     {
         $smarty = TikiLib::lib('smarty');
-        $smarty->loadPlugin('smarty_function_object_link');
         $parts = explode(':', $link);
         $data = smarty_function_object_link(
             [
