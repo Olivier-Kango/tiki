@@ -59,7 +59,7 @@ class HtmlSelectDuration extends Base
                 'output' => $output,
                 'selected' => $selected
             ],
-            $$template
+            $template
         );
 
         $html_result .= '</select></div></div>';
