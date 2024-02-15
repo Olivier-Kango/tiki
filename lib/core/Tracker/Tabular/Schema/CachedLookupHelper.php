@@ -91,6 +91,9 @@ class CachedLookupHelper
         $cache->setInit(function ($count) use ($table, $fieldId) {
             return $table->fetchMap('value', 'itemId', [
                 'fieldId' => $fieldId,
+                // getting items with empty values is pointless for a map of `value` => `itemId`
+                // as that is returned as a single item so LENGTH() > 0 filters out empty strings and NULL
+                'value' => $table->expr('LENGTH($$) > 0')
             ], $count, 0);
         });
         $cache->setLookup(function ($value) use ($table, $fieldId) {
