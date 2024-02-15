@@ -8,5 +8,5 @@
 function smarty_modifier_replacei($string, $find, $replacement)
 {
     $smartyTikiExtension = new \SmartyTiki\Extension\SmartyTikiExtension();
-    return $smartyTikiExtension->smarty_modifier_replacei($string, $find, $replacement);
+    return $smartyTikiExtension->smartyModifierReplacei($string, $find, $replacement);
 }

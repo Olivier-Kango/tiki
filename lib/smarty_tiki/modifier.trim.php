@@ -8,5 +8,5 @@
 function smarty_modifier_trim($string, $chars = null)
 {
     $smartyTikiExtension = new \SmartyTiki\Extension\SmartyTikiExtension();
-    return $smartyTikiExtension->smarty_modifier_trim($string, $chars);
+    return $smartyTikiExtension->smartyModifierTrim($string, $chars);
 }

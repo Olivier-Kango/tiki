@@ -10,5 +10,5 @@ function smarty_modifier_substring($string, $position = 0, $length = null)
 {
 
     $smartyTikiExtension = new \SmartyTiki\Extension\SmartyTikiExtension();
-    return $smartyTikiExtension->smarty_modifier_substring($string, $position, $length);
+    return $smartyTikiExtension->smartyModifierSubstring($string, $position, $length);
 }

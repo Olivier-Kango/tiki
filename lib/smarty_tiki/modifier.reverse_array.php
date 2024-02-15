@@ -8,5 +8,5 @@
 function smarty_modifier_reverse_array($array)
 {
     $smartyTikiExtension = new \SmartyTiki\Extension\SmartyTikiExtension();
-    return $smartyTikiExtension->smarty_modifier_reverse_array($array);
+    return $smartyTikiExtension->smartyModifierReverseArray($array);
 }

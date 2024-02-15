@@ -8,5 +8,5 @@
 function smarty_modifier_lcfirst($s)
 {
     $smartyTikiExtension = new \SmartyTiki\Extension\SmartyTikiExtension();
-    return $smartyTikiExtension->smarty_modifier_lcfirst($s);
+    return $smartyTikiExtension->smartyModifierLcfirst($s);
 }

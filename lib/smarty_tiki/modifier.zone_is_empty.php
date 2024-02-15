@@ -8,5 +8,5 @@
 function smarty_modifier_zone_is_empty($zoneName)
 {
     $SmartyTikiExtension = new \smartytiki\Extension\SmartyTikiExtension();
-    return $SmartyTikiExtension->smarty_modifier_zone_is_empty($zoneName);
+    return $SmartyTikiExtension->smartyModifierZoneIsEmpty($zoneName);
 }

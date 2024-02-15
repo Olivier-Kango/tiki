@@ -41,11 +41,11 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'a_or_an':
                 return [new \SmartyTiki\Modifier\AorAn(), 'handle'];
             case 'addslashes':
-                return [$this, 'smarty_modifier_addslashes'];
+                return [$this, 'smartyModifierAddslashes'];
             case 'adjust':
                 return [new \SmartyTiki\Modifier\Adjust(), 'handle'];
             case 'array_reverse':
-                return [$this, 'smarty_modifier_array_reverse'];
+                return [$this, 'smartyModifierArrayreverse'];
             case 'avatarize':
                 return [new \SmartyTiki\Modifier\Avatarize(), 'handle'];
             case 'breakline':
@@ -57,7 +57,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'countryflag':
                 return [new \SmartyTiki\Modifier\CountryFlag(), 'handle'];
             case 'count':
-                return [$this, 'smarty_modifier_count'];
+                return [$this, 'smartyModifierCount'];
             case 'd':
                 return [new \SmartyTiki\Modifier\D(), 'handle'];
             case 'dbg':
@@ -87,29 +87,29 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'iconify':
                 return [new \SmartyTiki\Modifier\Iconify(), 'handle'];
             case 'implode':
-                return [$this, 'smarty_modifier_implode'];
+                return [$this, 'smartyModifierImplode'];
             case 'in_group':
                 return [new \SmartyTiki\Modifier\InGroup(), 'handle'];
             case 'is_array':
-                return [$this, 'smarty_modifier_is_array'];
+                return [$this, 'smartyModifierIsarray'];
             case 'is_numeric':
-                return [$this, 'smarty_modifier_is_numeric'];
+                return [$this, 'smartyModifierIsNumeric'];
             case 'isodate':
                 return [new \SmartyTiki\Modifier\IsoDate(), 'handle'];
             case 'json_decode':
-                return [$this, 'smarty_modifier_json_decode'];
+                return [$this, 'smartyModifierJsonDecode'];
             case 'json_encode':
-                return [$this, 'smarty_modifier_json_encode'];
+                return [$this, 'smartyModifierJsonEncode'];
             case 'kbsize':
                 return [new \SmartyTiki\Modifier\KbSize(), 'handle'];
             case 'langname':
                 return [new \SmartyTiki\Modifier\LangName(), 'handle'];
             case 'lcfirst':
-                return [$this, 'smarty_modifier_lcfirst'];
+                return [$this, 'smartyModifierLcfirst'];
             case 'max_user_inscriptions':
                 return [new \SmartyTiki\Modifier\MaxUserInscriptions(), 'handle'];
             case 'md5':
-                return [$this, 'smarty_modifier_md5'];
+                return [$this, 'smartyModifierMd5'];
             case 'money_format':
                 return [new \SmartyTiki\Modifier\MoneyFormat(), 'handle'];
             case 'namespace':
@@ -133,13 +133,13 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'percent':
                 return [new \SmartyTiki\Modifier\Percent(), 'handle'];
             case 'preg_match':
-                return [$this, 'smarty_modifier_preg_match'];
+                return [$this, 'smartyModifierPregMatch'];
             case 'quoted':
                 return [new \SmartyTiki\Modifier\Quoted(), 'handle'];
             case 'replacei':
-                return [$this, 'smarty_modifier_replacei'];
+                return [$this, 'smartyModifierReplacei'];
             case 'reverse_array':
-                return [$this, 'smarty_modifier_reverse_array'];
+                return [$this, 'smartyModifierReverseArray'];
             case 'sefurl':
                 return [new \SmartyTiki\Modifier\Sefurl(), 'handle'];
             case 'sizeof':
@@ -151,15 +151,15 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'stringfix':
                 return [new \SmartyTiki\Modifier\StringFix(), 'handle'];
             case 'stristr':
-                return [$this, 'smarty_modifier_stristr'];
+                return [$this, 'smartyModifierStristr'];
             case 'strstr':
                 return [$this, 'smartyModifierStrstr'];
             case 'strpos':
-                return [$this, 'smarty_modifier_strpos'];
+                return [$this, 'smartyModifierStrpos'];
             case 'substr':
                 return [$this, 'smartyModifierSubstr'];
             case 'substring':
-                return [$this, 'smarty_modifier_substring'];
+                return [$this, 'smartyModifierSubstring'];
             case 'tasklink':
                 return [new \SmartyTiki\Modifier\TaskLink(), 'handle'];
             case 'template':
@@ -185,7 +185,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'times':
                 return [new \SmartyTiki\Modifier\Times(), 'handle'];
             case 'trim':
-                return [$this, 'smarty_modifier_trim'];
+                return [$this, 'smartyModifierTrim'];
             case 'tra':
                 return [new \SmartyTiki\Modifier\Tra(), 'handle'];
             case 'truncate':
@@ -195,11 +195,11 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'tr_if':
                 return [new \SmartyTiki\Modifier\TrIf(), 'handle'];
             case 'ucfirst':
-                return [$this, 'smarty_modifier_ucfirst'];
+                return [$this, 'smartyModifierUcfirst'];
             case 'ucwords':
-                return [$this, 'smarty_modifier_ucwords'];
+                return [$this, 'smartyModifierUcwords'];
             case 'urlencode':
-                return [$this, 'smarty_modifier_urlencode'];
+                return [$this, 'smartyModifierUrlencode'];
             case 'userlink':
                 return [new \SmartyTiki\Modifier\UserLink(), 'handle'];
             case 'username':
@@ -207,13 +207,13 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'utf8unicode':
                 return [new \SmartyTiki\Modifier\Utf8Unicode(), 'handle'];
             case 'var_dump':
-                return [$this, 'smarty_modifier_var_dump'];
+                return [$this, 'smartyModifierVardump'];
             case 'virtual_path':
                 return [new \SmartyTiki\Modifier\VirtualPath(), 'handle'];
             case 'yesno':
                 return [new \SmartyTiki\Modifier\YesNo(), 'handle'];
             case 'zone_is_empty':
-                return [$this, 'smarty_modifier_zone_is_empty'];
+                return [$this, 'smartyModifierZoneIsEmpty'];
         }
         return null;
     }
@@ -694,7 +694,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param string $string   The string to be escaped.
      * @return string          A string with backslashes added before characters that need to be escaped. These characters are: ',",\, NUL (the NUL byte)
      */
-    public function smarty_modifier_addslashes($string)
+    public function smartyModifierAddslashes($string)
     {
         return addslashes($string);
     }
@@ -707,12 +707,12 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param bool  $preserve_key   Optional. If set to true, numeric keys will be preserved. Non-numeric keys will not be affected by this configuration, and will always be preserved.
      * @return array                The array in reverse order.
      */
-    public function smarty_modifier_array_reverse($array, $preserve_keys = false)
+    public function smartyModifierArrayreverse($array, $preserve_keys = false)
     {
         return array_reverse($array, $preserve_keys);
     }
 
-    public function smarty_modifier_count($arrayOrObject, $mode = 0)
+    public function smartyModifierCount($arrayOrObject, $mode = 0)
     {
         if ($arrayOrObject instanceof \Countable || is_array($arrayOrObject)) {
             return count($arrayOrObject, (int) $mode);
@@ -733,7 +733,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      *
      * Synthax: {$separator|implode:$array}
      */
-    public function smarty_modifier_implode($separator, $array)
+    public function smartyModifierImplode($separator, $array)
     {
         if (! is_array($array)) {
             return $array;
@@ -741,12 +741,12 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
         return implode($separator, $array);
     }
 
-    public function smarty_modifier_is_array($array)
+    public function smartyModifierIsarray($array)
     {
         return is_array($array);
     }
 
-    public function smarty_modifier_is_numeric($value)
+    public function smartyModifierIsNumeric($value)
     {
         return is_numeric($value);
     }
@@ -763,7 +763,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @return mixed
      * @see https://php.net/manual/en/function.json-decode.php for more details about params
      */
-    public function smarty_modifier_json_decode($json, $associative = null, $depth = 512, $flags = 0)
+    public function smartyModifierJsonDecode($json, $associative = null, $depth = 512, $flags = 0)
     {
         return json_decode($json, $associative, $depth, $flags);
     }
@@ -780,7 +780,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      *
      * @see https://php.net/manual/en/function.json-encode.php for more details about params description
      */
-    public function smarty_modifier_json_encode($value, $flags = 0, $depth = 512)
+    public function smartyModifierJsonEncode($value, $flags = 0, $depth = 512)
     {
         return json_encode($value, $flags, $depth);
     }
@@ -793,7 +793,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     * Purpose:  lowercase the initial character in a string
     * -------------------------------------------------------------
     */
-    public function smarty_modifier_lcfirst($s)
+    public function smartyModifierLcfirst($s)
     {
         return strtolower($s[0]) . substr($s, 1);
     }
@@ -807,7 +807,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param bool   $binary  Optional. If set to true, then the md5 is returned in raw binary format with a length of 16.
      * @return string         Returns the md5 of the string, as a 32-character hexadecimal number.
      */
-    public function smarty_modifier_md5($string, $binary = false)
+    public function smartyModifierMd5($string, $binary = false)
     {
         return md5($string, $binary);
     }
@@ -824,7 +824,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     * @return int|flase
     * @see https://php.net/manual/en/function.preg-match.php for details about the params description
     */
-    public function smarty_modifier_preg_match($pattern, $subject, $matches = null, $flags = 0, $offset = 0)
+    public function smartyModifierPregMatch($pattern, $subject, $matches = null, $flags = 0, $offset = 0)
     {
         return preg_match($pattern, $subject, $matches, $flags, $offset);
     }
@@ -843,7 +843,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * Purpose:  Returns a case insensitive replaced string.
      *           Same arguments as PHP str_ireplace function.
      */
-    public function smarty_modifier_replacei($string, $find, $replacement)
+    public function smartyModifierReplacei($string, $find, $replacement)
     {
         return str_ireplace($find, $replacement, $string);
     }
@@ -857,7 +857,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param array
      * @return array
      */
-    public function smarty_modifier_reverse_array($array)
+    public function smartyModifierReverseArray($array)
     {
         return array_reverse($array);
     }
@@ -914,7 +914,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param length: length of substring (default=to end of string; negative=left N from end)
      * @return string
      */
-    public function smarty_modifier_substring($string, $position = 0, $length = null)
+    public function smartyModifierSubstring($string, $position = 0, $length = null)
     {
 
         if ($length == null) {
@@ -934,7 +934,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param bool   $before_needle  Optional. If true, stristr() returns the part of haystack before the first occurrence of needle (needle excluded).
      * @return string|false          Returns the matching part of the string. If needle is not found, the function returns false.
      */
-    public function smarty_modifier_stristr($haystack, $needle, $before_needle = false)
+    public function smartyModifierStristr($haystack, $needle, $before_needle = false)
     {
         return stristr($haystack, $needle, $before_needle);
     }
@@ -966,7 +966,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      *
      * Synthax: {$haystack|strpos:$needle:$offset}
      */
-    public function smarty_modifier_strpos($haystack, $needle, $offset = 0)
+    public function smartyModifierStrpos($haystack, $needle, $offset = 0)
     {
         return strpos($haystack, $needle, $offset);
     }
@@ -977,7 +977,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      *
      * @return string - String trimed
      */
-    public function smarty_modifier_trim($string, $chars = null)
+    public function smartyModifierTrim($string, $chars = null)
     {
         return empty($chars) ? trim($string) : trim($string, $chars);
     }
@@ -990,7 +990,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param string      $string   The input string.
      * @return string               A string with the first character of string capitalized, if that character is an ASCII character in the range from "a" (0x61) to "z" (0x7a).
      */
-    public function smarty_modifier_ucfirst($string)
+    public function smartyModifierUcfirst($string)
     {
         return ucfirst($string);
     }
@@ -1004,7 +1004,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param string  $separator  Optional. contains the word separator characters.
      * @return string             A string with the first character of each word in string capitalized, if that character is an ASCII character between "a" (0x61) and "z" (0x7a)
      */
-    public function smarty_modifier_ucwords($string, $separator = " \t\r\n\f\v")
+    public function smartyModifierUcwords($string, $separator = " \t\r\n\f\v")
     {
         return ucwords($string, $separator);
     }
@@ -1017,7 +1017,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param string  $string     The string to be encoded.
      * @return string             A string in which all non-alphanumeric characters except -_. have been replaced with a percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs.
      */
-    public function smarty_modifier_urlencode($string)
+    public function smartyModifierUrlencode($string)
     {
         return urlencode($string);
     }
@@ -1030,12 +1030,12 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
      * @param mixed $value
      * @return void
      */
-    public function smarty_modifier_var_dump($value)
+    public function smartyModifierVardump($value)
     {
         return var_dump($value);
     }
 
-    public function smarty_modifier_zone_is_empty($zoneName)
+    public function smartyModifierZoneIsEmpty($zoneName)
     {
         return zone_is_empty($zoneName);
     }
