@@ -138,7 +138,7 @@ TesseractOCR:
   name: thiagoalessio/tesseract_ocr
   requiredBy:
     - ocr_enable
-  requiredVersion: ^2.7.3
+  requiredVersion: ^2.9.4
   # Be sure to update TESSERACT_BINARY_VERSION in ocrlib.php if the requirements have changed.
 MathJax:
   licence: Apache-2.0
