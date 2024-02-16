@@ -106,6 +106,9 @@ class Tracker_Field_Numeric extends \Tracker\Field\AbstractField implements \Tra
         $decimals = $this->getOption('decimals');
         $dec_point = $this->getOption('dec_point');
         $thousands = $this->getOption('thousands');
+        if (! is_numeric($this->getValue())) {
+            return $this->getValue();
+        }
         if (empty($decimals) && empty($dec_point)) {
             if (empty($thousands)) {
                 return $this->getValue();
