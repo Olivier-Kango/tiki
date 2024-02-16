@@ -5,8 +5,11 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 /**
- * \brief A basic library to handle a cache of some Tiki Objects,
- * usage is simple and feel free to improve it
+ * \brief This is a library to handle all caching in Tiki.
+ * 
+ * In abstracts a key value pair cache based on Memcache or Redis, with a fallback to the filesystem
+ * 
+ * It also manages template caching, opcode caching, etc...
  */
 
 class Cachelib
@@ -16,7 +19,7 @@ class Cachelib
     private const OPTIONAL_SUBSYSTEMS = [
         'Memcache' => [
             'pref' => 'memcache_enabled',
-            'extension' => 'memcache',
+            'extension' => 'memcached',
             'class' => CacheLibMemcache::class,
             'require' => ''
         ],
@@ -44,7 +47,6 @@ class Cachelib
                 return;
             }
         }
-
         // Default implementation and fallback
         $this->implementation = new CacheLibFileSystem();
     }
@@ -253,7 +255,7 @@ class Cachelib
         return;
     }
 
-    public function erase_dir_content($path)
+    private function erase_dir_content($path)
     {
         global $tikidomain, $prefs;
 
