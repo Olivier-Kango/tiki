@@ -134,7 +134,7 @@ class Memcachelib
      * @param  array $keys, each will be passed through buildKey() before use
      * @return array Values, in order of keys passed.
      */
-    public function getMulti($keys)
+    public function getMulti(array $keys): array
     {
 
         // Run each key passed in through the buildKey() method.
@@ -144,7 +144,7 @@ class Memcachelib
         }
 
         // Fetch the assoc array of keys/values available in memcache.
-        $values_in = $this->memcache->get($keys_built);
+        $values_in = $this->memcache->getMulti($keys_built);
 
         // Construct a list of values corresponding to the keys passed in.
         $values_out = [];
