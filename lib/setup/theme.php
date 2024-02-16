@@ -162,11 +162,13 @@ if (! isset($prefs['site_favicon_enable']) || $prefs['site_favicon_enable'] === 
         if (is_file($favicon_path . '/favicon-32x32.png')) {
             $headerlib->add_link('icon', $favicon_path . '/favicon-32x32.png', '32x32', 'image/png');
         }
-        if (is_file($favicon_path . '/site.webmanifest')) {
-            $headerlib->add_link('manifest', $favicon_path . '/site.webmanifest');
-            // The file name changed, so check for the old file if the new does not exist
-        } elseif (is_file($favicon_path . '/manifest.json')) {
-            $headerlib->add_link('manifest', $favicon_path . '/manifest.json');
+        if ($prefs['pwa_feature'] === 'y') {
+            if (is_file($favicon_path . '/site.webmanifest')) {
+                $headerlib->add_link('manifest', $favicon_path . '/site.webmanifest');
+                // The file name changed, so check for the old file if the new does not exist
+            } elseif (is_file($favicon_path . '/manifest.json')) {
+                $headerlib->add_link('manifest', $favicon_path . '/manifest.json');
+            }
         }
         if (is_file($favicon_path . '/favicon.ico')) {
             $headerlib->add_link('shortcut icon', $favicon_path . '/favicon.ico');
@@ -181,10 +183,12 @@ if (! isset($prefs['site_favicon_enable']) || $prefs['site_favicon_enable'] === 
         $headerlib->add_link('icon', 'themes/base_files/favicons/favicon-16x16.png', '16x16', 'image/png');
         $headerlib->add_link('apple-touch-icon', 'themes/base_files/favicons/apple-touch-icon.png', '180x180');
         $headerlib->add_link('icon', 'themes/base_files/favicons/favicon-32x32.png', '32x32', 'image/png');
-        $headerlib->add_link('manifest', 'themes/base_files/favicons/site.webmanifest');
         $headerlib->add_link('shortcut icon', 'themes/base_files/favicons/favicon.ico');
         $headerlib->add_link('mask-icon', 'themes/base_files/favicons/safari-pinned-tab.svg', '', '', '#5bbad5');
         $headerlib->add_meta('msapplication-config', 'themes/base_files/favicons/browserconfig.xml');
+        if ($prefs['pwa_feature'] && $prefs['pwa_feature'] == 'y') {
+            $headerlib->add_link('manifest', 'themes/base_files/favicons/site.webmanifest');
+        }
     }
     unset($favicon_path);  // no longer needed, so bye bye
 }
