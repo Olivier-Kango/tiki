@@ -196,6 +196,8 @@ class IndexCompareEnginesCommand extends Command
                         $prefs['unified_' . $engine . '_index_current'] = $indices[$engine];
                     }
                     $unifiedSearchLib->invalidateIndicesCache();
+                    global $indexComparisonInProgess;
+                    $indexComparisonInProgess = true;
 
                     \Search_Formatter_Factory::$counter = 0; // Reset counter index
                     $output[$engine] = @$parserLib->parse_data($rawPlugin);
