@@ -181,7 +181,9 @@ class Services_Broker
 
         if ($layout) {
             $smarty->assign('global_extend_layout', 'layouts/internal/layout_empty.tpl');
-            return $smarty->fetch("extends:$layout|$template");
+            $content = $smarty->fetch("extends:$layout|$template");
+            $smarty->clear_assign('global_extend_layout');
+            return $content;
         } else {
             return $smarty->fetch($template);
         }
