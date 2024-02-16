@@ -802,7 +802,7 @@ td > div {
         </tr>
     </thead>
     <tbody>
-        {foreach from=$realtime key=$key item=$item}
+        {foreach $realtime as $key => $item}
         <tr id="js-{$key}">
             <th class="text">{tr}{$item.requirement}{/tr}</th>
             <td data-th="{tr}Status:{/tr}" class="text">
