@@ -901,7 +901,11 @@ class Services_Tracker_Controller
             $fields = [];
             foreach ($processedFields as $k => $f) {
                 $permName = $f['permName'];
-                $fields[$permName] = $f['value'];
+                $fieldValue = $f['value'] ?? '';
+                if ($f['type'] === 'a') {
+                    $fieldValue = TikiLib::lib('tiki')->convertAbsoluteLinksToRelative($fieldValue);
+                }
+                $fields[$permName] = $fieldValue;
 
                 if (isset($forced[$permName])) {
                     $toRemove[$permName] = $k;
@@ -1259,7 +1263,11 @@ class Services_Tracker_Controller
             $fields = [];
             foreach ($processedFields as $k => $f) {
                 $permName = $f['permName'];
-                $fields[$permName] = isset($f['value']) ? $f['value'] : '';
+                $fieldValue = $f['value'] ?? '';
+                if ($f['type'] === 'a') {
+                    $fieldValue = TikiLib::lib('tiki')->convertAbsoluteLinksToRelative($fieldValue);
+                }
+                $fields[$permName] = $fieldValue;
             }
             // for each input from the form, ensure user has modify rights. If so, add to the fields var to be edited.
             $userInput = $input->fields->none();
