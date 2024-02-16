@@ -46,6 +46,8 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [new \SmartyTiki\Modifier\Adjust(), 'handle'];
             case 'array_reverse':
                 return [$this, 'smartyModifierArrayreverse'];
+            case 'array_key_exists':
+                return [$this, 'smartyModifierArrayKeyExists'];
             case 'avatarize':
                 return [new \SmartyTiki\Modifier\Avatarize(), 'handle'];
             case 'breakline':
@@ -710,6 +712,19 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierArrayreverse($array, $preserve_keys = false)
     {
         return array_reverse($array, $preserve_keys);
+    }
+
+    /**
+     * Smarty modifier array_key_exists
+     * --------------------------------
+     * Purpose: Checks if the given key or index exists in the array
+     * @param int|string $key — Value to check.
+     * @param array|ArrayObject $array — An array with keys to check.
+     * @return bool — true on success or false on failure.
+     */
+    public function smartyModifierArrayKeyExists($key, $array)
+    {
+        return array_key_exists($key, $array);
     }
 
     public function smartyModifierCount($arrayOrObject, $mode = 0)
