@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d88041c3ef9048d2c4b609d9987fb6dd",
+    "content-hash": "99e7724020bba6e11394608147b19542",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -12941,21 +12941,20 @@
         },
         {
             "name": "symfony/process",
-            "version": "v5.4.35",
+            "version": "v6.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "cbc28e34015ad50166fc2f9c8962d28d0fe861eb"
+                "reference": "31642b0818bfcff85930344ef93193f8c607e0a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/process/symfony-process-cbc28e34015ad50166fc2f9c8962d28d0fe861eb-zip-07437c.zip",
-                "reference": "cbc28e34015ad50166fc2f9c8962d28d0fe861eb",
-                "shasum": "0fc50c8133af27401f7398a323c0ff1ef518a351"
+                "url": "https://composer.tiki.org/dist/symfony/process/symfony-process-31642b0818bfcff85930344ef93193f8c607e0a3-zip-f6f878.zip",
+                "reference": "31642b0818bfcff85930344ef93193f8c607e0a3",
+                "shasum": "d25b5260ccc92f0f6be4ead87b35e9ab606747b9"
             },
             "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-php80": "^1.16"
+                "php": ">=8.1"
             },
             "type": "library",
             "autoload": {
@@ -12996,7 +12995,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T13:51:25+00:00"
+            "time": "2024-01-23T14:51:35+00:00"
         },
         {
             "name": "symfony/property-access",
@@ -15208,34 +15207,35 @@
         },
         {
             "name": "overtrue/phplint",
-            "version": "9.0.8",
+            "version": "9.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/phplint.git",
-                "reference": "9b0cabaf0af41b06d0b0bc51e9045e5321e9b11a"
+                "reference": "7a9822c863d19fa8ec42f862c0e135da58b5cb4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/overtrue/phplint/overtrue-phplint-9b0cabaf0af41b06d0b0bc51e9045e5321e9b11a-zip-155174.zip",
-                "reference": "9b0cabaf0af41b06d0b0bc51e9045e5321e9b11a",
-                "shasum": "beea0be8739d5ebc9c0ebd4fbd3f1863621553c2"
+                "url": "https://composer.tiki.org/dist/overtrue/phplint/overtrue-phplint-7a9822c863d19fa8ec42f862c0e135da58b5cb4b-zip-1b8925.zip",
+                "reference": "7a9822c863d19fa8ec42f862c0e135da58b5cb4b",
+                "shasum": "aba59fe6c211a5ca57a9ecadfdbe5ec092167f74"
             },
             "require": {
+                "ext-dom": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": "^8.0",
-                "symfony/cache": "^5.4 || ^6.0 || ^7.0",
-                "symfony/console": "^5.4 || ^6.0 || ^7.0",
-                "symfony/event-dispatcher": "^5.4 || ^6.0 || ^7.0",
-                "symfony/finder": "^5.4 || ^6.0 || ^7.0",
-                "symfony/options-resolver": "^5.4 || ^6.0 || ^7.0",
-                "symfony/process": "^5.4 || ^6.0 || ^7.0",
-                "symfony/yaml": "^5.4 || ^6.0 || ^7.0"
+                "php": "^8.1",
+                "symfony/cache": "^6.4 || ^7.0",
+                "symfony/console": "^6.4 || ^7.0",
+                "symfony/event-dispatcher": "^6.4 || ^7.0",
+                "symfony/finder": "^6.4 || ^7.0",
+                "symfony/options-resolver": "^6.4 || ^7.0",
+                "symfony/process": "^6.4 || ^7.0",
+                "symfony/yaml": "^6.4 || ^7.0"
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.4",
                 "brainmaestro/composer-git-hooks": "^2.8.5 || 3.0.0-alpha.1",
-                "jetbrains/phpstorm-stubs": "^2021.3 || ^2022.3 || ^2023.0",
+                "jetbrains/phpstorm-stubs": "^2021.3 || ^2022.3 || ^2023.3",
                 "php-parallel-lint/php-console-highlighter": "^1.0"
             },
             "bin": [
@@ -15245,11 +15245,15 @@
             "extra": {
                 "hooks": {
                     "pre-commit": [
-                        "composer fix-style"
+                        "composer style:fix",
+                        "composer code:check"
+                    ],
+                    "pre-push": [
+                        "composer qa:check"
                     ]
                 },
                 "branch-alias": {
-                    "dev-main": "9.0.x-dev"
+                    "dev-main": "9.1.x-dev"
                 }
             },
             "autoload": {
@@ -15285,7 +15289,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-05T09:37:32+00:00"
+            "time": "2024-02-06T10:43:30+00:00"
         },
         {
             "name": "phar-io/manifest",
