@@ -369,7 +369,9 @@ class Search_Query implements Search_Query_Interface
                 Feedback::error(tr('Malformed search query:') . ' ' . $e->getMessage());
                 trigger_error($e->getMessage(), E_USER_WARNING);
             }
-            return Search_ResultSet::create([]);
+            $resultSet = Search_ResultSet::create([]);
+            $resultSet->errorInQuery = true;
+            return $resultSet;
         }
 
         if ($multisearchId > '') {

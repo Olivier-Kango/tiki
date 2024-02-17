@@ -445,7 +445,7 @@ class UnifiedSearchLib
      */
     public function getIndexLocation($indexType = 'data', $engine = null)
     {
-        global $prefs, $tikidomain;
+        global $prefs, $tikidomain, $indexComparisonInProgess;
         $mapping = [
             'elastic' => [
                 'data' => $prefs['unified_elastic_index_current'],
@@ -469,10 +469,11 @@ class UnifiedSearchLib
 
         // make sure current index is prefixed by the configured prefix, otherwise refuse to use it
         // this fixes problems when cloning data, copying databases to other Tikies and reusing the same production index
-        if (! empty($prefs['unified_elastic_index_prefix']) && substr($mapping['elastic']['data'], 0, strlen($prefs['unified_elastic_index_prefix'] . 'main')) !== $prefs['unified_elastic_index_prefix'] . 'main') {
+        // This condition should not apply in the case where the index:comapre-engines command is running
+        if (! empty($prefs['unified_elastic_index_prefix']) && substr($mapping['elastic']['data'], 0, strlen($prefs['unified_elastic_index_prefix'] . 'main')) !== $prefs['unified_elastic_index_prefix'] . 'main' && ! isset($indexComparisonInProgess)) {
             $mapping['elastic']['data'] = '';
         }
-        if (! empty($prefs['unified_manticore_index_prefix']) && substr($mapping['manticore']['data'], 0, strlen($prefs['unified_manticore_index_prefix'] . 'main')) !== $prefs['unified_manticore_index_prefix'] . 'main') {
+        if (! empty($prefs['unified_manticore_index_prefix']) && substr($mapping['manticore']['data'], 0, strlen($prefs['unified_manticore_index_prefix'] . 'main')) !== $prefs['unified_manticore_index_prefix'] . 'main' && ! isset($indexComparisonInProgess)) {
             $mapping['manticore']['data'] = '';
         }
 
