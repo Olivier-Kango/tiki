@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "940790438c655365c1d695874c1ceeb3",
+    "content-hash": "9b6626ae927554e81a3883b20895f45c",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -686,17 +686,17 @@
         },
         {
             "name": "bower-asset/fontawesome",
-            "version": "6.5.1",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "deeea78c52bfe00b6e251ffddccf5570d5fdb05e"
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "reference": "d02961b018153506364077343b0edcde0a39d27e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-deeea78c52bfe00b6e251ffddccf5570d5fdb05e-zip-1a7676.zip",
-                "reference": "deeea78c52bfe00b6e251ffddccf5570d5fdb05e",
-                "shasum": "4039afc45453b645c4bb2866a0e0f4bc3b75fd7f"
+                "url": "https://composer.tiki.org/dist/bower-asset/fontawesome/bower-asset-fontawesome-d02961b018153506364077343b0edcde0a39d27e-zip-7b6699.zip",
+                "reference": "d02961b018153506364077343b0edcde0a39d27e",
+                "shasum": "496b962423da26b2d2552229fbef6a7403a200ff"
             },
             "type": "bower-asset"
         },
@@ -2430,13 +2430,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "506c659aa57ad3abdb9c1f2a21b9626e4026bacf"
+                "reference": "b502c7aae2df676ef8bc112ee03d1810fad7f6c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-506c659aa57ad3abdb9c1f2a21b9626e4026bacf-zip-eefebc.zip",
-                "reference": "506c659aa57ad3abdb9c1f2a21b9626e4026bacf",
-                "shasum": "b0d7e58c04fcf3b817e015bd1bedaee452c4e5ab"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-b502c7aae2df676ef8bc112ee03d1810fad7f6c2-zip-dd0436.zip",
+                "reference": "b502c7aae2df676ef8bc112ee03d1810fad7f6c2",
+                "shasum": "ee7a4fe23c3775e84bdbba06ccfee4db2da049d7"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2499,7 +2499,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-02-14T07:34:10+00:00"
+            "time": "2024-02-17T09:50:09+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4055,17 +4055,17 @@
         },
         {
             "name": "laminas/laminas-session",
-            "version": "2.17.0",
+            "version": "2.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-session.git",
-                "reference": "2f255f1b4349a9f330ba1a26dcf4e2773a6a8226"
+                "reference": "da3d651f0f7d5350cefd6b160761651b35fc3cde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-session/laminas-laminas-session-2f255f1b4349a9f330ba1a26dcf4e2773a6a8226-zip-48b827.zip",
-                "reference": "2f255f1b4349a9f330ba1a26dcf4e2773a6a8226",
-                "shasum": "85a6e6bfa87e48378487d92e74a2e5da4f8be968"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-session/laminas-laminas-session-da3d651f0f7d5350cefd6b160761651b35fc3cde-zip-a62a5a.zip",
+                "reference": "da3d651f0f7d5350cefd6b160761651b35fc3cde",
+                "shasum": "35c60e2800eed0c3f2fa4556939605c8919d2351"
             },
             "require": {
                 "laminas/laminas-eventmanager": "^3.12",
@@ -4077,16 +4077,16 @@
                 "zendframework/zend-session": "*"
             },
             "require-dev": {
-                "laminas/laminas-cache": "^3.10.1",
+                "laminas/laminas-cache": "^3.12.0",
                 "laminas/laminas-cache-storage-adapter-memory": "^2.3",
                 "laminas/laminas-coding-standard": "~2.5.0",
                 "laminas/laminas-db": "^2.18.0",
-                "laminas/laminas-http": "^2.18",
-                "laminas/laminas-validator": "^2.30.1",
-                "mongodb/mongodb": "~1.16.0",
-                "phpunit/phpunit": "^9.6.13",
+                "laminas/laminas-http": "^2.19",
+                "laminas/laminas-validator": "^2.46.0",
+                "mongodb/mongodb": "~1.16.1",
+                "phpunit/phpunit": "^9.6.15",
                 "psalm/plugin-phpunit": "^0.18.4",
-                "vimeo/psalm": "^5.15"
+                "vimeo/psalm": "^5.18"
             },
             "suggest": {
                 "laminas/laminas-cache": "Laminas\\Cache component",
@@ -4124,7 +4124,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-11-10T12:20:40+00:00"
+            "time": "2024-02-14T10:46:39+00:00"
         },
         {
             "name": "laminas/laminas-soap",
@@ -11884,39 +11884,39 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v5.4.35",
+            "version": "v6.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "ee94d9b538f93abbbc1ee4ccff374593117b04a9"
+                "reference": "5017e0a9398c77090b7694be46f20eb796262a34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/mime/symfony-mime-ee94d9b538f93abbbc1ee4ccff374593117b04a9-zip-7d3285.zip",
-                "reference": "ee94d9b538f93abbbc1ee4ccff374593117b04a9",
-                "shasum": "558b309ff90e4bea0994668f7db18a87cab6d69c"
+                "url": "https://composer.tiki.org/dist/symfony/mime/symfony-mime-5017e0a9398c77090b7694be46f20eb796262a34-zip-ea5509.zip",
+                "reference": "5017e0a9398c77090b7694be46f20eb796262a34",
+                "shasum": "f54fbcc4021ca45af475d3ed2e5c5915a46e363e"
             },
             "require": {
-                "php": ">=7.2.5",
-                "symfony/deprecation-contracts": "^2.1|^3",
+                "php": ">=8.1",
+                "symfony/deprecation-contracts": "^2.5|^3",
                 "symfony/polyfill-intl-idn": "^1.10",
-                "symfony/polyfill-mbstring": "^1.0",
-                "symfony/polyfill-php80": "^1.16"
+                "symfony/polyfill-mbstring": "^1.0"
             },
             "conflict": {
                 "egulias/email-validator": "~3.0.0",
                 "phpdocumentor/reflection-docblock": "<3.2.2",
                 "phpdocumentor/type-resolver": "<1.4.0",
-                "symfony/mailer": "<4.4",
-                "symfony/serializer": "<5.4.35|>=6,<6.3.12|>=6.4,<6.4.3"
+                "symfony/mailer": "<5.4",
+                "symfony/serializer": "<6.3.2"
             },
             "require-dev": {
                 "egulias/email-validator": "^2.1.10|^3.1|^4",
+                "league/html-to-markdown": "^5.0",
                 "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
-                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
-                "symfony/property-access": "^4.4|^5.1|^6.0",
-                "symfony/property-info": "^4.4|^5.1|^6.0",
-                "symfony/serializer": "^5.4.35|~6.3.12|^6.4.3"
+                "symfony/dependency-injection": "^5.4|^6.0|^7.0",
+                "symfony/property-access": "^5.4|^6.0|^7.0",
+                "symfony/property-info": "^5.4|^6.0|^7.0",
+                "symfony/serializer": "^6.3.2|^7.0"
             },
             "type": "library",
             "autoload": {
@@ -11961,7 +11961,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-30T08:00:51+00:00"
+            "time": "2024-01-30T08:32:12+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -17131,17 +17131,17 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.8.1",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7"
+                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-14f5fff1e64118595db5408e946f3a22c75807f7-zip-86f517.zip",
-                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7",
-                "shasum": "f770b2b9cdf73c2378f50ced2a6721e9b5d31948"
+                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-d63cee4890a8afaf86a22e51ad4d97c91dd4579b-zip-dca37e.zip",
+                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b",
+                "shasum": "272d9d2b9b5017271223624b0d198abd70c411e0"
             },
             "require": {
                 "ext-simplexml": "*",
@@ -17201,7 +17201,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-01-11T20:47:48+00:00"
+            "time": "2024-02-16T15:06:51+00:00"
         },
         {
             "name": "symfony/browser-kit",
