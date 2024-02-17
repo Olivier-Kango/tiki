@@ -52,6 +52,8 @@ const LANGMAPPING_FILE = 'lang/langmapping.php';
 /** This is actually a route, will disapear in path_rework */
 const LISTS_PATH = 'lists';
 const LIB_PATH = 'lib';
+/** The path for php source code, mostly fro rector and phpstan */
+const PHP_SOURCES_PATH = 'src/php';
 
 /** This was for the Mods feature, replaced by packages.  Do not confuse with MODULES_PATH */
 const DEPRECATED_MODS_PATH = 'mods';

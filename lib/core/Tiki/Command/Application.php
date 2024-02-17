@@ -37,7 +37,7 @@ class Application extends SymfonyApplication
      * @return int 0 if everything went fine, or an error code
      * @throws \Throwable
      */
-    protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output)
+    protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output): int
     {
         $exitCode = parent::doRunCommand($command, $input, $output);
 
