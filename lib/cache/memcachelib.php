@@ -14,30 +14,46 @@
  */
 class Memcachelib
 {
-    public $memcache;
+    private $memcache = false;
     public $options;
     public $key_prefix;
+    private $functional = false;
 
     /**
      * Memcachelib constructor.
      * @param bool $memcached_servers
      * @param bool $memcached_options
      */
-    public function __construct($memcached_servers = false, $memcached_options = false)
+    public function __construct(array $memcached_servers = [], array $memcached_options = [])
     {
         global $prefs, $tikidomainslash;
+        $enabledInPrefs = self::isEnabled();
 
-        if ($memcached_servers === false && $memcached_options === false) {
+        if ($enabledInPrefs && ! class_exists('Memcached')) {
+            trigger_error("Memcached class does not exist", E_USER_WARNING);
+            return;
+        }
+
+        if ($enabledInPrefs && ! $memcached_servers) {
             if (is_array($prefs['memcache_servers'])) {
                 $memcached_servers = $prefs['memcache_servers'];
             } else {
                 $memcached_servers = unserialize($prefs['memcache_servers']);
             }
+            if (! $memcached_servers) {
+                trigger_error("Enabled in prefs and no memcached servers provided", E_USER_WARNING);
+                return;
+            }
+        }
 
+        if (! $memcached_servers) {
+            return;
+        }
+
+        if (! $memcached_options) {
             $memcached_options = [
-                'enabled' => true,
-                'expiration' => (int) $prefs['memcache_expiration'],
-                'key_prefix' => $prefs['memcache_prefix'],
+            'expiration' => (int) $prefs['memcache_expiration'],
+            'key_prefix' => $prefs['memcache_prefix'],
             ];
         }
 
@@ -51,27 +67,29 @@ class Memcachelib
             require($localphp);
         }
 
-        if (! $memcached_servers || (! empty($memcached_options) && ! $memcached_options['enabled']) || ! class_exists('Memcached')) {
-            $this->memcache = false;
-            $this->options  = [ 'enabled' => false ];
-        } else {
-            $memcached_options['flags'] = 0;
 
-            $this->options  = $memcached_options;
-            $this->memcache = new Memcached();
-            foreach ($memcached_servers as $server) {
-                if ($server['host'] == 'localhost') {
-                    $server['host'] = '127.0.0.1';
-                }
+        $memcached_options['flags'] = 0;
 
-                $this->memcache->addServer(
-                    $server['host'],
-                    (int) $server['port'],
-                    isset($server['weight']) ? (int)$server['weight'] : 1
-                );
+        $this->options  = $memcached_options;
+        $this->memcache = new Memcached();
+        foreach ($memcached_servers as $server) {
+            if ($server['host'] == 'localhost') {
+                $server['host'] = '127.0.0.1';
             }
+
+            $this->memcache->addServer(
+                $server['host'],
+                (int) $server['port'],
+                isset($server['weight']) ? (int)$server['weight'] : 1
+            );
+        }
+        $memcacheStats = $this->memcache->getStats();
+        if (! $memcacheStats) {
+            trigger_error("Unable to contact any of the memcache servers provided", E_USER_WARNING);
+            return;
         }
 
+        $this->functional = true;
         $this->key_prefix = $this->getOption('key_prefix', '');
     }
 
@@ -93,21 +111,22 @@ class Memcachelib
     public function getOption($name, $default = null)
     {
         return isset($this->options[$name]) ?
-            $this->options[$name] : $default;
+        $this->options[$name] : $default;
     }
 
     /**
      * Return whether this thing is usable.
      * @return boolean
      */
-    public function isEnabled()
+    public function isFunctionnal()
     {
-        global $prefs;
-        if (isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] == 'y') {
-            return $this->memcache && $this->getOption('enabled', false);
-        } else {
-            return false;
-        }
+        return $this->functional;
+    }
+
+    public static function isEnabled()
+    {
+        global $pref;
+        return     $enabledInPrefs = isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] == 'y';
     }
 
     /**
@@ -168,7 +187,7 @@ class Memcachelib
     {
         $key = $this->buildKey($key);
         $expiration = ($expiration) ?
-            $expiration : $this->getOption('expiration', 0);
+        $expiration : $this->getOption('expiration', 0);
 
         if (! empty($this->memcache) && method_exists($this->memcache, "set")) {
             return $this->memcache->set($key, $value, $expiration);
@@ -214,7 +233,7 @@ class Memcachelib
 
         if (is_string($key)) {
             return (strpos($key, $this->key_prefix) !== 0) ?
-                $this->key_prefix . $key : $key;
+            $this->key_prefix . $key : $key;
         }
 
         if (is_array($key)) {
@@ -231,7 +250,7 @@ class Memcachelib
 
             $str_key = join(':', $parts);
             return $this->key_prefix .
-                ( $use_md5 ? md5($str_key) : '[' . $str_key . ']' );
+            ( $use_md5 ? md5($str_key) : '[' . $str_key . ']' );
         }
     }
 }

@@ -52,7 +52,7 @@ $pageCache = Tiki_PageCache::create()
             'comments_parentId' => $jitRequest->comments_parentId->int(),
         ]
     )
-    ->applyCache();
+    ->dieAndOutputOrStore();
 
 if ($prefs['feature_categories'] == 'y') {
     $categlib = TikiLib::lib('categ');

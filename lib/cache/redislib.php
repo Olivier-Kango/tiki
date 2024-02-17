@@ -10,7 +10,7 @@
  * Requires PHP-Redis
  */
 
-class CacheLibRedis
+class CacheLibRedis implements Tiki\Cache\TikiKvpCacheInterface
 {
     private $redis;
 
@@ -33,6 +33,15 @@ class CacheLibRedis
     public function __destruct()
     {
         $this->redis->close();
+    }
+
+    /**
+     * Return whether this thing is usable.
+     * @return boolean
+     */
+    public function isFunctionnal(): bool
+    {
+        return isset($this->redis);
     }
 
     private function getKey($key, $type)

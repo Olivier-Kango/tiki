@@ -4,9 +4,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+/**
+ * Cache the page output (page as in http output, not wiki page) using memcache.
+ * Important notes:
+ * 1- This class will interrupt script processing on cache hit.  See dieAndOutputOrStore
+ * 2- This cache uses Memcachelib directly, NOT Cachelib, which should probaly be changed... benoitg- 2024-02-16
+ *
+ */
 class Tiki_PageCache
 {
-    private $cacheData = [];
+    /**
+     * Not well named, this whole array (if not empty) is the cache key.
+     *
+     * If its null, the cache is currently disabled.
+     */
+    private $cacheDataKeys = [];
+    /** This is the raw memcache key generated from cacheDataKeys */
     private $key;
     private $meta = null;
     private $headerLibCopy = null;
@@ -21,7 +35,7 @@ class Tiki_PageCache
         global $user;
 
         if ($user) {
-            $this->cacheData = null;
+            $this->cacheDataKeys = null;
         }
 
         return $this;
@@ -30,18 +44,24 @@ class Tiki_PageCache
     public function onlyForGet()
     {
         if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-            $this->cacheData = null;
+            $this->cacheDataKeys = null;
         }
 
         return $this;
     }
 
-    public function requiresPreference($preference)
+    /**
+     * Cache will only be active if the specified preference has value 'y'
+     *
+     * @param string $preference key, such as memcache_wiki_output
+     * @return Tiki_PageCache for chaining
+     */
+    public function requiresPreference(string $preference): Tiki_PageCache
     {
         global $prefs;
 
         if ($prefs[$preference] != 'y') {
-            $this->cacheData = null;
+            $this->cacheDataKeys = null;
         }
 
         return $this;
@@ -49,10 +69,10 @@ class Tiki_PageCache
 
     public function addKeys($array, $keys)
     {
-        if (is_array($this->cacheData)) {
+        if (is_array($this->cacheDataKeys)) {
             foreach ($keys as $k) {
-                if (! isset($this->cacheData[$k])) {
-                    $this->cacheData[$k] = isset($array[$k]) ? $array[$k] : null;
+                if (! isset($this->cacheDataKeys[$k])) {
+                    $this->cacheDataKeys[$k] = isset($array[$k]) ? $array[$k] : null;
                 }
             }
         }
@@ -62,8 +82,8 @@ class Tiki_PageCache
 
     public function addArray($array)
     {
-        if (is_array($this->cacheData)) {
-            $this->cacheData = array_merge($this->cacheData, $array);
+        if (is_array($this->cacheDataKeys)) {
+            $this->cacheDataKeys = array_merge($this->cacheDataKeys, $array);
         }
 
         return $this;
@@ -71,8 +91,8 @@ class Tiki_PageCache
 
     public function addValue($key, $value)
     {
-        if (is_array($this->cacheData)) {
-            $this->cacheData[$key] = $value;
+        if (is_array($this->cacheDataKeys)) {
+            $this->cacheDataKeys[$key] = $value;
         }
 
         return $this;
@@ -85,13 +105,20 @@ class Tiki_PageCache
         return $this;
     }
 
-    public function applyCache()
+    /**
+     * On a cache hit, this will completely end processing and return the
+     * final http output directly to the browser (it calls php exit)
+     * On cache miss, it will silently continue recording output,
+     * and store it when the cache destructor is called.
+     *
+     * @return void
+     */
+    public function dieAndOutputOrStore(): Tiki_PageCache
     {
-        if (is_array($this->cacheData)) {
-            $memcachelib = TikiLib::lib("memcache");
-
-            if (TikiLib::lib("memcache")->isEnabled()) {
-                $this->key = $memcachelib->buildKey($this->cacheData);
+        if (is_array($this->cacheDataKeys)) {
+            if (TikiLib::lib("memcache")->isFunctionnal()) {
+                $memcachelib = TikiLib::lib("memcache");
+                $this->key = $memcachelib->buildKey($this->cacheDataKeys);
 
                 if ($this->meta) {
                     list($cachedOutput, $metaTime) = $memcachelib->getMulti(
@@ -107,7 +134,6 @@ class Tiki_PageCache
                 } else {
                     $cachedOutput = $memcachelib->get($this->key);
                 }
-
                 if ($cachedOutput && $cachedOutput['output']) {
                     $headerlib = TikiLib::lib('header');
                     if (is_array($cachedOutput['jsfiles'])) {
@@ -172,6 +198,8 @@ class Tiki_PageCache
                 'output'    => ob_get_contents()
             ];
 
+            //This is to avoid storing the entire output of headerlib before ob_start in memcache.  After calling (at worst the second time) headerlib will generate the same hash and return from cache if it has bundling activated.
+            //But I still don't see why we care, we don't output anything from headerlib in dieAndOutputOrStore - benoitg - 2024-02-16
             if ($this->headerLibCopy) {
                 $headerlib = TikiLib::lib('header');
                 $cachedOutput['jsfiles']    = array_diff($headerlib->jsfiles, $this->headerLibCopy->jsfiles);
@@ -189,7 +217,7 @@ class Tiki_PageCache
             ob_end_flush();
         }
 
-        $this->cacheData = [];
+        $this->cacheDataKeys = [];
         $this->key = null;
         $this->meta = null;
     }

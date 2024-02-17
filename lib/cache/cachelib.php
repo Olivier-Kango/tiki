@@ -4,14 +4,16 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+//This happens really early in tiki init, autoloading doesn't seem to be available yet
+require_once('lib/core/Cache/KvpCacheInterface.php');
 /**
  * \brief This is a library to handle all caching in Tiki.
- * 
+ *
  * In abstracts a key value pair cache based on Memcache or Redis, with a fallback to the filesystem
- * 
+ *
  * It also manages template caching, opcode caching, etc...
  */
-
 class Cachelib
 {
     private $implementation;
@@ -43,8 +45,11 @@ class Cachelib
                 if (! empty($params['require'])) {
                     require_once($params['require']);
                 }
-                $this->implementation = new $params['class']();
-                return;
+                $implementation = new $params['class']();
+                if ($implementation->isFunctionnal()) {
+                    $this->implementation = $implementation;
+                    return;
+                }
             }
         }
         // Default implementation and fallback
@@ -238,7 +243,7 @@ class Cachelib
 
         if (isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] === 'y' && ($this->implementation instanceof CacheLibMemcache)) {
             $memcachelib = TikiLib::lib("memcache");
-            if ($memcachelib->isEnabled()) {
+            if ($memcachelib->isFunctionnal()) {
                 $memcachelib->flush();
             }
         }
@@ -533,7 +538,7 @@ class Cachelib
     }
 }
 
-class CacheLibFileSystem
+class CacheLibFileSystem implements Tiki\Cache\TikiKvpCacheInterface
 {
     public $folder;
 
@@ -552,6 +557,11 @@ class CacheLibFileSystem
                 throw new Exception("Unable to create cache directory {$this->folder}");
             }
         }
+    }
+
+    public function isFunctionnal(): bool
+    {
+        return true;
     }
 
     public function cacheItem($key, $data, $type = '')
@@ -607,11 +617,16 @@ class CacheLibFileSystem
     }
 }
 
-class CacheLibMemcache
+class CacheLibMemcache implements Tiki\Cache\TikiKvpCacheInterface
 {
     private function getKey($key, $type)
     {
         return $type . md5($key);
+    }
+
+    public function isFunctionnal(): bool
+    {
+        return TikiLib::lib("memcache")->isFunctionnal();
     }
 
     public function cacheItem($key, $data, $type = '')
@@ -641,8 +656,13 @@ class CacheLibMemcache
     }
 }
 
-class CacheLibNoCache
+class CacheLibNoCache implements Tiki\Cache\TikiKvpCacheInterface
 {
+    public function isFunctionnal(): bool
+    {
+        return true;
+    }
+
     public function cacheItem($key, $data, $type = '')
     {
         return false;

@@ -52,6 +52,10 @@ require_once("path_js_importmap_generator.php");
  *
  * @TODO CSS handling
  *
+ * @TODO:  Major refactoring to stop breaking abstraction everywhere:
+ * 1. Serialize and unserialize for Tiki_PageCache to be able to put it into memcache without breaking abstraction.
+ * 2.
+ *
  */
 class HeaderLib
 {
@@ -79,6 +83,12 @@ class HeaderLib
      * Array of JS scripts arrays as strings to load
      * key = rank (load order), value = array of scripts.
      * js[$rank][] = $script;
+     *
+     * @TODO:  This needs to be made private.  Currently used:
+     * 1- wikiplugin_tracker:  saves js and jq_onready, then wraps preexisting js in a new ajaxTrackerFormInit_ function and adds it to js.  Ultimately, I don't know if there is anything specific about this case compared to the generic ajax loading case.
+     * 2- FunctionToolbarsTest Unit test (that is on it's way out in https://gitlab.com/tikiwiki/tiki/-/merge_requests/4292)
+     * 3- h5plib:  Interesting case, breaks abstraction to deduplicate it's own added javascript (and only that one), so a different use case that needs an API.
+     *
      * @var array
      */
     public $js = [];

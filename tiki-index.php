@@ -509,7 +509,7 @@ $pageCache = Tiki_PageCache::create()
     ->addValue('locale', $prefs['language'])
     ->addKeys($_GET, array_keys($_GET))
     ->checkMeta('wiki-page-output-meta-timestamp', ['page' => $page,])
-    ->applyCache();
+    ->dieAndOutputOrStore();
 
 if ($page_ref_id) {
     $pageRenderer->setStructureInfo($page_info);
