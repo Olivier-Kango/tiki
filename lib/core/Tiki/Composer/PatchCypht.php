@@ -79,7 +79,6 @@ class PatchCypht
         $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/sortable.min.js")) . "\n\n" . $js;
         $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/jquery.are-you-sure.js")) . "\n\n" . $js;
         $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/ays-beforeunload-shim.js")) . "\n\n" . $js;
-        $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/tingle.min.js")) . "\n\n" . $js;
         $js = file_get_contents($vendors . $fixDS("jason-munro/cypht/third_party/resumable.min.js")) . "\n\n" . $js;
         file_put_contents($cypht . 'site.js', $js);
     }
