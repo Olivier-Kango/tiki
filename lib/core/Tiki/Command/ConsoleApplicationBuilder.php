@@ -171,6 +171,7 @@ class ConsoleApplicationBuilder
                 new ProfileInstallCommand(),
                 new ProfileExport\Init(),
                 new RecommendationBatchCommand(),
+                new ReportCacheClearCommand(),
                 new RefreshRssCommand(),
                 new RssClearCacheCommand(),
                 new ThemeInstallCommand(),
