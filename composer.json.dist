@@ -10,7 +10,12 @@
         "process-timeout": 5000,
         "bin-dir": "bin",
         "component-dir": "vendor/components",
-        "prepend-autoloader": false
+        "prepend-autoloader": false,
+        "_comment": "platform-check CANNOT be enabled to prevent Tiki from being forced to run on a higher version of PHP on the server than that required.",
+        "platform-check": false,
+        "platform": {
+            "php": "7.4"
+        }
     },
     "repositories": [
         {

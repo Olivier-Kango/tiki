@@ -207,6 +207,8 @@
         "process-timeout": 5000,
         "bin-dir": "../bin",
         "component-dir": "vendor/components",
+        "_comment": "platform-check CANNOT be enabled to prevent Tiki from being forced to run on a higher version of PHP on the server than that required.",
+        "platform-check": false,
         "platform": {
             "ext-ldap": "0",
             "ext-soap": "0",
