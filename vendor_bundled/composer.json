@@ -279,7 +279,7 @@
         "symfony/polyfill-php82": "^1.28",
         "symfony/polyfill-php83": "^1.28",
         "symfony/process": "^5.4.23",
-        "symfony/routing": "^4.1",
+        "symfony/routing": "~6.4.3",
         "symfony/yaml": "~6.4.3",
         "teqneers/shamir": "^2.0.0",
         "tijsverkoyen/css-to-inline-styles": "^2.2.0",
