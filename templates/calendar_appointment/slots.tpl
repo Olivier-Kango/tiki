@@ -11,7 +11,7 @@
             <p>{tr}Select a date{/tr}</p>
             <select name="date" class="form-control appointment-date-selector">
                 <option value=""></option>
-                {foreach from=$dates item=$date}
+                {foreach from=$dates item=date}
                     <option value="{$date}">{$date}</option>
                 {/foreach}
             </select>
@@ -19,9 +19,9 @@
         </div>
         <div class="col-sm-6">
             <p>{tr}Select a slot{/tr}</p>
-            {foreach from=$dates item=$date}
+            {foreach from=$dates item=date}
                 <div class="slot-container date{$date}" style="display: none">
-                    {foreach from=$slots item=$slot}
+                    {foreach from=$slots item=slot}
                         {if $slot.start|tiki_date_format:'%Y-%m-%d' eq $date}
                             {if $slot.free}
                                 <a href="{bootstrap_modal controller=calendar action=edit_item prefill_start=$slot.start prefill_end=$slot.end prefill_title=$title defaultCalendarId=$calendarId target_user=$target_user size="modal-lg"}" class="btn btn-sm btn-primary mb-2">{$slot.start|tiki_date_format:'%H:%M'} - {$slot.end|tiki_date_format:'%H:%M'}</a>

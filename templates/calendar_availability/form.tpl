@@ -36,7 +36,7 @@
         <div class="col-sm-9">
             <select name="calendarId" class="form-control">
                 <option value=""></option>
-                {foreach from=$calendars item=$calendar}
+                {foreach from=$calendars item=calendar}
                     <option value="{$calendar.calendarId}" {if $definition.calendarId eq $calendar.calendarId}selected{/if}>{$calendar.name|escape}</option>
                 {/foreach}
             </select>
@@ -46,7 +46,7 @@
     <div class="mb-3 row">
         <label class="col-form-label col-sm-3">{tr}Availability Blocks{/tr}</label>
         <div class="col-sm-9">
-            {foreach from=$definition.available item=$available}
+            {foreach from=$definition.available item=available}
                 <div class="availability-block" data-uid="{$available.uid|escape}">
                     <div class="mb-3 row">
                         <label class="col-form-label col-sm-3">{tr}UID{/tr}</label>
