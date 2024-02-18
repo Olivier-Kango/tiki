@@ -126,7 +126,12 @@ class HtmlSelectDate extends Base
                 case 'month_empty':
                 case 'day_empty':
                 case 'year_empty':
-                    $$_key = (string) $_value;
+                    //If the value is of type Datetime, convert it to Timestamp.
+                    if (is_a($_value, 'DateTime')) {
+                            $$_key = (string) $_value->getTimestamp();
+                    } else {
+                        $$_key = (string) $_value;
+                    }
                     break;
 
                 case 'all_empty':
