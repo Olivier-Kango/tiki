@@ -89,7 +89,7 @@ var account='';
                             </td>
                         </tr>
                     {/section}
-                    <tr id="Row_SplitDebit"{if count($creditAccount)>1} style="display:none;"{/if}>
+                    <tr id="Row_SplitDebit"{if ! empty($creditAccount) && count($creditAccount)>1} style="display:none;"{/if}>
                         <td colspan="3">
                             <input type="button" class="btn btn-primary btn-sm float-sm-end" value="{tr}Add entry{/tr}" id="SplitDebit" onclick="javascript:splitDebit()">
                         </td>
@@ -121,7 +121,7 @@ var account='';
                             </td>
                         </tr>
                     {/section}
-                    <tr id="Row_SplitCredit"{if count($creditAccount)>1} style="display:none;"{/if}>
+                    <tr id="Row_SplitCredit"{if ! empty($creditAccount) && count($creditAccount)>1} style="display:none;"{/if}>
                         <td colspan="3">
                             <input type="button" class="btn btn-primary btn-sm float-sm-end" value="{tr}Add entry{/tr}" id="SplitCredit" onclick="javascript:splitCredit()">
                         </td>
