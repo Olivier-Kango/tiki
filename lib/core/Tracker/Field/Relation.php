@@ -163,7 +163,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             }
             $data = array_unique($data);
             if (empty($data) && $this->getValue()) {
-                $data = array_filter(array_map(function($line) {
+                $data = array_filter(array_map(function ($line) {
                     if (! strstr($line, ':')) {
                         return null;
                     } else {
