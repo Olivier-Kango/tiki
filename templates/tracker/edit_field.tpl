@@ -268,8 +268,8 @@ $('select[name=type]').change(function () {
             <div class="mb-3 row mx-0">
                 <label for="type" class="col-form-label">{tr}Exclude data and changes from email notifications{/tr}</label>
                 <select name="exclude_from_notification" class="form-select"  data-original="{$field.excludeFromNotification}">
-                    <option value="0" {if $field.excludeFromNotification eq 'n'}selected="selected"{/if}>{tra}No{/tra}</option>
-                    <option value="1" {if $field.excludeFromNotification eq 'y'}selected="selected"{/if}>{tra}Yes{/tra}</option>
+                    <option value="0" {if $field.excludeFromNotification eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
+                    <option value="1" {if $field.excludeFromNotification eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                 </select>
                 <div class="form-text">
                     {tr}Data and changes to this field are not included in email notifications.{/tr}
