@@ -122,7 +122,13 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract implements Tracker_F
             }
             $data = array_unique($data);
             if (empty($data) && $this->getValue()) {
-                $data = array_filter(array_map('trim', explode("\n", $this->getValue())));
+                $data = array_filter(array_map(function($line) {
+                    if (! strstr($line, ':')) {
+                        return null;
+                    } else {
+                        return trim($line);
+                    }
+                }, explode("\n", $this->getValue())));
             }
         }
 
