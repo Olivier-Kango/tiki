@@ -58,6 +58,9 @@ $link-color:                $info !default;
 $font-family-sans-serif:      system-ui, sans-serif; // "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $headings-color:              null !default;
 
+// Forms
+$input-border-color:                 $gray-400; //    var(--#{$prefix}border-color) !default;
+
 // Popovers
 $popover-header-color:              $headings-color !default;
 

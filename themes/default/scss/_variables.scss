@@ -1,12 +1,11 @@
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
-
 $link-decoration: none !default;
 $lead-font-weight: inherit;
 $enable-important-utilities: false;
 
-
 @import "../../../node_modules/bootstrap/scss/variables";
 
+$border-color:                $gray-400;
 $code-color: $body-color;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //

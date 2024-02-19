@@ -64,9 +64,9 @@ $font-size-base:                1.1rem;
 $headings-color:         $cyan;
 
 // Components
-
 $component-active-color:      $white !default;
 $component-active-bg:         $primary !default;
+$border-color:                $gray-400;
 
 // Dropdowns
 $dropdown-link-color:               var(--#{$prefix}body-color) !default;
