@@ -36,9 +36,13 @@ class Services_Search_CustomSearchController
         $definition = $input->definition->word();
         if (empty($definition) || ! $definition = $cachelib->getSerialized($definition, 'customsearch')) {
             $smarty = \TikiLib::lib('smarty');
-            $smarty->assign('url', $_SERVER['HTTP_REFERER']);
-            $value = $smarty->fetch('search_customsearch/cache_expired.tpl');
-            return ['html' => $value];
+            if (isset($_SERVER['HTTP_REFERER']) && ! empty($_SERVER['HTTP_REFERER'])) {
+                $smarty->assign('url', $_SERVER['HTTP_REFERER']);
+                $value = $smarty->fetch('search_customsearch/cache_expired.tpl');
+                return ['html' => $value];
+            } else {
+                Feedback::errorPage(['mes' => "unauthorized direct access to personalized search"]);
+            }
         }
 
         /** @var Search_Query $query */
