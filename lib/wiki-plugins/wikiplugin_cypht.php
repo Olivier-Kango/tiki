@@ -383,10 +383,7 @@ function wikiplugin_cypht($data, $params)
             }
         }
         if (! $found) {
-            do {
-                $id = uniqid();
-            } while (isset($_SESSION[$session_prefix]['user_data']['imap_servers'][$id]));
-            $_SESSION[$session_prefix]['user_data']['imap_servers'][$id] = $attributes;
+            $_SESSION[$session_prefix]['user_data']['imap_servers'][] = $attributes;
         }
     }
 
@@ -414,10 +411,7 @@ function wikiplugin_cypht($data, $params)
             }
         }
         if (! $found) {
-            do {
-                $id = uniqid();
-            } while (isset($_SESSION[$session_prefix]['user_data']['smtp_servers'][$id]));
-            $_SESSION[$session_prefix]['user_data']['smtp_servers'][$id] = $attributes;
+            $_SESSION[$session_prefix]['user_data']['smtp_servers'][] = $attributes;
         }
     }
 
