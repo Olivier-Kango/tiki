@@ -297,7 +297,7 @@ class Hm_Output_groupmail_page_link extends Hm_Output_Module
         }
         $res = '<li class="menu_groupmail"><a class="unread_link" href="?page=groupmail">';
         if (! $this->get('hide_folder_icons')) {
-            $res .= '<img class="account_icon" src="' . $this->html_safe(Hm_Image_Sources::$people) . '" alt="" width="16" height="16" /> ';
+            $res .= '<i class="bi bi-people account_icon"></i> ';
         }
         $res .= $this->trans('Groupmail') . '</a></li>';
         if ($this->format == 'HTML5') {
@@ -318,8 +318,8 @@ class Hm_Output_groupmail_heading extends Hm_Output_Module
      */
     protected function output()
     {
-        $source_link = '<a href="#" title="' . $this->trans('Sources') . '" class="source_link"><img alt="Sources" class="refresh_list" src="' . Hm_Image_Sources::$folder . '" width="20" height="20" /></a>';
-        $refresh_link = '<a class="refresh_link" title="' . $this->trans('Refresh') . '" href="#"><img alt="Refresh" class="refresh_list" src="' . Hm_Image_Sources::$refresh . '" width="20" height="20" /></a>';
+        $source_link = '<a href="#" title="' . $this->trans('Sources') . '" class="source_link"><i class="bi bi-folder-fill"></i></a>';
+        $refresh_link = '<a class="refresh_link" title="' . $this->trans('Refresh') . '" href="#"><i class="bi bi-arrow-repeat"></i></a>';
 
         $res = '';
         $res .= '<div class="groupmail"><div class="content_title">';

@@ -93,7 +93,7 @@ class Hm_Output_tiki_contacts_page_link extends Hm_Output_Module
     {
         $res = '<li class="menu_contacts"><a class="unread_link" href="tiki-contacts.php">';
         if (! $this->get('hide_folder_icons')) {
-            $res .= '<img class="account_icon" src="' . $this->html_safe(Hm_Image_Sources::$people) . '" alt="" width="16" height="16" /> ';
+            $res .= '<i class="bi bi-people-fill account_icon"></i> ';
         }
         $res .= $this->trans('Contacts') . '</a></li>';
         if ($this->format == 'HTML5') {
@@ -183,7 +183,7 @@ class Hm_Output_tiki_run_sieve_filters_on_imap_unread_setting extends Hm_Output_
         $reset = '';
         if ($auto) {
             $res .= ' checked="checked"';
-            $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox"  src="' . Hm_Image_Sources::$refresh . '" /></span>';
+            $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-repeat refresh_list reset_default_value_checkbox"></i></span>';
         }
         $res .= '>' . $reset . '</td></tr>';
         return $res;
@@ -236,7 +236,7 @@ class Hm_Output_start_advanced_settings extends Hm_Output_Module
     protected function output()
     {
         return '<tr><td data-bs-target=".advanced_setting" colspan="2" class="settings_subtitle">' .
-            '<img alt="" src="' . Hm_Image_Sources::$code . '" width="16" height="16" />' .
+            '<i class="bi bi-code-slash"></i>' .
             $this->trans('Advanced') . '</td></tr>';
     }
 }
@@ -251,7 +251,7 @@ class Hm_Output_allow_external_images_setting extends Hm_Output_Module
     {
         $allow_external_images = false;
         $settings = $this->get('user_settings', []);
-        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="' . Hm_Image_Sources::$refresh . '" /></span>';
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-repeat refresh_list reset_default_value_checkbox"></i></span>';
         if (array_key_exists('allow_external_images', $settings)) {
             $allow_external_images = $settings['allow_external_images'];
         }
@@ -314,7 +314,7 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
         $outlook_auth_uri = "https://login.live.com/oauth20_authorize.srf";
         $outlook_token_uri = "https://login.live.com/oauth20_token.srf";
         $outlook_refresh_uri = "https://login.live.com/oauth20_token.srf";
-        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="' . Hm_Image_Sources::$refresh . '" /></span>';
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-repeat refresh_list reset_default_value_checkbox"></i></span>';
 
         $settings = $this->get('user_settings', []);
         if (array_key_exists('tiki_enable_oauth2_over_imap', $settings)) {
@@ -443,7 +443,7 @@ class Hm_Output_enable_gmail_contacts_module_setting extends Hm_Output_Module
     protected function output()
     {
         $enable_gmail_contacts_module = false;
-        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><img alt="Refresh" class="refresh_list reset_default_value_checkbox" src="' . Hm_Image_Sources::$refresh . '" /></span>';
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-repeat refresh_list reset_default_value_checkbox"></i></span>';
         $settings = $this->get('user_settings', []);
         if (array_key_exists('tiki_enable_gmail_contacts_module', $settings)) {
             $enable_gmail_contacts_module = $settings['tiki_enable_gmail_contacts_module'];
