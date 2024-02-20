@@ -158,6 +158,8 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [$this, 'smartyModifierStrstr'];
             case 'strpos':
                 return [$this, 'smartyModifierStrpos'];
+            case 'strtolower':
+                return [$this, 'smartyModifierStrtolower'];
             case 'substr':
                 return [$this, 'smartyModifierSubstr'];
             case 'substring':
@@ -686,6 +688,19 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
         }
 
         return $this->preFilters;
+    }
+
+    /**
+     * Smarty modifier strtolower
+     * --------------------------
+     * Purpose: Make a string lowercase - using default PHP function
+     *
+     * @param string $string   The string to be lowercased.
+     * @return string
+     */
+    public function smartyModifierStrtolower($string)
+    {
+        return strtolower($string);
     }
 
     /**
