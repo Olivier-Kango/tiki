@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99e7724020bba6e11394608147b19542",
+    "content-hash": "5b4613b53d05b90d0c4ae4a222278301",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1600,24 +1600,24 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "3.4.15",
+            "version": "4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "6c54050d2a2200890fa0215e469fca7599a832b2"
+                "reference": "2fac44f8cf7e772ed3df7decd97360ad21a950e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-6c54050d2a2200890fa0215e469fca7599a832b2-zip-3ea655.zip",
-                "reference": "6c54050d2a2200890fa0215e469fca7599a832b2",
-                "shasum": "88bc3be1b83b09e2f9881802de0ca9992f73bcb0"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-2fac44f8cf7e772ed3df7decd97360ad21a950e3-zip-bab996.zip",
+                "reference": "2fac44f8cf7e772ed3df7decd97360ad21a950e3",
+                "shasum": "55e782b5b68054a8ae94a4689819cb414fd2623c"
             },
             "require": {
-                "php": "^7.4|^8.0"
+                "php": "^8.1"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.13",
-                "phpunit/phpunit": "^9.5",
+                "friendsofphp/php-cs-fixer": "^3.40",
+                "phpunit/phpunit": "^10.4",
                 "roave/security-advisories": "dev-master",
                 "squizlabs/php_codesniffer": "^3.7"
             },
@@ -1640,7 +1640,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2023-10-10T07:33:17+00:00"
+            "time": "2024-02-14T07:33:25+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -2430,13 +2430,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "b502c7aae2df676ef8bc112ee03d1810fad7f6c2"
+                "reference": "46f052ca0fe2e1a1bcff3b748d0d5ae6e0298dbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-b502c7aae2df676ef8bc112ee03d1810fad7f6c2-zip-dd0436.zip",
-                "reference": "b502c7aae2df676ef8bc112ee03d1810fad7f6c2",
-                "shasum": "ee7a4fe23c3775e84bdbba06ccfee4db2da049d7"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-46f052ca0fe2e1a1bcff3b748d0d5ae6e0298dbb-zip-d3e624.zip",
+                "reference": "46f052ca0fe2e1a1bcff3b748d0d5ae6e0298dbb",
+                "shasum": "424f38292ff9f046b0cbb6cc3ae5b98cf1772bd2"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2499,7 +2499,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-02-17T09:50:09+00:00"
+            "time": "2024-02-19T16:53:23+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
