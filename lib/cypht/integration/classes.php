@@ -433,10 +433,7 @@ class Tiki_Hm_User_Config extends Hm_Config
                         }
                     }
                     if (! $found) {
-                        do {
-                            $id = uniqid();
-                        } while (isset($this->config[$key][$id]));
-                        $this->config[$key][$id] = $server;
+                        $this->config[$key][] = $server;
                     }
                 }
             }
