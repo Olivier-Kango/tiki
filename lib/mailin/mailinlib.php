@@ -152,7 +152,7 @@ class MailinLib extends TikiDb_Bridge
 
         $preferences_ = json_decode($preferences);
         // check the links
-        if ($preferences_->error || count($preferences_->links) == 0 || $trackerId == 0) {
+        if ($preferences_->error || ! empty($preferences_->links) && count($preferences_->links) == 0 || $trackerId == 0) {
             $preferences = null;
         }
 
