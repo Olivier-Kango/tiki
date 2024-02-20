@@ -37,7 +37,11 @@
     {foreach item=result from=$results}
     <li>
         <strong>
-        {object_link type=$result.object_type id=$result.object_id title=$result.title url=$result.url}
+        {if !empty($result._external)}
+            {object_link type=external id=$result.url title=$result.title}
+        {else}
+            {object_link type=$result.object_type id=$result.object_id title=$result.title url=$result.url}
+        {/if}
 
         {if $prefs.feature_search_show_object_type eq 'y'}
             (<span class="objecttype">{tr}{$result.object_type|escape}{/tr}</span>)
@@ -51,9 +55,11 @@
             <span class="itemhits">({tr}Visits:{/tr} {$result.visits|escape})</span>
         {/if}
 
-        {if !empty($result.parent_object_id)} {tr}in{/tr} {object_link type=$result.parent_object_type id=$result.parent_object_id}{/if}
-
-        {if $result._external}<span class="label label-info">{tr}External{/tr}</span>{/if}
+        {if !empty($result._external)}
+            <span class="label label-info">{tr}External{/tr}</span>
+        {else}
+            {if !empty($result.parent_object_id)} {tr}in{/tr} {object_link type=$result.parent_object_type id=$result.parent_object_id}{/if}
+        {/if}
         </strong>
 
         <blockquote>
