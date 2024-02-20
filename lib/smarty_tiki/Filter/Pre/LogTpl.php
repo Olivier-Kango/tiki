@@ -12,12 +12,13 @@ class LogTpl implements \Smarty\Filter\FilterInterface
     public function filter($source, \Smarty\Template $template)
     {
         global $prefs;
-        $smarty = \TikiLib::lib('smarty');
-        if ($prefs['log_tpl'] != 'y' || $smarty->getTemplateVars('log_tpl') === false) {
+
+        $log_tpl = $template->tpl_vars['log_tpl'];
+        if ($prefs['log_tpl'] != 'y' || $log_tpl->value === false) {
             return $source;
         }
 
-        $resource = $smarty->template_resource;
+        $resource = $template->template_resource;
 
         // Refrain from logging for some templates
         if (
