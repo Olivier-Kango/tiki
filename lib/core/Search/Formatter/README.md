@@ -1,0 +1,1 @@
+This is used for formatting data retrieven from the search indexed.  It is NOT, and should not be used during indexing.

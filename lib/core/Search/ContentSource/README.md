@@ -1,0 +1,1 @@
+These are the sources of objects that are the target of the url of a search result.

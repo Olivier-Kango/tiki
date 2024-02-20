@@ -19,17 +19,12 @@ class Tiki_Render_Lazy
         if ($this->callback) {
             try {
                 $this->data = call_user_func($this->callback);
-            } catch (Exception $e) {
-                TikiLib::lib('errortracking')->captureException($e);
-                trigger_error($e->getMessage());
-                $this->data = $e->getMessage();
-            } catch (Error $e) {
-                TikiLib::lib('errortracking')->captureException($e);
-                trigger_error($e->getMessage());
-                $this->data = $e->getMessage();
             } catch (Throwable $e) {
                 TikiLib::lib('errortracking')->captureException($e);
-                trigger_error($e->getMessage());
+                //We want a helpfull message for developers in PHP error messages:
+                $msg = "{$e->getMessage()} (Initially thrown in {$e->getFile()}:{$e->getLine()})";
+                trigger_error($msg);
+                //We want just the original error message for the end user
                 $this->data = $e->getMessage();
             }
             $this->callback = null;

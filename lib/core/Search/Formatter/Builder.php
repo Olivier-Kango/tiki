@@ -7,6 +7,8 @@
 
 use Search\Formatter\Sublist\Parser as SublistParser;
 
+/** This mostly deals with the OUTPUT block of Pluginlist, as opposed to class Search_Formatter which mostly deals with the FORMAT block.
+ */
 class Search_Formatter_Builder
 {
     private $parser;

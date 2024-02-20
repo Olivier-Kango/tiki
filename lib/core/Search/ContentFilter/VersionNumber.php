@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+/**
+ * This is to implement pref 'unified_tokenize_version_numbers' to Tokenize version number strings so that major versions are found when sub-versions are mentioned. For example, searching for 2.7 would return documents containing 2.7.4, but not 1.2.7.
+ */
 class Search_ContentFilter_VersionNumber implements Laminas\Filter\FilterInterface
 {
     public function filter($value)

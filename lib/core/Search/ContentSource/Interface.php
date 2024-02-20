@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+/**
+ * This is the main interface to index tiki objects.  It turns them in documents for the search index, through the various Search_Type_Interface
+ */
 interface Search_ContentSource_Interface
 {
     /**

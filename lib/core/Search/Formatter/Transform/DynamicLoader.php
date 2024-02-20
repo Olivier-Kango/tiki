@@ -1,5 +1,10 @@
 <?php
 
+/** If a field isn't available in the index, this tries to load it from the original data, which can have a huge performance impcat.
+ * Typically it does it for multivalue fields which are tokenized to
+ * hashes for indexing that are meaningless for the user.
+ * To restore them to meaningful values, it needs to retrieve the initial data.
+ * An example is the UserSelect field in trackers. */
 class Search_Formatter_Transform_DynamicLoader
 {
     private $source;

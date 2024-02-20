@@ -7,6 +7,7 @@
 
 use Search\Formatter\Sublist\Record as Sublist;
 
+/** This it to format a list of search results.  It moslty handles all the FORMAT blocks of pluginlist (in ValueFormatter) as opposed to class Search_Formatter which mostly deals with the OUTPUT block.  */
 class Search_Formatter
 {
     public $plugin;
