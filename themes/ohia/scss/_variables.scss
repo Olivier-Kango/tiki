@@ -112,7 +112,7 @@ $light:         $sky-light; //$gray-100;
 $dark:          $cooled-lava-dark; //#000;
 // scss-docs-end theme-color-variables
 
-
+$body-emphasis-color:       #fff;
 
 //  Options
 
@@ -159,10 +159,13 @@ $display-font-family: "Alegreya Sans SC", sans-serif;
 $text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 - darken($body-color, 6%);
 
 //  Tables
-$table-bg: transparent;
-$table-bg-accent: #373737;
-$table-bg-hover: $gray-500;
-$table-bg-active: $table-bg-hover;
+$table-color:                 var(--#{$prefix}emphasis-color) !default;
+$table-bg:                    var(--#{$prefix}body-bg) !default;
+$table-accent-bg:             transparent !default;
+//$table-bg: transparent;
+//$table-bg-accent: #373737;
+//$table-bg-hover: $gray-500;
+//$table-bg-active: $table-bg-hover;
 
 // ** Border color for table and cell borders.
 $table-border-color: #696969;

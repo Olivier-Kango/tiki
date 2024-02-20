@@ -86,6 +86,31 @@ $theme-colors: (
   "dark_gray": #212529,
 );
 
+$primary-text-emphasis:        tint-color($primary, 40%);
+$secondary-text-emphasis:      tint-color($secondary, 40%);
+$success-text-emphasis:        tint-color($success, 40%);
+$info-text-emphasis:           tint-color($info, 40%);
+$warning-text-emphasis:        tint-color($warning, 40%);
+$danger-text-emphasis:         tint-color($danger, 40%);
+$light-text-emphasis:          $gray-100;
+$dark-text-emphasis:           $gray-300;
+
+$body-color:                   #fff;
+$body-bg:                      #192129;
+$body-secondary-color:         rgba($body-color, .75);
+$body-secondary-bg:            $gray-800;
+$body-tertiary-color:          rgba($body-color, .5);
+$body-tertiary-bg:             mix($gray-800, $gray-900, 50%);
+$body-emphasis-color:          $white;
+$border-color:                 $gray-700;
+$border-color-translucent:     rgba($white, .15);
+$headings-color:               inherit;
+//$link-color:                   tint-color($primary, 40%) !default;
+//$link-hover-color:             shift-color($link-color-dark, -$link-shade-percentage) !default;
+//$code-color:                   tint-color($code-color, 40%) !default;
+$mark-color:                   $body-color-dark;
+$mark-bg:                      $yellow-800;
+
 // Options
 //Prefix
 $prefix: bs-;
@@ -95,6 +120,12 @@ $prefix: bs-;
 // Body
 $body-bg: #192129;
 $body-color: #fff;
+
+$body-secondary-color:         rgba($body-color, .75) !default;
+$body-secondary-bg:            $gray-800 !default;
+$body-tertiary-color:          rgba($body-color, .5) !default;
+$body-tertiary-bg:             mix($gray-800, $gray-900, 50%) !default;
+$body-emphasis-color:          $white !default;
 
 // Links
 $link-color: #53BAEA; // #56c4f7; lightened for WCAG 2 compliance
@@ -116,8 +147,12 @@ $blockquote-small-color:      var(--#{$prefix}secondary-color) !default; // Depr
 $text-muted:                 var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- $gray-300;
 
 // Tables
-//$table-border-color: #dddddd;
+$table-color:                 var(--#{$prefix}emphasis-color) !default;
+$table-bg:                    var(--#{$prefix}body-bg) !default;
+$table-accent-bg:             transparent !default;
 $table-border-radius: 0.2rem;
+
+
 
 // Buttons
 $btn-border-radius: 5px;
@@ -180,6 +215,10 @@ $popover-header-bg: #1784b7;
 //$modal-header-border-color: #386dbb;
 // Alerts
 $alert-border-radius: 0.5rem;
+//$alert-bg-scale:                -20%; // Deprecated in v5.2.0, to be removed in v6
+//$alert-border-scale:            -70% !default; // Deprecated in v5.2.0, to be removed in v6
+//$alert-color-scale:             100%; // Deprecated in v5.2.0, to be removed in v6
+
 // Progress bars
 $progress-border-radius: 0.2rem;
 // List group

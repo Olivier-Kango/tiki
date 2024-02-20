@@ -19,7 +19,7 @@ body:not(.fixed_width) .container-std.middle {
 
 .bg-dark,
 .topbar.bg-dark {
-  background: rgba(#000, 0.77) !important;
+  background: rgba(#000, 0.77);
 }
 
 #col2 .card,
@@ -160,7 +160,7 @@ nav {
   ///  background-color: transparent !important;
   }
   &.bg-light {
-    background-color: map-get($theme-colors, secondary_1) !important;
+    background-color: map-get($theme-colors, secondary_1);
     .bg-light {
  ///     background-color: transparent !important;
     }
@@ -580,10 +580,10 @@ body.tiki.navbar-padding {
     }
   }
   .bg-dark {
-    background-color: map-get($theme-colors, dark_1) !important;
+    background-color: map-get($theme-colors, dark_1);
   }
   .bg-light {
-    background-color: map-get($theme-colors, secondary_1) !important;
+    background-color: map-get($theme-colors, secondary_1);
   }
 }
 
@@ -772,4 +772,14 @@ table.treetable {
 .mega-menu--inner-container {
     background: black;
     opacity: .9;
+}
+
+// override for some cypht background colors
+body.tiki.tiki-webmail {
+    background-image: url('#{$imagePath}bg-body.jpg');
+    background-position: 50% 0%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    .card h3 { color: $popover-header-color; }
 }

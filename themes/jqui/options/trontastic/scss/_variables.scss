@@ -248,6 +248,9 @@ $input-color: var(--#{$prefix}body-color) !default; // #000;
 $input-bg: var(--#{$prefix}body-bg) !default; // #c6e99c;
 $form-text-color: $text-muted-readable;
 
+$input-group-addon-color:               $input-color !default;
+$input-group-addon-bg:                  #4b4b4b; // var(--#{$prefix}tertiary-bg) !default;
+
 // Form validation
 
 // List group

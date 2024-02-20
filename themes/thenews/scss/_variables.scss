@@ -31,7 +31,7 @@ $green-300: tint-color($green, 40%) !default;
 $red-300: tint-color($red, 40%) !default;
 
 $primary: #005faa;
-$secondary: #52269c;
+$secondary: #003d99; // #52269c;
 $success: #48ca3b;
 $info: #1373c0;
 $warning: #f0ad4e;
@@ -39,7 +39,7 @@ $danger: #df6e1e;
 
 $theme-colors: (
      "primary":             #005faa, //#0099cc,
-     "secondary":           #52269c,
+     "secondary":           #003d99, // #52269c,
      "success":             #48ca3b, //#5cb85c,
      "info":                #1373c0,
      "warning":             #f0ad4e,

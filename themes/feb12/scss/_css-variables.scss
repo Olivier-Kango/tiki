@@ -106,7 +106,7 @@
 
 $imagePath: "../images/";
 
-body {
+[data-bs-theme="light"] {
     --tiki-feb12-middle-bg: #ffffff url(../images/page.jpg) repeat-x;
     --tiki-feb12-col1-col3-bg: #ffffff url('#{$imagePath}page.jpg') repeat-x;
     --tiki-feb12-col2-bg: #a8cce2 url(../images/columnbg.jpg) repeat-x;
@@ -120,7 +120,7 @@ body.layout_classic {
 
 [data-bs-theme="dark"] {
     --tiki-feb12-middle-bg: transparent;
-    --tiki-feb12-col1-col3-bg: #010b1e;
+    --tiki-feb12-col1-col3-bg: #171d28;
     --tiki-feb12-col2-bg: transparent;
     --bs-navbar-color: #fff;
     --tiki-feb12-col2-nav-link-color: rgba(var(--bs-link-color-rgb));
