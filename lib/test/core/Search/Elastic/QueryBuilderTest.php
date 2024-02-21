@@ -215,10 +215,9 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
         $this->assertEquals(
             [
-                "match" => [
+                "term" => [
                     "username" => [
-                        "query" => "Some entry",
-                        'operator' => 'and'
+                        "value" => "Some entry",
                     ],
                 ],
             ],
@@ -538,13 +537,13 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
                             'bool' => [
                                 'must' => [
                                     [
-                                        "match" => [
-                                            "object_type" => ["query" => "wiki page", 'operator' => 'and'],
+                                        "term" => [
+                                            "object_type" => ["value" => "wiki page"],
                                         ],
                                     ],
                                     [
-                                        "match" => [
-                                            "object_id" => ["query" => "A", 'operator' => 'and'],
+                                        "term" => [
+                                            "object_id" => ["value" => "A"],
                                         ],
                                     ],
                                 ],
