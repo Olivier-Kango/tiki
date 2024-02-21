@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b4613b53d05b90d0c4ae4a222278301",
+    "content-hash": "a24830f54bd67e64b985cff440fe1748",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2430,13 +2430,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "46f052ca0fe2e1a1bcff3b748d0d5ae6e0298dbb"
+                "reference": "700204eb0489677a481fa21b44825d3dd89b38bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-46f052ca0fe2e1a1bcff3b748d0d5ae6e0298dbb-zip-d3e624.zip",
-                "reference": "46f052ca0fe2e1a1bcff3b748d0d5ae6e0298dbb",
-                "shasum": "424f38292ff9f046b0cbb6cc3ae5b98cf1772bd2"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-700204eb0489677a481fa21b44825d3dd89b38bf-zip-2d5292.zip",
+                "reference": "700204eb0489677a481fa21b44825d3dd89b38bf",
+                "shasum": "d95ed9103fb25f1883b6f0a4431779accd347ae9"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2499,7 +2499,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-02-19T16:53:23+00:00"
+            "time": "2024-02-20T16:14:42+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -13717,17 +13717,17 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v5.3.2",
+            "version": "v5.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "344e912d04b5b6a04482113eff20ab416ff01048"
+                "reference": "6e1f75f420f68e1d52733b8e407fc7c3766c9dba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/twbs/bootstrap/twbs-bootstrap-344e912d04b5b6a04482113eff20ab416ff01048-zip-bafaa4.zip",
-                "reference": "344e912d04b5b6a04482113eff20ab416ff01048",
-                "shasum": "99ce333f88556548851173e4dede53895fc903b0"
+                "url": "https://composer.tiki.org/dist/twbs/bootstrap/twbs-bootstrap-6e1f75f420f68e1d52733b8e407fc7c3766c9dba-zip-cda198.zip",
+                "reference": "6e1f75f420f68e1d52733b8e407fc7c3766c9dba",
+                "shasum": "3c0f5a042ee0759bcb68f677acbbabeb51bd02fb"
             },
             "replace": {
                 "twitter/bootstrap": "self.version"
@@ -13759,7 +13759,7 @@
                 "sass",
                 "web"
             ],
-            "time": "2023-09-14T14:19:27+00:00"
+            "time": "2024-02-20T15:14:29+00:00"
         },
         {
             "name": "twbs/bootstrap-icons",
@@ -15562,17 +15562,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.58",
+            "version": "1.10.59",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "a23518379ec4defd9e47cbf81019526861623ec2"
+                "reference": "e607609388d3a6d418a50a49f7940e8086798281"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-a23518379ec4defd9e47cbf81019526861623ec2-zip-5c26eb.zip",
-                "reference": "a23518379ec4defd9e47cbf81019526861623ec2",
-                "shasum": "742489b05c66e9718e2b9e91b7c83f565387132f"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-e607609388d3a6d418a50a49f7940e8086798281-zip-1d9e16.zip",
+                "reference": "e607609388d3a6d418a50a49f7940e8086798281",
+                "shasum": "cf6969a1c8cccb9598577627997d30ad4267d38a"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15613,7 +15613,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-12T20:02:57+00:00"
+            "time": "2024-02-20T13:59:13+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -16177,21 +16177,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.19.8",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "de3b3bb159abd704b144aa86fb244f7f1f4ac947"
+                "reference": "258b775511e62a7188f8ce114d44acaf244d9a7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-de3b3bb159abd704b144aa86fb244f7f1f4ac947-zip-8152a2.zip",
-                "reference": "de3b3bb159abd704b144aa86fb244f7f1f4ac947",
-                "shasum": "948a74ff111792bc210ef2117377523431615392"
+                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-258b775511e62a7188f8ce114d44acaf244d9a7d-zip-e428ef.zip",
+                "reference": "258b775511e62a7188f8ce114d44acaf244d9a7d",
+                "shasum": "21f17d411c176de606ae73737fb4cc1d2981eb10"
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.10.56"
+                "phpstan/phpstan": "^1.10.57"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -16225,7 +16225,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-05T10:59:13+00:00"
+            "time": "2024-02-16T07:53:23+00:00"
         },
         {
             "name": "sebastian/cli-parser",
