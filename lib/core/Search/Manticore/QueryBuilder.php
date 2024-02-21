@@ -249,6 +249,9 @@ class QueryBuilder
                         $fullText = false;
                     }
                 }
+                if (method_exists($node, 'getType') && $node->getType() == 'identifier') {
+                    $fullText = false;
+                }
             }
         );
 

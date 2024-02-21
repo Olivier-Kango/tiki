@@ -274,10 +274,13 @@ class Search_Elastic_QueryBuilder
             $value = (float)$value;
         }
         if ($node->getType() == 'identifier') {
-            return ["match" => [
-                $this->getNodeField($node) => [
-                    "query" => $value,
-                    "operator" => "and",
+            $field = $this->getNodeField($node);
+            if (isset($mapping->type) && $mapping->type != 'keyword' && ! empty($mapping->fields->sort)) {
+                $field .= '.sort';
+            }
+            return ["term" => [
+                $field => [
+                    "value" => $value
                 ],
             ]];
         } elseif ($node->getType() == 'multivalue') {
