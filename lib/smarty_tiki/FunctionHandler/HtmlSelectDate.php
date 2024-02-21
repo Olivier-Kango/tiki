@@ -218,7 +218,7 @@ class HtmlSelectDate extends Base
                 // tra('July') tra('August') tra('September') tra('October') tra('November') tra('December')
 
                 $tikidate->setLocalTime(1, $i, 2000, 0, 0, 0, 0);
-                $month_names[$i] = ucfirst(tra(mb_convert_encoding($tikidate->format($month_format, true), 'UTF-8', 'ISO-8859-1')));
+                $month_names[$i] = ucfirst($tikidate->format($month_format, true));
                 $month_values[$i] = $tikidate->format($month_value_format, true);
             }
 
