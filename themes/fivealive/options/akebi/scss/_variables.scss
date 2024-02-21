@@ -1,5 +1,7 @@
 // Custom variables for the Akebi theme option of the FiveAlive and FiveAlive-lite themes
 
+$tiki-top-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%);
+
 //Custom styles for the FiveAlive Akebi option theme.
 
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
@@ -236,8 +238,9 @@ $navbar-dark-link-color: $top-light-color;
 $navbar-dark-link-hover-color: #f2f2f2;
 //$navbar-light-link-hover-bg: #003c4a;
 
-
-$card-border-color: #169FB6;
+$card-header-bg: $tiki-top-bg;
+$card-title-color: #fff;
+//$card-border-color: #169FB6;
 
 $bg-light-alt: #117485;
 
@@ -268,7 +271,7 @@ $bg-dark-info: #00DAE6;
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki-top-nav-light {
-    --tiki-top-bg: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%);
+    --tiki-top-bg: #{$tiki-top-bg}; //linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%);
     --tiki-top-color: #{$navbar-light-color};
     --tiki-top-hover-color: #{$navbar-light-link-hover-color};
     --tiki-top-text-color: #{$navbar-light-link-hover-color};

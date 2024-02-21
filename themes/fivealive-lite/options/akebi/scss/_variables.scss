@@ -86,7 +86,7 @@ $prefix: bs-;
 $body-bg: #fff;
 $body-color: $gray-800 !default;
 
-$link-color: #11606E;
+$link-color: #138296; // #11606E;
 $link-hover-color:            darken($link-color, 15%);
 $link-hover-decoration:       none;
 $link-shade-percentage:                   20% !default;
@@ -116,7 +116,7 @@ $text-success: #288040 !important;
 $text-danger: #d63d00 !important;
 $text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B;
 
-$headings-color:              #169FB6; // var(--#{$prefix}body-color);
+$headings-color:            var(--#{$prefix}body-color); //  #169FB6; // var(--#{$prefix}body-color);
 
 // Tables
 $table-border-color: #1296a9;
@@ -199,7 +199,7 @@ $card-border-color: #169FB6;
 
 $bg-light-alt: #117485;
 
-$side-column-heading-color: #169FB6;
+$side-column-heading-color: #138296; // #169FB6; WCAG-AA
 
 $middle_outer-inset-shadow-bg: #063035;
 $footer_liner-card-inner-border: #19a5be;

@@ -1,5 +1,5 @@
 //Custom styles for the FiveAlive Plum option theme.
-
+$tiki-top-bg: linear-gradient(to right, #300149 0%, #15001F 100%);
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 // Color system
 
@@ -120,6 +120,7 @@ $headings-font-weight: 700;
 
 // Cards
 $card-border-color: #49006c;
+$card-title-color: $white;
 
 // Tables
 $table-border-color: #c564f5;
@@ -217,18 +218,13 @@ $footer-accent-color: #7a04b5;
 $footer-btn-secondary-color: #f4f4f4;
 $footer_liner-border-color: $footer-accent-color;
 
-//$autotoc-nav-bg: #ffffff;
-//$autotoc-nav-border: #15001f;
-//$autotoc-color: #7a04b5;
-//$autotoc-nav-li-link-hover-color: #f2f2f2;
-//$autotoc-nav-li-link-hover-bg: #380052;
 $topbar-dark-bg: #180124;
 $postbody-title-card-title-color: #fff;
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki-top-nav-light {
-    --tiki-top-bg: linear-gradient(to right, #300149 0%, #15001F 100%);
+    --tiki-top-bg: #{$tiki-top-bg}; // linear-gradient(to right, #300149 0%, #15001F 100%);
     --tiki-top-color: #{$navbar-light-link-color};
     --tiki-top-hover-color: #{$navbar-light-link-hover-color};
     --tiki-top-text-color: #{$navbar-light-link-hover-color};
@@ -243,7 +239,7 @@ $postbody-title-card-title-color: #fff;
 }
 
 .tiki-top-nav-dark {
-    --tiki-top-bg: linear-gradient(to right, #300149 0%, #15001F 100%);
+    --tiki-top-bg: #{$tiki-top-bg}; // linear-gradient(to right, #300149 0%, #15001F 100%);
     --tiki-top-color: #{$navbar-dark-link-color};
     --tiki-top-hover-color: #{$navbar-dark-link-hover-color};
     --tiki-top-text-color: #{$navbar-dark-link-hover-color};
@@ -323,4 +319,7 @@ header.navbar.fixed-top {
     --bs-accordion-active-color: #fff;
     --bs-accordion-btn-bg: #{$primary};
     --bs-accordion-btn-color: #fff;
+}
+:root {
+    --bs-card-title-color: $white;
 }

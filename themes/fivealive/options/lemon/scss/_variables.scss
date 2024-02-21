@@ -1,5 +1,5 @@
 //Custom styles for the FiveAlive Lemon option theme.
-
+$tiki-top-bg: linear-gradient(to right, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 // Color system
 
@@ -130,6 +130,7 @@ $bg-light: #ad5b28;
 
 // Cards
 $card-border-color: #e4af00;
+$card-title-color: #252729;
 
 // Tables
 $table-border-color: #a99628;
@@ -231,25 +232,13 @@ $footer-accent-color: #ffc506;
 $footer-btn-secondary-color: #f4f4f4;
 $footer_liner-border-color: $footer-accent-color;
 
-//$autotoc-nav-bg: #c75a29;
-//$autotoc-color: #ffffff;
-//$autotoc-nav-link-hover-color: #f2f2f2;
-//$autotoc-nav-link-hover-bg: #b25025;
-
-
-//.bg-dark {background: #2c1c04 !important; }
-//$autotoc-nav-bg: #ffffff;
-//$autotoc-nav-border: #ffc506;
-//$autotoc-color: #c75a28;
-//$autotoc-nav-li-link-hover-color: #f2f2f2;
-//$autotoc-nav-li-link-hover-bg: #b25025;
 $topbar-dark-bg: #2c1c04;
 $postbody-title-card-title-color: #fff;
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki-top-nav-light {
-    --tiki-top-bg: linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
+    --tiki-top-bg: #{$tiki-top-bg}; // linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
     --tiki-top-color: #151414;
     --tiki-top-hover-color: #333131;
     --tiki-top-text-color: #333131;
@@ -264,7 +253,7 @@ $postbody-title-card-title-color: #fff;
 }
 
 .tiki-top-nav-dark {
-    --tiki-top-bg: linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
+    --tiki-top-bg: #{$tiki-top-bg}; //linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
     --tiki-top-color: #151414;
     --tiki-top-hover-color: #333131;
     --tiki-top-text-color: #333131;
@@ -297,7 +286,6 @@ header.navbar.fixed-top {
 .tiki .tiki-admin-top-nav-light,
 .tiki .tiki-admin-aside-nav-light {
 //    --tiki-admin-navbar-bg: ; //
-    --tiki-admin-top-nav-color: #151414;
     --tiki-admin-top-nav-color: #151414;
     --tiki-admin-top-nav-hover-color: lighten(#151414, 8%);
     --tiki-admin-top-nav-hover-bg: none ;

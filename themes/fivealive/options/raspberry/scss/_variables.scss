@@ -1,5 +1,5 @@
 //Custom styles for the FiveAlive Raspberry option theme.
-
+$tiki-top-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 // Color system
 
@@ -123,6 +123,7 @@ $headings-font-weight: 700;
 
 // Cards
 $card-border-color: #e60b7f;
+$card-title-color: $white;
 
 // Tables
 $table-border-color: #f459ab;
@@ -222,17 +223,6 @@ $footer-accent-color: #eb0a82;
 $footer-btn-secondary-color: #f4f4f4;
 $footer_liner-border-color: $footer-accent-color;
 
-//$autotoc-nav-bg: #771437;
-//$autotoc-color: #ffffff;
-//$autotoc-nav-link-hover-color: #f2f2f2;
-//$autotoc-nav-link-hover-bg: #61102d;
-
-//$autotoc-nav-bg: #ffffff;
-//$autotoc-nav-border: #e60b7f;
-//$autotoc-color: #b51360;
-//$autotoc-nav-li-link-hover-color: #f2f2f2;
-//$autotoc-nav-li-link-hover-bg: #61102d;
-
 $postbody-title-card-title-color: #fff;
 
 // These variables need to be defined for the files to compile. The specific variables for the child theme's button colors are defined
@@ -251,7 +241,7 @@ $btn-focus-width:             $input-btn-focus-width;
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki-top-nav-light {
-    --tiki-top-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
+    --tiki-top-bg: #{$tiki-top-bg}; //linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
     --tiki-top-color: #{$navbar-light-link-color};
     --tiki-top-hover-color: #{$navbar-light-link-hover-color};
     --tiki-top-text-color: #{$navbar-light-link-hover-color};
@@ -266,7 +256,7 @@ $btn-focus-width:             $input-btn-focus-width;
 }
 
 .tiki-top-nav-dark {
-    --tiki-top-bg: linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
+    --tiki-top-bg: #{$tiki-top-bg}; //linear-gradient(to right, #b3134b 0%, #b61256 9%, #c21054 18%, #e70b58 69%, #ea0a81 100%);
     --tiki-top-color: #{$navbar-dark-link-color}; // #{$top-dark-color};
     --tiki-top-hover-color: #{$navbar-dark-link-hover-color};
     --tiki-top-text-color: #{$navbar-dark-link-hover-color};

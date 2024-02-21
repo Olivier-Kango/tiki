@@ -1,5 +1,5 @@
 //Custom styles for the FiveAlive Orange option theme.
-
+$tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 // Color system
 
@@ -117,6 +117,7 @@ $headings-font-weight: 700;
 
 // Cards
 $card-border-color: #e77d4f;
+$card-title-color: $white;
 
 // Tables
 $table-border-color: #e77d4f;
@@ -198,16 +199,6 @@ $top-link-hover-color: lighten($top-dark-color, 10%);
 $topbar-dark-bg:  #ea8a0b; //#33140a;
 $topbar-dark-color: $topbar-light-color;
 
-//$navbar-light-color: $top-light-color;
-//$navbar-light-link-color: $top-light-color;
-//$navbar-light-link-hover-color: #f2f2f2;
-//$navbar-light-link-hover-bg: #003c4a;
-//$navbar-dark-color: #fff;
-//$navbar-dark-link-color: $top-light-color;
-//$navbar-dark-link-hover-color: #f2f2f2;
-//$navbar-dark-link-hover-color: $navbar-light-link-hover-color;
-//$navbar-light-link-hover-bg: #003c4a;
-
 $side-column-heading-color: #BC4B1A; //#e77d4f;
 
 $footer_liner-card-inner-border: #ebdc14;
@@ -216,25 +207,13 @@ $footer-accent-color: #ebdc14;
 $footer-btn-secondary-color: #f4f4f4;
 $footer_liner-border-color: $footer-accent-color;
 
-//$autotoc-nav-bg: #e77d4f;
-//$autotoc-color: #ffffff;
-//$autotoc-nav-link-hover-color: #f2f2f2;
-//$autotoc-nav-link-hover-bg: #ae421f;
-
-
-//.bg-dark {background: #33140a !important; }
-//$autotoc-nav-bg: #ffffff;
-//$autotoc-nav-border: #ec6223;
-//$autotoc-color: #c74b23;
-//$autotoc-nav-li-link-hover-color: #f2f2f2;
-//$autotoc-nav-li-link-hover-bg: #ae421f;
 $postbody-title-card-title-color: #fff;
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 .tiki-top-nav-light {
     // Use this one instead of the next to get a light band on the side like an actual orange slice --tiki-top-light-bg: linear-gradient(90deg, rgba(192,180,108,1) 1%, rgba(190,133,20,1) 3%, rgba(199,159,29,1) 97%, rgba(202,172,78,1) 100%);
-    --tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
+    --tiki-top-bg: #{$tiki-top-bg}; //linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
     --tiki-top-color: #3C3106;
     --tiki-top-hover-color: #3C3106FF;
     --tiki-top-text-color: #3C3106FF;
@@ -249,7 +228,7 @@ $postbody-title-card-title-color: #fff;
 }
 
 .tiki-top-nav-dark {
-    --tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
+    --tiki-top-bg: #{$tiki-top-bg}; //linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29, 1) 93%, rgba(202, 172, 78, 1) 100%);
     --tiki-top-color: #{$top-dark-link-color};
     --tiki-top-hover-color: #{$top-link-hover-color};
     --tiki-top-text-color: #{$top-link-hover-color};

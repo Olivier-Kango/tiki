@@ -182,12 +182,6 @@ $btn-link-disabled-color:         #777777;
 $input-color-placeholder:         #777777;
 
 // Dropdowns
-//$dropdown-bg: #1376a8 !default;
-//$dropdown-link-color: $gray-200 !default;
-//$dropdown-link-hover-color: #ffffff !default;
-//$dropdown-link-hover-bg: darken(#1376a8, 10%) !default;
-//$dropdown-link-active-bg: #0e567a !default;
-//$dropdown-header-color: #fff !default;
 
 // Navs
 $nav-tabs-border-color:             $gray-300 !default;
@@ -220,12 +214,12 @@ $dropdown-link-disabled-color:      var(--#{$prefix}tertiary-color) !default;
 // Pagination
 // Jumbotron
 // Cards
-$card-header-bg: transparent !default;
-//$card-border-radius: $border-radius-lg;
+$card-header-bg: var(--tiki-top-bg);
+//$card-title-color: $white;
+$card-border-radius: 0;
 $card-text: $body-color !default;
-$card-header-bg: transparent !default;
 //$card-bg: transparent;
-//$card-border-color: transparent;
+$card-border-color: transparent;
 //$card-inner-border: transparent;
 $card-spacer-y: 0.5rem !default;
 $card-spacer-x: 1rem !default;
