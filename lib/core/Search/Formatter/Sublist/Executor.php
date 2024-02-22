@@ -21,6 +21,7 @@ class Executor
     private $record;
     private $searchFormatter;
     private $data;
+    private $root_data;
 
     private $formatterPlugins = [];
     private $reverseMapping = [];
@@ -31,9 +32,10 @@ class Executor
         $this->searchFormatter = $sf;
     }
 
-    public function runOnDataset(&$data)
+    public function runOnDataset(&$data, &$root_data)
     {
         $this->data = &$data;
+        $this->root_data = &$root_data;
         $this->initPlugins();
         $body = $this->replacePlaceholders();
         $result = $this->performSearch($body);
@@ -61,28 +63,42 @@ class Executor
                 throw new Exception(tr('Filter blocks inside sublist sections in PluginList need field reference.'));
             }
             foreach ($arguments as $name => $value) {
-                if (preg_match('/\$res\.(.*)\$/', $value, $m)) {
-                    $field = $m[1];
+                if (preg_match('/\$(parent|root)\.(.*)\$/', $value, $m)) {
+                    $placeholder = $m[0];
+                    $type = $m[1];
+                    $field = $m[2];
                     $values = [];
-                    foreach ($this->data as $i => $row) {
-                        if ($this->record->getParent() && $this->record->getParent()->isMultiple()) {
-                            // parent sublists might have entries with multiple records per key
-                            foreach ($row as $j => $subrow) {
-                                if (! empty($subrow[$field])) {
-                                    $values[] = $subrow[$field];
-                                    $this->reverseMapping[$i][$j][] = [
-                                        'value' => $subrow[$field],
-                                        'target_field' => $arguments['field'],
-                                    ];
+                    if ($type == 'parent') {
+                        foreach ($this->data as $i => $row) {
+                            if ($this->record->getParent() && $this->record->getParent()->isMultiple()) {
+                                // parent sublists might have entries with multiple records per key
+                                foreach ($row as $j => $subrow) {
+                                    if (! empty($subrow[$field])) {
+                                        $values[] = $subrow[$field];
+                                        $this->reverseMapping[$i][$j][] = [
+                                            'value' => $subrow[$field],
+                                            'target_field' => $arguments['field'],
+                                        ];
+                                    }
                                 }
                             }
+                            if (! empty($row[$field])) {
+                                $values[] = $row[$field];
+                                $this->reverseMapping[$i][0][] = [
+                                    'value' => $row[$field],
+                                    'target_field' => $arguments['field'],
+                                ];
+                            }
                         }
-                        if (! empty($row[$field])) {
-                            $values[] = $row[$field];
-                            $this->reverseMapping[$i][0][] = [
-                                'value' => $row[$field],
-                                'target_field' => $arguments['field'],
-                            ];
+                    } else {
+                        foreach ($this->root_data as $i => $row) {
+                            if (! empty($row[$field])) {
+                                $values[] = $row[$field];
+                                $this->reverseMapping[$i][0][] = [
+                                    'value' => $row[$field],
+                                    'target_field' => $arguments['field'],
+                                ];
+                            }
                         }
                     }
                     $values = array_unique($values);
@@ -92,7 +108,7 @@ class Executor
                         unset($arguments['exact']);
                     }
                     if (empty($values)) {
-                        $replacement = str_replace($m[0], '', (string)$match);
+                        $replacement = str_replace($placeholder, '', (string)$match);
                     } else {
                         $replacement = $match->buildPluginString('filter', $arguments, $match->getBody());
                     }
@@ -210,7 +226,7 @@ class Executor
                 }
             }
             foreach ($sublists as $sublist) {
-                $sublist->executeOverDataset($subdata, $this->searchFormatter);
+                $sublist->executeOverDataset($subdata, $this->root_data, $this->searchFormatter);
             }
         }
     }

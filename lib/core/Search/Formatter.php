@@ -112,7 +112,7 @@ class Search_Formatter
         }
 
         foreach ($this->subLists as $sublist) {
-            $sublist->executeOverDataset($data, $this);
+            $sublist->executeOverDataset($data, $data, $this);
         }
 
         foreach ($data as $i => $row) {
