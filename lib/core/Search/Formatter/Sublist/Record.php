@@ -68,10 +68,10 @@ class Record
         return $this->multiple;
     }
 
-    public function executeOverDataset(&$data, Search_Formatter $sf)
+    public function executeOverDataset(&$data, &$root_data, Search_Formatter $sf)
     {
         $executor = new Executor($this, $sf);
-        $executor->runOnDataset($data);
+        $executor->runOnDataset($data, $root_data);
     }
 
     public function getFormats()
