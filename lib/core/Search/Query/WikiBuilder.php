@@ -11,6 +11,7 @@ class Search_Query_WikiBuilder
     private $input;
     private $paginationArguments;
     private $aggregate = false;
+    private $skipPagination = false;
     private $boost = 1;
 
     public function __construct(Search_Query $query, $input = null)
@@ -40,6 +41,11 @@ class Search_Query_WikiBuilder
         $this->aggregate = true;
     }
 
+    public function skipPagination()
+    {
+        $this->skipPagination = true;
+    }
+
     public function apply(WikiParser_PluginMatcher $matches)
     {
         $argumentParser = new WikiParser_PluginArgumentParser();
@@ -61,7 +67,9 @@ class Search_Query_WikiBuilder
             $this->addQueryArgument($name, $arguments);
         }
 
-        $this->applyPagination();
+        if (! $this->skipPagination) {
+            $this->applyPagination();
+        }
     }
 
     public function applyPagination()

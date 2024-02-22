@@ -12,15 +12,19 @@ use Search_Formatter;
 class Record
 {
     private $key;
+    private $multiple;
     private $body;
     private $sublists;
+    private $parent;
 
     private $parser;
 
-    public function __construct(string $key, Parser $parser)
+    public function __construct(string $key, bool $multiple, Parser $parser)
     {
         $this->key = $key;
+        $this->multiple = $multiple;
         $this->parser = $parser;
+        $this->parent = null;
     }
 
     public function getBody()
@@ -33,8 +37,19 @@ class Record
         $this->body = $body;
     }
 
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
     public function addSublist(Record $sublist)
     {
+        $sublist->setParent($this);
         $this->sublists[] = $sublist;
     }
 
@@ -46,6 +61,11 @@ class Record
     public function getKey()
     {
         return $this->key;
+    }
+
+    public function isMultiple()
+    {
+        return $this->multiple;
     }
 
     public function executeOverDataset(&$data, Search_Formatter $sf)
