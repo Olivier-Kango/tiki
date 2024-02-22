@@ -55,8 +55,3 @@
         {object_link type=trackeritem id=$itemId}
     {/if}
 {/block}
-{jq}
-      $.validator.methods.email = function( value, element ) {
-          return this.optional( element ) || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{1,})+$/.test( value );
-     }
-{/jq}
