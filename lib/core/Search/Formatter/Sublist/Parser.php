@@ -24,11 +24,11 @@ class Parser
     {
         $args = $this->argparser->parse($match->getArguments());
 
-        if (empty($args['key'])) {
-            throw new Exception(tr('Missing parameter \'key\' for SUBLIST block.'));
+        if (empty($args['name'])) {
+            throw new Exception(tr('Missing parameter \'name\' for SUBLIST block.'));
         }
 
-        $record = new Record($args['key'], $this);
+        $record = new Record($args['name'], ! empty($args['multiple']), $this);
 
         // handle nested sublists first
         $sublists = [];

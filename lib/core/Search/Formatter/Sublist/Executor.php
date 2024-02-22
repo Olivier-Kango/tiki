@@ -65,7 +65,7 @@ class Executor
                     $field = $m[1];
                     $values = [];
                     foreach ($this->data as $i => $row) {
-                        if (! empty($row[0]) && is_array($row[0])) {
+                        if ($this->record->getParent() && $this->record->getParent()->isMultiple()) {
                             // parent sublists might have entries with multiple records per key
                             foreach ($row as $j => $subrow) {
                                 if (! empty($subrow[$field])) {
@@ -91,7 +91,11 @@ class Executor
                         $arguments['content'] = $arguments['exact'];
                         unset($arguments['exact']);
                     }
-                    $replacement = $match->buildPluginString('filter', $arguments, $match->getBody());
+                    if (empty($values)) {
+                        $replacement = str_replace($m[0], '', (string)$match);
+                    } else {
+                        $replacement = $match->buildPluginString('filter', $arguments, $match->getBody());
+                    }
                     $body = str_replace((string)$match, $replacement, $body);
                 }
             }
@@ -108,6 +112,7 @@ class Executor
 
         $builder = new Search_Query_WikiBuilder($query);
         $builder->enableAggregate();
+        $builder->skipPagination();
         $builder->apply($matches);
 
         $index = TikiLib::lib('unifiedsearch')->getIndex();
@@ -117,7 +122,6 @@ class Executor
     protected function formatResult($result)
     {
         $key = $this->record->getKey();
-        $hasMany = false;
 
         foreach ($result as $entry) {
             $subrow = [];
@@ -154,15 +158,17 @@ class Executor
                         }
                     }
                     if ($count == count($mapping)) {
-                        if (! empty($this->data[$i][0]) && is_array($this->data[$i][0])) {
-                            $this->data[$i][$j][$key][] = $subrow;
-                            if (count($this->data[$i][$j][$key]) > 1) {
-                                $hasMany = true;
+                        if ($this->record->getParent() && $this->record->getParent()->isMultiple()) {
+                            if ($this->record->isMultiple()) {
+                                $this->data[$i][$j][$key][] = $subrow;
+                            } else {
+                                $this->data[$i][$j][$key] = $subrow;
                             }
                         } else {
-                            $this->data[$i][$key][] = $subrow;
-                            if (count($this->data[$i][$key]) > 1) {
-                                $hasMany = true;
+                            if ($this->record->isMultiple()) {
+                                $this->data[$i][$key][] = $subrow;
+                            } else {
+                                $this->data[$i][$key] = $subrow;
                             }
                         }
                     }
@@ -174,19 +180,13 @@ class Executor
             if (empty($row)) {
                 continue;
             }
-            if (! empty($row[0]) && is_array($row[0])) {
+            if ($this->record->getParent() && $this->record->getParent()->isMultiple()) {
                 foreach ($row as $j => $_) {
-                    if (isset($this->data[$i][$j][$key]) && ! $hasMany) {
-                        $this->data[$i][$j][$key] = $this->data[$i][$j][$key][0];
-                    }
                     if (! isset($this->data[$i][$j][$key])) {
                         $this->data[$i][$j][$key] = [];
                     }
                 }
             } else {
-                if (isset($this->data[$i][$key]) && ! $hasMany) {
-                    $this->data[$i][$key] = $this->data[$i][$key][0];
-                }
                 if (! isset($this->data[$i][$key])) {
                     $this->data[$i][$key] = [];
                 }
@@ -201,7 +201,7 @@ class Executor
             // prepare this sublist's entries for nested ones
             $subdata = [];
             foreach ($this->data as $i => $row) {
-                if (! empty($row[0]) && is_array($row[0])) {
+                if ($this->record->getParent() && $this->record->getParent()->isMultiple()) {
                     foreach ($row as $j => $_) {
                         $subdata[$i][$j] = &$this->data[$i][$j][$key];
                     }
