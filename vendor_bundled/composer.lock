@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a24830f54bd67e64b985cff440fe1748",
+    "content-hash": "166087877244f80d7f88e80a5291b7d9",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2430,13 +2430,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "700204eb0489677a481fa21b44825d3dd89b38bf"
+                "reference": "2a624a96433f8201c901c15b8807540eba227203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-700204eb0489677a481fa21b44825d3dd89b38bf-zip-2d5292.zip",
-                "reference": "700204eb0489677a481fa21b44825d3dd89b38bf",
-                "shasum": "d95ed9103fb25f1883b6f0a4431779accd347ae9"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-2a624a96433f8201c901c15b8807540eba227203-zip-326cf0.zip",
+                "reference": "2a624a96433f8201c901c15b8807540eba227203",
+                "shasum": "3c1cdcd44e32d67e3ccc8ee079860e48f23f2ae5"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2499,7 +2499,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-02-20T16:14:42+00:00"
+            "time": "2024-02-21T13:23:40+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -6356,11 +6356,11 @@
         },
         {
             "name": "npm-asset/bootstrap",
-            "version": "5.3.2",
+            "version": "5.3.3",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/bootstrap/npm-asset-bootstrap-5.3.2.zip",
-                "shasum": "28c81c30822ef869af0ea02f8a43f5cc3a6e1569"
+                "url": "https://composer.tiki.org/dist/npm-asset/bootstrap/npm-asset-bootstrap-5.3.3.zip",
+                "shasum": "6ec2372559bad9bd5724b4bc17625411a3738dde"
             },
             "type": "npm-asset",
             "license": [
@@ -6593,11 +6593,11 @@
         },
         {
             "name": "npm-asset/postcss",
-            "version": "8.4.33",
+            "version": "8.4.35",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.33.zip",
-                "shasum": "36a60663a2902968d32561591494faf3840e16c9"
+                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.35.zip",
+                "shasum": "9ea9690fcd078b48128d3d91447b6debef6e2250"
             },
             "require": {
                 "npm-asset/nanoid": ">=3.3.7,<4.0.0",
@@ -15153,17 +15153,17 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.0.0",
+            "version": "v5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "4a21235f7e56e713259a6f76bf4b5ea08502b9dc"
+                "reference": "2218c2252c874a4624ab2f613d86ac32d227bc69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/nikic/php-parser/nikic-php-parser-4a21235f7e56e713259a6f76bf4b5ea08502b9dc-zip-befe4a.zip",
-                "reference": "4a21235f7e56e713259a6f76bf4b5ea08502b9dc",
-                "shasum": "6f80cc969be88a942f6371c3275848ed997b1eba"
+                "url": "https://composer.tiki.org/dist/nikic/php-parser/nikic-php-parser-2218c2252c874a4624ab2f613d86ac32d227bc69-zip-374345.zip",
+                "reference": "2218c2252c874a4624ab2f613d86ac32d227bc69",
+                "shasum": "2bc77d44313216cef985539b185c0030757cc97a"
             },
             "require": {
                 "ext-ctype": "*",
@@ -15203,7 +15203,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2024-01-07T17:17:35+00:00"
+            "time": "2024-02-21T19:24:10+00:00"
         },
         {
             "name": "overtrue/phplint",
@@ -17203,31 +17203,27 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v5.4.35",
+            "version": "v6.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "2f6f979b579ed1c051465c3c2fb81daf5bb4a002"
+                "reference": "495ffa2e6d17e199213f93768efa01af32bbf70e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/browser-kit/symfony-browser-kit-2f6f979b579ed1c051465c3c2fb81daf5bb4a002-zip-1fa860.zip",
-                "reference": "2f6f979b579ed1c051465c3c2fb81daf5bb4a002",
-                "shasum": "e9d81b2ce1f570a34d1c6f0768bab37e052f2a3c"
+                "url": "https://composer.tiki.org/dist/symfony/browser-kit/symfony-browser-kit-495ffa2e6d17e199213f93768efa01af32bbf70e-zip-3a290b.zip",
+                "reference": "495ffa2e6d17e199213f93768efa01af32bbf70e",
+                "shasum": "c6c09551e9f8212fac0b5048040c02762db88b79"
             },
             "require": {
-                "php": ">=7.2.5",
-                "symfony/dom-crawler": "^4.4|^5.0|^6.0",
-                "symfony/polyfill-php80": "^1.16"
+                "php": ">=8.1",
+                "symfony/dom-crawler": "^5.4|^6.0|^7.0"
             },
             "require-dev": {
-                "symfony/css-selector": "^4.4|^5.0|^6.0",
-                "symfony/http-client": "^4.4|^5.0|^6.0",
-                "symfony/mime": "^4.4|^5.0|^6.0",
-                "symfony/process": "^4.4|^5.0|^6.0"
-            },
-            "suggest": {
-                "symfony/process": ""
+                "symfony/css-selector": "^5.4|^6.0|^7.0",
+                "symfony/http-client": "^5.4|^6.0|^7.0",
+                "symfony/mime": "^5.4|^6.0|^7.0",
+                "symfony/process": "^5.4|^6.0|^7.0"
             },
             "type": "library",
             "autoload": {
@@ -17268,7 +17264,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T13:51:25+00:00"
+            "time": "2024-01-23T14:51:35+00:00"
         },
         {
             "name": "symfony/cache",
