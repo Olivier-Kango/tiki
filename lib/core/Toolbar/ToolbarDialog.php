@@ -33,17 +33,17 @@ class ToolbarDialog extends ToolbarItem
                 $list = [
                     tra("Wiki Link"),
                     '<label for="tbWLinkDesc">' . tra("Show this text") . '</label>',
-                    '<input type="text" id="tbWLinkDesc" class="ui-widget-content ui-corner-all" style="width: 98%" />',
+                    '<input type="text" id="tbWLinkDesc" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
                     '<label for="tbWLinkPage">' . tra("Link to this page") . '</label>',
-                    '<input type="text" id="tbWLinkPage" class="ui-widget-content ui-corner-all" style="width: 98%" />',
+                    '<input type="text" id="tbWLinkPage" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
                     $prefs['wikiplugin_alink'] == 'y' ? '<label for="tbWLinkAnchor">' . tra(
                         "Anchor"
                     ) . ':</label>' : '',
-                    $prefs['wikiplugin_alink'] == 'y' ? '<input type="text" id="tbWLinkAnchor" class="ui-widget-content ui-corner-all" style="width: 98%" />' : '',
+                    $prefs['wikiplugin_alink'] == 'y' ? '<input type="text" id="tbWLinkAnchor" class="form-control form-control-sm  mb-2 ui-widget-content ui-corner-all" style="width: 98%" />' : '',
                     $prefs['feature_semantic'] == 'y' ? '<label for="tbWLinkRel">' . tra(
                         "Semantic relation"
                     ) . ':</label>' : '',
-                    $prefs['feature_semantic'] == 'y' ? '<input type="text" id="tbWLinkRel" class="ui-widget-content ui-corner-all" style="width: 98%" />' : '',
+                    $prefs['feature_semantic'] == 'y' ? '<input type="text" id="tbWLinkRel" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />' : '',
                     '{"open": function () { dialogInternalLinkOpen(area_id, clickedElement); },
                         "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
                     '"' . tra("Insert") . '": function() { dialogInternalLinkInsert(area_id,this); }}}',
@@ -77,9 +77,9 @@ class ToolbarDialog extends ToolbarItem
                 $list = [
                     tra('Object Link'),
                     '<label for="tbOLinkDesc">' . tra("Show this text") . '</label>',
-                    '<input type="text" id="tbOLinkDesc" />',
+                    '<input type="text" class="form-control form-control-sm ui-widget-content ui-corner-all" id="tbOLinkDesc" />',
                     '<label for="tbOLinkObjectType">' . tra("Types of object") . '</label>',
-                    '<select id="tbOLinkObjectType" class="ui-widget-content ui-corner-all" style="width: 98%">' .
+                    '<select id="tbOLinkObjectType" class="form-control form-control-sm mb-2  ui-widget-content ui-corner-all" style="width: 98%">' .
                     '<option value="*">' . tra('All') . '</option>' .
                     $options .
                     '</select>',
@@ -103,15 +103,14 @@ class ToolbarDialog extends ToolbarItem
                 $list = [
                     tra('External Link'),
                     '<label for="tbLinkDesc">' . tra("Show this text") . '</label>',
-                    '<input type="text" id="tbLinkDesc" class="ui-widget-content ui-corner-all" style="width: 98%" />',
+                    '<input type="text" id="tbLinkDesc" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
                     '<label for="tbLinkURL">' . tra("link to this URL") . '</label>',
-                    '<input type="text" id="tbLinkURL" class="ui-widget-content ui-corner-all" style="width: 98%" />',
+                    '<input type="text" id="tbLinkURL" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
                     '<label for="tbLinkRel">' . tra("Relation") . ':</label>',
-                    '<input type="text" id="tbLinkRel" class="ui-widget-content ui-corner-all" style="width: 98%" />',
-                    $prefs['cachepages'] == 'y' ? '<br /><label for="tbLinkNoCache" style="display:inline;">' . tra(
+                    '<input type="text" id="tbLinkRel" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
+                    $prefs['cachepages'] == 'y' ? '<div class="form-check mt-2"><input type="checkbox" id="tbLinkNoCache" class="form-check-input ui-widget-content ui-corner-all" />' . '<label for="tbLinkNoCache" class="form-check-label">' . tra(
                         "No cache"
                     ) . ':</label>' : '',
-                    $prefs['cachepages'] == 'y' ? '<input type="checkbox" id="tbLinkNoCache" class="ui-widget-content ui-corner-all" />' : '',
                     '{"width": 300, "open": function () { dialogExternalLinkOpen( area_id ) },
                         "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
                     '"' . tra("Insert") . '": function() { dialogExternalLinkInsert(area_id,this) }}}',
@@ -145,9 +144,8 @@ class ToolbarDialog extends ToolbarItem
                 $list = [
                     tra('Find Text'),
                     '<label>' . tra("Search") . ':</label>',
-                    '<input type="text" id="tbFindSearch" class="ui-widget-content ui-corner-all" />',
-                    '<label for="tbFindCase" style="display:inline;">' . tra("Case Insensitivity") . ':</label>',
-                    '<input type="checkbox" id="tbFindCase" checked="checked" class="ui-widget-content ui-corner-all" />',
+                    '<input type="text" id="tbFindSearch" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" />',
+                    '<div class="form-check mt-2"><input type="checkbox" id="tbFindCase" checked="checked" class="form-check-input" />' . '<label for="tbFindCase" class="form-check-label">' . tra("Case Insensitivity") . '</label></div>',
                     '<p class="description">' . tra("Note: Uses regular expressions") . '</p>',
                     // TODO add option to not
                     '{"open": function() { dialogFindOpen(area_id); },' .
@@ -168,13 +166,11 @@ class ToolbarDialog extends ToolbarItem
                 $list = [
                     tra('Text Replace'),
                     '<label for="tbReplaceSearch">' . tra("Search") . ':</label>',
-                    '<input type="text" id="tbReplaceSearch" class="ui-widget-content ui-corner-all" />',
+                    '<input type="text" id="tbReplaceSearch" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" />',
                     '<label for="tbReplaceReplace">' . tra("Replace") . ':</label>',
-                    '<input type="text" id="tbReplaceReplace" class="ui-widget-content ui-corner-all clearfix" />',
-                    '<label for="tbReplaceCase" style="display:inline;">' . tra("Case Insensitivity") . ':</label>',
-                    '<input type="checkbox" id="tbReplaceCase" checked="checked" class="ui-widget-content ui-corner-all" />',
-                    '<br /><label for="tbReplaceAll" style="display:inline;">' . tra("Replace All") . ':</label>',
-                    '<input type="checkbox" id="tbReplaceAll" checked="checked" class="ui-widget-content ui-corner-all" />',
+                    '<input type="text" id="tbReplaceReplace" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all clearfix" />',
+                    '<div class="form-check mb-2"><input type="checkbox" id="tbReplaceCase" checked="checked" class="form-check-input" />' . '<label for="tbReplaceCase" class="form-check-label">' . tra("Case Insensitivity") . '</label></div>',
+                    '<div class="form-check mb-2"><input type="checkbox" id="tbReplaceAll" checked="checked" class="form-check-input" />' . '<label for="tbReplaceAll" class="form-check-label">' . tra("Replace All") . '</label></div>',
                     '<p class="description">' . tra("Note: Uses regular expressions") . '</p>',
                     // TODO add option to not
                     '{"open": function() { dialogReplaceOpen(area_id); },' .
