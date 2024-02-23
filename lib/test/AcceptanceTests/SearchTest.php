@@ -7,18 +7,22 @@
 /**
  * @group gui
  */
-
+use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\WebDriverBy;
 
 class AcceptanceTests_SearchTest extends TikiSeleniumTestCase
 {
     protected function setUp(): void
     {
         $this->markTestSkipped("These tests are still too experimental, so skipping it.");
-        $this->setBrowserUrl('http://localhost/');
+        // Set up the browser URL
+        $this->webDriver = RemoteWebDriver::create('http://localhost:4444/wd/hub', DesiredCapabilities::chrome());
+        $this->webDriver->get('http://localhost/');
+
         $this->current_test_db = "searchTestDump.sql";
         $this->restoreDBforThisTest();
     }
-
 
     public function ___testRememberToReactivateAllTestsInSearchTest()
     {
@@ -107,40 +111,32 @@ class AcceptanceTests_SearchTest extends TikiSeleniumTestCase
 
     private function searchFor($query)
     {
-        $this->type("highlight", $query);
-        $this->clickAndWait('search');
+        $highlightInput = $this->webDriver->findElement(WebDriverBy::id('highlight'));
+        $searchButton = $this->webDriver->findElement(WebDriverBy::id('search'));
+
+        $highlightInput->sendKeys($query);
+        $searchButton->click();
     }
 
     private function assertSearchFormIsWellFormed()
     {
+        $searchForm = $this->webDriver->findElement(WebDriverBy::id('search-form'));
+        $highlightInput = $this->webDriver->findElement(WebDriverBy::id('highlight'));
+        $siteSearchBar = $this->webDriver->findElement(WebDriverBy::id('sitesearchbar'));
 
-        $this->assertElementPresent(
-            "xpath=//form[@id='search-form']",
-            "Search form was not present"
-        );
-
-        $this->assertElementPresent(
-            "highlight",
-            "Search input field not present"
-        );
-
-        $this->assertElementPresent(
-            "xpath=//div[@id='sitesearchbar']",
-            "Site search bar was not present"
-        );
+        $this->assertTrue($searchForm !== null, "Search form was not present");
+        $this->assertTrue($highlightInput !== null, "Search input field not present");
+        $this->assertTrue($siteSearchBar !== null, "Site search bar was not present");
     }
 
     private function assertSearchResultsWere($listOfHits, $query, $message)
     {
-        $this->assertElementPresent(
-            "xpath=//ul[@class='searchresults']",
-            "List of search results was absent for query '$query'"
-        );
+        $searchResultsList = $this->webDriver->findElement(WebDriverBy::className('searchresults'));
+        $this->assertNotNull($searchResultsList, "List of search results was absent for query '$query'");
+
         foreach ($listOfHits as $expectedHit) {
-            $this->assertElementPresent(
-                "link=$expectedHit",
-                "$message\nLink to expected hit '$expectedHit' was missing for query '$query'"
-            );
+            $linkElement = $this->webDriver->findElement(WebDriverBy::linkText($expectedHit));
+            $this->assertNotNull($linkElement, "$message\nLink to expected hit '$expectedHit' was missing for query '$query'");
         }
     }
 }

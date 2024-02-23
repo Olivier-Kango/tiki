@@ -12,6 +12,8 @@
  * @group gui
  */
 
+use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
 {
@@ -27,7 +29,7 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
     {
         $this->openTikiPage('tiki-index.php');
         $this->logInIfNecessaryAs('admin');
-        print "\n" . $this->getHtmlSource() . "\n";
+        print "\n" . $this->webDriver->getPageSource() . "\n";
         $this->assertLanguagePicklistHasLanguages(['English' => 'HomePage']);
     }
 
@@ -51,7 +53,7 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         $this->openTikiPage('tiki-index.php?page=Multilingual+Test+Page+1');
         $this->logInIfNecessaryAs('admin');
         $this->doSwitchLanguageTo('Français');
-        $this->assertEquals(preg_match("/page\=Page\+de\+test\+multilingue\+1/", $this->getLocation()), 1);
+        $this->assertEquals(1, preg_match('/page=Page\+de\+test\+multilingue\+1/', $this->webDriver->getCurrentURL()));
     }
 
 
@@ -63,8 +65,8 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         $this->openTikiPage('tiki-index.php?page=Multilingual+Test+Page+1');
         $this->logInIfNecessaryAs('admin');
         $this->doSwitchLanguageTo('Français');
-        $this->assertEquals(preg_match('/page=Page\+de\+test\+multilingue\+1/', $this->getLocation()), 1);
-        $this->assertElementPresent("link=Page de test multilingue 1");
+        $this->assertEquals(1, preg_match('/page=Page\+de\+test\+multilingue\+1/', $this->webDriver->getCurrentURL()));
+        $this->assertTrue($this->webDriver->findElement(WebDriverBy::linkText('Page de test multilingue 1'))->isDisplayed());
         $this->assertLanguagePicklistHasLanguages(
             ['Français' => 'Page de test multilingue 1', 'English' => 'Multilingual Test Page 1']
         );
@@ -90,9 +92,15 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
     {
         $this->openTikiPage('tiki-index.php');
         $this->logInIfNecessaryAs('admin');
-        $this->select("page", "label=Translate");
-        $this->waitForPageToLoad("30000");
-        $this->assertElementPresent("link=exact:Translate: HomePage (English, en)");
+        // Find the select element and select the option with label "Translate"
+        $selectElement = $this->webDriver->findElement(WebDriverBy::id('page'));
+        $selectElement->selectByVisibleText('Translate');
+
+        $this->webDriver->wait(30)->until(
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::linkText('Translate: HomePage (English, en)'))
+        );
+        // Assert the presence of the link
+        $this->assertTrue($this->webDriver->findElement(WebDriverBy::linkText('Translate: HomePage (English, en)'))->isDisplayed());
     }
 
 
@@ -103,10 +111,22 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
     {
         $this->openTikiPage('tiki-index.php?page=Multilingual+Test+Page+1');
         $this->logInIfNecessaryAs('admin');
-        $this->select("page", "label=Translate");
-        $this->waitForPageToLoad("30000");
+       // $this->select("page", "label=Translate");
+        $selectElement = $this->webDriver->findElement(WebDriverBy::id('page'));
+        $selectElement->selectByVisibleText('Translate');
+
+       // $this->waitForPageToLoad("30000");
+       // $selectLanguagesElement = $this->webDriver->findElement(WebDriverBy::xpath("//select[@name='lang']"));
+        $selectLanguagesElement = $this->webDriver->findElement(WebDriverBy::xpath("//form[@id='tiki-center']/p/select[@name='lang']"));
+
+       // $this->assertSelectElementDoesNotContainItems(
+       //     "xpath=id('tiki-center')/form[1]/p/select[@name='lang']",
+       //     ['English' => 'en'],
+       //     "English should not have been present in the list of languages."
+       // );
+
         $this->assertSelectElementDoesNotContainItems(
-            "xpath=id('tiki-center')/form[1]/p/select[@name='lang']",
+            $selectLanguagesElement,
             ['English' => 'en'],
             "English should not have been present in the list of languages."
         );
@@ -125,11 +145,30 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         $this->openTikiPage('tiki-index.php?page=Multilingual+Test+Page+1');
         $this->logInIfNecessaryAs('admin');
         $this->doSwitchLanguageTo('Français');
-        $this->clickAndWait("link=Translate");
-        $this->select("language_list", "label=English British (en-uk)");
-        $this->type("translation_name", "Multilingual Test Page 1");
-        $this->clickAndWait("//input[@value='Create translation']");
-        $this->assertTrue($this->isTextPresent("That page already exists. Go back and choose a different name."));
+         // Locate the "Translate" link element
+         $translateLink = $this->webDriver->findElement(WebDriverBy::linkText('Translate'));
+         // Click on the "Translate" link
+         $translateLink->click();
+         // Explicitly wait for the new page to load
+         // $this->webDriver->wait(10)->until(
+         //     WebDriverExpectedCondition::titleContains('Translate')
+         // );
+         // Use a more specific XPath expression to locate the elements
+         $languageListSelect = $this->webDriver->findElement(WebDriverBy::id('language_list'));
+         $translationNameInput = $this->webDriver->findElement(WebDriverBy::id('translation_name'));
+
+         // Select a language and type a translation name
+         $languageListSelect->selectByVisibleText('English British (en-uk)');
+         $translationNameInput->sendKeys('Multilingual Test Page 1');
+         // Click the "Create translation" button
+         $createTranslationButton = $this->webDriver->findElement(WebDriverBy::xpath("//input[@value='Create translation']"));
+         $createTranslationButton->click();
+
+         // Get the page source
+         $pageSource = $this->webDriver->getPageSource();
+         // Check if the expected text is present in the page source
+         $textPresent = strpos($pageSource, "That page already exists. Go back and choose a different name.") !== false;
+         $this->assertTrue($textPresent);
     }
 
     /**
@@ -142,13 +181,26 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         $this->openTikiPage('tiki-index.php?page=Multilingual+Test+Page+1');
         $this->logInIfNecessaryAs('admin');
         $this->doSwitchLanguageTo('Français');
-        $this->clickAndWait("link=Translate");
-        $this->select("language_list", "label=English British (en-uk)");
-        $this->type("translation_name", "Multilingual Test Page 1");
-        $this->clickAndWait("//input[@value='Create translation']");
-        $this->assertTrue($this->isTextPresent("That page already exists. Go back and choose a different name."));
-        $this->clickAndWait("link=Go back");
-        $this->clickAndWait("link=View Page");
+        // $this->clickAndWait("link=Translate");
+        $this->webDriver->findElement(WebDriverBy::linkText('Translate'))->click();
+
+       // Select language and provide translation name
+        $languageListSelect = $this->webDriver->findElement(WebDriverBy::id('language_list'));
+        $translationNameInput = $this->webDriver->findElement(WebDriverBy::id('translation_name'));
+        $createTranslationButton = $this->webDriver->findElement(WebDriverBy::xpath("//input[@value='Create translation']"));
+
+        $languageListSelect->selectByVisibleText('English British (en-uk)');
+        $translationNameInput->sendKeys('Multilingual Test Page 1');
+        $createTranslationButton->click();
+
+        // Explicitly wait for the error message to appear
+        $this->webDriver->wait(10)->until(
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::xpath("//*[contains(text(),'That page already exists. Go back and choose a different name.')]"))
+        );
+
+        // Go back and check language picklist
+        $this->webDriver->findElement(WebDriverBy::linkText('Go back'))->click();
+        $this->webDriver->findElement(WebDriverBy::linkText('View Page'))->click();
         //A bug: instead of English it shows English British although the page was not created
         $this->assertLanguagePicklistHasLanguages(
             ['Français' => 'Page de test multilingue 1', 'English' => 'Multilingual Test Page 1']
@@ -164,8 +216,12 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
     {
         $this->openTikiPage('tiki-index.php?page=Page+de+test+multilingue+1');
         $this->logInIfNecessaryAs('admin');
-        $this->assertTextPresent("Up-to-date-ness: 100%");
-        $this->assertTextPresent("Equivalent translations: Multilingual Test Page 1 (en)");
+        // Check for the presence of elements containing the expected text
+        $upToDateElement = $this->webDriver->findElement(WebDriverBy::xpath("//*[contains(text(),'Up-to-date-ness: 100%')]"));
+        $equivalentTranslationsElement = $this->webDriver->findElement(WebDriverBy::xpath("//*[contains(text(),'Equivalent translations: Multilingual Test Page 1 (en)')]"));
+        // Assert that the elements are present
+        $this->assertTrue($upToDateElement->isDisplayed(), "Up-to-date-ness: 100% not found");
+        $this->assertTrue($equivalentTranslationsElement->isDisplayed(), "Equivalent translations: Multilingual Test Page 1 (en) not found");
     }
 
 
@@ -176,15 +232,17 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
     {
         $this->openTikiPage('tiki-index.php?page=Multilingual+Test+Page+1');
         $this->logInIfNecessaryAs('admin');
-        $this->clickAndWait("link=Edit");
-        $this->type("editwiki", "This is the first multilingual test page.\n\nAdding some text yet to be translated.");
-        $this->clickAndWait("save");
-        $this->click("link=More...");
+        $this->webDriver->findElement(WebDriverBy::linkText('Edit'))->click();
+        $editWikiInput = $this->webDriver->findElement(WebDriverBy::id('editwiki'));
+        $editWikiInput->sendKeys("This is the first multilingual test page.\n\nAdding some text yet to be translated.");
+        $this->webDriver->findElement(WebDriverBy::id('save'))->click();
+        $this->webDriver->findElement(WebDriverBy::linkText('More...'))->click();
         $this->assertTextPresent("Translations that need improvement: None match your preferred languages.\n More... Page de test multilingue 1 (fr)");
-        $this->assertElementPresent("link=Page de test multilingue 1");
-        $this->clickAndWait("link=Page de test multilingue 1");
-        //assert that up-to-dateness is now less than 100%
-        $this->assertMatchesRegularExpression("/Up-to-date-ness: [0-9]{2}%/", $this->getText("//div[@id='mod-translationr10']/div[1]"), "Up-to-dateness should have been less than 100%.");
+        $this->assertTrue($this->webDriver->findElement(WebDriverBy::linkText('Page de test multilingue 1'))->isDisplayed());
+        $this->webDriver->findElement(WebDriverBy::linkText('Page de test multilingue 1'))->click();
+        // Assert that up-to-dateness is now less than 100%
+        $upToDateDiv = $this->webDriver->findElement(WebDriverBy::xpath("//div[@id='mod-translationr10']/div[1]"));
+        $this->assertMatchesRegularExpression("/Up-to-date-ness: [0-9]{2}%/", $upToDateDiv->getText(), "Up-to-dateness should have been less than 100%.");
         $this->assertTextPresent("Better translations: Multilingual Test Page 1 (en)");
     }
 
@@ -195,16 +253,41 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
     {
         $this->openTikiPage('tiki-index.php?page=Multilingual+Test+Page+1');
         $this->logInIfNecessaryAs('admin');
-        $this->clickAndWait("link=Edit");
-        $this->type("editwiki", "This is the first multilingual test page.\n\nAdding some text yet to be translated.");
-        $this->clickAndWait("save");
-        $this->click("link=More...");
-        $this->clickAndWait("//img[@alt='update it']");
-        $this->type("editwiki", "Ceci est la première page multilingue de test.\n\nAjout du texte à traduire.");
-        $this->clickAndWait("save");
+        // Click on the "Edit" link
+        $editLink = $this->webDriver->findElement(WebDriverBy::linkText('Edit'));
+        $editLink->click();
+
+        // Type the new content in the edit field and save
+        $editWikiInput = $this->webDriver->findElement(WebDriverBy::id('editwiki'));
+        $editWikiInput->clear();
+        $editWikiInput->sendKeys("This is the first multilingual test page.\n\nAdding some text yet to be translated.");
+
+        $saveButton = $this->webDriver->findElement(WebDriverBy::id('save'));
+        $saveButton->click();
+
+        // Click on "More..." link
+        $moreLink = $this->webDriver->findElement(WebDriverBy::linkText('More...'));
+        $moreLink->click();
+
+        // Click on "Update it" link
+        $updateLink = $this->webDriver->findElement(WebDriverBy::xpath("//img[@alt='update it']"));
+        $updateLink->click();
+
+        // Type the updated content in the edit field and save
+        $editWikiInput->clear();
+        $editWikiInput->sendKeys("Ceci est la première page multilingue de test.\n\nAjout du texte à traduire.");
+
+        $saveButton->click();
+
+        // Assert the presence of expected text
         $this->assertTextPresent("Up-to-date-ness: 100%");
         $this->assertTextPresent("Equivalent translations: Multilingual Test Page 1 (en)");
-        $this->clickAndWait("link=Multilingual Test Page 1");
+
+        // Click on "Multilingual Test Page 1" link
+        $pageLink = $this->webDriver->findElement(WebDriverBy::linkText('Multilingual Test Page 1'));
+        $pageLink->click();
+
+        // Assert the presence of expected text
         $this->assertTextPresent("Up-to-date-ness: 100%");
     }
 
@@ -215,24 +298,56 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
     {
         $this->openTikiPage('tiki-index.php?page=Multilingual+Test+Page+1');
         $this->logInIfNecessaryAs('admin');
-        $this->clickAndWait("link=Edit");
-        $this->type("editwiki", "This is the first multilingual test page.\n\nAdding some text yet to be translated.");
-        $this->clickAndWait("save");
-        $this->click("link=More...");
-        $this->clickAndWait("link=Page de test multilingue 1");
-        $this->assertMatchesRegularExpression("/Up-to-date-ness: [0-9]{2}%/", $this->getText("//div[@id='mod-translationr10']/div[1]"));
-        if (preg_match("/Up-to-date-ness: ([0-9]{2})%/", $this->getText("//div[@id='mod-translationr10']/div[1]"), $matches)) {
-            $first_percentage = $matches[1];
-        }
-        $this->clickAndWait("//img[@alt='update from it']");
-        $this->type("editwiki", "Ceci est la première page multilingue de test.\n\nAjout du texte à traduire.");
-        $this->clickAndWait("partial_save");
-        $this->assertMatchesRegularExpression("/Up-to-date-ness: [0-9]{2}%/", $this->getText("//div[@id='mod-translationr10']/div[1]"));
-        if (preg_match("/Up-to-date-ness: ([0-9]{2})%/", $this->getText("//div[@id='mod-translationr10']/div[1]"), $matches)) {
-            $second_percentage = $matches[1];
-        }
+
+        // Click on the "Edit" link
+        $editLink = $this->webDriver->findElement(WebDriverBy::linkText('Edit'));
+        $editLink->click();
+
+        // Type the initial content in the edit field and save
+        $editWikiInput = $this->webDriver->findElement(WebDriverBy::id('editwiki'));
+        $editWikiInput->clear();
+        $editWikiInput->sendKeys("This is the first multilingual test page.\n\nAdding some text yet to be translated.");
+
+        $saveButton = $this->webDriver->findElement(WebDriverBy::id('save'));
+        $saveButton->click();
+
+        // Click on "More..." link
+        $moreLink = $this->webDriver->findElement(WebDriverBy::linkText('More...'));
+        $moreLink->click();
+
+        // Click on "Page de test multilingue 1" link
+        $pageLink = $this->webDriver->findElement(WebDriverBy::linkText('Page de test multilingue 1'));
+        $pageLink->click();
+
+        // Assert the up-to-date-ness percentage
+        $upToDateDiv = $this->webDriver->findElement(WebDriverBy::xpath("//div[@id='mod-translationr10']/div[1]"));
+        $upToDateText = $upToDateDiv->getText();
+        $this->assertMatchesRegularExpression("/Up-to-date-ness: ([0-9]{2})%/", $upToDateText);
+        preg_match("/Up-to-date-ness: ([0-9]{2})%/", $upToDateText, $matches);
+        $first_percentage = $matches[1];
+
+        // Click on "update from it" link
+        $updateLink = $this->webDriver->findElement(WebDriverBy::xpath("//img[@alt='update from it']"));
+        $updateLink->click();
+
+        // Type the updated content in the edit field and save partially
+        $editWikiInput->clear();
+        $editWikiInput->sendKeys("Ceci est la première page multilingue de test.\n\nAjout du texte à traduire.");
+
+        $partialSaveButton = $this->webDriver->findElement(WebDriverBy::id('partial_save'));
+        $partialSaveButton->click();
+
+        // Assert the up-to-date-ness percentage after partial save
+        $upToDateDiv = $this->webDriver->findElement(WebDriverBy::xpath("//div[@id='mod-translationr10']/div[1]"));
+        $upToDateText = $upToDateDiv->getText();
+        $this->assertMatchesRegularExpression("/Up-to-date-ness: ([0-9]{2})%/", $upToDateText);
+        preg_match("/Up-to-date-ness: ([0-9]{2})%/", $upToDateText, $matches);
+        $second_percentage = $matches[1];
+
+        // Assert that up-to-dateness increased after partial save
         $this->assertTrue($second_percentage > $first_percentage, "Up-to-dateness should have been higher than $first_percentage. It was $second_percentage.");
     }
+
 
 
     /**
@@ -243,10 +358,12 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         $this->logInIfNecessaryAs('admin');
         $this->setMachineTranslationFeatureTo('n');
         $this->openTikiPage('tiki-index.php?page=HomePage&machine_translate_to_lang=fr');
-        $this->assertTextPresent(
-            'Machine Translation feature is not enabled.',
-            "System should have known that MT features are not enabled."
-        );
+      // Get the page source
+        $pageSource = $this->webDriver->getPageSource();
+      // Check if the expected text is present in the page source
+        $textPresent = strpos($pageSource, 'Machine Translation feature is not enabled.') !== false;
+      // Assert that the text is present
+        $this->assertTrue($textPresent, "System should have known that MT features are not enabled.");
     }
 
 
@@ -257,7 +374,7 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
     protected function setUp(): void
     {
         $this->markTestSkipped("These tests are still too experimental, so skipping it.");
-        $this->setBrowserUrl('http://localhost/');
+        $this->webDriver->get('http://localhost/');
         $this->current_test_db = "multilingualTestDump.sql";
         $this->restoreDBforThisTest();
     }
@@ -267,14 +384,20 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         $this->assertSelectElementContainsItems(
             "xpath=//select[@name='page' and @onchange='quick_switch_language( this )']",
             $expAvailableLanguages,
-            "Language picklist was wrong. It should have contained " . $this->implode_with_key(",", $expAvailableLanguages) . " but didn't."
+            "Language picklist was wrong. It should have contained " . $this->implodeWithKey(",", $expAvailableLanguages) . " but didn't."
         );
     }
 
     public function doSwitchLanguageTo($language)
     {
-        $this->select("page", "label=$language");
-        $this->waitForPageToLoad("30000");
+        // Locate the language select element
+        $languageSelect = $this->webDriver->findElement(WebDriverBy::name('page'));
+        // Select the desired language by its label
+        $languageSelect->selectByVisibleText($language);
+        // Wait for the page to load after the language switch
+        $this->webDriver->wait(30)->until(
+            WebDriverExpectedCondition::titleContains($language)
+        );
     }
 
     public function assertLanguagePicklistDoesNotHaveLanguages($expAvailableLanguages)
@@ -282,25 +405,22 @@ class AcceptanceTests_MultilingualTest extends TikiSeleniumTestCase
         $this->assertSelectElementDoesNotContainItems(
             "xpath=//select[@name='page' and @onchange='quick_switch_language( this )']",
             $expAvailableLanguages,
-            "Language picklist was wrong. It contained " . $this->implode_with_key(",", $expAvailableLanguages) . " but shouldn't."
+            "Language picklist was wrong. It contained " . $this->implodeWithKey(",", $expAvailableLanguages) . " but shouldn't."
         );
     }
 
     public function assertLanguagePicklistHasTranslateOption()
     {
-        $this->assertElementPresent(
-            "xpath=//select[@name='page' and @onchange='quick_switch_language( this )']/option[@value='_translate_']",
-            "Translate option was not present."
-        );
+        $xpathExpression = "//select[@name='page' and @onchange='quick_switch_language( this )']/option[@value='_translate_']";
+        $this->assertTrue($this->webDriver->findElement(WebDriverBy::xpath($xpathExpression))->isEnabled(), "Translate option was not present.");
     }
 
     public function assertLanguagePicklistHasNoTranslateOption()
     {
+        $xpathExpression = "//select[@name='page' and @onchange='quick_switch_language( this )']/option[@value='_translate_']";
         $this->assertFalse(
-            $this->isElementPresent(
-                "xpath=//select[@name='page' and @onchange='quick_switch_language( this )']/option[@value='_translate_']",
-                "Translate option was present."
-            )
+            $this->webDriver->findElement(WebDriverBy::xpath($xpathExpression))->isEnabled(),
+            "Translate option was present."
         );
     }
 

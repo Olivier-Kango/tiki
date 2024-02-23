@@ -8,14 +8,16 @@
  * @group gui
  */
 
-
+ use Facebook\WebDriver\Remote\RemoteWebDriver;
+ use Facebook\WebDriver\Remote\DesiredCapabilities;
 
 class AcceptanceTests_MultilinguallibTest extends TikiSeleniumTestCase
 {
     protected function setUp(): void
     {
         $this->markTestSkipped("These tests are still too experimental, so skipping it.");
-        $this->setBrowserUrl('http://localhost/');
+        $this->webDriver = RemoteWebDriver::create('http://localhost:4444/wd/hub', DesiredCapabilities::chrome());
+        $this->webDriver->get('http://localhost/');
         $this->current_test_db = "multilingualTestDump.sql";
         $this->restoreDBforThisTest();
     }
