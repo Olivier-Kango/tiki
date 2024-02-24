@@ -56,11 +56,10 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'description' => tr('Settings and features for categories'),
                     'help'        => 'Categories-Admin',
                 ],
-                'search'   => [
-                    'title'       => tr('Search'),
-                    'description' => tr('Search configuration'),
-                    'help'        => 'Search',
-                    'disabled'    => $prefs['feature_search'] !== 'y',
+                'textarea'  => [
+                    'title'       => tr('Editing and Plugins'),
+                    'description' => tr('Text editing settings applicable to many areas. Plugin activation and plugin alias management'),
+                    'help'        => 'Text-area',
                 ],
                 'i18n'     => [
                     'title'       => tr('i18n'),
@@ -85,16 +84,17 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'description' => tr('Wiki page settings and features'),
                     'help'        => 'Wiki-Config',
                 ],
-                'textarea'  => [
-                    'title'       => tr('Editing and Plugins'),
-                    'description' => tr('Text editing settings applicable to many areas. Plugin activation and plugin alias management'),
-                    'help'        => 'Text-area',
-                ],
                 'wysiwyg'   => [
                     'title'       => tr('WYSIWYG'),
                     'disabled'    => $prefs['feature_wysiwyg'] != 'y',
                     'description' => tr('Options for WYSIWYG editor'),
                     'help'        => 'WYSIWYG',
+                ],
+                'search'   => [
+                    'title'       => tr('Search'),
+                    'description' => tr('Search configuration'),
+                    'help'        => 'Search',
+                    'disabled'    => $prefs['feature_search'] !== 'y',
                 ],
                 'fgal'     => [
                     'title'       => tr('File Galleries'),
