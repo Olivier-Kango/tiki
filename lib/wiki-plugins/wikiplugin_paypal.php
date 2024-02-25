@@ -395,14 +395,18 @@ function wikiplugin_paypal($data, $params)
         $miniParams['assetURL'] = 'https://github.com/jeffharrell/minicart/raw/3.0.6/';
         $miniParamStr = json_encode($miniParams);
 
-        TikiLib::lib('header')->add_js(
-            '
-$(document).on("' . $csearchEvent . '", function () {
-    ' . $csearchInit . ' $.getScript("' . $jsfile . '", function() {
+        $js = '';
+        if ($csearchEvent === 'ready') {
+            $js .= '$(function() {';
+        } else {
+            $js .= '$(document).on("' . $csearchEvent . '", function () {';
+        }
+        $js .= $csearchInit . ' $.getScript("' . $jsfile . '", function() {
             paypal.minicart.render(' . $miniParamStr . ');
-        });
-});'
-        )->add_css('#PPMiniCart {z-index: 1040;}'); // make sure it clears the fixed page-header
+        });';
+        $js .= '});';
+
+        TikiLib::lib('header')->add_js($js)->add_css('#PPMiniCart {z-index: 1040;}'); // make sure it clears the fixed page-header
     }
     unset($params['minicart']);
 

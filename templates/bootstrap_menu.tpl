@@ -230,7 +230,7 @@
 
 {jq}
 
-    jQuery(document).ready(function(){
+    jQuery(function(){
         $("span[data-preset='icon-picker'][data-icon-editable='yes']").each(function(index,el){
         $(this).on('click',function(event){
                 event.stopPropagation();

@@ -142,7 +142,7 @@ if (confirm("A problem occurred while detecting JavaScript on this page, click o
 {* when we are on a page to be printed open the print dialog auto-magically *}
 {if !empty($print_page) and $print_page eq "y"}
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(function(){
             print();
         });
     </script>

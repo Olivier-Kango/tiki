@@ -1,5 +1,5 @@
 
-$(document).ready(function(){/* affix the navbar after scroll below header */
+$(function(){/* affix the navbar after scroll below header */
 $('#topbar').affix({
       offset: {
         top: $('#page-header').height()-$('#topbar').height()

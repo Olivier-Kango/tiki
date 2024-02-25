@@ -146,8 +146,8 @@ class HeaderLib
 
 
     public $jquery_version = '3.7.1';
-    public $jqueryui_version = '1.12.1';
-    public $jquerymigrate_version = '3.0.0';
+    public $jqueryui_version = '1.13.2';
+    public $jquerymigrate_version = '3.4.1';
 
     private ?string $outputHeadersWasStartedBy = null;
     private ?string $outputStaticJSFooterWasStartedBy = null;
@@ -963,7 +963,7 @@ class HeaderLib
         }
 
         if (count($this->jq_onready)) {
-            $b = '$(document).ready(function(){' . "\n";
+            $b = '$(function(){' . "\n";
             foreach ($this->jq_onready as $x => $js) {
                 $b .= "// jq_onready $x \n";
                 foreach ($js as $j) {
@@ -1000,7 +1000,7 @@ class HeaderLib
             }
         }
         if (count($this->jq_onready)) {
-            $b = '$(document).ready(function(){' . "\n";
+            $b = '$(function(){' . "\n";
             foreach ($this->jq_onready as $x => $js) {
                 $b .= "// jq_onready $x \n";
                 foreach ($js as $j) {

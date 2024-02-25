@@ -259,7 +259,7 @@ $.fn.setupFullCalendar = function(tcPluginParams)
         calendar.render();
 
         if (jqueryTiki.print_pdf_from_url !== "none") {
-            $(document).ready(function () {
+            $(function () {
                 $("#" + tcPluginParams.id).addFullCalendarPrint('#calendar-pdf-btn', calendar);
             });
         }

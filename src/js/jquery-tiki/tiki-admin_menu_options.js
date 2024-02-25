@@ -5,7 +5,7 @@
 
 import Sortable from "sortablejs";
 
-$(document).ready(function () {
+$(function () {
 
     var dirty = false,
         $options = $("#options");

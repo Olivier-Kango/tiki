@@ -30,7 +30,7 @@ class PopupLink extends Base
             if ($prefs['feature_jquery'] == 'y') {
                 $headerlib->add_js(
                     <<<JS
-                    \$(document).ready(function() {
+                    \$(function() {
 
                     \$('#$block').hide();
 

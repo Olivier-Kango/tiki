@@ -37,7 +37,7 @@ function module_adminbar($mod_reference, $module_params)
     //$headerlib->add_css('div.contributors div br {clear: both;}');
 
 
-    $headerlib->add_js('$(document).ready(function() {
+    $headerlib->add_js('$(function() {
             $(function() {
                 $(".js-admin-bar").click(function() {
                     $(\'.js-sliding-panel-admin-bar\').toggleClass("open");

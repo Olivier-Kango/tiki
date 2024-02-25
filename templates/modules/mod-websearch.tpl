@@ -1,5 +1,5 @@
 {jq}
-$(document).ready(function(){
+$(function(){
     var pagehelp ="";
     $("#search-form").submit( function () {
         var selectvalue = $("#selectsearch").val() ;

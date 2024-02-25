@@ -319,7 +319,7 @@
     var fieldLinks;
     var inputOri;
     var links;
-    $(document).ready(function () {
+    $(function () {
         $("#zone_fields").hide();
         var trackerId = document.getElementById("trackerId");
         var trackerAcc = document.getElementById("trackerAcc").value;

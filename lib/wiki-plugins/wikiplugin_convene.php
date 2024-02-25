@@ -348,7 +348,7 @@ function wikiplugin_convene($data, $params): string
     $conveneData = json_encode($params);
 
     $headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-convene.js')
-        ->add_js("$(document).ready(function() {
+        ->add_js("$(function() {
                 \$('#{$params['id']}').setupConvene($conveneData);
             });
         ");

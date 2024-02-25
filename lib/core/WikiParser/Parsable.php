@@ -292,7 +292,7 @@ class WikiParser_Parsable extends ParserLib
                 }
 
                 $headerlib->add_js(
-                    "\$(document).ready( function() {
+                    "\$(function() {
 if ( \$('#$id') ) {
 \$('#$id').click( function(event) {
     popupPluginForm("

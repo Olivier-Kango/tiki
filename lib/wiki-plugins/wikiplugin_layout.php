@@ -448,7 +448,7 @@ function wikiplugin_layout($data, $params)
                 $(bgDiv[i]).css("display","none");
                 $("body").append(bgDiv[i]);
               }
-            $(document).ready(function() {
+            $(function() {
                 var position=1;
                 $(bgDiv[0]).fadeIn("slow"); //making first div appear
                 setInterval(function () {

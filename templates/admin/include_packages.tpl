@@ -492,7 +492,7 @@
 {/tabset}
 
 {jq}
-    $(document).ready(function(){
+    $(function(){
         $(".install-composer").click(function(){
             $('.nav-tabs a[href="#contenttabs_admin_packages-4"]').tab('show');
         });

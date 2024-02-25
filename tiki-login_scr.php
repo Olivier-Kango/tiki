@@ -38,7 +38,9 @@ if (($prefs['useGroupHome'] != 'y' || $prefs['limitedGoGroupHome'] == 'y') && ! 
     $_SESSION['loginfrom'] = (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : $prefs['tikiIndex']);
 }
 
-$headerlib->add_js('$(document).ready( function() {$("#login-user").focus().select();} );');
+$headerlib->add_js('$(function() {
+    $("#login-user").focus().select();
+})');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

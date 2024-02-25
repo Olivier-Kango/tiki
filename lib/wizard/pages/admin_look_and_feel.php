@@ -106,7 +106,7 @@ class AdminWizardLookAndFeel extends Wizard
                 <<<JS
                 $js
 
-\$(document).ready( function() {
+\$(function() {
 
     var setupThemeSelects = function (themeDropDown, optionDropDown, showPreview) {
         // pick up theme drop-down change
@@ -285,7 +285,7 @@ JS
                 <<<JS
 $js
 
-\$(document).ready( function() {
+\$( function() {
     var setupStyleSelects = function (styleDropDown, optionDropDown, showPreview) {
         // pick up theme drop-down change
         styleDropDown.change( function() {

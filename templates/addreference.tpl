@@ -11,7 +11,7 @@ var use_references = '{$use_references}';
 </script>
 
 {jq}
-jQuery(document).ready(function(){
+jQuery(function(){
 
     jQuery('#e_submit').click(function(e){
         e.preventDefault();

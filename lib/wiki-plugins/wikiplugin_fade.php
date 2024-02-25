@@ -166,7 +166,7 @@ function wikiplugin_fade($body, $params)
               . "</div>" ;
     } else {
         $jq = '
-                $(document).ready( function() {
+                $(function() {
                     $(\'#' . $unique_link . '\').click(
                         function() {
                             if ( $(\'#' . $unique . '\').is(":hidden") ) {
