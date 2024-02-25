@@ -61,7 +61,7 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
             'contributors' => $typeFactory->multivalue(array_unique([$file['author'], $file['user'], $file['lastModifUser']])),
             'description' => $typeFactory->plaintext($file['description']),
             'filename' => $typeFactory->identifier($file['filename']),
-            'filetype' => $typeFactory->sortable(preg_replace('/^([\w-]+)\/([\w-]+).*$/', '$1/$2', $file['filetype'])),
+            'filetype' => $typeFactory->sortable(! empty($file['filetype']) ? preg_replace('/^([\w-]+)\/([\w-]+).*$/', '$1/$2', $file['filetype']) : ''),
             'filesize' => $typeFactory->plaintext($file['filesize']),
             'hits' => $typeFactory->numeric($file['hits']),
 
