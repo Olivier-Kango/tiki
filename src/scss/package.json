@@ -11,7 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {},
+  "devDependenciesComments": {
+    "sass": "Changelog: https://github.com/sass/dart-sass/blob/main/CHANGELOG.md"
+  },
   "devDependencies": {
-    "sass": "^1.70.0"
+    "sass": "^1.71.1"
   }
 }

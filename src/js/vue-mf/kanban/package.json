@@ -9,8 +9,11 @@
   "engines": {
     "npm": ">=7.0.0"
   },
+  "dependenciesComment": {
+    "@casl/ability": "Changelog: https://github.com/stalniy/casl/blob/master/packages/casl-ability/CHANGELOG.md"
+  },
   "dependencies": {
-    "@casl/ability": "^6.5.0",
+    "@casl/ability": "^6.7.0",
     "autosize": "^6.0.1",
     "axios": "^1.6.7",
     "qs": "^6.11.2",
