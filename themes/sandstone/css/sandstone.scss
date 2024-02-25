@@ -23,7 +23,6 @@
 @import "../scss/css-variables"; // Needs to be loaded after default variables to override them
 
 @import "../../base_files/scss/_tiki-selectors.scss";
-@import "../scss/tiki-selectors";
 @import "../../base_files/scss/_tiki-pagetop_colors.scss"; // Import if needed to specify top and topbar zone colors in more detail
 @import "../../base_files/scss/_external-scripts.scss";
 @import "../../base_files/scss/_select2-tiki_colors.scss";
