@@ -20,7 +20,7 @@
 </div>
 {jq}
     var users{{$field.fieldId}} = {{$data.users|json_encode}};
-    $("#user_group_selector_{{$field.fieldId}}").change(function() {
+    $("#user_group_selector_{{$field.fieldId}}").on("change", function() {
         var $selector = $('#user_selector_{{$field.fieldId}}'),
             selected = $selector.val(),
             group_users = {};

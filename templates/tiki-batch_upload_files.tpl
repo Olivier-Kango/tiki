@@ -89,21 +89,21 @@
             </div>
         </div>
         {jq}
-$("#subdirToSubgal").change(function () {
+$("#subdirToSubgal").on("change", function () {
     if ($(this).prop("checked")) {
         $(".create-subgals").show();
     } else {
         $(".create-subgals").hide();
     }
-}).change();
+}).trigger("change");
 
-$("#subdirIntegerToSubgalId").change(function () {
+$("#subdirIntegerToSubgalId").on("change", function () {
     if ($(this).prop("checked")) {
         $("#createSubgals").prop("checked", false).prop("disabled", true);
     } else {
         $("#createSubgals").prop("disabled", false);
     }
-}).change();
+}).trigger("change");
 
 $("#batchUploadForm").submit(function () {
     return $("input[name='files[]']:checked").length > 0;

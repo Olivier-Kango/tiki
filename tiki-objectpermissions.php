@@ -593,7 +593,7 @@ foreach ($groupNames as $groupName) {
 
     // add cell colouring helpers
     $js .= '
-$("table.objectperms input[type=checkbox]").change(function () {
+$("table.objectperms input[type=checkbox]").on("change", function () {
     var $this = $(this);
     var $parent = $this.parent();
     if ($this.is(":checked")) {

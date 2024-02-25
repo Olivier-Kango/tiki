@@ -56,7 +56,7 @@
         </div>
     </form>
     {jq}
-        $('.reward-form select[name=rewardType]').change(function () {
+        $('.reward-form select[name=rewardType]').on("change", function () {
             $('.reward-form .mb-3.argument').hide();
 
             $.each(this.selectedOptions, function (key, item) {
@@ -64,6 +64,6 @@
                     $('.reward-form .mb-3.argument.' + arg).show();
                 });
             })
-        }).change();
+        }).trigger("change");
     {/jq}
 {/block}

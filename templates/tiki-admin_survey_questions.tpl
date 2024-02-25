@@ -145,10 +145,10 @@
                     <p class="type_option type_h"><strong>{$types.h}:</strong> {tr}A heading to go between questions. Options are newpage,tag{/tr}<br>{tr}Example: y,h4{/tr}</p>
                 {/remarksbox}
                 {jq}
-                    $("select[name=type]").change(function () {
+                    $("select[name=type]").on("change", function () {
                     $(".type_option").hide();
                     $(".type_option.type_" + $(this).val()).show();
-                    }).change();
+                    }).trigger("change");
                 {/jq}
             </div>
             <div class="mb-3 row">

@@ -35,7 +35,7 @@
                 <option value="email">{tr}Email{/tr}</option>
             </select>
             {jq}
-            $("select[name='destination']").change(function () {
+            $("select[name='destination']").on("change", function () {
                 $("#loginrow").hide();
                 $("#emailrow").hide();
                 $("input[name='login']").attr("disabled","disabled");

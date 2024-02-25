@@ -319,14 +319,14 @@
                     </script>
                     {jq}
                         $('select.comment_topictype')
-                            .change(function() {
+                            .on("change", function() {
                                 if ($('select.comment_topictype').val() == 'd') {
                                     $('tr.forum_deliberation').show();
                                 } else {
                                     $('tr.forum_deliberation').hide();
                                 }
                             })
-                            .change();
+                            .trigger("change");
 
                         var itemMaster;
                         $('.forum_deliberation_add_item').click(function() {

@@ -65,12 +65,12 @@
         </form>
         {jq}
             var blocks = $('#transition-group-selection, #transition-category-selection');
-            $(':radio[name=transition_mode]').change( function( e ) {
+            $(':radio[name=transition_mode]').on("change", function( e ) {
                 if( $(this).prop('checked') ) {
                     blocks.hide();
                     blocks.filter( '#transition-' + $(this).val() + '-selection' ).show();
                 }
-            } ).change();
+            } ).trigger("change");
 
             $('#transition-group-auto')
                 .tiki('autocomplete','groupname')

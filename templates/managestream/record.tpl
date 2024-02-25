@@ -66,7 +66,7 @@
         </div>
     </form>
     {jq}
-        $("#notification_checkbox").change(function(){
+        $("#notification_checkbox").on("change", function(){
         if (this.checked){
         $(".priority-div").removeClass("hidden");
         }else{

@@ -153,7 +153,7 @@ $("#picker_{{$name|escape}}").parent().click(function () {
 
             {if $type eq 'module'}
                 {jq}
-                    $("#param_module_input").change(function () {
+                    $("#param_module_input").on("change", function () {
                         var selectedMod = $(this).val();
                         $(this).parents(".modal-content").load(
                             $.service("plugin", "edit", {
@@ -181,7 +181,7 @@ $("#picker_{{$name|escape}}").parent().click(function () {
                         sendRequest();
                     })
 
-                    $("#param_type_input").change(function () {
+                    $("#param_type_input").on("change", function () {
                         sendRequest()
                     });
 

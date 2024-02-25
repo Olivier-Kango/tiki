@@ -85,18 +85,18 @@ $('.categ-remove')
 
 $('.control').hide();
 
-$('.object-list :checkbox').change(function () {
+$('.object-list :checkbox').on("change", function () {
     $('.control').toggle($('.object-list :checkbox:checked').length > 0);
 });
 
 $('.object-list li:not(.available) :checkbox').attr('disabled', true);
 
 $('.select-all').click(function () {
-    $('.object-list :unchecked').prop('checked', true).change();
+    $('.object-list :unchecked').prop('checked', true).trigger("change");
     return false;
 });
 $('.unselect-all').click(function () {
-    $('.object-list :checked').prop('checked', false).change();
+    $('.object-list :checked').prop('checked', false).trigger("change");
     return false;
 });
 {/jq}

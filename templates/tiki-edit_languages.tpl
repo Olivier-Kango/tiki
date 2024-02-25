@@ -209,7 +209,7 @@
                         );
 
                     // Allow setting scope of database translations
-                    jQuery('textarea[name^="tran_"]').change(function() {
+                    jQuery('textarea[name^="tran_"]').on("change", function() {
                             jQuery(this).closest('tr').find("label[for^='scope_']").show();
                         });
                 {/jq}

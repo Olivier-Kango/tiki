@@ -354,7 +354,7 @@
                                 </div>
                             </div>
 {jq}
-    $("#userstracker, #groupstracker").change(function () {
+    $("#userstracker, #groupstracker").on("change", function () {
         var $element = this.id,
             $fields = $element == 'userstracker' ? $('select[name=usersfield]') : $('select[name=groupfield]'),
             $showid = $element == 'userstracker' ? '#usersfielddiv' : '#groupfielddiv';

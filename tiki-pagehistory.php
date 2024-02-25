@@ -416,7 +416,7 @@ $not_comparing = $comparing ? 'false' : 'true';
 
 $headerlib->add_jq_onready(
 <<<JS
-\$("input[name=oldver], input[name=newver]").change(function () {
+\$("input[name=oldver], input[name=newver]").on("change", function () {
     var ver = parseInt(\$(this).val(), 10), ver2;
     if (ver == 0) { ver = $current_version; }
     if (\$(this).attr("name") == "oldver") {
@@ -434,11 +434,11 @@ $headerlib->add_jq_onready(
     }
 });
 if (\$("input[name=newver][checked=checked]").length) {
-    \$("input[name=newver][checked=checked]").change();
-    \$("input[name=oldver][checked=checked]").change();
+    \$("input[name=newver][checked=checked]").trigger("change");
+    \$("input[name=oldver][checked=checked]").trigger("change");
 } else if ($not_comparing) {
-    \$("input[name=newver]:eq(0)").prop("checked", "checked").change();
-    \$("input[name=oldver]:eq(1)").prop("checked", "checked").change();
+    \$("input[name=newver]:eq(0)").prop("checked", "checked").trigger("change");
+    \$("input[name=oldver]:eq(1)").prop("checked", "checked").trigger("change");
 }
 JS
 );

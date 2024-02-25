@@ -610,7 +610,7 @@ function isCurrentGallery() {
 var rootGalleryId = $("#galleryId").find("option:first-child").val();
 isCurrentGallery();
 
-$("#current_gallery").change(function (e) {
+$("#current_gallery").on("change", function (e) {
     const checked = $(this).is(':checked');
     var currentGalleryId = ($.urlParam('galleryId') != "0") ? $.urlParam('galleryId') : rootGalleryId;
 
@@ -623,7 +623,7 @@ $("#current_gallery").change(function (e) {
     }
 });
 
-$("#galleryId").change(function(){
+$("#galleryId").on("change", function(){
     var galleryId = $("#galleryId").val();
     var action = $("#galleryId").attr('data-action');
 

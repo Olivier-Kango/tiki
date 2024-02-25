@@ -88,7 +88,7 @@
             {/if}
             {if $tiki_p_admin_categories == 'y' and $prefs.feature_templated_groups eq 'y'}
                 {jq}
-                    $('input[type=checkbox][name=applyRoles]').change(function(ele){
+                    $('input[type=checkbox][name=applyRoles]').on("change", function(ele){
                         if($('input[type=checkbox][name=applyRoles]:checked').length > 0){
                             $('#rolesToApply').parent().show("fast");
                         }else{
@@ -125,7 +125,7 @@
                 </div>
                 {if $parentId == 0}
                     {jq}
-                        $('#tplGroupContainer').change(function(ele){
+                        $('#tplGroupContainer').on("change", function(ele){
                             var v = $('#tplGroupContainer option:selected').val();
                             if(v > 0){
                                 $('#patternGroupContainerDiv').show();
@@ -376,7 +376,7 @@ $("#add_object_form").unbind("submit").submit(function (e) {
     });
     return false;
 });
-$("#add_object_type").change(function () {
+$("#add_object_type").on("change", function () {
     $("#add_object_selector").object_selector_multi("setfilter", "type", $("#add_object_type").val());
 });
                 {/jq}

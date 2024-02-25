@@ -363,11 +363,11 @@ $headerlib->add_jq_onready(
         });
         //end of controls
 
-        $( "#showtheme" ).change(function() {
+        $( "#showtheme" ).on("change", function() {
             var selectedCSS=$("#showtheme" ).val();
             $("#themeCSS").attr("href","' . REVEALJS_ASSETS_PATH . '/css/theme/"+selectedCSS+".css");
         });
-        $( "#showtransition" ).change(function() {
+        $( "#showtransition" ).on("change", function() {
             var selectedTransition=$("#showtransition" ).val();
             Reveal.configure({ transition: selectedTransition });
         });

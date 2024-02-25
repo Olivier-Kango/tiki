@@ -39,7 +39,7 @@
                                     <option value="{$item.id}"{if $gal_info.template eq $item.id} selected="selected"{/if}>{$item.label|escape}</option>
                                 {/foreach}
                                 {jq}
-$('#fgal_template').change( function() {
+$('#fgal_template').on("change", function() {
 var otherTabs = $('ul.nav-tabs li:not(.active)');
 var otherParams = $('#description').parents('div.tiki-form-group').nextAll('div.tiki-form-group');
 
@@ -52,7 +52,7 @@ if ($(this).val() != '') {
     otherTabs.show();
     otherParams.show();
 }
-}).change();
+}).trigger("change");
                                 {/jq}
                             </select>
                         </div>

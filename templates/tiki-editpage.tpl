@@ -336,7 +336,7 @@
                             </div>
                             {if $prefs.ajax_autosave eq "y"}
                                 {jq}
-    $("input[name=allowhtml]").change(function() {
+    $("input[name=allowhtml]").on("change", function() {
     auto_save( "editwiki", autoSaveId );
     });
                                 {/jq}

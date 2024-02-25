@@ -259,7 +259,7 @@
         }
 {{/if}}
 
-        $sort_mode.change(function () {    // update direction arrow
+        $sort_mode.on("change", function () {    // update direction arrow
             $(".icon", $invert).setIcon($(this).val().search(/desc$/) > -1 ? "sort-down" : "sort-up");
         });
 

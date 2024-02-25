@@ -105,7 +105,7 @@ class Table_Code_Other extends Table_Code_Manager
                         if ($f['type'] === 'reset') {
                             $reset[] = 'if ($(\'#' . $f['external'][$key]['id'] . '\').prop(\'selectedIndex\') != 0) {'
                                 . $this->nt3 . '$(\'#' . $f['external'][$key]['id'] . ' option\')[0].selected = true;'
-                                . $this->nt3 . '$(\'#' . $f['external'][$key]['id'] . '\').change();'
+                                . $this->nt3 . '$(\'#' . $f['external'][$key]['id'] . '\').trigger("change");'
                                 . $this->nt2 . '}';
                         }
                     }

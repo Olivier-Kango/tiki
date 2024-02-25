@@ -1072,7 +1072,7 @@ function edit_custom_mode(el,id,name,icon){
     })
     var setupThemeSelects = function (themeDropDown, optionDropDown, showPreview) {
         // pick up theme drop-down change
-        themeDropDown.change( function() {
+        themeDropDown.on("change", function() {
             var ops = theme_options[themeDropDown.val()];
             var none = true;
             var current = optionDropDown.val();
@@ -1092,12 +1092,12 @@ function edit_custom_mode(el,id,name,icon){
             if (none) {
                 optionDropDown.attr('disabled',true);
             }
-            optionDropDown.change();
+            optionDropDown.trigger("change");
             if (jqueryTiki.select2) {
                 optionDropDown.trigger("change:select2");
             }
-        }).change();
-        optionDropDown.change( function() {
+        }).trigger("change");
+        optionDropDown.on("change", function() {
             if (showPreview !== undefined) {
                 var t = themeDropDown.val();
                 var o = optionDropDown.val();
@@ -1120,7 +1120,7 @@ function edit_custom_mode(el,id,name,icon){
     setupThemeSelects(\$('.tab-content select[name=theme_admin]'), \$('.tab-content select[name=theme_option_admin]'));
 
     var setupThemeLayouts = function (themeDropDown, optionDropDown, layoutDropDown) {
-        themeDropDown,optionDropDown.change( function() {
+        themeDropDown,optionDropDown.on("change", function() {
             var theme_name = themeDropDown.val();
             if (optionDropDown.val()){
                 theme_name += ":" + optionDropDown.val();
@@ -1143,9 +1143,9 @@ function edit_custom_mode(el,id,name,icon){
                     layoutDropDown.val('basic');
                 }
             }
-            layoutDropDown.change();
+            layoutDropDown.trigger("change");
 
-        }).change();
+        }).trigger("change");
     };
 
     setupThemeLayouts(\$('.tab-content select[name=theme]'), \$('.tab-content select[name=theme_option]'), \$('.tab-content select[name=site_layout]') );

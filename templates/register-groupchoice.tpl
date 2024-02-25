@@ -60,7 +60,7 @@ $.getJSON('group_tracker_ajax.php', {chosenGroup:'{{$theChoiceGroup}}'}, functio
             {/if}
         </div>
         {jq}
-$("input[name='chosenGroup']").change(function() {
+$("input[name='chosenGroup']").on("change", function() {
     $("#registerTracker").tikiModal("{tr}Loading...{/tr}");
     var gr = $("input[name='chosenGroup']:checked").val();
     $.getJSON('group_tracker_ajax.php',{chosenGroup:gr}, function(data) {
@@ -73,7 +73,7 @@ $("input[name='chosenGroup']").change(function() {
         $("#registerTracker").parents("table:first").css({borderSpacing:"0 !important",borderCollapse:"collapse !important"});
         $("tr td:first", "#registerTracker").width($("#registerTracker").parents('table:first').find("td:first").width());
     });
-}){{if !empty($smarty.post.chosenGroup)}}.change(){{/if}};
+}){{if !empty($smarty.post.chosenGroup)}}.trigger("change"){{/if}};
 {{if $prefs.user_must_choose_group eq 'y'}
 $("input[name^=captcha]").parents("tr").hide();
 $("input[name=register]").prop("disabled", true);

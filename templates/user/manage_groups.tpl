@@ -38,7 +38,7 @@
                 </div>
             {/if}
             {jq}
-$("input[name=add_remove]").change(function () {
+$("input[name=add_remove]").on("change", function () {
     var userGroups = $("#select_groups").data("usergroups"), mode = false;
     if ($(this).prop("checked") && userGroups) {
         if ($(this).val() === "add") {    // filter the group list to ones this user is not in
@@ -53,7 +53,7 @@ $("input[name=add_remove]").change(function () {
         });
         $("#select_groups").trigger("change.select2");
     }
-}).change();
+}).trigger("change");
             {/jq}
         </div>
         <div class="mb-3 row mx-0" >

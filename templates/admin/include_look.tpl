@@ -67,7 +67,7 @@
                     /* get value of dummy_feature_fixed_width */
                     var dummy = $(this).is(":checked");
                     /* Synchronize with dummy checkbox and trigger display of child option */
-                    $('input[name=feature_fixed_width]').prop('checked', dummy).change();
+                    $('input[name=feature_fixed_width]').prop('checked', dummy).trigger("change");
                 });
 
                 $('input[name=feature_fixed_width]').click(function(){

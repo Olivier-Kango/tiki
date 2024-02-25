@@ -755,7 +755,7 @@ function cs_design_input($id, $fieldname, $fieldid, $arguments, $default, &$scri
     $script .= "
 (function (id, config, fieldname) {
     var field = $('#' + id);
-    field.change(function() {
+    field.on('change', function() {
 
         var partial = '';
         var value = $(this).val();
@@ -791,7 +791,7 @@ function cs_design_input($id, $fieldname, $fieldid, $arguments, $default, &$scri
     });
 
     if (config['default'] || $(field).attr('type') === 'hidden') {
-        field.change();
+        field.trigger('change');
     }
 })('$fieldid', " . json_encode($arguments) . ", " . json_encode($fieldname) . ");
 ";
@@ -882,7 +882,7 @@ function cs_design_categories($id, $fieldname, $fieldid, $arguments, $default, &
             }
 
             $script .= "
-$('#$fieldid').change(function() {
+$('#$fieldid').on('change', function() {
     if ($(this).is(':checked')) {
         var filter = {
             config : " . json_encode($arguments) . ",
@@ -920,7 +920,7 @@ $('#$fieldid').trigger('change');
             $element->appendChild($option);
         }
         $script .= "
-$('#$fieldid').change(function() {
+$('#$fieldid').on('change', function() {
     customsearch$id.add('$fieldid', {
         config: " . json_encode($arguments) . ",
         name: 'categories',
@@ -1024,7 +1024,7 @@ function cs_design_select($id, $fieldname, $fieldid, $arguments, $default, &$scr
             ]);
             $fieldid = $arguments['id'] ?? ('user_selector_' . $field['fieldId']);
             $script .= "
-$('#$fieldid').change(function() {
+$('#$fieldid').on('change', function() {
     customsearch$id.add('$fieldid', {
         config: " . json_encode($arguments) . ",
         name: 'select',
@@ -1058,7 +1058,7 @@ $('#$fieldid').change(function() {
     }
 
     $script .= "
-$('#$fieldid').change(function() {
+$('#$fieldid').on('change', function() {
     customsearch$id.add('$fieldid', {
         config: " . json_encode($arguments) . ",
         name: 'select',
@@ -1181,7 +1181,7 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
     $picker .= '<div class="col-sm-6">' . smarty_function_jscalendar($params_to, $smarty->getEmptyInternalTemplate()) . '</div>';
 
     $script .= "
-$('#{$fieldid_from},#{$fieldid_to}').change(function() {
+$('#{$fieldid_from},#{$fieldid_to}').on('change', function() {
     updateDateRange_$fieldid();
 });
 function updateDateRange_$fieldid() {
@@ -1225,14 +1225,14 @@ function cs_design_distance($id, $fieldname, $fieldid, $arguments, $default, &$s
     $script .= "
 (function (id, config, fieldname) {
     var fields = $('input[name=$fieldname]');
-    fields.change(function() {
+    fields.on('change', function() {
         var filter = {
             config: config,
             name: 'distance',
             value: fields.map(function () {return $(this).val();}).get().join()
         };
         customsearch$id.add($(this).attr('name'), filter);
-    }).change();
+    }).trigger('change');
 
 })('$fieldid', " . json_encode($arguments) . ", " . json_encode($fieldname) . ");
 ";

@@ -97,7 +97,7 @@
                     {if !empty($def.depends.field)}
                     {jq}
                         $("input[name='option~{{$def.depends.field|escape}}'],textarea[name='option~{{$def.depends.field|escape}}'],select[name='option~{{$def.depends.field|escape}}']")
-                        .change(function(){
+                        .on("change", function(){
                             var val = $(this).val();
                             var fg = $("input[name='option~{{$param|escape}}'],textarea[name='option~{{$param|escape}}'],select[name='option~{{$param|escape}}']").closest('.mb-3');
                             if( val {{if !empty($def.depends.op)}}{{$def.depends.op}}{{else}}==={{/if}} {{$def.depends.value|json_encode}} || ( !{{$def.depends.value|json_encode}} && val ) ) {
@@ -105,7 +105,7 @@
                             } else {
                                 fg.hide();
                             }
-                        }).change();
+                        }).trigger("change");
                     {/jq}
                     {/if}
                     {if !empty($def.depends.pref) && (empty($prefs[$def.depends.pref]) || $prefs[$def.depends.pref] == 'n')}
@@ -222,7 +222,7 @@
                         </div>
                     {/foreach}
 {jq}
-$('select[name=type]').change(function () {
+$('select[name=type]').on("change", function () {
     var descriptions = $(this).closest('.mb-3').
             find('.form-text.field').
             hide();
@@ -232,7 +232,7 @@ $('select[name=type]').change(function () {
             .filter('.' + $(this).val())
             .show();
     }
-}).change();
+}).trigger("change");
 {/jq}
                     {if $prefs.tracker_change_field_type eq 'y'}
                         <div class="alert alert-danger">

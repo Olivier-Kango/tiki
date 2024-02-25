@@ -252,7 +252,7 @@
 
 {jq}
     var checkboxes = $('.checkboxes');
-    checkboxes.change(function(){
+    checkboxes.on("change", function(){
         if($('.checkboxes:checked').length > 0) {
             checkboxes.removeAttr('required');
         } else {

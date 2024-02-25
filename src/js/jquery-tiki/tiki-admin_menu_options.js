@@ -214,7 +214,7 @@ $(function () {
             return false;
         });
 
-        $options.find("input").change(function () {
+        $options.find("input").on("change", function () {
             setDirty();
         });
 
@@ -236,7 +236,7 @@ $(function () {
                 return false;
             })
             .submit()
-            .find("input,select").change(function () {
+            .find("input,select").on("change", function () {
                 $previewForm.submit();
             }).trigger("change.select2");
 

@@ -16,7 +16,7 @@
 
             $(this).show();
 
-            modeControl.change(function () {
+            modeControl.on("change", function () {
                 if (map.modeManager) {
                     map.modeManager.switchTo($(this).val());
                 }

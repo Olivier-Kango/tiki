@@ -68,7 +68,7 @@
                     $select.val('other').trigger("change.select2");
                 }
                 {{/if}}
-                $select.change(function() {
+                $select.on("change", function() {
                     if ($select.val() != 'other') {
                         $other.data('tiki_never_visited', '');
                         $other.val('').parent().hide();
@@ -77,7 +77,7 @@
                         $other.parent().show();
                     }
                 });
-                $other.change(function(){
+                $other.on("change", function(){
                     $other.data('tiki_never_visited', '');
                     if ($(this).val()) {
                         $select.val(tr('other')).trigger("change.select2");

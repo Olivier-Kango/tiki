@@ -73,7 +73,7 @@
         $.each(labels, createItem);
 
         $('ul.related_items', container).sortList();
-        $('.selector', container).change(function () {
+        $('.selector', container).on("change", function () {
             createItem($(this).val().substring("article:".length), $(this).data('label'), true);
             $('ul.related_items', container).sortList();
         });

@@ -16,7 +16,7 @@
                 </select>
             </div>
             {jq}
-                $("#preview_diff_style").change(function(){
+                $("#preview_diff_style").on("change", function(){
                     ajaxLoadingShow($("#autosave_preview .wikitext"));
                     setCookie("preview_diff_style", $(this).val(), "preview", "session");
                     $.get($.service("edit", "preview"), {

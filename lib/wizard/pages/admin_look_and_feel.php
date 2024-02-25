@@ -110,7 +110,7 @@ class AdminWizardLookAndFeel extends Wizard
 
     var setupThemeSelects = function (themeDropDown, optionDropDown, showPreview) {
         // pick up theme drop-down change
-        themeDropDown.change( function() {
+        themeDropDown.on("change", function() {
             var ops = theme_options[themeDropDown.val()];
             var none = true;
             var current = optionDropDown.val();
@@ -126,12 +126,12 @@ class AdminWizardLookAndFeel extends Wizard
             if (none) {
                 optionDropDown.attr('disabled',true);
             }
-            optionDropDown.change();
+            optionDropDown.trigger("change");
             if (jqueryTiki.select2) {
                 optionDropDown.trigger("change.select2");
             }
-        }).change();
-        optionDropDown.change( function() {
+        }).trigger("change");
+        optionDropDown.on("change", function() {
             if (showPreview !== undefined) {
                 var t = themeDropDown.val();
                 var o = optionDropDown.val();
@@ -154,7 +154,7 @@ class AdminWizardLookAndFeel extends Wizard
     setupThemeSelects(\$('#wizardBody select[name=theme_admin]'), \$('#wizardBody select[name=theme_option_admin]'));
 
     var setupThemeLayouts = function (themeDropDown, optionDropDown, layoutDropDown) {
-        themeDropDown,optionDropDown.change( function() {
+        themeDropDown,optionDropDown.on("change", function() {
             var theme_name = themeDropDown.val();
             if (optionDropDown.val()){
                 theme_name += ":" + optionDropDown.val();
@@ -180,9 +180,9 @@ class AdminWizardLookAndFeel extends Wizard
                 }
             }
 
-            layoutDropDown.change();
+            layoutDropDown.trigger("change");
 
-        }).change();
+        }).trigger("change");
     };
 
     setupThemeLayouts(\$('#wizardBody select[name=theme]'), \$('#wizardBody select[name=theme_option]'), \$('#wizardBody select[name=site_layout]') );
@@ -288,7 +288,7 @@ $js
 \$( function() {
     var setupStyleSelects = function (styleDropDown, optionDropDown, showPreview) {
         // pick up theme drop-down change
-        styleDropDown.change( function() {
+        styleDropDown.on("change", function() {
             var ops = style_options[styleDropDown.val()];
             var none = true;
             var current = optionDropDown.val();
@@ -304,12 +304,12 @@ $js
             if (none) {
                 optionDropDown.attr('disabled',true);
             }
-            optionDropDown.change();
+            optionDropDown.trigger("change");
             if (jqueryTiki.select2) {
                 optionDropDown.trigger("change.select2");
             }
-        }).change();
-        optionDropDown.change( function() {
+        }).trigger("change");
+        optionDropDown.on("change", function() {
             if (showPreview !== undefined) {
                 var t = styleDropDown.val();
                 var o = optionDropDown.val();

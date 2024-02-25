@@ -236,7 +236,7 @@ $('#source-form').each(function () {
                 var id = data.identifier;
                 $(form.existing).val(id);
                 $(form.identifier).val(id);
-                $(form.method).val(data.method).change().trigger("change.select2");
+                $(form.method).val(data.method).trigger("change").trigger("change.select2");
                 $(form.url).val(data.url);
                 $(form.user).val(data.user);
 
@@ -275,7 +275,7 @@ $('#source-form').each(function () {
         return false;
     });
 
-    $(form.existing).change(function () {
+    $(form.existing).on("change", function () {
         var val = $(this).val();
 
         if (val.length) {
@@ -288,10 +288,10 @@ $('#source-form').each(function () {
         }
     });
 
-    $(form.method).change(function () {
+    $(form.method).on("change", function () {
         $('fieldset.method', form).hide();
         $('fieldset.method.' + $(this).val(), form).show();
-    }).change();
+    }).trigger("change");
 
     reload();
 
@@ -336,7 +336,7 @@ $('#source-form').each(function () {
                 $(form.existing).append($('<option/>').text(data.identifier));
             }
 
-            $(form.existing).val(data.identifier).change();
+            $(form.existing).val(data.identifier).trigger("change");
             $(form.existing).trigger("change.select2");
         }, 'json')
         .done(function (data) {
@@ -352,7 +352,7 @@ $('#source-form').each(function () {
                 identifier: $(form.existing).val(),
                 ticket: $(form.ticket).val()
             }, function () {
-                $(form.existing).val('').change();
+                $(form.existing).val('').trigger("change");
                 reload();
             }, 'json')
             .done(function (data) {

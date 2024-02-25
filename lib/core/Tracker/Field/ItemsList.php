@@ -198,7 +198,7 @@ class Tracker_Field_ItemsList extends \Tracker\Field\AbstractField implements \T
         } else {
             TikiLib::lib('header')->add_jq_onready(
                 '
-$("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . $this->getOption('fieldIdHere') . ']").change(function(e, initial) {
+$("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . $this->getOption('fieldIdHere') . ']").on("change", function(e, initial) {
     if(initial == "initial" && $(this).data("triggered-' . $this->getInsertId() . '")) {
         return;
     }

@@ -149,7 +149,7 @@
         return ! $(this).find('input[type=submit]').attr('disabled');
     } );
     $('form.config .error').hide();
-    $('form.config textarea').change( function( e ) {
+    $('form.config textarea').on("change", function( e ) {
         var text = this;
         e.preventDefault();
         var submit = $(this).closest('form').find('input[type=submit]').attr('disabled', true);

@@ -33,7 +33,7 @@
                 <input class="form-control" type="text" name="permName" id="permName" value="{$info.permName|escape}">
                 {tr}Required for Advanced Shopping Cart and some other tracker features, do not change this unless you are sure.{/tr}
             </div>
-            {jq}$("#name").change(function() {
+            {jq}$("#name").on("change", function() {
     if ($("#name").val()) {
         if (! $("#fieldPrefix").val()) {
             $("#fieldPrefix").val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());

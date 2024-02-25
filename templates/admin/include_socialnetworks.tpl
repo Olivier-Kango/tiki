@@ -107,7 +107,7 @@
  });
 
  var chk = $("input, input:checkbox","._loginEnabled");
- chk.change( function (ev) {
+ chk.on("change", function (ev) {
      var netname = ev.target.name.split('_')[1];
      var ch2 = $("i."+netname+".fa");
      var logch = $( "." + netname + "._else_loginEnabled");

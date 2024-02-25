@@ -139,7 +139,7 @@
                     $self.data('firstfile', fileId);
                 }
 
-                $field.change();
+                $field.trigger("change");
 
                 toggleWarning();
             }
@@ -194,7 +194,7 @@
                 if (fileId) {
                     $field.input_csv('delete', ',', fileId);
                     $(e.target).closest('li').remove();
-                    $field.change();
+                    $field.trigger("change");
                     toggleWarning();
                 }
                 return false;
@@ -206,7 +206,7 @@
                     $deleted.input_csv('add', ',', fileId);
                     $field.input_csv('delete', ',', fileId);
                     $(e.target).closest('li').remove();
-                    $field.change();
+                    $field.trigger("change");
                     toggleWarning();
                 }
             });

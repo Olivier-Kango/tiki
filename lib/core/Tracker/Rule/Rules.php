@@ -135,7 +135,7 @@ class Rules
         }
 
         if ($actions || $else) {
-            $js = '$("' . implode(',', $selectors) . '").change(function () {' . $js . "}).change();\n";
+            $js = '$("' . implode(',', $selectors) . '").on("change", function () {' . $js . "}).trigger('change');\n";
         } else {
             $js = '';
         }

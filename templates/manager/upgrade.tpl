@@ -152,7 +152,7 @@
 {/block}
 
 {jq}
-    $('#instances').change(function () {
+    $('#instances').on("change", function () {
         var instancesIds = $('#instances').val();
         if(instancesIds.length > 0) {
             $.ajax("tiki-ajax_services.php", {

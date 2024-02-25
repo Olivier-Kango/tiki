@@ -238,7 +238,7 @@
                 </div>
 
                 {jq}
-                    $('#type-selector').change( function( e ) {
+                    $('#type-selector').on("change", function( e ) {
                         $('.type-cond').hide();
                         var val = $('#type-selector').val();
                         $('.for-' + val).show();

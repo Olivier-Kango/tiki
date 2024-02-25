@@ -71,7 +71,7 @@
         </div>
     </form>
     {jq}
-        $('.condition-form select[name=metric]').change(function () {
+        $('.condition-form select[name=metric]').on("change", function () {
             $('.condition-form .mb-3.argument').hide();
 
             $.each(this.selectedOptions, function (key, item) {
@@ -79,6 +79,6 @@
                     $('.condition-form .mb-3.argument.' + arg).show();
                 });
             })
-        }).change();
+        }).trigger("change");
     {/jq}
 {/block}

@@ -165,11 +165,11 @@ class JsCalendar extends Base
             $headerlib->add_jq_onready('$("#' . $params['id'] . '").val(' . (int)$params['date'] . ' + parseInt($("input#' . $params['id'] . '_tzoffset").val())*60);');
         }
         $html .= '<input type="text" class="form-control isDatepicker" id="' . $params['id'] . '_dptxt" value="">'; // text version of datepicker date
-        $headerlib->add_jq_onready('$("#' . $params['id'] . '_dptxt").change(function(e){' .
+        $headerlib->add_jq_onready('$("#' . $params['id'] . '_dptxt").on("change", function(e){' .
             'var inst = $.datepicker._getInst(this);' .
             '$.datepickerAdjustAltField("' . (! isset($params['showtime']) || $params['showtime'] === 'n' ? 'datepicker' : 'datetimepicker') . '", inst);' .
             '})');
-        $headerlib->add_jq_onready('$("#' . $params['id'] . '").change(function(e){' .
+        $headerlib->add_jq_onready('$("#' . $params['id'] . '").on("change", function(e){' .
             '$("input#' . $params['id'] . '_tzoffset").val((new Date(parseInt($(this).val())*1000)).getTimezoneOffset());' .
             '})');
 

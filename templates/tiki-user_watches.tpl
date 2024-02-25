@@ -132,7 +132,7 @@
         </div>
     </form>
     {jq}
-        $('#type_selector').change( function() {
+        $('#type_selector').on("change", function() {
         var type = $(this).val();
 
         $('#lang_list').hide();

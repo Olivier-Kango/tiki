@@ -99,14 +99,14 @@
                     </div>
                 </div>
                 {jq}
-                    $(':radio[name=range_type]').change(function () {
+                    $(':radio[name=range_type]').on("change", function () {
                         if ($(this).is(':checked')) {
                             $(':radio[name=range_type]').each(function () {
                                 $($(this).data('target')).hide();
                             });
                             $($(this).data('target')).show();
                         }
-                    }).change();
+                    }).trigger("change");
                 {/jq}
 
                 <div id="conditions">

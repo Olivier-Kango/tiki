@@ -26,7 +26,7 @@
 
                 $(this).show();
 
-                baseLayers.change(function () {
+                baseLayers.on("change", function () {
                     if (map.map) {
                         var layer = map.map.layers[$(this).val()];
                         map.map.setBaseLayer(layer);
@@ -54,7 +54,7 @@
                             optionalLayers.append(label = $('<label/>').text(thisLayer.name).prepend(
                                 checkbox = $('<input type="checkbox" class="form-check-input"/>')
                                     .prop('checked', thisLayer.getVisibility())));
-                            checkbox.change(function (e) {
+                            checkbox.on("change", function (e) {
                                 thisLayer.setVisibility($(this).is(':checked'));
                             });
                         }
