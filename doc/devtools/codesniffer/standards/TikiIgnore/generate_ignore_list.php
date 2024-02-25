@@ -19,7 +19,7 @@ $fileStart = strlen($tikiRoot) + 1;
 $ignoreFile = 'ignore_list.json';
 $ignoreFileOriginal = $tikiIgnoreFolder . DIRECTORY_SEPARATOR . $ignoreFile;
 $ignoreFileBackup = $tikiIgnoreFolder . DIRECTORY_SEPARATOR . 'back_' . $ignoreFile;
-$ignoreFileNew = $tikiIgnoreFolder . DIRECTORY_SEPARATOR . 'new_' . $ignoreFile;
+$ignoreFileNew = $tikiIgnoreFolder . DIRECTORY_SEPARATOR . $ignoreFile;
 
 $ignoreExists = file_exists($ignoreFileOriginal);
 
@@ -123,3 +123,6 @@ foreach ($json['files'] as $fileFullPath => $info) {
 file_put_contents($ignoreFileNew, json_encode($results, JSON_PRETTY_PRINT));
 
 echo "# New ignore list available in " . $ignoreFileNew . PHP_EOL;
+if ($ignoreExists) {
+    echo "# The previous ignore file is available at " . $ignoreFileBackup . PHP_EOL;
+}
