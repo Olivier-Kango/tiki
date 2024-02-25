@@ -10,7 +10,7 @@
  * Requires PHP-Redis
  */
 
-class CacheLibRedis implements Tiki\Cache\TikiKvpCacheInterface
+class CacheLibRedis implements Tiki\Cache\KvpCacheInterface
 {
     private $redis;
 
@@ -90,7 +90,7 @@ class CacheLibRedis implements Tiki\Cache\TikiKvpCacheInterface
         return $this->redis->del([$key]);
     }
 
-    public function empty_type_cache($type)
+    public function invalidateAll($type)
     {
         $keys = $this->findKeys($type . '*');
         return $this->redis->del($keys);

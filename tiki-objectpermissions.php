@@ -114,8 +114,8 @@ if ($_REQUEST['objectType'] == 'wiki page') {
         }
     }
     $cachelib = TikiLib::lib('cache');
-    $cachelib->empty_type_cache('menu_');
-    $cachelib->empty_type_cache('structure_');
+    $cachelib->invalidateAll('menu_');
+    $cachelib->invalidateAll('structure_');
 }
 
 if ($_REQUEST['objectType'] == 'category') {

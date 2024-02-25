@@ -3492,7 +3492,7 @@ class TrackerLib extends TikiLib
                 $cachelib->invalidate('trackerItemLabel' . $itemId);
         }
         if (in_array('trackerrender', $prefs['unified_cached_formatters'])) {
-            $cachelib->empty_type_cache('search_valueformatter');
+            $cachelib->invalidateAll('search_valueformatter');
         }
     }
 

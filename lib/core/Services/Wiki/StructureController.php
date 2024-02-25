@@ -48,13 +48,13 @@ class Services_Wiki_StructureController
 
             //Empty structure caches to refresh structure data in menu module. Seems better to empty cache for any possible subnodes, might make it a bit slow
             $cachelib = TikiLib::lib('cache');
-            $cachelib->empty_type_cache('menu');
-            $cachelib->empty_type_cache('structure');
+            $cachelib->invalidateAll('menu');
+            $cachelib->invalidateAll('structure');
             $structurePages = [];
             $structurePages = $structlib->s_get_structure_pages($params->page_ref_id);
             foreach ($structurePages as &$value) {
                 $cachetype = 'structure_' . $value["page_ref_id"] . '_';
-                $cachelib->empty_type_cache($cachetype);
+                $cachelib->invalidateAll($cachetype);
             }
             unset($value);
         }

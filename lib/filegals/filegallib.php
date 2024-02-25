@@ -472,11 +472,11 @@ class FileGalLib extends TikiLib
         }
 
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache('fgals_perms_' . $id . "_");
+        $cachelib->invalidateAll('fgals_perms_' . $id . "_");
         if (isset($info['galleryId'])) {
-            $cachelib->empty_type_cache('fgals_perms_' . $info['galleryId'] . "_");
+            $cachelib->invalidateAll('fgals_perms_' . $info['galleryId'] . "_");
         }
-        $cachelib->empty_type_cache($this->get_all_galleries_cache_type());
+        $cachelib->invalidateAll($this->get_all_galleries_cache_type());
 
         $gal_info = $this->get_file_gallery_info($id);
 
@@ -536,7 +536,7 @@ class FileGalLib extends TikiLib
         }
 
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache($this->get_all_galleries_cache_type());
+        $cachelib->invalidateAll($this->get_all_galleries_cache_type());
 
         return $this->table('tiki_file_galleries')->updateMultiple(
             ['parentId' => (int) $new_parent_id],
@@ -652,7 +652,7 @@ class FileGalLib extends TikiLib
         }
 
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache($this->get_all_galleries_cache_type());
+        $cachelib->invalidateAll($this->get_all_galleries_cache_type());
 
         TikiLib::events()->trigger($finalEvent, [
             'type' => 'file gallery',

@@ -3602,7 +3602,7 @@ class ParserLib extends TikiDb_Bridge
 
                         if (file_exists($targetFile)) {
                             $cacheContent = file_get_contents($targetFile);
-                            $cacheLib->empty_type_cache($cacheType);
+                            $cacheLib->invalidateAll($cacheType);
                             $cacheLib->cacheItem($cacheName, $cacheContent, $cacheType);
                             unlink($targetFile);
                         }

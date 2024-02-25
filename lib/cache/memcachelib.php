@@ -125,8 +125,8 @@ class Memcachelib
 
     public static function isEnabled()
     {
-        global $pref;
-        return     $enabledInPrefs = isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] == 'y';
+        global $prefs;
+        return isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] == 'y';
     }
 
     /**

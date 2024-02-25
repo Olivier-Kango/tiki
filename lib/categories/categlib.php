@@ -155,9 +155,9 @@ class CategLib extends ObjectLib
             $this->remove_category($res["categId"]);
         }
 
-        $cachelib->empty_type_cache('allcategs');
-        $cachelib->empty_type_cache('cat_tree');
-        $cachelib->empty_type_cache('fgals_perms');
+        $cachelib->invalidateAll('allcategs');
+        $cachelib->invalidateAll('cat_tree');
+        $cachelib->invalidateAll('fgals_perms');
 
         $values = ["categoryId" => $categId, "categoryName" => $categoryName, "categoryPath" => $categoryPath,
             "description" => $description, "parentId" => $parentId, "parentName" => $this->get_category_name($parentId),
@@ -234,9 +234,9 @@ class CategLib extends ObjectLib
             }
         }
 
-        $cachelib->empty_type_cache('allcategs');
-        $cachelib->empty_type_cache('cat_tree');
-        $cachelib->empty_type_cache('fgals_perms');
+        $cachelib->invalidateAll('allcategs');
+        $cachelib->invalidateAll('cat_tree');
+        $cachelib->invalidateAll('fgals_perms');
 
         $values = ["categoryId" => $categId, "categoryName" => $name, "categoryPath" => $this->get_category_path_string_with_root($categId),
             "description" => $description, "parentId" => $parentId, "parentName" => $this->get_category_name($parentId),
@@ -293,9 +293,9 @@ class CategLib extends ObjectLib
             ]
         );
 
-        $cachelib->empty_type_cache('allcategs');
-        $cachelib->empty_type_cache('cat_tree');
-        $cachelib->empty_type_cache('fgals_perms');
+        $cachelib->invalidateAll('allcategs');
+        $cachelib->invalidateAll('cat_tree');
+        $cachelib->invalidateAll('fgals_perms');
         $values = ["categoryId" => $id, "categoryName" => $name, "categoryPath" => $this->get_category_path_string_with_root($id),
             "description" => $description, "parentId" => $parentId, "parentName" => $this->get_category_name($parentId),
             "action" => "category created"];
@@ -480,9 +480,9 @@ class CategLib extends ObjectLib
 
             $cachelib = TikiLib::lib('cache');
             if ($prefs['categories_cache_refresh_on_object_cat'] != "n") {
-                $cachelib->empty_type_cache("allcategs");
+                $cachelib->invalidateAll("allcategs");
             }
-            $cachelib->empty_type_cache('fgals_perms');
+            $cachelib->invalidateAll('fgals_perms');
         }
         return $id;
     }
@@ -525,7 +525,7 @@ class CategLib extends ObjectLib
 
         $cachelib = TikiLib::lib('cache');
         if ($prefs['categories_cache_refresh_on_object_cat'] != "n") {
-            $cachelib->empty_type_cache("allcategs");
+            $cachelib->invalidateAll("allcategs");
         }
         $info = TikiLib::lib('object')->get_object_via_objectid($catObjectId);
         if ($prefs['feature_actionlog'] == 'y') {
@@ -551,7 +551,7 @@ class CategLib extends ObjectLib
 
         $cachelib = TikiLib::lib('cache');
         if ($prefs['categories_cache_refresh_on_object_cat'] != "n") {
-            $cachelib->empty_type_cache("allcategs");
+            $cachelib->invalidateAll("allcategs");
         }
         $info = TikiLib::lib('object')->get_object_via_objectid($catObjectId);
         if ($prefs['feature_actionlog'] == 'y') {
@@ -1040,9 +1040,9 @@ class CategLib extends ObjectLib
                 $result = $this->query($query, [(int)$catObjectId]);
             }
             if ($prefs['categories_cache_refresh_on_object_cat'] != "n") {
-                $cachelib->empty_type_cache("allcategs");
+                $cachelib->invalidateAll("allcategs");
             }
-            $cachelib->empty_type_cache('fgals_perms');
+            $cachelib->invalidateAll('fgals_perms');
             return $result;
         } else {
             return false;
@@ -1380,9 +1380,9 @@ class CategLib extends ObjectLib
             // Refresh categories
             $cachelib = TikiLib::lib('cache');
             if ($prefs['categories_cache_refresh_on_object_cat'] != "n") {
-                $cachelib->empty_type_cache("allcategs");
+                $cachelib->invalidateAll("allcategs");
             }
-            $cachelib->empty_type_cache('fgals_perms');
+            $cachelib->invalidateAll('fgals_perms');
 
             TikiLib::events()->trigger('tiki.object.categorized', [
                 'object' => $info['itemId'],

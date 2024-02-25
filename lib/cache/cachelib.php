@@ -159,9 +159,9 @@ class Cachelib
         }
     }
 
-    public function empty_type_cache($type)
+    public function invalidateAll($type)
     {
-        return $this->implementation->empty_type_cache($type);
+        return $this->implementation->invalidateAll($type);
     }
 
     public function count_cache_files($path, $begin = null)
@@ -538,7 +538,7 @@ class Cachelib
     }
 }
 
-class CacheLibFileSystem implements Tiki\Cache\TikiKvpCacheInterface
+class CacheLibFileSystem implements Tiki\Cache\KvpCacheInterface
 {
     public $folder;
 
@@ -602,7 +602,7 @@ class CacheLibFileSystem implements Tiki\Cache\TikiKvpCacheInterface
         }
     }
 
-    public function empty_type_cache($type)
+    public function invalidateAll($type)
     {
         $path = $this->folder;
         $all = opendir($path);
@@ -617,7 +617,7 @@ class CacheLibFileSystem implements Tiki\Cache\TikiKvpCacheInterface
     }
 }
 
-class CacheLibMemcache implements Tiki\Cache\TikiKvpCacheInterface
+class CacheLibMemcache implements Tiki\Cache\KvpCacheInterface
 {
     private function getKey($key, $type)
     {
@@ -650,13 +650,13 @@ class CacheLibMemcache implements Tiki\Cache\TikiKvpCacheInterface
         return TikiLib::lib("memcache")->delete($this->getKey($key, $type));
     }
 
-    public function empty_type_cache($type)
+    public function invalidateAll($type)
     {
         return TikiLib::lib("memcache")->flush();
     }
 }
 
-class CacheLibNoCache implements Tiki\Cache\TikiKvpCacheInterface
+class CacheLibNoCache implements Tiki\Cache\KvpCacheInterface
 {
     public function isFunctionnal(): bool
     {
@@ -683,7 +683,7 @@ class CacheLibNoCache implements Tiki\Cache\TikiKvpCacheInterface
         return false;
     }
 
-    public function empty_type_cache($type)
+    public function invalidateAll($type)
     {
         return false;
     }

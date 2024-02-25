@@ -98,7 +98,7 @@ class UsersLib extends TikiLib
 
         if ($objectType == 'file gallery') {
             $cachelib = TikiLib::lib('cache');
-            $cachelib->empty_type_cache('fgals_perms_' . $objectId . '_');
+            $cachelib->invalidateAll('fgals_perms_' . $objectId . '_');
         }
         return true;
     }
@@ -138,7 +138,7 @@ class UsersLib extends TikiLib
 
         if ($objectType == 'file gallery') {
             $cachelib = TikiLib::lib('cache');
-            $cachelib->empty_type_cache('fgals_perms_' . $objectId . '_');
+            $cachelib->invalidateAll('fgals_perms_' . $objectId . '_');
         }
 
         return true;
@@ -3499,7 +3499,7 @@ class UsersLib extends TikiLib
         $this->query($query, [$level, $perm]);
 
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache('fgals_perms');
+        $cachelib->invalidateAll('fgals_perms');
 
         $menulib = TikiLib::lib('menu');
         $menulib->empty_menu_cache();
@@ -3515,7 +3515,7 @@ class UsersLib extends TikiLib
         }
 
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache('fgals_perms');
+        $cachelib->invalidateAll('fgals_perms');
         $cachelib->invalidate("groupperms_$group");
 
         $menulib = TikiLib::lib('menu');
@@ -3532,7 +3532,7 @@ class UsersLib extends TikiLib
         }
 
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache('fgals_perms');
+        $cachelib->invalidateAll('fgals_perms');
         $cachelib->invalidate("groupperms_$group");
 
         $menulib = TikiLib::lib('menu');
@@ -3547,7 +3547,7 @@ class UsersLib extends TikiLib
         $this->query($query, [$level]);
 
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache('fgals_perms');
+        $cachelib->invalidateAll('fgals_perms');
 
         $menulib = TikiLib::lib('menu');
         $menulib->empty_menu_cache();
@@ -6722,7 +6722,7 @@ class UsersLib extends TikiLib
         $result = $this->query($query, [$group, $perm]);
 
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache('fgals_perms');
+        $cachelib->invalidateAll('fgals_perms');
         $cachelib->invalidate("groupperms_$group");
 
         $menulib = TikiLib::lib('menu');
@@ -6785,7 +6785,7 @@ class UsersLib extends TikiLib
         $result = $this->query($query, [$perm, $group]);
 
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache("fgals_perms");
+        $cachelib->invalidateAll("fgals_perms");
         $cachelib->invalidate("groupperms_$group");
 
         $menulib = TikiLib::lib('menu');
@@ -7783,7 +7783,7 @@ class UsersLib extends TikiLib
         $query = 'delete from `tiki_group_inclusion` where `groupName` = ?';
         $result = $this->query($query, [$group]);
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache('group_inclusion_' . $group);
+        $cachelib->invalidateAll('group_inclusion_' . $group);
         $this->groupinclude_cache = [];
 
         return true;

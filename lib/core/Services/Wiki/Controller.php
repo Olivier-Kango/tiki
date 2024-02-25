@@ -392,8 +392,8 @@ class Services_Wiki_Controller
             }
             // Clear cache in order to update menus and structures
             $cachelib = TikiLib::lib('cache');
-            $cachelib->empty_type_cache('menu');
-            $cachelib->empty_type_cache('structure');
+            $cachelib->invalidateAll('menu');
+            $cachelib->invalidateAll('structure');
             //prepare feedback
             if (! $error) {
                 if ($all || $util->extra['one']) {

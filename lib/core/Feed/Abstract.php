@@ -141,7 +141,7 @@ abstract class Feed_Abstract
         if ($this->isFileGal == true) {
             FileGallery\File::filename($this->name)->delete();
         } else {
-            TikiLib::lib("cache")->empty_type_cache(get_class($this));
+            TikiLib::lib("cache")->invalidateAll(get_class($this));
         }
     }
 

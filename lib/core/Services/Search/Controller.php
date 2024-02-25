@@ -44,7 +44,7 @@ class Services_Search_Controller
 
             $stat = $unifiedsearchlib->rebuild($input->loggit->int());
 
-            TikiLib::lib('cache')->empty_type_cache('search_valueformatter');
+            TikiLib::lib('cache')->invalidateAll('search_valueformatter');
 
             // Also rebuild admin index
             TikiLib::lib('prefs')->rebuildIndex();

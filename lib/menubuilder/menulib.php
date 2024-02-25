@@ -10,11 +10,11 @@ class MenuLib extends TikiLib
     {
         $cachelib = TikiLib::lib('cache');
         if ($menuId > 0) {
-            $cachelib->empty_type_cache('menu_' . $menuId . '_');
+            $cachelib->invalidateAll('menu_' . $menuId . '_');
         } else {
             $menus = $this->list_menus();
             foreach ($menus['data'] as $menu_info) {
-                $cachelib->empty_type_cache('menu_' . $menu_info['menuId'] . '_');
+                $cachelib->invalidateAll('menu_' . $menu_info['menuId'] . '_');
             }
         }
     }

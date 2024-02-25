@@ -20,7 +20,7 @@ class Perms_Applier
             $this->applyOnObject($object, $set);
         }
         $cachelib = TikiLib::lib('cache');
-        $cachelib->empty_type_cache('fgals_perms');
+        $cachelib->invalidateAll('fgals_perms');
     }
 
     public function restrictPermissions(array $permissions)

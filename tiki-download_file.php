@@ -431,7 +431,7 @@ if (isset($_GET['preview']) || isset($_GET['thumbnail']) || isset($_GET['display
         if ($use_cache && ! empty($content)) {
             // Remove all existing thumbnails for this file, to avoid taking too much disk space
             // (only one thumbnail size is handled at the same time)
-            $cachelib->empty_type_cache($cacheType);
+            $cachelib->invalidateAll($cacheType);
 
             // Cache Thumbnail
             $cachelib->cacheItem($cacheName, $content, $cacheType);

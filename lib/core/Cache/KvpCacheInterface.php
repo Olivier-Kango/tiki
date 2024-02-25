@@ -6,25 +6,33 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Cache;
 
-interface TikiKvpCacheInterface
+interface KvpCacheInterface
 {
     /** Is this cache system enabled and functional */
     public function isFunctionnal(): bool;
 
-    public function cacheItem($key, $data, $type = '');
+    public function cacheItem($key, $data, string $type = '');
 
     /**
      * @deprecated It does not make sense to do this rather than getCached()
      *
      * @param [type] $key
-     * @param string $type
+     * @param string $type A namespace for the value
      * @return boolean
      */
-    public function isCached($key, $type = '');
+    public function isCached($key, string $type = '');
 
-    public function getCached($key, $type = '', $lastModif = false);
+    public function getCached($key, string $type = '', $lastModif = false);
 
-    public function invalidate($key, $type = '');
+    public function invalidate($key, string $type = '');
 
-    public function empty_type_cache($type);
+    /**
+     * Invalidate all keys of the given type.
+     * It is not garanteed that all implementation can restrict the
+     * invalidation to only this namespace.
+     *
+     * @param $type
+     * @return void
+     */
+    public function invalidateAll(string $type);
 }
