@@ -44,9 +44,6 @@ require_once ROOT . '/lib/setup/third_party.php';
 require_once ROOT . '/path_constants.php';
 require_once ROOT . '/' . DEPRECATED_DEVTOOLS_PATH . '/vcscommons.php';
 
-if (version_compare(PHP_VERSION, '5.0.0', '<')) {
-    error("You need PHP version 5 or more to run this script\n");
-}
 $phpCommand = isset($_SERVER['_']) ? $_SERVER['_'] : 'php';
 $phpCommandArguments = implode(' ', $_SERVER['argv']);
 
@@ -262,7 +259,6 @@ if ($isPre) {
 }
 
 // Helper functions
-
 
 /**
  *
@@ -612,7 +608,7 @@ function build_packages($releaseVersion)
     // tidy up
     unlink($composerInstaller);
 
-    echo 'Installing dependencies through composer' . "\n";
+    echo 'Installing dependencies through composer... [may take a while]' . "\n";
     $shellout = shell_exec('php ' . escapeshellarg($workDir . '/composer.phar') . ' install -d ' . escapeshellarg($sourceDir . '/' . TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH) . ' --prefer-dist --no-dev 2>&1');
     if ($options['debug-packaging']) {
         echo $shellout . "\n";
@@ -632,7 +628,27 @@ function build_packages($releaseVersion)
         die();
     }
 
+    echo "Running node install and build\n";
+    $npmInstall = "cd $sourceDir; npm install --clean-install --engine-strict";
+    exec($npmInstall, $npmInstallOutput, $npmInstallExitCode);
+    if ($npmInstallExitCode !== 0) {
+        error("npm install failed. Exiting.", $npmInstallExitCode);
+    }
+    $npmBuildResult = passthru("cd $sourceDir; npm run build");
+    if ($npmBuildResult === false) {
+        error("npm build failed. Exiting.");
+    }
+    echo "npm setup completed.\n";
+
     echo "Removing development files\n";
+    // Remove node_modules created when running "npm install" in tiki root directory
+    $shellout = rrmdir($sourceDir . '/' . 'node_modules');
+    if ($shellout) {
+        die($shellout . "\n");
+    }
+    // Recursively remove node_modules dynamically created alongside the package.json files in the src folder anytime we have conflicting npm version requirements.
+    removeFiles($sourceDir . '/' . 'src', ['node_modules']);
+
     $shellout = rrmdir($sourceDir . '/' . TESTS_PATH);
     if ($shellout) {
         die($shellout . "\n");

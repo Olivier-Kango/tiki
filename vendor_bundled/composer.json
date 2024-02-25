@@ -443,6 +443,7 @@
             "Tiki\\Composer\\BootstrapCompiler::build",
             "Tiki\\Composer\\CleanVendors::clean",
             "Tiki\\Composer\\CleanVendorAfterVendorBundledMigration::clean",
+            "Tiki\\Composer\\GenerateIndexFiles::generate",
             "Tiki\\Composer\\PatchCypht::setup"
         ],
         "pre-update-cmd": [

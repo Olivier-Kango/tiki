@@ -55,6 +55,8 @@ class DevbuildwsconfsCommand extends Command
             die('Only available through command-line.');
         }
 
+        require_once(__DIR__ . '/../../../../path_constants.php');
+
         $generate = $input->getOption('generate');
         $verbose = $input->getOption('verbose');
         $cleanFiles = $input->getOption('clean');
