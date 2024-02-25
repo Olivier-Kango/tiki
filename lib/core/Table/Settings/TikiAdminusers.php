@@ -71,7 +71,7 @@ class Table_Settings_TikiAdminusers extends Table_Settings_Standard
                 'filter' => [
                     'type' => 'text',
                     'placeholder' => 'Enter valid email...',
-                    'ajax' => 'filterEmail',
+                    'ajax' => 'find',
                 ],
                 'priority' => 1,
             ],
