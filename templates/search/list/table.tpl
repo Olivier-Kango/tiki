@@ -44,6 +44,41 @@
 {if isset($tableparams.title)}
     <div class="list-table-heading">{wiki}{$tableparams.title|escape}{/wiki}</div>
 {/if}
+{$showFacets = not empty($facets) and isset($tableparams.facets) and $tableparams.facets eq 'y'}
+{if $showFacets}
+{*    <pre>{$facets|var_dump}</pre>*}
+{*    <pre>{$results|var_dump}</pre>*}
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="facets filters" id="filters">
+                {foreach $facets as $facetField => $facet}
+                    {if count($facet.options) gt 0}
+                        <div class="clearfix margin-bottom-sm">
+                            <label class="h4 other">{$facet.label|replace:' (Tree)':''|tr_if|escape}</label>
+                            <ul data-for="#{$facet.name}" data-join="{$facet.operator|escape}">
+                                {foreach from=$facet.options key=value item=label}
+                                    <li>
+                                        <label>
+                                            {if not empty($adddata)}<input type="checkbox" value="{$value|escape}">{/if}
+                                            {$label|escape}
+                                        </label>
+                                    </li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    {/if}
+                {/foreach}
+            </div>
+        </div>
+        <div class="col-sm-10">{* for the table *}
+        {*    close these after the table </div></div>*}
+        {if not empty($adddata)}
+            {jq}
+                $.applySelect2();
+                $('.facets ul').registerFacet();
+            {/jq}
+        {/if}
+{/if}
 {if $actions}
 <form method="post" action="#{$id}" class="d-flex flex-row flex-wrap align-items-center" id="listexecute-{$iListExecute}">
 {/if}
@@ -356,4 +391,8 @@
     });
 })();
 {/jq}
+{/if}
+{if $showFacets}
+        </div>
+    </div>
 {/if}
