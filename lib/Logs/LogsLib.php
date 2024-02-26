@@ -470,17 +470,21 @@ class LogsLib extends TikiLib
         }
 
         $mid = implode(" and ", $amid);
-
+        $where1 = null;
         if (! empty($bindvarsU)) {
             $bindvars = array_merge($bindvarsJoin, $bindvars, $bindvarsU);
             $join1 = " left join `tiki_actionlog_params` ap on $joinWhere1";
-            $where1 = " and ($mid1 or ap.actionId IS NOT NULL)";
+            $where1 = " ($mid1 or ap.actionId IS NOT NULL)";
         }
 
         $query = "select a.* from `tiki_actionlog` a" .
             " join `tiki_actionlog_conf` c on a.`action` = c.`action` and a.`objectType` = c.`objectType`" . ($all ? "" : " and (c.`status` = 'v')") .
             ($join1 ?? "") .
-            (($mid != '' || $where1 != null) ? (" where " . $mid . ($where1 ?? "")) : "");
+            " where " .
+            ($mid !== '' ? $mid : "") .
+            (($mid !== '' && $where1 !== null) ? " and " : "") .
+            (($mid === '' && $where1 === null) ? " 1 " : "") .
+            ($where1 !== null ? $where1 : "");
 
         $query_cant = preg_replace('/a\.\*/', 'count(1)', $query);
 
