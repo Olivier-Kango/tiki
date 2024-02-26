@@ -415,7 +415,7 @@ class TextArea extends Base
             // wiki link widgets markers
             val = val.replace(/\$\$widget0 (.*?)\$\$/mg, "$1");
         }
-        $textarea.val("{syntax type=\"" + syntax + "\", editor=\"" + editor + "\"}\r\n" + val);
+        $textarea.val("{syntax type=\"" + syntax + "\" editor=\"" + editor + "\"}\r\n" + val);
     }
             ');
 
@@ -423,7 +423,7 @@ class TextArea extends Base
             $headerlib->add_js(
                 /** @lang JavaScript */
                 '
-    $("#' . $as_id . '").form().submit(function () {
+    $("#' . $as_id . '").closest("form").submit(function () {
         addSyntaxPlugin("' . $as_id . '", $(this));
         return true;
     });'
