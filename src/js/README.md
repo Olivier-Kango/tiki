@@ -30,37 +30,35 @@ Javascript dependencies are still being moved from composer.  For examples of ho
 1. Dependencies included as "normal" js files, like we used to do in composer:  This is the most direct migration path (technically), but (usually) the hardest to maintain.
     * Example:  See how jquery-ui is used.
 
-## Steps
+## Migration steps
 
-1. Add the dependency into the appropriate package.json,
-   * Is it a common dependency type? In thi,s case the appropriate package.json should be located in [common-externals](./common-externals/).
-   * Is it a dependency that applies to a specific usage (i.e tiki-jquery)? In this case, the appropriate package.json should be located in a folder like [jquery-tiki](./jquery-tiki/). <br>
+### 1- Add the dependency into the appropriate package.json,
+   * Is it a common dependency type? In this case the appropriate package.json should be located in [common-externals](./common-externals/).
+   * Is it a dependency that is compiled into a specific module under src/js (i.e tiki-jquery)? In this case, the appropriate package.json should be located in a folder like [jquery-tiki](./jquery-tiki/), [vue-mf](./vue-mf/), 
    ...
 
-Once the dependency is listed among installable packages,
+Once the dependency is listed among installable packages, execute:
 
-2. Mention all files and/or folders that need to be copied by vite in [vite.config.mjs](vite.config.mjs).
-   * Example:
-   ```js
-   viteStaticCopy({
-    targets: [
-        ...
-        {
-            src: "node_modules/my-package/my-folder/*",
-            dest: "vendor_dist/my-package/my-folder"
-        }
-    ]
-   })
-   ```
-   > **Note:** The files to copy are only files that you need and use from the package, you don't use for example a file like README.md.
+```sh
+npm install
+```
 
-3. Execute `setup.sh` with the `n` option for npm.
+### 2- Tell the build system and/or the source about it
 
-4. The next step is:
-   * Make the package available or importable as an ES Module if it's mainly distributed as one.
-     - Edit the file [path_js_importmap_generator.php](/path_js_importmap_generator.php).
-        * We are interested in the `imports` entry of the object `$importmap`.
-        * Register the package:
+#### For common-externals
+In [vite.config.mjs](vite.config.mjs):
+
+1. Mention all files and/or folders that need to be copied by vite in viteStaticCopy/targets.  There is detailed documentation there
+
+1. Add the module to rollupOptions/external:
+
+   > **Note:** The files to copy are only files that you need and use from the package.  Typically a subset of the package's dist folder.  For example, you don't copy a file like README.md.
+
+* Make the package available or importable as an ES Module if it's mainly distributed as one.
+  * Edit the file [path_js_importmap_generator.php](/path_js_importmap_generator.php).
+    * We are interested in the `imports` entry of the object `$importmap`.
+    * Register the package:
+
         ```php
         ...
         "imports" => [
@@ -68,12 +66,43 @@ Once the dependency is listed among installable packages,
             "my-package" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/path/to/the/target/file"
         ]
         ```
-        Now the package can be imported and used in javascript as follow:
-        ```js
-        import { moduleName } from "my-package";
-        ```
-   * If it's not distributed as an ES Module, an import to the destination folder of the package is necessary, usually done using headerlib.
-     - Example:
-     ```php
-     $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . "/path/to/the/target/file");
-     ```
+
+  * Now the package can be imported and used in javascript as follows:
+
+    ```js
+    import { moduleName } from "my-package";
+    ```
+
+* If it's not distributed as an ES Module, an import to the destination folder of the package is necessary, usually done using headerlib.  For example:
+
+    ```php
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . "/path/to/the/target/file");
+    ```
+
+#### For a dependency added into another module only
+
+The package can be imported and used in javascript as follows:
+
+```js
+import { moduleName } from "my-package";
+```
+
+### 3- Remove the dependency from composer.json
+
+Then run
+
+```sh
+composer -d vendor_bundled install
+```
+
+to make sure the package is removed.
+
+### 4- Check that everything works
+
+Execute:
+
+```sh
+npm run watch
+```
+
+And test every feature where your changed the inclusion of the dependency (especially since we often upgrade the dependency at the same time)

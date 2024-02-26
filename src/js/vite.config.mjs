@@ -144,7 +144,18 @@ export default defineConfig(({ command, mode }) => {
                 //exclude: ["svelte"],
             },
             rollupOptions: {
-                external: [/^@vue-mf\/.+/, "@popperjs/core", "bootstrap", "clipboard", "jquery", "jquery-ui", "moment", "sortablejs", "vue", "jquery-validation"],
+                external: [
+                    /^@vue-mf\/.+/,
+                    "@popperjs/core",
+                    "bootstrap",
+                    "clipboard",
+                    "jquery",
+                    "jquery-ui",
+                    "moment",
+                    "sortablejs",
+                    "vue",
+                    "jquery-validation",
+                ],
                 //external: [/^@vue-mf\/.+/],
                 input: rollupInput,
                 output: {
@@ -180,10 +191,21 @@ export default defineConfig(({ command, mode }) => {
             //These are re-bundled files that need to be read at runtime
 
             viteStaticCopy({
-                //This object should really be imported from a file in common-externals
-                //In development, this should be served directly from node_modules once we have vite dev server working
-                //TODO IMPORTANT:  This does not check if the path exits (nor ooutput what was done to the console).  This will INEVITABLY cause silent errors when package accidentally get duplicated or moved among node_modules in workspaces, or if there is any typo.  So we need something better than viteStaticCopy
+                //TODO: This object should really be imported from a file in common-externals
+                //TODO: In development, this should be served directly from node_modules once we have vite dev server working
+                //TODO IMPORTANT:  This does not check if the path exits (nor output what was done to the console).  This will INEVITABLY cause silent errors when package accidentally get duplicated or moved among node_modules in workspaces, or if there is any typo.  So we need something better than viteStaticCopy
                 targets: [
+                    /* Things to remember when adding to this list:
+                    - The reason we copy these is that tiki must run without internet access, so we can't rely on CDNs.  But do try to keep the structure these packages have on CDNs.  Typically, that means copying the dist folder under dist.
+                    - We want to save space, so if there is multiple formats distributed, only pick one (typically ESM)
+                    - For many modules that just means:
+                        {
+                            src: "node_modules/module-name/dist/*",",
+                            dest: "vendor_dist/module-name/dist",
+                        },
+                    But make sure to look into the dist folder, so we don't add a bunch of useless stiff, but don't miss requires support files (such as language files)
+                    */
+
                     /* jquery_tiki */
                     {
                         src: "node_modules/bootstrap/dist/css/bootstrap.min.*",
@@ -242,7 +264,7 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/jquery-validation/dist/*",
                         dest: "vendor_dist/jquery-validation/dist",
-                    }
+                    },
                 ],
             }),
             /* Uncomment this in development to see which dependencies contribute to bundle size */
