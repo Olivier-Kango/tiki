@@ -340,10 +340,20 @@ class PdoClient
 
     public function fetchAllRowsets($query, $retry = true)
     {
-        $stmt = $this->pdo->query($query);
-        $result = [$stmt->fetchAll()];
-        while ($stmt->nextRowset()) {
-            $result[] = $stmt->fetchAll();
+        try {
+            $stmt = $this->pdo->query($query);
+            $result = [$stmt->fetchAll()];
+            while ($stmt->nextRowset()) {
+                $result[] = $stmt->fetchAll();
+            }
+        } catch (PDOException $e) {
+            if ($retry && strstr($e->getMessage(), 'unknown local table')) {
+                // federated index tables might have been rebuilt and distributed one not updated properly -> refresh and retry
+                \TikiLib::lib('federatedsearch')->recreateDistributedIndex($this);
+                return $this->fetchAllRowsets($query, false);
+            } else {
+                throw $e;
+            }
         }
         if ($retry) {
             $stmt = $this->pdo->query('show warnings');
