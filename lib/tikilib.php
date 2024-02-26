@@ -1880,7 +1880,7 @@ class TikiLib extends TikiDb_Bridge
      *
      * @return array
      */
-    public function get_user_groups($user, $included_groups = true)
+    public function get_user_groups($user, $included_groups = true): array
     {
         global $prefs;
         $userlib = TikiLib::lib('user');

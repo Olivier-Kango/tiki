@@ -231,7 +231,7 @@ class HistLib extends TikiLib
                 $wikiParserParsable = new WikiParser_Parsable($res['data']);
                 $syntaxPluginResult = $wikiParserParsable->guess_syntax($res['data']);
                 $aux['is_markdown'] = $syntaxPluginResult['syntax'] === 'markdown';
-                $aux['wysiwyg'] = $syntaxPluginResult['editor'] === 'wysiwyg' ? 'y' : 'n';
+                $aux['wysiwyg'] = array_key_exists('editor', $syntaxPluginResult) && $syntaxPluginResult['editor'] === 'wysiwyg' ? 'y' : 'n';
             }
             $ret[] = $aux;
         }
