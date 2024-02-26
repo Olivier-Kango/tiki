@@ -185,7 +185,7 @@ $(window).on("load", function(){
     if (typeof opener != "undefined") {
         opener.ajaxPreviewWindow = this;
     }
-}).on("unload", function(){
+}).on("pagehide", function(){
     if (typeof opener.ajaxPreviewWindow != "undefined") {
         opener.ajaxPreviewWindow = null;
     }
