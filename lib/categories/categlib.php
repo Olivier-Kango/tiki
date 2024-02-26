@@ -738,8 +738,21 @@ class CategLib extends ObjectLib
         } else {
             $requiredResult = array_slice($result, $offset, $maxRecords);
         }
-        $requiredResult = Perms::mixedFilter([], 'type', 'object', $requiredResult, $contextMapMap, $permMap);
 
+        $invalidTypes = [];
+        // Get valid object types from the context map
+        $validObjectTypes = array_keys($contextMap);
+        // Filter $requiredResult based on valid object types
+        $requiredResult = array_filter($requiredResult, function ($res) use ($validObjectTypes, &$invalidTypes) {
+            $check = in_array($res['type'], $validObjectTypes);
+            if (! $check) {
+                array_push($invalidTypes, $res);
+            }
+            return $check;
+        });
+
+        $requiredResult = Perms::mixedFilter([], 'type', 'object', $requiredResult, $contextMapMap, $permMap);
+        $requiredResult = array_merge($requiredResult, $invalidTypes);
         if ($maxRecords != -1) {    // if filtered result is less than what's there look for more
             while (count($requiredResult) < $maxRecords && count($requiredResult) < $count) {
                 $nextResults = array_slice($result, $maxRecords, $maxRecords - count($requiredResult));
@@ -752,7 +765,6 @@ class CategLib extends ObjectLib
         } else {
             $count = count($requiredResult);
         }
-        $result = $requiredResult;
 
         $ret = [];
         $objs = [];
