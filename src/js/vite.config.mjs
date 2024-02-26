@@ -144,7 +144,7 @@ export default defineConfig(({ command, mode }) => {
                 //exclude: ["svelte"],
             },
             rollupOptions: {
-                external: [/^@vue-mf\/.+/, "@popperjs/core", "bootstrap", "clipboard", "jquery", "jquery-ui", "moment", "sortablejs", "vue"],
+                external: [/^@vue-mf\/.+/, "@popperjs/core", "bootstrap", "clipboard", "jquery", "jquery-ui", "moment", "sortablejs", "vue", "jquery-validation"],
                 //external: [/^@vue-mf\/.+/],
                 input: rollupInput,
                 output: {
@@ -239,6 +239,10 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/vue/dist/vue.esm-browser.prod.js",
                         dest: "vendor_dist/vue/dist",
                     },
+                    {
+                        src: "node_modules/jquery-validation/dist/*",
+                        dest: "vendor_dist/jquery-validation/dist",
+                    }
                 ],
             }),
             /* Uncomment this in development to see which dependencies contribute to bundle size */

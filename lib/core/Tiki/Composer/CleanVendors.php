@@ -185,16 +185,6 @@ class CleanVendors
         );
         self::remove($vendors . 'jquery-plugins/infinitecarousel', 'jquery.infinitecarousel3.min.js');
         self::remove(
-            $vendors . 'jquery-plugins/jquery-validation',
-            [
-                'lib',
-                'src',
-                'dist/additional-methods.js',
-                'dist/additional-methods.min.js',
-                'dist/jquery.validate.min.js'
-            ]
-        );
-        self::remove(
             $vendors . 'jquery-plugins/jquery-json',
             [
                 'dist',

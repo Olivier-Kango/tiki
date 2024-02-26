@@ -17,7 +17,8 @@
     "jquery-ui": "^1.13.2",
     "moment": "^2.30.1",
     "sortablejs": "=1.14.0",
-    "vue": "^3.4.19"
+    "vue": "^3.4.19",
+    "jquery-validation": "1.20.0"
   },
     "devDependenciesComment": {
       "bootstrap": "Changelog: https://github.com/twbs/bootstrap/releases",
@@ -28,6 +29,7 @@
       "jquery-ui": "",
       "moment": "A lot of libraries depend on this",
       "sortablejs": "Used by legacy js code menubuilder and structures, not just newer libraries like kanban, so needs to be able to be independently included.  Dependency of https://github.com/SortableJS/Vue.Draggable which sadly hasn't moved in 2 years and is stuck at 1.14.0.  Pinning so we don't have a different version in the workspace from the global.  Otherwise dynamic module loading would make it hard to tell.",
-      "vue": ""
+      "vue": "",
+      "jquery-validation": ""
     }
 }

@@ -653,7 +653,7 @@ if ($prefs['jquery_jqdoublescroll'] == 'y') {
 }
 
 if ($prefs['feature_jquery_validation'] == 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/jquery-validation/dist/jquery.validate.js');
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/jquery-validation/dist/jquery.validate.js');
     $headerlib->add_jsfile('lib/validators/validator_tiki.js');
 }
 

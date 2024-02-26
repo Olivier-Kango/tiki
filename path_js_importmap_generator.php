@@ -22,6 +22,7 @@ function generateJsImportmapScripts()
                 "moment" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/moment/dist/moment.js",
                 "sortablejs" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/sortablejs/modular/sortable.esm.js",
                 "vue" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.prod.js",
+                // We can't add jquery-validation because it's not available as ESM
                 /* jquery_tiki */
                 "@jquery-tiki/tiki-calendar" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-calendar.js",
                 "@jquery-tiki/tiki-admin_menu_options" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-admin_menu_options.js",
