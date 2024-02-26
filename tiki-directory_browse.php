@@ -70,7 +70,9 @@ $smarty->assign('cols', $prefs['directory_columns']);
 $categ_info = $dirlib->dir_get_category($_REQUEST['parent']);
 $smarty->assign_by_ref('categ_info', $categ_info);
 if ($user) {
-    if (in_array($categ_info['editorGroup'], $userlib->get_user_groups($user))) {
+    $userGroup = $userlib->get_user_groups($user);
+    //Check if the current user is a member of the editor group of the current category
+    if (isset($categ_info['editorGroup']) &&  in_array($categ_info['editorGroup'], $userGroup)) {
         $tiki_p_admin_directory_sites = 'y';
         $smarty->assign('tiki_p_admin_directory_sites', 'y');
     }

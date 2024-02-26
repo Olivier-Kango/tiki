@@ -92,7 +92,7 @@ class DirLib extends TikiLib
         if (isset($info["name"])) {
             $crumbs[] = new Breadcrumb($info["name"], '', 'tiki-directory_browse.php?parent=' . $info["categId"], '', '');
         }
-        while (isset($info) && $info["parent"] != 0) {
+        while ($info && $info["parent"] != 0) {
             $info = $this->dir_get_category($info["parent"]);
             $crumbs[] = new Breadcrumb($info["name"], '', 'tiki-directory_browse.php?parent=' . $info["categId"], '', '');
         }
