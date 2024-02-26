@@ -8,6 +8,8 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
     die('Only available through command-line.');
 }
 
+require __DIR__ . '/../../path_constants.php';
+
 $tikiBase = realpath(__DIR__ . '/../..');
 
 $composerJsonFile = "$tikiBase/" . PRIMARY_COMPOSERJSON_FILE_PATH;

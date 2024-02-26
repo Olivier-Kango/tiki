@@ -25,6 +25,8 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
     die;
 }
 
+require __DIR__ . '/../../path_constants.php';
+
 // Add the imported libraries located in lib/
 $thirdpartyLibs = [
     '\./lib.*', /* as per NKO 4:18 19-MAY-09 */

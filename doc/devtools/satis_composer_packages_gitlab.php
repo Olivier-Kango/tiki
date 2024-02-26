@@ -3,6 +3,7 @@
 use Symfony\Component\Yaml\Yaml;
 
 $tikiBase = realpath(__DIR__ . '/../..');
+require $tikiBase . '/path_constants.php';
 require_once $tikiBase . '/' . PRIMARY_AUTOLOAD_FILE_PATH;
 
 const TIKI_GITLAB_ID = 6204173;

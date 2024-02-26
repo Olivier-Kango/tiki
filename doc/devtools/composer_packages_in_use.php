@@ -9,6 +9,8 @@ if (PHP_SAPI !== 'cli') {
     die("Please run from a shell");
 }
 
+require __DIR__ . '/../../path_constants.php';
+
 class ComposerGetPackages
 {
     public $jsonFile;
