@@ -7,7 +7,9 @@
 
 namespace Search\Formatter\Sublist;
 
+use Exception;
 use Search_Formatter;
+use Search_Formatter_Plugin_ArrayTemplate;
 use Search_Formatter_Plugin_Interface;
 use Search_Formatter_Plugin_WikiTemplate;
 use Search_Formatter_ValueFormatter;
@@ -49,6 +51,9 @@ class Executor
             $plugin = new Search_Formatter_Plugin_WikiTemplate($format['body']);
             $plugin->setRaw(! empty($format['arguments']['mode']) && $format['arguments']['mode'] == 'raw');
             $this->formatterPlugins[$format['arguments']['name']] = $plugin;
+        }
+        if ($this->searchFormatter->plugin instanceof Search_Formatter_Plugin_ArrayTemplate && $this->record->isMultiple()) {
+            throw new Exception('Using SUBLIST with multiple results in an array context is not supported.');
         }
     }
 
