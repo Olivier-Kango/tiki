@@ -13,16 +13,18 @@ class Record
 {
     private $key;
     private $multiple;
+    private $required;
     private $body;
     private $sublists;
     private $parent;
 
     private $parser;
 
-    public function __construct(string $key, bool $multiple, Parser $parser)
+    public function __construct(string $key, Parser $parser)
     {
         $this->key = $key;
-        $this->multiple = $multiple;
+        $this->multiple = false;
+        $this->required = false;
         $this->parser = $parser;
         $this->parent = null;
     }
@@ -66,6 +68,21 @@ class Record
     public function isMultiple()
     {
         return $this->multiple;
+    }
+
+    public function setMultiple($multiple)
+    {
+        $this->multiple = $multiple;
+    }
+
+    public function isRequired()
+    {
+        return $this->required;
+    }
+
+    public function setRequired($required)
+    {
+        $this->required = $required;
     }
 
     public function executeOverDataset(&$data, &$root_data, Search_Formatter $sf)

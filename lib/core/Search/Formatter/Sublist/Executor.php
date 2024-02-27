@@ -201,10 +201,16 @@ class Executor
                     if (! isset($this->data[$i][$j][$key])) {
                         $this->data[$i][$j][$key] = [];
                     }
+                    if ($this->record->isRequired() && empty($this->data[$i][$j][$key])) {
+                       unset($this->data[$i][$j]);
+                    }
                 }
             } else {
                 if (! isset($this->data[$i][$key])) {
                     $this->data[$i][$key] = [];
+                }
+                if ($this->record->isRequired() && empty($this->data[$i][$key])) {
+                    unset($this->data[$i]);
                 }
             }
         }

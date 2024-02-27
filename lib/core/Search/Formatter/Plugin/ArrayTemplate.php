@@ -83,6 +83,6 @@ class Search_Formatter_Plugin_ArrayTemplate extends Search_Formatter_Plugin_Abst
 
     private function canViewField($field)
     {
-        return in_array($field, $this->fieldPermNames);
+        return in_array($field, $this->fieldPermNames) || strstr($field, '.');
     }
 }
