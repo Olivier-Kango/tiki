@@ -120,7 +120,13 @@ class Flysystem implements HandlerInterface
             // Write flags
             LOCK_EX,
             // How to deal with links, either DISALLOW_LINKS or SKIP_LINKS
-            LocalFilesystemAdapter::SKIP_LINKS
+            LocalFilesystemAdapter::SKIP_LINKS,
+            // use default mime type detector
+            null,
+            // no lazy root creation
+            false,
+            // use inconclusive mime type fallback to prevent null values
+            true,
         );
     }
 
