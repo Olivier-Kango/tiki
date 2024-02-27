@@ -493,11 +493,11 @@
 
 {jq}
     $(function(){
-        $(".install-composer").click(function(){
+        $(".install-composer").on("click", function(){
             $('.nav-tabs a[href="#contenttabs_admin_packages-4"]').tab('show');
         });
 
-        $(".collapse-package-detail").click(function() {
+        $(".collapse-package-detail").on("click", function() {
             var packageName = $(this).attr("data-package-name");
             var callapseKey = $(this).attr("data-collapse-key");
             var collapsible = document.getElementById(callapseKey);

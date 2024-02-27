@@ -18,7 +18,7 @@
     <span class="highlight">+{$data.extras|count}</span>
 {/if}
 {jq}
-$('.add-kaltura-media').click(function () {
+$('.add-kaltura-media').on("click", function () {
     var link = this;
     $("#bootstrap-modal").hide();
     $(this).serviceDialog({
@@ -46,7 +46,7 @@ $('.add-kaltura-media').click(function () {
     });
     return false;
 });
-$('.list-kaltura-media').click(function () {
+$('.list-kaltura-media').on("click", function () {
     var link = this;
     var $bsModal = $("#bootstrap-modal").hide();
     $(this).serviceDialog({

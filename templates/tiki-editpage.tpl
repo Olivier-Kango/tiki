@@ -34,7 +34,7 @@
             {self_link _icon_name="view" _class="previewBtn tips" _ajax="n" _title=":{tr}Preview your changes{/tr}"}
             {/self_link}
         </div>
-        {jq} $(".previewBtn").click(function(){
+        {jq} $(".previewBtn").on("click", function(){
             $("body > .popover").hide();
             auto_save('editwiki', autoSaveId);
             if ($('#autosave_preview:visible').length === 0) {

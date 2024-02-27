@@ -221,7 +221,7 @@ $('#source-form').each(function () {
             var row = $('<div class="mb-3 row ' + cl + '-arg">');
             row.append($('<label class="col-sm-3 col-form-label" for="' + name + '">').text(name));
             row.append($('<div class="col-sm-8 pt-2 overflow-hidden text-truncate" id="' + name + '">').text(value));
-            row.append($('<div class="col-sm-1">{{icon name='remove' iclass='text-danger'}}</div>').css('cursor', 'pointer').click(function () {
+            row.append($('<div class="col-sm-1">{{icon name='remove' iclass='text-danger'}}</div>').css('cursor', 'pointer').on("click", function () {
                 $(this).closest('div.row').remove();
                 return false;
             }));
@@ -295,7 +295,7 @@ $('#source-form').each(function () {
 
     reload();
 
-    $(form.save).click(function () {
+    $(form.save).on("click", function () {
         var data = {
             action: 'save',
             identifier: $(form.identifier).val(),
@@ -345,7 +345,7 @@ $('#source-form').each(function () {
         return false;
     });
 
-    $(form.delete).click(function () {
+    $(form.delete).on("click", function () {
         if (confirm(tr('Delete authentication?'))) {
             $.post($(form).attr('action'), {
                 action: 'delete',
@@ -362,14 +362,14 @@ $('#source-form').each(function () {
         }
     });
 
-    $(form.post_new_add).click(function () {
+    $(form.post_new_add).on("click", function () {
         addPostRow($(form.post_new_field).val(), $(form.post_new_value).val(), 'post');
         $(form.post_new_field).val('').focus();
         $(form.post_new_value).val('');
         return false;
     });
 
-    $(form.body_new_add).click(function () {
+    $(form.body_new_add).on("click", function () {
         addPostRow($(form.body_new_field).val(), $(form.body_new_value).val(), 'body');
         $(form.body_new_field).val('').focus();
         $(form.body_new_value).val('');

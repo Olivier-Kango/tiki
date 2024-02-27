@@ -88,7 +88,7 @@
 {if isset($tableparams.allowtableexpansion) && $tableparams.allowtableexpansion eq 'y'}
     {button href='javascript:void(0)' _type="primary" _class="btn btn-primary btn-sm table-expand-toggle" _icon_name="caret-square-right" _title="{tr}Expand table{/tr}"}
     {jq}
-        $(".table-expand-toggle").click(function(){
+        $(".table-expand-toggle").on("click", function(){
             var $this = $(this);
             if ( $this.data('expandStatus') != 'expanded' ) {
                 $this.data('expandStatus','expanded');

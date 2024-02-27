@@ -260,7 +260,7 @@ EOF;
                 editable:false'
             . $calcOff .
             '}));
-            $(\'a.generate-pdf\').click(function(){storeSortTable("#tiki_sheet' . $index . '",$("#tiki_sheet' . $index . '"))});
+            $(\'a.generate-pdf\').on("click", function(){storeSortTable("#tiki_sheet' . $index . '",$("#tiki_sheet' . $index . '"))});
             });'
         );
     }

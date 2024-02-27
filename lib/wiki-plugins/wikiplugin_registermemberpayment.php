@@ -132,20 +132,20 @@ $('<tr style="display: none;">\
     .insertBefore(submitBtnTr);
 
 $('#memberType$i')
-    .click(function() {
+    .on("click", function() {
         $('tr.grpMmbChk').next()
             .stop()
             .fadeToggle();
     })
-    .click();
+    .trigger("click");
 
 reg
     .bind('continueToPurchase', function() {
         pay.find('input[name="wp_member_users"]').val($('#memberRegister$i #name').val());
         pay.find('input[name="wp_member_periods"]').val($('#memberDuration$i').val());
-        pay.find('input:last').click();
+        pay.find('input:last').trigger("click");
     })
-    .find('input:last').click(function() {
+    .find('input:last').on("click", function() {
         var frmData = reg.find('form').serialize(),
             invokeRegistration = function() {
                 if (frmData) {

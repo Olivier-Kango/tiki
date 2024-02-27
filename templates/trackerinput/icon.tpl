@@ -32,7 +32,7 @@
             .each(function () {
                 var contents = $('.contents', this);
                 $('.buttons', this).buttonset();
-                $('.sections a', this).css('display', 'block').click(function () {
+                $('.sections a', this).css('display', 'block').on("click", function () {
                     contents.empty().append($('<img/>').attr('src', 'img/spinner.gif'));
                     if (jqxhr) {
                         jqxhr.abort();
@@ -44,7 +44,7 @@
                             var link = $(v.link);
                             link.attr('title', tr(v.title));
                             link.empty().append($('<img/>').attr('src', link.attr('href')));
-                            link.click(function () {
+                            link.on("click", function () {
                                 field.val($(this).attr('href'));
                                 icon.attr('src', $(this).attr('href'));
                                 selector.dialog('close');
@@ -56,9 +56,9 @@
                     });
                     return false;
                 });
-                $('.sections a:first', this).click();
+                $('.sections a:first', this).trigger("click");
             });
-        icon.click(function () {
+        icon.on("click", function () {
             selector.dialog('open');
         });
     });

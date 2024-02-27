@@ -196,14 +196,14 @@ $('#appframe .anchor').each(function () {
         .css('text-align', 'right')
         ;
 
-    $('.anchor-toggle', anchor).click(function () {
+    $('.anchor-toggle', anchor).on("click", function () {
         $('.anchor-head .label', anchor).toggle('fast');
         $('.anchor-content', anchor).toggle('fast');
         return false;
     });
 
     if (location.hash == "#" + $("img", anchor).attr("alt")) {
-        setTimeout( function() { $('.anchor-toggle', anchor).click(); }, 2000);
+        setTimeout( function() { $('.anchor-toggle', anchor).trigger("click"); }, 2000);
     }
 });
 

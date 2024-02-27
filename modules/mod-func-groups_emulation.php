@@ -88,7 +88,7 @@ function module_groups_emulation($mod_reference, $module_params)
     if (isset($allGroups) && $showallgroups == 'y') {
         $headerlib->add_js('$(function() {
             $("#module_' . $moduleId . ' #mge-all").hide();
-            $("#module_' . $moduleId . ' #mge-all-legend").click(function(){
+            $("#module_' . $moduleId . ' #mge-all-legend").on("click", function(){
                 $("#module_' . $moduleId . ' #mge-all").fadeToggle();
             });
         });');
@@ -96,7 +96,7 @@ function module_groups_emulation($mod_reference, $module_params)
     if ($showyourgroups == 'y') {
         $headerlib->add_js('$(function() {
             $("#module_' . $moduleId . ' #mge-mine").hide();
-            $("#module_' . $moduleId . ' #mge-mine-legend").click(function(){
+            $("#module_' . $moduleId . ' #mge-mine-legend").on("click", function(){
                 $("#module_' . $moduleId . ' #mge-mine").fadeToggle();
             });
         });');
@@ -104,7 +104,7 @@ function module_groups_emulation($mod_reference, $module_params)
     if ($groups_are_emulated == 'y') {
         $headerlib->add_js('$(function() {
             $("#module_' . $moduleId . ' #mge-emulated").hide();
-            $("#module_' . $moduleId . ' #mge-emulated-legend").click(function(){
+            $("#module_' . $moduleId . ' #mge-emulated-legend").on("click", function(){
                 $("#module_' . $moduleId . ' #mge-emulated").fadeToggle();
             });
         });');

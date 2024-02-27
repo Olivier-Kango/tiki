@@ -25,7 +25,7 @@
                     <br>{icon name='file' title='{tr}Pick a file{/tr}' onclick=$onclick class='btn btn-sm btn-primary'}
                 {elseif $param.type eq 'kaltura'}
                     {jq}
-$("#picker_{{$name|escape}}").parent().click(function () {
+$("#picker_{{$name|escape}}").parent().on("click", function () {
     $(this).serviceDialog({
         title: tr("Upload or record media"),
         width: 710,

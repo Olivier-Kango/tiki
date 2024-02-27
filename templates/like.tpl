@@ -12,7 +12,7 @@
 </span>
 
 {jq}
-    $(".like_button").click(function(e) {
+    $(".like_button").on("click", function(e) {
         e.preventDefault();
         var element = $(this);
         $.post($.service(

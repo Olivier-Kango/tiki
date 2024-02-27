@@ -34,7 +34,7 @@ class PopupLink extends Base
 
                     \$('#$block').hide();
 
-                    \$('#$linkId').click(function() {
+                    \$('#$linkId').on("click", function() {
                         var block = \$('#$block');
                         if ( block.css('display') == 'none' ) {
                             //var coord = \$(this).offset();

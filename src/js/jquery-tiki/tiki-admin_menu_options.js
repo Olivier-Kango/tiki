@@ -243,7 +243,7 @@ $(function () {
         $("#col1").tikiModal();
 
 
-        $(".deploy_menu").click(function () {
+        $(".deploy_menu").on("click", function () {
 
             window.showModuleEditForm (null, {
                 modName: "menu",
@@ -272,7 +272,7 @@ $(function () {
         }
     });
 
-    $("a.confirm").click(function () {
+    $("a.confirm").on("click", function () {
         if (dirty) {
             if (confirm(tr("You have unsaved changes to your menu, are you sure you want to continue?"))) {
                 dirty = false;
@@ -284,7 +284,7 @@ $(function () {
         return true;
     });
 
-    $(".save_menu").click(function () {
+    $(".save_menu").on("click", function () {
         var lisArr = $('#options li').toArray();
         var parentIds = lisArr.map(el => $(el).data('parent')).filter(val => val > 0);
         var dataArr = [];

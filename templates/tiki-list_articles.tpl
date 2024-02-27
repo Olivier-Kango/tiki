@@ -260,7 +260,7 @@
         }
     });
 
-    $("#submit_mult").click(function(){
+    $("#submit_mult").on("click", function(){
         if ($('.checkboxes:checked').length > 0) {
             confirmPopup("Are you sure you want to permanently remove these "+$('.checkboxes:checked').length+" articles?");
         }

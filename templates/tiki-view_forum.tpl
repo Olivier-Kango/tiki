@@ -280,7 +280,7 @@
 
                             showDeliberationItemRating(me, btn, input, ratings);
 
-                            btn.click(function() {
+                            btn.on("click", function() {
 
 
                                 ratings
@@ -289,7 +289,7 @@
                                     },function() {
                                         $(this).removeClass('ui-statue-hover');
                                     })
-                                    .click(function() {
+                                    .on("click", function() {
                                         ratings.removeClass('ui-state-highlight');
                                             $(this).addClass('ui-state-highlight');
                                     });
@@ -329,7 +329,7 @@
                             .trigger("change");
 
                         var itemMaster;
-                        $('.forum_deliberation_add_item').click(function() {
+                        $('.forum_deliberation_add_item').on("click", function() {
                             var thisItem;
                             if (!itemMaster) {
                                 $.tikiModal(tr('Loading...'));

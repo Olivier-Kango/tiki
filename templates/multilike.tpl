@@ -59,7 +59,7 @@
 {if $show_in_popup}
     </div>
     {jq}
-        $('a.btn-multilike').click(function(){
+        $('a.btn-multilike').on("click", function(){
             $(this).popover({
                 content: $($(this).data('target')),
                 placement: $(this).data('placement'),

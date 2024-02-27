@@ -39,7 +39,7 @@ function module_adminbar($mod_reference, $module_params)
 
     $headerlib->add_js('$(function() {
             $(function() {
-                $(".js-admin-bar").click(function() {
+                $(".js-admin-bar").on("click", function() {
                     $(\'.js-sliding-panel-admin-bar\').toggleClass("open");
                     $(\'.js-sliding-panel-admin-bar\').toggleClass("invisible");
                     $(\'header.page-header\').toggleClass("has-admin-bar-sliding-panel");
@@ -48,7 +48,7 @@ function module_adminbar($mod_reference, $module_params)
                 });
             });
             $(function() {
-                $(".navbar-toggler").click(function() {
+                $(".navbar-toggler").on("click", function() {
                     $(\'.navbar-toggler\').toggleClass("open");
                     $(\'.navbar-toggler\').toggleClass("invisible");
                 });

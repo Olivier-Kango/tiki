@@ -233,7 +233,7 @@
             });
         });
 
-    $("a#toggle_diffs").click(function(e){
+    $("a#toggle_diffs").on("click", function(e){
         if ($(this).text() == "{tr}Advanced{/tr}") {
             $(this).text("{tr}Simple{/tr}");
             if (jqueryTiki.select2) {
@@ -266,7 +266,7 @@
             $("#diff_style_simple").next(".select2-container").hide();
         }
     }
-    {{if $diff_style neq "htmldiff" and $diff_style neq "sidediff"}$("#toggle_diffs a").click();{/if}}
+    {{if $diff_style neq "htmldiff" and $diff_style neq "sidediff"}$("#toggle_diffs a").trigger("click");{/if}}
                         {/jq}
                     {/if}
                 </div>

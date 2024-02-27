@@ -274,10 +274,10 @@ if (isset($_REQUEST['raw'])) {
 
     $jsFunctionality =
         "$('#drawFullscreen')
-        .click(function() {
+        .on('click', function() {
             $('#tiki_draw').drawFullscreen();
         })
-        .click();
+        .trigger('click');
 
     $('#tiki_draw')
         .loadDraw({
@@ -291,7 +291,7 @@ if (isset($_REQUEST['raw'])) {
             $('.pagetitle').text(name);
         });
 
-    $('#drawBack').click(function() {
+    $('#drawBack').on('click', function() {
         window.history.back();
     });";
 }

@@ -17,7 +17,7 @@
                 var list = this;
                 $(this).sortList();
 
-                $(this).parent().find('.toggle').click(function () {
+                $(this).parent().find('.toggle').on("click", function () {
                     $(list).toggle();
                     return false;
                 }).each(function () {

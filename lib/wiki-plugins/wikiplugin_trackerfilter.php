@@ -439,7 +439,7 @@ function wikiplugin_trackerfilter($data, $params)
     if ($first) {
         $first = false;
         $headerlib->add_jq_onready(
-            '$("a.prevnext", "#trackerFilter' . $iTrackerFilter . ' + .trackerfilter-result").click( function( e ) {
+            '$("a.prevnext", "#trackerFilter' . $iTrackerFilter . ' + .trackerfilter-result").on("click", function( e ) {
                 e.preventDefault();
                 $("#trackerFilter' . $iTrackerFilter . ' form")
                 .attr("action", $(this).attr("href"))

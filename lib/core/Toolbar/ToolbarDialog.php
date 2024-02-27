@@ -348,7 +348,7 @@ class ToolbarDialog extends ToolbarItem
             return json_encode($item);
         } elseif (in_array($this->name, ['tikilink'])) {
             \TikiLib::lib('header')->add_jq_onready(
-                "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').click(function () {
+                "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').on('click', function () {
                         {$this->getOnClick()}
                     }).get(0);"
             );

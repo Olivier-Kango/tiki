@@ -1016,7 +1016,7 @@
                         {tr}Are you upgrading an existing Tiki site?{/tr}
                         {tr}Go directly to the <strong>Install/Upgrade</strong> step.{/tr}
                         {if $dbcon eq 'y' or isset($smarty.post.scratch) or isset($smarty.post.update)}
-                            {icon name="next" href="#" onclick="$('[name=install_step][value=4]').prop('disabled', false).click();return false;" title="{tr}Install/Upgrade{/tr}"}
+                            {icon name="next" href="#" onclick="$('[name=install_step][value=4]').prop('disabled', false).trigger('click');return false;" title="{tr}Install/Upgrade{/tr}"}
                         {/if}
                         {/remarksbox}
                     </div>

@@ -44,7 +44,7 @@
     </tr>
     {* Not sure why this JQuery is needed again since it's in include_score.tpl, but it doesn't appear to wokr without it*}
     {jq}
-        $('.delete-row').click(function(ev) {
+        $('.delete-row').on("click", function(ev) {
         ev.preventDefault();
         var currentRow = $(this).closest('.condition-row');
         if ($(currentRow).siblings('.condition-row').length > 0) {

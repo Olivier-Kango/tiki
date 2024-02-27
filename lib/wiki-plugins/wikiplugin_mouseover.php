@@ -286,7 +286,7 @@ function wikiplugin_mouseover($data, $params)
     showJQ('#$id', '$effect', '$speed'); $closeDelayStr });
 ";
     if ($sticky) {
-        $js .= "\$('#$id').click(function(event) { hideJQ('#$id', '$effect', '$speed'); }).css('cursor','pointer');\n";
+        $js .= "\$('#$id').on('click', function(event) { hideJQ('#$id', '$effect', '$speed'); }).css('cursor','pointer');\n";
     } else {
         $js .= "\$('#$id-link').mouseout(function(event) { setTimeout(function() {hideJQ('#$id', '$effect', '$speed')}, " . ($closeDelay * 1000) . "); });";
     }

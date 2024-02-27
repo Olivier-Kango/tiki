@@ -12,7 +12,7 @@
                 {/if}
                 {button href=$data.editUrl _text=$label _id='calitem_'|cat:$field.fieldId _class='btn btn-primary btn-sm'}
                 {jq}
-                    $('#calitem_{{$field.fieldId}}').click($.clickModal(
+                    $('#calitem_{{$field.fieldId}}').on("click", $.clickModal(
                         {
                             size: "modal-lg",
                             open: function (data) {

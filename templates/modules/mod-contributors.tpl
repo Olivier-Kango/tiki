@@ -16,7 +16,7 @@
     $('div.contributors').each(function() {
         $(this).children('div:gt(4)').hide();
     });
-    $('div.contributors > a').click(function() {
+    $('div.contributors > a').on("click", function() {
         $(this).siblings('div').show();
         $(this).hide();
         return false;

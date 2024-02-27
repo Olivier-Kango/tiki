@@ -237,7 +237,7 @@
 {/tabset}
 {if empty($referenceinfo.biblio_code)}
     {jq}
-        $('#add_ref_auto_biblio_code').click(function(){
+        $('#add_ref_auto_biblio_code').on("click", function(){
         if ($('#add_ref_auto_biblio_code').is(':checked')) {
         $('#ref_biblio_code_block').hide();
         $('#ref_biblio_code').val('');

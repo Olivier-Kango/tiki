@@ -42,7 +42,7 @@ $(function() {
             new Sortable(el, sortableOptions);
         });
 
-        $(".flip-children", ".admintoc").click(function (event)  {
+        $(".flip-children", ".admintoc").on("click", function (event)  {
             const $this = $(this),
                 $children = $this.parents("li.admintoclevel:first").find("ol.admintoc" + ( event.altKey ? "" : ":first")).parent();
 
@@ -109,7 +109,7 @@ $(function() {
 
     setupStructure();
 
-    $(".save_structure").click(function(){
+    $(".save_structure").on("click", function(){
 
         const $sortable = $(this).parent().find(".admintoc:first");
         $sortable.tikiModal(tr("Saving..."));
@@ -170,7 +170,7 @@ $(function() {
         return false;
     });
 
-    $(".add_new_child_page").click(function(){
+    $(".add_new_child_page").on("click", function(){
         let id = $(this).parents(".admintoclevel:first").attr("id").match(/\d*$/);
         if (id) {
             id = id[0];
@@ -184,7 +184,7 @@ $(function() {
         return false;
     });
 
-    $(".move_page").click(function() {
+    $(".move_page").on("click", function() {
         let id = $(this).parents(".admintoclevel:first").attr("id").match(/\d*$/);
         if (id) {
             id = id[0];

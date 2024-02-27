@@ -13,7 +13,7 @@ var use_references = '{$use_references}';
 {jq}
 jQuery(function(){
 
-    jQuery('#e_submit').click(function(e){
+    jQuery('#e_submit').on("click", function(e){
         e.preventDefault();
 
         var dataString = dataMain+'&action=e_ref';
@@ -73,7 +73,7 @@ jQuery(function(){
         });
     });
 
-    jQuery('#a_submit').click(function(e){
+    jQuery('#a_submit').on("click", function(e){
         e.preventDefault();
 
         var ref_biblio_code = jQuery('#e_ref_biblio_code').val();
@@ -148,7 +148,7 @@ jQuery(function(){
         });
     });
 
-    jQuery('#e_cancel, #a_cancel').click(function(){
+    jQuery('#e_cancel, #a_cancel').on("click", function(){
         jQuery('#ref_edit_block').hide();
         jQuery('#ref_list').find('li').css('font-weight','normal');
     });
@@ -158,7 +158,7 @@ jQuery(function(){
         jQuery(this).parent().css('font-weight','bold');
     });
 
-    jQuery('#u_lib').click(function(e){
+    jQuery('#u_lib').on("click", function(e){
         e.preventDefault();
 
         var ref_id = jQuery('#lib_ref').val();

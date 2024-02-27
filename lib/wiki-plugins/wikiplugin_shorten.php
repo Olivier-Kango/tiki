@@ -123,7 +123,7 @@ function wikiplugin_shorten($data, $params)
                 . 'var $btn_more = $sample.find(".btn_more:first");'
                 . 'var $btn_less = $content.find(".btn_less:last");'
 
-                . '$btn_more.click(function(){'
+                . '$btn_more.on("click", function(){'
                 . '$sample.hide();'
                 . '$btn_more.hide();'
                 . '$btn_less.show();'
@@ -131,7 +131,7 @@ function wikiplugin_shorten($data, $params)
                 . 'return false;'
                 . '});'
 
-                . '$btn_less.click(function(){'
+                . '$btn_less.on("click", function(){'
                 . '$sample.show();'
                 . '$btn_less.hide();'
                 . '$btn_more.show();'

@@ -171,7 +171,7 @@
 {/if}
 
 {jq}
-    $('a.attach_detach_translation').click(function() {
+    $('a.attach_detach_translation').on("click", function() {
         var object_type = $(this).data('object_type');
         var object_to_translate = $(this).data('object_id');
         $(this).serviceDialog({

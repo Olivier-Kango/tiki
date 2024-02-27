@@ -15,7 +15,7 @@
     <input type="hidden" name="objId" value="{$objId|escape}">
     <input type="hidden" name="offset" value="{$freetags_offset|escape}">
 {jq}
-$('#scblink').click(function(e){
+$('#scblink').on("click", function(e){
     e.preventDefault();
     var table = document.getElementById( 'tagtranslationtable' );
     var list = table.getElementsByTagName( 'input' );

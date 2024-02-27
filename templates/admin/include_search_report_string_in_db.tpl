@@ -34,7 +34,7 @@
         </div>
     </div>
     {jq}
-        $('#string_in_db_search_button').click(function () {
+        $('#string_in_db_search_button').on("click", function () {
             var string_in_db_search = $('#string_in_db_search').val();
             if( string_in_db_search == '')
             {
@@ -47,7 +47,7 @@
             var key = e.which;
             if(key == 13)  // the enter key code
             {
-                $('#string_in_db_search_button').click();
+                $('#string_in_db_search_button').trigger("click");
                 return false;
             }
         });

@@ -1,5 +1,5 @@
 {jq}
-    $("#genPass").click(function () {
+    $("#genPass").on("click", function () {
         var passcodeId = $("input[name=registerPasscode]").attr('id');
         genPass(passcodeId);
         return false

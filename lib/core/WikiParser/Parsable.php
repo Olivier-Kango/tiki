@@ -294,7 +294,7 @@ class WikiParser_Parsable extends ParserLib
                 $headerlib->add_js(
                     "\$(function() {
 if ( \$('#$id') ) {
-\$('#$id').click( function(event) {
+\$('#$id').on('click', function(event) {
     popupPluginForm("
                     . json_encode('editwiki')
                     . ', '

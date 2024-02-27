@@ -30,7 +30,7 @@
     </div>
 
     {jq}
-        $('.notification-container .clearall').click(function (e) {
+        $('.notification-container .clearall').on("click", function (e) {
             e.preventDefault();
             $.post($(this).attr('href'));
             var $parent = $(this).closest('.notification-container');
@@ -48,7 +48,7 @@
             $('#notification-link').trigger('clear-all.monitor.tiki');
         });
 
-        $('.notification-container .close').click(function (e) {
+        $('.notification-container .close').on("click", function (e) {
             e.preventDefault();
             $(this).parent().slideUp('fast');
             $.post($(this).attr('href'));

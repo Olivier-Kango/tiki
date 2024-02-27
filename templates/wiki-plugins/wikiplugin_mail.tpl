@@ -134,13 +134,13 @@
 {/if}
 
 {jq}
-    $("input[name='sendmailload{{$ipluginmail}}']").click(function() {
+    $("input[name='sendmailload{{$ipluginmail}}']").on("click", function() {
         $.colorbox({overlayClose: true, width:"620px", inline:true, href:"#wikiplugin_mail"});
         return false;
     });
 
     {{if $bypass_preview == 'y' && $mail_popup == 'y'}}
-    $("input[name='mail_send{{$ipluginmail}}']").click(function() {
+    $("input[name='mail_send{{$ipluginmail}}']").on("click", function() {
         if ($("textarea#mail_mess{{$ipluginmail}}").val()) {
             var mailform = $(this).closest('form');
             mailform.tikiModal("{tr}Please wait while your email is being sent...{/tr}");

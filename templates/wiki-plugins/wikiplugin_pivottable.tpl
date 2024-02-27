@@ -131,7 +131,7 @@
         stickyTableHeaders({{$pivottable.id|json_encode}}, {{$pivottable.allowStickyHeaders|json_encode}})
     });
     //adding bind call for pdf creation
-    $('a.generate-pdf').click(function(){
+    $('a.generate-pdf').on("click", function(){
         storeSortTable('#container_{{$pivottable.id}}',$('#container_{{$pivottable.id}}').find(".pvtRendererArea"))
     });
 {/jq}

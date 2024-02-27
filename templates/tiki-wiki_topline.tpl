@@ -160,7 +160,7 @@
                                         {assign var="hasPageAction" value="1"}</a>
                                 {if $prefs.wiki_edit_icons_toggle eq 'y' and ($prefs.wiki_edit_plugin eq 'y' or $prefs.wiki_edit_section eq 'y')}
                                     {jq}
-                                        $("#wiki_plugin_edit_view").click( function () {
+                                        $("#wiki_plugin_edit_view").on("click", function () {
                                         var $icon = $("#wiki_plugin_edit_view");
                                         var $toggleOnIcon = '{{icon iclass="toggle-icon" name="toggle-on"}}';
                                         var $toggleOffIcon = '{{icon iclass="toggle-icon" name="toggle-off"}}';
@@ -177,7 +177,7 @@
                                         }
                                         return false;
                                         });
-                                        if (!getCookie("wiki_plugin_edit_view")) {$(".editplugin, .icon_edit_section").hide(); } else { $("#wiki_plugin_edit_view").click(); }
+                                        if (!getCookie("wiki_plugin_edit_view")) {$(".editplugin, .icon_edit_section").hide(); } else { $("#wiki_plugin_edit_view").trigger("click"); }
                                     {/jq}
                                     <a class="dropdown-item" href="#" id="wiki_plugin_edit_view" title="{tr}Click to toggle on/off{/tr}">
                                         <span class="align-items-center text-with-toggle"><span class="text">{icon name='plugin' iclass="d-inline"} <span class="mx-1">{tr}Edit icons{/tr}</span> </span> {icon iclass="toggle-icon" name="toggle-off"}</span>
@@ -188,7 +188,7 @@
                             {if ($tiki_p_edit eq 'y' or $tiki_p_edit_inline eq 'y' or $page|lower eq 'sandbox') and $beingEdited ne 'y' and $machine_translate_to_lang eq ''}
                                 {if $prefs.wysiwyg_inline_editing eq 'y' and $prefs.feature_wysiwyg eq 'y'}
                                     {jq}
-                                        $("#wysiwyg_inline_edit").click( function () {
+                                        $("#wysiwyg_inline_edit").on("click", function () {
                                         var $icon = $("#wysiwyg_inline_edit");
                                         var $toggleOnIcon = '{{icon iclass="toggle-icon" name="toggle-on"}}';
                                         var $toggleOffIcon = '{{icon iclass="toggle-icon" name="toggle-off"}}';
@@ -205,7 +205,7 @@
                                         }
                                         return false;
                                         });
-                                        if (getCookie("wysiwyg_inline_edit", "preview")) { $("#wysiwyg_inline_edit").click(); }
+                                        if (getCookie("wysiwyg_inline_edit", "preview")) { $("#wysiwyg_inline_edit").trigger("click"); }
                                     {/jq}
                                     <a class="dropdown-item" href="#" id="wysiwyg_inline_edit" title="{tr}Click to toggle on/off{/tr}">
                                             <span class="d-flex align-items-center text-with-toggle"><span class="text flex-fill me-3">{icon name='edit'} {tr}Inline edit{/tr} ({tr}Wysiwyg{/tr})</span> {icon iclass="toggle-icon" name="toggle-off"}</span>

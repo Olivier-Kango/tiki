@@ -92,21 +92,21 @@
         </div>
     </div>
     <script type="application/javascript">
-        $('#plugin_addreference_button').click(function(){
+        $('#plugin_addreference_button').on("click", function(){
             var block = $('#add_reference_block');
             if (!block.is(':visible')){
                 block.find('input').val('');
             }
             block.toggle();
         });
-        $('#add_ref_auto_biblio_code').click(function(){
+        $('#add_ref_auto_biblio_code').on("click", function(){
             if ($('#add_ref_auto_biblio_code').is(':checked')) {
                 $('#add_biblio_form').hide();
             } else {
                 $('#add_biblio_form').show();
             }
         });
-        $('#add_reference_submit').click(function(e){
+        $('#add_reference_submit').on("click", function(e){
             e.preventDefault();
 
             var ticket = "{ticket mode='get'}";

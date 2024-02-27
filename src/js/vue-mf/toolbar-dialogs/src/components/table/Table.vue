@@ -86,7 +86,7 @@ function _shown() {
     }
     // click the align buttons to set the input alignments
     setTimeout(function () {
-        $(".text-primary", tableBuilderTable.value).click()
+        $(".text-primary", tableBuilderTable.value).trigger("click")
     }, 10)
 }
 

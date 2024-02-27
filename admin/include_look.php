@@ -873,7 +873,7 @@ function add_custom_mode(container){
     return false;
 }
 
-$('#cm-action-off-canvas .close-cm-canvas').click(function(){
+$('#cm-action-off-canvas .close-cm-canvas').on("click", function(){
     $("#cm-action-off-canvas").animate({right:'-100vw'},500);
 })
 

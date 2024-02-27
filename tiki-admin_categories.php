@@ -511,7 +511,7 @@ foreach ($categories as $category) {
 
             $headerlib->add_jq_onready(
                 /** @lang JavaScript */
-                '$(".object-count").click(function () {
+                '$(".object-count").on("click", function () {
                     let $this = $(this).tikiModal("*");
                     $.getJSON(
                         $.service("search", "lookup"),
@@ -528,7 +528,7 @@ foreach ($categories as $category) {
                         	$this.parent().find("ul .object-count").eachAsync({
                                 bulk: 10,
                                 delay: 500,
-                                loop: function() { $(this).click(); }
+                                loop: function() { $(this).trigger("click"); }
                             });
                         });
                 });

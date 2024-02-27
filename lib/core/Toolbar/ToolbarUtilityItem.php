@@ -16,7 +16,7 @@ abstract class ToolbarUtilityItem extends ToolbarItem
     {
         if (! empty($this->markdown_wysiwyg)) {
             \TikiLib::lib('header')->add_jq_onready(
-                "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').click(function () {
+                "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').on('click', function () {
                         {$this->getOnClick()}
                     }).get(0);"
             );

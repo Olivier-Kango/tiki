@@ -16,7 +16,7 @@ $.fn.addFullCalendarPrint = function (buttonId, calendar){
     $(buttonId).show();
     // We need to remove previoud binds to avoid $(".icon-pdf").parent() to trigger page to PDF
     $(buttonId).off("click");
-    $(buttonId).click(function (event) {
+    $(buttonId).on("click", function (event) {
         event.preventDefault();
         var elementToPrint = $(calendarId + " .fc-view");
         $("html, body").animate({ scrollTop: 0 }, 0);

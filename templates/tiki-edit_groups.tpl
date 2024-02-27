@@ -45,7 +45,7 @@
 </table>
 {jq}
 
-    $(".edit_group_a").click(function($ele){
+    $(".edit_group_a").on("click", function($ele){
     var $dialog = $( "#modal_edit_group" );
     $dialog.appendTo("body").modal({backdrop:"static"});
     var id = $(this).data('id');

@@ -71,7 +71,7 @@
         var iconInput = null;
 
         // Click function to set which input is being used
-        $('.picker-button').click(function() {
+        $('.picker-button').on("click", function() {
 
             $('#iconPicker').modal('show');
 
@@ -89,7 +89,7 @@
         });
 
         // Update icon input
-        $('#change-icon').click(function() {
+        $('#change-icon').on("click", function() {
             $('#iconPicker').modal('hide');
         });
 
@@ -101,17 +101,17 @@
             }
         }
 
-        $('.picker-button').click(function() {
+        $('.picker-button').on("click", function() {
 
             $('#iconPicker').modal('show');
 
         });
         var menuicon=$('#mod-menuleft1 ul li a span');
         var element='';
-        menuicon.click(function () {
+        menuicon.on("click", function () {
             var el1=$(this);
             var iconel=$('.icon-picker-list li');
-            iconel.click(function(){
+            iconel.on("click", function(){
                 var optionid=el1.attr('data-id');
                 var icon=$.trim($(this).text());
                 var iconupdated=icon.replace("fas fa-","");

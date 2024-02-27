@@ -93,7 +93,7 @@
 {/if}
 
 {jq}
-    $('.form-check-input').click(function () {
+    $('.form-check-input').on("click", function () {
         var type = $(this).attr("name");
         var object = $(this).attr("id");
         $.post("tiki-ajax_services.php", {

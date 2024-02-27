@@ -82,7 +82,7 @@
                                 </a>
                             </li>
                             {jq}
-                                $('.import.dialog').click(function () {
+                                $('.import.dialog').on("click", function () {
                                     var link = this;
                                     $(this).serviceDialog({
                                         title: '{tr}Import{/tr}',
@@ -103,7 +103,7 @@
                                 </a>
                             </li>
                             {jq}
-                                $('.export.dialog').click(function () {
+                                $('.export.dialog').on("click", function () {
                                     var link = this;
                                     $(this).serviceDialog({
                                         title: '{tr}Export{/tr}',

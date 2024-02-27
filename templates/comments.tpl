@@ -298,7 +298,7 @@
                             {/if}
                             {if $prefs.ajax_edit_previews eq 'n'}
                                 <input type="submit" class="btn btn-primary btn-sm" name="comments_previewComment" id="comments_previewComment" value="{tr}Preview{/tr}">
-                                {jq}$("#comments_previewComment").click(function () {
+                                {jq}$("#comments_previewComment").on("click", function () {
                                     if ($("#userfile1").val()) {
                                         alert("{tr}Please note that the preview does not keep the attached file which you will have to choose before posting.{/tr}");
                                     }

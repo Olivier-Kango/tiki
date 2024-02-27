@@ -413,7 +413,7 @@
             </div>
         </form>
         {jq}
-$("#module_list_show_all").click(function(){
+$("#module_list_show_all").on("click", function(){
     $("#module_list li.disabled").toggle($(this).prop("checked"));
 });
         {/jq}

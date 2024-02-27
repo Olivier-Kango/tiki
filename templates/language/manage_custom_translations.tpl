@@ -107,7 +107,7 @@
             <input type="submit" class="btn btn-primary" name="custom_save" value="{tr}Save{/tr}" />
         </div>
         {jq}
-            $('#add_row').click(function() {
+            $('#add_row').on("click", function() {
             $('#custom_translations_table tbody').append('<tr><td><input type="text" name="from[]" class="form-control" placeholder="{tr}Text{/tr}..."/></td><td><input type="text" name="to[]" class="form-control" placeholder="{tr}Translation text{/tr}..."/></td></tr>');
             });
         {/jq}

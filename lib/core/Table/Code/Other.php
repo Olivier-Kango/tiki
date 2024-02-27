@@ -49,7 +49,7 @@ class Table_Code_Other extends Table_Code_Manager
             if ($s['type'] === 'savereset') {
                 $sr = '.trigger(\'saveSortReset\')';
             }
-            $jq[] = '$(\'button#' . $s['reset']['id'] . '\').click(function(){$(\'' . parent::$tid
+            $jq[] = '$(\'button#' . $s['reset']['id'] . '\').on("click", function(){$(\'' . parent::$tid
                 . '\').trigger(\'sortReset\')' . $sr . ';});';
             $buttons[] = '<button id="' . $s['reset']['id']
                 . '" type="button" class="btn btn-primary btn-sm tips" title=":' . $s['reset']['text']
@@ -61,7 +61,7 @@ class Table_Code_Other extends Table_Code_Manager
             $buttons[] = '<button id="' . parent::$s['output']['button']['id']
                 . '" type="button" class="btn btn-primary btn-sm tips" title="|' . parent::$s['output']['button']['text']
                 . '" style="margin-right:3px">' . smarty_function_icon(['name' => 'download'], $smarty->getEmptyInternalTemplate()) . '</button>';
-            $jq[] = '$(\'button#' . parent::$s['output']['button']['id'] . '\').click('
+            $jq[] = '$(\'button#' . parent::$s['output']['button']['id'] . '\').on("click", '
                 . $this->nt2 . 'function(){$(\'' . parent::$tid . '\').trigger(\'outputTable\');}'
                 . $this->nt . ');';
         }
@@ -113,7 +113,7 @@ class Table_Code_Other extends Table_Code_Manager
                     if ($f['type'] === 'reset' && count($reset) > 0) {
                         $jq[] = $this->iterate(
                             $reset,
-                            '$(\'#' . $f['reset']['id'] . '\').click(function(){',
+                            '$(\'#' . $f['reset']['id'] . '\').on("click", function(){',
                             $this->nt . '});',
                             $this->nt2,
                             '',

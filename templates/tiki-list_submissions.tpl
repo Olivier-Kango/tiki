@@ -195,7 +195,7 @@
         }
     });
 
-    $("#submit_mult").click(function(){
+    $("#submit_mult").on("click", function(){
         if ($('.checkboxes:checked').length > 0) {
             var action = $('#submit_mult_action').val()
             if (action == "remove_subs") {

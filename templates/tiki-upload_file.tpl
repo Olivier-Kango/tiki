@@ -580,7 +580,7 @@
 var defaultx= $("#image_max_size_x").attr('value');
 var defaulty= $("#image_max_size_y").attr('value');
 
-$("#imagesize").click(function () {
+$("#imagesize").on("click", function () {
     if ($(this).prop("checked")) {
         $("#customsize").css("display", "none");
         //resetting size to default

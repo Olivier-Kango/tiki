@@ -167,7 +167,7 @@ function wikiplugin_fade($body, $params)
     } else {
         $jq = '
                 $(function() {
-                    $(\'#' . $unique_link . '\').click(
+                    $(\'#' . $unique_link . '\').on("click", 
                         function() {
                             if ( $(\'#' . $unique . '\').is(":hidden") ) {
                                 $(\'#' . $unique . '\').show(\'blind\', {}, \'' . $params['show_speed'] . '\');

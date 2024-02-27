@@ -70,7 +70,7 @@
         width: 675,
         zIndex: 1005
     });
-    $("#{{$id_link}}").click(function() {
+    $("#{{$id_link}}").on("click", function() {
         $("#{{$id}}").tabs({
             heightStyle: "content",
             collapsible: true

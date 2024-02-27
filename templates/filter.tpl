@@ -197,7 +197,7 @@
             }
         });
 
-        $('.category-lookup', this).click(function () {
+        $('.category-lookup', this).on("click", function () {
             categoryPicker.dialog('open');
             return false;
         });
@@ -208,7 +208,7 @@
             map: {{$filter_tagmap}}
         });
 
-        $('.tag-picker a', this).click(function () {
+        $('.tag-picker a', this).on("click", function () {
             $(this).toggleClass('highlight');
 
             return false;
@@ -237,7 +237,7 @@
             }
         });
 
-        $('.tag-lookup', this).click(function () {
+        $('.tag-lookup', this).on("click", function () {
             tagPicker.dialog('open');
             return false;
         });
@@ -263,7 +263,7 @@
             $(".icon", $invert).setIcon($(this).val().search(/desc$/) > -1 ? "sort-down" : "sort-up");
         });
 
-        $invert.click(function () {    // change the value of the option to opposite direction
+        $invert.on("click", function () {    // change the value of the option to opposite direction
             var v = $sort_mode.prop("options")[$sort_mode.prop("selectedIndex")].value;
             if (v.search(/desc$/) > -1) {
                 $sort_mode.prop("options")[$sort_mode.prop("selectedIndex")].value = v.replace(/desc$/, "asc");

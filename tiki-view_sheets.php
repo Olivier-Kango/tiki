@@ -235,13 +235,13 @@ $headerlib->add_jq_onready(
                 });
 
                 $("#edit_button a")
-                    .click(function() {
+                    .on("click", function() {
                         $.sheet.manageState(true, "edit");
                         return false;
                     });
 
                 $("#save_button a")
-                    .click( function () {
+                    .on("click", function () {
                         $.sheet.saveSheet(function() {
                             $.sheet.manageState(true);
                         });
@@ -250,7 +250,7 @@ $headerlib->add_jq_onready(
                     });
 
                 $("#cancel_button")
-                    .click(function() {
+                    .on("click", function() {
                         $.sheet.manageState(true);
                         return false;
                     });'

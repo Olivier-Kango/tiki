@@ -353,7 +353,7 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
 
                 if ($prefs['userTracker'] === 'y' && ! empty($_REQUEST['insert_user_tracker_item'])) {
                     // FIXME
-                    TikiLib::lib('header')->add_jq_onready('setTimeout(function () { $(".insert-usertracker").click(); });');
+                    TikiLib::lib('header')->add_jq_onready('setTimeout(function () { $(".insert-usertracker").trigger("click"); });');
                     $_REQUEST['user'] = $userlib->get_user_id($_REQUEST['login']);
                     $cookietab = 2;
                 } else {

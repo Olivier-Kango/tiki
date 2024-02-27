@@ -181,7 +181,7 @@ class ObjectLink extends Base
 
             \TikiLib::lib('header')->add_js(
                 '
-                $(".file-refresh").removeClass("file-refresh").click(function () {
+                $(".file-refresh").removeClass("file-refresh").on("click", function () {
                 $.getJSON($(this).attr("href"));
                 $(this).remove();
                 return false;

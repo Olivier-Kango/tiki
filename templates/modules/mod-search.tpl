@@ -114,7 +114,7 @@ $(".search_mod_magnifier").mouseover( function () {
         .mouseleave( function () {
             $(this).hide('fast');
         });
-}).click( function () {
+}).on("click", function () {
     $(this).parents("form").submit();
 });
 $("#search_mod_input_{{$search_mod_usage_counter}}")

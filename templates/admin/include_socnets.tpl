@@ -98,7 +98,7 @@
  $("._else_loginEnabled").hide();
 
  var chev = $(".socbutton");
- chev.click(function (ev){
+ chev.on("click", function (ev){
      var allclass = $(ev.target).attr('class');
      var netname1 = allclass.split(' ')[0];
      var cl2 = $(this).children('.fa');

@@ -21,7 +21,7 @@
     {if $allowtableexpansion eq 'y'}
         <button title="{tr}Expand table{/tr}" class="btn btn-primary btn-sm table-expand-toggle" type="button" ><span class="icon far fa-caret-square-right fa-fw "></span></button>
         {jq}
-            $(".table-expand-toggle").click(function(){
+            $(".table-expand-toggle").on("click", function(){
                 var $this = $(this);
                 if ( $this.data('expandStatus') != 'expanded' ) {
                     $this.data('expandStatus','expanded');
@@ -104,13 +104,13 @@
                             $(this).find('.tracker-resize').show();
                         }
                     });
-                    $('.tracker-resize-expand').click(function() {
+                    $('.tracker-resize-expand').on("click", function() {
                         var selector = $(this).closest('.ts-wrapperdiv').find('.table-responsive');
                         selector.addClass('enlarge');
                         $(this).parent().find('.tracker-resize-compress').show();
                         $(this).hide();
                     });
-                    $('.tracker-resize-compress').click(function() {
+                    $('.tracker-resize-compress').on("click", function() {
                         var selector = $(this).closest('.ts-wrapperdiv').find('.table-responsive');
                         selector.removeClass('enlarge');
                         $(this).parent().find('.tracker-resize-expand').show();
@@ -282,7 +282,7 @@ the section loop so that the vars are not replaced by nested pretty tracker exec
     {if $export eq 'y' && ($perms.tiki_p_admin_trackers eq 'y' || $perms.tiki_p_export_tracker eq 'y')}
         {button href=$exportUrl _text="{tr}Export{/tr}" _class='exportButton'}
         {jq}
-            $('.exportButton a').click(function() {
+            $('.exportButton a').on("click", function() {
                 $(this).serviceDialog({
                     title: '{tr}Export Tracker{/tr}'
                 });

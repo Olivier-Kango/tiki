@@ -48,7 +48,7 @@
             item.append(
                 $('{{icon name='delete'}}')
                     .css('cursor', 'pointer')
-                    .click(function () {
+                    .on("click", function () {
                         $(this).closest('li').remove();
                     })
             );
@@ -82,11 +82,11 @@
         urlField.keypress(function (e) {
             if (e.which == 13) {
                 e.preventDefault();
-                add.click();
+                add.trigger("click");
             }
         });
 
-        add.click(function (e) {
+        add.on("click", function (e) {
             e.preventDefault();
 
             var url = urlField.val(), button = this;

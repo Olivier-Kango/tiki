@@ -164,7 +164,7 @@
                     <a href="{service controller=translation action=manage type=trackeritem source=$itemId}">{tr}Translations{/tr}</a>
                 </div>
                 {jq}
-                    $('.translations a').click(function () {
+                    $('.translations a').on("click", function () {
                         var link = this;
                         $(this).serviceDialog({
                             title: $(link).text(),

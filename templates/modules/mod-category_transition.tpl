@@ -34,7 +34,7 @@
                     .each( function( k, e ) {
                         $(e.href.substr(e.href.lastIndexOf('#'))).hide();
                     } )
-                    .click( function( e ) {
+                    .on("click", function( e ) {
                         e.preventDefault();
                         $(this.href.substr(this.href.lastIndexOf('#'))).toggle('fast');
                     } );

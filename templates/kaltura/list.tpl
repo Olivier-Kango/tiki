@@ -19,7 +19,7 @@
 </div>
 
 {jq}
-$(".media", ".kaltura-media-list").click(function () {
+$(".media", ".kaltura-media-list").on("click", function () {
     var hidden = $('<input type="hidden">')
         .attr('name', '{{$targetName}}')
         .attr('value', $(this).data('id'))

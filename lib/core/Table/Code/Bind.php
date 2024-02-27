@@ -50,7 +50,7 @@ class Table_Code_Bind extends Table_Code_Manager
         $bindtr[] = '$(\'div#' . parent::$id . '\').css(\'visibility\', \'visible\');';
         $bindup = 'storeSortTable(\'' . parent::$tid . '\',$(\'' . parent::$tid . '\'));';
         $jq[] = $this->iterate($bindtr, '.on(\'tablesorter-ready\', function(){', $this->nt . '})', $this->nt2, '', '');
-        $jq[] = "$('a.generate-pdf').click(function(){" . $bindup . "})";
+        $jq[] = "$('a.generate-pdf').on('click', function(){" . $bindup . "})";
 
         if (count($jq) > 0) {
             $code = $this->iterate($jq, '', ';', $this->nt, '', '');

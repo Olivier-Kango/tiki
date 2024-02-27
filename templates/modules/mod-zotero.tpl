@@ -36,7 +36,7 @@
 
                     link.text(i.title);
                     link.css('cursor', 'pointer');
-                    link.click(function () {
+                    link.on("click", function () {
                         entry.toggle();
                         $(':text', entry).select().focus();
                     });

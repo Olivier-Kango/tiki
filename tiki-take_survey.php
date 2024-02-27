@@ -98,11 +98,11 @@ foreach ($questions['data'] as $question) {
             }
         }
     };
-    $(".btn-prev").click(function () {
+    $(".btn-prev").on("click", function () {
         showPage(surveyPage - 1);
         return false;
     });
-    $(".btn-next").click(function () {
+    $(".btn-next").on("click", function () {
         showPage(surveyPage + 1);
         return false;
     });

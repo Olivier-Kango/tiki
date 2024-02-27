@@ -281,7 +281,7 @@
     </div>
 {/if}
 {jq}
-    $('.tab_option').click(function(e){
+    $('.tab_option').on("click", function(e){
         e.preventDefault();
         $('.tab_option').removeClass('active');
         $('.profile-tab-content').hide();

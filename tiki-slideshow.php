@@ -296,7 +296,7 @@ $headerlib->add_jq_onready(
         $( "li" ).addClass( "fragment "+fragmentClass+" "+fragmentHighlightColor );
     }
 
-    $("#ss-settings").click(function () {
+    $("#ss-settings").on("click", function () {
         var position = $("#ss-options").position();
         if(position.left==0){
             $("#ss-settings").switchClass("fa-times","fa-cogs");

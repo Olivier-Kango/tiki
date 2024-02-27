@@ -15,7 +15,7 @@
 
 {if !empty($data.can_change)}
     {jq}
-        $("#lock_{{$data.instance}}").click(function () { objectLockToggle(this); });
+        $("#lock_{{$data.instance}}").on("click", function () { objectLockToggle(this); });
     {/jq}
 {else}
     {jq}

@@ -98,7 +98,7 @@
                 button = $('<input type="submit" class="btn btn-primary btn-sm" />')
                     .val($(':submit', form).val())
                     .button()
-                    .click(function () {
+                    .on("click", function () {
                         if (newMode) {
                             modeManager.switchTo(newMode);
                             return false;
@@ -112,7 +112,7 @@
                     button.button(hasEmptyField(form, ':text') ? 'disable' : 'enable');
 
                     if (e.which === 13) {
-                        button.click();
+                        button.trigger("click");
                     }
                 }).keyup();
 

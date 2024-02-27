@@ -63,14 +63,14 @@
                 </div>
             </div>
             {jq}
-                $('input[name=dummy_feature_fixed_width]').click(function(){
+                $('input[name=dummy_feature_fixed_width]').on("click", function(){
                     /* get value of dummy_feature_fixed_width */
                     var dummy = $(this).is(":checked");
                     /* Synchronize with dummy checkbox and trigger display of child option */
                     $('input[name=feature_fixed_width]').prop('checked', dummy).trigger("change");
                 });
 
-                $('input[name=feature_fixed_width]').click(function(){
+                $('input[name=feature_fixed_width]').on("click", function(){
                     /* get value of feature_fixed_width */
                     var real = $(this).is(":checked");
                     /* Synchronize with dummy checkbox display */

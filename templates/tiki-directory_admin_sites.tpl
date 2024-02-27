@@ -174,7 +174,7 @@
         }
     });
 
-    $("#submit_mult").click(function(){
+    $("#submit_mult").on("click", function(){
         if ($('.checkboxes:checked').length > 0) {
             confirmPopup("Are you sure you want to delete the selected items?");
         }

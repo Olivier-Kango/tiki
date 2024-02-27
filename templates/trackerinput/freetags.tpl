@@ -18,7 +18,7 @@
             </div>
         {/if}
         {jq notonready=true}
-            $('.{{$field.ins_id|escape}} .suggest').click(function () {
+            $('.{{$field.ins_id|escape}} .suggest').on("click", function () {
                 var tag = $(this).data('freetag');
                 if (tag.indexOf(' ') !== -1) {
                     tag = '"' + tag + '"';

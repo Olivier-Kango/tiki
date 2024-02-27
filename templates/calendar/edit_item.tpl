@@ -40,7 +40,7 @@
                 <div class="col-sm-9">
                     <input name="calendarchanged" type="hidden">
                     <select name="calitem[calendarId]" id="calid" class="form-control" required
-                            onchange="$(this).parents('.edit-event-form').tikiModal(tr('Loading...')); needToConfirm=false; $('input[name=calendarchanged]').val(1); $('input[name=saveitem]').click();">
+                            onchange="$(this).parents('.edit-event-form').tikiModal(tr('Loading...')); needToConfirm=false; $('input[name=calendarchanged]').val(1); $('input[name=saveitem]').trigger('click');">
                         {foreach $calendars as $aCalendar}
                             {$calstyle = ''}
                             {if not empty($aCalendar.custombgcolor)}

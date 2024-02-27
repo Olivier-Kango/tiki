@@ -238,7 +238,7 @@ class ToolbarPicker extends ToolbarDialog
             $this->setupPickerJS();
 
             \TikiLib::lib('header')->add_jq_onready(
-                "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').click(function () {
+                "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').on('click', function () {
                         {$this->getOnClick()}
                     }).get(0);"
             );

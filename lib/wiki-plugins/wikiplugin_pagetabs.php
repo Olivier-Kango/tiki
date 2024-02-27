@@ -116,7 +116,7 @@ function wikiplugin_pagetabs($data, $params)
                                     $(this).attr("href", ($(this).attr("href") + "").replace("_raw", ""));
                                 })
                                 .off("click")
-                                .click(function() {
+                                .on("click", function() {
                                     var pageAttr = $(this).attr("href").split("=");
                                     if (pageAttr.length < 2) return true;
 
@@ -128,7 +128,7 @@ function wikiplugin_pagetabs($data, $params)
 
                                     if (otherA.length < 1) return true;
 
-                                    otherA.click();
+                                    otherA.trigger("click");
 
                                     tabParent.one( "tabsload", function() {
                                         $("#" + page[1]).ready(function() {
@@ -156,7 +156,7 @@ function wikiplugin_pagetabs($data, $params)
                     var initA = initTab[1];
                     initTab = initTab[0];
 
-                    tabMenu.find("[title=\'" + initTab + "\']").click();
+                    tabMenu.find("[title=\'" + initTab + "\']").trigger("click");
 
                     if (!initA) return;
 

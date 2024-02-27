@@ -30,7 +30,7 @@ if (empty($prefs['connect_site_title'])) {
 
     $headerlib->add_jq_onready(
         <<<JQ
-        $("#connect_defaults_btn a").click(function(){
+        $("#connect_defaults_btn a").on("click", function(){
             var connect_defaults = $defaults;
             for (var el in connect_defaults) {
                 $("input[name=" + el + "]").val(connect_defaults[el]);

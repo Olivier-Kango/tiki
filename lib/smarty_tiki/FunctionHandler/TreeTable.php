@@ -222,7 +222,7 @@ class TreeTable extends Base
 
             $headerlib->add_jq_onready(
                 '
-$("#' . $id . '_openall").click( function () {
+$("#' . $id . '_openall").on("click", function () {
     $this = $(this).tikiModal(" ");
     var visible = $(this).find(".icon:visible")
     if ($(visible).hasClass("icon-file-archive-open")) {
@@ -231,7 +231,7 @@ $("#' . $id . '_openall").click( function () {
             delay: 20,
             bulk: 0,
             loop: function () {
-                $(this).click();
+                $(this).trigger("click");
             },
             end: function ()  {
                 $this.tikiModal();
@@ -244,7 +244,7 @@ $("#' . $id . '_openall").click( function () {
             delay: 20,
             bulk: 0,
             loop: function () {
-                $(this).click();
+                $(this).trigger("click");
             },
             end: function ()  {
                 $this.tikiModal();
@@ -264,7 +264,7 @@ $("#' . $id . '_openall").click( function () {
 
             $headerlib->add_jq_onready(
                 '
-$("#' . $id . '_showSelected").click( function () {
+$("#' . $id . '_showSelected").on("click", function () {
     if (!$(this).prop("checked")) {
         $("#treetable_1 tr td.checkBoxCell input:checkbox").parent().parent().show()
     } else {
@@ -445,7 +445,7 @@ $("#' . $id . '_showSelected").click( function () {
             $headerlib->add_jq_onready('$("#' . $id . '").treetable({clickableNodeNames:' . $expanable . ',initialState: "collapsed", expandable:true});');
         }
         // TODO refilter when .parent is opened - seems to prevent the click propagating
-        //      $headerlib->add_jq_onready('$("tr.parent").click(function(event) {
+        //      $headerlib->add_jq_onready('$("tr.parent").on("click", function(event) {
         //if ($("#'.$id.'_filter").val()) {
         //  $("#'.$id.'_filter").trigger("keyup");
         //  if (event.isPropagationStopped() || event.isImmediatePropagationStopped()) {

@@ -98,7 +98,7 @@ class Tracker_Field_Header extends \Tracker\Field\AbstractField implements \Trac
 
             if (toggle) {
                 var $section = $div.nextUntil(":not(div)");
-                $hdr.click(function(){
+                $hdr.on("click", function(){
                     $section.toggle();
                     var $i = $("i", this);
                     if ($i.hasClass("fa-chevron-right")) {

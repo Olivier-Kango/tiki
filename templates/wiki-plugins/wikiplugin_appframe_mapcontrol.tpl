@@ -48,9 +48,9 @@ $('#appframe .map-container').bind('initialized', function () {
     });
 
     if (func) {
-        $(link).click(func);
+        $(link).on("click", func);
     } else {
-        $(link).click(function () {
+        $(link).on("click", function () {
             container.modeManager.switchTo(mode);
             return false;
         });

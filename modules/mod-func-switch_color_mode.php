@@ -94,7 +94,7 @@ function module_switch_color_mode($mod_reference, $module_params)
            }
        });
        const modes = ' . $color_modes . ';
-       $("button[data-bs-theme-value]").click(function (e) {
+       $("button[data-bs-theme-value]").on("click", function (e) {
            const theme = $(this).attr("data-bs-theme-value");
            setStoredTheme(theme);
            setTheme(theme);

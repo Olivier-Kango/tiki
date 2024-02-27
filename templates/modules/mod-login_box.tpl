@@ -28,7 +28,7 @@ if (jqueryTiki.no_cookie) {
         });
     });
 }
-$("#switchbox-{{$module_logo_instance}} .submit").click( function () {
+$("#switchbox-{{$module_logo_instance}} .submit").on("click", function () {
     if ($("#login-switchuser_{{$module_logo_instance}}").val()) {
         confirmPopup('{tr}Switch user?{/tr}')
         return true;
@@ -136,7 +136,7 @@ $("#switchbox-{{$module_logo_instance}} .submit").click( function () {
                     {menu id=$module_params.menu_id bootstrap='y' bs_menu_class='dropdown-menu'}
                     {jq}
 // prevent clicks on menu items with child options from closing the "parent" dropdown
-$(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
+$(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function () {
     $(this).parents(".dropdown").one("hide.bs.dropdown", function () {
         return false;
     });

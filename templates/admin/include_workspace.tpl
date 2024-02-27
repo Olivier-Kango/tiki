@@ -79,7 +79,7 @@
                                 </tr>
                             {/foreach}
                             {jq}
-                                $(".enabledChecks").click(function() {
+                                $(".enabledChecks").on("click", function() {
                                     var checked = ! $(this).prop("checked");
                                     $(".otherChecks", $(this).parents("tr:first")).each(function() {
                                         $(this).prop("disabled", checked);

@@ -129,7 +129,7 @@
 {jq}
 $('[data-bs-toggle="popover"]').popover();
 
-$('#addEventBtn').click(function(ev) {
+$('#addEventBtn').on("click", function(ev) {
     ev.preventDefault();
     var securityTimeout = checkTimeout();
     if (! securityTimeout) {
@@ -160,7 +160,7 @@ $('#addEventBtn').click(function(ev) {
         appendElement.append(data);
     });
 });
-$('.delete-row').click(function(ev) {
+$('.delete-row').on("click", function(ev) {
     ev.preventDefault();
     var securityTimeout = checkTimeout();
     if (! securityTimeout) {
@@ -174,7 +174,7 @@ $('.delete-row').click(function(ev) {
         $(currentRow).closest('tbody').remove();
     }
 });
-$('a.advanced').click(function(ev) {
+$('a.advanced').on("click", function(ev) {
     ev.preventDefault();
     var securityTimeout = checkTimeout();
     if (! securityTimeout) {

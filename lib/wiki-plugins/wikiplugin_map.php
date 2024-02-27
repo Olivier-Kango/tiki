@@ -450,7 +450,7 @@ function init() {
         $(dialog).append(
             $('<div style="float: left; width: $size; height: $size;"/>')
                 .css('background', color)
-                .click(function () {
+                .on("click", function () {
                     setColor(color);
                     vlayer.redraw();
                     if (feature.executor) {

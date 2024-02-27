@@ -5,7 +5,7 @@
     {if $field.isMandatory ne 'y'}
         <a href="#" class="trkRemoveImage tips" title="{tr}Remove image{/tr}">{icon name='delete'}</a>
         {jq}
-            $(".trkRemoveImage").click(function(e){
+            $(".trkRemoveImage").on("click", function(e){
                 e.preventDefault();
                 if (confirm("{tr}Are you sure you want to delete this image?{/tr}")) {
                     $(this).parent().find('input[type=file]').attr('type', 'hidden').val('blank').trigger('change');

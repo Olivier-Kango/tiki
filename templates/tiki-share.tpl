@@ -461,22 +461,22 @@
             e.preventDefault();
             return false;
     });
-    $(".share-email-hide").click(function(){
+    $(".share-email-hide").on("click", function(){
         $(".share-email-details").addClass('hidden');
     });
-    $(".share-email-show").click(function(){
+    $(".share-email-show").on("click", function(){
         $(".share-email-details").removeClass('hidden');
     });
-    $(".share-message-hide").click(function(){
+    $(".share-message-hide").on("click", function(){
         $(".share-message-details").addClass('hidden');
     });
-    $(".share-message-show").click(function(){
+    $(".share-message-show").on("click", function(){
         $(".share-message-details").removeClass('hidden');
     });
-    $(".share-forum-hide").click(function(){
+    $(".share-forum-hide").on("click", function(){
         $(".share-forum-details").addClass('hidden');
     });
-    $(".share-forum-show").click(function(){
+    $(".share-forum-show").on("click", function(){
         $(".share-forum-details").removeClass('hidden');
     });
 {/jq}

@@ -323,7 +323,7 @@ function wikiplugin_vimeo($data, $params)
             ';
         }
         $js .= '
-            $(".vimeo.dialog").click(function () {
+            $(".vimeo.dialog").on("click", function () {
                 vimeoUploadModal = $.openModal({
                     remote: $.service(
                         "vimeo",

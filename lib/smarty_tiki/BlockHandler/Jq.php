@@ -26,7 +26,7 @@ use Smarty\Template;
  * Examples:
  *
  *  Simple, no escaping - result wrapped in {literal}{/literal}
- *    {jq}$(#exampleId").click(function() { alert("Clicked!"); });{/jq}
+ *    {jq}$(#exampleId").on("click", function() { alert("Clicked!"); });{/jq}
  *
  *  Smarty markup between {{ and }} - result parsed and wrapped in literals
  *    {jq}$(#exampleId").show({{if $animation_fast eq 'y'}"fast"{else}"slow"{/if}}){/jq}

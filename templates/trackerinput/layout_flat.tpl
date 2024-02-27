@@ -32,7 +32,7 @@
     {/if}
     {if $field.type == 'j'}{$jscal = 1}{/if}
 {/foreach}
-{jq}$('label').click(function() {$('input, select, textarea', '#'+$(this).attr('for')).focus();});{/jq}
+{jq}$('label').on("click", function() {$('input, select, textarea', '#'+$(this).attr('for')).focus();});{/jq}
 {if $jscal}
     {js_insert_icon type="jscalendar"}
 {/if}

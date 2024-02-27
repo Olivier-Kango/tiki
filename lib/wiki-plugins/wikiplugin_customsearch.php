@@ -413,7 +413,7 @@ var customsearch$id = {
         }
     }
 };
-$('#customsearch_$id').click(function() {
+$('#customsearch_$id').on('click', function() {
     customsearch$id.offset = 0;
 });
 $('#customsearch_$id').submit(function() {
@@ -554,7 +554,7 @@ window.customsearch_$id = customsearch$id;
     }
 
     global $page;
-    $script .= "$('a.generate-pdf').click(function(e) {
+    $script .= "$('a.generate-pdf').on('click', function(e) {
     e.preventDefault();
     // load the customsearch results again with display=pdf, so plugins like chartjs can render correctly for pdf context
     // then, place the result in a hidden div and store it for later replacing when generating the pdf
@@ -1265,7 +1265,7 @@ function cs_design_store($id, $fieldname, $fieldid, $arguments, $default, &$scri
 
     $script .= "
 
-$('#$fieldid').click(function() {
+$('#$fieldid').on('click', function() {
     $(this).serviceDialog({
         title: $(this).val(),
         controller: 'search_stored',

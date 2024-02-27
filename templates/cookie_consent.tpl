@@ -59,7 +59,7 @@
             }
             $(document).trigger("cookies.consent.agree");
         }
-        $("#cookie_consent_button").click(function(){
+        $("#cookie_consent_button").on("click", function(){
             if ($("input[name=cookie_consent_checkbox]:checked").length || $("input[name=cookie_consent_checkbox]:hidden").val() || jqueryTiki.cookie_consent_analytics) {
                 setConsentCookies();
                 {{if $prefs.cookie_consent_mode eq 'dialog'}}

@@ -21,7 +21,7 @@
 
 {jq}
     $(function() {
-        $('.close').click(function() {
+        $('.close').on("click", function() {
             let buttonId = $(this).attr('id');
             let warningTitle = $(this).siblings('.alert-heading').children('.rboxtitle').html();
             let warningTitleCheck = "{tr}Tiki Suggestions{/tr}";

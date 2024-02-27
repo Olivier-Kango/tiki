@@ -70,14 +70,14 @@ function perform_selection_action(action, row) {
 }
 
 $('.categ-add')
-    .click(function () {
+    .on("click", function () {
         perform_selection_action('categorize', $(this).closest('li')[0]);
     })
     .addClass('ui-icon')
     .addClass('ui-icon-circle-plus');
 
 $('.categ-remove')
-    .click(function () {
+    .on("click", function () {
         perform_selection_action('uncategorize', $(this).closest('li')[0]);
     })
     .addClass('ui-icon')
@@ -91,11 +91,11 @@ $('.object-list :checkbox').on("change", function () {
 
 $('.object-list li:not(.available) :checkbox').attr('disabled', true);
 
-$('.select-all').click(function () {
+$('.select-all').on("click", function () {
     $('.object-list :unchecked').prop('checked', true).trigger("change");
     return false;
 });
-$('.unselect-all').click(function () {
+$('.unselect-all').on("click", function () {
     $('.object-list :checked').prop('checked', false).trigger("change");
     return false;
 });

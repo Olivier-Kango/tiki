@@ -52,7 +52,7 @@ class TrackerHeader extends Base
             $output .= "$title";
             $output .= "</h$level>";
             if ($prefs['javascript_enabled'] == 'y' && ($toggle == 'o' || $toggle == 'c')) {
-                $js = "\$('#$id').click(function(event){";
+                $js = "\$('#$id').on('click', function(event){";
                 $js .= "\$('#$div_id').toggle();";
                 $js .= "\$('#$id').toggleClass('trackerHeaderClose');";
                 $js .= "\$('#$id').toggleClass('trackerHeaderOpen');";

@@ -229,7 +229,7 @@ if (tour) {
                     '_id' => $unique . '_restart',
                     'href' => '#',
                 ], $smarty->getEmptyInternalTemplate());
-            $headerlib->add_jq_onready('$("#' . $unique . '_restart").click(function() {
+            $headerlib->add_jq_onready('$("#' . $unique . '_restart").on("click", function() {
     tour.goTo(0);
     tour.restart();
     return false;

@@ -16,7 +16,7 @@
     </div>
     {jq}
         $('.facets select').registerFacet();
-        $('.facets button').click(function () {
+        $('.facets button').on("click", function () {
             $('#search-form').submit();
         });
 

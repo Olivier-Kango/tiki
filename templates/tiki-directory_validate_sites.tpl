@@ -92,13 +92,13 @@ var CHECKBOX_LIST = [{{section name=user loop=$items}'sites[{$items[user].siteId
         }
     });
 
-    $("#remove_mult").click(function(){
+    $("#remove_mult").on("click", function(){
         if ($('.checkboxes:checked').length > 0) {
             confirmPopup("Are you sure you want to delete the selected items?");
         }
     });
 
-    $("#validate_mult").click(function(){
+    $("#validate_mult").on("click", function(){
         if ($('.checkboxes:checked').length > 0) {
             confirmPopup("Are you sure you want to validate the selected items?");
         }
