@@ -23,13 +23,21 @@ function wikiplugin_semanticsearch_info()
                 'since' => '27',
                 'default' => 'wiki-plugins/wikiplugin_semanticsearch.tpl',
                 ],
-            'class' => [
+            'indexer' => [
                 'required' => false,
-                'name' => tra('Template file'),
+                'name' => tra('Textualization indexer'),
                 'description' => tra('The textualization index class to instanciate.'),
                 'filter' => 'string',
                 'since' => '27',
                 'default' => '\\Textualization\\SemanticSearch\\VectorIndex',
+                ],
+            'embedder' => [
+                'required' => false,
+                'name' => tra('Textualization embedder'),
+                'description' => tra('The textualization embedder class to instanciate.  It must match the one used during server indexing'),
+                'filter' => 'string',
+                'since' => '27',
+                'default' => '\\Textualization\\SemanticSearch\\SentenceTransphormerXLMEmbedder',
                 ],
             'dblocation' => [
                 'required' => true,
@@ -57,11 +65,12 @@ function wikiplugin_semanticsearch($data, $params)
     if (! is_file($location)) {
         throw new InvalidArgumentException("$location isn't a file");
     }
-
+    /** This is the configuration object for the SemanticSearch IndexFactory */
+    $desc = [];
     $desc["location"] = $location;
 
-    $desc['class'] = $params['class'];
-
+    $desc['class'] = $params['indexer'];
+    $desc['embedder'] = ['class' => $params['embedder']];
     $desc["max_docs"] = 20;
     $factory = "\Textualization\SemanticSearch\IndexFactory::make";
     if (! is_callable($factory)) {
