@@ -202,7 +202,7 @@ class Executor
                         $this->data[$i][$j][$key] = [];
                     }
                     if ($this->record->isRequired() && empty($this->data[$i][$j][$key])) {
-                       unset($this->data[$i][$j]);
+                        unset($this->data[$i][$j]);
                     }
                 }
             } else {
