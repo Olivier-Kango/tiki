@@ -28,7 +28,9 @@ class Parser
             throw new Exception(tr('Missing parameter \'name\' for SUBLIST block.'));
         }
 
-        $record = new Record($args['name'], ! empty($args['multiple']), $this);
+        $record = new Record($args['name'], $this);
+        $record->setMultiple(! empty($args['multiple']));
+        $record->setRequired(! empty($args['required']));
 
         // handle nested sublists first
         $sublists = [];
