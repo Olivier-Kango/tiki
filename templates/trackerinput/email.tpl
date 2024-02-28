@@ -23,7 +23,7 @@
 </div>
 {/if}
 {jq}
-    $(".emailCheck").keyup(function(){
+    $(".emailCheck").on("keyup", function(){
         var $email = $(".emailVerify").val();
         var $email_2 = $(".emailCheck").val();
         if ($email == $email_2) {

@@ -501,7 +501,7 @@
                                 <div class="col-md-8">
                                     <input class="form-control" type="text" id="description" name="description" maxlength="200" value="{$description|escape}">
                                     {jq}
-                                        $("#description").keyup(function () {
+                                        $("#description").on("keyup", function () {
                                             var length = $(this).val().length;
                                             if(length == 200) {
                                                 alert("You have reached the number of characters allowed (200 max) for the description field");

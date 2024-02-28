@@ -108,13 +108,13 @@
                     })
                     .appendTo(form);
 
-                $(':text', form).keyup(function (e) {
+                $(':text', form).on("keyup", function (e) {
                     button.button(hasEmptyField(form, ':text') ? 'disable' : 'enable');
 
                     if (e.which === 13) {
                         button.trigger("click");
                     }
-                }).keyup();
+                }).trigger("keyup");
 
                 $(form).bind('insert', function () {
                     $(map).removeMapSelection();

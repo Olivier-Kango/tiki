@@ -110,7 +110,7 @@ class ListFilter extends Base
             $input .= "><div class='input-group-append'>";
             $smartylib = \TikiLib::lib('smarty');
             $icon = smarty_function_icon(['name' => 'times-circle'], $smartylib->getEmptyInternalTemplate());
-            $input .= "<a href='#' onclick=\"\$('#$id').val('').focus().keyup();return false;\" class='btn input-group-text closeicon tips' title=':"
+            $input .= "<a href='#' onclick=\"\$('#$id').val('').focus().trigger('keyup');return false;\" class='btn input-group-text closeicon tips' title=':"
                 . tr('Clear filter') . "'>$icon</a>";
             $input .= '</div></div></div></div></div>';
 
@@ -119,7 +119,7 @@ class ListFilter extends Base
             }
 
             $content = "
-$('#$id').keyup( function() {
+$('#$id').on('keyup', function() {
     var criterias = this.value.toLowerCase().split( /\s+/ );
     $('$selectors').each( function() {
         var text = $(this).text().toLowerCase();
@@ -152,7 +152,7 @@ $('#$id').keyup( function() {
                 $content .= "
 setTimeout(function () {
     if ($('#$id').val() != '') {
-        $('#$id').keyup();
+        $('#$id').trigger('keyup');
     }
 }, 1000);
 ";

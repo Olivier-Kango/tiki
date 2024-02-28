@@ -46,7 +46,7 @@
                         <div class="col-sm-9">
                             <input class="form-control" id="pagename" type="text" name="page">
                             {jq}
-                                $("input[name=page]").keyup(function () {
+                                $("input[name=page]").on("keyup", function () {
                                     var length = $(this).val().length;
                                     if(length > 158) {
                                         alert("You have reached the number of characters allowed (158 max) for the page name field");
