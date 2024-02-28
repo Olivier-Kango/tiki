@@ -3457,6 +3457,9 @@
         "lib\/test\/core\/Tiki\/Command\/ListExecute\/ExecuteTest.php": {
             "class:Tiki_Command_ListExecute_ExecuteTest": true
         },
+        "lib\/test\/core\/Tiki\/Command\/UsersPasswordCommand\/UsersPasswordCommandTest.php": {
+            "class:UsersPasswordCommandTest": true
+        },
         "lib\/test\/core\/Tiki\/Command\/ProfileExport\/TrackerItemTest.php": {
             "class:Tiki_Command_ProfileExport_TrackerItemTest": true
         },
