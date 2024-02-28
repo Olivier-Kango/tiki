@@ -11,6 +11,15 @@ This is run from the root as part of:
 * npm run build
 * npm run watch
 
+## How is this organized
+
+Top-level folder in src/js group code mostly by technical similarity.
+
+* common-externals are "raw" javascript libraries that may be used more than once (regardless of how they are loaded, some are loaded in more than one way in tiki).
+* vue-mf is a collection of (mostly) independent vue3 modules loaded as microfrontend.  Each module has is it's own package.json.
+* jquery-tiki contains legacy tiki js scripts based on jquery (loaded by, or loaded into jquery), that were modernized to compile their dependencies into themselves.  It has a single package.json, and generates multiple .mjs ESM modules.
+* ...
+
 ## Migrating dependencies
 
 Javascript dependencies are still being moved from composer.  For examples of how to migrate (examples are up to date as of 2023-12-04 - benoitg):
@@ -32,9 +41,10 @@ Javascript dependencies are still being moved from composer.  For examples of ho
 
 ## Migration steps
 
-### 1- Add the dependency into the appropriate package.json,
-   * Is it a common dependency type? In this case the appropriate package.json should be located in [common-externals](./common-externals/).
-   * Is it a dependency that is compiled into a specific module under src/js (i.e tiki-jquery)? In this case, the appropriate package.json should be located in a folder like [jquery-tiki](./jquery-tiki/), [vue-mf](./vue-mf/), 
+### 1- Add the dependency into the appropriate package.json
+
+* Is it a common dependency type? In this case the appropriate package.json should be located in [common-externals](./common-externals/).
+* Is it a dependency that is compiled into a specific module under src/js (i.e tiki-jquery)? In this case, the appropriate package.json should be located in a folder like [jquery-tiki](./jquery-tiki/), [vue-mf](./vue-mf/), 
    ...
 
 Once the dependency is listed among installable packages, execute:
@@ -46,6 +56,7 @@ npm install
 ### 2- Tell the build system and/or the source about it
 
 #### For common-externals
+
 In [vite.config.mjs](vite.config.mjs):
 
 1. Mention all files and/or folders that need to be copied by vite in viteStaticCopy/targets.  There is detailed documentation there
