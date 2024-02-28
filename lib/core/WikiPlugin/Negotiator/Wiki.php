@@ -608,9 +608,9 @@ class WikiPlugin_Negotiator_Wiki
                 . '    );'
                 . '    return false;'
                 . '})'
-                . '.hover(function() {'
+                . '.on("mouseenter", function() {'
                 . '     $(this).prev().addClass("ui-state-highlight");'
-                . '}, function() { '
+                . '}).on("mouseleave",function() { '
                 . '    $(this).prev().removeClass("ui-state-highlight");'
                 . '});'
             );

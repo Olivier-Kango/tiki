@@ -284,9 +284,9 @@
 
 
                                 ratings
-                                    .hover(function() {
+                                    .on("mouseenter", function() {
                                         $(this).addClass('ui-statue-hover');
-                                    },function() {
+                                    }).on("mouseleave",function() {
                                         $(this).removeClass('ui-statue-hover');
                                     })
                                     .on("click", function() {

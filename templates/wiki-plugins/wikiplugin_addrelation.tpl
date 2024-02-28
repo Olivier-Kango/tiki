@@ -7,9 +7,9 @@
     {/if}
 </form>
 {jq}
-    $('#wp_addrelation_added_{{$wp_addrelation_id|escape}}').hover(function() {
+    $('#wp_addrelation_added_{{$wp_addrelation_id|escape}}').on("mouseenter", function() {
         $(this).val('{{$label_remove|escape}}');
-    },
+    }).on("mouseleave",
     function() {
         $(this).val('{{$label_added|escape}}');
     });

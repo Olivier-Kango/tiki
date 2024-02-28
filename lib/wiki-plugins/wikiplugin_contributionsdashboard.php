@@ -98,13 +98,13 @@ function wikiplugin_contributionsdashboard($data, $params)
             var r = Raphael(me[0]);
 
             r.g.barchart(10,10, me.width(), me.height(), [s.data])
-                .hover(function () {
+                .on('mouseenter',unction () {
                     this.flag = r.g.popup(
                         this.bar.x,
                         this.bar.y,
                         s.labels[$(this.bar.node).index() - 2] + ' - ' + this.bar.value || '0'
                     ).insertBefore(this);
-                },function () {
+                }).on('mouseleave',function () {
                     this.flag.animate({
                         opacity: 0
                     },
