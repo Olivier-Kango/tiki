@@ -118,7 +118,7 @@ $(".search_mod_magnifier").mouseover( function () {
     $(this).parents("form").submit();
 });
 $("#search_mod_input_{{$search_mod_usage_counter}}")
-.keydown( function () {
+.on("keydown", function () {
     $(".search_mod_magnifier", $(this).parent()).mouseover();}
 );
                         {/jq}
