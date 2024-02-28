@@ -77,9 +77,9 @@
                     {preference name=zend_mail_smtp_security}
                     {preference name=zend_http_sslverifypeer}
                     {preference name=zend_mail_smtp_helo}
-                    {preference name=zend_mail_queue}
                     {preference name=zend_mail_redirect}
                 </div>
+                {preference name=zend_mail_redirect}
                 <div class="adminoptionbox form-group row clearfix">
                     <label for="testMail" class="col-md-4 col-form-label">{tr}Email to send a test mail{/tr}</label>
                     <div class="col-md-8">
