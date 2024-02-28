@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7bfccd9f38e19976390094cb8dc625e9",
+    "content-hash": "b8b0f2142ee2adc988db342e1e0a8eb5",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -8447,50 +8447,6 @@
                 }
             ],
             "time": "2023-12-29T01:59:53+00:00"
-        },
-        {
-            "name": "phpseclib/phpseclib2_compat",
-            "version": "1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpseclib/phpseclib2_compat.git",
-                "reference": "3c7441fbd80e5a29958e0bd88d2e83e8258e196b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib2_compat/phpseclib-phpseclib2_compat-3c7441fbd80e5a29958e0bd88d2e83e8258e196b-zip-37977c.zip",
-                "reference": "3c7441fbd80e5a29958e0bd88d2e83e8258e196b",
-                "shasum": "a6ae88b51e06abda878a09c05b0fd9ac102fb1fe"
-            },
-            "require": {
-                "phpseclib/phpseclib": "^3.0"
-            },
-            "provide": {
-                "phpseclib/phpseclib": "2.0.42"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7|^6.0|^9.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "phpseclib\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jim Wigginton",
-                    "email": "terrafrost@php.net",
-                    "role": "Lead Developer"
-                }
-            ],
-            "description": "phpseclib 2.0 polyfill built with phpseclib 3.0",
-            "homepage": "https://github.com/phpseclib/phpseclib2_compat",
-            "time": "2023-03-06T13:03:48+00:00"
         },
         {
             "name": "phpxmlrpc/phpxmlrpc",

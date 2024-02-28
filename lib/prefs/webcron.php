@@ -37,7 +37,7 @@ function prefs_webcron_list()
             'name' => tra('Token'),
             'description' => tra('The token to use when running the cron manually'),
             'type' => 'text',
-            'default' => md5(phpseclib\Crypt\Random::string(100)),
+            'default' => md5(phpseclib3\Crypt\Random::string(100)),
         ],
     ];
 }

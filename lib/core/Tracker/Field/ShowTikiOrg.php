@@ -4,8 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-use phpseclib\Crypt\RSA;
-use phpseclib\Net\SSH2;
+use phpseclib3\Crypt\RSA;
+use phpseclib3\Net\SSH2;
 
 class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractField
 {
@@ -137,8 +137,8 @@ class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractField
 
         $password = new RSA();
 
-        $publicKeyLoaded = $password->loadKey(file_get_contents($this->getOption('publicKey')));
-        $privateKeyLoaded = $password->loadKey(file_get_contents($this->getOption('privateKey')));
+        $publicKeyLoaded = $password->loadPublicKey(file_get_contents($this->getOption('publicKey')));
+        $privateKeyLoaded = $password->loadPrivateKey(file_get_contents($this->getOption('privateKey')));
 
         if (! $publicKeyLoaded || ! $privateKeyLoaded) {
             $ret['status'] = 'INVKEYS';

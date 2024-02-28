@@ -134,7 +134,7 @@ class TikiLib extends TikiDb_Bridge
      */
     public function generate_unique_sequence($entropy = 100, $urlSafe = false)
     {
-        $random_value = \phpseclib\Crypt\Random::string($entropy);
+        $random_value = \phpseclib3\Crypt\Random::string($entropy);
         $encoded_value = base64_encode($random_value);
         return $urlSafe ? strtr(str_replace('=', '', $encoded_value), '+/', '-_')
             : $encoded_value;

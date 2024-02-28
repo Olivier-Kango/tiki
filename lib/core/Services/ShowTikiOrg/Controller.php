@@ -4,8 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-use phpseclib\Crypt\RSA;
-use phpseclib\Net\SSH2;
+use phpseclib3\Crypt\RSA;
+use phpseclib3\Net\SSH2;
 
 class Services_ShowTikiOrg_Controller
 {
@@ -46,10 +46,10 @@ class Services_ShowTikiOrg_Controller
         $conn = new SSH2($domain);
 
         $password = new RSA();
-        $password->setPrivateKey(file_get_contents($options->privateKey));
-        $password->setPublicKey(file_get_contents($options->publicKey));
+        $privetKey = $password->loadPrivateKey(file_get_contents($options->privateKey));
+        $publicKey = $password->loadPublicKey(file_get_contents($options->publicKey));
 
-        $conntry = $conn->login($options->remoteShellUser, $password);
+        $conntry = $conn->login($options->remoteShellUser, $privetKey, $publicKey);
 
         if (! $conntry) {
             $ret['status'] = 'DISCO';

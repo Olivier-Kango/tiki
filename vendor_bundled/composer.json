@@ -311,8 +311,7 @@
         "ext-zip": "*",
         "rubix/ml": "^2.1",
         "rubix/extras": "2.0.0-beta",
-        "phpxmlrpc/phpxmlrpc": "^4.9",
-        "phpseclib/phpseclib2_compat": "^1.0.5"
+        "phpxmlrpc/phpxmlrpc": "^4.9"
     },
     "require-dev": {
         "kint-php/kint": "^5.1.0",
