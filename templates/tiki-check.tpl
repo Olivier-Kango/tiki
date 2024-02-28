@@ -61,7 +61,7 @@
                 <td data-th="{tr}OK:{/tr}" class="text">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                 <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
             </tr>
-        {foreachelse} 
+        {foreachelse}
             {norecords _colspan=4}
         {/foreach}
         </tbody>
@@ -103,22 +103,37 @@
     <br />
     <div class="table-responsive">
         <table class="table table-striped table-hover">
-            <tr>
-                <th>{tr}Tables in database and missing in db/tiki.sql{/tr}</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th colspan="2">{tr}Tables in database and missing in db/tiki.sql{/tr}</th>
+                </tr>
+                <tr>
+                    <th>{tr}Table{/tr}</th>
+                    <th>{tr}Number of records{/tr}</th>
+                </tr>
+            </thead>
+            <tbody>
             {if !empty($diffDbTables)}
-                {foreach from=$diffDbTables key=key item=item}
-                    <tr>
-                        <td class="text">{$item}</td>
-                    </tr>
+                {foreach $diffDbTables as $item}
+                <tr>
+                    <td class="text">{$item.tableName}</td>
+                    <td class="text">
+                        {if $item.tableSize > 0}
+                            {$item.tableSize}
+                        {else}
+                            <a href="tiki-check.php?removeTable={$item.tableName}" class="text-danger" onclick="confirmPopup('{tr _0=$item.tableName}Remove the table %0?{/tr}', {$ticket})"> {icon name='trash'} {tr}delete table{/tr}</a>
+                        {/if}
+                    </td>
+                </tr>
                 {/foreach}
             {else}
-                <td class="text">
+                <td class="text" colspan="2">
                     <span class="text-success">
                         <span class="icon icon-ok fas fa-check-circle "></span> good
                     </span>
                 </td>
             {/if}
+            </tbody>
         </table>
     </div>
     <div class="table-responsive">

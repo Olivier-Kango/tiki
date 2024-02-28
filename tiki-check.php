@@ -52,7 +52,6 @@ if (isset($_REQUEST['tiki-check-ping'])) {
     die('pong:' . (int)$_REQUEST['tiki-check-ping']);
 }
 
-
 function checkOPcacheCompatibility()
 {
     return ! ((version_compare(PHP_VERSION, '7.1.0', '>=') && version_compare(PHP_VERSION, '7.2.0', '<')) //7.1.x
@@ -377,7 +376,6 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
     {
         return tra($string);
     }
-
 
     /**
       * @param $var
@@ -2987,6 +2985,27 @@ if (isset($_REQUEST['benchmark'])) {
     $benchmark = '';
 }
 
+if (
+    isset($_REQUEST["removeTable"]) && $access->checkCsrf(true)
+) {
+    $checkResult = check_db_mismatches();
+    $whiteList = $checkResult['queriedTables'];
+    $tableName = $_REQUEST['removeTable'];
+    if (in_array($tableName, $whiteList)) {
+        $escapedTableName = "`" . $tableName . "`";
+         // Drop the table
+        $query = "DROP TABLE IF EXISTS $escapedTableName";
+        $result = $tikilib->query($query);
+        if ($result) {
+            echo '<div class="alert alert-info">Table ' . htmlspecialchars($tableName) . ' dropped successfully</div>';
+        } else {
+            echo '<div class="alert alert-danger">Failed to drop table ' . htmlspecialchars($tableName) . '</div>';
+        }
+    } else {
+        echo '<div class="alert alert-danger">Invalid table\'s name </div>';
+    }
+}
+
 $diffDatabase = false;
 $diffDbTables = array();
 $diffDbColumns = array();
@@ -2994,8 +3013,14 @@ $diffFileTables = array();
 $diffFileColumns = array();
 $dynamicTables = array();
 $sqlFileTables = array();
-if (isset($_REQUEST['dbmismatches']) && ! $standalone && file_exists('db/tiki.sql')) {
-    $diffDatabase = true;
+
+// Get Security token, neccessary for mismatch tables deletion
+$ticket = smarty_function_ticket(array('mode' => 'get'), $smarty->getEmptyInternalTemplate());
+$smarty->assign('ticket', $ticket);
+
+// Function used to check db mismatches
+function check_db_mismatches()
+{
     $tikiSql = file_get_contents('db/tiki.sql');
     preg_match_all('/CREATE TABLE (?:.(?!;[^\S]))+./s', $tikiSql, $tables);
 
@@ -3012,15 +3037,18 @@ if (isset($_REQUEST['dbmismatches']) && ! $standalone && file_exists('db/tiki.sq
     }
 
     $query = <<<SQL
-SELECT TABLE_NAME, COLUMN_NAME
-FROM information_schema.columns
-WHERE table_schema = database()
-  AND (TABLE_NAME NOT LIKE "index_%" OR TABLE_NAME LIKE "zzz_unused_%");
-SQL;
+    SELECT TABLE_NAME, COLUMN_NAME
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND (TABLE_NAME NOT LIKE "index_%" OR TABLE_NAME LIKE "zzz_unused_%");
+    SQL;
 
     $result = query($query);
     $diffFileTables = array_keys($sqlFileTables);
     $diffFileColumns = $sqlFileTables;
+    $queriedTables = array();
+    $diffDbTables = array();
+
     foreach ($result as $tables) {
         $dbTable = strtolower($tables['TABLE_NAME']);
         $dbColumn = strtolower($tables['COLUMN_NAME']);
@@ -3033,8 +3061,20 @@ SQL;
 
         // Table in DB but not in SQL file
         if (! array_key_exists($dbTable, $sqlFileTables)) {
-            if (! in_array($dbTable, $diffDbTables)) {
-                $diffDbTables[] = $dbTable;
+            if (! in_array($dbTable, $queriedTables)) {
+                // Query to count the number of records in $dbTable
+                $recordCountQuery = "SELECT COUNT(*) AS record_count FROM $dbTable";
+                $recordCountResult = query($recordCountQuery);
+                $recordCount = $recordCountResult[0]['record_count'];
+
+                // Add table name and record count to $diffDbTables
+                $diffDbTables[] = array(
+                    'tableName' => $dbTable,
+                    'tableSize' => $recordCount
+                );
+
+                // Add the table to the queriedTables array to avoid duplicate queries
+                $queriedTables[] = $dbTable;
             }
 
             continue;
@@ -3054,6 +3094,22 @@ SQL;
             unset($diffFileColumns[$dbTable]);
         }
     }
+
+    return array(
+        'diffFileTables' => $diffFileTables,
+        'diffFileColumns' => $diffFileColumns,
+        'diffDbTables' => $diffDbTables,
+        'queriedTables' => $queriedTables
+    );
+}
+
+if (isset($_REQUEST['dbmismatches']) && ! $standalone && file_exists('db/tiki.sql')) {
+    $diffDatabase = true;
+    // Get the db_mismatches check result
+    $checkResult = check_db_mismatches();
+    $diffFileTables = $checkResult['diffFileTables'];
+    $diffFileColumns = $checkResult['diffFileColumns'];
+    $diffDbTables = $checkResult['diffDbTables'];
 
     // If table is missing, then all columns will be missing too (remove from columns diff)
     foreach ($diffFileTables as $table) {
