@@ -77,6 +77,8 @@
 
             highlightMine: {{$pivottable.highlightMine|json_encode}},
             highlightGroup: {{$pivottable.highlightGroup|json_encode}},
+            highlightRequest: {{$pivottable.highlightRequest|json_encode}},
+            highlightChartType: {{$pivottable.highlightChartType|json_encode}},
             xAxisLabel: {{$pivottable.xAxisLabel|json_encode}},
             yAxisLabel: {{$pivottable.yAxisLabel|json_encode}},
             chartTitle: {{$pivottable.chartTitle|json_encode}},
