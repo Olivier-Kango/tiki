@@ -975,10 +975,14 @@ function wikiplugin_pivottable($data, $params)
         }
         if ($groupField) {
             $myGroups = TikiLib::lib('tiki')->get_user_groups($user);
+            $highlightGroups = [];
             foreach ($pivotData as $item) {
                 $group = @$item[$groupField['name']];
                 if (in_array($group, $myGroups)) {
                     $highlight[] = ['item' => $item, 'group' => $group];
+                    if (! in_array($group, $highlightGroups)) {
+                        $highlightGroups[] = $group;
+                    }
                 }
             }
             $groupColors = [];
@@ -990,7 +994,7 @@ function wikiplugin_pivottable($data, $params)
             }
             if (! empty($params['highlightGroupColors'])) {
                 $index = 0;
-                foreach ($myGroups as $group) {
+                foreach ($highlightGroups as $group) {
                     if (empty($params['highlightGroupColors'][$index])) {
                         break;
                     }
