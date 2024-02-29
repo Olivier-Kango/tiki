@@ -598,7 +598,7 @@
             {/foreach}
         </ul>
     {else}
-        <p><span class="icon icon-information fas fa-info-circle fa-fw"></span>&nbsp;{tr}No BOM files detected{/tr}</p>
+        <p><span class="icon icon-information fas fa-info-circle fa-fw"></span>&nbsp;<b>{tr}No BOM files detected{/tr}</b></p>
     {/if}
 {/if}
 
