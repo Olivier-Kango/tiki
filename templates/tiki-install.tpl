@@ -981,7 +981,7 @@
                                 <h3 class="box-title">{tr}MultiTiki Setup{/tr} <a title="{tr}Help{/tr}" href="https://doc.tiki.org/MultiTiki" target="help">{icon name='help'}</h3>
                                 <div class="clearfix box-data">
                                     {if !empty({$multi})}
-                                        <div><a href="#" onclick="$('#multi').submit();return false;">{tr}Default Installation{/tr}</a></div>
+                                        <div><a href="#" onclick="$('#multi').trigger('submit');return false;">{tr}Default Installation{/tr}</a></div>
                                         <form method="post" action="tiki-install.php" id="multi">
                                             <input type="hidden" name="install_step" value="0">
                                             <input type="hidden" name="multi" value="">
@@ -993,7 +993,7 @@
                                             {if $k eq $multi}
                                                 <strong>{$k}</strong>
                                             {else}
-                                                <a href="#" onclick="$('#virt{$i@index}').submit();return false;" class="linkmodule">{$k}</a>
+                                                <a href="#" onclick="$('#virt{$i@index}').trigger('submit');return false;" class="linkmodule">{$k}</a>
                                                 <form method="post" action="tiki-install.php" id="virt{$i@index}">
                                                     <input type="hidden" name="multi" value="{$k}">
                                                     <input type="hidden" name="install_step" value="0">

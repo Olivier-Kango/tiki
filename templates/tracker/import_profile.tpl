@@ -21,7 +21,7 @@
         </div>
     </form>
     {jq}
-        $('#forumImportFromProfile').submit(function() {
+        $('#forumImportFromProfile').on("submit", function() {
             $.tikiModal(tr('Loading...'));
             $.post($(this).attr('action'), { yaml: $('#importFromProfileYaml').val()}, function(feedback) {
                 $.tikiModal();

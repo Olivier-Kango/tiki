@@ -18,7 +18,7 @@
         var map, activeFeature, form = $('.map-edit-features').hide();
         form
             .removeClass('map-edit-features')
-            .submit(function () {
+            .on("submit", function () {
                 if (! activeFeature) {
                     return false;
                 }
@@ -74,7 +74,7 @@
 
                             activeFeature = event.feature;
                             saveFeature();
-                            form.submit();
+                            form.trigger("submit");
                         }
                     },
                     featuremodified: function (event) {

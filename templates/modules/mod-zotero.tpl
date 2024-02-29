@@ -18,7 +18,7 @@
     {jq}
     $('.zoterosearch:not(.done)').addClass('done')
         .find('.results, .error').hide().end()
-        .submit(function (e) {
+        .on("submit", function (e) {
             var form = this;
 
             e.preventDefault();

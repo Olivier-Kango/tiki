@@ -500,7 +500,7 @@
                         show('form');
                         $("#form").showError(tr("File upload error:") + " " + thrownError)
                     });
-                    $(this).submit();
+                    $(this).trigger("submit");
                     this.reset();
                 } else {
                     $('#progress_'+n).html("{tr}No File to Upload...{/tr} <span class='button'><a href='#' onclick='location.replace(location.href);return false;'>{tr}Retry{/tr}</a></span>");
@@ -532,7 +532,7 @@
         </div>
     </form>
     {jq}
-        $('.remote-upload').submit(function () {
+        $('.remote-upload').on("submit", function () {
             var form = this;
             // use the current value of the galleryId selector
             $('input[name=galleryId]', form).val($('#galleryId').val());

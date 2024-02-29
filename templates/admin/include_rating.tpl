@@ -145,7 +145,7 @@
     </form>
 </div>
 {jq}
-    $('form.config').submit( function( e ) {
+    $('form.config').on("submit", function( e ) {
         return ! $(this).find('input[type=submit]').attr('disabled');
     } );
     $('form.config .error').hide();

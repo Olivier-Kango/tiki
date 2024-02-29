@@ -64,7 +64,7 @@
 
                                 $(form.storeAs).val(data.queryId);
                                 $(form).attr('method', 'post');
-                                $(form).submit();
+                                $(form).trigger("submit");
                             }
                         });
                     {/jq}

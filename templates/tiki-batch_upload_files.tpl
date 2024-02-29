@@ -105,7 +105,7 @@ $("#subdirIntegerToSubgalId").on("change", function () {
     }
 }).trigger("change");
 
-$("#batchUploadForm").submit(function () {
+$("#batchUploadForm").on("submit", function () {
     return $("input[name='files[]']:checked").length > 0;
 });
 

@@ -54,7 +54,7 @@
 
     {jq}
         var trackerId = {{$trackerId|escape}};
-        $('.save-fields').submit(function () {
+        $('.save-fields').on("submit", function () {
             var form = this, confirmed = false
 
             if ($(form.action).val() === 'remove_fields') {
@@ -131,7 +131,7 @@
             }
         });
 
-        $('.import-fields').submit(function () {
+        $('.import-fields').on("submit", function () {
             var form = this;
             $.ajax({
                 url: $(form).attr('action'),

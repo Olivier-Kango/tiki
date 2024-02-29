@@ -287,7 +287,7 @@ function wikiplugin_customsearch($data, $params)
     // setup AJAX pagination
     $paginationArguments['offset_jsvar'] = "customsearch_$id.offset";
     $paginationArguments['sort_jsvar'] = "customsearch_$id.sort_mode";
-    $paginationArguments['_onclick'] = "$('#customsearch_$id').submit();return false;";
+    $paginationArguments['_onclick'] = "$('#customsearch_$id').trigger('submit');return false;";
 
     $builder = new Search_Formatter_Builder();
     $builder->setId('wpcs-' . $id);
@@ -416,7 +416,7 @@ var customsearch$id = {
 $('#customsearch_$id').on('click', function() {
     customsearch$id.offset = 0;
 });
-$('#customsearch_$id').submit(function() {
+$('#customsearch_$id').on('submit', function() {
     if (customsearch$id.options.requireinput && (!$(this).find(':text').val() || $(this).find(':text').val().indexOf('...') > 0)) {
         alert(tr('Please enter a search query'));
         return false;

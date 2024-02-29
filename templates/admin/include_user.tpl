@@ -9,7 +9,7 @@
     days_before_lock.keypress(function(e){
         return /^\d*$/i.test(e.key);
     });
-    frm.submit(function(){
+    frm.on("submit", function(){
         if (users_admin_auto_lock_user.is(':checked') && days_before_lock.val() === "") {
             warning_empty_period.show();
             days_before_lock.focus();

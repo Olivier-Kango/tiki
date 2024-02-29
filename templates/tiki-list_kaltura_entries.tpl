@@ -30,7 +30,7 @@
 
 {if $entryType ne "mix"}
     {jq}
-$("#videoAction").submit(function () {
+$("#videoAction").on("submit", function () {
     if ($(this).find("input[name='mediaId[]']:checked").length === 0) {
         alert("{tr}Please select some media entries to use{/tr}");
         return false;

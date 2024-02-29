@@ -422,7 +422,7 @@
                     </div>
                 </form>
                 {jq}
-                    $('.sync-refresh').submit(function () {
+                    $('.sync-refresh').on("submit", function () {
                         var form = this;
                         $.ajax({
                             type: 'post',

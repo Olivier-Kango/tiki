@@ -228,7 +228,7 @@ function wikiplugin_trackerfilter($data, $params)
      *added by Axel.mwenze on  Monday, august 05, 2019
      */
     $headerlib->add_jq_onready(
-        '$("#form-filter").submit(function(r) { 
+        '$("#form-filter").on("submit", function(r) { 
                 $(".trackerfilter_loader").show();
                 return true;
         })'
@@ -236,7 +236,7 @@ function wikiplugin_trackerfilter($data, $params)
 
     $headerlib->add_jq_onready(
         '/* Maintain state of other trackerfilter plugin forms */
-                    $(".trackerfilter form").submit( function () {
+                    $(".trackerfilter form").on("submit", function () {
                         var current_tracker = this;
                         $(current_tracker).append("<input type=\"hidden\" name=\"tracker_filters[]\" value=\"" + $(current_tracker).serialize() + "\" />")
                         $(".trackerfilter form").each( function() {
@@ -443,7 +443,7 @@ function wikiplugin_trackerfilter($data, $params)
                 e.preventDefault();
                 $("#trackerFilter' . $iTrackerFilter . ' form")
                 .attr("action", $(this).attr("href"))
-                .submit();
+                .trigger("submit");
             } );'
         );
     }

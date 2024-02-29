@@ -16,7 +16,7 @@
                     <input type="hidden" value="{$index}" name="index">
                     <input type="hidden" value="{if !$compressXml}false{else}true{/if}" name="compressXml">
                     <input type="hidden" value="{$compressXmlParam}" name="compressXmlParam">
-                <a class="btn btn-link" href="javascript:void(0)" onclick="$('#edit-diagram-{$index}').submit()">{icon name="pencil"} Edit diagram</a>
+                <a class="btn btn-link" href="javascript:void(0)" onclick="$('#edit-diagram-{$index}').trigger('submit')">{icon name="pencil"} Edit diagram</a>
             </form>
             {/if}
         </div>

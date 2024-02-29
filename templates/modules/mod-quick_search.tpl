@@ -39,7 +39,7 @@
 </form>
 {/tikimodule}
 {jq}
-$('.mod_quick_search:not(.done)').addClass('done').submit(function () {
+$('.mod_quick_search:not(.done)').addClass('done').on("submit", function () {
     var query = $(this).serialize();
     var results = $('.results', this).empty();
 
@@ -71,7 +71,7 @@ $('.mod_quick_search:not(.done)').addClass('done').submit(function () {
     return false;
 })
 {{if !empty($qs_prefill.trigger)}}
-    .submit()
+    .trigger("submit")
 {{/if}}
 ;
 {/jq}

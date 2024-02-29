@@ -218,7 +218,7 @@
                 form.originals[name] = value;
             });
         })
-        .submit(function submit_changed_values(evt){
+        .on("submit", function submit_changed_values(evt){
             var always = ['page', 'oldver'];
             var originals = this.originals || {};
 

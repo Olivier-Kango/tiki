@@ -248,7 +248,7 @@
     {/jq}
 {/if}
 {jq}
-    $('#references-edit-form').submit(function(event){
+    $('#references-edit-form').on("submit", function(event){
     var ck_code = /^[A-Za-z0-9]+$/;
     {* var ck_uri = /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2, }){1, 3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/; *}
     var ck_year = /^[1-2][0-9][0-9][0-9]$/;

@@ -136,11 +136,11 @@
                                     {tr}Version:{/tr} {$diff.version|escape} - {$diff.comment|escape|default:"<em>{tr}No comment{/tr}</em>"}
                                     {if count($diff_summaries) gt 1}
                                         {assign var=diff_version value=$diff.version}
-                                        {icon name="next" onclick="\$('input[name=oldver]').val($diff_version);\$('#editpageform').submit();return false;" title=":{tr}View{/tr}" style="cursor: pointer"}
+                                        {icon name="next" onclick="\$('input[name=oldver]').val($diff_version);\$('#editpageform').trigger('submit');return false;" title=":{tr}View{/tr}" style="cursor: pointer"}
                                     {/if}
                                 </li>
                             {/foreach}
-                            {button _onclick="\$('input[name=oldver]').val(1);\$('#editpageform').submit();return false;" _text="{tr}All Versions{/tr}" _ajax="n"}
+                            {button _onclick="\$('input[name=oldver]').val(1);\$('#editpageform').trigger('submit');return false;" _text="{tr}All Versions{/tr}" _ajax="n"}
                         </ul>
                     </div>
                 {/if}
@@ -299,7 +299,7 @@
                             <div class="mb-3 row">
                                 <label for="templateId" class="col-md-4 col-form-label">{tr}Apply content template{/tr}</label>
                                 <div class="col-md-8">
-                                    <select class="form-select" id="templateId" name="templateId" onchange="needToConfirm=false;$('#editpageform').submit();">
+                                    <select class="form-select" id="templateId" name="templateId" onchange="needToConfirm=false;$('#editpageform').trigger('submit');">
                                         <option value="0">{tr}none{/tr}</option>
                                             {section name=ix loop=$templates}
                                                 <option value="{$templates[ix].templateId|escape}" {if $templateId eq $templates[ix].templateId}selected="selected"{/if}>{tr}{$templates[ix].name|escape}{/tr}</option>

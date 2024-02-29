@@ -183,12 +183,12 @@
 
     $('select[name="tikiobject_type"]').on('change', function() {
         $('input[name="load_options"]').val(1);
-        $(this).parents('form').submit();
+        $(this).parents('form').trigger("submit");
     });
 
     $('select[name="trackerfield_tracker"]').on('change', function() {
         $('input[name="load_options"]').val(1);
-        $(this).parents('form').submit();
+        $(this).parents('form').trigger("submit");
     });
 
 {/jq}

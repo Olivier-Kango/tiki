@@ -10,7 +10,7 @@ function capLock(e, el){
 }
 {/jq}
 {jq}
-$("#loginbox-{{$module_logo_instance}}").submit( function () {
+$("#loginbox-{{$module_logo_instance}}").on("submit", function () {
     if ($("#login-user_{{$module_logo_instance}}").val() && $("#login-pass_{{$module_logo_instance}}").val()) {
         return true;
     } else {

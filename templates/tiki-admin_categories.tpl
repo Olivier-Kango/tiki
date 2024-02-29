@@ -238,7 +238,7 @@
                     {/if}
                 </form>
                 {jq}
-$("#remove_object_form").unbind("submit").submit(function (e) {
+$("#remove_object_form").off("submit").on("submit", function (e) {
     $.ajax($(this).attr('action'), {
         type: 'POST',
         dataType: 'json',
@@ -353,7 +353,7 @@ $("#remove_object_form").unbind("submit").submit(function (e) {
                     </div>
                 </form>
                 {jq}
-$("#add_object_form").unbind("submit").submit(function (e) {
+$("#add_object_form").off("submit").on("submit", function (e) {
     var form = this,
         formdata;
 

@@ -223,7 +223,7 @@ $(function () {
 
         $previewForm
             .off("submit")
-            .submit(function () {
+            .on("submit", function () {
                 $previewDiv.tikiModal(" ");
                 var $this = $(this);
                 $previewDiv.load(
@@ -235,9 +235,9 @@ $(function () {
                 );
                 return false;
             })
-            .submit()
+            .trigger("submit")
             .find("input,select").on("change", function () {
-                $previewForm.submit();
+                $previewForm.trigger("submit");
             }).trigger("change.select2");
 
         $("#col1").tikiModal();

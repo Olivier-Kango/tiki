@@ -156,7 +156,7 @@
 
                         $(form.storeAs).val(data.queryId);
                         $(form).attr('method', 'post');
-                        $(form).submit();
+                        $(form).trigger("submit");
                     }
                 });
             {/jq}
@@ -272,7 +272,7 @@
                 $sort_mode.prop("options")[$sort_mode.prop("selectedIndex")].value = v.replace(/asc$/, "desc");
                 $(".icon", $invert).setIcon("sort-down");
             }
-            $(this).parents("form").submit();
+            $(this).parents("form").trigger("submit");
             return false;
         });
 {{/if}}

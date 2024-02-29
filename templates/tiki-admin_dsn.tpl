@@ -271,7 +271,7 @@ $('#source-form').each(function () {
             });
         };
 
-    $(form).submit(function () {
+    $(form).on("submit", function () {
         return false;
     });
 

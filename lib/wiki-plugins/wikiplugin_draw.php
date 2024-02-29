@@ -109,7 +109,7 @@ function wikiplugin_draw($data, $params)
 
         $headerlib->add_jq_onready(
             <<<JQ
-            $('#newDraw$drawIndex').submit(function() {
+            $('#newDraw$drawIndex').on("submit", function() {
                 var form = $(this);
                 var fields = form.serializeArray();
                 $.wikiTrackingDraw = {

@@ -157,7 +157,7 @@
                             $(this).remove();
                         }
                     } );
-                $('#searchform').submit( function(e) {
+                $('#searchform').on("submit", function(e) {
                     e.preventDefault();
                     if (typeof ajaxLoadingShow == 'function') { ajaxLoadingShow('resultzone'); }
                     $('#resultzone').load( this.action, $(this).serialize(), function() {

@@ -140,7 +140,7 @@
     let $this = $(this), $form = $this.parents("form");
     $form.find("select[name=action]").val($this.data("action"));
     $this.parents("tr:first").tikiModal(tr("Saving...")).find("input[type=checkbox]").prop("checked", true);
-    $form.submit();
+    $form.trigger("submit");
     return false;
 });{/jq}
             {/if}

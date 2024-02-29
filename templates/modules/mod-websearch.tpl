@@ -1,7 +1,7 @@
 {jq}
 $(function(){
     var pagehelp ="";
-    $("#search-form").submit( function () {
+    $("#search-form").on("submit", function () {
         var selectvalue = $("#selectsearch").val() ;
         var textsearch = $("#text-search").val();
         var textsend =  textsearch.replace(" ","+");

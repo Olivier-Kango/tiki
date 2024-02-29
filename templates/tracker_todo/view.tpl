@@ -100,7 +100,7 @@
     </div>
 </form>
 {jq}
-$('.add-event').removeClass('add-event').submit(function () {
+$('.add-event').removeClass('add-event').on("submit", function () {
     var form = this;
     $.ajax({
         type: 'post',

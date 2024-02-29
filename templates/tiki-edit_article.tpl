@@ -399,7 +399,7 @@
     </div>
     {if $smarty.session.wysiwyg neq 'y'}
         {jq}
-$("#editpageform").submit(function(evt) {
+$("#editpageform").on("submit", function(evt) {
     var isHtml = false;
     if (this.saving && !$("input[name=allowhtml]:checked").length) {
         $("textarea", this).each(function(){

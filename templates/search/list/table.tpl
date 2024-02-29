@@ -8,7 +8,7 @@
     </form>
 {jq}
 (function(){
-    $('#listexecute-download-top-{{$iListExecute}}').submit(function(){
+    $('#listexecute-download-top-{{$iListExecute}}').on("submit", function(){
         var $form = $(this);
         $form.find('input[name^=filter]').remove();
         $('.tablesorter-filter').each(function(i,el){
@@ -322,7 +322,7 @@
         });
     $( "#{{$id}}-div .checkbox_objects" ).on( "click", countChecked );
     countChecked();
-    $('#listexecute-{{$iListExecute}}').submit(function(){
+    $('#listexecute-{{$iListExecute}}').on("submit", function(){
         feedback(tr('Action is being executed, please wait.'));
         $(this).tikiModal(" ");
         var filters = $('#list_filter{{$iListExecute|replace:'wplistexecute-':''}} form').serializeArray(),
@@ -359,7 +359,7 @@
     </form>
 {jq}
 (function(){
-    $('#listexecute-download-{{$iListExecute}}').submit(function(){
+    $('#listexecute-download-{{$iListExecute}}').on("submit", function(){
         var $form = $(this);
         $form.find('input[name^=filter]').remove();
         $('.tablesorter-filter').each(function(i,el){

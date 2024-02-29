@@ -431,7 +431,7 @@
     <p><a href="javascript:window.history.go(-2);">{tr}Return to previous page{/tr}</a></p>
 {/if}
 {jq}
-    $('#share-form').submit(function(e){
+    $('#share-form').on("submit", function(e){
             if($('#addresses').val() !='' || ! $('#emailtable:visible').length) {
                     $(this).tikiModal("Please wait....");
                     var postData = $(this).serializeArray();

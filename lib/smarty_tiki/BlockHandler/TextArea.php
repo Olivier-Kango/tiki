@@ -371,7 +371,7 @@ class TextArea extends Base
             $(form).find("input[name=mode_normal]").val("y");
             $(form).find("input[name=wysiwyg]").val("n");
         }
-        form.submit();
+        form.trigger("submit");
     }';
                 } elseif ($params['syntax'] === 'tiki' || $params['syntax'] === 'markdown') {
                     $html .= $smarty->fetch('edit/editor_settings.tpl');
@@ -423,7 +423,7 @@ class TextArea extends Base
             $headerlib->add_js(
                 /** @lang JavaScript */
                 '
-    $("#' . $as_id . '").closest("form").submit(function () {
+    $("#' . $as_id . '").closest("form").on("submit", function () {
         addSyntaxPlugin("' . $as_id . '", $(this));
         return true;
     });'

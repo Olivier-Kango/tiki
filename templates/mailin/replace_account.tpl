@@ -350,7 +350,7 @@
             getFields(trackerId.value);
         }
 
-        $("#replace_account").submit( function(eventObj) {
+        $("#replace_account").on("submit", function(eventObj) {
             if ((typeof fieldLinks !== "undefined") && ($('select[name="type"] option:selected').val() == 'tracker')) {
                 var results = fieldLinks.fieldsLinker("getLinks");
                 $("<input />").attr("type", "hidden")

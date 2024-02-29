@@ -76,7 +76,7 @@
             </a>
             <form id="edit-diagram-1" target="_blank" action="tiki-editdiagram.php" method="post">
                 <input type="hidden" value="{$file.id}" name="fileId">
-                <a href="javascript:void(0)" onclick="$('#edit-diagram-1').submit()">
+                <a href="javascript:void(0)" onclick="$('#edit-diagram-1').trigger('submit')">
                     {icon name='edit' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Edit{/tr}"}
                 </a>
             </form>

@@ -17,11 +17,11 @@
     {jq}
         $('.facets select').registerFacet();
         $('.facets button').on("click", function () {
-            $('#search-form').submit();
+            $('#search-form').trigger("submit");
         });
 
         // remove empty inputs to keep the url clean
-        $('#search-form').submit(function () {
+        $('#search-form').on("submit", function () {
             $(this)
                 .find('input[name]')
                 .filter(function () {

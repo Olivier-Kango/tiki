@@ -334,7 +334,7 @@
         });
     }
 
-    $forum.submit(function() {
+    $forum.on("submit", function() {
         if (jqueryTiki.validate && ! $(this).valid()) {
             return false;
         }
@@ -342,7 +342,7 @@
         if (!$forum.data("sub")) {
             $forum.tikiModal('Save in Progress...');
             $forum.data("sub", true);
-            $forum.submit();
+            $forum.trigger("submit");
         }
     });
 {/jq}

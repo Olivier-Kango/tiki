@@ -13,7 +13,7 @@
     pretty_tracker_tpl.keypress(function(e){
     return /[^ //?#\[\]@$&+;=<>\\]/i.test(e.key);
     });
-    frm.submit(function(){
+    frm.on("submit", function(){
         if (user_register_pt_checkbox.is(':checked')
         && pretty_tracker_tpl.val() === "") {
             warning_ept.show();

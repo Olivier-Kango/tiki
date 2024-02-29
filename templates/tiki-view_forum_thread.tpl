@@ -184,7 +184,7 @@
         <form role="form" id='quick' method="get" action="tiki-view_forum.php">
             <label class="col-sm-6 col-form-label" for="forumId">{tr}Jump to forum:{/tr}</label>
             <div class="col-sm-6">
-                <select id="forumId" class="form-control" name="forumId" onchange="javascript:document.getElementById('quick').submit();">
+                <select id="forumId" class="form-control" name="forumId" onchange="javascript:document.getElementById('quick').trigger("submit");">
                     {section name=ix loop=$all_forums}
                         <option value="{$all_forums[ix].forumId|escape}" {if $all_forums[ix].forumId eq $forumId}selected="selected"{/if}>
                             {$all_forums[ix].name}

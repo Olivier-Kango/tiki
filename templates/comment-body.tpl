@@ -121,7 +121,7 @@
             </div>
         {/foreach}
         {jq}
-            var crf = $('form.forumDeliberationRatingForm').submit(function() {
+            var crf = $('form.forumDeliberationRatingForm').on("submit", function() {
                 var vals = $(this).serialize();
                 $.tikiModal(tr('Loading...'));
                 $.get('tiki-ajax_services.php?controller=rating&action=vote&' + vals, function() {

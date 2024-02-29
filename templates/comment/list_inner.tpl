@@ -65,7 +65,7 @@
                                 <input type="hidden" name="type" value="comment" />
                             </form>
                             {jq}
-                                var crf = $('form.commentRatingForm').submit(function() {
+                                var crf = $('form.commentRatingForm').on("submit", function() {
                                     var vals = $(this).serialize();
                                     $.tikiModal(tr('Loading...'));
                                     $.post($.service('rating', 'vote'), vals, function() {

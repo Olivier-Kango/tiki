@@ -29,7 +29,7 @@
 
         return hasEmpty;
     }
-    $('.mod-tracker-input').removeClass('mod-tracker-input').submit(function () {
+    $('.mod-tracker-input').removeClass('mod-tracker-input').on("submit", function () {
         var form = this;
         if (hasEmptyField(form, ':input:not(:submit)')) {
             $(':submit', form).showError("{tr}Missing values{/tr}");
@@ -87,7 +87,7 @@
                     control = $(map).setupMapSelection({
                         field: $('#' + location),
                         click: function () {
-                            $(form).submit();
+                            $(form).trigger("submit");
                         }
                     });
                     control.deactivate();
@@ -142,7 +142,7 @@
                                     .appendTo(form);
                                 $('#' + location).val(position);
 
-                                $(form).submit();
+                                $(form).trigger("submit");
                                 input.remove();
                             },
                             complete: function () {

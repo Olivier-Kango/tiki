@@ -5,7 +5,7 @@
 {jq}
     var id = '#{{$search_location_id|escape}}';
 
-    $(id).submit(function () {
+    $(id).on("submit", function () {
         $('.map-container:visible').trigger('search', [ {address: $(this.address).val()} ]);
         $(this.address).val('');
         return false;

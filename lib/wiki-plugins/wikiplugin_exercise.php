@@ -158,7 +158,7 @@ function wikiplugin_exercise_finalize()
 $.exerciseFinalize = function (random) {
     $('.exercise-form').filter(':first').removeClass('exercise-form').each(function (k, form) {
         var label = $('p', form).hide().text(), elements = $('.exercise-input.done:not(.complete)').addClass('complete');
-        $(form).submit(function () {
+        $(form).on("submit", function () {
             var score = 0, total = 0;
 
             elements.find('.mark').remove();
