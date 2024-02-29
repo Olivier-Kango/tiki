@@ -356,24 +356,35 @@ class Search_Query_WikiBuilder
         }
 
         if (in_array('groups', $types)) {
-            $part = new Search_Expr_Or(
-                array_map(
-                    function ($group) {
-                        return new Search_Expr_Token($group, 'multivalue', 'user_groups');
-                    },
-                    Perms::get()->getGroups()
-                )
-            );
-            $subquery->getExpr()->addPart(
-                new Search_Expr_And(
-                    [
-                        $part,
-                        new Search_Expr_Not(
-                            new Search_Expr_Token($targetUser, 'identifier', 'user')
-                        ),
-                    ]
-                )
-            );
+            if (! empty($arguments['field'])) {
+                $subquery->getExpr()->addPart(new Search_Expr_Or(
+                    array_map(
+                        function ($group) use ($arguments) {
+                            return new Search_Expr_Token($group, 'multivalue', $arguments['field']);
+                        },
+                        Perms::get()->getGroups()
+                    )
+                ));
+            } else {
+                $part = new Search_Expr_Or(
+                    array_map(
+                        function ($group) {
+                            return new Search_Expr_Token($group, 'multivalue', 'user_groups');
+                        },
+                        Perms::get()->getGroups()
+                    )
+                );
+                $subquery->getExpr()->addPart(
+                    new Search_Expr_And(
+                        [
+                            $part,
+                            new Search_Expr_Not(
+                                new Search_Expr_Token($targetUser, 'identifier', 'user')
+                            ),
+                        ]
+                    )
+                );
+            }
         }
 
         if (in_array('follow', $types)) {
