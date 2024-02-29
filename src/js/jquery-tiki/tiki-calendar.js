@@ -225,9 +225,7 @@ $(document).on("click", ".edit-calendar-item-btn", function (e) {
     const $this = $(this);
     const $modal = $this.parents().hasClass('modal-body');
     if ($modal) {
-        if ($.isFunction(e.preventDefault)) {
-            e.preventDefault();
-        }
+        e.preventDefault();
         $.closeModal({
             done: function () {
                 $.openModal({
