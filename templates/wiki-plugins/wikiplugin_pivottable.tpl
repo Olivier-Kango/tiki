@@ -19,6 +19,7 @@
             rendererOptions: {
                 pivotId: {{$pivottable.id|json_encode}},
                 highlight: {{$pivottable.highlight|json_encode}},
+                highlightChartType: {{$pivottable.highlightChartType|json_encode}},
                 localeStrings: {
                     vs: "{tr}vs{/tr}",
                     by: "{tr}by{/tr}",
