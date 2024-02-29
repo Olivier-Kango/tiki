@@ -88,8 +88,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [new \SmartyTiki\Modifier\HtmlDecode(), 'handle'];
             case 'iconify':
                 return [new \SmartyTiki\Modifier\Iconify(), 'handle'];
-            case 'implode':
-                return [$this, 'smartyModifierImplode'];
             case 'in_group':
                 return [new \SmartyTiki\Modifier\InGroup(), 'handle'];
             case 'is_array':
@@ -100,8 +98,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [new \SmartyTiki\Modifier\IsoDate(), 'handle'];
             case 'json_decode':
                 return [$this, 'smartyModifierJsonDecode'];
-            case 'json_encode':
-                return [$this, 'smartyModifierJsonEncode'];
             case 'kbsize':
                 return [new \SmartyTiki\Modifier\KbSize(), 'handle'];
             case 'langname':
@@ -160,8 +156,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [$this, 'smartyModifierStrpos'];
             case 'strtolower':
                 return [$this, 'smartyModifierStrtolower'];
-            case 'substr':
-                return [$this, 'smartyModifierSubstr'];
             case 'substring':
                 return [$this, 'smartyModifierSubstring'];
             case 'tasklink':
@@ -752,25 +746,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
         return 1;
     }
 
-    /**
-     * Samrty modifier implode
-     * -----------------------
-     * Purpose: Joins the elements of an array into a string
-     *
-     * @param string $separator     Seprator
-     * @param array $array          The array of strings to gather.
-     * @return string
-     *
-     * Synthax: {$separator|implode:$array}
-     */
-    public function smartyModifierImplode($separator, $array)
-    {
-        if (! is_array($array)) {
-            return $array;
-        }
-        return implode($separator, $array);
-    }
-
     public function smartyModifierIsarray($array)
     {
         return is_array($array);
@@ -796,23 +771,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierJsonDecode($json, $associative = null, $depth = 512, $flags = 0)
     {
         return json_decode($json, $associative, $depth, $flags);
-    }
-
-    /**
-     * Smarty modifier json_encode
-     * ---------------------------
-     * Purpose: Returns the JSON representation of a value
-     *
-     * @param mixed $value   The value to encode. Can be any type except a resource
-     * @param int   $flags
-     * @param int   $depth
-     * @return JSON|flase    Returns JSON encoded as a string on success or false on error.
-     *
-     * @see https://php.net/manual/en/function.json-encode.php for more details about params description
-     */
-    public function smartyModifierJsonEncode($value, $flags = 0, $depth = 512)
-    {
-        return json_encode($value, $flags, $depth);
     }
 
     /*
@@ -904,30 +862,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierSizeof($value, $mode = COUNT_NORMAL)
     {
         return sizeof($value, $mode);
-    }
-
-    /**
-     * Smarty substr modifier plugin
-     *
-     * Type:     modifier
-     *
-     * Name:     substring
-     *
-     * Purpose:  Returns a substring of string.
-     *
-     * @param string
-     * @param position: start position of substring (default=0, negative starts N from end)
-     * @param length: length of substring (default=to end of string; negative=left N from end)
-     * @return string
-     */
-    public function smartyModifierSubstr($string, $position = 0, $length = null)
-    {
-
-        if ($length == null) {
-            return substr($string, $position);
-        } else {
-            return substr($string, $position, $length);
-        }
     }
 
     /**
