@@ -16,7 +16,7 @@ use Tiki\Package\Extension\Api\Search as ApiSearch;
 
 class ExtensionManager
 {
-    public const ENABLED_PACKAGES_FILE = CONFIG_PATH . '/config/packages.yml';
+    public const ENABLED_PACKAGES_FILE = TIKI_CONFIG_PATH . '/config/packages.yml';
 
     private static $enabled = [];
     private static $installed = []; // Hold config

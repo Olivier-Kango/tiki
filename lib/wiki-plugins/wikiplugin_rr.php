@@ -375,7 +375,7 @@ function wikiplugin_rr($data, $params)
 {
     global $smarty, $trklib, $tikilib, $prefs, $dbversion_tiki, $tikidomainslash, $user, $tiki_p_edit;
 
-    include_once(CONFIG_PATH . '/tiki-db.php'); // to set up multitiki etc if there ($tikidomain)
+    include_once(TIKI_CONFIG_PATH . '/tiki-db.php'); // to set up multitiki etc if there ($tikidomain)
 
     # Clean the <br /> , <p> and </p> tags added by the Tiki or smarty parsers.
     $data = str_replace(["<br />", "<p>", "</p>"], "", $data);

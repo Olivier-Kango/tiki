@@ -15,7 +15,7 @@
 # But it MUST match what's in path_constatns.php
 
 ADMIN_PATH=admin
-CONFIG_PATH=db
+TIKI_CONFIG_PATH=db
 DEPRECATED_FILES_PATH=files
 STATIC_IMG_PATH=img
 DEPRECATED_IMG_WIKI_PATH=img/wiki

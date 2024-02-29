@@ -22,7 +22,7 @@ const ADMIN_PATH = 'admin';
 const BIN_PATH = 'bin';
 
 /** Location of main configuration files */
-const CONFIG_PATH = 'db';
+const TIKI_CONFIG_PATH = 'db';
 /** This is the main tiki config file.  This is problematic because it does not take into account multiple domain names, and wasn't introduced with the constants.  See TikiInit.php - benoitg - 2024-01-10  */
 const TIKI_CONFIG_FILE_PATH = 'db/local.php';
 

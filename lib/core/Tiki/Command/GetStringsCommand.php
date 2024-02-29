@@ -103,7 +103,7 @@ class GetStringsCommand extends Command
             DEPRECATED_CUSTOM_PATH, EXPORT_DUMP_PATH, STATIC_IMG_PATH, LANG_PATH, BIN_PATH,
             TIKI_UPGRADE_SQL_SCHEMA_PATH, TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH, TIKI_VENDOR_NONBUNDLED_PATH,
             TIKI_VENDOR_CUSTOM_PATH, 'lib/test', TEMP_PATH, PERMISSIONCHECK_PATH,
-            DEPRECATED_STORAGE_PATH, TIKI_TESTS_PATH, DEPRECATED_DEVTOOLS_PATH, CONFIG_PATH, 'lib/openlayers', TESTS_PATH
+            DEPRECATED_STORAGE_PATH, TIKI_TESTS_PATH, DEPRECATED_DEVTOOLS_PATH, TIKI_CONFIG_PATH, 'lib/openlayers', TESTS_PATH
         ];
         $excludeDirs = array_filter($excludeDirs, 'is_dir'); // only keep in the exclude list if the dir exists
 

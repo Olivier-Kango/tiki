@@ -19,7 +19,7 @@ use ZipArchive;
  */
 class Zip
 {
-    public const CONFIG_FOLDER_NAME = CONFIG_PATH . '/';
+    public const CONFIG_FOLDER_NAME = TIKI_CONFIG_PATH . '/';
     public const SCHEMA_FOLDER_NAME = TIKI_UPGRADE_SQL_SCHEMA_PATH . '/';
 
     protected $fileName = '';

@@ -12,6 +12,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 define('VENDOR_PATH', $tikipath . '/vendor_bundled/vendor/');
 define('APP_PATH', VENDOR_PATH . 'jason-munro/cypht/');
+define('CONFIG_PATH', VENDOR_PATH . 'jason-munro/cypht/config/');
 define('WEB_ROOT', $tikiroot . 'vendor_bundled/vendor/jason-munro/cypht/');
 define('DEBUG_MODE', false);
 

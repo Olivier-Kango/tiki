@@ -49,7 +49,7 @@ $safePaths = [
     /* Not in build */
     '\./' . DEPRECATED_DEVTOOLS_PATH . '/.*',
     '\./' . TIKI_CONFIG_FILE_PATH,
-    '\./' . CONFIG_PATH . '/virtuals.inc',
+    '\./' . TIKI_CONFIG_PATH . '/virtuals.inc',
 
     /* The following are DELIBERATELY PUBLIC. */
     '\./tiki-cookie-jar.php',

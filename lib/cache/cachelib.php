@@ -178,8 +178,8 @@ class Cachelib
         $all = opendir($path);
 
         // If using multiple Tikis but flushing cache on default install...
-        if (empty($tikidomain) && is_file(CONFIG_PATH . '/virtuals.inc')) {
-            $virtuals = array_map('trim', file(CONFIG_PATH . '/virtuals.inc'));
+        if (empty($tikidomain) && is_file(TIKI_CONFIG_PATH . '/virtuals.inc')) {
+            $virtuals = array_map('trim', file(TIKI_CONFIG_PATH . '/virtuals.inc'));
         } else {
             $virtuals = false;
         }
@@ -270,8 +270,8 @@ class Cachelib
         }
         if ($dir = opendir($path)) {
             // If using multiple Tikis but flushing cache on default install...
-            if (empty($tikidomain) && is_file(CONFIG_PATH . '/virtuals.inc')) {
-                $virtuals = array_map('trim', file(CONFIG_PATH . '/virtuals.inc'));
+            if (empty($tikidomain) && is_file(TIKI_CONFIG_PATH . '/virtuals.inc')) {
+                $virtuals = array_map('trim', file(TIKI_CONFIG_PATH . '/virtuals.inc'));
             } else {
                 $virtuals = false;
             }

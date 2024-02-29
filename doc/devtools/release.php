@@ -352,8 +352,8 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
 {
     $d = dir($dir);
     $link = null;
-    if (is_file(CONFIG_PATH . '/virtuals.inc')) {
-        $virtuals = array_map('trim', file(CONFIG_PATH . '/virtuals.inc'));
+    if (is_file(TIKI_CONFIG_PATH . '/virtuals.inc')) {
+        $virtuals = array_map('trim', file(TIKI_CONFIG_PATH . '/virtuals.inc'));
     } else {
         $virtuals = [];
     }

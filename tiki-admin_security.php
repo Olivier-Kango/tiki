@@ -154,11 +154,11 @@ if ($prefs['feature_mailin'] == 'y') {
 
 //check to see if installer lock is being used
 //check multitiki
-if (is_file(CONFIG_PATH . '/virtuals.inc')) {
-    $virtuals = array_map('trim', file(CONFIG_PATH . '/virtuals.inc'));
+if (is_file(TIKI_CONFIG_PATH . '/virtuals.inc')) {
+    $virtuals = array_map('trim', file(TIKI_CONFIG_PATH . '/virtuals.inc'));
     foreach ($virtuals as $v) {
         if ($v) {
-            if (is_file(CONFIG_PATH . "/$v/local.php") && is_readable(CONFIG_PATH . "/$v/local.php")) {
+            if (is_file(TIKI_CONFIG_PATH . "/$v/local.php") && is_readable(TIKI_CONFIG_PATH . "/$v/local.php")) {
                 $virt[$v] = 'y';
             } else {
                 $virt[$v] = 'n';
@@ -171,17 +171,17 @@ if (is_file(CONFIG_PATH . '/virtuals.inc')) {
 }
 $multi = '';
 if ($virtuals) {
-    if (isset($_SERVER['TIKI_VIRTUAL']) && is_file(CONFIG_PATH . '/' . $_SERVER['TIKI_VIRTUAL'] . '/local.php')) {
+    if (isset($_SERVER['TIKI_VIRTUAL']) && is_file(TIKI_CONFIG_PATH . '/' . $_SERVER['TIKI_VIRTUAL'] . '/local.php')) {
         $multi = $_SERVER['TIKI_VIRTUAL'];
-    } elseif (isset($_SERVER['SERVER_NAME']) && is_file(CONFIG_PATH . '/' . $_SERVER['SERVER_NAME'] . '/local.php')) {
+    } elseif (isset($_SERVER['SERVER_NAME']) && is_file(TIKI_CONFIG_PATH . '/' . $_SERVER['SERVER_NAME'] . '/local.php')) {
         $multi = $_SERVER['SERVER_NAME'];
-    } elseif (isset($_SERVER['HTTP_HOST']) && is_file(CONFIG_PATH . '/' . $_SERVER['HTTP_HOST'] . '/local.php')) {
+    } elseif (isset($_SERVER['HTTP_HOST']) && is_file(TIKI_CONFIG_PATH . '/' . $_SERVER['HTTP_HOST'] . '/local.php')) {
         $multi = $_SERVER['HTTP_HOST'];
     }
 }
 $tikidomain = $multi;
 $tikidomainslash = (! empty($tikidomain) ? $tikidomain . '/' : '');
-if (! file_exists(CONFIG_PATH . '/' . $tikidomainslash . 'lock')) {
+if (! file_exists(TIKI_CONFIG_PATH . '/' . $tikidomainslash . 'lock')) {
     $tikisettings['installer lock'] = [
         'risk' => tra('unsafe') ,
         'setting' => tra('Unlocked') ,

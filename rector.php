@@ -44,7 +44,7 @@ return static function (RectorConfig $rectorConfig): void {
     //TO debug these paths, add --debug to your rector commands, and you will see every file processed.
     $rectorConfig->paths([
         __DIR__ . '/' . ADMIN_PATH,
-        __DIR__ . '/' . CONFIG_PATH,
+        __DIR__ . '/' . TIKI_CONFIG_PATH,
         __DIR__ . '/' . DEPRECATED_DEVTOOLS_PATH,
         __DIR__ . '/' . INSTALLER_PATH,
         //__DIR__ . '/' . LANG_PATH,
