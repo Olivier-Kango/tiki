@@ -135,17 +135,25 @@ class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractField
 
         $conn = new SSH2($this->getOption('domain'));
 
-        $password = new RSA();
-
-        $publicKeyLoaded = $password->loadPublicKey(file_get_contents($this->getOption('publicKey')));
-        $privateKeyLoaded = $password->loadPrivateKey(file_get_contents($this->getOption('privateKey')));
+        try {
+            if (! is_readable(file_get_contents($this->getOption('privateKey'))) || ! is_readable(file_get_contents($this->getOption('publicKey')))) {
+                Feedback::error(tra("Unable to read ssh file. Run the copysshkey script: `php tiki-manager.php instance:copysshkey`"));
+                $ret['status'] = 'INVKEYS';
+                return $ret;
+            }
+            $publicKeyLoaded = RSA::loadPublicKey(file_get_contents($this->getOption('publicKey')));
+            $privateKeyLoaded = RSA::loadPrivateKey(file_get_contents($this->getOption('privateKey')));
+        } catch (Exception $e) {
+            $ret['status'] = 'INVKEYS';
+            return $ret;
+        }
 
         if (! $publicKeyLoaded || ! $privateKeyLoaded) {
             $ret['status'] = 'INVKEYS';
             return $ret;
         }
 
-        $conntry = $conn->login($this->getOption('remoteShellUser'), $password);
+        $conntry = $conn->login($this->getOption('remoteShellUser'), $privateKeyLoaded);
 
         if (! $conntry) {
             $ret['status'] = 'DISCO';

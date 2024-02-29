@@ -22084,5 +22084,6 @@ $lang_current = array(
 "Visible in view mode" => "Visible en mode visualisation",
 "Visible in edit mode" => "Visible en mode édition",
 "Visible in history mode" => "Visible en mode historique",
+"Unable to read ssh file. Run the copysshkey script: `php tiki-manager.php instance:copysshkey`" => "Impossible de lire le fichier ssh. Exécutez le script de copysshkey: `php tiki-manager.php instance:copysshkey`"
 );
 $lang = array_replace($lang, $lang_current);

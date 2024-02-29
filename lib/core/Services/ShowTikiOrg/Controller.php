@@ -45,9 +45,8 @@ class Services_ShowTikiOrg_Controller
 
         $conn = new SSH2($domain);
 
-        $password = new RSA();
-        $privetKey = $password->loadPrivateKey(file_get_contents($options->privateKey));
-        $publicKey = $password->loadPublicKey(file_get_contents($options->publicKey));
+        $privetKey = RSA::loadPrivateKey(file_get_contents($options->privateKey));
+        $publicKey = RSA::loadPublicKey(file_get_contents($options->publicKey));
 
         $conntry = $conn->login($options->remoteShellUser, $privetKey, $publicKey);
 
