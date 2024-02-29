@@ -277,6 +277,14 @@ function wikiplugin_pivottable_info()
                 'default' => '',
                 'separator' => ':',
             ],
+            'highlightChartType' => [
+                'required' => false,
+                'name' => tra('Type of highlighted items on chart. Use `same` to mirror the same chart type as the origina data or specific chart type like `scatter` or `bar`.'),
+                'description' => tr(''),
+                'since' => '24.7',
+                'filter' => 'text',
+                'default' => '',
+            ],
             'xAxisLabel' => [
                 'name' => tr('xAxis label'),
                 'description' => tr('Override label of horizontal axis when using Chart renderers.'),
@@ -1018,7 +1026,7 @@ function wikiplugin_pivottable($data, $params)
                 }
             }
             if ($matching) {
-                $highlight[] = ['type' => 'same', 'item' => $item, 'group' => 'request', 'color' => $params['highlightGroupColors'][0] ?? null];
+                $highlight[] = ['item' => $item, 'group' => 'request', 'color' => $params['highlightGroupColors'][0] ?? null];
             }
         }
     }
@@ -1067,6 +1075,8 @@ function wikiplugin_pivottable($data, $params)
         'highlight' => $highlight,
         'highlightMine' => $params['highlightMine'],
         'highlightGroup' => $params['highlightGroup'],
+        'highlightRequest' => $params['highlightRequest'],
+        'highlightChartType' => $params['highlightChartType'],
         'xAxisLabel' => $params['xAxisLabel'],
         'yAxisLabel' => $params['yAxisLabel'],
         'chartTitle' => $params['chartTitle'],
