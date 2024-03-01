@@ -723,7 +723,7 @@ class CategLib extends ObjectLib
      * @param int $maxRecords size of page - NB: -1 will check perms etc on every object and can be very slow
      * @return array
      */
-    private function filterObjectRows($result, $count, $offset, $maxRecords)
+    private function filterObjectRows($result, $count, $offset, $maxRecords): array
     {
         global $user, $prefs;
         $permMap = TikiLib::lib('object')->map_object_type_to_permission();
@@ -792,6 +792,8 @@ class CategLib extends ObjectLib
                 $objs[] = $res['catObjectId'] . '-' . $res['categId'];
             }
         }
+
+        return $ret;
     }
 
 
