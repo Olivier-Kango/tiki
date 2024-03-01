@@ -495,7 +495,7 @@
             $("#form form").each(function(n) {
                 if ($(this).find('input[name="userfile\\[\\]"]').val() != '') {
                     var $progress = $('#progress_'+n).html("<img src='img/spinner.gif'>{tr}Uploading file...{/tr}");
-                    $( document ).ajaxError(function(event, jqxhr, ajaxSettings, thrownError ) {
+                    $( document ).on('ajaxError', function(event, jqxhr, ajaxSettings, thrownError ) {
                         $progress.hide();
                         show('form');
                         $("#form").showError(tr("File upload error:") + " " + thrownError)
