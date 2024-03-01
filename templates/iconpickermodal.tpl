@@ -113,7 +113,7 @@
             var iconel=$('.icon-picker-list li');
             iconel.on("click", function(){
                 var optionid=el1.attr('data-id');
-                var icon=$.trim($(this).text());
+                var icon= $(this).text().trim();
                 var iconupdated=icon.replace("fas fa-","");
                 var classe="<span class='icon "+icon+"'></span>";
                 el1.html(classe);

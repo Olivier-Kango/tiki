@@ -199,7 +199,7 @@
 
 <script>
     var filter_out_icons = function (el){
-        var filter = $.trim($(el).val());
+        var filter = $(el).val().trim();
         $('.icons a.icon-picker-container').each(function(indx,el){
             let att = $(this).attr('data-icon-name');
             if(att.toLowerCase().indexOf(filter.toLowerCase())===-1) {

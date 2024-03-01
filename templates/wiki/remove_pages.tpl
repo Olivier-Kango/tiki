@@ -48,7 +48,7 @@
                 <div class="col-sm-10">
                     {jq}
                         let exclude = $('#list-items li').map(function(i,el) {
-                            return $.trim($(el).text());
+                            return $(el).text().trim();
                         }).get();
                         exclude = exclude.join();
                         $("#destpage").tiki("autocomplete", "pagename","",exclude);

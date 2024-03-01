@@ -143,7 +143,7 @@ class Table_Code_Other extends Table_Code_Manager
                         . $this->nt4 . '// replace <br> and new lines with a comma'
                         . $this->nt4 . 'html = html.replace(/\s*<br\s*\/?>\s*|[\r\n]/g, \',\')'
                         . $this->nt4 . 'html = html.replace(/,{2,}/g, \',\')'
-                        . $this->nt4 . 'html = $.trim(c.ignoreCase ? html.toLocaleLowerCase() : html);'
+                        . $this->nt4 . 'html = (c.ignoreCase ? html.toLocaleLowerCase() : html).trim();'
                         . $this->nt4 . 'html = c.sortLocaleCompare ? $.tablesorter.replaceAccents(html) : html;'
                     . $this->nt3 . '}'
                     . $this->nt3 . 'return html;'

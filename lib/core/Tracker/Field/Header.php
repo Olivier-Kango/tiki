@@ -94,7 +94,7 @@ class Tracker_Field_Header extends \Tracker\Field\AbstractField implements \Trac
             var name = $hdrField.data("name");
             var toggle = $hdrField.data("toggle");
 
-            $hdr = $("<h" + level + ">").text($.trim(name));
+            $hdr = $("<h" + level + ">").text(name.trim());
 
             if (toggle) {
                 var $section = $div.nextUntil(":not(div)");
