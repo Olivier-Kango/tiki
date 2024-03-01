@@ -63,6 +63,22 @@ function getTikiRequirements()
 {
     return array(
         array(
+            'name'    => 'Tiki 27.x',
+            'version' => 27,
+            'php'     => array(
+                'min' => '8.1',
+                'max' => '8.4',
+            ),
+            'mariadb' => array(
+                'min' => '10.5',
+                'max' => null
+            ),
+            'mysql'   => array(
+                'min' => '5.7',
+                'max' => null
+            ),
+        ),
+        array(
             'name'    => 'Tiki 26.x',
             'version' => 26,
             'php'     => array(
