@@ -65,7 +65,9 @@ function wikiplugin_quote($data, $params)
 
     if (isset($params['thread_id']) && $params['thread_id']) {
         $comment_info = TikiLib::lib('comments')->get_comment($params['thread_id']);
-        $replyto = $comment_info['userName'];
+        if ($comment_info) {
+            $replyto = $comment_info['userName'];
+        }
     } elseif (isset($params['replyto']) && $params['replyto']) {
         $replyto = $params['replyto'];
     }
