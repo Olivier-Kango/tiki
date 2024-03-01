@@ -10,7 +10,7 @@
         <div class="t_navbar mb-4">
             <div class="float-sm-end btn-group">
                 {if ! $js}<ul><li>{/if}
-                <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
+                <a class="btn btn-link" data-bs-toggle="dropdown" href="#">
                     {icon name='menu-extra'}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">

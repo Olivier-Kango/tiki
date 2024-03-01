@@ -9,7 +9,7 @@
     <div class="t_navbar mb-4">
         <div class="btn-group float-end">
             {if ! $js}<ul><li>{/if}
-            <a class="btn btn-link border-radius--0" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Calendar actions{/tr}">
+            <a class="btn btn-link border-radius--0" data-bs-toggle="dropdown" href="#" title="{tr}Calendar actions{/tr}">
                 {icon name='menu-extra'}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">

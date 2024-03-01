@@ -62,9 +62,9 @@
                     <div class="btn-group backlinks">
                         {if ! $js}<ul><li>{/if}
                         {if $backlinks|count eq 1}
-                        <a href="#" role="button" data-bs-toggle="dropdown" data-hover="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr}1 page is linked to this page{/tr}">
+                        <a href="#" role="button" data-bs-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr}1 page is linked to this page{/tr}">
                         {elseif $backlinks|count gt 1}
-                        <a href="#" role="button" data-bs-toggle="dropdown" data-hover="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr _0=$backlinks|count}%0 pages are linked to this page{/tr}">
+                        <a href="#" role="button" data-bs-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr _0=$backlinks|count}%0 pages are linked to this page{/tr}">
                         {/if}
                             {icon name="backlink"}
                             <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill bg-secondary">{$backlinks|count}</span>
@@ -93,7 +93,7 @@
                 {if $structure eq 'y' or ( $structure eq 'n' and count($showstructs) neq 0 )}
                     <div class="btn-group structures">
                         {if ! $js}<ul><li>{/if}
-                        <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" title="{tr}Structures{/tr}">
+                        <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" title="{tr}Structures{/tr}">
                             {icon name="structure"}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" role="menu">
@@ -129,7 +129,7 @@
                 {assign var="hasPageAction" value="0"}
                 {capture name="pageActions"}
                     {if ! $js}<ul><li>{/if}
-                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#"  title="{tr}Page actions{/tr}">
+                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#"  title="{tr}Page actions{/tr}">
                         {icon name="menu-extra"}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">

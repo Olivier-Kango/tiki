@@ -668,8 +668,6 @@ $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/async/jquery.async.
 $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/treetable/jquery.treetable.js');
 $headerlib->add_cssfile('vendor_bundled/vendor/jquery-plugins/treetable/css/jquery.treetable.css');
 
-$headerlib->add_jsfile('vendor_bundled/vendor/cwspear/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js');
-
 if ($prefs['feature_equal_height_rows_js'] == 'y') {
     $headerlib->add_jsfile("vendor_bundled/vendor/Sam152/Javascript-Equal-Height-Responsive-Rows/grids.min.js");
 }

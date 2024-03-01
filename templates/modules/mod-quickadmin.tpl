@@ -4,7 +4,7 @@
             {if $only_shortcuts neq 'y'}
                 <div class="nav-item prefs-history-dropdown">
                     {if ! $js}<ul><li>{/if}
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" data-display="dynamic" data-flip="true" href="#" role="button">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-display="dynamic" data-flip="true" href="#" role="button">
                         {icon name="history"}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" role="menu">
@@ -24,7 +24,7 @@
             {if $only_prefs_history neq 'y'}
                 <div class="nav-item dropdown">
                     {if ! $js}<ul><li>{/if}
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" data-display="dynamic" href="#" role="button">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-display="dynamic" href="#" role="button">
                         {icon name='cogs'}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" role="menu">

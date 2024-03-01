@@ -22,7 +22,7 @@
     <div class="btn-group float-sm-end">
         {if ! $js}<ul><li>{/if}
                 {if $prefs.feature_group_watches eq 'y' or $prefs.feature_user_watches eq 'y' or $prefs.feed_tracker eq 'y' or $tiki_p_admin_trackers eq 'y' or $tiki_p_export_tracker eq 'y' or $prefs.sefurl_short_url eq 'y'}
-                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Tracker actions{/tr}">
+                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" title="{tr}Tracker actions{/tr}">
                         {icon name="menu-extra"}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">

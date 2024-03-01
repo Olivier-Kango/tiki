@@ -88,7 +88,7 @@
                                         {if ! $js}
                                         <ul>
                                             <li>{/if}
-                                                <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
+                                                <a class="btn btn-link" data-bs-toggle="dropdown" href="#">
                                                     {icon name="history"} Recent Actions </a>
                                                 <div class="dropdown-menu" role="menu">
                                                     {foreach $recent_prefs as $p}
@@ -104,7 +104,7 @@
                                         {if ! $js}
                                         <ul>
                                             <li>{/if}
-                                                <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
+                                                <a class="btn btn-link" data-bs-toggle="dropdown" href="#">
                                                     {icon name='menu-extra'} Quick Links </a>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="tiki-wizard_admin.php?stepNr=0&amp;url=index.php">

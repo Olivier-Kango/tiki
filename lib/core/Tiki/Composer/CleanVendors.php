@@ -137,7 +137,6 @@ class CleanVendors
                 'bin'
             ]
         );
-        self::remove($vendors . 'cwspear/bootstrap-hover-dropdown', 'bootstrap-hover-dropdown.min.js');
         self::remove(
             $vendors . 'jquery/jquery-sheet',
             [
@@ -461,16 +460,12 @@ class CleanVendors
         // remove entire packages
         $fs = new FileSystem();
 
-        // and cwspear/bootstrap-hover-dropdown includes bootstrap without asking
-        $fs->remove($vendors . 'components/bootstrap');
         //duplicate with mottie/tablesorter
         $fs->remove($vendors . 'components/tablesorter');
         // duplicate with rmm5t/jquery-timeago
         $fs->remove($vendors . 'components/jquery-timeago');
         // duplicate with afarkas/html5shiv
         $fs->remove($vendors . 'components/html5shiv');
-        // duplicate with cwspear/bootstrap-hover-dropdown
-        $fs->remove($vendors . 'components/bootstrap-hover-dropdown');
         // duplicate with moment/moment
         $fs->remove($vendors . 'components/moment');
         // duplicate with drmonty/smartmenus
