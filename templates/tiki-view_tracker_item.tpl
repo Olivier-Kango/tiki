@@ -190,7 +190,7 @@
                 {jq}
                     var id = '#comment-container-below';
                     $(id).comment_load($(id).data('bs-target'));
-                    $(document).ajaxComplete(function(){
+                    $(document).on("ajaxComplete", function(){
                         $(id).tiki_popover();
                         $(id).applyColorbox();
                     });
@@ -208,7 +208,7 @@
                 {jq}
                     var id = '#comment-container';
                     $(id).comment_load($(id).data('bs-target'));
-                    $(document).ajaxComplete(function(){$(id).tiki_popover();});
+                    $(document).on("ajaxComplete", function(){$(id).tiki_popover();});
                 {/jq}
 
             {/tab}

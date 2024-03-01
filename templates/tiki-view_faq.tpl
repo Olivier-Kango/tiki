@@ -141,6 +141,6 @@
     {jq}
         var id = '#comment-container';
         $(id).comment_load($(id).data('bs-target'));
-        $(document).ajaxComplete(function(){$(id).tiki_popover();});
+        $(document).on("ajaxComplete", function(){$(id).tiki_popover();});
     {/jq}
 {/if}
