@@ -360,8 +360,7 @@ function wikiplugin_cypht($data, $params)
     $_SESSION[$session_prefix]['username'] = $user;
 
     TikiLib::lib('header')->add_css("
-.inline-cypht * { box-sizing: content-box; }
-.inline-cypht { position: relative; }
+        .inline-cypht { position: relative; }
     ");
 
     /* get configuration */

@@ -93,7 +93,7 @@ class Hm_Output_tiki_contacts_page_link extends Hm_Output_Module
     {
         $res = '<li class="menu_contacts"><a class="unread_link" href="tiki-contacts.php">';
         if (! $this->get('hide_folder_icons')) {
-            $res .= '<i class="bi bi-people-fill account_icon"></i> ';
+            $res .= '<i class="bi bi-people-fill fs-5 me-2"></i>';
         }
         $res .= $this->trans('Contacts') . '</a></li>';
         if ($this->format == 'HTML5') {
@@ -179,11 +179,11 @@ class Hm_Output_tiki_run_sieve_filters_on_imap_unread_setting extends Hm_Output_
         if (array_key_exists('tiki_run_sieve_filters_on_imap_unread', $settings)) {
             $auto = $settings['tiki_run_sieve_filters_on_imap_unread'];
         }
-        $res = '<tr class="general_setting"><td>' . $this->trans('Run cypht filters on unread imap messages') . '</td><td><input value="1" type="checkbox" name="tiki_run_sieve_filters_on_imap_unread"';
+        $res = '<tr class="general_setting"><td><label class="form-check-label">' . $this->trans('Run cypht filters on unread imap messages') . '</label></td><td><input value="1" type="checkbox" name="tiki_run_sieve_filters_on_imap_unread" class="form-check-input"';
         $reset = '';
         if ($auto) {
             $res .= ' checked="checked"';
-            $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-repeat refresh_list reset_default_value_checkbox"></i></span>';
+            $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-clockwise reset_default_value_checkbox refresh_list"></i></span>';
         }
         $res .= '>' . $reset . '</td></tr>';
         return $res;
@@ -235,8 +235,8 @@ class Hm_Output_start_advanced_settings extends Hm_Output_Module
      */
     protected function output()
     {
-        return '<tr><td data-bs-target=".advanced_setting" colspan="2" class="settings_subtitle">' .
-            '<i class="bi bi-code-slash"></i>' .
+        return '<tr><td data-bs-target=".advanced_setting" colspan="2" class="settings_subtitle cursor-pointer border-bottom p-2 text-secondary">' .
+            '<i class="bi bi-code-slash fs-5 me-2"></i>' .
             $this->trans('Advanced') . '</td></tr>';
     }
 }
@@ -251,11 +251,11 @@ class Hm_Output_allow_external_images_setting extends Hm_Output_Module
     {
         $allow_external_images = false;
         $settings = $this->get('user_settings', []);
-        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-repeat refresh_list reset_default_value_checkbox"></i></span>';
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-clockwise refresh_list reset_default_value_checkbox"></i></span>';
         if (array_key_exists('allow_external_images', $settings)) {
             $allow_external_images = $settings['allow_external_images'];
         }
-        return '<tr class="general_setting"><td>' . tr('Allow remote image sources') . '</td><td><input type="checkbox" name="allow_external_images" value="1" ' . ($allow_external_images ? 'checked >' . $reset : '>') . '</td></tr>';
+        return '<tr class="general_setting"><td><label class="form-check-label">' . tr('Allow remote image sources') . '</label></td><td><input type="checkbox" class="form-check-input" name="allow_external_images" value="1" ' . ($allow_external_images ? 'checked >' . $reset : '>') . '</td></tr>';
     }
 }
 
@@ -314,7 +314,7 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
         $outlook_auth_uri = "https://login.live.com/oauth20_authorize.srf";
         $outlook_token_uri = "https://login.live.com/oauth20_token.srf";
         $outlook_refresh_uri = "https://login.live.com/oauth20_token.srf";
-        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-repeat refresh_list reset_default_value_checkbox"></i></span>';
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-clockwise refresh_list reset_default_value_checkbox"></i></span>';
 
         $settings = $this->get('user_settings', []);
         if (array_key_exists('tiki_enable_oauth2_over_imap', $settings)) {
@@ -343,20 +343,20 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
         }
 
         return '
-        <tr class="general_setting"><td>' . tr('Enable Oauth2 over IMAP') . '</td><td><input type="checkbox" name="tiki_enable_oauth2_over_imap" value="1" class="tiki_enable_oauth2_over_imap" ' . ($enable_oauth2_over_imap ? 'checked >' . $reset : '>') . '</td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>' . tr('Gmail Client ID') . '</td><td><textarea name="gmail_client_id">' . $gmail_client_id . '</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>' . tr('Gmail Client secret') . '</td><td><textarea name="gmail_client_secret">' . $gmail_client_secret . '</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>' . tr('Gmail Client Uri') . '</td><td><textarea name="gmail_client_uri">' . $gmail_client_uri . '</textarea></td></tr>
-        <tr class="reveal-if-unchecked"><td>' . tr('Gmail Auth Uri') . '</td><td><textarea name="gmail_auth_uri">' . $gmail_auth_uri . '</textarea></td></tr>
-        <tr class="reveal-if-unchecked"><td>' . tr('Gmail Token Uri') . '</td><td><textarea name="gmail_token_uri">' . $gmail_token_uri . '</textarea></td></tr>
-        <tr class="reveal-if-unchecked"><td>' . tr('Gmail Refresh Uri') . '</td><td><textarea name="gmail_refresh_uri">' . $gmail_refresh_uri . '</textarea></td></tr>
+        <tr class="general_setting"><td><label class="form-check-label">' . tr('Enable Oauth2 over IMAP') . '</label></td><td><input type="checkbox" name="tiki_enable_oauth2_over_imap" value="1" class="tiki_enable_oauth2_over_imap form-check-input" ' . ($enable_oauth2_over_imap ? 'checked >' . $reset : '>') . '</td></tr>
+        <tr class="oauth reveal-if-unchecked"><td>' . tr('Gmail Client ID') . '</td><td><textarea class="form-control" name="gmail_client_id">' . $gmail_client_id . '</textarea></td></tr>
+        <tr class="oauth reveal-if-unchecked"><td>' . tr('Gmail Client secret') . '</td><td><textarea class="form-control" name="gmail_client_secret">' . $gmail_client_secret . '</textarea></td></tr>
+        <tr class="oauth reveal-if-unchecked"><td>' . tr('Gmail Client Uri') . '</td><td><textarea class="form-control" name="gmail_client_uri">' . $gmail_client_uri . '</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>' . tr('Gmail Auth Uri') . '</td><td><textarea class="form-control" name="gmail_auth_uri">' . $gmail_auth_uri . '</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>' . tr('Gmail Token Uri') . '</td><td><textarea class="form-control" name="gmail_token_uri">' . $gmail_token_uri . '</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>' . tr('Gmail Refresh Uri') . '</td><td><textarea class="form-control" name="gmail_refresh_uri">' . $gmail_refresh_uri . '</textarea></td></tr>
         <tr class="oauth reveal-if-unchecked"></tr>
-        <tr class="oauth reveal-if-unchecked"><td>' . tr('Outlook Client ID') . '</td><td><textarea name="outlook_client_id">' . $outlook_client_id . '</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>' . tr('Outlook Client secret') . '</td><td><textarea name="outlook_client_secret">' . $outlook_client_secret . '</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>' . tr('Outlook Client Uri') . '</td><td><textarea name="outlook_client_uri">' . $outlook_client_uri . '</textarea></td></tr>
-        <tr class="reveal-if-unchecked"><td>' . tr('Outlook Auth Uri') . '</td><td><textarea name="outlook_auth_uri">' . $outlook_auth_uri . '</textarea></td></tr>
-        <tr class="reveal-if-unchecked"><td>' . tr('Outlook Token Uri') . '</td><td><textarea name="outlook_token_uri">' . $outlook_token_uri . '</textarea></td></tr>
-        <tr class="reveal-if-unchecked"><td>' . tr('Outlook Refresh Uri') . '</td><td><textarea name="outlook_refresh_uri">' . $outlook_refresh_uri . '</textarea></td></tr>
+        <tr class="oauth reveal-if-unchecked"><td>' . tr('Outlook Client ID') . '</td><td><textarea class="form-control" name="outlook_client_id">' . $outlook_client_id . '</textarea></td></tr>
+        <tr class="oauth reveal-if-unchecked"><td>' . tr('Outlook Client secret') . '</td><td><textarea class="form-control" name="outlook_client_secret">' . $outlook_client_secret . '</textarea></td></tr>
+        <tr class="oauth reveal-if-unchecked"><td>' . tr('Outlook Client Uri') . '</td><td><textarea class="form-control" name="outlook_client_uri">' . $outlook_client_uri . '</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>' . tr('Outlook Auth Uri') . '</td><td><textarea class="form-control" name="outlook_auth_uri">' . $outlook_auth_uri . '</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>' . tr('Outlook Token Uri') . '</td><td><textarea class="form-control" name="outlook_token_uri">' . $outlook_token_uri . '</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>' . tr('Outlook Refresh Uri') . '</td><td><textarea class="form-control" name="outlook_refresh_uri">' . $outlook_refresh_uri . '</textarea></td></tr>
         ';
     }
 }
@@ -443,11 +443,11 @@ class Hm_Output_enable_gmail_contacts_module_setting extends Hm_Output_Module
     protected function output()
     {
         $enable_gmail_contacts_module = false;
-        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-repeat refresh_list reset_default_value_checkbox"></i></span>';
+        $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-clockwise refresh_list reset_default_value_checkbox"></i></span>';
         $settings = $this->get('user_settings', []);
         if (array_key_exists('tiki_enable_gmail_contacts_module', $settings)) {
             $enable_gmail_contacts_module = $settings['tiki_enable_gmail_contacts_module'];
         }
-        return '<tr class="general_setting"><td>' . tr('Enable Gmail Contacts Module') . '</td><td><input type="checkbox" name="tiki_enable_gmail_contacts_module" value="1" ' . ($enable_gmail_contacts_module ? 'checked >' . $reset : '>') . '</td></tr>';
+        return '<tr class="general_setting"><td><label class="form-check-label">' . tr('Enable Gmail Contacts Module') . '</label></td><td><input class="form-check-input" type="checkbox" name="tiki_enable_gmail_contacts_module" value="1" ' . ($enable_gmail_contacts_module ? 'checked >' . $reset : '>') . '</td></tr>';
     }
 }
