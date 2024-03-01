@@ -83,7 +83,7 @@ class ListFilter extends Base
 
                 $headerlib->add_jq_onready(
                     "
-                $(document).bind('editHelpOpened', function() {
+                $(document).on('editHelpOpened', function() {
                     var text = getTASelection('#" . $editorId . "'),
                     possiblePlugin = text.split(/[ \(}]/)[0];
                     if (possiblePlugin.charAt(0) == '{') { //we have a plugin here

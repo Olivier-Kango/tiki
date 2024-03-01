@@ -97,7 +97,7 @@
                 {{/if}}
             {{/if}}
 
-            form.bind('insert', function (e, data) {
+            form.on('insert', function (e, data) {
                 var form = this;
 
                 $(map).trigger('changed');

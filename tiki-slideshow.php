@@ -380,7 +380,7 @@ $headerlib->add_jq_onready(
         //Append slide title with URL on slide change
         Reveal.addEventListener( "slidechanged", function( event ) { location.hash = "!_"+$(".present table tr td").children("h1").attr("id");});
         Reveal.initialize({ width: "98%",height: "100%",center: false});
-        $(window).bind("load", function() {
+        $(window).on("load", function() {
             //loop to scale contents
             $( "section" ).each(function( index ) {
                 var overflow=$(this).innerHeight()-$(document).innerHeight();

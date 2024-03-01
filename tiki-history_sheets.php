@@ -68,8 +68,8 @@ $headerlib->add_jq_onready(
 
     jST = $('div.tiki_sheet')
         .sheet($.sheet.tikiOptions)
-        .bind('paneScroll', $.sheet.paneScrollLocker)
-        .bind('switchSheet', $.sheet.switchSheetLocker);
+        .on('paneScroll', $.sheet.paneScrollLocker)
+        .on('switchSheet', $.sheet.switchSheetLocker);
 
     $.sheet.setValuesForCompareSheet('$sheetIndexes[0]', $('input.compareSheet1'), '$sheetIndexes[1]', $('input.compareSheet2'));
 

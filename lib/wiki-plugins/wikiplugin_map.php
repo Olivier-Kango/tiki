@@ -504,7 +504,7 @@ METHOD;
     $target = 'map-colorpicker-' . ++$counter;
 
     $full = <<<FULL
-$("#$target").closest('.map-container').bind('initialized', function () {
+$("#$target").closest('.map-container').on('initialized', function () {
     var container = this
         , vlayer
         , feature

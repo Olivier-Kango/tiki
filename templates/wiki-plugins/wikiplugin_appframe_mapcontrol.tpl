@@ -1,6 +1,6 @@
 <a id="{$mapcontrol.id|escape}" href="#" title="{$mapcontrol.label|escape}">{icon _id=$mapcontrol.icon title=$mapcontrol.label class=$mapcontrol.class}</a>
 {jq}
-$('#appframe .map-container').bind('initialized', function () {
+$('#appframe .map-container').on('initialized', function () {
     var container = this
         , link = '#{{$mapcontrol.id|escape}}'
         , vlayer

@@ -36,7 +36,7 @@
                 // Wait for OpenLayers to initialize
                 refreshModes();
 
-                $(map).bind('modechanged', refreshModes);
+                $(map).on('modechanged', refreshModes);
             });
         });
     });

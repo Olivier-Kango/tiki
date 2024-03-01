@@ -62,7 +62,7 @@
             ;
 
         if (success.operation === 'redirect') {
-            $(form).bind('insert', function (e, data) {
+            $(form).on('insert', function (e, data) {
                 var url = success.argument;
 
                 data.fields.itemId = data.itemId;
@@ -116,11 +116,11 @@
                     }
                 }).trigger("keyup");
 
-                $(form).bind('insert', function () {
+                $(form).on('insert', function () {
                     $(map).removeMapSelection();
                     $(map).trigger('changed');
                 });
-                $(form).bind('cancel', function () {
+                $(form).on('cancel', function () {
                     $(map).removeMapSelection();
                 });
 

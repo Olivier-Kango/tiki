@@ -226,7 +226,7 @@ $headerlib->add_jq_onready(
                 $.sheet.link.setupUI();
                 $.sheet.readyState();
 
-                $(window).bind("beforeunload", function() {
+                $(window).on("beforeunload", function() {
                     $($.sheet.instance).each(function() {
                         if (this.isDirty) {
                             return true;

@@ -286,7 +286,7 @@ if (isset($_REQUEST['raw'])) {
             name: $('#fileName').val(),
             data: $('#fileData').val()
         })
-        .bind('renamedDraw', function(e, name) {
+        .on('renamedDraw', function(e, name) {
             $('#fileName').val(name);
             $('.pagetitle').text(name);
         });

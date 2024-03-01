@@ -98,7 +98,7 @@ class Table_Code_Other extends Table_Code_Manager
                             ''
                         );
                         //trigger table update and filter when dropdown value is changed
-                        $jq[] = '$(\'#' . $f['external'][$key]['id'] . '\').bind(\'change\', function(e){'
+                        $jq[] = '$(\'#' . $f['external'][$key]['id'] . '\').on(\'change\', function(e){'
                             . $this->nt2 . '$(\'' . parent::$tid . '\').trigger(\'search\', [ [this.value] ]);'
                             . $this->nt . '});';
                         //filter-reset also clears any external dropdown filter (column filters cleared by tablesorter)

@@ -1405,7 +1405,7 @@ function wikiplugin_img($data, $params)
         }
 
         if ($imgdata['thumb'] == 'zoombox') {
-            $zoomscript = "$(document).bind('cbox_complete', function(){
+            $zoomscript = "$(document).on('cbox_complete', function(){
                                 $('.cboxPhoto').wrap('<span class=\"zoom_container\" style=\"display:inline-block\"></span>')
                                 .css('display', 'block')
                                 .parent()
