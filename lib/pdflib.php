@@ -407,7 +407,7 @@ class PdfGenerator
 
                     if ($prefs['auth_token_access'] === 'y') {
                         global $tikiroot;
-
+                        $fileId = 0;
                         if (preg_match('/dl(\d+)/', $breakPageContent, $parts)) {
                             $fileId = isset($parts[1]) ? $parts[1] : 0;
                             $params = ['fileId' => $fileId];
