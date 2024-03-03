@@ -1066,7 +1066,7 @@ function edit_custom_mode(el,id,name,icon){
     $("#cm-action-off-canvas").animate({right:0},500); //open the off-canvas
 }
 
-\$(( function() {
+\$(function() {
     $("input[data-icon-name-for]").each(function(){
         sync_color_mode_state($(this).val(),$(this).attr('data-icon-name-for'));
     })
