@@ -11,7 +11,7 @@
 /**
  *
  */
-class Session
+class Session implements SessionHandlerInterface
 {
     public $db;
 
@@ -25,7 +25,7 @@ class Session
      * @param $name
      * @return bool
      */
-    public function open($path, $name)
+    public function open($path, $name): bool
     {
         return true;
     }
@@ -33,7 +33,7 @@ class Session
     /**
      * @return bool
      */
-    public function close()
+    public function close(): bool
     {
         return true;
     }
@@ -42,7 +42,7 @@ class Session
      * @param $sesskey
      * @return mixed
      */
-    public function read($sesskey)
+    public function read($sesskey): string|false
     {
         global $prefs;
 
@@ -63,7 +63,7 @@ class Session
      * @param $data
      * @return bool
      */
-    public function write($sesskey, $data)
+    public function write($sesskey, $data): bool
     {
         global $prefs;
 
@@ -80,7 +80,7 @@ class Session
      * @param $sesskey
      * @return bool
      */
-    public function destroy($sesskey)
+    public function destroy($sesskey): bool
     {
         $qry = 'delete from sessions where sesskey = ?';
         TikiDb::get()->query($qry, [ $sesskey ]);
@@ -91,7 +91,7 @@ class Session
      * @param $maxlifetime
      * @return bool
      */
-    public function gc($maxlifetime)
+    public function gc($maxlifetime): int|false
     {
         global $prefs;
 
@@ -106,11 +106,4 @@ class Session
 
 $session = new Session();
 
-session_set_save_handler(
-    [$session, 'open'],
-    [$session, 'close'],
-    [$session, 'read'],
-    [$session, 'write'],
-    [$session, 'destroy'],
-    [$session, 'gc']
-);
+session_set_save_handler($session);

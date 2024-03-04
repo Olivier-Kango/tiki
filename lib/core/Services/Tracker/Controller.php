@@ -1379,7 +1379,7 @@ class Services_Tracker_Controller
                     $return['nextTicket'] = $util->getTicket();
 
                     return $return;
-                } else if ($access->is_xml_http_request()) {
+                } elseif ($access->is_xml_http_request()) {
                     return Services_Utilities::redirect($redirect);
                 } else {
                     $access->redirect($redirect);

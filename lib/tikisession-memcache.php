@@ -4,7 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-class MemcacheSession
+class MemcacheSession implements SessionHandlerInterface
 {
     private $enabled = false;
     private $lib;
@@ -16,14 +16,7 @@ class MemcacheSession
     public function init()
     {
 
-        session_set_save_handler(
-            [ $this, 'open' ],
-            [ $this, 'close' ],
-            [ $this, 'read' ],
-            [ $this, 'write' ],
-            [ $this, 'destroy' ],
-            [ $this, 'gc' ]
-        );
+        session_set_save_handler($this);
 
         $this->enabled = TikiLib::lib("memcache")->isEnabled();
         $this->lib = TikiLib::lib("memcache");
@@ -45,17 +38,17 @@ class MemcacheSession
         session_write_close();
     }
 
-    public function open($save_path, $session_name, $persist = null)
+    public function open($save_path, $session_name, $persist = null): bool
     {
         return $this->enabled;
     }
 
-    public function close()
+    public function close(): bool
     {
         return $this->enabled;
     }
 
-    public function read($key)
+    public function read($key): string|false
     {
         $cache_key = $this->buildCacheKey($key);
 
@@ -64,7 +57,7 @@ class MemcacheSession
         }
     }
 
-    public function write($key, $val)
+    public function write($key, $val): bool
     {
         global $prefs;
 
@@ -80,7 +73,7 @@ class MemcacheSession
         return $this->enabled;
     }
 
-    public function destroy($key)
+    public function destroy($key): bool
     {
         if ($this->enabled) {
             $this->lib->delete($this->buildCacheKey($key));
@@ -89,7 +82,7 @@ class MemcacheSession
         return $this->enabled;
     }
 
-    public function gc($maxlifetime)
+    public function gc($maxlifetime): int|false
     {
         return $this->enabled;
     }

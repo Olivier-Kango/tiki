@@ -12,8 +12,8 @@ use Tiki\Command\UsersPasswordCommand;
 
 class UsersPasswordCommandTest extends TestCase
 {
-    const TEST_USER = 'john doe';
-    const TEST_PASSWORD = 'password1234';
+    private const TEST_USER = 'john doe';
+    private const TEST_PASSWORD = 'password1234';
 
     private $commandName = 'users:password';
 
