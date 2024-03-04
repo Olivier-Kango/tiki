@@ -316,7 +316,7 @@ $headerlib->add_jq_onready(
         });
 
         //reveal controls
-        $("body").delegate("#play","click", function () {
+        $("body").on("#play","click", function () {
             if($("#play").hasClass("fa-play-circle")) {
                 $("#play").switchClass("fa-play-circle","fa-pause-circle", 1000, "easeInOutQuad");
                 Reveal.configure({ autoSlide:10000 });
@@ -329,26 +329,26 @@ $headerlib->add_jq_onready(
                 $(this).attr("style","");
             }
         });
-        $("body").delegate("#firstSlide","click", function () {
+        $("body").on("#firstSlide","click", function () {
             Reveal.slide( 0, 0,0 ); //Reveal.slide( indexh, indexv, indexf );
         });
-        $("body").delegate("#lastSlide","click", function () {
+        $("body").on("#lastSlide","click", function () {
             Reveal.slide( Reveal.getTotalSlides()-1, 0,0 ); //Reveal.slide( indexh, indexv, indexf );
         });
-        $("body").delegate("#nextSlide","click", function () {
+        $("body").on("#nextSlide","click", function () {
             var currentSlide=Reveal.getIndices().h;
             Reveal.slide(currentSlide+1,0,0); //Reveal.slide( indexh, indexv, indexf );
         });
-        $("body").delegate("#prevSlide","click", function () {
+        $("body").on("#prevSlide","click", function () {
             var currentSlide=Reveal.getIndices().h;
             if(currentSlide>0) {
             Reveal.slide(currentSlide-1,0,0);
              } //Reveal.slide( indexh, indexv, indexf );
         });
-        $("body").delegate("#listSlides","click", function () {
+        $("body").on("#listSlides","click", function () {
             Reveal.toggleOverview();
         });
-        $("body").delegate("#loop","click", function () {
+        $("body").on("#loop","click", function () {
             if($("#loop").hasClass("icon-inactive")){
                 $("#loop").switchClass("icon-inactive","icon-active");
                 Reveal.configure({loop: true});
@@ -371,7 +371,7 @@ $headerlib->add_jq_onready(
             var selectedTransition=$("#showtransition" ).val();
             Reveal.configure({ transition: selectedTransition });
         });
-        $("body").delegate("#exportPDF","click", function () {
+        $("body").on("#exportPDF","click", function () {
             if($("#showtheme" ).val()!="") {
                 var pdfURL= $( "#exportPDF" ).attr("href")+"&theme="+$("#showtheme" ).val();
                 $( "#exportPDF" ).attr("href",pdfURL);
