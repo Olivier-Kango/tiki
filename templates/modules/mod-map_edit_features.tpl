@@ -28,7 +28,7 @@
                     .success(function (data) {
                         $(form).trigger('insert', [data]);
                     })
-                    .error(function () {
+                    .on("error", function () {
                         $(this).serviceDialog({
                             title: $(':submit', form).val(),
                             data: $(form).serialize(),

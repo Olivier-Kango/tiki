@@ -81,7 +81,7 @@ function completeVimeoUpload() {
                 $(".vimeo_upload").trigger("vimeo_uploaded", [data]);
             }
         }, 'json')
-        .error(function (e) {
+        .on("error", function (e) {
             alert(tr("An error occurred uploading your video.") + "\n" + e.statusText + " (" + e.status + ")");
             $form.parents(".ui-dialog").tikiModal();
             $(".vimeo_upload").trigger("vimeo_uploaded", [{}]);    // get vimeo_uploaded to close the dialog
