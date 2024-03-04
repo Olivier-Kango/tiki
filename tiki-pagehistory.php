@@ -437,8 +437,8 @@ if (\$("input[name=newver][checked=checked]").length) {
     \$("input[name=newver][checked=checked]").trigger("change");
     \$("input[name=oldver][checked=checked]").trigger("change");
 } else if ($not_comparing) {
-    \$("input[name=newver]:eq(0)").prop("checked", "checked").trigger("change");
-    \$("input[name=oldver]:eq(1)").prop("checked", "checked").trigger("change");
+    \$("input[name=newver]").eq(0).prop("checked", "checked").trigger("change");
+    \$("input[name=oldver]").eq(1).prop("checked", "checked").trigger("change");
 }
 JS
 );
