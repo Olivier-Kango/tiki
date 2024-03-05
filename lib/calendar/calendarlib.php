@@ -872,7 +872,12 @@ class CalendarLib extends TikiLib
                 }
                 $l[] = "`$k`";
                 $z[] = '?';
-                $r[] = ($k == 'priority') ? (string)$v : $v;
+                if ($k == 'priority') {
+                    $v = (string)$v;
+                } elseif ($k == 'allday') {
+                    $v = ($v == 'true') ? 1 : 0;
+                }
+                $r[] = $v;
             }
 
             $query = 'INSERT INTO `tiki_calendar_items` (' . implode(',', $l) . ') VALUES (' . implode(',', $z) . ')';
