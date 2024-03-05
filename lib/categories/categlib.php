@@ -804,7 +804,11 @@ class CategLib extends ObjectLib
      */
     private function filter_object_list($result, $count, $offset, $maxRecords): array
     {
-        $ret = $this->filterObjectRows($result, $count, $offset, $maxRecords);
+        if ($result) {
+            $ret = $this->filterObjectRows($result, $count, $offset, $maxRecords);
+        } else {
+            $ret = [];
+        }
         return [
             "data" => $ret,
             "cant" => $count,
