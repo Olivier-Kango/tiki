@@ -131,7 +131,7 @@ $(function () {
         //                     .parent()
         //                     .tiki_popover();
 
-        //                 $dropped.find(".field-label").focus();
+        //                 $dropped.find(".field-label").trigger("focus");
         //                 setDirty();
         //             }
         //         }
@@ -175,7 +175,7 @@ $(function () {
                     .parent()
                     .tiki_popover();
 
-                $dropped.find(".field-label").focus();
+                $dropped.find(".field-label").trigger("focus");
                 setDirty();
             }
         });

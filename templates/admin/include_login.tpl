@@ -17,7 +17,7 @@
         if (user_register_pt_checkbox.is(':checked')
         && pretty_tracker_tpl.val() === "") {
             warning_ept.show();
-            pretty_tracker_tpl.focus();
+            pretty_tracker_tpl.trigger("focus");
             return false;
         }
     });

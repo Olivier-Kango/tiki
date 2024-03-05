@@ -110,7 +110,7 @@ class ListFilter extends Base
             $input .= "><div class='input-group-append'>";
             $smartylib = \TikiLib::lib('smarty');
             $icon = smarty_function_icon(['name' => 'times-circle'], $smartylib->getEmptyInternalTemplate());
-            $input .= "<a href='#' onclick=\"\$('#$id').val('').focus().trigger('keyup');return false;\" class='btn input-group-text closeicon tips' title=':"
+            $input .= "<a href='#' onclick=\"\$('#$id').val('').trigger('focus').trigger('keyup');return false;\" class='btn input-group-text closeicon tips' title=':"
                 . tr('Clear filter') . "'>$icon</a>";
             $input .= '</div></div></div></div></div>';
 

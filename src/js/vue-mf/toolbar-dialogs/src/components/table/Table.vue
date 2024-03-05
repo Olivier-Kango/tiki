@@ -23,7 +23,7 @@ const toolbarObject = ref(props.toolbarObject);
 function addRow() {
     cells.value.push(Array(cells.value[0].length).fill(""))
     setTimeout(function () {
-        $("tr:nth(" + (cells.value.length - 1) + ") td", tableBuilderTable.value).first().find("input").focus()
+        $("tr:nth(" + (cells.value.length - 1) + ") td", tableBuilderTable.value).first().find("input").trigger("focus")
     }, 10)
 }
 

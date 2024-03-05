@@ -12,7 +12,7 @@
     frm.on("submit", function(){
         if (users_admin_auto_lock_user.is(':checked') && days_before_lock.val() === "") {
             warning_empty_period.show();
-            days_before_lock.focus();
+            days_before_lock.trigger("focus");
             return false;
         }
     });

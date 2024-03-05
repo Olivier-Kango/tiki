@@ -38,7 +38,7 @@
                     link.css('cursor', 'pointer');
                     link.on("click", function () {
                         entry.toggle();
-                        $(':text', entry).trigger("select").focus();
+                        $(':text', entry).trigger("select").trigger("focus");
                     });
                     $('.results', form).append(link).append(entry);
                 });

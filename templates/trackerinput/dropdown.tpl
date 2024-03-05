@@ -83,7 +83,7 @@
                         $select.val(tr('other')).trigger("change.select2");
                     }
                 });
-                $other.focusout(function(){
+                $other.on("focusout", function(){
                     $other.data('tiki_never_visited', '');
                 });
             });

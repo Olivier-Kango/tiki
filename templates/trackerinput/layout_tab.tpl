@@ -34,4 +34,4 @@
         {/tab}
     {/foreach}
 {/tabset}
-{jq}$('label').on("click", function() {$('input, select, textarea', '#'+$(this).attr('for')).focus();});{/jq}
+{jq}$('label').on("click", function() {$('input, select, textarea', '#'+$(this).attr('for')).trigger("focus");});{/jq}

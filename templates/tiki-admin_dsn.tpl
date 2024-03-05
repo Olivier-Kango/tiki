@@ -281,7 +281,7 @@ $('#source-form').each(function () {
         if (val.length) {
             fetchAuthentication($(form.existing).val());
         } else {
-            $(form.identifier).show().val('').focus();
+            $(form.identifier).show().val('').trigger("focus");
             $('input:not(:submit):not([name=ticket])', form).val('');
             $('fieldset.method.post .row.post-arg').remove();
             $('fieldset.method.body .row.body-arg').remove();
@@ -364,14 +364,14 @@ $('#source-form').each(function () {
 
     $(form.post_new_add).on("click", function () {
         addPostRow($(form.post_new_field).val(), $(form.post_new_value).val(), 'post');
-        $(form.post_new_field).val('').focus();
+        $(form.post_new_field).val('').trigger("focus");
         $(form.post_new_value).val('');
         return false;
     });
 
     $(form.body_new_add).on("click", function () {
         addPostRow($(form.body_new_field).val(), $(form.body_new_value).val(), 'body');
-        $(form.body_new_field).val('').focus();
+        $(form.body_new_field).val('').trigger("focus");
         $(form.body_new_value).val('');
         return false;
     });

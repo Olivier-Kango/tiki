@@ -14,7 +14,7 @@ $("#loginbox-{{$module_logo_instance}}").on("submit", function () {
     if ($("#login-user_{{$module_logo_instance}}").val() && $("#login-pass_{{$module_logo_instance}}").val()) {
         return true;
     } else {
-        $("#login-user_{{$module_logo_instance}}").focus();
+        $("#login-user_{{$module_logo_instance}}").trigger("focus");
         return false;
     }
 });
@@ -33,7 +33,7 @@ $("#switchbox-{{$module_logo_instance}} .submit").on("click", function () {
         confirmPopup('{tr}Switch user?{/tr}')
         return true;
     } else {
-        $("#login-switchuser_{{$module_logo_instance}}").focus();
+        $("#login-switchuser_{{$module_logo_instance}}").trigger("focus");
         return false;
     }
 });
@@ -220,7 +220,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
             </label>
             {if !isset($loginuser) or $loginuser eq ''}
                     <input class="form-control" type="text" name="user" id="login-user_{$module_logo_instance}" {if !empty($error_login)} value="{$error_user|escape}"{elseif !empty($adminuser)} value="{$adminuser|escape}"{/if} {if $prefs.desactive_login_autocomplete neq 'y'}autocomplete="username"{/if}/>
-                {jq}if ($('#login-user_{{$module_logo_instance}}:visible').length) {if ($("#login-user_{{$module_logo_instance}}").offset().top < $(window).height()) {$('#login-user_{{$module_logo_instance}}')[0].focus();} }{/jq}
+                {jq}if ($('#login-user_{{$module_logo_instance}}:visible').length) {if ($("#login-user_{{$module_logo_instance}}").offset().top < $(window).height()) {$('#login-user_{{$module_logo_instance}}')[0].trigger("focus");} }{/jq}
             {else}
                 <input class="form-control" type="hidden" name="user" id="login-user_{$module_logo_instance}" value="{$loginuser|escape}" /><b>{$loginuser|escape}</b>
             {/if}

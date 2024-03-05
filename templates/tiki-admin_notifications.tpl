@@ -41,7 +41,7 @@
                 $("input[name='login']").attr("disabled","disabled");
                 $("input[name='email']").attr("disabled","disabled");
                 $("#" + $("select[name='destination']").val() + "row").show();
-                $("input[name='" + $("select[name='destination']").val() + "']").focus();
+                $("input[name='" + $("select[name='destination']").val() + "']").trigger("focus");
                 $("input[name='" + $("select[name='destination']").val() + "']").removeAttr("disabled");
             }
             );

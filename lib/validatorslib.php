@@ -222,7 +222,7 @@ invalidHandler: function(event, validator) {
             if ($firstError.is("select") && jqueryTiki.select2) {
                 $firstError.select2("focus");
             } else {
-                $firstError.focus();
+                $firstError.trigger("focus");
             }
         });
     }

@@ -68,7 +68,7 @@ $(function() {
             $(".save_structure").show("fast").parent().show("fast");
             tocDirty = true;
         }).on("click", function () {    // for Firefox
-            $(this).focus().selection($(this).val().length);
+            $(this).trigger("focus").selection($(this).val().length);
         });
 
         const sortableListOptions = {
