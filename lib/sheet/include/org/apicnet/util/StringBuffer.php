@@ -63,7 +63,7 @@ class StringBuffer extends APICObject {
         $index = (int)$index;
         if ($index<=0){
             return new StringBuffer($string . $this->str);
-        } else if ($index>=$this->length()){
+        } elseif ($index>=$this->length()){
             return new StringBuffer($this->str . $string);
         } else {
             $str_a = $this->substring(0, $index);
@@ -83,11 +83,11 @@ class StringBuffer extends APICObject {
         $string = $this->str;
         if ($from<=0 && $to>=$this->length()){
             return FALSE;
-        } else if ($from<=0 && $to<$this->length()){
+        } elseif ($from<=0 && $to<$this->length()){
             return new StringBuffer($this->substring($to));
-        } else if ($from>0 && $to>=$this->length()){
+        } elseif ($from>0 && $to>=$this->length()){
             return new StringBuffer($this->substring(0, $from));
-        } else if($from>0 && $to<$this->length()){
+        } elseif($from>0 && $to<$this->length()){
             $str_a = $this->substring(0, $from);
             $str_b = $this->substring($to);
             return new StringBuffer($str_a->toString() . $str_b->toString());

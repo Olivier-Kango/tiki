@@ -99,7 +99,7 @@ class APIClassRegistry extends ErrorManager{
             $registry->classes[$extractedClassName] = $extractedPackageName;
             $registry->instances[$extractedClassName] = NULL;
         }
-        else if (APIClassRegistry::isPackage($class_package)){
+        elseif (APIClassRegistry::isPackage($class_package)){
             $registry->packages[$class_package] = $class_package;
         }
         return FALSE;

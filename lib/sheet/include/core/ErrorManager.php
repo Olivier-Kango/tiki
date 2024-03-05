@@ -178,7 +178,7 @@ class ErrorManager extends APICObject {
                 if ($stackError[$i]['class'] != "") $this -> errorMessage .= ' Dans la fonction '.$stackError[$i]['class'].'->'.$stackError[$i+1]['function'].'()';
                 else $this -> errorMessage .= 'Dans la fonction '.$stackError[$i+1]['function'].'()';
                 $this -> errorMessage .= "<br>Fonction et fichier ayant été appellée :".$pre;
-            } else if ($i == sizeof($stackError)-1) {
+            } elseif ($i == sizeof($stackError)-1) {
                 $this -> errorMessage .= '<li><b>'.$stackError[$i][file].'</b> à la ligne <b>'.$stackError[$i][line].'</b>';
             } else {
                 $this -> errorMessage .= '<li><b>'.$stackError[$i][file].'</b> à la ligne <b>'.$stackError[$i][line].'</b>';

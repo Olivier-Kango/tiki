@@ -231,7 +231,7 @@ class APIC extends APICObject {
                         print("<ol>");
                         APIC::listDir($fullpath);
                         print("</ol>");
-                    } else if (preg_match('/(\.php)$/i', $file)>0){
+                    } elseif (preg_match('/(\.php)$/i', $file)>0){
                         print("<li>".str_replace('.php','',$file)."</li>");
                     }
                 }

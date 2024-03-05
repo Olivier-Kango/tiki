@@ -78,7 +78,7 @@ class APIClass {
                 }
                 closedir($handle);
             }
-        } else if (APIClassRegistry::isClass($package)){// extracting class name
+        } elseif (APIClassRegistry::isClass($package)){// extracting class name
             $classname = APIClassRegistry::extractClassName($package);
             // loadclass
             $path .= '.php';

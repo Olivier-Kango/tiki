@@ -137,7 +137,7 @@ class File extends ErrorManager {
                     if ($filter->accept($validfile, $validfile->getParentDirectory())){
                         if ($validfile->isFile()){
                             $files[] = $filename->toString();
-                        } else if ($validfile->isDirectory())    {
+                        } elseif ($validfile->isDirectory())    {
                             $folders[] = $filename->toString();
                         }
                     }
@@ -171,7 +171,7 @@ class File extends ErrorManager {
                     if ($filter->accept($validfile, $validfile->getParentDirectory())){
                         if ($validfile->isFile()){
                             $files[] = $validfile;
-                        } else if ($validfile->isDirectory())    {
+                        } elseif ($validfile->isDirectory())    {
                             $folders[] = $validfile;
                         }
                     }
