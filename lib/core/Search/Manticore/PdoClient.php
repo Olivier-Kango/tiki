@@ -17,12 +17,22 @@ class PdoClient
     protected $dsn;
     protected $port;
     protected $pdo;
+    protected $debug;
+    protected $log;
 
     public function __construct($dsn, $port = 9306)
     {
         $this->dsn = $dsn;
         $this->port = $port ?? 9306;
+        $this->debug = false;
         $this->connect();
+    }
+
+    public function __destruct()
+    {
+        if (is_resource($this->log)) {
+            fclose($this->log);
+        }
     }
 
     public static function distributedIndexName()
@@ -41,7 +51,7 @@ class PdoClient
     public function getStatus()
     {
         $status = ['status' => 0];
-        $result = $this->pdo->query('SHOW STATUS');
+        $result = $this->query('SHOW STATUS');
         while ($row = $result->fetch()) {
             $status[$row['Counter']] = $row['Value'];
         }
@@ -57,7 +67,7 @@ class PdoClient
     public function getIndexStatus($index = '')
     {
         try {
-            $stmt = $this->pdo->query("SHOW INDEX $index STATUS");
+            $stmt = $this->query("SHOW INDEX $index STATUS");
             return $stmt->fetchAll();
         } catch (PDOException $e) {
             return [];
@@ -67,8 +77,7 @@ class PdoClient
     public function getIndicesByPrefix($prefix, $type = 'rt')
     {
         $results = [];
-        $stmt = $this->pdo->prepare("SHOW TABLES LIKE ?");
-        $stmt->execute([$prefix . '%']);
+        $stmt = $this->prepareAndExecute("SHOW TABLES LIKE ?", [$prefix . '%']);
         foreach ($stmt->fetchAll() as $row) {
             if (! empty($type) && $row['Type'] != $type) {
                 continue;
@@ -92,8 +101,7 @@ class PdoClient
         foreach ($settings as $key => $val) {
             $sql .= ' ' . $key . '=' . "'" . $val . "'";
         }
-        $stmt = $this->pdo->prepare($sql);
-        $this->executeWithRetry($stmt);
+        $this->prepareAndExecuteWithRetry($sql);
     }
 
     public function recreateDistributedIndex(array $names)
@@ -120,8 +128,7 @@ class PdoClient
             $list[] = 'agent=?';
             $bindvars[] = $key . ':' . implode(',', $indices);
         }
-        $stmt = $this->pdo->prepare("CREATE TABLE " . self::distributedIndexName() . " type='distributed' " . join(' ', $list));
-        $this->executeWithRetry($stmt, $bindvars);
+        $this->prepareAndExecuteWithRetry("CREATE TABLE " . self::distributedIndexName() . " type='distributed' " . join(' ', $list), $bindvars);
     }
 
     public function parseDistributedIndexDefinition($name)
@@ -163,7 +170,7 @@ class PdoClient
     public function possibleFacetFields($table)
     {
         if ($table == self::distributedIndexName()) {
-            $stmt = $this->pdo->query("DESC $table");
+            $stmt = $this->query("DESC $table");
             $result = $stmt->fetchAll();
             $tables = [];
             foreach ($result as $row) {
@@ -211,7 +218,7 @@ class PdoClient
     public function deleteIndex($index)
     {
         try {
-            $stmt = $this->pdo->query("DESC " . self::distributedIndexName());
+            $stmt = $this->query("DESC " . self::distributedIndexName());
             $result = $stmt->fetchAll();
             foreach ($result as $row) {
                 $def = $this->parseDistributedIndexDefinition($row['Agent']);
@@ -224,8 +231,7 @@ class PdoClient
             // no distributed index, continue normally
         }
         try {
-            $stmt = $this->pdo->prepare("DROP TABLE IF EXISTS $index");
-            $stmt->execute();
+            $this->prepareAndExecute("DROP TABLE IF EXISTS $index");
             return true;
         } catch (PDOException $e) {
             Feedback::error(tr("Failed deleting Manticore index %0: ", $index) . $e->getMessage());
@@ -236,7 +242,7 @@ class PdoClient
     public function describe($index)
     {
         try {
-            $stmt = $this->pdo->query("DESC $index");
+            $stmt = $this->query("DESC $index");
             $result = $stmt->fetchAll();
         } catch (PDOException $e) {
             // describe might be used to check if index exists, so suppress not found error here
@@ -266,8 +272,7 @@ class PdoClient
                 $sql .= ' ' . implode(' ', $type['options']);
             }
         }
-        $stmt = $this->pdo->prepare($sql);
-        $this->executeWithRetry($stmt);
+        $this->prepareAndExecuteWithRetry($sql);
     }
 
     public function index($index, array $data)
@@ -289,34 +294,29 @@ class PdoClient
         if ($values && $array_values) {
             $values .= ', ' . implode(', ', $array_values);
         }
-        $stmt = $this->pdo->prepare("INSERT INTO $index (" . $keys . ') VALUES (' . $values . ')');
-        $this->executeWithRetry($stmt, array_values($data));
+        $this->prepareAndExecuteWithRetry("INSERT INTO $index (" . $keys . ') VALUES (' . $values . ')', array_values($data));
     }
 
     public function unindex($index, $type, $id)
     {
-        $stmt = $this->pdo->prepare("DELETE FROM $index WHERE object_type = :object_type AND object_id = :object_id");
-        $stmt->execute(['object_type' => $type, 'object_id' => $id]);
+        $this->prepareAndExecute("DELETE FROM $index WHERE object_type = :object_type AND object_id = :object_id", ['object_type' => $type, 'object_id' => $id]);
     }
 
     public function document($index, $type, $id)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM $index WHERE object_type = :object_type AND object_id = :object_id");
-        $stmt->execute(['object_type' => $type, 'object_id' => $id]);
+        $stmt = $this->prepareAndExecute("SELECT * FROM $index WHERE object_type = :object_type AND object_id = :object_id", ['object_type' => $type, 'object_id' => $id]);
         return new ResultSet($stmt->fetch());
     }
 
     public function optimize($index)
     {
-        $stmt = $this->pdo->prepare("OPTIMIZE INDEX $index");
-        $stmt->execute();
+        $this->prepareAndExecute("OPTIMIZE INDEX $index");
     }
 
     public function percolate($index, $document)
     {
         try {
-            $stmt = $this->pdo->prepare("CALL PQ(?, ?, 1 as query)");
-            $stmt->execute([$index . 'pq', json_encode($document)]);
+            $stmt = $this->prepareAndExecute("CALL PQ(?, ?, 1 as query)", [$index . 'pq', json_encode($document)]);
             $results = $stmt->fetchAll();
             return array_map(function ($item) {
                 return $item['tags'];
@@ -328,20 +328,19 @@ class PdoClient
 
     public function unstoreQuery($index, $name)
     {
-        $stmt = $this->pdo->prepare("DELETE FROM {$index}pq WHERE tags = :tags");
-        $stmt->execute(['tags' => $name]);
+        $this->prepareAndExecute("DELETE FROM {$index}pq WHERE tags = :tags", ['tags' => $name]);
     }
 
     public function fetchAll($query)
     {
-        $stmt = $this->pdo->query($query);
+        $stmt = $this->query($query);
         return $stmt->fetchAll();
     }
 
     public function fetchAllRowsets($query, $retry = true)
     {
         try {
-            $stmt = $this->pdo->query($query);
+            $stmt = $this->query($query);
             $result = [$stmt->fetchAll()];
             while ($stmt->nextRowset()) {
                 $result[] = $stmt->fetchAll();
@@ -356,7 +355,7 @@ class PdoClient
             }
         }
         if ($retry) {
-            $stmt = $this->pdo->query('show warnings');
+            $stmt = $this->query('show warnings');
             foreach ($stmt->fetchAll() as $row) {
                 if (! empty($row['Message']) && preg_match('/unknown local table/', $row['Message'])) {
                     // remote agent rebuild has invalidated this distributed index, need recreate the distributed index with fresh index table names
@@ -371,6 +370,29 @@ class PdoClient
     public function quote($string)
     {
         return $this->pdo->quote($string);
+    }
+
+    public function turnOnDebug()
+    {
+        global $tikipath;
+        $this->debug = true;
+        $this->log = fopen($tikipath . TEMP_PATH . '/manticore-debug.sql', "w");
+    }
+
+    protected function debug($query, $params = [])
+    {
+        if (! $this->debug) {
+            return;
+        }
+        $i = 0;
+        $query = preg_replace_callback('/(\?|:[\w+_]+)/', function ($matches) use ($params, $i) {
+            if ($matches[1] == '?') {
+                return $this->quote($params[$i++]);
+            } else {
+                return $this->query($params[substr($matches[1], 1)] ?? '');
+            }
+        }, $query);
+        fwrite($this->log, $query . ";\n");
     }
 
     protected function connect()
@@ -409,5 +431,27 @@ class PdoClient
                 throw new Exception($e->getMessage());
             }
         }
+    }
+
+    protected function query($sql)
+    {
+        $this->debug($sql);
+        return $this->pdo->query($sql);
+    }
+
+    protected function prepareAndExecute($sql, $params = [])
+    {
+        $this->debug($sql, $params);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt;
+    }
+
+    protected function prepareAndExecuteWithRetry($sql, $params = [])
+    {
+        $this->debug($sql, $params);
+        $stmt = $this->pdo->prepare($sql);
+        $this->executeWithRetry($stmt, $params);
+        return $stmt;
     }
 }
