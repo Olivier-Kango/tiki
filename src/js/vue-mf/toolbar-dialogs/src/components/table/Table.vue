@@ -23,7 +23,7 @@ const toolbarObject = ref(props.toolbarObject);
 function addRow() {
     cells.value.push(Array(cells.value[0].length).fill(""))
     setTimeout(function () {
-        $("tr:nth(" + (cells.value.length - 1) + ") td:first input", tableBuilderTable.value).focus()
+        $("tr:nth(" + (cells.value.length - 1) + ") td", tableBuilderTable.value).first().find("input").focus()
     }, 10)
 }
 
@@ -45,7 +45,7 @@ function deleteCol(col) {
 onMounted(() => {
     // nasty fix for attaching a hook on show.bs.modal to trigger the tool's init
     $(tableBuilderTable.value)
-        .parents(".modal:first")
+        .parents(".modal").first()
         .on("show.bs.modal", (event) => {
             _shown(event);
         });

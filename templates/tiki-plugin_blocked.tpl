@@ -67,4 +67,4 @@
     </div>
 </div>
 {* add a little js to scroll the first approval form into view *}
-{if $plugin_approve}{jq}$(".plugin-approval-form:first")[0].scrollIntoView({behavior: "smooth", block: "end"});{/jq}{/if}
+{if $plugin_approve}{jq}$(".plugin-approval-form").first().scrollIntoView({behavior: "smooth", block: "end"});{/jq}{/if}

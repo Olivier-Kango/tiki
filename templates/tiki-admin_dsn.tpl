@@ -317,7 +317,7 @@ $('#source-form').each(function () {
             data['arguments~post_url'] = $(form.post_url).val();
 
             $('fieldset.method.post .post-arg').each(function () {
-                data['arguments~' + $("label", this).text()] = $("div:first", this).text();
+                data['arguments~' + $("label", this).text()] = $("div", this).first().text();
             });
             break;
         case 'header':
@@ -326,7 +326,7 @@ $('#source-form').each(function () {
             break;
         case 'body':
             $('fieldset.method.body .body-arg').each(function () {
-                data['arguments~' + $("label", this).text()] = $("div:first", this).text();
+                data['arguments~' + $("label", this).text()] = $("div", this).first().text();
             });
             break;
         }

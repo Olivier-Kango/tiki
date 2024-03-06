@@ -61,7 +61,7 @@ function perform_selection_action(action, row) {
         data: {
             categId: categId,
             objects: objects,
-            ticket: $(row).find('span.control:first').data('ticket')
+            ticket: $(row).find('span.control').first().data('ticket')
         },
         complete: function (data) {
             location.href = location.href.replace(/#.*$/, "");

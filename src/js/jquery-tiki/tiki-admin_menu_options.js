@@ -24,7 +24,7 @@ $(function () {
         $options.find("li").each(function () {
             var parent = $(this).data("parent");
             if (parent) {
-                $("#node_" + parent).find(".child-options:first").append(this);
+                $("#node_" + parent).find(".child-options").first().append(this);
             }
         });
 
@@ -43,7 +43,7 @@ $(function () {
             fallbackOnBody: true,
             // Called when dragging element changes position
             onEnd: function(event) {
-                var parentId = $(event.item).parents('li:first').data('id');
+                var parentId = $(event.item).parents('li').first().data('id');
                 if (!parentId) parentId = 0;
                 $(event.item).data('parent', parentId);
 
@@ -105,7 +105,7 @@ $(function () {
         //                     element = document.elementFromPoint(event.clientX, y);
         //                     $target = $(element);
         //                     if (! $target.is("li")) {
-        //                         $target = $target.parents("li:first");
+        //                         $target = $target.parents("li").first();
         //                     }
         //                     y -= 10;
 
@@ -155,7 +155,7 @@ $(function () {
             // Called when dragging element changes position
             onEnd: function(event) {
                 // Sets ids
-                var parentId = $(event.item).parents('li:first').data('id');
+                var parentId = $(event.item).parents('li').first().data('id');
                 if (!parentId) parentId = 0;
                 // $(event.item).data('id', 0);
                 $(event.item).data('parent', parentId);
@@ -208,7 +208,7 @@ $(function () {
 
         $options.on("click", ".option-remove", function () {
             if (confirm(tr("Are you sure you want to remove this option?"))) {
-                $(this).parents("li:first").remove();
+                $(this).parents("li").first().remove();
                 setDirty();
             }
             return false;
@@ -298,7 +298,7 @@ $(function () {
         lisArr.forEach(function(el, index) {
             // items with samepos checked are alternatives for different perms or prefs etc
             // so share the same position as the previous one
-            if ($(el).find("input.samepos:first:checked").length === 0) {
+            if ($(el).find("input.samepos:checked").first().length === 0) {
                 position++;
             }
             var obj = {

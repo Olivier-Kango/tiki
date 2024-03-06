@@ -81,7 +81,7 @@
                             {jq}
                                 $(".enabledChecks").on("click", function() {
                                     var checked = ! $(this).prop("checked");
-                                    $(".otherChecks", $(this).parents("tr:first")).each(function() {
+                                    $(".otherChecks", $(this).parents("tr").first()).each(function() {
                                         $(this).prop("disabled", checked);
                                     });
                                 });

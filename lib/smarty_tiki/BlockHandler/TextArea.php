@@ -271,7 +271,7 @@ class TextArea extends Base
 
         var seconds = editTimeoutSeconds - editTimeElapsedSoFar;
         // only need to show the first one if there are multiple textareas on the page
-        var edittimeout = \$('.edittimeout:first');
+        var edittimeout = \$('.edittimeout').first();
 
         if ( edittimeout.length && seconds <= 300 ) {
             if ( ! editTimeoutTipIsDisplayed ) {
@@ -284,7 +284,7 @@ class TextArea extends Base
                     }
                 ).fail(function () {
                         // something went wrong, show the warning
-                        edittimeout.parents('.alert:first').fadeIn();
+                        edittimeout.parents('.alert').first().fadeIn();
                         editTimeoutTipIsDisplayed = true;
                     });
             }
@@ -292,7 +292,7 @@ class TextArea extends Base
                 minutes = seconds / 60;
                 edittimeout.text( minutes );
             } else if ( seconds <= 0 ) {
-                edittimeout.parents('.alert:first p').text('" . addslashes(tra('Your edit session has expired')) . "');
+                edittimeout.parents('.alert').first().find('p').text('" . addslashes(tra('Your edit session has expired')) . "');
             }
         }
 
@@ -311,7 +311,7 @@ class TextArea extends Base
 
     \$('document').ready( function() {
         editTimeoutIntervalId = setInterval(editTimerTick, 1000);
-        \$('#edittimeout').parents('.alert:first').hide();
+        \$('#edittimeout').parents('.alert').first().hide();
     } );
 
     // end edit timeout warnings

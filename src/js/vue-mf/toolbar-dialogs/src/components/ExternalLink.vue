@@ -22,7 +22,7 @@ const relationInput = ref("");
 
 onMounted(() => {
     $(tdgLabel.value.$el)
-        .parents(".modal:first")
+        .parents(".modal").first()
         .on("show.bs.modal", (event) => {
             _shown(event);
             $(this).find('[data-bs-toggle="tooltip"]').tooltip();

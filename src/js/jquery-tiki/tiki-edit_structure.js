@@ -44,7 +44,9 @@ $(function() {
 
         $(".flip-children", ".admintoc").on("click", function (event)  {
             const $this = $(this),
-                $children = $this.parents("li.admintoclevel:first").find("ol.admintoc" + ( event.altKey ? "" : ":first")).parent();
+                $children = $this.parents("li.admintoclevel").first().find("ol.admintoc").filter(function (index) {
+                    return event.altKey || (index === 0);
+                }).parent();
 
             if ($children.is(":visible")) {
                 $this.find(".icon").setIcon("caret-right");
@@ -111,7 +113,7 @@ $(function() {
 
     $(".save_structure").on("click", function(){
 
-        const $sortable = $(this).parent().find(".admintoc:first");
+        const $sortable = $(this).parent().find(".admintoc").first();
         $sortable.tikiModal(tr("Saving..."));
 
         let fakeId = 1000000;
@@ -171,7 +173,7 @@ $(function() {
     });
 
     $(".add_new_child_page").on("click", function(){
-        let id = $(this).parents(".admintoclevel:first").attr("id").match(/\d*$/);
+        let id = $(this).parents(".admintoclevel").first().attr("id").match(/\d*$/);
         if (id) {
             id = id[0];
         }
@@ -185,7 +187,7 @@ $(function() {
     });
 
     $(".move_page").on("click", function() {
-        let id = $(this).parents(".admintoclevel:first").attr("id").match(/\d*$/);
+        let id = $(this).parents(".admintoclevel").first().attr("id").match(/\d*$/);
         if (id) {
             id = id[0];
         }

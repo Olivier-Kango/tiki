@@ -89,7 +89,7 @@ class Tracker_Field_Header extends \Tracker\Field\AbstractField implements \Trac
 (function() {
     var processTrackerPageForHeaders = function( $div ) {
         if ($(".hdrField", $div).length) {    // check
-            var $hdrField = $(".hdrField:first", $div);
+            var $hdrField = $(".hdrField", $div).first();
             var level = $hdrField.data("level");
             var name = $hdrField.data("name");
             var toggle = $hdrField.data("toggle");

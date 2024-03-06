@@ -45,7 +45,7 @@
                 return false;
             })
             .each(function () {
-                map = $(this).closest('.tab, #appframe, body').find('.map-container:first')[0];
+                map = $(this).closest('.tab, #appframe, body').find('.map-container').first();
 
                 if (! map) {
                     return;

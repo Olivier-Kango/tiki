@@ -70,8 +70,8 @@ $("input[name='chosenGroup']").on("change", function() {
         $("#registerTracker").html(data['res']).tikiModal();
         $("input[name^=captcha]").parents("tr").show();
         $("input[name=register]").prop("disabled", false);
-        $("#registerTracker").parents("table:first").css({borderSpacing:"0 !important",borderCollapse:"collapse !important"});
-        $("tr td:first", "#registerTracker").width($("#registerTracker").parents('table:first').find("td:first").width());
+        $("#registerTracker").parents("table").first().css({borderSpacing:"0 !important",borderCollapse:"collapse !important"});
+        $("tr td", "#registerTracker").first().width($("#registerTracker").parents('table').first().find("td").first().width());
     });
 }){{if !empty($smarty.post.chosenGroup)}}.trigger("change"){{/if}};
 {{if $prefs.user_must_choose_group eq 'y'}

@@ -7,7 +7,7 @@
     $('.map-mode-selector').hide();
     $(function () {
         $('.map-mode-selector').removeClass('map-mode-selector').each(function () {
-            var map = $(this).closest('.tab, #appframe, body').find('.map-container:first')[0];
+            var map = $(this).closest('.tab, #appframe, body').find('.map-container').first();
             var modeControl= $(this.modeControl);
 
             if (! map) {

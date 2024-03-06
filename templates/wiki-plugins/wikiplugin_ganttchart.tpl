@@ -239,7 +239,7 @@
                                     <input type="checkbox" id="startIsMilestone" name="startIsMilestone" value="yes">
                                     &nbsp;<label for="startIsMilestone">{/literal}{tr}is milestone{/tr}{literal}</label>&nbsp;<br>
                                     <input type="text" name="begin" id="start" size="8" class="formElements dateField validated date" autocomplete="off" maxlength="255" value="" oldvalue="1" entrytype="DATE">
-                                    <span title="calendar" id="starts_inputDate" class="teamworkIcon openCalendar" onclick="$(this).dateField({inputField:$(this).prevAll(':input:first'),isSearchField:false});">m</span>
+                                    <span title="calendar" id="starts_inputDate" class="teamworkIcon openCalendar" onclick="$(this).dateField({inputField:$(this).prevAll(':input').first(),isSearchField:false});">m</span>
                                 </div>
                             </td>
                             <td nowrap="">
@@ -247,7 +247,7 @@
                                 <input type="checkbox" id="endIsMilestone" name="endIsMilestone" value="yes">
                                 &nbsp;<label for="endIsMilestone">{/literal}{tr}is milestone{/tr}{literal}</label>&nbsp;
                                 <br><input type="text" name="end" id="end" size="8" class="formElements dateField validated date" autocomplete="off" maxlength="255" value="" oldvalue="1" entrytype="DATE">
-                                <span title="calendar" id="ends_inputDate" class="teamworkIcon openCalendar" onclick="$(this).dateField({inputField:$(this).prevAll(':input:first'),isSearchField:false});">m</span>
+                                <span title="calendar" id="ends_inputDate" class="teamworkIcon openCalendar" onclick="$(this).dateField({inputField:$(this).prevAll(':input').first(),isSearchField:false});">m</span>
                             </td>
                             <td nowrap="" >
                                 <label for="duration" class="">{/literal}{tr}Days{/tr}{literal}</label><br>

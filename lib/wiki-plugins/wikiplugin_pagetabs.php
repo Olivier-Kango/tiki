@@ -147,7 +147,7 @@ function wikiplugin_pagetabs($data, $params)
                         }
                     });
 
-                tabParent.find("ul:first li").addClass("tabmark");
+                tabParent.find("ul").first().find("li").addClass("tabmark");
 
                 var pageAttr = (document.location + "").split("#");
 

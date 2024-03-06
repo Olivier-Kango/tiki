@@ -98,7 +98,7 @@ class ListFilter extends Base
                             var pluginTr = $('#plugins_help_table tr').not(':hidden');
 
                             if (pluginTr.length == 1) {
-                                pluginTr.find('a:first').trigger('click');
+                                pluginTr.find('a').first().trigger('click');
                             }
                         }
                     }
