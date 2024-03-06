@@ -528,12 +528,11 @@ class AdminLib extends TikiLib
             $opcode_stats['hit_hit'] /= $opcode_stats['hit_total'];
             $opcode_stats['hit_miss'] /= $opcode_stats['hit_total'];
         }
-
         // Make results easier to read
-        $opcode_stats['memory_used'] = round($opcode_stats['memory_used'], 2);
-        $opcode_stats['memory_avail'] = round($opcode_stats['memory_avail'], 2);
-        $opcode_stats['hit_hit'] = round($opcode_stats['hit_hit'], 2);
-        $opcode_stats['hit_miss'] = round($opcode_stats['hit_miss'], 2);
+        $opcode_stats['memory_used'] = isset($opcode_stats['memory_used']) ? round($opcode_stats['memory_used'], 2) : 0;
+        $opcode_stats['memory_avail'] = isset($opcode_stats['memory_avail']) ? round($opcode_stats['memory_avail'], 2) : 0;
+        $opcode_stats['hit_hit'] = isset($opcode_stats['hit_hit']) ? round($opcode_stats['hit_hit'], 2) : 0;
+        $opcode_stats['hit_miss'] = isset($opcode_stats['hit_miss']) ? round($opcode_stats['hit_miss'], 2) : 0;
 
         if (isset($opcode_stats['hit_total'])) {
             $opcode_stats = array_merge(
