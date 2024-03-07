@@ -1172,6 +1172,7 @@ class Services_Tracker_Controller
      * - "skip_form_message" optional. Used with skip_form. E.g. "Are you sure you want to set this item to 'Closed'".
      * - "button_label" optional. Used to override the label for the Update/Save button.
      * - "redirect" set a url to which a user should be redirected, if any.
+     * - "skipRedirect" set to 1 to prevent redirection after an update, specifically designed for usage within the API context.
      *
      * @return array
      * @throws Exception
@@ -1189,6 +1190,7 @@ class Services_Tracker_Controller
         $trackerId = $input->trackerId->int();
         $definition = Tracker_Definition::get($trackerId);
         $suppressFeedback = $input->suppressFeedback->bool();
+        $skipRedirect = $input->skipRedirect->int();
 
         if (! $definition) {
             throw new Services_Exception_NotFound();
@@ -1389,7 +1391,7 @@ class Services_Tracker_Controller
                     return $return;
                 } elseif ($access->is_xml_http_request()) {
                     return Services_Utilities::redirect($redirect);
-                } else {
+                } elseif ($skipRedirect !== 1) {
                     $access->redirect($redirect);
                 }
             }

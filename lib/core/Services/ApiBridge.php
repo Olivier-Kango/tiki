@@ -148,7 +148,7 @@ class Services_ApiBridge
         $routes->add('trackeritems-view', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'view']))->setMethods(['GET']));
         $routes->add('trackeritems-clone', (new Route('trackers/{trackerId}/items/{itemId}/clone', ['controller' => 'tracker', 'action' => 'clone_item']))->setMethods(['POST']));
         $routes->add('trackeritems-create', (new Route('trackers/{trackerId}/items', ['controller' => 'tracker', 'action' => 'insert_item']))->setMethods(['POST']));
-        $routes->add('trackeritems-update', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'update_item']))->setMethods(['POST']));
+        $routes->add('trackeritems-update', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'update_item', 'skipRedirect' => 1]))->setMethods(['POST']));
         $routes->add('trackeritems-delete', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'remove_item']))->setMethods(['DELETE']));
         $routes->add('trackeritems-status', (new Route('trackers/{trackerId}/items/{itemId}/status', ['controller' => 'tracker', 'action' => 'update_item_status', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('translations', (new Route('translations/{type}/{source}', ['controller' => 'translation', 'action' => 'manage']))->setMethods(['GET']));
