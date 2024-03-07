@@ -763,6 +763,40 @@ class Services_Tracker_Controller
         return $inputs;
     }
 
+    private function fieldsToDisplay($input, $processedFields)
+    {
+        // fields that we want to change in the form. If
+        $editableFields = $input->editable->none();
+        // fields that we don't want to change in the form.
+        // note : we can not use editable and noteditatble at the same time
+        $noteditableFields = $input->noteditable->none();
+
+        if (empty($editableFields) && empty($noteditableFields)) {
+            //if editable fields, show all fields in the form (except the ones from forced which have been removed).
+            $displayedFields = $processedFields;
+        } else {
+            $displayedFields = [];
+            if (! empty($editableFields)) {
+                // if editableFields is set, only add the field if found in the editableFields array
+                foreach ($processedFields as $k => $f) {
+                    $permName = $f['permName'];
+                    if (in_array($permName, $editableFields)) {
+                        $displayedFields[] = $f;
+                    }
+                }
+            } else {
+                // if noneditableFields is set, remove the field found in the noneditableFields array
+                foreach ($processedFields as $k => $f) {
+                    $permName = $f['permName'];
+                    if (! in_array($permName, $noteditableFields)) {
+                        $displayedFields[] = $f;
+                    }
+                }
+            }
+        }
+        return $displayedFields;
+    }
+
     public function action_clone_item($input)
     {
         global $prefs;
@@ -825,8 +859,6 @@ class Services_Tracker_Controller
 
         // sets all fields for the tracker item with their value
         $processedFields = $itemObject->prepareInput($input);
-        // fields that we want to change in the form. If
-        $editableFields = $input->editable->none();
         // fields where the value is forced.
         $forcedFields = $input->forced->none();
 
@@ -841,19 +873,7 @@ class Services_Tracker_Controller
             }
         }
 
-        if (empty($editableFields)) {
-            //if editable fields, show all fields in the form (except the ones from forced which have been removed).
-            $displayedFields = $processedFields;
-        } else {
-            // if editableFields is set, only add the field if found in the editableFields array
-            $displayedFields = [];
-            foreach ($processedFields as $k => $f) {
-                $permName = $f['permName'];
-                if (in_array($permName, $editableFields)) {
-                    $displayedFields[] = $f;
-                }
-            }
-        }
+        $displayedFields = $this->fieldsToDisplay($input, $processedFields);
 
         return [
             'title' => tr('Duplicate Item'),
@@ -1087,20 +1107,8 @@ class Services_Tracker_Controller
             }
         }
 
-        $editableFields = $input->editable->none();
-        if (empty($editableFields)) {
-            //if editable fields, show all fields in the form (except the ones from forced which have been removed).
-            $displayedFields = $processedFields;
-        } else {
-            // if editableFields is set, only add the field if found in the editableFields array
-            $displayedFields = [];
-            foreach ($processedFields as $k => $f) {
-                $permName = $f['permName'];
-                if (in_array($permName, $editableFields)) {
-                    $displayedFields[] = $f;
-                }
-            }
-        }
+        $displayedFields = $this->fieldsToDisplay($input, $processedFields);
+
         $status = $input->status->word();
         if ($status === null) { // '=== null' means status was not set. if status is set to "", it skips the status and uses the default
             $status = $itemObject->getDisplayedStatus();
@@ -1389,8 +1397,6 @@ class Services_Tracker_Controller
 
         // sets all fields for the tracker item with their value
         $processedFields = $itemObject->prepareInput($input);
-        // fields that we want to change in the form. If
-        $editableFields = $input->editable->none();
         // fields where the value is forced.
         $forcedFields = $input->forced->none();
 
@@ -1405,19 +1411,7 @@ class Services_Tracker_Controller
             }
         }
 
-        if (empty($editableFields)) {
-            //if editable fields, show all fields in the form (except the ones from forced which have been removed).
-            $displayedFields = $processedFields;
-        } else {
-            // if editableFields is set, only add the field if found in the editableFields array
-            $displayedFields = [];
-            foreach ($processedFields as $k => $f) {
-                $permName = $f['permName'];
-                if (in_array($permName, $editableFields)) {
-                    $displayedFields[] = $f;
-                }
-            }
-        }
+        $displayedFields = $this->fieldsToDisplay($input, $processedFields);
 
         /* Allow overriding of default wording in the template */
         if (empty($input->title->text())) {
