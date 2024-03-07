@@ -128,7 +128,7 @@ function wikiplugin_appframe($data, $params)
 
     $headerlib->add_js(
         <<<JS
-$(window).resize(function () {
+$(window).on("resize", function () {
     var viewportHeight = $(window).height(), appframe = $('#appframe'), footerSize, centerHeader, surplus, target;
 
     if ($absolute) {
@@ -220,7 +220,7 @@ if ($fullscreen) {
     $('.share').hide();
 }
 
-$(window).resize();
+$(window).trigger("resize");
 JS
     );
 

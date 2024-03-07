@@ -37,7 +37,7 @@ $('.add-kaltura-media').on("click", function () {
             });
             $(link).parent().find('span').remove();
             $(link).parent().append($('<span class="highlight"/>')
-                .text('+' + $(this).parent().find('input').size()));
+                .text('+' + $(this).parent().find('input').length));
 
         },
         close: function () {

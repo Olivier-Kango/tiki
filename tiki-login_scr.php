@@ -39,7 +39,7 @@ if (($prefs['useGroupHome'] != 'y' || $prefs['limitedGoGroupHome'] == 'y') && ! 
 }
 
 $headerlib->add_js('$(function() {
-    $("#login-user").focus().select();
+    $("#login-user").focus().trigger("select");
 })');
 
 // disallow robots to index page:

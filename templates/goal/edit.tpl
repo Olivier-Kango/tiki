@@ -141,7 +141,7 @@
                             modal: 1
                         }),
                         open: function () {
-                            $('form', this).submit(ajaxSubmitEventHandler(function (data) {
+                            $('form', this).on("submit", ajaxSubmitEventHandler(function (data) {
                                 updateBlock(function (current) {
                                     current.push(data[options.dataKey]);
                                 }, function () {
@@ -163,7 +163,7 @@
                         $.openModal({
                             remote: $.service('goal', options.editAction, element),
                             open: function () {
-                                $('form', this).submit(ajaxSubmitEventHandler(function (data) {
+                                $('form', this).on("submit", ajaxSubmitEventHandler(function (data) {
                                     updateBlock(function (current) {
                                         // Store back at the same position
                                         current[key] = data[options.dataKey];

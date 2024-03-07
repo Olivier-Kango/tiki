@@ -73,10 +73,15 @@ $headerlib->add_jq_onready(
 
     $.sheet.setValuesForCompareSheet('$sheetIndexes[0]', $('input.compareSheet1'), '$sheetIndexes[1]', $('input.compareSheet2'));
 
-    $('#go_fullscreen').toggle(function() {
-        $.sheet.dualFullScreenHelper($('#tiki_sheet_container').parent());
-    }, function() {
-        $.sheet.dualFullScreenHelper($('#tiki_sheet_container').parent(), true);
+    let inFullScreen = false;
+    $('#go_fullscreen').on('click', function(e) {
+        e.preventDefault();
+        if(inFullScreen) {
+            $.sheet.dualFullScreenHelper($('#tiki_sheet_container').parent(), true);
+        } else {
+            $.sheet.dualFullScreenHelper($('#tiki_sheet_container').parent());
+        }
+        inFullScreen = !inFullScreen;
     });
 ",
     500

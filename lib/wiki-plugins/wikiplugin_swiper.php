@@ -562,7 +562,7 @@ function wikiplugin_swiper($data, $params)
     //delaying initialization till window is fully loaded
     $swiperOpts .= 'setTimeout( function(){
         $(window).trigger("resize")
-        }, 100); $(window).resize(function(){swiper' . $uid . '.init(); $("#swiper-container' . $uid . '").css("visibility","visible"); });';
+        }, 100); $(window).on("resize", function(){swiper' . $uid . '.init(); $("#swiper-container' . $uid . '").css("visibility","visible"); });';
     $headerlib->add_js(
         '$( document ).ready(function() {' . $swiperOpts . ';$("#swiper-container' . $uid . '").css("max-width",$("#swiper-container' . $uid . '").parent().width());})'
     );

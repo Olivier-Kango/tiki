@@ -54,7 +54,7 @@ The below assumes:
     {* Generate password and insert into an input element that will be shown and selected *}
     $('#genPass').on("click", function () {
         genPass('genepass');
-        $('#genepass').show().select();
+        $('#genepass').show().trigger("select");
         return false;
     });
 {/jq}

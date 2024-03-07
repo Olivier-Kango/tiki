@@ -279,7 +279,7 @@ function wikiplugin_mouseover($data, $params)
         $closeDelayStr = '';
     }
 
-    $js = "\$('#$id-link').mouseover(function(event) {
+    $js = "\$('#$id-link').on('mouseover', function(event) {
     var pos  = $(this).position();
     $(this).closest('td').css('position', 'relative');
     \$('#$id').css('position', 'absolute').css('left', pos.left + $offsetx + 'px').css('top', pos.top + $offsety + 'px');
@@ -288,7 +288,7 @@ function wikiplugin_mouseover($data, $params)
     if ($sticky) {
         $js .= "\$('#$id').on('click', function(event) { hideJQ('#$id', '$effect', '$speed'); }).css('cursor','pointer');\n";
     } else {
-        $js .= "\$('#$id-link').mouseout(function(event) { setTimeout(function() {hideJQ('#$id', '$effect', '$speed')}, " . ($closeDelay * 1000) . "); });";
+        $js .= "\$('#$id-link').on('mouseout', function(event) { setTimeout(function() {hideJQ('#$id', '$effect', '$speed')}, " . ($closeDelay * 1000) . "); });";
     }
     $headerlib->add_jq_onready($js);
 

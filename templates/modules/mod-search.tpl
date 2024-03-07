@@ -108,10 +108,10 @@
 
                     {if $smod_params.compact eq "y"}
                         {jq}
-$(".search_mod_magnifier").mouseover( function () {
+$(".search_mod_magnifier").on("mouseover", function () {
     $(".search_mod_buttons", $(this).parents(".module"))
         .show('fast')
-        .mouseleave( function () {
+        .on("mouseleave", function () {
             $(this).hide('fast');
         });
 }).on("click", function () {
@@ -119,7 +119,7 @@ $(".search_mod_magnifier").mouseover( function () {
 });
 $("#search_mod_input_{{$search_mod_usage_counter}}")
 .on("keydown", function () {
-    $(".search_mod_magnifier", $(this).parent()).mouseover();}
+    $(".search_mod_magnifier", $(this).parent()).trigger("mouseover");}
 );
                         {/jq}
                     {else}

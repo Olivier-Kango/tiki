@@ -127,12 +127,12 @@ function wikiplugin_author($data, $params)
 
                 if ($params['popup'] == 1) {
                     //Mouseover for detailed info
-                    $js = "\$('#author$id-link').mouseover(function(event) {
+                    $js = "\$('#author$id-link').on('mouseover', function(event) {
                         \$('#author$id').css('left', event.pageX).css('top', event.pageY);
                         showJQ('#author$id', '', '');
                         1000
                     });";
-                    $js .= "\$('#author$id-link').mouseout(function(event) { setTimeout(function() {hideJQ('#author$id', '', '')}, 1000); });";
+                    $js .= "\$('#author$id-link').on('mouseout', function(event) { setTimeout(function() {hideJQ('#author$id', '', '')}, 1000); });";
                     $headerlib->add_jq_onready($js);
                     $html .= "<span id=\"author$id\" class=\"plugin-mouseover\" style=\"width: 200px; height: 80px; padding: 2px \">" .
                         tra('Author') . ": $author" . (isset($params['deleted_by']) ? "<br />" . tra('deleted by') . ': ' . $params['deleted_by'] : '') . "</span>";

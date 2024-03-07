@@ -193,7 +193,7 @@ $.fn.setupFullCalendar = function(tcPluginParams)
                             open: function () {
                                 $("form:not(.no-ajax)", this)
                                     .addClass("no-ajax") // Remove default ajax handling, we replace it
-                                    .submit(
+                                    .on("submit",
                                         ajaxSubmitEventHandler(function (data) {
                                             $(this).parents(".modal").modal("hide");
                                             calendar.refetchEvents();
@@ -238,7 +238,7 @@ $.fn.setupFullCalendar = function(tcPluginParams)
                             open: function () {
                                 $("form:not(.no-ajax)", this)
                                     .addClass("no-ajax") // Remove default ajax handling, we replace it
-                                    .submit(
+                                    .on("submit",
                                         ajaxSubmitEventHandler(function (data) {
                                             $(this).parents(".modal").modal("hide");
                                             calendar.refetchEvents();
