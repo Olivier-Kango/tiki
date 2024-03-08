@@ -36,7 +36,7 @@
             {elseif $recurrence.monthly}
                 {tr}Every{/tr} {$recurrence.months} {tr}month(s){/tr}<br>
                 {if $recurrence.monthlyType eq 'date'}
-                    {tr}Each{/tr} {', '|implode:$recurrence.dayOfMonth} {tr}of the month{/tr}
+                    {tr}Each{/tr} {$recurrence.dayOfMonth|join:', '} {tr}of the month{/tr}
                 {else}
                     {tr}Every{/tr}
                     {if $recurrence.monthlyWeekdayValue[0] eq '1'}

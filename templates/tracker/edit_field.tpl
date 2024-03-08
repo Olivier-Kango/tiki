@@ -74,10 +74,10 @@
                             </div>
                         {/if}
                     {elseif $def.separator}
-                        <input type="text" name="option~{$param|escape}" value="{$def.separator|implode:$options[$param]|escape}" class="form-control">
+                        <input type="text" name="option~{$param|escape}" value="{$options[$param]|join:$def.separator|escape}" class="form-control">
                     {elseif $def.count eq '*'}
                         {if is_array($options[$param])}
-                            <input type="text" name="option~{$param|escape}" value="{','|implode:$options[$param]|escape}" class="form-control">
+                            <input type="text" name="option~{$param|escape}" value="{$options[$param]|join:','|escape}" class="form-control">
                         {else}
                             <input type="text" name="option~{$param|escape}" value="{$options[$param]|escape}" class="form-control">
                         {/if}

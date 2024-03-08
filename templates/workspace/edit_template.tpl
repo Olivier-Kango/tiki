@@ -46,7 +46,7 @@
                     <ul style="display: none">
                         <li>
                             <input class="name" type="text" name="groups~{$key|escape}~name" value="{$group.name|escape}"/>
-                            <input class="permissions" type="hidden" name="groups~{$key|escape}~permissions" value="{','|implode:$group.permissions}"/>
+                            <input class="permissions" type="hidden" name="groups~{$key|escape}~permissions" value="{$group.permissions|join:','}"/>
                         </li>
                         <li>
                             <label>

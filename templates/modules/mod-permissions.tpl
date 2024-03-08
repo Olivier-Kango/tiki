@@ -9,7 +9,7 @@
                 <b>{$group}</b><br/>
                 {foreach from=$perms key=perm item=groups}
                     {$perm}
-                    <span target="tikihelp" class="tikihelp" title="{', '|implode:$groups}">{icon name="help"}</span>
+                    <span target="tikihelp" class="tikihelp" title="{$groups|join:', '}">{icon name="help"}</span>
                     <br/>
                 {/foreach}
                 <br/>

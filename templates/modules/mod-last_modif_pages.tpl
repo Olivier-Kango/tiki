@@ -31,7 +31,7 @@
                             >
                                 {if $maxlen > 0}{* 0 is default value for maxlen eq to 'no truncate' *}
                                     {if $namespaceoption eq 'n'}
-                                        {$data=$prefs.namespace_separator|explode:$page.pageName}
+                                        {$data=$page.pageName|split:$prefs.namespace_separator}
                                         {if empty($data['1'])}
                                             {$pagename=$data['0']}
                                         {else}
@@ -39,7 +39,7 @@
                                         {/if}
                                         {$pagename|escape|truncate:$maxlen:"...":true}
                                     {else}
-                                        {$data=$prefs.namespace_separator|explode:$page.pageName}
+                                        {$data=$page.pageName|split:$prefs.namespace_separator}
                                         {if sizeof($data) == 1}
                                             {$pagename=$page.pageName|escape}
                                         {else}
@@ -48,7 +48,7 @@
                                         {$pagename|truncate:$maxlen:"...":true}
                                     {/if}
                                 {else}
-                                    {$data=$prefs.namespace_separator|explode:$page.pageName}
+                                    {$data=$page.pageName|split:$prefs.namespace_separator}
                                     {if $namespaceoption eq 'n'}
                                         {if empty($data['1'])}
                                             {$data['0']}
@@ -101,7 +101,7 @@
 
                         {if $maxlen > 0}{* 0 is default value for maxlen eq to 'no truncate' *}
                             {if $namespaceoption eq 'n'}
-                                {$data=$prefs.namespace_separator|explode:$page.pageName}
+                                {$data=$page.pageName|split:$prefs.namespace_separator}
                                 {if empty($data['1'])}
                                     {$pagename=$data['0']}
                                 {else}
@@ -109,7 +109,7 @@
                                 {/if}
                                 {$pagename|escape|truncate:$maxlen:"...":true}
                             {else}
-                                {$data=$prefs.namespace_separator|explode:$page.pageName}
+                                {$data=$page.pageName|split:$prefs.namespace_separator}
                                 {if sizeof($data) == 1}
                                     {$pagename=$page.pageName|escape}
                                 {else}
@@ -118,7 +118,7 @@
                                 {$pagename|truncate:$maxlen:"...":true}
                             {/if}
                         {else}
-                            {$data=$prefs.namespace_separator|explode:$page.pageName}
+                            {$data=$page.pageName|split:$prefs.namespace_separator}
                             {if $namespaceoption eq 'n'}
                                 {if empty($data['1'])}
                                     {$data['0']}

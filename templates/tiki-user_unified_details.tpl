@@ -87,7 +87,7 @@
                         {if $prefs.change_language eq 'y'}
                             <tr class="profile-info">
                                 <td class="profile-info-label">{tr}Language:{/tr}</td>
-                                <td class="profile-info-value">{', '|implode:$userinfo['user_language']}</td>
+                                <td class="profile-info-value">{$userinfo['user_language']|join:', '}</td>
 
                             </tr>
                         {/if}

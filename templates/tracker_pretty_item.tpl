@@ -19,7 +19,7 @@
 {set var=f_lastmodif value=$item.lastModif}
 {set var=f_itemId value=$item.itemId}
 {set var=f_status value=$item.status}
-{set var=f_itemUser value=', '|implode:$item.itemUsers}
+{set var=f_itemUser value=$item.itemUsers|join:', '}
 {* ------------------------------------ *}
 {if $force_separate_compile eq 'y'}
     {include file="$wiki" item=$item compile_id=$f_itemId}

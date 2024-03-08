@@ -93,7 +93,7 @@
                                 data-bs-toggle="popover"
                                 data-bs-container="body"
                                 data-bs-trigger="hover"
-                                data-bs-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Replaced by{/tr}</strong>:<br/>{'<br/>'|implode:$entry.replacedBy}"
+                                data-bs-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Replaced by{/tr}</strong>:<br/>{$entry.replacedBy|join:'<br/>'}"
                                 data-bs-original-title="{tr}Replaced{/tr}"
                                 >
                                     {icon name='exclamation-triangle'}
@@ -117,7 +117,7 @@
                                 data-bs-toggle="popover"
                                 data-bs-container="body"
                                 data-bs-trigger="hover"
-                                data-bs-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Required by{/tr}</strong>:<br/>{'<br/>'|implode:$entry.requiredBy}"
+                                data-bs-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Required by{/tr}</strong>:<br/>{$entry.requiredBy|join:'<br/>'}"
                                 data-bs-original-title="{tr}Info{/tr}"
                                 >
                                     {icon name='info-circle'}
@@ -239,7 +239,7 @@
                                 data-bs-toggle="popover"
                                 data-bs-container="body"
                                 data-bs-trigger="hover"
-                                data-bs-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Replaced by{/tr}</strong>:<br/>{'<br/>'|implode:$entry.replacedBy}"
+                                data-bs-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Replaced by{/tr}</strong>:<br/>{$entry.replacedBy|join:'<br/>'}"
                                 data-bs-original-title="{tr}Replaced{/tr}"
                                 >
                                     {icon name='exclamation-triangle'}
@@ -248,7 +248,7 @@
                         </td>
                         <td>{$entry.requiredVersion}</td>
                         <td><a href="{$entry.licenceUrl}">{if empty($entry.licence)}{tr}Not Available{/tr}{else}{$entry.licence}{/if}</a></td>
-                        <td>{', '|implode:$entry.requiredBy}</td>
+                        <td>{$entry.requiredBy|join:', '}</td>
                         <td class="d-flex">
                             {if $composer_phar_exists}
                             <form action="tiki-admin.php?page=packages&cookietab=1" method="post">

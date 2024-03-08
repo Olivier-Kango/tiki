@@ -5,7 +5,7 @@
             <a class="linkmodule" href="{$breadCrumb[ix]|sefurl}">
                 {if ($maxlen > 0 && strlen($breadCrumb[ix]) > $maxlen)}
                     {if $namespaceoption eq 'n'}
-                        {$data=$prefs.namespace_separator|explode:$breadCrumb[ix]}
+                        {$data=$breadCrumb[ix]|split:$prefs.namespace_separator}
                         {if empty($data['1'])}
                             {$data['0']|truncate:$maxlen:"...":true|escape}
                         {else}
@@ -16,7 +16,7 @@
                     {/if}
                 {else}
                     {if $namespaceoption eq 'n'}
-                        {$data=$prefs.namespace_separator|explode:$breadCrumb[ix]}
+                        {$data=$breadCrumb[ix]|split:$prefs.namespace_separator}
                         {if empty($data['1'])}
                             {$data['0']|escape}
                         {else}

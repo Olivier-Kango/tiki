@@ -8,7 +8,7 @@
         id="{$object_selector_multi.simpleid|escape}"
         {if !empty($object_selector_multi.simpleclass)}class="{$object_selector_multi.simpleclass|escape}"{/if}
         {if !empty($object_selector_multi.simplename)}name="{$object_selector_multi.simplename|escape}"{/if}
-        value="{$object_selector_multi.separator|implode:$object_selector_multi.current_selection_simple|escape}"
+        value="{$object_selector_multi.current_selection_simple|join:$object_selector_multi.separator|escape}"
     >
 {/if}
 <textarea
@@ -26,7 +26,7 @@
     data-threshold="{$object_selector_multi.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-searchfield="{$object_selector_multi.searchfield|escape}"
     data-relationshiptrackerid="{$object_selector_multi.relationshipTrackerId}"
->{"\n"|implode:$object_selector_multi.current_selection}</textarea>
+>{$object_selector_multi.current_selection|join:'\n'}</textarea>
     <div class="basic-selector d-none">
         <select class="form-select" multiple>
             {foreach $object_selector_multi.current_selection as $object}

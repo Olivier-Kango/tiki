@@ -11,7 +11,7 @@
     <tr itemscope itemtype="http://schema.org/Offer">
         <td rowspan="14" style="padding-right: 2em; min-height: 600px;">
             {* values from the {list} plugin in Smarty here are surrounded with ~np~ tags which are removed later, hence the nonp modifiers *}
-            {$img = ','|explode:$row.images|nonp}
+            {$img = $row.images|split:','|nonp}
             {if $img}
                 <div class="item-img-outer" style="min-width:360px;min-height:360px;">
                     <a class="item-img" href="tiki-download_file.php?fileId={$img[0]}&display" title="{$row.title}" data-box="[p]box">

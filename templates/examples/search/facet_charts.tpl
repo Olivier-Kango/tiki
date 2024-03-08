@@ -67,17 +67,17 @@ Example wiki page "chart tpl" contents for the form:
                     {if not isset($chart[$i].size)}
                         {$chart[$i].size = ['','']}
                     {else}
-                        {$chart[$i].size = ':'|explode:$chart[$i].size}
+                        {$chart[$i].size = $chart[$i].size|split:':'}
                     {/if}
 
                     {if not isset($chart[$i].colors)}
                         {$col = []}
                     {else}
-                        {$col = ':'|explode:$chart[$i].colors}
+                        {$col = $chart[$i].colors|split:':'}
                     {/if}
 
                     {if not empty($chart[$i].hcolors)}
-                        {$hcol = ':'|explode:$chart[$i].hcolors}
+                        {$hcol = $chart[$i].hcolors|split:':'}
                     {else}
                         {$hcol = $col}
                     {/if}

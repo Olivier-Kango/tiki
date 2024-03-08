@@ -401,7 +401,7 @@
                             <input type="hidden" value="{$name}">
                             <div class="q1 tips"
                                     title="{$info.name} &lt;em&gt;({$name})&lt;/em&gt;|{$info.description}
-                                    {if not $info.enabled}&lt;br /&gt;&lt;small&gt;&lt;em&gt;({tr}Requires{/tr} {' &amp; '|implode:$info.prefs})&lt;/em&gt;&lt;/small&gt;{/if}">
+                                    {if not $info.enabled}&lt;br /&gt;&lt;small&gt;&lt;em&gt;({tr}Requires{/tr} {$info.prefs|join:' &amp; '})&lt;/em&gt;&lt;/small&gt;{/if}">
                                 {icon name="module"} <strong>{$info.name}</strong> <em>{$name}</em>
                             </div>
                             <div class="description q23">

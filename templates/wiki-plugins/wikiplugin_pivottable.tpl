@@ -39,7 +39,7 @@
                 chartHoverBar: {{$pivottable.chartHoverBar|json_encode}},
                 dataCallback: {{$pivottable.dataCallback|json_encode}}
             },
-            derivedAttributes: { {{','|implode:$pivottable.derivedAttributes}} },
+            derivedAttributes: { {{$pivottable.derivedAttributes|join:','}} },
             cols: {{$pivottable.tcolumns|json_encode}}, rows: {{$pivottable.trows|json_encode}},
             rendererName: {{$pivottable.rendererName|json_encode}},
             dataClass: $.pivotUtilities.SubtotalPivotData,

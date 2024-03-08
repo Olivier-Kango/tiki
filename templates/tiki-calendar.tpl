@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li class="dropdown-item">
-                    <a href="tiki-calendar.php?generate_availability=1&amp;ltodate={$smarty.request.todate}&amp;calIds[]={"&calIds[]="|implode:$displayedcals}">
+                    <a href="tiki-calendar.php?generate_availability=1&amp;ltodate={$smarty.request.todate}&amp;calIds[]={$displayedcals|join:"&calIds[]="}">
                         {icon name="calendar-week"} {tr}Availability (NLG){/tr}
                     </a>
                 </li>

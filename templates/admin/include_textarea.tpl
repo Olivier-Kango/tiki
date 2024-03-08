@@ -374,7 +374,7 @@
                                 {tr}Dependencies{/tr}
                             </label>
                             <div class="col-sm-8">
-                                <input class="form-control" type="text" name="prefs" id="plugin_deps" value="{if !empty($plugin_admin.description.prefs)}{','|implode:$plugin_admin.description.prefs}{/if}">
+                                <input class="form-control" type="text" name="prefs" id="plugin_deps" value="{if !empty($plugin_admin.description.prefs)}{$plugin_admin.description.prefs|join:','}{/if}">
                             </div>
                         </div><br>
                         <div class="mb-3 row">

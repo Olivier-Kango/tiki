@@ -12,7 +12,7 @@
 
         {wikiplugin _name='list'}{literal}
             {filter type="trackeritem"}
-            {filter field="object_id" content="{/literal}{' OR '|implode:$ids}{literal}"}
+            {filter field="object_id" content="{/literal}{$ids|join:' OR '}{literal}"}
         {/literal}{/wikiplugin}
 
     {/if}

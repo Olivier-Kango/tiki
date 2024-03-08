@@ -4,7 +4,7 @@
         {$link = "tiki-index.php?page=cart+product&itemId={$row.object_id}"}
         <li class="col-sm-3 text-center">
             <a class="list-thumb" href="{$link}" title="{$row.title}">
-                {$img = ','|explode:$row.images|nonp}
+                {$img = $row.images|split:','|nonp}
                 {if count({$img})}
                     <img src="tiki-download_file.php?fileId={$img[0]}&thumbnail" width="auto" height="200">
                 {else}

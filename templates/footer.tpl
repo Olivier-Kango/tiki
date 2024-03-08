@@ -101,7 +101,7 @@
     {/if}
 
     {if !empty($prefs.site_google_analytics_account)}
-        {wikiplugin _name=googleanalytics account=$prefs.site_google_analytics_account group_option=$prefs.site_google_analytics_group_option groups={','|implode:$prefs.site_google_analytics_groups}}{/wikiplugin}
+        {wikiplugin _name=googleanalytics account=$prefs.site_google_analytics_account group_option=$prefs.site_google_analytics_group_option groups={$prefs.site_google_analytics_groups|join:','}}{/wikiplugin}
     {/if}
     {if not empty($prefs.feature_endbody_code)}
         {eval var=$prefs.feature_endbody_code}
@@ -126,7 +126,7 @@ if (confirm("A problem occurred while detecting JavaScript on this page, click o
     {/if}
 {/if}
 {if !empty($prefs.site_piwik_code)}
-    {wikiplugin _name=piwik code=$prefs.site_piwik_code group_option=$prefs.site_piwik_group_option groups={','|implode:$prefs.site_piwik_groups}}{/wikiplugin}
+    {wikiplugin _name=piwik code=$prefs.site_piwik_code group_option=$prefs.site_piwik_group_option groups={$prefs.site_piwik_groups|join:','}}{/wikiplugin}
 {/if}
 {if $prefs.feature_scheduler eq "y" && $prefs.webcron_enabled == 'y' && $prefs.webcron_type != 'url'}
     <script type="text/javascript">

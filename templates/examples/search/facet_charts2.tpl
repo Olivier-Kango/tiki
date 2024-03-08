@@ -55,14 +55,14 @@ Debugging:
                 {if not isset($chart[$i]._size)}
                     {$chart[$i]._size = ['','']}
                 {else}
-                    {$chart[$i]._size = ':'|explode:$chart[$i]._size}
+                    {$chart[$i]._size = $chart[$i]._size|split:':'}
                 {/if}
 
                 {$thisDataset = []}
                 {foreach $chart[$i] as $param => $value}
                     {if $param[0] neq '_'}
                         {if strpos($value, ':') neq false}
-                            {$value = ':'|explode:$value}
+                            {$value = $values|split:':'}
                         {/if}
                         {$thisDataset[$param] = $value}
                     {/if}
