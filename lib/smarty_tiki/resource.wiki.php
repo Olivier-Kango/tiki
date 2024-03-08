@@ -22,8 +22,15 @@ class Smarty_Resource_Wiki extends \Smarty\Resource\CustomPlugin
         $info = $smarty->checkWikiPageTemplatePerms($name, $source);
 
         if ($info) {
-            $source = TikiLib::lib('parser')->parse_data($info['data'], ['is_html' => $info['is_html'], 'print' => 'y', 'inside_pretty' => true]);
-            if (preg_match('/\{\w+.*?}/', $source) && ! str_contains($source, '{literal}')) {
+            $source = TikiLib::lib('parser')->parse_data(
+                $info['data'],
+                [
+                    'is_html'       => $info['is_html'],
+                    'print'         => 'y',
+                    'inside_pretty' => true,
+                ]
+            );
+            if (preg_match('/\{display.*?}/', $source) && ! str_contains($source, '{literal}')) {
                 // when used as the output template in a list plugin tags like `{display name="title"}` upset smarty
                 $source = "{literal}{$source}{/literal}";
             }
