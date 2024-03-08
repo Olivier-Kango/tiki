@@ -910,7 +910,6 @@ class PdfGenerator
     {
         //Replace all word separators as this is already fixed with CSS
         $html = str_replace(["<wbr>", "<wbr/>"], "", $html);
-        $html = str_replace('&', '&amp;', $html);
 
         $html = cleanHtml($html, null, 'utf8');
         $doc = loadHTMLContent($html);
