@@ -81,7 +81,7 @@ if ($prefs['feature_fixed_width'] === 'y') {
 $headerlib->add_cssfile("themes/base_files/css/tiki_base.css");
 
 //3) Always add bundled font-awesome css for the default icon fonts
-$headerlib->add_cssfile('vendor_bundled/vendor/bower-asset/fontawesome/css/all.css');
+$headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/@fortawesome/fontawesome/all.css');
 
 // 3a) Optionally add bundled Bootstrap-icons CSS for the optional Bootstrap icons
 if ($prefs['theme_iconset'] === 'bootstrap_icon_font') {

@@ -228,6 +228,15 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/es-module-shims/dist/es-module-shims.js",
                         dest: "vendor_dist/es-module-shims/dist",
                     },
+                    /* tiki_themes */
+                    {
+                        src: "node_modules/@fortawesome/fontawesome-free/css/all.css",
+                        dest: "vendor_dist/@fortawesome/fontawesome",
+                    },
+                    {
+                        src: "node_modules/@fortawesome/fontawesome-free/webfonts/*",
+                        dest: "vendor_dist/@fortawesome/webfonts",
+                    },
                     /* common_externals */
                     {
                         src: "node_modules/clipboard/dist/*",

@@ -358,14 +358,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'bower-asset/fontawesome',
-            [
-                'advanced-options',
-                'svg-with-js',
-                'use-on-desktop',
-            ]
-        );
-        self::remove(
             $vendors . 'svg-edit/svg-edit/',
             [
                 'embedapi.html',

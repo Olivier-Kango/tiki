@@ -765,7 +765,7 @@ if (isset($_POST['general_settings']) && $_POST['general_settings'] == 'y') {
 $headerlib = TikiLib::lib('header');
 $headerlib->add_js("var tiki_cookie_jar=new Array();");
 $headerlib->add_cssfile('public/generated/js/vendor_dist/bootstrap/dist/css/bootstrap.min.css');
-$headerlib->add_cssfile('vendor_bundled/vendor/bower-asset/fontawesome/css/all.css');
+$headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/@fortawesome/fontawesome/all.css');
 $headerlib->add_cssfile('themes/base_files/css/tiki_base.css');
 $headerlib->add_jsfile('lib/tiki-js.js');
 $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/jquery/dist/jquery.min.js");
