@@ -232,7 +232,7 @@ class XMPPLib extends TikiLib
         }
 
         $xmpp = $this->get_user_connection_info($user);
-        $xmpp_prebind_class = XmppPrebind;
+        $xmpp_prebind_class = 'XmppPrebind';
 
         $use_tikitoken = $xmpp['username'] === $user;
         $use_tikitoken = $use_tikitoken && $xmpp['domain'] === $this->server_host;
@@ -250,7 +250,7 @@ class XMPPLib extends TikiLib
                 ]
             );
             $xmpp['password'] = "$token";
-            $xmpp_prebind_class = TikiXmppPrebind;
+            $xmpp_prebind_class = 'TikiXmppPrebind';
         } else {
             if (empty($xmpp['password'])) {
                 return [];

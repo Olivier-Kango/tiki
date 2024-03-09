@@ -16,10 +16,10 @@
   "name": "tiki",
   "version": "0.0.1",
   "type": "module",
-    "scriptsComments": {
-      "checkEnvironment:validNodeModules":  "The idea is to stop everything if a dev updated from git and forgot to run npm install.  npm ls will do that (we check it's return code).  Unfortunately it is verbose (no easy cross platform way to suppress the output and keep the return code) and takes almost as long to run as a npm install...  Maybe just keep it until PHP developers get used to re-running composer and node - benoitg - 2023-11-24."
-    },
-    "scripts": {
+  "scriptsComments": {
+    "checkEnvironment:validNodeModules": "The idea is to stop everything if a dev updated from git and forgot to run npm install.  npm ls will do that (we check it's return code).  Unfortunately it is verbose (no easy cross platform way to suppress the output and keep the return code) and takes almost as long to run as a npm install...  Maybe just keep it until PHP developers get used to re-running composer and node - benoitg - 2023-11-24."
+  },
+  "scripts": {
     "checkEnvironment:engine": "node src/js/build_utils/engineCheck.js",
     "checkEnvironment:validNodeModules": "npm ls",
     "checkEnvironmentComment": "The idea is to emulate running all processes sequentially with && (fail if any return a non zero exit code), but be compatible with the different shells on windows",

@@ -154,6 +154,7 @@ export default defineConfig(({ command, mode }) => {
                     "moment",
                     "sortablejs",
                     "vue",
+                    "converse.js",
                     "jquery-validation",
                 ],
                 //external: [/^@vue-mf\/.+/],
@@ -273,6 +274,22 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/jquery-validation/dist/*",
                         dest: "vendor_dist/jquery-validation/dist",
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/*.min.*",
+                        dest: "vendor_dist/converse.js/dist",
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/webfonts/*",
+                        dest: "vendor_dist/converse.js/dist/webfonts",
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/sounds/*",
+                        dest: "vendor_dist/converse.js/dist/sounds",
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/locales/*",
+                        dest: "vendor_dist/converse.js/dist/locales",
                     },
                 ],
             }),

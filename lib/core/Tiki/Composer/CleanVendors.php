@@ -373,15 +373,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'npm-asset/converse.js/',
-            [
-                'docs',
-                'src',
-                'CHANGES.md',
-                'README.md'
-            ]
-        );
-        self::remove(
             $vendors . 'plotly/plotly.js/',
             [
                 'test',

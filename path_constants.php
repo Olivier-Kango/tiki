@@ -135,4 +135,4 @@ const SIGNATURE_PAD_DIST_PATH = 'vendor_bundled/vendor/npm-asset/signature_pad/d
 const SWIPER_DIST_PATH = 'vendor_bundled/vendor/nolimits4web/swiper/dist/js';
 const ZXING_DIST_PATH = 'vendor_bundled/vendor/npm-asset/zxing--library';
 const BOOTSTRAP_TOUR_DIST_PATH = 'vendor_bundled/vendor/sorich87/bootstrap-tour/build';
-const CONVERSEJS_DIST_PATH = 'vendor_bundled/vendor/npm-asset/converse.js/dist';
+const CONVERSEJS_DIST_PATH = 'public/generated/js/vendor_dist/converse.js/dist';

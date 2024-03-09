@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "287ea03ea9d773a137d4b6be7becc931",
+    "content-hash": "1aee71974f649109c1108c1bcf4c3946",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2298,13 +2298,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "83b498063d74e2b1b4110554e6368c045ddc54d4"
+                "reference": "b67f1b12bf6239b409bfc92ce96b5b9e9c57cc48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-83b498063d74e2b1b4110554e6368c045ddc54d4-zip-336177.zip",
-                "reference": "83b498063d74e2b1b4110554e6368c045ddc54d4",
-                "shasum": "60de5b4c2313d58422147620b39e95cf4928240b"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-b67f1b12bf6239b409bfc92ce96b5b9e9c57cc48-zip-3c577d.zip",
+                "reference": "b67f1b12bf6239b409bfc92ce96b5b9e9c57cc48",
+                "shasum": "c8d3cf979edd23ac54e5f2a3f81d1530e72c5cfd"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2367,30 +2367,30 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-03-07T10:12:28+00:00"
+            "time": "2024-03-09T01:21:24+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Jean85/pretty-package-versions.git",
-                "reference": "ae547e455a3d8babd07b96966b17d7fd21d9c6af"
+                "reference": "f9fdd29ad8e6d024f52678b570e5593759b550b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jean85/pretty-package-versions/jean85-pretty-package-versions-ae547e455a3d8babd07b96966b17d7fd21d9c6af-zip-d2ae4e.zip",
-                "reference": "ae547e455a3d8babd07b96966b17d7fd21d9c6af",
-                "shasum": "ee926bbe2efb74e1ddd80348ac60371e9731ef2f"
+                "url": "https://composer.tiki.org/dist/jean85/pretty-package-versions/jean85-pretty-package-versions-f9fdd29ad8e6d024f52678b570e5593759b550b4-zip-a7cfef.zip",
+                "reference": "f9fdd29ad8e6d024f52678b570e5593759b550b4",
+                "shasum": "fa2506c90a15740bb8eafacef854ae3aec95ad30"
             },
             "require": {
                 "composer-runtime-api": "^2.0.0",
                 "php": "^7.1|^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.17",
+                "friendsofphp/php-cs-fixer": "^3.2",
                 "jean85/composer-provided-replaced-stub-package": "^1.0",
-                "phpstan/phpstan": "^0.12.66",
+                "phpstan/phpstan": "^1.4",
                 "phpunit/phpunit": "^7.5|^8.5|^9.4",
                 "vimeo/psalm": "^4.3"
             },
@@ -2422,7 +2422,7 @@
                 "release",
                 "versions"
             ],
-            "time": "2021-10-08T21:21:46+00:00"
+            "time": "2024-03-08T09:58:59+00:00"
         },
         {
             "name": "jquery-form/form",
@@ -3913,17 +3913,17 @@
         },
         {
             "name": "laminas/laminas-session",
-            "version": "2.19.1",
+            "version": "2.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-session.git",
-                "reference": "cbcd9f719df26d7b7a2c569f12b7f6357853f8bb"
+                "reference": "16876aa20a6688d06291a972f7e1eb0b74b05d51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-session/laminas-laminas-session-cbcd9f719df26d7b7a2c569f12b7f6357853f8bb-zip-d6d59b.zip",
-                "reference": "cbcd9f719df26d7b7a2c569f12b7f6357853f8bb",
-                "shasum": "17f903409c2faeed3aca9aefc97f4c6c8ec20013"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-session/laminas-laminas-session-16876aa20a6688d06291a972f7e1eb0b74b05d51-zip-f69b8f.zip",
+                "reference": "16876aa20a6688d06291a972f7e1eb0b74b05d51",
+                "shasum": "f7fd17847dd4a055a88ebfb5493e14cfdb54af01"
             },
             "require": {
                 "laminas/laminas-eventmanager": "^3.12",
@@ -3935,16 +3935,17 @@
                 "zendframework/zend-session": "*"
             },
             "require-dev": {
-                "laminas/laminas-cache": "^3.12.0",
+                "ext-xdebug": "*",
+                "laminas/laminas-cache": "^3.12.1",
                 "laminas/laminas-cache-storage-adapter-memory": "^2.3",
                 "laminas/laminas-coding-standard": "~2.5.0",
-                "laminas/laminas-db": "^2.18.0",
+                "laminas/laminas-db": "^2.19.0",
                 "laminas/laminas-http": "^2.19",
-                "laminas/laminas-validator": "^2.46.0",
+                "laminas/laminas-validator": "^2.49.0",
                 "mongodb/mongodb": "~1.17.0",
-                "phpunit/phpunit": "^9.6.15",
+                "phpunit/phpunit": "^9.6.17",
                 "psalm/plugin-phpunit": "^0.18.4",
-                "vimeo/psalm": "^5.18"
+                "vimeo/psalm": "^5.22.2"
             },
             "suggest": {
                 "laminas/laminas-cache": "Laminas\\Cache component",
@@ -3982,7 +3983,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-02-29T19:40:20+00:00"
+            "time": "2024-03-08T11:02:36+00:00"
         },
         {
             "name": "laminas/laminas-soap",
@@ -5695,6 +5696,67 @@
             "time": "2016-12-13T01:01:17+00:00"
         },
         {
+            "name": "montefuscolo/xmpp",
+            "version": "dev-php8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabiomontefuscolo/xmpp.git",
+                "reference": "e13c8e1a4f8fbcf87e84dd3bd0622322af5b3442"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/montefuscolo/xmpp/montefuscolo-xmpp-e13c8e1a4f8fbcf87e84dd3bd0622322af5b3442-zip-6b750b.zip",
+                "reference": "e13c8e1a4f8fbcf87e84dd3bd0622322af5b3442",
+                "shasum": "70d828baca0e0d383c9310818fa73cfbea19b177"
+            },
+            "require": {
+                "php": "^8.1",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "behat/behat": "^2.5.5",
+                "ext-xdebug": "*",
+                "monolog/monolog": "^1.22",
+                "phpunit/phpunit": "^8",
+                "symfony/console": "^2.8",
+                "symfony/dependency-injection": "^2.8",
+                "symfony/finder": "^2.8"
+            },
+            "suggest": {
+                "psr/log-implementation": "Allows more advanced logging of the xmpp connection"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fabiang\\Xmpp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabian Grutschus",
+                    "email": "f.grutschus@lubyte.de",
+                    "homepage": "http://www.lubyte.de/",
+                    "role": "developer"
+                }
+            ],
+            "description": "Library for XMPP protocol (Jabber) connections",
+            "homepage": "https://github.com/fabiang/xmpp",
+            "keywords": [
+                "jabber",
+                "xmpp"
+            ],
+            "time": "2023-11-14T21:43:57+00:00"
+        },
+        {
             "name": "mottie/tablesorter",
             "version": "v2.31.3",
             "source": {
@@ -6239,19 +6301,6 @@
             "type": "npm-asset",
             "license": [
                 "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/converse.js",
-            "version": "7.0.4",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/converse-js/npm-asset-converse-js-7.0.4.zip",
-                "shasum": "b9e18185886bfb2cfe4fdd41b34ca1b4a98e05bc"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MPL-2.0"
             ]
         },
         {
@@ -15711,17 +15760,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.11",
+            "version": "10.5.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "0d968f6323deb3dbfeba5bfd4929b9415eb7a9a4"
+                "reference": "41a9886b85ac7bf3929853baf96b95361cd69d2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-0d968f6323deb3dbfeba5bfd4929b9415eb7a9a4-zip-756fd7.zip",
-                "reference": "0d968f6323deb3dbfeba5bfd4929b9415eb7a9a4",
-                "shasum": "0bfb8f0d10628e40ba6fad6e406d90618890be5b"
+                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-41a9886b85ac7bf3929853baf96b95361cd69d2b-zip-5a14d4.zip",
+                "reference": "41a9886b85ac7bf3929853baf96b95361cd69d2b",
+                "shasum": "1958025c238cb5c22fe905b796207bdde508045f"
             },
             "require": {
                 "ext-dom": "*",
@@ -15803,7 +15852,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-25T14:05:00+00:00"
+            "time": "2024-03-09T12:04:07+00:00"
         },
         {
             "name": "psr/cache",
@@ -17372,26 +17421,27 @@
     "stability-flags": {
         "candy-chat/xmpp-prebind-php": 20,
         "jason-munro/cypht": 20,
+        "montefuscolo/xmpp": 20,
         "npm-asset/html2canvas": 5,
         "npm-asset/select2": 5,
-        "sorich87/bootstrap-tour": 20,
         "rubix/extras": 10,
+        "sorich87/bootstrap-tour": 20,
         "phpcompatibility/php-compatibility": 20,
         "phpcsstandards/phpcsutils": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "ext-json": "*",
-        "ext-libxml": "*",
-        "ext-dom": "*",
-        "ext-gd": "*",
-        "ext-intl": "*",
-        "ext-fileinfo": "*",
         "ext-calendar": "*",
         "ext-curl": "*",
-        "ext-openssl": "*",
+        "ext-dom": "*",
+        "ext-fileinfo": "*",
+        "ext-gd": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-openssl": "*",
         "ext-zip": "*"
     },
     "platform-dev": [],
@@ -17400,5 +17450,5 @@
         "ext-ldap": "0",
         "ext-soap": "0"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
