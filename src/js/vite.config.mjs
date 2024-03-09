@@ -291,6 +291,10 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/converse.js/dist/locales/*",
                         dest: "vendor_dist/converse.js/dist/locales",
                     },
+                    {
+                        src: "node_modules/converse.js/dist/emojis.js",
+                        dest: "vendor_dist/converse.js/dist",
+                    },
                 ],
             }),
             /* Uncomment this in development to see which dependencies contribute to bundle size */
