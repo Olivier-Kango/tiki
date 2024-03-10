@@ -610,3 +610,27 @@ blockquote {
 .tiki-form-group {
     margin-bottom: 1rem;
 }
+
+// Accessibility link to main content (skip navigation links)
+.skipnav {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    -webkit-transition: top .5s ease-out;
+    transition: top .5s ease-out;
+    z-index: 1040;
+}
+
+.skipnav:focus {
+    position:absolute;
+    left:0;
+    top:0;
+    -webkit-transition: top .05s ease-in;
+    transition: top .05s ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skipnav {
+        transition-duration: 0.001ms !important;
+    }
+}
