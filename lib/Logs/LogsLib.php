@@ -1779,6 +1779,7 @@ class LogsLib extends TikiLib
             $endDate = $this->now;
         }
         $logTimes = [];
+        $log = [];
 
         foreach ($logins as $login) {
             if ($login['objectType'] == 'bigbluebutton') {
