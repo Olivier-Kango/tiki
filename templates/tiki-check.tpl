@@ -843,7 +843,7 @@ td > div {
 var ws, ws_status_update = function(req, status) {
     $('#js-' + req + ' .js-good, #js-' + req + ' .js-bad').addClass('d-none');
     $('#js-' + req + ' .js-' + status).removeClass('d-none');
-    $('#js-' + req + ' td:last').text($('#js-' + req + ' td:last').data('message-' + status));
+    $('#js-' + req + ' td').last().text($('#js-' + req + ' td').last().data('message-' + status));
 }
 ws_status_update('connectivity', 'bad');
 ws_status_update('message_exchange', 'bad');

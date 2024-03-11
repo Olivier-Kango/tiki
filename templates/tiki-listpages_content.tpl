@@ -430,7 +430,7 @@
             $('input[data-column=' + pageNameColumn + ']').val(myfilter);
 
             var currentFilter = [];
-            for(i = 0; i < $('#listpages1 th:last').data('column'); i++) {
+            for(i = 0; i < $('#listpages1 th').last().data('column'); i++) {
                 var value = i == pageNameColumn ? myfilter : '';
                 currentFilter.push(value);
             }
