@@ -104,6 +104,8 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [new \SmartyTiki\Modifier\LangName(), 'handle'];
             case 'lcfirst':
                 return [$this, 'smartyModifierLcfirst'];
+            case 'max':
+                return [$this, 'smartyModifierMax'];
             case 'max_user_inscriptions':
                 return [new \SmartyTiki\Modifier\MaxUserInscriptions(), 'handle'];
             case 'md5':
@@ -784,6 +786,22 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierLcfirst($s)
     {
         return strtolower($s[0]) . substr($s, 1);
+    }
+
+    /**
+    * Smarty modifier max
+    * -------------------------------------------------------------
+    *
+    * Purpose:  Find highest value from given values. This mmodifer implements the PHP max function.
+    * ----------------------------------------------------------------------------------------------
+     * @param mixed      $value Any comparable value
+     * @param mixed      $values Any comparable value
+     * @return mixed
+     * @see https://php.net/manual/en/function.json-decode.php for more details about params, returned values and how it works.
+    */
+    public function smartyModifierMax(mixed $value, mixed ...$values): mixed
+    {
+        return max($value, $values);
     }
 
     /**
