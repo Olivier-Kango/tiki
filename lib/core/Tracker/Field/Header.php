@@ -12,7 +12,7 @@
  */
 class Tracker_Field_Header extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
 {
-    public static function getTypes()
+    public static function getManagedTypesInfo(): array
     {
         return [
             'h' => [

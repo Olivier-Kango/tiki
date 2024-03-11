@@ -14,7 +14,7 @@ class Tracker_Field_ItemsList extends \Tracker\Field\AbstractField implements \T
 {
     private static $itemValuesLocalCache = [];
 
-    public static function getTypes()
+    public static function getManagedTypesInfo(): array
     {
         return [
             'l' => [
@@ -349,7 +349,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         ];
     }
 
-    public function getProvidedFields()
+    public function getProvidedFields(): array
     {
         $baseKey = $this->getBaseKey();
         return [
@@ -358,7 +358,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         ];
     }
 
-    public function getProvidedFieldTypes()
+    public function getProvidedFieldTypes(): array
     {
         $baseKey = $this->getBaseKey();
         return [
@@ -367,7 +367,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         ];
     }
 
-    public function getGlobalFields()
+    public function getGlobalFields(): array
     {
         return [];
     }

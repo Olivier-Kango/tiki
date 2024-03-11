@@ -17,7 +17,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     private const CASCADE_STATUS = 2;
     private const CASCADE_DELETE = 4;
 
-    public static function getTypes()
+    public static function getManagedTypesInfo(): array
     {
         return [
             'r' => [
@@ -643,7 +643,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         return $out;
     }
 
-    public function getProvidedFields()
+    public function getProvidedFields(): array
     {
         $baseKey = $this->getBaseKey();
         $fields = [$baseKey, "{$baseKey}_text"];
@@ -658,7 +658,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         return $fields;
     }
 
-    public function getProvidedFieldTypes()
+    public function getProvidedFieldTypes(): array
     {
         $baseKey = $this->getBaseKey();
         $fields = [
@@ -676,7 +676,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         return $fields;
     }
 
-    public function getGlobalFields()
+    public function getGlobalFields(): array
     {
         $baseKey = $this->getBaseKey();
         $fields = ["{$baseKey}_text" => true];

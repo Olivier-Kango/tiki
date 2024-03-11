@@ -9,7 +9,7 @@ use Tiki\Package\ComposerManager;
 
 class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface
 {
-    public static function getTypes()
+    public static function getManagedTypesInfo(): array
     {
         global $prefs;
 
@@ -934,7 +934,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
         }
     }
 
-    public function getProvidedFields()
+    public function getProvidedFields(): array
     {
         $baseKey = $this->getBaseKey();
         if ($this->getOption('indexGeometry') && $this->getValue()) {
@@ -951,7 +951,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
         }
     }
 
-    public function getProvidedFieldTypes()
+    public function getProvidedFieldTypes(): array
     {
         $baseKey = $this->getBaseKey();
         if ($this->getOption('indexGeometry') && $this->getValue()) {
@@ -973,7 +973,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
         }
     }
 
-    public function getGlobalFields()
+    public function getGlobalFields(): array
     {
         if ($this->getOption('indexGeometry') && $this->getValue()) {
             return [];

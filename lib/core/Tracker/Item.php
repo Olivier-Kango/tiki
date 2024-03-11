@@ -18,9 +18,8 @@ class Tracker_Item
     /**
      * object with tracker definition. includes itemId, items (nr of items for that tracker).
      * other important attributes: trackerInfo array, factory null, fields array,  perms Perms_Accessor
-     * @var object Tracker_Definition -
      */
-    private $definition;
+    private Tracker_Definition $definition;
 
     private $owners;
     private $ownerGroup;
@@ -30,11 +29,11 @@ class Tracker_Item
     private $isNew = false;
 
     /**
+     * Return an instance from an item id.
      * @param $itemId int
-     * @return Tracker_Item Tracker_Item
      * @throws Exception
      */
-    public static function fromId($itemId)
+    public static function fromId($itemId): Tracker_Item
     {
         $info = TikiLib::lib('trk')->get_tracker_item($itemId);
 
@@ -43,7 +42,7 @@ class Tracker_Item
         }
     }
 
-    public static function fromInfo($info)
+    public static function fromInfo(array $info): Tracker_Item
     {
         $obj = new self();
         if (empty($info['trackerId']) && ! empty($info['itemId'])) {

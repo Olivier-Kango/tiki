@@ -418,7 +418,15 @@ class TrackerLib extends TikiLib
         return $fields->fetchOne($fields->max('position'), ['trackerId' => (int) $trackerId]);
     }
 
-    public function get_tracker_item($itemId)
+    /**
+     * Retrieves an internal structure with the raw tracker item row
+     * merged with a and it's field values.
+     *
+     * This should probably never have been made public
+     * @param mixed $itemId, will be casted to int
+     * @return false if item is not found, otherwise and array containing an internal structure with the $id => $value of it's fields.
+     */
+    public function get_tracker_item($itemId): array|false
     {
         $res = $this->items()->fetchFullRow(['itemId' => (int) $itemId]);
         if (! $res) {
@@ -738,12 +746,24 @@ class TrackerLib extends TikiLib
         return $items;
     }
 
-    public function get_tracker($trackerId)
+    /**
+     * Return the raw database row for this tracker id
+     *
+     * @param [type] $trackerId, will be casted to int
+     * @return array|false
+     */
+    public function get_tracker($trackerId): array|false
     {
         return $this->table('tiki_trackers')->fetchFullRow(['trackerId' => (int) $trackerId]);
     }
 
-    public function get_field_info($fieldId)
+    /**
+     * Return the raw database row for this tracker field id
+     *
+     * @param [type] $fieldId, will be casted to int
+     * @return array|false
+     */
+    public function get_field_info($fieldId): array|false
     {
         return $this->table('tiki_tracker_fields')->fetchFullRow(['fieldId' => (int) $fieldId]);
     }
@@ -3482,7 +3502,7 @@ class TrackerLib extends TikiLib
         $optionTable->insertOrUpdate(['value' => $value], ['trackerId' => $trackerId, 'name' => $name]);
     }
 
-    public function clear_tracker_cache($trackerId)
+    private function clear_tracker_cache($trackerId)
     {
         global $prefs;
 
@@ -3494,13 +3514,21 @@ class TrackerLib extends TikiLib
         if (in_array('trackerrender', $prefs['unified_cached_formatters'])) {
             $cachelib->invalidateAll('search_valueformatter');
         }
+        Tracker_Definition::clearCache($trackerId);
     }
 
 
-    public function replace_tracker_field($trackerId, $fieldId, $name, $type, $isMain, $isSearchable, $isTblVisible, $isPublic, $isHidden, $isMandatory, $position, $options, $description = '', $isMultilingual = '', $itemChoices = null, $errorMsg = '', $visibleBy = null, $editableBy = null, $descriptionIsParsed = 'n', $validation = '', $validationParam = '', $validationMessage = '', $permName = null, $rules = null, $encryptionKeyId = null, $excludeFromNotification = false, $visibleInViewMode = 'y', $visibleInEditMode = 'y', $visibleInHistoryMode = 'y')
+    /**
+     * @deprecated.  Does not check any of it's database operations
+     *
+     * @param [type] $trackerId
+     * @param int $fieldId  0 has special meaning:  insert a new field
+     * @return int the field id inserted or operated on.
+     */
+    public function replace_tracker_field($trackerId, int $fieldId, $name, $type, $isMain, $isSearchable, $isTblVisible, $isPublic, $isHidden, $isMandatory, $position, $options, $description = '', $isMultilingual = '', $itemChoices = null, $errorMsg = '', $visibleBy = null, $editableBy = null, $descriptionIsParsed = 'n', $validation = '', $validationParam = '', $validationMessage = '', $permName = null, $rules = null, $encryptionKeyId = null, $excludeFromNotification = false, $visibleInViewMode = 'y', $visibleInEditMode = 'y', $visibleInHistoryMode = 'y'): int
     {
         global $prefs;
-
+        $fieldId = (int) $fieldId;
         // Serialize choosed items array (items of the tracker field to be displayed in the list proposed to the user)
         if (is_array($itemChoices) && count($itemChoices) > 0 && ! empty($itemChoices[0])) {
             $itemChoices = serialize($itemChoices);
@@ -4081,7 +4109,16 @@ class TrackerLib extends TikiLib
         return $status;
     }
 
-    public function get_isMain_value($trackerId, $itemId)
+    /**
+     * Get's the rendered value of the field that is used as the name of
+     * the tracker item.  Usually used as the item's title in a list,
+     * the search index, etc.
+     *
+     * @param [type] $trackerId
+     * @param [type] $itemId
+     * @return void
+     */
+    public function get_isMain_value($trackerId, $itemId): string
     {
         global $prefs;
 
@@ -4091,22 +4128,25 @@ class TrackerLib extends TikiLib
         if (! $trackerId) {
             $trackerId = (int) $this->table('tiki_tracker_items')->fetchOne('trackerId', ['itemId' => $itemId]);
         }
-        $main_field_type = $this->get_main_field_type($trackerId);
 
-        // for TextArea, ItemLink, AutoIncrement, UserPref and Category fields use the proper output method
-        if (in_array($main_field_type, ['a', 'r', 'q', 'p', 'e'])) {
-            $definition = Tracker_Definition::get($trackerId);
-            $field = $definition->getField($this->get_main_field($trackerId));
-            $item = $this->get_tracker_item($itemId);
-            $handler = $this->get_field_handler($field, $item);
-            // when called from \ObjectLib::get_title Category fields need to have getFieldData run before the category name can be rendered
-            $field = array_merge($field, $handler->getFieldData());
-            $handler = $this->get_field_handler($field, $item);
+        $definition = Tracker_Definition::get($trackerId);
+        $mainFieldId = $definition->getMainFieldId();
+        if ($mainFieldId) {
+            $field = $definition->getFieldInfoFromFieldId($mainFieldId);
+            $main_field_type = $field['type'];
+            // for TextArea, ItemLink, AutoIncrement, UserPref and Category fields use the proper output method
+            if (in_array($main_field_type, ['a', 'r', 'q', 'p', 'e'])) {
+                $item = $this->get_tracker_item($itemId);
+                $handler = $this->get_field_handler($field, $item);
+                // when called from \ObjectLib::get_title Category fields need to have getFieldData run before the category name can be rendered
+                $field = array_merge($field, $handler->getFieldData());
+                $handler = $this->get_field_handler($field, $item);
 
-            if ($main_field_type == 'a') {
-                $result = $handler->renderOutput(['list_mode' => 'y', 'isMain_context' => true]);
-            } else {
-                $result = $handler->renderOutput(['list_mode' => 'csv']);
+                if ($main_field_type == 'a') {
+                    $result = $handler->renderOutput(['list_mode' => 'y', 'isMain_context' => true]);
+                } else {
+                    $result = $handler->renderOutput(['list_mode' => 'csv']);
+                }
             }
         }
 
@@ -4122,16 +4162,6 @@ class TrackerLib extends TikiLib
         }
 
         return $result;
-    }
-
-    public function get_main_field_type($trackerId)
-    {
-        return $this->fields()->fetchOne('type', ['isMain' => 'y', 'trackerId' => $trackerId], ['position' => 'ASC']);
-    }
-
-    public function get_main_field($trackerId)
-    {
-        return $this->fields()->fetchOne('fieldId', ['isMain' => 'y', 'trackerId' => $trackerId], ['position' => 'ASC']);
     }
 
     /**
@@ -5540,7 +5570,7 @@ class TrackerLib extends TikiLib
      * @param array $item - array('itemId1' => value1, 'itemid2' => value2)
      * @return \Tracker\Field\AbstractField $tracker_field_handler - i.e. Tracker_Field_Text
      */
-    public function get_field_handler($field, $item = [])
+    public function get_field_handler(array $field, array $item = []): \Tracker\Field\AbstractField
     {
         if (! isset($field['trackerId'])) {
             return false;
@@ -5620,8 +5650,8 @@ class TrackerLib extends TikiLib
             }
             include_once('lib/webmail/tikimaillib.php');
             if ($simpleEmail == "n") {
-                $mail_main_value_fieldId = $this->get_main_field($trackerId);
-                $mail_main_value_field = $tracker_definition->getField($mail_main_value_fieldId);
+                $mail_main_value_fieldId = $tracker_definition->getMainFieldId();
+                $mail_main_value_field = $tracker_definition->getFieldInfoFromFieldId($mail_main_value_fieldId);
                 if (in_array($mail_main_value_field['type'], ['r', 'q'])) {
                     // Item Link & auto-inc are special cases as field value is not the displayed text. There might be other such field types.
                     $handler = $this->get_field_handler($mail_main_value_field);

@@ -2116,14 +2116,10 @@ class Services_Tracker_Controller
             throw new Services_Exception_Denied(tr('Reserved for tracker administrators'));
         }
 
-        if ($trackerId) {
-            $definition = Tracker_Definition::get($trackerId);
+        $definition = Tracker_Definition::get($trackerId);
 
-            if (! $definition) {
-                throw new Services_Exception_NotFound();
-            }
-        } else {
-            $definition = Tracker_Definition::getDefault();
+        if (! $definition) {
+            throw new Services_Exception_NotFound();
         }
 
         $cat_type = 'tracker';

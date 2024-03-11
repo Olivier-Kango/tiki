@@ -1,4 +1,4 @@
-{* This is meant to emulatethe wikiplugin_customsearch form  *}
+{* This is meant to emulate the wikiplugin_customsearch form  *}
 <div id="semanticsearch_{$id}_form">
 <form id="semanticsearch_{$id}" class="customsearch_form">
     <div class="input-group mb-3">

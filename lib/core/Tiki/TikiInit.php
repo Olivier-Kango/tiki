@@ -62,7 +62,7 @@ class TikiInit
                     $container->hasParameter('tiki.version') &&                    // no version before 15.0
                     $container->getParameter('tiki.version') === $version
                 ) {
-                    if (TikiDb::get()) {
+                    if (TikiDb::isAvailable()) {
                         $container->set('tiki.lib.db', TikiDb::get());
                     }
 

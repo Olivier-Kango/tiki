@@ -12,7 +12,7 @@
  */
 class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, Search_FacetProvider_Interface, \Tracker\Field\EnumerableInterface
 {
-    public static function getTypes()
+    public static function getManagedTypesInfo(): array
     {
         return [
             'u' => [
@@ -413,13 +413,13 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
         ];
     }
 
-    public function getProvidedFields()
+    public function getProvidedFields(): array
     {
         $baseKey = $this->getBaseKey();
         return [$baseKey, "{$baseKey}_text", "{$baseKey}_unstemmed"];
     }
 
-    public function getProvidedFieldTypes()
+    public function getProvidedFieldTypes(): array
     {
         $baseKey = $this->getBaseKey();
         return [
@@ -434,7 +434,7 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
      *
      * @return array
      */
-    public function getGlobalFields()
+    public function getGlobalFields(): array
     {
         $baseKey = $this->getBaseKey();
 

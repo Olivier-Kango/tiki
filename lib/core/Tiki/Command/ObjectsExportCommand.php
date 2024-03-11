@@ -140,7 +140,9 @@ class ObjectsExportCommand extends Command
                 //$output->writeln(print_r($data, true));
                 //$output->writeln(print_r($data['wiki_content'], true));
                 $globalFields = $source->getGlobalFields();
+
                 $content = \Search_Indexer::getGlobalContent($data, $globalFields);
+
                 $outputArray['text'] = $content;
                 $outputJson = json_encode($outputArray);
                 //$output->writeln(print_r($data, true));

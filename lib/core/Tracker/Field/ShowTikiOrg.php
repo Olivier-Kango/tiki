@@ -9,7 +9,7 @@ use phpseclib3\Net\SSH2;
 
 class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractField
 {
-    public static function getTypes()
+    public static function getManagedTypesInfo(): array
     {
         return [
             'STO' => [
