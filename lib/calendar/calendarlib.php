@@ -743,14 +743,15 @@ class CalendarLib extends TikiLib
                 $data['categoryId'] = 0;
             }
             if (trim($data["newcat"])) {
-                $bindvars = [(int)$data["calendarId"],trim($data["newcat"])];
-                $data["categoryId"] = $this->getOne("select `calcatId` from `tiki_calendar_categories` where `calendarId`=? and `name`=?", $bindvars);
+                $calendarId = (int)$data["calendarId"];
+                $newcatname = trim($data["newcat"]);
+                $newcatbgcolor = trim($data["newcatbgcolor"]);
+
+                $data["categoryId"] = $this->getOne("select `calcatId` from `tiki_calendar_categories` where `calendarId`=? and `name`=?", [$calendarId, $newcatname]);
                 if (empty($data["categoryId"])) {
                     $query = "insert into `tiki_calendar_categories` (`calendarId`,`name`,`backgroundColor`) values (?,?,?)";
-                    $bindvars[] = trim($data["newcatbgcolor"]);
-                    $this->query($query, $bindvars);
-                    array_pop($bindvars);
-                    $data["categoryId"] = $this->getOne("select `calcatId` from `tiki_calendar_categories` where `calendarId`=? and `name`=?", $bindvars);
+                    $this->query($query, [$calendarId, $newcatname, $newcatbgcolor]);
+                    $data["categoryId"] = $this->getOne("select `calcatId` from `tiki_calendar_categories` where `calendarId`=? and `name`=?", [$calendarId, $newcatname]);
                 }
             }
         } else {
