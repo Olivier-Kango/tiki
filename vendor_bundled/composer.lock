@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "133913d30d08ad632d07c339d76b5168",
+    "content-hash": "4e7497ba1d1db0d6f08a2b29a01346ab",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -4314,17 +4314,17 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.49.0",
+            "version": "2.50.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "d58c2e7d3cd420554400dd8cca694fafa3b8e45f"
+                "reference": "2b1cb3e5249691f2f8cd411fde064fce473b6d24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-d58c2e7d3cd420554400dd8cca694fafa3b8e45f-zip-a80989.zip",
-                "reference": "d58c2e7d3cd420554400dd8cca694fafa3b8e45f",
-                "shasum": "d40d0c80d8dd95740cac98c0473ecd843b7f0df8"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-2b1cb3e5249691f2f8cd411fde064fce473b6d24-zip-7b611f.zip",
+                "reference": "2b1cb3e5249691f2f8cd411fde064fce473b6d24",
+                "shasum": "18d6139950701941860e063aa57bbefea1e301d1"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.21.0",
@@ -4386,7 +4386,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-02-22T16:46:06+00:00"
+            "time": "2024-03-11T00:59:46+00:00"
         },
         {
             "name": "lcobucci/clock",
@@ -6158,19 +6158,6 @@
                 "touch"
             ],
             "time": "2019-10-16T11:51:47+00:00"
-        },
-        {
-            "name": "npm-asset/animejs",
-            "version": "3.2.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/animejs/npm-asset-animejs-3.2.2.zip",
-                "shasum": "bcfb34eaf02b03e842b5c1629b1b817b34467db0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
         },
         {
             "name": "npm-asset/babel--parser",
@@ -17567,5 +17554,5 @@
         "ext-ldap": "0",
         "ext-soap": "0"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

@@ -16,6 +16,7 @@ function generateJsImportmapScripts()
                 /*common_externals*/
                 //While bootstrap is available distributted as ESM, we can't use it because  https://getbootstrap.com/docs/5.0/getting-started/javascript/#using-bootstrap-as-a-module
                 "@popperjs/core" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/@popperjs/core/dist/esm/index.js",
+                "animejs" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/anime/dist/anime.es.js",
                 "bootstrap" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/bootstrap/dist/js/bootstrap.esm.min.js",
                 "clipboard" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/clipboard/dist/clipboard.min.js",
                 "jquery" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/jquery/dist/jquery.js",

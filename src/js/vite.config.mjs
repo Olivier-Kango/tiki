@@ -240,6 +240,10 @@ export default defineConfig(({ command, mode }) => {
                     },
                     /* common_externals */
                     {
+                        src: "node_modules/animejs/lib/anime.es.js",
+                        dest: "vendor_dist/anime/dist",
+                    },
+                    {
                         src: "node_modules/clipboard/dist/*",
                         dest: "vendor_dist/clipboard/dist",
                     },
