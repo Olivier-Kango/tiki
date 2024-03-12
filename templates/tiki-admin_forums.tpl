@@ -208,7 +208,7 @@
                             </div>
                         </div>
                         <div class="tiki-form-group row">
-                            <label class="col-sm-4 col-form-label" for="name">{tr}Description{/tr}</label>
+                            <label class="col-sm-4 col-form-label" for="description">{tr}Description{/tr}</label>
                             <div class="col-sm-8">
                                 <textarea name="description" rows="4" class="form-control" id="description">{$description|escape}</textarea>
                             </div>
@@ -318,7 +318,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="mail" value="{$mail|escape}">
+                                <input type="text" class="form-control" name="mail" value="{$mail|escape}" >
                             </div>
                         </div>
                         <div class="tiki-form-group row">
@@ -436,8 +436,9 @@
                             <label class="col-sm-4 col-form-label">{tr}Topic list configuration{/tr}</label>
                             <div class="col-sm-8">
                                 <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="topics_list_replies" id="topics_list_replies" {if $topics_list_replies eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="topics_list_replies">
-                                        <input type="checkbox" class="form-check-input" name="topics_list_replies" id="topics_list_replies" {if $topics_list_replies eq 'y'}checked="checked"{/if}> {tr}Replies{/tr}
+                                         {tr}Replies{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
@@ -446,33 +447,39 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="topics_list_pts" id="topics_list_pts" {if $topics_list_pts eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="topics_list_pts">
-                                        <input type="checkbox" class="form-check-input" name="topics_list_pts" id="topics_list_pts" {if $topics_list_pts eq 'y'}checked="checked"{/if}> {tr}Points{/tr}
+                                        {tr}Points{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="topics_list_lastpost" id="topics_list_lastpost" {if $topics_list_lastpost eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="topics_list_lastpost">
-                                        <input type="checkbox" class="form-check-input" name="topics_list_lastpost" id="topics_list_lastpost" {if $topics_list_lastpost eq 'y'}checked="checked"{/if}> {tr}Last post{/tr}
+                                         {tr}Last post{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="topics_list_lastpost_title" id="topics_list_lastpost_title" {if $topics_list_lastpost_title eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="topics_list_lastpost_title">
-                                        <input class="form-check-input" type="checkbox" name="topics_list_lastpost_title" id="topics_list_lastpost_title" {if $topics_list_lastpost_title eq 'y'}checked="checked"{/if}> {tr}Last post title{/tr}
+                                         {tr}Last post title{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="topics_list_lastpost_avatar" id="topics_list_lastpost_avatar" {if $topics_list_lastpost_avatar eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="topics_list_lastpost_avatar">
-                                        <input class="form-check-input" type="checkbox" name="topics_list_lastpost_avatar" id="topics_list_lastpost_avatar" {if $topics_list_lastpost_avatar eq 'y'}checked="checked"{/if}> {tr}Last post profile picture{/tr}
+                                         {tr}Last post profile picture{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="topics_list_author" id="topics_list_author" {if $topics_list_author eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="topics_list_author">
-                                        <input class="form-check-input" type="checkbox" name="topics_list_author" id="topics_list_author" {if $topics_list_author eq 'y'}checked="checked"{/if}> {tr}Author{/tr}
+                                         {tr}Author{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="topics_list_author_avatar" id="topics_list_author_avatar" {if $topics_list_author_avatar eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="topics_list_author_avatar">
-                                        <input class="form-check-input" type="checkbox" name="topics_list_author_avatar" id="topics_list_author_avatar" {if $topics_list_author_avatar eq 'y'}checked="checked"{/if}> {tr}Author profile picture{/tr}
+                                         {tr}Author profile picture{/tr}
                                     </label>
                                 </div>
                             </div>
@@ -529,38 +536,45 @@
                             <label class="col-sm-4 col-form-label">{tr}User information display{/tr}</label>
                             <div class="col-sm-8">
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ui_avatar" id="ui_avatar" {if $ui_avatar eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="ui_avatar">
-                                        <input class="form-check-input" type="checkbox" name="ui_avatar" id="ui_avatar" {if $ui_avatar eq 'y'}checked="checked"{/if}> {tr}Profile picture{/tr}
+                                         {tr}Profile picture{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ui_rating_choice_topic" id="ui_rating_choice_topic" {if $ui_rating_choice_topic eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="ui_rating_choice_topic">
-                                        <input class="form-check-input" type="checkbox" name="ui_rating_choice_topic" id="ui_rating_choice_topic" {if $ui_rating_choice_topic eq 'y'}checked="checked"{/if}> {tr}Topic Rating{/tr}
+                                         {tr}Topic rating{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ui_flag" id="ui_flag" {if $ui_flag eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="ui_flag">
-                                        <input class="form-check-input" type="checkbox" name="ui_flag" id="ui_flag" {if $ui_flag eq 'y'}checked="checked"{/if}> {tr}Flag{/tr}
+                                         {tr}Flag{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ui_posts" id="ui_posts" {if $ui_posts eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="ui_posts">
-                                        <input class="form-check-input" type="checkbox" name="ui_posts" id="ui_posts" {if $ui_posts eq 'y'}checked="checked"{/if}> {tr}Posts{/tr}
+                                         {tr}Posts{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ui_level" id="ui_level" {if $ui_level eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="ui_level">
-                                        <input class="form-check-input" type="checkbox" name="ui_level" id="ui_level" {if $ui_level eq 'y'}checked="checked"{/if}> {tr}User Level{/tr}
+                                         {tr}User level{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ui_email" id="ui_email" {if $ui_email eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="ui_email">
-                                        <input class="form-check-input" type="checkbox" name="ui_email" id="ui_email" {if $ui_email eq 'y'}checked="checked"{/if}> {tr}eMail{/tr}
+                                         {tr}Email{/tr}
                                     </label>
                                 </div>
                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ui_online" id="ui_online" {if $ui_online eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="ui_online">
-                                        <input class="form-check-input" type="checkbox" name="ui_online" id="ui_online" {if $ui_online eq 'y'}checked="checked"{/if}> {tr}Online{/tr}
+                                         {tr}Online{/tr}
                                     </label>
                                 </div>
                             </div>
@@ -589,13 +603,16 @@
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input" name="att_store" id="att_store_db" value="db" {if $att_store eq 'db'}checked="checked"{/if}> {tr}Database{/tr}
                                 </div>
-                                <div class="form-check-inline">
-                                    <div class="col-sm-5 form-check-inline">
-                                        <input type="radio" class="form-check-input" name="att_store" value="dir" {if $att_store eq 'dir'}checked="checked"{/if}> {tr}File system{/tr}
+                                <div class="">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="att_store" name="att_store" value="dir" {if $att_store eq 'dir'}checked="checked"{/if}>
+                                        <label for="att_store">{tr}File system{/tr}</label>
                                     </div>
-                                    <label class="col-form-label col-sm-2" for="att_store_dir">{tr}Path{/tr}</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="att_store_dir" id="att_store_dir" value="{$att_store_dir|escape}" class="form-control" />
+                                    <div class="tiki-form-group row">
+                                        <label class="col-form-label offset-sm-1 col-auto" for="att_store_dir">{tr}Path{/tr}</label>
+                                       <div class="col-auto">
+                                            <input type="text" name="att_store_dir" id="att_store_dir" value="{$att_store_dir|escape}" class="form-control" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
