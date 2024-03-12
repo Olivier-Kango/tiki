@@ -387,13 +387,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'thomaspark/bootswatch/',
-            [
-                'docs',
-                'README.md'
-            ]
-        );
-        self::remove(
             $vendors . 'laminas/',
             [
                 'laminas-feed/test',

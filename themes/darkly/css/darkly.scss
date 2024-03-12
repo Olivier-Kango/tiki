@@ -9,13 +9,13 @@
  * Adapted by the Tiki Community for Tiki Wiki CMS Groupware
 */
 
-//@import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cerulean/variables"; // Needs to come first, to override defaults.
+//@import "../../../node_modules/bootswatch/dist/cerulean/variables"; // Needs to come first, to override defaults.
 @import "../../base_files/scss/_tiki-bootstrap_functions";
 
 @import "../scss/variables";
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
-@import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/darkly/bootswatch";
+@import "../../../node_modules/bootswatch/dist/darkly/bootswatch";
 //@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
 @import "../scss/css-variables"; // Needs to be loaded after default variables to override them
 

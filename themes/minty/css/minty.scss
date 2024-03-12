@@ -20,7 +20,7 @@
 //@import "../scss/variables";
 //@import "../scss/variables-dark";
 
-@import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/minty/bootswatch";
+@import "../../../node_modules/bootswatch/dist/minty/bootswatch";
 //@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
 @import "../scss/css-variables"; // Needs to be loaded after default variables to override them
 
