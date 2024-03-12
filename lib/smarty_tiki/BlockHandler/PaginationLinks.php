@@ -261,6 +261,7 @@ class PaginationLinks extends Base
 
                 if ($params['show_numbers'] == 'y') {
                     $last_dots = false;
+                    $url_k_val = 0;
                     $page_num = floor($real_offset / $params['step']);
                     foreach (range(0, $nb_pages - 1) as $k) {
                         if ($k + $zero_based_min == $page_num) {
