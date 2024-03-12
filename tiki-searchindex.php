@@ -146,6 +146,7 @@ if (count($filter) || count($postfilter)) {
                 'url' => null,
                 'modification_date' => null,
                 'highlight' => null,
+                'categories' => null,
             ];
             if ($prefs['feature_search_show_visit_count'] === 'y') {
                 $fields['visits'] = null;
@@ -219,6 +220,7 @@ function tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords
     }
 
     $unifiedsearchlib->initQueryPermissions($query);
+    $unifiedsearchlib->initQueryPresentation($query);
 
     $query->setRange($offset, $maxRecords);
 
