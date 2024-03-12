@@ -123,6 +123,11 @@ class DevbuildwsconfsCommand extends Command
             $fileName = $file->getFilename();
             //$output->writeln("<info>$filePath</info>");
             if ($fileName == '..') {
+                //It seems RecursiveDirectoryIterator doesn't always obey \FilesystemIterator::SKIP_DOTS
+                continue;
+            }
+            if ($file->islink()) {
+                //It seems RecursiveDirectoryIterator sometimes follows links despite NOT passing FilesystemIterator::FOLLOW_SYMLINKS
                 continue;
             }
             if ($verbose) {
@@ -177,7 +182,7 @@ class DevbuildwsconfsCommand extends Command
                     $missingIndexMessageFixed .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
                 }
             } else {
-                $missingIndexMessage .= '<fg=blue>' . $filePath . '</>' . PHP_EOL;
+                $missingIndexMessage .= '<fg=red>' . $filePath . '</>' . PHP_EOL;
             }
 
             if ($this->folderHasHtaccess($filePath, $tikiRootFolder)) {
