@@ -47,6 +47,13 @@
         {accordion_group title="{tr}Features{/tr}"}
             <div class="form-check">
                 <label>
+                    <input type="checkbox" class="form-check-input" name="allowOffline" value="1"
+                        {if $info.allowOffline eq 'y'} checked="checked"{/if}>
+                    {tr}Allow offline usage{/tr}
+                </label>
+            </div>
+            <div class="form-check">
+                <label>
                     <input type="checkbox" class="form-check-input" name="useRatings" value="1"
                         {if $info.useRatings eq 'y'} checked="checked"{/if}>
                     {tr}Allow ratings (deprecated, use rating field){/tr}

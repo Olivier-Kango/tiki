@@ -6939,6 +6939,7 @@ class TrackerLib extends TikiLib
             'oneUserItem' => $input->oneUserItem->int() ? 'y' : 'n',
             'writerGroupCanModify' => $input->writerGroupCanModify->int() ? 'y' : 'n',
             'writerGroupCanRemove' => $input->writerGroupCanRemove->int() ? 'y' : 'n',
+            'allowOffline' => $input->allowOffline->int() ? 'y' : 'n',
             'useRatings' => $input->useRatings->int() ? 'y' : 'n',
             'showRatings' => $input->showRatings->int() ? 'y' : 'n',
             'ratingOptions' => $input->ratingOptions->text(),

@@ -67,6 +67,8 @@ properties:
     type: integer
   writerGroupCanRemove:
     type: integer
+  allowOffline:
+    type: integer
   useRatings:
     type: integer
   showRatings:
