@@ -13,20 +13,19 @@ const vueLifecycles = singleSpaVue({
                 // name: this.name,
                 // mountParcel: this.mountParcel,
                 // singleSpa: this.singleSpa,
-                trackerData: this.trackerData
+                trackerData: this.trackerData,
             });
-        }
+        },
     },
     handleInstance: (app) => {
         if (import.meta.env.MODE === "development") {
             console.log(import.meta.env);
         }
-    }
+    },
 });
 
 const cssLifecycle = singleSpaCss({
-    cssUrls: [
-    ]
+    cssUrls: []
 });
 
 export const bootstrap = [cssLifecycle.bootstrap, vueLifecycles.bootstrap];

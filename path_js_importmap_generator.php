@@ -35,8 +35,8 @@ function generateJsImportmapScripts()
                 "@vue-mf/kanban" => $tikiroot . JS_ASSETS_PATH . "/kanban.js",
                 "@vue-mf/duration-picker" => $tikiroot . JS_ASSETS_PATH . "/duration-picker.js",
                 "@vue-mf/toolbar-dialogs" => $tikiroot . JS_ASSETS_PATH . "/toolbar-dialogs.js",
-		"@vue-mf/emoji-picker" => $tikiroot . JS_ASSETS_PATH . "/emoji-picker.js",
-		"@vue-mf/tiki-offline" => $tikiroot . JS_ASSETS_PATH . "/tiki-offline.js"
+                "@vue-mf/emoji-picker" => $tikiroot . JS_ASSETS_PATH . "/emoji-picker.js",
+                "@vue-mf/tiki-offline" => $tikiroot . JS_ASSETS_PATH . "/tiki-offline.js"
             ]
             ];
     $importmapJson = json_encode($importmap, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
