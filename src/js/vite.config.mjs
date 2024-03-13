@@ -149,6 +149,7 @@ export default defineConfig(({ command, mode }) => {
                     "@popperjs/core",
                     "bootstrap",
                     "clipboard",
+                    "driver.js",
                     "jquery",
                     "jquery-ui",
                     "moment",
@@ -246,6 +247,14 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/clipboard/dist/*",
                         dest: "vendor_dist/clipboard/dist",
+                    },
+                    {
+                        src: "node_modules/driver.js/dist/driver.js.mjs",
+                        dest: "vendor_dist/driver.js/dist",
+                    },
+                    {
+                        src: "node_modules/driver.js/dist/driver.css",
+                        dest: "vendor_dist/driver.js/dist",
                     },
                     {
                         src: "node_modules/moment/dist/*",

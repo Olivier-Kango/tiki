@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e7497ba1d1db0d6f08a2b29a01346ab",
+    "content-hash": "29ce0dcaf08e4093af73620bdf80e68c",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -10685,33 +10685,6 @@
             "time": "2024-02-26T13:36:56+00:00"
         },
         {
-            "name": "sorich87/bootstrap-tour",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sorich87/bootstrap-tour.git",
-                "reference": "c501ce7ad1728050b0882bb9316f5c33df87f6a2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/sorich87/bootstrap-tour/sorich87-bootstrap-tour-c501ce7ad1728050b0882bb9316f5c33df87f6a2-zip-c67f6d.zip",
-                "reference": "c501ce7ad1728050b0882bb9316f5c33df87f6a2",
-                "shasum": "0c3815b7a79c2afaa21f953288131a872245599f"
-            },
-            "type": "component",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Show people how to use your web site",
-            "homepage": "http://bootstraptour.com/",
-            "keywords": [
-                "bootstrap",
-                "tour"
-            ],
-            "time": "2021-08-11T06:10:54+00:00"
-        },
-        {
             "name": "stella-maris/clock",
             "version": "0.1.7",
             "source": {
@@ -17529,7 +17502,6 @@
         "npm-asset/html2canvas": 5,
         "npm-asset/select2": 5,
         "rubix/extras": 10,
-        "sorich87/bootstrap-tour": 20,
         "phpcompatibility/php-compatibility": 20,
         "phpcsstandards/phpcsutils": 15
     },
