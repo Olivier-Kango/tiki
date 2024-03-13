@@ -131,7 +131,7 @@ class Tracker_Field_Factory
      * @param array $itemData
      * @return \Tracker\Field\AbstractField or null if the field type isn't enabled in prefs
      */
-    public function getHandler(array $fieldInfo, array $itemData = []): \Tracker\Field\AbstractField|null
+    public function getHandler(array $fieldInfo, ?array $itemData = null): \Tracker\Field\AbstractField|null
     {
         if (! isset($fieldInfo['type'])) {
             throw new InvalidArgumentException("fieldInfo parameter is missing 'type' key");
@@ -157,6 +157,7 @@ class Tracker_Field_Factory
             $fieldInfo = array_merge($info, $fieldInfo);
 
             if (class_exists($class) && is_callable([$class, 'build'])) {
+                //I couldn't find a case where this code path is followed.  benoitg - 2024-03-12
                 return call_user_func([$class, 'build'], $type, $this->trackerDefinition, $fieldInfo, $itemData);
             } else {
                 return new $class($fieldInfo, $itemData, $this->trackerDefinition);

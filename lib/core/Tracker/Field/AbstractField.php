@@ -44,11 +44,13 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
     /**
      * Initialize the instance with field- and trackerdefinition and item value(s)
      * @param array $fieldInfo - the field definition
-     * @param array $itemData - itemId/value pair(s)
+     * @param ?array $itemData - itemId/value pair(s).  If empty you can only manipulate informations related to the field.  This seems to be legacy support, only used to getOption().  The problem is that we don't have a TrackerField class representing the tracker field associated to the tracker (not the Tracker item).  This is an easy refactoring, but I have to stop somewhere for now - benoitg - 2024-03-12.
+     * This is called with an empty $itemData from TrackerLib::get_field_handler() through Tracker_Field_Factory::getHandler())
+     * In practice,
      * @param array $trackerDefinition - the tracker definition.
      *
      */
-    public function __construct(array $fieldInfo, array $itemData, Tracker_Definition $trackerDefinition)
+    public function __construct(array $fieldInfo, ?array $itemData, Tracker_Definition $trackerDefinition)
     {
         $this->options = \Tracker_Options::fromSerialized($fieldInfo['options'], $fieldInfo);
 

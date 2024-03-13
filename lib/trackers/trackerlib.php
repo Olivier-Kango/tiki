@@ -420,7 +420,7 @@ class TrackerLib extends TikiLib
 
     /**
      * Retrieves an internal structure with the raw tracker item row
-     * merged with a and it's field values.
+     * merged with a key-value pair of it's field values.
      *
      * This should probably never have been made public
      * @param mixed $itemId, will be casted to int
@@ -5560,6 +5560,7 @@ class TrackerLib extends TikiLib
 
     /**
      * Get a field handler for a specific fieldtype. The handler comes initialized with the field / item data passed.
+     * @deprecated  This is just a proxy to  $definition->getFieldFactory()->getHandler() with a different calling convention.
      * @param array $field.
      * <pre>
      * $field = array(
@@ -5570,7 +5571,7 @@ class TrackerLib extends TikiLib
      * @param array $item - array('itemId1' => value1, 'itemid2' => value2)
      * @return \Tracker\Field\AbstractField $tracker_field_handler - i.e. Tracker_Field_Text
      */
-    public function get_field_handler(array $field, array $item = []): \Tracker\Field\AbstractField
+    public function get_field_handler(array $field, ?array $item = null): \Tracker\Field\AbstractField|false
     {
         if (! isset($field['trackerId'])) {
             return false;
@@ -5583,7 +5584,11 @@ class TrackerLib extends TikiLib
             return false;
         }
 
-        return $definition->getFieldFactory()->getHandler($field, $item);
+        $handler = $definition->getFieldFactory()->getHandler($field, $item);
+        if (! $handler) {
+            return false;
+        }
+        return $handler;
     }
 
     public function get_field_value($field, $item)
