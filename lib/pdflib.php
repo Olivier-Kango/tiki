@@ -1059,11 +1059,13 @@ class PdfGenerator
                 foreach ($faClass as $class) {
                     if (! empty($jfo[$class]['codeValue'])) {
                         $faCode = $doc->createElement('span', " " . $jfo[$class]['codeValue']);
-                        $faCode->setAttribute("style", "font-family: FontAwesome;float:left;padding-left:5px" . $fadiv->getAttribute('style'));
+                        $faCode->setAttribute("style", "font-family: FontAwesome;float:left;padding-left:5px;" . $fadiv->getAttribute('style'));
                         //span with fontawesome code inserted before fa div
                         $faCode->setAttribute("class", $fadiv->getAttribute('class'));
-                        $fadiv->parentNode->insertBefore($faCode, $fadiv);
-                        $fadiv->parentNode->removeChild($fadiv);
+                        if ($fadiv->parentNode !== null) {
+                            $fadiv->parentNode->insertBefore($faCode, $fadiv);
+                            $fadiv->parentNode->removeChild($fadiv);
+                        }
                     }
                 }
             }
