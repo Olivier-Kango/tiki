@@ -229,7 +229,7 @@
                             </td>
                             <td colspan="3" valign="top">
                                 <label for="name" class="required">{/literal}{tr}name{/tr}{literal}</label><br>
-                                <input type="text" name="name" id="name"class="formElements" autocomplete='off' maxlength=255 style='width:100%' value="" required="true" oldvalue="1">
+                                <input type="text" name="name" id="name" class="formElements" autocomplete='off' maxlength=255 style='width:100%' value="" required="true" oldvalue="1">
                             </td>
                         </tr>
                         <tr class="dateRow">

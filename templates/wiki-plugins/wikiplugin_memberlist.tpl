@@ -28,8 +28,8 @@
                                 {foreach from=$groupData.members item=memberName}
                                     <li>
                                         {if $groupData.can_remove && $memberName != $user}
-                                            <label>
-                                                <input type="checkbox" name="remove[{$groupName|escape}][]" value="{$memberName|escape}">
+                                            <input type="checkbox" name="remove[{$groupName|escape}][]" id="remove[{$groupName|escape}][]" value="{$memberName|escape}">
+                                            <label for="remove[{$groupName|escape}][]">
                                                 {$memberName|userlink}
                                             </label>
                                         {else}
