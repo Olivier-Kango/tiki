@@ -5571,7 +5571,7 @@ class TrackerLib extends TikiLib
      * @param array $item - array('itemId1' => value1, 'itemid2' => value2)
      * @return \Tracker\Field\AbstractField $tracker_field_handler - i.e. Tracker_Field_Text
      */
-    public function get_field_handler(array $field, ?array $item = null): \Tracker\Field\AbstractField|false
+    public function get_field_handler(array $field, $item = null): \Tracker\Field\AbstractField|false
     {
         if (! isset($field['trackerId'])) {
             return false;
@@ -5582,6 +5582,10 @@ class TrackerLib extends TikiLib
 
         if (! $definition) {
             return false;
+        }
+
+        if ($item === false) {
+            $item = null; //Backward compatibility
         }
 
         $handler = $definition->getFieldFactory()->getHandler($field, $item);
