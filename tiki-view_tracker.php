@@ -474,7 +474,13 @@ if (isset($_REQUEST["filtervalue"]) and is_array($_REQUEST["filtervalue"]) and i
 if (! empty($_REQUEST['filtervalue_other'])) {
     $filtervalue = $_REQUEST['filtervalue_other'];
 }
-$field = $trackerDefinition->getField($filterfield);
+
+if (! empty($filterfield)) {
+    $field = $trackerDefinition->getField($filterfield);
+} else {
+    $field = '';
+}
+
 if ($field && in_array($field['type'], ['d', 'D', 'R'])) {
     $exactvalue = $filtervalue;
 } else {
