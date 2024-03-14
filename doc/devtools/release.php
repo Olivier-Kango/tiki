@@ -792,9 +792,8 @@ function check_smarty_syntax(&$error_msg)
     $prefs['log_tpl'] = 'y';
     $prefs['feature_sefurl_filter'] = 'y';
     $prefs['site_layout'] = 'basic';
-    require_once 'vendor_bundled/vendor/smarty/smarty/src/Smarty.php';
-    require_once 'lib/init/smarty.php';
     require_once 'lib/init/initlib.php';
+    require_once 'lib/init/smarty.php';
     // needed in Smarty_Tiki
     define('TIKI_PATH', getcwd());
     require_once 'lib/smarty_tiki/prefilter.tr.php';
