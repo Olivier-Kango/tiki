@@ -164,6 +164,7 @@ class PaginationLinks extends Base
         $url = preg_replace('/(?:(\?|&amp;)(&amp;)+|(\?|&amp;))$/', '\\1', $url);
 
         $url_args_pos = strpos($url, '?');
+        $next_offset_val = 0;
         if ($url_args_pos === false) {
             $url .= '?';
         } elseif ($url_args_pos < strlen($url) - 1) {
