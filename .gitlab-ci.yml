@@ -20,9 +20,9 @@ variables:
   #The schemas dumped for prior tikis on https://gitlab.com/tikiwiki/tikiwiki-ci-databases have explicit COLLATION() statements for each table column.  Later versions of mysql (8.0.11+, but not sure) will not dump the same whits explicit collations.
   #Running php doc/devtools/check_schema_upgrade.php -m 22 --db1=tiki:tiki@localhost:tikiold --db2=tiki:tiki@localhost:tikinew gives other errors localy that are false positives.  But locally, unless you decompress https://gitlab.com/tikiwiki/tikiwiki-ci-databases into doc/devtool/dbdiff/cache, tiki.org won't give the schemas to you, and will blacklist your IP address!  benoitg - 2023-05-16
 
-  MARIADB_10_IMAGE: mariadb:10.3.0
+  MARIADB_10_IMAGE: mariadb:10.11.6
   MYSQL_8_IMAGE: mysql:8.0.29
-  MYSQL_5_IMAGE: mysql:5.6
+  MYSQL_5_IMAGE: mysql:5.7.44
   NODE_IMAGE: node:18
   MANTICORE_DSN: http://manticore
   # You can set USE_GITLAB_PROXY to "true" in your project configuration to use the gitlab dependency proxy. (default not using as it may cause issues for some accounts)
@@ -404,7 +404,7 @@ composer-could-update-lock:
   <<: *template-tiki-schema-upgrade
   services:
     - name: ${DEPENDENCY_PROXY_PREFIX}$IMAGE
-      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+      command: [ "--default-authentication-plugin=mysql_native_password", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
       alias: mysql
 
 db-upgrade-22-mariadb:
