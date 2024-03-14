@@ -26,7 +26,7 @@ class Search_Formatter_ValueFormatter_Reference extends Search_Formatter_ValueFo
         $smarty->loadPlugin('smarty_function_object_link');
         $links = [];
 
-        foreach ((array) $value as $id) {
+        foreach (array_filter((array) $value) as $id) {
             $params = [
                 'type' => $this->type,
                 'id' => $id,
