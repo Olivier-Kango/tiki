@@ -49,6 +49,14 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
                         'description' => tr('Regular expression that uploaded file name should match in order to be accepted for upload.'),
                         'filter' => 'text',
                     ],
+                    'namefilterError' => [
+                        'name' => tr('File Name Filter Error Message'),
+                        'description' => tr('Text of the error message when file name filter doesn\'t match.'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'namefilter'
+                        ],
+                    ],
                     'count' => [
                         'name' => tr('File Count'),
                         'description' => tr('Maximum number of files to be attached on the field.'),
@@ -315,6 +323,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
             'value' => $value,
             'filter' => $this->getOption('filter'),
             'namefilter' => $this->getOption('namefilter'),
+            'namefilterError' => $this->getOption('namefilterError'),
             'image_x' => $image_x,
             'image_y' => $image_y,
             'gallerySearch' => $gallery_list,

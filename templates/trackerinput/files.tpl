@@ -1,4 +1,4 @@
-<div id="display_f{$field.fieldId|escape}" class="files-field display_f{$field.fieldId|escape} uninitialized {if !empty($data.replaceFile)}replace{/if}" data-galleryid="{$field.galleryId|escape}" data-firstfile="{$field.firstfile|escape}" data-filter="{$field.filter|escape}" data-limit="{$field.limit|escape}" data-item-id="{$item.itemId|escape}" data-field-id="{$field.fieldId|escape}" data-namefilter="{$field.namefilter|escape}">
+<div id="display_f{$field.fieldId|escape}" class="files-field display_f{$field.fieldId|escape} uninitialized {if !empty($data.replaceFile)}replace{/if}" data-galleryid="{$field.galleryId|escape}" data-firstfile="{$field.firstfile|escape}" data-filter="{$field.filter|escape}" data-limit="{$field.limit|escape}" data-item-id="{$item.itemId|escape}" data-field-id="{$field.fieldId|escape}" data-namefilter="{$field.namefilter|escape}" data-namefilter-error="{$field.namefilterError|escape}">
     {if !empty($field.canUpload)}
         {if !empty($field.limit)}
             {if $field.limit == 1}
@@ -149,7 +149,7 @@
                     return true;
                 }
                 if (! fileName.match(new RegExp($self.data('namefilter')))) {
-                    feedback(tr("File names must begin with a date in the format YYYYMMDD"), 'error');
+                    feedback(tr($self.data('namefilter-error') || 'The uploaded file name doesn\'t match desired pattern.'), 'error');
                     $(this).val("");
                     $("input[type=file]", $form).val("");
                     $(".custom-file-label", $form).text(tr("Choose file"));
