@@ -1,4 +1,4 @@
-<div id="display_f{$field.fieldId|escape}" class="files-field display_f{$field.fieldId|escape} uninitialized {if !empty($data.replaceFile)}replace{/if}" data-galleryid="{$field.galleryId|escape}" data-firstfile="{$field.firstfile|escape}" data-filter="{$field.filter|escape}" data-limit="{$field.limit|escape}" data-item-id="{$item.itemId|escape}" data-field-id="{$field.fieldId|escape}">
+<div id="display_f{$field.fieldId|escape}" class="files-field display_f{$field.fieldId|escape} uninitialized {if !empty($data.replaceFile)}replace{/if}" data-galleryid="{$field.galleryId|escape}" data-firstfile="{$field.firstfile|escape}" data-filter="{$field.filter|escape}" data-limit="{$field.limit|escape}" data-item-id="{$item.itemId|escape}" data-field-id="{$field.fieldId|escape}" data-namefilter="{$field.namefilter|escape}">
     {if !empty($field.canUpload)}
         {if !empty($field.limit)}
             {if $field.limit == 1}
@@ -144,11 +144,41 @@
                 toggleWarning();
             }
 
+            function checkFile(fileName, $form) {
+                if (! $self.data('namefilter')) {
+                    return true;
+                }
+                if (! fileName.match(new RegExp($self.data('namefilter')))) {
+                    feedback(tr("File names must begin with a date in the format YYYYMMDD"), 'error');
+                    $(this).val("");
+                    $("input[type=file]", $form).val("");
+                    $(".custom-file-label", $form).text(tr("Choose file"));
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            function attachFileCheckingOnElement(el) {
+                $("input[type=file]", el).change(function () {
+                    return checkFile($(this).val(), $(this).closest("form"));
+                });
+                $(el).on('drop', '.file-uploader', function (e) {
+                    const files = e.originalEvent.dataTransfer.files;
+                    let badFile =  Array.from(files).find(function (file) {
+                        return ! checkFile(file.name, $(this));
+                    });
+                    if (badFile) {
+                        e.stopPropagation();
+                        return false;
+                    }
+                });
+            }
+
             $field.hide();
             toggleWarning();
 
             $self.find('.btn.upload-files').clickModal({
-
                 success: function (data) {
                     var $ff = $(this).parents(".files-field");
                     $field = $(".input", $ff);
@@ -161,6 +191,15 @@
                     $.closeModal();
                 }
             });
+
+            attachFileCheckingOnElement($self.find('.upload-files-inline-form'));
+
+            $("a.upload-files").click(function () {
+                $(document).one('tiki.modal.redraw', '.modal.fade', function () {
+                    attachFileCheckingOnElement(this);
+                });
+            });
+
             $self.find('.btn.browse-files').on('click', function () {
                 if (! $(this).data('initial-href')) {
                     $(this).data('initial-href', $(this).attr('href'));
