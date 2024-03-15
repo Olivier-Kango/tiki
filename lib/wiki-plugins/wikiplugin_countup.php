@@ -337,8 +337,7 @@ function wikiplugin_countup_info()
 function wikiplugin_countup($data, $params)
 {
     TikiLib::lib('header')->add_js_module(
-        'import anime from "animejs";
-        window.anime = anime;'
+        'import anime from "animejs";'
     );
 
     $smarty = TikiLib::lib('smarty');
@@ -386,7 +385,7 @@ function wikiplugin_countup($data, $params)
             const duration = ' . $speed * $endingNumber * 1000 . '; // As anime.js doesn\'t dispose a speed property, we use duration to adjust the speed of counting(animation). The duration is in milliseconds.
 
             // Call to animejs to animate the counter
-            window.anime({
+            anime({
                 targets: counter,
                 textContent: ' . $endingNumber . ',
                 round: 1,
@@ -421,7 +420,7 @@ function wikiplugin_countup($data, $params)
     $smarty->assign('descriptionStyle', $descriptionStyle);
     $smarty->assign('numberStyle', $numberStyle);
 
-    TikiLib::lib('header')->add_jq_onready($js);
+    TikiLib::lib('header')->add_js_module($js);
 
     return $smarty->fetch('wiki-plugins/wikiplugin_countup.tpl');
 }
