@@ -12,6 +12,7 @@ function generateJsImportmapScripts()
 {
     global $tikiroot;
     $importmap = (object) [
+            // NOTE: Keep the list alphabetically sorted.
             "imports" => [
                 /*common_externals*/
                 //While bootstrap is available distributted as ESM, we can't use it because  https://getbootstrap.com/docs/5.0/getting-started/javascript/#using-bootstrap-as-a-module
@@ -19,6 +20,7 @@ function generateJsImportmapScripts()
                 "animejs" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/anime/dist/anime.es.js",
                 "bootstrap" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/bootstrap/dist/js/bootstrap.esm.min.js",
                 "clipboard" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/clipboard/dist/clipboard.min.js",
+                "dompurify" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/dompurify/dist/purify.es.js",
                 "driver.js" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/driver.js/dist/driver.js.mjs",
                 "jquery" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/jquery/dist/jquery.js",
                 "moment" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/moment/dist/moment.js",

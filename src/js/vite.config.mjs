@@ -144,19 +144,21 @@ export default defineConfig(({ command, mode }) => {
                 //exclude: ["svelte"],
             },
             rollupOptions: {
+                // NOTE: Keep the list alphabetically sorted.
                 external: [
                     /^@vue-mf\/.+/,
                     "@popperjs/core",
                     "bootstrap",
                     "clipboard",
+                    "converse.js",
+                    "dompurify",
                     "driver.js",
                     "jquery",
                     "jquery-ui",
+                    "jquery-validation",
                     "moment",
                     "sortablejs",
                     "vue",
-                    "converse.js",
-                    "jquery-validation",
                 ],
                 //external: [/^@vue-mf\/.+/],
                 input: rollupInput,
@@ -247,6 +249,10 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/clipboard/dist/*",
                         dest: "vendor_dist/clipboard/dist",
+                    },
+                    {
+                        src: "node_modules/dompurify/dist/purify.(es|min)*",
+                        dest: "vendor_dist/dompurify/dist"
                     },
                     {
                         src: "node_modules/driver.js/dist/driver.js.mjs",
