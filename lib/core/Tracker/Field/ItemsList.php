@@ -667,8 +667,16 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         $filterFieldIdHere = (int) $this->getOption('fieldIdHere');
         $filterFieldIdThere = (int) $this->getOption('fieldIdThere');
 
-        $filterFieldHere = $this->getTrackerDefinition()->getField($filterFieldIdHere);
-        $filterFieldThere = $trklib->get_tracker_field($filterFieldIdThere);
+        if ($filterFieldIdHere) {
+            $filterFieldHere = $this->getTrackerDefinition()->getField($filterFieldIdHere);
+        } else {
+            $filterFieldHere = null;
+        }
+        if ($filterFieldIdThere) {
+            $filterFieldThere = $trklib->get_tracker_field($filterFieldIdThere);
+        } else {
+            Feedback::error(tr('No linked field set for ItemsList fieldId %0', $this->getFieldId()));
+        }
 
         $sortFieldIds = $this->getOption('sortField');
         if (is_array($sortFieldIds)) {
