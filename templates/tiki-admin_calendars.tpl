@@ -437,11 +437,11 @@
             <div class="col-sm-8">
                 <div>
                     <input type="checkbox" class="form-check-input" id="select-all-days">
-                    <label class="form-check-label me-3">
+                    <label class="form-check-label me-3" for="select-all-days">
                         Select all
                     </label>
                     <input type="checkbox" id="select-working-days" class="form-check-input">
-                    <label class="form-check-label">
+                    <label class="form-check-label" for="select-working-days">
                         Select working days
                     </label>
                 </div>

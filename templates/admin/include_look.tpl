@@ -330,21 +330,23 @@
                         <input type="hidden" name="operation" value="create"/>
                         <input type="hidden" name="id" value=""/>
                         <div class="mb-3">
-                            <label class="form-label">Color mode name</label>
+                            <label class="form-label" for="color-mode">Color mode name</label>
                             <input
                                 type="text"
                                 value=""
                                 name="mode"
+                                id="color-mode"
                                 class="form-control"
                                 placeholder="dark blue"
                                 />
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Mode icon name</label>
+                            <label class="form-label" for="mode-icon">Mode icon name</label>
                             <input
                                 type="text"
                                 value=""
                                 name="icon"
+                                id="mode-icon"
                                 class="form-control"
                                 placeholder="icon name"
                                 />
@@ -491,9 +493,10 @@
                             </div>
                         {/foreach}
                     </div>
-                    <button onclick="return  add_custom_mode(this)" class="btn btn-info mb-5">{tr}Set up a new color mode{/tr}</button>
+                    <button onclick="return  add_custom_mode(this)" class="btn btn-info mb-3">{tr}Set up a new color mode{/tr}</button>
                 </fieldset>
             {/if}
+            <hr>
             <fieldset>
                 <legend>{tr}Custom code{/tr}</legend>
                 {preference name="header_custom_css" syntax="css"}

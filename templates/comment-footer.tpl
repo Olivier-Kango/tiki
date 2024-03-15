@@ -33,7 +33,7 @@
         </span>
     {else}
         <span class="back_to_top">
-            <a href="#top" class="tips" title=":{tr}top of page{/tr}">
+            <a href="#top" class="tips" title=":{tr}top of page{/tr}" aria-label="{tr}top of page{/tr}">
                 {icon name='arrow-up'}
             </a>
         </span>
