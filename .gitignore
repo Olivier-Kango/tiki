@@ -126,5 +126,4 @@ themes/js/custom.js
 themes/**/*.css
 themes/**/*.css.map
 
-
-
+public/generated/iconsets

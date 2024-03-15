@@ -423,6 +423,7 @@
             "Tiki\\Composer\\CleanVendors::clean",
             "Tiki\\Composer\\CleanVendorAfterVendorBundledMigration::clean",
             "Tiki\\Composer\\GenerateIndexFiles::generate",
+            "Tiki\\Composer\\GenerateIcons::run",
             "Tiki\\Composer\\PatchCypht::setup"
         ],
         "pre-update-cmd": [
@@ -434,6 +435,7 @@
             "Tiki\\Composer\\BootstrapCompiler::build",
             "Tiki\\Composer\\CleanVendors::clean",
             "Tiki\\Composer\\CleanVendorAfterVendorBundledMigration::clean",
+            "Tiki\\Composer\\GenerateIcons::run",
             "Tiki\\Composer\\PatchCypht::setup"
         ],
         "test": "php ../lib/test/phpunit.php -c phpunit.xml.dist --colors=always"

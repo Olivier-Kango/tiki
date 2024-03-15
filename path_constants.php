@@ -136,3 +136,7 @@ const SWIPER_DIST_PATH = 'vendor_bundled/vendor/nolimits4web/swiper/dist/js';
 const ZXING_DIST_PATH = 'vendor_bundled/vendor/npm-asset/zxing--library';
 const BOOTSTRAP_TOUR_DIST_PATH = 'vendor_bundled/vendor/sorich87/bootstrap-tour/build';
 const CONVERSEJS_DIST_PATH = 'public/generated/js/vendor_dist/converse.js/dist';
+
+const BOOTSTRAP_ICONS_FONT_PATH = NODE_PUBLIC_DIST_PATH . '/bootstrap-icons/font';
+const FONTAWESOME_CSS_PATH = NODE_PUBLIC_DIST_PATH . '/@fortawesome/fontawesome';
+const GENERATED_ICONSET_PATH = 'public/generated/iconsets';

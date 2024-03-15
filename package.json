@@ -34,7 +34,8 @@
     "watch": "concurrently --kill-others-on-fail \"npm:watch:*\"",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "format": "prettier .  --write",
-    "clean": "php console.php dev:buildwsconfs --clean"
+    "clean": "php console.php dev:buildwsconfs --clean",
+    "build:generateIconList": "node lib/iconGeneratorNodeWrapper.js"
   },
   "engines": {
     "npm": ">=9.0.0 <11",

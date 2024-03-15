@@ -200,6 +200,7 @@ class ConsoleApplicationBuilder
                 new SieveFiltersCommand(),
                 new CalendarSyncCommand(),
                 new SchedulerRunCommand(),
+                new BuildIconsListCommand(),
                 ],
             ],[
             'condition' => 'checkIsOCRAvailable',
