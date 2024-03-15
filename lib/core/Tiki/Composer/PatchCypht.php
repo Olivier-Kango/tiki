@@ -9,6 +9,8 @@ namespace Tiki\Composer;
 use Composer\Script\Event;
 use Composer\Util\FileSystem;
 
+// TODO : Refactor the way paths are being handled here, see https://gitlab.com/tikiwiki/tiki/-/merge_requests/4565#note_1794038774
+
 class PatchCypht
 {
     public static function setup(Event $event)
@@ -22,7 +24,11 @@ class PatchCypht
         $io = $event->getIO();
 
         if (substr($vendors, -1, 1) !== DIRECTORY_SEPARATOR) {
-            $vendors .= DIRECTORY_SEPARATOR;
+            if (DIRECTORY_SEPARATOR == "/") {
+                $vendors .= DIRECTORY_SEPARATOR;
+            } else {
+                $vendors .= "\\\\\\";
+            }
         }
 
         $fs = new FileSystem();
