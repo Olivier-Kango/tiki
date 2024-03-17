@@ -43,7 +43,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="creator">{tr}Creator{/tr}</label>
                 <div class="col-sm-9">
-                    <select name="creator" class="form-control">
+                    <select name="creator" id="creator" class="form-control">
                         {if ($tiki_p_admin eq 'y' or $tiki_p_blog_admin eq 'y') and !empty($users)}
                             {foreach from=$users key=userId item=u}
                                 <option value="{$u|escape}"{if $u eq $creator} selected="selected"{/if}>{$u|escape}</option>
@@ -145,8 +145,8 @@
                         </label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="show_avatar" id="blogs-avatar" {if $show_avatar eq 'y'}checked='checked'{/if}
-                        <label for="blogs-avatar" class="form-check-label">                            >
+                        <input type="checkbox" class="form-check-input" name="show_avatar" id="blogs-avatar" {if $show_avatar eq 'y'}checked='checked'{/if}>
+                        <label for="blogs-avatar" class="form-check-label">
                             {tr}Show user profile picture{/tr}
                         </label>
                     </div>

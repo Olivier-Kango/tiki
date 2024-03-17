@@ -42,7 +42,7 @@
             <div>
                 <form method="get" action="tiki-editpage.php">
                     <div class="mb-3 row">
-                        <label class="col-form-label col-sm-3">{tr}Insert name of the page you wish to create{/tr}</label>
+                        <label class="col-form-label col-sm-3" for="pagename">{tr}Name of new page{/tr}</label>
                         <div class="col-sm-9">
                             <input class="form-control" id="pagename" type="text" name="page">
                             {jq}

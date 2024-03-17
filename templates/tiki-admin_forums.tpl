@@ -74,14 +74,14 @@
                 {section name=user loop=$channels}
                     <tr>
                         <td style="text-align:center">
-                            <input type="checkbox" class="form-check-input" name="checked[]" value="{$channels[user].forumId|escape}" {if isset($smarty.request.checked) and $smarty.request.checked and in_array($channels[user].forumId,$smarty.request.checked)}checked="checked"{/if}>
+                            <input type="checkbox" class="form-check-input" name="checked[]" aria-label="{tr}Select{/tr}" value="{$channels[user].forumId|escape}" {if isset($smarty.request.checked) and $smarty.request.checked and in_array($channels[user].forumId,$smarty.request.checked)}checked="checked"{/if}>
                         </td>
                         <td>
                             <a class="link" href="{$channels[user].forumId|sefurl:'forum'}" title="{tr}View{/tr}">{$channels[user].name|escape}</a>
                         </td>
                         <td class="integer"><span class="badge bg-secondary">{$channels[user].threads}<span></td>
                         <td class="integer">
-                            <input type="number" name="order[]" value="{$channels[user].forumOrder|escape}">
+                            <input type="number" name="order[]" value="{$channels[user].forumOrder|escape}" aria-label="{tr}Order{/tr}">
                             <input type="hidden" name="forumsId[]" value="{$channels[user].forumId|escape}">
                         </td>
                         <td class="integer"><span class="badge bg-secondary">{$channels[user].comments}<span></td>
@@ -154,7 +154,7 @@
                 <div class="text-start tiki-form-group row">
                     <br> <label for="action" class="col-lg"></label>
                     <div class="col-sm-6 input-group">
-                        <select name="action" class="form-control" onchange="show('groups');">
+                        <select name="action" id="action" class="form-control" onchange="show('groups');">
                             <option value="no_action" selected disabled>
                                 {tr}Select action to perform with checked{/tr}...
                             </option>
@@ -203,9 +203,9 @@
                     </div>
                 </div>
                 <div class="tiki-form-group row">
-                    <label class="col-sm-4 col-form-label" for="section">{tr}Section{/tr}</label>
+                    <label class="col-sm-4 col-form-label" for="new_section">{tr}Section{/tr}</label>
                     <div class="col-sm-4">
-                        <select name="section" id="section" class="form-control">
+                        <select name="section" id="section" aria-label="{tr}New section{/tr}" class="form-control">
                             <option value="" {if $forumSection eq ""}selected="selected"{/if}>{tr}None{/tr}</option>
                             <option value="__new__">{tr}Create new{/tr}</option>
                             {section name=ix loop=$sections}
@@ -214,7 +214,7 @@
                         </select>
                     </div>
                     <div class="col-sm-4">
-                        <input name="new_section" class="form-control" type="text">
+                        <input name="new_section" id="new_section" class="form-control" type="text">
                     </div>
                 </div>
 
@@ -244,7 +244,7 @@
                     </div>
                 {/if}
                 <div class="tiki-form-group row">
-                    <label class="col-sm-4 col-form-label" for="image">{tr}Forum Order{/tr}</label>
+                    <label class="col-sm-4 col-form-label">{tr}Forum order{/tr}</label>
                     <div class="col-sm-8">
                         <div class="form-text">
                             {tr}{$forumOrder|escape}{/tr}
@@ -307,7 +307,7 @@
                         </div>
                     </div>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="mail" value="{$mail|escape}">
+                        <input type="text" class="form-control" name="mail" aria-label="{tr}Email address{/tr}" value="{$mail|escape}">
                     </div>
                 </div>
                 <div class="tiki-form-group row">
@@ -364,8 +364,8 @@
                         <input type="text" name="outbound_from" id="outbound_from" class="form-control" value="{$outbound_from|escape}">
                     </div>
                 </div>
-                <div class="tiki-form-group row">
-                    <label class="col-sm-4 col-form-label">{tr}Add messages from this email to the forum{/tr}</label>
+                <fieldset class="tiki-form-group row">
+                    <legend class="col-sm-4 col-form-label">{tr}Add messages from this email to the forum{/tr}</legend>
                     <div class="col-sm-8">
                         <div class="tiki-form-group row">
                             <label class="col-sm-4 col-form-label" for="inbound_pop_server">{tr}POP3 server{/tr}</label>
@@ -386,7 +386,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </fieldset>
 
             <fieldset>
@@ -421,8 +421,8 @@
                         <input type="text" class="form-control" name="topicsPerPage" id="topicsPerPage" value="{$topicsPerPage|escape}">
                     </div>
                 </div>
-                <div class="tiki-form-group row">
-                    <label class="col-sm-4 col-form-label">{tr}Topic list configuration{/tr}</label>
+                <fieldset class="tiki-form-group row">
+                    <legend class="col-sm-4 col-form-label">{tr}Topic list configuration{/tr}</legend>
                     <div class="col-sm-8">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" name="topics_list_replies" id="topics_list_replies" {if $topics_list_replies eq 'y'}checked="checked"{/if}>
@@ -473,7 +473,7 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </fieldset>
                 <div class="tiki-form-group row">
                     <label class="col-sm-4 form-check-label" for="topic_smileys">{tr}Use topic smileys{/tr}</label>
                     <div class="col-sm-8">
@@ -522,8 +522,8 @@
                         {html_options name=approval_type for=approval_type id=approval_type class="form-control" options=$approval_options selected=$approval_type}
                     </div>
                 </div>
-                <div class="tiki-form-group row">
-                    <label class="col-sm-4 col-form-label">{tr}User information display{/tr}</label>
+                <fieldset class="tiki-form-group row">
+                    <legend class="col-sm-4 col-form-label">{tr}User information display{/tr}</legend>
                     <div class="col-sm-8">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="ui_avatar" id="ui_avatar" {if $ui_avatar eq 'y'}checked="checked"{/if}>
@@ -568,7 +568,7 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </fieldset>
                 <div class="tiki-form-group row">
                     <label class="col-sm-4 form-check-label" for="vote_threads">{tr}Posts can be rated{/tr}</label>
                     <div class="col-sm-8">
@@ -587,11 +587,12 @@
                         {html_options name=att id=att class="form-control" options=$attachment_options selected=$att}
                     </div>
                 </div>
-                <div class="tiki-form-group row">
-                    <label class="col-sm-4 col-form-label" for="att_store_db">{tr}Store attachments in{/tr}</label>
+                <fieldset class="tiki-form-group row">
+                    <legend class="col-sm-4 col-form-label">{tr}Store attachments in{/tr}</legend>
                     <div class="col-sm-8">
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="att_store" id="att_store_db" value="db" {if $att_store eq 'db'}checked="checked"{/if}> {tr}Database{/tr}
+                            <input type="radio" class="form-check-input" name="att_store" id="att_store_db" value="db" {if $att_store eq 'db'}checked="checked"{/if}>
+                            <label class="form-check-label" for="att_store_db">{tr}Database{/tr}</label>
                         </div>
                         <div class="">
                             <div class="form-check">
@@ -606,7 +607,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
                 <div class="tiki-form-group row">
                     <label class="col-form-label col-sm-4" for="att_max_size">{tr}Max attachment size (bytes){/tr}</label>
                     <div class="col-sm-8">

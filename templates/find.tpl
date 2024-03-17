@@ -101,12 +101,12 @@
         {/if}
         {if (isset($find_show_languages) && $find_show_languages eq 'y') and $prefs.feature_multilingual eq 'y'}
             <div class="mb-3 row mx-0">
-                <label class="col-form-label col-sm-5">
+                <label class="col-form-label col-sm-5" for="findlang">
                     {tr}Language{/tr}
                 </label>
                 <div class="col-sm-7">
                     <span class="findlang">
-                        <select name="lang" class="in form-control form-control-sm">
+                        <select name="lang" class="in form-control form-control-sm" id="findlang">
                             <option value=''
                                     {if $find_lang eq ''}selected="selected"{/if}>{tr}any language{/tr}</option>
                             {section name=ix loop=$languages}
@@ -159,11 +159,11 @@
         {if ((isset($find_show_categories) && $find_show_categories eq 'y') or (isset($find_show_categories_multi) && $find_show_categories_multi eq 'y')) and $prefs.feature_categories eq 'y' and !empty($categories)}
             <div class="mb-3 row mx-0 category_find">
                 {if $find_show_categories_multi eq 'n' || $findSelectedCategoriesNumber <= 1}
-                    <label class="col-sm-5 col-form-label">
+                    <label class="col-sm-5 col-form-label" for="findcategory">
                         {tr}Category{/tr}
                     </label>
                     <div id="category_singleselect_find" class="col-sm-7">
-                        <select name="categId" class="findcateg form-control form-control-sm">
+                        <select name="categId" class="findcateg form-control form-control-sm" id="findcategory">
                             <option value=''
                                     {if $find_categId eq ''}selected="selected"{/if}>{tr}any category{/tr}</option>
                             {foreach $categories as $identifier => $category}

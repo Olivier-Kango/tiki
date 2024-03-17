@@ -42,11 +42,9 @@
         <table class="table">
             <tr>
                 {if $listpages and $tiki_p_remove_article eq 'y'}
-                    <th class="auto">
-                        <div class="form-check">
-                            {select_all checkbox_names='checked[]'}
-                        </div>
-                    </th>
+                    <td class="auto">  {* Changed from th to prevent ARIA empty header error *}
+                        {select_all checkbox_names='checked[]'}
+                    </td>
                 {/if}
                 {if $prefs.art_list_title eq 'y'}
                     {assign var=numbercol value=$numbercol+1}
@@ -119,7 +117,7 @@
                 {/if}
                 {if $tiki_p_edit_article eq 'y' or $tiki_p_remove_article eq 'y' or isset($oneEditPage) or $tiki_p_read_article}
                     {assign var=numbercol value=$numbercol+1}
-                    <th></th>
+                    <td></td> {* Changed from th to prevent ARIA empty header error *}
                 {/if}
             </tr>
 
@@ -132,9 +130,7 @@
                 <tr>
                     {if $listpages[changes].perms.tiki_p_remove_article eq 'y'}
                         <td class="checkbox-cell">
-                            <div class="form-check">
-                                <input class="checkboxes" type="checkbox" name="checked[]" value="{$listpages[changes].articleId|escape}" {if $listpages[changes].checked eq 'y'}checked="checked" {/if} required>
-                            </div>
+                            <input class="form-check-input" aria-label="{tr}Select{/tr}" type="checkbox" name="checked[]" value="{$listpages[changes].articleId|escape}" {if $listpages[changes].checked eq 'y'}checked="checked" {/if} required>
                         </td>
                     {/if}
                     {if $prefs.art_list_title eq 'y'}
