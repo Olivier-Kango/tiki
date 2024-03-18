@@ -174,13 +174,13 @@
                         <table class="table table-striped table-hover">
                             <tr>
                                 {if $tracker_info.showStatus eq 'y' or ($tracker_info.showStatusAdminOnly eq 'y' and $tiki_p_admin_trackers eq 'y')}
-                                    <th class="auto" style="width:20px;"></th>
+                                    <td class="auto" style="width:20px;"></td> {* th changed to td to prevent ARIA empty header error *}
                                 {/if}
 
                                 {if $tiki_p_admin_trackers eq 'y'}
-                                    <th width="15">
+                                    <td style="width:20px;">  {* th changed to td to prevent ARIA empty header error *}
                                         {select_all checkbox_names='action[]'}
-                                    </th>
+                                    </td>
                                 {/if}
 
                                 {foreach from=$listfields key=ix item=field_value}
@@ -214,7 +214,7 @@
                                     {if $tiki_p_admin_trackers eq 'y'}<th style="width:5%">{tr}dls{/tr}</th>{/if}
                                 {/if}
                                 {if $tiki_p_admin_trackers eq 'y' or $tiki_p_remove_tracker_items eq 'y' or $tiki_p_remove_tracker_items_pending eq 'y' or $tiki_p_remove_tracker_items_closed eq 'y'}
-                                    <th style="width:20px"></th>
+                                    <td style="width:20px"></td> {* th changed to td to prevent ARIA empty header error *}
                                 {/if}
                             </tr>
 
@@ -231,9 +231,7 @@
                                     {/if}
                                     {if $tiki_p_admin_trackers eq 'y'}
                                         <td class="checkbox-cell">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" name="action[]" value='{$items[user].itemId}'>
-                                            </div>
+                                            <input type="checkbox" class="form-check-input" name="action[]" aria-label="{tr}Select{/tr}" value='{$items[user].itemId}'>
                                         </td>
                                     {/if}
 
