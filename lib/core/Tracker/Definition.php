@@ -181,14 +181,14 @@ class Tracker_Definition
         return null;
     }
 
-    public function getFieldFromPermName($name): ?array
+    public function getFieldFromPermName($permName): ?array
     {
-        if (empty($name)) {
-            throw new InvalidArgumentException("name parameter must be provided");
+        if (empty($permName)) {
+            throw new InvalidArgumentException("permName parameter must be provided");
         }
 
         foreach ($this->getFields() as $f) {
-            if ($f['permName'] == $name) {
+            if ($f['permName'] == $permName) {
                 return $f;
             }
         }
