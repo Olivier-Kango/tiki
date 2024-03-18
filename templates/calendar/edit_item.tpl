@@ -244,7 +244,7 @@
                                     <div class="input-group">
                                         {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" name="recurrenceTypeMonthy" value="weekday"></span>{/if}
                                         <span class="input-group-text">{tr}Every{/tr}</span>
-                                        <select name="monthlyWeekNumber" class="form-control" {if $recurrence.id neq 0}disabled{/if}>
+                                        <select name="monthlyWeekNumber" class="form-control" {if $recurrence.id neq 0}readonly{/if}>
                                             <option value="1" {if $recurrence.monthlyWeekdayValue[0] eq '1'} selected="selected" {/if}>
                                                 {tr}First{/tr}
                                             </option>
@@ -264,7 +264,7 @@
                                                 {tr}Last{/tr}
                                             </option>
                                         </select>
-                                        <select name="monthlyWeekday" class="form-control" {if $recurrence.id neq 0}disabled{/if}>
+                                        <select name="monthlyWeekday" class="form-control" {if $recurrence.id neq 0}readonly{/if}>
                                             <option value="SU" {if strpos($recurrence.monthlyWeekdayValue, 'SU') eq true} selected="selected" {/if}>
                                                 {tr}Sunday{/tr}
                                             </option>
@@ -385,7 +385,7 @@
                                     <div class="input-group">
                                         {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" name="recurrenceTypeYearly" value="weekday"></span>{/if}
                                         <span class="input-group-text">{tr}Every{/tr}</span>
-                                        <select name="yearlyWeekNumber" class="form-control" {if $recurrence.id neq 0}disabled{/if}>
+                                        <select name="yearlyWeekNumber" class="form-control" {if $recurrence.id neq 0}readonly{/if}>
                                             <option value="1" {if $recurrence.yearlyWeekdayValue[0] eq '1'} selected="selected" {/if}>
                                                 {tr}First{/tr}
                                             </option>
@@ -405,7 +405,7 @@
                                                 {tr}Last{/tr}
                                             </option>
                                         </select>
-                                        <select name="yearlyWeekday" class="form-control" {if $recurrence.id neq 0}disabled{/if}>
+                                        <select name="yearlyWeekday" class="form-control" {if $recurrence.id neq 0}readonly{/if}>
                                             <option value="SU" {if strpos($recurrence.yearlyWeekdayValue, 'SU') eq true} selected="selected" {/if}>
                                                 {tr}Sunday{/tr}
                                             </option>
