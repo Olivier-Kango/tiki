@@ -125,8 +125,8 @@ function wikiplugin_semanticsearch($data, $params)
     $formHtml .= "<div id='semanticsearch_{$id}_form'>\n";
     $formHtml .= "<form id='semanticsearch_{$id}' class='customsearch_form'>\n";
     $formHtml .= $searchFormContent . "\n";
-    $formHtml .= "<div id='semanticsearch_{$id}_form'>\n";
-    $formHtml .= "<div id='semanticsearch_{$id}_form'>\n";
+    $formHtml .= "</form'>\n";
+    $formHtml .= "</div'>\n";
     $html .= $formHtml;
 
     $smartyResults = [];
@@ -152,6 +152,8 @@ function wikiplugin_semanticsearch($data, $params)
         }
     }
     $smarty->assign('results', $smartyResults);
+    $html .= "<div id='semanticsearch_{$id}_results'  class='customsearch_results'>\n";
     $html .= $smarty->fetch($params['resultstpl']);
+    $html .= "</div>";
     return $html;
 }
