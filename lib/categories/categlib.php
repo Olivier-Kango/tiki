@@ -773,7 +773,10 @@ class CategLib extends ObjectLib
             if (! in_array($res['catObjectId'] . '-' . $res['categId'], $objs)) { // same object and same category
                 if (preg_match('/trackeritem/', $res['type']) && $res['description'] == '') {
                     $trklib = TikiLib::lib('trk');
-                    $trackerId = preg_replace('/^.*trackerId=([0-9]+).*$/', '$1', $res['href']);
+                    //This is a performance optimisation, but we can't rely on trackerId being present - benoitg - 2024-03-18
+                    $count = 0;
+                    $trackerIdRes = preg_replace('/^.*trackerId=([0-9]+).*$/', '$1', $res['href'], -1, $count);
+                    $trackerId = $count ? $trackerIdRes : null;
                     $res['name'] = $trklib->get_isMain_value($trackerId, $res['itemId']);
                     $filed = $trklib->get_field_id($trackerId, "description");
                     $res['description'] = $trklib->get_item_value($trackerId, $res['itemId'], $filed);

@@ -4114,7 +4114,7 @@ class TrackerLib extends TikiLib
      * the tracker item.  Usually used as the item's title in a list,
      * the search index, etc.
      *
-     * @param [type] $trackerId
+     * @param [type] $trackerId, optionnal (will be retrieved from itemId if missing)
      * @param [type] $itemId
      * @return void
      */
