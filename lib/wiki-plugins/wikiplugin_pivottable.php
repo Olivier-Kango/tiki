@@ -948,6 +948,27 @@ function wikiplugin_pivottable($data, $params)
     }
 
     $highlight = [];
+    if (! empty($params['highlightRequest'])) {
+        $compare = [];
+        foreach ($params['highlightRequest'] as $pair) {
+            list($tf, $rf) = explode('-', $pair);
+            if (isset($_REQUEST[$tf])) {
+                $compare[$tf] = $_REQUEST[$rf];
+            }
+        }
+        foreach ($pivotData as $item) {
+            $matching = true;
+            foreach ($compare as $tf => $value) {
+                if ($item[$tf] != $value) {
+                    $matching = false;
+                    break;
+                }
+            }
+            if ($matching) {
+                $highlight[] = ['item' => $item, 'group' => 'request', 'color' => $params['highlightGroupColors'][0] ?? null];
+            }
+        }
+    }
     if (! empty($params['highlightMine']) && $params['highlightMine'] === 'y' && $params['data'][0] !== 'activitystream') {
         $ownerFields = [];
         foreach ($definitions as $definition) {
@@ -1011,26 +1032,6 @@ function wikiplugin_pivottable($data, $params)
                         }
                     }
                 }
-            }
-        }
-    }
-
-    if (! empty($params['highlightRequest'])) {
-        $compare = [];
-        foreach ($params['highlightRequest'] as $pair) {
-            list($tf, $rf) = explode('-', $pair);
-            $compare[$tf] = $_REQUEST[$rf];
-        }
-        foreach ($pivotData as $item) {
-            $matching = true;
-            foreach ($compare as $tf => $value) {
-                if ($item[$tf] != $value) {
-                    $matching = false;
-                    break;
-                }
-            }
-            if ($matching) {
-                $highlight[] = ['item' => $item, 'group' => 'request', 'color' => $params['highlightGroupColors'][0] ?? null];
             }
         }
     }
