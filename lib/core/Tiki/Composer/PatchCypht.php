@@ -75,6 +75,11 @@ class PatchCypht
         copy($vendors . $fixDS('jason-munro/cypht/site/site.js'), $cypht . 'site.js');
         copy($vendors . $fixDS('jason-munro/cypht/site/site.css'), $cypht . 'site.css');
 
+        // css custom pacthes
+        $css = file_get_contents($cypht . 'site.css');
+        $css = str_replace('url("./fonts/bootstrap-icons', 'url("/' . NODE_PUBLIC_DIST_PATH . '/bootstrap-icons/font/fonts/bootstrap-icons', $css);
+        file_put_contents($cypht . 'site.css', $css);
+
         // js custom pacthes
         $js = file_get_contents($cypht . 'site.js');
         $js = str_replace("url: ''", "url: 'tiki-ajax_services.php?controller=cypht&action=ajax&'+window.location.search.substr(1)", $js);
