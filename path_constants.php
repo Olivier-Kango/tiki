@@ -139,4 +139,5 @@ const CONVERSEJS_DIST_PATH = 'public/generated/js/vendor_dist/converse.js/dist';
 
 const BOOTSTRAP_ICONS_FONT_PATH = NODE_PUBLIC_DIST_PATH . '/bootstrap-icons/font';
 const FONTAWESOME_CSS_PATH = NODE_PUBLIC_DIST_PATH . '/@fortawesome/fontawesome';
+const FONTAWESOME_WEBFONTS_PATH = NODE_PUBLIC_DIST_PATH . '/@fortawesome/webfonts';
 const GENERATED_ICONSET_PATH = 'public/generated/iconsets';

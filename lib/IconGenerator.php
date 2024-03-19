@@ -38,7 +38,9 @@ class IconGenerator
     public function generateIconArraysFromCss($bootstrapIcons, $fontAwesomeIcons): array
     {
         $bootstrapPattern = '/\.bi-([a-zA-Z0-9-]+)::before/';
-        $fontAwesomePattern = '/\.fa-([a-zA-Z0-9-]+)::before/';
+        $fontAwesomePattern = '/\.fa-([a-zA-Z0-9-]+)(::|:)before/';
+        //pattern to extract unicodes from file
+        $fontAwesomeUnicodePattern = '#content: "\\\(.*?)"; }#';
 
         $bootstrapFinal = [];
         $fontAwesomeFinal = [];
@@ -65,19 +67,23 @@ class IconGenerator
         if ($fontAwesomeIcons) {
             $fontAwesomeMatches = [];
             preg_match_all($fontAwesomePattern, $fontAwesomeIcons, $fontAwesomeMatches);
-
+            preg_match_all($fontAwesomeUnicodePattern, $fontAwesomeIcons, $fontAwesomeUnicodeMatches);
             $fontAwesomeResult = $fontAwesomeMatches[1];
+            $fontAwesomeUnicodeResult = $fontAwesomeUnicodeMatches[1];
             $fontAwesomePhp = "<?php\n    global \$prefs; \n      \$prefs['fa_generated_icons'] = [";
+            $line = 0;
             foreach ($fontAwesomeResult as $value) {
                 $name = str_replace('-', '_', $value);
                 $fontAwesomeFinal[$name] = [
                 'id' => $value,
-                'prepend' => 'fas fa-'
+                'prepend' => 'fas fa-',
+                'codeValue' => '#x' . $fontAwesomeUnicodeResult[$line]
                 ];
                 $fontAwesomePhp .= "       '$name' => [ 
                     'id' => '$value',
                     'prepend' => 'fas fa-'
                 ],\n";
+                $line++;
             }
             $fontAwesomePhp .= "];";
         }
