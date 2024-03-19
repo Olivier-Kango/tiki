@@ -952,7 +952,7 @@ function wikiplugin_pivottable($data, $params)
         $compare = [];
         foreach ($params['highlightRequest'] as $pair) {
             list($tf, $rf) = explode('-', $pair);
-            if (isset($_REQUEST[$tf])) {
+            if (isset($_REQUEST[$rf])) {
                 $compare[$tf] = $_REQUEST[$rf];
             }
         }
