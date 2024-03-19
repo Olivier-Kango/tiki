@@ -26,6 +26,7 @@
                     and: "{tr}and{/tr}",
                     all: "{tr}All{/tr}",
                     mine: "{tr}Mine{/tr}",
+                    group: "{tr}Group{/tr}"
                 },
                 xAxisLabel: {{$pivottable.xAxisLabel|json_encode}},
                 yAxisLabel: {{$pivottable.yAxisLabel|json_encode}},
