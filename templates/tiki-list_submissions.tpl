@@ -90,9 +90,7 @@
                 <tr>
                     {if $tiki_p_remove_submission eq 'y' or $tiki_p_approve_submission eq 'y'}
                         <td class="checkbox-cell">
-                            <div class="form-check">
-                                <input class="checkboxes" type="checkbox" name="checked[]" value="{$listpages[changes].subId|escape}" {if $listpages[changes].checked eq 'y'}checked="checked" {/if} required>
-                            </div>
+                            <input class="form-check-input" aria-label="{tr}Select{/tr}" type="checkbox" name="checked[]" value="{$listpages[changes].subId|escape}" {if $listpages[changes].checked eq 'y'}checked="checked" {/if} required>
                         </td>
                     {/if}
                     {if $prefs.art_list_title eq 'y'}

@@ -109,7 +109,7 @@
 
             {section name=user loop=$items}
             <tr class="{cycle advance=false}">
-                <td class="checkbox-cell"><input class="form-check-input" type="checkbox" name="remove[]" value="{$items[user].siteId}" required></td>
+                <td class="checkbox-cell"><input class="form-check-input" aria-label="{tr}Select{/tr}" type="checkbox" name="remove[]" value="{$items[user].siteId}" required></td>
                 <td class="text">{$items[user].name|escape}</td>
                 <td class="text"><a href="{$items[user].url}" target="_new">{$items[user].url}</a></td>
                 {if $prefs.directory_country_flag eq 'y'}

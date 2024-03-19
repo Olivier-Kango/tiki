@@ -14,7 +14,7 @@
     {if $modTasks[ix].creator ne $user}
         &gt;&gt;
     {else}
-        <input type="checkbox" class="form-check-input" name="modTasks[{$modTasks[ix].taskId}]" />
+        <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="modTasks[{$modTasks[ix].taskId}]" />
     {/if}
     {$modTasks[ix].taskId|tasklink:linkmodule}{if isset($modTasks[ix].percentage)} ({$modTasks[ix].percentage}%){/if}
     </li>

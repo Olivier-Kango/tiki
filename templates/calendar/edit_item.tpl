@@ -130,7 +130,7 @@
                     {else}
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="id_recurrent" name="recurrent" value="1"{if $calitem.recurrenceId gt 0 or $recurrent eq 1} checked="checked" {/if}>
+                                <input type="checkbox"  class="form-check-input" aria-label="{tr}Select{/tr}" id="id_recurrent" name="recurrent" value="1"{if $calitem.recurrenceId gt 0 or $recurrent eq 1} checked="checked" {/if}>
                                 {tr}This event depends on a recurrence rule{/tr}
                             </label>
                         </div>
@@ -166,8 +166,8 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="calitem[allday]" id="allday" value="true" {if $calitem.allday} checked="checked"{/if}>
+                        <input type="checkbox" class="form-check-input" name="calitem[allday]" id="allday" value="true" {if $calitem.allday} checked="checked"{/if}>
+                        <label class="form-check-label" for="allday">
                             {tr}All day{/tr}
                         </label>
                     </div>
@@ -323,13 +323,13 @@
             {/if}
             {if !empty($groupforalert) && $showeachuser eq 'y'}
                 <div class="mb-3 row">
-                    <label class="col-form-label col-sm-3">{tr}Choose users to alert{/tr}</label>
+                    <label class="col-form-label col-sm-3" for="listtoalert">{tr}Choose users to alert{/tr}</label>
                     <div class="col-sm-9">
                         {section name=idx loop=$listusertoalert}
                             {if $showeachuser eq 'n'}
                                 <input type="hidden" name="listtoalert[]" value="{$listusertoalert[idx].user}">
                             {else}
-                                <input type="checkbox" class="form-check-input" name="listtoalert[]" value="{$listusertoalert[idx].user}">
+                                <input type="checkbox" class="form-check-input" id="listtoalert" name="listtoalert[]" value="{$listusertoalert[idx].user}">
                                 {$listusertoalert[idx].user}
                             {/if}
                         {/section}
@@ -419,7 +419,7 @@
                             </div>
                             <div><a href="#" class="btn btn-secondary btn-sm availability-check">{tr}Check availability{/tr}</a></div>
                             <br/>
-                            <input type="checkbox" name="calitem[process_itip]" value="1" checked>
+                            <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="calitem[process_itip]" value="1" checked>
                             Send calendar invitations and event updates via email
                         {/if}
                     </div>

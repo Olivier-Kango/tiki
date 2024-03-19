@@ -137,11 +137,9 @@
                                     {capture assign=username}{$users[user].user|escape}{/capture}
                                         <tr>
                                             <td class="checkbox-cell">
-                                                <div class="form-check">
-                                                    {if $users[user].user ne 'admin'}
-                                                        <input type="checkbox" name="checked[]" value="{$users[user].user|escape}" {if isset($users[user].checked) && $users[user].checked eq 'y'}checked="checked" {/if}>
-                                                    {/if}
-                                                </div>
+                                                {if $users[user].user ne 'admin'}
+                                                    <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="checked[]" value="{$users[user].user|escape}" {if isset($users[user].checked) && $users[user].checked eq 'y'}checked="checked" {/if}>
+                                                {/if}
                                             </td>
 
                                             <td class="username">

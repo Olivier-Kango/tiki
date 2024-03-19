@@ -28,7 +28,7 @@
                     </td>
                     {foreach from=$permissions key=group item=perms}
                         <td>
-                            <input type="checkbox" name="check[{$group|escape}][]" value="{$row.shortName|escape}" {if in_array($row.shortName, $perms)} checked="checked" {/if} />
+                            <input type="checkbox" aria-label="{tr}Select{/tr}" name="check[{$group|escape}][]" value="{$row.shortName|escape}" {if in_array($row.shortName, $perms)} checked="checked" {/if}>
                         </td>
                     {/foreach}
                 </tr>

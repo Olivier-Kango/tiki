@@ -123,7 +123,7 @@
             <div class="col-sm-9">
                 <div class="form-check">
                     <input type="hidden" name="config[simple_headers]" value="1">
-                    <input type="checkbox" class="form-check-input" id="config-simple_headers" value="1" checked disabled>
+                    <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" id="config-simple_headers" value="1" checked disabled>
 
                 </div>
             </div>

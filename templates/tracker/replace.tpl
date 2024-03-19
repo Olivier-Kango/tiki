@@ -85,7 +85,7 @@
                 </label>
             </div>
             <div class="form-check depends" data-on="useComments">
-                <input type="checkbox" class="form-check-input" name="saveAndComment" for="saveAndComment" value="1"
+                <input type="checkbox" class="form-check-input" name="saveAndComment" id="saveAndComment" value="1"
                         {if $info.saveAndComment eq 'y'} checked="checked"{/if}>
                 <label class="form-check-label" for="saveAndComment">
 
@@ -95,7 +95,7 @@
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" name="useAttachments" id="useAttachments" value="1"
                         {if $info.useAttachments eq 'y'} checked="checked"{/if}>
-                <label class="form-check-label" for="useAttachments>
+                <label class="form-check-label" for="useAttachments">
                     {tr}Allow attachments (deprecated, use files field){/tr}
                 </label>
             </div>
@@ -134,9 +134,9 @@
                 </label>
             </div>
             <div class="form-check depends" data-on="showStatus">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="showStatusAdminOnly" value="1"
+                <input type="checkbox" class="form-check-input" name="showStatusAdminOnly" id="showStatusAdminOnly" value="1"
                         {if $info.showStatusAdminOnly eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="showStatusAdminOnly">
                     {tr}Show status to tracker administrator only{/tr}
                 </label>
             </div>
@@ -364,9 +364,9 @@
         {/accordion_group}
         {accordion_group title="{tr}Permissions{/tr}"}
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="userCanSeeOwn" value="1"
-                        {if $info.userCanSeeOwn eq 'y'}checked="checked"{/if}>
+                <input type="checkbox" class="form-check-input" name="userCanSeeOwn" id="userCanSeeOwn" value="1"
+                                           {if $info.userCanSeeOwn eq 'y'}checked="checked"{/if}>
+                <label class="form-check-label" for="userCanSeeOwn">
                     {tr}User can see his own items{/tr}
                 </label>
                 <div class="description form-text mb-4">
@@ -375,9 +375,9 @@
                 </div>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="groupCanSeeOwn" value="1"
-                        {if $info.groupCanSeeOwn eq 'y'}checked="checked"{/if}>
+                <input type="checkbox" class="form-check-input" name="groupCanSeeOwn" id="groupCanSeeOwn" value="1"
+                                           {if $info.groupCanSeeOwn eq 'y'}checked="checked"{/if}>
+                <label class="form-check-label" for="groupCanSeeOwn">
                     {tr}Group can see their own items{/tr}
                 </label>
                 <div class="description form-text mb-4">

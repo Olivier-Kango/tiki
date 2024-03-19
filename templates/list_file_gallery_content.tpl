@@ -11,9 +11,7 @@
                     {assign var=nbCols value=1}
                 {/if}
                 <td class="checkbox-cell"> {* th changed to td to avoid ARIA empty header error  *}
-                    <div class="form-check">
-                        {select_all checkbox_names='file[],subgal[]'}
-                    </div>
+                    {select_all checkbox_names='file[],subgal[]'}
                 </td>
             {/if}
 

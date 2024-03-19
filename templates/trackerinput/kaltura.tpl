@@ -1,9 +1,9 @@
 <ol>
     {foreach from=$data.movies item=movie}
         <li>
-            <input type="checkbox" name="{$field.ins_id|escape}[]" id="{$field.ins_id|escape}[]" value="{$movie.id|escape}" checked="checked">
+            <input type="checkbox" class="form-check-input" name="{$field.ins_id|escape}[]" id="{$field.ins_id|escape}[]" value="{$movie.id|escape}" checked="checked">
             <input type="hidden" name="old_{$field.ins_id|escape}[]" value="{$movie.id|escape}">
-            <label for="{$field.ins_id|escape}[]">
+            <label for="{$field.ins_id|escape}[]" class="form-check-label">
                 {$movie.name|escape}
             </label>
         </li>

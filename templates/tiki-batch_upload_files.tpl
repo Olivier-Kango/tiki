@@ -28,7 +28,9 @@
 
             {foreach key=k item=it from=$filelist}
                 <tr>
-                    <td class="checkbox-cell"><div class="form-check"><input type="checkbox" class="form-check-input" name="files[]" value="{$it.file}" id="box_{$k}"></div></td>
+                    <td class="checkbox-cell">
+                        <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="files[]" value="{$it.file}" id="box_{$k}">
+                    </td>
                     <td><label for="box_{$k}">{$it.file|replace:$prefs.fgal_batch_dir:''}</label></td>
                     <td>{$it.size|kbsize}</td>
                     <td>{$it.ext}</td>

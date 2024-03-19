@@ -61,7 +61,7 @@
                             var displayed = {{$data.list|json_encode}};
                             var row = '<tr>';
                             if( {{$data.trackerListOptions.checkbox|json_encode}} ) {
-                                row += '<td><input type="checkbox" class="{{$field.ins_id}}-checkbox" name="{{$field.ins_id}}[]" value="'+( data.created ? data.created : data.itemId )+'" checked /></td>';
+                                row += '<td><input type="checkbox" class="form-check-input {{$field.ins_id}}-checkbox" name="{{$field.ins_id}}[]" aria-label="{tr}Select{/tr}" value="'+( data.created ? data.created : data.itemId )+'" checked /></td>';
                             }
                             $.each(displayed, function(fieldId, permName) {
                                 if( $('#il{{$field.ins_id}} th').filter(function(i, el){ return $(el).hasClass('field'+fieldId); }).length > 0 ) {

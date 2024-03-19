@@ -59,9 +59,7 @@
             {section name=user loop=$channels}
                 <tr>
                     <td class="checkbox-cell">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="obj[{$channels[user].objId}]">
-                        </div>
+                        <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="obj[{$channels[user].objId}]">
                     </td>
                     <td class="text">{$channels[user].type}</td>
                     <td class="text">{$channels[user].name}</td>
