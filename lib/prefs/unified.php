@@ -335,7 +335,7 @@ function prefs_unified_list()
         ],
         'unified_manticore_morphology' => [
             'name' => tr('Morphology processing'),
-            'description' => tr("Advanced morphology preprocessors to apply in the Manticore index. See Manticore manual for possible values."),
+            'description' => tr("Advanced morphology preprocessors to apply in the Manticore index, comma-separated.  For example libstemmer_en,libstemmer_fr. See Manticore manual for possible values."),
             'type' => 'text',
             'default' => '',
             'help' => 'https://manual.manticoresearch.com/Creating_an_index/NLP_and_tokenization/Morphology',
