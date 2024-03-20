@@ -327,10 +327,12 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
                 $value = TikiLib::lib('trk')->parse_user_field($value);
             }
             if (isset($context['history'])) {
-                Feedback::removeIf(function ($item) use ($value) {
+                $regexText = tr('User "%0" not found', 'replaceMe');
+                $regex = '/^' . str_replace('replaceMe', '.', $regexText) . '$/';
+                Feedback::removeIf(function ($item) use ($regex) {
                     if ($item['type'] == 'error') {
-                        foreach ($value as $user) {
-                            if (in_array(tr('User "%0" not found', $user), $item['mes'])) {
+                        foreach ($item['mes'] as $msg) {
+                            if (preg_match($regex, $msg) !== false) {
                                 return true;
                             }
                         }
