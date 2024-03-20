@@ -301,7 +301,7 @@ check_hosting_platform() {
     # check if looks like a virtualmin, where sites are hosted within the home folder
     if [ -f /usr/sbin/virtualmin ]; then
         # shellcheck disable=SC3028,SC3054
-        CURRENT_SCRIPT=${BASH_SOURCE[0]}
+        CURRENT_SCRIPT=$(readlink -f "$0")
         DIR_PATH=$(cd "$(dirname "$CURRENT_SCRIPT")" && pwd)
         CURRENT_SCRIPT_PATH="$DIR_PATH/$(basename "$CURRENT_SCRIPT")"
 
