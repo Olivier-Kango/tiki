@@ -1,12 +1,6 @@
 <template>
-    <h2>{{tracker.name}}</h2>
-    <table class="table">
-    <tbody>
-        <tr>
-            <td>TODO: display existing items entered in offline mode</td>
-        </tr>
-    </tbody>
-    </table>
+    <h3>{{tracker.name}} items</h3>
+    <slot></slot>
 </template>
 
 <script>
@@ -18,6 +12,9 @@
             },
             index: {
                 type: Number
+            },
+            items:  {
+                type: Object
             }
         }
     };
